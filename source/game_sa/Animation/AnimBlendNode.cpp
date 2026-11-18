@@ -63,6 +63,8 @@ void CAnimBlendNode::Init() {
  *
  * Consume DeltaTime sucesivos, respeta el flag looped de la asociación y calcula
  * después los parámetros de interpolación de rotación para el par seleccionado.
+ *
+ * @addr 0x4D0240
  */
 bool CAnimBlendNode::FindKeyFrame(float time) {
     // Como el original: contador con signo (movsx) y el keyframe se vuelve a leer en cada vuelta (antes se
@@ -132,6 +134,8 @@ void CAnimBlendNode::CalcDeltas() {
  *
  * Si los quaternions caen en hemisferios opuestos invierte uno para que Slerp
  * recorra el arco corto y evita una rotación visualmente innecesaria.
+ *
+ * @addr 0x4D0350
  */
 void CAnimBlendNode::CalcDeltasCompressed() {
     if (!m_Seq->m_bHasRotation) {

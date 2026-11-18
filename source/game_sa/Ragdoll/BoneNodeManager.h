@@ -42,11 +42,17 @@ private: // notsa section
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x617330
+     */
     BoneNodeManager_c* Constructor() {
         this->BoneNodeManager_c::BoneNodeManager_c();
         return this;
     }
 
+    /*!
+     * @addr 0x617390
+     */
     BoneNodeManager_c* Destructor() {
         this->BoneNodeManager_c::~BoneNodeManager_c();
         return this;

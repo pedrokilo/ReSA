@@ -110,6 +110,7 @@ CTaskComplexWalkRoundObject::~CTaskComplexWalkRoundObject() {
     // todo: m_pointRoute = nullptr;
 }
 
+// 0x655020
 CTaskComplexWalkRoundObject* CTaskComplexWalkRoundObject::Constructor(int32 moveState, const CVector& targetPoint, CEntity* object) {
     this->CTaskComplexWalkRoundObject::CTaskComplexWalkRoundObject(moveState, targetPoint, object);
     return this;
@@ -299,6 +300,7 @@ CTask* CTaskComplexWalkRoundObject::CreateRouteTask(CPed* ped) {
 // 0x6551D0
 #pragma float_control(push)
 #pragma float_control(precise, on)
+// 0x6551D0
 double CTaskComplexWalkRoundObject::ComputeRouteRoundObject(CPed* ped) {
     // Como el original: el margen del analizador de geometria (0x8D22B0) vale 0.7 (0x3F333333) solo durante el calculo de la ruta
     // (se copia como bits enteros: un float con NaN senalizante se convertiria en NaN silencioso)

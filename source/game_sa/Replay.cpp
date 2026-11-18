@@ -274,9 +274,11 @@ void ReplayStoreTrainUpdate(uint8* p, CVehicle* veh, int32 poolIdx) {
 void __fastcall ReplayStoreVehicleBlockExe(uint8* packet, void* /*edx*/, CVehicle* veh, int32 poolIdx) {
     ReplayStoreCarUpdate(packet, veh, poolIdx);
 }
+// 0x45BF90
 void __fastcall ReplayStoreBmxBlockExe(uint8* packet, void* /*edx*/, CVehicle* veh, int32 poolIdx) {
     ReplayStoreBikeUpdate(packet, veh, poolIdx, REPLAY_PACKET_BMX);
 }
+// 0x45C070
 void __fastcall ReplayStoreBikeBlockExe(uint8* packet, void* /*edx*/, CVehicle* veh, int32 poolIdx) {
     ReplayStoreBikeUpdate(packet, veh, poolIdx, REPLAY_PACKET_BIKE);
 }
@@ -288,9 +290,11 @@ void __fastcall ReplayExtractVehicleBlockExe(tReplayVehicleBlock* self, void* /*
         self->ExtractVehicleUpdateData(*veh, interpolation);
     }
 }
+// 0x45BFF0
 void __fastcall ReplayExtractBmxBlockExe(tReplayBmxBlock* self, void* /*edx*/, CBmx* bmx, float interpolation) {
     self->ExtractBmxUpdateData(*bmx, interpolation);
 }
+// 0x45C0D0
 void __fastcall ReplayExtractBikeBlockExe(tReplayBikeBlock* self, void* /*edx*/, CBike* bike, float interpolation) {
     self->ExtractBikeUpdateData(*bike, interpolation);
 }

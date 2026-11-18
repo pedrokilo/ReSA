@@ -22,7 +22,9 @@ public:
     CTaskSimpleCarWaitForDoorNotToBeInUse(const CTaskSimpleCarWaitForDoorNotToBeInUse&);
     ~CTaskSimpleCarWaitForDoorNotToBeInUse();
 
+    // 0x649D20
     CTask*    Clone() const override { return new CTaskSimpleCarWaitForDoorNotToBeInUse{ *this }; }
+    // 0x646BE0
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

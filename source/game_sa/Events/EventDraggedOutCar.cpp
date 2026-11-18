@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "EventDraggedOutCar.h"
 
 namespace {
+// 0x4AD330
 // Cuerpo no virtual de ~CEventDraggedOutCar del EXE (thiscall, sin argumentos de pila, `ret`): deja la vtable de CEventDraggedOutCar del EXE (0x85AD30), libera con CEntity::CleanUpOldReference (0x571A00) las referencias no nulas
 // en el orden del EXE y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 117A, banco Fn117A.)
 void __fastcall DraggedOutCarDestructorBody(CEventDraggedOutCar* self, void* /*edx*/) {

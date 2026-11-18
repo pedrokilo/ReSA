@@ -23,7 +23,9 @@ public:
 
     CTask* CreateSubTask(eTaskType taskType);
 
+    // 0x636E30
     CTask*    Clone() const override { return new CTaskComplexOnFire{ *this }; }
+    // 0x6333B0
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed * ped) override;
     CTask*    CreateFirstSubTask(CPed * ped) override;

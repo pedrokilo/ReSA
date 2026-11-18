@@ -15,9 +15,13 @@ public:
     CTaskSimpleSetCharIgnoreWeaponRangeFlag(const CTaskSimpleSetCharIgnoreWeaponRangeFlag&);
     ~CTaskSimpleSetCharIgnoreWeaponRangeFlag() override = default;
 
+    // 0x474640
     CTask*    Clone() const override { return new CTaskSimpleSetCharIgnoreWeaponRangeFlag{ *this }; }
+    // 0x4746A0
     eTaskType GetTaskType() const override { return Type; }
+    // 0x4746B0
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override { return false; }
+    // 0x622B50
     bool      ProcessPed(CPed* ped) override { ped->bIgnoreWeaponRange = m_bIgnoreWeaponRange; return true; }
 
 private: // Wrappers for hooks

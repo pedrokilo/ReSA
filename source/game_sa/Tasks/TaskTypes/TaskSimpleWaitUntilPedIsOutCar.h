@@ -21,14 +21,23 @@ public:
 
 
 
+/*!
+ * @addr 0x64A4B0
+ */
 CTask* Clone() const override { return new CTaskSimpleWaitUntilPedIsOutCar(m_PedToWaitFor, m_Pos); }
 
 
 
+/*!
+ * @addr 0x6494D0
+ */
 eTaskType GetTaskType() const override { return Type; }
 
 
 
+/*!
+ * @addr 0x6494E0
+ */
 bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return true; }
 
     bool ProcessPed(CPed * ped) override;
@@ -37,7 +46,13 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x649450
+     */
     CTaskSimpleWaitUntilPedIsOutCar* Constructor(CPed * ped, CVector const& pos) { this->CTaskSimpleWaitUntilPedIsOutCar::CTaskSimpleWaitUntilPedIsOutCar(ped, pos); return this; }
+    /*!
+     * @addr 0x6494F0
+     */
     CTaskSimpleWaitUntilPedIsOutCar* Destructor() { this->CTaskSimpleWaitUntilPedIsOutCar::~CTaskSimpleWaitUntilPedIsOutCar(); return this; }
 
                 };

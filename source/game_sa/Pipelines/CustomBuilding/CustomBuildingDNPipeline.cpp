@@ -441,6 +441,7 @@ static CustomEnvMapPipeMaterialData* NewEnvMapPipeMatData(CustomEnvMapPipeMateri
     return &storage[last];
 }
 
+// 0x5D9570
 CustomEnvMapPipeMaterialData* CCustomBuildingDNPipeline::SetFxEnvTexture(CustomEnvMapPipeMaterialData** inOutEnvMapData) {
     if (*inOutEnvMapData == &CCustomCarEnvMapPipeline::fakeEnvMapPipeMatData) {
         if (*inOutEnvMapData = NewEnvMapPipeMatData(CCustomCarEnvMapPipeline::m_gEnvMapPipeMatDataPool)) {

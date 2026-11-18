@@ -1063,6 +1063,7 @@ float CPedIntelligence::GetPedFOVRange() const {
 // 0x421050: ECX = this, EDX de entrada y un argumento en pila (ret 4). Como el original, deja en EAX los bits altos del EAX de entrada
 // o de la suma (solo cambia AL) y en EDX el EDX de entrada, la hora o la hora con el argumento en DL.
 #pragma runtime_checks("", off)
+// 0x421050
 __declspec(safebuffers) uint32 __fastcall IncrementAngerAtPlayerRegs(CPedIntelligence* self, uint32 entryEdx, uint8 anger) {
     const uint32 entryEax = EntryEaxCpp();
     auto* const  base     = reinterpret_cast<uint8*>(self);

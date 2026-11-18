@@ -54,6 +54,7 @@ CScriptedBrainTaskEntry::CScriptedBrainTaskEntry()
     m_task = nullptr;
 }
 
+// 0x62EC40
 CScriptedBrainTaskEntry* CScriptedBrainTaskEntry::Constructor()
 {
     this->CScriptedBrainTaskEntry::CScriptedBrainTaskEntry();

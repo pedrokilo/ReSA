@@ -146,7 +146,9 @@ __declspec(noinline) void PoolFlushBody(void* self) {
         *reinterpret_cast<uint32*>(bytes + 0xC) = 0;
     }
 }
+// 0x5A6E60
 __declspec(noinline) void __fastcall PoolFlush5A6E60(void* self, void* /*edx*/) { PoolFlushBody(self); }
+// 0x5A72B0
 __declspec(noinline) void __fastcall PoolFlush5A72B0(void* self, void* /*edx*/) { PoolFlushBody(self); }
 } // namespace
 

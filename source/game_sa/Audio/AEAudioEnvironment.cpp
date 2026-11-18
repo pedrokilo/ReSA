@@ -53,6 +53,8 @@ void CAEAudioEnvironment::InjectHooks() {
  *
  * Cambios de cámara, intervalos inválidos o velocidades físicas extremas devuelven
  * un factor neutro para evitar saltos audibles.
+ *
+ * @addr 0x4D7E40
  */
 float CAEAudioEnvironment::GetDopplerRelativeFrequency(float prevDist, float curDist, uint32 prevTime, uint32 curTime, float dopplerScale) {
     if (TheCamera.Get_Just_Switched_Status()) {
@@ -101,6 +103,8 @@ float CAEAudioEnvironment::GetDirectionalMikeAttenuation(const CVector& soundDir
 // 0x4D8010
 /**
  * Selecciona preset y profundidad de reverb según underwaterness, AudioZones y área.
+ *
+ * @addr 0x4D8010
  */
 void CAEAudioEnvironment::GetReverbEnvironmentAndDepth(int8* reverbEnv, int32* depth) {
     if (CWeather::UnderWaterness >= 0.5F) {
@@ -140,6 +144,8 @@ CVector CAEAudioEnvironment::GetPositionRelativeToCamera(const CVector& pos) {
  *
  * Conserva deliberadamente el comportamiento x87 del ejecutable para mantener
  * equivalencia numérica en las componentes y en el offset especial de primera persona.
+ *
+ * @addr 0x4D80B0
  */
 void CAEAudioEnvironment::GetPositionRelativeToCamera_Vector(CVector* output, const CVector* pos) {
     if (!pos) {

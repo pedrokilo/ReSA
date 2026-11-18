@@ -14,7 +14,9 @@ public:
     CTaskSimpleHitFromLeft();
     CTaskSimpleHitFromLeft(const CTaskSimpleHitFromLeft&);
 
+    // 0x62ED40
     virtual CTask* Clone() const { return new CTaskSimpleHitFromLeft{ *this }; }
+    // 0x62EDB0
     virtual bool IsInterruptable(CPed const* ped) { return false; }
 
 private: // Wrappers for hooks

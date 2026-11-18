@@ -90,6 +90,7 @@ void __fastcall ReleaseBlockA(void* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(raw + 8)   = 0;
     *reinterpret_cast<uint32*>(raw + 0xC) = 0;
 }
+// 0x53C890
 void __fastcall ReleaseBlockB(void* self, void* /*edx*/) {
     auto* const raw = static_cast<uint8*>(self);
     if (void* const block = *reinterpret_cast<void**>(raw + 4)) {

@@ -55,11 +55,17 @@ private: // NOTSA:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x5FF990
+     */
     CEntityScanner* Constructor() {
         this->CEntityScanner::CEntityScanner();
         return this;
     }
 
+    /*!
+     * @addr 0x603480
+     */
     CEntityScanner* Destructor() {
         this->CEntityScanner::~CEntityScanner();
         return this;

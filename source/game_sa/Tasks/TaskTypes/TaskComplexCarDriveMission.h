@@ -17,7 +17,9 @@ public:
     CTaskComplexCarDriveMission(CVehicle* vehicle, CEntity* targetVehicle, eCarMission carDriveMission, eCarDrivingStyle carDrivingStyle, float fSpeed);
     ~CTaskComplexCarDriveMission() override;
 
+    // 0x63DD70
     CTask* Clone() const override { return new CTaskComplexCarDriveMission(m_Veh, m_pTargetVehicle, m_nCarMission, (eCarDrivingStyle)m_CarDrivingStyle, m_CruiseSpeed); }
+    // 0x63CCB0
     eTaskType GetTaskType() const override { return Type; }
     void SetUpCar() override;
 
@@ -25,7 +27,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    // 0x63CC30
     CTaskComplexCarDriveMission* Constructor(CVehicle* vehicle, CEntity* targetVehicle, eCarMission carDriveMission, eCarDrivingStyle carDrivingStyle, float fSpeed) { this->CTaskComplexCarDriveMission::CTaskComplexCarDriveMission(vehicle, targetVehicle, carDriveMission, carDrivingStyle, fSpeed); return this; }
+    // 0x63CCC0
     __declspec(noinline) CTaskComplexCarDriveMission* Destructor() { this->CTaskComplexCarDriveMission::~CTaskComplexCarDriveMission(); return this; } // sin expansion en linea (lote 148A: el banco sustituye su cuerpo)
     CTaskComplexCarDriveMission* ScalarDeletingDestructor(uint8 flags); // 0x643260 (lote 148A, banco Fn148A): destructor con borrado (ranura 0 de la vtable 0x86E9A4), `ret 4`
 };

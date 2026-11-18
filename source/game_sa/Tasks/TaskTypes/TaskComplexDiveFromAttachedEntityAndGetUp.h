@@ -15,7 +15,9 @@ public:
     CTaskComplexDiveFromAttachedEntityAndGetUp(const CTaskComplexDiveFromAttachedEntityAndGetUp&);
     ~CTaskComplexDiveFromAttachedEntityAndGetUp() = default;
 
+    // 0x492E70
     CTask*    Clone() const override { return new CTaskComplexDiveFromAttachedEntityAndGetUp{ *this }; }
+    // 0x492EE0
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

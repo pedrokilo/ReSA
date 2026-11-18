@@ -38,6 +38,7 @@ END GENERATED HOOK STATUS */
 // llamada. Se declara __fastcall sin parametros en la pila (ECX y EDX se reciben por registro y la limpieza de pila sigue siendo la
 // del llamador cdecl) para recibir el EDX de entrada y devolverlo intacto; los argumentos se leen de la pila bajo la direccion de retorno.
 #pragma runtime_checks("", off)
+// 0x5B3C30
 static uint32 __fastcall SetClumpModelInfoFlags_KeepEdx(void* /*ecx*/, uint32 entryEdx) {
     const uint32* const arguments = static_cast<const uint32*>(_AddressOfReturnAddress()) + 1; // [esp+4] = modelInfo, [esp+8] = flags
     SetClumpModelInfoFlags(reinterpret_cast<CClumpModelInfo*>(static_cast<uintptr_t>(arguments[0])), arguments[1]);
@@ -132,6 +133,8 @@ void CClumpModelInfo::Shutdown()
 /**
  * Destruye el RpClump propietario, actualiza el conteo de 2DFX y libera referencias
  * a TXD/AnimBlock. Si este model info posee su colisión también la elimina.
+ *
+ * @addr 0x4C4E70
  */
 void CClumpModelInfo::DeleteRwObject()
 {
@@ -159,6 +162,8 @@ void CClumpModelInfo::DeleteRwObject()
  *
  * En clumps skinned reestablece la jerarquía HAnim y, cuando bHasAnimBlend está activo,
  * inicializa RpAnimBlend y arranca la animación asociada al bloque del modelo.
+ *
+ * @addr 0x4C5140
  */
 RwObject* CClumpModelInfo::CreateInstance()
 {
@@ -189,6 +194,7 @@ RwObject* CClumpModelInfo::CreateInstance()
     return reinterpret_cast<RwObject*>(clonedClump);
 }
 
+// 0x4C5110
 RwObject* CClumpModelInfo::CreateInstance(RwMatrix* matrix)
 {
     if (!GetRwObject())
@@ -244,6 +250,8 @@ CBox* CClumpModelInfo::GetBoundingBox()
  *
  * También normaliza los pesos de skin y sincroniza el conteo de 2DFX procedentes
  * de la geometría del clump.
+ *
+ * @addr 0x4C4F70
  */
 void CClumpModelInfo::SetClump(RpClump* clump)
 {
@@ -318,12 +326,14 @@ void CClumpModelInfo::SetClumpModelInfoFlags(uint32 flags) {
     ::SetClumpModelInfoFlags(this, flags);
 }
 
+// 0x4C5280
 RpAtomic* CClumpModelInfo::SetAtomicRendererCB(RpAtomic* atomic, void* renderFunc)
 {
     CVisibilityPlugins::SetAtomicRenderCallback(atomic, reinterpret_cast<RpAtomicCallBackRender>(renderFunc));
     return atomic;
 }
 
+// 0x4C4F30
 RpAtomic* CClumpModelInfo::AtomicSetupLightingCB(RpAtomic* atomic, void* data)
 {
     if (CCustomBuildingRenderer::IsCBPCPipelineAttached(atomic))
@@ -338,6 +348,7 @@ RpAtomic* CClumpModelInfo::AtomicSetupLightingCB(RpAtomic* atomic, void* data)
     return atomic;
 }
 
+// 0x4C4EF0
 RpAtomic* CClumpModelInfo::SetHierarchyForSkinAtomic(RpAtomic* atomic, void* data)
 {
     if (data) {
@@ -350,6 +361,7 @@ RpAtomic* CClumpModelInfo::SetHierarchyForSkinAtomic(RpAtomic* atomic, void* dat
     return atomic;
 }
 
+// 0x4C52A0
 // Recorre recursivamente la jerarquía y detiene la rama al encontrar el nombre pedido.
 RwFrame* CClumpModelInfo::FindFrameFromNameCB(RwFrame* frame, void* searchData)
 {
@@ -367,6 +379,7 @@ RwFrame* CClumpModelInfo::FindFrameFromNameCB(RwFrame* frame, void* searchData)
         return frame;
 }
 
+// 0x4C52F0
 RwFrame* CClumpModelInfo::FindFrameFromNameWithoutIdCB(RwFrame* frame, void* searchData)
 {
     auto searchInfo = reinterpret_cast<tCompSearchStructByName*>(searchData);
@@ -382,6 +395,7 @@ RwFrame* CClumpModelInfo::FindFrameFromNameWithoutIdCB(RwFrame* frame, void* sea
         return frame;
 }
 
+// 0x4C5350
 // Busca recursivamente un frame por el ID almacenado en CVisibilityPlugins.
 RwFrame* CClumpModelInfo::FindFrameFromIdCB(RwFrame* frame, void* searchData)
 {
@@ -398,6 +412,7 @@ RwFrame* CClumpModelInfo::FindFrameFromIdCB(RwFrame* frame, void* searchData)
         return frame;
 }
 
+// 0x4C5390
 RwFrame* CClumpModelInfo::FillFrameArrayCB(RwFrame* frame, void* data)
 {
     auto iId = CVisibilityPlugins::GetFrameHierarchyId(frame);
@@ -408,6 +423,7 @@ RwFrame* CClumpModelInfo::FillFrameArrayCB(RwFrame* frame, void* data)
     return frame;
 }
 
+// 0x4C53C0
 RwFrame* CClumpModelInfo::GetFrameFromId(RpClump* clump, int32 id)
 {
     tCompSearchStructById assoc = { id, nullptr };
@@ -415,6 +431,7 @@ RwFrame* CClumpModelInfo::GetFrameFromId(RpClump* clump, int32 id)
     return assoc.m_pFrame;
 }
 
+// 0x4C5400
 RwFrame* CClumpModelInfo::GetFrameFromName(RpClump* clump, const char* name)
 {
     auto searchInfo = tCompSearchStructByName(name, nullptr);
@@ -422,6 +439,7 @@ RwFrame* CClumpModelInfo::GetFrameFromName(RpClump* clump, const char* name)
     return searchInfo.m_pFrame;
 }
 
+// 0x4C5440
 void CClumpModelInfo::FillFrameArray(RpClump* clump, RwFrame** frames)
 {
     RwFrameForAllChildren(RpClumpGetFrame(clump), FillFrameArrayCB, frames);

@@ -87,6 +87,7 @@ bool CTaskSimpleUninterruptable::ProcessPed(CPed* /*ped*/) {
     return false;
 }
 
+// 0x43E2E0
 CTaskSimpleUninterruptable* CTaskSimpleUninterruptable::Constructor()
 {
     this->CTaskSimpleUninterruptable::CTaskSimpleUninterruptable();

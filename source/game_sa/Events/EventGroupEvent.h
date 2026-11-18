@@ -32,7 +32,13 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x4ADFD0
+     */
     CEventGroupEvent* Constructor(CPed* ped, CEvent* event) { this->CEventGroupEvent::CEventGroupEvent(ped, event); return this; }
+    /*!
+     * @addr 0x4AE070
+     */
     CEventGroupEvent* Destructor() { this->CEventGroupEvent::~CEventGroupEvent(); return this; }
 
     bool IsPriorityEvent() const;

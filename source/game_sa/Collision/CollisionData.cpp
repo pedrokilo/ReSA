@@ -105,6 +105,8 @@ CCollisionData::CCollisionData() {
  *
  * También elimina el bloque auxiliar de planos de triángulo y deja los contadores
  * y punteros principales en estado vacío para impedir reutilizar memoria liberada.
+ *
+ * @addr 0x40F070
  */
 void CCollisionData::RemoveCollisionVolumes() {
     // Como el original: solo se llama a Free con punteros no nulos.
@@ -144,6 +146,8 @@ void CCollisionData::RemoveCollisionVolumes() {
  * de nuevo sólo cuando cambia el contador; los vértices (principales y de sombra)
  * se reservan siempre que haya triángulos, con tantos elementos como el índice
  * máximo + 1. Los face groups no se copian.
+ *
+ * @addr 0x40F120
  */
 CCollisionData& CCollisionData::Copy(const CCollisionData& src) {
     const auto FreeIfSet = [](void* p) {
@@ -293,6 +297,8 @@ CCollisionData& CCollisionData::Copy(const CCollisionData& src) {
  *
  * Se reserva una entrada adicional porque el espacio inmediatamente posterior al
  * array también se reutiliza para almacenar el puntero de enlace de la caché.
+ *
+ * @addr 0x40F590
  */
 void CCollisionData::CalculateTrianglePlanes() {
     // Como el original: el contador se lee con signo (movsx).
@@ -329,6 +335,8 @@ void CCollisionData::GetShadTrianglePoint(CVector& outVec, int32 vertId) {
  *
  * Esta disposición evita añadir otro campo a CCollisionData y reproduce el layout
  * esperado por el juego para los planos calculados dinámicamente.
+ *
+ * @addr 0x40F6C0
  */
 void CCollisionData::SetLinkPtr(CLink<CCollisionData*>* link) {
     // Original calculation method:

@@ -775,11 +775,17 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x6D5F10
+     */
     auto Constructor(eVehicleCreatedBy createdBy) {
         this->CVehicle::CVehicle(createdBy);
         return this;
     }
 
+    /*!
+     * @addr 0x6E2B40
+     */
     auto Destructor() {
         this->CVehicle::~CVehicle();
         return this;

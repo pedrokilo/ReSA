@@ -112,6 +112,7 @@ CTask* CTaskComplexDieInCar::Clone() const {
 // 0x6377B0
 
 
+// 0x6377B0
 CTask* CTaskComplexDieInCar::ControlSubTask(CPed* ped) {
     if (m_pSubTask->GetTaskType() != TASK_SIMPLE_CAR_DRIVE || !m_bPreparedForDeath)
         return m_pSubTask;
@@ -147,6 +148,7 @@ CTask* CTaskComplexDieInCar::CreateSubTask(eTaskType taskType, CPed* ped) {
 // 0x6375F0
 
 
+// 0x6375F0
 CTask* CTaskComplexDieInCar::CreateFirstSubTask(CPed* ped) {
     assert(ped);
     ped->SetPedState(PEDSTATE_DIE);
@@ -214,6 +216,7 @@ void CTaskComplexDieInCar::PreparePedVehicleForPedDeath(CVehicle *vehicle) {
 // 0x637850
 
 
+// 0x637850
 CTask* CTaskComplexDieInCar::CreateNextSubTask(CPed* ped) {
     switch (m_pSubTask->GetTaskType()) {
     case TASK_SIMPLE_DIE_IN_CAR:
@@ -227,6 +230,7 @@ CTask* CTaskComplexDieInCar::CreateNextSubTask(CPed* ped) {
 
 // 0x62FCC0
 
+// 0x62FCC0
 // 0x0
 bool CTaskComplexDieInCar::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
     switch (priority) {

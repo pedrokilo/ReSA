@@ -40,6 +40,7 @@ void CMatrixLink::InjectHooks()
  * CMatrixLink, por lo que no se crea ni destruye memoria durante la operación.
  *
  * @pre Esta matriz ya debe formar parte de una lista bien enlazada.
+ * @addr 0x54E8F0
  */
 void CMatrixLink::Insert(CMatrixLink* pWhere)
 {
@@ -55,6 +56,8 @@ void CMatrixLink::Insert(CMatrixLink* pWhere)
  *
  * Los punteros del propio nodo no se limpian; normalmente el llamador lo inserta
  * inmediatamente en otra de las listas de CMatrixLinkList.
+ *
+ * @addr 0x54E910
  */
 void CMatrixLink::Remove()
 {

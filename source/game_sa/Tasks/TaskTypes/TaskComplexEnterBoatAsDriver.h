@@ -15,10 +15,13 @@ public:
     CTaskComplexEnterBoatAsDriver(const CTaskComplexEnterBoatAsDriver&);
     ~CTaskComplexEnterBoatAsDriver();
 
+    // 0x63D920
     CTask*    Clone() const override { return new CTaskComplexEnterBoatAsDriver{ *this }; }
+    // 0x63B640
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
+    // 0x63B6B0
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
     CTask* CreateSubTask(eTaskType tt);

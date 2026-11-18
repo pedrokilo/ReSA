@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #include "EventPedEnteredMyVehicle.h"
 
 namespace {
+// 0x4AEB90
 // Cuerpo no virtual de ~CEventPedEnteredMyVehicle del EXE (thiscall, sin argumentos de pila, `ret`): deja la vtable de CEventPedEnteredMyVehicle del EXE (0x85AFE8), libera con CEntity::CleanUpOldReference (0x571A00) las referencias no nulas
 // en el orden del EXE y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 119A, banco Fn119A.)
 void __fastcall PedEnteredMyVehicleDestructorBody(CEventPedEnteredMyVehicle* self, void* /*edx*/) {

@@ -9,6 +9,7 @@
 // optimiza por pragma, que solo actua con /Zi y sin comprobaciones de ejecucion (CMakeLists.txt). La comparacion es sin signo (`ja`): cualquier valor mayor que 5, incluidos los negativos, devuelve 0.
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
+// 0x5F7200
 const CPedGroupDefaultTaskAllocator* CPedGroupDefaultTaskAllocators::GetExe(uint32 type) {
     switch (type) {
     case 0:  return reinterpret_cast<const CPedGroupDefaultTaskAllocator*>(0xC09908); // FOLLOW_ANY_MEANS

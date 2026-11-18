@@ -38,6 +38,7 @@ namespace {
 // FxEmitterBP_c. Reserva `size` bytes con alineacion 4 en la arena FX (FxMemoryPool_c::GetMem, 0x4A9CA0, con hook) del FxManager_c del EXE (0xA9AE80; la arena esta en +0xAC = 0xA9AF2C) y devuelve el puntero.
 // No lo llama ningun otro hook de este archivo (FxSystemBP_c::Load pide la memoria directamente con GetMem(0x40, 4)).
 static_assert(offsetof(FxManager_c, m_Pool) == 0xAC);
+// 0x4A1900
 __declspec(noinline) void* __cdecl FxEmitterBPOperatorNew(int32 size) {
     return g_fxMan.GetMemPool().GetMem(size, 4);
 }
@@ -278,6 +279,7 @@ bool FxEmitterBP_c::UpdateParticle(float deltaTime, FxEmitterPrt_c* emitter) {
 // 0x4A2B40
 
 
+// 0x4A2B40
 FxPrim_c* FxEmitterBP_c::CreateInstance() {
     void* const memory = ::operator new(sizeof(FxEmitter_c));
     return memory ? ::new(memory) FxEmitter_c : nullptr;
@@ -286,6 +288,7 @@ FxPrim_c* FxEmitterBP_c::CreateInstance() {
 // 0x4A2BC0
 
 
+// 0x4A2BC0
 void FxEmitterBP_c::Update(float deltaTime) {
     if (!m_Particles.GetNumItems()) return;
     auto* it = m_Particles.GetHead();
@@ -307,6 +310,7 @@ void FxEmitterBP_c::Update(float deltaTime) {
 // 0x5C25F0
 
 
+// 0x5C25F0
 bool FxEmitterBP_c::Load(FILESTREAM file, int32 version, FxName32_t* textureNames) {
     FxPrimBP_c::Load(file, version, textureNames);
 
@@ -325,6 +329,7 @@ bool FxEmitterBP_c::Load(FILESTREAM file, int32 version, FxName32_t* textureName
 // 0x5C0A30
 
 
+// 0x5C0A30
 bool FxEmitterBP_c::LoadTextures(FxName32_t* textureNames, int32 version) {
     assert(textureNames);
 
@@ -357,6 +362,7 @@ bool FxEmitterBP_c::LoadTextures(FxName32_t* textureNames, int32 version) {
 // 0x4A2C40
 
 
+// 0x4A2C40
 void FxEmitterBP_c::Render(RwCamera* camera, uint32 txdHashKey, float brightness, bool doHeatHaze) {
     const auto heatEmitter = IsFxInfoPresent(static_cast<eFxInfoType>(0x4008));
     if (doHeatHaze) {
@@ -373,6 +379,7 @@ void FxEmitterBP_c::Render(RwCamera* camera, uint32 txdHashKey, float brightness
 
 // 0x4A2510
 
+// 0x4A2510
 // 0x0
 bool FxEmitterBP_c::FreePrtFromPrim(FxSystem_c* system) {
     for (auto* it = m_Particles.GetHead(); it; it = m_Particles.GetNext(it)) {

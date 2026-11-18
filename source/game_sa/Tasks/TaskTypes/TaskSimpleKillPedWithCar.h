@@ -18,8 +18,11 @@ public:
 
     void DamageCarBonnet(CPed const*);
 
+    // 0x655A20
     CTask*    Clone() const override { return new CTaskSimpleKillPedWithCar{ *this }; }
+    // 0x653C70
     eTaskType GetTaskType() const override { return Type; }
+    // 0x653C80
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override { return false; }
     bool      ProcessPed(CPed* ped) override;
 

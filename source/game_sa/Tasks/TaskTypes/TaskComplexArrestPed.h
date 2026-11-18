@@ -20,6 +20,9 @@ public:
     ~CTaskComplexArrestPed() override;
 
     CTask* Clone() const override; // 0x68CD70 (lote 171A, banco Fn171A)
+    /*!
+     * @addr 0x68B9F0
+     */
     eTaskType GetTaskType() const override { return Type; }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;
@@ -31,7 +34,13 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x68B990
+     */
     __declspec(noinline) CTaskComplexArrestPed* Constructor(CPed* ped) { this->CTaskComplexArrestPed::CTaskComplexArrestPed(ped); return this; }
+    /*!
+     * @addr 0x68BA00
+     */
     CTaskComplexArrestPed* Destructor() { this->CTaskComplexArrestPed::~CTaskComplexArrestPed(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexArrestPed, 0x24);

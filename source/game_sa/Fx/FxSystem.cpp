@@ -31,7 +31,9 @@ namespace {
 // 0x4AB240 / 0x4AB250 / 0x4AB260 (lote 147A, banco Fn147A; cdecl, 5 bytes cada una: `jmp 0x538900` / `jmp 0x5389B0` / `jmp 0x5389D0`): copias del EXE en el rango de FxSystem_c que solo saltan a
 // CFileMgr::OpenFile, ReadLine y CloseFile (todas con hook). Reenvian los mismos argumentos y devuelven lo que devuelve la funcion de destino (ReadLine: bool en AL, el resto de EAX no se lee).
 FILESTREAM __cdecl FxOpenFileThunk(const char* path, const char* mode) { return CFileMgr::OpenFile(path, mode); }
+// 0x4AB250
 bool __cdecl FxReadLineThunk(FILESTREAM file, char* str, int32 num) { return CFileMgr::ReadLine(file, str, num); }
+// 0x4AB260
 int32 __cdecl FxCloseFileThunk(FILESTREAM file) { return CFileMgr::CloseFile(file); }
 } // namespace
 
@@ -80,7 +82,9 @@ void FxSystem_c::InjectHooks() {
     RH_ScopedInstall(IsVisible, 0x4AAF30);
     RH_ScopedInstall(Update, 0x4AAF70, {});
 }
+// 0x4AAF00
 FxSystem_c* FxSystem_c::Constructor() { this->FxSystem_c::FxSystem_c(); return this; }
+// 0x4AA260
 FxSystem_c* FxSystem_c::Destructor() { this->FxSystem_c::~FxSystem_c(); return this; }
 
 // 0x4A9340 (lote 144A, banco Fn144A; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x4AA260; test byte [esp+8],1; je ..; push esi; call 0x8214BD (operator delete);

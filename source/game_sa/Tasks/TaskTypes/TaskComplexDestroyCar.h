@@ -28,7 +28,13 @@ public:
     CTask* CreateSubTask(eTaskType taskType, CPed* ped = nullptr);
 
     static void InjectHooks();
+    /*!
+     * @addr 0x621C00
+     */
     CTaskComplexDestroyCar* Constructor(CVehicle* vehicleToDestroy, uint32 a3, uint32 a4, uint32 a5) { this->CTaskComplexDestroyCar::CTaskComplexDestroyCar(vehicleToDestroy, a3, a4, a5); return this; }
+    /*!
+     * @addr 0x621CB0
+     */
     CTaskComplexDestroyCar* Destructor() { this->CTaskComplexDestroyCar::~CTaskComplexDestroyCar(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexDestroyCar, 0x20);

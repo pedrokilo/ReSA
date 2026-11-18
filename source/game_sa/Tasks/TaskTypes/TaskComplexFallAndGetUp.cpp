@@ -66,11 +66,13 @@ void CTaskComplexFallAndGetUp::InjectHooks() {
     RH_ScopedVMTInstall(MakeAbortable, 0x6787F0);
 }
 
+// 0x6786C0
 CTaskComplexFallAndGetUp* CTaskComplexFallAndGetUp::Constructor(AnimationId nFallAnimId, AssocGroupId nFallAnimGroup, int32 nFallDownTime) {
     this->CTaskComplexFallAndGetUp::CTaskComplexFallAndGetUp(nFallAnimId, nFallAnimGroup, nFallDownTime);
     return this;
 }
 
+// 0x678700
 CTaskComplexFallAndGetUp* CTaskComplexFallAndGetUp::Constructor2(int32 nDir, int32 nFallDownTime) {
     this->CTaskComplexFallAndGetUp::CTaskComplexFallAndGetUp(nDir, nFallDownTime);
     return this;

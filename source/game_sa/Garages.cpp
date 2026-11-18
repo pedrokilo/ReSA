@@ -189,6 +189,7 @@ static float GarageQuietNan(float value) {
     return std::bit_cast<float>(bits);
 }
 
+// 0x4471E0
 void CGarages::AddOne(float x1, float y1, float z1, float frontX, float frontY, float x2, float y2, float z2, uint8 type, uint32 a10, char* name, uint32 argFlags) {
     CGarage& garage = aGarages[NumGarages];
 
@@ -319,6 +320,7 @@ int32 CGarages::FindSafeHouseIndexForGarageType(eGarageType type) {
 // EDX intacto; con garajes deja ECX = fin del arreglo recorrido y EDX = matriz del objeto (ResidueRegsCpp / ResidueEcx::Get, ver X87Math.h).
 // Sin comprobaciones de ejecucion para que el codigo posterior a la ultima llamada no cambie ECX/EDX.
 #pragma runtime_checks("", off)
+// 0x44A240
 uint32 CGarages::FindGarageForObjectRegs(CObject* object) {
     if (static_cast<uint32>(NumGarages) == 0) {
         return reinterpret_cast<ResidueEcx*>(static_cast<uintptr_t>(0))->Get(0xFFFFFFFFu);

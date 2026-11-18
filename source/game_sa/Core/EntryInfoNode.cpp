@@ -37,12 +37,15 @@ void CEntryInfoNode::InjectHooks()
  *
  * El parámetro size forma parte de la firma de operator new, pero el tamaño real
  * del bloque está fijado por el tipo del pool.
+ *
+ * @addr 0x536DC0
  */
 void* CEntryInfoNode::operator new(unsigned size)
 {
     return GetEntryInfoNodePool()->New();
 }
 
+// @addr 0x536DD0
 // Devuelve el slot al pool correspondiente; no utiliza el heap general de C++.
 void CEntryInfoNode::operator delete(void* ptr, size_t sz)
 {

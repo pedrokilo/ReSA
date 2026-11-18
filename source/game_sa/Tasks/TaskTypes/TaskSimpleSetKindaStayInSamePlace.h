@@ -16,9 +16,13 @@ public:
     CTaskSimpleSetKindaStayInSamePlace(const CTaskSimpleSetKindaStayInSamePlace&);
     ~CTaskSimpleSetKindaStayInSamePlace() override = default;
 
+    // 0x635C30
     CTask*    Clone() const override { return new CTaskSimpleSetKindaStayInSamePlace{ *this }; }
+    // 0x62F630
     eTaskType GetTaskType() const override { return Type; }
+    // 0x62F640
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override { return true; }
+    // 0x62F660
     bool      ProcessPed(CPed* ped) override { ped->bKindaStayInSamePlace = m_bKindaStayInSamePlace; return true; }
 
 private: // Wrappers for hooks

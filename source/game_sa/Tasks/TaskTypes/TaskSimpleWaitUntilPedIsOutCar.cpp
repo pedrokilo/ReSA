@@ -68,6 +68,7 @@ CTaskSimpleWaitUntilPedIsOutCar::~CTaskSimpleWaitUntilPedIsOutCar() {
 
 // 0x649550
 
+// 0x649550
 // 0x0
 bool CTaskSimpleWaitUntilPedIsOutCar::ProcessPed(CPed* ped) {
     if (!m_PedToWaitFor) {

@@ -141,6 +141,8 @@ void CAETwinLoopSoundEntity::UpdateTwinLoopSound(CVector pos, float volume, floa
 /**
  * Recibe callbacks de las dos CAESound: limpia punteros al terminar y evalúa si
  * corresponde intercambiar cuál de las voces permanece audible.
+ *
+ * @addr 0x4F2E90
  */
 void CAETwinLoopSoundEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
     if (curPlayPos == -1) {
@@ -224,6 +226,8 @@ bool CAETwinLoopSoundEntity::DoSoundsSwitchThisFrame() const {
  *
  * La primera arranca audible y la segunda a -100 dB; ambas solicitan callbacks para
  * que la entidad pueda mantener el intercambio temporal sin reiniciar los loops.
+ *
+ * @addr 0x4F2CB0
  */
 void CAETwinLoopSoundEntity::PlayTwinLoopSound(CVector pos, float volume, float speed, float rollOffFactor, float doppler, eSoundEnvironment flags) {
     // Como el original: detiene las voces previas sin poner los punteros a nulo ni tocar m_IsInUse.

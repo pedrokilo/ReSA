@@ -251,6 +251,7 @@ void CClothes::RebuildCutscenePlayer(CPlayerPed* player, int32 modelId) {
 // Como el original: solo toca EAX (los llamadores del EXE conservan ECX y EDX: CClothes::Init 0x5A80D0,
 // CPedClothesDesc::SetTextureAndModel 0x5A8050/0x5A8080 y 0x5A8626). Optimizada por pragma para que el objeto lo cumpla.
 #pragma optimize("gt", on)
+// 0x5A7EA0
 eClothesModelPart CClothes::GetTextureDependency(eClothesTexturePart texturePart) {
     switch (texturePart) {
     case CLOTHES_TEXTURE_TORSO:    return CLOTHES_MODEL_TORSO;

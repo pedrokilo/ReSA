@@ -18,7 +18,9 @@ public:
 
     CTask* CreateSubTask(eTaskType tt, CPed* ped);
 
+    // 0x6838E0
     CTask*    Clone() const override { return new CTaskComplexWalkAlongsidePed{ *this }; }
+    // 0x6832B0
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

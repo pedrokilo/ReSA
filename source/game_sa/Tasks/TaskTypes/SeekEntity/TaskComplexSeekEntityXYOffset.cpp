@@ -9,6 +9,8 @@ void CTaskComplexSeekEntityXYOffset::InjectHooks() {
 // 0x4BC470: ECX = this, EDX de entrada y la distancia en pila (ret 4). Si la distancia no es igual a la actual (un NaN también la cambia), la guarda
 // y reinicia el temporizador y deja EAX = bits de la distancia y EDX = hora; si es igual, EAX conserva su mitad alta y toma la palabra de estado del x87 en AX.
 #pragma runtime_checks("", off)
+// 0x4BC470
+// 0x6955D0
 __declspec(safebuffers) uint32 __fastcall SetMaxEntityDist2DRegs(void* self, uint32 entryEdx, uint32 distanceBits) {
     const uint32 entryEax = EntryEaxCpp();
     auto* const  base     = reinterpret_cast<uint8*>(self);

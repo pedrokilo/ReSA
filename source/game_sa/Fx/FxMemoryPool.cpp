@@ -67,6 +67,8 @@ void FxMemoryPool_c::Reset() {
 /**
  * Avanza m_nPosition hasta la alineación solicitada y devuelve el siguiente rango.
  * No mantiene free-list: la memoria individual no se devuelve hasta Reset/Exit.
+ *
+ * @addr 0x4A9CA0
  */
 void* FxMemoryPool_c::GetMem(int32 size, int32 align) {
     // Como el original: division sin signo y comparacion con signo del resto (div; test edx,edx; jle).

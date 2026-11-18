@@ -82,6 +82,9 @@ private:
 
     CEventDamage* Constructor(const CEventDamage& event);
     CEventDamage* Constructor(CEntity * source, uint32 startTime, eWeaponType weaponType, ePedPieceTypes pieceHit, uint8 direction, bool a7, bool bPedInVehicle);
+    /*!
+     * @addr 0x4AD960
+     */
     CEventDamage* Destructor() { this->CEventDamage::~CEventDamage(); return this; }
     CEventDamage* ScalarDeletingDestructor(uint8 flags); // 0x4B5CF0 (lote 176A, sin validar): destructor con borrado (ranura 0 de la vtable 0x85AD78), `ret 4`
 

@@ -111,6 +111,8 @@ void CAECutsceneTrackManager::PauseTrack(bool pause) {
  *
  * Los valores especiales de play time provienen de AEAudioHardware y se traducen
  * aquí a estados lógicos consumidos por CAudioEngine.
+ *
+ * @addr 0x4DBFB0
  */
 void CAECutsceneTrackManager::Service(int32 trackPlayTime) {
     // Como el original: guarda en cada llamada el play time anterior en la global 0x8AE588.
@@ -179,6 +181,8 @@ void CAECutsceneTrackManager::StartTrackPlayback() const {
 /**
  * Publica un nuevo track y opcionalmente bloquea sirviendo hardware hasta llegar
  * al estado preparado S2.
+ *
+ * @addr 0x4DC0E0
  */
 void CAECutsceneTrackManager::PreloadCutsceneTrack(int16 trackId, bool wait) {
     m_nTrackId = trackId;

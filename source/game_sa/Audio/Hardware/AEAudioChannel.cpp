@@ -171,6 +171,8 @@ CAEAudioChannel::~CAEAudioChannel() {
  *
  * Un factor 0 pausa el canal mediante fade/Stop; un factor posterior distinto de
  * cero restaura reproducción y volumen conservando la posición actual.
+ *
+ * @addr 0x4D7D00
  */
 void CAEAudioChannel::SetFrequencyScalingFactor(float factor) {
     if (factor == 0.0F) {

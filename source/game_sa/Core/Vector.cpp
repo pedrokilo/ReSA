@@ -359,6 +359,7 @@ void CVector::operator /= (float divisor)
 // z = ((up.z*z + right.z*x) + fwd.z*y) + pos.z; el primer factor de cada producto va en el registro (fld) y el segundo en memoria (fmul) y la posicion se suma desde memoria (fadd). Cada componente
 // se escribe antes de calcular la siguiente, leyendo la memoria viva: con `this` solapado con el vector o con la matriz (v.FromMultiply(m, v)) las lecturas siguientes ven la escritura anterior.
 #pragma float_control(precise, on, push)
+// 0x59C670
 void CVector::FromMultiply(const CMatrix& matrix, const CVector& vector) {
     const volatile float* const mr = reinterpret_cast<const float*>(&matrix);   // operandos de registro (fld); la matriz son 16 floats: right 0..2, forward 4..6, up 8..10, pos 12..14
     const float* const m = reinterpret_cast<const float*>(&matrix);
@@ -389,6 +390,7 @@ void CVector::FromMultiply(const CMatrix& matrix, const CVector& vector) {
 // primer factor de cada producto en el registro (fld) y el vector como operando de memoria (fmul), y cada componente se escribe antes de calcular la siguiente leyendo la memoria viva: con `this` solapado
 // con el vector o con la matriz las lecturas siguientes ven la escritura anterior (lote 103A, banco Fn103A).
 #pragma float_control(precise, on, push)
+// 0x59C6D0
 void CVector::FromMultiply3x3(const CMatrix& matrix, const CVector& vector) {
     const volatile float* const mr = reinterpret_cast<const float*>(&matrix);   // operandos de registro (fld)
     const float* const v = &vector.x;
@@ -504,6 +506,7 @@ CVector* VectorAdd(CVector* out, const CVector* a, const CVector* b)
     return out;
 }
 
+// 0x40FE60
 CVector* VectorSubtract(CVector* out, const CVector* a, const CVector* b)
 {
     const float z = a->z - b->z;
@@ -545,6 +548,7 @@ CVector* FloatTimesVector(CVector* out, float factor, const CVector* vector)
     return out;
 }
 
+// 0x40FEC0
 CVector* VectorTimesFloat(CVector* out, const CVector* vector, float factor)
 {
     const volatile float* f = &factor;

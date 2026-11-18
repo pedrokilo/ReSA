@@ -67,6 +67,7 @@ void CTaskComplexWanderCop::InjectHooks() {
     RH_ScopedInstall(LookForCriminals, 0x66B300);
     RH_ScopedInstall(ShouldPursuePlayer, 0x66B160);
 }
+// 0x460C80
 CTaskComplexWanderCop* CTaskComplexWanderCop::Constructor(eMoveState moveState, uint8 dir) { this->CTaskComplexWanderCop::CTaskComplexWanderCop(moveState, dir); return this; }
 
 // 0x460C80

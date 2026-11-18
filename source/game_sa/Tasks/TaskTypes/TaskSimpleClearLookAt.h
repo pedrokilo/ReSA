@@ -16,7 +16,9 @@ public:
     ~CTaskSimpleClearLookAt() = default;
 
     CTask*    Clone() const override { return new CTaskSimpleClearLookAt{}; } // Como el original (0x636F20): tarea nueva, sin copiar el padre
+    // 0x634690
     eTaskType GetTaskType() const override { return Type; }
+    // 0x6346B0
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return true; }
     bool      ProcessPed(CPed* ped) override;
 

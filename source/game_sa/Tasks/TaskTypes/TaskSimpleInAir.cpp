@@ -78,6 +78,7 @@ eTaskType CTaskSimpleInAir::GetTaskType() const {
     return Type;
 }
 
+// 0x678CD0
 CTaskSimpleInAir* CTaskSimpleInAir::Constructor(bool bUsingJumpGlide, bool bUsingFallGlide, bool bUsingClimbJump)
 {
     this->CTaskSimpleInAir::CTaskSimpleInAir(bUsingJumpGlide, bUsingFallGlide, bUsingClimbJump);

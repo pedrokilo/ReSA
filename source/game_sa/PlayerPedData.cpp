@@ -50,6 +50,7 @@ CPlayerPedData::CPlayerPedData() {
     m_bLastHSMissileLOS = true;
 }
 
+// 0x56F810
 CPlayerPedData *CPlayerPedData::Constructor() {
     this->CPlayerPedData::CPlayerPedData();
     return this;
@@ -60,6 +61,7 @@ CPlayerPedData::~CPlayerPedData() {
     DeAllocateData();
 }
 
+// 0x571840
 CPlayerPedData *CPlayerPedData::Destructor() {
     this->CPlayerPedData::~CPlayerPedData();
     return this;

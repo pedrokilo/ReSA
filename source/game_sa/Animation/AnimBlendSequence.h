@@ -68,6 +68,7 @@ public:
      * @brief The former is just returned for convenience.
      * @param n The index of the key-frame
      * @return The `n`th key-frame
+    * @addr 0x4CF1F0
     */
     KeyFrameTrans* GetUKeyFrame(size_t n) const { // `U` = Uncompressed
         assert(n < m_FramesNum);
@@ -84,6 +85,7 @@ public:
     * @brief The former is just returned for convenience.
     * @param n The index of the key-frame
     * @return The `n`th key-frame
+    * @addr 0x4CF220
     */
     KeyFrameTransCompressed* GetCKeyFrame(size_t n) const { // `C` = Compressed
         assert(n < m_FramesNum);
@@ -94,7 +96,13 @@ public:
         );
     }
 
+    /*!
+     * @addr 0x4D0C10
+     */
     CAnimBlendSequence* Constructor() { this->CAnimBlendSequence::CAnimBlendSequence(); return this; }
+    /*!
+     * @addr 0x4D0C30
+     */
     CAnimBlendSequence* Destructor() { this->CAnimBlendSequence::~CAnimBlendSequence(); return this; }
 
 private:

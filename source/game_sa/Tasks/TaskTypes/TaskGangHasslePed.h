@@ -31,7 +31,13 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x65FED0
+     */
     __declspec(noinline) CTaskGangHasslePed* Constructor(CPed* ped, int32 a3, int32 a4, int32 a5) { this->CTaskGangHasslePed::CTaskGangHasslePed(ped, a3, a4, a5); return this; }
+    /*!
+     * @addr 0x65FF60
+     */
     __declspec(noinline) CTaskGangHasslePed* Destructor() { this->CTaskGangHasslePed::~CTaskGangHasslePed(); return this; }
     CTaskGangHasslePed* ScalarDeletingDestructor(uint8 flags); // 0x6642A0 (lote 140A, banco Fn140A): destructor con borrado (ranura 0 de la vtable 0x86FA00), `ret 4`
 };

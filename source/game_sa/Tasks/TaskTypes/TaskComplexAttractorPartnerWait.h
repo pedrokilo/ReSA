@@ -15,6 +15,9 @@ public:
     ~CTaskComplexAttractorPartnerWait() override = default;                           // 0x633290
 
     eTaskType GetTaskType() const override { return Type; } // 0x633280
+    /*!
+     * @addr 0x636CF0
+     */
     CTask* Clone() const override { return new CTaskComplexAttractorPartnerWait(m_IsLeader, *m_CurrentFxPair); }
 
     CTask* CreateNextSubTask(CPed* ped) override { return nullptr; } // 0x6332A0

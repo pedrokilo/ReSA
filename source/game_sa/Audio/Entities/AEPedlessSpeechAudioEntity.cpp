@@ -248,6 +248,7 @@ void CAEPedlessSpeechAudioEntity::PlayLoadedSound() {
     }
 }
 
+// 0x4E6070
 CAEPedlessSpeechAudioEntity* CAEPedlessSpeechAudioEntity::Constructor() {
     // Como el original (0x4E6070 + 0x4E4F10): solo escribe estos campos y la vtable del EXE; el constructor C++
     // inicializaría por valor m_tempSound, m_Sounds, el dolor y la entidad asociada, que el EXE deja sin tocar.

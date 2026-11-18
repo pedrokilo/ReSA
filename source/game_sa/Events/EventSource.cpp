@@ -42,6 +42,7 @@ using ExeIsPlayer        = uint64(__fastcall*)(const CPed*, uint32 edx);        
 
 // 0x4ABAC0
 #pragma runtime_checks("", off) // /RTC1 añade __RTC_CheckEsp tras las llamadas y cambia ECX/EDX
+// 0x4ABAC0
 int32 CEventSource::ComputeEventSourceType(const CEvent& event, const CPed& ped) {
     // Lo primero: ninguna instruccion anterior escribe EDX (lo vigila contrib/audit_register_residue.py)
     const uint32 entryEdx = uint32(CarEnterExitEntryEdxCpp() >> 32);

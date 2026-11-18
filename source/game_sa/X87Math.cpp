@@ -18591,6 +18591,7 @@ __declspec(noinline) float* __cdecl MatrixAdd103Cpp(float* out, const float* a, 
 // exponente ampliado (suma de 5 si v > 0, v == 0 o NaN, resta si v < 0); x se guarda como double (fstp qword), se le quita la parte fraccionaria como el modf del EXE (0x8232F0, rama SSE2: |x| < 1
 // da +-0, hasta 2^52 se borran los bits fraccionarios, mayor o infinito queda igual y el NaN sale de x + x) y se devuelve ip / pow(10, n) sin guardar. `n + 1` se calcula en 32 bits con vuelta.
 #pragma float_control(precise, on, push)
+// 0x470000
 __declspec(noinline) double __cdecl CrtPowThunkCpp(float base, float exponent) {
     return ExeCompatiblePowCpp(double(base), double(exponent));
 }
@@ -18611,6 +18612,7 @@ static double TruncateLikeExeModf(double x) {
     memcpy(&r, &b, 8);
     return r;
 }
+// 0x50A0A0
 __declspec(noinline) double __cdecl RoundToDecimalsCpp(float value, int digits) {
     const double scale = ExeCompatiblePowCpp(10.0, double(int(unsigned(digits) + 1u)));
     volatile double scaled = (scale * value + (value < 0.0f ? -5.0f : 5.0f)) * 0.1f;
@@ -18816,6 +18818,7 @@ __declspec(noinline) float __cdecl PedSphereNearestCpp(const float* front, const
 // 0x406D10 (valor absoluto de un float; cdecl, el argumento en la pila, `ret`, resultado en ST0): `fld dword ptr [esp+4]; fabs; ret`. La x87 carga el float (un NaN senalizante se vuelve silencioso, sin tocar la
 // carga util) y fabs borra el signo; no se guarda ni se recarga.
 #pragma intrinsic(fabs)
+// 0x406D10
 __declspec(noinline) float __cdecl FloatAbsCpp(float v) {
     return float(fabs(double(v))); // con std::fabs(float) el compilador llama a la funcion de la CRT (guarda el float en la pila y registros distintos del EXE); con el intrinsico de fabs(double) sale `fld; fabs`
 }
@@ -18826,6 +18829,7 @@ __declspec(noinline) float __cdecl FloatAbsCpp(float v) {
 // 0x41BCE0 / 0x41BCF0 (cdecl, un float en la pila, `ret`, resultado en ST0): `fld dword [esp+4]; fsin; ret` y `fld dword [esp+4]; fcos; ret`. Con /O2 /Oi /arch:IA32 /fp:fast el compilador expande
 // sin(double) y cos(double) a fsin / fcos sobre el float cargado, sin guardar ni recargar: el resultado sale en ST0 con la precision completa de la x87 (por eso devuelven double).
 __declspec(noinline) double __cdecl SinFloatSt0Cpp(float angle) { return sin(double(angle)); }
+// 0x41BCF0
 __declspec(noinline) double __cdecl CosFloatSt0Cpp(float angle) { return cos(double(angle)); }
 #pragma float_control(pop)
 
@@ -18839,6 +18843,7 @@ __declspec(noinline) double __cdecl CosFloatSt0Cpp(float angle) { return cos(dou
 __declspec(noinline) static void ProcSurfaceScaleElementCpp(const volatile float* arg, float* element) {
     *element = *arg * *element;
 }
+// 0x5A2E60
 __declspec(noinline) void __fastcall ProcSurfaceScaleMatrixCpp(float* matrix, void* /*edx*/, float x, float y, float z) {
     for (int row = 0; row < 3; ++row) {
         float* const r = matrix + 4 * row;

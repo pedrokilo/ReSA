@@ -21,10 +21,14 @@ public:
     CTaskComplexWaitAtAttractor(const CTaskComplexWaitAtAttractor&);
     ~CTaskComplexWaitAtAttractor() = default;
 
+    // 0x636940
     CTask*    Clone() const override { return new CTaskComplexWaitAtAttractor{ *this }; }
+    // 0x632620
     eTaskType GetTaskType() const override { return Type; }
+    // 0x632640
     CTask*    CreateNextSubTask(CPed* ped) override { return nullptr; }
     CTask*    CreateFirstSubTask(CPed* ped) override;
+    // 0x6326E0
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
 private: // Wrappers for hooks

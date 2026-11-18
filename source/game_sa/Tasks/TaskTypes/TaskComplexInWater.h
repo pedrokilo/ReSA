@@ -16,10 +16,13 @@ public:
     CTaskComplexInWater(const CTaskComplexInWater&);
     ~CTaskComplexInWater() = default;
 
+    // 0x6370B0
     CTask*    Clone() const override { return new CTaskComplexInWater{ *this }; }
+    // 0x6350F0
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
+    // 0x635420
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
 private: // Wrappers for hooks

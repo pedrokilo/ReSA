@@ -46,6 +46,8 @@ void CEntryInfoList::InjectHooks()
  *
  * DeleteNode() actualiza la cabeza y los vecinos, y el operator delete específico
  * devuelve cada nodo a GetEntryInfoNodePool() en lugar de usar el heap general.
+ *
+ * @addr 0x536E10
  */
 void CEntryInfoList::Flush()
 {

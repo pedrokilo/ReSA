@@ -57,7 +57,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    // 0x717110
     auto Constructor() { this->CEscalator::CEscalator(); return this; }
+    // 0x717130
     auto Destructor() { this->CEscalator::~CEscalator(); return this; }
 };
 

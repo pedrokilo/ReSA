@@ -48,6 +48,7 @@ namespace {
 // argumentos de pila (`ret 0Ch`), `xor al,al`: devuelven false siempre y no leen ECX ni los argumentos. Sus dos unicos llamadores son dos comandos de script del EXE (0x46DDED y 0x46DE32)
 // que las llaman con ECX = 0xB9B9A4 (un objeto global sin datos) y los argumentos (parametro de script de 16 bits, 1, "Used in script" 0x859E40) y solo usan AL. Clase real desconocida.
 bool __fastcall ScriptStub_571970(void* /*self*/, void* /*edx*/, uint32 /*arg0*/, int32 /*arg1*/, const char* /*arg2*/) { return false; }
+// 0x571980
 bool __fastcall ScriptStub_571980(void* /*self*/, void* /*edx*/, uint32 /*arg0*/, int32 /*arg1*/, const char* /*arg2*/) { return false; }
 } // namespace
 
@@ -104,11 +105,13 @@ CPlayerInfo* CPlayerInfo::Constructor() {
     return this;
 }
 
+// 0x56DF50
 CVector* CPlayerInfo::GetSpeed_Hook(CVector* out) {
     *out = GetSpeed();
     return out;
 }
 
+// 0x56DFB0
 CVector* CPlayerInfo::GetPos_Hook(CVector* outPos) {
     *outPos = GetPos();
     return outPos;

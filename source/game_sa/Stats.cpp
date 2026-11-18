@@ -345,6 +345,7 @@ namespace {
 // edx = 15); ESI y EDI se guardan y restauran. Ningun llamador del EXE lee ECX/EDX (0x47BED3, 0x4D7184 y 0x55B35F solo usan EAX); los
 // bancos con registros crudos si.
 #pragma runtime_checks("", off)
+// 0x558FA0
 uint32 __declspec(safebuffers) __cdecl StatsFindMostFavoriteExe() {
     int32 best;
     const int32 index = FindMostFavoriteIndex(best);
@@ -427,6 +428,7 @@ void StatsLineTailKey(const char* key) {
 }
 }
 
+// 0x559230
 void CStats::BuildStatLine(char* line, void* pValue1, int32 metrics, void* pValue2, int32 type) {
     // Como el original (0x559230..0x55950E): sin linea no hace nada; si no, vacia gString2 y la rellena segun `type` (1 = h:mm / m:ss) o segun `metrics` (con segundo valor solo
     // 0, 1 y 3; con uno solo 0..9); al final convierte el texto de la clave a gGxtString (sin marcas) y gString2 a gGxtString2. Los punteros se leen sin comprobar (type == 1 los
@@ -784,6 +786,7 @@ __declspec(noinline) __declspec(safebuffers) FILESTREAM StatsLoadConditionsRead(
 // `sub esp,N` y la profundidad en la llamada es N + 4, de modo que N = 0x90 = 144 (count 4 + frameFill 140). Comprobar con symbytes/dumpbin que el prologo sea
 // `sub esp,90h`; si el compilador guardara registros, ajustar frameFill para que N + 4 * registros + 4 = 0x94.
 #pragma optimize("gty", on)
+// 0x559860
 int32 __declspec(safebuffers) __cdecl StatsLoadStatUpdateConditionsExe() {
     uint32 count = 0;
     // El compilador deja sin liberar el argumento de la llamada a StatsLoadConditionsRead (&count) hasta el final: 4 bytes mas bajo la llamada a CloseFile (medido: ECX
@@ -861,6 +864,7 @@ namespace {
 // banco DependenciesStats1 lo exige). cdecl con un argumento en la pila: ECX/EDX entran por registro y el argumento se lee bajo la direccion
 // de retorno; PlayerPedResidueFloatCpp deja ECX/EDX y el resultado en ST0 sin tocar nada mas.
 #pragma runtime_checks("", off)
+// 0x559AF0
 float __declspec(safebuffers) __fastcall StatsGetFatAndMuscleModifierExe(uint32 entryEcx, uint32 entryEdx) {
     const uint32 statMod = static_cast<const uint32*>(_AddressOfReturnAddress())[1]; // [esp+4]
     const float result = CStats::GetFatAndMuscleModifier(static_cast<eStatModAbilities>(statMod));
@@ -1018,6 +1022,7 @@ const char* RatingKey(int32 rating) {
 // Como el original: llama a FindCriminalRatingNumber (0x559080) y sale con un unico `call CText::Get(clave)` en la ultima posicion (ECX = TheText en cada
 // salida); sus EAX/ECX/EDX salen sin tocar, asi que no hace falta ayudante de residuo. Sin comprobaciones de ejecucion ni cookie de /GS.
 #pragma runtime_checks("", off)
+// 0x55A210
 __declspec(safebuffers) GxtChar* CStats::FindCriminalRatingString() {
     const int32 rating = FindCriminalRatingNumber();
     const char* const key = RatingKey(rating);
@@ -1573,6 +1578,7 @@ StatLineResult StatLineEntry(const uint8* entry, int32& count, const int32 wante
 }
 }
 
+// 0x55A780
 int32 CStats::ConstructStatLine(int32 arg0, uint8 arg1) {
     // Como el original (0x55A780..0x55B6D3): recorre la tabla de lineas elegida por arg1 (0..6; mayores usan la 0x8CDE08) hasta la entrada -99 contando las lineas que se muestran;
     // la que coincide con arg0 se compone en gString / gString2 / gGxtString / gGxtString2 y se devuelve 0; si arg0 queda fuera devuelve el numero de lineas. Ningun llamador del EXE

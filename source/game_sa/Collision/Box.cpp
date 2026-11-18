@@ -56,6 +56,7 @@ void CBox::InjectHooks()
     RH_ScopedNamedGlobalInstall(BoxGetRandomPoint, "GetRandomPoint", 0x553010); // lote 192A (sin validar)
 }
 
+// 0x40EDE0
 // Sustituye ambos extremos sin corregir su orden; Recalc() puede normalizarlos después.
 void CBox::Set(const CVector& vecMin, const CVector& vecMax)
 {
@@ -68,6 +69,8 @@ void CBox::Set(const CVector& vecMin, const CVector& vecMax)
  *
  * Esto permite que las pruebas de inclusión y las dimensiones funcionen incluso
  * cuando los puntos extremos se proporcionaron en orden inverso.
+ *
+ * @addr 0x40EE20
  */
 void CBox::Recalc()
 {

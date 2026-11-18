@@ -32,7 +32,9 @@ public:
 
     CTask* CreateSubTask(eTaskType taskType, CPed* ped);
 
+    // 0x63DBB0
     CTask*    Clone() const override { return new CTaskComplexScreamInCarThenLeave{ *this }; }
+    // 0x63C2B0
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask*    CreateNextSubTask(CPed* ped) override;

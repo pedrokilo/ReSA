@@ -598,6 +598,7 @@ static void PlaneGenerationSelect355(int32 aircraftCount){
 
 
 static void PlaneGenerationEngine355(CVehicle* vehicle){auto* bytes=reinterpret_cast<uint8*>(vehicle);if(!(bytes[0x42D]&2))bytes[0x428]|=0x10;}
+// 0x6CD2F0
 void CPlane::DoPlaneGenerationAndRemoval(){
  if((CTimer::GetFrameCounter()&31)!=30||!GenPlane_Active)return;
  const int32 aircraftCount=static_cast<int32>(CountPlanesAndHelis());
@@ -672,6 +673,7 @@ static CVector PlaneTransformPoint(const CMatrix* matrix, const CVector& point) 
 #pragma warning(pop)
 }
 
+// 0x6C94A0
 void CPlane::PreRender() {
     auto* const bytes = reinterpret_cast<uint8*>(this);
     auto* const nodes = reinterpret_cast<RwFrame**>(bytes + 0x648); // CAutomobile::m_aCarNodes

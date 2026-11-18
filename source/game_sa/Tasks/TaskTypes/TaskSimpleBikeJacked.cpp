@@ -96,6 +96,7 @@ bool CTaskSimpleBikeJacked::MakeAbortable(CPed* ped, eAbortPriority priority, CE
     return false;
 }
 
+// 0x648D30
 void CTaskSimpleBikeJacked::FinishAnimBikeHitCB(CAnimBlendAssociation* anim, void* data) {
     auto self = static_cast<CTaskSimpleBikeJacked*>(data);
     self->m_firstAnim = nullptr;

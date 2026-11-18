@@ -73,6 +73,7 @@ void CTaskComplexDriveFireTruck::InjectHooks() {
     RH_ScopedVMTInstall(ControlSubTask, 0x65B1E0);
 }
 
+// 0x659310
 CTaskComplexDriveFireTruck* CTaskComplexDriveFireTruck::Constructor(CVehicle* vehicle, CPed* partnerFireman, bool bIsDriver) {
     this->CTaskComplexDriveFireTruck::CTaskComplexDriveFireTruck(vehicle, partnerFireman, bIsDriver);
     return this;

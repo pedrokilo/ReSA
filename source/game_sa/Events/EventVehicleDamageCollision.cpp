@@ -64,6 +64,7 @@ CEventVehicleDamageCollision::CEventVehicleDamageCollision(CVehicle* vehicle, CE
     // empty
 }
 
+// 0x6A0620
 CEventVehicleDamageCollision* CEventVehicleDamageCollision::Constructor(CVehicle* vehicle, CEntity* attacker, eWeaponType weaponType)
 {
     this->CEventVehicleDamageCollision::CEventVehicleDamageCollision(vehicle, attacker, weaponType);

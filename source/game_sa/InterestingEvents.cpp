@@ -83,6 +83,7 @@ CInterestingEvents::CInterestingEvents()
     SetOptions(INTERESTING_EVENT_28,    10, 4000);
 }
 
+// 0x6023A0
 CInterestingEvents* CInterestingEvents::Constructor() {
     this->CInterestingEvents::CInterestingEvents();
     return this;
@@ -95,6 +96,7 @@ CInterestingEvents::~CInterestingEvents() {
     }
 }
 
+// 0x856880
 void CInterestingEvents::Destructor() {
     g_InterestingEvents.~CInterestingEvents();
 }

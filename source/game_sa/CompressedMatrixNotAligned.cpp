@@ -29,6 +29,9 @@ void CCompressedMatrixNotAligned::InjectHooks()
     RH_ScopedInstall(CompressFromFullMatrix, 0x59BAD0);
 }
 
+/*!
+ * @addr 0x59B9F0
+ */
 void CCompressedMatrixNotAligned::DecompressIntoFullMatrix(CMatrix& matrix) const
 {
     // Como el original: cada componente se multiplica por el float 1/127 (0x859BCC) en lugar de
@@ -43,6 +46,9 @@ void CCompressedMatrixNotAligned::DecompressIntoFullMatrix(CMatrix& matrix) cons
     matrix.Reorthogonalise();
 }
 
+/*!
+ * @addr 0x59BAD0
+ */
 void CCompressedMatrixNotAligned::CompressFromFullMatrix(const CMatrix& matrix)
 {
     m_vecRight = matrix.GetRight();

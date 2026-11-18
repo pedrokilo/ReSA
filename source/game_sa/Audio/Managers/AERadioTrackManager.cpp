@@ -604,6 +604,7 @@ static float CalculateRadioVolume355() {
     return AudioRadioVolumeDbCpp(effects, music);
 }
 
+// 0x4EA010
 void CAERadioTrackManager::UpdateRadioVolumes() {
     auto volume = -4.f;
     if (!((StaticRef<uint8>(0xB7CB49) || StaticRef<uint8>(0xB7CB48)) && m_bEnabledInPauseMode)) {

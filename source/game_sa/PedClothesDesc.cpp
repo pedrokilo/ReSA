@@ -42,6 +42,7 @@ CPedClothesDesc::CPedClothesDesc() {
     Initialise();
 }
 
+// 0x5A8020
 CPedClothesDesc* CPedClothesDesc::Constructor() {
     this->CPedClothesDesc::CPedClothesDesc();
     return this;

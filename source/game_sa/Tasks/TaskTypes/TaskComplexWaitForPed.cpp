@@ -107,6 +107,7 @@ EXCEPTION_DISPOSITION __cdecl WaitForPedUnwind(EXCEPTION_RECORD* record, void* f
 #pragma warning(push)
 #pragma warning(disable: 4733) // el marco se registra a mano en fs:[0], como el original (manejador 0x846798)
 #pragma runtime_checks("", off)
+// 0x683340
 CTaskComplexWaitForPed* CTaskComplexWaitForPed::Constructor(CPed* ped, float radius, uint32 time, bool rotate) {
     const uint32 previousHead = __readfsdword(0);
     WaitForPedFrame frame{ reinterpret_cast<WaitForPedFrame*>(static_cast<uintptr_t>(previousHead)), reinterpret_cast<void*>(&WaitForPedUnwind), this };

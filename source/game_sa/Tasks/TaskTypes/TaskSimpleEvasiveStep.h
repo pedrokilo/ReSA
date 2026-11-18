@@ -17,6 +17,7 @@ public:
     explicit CTaskSimpleEvasiveStep(CEntity* entity);
     ~CTaskSimpleEvasiveStep() override;
 
+    // 0x6531C0
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override { return new CTaskSimpleEvasiveStep(m_Entity); } // 0x655810
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;

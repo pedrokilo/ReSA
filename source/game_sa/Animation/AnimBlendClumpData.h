@@ -32,7 +32,13 @@ public:
 
     CAnimBlendClumpData();
     ~CAnimBlendClumpData();
+    /*!
+     * @addr 0x4CF0E0
+     */
     CAnimBlendClumpData* Constructor() { this->CAnimBlendClumpData::CAnimBlendClumpData(); return this; }
+    /*!
+     * @addr 0x4CF100
+     */
     CAnimBlendClumpData* Destructor()  { this->CAnimBlendClumpData::~CAnimBlendClumpData(); return this; }
 
     void ForAllFrames(void (*callback)(AnimBlendFrameData*, void*), void* data);

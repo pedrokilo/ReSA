@@ -59,6 +59,7 @@ void CTaskComplexUseWaterCannon::InjectHooks()
     RH_ScopedVMTInstall(ControlSubTask, 0x65A640);
 }
 
+// 0x659780
 CTaskComplexUseWaterCannon* CTaskComplexUseWaterCannon::Constructor(CFire* pFire)
 {
     this->CTaskComplexUseWaterCannon::CTaskComplexUseWaterCannon(pFire);

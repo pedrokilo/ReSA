@@ -26,7 +26,9 @@ public:
     CTaskComplexStareAtPed(const CTaskComplexStareAtPed&);
     ~CTaskComplexStareAtPed();
 
+    // 0x660390
     CTask*    Clone() const override { return new CTaskComplexStareAtPed{ *this }; }
+    // 0x660300
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

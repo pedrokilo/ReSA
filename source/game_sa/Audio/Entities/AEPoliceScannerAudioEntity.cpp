@@ -416,11 +416,13 @@ void CAEPoliceScannerAudioEntity::InjectHooks() {
     RH_ScopedInstall(Service, 0x4E7630);
 }
 
+// 0x56DA00
 CAEPoliceScannerAudioEntity* CAEPoliceScannerAudioEntity::Constructor() {
     this->CAEPoliceScannerAudioEntity::CAEPoliceScannerAudioEntity();
     return this;
 }
 
+// 0x4E6E00
 __declspec(noinline) CAEPoliceScannerAudioEntity* CAEPoliceScannerAudioEntity::Destructor() {
     this->CAEPoliceScannerAudioEntity::~CAEPoliceScannerAudioEntity();
     return this;

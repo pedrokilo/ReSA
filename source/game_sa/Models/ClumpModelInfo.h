@@ -52,6 +52,9 @@ public:
     void Init() override;
     void Shutdown() override;
     void DeleteRwObject() override;
+    /*!
+     * @addr 0x4C5730
+     */
     uint32 GetRwModelType() const override { return rpCLUMP; }
     RwObject* CreateInstance() override;
     RwObject* CreateInstance(RwMatrix* matrix) override;

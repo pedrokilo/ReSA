@@ -140,12 +140,14 @@ void CleanUpForShutDownCore(ExeRegs* regs) {
 // Envolturas de hook con los registros del EXE. /RTC1 añade __RTC_CheckEsp tras las llamadas (cambiaria ECX/EDX) y la cookie de /GS
 // tambien: de ahi runtime_checks off y safebuffers (lo vigila contrib/audit_register_residue.py, objeto PedGroups).
 #pragma runtime_checks("", off)
+// 0x5FB800
 __declspec(safebuffers) uint32 __fastcall AddGroupExe(uint32 entryEcx, uint32 entryEdx) {
     ExeRegs     regs{ 0, entryEcx, entryEdx };
     const int32 result = AddGroupCore(&regs);
     return ResidueRegsCpp(regs.ecx, regs.edx, static_cast<uint32>(result));
 }
 
+// 0x5FB8C0
 __declspec(safebuffers) uint32 __fastcall InitExe(uint32 entryEcx, uint32 entryEdx) {
     // Lo primero: ninguna instruccion anterior escribe EAX (lo vigila el auditor)
     const uint32 entryEax = EntryEaxCpp();
@@ -154,6 +156,7 @@ __declspec(safebuffers) uint32 __fastcall InitExe(uint32 entryEcx, uint32 entryE
     return ResidueRegsCpp(regs.ecx, regs.edx, regs.eax);
 }
 
+// 0x5FB930
 __declspec(safebuffers) uint32 __fastcall CleanUpForShutDownExe(uint32 entryEcx, uint32 entryEdx) {
     ExeRegs regs{ 0, entryEcx, entryEdx };
     CleanUpForShutDownCore(&regs);

@@ -282,6 +282,8 @@ float EntityA_AbsLikeExe(float v) {
  *
  * La lista concreta depende de eEntityType; el rectangulo se recorta primero a los
  * limites validos del mapa.
+ *
+ * @addr 0x5347D0
  */
 void CEntity::Add(const CRect& rect) {
     CRect usedRect = rect;
@@ -365,6 +367,8 @@ void CEntity::SetModelIndex(uint32 index) {
 /**
  * Cambia solo el model index y sincroniza flags derivados del CBaseModelInfo.
  * No crea todavia el RpAtomic/RpClump.
+ *
+ * @addr 0x533700
  */
 void CEntity::SetModelIndexNoCreate(uint32 index) {
     auto mi = CModelInfo::GetModelInfo(index);

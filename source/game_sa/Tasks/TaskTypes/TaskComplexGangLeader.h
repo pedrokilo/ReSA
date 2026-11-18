@@ -33,7 +33,9 @@ public:
     static CPed* TryToPassObject(CPed* ped, CPedGroup* group); // Como el original: cdecl (0x65EA50)
     void  UnrefAnimBlock(); // NOTSA
 
+    // 0x661FA0
     CTask*    Clone() const override { return new CTaskComplexGangLeader{ *this }; }
+    // 0x65DF20
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask*    CreateNextSubTask(CPed* ped) override;

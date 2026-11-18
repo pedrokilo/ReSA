@@ -363,10 +363,12 @@ void CAEGlobalWeaponAudioEntity::InjectHooks() {
     RH_ScopedInstall(PickAmbientGunFire, 0x4DEFE0); // lote 155A (banco Fn155A): thiscall con tres referencias de pila (`ret 0Ch`); no lee this
 }
 
+// 0x5075B0
 CAEGlobalWeaponAudioEntity* CAEGlobalWeaponAudioEntity::Constructor() {
     this->CAEGlobalWeaponAudioEntity::CAEGlobalWeaponAudioEntity();
     return this;
 }
+// 0x506C50
 CAEGlobalWeaponAudioEntity* CAEGlobalWeaponAudioEntity::Destructor() { this->CAEGlobalWeaponAudioEntity::~CAEGlobalWeaponAudioEntity(); return this; }
 
 // 0x506DC0 (lote 144A, banco Fn144A; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 0x506C50; test byte [esp+8],1; je ..; push esi; call 0x8214BD (operator delete);

@@ -21,7 +21,13 @@ public:
     // Como el original (0x5F67F0): solo copia el peatón; +0x24 y +0x34 vuelven a cero y +0x28 no se escribe
     CTaskSimpleWaitUntilLeaderAreaCodesMatch(const CTaskSimpleWaitUntilLeaderAreaCodesMatch& o) : CTaskSimpleWaitUntilAreaCodesMatch{o.m_pedToWaitFor} {}
 
+    /*!
+     * @addr 0x5F67F0
+     */
     CTask*    Clone() const override { return new CTaskSimpleWaitUntilLeaderAreaCodesMatch{*this}; }
+    /*!
+     * @addr 0x5F6870
+     */
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) override;
     bool      ProcessPed(CPed* ped) override;

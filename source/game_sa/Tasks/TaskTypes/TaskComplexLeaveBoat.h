@@ -21,7 +21,9 @@ public:
 
     CTask* CreateSubTask(eTaskType taskType);
 
+    // 0x63DA60
     CTask*    Clone() const override { return new CTaskComplexLeaveBoat{ *this }; }
+    // 0x63BBC0
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

@@ -94,6 +94,7 @@ static void CarCtrlAirExeBoatSpecial(CVehicle* boat) { reinterpret_cast<void(__t
 // 0x424100: XOR AL,AL; RET. Conserva EAX alto, ECX/EDX y los registros no volátiles. Función suelta (alias de dirección):
 // CCarCtrl es sólo el dueño de la instrumentación. Optimizada por pragma para que el cuerpo mida 3 bytes como el del EXE.
 #pragma optimize("gty", on)
+// 0x424100
 bool Native_00424100(float, float) { return false; }
 #pragma optimize("", on)
 
@@ -324,6 +325,7 @@ int32 CCarCtrl::ChooseCarModelToLoad(int32 groupID) {
     return -1;
 }
 
+// 0x421A40
 eModelID CCarCtrl::ChooseGangCarModel(eGangID loadedCarGroupId) {
     return CPopulation::PickGangCar(loadedCarGroupId);
 }
@@ -408,6 +410,7 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
     return ChoosePoliceCarModel(0);
 }
 
+// 0x421980
 int32 CCarCtrl::ChoosePoliceCarModel(uint32 ignoreLvpd1Model) {
     // Como el original: FindPlayerWanted(-1) se llama antes de cada consulta
     if (FindPlayerWanted(-1)->AreSwatRequired()
@@ -437,6 +440,7 @@ int32 CCarCtrl::ChoosePoliceCarModel(uint32 ignoreLvpd1Model) {
 #ifdef _DEBUG
 #pragma optimize("", on)
 #endif
+// 0x423F00
 void CCarCtrl::ClearInterestingVehicleList() {
     *reinterpret_cast<CVehicle* volatile*>(0x969084) = nullptr;
     *reinterpret_cast<CVehicle* volatile*>(0x969088) = nullptr;

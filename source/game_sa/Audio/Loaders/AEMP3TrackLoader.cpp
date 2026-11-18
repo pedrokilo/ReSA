@@ -71,6 +71,8 @@ CAEMP3TrackLoader::~CAEMP3TrackLoader() {
 /**
  * Carga STRMPAKS.DAT/TRAKLKUP.DAT y comprueba primero AUDIO\STREAMS local.
  * Si no está disponible, intenta resolver la ruta de medios del DVD.
+ *
+ * @addr 0x4E0C50
  */
 bool CAEMP3TrackLoader::Initialise() {
     if (!LoadStreamPackTable() || !LoadTrackLookupTable())
@@ -151,6 +153,8 @@ bool CAEMP3TrackLoader::LoadTrackLookupTable(void) {
  *
  * La cadena path se transfiere a CAEDataStream; el stream temporal la destruye al
  * finalizar. El tTrackInfo devuelto sí pasa a ser responsabilidad del llamador.
+ *
+ * @addr 0x4E0A70
  */
 tTrackInfo* CAEMP3TrackLoader::GetTrackInfo(uint32 trackId) {
     // Como el original: compara con '>' (acepta trackId == m_nTrackCount).

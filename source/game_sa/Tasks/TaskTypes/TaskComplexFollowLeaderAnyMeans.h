@@ -26,7 +26,9 @@ public:
 
     CTask* CreateSubTask(eTaskType taskType, CPed const* ped);
 
+    // 0x6957B0
     CTask*    Clone() const override { return new CTaskComplexFollowLeaderAnyMeans{ *this }; }
+    // 0x694B20
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

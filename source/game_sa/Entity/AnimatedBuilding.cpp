@@ -87,6 +87,8 @@ void CAnimatedBuilding::ProcessCollision()
 // 0x403F00
 /**
  * Ejecuta el pre-render base y sincroniza frame/HAnim antes de dibujar la geometría.
+ *
+ * @addr 0x403F00
  */
 void CAnimatedBuilding::PreRender()
 {

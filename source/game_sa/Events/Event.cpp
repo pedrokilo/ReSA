@@ -33,6 +33,7 @@ namespace CEventBody {
 // llevar marco ni comprobaciones: se optimiza por pragma (CMakeLists.txt: /Zi y BasicRuntimeChecks=Default para este archivo). __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos. (Lote 107A, banco Fn107A.)
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
+// 0x4AC010
 void __fastcall EventDestructorBody(CEvent* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }

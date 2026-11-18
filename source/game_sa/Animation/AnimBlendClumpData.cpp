@@ -75,6 +75,8 @@ CAnimBlendClumpData::~CAnimBlendClumpData() {
 /**
  * Redimensiona el almacenamiento de AnimBlendFrameData con alineación de 64 bytes.
  * Cualquier array anterior se libera antes de reservar el nuevo bloque.
+ *
+ * @addr 0x4CF140
  */
 void CAnimBlendClumpData::SetNumberOfBones(uint32 numBones) {
     if (m_FrameDatas) {

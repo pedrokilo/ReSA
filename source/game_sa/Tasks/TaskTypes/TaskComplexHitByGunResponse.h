@@ -20,10 +20,14 @@ public:
     CTaskComplexHitByGunResponse(const CTaskComplexHitByGunResponse&);
     ~CTaskComplexHitByGunResponse() override = default;
 
+    // 0x636640
     CTask*    Clone() const override { return new CTaskComplexHitByGunResponse{ *this }; }
+    // 0x631DF0
     eTaskType GetTaskType() const override { return Type; }
+    // 0x631E40
     CTask*    CreateNextSubTask(CPed* ped) override { return nullptr; }
     CTask*    CreateFirstSubTask(CPed* ped) override;
+    // 0x631F70
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
 

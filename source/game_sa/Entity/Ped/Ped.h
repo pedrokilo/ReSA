@@ -528,7 +528,9 @@ public:
     void MakeTyresMuddySectorList(PtrListType& ptrList);
     void DeadPedMakesTyresBloody();
     bool IsInVehicleThatHasADriver();
+    // 0x481090
     void SetStayInSamePlace(bool enable) { bStayInSamePlace = enable; }
+    // 0x479D10
     bool IsWearingGoggles() const { return !!m_pGogglesObject; }
 
     // inlined
@@ -655,6 +657,7 @@ public:
 
 private:
     friend class CEmergencyPed; // 0x5DE340 (banco Fn178A): el constructor del EXE de CEmergencyPed llama a esta envoltura (0x5E8030) como el original
+    // 0x5E8030
     // Virtual method wrappers
     auto Constructor(ePedType pt) { this->CPed::CPed(pt); return this; }
 };

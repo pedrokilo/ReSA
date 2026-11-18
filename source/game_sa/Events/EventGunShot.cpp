@@ -63,6 +63,7 @@ void CEventGunShot::InjectHooks() {
     RH_ScopedVMTInstall(ReportCriminalEvent, 0x4AC830);         // vacia, `ret 4`
 }
 
+// 0x4AC610
 CEventGunShot* CEventGunShot::Constructor(CEntity* entity, CVector startPoint, CVector endPoint, bool bHasNoSound) { this->CEventGunShot::CEventGunShot(entity, startPoint, endPoint, bHasNoSound); return this; }
 
 // 0x4AC610

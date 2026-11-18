@@ -95,6 +95,7 @@ CTaskComplexArrestPed::~CTaskComplexArrestPed() {
 // 0x68BA60
 
 
+// 0x68BA60
 bool CTaskComplexArrestPed::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
     return m_pSubTask->MakeAbortable(ped, priority, event);
 }
@@ -102,6 +103,7 @@ bool CTaskComplexArrestPed::MakeAbortable(CPed* ped, eAbortPriority priority, co
 // 0x690220 See #gists in discord
 
 
+// 0x690220
 CTask* CTaskComplexArrestPed::CreateNextSubTask(CPed* ped) {
     if (!m_PedToArrest) return CreateSubTask(TASK_FINISHED, ped);
     const auto flag = [&](size_t offset, uint8 mask) {
@@ -188,6 +190,7 @@ void MakeSurePedHasWeaponInHand(CPed* ped) {
 // 0x6907A0
 
 
+// 0x6907A0
 CTask* CTaskComplexArrestPed::CreateFirstSubTask(CPed* ped) {
     if (!m_PedToArrest) {
         return nullptr;
@@ -216,6 +219,7 @@ CTask* CTaskComplexArrestPed::CreateFirstSubTask(CPed* ped) {
 
 // 0x68D350
 
+// 0x68D350
 // 0x0
 CTask* CTaskComplexArrestPed::ControlSubTask(CPed* ped) {
     auto requested = TASK_NONE;

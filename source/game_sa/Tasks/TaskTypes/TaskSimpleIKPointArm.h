@@ -18,6 +18,9 @@ public:
     CTaskSimpleIKPointArm(const char* purpose, eIKArm arm, CEntity* targetEntity, eBoneTag32 offsetBoneTag, CVector offsetPos, float speed, int32 blendTime);
     ~CTaskSimpleIKPointArm() override = default; // 0x634240
 
+    /*!
+     * @addr 0x634230
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask*    Clone() const override;
 
@@ -39,7 +42,13 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x634150
+     */
     CTaskSimpleIKPointArm* Constructor(const char* purpose, eIKArm arm, CEntity* targetEntity, eBoneTag32 bone, RwV3d offsetPosn, float speed, int32 blendTime) { this->CTaskSimpleIKPointArm::CTaskSimpleIKPointArm(purpose, arm, targetEntity, bone, offsetPosn, speed, blendTime); return this; }
+    /*!
+     * @addr 0x634240
+     */
     CTaskSimpleIKPointArm* Destructor() { this->CTaskSimpleIKPointArm::~CTaskSimpleIKPointArm(); return this; }
 
 private:

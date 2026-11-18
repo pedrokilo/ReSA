@@ -35,9 +35,18 @@ public:
 
 private:
     friend struct SeekEntityCtorAccess;
+    /*!
+     * @addr 0x66B890
+     */
     __declspec(noinline) CTaskComplexTurnToFaceEntityOrCoord* Constructor(CEntity* entity, float changeRateMult, float maxHeading) { this->CTaskComplexTurnToFaceEntityOrCoord::CTaskComplexTurnToFaceEntityOrCoord(entity, changeRateMult, maxHeading); return this; }
+    /*!
+     * @addr 0x66B910
+     */
     __declspec(noinline) CTaskComplexTurnToFaceEntityOrCoord* Constructor(CVector const& coords, float changeRateMult, float maxHeading) { this->CTaskComplexTurnToFaceEntityOrCoord::CTaskComplexTurnToFaceEntityOrCoord(coords, changeRateMult, maxHeading); return this; }
 public:
+    /*!
+     * @addr 0x66B960
+     */
     __declspec(noinline) CTaskComplexTurnToFaceEntityOrCoord* Destructor() { this->CTaskComplexTurnToFaceEntityOrCoord::~CTaskComplexTurnToFaceEntityOrCoord(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexTurnToFaceEntityOrCoord, 0x28);

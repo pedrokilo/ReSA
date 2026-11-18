@@ -75,6 +75,7 @@ CSprite2d::CSprite2d()
 {
     m_pTexture = nullptr;
 }
+// 0x727230
 CSprite2d* CSprite2d::Constructor()
 {
     this->CSprite2d::CSprite2d();
@@ -84,6 +85,7 @@ CSprite2d* CSprite2d::Constructor()
 CSprite2d::~CSprite2d() {
     Delete();
 }
+// 0x7281E0
 CSprite2d* CSprite2d::Destructor()
 {
     this->CSprite2d::~CSprite2d();
@@ -156,6 +158,7 @@ void CSprite2d::Draw(float x, float y, float width, float height, const CRGBA& c
     Draw(posn, color);
 }
 
+// 0x728350
 void CSprite2d::Draw(const CRect& posn, const CRGBA& color)
 {
     Draw(posn, color, color, color, color);
@@ -179,6 +182,7 @@ void CSprite2d::Draw(const CRect& posn, const CRGBA& color, float u1, float v1, 
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
 }
 
+// 0x7284B0
 void CSprite2d::Draw(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4)
 {
     SetVertices(posn, color1, color2, color3, color4);
@@ -187,6 +191,7 @@ void CSprite2d::Draw(const CRect& posn, const CRGBA& color1, const CRGBA& color2
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
 }
 
+// 0x728520
 void CSprite2d::Draw(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, const CRGBA& color)
 {
     SetVertices(x1, y1, x2, y2, x3, y3, x4, y4, color, color, color, color);
@@ -201,6 +206,7 @@ void CSprite2d::SetRecipNearClip() {
     // NOP
 }
 
+// 0x727350
 void CSprite2d::InitPerFrame() {
     ZoneScoped;
 
@@ -210,6 +216,7 @@ void CSprite2d::InitPerFrame() {
     NearScreenZ = RWSRCGLOBAL(dOpenDevice).zBufferNear;
 }
 
+// 0x727390
 bool CSprite2d::IsVertexBufferEmpty()
 {
     return nextBufferVertex == 0;
@@ -222,6 +229,7 @@ bool CSprite2d::IsVertexBufferFull()
     return nextBufferVertex > TOTAL_RADIOSITY_VERTEX_BUFFER || nextBufferIndex > 0xFFA;
 }
 
+// 0x7273D0
 void CSprite2d::RenderVertexBuffer()
 {
     if (nextBufferVertex <= 0)
@@ -233,6 +241,7 @@ void CSprite2d::RenderVertexBuffer()
     nextBufferIndex = 0;
 }
 
+// 0x727420
 // different kinds of vertices' defining
 void CSprite2d::SetVertices(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4)
 {
@@ -244,6 +253,7 @@ void CSprite2d::SetVertices(const CRect& posn, const CRGBA& color1, const CRGBA&
         1.f + offset, 1.f + offset);
 }
 
+// 0x727590
 void CSprite2d::SetVertices(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4)
 {
     RwIm2DVertexSetScreenX(&maVertices[0], x3);
@@ -279,6 +289,7 @@ void CSprite2d::SetVertices(float x1, float y1, float x2, float y2, float x3, fl
     RwIm2DVertexSetIntRGBA(&maVertices[3], color1.r, color1.g, color1.b, color1.a);
 }
 
+// 0x727710
 void CSprite2d::SetVertices(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4,
     float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4)
 {
@@ -366,6 +377,7 @@ void CSprite2d::SetVertices(RwIm2DVertex* vertices, const CRect& posn, const CRG
     RwIm2DVertexSetIntRGBA(&vertices[3], color1.r, color1.g, color1.b, color1.a);
 }
 
+// 0x727B60
 // draws non-textured rectangle
 void CSprite2d::DrawRect(const CRect& posn, const CRGBA& color) {
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
@@ -375,12 +387,14 @@ void CSprite2d::DrawRect(const CRect& posn, const CRGBA& color) {
     RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(FALSE));
 }
 
+// 0x727BE0
 // this could be used for drawing textured rectangle (use SetRenderState() before this)
 void CSprite2d::DrawTxRect(const CRect& posn, const CRGBA& color) {
     CSprite2d::SetVertices(posn, color, color, color, color);
     RwIm2DRenderPrimitive(rwPRIMTYPETRIFAN, maVertices.data(), 4);
 }
 
+// 0x727C10
 // draw non-textured rectangle, with setupable corners' colors.
 void CSprite2d::DrawRect(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4) {
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
@@ -400,6 +414,7 @@ void CSprite2d::DrawRectXLU(const CRect& posn, const CRGBA& color1, const CRGBA&
     RwIm2DRenderPrimitive(rwPRIMTYPETRIFAN, maVertices.data(), 4);
 }
 
+// 0x727CC0
 // draws rectangle, texture could be set with SetRenderState().
 void CSprite2d::DrawAnyRect(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4) {
     SetVertices(x1, y1, x2, y2, x3, y3, x4, y4, color1, color2, color3, color4);
@@ -460,12 +475,14 @@ void CSprite2d::SetVerticesForSniper(const CRect& posn, const CRGBA& color1, con
     ((void(__cdecl*)(const CRect&, const CRGBA&, const CRGBA&, const CRGBA&, const CRGBA&))0x727FD0)(posn, color1, color2, color3, color4);
 }
 
+// 0x728150
 void CSprite2d::OffsetTexCoordForBilinearFiltering(float width, float height)
 {
     // Como el original 0x728150: mantiene los dos offsets en x87 y sólo toca cuatro UV (X87Math.cpp).
     SpriteBilinearOffsetCpp(reinterpret_cast<float*>(maVertices.data()), width, height);
 }
 
+// 0x728200
 // add vertices to buffer
 void CSprite2d::AddToBuffer(const CRect& posn, const CRGBA& color, float u1, float v1, float u2, float v2, float u3, float v3, float u4, float v4)
 {

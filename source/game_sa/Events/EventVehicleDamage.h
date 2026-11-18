@@ -18,12 +18,21 @@ public:
     CEventVehicleDamage(CVehicle* vehicle, CEntity* attacker, eWeaponType weaponType);
     ~CEventVehicleDamage() override;
 
+    /*!
+     * @addr 0x4B1980
+     */
     int32 GetEventPriority() const override { return 49; }
+    /*!
+     * @addr 0x4B1960
+     */
     int32 GetLifeTime() override { return 0; }
     bool AffectsPed(CPed* ped) override;
     bool IsCriminalEvent() override;
     void ReportCriminalEvent(CPed* ped) override;
     CEntity* GetSourceEntity() const override;
+    /*!
+     * @addr 0x4B1970
+     */
     float GetLocalSoundLevel() override { return 55.0f; }
 
 private:

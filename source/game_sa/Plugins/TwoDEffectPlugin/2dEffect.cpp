@@ -55,6 +55,8 @@ void C2dEffect::InjectHooks()
  *
  * Roadsign libera texto y atomic generado; light libera sus texturas. Los tipos
  * puramente descriptivos no requieren trabajo adicional.
+ *
+ * @addr 0x4C57D0
  */
 void C2dEffect::Shutdown()
 {
@@ -82,6 +84,7 @@ void C2dEffect::Shutdown()
     }
 }
 
+// 0x6FA640
 int32 C2dEffect::Roadsign_GetNumLinesFromFlags(CRoadsignAttrFlags flags)
 {
     switch (flags.m_nNumOfLines) {
@@ -96,6 +99,7 @@ int32 C2dEffect::Roadsign_GetNumLinesFromFlags(CRoadsignAttrFlags flags)
     return 4;
 }
 
+// 0x6FA670
 int32 C2dEffect::Roadsign_GetNumLettersFromFlags(CRoadsignAttrFlags flags)
 {
     switch (flags.m_nSymbolsPerLine) {
@@ -110,6 +114,7 @@ int32 C2dEffect::Roadsign_GetNumLettersFromFlags(CRoadsignAttrFlags flags)
     return 16;
 }
 
+// 0x6FA6A0
 int32 C2dEffect::Roadsign_GetPaletteIDFromFlags(CRoadsignAttrFlags flags)
 {
 
@@ -127,6 +132,8 @@ int32 C2dEffect::Roadsign_GetPaletteIDFromFlags(CRoadsignAttrFlags flags)
 
 /**
  * Reserva el payload del plugin en RpGeometry y conecta sus callbacks de streaming.
+ *
+ * @addr 0x6FA970
  */
 bool C2dEffect::PluginAttach()
 {
@@ -148,6 +155,7 @@ bool C2dEffect::PluginAttach()
     return C2dEffect::g2dEffectPluginOffset != -1;
 }
 
+// 0x4C54E0
 // Destruye primero el frame propiedad del atomic y después el propio RpAtomic.
 void C2dEffect::DestroyAtomic(RpAtomic* atomic)
 {
@@ -162,6 +170,7 @@ void C2dEffect::DestroyAtomic(RpAtomic* atomic)
     RpAtomicDestroy(atomic);
 }
 
+// 0x4C4340
 uint32 RpGeometryGet2dFxCount(RpGeometry* geometry)
 {
     auto plugin = C2DEFFECTPLG(geometry, m_pEffectEntries);
@@ -171,12 +180,14 @@ uint32 RpGeometryGet2dFxCount(RpGeometry* geometry)
     return plugin->m_nObjCount;
 }
 
+// 0x4C4A40
 C2dEffect* RpGeometryGet2dFxAtIndex(RpGeometry* geometry, int32 iEffectInd)
 {
     auto plugin = C2DEFFECTPLG(geometry, m_pEffectEntries);
     return &plugin->m_pObjects[iEffectInd];
 }
 
+// 0x6F9F90
 void* t2dEffectPluginConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject)
 {
     C2DEFFECTPLG(object, m_pEffectEntries) = nullptr;
@@ -186,6 +197,8 @@ void* t2dEffectPluginConstructor(void* object, RwInt32 offsetInObject, RwInt32 s
 /**
  * Destruye individualmente los recursos de cada efecto y después libera el bloque
  * contiguo que contiene el contador y el array C2dEffect.
+ *
+ * @addr 0x6FA880
  */
 void* t2dEffectPluginDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject)
 {
@@ -206,6 +219,7 @@ void* t2dEffectPluginDestructor(void* object, RwInt32 offsetInObject, RwInt32 si
     return object;
 }
 
+// 0x6F9FB0
 void* t2dEffectPluginCopyConstructor(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject)
 {
     C2DEFFECTPLG(dstObject, m_pEffectEntries) = nullptr;
@@ -218,6 +232,8 @@ void* t2dEffectPluginCopyConstructor(void* dstObject, const void* srcObject, RwI
  * Cada sección se valida por tipo/tamaño antes de poblar la unión correspondiente.
  * Los efectos inválidos se omiten del conteo final; light y roadsign además adquieren
  * recursos dinámicos que Shutdown() liberará posteriormente.
+ *
+ * @addr 0x6F9FD0
  */
 RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject)
 {
@@ -421,11 +437,13 @@ RwStream* Rwt2dEffectPluginDataChunkReadCallBack(RwStream* stream, RwInt32 binar
     return stream;
 }
 
+// 0x6FA620
 RwStream* Rwt2dEffectPluginDataChunkWriteCallBack(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject)
 {
     return stream;
 }
 
+// 0x6FA630
 RwInt32 Rwt2dEffectPluginDataChunkGetSizeCallBack(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject)
 {
     return -1;

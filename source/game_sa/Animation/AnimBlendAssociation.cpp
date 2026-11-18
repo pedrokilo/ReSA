@@ -160,6 +160,8 @@ float CAnimBlendAssociation::GetTimeProgress() const {
  *
  * Cada secuencia se asigna al frame/bone correspondiente; los nodos sin secuencia
  * permanecen válidos como slots vacíos para conservar el mismo orden que el clump.
+ *
+ * @addr 0x4CED50
  */
 void CAnimBlendAssociation::Init(RpClump* clump, CAnimBlendHierarchy* animHierarchy) {
     CAnimBlendClumpData* animClumpData = RpAnimBlendClumpGetData(clump);
@@ -266,6 +268,8 @@ void CAnimBlendAssociation::SetBlendTo(float blendAmount, float blendDelta) {
  * En animaciones looped normaliza el tiempo dentro de la duración total; en las
  * no looped lo satura al final. Después prepara secuencias comprimidas o expandidas
  * según la política de la jerarquía.
+ *
+ * @addr 0x4CEA80
  */
 void CAnimBlendAssociation::SetCurrentTime(float currentTime) {
     for (m_CurrentTime = currentTime; m_CurrentTime >= m_BlendHier->m_fTotalTime; m_CurrentTime -= m_BlendHier->m_fTotalTime) {
@@ -320,6 +324,8 @@ void CAnimBlendAssociation::SyncAnimation(CAnimBlendAssociation* syncWith) {
  *
  * Si la asociación se autodestruye, ejecuta primero el callback configurado y
  * devuelve false para advertir al llamador que this ya no es válido.
+ *
+ * @addr 0x4D1490
  */
 bool CAnimBlendAssociation::UpdateBlend(float timeStep) {
     m_BlendAmount += m_BlendDelta * timeStep;
@@ -360,6 +366,8 @@ bool CAnimBlendAssociation::UpdateBlend(float timeStep) {
  *
  * También arma el fade-out automático y dispara el callback de finalización cuando
  * corresponda. El avance real por frame se encuentra en m_TimeStep.
+ *
+ * @addr 0x4D13D0
  */
 bool CAnimBlendAssociation::UpdateTime(float timeStep, float timeMult) {
     UNUSED(timeStep);

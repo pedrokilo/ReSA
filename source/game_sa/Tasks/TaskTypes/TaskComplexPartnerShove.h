@@ -12,6 +12,9 @@ public:
     CTaskComplexPartnerShove(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, int8 updateDirectionCount, CVector point);
     ~CTaskComplexPartnerShove() override = default;
 
+    /*!
+     * @addr 0x681E20
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override; // 0x684ED0 (lote 185A, sin validar)
     virtual CTaskComplexSequence* GetPartnerSequence();

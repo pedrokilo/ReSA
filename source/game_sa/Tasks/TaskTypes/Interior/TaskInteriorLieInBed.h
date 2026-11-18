@@ -31,7 +31,9 @@ public:
 
     static void FinishAnimCB(CAnimBlendAssociation*, void*);
 
+    // 0x675EF0
     CTask*    Clone() const override { return new CTaskInteriorLieInBed{*this}; }
+    // 0x675E80
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) override;
     bool      ProcessPed(CPed* ped) override;

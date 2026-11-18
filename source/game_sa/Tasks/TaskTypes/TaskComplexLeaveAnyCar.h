@@ -14,17 +14,35 @@ public:
     CTaskComplexLeaveAnyCar(int32 delayTime, bool sensibleLeaveCar, bool forceGetOut);
     ~CTaskComplexLeaveAnyCar() = default;
 
+    /*!
+     * @addr 0x4211C0
+     */
     CTask* Clone() const override { return new CTaskComplexLeaveAnyCar(m_nDelayTime, m_sensibleLeaveCar, m_forceGetOut); }
+    /*!
+     * @addr 0x421240
+     */
     eTaskType GetTaskType() const override { return Type; }
+    /*!
+     * @addr 0x63BCD0
+     */
     CTask* CreateNextSubTask(CPed* ped) override { return nullptr; }
     CTask* CreateFirstSubTask(CPed* ped) override;
+    /*!
+     * @addr 0x63BDC0
+     */
     CTask* ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x421150
+     */
     CTaskComplexLeaveAnyCar* Constructor(int32 delayTime, bool sensibleLeaveCar, bool forceGetOut) { this->CTaskComplexLeaveAnyCar::CTaskComplexLeaveAnyCar(delayTime, sensibleLeaveCar, forceGetOut); return this; }
+    /*!
+     * @addr 0x421270
+     */
     __declspec(noinline) CTaskComplexLeaveAnyCar* Destructor() { this->CTaskComplexLeaveAnyCar::~CTaskComplexLeaveAnyCar(); return this; }
     CTaskComplexLeaveAnyCar* ScalarDeletingDestructor(uint8 flags); // 0x421250 (lote 127A, banco Fn127A): destructor con borrado (ranura 0 de la vtable 0x858EB0), `ret 4`
 };

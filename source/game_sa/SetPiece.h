@@ -37,10 +37,20 @@ public:
     CVehicle* TryToGenerateCopCar(CVector2D posn, CVector2D target);
     void Update();
 
+    // @addr 0x4997A0
     // Inlined shit API
     CVector2D GetSpawnCoord1() const { return m_SpawnCoord1; }
+    /*!
+     * @addr 0x4997E0
+     */
     CVector2D GetSpawnCoord2() const { return m_SpawnCoord2; }
+    /*!
+     * @addr 0x499820
+     */
     CVector2D GetTargetCoord1() const { return m_TargetCoord1; }
+    /*!
+     * @addr 0x499860
+     */
     CVector2D GetTargetCoord2() const { return m_TargetCoord2; }
     void SetCornerA(CVector2D c) { m_AreaRect.x1 = c.x; m_AreaRect.y1 = c.y; }
     void SetCornerB(CVector2D c) { m_AreaRect.x2 = c.x; m_AreaRect.y2 = c.y; }

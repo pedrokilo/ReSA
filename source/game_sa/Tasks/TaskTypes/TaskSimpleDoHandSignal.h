@@ -16,8 +16,11 @@ public:
     CTaskSimpleDoHandSignal(const CTaskSimpleDoHandSignal&);
     ~CTaskSimpleDoHandSignal() = default;
 
+    // 0x6608C0
     CTask*    Clone() const override { return new CTaskSimpleDoHandSignal{*this}; }
+    // 0x6608A0
     eTaskType GetTaskType() const override { return Type; }
+    // 0x660930
     bool      MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) override { return true; }
     bool      ProcessPed(CPed* ped) override;
 

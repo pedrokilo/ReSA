@@ -83,6 +83,7 @@ public:
     void GetRWMatrix(RwMatrix& outMatrix);
 
 private:
+    // @addr 0x5C2010
     // Load has a base implementation but remains pure virtual; avoid its vcall thunk.
     bool Load_Reversed(FILESTREAM file, int32 version, FxName32_t* textureNames) {
         return FxPrimBP_c::Load(file, version, textureNames);

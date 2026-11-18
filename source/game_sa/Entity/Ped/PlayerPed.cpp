@@ -80,6 +80,7 @@ bool CPlayerPed::bDebugTapToTarget;
 // PlayerPedResidueFloatCpp (ECX = datos del jugador, EDX = el de entrada, ST0 = resultado), asi que no usa ensamblador.
 // Sin comprobaciones de ejecucion (RTC) ni cookie de /GS para que no cambien ECX/EDX tras la ultima llamada.
 #pragma runtime_checks("", off)
+// 0x60A820
 static float __declspec(safebuffers) __fastcall GetButtonSprintResultsKeepEdx(CPlayerPed* self, uint32 entryEdx, eSprintType sprintType) {
     const float result = self->GetButtonSprintResults(sprintType);
     return PlayerPedResidueFloatCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self->GetPlayerData())), entryEdx, result);

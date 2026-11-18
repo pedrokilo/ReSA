@@ -441,6 +441,7 @@ void CAnimManager::AddAnimBlockRef(int32 index) {
 // 0x4D3FD0 (cdecl): los llamadores del EXE conservan ECX y EDX (alguno prueba CL justo despues); se optimiza por pragma (CMakeLists.txt: /Zi y sin comprobaciones de ejecucion).
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
+// 0x4D3FD0
 CAnimBlock* CAnimManager::RemoveAnimBlockRef(int32 index) {
     // Sin comprobacion de rango y sin llamadas (`array::data()` sin expandir en linea tocaria ECX): el EXE usa el indice tal cual (0x4D3FD0: `shl eax,5`, `add eax,0B5D4A0h`, `dec word [eax+0x12]`)
     // y deja la direccion del bloque en EAX; devolverla hace que el compilador use EAX (y no ECX) como unico registro de trabajo.

@@ -41,6 +41,7 @@ public:
             ? new CTaskComplexSeekCoverUntilTargetDead{ m_groupId }
             : new CTaskComplexSeekCoverUntilTargetDead{ m_targetPed };
     }
+    // 0x622BB0
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

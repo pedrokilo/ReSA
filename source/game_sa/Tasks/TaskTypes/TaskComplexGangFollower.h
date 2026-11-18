@@ -43,7 +43,9 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    // 0x65EAA0
     CTaskComplexGangFollower* Constructor(CPedGroup* pedGroup, CPed* ped, uint8 uint8, CVector pos, float a6) { this->CTaskComplexGangFollower::CTaskComplexGangFollower(pedGroup, ped, uint8, pos, a6); return this; }
+    // 0x65EBB0
     __declspec(noinline) CTaskComplexGangFollower* Destructor() { this->CTaskComplexGangFollower::~CTaskComplexGangFollower(); return this; }
     CTaskComplexGangFollower* ScalarDeletingDestructor(uint8 flags); // 0x6629F0 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x86F938), `ret 4`
 };

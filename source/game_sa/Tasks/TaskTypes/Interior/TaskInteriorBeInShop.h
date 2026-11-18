@@ -17,8 +17,11 @@ public:
     CTaskInteriorBeInShop(const CTaskInteriorBeInShop&);
     ~CTaskInteriorBeInShop() override = default;
 
+    // 0x675470
     CTask*      Clone() const override { return new CTaskInteriorBeInShop{ *this }; }
+    // 0x675450
     eTaskType   GetTaskType() const override { return Type; }
+    // 0x675440
     eWanderType GetWanderType() override { return eWanderType::WANDER_TYPE_SHOP; }
     void        ScanForStuff(CPed* ped) override;
 

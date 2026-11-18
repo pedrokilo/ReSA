@@ -108,6 +108,7 @@ static CVector ProjectileThrownVelocity(float heading, float speed, float height
     const float outputY = TrigSimpleCosMulCpp(heading, speed);
     return CVector{outputX, outputY, height};
 }
+// 0x737C80
 bool CProjectileInfo::AddProjectile(CEntity* creator, eWeaponType projectileType, CVector origin, float force, const CVector* dir, CEntity* target) {
     const uint32 type = uint32(projectileType);
     if (type != 16 && type != 17 && type != 18 && type != 19 && type != 20 && type != 21 && type != 39 && type != 58) return false;
@@ -264,6 +265,7 @@ void LimitProjectileSpeed(CProjectile* projectile) {
     ProjInfoLimitSpeedCpp(&projectile->m_vecMoveSpeed.x, StaticRef<float>(0x872C00));
 }
 }
+// 0x738B20
 void CProjectileInfo::Update() {
     if (StaticRef<uint8>(0xA43088) == 1) return;
     const uint32 now = CTimer::GetTimeInMS(); const float timestep = CTimer::GetTimeStep();

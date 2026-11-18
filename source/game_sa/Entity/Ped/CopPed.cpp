@@ -217,6 +217,8 @@ size_t CCopPed::GetEmptySlotForCriminalToKill() {
 /**
  * Inserta un objetivo válido en el primer slot libre, registra referencia segura y
  * extiende temporalmente su rango/tiempo de streaming para mantenerlo disponible.
+ *
+ * @addr 0x5DDEB0
  */
 int32 CCopPed::AddCriminalToKill(CPed* criminal) {
     if (!criminal)
@@ -302,6 +304,8 @@ void CCopPed::ClearCriminalsToKill() {
 /**
  * Ejecuta CPed::ProcessControl(), actualiza arma/speech y aplica la lógica policial
  * adicional sólo cuando el ped no fue pospuesto ni ha muerto.
+ *
+ * @addr 0x5DE160
  */
 void CCopPed::ProcessControl() {
     if (FindPlayerWanted()->GetWantedLevel() != eWantedLevel::WANTED_CLEAN) {

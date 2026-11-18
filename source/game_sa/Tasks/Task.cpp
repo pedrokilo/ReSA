@@ -58,6 +58,7 @@ CTask::~CTask() {
 // BasicRuntimeChecks=Default para este archivo), sin marco de pila ni comprobaciones de ejecucion. La vtable es la del EXE (no la de la DLL), como en el original.
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
+// 0x61A3A0
 void CTask::Destructor() {
     *reinterpret_cast<uint32*>(this) = 0x86D48C;
 }
@@ -69,6 +70,7 @@ namespace CTaskBody {
 // condiciones que CTask::Destructor: optimizada por pragma, sin marco ni comprobaciones). Funcion propia (no la de CTask::Destructor) para que cada direccion tenga su hook y su ruta en el banco.
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
+// 0x61A350
 void __fastcall DestructorCopy(CTask* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x86D48C;
 }
@@ -96,6 +98,7 @@ namespace CTaskSimpleBody {
 // this en EAX; ECX y EDX salen intactos. Los 200 llamadores son constructores de tareas simples del EXE (la vtable de la DLL no vale para ellos).
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
+// 0x61A390
 void* __fastcall Constructor(void* self, void* /*edx*/) {
     uint32* const words = static_cast<uint32*>(self);
     words[1] = 0;
@@ -136,6 +139,7 @@ void __fastcall Destructor(CTask* self, void* /*edx*/) {
 // Los 198 llamadores son constructores de tareas complejas del EXE. __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos de pila (`ret`).
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
+// 0x61A390
 void* __fastcall Constructor(void* self, void* /*edx*/) {
     uint32* const words = static_cast<uint32*>(self);
     words[1] = 0;

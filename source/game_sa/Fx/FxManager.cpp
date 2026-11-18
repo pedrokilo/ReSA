@@ -75,6 +75,7 @@ FxManager_c::FxManager_c() {
     m_FxEmitters = nullptr;
 }
 
+// 0x4A9470
 FxManager_c* FxManager_c::Constructor() {
     // Como el original: las tres listas a cero (0x4A8DD0), el frustum sólo pone a 0 m_nNumPlanesPassed de su esfera
     // (0x4A9F70; centro, radio y planos quedan sin escribir), el pool no escribe nada (0x4A9C10) y m_FxEmitters = 0.
@@ -103,6 +104,7 @@ static FxEmitterPrt_c* NewFxEmitterArray() {
     return emitters;
 }
 
+// 0x4A90A0
 FxManager_c* FxManager_c::Destructor() {
     this->FxManager_c::~FxManager_c();
     return this;
@@ -112,6 +114,8 @@ FxManager_c* FxManager_c::Destructor() {
 /**
  * Inicializa la arena, el pequeño pool temporal de matrices y las 1000 partículas
  * emitter preasignadas que se mantienen en la lista libre.
+ *
+ * @addr 0x4A98E0
  */
 bool FxManager_c::Init() {
     m_Pool.Init();
@@ -145,6 +149,8 @@ void FxManager_c::Exit() {
 /**
  * Devuelve al pool todas las partículas pertenecientes al sistema antes de retirarlo
  * de la lista activa y destruir su instancia.
+ *
+ * @addr 0x4A9810
  */
 void FxManager_c::DestroyFxSystem(FxSystem_c* system) {
     assert(system);
@@ -184,6 +190,8 @@ void FxManager_c::DestroyAllFxSystems() {
 /**
  * Carga el TXD complementario y parsea todos los FxSystemBP_c de un proyecto .fxp.
  * Al terminar compacta la arena al tamaño realmente utilizado por los blueprints.
+ *
+ * @addr 0x5C2420
  */
 bool FxManager_c::LoadFxProject(const char* path) {
     char txdPath[256]; // to be set to "models\\effectsPC.txd"
@@ -297,6 +305,8 @@ void FxManager_c::CalcFrustumInfo(RwCamera* camera) {
 /**
  * Actualiza blueprints y sistemas activos; si un FxSystem_c informa fin de vida,
  * se destruye durante el mismo recorrido sin reutilizar el iterador invalidado.
+ *
+ * @addr 0x4A9A80
  */
 void FxManager_c::Update(RwCamera* camera, float timeDelta) {
     // ((void(__thiscall*)(FxManager_c*, RwCamera*, float))0x4A9A80)(this, camera, timeDelta);

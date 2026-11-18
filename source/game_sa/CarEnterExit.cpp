@@ -36,6 +36,7 @@ END GENERATED HOOK STATUS */
 // CarEnterExitEntryEdxCpp (EDX de entrada en la mitad alta del resultado de 64 bits; ver X87Math.h) y lo ultimo es
 // ResidueRegsCpp, que deja EDX = el de entrada y EAX = el resultado (ECX no lo lee ningun llamador del EXE).
 #pragma runtime_checks("", off)
+// 0x64F1E0
 static int32 __declspec(safebuffers) __cdecl ComputePassengerIndexFromCarDoor_KeepEdx(const CVehicle* vehicle, int32 doorId) {
     const uint32 entryEdx = uint32(CarEnterExitEntryEdxCpp() >> 32);
     const int32  result   = CCarEnterExit::ComputePassengerIndexFromCarDoor(vehicle, doorId);

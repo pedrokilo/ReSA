@@ -28,7 +28,9 @@ public:
     ~CTaskSimpleAffectSecondaryBehaviour() override; // 0x6912C0
 
     CTask*    Clone() const override; // 0x692910
+    // 0x6912A0
     eTaskType GetTaskType() const override { return Type; }
+    // 0x6912B0
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return false; }
     bool      ProcessPed(CPed* ped) override;
 

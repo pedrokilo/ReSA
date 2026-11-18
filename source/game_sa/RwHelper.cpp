@@ -215,6 +215,7 @@ RpHAnimHierarchy* GetAnimHierarchyFromFrame(RwFrame* frame) {
 // Forma del hook en 0x734AB0: el original conserva ECX de entrada. Se declara __fastcall sin parametros en la pila (el llamador cdecl
 // limpia la pila) y el marco se lee bajo la direccion de retorno.
 #pragma runtime_checks("", off)
+// 0x734AB0
 uint32 __fastcall GetAnimHierarchyFromFrameRegs(void* entryEcx, uint32 entryEdx) {
     RwFrame* const frame = reinterpret_cast<RwFrame*>(static_cast<uintptr_t>(static_cast<const uint32*>(_AddressOfReturnAddress())[1]));
     RpHAnimHierarchy* const hierarchy = GetAnimHierarchyFromFrame(frame);

@@ -79,6 +79,7 @@ void CQuaternion::Slerp(const CQuaternion& from, const CQuaternion& to, float ha
 // Quat from matrix (0x59C3E0). Cuatro ramas segun la traza; cada operacion x87 del EXE (24 bits) es una operacion float, en su
 // orden, y las lecturas de la matriz y escrituras del cuaternion se intercalan como en el EXE (la salida puede solaparse con la matriz).
 #pragma float_control(precise, on, push)
+// 0x59C3E0
 void CQuaternion::Set(const RwMatrix& m) {
     const float zero = 0.0f, half = 0.5f, one = 1.0f; // 0x858B50, 0x858B8C, 0x858624
     // fcom + "test ah,1": un NaN (desordenado) o negativo sigue a la rama siguiente.

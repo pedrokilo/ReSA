@@ -378,11 +378,17 @@ protected:
     void ChangeTaskInSlot(CTask*& taskInSlot, CTask* changeTo);
 
 private:
+    /*!
+     * @addr 0x6816A0
+     */
     CTaskManager* Constructor(CPed* ped) {
         this->CTaskManager::CTaskManager(ped);
         return this;
     }
 
+    /*!
+     * @addr 0x6816D0
+     */
     CTaskManager* Destructor() {
         this->CTaskManager::~CTaskManager();
         return this;

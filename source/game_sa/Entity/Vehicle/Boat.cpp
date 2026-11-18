@@ -269,6 +269,8 @@ void CBoat::PruneWakeTrail() {
 /**
  * Inserta un nuevo punto en la cabeza del historial si el barco avanzó lo suficiente.
  * La longitud máxima del historial depende de player/mission/ambient.
+ *
+ * @addr 0x6F2550
  */
 void CBoat::AddWakePoint(CVector pos) {
     // Como el original: _ftol2 (truncamiento a 64 bits) y se guarda el byte bajo
@@ -515,6 +517,8 @@ void CBoat::CheckForSkippingCalculations() {
 /**
  * Selecciona para este frame los barcos con wake relevantes para cámara, limitado al
  * pequeño array global de generación.
+ *
+ * @addr 0x6F2710
  */
 void CBoat::FillBoatList() {
     apFrameWakeGeneratingBoats.fill(nullptr);
@@ -599,6 +603,8 @@ void CBoat::SetModelIndex(uint32 index) {
 // 0x6F1770
 /**
  * Orquesta audio, wake, alarmas, input/AI, buoyancy y física según eEntityStatus.
+ *
+ * @addr 0x6F1770
  */
 void CBoat::ProcessControl() {
     m_vehicleAudio.Service();

@@ -11,6 +11,7 @@ public:
     explicit CTaskAllocatorKillThreatsBasic(CPed* threat);
     ~CTaskAllocatorKillThreatsBasic() override = default;
 
+    // 0x69C770
     eTaskAllocatorType GetType() override { return eTaskAllocatorType::KILL_THREATS_BASIC; }; // 0x69C2C0
     void               AllocateTasks(CPedGroupIntelligence* intel) override;
     CTaskAllocator*    ProcessGroup(CPedGroupIntelligence* intel) final override;

@@ -61,6 +61,9 @@ public:
 public:
     static void InjectHooks();
 
+    /*!
+     * @addr 0x5FD8C0
+     */
     CPedIK* Constructor(CPed* ped) {
         this->CPedIK::CPedIK(ped);
         return this;

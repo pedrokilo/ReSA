@@ -64,6 +64,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x6C8D60
+     */
     CMonsterTruck* Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) { this->CMonsterTruck::CMonsterTruck(modelIndex, createdBy); return this; };
     CMonsterTruck* Destructor() { this->CMonsterTruck::~CMonsterTruck(); return this; };
     CMonsterTruck* ScalarDeletingDestructor(uint8 flags); // 0x6C7F90 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable 0x8717D8), `ret 4`

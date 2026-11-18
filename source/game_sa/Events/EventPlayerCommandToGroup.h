@@ -25,10 +25,22 @@ public:
     eEventType GetEventType() const override { return EVENT_PLAYER_COMMAND_TO_GROUP; }
     int32_t GetEventPriority() const override { return 44; }
     CEventPlayerCommandToGroup* CloneEditable() const noexcept override { return new CEventPlayerCommandToGroup(ePlayerGroupCommand::PLAYER_GROUP_COMMAND_ATTACK, m_target); }
+    /*!
+     * @addr 0x4B2440
+     */
     int32_t GetLifeTime() override { return 0; }
+    /*!
+     * @addr 0x4B2450
+     */
     bool AffectsPed(CPed* ped) override { return false; }
     bool AffectsPedGroup(CPedGroup* pedGroup) override;
+    /*!
+     * @addr 0x4B2460
+     */
     CEntity* GetSourceEntity() const override { return reinterpret_cast<CEntity*>(m_target); }
+    /*!
+     * @addr 0x4B2520
+     */
     bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
 
     CEventPlayerCommandToGroup* Constructor(ePlayerGroupCommand command, CPed* target); // 0x4B23D0 (publico: CEventPlayerCommandToGroupAttack::CloneEditable, lote 157A, lo llama como el EXE)

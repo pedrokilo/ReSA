@@ -35,6 +35,7 @@ void CSphere::InjectHooks() {
 // otro valor): se optimiza por pragma (CMakeLists.txt: /Zi y sin comprobaciones de ejecucion), que deja el cuerpo en EAX/EDX.
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
+// 0x40FCF0
 void CSphere::Set(float radius, const CVector& center) {
     m_fRadius = radius;
     // Componente a componente y en este orden, como el EXE (0x40FCF8..0x40FD08): `CVector::operator=` sin expandir en linea es una llamada que reescribe ECX.

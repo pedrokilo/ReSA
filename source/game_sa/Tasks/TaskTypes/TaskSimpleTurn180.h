@@ -23,9 +23,12 @@ public:
 
     static void FinishAnimTurn180CB(CAnimBlendAssociation* anim, void* data);
 
+    // 0x636570
     CTask*    Clone() const override { return new CTaskSimpleTurn180{ *this }; }
+    // 0x631CE0
     eTaskType GetTaskType() const override { return Type; }
     bool      ProcessPed(CPed* ped) override;
+    // 0x631CF0
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return false; }
 
 private: // Wrappers for hooks

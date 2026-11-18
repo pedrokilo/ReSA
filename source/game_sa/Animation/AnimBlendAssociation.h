@@ -228,9 +228,21 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x4CE9B0
+     */
     CAnimBlendAssociation* Constructor0()  { this->CAnimBlendAssociation::CAnimBlendAssociation(); return this; }
+    /*!
+     * @addr 0x4CEFC0
+     */
     CAnimBlendAssociation* Constructor1(RpClump* clump, CAnimBlendHierarchy* animHierarchy) { this->CAnimBlendAssociation::CAnimBlendAssociation(clump, animHierarchy); return this; }
+    /*!
+     * @addr 0x4CF020
+     */
     CAnimBlendAssociation* Constructor2(CAnimBlendAssociation& assoc) { this->CAnimBlendAssociation::CAnimBlendAssociation(assoc); return this; }
+    /*!
+     * @addr 0x4CF080
+     */
     CAnimBlendAssociation* Constructor3(CAnimBlendStaticAssociation& assoc) { this->CAnimBlendAssociation::CAnimBlendAssociation(assoc); return this; }
 };
 VALIDATE_SIZE(CAnimBlendAssociation, 0x3C);

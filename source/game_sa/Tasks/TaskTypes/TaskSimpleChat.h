@@ -14,7 +14,9 @@ public:
     CTaskSimpleChat(const CTaskSimpleChat& o);
     ~CTaskSimpleChat();
 
+    // 0x5F65E0
     virtual CTask* Clone() const { return new CTaskSimpleChat{ *this }; }
+    // 0x5F6650
     virtual bool   IsInterruptable(CPed const* ped) { return false; }
  
 private:

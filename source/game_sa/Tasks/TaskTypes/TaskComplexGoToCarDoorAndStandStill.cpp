@@ -30,6 +30,7 @@ END GENERATED HOOK STATUS */
 // Como el original: 0x6458A0 solo toca eax y la pila x87; CreateFirstSubTask (0x64D45C) y ControlSubTask (0x64A94A) llaman a
 // CreateSubTask justo despues sin recargar ecx, asi que conserva ecx y edx y devuelve 0/1 en EAX (movzx).
 #pragma runtime_checks("", off)
+// 0x6458A0
 uint32 __fastcall GoToCarDoorIsVehicleInRange(CTaskComplexGoToCarDoorAndStandStill* task, uint32 entryEdx, const CPed* ped) {
     const bool inRange = task->IsVehicleInRange(*ped);
     return ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(task)), entryEdx, inRange ? 1u : 0u);

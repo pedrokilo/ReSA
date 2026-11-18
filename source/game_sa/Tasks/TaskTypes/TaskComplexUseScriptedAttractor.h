@@ -19,10 +19,14 @@ public:
     CTaskComplexUseScriptedAttractor(const CTaskComplexUseScriptedAttractor&);
     ~CTaskComplexUseScriptedAttractor() = default;
 
+    // 0x636DD0
     CTask*    Clone() const override { return new CTaskComplexUseScriptedAttractor{ *this }; }
+    // 0x633350
     eTaskType GetTaskType() const override { return Type; }
+    // 0x633370
     CTask*    CreateNextSubTask(CPed* ped) override { return nullptr; }
     CTask*    CreateFirstSubTask(CPed* ped) override;
+    // 0x633380
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
 private: // Wrappers for hooks

@@ -16,6 +16,9 @@ public:
     explicit CTaskComplexGangJoinRespond(bool response);
     ~CTaskComplexGangJoinRespond() override;
 
+    /*!
+     * @addr 0x661710
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override { return new CTaskComplexGangJoinRespond(m_response); } // 0x662290;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return true; } // 0x661790;
@@ -26,7 +29,13 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x6616F0
+     */
     CTaskComplexGangJoinRespond* Constructor(uint8 a2) { this->CTaskComplexGangJoinRespond::CTaskComplexGangJoinRespond(a2); return this; }
+    /*!
+     * @addr 0x661720
+     */
     CTaskComplexGangJoinRespond* Destructor() { this->CTaskComplexGangJoinRespond::~CTaskComplexGangJoinRespond(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexGangJoinRespond, 0x14);

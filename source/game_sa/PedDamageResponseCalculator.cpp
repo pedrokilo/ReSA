@@ -48,6 +48,9 @@ CPedDamageResponseCalculator::CPedDamageResponseCalculator(const CEntity* entity
     m_bSpeak        = bSpeak;
 }
 
+/*!
+ * @addr 0x4AD3F0
+ */
 CPedDamageResponseCalculator* CPedDamageResponseCalculator::Constructor(CEntity* entity, float fDamage, eWeaponType weaponType, ePedPieceTypes bodyPart, bool bSpeak) {
     this->CPedDamageResponseCalculator::CPedDamageResponseCalculator(entity, fDamage, weaponType, bodyPart, bSpeak);
     return this;

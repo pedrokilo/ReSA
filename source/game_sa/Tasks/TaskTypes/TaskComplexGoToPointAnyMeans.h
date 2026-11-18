@@ -36,8 +36,17 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x66B720
+     */
     CTaskComplexGoToPointAnyMeans* Constructor(int32 a2, CVector const& posn, float a4, int32 a5) { this->CTaskComplexGoToPointAnyMeans::CTaskComplexGoToPointAnyMeans(a2, posn, a4, a5); return this; }
+    /*!
+     * @addr 0x66B790
+     */
     __declspec(noinline) CTaskComplexGoToPointAnyMeans* Constructor(int32 moveState, CVector const& posn, CVehicle* vehicle, float radius, int32 a6) { this->CTaskComplexGoToPointAnyMeans::CTaskComplexGoToPointAnyMeans(moveState, posn, vehicle, radius, a6); return this; }
+    /*!
+     * @addr 0x66B830
+     */
     CTaskComplexGoToPointAnyMeans* Destructor() { this->CTaskComplexGoToPointAnyMeans::~CTaskComplexGoToPointAnyMeans(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexGoToPointAnyMeans, 0x34);

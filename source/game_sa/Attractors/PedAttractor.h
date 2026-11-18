@@ -58,6 +58,7 @@ public:
     auto     GetEffect() const { return m_Fx; }
     CEntity* GetEntity() const { return m_Entity; }
 
+    // 0x5EAF10
     bool         HasEmptySlot() const { return (int32)GetNoOfRegisteredPeds() < (int32)m_MaxNumPeds; } // Como el original: comparación con signo (setl)
     int32        ComputeFreeSlot();
 
@@ -83,6 +84,7 @@ public:
     static constexpr bool classof(const From* f) { return f->GetType() == Self::Type; }
 
 private:
+    // 0x5EDFB0
     auto* Constructor(C2dEffectPedAttractor* fx, CEntity* entity, eMoveState moveState, size_t maxNoOfPeds, float spacing, float achieveQueueTime, float achieveQueueShuffleTime, float arriveRange, float headingRange, float deltaPos, float deltaHeading) {
         return std::construct_at(this,fx, entity, moveState, maxNoOfPeds, spacing, achieveQueueTime, achieveQueueShuffleTime, arriveRange, headingRange, deltaPos, deltaHeading);
     }

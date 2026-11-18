@@ -19,7 +19,9 @@ public:
     CTaskSimpleCarSetTempAction(const CTaskSimpleCarSetTempAction&);
     ~CTaskSimpleCarSetTempAction() = default;
 
+    // 0x63DF10
     CTask*    Clone() const override { return new CTaskSimpleCarSetTempAction(*this); }
+    // 0x63D720
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

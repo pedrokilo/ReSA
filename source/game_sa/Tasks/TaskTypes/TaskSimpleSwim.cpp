@@ -84,6 +84,7 @@ CTask* CTaskSimpleSwim::Clone() const {
     return object ? object->Constructor(const_cast<CVector*>(&m_vecPos), m_pPed) : nullptr;
 }
 
+// 0x688930
 CTaskSimpleSwim* CTaskSimpleSwim::Constructor(CVector* pos, CPed* ped) { this->CTaskSimpleSwim::CTaskSimpleSwim(pos, ped); return this; }
 
 // 0x688930

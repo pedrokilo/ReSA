@@ -95,6 +95,7 @@ static __declspec(noinline) int32 AttractorSectorCell(float coordinate, bool use
 // 4) posicion del efecto en el mundo (CEntity::TransformFromObjectSpace 0x5334F0, con hook) y distancia al cuadrado ((dz*dz + dy*dy) + dx*dx, con d = punto menos efecto, x87 a 24 bits) contra la mejor (empieza en 1e8 = 0x4CBEBC20): solo si es ESTRICTAMENTE
 // menor (comparacion ordenada: con NaN no entra) guarda la distancia y escribe efecto y entidad en las salidas.
 #pragma float_control(precise, on, push)
+// 0x6002F0
 static bool FindAttractorInRange(const CVector& point, float radius, int32 modelIndex, int32 attractorType, const char* name, bool requireFreeSlot, C2dEffectPedAttractor* exclude, C2dEffectPedAttractor** outEffect, CEntity** outEntity) {
     *outEffect = nullptr;
     *outEntity = nullptr;
@@ -263,6 +264,7 @@ CPed* CAttractorScanner::FindClosestPedForEffect(C2dEffectPedAttractor* effect) 
 //  6. Matriz local (el EXE solo pone a cero +0x40 y +0x44): con entidad, operator= (0x59BBC0) desde CPlaceable::GetMatrix (0x411990) de la entidad; sin entidad, SetScale(1.0f) (0x59AED0). CPedAttractorManager::IsApproachable (0x5EA220) con (efecto, matriz, 0, peaton):
 //     si es cierto guarda field_18[tipo] = entidad, field_68[tipo] = distancia y field_40[tipo] = efecto (en ese orden en el EXE). Despues destruye la matriz (0x59ACD0) por todas las salidas posteriores a su construccion.
 #pragma float_control(precise, on, push)
+// 0x5FFFD0
 void CAttractorScanner::ScanEffect(C2dEffectPedAttractor* effect, CEntity* entity, CPed* ped) {
     const uint32 type = static_cast<uint8>(effect->m_nAttractorType);
 

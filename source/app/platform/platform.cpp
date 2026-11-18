@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 // 0x619510: el EXE recibe `param` en EAX (sin llamadores directos en el EXE) y sale con EAX = 1.
 // EntryEaxCpp tiene que ser lo primero que se ejecuta (lo vigila contrib/audit_register_residue.py, objeto `platform`).
 #pragma runtime_checks("", off)
+// 0x619510
 __declspec(safebuffers) static RwBool rsCommandLine_Eax() {
     return rsCommandLine(reinterpret_cast<void*>(EntryEaxCpp()));
 }
@@ -35,6 +36,7 @@ __declspec(safebuffers) static RwBool rsCommandLine_Eax() {
 // ECX = 5 - bytes comparados por `repe cmpsb` contra "-vms\0" (0 si coincide). EAX = 0 o 1.
 // ECX/EDX de entrada llegan como parametros __fastcall; ResidueRegsCpp es la ultima llamada y deja ECX, EDX y EAX.
 #pragma runtime_checks("", off)
+// 0x619530
 __declspec(safebuffers) static uint32 __fastcall rsPreInitCommandLine_Eax(uint32 /*entryEcx*/, uint32 entryEdx) {
     const uint32 entryEax = EntryEaxCpp();
     const auto   arg      = reinterpret_cast<const RwChar*>(entryEax);

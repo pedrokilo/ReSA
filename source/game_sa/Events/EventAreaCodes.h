@@ -16,8 +16,14 @@ public:
     CEventAreaCodes(CPed* ped);
     ~CEventAreaCodes() override;
 
+    /*!
+     * @addr 0x4B21F0
+     */
     eEventType GetEventType() const override { return EVENT_AREA_CODES; }
     int32 GetEventPriority() const override { return 55; }
+    /*!
+     * @addr 0x4B2200
+     */
     int32 GetLifeTime() override { return 0; }
     CEventAreaCodes* Clone() const noexcept override; // 0x4B7BA0 (lote 201A, sin validar)
     bool AffectsPed(CPed* ped) override;

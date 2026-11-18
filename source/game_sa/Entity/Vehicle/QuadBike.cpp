@@ -118,6 +118,7 @@ CQuadBike::CQuadBike(int32 modelIndex, eVehicleCreatedBy createdBy) :
     m_fSteerAngle = 0.0f;
 }
 
+// 0x6CE370
 CQuadBike* CQuadBike::Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) {
     this->CQuadBike::CQuadBike(modelIndex, createdBy);
     return this;

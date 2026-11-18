@@ -10,6 +10,9 @@ public:
     using CTaskComplexSeekEntity::CTaskComplexSeekEntity;
 
 private:
+    /*!
+     * @addr 0x46AC10
+     */
     CTaskComplexSeekEntityStandard* Constructor(CEntity* entity, int32 seekInterval, int32 scanInterval, float maxDist, float moveRadius, float heightChange, bool tired, bool face) {
         this->CTaskComplexSeekEntityStandard::CTaskComplexSeekEntityStandard(entity, seekInterval, scanInterval, maxDist, moveRadius, heightChange, tired, face);
         return this;

@@ -22,7 +22,9 @@ public:
     void ComputeAnimIDExe(AssocGroupId* outGroup, AnimationId* outAnimId) const; // 0x648E90 (lote 180A, sin validar): la forma del EXE de ComputeAnimID (dos salidas por puntero)
     void StartAnim(const CPed* pPed);
 
+    // 0x64A280
     CTask*    Clone() const override { return new CTaskSimpleCarFallOut{ *this }; }
+    // 0x648DD0
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

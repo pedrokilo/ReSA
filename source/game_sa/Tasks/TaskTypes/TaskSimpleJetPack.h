@@ -26,7 +26,9 @@ public:
     CTaskSimpleJetPack(const CTaskSimpleJetPack&);
     ~CTaskSimpleJetPack() override;
 
+    // 0x67B5B0
     eTaskType GetTaskType() const override { return Type; }
+    // 0x67C690
     CTask*    Clone() const override { return new CTaskSimpleJetPack{ *this }; }
     bool      MakeAbortable(class CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

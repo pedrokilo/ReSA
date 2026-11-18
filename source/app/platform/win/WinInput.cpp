@@ -230,6 +230,7 @@ __declspec(noinline) static void diPadInitBody() {
 }
 
 #pragma runtime_checks("", off)
+// 0x7485C0
 void diPadInit() {
     // Debe ser lo primero: lee el residuo de pila del llamador del EXE (ver arriba) antes de que nada reutilice esa zona.
     const auto* r = reinterpret_cast<const uint32*>(static_cast<const uint8*>(_AddressOfReturnAddress()) - 0x40);

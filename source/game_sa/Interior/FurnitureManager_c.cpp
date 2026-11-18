@@ -72,6 +72,8 @@ void FurnitureManager_c::Destructor() {
 /**
  * Reinicia los stores, enlaza los FurnitureItem preasignados e inicializa grupos.
  * Después carga data\\furnitur.dat para poblar la jerarquía grupo/subgrupo/item.
+ *
+ * @addr 0x5C04A0
  */
 bool FurnitureManager_c::Init() {
     // Como el original: los contadores son words (mov word ptr)
@@ -110,6 +112,8 @@ FurnitureSubGroup_c* FurnitureManager_c::NewSubGroup() {
  * Las líneas ITEM se resuelven a model IDs y se delegan al subgrupo vigente. Los
  * objetos resultantes viven en stores fijos, por lo que el parser no transfiere
  * ownership mediante asignaciones individuales.
+ *
+ * @addr 0x5C0280
  */
 void FurnitureManager_c::LoadFurniture() {
     auto file = CFileMgr::OpenFile("data\\furnitur.dat", "rb");

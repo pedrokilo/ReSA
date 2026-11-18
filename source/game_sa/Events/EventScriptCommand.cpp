@@ -58,6 +58,7 @@ CEventScriptCommand::~CEventScriptCommand()
     delete m_task;
 }
 
+// 0x4B0A00
 CEventScriptCommand* CEventScriptCommand::Constructor(int32 primaryTaskIndex, CTask* task, bool affectsDeadPeds)
 {
     this->CEventScriptCommand::CEventScriptCommand(primaryTaskIndex, task, affectsDeadPeds);
@@ -140,6 +141,7 @@ EXCEPTION_DISPOSITION __cdecl DestructorUnwind(EXCEPTION_RECORD* record, void* f
 #pragma warning(push)
 #pragma warning(disable: 4733) // el marco se registra a mano en fs:[0], como el original (manejador 0x83A018)
 #pragma runtime_checks("", off)
+// 0x4B0A50
 uint32 __fastcall CEventScriptCommand::Destructor(CEventScriptCommand* self, uint32 entryEdx) {
     const uint32 previousHead = __readfsdword(0);
     uint32       eax          = previousHead;

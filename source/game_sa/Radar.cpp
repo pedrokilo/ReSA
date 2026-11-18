@@ -465,6 +465,7 @@ static void __cdecl TransformRadarPointToScreenSpaceImpl(CVector2D* out, const C
 namespace {
 // Lo primero: ninguna instruccion anterior escribe EDX (lo vigila contrib/audit_register_residue.py, objeto Radar). /RTC1 y la cookie de /GS pisarian ECX/EDX.
 #pragma runtime_checks("", off)
+// 0x583480
 __declspec(safebuffers) CVector2D* __cdecl RadarTransformScreenExe(CVector2D* out, const CVector2D* in) {
     const uint32 entryEdx = uint32(CarEnterExitEntryEdxCpp() >> 32);
     TransformRadarPointToScreenSpaceImpl(out, in);

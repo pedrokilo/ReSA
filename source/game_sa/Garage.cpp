@@ -46,6 +46,7 @@ END GENERATED HOOK STATUS */
 // usan de contador a traves de la llamada); ECX = this en las salidas por la z y los bits de dy en las demas (0x448764 sobrescribe con `fstp [esp]` el ECX guardado
 // por `push ecx` y el `pop ecx` final lo devuelve); AL = resultado. Lo ultimo que ejecuta es ResidueRegsCpp (ver X87Math.h y contrib/audit_register_residue.py).
 #pragma runtime_checks("", off)
+// 0x448740
 static __declspec(safebuffers) uint32 __fastcall GarageIsPointInsideRegs(CGarage* self, uint32 entryEdx, CVector point) {
     uint32     ecxOut = static_cast<uint32>(reinterpret_cast<uintptr_t>(self));
     const bool inside = GarageInsidePointCpp(reinterpret_cast<const float*>(self), &point.x, &ecxOut);

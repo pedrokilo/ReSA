@@ -59,6 +59,7 @@ void CEventDanger::InjectHooks() {
     RH_ScopedVMTInstall(GetSourceEntity, 0x4B2700);
 }
 
+// 0x4B2600
 CEventDanger* CEventDanger::Constructor(CEntity* dangerFrom, float dangerRadius) { this->CEventDanger::CEventDanger(dangerFrom, dangerRadius); return this; }
 
 // 0x4B2600

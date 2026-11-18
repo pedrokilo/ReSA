@@ -29,7 +29,9 @@ public:
     static void FinishAnimCarOpenLockedDoorFromOutsideCB(CAnimBlendAssociation* anim, void* data);
     void StartAnim(CPed* ped);
 
+    // 0x649A10
     CTask*    Clone() const override { return new CTaskSimpleCarOpenLockedDoorFromOutside{*this}; }
+    // 0x6460E0
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

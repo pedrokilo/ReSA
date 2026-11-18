@@ -34,6 +34,9 @@ CTask* Clone() const override { return new CTaskComplexCopInCar(m_Vehicle, m_Cop
 
 
 
+/*!
+ * @addr 0x68C8B0
+ */
 eTaskType GetTaskType() const override { return Type; }
 
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
@@ -45,7 +48,13 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x68C7F0
+     */
     CTaskComplexCopInCar* Constructor(CVehicle* vehicle, CPed* cop1, CPed* cop2, bool flag_0x1) { this->CTaskComplexCopInCar::CTaskComplexCopInCar(vehicle, cop1, cop2, flag_0x1); return this; }
+    /*!
+     * @addr 0x68C8C0
+     */
     __declspec(noinline) CTaskComplexCopInCar* Destructor() { this->CTaskComplexCopInCar::~CTaskComplexCopInCar(); return this; }
     CTaskComplexCopInCar* ScalarDeletingDestructor(uint8 flags); // 0x68F9F0 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x870A2C), `ret 4`
 

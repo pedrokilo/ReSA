@@ -12,6 +12,7 @@ public:
     ~CTaskComplexUseClosestFreeScriptedAttractorRun() override = default;
 
     CTask*    Clone()       const override { return new CTaskComplexUseClosestFreeScriptedAttractorRun{}; } // 0x4B87B0: a fresh task, nothing copied
+    // 0x4B8810
     eTaskType GetTaskType() const override { return Type; }
 
 private: // Wrappers for hooks

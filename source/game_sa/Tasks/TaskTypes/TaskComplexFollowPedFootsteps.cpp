@@ -121,6 +121,7 @@ CTask* CTaskComplexFollowPedFootsteps::Clone() const {
     return memory->Constructor(m_targetPed);
 }
 
+// 0x694E20
 CTaskComplexFollowPedFootsteps* CTaskComplexFollowPedFootsteps::Constructor(CPed* ped) {
     this->CTaskComplexFollowPedFootsteps::CTaskComplexFollowPedFootsteps(ped);
     return this;

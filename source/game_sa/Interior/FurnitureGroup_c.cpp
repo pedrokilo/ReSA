@@ -54,6 +54,8 @@ void FurnitureGroup_c::Exit() {
  *
  * El grupo no reserva memoria dinámica para el subgrupo: FurnitureManager_c controla
  * el almacén fijo del que procede y esta lista sólo mantiene el enlace.
+ *
+ * @addr 0x5910E0
  */
 bool FurnitureGroup_c::AddSubGroup(int32 subGroupId, int32 minWidth, int32 minDepth, int32 maxWidth, int32 maxDepth, uint8 canPlaceInFrontOfWindow, bool isTall, bool canSteal) {
     // Como el original: NewSubGroup en línea con el contador de 16 bits sin signo de 0xBAB37C (mov/inc dx, jae)

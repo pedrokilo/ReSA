@@ -70,7 +70,13 @@ public:
     auto GetParent() const { return m_Parent; }
     auto& GetOrientation() { return m_Orientation; }
 
+    /*!
+     * @addr 0x616B30
+     */
     BoneNode_c* Constructor() { this->BoneNode_c::BoneNode_c(); return this; }
+    /*!
+     * @addr 0x616B80
+     */
     BoneNode_c* Destructor() { this->BoneNode_c::~BoneNode_c(); return this; }
 
 private:

@@ -143,6 +143,7 @@ private:
     //! @brief Get the projectile type of this weapon - Only valid for weapons that fire a projectile [like rlaunchers, etc], or are itself a projectile [ex.: grenades]
     auto GetProjectileType();
 
+    // @addr 0x73B430
     //! @notsa
     CWeapon* Constructor(eWeaponType weaponType, uint32 ammo) {
         this->CWeapon::CWeapon(weaponType, ammo);

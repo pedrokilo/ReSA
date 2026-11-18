@@ -7,6 +7,9 @@ public:
     CEventVehicleDamageCollision(CVehicle* vehicle, CEntity* attacker, eWeaponType weaponType);
     ~CEventVehicleDamageCollision() override = default;
 
+    /*!
+     * @addr 0x6A0660
+     */
     eEventType GetEventType() const override { return EVENT_VEHICLE_DAMAGE_COLLISION; }
     CEventEditableResponse* CloneEditable() const noexcept override;
 

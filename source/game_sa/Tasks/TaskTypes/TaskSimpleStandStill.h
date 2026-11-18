@@ -43,6 +43,7 @@ private:
     friend class CTaskComplexFollowLeaderInFormation; // lote 201A (sin validar): su CreateSubTask (0x6962A0) llama al Constructor enganchado del EXE, como el original
     static void InjectHooks();
 
+    // 0x62F310
     __declspec(noinline) CTaskSimpleStandStill* Constructor(int32 nTime, bool Looped, bool bUseAnimIdleStance, float fBlendData) { this->CTaskSimpleStandStill::CTaskSimpleStandStill(nTime, Looped, bUseAnimIdleStance, fBlendData); return this; }
 };
 VALIDATE_SIZE(CTaskSimpleStandStill, 0x20);

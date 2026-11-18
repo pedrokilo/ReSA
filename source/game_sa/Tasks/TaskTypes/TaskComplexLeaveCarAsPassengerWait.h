@@ -23,7 +23,9 @@ public:
     CPed* GetNextPassengerToLeave();
     void SetPedInZerothPassengerSeat(CPed* ped);
 
+    // 0x63D8C0
     CTask*    Clone() const override { return new CTaskComplexLeaveCarAsPassengerWait{ *this }; }
+    // 0x63B490
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

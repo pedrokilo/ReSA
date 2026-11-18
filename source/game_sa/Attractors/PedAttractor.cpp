@@ -31,6 +31,7 @@ namespace {
 struct SArrayElem20 { uint32 w[5]; };
 struct SArrayElem12 { uint32 w[3]; };
 
+// 0x4F3B00
 // Lote 205A (sin validar): 15 funciones mas del mismo bloque de plantillas de la STL de MSVC 6 (0x5EB140..0x5EB3B2, cdecl, sin llamadores fuera de las instancias de SArray; son plantillas de la STL, no metodos de CPedAttractor).
 // Mismas convenciones que arriba: iteradores como punteros por valor, valor por puntero, retorno de estructura en el primer argumento. Los llamadores empujan argumentos de relleno de la plantilla (etiquetas de categoria) que estas
 // funciones no leen; con cdecl el llamador los limpia, asi que basta declarar los que se leen.
@@ -56,6 +57,7 @@ SArrayElem20** __cdecl SArrayCopyBackwardStride20Wrapper(SArrayElem20** out, SAr
     reinterpret_cast<SArrayElem20** (__cdecl*)(SArrayElem20**, SArrayElem20*, SArrayElem20*, SArrayElem20*)>(0x5EAC50)(out, first, last, destEnd);
     return out;
 }
+// 0x5EB220
 SArrayElem12** __cdecl SArrayCopyBackwardStride12Wrapper(SArrayElem12** out, SArrayElem12* first, SArrayElem12* last, SArrayElem12* destEnd) {
     // Colaborador del lote 189A (sin hook en esta base): se llama por su direccion del EXE.
     reinterpret_cast<SArrayElem12** (__cdecl*)(SArrayElem12**, SArrayElem12*, SArrayElem12*, SArrayElem12*)>(0x5EACC0)(out, first, last, destEnd);
@@ -71,6 +73,7 @@ void __cdecl SArrayFillStride12(SArrayElem12* first, SArrayElem12* last, const S
     }
 }
 
+// 0x4F3B30
 // std::uninitialized_fill_n de 4 bytes (0x5EB2A0, 0x5EB310 y 0x5EB390, tres instancias identicas, 35 bytes cada una): con n == 0 (comparacion SIN signo, `jbe`) no hace nada; si no, n vueltas que escriben el valor (releido en cada
 // vuelta) solo si el destino no es nulo (new(puntero) T(valor)), avanzando siempre.
 template<int Id>
@@ -102,6 +105,7 @@ void __cdecl SArrayFillNStride20(SArrayElem20* dest, uint32 count, const SArrayE
         --count;
     } while (count != 0);
 }
+// 0x5EB340
 void __cdecl SArrayFillNStride12(SArrayElem12* dest, uint32 count, const SArrayElem12* value) {
     if (count == 0) {
         return;
@@ -126,6 +130,10 @@ namespace {
 // Cada direccion de hook tiene su propia instancia de plantilla (RH no admite dos hooks hacia la misma funcion de la DLL: el cuerpo de la segunda y la tercera se resolvia a la entrada del EXE de la primera; lo detecto el banco Fn189A).
 // Elementos de 4 bytes (SArray<puntero>), de 20 bytes (CPedTaskPair) y de 12 bytes (CVector). Las instancias identicas de distinto tipo de elemento tienen su propia direccion (A, B y C).
 
+// 0x4F3AE0
+// 0x5EAAA0
+// 0x5EAAF0
+// 0x5EAB10
 // std::fill: lee el valor en cada vuelta; con inicio == fin no lo lee. EAX queda en fin, nadie lo usa.
 template<int Id>
 void __cdecl SArrayFillStride4(uint32* first, uint32* last, const uint32* value) {
@@ -133,12 +141,16 @@ void __cdecl SArrayFillStride4(uint32* first, uint32* last, const uint32* value)
         *first = *value;
     }
 }
+// 0x5EAAC0
 void __cdecl SArrayFillStride20(SArrayElem20* first, SArrayElem20* last, const SArrayElem20* value) {
     for (; first != last; ++first) {
         *first = *value;
     }
 }
 
+// 0x5EAE10
+// 0x5EAE70
+// 0x5EAEE0
 // std::uninitialized_copy: construye en el destino solo si no es nulo (new(puntero) T(*origen)); devuelve el final del destino en EAX.
 template<int Id>
 uint32* __cdecl SArrayUninitCopyStride4(const uint32* first, const uint32* last, uint32* dest) {
@@ -149,6 +161,7 @@ uint32* __cdecl SArrayUninitCopyStride4(const uint32* first, const uint32* last,
     }
     return dest;
 }
+// 0x5EAE40
 SArrayElem20* __cdecl SArrayUninitCopyStride20(const SArrayElem20* first, const SArrayElem20* last, SArrayElem20* dest) {
     for (; first != last; ++first, ++dest) {
         if (dest) {
@@ -157,6 +170,7 @@ SArrayElem20* __cdecl SArrayUninitCopyStride20(const SArrayElem20* first, const 
     }
     return dest;
 }
+// 0x5EAEA0
 SArrayElem12* __cdecl SArrayUninitCopyStride12(const SArrayElem12* first, const SArrayElem12* last, SArrayElem12* dest) {
     for (; first != last; ++first, ++dest) {
         if (dest) {
@@ -166,6 +180,7 @@ SArrayElem12* __cdecl SArrayUninitCopyStride12(const SArrayElem12* first, const 
     return dest;
 }
 
+// 0x5EAB80
 // std::copy (hacia delante, con las mismas comprobaciones de rango vacio que el EXE): *out = final del destino; devuelve out.
 SArrayElem20** __cdecl SArrayCopyStride20(SArrayElem20** out, SArrayElem20* first, SArrayElem20* last, SArrayElem20* dest) {
     if (first == last) {
@@ -181,6 +196,7 @@ SArrayElem20** __cdecl SArrayCopyStride20(SArrayElem20** out, SArrayElem20* firs
     return out;
 }
 
+// 0x5EAC50
 // std::copy_backward: recorre desde el final; *out = inicio del destino; devuelve out.
 SArrayElem20** __cdecl SArrayCopyBackwardStride20(SArrayElem20** out, SArrayElem20* first, SArrayElem20* last, SArrayElem20* destEnd) {
     if (first == last) {
@@ -195,6 +211,7 @@ SArrayElem20** __cdecl SArrayCopyBackwardStride20(SArrayElem20** out, SArrayElem
     *out = destEnd;
     return out;
 }
+// 0x5EACC0
 SArrayElem12** __cdecl SArrayCopyBackwardStride12(SArrayElem12** out, SArrayElem12* first, SArrayElem12* last, SArrayElem12* destEnd) {
     if (first == last) {
         *out = destEnd;
@@ -238,10 +255,12 @@ uint32* __stdcall SArrayFillNReturnEndStride4Inst(uint32* dest, uint32 count, co
     return SArrayFillNReturnEndStride4(dest, count, value);
 }
 
+// 0x5EC0E0
 SArrayElem20* __stdcall SArrayFillNReturnEndStride20(SArrayElem20* dest, uint32 count, const SArrayElem20* value) {
     SArrayFillNStride20(dest, count, value);
     return dest + count;
 }
+// 0x5EC140
 SArrayElem12* __stdcall SArrayFillNReturnEndStride12(SArrayElem12* dest, uint32 count, const SArrayElem12* value) {
     SArrayFillNStride12(dest, count, value);
     return dest + count;
@@ -285,6 +304,7 @@ struct SArrayInsertInstanceB {
     static constexpr unsigned kXlen       = 0x5ECBB0;
 };
 
+// 0x5EDA50
 // 0x5ECF10 y 0x5ED4B0 (lote 219A, sin validar; 645 bytes cada una con marco SEH que solo libera el bloque nuevo si una copia lanzara: omitido; thiscall con (posicion, cantidad, const T&), `ret 0Ch`): std::vector<T*>::insert(pos, n, valor)
 // de MSVC 6/9 (vector de punteros de 4 bytes), mismo cuerpo que 0x4F4320 (UserTracksLegacyVector::Insert, lote 209A) con los colaboradores de cada instancia. Como el original:
 //  - El valor se copia a una variable local al entrar (su direccion es el argumento de relleno de las llamadas). capacidad = inicio ? (limite - inicio) >> 2 : 0 (desplazamiento con signo). Con n == 0 no hace nada.
@@ -423,6 +443,7 @@ void __fastcall SArrayInsertNStride20(SArrayRaw<SArrayElem20>* self, void* /*edx
     }
 }
 
+// 0x4F3CE0
 // Lote 206A (sin validar): envolturas stdcall de std::uninitialized_copy (0x5EB930, 0x5EB960, 0x5EB990, 0x5EB9D0 y 0x5EBA00; `ret 0Ch`, tres argumentos de pila (origen, fin, destino)). Cada una reserva en la pila un marco
 // de 0x14 bytes con los tres argumentos y un hueco sin inicializar (el ECX de entrada, basura), llama a la funcion cdecl de la tabla de 189A (0x5EAE10 / 0x5EAE40 / 0x5EAE70 / 0x5EAEA0 / 0x5EAEE0), la limpia con
 // `add esp, 14h` y devuelve su EAX (el final del destino). No usan `this`. Las tres de elemento de 4 bytes (0x5EB930, 0x5EB990 y 0x5EBA00) comparten cuerpo, como las funciones de 189A.
@@ -430,9 +451,11 @@ template<int Id>
 uint32* __stdcall SArrayUninitCopyWrapStride4(const uint32* first, const uint32* last, uint32* dest) {
     return SArrayUninitCopyStride4<Id>(first, last, dest);
 }
+// 0x5EB960
 SArrayElem20* __stdcall SArrayUninitCopyWrapStride20(const SArrayElem20* first, const SArrayElem20* last, SArrayElem20* dest) {
     return SArrayUninitCopyStride20(first, last, dest);
 }
+// 0x5EB9D0
 SArrayElem12* __stdcall SArrayUninitCopyWrapStride12(const SArrayElem12* first, const SArrayElem12* last, SArrayElem12* dest) {
     return SArrayUninitCopyStride12(first, last, dest);
 }
@@ -449,6 +472,15 @@ void __fastcall SArrayTidyStride4(SArray<uint32>* self, void* /*edx*/) {
     self->_End   = nullptr;
 }
 
+// 0x5EC040
+// 0x5EC0B0
+// 0x5EC180
+// 0x5EC1F0
+// 0x5EC260
+// 0x5EC2D0
+// 0x5EC340
+// 0x5EC3B0
+// 0x5EC3E0
 // Lote 209A: una instancia propia por direccion de hook (0x4F3F30 y 0x4F4030): RH no admite dos hooks hacia la misma funcion de la DLL (el cuerpo de la segunda se resolvia a la entrada del EXE de la primera; lo detecto el banco Fn209A).
 template<int Id>
 void __fastcall SArrayTidyStride4Inst(SArray<uint32>* self, void* edx) {

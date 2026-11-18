@@ -130,6 +130,7 @@ __declspec(noinline) int32 __fastcall SArraySizeStride20(const void* self, void*
     }
     return static_cast<int32>(words[2] - words[1]) / 20;
 }
+// 0x5E9850
 __declspec(noinline) int32 __fastcall SArraySizeStride12(const void* self, void* /*edx*/) {
     const uint32* const words = static_cast<const uint32*>(self);
     if (words[1] == 0) {

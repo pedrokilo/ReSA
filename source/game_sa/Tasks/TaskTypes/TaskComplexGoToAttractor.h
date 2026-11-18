@@ -27,7 +27,13 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x66B640
+     */
     CTaskComplexGoToAttractor* Constructor(CPedAttractor* attractor, CVector const& attrPosn, float attrHeading, float attrTime, int32 queueNumber, eMoveState ms) { this->CTaskComplexGoToAttractor::CTaskComplexGoToAttractor(attractor, attrPosn, attrHeading, attrTime, queueNumber, ms); return this; }
+    /*!
+     * @addr 0x66B6A0
+     */
     CTaskComplexGoToAttractor* Destructor() { this->CTaskComplexGoToAttractor::~CTaskComplexGoToAttractor(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexGoToAttractor, 0x2C);

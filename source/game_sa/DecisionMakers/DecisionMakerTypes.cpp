@@ -122,18 +122,22 @@ __declspec(noinline) void __fastcall DefaultRandomPedAssignExe(CDecisionMakerTyp
     static_assert(offsetof(CDecisionMakerTypes, m_DefaultRandomPedDecisionMaker) == kRandomPed);
     self->m_DefaultRandomPedDecisionMaker.From(*source);
 }
+// 0x5BD540
 __declspec(noinline) void __fastcall DefaultMissionPedAssignExe(CDecisionMakerTypes* self, void* /*edx*/, const CDecisionMaker* source) {
     static_assert(offsetof(CDecisionMakerTypes, m_DefaultMissionPedDecisionMaker) == kMissionPed);
     self->m_DefaultMissionPedDecisionMaker.From(*source);
 }
+// 0x5BD570
 __declspec(noinline) void __fastcall DefaultPlayerPedAssignExe(CDecisionMakerTypes* self, void* /*edx*/, const CDecisionMaker* source) {
     static_assert(offsetof(CDecisionMakerTypes, m_DefaultPlayerPedDecisionMaker) == kPlayerPed);
     self->m_DefaultPlayerPedDecisionMaker.From(*source);
 }
+// 0x5BD5A0
 __declspec(noinline) void __fastcall DefaultRandomGroupAssignExe(CDecisionMakerTypes* self, void* /*edx*/, const CDecisionMaker* source) {
     static_assert(offsetof(CDecisionMakerTypes, m_DefaultRandomPedGroupDecisionMaker) == kRandomGroup);
     self->m_DefaultRandomPedGroupDecisionMaker.From(*source);
 }
+// 0x5BD5D0
 __declspec(noinline) void __fastcall DefaultMissionGroupAssignExe(CDecisionMakerTypes* self, void* /*edx*/, const CDecisionMaker* source) {
     static_assert(offsetof(CDecisionMakerTypes, m_DefaultMissionPedGroupDecisionMaker) == kMissionGroup);
     self->m_DefaultMissionPedGroupDecisionMaker.From(*source);
@@ -156,6 +160,7 @@ CDecisionMakerTypes::CDecisionMakerTypes() : m_NoOfDecisionMakers(0) {
 // Envoltura del hook (0x4650F0): el EXE deja EAX = this, ECX = la cabeza anterior de la cadena de excepciones (fs:[0] de entrada, que restaura al salir) y EDX = 0 (xor edx,edx).
 // CDecisionMakerTypes::GetInstance (0x4684F0) toma el EDX del constructor como residuo propio; por eso se reproducen los tres. Termina en ResidueRegsCpp, que no toca registros.
 #pragma runtime_checks("", off)
+// 0x4650F0
 __declspec(safebuffers) CDecisionMakerTypes* CDecisionMakerTypes::Constructor() {
     const uint32 head = __readfsdword(0);
     this->CDecisionMakerTypes::CDecisionMakerTypes();
@@ -166,6 +171,7 @@ __declspec(safebuffers) CDecisionMakerTypes* CDecisionMakerTypes::Constructor() 
 // el byte bajo del segundo argumento como bandera de grupo y copia las 41 CDecision con CDecision::From. Salida: ocupada -> EAX = indice, ECX = this,
 // EDX = residuo de la ultima From (el EDX de entrada de la primera es indice * 0x99C); llena -> EAX = -1, ECX = this, EDX = fin del rango (15 o 20).
 #pragma runtime_checks("", off)
+// 0x607050
 __declspec(safebuffers) int32 CDecisionMakerTypes::AddDecisionMaker(CDecisionMaker* decisionMaker, eDecisionTypes decisionMakerType, bool bDecisionMakerForMission) {
     const uint32 self  = AsU32(this);
     const uint32 first = bDecisionMakerForMission ? 15u : 0u;
@@ -236,6 +242,7 @@ EXCEPTION_DISPOSITION __cdecl InstanceUnwind(EXCEPTION_RECORD* record, void* est
 } // namespace
 
 #pragma runtime_checks("", off)
+// 0x4684F0
 __declspec(safebuffers) CDecisionMakerTypes* CDecisionMakerTypes::GetInstance() {
     // Lo primero que se ejecuta: EDX:EAX de entrada (lo vigila contrib/audit_register_residue.py)
     const uint64 entry         = CarEnterExitEntryEdxCpp();

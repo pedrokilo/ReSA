@@ -1449,6 +1449,7 @@ void CStreaming::RequestFile(int32 modelId, CdStreamPos pos, uint32 size, Stream
     }
 }
 
+// 0x409050
 // 0x4090500
 // Goes thru given channel and removes then re-requests each model
 void CStreaming::RequestFilesInChannel(int32 chIdx) {

@@ -118,6 +118,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x6C8E20
+     */
     CPlane* Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) { this->CPlane::CPlane(modelIndex, createdBy); return this; }
     CPlane* Destroy() { this->CPlane::~CPlane(); return this; }
 

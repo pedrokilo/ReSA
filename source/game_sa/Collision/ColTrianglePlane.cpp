@@ -87,11 +87,13 @@ CColTrianglePlane::CColTrianglePlane(const CVector& vA, const CVector& vB, const
     }();
 } 
 
+// @addr 0x411610
 // Expande la normal comprimida en el vector de salida.
 void CColTrianglePlane::GetNormal(CVector& out) {
     out = GetNormal();
 }
 
+// @addr 0x411660
 // Recalcula por completo el plano reutilizando la misma lógica del constructor.
 void CColTrianglePlane::Set(const CompressedVector* vertices, const CColTriangle& triangle) {
     // Como el original: solo se escriben los campos; el byte de relleno (+9) queda intacto.

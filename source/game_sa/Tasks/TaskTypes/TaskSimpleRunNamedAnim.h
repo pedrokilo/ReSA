@@ -30,9 +30,11 @@ public:
     CTaskSimpleRunNamedAnim(const char* animName, const char* animGroupName, uint32 animFlags, float blendDelta,
         uint32 endTime, bool bDontInterrupt, bool bRunInSequence, bool bOffsetPed, bool bHoldLastFrame);
 
+    // 0x61AA90
     eTaskType GetTaskType() const override { return Type; }
 
 
+// 0x61B770
 CTask* Clone() const override {
         return new CTaskSimpleRunNamedAnim(m_animName, m_animGroupName,
                                            m_animFlags, m_fBlendDelta, m_Time,
@@ -50,8 +52,11 @@ private:
     friend class CTaskComplexFollowPatrolRoute;
     friend void InjectHooksMain();
     static void InjectHooks();
+    // 0x61A990
     __declspec(noinline) CTaskSimpleRunNamedAnim* Constructor(char const* pAnimName, char const* pAnimGroupName, int32 animFlags, float blendDelta, int32 endTime, bool bDontInterrupt, bool bRunInSequence, bool bOffsetPed, bool bHoldLastFrame) { this->CTaskSimpleRunNamedAnim::CTaskSimpleRunNamedAnim(pAnimName, pAnimGroupName, animFlags, blendDelta, endTime, bDontInterrupt, bRunInSequence, bOffsetPed, bHoldLastFrame); return this; }
+    // 0x6674B0
     CTaskSimpleRunNamedAnim* Constructor() { this->CTaskSimpleRunNamedAnim::CTaskSimpleRunNamedAnim(); return this; }
+    // 0x61BF10
     CTaskSimpleRunNamedAnim* Destructor() { this->CTaskSimpleRunNamedAnim::~CTaskSimpleRunNamedAnim(); return this; }
         };
 VALIDATE_SIZE(CTaskSimpleRunNamedAnim, 0x64);

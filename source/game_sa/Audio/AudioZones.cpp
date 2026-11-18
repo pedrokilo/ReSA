@@ -225,6 +225,8 @@ void CAudioZones::SwitchAudioZone(const char* zoneName, bool enable) {
  *
  * Salvo forceUpdate, limita el coste mediante una comprobación periódica y por
  * distancia recorrida. Los arrays activos guardan índices hacia los catálogos fijos.
+ *
+ * @addr 0x5083C0
  */
 void CAudioZones::Update(bool forceUpdate, CVector posn) {
     ZoneScoped;

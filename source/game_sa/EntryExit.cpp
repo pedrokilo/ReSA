@@ -41,6 +41,7 @@ static void __fastcall EntryExitGetPositionRelativeToOutsideWorld(CEntryExit* en
 // GetPositionRelativeToOutsideWorld, 0x43F150, lo usa de contador del bucle a través de la llamada), deja EDX = EDX de entrada,
 // ECX = la entrada enlazada (o this) y EAX = outPos, o el puntero de enlace con AL = 0 cuando la entrada está en el mundo normal (sale antes de sumar).
 #pragma runtime_checks("", off)
+// 0x43EA00
 static __declspec(safebuffers) uint32 __fastcall EntryExitGetPositionRelativeToOutsideWorldRegs(CEntryExit* self, uint32 entryEdx, CVector* outPos) {
     CEntryExit* const link = self->m_pLink;
     CEntryExit* const enex = link ? link : self;

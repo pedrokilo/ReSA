@@ -24,6 +24,7 @@ namespace {
 // original: deja la vtable de la clase del EXE (0x86DD00) y sigue con el cuerpo de ~CTaskComplexLeaveCar (0x63B970, con hook propio; llamada no virtual en una funcion propia sin expansion en linea para que el banco
 // pueda sustituirla; el EXE salta en lugar de llamar y la funcion sale con lo que devuelva ese cuerpo, que ningun llamador lee).
 __declspec(noinline) void __fastcall LeaveCarAndDieBaseDestructorCall(CTaskComplexLeaveCarAndDie* self, void* /*edx*/) { self->CTaskComplexLeaveCar::~CTaskComplexLeaveCar(); }
+// 0x62F270
 __declspec(noinline) void __fastcall LeaveCarAndDieDestructorBody(CTaskComplexLeaveCarAndDie* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x86DD00;
     LeaveCarAndDieBaseDestructorCall(self, nullptr);

@@ -98,11 +98,13 @@ CEventDamage* CEventDamage::ScalarDeletingDestructor(uint8 flags) {
     return this;
 }
 
+// 0x4B33B0
 CEventDamage* CEventDamage::Constructor(const CEventDamage& event) {
     this->CEventDamage::CEventDamage(event);
     return this;
 }
 
+// 0x4AD830
 CEventDamage* CEventDamage::Constructor(CEntity* source, uint32 startTime, eWeaponType weaponType, ePedPieceTypes pieceHit, uint8 direction, bool a7, bool bPedInVehicle) {
     this->CEventDamage::CEventDamage(source, startTime, weaponType, pieceHit, direction, a7, bPedInVehicle);
     return this;

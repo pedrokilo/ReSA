@@ -74,6 +74,7 @@ CTask* CTaskSimpleGetUp::Clone() const {
     return ::new (memory) CTaskSimpleGetUp();
 }
 
+// 0x677F50
 CTaskSimpleGetUp* CTaskSimpleGetUp::Constructor() {
     this->CTaskSimpleGetUp::CTaskSimpleGetUp();
     return this;

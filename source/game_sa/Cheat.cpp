@@ -930,6 +930,7 @@ void CCheat::VehicleSkillsCheat() {
     CStats::SetStatValue(STAT_CYCLING_SKILL, 1000.0f);
 }
 
+// 0x439DD0
 // 0x439c70
 void CCheat::VillagePeopleCheat() {
     Toggle(CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS);

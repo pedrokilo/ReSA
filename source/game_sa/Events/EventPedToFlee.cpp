@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "EventPedToFlee.h"
 
 namespace {
+// 0x4AF2D0
 // Cuerpo no virtual de ~CEventPedToFlee del EXE (thiscall, sin argumentos de pila, `ret`): deja la vtable de CEventPedToFlee del EXE (0x85B178), libera con CEntity::CleanUpOldReference (0x571A00) las referencias no nulas
 // en el orden del EXE y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 117A, banco Fn117A.)
 void __fastcall PedToFleeDestructorBody(CEventPedToFlee* self, void* /*edx*/) {

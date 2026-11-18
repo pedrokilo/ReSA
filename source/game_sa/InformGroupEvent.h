@@ -22,11 +22,14 @@ public:
     void Process();
 
 private: // Wrappers for hooks
+    // 0x4AC350
     CInformGroupEvent* Constructor() {
         this->CInformGroupEvent::CInformGroupEvent();
         return this;
     }
 
+    // 0x4AC370
+    // 0x4B29A0
     CInformGroupEvent* Destructor() {
         this->CInformGroupEvent::~CInformGroupEvent();
         return this;

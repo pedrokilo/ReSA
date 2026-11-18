@@ -53,6 +53,7 @@ CTaskSimpleChat::CTaskSimpleChat(uint32 duration) :
 static_assert(TASK_SIMPLE_CHAT == 0x1A0);
 static_assert(ANIM_GROUP_DEFAULT == 0);
 static_assert(ANIM_ID_IDLE_CHAT == 0xC);
+// 0x5F65A0
 CTaskSimpleChat* __fastcall CTaskSimpleChat::ConstructorExe(CTaskSimpleChat* self, void* /*edx*/, uint32 duration) {
     static_cast<CTaskSimpleRunTimedAnim*>(self)->Constructor(ANIM_GROUP_DEFAULT, ANIM_ID_IDLE_CHAT, 4.f, -4.f, duration, TASK_SIMPLE_CHAT, "Chat", false);
     *reinterpret_cast<uint32*>(self) = 0x86C78C;

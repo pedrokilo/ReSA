@@ -133,6 +133,7 @@ CVector CTaskSimpleIKLookAt::GetLookAtOffset() { // We return a vector here.. Ho
 
 // 0x633FC0
 
+// 0x633FC0
 // 0x0
 bool CTaskSimpleIKLookAt::CreateIKChain(CPed* ped) {
     m_PivotBone = BONE_NECK;

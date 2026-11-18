@@ -119,6 +119,9 @@ CTask* CTaskComplexLeaveCarAndWander::CreateFirstSubTask(CPed* ped) {
     );
 }
 
+// 0x63DAD0
 CTask* CTaskComplexLeaveCarAndWander::Clone() const { return new CTaskComplexLeaveCarAndWander{ *this }; }
+// 0x63BE40
 eTaskType CTaskComplexLeaveCarAndWander::GetTaskType() const { return Type; }
+// 0x63BEB0
 CTask* CTaskComplexLeaveCarAndWander::ControlSubTask(CPed* ped) { return m_pSubTask; }

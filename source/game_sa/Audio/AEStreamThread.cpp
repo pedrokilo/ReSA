@@ -70,6 +70,8 @@ CAEStreamThread::~CAEStreamThread() {
 /**
  * Captura el estado del CAEStreamingChannel, crea el thread suspendido y adquiere
  * el CAEMP3TrackLoader usado para resolver tracks internos.
+ *
+ * @addr 0x4F1680
  */
 bool CAEStreamThread::Initialise(CAEStreamingChannel* streamingChannel) {
     m_bActive          = true;
@@ -177,6 +179,8 @@ void CAEStreamThread::StopTrack() {
 /**
  * Loop del worker. Pausa el canal al perder foreground, sirve cambios de stream y
  * delega el bombeo continuo a CAEStreamingChannel.
+ *
+ * @addr 0x4F15C0
  */
 DWORD WINAPI CAEStreamThread::MainLoop(LPVOID data) {
 #ifdef TRACY_ENABLE
@@ -226,6 +230,8 @@ DWORD WINAPI CAEStreamThread::MainLoop(LPVOID data) {
  *
  * Construye el decoder adecuado para tracks internos o user tracks, prepara el
  * siguiente stream y conserva una copia estable del estado visible para otros hilos.
+ *
+ * @addr 0x4F1290
  */
 void CAEStreamThread::Service() {
     m_pStreamingChannel->UpdatePlayTime();

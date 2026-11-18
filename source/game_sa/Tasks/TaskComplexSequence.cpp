@@ -105,6 +105,7 @@ void CTaskComplexSequence::Flush() {
     m_RepeatedCnt = 0;
 }
 
+// 0x632BD0
 CTaskComplexSequence* CTaskComplexSequence::Constructor() {
     this->CTaskComplexSequence::CTaskComplexSequence();
     return this;

@@ -244,6 +244,7 @@ void CTaskSimpleGoToPointFine::SetTargetPos(CVector posn) {
 // Native TrackEntity::ControlSubTask keeps the child pointer in ECX across this
 // call and immediately writes its move ratio. Preserve that executable ABI: ECX = this on return.
 #pragma runtime_checks("", off)
+// 0x65F330
 uint32 __fastcall CTaskSimpleGoToPointFine::SetTargetPos_Reversed(CTaskSimpleGoToPointFine* self, uint32 /*edx*/, CVector posn) {
     self->SetTargetPos(posn);
     return reinterpret_cast<ResidueEcx*>(self)->Get(0);

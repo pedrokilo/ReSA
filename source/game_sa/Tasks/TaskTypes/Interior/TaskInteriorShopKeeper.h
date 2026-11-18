@@ -17,7 +17,9 @@ public:
     CTaskInteriorShopKeeper(const CTaskInteriorShopKeeper&);
     ~CTaskInteriorShopKeeper();
 
+    // 0x6756C0
     CTask*    Clone() const override { return new CTaskInteriorShopKeeper{ *this }; }
+    // 0x675690
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

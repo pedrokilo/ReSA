@@ -19,7 +19,9 @@ public:
     CTaskSimpleChoking(const CTaskSimpleChoking&);
     ~CTaskSimpleChoking() override;
 
+    // 0x623220
     CTask*    Clone() const override { return new CTaskSimpleChoking{*this}; }
+    // 0x620360
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

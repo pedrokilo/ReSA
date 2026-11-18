@@ -59,6 +59,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x6BF820
+     */
     CBmx* Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) { this->CBmx::CBmx(modelIndex, createdBy); return this; }
     CBmx* Destructor() { this->CBmx::~CBmx(); return this; }
 

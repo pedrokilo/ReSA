@@ -33,10 +33,13 @@ public:
 
     CTask* CreateSubTask(eTaskType taskType);
 
+    // 0x63DB40
     CTask*    Clone() const override { return new CTaskComplexLeaveCarAndFlee{ *this }; }
+    // 0x63C020
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
+    // 0x63C090
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
 private: // Wrappers for hooks

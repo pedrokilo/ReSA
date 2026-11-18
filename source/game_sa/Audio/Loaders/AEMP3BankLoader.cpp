@@ -97,6 +97,8 @@ bool CAEMP3BankLoader::GetSoundBankLoadingStatus(eSoundBank bankId, eSoundBankSl
 /**
  * Devuelve una vista directa al sample cargado dentro del buffer del bank slot,
  * junto con tamaño y sample rate. Valida banco, slot y modo single-sound.
+ *
+ * @addr 0x4E0280
  */
 uint8* CAEMP3BankLoader::GetSoundBuffer(eSoundID soundId, eSoundBankSlot bankSlot, uint32& outSize, uint16& outSampleRate) {
     if (!m_IsInitialised) {
@@ -272,6 +274,8 @@ void CAEMP3BankLoader::LoadSound(eSoundBank bankId, eSoundID soundId, eSoundBank
  *
  * Inicia lecturas por sectores, espera a CdStream, copia metadata/sample al slot
  * definitivo y libera el buffer temporal antes de marcar la solicitud inactiva.
+ *
+ * @addr 0x4DFE30
  */
 void CAEMP3BankLoader::Service() {
     for (auto i = 0; i < (int32)(std::size(m_Requests)); i++) {

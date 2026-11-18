@@ -12,7 +12,13 @@ public:
     CTaskSimpleFinishBrain(const CTaskSimpleFinishBrain&);
     ~CTaskSimpleFinishBrain() override = default;
 
+    /*!
+     * @addr 0x463660
+     */
     CTask*    Clone() const override { return new CTaskSimpleFinishBrain{ *this }; }
+    /*!
+     * @addr 0x4636B0
+     */
     eTaskType GetTaskType() const override { return Type; }
 
 private:

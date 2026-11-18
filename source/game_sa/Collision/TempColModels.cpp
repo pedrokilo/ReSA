@@ -37,6 +37,8 @@ void CTempColModels::InjectHooks() {
  * Estas plantillas cubren peatones, piezas desprendibles de vehículos, partes del
  * cuerpo, armas, bounding boxes y objetos de cutscene. Cada CColModel conserva
  * límites simples y, cuando corresponde, primitivas CColSphere/CColLine propias.
+ *
+ * @addr 0x5BA8C0
  */
 void CTempColModels::Initialise() {
     // Inicializa sólo los límites y el slot común; las primitivas detalladas se
@@ -255,6 +257,8 @@ void CTempColModels::Initialise() {
  *
  * Los propios objetos CColModel viven en direcciones globales fijas y no se
  * destruyen aquí; sólo se devuelve la memoria que reservaron para su geometría.
+ *
+ * @addr 0x41B360
  */
 void CTempColModels::Shutdown() {
     ms_colModelBBox.RemoveCollisionVolumes();

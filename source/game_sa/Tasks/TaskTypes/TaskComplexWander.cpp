@@ -43,6 +43,7 @@ void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
 
 // Espacio con nombre (no anonimo) para que CTaskComplexWanderMedic (0x658850) y CTaskComplexWanderStandard (0x48E600) (lote 142A) llamen a este mismo cuerpo sin duplicarlo.
 namespace CTaskComplexWanderBody {
+// 0x6726F0
 // 0x669D20 (lote 115A, banco Fn115A): cuerpo no virtual de ~CTaskComplexWander del EXE (thiscall, sin argumentos de pila, `ret`)
 // Deja la vtable de CTaskComplexWander del EXE (0x86FE84) y salta a CTaskComplex::Destructor (0x61A3D0). El EXE lo envuelve en un marco SEH que solo desenrolla.
 void __fastcall Destructor(CTaskComplexWander* self, void* /*edx*/) {
@@ -103,6 +104,7 @@ void CTaskComplexWander::RequestNodesFrom(const CTaskComplexWander* from) {
         m_bNewNodes = true;
     }
 }
+// 0x66F450
 CTaskComplexWander* CTaskComplexWander::Constructor(eMoveState moveState, uint8 dir, bool bWanderSensibly, float fTargetRadius) { this->CTaskComplexWander::CTaskComplexWander(moveState, dir, bWanderSensibly, fTargetRadius); return this; }
 
 // 0x66F450
@@ -186,6 +188,7 @@ CTask* CTaskComplexWander::CreateNextSubTask(CPed* ped) {
 // 0x6740E0
 
 
+// 0x6740E0
 CTask* CTaskComplexWander::CreateFirstSubTask(CPed* ped) {
     if (ped->bInVehicle) {
         return CreateSubTask(ped, TASK_COMPLEX_LEAVE_CAR);
@@ -199,6 +202,7 @@ CTask* CTaskComplexWander::CreateFirstSubTask(CPed* ped) {
 // 0x674C30
 
 
+// 0x674C30
 CTask* CTaskComplexWander::ControlSubTask(CPed* ped) {
     // Como el original: el tipo de la subtarea se vuelve a pedir en cada comprobacion (llamada virtual)
     if (m_pSubTask->GetTaskType() == TASK_COMPLEX_LEAVE_CAR || m_pSubTask->GetTaskType() == TASK_SIMPLE_CAR_DRIVE_TIMED) {
@@ -243,6 +247,7 @@ CTask* CTaskComplexWander::ControlSubTask(CPed* ped) {
 // 0x669DA0
 
 
+// 0x669DA0
 void CTaskComplexWander::UpdateDir(CPed* ped) {
     uint8 newDir = m_nDir;
     if (m_NextNode.IsAreaValid()) {
@@ -291,6 +296,7 @@ void CTaskComplexWander::UpdateDir(CPed* ped) {
 
 // 0x669ED0
 
+// 0x669ED0
 // 0x0
 void CTaskComplexWander::UpdatePathNodes(const CPed* ped, uint8 dir, CNodeAddress& originNode, CNodeAddress& targetNode, uint8& outDir) {
     originNode = targetNode;

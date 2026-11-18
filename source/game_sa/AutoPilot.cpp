@@ -27,6 +27,7 @@ namespace {
 // cmp al,3Ah; je ..; mov al,[esp+4]; mov [ecx+2Ah],al; ret 4`): cambia la mision (m_nCarMission, +0x2A) SALVO que la actual sea MISSION_PLANE_CRASH_AND_BURN (0x39) o MISSION_HELI_CRASH_AND_BURN (0x3A): en
 // esos casos no escribe nada. Del argumento solo cuenta el byte bajo. Llamador del EXE: 0x467EEC (comando de script sobre el piloto automatico de un vehiculo del pool); no lee EAX/ECX/EDX despues.
 static_assert(offsetof(CAutoPilot, m_nCarMission) == 0x2A);
+// 0x463490
 __declspec(noinline) void __fastcall AutoPilotSetCarMissionUnlessCrashAndBurn(CAutoPilot* self, void* /*edx*/, uint32 mission) {
     uint8* const current = reinterpret_cast<uint8*>(self) + 0x2A;
     if (*current == 0x39u || *current == 0x3Au) {

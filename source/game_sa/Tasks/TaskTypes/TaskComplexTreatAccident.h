@@ -13,6 +13,9 @@ public:
     explicit CTaskComplexTreatAccident(CAccident* accident);
     ~CTaskComplexTreatAccident() override = default; // 0x658AE0
 
+    /*!
+     * @addr 0x658AD0
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override;
     CTask* CreateNextSubTask(CPed* ped) override;

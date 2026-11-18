@@ -21,7 +21,9 @@ public:
 
     CTask* CreateSubTask(eTaskType taskType);
 
+    // 0x655940
     CTask*    Clone() const override { return new CTaskComplexEvasiveDiveAndGetUp{ *this }; }
+    // 0x653730
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) final override;
     CTask*    CreateNextSubTask(CPed* ped) override;

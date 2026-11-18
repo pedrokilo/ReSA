@@ -24,6 +24,7 @@ public:
     ~CTaskComplexChat() override;
 
     eTaskType GetTaskType() const override { return Type; } // 0x682D30
+    // 0x682DA0
     CTask*    Clone() const       override { return new CTaskComplexChat{*this}; }
     CTask*    ControlSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

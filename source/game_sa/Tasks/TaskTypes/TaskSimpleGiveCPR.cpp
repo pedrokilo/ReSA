@@ -70,6 +70,7 @@ void CTaskSimpleGiveCPR::InjectHooks() {
     RH_ScopedVMTInstall(MakeAbortable, 0x6589B0);
 }
 
+// 0x658860
 CTaskSimpleGiveCPR* CTaskSimpleGiveCPR::Constructor(CAccident* pAccident) {
     this->CTaskSimpleGiveCPR::CTaskSimpleGiveCPR(pAccident);
     return this;

@@ -92,6 +92,7 @@ static_assert(offsetof(CVehicleModelInfo, m_anUpgrades) == 0x2D6);
 static_assert(offsetof(CRunningScript, m_SceneSkipIP) == 0xD8 && offsetof(CRunningScript, m_UsesMissionCleanup) == 0xC6);
 static_assert(offsetof(CBaseModelInfo, m_nFlags) == 0x12);
 
+// 0x496E00
 OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
     switch (commandId) {
     // 0x496E61

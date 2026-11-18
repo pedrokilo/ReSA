@@ -21,6 +21,9 @@ public:
 
 
 
+/*!
+ * @addr 0x633EE0
+ */
 eTaskType GetTaskType() const override { return Type; }
 
     CTaskSimpleIKLookAt* Clone() const override;
@@ -34,7 +37,13 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x633E00
+     */
     CTaskSimpleIKLookAt* Constructor(char* name, CEntity* lookAtEntity, int32 time, eBoneTag32 pedBoneID, RwV3d lookAtOffset, uint8 useTorso, float fSpeed, int32 blendTime, int32 priority) { this->CTaskSimpleIKLookAt::CTaskSimpleIKLookAt(name, lookAtEntity, time, pedBoneID, lookAtOffset, useTorso, fSpeed, blendTime, priority); return this; }
+    /*!
+     * @addr 0x633EF0
+     */
     CTaskSimpleIKLookAt* Destructor() { this->CTaskSimpleIKLookAt::~CTaskSimpleIKLookAt(); return this; }
             };
 VALIDATE_SIZE(CTaskSimpleIKLookAt, 0x5C);

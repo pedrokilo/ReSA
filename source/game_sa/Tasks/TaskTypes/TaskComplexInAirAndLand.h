@@ -14,6 +14,9 @@ public:
     CTaskComplexInAirAndLand(bool bUsingJumpGlide, bool bUsingFallGlide);
     ~CTaskComplexInAirAndLand() override = default;
 
+    /*!
+     * @addr 0x678CB0
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override; // 0x67C2E0 (lote 200A, sin validar)
     CTask* CreateFirstSubTask(CPed* ped) override;

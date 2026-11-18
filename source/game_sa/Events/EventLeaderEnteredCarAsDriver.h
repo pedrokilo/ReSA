@@ -23,6 +23,9 @@ public:
     int32 GetLifeTime() override;                              // 0x48E290 (lote 169A)
     bool AffectsPed(CPed* ped) override;                       // 0x48E300 (lote 169A)
     bool AffectsPedGroup(CPedGroup* pedGroup) override;
+    /*!
+     * @addr 0x4B0EE0
+     */
     bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
     bool CanBeInterruptedBySameEvent() override;               // 0x48E310 (lote 169A)
     CEventLeaderEnteredCarAsDriver* CloneEditable() const noexcept override; // 0x48E2A0 (lote 169A): ranura 16 de la vtable 0x85A198

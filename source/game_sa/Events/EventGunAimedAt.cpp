@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "PedType.h"
 
 namespace {
+// 0x4B07B0
 // Cuerpo no virtual de ~CEventGunAimedAt del EXE (thiscall, sin argumentos de pila, `ret`): deja la vtable de CEventGunAimedAt del EXE (0x85B330), libera con CEntity::CleanUpOldReference (0x571A00) las referencias no nulas
 // en el orden del EXE y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 117A, banco Fn117A.)
 void __fastcall GunAimedAtDestructorBody(CEventGunAimedAt* self, void* /*edx*/) {

@@ -149,12 +149,14 @@ CEventKnockOffBike::~CEventKnockOffBike()
     CEntity::SafeCleanUpRef(m_ped);
 }
 
+// 0x4AFCF0
 CEventKnockOffBike* CEventKnockOffBike::Constructor(CVehicle* vehicle, CVector* moveSpeed, CVector* collisionImpactVelocity, float damageIntensity, float a6, int32 knockOffType, uint8 knockOffDirection, int32 time, CPed* ped, bool isVictimDriver, bool forceKnockOff)
 {
     this->CEventKnockOffBike::CEventKnockOffBike(vehicle, *moveSpeed, *collisionImpactVelocity, damageIntensity, a6, static_cast<uint8>(knockOffType), knockOffDirection, time, ped, isVictimDriver, forceKnockOff);
     return this;
 }
 
+// 0x4AFC70
 CEventKnockOffBike* CEventKnockOffBike::Constructor()
 {
     this->CEventKnockOffBike::CEventKnockOffBike();

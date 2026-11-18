@@ -68,6 +68,9 @@ public:
         return x == 0.0F && y == 0.0F;
     }
 
+    /*!
+     * @addr 0x43E110
+     */
     CVector2D& operator=(const CVector2D& right) {
         x = right.x;
         y = right.y;

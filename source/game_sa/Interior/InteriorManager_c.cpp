@@ -104,6 +104,8 @@ int32 AreaOf(const CEntity* entity) {
 // 0x5C0500
 /**
  * Inicializa los pools fijos de Interior_c/InteriorGroup_c y el catálogo de muebles.
+ *
+ * @addr 0x5C0500
  */
 bool InteriorManager_c::Init() {
     m_IsFrozen       = false;
@@ -129,6 +131,8 @@ bool InteriorManager_c::Init() {
 // 0x598F50
 /**
  * Sincroniza los grupos de interior activos con los efectos 2DFX actualmente visibles.
+ *
+ * @addr 0x598F50
  */
 bool InteriorManager_c::Update() {
     ZoneScoped;
@@ -230,6 +234,8 @@ bool InteriorManager_c::Update() {
 // 0x598A60
 /**
  * Limita los efectos activos por cantidad y distancia a la cámara.
+ *
+ * @addr 0x598A60
  */
 void InteriorManager_c::PruneVisibleEffects(InteriorEffectInfo_t* infos, size_t numInfos, size_t maxVisibleFxCount, float maxDist) {
     const float maxDistSq = maxDist * maxDist;
@@ -338,6 +344,8 @@ void InteriorManager_c::Exit() {
 // 0x598D80
 /**
  * Reúne efectos C2dEffectInterior visibles de entidades cercanas a la cámara.
+ *
+ * @addr 0x598D80
  */
 size_t InteriorManager_c::GetVisibleEffects(InteriorEffectInfo_t* intFxInfos, uint32 maxNumIntFxInfo) {
     int16 objCount = -1;
@@ -537,6 +545,8 @@ InteriorGroup_c* InteriorManager_c::GetPedsInteriorGroup(const CPed* ped) {
 /**
  * Cambia el EntryExit de referencia; si cambia el rectángulo de entrada reinicia los registros
  * de objetos robables/interiores.
+ *
+ * @addr 0x598180
  */
 void InteriorManager_c::SetEntryExitPtr(CEntryExit* enex) {
     if (enex->GetLinkedOrThis()->m_nArea == eAreaCodes::AREA_CODE_NORMAL_WORLD) {

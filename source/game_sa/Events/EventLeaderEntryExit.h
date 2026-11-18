@@ -22,7 +22,13 @@ public:
     CEventLeaderEntryExit* Clone() const noexcept override;         // 0x43E220 (lote 158A)
     bool HasEditableResponse() const override;                      // 0x43E1E0 (lote 158A)
     CEntity* GetSourceEntity() const override;                      // 0x43E1F0 (lote 158A)
+    /*!
+     * @addr 0x4B23A0
+     */
     bool AffectsPedGroup(CPedGroup* pedGroup) override { return m_ped && pedGroup->GetMembership().GetLeader() == m_ped; }
+    /*!
+     * @addr 0x4B2390
+     */
     bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
     bool CanBeInterruptedBySameEvent() override;                    // 0x43E280 (lote 158A)
 };

@@ -86,6 +86,7 @@ public:
     static void InjectHooks();
 
 private:
+    // 0x67A110
     __declspec(noinline) CTaskSimpleClimb* Constructor(CEntity* pClimbEnt, const CVector& vecTarget, float fHeading, eSurfaceType nSurfaceType, eClimbHeights nHeight, bool bForceClimb) {
         this->CTaskSimpleClimb::CTaskSimpleClimb(pClimbEnt, vecTarget, fHeading, nSurfaceType, nHeight, bForceClimb);
         return this;

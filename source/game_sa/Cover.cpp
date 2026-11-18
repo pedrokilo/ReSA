@@ -699,6 +699,7 @@ CCoverPoint::Dir CCover::FindDirFromVector(CVector dir) {
     return CCoverPoint::Dir{ uint8(FindDirFromVector_Reversed(dir)) };
 }
 
+// 0x698D40
 // Como el original: devuelve el entero completo de _ftol2 (truncado a 64 bits) en EAX.
 int32 CCover::FindDirFromVector_Reversed(CVector dir) {
     return CoverDirFromVectorCpp(dir.x, dir.y); // fpatan(-x, y) * (128/π) y truncamiento de _ftol2 (0x698D40)
@@ -709,6 +710,7 @@ CVector CCover::FindVectorFromDir(CCoverPoint::Dir direction) {
     return FindVectorFromDir_Reversed(std::bit_cast<uint8>(direction));
 }
 
+// 0x698D60
 CVector CCover::FindVectorFromDir_Reversed(uint8 direction) {
     // Como el original (0x698D60): el ángulo se redondea a float (fmul); el seno se niega y ambos se guardan como float
     static const float step = std::bit_cast<float>(0x3CC90FDBu); // 0x859BBC (2π/256)

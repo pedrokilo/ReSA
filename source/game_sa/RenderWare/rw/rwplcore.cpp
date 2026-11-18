@@ -761,6 +761,7 @@ RwStream* RwStreamReadReal(RwStream* stream, RwReal* reals, RwUInt32 numBytes) {
     return stream;
 }
 
+// 0x7ED540
 RwStream* RwStreamReadInt32(RwStream* stream, RwInt32* ints, RwUInt32 numBytes) {
     if (RwStreamRead(stream, ints, numBytes) == 0) {
         StreamRaiseError(static_cast<RwInt32>(0x8000001A));

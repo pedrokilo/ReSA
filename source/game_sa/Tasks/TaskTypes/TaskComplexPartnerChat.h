@@ -15,6 +15,9 @@ public:
     CTaskComplexPartnerChat(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, int8 updateDirectionCount, bool conversationEnabled, bool a8, CVector point);
     ~CTaskComplexPartnerChat() override;
 
+    /*!
+     * @addr 0x681E10
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override; // 0x684E30 (lote 185A, sin validar)
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;

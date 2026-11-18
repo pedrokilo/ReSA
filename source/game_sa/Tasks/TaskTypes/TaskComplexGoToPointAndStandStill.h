@@ -35,6 +35,7 @@ public:
     );
     ~CTaskComplexGoToPointAndStandStill() override;
 
+    // 0x668230
     eTaskType GetTaskType() const override { return Type; }
     CTask*    Clone() const override;
     CTask* CreateNextSubTask(CPed* ped) override;

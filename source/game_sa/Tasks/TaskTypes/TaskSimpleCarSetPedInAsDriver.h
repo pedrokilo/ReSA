@@ -29,8 +29,10 @@ public:
     CTaskSimpleCarSetPedInAsDriver(CVehicle *targetVehicle, bool warpingInToCar, CTaskUtilityLineUpPedWithCar *utility = nullptr);
     ~CTaskSimpleCarSetPedInAsDriver() override;
 
+    // 0x647150
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override;
+    // 0x647160
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return false; }
     bool ProcessPed(CPed* ped) override;
 

@@ -145,6 +145,7 @@ static void SitInChairStartTimer(CTaskInteriorSitInChair* self) {
 // 0..1000 > 980, 0x407180) y con un grupo de interior del peaton (0x598240) cuya informacion mas cercana a 10.0 (FindClosestInteriorInfo, 0x594A50) exista, LookAt (0x618970) "TaskSitInChair" de 10000 a 20000 ms hacia la posicion de la
 // informacion; sin animacion 0x159, AbortLookAt (0x618280, 250) si miraba. Devuelve falso siempre salvo en los dos primeros retornos tempranos.
 #pragma float_control(precise, on, push)
+// 0x676D30
 bool __fastcall SitInChairProcessPed(CTaskInteriorSitInChair* self, void* /*edx*/, CPed* ped) {
     auto* const anim0 = SitInChairField<CAnimBlendAssociation*>(self, 0x14);
     const int32 animId = anim0 ? SitAnimIdOf(anim0) : -1;
@@ -308,6 +309,7 @@ void CTaskInteriorSitInChair::InjectHooks() {
 
 // Como el original: conserva la vtable EXE para los demás métodos. Deja EAX = this, ECX = (info con el byte bajo = modo) y EDX = duracion.
 #pragma runtime_checks("", off)
+// 0x675C30
 uint32 CTaskInteriorSitInChair::Constructor(void* info, uint32 duration, uint8 mode) {
     auto* const fields = reinterpret_cast<uint8*>(this);
     *reinterpret_cast<uint32*>(fields + 0x04) = 0;

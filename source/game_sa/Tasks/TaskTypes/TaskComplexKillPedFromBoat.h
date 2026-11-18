@@ -17,6 +17,7 @@ public:
     ~CTaskComplexKillPedFromBoat() override;
 
     CTask* Clone() const override;
+    // 0x622820
     eTaskType GetTaskType() const override { return Type; }
     CTask* CreateNextSubTask(CPed* ped) override;
     CTask* CreateFirstSubTask(CPed* ped) override;

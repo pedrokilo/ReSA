@@ -36,6 +36,7 @@ float GetPlantDensity(CPlantLocTri* plant) {
 
 // Como el original: 0x5DC210 recibe el triángulo en EAX y devuelve el resultado en ST0. EntryEaxCpp debe ser lo primero que se ejecuta.
 #pragma runtime_checks("", off)
+// 0x5DC210
 __declspec(safebuffers) static float GetPlantDensity_EaxEntry() {
     return GetPlantDensity(reinterpret_cast<CPlantLocTri*>(EntryEaxCpp()));
 }
@@ -61,6 +62,8 @@ void CPlantLocTri::InjectHooks() {
  * Cuando genera plantas calcula máximos por especie a partir del área y las
  * propiedades de superficie; después mueve el nodo desde la lista libre al slot
  * de proximidad correspondiente. Los triángulos sólo de objetos usan el slot 3.
+ *
+ * @addr 0x5DC290
  */
 CPlantLocTri* CPlantLocTri::Add(const CVector& p1, const CVector& p2, const CVector& p3, uint8 surface, tColLighting lightning, bool createsPlants, bool createsObjects) {
     m_V1 = p1;
@@ -114,6 +117,8 @@ CPlantLocTri* CPlantLocTri::Add(const CVector& p1, const CVector& p2, const CVec
 /**
  * Retira objetos procedurales si llegaron a crearse, desenlaza el triángulo de su
  * lista activa y lo devuelve a la lista global de libres.
+ *
+ * @addr 0x5DB6D0
  */
 void CPlantLocTri::Release() {
     rng::fill(m_nMaxNumPlants, 0u);

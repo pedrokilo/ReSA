@@ -94,6 +94,8 @@ bool CAEAudioUtility::ResolveProbability(float p) {
 /**
  * Evalúa una curva definida por pares X/Y, saturando extremos e interpolando
  * linealmente entre los dos puntos que encierran x.
+ *
+ * @addr 0x4D9D90
  */
 float CAEAudioUtility::GetPiecewiseLinear(float x, int16 dataCount, const float (*data)[2]) {
     assert(dataCount >= 1);
@@ -169,6 +171,8 @@ void CAEAudioUtility::StaticInitialise() {
 /**
  * Traduce un eAudioEvents de script al banco y sound ID que consume el hardware.
  * Los slots personalizados utilizan reglas separadas del esquema de 200 sonidos por banco.
+ *
+ * @addr 0x4D9CC0
  */
 bool CAEAudioUtility::GetBankAndSoundFromScriptSlotAudioEvent(const eAudioEvents& scriptID, eSoundBankS32& outBankID, int32& outSoundID, int32 slot) {
     if (scriptID < AE_SCRIPT_BANK_FIRST) {

@@ -94,11 +94,13 @@ int32 CAEWaveDecoder::GetStreamID() {
     return _dataStreamCopy->m_nTrackId;
 }
 
+// 0x503250
 CAEWaveDecoder* CAEWaveDecoder::Constructor(CAEDataStream* dataStream) {
     this->CAEWaveDecoder::CAEWaveDecoder(dataStream);
     return this;
 }
 
+// 0x503290
 __declspec(noinline) void CAEWaveDecoder::Destructor() {
     this->CAEWaveDecoder::~CAEWaveDecoder();
 }

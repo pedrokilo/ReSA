@@ -811,6 +811,7 @@ void _rpMeshHeaderDestroy(RpMeshHeader* meshHeader) {
 // 0x758920: `call [RwEngineInstance + 0x134](size, 0x30502)`, es decir RwMalloc del motor (memoryFuncs.rwmalloc) con la pista de memoria
 // global de mallas. Lee el puntero del motor (0xC97B24) en cada llamada y devuelve tal cual lo que devuelva el asignador; no escribe nada.
 static_assert(offsetof(RwGlobals, memoryFuncs) + offsetof(RwMemoryFunctions, rwmalloc) == 0x134);
+// 0x758920
 RpMeshHeader* _rpMeshHeaderCreate(RwUInt32 size) {
     return static_cast<RpMeshHeader*>(RwMalloc(size, kMeshHeaderMemoryHint));
 }
@@ -2196,6 +2197,7 @@ static void LightDestroyBody(RpLight* light) {
     RwFreeListFree(LightFreeList(), light);
 }
 
+// 0x7520D0
 RwBool RpLightDestroy(RpLight* light) {
     LightDestroyBody(light);
     return TRUE;

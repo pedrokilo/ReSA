@@ -114,6 +114,7 @@ void Fx_c::InjectHooks() {
     RH_ScopedGlobalInstall(RotateVecAboutVec, 0x4A1780);
 }
 
+// 0x49E620
 Fx_c* Fx_c::Constructor() { this->Fx_c::Fx_c(); return this; }
 Fx_c* Fx_c::Destructor() { this->Fx_c::~Fx_c(); return this; }
 
@@ -342,6 +343,8 @@ void Fx_c::ExitEntitySystems() {
 // 0x49EA90
 /**
  * Inicializa FxManager, carga effects.fxp y conecta la dirección/intensidad de viento.
+ *
+ * @addr 0x49EA90
  */
 void Fx_c::Init() {
     ZoneScoped;
@@ -453,6 +456,7 @@ void Fx_c::CreateMatFromVec(RwMatrix* mat, const CVector* pos, const CVector* di
 // 0x49EA40 (thiscall, `ret 4`): los llamadores del EXE conservan ECX y EDX; se optimiza por pragma (CMakeLists.txt: /Zi y sin comprobaciones de ejecucion).
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
+// 0x49EA40
 void Fx_c::SetFxQuality(FxQuality_e quality) {
     m_FxQuality = quality;
 }

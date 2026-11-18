@@ -10,6 +10,7 @@
 // al byte bajo (frecuencia); CPad::GetPad(0)->StartShake(40000 / frecuencia, frecuencia, 0) (0x53F920). x87 a 24 bits: 1/masa se guarda como float (fstp) y el modulo (suma de cuadrados en el orden x, y, z; fsqrt)
 // se multiplica sin guardar; el EXE recalcula la expresion completa si no supera 250.0 (mismo valor). La frecuencia es >= 80, asi que la division no falla.
 #pragma float_control(precise, on, push)
+// 0x6563D0
 void CTaskSimpleKillPedWithCar::ShakePadIfPlayerVehicle() {
     CVehicle* const car = m_Car;
     if (FindPlayerVehicle(-1, false) != car) {

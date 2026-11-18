@@ -16,14 +16,18 @@ public:
     CTaskComplexCarDrive(const CTaskComplexCarDrive&);
     ~CTaskComplexCarDrive() override;
 
+    // 0x63DC90
     CTask*    Clone() const override { return new CTaskComplexCarDrive{ *this }; }
+    // 0x63C9C0
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;
 
     virtual void   SetUpCar();
+    // 0x643200
     virtual CTask* CreateSubTaskCannotGetInCar(CPed* ped) { return CreateSubTask(TASK_FINISHED, ped); }
+    // 0x63CAD0
     virtual CTask* Drive(CPed* ped) { return m_pSubTask; }
 
     CTask* CreateSubTask(eTaskType taskType, CPed* ped);
@@ -32,7 +36,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    // 0x63C9D0
     CTaskComplexCarDrive* Constructor_0(CVehicle* vehicle) { this->CTaskComplexCarDrive::CTaskComplexCarDrive(vehicle); return this; }
+    // 0x63C940
     CTaskComplexCarDrive* Constructor_1(CVehicle* vehicle, float speed, eModelID carModelIndexToCreate, eCarDrivingStyle carDrivingStyle) { this->CTaskComplexCarDrive::CTaskComplexCarDrive(vehicle, speed, carModelIndexToCreate, carDrivingStyle); return this; }
     CTaskComplexCarDrive* ScalarDeletingDestructor(uint8 flags); // 0x642F80 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86E934), `ret 4`
 

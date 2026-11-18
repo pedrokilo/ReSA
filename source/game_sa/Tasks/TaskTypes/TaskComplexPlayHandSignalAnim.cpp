@@ -102,6 +102,7 @@ CTaskComplexPlayHandSignalAnim::~CTaskComplexPlayHandSignalAnim() {
 #ifdef _DEBUG
 #pragma optimize("", on)
 #endif
+// 0x61B460
 AnimationId __stdcall CTaskComplexPlayHandSignalAnim::GetAnimIdForPed(CPed* ped) {
     const auto type = ped->m_nPedType;
     if (type == 7) return static_cast<AnimationId>(320);

@@ -109,6 +109,8 @@ void CAnimBlendAssocGroup::CreateAssociation(CAnimBlendStaticAssociation* assoc,
  *
  * Cada jerarquía se vincula al model info cuyo hash coincide con el almacenado
  * por la animación. Las entradas sin modelo correspondiente se dejan sin inicializar.
+ *
+ * @addr 0x4CE220
  */
 void CAnimBlendAssocGroup::CreateAssociations(const char* blockName) {
     ZoneScoped;
@@ -135,6 +137,8 @@ void CAnimBlendAssocGroup::CreateAssociations(const char* blockName) {
 /**
  * Construye sólo las asociaciones que pueden resolverse en dos buffers paralelos
  * de nombres de animación/modelo. m_NumAnims se compacta para no dejar huecos.
+ *
+ * @addr 0x4CE3B0
  */
 void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, const char* animNames, const char* modelNames, uint32 buffStride) {
     ZoneScoped;
@@ -184,6 +188,8 @@ void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, const char*
 /**
  * Inicializa un número explícito de asociaciones usando un mismo RpClump.
  * Los nombres vacíos reservan su posición pero dejan ANIM_ID_UNDEFINED.
+ *
+ * @addr 0x4CE6E0
  */
 void CAnimBlendAssocGroup::CreateAssociations(const char* blockName, RpClump* clump, const char** names, uint32 cnt) {
     ZoneScoped;

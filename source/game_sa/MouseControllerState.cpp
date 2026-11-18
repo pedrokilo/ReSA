@@ -36,6 +36,7 @@ CMouseControllerState::CMouseControllerState() {
     Clear();
 }
 
+// 0x53F220
 CMouseControllerState* CMouseControllerState::Constructor() {
     this->CMouseControllerState::CMouseControllerState();
     return this;

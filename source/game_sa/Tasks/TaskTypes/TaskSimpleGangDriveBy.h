@@ -65,6 +65,9 @@ public:
     // Envoltura del constructor para el hook (0x6217D0): los llamadores del EXE reservan la memoria y llaman con la memoria en ECX.
     CTaskSimpleGangDriveBy* Constructor(CEntity* target, const CVector* targetPos, float abortRange, int8 frequencyPercentage, eDrivebyStyle drivebyStyle, bool seatRHS);
 
+    /*!
+     * @addr 0x6218B0
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;

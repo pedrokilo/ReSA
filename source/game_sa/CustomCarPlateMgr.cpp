@@ -304,6 +304,7 @@ std::pair<uint32, uint32> GetCharacterPositionInCharSet(char c) {
 // EAX de entrada y tiene que ser lo primero que se ejecuta (sin comprobaciones de ejecucion ni cookie de /GS; lo vigila contrib/audit_register_residue.py,
 // objeto CustomCarPlateMgr). EAX, ECX y EDX de salida no los lee ningun llamador (el unico del EXE, 0x6FDDDE en 0x6FDD70, esta reemplazado).
 #pragma runtime_checks("", off)
+// 0x6FD7C0
 __declspec(safebuffers) void __cdecl GetCharacterPositionInCharSetExe(uint32* outCol, uint32* outRow) {
     const uint8 letter = static_cast<uint8>(EntryEaxCpp());
     const auto position = GetCharacterPositionInCharSet(static_cast<char>(letter));

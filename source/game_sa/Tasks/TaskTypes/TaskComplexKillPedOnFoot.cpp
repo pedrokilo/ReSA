@@ -125,6 +125,7 @@ CTask* CTaskComplexKillPedOnFoot::Clone() const {
     return clone;
 }
 
+// 0x620E30
 CTaskComplexKillPedOnFoot* CTaskComplexKillPedOnFoot::Constructor(CPed* target, int32 time, int32 pedFlags, int32 delay, int32 chance, int8 a7) {
     this->CTaskComplexKillPedOnFoot::CTaskComplexKillPedOnFoot(target, time, pedFlags, delay, chance, a7);
     return this;

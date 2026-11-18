@@ -12,6 +12,7 @@ public:
     CTaskSimpleEvasiveDive(CVehicle *vehicle);
     ~CTaskSimpleEvasiveDive() override;
 
+    // 0x6535C0
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override { return new CTaskSimpleEvasiveDive(m_EvadeVeh); } // 0x6558E0
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;

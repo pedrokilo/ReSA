@@ -22,7 +22,9 @@ public:
     CTaskSimpleThrowControl(const CTaskSimpleThrowControl&);
     ~CTaskSimpleThrowControl();
 
+    // 0x61F940
     eTaskType GetTaskType() const override { return Type; }
+    // 0x6230B0
     CTask* Clone() const override { return new CTaskSimpleThrowControl{ *this }; }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;

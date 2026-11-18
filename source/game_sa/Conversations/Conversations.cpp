@@ -55,6 +55,8 @@ void CConversations::InjectHooks() {
  * porque el pool permanente de nodos se limpia de forma explícita en el bucle
  * siguiente. Esto evita recorrer estados de grafo potencialmente solapados o
  * antiguos durante un reinicio global.
+ *
+ * @addr 0x43A7B0
  */
 void CConversations::Clear() {
     ZoneScoped;
@@ -83,6 +85,8 @@ void CConversations::Clear() {
  * especial se está cargando o reproduciendo, las conversaciones normales quedan
  * detenidas. En cuanto termina la muestra, las actualizaciones normales se
  * reanudan en ese mismo frame.
+ *
+ * @addr 0x43C590
  */
 void CConversations::Update() {
     ZoneScoped;
@@ -138,6 +142,7 @@ void CConversations::Update() {
  * @param answerNoWAV  ID de voz de la respuesta negativa.
  *
  * @note Se espera que el llamador respete MAX_NUM_TEMP_CONVERSATION_NODES.
+ * @addr 0x43A870
  */
 void CConversations::SetUpConversationNode(
     const char* questionKey,
@@ -187,6 +192,7 @@ void CConversations::SetUpConversationNode(
  * por lo que Clear(false) libera recursivamente sus nodos antes de liberar el slot.
  *
  * @param ped Peatón cuya conversación guionizada debe eliminarse.
+ * @addr 0x43A960
  */
 void CConversations::RemoveConversationForPed(CPed* ped) {
     for (auto& conversation : m_Conversations) {
@@ -206,6 +212,8 @@ void CConversations::RemoveConversationForPed(CPed* ped) {
  *
  * @pre Debe existir previamente una conversación para @p ped. Esta función
  *      reproduce intencionadamente el lookup sin comprobación del comportamiento original.
+ *
+ * @addr 0x43B0B0
  */
 bool CConversations::IsPlayerInPositionForConversation(CPed* ped, bool randomConversation) {
     return FindConversationForPed(ped)->IsPlayerInPositionForConversation(randomConversation);
@@ -217,6 +225,8 @@ bool CConversations::IsPlayerInPositionForConversation(CPed* ped, bool randomCon
  *
  * Una entrada del pool cuenta como activa cuando su estado es distinto de INACTIVE.
  * Por tanto, tener simplemente un peatón asociado al slot no es suficiente.
+ *
+ * @addr 0x43AAC0
  */
 bool CConversations::IsConversationGoingOn() {
     for (const auto& conversation : m_Conversations) {
@@ -237,6 +247,7 @@ bool CConversations::IsConversationGoingOn() {
  * @param pName Clave del nodo que se desea comparar.
  * @param pPed  Peatón cuya conversación debe inspeccionarse.
  * @return true si existe un nodo actual consultable y su nombre coincide.
+ * @addr 0x43B000
  */
 bool CConversations::IsConversationAtNode(const char* pName, CPed* pPed) {
     auto conversation = FindConversationForPed(pPed);
@@ -263,6 +274,7 @@ bool CConversations::IsConversationAtNode(const char* pName, CPed* pPed) {
  *
  * @param whatToSay ID del audio/voz de misión.
  * @param speaker   Peatón al que debe asociarse espacialmente el audio.
+ * @addr 0x43A810
  */
 void CConversations::AwkwardSay(int32 whatToSay, CPed* speaker) {
     AudioEngine.PreloadMissionAudio(0, whatToSay);
@@ -277,6 +289,7 @@ void CConversations::AwkwardSay(int32 whatToSay, CPed* speaker) {
  * Esta bandera controla su avance; no elimina la conversación ni sus nodos asignados.
  *
  * @pre Debe existir previamente una conversación para @p ped.
+ * @addr 0x43AA40
  */
 void CConversations::EnableConversation(CPed* ped, bool enabled) {
     FindConversationForPed(ped)->m_Enabled = enabled;
@@ -292,6 +305,7 @@ void CConversations::EnableConversation(CPed* ped, bool enabled) {
  * el contador de nodos.
  *
  * @param ped Peatón que será propietario de la conversación en construcción.
+ * @addr 0x43A840
  */
 void CConversations::StartSettingUpConversation(CPed* ped) {
     m_SettingUpConversationPed = ped;
@@ -321,6 +335,8 @@ void CConversations::StartSettingUpConversation(CPed* ped) {
  *          tal como está documentado en la reconstrucción existente. Esta función
  *          sigue marcada como reversed=false en InjectHooks(), por lo que debe
  *          validarse su equivalencia antes de cambiar esa marca.
+ *
+ * @addr 0x43ADB0
  */
 void CConversations::DoneSettingUpConversation(bool bSuppressSubtitles) {
     // Etapa 1: resuelve los nombres de las ramas a índices dentro del array temporal.

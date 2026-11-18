@@ -97,6 +97,7 @@ CTask* CTaskComplexPartnerChat::Clone() const {
     return memory->Constructor(m_commandName, m_partner, m_leadSpeaker, m_distanceMultiplier, m_updateDirectionCount, m_conversationEnabled, field_75, m_point);
 }
 
+// 0x684290
 CTaskComplexPartnerChat* CTaskComplexPartnerChat::Constructor(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, int8 updateDirectionCount, bool conversationEnabled, bool a8, CVector point)
 {
     this->CTaskComplexPartnerChat::CTaskComplexPartnerChat(commandName, partner, leadSpeaker, distanceMultiplier, updateDirectionCount, conversationEnabled, a8, point);
@@ -121,6 +122,7 @@ bool CTaskComplexPartnerChat::MakeAbortable(CPed* ped, eAbortPriority priority, 
 // /fp:fast no puede reordenar las sumas.
 #pragma float_control(push)
 #pragma float_control(precise, on)
+// 0x684380
 CTaskComplexSequence* CTaskComplexPartnerChat::GetPartnerSequence() {
     auto* seq = new CTaskComplexSequence; // Como el original: sin inicialización por valor
     seq->AddTask(new CTaskComplexTurnToFaceEntityOrCoord(m_partner, 0.5f, 0.001f));

@@ -96,22 +96,39 @@ __declspec(noinline) static void PlaceableArrayPairResetBody(void* self) {
         *reinterpret_cast<uint32*>(bytes + 0xC) = 0;
     }
 }
+// 0x54FA10
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FA10(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FA60
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FA60(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FAB0
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FAB0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FB00
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FB00(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FB50
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FB50(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FBA0
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FBA0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FBF0
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FBF0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FC40
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FC40(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FC90
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FC90(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FCE0
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FCE0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FD30
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FD30(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FD80
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FD80(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FDD0
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FDD0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FE20
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FE20(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FE70
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FE70(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FEC0
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FEC0(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
+// 0x54FF10
 __declspec(noinline) static void __fastcall PlaceableArrayPairReset54FF10(void* self, void* /*edx*/) { PlaceableArrayPairResetBody(self); }
 
 /**
@@ -236,11 +253,13 @@ CVector CPlaceable::GetUpVector() {
     return out;
 }
 
+// 0x420B80
 void CPlaceable::SetPosn(float x, float y, float z) {
     auto& pos = GetPosition();
     pos.Set(x, y, z);
 }
 
+// 0x4241C0
 void CPlaceable::SetPosn(const CVector& posn) {
     auto& pos = GetPosition();
     pos = posn;
@@ -251,6 +270,8 @@ void CPlaceable::SetPosn(const CVector& posn) {
  *
  * Si no hay matriz completa, sólo puede representarse heading Z y se mantiene la
  * forma compacta para ahorrar una entrada del pool.
+ *
+ * @addr 0x439A80
  */
 void CPlaceable::SetOrientation(float x, float y, float z) {
     if (!m_matrix) {
@@ -263,6 +284,7 @@ void CPlaceable::SetOrientation(float x, float y, float z) {
     m_matrix->GetPosition() += vecPos;
 }
 
+// 0x43E0C0
 void CPlaceable::SetHeading(float heading) {
     if (m_matrix)
         m_matrix->SetRotateZOnly(heading);
@@ -287,6 +309,7 @@ float CPlaceable::GetRoll() const {
     return PlaceableRollFltCpp(&m_matrix->GetRight().x, m_matrix->GetUp().z);
 }
 
+// 0x54F200
 bool CPlaceable::IsWithinArea(float x1, float y1, float x2, float y2) const {
     const auto& vecPos = GetPosition();
     if (x1 > x2)
@@ -299,6 +322,7 @@ bool CPlaceable::IsWithinArea(float x1, float y1, float x2, float y2) const {
 }
 
 
+// 0x54F2B0
 bool CPlaceable::IsWithinArea(float x1, float y1, float z1, float x2, float y2, float z2) const {
     const auto& vecPos = GetPosition();
     if (x1 > x2)
@@ -321,6 +345,8 @@ bool CPlaceable::IsWithinArea(float x1, float y1, float z1, float x2, float y2, 
 /**
  * Colapsa la CMatrixLink completa a posición + heading, la devuelve a gMatrixList
  * y deja el objeto nuevamente en representación compacta.
+ *
+ * @addr 0x54F3B0
  */
 void CPlaceable::RemoveMatrix() {
     const auto& vecForward = m_matrix->GetForward();
@@ -334,6 +360,7 @@ void CPlaceable::RemoveMatrix() {
     m_matrix = nullptr;
 }
 
+// 0x54F4C0
 // Reserva/mueve la matriz a la segunda lista del pool, expulsando la más antigua si está lleno.
 void CPlaceable::AllocateStaticMatrix() {
     if (m_matrix)
@@ -346,6 +373,7 @@ void CPlaceable::AllocateStaticMatrix() {
     m_matrix->m_pOwner = this;
 }
 
+// 0x54F560
 // Reserva una matriz de la lista principal y asigna este CPlaceable como owner.
 void CPlaceable::AllocateMatrix() {
     if (m_matrix)
@@ -358,6 +386,7 @@ void CPlaceable::AllocateMatrix() {
     m_matrix->m_pOwner = this;
 }
 
+// 0x54F610
 void CPlaceable::SetMatrix(CMatrix& matrix) {
     if (!m_matrix) {
         if (matrix.GetUp().z == 1.0F) {
@@ -382,6 +411,8 @@ bool CPlaceable::IsPointInRange(const CVector& point, float range) {
 /**
  * Materializa perezosamente una CMatrixLink a partir de CSimpleTransform cuando
  * algún consumidor necesita la transformación completa.
+ *
+ * @addr 0x411990
  */
 CMatrix& CPlaceable::GetMatrix() {
     if (!m_matrix) {
@@ -392,16 +423,19 @@ CMatrix& CPlaceable::GetMatrix() {
     return *m_matrix;
 }
 
+// 0x54EFD0
 void CPlaceable::ShutdownMatrixArray() {
     gMatrixList.Shutdown();
 }
 
+// 0x54F3A0
 void CPlaceable::InitMatrixArray() {
     ZoneScoped;
 
     gMatrixList.Init(CPlaceable::NUM_MATRICES_TO_CREATE);
 }
 
+// 0x54F010
 void CPlaceable::FreeStaticMatrix() {
     gMatrixList.MoveToList1(m_matrix);
 }

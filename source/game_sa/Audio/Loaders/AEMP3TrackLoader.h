@@ -23,6 +23,7 @@ public:
     bool IsCurrentAudioStreamAvailable();
 
 private:
+    // @addr 0x4E0930
     // NOTSA
     CAEMP3TrackLoader* Constructor() {
         this->CAEMP3TrackLoader::CAEMP3TrackLoader();

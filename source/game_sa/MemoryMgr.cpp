@@ -135,6 +135,7 @@ void CMemoryMgr::SetHint(void* memory, const char* hint) {
 // Salida del EXE (72F1F3..31F): EAX = &m_FreeListBegin (0xC87BD8), ECX = primer bloque (0xC8E0C8), EDX = &m_FreeListEnd (0xC87BF0);
 // ResidueRegsCpp es lo último que se ejecuta (ver contrib/audit_register_residue.py, objeto MemoryMgr).
 #pragma runtime_checks("", off)
+// 0x72F480
 void CMemoryMgr::InitScratchPad() {
     constexpr uint32 kSize = MEMORY_MGR_PC_SCRATCH_SIZE;
     CMemoryHeap& heap = g_Heaps[HEAP_SCRATCH];
@@ -287,6 +288,7 @@ using ExeCrtFree    = void   (__cdecl*)(void*);
 
 // 0x72F420
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
+// 0x72F420
 void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
     _LOCK_MEMORYHEAP();
@@ -316,6 +318,7 @@ void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
 #endif
 }
 #else
+// 0x72F420
 void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
     // 0x72F420: sólo reenvía el tamaño; el hint se ignora.
     return reinterpret_cast<ExeCrtMalloc>(uintptr_t{0x824257})(size);
@@ -343,6 +346,7 @@ void CMemoryMgr::Free(void* memory) {
 
 // 0x72F440
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
+// 0x72F440
 uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
     if (!memory) {
@@ -376,6 +380,7 @@ uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
 #endif
 }
 #else
+// 0x72F440
 uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
     // 0x72F440: realloc(memory, size) del CRT del EXE; el hint se ignora.
     return reinterpret_cast<ExeCrtRealloc>(uintptr_t{0x824269})(memory, size);
@@ -394,6 +399,7 @@ uint8* CMemoryMgr::Calloc(uint32 numObj, uint32 sizeObj, uint32 hint) {
 
 // 0x72F4C0
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
+// 0x72F4C0
 uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
     auto* memory = Malloc(size + align, nHint);
 
@@ -402,6 +408,7 @@ uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
     return static_cast<uint8*>(result);
 }
 #else
+// 0x72F4C0
 uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
     // 0x72F4C0: malloc(size + align), resultado = (base + align) & ~(align - 1) con la base guardada en [resultado - 4].
     // Aritmética de 32 bits sin signo (add/lea con desborde); sin comprobar OOM ni alineamientos que no sean potencia de dos, como el EXE.
@@ -415,11 +422,13 @@ uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
 #endif
 
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
+// 0x72F4F0
 void CMemoryMgr::FreeAlign(void* memory) {
     return plugin::Call<0x72F4F0, void*>(memory);
     Free(*((void**)memory - 1));
 }
 #else
+// 0x72F4F0
 __declspec(noinline) void CMemoryMgr::FreeAlign(void* memory) {
     // 0x72F4F0: el EXE sobrescribe el argumento entrante [esp+4] con la base guardada en [memory - 4] y salta (tail call) a free del CRT.
     // `argument` es un acceso volátil al propio objeto parámetro (que MSVC x86 mantiene en su ranura de pila entrante al tomarle la

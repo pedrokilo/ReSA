@@ -56,6 +56,7 @@ public:
     // 0x4442D0: el EXE deja ECX = tabla de banderas y EDX = indice << 8; GetRef devuelve EDX:EAX con ResidueRegsCpp
     uint32 GetRef(const CPed*);
 
+    // 0x5E45E0
     // Como el original: busca desde el cursor + 1 y no rellena el almacenamiento (ver CPool::NewLegacy).
     CPed* New() {
         return NewLegacy();

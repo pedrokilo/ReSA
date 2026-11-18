@@ -188,6 +188,7 @@ CTask* CPedGroupIntelligence::GetTask(CPed* ped, PedTaskPairs& taskPairs) const 
     return nullptr;
 }
 
+// 0x5F86C0
 CTask* CPedGroupIntelligence::GetTaskDefault(CPed* ped) {
     return GetTask(ped, m_DefaultPedTaskPairs);
 }
@@ -533,6 +534,7 @@ CTaskAllocator* CPedGroupIntelligence::ComputeEventResponseTasks() {
 // ECX = tarea de la plaza 6 y EDX = ped de la plaza 7, como el EXE.
 // safebuffers: sin la comprobacion de la cookie de /GS, que tras la ultima llamada cambiaria ECX (el arreglo local la activa).
 #pragma runtime_checks("", off)
+// 0x5F7800
 __declspec(safebuffers) uint32 CPedGroupIntelligence::ComputeScriptCommandTasks() {
     PedTaskPairs fresh{};
     auto&        membership = m_pPedGroup->GetMembership();

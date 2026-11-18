@@ -145,6 +145,7 @@ bool CRealTimeShadow::SetupForThisEntity(CPhysical* owner) {
     return true;
 }
 
+// 0x706460
 bool CRealTimeShadow::Create(bool isBlurred, int32 blurPasses, bool drawMoreBlur) {
     m_pLight = RpLightCreate(rpLIGHTDIRECTIONAL);
     if (!m_pLight) {

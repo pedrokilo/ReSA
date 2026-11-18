@@ -94,6 +94,8 @@ CMatrixLinkList::CMatrixLinkList() : m_head(), m_tail(), m_allocatedListHead(), 
  * Se utilizan tres listas con nodos centinela: dos para matrices asignadas con
  * distinta prioridad/uso y una para entradas disponibles. Los objetos se insertan
  * en orden inverso para que el primer elemento del array quede al frente al acabar.
+ *
+ * @addr 0x54F0D0
  */
 void CMatrixLinkList::Init(int32 count)
 {
@@ -119,6 +121,8 @@ void CMatrixLinkList::Init(int32 count)
  *
  * No intenta recorrer ni destruir listas por separado porque todos sus nodos
  * pertenecen al mismo array m_pObjects.
+ *
+ * @addr 0x54E990
  */
 void CMatrixLinkList::Shutdown()
 {
@@ -129,6 +133,7 @@ void CMatrixLinkList::Shutdown()
 /**
  * Obtiene la primera matriz libre y la mueve a la lista de uso principal.
  * @return La matriz reservada, o nullptr cuando el pool está agotado.
+ * @addr 0x54E9D0
  */
 CMatrixLink* CMatrixLinkList::AddToList1()
 {
@@ -143,6 +148,7 @@ CMatrixLink* CMatrixLinkList::AddToList1()
 /**
  * Obtiene la primera matriz libre y la mueve a la segunda lista de uso.
  * @return La matriz reservada, o nullptr cuando el pool está agotado.
+ * @addr 0x54EA10
  */
 CMatrixLink* CMatrixLinkList::AddToList2()
 {
@@ -154,6 +160,7 @@ CMatrixLink* CMatrixLinkList::AddToList2()
     return pNextFree;
 }
 
+// 0x54EA60
 // Reubica una matriz ya enlazada al frente de la lista de uso principal.
 void CMatrixLinkList::MoveToList1(CMatrixLink* mat)
 {
@@ -161,6 +168,7 @@ void CMatrixLinkList::MoveToList1(CMatrixLink* mat)
     m_head.Insert(mat);
 }
 
+// 0x54EA90
 // Reubica una matriz ya enlazada al frente de la segunda lista de uso.
 void CMatrixLinkList::MoveToList2(CMatrixLink* mat)
 {
@@ -168,6 +176,7 @@ void CMatrixLinkList::MoveToList2(CMatrixLink* mat)
     m_allocatedListHead.Insert(mat);
 }
 
+// 0x54EAD0
 // Devuelve una matriz al frente de la lista de libres sin liberar su almacenamiento.
 void CMatrixLinkList::MoveToFreeList(CMatrixLink* mat)
 {
@@ -175,6 +184,7 @@ void CMatrixLinkList::MoveToFreeList(CMatrixLink* mat)
     m_freeListHead.Insert(mat);
 }
 
+// 0x54EB10
 // Cuenta los nodos disponibles recorriendo la lista hasta su centinela final.
 int32 CMatrixLinkList::GetNumFree()
 {
@@ -188,6 +198,7 @@ int32 CMatrixLinkList::GetNumFree()
     return result;
 }
 
+// 0x54EB30
 // Cuenta las matrices presentes actualmente en la lista de uso principal.
 int32 CMatrixLinkList::GetNumUsed1()
 {
@@ -201,6 +212,7 @@ int32 CMatrixLinkList::GetNumUsed1()
     return result;
 }
 
+// 0x54EB50
 // Cuenta las matrices presentes actualmente en la segunda lista de uso.
 int32 CMatrixLinkList::GetNumUsed2()
 {

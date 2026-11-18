@@ -13,6 +13,12 @@ public:
     ~CTaskComplexUseEffectSprinting() override = default;
     CTaskComplexUseEffectSprinting* ScalarDeletingDestructor(uint8 flags); // 0x636910 (lote 141A, banco Fn141A): destructor con borrado (ranura 0 de la vtable 0x86E5C0), `ret 4`
 
+    /*!
+     * @addr 0x6368A0
+     */
     CTask*    Clone() const override { return new CTaskComplexUseEffectSprinting{ *this }; }
+    /*!
+     * @addr 0x636890
+     */
     eTaskType GetTaskType() const override { return Type; }
 };

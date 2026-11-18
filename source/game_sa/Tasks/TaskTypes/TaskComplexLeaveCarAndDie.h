@@ -14,11 +14,20 @@ public:
     CTaskComplexLeaveCarAndDie(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime); // 0x62F1A0
     CTaskComplexLeaveCarAndDie(const CTaskComplexLeaveCarAndDie&);
 
+    /*!
+     * @addr 0x62F1D0
+     */
     CTask*    Clone() const override { return new CTaskComplexLeaveCarAndDie{ *this }; }
+    /*!
+     * @addr 0x62F240
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateFirstSubTask(CPed * ped) override;
 
 private:
     CTaskComplexLeaveCarAndDie* ScalarDeletingDestructor(uint8 flags); // 0x62F250 (lote 152A, banco Fn152A): destructor con borrado (ranura 0 de la vtable 0x86DD00), `ret 4`
+    /*!
+     * @addr 0x62F1A0
+     */
     CTaskComplexLeaveCarAndDie* Constructor(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime) { this->CTaskComplexLeaveCarAndDie::CTaskComplexLeaveCarAndDie(targetVehicle, nTargetDoor, nDelayTime); return this; }
 };

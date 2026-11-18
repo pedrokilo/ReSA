@@ -62,6 +62,7 @@ namespace {
 // la vtable de CBmx del EXE (0x871528), termina el audio del vehiculo (m_vehicleAudio, +0x138: CAEVehicleAudioEntity::Terminate, 0x4FB8C0, con hook) y sigue con el cuerpo de ~CBike (0x6B57A0, con hook
 // propio; llamada no virtual en una funcion propia sin expansion en linea para que el banco pueda sustituirla). El destructor generado ~CBmx deja la vtable de la DLL.
 __declspec(noinline) void __fastcall CBmxBaseDestructorCall(CBmx* self, void* /*edx*/) { self->CBike::~CBike(); }
+// 0x6BF9D0
 __declspec(noinline) void __fastcall CBmxDestructorBodyExe(CBmx* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x871528;
     self->m_vehicleAudio.Terminate();

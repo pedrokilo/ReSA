@@ -99,6 +99,8 @@ void CAEWaterCannonAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayP
 /**
  * Mantiene una de las cuatro capas: actualiza una CAESound existente, la crea si
  * pasa a estar activa o solicita su parada cuando la condición desaparece.
+ *
+ * @addr 0x502F80
  */
 void CAEWaterCannonAudioEntity::UpdateGenericWaterCannonSound(bool splashInfoEnabled, int16 id, eSoundBankSlot bankSlotId, int16 sfxId, float speed, float volume, CVector pos, float rollOff) {
     auto& sound = m_Sounds[id];
@@ -177,6 +179,7 @@ void CAEWaterCannonAudioEntity::InjectHooks() {
     RH_ScopedVMTInstall(UpdateParameters, 0x502EF0);
 }
 
+// 0x728A90
 CAEWaterCannonAudioEntity* CAEWaterCannonAudioEntity::Constructor() {
     // Como el original (0x728A90): solo escribe la vtable del EXE, m_tempSound.m_PhysicalEntity (+0x10)
     // y m_bInitialized; el constructor C++ inicializaría por valor toda m_tempSound.

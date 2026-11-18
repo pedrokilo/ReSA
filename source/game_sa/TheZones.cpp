@@ -402,6 +402,7 @@ bool CTheZones::GetCurrentZoneLockedOrUnlocked(CVector2D pos) {
 }
 
 #pragma runtime_checks("", off)
+// 0x572800
 __declspec(safebuffers) void CTheZones::SetCurrentZoneAsUnlocked() {
     const uint32 exePos = uint32(uintptr_t(_AddressOfReturnAddress())) - 12u; // &pos del EXE
     const CVector pos = FindPlayerCoors(-1);

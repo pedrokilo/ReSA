@@ -126,15 +126,18 @@ static CDamageManager* __fastcall Init_Hook(CDamageManager* self) {
     return self;
 }
 
+// 0x6A04E0
 static CDamageManager* __fastcall ResetDamageStatusAndWheelDamage_Hook(CDamageManager* self) {
     self->ResetDamageStatusAndWheelDamage();
     return self;
 }
 
+// 0x6C24B0
 static bool __fastcall ApplyDamage_Hook(CDamageManager* self, void*, CAutomobile* vehicle, int32 compId, float fIntensity, float fColDmgMult) {
     return ApplyDamageRaw(self, vehicle, compId, fIntensity);
 }
 
+// 0x6C2040
 // Como el original: thiscall que no usa ECX y limpia sus 3 argumentos (ret 0Ch); la versión estática de la DLL es cdecl.
 static bool __stdcall GetComponentGroup_Hook(int32 comp, int32* outGroup, uint8* outIdx) {
     return GetComponentGroupRaw(comp, *outGroup, *outIdx);
@@ -148,6 +151,7 @@ static uint32 __fastcall GetDoorStatus_Zx(const CDamageManager* self, void*, int
     return door >= 0 && door < 6 ? (uint32)self->GetDoorStatus((eDoors)door) : 4u;
 }
 
+// 0x6C2250
 static uint32 __fastcall GetDoorStatus_Component_Zx(const CDamageManager* self, void*, uint32 comp) {
     // El EXE compara el dword completo del argumento (comp - 8 <= 3 sin signo)
     return comp - 8u <= 3u ? (uint32)self->GetDoorStatus_Component((tComponent)comp) : 4u;
@@ -170,14 +174,17 @@ static uint32 __fastcall GetPanelStatus_Hook(const CDamageManager* self, void*, 
     return GetPanelStatusRaw(self, panel);
 }
 
+// 0x6C2150
 static void __fastcall SetPanelStatus_Hook(CDamageManager* self, void*, uint32 panel, uint32 status) {
     SetPanelStatusRaw(self, panel, status);
 }
 
+// 0x6C2130
 static uint32 __fastcall GetLightStatus_Hook(const CDamageManager* self, void*, uint32 light) {
     return GetLightStatusRaw(self, light);
 }
 
+// 0x6C2100
 static void __fastcall SetLightStatus_Hook(CDamageManager* self, void*, uint32 light, uint32 status) {
     SetLightStatusRaw(self, light, status);
 }
@@ -187,6 +194,7 @@ static eCarNodes __cdecl GetCarNodeIndexFromPanel_Hook(uint32 panel) {
     return panel <= 6u ? CDamageManager::GetCarNodeIndexFromPanel((ePanels)panel) : (eCarNodes)-1;
 }
 
+// 0x6C26F0
 static eCarNodes __cdecl GetCarNodeIndexFromDoor_Hook(uint32 door) {
     return door <= 5u ? CDamageManager::GetCarNodeIndexFromDoor((eDoors)door) : (eCarNodes)-1;
 }

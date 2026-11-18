@@ -23,6 +23,9 @@ public:
     [[nodiscard]] bool IsFxInfoPresent(eFxInfoType type) const;
 
 private:
+    /*!
+     * @addr 0x4A18D0
+     */
     FxEmitterBP_c* Constructor() { this->FxEmitterBP_c::FxEmitterBP_c(); return this; }
 
 

@@ -39,6 +39,7 @@ FxFrustumInfo_c* FxFrustumInfo_c::Constructor() {
 // Como el original: el cuadrado de la distancia se suma como (z² + y²) + x² y las comparaciones son estrictas (NaN pasa).
 // Sin comprobaciones de ejecucion: RTC llamaria a __RTC_CheckEsp y cambiaria ECX/EDX tras la ultima llamada.
 #pragma runtime_checks("", off)
+// 0x4AA030
 uint32 FxFrustumInfo_c::IsCollisionRegs(FxSphere_c& sphere) {
     bool collides = true;
     const float dx = sphere.m_vecCenter.x - m_Sphere.m_vecCenter.x;

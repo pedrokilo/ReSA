@@ -22,7 +22,9 @@ public:
 
     CFire* GetNearestFire(CPed* ped);
 
+    // 0x6977B0
     CTask*    Clone() const override { return new CTaskComplexExtinguishFires{ *this }; }
+    // 0x6975E0
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

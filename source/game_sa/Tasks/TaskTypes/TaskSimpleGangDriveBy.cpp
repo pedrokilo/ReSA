@@ -107,6 +107,7 @@ CTaskSimpleGangDriveBy::CTaskSimpleGangDriveBy(CEntity* target, const CVector* t
     }
 }
 
+// 0x6217D0
 CTaskSimpleGangDriveBy* CTaskSimpleGangDriveBy::Constructor(CEntity* target, const CVector* targetPos, float abortRange, int8 frequencyPercentage, eDrivebyStyle drivebyStyle, bool seatRHS) {
     this->CTaskSimpleGangDriveBy::CTaskSimpleGangDriveBy(target, targetPos, abortRange, frequencyPercentage, drivebyStyle, seatRHS);
     return this;
@@ -123,12 +124,14 @@ CTaskSimpleGangDriveBy::~CTaskSimpleGangDriveBy()
     CEntity::SafeCleanUpRef(m_pTargetEntity);
 }
 
+// 0x6236D0
 CTask* CTaskSimpleGangDriveBy::Clone() const {
     auto* clone = new CTaskSimpleGangDriveBy(m_pTargetEntity, &m_vecCoords, m_fAbortRange, m_nFrequencyPercentage, m_nDrivebyStyle, m_bSeatRHS);
     clone->m_bFromScriptCommand = m_bFromScriptCommand;
     return clone;
 }
 
+// 0x62D290
 bool CTaskSimpleGangDriveBy::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
     if (priority != ABORT_PRIORITY_URGENT && priority != ABORT_PRIORITY_IMMEDIATE) {
         m_nNextCommand = 6;
@@ -164,6 +167,7 @@ bool CTaskSimpleGangDriveBy::MakeAbortable(CPed* ped, eAbortPriority priority, c
     return true;
 }
 
+// 0x62D3B0
 bool CTaskSimpleGangDriveBy::ProcessPed(CPed* ped) {
     auto* info = CWeaponInfo::GetWeaponInfo(ped);
     if ((info && info->GetFireType() != WEAPON_FIRE_INSTANT_HIT) ||

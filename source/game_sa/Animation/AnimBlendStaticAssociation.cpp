@@ -105,6 +105,8 @@ CAnimBlendStaticAssociation* CAnimBlendStaticAssociation::Destructor(uint8 flags
  * Para cada secuencia busca el bone/frame correspondiente por tag o hash y guarda
  * un puntero en el índice equivalente del clump. No copia las secuencias ni toma
  * ownership de la jerarquía.
+ *
+ * @addr 0x4CEC20
  */
 void CAnimBlendStaticAssociation::Init(RpClump* clump, CAnimBlendHierarchy* h) {
     m_BlendHier = h;

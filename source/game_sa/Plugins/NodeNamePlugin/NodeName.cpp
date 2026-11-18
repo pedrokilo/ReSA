@@ -96,6 +96,8 @@ static RwInt32 NodeNameStreamGetSize(const void* object, RwInt32 offsetInObject,
 
 /**
  * Registra el payload de 24 bytes y sus callbacks de construcción, copia y streaming.
+ *
+ * @addr 0x72FAB0
  */
 RwBool NodeNamePluginAttach() {
     // register plugin
@@ -107,6 +109,7 @@ RwBool NodeNamePluginAttach() {
     return gNodeNamePluginOffset != -1;
 }
 
+// 0x72FB30
 // Devuelve la cadena alojada dentro del propio RwFrame cuando el plugin está disponible.
 const RwChar* GetFrameNodeName(RwFrame* frame) {
     if (gNodeNamePluginOffset > 0)
@@ -115,6 +118,7 @@ const RwChar* GetFrameNodeName(RwFrame* frame) {
     return nullptr;
 }
 
+// 0x72FB00
 // Copia como máximo NAME_LENGTH caracteres y fuerza terminación nula.
 void SetFrameNodeName(RwFrame* frame, const RwChar* name) {
     if (gNodeNamePluginOffset > 0) {

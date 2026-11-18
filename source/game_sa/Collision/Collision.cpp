@@ -688,6 +688,7 @@ float CCollision::ClosestPtSegmentSegment(
 * @param a    Sq. mag. of seg 1
 *
 * @returns Sq. dist. of the closest points on the 2 line segments
+* @addr 0x415A40
 */
 float ClosestSquaredDistanceBetweenFiniteLines(
     const CVector& s1p0,
@@ -4197,6 +4198,7 @@ static bool __cdecl SphereVsEntityBody(CColSphere* /*sphere: ignorada, como en e
 // Sin comprobaciones de ejecucion (RTC rellenaria con 0xCC la pila que hay que leer) y sin locales ni llamadas antes de leer: los
 // 16 bytes de basura de [ESP_entrada - 0x68 .. - 0x59] siguen intactos cuando se copian.
 #pragma runtime_checks("", off)
+// 0x41A5A0
 bool CCollision::SphereVsEntity(CColSphere* sphere, CEntity* entity) {
     const auto* const entry = static_cast<const uint32*>(_AddressOfReturnAddress());
     gSphereVsEntityStackSphere[0] = entry[-0x68 / 4];

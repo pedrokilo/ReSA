@@ -26,10 +26,22 @@ public:
     CEventPotentialWalkIntoVehicle(CVehicle* vehicle, int32 moveState);
     ~CEventPotentialWalkIntoVehicle() override;
 
+    /*!
+     * @addr 0x4AE390
+     */
     eEventType GetEventType() const override { return EVENT_POTENTIAL_WALK_INTO_VEHICLE; }
+    /*!
+     * @addr 0x4AE5C0
+     */
     bool TakesPriorityOver(const CEvent& refEvent) override { return true; }
     CEventPotentialWalkIntoVehicle* CloneEditable() const noexcept override; // 0x4B6FB0 (lote 202A, sin validar)
+    /*!
+     * @addr 0x4AE3B0
+     */
     int32 GetEventPriority() const override { return 29; }
+    /*!
+     * @addr 0x4AE3A0
+     */
     int32 GetLifeTime() override { return 0; }
     bool AffectsPed(CPed* ped) override;
 

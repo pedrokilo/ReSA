@@ -90,6 +90,9 @@ public:
 
 public:
     static void InjectHooks();
+    /*!
+     * @addr 0x55F4B0
+     */
     CColourSet* Constructor(int32 timeId, int32 weatherId) {
         this->CColourSet::CColourSet(timeId, weatherId);
         return this;

@@ -15,6 +15,7 @@ public:
     ~CTaskComplexAvoidOtherPedWhileWandering() override = default; // 0x66A1D0
 
     CTask*    Clone() const override; // 0x66D050
+    // 0x66A1C0
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) override;
     CTask*    CreateNextSubTask(CPed* ped) override;

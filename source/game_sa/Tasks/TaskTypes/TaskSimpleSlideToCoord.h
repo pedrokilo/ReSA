@@ -30,7 +30,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    // 0x66C3E0
     CTaskSimpleSlideToCoord* Constructor(const CVector& pos, float fAimingRotation, float radius) { this->CTaskSimpleSlideToCoord::CTaskSimpleSlideToCoord(pos, fAimingRotation, radius); return this; }
+    // 0x66C450
     CTaskSimpleSlideToCoord* Constructor(const CVector& pos, float aimRot, float radius, const char* animName, const char* fileName, int32 flags, float frameDelta, bool isActiveSequence, int32 time) { this->CTaskSimpleSlideToCoord::CTaskSimpleSlideToCoord(pos, aimRot, radius, animName, fileName, flags, frameDelta, isActiveSequence, time); return this; }
 public:
     // 0x66C4C0 (lote 191A, sin validar): cuerpo del destructor del EXE (`mov [ecx],86FFECh; jmp 0x61A6F0`)

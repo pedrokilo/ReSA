@@ -173,6 +173,7 @@ FightRegs FightRegisterReference(CEntity* entity, CEntity** ref, FightRegs in) {
 // 0x61C5E0 (ret 8): como el original deja EAX = (EAX de entrada o de la ultima llamada) con AL = 1, y ECX y EDX de la ultima llamada (o los de entrada). EntryEaxCpp tiene que
 // ser lo primero que se ejecuta; ResidueRegsCpp es la ultima llamada (contrib/audit_register_residue.py, objeto TaskSimpleFight; sin comprobaciones de ejecucion ni cookie de /GS).
 #pragma runtime_checks("", off)
+// 0x61C5E0
 __declspec(safebuffers) uint32 __fastcall FightControlFightExe(CTaskSimpleFight* self, uint32 entryEdx, CEntity* entity, uint8 command) {
     const uint32 entryEax = EntryEaxCpp();
     CEntity* const old = self->m_pTargetEntity;
@@ -1937,6 +1938,7 @@ CTaskSimpleFight* CTaskSimpleFight::ScalarDeletingDestructor(uint8 flags) {
 #pragma warning(push)
 #pragma warning(disable: 4733) // el marco se registra a mano en fs:[0], como el original (manejador 0x83F318)
 #pragma runtime_checks("", off)
+// 0x61C470
 CTaskSimpleFight* CTaskSimpleFight::Constructor(CEntity* entity, int32 nCommand, uint32 nIdlePeriod) {
     const uint32 previousHead = __readfsdword(0);
     FightFrame frame{ reinterpret_cast<FightFrame*>(static_cast<uintptr_t>(previousHead)), reinterpret_cast<void*>(&FightUnwind), this };
@@ -1976,6 +1978,7 @@ CTaskSimpleFight* CTaskSimpleFight::Constructor(CEntity* entity, int32 nCommand,
 #pragma warning(push)
 #pragma warning(disable: 4733) // el marco se registra a mano en fs:[0], como el original (manejador 0x83F338)
 #pragma runtime_checks("", off)
+// 0x61C530
 CTaskSimpleFight* CTaskSimpleFight::Destructor() {
     const auto DefaultAnimCallback = reinterpret_cast<void(*)(CAnimBlendAssociation*, void*)>(0x4D1390);
 

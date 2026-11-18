@@ -27,8 +27,11 @@ public:
     CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse(const CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse&);
     ~CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse();
 
+    // 0x646EC0
     CTask*    Clone() const override { return new CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse{ *this }; }
+    // 0x646E30
     eTaskType GetTaskType() const override { return Type; }
+    // 0x646E40
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override { return true; }
     bool      ProcessPed(CPed* ped) override;
 

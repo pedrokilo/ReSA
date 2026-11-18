@@ -61,6 +61,7 @@ CVehicleAnimGroup::CVehicleAnimGroup() : m_animFlags(), m_specialFlags(), m_gene
     }
 }
 
+// 0x5B9EB0
 void CVehicleAnimGroup::InitAnimGroup(
     uint8 firstGroup,
     uint8 secondGroup,
@@ -81,6 +82,7 @@ void CVehicleAnimGroup::InitAnimGroup(
     GetInOutTiming(eInOutTiming::TIMING_END) = *endTiming;
 }
 
+// 0x5B9E40
 void CVehicleAnimGroup::CopyAnimGroup(CVehicleAnimGroup* src) {
     m_ucFirstGroup = src->m_ucFirstGroup;
     m_ucSecondGroup = src->m_ucSecondGroup;
@@ -184,6 +186,7 @@ float CVehicleAnimGroup::ComputeCriticalBlendTime(AnimationId animId) {
     }
 }
 
+// 0x6E3D10
 CVector CVehicleAnimGroup::ComputeAnimDoorOffsets(eVehAnimDoorOffset doorId) {
     // Memoize door offset if it's not set yet
     // Como el original: x*x + y*y + z*z se compara con 0 en el x87 (exponente extendido, sin subdesbordamiento): solo

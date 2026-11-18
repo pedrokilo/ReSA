@@ -99,6 +99,8 @@ void CBuilding::operator delete(void* data)
  *
  * Si el modelo anterior ya no tiene referencias solicita a streaming que libere
  * también sus recursos compartidos.
+ *
+ * @addr 0x403EC0
  */
 void CBuilding::ReplaceWithNewModel(int32 newModelIndex)
 {
@@ -109,6 +111,7 @@ void CBuilding::ReplaceWithNewModel(int32 newModelIndex)
     m_nModelIndex = newModelIndex;
 }
 
+// 0x4040E0
 bool IsBuildingPointerValid(CBuilding* building)
 {
     if (!building)

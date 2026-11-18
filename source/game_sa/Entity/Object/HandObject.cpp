@@ -120,6 +120,8 @@ void CHandObject::ProcessControl()
 /**
  * Fuerza actualización HAnim del ped, adopta la matriz del bone y neutraliza matrices
  * descendientes cuando corresponde antes de sincronizar el clump del objeto.
+ *
+ * @addr 0x59ECD0
  */
 void CHandObject::PreRender()
 {

@@ -176,11 +176,13 @@ CMenuManager::CMenuManager() {
     m_vMapOrigin.y            = 224.0f; // Como el original: 0x43600000 (448 / 2), no APP_MINIMAL_HEIGHT / 2 (240).
 }
 
+// 0x574350
 CMenuManager* CMenuManager::Constructor() {
     this->CMenuManager::CMenuManager();
     return this;
 }
 
+// 0x579440
 CMenuManager* CMenuManager::Destructor() {
     this->CMenuManager::~CMenuManager();
     return this;

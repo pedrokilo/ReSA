@@ -16,6 +16,9 @@ public:
     CTaskComplexCarSlowBeDraggedOutAndStandUp(CVehicle* vehicle, int32 a3);
     ~CTaskComplexCarSlowBeDraggedOutAndStandUp() override;
 
+    /*!
+     * @addr 0x648680
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override { return new CTaskComplexCarSlowBeDraggedOutAndStandUp(m_Vehicle, dword10); } // 0x64A190;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
@@ -28,6 +31,12 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x648620
+     */
     CTaskComplexCarSlowBeDraggedOutAndStandUp* Constructor(CVehicle* veh, int32 a3) { this->CTaskComplexCarSlowBeDraggedOutAndStandUp::CTaskComplexCarSlowBeDraggedOutAndStandUp(veh, a3); return this; }
+    /*!
+     * @addr 0x648690
+     */
     CTaskComplexCarSlowBeDraggedOutAndStandUp* Destructor() { this->CTaskComplexCarSlowBeDraggedOutAndStandUp::~CTaskComplexCarSlowBeDraggedOutAndStandUp(); return this; }
 };

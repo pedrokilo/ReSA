@@ -15,8 +15,11 @@ public:
     CTaskSimpleCarSetPedSlowDraggedOut(CVehicle*, eTargetDoor);
     ~CTaskSimpleCarSetPedSlowDraggedOut() = default;
 
+    // 0x64A0B0
     CTask*    Clone() const override { return new CTaskSimpleCarSetPedSlowDraggedOut{ *this }; }
+    // 0x648410
     eTaskType GetTaskType() const override { return Type; }
+    // 0x648420
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override { return false; }
     bool      ProcessPed(CPed* ped) override;
 

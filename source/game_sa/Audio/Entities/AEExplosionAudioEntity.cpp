@@ -43,6 +43,7 @@ CAEExplosionAudioEntity* CAEExplosionAudioEntity::Constructor() {
     return this;
 }
 
+// 0x5B9A60
 void CAEExplosionAudioEntity::StaticInitialise() {
     AEAudioHardware.LoadSoundBank(SND_BANK_GENRL_EXPLOSIONS, SND_BANK_SLOT_EXPLOSIONS);
 }
@@ -53,6 +54,8 @@ void CAEExplosionAudioEntity::StaticInitialise() {
  *
  * m_Speed rota entre variaciones discretas para evitar que explosiones consecutivas
  * compartan exactamente el mismo pitch.
+ *
+ * @addr 0x4DCBE0
  */
 void CAEExplosionAudioEntity::AddAudioEvent(eAudioEvents audioEvent, CVector& posn, float volume) {
     volume += GetDefaultVolume(AE_EXPLOSION);

@@ -13,8 +13,17 @@ public:
     CEventDanger(CEntity* dangerFrom, float dangerRadius);
     ~CEventDanger() override;
 
+    /*!
+     * @addr 0x4B2670
+     */
     eEventType GetEventType() const override { return EVENT_DANGER; }
+    /*!
+     * @addr 0x4B2690
+     */
     int32 GetEventPriority() const override { return 20; }
+    /*!
+     * @addr 0x4B2680
+     */
     int32 GetLifeTime() override { return 0; }
     bool AffectsPed(CPed* ped) override;
     bool AffectsPedGroup(CPedGroup* pedGroup) override;

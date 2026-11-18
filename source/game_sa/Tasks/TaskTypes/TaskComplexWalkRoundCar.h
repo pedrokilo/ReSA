@@ -19,12 +19,15 @@ public:
 
     void   SetNewVehicle(CVehicle * vehicle, uint8 forceThisDirectionRoundCar);
     CTask* CreateRouteTask(CPed*) const;
+    // 0x654720
     bool   GoingForDoor() const { return m_bIsPedGoingForCarDoor && m_Veh && m_Veh->vehicleFlags.bIsBig; }
     float  ComputeRouteRoundSmallCar(CPed* ped);
     float  ComputeRouteRoundBigCar(CPed* ped);
     float  ComputeRoute(CPed* ped);
 
+    // 0x655B00
     CTask*    Clone() const override { return new CTaskComplexWalkRoundCar{ *this }; }
+    // 0x654280
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

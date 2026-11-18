@@ -56,7 +56,9 @@ public:
     auto GetControlType() const { return m_DuckControlType; }
     bool SetControlType(eDuckControlType controlType);
 
+    // 0x692CF0
     CTask* Clone() const override { return new CTaskSimpleDuck{ *this }; }
+    // 0x692020
     eTaskType GetTaskType() const override { return Type; }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = eAbortPriority::ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;

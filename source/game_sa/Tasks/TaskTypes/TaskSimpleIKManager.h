@@ -17,7 +17,13 @@ public:
     CTaskSimpleIKManager(const CTaskSimpleIKManager&);
     ~CTaskSimpleIKManager() override;
 
+    /*!
+     * @addr 0x633820
+     */
     eTaskType GetTaskType() const override { return Type; }
+    /*!
+     * @addr 0x639350
+     */
     CTask*    Clone() const override { return new CTaskSimpleIKManager{*this}; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;
@@ -38,7 +44,13 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x6337F0
+     */
     CTaskSimpleIKManager* Constructor() { this->CTaskSimpleIKManager::CTaskSimpleIKManager(); return this; }
+    /*!
+     * @addr 0x633830
+     */
     CTaskSimpleIKManager* Destructor() { this->CTaskSimpleIKManager::~CTaskSimpleIKManager(); return this; }
 
 private:

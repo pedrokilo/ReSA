@@ -419,11 +419,13 @@ public:
     void SetCurrentScanCode();
 
 public: // Envolturas de los cuerpos 0x532A90 / 0x535E90 (con hook): las llaman los cuerpos reconstruidos de CDummy (0x532540, 0x532560; lote 141A, banco Fn141A), sin expansion en linea
+    // 0x532A90
     __declspec(noinline) CEntity* Constructor() {
         this->CEntity::CEntity();
         return this;
     }
 
+    // 0x535E90
     __declspec(noinline) CEntity* Destructor() {
         this->CEntity::~CEntity();
         return this;

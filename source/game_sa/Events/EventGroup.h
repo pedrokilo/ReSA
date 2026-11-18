@@ -49,6 +49,9 @@ public:
     }
 
 private:
+    /*!
+     * @addr 0x4AB340
+     */
     CEventGroup* Constructor(CPed* ped) {
         this->CEventGroup::CEventGroup(ped);
         return this;

@@ -102,6 +102,7 @@ bool CTaskComplexCrossRoadLookAndAchieveHeading::MakeAbortable(CPed* ped, eAbort
     return false;
 }
 
+// 0x631AE0
 CTaskComplexCrossRoadLookAndAchieveHeading* CTaskComplexCrossRoadLookAndAchieveHeading::Constructor(int32 durationInMs, float fTargetHeading) {
     this->CTaskComplexCrossRoadLookAndAchieveHeading::CTaskComplexCrossRoadLookAndAchieveHeading(durationInMs, fTargetHeading);
     return this;

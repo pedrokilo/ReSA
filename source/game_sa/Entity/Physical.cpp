@@ -38,6 +38,7 @@ namespace {
 // puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor).
 __declspec(noinline) void __fastcall PhysicalDestructorBody(CPhysical* self, void* /*edx*/) { self->CPhysical::~CPhysical(); }
 
+// 0x544990
 CPhysical* __fastcall PhysicalScalarDeletingDestructor(CPhysical* self, void* /*edx*/, uint8 flags) {
     PhysicalDestructorBody(self, nullptr);
     if (flags & 1) {
@@ -243,6 +244,8 @@ CPtrListDoubleLink<CPhysical*>* PhysicalSectorList(CRepeatSector& sector, eEntit
 /**
  * Inserta el cuerpo en cada repeat-sector tocado por su bound y crea un CEntryInfoNode
  * por inserción para poder retirarlo sin búsquedas posteriores.
+ *
+ * @addr 0x544A30
  */
 void CPhysical::Add() {
     if (m_bIsBIGBuilding) {
@@ -301,6 +304,8 @@ CRect CPhysical::GetBoundRect() const {
 /**
  * Reinicia estado transitorio del frame, limpia daños/contactos y acumula gravedad,
  * resistencia y fricción antes de la fase de aplicación de velocidades.
+ *
+ * @addr 0x5485E0
  */
 void CPhysical::ProcessControl()
 {
@@ -340,6 +345,8 @@ CVector PhysAttachMatPoint59C890(const CMatrix& m, const CVector& v); // Definid
  *
  * La función maneja rutas especiales de simple car/ghost/vehículo y puede cambiar
  * STATUS_SIMPLE a física completa cuando aparece una colisión relevante.
+ *
+ * @addr 0x54DFB0
  */
 void CPhysical::ProcessCollision() {
     ZoneScoped;
@@ -894,6 +901,7 @@ CVector CPhysical::GetSpeed(CVector point)
     };
 }
 
+// 0x542DD0
 void CPhysical::ApplyMoveSpeed()
 {
     if (physicalFlags.bDontApplySpeed || physicalFlags.bDisableMoveForce)

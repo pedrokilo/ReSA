@@ -99,6 +99,8 @@ CAESound::~CAESound() {
  *
  * La entidad física se reasigna desde el puntero crudo para registrar esta instancia
  * como nuevo observador, en lugar de copiar ciegamente el estado interno de referencia.
+ *
+ * @addr 0x4EF680
  */
 CAESound& CAESound::operator=(const CAESound& other) {
     if (this == &other) {
@@ -211,6 +213,8 @@ void CAESound::SetFlags(uint16 envFlag, uint16 bEnabled) {
  *
  * Al alcanzar el final, termina la voz o la reubica en loopStartTime. El bugfix
  * reversible evita el módulo por cero (solo con longitud 0) cuando faltan datos de audio.
+ *
+ * @addr 0x4EF2E0
  */
 void CAESound::UpdatePlayTime(int16 soundLength, int16 loopStartTime, int16 playProgress) {
     m_Length = soundLength;
@@ -321,6 +325,8 @@ void CAESound::StopSoundAndForget() {
 /**
  * Actualiza posición, distancia a cámara y timestamps preservando la muestra anterior.
  * Sólo desplaza el estado previo una vez por frame, requisito del cálculo Doppler.
+ *
+ * @addr 0x4EF880
  */
 void CAESound::SetPosition(CVector pos) {
     // Como el original: distancia a la cámara como sqrt(dz² + dy² + dx²), sumando en ese orden.
@@ -367,6 +373,8 @@ void CAESound::CalculateVolume() {
 /**
  * Sincroniza la voz con su entidad física y solicita al CAEAudioEntity propietario
  * cualquier actualización específica mientras SOUND_REQUEST_UPDATES permanezca activo.
+ *
+ * @addr 0x4EFF50
  */
 void CAESound::UpdateParameters(int16 curPlayPos) {
     if (IsLifespanTiedToPhysicalEntity()) {

@@ -21,14 +21,29 @@ public:
     // Busca la variante _dy/_nt correspondiente y memoriza su índice si existe.
     CTimeInfo* FindOtherTimeModel(const char* modelName);
 
+    /*!
+     * @addr 0x4C4A30
+     */
     int32 GetOtherTimeModel() const { return m_nOtherTimeModel; }
 
+    /*!
+     * @addr 0x5B3440
+     */
     void SetOtherTimeModel(int16 otherTimeModel) { m_nOtherTimeModel = otherTimeModel; }
 
+    /*!
+     * @addr 0x407320
+     */
     uint8 GetTimeOn() const { return m_nTimeOn; }
 
+    /*!
+     * @addr 0x407330
+     */
     uint8 GetTimeOff() const { return m_nTimeOff; }
 
+    /*!
+     * @addr 0x5B3430
+     */
     void SetTimes(uint8 timeOn, uint8 timeOff) { m_nTimeOn = timeOn; m_nTimeOff = timeOff; }
 
     // Consulta CClock para decidir si el modelo debe estar activo en la hora actual.

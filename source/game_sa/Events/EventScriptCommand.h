@@ -20,8 +20,10 @@ public:
     // argumentos) para poder devolver EDX tal como entro.
     static uint32 __fastcall Destructor(CEventScriptCommand* self, uint32 entryEdx);
 
+    // 0x4B0A30
     eEventType GetEventType() const override { return Type; }
     int32 GetEventPriority() const override;
+    // 0x4B0A40
     int32 GetLifeTime() override { return 0; }
     CEvent* Clone() const noexcept override { auto* task = CloneScriptTask(); return new CEventScriptCommand(m_primaryTaskIndex, task, m_affectsDeadPeds); } // 0x4B6490 - Como el original: la tarea se clona antes de reservar el evento
     bool AffectsPed(CPed* ped) override;

@@ -57,6 +57,7 @@ void CAEStreamingDecoder::InjectHooks() {
     RH_ScopedInstall(ScalarDeletingDestructor, 0x4f2860);
 }
 
+// 0x4F2810
 CAEStreamingDecoder* CAEStreamingDecoder::Constructor(CAEDataStream* dataStream) {
     this->CAEStreamingDecoder::CAEStreamingDecoder(dataStream);
     return this;
@@ -79,6 +80,7 @@ CAEStreamingDecoder* CAEStreamingDecoder::ScalarDeletingDestructor(int32 flags) 
     return this;
 }
 
+// 0x4F2830
 CAEStreamingDecoder* CAEStreamingDecoder::Destructor() {
     this->CAEStreamingDecoder::~CAEStreamingDecoder();
     return this;

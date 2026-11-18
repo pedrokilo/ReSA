@@ -9,8 +9,17 @@ public:
     CEventInAir() = default;
     ~CEventInAir() override = default;
 
+    /*!
+     * @addr 0x4B0CD0
+     */
     eEventType GetEventType() const override { return EVENT_IN_AIR; }
+    /*!
+     * @addr 0x4B0CF0
+     */
     int32 GetEventPriority() const override { return 61; }
+    /*!
+     * @addr 0x4B0CE0
+     */
     int32 GetLifeTime() override { return 0; }
     CEvent* Clone() const noexcept override; // 0x4B76A0 (lote 187A, sin validar)
     bool AffectsPed(CPed* ped) override;

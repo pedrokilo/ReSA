@@ -15,7 +15,9 @@ public:
     CTaskSimpleUseAtm(const CTaskSimpleUseAtm&); // NOTSA
     ~CTaskSimpleUseAtm() = default;
 
+    // 0x48E010
     CTask* Clone() const override { return new CTaskSimpleUseAtm{ *this }; }
+    // 0x48E080
     virtual bool IsInterruptable(CPed const* ped) { return false; }
 
 private: // Wrappers for hooks

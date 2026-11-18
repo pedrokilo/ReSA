@@ -29,11 +29,17 @@ public:
     CStencilShadowObject* Create(CEntity* owner, eStencilShadowObjType type);
 
 private:
+    /*!
+     * @addr 0x70F8D0
+     */
     CStencilShadowObject* Constructor() {
         this->CStencilShadowObject::CStencilShadowObject();
         return this;
     }
 
+    /*!
+     * @addr 0x70F8E0
+     */
     CStencilShadowObject* Destructor() {
         this->CStencilShadowObject::~CStencilShadowObject();
         return this;

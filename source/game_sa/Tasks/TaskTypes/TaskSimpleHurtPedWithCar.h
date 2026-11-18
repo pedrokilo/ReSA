@@ -16,8 +16,11 @@ public:
     CTaskSimpleHurtPedWithCar(const CTaskSimpleHurtPedWithCar&);
     ~CTaskSimpleHurtPedWithCar() override = default;
 
+    // 0x655A90
     CTask*    Clone() const override { return new CTaskSimpleHurtPedWithCar{ *this }; }
+    // 0x653F10
     eTaskType GetTaskType() const override { return Type; }
+    // 0x653F20
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override { return false; }
     bool      ProcessPed(CPed* ped) override;
 

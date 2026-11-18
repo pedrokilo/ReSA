@@ -48,6 +48,7 @@ END GENERATED HOOK STATUS */
 // Como el original: indice = (puntero - almacenamiento) / 0x7C4 con division con signo (multiplicacion por 0x41EE7CA7, sar 9 y
 // correccion del signo); resultado = (indice << 8) + banderas[indice]. Deja ECX = tabla de banderas y EDX = indice << 8.
 #pragma runtime_checks("", off)
+// 0x4442D0
 uint32 CPedPool::GetRef(const CPed* ped) {
     const uintptr_t storage = *reinterpret_cast<const uintptr_t*>(this);          // primer miembro del pool
     const uintptr_t flags   = *(reinterpret_cast<const uintptr_t*>(this) + 1);    // segundo: tabla de banderas
@@ -65,6 +66,7 @@ uint32 CPedPool::GetRef(const CPed* ped) {
 // Como el original: indice = (puntero - almacenamiento) / 0xA18 con division con signo (multiplicacion por 0x6572EC3, sar 6 y correccion del signo); resultado = (indice << 8) + banderas[indice].
 // Deja ECX = tabla de banderas y EDX = indice << 8 (igual que CPedPool::GetRef 0x4442D0).
 #pragma runtime_checks("", off)
+// 0x424160
 uint32 CVehiclePool::GetRef(const CVehicle* vehicle) {
     const uintptr_t storage = *reinterpret_cast<const uintptr_t*>(this);          // primer miembro del pool
     const uintptr_t flags   = *(reinterpret_cast<const uintptr_t*>(this) + 1);    // segundo: tabla de banderas
@@ -280,6 +282,17 @@ void __fastcall PoolDestructorBodyExe(void* poolPtr, void* /*edx*/) {
     }
 }
 
+// 0x5502B0
+// 0x550380
+// 0x550450
+// 0x550520
+// 0x5505D0
+// 0x5506A0
+// 0x550750
+// 0x550820
+// 0x5508F0
+// 0x5509C0
+// 0x550A90
 // Lote 212A: los 13 cuerpos de destructor de CPool de 0x5501E0..0x550B60 (mismos bytes que 0x4049C0 salvo la direccion de la llamada): una instancia por direccion (RH no admite dos hooks hacia la misma funcion de la DLL).
 template<int Id>
 void __fastcall PoolDestructorBodyAt(void* poolPtr, void* /*edx*/) {
@@ -389,6 +402,23 @@ template<int Id>
 void __fastcall PoolDestructorBodyInst(void* poolPtr, void* edx) {
     PoolDestructorBodyExe(poolPtr, edx);
 }
+// 0x5512F0
+// 0x551350
+// 0x5513B0
+// 0x551410
+// 0x551470
+// 0x5514D0
+// 0x551530
+// 0x551590
+// 0x5515F0
+// 0x551650
+// 0x5516B0
+// 0x551710
+// 0x551770
+// 0x5517D0
+// 0x551830
+// 0x551890
+// 0x5518F0
 template<int Id>
 void* __fastcall PoolScalarDeletingDestructorInst(void* self, void* edx, uint32 deleteFlags) {
     return PoolScalarDeletingDestructorExe(self, edx, deleteFlags);

@@ -75,6 +75,8 @@ void CAnimBlendHierarchy::Shutdown() {
  *
  * Cuando las secuencias comparten un bloque externo de frames, ese bloque se libera
  * una sola vez después de destruir el array de CAnimBlendSequence.
+ *
+ * @addr 0x4CF8E0
  */
 void CAnimBlendHierarchy::RemoveAnimSequences() {
     void* oldFrameData = nullptr;
@@ -183,6 +185,8 @@ void* CAnimBlendHierarchy::GetSequenceBlock() const {
 /**
  * Expande todas las secuencias en un bloque nuevo y libera el bloque comprimido previo.
  * La primera expansión también normaliza quaternions y calcula la duración total.
+ *
+ * @addr 0x4CF5F0
  */
 void CAnimBlendHierarchy::Uncompress() {
     // Como el original: sin asserts; reserva el bloque nuevo antes de leer el antiguo y recorre con contador

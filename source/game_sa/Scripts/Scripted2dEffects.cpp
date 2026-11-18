@@ -82,6 +82,7 @@ void tUserList::AddPedType(int32 pedType) {
 // `Init` del EXE (0x6FA740) conserva ECX = this entre pares (`add ecx, 0x94` tras la llamada), asi que la funcion sale con ECX = this, EDX = 0 y EAX = -1, como la del EXE (ResidueRegsCpp, sin
 // comprobaciones de ejecucion para que nada toque los registros tras la ultima llamada).
 #pragma runtime_checks("", off)
+// 0x6F9EB0
 void CScriptedEffectPairs::Reset() {
     for (auto& pair : Pairs) {
         for (auto& effect : pair.Effects) {

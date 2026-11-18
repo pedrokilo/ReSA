@@ -215,6 +215,7 @@ public:
 private: 
     // Wrapper functions
 
+    // @addr 0x6C21B0
     // Return type has to be uint32, but we want to return `eCarWheelStatus` in our code.
     uint32 GetWheelStatus_Hooked(eCarWheel wheel) { return (uint32)GetWheelStatus(wheel); }
 };

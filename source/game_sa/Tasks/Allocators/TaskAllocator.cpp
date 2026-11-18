@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "TaskAllocator.h"
 
 namespace {
+// 0x69BB40
 // Cuerpo no virtual de ~CTaskAllocator del EXE (thiscall, sin argumentos de pila, `ret`, 7 bytes): solo deja la vtable de CTaskAllocator del EXE (0x870E30). Lo llaman por salto directo los destructores de limpieza (SEH) de los constructores de los asignadores derivados. (Lote 121A, banco Fn121A.)
 void __fastcall TaskAllocatorDestructorBody(CTaskAllocator* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x870E30;
@@ -47,6 +48,7 @@ void CTaskAllocator::operator delete(void* obj) {
     GetTaskAllocatorPool()->Delete(static_cast<CTaskAllocator*>(obj));
 }
 
+// 0x69C3C0
 bool CTaskAllocator::IsFinished(CPedGroupIntelligence* intel) {
     return rng::all_of(
         intel->GetPedTaskPairs(),

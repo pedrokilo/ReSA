@@ -1235,6 +1235,7 @@ void CWaterLevel::MarkQuadsAndPolysToBeRendered(int32 blockX, int32 blockY, bool
 // Orden de pila del EXE (x, y, grandes, pequenas, altura), distinto del interfaz publico. Como el EXE, sale con EAX = indice de la tercera onda, ECX/EDX = residuo de _ftol2 (0x821B40) de esa onda y los
 // argumentos x, y, grandes de la pila reescritos (x = bits de float(|y|), y = resto entre 3000, grandes = resto entre 3500); termina con ResidueRegsCpp (contrib/audit_register_residue.py).
 #pragma runtime_checks("", off)
+// 0x6E7210
 __declspec(safebuffers) void CWaterLevel::CalculateWavesOnlyForCoordinate2Native(int32 x, int32 y, float bigWavesAmpl, float smallWavesAmpl, float* height) {
     const WaterWaveSetup setup = MakeWaterWaveSetup(x, y);
     const Ftol2Regs regs = WaterLevelWavesNativeCpp(setup.absX, setup.absY, setup.multX, setup.multY, CWeather::Wavyness, setup.rem1, setup.rem2, setup.rem3,

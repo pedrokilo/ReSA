@@ -29,6 +29,9 @@ void CObjectSaveStructure::InjectHooks()
     RH_ScopedInstall(Extract, 0x5D2220);
 }
 
+/*!
+ * @addr 0x5D2160
+ */
 void CObjectSaveStructure::Construct(CObject* obj)
 {
     m_matrix.CompressFromFullMatrix(*obj->m_matrix);
@@ -66,6 +69,9 @@ void CObjectSaveStructure::Construct(CObject* obj)
         m_bExplosionProof = true;
 }
 
+/*!
+ * @addr 0x5D2220
+ */
 void CObjectSaveStructure::Extract(CObject* obj)
 {
     m_matrix.DecompressIntoFullMatrix(*obj->m_matrix);

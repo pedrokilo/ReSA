@@ -145,6 +145,7 @@ uint32 CGeneral::GetNodeHeadingFromVector(float x, float y) {
 * @returns If there is a solution for the equation
 * @addr 0x53CE30
 */
+// 0x53CE30
 // Como el original: transcripcion x87 en X87Math.cpp (b*b - a*c*4 sin desbordar a float en registro, 1/a y * 0.5;
 // x2 = (sqrt(d) - b) * (1/a) * 0.5 se escribe antes que x1 = (-b - sqrt(d)) * (1/a) * 0.5; un discriminante NaN resuelve).
 bool CGeneral::SolveQuadratic(float a, float b, float c, float& x1, float& x2) {

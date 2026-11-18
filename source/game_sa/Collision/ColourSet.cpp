@@ -124,6 +124,8 @@ static int64 Ftol(float value) {
  * La mayoría de los parámetros se combinan mediante una suma ponderada. Cuando
  * ignoreSky está activo se omite deliberadamente el bloque visual de cielo, sol y
  * nubes, pero continúan interpolándose ambiente, niebla, post-FX, agua y distancias.
+ *
+ * @addr 0x55F870
  */
 void CColourSet::Interpolate(CColourSet* A, CColourSet* B, float multA, float multB, bool ignoreSky) {
     if (!ignoreSky) {

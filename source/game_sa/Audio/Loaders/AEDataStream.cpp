@@ -172,6 +172,8 @@ HRESULT CAEDataStream::Clone(IStream** target) {
 /**
  * Lee desde el HANDLE respetando la ventana lógica del track y, si procede,
  * descifra in-place mediante CAEStreamTransformer usando la posición absoluta.
+ *
+ * @addr 0x4DC1C0
  */
 size_t CAEDataStream::FillBuffer(void* dest, size_t size) {
     size_t sizeToRead = static_cast<size_t>((m_nCurrentPosition - m_nLength) - m_nStartPosition);
@@ -242,6 +244,8 @@ static CAEDataStream* __fastcall AEDataStreamScalarDeletingDestructor(CAEDataStr
 /**
  * Abre el archivo con CreateFileW, posiciona el cursor en m_nStartPosition y,
  * si m_nLength era cero, utiliza el tamaño completo del archivo.
+ *
+ * @addr 0x4DC2B0
  */
 bool CAEDataStream::Initialise() {
     if (m_bIsOpen)
@@ -298,12 +302,14 @@ void CAEDataStream::InjectHooks() {
     CAEStreamTransformer::InjectHooks();
 }
 
+// 0x4DC620
 // Como el original: el flag se copia como byte (mov cl,[esp+14h]), sin normalizar a 0/1.
 CAEDataStream* CAEDataStream::Constructor(int32 trackID, char* filename, uint32 startPosition, uint32 length, bool encrypted) {
     this->CAEDataStream::CAEDataStream(trackID, filename, startPosition, length, encrypted);
     return this;
 }
 
+// 0x4DC490
 void CAEDataStream::Destructor() {
     this->CAEDataStream::~CAEDataStream();
 }

@@ -40,6 +40,8 @@ void CPlantColEntEntry::InjectHooks() {
  *
  * Al completar la preparación mueve el nodo desde la lista de entradas libres a
  * la lista de entidades cercanas administrada por CPlantMgr.
+ *
+ * @addr 0x5DB7D0
  */
 CPlantColEntEntry* CPlantColEntEntry::AddEntry(CEntity* entity) {
     m_Entity = entity;
@@ -81,6 +83,8 @@ CPlantColEntEntry* CPlantColEntEntry::AddEntry(CEntity* entity) {
 /**
  * Libera todos los CPlantLocTri creados, limpia la referencia a CEntity y devuelve
  * esta entrada a la lista de libres de CPlantMgr.
+ *
+ * @addr 0x5DB8A0
  */
 void CPlantColEntEntry::ReleaseEntry() {
     if (m_Objects) {

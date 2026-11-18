@@ -103,6 +103,8 @@ void CPedModelInfo::DeleteRwObject() {
  * Instala el clump del ped, asigna IDs de bones/frames y prepara la colisión de impactos.
  *
  * Todos los atomics reciben además el callback de render específico de peatones.
+ *
+ * @addr 0x4C7340
  */
 void CPedModelInfo::SetClump(RpClump* clump) {
     CClumpModelInfo::SetClump(clump);
@@ -131,6 +133,8 @@ void CPedModelInfo::SetFaceTexture(RwTexture* texture) {
  *
  * Cada centro local se transforma mediante la matriz actual del bone, de modo que
  * m_pHitColModel pueda reutilizarse como volumen de impactos animado.
+ *
+ * @addr 0x4C6D90
  */
 void CPedModelInfo::CreateHitColModelSkinned(RpClump* clump) {
     auto hierarchy = GetAnimHierarchyFromSkinClump(clump);
@@ -165,6 +169,8 @@ void CPedModelInfo::CreateHitColModelSkinned(RpClump* clump) {
 /**
  * Reposiciona las esferas del hit-col en espacio local del clump usando la pose actual.
  * También centra los bounds alrededor de BONE_SPINE1 para acompañar al cuerpo.
+ *
+ * @addr 0x4C6F70
  */
 CColModel* CPedModelInfo::AnimatePedColModelSkinned(RpClump* clump) {
     if (!m_pHitColModel) {

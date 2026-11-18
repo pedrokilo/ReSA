@@ -18,6 +18,9 @@ public:
     void ClearTempEvent();
     void ClearStoredActiveEvent();
     void Flush();
+    /*!
+     * @addr 0x4B8CA0
+     */
     CEvent* GetCurrentEvent() const { return m_CurrentTempEvent ? m_CurrentTempEvent : m_CurrentNonTempEvent; }
     int32 GetCurrentEventPriority() const;
     CEvent* GetStoredActiveEvent() const { return m_StoredEventActive; }

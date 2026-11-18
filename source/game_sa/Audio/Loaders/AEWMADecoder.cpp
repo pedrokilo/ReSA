@@ -45,6 +45,8 @@ CAEWMADecoder::~CAEWMADecoder() {
 /**
  * Inicializa COM/Windows Media, selecciona el primer stream de audio y valida
  * salida PCM estéreo de 16 bits antes de aceptar el decoder.
+ *
+ * @addr 0x502C60
  */
 bool CAEWMADecoder::Initialise() {
     // Como el original: el resultado se guarda en m_bInitialized en todas las salidas.
@@ -139,6 +141,8 @@ bool CAEWMADecoder::Initialise() {
 /**
  * Copia PCM desde IWMSyncReader y conserva bytes sobrantes en m_szBuffer para la
  * siguiente petición cuando una muestra excede el espacio disponible.
+ *
+ * @addr 0x5027D0
  */
 size_t CAEWMADecoder::FillBuffer(void* dest, size_t size) {
     auto* const out = (uint8*)dest;
@@ -357,11 +361,13 @@ void CAEWMADecoder::InjectHooks() {
     RH_ScopedVMTInstall(GetStreamID, 0x502750);
 }
 
+// 0x502720
 CAEWMADecoder* CAEWMADecoder::Constructor(CAEDataStream* dataStream) {
     this->CAEWMADecoder::CAEWMADecoder(dataStream);
     return this;
 }
 
+// 0x502760
 CAEWMADecoder* CAEWMADecoder::Destructor() {
     this->CAEWMADecoder::~CAEWMADecoder();
     return this;

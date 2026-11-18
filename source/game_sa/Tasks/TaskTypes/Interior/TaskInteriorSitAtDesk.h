@@ -24,7 +24,9 @@ public:
     void StartRandomLoopAnim(CPed* ped, float blendDelta);
     void StartRandomOneOffAnim(CPed* ped);
 
+    // 0x6760E0
     CTask*    Clone() const override { return new CTaskInteriorSitAtDesk{ *this }; }
+    // 0x676070
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

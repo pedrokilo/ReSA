@@ -18,10 +18,13 @@ public:
     ~CTaskComplexMoveBackAndJump() = default;
     CTask* CreateSubTask(eTaskType taskType); // Como el original: __thiscall (ret 4), no estática
 
+    // 0x655C80
     CTask*    Clone() const override { return new CTaskComplexMoveBackAndJump{ *this }; }
+    // 0x655360
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
+    // 0x655380
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
 private: // Wrappers for hooks

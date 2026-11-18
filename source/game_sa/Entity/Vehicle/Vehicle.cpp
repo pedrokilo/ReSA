@@ -645,6 +645,7 @@ CVehicle::~CVehicle() {
 // CVehiclePool::New reconstruida se instala separadamente en 0x6E2A50. El EXE sale con ECX/EDX tal como los deja New (salto, no llamada), asi que
 // la llamada a New tiene que ser lo ultimo que se ejecuta: sin comprobaciones de ejecucion (RTC) ni cookie /GS, que insertarian codigo tras ella.
 #pragma runtime_checks("", off)
+// 0x6E2D50
 __declspec(safebuffers) void* CVehicle::operator new(unsigned size) {
     return GetVehiclePool()->New();
 }
@@ -656,6 +657,7 @@ void CVehicle::operator delete(void* data) {
     GetVehiclePool()->Delete(static_cast<CVehicle*>(data));
 }
 
+// 0x6E2D60
 void* CVehicle::operator new(unsigned size, int32 poolRef) {
     return GetVehiclePool()->NewAt(poolRef);
 }
@@ -1520,6 +1522,7 @@ void CVehicle::ResetAfterRender() {
 // writes EAX, so on exit ECX = this, EDX = entry EDX and EAX = result. ResidueRegsCpp is the last call (see
 // contrib/audit_register_residue.py, object Vehicle); no RTC / GS cookie after it.
 #pragma runtime_checks("", off)
+// 0x6D1080
 __declspec(safebuffers) eVehicleAppearance __fastcall CVehicle::GetVehicleAppearance_Reversed(const CVehicle* self, void* entryEdx) {
     const uint32 result = static_cast<uint32>(self->GetVehicleAppearance());
     return static_cast<eVehicleAppearance>(ResidueRegsCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self)), static_cast<uint32>(reinterpret_cast<uintptr_t>(entryEdx)), result));
@@ -1980,10 +1983,12 @@ bool CVehicle::IsPedOfModelInside(eModelID model) const {
     return IsDriver(model) || IsPassenger(model);
 }
 
+// 0x6D1C40
 bool CVehicle::IsDriver(const CPed* ped) const {
     return ped && ped == m_pDriver;
 }
 
+// 0x6D1C60
 bool CVehicle::IsDriver(int32 modelIndex) const {
     // Como el original: movsx del indice de modelo del peaton (con signo)
     return m_pDriver && (int16)m_pDriver->m_nModelIndex == modelIndex;
@@ -2727,6 +2732,7 @@ RwFrame* RemoveObjectsCB(RwFrame* frame, void* data) {
 
 // 0x6D3450
 static auto& CopyObjectsCB_TargetClump = StaticRef<RpClump*>(0xC1CB58);
+// 0x6D3450
 RwObject* CopyObjectsCB(RwObject* object, void* data) {
     const auto frame = (RwFrame*)data;
 
@@ -9072,6 +9078,7 @@ CEntity* CVehicle::GetPlaneWeaponFiringStatus(bool& status, eOrdnanceType& ordna
 extern "C" bool __fastcall VehicleResidueBoolCpp(uint32 ecxValue, uint32 edxValue, uint32 eaxValue);
 #pragma comment(linker, "/alternatename:@VehicleResidueBoolCpp@12=?ResidueRegsCpp@@YIIIII@Z")
 #pragma runtime_checks("", off)
+// 0x49B010
 __declspec(safebuffers) bool IsValidModForVehicle(uint32 modelId, CVehicle* vehicle) {
     const auto readU8  = [](uint32 address) { return uint32(*reinterpret_cast<const uint8*>(uintptr_t(address))); };
     const auto readU16 = [](uint32 address) { return uint32(*reinterpret_cast<const uint16*>(uintptr_t(address))); };

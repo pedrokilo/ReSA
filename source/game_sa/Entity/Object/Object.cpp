@@ -245,6 +245,7 @@ CObject* CObject::ConstructorFromDummy(CDummyObject* dummyObj) {
 // Lote 142A (banco Fn142A): 0x59F660 (enganchado en el lote 192A, sin validar); funcion propia sin expansion en linea para que el cuerpo de ~CProjectile (0x5A40E0, `mov [ecx],0x867030; jmp 0x59F660`) la llame como el `jmp` del EXE y el
 // banco pueda sustituirla.
 namespace CObjectBody {
+// 0x59F660
 __declspec(noinline) void __fastcall Destructor(CObject* self, void* /*edx*/) {
     self->CObject::~CObject();
 }

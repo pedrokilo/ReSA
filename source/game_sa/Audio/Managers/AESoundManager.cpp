@@ -70,6 +70,8 @@ CAESoundManager* CAESoundManager::Constructor() {
  *
  * Las 300 CAESound permanecen preasignadas como voces virtuales; sólo un subconjunto
  * cabe simultáneamente en los canales físicos devueltos por AEAudioHardware.
+ *
+ * @addr 0x5B9690
  */
 bool CAESoundManager::Initialise() {
     const auto availChannels = AEAudioHardware.GetNumAvailableChannels();
@@ -150,6 +152,8 @@ void CAESoundManager::PauseManually(uint8 bPause) {
  * Actualiza tiempo/posición/volumen, mantiene sonidos uncancellable, prioriza el resto
  * por sus parámetros audibles, detiene voces desplazadas y asigna los canales libres.
  * Finalmente actualiza volumen, Doppler y pausa sobre los sonidos que siguen físicos.
+ *
+ * @addr 0x4F0000
  */
 void CAESoundManager::Service() {
     // Clear sounds uncancellable status for this frame
@@ -428,6 +432,8 @@ void CAESoundManager::Service() {
 /**
  * Copia una voz temporal al primer slot virtual libre y solicita al hardware la
  * metadata necesaria para duración/loop de ese índice.
+ *
+ * @addr 0x4EFB10
  */
 CAESound* CAESoundManager::RequestNewSound(CAESound* pSound) {
     size_t sidx;

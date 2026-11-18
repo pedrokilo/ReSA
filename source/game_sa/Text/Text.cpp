@@ -513,11 +513,13 @@ char CText::GetUpperCase(const char c) const {
     return c;
 }
 
+// 0x6A00F0
 CText* CText::Constructor() {
     this->CText::CText();
     return this;
 }
 
+// 0x6A0140
 CText* CText::Destructor() {
     this->CText::~CText();
     return this;

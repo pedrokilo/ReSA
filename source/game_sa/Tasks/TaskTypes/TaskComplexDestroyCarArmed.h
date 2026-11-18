@@ -34,7 +34,13 @@ public:
     CTaskComplexDestroyCarArmed(const CTaskComplexDestroyCarArmed&); // NOTSA
     ~CTaskComplexDestroyCarArmed() override;
 
+    /*!
+     * @addr 0x622000
+     */
     eTaskType GetTaskType() const override { return Type; }
+    /*!
+     * @addr 0x623600
+     */
     CTask* Clone() const override { return new CTaskComplexDestroyCarArmed{ *this }; }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask* CreateNextSubTask(CPed* ped) override;
@@ -45,7 +51,13 @@ public:
     void CalculateSearchPositionAndRanges(CPed* ped);
 
     static void InjectHooks();
+    /*!
+     * @addr 0x621F50
+     */
     CTaskComplexDestroyCarArmed* Constructor(CVehicle* vehicleToDestroy, uint32 a3, uint32 a4, uint32 a5) { this->CTaskComplexDestroyCarArmed::CTaskComplexDestroyCarArmed(vehicleToDestroy, a3, a4, a5); return this; }
+    /*!
+     * @addr 0x622010
+     */
     __declspec(noinline) CTaskComplexDestroyCarArmed* Destructor() { this->CTaskComplexDestroyCarArmed::~CTaskComplexDestroyCarArmed(); return this; }
     CTaskComplexDestroyCarArmed* ScalarDeletingDestructor(uint8 flags); // 0x628C60 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable), `ret 4`
 };

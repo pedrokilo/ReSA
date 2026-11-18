@@ -30,6 +30,9 @@ public:
 private:
     // Envoltura del hook del constructor (0x647710)
     CTaskSimpleCarForcePedOut* Destructor() { this->CTaskSimpleCarForcePedOut::~CTaskSimpleCarForcePedOut(); return this; } // 0x647790
+    /*!
+     * @addr 0x647710
+     */
     CTaskSimpleCarForcePedOut* Constructor(CVehicle* vehicle, int32 door) { this->CTaskSimpleCarForcePedOut::CTaskSimpleCarForcePedOut(vehicle, door); return this; }
 };
 

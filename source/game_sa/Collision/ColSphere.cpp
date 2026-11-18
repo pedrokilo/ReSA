@@ -50,6 +50,7 @@ void CColSphere::Set(float radius, const CVector& center, eSurfaceType material,
  *
  * @param direction Se asume con la escala apropiada para la parametrización usada.
  * @return true cuando existen soluciones reales; ambos puntos de corte se devuelven.
+ * @addr 0x40FF20
  */
 bool CColSphere::IntersectRay(const CVector& rayOrigin, const CVector& direction, CVector& intersectPoint1, CVector& intersectPoint2) {
     // Como el original: d = origen - centro; b = (dx*Dx + dz*Dz + dy*Dy) * 2 y c = (dz*dz + dx*dx + dy*dy) - r*r, en ese orden.
@@ -73,6 +74,8 @@ bool CColSphere::IntersectRay(const CVector& rayOrigin, const CVector& direction
  *
  * Los parámetros de entrada/salida se recortan a los extremos del segmento cuando
  * uno de los cortes matemáticos queda fuera de su longitud finita.
+ *
+ * @addr 0x4100E0
  */
 bool CColSphere::IntersectEdge(const CVector& startPoint, const CVector& endPoint, CVector& intersectPoint1, CVector& intersectPoint2) {
     // Como el original: todas las sumas siguen el orden z, x, y (o z, y, x para la longitud) del EXE.

@@ -17,7 +17,9 @@ public:
     CTaskInteriorUseInfo(const CTaskInteriorUseInfo&);
     ~CTaskInteriorUseInfo();
 
+    // 0x675AB0
     CTask*    Clone() const override { return new CTaskInteriorUseInfo{ *this }; }
+    // 0x675A80
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override;
     CTask*    CreateNextSubTask(CPed* ped) override;

@@ -80,6 +80,8 @@ bool CAEVorbisDecoder::Initialise() {
 /**
  * Decodifica Ogg Vorbis a PCM de 16 bits con signo (little endian).
  * Como el original: no mira los canales (una fuente mono se entrega tal cual).
+ *
+ * @addr 0x502470
  */
 size_t CAEVorbisDecoder::FillBuffer(void* dest, size_t size) {
     size_t readTotal = 0;
@@ -198,11 +200,13 @@ void CAEVorbisDecoder::InjectHooks() {
     RH_ScopedInstall(TellCallback, 0x5025F0);
 }
 
+// 0x5026B0
 CAEVorbisDecoder* CAEVorbisDecoder::Constructor(CAEDataStream* dataStream, int32 unknown) {
     this->CAEVorbisDecoder::CAEVorbisDecoder(dataStream, unknown);
     return this;
 }
 
+// 0x5023F0
 __declspec(noinline) CAEVorbisDecoder* CAEVorbisDecoder::Destructor() {
     this->CAEVorbisDecoder::~CAEVorbisDecoder();
     return this;

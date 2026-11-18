@@ -217,6 +217,8 @@ public:
 
     /*!
     * @brief Allocates object at a specific index from a SCM handle (ref) (0x59F610)
+    * @addr 0x5E0540
+    * @addr 0x6D5DD0
     */
     void CreateAtRef(int32 ref) {
         const auto idx           = GetIndexFromRef(ref); // GetIndexFromRef asserts if idx out of range
@@ -265,6 +267,8 @@ public:
 
     /*!
     * @brief Returns pointer to object by SCM handle (ref)
+    * @addr 0x4048E0
+    * @addr 0x404910
     */
     T* GetAtRef(int32 ref) {
         int32 idx = ref >> 8; // It is possible the ref is invalid here, thats why we check for the idx is valid below (And also why GetIndexFromRef isn't used, it would assert)

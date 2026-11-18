@@ -17,6 +17,7 @@ public:
     static constexpr auto Type = TASK_SIMPLE_PUTDOWN_ENTITY;
 
     CTask*    Clone() const override;
+    // 0x691900
     eTaskType GetTaskType() const override { return TASK_SIMPLE_PUTDOWN_ENTITY; }
 
 private:

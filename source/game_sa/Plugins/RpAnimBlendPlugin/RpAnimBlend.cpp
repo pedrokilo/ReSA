@@ -46,6 +46,8 @@ void* ClumpAnimConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObj
 /**
  * Retira y destruye todas las asociaciones antes de liberar CAnimBlendClumpData.
  * El RpClump continúa siendo propiedad de RenderWare.
+ *
+ * @addr 0x4D6110
  */
 void* ClumpAnimDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     UNUSED(offsetInObject);
@@ -98,6 +100,8 @@ void RpAnimBlendKeyFrameInterpolate(void* voidOut, void* voidIn1, void* voidIn2,
  *
  * RenderWare conserva los callbacks de keyframe, mientras el juego administra por
  * separado las asociaciones y secuencias reconstruidas por el plugin.
+ *
+ * @addr 0x4D6150
  */
 RwBool RpAnimBlendPluginAttach() { // Como el original: devuelve EAX completo (el llamador 0x53D8AE hace test eax,eax)
     ClumpOffset = RpClumpRegisterPlugin(
@@ -1144,6 +1148,7 @@ void RpAnimBlendNodeUpdateKeyFrames(AnimBlendUpdateData* c, AnimBlendFrameData* 
 // 0x4D1570 con la convencion del EXE (lote 165A, banco Fn165A): el EXE recibe el contexto en EAX y los otros dos argumentos en la pila (cdecl, `ret`: limpia el llamador). EntryEaxCpp (X87Math) devuelve el EAX de
 // entrada y tiene que ser lo primero que se ejecuta (sin comprobaciones de ejecucion ni /GS). Su unico llamador del EXE (0x4D3696) esta dentro de RpAnimBlendClumpUpdateAnimations (0x4D34F0, con hook).
 #pragma runtime_checks("", off)
+// 0x4D1570
 __declspec(safebuffers) void __cdecl RpAnimBlendNodeUpdateKeyFramesExe(AnimBlendFrameData* frames, int32 nFrames) {
     const uint32 entryEax = EntryEaxCpp();
     RpAnimBlendNodeUpdateKeyFrames(reinterpret_cast<AnimBlendUpdateData*>(entryEax), frames, nFrames);

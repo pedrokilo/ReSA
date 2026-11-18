@@ -25,6 +25,9 @@ public:
     CTaskSimpleBeHit(CPed* ped, ePedPieceTypes pedPieceType, int32 direction, int32 damageHealth);
     ~CTaskSimpleBeHit() override;
 
+    /*!
+     * @addr 0x620800
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override;
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
@@ -34,7 +37,13 @@ public:
     static void FinishAnimBeHitCB(CAnimBlendAssociation* a1, void* task);
 
     static void InjectHooks();
+    /*!
+     * @addr 0x620780
+     */
     CTaskSimpleBeHit* Constructor(CPed* ped, ePedPieceTypes pedPieceType, int32 damageArmor, int32 damageHealth) { this->CTaskSimpleBeHit::CTaskSimpleBeHit(ped, pedPieceType, damageArmor, damageHealth); return this; }
+    /*!
+     * @addr 0x620810
+     */
     CTaskSimpleBeHit* Destructor() { this->CTaskSimpleBeHit::~CTaskSimpleBeHit(); return this; }
 };
 VALIDATE_SIZE(CTaskSimpleBeHit, 0x28);

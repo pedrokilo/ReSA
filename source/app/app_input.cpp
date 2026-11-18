@@ -27,10 +27,12 @@ END GENERATED HOOK STATUS */
 // preservar EBX, ESI y EDI; ningun llamador lee ECX ni EDX. EntryEaxCpp tiene que ser lo primero que se ejecuta (lo vigila contrib/audit_register_residue.py, objeto `app_input`). Mismo mecanismo que rsCommandLine_Eax
 // (platform.cpp). Las versiones normales (HandlePadButtonDown/Up, mas abajo) las usa el PadHandler de la DLL.
 #pragma runtime_checks("", off)
+// 0x7448B0
 __declspec(safebuffers) static RsEventStatus HandlePadButtonDown_Eax() {
     return HandlePadButtonDown(reinterpret_cast<RsPadButtonStatus*>(EntryEaxCpp()));
 }
 
+// 0x744930
 __declspec(safebuffers) static RsEventStatus HandlePadButtonUp_Eax() {
     return HandlePadButtonUp(reinterpret_cast<RsPadButtonStatus*>(EntryEaxCpp()));
 }

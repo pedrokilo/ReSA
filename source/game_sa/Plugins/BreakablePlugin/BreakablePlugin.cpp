@@ -39,6 +39,8 @@ void BreakablePlugin::InjectHooks() {
 /**
  * Reserva espacio de plugin en cada RpGeometry y registra sus callbacks de streaming.
  * g_BreakablePlugin almacena el offset devuelto por RenderWare para acceder al payload.
+ *
+ * @addr 0x59D100
  */
 bool BreakablePluginAttach() {
     g_BreakablePlugin = RpGeometryRegisterPlugin(sizeof(BreakablePlugin), rwID_BREAKABLEPLUGIN, BreakableConstructor, BreakableDestructor, nullptr);
@@ -71,6 +73,8 @@ void* BreakableConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInO
 /**
  * Libera las texturas cargadas por el payload y el bloque dinámico BreakablePluginData.
  * La RpGeometry continúa siendo propiedad de RenderWare.
+ *
+ * @addr 0x59CD90
  */
 void* BreakableDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     if (g_BreakablePlugin <= 0)
@@ -95,6 +99,8 @@ void* BreakableDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInOb
  *
  * Tras leer la cabecera calcula offsets internos para vértices, UV, colores,
  * triángulos, materiales y nombres, y finalmente resuelve las RwTexture usadas.
+ *
+ * @addr 0x59CEC0
  */
 RwStream* BreakableStreamRead(RwStream* stream, int binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     auto* plugin = RWPLUGINOFFSET(BreakablePlugin, object, g_BreakablePlugin);

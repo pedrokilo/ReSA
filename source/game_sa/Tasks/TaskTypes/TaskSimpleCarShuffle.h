@@ -20,7 +20,9 @@ public:
 
     void StartAnim(const CPed* a2);
 
+    // 0x649C40
     CTask*    Clone() const override { return new CTaskSimpleCarShuffle{ *this }; }
+    // 0x646880
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

@@ -579,6 +579,7 @@ bool CPopCycle::IsRaceAllowedInCurrentZone(eModelID pedModelId) {
     return IsRaceAllowedInCurrentZone(CModelInfo::GetPedModelInfo((int32)pedModelId)->GetRace());
 }
 
+// 0x6106D0
 void CPopCycle::UpdateIsGangArea() {
     m_bCurrentZoneIsGangArea = m_pCurrZoneInfo->GetSumOfGangDensity() > 20;
 }

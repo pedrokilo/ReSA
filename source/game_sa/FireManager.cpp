@@ -58,11 +58,13 @@ CFireManager::CFireManager() {
     Init();
 }
 
+// 0x539DA0
 CFireManager* CFireManager::Constructor() {
     this->CFireManager::CFireManager();
     return this;
 }
 
+// 0x538BB0
 CFireManager* CFireManager::Destructor() {
     this->CFireManager::~CFireManager();
     return this;

@@ -19,7 +19,9 @@ public:
 
     CTask* CreateSubTask(int32 taskType, CPed* ped);
 
+    // 0x63D850
     CTask*    Clone() const override { return new CTaskComplexEnterCarAsPassengerWait{ *this }; }
+    // 0x63B3B0
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

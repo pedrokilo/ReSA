@@ -68,6 +68,7 @@ void CTaskSimpleLand::InjectHooks() {
     RH_ScopedVMTInstall(ProcessPed, 0x67D380);
 }
 
+// 0x678E90
 CTaskSimpleLand* CTaskSimpleLand::Constructor(AnimationId nAnimId) {
     this->CTaskSimpleLand::CTaskSimpleLand(nAnimId);
     return this;

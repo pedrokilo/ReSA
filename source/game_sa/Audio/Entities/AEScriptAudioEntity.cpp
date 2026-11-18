@@ -1026,6 +1026,7 @@ void CAEScriptAudioEntity::InjectHooks() {
     RH_ScopedVMTInstall(UpdateParameters, 0x4EC970);
 }
 
+// 0x5074D0
 CAEScriptAudioEntity* CAEScriptAudioEntity::Constructor() {
     this->CAEScriptAudioEntity::CAEScriptAudioEntity();
     return this;

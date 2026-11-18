@@ -210,6 +210,9 @@ public:
     bool  GetVoiceAndTypeFromModel(eModelID modelId);
     bool  GetSoundAndBankIDsForScriptedSpeech(eAudioEvents ae);
     bool  GetVoiceAndTypeForSpecialPed(uint32 modelNameHash);
+    /*!
+     * @addr 0x4E4260
+     */
     bool  GetSexForSpecialPed(uint32) const { return true; }
     int16 GetRepeatTime(eGlobalSpeechContext gCtx) const;
     int16 GetSoundAndBankIDs(eGlobalSpeechContext gCtx, eSpecificSpeechContext& outSpecificSpeechContext);

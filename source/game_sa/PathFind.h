@@ -161,6 +161,7 @@ public:
 public:
     static void InjectHooks();
 
+    // @addr 0x420A10
     /// Get uncompressed world position
     CVector GetPosition() const { return m_vPos; }
 
@@ -242,6 +243,9 @@ public:
 
     void Init();
     void AddRandomOffsetToNodePosition(CNodeAddress first, CNodeAddress second, int16 random, float* x, float* y);
+    /*!
+     * @addr 0x44D0E0
+     */
     static void PreparePathData() { /*noop 0x44D0E0*/ }
     void UnLoadPathFindData(int32 index);
     void RemoveBadStartNode(CVector pos, CNodeAddress* address, int16* numPathFindNodes);
@@ -294,10 +298,25 @@ public:
     void FindNodePairClosestToCoors(CVector pos, uint8 nodeType, CNodeAddress* outFirst, CNodeAddress* outSecond, float* outHeading, float minLinkLength, float maxScore, bool bLowTraffic, bool bUnused, uint8 bBoats);
     float FindNodeOrientationForCarPlacement(CNodeAddress address);
     float FindNodeOrientationForCarPlacementFacingDestination(CNodeAddress address, float dirX, float dirY, bool bUnkn) { return 0.0f; } /*noop, not in PC idb, unused in mobile*/
+    /*!
+     * @addr 0x44D2B0
+     */
     static void AllocatePathFindInfoMem() { /*noop 0x44D2B0*/ }
+    /*!
+     * @addr 0x44D2C0
+     */
     void StoreNodeInfoCar(int16, int16, int8, int8, int16, int16, int16, float, int8, int8, bool, bool, uint8, bool, bool, uint8, uint8) { /*noop*/ }
+    /*!
+     * @addr 0x44D2D0
+     */
     void StoreNodeInfoPed(int16, int16, int8, int8, int16, int16, int16, float, bool, uint8, bool, uint8) { /*noop*/ }
+    /*!
+     * @addr 0x44D2E0
+     */
     void StoreDetachedNodeInfoPed(int, int8, int, float, float, float, float, bool, bool, bool, uint8, bool, uint8, bool) { /*noop*/ }
+    /*!
+     * @addr 0x44D2F0
+     */
     void StoreDetachedNodeInfoCar(int, int8, int, float, float, float, float, int8, int8, bool, bool, uint8, bool, bool, uint8, bool, uint8) { /*noop*/ }
     void RegisterMarker(CVector* pos) { /*noop*/ }
     bool ThisNodeWillLeadIntoADeadEnd(CPathNode* startNode, CPathNode* endNode);

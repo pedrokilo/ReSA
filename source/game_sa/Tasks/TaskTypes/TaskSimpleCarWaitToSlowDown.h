@@ -22,14 +22,26 @@ public:
     CTaskSimpleCarWaitToSlowDown(CVehicle* vehicle, SlowDownType type);
     ~CTaskSimpleCarWaitToSlowDown() override;
 
+    /*!
+     * @addr 0x6469F0
+     */
     eTaskType GetTaskType() const override { return Type; }
+    /*!
+     * @addr 0x649CB0
+     */
     CTask* Clone() const override { return new CTaskSimpleCarWaitToSlowDown(m_TargetVehicle, m_SlowType); }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;
     bool SetPedPosition(CPed* ped) override;
 
     static void InjectHooks();
+    /*!
+     * @addr 0x646990
+     */
     CTaskSimpleCarWaitToSlowDown* Constructor(CVehicle* veh, SlowDownType type) { this->CTaskSimpleCarWaitToSlowDown::CTaskSimpleCarWaitToSlowDown(veh, type); return this; }
+    /*!
+     * @addr 0x646A00
+     */
     CTaskSimpleCarWaitToSlowDown* Destructor() { this->CTaskSimpleCarWaitToSlowDown::~CTaskSimpleCarWaitToSlowDown(); return this; }
 };
 VALIDATE_SIZE(CTaskSimpleCarWaitToSlowDown, 0x14);

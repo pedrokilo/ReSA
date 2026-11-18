@@ -47,6 +47,7 @@ public:
 public:
     using CPool::CPool;
 
+    // @addr 0x5A1C20
     // Como el original: busca desde el cursor + 1 y no rellena el almacenamiento (ver CPool::NewLegacy).
     CObject* New() {
         return NewLegacy();

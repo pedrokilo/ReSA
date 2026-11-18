@@ -18,9 +18,12 @@ public:
     ~CTaskComplexEnterCarAsPassengerTimed() override = default;
 
     void      StopTimer(const CEvent* event) override;
+    // 0x63D7E0
     CTask*    Clone() const override { return new CTaskComplexEnterCarAsPassengerTimed{ *this }; }
+    // 0x63B0B0
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override;
+    // 0x63B190
     CTask*    CreateNextSubTask(CPed* ped) override { return nullptr; }
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;

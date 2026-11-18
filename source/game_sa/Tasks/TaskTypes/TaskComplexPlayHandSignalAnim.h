@@ -37,6 +37,7 @@ public:
     CTask* CreateSubTask(eTaskType taskType);
 
     CTask*    Clone() const override;
+    // 0x61B2E0
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

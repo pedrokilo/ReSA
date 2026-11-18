@@ -45,6 +45,7 @@ END GENERATED HOOK STATUS */
 // modelo = movzx word [0xC0F358 + (g * 21 + slot) * 2] (CPopulation::m_PedGroups, 21 words por grupo de peatones). Sin comprobación de límites; el índice se calcula
 // con envoltura de 32 bits y el resultado sale cero-extendido en EAX (movzx). CreateAttackWave es el único llamador (lee EAX); ECX y EDX salen con residuos que nadie lee.
 static_assert(POPCYCLE_GROUP_BALLAS == 0x12 && POPCYCLE_TOTAL_GROUPS == 33);
+// 0x406E80
 static int32 GetPopcycleGroupPedModel(int32 popcycleGroup, int32 slot, int32 worldZone) {
     const uint32 translationIndex = uint32(popcycleGroup) * 3u + uint32(worldZone);
     const uint32 pedGroup = *reinterpret_cast<const uint32*>(0x8D2540u + translationIndex * 4u);
@@ -277,6 +278,7 @@ void GangWaveBlip(CPed* ped, eGangID gang, int32 scale) {
 }
 }
 
+// 0x444810
 bool CGangWars::CreateAttackWave(int32 warFerocity, int32 waveID) {
     const auto playerPosition = FindPlayerCoors();
     auto* player = FindPlayerPed();
@@ -431,6 +433,7 @@ float GangPickupOffset(int32 random, float base) {
 }
 }
 
+// 0x4453D0
 bool CGangWars::CreateDefendingGroup(int32 unused) {
     if (!PedStreamedInForThisGang(static_cast<eGangID>(Gang1))) {
         // Como el original (0x4453FF..0x445416): primer modelo del grupo (movzx word [grupo*0x2A + 0xC0F358]), sin comprobar el numero de peatones

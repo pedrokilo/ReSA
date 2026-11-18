@@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
 // los destructores de los modelos por saltos como 0x856035). Es el destructor reconstruido de la clase: este envoltorio lo enlaza al hook sin tocar ColModel.h.
 // Espacio con nombre (no estatica) para que el cuerpo del destructor de CPedModelInfo (0x4C62F0, PedModelInfo.cpp, lote 194A) llame a este mismo cuerpo, como el `call 0x40F700` del EXE, y no a un destructor expandido en linea.
 namespace CColModelBody {
+// 0x40F700
 __declspec(noinline) void __fastcall DestructorExe(CColModel* self, void* /*edx*/) {
     self->~CColModel();
 }
@@ -105,6 +106,8 @@ CColModel::~CColModel() {
  * Esta operación no asigna m_pColData cuando el destino carece de él; conserva el
  * comportamiento reconstruido existente y deja esa situación marcada por el break
  * de depuración que ya forma parte del código.
+ *
+ * @addr 0x40F7C0
  */
 CColModel& CColModel::operator=(const CColModel& colModel) {
     assert(&colModel != this); // BUG(Prone) No self assignment check
@@ -125,6 +128,8 @@ CColModel& CColModel::operator=(const CColModel& colModel) {
  *
  * Se crea un CCollisionData nuevo, se realiza una copia profunda y finalmente se
  * libera el bloque contiguo anterior. Tras ello cada array puede gestionarse por separado.
+ *
+ * @addr 0x40F740
  */
 void CColModel::MakeMultipleAlloc() {
     if (!m_bIsSingleColDataAlloc)
@@ -140,6 +145,7 @@ void CColModel::MakeMultipleAlloc() {
     m_pColData = colData;
 }
 
+// 0x40F810
 // Crea sólo la cabecera CCollisionData; sus arrays se asignarán posteriormente.
 void CColModel::AllocateData() {
     m_bIsSingleColDataAlloc = false;
@@ -154,6 +160,8 @@ void CColModel::AllocateData() {
  * Los punteros internos se convierten en vistas sobre offsets del mismo bloque;
  * los triángulos se alinean a 4 bytes. m_bIsSingleColDataAlloc registra este modo
  * para que RemoveCollisionVolumes() use una única liberación.
+ *
+ * @addr 0x40F870
  */
 void CColModel::AllocateData(int32 numSpheres, int32 numBoxes, int32 numLines, int32 numVertices, int32 numTriangles, bool bUsesDisks) {
     const auto baseSize = sizeof(CCollisionData);
@@ -212,6 +220,8 @@ void CColModel::AllocateData(int32 size) {
  *
  * En single-allocation la geometría comparte el mismo bloque; en modo múltiple
  * CCollisionData es responsable de liberar primero cada uno de sus arrays.
+ *
+ * @addr 0x40F9E0
  */
 void CColModel::RemoveCollisionVolumes() {
     if (!m_pColData) {
@@ -231,23 +241,27 @@ void CColModel::RemoveCollisionVolumes() {
     m_pColData = nullptr;
 }
 
+// 0x40FA30
 // Construye la caché derivada sólo cuando existe información de colisión.
 void CColModel::CalculateTrianglePlanes() {
     if (m_pColData)
         m_pColData->CalculateTrianglePlanes();
 }
 
+// 0x40FA40
 // Descarta la caché de planos sin eliminar el resto de la geometría.
 void CColModel::RemoveTrianglePlanes() {
     if (m_pColData)
         m_pColData->RemoveTrianglePlanes();
 }
 
+// 0x40FC30
 // Los CColModel dinámicos se obtienen del pool dedicado, no del heap general.
 void* CColModel::operator new(unsigned size) {
     return GetColModelPool()->New();
 }
 
+// 0x40FC40
 // Devuelve la entrada a CColModelPool conservando el modelo de memoria del juego.
 void CColModel::operator delete(void* data) {
     GetColModelPool()->Delete(static_cast<CColModel*>(data));

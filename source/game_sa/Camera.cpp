@@ -141,6 +141,7 @@ CCamera* __fastcall CameraScalarDeletingDestructor(CCamera* self, void* /*edx*/,
 __declspec(noinline) uint32 __fastcall CameraVectorMoveRunningExe(const CCamera* self, void* /*edx*/) {
     return self->VectorMoveRunning() ? 1u : 0u;
 }
+// 0x474870
 __declspec(noinline) uint32 __fastcall CameraVectorTrackRunningExe(const CCamera* self, void* /*edx*/) {
     return self->VectorTrackRunning() ? 1u : 0u;
 }
@@ -281,6 +282,7 @@ void CCamera::InjectHooks() {
     RH_ScopedGlobalInstall(CamShakeNoPos, 0x50A970);
 }
 
+// 0x51A450
 CCamera* CCamera::Constructor() {
     // Como el original (0x51A450): solo escribe lo que escribe el EXE. El constructor de C++ (inicializadores de miembro) tocaria
     // bytes que el EXE no toca (matrices a identidad, CamTweak a cero, valores por defecto...), asi que se transcribe a mano.
@@ -2967,6 +2969,7 @@ static float CameraFrustumDot355(const CVector& normal,const CVector& position) 
     return CameraDotYZXCpp(&normal.x, &position.x);
 }
 
+// 0x514D60
 void CCamera::CalculateFrustumPlanes(bool bForMirror) {
     const float fov = CDraw::GetFOV();
     const int32 height = StaticRef<int32>(0xC17048), width = StaticRef<int32>(0xC17044);
@@ -3107,6 +3110,7 @@ static CVector CineyModeRotatedDirection(CVector velocity, float rotation) {
     CVector direction{outputX, outputY, 0.f}; direction.Normalise(); return direction;
 }
 
+// 0x51E560
 bool CCamera::TryToStartNewCamMode(int32 camSequence) {
     const auto boatBlocked = [this](CVehicle* vehicle) { return vehicle && *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(vehicle) + 0x590) == 5 && m_pTargetEntity->m_nModelIndex != 460; };
     const auto finish = [this](int32 mode) {
@@ -4505,6 +4509,7 @@ void CCamera::StartTransitionWhenNotFinishedInter(eCamMode newCamMode) {
  * 
  * @see eCamMode
  * @see CCam
+ * @addr 0x515200
  */
 void CCamera::StartTransition(eCamMode newCamMode) {
     CCam& activeCam             = m_aCams[m_nActiveCam];

@@ -77,6 +77,7 @@ CTask* CTaskComplexPartnerDeal::Clone() const {
     return memory->Constructor(m_commandName, m_partner, m_leadSpeaker, m_distanceMultiplier, m_point);
 }
 
+// 0x684190
 CTaskComplexPartnerDeal* CTaskComplexPartnerDeal::Constructor(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, CVector point)
 {
     this->CTaskComplexPartnerDeal::CTaskComplexPartnerDeal(commandName, partner, leadSpeaker, distanceMultiplier, point);

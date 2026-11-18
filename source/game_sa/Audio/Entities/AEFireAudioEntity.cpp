@@ -138,6 +138,8 @@ void CAEFireAudioEntity::PlayWaterSounds(eAudioEvents audioId, CVector& posn) {
 /**
  * Sigue la matriz del FxSystem_c y usa m_Event como estado interno para modular/finalizar
  * las capas conforme cambia el efecto visual.
+ *
+ * @addr 0x4DCF60
  */
 void CAEFireAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
     if (curPlayPos <= 0) {

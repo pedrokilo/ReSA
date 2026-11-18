@@ -297,6 +297,7 @@ public:
         return lowerHalf ? 1 : 3;
     }
 
+    // 0x552980
     void ForAllMatching(const CRect& rect, CQuadTreeNodeRectCallBack callback) {
         for (auto* const item : m_ItemList) {
             callback(rect, item);
@@ -309,6 +310,7 @@ public:
         }
     }
 
+    // 0x5529F0
     void ForAllMatching(const CVector2D& posn, CQuadTreeNodeVec2DCallBack callback) {
         for (auto* const item : m_ItemList) {
             callback(posn, item);
@@ -322,6 +324,7 @@ public:
         m_apChildren[sector]->ForAllMatching(posn, callback);
     }
 
+    // 0x552870
     void GetAll(ListType& list) {
         for (auto* const item : m_ItemList) {
             list.AddItem(item);
@@ -347,6 +350,7 @@ public:
         }
     }
 
+    // 0x552930
     void GetAllMatching(const CVector2D& posn, ListType& list) {
         for (auto* const item : m_ItemList) {
             list.AddItem(item);
@@ -419,6 +423,8 @@ VALIDATE_SIZE(CQuadTreeNode<void*>, 0x28);
 // rellena la memoria al reservar ni al liberar (ver CPool::NewLegacy).
 template<typename T>
 struct CQuadTreeNodeLegacyPool : CPool<CQuadTreeNode<void*>> {
+    // 0x552B50
     CQuadTreeNode<void*>* New() { return NewLegacy(); }
+    // 0x552BC0
     void Delete(CQuadTreeNode<void*>* node) { DeleteLegacy(node); }
 };

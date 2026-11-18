@@ -30,8 +30,14 @@ public:
 
     static void PositionPedOutOfCollision(CPed* ped, CVehicle* veh, int32 door);
 
+    /*!
+     * @addr 0x647930
+     */
     eTaskType GetTaskType() const override { return Type; };
     CTask* Clone() const override;
+    /*!
+     * @addr 0x647940
+     */
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return false; }
     bool ProcessPed(CPed* ped) override;
 

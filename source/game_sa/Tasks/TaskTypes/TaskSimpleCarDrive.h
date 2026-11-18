@@ -42,6 +42,9 @@ public:
 
 
 
+/*!
+ * @addr 0x63C450
+ */
 eTaskType GetTaskType() const override { return Type; }
 
     CTask* Clone() const override;
@@ -65,6 +68,9 @@ private:
     static void InjectHooks();
     friend class CTaskComplexFollowLeaderInFormation; // lote 201A (sin validar): su CreateSubTask (0x6962A0) llama al Constructor enganchado del EXE, como el original
 
+    /*!
+     * @addr 0x63C340
+     */
     CTaskSimpleCarDrive* Constructor(CVehicle* pVehicle, CTaskUtilityLineUpPedWithCar* pUtilityTask, int8_t bUpdateCurrentVehicle) { this->CTaskSimpleCarDrive::CTaskSimpleCarDrive(pVehicle, pUtilityTask, bUpdateCurrentVehicle); return this; }
     __declspec(noinline) CTaskSimpleCarDrive* Destructor() { this->CTaskSimpleCarDrive::~CTaskSimpleCarDrive(); return this; }   // 0x63C460 (sin expansion en linea: el banco Fn152A sustituye este cuerpo)
     CTaskSimpleCarDrive* ScalarDeletingDestructor(uint8 flags); // 0x6426E0 (lote 152A, banco Fn152A): destructor con borrado (ranura 0 de la vtable 0x86E904), `ret 4`

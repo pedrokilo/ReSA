@@ -20,6 +20,9 @@ public:
     ~CTaskSimpleCreateCarAndGetIn() override;
 
     CTask* Clone() const override { return new CTaskSimpleCreateCarAndGetIn{ m_Pos, m_nModel }; } // Como el original (0x64A410): solo copia la posicion y el modelo
+    /*!
+     * @addr 0x649430
+     */
     eTaskType GetTaskType() const override { return Type; }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;
@@ -29,7 +32,13 @@ private:
 
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x6493E0
+     */
     CTaskSimpleCreateCarAndGetIn* Constructor(CVector const& pos, int32 model) { this->CTaskSimpleCreateCarAndGetIn::CTaskSimpleCreateCarAndGetIn(pos, model); return this; }
+    /*!
+     * @addr 0x64CEA0
+     */
     CTaskSimpleCreateCarAndGetIn* Destructor() { this->CTaskSimpleCreateCarAndGetIn::~CTaskSimpleCreateCarAndGetIn(); return this; }
 };
 VALIDATE_SIZE(CTaskSimpleCreateCarAndGetIn, 0x34);

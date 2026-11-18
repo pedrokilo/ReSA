@@ -68,6 +68,7 @@ CEventVehicleOnFire::~CEventVehicleOnFire()
     CEntity::SafeCleanUpRef(m_vehicle);
 }
 
+// 0x4B10C0
 CEventVehicleOnFire* CEventVehicleOnFire::Constructor(CVehicle* vehicle)
 {
     this->CEventVehicleOnFire::CEventVehicleOnFire(vehicle);

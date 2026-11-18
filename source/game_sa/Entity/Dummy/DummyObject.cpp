@@ -61,6 +61,8 @@ CDummyObject::CDummyObject(CObject* obj) : CDummy() {
 /**
  * Materializa un CObject dinámico a partir del dummy, transfiere su LOD y desactiva
  * visibilidad/colisión del proxy mientras el objeto real queda activo.
+ *
+ * @addr 0x59EAC0
  */
 CObject* CDummyObject::CreateObject() {
     m_bImBeingRendered = true; // BUG? Seems like that flag doesn't fit here
@@ -83,6 +85,8 @@ CObject* CDummyObject::CreateObject() {
 /**
  * Recupera el RwObject/estado relevante de un CObject antes de volver a usar el dummy
  * como representación de streaming y transfiere de nuevo la relación LOD.
+ *
+ * @addr 0x59EB70
  */
 void CDummyObject::UpdateFromObject(CObject* obj) {
     SetIsVisible(true);

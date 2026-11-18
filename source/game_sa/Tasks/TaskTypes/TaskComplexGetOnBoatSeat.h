@@ -11,9 +11,15 @@ public:
     CTaskComplexGetOnBoatSeat(const CTaskComplexGetOnBoatSeat&);
     ~CTaskComplexGetOnBoatSeat() override;
 
+    /*!
+     * @addr 0x649270
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask*    Clone() const override { return new CTaskComplexGetOnBoatSeat(m_Vehicle); } // 0x64A3B0
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
+    /*!
+     * @addr 0x649300
+     */
     CTask*    CreateNextSubTask(CPed* ped) override { return nullptr; }
     CTask*    CreateFirstSubTask(CPed* ped) override;
     CTask*    ControlSubTask(CPed* ped) override;
@@ -24,7 +30,13 @@ protected:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x649210
+     */
     CTaskComplexGetOnBoatSeat* Constructor(CVehicle* veh) { this->CTaskComplexGetOnBoatSeat::CTaskComplexGetOnBoatSeat(veh); return this; }
+    /*!
+     * @addr 0x649280
+     */
     CTaskComplexGetOnBoatSeat* Destructor() { this->CTaskComplexGetOnBoatSeat::~CTaskComplexGetOnBoatSeat(); return this; }
     CTaskComplexGetOnBoatSeat* ScalarDeletingDestructor(uint8 flags); // 0x64CE80 (lote 180A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86F044), `ret 4`
 };

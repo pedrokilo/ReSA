@@ -149,6 +149,7 @@ void CCam::WrapAngle(float* angle) {
 // ejecuta es CarEnterExitEntryEdxCpp (EDX de entrada en la mitad alta del resultado de 64 bits) y lo ultimo ResidueRegsCpp (EDX = el de entrada, ECX = el puntero, como el EXE, que
 // no lo modifica; EAX no lo lee ningun llamador: 0x50A007 y 0x50A01E lo sobrescriben).
 #pragma runtime_checks("", off)
+// 0x509BE0
 static uint32 __declspec(safebuffers) __cdecl WrapAngleKeepEdx(float* angle) {
     const uint32 entryEdx = uint32(CarEnterExitEntryEdxCpp() >> 32);
     CCam::WrapAngle(angle);
@@ -179,6 +180,7 @@ static_assert(sizeof(DWHeliChaseParams) == 0x9C && offsetof(DWHeliChaseParams, f
 
 // 0x50E180 (thiscall, ECX = params): default values of the heli chase cam. The EXE leaves EAX = 0, ECX = this and EDX = 0x3C; the thunk at 0x5173F0 returns ECX, so it is kept.
 #pragma runtime_checks("", off)
+// 0x50E180
 static uint32 __declspec(safebuffers) __fastcall ResetDWHeliChaseParams(DWHeliChaseParams* params, uint32 /*entryEdx*/) {
     params->f18 = 50.0f;
     params->f24 = 50.0f;
@@ -687,6 +689,7 @@ static void LookSideOrbit(float directionX,float directionY,float sign,float dis
     outputX=outX;outputY=outY;
 }
 
+// 0x520E40
 bool CCam::LookRight(bool lookRight) {
     auto* entity=m_pCamTargetEntity;const auto type=entity->GetType();const bool thirdVehicle=(m_nMode==static_cast<eCamMode>(0x12)||m_nMode==static_cast<eCamMode>(0x16)||m_nMode==static_cast<eCamMode>(3))&&type==ENTITY_TYPE_VEHICLE;
     const bool firstVehicle=m_nMode==static_cast<eCamMode>(0x10)&&type==ENTITY_TYPE_VEHICLE;
@@ -1595,6 +1598,7 @@ static float CamAimVehicleResetPitch355(float clampedZ,float initialAlpha) {
     return result;
 }
 
+// 0x521500
 void CCam::Process_AimWeapon(const CVector& targetPosition, float, float, float) {
     auto& initialized=StaticRef<uint32>(0xB70110);
     auto& target=StaticRef<CVector>(0xB70104);
@@ -2014,6 +2018,7 @@ static void CamShootingTilt355(CCam* cam, CVehicle* vehicle, float wantedAlpha) 
 static void CamShootingFov355(CCam* cam, CVehicle* vehicle) {
     CamShootingFovCpp(CamAddr(cam), CamAddr(vehicle));
 }
+// 0x519810
 void CCam::Process_Cam_TwoPlayer_InCarAndShooting() {
     if (!m_pCamTargetEntity->GetIsTypeVehicle()) return;
     auto* first = StaticRef<CPed*>(0xB7CD98);
@@ -2140,6 +2145,7 @@ static void CamTwoCarsSources355(const CVector& first, const CVector& second, co
     CamTwoCarsSourcesCpp(firstZ, firstHeight, &liftedFirst, secondZ, secondHeight, &liftedSecond, betweenX, &scaledX, firstX, &fx, secondX, &sx, betweenY, firstY, &fy, secondY, &sy, betweenZ, &scaledZ, &fz, &sz);
     firstSource=CVector{fx,fy,fz};secondSource=CVector{sx,sy,sz};
 }
+// 0x513510
 void CCam::Process_Cam_TwoPlayer_Separate_Cars() {
     m_fFOV = 80.f;
     auto* first = StaticRef<CPed*>(0xB7CD98)->m_pVehicle;
@@ -2259,6 +2265,7 @@ static float BirdyLampHeight355(float pointZ,float height,int randomValue) {
     return result;
 }
 
+// 0x51B850
 bool CCam::Process_DW_BirdyCam(bool) {
     StaticRef<uint8>(0xB6F059) = 0;
     if (!m_pCamTargetEntity || !m_pCamTargetEntity->GetIsTypeVehicle()) return false;
@@ -2948,6 +2955,7 @@ static void CamFollowCarAlphaBlend355(CCam* cam,float smoothing,float alphaInput
     scratch[0x8C/4]=complement;
     CamFollowCarAlphaBlendCpp(CamAddr(cam), CamAddr(scratch));
 }
+// 0x5245B0
 void CCam::Process_FollowCar_SA(const CVector& targetPosition,float,float,float,bool preserveAngles) {
     if (!m_pCamTargetEntity->GetIsTypeVehicle()) return;
     auto* vehicle=static_cast<CVehicle*>(m_pCamTargetEntity);
@@ -3219,6 +3227,7 @@ static float CamMouseRecenterDelta355(const CVector& direction,float orientation
     return result;
 }
 
+// 0x50F970
 void CCam::Process_FollowPedWithMouse(const CVector& position, float orientation, float, float) {
     m_fFOV = 70.f;
     if (!m_pCamTargetEntity->GetIsTypePed()) return;
@@ -3384,6 +3393,7 @@ static float CamFollowPedHistoryHeading355(const CVector& front) {
     CamFollowPedHistoryHeadingCpp(frontX, frontY, &result);
     return result;
 }
+// 0x522D40
 void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, float, bool resetHistory) {
     if (!m_pCamTargetEntity->GetIsTypePed()) return;
     auto* ped=static_cast<CPed*>(m_pCamTargetEntity);
@@ -3620,6 +3630,7 @@ static CVector CamM16SideRay355(float beta,float alpha,bool positive,const CVect
     return result;
 }
 
+// 0x5105C0
 void CCam::Process_M16_1stPerson(const CVector&, float, float, float) {
     if (!m_pCamTargetEntity->GetIsTypePed()) return;
     auto* ped = static_cast<CPed*>(m_pCamTargetEntity);
@@ -3989,6 +4000,7 @@ static CVector WheelCameraUp(const CVector& side, const CVector& vertical, uint3
     return CVector{outputX, outputY, outputZ};
 }
 
+// 0x512110
 bool CCam::Process_WheelCam(const CVector&, float, float, float) {
     auto* target = m_pCamTargetEntity;
     const auto constant = [](uintptr_t address) { return StaticRef<float>(address); };

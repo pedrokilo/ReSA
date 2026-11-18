@@ -74,6 +74,7 @@ void CPlayerRelationshipRecorder::RecordRelationshipWithPlayer(const CPed* ped) 
 // puede leer desde C++ y se asume = task (cierto en los GetTaskType triviales, que son `mov eax,imm; ret`). Sin comprobaciones de ejecucion
 // para que /RTC1 no cambie ECX/EDX tras la ultima llamada.
 #pragma runtime_checks("", off)
+// 0x61A1D0
 uint32 __fastcall CPlayerRelationshipRecorder::RecordRelationshipWithPlayerRegs(CPlayerRelationshipRecorder* self, uint32 entryEdx, const CPed* ped) {
     // 1. Primera coincidencia: puntero a null y solo el byte bajo de Relationship a 0.
     for (size_t i = 0; i < self->m_Relationships.size(); ++i) {

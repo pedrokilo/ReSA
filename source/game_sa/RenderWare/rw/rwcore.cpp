@@ -727,6 +727,7 @@ RxHeap* RxHeapGetGlobalHeap() {
 // _rxPacketDestroy (0x80F070) con embeddedPacket (+0x14). Limpia tuberia y parametros (0) y devuelve la tuberia si el resultado (releido) es distinto de 0, si no NULL.
 static_assert(offsetof(RxNodeDefinition, nodeMethods) == 4 && offsetof(RxNodeMethods, nodeBody) == 0 && offsetof(RxPipeline, embeddedPacketState) == 0x10 && offsetof(RxPipeline, embeddedPacket) == 0x14
            && offsetof(RxPipeline, nodes) == 8 && offsetof(RxHeap, dirty) == 0x18);
+// 0x805710
 RxPipeline* RxPipelineExecute(RxPipeline* pipeline, void* data, RwBool heapReset) {
     static auto& pipelineResult = StaticRef<RwInt32>(0xC9BC48);
     static auto& currentPipeline = StaticRef<RxPipeline*>(0xC9BC40);
@@ -2614,6 +2615,7 @@ auto& D3D9CurrentMaterial   = StaticRef<D3D9MaterialCache>(0xC98AF8);
 auto& D3D9MaterialStateFlag = StaticRef<uint32>(0xC9A5F4);
 constexpr size_t kSlotDeviceSetMaterial = 49; // IDirect3DDevice9::SetMaterial (+0xC4)
 }
+// 0x7FC430
 __declspec(noinline) RwBool RwD3D9SetMaterial(const void* material) {
     const auto* const source = static_cast<const uint32*>(material);
     bool same = true;
@@ -2682,6 +2684,7 @@ auto& D3D9VertexDeclarationEntries  = StaticRef<D3D9VertexDeclarationCacheEntry*
 constexpr size_t kSlotAddRef = 1;                         // IUnknown::AddRef
 constexpr size_t kSlotDeviceCreateVertexDeclaration = 86; // IDirect3DDevice9::CreateVertexDeclaration (+0x158)
 }
+// 0x7FAA30
 RwBool RwD3D9CreateVertexDeclaration(const void* elements, void** vertexdeclaration) {
     const auto* const bytes = static_cast<const uint8*>(elements);
     uint32 numElements = 0;
@@ -2893,6 +2896,7 @@ const void* RwD3D9GetCaps() { // D3DCAPS9*
 // bytes: normal, distancia, closestX/Y/Z en +0x10/+0x11/+0x12) toma la esquina de la caja mas cercana al plano (closest* = 0 -> inf, 1 -> sup; caja + 0xC/+0x10/+0x14 - closest * 12 por eje) y calcula
 // d = (ny * y + x * nx) + nz * z (en este orden; x87 a 24 bits en el EXE, float aqui); si d > distancia (comparacion ordenada: con NaN no se cumple) devuelve FALSE. Con los seis planos superados, TRUE.
 static_assert(sizeof(RwFrustumPlane) == 0x14 && offsetof(RwFrustumPlane, closestX) == 0x10 && offsetof(RwFrustumPlane, plane) + offsetof(RwPlane, distance) == 0x0C && offsetof(RwBBox, inf) == 0x0C);
+// 0x7FAD90
 RwBool RwD3D9CameraIsBBoxFullyInsideFrustum(const void* camera, const void* boundingBox) {
     const RwFrustumPlane* plane = static_cast<const RwCamera*>(camera)->frustumPlanes;
     const RwUInt8* const box = static_cast<const RwUInt8*>(boundingBox);
@@ -4542,6 +4546,7 @@ RwBool _rwFrameDeInit(RwFrame* frame) {
 
 // 0x7F0340: bits 0 y 1 del indicador privado del marco RAIZ (frame->root, +0xA0; privateFlags en +3). Lee la raiz sin comprobar nulos.
 static_assert(offsetof(RwFrame, root) == 0xA0 && offsetof(RwObject, privateFlags) == 3);
+// 0x7F0340
 RwBool RwFrameDirty(const RwFrame* frame) {
     return frame->root->object.privateFlags & 3;
 }
@@ -4775,21 +4780,25 @@ RwBool RwBBoxContainsPoint(const RwBBox* boundBox, const RwV3d* vertex) {
     return ((RwBool(__cdecl *)(const RwBBox*, const RwV3d*))0x8090E0)(boundBox, vertex);
 }
 
+// 0x7EE190
 RwCamera* RwCameraBeginUpdate(RwCamera* camera) {
     ZoneScoped;
     return camera->beginUpdate(camera);
 }
 
+// 0x7EE180
 RwCamera* RwCameraEndUpdate(RwCamera* camera) {
     ZoneScoped;
     return camera->endUpdate(camera);
 }
 
+// 0x7EE340
 RwCamera* RwCameraClear(RwCamera* camera, RwRGBA* colour, RwInt32 clearMode) {
     ZoneScoped;
     return RwEngineInstance->stdFunc[rwSTANDARDCAMERACLEAR](camera, colour, clearMode) ? camera : nullptr;
 }
 
+// 0x7EE370
 RwCamera* RwCameraShowRaster(RwCamera* camera, void* pDev, RwUInt32 flags) {
     ZoneScoped;
     return RwRasterShowRaster(RwCameraGetRaster(camera), pDev, flags) != 0 ? camera : nullptr;
@@ -4821,6 +4830,7 @@ void RwCoreFrameCameraInjectHooks() {
 // solapan), sin pasar por ninguna operacion de coma flotante (copia de bits), y, si la camara tiene marco padre (object.parent, +4), llama a
 // RwFrameUpdateObjects (0x7F0910) con el. Devuelve la camara.
 static_assert(offsetof(RwCamera, viewOffset) == 0x78 && offsetof(RwCamera, object) + offsetof(RwObjectHasFrame, object) + offsetof(RwObject, parent) == 4);
+// 0x7EE1A0
 RwCamera* RwCameraSetViewOffset(RwCamera* camera, const RwV2d* offset) {
     const auto* const source = reinterpret_cast<const uint32*>(offset);
     auto* const target = reinterpret_cast<uint32*>(&camera->viewOffset);
@@ -4859,6 +4869,7 @@ RwCamera* RwCameraSetNearClipPlane(RwCamera* camera, RwReal nearClip) {
     return camera;
 }
 
+// 0x7EE2A0
 RwCamera* RwCameraSetFarClipPlane(RwCamera* camera, RwReal farClip) {
     camera->farPlane = farClip;
     _rwCameraUpdateZScale(camera);
@@ -5016,6 +5027,7 @@ RwCameraChunkInfo* RwCameraChunkInfoRead(RwStream* stream, RwCameraChunkInfo* ca
 // (prev->next = next; next->prev = prev). object.parent = marco. Si el marco no es NULL inserta lFrame a la CABEZA de su lista de objetos (+0x90: lFrame.prev = &cabeza; lFrame.next = cabeza.next;
 // cabeza.next->prev = &lFrame; cabeza.next = &lFrame) y llama a RwFrameUpdateObjects (0x7F0910).
 static_assert(offsetof(RwObjectHasFrame, lFrame) == 8 && offsetof(RwFrame, objectList) == 0x90);
+// 0x804EF0
 void _rwObjectHasFrameSetFrame(void *object, RwFrame *frame) {
     auto* const owner = static_cast<RwObjectHasFrame*>(object);
     if (owner->object.parent != nullptr) {
@@ -5395,6 +5407,7 @@ RwTexture* _rwTextureReadMipmapped(const RwChar* name, const RwChar* maskName) {
 // vacia (next = prev = su propia direccion), child = next = NULL y root = el propio marco; por ultimo _rwPluginRegistryInitObject(registro de plugins de RwFrame 0x8E2270, frame). inDirtyListLink (+8) no se toca.
 // Los literales de 1.0f son la constante 0x3F800000 (sin aritmetica x87).
 static_assert(offsetof(RwFrame, modelling) == 0x10 && offsetof(RwFrame, ltm) == 0x50 && offsetof(RwFrame, objectList) == 0x90 && offsetof(RwFrame, child) == 0x98 && offsetof(RwFrame, root) == 0xA0);
+// 0x7F0360
 void rwFrameInitFields(RwFrame* frame) {
     static auto& FrameTKList = StaticRef<RwPluginRegistry>(0x8E2270);
     frame->object.type = 0;
@@ -6923,6 +6936,7 @@ RwBool RwD3D9ChangeMultiSamplingLevels(RwUInt32 numLevels) {
 // raster de camara (RwRasterCreate(ancho, alto, 0, 0x82)) con ancho, alto, profundidad (tabla 0xB4E7E0 + formato * 4 + 1) y formato RW (byte +3 de la entrada), cuya extension guarda superficie, alfa (byte +0 de la entrada), formato D3D,
 // ventana y cadena, y lo deja como frameBuffer; despues un raster de Z-buffer (ancho, alto, 0, 1) como zBuffer (si se crean). Libera el back buffer (la cadena queda en la extension). Devuelve TRUE. El rectangulo se inicializa a 0 aqui.
 static_assert(offsetof(RwCamera, frameBuffer) == 0x60 && offsetof(RwCamera, zBuffer) == 0x64 && offsetof(RwRaster, depth) == 0x14 && offsetof(RwRaster, cFormat) == 0x23);
+// 0x7F8D70
 RwBool RwD3D9CameraAttachWindow(void* cameraPointer, void* windowPointer) {
     if (D3D9Present.windowed == 0) {
         return FALSE;
@@ -7260,6 +7274,7 @@ RwBool RwD3D9SetTransformWorld(const RwMatrix* matrix) {
 // tabla y contador en cada vuelta). Con indice < contador: si la entrada es igual a la luz (_rwD3D9LightsEqual, 0x7FA8B0; cdecl (luz, entrada), no cero = igual) devuelve TRUE sin llamar. Despues copia 0x68 bytes a la entrada y llama a
 // SetLight(indice, luz ORIGINAL) (+0xCC); devuelve HRESULT >= 0.
 RwBool _rwD3D9LightsEqual(const void* light, const void* entry); // 0x7FA8B0 (lote R28A; definida al final del archivo)
+// 0x7FA660
 RwBool RwD3D9SetLight(RwInt32 index, const void* light) {
     const RwInt32 previousCount = D3D9LightCount;
     if (index >= previousCount) {

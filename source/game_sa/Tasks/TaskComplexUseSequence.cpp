@@ -105,11 +105,13 @@ CTaskComplexUseSequence::~CTaskComplexUseSequence() {
     }
 }
 
+// 0x635450
 CTaskComplexUseSequence* CTaskComplexUseSequence::Constructor(int32 sequenceIndex) {
     this->CTaskComplexUseSequence::CTaskComplexUseSequence(sequenceIndex);
     return this;
 }
 
+// 0x639730
 bool CTaskComplexUseSequence::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
     if (!m_pSubTask) {
         return true;
@@ -132,6 +134,7 @@ bool CTaskComplexUseSequence::MakeAbortable(CPed* ped, eAbortPriority priority, 
     return bMakeAbortable;
 }
 
+// 0x6354A0
 CTask* CTaskComplexUseSequence::CreateNextSubTask(CPed* ped) {
     if (m_nSequenceIndex == -1) {
         return nullptr;
@@ -142,6 +145,7 @@ CTask* CTaskComplexUseSequence::CreateNextSubTask(CPed* ped) {
 }
 
 
+// 0x6354D0
 CTask* CTaskComplexUseSequence::CreateFirstSubTask(CPed* ped) {
     if (m_nSequenceIndex == -1) {
         return nullptr;
@@ -163,6 +167,7 @@ CTask* CTaskComplexUseSequence::CreateFirstSubTask(CPed* ped) {
     return firstSubTask;
 }
 
+// 0x635530
 // 0x0
 CTask* CTaskComplexUseSequence::ControlSubTask(CPed* ped) {
     return m_pSubTask;

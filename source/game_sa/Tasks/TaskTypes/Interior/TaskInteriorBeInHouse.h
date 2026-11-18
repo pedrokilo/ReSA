@@ -19,10 +19,13 @@ public:
 
     void GetInfoForPedToUse(CPed* ped, int32* outDuration);
 
+    // 0x675010
     CTask*    Clone() const override { return new CTaskInteriorBeInHouse{ *this }; }
+    // 0x674FF0
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
+    // 0x675090
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
 private: // Wrappers for hooks

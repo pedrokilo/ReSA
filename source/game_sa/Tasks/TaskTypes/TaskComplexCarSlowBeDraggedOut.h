@@ -16,10 +16,16 @@ public:
     ~CTaskComplexCarSlowBeDraggedOut() override;
 
     CTask*    Clone() const override { return new CTaskComplexCarSlowBeDraggedOut(m_Vehicle, m_Door, m_IsDraggedBySelf); } // 0x64A120
+    /*!
+     * @addr 0x648500
+     */
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
+    /*!
+     * @addr 0x648510
+     */
     CTask*    ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
 private:
@@ -38,7 +44,13 @@ private:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x648490
+     */
     CTaskComplexCarSlowBeDraggedOut* Constructor(CVehicle* car, eTargetDoor a3, bool a4) { this->CTaskComplexCarSlowBeDraggedOut::CTaskComplexCarSlowBeDraggedOut(car, a3, a4); return this; }
+    /*!
+     * @addr 0x64C580
+     */
     CTaskComplexCarSlowBeDraggedOut* Destructor() { this->CTaskComplexCarSlowBeDraggedOut::~CTaskComplexCarSlowBeDraggedOut(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexCarSlowBeDraggedOut, 0x1C);

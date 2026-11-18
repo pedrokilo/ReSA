@@ -12,6 +12,7 @@
 /*!
  * @addr 0x57FD70
  */
+// 0x57FD70
 // Vanilla bug: Analogic directionals are not working in the menu for set setting ON/OFF.
 void CMenuManager::UserInput() {
     static constexpr auto actionSelect       = { MENU_ACTION_BRIGHTNESS, MENU_ACTION_RADIO_VOL, MENU_ACTION_DRAW_DIST, MENU_ACTION_MOUSE_SENS };
@@ -858,6 +859,7 @@ void CMenuManager::RedefineScreenUserInput(bool* accept, bool* cancel) {
 /*!
  * @addr 0x57E4D0
  */
+// 0x57E4D0
 // NOTE: Mix Android version. The PC version uses the RW classes.
 bool CMenuManager::CheckRedefineControlInput() {
     if (m_EditingControlOptions) {

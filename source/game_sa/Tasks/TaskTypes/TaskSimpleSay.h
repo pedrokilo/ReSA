@@ -20,8 +20,11 @@ public:
     }
     ~CTaskSimpleSay() = default;
 
+    // 0x48E390
     CTask* Clone() const override { return new CTaskSimpleSay(*this); }
+    // 0x48E420
     eTaskType GetTaskType() const override { return Type; }
+    // 0x48E430
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return true; }
     bool      ProcessPed(CPed* ped) override;
 

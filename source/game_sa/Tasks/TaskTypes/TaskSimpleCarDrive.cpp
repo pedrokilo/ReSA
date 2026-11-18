@@ -484,6 +484,7 @@ void CTaskSimpleCarDrive::ProcessBopping(CPed* ped, bool a3) {
 // 0x63DC20
 
 
+// 0x63DC20
 CTask* CTaskSimpleCarDrive::Clone() const {
     auto task = new CTaskSimpleCarDrive(m_pVehicle);
     task->m_bUpdateCurrentVehicle = m_bUpdateCurrentVehicle;
@@ -493,6 +494,7 @@ CTask* CTaskSimpleCarDrive::Clone() const {
 // 0x63C670
 
 
+// 0x63C670
 bool CTaskSimpleCarDrive::MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const* event) {
     if (priority == ABORT_PRIORITY_IMMEDIATE) {
         // Como el original: si el peatón va en un vehículo, lo saca con una tarea de salida creada en la pila.
@@ -519,6 +521,7 @@ bool CTaskSimpleCarDrive::MakeAbortable(CPed* ped, eAbortPriority priority, CEve
 // 0x644470
 
 
+// 0x644470
 bool CTaskSimpleCarDrive::ProcessPed(CPed* ped) {
     const bool retuneStarted = AudioEngine.HasRadioRetuneJustStarted();
 
@@ -734,6 +737,7 @@ bool CTaskSimpleCarDrive::ProcessPed(CPed* ped) {
 
 // 0x63C770
 
+// 0x63C770
 // 0x0
 bool CTaskSimpleCarDrive::SetPedPosition(CPed* ped) {
     if (m_b08) {

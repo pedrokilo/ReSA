@@ -31,7 +31,9 @@ public:
 
     void StartAnim(CPed const* ped);
 
+    // 0x649A80
     CTask*    Clone() const override { return new CTaskSimplePickUpBike{*this}; }
+    // 0x646220
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

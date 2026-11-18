@@ -190,6 +190,7 @@ public:
     void ApplyUnderwaterMotionBlur();
 
 private:
+    // 0x517730
     CCam* Constructor() {
         this->CCam::CCam();
         return this;

@@ -569,6 +569,7 @@ void CAudioEngine::PlayRadioAnnouncement(uint32 a1) {
     // NOP
 }
 
+// 0x507E30
 void CAudioEngine::PreloadCutsceneTrack(int16 trackId, bool wait) {
     if (AERadioTrackManager.IsRadioOn()) {
         m_nCurrentRadioStationId = AERadioTrackManager.GetCurrentRadioStationID();
@@ -776,6 +777,8 @@ void CAudioEngine::ResumeAllSounds() {
  * Actualiza cutscene/ambience/radio, entidades ambientales, speech y SoundManager.
  * Durante cutscenes silencia el stream normal mediante su fader; durante pausa
  * mantiene activos únicamente los caminos explícitamente permitidos.
+ *
+ * @addr 0x507750
  */
 void CAudioEngine::Service() {
     ZoneScoped;
@@ -853,6 +856,8 @@ void CAudioEngine::ServiceLoadingTune(float fScalingFactor) {
  *
  * Los managers que poseen máquinas de estados se sirven hasta confirmar su parada
  * antes de limpiar voces y volver a pausar manualmente SoundManager.
+ *
+ * @addr 0x507A90
  */
 void CAudioEngine::Reset() {
     AESoundManager.Service();

@@ -167,7 +167,13 @@ public: // NOTSA
     [[nodiscard]] bool IsAnyWheelNotMakingContactWithGround() const { return std::ranges::any_of(m_aWheelRatios, [](const auto& r) { return r == 1.0F; }); };
 
     static void InjectHooks();
+    /*!
+     * @addr 0x6BF430
+     */
     CBike* Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) { this->CBike::CBike(modelIndex, createdBy); return this; }
+    /*!
+     * @addr 0x6B57A0
+     */
     CBike* Destructor() {this->CBike::~CBike(); return this; }
                                                                                     };
 VALIDATE_SIZE(CBike, 0x814);

@@ -22,8 +22,11 @@ public:
     CTaskSimplePlayerOnFire(const CTaskSimplePlayerOnFire&) : CTaskSimplePlayerOnFire{} {} // NOTSA
     ~CTaskSimplePlayerOnFire() = default;
 
+    // 0x636E80
     CTask*    Clone() const override { return new CTaskSimplePlayerOnFire{*this}; }
+    // 0x633590
     eTaskType GetTaskType() const override { return Type; }
+    // 0x6335A0
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return false; }
     bool      ProcessPed(CPed* ped) override;
 private: // Wrappers for hooks

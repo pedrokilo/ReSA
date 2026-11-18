@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #include "EventPotentialGetRunOver.h"
 
 namespace {
+// 0x4AE270
 // Cuerpo no virtual de ~CEventPotentialGetRunOver del EXE (thiscall, sin argumentos de pila, `ret`): deja la vtable de CEventPotentialGetRunOver del EXE (0x85AE88), libera con CEntity::CleanUpOldReference (0x571A00) las referencias no nulas
 // en el orden del EXE y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 117A, banco Fn117A.)
 void __fastcall PotentialGetRunOverDestructorBody(CEventPotentialGetRunOver* self, void* /*edx*/) {

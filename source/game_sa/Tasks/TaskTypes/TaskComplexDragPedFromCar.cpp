@@ -101,6 +101,7 @@ CTaskComplexDragPedFromCar::~CTaskComplexDragPedFromCar() {
 // 0x640530
 
 
+// 0x640530
 CTask* CTaskComplexDragPedFromCar::ControlSubTask(CPed* ped) {
     if (m_NumGettingInSet)
         return CTaskComplexEnterCar::ControlSubTask(ped);
@@ -113,6 +114,7 @@ CTask* CTaskComplexDragPedFromCar::ControlSubTask(CPed* ped) {
 
 // 0x643D00
 
+// 0x643D00
 CTask* CTaskComplexDragPedFromCar::CreateFirstSubTask(CPed* ped) {
     if (!m_Ped || !m_Ped->m_pVehicle || !m_Ped->bInVehicle ||
         (!m_Ped->m_pVehicle->IsPassenger(m_Ped) && !m_Ped->m_pVehicle->IsDriver(m_Ped))) {

@@ -394,12 +394,18 @@ private:
 
     void BlowUpCar_Impl(CEntity* dmgr, bool bDontShakeCam, bool bDontSpawnStuff, bool bNoExplosion, bool bHideExplosionFx, bool bIsForCutScene, bool bMakeSound);
 
+    /*!
+     * @addr 0x6B0A90
+     */
     auto Constructor(int32 modelIndex, eVehicleCreatedBy createdBy, bool setupSuspensionLines) {
         this->CAutomobile::CAutomobile(modelIndex, createdBy, setupSuspensionLines);
         return this;
     }
 
 public: // Envoltura del cuerpo 0x6A61E0 (con hook): la llama el cuerpo reconstruido de CTrailer (0x6CED10; lote 141A, banco Fn141A), sin expansion en linea
+    /*!
+     * @addr 0x6A61E0
+     */
     __declspec(noinline) CAutomobile* Destructor() {
         this->CAutomobile::~CAutomobile();
         return this;

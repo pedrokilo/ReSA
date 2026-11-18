@@ -46,7 +46,9 @@ public:
     void ComputeRoute(CPed const& ped);
     CTask* CreateSubTask(eTaskType taskType, CPed* ped);
 
+    // 0x655B90
     CTask*    Clone() const override { return new CTaskComplexWalkRoundBuildingAttempt{ *this }; }
+    // 0x654830
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask*    CreateNextSubTask(CPed* ped) override;

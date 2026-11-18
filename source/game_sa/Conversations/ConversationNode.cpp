@@ -68,6 +68,8 @@ void CConversationNode::Clear() {
  * ciclo provocaría recursión indefinida porque esta rutina no mantiene un conjunto
  * de nodos ya visitados.
  * Los índices se usan sin comprobación de límites, como en el EXE (data() evita el assert de std::array).
+ *
+ * @addr 0x43A710
  */
 void CConversationNode::ClearRecursively() {
     if (m_NodeYes >= 0) {

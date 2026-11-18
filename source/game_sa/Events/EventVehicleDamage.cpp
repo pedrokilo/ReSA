@@ -77,6 +77,7 @@ CEventVehicleDamage::~CEventVehicleDamage()
     CEntity::SafeCleanUpRef(m_attacker);
 }
 
+// 0x4B18D0
 CEventVehicleDamage* CEventVehicleDamage::Constructor(CVehicle* vehicle, CEntity* attacker, eWeaponType weaponType)
 {
     this->CEventVehicleDamage::CEventVehicleDamage(vehicle, attacker, weaponType);

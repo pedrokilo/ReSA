@@ -35,6 +35,7 @@ END GENERATED HOOK STATUS */
 // llamada. Se declara __fastcall sin parametros en la pila (ECX y EDX se reciben por registro y la limpieza de pila sigue siendo la
 // del llamador cdecl) para recibir el EDX de entrada y devolverlo intacto; los argumentos se leen de la pila bajo la direccion de retorno.
 #pragma runtime_checks("", off)
+// 0x5B3AD0
 static uint32 __fastcall SetBaseModelInfoFlags_KeepEdx(void* /*ecx*/, uint32 entryEdx) {
     const uint32* const arguments = static_cast<const uint32*>(_AddressOfReturnAddress()) + 1; // [esp+4] = modelInfo, [esp+8] = flags
     SetBaseModelInfoFlags(reinterpret_cast<CBaseModelInfo*>(static_cast<uintptr_t>(arguments[0])), arguments[1]);
@@ -46,6 +47,7 @@ static uint32 __fastcall SetBaseModelInfoFlags_KeepEdx(void* /*ecx*/, uint32 ent
 // toca nada mas. Lo pasan a los iteradores de vectores de los almacenes (CStore) y lo llama el destructor con borrado (0x4C6250).
 // Espacio con nombre (no anonimo) para que el destructor con borrado de CLodAtomicModelInfo (0x4C6250, LodAtomicModelInfo.cpp) llame a este mismo cuerpo sin duplicarlo (lote 194A).
 namespace CBaseModelInfoBody {
+// 0x4C5620
 __declspec(noinline) void __fastcall DestructorBody(CBaseModelInfo* self, void* /*edx*/) { *reinterpret_cast<uint32*>(self) = 0x85BB9C; }
 } // namespace CBaseModelInfoBody
 
@@ -53,6 +55,7 @@ __declspec(noinline) void __fastcall DestructorBody(CBaseModelInfo* self, void* 
 // vtable de la clase base, contador de referencias (+8, word) a 0 e indice del TXD (+0xA, word) a 0xFFFF; devuelve `this`. Espacio con nombre (no anonimo) para que el constructor de CAtomicModelInfo
 // (0x4C5540, AtomicModelInfo.cpp) llame a este mismo cuerpo sin duplicarlo.
 namespace CBaseModelInfoBody {
+// 0x4C4A60
 __declspec(noinline) CBaseModelInfo* __fastcall Constructor(CBaseModelInfo* self, void* /*edx*/) {
     auto* const bytes = reinterpret_cast<uint8*>(self);
     *reinterpret_cast<uint32*>(bytes) = 0x85BB9C;
@@ -165,6 +168,8 @@ CTimeInfo* CBaseModelInfo::GetTimeInfo() {
  * Restablece el estado común de un model info antes de cargar recursos concretos.
  *
  * No crea RwObject ni CColModel: sólo fija centinelas, flags y valores por defecto.
+ *
+ * @addr 0x4C4B10
  */
 void CBaseModelInfo::Init() {
     m_nRefCount = 0;
@@ -184,6 +189,8 @@ void CBaseModelInfo::Init() {
 /**
  * Ejecuta la limpieza polimórfica del recurso RenderWare y de la colisión poseída,
  * y devuelve los metadatos comunes a su estado inicial.
+ *
+ * @addr 0x4C4D50
  */
 void CBaseModelInfo::Shutdown() {
     DeleteRwObject();
@@ -217,24 +224,29 @@ void CBaseModelInfo::SetTexDictionary(const char* txdName) {
     }
 }
 
+// 0x4C4B70
 void CBaseModelInfo::ClearTexDictionary() {
     m_nTxdIndex = -1;
 }
 
+// 0x4C4B80
 void CBaseModelInfo::AddTexDictionaryRef() {
     CTxdStore::AddRef(m_nTxdIndex);
 }
 
+// 0x4C4B90
 void CBaseModelInfo::RemoveTexDictionaryRef() {
     CTxdStore::RemoveRef(m_nTxdIndex);
 }
 
+// 0x4C4BA0
 // Incrementa conjuntamente la referencia del model info y la del TXD asociado.
 void CBaseModelInfo::AddRef() {
     ++m_nRefCount;
     AddTexDictionaryRef();
 }
 
+// 0x4C4BB0
 // Libera en paralelo una referencia lógica y una referencia al diccionario de texturas.
 void CBaseModelInfo::RemoveRef() {
     --m_nRefCount;
@@ -246,6 +258,8 @@ void CBaseModelInfo::RemoveRef() {
  *
  * En modelos con CTimeInfo puede compartir el mismo CColModel con la variante horaria
  * complementaria, dejando a una sola de ellas marcada como propietaria lógica/LOD.
+ *
+ * @addr 0x4C4BC0
  */
 void CBaseModelInfo::SetColModel(CColModel* colModel, bool bIsLodModel) {
     m_pColModel = colModel;
@@ -267,11 +281,13 @@ void CBaseModelInfo::SetColModel(CColModel* colModel, bool bIsLodModel) {
     lodInfo->bIsLod = false;
 }
 
+// 0x4C4C20
 void CBaseModelInfo::Init2dEffects() {
     m_n2dEffectIndex = -1;
     m_n2dfxCount = 0;
 }
 
+// 0x4C4C40
 // Elimina la colisión sólo cuando este model info está marcado como propietario LOD.
 void CBaseModelInfo::DeleteCollisionModel() {
     if (m_pColModel && bIsLod)

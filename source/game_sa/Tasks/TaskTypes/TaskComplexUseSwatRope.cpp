@@ -89,6 +89,7 @@ void CTaskComplexUseSwatRope::InjectHooks() {
     RH_ScopedVMTInstall(MakeAbortable, 0x659530);
 }
 
+// 0x659470
 CTaskComplexUseSwatRope* CTaskComplexUseSwatRope::Constructor(uint32 ropeId, CHeli* heli) {
     this->CTaskComplexUseSwatRope::CTaskComplexUseSwatRope(ropeId, heli);
     return this;

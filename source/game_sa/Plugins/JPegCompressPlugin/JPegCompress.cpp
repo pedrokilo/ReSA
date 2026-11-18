@@ -61,6 +61,8 @@ void JPegPlugin::InjectHooks() {
  * Captura la cámara a RwImage y alimenta libjpeg línea por línea en formato RGBA.
  * El destino se inyecta mediante jpeg_destination_mgr para reutilizar la misma
  * compresión tanto con archivo como con otros buffers.
+ *
+ * @addr 0x5D0470
  */
 void JPegCompressScreen(RwCamera* camera, jpeg_destination_mgr& dst) {
     // Como el original: primero se captura la pantalla y despues se prepara libjpeg.
@@ -101,6 +103,8 @@ void JPegCompressScreen(RwCamera* camera, jpeg_destination_mgr& dst) {
 /**
  * Implementa un jpeg_destination_mgr respaldado por el buffer global y vuelca al
  * archivo cada vez que libjpeg agota el espacio, incluyendo el remanente final.
+ *
+ * @addr 0x5D0820
  */
 void JPegCompressScreenToFile(RwCamera* camera, const char* path) {
     // Como el original: el handle vive en 0xBD0B74 y se acepta solo si es positivo (jle).
@@ -955,6 +959,7 @@ static void build_ycc_rgb_table(DecompressInfo* cinfo) {
 // 0x5C8EE0: el EXE recibe cinfo en EAX (resto de registros no se leen; EBX, ESI, EDI y EBP se conservan). EntryEaxCpp tiene que ser
 // lo primero que se ejecuta (lo vigila contrib/audit_register_residue.py, objeto JPegCompress).
 #pragma runtime_checks("", off)
+// 0x5C8EE0
 __declspec(safebuffers) static void build_ycc_rgb_table_EaxEntry() {
     build_ycc_rgb_table(reinterpret_cast<DecompressInfo*>(EntryEaxCpp()));
 }

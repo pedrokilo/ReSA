@@ -141,6 +141,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x6F6030
+     */
     CTrain* Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) { this->CTrain::CTrain(modelIndex, createdBy); return this; }
 };
 VALIDATE_SIZE(CTrain, 0x6AC);

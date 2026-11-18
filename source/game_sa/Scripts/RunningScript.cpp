@@ -383,6 +383,7 @@ static void LocateScriptEntity(CRunningScript* script, const CVector& pos, bool 
     if (ScriptParams[threeD ? 7 : 5].iParam) script->HighlightImportantArea(CVector2D{lowerX,centerY-radiusY}, CVector2D{centerX+radiusX,centerY+radiusY}, threeD ? ScriptParams[3].fParam : -100.0f);
 }
 
+// 0x487A20
 void CRunningScript::LocateCarCommand(int32 commandId) {
     const bool threeD = commandId >= 0x1AF && commandId <= 0x1B0;
     CollectParameters(threeD ? 8 : 6);
@@ -401,6 +402,7 @@ static CVector ScriptPedLocation(CPed* ped) {
     return ped->GetPosition();
 }
 
+// 0x486D80
 void CRunningScript::LocateCharCommand(int32 commandId) {
     const bool threeD = commandId >= 0xFE && commandId <= 0x103;
     CollectParameters(threeD ? 8 : 6);
@@ -443,6 +445,7 @@ static void LocateScriptPedPair(CRunningScript* script, CPed* ped, const CVector
     if (ScriptParams[threeD ? 5 : 4].iParam) script->HighlightImportantArea(CVector2D{lowerX,target.y-radiusY}, CVector2D{target.x+radiusX,target.y+radiusY}, threeD ? target.z : -100.0f);
 }
 
+// 0x487420
 void CRunningScript::LocateCharCarCommand(int32 commandId) {
     const bool threeD = commandId >= 0x205 && commandId <= 0x207;
     CollectParameters(threeD ? 6 : 5);
@@ -489,6 +492,7 @@ static void ScriptAreaTest(CRunningScript* script, const CVector& pos, bool thre
     if (ScriptParams[threeD ? 7 : 5].iParam) script->HighlightImportantArea(CVector2D{minX,minY}, CVector2D{maxX,maxY}, threeD ? (maxZ + minZ) * 0.5f : -100.0f);
 }
 
+// 0x488EC0
 void CRunningScript::CarInAreaCheckCommand(int32 commandId) {
     const bool threeD = commandId == 0xB1 || commandId == 0x1AC;
     CollectParameters(threeD ? 8 : 6);

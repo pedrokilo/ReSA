@@ -38,6 +38,9 @@ public:
 
     void ManageAnim(CPed* ped);
 
+    /*!
+     * @addr 0x623830
+     */
     CTask*    Clone() const override { return new CTaskSimpleStealthKill{ *this }; }
     eTaskType GetTaskType() const override { return TASK_SIMPLE_STEALTH_KILL; } // 0x622670
     bool      ProcessPed(CPed* ped) override;
@@ -45,6 +48,9 @@ public:
 
 private:
     CTaskSimpleStealthKill* ScalarDeletingDestructor(uint8 flags); // 0x6296B0 (lote 126A, banco Fn126A): destructor con borrado (ranura 0 de la vtable 0x86DA74), `ret 4`
+    /*!
+     * @addr 0x6225F0
+     */
     auto Constructor(bool keepTargetAlive, CPed* target, AssocGroupId groupId) {
         this->CTaskSimpleStealthKill::CTaskSimpleStealthKill(keepTargetAlive, target, groupId);
         return this;

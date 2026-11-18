@@ -59,6 +59,7 @@ void CVehicleScanner::ScanForVehiclesInRange(const CPed& ped) {
     }
 }
 
+// 0x5FFEE0
 CVehicle* CVehicleScanner::GetClosestVehicleInRange() const {
     return static_cast<CVehicle*>(m_pClosestEntityInRange);
 }

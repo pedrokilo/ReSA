@@ -65,6 +65,7 @@ CTaskSimplePause::CTaskSimplePause(const CTaskSimplePause& o) :
 {
 }
 
+// 0x48E750
 CTaskSimplePause* CTaskSimplePause::Constructor(int32 time) {
     this->CTaskSimplePause::CTaskSimplePause(time);
     return this;

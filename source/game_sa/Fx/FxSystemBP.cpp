@@ -60,11 +60,13 @@ FxSystemBP_c::FxSystemBP_c() : ListItem_c() {
     m_BoundingSphere = nullptr;
 }
 
+// 0x4AA0D0
 FxSystemBP_c* FxSystemBP_c::Constructor() {
     this->FxSystemBP_c::FxSystemBP_c();
     return this;
 }
 
+// 0x4AA0F0
 FxSystemBP_c* FxSystemBP_c::Destructor() {
     this->FxSystemBP_c::~FxSystemBP_c();
     return this;
@@ -76,6 +78,8 @@ FxSystemBP_c* FxSystemBP_c::Destructor() {
  *
  * Primero recoge nombres de textura y configuración; las texturas se cargan al final
  * una vez conocidas todas las primitivas del sistema.
+ *
+ * @addr 0x5C05F0
  */
 bool FxSystemBP_c::Load(Const char* filename, FILESTREAM file, int32 version) {
     // Como el original: cada campo se lee con ReadLine + sscanf sin comprobar el resultado ni el nombre

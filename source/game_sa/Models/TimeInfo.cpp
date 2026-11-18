@@ -41,6 +41,8 @@ void CTimeInfo::InjectHooks() {
  *
  * Si existe un model info temporal con el nombre resultante, almacena su índice en
  * m_nOtherTimeModel para evitar repetir la resolución por nombre.
+ *
+ * @addr 0x4C47E0
  */
 CTimeInfo* CTimeInfo::FindOtherTimeModel(const char* modelName) {
     char timeSwitchModelName[24];

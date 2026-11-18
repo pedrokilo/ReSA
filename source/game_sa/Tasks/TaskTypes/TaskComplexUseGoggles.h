@@ -15,7 +15,13 @@ public:
     CTaskComplexUseGoggles() = default; // 0x634EF0
     ~CTaskComplexUseGoggles() override = default; // 0x634F20
 
+    /*!
+     * @addr 0x634F10
+     */
     eTaskType GetTaskType() const override { return Type; }
+    /*!
+     * @addr 0x637060
+     */
     CTask* Clone() const override { return new CTaskComplexUseGoggles(); }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override; // 0x634F30
     CTask* CreateNextSubTask(CPed* ped) override;

@@ -18,7 +18,9 @@ public:
     CTaskSimpleCarSlowBeDraggedOut(const CTaskSimpleCarSlowBeDraggedOut&); // Como el original (0x64A040): Clone llama al constructor
     ~CTaskSimpleCarSlowBeDraggedOut();
 
+    // 0x64A040
     CTask*    Clone() const override { return new CTaskSimpleCarSlowBeDraggedOut{ *this }; }
+    // 0x6482B0
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) override;
     bool      ProcessPed(CPed* ped) override;

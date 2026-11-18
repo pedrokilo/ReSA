@@ -2437,6 +2437,7 @@ static void BikeSetupSphere355(CColSphere* sphere,float limit) {
     BikeSetupSphereCpp(reinterpret_cast<float*>(sphere), limit);   // x, y, z, radio consecutivos
 }
 
+// 0x6B89B0
 void CBike::SetupSuspensionLines() {
     auto* model = CModelInfo::GetModelInfo(m_nModelIndex)->AsVehicleModelInfoPtr();
     auto* col = model->GetColModel();
@@ -2698,12 +2699,19 @@ CRideAnimData* CBike::GetRideAnimData() { return &m_RideAnimData; }
 
 // 0x6B58E0 / 0x6B58F0 / 0x6B5900 / 0x6B5910 y las variantes U32 0x6B5920 / 0x6B5930 / 0x6B5940 / 0x6B5950 (`ret 4`)
 bool CBike::IsDoorReady(eDoors /*door*/) { return true; }
+// 0x6B58F0
 bool CBike::IsDoorFullyOpen(eDoors /*door*/) { return false; }
+// 0x6B5900
 bool CBike::IsDoorClosed(eDoors /*door*/) { return false; }
+// 0x6B5910
 bool CBike::IsDoorMissing(eDoors /*door*/) { return true; }
+// 0x6B5920
 bool CBike::IsDoorReadyU32(uint32 /*door*/) { return true; }
+// 0x6B5930
 bool CBike::IsDoorFullyOpenU32(uint32 /*door*/) { return false; }
+// 0x6B5940
 bool CBike::IsDoorClosedU32(uint32 /*door*/) { return false; }
+// 0x6B5950
 bool CBike::IsDoorMissingU32(uint32 /*door*/) { return true; }
 
 // 0x6B7270 (`ret 8`): mov al,1

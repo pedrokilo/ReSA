@@ -107,6 +107,8 @@ bool CAEBankLoader::LoadBankLookupFile() {
 /**
  * Carga BANKSLOT.DAT, calcula offsets acumulados y reserva el buffer único donde
  * se materializarán los bancos solicitados.
+ *
+ * @addr 0x4E0590
  */
 bool CAEBankLoader::LoadBankSlotFile() {
     const auto file = CFileMgr::OpenFile("AUDIO\\CONFIG\\BANKSLOT.DAT", "rb");

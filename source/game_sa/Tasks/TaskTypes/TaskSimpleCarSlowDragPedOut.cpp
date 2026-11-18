@@ -148,6 +148,7 @@ CPed* CTaskSimpleCarSlowDragPedOut::GetJackedPed() const {
 // 0x64BFB0
 
 
+// 0x64BFB0
 bool CTaskSimpleCarSlowDragPedOut::MakeAbortable(CPed* ped, eAbortPriority priority, CEvent const*) {
     if (priority == eAbortPriority::ABORT_PRIORITY_IMMEDIATE) {
         if (m_AnimAssoc) {
@@ -165,6 +166,7 @@ bool CTaskSimpleCarSlowDragPedOut::MakeAbortable(CPed* ped, eAbortPriority prior
 // 0x64E060
 
 
+// 0x64E060
 bool CTaskSimpleCarSlowDragPedOut::ProcessPed(CPed* ped) {
     if (m_bAnimFinished || !m_Vehicle) {
         return true;
@@ -213,6 +215,7 @@ bool CTaskSimpleCarSlowDragPedOut::ProcessPed(CPed* ped) {
 
 // 0x6480E0
 
+// 0x6480E0
 // 0x0
 bool CTaskSimpleCarSlowDragPedOut::SetPedPosition(CPed* ped) {
     m_LineUpPedWithCarTask->ProcessPed(ped, m_Vehicle, m_AnimAssoc);

@@ -16,7 +16,9 @@ public:
     CTaskInteriorGoToInfo(const CTaskInteriorGoToInfo&);
     ~CTaskInteriorGoToInfo() override = default;
 
+    // 0x675820
     CTask*    Clone() const override { return new CTaskInteriorGoToInfo{ *this }; }
+    // 0x675800
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

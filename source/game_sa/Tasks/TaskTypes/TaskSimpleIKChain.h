@@ -20,6 +20,9 @@ public:
     ~CTaskSimpleIKChain() override;
 
 
+    /*!
+     * @addr 0x62EC30
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override; // 0x62EC30
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
@@ -34,8 +37,14 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x6339C0
+     */
     CTaskSimpleIKChain* Constructor(char* name, eBoneTag32 effectorBoneTag, RwV3d effectorVec, eBoneTag32 pivotBoneTag, CEntity* a6, eBoneTag32 offsetBoneTag, RwV3d offsetPos, float speed, int32 time, int32 blendTime) { this->CTaskSimpleIKChain::CTaskSimpleIKChain(name, effectorBoneTag, effectorVec, pivotBoneTag, a6, offsetBoneTag, offsetPos, speed, time, blendTime); return this; }
     CTaskSimpleIKChain* ScalarDeletingDestructor(uint8 flags); // 0x636F00 (lote 128A, banco Fn128A): destructor con borrado (ranura 0 de la vtable 0x86DB48), `ret 4`
+    /*!
+     * @addr 0x633A90
+     */
     __declspec(noinline) CTaskSimpleIKChain* Destructor() { this->CTaskSimpleIKChain::~CTaskSimpleIKChain(); return this; }
 
 protected:

@@ -33,6 +33,7 @@ public:
     // 0x64FBB0 (lote 186A): constructor del EXE (hook). Publico porque CreateLineUpUtility (0x63BAE0, de CTaskComplexLeaveCar) lo llama enganchado, como el EXE (el EXE devuelve el EAX del constructor).
     __declspec(noinline) CTaskUtilityLineUpPedWithCar* Constructor(const CVector& offsets, int32 nTime, int32 doorOpenPosType, int32 doorIdx) { this->CTaskUtilityLineUpPedWithCar::CTaskUtilityLineUpPedWithCar(offsets, nTime, doorOpenPosType, doorIdx); return this; }
 private:
+    // 0x64FC00
     __declspec(noinline) CTaskUtilityLineUpPedWithCar* Destructor() { this->CTaskUtilityLineUpPedWithCar::~CTaskUtilityLineUpPedWithCar(); return this; }
 
 public:

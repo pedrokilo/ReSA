@@ -12,6 +12,9 @@ public:
     CTaskComplexPartnerDeal(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, CVector point);
     ~CTaskComplexPartnerDeal() override = default;
 
+    /*!
+     * @addr 0x681DF0
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override; // 0x684D10
     CTask* CreateFirstSubTask(CPed* ped) override;

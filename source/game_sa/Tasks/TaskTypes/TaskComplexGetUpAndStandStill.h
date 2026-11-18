@@ -9,6 +9,9 @@ public:
     CTaskComplexGetUpAndStandStill() = default;
     ~CTaskComplexGetUpAndStandStill() override = default;
 
+    /*!
+     * @addr 0x678150
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override; // 0x67C130 (lote 200A, sin validar)
     CTask* CreateFirstSubTask(CPed* ped) override;

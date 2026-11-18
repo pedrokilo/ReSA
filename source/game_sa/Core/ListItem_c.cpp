@@ -28,6 +28,7 @@ struct ListItemLinksExe {
     void* next;
 };
 
+// 0x4A8DB0
 __declspec(noinline) ListItemLinksExe* __fastcall ListItemConstructorExe(ListItemLinksExe* self, void* /*edx*/) {
     volatile ListItemLinksExe* const links = self;
     links->prev = nullptr;

@@ -52,7 +52,13 @@ private:
     static void InjectHooks();
     friend class CTaskComplexFollowLeaderInFormation; // lote 201A (sin validar): su CreateSubTask (0x6962A0) llama al Constructor enganchado del EXE, como el original
 
+    /*!
+     * @addr 0x63B8C0
+     */
     __declspec(noinline) CTaskComplexLeaveCar* Constructor(CVehicle* targetVehicle, int32 nTargetDoor, int32 nDelayTime, bool bSensibleLeaveCar, bool bForceGetOut) { this->CTaskComplexLeaveCar::CTaskComplexLeaveCar(targetVehicle, nTargetDoor, nDelayTime, bSensibleLeaveCar, bForceGetOut); return this; }
+    /*!
+     * @addr 0x63B970
+     */
     CTaskComplexLeaveCar* Destructor() { this->CTaskComplexLeaveCar::~CTaskComplexLeaveCar(); return this; }
     CTaskComplexLeaveCar* ScalarDeletingDestructor(uint8 flags); // 0x6410E0 (lote 186A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86E828), `ret 4`
 };

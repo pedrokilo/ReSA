@@ -28,8 +28,11 @@ __declspec(noinline) CBoundingBox* BoundingBoxConstructorAliasBody(CBoundingBox*
     self->Constructor();
     return self;
 }
+// 0x537550
 __declspec(noinline) CBoundingBox* __fastcall BoundingBoxConstructorAlias537550(CBoundingBox* self, void* /*edx*/) { return BoundingBoxConstructorAliasBody(self); }
+// 0x537560
 __declspec(noinline) CBoundingBox* __fastcall BoundingBoxConstructorAlias537560(CBoundingBox* self, void* /*edx*/) { return BoundingBoxConstructorAliasBody(self); }
+// 0x537570
 __declspec(noinline) CBoundingBox* __fastcall BoundingBoxConstructorAlias537570(CBoundingBox* self, void* /*edx*/) { return BoundingBoxConstructorAliasBody(self); }
 // 0x5B2AB0 (lote 200A, sin validar; el listado decia CCam): cuarta copia identica del mismo codigo (thiscall, sin argumentos, `ret`, 12 bytes: `push esi; mov esi,ecx; call 0x40FAF0; mov eax,esi; pop esi; ret`), sin llamadores ni
 // referencias en el EXE. Igual que las tres anteriores: llama al constructor del EXE (0x40FAF0, con hook; envoltura Constructor) y devuelve `this`.

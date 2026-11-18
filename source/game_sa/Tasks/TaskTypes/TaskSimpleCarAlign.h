@@ -31,7 +31,9 @@ public:
     void FixHeading(CPed* ped);
     void StartAnim(CPed* ped);
 
+    // 0x649930
     CTask* Clone() const override { return new CTaskSimpleCarAlign{ *this }; }
+    // 0x645BD0
     eTaskType GetTaskType() const override { return Type; }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;

@@ -20,7 +20,13 @@ public:
     CTask* MonitorMainGroupTask(CPed* ped);
     void MonitorSecondaryGroupTask(CPed* ped);
 
+    /*!
+     * @addr 0x636BE0
+     */
     CTask*    Clone() const override { return new CTaskComplexBeInGroup(m_nGroupId, m_bIsLeader); }
+    /*!
+     * @addr 0x632E90
+     */
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask*    CreateNextSubTask(CPed* ped) override;
@@ -34,7 +40,13 @@ private:
 
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x632E50
+     */
     CTaskComplexBeInGroup* Constructor(int32 groupId, bool isLeader) { this->CTaskComplexBeInGroup::CTaskComplexBeInGroup(groupId, isLeader); return this; }
+    /*!
+     * @addr 0x632EA0
+     */
     CTaskComplexBeInGroup* Destructor() { this->CTaskComplexBeInGroup::~CTaskComplexBeInGroup(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexBeInGroup, 0x28);

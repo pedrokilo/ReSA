@@ -91,6 +91,8 @@ static auto& audioExtensionTypes = StaticRef<std::array<tAudioExtensionType, 8>>
 /**
  * Carga el índice persistente de user tracks e inicializa los decoders disponibles.
  * Si Media Foundation no está disponible, reasigna MP3 al decoder WMA compatible.
+ *
+ * @addr 0x4F35B0
  */
 bool CAEUserRadioTrackManager::Initialise() {
     m_bUserTracksLoadedCopy = m_bUserTracksLoaded = ReadUserTracks();
@@ -128,6 +130,8 @@ void CAEUserRadioTrackManager::Shutdown() {
 /**
  * Recupera desde sa-ufiles.dat la cadena de ruta correspondiente al registro indicado.
  * La cadena devuelta se reserva dinámicamente y pasa al decoder/CAEDataStream que la adopta.
+ *
+ * @addr 0x4F3050
  */
 char* CAEUserRadioTrackManager::GetTrackPath(int32 trackID) const {
     if (trackID >= static_cast<int32>(m_nUserTracksCount))
@@ -158,6 +162,8 @@ char* CAEUserRadioTrackManager::GetTrackPath(int32 trackID) const {
  *
  * Los decoders basados en CAEDataStream adoptan el stream y su filename; la ruta
  * Media Foundation se entrega directamente a CAEMFDecoder.
+ *
+ * @addr 0x4F35F0
  */
 CAEStreamingDecoder* CAEUserRadioTrackManager::LoadUserTrack(int32 trackID) {
     if (!m_bUserTracksLoaded)
@@ -331,6 +337,8 @@ uint8 CAEUserRadioTrackManager::GetUserTrackPlayMode() {
  *
  * La compatibilidad con el vector/CRT de VC6 obliga a usar los alloc/free del EXE
  * para los registros que cruzan esa frontera ABI.
+ *
+ * @addr 0x4F4A20
  */
 DWORD __stdcall CAEUserRadioTrackManager::WriteUserTracksThread(CAEUserRadioTrackManager* self) {
     if (notsa::bugfixes::CAEUserRadioTrackManager_UnicodeUserTracks) {
@@ -440,6 +448,8 @@ void CAEUserRadioTrackManager::WriteUserTracksThread_Unicode() {
  * en el primer nivel, resuelve los .lnk (si apuntan a una carpeta la recorre con profundidad 1). La longitud de cada
  * ruta se guarda en 16 bits (movzx) y cada registro se reserva con el operator new del EXE y se añade con el
  * push_back del vector VC6 (UserTracksLegacyVector::PushBack, 0x4F4620).
+ *
+ * @addr 0x4F4690
  */
 int32 CAEUserRadioTrackManager::WriteUserTracksFile(const char* dir, UserTracksLegacyVector& offsets, FILE* file, uint32& currentLength, int32 depth) {
     if (notsa::bugfixes::CAEUserRadioTrackManager_UnicodeUserTracks) {
@@ -612,6 +622,8 @@ int32 CAEUserRadioTrackManager::WriteUserTracksFile(const std::wstring& dir, siz
  * Como el original: la ruta se pasa a ancho con MultiByteToWideChar (CP_ACP), GetPath pide la ruta corta
  * (SLGP_SHORTPATH) en un buffer de MAX_PATH reservado con el new[] del EXE, y si GetPath falla devuelve nulo
  * sin liberar ese buffer.
+ *
+ * @addr 0x4F30F0
  */
 char* CAEUserRadioTrackManager::ResolveShortcut(const char* path) {
     if (notsa::bugfixes::CAEUserRadioTrackManager_UnicodeUserTracks) {

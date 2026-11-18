@@ -42,6 +42,7 @@ public:
 public:
     using CPool::CPool;
 
+    // @addr 0x536D10
     // Conserva la interfaz esperada por CEntryInfoNode delegando en el allocator
     // legacy del pool; el objeto sigue siendo propiedad del propio pool.
     CEntryInfoNode* New() {

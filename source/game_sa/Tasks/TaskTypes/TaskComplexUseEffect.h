@@ -19,7 +19,9 @@ public:
     CTaskComplexUseEffect(const CTaskComplexUseEffect&);
     ~CTaskComplexUseEffect() override;
 
+    // 0x636710
     CTask*    Clone() const override { return new CTaskComplexUseEffect{ *this }; }
+    // 0x632260
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, CEvent const* event = nullptr) final override;
     CTask*    CreateNextSubTask(CPed* ped) final override;

@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "EventPedToChase.h"
 
 namespace {
+// 0x4AF1C0
 // Cuerpo no virtual de ~CEventPedToChase del EXE (thiscall, sin argumentos de pila, `ret`): deja la vtable de CEventPedToChase del EXE (0x85B138), libera con CEntity::CleanUpOldReference (0x571A00) las referencias no nulas
 // en el orden del EXE y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 117A, banco Fn117A.)
 void __fastcall PedToChaseDestructorBody(CEventPedToChase* self, void* /*edx*/) {

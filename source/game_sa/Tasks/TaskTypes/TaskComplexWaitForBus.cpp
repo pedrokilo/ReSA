@@ -90,6 +90,9 @@ CTask* CTaskComplexWaitForBus::CreateFirstSubTask(CPed* ped) {
     return new CTaskSimpleWaitForBus{};
 }
 
+// 0x636A60
 CTask* CTaskComplexWaitForBus::Clone() const { return new CTaskComplexWaitForBus{ *this }; }
+// 0x632920
 eTaskType CTaskComplexWaitForBus::GetTaskType() const { return Type; }
+// 0x632A40
 CTask* CTaskComplexWaitForBus::ControlSubTask(CPed* ped) { return m_pSubTask; }

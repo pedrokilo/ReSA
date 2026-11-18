@@ -912,6 +912,9 @@ void CPed::ClearAimFlag() {
 * @param point Point should be relative to the ped's position. Eg.: point = actualPoint - ped.GetPostion2D()
 */
 #pragma runtime_checks("", off)
+/*!
+ * @addr 0x5DEF60
+ */
 __declspec(safebuffers) int32 CPed::GetLocalDirection(const CVector2D& point) const {
     // Como el original (0x5DEF60): fpatan a precision completa, constantes del EXE (pi/4 0x859AB0, 2pi 0x858CBC,
     // 2/pi 0x858FB8; NO 90 grados), bucle mientras el angulo sea < 0, truncado a 64 bits (_ftol2) y el resultado
@@ -1009,6 +1012,7 @@ bool CPed::CanBeArrested() const {
 
 /*!
 * @addr 5DF090
+* @addr 0x5DF090
 */
 bool CPed::CanStrafeOrMouseControl() const {
     switch (m_nPedState) {
@@ -3915,6 +3919,7 @@ void CPed::GiveWeaponAtStartOfFight()
 /*!
 * @addr 5E8BE0
 * @brief If ped has no weapons give them one. (AK-47 if `CHEAT_NO_ONE_CAN_STOP_US` is active, RLauncher if `CHEAT_ROCKET_MAYHEM` is active, or a pistol otherwise)
+* @addr 0x5E8BE0
 */
 void CPed::GiveWeaponWhenJoiningGang()
 {

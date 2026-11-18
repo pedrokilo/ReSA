@@ -256,11 +256,19 @@ void EnvMapPoolDestroy(RawPool* self) {
     }
 }
 
+// 0x5D8F70
+// 0x5D8FC0
+// 0x5D9010
+// 0x5D90C0
+// 0x5D9210
+// 0x5D9360
 template<int Id>
 void __fastcall EnvMapPoolDestructor(RawPool* self, void* /*edx*/) {
     EnvMapPoolDestroy(self);
 }
 
+// 0x5D94B0
+// 0x5D9510
 // 0x5D9450 (`ret 4`): destructor con borrado de CPool: cuerpo del destructor y, con el bit 0 del BYTE de banderas, operator delete (0x8214BD) del propio pool; devuelve `this`.
 template<int Id>
 RawPool* __fastcall EnvMapPoolScalarDeletingDestructor(RawPool* self, void* /*edx*/, uint8 flags) {

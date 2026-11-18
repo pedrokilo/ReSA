@@ -38,7 +38,9 @@ public:
 
     CTask* CreateSubTask(eTaskType taskId, CPed* ped);
 
+    // 0x65D030
     CTask*    Clone() const override { return new CTaskComplexFleeAnyMeans{ *this }; }
+    // 0x65CD00
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

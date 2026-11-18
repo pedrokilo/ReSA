@@ -29,6 +29,9 @@ public:
     void CalculateSearchPositionAndRanges(CPed* ped);
     CTask* CreateSubTask(eTaskType taskType, CPed* ped);
 
+    /*!
+     * @addr 0x621D90
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask*    Clone() const override { return new CTaskComplexDestroyCarMelee(m_VehToDestroy); } // 0x6235A0
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
@@ -37,7 +40,13 @@ public:
     CTask*    ControlSubTask(CPed* ped) override;
 
 private:
+    /*!
+     * @addr 0x621D10
+     */
     CTaskComplexDestroyCarMelee* Constructor(CVehicle* vehToDestroy) { this->CTaskComplexDestroyCarMelee::CTaskComplexDestroyCarMelee(vehToDestroy); return this; }
+    /*!
+     * @addr 0x621DA0
+     */
     __declspec(noinline) CTaskComplexDestroyCarMelee* Destructor() { this->CTaskComplexDestroyCarMelee::~CTaskComplexDestroyCarMelee(); return this; }
     CTaskComplexDestroyCarMelee* ScalarDeletingDestructor(uint8 flags); // 0x6289D0 (lote 125A, banco Fn125A): destructor con borrado (ranura 0 de la vtable), `ret 4`
 };

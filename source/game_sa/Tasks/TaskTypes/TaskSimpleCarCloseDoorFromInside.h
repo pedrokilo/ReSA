@@ -30,7 +30,9 @@ public:
     void StartAnim(CPed const* ped);
     void ProcessDoorOpen(CPed const* ped); // NOTSA
 
+    // 0x649AF0
     CTask* Clone() const override { return new CTaskSimpleCarCloseDoorFromInside{ *this }; }
+    // 0x646370
     eTaskType GetTaskType() const override { return Type; }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;

@@ -105,6 +105,8 @@ void CAEDoorAudioEntity::AddAudioEvent(eAudioEvents event, CVector& posn, float 
 /**
  * Crea la voz de puerta solicitada y decide frontend/world según el centinela de posición.
  * Si el banco aún no está disponible sólo solicita su carga para un evento posterior.
+ *
+ * @addr 0x4DC6D0
  */
 void CAEDoorAudioEntity::PlayDoorSound(int16 sfxId, eAudioEvents event, CVector& posn, float volumeDelta, float speed) {
     if (!AEAudioHardware.IsSoundBankLoaded(SND_BANK_GENRL_DOORS, SND_BANK_SLOT_DOORS)) {

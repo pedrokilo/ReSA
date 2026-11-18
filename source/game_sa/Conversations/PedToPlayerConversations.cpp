@@ -47,6 +47,8 @@ void CPedToPlayerConversations::InjectHooks() {
  * Si existe un intercambio activo, primero se libera la reserva de voz de
  * conversación del jugador. Después se reinician el puntero al peatón participante
  * y la marca temporal de la última conversación.
+ *
+ * @addr 0x43AAE0
  */
 void CPedToPlayerConversations::Clear() {
     ZoneScoped;
@@ -67,6 +69,8 @@ void CPedToPlayerConversations::Clear() {
 /**
  * Selecciona un interlocutor y avanza la apertura, respuesta y cierre del diálogo.
  * Los plazos usan sumas uint32, incluidas sus vueltas al desbordar el timer.
+ *
+ * @addr 0x43B0F0
  */
 void CPedToPlayerConversations::Update() {
     auto* const player = FindPlayerPed();
@@ -324,6 +328,8 @@ void CPedToPlayerConversations::Update() {
  * Además de liberar el estado especial de conversación del sistema de voz, vuelve
  * a habilitar el habla normal del peatón y cancela suavemente el IK de mirada de
  * ambos participantes.
+ *
+ * @addr 0x43AB10
  */
 void CPedToPlayerConversations::EndConversation() {
     // Como el original: FindPlayerPed se llama antes de tocar el estado (0x43AB13).

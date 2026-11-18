@@ -89,6 +89,7 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    // 0x6D03A0
     CTrailer* Constructor(int32 modelIndex, eVehicleCreatedBy createdBy) {
         this->CTrailer::CTrailer(modelIndex, createdBy);
         return this;

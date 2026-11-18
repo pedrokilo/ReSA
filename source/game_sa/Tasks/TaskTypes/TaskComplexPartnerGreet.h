@@ -16,7 +16,9 @@ public:
     CTaskComplexPartnerGreet(const CTaskComplexPartnerGreet&);
     ~CTaskComplexPartnerGreet() override = default;
 
+    // 0x681E00
     eTaskType GetTaskType()         const override { return Type; }
+    // 0x684DA0
     CTask*    Clone()               const override { return new CTaskComplexPartnerGreet{*this}; }
     void      StreamRequiredAnims()       override;
 

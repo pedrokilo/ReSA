@@ -87,6 +87,7 @@ void CTaskSimpleHitHead::InjectHooks() {
     RH_ScopedVMTInstall(MakeAbortable, 0x6530F0);
     RH_ScopedVMTInstall(ProcessPed, 0x657A10);
 }
+// 0x653060
 CTaskSimpleHitHead* CTaskSimpleHitHead::Constructor() { this->CTaskSimpleHitHead::CTaskSimpleHitHead(); return this; }
 
 // 0x653060
@@ -112,6 +113,7 @@ void CTaskSimpleHitHead::FinishAnimCB(CAnimBlendAssociation* anim, void* data) {
 // 0x6530F0
 
 
+// 0x6530F0
 bool CTaskSimpleHitHead::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
     if (priority == ABORT_PRIORITY_URGENT || priority == ABORT_PRIORITY_IMMEDIATE) {
         if (m_pAnim) {
@@ -132,6 +134,7 @@ bool CTaskSimpleHitHead::MakeAbortable(CPed* ped, eAbortPriority priority, const
 
 // 0x657A10
 
+// 0x657A10
 // 0x0
 bool CTaskSimpleHitHead::ProcessPed(CPed* ped) {
     if (m_bIsFinished)

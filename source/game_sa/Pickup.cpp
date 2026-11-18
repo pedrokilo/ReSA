@@ -29,6 +29,7 @@ using namespace ModelIndices;
 // El EDX de entrada se recibe como segundo parametro __fastcall y se devuelve con ResidueRegsCpp (X87Math.h), que sale sin tocar registros.
 // Sin comprobaciones de ejecucion para que no cambien ECX/EDX tras la ultima llamada.
 #pragma runtime_checks("", off)
+// 0x454C70
 static uint32 __fastcall PickupIsVisibleKeepEdx(CPickup* self, uint32 entryEdx) {
     const bool visible = self->IsVisible();
     const int32 y = *reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(self) + 0x12); // m_vecPos.y crudo (movsx ecx,[ecx+0x12])

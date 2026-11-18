@@ -146,6 +146,8 @@ void CModelInfo::ReInit2dEffects()
 /**
  * Ejecuta Shutdown() sobre cada store tipado y luego reinicia todos sus contadores.
  * Los stores son globales/fijos; no se destruyen aquí sus bloques de almacenamiento.
+ *
+ * @addr 0x4C63E0
  */
 void CModelInfo::ShutDown()
 {
@@ -278,6 +280,8 @@ CPedModelInfo* CModelInfo::AddPedModel(int32 index)
  *
  * Estas entradas reutilizan los CTempColModels globales y el TXD generic, sin tomar
  * ownership de esos modelos de colisión compartidos.
+ *
+ * @addr 0x4C6810
  */
 void CModelInfo::Initialise() {
     ZoneScoped;
@@ -339,6 +343,8 @@ void CModelInfo::Initialise() {
 /**
  * Busca por hash uppercase utilizando ms_lastPositionSearched como punto de inicio.
  * La posición se conserva para acelerar búsquedas consecutivas durante la carga.
+ *
+ * @addr 0x4C5940
  */
 CBaseModelInfo* CModelInfo::GetModelInfo(const char* name, int32* index)
 {
@@ -425,6 +431,7 @@ CBaseModelInfo* CModelInfo::GetModelInfo(const char* name, int32 minIndex, int32
 #ifdef _DEBUG
 #pragma optimize("", on)
 #endif
+// 0x4C5A60
 CStore<C2dEffect, CModelInfo::NUM_2DFX_INFOS>* CModelInfo::Get2dEffectStore()
 {
     return reinterpret_cast<CStore<C2dEffect, NUM_2DFX_INFOS>*>(uintptr_t{0xB4C2D8});

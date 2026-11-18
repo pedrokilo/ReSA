@@ -31,6 +31,9 @@ void CRegisteredMotionBlurStreak::InjectHooks()
     RH_ScopedInstall(Render, 0x721F70);
 }
 
+/*!
+ * @addr 0x721EE0
+ */
 void CRegisteredMotionBlurStreak::Update()
 {
     bool bAlive = false;
@@ -47,6 +50,9 @@ void CRegisteredMotionBlurStreak::Update()
         m_nId = 0;
 }
 
+/*!
+ * @addr 0x721F70
+ */
 void CRegisteredMotionBlurStreak::Render()
 {
     for (int32 iInd = 0; iInd < 2; ++iInd) {

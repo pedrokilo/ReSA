@@ -17,7 +17,13 @@ public:
     CTaskComplexFacial(); // 0x690D20
     ~CTaskComplexFacial() override = default; // 0x690D90
 
+    /*!
+     * @addr 0x690D80
+     */
     eTaskType GetTaskType() const override { return Type; }
+    /*!
+     * @addr 0x6928B0
+     */
     CTask*    Clone() const override { return new CTaskComplexFacial(); }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask*    CreateNextSubTask(CPed* ped) override;
@@ -44,6 +50,9 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x690D20
+     */
     CTaskComplexFacial* Constructor() { this->CTaskComplexFacial::CTaskComplexFacial(); return this; }
 
 private:

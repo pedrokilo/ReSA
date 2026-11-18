@@ -64,6 +64,7 @@ CTaskSimpleDuckWhileShotsWhizzing::CTaskSimpleDuckWhileShotsWhizzing(uint16 leng
     *reinterpret_cast<uint32*>(this) = 0x870BEC;
 }
 
+// 0x692680
 CTaskSimpleDuckWhileShotsWhizzing* CTaskSimpleDuckWhileShotsWhizzing::Constructor(uint16 lengthOfDuck) {
     this->CTaskSimpleDuckWhileShotsWhizzing::CTaskSimpleDuckWhileShotsWhizzing(lengthOfDuck);
     return this;

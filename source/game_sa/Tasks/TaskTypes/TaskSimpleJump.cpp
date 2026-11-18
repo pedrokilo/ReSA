@@ -68,6 +68,7 @@ void CTaskSimpleJump::InjectHooks() {
     RH_ScopedVMTInstall(ProcessPed, 0x680C60);
 }
 
+// 0x679AA0
 CTaskSimpleJump* CTaskSimpleJump::Constructor(bool bCanClimb) {
     this->CTaskSimpleJump::CTaskSimpleJump(bCanClimb);
     return this;
@@ -92,6 +93,7 @@ CTaskSimpleJump::~CTaskSimpleJump() {
 
     CEntity::SafeCleanUpRef(m_pClimbEntity);
 };// 0x679AE0 (lote 156A, banco Fn156A; thiscall, `ret`, 6 bytes: `mov eax,0D2h`): TASK_SIMPLE_JUMP (210); no lee el objeto (ranura 4 de la vtable 0x87054C).
+// 0x679AE0
 eTaskType CTaskSimpleJump::GetTaskType() const {
     return Type;
 }

@@ -20,9 +20,12 @@ public:
     CEventPedCollisionWithPed(int16 pieceType, float damageIntensity, CPed* victim, const CVector& collisionImpactVelocity, const CVector& collisionPos, eMoveState moveState, eMoveState victimMoveState);
     ~CEventPedCollisionWithPed() override;
 
+    // 0x4ACA40
     eEventType GetEventType() const override { return EVENT_PED_COLLISION_WITH_PED; };
     bool TakesPriorityOver(const CEvent& refEvent) override;
+    // 0x4ACA60
     int32 GetEventPriority() const override { return 60; };
+    // 0x4ACA50
     int32 GetLifeTime() override { return 0; };
     CEventPedCollisionWithPed* Clone() const noexcept override; // 0x4B6C40 (lote 202A, sin validar)
     bool AffectsPed(CPed* ped) override;

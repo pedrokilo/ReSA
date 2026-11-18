@@ -112,6 +112,7 @@ void ReleasePartnerResources(CTaskComplexPartner& task) {
 } // namespace
 
 namespace CTaskComplexPartnerBody {
+// 0x683A40
 void __fastcall Destructor(CTaskComplexPartner* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x870664;
     ReleasePartnerResources(*self);
@@ -123,6 +124,7 @@ CTaskComplexPartner::~CTaskComplexPartner() {
     ReleasePartnerResources(*this);
 }
 
+// 0x681E70
 CTaskComplexPartner* CTaskComplexPartner::Constructor(const char* commandName, CPed* partner, bool leadSpeaker, float distanceMultiplier, bool makePedAlwaysFacePartner, int8 updateDirectionCount, CVector point) {
     this->CTaskComplexPartner::CTaskComplexPartner(commandName, partner, leadSpeaker, distanceMultiplier, makePedAlwaysFacePartner, updateDirectionCount, point);
     return this;

@@ -80,6 +80,9 @@ public:
     //! @notsa
     void SetEventResponseTask(CPed* ped, const CTask& task) { SetEventResponseTask(ped, true, task); }
     void SetEventResponseTaskAllocator(CTaskAllocator* ta);
+    /*!
+     * @addr 0x5F7340
+     */
     void SetGroupDecisionMakerType(eDecisionMakerType t) { m_DecisionMakerType = t; }
     void SetPrimaryTaskAllocator(CTaskAllocator* ta);
 

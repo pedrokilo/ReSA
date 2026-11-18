@@ -35,9 +35,18 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x66BB20
+     */
     CTaskComplexGotoDoorAndOpen* Constructor(CObject* door) { this->CTaskComplexGotoDoorAndOpen::CTaskComplexGotoDoorAndOpen(door); return this; }
+    /*!
+     * @addr 0x66BBA0
+     */
     CTaskComplexGotoDoorAndOpen* Constructor(CVector const& start, CVector const& end) { this->CTaskComplexGotoDoorAndOpen::CTaskComplexGotoDoorAndOpen(start, end); return this; }
 public:
+    /*!
+     * @addr 0x66BC00
+     */
     __declspec(noinline) CTaskComplexGotoDoorAndOpen* Destructor() { this->CTaskComplexGotoDoorAndOpen::~CTaskComplexGotoDoorAndOpen(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexGotoDoorAndOpen, 0x38);

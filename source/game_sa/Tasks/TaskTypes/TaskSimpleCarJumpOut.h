@@ -34,7 +34,9 @@ public:
     auto ComputeAnimID() -> std::pair<AssocGroupId, AnimationId>; // NOTSA: Changed return type
     void ComputeAnimID_ToHook(AssocGroupId& animGroup, AnimationId& animId); // 0x647690 (Hooking this instead)
 
+    // 0x64D220
     CTask* Clone() const override { return new CTaskSimpleCarJumpOut{ *this }; }
+    // 0x647500
     eTaskType GetTaskType() const override { return Type; }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;

@@ -103,11 +103,13 @@ void RtQuatConvertFromMatrixAxisX(RtQuat* qpQuat, const RwMatrix* mpMatrix) {
     RtQuatMatrixAxisFinishCpp(reinterpret_cast<float*>(qpQuat), m, 0, RtQuatMatrixAxisArgCpp(m, 0));
 }
 
+// 0x7EB700
 void RtQuatConvertFromMatrixAxisY(RtQuat* qpQuat, const RwMatrix* mpMatrix) {
     const float* const m = reinterpret_cast<const float*>(mpMatrix);
     RtQuatMatrixAxisFinishCpp(reinterpret_cast<float*>(qpQuat), m, 1, RtQuatMatrixAxisArgCpp(m, 1));
 }
 
+// 0x7EB760
 void RtQuatConvertFromMatrixAxisZ(RtQuat* qpQuat, const RwMatrix* mpMatrix) {
     const float* const m = reinterpret_cast<const float*>(mpMatrix);
     RtQuatMatrixAxisFinishCpp(reinterpret_cast<float*>(qpQuat), m, 2, RtQuatMatrixAxisArgCpp(m, 2));

@@ -71,6 +71,8 @@ void BoneNode_c::InjectHooks() {
  *
  * También reinicia jerarquía, límites y velocidad; m_InterpFrame permanece como
  * referencia externa al estado de animación del ped.
+ *
+ * @addr 0x6177B0
  */
 bool BoneNode_c::Init(eBoneTag32 boneTag, RpHAnimBlendInterpFrame* interpFrame) {
     m_BoneTag     = boneTag;
@@ -242,6 +244,7 @@ void BoneNode_c::AddChild(BoneNode_c* children) {
  * Compone la transformación local con la matriz del padre y propaga recursivamente
  * el resultado a todos los hijos, formando la cadena de matrices world de IK.
  */
+// 0x616CD0
 // R se construye en línea a partir del quaternion con s = 2/(x²+y²+z²+w²) (1−s(y²+z²), s(xy+zw),
 // s(xz−yw)...), marcada ortonormal (flags 3); la transcripción literal conserva el redondeo exacto.
 // Las nueve entradas de rotación se calculan en X87Math (BoneNodeLocalMatrixCpp); la posición se copia bit a bit (mov) y los

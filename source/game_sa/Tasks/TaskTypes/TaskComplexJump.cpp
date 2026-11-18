@@ -75,6 +75,7 @@ CTask* CTaskComplexJump::ControlSubTask(CPed* /*ped*/) {
     return m_pSubTask;
 }
 
+// 0x67A030
 CTaskComplexJump* CTaskComplexJump::Constructor(eForceClimb jumpType) {
     this->CTaskComplexJump::CTaskComplexJump(jumpType);
     return this;

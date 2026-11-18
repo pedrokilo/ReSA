@@ -22,6 +22,9 @@ public:
     CTaskSimpleGoToPoint(eMoveState moveState, const CVector& targetPoint, float fRadius = 0.5f, bool bMoveTowardsTargetPoint = false, bool a6 = false);
     ~CTaskSimpleGoToPoint() override = default;
 
+    /*!
+     * @addr 0x667D40
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override { return new CTaskSimpleGoToPoint(m_moveState, m_vecTargetPoint, m_fRadius, gotoPointFlags.m_bMoveTowardsTargetPoint, gotoPointFlags.m_b04); } // 0x66CC60
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
@@ -34,6 +37,9 @@ public:
 
     static void InjectHooks();
     CTaskSimpleGoToPoint* ScalarDeletingDestructor(uint8 flags); // 0x66D6F0 (lote 195A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86FD50), `ret 4`
+    /*!
+     * @addr 0x667CD0
+     */
     __declspec(noinline) auto Constructor(eMoveState moveState, const CVector& targetPoint, float fRadius, bool bMoveTowardsTargetPoint, bool a6) { this->CTaskSimpleGoToPoint::CTaskSimpleGoToPoint(moveState, targetPoint, fRadius, bMoveTowardsTargetPoint, a6); return this; }
 };
 VALIDATE_SIZE(CTaskSimpleGoToPoint, 0x30);

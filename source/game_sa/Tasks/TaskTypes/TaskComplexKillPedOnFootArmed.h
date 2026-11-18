@@ -63,7 +63,9 @@ public:
     bool   IsPedInLeaderFiringLine(CPed* ped);
     CTask* CreateSubTask(eTaskType taskType, CPed* ped);
 
+    // 0x6234C0
     CTask*    Clone() const override { return new CTaskComplexKillPedOnFootArmed{ *this }; }
+    // 0x621240
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask*    CreateNextSubTask(CPed* ped) override;

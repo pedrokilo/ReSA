@@ -27,6 +27,7 @@ public:
     CTaskSimpleAchieveHeading(CPed* looker, CEntity* lookTowards, float changeRate = 0.5f, float tolerance = 0.2f); // NOTSA
     ~CTaskSimpleAchieveHeading() override = default; // 0x667E70
 
+    // 0x667E60
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override { return new CTaskSimpleAchieveHeading(m_DesiredHeadingRad, m_HeadingChangeRate, m_HeadingToleranceRad); } // 0x66CCF0
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;

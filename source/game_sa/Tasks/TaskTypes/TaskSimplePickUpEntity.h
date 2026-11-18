@@ -16,6 +16,7 @@ public:
     ~CTaskSimplePickUpEntity() override = default;
 
     CTask* Clone() const override;
+    // 0x691810
     eTaskType GetTaskType() const override { return TASK_SIMPLE_PICKUP_ENTITY; }
 
 private:

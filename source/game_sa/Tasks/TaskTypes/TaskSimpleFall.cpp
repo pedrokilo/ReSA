@@ -70,6 +70,7 @@ void CTaskSimpleFall::InjectHooks()
     RH_ScopedVMTInstall(MakeAbortable, 0x678370);
 }
 
+// 0x6782C0
 CTaskSimpleFall* CTaskSimpleFall::Constructor(AnimationId nAnimId, AssocGroupId nAnimGroup, int32 nDownTime)
 {
     this->CTaskSimpleFall::CTaskSimpleFall(nAnimId, nAnimGroup, nDownTime);

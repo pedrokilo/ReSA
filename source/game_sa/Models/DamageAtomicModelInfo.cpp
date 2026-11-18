@@ -141,6 +141,8 @@ RwObject* CDamageAtomicModelInfo::CreateInstance(RwMatrix* matrix)
 /**
  * Registra la plantilla dañada y le aplica el pipeline especializado correspondiente.
  * El puntero pasa a ser gestionado por este model info y se destruye en DeleteRwObject().
+ *
+ * @addr 0x4C48D0
  */
 void CDamageAtomicModelInfo::SetDamagedAtomic(RpAtomic* atomic)
 {

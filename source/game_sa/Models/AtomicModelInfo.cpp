@@ -109,6 +109,8 @@ void CAtomicModelInfo::Init()
  *
  * También libera las referencias que el model info mantiene sobre el TXD y el
  * AnimBlock asociado, de modo que streaming pueda descargarlos cuando corresponda.
+ *
+ * @addr 0x4C4440
  */
 void CAtomicModelInfo::DeleteRwObject()
 {
@@ -175,6 +177,8 @@ RwObject* CAtomicModelInfo::CreateInstance(RwMatrix* matrix)
  * Ajusta el conteo de 2DFX, adquiere referencias de TXD/AnimBlock, configura el
  * pipeline especializado que corresponda y prepara los tag models antes de marcar
  * el recurso como pre-renderizado.
+ *
+ * @addr 0x4C4360
  */
 void CAtomicModelInfo::SetAtomic(RpAtomic* atomic)
 {
@@ -203,6 +207,7 @@ void CAtomicModelInfo::SetAtomic(RpAtomic* atomic)
     SetHasBeenPreRendered(true);
 }
 
+// 0x4C44B0
 // Aplica el multiplicador LOD de la cámara antes de decidir si la plantilla debe renderizarse.
 RpAtomic* CAtomicModelInfo::GetAtomicFromDistance(float distance)
 {
@@ -218,6 +223,8 @@ RpAtomic* CAtomicModelInfo::GetAtomicFromDistance(float distance)
  *
  * Al reconocer una categoría marca el uso del diccionario común de vehículos y
  * guarda el índice CarMod esperado por el sistema de componentes.
+ *
+ * @addr 0x4C4570
  */
 void CAtomicModelInfo::SetupVehicleUpgradeFlags(const char* name)
 {
@@ -283,6 +290,7 @@ void CAtomicModelInfo::SetupVehicleUpgradeFlags(const char* name)
     }
 }
 
+// 0x5B3B20
 void SetAtomicModelInfoFlags(CAtomicModelInfo* modelInfo, uint32 dwFlags)
 {
     SetBaseModelInfoFlags(modelInfo, dwFlags);

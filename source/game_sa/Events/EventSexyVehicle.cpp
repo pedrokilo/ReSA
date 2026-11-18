@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #include "EventSexyVehicle.h"
 
 namespace {
+// 0x4AF0A0
 // Cuerpo no virtual de ~CEventSexyVehicle del EXE (thiscall, sin argumentos de pila, `ret`): deja la vtable de CEventSexyVehicle del EXE (0x85B0F8), libera con CEntity::CleanUpOldReference (0x571A00) las referencias no nulas
 // en el orden del EXE y deja la vtable de CEvent del EXE (0x85AB38). El EXE lo envuelve en un marco SEH que solo desenrolla. (Lote 119A, banco Fn119A.)
 void __fastcall SexyVehicleDestructorBody(CEventSexyVehicle* self, void* /*edx*/) {

@@ -68,7 +68,9 @@ public:
     eTaskType CalcGoToTaskType(CPed* ped, eTaskType subTaskType);
     float     CalcBlendRatio(CPed* ped, bool slowing);
 
+    // 0x673BE0
     CTask*    Clone() const override { return new CTaskComplexFollowPointRoute{*this}; }
+    // 0x66E0B0
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask*    CreateNextSubTask(CPed* ped) override;

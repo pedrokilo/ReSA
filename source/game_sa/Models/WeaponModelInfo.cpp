@@ -86,6 +86,8 @@ void CWeaponModelInfo::Init()
  *
  * Si existe el frame gunflash, oculta su primer atomic y ajusta el material para que
  * pueda activarse posteriormente como fogonazo sin renderizarse por defecto.
+ *
+ * @addr 0x4C9910
  */
 void CWeaponModelInfo::SetClump(RpClump* clump)
 {

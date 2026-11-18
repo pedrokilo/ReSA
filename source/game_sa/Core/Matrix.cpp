@@ -202,6 +202,7 @@ void CMatrixInjectHooksLote105A()
 // funcion de comandos de script): suma un vector a la posicion de la matriz (+0x30), con la x87 del EXE (24 bits): lee z e y del vector ANTES de tocar nada (`fld [v+8]; fld [v+4]`), x = pos.x + v.x
 // (`fld [pos]; fadd [v]; fstp [pos]`; v.x se lee al sumar), y = y + pos.y (`fadd [pos+4]`, la y ya cargada) y z = z + pos.z. Cada resultado se guarda como float antes de leer la siguiente posicion de memoria.
 namespace {
+// 0x46AE00
 __declspec(noinline) void __fastcall MatrixAddTranslationExe(CMatrix* self, void* /*edx*/, const CVector* offset) {
     CVector& pos = self->GetPosition();
     const float offsetY = offset->y;
@@ -315,6 +316,7 @@ void CMatrix::Detach()
     m_pAttachMatrix = nullptr;
 }
 
+// 0x59ADD0
 // copy base RwMatrix to another matrix
 void CMatrix::CopyOnlyMatrix(const CMatrix& matrix)
 {
@@ -341,6 +343,7 @@ void CMatrix::Update()
     MatrixCopyFromRw(reinterpret_cast<uint32*>(this), reinterpret_cast<const uint32*>(m_pAttachMatrix));
 }
 
+// 0x59BBB0
 // update RwMatrix with attaching matrix.
 void CMatrix::UpdateRW()
 {
@@ -350,6 +353,7 @@ void CMatrix::UpdateRW()
     CMatrix::UpdateRwMatrix(m_pAttachMatrix);
 }
 
+// 0x59AD70
 // update RwMatrix with this matrix
 void CMatrix::UpdateRwMatrix(RwMatrix* matrix) const
 {
@@ -367,12 +371,14 @@ void CMatrix::UpdateMatrix(RwMatrix* rwMatrix)
     MatrixCopyFromRw(reinterpret_cast<uint32*>(this), reinterpret_cast<const uint32*>(rwMatrix));
 }
 
+// 0x59AE70
 void CMatrix::SetUnity()
 {
     CMatrix::ResetOrientation();
     m_pos.Set(0.0F, 0.0F, 0.0F);
 }
 
+// 0x59AEA0
 void CMatrix::ResetOrientation()
 {
     m_right.Set  (1.0F, 0.0F, 0.0F);
@@ -380,6 +386,7 @@ void CMatrix::ResetOrientation()
     m_up.Set     (0.0F, 0.0F, 1.0F);
 }
 
+// 0x59AED0
 void CMatrix::SetScale(float scale)
 {
     m_right.Set  (scale, 0.0F,  0.0F);
@@ -388,6 +395,7 @@ void CMatrix::SetScale(float scale)
     m_pos.Set    (0.0F,  0.0F,  0.0F);
 }
 
+// 0x59AF00
 // scale on three axes
 void CMatrix::SetScale(float x, float y, float z)
 {
@@ -397,11 +405,13 @@ void CMatrix::SetScale(float x, float y, float z)
     m_pos.Set    (0.0F,  0.0F,  0.0F);
 }
 
+// 0x59AF80
 void CMatrix::SetTranslateOnly(CVector translation)
 {
     m_pos = translation;
 }
 
+// 0x59AF40
 // like previous + reset orientation
 void CMatrix::SetTranslate(CVector translation)
 {
@@ -432,18 +442,21 @@ void CMatrix::SetRotateZOnly(float angle)
     MatrixSetRotateZOnlyCpp(reinterpret_cast<float*>(this), angle);
 }
 
+// 0x59B060
 void CMatrix::SetRotateX(float angle)
 {
     CMatrix::SetRotateXOnly(angle);
     m_pos.Set(0.0F, 0.0F, 0.0F);
 }
 
+// 0x59B0A0
 void CMatrix::SetRotateY(float angle)
 {
     CMatrix::SetRotateYOnly(angle);
     m_pos.Set(0.0F, 0.0F, 0.0F);
 }
 
+// 0x59B0E0
 void CMatrix::SetRotateZ(float angle)
 {
     CMatrix::SetRotateZOnly(angle);
@@ -522,6 +535,7 @@ void CMatrix::SetRotate(const CQuaternion& quat)
     MatrixSetRotateQuat103Cpp(reinterpret_cast<float*>(this), reinterpret_cast<const float*>(&quat));
 }
 
+// 0x459350
 void CMatrix::Scale(float scale) {
     ScaleXYZ(scale, scale, scale);
 }
@@ -569,11 +583,13 @@ void CMatrix::ConvertFromEulerAngles(float x, float y, float z, uint32 uiFlags)
     MatrixConvertFromEulerCpp(reinterpret_cast<float*>(this), x, y, z, uiFlags, axes.i, axes.j, axes.k);
 }
 
+// 0x59BBC0
 void CMatrix::operator=(const CMatrix& other) {
     CopyOnlyMatrix(other);
     UpdateRW();
 }
 
+// 0x59ADF0
 void CMatrix::operator+=(const CMatrix& rvalue)
 {
     m_right += rvalue.m_right;

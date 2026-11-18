@@ -28,7 +28,13 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x649090
+     */
     CTaskComplexGoToBoatSteeringWheel* Constructor(CVehicle* veh) { this->CTaskComplexGoToBoatSteeringWheel::CTaskComplexGoToBoatSteeringWheel(veh); return this; }
+    /*!
+     * @addr 0x649100
+     */
     CTaskComplexGoToBoatSteeringWheel* Destructor() { this->CTaskComplexGoToBoatSteeringWheel::~CTaskComplexGoToBoatSteeringWheel(); return this; }
     CTaskComplexGoToBoatSteeringWheel* ScalarDeletingDestructor(uint8 flags); // 0x64CD80 (lote 180A, sin validar): destructor con borrado (ranura 0 de la vtable 0x86F018), `ret 4`
 };

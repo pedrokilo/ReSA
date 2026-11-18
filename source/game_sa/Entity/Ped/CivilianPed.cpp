@@ -59,6 +59,7 @@ void CCivilianPed::ProcessControl() {
     }
 }
 
+// 0x5DDB70
 CCivilianPed* CCivilianPed::Constructor(ePedType pedType, uint32 modelIndex) {
     this->CCivilianPed::CCivilianPed(pedType, modelIndex);
     return this;

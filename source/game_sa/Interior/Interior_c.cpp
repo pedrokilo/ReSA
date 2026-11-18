@@ -1843,6 +1843,7 @@ int32 Interior_c::Office_PlaceDeskQuad(int32 a2, int32 a3, int32 a4, int32 a5) {
 // (el archivo se compila con /arch:IA32) y las conversiones entero-flotante usan los ayudantes de X87Math (fild + operacion con un solo redondeo).
 // EAX = (CEntity* de la ultima PlaceFurniture & ~0xFF) | 1 como el EXE (mov al,1 en 0x599DB0): lo compara el banco; ResidueRegsCpp es lo ultimo que se ejecuta.
 #pragma runtime_checks("", off)
+// 0x599BB0
 uint32 Interior_c::Shop_Place3PieceUnit(int32 a2, int32 a3, int32 a4, int32 a5, int32 a6) {
     CEntity* entity20{};
     CEntity* entity25{};
@@ -2371,6 +2372,7 @@ static void InteriorFurniturePositionExact(CVector* position,int32 negativeWidth
     position->z = position->z + z;
 }
 
+// 0x5934E0
 CObject* Interior_c::PlaceObject(uint8 isStealable, Furniture_c* furniture, float offsetX, float offsetY, float offsetZ, float rotationZ) {
     const auto* box = reinterpret_cast<const uint8*>(m_box);
     const CVector position{float(-int32(box[2])) * 0.5f + offsetX, float(-int32(box[3])) * 0.5f + offsetY,
@@ -3074,6 +3076,7 @@ void Interior_c::FurnishOffice() {
 // 0x59A140
 #pragma optimize("gt", on)
 #pragma float_control(precise, off, push)
+// 0x59A140
 void Interior_c::Shop_AddShelfInfo(int32 x, int32 y, int32 direction) {
     auto& counter = *reinterpret_cast<uint32*>(0x8D0948);
     if (int32(counter) > 1) {

@@ -148,10 +148,12 @@ void CTagManager::UpdateNumTagged() {
     });
 }
 
+// 0x49CD40
 uint8 CTagManager::GetAlpha(const RpAtomic& atomic) {
     return static_cast<uint8>(CVisibilityPlugins::GetUserValue(&atomic));
 }
 
+// 0x49CF90
 uint8 CTagManager::GetAlpha(const CEntity& entity) {
     // Como el original: sin assert
     if (entity.GetRpAtomic()) {
@@ -199,6 +201,7 @@ void CTagManager::SetAlpha(CEntity& entity, uint8 alphaToSet) {
     }
 }
 
+// 0x49CD50
 // Lote 130A (banco Fn130A): cdecl, un argumento, `ret`. Como el original: lee el puntero RenderWare (+0x18) sin comprobar su tipo (las comprobaciones de tipo y de IsTag eran asserts del port) y, si
 // no es nulo, busca la entrada del tag de la ultima a la primera y pasa su alfa (word) a CVisibilityPlugins::SetUserValue (0x732380). Sin entrada el EXE lee la direccion 4 (se cae).
 void CTagManager::ResetAlpha(const CEntity& entity) {

@@ -36,6 +36,7 @@ public:
         }
     }
 
+    // @addr 0x4D40A0
     // Como el original (instancia 0x4161D0 de CLinkList<CCollisionData*>, lote 148A, banco Fn148A): libera el vector con delete[] (sin comprobar si es nulo) y SOLO DESPUES anula el puntero.
     // No es noinline en el .h: el hook se registra sobre la instancia concreta (Collision.cpp).
     void Shutdown() {

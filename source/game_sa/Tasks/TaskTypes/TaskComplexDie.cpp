@@ -81,6 +81,7 @@ CTask* CTaskComplexDie::Clone() const {
         m_bBeingKilledByStealth, m_bFallingToDeath, m_nFallToDeathDir.m_Value, m_bFallToDeathOverRailing);
 }
 
+// 0x630040
 // Como el original: el hook recibe la dirección como dword completo y la guarda entera en +0x24
 CTaskComplexDie* CTaskComplexDie::Constructor(eWeaponType nWeaponType, AssocGroupId animGroup, AnimationId animID, float fBlendDelta, float fAnimSpeed, bool bBeingKilledByStealth, bool bFallingToDeath, int32 nFallToDeathDir, bool bFallToDeathOverRailing) {
     this->CTaskComplexDie::CTaskComplexDie(nWeaponType, animGroup, animID, fBlendDelta, fAnimSpeed, bBeingKilledByStealth, bFallingToDeath, static_cast<eDirection>(nFallToDeathDir), bFallToDeathOverRailing);
@@ -114,6 +115,7 @@ CTaskComplexDie::CTaskComplexDie(
 // 0x6300D0
 
 
+// 0x6300D0
 bool CTaskComplexDie::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
     switch (priority) {
     case ABORT_PRIORITY_URGENT:
@@ -150,6 +152,7 @@ void CTaskComplexDie::SayDeathSample(CPed* ped) const {
 // 0x6301E0
 
 
+// 0x6301E0
 CTask* CTaskComplexDie::CreateNextSubTask(CPed* ped) {
     switch (m_pSubTask->GetTaskType()) {
     case TASK_SIMPLE_DIE:

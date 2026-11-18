@@ -240,6 +240,7 @@ void CCutsceneObject::SetupCarPipeAtomicsForClump(unsigned modelId, RpClump* clu
     }
 }
 
+// 0x5B1A90
 RpAtomic* CCutsceneObject::SetupCarPipeAtomicCB(RpAtomic* atomic, void* data) {
     UNUSED(data);
     CCarFXRenderer::CustomCarPipeAtomicSetup(atomic);

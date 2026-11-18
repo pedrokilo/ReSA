@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #include "EventRevived.h"
 
 namespace {
+// 0x4AECA0
 // Cuerpo no virtual de ~CEventRevived del EXE (thiscall, sin argumentos de pila, `ret`): solo deja la vtable de CEvent del EXE (0x85AB38) (la clase no libera referencias). (Lote 119A, banco Fn119A.)
 void __fastcall RevivedDestructorBody(CEventRevived* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x85AB38;

@@ -346,11 +346,13 @@ void CAEMFDecoder::InjectHooks() {
     RH_ScopedNamedGlobalInstall(AEMFGetMediaSoundFormat, "GetMediaSoundFormat", 0x4E7A80);
 }
 
+// 0x4E7770
 CAEMFDecoder* CAEMFDecoder::Constructor(char* filename, int32 trackID) {
     this->CAEMFDecoder::CAEMFDecoder(filename, trackID);
     return this;
 }
 
+// 0x4E77C0
 CAEMFDecoder* CAEMFDecoder::Destructor() {
     this->CAEMFDecoder::~CAEMFDecoder();
     return this;

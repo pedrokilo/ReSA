@@ -20,7 +20,9 @@ public:
 
     // 0x64A520 - Como el original: solo se copia el peatón (registra la referencia y m_bIsWalkingToDoor vuelve a false)
     CTask*    Clone() const override { return new CTaskSimpleWaitUntilPedIsInCar{ m_pedToWaitFor }; }
+    // 0x649680
     eTaskType GetTaskType() const override { return Type; }
+    // 0x649690
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override { return true; }
     bool      ProcessPed(CPed* ped) override;
 

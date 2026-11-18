@@ -16,7 +16,9 @@ public:
     CTaskComplexSeekEntityAiming(const CTaskComplexSeekEntityAiming&);
     ~CTaskComplexSeekEntityAiming();
 
+    // 0x695820
     CTask*    Clone() const override { return new CTaskComplexSeekEntityAiming{ *this }; }
+    // 0x694C00
     eTaskType GetTaskType() const override { return Type; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;

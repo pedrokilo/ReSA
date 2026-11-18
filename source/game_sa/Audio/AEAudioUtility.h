@@ -17,6 +17,9 @@ public:
     /*!
     * @brief Variante entera que conserva la semántica inclusiva esperada por audio.
     * Internamente adapta el límite superior a la API de CGeneral.
+    *
+    * @addr 0x4D9C10
+    * @addr 0x4D9C50
     */
     template<std::integral T>
     static T GetRandomNumberInRange(T min, T max) {
@@ -24,6 +27,8 @@ public:
         return static_cast<T>(CGeneral::GetRandomIntInRange(static_cast<int32>(min), static_cast<int32>(max) + 1));
     }
 
+    // 0x4D9C10
+    // 0x4D9C50
     template<typename T>
         requires std::is_floating_point_v<T>
     static T GetRandomNumberInRange(T min, T max) {

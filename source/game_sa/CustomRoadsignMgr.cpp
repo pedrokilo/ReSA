@@ -57,6 +57,7 @@ bool CCustomRoadsignMgr::Initialise() {
     return true;
 }
 
+// 0x6FE180
 void CCustomRoadsignMgr::Shutdown()
 {
     if (!CCustomRoadsignMgr::pCharsetTex)
@@ -116,6 +117,7 @@ RwTexture* CCustomRoadsignMgr::CreateRoadsignTexture(char* name, int32 numOfChar
     return texture;
 }
 
+// 0x6FED60
 RwTexture* CCustomRoadsignMgr::SetupRoadsignAtomic(RpAtomic* atomic, char* name, int32 numOfChars)
 {
     auto* texture = CCustomRoadsignMgr::CreateRoadsignTexture(name, numOfChars);
@@ -126,12 +128,14 @@ RwTexture* CCustomRoadsignMgr::SetupRoadsignAtomic(RpAtomic* atomic, char* name,
     return reinterpret_cast<RwTexture*>(atomic); //BUG? This method isn't used anywhere anyways
 }
 
+// 0x6FE240
 RpAtomic* CCustomRoadsignMgr::SetAtomicAlpha(RpAtomic* atomic, uint8 alpha)
 {
     RpGeometryForAllMaterials(RpAtomicGetGeometry(atomic), RoadsignSetMaterialAlphaCB, reinterpret_cast<void*>(alpha));
     return atomic;
 }
 
+// 0x6FEDA0
 RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomicA(float fWidth, float fHeight, int32 numLines, char* line1, char* line2, char* line3, char* line4, int32 lettersPerLine, uint8 ucPallete)
 {
     char* apLines[]{ line1, line2, line3, line4 };
@@ -311,6 +315,7 @@ RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomicA(float fWidth, float fHeight,
     return nullptr;
 }
 
+// 0x6FF2D0
 RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomic(float xScale, float yScale, int32 numLines, char* line1, char* line2, char* line3, char* line4, int32 lettersPerLine, uint8 ucPallete)
 {
     char dummy[16]{ ' ' }; // Como el original: " " seguido de ceros (16 bytes en la pila).
@@ -323,6 +328,7 @@ RpAtomic* CCustomRoadsignMgr::CreateRoadsignAtomic(float xScale, float yScale, i
     return atomic;
 }
 
+// 0x6FF350
 RpAtomic* CCustomRoadsignMgr::RenderRoadsignAtomic(RpAtomic* atomic, const CVector& vecPos)
 {
     auto* frame = RpAtomicGetFrame(atomic);
@@ -359,6 +365,7 @@ RpMaterial* RoadsignSetMaterialTextureCB(RpMaterial* material, void* data)
     return material;
 }
 
+// 0x6FEB70
 bool RoadsignGenerateTextRaster(char* roadName, int32 numLetters, RwRaster* charsetRaster, int32 unused, RwRaster* signRaster)
 {
     auto* signLock = reinterpret_cast<RwRGBA*>(RwRasterLock(signRaster, 0, rwRASTERLOCKWRITE | rwRASTERLOCKNOFETCH));
@@ -759,6 +766,7 @@ void RoadsignGetLineAndRow(char cLetter, int32* line, int32* row)
 // EAX de entrada y tiene que ser lo primero que se ejecuta (sin comprobaciones de ejecucion ni cookie de /GS; lo vigila contrib/audit_register_residue.py,
 // objeto CustomRoadsignMgr). EAX, ECX y EDX de salida no los lee ningun llamador (el unico del EXE, 0x6FEBF1 en 0x6FEB70, esta reemplazado).
 #pragma runtime_checks("", off)
+// 0x6FE260
 __declspec(safebuffers) void __cdecl RoadsignGetLineAndRowExe(int32* line, int32* row)
 {
     const uint8 letter = static_cast<uint8>(EntryEaxCpp());

@@ -25,6 +25,7 @@ namespace {
 // Lote 147A (banco Fn147A): tambien se engancha como S en 0x5F67E0. Como el EXE (`mov [ecx],0x86C7E8; jmp 0x6355E0`, 11 bytes): deja la vtable de la clase del EXE (0x86C7E8) y sigue con el cuerpo de
 // ~CTaskSimpleWaitUntilAreaCodesMatch (0x6355E0, con hook propio; llamada no virtual en una funcion propia sin expansion en linea para que el banco pueda sustituirla).
 __declspec(noinline) void __fastcall LeaderAreaCodesMatchBaseDestructorCall(CTaskSimpleWaitUntilLeaderAreaCodesMatch* self, void* /*edx*/) { self->CTaskSimpleWaitUntilAreaCodesMatch::~CTaskSimpleWaitUntilAreaCodesMatch(); }
+// 0x5F67E0
 __declspec(noinline) void __fastcall LeaderAreaCodesMatchDestructorBody(CTaskSimpleWaitUntilLeaderAreaCodesMatch* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x86C7E8;
     LeaderAreaCodesMatchBaseDestructorCall(self, nullptr);

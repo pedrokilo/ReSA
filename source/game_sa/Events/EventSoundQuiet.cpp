@@ -87,6 +87,7 @@ CEventSoundQuiet::~CEventSoundQuiet()
     CEntity::SafeCleanUpRef(m_entity);
 }
 
+// 0x5E05B0
 CEventSoundQuiet* CEventSoundQuiet::Constructor(CEntity* entity, float fLocalSoundLevel, uint32 startTime, const CVector& position)
 {
     this->CEventSoundQuiet::CEventSoundQuiet(entity, fLocalSoundLevel, startTime, position);

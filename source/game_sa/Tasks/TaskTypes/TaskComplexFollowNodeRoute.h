@@ -25,7 +25,9 @@ public:
 
     static eTaskType GetSubTaskType(uint32 progress, bool bLastRoutePointIsTarget, const CPointRoute& route);
 
+    // 0x66EB60
     eTaskType GetTaskType() const override { return Type; }
+    // 0x6713E0
     CTask*    Clone() const override { return new CTaskComplexFollowNodeRoute{*this}; }
     void      StopTimer(const CEvent* event) override;
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;

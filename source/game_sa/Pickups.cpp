@@ -591,14 +591,17 @@ int32 CPickups::GetActualPickupIndex(tPickupReference pickupRef) {
     return (int32)index;
 }
 
+// 0x457380
 int32 CPickups::GenerateNewOne_WeaponType_ExeAbi(CVector coors, eWeaponType weaponType, ePickupType pickupType, uint32 ammo, bool isEmpty, char* message) {
     return GenerateNewOne_WeaponType(coors, weaponType, pickupType, ammo, isEmpty, message).num;
 }
 
+// 0x456A30
 int32 CPickups::GetNewUniquePickupIndex_ExeAbi(int32 pickupIndex) {
     return GetNewUniquePickupIndex(pickupIndex).num;
 }
 
+// 0x455280
 int32 CPickups::GetUniquePickupIndex_ExeAbi(int32 pickupIndex) {
     return GetUniquePickupIndex(pickupIndex).num;
 }

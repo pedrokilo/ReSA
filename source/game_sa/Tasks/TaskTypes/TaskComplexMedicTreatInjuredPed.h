@@ -19,6 +19,9 @@ public:
     CTaskComplexMedicTreatInjuredPed(CVehicle* vehicle, CPed* ped, bool isDriver);
     ~CTaskComplexMedicTreatInjuredPed() override;
 
+    /*!
+     * @addr 0x658C20
+     */
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override;
     CTask* CreateFirstSubTask(CPed* ped) override;

@@ -72,6 +72,8 @@ Furniture_c* SelectFurnitureByWealth(TList_c<Furniture_c>& list, uint8 wealth) {
  * Reserva el siguiente Furniture_c del almacén global fijo y deriva sus dimensiones
  * desde el ColModel del modelo. Finalmente copia las restricciones del subgrupo y
  * enlaza el objeto en m_Furnitures.
+ *
+ * @addr 0x5C00C0
  */
 bool FurnitureSubGroup_c::AddFurniture(uint16 modelId, int16 id, uint8 wealthMin, uint8 wealthMax, uint8 maxAng) {
         // Esta función sólo lee/escribe la palabra baja del contador global original.
@@ -103,6 +105,8 @@ bool FurnitureSubGroup_c::AddFurniture(uint16 modelId, int16 id, uint8 wealthMin
 /**
  * Con un id explícito busca coincidencia exacta; con id negativo selecciona una
  * variante compatible con wealth mediante la misma ruta aleatoria del juego.
+ *
+ * @addr 0x590EE0
  */
 Furniture_c* FurnitureSubGroup_c::GetFurniture(int16 id, uint8 wealth) {
     if (id >= 0) {

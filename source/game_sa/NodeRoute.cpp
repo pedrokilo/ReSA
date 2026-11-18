@@ -40,10 +40,12 @@ void CNodeRoute::Reverse() {
     }
 }
 
+// 0x41B860
 void* CNodeRoute::operator new(uint32 size) {
     return GetNodeRoutePool()->New();
 }
 
+// 0x41B870
 void CNodeRoute::operator delete(void* ptr, size_t sz) {
     GetNodeRoutePool()->Delete(reinterpret_cast<CNodeRoute*>(ptr));
 }

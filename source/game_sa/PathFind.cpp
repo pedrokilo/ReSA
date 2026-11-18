@@ -71,6 +71,7 @@ float __cdecl Wv207PairHeadingCpp(float nx, float ny);                          
 // PathFindResidueFloatCpp (X87Math.cpp), ultima llamada, junto con el ST0 de retorno (sin comprobaciones de ejecucion ni cookie de /GS;
 // lo vigila contrib/audit_register_residue.py, objeto PathFind).
 #pragma runtime_checks("", off)
+// 0x44EFC0
 __declspec(safebuffers) float CPathFind::CalcRoadDensity(float x, float y) {
     const uint32 ecxValue = static_cast<uint32>(reinterpret_cast<uintptr_t>(this));
     uint32       edxValue = 0;
@@ -344,6 +345,7 @@ void CPathFind::ReInit() {
     m_loadAreaRequestPending = false;
 }
 
+// 0x450D70
 // 0x44DD00
 void CPathFind::MakeRequestForNodesToBeLoaded(float minX, float maxX, float minY, float maxY) {
     m_loadAreaRequestPending = true;
@@ -394,6 +396,7 @@ void CPathFind::Shutdown() {
     }
 }
 
+// 0x44D310
 bool CPathFind::ThisNodeWillLeadIntoADeadEnd(CPathNode* startNode, CPathNode* endNode) {
     auto curr = startNode, prev = endNode;
     while (true) {
@@ -1380,6 +1383,7 @@ void CPathFind::SwitchRoadsOffInAreaForOneRegion(float xMin, float xMax, float y
     }
 }
 
+// 0x420AC0
 // NOTSA
 CPathNode* CPathFind::GetPathNode(CNodeAddress address) {
     assert(address.IsValid());
@@ -2286,6 +2290,7 @@ bool CPathFind::ThisNodeHasToBeSwitchedOff(CPathNode* node) {
 // valor que escribe: puntero del nodo (sin enlaces), area del enlace (area sin cargar) o (puntero del nodo enlazado con el byte bajo = tipo).
 // ResidueRegsCpp (X87Math.cpp) es la ultima llamada (contrib/audit_register_residue.py, objeto PathFind).
 #pragma runtime_checks("", off)
+// 0x4504F0
 __declspec(safebuffers) size_t CPathFind::CountNeighboursToBeSwitchedOff(const CPathNode& node) {
     const uint32       ecxValue = static_cast<uint32>(reinterpret_cast<uintptr_t>(this));
     const uint8* const raw      = reinterpret_cast<const uint8*>(&node);
@@ -2330,6 +2335,7 @@ __declspec(safebuffers) size_t CPathFind::CountNeighboursToBeSwitchedOff(const C
 // valores en la pila (TOP = 6); con la pila vacia de una llamada normal seria 7 y ningun llamador del EXE lee ese EAX.
 // PathFindResidueFloatCpp es la ultima llamada de cada salida (sin comprobaciones de ejecucion ni cookie de /GS; contrib/audit_register_residue.py).
 #pragma runtime_checks("", off)
+// 0x450320
 __declspec(safebuffers) float CPathFind::FindNodeOrientationForCarPlacement(CNodeAddress nodeInfo) {
     constexpr uint32 kNormaliseTop = 6u << 11; // bits 11..13 del fnstsw
     const uint32     entryEsp      = static_cast<uint32>(reinterpret_cast<uintptr_t>(_AddressOfReturnAddress()));
@@ -2395,6 +2401,7 @@ __declspec(safebuffers) float CPathFind::FindNodeOrientationForCarPlacement(CNod
 }
 #pragma runtime_checks("", restore)
 
+// 0x452160
 void CPathFind::SwitchOffNodeAndNeighbours(CPathNode* node, CPathNode*& outNext1, CPathNode** outNext2, bool bWhatToSwitchTo, bool bBackToOriginal) {
     node->m_isSwitchedOff = bBackToOriginal ? node->m_isSwitchedOffOriginal : bWhatToSwitchTo;
    
@@ -2563,6 +2570,7 @@ float CPathFind::FindYCoorsForRegion(size_t y) {
 // (0x96EAC0) y EDX = filas. EntryEaxCpp tiene que ser lo primero que se ejecuta; ResidueRegsCpp es la ultima llamada de cada salida
 // (contrib/audit_register_residue.py, objeto PathFind; sin comprobaciones de ejecucion ni cookie de /GS).
 #pragma runtime_checks("", off)
+// 0x44DF60
 __declspec(safebuffers) void CPathFind::RemoveInteriorLinks(uint32 intId) {
     const uint32 entryEax = EntryEaxCpp();
     const uint32 entryEcx = static_cast<uint32>(reinterpret_cast<uintptr_t>(this));
@@ -2584,6 +2592,7 @@ __declspec(safebuffers) void CPathFind::RemoveInteriorLinks(uint32 intId) {
 }
 #pragma runtime_checks("", restore)
 
+// 0x44DED0
 void CPathFind::AddInteriorLink(int32 intNodeA, int32 intNodeB) {
     const auto AddLink = [](int32 intIdx, int32 linkTo) {
         // Como el original (0x44DED5..0x44DF24): filas de 6 bytes; se busca el primer byte negativo (con signo) y se guarda el enlace.
@@ -2637,6 +2646,7 @@ void CPathFind::RemoveNodeFromList(CPathNode* node) {
     m_totalNumNodesInPathFindHashTable--;
 }
 
+// 0x44D1E0
 void CPathFind::AddNodeToList(CPathNode* node, int32 distFromOrigin) {
     // Insert the node as the head into it's bucket
 

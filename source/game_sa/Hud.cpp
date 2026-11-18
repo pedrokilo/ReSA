@@ -1214,6 +1214,7 @@ static CRect HudRawRect(float left, float bottom, float right, float top) {
     return result;
 }
 
+// 0x58A330
 void CHud::DrawRadar() {
     if (CEntryExitManager::ms_exitEnterState == EXIT_ENTER_STATE_1 ||
         CEntryExitManager::ms_exitEnterState == EXIT_ENTER_STATE_2 ||

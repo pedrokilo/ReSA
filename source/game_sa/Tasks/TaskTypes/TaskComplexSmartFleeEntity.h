@@ -44,6 +44,9 @@ public:
     ~CTaskComplexSmartFleeEntity() override;
 
     eTaskType GetTaskType() const override { return Type; } // 0x65C4C0
+    /*!
+     * @addr 0x65CF40
+     */
     CTask*    Clone() const override { return new CTaskComplexSmartFleeEntity{ *this }; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
@@ -53,7 +56,13 @@ public:
 private:
     friend void InjectHooksMain();
     static void InjectHooks();
+    /*!
+     * @addr 0x65C430
+     */
     CTaskComplexSmartFleeEntity* Constructor(CEntity* entity_1, bool a3, float a4, int32 a5, int32 a6, float a7) { this->CTaskComplexSmartFleeEntity::CTaskComplexSmartFleeEntity(entity_1, a3, a4, a5, a6, a7); return this; }
+    /*!
+     * @addr 0x65C4D0
+     */
     CTaskComplexSmartFleeEntity* Destructor() { this->CTaskComplexSmartFleeEntity::~CTaskComplexSmartFleeEntity(); return this; }
 };
 VALIDATE_SIZE(CTaskComplexSmartFleeEntity, 0x40);

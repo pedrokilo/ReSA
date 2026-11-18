@@ -28,7 +28,9 @@ public:
 
     static void FinishAnimBikeHitCB(CAnimBlendAssociation* anim, void* data);
 
+    // 0x64A200
     CTask* Clone() const override { return new CTaskSimpleBikeJacked{ *this }; }
+    // 0x648C30
     eTaskType GetTaskType() const override { return Type;  }
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     bool ProcessPed(CPed* ped) override;

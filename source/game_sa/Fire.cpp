@@ -39,6 +39,7 @@ CFire::CFire() {
     Initialise();
 }
 
+// 0x539D90
 CFire* CFire::Constructor() {
     this->CFire::CFire();
     return this;

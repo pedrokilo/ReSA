@@ -94,11 +94,17 @@ private: // NOTSA:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x53CFA0
+     */
     CLoadMonitor* Constructor() {
         this->CLoadMonitor::CLoadMonitor();
         return this;
     }
 
+    /*!
+     * @addr 0x856430
+     */
     CLoadMonitor* Destructor() {
         this->CLoadMonitor::~CLoadMonitor();
         return this;

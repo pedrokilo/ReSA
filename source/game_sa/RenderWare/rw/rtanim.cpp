@@ -231,6 +231,7 @@ RtAnimInterpolator* RtAnimInterpolatorCreate(RwInt32 numNodes, RwInt32 maxInterp
 
 // 0x7CD590: `jmp [RwEngineInstance + 0x138]` con el mismo argumento, es decir RwFree del motor (memoryFuncs.rwfree) sobre la propia interpolacion.
 static_assert(offsetof(RwGlobals, memoryFuncs) + offsetof(RwMemoryFunctions, rwfree) == 0x138);
+// 0x7CD590
 void RtAnimInterpolatorDestroy(RtAnimInterpolator* anim) {
     RwFree(anim);
 }
@@ -251,6 +252,8 @@ void RtAnimInterpolatorDestroy(RtAnimInterpolator* anim) {
  *
  * \return \ref RwBool, TRUE on success, FALSE if an error occurs.
  *
+ *
+ * @addr 0x7CD5A0
  */
 RwBool
 RtAnimInterpolatorSetCurrentAnim(RtAnimInterpolator *animI,

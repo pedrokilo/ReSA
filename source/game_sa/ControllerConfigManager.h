@@ -291,6 +291,9 @@ private:
     int16* GetControllerStateJoyStick(CPad& pad, KeyCode button, int32 padNumber);
 
 private:
+    /*!
+     * @addr 0x531EE0
+     */
     CControllerConfigManager* Constructor() {
         this->CControllerConfigManager::CControllerConfigManager();
         return this;

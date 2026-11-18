@@ -14,10 +14,14 @@ public:
     CTaskComplexUseAttractorPartner(const CTaskComplexUseAttractorPartner&);
     ~CTaskComplexUseAttractorPartner() override = default;
 
+    // 0x636D60
     CTask* Clone() const override { return new CTaskComplexUseAttractorPartner{ *this }; }
+    // 0x6332F0
     eTaskType GetTaskType() const override { return Type; }
+    // 0x633310
     CTask* CreateNextSubTask(CPed* ped) override { return nullptr; }
     CTask* CreateFirstSubTask(CPed* ped) override;
+    // 0x633320
     CTask* ControlSubTask(CPed* ped) override { return m_pSubTask; }
 
 private: // Wrappers for hooks

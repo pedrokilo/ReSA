@@ -51,8 +51,11 @@ void CDirectory::InjectHooks() {
     RH_ScopedOverloadedInstall(FindItem, "ByHash", 0x5324D0, bool(CDirectory::*)(uint32, CdStreamPos&, uint32&) const);
 }
 
+// 0x532290
 CDirectory* CDirectory::Constructor() { this->CDirectory::CDirectory(); return this; }
+// 0x5322A0
 CDirectory* CDirectory::Constructor(size_t capacity) { this->CDirectory::CDirectory(capacity); return this; }
+// 0x5322D0
 CDirectory* CDirectory::Destructor() { this->CDirectory::~CDirectory(); return this; }
 
 // 0x5322A0

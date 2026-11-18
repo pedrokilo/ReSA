@@ -32,7 +32,13 @@ public:
     CTaskComplexFollowLeaderInFormation(const CTaskComplexFollowLeaderInFormation&);
     ~CTaskComplexFollowLeaderInFormation() override;
 
+    /*!
+     * @addr 0x694A30
+     */
     eTaskType GetTaskType() const override { return Type; }
+    /*!
+     * @addr 0x695740
+     */
     CTask*    Clone() const override { return new CTaskComplexFollowLeaderInFormation{*this}; }
     CTask*    CreateNextSubTask(CPed* ped) override;
     CTask*    CreateFirstSubTask(CPed* ped) override;
@@ -44,7 +50,13 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x6949A0
+     */
     CTaskComplexFollowLeaderInFormation* Constructor(CPedGroup* pedGroup, CPed* ped, CVector const& posn, float a5) { this->CTaskComplexFollowLeaderInFormation::CTaskComplexFollowLeaderInFormation(pedGroup, ped, posn, a5); return this; }
+    /*!
+     * @addr 0x695B20
+     */
     CTaskComplexFollowLeaderInFormation* ConstructorFormation(CPedGroup* pedGroup, CPed* ped, int32 dx, int32 dy, float dist) { this->CTaskComplexFollowLeaderInFormation::CTaskComplexFollowLeaderInFormation(pedGroup, ped, dx, dy, dist); return this; }
 };
 VALIDATE_SIZE(CTaskComplexFollowLeaderInFormation, 0x28);

@@ -1224,6 +1224,7 @@ void CAEVehicleAudioEntity::Service() {
     ProcessVehicle(m_Entity->AsPhysical());
 }
 
+// 0x4F4EC0
 void CAEVehicleAudioEntity::StaticService() {
     // NOP
 }
@@ -4669,6 +4670,7 @@ void CAEVehicleAudioEntity::ProcessPlayerTrainEngine(tVehicleParams& params) {
 
 // 0x4FA3F0
 constexpr float TrainCarriagesNoise[]{ 1.08f, 0.96f, 1.04f, 0.92f, 1.f };
+// 0x4FA3F0
 void CAEVehicleAudioEntity::ProcessTrainTrackSound(tVehicleParams& vp) {
     // Como el original (0x4FA3F0)
     const auto* const train = vp.Vehicle->AsTrain();
@@ -5481,11 +5483,13 @@ static float __declspec(safebuffers) __fastcall G3DriveSkid_KeepEdx(const CAEVeh
     const float result = self->GetVehicleDriveWheelSkidValue(veh, ws, revs, *tr, speed);
     return PlayerPedResidueFloatCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self)), entryEdx, result);
 }
+// 0x4F6000
 static float __declspec(safebuffers) __fastcall G3NonDriveSkid_KeepEdx(const CAEVehicleAudioEntity* self, uint32 entryEdx, CVehicle* veh, tWheelState ws, cTransmission* tr, float speed) {
     const float result = self->GetVehicleNonDriveWheelSkidValue(veh, ws, *tr, speed);
     return PlayerPedResidueFloatCpp(static_cast<uint32>(reinterpret_cast<uintptr_t>(self)), entryEdx, result);
 }
 
+// 0x4F5D00
 // Como el original (4F5D00..4F5E2F): conserva ECX, que 4FC9CD reutiliza despues de 4FC9C1, y sale con EDX = [[this+4]+0x4C8] (0x4F5DD6 mov edx,[eax+4C8h],
 // comun a todas las ramas). ret 8.
 static float __declspec(safebuffers) __fastcall VehAudioPlayerVolume_KeepEcx(const CAEVehicleAudioEntity* self, uint32 /*entryEdx*/, CAEVehicleAudioEntity::tVehicleParams* vp, CAEVehicleAudioEntity::eVehicleEngineSoundType st) {

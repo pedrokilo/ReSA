@@ -822,6 +822,7 @@ static int ShadowXYClip(CVector* positions,CVector* uv,int count,CVector* outPos
     }
     return stored;
 }
+// 0x7086B0
 void CShadows::CastShadowEntityXY(CEntity* entity, float conrerAX, float cornerAY, float cornerBX, float cornerBY, CVector* posn, float frontX, float frontY, float sideX, float sideY, int16 intensity, uint8 red, uint8 green, uint8 blue, float zDistance, float scale, CPolyBunch** ppPolyBunch, uint8* pDayNightIntensity, int32 shadowType) {
     *reinterpret_cast<uint32*>(0xC4B8C8)|=7;
     auto* model=entity->GetColModel();auto* data=model->m_pColData;
@@ -1074,6 +1075,7 @@ void CShadows::CastRealTimeShadowSectorList(PtrListType& ptrList, float conrerAX
 static float ShadowRectangleEdge(float position, float front, float side, bool maximum);
 static int32 ShadowSectorIndex(float coordinate, bool maximum);
 static int32 ShadowFtol(double value);
+// 0x70A960
 void CShadows::RenderStoredShadows() {
     // Como el original (0x70A960-0x70A9E0): los render states y el buffer se preparan aunque no haya sombras guardadas
     // (antes habia un return anticipado que omitia esas llamadas).
@@ -1354,6 +1356,7 @@ static int32 ShadowSectorIndex(float coordinate, bool maximum) {
     if (maximum ? value >= 119 : value <= 0) return maximum ? 119 : 0;
     return value;
 }
+// 0x70B730
 void CShadows::GeneratePolysForStaticShadow(int16 staticShadowIndex) {
     auto& shadow = aStaticShadows[staticShadowIndex];
     CVector position = shadow.m_vecPosn;
@@ -1388,6 +1391,7 @@ static int32 ShadowFadeInteger(double fade, int32 value) {
     // fild valor; fmul fade; _ftol2 (palabra baja).
     return ShadowsFadeScaleCpp(fade, value);
 }
+// 0x70BA00
 bool CShadows::StoreStaticShadow(uint32 id, eShadowType type, RwTexture* texture, const CVector& posn, float frontX, float frontY, float sideX, float sideY, int16 intensity, uint8 red, uint8 green, uint8 blue, float zDistane, float scale, float drawDistance, bool temporaryShadow, float upDistance) {
     const float squared = ShadowCameraDistanceSquared(posn, TheCamera.GetPosition());
     if (drawDistance != 0.0f) {
@@ -1449,6 +1453,7 @@ static void ShadowVehiclePosition(CVector& position,float extentLength,float max
     // 0x70C035-0x70C064: desplazamiento = ((largo * 0.5) - max.y) * shift; posicion -= desplazamiento * forward.
     ShadowsVehiclePositionCpp(&position.x,extentLength,maximumY,shift,forwardX,forwardY);
 }
+// 0x70BDA0
 void CShadows::StoreShadowForVehicle(CVehicle* vehicle, VEH_SHD_TYPE vehShadowType) {
     const int16 strength = CTimeCycle::GetShadowStrength();
     if (GraphicsHighQuality() || !strength) return;

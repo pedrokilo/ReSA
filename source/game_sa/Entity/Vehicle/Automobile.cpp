@@ -4451,6 +4451,7 @@ void CAutomobile::ShowAllComps() {
 // Los marcadores de elegidos son bytes (puertas 0..5, paneles 0..6 con 2, 3 y 4 ya marcados: traseros y parabrisas) y la busqueda del n-esimo libre es el bucle del EXE.
 VALIDATE_OFFSET(CVehicleModelInfo, m_pVehicleStruct, 0x5C);
 static_assert(offsetof(CVehicleModelInfo::CVehicleStructure, m_nMaskComponentsDamagable) == 0x310);
+// 0x6A2530
 void CAutomobile::SetRandomDamage(bool bRemoveStuff) {
     const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
     constexpr float kReciprocal = 3.0517578125e-05f; // 0x858B14 = 1/32768
@@ -5072,6 +5073,7 @@ void CAutomobile::CloseAllDoors() {
     }
 }
 
+// 0x6A4AF0
 void CAutomobile::DoSoftGroundResistance(uint32& extraHandlingFlags) {
     if (IsAnyWheelTouchingSand() && m_nModelIndex != MODEL_RCBANDIT && m_nModelIndex != MODEL_RHINO) {
         // Como el original (0x6A4BC2..0x6A4C2B): velocidad menos su componente sobre up, y modulo cuadrado en el orden z, y, x

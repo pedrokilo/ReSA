@@ -36,6 +36,7 @@ public:
     CTaskComplexKillPedOnFoot(CPed* target, int32 time = -1, int32 pedFlags = 0, int32 delay = 0, int32 chance = 0, uint8 nCompetence = 1, /* notsa => */bool bWaitForPlayerToBeSafe = false, bool bWaitingForPlayerToBeSafe = false);
     ~CTaskComplexKillPedOnFoot() override;
 
+    // 0x620EE0
     eTaskType GetTaskType() const override { return Type; }
     CTask* Clone() const override; // 0x623370 (lote 199A, sin validar)
     bool   MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;

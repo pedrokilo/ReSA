@@ -74,11 +74,17 @@ private:
     friend void InjectHooksMain();
     static void InjectHooks();
 
+    /*!
+     * @addr 0x4F1800
+     */
     CAEStreamingChannel* Constructor(IDirectSound* directSound, uint16 channelId) {
         this->CAEStreamingChannel::CAEStreamingChannel(directSound, channelId);
         return this;
     }
 
+    /*!
+     * @addr 0x4F2200
+     */
     void Destructor() {
         CAEStreamingChannel::~CAEStreamingChannel();
     }

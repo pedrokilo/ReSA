@@ -74,6 +74,8 @@ void CConversationForPed::Clear(bool dontClearNodes) {
 // 0x43C190
 /**
  * Avanza las preguntas y respuestas, conservando los plazos unsigned del juego.
+ *
+ * @addr 0x43C190
  */
 void CConversationForPed::Update() {
     if (!m_pPed || !m_Enabled || !IsPlayerInPositionForConversation(false)) {
@@ -165,6 +167,7 @@ static __declspec(noinline) bool ConversationMovingTooFast(const CVector& speed)
  *
  * @param randomConversation true si se prueban las reglas de conversación aleatoria.
  * @return Indica si el jugador está colocado lo bastante cerca/correctamente para conversar.
+ * @addr 0x43AC40
  */
 bool CConversationForPed::IsPlayerInPositionForConversation(bool randomConversation) {
     const auto& pedPosition = m_pPed->GetPosition();

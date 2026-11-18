@@ -88,6 +88,7 @@ CTask* CTaskComplexGoToBoatSteeringWheel::CreateNextSubTask(CPed* ped) {
 // aunque sea nulo) y le suma la posicion del vehiculo (la de la matriz si la tiene, si no la de su placement) componente a componente con redondeo a float tras cada suma.
 static_assert(offsetof(CVehicleModelInfo, m_nVehicleType) == 0x3C && offsetof(CVehicleModelInfo, m_pVehicleStruct) == 0x5C); // los desplazamientos que lee 0x649160
 
+// 0x649160
 void CTaskComplexGoToBoatSteeringWheel::ComputeTargetPos() {
     const auto* const mi = static_cast<const CVehicleModelInfo*>(CModelInfo::GetModelInfo(static_cast<int16>(m_Vehicle->m_nModelIndex))); // sin la comprobacion virtual de AsVehicleModelInfoPtr, como el EXE
     const CVector d = mi->m_pVehicleStruct->m_avDummyPos[mi->m_nVehicleType == VEHICLE_TYPE_BOAT ? DUMMY_LIGHT_FRONT_MAIN : DUMMY_SEAT_FRONT];

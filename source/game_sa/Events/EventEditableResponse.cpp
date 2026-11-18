@@ -32,6 +32,7 @@ namespace CEventEditableBody {
 // llevar marco ni comprobaciones: se optimiza por pragma (CMakeLists.txt: /Zi y BasicRuntimeChecks=Default para este archivo). __fastcall con un segundo registro sin usar equivale a thiscall sin argumentos. (Lote 107A, banco Fn107A.)
 #pragma runtime_checks("", off)
 #pragma optimize("gty", on)
+// 0x4AC480
 void __fastcall EditableResponseDestructorBody(CEventEditableResponse* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x85AB38;
 }
@@ -77,6 +78,7 @@ CEventEditableResponse::CEventEditableResponse(eTaskType taskType) :
     m_FacialExpressionType = eFacialExpression::NONE;
 }
 
+// 0x4AC450
 CEventEditableResponse* CEventEditableResponse::Constructor() {
     this->CEventEditableResponse::CEventEditableResponse();
     return this;

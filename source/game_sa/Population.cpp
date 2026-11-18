@@ -2071,6 +2071,7 @@ CObject* CPopulation::CreateSunbatheObject(const CVector* position, int32 type) 
     return object;
 }
 
+// 0x614720
 bool CPopulation::AddToPopulation(float minDist, float maxDist, float minDistClose, float maxDistClose) {
     ZoneScoped;
     if(CGangWars::DontCreateCivilians() || *reinterpret_cast<bool*>(0x96917A)) return false;

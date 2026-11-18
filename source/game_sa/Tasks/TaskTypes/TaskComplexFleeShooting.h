@@ -24,7 +24,9 @@ public:
     CTaskComplexFleeShooting(const CTaskComplexFleeShooting&);
     ~CTaskComplexFleeShooting();
 
+    // 0x65CFB0
     CTask*    Clone() const override { return new CTaskComplexFleeShooting{ *this }; }
+    // 0x65C990
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     // 0x65CA60 - Como el original: salta a CTaskComplexSmartFleeEntity::CreateNextSubTask (0x65C680). Función propia para que su hook

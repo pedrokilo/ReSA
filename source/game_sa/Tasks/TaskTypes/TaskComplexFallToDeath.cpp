@@ -66,6 +66,7 @@ void CTaskComplexFallToDeath::InjectHooks() {
     RH_ScopedInstall(CalcFall, 0x6796C0);
 }
 
+// 0x679040
 CTaskComplexFallToDeath* CTaskComplexFallToDeath::Constructor(int32 direction, const CVector& posn, bool a4, bool a5) { this->CTaskComplexFallToDeath::CTaskComplexFallToDeath(direction, posn, a4, a5); return this; }
 
 // 0x67C480 (lote 200A, sin validar; thiscall, sin argumentos, `ret`, 130 bytes con marco SEH que solo desenrolla): reserva 0x24 bytes con CTask::operator new (0x61A5A0; sin memoria devuelve nulo) y llama al constructor
@@ -103,6 +104,7 @@ void CTaskComplexFallToDeath::UpdateAnims(CPed* ped) {
 // 0x6790C0
 
 
+// 0x6790C0
 bool CTaskComplexFallToDeath::MakeAbortable(CPed* ped, eAbortPriority priority, const CEvent* event) {
     if (priority != ABORT_PRIORITY_IMMEDIATE) {
         return false;
@@ -114,6 +116,7 @@ bool CTaskComplexFallToDeath::MakeAbortable(CPed* ped, eAbortPriority priority, 
 // 0x679510
 
 
+// 0x679510
 CTask* CTaskComplexFallToDeath::ControlSubTask(CPed* ped) {
     // return plugin::CallMethodAndReturn<CTask*, 0x679510, CTaskComplexFallToDeath*, CPed*>(this, ped);
 
@@ -145,6 +148,7 @@ CTask* CTaskComplexFallToDeath::ControlSubTask(CPed* ped) {
 // 0x679120
 
 
+// 0x679120
 CTask* CTaskComplexFallToDeath::CreateFirstSubTask(CPed* ped) {
     ped->bIsStanding = false;
     ped->ApplyMoveForce({
@@ -174,6 +178,7 @@ CTask* CTaskComplexFallToDeath::CreateFirstSubTask(CPed* ped) {
 
 // 0x679270
 
+// 0x679270
 // 0x0
 CTask* CTaskComplexFallToDeath::CreateNextSubTask(CPed* ped) {
     // return plugin::CallMethodAndReturn<CTask*, 0x679270, CTaskComplexFallToDeath*, CPed*>(this, ped);

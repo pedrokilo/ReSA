@@ -10,6 +10,7 @@
 // Como el original, en este orden: GetPositionToOpenCarDoor (0x64E740) con el coche (+8 de la subtarea de espera) y la puerta (+0xC); DESPUES se lee la posicion del coche (matriz +0x14 si existe; si no, la
 // posicion propia +4) y se copia a locales; x87 a 24 bits: cada diferencia (puerta - coche) se calcula sin guardar, se duplica (fadd st,st: exacto) y se suma a la posicion del coche, guardando cada componente como float.
 #pragma float_control(precise, on, push)
+// 0x646F40
 CVector CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse::ComputeTarget() const {
     const auto    veh     = m_TaskWaitForDoor->m_veh;
     const CVector doorPos = CCarEnterExit::GetPositionToOpenCarDoor(veh, m_TaskWaitForDoor->m_doorsToWaitFor[0]);

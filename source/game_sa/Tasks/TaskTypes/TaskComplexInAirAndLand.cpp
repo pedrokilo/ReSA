@@ -67,6 +67,7 @@ void CTaskComplexInAirAndLand::InjectHooks() {
     RH_ScopedVMTInstall(ControlSubTask, 0x67D230);
 }
 
+// 0x678C80
 CTaskComplexInAirAndLand* CTaskComplexInAirAndLand::Constructor(bool bUsingJumpGlide, bool bUsingFallGlide) {
     this->CTaskComplexInAirAndLand::CTaskComplexInAirAndLand(bUsingJumpGlide, bUsingFallGlide);
     return this;

@@ -130,11 +130,17 @@ private:
     void Update_Internal(RpAtomic* atomic, uint32 geoFlagsToClear, RenderFnT&& Render);
 
 private:
+    /*!
+     * @addr 0x7053F0
+     */
     CShadowCamera* Constructor() {
         this->CShadowCamera::CShadowCamera();
         return this;
     }
 
+    /*!
+     * @addr 0x705B50
+     */
     CShadowCamera* Destructor() {
         this->CShadowCamera::~CShadowCamera();
         return this;

@@ -52,6 +52,7 @@ CHudColours::CHudColours() {
     SetRGBAValue(HUD_COLOUR_YELLOW, 255, 255, 0, 255);
 }
 
+// 0x58FDA0
 CHudColours* CHudColours::Constructor() {
     this->CHudColours::CHudColours();
     return this;

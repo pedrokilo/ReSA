@@ -33,6 +33,7 @@ void CTaskSimpleCarDriveTimed::InjectHooks() {
     RH_ScopedVMTInstall(ProcessPed, 0x46F610);
 }
 
+// 0x5FF940
 CTaskSimpleCarDriveTimed* CTaskSimpleCarDriveTimed::Constructor(CVehicle* vehicle, int32 nTime) {
     this->CTaskSimpleCarDriveTimed::CTaskSimpleCarDriveTimed(vehicle, nTime);
     return this;

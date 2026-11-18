@@ -61,6 +61,7 @@ int32 __fastcall PadTrianglePressedExe(const CPad* self, void* /*edx*/) { return
 int32 __fastcall PadCirclePressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.ButtonCircle != 0 && self->OldState.ButtonCircle == 0) ? 1 : 0; }
 // 0x4410E0 (lote 191A, sin validar; el listado decia CEntryExitManager): DPadRight (palabras +0x16 y +0x46); thiscall, sin pila, `ret`, 23 bytes; la llama 0x5802A2 con ECX = CPad::GetPad(0).
 static_assert(offsetof(CControllerState, DPadRight) == 0x16 && offsetof(CPad, OldState) == 0x30);
+// 0x4410E0
 int32 __fastcall PadDPadRightPressedExe(const CPad* self, void* /*edx*/) { return (self->NewState.DPadRight != 0 && self->OldState.DPadRight == 0) ? 1 : 0; }
 // Lote 183A (sin validar): otras dos funciones propias del EXE con EAX completo (thiscall).
 // 0x4D59E0 (el listado decia CAnimManager): ButtonCross (palabras +0x20 y +0x50), thiscall, sin pila, `ret`.
@@ -78,15 +79,20 @@ bool CPad::IsEnterJustPressed() noexcept {
     return IsPadEnterJustPressed() || IsReturnJustPressed();
 }
 
+// 0x57C400
 bool CPad::IsMouseWheelUpPressed() noexcept   { return MOUSE_IS_PRESSED(isMouseWheelMovedUp); }
+// 0x57C420
 bool CPad::IsMouseWheelDownPressed() noexcept { return MOUSE_IS_PRESSED(isMouseWheelMovedDown); }
+// 0x57C440
 bool CPad::IsMouseBmx1Pressed() noexcept      { return MOUSE_IS_PRESSED(isMouseFirstXPressed); }
+// 0x57C460
 bool CPad::IsMouseBmx2Pressed() noexcept      { return MOUSE_IS_PRESSED(isMouseSecondXPressed); }
 
 // Lote 182A (sin validar): IsEscJustPressed (0x572DB0) e IsMouseRButtonPressed (0x572E70), antes inline en la cabecera. cdecl sin argumentos, `ret`, resultado en AL (1 o 0).
 // 0x572DB0: WORD esc de NewKeyState (0xB733A8) distinto de cero y el de OldKeyState (0xB73138) igual a cero. 0x572E70: BYTE del boton derecho de NewMouseControllerState
 // (0xB73419) distinto de cero y el de OldMouseControllerState (0xB7342D) igual a cero.
 bool CPad::IsEscJustPressed() noexcept      { return KEY_IS_PRESSED(esc); }
+// 0x572E70
 bool CPad::IsMouseRButtonPressed() noexcept { return MOUSE_IS_PRESSED(isMouseRightButtonPressed); }
 
 void CPad::InjectHooks() {
@@ -885,6 +891,7 @@ bool CPad::GetLookRight() const {
     return NewState.RightShoulder2 && !NewState.LeftShoulder2;
 }
 
+// 0x53FE70
 bool CPad::GetLookBehindForCar() const noexcept {
     if (DisablePlayerControls)
         return false;
@@ -1513,6 +1520,7 @@ bool CPad::DebugMenuJustPressed() {
 // ESI y EDI se restauran. El ultimo flanco ascendente en el orden del EXE gana: teclas estandar 0..254 (la 255 no se mira), F1..F12 y las especiales de la tabla
 // (shift antes que rshift, como 0x5419A4). Sin comprobaciones de ejecucion: RTC llamaria a __RTC_CheckEsp y cambiaria ECX/EDX tras la ultima llamada.
 #pragma runtime_checks("", off)
+// 0x541490
 int GetCurrentKeyPressed(RsKeyCodes& keys) {
     struct SpecialKey {
         int16 CKeyboardState::* member;

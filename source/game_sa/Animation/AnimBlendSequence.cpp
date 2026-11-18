@@ -203,6 +203,8 @@ size_t CAnimBlendSequence::GetDataSize(bool compressed) const {
  *
  * q y -q describen la misma orientación; invertir el segundo cuando el producto
  * escalar es negativo evita interpolaciones que recorran el arco largo.
+ *
+ * @addr 0x4D1190
  */
 void CAnimBlendSequence::RemoveQuaternionFlips() const {
     // Como el original: contador con signo y sin mirar el flag de compresión; el paso depende solo de la traslación.
@@ -248,6 +250,8 @@ void CAnimBlendSequence::SetBoneTag(eBoneTag32 boneId) {
  *
  * frameData transfiere únicamente el uso del buffer, no su ownership: cuando se
  * proporciona, m_bUsingExternalMemory impide que el destructor lo libere.
+ *
+ * @addr 0x4D0CD0
  */
 void CAnimBlendSequence::SetNumFrames(uint32 count, bool bHasTranslation, bool compressed, void* frameData) {
     // Como el original: los flags de rotación, traslación y compresión se añaden con OR (nunca se borran) y el

@@ -244,14 +244,17 @@ public:
         }
     }
 
+    // 0x664AF0
     CTask* Clone() const override {
         return new CTaskComplexSeekEntity{ *this };
     }
 
+    // 0x661EA0
     eTaskType GetTaskType() const override {
         return eTaskType::TASK_COMPLEX_SEEK_ENTITY;
     }
 
+    // 0x661EB0
     bool MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override {
         // Como el original (0x46ACF0): con prioridad de ocio se anula el intervalo de búsqueda (+0x10) y vence su temporizador
         if (priority == ABORT_PRIORITY_LEISURE) {
@@ -270,6 +273,7 @@ public:
         return false;
     }
 
+    // 0x665080
     CTask* CreateNextSubTask(CPed* ped) override {
         // Como el original (0x46EFF0): sin entidad termina sin consultar la subtarea
         if (!m_entityToSeek) {
@@ -303,6 +307,7 @@ public:
         }
     }
 
+    // 0x665600
     CTask* CreateFirstSubTask(CPed* ped) override {
         // Como el original (0x46F6A0): el escaneo arranca siempre y la búsqueda salvo con intervalo -1 exacto
         m_scanTimer.m_nStartTime = CTimer::GetTimeInMS();
@@ -332,6 +337,7 @@ public:
         return CreateSubTask(TASK_COMPLEX_SEQUENCE, ped);
     }
 
+    // 0x665760
     CTask* ControlSubTask(CPed* ped) override {
         // Como el original (0x46F800): el barco común solo se busca si la entidad es un peatón del mismo grupo
         // (AreInSameGroup(ped, entidad)); sin eso no se toca el enganche del peatón
@@ -478,6 +484,7 @@ public:
         return self->CTaskComplexSeekEntity::ControlSubTask(ped);
     }
 
+    // 0x673BA0
     // NOTSA Helpers
     // 0x665DC0 (lote 151A, banco Fn151A; solo la especializacion XYOffset, la unica con hook): thiscall, puntero de salida (CVector devuelto por valor) y peaton en la pila, `ret 8`, devuelve el puntero de salida.
     // Como el original: la llamada al calculador (objeto incrustado en +0x40) es VIRTUAL (`call [vtable]`: el calculador se pasa como referencia a la base para que no se resuelva en compilacion), con el peaton,
@@ -562,6 +569,7 @@ public:
         self->CTaskComplexSeekEntity::~CTaskComplexSeekEntity();
     }
 
+    // 0x66CB90
     // 0x661F10 (lote 151A, banco Fn151A; el listado decia CTaskComplexSeekEntity<XYOffset> y lo es: ranura 0 de la vtable 0x86FBB4): destructor con borrado (thiscall, un argumento de pila, `ret 4`, 30 bytes:
     // `push esi; mov esi,ecx; call 0x661F30; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: destruye con el cuerpo de la clase, libera `this` con
     // CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
@@ -575,6 +583,7 @@ public:
 
 protected: // Wrappers for hooks
     friend class CTaskComplexFollowLeaderInFormation; // lote 201A (sin validar): su CreateSubTask (0x6962A0) llama al Constructor enganchado del EXE (0x661DC0), como el original
+    // 0x661DC0
     // 0x493730
     CTaskComplexSeekEntity* Constructor(
         CEntity* entity,
@@ -612,6 +621,8 @@ protected: // Wrappers for hooks
         return this;
     }
 
+    // 0x661F30
+    // 0x66CBB0
     // 0x493890
     CTaskComplexSeekEntity* Destructor() {
         this->CTaskComplexSeekEntity::~CTaskComplexSeekEntity();

@@ -193,15 +193,39 @@ public:
     // Como el original (0x5328C0, 0x5328B0, 0x4C4E00, 0x5328F0, 0x4C4A00, 0x4C4DF0): devuelven en EAX completo
     // el bit enmascarado (p. ej. 0x80 o 0x100), no un bool en AL; los llamadores del EXE prueban EAX.
     [[nodiscard]] uint32 GetIsDrawLast() const { return m_nFlags & 0x2; }
+    /*!
+     * @addr 0x5328B0
+     */
     [[nodiscard]] uint32 HasBeenPreRendered() const { return m_nFlags & 0x1; }
+    /*!
+     * @addr 0x4C4E00
+     */
     [[nodiscard]] uint32 HasComplexHierarchy() const { return m_nFlags & 0x200; }
+    /*!
+     * @addr 0x5328F0
+     */
     [[nodiscard]] uint32 IsBackfaceCulled() const { return m_nFlags & 0x40; }
+    /*!
+     * @addr 0x4C4A00
+     */
     [[nodiscard]] uint32 IsLod() const { return m_nFlags & 0x80; }
+    /*!
+     * @addr 0x4C4DF0
+     */
     [[nodiscard]] uint32 IsRoad() const { return m_nFlags & 0x100; }
     // Como el original (0x4C42F0, 0x4C4A10, 0x5328D0): prueban el dword completo del argumento (test eax,eax).
     void SetHasBeenPreRendered(int32 bPreRendered) { bHasBeenPreRendered = bPreRendered != 0; }
+    /*!
+     * @addr 0x4C4A10
+     */
     void SetIsLod(int32 bLod) { bIsLod = bLod != 0; }
+    /*!
+     * @addr 0x5328D0
+     */
     void SetOwnsColModel(int32 bOwns) { bDoWeOwnTheColModel = bOwns != 0; }
+    /*!
+     * @addr 0x532900
+     */
     void IncreaseAlpha() {
         if (m_nAlpha >= 239)
             m_nAlpha = 255;

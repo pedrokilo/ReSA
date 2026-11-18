@@ -36,7 +36,9 @@ public:
     void CalcTargetPos(CPed* ped);
     void CalcMoveRatio(CPed* ped);
 
+    // 0x65F4E0
     CTask*    Clone() const override { return new CTaskComplexTrackEntity{*this}; }
+    // 0x65F450
     eTaskType GetTaskType() const override { return Type; }
     bool      MakeAbortable(CPed* ped, eAbortPriority priority = ABORT_PRIORITY_URGENT, const CEvent* event = nullptr) override;
     CTask*    CreateNextSubTask(CPed* ped) override;
