@@ -231,7 +231,7 @@ def build(root, input_path, coverage, validation, notsa_count=0):
         L += ['', 'En validación ahora: ' + ', '.join(sorted(running)) + '.']
     if todo:
         L += ['', 'Lotes por validar: ' + ', '.join(todo) + '.']
-    L += ['', 'Los lotes de RenderWare (R1A–R34A) se validarán en una oleada propia, aún sin plan.', '']
+    L += ['', 'Los lotes de RenderWare se validarán en una oleada propia: ver el [plan de validación](RenderWareExe/plan-validacion.md).', '']
 
     L += ['<a id="clases"></a>', '', '## 5. Clases del juego con funciones sin validar', '',
           f'Solo se listan las clases del código del juego que todavía tienen alguna función reconstruida sin validar (las {TOP_GAME_CLASSES} con más). El resto de las clases del juego está completa y validada. Lista completa: [no-validadas-por-clase.csv](JuegoExe/no-validadas-por-clase.csv).', '']
