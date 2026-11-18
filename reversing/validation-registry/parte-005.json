@@ -107384,6 +107384,798 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistry*), RpAtomicCreate/Clone/Destroy/SetGeometry, RpClumpForAllAtomics/Lights/Cameras (sin llamar a los callbacks), marcos (_rwFrame*, RwFrameDestroyHierarchy/UpdateObjects, _rwObjectHasFrameSetFrame/ReleaseFrame), RpGeometryDestroy/StreamRead, RpAtomicGetWorld, RpLightDestroy, RwCameraDestroy, RpLightStreamRead, RwCameraStreamRead, y como colaboradores de otras RpClumpCreate, RpClumpDestroy y ClumpAtomicStreamRead; las funciones de memoria de RwEngineInstance (+0x134, +0x138, +0x144, +0x148) son falsos instalados en el propio motor. Corren reales: RpClumpAddAtomic, RpClumpRemoveLight, ClumpLightDestroyCallBack y _rpGeometryListDeinitialize dentro de RpClumpClone/RpClumpStreamRead, y RpGeometryAddRef (en linea en la DLL). Fuera de los fixtures: punteros nulos en listas enlazadas (cortes por luz/camara nula), longitudes de chunk de atomico mayores de 16 bytes (desbordan el buffer local igual que el EXE), recuentos enormes de listas y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn227A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpMorphTargetCalcBoundingSphere",
+        "address": "0x0074C200",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpMorphTargetCalcBoundingSphere"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryAddMorphTargets",
+        "address": "0x0074C310",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryAddMorphTargets"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryTriangleSetVertexIndices",
+        "address": "0x0074C690",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryTriangleSetVertexIndices"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryTriangleSetMaterial",
+        "address": "0x0074C6C0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryTriangleSetMaterial"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryLock",
+        "address": "0x0074C7D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryLock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryUnlock",
+        "address": "0x0074C800",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryUnlock"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryCreate",
+        "address": "0x0074CA90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryCreate"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryAddRef",
+        "address": "0x0074CCB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryAddRef"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryDestroy",
+        "address": "0x0074CCC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryDestroy"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryRegisterPlugin",
+        "address": "0x0074CD70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryRegisterPlugin"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryRegisterPluginStream",
+        "address": "0x0074CDA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryRegisterPluginStream"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpGeometryStreamRead",
+        "address": "0x0074D190",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpGeometryStreamRead"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "_rpGeometryDestroyUnreferenced",
+        "address": "0x0074D6D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::_rpGeometryDestroyUnreferenced"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "_rpMaterialRightsStreamRead",
+        "address": "0x0074D7D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::_rpMaterialRightsStreamRead"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "_rpMaterialRightsStreamWrite",
+        "address": "0x0074D810",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::_rpMaterialRightsStreamWrite"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "_rpMaterialSetDefaultSurfaceProperties",
+        "address": "0x0074D870",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::_rpMaterialSetDefaultSurfaceProperties"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpMaterialCreate",
+        "address": "0x0074D990",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpMaterialCreate"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpMaterialDestroy",
+        "address": "0x0074DA20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpMaterialDestroy"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpMaterialSetTexture",
+        "address": "0x0074DBC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpMaterialSetTexture"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpMaterialRegisterPlugin",
+        "address": "0x0074DBF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpMaterialRegisterPlugin"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpMaterialRegisterPluginStream",
+        "address": "0x0074DC20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpMaterialRegisterPluginStream"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpMaterialStreamRead",
+        "address": "0x0074DD30",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn228A/validation-summary.json",
+        "sha256": "bb810b1d4d5e6e2ae36f1a3d1b9f8d6bad39e4ee1240dd2e9b047f46c6476071",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpMaterialStreamRead"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn228A/LiveComparison.hpp": "b0e4d5c3e36493bdf1469583e7c4afbd5eb03c6c9f763cec57a507be38fcc71e",
+        "reversing/Fn228A/Core.hpp": "06e9774d94701bc2438515019ea87805104ff43aa115b2e3b5449c29bd44d0b3",
+        "reversing/Fn228A/Fixtures.hpp": "241cda3d19a26db4781b7cdd49d691eb685f3c5da4c9aa27fe1b9a1f98a78d5d",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn228A/README.md"
     }
   ]
 }

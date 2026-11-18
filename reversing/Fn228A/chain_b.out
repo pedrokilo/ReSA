@@ -1,0 +1,5 @@
+ronda 2 aplicada: 22 mutaciones
+19:06:12 gta_lock tomado
+19:11:31 run neg2: FALLO: Fn228A Funciones con diferencias: RpWorld::RpMorphTargetCalcBoundingSphere: 1882/2048; RpWorld::RpGeometryAddMorphTargets: 1257/2048; RpWorld::RpGeometryTriangleSetVertexIndices: 2048/2048; RpWorld::RpGeometryTriangleSetMaterial: 239/2048; RpWorld::RpGeometryLock: 493/2048; RpWorld::RpGeomet
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+19:11:43 fin

@@ -1,0 +1,10 @@
+17:22:39 build ok main
+17:44:56 gta_lock tomado
+18:25:03 run main: APROBADO: Fn228A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn228a\20261117-174501-793153 
+ronda 1 aplicada: 22 mutaciones
+18:30:48 run neg1: FALLO: Fn228A Funciones con diferencias: RpWorld::RpMorphTargetCalcBoundingSphere: 1218/2048; RpWorld::RpGeometryAddMorphTargets: 1209/2048; RpWorld::RpGeometryTriangleSetVertexIndices: 2048/2048; RpWorld::RpGeometryTriangleSetMaterial: 1372/2048; RpWorld::RpGeometryLock: 626/2048; RpWorld::RpGeome
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+ronda 2 aplicada: 22 mutaciones
+18:36:46 run neg2: FALLO: Fn228A Funciones con diferencias: RpWorld::RpMorphTargetCalcBoundingSphere: 1882/2048; RpWorld::RpGeometryAddMorphTargets: 1257/2048; RpWorld::RpGeometryTriangleSetVertexIndices: 2048/2048; RpWorld::RpGeometryTriangleSetMaterial: 239/2048; RpWorld::RpGeometryLock: 493/2048; RpWorld::RpGeomet
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+18:36:57 fin
