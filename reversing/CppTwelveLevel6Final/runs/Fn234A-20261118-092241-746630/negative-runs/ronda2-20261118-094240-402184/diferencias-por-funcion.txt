@@ -1,0 +1,3 @@
+{"LibJpegDecompress::get_dht": 762, "LibJpegDecompress::get_dri": 705, "LibJpegDecompress::skip_variable": 869, "LibJpegDecompress::next_marker": 510, "LibJpegDecompress::first_marker": 179, "LibJpegDecompress::read_restart_marker": 328, "LibJpegDecompress::jinit_marker_reader": 899, "LibJpegDecompress::jpeg_calc_output_dimensions": 791, "LibJpegDecompress::prepare_for_output_pass": 539, "LibJpegDecompress::jinit_master_decompress": 905}
+pares 20480 con diferencias 6487 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

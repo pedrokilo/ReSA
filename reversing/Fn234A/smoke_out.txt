@@ -1,0 +1,23 @@
+      0 [main] bash 2572 dofork: child -1 - forked process 19088 died unexpectedly, retry 0, exit code 0xC000012D, errno 11
+reversing/Fn234A/smoke234.sh: fork: retry: Resource temporarily unavailable
+      0 [main] bash (20648) C:\Program Files\Git\usr\bin\bash.exe: *** fatal error in forked process - couldn't dynamically determine load address for 'SystemFunction036' (handle 0x7FFB867C0000), Win32 error 1455
+3224858 [main] bash 2572 dofork: child -1 - forked process 20648 died unexpectedly, retry 0, exit code 0xC0000142, errno 11
+reversing/Fn234A/smoke234.sh: fork: retry: Resource temporarily unavailable
+6324141 [main] bash 2572 dofork: child -1 - forked process 11644 died unexpectedly, retry 0, exit code 0xC000012D, errno 11
+reversing/Fn234A/smoke234.sh: fork: retry: Resource temporarily unavailable
+reversing/Fn234A/smoke234.sh: line 5: /dev/null: Bad address
+      0 [main] sleep (13332) child_copy: cygheap read copy failed, 0x0..0x800010730, done 0, windows pid 13332, Win32 error 299
+      0 [main] sleep (452) child_copy: cygheap read copy failed, 0x0..0x800010730, done 0, windows pid 452, Win32 error 299
+      0 [main] bash (21408) child_copy: cygheap read copy failed, 0x0..0x80000D9C0, done 0, windows pid 21408, Win32 error 299
+79067054 [main] bash 2572 dofork: child -1 - forked process 21408 died unexpectedly, retry 0, exit code 0xC0000142, errno 11
+reversing/Fn234A/smoke234.sh: fork: retry: Resource temporarily unavailable
+      0 [main] bash (10476) child_copy: cygheap read copy failed, 0x0..0x80000D9C0, done 0, windows pid 10476, Win32 error 299
+84177971 [main] bash 2572 dofork: child -1 - forked process 10476 died unexpectedly, retry 0, exit code 0xC0000142, errno 11
+reversing/Fn234A/smoke234.sh: fork: retry: Resource temporarily unavailable
+reversing/Fn234A/smoke234.sh: line 5: /dev/null: Bad address
+435037127 [main] bash 2572 dofork: child -1 - forked process 472 died unexpectedly, retry 0, exit code 0xC0000142, errno 11
+reversing/Fn234A/smoke234.sh: fork: retry: Resource temporarily unavailable
+437052303 [main] bash 2572 dofork: child -1 - forked process 2984 died unexpectedly, retry 0, exit code 0xC000012D, errno 11
+reversing/Fn234A/smoke234.sh: fork: retry: Resource temporarily unavailable
+440076932 [main] bash 2572 dofork: child -1 - CreateProcessW failed for 'C:\Program Files\Git\usr\bin\bash.exe', errno 12
+reversing/Fn234A/smoke234.sh: fork: Cannot allocate memory

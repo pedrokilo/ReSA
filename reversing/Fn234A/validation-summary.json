@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "pairs": 163840,
+  "differences": 0,
+  "registered_pairs": 163840,
+  "registered_functions": 10,
+  "functions": {
+    "LibJpegDecompress::get_dht": 16384,
+    "LibJpegDecompress::get_dri": 16384,
+    "LibJpegDecompress::skip_variable": 16384,
+    "LibJpegDecompress::next_marker": 16384,
+    "LibJpegDecompress::first_marker": 16384,
+    "LibJpegDecompress::read_restart_marker": 16384,
+    "LibJpegDecompress::jinit_marker_reader": 16384,
+    "LibJpegDecompress::jpeg_calc_output_dimensions": 16384,
+    "LibJpegDecompress::prepare_for_output_pass": 16384,
+    "LibJpegDecompress::jinit_master_decompress": 16384
+  },
+  "covered_functions": {
+    "LibJpegDecompress::get_dht": true,
+    "LibJpegDecompress::get_dri": true,
+    "LibJpegDecompress::skip_variable": true,
+    "LibJpegDecompress::next_marker": true,
+    "LibJpegDecompress::first_marker": true,
+    "LibJpegDecompress::read_restart_marker": true,
+    "LibJpegDecompress::jinit_marker_reader": true,
+    "LibJpegDecompress::jpeg_calc_output_dimensions": true,
+    "LibJpegDecompress::prepare_for_output_pass": true,
+    "LibJpegDecompress::jinit_master_decompress": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre 22c855862c (HEAD de integracion del coordinador, con 212A y 213A) con los cambios del lote (ver artifacts/build-manifest.json). 10 funciones enganchadas de la parte de jdmarker y jdmaster de la libjpeg 6b de descompresion embebida en el EXE (clase LibJpegDecompress, el listado las atribuia a FxEmitterBP_c). Los ayudantes con el cinfo en un registro (prepare_range_limit_table y master_selection) no tienen hook y se ejercitan por jinit_master_decompress; get_sos, get_dqt, examine_app0 y examine_app14 (ESI, EDI, EAX y ECX de entrada) se saltaron en el lote y no estan en el banco. Colaboradores: los que se llaman por punteros de la propia estructura (error_exit, emit_message, alloc_small, alloc_sarray, fill_input_buffer, skip_input_data, resync_to_restart, realize_virt_arrays, start_pass de los modulos, start_input_pass) son falsos identicos en el EXE y en la DLL; jinit_color_deconverter (0x5C9350), jinit_upsampler (0x5CD350), jinit_d_post_controller (0x5CCDF0), jinit_inverse_dct (0x5C9710) y jinit_d_coef_controller (0x5C8E20) se sustituyen por falsos instalados en la entrada del EXE (ambos lados los llaman por esa direccion, con su hook de la DLL apagado); jpeg_alloc_huff_table (0x5C6BD0), jinit_huff_decoder (0x5CA260), jinit_d_main_controller (0x5CAE30) y las funciones del lote que se llaman entre si (next_marker desde read_restart_marker; jpeg_calc_output_dimensions desde jinit_master_decompress) son codigo real del EXE en el lado original y cuerpo propio en el candidato. get_dht copia 256 bytes de huffval aunque count sea menor: los que pasan de count son basura de la pila del EXE y se excluyen de la comparacion (se restauran a su valor previo en ambos lados y en el oraculo). Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (get_dht con count > 256, que desborda la pila de 256 bytes del EXE, o con un indice de tabla fuera de las ranuras validas, que lee punteros arbitrarios; longitud declarada de get_dht que excede la real en mas de 16 bytes, que lee otra tabla del relleno), min_DCT_scaled_size = 0 con componentes en jinit_d_main_controller (division por cero), estructuras reales construidas por el jpeg_decompress_struct del EXE (jinit_*, jpeg_read_header), flujos JPEG reales, punteros crudos o desalineados dentro de la estructura, tablas de salto o bytes del EXE distintos de los canonicos y la exactitud de los falsos.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn234A-20261118-092241-746630",
+  "summary_sha256": "cfceabd58c7c212d8bf6230f6f1f1b2142b3bd00b42cb7457b674f5b2561dd2a",
+  "result_txt_sha256": "67ffbb5686be670f043d65b6ff2196ab4b64585f7b84847495392c9b71c2ba97",
+  "log_sha256": "fe1dece4cadb3966ad18791cc8488fdb282d987d4b03fa147b4e6c2cd9d5408f",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "4f1c94e83a69989e9df37342d9290cc1088dfeb37f28eefa8080a66b7228a247",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+      "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+      "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+      "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+      "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+      "source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp": "059ecc72ffd3dedff1cfe869d72582bd2221a95d54b8d5e9ec0679d2ebbc1b59",
+      "source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.h": "b7b8c5d8798112ce188a1a5914c97ef414b29049c90c23f96d9c855fe52fdaa1",
+      "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn234A/LiveComparison.hpp": "88927e860c31d31d0ee3b8f31dd9f37bbabc688b4266a832a66b4999276660d5",
+      "reversing/Fn234A/Core.hpp": "fad0cd9a4b831563ad64b769a7f9a84c6c2dc7539896d4701c5afabcabf50c30",
+      "reversing/Fn234A/Fixtures.hpp": "3882c352e43711d186a8a5b760a6f35916e19d2e525c5eb22c280a747c758e43",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}
