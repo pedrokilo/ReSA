@@ -19,10 +19,9 @@
 // Banco par a par Fn199A dentro del juego: Update() se llama desde CGame::Process (probe_build.py). Todo el nucleo esta en Core.hpp.
 // 30 funciones del EXE (ver Fixtures.hpp), cada una con 16384 pares EXE/DLL. Hook S (RH_ScopedNamedGlobalInstall / RH_ScopedInstall / RH_ScopedOverloadedInstall) y V (RH_ScopedVMTInstall). El banco invoca la direccion
 // del EXE con objetos sinteticos en cuatro arenas propias (A de 0x3000 bytes, B, C y D con guardas de 0x40). Falsos de los colaboradores: el mismo falso en la direccion del EXE y en el cuerpo de la DLL (MakeCollab / Pair):
-// CTask::operator new 0x61A5A0, CEventPool::New 0x4B5570, constructores 0x620780, 0x6786C0, 0x61A390, 0x620E30, 0x4AEAC0, 0x4AECD0, 0x4AEDF0, 0x4AF010, 0x4AF130 y 0x4AF240 (con hook; 0x620B00 sin hook: la DLL lo
-// llama por su direccion del EXE), CPed::GetWeaponSkill 0x5E3B60, CWeaponInfo::GetWeaponInfo 0x743C60, cuerpo de CPed 0x5E8620, CMatrix::Destructor 0x59ACD0, CWorld::ProcessLineOfSight 0x56BA00, CVector::Normalise
+// CTask::operator new 0x61A5A0, CEventPool::New 0x4B5570, constructores 0x620780, 0x6786C0, 0x61A390, 0x620E30, 0x4AEAC0, 0x4AECD0, 0x4AEDF0, 0x4AF010, 0x4AF130 y 0x4AF240 (con hook, 0x620B00 incluido desde el lote 198A), CPed::GetWeaponSkill 0x5E3B60, CWeaponInfo::GetWeaponInfo 0x743C60, cuerpo de CPed 0x5E8620, CMatrix::Destructor 0x59ACD0, CWorld::ProcessLineOfSight 0x56BA00, CVector::Normalise
 // 0x59C910, SetDefaults 0x517330, CIdleCam::Init 0x50E6D0, IKChainManager_c 0x6181A0 y 0x6181D0, CTaskManager::FindActiveTaskByType 0x681740, el cuerpo de CCamera 0x50A870 (otra funcion probada: `Rt`) y operator
-// delete del CRT 0x8214BD (sin hook; la DLL lo llama por esa direccion). Reales (hook apagado: el EXE corre sus bytes y la DLL su cuerpo o codigo en linea): CPed::IsAlive 0x5E0170, ~CPlaceable 0x54F490 (sin hook) y
+// delete del CRT 0x8214BD (sin hook; la DLL lo llama por esa direccion). Reales (hook apagado: el EXE corre sus bytes y la DLL su cuerpo o codigo en linea): CPed::IsAlive 0x5E0170, ~CPlaceable 0x54F490 (con hook desde 198A) y
 // _ftol 0x821B40 (sin hook). Memoria global del juego tocada (restaurada tras cada lado): el puntero del pool de peatones 0xB74490, los punteros de los dos jugadores 0xB7CD98 y 0xB7CF28, el byte 0x8CCB80 y el contador
 // de matrices 0xB74238. Las vtables de las tareas sinteticas son propias (ranuras 4, 6 y 9 con falsos; las demas anotan una llamada inesperada).
 // Se observan: los bytes cambiados de las cuatro arenas (con las direcciones reales de las arenas, que el banco anota en la entrada de cada caso), los bytes cambiados de la memoria global, los eventos de los falsos
@@ -597,7 +596,7 @@ inline void Update() {
     // fn 0 (MakeAbortable) y fn 2 (ControlSubTask): solo ranuras de vtable sinteticas (sin colaboradores con direccion)
     env.stubs[kRaCreate] = {newTask(), F(0x620780, &FkCtor4<0x620780>), F(0x6786C0, &FkCtor3<0x6786C0>), F(0x61A390, &FkBody<0x61A390>)};
     env.reals[kRaCreate] = {N(0x821B40)};   // _ftol del CRT del EXE (sin hook; la DLL convierte en linea)
-    env.stubs[kRaClone] = {newTask(), E(0x620B00, &FkCtor5<0x620B00>)};
+    env.stubs[kRaClone] = {newTask(), F(0x620B00, &FkCtor5<0x620B00>)};
     env.stubs[kKpClone] = {newTask(), F(0x620E30, &FkCtor6S<0x620E30>)};
     for (unsigned f : {unsigned(kVhrAffects), unsigned(kPemvAffects), unsigned(kCpAffects), unsigned(kSpAffects), unsigned(kSvAffects)}) env.reals[f] = {R(0x5E0170)};   // CPed::IsAlive: el EXE corre sus bytes; la DLL lo hace en linea
     env.stubs[kPemvClone] = {newPool(), F(0x4AEAC0, &FkCtor3<0x4AEAC0>)};
@@ -610,7 +609,7 @@ inline void Update() {
     env.stubs[kPedCanRun] = {F(0x5E3B60, &FkSkill), F(0x743C60, &FkInfo)};
     env.stubs[kPedSdd] = {F(0x5E8620, &FkBody<0x5E8620>)};
     env.stubs[kCamDtor] = {F(0x59ACD0, &FkBody<0x59ACD0>)};
-    env.reals[kCamDtor] = {N(0x54F490)};   // ~CPlaceable: el EXE corre sus bytes; la DLL su destructor (sin hook)
+    env.reals[kCamDtor] = {R(0x54F490)};   // ~CPlaceable (CPlaceable::DestructorBody, con hook RH desde el lote 198A, apagado): el EXE corre sus bytes; la DLL su cuerpo o su codigo en linea
     env.stubs[kCamSdd] = {Rt(kCamDtor, &FkBody<0x50A870>), E(0x8214BD, &FkDelete<0x8214BD>)};
     env.stubs[kCamVis] = {F(0x56BA00, &FkLos)};
     env.stubs[kCamGeo] = {F(0x59C910, &FkNorm)};

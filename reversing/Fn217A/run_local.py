@@ -47,14 +47,73 @@ def tally(inp, cov):
         cov[m] = cov.get(m, 0) + 1
 
 
+def stream(path):
+    """filas de comparacion, una a una"""
+    with Path(path).open(encoding='utf-8') as fh:
+        for line in fh:
+            if line.startswith('{"accepted":'):
+                yield json.loads(line)
+
+
+def stream_common(path):
+    """Mismas comprobaciones que probe_case.analyzer, pero en flujo: aquel carga las ~2,3 GB del registro como objetos JSON (16,9 GB de RAM en la corrida de 16384 casos); aqui solo se
+    conservan los eventos de control y los identificadores de par."""
+    path = Path(path)
+    if not runtime_runner.terminal_event(path):
+        return None
+    total = sum(EXPECTED.values())
+    ctrl = []
+    pairs = set()
+    npairs = 0
+    counts = {f: 0 for f in EXPECTED}
+    bad = None
+    with path.open(encoding='utf-8') as fh:
+        for line in fh:
+            if not line.endswith('\n'):
+                continue
+            r = json.loads(line)
+            if r['event'] != 'comparison':
+                ctrl.append(r)
+                continue
+            npairs += 1
+            pairs.add(r['pair'])
+            if bad is None and not (r['equal'] and r['accepted'] and r['original'] == r['candidate']):
+                bad = r['pair']
+            counts[r['function']] = counts.get(r['function'], 0) + 1
+    fails = ['%s: %s/%s' % (r['function'], r['failures'], r['cases']) for r in ctrl if r['event'] == 'function_summary' and r['failures']]
+    finished = any(r['event'] in ('complete', 'error', 'assertion') for r in ctrl)
+    if fails and finished:
+        raise RuntimeError('Funciones con diferencias: ' + '; '.join(fails))
+    if any(r['event'] in ('assertion', 'error') for r in ctrl):
+        raise RuntimeError('Error dentro de GTA; consultar comparisons.jsonl.')
+    completed = [r for r in ctrl if r['event'] == 'complete']
+    if not completed:
+        return None
+    if npairs != total or pairs != set(range(total)):
+        raise RuntimeError('Cobertura incompleta.')
+    if bad is not None:
+        raise RuntimeError('Diferencia en ' + str(bad))
+    if counts != EXPECTED:
+        raise RuntimeError('Reparto de pares inesperado: ' + json.dumps(counts))
+    if len(completed) != 1 or not completed[0]['state_restored']:
+        raise RuntimeError('Estado no restaurado.')
+    return dict(pairs=total, pairs_per_function=counts, all_equal=True, state_restored=True, log_sha256=runtime_runner.digest(path))
+
+
 def analyze(path):
     path = Path(path)
     if not path.exists():
         return None
-    summary = common_analyzer(EXPECTED)(path)
+    summary = stream_common(path)
     if summary is None:
         return None
-    rows = [json.loads(line) for line in path.read_text(encoding='utf-8').splitlines()]
+    # una sola pasada en flujo (el registro pesa ~1 GB): las filas de comparacion se comprueban al leerlas y solo se conservan los eventos de control
+    ctrl = []
+    with path.open(encoding='utf-8') as fh:
+        for line in fh:
+            if not line.startswith('{"accepted":'):
+                ctrl.append(json.loads(line))
+    rows = ctrl
     b = [r for r in rows if r['event'] == 'begin']
     if len(b) != 1 or b[0].get('registered_hook') is not True or b[0].get('collaborators_stubbed') is not True:
         raise RuntimeError('Inicio sin hooks registrados, o sin los falsos de los colaboradores')
@@ -84,11 +143,10 @@ def analyze(path):
     resid = {fn: 0 for fn in NAMES}
     fam = {fn: {} for fn in NAMES}
     cov = {fn: {} for fn in NAMES}
-    for row in rows:
-        if row['event'].startswith('first_chance_av'):
+    for r in rows:
+        if r['event'].startswith('first_chance_av'):
             raise RuntimeError('Acceso invalido')
-        if row['event'] != 'comparison':
-            continue
+    for row in stream(path):
         fn, case = row['function'], row['case']
         if fn not in seen or case in seen[fn]:
             raise RuntimeError('Caso repetido o funcion inesperada %s %d' % (fn, case))
@@ -138,4 +196,4 @@ if __name__ == '__main__':
         print(json.dumps(analyze(Path(sys.argv[2])), indent=2))
     else:
         manifest = json.loads((HERE / 'artifacts/build-manifest.json').read_text())
-        sys.exit(runtime_runner.run_case('fn217a', manifest['binaries']['asi'], analyze, 'Fn217A', timeout=9000, unhook='Audio,Global/SurfaceInfos_c' + os.environ.get('FN217A_UNHOOK', '')))
+        sys.exit(runtime_runner.run_case('fn217a', manifest['binaries']['asi'], analyze, 'Fn217A', stop_before_analysis=True, timeout=9000, unhook='Audio,Global/SurfaceInfos_c' + os.environ.get('FN217A_UNHOOK', '')))

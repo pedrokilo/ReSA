@@ -23,3 +23,6 @@ Una funcion por ruta (original = EXE con el hook apagado; candidato = DLL con SO
 
 ## Bancos que citan las direcciones
 Ninguno (grep de las 31 direcciones en `reversing/` sin este banco, `_handoff`, evidencia archivada ni informes). Los cuerpos llaman a los destructores de interp 0x4A8460/0x4A89B0/0x4A87F0 en el EXE; si el lote que los reconstruye cambia sus vtables, este banco los corre con el hook apagado y no se ve afectado.
+
+## Repeticiones
+- 2026-11-18, commit base 23c47ba081 (pase final B, riesgo ALTO): **APROBADO**, 507.904 pares (31 funciones x 16384) con 0 diferencias EXE/DLL y cada lado igual al oraculo independiente (`fixture_oracle.py`), compuertas y cobertura de ramas intactas. Dos corridas completas con el mismo resultado (`20261118-164123-590730` y `20261118-172122-617409`, esta ultima archivada en `reversing/CppTwelveLevel6Final/runs/Fn217A-20261118-172122-617409`, comparisons.jsonl.xz + RESULTADO.txt + summary.json). SHA256 de la sonda: `e4809bc696740d5293d5ed83b7130cbe40657db187a4c354fe673fae1fa3455b`. Cambio del banco: `run_local.py` usa el analizador en flujo (`stream`/`stream_common`, como Fn232A) y `stop_before_analysis=True`; el antiguo `probe_case.analyzer` cargaba todo el registro en memoria. Ninguna fuente de produccion cambio.

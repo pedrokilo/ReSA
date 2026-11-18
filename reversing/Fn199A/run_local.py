@@ -25,15 +25,15 @@ EXPECTED = {n: CASES for n in NAMES}
 GATES = ('stack_restored', 'nonvolatile_preserved', 'direction_flag_clear', 'seh_restored', 'route_ok', 'collaborators_dll', 'globals_restored', 'floating_state_restored')
 HOOKS = dict(zip(NAMES, oracle.ENTRIES))
 SLOTS = ()
-# colaboradores sustituidos por falsos: (direccion del EXE, hooked). Con hook RH en la DLL (apagado durante el banco; el mismo falso va en el cuerpo de la DLL) salvo 0x620B00 y 0x8214BD (sin hook: la DLL los llama por la
-# direccion del EXE): ver LiveComparison.hpp (Update).
+# colaboradores sustituidos por falsos: (direccion del EXE, hooked). Con hook RH en la DLL (apagado durante el banco; el mismo falso va en el cuerpo de la DLL) salvo 0x8214BD (sin hook: la DLL lo llama por la
+# direccion del EXE; 0x620B00 tiene hook desde el lote 198A): ver LiveComparison.hpp (Update).
 DLL_BODY_WITHOUT_HOOK = set()
 STUBBED = {n: [] for n in NAMES}
 REAL = {}
 NEW_POOL = (0x4B5570, True)
 STUBBED.update({
     NAMES[1]: [(0x61A5A0, True), (0x620780, True), (0x6786C0, True), (0x61A390, True)],
-    NAMES[3]: [(0x61A5A0, True), (0x620B00, False)],
+    NAMES[3]: [(0x61A5A0, True), (0x620B00, True)],
     NAMES[4]: [(0x61A5A0, True), (0x620E30, True)],
     NAMES[11]: [NEW_POOL, (0x4AEAC0, True)], NAMES[13]: [NEW_POOL, (0x4AECD0, True)],
     NAMES[14]: [(0x6181A0, True), (0x6181D0, True), (0x681740, True)],
@@ -41,11 +41,11 @@ STUBBED.update({
     NAMES[22]: [(0x5E3B60, True), (0x743C60, True)], NAMES[23]: [(0x5E8620, True)],
     NAMES[24]: [(0x59ACD0, True)], NAMES[25]: [(0x50A870, True), (0x8214BD, False)],
     NAMES[26]: [(0x56BA00, True)], NAMES[27]: [(0x59C910, True)], NAMES[28]: [(0x517330, True)], NAMES[29]: [(0x50E6D0, True)]})
-# reales (el EXE corre sus bytes; la DLL su cuerpo o su codigo en linea): CPed::IsAlive 0x5E0170 (hook apagado), _ftol 0x821B40 y ~CPlaceable 0x54F490 (sin hook)
+# reales (el EXE corre sus bytes; la DLL su cuerpo o su codigo en linea): CPed::IsAlive 0x5E0170 (hook apagado), _ftol 0x821B40 y ~CPlaceable 0x54F490 (con hook desde 198A)
 for _i in (7, 10, 12, 14, 16):
     REAL[NAMES[_i]] = [(0x5E0170, True)]
 REAL[NAMES[1]] = [(0x821B40, False)]
-REAL[NAMES[24]] = [(0x54F490, False)]
+REAL[NAMES[24]] = [(0x54F490, True)]
 WATCHED = set(HOOKS.values()) | set(SLOTS) | {a for lst in STUBBED.values() for a, _ in lst} | {a for lst in REAL.values() for a, _ in lst}
 COVER_FLOOR = 50
 COVER = json.loads((HERE / 'coverage.json').read_text()) if (HERE / 'coverage.json').exists() else {}
@@ -59,14 +59,73 @@ def tally(inp, cov):
         cov[m] = cov.get(m, 0) + 1
 
 
+def stream(path):
+    """filas de comparacion, una a una"""
+    with Path(path).open(encoding='utf-8') as fh:
+        for line in fh:
+            if line.startswith('{"accepted":'):
+                yield json.loads(line)
+
+
+def stream_common(path):
+    """Mismas comprobaciones que probe_case.analyzer, pero en flujo: aquel carga las ~2,3 GB del registro como objetos JSON (16,9 GB de RAM en la corrida de 16384 casos); aqui solo se
+    conservan los eventos de control y los identificadores de par."""
+    path = Path(path)
+    if not runtime_runner.terminal_event(path):
+        return None
+    total = sum(EXPECTED.values())
+    ctrl = []
+    pairs = set()
+    npairs = 0
+    counts = {f: 0 for f in EXPECTED}
+    bad = None
+    with path.open(encoding='utf-8') as fh:
+        for line in fh:
+            if not line.endswith('\n'):
+                continue
+            r = json.loads(line)
+            if r['event'] != 'comparison':
+                ctrl.append(r)
+                continue
+            npairs += 1
+            pairs.add(r['pair'])
+            if bad is None and not (r['equal'] and r['accepted'] and r['original'] == r['candidate']):
+                bad = r['pair']
+            counts[r['function']] = counts.get(r['function'], 0) + 1
+    fails = ['%s: %s/%s' % (r['function'], r['failures'], r['cases']) for r in ctrl if r['event'] == 'function_summary' and r['failures']]
+    finished = any(r['event'] in ('complete', 'error', 'assertion') for r in ctrl)
+    if fails and finished:
+        raise RuntimeError('Funciones con diferencias: ' + '; '.join(fails))
+    if any(r['event'] in ('assertion', 'error') for r in ctrl):
+        raise RuntimeError('Error dentro de GTA; consultar comparisons.jsonl.')
+    completed = [r for r in ctrl if r['event'] == 'complete']
+    if not completed:
+        return None
+    if npairs != total or pairs != set(range(total)):
+        raise RuntimeError('Cobertura incompleta.')
+    if bad is not None:
+        raise RuntimeError('Diferencia en ' + str(bad))
+    if counts != EXPECTED:
+        raise RuntimeError('Reparto de pares inesperado: ' + json.dumps(counts))
+    if len(completed) != 1 or not completed[0]['state_restored']:
+        raise RuntimeError('Estado no restaurado.')
+    return dict(pairs=total, pairs_per_function=counts, all_equal=True, state_restored=True, log_sha256=runtime_runner.digest(path))
+
+
 def analyze(path):
     path = Path(path)
     if not path.exists():
         return None
-    summary = common_analyzer(EXPECTED)(path)
+    summary = stream_common(path)
     if summary is None:
         return None
-    rows = [json.loads(line) for line in path.read_text(encoding='utf-8').splitlines()]
+    # una sola pasada en flujo (el registro pesa ~1 GB): las filas de comparacion se comprueban al leerlas y solo se conservan los eventos de control
+    ctrl = []
+    with path.open(encoding='utf-8') as fh:
+        for line in fh:
+            if not line.startswith('{"accepted":'):
+                ctrl.append(json.loads(line))
+    rows = ctrl
     b = [r for r in rows if r['event'] == 'begin']
     if len(b) != 1 or b[0].get('registered_hook') is not True or b[0].get('collaborators_stubbed') is not True:
         raise RuntimeError('Inicio sin hooks registrados, o sin los falsos de los colaboradores')
@@ -94,11 +153,10 @@ def analyze(path):
     resid = {fn: 0 for fn in NAMES}
     fam = {fn: {} for fn in NAMES}
     cov = {fn: {} for fn in NAMES}
-    for row in rows:
-        if row['event'].startswith('first_chance_av'):
+    for r in rows:
+        if r['event'].startswith('first_chance_av'):
             raise RuntimeError('Acceso invalido')
-        if row['event'] != 'comparison':
-            continue
+    for row in stream(path):
         fn, case = row['function'], row['case']
         if fn not in seen or case in seen[fn]:
             raise RuntimeError('Caso repetido o funcion inesperada %s %d' % (fn, case))
@@ -148,4 +206,4 @@ if __name__ == '__main__':
         print(json.dumps(analyze(Path(sys.argv[2])), indent=2))
     else:
         manifest = json.loads((HERE / 'artifacts/build-manifest.json').read_text())
-        sys.exit(runtime_runner.run_case('fn199a', manifest['binaries']['asi'], analyze, 'Fn199A', timeout=9000))
+        sys.exit(runtime_runner.run_case('fn199a', manifest['binaries']['asi'], analyze, 'Fn199A', stop_before_analysis=True, timeout=9000))
