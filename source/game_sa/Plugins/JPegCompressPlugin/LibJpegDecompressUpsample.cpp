@@ -170,9 +170,12 @@ void ExeJinitUpsampler(void* cinfo) {
             }
         }
         if (allocBuffer) {
+            // El EXE lee max_v_samp_factor, max_h_samp_factor, output_width y mem ANTES de llamar a jround_up (max_v ya queda empujado en la pila para alloc_sarray): un efecto lateral de
+            // jround_up sobre max_v no debe verse en la llamada a alloc_sarray (defecto hallado por el banco Fn235A: la version anterior lo releia despues).
             void* const mem = At<void*>(cinfo, 0x04);
+            const int32 maxVForAlloc = At<int32>(cinfo, 0x114);
             const int32 width = reinterpret_cast<int32(__cdecl*)(int32, int32)>(0x5CF8A0)(At<int32>(cinfo, 0x5C), At<int32>(cinfo, 0x110)); // jround_up
-            At<void**>(up, 0x0C + 4 * idx) = AllocSarrayViaMem(cinfo, mem, 1, static_cast<uint32>(width), static_cast<uint32>(At<int32>(cinfo, 0x114)));
+            At<void**>(up, 0x0C + 4 * idx) = AllocSarrayViaMem(cinfo, mem, 1, static_cast<uint32>(width), static_cast<uint32>(maxVForAlloc));
         }
         ++ci;
         compptr += 0x54;

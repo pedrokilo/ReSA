@@ -1,0 +1,134 @@
+005CCDF0 push        esi
+005CCDF1 mov         esi,dword ptr [esp+8]
+005CCDF5 mov         eax,dword ptr [esi+4]
+005CCDF8 push        edi
+005CCDF9 push        1Ch
+005CCDFB push        1
+005CCDFD push        esi
+005CCDFE call        dword ptr [eax]
+005CCE00 mov         edi,eax
+005CCE02 xor         ecx,ecx
+005CCE04 mov         dword ptr [esi+0000018Ch],edi
+005CCE0A mov         dword ptr [edi],5CCD70h
+005CCE10 mov         dword ptr [edi+8],ecx
+005CCE13 mov         dword ptr [edi+0Ch],ecx
+005CCE16 mov         al,byte ptr [esi+4Ah]
+005CCE19 add         esp,0Ch
+005CCE1C cmp         al,cl
+005CCE1E je          005CCE5B
+005CCE20 cmp         byte ptr [esp+10h],cl
+005CCE24 mov         eax,dword ptr [esi+00000114h]
+005CCE2A mov         dword ptr [edi+10h],eax
+005CCE2D je          005CCE43
+005CCE2F mov         ecx,dword ptr [esi]
+005CCE31 mov         dword ptr [ecx+14h],4
+005CCE38 mov         edx,dword ptr [esi]
+005CCE3A push        esi
+005CCE3B call        dword ptr [edx]
+005CCE3D add         esp,4
+005CCE40 pop         edi
+005CCE41 pop         esi
+005CCE42 ret
+005CCE43 mov         edx,dword ptr [esi+64h]
+005CCE46 imul        edx,dword ptr [esi+5Ch]
+005CCE4A mov         ecx,dword ptr [esi+4]
+005CCE4D push        eax
+005CCE4E push        edx
+005CCE4F push        1
+005CCE51 push        esi
+005CCE52 call        dword ptr [ecx+8]
+005CCE55 add         esp,10h
+005CCE58 mov         dword ptr [edi+0Ch],eax
+005CCE5B pop         edi
+005CCE5C pop         esi
+005CCE5D ret
+005CCE60 mov         eax,dword ptr [esp+4]
+005CCE64 mov         ecx,dword ptr [eax+000001A0h]
+005CCE6A mov         edx,dword ptr [eax+00000114h]
+005CCE70 mov         dword ptr [ecx+2Ch],edx
+005CCE73 mov         eax,dword ptr [eax+60h]
+005CCE76 mov         dword ptr [ecx+30h],eax
+005CCE79 ret
+005CCE80 push        ebx
+005CCE81 push        ebp
+005CCE82 push        esi
+005CCE83 push        edi
+005CCE84 mov         edi,dword ptr [esp+14h]
+005CCE88 mov         ebx,dword ptr [edi+000001A0h]
+005CCE8E mov         eax,dword ptr [ebx+2Ch]
+005CCE91 cmp         eax,dword ptr [edi+00000114h]
+005CCE97 jl          005CCEEF
+005CCE99 mov         eax,dword ptr [edi+24h]
+005CCE9C mov         ecx,dword ptr [edi+000000C4h]
+005CCEA2 xor         ebp,ebp
+005CCEA4 test        eax,eax
+005CCEA6 mov         dword ptr [esp+14h],ecx
+005CCEAA jle         005CCEE8
+005CCEAC lea         esi,[ebx+0Ch]
+005CCEB0 mov         edx,dword ptr [esi+28h]
+005CCEB3 mov         eax,dword ptr [esp+1Ch]
+005CCEB7 imul        edx,dword ptr [eax]
+005CCEBA mov         ecx,dword ptr [esp+18h]
+005CCEBE mov         eax,dword ptr [ecx+ebp*4]
+005CCEC1 push        esi
+005CCEC2 lea         ecx,[eax+edx*4]
+005CCEC5 mov         edx,dword ptr [esp+18h]
+005CCEC9 push        ecx
+005CCECA push        edx
+005CCECB push        edi
+005CCECC call        dword ptr [esi+10h]
+005CCECF mov         ecx,dword ptr [esp+24h]
+005CCED3 mov         eax,dword ptr [edi+24h]
+005CCED6 add         esp,10h
+005CCED9 inc         ebp
+005CCEDA add         ecx,54h
+005CCEDD add         esi,4
+005CCEE0 cmp         ebp,eax
+005CCEE2 mov         dword ptr [esp+14h],ecx
+005CCEE6 jl          005CCEB0
+005CCEE8 mov         dword ptr [ebx+2Ch],0
+005CCEEF mov         esi,dword ptr [edi+00000114h]
+005CCEF5 mov         edx,dword ptr [ebx+2Ch]
+005CCEF8 mov         eax,dword ptr [ebx+30h]
+005CCEFB sub         esi,edx
+005CCEFD cmp         esi,eax
+005CCEFF jbe         005CCF03
+005CCF01 mov         esi,eax
+005CCF03 mov         ebp,dword ptr [esp+28h]
+005CCF07 mov         eax,dword ptr [ebp]
+005CCF0A mov         ecx,dword ptr [esp+2Ch]
+005CCF0E sub         ecx,eax
+005CCF10 cmp         esi,ecx
+005CCF12 jbe         005CCF16
+005CCF14 mov         esi,ecx
+005CCF16 mov         edx,dword ptr [esp+24h]
+005CCF1A mov         ecx,dword ptr [edi+000001A4h]
+005CCF20 push        esi
+005CCF21 lea         eax,[edx+eax*4]
+005CCF24 mov         edx,dword ptr [ebx+2Ch]
+005CCF27 push        eax
+005CCF28 push        edx
+005CCF29 lea         eax,[ebx+0Ch]
+005CCF2C push        eax
+005CCF2D push        edi
+005CCF2E call        dword ptr [ecx+4]
+005CCF31 add         dword ptr [ebp],esi
+005CCF34 mov         edx,dword ptr [ebx+30h]
+005CCF37 mov         ecx,dword ptr [ebx+2Ch]
+005CCF3A add         ecx,esi
+005CCF3C add         esp,14h
+005CCF3F sub         edx,esi
+005CCF41 mov         dword ptr [ebx+30h],edx
+005CCF44 mov         dword ptr [ebx+2Ch],ecx
+005CCF47 mov         eax,dword ptr [edi+00000114h]
+005CCF4D pop         edi
+005CCF4E pop         esi
+005CCF4F mov         ebx,ecx
+005CCF51 pop         ebp
+005CCF52 cmp         ebx,eax
+005CCF54 pop         ebx
+005CCF55 jl          005CCF5D
+005CCF57 mov         eax,dword ptr [esp+0Ch]
+005CCF5B inc         dword ptr [eax]
+005CCF5D ret
+  005CCF60: 8B

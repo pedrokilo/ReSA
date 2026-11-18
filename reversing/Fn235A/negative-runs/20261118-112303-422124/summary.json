@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "85d9e5aba32e3d3f82b397e1f087800378ede37d46f05439eae5a55bd6e55a63",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: LibJpegDecompressUpsample::jinit_post_controller: 891/2048; LibJpegDecompressUpsample::sep_upsample: 526/2048; LibJpegDecompressUpsample::jinit_upsampler: 896/2048; LibJpegError::error_exit: 802/2048; LibJpegError::output_message: 913/2048; LibJpegError::jpeg_std_error: 898/2048; LibJpegMemory::alloc_small: 888/2048; LibJpegMemory::alloc_large: 778/2048; LibJpegMemory::alloc_sarray: 718/2048; LibJpegMemory::alloc_barray: 313/2048; LibJpegMemory::request_virt_sarray: 884/2048; LibJpegMemory::request_virt_barray: 902/2048; LibJpegMemory::realize_virt_arrays: 247/2048; LibJpegMemory::free_pool: 398/2048; LibJpegMemory::jinit_memory_mgr: 815/2048; LibJpegMemory::jpeg_get_small: 1023/2048; LibJpegMemory::jpeg_free_small: 1010/2048; LibJpegMemory::jpeg_get_large: 1020/2048; LibJpegMemory::jpeg_free_large: 1011/2048; LibJpegMemory::jpeg_mem_available: 244/2048; LibJpegMemory::jpeg_open_backing_store: 894/2048; LibJpegMemory::jpeg_mem_init: 814/2048; LibJpegMemory::jpeg_mem_term: 746/2048; LibJpegMemory::jdiv_round_up: 499/2048; LibJpegMemory::jround_up: 537/2048; LibJpegMemory::jcopy_sample_rows: 38/2048; LibJpegMemory::jzero_far: 756/2048; LibJpegCompressApi::jpeg_CreateCompress: 812/2048; LibJpegCompressApi::jpeg_suppress_tables: 881/2048; LibJpegCompressApi::jpeg_finish_compress: 867/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
