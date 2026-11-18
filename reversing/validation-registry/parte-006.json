@@ -2350,6 +2350,576 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre f8f2c804aa (HEAD de integracion del coordinador, con 212A y 213A) con los cambios del lote (ver artifacts/build-manifest.json). 12 funciones enganchadas de la parte de descompresion de la libjpeg 6b embebida en el EXE (jdhuff.c, jdinput.c y jdmainct.c; clase LibJpegDecompress, el listado las atribuia a FxEmitterBP_c); los cuatro ayudantes sin hook (initial_setup, per_scan_setup, latch_quant_tables y alloc_funny_pointers, con el cinfo en ESI o EBX) se ejercitan por consume_markers, start_input_pass y jinit_d_main_controller. Todos los colaboradores se llaman por punteros de la propia jpeg_decompress_struct (error_exit, emit_message, fill_input_buffer, alloc_small, alloc_sarray, reset_error_mgr, reset_marker_reader, read_markers, entropy->start_pass y coef->start_input_pass): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (jpeg_fill_bit_buffer desde jpeg_huff_decode y start_input_pass desde consume_markers) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla de cuantificacion nula o numero de tabla invalido en latch_quant_tables, tabla Huffman nula en jpeg_make_d_derived_tbl, mas de 4 componentes en el barrido, mas de 10 bloques por MCU), tablas Huffman con mas de 257 simbolos (el EXE desborda su pila), niveles sobresuscritos de mas de 2 codigos o por encima del nivel 8 (la lectura anticipada escribiria fuera de la tabla derivada), min_DCT_scaled_size = 0 o rgroup = 0 en set_bottom_pointers (division por cero), indice whichptr distinto de 0 y 1, estructuras reales construidas por el jpeg_decompress_struct del EXE (jinit_*, jpeg_read_header), flujos JPEG reales, punteros crudos o desalineados dentro de la estructura y la exactitud de los falsos.",
       "review_reference": "reversing/Fn233A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "jpeg_add_quant_table",
+        "address": "0x005C6BF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::jpeg_add_quant_table"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "jpeg_set_colorspace",
+        "address": "0x005C7130",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::jpeg_set_colorspace"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "jpeg_default_colorspace",
+        "address": "0x005C7420",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::jpeg_default_colorspace"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "jpeg_set_defaults",
+        "address": "0x005C7590",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::jpeg_set_defaults"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "jinit_c_prep_controller",
+        "address": "0x005C7920",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::jinit_c_prep_controller"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "expand_right_edge",
+        "address": "0x005C79F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::expand_right_edge"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "jinit_downsampler",
+        "address": "0x005C7DF0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::jinit_downsampler"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "jpeg_read_scanlines",
+        "address": "0x005C8690",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::jpeg_read_scanlines"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "jpeg_start_decompress",
+        "address": "0x005C87E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::jpeg_start_decompress"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "term_destination",
+        "address": "0x005C88F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::term_destination"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "jinit_d_coef_controller",
+        "address": "0x005C8E20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::jinit_d_coef_controller"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "build_ycc_rgb_table",
+        "address": "0x005C8EE0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::build_ycc_rgb_table"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "null_convert",
+        "address": "0x005C90D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::null_convert"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "jinit_color_deconverter",
+        "address": "0x005C9350",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::jinit_color_deconverter"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
+    },
+    {
+      "hook": {
+        "class": "ExeLibJpeg",
+        "fn_name": "jinit_inverse_dct",
+        "address": "0x005C9710",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn232A/validation-summary.json",
+        "sha256": "779fda2bafc164bd7254682177a3fae0797db910361c5ae3e6605fe6d73e2aaf",
+        "passed_path": [
+          "covered_functions",
+          "ExeLibJpeg::jinit_inverse_dct"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp": "1dfdb85867ecac4043dadb69edb76c460ee310b43a8426d3ec02dc215c994b41",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn232A/LiveComparison.hpp": "95258c5ef54c8aab261f13b46c32ad70fbb4ae839dc8ab55888f041c49736df1",
+        "reversing/Fn232A/Core.hpp": "8ab1d5ca1a9f07874ea5b78324ea80a7f31d90c39ffeb56195ebe7730c60f244",
+        "reversing/Fn232A/Fixtures.hpp": "5e9e89f2307636f52801eb1c705561c48a67e24bee30fb660f6035c74e7beb3b",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 18e55ebd78 (HEAD de integracion del coordinador, con 212A y 213A). 15 funciones de la libjpeg 6b embebida en el EXE (JPegCompress.cpp, espacio de nombres ExeLibJpeg): jpeg_add_quant_table, jpeg_set_colorspace, jpeg_default_colorspace, jpeg_set_defaults, jinit_c_prep_controller, expand_right_edge, jinit_downsampler, jpeg_read_scanlines, jpeg_start_decompress, term_destination, jinit_d_coef_controller, build_ycc_rgb_table (cinfo en EAX), null_convert, jinit_color_deconverter y jinit_inverse_dct. Los colaboradores con hook RH en la DLL (jpeg_alloc_quant_table 0x5C6BB0, jpeg_alloc_huff_table 0x5C6BD0, jinit_master_decompress 0x5CCCC0) llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); fwrite 0x823674 y fflush 0x823E86 del CRT del EXE (sin hook) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, reset_error_mgr, alloc_small, alloc_large, alloc_sarray, prepare_for_pass, pass_startup, progress_monitor, process_data, etc.) son funciones falsas del banco. jpeg_default_colorspace, jpeg_set_defaults, jpeg_start_decompress y jinit_color_deconverter incluyen en el lado del EXE el codigo REAL de rutinas internas que el EXE llama por direccion (jpeg_set_colorspace 0x5C7130, jpeg_add_quant_table 0x5C6BF0, add_huff_table 0x5C7010, std_huff_tables 0x5C70D0, output_pass_setup 0x5C8620 y build_ycc_rgb_table 0x5C8EE0) mientras que en el lado de la DLL corren sus copias en C++; el oraculo modela la composicion, de modo que add_huff_table, std_huff_tables y output_pass_setup (rutinas con registros de entrada, no enganchadas) quedan validadas solo a traves de sus llamadores. Fuera de los fixtures: divisiones por cero o desbordadas de idiv (jinit_c_prep_controller, jinit_downsampler), punteros de tablas basura distintos de nulo, pases de relleno de jpeg_start_decompress sin un efecto lateral que los anule (bucle infinito en el EXE tambien), recuentos de componentes enormes, num_rows de null_convert de 0x80000000 o mas, filas y anchuras que desborden el espacio de datos del caso, objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn232A/README.md"
     }
   ]
 }

@@ -1,0 +1,21 @@
+07:26:59 inicio
+07:26:59 gta_lock tomado
+07:27:11 build ok main
+08:57:02 run main: APROBADO: Fn232A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn232a\20261118-072713-839809 
+ronda 1 aplicada: 15 mutaciones
+09:07:56 run neg1: FALLO: Fn232A Funciones con diferencias: ExeLibJpeg::jpeg_add_quant_table: 891/2048; ExeLibJpeg::jpeg_set_colorspace: 889/2048; ExeLibJpeg::jpeg_default_colorspace: 247/2048; ExeLibJpeg::jpeg_set_defaults: 878/2048; ExeLibJpeg::jinit_c_prep_controller: 913/2048; ExeLibJpeg::expand_right_edge: 130/2048; ExeLibJpeg::jinit_downsampler: 905/2048; ExeLibJpeg::jpeg_read_scanlines: 663/2048; ExeLibJpeg::jpeg_start_decompress: 833/2048; ExeLibJpeg::term_destination: 912/2048; ExeLibJpeg::jinit_d_coef_controller: 884/2048; ExeLibJpeg::build_ycc_rgb_table: 895/2048; ExeLibJpeg::null_convert: 252/2048; ExeLibJpeg::jinit_color_deconverter: 911/2048; ExeLibJpeg::jinit_inverse_dct: 885/2048 Informe: E:\
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+09:07:56 informe neg1: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn232a/20261118-085717-941589
+{"ExeLibJpeg::jpeg_add_quant_table": 891, "ExeLibJpeg::jpeg_set_colorspace": 889, "ExeLibJpeg::jpeg_default_colorspace": 247, "ExeLibJpeg::jpeg_set_defaults": 878, "ExeLibJpeg::jinit_c_prep_controller": 913, "ExeLibJpeg::expand_right_edge": 130, "ExeLibJpeg::jinit_downsampler": 905, "ExeLibJpeg::jpeg_read_scanlines": 663, "ExeLibJpeg::jpeg_start_decompress": 833, "ExeLibJpeg::term_destination": 912, "ExeLibJpeg::jinit_d_coef_controller": 884, "ExeLibJpeg::build_ycc_rgb_table": 895, "ExeLibJpeg::null_convert": 252, "ExeLibJpeg::jinit_color_deconverter": 911, "ExeLibJpeg::jinit_inverse_dct": 885}
+pares 30720 con diferencias 11088 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
+
+ronda 2 aplicada: 15 mutaciones
+09:18:55 run neg2: FALLO: Fn232A Funciones con diferencias: ExeLibJpeg::jpeg_add_quant_table: 891/2048; ExeLibJpeg::jpeg_set_colorspace: 691/2048; ExeLibJpeg::jpeg_default_colorspace: 52/2048; ExeLibJpeg::jpeg_set_defaults: 894/2048; ExeLibJpeg::jinit_c_prep_controller: 458/2048; ExeLibJpeg::expand_right_edge: 75/2048; ExeLibJpeg::jinit_downsampler: 905/2048; ExeLibJpeg::jpeg_read_scanlines: 663/2048; ExeLibJpeg::jpeg_start_decompress: 286/2048; ExeLibJpeg::term_destination: 912/2048; ExeLibJpeg::jinit_d_coef_controller: 382/2048; ExeLibJpeg::build_ycc_rgb_table: 902/2048; ExeLibJpeg::null_convert: 81/2048; ExeLibJpeg::jinit_color_deconverter: 484/2048; ExeLibJpeg::jinit_inverse_dct: 619/2048 Informe: E:\JUE
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+09:18:55 informe neg2: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn232a/20261118-090832-497677
+{"ExeLibJpeg::jpeg_add_quant_table": 891, "ExeLibJpeg::jpeg_set_colorspace": 691, "ExeLibJpeg::jpeg_default_colorspace": 52, "ExeLibJpeg::jpeg_set_defaults": 894, "ExeLibJpeg::jinit_c_prep_controller": 458, "ExeLibJpeg::expand_right_edge": 75, "ExeLibJpeg::jinit_downsampler": 905, "ExeLibJpeg::jpeg_read_scanlines": 663, "ExeLibJpeg::jpeg_start_decompress": 286, "ExeLibJpeg::term_destination": 912, "ExeLibJpeg::jinit_d_coef_controller": 382, "ExeLibJpeg::build_ycc_rgb_table": 902, "ExeLibJpeg::null_convert": 81, "ExeLibJpeg::jinit_color_deconverter": 484, "ExeLibJpeg::jinit_inverse_dct": 619}
+pares 30720 con diferencias 8295 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
+
+09:19:27 fin
