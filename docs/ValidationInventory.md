@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 17/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11652 con evidencia histórica y 789 pendientes de validación en 38 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 17/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11677 con evidencia histórica y 764 pendientes de validación en 33 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Inventario de validación de funciones reconstruidas
@@ -10,10 +10,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11652 |
+| `validated=1` · evidencia aprobada vinculada | 11677 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11652 |
-| Sin evidencia aprobada vinculada en este registro | 789 |
+| Evidencia histórica vinculada; revisión pendiente | 11677 |
+| Sin evidencia aprobada vinculada en este registro | 764 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -10698,19 +10698,28 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | Furniture_c | `Constructor` | [Resumen](../reversing/Fn165A/validation-summary.json) |
 | FxEmitterBP_c | `Constructor` | [Resumen](../reversing/RequestedFxEmitterTwo/validation-summary-Constructor.json) |
 | FxEmitterBP_c | `CreateInstance` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
+| FxEmitterBP_c | `DestructorBody` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | FxEmitterBP_c | `FreePrtFromPrim` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
+| FxEmitterBP_c | `IsFxInfoPresent` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | FxEmitterBP_c | `Load` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
 | FxEmitterBP_c | `LoadTextures` | [Resumen](../reversing/RequestedFxEmitterTwo/validation-summary-LoadTextures.json) |
+| FxEmitterBP_c | `OperatorNew` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | FxEmitterBP_c | `Render` | [Resumen](../reversing/FxEmitterRender355/validation-summary.json) |
 | FxEmitterBP_c | `RenderHeatHaze` | [Resumen](../reversing/FxEmitterRender355/validation-summary.json) |
+| FxEmitterBP_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | FxEmitterBP_c | `Update` | [Resumen](../reversing/FxEmitterCore355/validation-summary.json) |
 | FxEmitterBP_c | `UpdateParticle` | [Resumen](../reversing/FxEmitterParticle355/validation-summary.json) |
 | FxEmitterPrt_c | `Constructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | FxEmitterPrt_c | `operator new[]` | [Resumen](../reversing/Pools56/validation-summary.json) |
 | FxEmitter_c | `AddParticle-matrix` | [Resumen](../reversing/FxEmitterAddParticleMat31/validation-summary.json) |
 | FxEmitter_c | `AddParticle-vector` | [Resumen](../reversing/FxEmitterAddParticle30/validation-summary.json) |
+| FxEmitter_c | `ConstructorBody` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | FxEmitter_c | `CreateParticle` | [Resumen](../reversing/FxEmitterCreateParticle30/validation-summary.json) |
 | FxEmitter_c | `CreateParticles` | [Resumen](../reversing/Dependencies22C/validation-summary-reval-20261019.json) |
+| FxEmitter_c | `Init` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| FxEmitter_c | `Reset` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| FxEmitter_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| FxEmitter_c | `Update` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | FxFrustumInfo_c | `Constructor` | [Resumen](../reversing/Fn219A/validation-summary.json) |
 | FxFrustumInfo_c | `IsCollision` | [Resumen](../reversing/DependenciesWorldLeaf3/validation-summary.json) |
 | FxInfoAnimTexture_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
@@ -10783,6 +10792,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxInfoJitter_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoJitter_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoManager_c | `AddFxInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
+| FxInfoManager_c | `DestructorBody` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | FxInfoManager_c | `Load` | [Resumen](../reversing/FxInfoLoad28/validation-summary.json) |
 | FxInfoManager_c | `ProcessEmissionInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
 | FxInfoManager_c | `ProcessMovementInfo` | [Resumen](../reversing/Misc8/validation-summary.json) |
@@ -10814,6 +10824,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxInfoWind_c | `Constructor` | [Resumen](../reversing/Fn216A/validation-summary.json) |
 | FxInfoWind_c | `DestructorBody` | [Resumen](../reversing/Fn217A/validation-summary.json) |
 | FxInfoWind_c | `ScalarDeletingDestructor` | [Resumen](../reversing/Fn217A/validation-summary.json) |
+| FxInfo_c | `DestructorBody` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | FxInterpInfo255_c | `Constructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInterpInfo255_c | `Destructor` | [Resumen](../reversing/Fn218A/validation-summary.json) |
 | FxInterpInfo255_c | `GetVal` | [Resumen](../reversing/FxInterp61/validation-summary.json) |
@@ -11154,6 +11165,17 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | LegacyStdString | `Erase` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | LegacyStdString | `Grow` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | LegacyStdString | `Tidy` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LibJpegCompressEncode | `grayscale_convert` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| LibJpegCompressEncode | `jinit_c_coef_controller` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| LibJpegCompressEncode | `jinit_c_main_controller` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| LibJpegCompressEncode | `jinit_color_converter` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| LibJpegCompressEncode | `jinit_compress_master` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| LibJpegCompressEncode | `jinit_forward_dct` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| LibJpegCompressEncode | `jinit_huff_encoder` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| LibJpegCompressEncode | `jpeg_gen_optimal_table` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| LibJpegCompressEncode | `jpeg_make_c_derived_tbl` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| LibJpegCompressEncode | `jpeg_start_compress` | [Resumen](../reversing/Fn230A/validation-summary.json) |
+| LibJpegCompressEncode | `jpeg_write_scanlines` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | Light | `ActivateDirectional` | [Resumen](../reversing/Light27/validation-summary.json) |
 | Light | `AddAnExtraDirectionalLight` | [Resumen](../reversing/Light27/validation-summary.json) |
 | Light | `DeActivateDirectional` | [Resumen](../reversing/Light27/validation-summary.json) |
@@ -11367,6 +11389,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RpWorld | `RpWorldDestroy` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `RpWorldForAllMaterials` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `RpWorldForAllWorldSectors` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `RpWorldPluginAttach` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | RpWorld | `RpWorldRegisterPlugin` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpWorldRegisterPluginStream` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
 | RpWorld | `RpWorldSectorGetWorld` | [Resumen](../reversing/Fn229A/validation-summary.json) |
@@ -11387,6 +11410,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RpWorld | `_rpD3D9WorldSectorPipelineOpen` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `_rpGeometryDestroyUnreferenced` | [Resumen](../reversing/Fn228A/validation-summary.json) |
 | RpWorld | `_rpGeometryListDeinitialize` | [Resumen](../reversing/Fn227A/validation-summary.json) |
+| RpWorld | `_rpLightTieDestroy` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | RpWorld | `_rpMaterialListAppendMaterial` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `_rpMaterialListDeinitialize` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `_rpMaterialListFindMaterialIndex` | [Resumen](../reversing/Dependencies25B/validation-summary.json) |
@@ -11399,6 +11423,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | RpWorld | `_rpMaterialSetDefaultSurfaceProperties` | [Resumen](../reversing/Fn228A/validation-summary.json) |
 | RpWorld | `_rpMeshHeaderCreate` | [Resumen](../reversing/Dependencies25C/validation-summary.json) |
 | RpWorld | `_rpSectorDefaultRenderCallBack` | [Resumen](../reversing/Fn229A/validation-summary.json) |
+| RpWorld | `_rpTieDestroy` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | RpWorld | `_rpWorldSectorDeinstanceAll` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | RpWorld | `_rpWorldSectorDestroyRecurse` | [Resumen](../reversing/Fn229A/validation-summary.json) |
 | Rs | `RsAlwaysOnTop` | [Resumen](../reversing/Rs27/validation-summary.json) |
@@ -12563,9 +12588,9 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FurnitureManager_c` | 9 | 0 | 9 | 0 |
 | `FurnitureSubGroup_c` | 6 | 0 | 6 | 0 |
 | `Furniture_c` | 1 | 0 | 1 | 0 |
-| `FxEmitterBP_c` | 13 | 0 | 9 | 4 |
+| `FxEmitterBP_c` | 13 | 0 | 13 | 0 |
 | `FxEmitterPrt_c` | 2 | 0 | 2 | 0 |
-| `FxEmitter_c` | 9 | 0 | 4 | 5 |
+| `FxEmitter_c` | 9 | 0 | 9 | 0 |
 | `FxFrustumInfo_c` | 2 | 0 | 2 | 0 |
 | `FxInfoAnimTexture_c` | 3 | 0 | 3 | 0 |
 | `FxInfoAttractLine_c` | 3 | 0 | 3 | 0 |
@@ -12590,7 +12615,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxInfoGroundCollide_c` | 3 | 0 | 3 | 0 |
 | `FxInfoHeatHaze_c` | 3 | 0 | 3 | 0 |
 | `FxInfoJitter_c` | 3 | 0 | 3 | 0 |
-| `FxInfoManager_c` | 6 | 0 | 5 | 1 |
+| `FxInfoManager_c` | 6 | 0 | 6 | 0 |
 | `FxInfoNoise_c` | 3 | 0 | 3 | 0 |
 | `FxInfoRotSpeed_c` | 3 | 0 | 3 | 0 |
 | `FxInfoSelfLit_c` | 3 | 0 | 3 | 0 |
@@ -12600,7 +12625,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxInfoTrail_c` | 3 | 0 | 3 | 0 |
 | `FxInfoUnderwater_c` | 3 | 0 | 3 | 0 |
 | `FxInfoWind_c` | 3 | 0 | 3 | 0 |
-| `FxInfo_c` | 1 | 0 | 0 | 1 |
+| `FxInfo_c` | 1 | 0 | 1 | 0 |
 | `FxInterpInfo255_c` | 4 | 0 | 4 | 0 |
 | `FxInterpInfo32_c` | 4 | 0 | 4 | 0 |
 | `FxInterpInfoFloat_c` | 4 | 0 | 4 | 0 |
@@ -12627,7 +12652,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `LegacyStdString` | 6 | 0 | 6 | 0 |
 | `LibJpegCompress` | 18 | 0 | 0 | 18 |
 | `LibJpegCompressApi` | 3 | 0 | 0 | 3 |
-| `LibJpegCompressEncode` | 11 | 0 | 0 | 11 |
+| `LibJpegCompressEncode` | 11 | 0 | 11 | 0 |
 | `LibJpegDecompress` | 22 | 0 | 0 | 22 |
 | `LibJpegDecompressApi` | 4 | 0 | 0 | 4 |
 | `LibJpegDecompressUpsample` | 3 | 0 | 0 | 3 |
@@ -12651,7 +12676,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RpMatFX` | 28 | 0 | 0 | 28 |
 | `RpSkin` | 34 | 0 | 1 | 33 |
 | `RpUVAnim` | 16 | 0 | 2 | 14 |
-| `RpWorld` | 197 | 0 | 100 | 97 |
+| `RpWorld` | 197 | 0 | 103 | 94 |
 | `Rs` | 33 | 0 | 33 | 0 |
 | `RtAnim` | 10 | 0 | 3 | 7 |
 | `RtBMP` | 2 | 0 | 0 | 2 |

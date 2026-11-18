@@ -25,7 +25,7 @@
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 101,
     "catalog_rows_linked_by_hook_address": 1174,
-    "validated_reconstructed_own_cpp_definitions": 13579,
+    "validated_reconstructed_own_cpp_definitions": 13604,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 17
   },
@@ -896,7 +896,7 @@
     "source/game_sa/Fx/FxBox.h": "3232c761508369e0e9484871ccc25c6318ef508d6c6437d9a200b3213c8585d3",
     "source/game_sa/Fx/FxEmitter.cpp": "591f286cbae2ac5c943b72622aa41b47519c451bba54504adca6619fb1d9cade",
     "source/game_sa/Fx/FxEmitter.h": "96dbd9a2fac41759e7abf278f60a2b8a7bce62d2e05ea4f3c77cb5b542ff08d6",
-    "source/game_sa/Fx/FxEmitterBP.cpp": "29f52fed31fd33efbe59d298f45c28997dd2e693fca6ba4f90363bfaddfcab8f",
+    "source/game_sa/Fx/FxEmitterBP.cpp": "4ece023132f2d327a36f5a544aa98ddd4ec53a0a327cb28f517b3da82c6497a3",
     "source/game_sa/Fx/FxEmitterBP.h": "56a2a609dd12fc61d2218966cc0cbbd306e68a0a6e6a00068b81df6438c2875a",
     "source/game_sa/Fx/FxEmitterPrt.cpp": "8879f818b790a41b4a398e8934adc6b235ddd272f0a9ee460f404aee52ab7a60",
     "source/game_sa/Fx/FxEmitterPrt.h": "45447d3bd57b0d417bbd2842c43d38d3993ac677902ff56c5f7754330df2205a",
@@ -1194,7 +1194,7 @@
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp": "5537dadb64d253d1ca6297e3070152a7431fca8b663ace16ad1fbbf1e6a67d56",
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.h": "480ecd5ad634dde4f265ea55f8e19bcf1288af3747b164285cf7bafbcdc6ae02",
-    "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "8a58f33634b7b35a9fbae1a02b68bbe44cd32e90652245113613c64004e5dc74",
+    "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp": "551927b538d30dc81e49393260d00d0e0d3476659b1c9e04e985007e30d39c64",
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.h": "091fbb0c02f8cb49b6bbbd6954596591cfbada2ad968f11825a4490591294ccb",
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp": "059ecc72ffd3dedff1cfe869d72582bd2221a95d54b8d5e9ec0679d2ebbc1b59",
     "source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.h": "b7b8c5d8798112ce188a1a5914c97ef414b29049c90c23f96d9c855fe52fdaa1",
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "74c247a7d3d4a99f511eb3bbe938dbbb98cb3261a3e45faf48abdd46f51be076",
+    "hooks.csv": "259b2b76482719495c449a0318daa9f46e45e50e92399a1b6cefbf64298a4da1",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "1f7e7fa6a04d2dde3bc27539fc62e3b6a8006791a47e7a426e8d227cdda1e73a",
+  "migration_registry_sha256": "7f564f006d12dd9c985bc49c41808198f207f9635d539332ab7d391bf39417d6",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",
