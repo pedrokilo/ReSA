@@ -63,3 +63,13 @@ Detalles de fidelidad: el EXE reutiliza las ranuras de argumentos de la pila com
 - Los punteros a texturas/buffers/declaraciones son valores crudos nunca desreferenciados. El desplazamiento 0x8D12C4 se lee del juego (4-alineado, ≥ 0x14, < 0x7C).
 - Un compilador que inlinease `_rwD3D9EnableClippingIfNeeded` dentro de la función haría fallar el banco (la traza perdería el evento 1), no pasar en silencio.
 - Si el stub de `FakeFpRS` no se invoca (la DLL llamase a otra entrada de la tabla), el banco fallaría por traza.
+
+## Repeticiones
+
+### 2026-11-18 (pase final A, commit base 23c47ba081): APROBADO, 6144 pares, 0 diferencias
+
+- Motivo: los lotes R27A/R28A/212A convirtieron en C++ con hook los colaboradores que el banco falseaba solo por la direccion del EXE (`RwD3D9GetRenderState`, `RwD3D9SetTexture`, `RwD3D9SetRenderState`, `RwD3D9SetTextureStageState`, `_rwD3D9SetStreams`, `RwD3D9SetSurfaceProperties`, `RxD3D9InstanceDataRender` y `...Lighting`); la funcion los llama ahora directamente en C++, sin pasar por el EXE, y el primer intento fallo dentro de GTA (violacion de acceso en `_rwD3D9SetStreams` contra el dispositivo D3D real). Fallo del banco, no de la fuente de produccion.
+- Cambio en el banco (la comparacion no se debilita: mismos falsos, misma traza, mismas comprobaciones): `LiveComparison.hpp` resuelve antes de parchear el cuerpo de la DLL de esos 8 colaboradores y `Core.hpp` (`Env::dllBody`, `InstallPatches`) instala el MISMO falso tambien en ese cuerpo, como ya hacia con `_rwD3D9EnableClippingIfNeeded`; la tabla de parches pasa de 16 a 32 entradas (con 21 parches desbordaba la pila: salida 0xC0000409).
+- `fixture_oracle.py` (autoprueba): ok. Oraculo independiente: coincide (`summary.json`: `all_equal` true, `state_restored` true, cobertura completa).
+- SHA256 de la sonda ejecutada: `37b770b2d676f789e64f5ac7510c5e3ea6ee96f8c2d521fd9ea262786d6e3e9d`.
+- Evidencia: `reversing/CppTwelveLevel6Final/runs/CBDNRenderCB30-20261118-164019-862936`.

@@ -188,6 +188,7 @@ struct Env {
     uintptr_t asi{},game{};
     std::unique_ptr<HookRoute> route;
     std::vector<Watch> watches;          // 0x5D6480 y todas las entradas parcheadas / ejecutadas de verdad: deben seguir siendo el codigo original al volver cada llamada
+    std::array<uintptr_t,12> dllBody{};  // cuerpos de la DLL de los colaboradores que el codigo actual llama en C++ (no por el EXE), en el orden de ExeFakes(); 0 = sin cuerpo propio (se resuelven ANTES de parchear)
     Pair pClip{};                        // _rwD3D9EnableClippingIfNeeded: EXE 0x756D90 + cuerpo de la DLL (resuelto ANTES de escribir ningun parche)
     bool WatchesIntact()const{return std::ranges::all_of(watches,[](const auto& w){return w.Intact();});}
 };
@@ -202,13 +203,14 @@ inline const std::array<ExeFake,12>& ExeFakes(){
 }
 // Parches de entrada activos SOLO durante la llamada (RAII, orden inverso).
 struct Patches {
-    std::array<std::optional<ReversingProbe::EntryPatch>,16> p;int n{};
+    std::array<std::optional<ReversingProbe::EntryPatch>,32> p;int n{};
     void AddAt(uintptr_t at,void* stub){if(at)p[n++].emplace(at,stub);}
     ~Patches(){for(int i=n-1;i>=0;--i)p[i].reset();}
 };
 inline void InstallPatches(Env& e,Patches& p){
     for(const auto& f:ExeFakes())p.AddAt(f.address,f.stub);
     if(e.pClip.dll&&e.pClip.dll!=e.pClip.exe)p.AddAt(e.pClip.dll,reinterpret_cast<void*>(&FakeClip));
+    {const auto& t=ExeFakes();for(size_t i=1;i<t.size();++i)if(e.dllBody[i]&&e.dllBody[i]!=t[i].address)p.AddAt(e.dllBody[i],t[i].stub);}
 }
 // Ruta: original = hook de la ruta apagado; candidato = SOLO el hook de la ruta encendido (cuerpo en el modulo ASI). `exeOnly`: direcciones del EXE que no pueden saltar a la DLL
 // (sscanf, _ftol2, strncpy del EXE: se ejecutan de verdad). Los parches de los colaboradores se instalan despues de comprobar la ruta y se quitan antes de volver.
@@ -326,6 +328,7 @@ inline void Run(Env& env, bool ready, const json& registered, const json& bodies
     const uintptr_t body = env.route ? env.route->Body() : 0;
     ready &= body && ModuleOf(body) == env.asi;
     ready &= env.pClip.dll && ModuleOf(env.pClip.dll) == env.asi;
+    for (const auto d : env.dllBody) ready &= !d || ModuleOf(d) == env.asi;
     env.watches.emplace_back(0x5D6480, 16);
     env.watches.emplace_back(0x821B40, 16);
     for (const auto& f : ExeFakes()) env.watches.emplace_back(f.address, 16);
@@ -334,7 +337,7 @@ inline void Run(Env& env, bool ready, const json& registered, const json& bodies
     SaveFP(savedFP.data()); savedMXCSR = ReadMXCSR(); savedFPActive = true;
     const i32 envOff = *reinterpret_cast<const i32*>(uintptr_t(0x8D12C4));
     json stubbed = json::array();
-    for (const auto& f : ExeFakes()) stubbed.push_back({{"exe", f.address}, {"dll", f.address == 0x756D90 ? env.pClip.dll : uintptr_t(0)}});
+    {size_t k = 0; for (const auto& f : ExeFakes()) { stubbed.push_back({{"exe", f.address}, {"dll", f.address == 0x756D90 ? env.pClip.dll : env.dllBody[k]}}); ++k; }}
     Write({{"event", "begin"}, {"registered_hook", ready}, {"registered", registered}, {"functions", 1}, {"pairs", kCases}, {"cases", {{"CCustomBuildingDNPipeline::CustomPipeRenderCB", kCases}}},
            {"direct_functions", json::array()}, {"compare_dead_x87_registers", kCompareDeadX87Registers}, {"compare_volatile_registers", kCompareVolatileRegisters},
            {"x87_comparison", "fcw+top+ftw+valid_st; ignora FSW banderas/CC, FIP/FDP y registros vacios; MXCSR sin banderas"}, {"collaborators_stubbed", true},

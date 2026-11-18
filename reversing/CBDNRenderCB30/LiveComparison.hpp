@@ -6,6 +6,7 @@
 #include "PlayerPed.h"
 #include "CutsceneMgr.h"
 #include "Pipelines/CustomBuilding/CustomBuildingDNPipeline.h"
+#include "Pipelines/PipelinesCommon.hpp"
 #include "../ProbeRuntime.hpp"
 #include "../OriginalDependencies499/HookRoute.hpp"
 #include "Core.hpp"
@@ -29,6 +30,11 @@ inline void Update() {
     bool ready=env.route->Registered()&&env.route->Body()&&ModuleOf(env.route->Body())==env.asi;
     // Cuerpo de la DLL de _rwD3D9EnableClippingIfNeeded (rpworld.cpp, sin hook): se resuelve ANTES de escribir ningun parche (PROCESO.md, trampas).
     env.pClip={0x756D90,Body(std::bit_cast<uintptr_t>(&_rwD3D9EnableClippingIfNeeded))};
+    // Cuerpos de la DLL de los colaboradores (desde los lotes R27A/R28A/212A son C++ con hook y la funcion los llama directamente, ya no pasan por el EXE): mismo falso que en la direccion del EXE.
+    env.dllBody[1]=Body(std::bit_cast<uintptr_t>(&RwD3D9GetRenderState));env.dllBody[2]=Body(std::bit_cast<uintptr_t>(&RwD3D9SetTexture));
+    env.dllBody[3]=Body(std::bit_cast<uintptr_t>(&RwD3D9SetRenderState));env.dllBody[4]=Body(std::bit_cast<uintptr_t>(&RwD3D9SetTextureStageState));
+    env.dllBody[6]=Body(std::bit_cast<uintptr_t>(&_rwD3D9SetStreams));env.dllBody[9]=Body(std::bit_cast<uintptr_t>(&RwD3D9SetSurfaceProperties));
+    env.dllBody[10]=Body(std::bit_cast<uintptr_t>(&RxD3D9InstanceDataRender));env.dllBody[11]=Body(std::bit_cast<uintptr_t>(&RxD3D9InstanceDataRenderLighting));
     Run(env,ready,registered,bodies);
 }
 }
