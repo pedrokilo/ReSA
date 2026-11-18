@@ -1,10 +1,28 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11732 con evidencia histórica y 709 pendientes de validación en 30 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11736 con evidencia histórica y 705 pendientes de validación en 29 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Ruta hacia un exe que corra sin el original
 
 Documento de planificación (01/11/2026). Las cifras de catálogo e imports están medidas; los costes y plazos son estimaciones y están marcados como tales. Los datos de `librw` salen del experimento en `D:\Original\librw-test` (no versionado).
+
+## Actualización del 18/11/2026: cambio de plan para RenderWare
+
+Este documento se escribió el 01/11/2026, cuando RenderWare no estaba reconstruido y `librw` era el atajo. Hoy el código del juego (0x401000–0x74FFFF) y RenderWare (724 de 724 funciones) están reconstruidos en C++ y en `main`; falta validarlos contra el EXE. Por eso:
+
+- **RenderWare se queda con la reconstrucción propia.** Una vez validada al 100 %, es un RenderWare igual al del EXE: no hace falta escribir plugins, capa de compatibilidad ni pipelines nuevos para `librw`, ni volver a comprobar que se ve igual.
+- **`librw` deja de ser el camino principal.** Queda solo como idea opcional para portabilidad (correr fuera de Windows o con OpenGL o Vulkan). Los pasos 2, 3 y 4 de la hoja de ruta original y la fila de RenderWare de las tablas de abajo quedan como contexto histórico.
+- **Lo que sigue fuera de la reconstrucción:** las funciones de libpng, zlib y D3DX9 que se enlazan en lugar de reconstruirse (libpng y zlib son abiertas; D3DX9 es una DLL de Microsoft que hay que dejar disponible), las 54 funciones de RenderWare no reconstruibles, QuickTime/QTML (sustituir), DirectDraw (reescribir con D3D9/DXGI) y el CRT.
+- **Las 118 funciones excluidas del juego** (73 `__usercall`, 31 saltos puros, 14 fragmentos internos y otras; [excluidas.csv](JuegoExe/excluidas.csv)): los saltos y fragmentos se validan por inspección de bytes; los `__usercall` alcanzables desde una función validada se prueban a través de ella; el resto conserva el código original del EXE, con la razón anotada. Se revisa la lista al cerrar el juego.
+
+### Orden vigente
+
+1. **Cerrar la validación del código del juego** (lotes 235A a 239A en curso; después un pase final de bancos viejos).
+2. **Validar RenderWare** según [plan-validacion.md](RenderWareExe/plan-validacion.md) (652 entradas por validar).
+3. **Cerrar las excluidas del juego** con el criterio de arriba.
+4. **Sustituir lo externo:** QuickTime, DirectDraw, CRT.
+5. **Cambio de método de validación.** Sin el EXE desaparece la comparación par a par: guardar salidas del EXE como referencia o comparar imágenes.
+6. **Opcional:** `librw` como backend alternativo para portabilidad.
 
 ## Objetivo
 
