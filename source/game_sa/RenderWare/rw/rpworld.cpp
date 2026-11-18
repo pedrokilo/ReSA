@@ -5949,7 +5949,7 @@ RwBool RpWorldDestroy(RpWorld* world) {
 
 // 0x74F760
 // Reserva el mundo (tamano del registro de plugins 0x8D62D0, 0x3000B; sin memoria RWERROR(NOMEM, tamano) y 0), lo inicializa (tipo 7, lista de materiales
-// vacia, flags 0, orden FRONT2BACK) y reserva el sector raiz (tamano del registro 0x8D736C; fallo: RWERROR con el argumento 4 como el EXE, libera el mundo y 0).
+// vacia, flags 0, orden de render 2) y reserva el sector raiz (tamano del registro 0x8D736C; fallo: RWERROR con el argumento 4 como el EXE, libera el mundo y 0).
 // El sector: tipo -1, listas vacias, cajas = *boundingBox. El mundo: origen 0, cajas = *boundingBox, listas vacias, renderCallBack = 0x74EEC0 (direccion del
 // EXE), pipeline 0. Se registra en la lista de mundos (entrada 0x40507, sin comprobar el fallo), InitObject del mundo y del sector y RpWorldUnlock; si este
 // falla se deshace todo como RpWorldDestroy y devuelve 0.
@@ -5966,7 +5966,7 @@ RpWorld* RpWorldCreate(RwBBox* boundingBox) {
     world->object.parent = nullptr;
     _rpMaterialListInitialize(&world->matList);
     world->flags = 0;
-    world->renderOrder = rpWORLDRENDERFRONT2BACK;
+    world->renderOrder = static_cast<RpWorldRenderOrder>(2); // el EXE guarda 2 (el enumerador FRONT2BACK del encabezado vale 1: el banco Fn229A encontro la diferencia)
 
     RpWorldSector* const sector = static_cast<RpWorldSector*>(RwMalloc(s_sectorTKList229.sizeOfStruct, kWorldAllocHint));
     if (!sector) {

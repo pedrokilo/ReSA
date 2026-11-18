@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "functions": [
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpWorldForAllMaterials",
+        "address": "0x0074FBC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn229A/validation-summary.json",
+        "sha256": "17b4592f5dd128b3086afb25cbdf8bd194ba0a18d3d8f3dadf30990bbc4b49d4",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpWorldForAllMaterials"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "11535bb4de7ba3ec7d8fed46f23182e2916a122bea5bb34db45a9ba708aea178",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn229A/LiveComparison.hpp": "7502601249a8b8b8dc0ede498c1c546e9e59bf0730129363d9fba32d85643d6f",
+        "reversing/Fn229A/Core.hpp": "14e390d70f467c2ce003bc8f16158eb6c3f78f4a57abdb472b5bc03d5fc08942",
+        "reversing/Fn229A/Fixtures.hpp": "fdf749bcfba6561c12b6a8de1e927cb2ebf649a4b703aa733bace0384998ecbd",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwTextureStreamGetSize, _rwPluginRegistryGetSize, RpMaterialDestroy, RpMaterialStreamGetSize, RpMaterialStreamRead, _rpMaterialListAppendMaterial (con hueco: guarda, refCount++ y numMaterials++), _rpMaterialListDeinitialize (solo en RpWorldDestroy y RpWorldCreate), _rpMaterialListInitialize, lectura de flujos (RwStreamFindChunk, RwStreamReadInt32), errores (_rwerror, RwErrorSet), RwFreeListCreate/Destroy, RxPipelineCreate/Lock/AddFragment/Unlock/Execute, _rxPipelineDestroy, RxNodeDefinitionGetD3D9WorldSectorAllInOne y ...AtomicAllInOne, RpWorldSetDefaultSectorPipeline, RpAtomicSetDefaultPipeline, _rwD3D9LightsOpen/Close, D3D9LightPluginAttach, D3D9GeometryPluginAttach, _rwD3D9DeviceGet/SetRestoreCallback, _rpD3D9VertexShaderCacheOpen/Purge, RwResourcesFreeResEntry, _rpTieDestroy, _rpLightTieDestroy, _rwPluginRegistryInitObject/DeInitObject, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpWorldUnlock, _rpWorldSectorDeinstanceAll y _rpWorldSectorDestroyRecurse; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corre real en la DLL _rpMaterialListDeinitialize dentro de _rpMaterialListStreamRead (el EXE lo lleva en linea). Fuera de los fixtures: punteros nulos o invalidos desreferenciados (hijos nulos en arboles recorridos por RpWorldUnlock, RpWorldForAllWorldSectors y RpWorldSectorGetWorld), contadores de 16 bits que dan la vuelta (mas de 65535 materiales unicos en RpWorldUnlock), numTriangles de 0x8000 o mas solo con RpBuildMeshCreate nulo o con la malla ya construida, listas de enlaces no circulares, arboles de mas de 64 niveles, el fallo de reserva del vector de indices de _rpMaterialListStreamRead (el EXE no lo comprueba) y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn229A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpWorldForAllWorldSectors",
+        "address": "0x0074FC70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn229A/validation-summary.json",
+        "sha256": "17b4592f5dd128b3086afb25cbdf8bd194ba0a18d3d8f3dadf30990bbc4b49d4",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpWorldForAllWorldSectors"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "11535bb4de7ba3ec7d8fed46f23182e2916a122bea5bb34db45a9ba708aea178",
+        "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn229A/LiveComparison.hpp": "7502601249a8b8b8dc0ede498c1c546e9e59bf0730129363d9fba32d85643d6f",
+        "reversing/Fn229A/Core.hpp": "14e390d70f467c2ce003bc8f16158eb6c3f78f4a57abdb472b5bc03d5fc08942",
+        "reversing/Fn229A/Fixtures.hpp": "fdf749bcfba6561c12b6a8de1e927cb2ebf649a4b703aa733bace0384998ecbd",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwTextureStreamGetSize, _rwPluginRegistryGetSize, RpMaterialDestroy, RpMaterialStreamGetSize, RpMaterialStreamRead, _rpMaterialListAppendMaterial (con hueco: guarda, refCount++ y numMaterials++), _rpMaterialListDeinitialize (solo en RpWorldDestroy y RpWorldCreate), _rpMaterialListInitialize, lectura de flujos (RwStreamFindChunk, RwStreamReadInt32), errores (_rwerror, RwErrorSet), RwFreeListCreate/Destroy, RxPipelineCreate/Lock/AddFragment/Unlock/Execute, _rxPipelineDestroy, RxNodeDefinitionGetD3D9WorldSectorAllInOne y ...AtomicAllInOne, RpWorldSetDefaultSectorPipeline, RpAtomicSetDefaultPipeline, _rwD3D9LightsOpen/Close, D3D9LightPluginAttach, D3D9GeometryPluginAttach, _rwD3D9DeviceGet/SetRestoreCallback, _rpD3D9VertexShaderCacheOpen/Purge, RwResourcesFreeResEntry, _rpTieDestroy, _rpLightTieDestroy, _rwPluginRegistryInitObject/DeInitObject, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpWorldUnlock, _rpWorldSectorDeinstanceAll y _rpWorldSectorDestroyRecurse; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corre real en la DLL _rpMaterialListDeinitialize dentro de _rpMaterialListStreamRead (el EXE lo lleva en linea). Fuera de los fixtures: punteros nulos o invalidos desreferenciados (hijos nulos en arboles recorridos por RpWorldUnlock, RpWorldForAllWorldSectors y RpWorldSectorGetWorld), contadores de 16 bits que dan la vuelta (mas de 65535 materiales unicos en RpWorldUnlock), numTriangles de 0x8000 o mas solo con RpBuildMeshCreate nulo o con la malla ya construida, listas de enlaces no circulares, arboles de mas de 64 niveles, el fallo de reserva del vector de indices de _rpMaterialListStreamRead (el EXE no lo comprueba) y la exactitud de los colaboradores falseados.",
+      "review_reference": "reversing/Fn229A/README.md"
+    }
+  ]
+}

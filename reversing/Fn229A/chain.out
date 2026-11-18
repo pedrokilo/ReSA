@@ -1,0 +1,10 @@
+19:50:12 build ok main
+19:50:12 gta_lock tomado
+20:35:14 run main: APROBADO: Fn229A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn229a\20261117-195016-704464 
+ronda 1 aplicada: 23 mutaciones
+20:41:34 run neg1: FALLO: Fn229A Funciones con diferencias: RpWorld::RpMaterialStreamGetSize: 2048/2048; RpWorld::_rpMaterialListDeinitialize: 2048/2048; RpWorld::_rpMaterialListAppendMaterial: 910/2048; RpWorld::_rpMaterialListStreamGetSize: 1491/2048; RpWorld::_rpMaterialListStreamRead: 930/2048; RpWorld::_rpD3D9Ad
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+ronda 2 aplicada: 23 mutaciones
+20:47:11 run neg2: FALLO: Fn229A Funciones con diferencias: RpWorld::RpMaterialStreamGetSize: 1325/2048; RpWorld::_rpMaterialListDeinitialize: 2048/2048; RpWorld::_rpMaterialListAppendMaterial: 1132/2048; RpWorld::_rpMaterialListStreamGetSize: 2048/2048; RpWorld::_rpMaterialListStreamRead: 783/2048; RpWorld::_rpD3D9A
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+20:47:19 fin

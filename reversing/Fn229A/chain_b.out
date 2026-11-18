@@ -1,0 +1,5 @@
+ronda 2 aplicada: 23 mutaciones
+20:48:57 gta_lock tomado
+20:54:32 run neg2: FALLO: Fn229A Funciones con diferencias: RpWorld::RpMaterialStreamGetSize: 1325/2048; RpWorld::_rpMaterialListDeinitialize: 2048/2048; RpWorld::_rpMaterialListAppendMaterial: 1132/2048; RpWorld::_rpMaterialListStreamGetSize: 2048/2048; RpWorld::_rpMaterialListStreamRead: 783/2048; RpWorld::_rpD3D9A
+restauradas 1 fuentes (SHA256 igual a las copias buenas)
+20:54:40 fin
