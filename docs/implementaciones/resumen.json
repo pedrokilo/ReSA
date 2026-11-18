@@ -25,7 +25,7 @@
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 101,
     "catalog_rows_linked_by_hook_address": 1174,
-    "validated_reconstructed_own_cpp_definitions": 13604,
+    "validated_reconstructed_own_cpp_definitions": 13629,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 17
   },
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "259b2b76482719495c449a0318daa9f46e45e50e92399a1b6cefbf64298a4da1",
+    "hooks.csv": "9465ef4bec05f7c359ad1b2e5aaa2165d53dbc793cec0a8dc505a092dae6ec87",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "7f564f006d12dd9c985bc49c41808198f207f9635d539332ab7d391bf39417d6",
+  "migration_registry_sha256": "2e6c92eaeb8e7c20717245ac86a4a384e58594a5cbaf6853211605217215b2f4",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

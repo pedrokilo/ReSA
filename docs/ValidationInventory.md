@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 17/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11677 con evidencia histórica y 764 pendientes de validación en 33 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 17/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11695 con evidencia histórica y 746 pendientes de validación en 32 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Inventario de validación de funciones reconstruidas
@@ -10,10 +10,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11677 |
+| `validated=1` · evidencia aprobada vinculada | 11695 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11677 |
-| Sin evidencia aprobada vinculada en este registro | 764 |
+| Evidencia histórica vinculada; revisión pendiente | 11695 |
+| Sin evidencia aprobada vinculada en este registro | 746 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -11165,6 +11165,24 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | LegacyStdString | `Erase` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | LegacyStdString | `Grow` | [Resumen](../reversing/Fn209A/validation-summary.json) |
 | LegacyStdString | `Tidy` | [Resumen](../reversing/Fn209A/validation-summary.json) |
+| LibJpegCompress | `EmitAdobeApp14` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `EmitDht` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `EmitDqt` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `EmitDri` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `EmitJfifApp0` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `EmitSof` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `EmitSos` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `JinitCMasterControl` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `JinitMarkerWriter` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `JpegAbort` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `JpegAllocHuffTable` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `JpegAllocQuantTable` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `JpegDestroy` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `PassStartup` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `PrepareForPass` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `WriteFileHeader` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `WriteFileTrailer` | [Resumen](../reversing/Fn231A/validation-summary.json) |
+| LibJpegCompress | `WriteFrameHeader` | [Resumen](../reversing/Fn231A/validation-summary.json) |
 | LibJpegCompressEncode | `grayscale_convert` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | LibJpegCompressEncode | `jinit_c_coef_controller` | [Resumen](../reversing/Fn230A/validation-summary.json) |
 | LibJpegCompressEncode | `jinit_c_main_controller` | [Resumen](../reversing/Fn230A/validation-summary.json) |
@@ -12650,7 +12668,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `JPegPlugin` | 6 | 0 | 6 | 0 |
 | `LegacyRuntimeError` | 13 | 0 | 13 | 0 |
 | `LegacyStdString` | 6 | 0 | 6 | 0 |
-| `LibJpegCompress` | 18 | 0 | 0 | 18 |
+| `LibJpegCompress` | 18 | 0 | 18 | 0 |
 | `LibJpegCompressApi` | 3 | 0 | 0 | 3 |
 | `LibJpegCompressEncode` | 11 | 0 | 11 | 0 |
 | `LibJpegDecompress` | 22 | 0 | 0 | 22 |
