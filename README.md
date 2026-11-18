@@ -6,7 +6,7 @@
 
 Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código fuente reconstruido en C++, reduciendo hasta eliminar la dependencia de funciones originales del ejecutable. La meta final es una reconstrucción completa y validada, seguida de un ejecutable propio: **ReSA — Zero Original Function Dependency** ([hoja de ruta](docs/ProjectRoadmap.md)).
 
-**[📊 Progreso detallado](docs/ReversedClasses.md) · [🗺️ Mapa de clases y funciones](docs/MemoryMap/index.html) · [🧭 Qué abordar después](docs/ReversingPriorities.md) · [🧪 Pruebas](reversing/README.md) · [📋 Proceso y continuidad](reversing/MEJORAS_DEL_PROCESO.md) · [🕘 Historial](docs/archivo/Historial.md)**
+**[📊 Progreso detallado](docs/ReversedClasses.md) · [🗺️ Mapa de clases y funciones](docs/MemoryMap/index.html) · [🧭 Qué abordar después](docs/ReversingPriorities.md) · [📍 Direcciones del EXE (mods)](docs/Direcciones.md) · [🧪 Pruebas](reversing/README.md) · [📋 Proceso y continuidad](reversing/MEJORAS_DEL_PROCESO.md) · [🕘 Historial](docs/archivo/Historial.md)**
 
 > [!NOTE]
 > Este README describe el trabajo local de la rama **ReSA**. El avance registrado y los bancos aprobados no equivalen a cobertura exhaustiva ni a estabilidad general del juego.

@@ -37,6 +37,7 @@ import re
 from pathlib import Path
 
 import hooks2md
+import direcciones_doc
 import pending_wrappers
 import validation_inventory
 import validation_queue
@@ -179,8 +180,9 @@ def main():
         hooks2md.generate(str(HOOKS_CSV), str(ROOT / 'docs/ReversedClasses.md'),
                            update_source_status=args.update_source_status)
         validation_inventory.generate(ROOT)
+        direcciones_doc.generate()  # docs/direcciones.csv y docs/Direcciones.md (guia de direcciones para mods)
     else:
-        print('[dry-run] Se omiten hooks2md.generate() y validation_inventory.generate().')
+        print('[dry-run] Se omiten hooks2md.generate(), validation_inventory.generate() y direcciones_doc.generate().')
 
     n_classes, n_queue = validation_queue.generate(dry_run=args.dry_run)
     print(f"ReversingPriorities.md: cola de validación regenerada ({n_queue} funciones por validar en {n_classes} clases).")
