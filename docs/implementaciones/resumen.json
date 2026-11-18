@@ -1,7 +1,7 @@
 {
   "scope": "source/game_sa and source/app (WindowedMode.cpp included as the documented NOTSA assembly exception, reported separately), definitions in cpp/h/hpp/inc; all preprocessing branches",
   "totals": {
-    "source_definition_count": 21893,
+    "source_definition_count": 21898,
     "groups": 1839,
     "assembly_occurrences": 0,
     "naked_declarations": 0,
@@ -25,7 +25,7 @@
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 101,
     "catalog_rows_linked_by_hook_address": 1174,
-    "validated_reconstructed_own_cpp_definitions": 13534,
+    "validated_reconstructed_own_cpp_definitions": 13556,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 17
   },
@@ -932,7 +932,7 @@
     "source/game_sa/Game.h": "595241825e524c7e40c3a1906d61aa2209c11630eb4c4e066be13cd5d6ec5075",
     "source/game_sa/GameLogic.cpp": "0ec6c7cab71b4d52b11c9e54cbd7de10640d757605fb6ecddef95273d946bc11",
     "source/game_sa/GameLogic.h": "e615c702306154b8d0ce8c544c06def27bbff416a8f2ba9278ff7dcc47121af3",
-    "source/game_sa/Gamma.cpp": "c82d43d47ed80ca849778f940abdb117785f548c5dfa7fb24e4e0a38c9088fe0",
+    "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
     "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
     "source/game_sa/GangInfo.h": "247c9a293d345ce359aa8139b4366637e133ba22967efca7d6ec5b21fc8db818",
     "source/game_sa/Gangs.cpp": "2f56ef7d3e19cc18eaa49ea151867f441f28347d310926687dd1e8fff7b3e7ed",
@@ -1334,7 +1334,7 @@
     "source/game_sa/RenderWare/rw/rpusrdat.h": "4b4f4af3cd25701e300cf8baaec2ca822385fde11a9580619f6a272fabea6366",
     "source/game_sa/RenderWare/rw/rpuvanim.cpp": "effdcf990ec91854e857229ca577851114e76f868d412c81f848ede5b8f19ec5",
     "source/game_sa/RenderWare/rw/rpuvanim.h": "cf872aab948837d83b9be0b7ab5c1dd8bee14fca6e8977c822ff3f892150d1db",
-    "source/game_sa/RenderWare/rw/rpworld.cpp": "d73633cd16b331880a617f968fbceb7a0f8f3e8dea1816f677088b9086f37ef4",
+    "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
     "source/game_sa/RenderWare/rw/rpworld.h": "5674cbc873eca7208a1f9a9064407c651514557580811b0bc594086daf5a88a1",
     "source/game_sa/RenderWare/rw/rt2d.h": "d524d7cbc015759b8d715599c79b7c73823b287a016d153fc13c6c45d2876870",
     "source/game_sa/RenderWare/rw/rt2danim.h": "03780395a3bbbc2397b3debb78dbdfb4700e736da3c49488a7a4a22ce01e477d",
@@ -2308,17 +2308,17 @@
     "source/game_sa/World.cpp": "904cd072dd6a3f6136e0efc66f310a882c7467bd450c91362d0ab602928a07e5",
     "source/game_sa/World.h": "e74692b5453b443036eb91ed880449d9d2345fdcb9b189fc200a6e8dcf00abd4",
     "source/game_sa/World_Helper.cpp": "331f33ad029ba5a963ac2b15dbe384298d36075b3b0eef2adedeb72454f5a033",
-    "source/game_sa/X87Math.cpp": "28bc80951ba80ee3370fcb33bd8597e42a9b39cfecec96e90b7c05f9895966ee",
-    "source/game_sa/X87Math.h": "4a6cae642813e2c5e75267f32bf56dec25164a059d3299f5af8c0bde5a803fae",
+    "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+    "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
     "source/game_sa/Zone.cpp": "762fbde73a24e55fb7d2821b087fbcec4a3616471872eed5d72c55382d49477a",
     "source/game_sa/Zone.h": "6e68b4a81ee271b97e3ed2b1ce9a6fcc1ff87dd54ab7790cb908fb14c5624d93",
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "9b617b9462103b9be4d8e06eaef9792654dad4b3feeecdb1ef6120d8c00076ad",
+    "hooks.csv": "80fc5069f8a7666ba03cd374f222b29145a95bd2c7c205a13385c445b6e2c9ff",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "41d245528a4a02fadc8e01945d3a851a3a2115de00352c8f8252d461eb5a3667",
+  "migration_registry_sha256": "ac717c20ce545da2aba30bbb3d5b6720ecd8ca5cf9c8b9ebb799e80fc7e7ba9d",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

@@ -4,7 +4,7 @@ Este documento distingue el lenguaje de la fuente, la reconstrucción, la valida
 
 El inventario asigna **0 apariciones de ensamblador** a **0 definiciones con cuerpo** y **0 declaraciones naked** a **0 definiciones**. No queda ninguna aparición sin ubicación. Las funciones mixtas se cuentan en «con ensamblador»; naked es una marca adicional que no se suma como otra función.
 
-De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 21893 definiciones en 1839 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
+De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su cuerpo** según el análisis estructural. Las 277 marcas naked se solapan con esas categorías; no se suman a ellas. Se encontraron 21898 definiciones en 1839 clases, namespaces o grupos de helpers; no equivale al número de clases del catálogo.
 
 ## Cómo leer la tabla
 
@@ -329,7 +329,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [CFormation](implementaciones/detalle-016.md#grupo-302) · [source/game_sa/Formation.cpp](../source/game_sa/Formation.cpp) | 10 | 0 | 1 | 0 | 0 |
 | [CGame](implementaciones/detalle-016.md#grupo-303) · [source/app/app_camera.cpp](../source/app/app_camera.cpp), [source/game_sa/Game.cpp](../source/game_sa/Game.cpp), [source/game_sa/Game.h](../source/game_sa/Game.h) | 25 | 0 | 4 | 0 | 0 |
 | [CGameLogic](implementaciones/detalle-016.md#grupo-304) · [source/game_sa/GameLogic.cpp](../source/game_sa/GameLogic.cpp) | 27 | 0 | 5 | 0 | 0 |
-| [CGamma](implementaciones/detalle-016.md#grupo-305) · [source/game_sa/Gamma.cpp](../source/game_sa/Gamma.cpp) | 2 | 0 | 2 | 0 | 0 |
+| [CGamma](implementaciones/detalle-016.md#grupo-305) · [source/game_sa/Gamma.cpp](../source/game_sa/Gamma.cpp) | 3 | 0 | 1 | 0 | 0 |
 | [CGangInfo](implementaciones/detalle-016.md#grupo-306) · [source/game_sa/GangInfo.h](../source/game_sa/GangInfo.h) | 0 | 0 | 3 | 0 | 0 |
 | [CGangWars](implementaciones/detalle-016.md#grupo-307) · [source/game_sa/GangWars.cpp](../source/game_sa/GangWars.cpp), [source/game_sa/GangWars.h](../source/game_sa/GangWars.h) | 36 | 0 | 3 | 0 | 0 |
 | [CGangWarsSaveStructure](implementaciones/detalle-016.md#grupo-308) · [source/game_sa/GangWarsSaveStructure.cpp](../source/game_sa/GangWarsSaveStructure.cpp) | 2 | 0 | 1 | 0 | 0 |
@@ -1653,7 +1653,7 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [Globales y helpers: source/game_sa/WinsockLink.cpp](implementaciones/detalle-082.md#grupo-1626) · [source/game_sa/WinsockLink.cpp](../source/game_sa/WinsockLink.cpp) | 1 | 0 | 0 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World.cpp](implementaciones/detalle-082.md#grupo-1627) · [source/game_sa/World.cpp](../source/game_sa/World.cpp) | 0 | 0 | 18 | 0 | 0 |
 | [Globales y helpers: source/game_sa/World_Helper.cpp](implementaciones/detalle-082.md#grupo-1628) · [source/game_sa/World_Helper.cpp](../source/game_sa/World_Helper.cpp) | 0 | 0 | 4 | 0 | 0 |
-| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-082.md#grupo-1629) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1344 | 0 | 2 | 0 | 0 |
+| [Globales y helpers: source/game_sa/X87Math.cpp](implementaciones/detalle-082.md#grupo-1629) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1349 | 0 | 2 | 0 | 0 |
 | [Globales y helpers: source/game_sa/Zone.cpp](implementaciones/detalle-082.md#grupo-1630) · [source/game_sa/Zone.cpp](../source/game_sa/Zone.cpp) | 0 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/cHandlingDataMgr.cpp](implementaciones/detalle-082.md#grupo-1631) · [source/game_sa/cHandlingDataMgr.cpp](../source/game_sa/cHandlingDataMgr.cpp) | 1 | 0 | 1 | 0 | 0 |
 | [Globales y helpers: source/game_sa/cTransmission.cpp](implementaciones/detalle-082.md#grupo-1632) · [source/game_sa/cTransmission.cpp](../source/game_sa/cTransmission.cpp) | 1 | 0 | 0 | 0 | 0 |
@@ -1710,12 +1710,12 @@ De esas 0 definiciones, **0 son mixtas** y **0 contienen sólo ensamblador en su
 | [ResidueEcx](implementaciones/detalle-085.md#grupo-1683) · [source/game_sa/X87Math.cpp](../source/game_sa/X87Math.cpp) | 1 | 0 | 0 | 0 | 0 |
 | [RpAnimBlend](implementaciones/detalle-085.md#grupo-1684) · [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 44 | 0 | 0 | 0 | 0 |
 | [RpAnimBlendPlugin](implementaciones/detalle-085.md#grupo-1685) · [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp](../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp) | 0 | 0 | 1 | 0 | 0 |
-| [RpAnisot](implementaciones/detalle-085.md#grupo-1686) · [source/game_sa/RenderWare/rw/rpanisot.cpp](../source/game_sa/RenderWare/rw/rpanisot.cpp) | 3 | 0 | 1 | 0 | 0 |
+| [RpAnisot](implementaciones/detalle-085.md#grupo-1686) · [source/game_sa/RenderWare/rw/rpanisot.cpp](../source/game_sa/RenderWare/rw/rpanisot.cpp) | 4 | 0 | 0 | 0 | 0 |
 | [RpHAnim](implementaciones/detalle-085.md#grupo-1687) · [source/game_sa/RenderWare/rw/rphanim.cpp](../source/game_sa/RenderWare/rw/rphanim.cpp) | 1 | 0 | 6 | 0 | 0 |
 | [RpMatFX](implementaciones/detalle-085.md#grupo-1688) · [source/game_sa/RenderWare/rw/rpmatfx.cpp](../source/game_sa/RenderWare/rw/rpmatfx.cpp) | 0 | 0 | 28 | 0 | 0 |
 | [RpSkin](implementaciones/detalle-085.md#grupo-1689) · [source/game_sa/RenderWare/rw/rpskin.cpp](../source/game_sa/RenderWare/rw/rpskin.cpp) | 1 | 0 | 32 | 0 | 0 |
 | [RpUVAnim](implementaciones/detalle-085.md#grupo-1690) · [source/game_sa/RenderWare/rw/rpuvanim.cpp](../source/game_sa/RenderWare/rw/rpuvanim.cpp) | 2 | 0 | 14 | 0 | 0 |
-| [RpWorld](implementaciones/detalle-085.md#grupo-1691) · [source/game_sa/RenderWare/rw/rpworld.cpp](../source/game_sa/RenderWare/rw/rpworld.cpp) | 62 | 0 | 132 | 0 | 0 |
+| [RpWorld](implementaciones/detalle-085.md#grupo-1691) · [source/game_sa/RenderWare/rw/rpworld.cpp](../source/game_sa/RenderWare/rw/rpworld.cpp) | 77 | 0 | 117 | 0 | 0 |
 | [Rs](implementaciones/detalle-085.md#grupo-1692) · [source/app/platform/platform.cpp](../source/app/platform/platform.cpp), [source/app/platform/preset_view.cpp](../source/app/platform/preset_view.cpp) | 33 | 0 | 0 | 0 | 0 |
 | [RtAnim](implementaciones/detalle-085.md#grupo-1693) · [source/game_sa/RenderWare/rw/rtanim.cpp](../source/game_sa/RenderWare/rw/rtanim.cpp) | 3 | 0 | 8 | 0 | 0 |
 | [RtBMP](implementaciones/detalle-085.md#grupo-1694) · [source/game_sa/RenderWare/rw/rtbmp.cpp](../source/game_sa/RenderWare/rw/rtbmp.cpp) | 0 | 0 | 2 | 0 | 0 |
