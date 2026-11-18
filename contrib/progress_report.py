@@ -120,12 +120,28 @@ def rw_modules(root):
     return mods
 
 
+EXCLUDED_LABELS = {
+    'usercall-cubierta': '__usercall cubiertas por llamadoras validadas',
+    'usercall-parcial': '__usercall con llamadoras sin validar',
+    'usercall-sin-llamadores': '__usercall sin llamadores',
+    'usercall-renderware': '__usercall de RenderWare (plan de validación de RenderWare)',
+    'salto-puro': 'saltos puros a una función ya reconstruida',
+    'no-es-funcion': 'bloques que no son funciones (funclets de catch y fragmentos internos)',
+    'proteccion-descartada': 'bloques de la protección del EXE (descartados)',
+    'otra': 'otras',
+}
+
+
 def excluded_summary(root):
+    """Cuenta las excluidas por categoría (columna `categoria` de excluidas.csv, lote G2A); sin ella, por el texto del motivo."""
     path = Path(root) / 'docs/JuegoExe/excluidas.csv'
     kinds = Counter()
     if path.exists():
         with open(path, encoding='utf-8', newline='') as f:
             for r in csv.DictReader(f):
+                if r.get('categoria'):
+                    kinds[EXCLUDED_LABELS.get(r['categoria'], r['categoria'])] += 1
+                    continue
                 t = r['motivo'].lower()
                 if '__usercall' in t or 'registros' in t:
                     kinds['__usercall con registros que C++ no puede leer'] += 1
@@ -195,7 +211,7 @@ def build(root, input_path, coverage, validation, notsa_count=0):
         ['Entradas validadas (de las reconstruidas)', f'{g_val:,} / {g_rep:,} · {g_val / g_rep:.2%}', f'`{_bar(g_val, g_rep)}`'],
         ['Entradas reconstruidas sin validar', f'{g_rep - g_val:,}', ''],
     ], right=())
-    L += ['', f"**Faltan {gm['functions']} funciones ({gm['bytes']:,} bytes)**, listadas en [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md), y **{len(coverage['game_excluded'])} excluidas** y documentadas en [excluidas.csv](JuegoExe/excluidas.csv) porque no se pueden reconstruir en C++ puro: "
+    L += ['', f"**Faltan {gm['functions']} funciones ({gm['bytes']:,} bytes)**, listadas en [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md), y **{len(coverage['game_excluded'])} excluidas** y documentadas en [excluidas.csv](JuegoExe/excluidas.csv) porque no se pueden reconstruir en C++ puro (cada una cerrada con categoría y evidencia en [reversing/FnG2A](../reversing/FnG2A/README.md)): "
           + '; '.join(f'{v} {k}' for k, v in excl.most_common()) + '.', '',
           'Todo lo reconstruido está en C++: en `source/game_sa` no queda ningún `__asm` ni función `naked` ([estado de la migración](../reversing/CppOnlyMigration/README.md)). Cada validada tiene su banco `FnNNNA` y su evidencia en `reversing/CppTwelveLevel6Final/runs`.', '',
           '<a id="cobertura-exe"></a>', '',

@@ -420,15 +420,15 @@ La política del proyecto es C++ puro (sin `__asm` ni `naked`). Estas funciones 
 
 | Motivo | Juego | RenderWare/D3D | Ejemplos (lote) |
 | --- | ---: | ---: | --- |
-| `__usercall` o registros de entrada/salida que C++ no puede leer ni fijar (EAX/ECX/EDX/ESI/EDI/EBX, XMM0, MM0) | 73 | 10 | 0x4D1680, 0x4D1A50, 0x4D1DB0 (214A), 0x4D2100, 0x4D2450, 0x4D27F0, 0x4D6450, 0x4D6510, 0x4D66A0 (215A), 0x4CAAE0–0x4CC0C0 (224A), 0x4CC5C0, 0x4CCD70, 0x4CCE60 (225A), libjpeg jchuff/jcmarker/jdhuff/jdinput/jdmainct/jdmarker/jdmaster/jmemmgr (230A–235A), 0x5D84C0, 0x5D8590 (211A), 0x5A42B0 (203A), D3DX9 con XMM0 y `ret 10h` (R4A), 0x7CB828, 0x7CB8B0 (R6A) |
+| `__usercall` o registros de entrada/salida que C++ no puede leer ni fijar (EAX/ECX/EDX/ESI/EDI/EBX, XMM0, MM0) | 69 | 10 | 0x4D1680, 0x4D1A50, 0x4D1DB0 (214A), 0x4D2100, 0x4D2450, 0x4D27F0, 0x4D6450, 0x4D6510, 0x4D66A0 (215A), 0x4CAAE0–0x4CC0C0 (224A), 0x4CC5C0, 0x4CCD70, 0x4CCE60 (225A), libjpeg jchuff/jcmarker/jdhuff/jdinput/jdmainct/jdmarker/jdmaster/jmemmgr (230A–235A), 0x5D84C0, 0x5D8590 (211A), 0x5A42B0 (203A), D3DX9 con XMM0 y `ret 10h` (R4A), 0x7CB828, 0x7CB8B0 (R6A) |
 | Salto puro (`jmp` a otra dirección) o puente sin cuerpo propio | 20 | 37 | 0x48DE60 (214A), 0x4A2BB0 (230A), 0x5CFA30 (235A), 0x5CFE00 (236A); QuickTime/QTML: 17 puentes (R9A) y 15 (R10A) con el identificador en EAX y `jmp [0x8E2A0C]`; carga retardada de DLL 0x817508, 0x818020, 0x818041 (R8A), 0x807C10, 0x807C2B (R14A) |
-| Bloque de protección con convención propia (`pushad`, bandera de acarreo, `esp` guardado) | 14 | 0 | 0x4027CD (221A) y las de 222A (0x402A36 … 0x403D07). En total el módulo `ExeProtectionStub` tiene 17 filas en el CSV; las que usan solo registros de entrada están contadas en la fila de `__usercall`. Las demás funciones del bloque sí se reconstruyeron (A-J11) |
+| Bloque de protección con convención propia (`pushad`, bandera de acarreo, `esp` guardado) | 18 | 0 | 0x4027CD (221A) y las de 222A (0x402A36 … 0x403D07). En total el módulo `ExeProtectionStub` tiene 17 filas en el CSV; las que usan solo registros de entrada están contadas en la fila de `__usercall`. Las demás funciones del bloque sí se reconstruyeron (A-J11) |
 | Funclet de `catch(...)` o fragmento interno de otra función (sin prólogo propio) | 11 | 3 | 0x4F44B3 (209A), 0x4F3A3E, 0x4F3AAD (209A), 0x4F3A15 (208A), 0x5ED0A3, 0x5ED388 (219A), 0x5ED643, 0x5ED92A, 0x5EDBE3 (220A); 0x7CCF6C (R2A/R7A), 0x7CB929 (R6A), 0x7F6781 (R25A; cola de una rutina D3D9, ya enganchada por `WindowedMode.cpp`) |
 | 3DNow! (`pfrcp`, `pfrsqrt`: aproximaciones definidas por el hardware, no reproducibles bit a bit) | 0 | 2 | 0x7C20C9, 0x7C290B (R4A) |
 | Ya enganchadas por `WindowedMode.cpp` (NOTSA, no se rehacen) | 0 | 2 | 0x7F7730, 0x7F8F20 (R26A, R27A) |
 | **Total** | **118** | **54** | |
 
-(La clasificación por motivo es aproximada: se agrupó por texto del motivo del CSV; la suma por columnas es la del CSV.)
+(Cifras del juego revisadas en el lote G2A con la columna `categoria` del CSV: 69 `__usercall` = 51 cubiertas por llamadoras validadas + 17 de RenderWare (rwtexdict y D3D9 raster) + 1 parcial; 20 saltos puros; 18 de la protección del EXE (las 17 de `ExeProtectionStub` y 0x746800); 11 que no son funciones. Evidencia por función en [reversing/FnG2A](../reversing/FnG2A/README.md). La columna de RenderWare/D3D sigue agrupada por texto del motivo.)
 
 ### 10.2 Reconstruidas como ayudante local sin hook (el EXE conserva la copia)
 

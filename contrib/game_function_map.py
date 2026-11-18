@@ -118,7 +118,12 @@ def write(root):
     if ex:
         L += ['## Excluidas del objetivo', '',
               f'{len(ex)} función(es) del rango del juego no se cuentan en las cifras de arriba porque no son viables en C++ puro (lista en [excluidas.csv](excluidas.csv)):', '']
-        L += _tbl(['Dirección', 'Bytes', 'Módulo estimado', 'Motivo'], [[f'0x{va:08X}', f'{v["size"]:,}', v['module'], v['reason']] for va, v in sorted(ex.items())])
+        cats = Counter(v.get('category') or 'sin-categoria' for v in ex.values())
+        if 'sin-categoria' not in cats:
+            L += ['Cada una está **cerrada con una categoría y una evidencia** por inspección del EXE ([reversing/FnG2A](../../reversing/FnG2A/README.md); evidencia en [excluidas-evidencia.json](../../reversing/FnG2A/excluidas-evidencia.json)):', '']
+            L += _tbl(['Categoría', 'Funciones'], [[f'`{k}`', str(n)] for k, n in sorted(cats.items())])
+            L += ['']
+        L += _tbl(['Dirección', 'Bytes', 'Módulo estimado', 'Categoría', 'Motivo'], [[f'0x{va:08X}', f'{v["size"]:,}', v['module'], v.get('category') or '', v['reason']] for va, v in sorted(ex.items())])
         L += ['']
     blocks = defaultdict(list)
     for r in rows:

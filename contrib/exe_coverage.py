@@ -113,7 +113,7 @@ def compute(root, internals=False):
         for r in _rows(excl_path):
             va = _hex(r['va'])
             if va in funcs:
-                excluded[va] = dict(size=funcs[va]['size'], module=r['modulo'], reason=r['motivo'])
+                excluded[va] = dict(size=funcs[va]['size'], module=r['modulo'], reason=r['motivo'], category=r.get('categoria', ''))
                 del funcs[va]
 
     hooks = list(_rows(root / 'docs/hooks.csv'))

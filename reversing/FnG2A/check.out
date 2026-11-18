@@ -1,0 +1,1 @@
+OK: 118 entradas revisadas, EXE 72ae59e44c761389..., 0 discrepancias; por categoria: {'no-es-funcion': 11, 'proteccion-descartada': 18, 'salto-puro': 20, 'usercall-cubierta': 51, 'usercall-parcial': 1, 'usercall-renderware': 17}
