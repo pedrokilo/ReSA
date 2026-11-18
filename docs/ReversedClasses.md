@@ -1,12 +1,8 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11695 con evidencia histórica y 746 pendientes de validación en 32 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Progreso del reversing
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md) · [Registro de validaciones](../reversing/ValidationRegistry/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** 2026-11-18 07:12 UTC
+> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** 2026-11-18 07:19 UTC
 
 **Índice:** [1. Dónde estamos](#donde-estamos) · [2. Código del juego](#juego) · [3. RenderWare](#renderware) · [4. Qué falta por validar](#por-validar) · [5. Clases del juego sin validar](#clases) · [6. Cómo leer y regenerar](#metodo)
 
@@ -40,7 +36,7 @@ En total hay **12.441 entradas reconstruidas, 11.695 validadas y 746 sin validar
 | Reconstruir el código del juego en C++ puro | **Hecha**: 100,00% de las funciones y 100,00% de los bytes; faltan 0 y hay 118 excluidas por no ser reconstruibles |
 | Reconstruir el SDK de RenderWare | **Hecha**: 724 de 724 funciones reconstruibles (100,00%); aparte, 1.111 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
 | **Validar el código del juego** | **En curso**: 11.527 de 11.613 reconstruidas (99,26%); el resto va por oleadas de lotes (detalle en el [informe](ReversedClasses.md#por-validar)) |
-| Validar RenderWare | **Apenas empezada**: 162 de 822 (19,71%); falta el plan de bancos (dispositivo D3D falso, flujos y listas libres falsos) |
+| Validar RenderWare | **Apenas empezada**: 162 de 822 (19,71%); plan de bancos escrito ([plan de validación](RenderWareExe/plan-validacion.md)); empieza al cerrar las oleadas del juego, con funciones puras, después flujos y memoria falsos y al final el dispositivo D3D falso |
 | Pase final de bancos viejos | Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió |
 | Ejecutable propio | Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](ProjectRoadmap.md)) |
 

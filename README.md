@@ -40,7 +40,7 @@ En total hay **12.441 entradas reconstruidas, 11.695 validadas y 746 sin validar
 | Reconstruir el código del juego en C++ puro | **Hecha**: 100,00% de las funciones y 100,00% de los bytes; faltan 0 y hay 118 excluidas por no ser reconstruibles |
 | Reconstruir el SDK de RenderWare | **Hecha**: 724 de 724 funciones reconstruibles (100,00%); aparte, 1.111 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
 | **Validar el código del juego** | **En curso**: 11.527 de 11.613 reconstruidas (99,26%); el resto va por oleadas de lotes (detalle en el [informe](docs/ReversedClasses.md#por-validar)) |
-| Validar RenderWare | **Apenas empezada**: 162 de 822 (19,71%); falta el plan de bancos (dispositivo D3D falso, flujos y listas libres falsos) |
+| Validar RenderWare | **Apenas empezada**: 162 de 822 (19,71%); plan de bancos escrito ([plan de validación](docs/RenderWareExe/plan-validacion.md)); empieza al cerrar las oleadas del juego, con funciones puras, después flujos y memoria falsos y al final el dispositivo D3D falso |
 | Pase final de bancos viejos | Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió |
 | Ejecutable propio | Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](docs/ProjectRoadmap.md)) |
 <!-- RESA-PROGRESO:END -->

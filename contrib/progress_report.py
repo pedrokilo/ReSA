@@ -182,7 +182,7 @@ def build(root, input_path, coverage, validation, notsa_count=0):
         ['Reconstruir el código del juego en C++ puro', f"**Hecha**: {_pct(g['replaced'], g['functions'])} de las funciones y {_pct(g['replaced_bytes'], g['bytes'])} de los bytes; faltan {gm['functions']} y hay {len(coverage['game_excluded'])} excluidas por no ser reconstruibles"],
         ['Reconstruir el SDK de RenderWare', f'**Hecha**: {rw["replaced"]:,} de {rw_target:,} funciones reconstruibles ({_pct(rw["replaced"], rw_target)}); aparte, {rw_link:,} son libpng, zlib y D3DX9 (se enlaza la original) y {rw_nr} no son reconstruibles'],
         ['**Validar el código del juego**', f'**En curso**: {g_val:,} de {g_rep:,} reconstruidas ({_pct(g_val, g_rep)}); el resto va por oleadas de lotes (detalle en el [informe](ReversedClasses.md#por-validar))'],
-        ['Validar RenderWare', f'**Apenas empezada**: {r_val:,} de {r_rep:,} ({_pct(r_val, r_rep)}); falta el plan de bancos (dispositivo D3D falso, flujos y listas libres falsos)'],
+        ['Validar RenderWare', f'**Apenas empezada**: {r_val:,} de {r_rep:,} ({_pct(r_val, r_rep)}); plan de bancos escrito ([plan de validación](RenderWareExe/plan-validacion.md)); empieza al cerrar las oleadas del juego, con funciones puras, después flujos y memoria falsos y al final el dispositivo D3D falso'],
         ['Pase final de bancos viejos', 'Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió'],
         ['Ejecutable propio', 'Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](ProjectRoadmap.md))'],
     ])
@@ -259,5 +259,5 @@ def build(root, input_path, coverage, validation, notsa_count=0):
     i, j = L.index('@@CORE_START@@'), L.index('@@CORE_END@@')
     core = L[i + 1:j]
     report = [x for x in L if x not in ('@@CORE_START@@', '@@CORE_END@@')]
-    readme = [x.replace('(ProjectRoadmap.md)', '(docs/ProjectRoadmap.md)').replace('(JuegoExe/', '(docs/JuegoExe/').replace('(ReversedClasses.md', '(docs/ReversedClasses.md') for x in core]
+    readme = [x.replace('(ProjectRoadmap.md)', '(docs/ProjectRoadmap.md)').replace('(JuegoExe/', '(docs/JuegoExe/').replace('(ReversedClasses.md', '(docs/ReversedClasses.md').replace('(RenderWareExe/', '(docs/RenderWareExe/') for x in core]
     return report, readme
