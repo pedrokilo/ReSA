@@ -1,7 +1,7 @@
 clase,reconstruidas,validadas,sin_validar
-LibJpegDecompress,22,0,22
 LibJpegMemory,21,0,21
 ExeLibJpeg,15,0,15
+LibJpegDecompress,22,12,10
 CRunningScript,43,39,4
 D3D9RasterFormat,10,6,4
 LibJpegDecompressApi,4,0,4
