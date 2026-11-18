@@ -1,0 +1,3 @@
+{"LibJpegDecompress::jpeg_make_d_derived_tbl": 584, "LibJpegDecompress::jpeg_fill_bit_buffer": 475, "LibJpegDecompress::jpeg_huff_decode": 494, "LibJpegDecompress::jinit_huff_decoder": 909, "LibJpegDecompress::start_input_pass": 436, "LibJpegDecompress::consume_markers": 197, "LibJpegDecompress::reset_input_controller": 899, "LibJpegDecompress::jinit_input_controller": 889, "LibJpegDecompress::make_funny_pointers": 651, "LibJpegDecompress::set_wraparound_pointers": 642, "LibJpegDecompress::set_bottom_pointers": 691, "LibJpegDecompress::jinit_d_main_controller": 901}
+pares 24576 con diferencias 7768 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
