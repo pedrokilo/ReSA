@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11771 con evidencia histórica y 670 pendientes de validación en 23 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11781 con evidencia histórica y 660 pendientes de validación en 18 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Inventario de validación de funciones reconstruidas
@@ -10,10 +10,10 @@ Universo de esta revisión: **12,441 entradas reversed=1**, de 12,441 registrada
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11771 |
+| `validated=1` · evidencia aprobada vinculada | 11781 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11771 |
-| Sin evidencia aprobada vinculada en este registro | 670 |
+| Evidencia histórica vinculada; revisión pendiente | 11781 |
+| Sin evidencia aprobada vinculada en este registro | 660 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -1099,6 +1099,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAudioEngine | `StopCutsceneTrack` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
 | CAudioEngine | `StopPoliceScanner` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | CAudioEngine | `StopRadio` | [Resumen](../reversing/AudioEngineFinal4/validation-summary.json) |
+| CAudioZones | `BugstarWriteScreenShotEntry` | [Resumen](../reversing/FnF1A/validation-summary.json) |
 | CAudioZones | `Init` | [Resumen](../reversing/World43/validation-summary.json) |
 | CAudioZones | `RegisterAudioBox` | [Resumen](../reversing/World43/validation-summary.json) |
 | CAudioZones | `RegisterAudioSphere` | [Resumen](../reversing/World43/validation-summary.json) |
@@ -10368,6 +10369,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CWaterLevel | `GetWaterLevelNoWaves` | [Resumen](../reversing/WaterQuery355/validation-summary.json) |
 | CWaterLevel | `GetWaterLevelNoWavesForQuad` | [Resumen](../reversing/DependenciesWorldWaterPath6/validation-summary.json) |
 | CWaterLevel | `GetWaterLevelNoWavesForTriangle` | [Resumen](../reversing/DependenciesWorldWaterPath6/validation-summary.json) |
+| CWaterLevel | `IsPointInCameraDepthRange` | [Resumen](../reversing/FnF1A/validation-summary.json) |
 | CWaterLevel | `LerpRenPar` | [Resumen](../reversing/Fn100A/validation-summary.json) |
 | CWaterLevel | `MarkQuadsAndPolysToBeRendered` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
 | CWaterLevel | `PreRenderWater` | [Resumen](../reversing/GfxWave2/validation-summary.json) |
@@ -10637,6 +10639,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CompressedVector | `UncompressVectorExe` | [Resumen](../reversing/Fn105A/validation-summary.json) |
 | D3D9RasterFormat | `ConvertRasterToDisplayFormat` | [Resumen](../reversing/Fn225A/validation-summary.json) |
 | D3D9RasterFormat | `CreateRasterFromD3DFormat` | [Resumen](../reversing/Fn225A/validation-summary.json) |
+| D3D9RasterFormat | `DecodeDxt5AlphaBlock` | [Resumen](../reversing/FnF1A/validation-summary.json) |
+| D3D9RasterFormat | `DecompressDxt1` | [Resumen](../reversing/FnF1A/validation-summary.json) |
+| D3D9RasterFormat | `DecompressDxt3` | [Resumen](../reversing/FnF1A/validation-summary.json) |
+| D3D9RasterFormat | `DecompressDxt5` | [Resumen](../reversing/FnF1A/validation-summary.json) |
 | D3D9RasterFormat | `FindCorrectRasterFormat` | [Resumen](../reversing/Fn225A/validation-summary.json) |
 | D3D9RasterFormat | `GetRasterMemorySize` | [Resumen](../reversing/Fn225A/validation-summary.json) |
 | D3D9RasterFormat | `SetRasterFormat` | [Resumen](../reversing/Fn225A/validation-summary.json) |
@@ -11015,6 +11021,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | IKChainManager_c | `AddIKChain` | [Resumen](../reversing/Sys17/validation-summary.json) |
 | IKChainManager_c | `CanAccept` | [Resumen](../reversing/Sys17/validation-summary.json) |
 | IKChainManager_c | `CanAcceptLookAt` | [Resumen](../reversing/Sys17/validation-summary.json) |
+| IKChainManager_c | `Constructor` | [Resumen](../reversing/FnF1A/validation-summary.json) |
+| IKChainManager_c | `Destructor` | [Resumen](../reversing/FnF1A/validation-summary.json) |
 | IKChainManager_c | `Exit` | [Resumen](../reversing/Sys17/validation-summary.json) |
 | IKChainManager_c | `GetLookAtEntity` | [Resumen](../reversing/Sys17/validation-summary.json) |
 | IKChainManager_c | `GetLookAtOffset` | [Resumen](../reversing/Sys17/validation-summary.json) |
@@ -11744,6 +11752,8 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | VideoPlayer | `UpdateWindow` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | VideoPlayer | `WaitState` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | WaterCreatureManager_c | `CanAddWaterCreatureAtPos` | [Resumen](../reversing/Mgr7/validation-summary.json) |
+| WaterCreatureManager_c | `Constructor` | [Resumen](../reversing/FnF1A/validation-summary.json) |
+| WaterCreatureManager_c | `Destructor` | [Resumen](../reversing/FnF1A/validation-summary.json) |
 | WaterCreatureManager_c | `Exit` | [Resumen](../reversing/Mgr7/validation-summary.json) |
 | WaterCreatureManager_c | `GetRandomWaterCreatureId` | [Resumen](../reversing/Mgr7/validation-summary.json) |
 | WaterCreatureManager_c | `Init` | [Resumen](../reversing/Mgr7/validation-summary.json) |
@@ -11870,7 +11880,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAtomicModelInfo` | 14 | 0 | 14 | 0 |
 | `CAttractorScanner` | 7 | 0 | 7 | 0 |
 | `CAudioEngine` | 83 | 0 | 83 | 0 |
-| `CAudioZones` | 9 | 0 | 8 | 1 |
+| `CAudioZones` | 9 | 0 | 9 | 0 |
 | `CAutoPilot` | 4 | 0 | 4 | 0 |
 | `CAutomobile` | 114 | 0 | 114 | 0 |
 | `CBaseModelInfo` | 38 | 0 | 38 | 0 |
@@ -12654,7 +12664,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CWanted` | 35 | 0 | 35 | 0 |
 | `CWaterCannon` | 5 | 0 | 5 | 0 |
 | `CWaterCannons` | 4 | 0 | 4 | 0 |
-| `CWaterLevel` | 49 | 0 | 48 | 1 |
+| `CWaterLevel` | 49 | 0 | 49 | 0 |
 | `CWeapon` | 41 | 0 | 41 | 0 |
 | `CWeaponEffects` | 10 | 0 | 10 | 0 |
 | `CWeaponInfo` | 16 | 0 | 16 | 0 |
@@ -12670,7 +12680,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CdStream` | 11 | 0 | 11 | 0 |
 | `Common` | 26 | 0 | 26 | 0 |
 | `CompressedVector` | 2 | 0 | 2 | 0 |
-| `D3D9RasterFormat` | 10 | 0 | 6 | 4 |
+| `D3D9RasterFormat` | 10 | 0 | 10 | 0 |
 | `D3DIndexDataBuffer` | 5 | 0 | 5 | 0 |
 | `D3DResourceSystem` | 16 | 0 | 16 | 0 |
 | `D3DTextureBuffer` | 8 | 0 | 8 | 0 |
@@ -12734,7 +12744,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxSystem_c` | 39 | 0 | 39 | 0 |
 | `Fx_c` | 41 | 0 | 41 | 0 |
 | `Game` | 12 | 0 | 12 | 0 |
-| `IKChainManager_c` | 19 | 0 | 17 | 2 |
+| `IKChainManager_c` | 19 | 0 | 19 | 0 |
 | `IKChain_c` | 20 | 0 | 20 | 0 |
 | `ImportThunks` | 17 | 0 | 0 | 17 |
 | `Input` | 11 | 0 | 11 | 0 |
@@ -12790,7 +12800,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `VectorConstructorIterator` | 1 | 0 | 1 | 0 |
 | `VideoMode` | 5 | 0 | 5 | 0 |
 | `VideoPlayer` | 7 | 0 | 7 | 0 |
-| `WaterCreatureManager_c` | 9 | 0 | 7 | 2 |
+| `WaterCreatureManager_c` | 9 | 0 | 9 | 0 |
 | `WaterCreature_c` | 4 | 0 | 4 | 0 |
 | `Win` | 8 | 0 | 8 | 0 |
 | `ZlibInflate` | 14 | 0 | 0 | 14 |

@@ -25,7 +25,7 @@
     "catalog_rows_installed_outside_game_sa": 0,
     "catalog_rows_sharing_a_template_body": 101,
     "catalog_rows_linked_by_hook_address": 1174,
-    "validated_reconstructed_own_cpp_definitions": 13705,
+    "validated_reconstructed_own_cpp_definitions": 13715,
     "validated_reconstructed_own_asm_definitions": 0,
     "wrapper_definitions": 17
   },
@@ -146,7 +146,7 @@
     "source/game_sa/Audio/AEStreamThread.h": "22f096b077aae1b01485abdebeda105b23ed433c9c12721be87869c3a14ad2ae",
     "source/game_sa/Audio/AudioEngine.cpp": "34a407e612c05f32bb9668163553c8f25d3eb269781faaa1d8b41777c3758568",
     "source/game_sa/Audio/AudioEngine.h": "75134e176430b89ae584d91910cdba78bc11cd0269de53155268d4343600fcce",
-    "source/game_sa/Audio/AudioZones.cpp": "62147d1a28dedd9b0f776cf27507a761dddf748d08b5aa036ab196baf403c612",
+    "source/game_sa/Audio/AudioZones.cpp": "2cd42a31aa4a2fa352caf25e30c7749912af6e1cb10cd243f6fa5a0822564613",
     "source/game_sa/Audio/AudioZones.h": "5a3494f2040a9546197243715f8e11ebee8d425954278bafb151175082f87bd3",
     "source/game_sa/Audio/Config/RadioStreamsPC.h": "b77ac0e0b97d5c6ed9db945406ea2aa21d8d28909b648b77595e570525c56575",
     "source/game_sa/Audio/Data/SoundAttenuationTable.h": "972d68f1b668455608acdd90e519dc8c897e6cafd69f1fa4a7ad6684e7fa9dd8",
@@ -2315,10 +2315,10 @@
     "source/game_sa/ZoneInfo.h": "a862e582eb7c5cc77091244adb9da1b028db8d7b9ce63a65f3088fba48eb13b4"
   },
   "catalog_sha256": {
-    "hooks.csv": "796a039658bfb750c7b7cc9c672eb6912603315857bb67623076718b68135041",
+    "hooks.csv": "658878a6158c520361682eec9cb1dfdc6586e456f04f9383811ab2541b5165a6",
     "hooks_notsa.csv": "015789c8b162f0009d3fb0630e7ed4636d42d7ffce2feff81c4cca18f4163c01"
   },
-  "migration_registry_sha256": "c50f3276a6a39db3e969611baa533002333ee9b42c4eea6c1db3be5b9c90c7e1",
+  "migration_registry_sha256": "417915fd0b241ef1c08429d88f7b9017bea675043f214b71e879941ea7893841",
   "files_with_parse_errors": [
     "source/app/app_debug.cpp",
     "source/app/platform/SDLWrapper.cpp",

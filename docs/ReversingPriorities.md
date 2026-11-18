@@ -1,5 +1,5 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11771 con evidencia histórica y 670 pendientes de validación en 23 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 18/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11781 con evidencia histórica y 660 pendientes de validación en 18 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Prioridades técnicas de reversing
@@ -15,9 +15,9 @@
 | --- | ---: |
 | Entradas en el catálogo | 12.441 |
 | Reconstruidas | 12.441 |
-| Validadas | 11.771 |
-| Reconstruidas sin validar | 670 |
-| De ellas, en esta cola (validables por pares) | 670 |
+| Validadas | 11.781 |
+| Reconstruidas sin validar | 660 |
+| De ellas, en esta cola (validables por pares) | 660 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
@@ -26,23 +26,20 @@ Validar no exige que la clase esté completa: se valida cada función ya reconst
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 3 | 5 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 0 | 0 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 0 | 0 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 19 | 661 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
-| [🔴 Nivel 4: caras](#nivel-4) | 1 | 4 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **23** | **670** | |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 18 | 660 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🔴 Nivel 4: caras](#nivel-4) | 0 | 0 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
+| **Total** | **18** | **660** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (3 clases, 5 funciones)
+## 🟢 Nivel 1: muy barato (0 clases, 0 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CAudioZones | 9 | 1 |  | 31 |
-| 2 | IKChainManager_c | 19 | 2 |  | 20 |
-| 3 | WaterCreatureManager_c | 9 | 2 |  | 29 |
 
 <a id="nivel-2"></a>
 
@@ -55,41 +52,39 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (19 clases, 661 funciones)
+## 🟠 Nivel 3: moderadas (18 clases, 660 funciones)
 
 Criterio: el resto.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CWaterLevel | 49 | 1 |  | 42 |
-| 2 | RtSlerp | 1 | 1 |  | ? |
-| 3 | RtBMP | 2 | 2 |  | ? |
-| 4 | DelayLoadThunks | 3 | 3 |  | ? |
-| 5 | QTMLRuntime | 6 | 6 |  | ? |
-| 6 | RpHAnim | 7 | 6 |  | ? |
-| 7 | RtQuat | 6 | 6 |  | ? |
-| 8 | RtAnim | 10 | 7 |  | 48 |
-| 9 | RtDict | 12 | 10 |  | ? |
-| 10 | D3DX9 | 11 | 11 |  | ? |
-| 11 | RpUVAnim | 16 | 14 |  | ? |
-| 12 | ZlibInflate | 14 | 14 |  | ? |
-| 13 | ImportThunks | 17 | 17 |  | ? |
-| 14 | RpMatFX | 28 | 28 |  | ? |
-| 15 | RpSkin | 34 | 33 |  | ? |
-| 16 | RpWorld | 197 | 94 |  | ? |
-| 17 | RwD3D9 | 115 | 115 |  | ? |
-| 18 | RwPlCore | 132 | 118 |  | ? |
-| 19 | RwCore | 211 | 175 |  | ? |
+| 1 | RtSlerp | 1 | 1 |  | ? |
+| 2 | RtBMP | 2 | 2 |  | ? |
+| 3 | DelayLoadThunks | 3 | 3 |  | ? |
+| 4 | QTMLRuntime | 6 | 6 |  | ? |
+| 5 | RpHAnim | 7 | 6 |  | ? |
+| 6 | RtQuat | 6 | 6 |  | ? |
+| 7 | RtAnim | 10 | 7 |  | 48 |
+| 8 | RtDict | 12 | 10 |  | ? |
+| 9 | D3DX9 | 11 | 11 |  | ? |
+| 10 | RpUVAnim | 16 | 14 |  | ? |
+| 11 | ZlibInflate | 14 | 14 |  | ? |
+| 12 | ImportThunks | 17 | 17 |  | ? |
+| 13 | RpMatFX | 28 | 28 |  | ? |
+| 14 | RpSkin | 34 | 33 |  | ? |
+| 15 | RpWorld | 197 | 94 |  | ? |
+| 16 | RwD3D9 | 115 | 115 |  | ? |
+| 17 | RwPlCore | 132 | 118 |  | ? |
+| 18 | RwCore | 211 | 175 |  | ? |
 
 <a id="nivel-4"></a>
 
-## 🔴 Nivel 4: caras (1 clases, 4 funciones)
+## 🔴 Nivel 4: caras (0 clases, 0 funciones)
 
 Criterio: 90 o más funciones, o más de 50 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | D3D9RasterFormat | 10 | 4 |  | 88 |
 
 <a id="fuera-de-la-cola"></a>
 
