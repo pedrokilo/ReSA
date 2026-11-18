@@ -2,7 +2,7 @@
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md) · [Registro de validaciones](../reversing/ValidationRegistry/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** 2026-11-17 22:47 UTC
+> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** 2026-11-18 01:16 UTC
 
 **Índice:** [1. Dónde estamos](#donde-estamos) · [2. Código del juego](#juego) · [3. RenderWare](#renderware) · [4. Qué falta por validar](#por-validar) · [5. Clases del juego sin validar](#clases) · [6. Cómo leer y regenerar](#metodo)
 
@@ -18,16 +18,16 @@ Tres conceptos distintos, que no se mezclan en ninguna cifra:
 
 Y dos zonas del EXE que se miden por separado: el **código del juego** (0x401000–0x74FFFF, el trabajo propio del proyecto) y **RenderWare y D3D** (0x750000–0x81FFFF, el SDK enlazado dentro del EXE).
 
-Cifras al 17/11/2026.
+Cifras al 18/11/2026.
 
 | Zona | Funciones a reconstruir | Reconstruidas | Entradas del catálogo | Validadas | Sin validar |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | **Código del juego** | 11.686 | 11.686 (100,00%) | 11.613 | 11.485 | 128 |
-| **RenderWare y D3D** | 724 | 724 (100,00%) | 822 | 99 | 723 |
+| **RenderWare y D3D** | 724 | 724 (100,00%) | 822 | 121 | 701 |
 
 **Cómo leer la tabla:** «Funciones a reconstruir» y «Reconstruidas» se cuentan en funciones del EXE; «Validadas» y «Sin validar» se cuentan en entradas del catálogo (`hooks.csv`), y suman las «Entradas del catálogo». No coinciden con las funciones porque una función puede tener varias entradas (cuerpo, destructor con borrado, ranura virtual, envoltura). En el código del juego se descartan 118 funciones excluidas (no reconstruibles en C++ puro); en RenderWare, 1.111 funciones de libpng, zlib y D3DX9 (se enlaza la original) y 54 no reconstruibles.
 
-En total hay **12.441 entradas reconstruidas, 11.590 validadas y 851 sin validar** en el catálogo (11.590 con evidencia registrada). Quedan además 6 entradas fuera de ambas zonas (CRT y utilidades).
+En total hay **12.441 entradas reconstruidas, 11.612 validadas y 829 sin validar** en el catálogo (11.612 con evidencia registrada). Quedan además 6 entradas fuera de ambas zonas (CRT y utilidades).
 
 ### Fase del proceso
 
@@ -36,7 +36,7 @@ En total hay **12.441 entradas reconstruidas, 11.590 validadas y 851 sin validar
 | Reconstruir el código del juego en C++ puro | **Hecha**: 100,00% de las funciones y 100,00% de los bytes; faltan 0 y hay 118 excluidas por no ser reconstruibles |
 | Reconstruir el SDK de RenderWare | **Hecha**: 724 de 724 funciones reconstruibles (100,00%); aparte, 1.111 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
 | **Validar el código del juego** | **En curso**: 11.485 de 11.613 reconstruidas (98,90%); el resto va por oleadas de lotes (detalle en el [informe](ReversedClasses.md#por-validar)) |
-| Validar RenderWare | **Apenas empezada**: 99 de 822 (12,04%); falta el plan de bancos (dispositivo D3D falso, flujos y listas libres falsos) |
+| Validar RenderWare | **Apenas empezada**: 121 de 822 (14,72%); falta el plan de bancos (dispositivo D3D falso, flujos y listas libres falsos) |
 | Pase final de bancos viejos | Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió |
 | Ejecutable propio | Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](ProjectRoadmap.md)) |
 
@@ -70,8 +70,8 @@ Región de 1.889 funciones y 600.971 bytes: el SDK de RenderWare 3.7, el control
 | Funciones que se reconstruyen (sin las enlazadas ni las no reconstruibles) | 724 |
 | **Reconstruidas en C++** (hook en la DLL) | **724** (100,00%) |
 | Entradas del catálogo de esas funciones (una función puede tener varias) | 822 |
-| Entradas validadas | 99 |
-| Entradas sin validar | 723 |
+| Entradas validadas | 121 |
+| Entradas sin validar | 701 |
 | Enlazadas (libpng, zlib y D3DX9: se enlaza la original, no se reconstruyen) | 1.111 |
 | No reconstruibles en C++ puro (puentes de QuickTime, carga retardada, 3DNow!, ya enganchadas por el modo ventana) | 54 |
 | **Pendientes de reconstruir** | **0** |
@@ -81,7 +81,7 @@ Región de 1.889 funciones y 600.971 bytes: el SDK de RenderWare 3.7, el control
 | Módulo | Reconstruidas | Validadas | Sin validar |
 | --- | ---: | ---: | ---: |
 | RwCore | 211 | 36 | 175 |
-| RpWorld | 197 | 40 | 157 |
+| RpWorld | 197 | 62 | 135 |
 | RwPlCore | 132 | 14 | 118 |
 | RwD3D9 | 115 | 0 | 115 |
 | RpSkin | 34 | 1 | 33 |
@@ -112,13 +112,13 @@ Los lotes de validación van por oleadas y cada uno tiene su informe en [reversi
 | V1 | 189A–206A | 18 | 18 | 0 | 0 |
 | V2 | 207A–215A | 9 | 9 | 0 | 0 |
 | V3 | 216A–222A | 7 | 7 | 0 | 0 |
-| V4 | 223A–229A | 7 | 4 | 3 | 62 |
+| V4 | 223A–229A | 7 | 5 | 2 | 40 |
 | V5 | 230A–236A | 7 | 0 | 7 | 136 |
 | V6 | 237A–239A | 3 | 0 | 3 | 5 |
 
-En validación ahora: 226A, 228A.
+En validación ahora: 226A, 229A.
 
-Lotes por validar: 229A, 230A, 231A, 232A, 233A, 234A, 235A, 236A, 237A, 238A, 239A.
+Lotes por validar: 230A, 231A, 232A, 233A, 234A, 235A, 236A, 237A, 238A, 239A.
 
 Los lotes de RenderWare (R1A–R34A) se validarán en una oleada propia, aún sin plan.
 
