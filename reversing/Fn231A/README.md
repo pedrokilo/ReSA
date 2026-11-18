@@ -1,0 +1,53 @@
+# Fn231A: 18 funciones de la libjpeg 6b embebida en el EXE (lote 231A, parte de compresion)
+
+Estado: **APROBADO dentro del juego** (17/11/2026, worktree `wv-6` desde a50bb5b301, HEAD de integracion del coordinador con 212A a 228A; plantillas `Fn173A` y `Fn171A`, registro como `Fn229A`). Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn231a/20261117-223120-340857` (archivada en `reversing/CppTwelveLevel6Final/runs/Fn231A-20261117-223120-340857`, `comparisons.jsonl.gz` o `.xz`). 18 x 16384 = **294912 pares** EXE/DLL, cero diferencias, compuertas de ABI/ruta/SEH/DF/restauracion en ambos lados, x87 vacia y cada lado coincide con el oraculo Python independiente (`fixture_oracle.py`). SHA256 de la sonda ejecutada: `ee3b4c4363e63b758558e5fb2a648dcd78c713f904feab397beb2e82fc1382b3`; del EXE original: `72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b`.
+
+El listado atribuia las 21 direcciones a `FxEmitterBP_c`; son de la libjpeg 6b del EXE (clase `LibJpegCompress`, `source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp`): 18 con hook (hooks S, cinco usercall con envoltura de `EntryEaxCpp`) y tres ayudantes sin hook (ESI = cinfo) que el banco ejercita por sus unicos llamadores. **El banco no encontro ninguna diferencia: no se cambio la fuente ni se excluyo ninguna funcion** (las 18 filas de `docs/hooks.csv` pasan a `validated = 1`).
+
+| # | Funcion | Entrada | ABI del EXE |
+|---|---|---|---|
+| 0 | `EmitDqt` | 0x5C55D0 | usercall: EAX = cinfo, indice en pila (`ret`), devuelve la precision en EAX |
+| 1 | `EmitDht` | 0x5C5780 | usercall: ECX = cinfo, AL = es AC, indice en pila (`ret`) |
+| 2 | `EmitDri` | 0x5C5910 | usercall: EAX = cinfo (sin llamadores en el EXE) |
+| 3 | `EmitSof` | 0x5C5940 | usercall: ECX = cinfo, AL = marcador |
+| 4 | `EmitSos` | 0x5C5AC0 | usercall: EAX = cinfo |
+| 5 | `EmitJfifApp0` | 0x5C5CA0 | usercall: EAX = cinfo |
+| 6 | `EmitAdobeApp14` | 0x5C5EC0 | usercall: EAX = cinfo |
+| 7 | `WriteFileHeader` | 0x5C60B0 | cdecl(cinfo) |
+| 8 | `WriteFrameHeader` | 0x5C6100 | cdecl(cinfo) |
+| 9 | `WriteFileTrailer` | 0x5C62D0 | cdecl(cinfo) |
+| 10 | `JinitMarkerWriter` | 0x5C63D0 | cdecl(cinfo) |
+| 11 | `PrepareForPass` | 0x5C6850 | cdecl(cinfo); llama a `SelectScanParameters` (0x5C6600) y `PerScanSetup` (0x5C6680) |
+| 12 | `PassStartup` | 0x5C69E0 | cdecl(cinfo) |
+| 13 | `JinitCMasterControl` | 0x5C6A90 | cdecl(cinfo, transcode_only); llama a `InitialSetup` (0x5C6430) |
+| 14 | `JpegAbort` | 0x5C6B50 | cdecl(cinfo) |
+| 15 | `JpegDestroy` | 0x5C6B90 | cdecl(cinfo) |
+| 16 | `JpegAllocQuantTable` | 0x5C6BB0 | cdecl(cinfo) -> tabla |
+| 17 | `JpegAllocHuffTable` | 0x5C6BD0 | cdecl(cinfo) -> tabla |
+
+## Banco
+Una funcion por ruta (original = EXE con el hook apagado; candidato = DLL con SOLO ese hook). Cada caso construye una `jpeg_compress_struct` sintetica de la libjpeg 6b en la arena A (con `err`, `mem`, `progress`, `dest`, `master`, `marker`, siete submodulos y 8 componentes de 0x54 bytes), tablas de cuantificacion y Huffman en la D (contenido por descriptores: valores de 8 y de 16 bits, un valor sobre 255 en cualquier posicion, tablas de 0 a 272 simbolos, marca `sent_table` con valores distintos de 0 y 1), el bufer de salida en la C (tamanos de 1 a 1024 bytes, con 0 bytes libres y con el bufer al borde de la arena) y el destino de `alloc_small` en la B; cuatro rellenos de las arenas (aleatorio, ceros, unos, 0xCD) y cuatro posiciones de la escena (alineada, desalineada, al borde, cerca del borde). 16 familias de 1024 casos por funcion.
+
+**Todos los colaboradores se llaman por punteros de la propia estructura** (`error_exit`, `emit_message`, `empty_output_buffer`, `alloc_small`, `free_pool`, `self_destruct`, los `start_pass` de los siete submodulos y `write_frame_header`/`write_scan_header` del escritor de marcadores), asi que los falsos son los mismos en el EXE y en la DLL por construccion; no hay falsos con direccion fija. Cada falso anota un evento (con etiquetas de arena para los punteros); los de submodulos y escritores anotan ademas un FNV de la estructura (0x160 bytes) y del maestro (0x20), que fija el orden de las escrituras de la funcion respecto a esas llamadas. `empty_output_buffer` anota el FNV de todo el bufer (los bytes ya volcados no se pierden), reinicia el destino y devuelve AL (con ruido en los bits altos de EAX; AL = 0 produce `JERR_CANT_SUSPEND`). `free_pool` y `self_destruct` escriben marcas en `global_state` y `+0x10C` para comprobar que la funcion las sobrescribe despues de llamar.
+
+`error_exit` de la libjpeg real **nunca vuelve**. En los casos con `P_ERRMODE = 0` el falso sale con `longjmp` a la entrada de `Gate` (el estado de la arena y los eventos en ese instante son lo observable; ESP/EBX/ESI/EDI/EBP se restauran desde el `jmp_buf` y en esas filas la compuerta de pila y de registros no volatiles se da por buena porque la funcion no llego a volver; las demas compuertas siguen exigiendose). En los demas casos `error_exit` VUELVE y el cuerpo sigue como en el EXE (dimensiones sobre 65535 en `EmitSof`, `JERR_CANT_SUSPEND`, errores de `InitialSetup`, de `PerScanSetup` y de `PrepareForPass` con la escena acotada para que seguir sea seguro); el generador fuerza la salida con `longjmp` cuando seguir leeria una tabla nula o escribiria fuera de `cur_comp_info`/`MCU_membership`. Pares que salen por `error_exit` (con `longjmp`): ver `pairs_exiting_by_error_exit` en `summary.json` (de 435 en `WriteFileTrailer` a 8072 en `JinitCMasterControl`).
+
+Colaboradores por direccion fija, REALES en ambos lados (sin falso): `jdiv_round_up` (0x5CF890, de `PerScanSetup` e `InitialSetup`; **tiene hook en la DLL del lote 235A (`LibJpegMemory`, sin validar): su ruta lo deja apagado**, asi que el EXE corre sus bytes y la DLL del banco la llama por la direccion del EXE) y las funciones del propio lote que se llaman entre si (`EmitJfifApp0` y `EmitAdobeApp14` desde `WriteFileHeader`, `EmitDqt` y `EmitSof` desde `WriteFrameHeader`: el EXE corre las suyas con el hook apagado, la DLL las suyas). Se vigilan las entradas de esas direcciones y `jpeg_natural_order` (0x86B818, 0x100 bytes vigilados; el oraculo usa la misma tabla leida del PE). `python -I fixture_selfcheck.py` calcula la cobertura de ramas del oraculo sobre las 294912 entradas (sin juego) y `run_local.py` exige un minimo de 50 casos por cada marca de `KEYS` (precision 0 y 1, tabla nueva y ya enviada, tabla nula, indices de Huffman, `over256`, `too_big`, `sof_n0..n5`, `sos_n0..n4`, los cuatro SOF, `tables16`, `pass0..3`, `huff_opt`, `first_scan`, `scan_single`, `scan_multi`, `progress`, `restart_rows`, `bad_pass`, `empty_image`, `bad_sampling`, `scan_info`, `transcode`, `two_passes`, `decompressor`, `compressor`, `no_mem`, ...).
+
+El oraculo (`fixture_oracle.py`) reimplementa en Python la libjpeg 6b (emision de marcadores con la tabla natural del EXE, `initial_setup`, `select_scan_parameters`, `per_scan_setup`, control maestro) desde el desensamblado, con `jdiv_round_up` como `idiv` con signo, comparaciones con signo/sin signo del EXE, aritmetica de byte en `(h << 4) + v` y `(td << 4) + ta`, y la escena inicial y el relleno desde los parametros del caso. `run_local.py` lee el registro en flujo (el `comparisons.jsonl` pesa 763 MB). Comando: `CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1 bash chain231.sh` (compila con candado de compilacion, una sola sesion del candado del juego con la corrida principal y las 2 rondas negativas).
+
+## Comportamientos que el banco confirmo como identicos al EXE
+- `EmitDqt` devuelve en EAX exactamente 0 o 1; el indice sube a 4..11 (lee la tabla Huffman como si fuera de cuantificacion) y escribe `sent_table` en el byte +0x80 de esa tabla, igual en ambos lados. `EmitDht` con AC suma 0x10 al indice tambien en el error 0x32; con mas de 256 simbolos lee `huffval` mas alla de la tabla (hasta 272) igual que el EXE.
+- `EmitSof` compara las dimensiones con signo (un alto o ancho desde 0x80000000 es negativo y no da el error 0x29) y sigue emitiendo tras el error; `EmitSos` usa aritmetica de byte y la logica de tablas del modo progresivo; los `boolean` de la estructura se leen como bytes (se probaron 0, 1, 2, 0x80 y 0xFF) y las densidades y `restart_interval` como `word` y `dword`.
+- `PrepareForPass`: orden exacto de los submodulos, `optimize_coding` pasado como byte, `3` o `0` a `coef` segun `total_passes > 1` con signo, `is_last_pass` como byte, progreso solo si el puntero no es nulo; `PerScanSetup` usa `div` sin signo para los restos y `restart_interval = min(MCUs_per_row * restart_in_rows, 0xFFFF)` con comparacion con signo sobre el producto de 32 bits.
+- `JinitCMasterControl` solo lee el byte bajo de `transcode_only`; `InitialSetup` compara alto y ancho sin signo contra cero y con signo contra 0xFFDC.
+- El bloque "refinamiento DC con Huffman" de `PrepareForPass` (`pass_type = 2`, `pass_number++`) es **inalcanzable** en el EXE y en la fuente: `SelectScanParameters` deja `Ss = 0` y `Ah = 0` justo antes de la comprobacion, asi que `Ah == 0` siempre. El banco no lo cubre y no se exige su marca.
+
+## Prueba negativa
+`mutate.py` (18 mutaciones por ronda en `LibJpegCompress.cpp`, condicionadas a `cinfo` desalineado, que el juego real no produce y el banco si). **Las 18 funciones fallan en ambas rondas** (`negative-runs/`, 2048 casos por funcion): ronda 1 `20261117-230124-431796` (13522 de 36864 pares con diferencias) y ronda 2 `20261117-230446-668579` (13275 de 36864); el lado EXE coincide con el oraculo en todos los pares. Fuente restaurada con `mutate.py restore` (SHA256 igual a la copia buena); el manifiesto de la sonda se restauro al de la corrida principal.
+
+## Fuera de los fixtures
+Ver `scope_note.txt`.
+
+## Bancos que citan las direcciones (sin repetir; para el pase final del coordinador)
+Busqueda de las 21 direcciones (las 18 con hook y las tres de ayudantes) en los archivos versionados de `reversing/` (sin `CVehicle`, `_handoff`, `runtime`, `PendienteValidar`, registros, evidencia archivada ni este banco): **ningun banco antiguo las cita**; la unica coincidencia es el catalogo `reversing/BinaryCoverageAudit/unmatched-functions.csv`. Ningun banco usa el compresor JPEG del EXE; `jdiv_round_up` (0x5CF890) pertenece al lote 235A y aqui solo se ejecuta real con su hook apagado.

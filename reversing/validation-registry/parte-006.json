@@ -1150,6 +1150,726 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7955aeff3e (HEAD de integracion del coordinador, con 212A y 213A) mas las correcciones que revelo el banco (FxEmitterBP_c::IsFxInfoPresent recorre por indice como el EXE en vez de construir un std::span, cuyo iterador comprobado abortaba el juego con un recuento de 0x7FFFFFFF aunque el EXE se detenga en la primera coincidencia; jpeg_make_c_derived_tbl usa los tamanos del marco del EXE (huffsize de 260 bytes y huffcode de 261 palabras) porque con recuentos que suman mas de 256 el control de pila del compilador abortaba el juego; jinit_c_coef_controller lee h_samp_factor despues de la primera llamada a jround_up como el EXE). 25 funciones: RpWorldPluginAttach y los destructores de ties de RpWorld (_rpLightTieDestroy, _rpTieDestroy); la familia Fx (cuerpos de los destructores de FxEmitterBP_c, FxInfo_c y FxInfoManager_c, operator new de FxEmitterBP_c, cuerpo del constructor de FxEmitter_c, IsFxInfoPresent, Init, Reset y Update virtuales de FxEmitter_c y los dos destructores con borrado); y la compresion de la libjpeg 6b embebida en el EXE (jpeg_start_compress, jpeg_write_scanlines, controladores de coeficientes y principal, grayscale_convert, jinit_color_converter, jinit_forward_dct, jpeg_make_c_derived_tbl, jpeg_gen_optimal_table, jinit_huff_encoder y jinit_compress_master). Los colaboradores que tienen hook RH en la DLL llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); los que no (0x4A2BB0, un salto puro del EXE, y 0x8214BD, el operator delete del CRT) solo en la direccion del EXE. Las funciones de la libjpeg que se llaman por puntero (error_exit, emit_message, alloc_small, alloc_large, alloc_sarray, request_virt_barray, realize_virt_arrays, init_destination, prepare_for_pass, pass_startup, progress_monitor, process_data, write_file_header) y las listas libres de RwEngineInstance (+0x148, dos tablas falsas E1/E2) son funciones falsas del banco. Fuera de los fixtures: recuentos de jpeg_make_c_derived_tbl que sumen mas de 259 (el EXE solaparia huffsize con huffcode leyendo pila sin inicializar), tablas Huffman nulas con un tblno valido (el EXE las desreferencia tras el aviso), profundidades de codigo de jpeg_gen_optimal_table por encima de 31 (inalcanzables con frecuencias de 32 bits y el umbral de 1e9: el ERREXIT 0x27 no se ejerce), frecuencias negativas, recuentos de componentes mayores de 4, tipos de IsFxInfoPresent con bits altos (el EXE compara el dword empujado con la palabra de 16 bits de la tabla), objetos reales construidos por el EXE y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn230A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "EmitDqt",
+        "address": "0x005C55D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::EmitDqt"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "EmitDht",
+        "address": "0x005C5780",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::EmitDht"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "EmitDri",
+        "address": "0x005C5910",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::EmitDri"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "EmitSof",
+        "address": "0x005C5940",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::EmitSof"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "EmitSos",
+        "address": "0x005C5AC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::EmitSos"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "EmitJfifApp0",
+        "address": "0x005C5CA0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::EmitJfifApp0"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "EmitAdobeApp14",
+        "address": "0x005C5EC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::EmitAdobeApp14"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "WriteFileHeader",
+        "address": "0x005C60B0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::WriteFileHeader"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "WriteFrameHeader",
+        "address": "0x005C6100",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::WriteFrameHeader"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "WriteFileTrailer",
+        "address": "0x005C62D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::WriteFileTrailer"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "JinitMarkerWriter",
+        "address": "0x005C63D0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::JinitMarkerWriter"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "PrepareForPass",
+        "address": "0x005C6850",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::PrepareForPass"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "PassStartup",
+        "address": "0x005C69E0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::PassStartup"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "JinitCMasterControl",
+        "address": "0x005C6A90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::JinitCMasterControl"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "JpegAbort",
+        "address": "0x005C6B50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::JpegAbort"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "JpegDestroy",
+        "address": "0x005C6B90",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::JpegDestroy"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "JpegAllocQuantTable",
+        "address": "0x005C6BB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::JpegAllocQuantTable"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
+    },
+    {
+      "hook": {
+        "class": "LibJpegCompress",
+        "fn_name": "JpegAllocHuffTable",
+        "address": "0x005C6BD0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn231A/validation-summary.json",
+        "sha256": "1ee1eaac5d3fd1770af602d762effb8d54cb0a85d71f54e34b3e5fff32d02f89",
+        "passed_path": [
+          "covered_functions",
+          "LibJpegCompress::JpegAllocHuffTable"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp": "5a34cbda40799a8f03127014b278982b27cd814435ba9c4a284340bb14d46091",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.h": "cc51698d9c5d74ff34e2e4ad5943228b49e60ea7330beb25f7c1bd52d856f74b",
+        "source/game_sa/Plugins/JPegCompressPlugin/LibJpegExe.h": "88b664218e90e1782e87c9943b44cfc651208d055f36377df2e7176cea008e4d",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn231A/LiveComparison.hpp": "54a6f2d147f06245c26fffd4de70b7c87f09a2aacb9381316580715edda9e0a7",
+        "reversing/Fn231A/Core.hpp": "f39380c5966a3d39b54488c3175000441f526664af90eeffc6434c2c9f2b4987",
+        "reversing/Fn231A/Fixtures.hpp": "31272579251d1873d957f9b4602243b26e46e17c9184dcc9fb07fb07d967c607",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-6 sobre a50bb5b301 (HEAD de integracion del coordinador, con 212A a 228A) con los cambios del lote (ver artifacts/build-manifest.json). 18 funciones enganchadas de la parte de compresion de la libjpeg 6b embebida en el EXE (jcmarker.c, jcmaster.c, jcapimin.c y jcomapi.c; clase LibJpegCompress, el listado las atribuia a FxEmitterBP_c); los tres ayudantes sin hook (initial_setup, select_scan_parameters, per_scan_setup, ESI = cinfo) se ejercitan por JinitCMasterControl y PrepareForPass. Todos los colaboradores se llaman por punteros de la propia jpeg_compress_struct (error_exit, emit_message, empty_output_buffer, alloc_small, free_pool, self_destruct, start_pass de los submodulos y write_frame_header/write_scan_header del escritor de marcadores): los falsos son identicos en el EXE y en la DLL por construccion; jdiv_round_up (0x5CF890, con hook propio de otro lote, apagado durante el banco) y las funciones del lote que se llaman entre si (EmitDqt, EmitSof, EmitJfifApp0, EmitAdobeApp14) son codigo real del EXE en el lado original y cuerpo propio en el candidato. Fuera de los fixtures: error_exit que vuelve cuando el cuerpo no puede continuar (tabla nula, mas de 4 componentes en SelectScanParameters, mas de 10 bloques por MCU), estructuras reales construidas por el jpeg_compress_struct del EXE (jinit_*), tablas de mas de 256 simbolos en la escritura real de JPEG, punteros crudos o desalineados dentro de la estructura, la exactitud de los falsos y el bloque DC-refinamiento Huffman de PrepareForPass (inalcanzable: SelectScanParameters deja Ss = 0 y Ah = 0).",
+      "review_reference": "reversing/Fn231A/README.md"
     }
   ]
 }

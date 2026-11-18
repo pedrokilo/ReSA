@@ -1,0 +1,3 @@
+FALLO: Fn231A
+Diferencia en el par 10 (LibJpegCompress::EmitDqt 10)
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn231a\20261117-230124-431796
