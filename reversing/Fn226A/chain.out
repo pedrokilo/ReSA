@@ -1,0 +1,21 @@
+19:07:12 inicio
+19:11:34 gta_lock tomado
+19:11:59 build ok main
+19:36:05 run main: APROBADO: Fn226A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn226a\20261117-191203-530353 
+ronda 1 aplicada: 17 mutaciones
+19:39:36 run neg1: FALLO: Fn226A Funciones con diferencias: CGamma::SetGammaNoFade: 12/2048; RpAnisot::RpAnisotPluginAttach: 57/2048; RpWorld::AtomicRightsStreamRead: 265/2048; RpWorld::AtomicRightsStreamWrite: 263/2048; RpWorld::_rpAtomicResyncInterpolatedSphere: 473/2048; RpWorld::RpAtomicGetWorldBoundingSphere: 294/2048; RpWorld::ClumpFreeListDestroyCallBack: 905/2048; RpWorld::AtomicFreeListDestroyCallBack: 878/2048; RpWorld::ClumpPluginAttach: 55/2048; RpWorld::RpClumpRender: 534/2048; RpWorld::RpClumpForAllCameras: 884/2048; RpWorld::RpClumpForAllLights: 902/2048; RpWorld::RpAtomicCreate: 768/2048; RpWorld::AtomicSyncCallBack: 911/2048; RpWorld::RpAtomicSetGeometry: 525/2048; RpWorld::RpAtomicDestroy: 9
+restauradas 3 fuentes (SHA256 igual a las copias buenas)
+19:39:36 informe neg1: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn226a/20261117-193621-047021
+{"CGamma::SetGammaNoFade": 12, "RpAnisot::RpAnisotPluginAttach": 57, "RpWorld::AtomicRightsStreamRead": 265, "RpWorld::AtomicRightsStreamWrite": 263, "RpWorld::_rpAtomicResyncInterpolatedSphere": 473, "RpWorld::RpAtomicGetWorldBoundingSphere": 294, "RpWorld::ClumpFreeListDestroyCallBack": 905, "RpWorld::AtomicFreeListDestroyCallBack": 878, "RpWorld::ClumpPluginAttach": 55, "RpWorld::RpClumpRender": 534, "RpWorld::RpClumpForAllCameras": 884, "RpWorld::RpClumpForAllLights": 902, "RpWorld::RpAtomicCreate": 768, "RpWorld::AtomicSyncCallBack": 911, "RpWorld::RpAtomicSetGeometry": 525, "RpWorld::RpAtomicDestroy": 906, "RpWorld::RpAtomicClone": 610}
+pares 34816 con diferencias 9242 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
+
+ronda 2 aplicada: 17 mutaciones
+19:43:13 run neg2: FALLO: Fn226A Funciones con diferencias: CGamma::SetGammaNoFade: 12/2048; RpAnisot::RpAnisotPluginAttach: 106/2048; RpWorld::AtomicRightsStreamRead: 287/2048; RpWorld::AtomicRightsStreamWrite: 556/2048; RpWorld::_rpAtomicResyncInterpolatedSphere: 377/2048; RpWorld::RpAtomicGetWorldBoundingSphere: 463/2048; RpWorld::ClumpFreeListDestroyCallBack: 684/2048; RpWorld::AtomicFreeListDestroyCallBack: 878/2048; RpWorld::ClumpPluginAttach: 49/2048; RpWorld::RpClumpRender: 577/2048; RpWorld::RpClumpForAllCameras: 497/2048; RpWorld::RpClumpForAllLights: 524/2048; RpWorld::RpAtomicCreate: 768/2048; RpWorld::AtomicSyncCallBack: 662/2048; RpWorld::RpAtomicSetGeometry: 172/2048; RpWorld::RpAtomicDestroy: 
+restauradas 3 fuentes (SHA256 igual a las copias buenas)
+19:43:13 informe neg2: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn226a/20261117-193958-106265
+{"CGamma::SetGammaNoFade": 12, "RpAnisot::RpAnisotPluginAttach": 106, "RpWorld::AtomicRightsStreamRead": 287, "RpWorld::AtomicRightsStreamWrite": 556, "RpWorld::_rpAtomicResyncInterpolatedSphere": 377, "RpWorld::RpAtomicGetWorldBoundingSphere": 463, "RpWorld::ClumpFreeListDestroyCallBack": 684, "RpWorld::AtomicFreeListDestroyCallBack": 878, "RpWorld::ClumpPluginAttach": 49, "RpWorld::RpClumpRender": 577, "RpWorld::RpClumpForAllCameras": 497, "RpWorld::RpClumpForAllLights": 524, "RpWorld::RpAtomicCreate": 768, "RpWorld::AtomicSyncCallBack": 662, "RpWorld::RpAtomicSetGeometry": 172, "RpWorld::RpAtomicDestroy": 906, "RpWorld::RpAtomicClone": 610}
+pares 34816 con diferencias 8128 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
+
+19:43:29 fin

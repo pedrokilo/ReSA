@@ -108176,6 +108176,703 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Colaboradores falseados en el banco (identicos en la direccion del EXE y en el cuerpo de la DLL, todos con hook RH apagado): RwBBoxCalculate, _rwSqrt (RwSqrt), lectura de flujos (RwStreamFindChunk, RwStreamRead, RwStreamReadReal, RwStreamReadInt32, RwStreamWriteInt32), errores (_rwerror, RwErrorSet), registros de plugins (_rwPluginRegistryAddPlugin, AddPluginStream, InitObject, DeInitObject, ReadDataChunks, InvokeRights), RwResourcesFreeResEntry, RwTextureDestroy, RwTextureStreamRead, _rpMaterialListAppendMaterial, _rpMaterialListInitialize/Deinitialize/StreamRead, _rpMeshDestroy, _rpBuildMeshCreate/AddTriangle/Destroy, _rpMeshOptimise, y como colaboradores de otras RpGeometryCreate, RpGeometryAddMorphTargets, RpGeometryUnlock y _rpMaterialSetDefaultSurfaceProperties; las funciones de memoria de RwEngineInstance (+0x134 malloc, +0x138 free, +0x13C realloc, +0x144 y +0x148 de las listas libres) son falsos instalados en el propio motor. Corren reales: _rpMaterialListFindMaterialIndex (en RpGeometryTriangleSetMaterial), _rpMaterialListGetMaterial (en RpGeometryUnlock), RpGeometryAddMorphTargets (en RpGeometryCreate) y RpGeometryLock y _rpGeometryDestroyUnreferenced (en RpGeometryStreamRead). Fuera de los fixtures: punteros nulos desreferenciados, RpMorphTargetCalcBoundingSphere con RwBBoxCalculate real (el falso devuelve la caja del caso), contadores de 16 bits que dan la vuelta (mas de 65535 materiales o texturas), longitudes de chunk de material mayores de 28 bytes (desbordan el buffer local igual que el EXE), formatos con mas de 12 juegos de coordenadas y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/Fn228A/README.md"
+    },
+    {
+      "hook": {
+        "class": "CGamma",
+        "fn_name": "SetGammaNoFade",
+        "address": "0x00747DB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "CGamma::SetGammaNoFade"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpAnisot",
+        "fn_name": "RpAnisotPluginAttach",
+        "address": "0x00748F70",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpAnisot::RpAnisotPluginAttach"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "AtomicRightsStreamRead",
+        "address": "0x00749120",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::AtomicRightsStreamRead"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "AtomicRightsStreamWrite",
+        "address": "0x00749160",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::AtomicRightsStreamWrite"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "_rpAtomicResyncInterpolatedSphere",
+        "address": "0x007491F0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::_rpAtomicResyncInterpolatedSphere"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpAtomicGetWorldBoundingSphere",
+        "address": "0x00749330",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpAtomicGetWorldBoundingSphere"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "ClumpFreeListDestroyCallBack",
+        "address": "0x00749520",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::ClumpFreeListDestroyCallBack"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "AtomicFreeListDestroyCallBack",
+        "address": "0x007496A0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::AtomicFreeListDestroyCallBack"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "ClumpPluginAttach",
+        "address": "0x00749830",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::ClumpPluginAttach"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpClumpRender",
+        "address": "0x00749B20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpClumpRender"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpClumpForAllCameras",
+        "address": "0x00749BB0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpClumpForAllCameras"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpClumpForAllLights",
+        "address": "0x00749C00",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpClumpForAllLights"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpAtomicCreate",
+        "address": "0x00749C50",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpAtomicCreate"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "AtomicSyncCallBack",
+        "address": "0x00749D20",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::AtomicSyncCallBack"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpAtomicSetGeometry",
+        "address": "0x00749D40",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpAtomicSetGeometry"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpAtomicDestroy",
+        "address": "0x00749DC0",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpAtomicDestroy"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
+    },
+    {
+      "hook": {
+        "class": "RpWorld",
+        "fn_name": "RpAtomicClone",
+        "address": "0x00749E60",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/Fn226A/validation-summary.json",
+        "sha256": "2349eaa170cf897b5bf1cc5fcea08256ba146ae8d368e9a1674b8f6c49d53ad8",
+        "passed_path": [
+          "covered_functions",
+          "RpWorld::RpAtomicClone"
+        ],
+        "pairs": 16384,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+        "source/game_sa/RenderWare/rw/rpworld.cpp": "187dbd1ee4ca6ee8e404bb3eee154ba2d8ebfeba49ae4c30b195fa33953b7e56",
+        "source/game_sa/RenderWare/rw/rpanisot.cpp": "304edfd8c1cf1c65bb75ca1487d87b77e137f00036356bf25a4ead4eb9307b98",
+        "source/game_sa/Gamma.cpp": "7eaf58b983bf74085e373f70d6f624a95c5e03b9f263b09e2a54b875fe3ddaf0",
+        "source/game_sa/Gamma.h": "eb80a62c4776169f1ec2fd49d36afd952eaca7ab23c7fd3aa8bbfb875585c5b5",
+        "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/Fn226A/LiveComparison.hpp": "dcafcd08f6d88855982072302829f53a33e3a4987ed65f6f90b5ba6f30e01d12",
+        "reversing/Fn226A/Core.hpp": "b384233bcea4bf91edd74dcf2f07cf590acf34577c087427cdac34ae0ae9c2f2",
+        "reversing/Fn226A/Fixtures.hpp": "68a43cdce21b519df06ac3071f7e8ca31eaa2c1a1bb1953c40511a738e8834ed",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+      },
+      "dependency_review": null,
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 844e034af8 (HEAD de integracion del coordinador, con 212A, 213A y 224A) mas las correcciones que revelo el banco (AtomicRightsStreamWrite relee el puntero a la tuberia del atomo para cada escritura; la esfera interpolada, el maximo de longitudes al cuadrado de la matriz y el nivel/potencia de la gamma pasan a helpers x87 de X87Math.cpp que no aplanan los denormales; CGamma::SetGammaNoFade tiene cuerpo propio con ExeCompatiblePowCpp). 17 funciones del nucleo de RpAtomic y RpClump de RenderWare (callbacks de lectura y escritura del plugin de derechos de render, esfera interpolada y esfera del mundo, destructores de las listas libres de atomos y clumps, registro de plugins de camaras y luces, RpClumpRender, RpClumpForAllCameras/Lights, RpAtomicCreate, sync, SetGeometry, Destroy y Clone), RpAnisotPluginAttach y CGamma::SetGammaNoFade. Todos los colaboradores tienen hook RH en la DLL y llevan un falso identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado); RpAtomicCreate y _rpAtomicResyncInterpolatedSphere (funciones probadas) son falsos de otras funciones. RwEngineInstance es una de dos tablas falsas (E1/E2) con las ranuras +0x144 y +0x148 falsas; el dispositivo D3D9 lleva vtables falsas; los callbacks de dibujo y de recorrido son funciones falsas. Los punteros a funcion que guarda RpAtomicCreate (+0x10 sync, +0x48 dibujo) se comparan por la direccion del EXE (el cuerpo/enlace de la DLL con el hook apagado equivale a la funcion del EXE). Fuera de los fixtures: NaN de senal en los datos en coma flotante (la x87 los trata distinto segun el operando venga de memoria o de un registro), objetos RenderWare reales construidos por el EXE, punteros nulos o crudos desreferenciados, listas con enlaces corruptos y la exactitud de los colaboradores falseados; pow del CRT del EXE frente a math.pow del oraculo solo comparado en los casos del banco.",
+      "review_reference": "reversing/Fn226A/README.md"
     }
   ]
 }

@@ -20817,3 +20817,46 @@ __declspec(noinline) float __cdecl EnvMapDiffuseCopyCpp(float diffuse) {
     return float(double(diffuse));
 }
 #pragma float_control(pop)
+
+// --- Lote 226A ---
+#pragma float_control(precise, on, push)
+__declspec(noinline) void __cdecl AtomicInterpolateSphereCpp(float* out, const float* start, const float* end, float position, float recipTime) {
+    volatile float* const o = out;
+    const double s = double(position) * double(recipTime);
+    o[3] = float((double(end[3]) - double(start[3])) * s + double(start[3]));
+    o[0] = float(double(end[0]) - double(start[0]));
+    o[1] = float(double(end[1]) - double(start[1]));
+    o[2] = float(double(end[2]) - double(start[2]));
+    const double xp = double(o[0]) * s;
+    o[0] = float(xp);
+    volatile float yf = float(double(o[1]) * s);
+    o[1] = yf;
+    volatile float zf = float(double(o[2]) * s);
+    o[2] = zf;
+    o[0] = float(double(start[0]) + xp);
+    o[1] = float(double(start[1]) + double(yf));
+    o[2] = float(double(start[2]) + double(zf));
+}
+
+__declspec(noinline) float __cdecl AtomicMatrixMaxLengthSquaredCpp(const float* m) {
+    const double rightSq = (double(m[0]) * double(m[0]) + double(m[1]) * double(m[1])) + double(m[2]) * double(m[2]);
+    volatile float upSq = float((double(m[4]) * double(m[4]) + double(m[5]) * double(m[5])) + double(m[6]) * double(m[6]));
+    volatile float atSq = float((double(m[8]) * double(m[8]) + double(m[9]) * double(m[9])) + double(m[10]) * double(m[10]));
+    const float up = upSq, at = atSq;
+    const float middle = !(up >= at) ? at : up;
+    volatile float result = !(rightSq >= double(middle)) ? middle : float(rightSq);
+    return result;
+}
+
+__declspec(noinline) void __cdecl GammaLevelCpp(float gamma, float* level) {
+    volatile float* const l = level;
+    *l = float(double(gamma) * double(0.7f));
+}
+__declspec(noinline) float __cdecl GammaPowerCpp(float level) {
+    volatile float power = float((double(1.0f) - double(level)) + double(0.2f));
+    return power;
+}
+__declspec(noinline) bool __cdecl GammaLevelEqualCpp(float level, float target) {
+    return level <= target && level >= target;
+}
+#pragma float_control(pop)

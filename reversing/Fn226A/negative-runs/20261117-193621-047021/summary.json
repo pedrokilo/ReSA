@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "ada9b866d5679813b168cb2658260818ec15a9458de8c4abab3561c93fd6e578",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: CGamma::SetGammaNoFade: 12/2048; RpAnisot::RpAnisotPluginAttach: 57/2048; RpWorld::AtomicRightsStreamRead: 265/2048; RpWorld::AtomicRightsStreamWrite: 263/2048; RpWorld::_rpAtomicResyncInterpolatedSphere: 473/2048; RpWorld::RpAtomicGetWorldBoundingSphere: 294/2048; RpWorld::ClumpFreeListDestroyCallBack: 905/2048; RpWorld::AtomicFreeListDestroyCallBack: 878/2048; RpWorld::ClumpPluginAttach: 55/2048; RpWorld::RpClumpRender: 534/2048; RpWorld::RpClumpForAllCameras: 884/2048; RpWorld::RpClumpForAllLights: 902/2048; RpWorld::RpAtomicCreate: 768/2048; RpWorld::AtomicSyncCallBack: 911/2048; RpWorld::RpAtomicSetGeometry: 525/2048; RpWorld::RpAtomicDestroy: 906/2048; RpWorld::RpAtomicClone: 610/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}

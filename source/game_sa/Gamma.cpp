@@ -31,9 +31,37 @@ void CGamma::InjectHooks() {
 }
 
 // 0x747DB0 (cdecl, sin llamadores en el EXE): copia de SetGamma (0x747200) sobre la instancia global `gamma` (0xC92134) y sin parametro `fade`: no hace nada si el nivel
-// (x 0.7) es igual al objetivo (no NaN); es decir, SetGamma(gammaLevel, false). Mismo orden de x87 a 24 bits y mismas llamadas (0x7F9D50, GetGammaRamp, pow del CRT, SetGammaRamp).
+// (x 0.7) es igual al objetivo (no NaN); es decir, SetGamma(gammaLevel, false). Cuerpo propio (el EXE tambien tiene el suyo): el nivel y la potencia con el x87 de 24 bits (los denormales no se aplanan
+// a cero, a diferencia del SSE del juego), la comparacion con el objetivo con los fcom, pow del EXE (ExeCompatiblePowCpp: con +-1 elevado a NaN o infinito da NaN) y la rampa con GammaScaleCpp.
 void CGamma::SetGammaNoFade(float gammaLevel) {
-    gamma.SetGamma(gammaLevel, false);
+    float level;
+    GammaLevelCpp(gammaLevel, &level);
+    if (!*reinterpret_cast<const uint32*>(&gamma.m_IsEnabled)) {
+        return;
+    }
+    gamma.m_PrevLevel = level;
+    if (GammaLevelEqualCpp(level, gamma.m_TargetLevel)) {
+        return;
+    }
+    gamma.m_TargetLevel = level;
+
+    auto* dev = (IDirect3DDevice9*)RwD3D9GetCurrentD3DDevice();
+    if (!dev) {
+        return;
+    }
+
+    const float power = GammaPowerCpp(level);
+    if (!gbGammaChanged) {
+        gbGammaChanged = true;
+        ((IDirect3DDevice9*)RwD3D9GetCurrentD3DDevice())->GetGammaRamp(0, &ms_SavedGamma);
+    }
+    for (auto i = 0; i < 256; i++) {
+        const double p = ExeCompatiblePowCpp((double)((float)(i + 1) * 0.00390625f), (double)power);
+        const float scaled = GammaScaleCpp(p);
+        const auto g = (int16)(int64)scaled;
+        ms_GammaTable.blue[i] = ms_GammaTable.green[i] = ms_GammaTable.red[i] = g;
+    }
+    dev->SetGammaRamp(0, D3DSGR_CALIBRATE, &ms_GammaTable);
 }
 
 // 0x747180

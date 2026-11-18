@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "rpworld.h"
+#include "X87Math.h"
 #include <rpdbgerr.h>
 #include <bit>
 #include <cstring>
@@ -2413,20 +2414,8 @@ void _rpAtomicResyncInterpolatedSphere(RpAtomic* atomic) {
         RpMorphTarget* const morphTargets = geometry->morphTarget;
         const RwSphere& start = morphTargets[startIndex].boundingSphere;
         const RwSphere& end   = morphTargets[endIndex].boundingSphere;
-        const float scale = atomic->interpolator.position * atomic->interpolator.recipTime;
-        atomic->boundingSphere.radius = (end.radius - start.radius) * scale + start.radius;
-        atomic->boundingSphere.center.x = end.center.x - start.center.x;
-        atomic->boundingSphere.center.y = end.center.y - start.center.y;
-        atomic->boundingSphere.center.z = end.center.z - start.center.z;
-        const float scaledX = atomic->boundingSphere.center.x * scale;
-        atomic->boundingSphere.center.x = scaledX;
-        const float scaledY = atomic->boundingSphere.center.y * scale;
-        atomic->boundingSphere.center.y = scaledY;
-        const float scaledZ = atomic->boundingSphere.center.z * scale;
-        atomic->boundingSphere.center.z = scaledZ;
-        atomic->boundingSphere.center.x = start.center.x + scaledX;
-        atomic->boundingSphere.center.y = start.center.y + scaledY;
-        atomic->boundingSphere.center.z = start.center.z + scaledZ;
+        // x87 de 24 bits del EXE (denormales incluidos): ver AtomicInterpolateSphereCpp (X87Math.cpp).
+        AtomicInterpolateSphereCpp(&atomic->boundingSphere.center.x, &start.center.x, &end.center.x, atomic->interpolator.position, atomic->interpolator.recipTime);
     } else if (startIndex < numMorphTargets && endIndex < numMorphTargets) {
         atomic->boundingSphere = geometry->morphTarget[startIndex].boundingSphere;
     } else {
@@ -2453,12 +2442,10 @@ const RwSphere* RpAtomicGetWorldBoundingSphere(RpAtomic* atomic) {
             atomic->worldBoundingSphere.radius = atomic->boundingSphere.radius;
             atomic->object.object.privateFlags &= ~rpATOMICPRIVATEWORLDBOUNDDIRTY;
         } else {
-            const float rightSq = (ltm->right.x * ltm->right.x + ltm->right.y * ltm->right.y) + ltm->right.z * ltm->right.z;
-            const float upSq    = (ltm->up.x * ltm->up.x + ltm->up.y * ltm->up.y) + ltm->up.z * ltm->up.z;
-            const float atSq    = (ltm->at.x * ltm->at.x + ltm->at.y * ltm->at.y) + ltm->at.z * ltm->at.z;
-            const float middle  = !(upSq >= atSq) ? atSq : upSq;
-            const float maximum = !(rightSq >= middle) ? middle : rightSq;
-            const float scaled  = _rwSqrt(maximum) * atomic->boundingSphere.radius;
+            // x87 de 24 bits del EXE: longitudes al cuadrado y maximo en AtomicMatrixMaxLengthSquaredCpp (X87Math.cpp); el producto final con el fmul del x87.
+            const float maximum = AtomicMatrixMaxLengthSquaredCpp(&ltm->right.x);
+            const float root    = _rwSqrt(maximum);
+            const float scaled  = FloatTimesFloatCpp(root, atomic->boundingSphere.radius);
             atomic->object.object.privateFlags &= ~rpATOMICPRIVATEWORLDBOUNDDIRTY;
             atomic->worldBoundingSphere.radius = scaled;
         }
@@ -2482,11 +2469,11 @@ static RwStream* AtomicRightsStreamRead(RwStream* stream, RwInt32 binaryLength, 
 // Devuelve el flujo si la segunda escritura devuelve algo distinto de nulo (neg/sbb/and); si la primera falla devuelve nulo.
 static RwStream* AtomicRightsStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     static_assert(offsetof(RpAtomic, pipeline) == 0x6C);
-    const RxPipeline* const pipeline = static_cast<const RpAtomic*>(object)->pipeline;
-    if (!RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&pipeline->pluginId), 4)) {
+    // Como el EXE: el puntero a la tuberia se relee del atomo para cada escritura (0x749160 lee [objeto + 0x6C] dos veces).
+    if (!RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&static_cast<const RpAtomic*>(object)->pipeline->pluginId), 4)) {
         return nullptr;
     }
-    return RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&pipeline->pluginData), 4) ? stream : nullptr;
+    return RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&static_cast<const RpAtomic*>(object)->pipeline->pluginData), 4) ? stream : nullptr;
 }
 
 // 0x749520 (callback de RwFreeListForAllUsed sobre la lista de clumps, llamado desde 0x749480): destruye el clump que queda en la lista libre. Orden: DeInitObject de plugins del clump,

@@ -2505,3 +2505,16 @@ void __cdecl EnvMapModulatedMaterialCpp(float diffuse, float ambient, const unsi
 float __cdecl EnvMapAmbientScaleCpp(float ambientSaturated, float ambient);
 // Sin modular: Diffuse.rgb = fld/fst del difuso (la x87 convierte un NaN de senalizacion en tranquilo; no es una copia de bits).
 float __cdecl EnvMapDiffuseCopyCpp(float diffuse);
+
+// Lote 226A. Esfera interpolada de un atomo (_rpAtomicResyncInterpolatedSphere, 0x7491F0) con la x87 de 24 bits del EXE, denormales incluidos: out = {centro x, y, z, radio} del atomo (+0x1C), start y end =
+// {centro x, y, z, radio} de los morph targets (+4). s = posicion * recipTime se queda en el registro; radio = (fin - inicio) * s + inicio; las diferencias de centro se guardan como float, el eje x se suma con el
+// producto sin redondear a float y los ejes y, z con el producto guardado.
+void __cdecl AtomicInterpolateSphereCpp(float* out, const float* start, const float* end, float position, float recipTime);
+// Mayor de las tres longitudes al cuadrado de los ejes de una matriz (derecha, arriba, adelante; en +0, +0x10 y +0x20; RpAtomicGetWorldBoundingSphere, 0x749330), cada una (x*x + y*y) + z*z en la x87 de 24 bits:
+// la de la derecha se queda en el registro, las otras dos se guardan como float; el maximo conserva los fcom del EXE (con NaN elige el segundo) y se devuelve como float.
+float __cdecl AtomicMatrixMaxLengthSquaredCpp(const float* matrix);
+// CGamma::SetGammaNoFade (0x747DB0): nivel = gamma * 0.7f y potencia = (1.0f - nivel) + 0.2f con el x87 (denormales incluidos); devuelve la potencia por *power y el nivel por *level. Compara con el objetivo
+// con los fcom del EXE (true: "igual y ordenado": termina). Ver Gamma.cpp.
+void __cdecl GammaLevelCpp(float gamma, float* level);
+float __cdecl GammaPowerCpp(float level);
+bool __cdecl GammaLevelEqualCpp(float level, float target);
