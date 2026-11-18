@@ -1,0 +1,3 @@
+{"ExeProtectionStub::MD5Transform": 584, "CRunningScript::ProcessCommands1700To1799": 24}
+pares 4096 con diferencias 608 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []

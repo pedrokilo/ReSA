@@ -1,0 +1,3 @@
+FALLO: Fn238A
+Funciones con diferencias: ExeProtectionStub::MD5Transform: 584/2048; CRunningScript::ProcessCommands1700To1799: 24/2048
+Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn238a\20261118-135533-860822

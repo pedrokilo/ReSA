@@ -1,0 +1,1109 @@
+push        ebp
+mov         ebp,esp
+sub         esp,10h
+push        ebx
+push        esi
+push        edi
+mov         eax,dword ptr [ebp+8]
+mov         eax,dword ptr [eax]
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp+8]
+mov         eax,dword ptr [eax+4]
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp+8]
+mov         eax,dword ptr [eax+8]
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp+8]
+mov         eax,dword ptr [eax+0Ch]
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+and         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-8]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx]
+sub         eax,28955B88h
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shl         eax,7
+mov         ecx,dword ptr [ebp-4]
+shr         ecx,19h
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+and         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+4]
+sub         eax,173848AAh
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Ch
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,14h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+and         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp-4]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+8]
+add         eax,242070DBh
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,11h
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,0Fh
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+and         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+0Ch]
+sub         eax,3E423112h
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Ah
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,16h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+and         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-8]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+10h]
+sub         eax,0A83F051h
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shl         eax,7
+mov         ecx,dword ptr [ebp-4]
+shr         ecx,19h
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+and         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+14h]
+add         eax,4787C62Ah
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Ch
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,14h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+and         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp-4]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+18h]
+sub         eax,57CFB9EDh
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,11h
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,0Fh
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+and         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+1Ch]
+sub         eax,2B96AFFh
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Ah
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,16h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+and         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-8]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+20h]
+add         eax,698098D8h
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shl         eax,7
+mov         ecx,dword ptr [ebp-4]
+shr         ecx,19h
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+and         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+24h]
+sub         eax,74BB0851h
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Ch
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,14h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+and         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp-4]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+28h]
+sub         eax,0A44Fh
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,11h
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,0Fh
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+and         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+2Ch]
+sub         eax,76A32842h
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Ah
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,16h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+and         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-8]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+30h]
+add         eax,6B901122h
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shl         eax,7
+mov         ecx,dword ptr [ebp-4]
+shr         ecx,19h
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+and         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+34h]
+sub         eax,2678E6Dh
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Ch
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,14h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+and         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp-4]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+38h]
+sub         eax,5986BC72h
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,11h
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,0Fh
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+and         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+3Ch]
+add         eax,49B40821h
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Ah
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,16h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+and         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+4]
+sub         eax,9E1DA9Eh
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shr         eax,1Bh
+mov         ecx,dword ptr [ebp-4]
+shl         ecx,5
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+and         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+18h]
+sub         eax,3FBF4CC0h
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,9
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,17h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+and         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+2Ch]
+add         eax,265E5A51h
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,0Eh
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,12h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+and         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx]
+sub         eax,16493856h
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Ch
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,14h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+and         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+14h]
+sub         eax,29D0EFA3h
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shr         eax,1Bh
+mov         ecx,dword ptr [ebp-4]
+shl         ecx,5
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+and         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+28h]
+add         eax,2441453h
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,9
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,17h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+and         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+3Ch]
+sub         eax,275E197Fh
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,0Eh
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,12h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+and         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+10h]
+sub         eax,182C0438h
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Ch
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,14h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+and         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+24h]
+add         eax,21E1CDE6h
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shr         eax,1Bh
+mov         ecx,dword ptr [ebp-4]
+shl         ecx,5
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+and         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+38h]
+sub         eax,3CC8F82Ah
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,9
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,17h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+and         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+0Ch]
+sub         eax,0B2AF279h
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,0Eh
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,12h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+and         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+20h]
+add         eax,455A14EDh
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Ch
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,14h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+and         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+34h]
+sub         eax,561C16FBh
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shr         eax,1Bh
+mov         ecx,dword ptr [ebp-4]
+shl         ecx,5
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+and         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+8]
+sub         eax,3105C08h
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,9
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,17h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+and         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp-8]
+and         ecx,dword ptr [ebp-10h]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+1Ch]
+add         eax,676F02D9h
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,0Eh
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,12h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+and         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp-0Ch]
+and         ecx,dword ptr [ebp-4]
+or          eax,ecx
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+30h]
+sub         eax,72D5B376h
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Ch
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,14h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+14h]
+sub         eax,5C6BEh
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shr         eax,1Ch
+mov         ecx,dword ptr [ebp-4]
+shl         ecx,4
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+20h]
+sub         eax,788E097Fh
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Bh
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,15h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+2Ch]
+add         eax,6D9D6122h
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,10h
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,10h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+38h]
+sub         eax,21AC7F4h
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,9
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,17h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+4]
+sub         eax,5B4115BCh
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shr         eax,1Ch
+mov         ecx,dword ptr [ebp-4]
+shl         ecx,4
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+10h]
+add         eax,4BDECFA9h
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Bh
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,15h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+1Ch]
+sub         eax,944B4A0h
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,10h
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,10h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+28h]
+sub         eax,41404390h
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,9
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,17h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+34h]
+add         eax,289B7EC6h
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shr         eax,1Ch
+mov         ecx,dword ptr [ebp-4]
+shl         ecx,4
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx]
+sub         eax,155ED806h
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Bh
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,15h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+0Ch]
+sub         eax,2B10CF7Bh
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,10h
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,10h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+18h]
+add         eax,4881D05h
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,9
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,17h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+24h]
+sub         eax,262B2FC7h
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shr         eax,1Ch
+mov         ecx,dword ptr [ebp-4]
+shl         ecx,4
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+30h]
+sub         eax,1924661Bh
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Bh
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,15h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+3Ch]
+add         eax,1FA27CF8h
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,10h
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,10h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+8]
+sub         eax,3B53A99Bh
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,9
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,17h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+or          eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx]
+sub         eax,0BD6DDBCh
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shl         eax,6
+mov         ecx,dword ptr [ebp-4]
+shr         ecx,1Ah
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+or          eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+1Ch]
+add         eax,432AFF97h
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Ah
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,16h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+or          eax,dword ptr [ebp-10h]
+xor         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+38h]
+sub         eax,546BDC59h
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,0Fh
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,11h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+or          eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+14h]
+sub         eax,36C5FC7h
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Bh
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,15h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+or          eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+30h]
+add         eax,655B59C3h
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shl         eax,6
+mov         ecx,dword ptr [ebp-4]
+shr         ecx,1Ah
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+or          eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+0Ch]
+sub         eax,70F3336Eh
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Ah
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,16h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+or          eax,dword ptr [ebp-10h]
+xor         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+28h]
+sub         eax,100B83h
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,0Fh
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,11h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+or          eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+4]
+sub         eax,7A7BA22Fh
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Bh
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,15h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+or          eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+20h]
+add         eax,6FA87E4Fh
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shl         eax,6
+mov         ecx,dword ptr [ebp-4]
+shr         ecx,1Ah
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+or          eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+3Ch]
+sub         eax,1D31920h
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Ah
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,16h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+or          eax,dword ptr [ebp-10h]
+xor         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+18h]
+sub         eax,5CFEBCECh
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,0Fh
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,11h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+or          eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+34h]
+add         eax,4E0811A1h
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Bh
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,15h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-10h]
+not         eax
+or          eax,dword ptr [ebp-8]
+xor         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+10h]
+sub         eax,8AC817Eh
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-4]
+shl         eax,6
+mov         ecx,dword ptr [ebp-4]
+shr         ecx,1Ah
+or          eax,ecx
+mov         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-8]
+add         dword ptr [ebp-4],eax
+mov         eax,dword ptr [ebp-0Ch]
+not         eax
+or          eax,dword ptr [ebp-4]
+xor         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+2Ch]
+sub         eax,42C50DCBh
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-10h]
+shl         eax,0Ah
+mov         ecx,dword ptr [ebp-10h]
+shr         ecx,16h
+or          eax,ecx
+mov         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-4]
+add         dword ptr [ebp-10h],eax
+mov         eax,dword ptr [ebp-8]
+not         eax
+or          eax,dword ptr [ebp-10h]
+xor         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+8]
+add         eax,2AD7D2BBh
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-0Ch]
+shl         eax,0Fh
+mov         ecx,dword ptr [ebp-0Ch]
+shr         ecx,11h
+or          eax,ecx
+mov         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-10h]
+add         dword ptr [ebp-0Ch],eax
+mov         eax,dword ptr [ebp-4]
+not         eax
+or          eax,dword ptr [ebp-0Ch]
+xor         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+0Ch]
+add         eax,dword ptr [ecx+24h]
+sub         eax,14792C6Fh
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-8]
+shr         eax,0Bh
+mov         ecx,dword ptr [ebp-8]
+shl         ecx,15h
+or          eax,ecx
+mov         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-0Ch]
+add         dword ptr [ebp-8],eax
+mov         eax,dword ptr [ebp-4]
+mov         ecx,dword ptr [ebp+8]
+add         dword ptr [ecx],eax
+mov         eax,dword ptr [ebp-8]
+mov         ecx,dword ptr [ebp+8]
+add         dword ptr [ecx+4],eax
+mov         eax,dword ptr [ebp-0Ch]
+mov         ecx,dword ptr [ebp+8]
+add         dword ptr [ecx+8],eax
+mov         eax,dword ptr [ebp-10h]
+mov         ecx,dword ptr [ebp+8]
+add         dword ptr [ecx+0Ch],eax
+jmp         00401FB6
+pop         edi
+pop         esi
+pop         ebx
+leave
+ret
+  00401FBB: 8D

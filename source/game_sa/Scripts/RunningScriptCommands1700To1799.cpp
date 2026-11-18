@@ -458,6 +458,8 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
         const int32 action = P(2).iParam; // ebx
         const int32 time = P(3).iParam;   // ebp
         auto* const task = new CTaskSimpleCarSetTempAction(vehicle, static_cast<eAutoPilotTempAction>(action), static_cast<uint32>(time));
+        // El EXE guarda el dword completo de la accion en +0x60; eAutoPilotTempAction es de 8 bits y el constructor de la DLL lo truncaria (lo halló el banco Fn238A)
+        *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(task) + 0x60) = action; // m_TempAct (privado)
         GivePedScriptedTask(pedHandle, task, commandId);
         return OR_CONTINUE;
     }
@@ -627,6 +629,8 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
         }
         const float speed = P(4).fParam;
         auto* const task = new CTaskComplexCarDriveMission(vehicle, target, static_cast<eCarMission>(P(3).iParam), static_cast<eCarDrivingStyle>(P(5).iParam), speed);
+        // El EXE entrega el dword completo del parametro al constructor, que lo guarda en +0x28; eCarMission es de 8 bits y el constructor de la DLL lo truncaria (lo halló el banco Fn238A)
+        *reinterpret_cast<int32*>(&task->m_nCarMission) = P(3).iParam;
         GivePedScriptedTask(pedHandle, task, commandId);
         return OR_CONTINUE;
     }

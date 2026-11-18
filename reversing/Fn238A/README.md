@@ -1,0 +1,31 @@
+# Fn238A: ExeProtectionStub::MD5Transform y CRunningScript::ProcessCommands1700To1799 (lote 238A)
+
+Estado: **APROBADO dentro del juego** (18/11/2026, worktree `wv-5` desde 7402f6fced, HEAD de integracion del coordinador con los lotes validados hasta el 235A; plantillas `Fn235A`, `Fn232A` y `Fn173A`). Evidencia: `E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn238a/20261118-134247-671644` (archivada en `reversing/CppTwelveLevel6Final/runs/Fn238A-20261118-134247-671644`, `comparisons.jsonl.gz`). 2 x 16384 = **32768 pares** EXE/DLL, cero diferencias, compuertas de ABI/ruta/SEH/DF/restauracion en ambos lados, x87 vacia, y cada lado coincide con el oraculo Python independiente (`fixture_oracle.py`, escrito desde el desensamblado: `desensamblado/`). SHA256 de la sonda ejecutada `cdb4362c0b1eb32f500105030693984aa3ec120e5bab3fd5162e0c8618830311`, del registro `04c9fe06efb802942c72e7eebda0e29aa7a1294bcdcffa3581ef8ed21896499e` y del EXE `72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b`.
+
+El listado atribuia las direcciones a `CEntity` y a `CTaskComplexSeekEntityRadiusAngleOffset`; son `ExeProtectionStub::MD5Transform` (0x4012E9, la transformacion MD5, `source/game_sa/ExeProtectionStub.cpp`) y `CRunningScript::ProcessCommands1700To1799` (0x496E00, el despachador de los comandos de script 1700..1799, `source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp`).
+
+## Defectos que encontro el banco (corregidos en la fuente)
+
+Los dos son del despachador, en comandos que construyen una tarea: el EXE pasa al constructor el dword completo del parametro de script y el constructor de la DLL recibe un enum de 8 bits (`eCarMission`, `eAutoPilotTempAction`, ambos `int8`), de modo que el valor se truncaba y se guardaba extendido con signo:
+
+- `COMMAND_TASK_CAR_MISSION` (1761): `CTaskComplexCarDriveMission` guarda en +0x28 un dword; el EXE guarda el parametro entero, la DLL solo su byte bajo con signo (EXE `+0x2A` = 1, DLL = 0 con un parametro de mision > 255). Ahora, tras construir la tarea, se escribe el dword completo en `m_nCarMission`.
+- `COMMAND_TASK_CAR_TEMP_ACTION` (1735): igual con la accion en +0x60 de `CTaskSimpleCarSetTempAction` (EXE bytes 0x61..0x63 = los del parametro, DLL = 0xFF). Ahora se escribe el dword completo en +0x60 (el miembro es privado).
+
+Con valores de script reales (pequenos) no cambia nada; la diferencia solo aparece con parametros fuera de rango, que el banco si genera. `MD5Transform` y los otros 81 comandos no tuvieron diferencias; ninguna funcion se excluyo. Las 2 filas de `docs/hooks.csv` pasan a `validated = 1`.
+
+## Como se prueba
+
+- `MD5Transform(estado, bloque)` (cdecl): estado de 16 bytes en la arena A y bloque de 64 en la B (alineados, desalineados, al borde de la ventana, bloque en el mismo sitio que el estado o solapado desplazado). Oraculo: MD5 de la formula del RFC 1321 (K = floor(abs(sin(i+1)) * 2^32)).
+- `ProcessCommands1700To1799(this, comando)` (thiscall, `ret 4`, resultado en AL): 83 comandos con cuerpo, 12 sin cuerpo con retorno 0, 5 con retorno -1 y 28 valores fuera de 1700..1799 (comparacion sin signo); cada comando una vez por ventana de 128 casos y con distinta colocacion del script (alineado/desalineado). Los casos los genera `fixture_cases.py` (archivo `fn238a-cases.jsonl` junto al EXE de pruebas) y el mundo se escribe entero en cada caso: pools de peds, vehiculos y objetos con manejadores validos, entidades, modelos, globales (ScriptParams, CGameLogic, CCarCtrl, secuencia activa, grupos, jugadores...). Los **75 colaboradores** (`collabs.py`) son un falso generico (una pequena rutina de maquina por colaborador) identico en la direccion del EXE y en el cuerpo de la DLL con el hook apagado (los hooks con `stackArguments` se resuelven a la funcion real que llama la DLL, antes de apagarlos): anota [id, ECX, argumentos de pila, lo apuntado] y devuelve el valor programado; CollectParameters escribe ScriptParams, ReadTextLabelFromScript el texto del caso, CreateMissionTrain, FindNodeCoorsForScript y FindNthNodeClosestToCoors sus salidas (los dos ultimos devuelven por puntero oculto en el EXE). Corren reales los pools (GetAtRef/GetAt/GetRef), la aritmetica de CVector y los 12 constructores de tareas. Se observan los bytes cambiados de las cuatro arenas, las regiones globales (ScriptParams en 4 trozos, globales de juego, CReferences y el pool de CPointRoute, fijados y restaurados por caso), los eventos de los falsos y AL. x87 a 24 bits (`fixture_common.X87` en el oraculo: `fmul/fsub/fsqrt` con mantisa de 24 bits y exponente ampliado; el oraculo trata -0, inf y NaN).
+- Limite del oraculo: no modela el contenido de las tareas que construyen los constructores reales (ventana [0x100, 0x300) de la arena D, vtables enmascarados, lista de referencias de las entidades): ahi solo se comprueba que EXE y DLL escriben lo mismo y que se entrega la tarea correcta (`GivePedScriptedTask` con handle, tarea y comando). Alcance y exclusiones: `scope_note.txt`.
+
+Dos incidencias del proceso: la ABI de los colaboradores con `stackArguments` (la DLL llama a la funcion real, no a la rutina que conserva ECX) y el pool de CPointRoute de `CTaskComplexDrivePointRoute` (se reserva una ruta por tarea construida: se fija y restaura el pool entero).
+
+## Prueba negativa (2 rondas, 7 mutaciones por ronda, 2048 casos por funcion)
+Ambas funciones fallan en ambas rondas (lado EXE siempre dentro del oraculo): ronda 1 con 644 de 4096 pares con diferencias (MD5Transform 512, despachador 132) y ronda 2 con 608 (584 y 24). Las mutaciones se condicionan a un `this`/estado/bloque desalineado que el juego real no produce. Resumenes en `negative-runs/`. Compilacion final con las fuentes buenas (SHA256 igual a las copias).
+
+## Reproducir
+`CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1 bash reversing/Fn238A/chain238.sh` (una sola sesion del candado del juego: corrida principal + 2 rondas negativas). Humo: `bash reversing/Fn238A/smoke238.sh 128`. Autoprueba sin juego: `python -I reversing/Fn238A/fixture_selfcheck.py`. Diagnostico: `python -I reversing/Fn238A/diffs.py <comparisons.jsonl>`. `python collabs.py` regenera `Collabs.inc`.
+
+## Bancos anteriores que citan estas direcciones
+Solo `Fn221A` cita 0x4012E9 (el lote 221A, MD5Init/Update/Final, que llama a MD5Transform; no se repite). 0x496E00 no aparece en ningun otro banco.

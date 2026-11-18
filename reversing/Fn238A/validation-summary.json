@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "pairs": 32768,
+  "differences": 0,
+  "registered_pairs": 32768,
+  "registered_functions": 2,
+  "functions": {
+    "ExeProtectionStub::MD5Transform": 16384,
+    "CRunningScript::ProcessCommands1700To1799": 16384
+  },
+  "covered_functions": {
+    "ExeProtectionStub::MD5Transform": true,
+    "CRunningScript::ProcessCommands1700To1799": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre 7402f6fced (HEAD de integracion del coordinador, con los lotes validados hasta el 235A) mas las dos correcciones de RunningScriptCommands1700To1799.cpp que revelo el banco (ver README.md). Dos funciones del EXE: ExeProtectionStub::MD5Transform (0x4012E9, cdecl, sin colaboradores) y CRunningScript::ProcessCommands1700To1799 (0x496E00, despachador de los comandos de script 1700..1799). En el despachador los 75 colaboradores (collabs.py: lectura y escritura de parametros del script, banderas de comparacion, tareas, scripts-cosas, focos y checkpoints, pools de limpieza de mision, grupos, trenes, grabaciones de vehiculos, streaming, nodos de rutas, etiquetas, fuego, radar, IK y demas) son un falso generico identico en la direccion del EXE y en el cuerpo de la DLL (el hook queda apagado; los hooks con `stackArguments` se resuelven a la funcion real que llama la DLL): anota [id, ECX, argumentos de pila, lo apuntado] y devuelve el valor programado. Corren REALES las reservas de los pools de peds, vehiculos y objetos (GetAtRef/GetAt/GetRef), la aritmetica de CVector (Magnitude, SquaredMagnitudeExe) y los constructores de las 12 tareas que crea el despachador (con la memoria que programa el caso en lugar de CTask::operator new); el oraculo independiente NO modela el contenido de esas tareas ni sus listas de referencias: solo se compara EXE con DLL (los punteros a vtable, distintos por construccion, se enmascaran) y se comprueba que el despachador entrega la tarea correcta con el handle y el comando. El estado global que tocan se fija por caso y se restaura (ScriptParams, globales de CGameLogic/CCarCtrl/gbLARiots, secuencia activa, grupos, jugadores, modelos, CReferences y el pool de CPointRoute). Fuera de los fixtures: manejadores con el pool de tareas lleno (operator new devuelve 0), referencias de entidad invalidas (el EXE tampoco comprueba el resultado de GetAtRef), el contenido real de los colaboradores falseados, los efectos del juego real de cada comando, CreateMissionTrain sin inicializar el puntero de salida, y modelos fuera del conjunto probado (0, 400, 401, 411, 592, 19999) en GET_VEHICLE_MOD_TYPE.",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/Fn238A-20261118-134247-671644",
+  "summary_sha256": "0676b8bb9998c9f6b1c095c26237f156bdc1d29be192c0ebd97eec4e843f1072",
+  "result_txt_sha256": "91a0baf43a9179636c442eaa21ffaaa2340708e2414d4ee07bafd2c0435b75d0",
+  "log_sha256": "04c9fe06efb802942c72e7eebda0e29aa7a1294bcdcffa3581ef8ed21896499e",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "cdb4362c0b1eb32f500105030693984aa3ec120e5bab3fd5162e0c8618830311",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "88a81b3d47f3ec0f605f369b3d11eaa5f2f78cbd658088d39320c5de675e0413",
+      "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+      "source/app/app.cpp": "6a3161c1dc754b26effc7c24642c7d784cca473b2195ca6e766846374550d262",
+      "source/game_sa/ExeProtectionStub.cpp": "22dab4fb8d57940f5876878556521069a99dbe295f0440443afe3dbb85e7c9f1",
+      "source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp": "cd309787c0347429025298c88c831e3befcab7bc125e2da4801cdcd70668a62c",
+      "source/game_sa/X87Math.cpp": "91f02091ecb7f3f6af047aafdc756fc8001f12a3433322b6497b425a77443369",
+      "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/Fn238A/LiveComparison.hpp": "236495cf1fccc8f4a7c98fdc1e1e5973c498696e14c62c51c09d749e062d38a9",
+      "reversing/Fn238A/Core.hpp": "790dfd3bb7613d6c82a268bbd4082132b89059b504c49285f6ed89e1ee790db7",
+      "reversing/Fn238A/Fixtures.hpp": "ff49960474bf4c300e4cea70b7f241163a7177164327fbd37e870f128c740e5d",
+      "reversing/Fn238A/Collabs.inc": "b5dcec34d16d63eeddda952081584fd9b6b8199829f22b4cd04e0faeaecb79f6",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
+      "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
+      "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
+    }
+  }
+}

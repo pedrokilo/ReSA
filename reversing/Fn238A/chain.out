@@ -1,0 +1,21 @@
+13:42:30 inicio
+13:42:30 gta_lock tomado
+13:42:38 build ok main
+13:53:31 run main: APROBADO: Fn238A Comparacion automatizada completada. Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn238a\20261118-134247-671644 
+ronda 1 aplicada: 7 mutaciones
+13:55:20 run neg1: FALLO: Fn238A Funciones con diferencias: ExeProtectionStub::MD5Transform: 512/2048; CRunningScript::ProcessCommands1700To1799: 132/2048 Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn238a\20261118-135343-706345 
+restauradas 2 fuentes (SHA256 igual a las copias buenas)
+13:55:20 informe neg1: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn238a/20261118-135343-706345
+{"ExeProtectionStub::MD5Transform": 512, "CRunningScript::ProcessCommands1700To1799": 132}
+pares 4096 con diferencias 644 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
+
+ronda 2 aplicada: 7 mutaciones
+13:57:11 run neg2: FALLO: Fn238A Funciones con diferencias: ExeProtectionStub::MD5Transform: 584/2048; CRunningScript::ProcessCommands1700To1799: 24/2048 Informe: E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-fn238a\20261118-135533-860822 
+restauradas 2 fuentes (SHA256 igual a las copias buenas)
+13:57:12 informe neg2: E:/JUEGOS/GTA San Andreas - CVehicle Test/resultados-fn238a/20261118-135533-860822
+{"ExeProtectionStub::MD5Transform": 584, "CRunningScript::ProcessCommands1700To1799": 24}
+pares 4096 con diferencias 608 lado EXE fuera del oraculo 0
+funciones SIN diferencias: []
+
+13:57:21 fin
