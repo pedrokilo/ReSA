@@ -38,3 +38,13 @@ No validado: matriz del helicoptero nula (el EXE la pasa a 0x59C890, que aqui es
 Comandos: `CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1 bash reversing/_handoff/bench_here.sh HeliPre75`; `python -B heli_nan_hw.py`; `python -I fixture_oracle.py <carpeta>/comparisons.jsonl`; `python register_hook.py <carpeta-de-evidencia>` (coordinador).
 
 Lote 76: CMatrix::Attach (0x59BD10) tiene ahora hook RH (CMatrix::InjectHooksAttachAssign) y banco propio, MatrixOps76; en este banco pasa de «DLL llama a su cuerpo sin hook» a colaborador CON hook (hooked=true en STUBBED, falso en la entrada del EXE y en el cuerpo de la DLL), sin cambiar el codigo del banco (MakeCollab lo detecta). Repetido el 27/10/2026 en el worktree D:\Original\wy-1: APROBADO, evidencia `E:\JUEGOS\GTA San Andreas - CVehicle Test\resultados-helipre75\20261027-214633-706532`. Sigue sin banco propio SetRotateZ/SetRotateX/UpdateRW/DoHeliDustEffect.
+
+## Repeticiones
+
+### 2026-11-18 (pase final A, commit base 23c47ba081): APROBADO, 21504 pares, 0 diferencias
+
+- Motivo: el lote 211A cambio el cuerpo de `CAutomobile::DoHeliDustEffect` (0x6B0690), colaborador real de la DLL de `CHeli::PreRender`. El primer intento recorrio los 21504 pares sin diferencias, pero el analizador rechazo la lista de colaboradores: el banco esperaba `(0x6B0690, False)` («sin hook RH, la DLL llama a su cuerpo») y desde 211A `DoHeliDustEffect` SI tiene hook RH, asi que el colaborador queda como los demas con hook (EXE falseado + cuerpo de la DLL con el mismo falso). Fallo de metadatos del banco, no de la fuente de produccion.
+- Cambio en el banco (la comparacion no cambia): `run_local.py` espera ahora `(0x6B0690, True)` y se actualiza el comentario de `LiveComparison.hpp`. `MakeCollab` ya recoge el hook y el cuerpo de la DLL por si solo.
+- Oraculo independiente: `python -I fixture_oracle.py <comparisons.jsonl>` -> casos comprobados 21504, lados distintos del modelo 0.
+- SHA256 de la sonda ejecutada: `550d070b809da25721d84e261aa9907ce0a95a9ac257c5210ebeaed7823fc89b`.
+- Evidencia (comparisons.jsonl.xz por tamano, 150 MB sin comprimir): `reversing/CppTwelveLevel6Final/runs/HeliPre75-20261118-174654-070423`.

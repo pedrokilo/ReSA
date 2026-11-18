@@ -319,7 +319,7 @@ inline void Update() {
 #pragma warning(pop)
     const Pair pLight = MakeCollab(env, 0x6C45B0, hooksFound), pCol = MakeCollab(env, 0x535300, hooksFound), pWheelPosn = MakeCollab(env, 0x4C7D20, hooksFound);
     const Pair pWheelMat = MakeCollab(env, 0x6AA290, hooksFound);
-    Pair pDust = MakeCollab(env, 0x6B0690, hooksFound);   // DoHeliDustEffect no tiene hook RH: la DLL llama a su cuerpo
+    Pair pDust = MakeCollab(env, 0x6B0690, hooksFound);   // DoHeliDustEffect tiene hook RH desde el lote 211A (antes la DLL llamaba a su cuerpo)
     if (!pDust.hooked) pDust = MakeDllCollab(0x6B0690, MemberBody(&CAutomobile::DoHeliDustEffect));
     Pair pAttach = MakeCollab(env, 0x59BD10, hooksFound);
     if (!pAttach.hooked) pAttach = MakeDllCollab(0x59BD10, MemberBody(&CMatrix::Attach));
