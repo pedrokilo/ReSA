@@ -39,7 +39,7 @@ Al 18/11/2026 hay **663 entradas sin validar** en 822 del catálogo de RenderWar
 3. **Compilación de shaders de D3DX9 (7):** se dejan fuera de la validación par a par por ahora. Cada una arrastra miles de líneas de D3DX9 que ya se enlazan del original, y el juego casi no las usa. Quedan con `validated=0` y una nota; se retoman si se vuelven críticas.
 4. **Orden:** primero las funciones puras, después flujos y memoria, y al final el dispositivo D3D. Así el método se prueba sin riesgo y un error del dispositivo falso no invalida lotes enteros.
 
-Con estas decisiones quedan **unas 620 entradas validables**: las 663 menos las 4 de 3DNow! y las 7 de shaders, con los 26 thunks validados por inspección.
+Con estas decisiones quedan **652 entradas por validar**: las 663 menos las 4 de 3DNow! (excluidas) y las 7 de shaders (aparcadas). Entre las 652 están los 26 thunks, que se validan por inspección. El informe de progreso seguirá mostrando 663 hasta que esas 11 se marquen como excluidas o aparcadas, cosa que se hará al empezar esta zona.
 
 ## 3. Infraestructura común
 
