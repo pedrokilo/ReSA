@@ -64,7 +64,7 @@ Criterio: el resto.
 | 4 | QTMLRuntime | 6 | 6 |  | ? |
 | 5 | RpHAnim | 7 | 6 |  | ? |
 | 6 | RtQuat | 6 | 6 |  | ? |
-| 7 | RtAnim | 10 | 7 |  | 48 |
+| 7 | RtAnim | 10 | 7 |  | 49 |
 | 8 | RtDict | 12 | 10 |  | ? |
 | 9 | D3DX9 | 11 | 11 |  | ? |
 | 10 | RpUVAnim | 16 | 14 |  | ? |

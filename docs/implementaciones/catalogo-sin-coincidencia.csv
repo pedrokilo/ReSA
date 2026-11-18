@@ -1,7 +1,8 @@
 class,fn_name,address,reversed,locked,validated,type,catalog
+CTaskComplexWander,Destructor,0x00669D20,1,0,1,S,hooks.csv
 CTaskComplexWalkAlongsidePed,MakeAbortable,0x00000000,1,0,1,V,hooks.csv
 CTaskComplexPartnerGreet,CreateFirstSubTask,0x00000000,1,0,1,V,hooks.csv
-CTaskSimple,Constructor,0x0061A390,1,0,1,S,hooks.csv
+CAEAudioEntity,Destructor,0x005DE9E0,1,0,1,S,hooks.csv
 CTaskComplex,Constructor,0x0061A3B0,1,0,1,S,hooks.csv
 CEntitySeekPosCalculator,Destructor,0x0046A610,1,0,1,S,hooks.csv
 CEntitySeekPosCalculator,DestructorCopy,0x00492F60,1,0,1,S,hooks.csv
@@ -14,8 +15,8 @@ CAnimBlendAssociation,ScalarDeletingDestructor,0x004CEFA0,1,0,1,S,hooks.csv
 CAEAudioEntity,Destructor-3,0x00506CC0,1,0,1,S,hooks.csv
 CEventSoundQuiet,ScalarDeletingDestructor,0x005DEAB0,1,0,1,S,hooks.csv
 FurnitureSubGroup_c,ListItemConstructor,0x00590E00,1,0,1,S,hooks.csv
+CTaskComplexFollowPedFootsteps,SetMaxEntityDist2D,0x006955D0,1,0,1,S,hooks.csv
 CEntitySeekPosCalculator,DestructorCopy2,0x0065DE90,1,0,1,S,hooks.csv
-CTaskComplexWanderProstitute,DestructorCopy,0x006726F0,1,0,1,S,hooks.csv
 CEntitySeekPosCalculator,DestructorCopy-2,0x00667980,1,0,1,S,hooks.csv
 CInformFriendsEvent,Process,0x004AC160,1,0,1,S,hooks.csv
 CLinkList<AlphaObjectInfo>,Shutdown,0x00732D60,1,0,1,S,hooks.csv
@@ -50,7 +51,6 @@ CCustomCarEnvMapPipeline,PoolNewMat,0x005D9110,1,0,1,S,hooks.csv
 CCustomCarEnvMapPipeline,PoolNewAtm,0x005D9260,1,0,1,S,hooks.csv
 CCustomCarEnvMapPipeline,PoolNewSpec,0x005D93B0,1,0,1,S,hooks.csv
 CCustomCarEnvMapPipeline,PoolDeleteMat,0x005D9180,1,0,1,S,hooks.csv
-CAEAudioEntity,Destructor-6,0x00447000,1,0,1,S,hooks.csv
 CAEAudioEntity,Destructor-7,0x00447050,1,0,1,S,hooks.csv
 RpSkin,_rpSkinD3D9CreateVertexBuffer,0x007C9680,1,0,0,S,hooks.csv
 ZlibInflate,InflateBlocks,0x007E9570,1,0,0,S,hooks.csv

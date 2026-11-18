@@ -38,9 +38,9 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| RoundSectionSize(uint32 size) | [source/game_sa/Animation/AnimManager.cpp:671](../../source/game_sa/Animation/AnimManager.cpp#L671) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * NewAnimSequences(int32 n) | [source/game_sa/Animation/AnimManager.cpp:676](../../source/game_sa/Animation/AnimManager.cpp#L676) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FloatToKeyFrameWord(float v) | [source/game_sa/Animation/AnimManager.cpp:690](../../source/game_sa/Animation/AnimManager.cpp#L690) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| RoundSectionSize(uint32 size) | [source/game_sa/Animation/AnimManager.cpp:672](../../source/game_sa/Animation/AnimManager.cpp#L672) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * NewAnimSequences(int32 n) | [source/game_sa/Animation/AnimManager.cpp:677](../../source/game_sa/Animation/AnimManager.cpp#L677) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FloatToKeyFrameWord(float v) | [source/game_sa/Animation/AnimManager.cpp:691](../../source/game_sa/Animation/AnimManager.cpp#L691) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1065"></a>
 
@@ -74,7 +74,7 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| SArrayPushBack4(SArrayRaw&lt;uint32&gt;* self, const uint32* x) | [source/game_sa/Attractors/PedAttractor.cpp:589](../../source/game_sa/Attractors/PedAttractor.cpp#L589) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SArrayPushBack4(SArrayRaw&lt;uint32&gt;* self, const uint32* x) | [source/game_sa/Attractors/PedAttractor.cpp:621](../../source/game_sa/Attractors/PedAttractor.cpp#L621) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1069"></a>
 
@@ -111,9 +111,9 @@
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
-| * __fastcall PedShelterAttractorConstructor(CPedShelterAttractor* self, void* /*edx*/, C2dEffectPedAttractor* fx, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedShelterAttractor.cpp:144](../../source/game_sa/Attractors/PedShelterAttractor.cpp#L144) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * __fastcall PedShelterAttractorDestructorBody(CPedShelterAttractor* self, void* /*edx*/) | [source/game_sa/Attractors/PedShelterAttractor.cpp:149](../../source/game_sa/Attractors/PedShelterAttractor.cpp#L149) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedShelterAttractor::DestructorBody 0x005EE880 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * __fastcall PedShelterAttractorScalarDeletingDestructor(CPedShelterAttractor* self, void* /*edx*/, uint8 flags) | [source/game_sa/Attractors/PedShelterAttractor.cpp:159](../../source/game_sa/Attractors/PedShelterAttractor.cpp#L159) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedShelterAttractor::ScalarDeletingDestructor 0x005EE830 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall PedShelterAttractorConstructor(CPedShelterAttractor* self, void* /*edx*/, C2dEffectPedAttractor* fx, CEntity* entity, eMoveState moveState) | [source/game_sa/Attractors/PedShelterAttractor.cpp:145](../../source/game_sa/Attractors/PedShelterAttractor.cpp#L145) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall PedShelterAttractorDestructorBody(CPedShelterAttractor* self, void* /*edx*/) | [source/game_sa/Attractors/PedShelterAttractor.cpp:150](../../source/game_sa/Attractors/PedShelterAttractor.cpp#L150) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedShelterAttractor::DestructorBody 0x005EE880 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall PedShelterAttractorScalarDeletingDestructor(CPedShelterAttractor* self, void* /*edx*/, uint8 flags) | [source/game_sa/Attractors/PedShelterAttractor.cpp:160](../../source/game_sa/Attractors/PedShelterAttractor.cpp#L160) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPedShelterAttractor::ScalarDeletingDestructor 0x005EE830 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
 <a id="grupo-1073"></a>
 

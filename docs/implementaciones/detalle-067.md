@@ -8,13 +8,145 @@
 
 <a id="grupo-1321"></a>
 
+## Globales y helpers: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| Ftol(float x) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:42](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FildMul(int32 n, float f) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:47](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FixedScale(const uint8* data, size_t i) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:52](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CalcEnvCamUV(RpAtomic* atomic, const uint8* matData, float* out) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:57](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EnvWaveCoord(float p, float s, float rs, int32 n) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:73](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| CalcEnvWaveUV(RpAtomic* atomic, uint8* matData, CustomEnvMapPipeAtomicData* atmData, float* out) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:79](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * EnvMapPoolConstruct(RawPool* self, int32 size) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:225](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L225) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall EnvMapPoolConstructor(RawPool* self, void* /*edx*/, int32 size, const char* /*name*/) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:240](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L240) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EnvMapPoolDestroy(RawPool* self) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:246](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L246) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * __fastcall EnvMapPoolNewExe(RawPool* self, void* /*edx*/) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:285](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L285) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EnvMapPoolDeleteExe(RawPool* self, void* /*edx*/, const void* obj) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:291](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L291) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * CreateEnvMapPool(int32 size) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:301](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L301) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| DestroyEnvMapPool(Pool* pool) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp:311](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp#L311) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1322"></a>
+
+## Globales y helpers: source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * Raw(CustomEnvMapPipeMaterialData* data) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp:12](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp#L12) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FromFixed8(uint8 b) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp:17](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FromFixed255(uint8 b) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp:22](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ToFixed8(float x) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp:27](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp#L27) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ToFixed255(float x) | [source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp:32](../../source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline_EnvMat.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1323"></a>
+
+## Globales y helpers: source/game_sa/Pipelines/PipelinesCommon.hpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| SetTextureStagesForLighting(bool isGeoTextured, RwTexture* tex) | [source/game_sa/Pipelines/PipelinesCommon.hpp:8](../../source/game_sa/Pipelines/PipelinesCommon.hpp#L8) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1324"></a>
+
+## Globales y helpers: source/game_sa/Plant/PlantLocTri.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| GetPlantDensity_EaxEntry() | [source/game_sa/Plant/PlantLocTri.cpp:40](../../source/game_sa/Plant/PlantLocTri.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CPlantLocTri::GetPlantDensity 0x005DC210 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1325"></a>
+
+## Globales y helpers: source/game_sa/Plant/ProcSurfaceInfo.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ProcSurfaceRandomInRange(float min, float max) | [source/game_sa/Plant/ProcSurfaceInfo.cpp:109](../../source/game_sa/Plant/ProcSurfaceInfo.cpp#L109) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1326"></a>
+
+## Globales y helpers: source/game_sa/PlantMgr.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| GeometrySetPrelitConstantColor(RpGeometry* geometry, RwRGBA color) | [source/game_sa/PlantMgr.cpp:64](../../source/game_sa/PlantMgr.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1327"></a>
+
+## Globales y helpers: source/game_sa/PlayerInfo.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ProcessCrosshair_Hook(uint32* crosshair, void* /*edx*/, uint32 playerIndex, CPad* pad) | [source/game_sa/PlayerInfo.cpp:121](../../source/game_sa/PlayerInfo.cpp#L121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPlayerInfo::ProcessCrosshair 0x0056EC80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1328"></a>
+
+## Globales y helpers: source/game_sa/PlayerInfoProcess.cpp.inc
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ProcessPlayerStunts(CPlayerInfo& p) | [source/game_sa/PlayerInfoProcess.cpp.inc:4](../../source/game_sa/PlayerInfoProcess.cpp.inc#L4) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+| ProcessPlayerVehicleInteraction(CPlayerInfo& p, uint32 playerIndex, CPad* pad) | [source/game_sa/PlayerInfoProcess.cpp.inc:61](../../source/game_sa/PlayerInfoProcess.cpp.inc#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo Players: source/game_sa/World.h:54 (0x00B7CD98); Posible dato fijo bPlayersCanBeInSeparateCars: source/game_sa/GameLogic.h:52 (0x0096A8B3); Posible dato fijo m_pPed: source/game_sa/Conversations/PedToPlayerConversations.h:26 (0x009691C0) |
+
+<a id="grupo-1329"></a>
+
+## Globales y helpers: source/game_sa/PlayerPedData.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| PlayerPedDataAssignExe(CPlayerPedData* self, const CPlayerPedData* rhsPtr, uint32 esi) | [source/game_sa/PlayerPedData.cpp:170](../../source/game_sa/PlayerPedData.cpp#L170) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1330"></a>
+
+## Globales y helpers: source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| * ClumpCollisionConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp:38](../../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * ClumpCollisionDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp:44](../../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * ClumpCollisionCopyConstructor(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp:50](../../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * ClumpCollisionStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp:63](../../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x0041B1D0: fuera del catálogo consultado; ruta efectiva sin resolver; Posible dato fijo PC_Scratch: source/game_sa/common.h:72 (0x00C8E0C8); Posible dato fijo ms_currentModel: source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.h:25 (0x009689E0) |
+| * ClumpCollisionStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp:92](../../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ClumpCollisionGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp:98](../../source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp#L98) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1331"></a>
+
+## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| JPegErrorExit(j_common_ptr cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:36](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeLibJpegInjectHooks232A() | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:1108](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L1108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1332"></a>
+
+## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ErrExit(ExeJpegCompress* cinfo, int32 code) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:49](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ErrExit1(ExeJpegCompress* cinfo, int32 code, int32 p0) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:54](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ErrExit2(ExeJpegCompress* cinfo, int32 code, int32 p0, int32 p1) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:60](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EmitByte(ExeJpegCompress* cinfo, int32 value) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:68](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EmitMarker(ExeJpegCompress* cinfo, int32 mark) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:83](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| Emit2Bytes(ExeJpegCompress* cinfo, int32 value) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:89](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| JdivRoundUp(int32 a, int32 b) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:95](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L95) | C++ · Envoltura al EXE | Histórica del catálogo: LibJpegMemory::jdiv_round_up 0x005CF890 | 0 / 0 | Delegación por dirección 0x005CF890: LibJpegMemory::jdiv_round_up; ruta efectiva sin resolver |
+| EmitDqtExe(int32 index) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:105](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L105) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegCompress::EmitDqt 0x005C55D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EmitDhtExe(ExeJpegCompress* cinfo, uint32 /*edx*/) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:112](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L112) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegCompress::EmitDht 0x005C5780 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EmitDriExe() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:119](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegCompress::EmitDri 0x005C5910 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EmitSofExe(ExeJpegCompress* cinfo, uint32 /*edx*/) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:124](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L124) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegCompress::EmitSof 0x005C5940 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EmitSosExe() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:130](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L130) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegCompress::EmitSos 0x005C5AC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EmitJfifApp0Exe() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:135](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L135) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegCompress::EmitJfifApp0 0x005C5CA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| EmitAdobeApp14Exe() | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp:140](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp#L140) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegCompress::EmitAdobeApp14 0x005C5EC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1333"></a>
+
 ## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | ExeJpegSuppressTables(void* cinfo, int32 suppress) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp:79](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegCompressApi::jpeg_suppress_tables 0x005CFA50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1322"></a>
+<a id="grupo-1334"></a>
 
 ## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp
 
@@ -29,7 +161,7 @@
 | ExeGrayscaleConvert(void* cinfo, uint8** inputBuf, uint8*** outputBuf, uint32 outputRow, int32 numRows) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp:132](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp#L132) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegCompressEncode::grayscale_convert 0x005C35F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ExeJinitHuffEncoder(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp:261](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp#L261) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegCompressEncode::jinit_huff_encoder 0x005C5210 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1323"></a>
+<a id="grupo-1335"></a>
 
 ## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp
 
@@ -59,7 +191,7 @@
 | MasterSelection(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp:980](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp#L980) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ExeJinitMasterDecompress(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp:1089](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp#L1089) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegDecompress::jinit_master_decompress 0x005CCCC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1324"></a>
+<a id="grupo-1336"></a>
 
 ## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp
 
@@ -73,7 +205,7 @@
 | WarnAdobeXform(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp:78](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | DefaultDecompressParms(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp:86](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1325"></a>
+<a id="grupo-1337"></a>
 
 ## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp
 
@@ -83,7 +215,7 @@
 | ** AllocSarrayViaMem(void* cinfo, void* mem, int32 pool, uint32 samplesPerRow, uint32 numRows) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp:42](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ExeJinitPostController(void* cinfo, int32 needFullBuffer) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp:49](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegDecompressUpsample::jinit_post_controller 0x005CCDF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1326"></a>
+<a id="grupo-1338"></a>
 
 ## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp
 
@@ -93,7 +225,7 @@
 | ExeOutputMessage(void* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp:39](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegError::output_message 0x005CD6D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x00862EB0, 0x008E2C70 |
 | * ExeJpegStdError(void* err) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp:48](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegError::jpeg_std_error 0x005CD810 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1327"></a>
+<a id="grupo-1339"></a>
 
 ## Globales y helpers: source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp
 
@@ -116,7 +248,7 @@
 | ExeJcopySampleRows(uint8** inputArray, int32 sourceRow, uint8** outputArray, int32 destRow, int32 numRows, uint32 numCols) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:473](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L473) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegMemory::jcopy_sample_rows 0x005CF8C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | ExeJzeroFar(void* target, uint32 bytesToZero) | [source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:497](../../source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp#L497) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: LibJpegMemory::jzero_far 0x005CF940 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1328"></a>
+<a id="grupo-1340"></a>
 
 ## Globales y helpers: source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp
 
@@ -128,185 +260,3 @@
 | * NodeNameStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:75](../../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gNodeNamePluginOffset: source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:25 (0x00C87C5C) |
 | * NodeNameStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:83](../../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp#L83) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gNodeNamePluginOffset: source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:25 (0x00C87C5C) |
 | NodeNameStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:90](../../source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gNodeNamePluginOffset: source/game_sa/Plugins/NodeNamePlugin/NodeName.cpp:25 (0x00C87C5C) |
-
-<a id="grupo-1329"></a>
-
-## Globales y helpers: source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * PipelineConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:50](../../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gPipelinePluginOffset: source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:25 (0x008D6080) |
-| * PipelineCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:59](../../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gPipelinePluginOffset: source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:25 (0x008D6080) |
-| * PipelineStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:67](../../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gPipelinePluginOffset: source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:25 (0x008D6080) |
-| PipelineGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) | [source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp:74](../../source/game_sa/Plugins/PipelinePlugin/PipelinePlugin.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1330"></a>
-
-## Globales y helpers: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| *& RpAnimBlendClumpGetData(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:31](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ClumpOffset: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:28 (0x00B5F878) |
-| FrameInitCBskin(AnimBlendFrameData* fd, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:144](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L144) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpInitSkinned(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:156](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L156) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FrameCountCB(RwFrame* f, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:187](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L187) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * SetFrameDataFrameCB(RwFrame* f, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:194](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L194) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FrameInitCBnonskin(AnimBlendFrameData* fd, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:203](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L203) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpInitNonSkinned(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:215](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L215) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & RpAnimBlendClumpGetAssociations(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:257](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L257) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FrameFindByBoneTagCB(AnimBlendFrameData* fd, void* data) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:375](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L375) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gpAnimBlendFrameData: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:372 (0x00B5F87C) |
-| * RpAnimBlendClumpFindAssociationIf_N(RpClump* clump, Fn&& Pred, size_t n) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:449](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L449) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendClumpGetAssociation(RpClump* clump, bool, CAnimBlendHierarchy* h) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:465](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L465) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetAssociation-Hier 0x004D68E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendClumpGetAssociation(RpClump* clump, const char* name) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:472](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L472) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetAssociation-AnimName 0x004D6870 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendClumpGetAssociation(RpClump* clump, uint32 animId) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:480](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L480) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetAssociation-AnimId 0x004D68B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendClumpGetFirstAssociation(RpClump* clump) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:487](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L487) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetFirstAssociation- 0x004D15E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendClumpGetFirstAssociation(RpClump* clump, uint32 flags) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:496](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L496) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendClumpGetFirstAssociation-Flags 0x004D6A70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendClumpCountAssociationsIf(RpClump* clump, Fn&& Pred) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:602](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L602) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ExeAdd(float a, float b) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:697](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L697) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ExeSub(float a, float b) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:698](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L698) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ExeMul(float a, float b) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:699](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L699) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| CalculateTotalBlendOfPartial(AnimBlendUpdateData* c, AnimBlendFrameData* fd, bool checkDontAddToBlend) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:701](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L701) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FrameUpdateCallBackNoVelocity(AnimBlendFrameData* fd, AnimBlendUpdateData* c) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:734](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L734) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FrameUpdateCallBackExeVelocity(AnimBlendUpdateData* c, AnimBlendFrameData* fd) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:835](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L835) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:692 (0x00B4EA0C) |
-| FrameUpdateCallBackWithVelocityExtractionCompressedSkinned(AnimBlendUpdateData* c, AnimBlendFrameData* fd) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1017](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1017) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FrameUpdateCallBackWithVelocityExtractionCompressedNonSkinned(AnimBlendUpdateData* c, AnimBlendFrameData* fd) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1036](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1036) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FrameUpdateCallBackSkinnedWith3dVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1055](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1055) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FrameUpdateCallBackSkinnedWithVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1061](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1061) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FrameUpdateCallBackNonSkinnedWith3dVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1084](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1084) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FrameUpdateCallBackNonSkinnedWithVelocityExtraction(AnimBlendUpdateData* c, AnimBlendFrameData* fd) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1090](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1090) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RpAnimBlendNodeUpdateKeyFrames(AnimBlendUpdateData* c, AnimBlendFrameData* frames, int32 nFrames) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1122](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1122) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendNodeUpdateKeyFramesExe 0x004D1570 | 0 / 0 | Posible dato fijo gpAnimBlendClump: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:692 (0x00B4EA0C) |
-| RpAnimBlendNodeUpdateKeyFramesExe(AnimBlendFrameData* frames, int32 nFrames) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1147](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1147) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendGetNextAssociation(CAnimBlendAssociation* association) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1274](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1274) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendGetNextAssociation-Any 0x004D6AB0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * RpAnimBlendGetNextAssociation(CAnimBlendAssociation* association, uint32 flags) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1282](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1282) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::RpAnimBlendGetNextAssociation-Flags 0x004D6AD0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ConvertPedNode2BoneTagExe(int32 pedNode) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1295](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1295) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: RpAnimBlend::ConvertPedNode2BoneTag 0x004D58A0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * __cdecl ConvertBoneTag2BoneNameExe(int32 boneTag) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1300](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp#L1300) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: RpAnimBlend::ConvertBoneTag2BoneName 0x004D56F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1331"></a>
-
-## Globales y helpers: source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| RpAnimBlendClumpForEachAssociation(RpClump* clump, Fn&& IterFn) | [source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.h:51](../../source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1332"></a>
-
-## Globales y helpers: source/game_sa/PointLights.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FogEmitSprite(const CPointLight& light, const float& alpha, const RwV3d& screen, float w, float h, int32 tab, uint32 timeValue, bool pointLight) | [source/game_sa/PointLights.cpp:156](../../source/game_sa/PointLights.cpp#L156) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FogDirectionalLight(const CPointLight& light, const float& intensity) | [source/game_sa/PointLights.cpp:164](../../source/game_sa/PointLights.cpp#L164) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FogPointLight(const CPointLight& light, const float& intensity, const float& size) | [source/game_sa/PointLights.cpp:196](../../source/game_sa/PointLights.cpp#L196) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028) |
-
-<a id="grupo-1333"></a>
-
-## Globales y helpers: source/game_sa/Pools.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| ConstructPoolBody(uint8* pool, int32 capacity, uint32 elementSize) | [source/game_sa/Pools.cpp:232](../../source/game_sa/Pools.cpp#L232) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * ConstructPool(int32 capacity, uint32 elementSize) | [source/game_sa/Pools.cpp:245](../../source/game_sa/Pools.cpp#L245) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PoolDestructorBodyExe(void* poolPtr, void* /*edx*/) | [source/game_sa/Pools.cpp:269](../../source/game_sa/Pools.cpp#L269) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CPools::PoolDestructorBody 0x004049C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * __fastcall PoolScalarDeletingDestructorExe(void* self, void* /*edx*/, uint32 deleteFlags) | [source/game_sa/Pools.cpp:378](../../source/game_sa/Pools.cpp#L378) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| DestroyPool(void* poolPtr) | [source/game_sa/Pools.cpp:397](../../source/game_sa/Pools.cpp#L397) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * GetPedPool() | [source/game_sa/Pools.cpp:737](../../source/game_sa/Pools.cpp#L737) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPedPool: source/game_sa/Pools.cpp:81 (0x00B74490) |
-| * GetVehiclePool() | [source/game_sa/Pools.cpp:742](../../source/game_sa/Pools.cpp#L742) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pVehiclePool: source/game_sa/Pools.cpp:82 (0x00B74494) |
-| * GetBuildingPool() | [source/game_sa/Pools.cpp:747](../../source/game_sa/Pools.cpp#L747) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pBuildingPool: source/game_sa/Pools.cpp:83 (0x00B74498) |
-| * GetObjectPool() | [source/game_sa/Pools.cpp:752](../../source/game_sa/Pools.cpp#L752) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pObjectPool: source/game_sa/Pools.cpp:84 (0x00B7449C) |
-| * GetDummyPool() | [source/game_sa/Pools.cpp:757](../../source/game_sa/Pools.cpp#L757) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pDummyPool: source/game_sa/Pools.cpp:85 (0x00B744A0) |
-| * GetColModelPool() | [source/game_sa/Pools.cpp:762](../../source/game_sa/Pools.cpp#L762) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pColModelPool: source/game_sa/Pools.cpp:86 (0x00B744A4) |
-| * GetTaskPool() | [source/game_sa/Pools.cpp:767](../../source/game_sa/Pools.cpp#L767) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pTaskPool: source/game_sa/Pools.cpp:87 (0x00B744A8) |
-| * GetPedIntelligencePool() | [source/game_sa/Pools.cpp:772](../../source/game_sa/Pools.cpp#L772) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPedIntelligencePool: source/game_sa/Pools.cpp:88 (0x00B744C0) |
-| * GetPtrNodeSingleLinkPool() | [source/game_sa/Pools.cpp:777](../../source/game_sa/Pools.cpp#L777) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPtrNodeSingleLinkPool: source/game_sa/Pools.cpp:89 (0x00B74484) |
-| * GetPtrNodeDoubleLinkPool() | [source/game_sa/Pools.cpp:782](../../source/game_sa/Pools.cpp#L782) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPtrNodeDoubleLinkPool: source/game_sa/Pools.cpp:90 (0x00B74488) |
-| * GetEntryInfoNodePool() | [source/game_sa/Pools.cpp:787](../../source/game_sa/Pools.cpp#L787) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pEntryInfoNodePool: source/game_sa/Pools.cpp:91 (0x00B7448C) |
-| * GetPointRoutePool() | [source/game_sa/Pools.cpp:792](../../source/game_sa/Pools.cpp#L792) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPointRoutePool: source/game_sa/Pools.cpp:92 (0x00B744B0) |
-| * GetPatrolRoutePool() | [source/game_sa/Pools.cpp:797](../../source/game_sa/Pools.cpp#L797) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPatrolRoutePool: source/game_sa/Pools.cpp:93 (0x00B744B4) |
-| * GetEventPool() | [source/game_sa/Pools.cpp:802](../../source/game_sa/Pools.cpp#L802) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pEventPool: source/game_sa/Pools.cpp:94 (0x00B744AC) |
-| * GetNodeRoutePool() | [source/game_sa/Pools.cpp:807](../../source/game_sa/Pools.cpp#L807) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pNodeRoutePool: source/game_sa/Pools.cpp:95 (0x00B744B8) |
-| * GetTaskAllocatorPool() | [source/game_sa/Pools.cpp:812](../../source/game_sa/Pools.cpp#L812) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pTaskAllocatorPool: source/game_sa/Pools.cpp:96 (0x00B744BC) |
-| * GetPedAttractorPool() | [source/game_sa/Pools.cpp:817](../../source/game_sa/Pools.cpp#L817) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo ms_pPedAttractorPool: source/game_sa/Pools.cpp:97 (0x00B744C4) |
-
-<a id="grupo-1334"></a>
-
-## Globales y helpers: source/game_sa/Pools/PoolRawDelete.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| PoolFreeSlotRaw(void* pool, const void* obj, int32 elementSize) | [source/game_sa/Pools/PoolRawDelete.h:6](../../source/game_sa/Pools/PoolRawDelete.h#L6) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PoolFreeSlotRawShift(void* pool, const void* obj, int32 shift) | [source/game_sa/Pools/PoolRawDelete.h:17](../../source/game_sa/Pools/PoolRawDelete.h#L17) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1335"></a>
-
-## Globales y helpers: source/game_sa/Population.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| LoadGroupFile(const char* fileName, auto& outModelsInGroup, auto& outNumOfModelsPerGroup) | [source/game_sa/Population.cpp:171](../../source/game_sa/Population.cpp#L171) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ProcessPossibleDriverModelsOfCar(eModelID carModelIndex, auto&& ProcessModel) | [source/game_sa/Population.cpp:610](../../source/game_sa/Population.cpp#L610) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * PopulationTask(size_t size, Args... args) | [source/game_sa/Population.cpp:1911](../../source/game_sa/Population.cpp#L1911) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PopulationModelRadius(eModelID model) | [source/game_sa/Population.cpp:1915](../../source/game_sa/Population.cpp#L1915) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PopulationModelLoaded(eModelID model) | [source/game_sa/Population.cpp:1918](../../source/game_sa/Population.cpp#L1918) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| PopulationCouple(eModelID maleModel, eModelID femaleModel, CVector position) | [source/game_sa/Population.cpp:1921](../../source/game_sa/Population.cpp#L1921) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo TheCamera: source/game_sa/Camera.cpp:41 (0x00B6F028); Posible dato fijo ms_offsets: source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.h:28 (0x00C196E8) |
-| PopulationDefaultTask(CPed* ped,ePedType type) | [source/game_sa/Population.cpp:1959](../../source/game_sa/Population.cpp#L1959) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x0048E610: CTaskComplexWanderCriminal::Constructor; ruta efectiva sin resolver; Colaborador por dirección 0x00681B60: CTaskManager::SetTaskSecondary; ruta efectiva sin resolver; Conversión de dirección fija: 0x00A90CF0; Posible dato fijo MI_TELLY: source/game_sa/ModelIndices.cpp:69 (0x008CD5A8) |
-| PopulationSunbathe(CPed* ped,const CVector& position) | [source/game_sa/Population.cpp:1977](../../source/game_sa/Population.cpp#L1977) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Colaborador por dirección 0x0043E0C0: CPlaceable::SetHeading; ruta efectiva sin resolver; Colaborador por dirección 0x00632140: CTaskComplexSunbathe::CanSunbathe; ruta efectiva sin resolver; Conversión de dirección fija: 0x00969159; Posible dato fijo g_surfaceInfos: source/game_sa/SurfaceInfos_c.h:79 (0x00B79538) |
-
-<a id="grupo-1336"></a>
-
-## Globales y helpers: source/game_sa/PostEffects.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| ExeLog2TruncViaDouble(int32 value) | [source/game_sa/PostEffects.cpp:39](../../source/game_sa/PostEffects.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ExeLog2TruncKeepExtended(int32 value) | [source/game_sa/PostEffects.cpp:44](../../source/game_sa/PostEffects.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ExePow2Above(int32 exponentPlusOne) | [source/game_sa/PostEffects.cpp:50](../../source/game_sa/PostEffects.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Conversión de dirección fija: 0x008220F0 |
-| HazeScaleX(float k) | [source/game_sa/PostEffects.cpp:57](../../source/game_sa/PostEffects.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040) |
-| HazeScaleY(float k) | [source/game_sa/PostEffects.cpp:58](../../source/game_sa/PostEffects.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo RsGlobal: source/game_sa/RenderWare/RenderWare.h:24 (0x00C17040) |
-| RippleWave(uint32 timeMs, float speed, float freq, float y, float xoffset) | [source/game_sa/PostEffects.cpp:61](../../source/game_sa/PostEffects.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RippleFinalU(uint32 timeMs, float speed, float freq, float y, float xoffset, int32 width, float* outU0, float* outU1) | [source/game_sa/PostEffects.cpp:67](../../source/game_sa/PostEffects.cpp#L67) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FogSinCoord(float angle, float quarter, float radius, float half, float third) | [source/game_sa/PostEffects.cpp:72](../../source/game_sa/PostEffects.cpp#L72) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FogCosCoord(float angle, float quarter, float radius, float half, float third) | [source/game_sa/PostEffects.cpp:75](../../source/game_sa/PostEffects.cpp#L75) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ExeClampScaleChannel(uint8 channel, float mult) | [source/game_sa/PostEffects.cpp:80](../../source/game_sa/PostEffects.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1337"></a>
-
-## Globales y helpers: source/game_sa/ProjectileInfo.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| ProjectileCreatorHeading(CEntity* creator) | [source/game_sa/ProjectileInfo.cpp:97](../../source/game_sa/ProjectileInfo.cpp#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: CProjectileInfo::AddProjectile 0x00737C80 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ProjectileThrownVelocity(float heading, float speed, float height) | [source/game_sa/ProjectileInfo.cpp:104](../../source/game_sa/ProjectileInfo.cpp#L104) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| & ProjectileField(CEntity* entity, size_t offset) | [source/game_sa/ProjectileInfo.cpp:246](../../source/game_sa/ProjectileInfo.cpp#L246) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| ProjectileDamping(float timestep) | [source/game_sa/ProjectileInfo.cpp:249](../../source/game_sa/ProjectileInfo.cpp#L249) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RemoveBackwardProjectileSteering(CVector& steering,const CVector& direction) | [source/game_sa/ProjectileInfo.cpp:256](../../source/game_sa/ProjectileInfo.cpp#L256) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AddProjectileSteering(CVector& velocity, const CVector& steering, float acceleration, float timestep, bool fast) | [source/game_sa/ProjectileInfo.cpp:259](../../source/game_sa/ProjectileInfo.cpp#L259) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| LimitProjectileSpeed(CProjectile* projectile) | [source/game_sa/ProjectileInfo.cpp:263](../../source/game_sa/ProjectileInfo.cpp#L263) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1338"></a>
-
-## Globales y helpers: source/game_sa/ProtectionStub.cpp
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| ProtectionStubEmpty(uint32 /*unused*/) | [source/game_sa/ProtectionStub.cpp:26](../../source/game_sa/ProtectionStub.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: CProtectionStub::Empty 0x004032A4 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1339"></a>
-
-## Globales y helpers: source/game_sa/Queue.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * InitialiseQueue(Queue* q, int32 size) | [source/game_sa/Queue.h:26](../../source/game_sa/Queue.h#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FinalizeQueue(Queue* q) | [source/game_sa/Queue.h:33](../../source/game_sa/Queue.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AddToQueue(Queue* q, int32 i) | [source/game_sa/Queue.h:38](../../source/game_sa/Queue.h#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| GetFirstInQueue(Queue* q) | [source/game_sa/Queue.h:43](../../source/game_sa/Queue.h#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| RemoveFirstInQueue(Queue* q) | [source/game_sa/Queue.h:47](../../source/game_sa/Queue.h#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1340"></a>
-
-## Globales y helpers: source/game_sa/RGBA.h
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| lerp&lt;CRGBA&gt;(const CRGBA& from, const CRGBA& to, float t) | [source/game_sa/RGBA.h:231](../../source/game_sa/RGBA.h#L231) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
