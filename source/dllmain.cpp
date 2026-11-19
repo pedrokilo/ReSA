@@ -4,6 +4,7 @@
 
 #include "WinPlatform.h"
 #include "extensions/CommandLine.h"
+#include "extensions/AutoSteal.h"
 #include "extensions/debug.hpp"
 #include "extensions/Configuration.hpp"
 #include "reversiblehooks/RootHookCategory.h"
@@ -177,6 +178,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
         InjectHooksMain(hModule);
         ApplyCommandLineHookSettings();
         ApplyHistoricalHookSettings();
+        AutoSteal::InstallIdleDetourIfNeeded();
         LogHookSummary();
         break;
     }

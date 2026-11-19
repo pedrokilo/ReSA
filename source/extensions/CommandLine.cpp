@@ -4,6 +4,9 @@
 #include <span>
 #include <Utility.h>
 #include <app_debug.h>
+#include "AutoSteal.h"
+#include <fstream>
+#include <list>
 
 namespace CommandLine {
 bool                          s_UnhookAll{ false };
@@ -58,6 +61,28 @@ void ProcessArgument(std::string_view arg) {
         } else {
             NOTSA_LOG_WARN("Argumento no válido '{}', el formato es --dump-hooks-to=ruta", arg);
         }
+    } else if (arg.starts_with("--unhook-file=")) {
+        // BIS1: igual que --unhook=, pero la lista (una ruta Categoría/Clase[/Función] por línea) sale de un archivo:
+        // sin límite de longitud de línea de comandos y admite nombres con espacios o comas ("operator new").
+        static std::list<std::string> s_UnhookFileStorage{};
+        if (s_UnhookAll) {
+            NOTSA_LOG_WARN("--unhook-all ya se usó antes: tendrá efecto --unhook-all.");
+        } else if (!s_UnhookExcept.empty()) {
+            NOTSA_LOG_WARN("--unhook-except ya se usó antes: tendrá efecto --unhook-except.");
+        } else if (std::ifstream in{ std::string{ arg.substr(arg.find('=') + 1) } }) {
+            size_t n = 0;
+            for (std::string line; std::getline(in, line);) {
+                while (!line.empty() && (line.back() == '' || line.back() == ' ')) line.pop_back();
+                if (line.empty() || line[0] == '#') continue;
+                s_UnhookSome.emplace_back(s_UnhookFileStorage.emplace_back(std::move(line)));
+                ++n;
+            }
+            NOTSA_LOG_INFO("[Línea de comandos]: {} rutas para desactivar leídas de '{}'", n, arg.substr(arg.find('=') + 1));
+        } else {
+            NOTSA_LOG_WARN("No se pudo abrir el archivo de --unhook-file: '{}'", arg);
+        }
+    } else if (arg.starts_with("--robar=")) {
+        AutoSteal::Configure(arg.substr(sizeof("--robar=") - 1)); // BIS1: prueba automática de robo de coches
     } else if (arg.starts_with("--historical-hooks=")) {
         // Applied after normal command-line hook settings in DllMain.
     } else {

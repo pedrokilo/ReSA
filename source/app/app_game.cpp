@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/AutoSteal.h"
 
 #include <Tracy.hpp>
 
@@ -319,6 +320,7 @@ void RenderDebugShit() {
 // 0x53E920
 void Idle(void* param) {
     ZoneScoped;
+    AutoSteal::OnFrame(); // BIS1: no hace nada sin --robar
 
     // Como el original: limitador de fotogramas por espera activa (como mínimo 14 ms entre fotogramas) con
     // división y resta sin signo; las dos primeras lecturas del temporizador se descartan.

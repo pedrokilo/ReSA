@@ -1,0 +1,10 @@
+dll/
+salidas/
+rondas/
+respaldo_pendiente/
+estado*.json
+estado*.json.bak
+*.log
+tmp/
+__pycache__/
+robar_*/
