@@ -83,3 +83,7 @@ Por ciclo (espera inicial desde que CJ está en el exterior, luego cada `periodo
 ## Archivos
 
 `biseccion.ps1/.bat` (interfaz), `ddmin.py` (motor y estado), `simular.py` (oráculo simulado), `jugar.ps1` (copia ampliada del de FnPL1: `-Robar`, `-MinCaidas`, DLL nueva/original), `robar_serie.ps1` (tasas), `estado.json` (estado; local), `rondas\`, `salidas\` (locales), `resultado.md` (al terminar).
+
+## Modo automatico (-Auto): senal neutral
+
+`biseccion.ps1 -Auto` usa la DLL `dll\Debug.asi` y decide SOLO con la senal neutral: ciclos con z < -50 (jugador, coche o conductor, medido por `AutoSteal`) o NaN en la posicion/matriz del jugador o del coche, y NaN en la posicion de la sonda externa. NO usa los avisos "ha caido a traves del mapa", `Pool.h:207` ni el crash, porque son codigo de la DLL y desaparecen con `--unhook-all`/al apagar su grupo. Una ronda sin senal solo cuenta como OK con >= `-MinRobosAuto` (12) robos automaticos; si no, se descarta. `jugar.ps1 -Robar` cierra el juego al primer ciclo con z bajo/NaN (`-NoParaSenal` lo evita). Por defecto `-Robar 20,15,15,5` y el juego se cierra a los 480 s como maximo.

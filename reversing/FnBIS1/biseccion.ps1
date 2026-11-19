@@ -24,7 +24,7 @@ param(
     [switch]$Reiniciar,
     [string]$Estado = '',
     [int]$MaxSegundos = 300,       # el juego se cierra solo a los N segundos (interactivo: 5 minutos)
-    [string]$Robar = '20,20,20,6', # -Auto: ciclos,periodo_s,espera_s,conducir_s
+    [string]$Robar = '20,15,15,5', # -Auto: ciclos,periodo_s,espera_s,conducir_s
     [int]$MinRobosAuto = 12,       # -Auto: robos conseguidos para que una ronda sin error cuente como OK
     [int]$MinSegundos = 60,        # una ronda mas corta sin senal de error no cuenta
     [string]$SimCulpables = '',    # -Simular: culpables ocultos (rutas separadas por coma); vacio = 2 al azar
@@ -143,7 +143,7 @@ try {
         $ja = @('-Variante', $variante, '-Etiqueta', ('-r{0:D3}' -f $n), '-ArgsFile', $af)
         if ($Simular) { $ja += '-Simular' }
         else {
-            $ja += @('-Auto', $MaxSegundos, '-Sonda')
+            $ja += @('-Auto', $(if ($Auto) { [math]::Max($MaxSegundos, 480) } else { $MaxSegundos }), '-Sonda')
             if ($Auto) { $ja += @('-TpExit', '-Robar', $Robar) } else { $ja += @('-ParaAlCaer', '-MinCaidas', 3) }
         }
         $t0 = Get-Date
@@ -175,12 +175,18 @@ try {
             $res = Oraculo-Simulado $off $null; $decision = 'simulada'
             Write-Host ("   [simulacro] apagados={0} args='{1}' ASI={2} restauracion OK -> {3}" -f $off.Count, $r.argumentos, $r.asi_sha256.Substring(0, 12), $res)
         }
-        elseif ($caidas -ge 3 -or $nanPos -or $nanDll -gt 0 -or $zBajo -gt 0 -or $crash) {
+        elseif ($Auto -and ($nanPos -or $nanDll -gt 0 -or $zBajo -gt 0)) {
+            # Modo automatico: SOLO la senal neutral (z < -50 y NaN del jugador/coche/matriz, medidos por la sonda y por AutoSteal).
+            # Los avisos "ha caido a traves del mapa", Pool.h y el crash dependen de codigo de la DLL y no valen como senal.
+            $res = 'E'; $decision = 'automatica-neutral'
+            Write-Host ("   ERROR (senal neutral): ciclos con z bajo={0}, con NaN={1}, NaN en la sonda={2}; duracion {3:N0} s." -f $zBajo, $nanDll, [int]$nanPos, $dur) -ForegroundColor Red
+        }
+        elseif (-not $Auto -and ($caidas -ge 3 -or $nanPos -or $nanDll -gt 0 -or $zBajo -gt 0 -or $crash)) {
             $res = 'E'; $decision = 'automatica'
             $mot = @(); if ($caidas -ge 3) { $mot += "$caidas avisos de caida" }; if ($nanPos -or $nanDll) { $mot += 'posicion NaN' }; if ($zBajo) { $mot += 'z < -50' }; if ($crash) { $mot += 'crash 0xC0000005' }
             Write-Host ("   ERROR detectado automaticamente ({0}); duracion {1:N0} s." -f ($mot -join ', '), $dur) -ForegroundColor Red
         }
-        elseif ($dur -lt $MinSegundos) {
+        elseif ($dur -lt $MinSegundos -and -not $Auto) {
             $res = 'D'; $decision = 'corta'
             Write-Host ("   Ronda de {0:N0} s (< {1} s) sin senal de error: no cuenta; se repite." -f $dur, $MinSegundos) -ForegroundColor Yellow
         }

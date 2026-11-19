@@ -28,6 +28,7 @@ param(
     [switch]$ParaAlCaer,       # PL1: con -Auto, cierra el juego propio en cuanto aparece un aviso de caida a traves del mapa
     [int]$MinCaidas = 1,       # BIS1: con -ParaAlCaer, nº de avisos de caida que dispara el cierre
     [string]$Robar = '',       # BIS1: prueba automatica de robo (en la DLL): 'ciclos,periodo_s,espera_s,conducir_s' (p. ej. 20,20,20,6)
+    [switch]$NoParaSenal,      # BIS1: con -Robar no cerrar el juego al primer ciclo con z bajo/NaN
     [switch]$Silencioso        # BIS1: menos salida por consola (lo usa biseccion.ps1)
 )
 $ErrorActionPreference = 'Stop'
@@ -197,6 +198,7 @@ try {
                         $nc = ([regex]::Matches($txt2, 'a través del mapa')).Count
                         if ($ParaAlCaer -and $nc -ge $MinCaidas) { Start-Sleep -Seconds 2; break }
                         if ($Robar -and $txt2.Contains('[ROBAR] FIN')) { Start-Sleep -Seconds 3; break }
+                        if ($Robar -and ($txt2.Contains('z_bajo=SI') -or $txt2.Contains('nan=SI')) -and -not $NoParaSenal) { Start-Sleep -Seconds 2; break }
                         if ($txt2.Contains('[ROBAR] NaN') -and $ParaAlCaer) { Start-Sleep -Seconds 2; break }
                     } catch {}
                 }
