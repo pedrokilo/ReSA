@@ -9,6 +9,7 @@
 #include "Game.h"
 #include "Timer.h"
 #include "ColStore.h"
+#include "ModelInfo.h"
 #include "TaskComplexEnterCarAsDriver.h"
 #include "TaskSimpleCarSetPedOut.h"
 #include <Utility.h>
@@ -209,6 +210,11 @@ void OnFrame() {
         }
         s_stateT0 = now;
         s_state = State::Steal;
+        {
+            const auto mi = CModelInfo::GetModelInfo(model);
+            NOTSA_LOG_INFO("[ROBAR] ciclo {}: modelo coche cargado={} colmodel_coche={} modelo_conductor={} cargado={}", s_cycle + 1,
+                (int)CStreaming::IsModelLoaded(model), (mi && mi->GetColModel()) ? 1 : 0, d ? (int)d->m_nModelIndex : -1, d ? (int)CStreaming::IsModelLoaded(d->m_nModelIndex) : -1);
+        }
         NOTSA_LOG_INFO("[ROBAR] ciclo {}: coche modelo {} creado con conductor={} en ({:.1f},{:.1f},{:.1f}) suelo_z={:.1f} CJ=({:.1f},{:.1f},{:.1f}) coche_z={:.1f}", s_cycle + 1, model, d ? "si" : "no", s_lastAt.x, s_lastAt.y, s_lastAt.z, s_lastGz, pl->GetPosition().x, pl->GetPosition().y, pl->GetPosition().z, v->GetPosition().z);
         break;
     }
