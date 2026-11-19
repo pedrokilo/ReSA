@@ -1,0 +1,28 @@
+{
+  "lote": "RW0A",
+  "fecha": "2026-11-18",
+  "worktree": "D:/Original/wv-6",
+  "head": "39276bea85",
+  "dll": {"configuracion": "Debug (/Od, /RTC1, CRT debug estatico, asserts activos)", "bytes": 50433024},
+  "instalacion": {"entradas_catalogo": 822, "direcciones_distintas": 822, "instaladas_por_defecto": 822, "no_instaladas": 0, "motivo": "reversed=1, locked=0, enabled=reversed; JMP E9 a la DLL medido en memoria"},
+  "cobertura": {"entradas": 822, "ejercitadas": 486, "no_ejercitadas": 336},
+  "fases": {
+    "F1": "menu en ~16 s; el juego sale solo del menu y arranca partida nueva (tambien con RW apagado); F1b 3 min sin fallos",
+    "F2": "superada sin tocar la ventana (FP1 4 min, FP4 8 min, control App+Win 4 min); con intervencion del usuario aparece el fallo NaN/blanco, tambien con RW apagado",
+    "F3": "1653 s; fallo del usuario tras recargar la partida desde el menu; sin cierre del proceso"
+  },
+  "defectos_rw": [],
+  "defectos_no_rw": [
+    {"funcion": "CPedIntelligence::ClearTasks", "direccion": "0x601420", "causa": "GetTaskPrimary(TASK_PRIMARY_DEFAULT) nulo en ped en vehiculo, desde CCarAI::AddPoliceCarOccupants (CarAI.cpp:246)", "corregido": false},
+    {"funcion": "CText::Load", "direccion": "0x6A01A0", "causa": "assert(file) intermitente al abrir el GXT; fread(nullptr)", "corregido": false},
+    {"funcion": "CLoadMonitor::EndFrame", "direccion": "", "causa": "0/0 SSE llena de NaN m_fSmoothedValues (inocuo)", "corregido": false},
+    {"funcion": "CCustomCarPlateMgr::AtomicUpgradeSetCarplateTextureCB", "direccion": "0x6FDFC0", "causa": "NOTSA_LOG_DEBUG en ruta caliente (spam)", "corregido": false}
+  ],
+  "fallo_usuario": {
+    "sintoma": "mundo blanco, texto GXT deformado, Cargando... fijo, caidas a z=-100, posicion del jugador NaN",
+    "es_renderware": false,
+    "evidencia": "reproducido con los 18 grupos RW apagados; con la trampa SSE armada no salto ninguna operacion invalida antes del NaN",
+    "determinista": false,
+    "causa_raiz": "no aislada"
+  }
+}

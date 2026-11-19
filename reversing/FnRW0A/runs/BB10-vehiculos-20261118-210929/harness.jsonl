@@ -1,0 +1,18 @@
+{"t": 0.5, "ev": "lock", "ok": true}
+{"t": 4.1, "ev": "launch", "pid": 29480, "args": ["--dump-hooks-to=D:\\Original\\wv-6\\reversing\\FnRW0A\\runs\\BB10-vehiculos-20261118-210929\\hooks_dump.csv", "--unhook=Vehicle/CAutomobile,Vehicle/CBike,Vehicle/CBmx"]}
+{"t": 4.1, "ev": "captura", "size": null, "consola": null}
+{"t": 10.7, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 273.0, "ping": false}
+{"t": 14.7, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 281.0, "ping": false}
+{"t": 19.7, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 351}, "mem_mb": 239.3, "ping": true}
+{"t": 24.7, "ev": "objetivo alcanzado", "state": {"t_ms": 15063, "game_state": 9, "frame": 31589463, "timer_ms": 370365804, "menu": 0, "ped": true, "x": 2495.9, "y": -1707.4, "z": 1014.7, "hooks_called": 451}}
+{"t": 24.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589463, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 240.2, "ping": true}
+{"t": 29.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589588, "ped": true, "x": 2495.9, "y": -1695.7, "hooks": 451}, "mem_mb": 304.5, "ping": true}
+{"t": 34.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589710, "ped": true, "x": 2494.9, "y": -1690.2, "hooks": 463}, "mem_mb": 319.8, "ping": true}
+{"t": 39.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589835, "ped": true, "x": 2481.0, "y": -1712.0, "hooks": 468}, "mem_mb": 332.7, "ping": true}
+{"t": 44.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589960, "ped": true, "x": 2482.6, "y": -1731.2, "hooks": 475}, "mem_mb": 333.8, "ping": true}
+{"t": 49.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590085, "ped": true, "x": 2482.6, "y": -1731.0, "hooks": 476}, "mem_mb": 334.9, "ping": true}
+{"t": 54.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590085, "ped": true, "x": 2482.6, "y": -1731.0, "hooks": 476}, "mem_mb": 334.7, "ping": true}
+{"t": 59.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590085, "ped": true, "x": 2482.6, "y": -1731.0, "hooks": 476}, "mem_mb": 334.8, "ping": true}
+{"t": 64.9, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 125.1, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 170.2, "ev": "veredicto", "kind": "fotogramas_detenidos", "segundos": 120}

@@ -1,0 +1,71 @@
+tramo analizado: 11222 bytes desde 129884848
+lineas por nivel: {'info': 4, 'depuración': 66, '?': 1, 'error': 2, 'aviso': 10}
+
+--- plantillas de error/aviso/assert (veces, ejemplo) ---
+       8  [aviso][20:48:26.366][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2473.758545 -1738.643188 -116.004387
+       1  [error][20:48:05.040][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+       1  [error][20:48:05.040][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+       1  [aviso][20:48:05.040][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+       1  [aviso][20:48:25.884][World.cpp:1469]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2516.219482 -1730.180176 -106.703568
+
+--- cola (60 lineas) ---
+[depuración][20:47:52.241][dllmain.cpp:66]: Hook desactivado 'Global/CPedPlacement' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.242][dllmain.cpp:66]: Hook desactivado 'Global/CSetPiece' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.242][dllmain.cpp:66]: Hook desactivado 'Global/CSetPieces' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.242][dllmain.cpp:66]: Hook desactivado 'Global/CVehicleAnimGroup' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.243][dllmain.cpp:66]: Hook desactivado 'Global/CVehicleAnimGroupData' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.244][dllmain.cpp:66]: Hook desactivado 'Global/CVehiclePotentialCollisionScanner' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.244][dllmain.cpp:66]: Hook desactivado 'Global/CVehicleRecording' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.245][dllmain.cpp:66]: Hook desactivado 'Global/CVehicleSaveStructure' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.245][dllmain.cpp:66]: Hook desactivado 'Global/CVehicleScanner' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.246][dllmain.cpp:66]: Hook desactivado 'Global/CWanted' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.247][dllmain.cpp:66]: Hook desactivado 'Models/CVehicleModelInfo' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.249][dllmain.cpp:66]: Hook desactivado 'Models/CVehicleStructure' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.250][dllmain.cpp:66]: Hook desactivado 'Tasks/CTaskManager' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.250][dllmain.cpp:66]: Hook desactivado 'Tasks/TaskTypes/CTaskComplexBeCop' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.251][dllmain.cpp:66]: Hook desactivado 'Tasks/TaskTypes/CTaskComplexCarDrive' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.251][dllmain.cpp:66]: Hook desactivado 'Tasks/TaskTypes/CTaskComplexCarDriveMission' por línea de comandos (usa el código original del juego).
+[depuración][20:47:52.252][dllmain.cpp:66]: Hook desactivado 'Tasks/TaskTypes/CTaskComplexCarDriveMissionFleeScene' por línea de comandos (usa el código original del juego).
+[info][20:47:52.253][dllmain.cpp:95]: Funciones del juego reemplazadas por código C++: 12445 en 1000 clases/grupos (10277 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 11882. Desactivadas: 563.
+[info][20:47:52.253][dllmain.cpp:99]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][20:47:52.254][dllmain.cpp:100]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][20:47:52.380][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][20:47:52.381][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][20:47:52.725][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][20:47:53.072][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][20:47:53.379][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][20:47:53.422][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][20:47:53.474][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][20:47:53.475][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][20:47:53.476][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][20:47:53.476][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][20:47:53.476][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][20:47:53.477][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][20:47:53.477][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][20:47:53.477][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][20:47:53.477][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][20:47:53.477][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][20:47:56.175][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][20:47:56.179][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][20:47:56.179][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][20:47:56.334][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG
+[depuración][20:47:56.334][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG
+[depuración][20:47:56.334][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG
+[depuración][20:48:02.578][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[depuración][20:48:04.985][Pools.cpp:501]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[depuración][20:48:05.020][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][20:48:05.040][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][20:48:05.040][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][20:48:05.040][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][20:48:05.059][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][20:48:05.060][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][20:48:25.884][World.cpp:1469]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2516.219482 -1730.180176 -106.703568
+[aviso][20:48:26.366][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2473.758545 -1738.643188 -116.004387
+[aviso][20:48:26.367][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2491.024170 -1739.607056 -116.018768
+[aviso][20:48:26.367][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2481.963867 -1685.856201 -114.351395
+[aviso][20:48:26.368][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2505.667236 -1754.594238 -116.102692
+[aviso][20:48:27.973][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2464.576660 -1743.570190 -107.794609
+[aviso][20:48:27.974][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2483.231934 -1685.496826 -103.762878
+[aviso][20:48:28.937][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2482.391602 -1685.965332 -110.233727
+[aviso][20:48:29.258][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2482.352783 -1685.285034 -114.357155

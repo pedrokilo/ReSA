@@ -1,0 +1,16 @@
+{"t": 0.4, "ev": "lock", "ok": true}
+{"t": 4.0, "ev": "launch", "pid": 29348, "args": ["--dump-hooks-to=D:\\Original\\wv-6\\reversing\\FnRW0A\\runs\\BB6-20261118-205723\\hooks_dump.csv", "--unhook=Tasks/TaskTypes/CTaskSimpleCarSetPedInAsPassenger,Tasks/TaskTypes/CTaskSimpleTriggerEvent"]}
+{"t": 4.0, "ev": "captura", "size": null, "consola": null}
+{"t": 10.5, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 212.4, "ping": false}
+{"t": 14.6, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 220.2, "ping": false}
+{"t": 19.6, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 351}, "mem_mb": 238.6, "ping": true}
+{"t": 24.6, "ev": "objetivo alcanzado", "state": {"t_ms": 15062, "game_state": 9, "frame": 31589464, "timer_ms": 370365836, "menu": 0, "ped": true, "x": 2495.9, "y": -1707.4, "z": 1014.7, "hooks_called": 451}}
+{"t": 24.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589464, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 240.6, "ping": true}
+{"t": 29.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589588, "ped": true, "x": 2495.9, "y": -1690.8, "hooks": 451}, "mem_mb": 314.6, "ping": true}
+{"t": 34.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589711, "ped": true, "x": 2482.3, "y": -1702.3, "hooks": 467}, "mem_mb": 326.9, "ping": true}
+{"t": 39.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589836, "ped": true, "x": 2482.8, "y": -1729.3, "hooks": 468}, "mem_mb": 328.8, "ping": true}
+{"t": 44.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589836, "ped": true, "x": 2482.8, "y": -1729.3, "hooks": 468}, "mem_mb": 329.1, "ping": true}
+{"t": 49.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589836, "ped": true, "x": 2482.8, "y": -1729.3, "hooks": 468}, "mem_mb": 329.1, "ping": true}
+{"t": 64.8, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 125.1, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 160.2, "ev": "veredicto", "kind": "fotogramas_detenidos", "segundos": 120}

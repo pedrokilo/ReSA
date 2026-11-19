@@ -1,0 +1,38 @@
+=== peticion del arnes (hilo de la ventana) ===
+EIP=70090EED ESP=00EBDCCC EBP=00EBDDAC EAX=00000009 ECX=03D0EA20 EDX=00000000 EBX=00EBF038 ESI=00EBEAE0 EDI=00EBDDAC
+dll_base=6ED40000 last_exe=0 (0x004C9970) last_thunk=0
+ #00 70090EED ILT+61160(?IsIndexInBounds?$CPoolVCObjectVCCutsceneObjectQBE_NIZ)+0x0  [gta_reversed+0x1350EED]
+ #01 70090EED ILT+61160(?IsIndexInBounds?$CPoolVCObjectVCCutsceneObjectQBE_NIZ)+0x0  [gta_reversed+0x1350EED]
+ #02 7086F4E8 CPool<CObject,CCutsceneObject>::IsObjectValid+0x48  [gta_reversed+0x1B2F4E8]
+ #03 7086EF74 CPtrNode<CObject *,CPtrNodeDoubleLink<CObject *> >::IsItemValid+0x54  [gta_reversed+0x1B2EF74]
+ #04 7086F148 notsa::details::PtrListDoubleLinkTraits<CObject *>::IsNodeValid+0x48  [gta_reversed+0x1B2F148]
+ #05 70860B45 details::PtrListIterator<CObject *,CPtrNodeDoubleLink<CObject *>,notsa::details::PtrListDoubleLinkTraits<CObject *> >::PtrListIterator<CObject *,CPtrNodeDoubleLink<CObject *>,notsa::details::PtrListDoubleLinkTraits<CObject *> >+0x65  [gta_reversed+0x1B20B45]
+ #06 7087E44E CPtrList<notsa::details::PtrListDoubleLinkTraits<CObject *> >::begin+0x2E  [gta_reversed+0x1B3E44E]
+ #07 709CD55E `CPhysical::ProcessCollisionSectorList'::`2'::<lambda_2>::operator()<CPtrListDoubleLink<CObject *> >+0x7E  [gta_reversed+0x1C8D55E]
+ #08 709FAA33 CPhysical::ProcessCollisionSectorList+0x283  [gta_reversed+0x1CBAA33]
+ #09 709EF740 CPhysical::CheckCollision+0x200  [gta_reversed+0x1CAF740]
+ #10 709FA168 CPhysical::ProcessCollision+0xE18  [gta_reversed+0x1CBA168]
+ #11 71D111EE `CWorld::Process'::`31'::<lambda_7>::operator()+0x3E  [gta_reversed+0x2FD11EE]
+ #12 71CEB66D `CWorld::Process'::`2'::<lambda_1>::operator()<`CWorld::Process'::`31'::<lambda_7> const &>+0x7D  [gta_reversed+0x2FAB66D]
+ #13 71D1127D `CWorld::Process'::`31'::<lambda_8>::operator()+0x3D  [gta_reversed+0x2FD127D]
+ #14 71D1F410 CWorld::Process+0x2A0  [gta_reversed+0x2FDF410]
+ #15 70CE081E CGame::Process+0x1CE  [gta_reversed+0x1FA081E]
+ #16 704E942D Idle+0x10D  [gta_reversed+0x17A942D]
+ #17 704BD02D AppEventHandler+0x18D  [gta_reversed+0x177D02D]
+ #18 704F62E8 RsEventHandler+0x28  [gta_reversed+0x17B62E8]
+ #19 70522E3E ProcessGameLogic+0x5CE  [gta_reversed+0x17E2E3E]
+ #20 70521DC9 MainLoop+0x49  [gta_reversed+0x17E1DC9]
+ #21 70522518 NOTSA_WinMain+0x528  [gta_reversed+0x17E2518]
+ #22 008246F1 ?+0x0  [EXE; gancho previo 0x00820C90 +0x3A61]
+ #23 75EB5D49 BaseThreadInitThunk+0x19
+ #24 774FC88B RtlInitializeExceptionChain+0x6B
+ #25 774FC811 RtlGetAppContainerNamedObjectPath+0x231
+pila cruda:
+  FFFFFFFF 7754A3FD 00000000 00000000 00824570 00371000 00000000 0352000D
+  003F0001 003F003F 0000003F 00000000 00000000 02030000 00010000 00030002
+  00050004 00070006 00090008 000B000A 000D000C 000F000E 00110010 00130012
+  00150014 00170016 00190018 001B001A 001D001C 001F001E 00210020 00230022
+  00250024 00270026 00290028 002B002A 002D002C 002F002E 00310030 00330032
+  00350034 00370036 00390038 003B003A 003D003C 003F003E 00410040 00430042
+  00450044 00470046 00490048 004B004A 004D004C 004F004E 00510050 00530052
+  00550054 00570056 00590058 005B005A 005D005C 005F005E 00610060 00630062

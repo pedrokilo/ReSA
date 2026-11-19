@@ -1,0 +1,2908 @@
+{
+"AI/CCarAI": [
+"source/game_sa/CarAI.cpp"
+],
+"Animation/CAnimBlendAssocGroup": [
+"source/game_sa/Animation/AnimBlendAssocGroup.cpp"
+],
+"Animation/CAnimBlendAssociation": [
+"source/game_sa/Animation/AnimBlendAssociation.cpp"
+],
+"Animation/CAnimBlendClumpData": [
+"source/game_sa/Animation/AnimBlendClumpData.cpp"
+],
+"Animation/CAnimBlendHierarchy": [
+"source/game_sa/Animation/AnimBlendHierarchy.cpp"
+],
+"Animation/CAnimBlendNode": [
+"source/game_sa/Animation/AnimBlendNode.cpp"
+],
+"Animation/CAnimBlendSequence": [
+"source/game_sa/Animation/AnimBlendSequence.cpp"
+],
+"Animation/CAnimBlendStaticAssociation": [
+"source/game_sa/Animation/AnimBlendStaticAssociation.cpp"
+],
+"Animation/CAnimManager": [
+"source/game_sa/Animation/AnimManager.cpp"
+],
+"Animation/CLinkList<CAnimBlendHierarchy*>": [
+"source/game_sa/Animation/AnimManager.cpp"
+],
+"App/App": [
+"source/app/app.cpp"
+],
+"App/DelayLoadThunks": [
+"source/app/platform/win/DelayLoadThunks.cpp"
+],
+"App/Game": [
+"source/app/app_game.cpp"
+],
+"App/ImportThunks": [
+"source/app/platform/win/ImportThunks.cpp"
+],
+"App/Input": [
+"source/app/app_input.cpp"
+],
+"App/Light": [
+"source/app/app_light.cpp"
+],
+"App/QTMLRuntime": [
+"source/app/platform/win/QTMLRuntime.cpp"
+],
+"Attractors/CPedATMAttractor": [
+"source/game_sa/Attractors/PedAtmAttractor.cpp"
+],
+"Attractors/CPedAttractor": [
+"source/game_sa/Attractors/PedAttractor.cpp"
+],
+"Attractors/CPedAttractorPedPlacer": [
+"source/game_sa/Attractors/PedAttractorPedPlacer.cpp"
+],
+"Attractors/CPedLookAtAttractor": [
+"source/game_sa/Attractors/PedLookAtAttractor.cpp"
+],
+"Attractors/CPedParkAttractor": [
+"source/game_sa/Attractors/PedParkAttractor.cpp"
+],
+"Attractors/CPedPizzaAttractor": [
+"source/game_sa/Attractors/PedPizzaAttractor.cpp"
+],
+"Attractors/CPedScriptedAttractor": [
+"source/game_sa/Attractors/PedScriptedAttractor.cpp"
+],
+"Attractors/CPedSeatAttractor": [
+"source/game_sa/Attractors/PedSeatAttractor.cpp"
+],
+"Attractors/CPedShelterAttractor": [
+"source/game_sa/Attractors/PedShelterAttractor.cpp"
+],
+"Attractors/CPedStepAttractor": [
+"source/game_sa/Attractors/PedStepAttractor.cpp"
+],
+"Attractors/CPedStopAttractor": [
+"source/game_sa/Attractors/PedStopAttractor.cpp"
+],
+"Attractors/CPedTriggerScriptAttractor": [
+"source/game_sa/Attractors/PedTriggerScriptAttractor.cpp"
+],
+"Audio/CAEAudioEnvironment": [
+"source/game_sa/Audio/AEAudioEnvironment.cpp"
+],
+"Audio/CAEAudioUtility": [
+"source/game_sa/Audio/AEAudioUtility.cpp"
+],
+"Audio/CAESmoothFadeThread": [
+"source/game_sa/Audio/AESmoothFadeThread.cpp"
+],
+"Audio/CAESound": [
+"source/game_sa/Audio/AESound.cpp"
+],
+"Audio/CAEStreamThread": [
+"source/game_sa/Audio/AEStreamThread.cpp"
+],
+"Audio/CAudioEngine": [
+"source/game_sa/Audio/AudioEngine.cpp"
+],
+"Audio/CAudioZones": [
+"source/game_sa/Audio/AudioZones.cpp"
+],
+"Audio/Entities/CAEAudioEntity": [
+"source/game_sa/Audio/Entities/AEAudioEntity.cpp"
+],
+"Audio/Entities/CAECollisionAudioEntity": [
+"source/game_sa/Audio/Entities/AECollisionAudioEntity.cpp"
+],
+"Audio/Entities/CAEDoorAudioEntity": [
+"source/game_sa/Audio/Entities/AEDoorAudioEntity.cpp"
+],
+"Audio/Entities/CAEExplosionAudioEntity": [
+"source/game_sa/Audio/Entities/AEExplosionAudioEntity.cpp"
+],
+"Audio/Entities/CAEFireAudioEntity": [
+"source/game_sa/Audio/Entities/AEFireAudioEntity.cpp"
+],
+"Audio/Entities/CAEFrontendAudioEntity": [
+"source/game_sa/Audio/Entities/AEFrontendAudioEntity.cpp"
+],
+"Audio/Entities/CAEGlobalWeaponAudioEntity": [
+"source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp"
+],
+"Audio/Entities/CAEPedAudioEntity": [
+"source/game_sa/Audio/Entities/AEPedAudioEntity.cpp"
+],
+"Audio/Entities/CAEPedSpeechAudioEntity": [
+"source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp"
+],
+"Audio/Entities/CAEPedSpeechSlot": [
+"source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp"
+],
+"Audio/Entities/CAEPedWeaponAudioEntity": [
+"source/game_sa/Audio/Entities/AEPedWeaponAudioEntity.cpp"
+],
+"Audio/Entities/CAEPedlessSpeechAudioEntity": [
+"source/game_sa/Audio/Entities/AEPedlessSpeechAudioEntity.cpp"
+],
+"Audio/Entities/CAEPoliceScannerAudioEntity": [
+"source/game_sa/Audio/Entities/AEPoliceScannerAudioEntity.cpp"
+],
+"Audio/Entities/CAEScriptAudioEntity": [
+"source/game_sa/Audio/Entities/AEScriptAudioEntity.cpp"
+],
+"Audio/Entities/CAETwinLoopSoundEntity": [
+"source/game_sa/Audio/Entities/AETwinLoopSoundEntity.cpp"
+],
+"Audio/Entities/CAEVehicleAudioEntity": [
+"source/game_sa/Audio/Entities/AEVehicleAudioEntity.cpp"
+],
+"Audio/Entities/CAEWaterCannonAudioEntity": [
+"source/game_sa/Audio/Entities/AEWaterCannonAudioEntity.cpp"
+],
+"Audio/Entities/CAEWeaponAudioEntity": [
+"source/game_sa/Audio/Entities/AEWeaponAudioEntity.cpp"
+],
+"Audio/Entities/CAEWeatherAudioEntity": [
+"source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp"
+],
+"Audio/Hardware/CAEAudioChannel": [
+"source/game_sa/Audio/Hardware/AEAudioChannel.cpp"
+],
+"Audio/Hardware/CAEAudioHardware": [
+"source/game_sa/Audio/Hardware/AEAudioHardware.cpp"
+],
+"Audio/Hardware/CAEStaticChannel": [
+"source/game_sa/Audio/Hardware/AEStaticChannel.cpp"
+],
+"Audio/Hardware/CAEStreamingChannel": [
+"source/game_sa/Audio/Hardware/AEStreamingChannel.cpp"
+],
+"Audio/Loaders/CAEBankLoader": [
+"source/game_sa/Audio/Loaders/AEBankLoader.cpp"
+],
+"Audio/Loaders/CAEDataStream": [
+"source/game_sa/Audio/Loaders/AEDataStream.cpp"
+],
+"Audio/Loaders/CAEMFDecoder": [
+"source/game_sa/Audio/Loaders/AEMFDecoder.cpp"
+],
+"Audio/Loaders/CAEMP3BankLoader": [
+"source/game_sa/Audio/Loaders/AEMP3BankLoader.cpp"
+],
+"Audio/Loaders/CAEMP3TrackLoader": [
+"source/game_sa/Audio/Loaders/AEMP3TrackLoader.cpp"
+],
+"Audio/Loaders/CAEStreamTransformer": [
+"source/game_sa/Audio/Loaders/AEStreamTransformer.cpp"
+],
+"Audio/Loaders/CAEStreamingDecoder": [
+"source/game_sa/Audio/Loaders/AEStreamingDecoder.cpp"
+],
+"Audio/Loaders/CAETrackLoader": [
+"source/game_sa/Audio/Loaders/AETrackLoader.cpp"
+],
+"Audio/Loaders/CAEVorbisDecoder": [
+"source/game_sa/Audio/Loaders/AEVorbisDecoder.cpp"
+],
+"Audio/Loaders/CAEWMADecoder": [
+"source/game_sa/Audio/Loaders/AEWMADecoder.cpp"
+],
+"Audio/Loaders/CAEWaveDecoder": [
+"source/game_sa/Audio/Loaders/AEWaveDecoder.cpp"
+],
+"Audio/Managers/CAEAmbienceTrackManager": [
+"source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp"
+],
+"Audio/Managers/CAECutsceneTrackManager": [
+"source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp"
+],
+"Audio/Managers/CAERadioTrackManager": [
+"source/game_sa/Audio/Managers/AERadioTrackManager.cpp"
+],
+"Audio/Managers/CAESoundManager": [
+"source/game_sa/Audio/Managers/AESoundManager.cpp"
+],
+"Audio/Managers/CAEUserRadioTrackManager": [
+"source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp"
+],
+"Audio/Managers/LegacyRuntimeError": [
+"source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp"
+],
+"Audio/Managers/LegacyStdString": [
+"source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp"
+],
+"Audio/Managers/UserTracksLegacyString": [
+"source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp"
+],
+"Audio/Managers/UserTracksLegacyVector": [
+"source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp"
+],
+"Camera/CCam": [
+"source/game_sa/Cam.cpp"
+],
+"Collision/CBoundingBox": [
+"source/game_sa/Collision/BoundingBox.cpp"
+],
+"Collision/CBox": [
+"source/game_sa/Collision/Box.cpp"
+],
+"Collision/CColAccel": [
+"source/game_sa/Collision/ColAccel.cpp"
+],
+"Collision/CColBox": [
+"source/game_sa/Collision/ColBox.cpp"
+],
+"Collision/CColDisk": [
+"source/game_sa/Collision/ColDisk.cpp"
+],
+"Collision/CColLine": [
+"source/game_sa/Collision/ColLine.cpp"
+],
+"Collision/CColModel": [
+"source/game_sa/Collision/ColModel.cpp"
+],
+"Collision/CColPoint": [
+"source/game_sa/Collision/ColPoint.cpp"
+],
+"Collision/CColSphere": [
+"source/game_sa/Collision/ColSphere.cpp"
+],
+"Collision/CColStore": [
+"source/game_sa/Collision/ColStore.cpp"
+],
+"Collision/CColTrianglePlane": [
+"source/game_sa/Collision/ColTrianglePlane.cpp"
+],
+"Collision/CCollisionData": [
+"source/game_sa/Collision/CollisionData.cpp"
+],
+"Collision/CLinkList<CCollisionData*>": [
+"source/game_sa/Collision/Collision.cpp"
+],
+"Collision/CSphere": [
+"source/game_sa/Collision/Sphere.cpp"
+],
+"Collision/CTempColModels": [
+"source/game_sa/Collision/TempColModels.cpp"
+],
+"Collision/tColLighting": [
+"source/game_sa/Collision/ColPoint.cpp"
+],
+"Common/Common": [
+"source/game_sa/common.cpp"
+],
+"Conversations/CConversationForPed": [
+"source/game_sa/Conversations/ConversationForPed.cpp"
+],
+"Conversations/CConversationNode": [
+"source/game_sa/Conversations/ConversationNode.cpp"
+],
+"Conversations/CConversations": [
+"source/game_sa/Conversations/Conversations.cpp"
+],
+"Conversations/CPedToPlayerConversations": [
+"source/game_sa/Conversations/PedToPlayerConversations.cpp"
+],
+"Core/CEntryInfoList": [
+"source/game_sa/Core/EntryInfoList.cpp"
+],
+"Core/CEntryInfoNode": [
+"source/game_sa/Core/EntryInfoNode.cpp"
+],
+"Core/CKeyGen": [
+"source/game_sa/Core/KeyGen.cpp"
+],
+"Core/CMatrix": [
+"source/game_sa/Core/Matrix.cpp"
+],
+"Core/CMatrixLink": [
+"source/game_sa/Core/MatrixLink.cpp"
+],
+"Core/CMatrixLinkList": [
+"source/game_sa/Core/MatrixLinkList.cpp"
+],
+"Core/CNodeRoute": [
+"source/game_sa/NodeRoute.cpp"
+],
+"Core/COctTree": [
+"source/game_sa/Core/OctTree.cpp"
+],
+"Core/COctTreeBase": [
+"source/game_sa/Core/OctTreeBase.cpp"
+],
+"Core/CPatrolRoute": [
+"source/game_sa/PatrolRoute.cpp"
+],
+"Core/CQuaternion": [
+"source/game_sa/Core/Quaternion.cpp"
+],
+"Core/CRGBA": [
+"source/game_sa/RGBA.cpp"
+],
+"Core/CRect": [
+"source/game_sa/Core/Rect.cpp"
+],
+"Core/CSector": [
+"source/game_sa/Sector.cpp"
+],
+"Core/CSimpleTransform": [
+"source/game_sa/SimpleTransform.cpp"
+],
+"Core/CVector": [
+"source/game_sa/Core/Vector.cpp"
+],
+"Core/CVector2D": [
+"source/game_sa/Core/Vector.cpp",
+"source/game_sa/Core/Vector2D.cpp"
+],
+"Core/ExeProtectionStub": [
+"source/game_sa/ExeProtectionStub.cpp"
+],
+"Core/ListItem_c": [
+"source/game_sa/Core/ListItem_c.cpp"
+],
+"Core/TList_c": [
+"source/game_sa/Core/List_c.cpp"
+],
+"DecisionMakers/CDecision": [
+"source/game_sa/DecisionMakers/Decision.cpp"
+],
+"DecisionMakers/CDecisionMaker": [
+"source/game_sa/DecisionMakers/DecisionMaker.cpp"
+],
+"DecisionMakers/CDecisionMakerTypes": [
+"source/game_sa/DecisionMakers/DecisionMakerTypes.cpp"
+],
+"DecisionMakers/CDecisionMakerTypesFileLoader": [
+"source/game_sa/DecisionMakers/DecisionMakerTypesFileLoader.cpp"
+],
+"Entity/CAnimatedBuilding": [
+"source/game_sa/Entity/AnimatedBuilding.cpp"
+],
+"Entity/CBuilding": [
+"source/game_sa/Entity/Building.cpp"
+],
+"Entity/CEntity": [
+"source/game_sa/Entity/Entity.cpp"
+],
+"Entity/CPhysical": [
+"source/game_sa/Entity/Physical.cpp"
+],
+"Entity/CPlaceable": [
+"source/game_sa/Entity/Placeable.cpp"
+],
+"Entity/CivilianPed/CCivilianPed": [
+"source/game_sa/Entity/Ped/CivilianPed.cpp"
+],
+"Entity/Dummy/CDummy": [
+"source/game_sa/Entity/Dummy/Dummy.cpp"
+],
+"Entity/Dummy/CDummyObject": [
+"source/game_sa/Entity/Dummy/DummyObject.cpp"
+],
+"Entity/Dummy/CDummyPed": [
+"source/game_sa/Entity/Dummy/DummyPed.cpp"
+],
+"Entity/Object/CCutsceneObject": [
+"source/game_sa/Entity/Object/CutsceneObject.cpp"
+],
+"Entity/Object/CHandObject": [
+"source/game_sa/Entity/Object/HandObject.cpp"
+],
+"Entity/Object/CObject": [
+"source/game_sa/Entity/Object/Object.cpp"
+],
+"Entity/Object/CProjectile": [
+"source/game_sa/Entity/Object/Projectile.cpp"
+],
+"Entity/Ped/CCopPed": [
+"source/game_sa/Entity/Ped/CopPed.cpp"
+],
+"Entity/Ped/CEmergencyPed": [
+"source/game_sa/Entity/Ped/EmergencyPed.cpp"
+],
+"Entity/Ped/CPed": [
+"source/game_sa/Entity/Ped/Ped.cpp"
+],
+"Entity/Ped/CPedSaveStructure": [
+"source/game_sa/Entity/Ped/PedSaveStructure.cpp"
+],
+"Entity/Ped/CPlayerPed": [
+"source/game_sa/Entity/Ped/PlayerPed.cpp"
+],
+"Entity/Ped/CPlayerSkin": [
+"source/game_sa/Entity/Ped/PlayerSkin.cpp"
+],
+"Events/CEvent": [
+"source/game_sa/Events/Event.cpp"
+],
+"Events/CEventAcquaintancePed": [
+"source/game_sa/Events/EventAcquaintancePed.cpp"
+],
+"Events/CEventAcquaintancePedDislike": [
+"source/game_sa/Events/EventAcquaintancePedDislike.cpp"
+],
+"Events/CEventAcquaintancePedHate": [
+"source/game_sa/Events/EventAcquaintancePedHate.cpp"
+],
+"Events/CEventAcquaintancePedHateBadlyLit": [
+"source/game_sa/Events/EventAcquaintancePedHateBadlyLit.cpp"
+],
+"Events/CEventAcquaintancePedLike": [
+"source/game_sa/Events/EventAcquaintancePedLike.cpp"
+],
+"Events/CEventAcquaintancePedRespect": [
+"source/game_sa/Events/EventAcquaintancePedRespect.cpp"
+],
+"Events/CEventAreaCodes": [
+"source/game_sa/Events/EventAreaCodes.cpp"
+],
+"Events/CEventAttractor": [
+"source/game_sa/Events/EventAttractor.cpp"
+],
+"Events/CEventBuildingCollision": [
+"source/game_sa/Events/EventBuildingCollision.cpp"
+],
+"Events/CEventCarUpsideDown": [
+"source/game_sa/Events/EventCarUpsideDown.cpp"
+],
+"Events/CEventChatPartner": [
+"source/game_sa/Events/EventChatPartner.cpp"
+],
+"Events/CEventCopCarBeingStolen": [
+"source/game_sa/Events/EventCopCarBeingStolen.cpp"
+],
+"Events/CEventCreatePartnerTask": [
+"source/game_sa/Events/EventCreatePartnerTask.cpp"
+],
+"Events/CEventDamage": [
+"source/game_sa/Events/EventDamage.cpp"
+],
+"Events/CEventDanger": [
+"source/game_sa/Events/EventDanger.cpp"
+],
+"Events/CEventDeadPed": [
+"source/game_sa/Events/EventDeadPed.cpp"
+],
+"Events/CEventDeath": [
+"source/game_sa/Events/EventDeath.cpp"
+],
+"Events/CEventDontJoinPlayerGroup": [
+"source/game_sa/Events/EventDontJoinPlayerGroup.cpp"
+],
+"Events/CEventDraggedOutCar": [
+"source/game_sa/Events/EventDraggedOutCar.cpp"
+],
+"Events/CEventEditableResponse": [
+"source/game_sa/Events/EventEditableResponse.cpp"
+],
+"Events/CEventEscalator": [
+"source/game_sa/Events/EventEscalator.cpp"
+],
+"Events/CEventFireNearby": [
+"source/game_sa/Events/EventFireNearby.cpp"
+],
+"Events/CEventGlobalGroup": [
+"source/game_sa/Events/EventGlobalGroup.cpp"
+],
+"Events/CEventGotKnockedOverByCar": [
+"source/game_sa/Events/EventGotKnockedOverByCar.cpp"
+],
+"Events/CEventGroup": [
+"source/game_sa/Events/EventGroup.cpp"
+],
+"Events/CEventGroupEvent": [
+"source/game_sa/Events/EventGroupEvent.cpp"
+],
+"Events/CEventGunAimedAt": [
+"source/game_sa/Events/EventGunAimedAt.cpp"
+],
+"Events/CEventGunShot": [
+"source/game_sa/Events/EventGunShot.cpp"
+],
+"Events/CEventGunShotWhizzedBy": [
+"source/game_sa/Events/EventGunShotWhizzedBy.cpp"
+],
+"Events/CEventHandler": [
+"source/game_sa/Events/EventHandler.cpp"
+],
+"Events/CEventHandlerHistory": [
+"source/game_sa/Events/EventHandlerHistory.cpp"
+],
+"Events/CEventHealthLow": [
+"source/game_sa/Events/EventHealthLow.cpp"
+],
+"Events/CEventHealthReallyLow": [
+"source/game_sa/Events/EventHealthReallyLow.cpp"
+],
+"Events/CEventHighAngerAtPlayer": [
+"source/game_sa/Events/EventHighAngerAtPlayer.cpp"
+],
+"Events/CEventHitByWaterCannon": [
+"source/game_sa/Events/EventHitByWaterCannon.cpp"
+],
+"Events/CEventInAir": [
+"source/game_sa/Events/EventInAir.cpp"
+],
+"Events/CEventInWater": [
+"source/game_sa/Events/EventInWater.cpp"
+],
+"Events/CEventInteriorUseInfo": [
+"source/game_sa/Events/EventInteriorUseInfo.cpp"
+],
+"Events/CEventKnockOffBike": [
+"source/game_sa/Events/EventKnockOffBike.cpp"
+],
+"Events/CEventLeaderEnteredCarAsDriver": [
+"source/game_sa/Events/EventLeaderEnteredCarAsDriver.cpp"
+],
+"Events/CEventLeaderEntryExit": [
+"source/game_sa/Events/EventLeaderEntryExit.cpp"
+],
+"Events/CEventLeaderExitedCarAsDriver": [
+"source/game_sa/Events/EventLeaderExitedCarAsDriver.cpp"
+],
+"Events/CEventLeaderQuitEnteringCarAsDriver": [
+"source/game_sa/Events/EventLeaderQuitEnteringCarAsDriver.cpp"
+],
+"Events/CEventLeanOnVehicle": [
+"source/game_sa/Events/EventLeanOnVehicle.cpp"
+],
+"Events/CEventLowAngerAtPlayer": [
+"source/game_sa/Events/EventLowAngerAtPlayer.cpp"
+],
+"Events/CEventNewGangMember": [
+"source/game_sa/Events/EventNewGangMember.cpp"
+],
+"Events/CEventObjectCollision": [
+"source/game_sa/Events/EventObjectCollision.cpp"
+],
+"Events/CEventOnFire": [
+"source/game_sa/Events/EventOnFire.cpp"
+],
+"Events/CEventPassObject": [
+"source/game_sa/Events/EventPassObject.cpp"
+],
+"Events/CEventPedCollisionWithPed": [
+"source/game_sa/Events/EventPedCollisionWithPed.cpp"
+],
+"Events/CEventPedCollisionWithPlayer": [
+"source/game_sa/Events/EventPedCollisionWithPlayer.cpp"
+],
+"Events/CEventPedEnteredMyVehicle": [
+"source/game_sa/Events/EventPedEnteredMyVehicle.cpp"
+],
+"Events/CEventPedToChase": [
+"source/game_sa/Events/EventPedToChase.cpp"
+],
+"Events/CEventPedToFlee": [
+"source/game_sa/Events/EventPedToFlee.cpp"
+],
+"Events/CEventPlayerCollisionWithPed": [
+"source/game_sa/Events/EventPlayerCollisionWithPed.cpp"
+],
+"Events/CEventPlayerCommandToGroup": [
+"source/game_sa/Events/EventPlayerCommandToGroup.cpp"
+],
+"Events/CEventPlayerCommandToGroupAttack": [
+"source/game_sa/Events/EventPlayerCommandToGroupAttack.cpp"
+],
+"Events/CEventPlayerCommandToGroupGather": [
+"source/game_sa/Events/EventPlayerCommandToGroupGather.cpp"
+],
+"Events/CEventPotentialGetRunOver": [
+"source/game_sa/Events/EventPotentialGetRunOver.cpp"
+],
+"Events/CEventPotentialWalkIntoFire": [
+"source/game_sa/Events/EventPotentialWalkIntoFire.cpp"
+],
+"Events/CEventPotentialWalkIntoObject": [
+"source/game_sa/Events/EventPotentialWalkIntoObject.cpp"
+],
+"Events/CEventPotentialWalkIntoPed": [
+"source/game_sa/Events/EventPotentialWalkIntoPed.cpp"
+],
+"Events/CEventPotentialWalkIntoVehicle": [
+"source/game_sa/Events/EventPotentialWalkIntoVehicle.cpp"
+],
+"Events/CEventRevived": [
+"source/game_sa/Events/EventRevived.cpp"
+],
+"Events/CEventScriptCommand": [
+"source/game_sa/Events/EventScriptCommand.cpp"
+],
+"Events/CEventScriptedAttractor": [
+"source/game_sa/Events/EventScriptedAttractor.cpp"
+],
+"Events/CEventSeenCop": [
+"source/game_sa/Events/EventSeenCop.cpp"
+],
+"Events/CEventSeenPanickedPed": [
+"source/game_sa/Events/EventSeenPanickedPed.cpp"
+],
+"Events/CEventSexyPed": [
+"source/game_sa/Events/EventSexyPed.cpp"
+],
+"Events/CEventSexyVehicle": [
+"source/game_sa/Events/EventSexyVehicle.cpp"
+],
+"Events/CEventSoundQuiet": [
+"source/game_sa/Events/EventSoundQuiet.cpp"
+],
+"Events/CEventSource": [
+"source/game_sa/Events/EventSource.cpp"
+],
+"Events/CEventSpecial": [
+"source/game_sa/Events/EventSpecial.cpp"
+],
+"Events/CEventStuckInAir": [
+"source/game_sa/Events/EventStuckInAir.cpp"
+],
+"Events/CEventVehicleCollision": [
+"source/game_sa/Events/EventVehicleCollision.cpp"
+],
+"Events/CEventVehicleDamage": [
+"source/game_sa/Events/EventVehicleDamage.cpp"
+],
+"Events/CEventVehicleDamageCollision": [
+"source/game_sa/Events/EventVehicleDamageCollision.cpp"
+],
+"Events/CEventVehicleDamageWeapon": [
+"source/game_sa/Events/EventVehicleDamageWeapon.cpp"
+],
+"Events/CEventVehicleDied": [
+"source/game_sa/Events/EventVehicleDied.cpp"
+],
+"Events/CEventVehicleHitAndRun": [
+"source/game_sa/Events/EventVehicleHitAndRun.cpp"
+],
+"Events/CEventVehicleOnFire": [
+"source/game_sa/Events/EventVehicleOnFire.cpp"
+],
+"Events/CEventVehicleThreat": [
+"source/game_sa/Events/EventVehicleThreat.cpp"
+],
+"Events/CEventVehicleToSteal": [
+"source/game_sa/Events/EventVehicleToSteal.cpp"
+],
+"Events/CGroupEventHandler": [
+"source/game_sa/Events/GroupEventHandler.cpp"
+],
+"Fx/CCarFXRenderer": [
+"source/game_sa/Fx/CarFXRenderer.cpp"
+],
+"Fx/FxEmitterBP_c": [
+"source/game_sa/Fx/FxEmitterBP.cpp"
+],
+"Fx/FxEmitterPrt_c": [
+"source/game_sa/Fx/FxEmitterPrt.cpp"
+],
+"Fx/FxEmitter_c": [
+"source/game_sa/Fx/FxEmitter.cpp"
+],
+"Fx/FxFrustumInfo_c": [
+"source/game_sa/Fx/FxFrustumInfo.cpp"
+],
+"Fx/FxInfoAnimTexture_c": [
+"source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp"
+],
+"Fx/FxInfoAttractLine_c": [
+"source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp"
+],
+"Fx/FxInfoAttractPt_c": [
+"source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp"
+],
+"Fx/FxInfoColourBright_c": [
+"source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp"
+],
+"Fx/FxInfoColourRange_c": [
+"source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp"
+],
+"Fx/FxInfoColour_c": [
+"source/game_sa/Fx/Blueprints/FxInfoColour.cpp"
+],
+"Fx/FxInfoDir_c": [
+"source/game_sa/Fx/Blueprints/FxInfoDir.cpp"
+],
+"Fx/FxInfoEmAngle_c": [
+"source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp"
+],
+"Fx/FxInfoEmDir_c": [
+"source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp"
+],
+"Fx/FxInfoEmLife_c": [
+"source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp"
+],
+"Fx/FxInfoEmPos_c": [
+"source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp"
+],
+"Fx/FxInfoEmRate_c": [
+"source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp"
+],
+"Fx/FxInfoEmRotation_c": [
+"source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp"
+],
+"Fx/FxInfoEmSize_c": [
+"source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp"
+],
+"Fx/FxInfoEmSpeed_c": [
+"source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp"
+],
+"Fx/FxInfoEmWeather_c": [
+"source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp"
+],
+"Fx/FxInfoFlat_c": [
+"source/game_sa/Fx/Blueprints/FxInfoFlat.cpp"
+],
+"Fx/FxInfoFloat_c": [
+"source/game_sa/Fx/Blueprints/FxInfoFloat.cpp"
+],
+"Fx/FxInfoForce_c": [
+"source/game_sa/Fx/Blueprints/FxInfoForce.cpp"
+],
+"Fx/FxInfoFriction_c": [
+"source/game_sa/Fx/Blueprints/FxInfoFriction.cpp"
+],
+"Fx/FxInfoGroundCollide_c": [
+"source/game_sa/Fx/Blueprints/FxInfoGroundCollide.cpp"
+],
+"Fx/FxInfoHeatHaze_c": [
+"source/game_sa/Fx/Blueprints/FxInfoHeatHaze.cpp"
+],
+"Fx/FxInfoJitter_c": [
+"source/game_sa/Fx/Blueprints/FxInfoJitter.cpp"
+],
+"Fx/FxInfoManager_c": [
+"source/game_sa/Fx/FxInfoManager.cpp"
+],
+"Fx/FxInfoNoise_c": [
+"source/game_sa/Fx/Blueprints/FxInfoNoise.cpp"
+],
+"Fx/FxInfoRotSpeed_c": [
+"source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp"
+],
+"Fx/FxInfoSelfLit_c": [
+"source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp"
+],
+"Fx/FxInfoSize_c": [
+"source/game_sa/Fx/Blueprints/FxInfoSize.cpp"
+],
+"Fx/FxInfoSmoke_c": [
+"source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp"
+],
+"Fx/FxInfoSpriteRect_c": [
+"source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp"
+],
+"Fx/FxInfoTrail_c": [
+"source/game_sa/Fx/Blueprints/FxInfoTrail.cpp"
+],
+"Fx/FxInfoUnderwater_c": [
+"source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp"
+],
+"Fx/FxInfoWind_c": [
+"source/game_sa/Fx/Blueprints/FxInfoWind.cpp"
+],
+"Fx/FxInfo_c": [
+"source/game_sa/Fx/Blueprints/FxInfo.cpp"
+],
+"Fx/FxInterpInfo255_c": [
+"source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp"
+],
+"Fx/FxInterpInfo32_c": [
+"source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp"
+],
+"Fx/FxInterpInfoFloat_c": [
+"source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp"
+],
+"Fx/FxInterpInfoU255_c": [
+"source/game_sa/Fx/Blueprints/Interp/FxInterpInfoU255.cpp"
+],
+"Fx/FxManager_c": [
+"source/game_sa/Fx/FxManager.cpp"
+],
+"Fx/FxMemoryPool_c": [
+"source/game_sa/Fx/FxMemoryPool.cpp"
+],
+"Fx/FxPrimBP_c": [
+"source/game_sa/Fx/FxPrimBP.cpp"
+],
+"Fx/FxPrim_c": [
+"source/game_sa/Fx/FxPrim.cpp"
+],
+"Fx/FxPrtMult_c": [
+"source/game_sa/Fx/FxPrtMult.cpp"
+],
+"Fx/FxSphere_c": [
+"source/game_sa/Fx/FxSphere.cpp"
+],
+"Fx/FxSystemBP_c": [
+"source/game_sa/Fx/FxSystemBP.cpp"
+],
+"Fx/FxSystem_c": [
+"source/game_sa/Fx/FxSystem.cpp"
+],
+"Fx/Fx_c": [
+"source/game_sa/Fx/Fx.cpp"
+],
+"Fx/Particle_c": [
+"source/game_sa/Fx/Particle.cpp"
+],
+"Global/BoneNodeManager_c": [
+"source/game_sa/Ragdoll/BoneNodeManager.cpp"
+],
+"Global/BoneNode_c": [
+"source/game_sa/Ragdoll/BoneNode.cpp"
+],
+"Global/BreakManager_c": [
+"source/game_sa/BreakManager_c.cpp"
+],
+"Global/BreakObject_c": [
+"source/game_sa/BreakObject_c.cpp"
+],
+"Global/C3dMarker": [
+"source/game_sa/3dMarker.cpp"
+],
+"Global/C3dMarkers": [
+"source/game_sa/3dMarkers.cpp"
+],
+"Global/CAccidentManager": [
+"source/game_sa/AccidentManager.cpp"
+],
+"Global/CAcquaintance": [
+"source/game_sa/Acquaintance.cpp"
+],
+"Global/CActiveOccluder": [
+"source/game_sa/ActiveOccluder.cpp"
+],
+"Global/CAttractorScanner": [
+"source/game_sa/AttractorScanner.cpp"
+],
+"Global/CAutoPilot": [
+"source/game_sa/AutoPilot.cpp"
+],
+"Global/CBirds": [
+"source/game_sa/Birds.cpp"
+],
+"Global/CBouncingPanel": [
+"source/game_sa/BouncingPanel.cpp"
+],
+"Global/CBridge": [
+"source/game_sa/Bridge.cpp"
+],
+"Global/CBrightLights": [
+"source/game_sa/BrightLights.cpp"
+],
+"Global/CBulletInfo": [
+"source/game_sa/BulletInfo.cpp"
+],
+"Global/CBulletTraces": [
+"source/game_sa/BulletTraces.cpp"
+],
+"Global/CCamera": [
+"source/game_sa/Camera.cpp"
+],
+"Global/CCarCtrl": [
+"source/game_sa/CarCtrl.cpp"
+],
+"Global/CCarEnterExit": [
+"source/game_sa/CarEnterExit.cpp"
+],
+"Global/CCarGenerator": [
+"source/game_sa/CarGenerator.cpp"
+],
+"Global/CCarPathLink": [
+"source/game_sa/PathFind.cpp"
+],
+"Global/CCheat": [
+"source/game_sa/Cheat.cpp"
+],
+"Global/CCheckpoint": [
+"source/game_sa/Checkpoint.cpp"
+],
+"Global/CCheckpoints": [
+"source/game_sa/Checkpoints.cpp"
+],
+"Global/CClock": [
+"source/game_sa/Clock.cpp"
+],
+"Global/CClothes": [
+"source/game_sa/Clothes.cpp"
+],
+"Global/CClothesBuilder": [
+"source/game_sa/ClothesBuilder.cpp"
+],
+"Global/CClouds": [
+"source/game_sa/Clouds.cpp"
+],
+"Global/CCollision": [
+"source/game_sa/Collision/Collision.cpp"
+],
+"Global/CCollisionEventScanner": [
+"source/game_sa/Collision/CollisionEventScanner.cpp"
+],
+"Global/CColourSet": [
+"source/game_sa/Collision/ColourSet.cpp"
+],
+"Global/CCompressedMatrixNotAligned": [
+"source/game_sa/CompressedMatrixNotAligned.cpp"
+],
+"Global/CControllerConfigManager": [
+"source/game_sa/ControllerConfigManager.cpp"
+],
+"Global/CControllerState": [
+"source/game_sa/ControllerState.cpp"
+],
+"Global/CCoronas": [
+"source/game_sa/Coronas.cpp"
+],
+"Global/CCover": [
+"source/game_sa/Cover.cpp"
+],
+"Global/CCoverPoint": [
+"source/game_sa/CoverPoint.cpp"
+],
+"Global/CCranes": [
+"source/game_sa/Cranes.cpp"
+],
+"Global/CCredits": [
+"source/game_sa/Credits.cpp"
+],
+"Global/CCreepingFire": [
+"source/game_sa/CreepingFire.cpp"
+],
+"Global/CCrime": [
+"source/game_sa/Crime.cpp"
+],
+"Global/CCullZones": [
+"source/game_sa/CullZones.cpp"
+],
+"Global/CCurrentVehicle": [
+"source/game_sa/CurrentVehicle.cpp"
+],
+"Global/CCurves": [
+"source/game_sa/Curves.cpp"
+],
+"Global/CCustomBuildingPipeline": [
+"source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp"
+],
+"Global/CCustomBuildingRenderer": [
+"source/game_sa/Pipelines/CustomBuilding/CustomBuildingRenderer.cpp"
+],
+"Global/CCustomCarPlateMgr": [
+"source/game_sa/CustomCarPlateMgr.cpp"
+],
+"Global/CCustomRoadsignMgr": [
+"source/game_sa/CustomRoadsignMgr.cpp"
+],
+"Global/CCutsceneMgr": [
+"source/game_sa/CutsceneMgr.cpp"
+],
+"Global/CDamageManager": [
+"source/game_sa/DamageManager.cpp"
+],
+"Global/CDarkel": [
+"source/game_sa/Darkel.cpp"
+],
+"Global/CDebug": [
+"source/game_sa/Debug.cpp"
+],
+"Global/CDirectory": [
+"source/game_sa/Directory.cpp"
+],
+"Global/CDoor": [
+"source/game_sa/Door.cpp"
+],
+"Global/CDraw": [
+"source/game_sa/Draw.cpp"
+],
+"Global/CEntityScanner": [
+"source/game_sa/EntityScanner.cpp"
+],
+"Global/CEntryExit": [
+"source/game_sa/EntryExit.cpp"
+],
+"Global/CEntryExitManager": [
+"source/game_sa/EntryExitManager.cpp"
+],
+"Global/CEscalator": [
+"source/game_sa/Escalator.cpp"
+],
+"Global/CEscalators": [
+"source/game_sa/Escalators.cpp"
+],
+"Global/CEventScanner": [
+"source/game_sa/Events/EventScanner.cpp"
+],
+"Global/CExplosion": [
+"source/game_sa/Explosion.cpp"
+],
+"Global/CFallingGlassPane": [
+"source/game_sa/FallingGlassPane.cpp"
+],
+"Global/CFileLoader": [
+"source/game_sa/FileLoader.cpp"
+],
+"Global/CFileMgr": [
+"source/game_sa/FileMgr.cpp"
+],
+"Global/CFire": [
+"source/game_sa/Fire.cpp"
+],
+"Global/CFireManager": [
+"source/game_sa/FireManager.cpp"
+],
+"Global/CFont": [
+"source/game_sa/Font.cpp"
+],
+"Global/CFormation": [
+"source/game_sa/Formation.cpp"
+],
+"Global/CGame": [
+"source/game_sa/Game.cpp"
+],
+"Global/CGameLogic": [
+"source/game_sa/GameLogic.cpp"
+],
+"Global/CGamma": [
+"source/game_sa/Gamma.cpp"
+],
+"Global/CGangWars": [
+"source/game_sa/GangWars.cpp"
+],
+"Global/CGangWarsSaveStructure": [
+"source/game_sa/GangWarsSaveStructure.cpp"
+],
+"Global/CGangs": [
+"source/game_sa/Gangs.cpp"
+],
+"Global/CGarage": [
+"source/game_sa/Garage.cpp"
+],
+"Global/CGarages": [
+"source/game_sa/Garages.cpp"
+],
+"Global/CGenericGameStorage": [
+"source/game_sa/GenericGameStorage.cpp"
+],
+"Global/CGlass": [
+"source/game_sa/Glass.cpp"
+],
+"Global/CGridRef": [
+"source/game_sa/GridRef.cpp"
+],
+"Global/CHandShaker": [
+"source/game_sa/HandShaker.cpp"
+],
+"Global/CHud": [
+"source/game_sa/Hud.cpp"
+],
+"Global/CHudColours": [
+"source/game_sa/HudColours.cpp"
+],
+"Global/CIdleCam": [
+"source/game_sa/IdleCam.cpp"
+],
+"Global/CInformFriendsEvent": [
+"source/game_sa/InformFriendsEventQueue.cpp"
+],
+"Global/CInformFriendsEventQueue": [
+"source/game_sa/InformFriendsEventQueue.cpp"
+],
+"Global/CInformGroupEvent": [
+"source/game_sa/InformGroupEvent.cpp"
+],
+"Global/CInformGroupEventQueue": [
+"source/game_sa/InformGroupEventQueue.cpp"
+],
+"Global/CIniFile": [
+"source/game_sa/IniFile.cpp"
+],
+"Global/CInterestingEvents": [
+"source/game_sa/InterestingEvents.cpp"
+],
+"Global/CIplStore": [
+"source/game_sa/IplStore.cpp"
+],
+"Global/CKeyboardState": [
+"source/game_sa/KeyboardState.cpp"
+],
+"Global/CLinkList<CCollisionData*>": [
+"source/game_sa/Collision/Collision.cpp"
+],
+"Global/CLinkList<CEntity*>": [
+"source/game_sa/Streaming.cpp"
+],
+"Global/CLoadMonitor": [
+"source/game_sa/LoadMonitor.cpp"
+],
+"Global/CLoadedCarGroup": [
+"source/game_sa/LoadedCarGroup.cpp"
+],
+"Global/CLoadingScreen": [
+"source/game_sa/LoadingScreen.cpp"
+],
+"Global/CLocalisation": [
+"source/game_sa/Localisation.cpp"
+],
+"Global/CMBlur": [
+"source/game_sa/MBlur.cpp"
+],
+"Global/CMaths": [
+"source/game_sa/Maths.cpp"
+],
+"Global/CMentalState": [
+"source/game_sa/MentalHealth.cpp"
+],
+"Global/CMenuManager": [
+"source/game_sa/MenuManager.cpp"
+],
+"Global/CMenuSystem": [
+"source/game_sa/MenuSystem.cpp"
+],
+"Global/CMessages": [
+"source/game_sa/Messages.cpp"
+],
+"Global/CMirrors": [
+"source/game_sa/Mirrors.cpp"
+],
+"Global/CMissionCleanup": [
+"source/game_sa/MissionCleanup.cpp"
+],
+"Global/CMotionBlurStreaks": [
+"source/game_sa/MotionBlurStreaks.cpp"
+],
+"Global/CMouseControllerState": [
+"source/game_sa/MouseControllerState.cpp"
+],
+"Global/CMovingThings": [
+"source/game_sa/MovingThings.cpp"
+],
+"Global/CNearbyFireScanner": [
+"source/game_sa/Events/EventScanner.cpp"
+],
+"Global/CNodeAddress": [
+"source/game_sa/NodeAddress.cpp"
+],
+"Global/CObjectData": [
+"source/game_sa/ObjectData.cpp"
+],
+"Global/CObjectPotentialCollisionScanner": [
+"source/game_sa/Events/EventScanner.cpp"
+],
+"Global/CObjectSaveStructure": [
+"source/game_sa/ObjectSaveStructure.cpp"
+],
+"Global/CObjectScanner": [
+"source/game_sa/ObjectScanner.cpp"
+],
+"Global/COccluder": [
+"source/game_sa/Occluder.cpp"
+],
+"Global/COcclusion": [
+"source/game_sa/Occlusion.cpp"
+],
+"Global/COnscreenCounterEntry": [
+"source/game_sa/OnscreenCounterEntry.cpp"
+],
+"Global/COnscreenTimer": [
+"source/game_sa/OnscreenTimer.cpp"
+],
+"Global/COnscreenTimerEntry": [
+"source/game_sa/OnscreenTimer.cpp"
+],
+"Global/CPad": [
+"source/game_sa/Pad.cpp"
+],
+"Global/CPathFind": [
+"source/game_sa/PathFind.cpp"
+],
+"Global/CPathNode": [
+"source/game_sa/PathFind.cpp"
+],
+"Global/CPedAcquaintanceScanner": [
+"source/game_sa/Events/EventScanner.cpp"
+],
+"Global/CPedAttractorManager": [
+"source/game_sa/PedAttractorManager.cpp"
+],
+"Global/CPedClothesDesc": [
+"source/game_sa/PedClothesDesc.cpp"
+],
+"Global/CPedDamageResponseCalculator": [
+"source/game_sa/PedDamageResponseCalculator.cpp"
+],
+"Global/CPedGeometryAnalyser": [
+"source/game_sa/PedGeometryAnalyser.cpp"
+],
+"Global/CPedGroup": [
+"source/game_sa/PedGroup.cpp"
+],
+"Global/CPedGroupIntelligence": [
+"source/game_sa/PedGroupIntelligence.cpp"
+],
+"Global/CPedGroupMembership": [
+"source/game_sa/PedGroupMembership.cpp"
+],
+"Global/CPedGroupPlacer": [
+"source/game_sa/PedGroupPlacer.cpp"
+],
+"Global/CPedGroups": [
+"source/game_sa/PedGroups.cpp"
+],
+"Global/CPedIK": [
+"source/game_sa/PedIK.cpp"
+],
+"Global/CPedIntelligence": [
+"source/game_sa/PedIntelligence.cpp"
+],
+"Global/CPedList": [
+"source/game_sa/PedList.cpp"
+],
+"Global/CPedPlacement": [
+"source/game_sa/PedPlacement.cpp"
+],
+"Global/CPedScanner": [
+"source/game_sa/PedScanner.cpp"
+],
+"Global/CPedStats": [
+"source/game_sa/PedStats.cpp"
+],
+"Global/CPedStuckChecker": [
+"source/game_sa/PedStuckChecker.cpp"
+],
+"Global/CPedTaskPair": [
+"source/game_sa/PedTaskPair.cpp"
+],
+"Global/CPedType": [
+"source/game_sa/PedType.cpp"
+],
+"Global/CPhoneInfo": [
+"source/game_sa/PhoneInfo.cpp"
+],
+"Global/CPickup": [
+"source/game_sa/Pickup.cpp"
+],
+"Global/CPickups": [
+"source/game_sa/Pickups.cpp"
+],
+"Global/CPlaceName": [
+"source/game_sa/PlaceName.cpp"
+],
+"Global/CPlaneBanners": [
+"source/game_sa/PlaneBanners.cpp"
+],
+"Global/CPlaneTrail": [
+"source/game_sa/PlaneTrail.cpp"
+],
+"Global/CPlaneTrails": [
+"source/game_sa/PlaneTrails.cpp"
+],
+"Global/CPlayerInfo": [
+"source/game_sa/PlayerInfo.cpp"
+],
+"Global/CPlayerInfoSaveStructure": [
+"source/game_sa/PlayerInfoSaveStructure.cpp"
+],
+"Global/CPlayerPedData": [
+"source/game_sa/PlayerPedData.cpp"
+],
+"Global/CPointLights": [
+"source/game_sa/PointLights.cpp"
+],
+"Global/CPointList": [
+"source/game_sa/PointList.cpp"
+],
+"Global/CPointRoute": [
+"source/game_sa/PedGeometryAnalyser.cpp"
+],
+"Global/CPools": [
+"source/game_sa/Pools.cpp"
+],
+"Global/CPopCycle": [
+"source/game_sa/PopCycle.cpp"
+],
+"Global/CPopulation": [
+"source/game_sa/Population.cpp"
+],
+"Global/CPostEffects": [
+"source/game_sa/PostEffects.cpp"
+],
+"Global/CProjectileInfo": [
+"source/game_sa/ProjectileInfo.cpp"
+],
+"Global/CProtectionStub": [
+"source/game_sa/ProtectionStub.cpp"
+],
+"Global/CRT": [
+"source/game_sa/VehicleRecording.cpp"
+],
+"Global/CRadar": [
+"source/game_sa/Radar.cpp"
+],
+"Global/CReferences": [
+"source/game_sa/References.cpp"
+],
+"Global/CRegisteredCorona": [
+"source/game_sa/RegisteredCorona.cpp"
+],
+"Global/CRegisteredMotionBlurStreak": [
+"source/game_sa/RegisteredMotionBlurStreak.cpp"
+],
+"Global/CRemote": [
+"source/game_sa/Remote.cpp"
+],
+"Global/CRenderer": [
+"source/game_sa/Renderer.cpp"
+],
+"Global/CReplay": [
+"source/game_sa/Replay.cpp"
+],
+"Global/CRestart": [
+"source/game_sa/Restart.cpp"
+],
+"Global/CRoadBlocks": [
+"source/game_sa/RoadBlocks.cpp"
+],
+"Global/CRope": [
+"source/game_sa/Rope.cpp"
+],
+"Global/CRopes": [
+"source/game_sa/Ropes.cpp"
+],
+"Global/CRubbish": [
+"source/game_sa/Rubbish.cpp"
+],
+"Global/CSaveGarage": [
+"source/game_sa/Garage.cpp"
+],
+"Global/CSetPiece": [
+"source/game_sa/SetPiece.cpp"
+],
+"Global/CSetPieces": [
+"source/game_sa/SetPieces.cpp"
+],
+"Global/CSexyPedScanner": [
+"source/game_sa/Events/EventScanner.cpp"
+],
+"Global/CShinyTexts": [
+"source/game_sa/ShinyTexts.cpp"
+],
+"Global/CShopping": [
+"source/game_sa/Shopping.cpp"
+],
+"Global/CShotInfo": [
+"source/game_sa/ShotInfo.cpp"
+],
+"Global/CSimpleVariablesSaveStructure": [
+"source/game_sa/SimpleVariablesSaveStructure.cpp"
+],
+"Global/CSkidmarks": [
+"source/game_sa/Skidmarks.cpp"
+],
+"Global/CSpecialFX": [
+"source/game_sa/SpecialFX.cpp"
+],
+"Global/CSpecialPlateHandler": [
+"source/game_sa/SpecialPlateHandler.cpp"
+],
+"Global/CSprite": [
+"source/game_sa/Sprite.cpp"
+],
+"Global/CSprite2d": [
+"source/game_sa/Sprite2d.cpp"
+],
+"Global/CStats": [
+"source/game_sa/Stats.cpp"
+],
+"Global/CStencilShadowObject": [
+"source/game_sa/StencilShadowObject.cpp"
+],
+"Global/CStencilShadows": [
+"source/game_sa/StencilShadows.cpp"
+],
+"Global/CStoredCar": [
+"source/game_sa/Garage.cpp"
+],
+"Global/CStreaming": [
+"source/game_sa/Streaming.cpp"
+],
+"Global/CStreamingInfo": [
+"source/game_sa/StreamingInfo.cpp"
+],
+"Global/CStuckCarCheck": [
+"source/game_sa/StuckCarCheck.cpp"
+],
+"Global/CStuntJumpManager": [
+"source/game_sa/StuntJumpManager.cpp"
+],
+"Global/CTagManager": [
+"source/game_sa/TagManager.cpp"
+],
+"Global/CTheCarGenerators": [
+"source/game_sa/TheCarGenerators.cpp"
+],
+"Global/CTheZones": [
+"source/game_sa/TheZones.cpp"
+],
+"Global/CTimeCycle": [
+"source/game_sa/TimeCycle.cpp"
+],
+"Global/CTimer": [
+"source/game_sa/Timer.cpp"
+],
+"Global/CTrafficLights": [
+"source/game_sa/TrafficLights.cpp"
+],
+"Global/CTxdStore": [
+"source/game_sa/TxdStore.cpp"
+],
+"Global/CUpsideDownCarCheck": [
+"source/game_sa/UpsideDownCarCheck.cpp"
+],
+"Global/CUserDisplay": [
+"source/game_sa/UserDisplay.cpp"
+],
+"Global/CVehicleAnimGroup": [
+"source/game_sa/VehicleAnimGroupData.cpp"
+],
+"Global/CVehicleAnimGroupData": [
+"source/game_sa/VehicleAnimGroupData.cpp"
+],
+"Global/CVehiclePotentialCollisionScanner": [
+"source/game_sa/Events/EventScanner.cpp"
+],
+"Global/CVehicleRecording": [
+"source/game_sa/VehicleRecording.cpp"
+],
+"Global/CVehicleSaveStructure": [
+"source/game_sa/VehicleSaveStructure.cpp"
+],
+"Global/CVehicleScanner": [
+"source/game_sa/VehicleScanner.cpp"
+],
+"Global/CVisibilityPlugins": [
+"source/game_sa/VisibilityPlugins.cpp"
+],
+"Global/CWanted": [
+"source/game_sa/Wanted.cpp"
+],
+"Global/CWaterCannon": [
+"source/game_sa/WaterCannon.cpp"
+],
+"Global/CWaterCannons": [
+"source/game_sa/WaterCannons.cpp"
+],
+"Global/CWaterLevel": [
+"source/game_sa/WaterLevel.cpp"
+],
+"Global/CWeapon": [
+"source/game_sa/Weapon.cpp"
+],
+"Global/CWeaponEffects": [
+"source/game_sa/WeaponEffects.cpp"
+],
+"Global/CWeaponInfo": [
+"source/game_sa/WeaponInfo.cpp"
+],
+"Global/CWeather": [
+"source/game_sa/Weather.cpp"
+],
+"Global/CWindModifiers": [
+"source/game_sa/WindModifiers.cpp"
+],
+"Global/CWinsockLink": [
+"source/game_sa/WinsockLink.cpp"
+],
+"Global/CWorld": [
+"source/game_sa/World.cpp"
+],
+"Global/CWorldScan": [
+"source/game_sa/Renderer.cpp"
+],
+"Global/CZone": [
+"source/game_sa/Zone.cpp"
+],
+"Global/CZoneDef": [
+"source/game_sa/CullZones.cpp"
+],
+"Global/C_PcSave": [
+"source/game_sa/C_PcSave.cpp"
+],
+"Global/CdStream": [
+"source/game_sa/CdStreamInfo.cpp"
+],
+"Global/CompressedVector": [
+"source/game_sa/CompressedVector.cpp"
+],
+"Global/D3D9RasterFormat": [
+"source/game_sa/RenderWare/D3D9RasterFormat.cpp"
+],
+"Global/IKChainManager_c": [
+"source/game_sa/Ragdoll/IKChainManager.cpp"
+],
+"Global/IKChain_c": [
+"source/game_sa/Ragdoll/IKChain.cpp"
+],
+"Global/LibJpegCompressApi": [
+"source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressApi.cpp"
+],
+"Global/LibJpegCompressEncode": [
+"source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp"
+],
+"Global/LibJpegDecompress": [
+"source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompress.cpp"
+],
+"Global/LibJpegDecompressApi": [
+"source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressApi.cpp"
+],
+"Global/LibJpegDecompressUpsample": [
+"source/game_sa/Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp"
+],
+"Global/LibJpegError": [
+"source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp"
+],
+"Global/LibJpegMemory": [
+"source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp"
+],
+"Global/Rs": [
+"source/app/platform/platform.cpp"
+],
+"Global/RwD3D9RasterDriver": [
+"source/game_sa/RenderWare/D3D9RasterDriver.cpp"
+],
+"Global/RwHelper": [
+"source/game_sa/RwHelper.cpp"
+],
+"Global/SurfaceInfos_c": [
+"source/game_sa/SurfaceInfos_c.cpp"
+],
+"Global/VectorConstructorIterator": [
+"source/game_sa/RuntimeHelpers.cpp"
+],
+"Global/VideoMode": [
+"source/app/platform/win/VideoMode.cpp"
+],
+"Global/WaterCreatureManager_c": [
+"source/game_sa/WaterCreatureManager_c.cpp"
+],
+"Global/WaterCreature_c": [
+"source/game_sa/WaterCreature_c.cpp"
+],
+"Global/cBuoyancy": [
+"source/game_sa/Buoyancy.cpp"
+],
+"Global/cHandlingDataMgr": [
+"source/game_sa/cHandlingDataMgr.cpp"
+],
+"Global/cTransmission": [
+"source/game_sa/cTransmission.cpp"
+],
+"Global/tReplayTrainBlock": [
+"source/game_sa/Replay.cpp"
+],
+"Interior/FurnitureGroup_c": [
+"source/game_sa/Interior/FurnitureGroup_c.cpp"
+],
+"Interior/FurnitureManager_c": [
+"source/game_sa/Interior/FurnitureManager_c.cpp"
+],
+"Interior/FurnitureSubGroup_c": [
+"source/game_sa/Interior/FurnitureSubGroup_c.cpp"
+],
+"Interior/Furniture_c": [
+"source/game_sa/Interior/Furniture_c.cpp"
+],
+"Interior/InteriorGroup_c": [
+"source/game_sa/Interior/InteriorGroup_c.cpp"
+],
+"Interior/InteriorManager_c": [
+"source/game_sa/Interior/InteriorManager_c.cpp"
+],
+"Interior/Interior_c": [
+"source/game_sa/Interior/Interior_c.cpp"
+],
+"Memory/CMemoryHeap": [
+"source/game_sa/Memory/MemoryHeap.cpp"
+],
+"Memory/CMemoryMgr": [
+"source/game_sa/MemoryMgr.cpp"
+],
+"Models/CAtomicModelInfo": [
+"source/game_sa/Models/AtomicModelInfo.cpp"
+],
+"Models/CBaseModelInfo": [
+"source/game_sa/Models/BaseModelInfo.cpp"
+],
+"Models/CClumpModelInfo": [
+"source/game_sa/Models/ClumpModelInfo.cpp"
+],
+"Models/CDamageAtomicModelInfo": [
+"source/game_sa/Models/DamageAtomicModelInfo.cpp"
+],
+"Models/CLinkedUpgradeList": [
+"source/game_sa/Models/VehicleModelInfo.cpp"
+],
+"Models/CLodAtomicModelInfo": [
+"source/game_sa/Models/LodAtomicModelInfo.cpp"
+],
+"Models/CLodTimeModelInfo": [
+"source/game_sa/Models/LodTimeModelInfo.cpp"
+],
+"Models/CModelInfo": [
+"source/game_sa/Models/ModelInfo.cpp"
+],
+"Models/CModelInfoAccelerator": [
+"source/game_sa/ModelInfoAccelerator.cpp"
+],
+"Models/CPedModelInfo": [
+"source/game_sa/Models/PedModelInfo.cpp"
+],
+"Models/CTimeInfo": [
+"source/game_sa/Models/TimeInfo.cpp"
+],
+"Models/CTimeModelInfo": [
+"source/game_sa/Models/TimeModelInfo.cpp"
+],
+"Models/CVehicleModelInfo": [
+"source/game_sa/Models/VehicleModelInfo.cpp"
+],
+"Models/CVehicleStructure": [
+"source/game_sa/Models/VehicleModelInfo.cpp"
+],
+"Models/CWeaponModelInfo": [
+"source/game_sa/Models/WeaponModelInfo.cpp"
+],
+"Ped/CPlayerRelationshipRecorder": [
+"source/game_sa/PlayerRelationshipRecorder.cpp"
+],
+"Pipelines/CCustomBuildingDNPipeline": [
+"source/game_sa/Pipelines/CustomBuilding/CustomBuildingDNPipeline.cpp"
+],
+"Pipelines/CCustomCarEnvMapPipeline": [
+"source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.cpp"
+],
+"Plant/CGrassRenderer": [
+"source/game_sa/GrassRenderer.cpp"
+],
+"Plant/CPPTriPlantBuffer": [
+"source/game_sa/PPTriPlantBuffer.cpp"
+],
+"Plant/CPlantColEntEntry": [
+"source/game_sa/Plant/PlantColEntEntry.cpp"
+],
+"Plant/CPlantLocTri": [
+"source/game_sa/Plant/PlantLocTri.cpp"
+],
+"Plant/CPlantMgr": [
+"source/game_sa/PlantMgr.cpp"
+],
+"Plant/CPlantSurfPropMgr": [
+"source/game_sa/PlantSurfPropMgr.cpp"
+],
+"Plant/ProcObjectListItem": [
+"source/game_sa/Plant/ProcObjectMan.cpp"
+],
+"Plant/ProcObjectMan_c": [
+"source/game_sa/Plant/ProcObjectMan.cpp"
+],
+"Plant/ProcSurfaceInfo_c": [
+"source/game_sa/Plant/ProcSurfaceInfo.cpp"
+],
+"Plugins/BreakablePlugin": [
+"source/game_sa/Plugins/BreakablePlugin/BreakablePlugin.cpp"
+],
+"Plugins/C2dEffect": [
+"source/game_sa/Plugins/TwoDEffectPlugin/2dEffect.cpp"
+],
+"Plugins/CCollisionPlugin": [
+"source/game_sa/Plugins/CollisionPlugin/CollisionPlugin.cpp"
+],
+"Plugins/D3DX9": [
+"source/game_sa/RenderWare/rw/d3dx9math.cpp"
+],
+"Plugins/ExeLibJpeg": [
+"source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp"
+],
+"Plugins/LibJpegCompress": [
+"source/game_sa/Plugins/JPegCompressPlugin/LibJpegCompress.cpp"
+],
+"Plugins/RpAnimBlend": [
+"source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp"
+],
+"Plugins/RpAnisot": [
+"source/game_sa/RenderWare/rw/rpanisot.cpp"
+],
+"Plugins/RpHAnim": [
+"source/game_sa/RenderWare/rw/rphanim.cpp"
+],
+"Plugins/RpSkin": [
+"source/game_sa/RenderWare/rw/rpskin.cpp"
+],
+"Plugins/RpUVAnim": [
+"source/game_sa/RenderWare/rw/rpuvanim.cpp"
+],
+"Plugins/RpWorld": [
+"source/game_sa/RenderWare/rw/rpworld.cpp"
+],
+"Plugins/RtAnim": [
+"source/game_sa/RenderWare/rw/rtanim.cpp"
+],
+"Plugins/RtBMP": [
+"source/game_sa/RenderWare/rw/rtbmp.cpp"
+],
+"Plugins/RtDict": [
+"source/game_sa/RenderWare/rw/rtdict.cpp"
+],
+"Plugins/RtQuat": [
+"source/game_sa/RenderWare/rw/rtquat.cpp"
+],
+"Plugins/RtSlerp": [
+"source/game_sa/RenderWare/rw/rtslerp.cpp"
+],
+"Plugins/ZlibInflate": [
+"source/game_sa/RenderWare/rw/zlibinflate.cpp"
+],
+"RenderWare/D3DIndexDataBuffer": [
+"source/game_sa/RenderWare/D3DIndexDataBuffer.cpp"
+],
+"RenderWare/D3DResourceSystem": [
+"source/game_sa/RenderWare/D3DResourceSystem.cpp"
+],
+"RenderWare/D3DTextureBuffer": [
+"source/game_sa/RenderWare/D3DTextureBuffer.cpp"
+],
+"RenderWare/WindowedModeHooks": [
+"source/app/platform/win/WindowedMode.cpp"
+],
+"Renderware/RpMatFX": [
+"source/game_sa/RenderWare/rw/rpmatfx.cpp"
+],
+"Renderware/RwCore": [
+"source/game_sa/RenderWare/rw/rwcore.cpp"
+],
+"Renderware/RwD3D9": [
+"source/game_sa/RenderWare/rw/rwcore.cpp"
+],
+"Renderware/RwPlCore": [
+"source/game_sa/RenderWare/rw/rwplcore.cpp"
+],
+"Scripts/CRunningScript": [
+"source/game_sa/Scripts/RunningScript.cpp"
+],
+"Scripts/CScriptResourceManager": [
+"source/game_sa/ScriptResourceManager.cpp"
+],
+"Scripts/CScripted2dEffects": [
+"source/game_sa/Scripts/Scripted2dEffects.cpp"
+],
+"Scripts/CSearchLight": [
+"source/game_sa/SearchLight.cpp"
+],
+"Scripts/CStreamedScripts": [
+"source/game_sa/StreamedScripts.cpp"
+],
+"Scripts/CTheScripts": [
+"source/game_sa/Scripts/TheScripts.cpp"
+],
+"Scripts/tUserList": [
+"source/game_sa/Scripts/Scripted2dEffects.cpp"
+],
+"Shadows/CRealTimeShadow": [
+"source/game_sa/RealTimeShadow.cpp"
+],
+"Shadows/CRealTimeShadowManager": [
+"source/game_sa/RealTimeShadowManager.cpp"
+],
+"Shadows/CShadowCamera": [
+"source/game_sa/ShadowCamera.cpp"
+],
+"Shadows/CShadows": [
+"source/game_sa/Shadows.cpp"
+],
+"Shadows/CStaticShadow": [
+"source/game_sa/Shadows.cpp"
+],
+"Tasks/Allocators/CTaskAllocatorAttack": [
+"source/game_sa/Tasks/Allocators/TaskAllocatorAttack.cpp"
+],
+"Tasks/Allocators/CTaskAllocatorKillOnFoot": [
+"source/game_sa/Tasks/Allocators/TaskAllocatorKillOnFoot.cpp"
+],
+"Tasks/Allocators/CTaskAllocatorKillThreatsBasic": [
+"source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasic.cpp"
+],
+"Tasks/Allocators/CTaskAllocatorKillThreatsBasicRandomGroup": [
+"source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsBasicRandomGroup.cpp"
+],
+"Tasks/Allocators/CTaskAllocatorKillThreatsDriveby": [
+"source/game_sa/Tasks/Allocators/TaskAllocatorKillThreatsDriveby.cpp"
+],
+"Tasks/Allocators/CTaskAllocatorPlayerCommandAttack": [
+"source/game_sa/Tasks/Allocators/TaskAllocatorPlayerCommandAttack.cpp"
+],
+"Tasks/Allocators/TaskAllocator/CTaskAllocator": [
+"source/game_sa/Tasks/Allocators/TaskAllocator.cpp"
+],
+"Tasks/CPedScriptedTaskRecord": [
+"source/game_sa/Tasks/PedScriptedTaskRecord.cpp"
+],
+"Tasks/CPedScriptedTaskRecordData": [
+"source/game_sa/Tasks/PedScriptedTaskRecord.cpp"
+],
+"Tasks/CScriptedBrainTaskEntry": [
+"source/game_sa/Tasks/ScriptedBrainTaskStore.cpp"
+],
+"Tasks/CScriptedBrainTaskStore": [
+"source/game_sa/Tasks/ScriptedBrainTaskStore.cpp"
+],
+"Tasks/CTask": [
+"source/game_sa/Tasks/Task.cpp"
+],
+"Tasks/CTaskCategories": [
+"source/game_sa/Tasks/TaskCategories.cpp"
+],
+"Tasks/CTaskComplex": [
+"source/game_sa/Tasks/Task.cpp",
+"source/game_sa/Tasks/TaskComplex.cpp"
+],
+"Tasks/CTaskComplexSequence": [
+"source/game_sa/Tasks/TaskComplexSequence.cpp"
+],
+"Tasks/CTaskComplexUseSequence": [
+"source/game_sa/Tasks/TaskComplexUseSequence.cpp"
+],
+"Tasks/CTaskManager": [
+"source/game_sa/Tasks/TaskManager.cpp"
+],
+"Tasks/CTaskSequences": [
+"source/game_sa/Tasks/TaskSequences.cpp"
+],
+"Tasks/CTaskSimple": [
+"source/game_sa/Tasks/Task.cpp",
+"source/game_sa/Tasks/TaskSimple.cpp"
+],
+"Tasks/CTaskTimer": [
+"source/game_sa/Tasks/TaskTimer.cpp"
+],
+"Tasks/TaskTypes/CScriptsForBrains": [
+"source/game_sa/ScriptsForBrains.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexArrestPed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexAttractorPartnerWait": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexAttractorPartnerWait.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexAvoidEntity": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexAvoidEntity.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexAvoidOtherPedWhileWandering": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexAvoidOtherPedWhileWandering.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexBeCop": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexBeCop.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexBeInCouple": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexBeInGroup": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexBeInGroup.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexBeStill": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexBeStill.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexCarDrive": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexCarDrive.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexCarDriveMission": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexCarDriveMissionFleeScene": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexCarDriveMissionKillPed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexCarDriveMission.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexCarDriveWander": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexDriveWander.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexCarSlowBeDraggedOut": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOut.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexCarSlowBeDraggedOutAndStandUp": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexCarSlowBeDraggedOutAndStandUp.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexChat": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexChat.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexClimb": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexClimb.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexCopInCar": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexCopInCar.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexCrossRoadLookAndAchieveHeading": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexDestroyCar": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexDestroyCarArmed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarArmed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexDestroyCarMelee": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCarMelee.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexDie": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexDie.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexDieInCar": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexDieInCar.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexDiveFromAttachedEntityAndGetUp": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexDiveFromAttachedEntityAndGetUp.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexDragPedFromCar": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexDragPedFromCar.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexDriveFireTruck": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexDriveFireTruck.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexDrivePointRoute": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexDrivePointRoute.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexDriveToPoint": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexDriveToPoint.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexEnterAnyCarAsDriver": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexEnterAnyCarAsDriver.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexEnterBoatAsDriver": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexEnterBoatAsDriver.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexEnterCar": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexEnterCar.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexEnterCarAsDriver": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriver.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexEnterCarAsDriverTimed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsDriverTimed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexEnterCarAsPassenger": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassenger.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexEnterCarAsPassengerTimed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerTimed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexEnterCarAsPassengerWait": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexEnterCarAsPassengerWait.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexEvasiveCower": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexEvasiveDiveAndGetUp": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveDiveAndGetUp.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexEvasiveStep": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexExtinguishFireOnFoot": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFireOnFoot.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexExtinguishFires": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexExtinguishFires.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFacial": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFacial.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFallAndGetUp": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFallAndGetUp.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFallAndStayDown": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFallAndStayDown.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFallToDeath": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFallToDeath.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFleeAnyMeans": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFleeAnyMeans.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFleeEntity": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFleeEntity.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFleePoint": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFleePoint.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFleeShooting": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFleeShooting.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFollowLeaderAnyMeans": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderAnyMeans.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFollowLeaderInFormation": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFollowLeaderInFormation.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFollowNodeRoute": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFollowNodeRouteShooting": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRouteShooting.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFollowPatrolRoute": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFollowPatrolRoute.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFollowPedFootsteps": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFollowPedFootsteps.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexFollowPointRoute": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexFollowPointRoute.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGangFollower": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGangFollower.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGangJoinRespond": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGangJoinRespond.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGangLeader": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGangLeader.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGetOnBoatSeat": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGetOnBoatSeat.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGetUpAndStandStill": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGetUpAndStandStill.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGoPickUpEntity": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGoToAttractor": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGoToAttractor.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGoToBoatSteeringWheel": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGoToBoatSteeringWheel.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGoToCarDoorAndStandStill": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGoToCarDoorAndStandStill.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGoToPointAiming": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAiming.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGoToPointAndStandStill": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGoToPointAndStandStillAndAchieveHeading": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillAndAchieveHeading.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGoToPointAndStandStillTimed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStillTimed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGoToPointAnyMeans": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAnyMeans.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGoToPointShooting": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointShooting.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGoToPointUntilCollisionAndStandStill": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointUntilCollisionAndStandStill.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexGotoDoorAndOpen": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexGotoDoorAndOpen.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexHitByGunResponse": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexHitByGunResponse.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexHitResponse": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexHitResponse.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexInAirAndLand": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexInAirAndLand.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexInWater": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexInWater.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexInvestigateDeadPed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDeadPed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexInvestigateDisturbance": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexInvestigateDisturbance.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexJump": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexJump.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexKillAllThreats": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexKillAllThreats.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexKillCriminal": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexKillPedFromBoat": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexKillPedFromBoat.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexKillPedGroupOnFoot": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexKillPedGroupOnFoot.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexKillPedOnFoot": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexKillPedOnFootArmed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexKillPedOnFootMelee": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootMelee.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexKillPedOnFootStealth": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootStealth.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexLeaveAnyCar": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexLeaveAnyCar.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexLeaveBoat": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexLeaveBoat.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexLeaveCar": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCar.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexLeaveCarAndDie": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndDie.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexLeaveCarAndFlee": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndFlee.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexLeaveCarAndWander": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAndWander.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexLeaveCarAsPassengerWait": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexLeaveCarAsPassengerWait.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexMedicTreatInjuredPed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexMedicTreatInjuredPed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexMoveBackAndJump": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexMoveBackAndJump.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexObserveTrafficLights": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLights.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexObserveTrafficLightsAndAchieveHeading": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexObserveTrafficLightsAndAchieveHeading.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexOnFire": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexOnFire.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexOpenDriverDoor": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexOpenDriverDoor.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexOpenPassengerDoor": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexOpenPassengerDoor.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexPartner": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexPartner.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexPartnerChat": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexPartnerChat.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexPartnerDeal": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexPartnerDeal.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexPartnerGreet": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexPartnerGreet.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexPartnerShove": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexPartnerShove.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexPassObject": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexPassObject.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexPlayHandSignalAnim": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexPolicePursuit": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexPolicePursuit.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexPresentIDToCop": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexPresentIDToCop.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexProstituteSolicit": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexReactToAttack": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexReactToAttack.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexReactToGunAimedAt": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexReactToGunAimedAt.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexRoadRage": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexRoadRage.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexScreamInCarThenLeave": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexScreamInCarThenLeave.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexSeekCoverUntilTargetDead": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexSeekCoverUntilTargetDead.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexSeekEntityAiming": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexSeekEntityAiming.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexSeekEntityAnyMeansXYOffset": [
+"source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityAnyMeansXYOffset.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexShuffleSeats": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexShuffleSeats.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexSignalAtPed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexSitDownThenIdleThenStandUp": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexSitDownThenIdleThenStandUp.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexSmartFleeEntity": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleeEntity.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexSmartFleePoint": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexSmartFleePoint.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexStareAtPed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexStareAtPed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexStealCar": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexStealCar.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexStuckInAir": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexStuckInAir.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexSunbathe": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexTrackEntity": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexTrackEntity.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexTreatAccident": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexTreatAccident.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexTurnToFaceEntityOrCoord": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexTurnToFaceEntityOrCoord.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseAttractor": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseAttractor.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseAttractorPartner": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseAttractorPartner.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseClosestFreeScriptedAttractor": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractor.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseClosestFreeScriptedAttractorRun": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorRun.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseClosestFreeScriptedAttractorSprint": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseClosestFreeScriptedAttractorSprint.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseEffect": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseEffect.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseEffectRunning": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectRunning.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseEffectSprinting": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseEffectSprinting.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseEntryExit": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseEntryExit.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseGoggles": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseGoggles.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseMobilePhone": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseMobilePhone.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUsePairedAttractor": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUsePairedAttractor.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseScriptedAttractor": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedAttractor.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseScriptedBrain": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseScriptedBrain.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseSwatRope": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseSwatRope.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexUseWaterCannon": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexUseWaterCannon.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWaitAtAttractor": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWaitAtAttractor.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWaitForBackup": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBackup.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWaitForBus": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWaitForBus.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWaitForDryWeather": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWaitForDryWeather.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWaitForPed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWaitForPed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWalkAlongsidePed": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWalkAlongsidePed.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWalkRoundBuildingAttempt": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundBuildingAttempt.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWalkRoundCar": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWalkRoundFire": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundFire.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWalkRoundObject": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWander": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWander.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWanderCop": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWanderCop.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWanderCriminal": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWanderFlee": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWanderFlee.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWanderGang": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWanderGang.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWanderMedic": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWanderMedic.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWanderProstitute": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp"
+],
+"Tasks/TaskTypes/CTaskComplexWanderStandard": [
+"source/game_sa/Tasks/TaskTypes/TaskComplexWanderStandard.cpp"
+],
+"Tasks/TaskTypes/CTaskGangHasslePed": [
+"source/game_sa/Tasks/TaskTypes/TaskGangHasslePed.cpp"
+],
+"Tasks/TaskTypes/CTaskGangHassleVehicle": [
+"source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp"
+],
+"Tasks/TaskTypes/CTaskGoToVehicleAndLean": [
+"source/game_sa/Tasks/TaskTypes/TaskGoToVehicleAndLean.cpp"
+],
+"Tasks/TaskTypes/CTaskInteriorLieInBed": [
+"source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorLieInBed.cpp"
+],
+"Tasks/TaskTypes/CTaskInteriorSitInChair": [
+"source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitInChair.cpp"
+],
+"Tasks/TaskTypes/CTaskLeanOnVehicle": [
+"source/game_sa/Tasks/TaskTypes/TaskLeanOnVehicle.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleAbseil": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleAbseil.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleAchieveHeading": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleAchieveHeading.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleAffectSecondaryBehaviour": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleAffectSecondaryBehaviour.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleAnim": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleAnim.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleArrestPed": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleArrestPed.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleBeHit": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleBeHit.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleBeHitWhileMoving": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleBeHitWhileMoving.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleBeKickedOnGround": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleBikeJacked": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleBikeJacked.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarAlign": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarAlign.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarCloseDoorFromInside": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromInside.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarCloseDoorFromOutside": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarCloseDoorFromOutside.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarDrive": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarDrive.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarDriveTimed": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarDriveTimed.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarForcePedOut": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarForcePedOut.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarGetIn": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetIn.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarGetOut": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarGetOut.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarGoToPointNearDoorUntilDoorNotInUse": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarGoToPointNearDoorUntilDoorNotInUse.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarJumpOut": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarJumpOut.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarOpenDoorFromOutside": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarOpenDoorFromOutside.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarOpenLockedDoorFromOutside": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarOpenLockedDoorFromOutside.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarSetPedInAsDriver": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsDriver.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarSetPedInAsPassenger": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedInAsPassenger.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarSetPedOut": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedOut.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarSetPedSlowDraggedOut": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetPedSlowDraggedOut.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarSetTempAction": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarSetTempAction.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarShuffle": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarShuffle.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarSlowBeDraggedOut": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowBeDraggedOut.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarSlowDragPedOut": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarSlowDragPedOut.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarWaitForDoorNotToBeInUse": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitForDoorNotToBeInUse.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCarWaitToSlowDown": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCarWaitToSlowDown.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleChat": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleChat.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleChoking": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleClearLookAt": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleClearLookAt.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleClimb": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCower": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCower.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleCreateCarAndGetIn": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleCreateCarAndGetIn.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleDead": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleDead.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleDetonate": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleDetonate.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleDie": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleDie.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleDieInCar": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleDieInCar.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleDoHandSignal": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleDoHandSignal.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleDrown": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleDrown.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleDrownInCar": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleDrownInCar.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleDuck": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleDuck.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleDuckToggle": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleDuckToggle.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleDuckWhileShotsWhizzing": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleDuckWhileShotsWhizzing.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleEvasiveDive": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveDive.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleEvasiveStep": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveStep.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleFacial": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleFacial.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleFall": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleFall.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleFight": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleFightingControl": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleFightingControl.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleFinishBrain": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleFinishBrain.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleGangDriveBy": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleGangDriveBy.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleGetUp": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleGiveCPR": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleGiveCPR.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleGoTo": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleGoToPoint": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPoint.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleGoToPointFine": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleGoToPointFine.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleGunControl": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleGunControl.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHailTaxi": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHailTaxi.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHailTaxiAndPause": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHailTaxiAndPause.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHandsUp": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHandsUp.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHitByGunFromFront": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromFront.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHitByGunFromLeft": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromLeft.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHitByGunFromRear": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromRear.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHitByGunFromRight": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHitByGunFromRight.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHitFromBack": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromBack.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHitFromBehind": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromBehind.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHitFromFront": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromFront.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHitFromLeft": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromLeft.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHitFromRight": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHitFromRight.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHitHead": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHitHead.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHitWall": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHitWall.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHoldEntity": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHoldEntity.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleHurtPedWithCar": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleHurtPedWithCar.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleIKChain": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleIKChain.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleIKLookAt": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleIKLookAt.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleIKManager": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleIKManager.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleIKPointArm": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleIKPointArm.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleInAir": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleInAir.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleJetPack": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleJump": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleJump.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleKillPedWithCar": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleKillPedWithCar.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleLand": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleLand.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleLeaveGroup": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleLeaveGroup.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleLookAbout": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleLookAbout.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleNone": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleNone.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleOnEscalator": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleOnEscalator.cpp"
+],
+"Tasks/TaskTypes/CTaskSimplePause": [
+"source/game_sa/Tasks/TaskTypes/TaskSimplePause.cpp"
+],
+"Tasks/TaskTypes/CTaskSimplePickUpBike": [
+"source/game_sa/Tasks/TaskTypes/TaskSimplePickUpBike.cpp"
+],
+"Tasks/TaskTypes/CTaskSimplePickUpEntity": [
+"source/game_sa/Tasks/TaskTypes/TaskSimplePickUpEntity.cpp"
+],
+"Tasks/TaskTypes/CTaskSimplePlayHandSignalAnim": [
+"source/game_sa/Tasks/TaskTypes/TaskSimplePlayHandSignalAnim.cpp"
+],
+"Tasks/TaskTypes/CTaskSimplePlayerOnFire": [
+"source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFire.cpp"
+],
+"Tasks/TaskTypes/CTaskSimplePlayerOnFoot": [
+"source/game_sa/Tasks/TaskTypes/TaskSimplePlayerOnFoot.cpp"
+],
+"Tasks/TaskTypes/CTaskSimplePutDownEntity": [
+"source/game_sa/Tasks/TaskTypes/TaskSimplePutDownEntity.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleRunAnim": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnim.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleRunAnimLoopedMiddle": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleRunAnimLoopedMiddle.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleRunNamedAnim": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleRunNamedAnim.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleRunTimedAnim": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleRunTimedAnim.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleSay": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleSay.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleScratchHead": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleScratchHead.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleSetCharDecisionMaker": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharDecisionMaker.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleSetCharIgnoreWeaponRangeFlag": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleSetKindaStayInSamePlace": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleSetKindaStayInSamePlace.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleSetPedAsAutoDriver": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleSetPedAsAutoDriver.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleSetStayInSamePlace": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleSetStayInSamePlace.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleShakeFist": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleShakeFist.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleSitDown": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleSitDown.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleSitIdle": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleSitIdle.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleSlideToCoord": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleSlideToCoord.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleStandStill": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleStandStill.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleStandUp": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleStandUp.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleStealthKill": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleStealthKill.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleSwim": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleThrowControl": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleThrowControl.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleThrowProjectile": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleThrowProjectile.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleTired": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleTired.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleTogglePedThreatScanner": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleTogglePedThreatScanner.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleTriggerEvent": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleTriggerEvent.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleTriggerLookAt": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleTriggerLookAt.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleTurn180": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleTurn180.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleUninterruptable": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleUninterruptable.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleUseAtm": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleUseAtm.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleUseGun": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleWaitForBus": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForBus.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleWaitForPizza": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleWaitForPizza.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleWaitUntilAreaCodesMatch": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilAreaCodesMatch.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleWaitUntilLeaderAreaCodesMatch": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilLeaderAreaCodesMatch.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleWaitUntilPedIsInCar": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.cpp"
+],
+"Tasks/TaskTypes/CTaskSimpleWaitUntilPedIsOutCar": [
+"source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.cpp"
+],
+"Tasks/TaskTypes/CTaskUtilityLineUpPedWithCar": [
+"source/game_sa/Tasks/TaskTypes/TaskUtilityLineUpPedWithCar.cpp"
+],
+"Tasks/TaskTypes/Interior/CTaskInteriorBeInHouse": [
+"source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInHouse.cpp"
+],
+"Tasks/TaskTypes/Interior/CTaskInteriorBeInOffice": [
+"source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInOffice.cpp"
+],
+"Tasks/TaskTypes/Interior/CTaskInteriorBeInShop": [
+"source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInShop.cpp"
+],
+"Tasks/TaskTypes/Interior/CTaskInteriorGoToInfo": [
+"source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorGoToInfo.cpp"
+],
+"Tasks/TaskTypes/Interior/CTaskInteriorShopKeeper": [
+"source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp"
+],
+"Tasks/TaskTypes/Interior/CTaskInteriorSitAtDesk": [
+"source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorSitAtDesk.cpp"
+],
+"Tasks/TaskTypes/Interior/CTaskInteriorUseInfo": [
+"source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorUseInfo.cpp"
+],
+"Tasks/TaskTypes/SeekEntity/CTaskComplexSeekEntityRadiusAngleOffset": [
+"source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.cpp"
+],
+"Tasks/TaskTypes/SeekEntity/CTaskComplexSeekEntityStandard": [
+"source/game_sa/Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityStandard.cpp"
+],
+"Tasks/TaskTypes/SeekPosCalculators/CEntitySeekPosCalculator": [
+"source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculator.cpp"
+],
+"Tasks/TaskTypes/SeekPosCalculators/CEntitySeekPosCalculatorFixedPos": [
+"source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorFixedPos.cpp"
+],
+"Tasks/TaskTypes/SeekPosCalculators/CEntitySeekPosCalculatorRadiusAngleOffset": [
+"source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorRadiusAngleOffset.cpp"
+],
+"Tasks/TaskTypes/SeekPosCalculators/CEntitySeekPosCalculatorStandard": [
+"source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorStandard.cpp"
+],
+"Tasks/TaskTypes/SeekPosCalculators/CEntitySeekPosCalculatorXYOffset": [
+"source/game_sa/Tasks/TaskTypes/SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.cpp"
+],
+"Text/CData": [
+"source/game_sa/Text/Text.cpp"
+],
+"Text/CKeyArray": [
+"source/game_sa/Text/Text.cpp"
+],
+"Text/CMissionTextOffsets": [
+"source/game_sa/Text/Text.cpp"
+],
+"Text/CText": [
+"source/game_sa/Text/Text.cpp"
+],
+"Vehicle/CAutomobile": [
+"source/game_sa/Entity/Vehicle/Automobile.cpp"
+],
+"Vehicle/CBike": [
+"source/game_sa/Entity/Vehicle/Bike.cpp"
+],
+"Vehicle/CBmx": [
+"source/game_sa/Entity/Vehicle/Bmx.cpp"
+],
+"Vehicle/CBoat": [
+"source/game_sa/Entity/Vehicle/Boat.cpp"
+],
+"Vehicle/CHeli": [
+"source/game_sa/Entity/Vehicle/Heli.cpp"
+],
+"Vehicle/CMonsterTruck": [
+"source/game_sa/Entity/Vehicle/MonsterTruck.cpp"
+],
+"Vehicle/CPlane": [
+"source/game_sa/Entity/Vehicle/Plane.cpp"
+],
+"Vehicle/CQuadBike": [
+"source/game_sa/Entity/Vehicle/QuadBike.cpp"
+],
+"Vehicle/CRideAnimData": [
+"source/game_sa/RideAnimData.cpp"
+],
+"Vehicle/CTrailer": [
+"source/game_sa/Entity/Vehicle/Trailer.cpp"
+],
+"Vehicle/CTrain": [
+"source/game_sa/Entity/Vehicle/Train.cpp"
+],
+"Vehicle/CTrainNode": [
+"source/game_sa/TrainNode.cpp"
+],
+"Vehicle/CVehicle": [
+"source/game_sa/Entity/Vehicle/Vehicle.cpp"
+],
+"Win/Input": [
+"source/app/platform/win/WinInput.cpp"
+],
+"Win/Ps": [
+"source/app/platform/win/WinPs.cpp"
+],
+"Win/Win": [
+"source/app/platform/win/WinMain.cpp",
+"source/app/platform/win/WinPlatform.cpp",
+"source/app/platform/win/WndProc.cpp"
+]
+}

@@ -1,0 +1,15 @@
+{"t": 0.4, "ev": "lock", "ok": true}
+{"t": 4.7, "ev": "launch", "pid": 22472, "args": ["--dump-hooks-to=D:\\Original\\wv-6\\reversing\\FnRW0A\\runs\\BB2-20261118-204746\\hooks_dump.csv", "--unhook=Events/CEventStuckInAir,Events/CEventVehicleCollision,Events/CEventVehicleDamage,Events/CEventVehicleDamageCollision,Events/CEventVehicleDamageWeapon,Events/CEventVehicleDied,Events/CEventVehicleHitAndRun,Events/CEventVehicleOnFire,Events/CEventVehicleThreat,Events/CEventVehicleToSteal,Events/CGroupEventHandler,Global/CCarCtrl,Global/CCollisionEventScanner,Global/CCrime,Global/CCurrentVehicle,Global/CEventScanner,Global/CInformFriendsEvent,Global/CInformFriendsEventQueue,Global/CInformGroupEvent,Global/CInformGroupEventQueue,Global/CInterestingEvents,Global/CPedIntelligence,Global/CPedPlacement,Global/CSetPiece,Global/CSetPieces,Global/CVehicleAnimGroup,Global/CVehicleAnimGroupData,Global/CVehiclePotentialCollisionScanner,Global/CVehicleRecording,Global/CVehicleSaveStructure,Global/CVehicleScanner,Global/CWanted,Models/CVehicleModelInfo,Models/CVehicleStructure,Tasks/CTaskManager,Tasks/TaskTypes/CTaskComplexBeCop,Tasks/TaskTypes/CTaskComplexCarDrive,Tasks/TaskTypes/CTaskComplexCarDriveMission,Tasks/TaskTypes/CTaskComplexCarDriveMissionFleeScene"]}
+{"t": 4.7, "ev": "captura", "size": null, "consola": null}
+{"t": 11.3, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 212.5, "ping": false}
+{"t": 15.3, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 223.9, "ping": false}
+{"t": 20.3, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 305}, "mem_mb": 241.2, "ping": true}
+{"t": 25.3, "ev": "objetivo alcanzado", "state": {"t_ms": 15063, "game_state": 9, "frame": 31589452, "timer_ms": 370365351, "menu": 0, "ped": true, "x": 2495.9, "y": -1707.4, "z": 1014.7, "hooks_called": 451}}
+{"t": 25.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589452, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 242.4, "ping": true}
+{"t": 30.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589577, "ped": true, "x": 2495.9, "y": -1690.7, "hooks": 451}, "mem_mb": 310.6, "ping": true}
+{"t": 35.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589699, "ped": true, "x": 2483.7, "y": -1695.9, "hooks": 467}, "mem_mb": 327.7, "ping": true}
+{"t": 40.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589699, "ped": true, "x": 2483.7, "y": -1695.9, "hooks": 467}, "mem_mb": 329.0, "ping": true}
+{"t": 45.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589699, "ped": true, "x": 2483.7, "y": -1695.9, "hooks": 467}, "mem_mb": 329.1, "ping": true}
+{"t": 65.5, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 125.8, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 155.9, "ev": "veredicto", "kind": "fotogramas_detenidos", "segundos": 120}

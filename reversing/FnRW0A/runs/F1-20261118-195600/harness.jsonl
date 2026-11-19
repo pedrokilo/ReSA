@@ -1,0 +1,69 @@
+{"t": 0.4, "ev": "lock", "ok": true}
+{"t": 7.7, "ev": "launch", "pid": 2140, "args": ["--dump-hooks-to=D:\\Original\\wv-6\\reversing\\FnRW0A\\runs\\F1-20261118-195600\\hooks_dump.csv"]}
+{"t": 7.7, "ev": "captura", "size": null}
+{"t": 17.8, "ev": "estado", "st": {"gs": 7, "menu": 1, "frame": 68, "ped": false, "x": 0.0, "y": 0.0, "hooks": 239}, "mem_mb": 207.7, "ping": true}
+{"t": 22.8, "ev": "estado", "st": {"gs": 7, "menu": 1, "frame": 218, "ped": false, "x": 0.0, "y": 0.0, "hooks": 239}, "mem_mb": 207.7, "ping": true}
+{"t": 27.9, "ev": "estado", "st": {"gs": 7, "menu": 1, "frame": 369, "ped": false, "x": 0.0, "y": 0.0, "hooks": 239}, "mem_mb": 207.7, "ping": true}
+{"t": 32.9, "ev": "estado", "st": {"gs": 7, "menu": 1, "frame": 519, "ped": false, "x": 0.0, "y": 0.0, "hooks": 239}, "mem_mb": 207.7, "ping": true}
+{"t": 39.4, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 704, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 220.7, "ping": false}
+{"t": 43.4, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 704, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 244.2, "ping": false}
+{"t": 48.4, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 705, "ped": true, "x": 2488.6, "y": -1666.9, "hooks": 360}, "mem_mb": 248.6, "ping": true}
+{"t": 53.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 800, "ped": true, "x": 2488.6, "y": -1666.9, "hooks": 388}, "mem_mb": 258.0, "ping": true}
+{"t": 58.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 924, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 449}, "mem_mb": 258.9, "ping": true}
+{"t": 63.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 1049, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 449}, "mem_mb": 259.1, "ping": true}
+{"t": 68.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 1174, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 453}, "mem_mb": 259.0, "ping": true}
+{"t": 68.5, "ev": "captura", "size": [654, 518]}
+{"t": 73.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 1299, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 453}, "mem_mb": 272.8, "ping": true}
+{"t": 78.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 1421, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 278.3, "ping": true}
+{"t": 83.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 1545, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 278.3, "ping": true}
+{"t": 88.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 1670, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 278.7, "ping": true}
+{"t": 93.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 1795, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 281.3, "ping": true}
+{"t": 98.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 1920, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 287.5, "ping": true}
+{"t": 103.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 2045, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 288.4, "ping": true}
+{"t": 108.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 2170, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 288.4, "ping": true}
+{"t": 113.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 2295, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 289.2, "ping": true}
+{"t": 118.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 2419, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 289.3, "ping": true}
+{"t": 123.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 2544, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 290.8, "ping": true}
+{"t": 128.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 2669, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 290.9, "ping": true}
+{"t": 128.8, "ev": "captura", "size": [654, 518]}
+{"t": 133.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 2794, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 290.9, "ping": true}
+{"t": 138.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 2919, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 290.9, "ping": true}
+{"t": 143.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 3044, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 290.4, "ping": true}
+{"t": 148.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 3169, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 290.4, "ping": true}
+{"t": 153.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 3293, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 293.6, "ping": true}
+{"t": 158.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 3417, "ped": true, "x": 2488.9, "y": -1666.9, "hooks": 464}, "mem_mb": 310.2, "ping": true}
+{"t": 163.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 3542, "ped": true, "x": 2391.0, "y": -1253.2, "hooks": 465}, "mem_mb": 319.8, "ping": true}
+{"t": 168.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 3666, "ped": true, "x": 2367.3, "y": -1294.0, "hooks": 467}, "mem_mb": 331.5, "ping": true}
+{"t": 173.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 3791, "ped": true, "x": 2367.8, "y": -1350.8, "hooks": 468}, "mem_mb": 332.5, "ping": true}
+{"t": 179.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 3916, "ped": true, "x": 2342.0, "y": -1381.6, "hooks": 468}, "mem_mb": 333.6, "ping": true}
+{"t": 184.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 4041, "ped": true, "x": 2302.0, "y": -1380.4, "hooks": 468}, "mem_mb": 334.5, "ping": true}
+{"t": 189.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 4165, "ped": true, "x": 2302.0, "y": -1380.4, "hooks": 468}, "mem_mb": 336.0, "ping": true}
+{"t": 189.0, "ev": "captura", "size": [654, 518]}
+{"t": 194.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 4290, "ped": true, "x": 2302.0, "y": -1380.4, "hooks": 468}, "mem_mb": 336.7, "ping": true}
+{"t": 199.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 4415, "ped": true, "x": 2296.8, "y": -1380.4, "hooks": 468}, "mem_mb": 339.2, "ping": true}
+{"t": 204.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 4540, "ped": true, "x": 2240.1, "y": -1381.6, "hooks": 469}, "mem_mb": 340.4, "ping": true}
+{"t": 209.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 4665, "ped": true, "x": 2183.8, "y": -1382.1, "hooks": 469}, "mem_mb": 341.1, "ping": true}
+{"t": 214.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 4790, "ped": true, "x": 2170.6, "y": -1337.5, "hooks": 469}, "mem_mb": 343.7, "ping": true}
+{"t": 219.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 4915, "ped": true, "x": 2170.1, "y": -1281.5, "hooks": 469}, "mem_mb": 347.6, "ping": true}
+{"t": 224.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 5039, "ped": true, "x": 2205.7, "y": -1259.4, "hooks": 469}, "mem_mb": 347.4, "ping": true}
+{"t": 229.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 5164, "ped": true, "x": 2218.9, "y": -1263.1, "hooks": 469}, "mem_mb": 347.2, "ping": true}
+{"t": 234.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 5286, "ped": true, "x": 2224.1, "y": -1262.8, "hooks": 469}, "mem_mb": 347.4, "ping": true}
+{"t": 239.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 5411, "ped": true, "x": 2231.9, "y": -1262.4, "hooks": 469}, "mem_mb": 347.2, "ping": true}
+{"t": 244.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 5536, "ped": true, "x": 2239.3, "y": -1261.9, "hooks": 469}, "mem_mb": 347.3, "ping": true}
+{"t": 249.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 5661, "ped": true, "x": 2239.3, "y": -1261.9, "hooks": 469}, "mem_mb": 347.2, "ping": true}
+{"t": 249.3, "ev": "captura", "size": [654, 518]}
+{"t": 254.3, "ev": "estado", "st": {"gs": 9, "menu": 1, "frame": 5785, "ped": true, "x": 2239.3, "y": -1261.9, "hooks": 469}, "mem_mb": 345.0, "ping": true}
+{"t": 259.3, "ev": "estado", "st": {"gs": 9, "menu": 1, "frame": 5910, "ped": true, "x": 2239.3, "y": -1261.9, "hooks": 469}, "mem_mb": 345.0, "ping": true}
+{"t": 264.3, "ev": "estado", "st": {"gs": 9, "menu": 1, "frame": 6035, "ped": true, "x": 2239.3, "y": -1261.9, "hooks": 469}, "mem_mb": 345.2, "ping": true}
+{"t": 269.6, "ev": "estado", "st": {"gs": 9, "menu": 1, "frame": 6236, "ped": true, "x": 2239.3, "y": -1261.9, "hooks": 477}, "mem_mb": 350.3, "ping": true}
+{"t": 274.7, "ev": "estado", "st": {"gs": 9, "menu": 1, "frame": 6361, "ped": true, "x": 2239.3, "y": -1261.9, "hooks": 477}, "mem_mb": 347.5, "ping": true}
+{"t": 279.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 6486, "ped": true, "x": 2245.5, "y": -1262.1, "hooks": 481}, "mem_mb": 355.1, "ping": true}
+{"t": 284.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 6610, "ped": true, "x": 2267.3, "y": -1280.0, "hooks": 481}, "mem_mb": 352.8, "ping": true}
+{"t": 289.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 6735, "ped": true, "x": 2271.9, "y": -1346.0, "hooks": 484}, "mem_mb": 350.8, "ping": true}
+{"t": 294.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 6860, "ped": true, "x": 2274.0, "y": -1407.0, "hooks": 484}, "mem_mb": 351.4, "ping": true}
+{"t": 299.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 6985, "ped": true, "x": 2276.1, "y": -1387.5, "hooks": 484}, "mem_mb": 350.8, "ping": true}
+{"t": 304.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 7110, "ped": true, "x": 2265.4, "y": -1369.9, "hooks": 484}, "mem_mb": 351.7, "ping": true}
+{"t": 311.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 7110, "ped": true, "x": 2265.4, "y": -1369.9, "hooks": 484}, "mem_mb": 360.8, "ping": false}
+{"t": 311.3, "ev": "captura", "size": [800, 600]}
+{"t": 316.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 7110, "ped": true, "x": 2265.4, "y": -1369.9, "hooks": 484}, "mem_mb": 360.8, "ping": true}
+{"t": 318.6, "ev": "veredicto", "kind": "exit", "code": 3221225477}

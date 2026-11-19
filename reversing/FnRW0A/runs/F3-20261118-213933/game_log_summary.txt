@@ -1,0 +1,72 @@
+tramo analizado: 12147 bytes desde 130048915
+lineas por nivel: {'info': 63, 'depuración': 38, '?': 2, 'error': 5, 'aviso': 13}
+
+--- plantillas de error/aviso/assert (veces, ejemplo) ---
+       9  [aviso][22:01:37.964][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2427.870605 -1430.732422 -103.893234
+       2  [error][21:39:51.593][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+       2  [error][21:39:51.593][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+       2  [aviso][21:39:51.593][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+       2  [aviso][22:01:38.125][World.cpp:1469]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2428.212158 -1430.011108 -113.704010
+       1  [error][21:59:07.387][Pool.h:207]: Falló la reserva para el tipo "class CEntryExit"
+
+--- cola (60 lineas) ---
+[info][21:39:39.640][app_debug.cpp:212]: 	0x7052ba3e: gta_reversed!psSelectDevice:583
+[info][21:39:39.641][app_debug.cpp:212]: 	0x704f5ec7: gta_reversed!`RsRwInitialize'::`2'::<lambda_1>::operator():329
+[info][21:39:39.641][app_debug.cpp:212]: 	0x704f9ff1: gta_reversed!RsRwInitialize:323
+[info][21:39:39.641][app_debug.cpp:212]: 	0x704ea634: gta_reversed!RwInitialize:113
+[info][21:39:39.642][app_debug.cpp:212]: 	0x704bcfb1: gta_reversed!AppEventHandler:153
+[info][21:39:39.642][app_debug.cpp:212]: 	0x704f62e8: gta_reversed!RsEventHandler:347
+[info][21:39:39.643][app_debug.cpp:212]: 	0x70522308: gta_reversed!NOTSA_WinMain:454
+[info][21:39:39.643][app_debug.cpp:212]: 	0x008246f1: gta_sa!<unknown>:0
+[info][21:39:39.644][app_debug.cpp:212]: 	0x75eb5d49: KERNEL32!BaseThreadInitThunk:0
+[info][21:39:39.644][app_debug.cpp:212]: 	0x774fc88b: ntdll!RtlInitializeExceptionChain:0
+[info][21:39:39.645][app_debug.cpp:212]: 	0x774fc811: ntdll!RtlGetAppContainerNamedObjectPath:0
+[info][21:39:39.661][app_debug.cpp:105]: *********END OF UNHANDLED EXCEPTION**********
+[depuración][21:39:39.874][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][21:39:39.911][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][21:39:39.963][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][21:39:39.964][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][21:39:39.964][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][21:39:39.964][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][21:39:39.965][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][21:39:39.965][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][21:39:39.965][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][21:39:39.965][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][21:39:39.965][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][21:39:39.965][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][21:39:43.015][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][21:39:43.019][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][21:39:43.019][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][21:39:43.162][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG
+[depuración][21:39:43.163][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG
+[depuración][21:39:43.163][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG
+[depuración][21:39:49.151][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[depuración][21:39:51.544][Pools.cpp:501]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[depuración][21:39:51.573][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][21:39:51.593][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][21:39:51.593][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][21:39:51.593][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][21:39:51.613][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][21:39:51.614][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[error][21:59:07.387][Pool.h:207]: Falló la reserva para el tipo "class CEntryExit"
+[aviso][22:01:37.964][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2427.870605 -1430.732422 -103.893234
+[aviso][22:01:38.125][World.cpp:1469]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2428.212158 -1430.011108 -113.704010
+[depuración][22:04:22.398][Pools.cpp:501]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[depuración][22:04:22.437][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][22:04:37.513][TextCommands.cpp:54]: PrintNow("INTROB")
+[depuración][22:04:48.530][Pools.cpp:501]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[depuración][22:04:48.575][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][22:04:48.595][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][22:04:48.596][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][22:04:48.597][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][22:04:48.617][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][22:04:48.618][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][22:05:10.722][World.cpp:1469]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2479.805664 -1762.548462 -103.450745
+[aviso][22:05:11.204][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2466.280273 -1739.307617 -113.198219
+[aviso][22:05:11.206][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2465.506104 -1738.381104 -114.446342
+[aviso][22:05:11.206][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2473.255859 -1684.779419 -114.413376
+[aviso][22:05:11.206][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2469.779297 -1682.909912 -114.393776
+[aviso][22:05:11.207][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2505.984131 -1753.484375 -114.387100
+[aviso][22:05:12.169][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2506.294678 -1724.860840 -116.031120
+[aviso][22:05:13.775][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2466.368652 -1740.064575 -110.198685
+[aviso][22:05:13.777][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2467.148682 -1739.849731 -110.198685

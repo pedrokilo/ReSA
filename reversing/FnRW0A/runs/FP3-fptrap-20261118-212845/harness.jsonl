@@ -1,0 +1,7 @@
+{"t": 0.5, "ev": "lock", "ok": true}
+{"t": 4.0, "ev": "launch", "pid": 1168, "args": ["--dump-hooks-to=D:\\Original\\wv-6\\reversing\\FnRW0A\\runs\\FP3-fptrap-20261118-212845\\hooks_dump.csv"]}
+{"t": 4.0, "ev": "captura", "size": null, "consola": null}
+{"t": 15.6, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 305}, "mem_mb": 225.0, "ping": false}
+{"t": 21.1, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 305}, "mem_mb": 242.1, "ping": false}
+{"t": 25.1, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 305}, "mem_mb": 241.1, "ping": false}
+{"t": 27.1, "ev": "veredicto", "kind": "exit", "code": 3221226165}

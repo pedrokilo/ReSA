@@ -1,0 +1,62 @@
+tramo analizado: 6131 bytes desde 129929464
+lineas por nivel: {'info': 4, 'depuración': 37, 'aviso': 4, '?': 1, 'error': 3}
+
+--- plantillas de error/aviso/assert (veces, ejemplo) ---
+       1  [aviso][20:51:30.381][dllmain.cpp:68]: No se pudo desactivar 'Tasks/TaskTypes/CTaskSimpleTriggerEvent' por línea de comandos: no encontrado
+       1  [error][20:51:42.560][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+       1  [error][20:51:42.560][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+       1  [aviso][20:51:42.560][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+       1  [aviso][20:52:39.233][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2113.136230 -1730.057373 -104.992043
+       1  [aviso][20:52:39.395][World.cpp:1469]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2109.946777 -1729.589844 -114.805511
+       1  [error][20:53:09.850][Pool.h:207]: Falló la reserva para el tipo "class CEntryExit"
+
+--- cola (60 lineas) ---
+[info][20:51:30.378][ReversibleHooks.cpp:176]: Lista de hooks escrita en `D:\Original\wv-6\reversing\FnRW0A\runs\BB4-20261118-205125\hooks_dump.csv`
+[depuración][20:51:30.379][dllmain.cpp:66]: Hook desactivado 'Tasks/TaskTypes/CTaskLeanOnVehicle' por línea de comandos (usa el código original del juego).
+[depuración][20:51:30.380][dllmain.cpp:66]: Hook desactivado 'Tasks/TaskTypes/CTaskSimpleCarDrive' por línea de comandos (usa el código original del juego).
+[depuración][20:51:30.380][dllmain.cpp:66]: Hook desactivado 'Tasks/TaskTypes/CTaskSimpleCarDriveTimed' por línea de comandos (usa el código original del juego).
+[depuración][20:51:30.380][dllmain.cpp:66]: Hook desactivado 'Tasks/TaskTypes/CTaskSimpleCarOpenDoorFromOutside' por línea de comandos (usa el código original del juego).
+[depuración][20:51:30.381][dllmain.cpp:66]: Hook desactivado 'Tasks/TaskTypes/CTaskSimpleCarSetPedInAsDriver' por línea de comandos (usa el código original del juego).
+[depuración][20:51:30.381][dllmain.cpp:66]: Hook desactivado 'Tasks/TaskTypes/CTaskSimpleCarSetPedInAsPassenger' por línea de comandos (usa el código original del juego).
+[aviso][20:51:30.381][dllmain.cpp:68]: No se pudo desactivar 'Tasks/TaskTypes/CTaskSimpleTriggerEvent' por línea de comandos: no encontrado
+[depuración][20:51:30.384][dllmain.cpp:66]: Hook desactivado 'Vehicle/CAutomobile' por línea de comandos (usa el código original del juego).
+[depuración][20:51:30.385][dllmain.cpp:66]: Hook desactivado 'Vehicle/CBike' por línea de comandos (usa el código original del juego).
+[depuración][20:51:30.385][dllmain.cpp:66]: Hook desactivado 'Vehicle/CBmx' por línea de comandos (usa el código original del juego).
+[info][20:51:30.387][dllmain.cpp:95]: Funciones del juego reemplazadas por código C++: 12445 en 1000 clases/grupos (10277 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 12193. Desactivadas: 252.
+[info][20:51:30.387][dllmain.cpp:99]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][20:51:30.387][dllmain.cpp:100]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][20:51:30.481][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][20:51:30.482][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][20:51:30.793][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][20:51:31.097][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][20:51:31.370][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][20:51:31.403][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][20:51:31.459][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][20:51:31.460][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][20:51:31.461][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][20:51:31.461][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][20:51:31.461][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][20:51:31.461][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][20:51:31.462][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][20:51:31.462][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][20:51:31.462][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][20:51:31.462][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][20:51:33.940][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][20:51:33.944][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][20:51:33.944][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][20:51:34.090][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG
+[depuración][20:51:34.091][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG
+[depuración][20:51:34.091][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG
+[depuración][20:51:40.115][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[depuración][20:51:42.511][Pools.cpp:501]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[depuración][20:51:42.539][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][20:51:42.560][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][20:51:42.560][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][20:51:42.560][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][20:51:42.579][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][20:51:42.580][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][20:52:39.233][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2113.136230 -1730.057373 -104.992043
+[aviso][20:52:39.395][World.cpp:1469]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2109.946777 -1729.589844 -114.805511
+[error][20:53:09.850][Pool.h:207]: Falló la reserva para el tipo "class CEntryExit"
+[depuración][20:53:15.832][SetPiece.cpp:138]: coche de policía generado en (2481, -1707, 13.254301), distancia al jugador 45.16

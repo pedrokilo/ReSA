@@ -1,0 +1,60 @@
+tramo analizado: 5872 bytes desde 129941933
+lineas por nivel: {'info': 4, 'depuración': 28, 'aviso': 13, '?': 1, 'error': 2}
+
+--- plantillas de error/aviso/assert (veces, ejemplo) ---
+      10  [aviso][20:58:04.848][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2474.759277 -1740.079590 -111.890182
+       1  [aviso][20:57:27.968][dllmain.cpp:68]: No se pudo desactivar 'Tasks/TaskTypes/CTaskSimpleTriggerEvent' por línea de comandos: no encontrado
+       1  [error][20:57:40.303][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+       1  [error][20:57:40.303][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+       1  [aviso][20:57:40.304][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+       1  [aviso][20:58:04.366][World.cpp:1469]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2479.804688 -1750.896240 -102.602623
+
+--- cola (60 lineas) ---
+[info][20:57:27.967][ReversibleHooks.cpp:176]: Lista de hooks escrita en `D:\Original\wv-6\reversing\FnRW0A\runs\BB6-20261118-205723\hooks_dump.csv`
+[depuración][20:57:27.968][dllmain.cpp:66]: Hook desactivado 'Tasks/TaskTypes/CTaskSimpleCarSetPedInAsPassenger' por línea de comandos (usa el código original del juego).
+[aviso][20:57:27.968][dllmain.cpp:68]: No se pudo desactivar 'Tasks/TaskTypes/CTaskSimpleTriggerEvent' por línea de comandos: no encontrado
+[info][20:57:27.970][dllmain.cpp:95]: Funciones del juego reemplazadas por código C++: 12445 en 1000 clases/grupos (10277 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 12428. Desactivadas: 17.
+[info][20:57:27.970][dllmain.cpp:99]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][20:57:27.970][dllmain.cpp:100]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][20:57:28.120][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][20:57:28.123][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][20:57:28.420][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][20:57:28.723][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][20:57:28.989][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][20:57:29.026][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][20:57:29.077][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][20:57:29.078][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][20:57:29.079][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][20:57:29.079][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][20:57:29.079][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][20:57:29.079][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][20:57:29.079][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][20:57:29.079][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][20:57:29.080][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][20:57:29.080][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][20:57:31.696][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][20:57:31.701][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][20:57:31.701][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][20:57:31.843][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG
+[depuración][20:57:31.843][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG
+[depuración][20:57:31.844][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG
+[depuración][20:57:37.856][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[depuración][20:57:40.253][Pools.cpp:501]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[depuración][20:57:40.282][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][20:57:40.303][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][20:57:40.303][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][20:57:40.304][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][20:57:40.323][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][20:57:40.324][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][20:58:04.366][World.cpp:1469]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2479.804688 -1750.896240 -102.602623
+[aviso][20:58:04.848][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2474.759277 -1740.079590 -111.890182
+[aviso][20:58:04.849][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2477.372803 -1739.770752 -111.876434
+[aviso][20:58:04.849][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2488.669189 -1738.715698 -111.898827
+[aviso][20:58:04.849][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2506.027588 -1756.165283 -111.973366
+[aviso][20:58:05.491][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2464.576660 -1743.669312 -114.317986
+[aviso][20:58:06.133][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2481.397705 -1750.950073 -107.742630
+[aviso][20:58:06.775][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2483.632812 -1686.611206 -106.147934
+[aviso][20:58:08.061][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2484.491699 -1685.956177 -103.768692
+[aviso][20:58:09.026][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2483.257080 -1686.019653 -103.779076
+[aviso][20:58:09.347][World.cpp:1435]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2483.842041 -1685.475830 -107.850037

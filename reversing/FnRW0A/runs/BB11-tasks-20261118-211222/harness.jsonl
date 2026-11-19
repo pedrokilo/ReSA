@@ -1,0 +1,19 @@
+{"t": 0.4, "ev": "lock", "ok": true}
+{"t": 3.9, "ev": "launch", "pid": 14308, "args": ["--dump-hooks-to=D:\\Original\\wv-6\\reversing\\FnRW0A\\runs\\BB11-tasks-20261118-211222\\hooks_dump.csv", "--unhook=Tasks/TaskTypes/CTaskLeanOnVehicle,Tasks/TaskTypes/CTaskSimpleCarDrive,Tasks/TaskTypes/CTaskSimpleCarDriveTimed,Tasks/TaskTypes/CTaskSimpleCarOpenDoorFromOutside,Tasks/TaskTypes/CTaskSimpleCarSetPedInAsDriver,Tasks/TaskTypes/CTaskSimpleCarSetPedInAsPassenger,Tasks/TaskTypes/CTaskSimpleTriggerEvent"]}
+{"t": 3.9, "ev": "captura", "size": null, "consola": null}
+{"t": 10.4, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 272.8, "ping": false}
+{"t": 14.4, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 280.7, "ping": false}
+{"t": 19.4, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 351}, "mem_mb": 239.4, "ping": true}
+{"t": 24.4, "ev": "objetivo alcanzado", "state": {"t_ms": 15063, "game_state": 9, "frame": 31589463, "timer_ms": 370365800, "menu": 0, "ped": true, "x": 2495.9, "y": -1707.4, "z": 1014.7, "hooks_called": 451}}
+{"t": 24.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589463, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 241.9, "ping": true}
+{"t": 29.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589588, "ped": true, "x": 2496.0, "y": -1690.4, "hooks": 451}, "mem_mb": 316.0, "ping": true}
+{"t": 34.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589711, "ped": true, "x": 2481.6, "y": -1701.0, "hooks": 469}, "mem_mb": 328.6, "ping": true}
+{"t": 39.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589835, "ped": true, "x": 2479.9, "y": -1724.9, "hooks": 469}, "mem_mb": 332.7, "ping": true}
+{"t": 44.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589960, "ped": true, "x": 2497.0, "y": -1731.5, "hooks": 474}, "mem_mb": 335.2, "ping": true}
+{"t": 49.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590085, "ped": true, "x": 2495.1, "y": -1731.3, "hooks": 476}, "mem_mb": 336.5, "ping": true}
+{"t": 54.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590210, "ped": true, "x": 2499.0, "y": -1732.7, "hooks": 476}, "mem_mb": 338.1, "ping": true}
+{"t": 59.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590210, "ped": true, "x": 2499.0, "y": -1732.7, "hooks": 476}, "mem_mb": 338.0, "ping": true}
+{"t": 64.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590210, "ped": true, "x": 2499.0, "y": -1732.7, "hooks": 476}, "mem_mb": 336.8, "ping": true}
+{"t": 64.6, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 124.9, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 175.1, "ev": "veredicto", "kind": "fotogramas_detenidos", "segundos": 120}

@@ -1,0 +1,16 @@
+tramo analizado: 1337 bytes desde 129812761
+lineas por nivel: {'info': 4, 'depuración': 5, '?': 1}
+
+--- plantillas de error/aviso/assert (veces, ejemplo) ---
+
+--- cola (60 lineas) ---
+[info][20:32:57.400][ReversibleHooks.cpp:176]: Lista de hooks escrita en `D:\Original\wv-6\reversing\FnRW0A\runs\F2-control-AppWin-20261118-203252\hooks_dump.csv`
+[depuración][20:32:57.556][dllmain.cpp:48]: Todos los hooks desactivados por línea de comandos (se vuelve al código original del juego)
+[depuración][20:32:57.558][dllmain.cpp:53]: Hook reactivado 'App' por línea de comandos.
+[depuración][20:32:57.559][dllmain.cpp:53]: Hook reactivado 'Win' por línea de comandos.
+[info][20:32:57.561][dllmain.cpp:95]: Funciones del juego reemplazadas por código C++: 12445 en 1000 clases/grupos (10277 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 130. Desactivadas: 12315.
+[info][20:32:57.561][dllmain.cpp:99]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][20:32:57.561][dllmain.cpp:100]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][20:32:58.121][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][20:32:58.425][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40

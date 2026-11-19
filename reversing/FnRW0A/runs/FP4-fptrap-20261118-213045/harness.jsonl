@@ -1,0 +1,111 @@
+{"t": 0.5, "ev": "lock", "ok": true}
+{"t": 4.0, "ev": "launch", "pid": 27400, "args": ["--dump-hooks-to=D:\\Original\\wv-6\\reversing\\FnRW0A\\runs\\FP4-fptrap-20261118-213045\\hooks_dump.csv"]}
+{"t": 4.0, "ev": "captura", "size": null, "consola": null}
+{"t": 16.0, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 305}, "mem_mb": 221.8, "ping": false}
+{"t": 20.0, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 305}, "mem_mb": 238.6, "ping": true}
+{"t": 25.0, "ev": "objetivo alcanzado", "state": {"t_ms": 15047, "game_state": 9, "frame": 31589440, "timer_ms": 370364872, "menu": 0, "ped": true, "x": 2495.9, "y": -1707.4, "z": 1014.7, "hooks_called": 451}}
+{"t": 25.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589440, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.0, "ping": true}
+{"t": 30.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589564, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.0, "ping": true}
+{"t": 35.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589689, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.0, "ping": true}
+{"t": 40.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31589813, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.9, "ping": true}
+{"t": 45.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590062, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.9, "ping": true}
+{"t": 50.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590187, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.9, "ping": true}
+{"t": 55.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590312, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.9, "ping": true}
+{"t": 60.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590436, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.4, "ping": true}
+{"t": 64.2, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 65.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590561, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 70.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590686, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 75.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590810, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 80.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31590935, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 85.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31591060, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 90.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31591184, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 95.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31591308, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 100.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31591433, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 105.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31591558, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 110.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31591682, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 115.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31591806, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 120.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31591931, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 124.5, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 125.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31592056, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 130.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31592180, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 135.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31592304, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 140.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31592429, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 145.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31592554, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 150.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31592678, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 155.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31592803, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 160.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31592928, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 165.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31593052, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 170.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31593177, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 175.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31593302, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 180.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31593426, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 184.8, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 185.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31593551, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 190.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31593676, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 195.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31593800, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.3, "ping": true}
+{"t": 200.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31593925, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.3, "ping": true}
+{"t": 205.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31594049, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 210.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31594174, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 215.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31594298, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 220.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31594423, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 225.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31594547, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.0, "ping": true}
+{"t": 231.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31594672, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 236.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31594796, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 241.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31594921, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.3, "ping": true}
+{"t": 245.1, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 246.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31595046, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.3, "ping": true}
+{"t": 251.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31595170, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.3, "ping": true}
+{"t": 256.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31595294, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.3, "ping": true}
+{"t": 261.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31595419, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.3, "ping": true}
+{"t": 266.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31595543, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 271.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31595668, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 276.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31595792, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 281.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31595917, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 286.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31596041, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 291.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31596166, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 296.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31596291, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 301.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31596416, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 305.4, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 306.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31596540, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 311.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31596665, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 316.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31596789, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 321.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31596914, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 326.4, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31597038, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 331.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31597163, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 336.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31597288, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 341.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31597412, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 346.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31597537, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.2, "ping": true}
+{"t": 351.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31597662, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 356.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31597786, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 361.6, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31597911, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.1, "ping": true}
+{"t": 365.6, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 366.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31598035, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.3, "ping": true}
+{"t": 371.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31598160, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.3, "ping": true}
+{"t": 376.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31598284, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.3, "ping": true}
+{"t": 381.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31598409, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.7, "ping": true}
+{"t": 386.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31598534, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.0, "ping": true}
+{"t": 391.7, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31598658, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.9, "ping": true}
+{"t": 396.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31598782, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 401.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31598907, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 406.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31599032, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 411.8, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31599156, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 416.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31599281, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 421.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31599406, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 425.9, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 426.9, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31599530, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 432.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31599655, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 437.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31599779, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 442.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31599904, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 447.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31600028, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 452.0, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31600153, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 457.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31600277, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 462.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31600402, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 467.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31600526, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 238.8, "ping": true}
+{"t": 472.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31600651, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.1, "ping": true}
+{"t": 477.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31600776, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.1, "ping": true}
+{"t": 482.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31600900, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.1, "ping": true}
+{"t": 486.2, "ev": "captura", "size": [654, 518], "consola": [895, 518]}
+{"t": 487.2, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31601024, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.1, "ping": true}
+{"t": 492.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31601149, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.2, "ping": true}
+{"t": 497.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31601274, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.2, "ping": true}
+{"t": 502.3, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 31601398, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 239.2, "ping": true}
+{"t": 505.3, "ev": "veredicto", "kind": "completada"}

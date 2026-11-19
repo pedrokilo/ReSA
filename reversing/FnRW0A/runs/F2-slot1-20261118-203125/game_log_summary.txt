@@ -1,0 +1,66 @@
+tramo analizado: 24092 bytes desde 129788669
+lineas por nivel: {'info': 44, 'depuración': 132, '?': 1, 'traza': 73}
+
+--- plantillas de error/aviso/assert (veces, ejemplo) ---
+
+--- cola (60 lineas) ---
+[depuración][20:32:07.457][SetPiece.cpp:81]: policía generado en (2263, -1780, 1000), distancia al jugador nan
+[depuración][20:32:07.458][SetPiece.cpp:81]: policía generado en (2327, -1821, 1000), distancia al jugador nan
+[depuración][20:32:07.458][SetPiece.cpp:81]: policía generado en (1720, -1476, 1000), distancia al jugador nan
+[depuración][20:32:07.458][SetPiece.cpp:81]: policía generado en (1718, -1473, 1000), distancia al jugador nan
+[depuración][20:32:07.459][SetPiece.cpp:81]: policía generado en (1840, -1410, 1000), distancia al jugador nan
+[depuración][20:32:07.459][SetPiece.cpp:81]: policía generado en (1781, -1366, 1000), distancia al jugador nan
+[depuración][20:32:07.459][SetPiece.cpp:81]: policía generado en (2649, -1150, 1000), distancia al jugador nan
+[depuración][20:32:07.503][SetPiece.cpp:138]: coche de policía generado en (1419, -1270, 1000), distancia al jugador nan
+[depuración][20:32:07.504][SetPiece.cpp:138]: coche de policía generado en (1420, -1253, 1000), distancia al jugador nan
+[depuración][20:32:07.505][SetPiece.cpp:138]: coche de policía generado en (1095, -1665, 1000), distancia al jugador nan
+[depuración][20:32:07.506][SetPiece.cpp:138]: coche de policía generado en (1117, -1714, 1000), distancia al jugador nan
+[depuración][20:32:07.507][SetPiece.cpp:138]: coche de policía generado en (1175, -1210, 1000), distancia al jugador nan
+[depuración][20:32:07.507][SetPiece.cpp:138]: coche de policía generado en (1179, -1204, 1000), distancia al jugador nan
+[depuración][20:32:07.508][SetPiece.cpp:81]: policía generado en (928, -1084, 1000), distancia al jugador nan
+[depuración][20:32:07.508][SetPiece.cpp:81]: policía generado en (837, -1049, 1000), distancia al jugador nan
+[depuración][20:32:07.508][SetPiece.cpp:81]: policía generado en (491, -1518, 1000), distancia al jugador nan
+[depuración][20:32:07.509][SetPiece.cpp:81]: policía generado en (490, -1521, 1000), distancia al jugador nan
+[depuración][20:32:07.509][SetPiece.cpp:81]: policía generado en (363, -1833, 1000), distancia al jugador nan
+[depuración][20:32:07.509][SetPiece.cpp:81]: policía generado en (385, -1831, 1000), distancia al jugador nan
+[depuración][20:32:07.509][SetPiece.cpp:138]: coche de policía generado en (2009, -2010, 1000), distancia al jugador nan
+[depuración][20:32:07.509][SetPiece.cpp:138]: coche de policía generado en (1970, -2059, 1000), distancia al jugador nan
+[info][20:32:07.823][:]: ****************** Backtrace End ********************
+[info][20:32:07.823][app_debug.cpp:105]: *********UNHANDLED EXCEPTION**********
+[info][20:32:07.823][app_debug.cpp:110]: Código de excepción: 0xc0000005
+[info][20:32:07.823][app_debug.cpp:111]: Indicadores de excepción: 0x00000000
+[info][20:32:07.823][app_debug.cpp:112]: Dirección de excepción: 0x70edb25c
+[info][20:32:07.823][app_debug.cpp:105]: *********PARAMETERS**********
+[info][20:32:07.823][app_debug.cpp:117]: Parámetros[2]:
+[info][20:32:07.824][app_debug.cpp:119]:        0: 0x00000000
+[info][20:32:07.824][app_debug.cpp:119]:        1: 0x00000000
+[info][20:32:07.824][app_debug.cpp:105]: *********REGISTERS**********
+[info][20:32:07.824][app_debug.cpp:129]: 	EAX: 0x00000000
+[info][20:32:07.824][app_debug.cpp:129]: 	EBX: 0x00ebefb8
+[info][20:32:07.824][app_debug.cpp:129]: 	ECX: 0x00000000
+[info][20:32:07.824][app_debug.cpp:129]: 	EDX: 0x00000000
+[info][20:32:07.824][app_debug.cpp:129]: 	ESI: 0x00ebfc04
+[info][20:32:07.825][app_debug.cpp:129]: 	EDI: 0x00ebecb0
+[info][20:32:07.825][app_debug.cpp:129]: 	EBP: 0x00ebecbc
+[info][20:32:07.825][app_debug.cpp:129]: 	ESP: 0x00ebeab4
+[info][20:32:07.825][app_debug.cpp:129]: 	EIP: 0x70edb25c
+[info][20:32:07.825][app_debug.cpp:129]: 	EFLAGS: 0x00010246
+[info][20:32:07.825][app_debug.cpp:105]: *********CALL STACK**********
+[info][20:32:07.826][app_debug.cpp:212]: 	0x70edb25c: gta_reversed!CPedIntelligence::ClearTasks:448
+[info][20:32:07.827][app_debug.cpp:212]: 	0x707915ac: gta_reversed!`CCarAI::AddPoliceCarOccupants'::`19'::<lambda_1>::operator():246
+[info][20:32:07.827][app_debug.cpp:212]: 	0x70791f90: gta_reversed!CCarAI::AddPoliceCarOccupants:254
+[info][20:32:07.827][app_debug.cpp:212]: 	0x7185dccd: gta_reversed!`CSetPiece::Update'::`2'::<lambda_2>::operator():182
+[info][20:32:07.828][app_debug.cpp:212]: 	0x7185feac: gta_reversed!CSetPiece::Update:227
+[info][20:32:07.828][app_debug.cpp:212]: 	0x7186195c: gta_reversed!CSetPieces::Update:95
+[info][20:32:07.828][app_debug.cpp:212]: 	0x70ce078e: gta_reversed!CGame::Process:786
+[info][20:32:07.829][app_debug.cpp:212]: 	0x704e942d: gta_reversed!Idle:342
+[info][20:32:07.829][app_debug.cpp:212]: 	0x704bd02d: gta_reversed!AppEventHandler:169
+[info][20:32:07.830][app_debug.cpp:212]: 	0x704f62e8: gta_reversed!RsEventHandler:347
+[info][20:32:07.830][app_debug.cpp:212]: 	0x70522e3e: gta_reversed!ProcessGameLogic:343
+[info][20:32:07.830][app_debug.cpp:212]: 	0x70521dc9: gta_reversed!MainLoop:369
+[info][20:32:07.831][app_debug.cpp:212]: 	0x70522518: gta_reversed!NOTSA_WinMain:499
+[info][20:32:07.831][app_debug.cpp:212]: 	0x008246f1: gta_sa!<unknown>:0
+[info][20:32:07.832][app_debug.cpp:212]: 	0x75eb5d49: KERNEL32!BaseThreadInitThunk:0
+[info][20:32:07.834][app_debug.cpp:212]: 	0x774fc88b: ntdll!RtlInitializeExceptionChain:0
+[info][20:32:07.835][app_debug.cpp:212]: 	0x774fc811: ntdll!RtlGetAppContainerNamedObjectPath:0
+[info][20:32:07.848][app_debug.cpp:105]: *********END OF UNHANDLED EXCEPTION**********

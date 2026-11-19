@@ -1,0 +1,9 @@
+{"t_ms":5031,"game_state":8,"frame":4,"timer_ms":307,"menu":0,"ped":false,"x":0.0,"y":0.0,"z":0.0,"hooks_called":304}
+{"t_ms":10047,"game_state":8,"frame":4,"timer_ms":0,"menu":0,"ped":false,"x":0.0,"y":0.0,"z":0.0,"hooks_called":354}
+{"t_ms":15063,"game_state":9,"frame":31589469,"timer_ms":370366045,"menu":0,"ped":true,"x":2495.9,"y":-1707.4,"z":1014.7,"hooks_called":451}
+{"t_ms":20078,"game_state":9,"frame":31589594,"timer_ms":370371038,"menu":0,"ped":true,"x":2496.0,"y":-1691.5,"z":1014.7,"hooks_called":451}
+{"t_ms":25094,"game_state":9,"frame":31589716,"timer_ms":370375955,"menu":0,"ped":true,"x":2482.3,"y":-1697.4,"z":13.5,"hooks_called":469}
+{"t_ms":30109,"game_state":9,"frame":31589841,"timer_ms":370380948,"menu":0,"ped":true,"x":2487.8,"y":-1731.3,"z":13.4,"hooks_called":469}
+{"t_ms":35125,"game_state":9,"frame":31589966,"timer_ms":370385955,"menu":0,"ped":true,"x":2488.1,"y":-1731.0,"z":13.4,"hooks_called":476}
+{"t_ms":40141,"game_state":9,"frame":31590091,"timer_ms":370390948,"menu":0,"ped":true,"x":nan,"y":nan,"z":nan,"hooks_called":476}
+{"t_ms":51016,"game_state":9,"frame":31590101,"timer_ms":370391348,"menu":0,"ped":true,"x":nan,"y":nan,"z":nan,"hooks_called":476}

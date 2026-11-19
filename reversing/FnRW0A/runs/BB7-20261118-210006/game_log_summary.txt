@@ -1,0 +1,51 @@
+tramo analizado: 4892 bytes desde 129947805
+lineas por nivel: {'info': 4, 'depuración': 34, '?': 1, 'error': 2, 'aviso': 1}
+
+--- plantillas de error/aviso/assert (veces, ejemplo) ---
+       1  [error][21:00:23.894][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+       1  [error][21:00:23.894][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+       1  [aviso][21:00:23.894][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+
+--- cola (60 lineas) ---
+[info][21:00:11.511][ReversibleHooks.cpp:176]: Lista de hooks escrita en `D:\Original\wv-6\reversing\FnRW0A\runs\BB7-20261118-210006\hooks_dump.csv`
+[depuración][21:00:11.514][dllmain.cpp:66]: Hook desactivado 'Vehicle/CAutomobile' por línea de comandos (usa el código original del juego).
+[info][21:00:11.515][dllmain.cpp:95]: Funciones del juego reemplazadas por código C++: 12445 en 1000 clases/grupos (10277 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 12323. Desactivadas: 122.
+[info][21:00:11.516][dllmain.cpp:99]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][21:00:11.516][dllmain.cpp:100]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][21:00:11.693][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][21:00:11.694][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][21:00:11.992][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][21:00:12.298][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][21:00:12.567][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][21:00:12.602][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][21:00:12.657][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][21:00:12.658][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][21:00:12.658][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][21:00:12.658][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][21:00:12.658][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][21:00:12.658][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][21:00:12.658][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][21:00:12.659][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][21:00:12.659][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][21:00:12.659][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][21:00:15.269][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][21:00:15.274][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][21:00:15.274][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][21:00:15.419][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG
+[depuración][21:00:15.420][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG
+[depuración][21:00:15.421][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG
+[depuración][21:00:21.452][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[depuración][21:00:23.846][Pools.cpp:501]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[depuración][21:00:23.874][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][21:00:23.894][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][21:00:23.894][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][21:00:23.894][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][21:00:23.912][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][21:00:23.912][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][21:01:20.353][SetPiece.cpp:81]: policía generado en (1457, 2024, 1000), distancia al jugador nan
+[depuración][21:01:20.354][SetPiece.cpp:81]: policía generado en (1499, 2027, 1000), distancia al jugador nan
+[depuración][21:01:20.354][SetPiece.cpp:81]: policía generado en (1422, 2615, 1000), distancia al jugador nan
+[depuración][21:01:20.354][SetPiece.cpp:81]: policía generado en (1446, 2615, 1000), distancia al jugador nan
+[depuración][21:01:20.355][SetPiece.cpp:81]: policía generado en (1573, 2078, 1000), distancia al jugador nan
+[depuración][21:01:20.355][SetPiece.cpp:81]: policía generado en (1571, 2088, 1000), distancia al jugador nan

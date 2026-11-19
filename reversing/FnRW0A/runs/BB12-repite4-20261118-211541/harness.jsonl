@@ -1,0 +1,7 @@
+{"t": 0.4, "ev": "lock", "ok": true}
+{"t": 3.9, "ev": "launch", "pid": 20680, "args": ["--dump-hooks-to=D:\\Original\\wv-6\\reversing\\FnRW0A\\runs\\BB12-repite4-20261118-211541\\hooks_dump.csv", "--unhook=Tasks/TaskTypes/CTaskLeanOnVehicle,Tasks/TaskTypes/CTaskSimpleCarDrive,Tasks/TaskTypes/CTaskSimpleCarDriveTimed,Tasks/TaskTypes/CTaskSimpleCarOpenDoorFromOutside,Tasks/TaskTypes/CTaskSimpleCarSetPedInAsDriver,Tasks/TaskTypes/CTaskSimpleCarSetPedInAsPassenger,Tasks/TaskTypes/CTaskSimpleTriggerEvent,Vehicle/CAutomobile,Vehicle/CBike,Vehicle/CBmx"]}
+{"t": 3.9, "ev": "captura", "size": null, "consola": null}
+{"t": 10.5, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 273.1, "ping": false}
+{"t": 14.5, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 280.9, "ping": false}
+{"t": 21.0, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 351}, "mem_mb": 353.3, "ping": false}
+{"t": 24.0, "ev": "veredicto", "kind": "exit", "code": 3221226505}

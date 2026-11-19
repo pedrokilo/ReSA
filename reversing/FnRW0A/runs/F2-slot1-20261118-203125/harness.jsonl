@@ -1,0 +1,13 @@
+{"t": 0.4, "ev": "lock", "ok": true}
+{"t": 3.9, "ev": "launch", "pid": 23428, "args": ["--dump-hooks-to=D:\\Original\\wv-6\\reversing\\FnRW0A\\runs\\F2-slot1-20261118-203125\\hooks_dump.csv"]}
+{"t": 3.9, "ev": "captura", "size": null, "consola": null}
+{"t": 10.4, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 217.7, "ping": false}
+{"t": 14.4, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 304}, "mem_mb": 221.4, "ping": false}
+{"t": 19.5, "ev": "estado", "st": {"gs": 8, "menu": 0, "frame": 4, "ped": false, "x": 0.0, "y": 0.0, "hooks": 356}, "mem_mb": 238.0, "ping": true}
+{"t": 24.5, "ev": "objetivo alcanzado", "state": {"t_ms": 15063, "game_state": 9, "frame": 10028, "timer_ms": 311238, "menu": 0, "ped": true, "x": 2495.9, "y": -1707.4, "z": 1014.7, "hooks_called": 451}}
+{"t": 24.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 10028, "ped": true, "x": 2495.9, "y": -1707.4, "hooks": 451}, "mem_mb": 237.0, "ping": true}
+{"t": 29.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 10153, "ped": true, "x": 2495.9, "y": -1706.9, "hooks": 451}, "mem_mb": 249.2, "ping": true}
+{"t": 34.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 10275, "ped": true, "x": 2495.3, "y": -1690.2, "hooks": 452}, "mem_mb": 298.7, "ping": true}
+{"t": 39.5, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 10400, "ped": true, "x": 2483.2, "y": -1688.3, "hooks": 467}, "mem_mb": 313.2, "ping": true}
+{"t": 46.1, "ev": "estado", "st": {"gs": 9, "menu": 0, "frame": 10525, "ped": true, "x": 2483.7, "y": -1731.4, "hooks": 467}, "mem_mb": 318.0, "ping": false}
+{"t": 50.1, "ev": "veredicto", "kind": "exit", "code": 3221225477}

@@ -1,0 +1,69 @@
+tramo analizado: 16662 bytes desde 130011524
+lineas por nivel: {'info': 39, 'depuración': 32, '?': 1, 'error': 4, 'aviso': 2, 'traza': 120}
+
+--- plantillas de error/aviso/assert (veces, ejemplo) ---
+       2  [error][21:27:43.594][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+       2  [error][21:27:43.594][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+       2  [aviso][21:27:43.595][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+
+--- cola (60 lineas) ---
+[traza][21:27:43.559][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3076)
+[traza][21:27:43.559][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3090)
+[depuración][21:27:43.574][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][21:27:43.594][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][21:27:43.594][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][21:27:43.595][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][21:27:43.616][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][21:27:43.617][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[traza][21:27:43.668][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][21:27:43.668][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][21:27:43.669][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][21:27:43.670][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][21:27:43.670][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][21:27:43.671][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][21:27:43.671][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][21:27:43.672][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][21:27:43.672][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][21:27:43.682][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][21:27:43.685][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][21:27:43.685][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][21:27:43.686][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][21:27:43.686][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][21:27:43.686][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][21:27:43.686][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][21:27:43.687][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][21:27:43.687][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[info][21:27:44.763][:]: ****************** Backtrace End ********************
+[info][21:27:44.763][app_debug.cpp:105]: *********UNHANDLED EXCEPTION**********
+[info][21:27:44.764][app_debug.cpp:110]: Código de excepción: 0xc00002b5
+[info][21:27:44.764][app_debug.cpp:111]: Indicadores de excepción: 0x00000000
+[info][21:27:44.764][app_debug.cpp:112]: Dirección de excepción: 0x70da69fa
+[info][21:27:44.764][app_debug.cpp:105]: *********PARAMETERS**********
+[info][21:27:44.764][app_debug.cpp:117]: Parámetros[2]:
+[info][21:27:44.764][app_debug.cpp:119]:        0: 0x00000000
+[info][21:27:44.764][app_debug.cpp:119]:        1: 0x00009f33
+[info][21:27:44.764][app_debug.cpp:105]: *********REGISTERS**********
+[info][21:27:44.764][app_debug.cpp:129]: 	EAX: 0x00000000
+[info][21:27:44.765][app_debug.cpp:129]: 	EBX: 0x00ebfe4c
+[info][21:27:44.765][app_debug.cpp:129]: 	ECX: 0x00b729c4
+[info][21:27:44.765][app_debug.cpp:129]: 	EDX: 0x00000000
+[info][21:27:44.765][app_debug.cpp:129]: 	ESI: 0x00ebfc04
+[info][21:27:44.765][app_debug.cpp:129]: 	EDI: 0x00ebf578
+[info][21:27:44.765][app_debug.cpp:129]: 	EBP: 0x00ebf578
+[info][21:27:44.765][app_debug.cpp:129]: 	ESP: 0x00ebf1e4
+[info][21:27:44.765][app_debug.cpp:129]: 	EIP: 0x70da69fa
+[info][21:27:44.765][app_debug.cpp:129]: 	EFLAGS: 0x00010246
+[info][21:27:44.766][app_debug.cpp:105]: *********CALL STACK**********
+[info][21:27:45.331][app_debug.cpp:212]: 	0x70da69fa: gta_reversed!CLoadMonitor::EndFrame:147
+[info][21:27:45.340][app_debug.cpp:212]: 	0x70ce082a: gta_reversed!CGame::Process:813
+[info][21:27:45.346][app_debug.cpp:212]: 	0x704e942d: gta_reversed!Idle:342
+[info][21:27:45.350][app_debug.cpp:212]: 	0x704bd02d: gta_reversed!AppEventHandler:169
+[info][21:27:45.353][app_debug.cpp:212]: 	0x704f62e8: gta_reversed!RsEventHandler:347
+[info][21:27:45.357][app_debug.cpp:212]: 	0x70522e3e: gta_reversed!ProcessGameLogic:343
+[info][21:27:45.358][app_debug.cpp:212]: 	0x70521dc9: gta_reversed!MainLoop:369
+[info][21:27:45.358][app_debug.cpp:212]: 	0x70522518: gta_reversed!NOTSA_WinMain:499
+[info][21:27:45.359][app_debug.cpp:212]: 	0x008246f1: gta_sa!<unknown>:0
+[info][21:27:45.360][app_debug.cpp:212]: 	0x75eb5d49: KERNEL32!BaseThreadInitThunk:0
+[info][21:27:45.361][app_debug.cpp:212]: 	0x774fc88b: ntdll!RtlInitializeExceptionChain:0
+[info][21:27:45.362][app_debug.cpp:212]: 	0x774fc811: ntdll!RtlGetAppContainerNamedObjectPath:0
+[info][21:27:45.381][app_debug.cpp:105]: *********END OF UNHANDLED EXCEPTION**********

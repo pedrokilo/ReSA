@@ -1,0 +1,1 @@
+Tasks/TaskTypes/CTaskLeanOnVehicle,Tasks/TaskTypes/CTaskSimpleCarDrive,Tasks/TaskTypes/CTaskSimpleCarDriveTimed,Tasks/TaskTypes/CTaskSimpleCarOpenDoorFromOutside,Tasks/TaskTypes/CTaskSimpleCarSetPedInAsDriver,Tasks/TaskTypes/CTaskSimpleCarSetPedInAsPassenger,Tasks/TaskTypes/CTaskSimpleTriggerEvent

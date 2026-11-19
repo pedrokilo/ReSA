@@ -1,0 +1,16 @@
+probe/*.obj
+probe/*.asi
+probe/*.pdb
+probe/*.ilk
+probe/*.exp
+probe/*.lib
+probe/*.exe
+probe/fix.py
+probe/patch2.py
+runs/*/shots/
+runs/*/backup/
+runs/*/hooks_dump.csv
+runs/*/catalog_addresses.txt
+*.done
+*.out
+build.log

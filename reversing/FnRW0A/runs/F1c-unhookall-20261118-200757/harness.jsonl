@@ -1,0 +1,4 @@
+{"t": 0.5, "ev": "lock", "ok": true}
+{"t": 4.3, "ev": "launch", "pid": 30044, "args": ["--dump-hooks-to=D:\\Original\\wv-6\\reversing\\FnRW0A\\runs\\F1c-unhookall-20261118-200757\\hooks_dump.csv", "--unhook-all"]}
+{"t": 4.3, "ev": "captura", "size": null}
+{"t": 6.3, "ev": "veredicto", "kind": "dialog", "text": "Device Selection / EXIT / OK / Please select the Device To Use:"}

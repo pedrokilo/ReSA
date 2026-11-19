@@ -1,0 +1,49 @@
+{
+  "phase": "F2",
+  "label": "B1-scripts-20261118-203825",
+  "minutes": 2.5,
+  "slot": 2,
+  "unhook": "Scripts/CRunningScript,Scripts/CScriptResourceManager,Scripts/CScripted2dEffects,Scripts/CSearchLight,Scripts/CStreamedScripts,Scripts/CTheScripts,Scripts/tUserList",
+  "unhook_except": "",
+  "unhook_all": false,
+  "passed": true,
+  "events": [],
+  "asi": {
+    "path": "D:\\Original\\wv-6\\bin\\Debug\\gta_reversed.asi",
+    "sha256": "ff45cdb1ffca993bb66520db34fbe8dfcd2c0c97e0f09d1a19651db2b72ea278",
+    "size": 50433024,
+    "mtime": "2026-11-18T16:40:03",
+    "config": "Debug (/Od, /RTC1 EnableFastChecks, CRT debug estatico, sin NDEBUG: asserts activos, EXTRA_DEBUG_FEATURES)"
+  },
+  "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "game_log_bytes_before": 129814098,
+  "backup_hashes": {
+    "scripts\\gta_reversed.asi": "48ca2addf8ec8183601df65af4e7dd7f7dcccdd6b310acc54df05810a46a5312",
+    "scripts\\gta_reversed.pdb": "d3f586a29f8d5385ce2cc77cdba3d64dde0b95fcd79380ded1094422eebced6f",
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts\\gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "args": [
+    "--dump-hooks-to=D:\\Original\\wv-6\\reversing\\FnRW0A\\runs\\B1-scripts-20261118-203825\\hooks_dump.csv",
+    "--unhook=Scripts/CRunningScript,Scripts/CScriptResourceManager,Scripts/CScripted2dEffects,Scripts/CSearchLight,Scripts/CStreamedScripts,Scripts/CTheScripts,Scripts/tUserList"
+  ],
+  "time_to_target_s": 24.5,
+  "verdict": {
+    "kind": "completada"
+  },
+  "shots": 2,
+  "peak_private_mb": 337.0,
+  "reached_target": true,
+  "duration_s": 175.2,
+  "exit_code": 1,
+  "saves_unchanged": true,
+  "game_log_levels": {
+    "info": 4,
+    "depuración": 34,
+    "?": 1,
+    "error": 3,
+    "aviso": 14
+  },
+  "game_log_bytes_added": 6963,
+  "exe_unchanged": true
+}
