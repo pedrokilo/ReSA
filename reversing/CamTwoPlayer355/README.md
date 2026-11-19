@@ -31,3 +31,11 @@ Aprobación histórica: `20261008-034201-273970`, 1024 pares. Informe: [summary.
 Validación final del lote pendiente: una aprobación histórica no acredita las fuentes actuales. El cierre requiere repetir los bancos afectados y comprobar los hashes actuales de fuentes, instrumentos, EXE y ASI ejecutada mediante el registro estricto coordinado por la raíz. Este README no autoriza activar hooks.
 
 La equivalencia está limitada a los fixtures y ramas descritos arriba. Las colaboraciones aisladas simétricamente no acreditan su implementación; estos resultados no constituyen una campaña integral de juego ni independencia del EXE.
+
+## Repeticiones
+
+### 2026-11-18 (pase final A, commit base 23c47ba081): APROBADO, 1024 pares, 0 diferencias
+
+- Motivo: el lote 199A engancho 0x513220 (`TwoPlayerCameraVisible`) y 0x5132D0 (`MouseCameraStick`), colaboradores de `CCam::Process_Cam_TwoPlayer`. Sin cambios en el banco ni en la fuente: aprobo al primer intento (`all_equal` true, `state_restored` true, saves y configuraciones intactos).
+- SHA256 de la sonda ejecutada: `6caae54c439b9036bfaec786af258af6f52d93fc3ce3bf5cc1ad20f7f8f034da`.
+- Evidencia: `reversing/CppTwelveLevel6Final/runs/CamTwoPlayer355-20261118-190635-312563`.
