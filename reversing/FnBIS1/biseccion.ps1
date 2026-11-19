@@ -119,6 +119,7 @@ try {
             $av = PyJson $Estado 'avanzar'
             if ($av.hay_fase_siguiente) {
                 Write-Host ("`nBajando al nivel de FUNCION: {0} funciones en esas clases." -f $av.n) -ForegroundColor Cyan
+                if ($Simular) { $st1 = Get-Content -Raw $Estado | ConvertFrom-Json; $simC = @($st1.U | Get-Random -Count 1 -SetSeed 3); Write-Host ('SIMULACRO: culpable oculto a nivel de funcion = ' + ($simC -join ', ')) -ForegroundColor Magenta }
                 if ($av.n -le 1) { $av = PyJson $Estado 'siguiente' }
                 continue
             }

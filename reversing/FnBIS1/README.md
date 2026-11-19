@@ -48,7 +48,7 @@ Dos fases con el mismo motor: **rutas** `Categoría/Clase` (985 candidatos) y, a
 
 **Rondas esperadas** (simulador, 985 grupos, sin ruido): 1 culpable ≈ **13** rondas por fase (1 base + ~10 búsqueda + 2 confirmaciones); 2 culpables ≈ 24; 3 ≈ 36. Con 10 % de falsos negativos: 1 culpable ≈ 24 de media (mediana 13, p90 38), acierto ≈ 93 %; 2 culpables ≈ 39 (mediana 32), acierto ≈ 93 %; 3 ≈ 53 (mediana 47), acierto ≈ 95 %. Cuando falla, lo normal es que no confirme («NO CONFIRMADO») en vez de dar un resultado erróneo con confianza. La fase de funciones suma ~7-13 rondas más (cientos de funciones por clase). Total típico con un culpable: **~20-26 rondas**; las rondas con error son cortas (se cierra solo a los 3 avisos); las rondas OK son las de 5 minutos.
 
-`simular.py [N] [pruebas] [ruido]` reproduce estas cifras (`python simular.py 985 200 0.10`).
+`simular.py [N] [pruebas] [ruido]` reproduce estas cifras (`python simular.py 985 200 0.10`); `simular.flujo_completo(k, ruido, semilla)` recorre el circuito real de `ddmin.py` (estado, fase de rutas, bajada a funciones y resultado): con 1 culpable 13 rondas de rutas + 4 de funciones (17); con 2 culpables 25 + 7 (32). `biseccion.ps1 -Simular` recorre el circuito PowerShell completo (copia/restauración por hash con `jugar.ps1 -Simular`, la DLL nueva `fbf61e4c...` instalada, argumentos de cada ronda comprobados) con un oráculo oculto; se probó hasta la ronda 9 de rutas con 2 culpables y 10 % de ruido y la bajada a funciones.
 
 ## Qué se excluye de los candidatos (22 rutas)
 

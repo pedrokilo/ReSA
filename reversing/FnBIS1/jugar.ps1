@@ -42,6 +42,7 @@ if ($Carpeta.TrimEnd('\') -ieq 'E:\JUEGOS\GTA San Andreas') { throw 'Esa es la i
 
 # Lo unico que se reemplaza (rutas relativas a la carpeta del juego). Nada de partidas ni userfiles.
 $archivos = @('scripts\gta_reversed.asi', 'scripts\gta_reversed.pdb', 'gta-reversed.ini', 'scripts\gta-reversed.ini')
+if ($Simular) { $archivos = @($archivos | Where-Object { $_ -notlike '*.pdb' }) }   # BIS1: el simulacro no copia el PDB (450 MB) para ir rapido
 
 function Hash($p) { if (Test-Path -LiteralPath $p -PathType Leaf) { (Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToLower() } else { $null } }
 
@@ -163,7 +164,8 @@ try {
 
     # 5) Instalar la variante
     Copy-Item -LiteralPath $asi -Destination (Join-Path $Carpeta 'scripts\gta_reversed.asi') -Force
-    if (Test-Path -LiteralPath $pdb) { Copy-Item -LiteralPath $pdb -Destination (Join-Path $Carpeta 'scripts\gta_reversed.pdb') -Force }
+    if ($Simular) { }
+    elseif (Test-Path -LiteralPath $pdb) { Copy-Item -LiteralPath $pdb -Destination (Join-Path $Carpeta 'scripts\gta_reversed.pdb') -Force }
     else { Remove-Item -LiteralPath (Join-Path $Carpeta 'scripts\gta_reversed.pdb') -Force -ErrorAction SilentlyContinue }
     Copy-Item -LiteralPath $ini -Destination (Join-Path $Carpeta 'gta-reversed.ini') -Force
     Copy-Item -LiteralPath $ini -Destination (Join-Path $Carpeta 'scripts\gta-reversed.ini') -Force

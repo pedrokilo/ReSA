@@ -33,3 +33,29 @@ if __name__ == '__main__':
             res = [r for r in res if r]
             ok = sum(1 for r in res if r[0]); rd = [r[1] for r in res]
             print(f'culpables={k} ruido={rr:.2f}: correctos {ok}/{len(res)}  rondas media={statistics.mean(rd):.1f} mediana={statistics.median(rd)} p90={sorted(rd)[int(len(rd)*.9)]} max={max(rd)}')
+
+
+def flujo_completo(k_rutas=1, ruido=0.0, semilla=1):
+    """Recorre el circuito real de ddmin.py (estado, fase de rutas, bajada a funciones, resultado) con un oraculo oculto."""
+    import tempfile, os
+    rng = random.Random(semilla)
+    p = os.path.join(tempfile.mkdtemp(), 'estado.json')
+    st = ddmin.nuevo_estado(); ddmin.guardar(p, st)
+    culp_rutas = set(rng.sample(st['U'], k_rutas)); fn_culp = None
+    rondas = 0
+    while True:
+        st = ddmin.cargar(p); s = ddmin.siguiente(st)
+        if s['accion'] == 'fin':
+            assert set(s['culpables']) == (culp_rutas if st['fase'] == 'rutas' else {fn_culp}), (s, culp_rutas, fn_culp)
+            if st['fase'] == 'rutas':
+                hay = ddmin.avanzar(st); ddmin.guardar(p, st)
+                fn_culp = rng.choice(st['U']); print(f"  fase rutas OK en {rondas} rondas; {len(st['U'])} funciones; culpable oculto: {fn_culp}")
+                continue
+            ddmin.avanzar(st); ddmin.guardar(p, st); break
+        oculto = culp_rutas if st['fase'] == 'rutas' else {fn_culp}
+        off = set(s['apagar']); en = bool(oculto - off)
+        res = 'E' if en and rng.random() >= ruido else 'O'
+        ddmin.registrar(st, res, duracion='1'); ddmin.guardar(p, st); rondas += 1
+    st = ddmin.cargar(p)
+    print(f"  fin: {rondas} rondas; culpable funcion = {st['culpables_funciones']} info={st['info_funciones'][st['culpables_funciones'][0]]}")
+    return rondas
