@@ -10,14 +10,20 @@
 #include "Timer.h"
 #include "ColStore.h"
 #include "ModelInfo.h"
+#include "PathFind.h"
 #include "reversiblehooks/RootHookCategory.h"
 #include "TaskComplexEnterCarAsDriver.h"
 #include "TaskSimpleCarSetPedOut.h"
+#include "TaskSimpleCarAlign.h"
+#include "TaskUtilityLineUpPedWithCar.h"
+#include "AnimBlendAssociation.h"
+#include "AnimBlendHierarchy.h"
 #include <Utility.h>
 
 namespace AutoSteal {
 namespace {
 bool   s_enabled{};
+bool   s_traffic{};    // 6.o campo de --robar: robar un coche de TRAFICO real cercano (como hace el usuario) en vez de crear uno
 bool   s_watch{};      // --vigilar-nan: solo observa (sin ciclos de robo); vuelca el anillo al primer NaN/caida del jugador
 int    s_cycles{ 20 };
 uint32 s_periodMs{ 20000 };
@@ -35,7 +41,7 @@ int    s_vehRef{ -1 }, s_drvRef{ -1 };
 int    s_stolen{}, s_failed{}, s_nan{}, s_falls{}, s_spawnFail{};
 bool   s_cycleNaN{}, s_cycleFall{};
 float  s_minZ{ 1e9f };
-uint32 s_lastSkipLog{}; int s_skips{}; float s_lastGz{}; CVector s_lastAt{};
+uint32 s_lastSkipLog{}; uint32 s_lastRelocate{}; int s_skips{}; float s_lastGz{}; CVector s_lastAt{};
 constexpr int32 MODELS[]{ 496, 436, 401, 410, 517, 405, 549, 507 };
 
 CVehicle* Veh() { return s_vehRef >= 0 ? GetVehiclePool()->GetAtRef(s_vehRef) : nullptr; }
@@ -50,7 +56,8 @@ void Freeze(CVehicle* v) {
     v->m_autoPilot.SetTempAction(TEMPACT_WAIT, 30000);
 }
 
-struct Rec { uint32 t; int cycle, state, task, simple, inVeh, drvIn; float p[3], v[3], d[3], vs[3]; bool mNaN; };
+struct Rec { uint32 t; int cycle, state, task, simple, inVeh, drvIn; float p[3], v[3], d[3], vs[3]; bool mNaN;
+             bool al; int alModel, alDoor, alAnim, alType, alDoorIdx; float alCur, alTotal, alHeading, alUpZ, alRot, alAim, alZ, alVp[3]; };
 Rec  s_ring[256]; uint32 s_ringN{}; bool s_dumped{};
 int  TaskT(CTask* t) { return t ? (int)t->GetTaskType() : -1; }
 
@@ -66,6 +73,20 @@ void Record(CPlayerPed* pl, uint32 now) {
         r.vs[0] = v->m_vecMoveSpeed.x; r.vs[1] = v->m_vecMoveSpeed.y; r.vs[2] = v->m_vecMoveSpeed.z;
         r.drvIn = v->m_pDriver ? (v->m_pDriver == pl ? 2 : 1) : 0;
         if (const auto d = v->m_pDriver) { const auto dp = d->GetPosition(); r.d[0] = dp.x; r.d[1] = dp.y; r.d[2] = dp.z; }
+    }
+    // Diagnostico de CTaskSimpleCarAlign (801): el NaN del jugador aparecio justo al pasar a esta tarea.
+    if (const auto st = pl->GetTaskManager().GetSimplestActiveTask(); st && st->GetTaskType() == TASK_SIMPLE_CAR_ALIGN) {
+        const auto t = static_cast<CTaskSimpleCarAlign*>(st);
+        r.al = true; r.alDoor = (int)t->m_door; r.alRot = pl->m_fCurrentRotation; r.alAim = pl->m_fAimingRotation;
+        if (const auto v = t->m_veh) {
+            r.alModel = v->m_nModelIndex; r.alHeading = v->GetHeading();
+            if (v->m_matrix) r.alUpZ = v->m_matrix->GetUp().z;
+            r.alVp[0] = v->GetPosition().x; r.alVp[1] = v->GetPosition().y; r.alVp[2] = v->GetPosition().z;
+        }
+        if (const auto a = t->m_anim) {
+            r.alAnim = (int)a->m_AnimId; r.alCur = a->m_CurrentTime; r.alTotal = a->m_BlendHier ? a->m_BlendHier->m_fTotalTime : -1.f;
+        } else r.alAnim = -1;
+        if (const auto l = t->m_lineUpTask) { r.alType = l->m_nDoorOpenPosType; r.alDoorIdx = l->m_nDoorIdx; r.alZ = l->m_fDoorOpenPosZ; }
     }
     s_ring[s_ringN++ % std::size(s_ring)] = r;
 }
@@ -83,6 +104,8 @@ void DumpRing(const char* motivo) {
         const auto& r = s_ring[i % std::size(s_ring)];
         NOTSA_LOG_WARN("[ROBAR]  {} c{} e{} T{} S{} v{} d{} CJ({:.2f},{:.2f},{:.2f}) car({:.2f},{:.2f},{:.2f}) drv({:.2f},{:.2f},{:.2f}) vel({:.3f},{:.3f},{:.3f}) mNaN{}",
             r.t, r.cycle, r.state, r.task, r.simple, r.inVeh, r.drvIn, r.p[0], r.p[1], r.p[2], r.v[0], r.v[1], r.v[2], r.d[0], r.d[1], r.d[2], r.vs[0], r.vs[1], r.vs[2], (int)r.mNaN);
+        if (r.al) NOTSA_LOG_WARN("[ROBAR]    ALIGN modelo={} puerta={} anim={} t={:.4f}/{:.4f} lineup(tipo={} idx={} zPuerta={:.3f}) cocheHeading={:.3f} up.z={:.3f} coche({:.2f},{:.2f},{:.2f}) rotCJ={:.3f} aim={:.3f}",
+            r.alModel, r.alDoor, r.alAnim, r.alCur, r.alTotal, r.alType, r.alDoorIdx, r.alZ, r.alHeading, r.alUpZ, r.alVp[0], r.alVp[1], r.alVp[2], r.alRot, r.alAim);
     }
 }
 
@@ -157,6 +180,7 @@ void Configure(std::string_view spec) {
         case 2: if (v >= 0) s_startDelayMs = v * 1000u; break;
         case 3: if (v >= 0) s_driveMs = v * 1000u; break;
         case 4: s_scaffold = v != 0; break;
+        case 5: s_traffic = v != 0; break;
         }
     }
     NOTSA_LOG_INFO("[ROBAR] activado: {} ciclos, cada {} s, espera inicial {} s, conducir {} s", s_cycles, s_periodMs / 1000, s_startDelayMs / 1000, s_driveMs / 1000);
@@ -191,6 +215,62 @@ void OnFrame() {
     switch (s_state) {
     case State::Wait: {
         if (now < s_nextStart || BadVec(pl->GetPosition())) break;
+        if (s_traffic) {
+            // Coche de trafico REAL (creado por el generador del juego, con conductor peaton aleatorio): el mismo camino que el
+            // usuario al robar; CJ se coloca junto a su puerta y se le asigna CTaskComplexEnterCarAsDriver.
+            CVehicle* best = nullptr; float bd = 250.f; int conductores = 0, total = 0;
+            for (auto& veh : GetVehiclePool()->GetAllValid()) {
+                ++total;
+                const auto d = veh.m_pDriver;
+                if (d) ++conductores;
+                if (!veh.IsAutomobile() || veh.m_nCreatedBy != RANDOM_VEHICLE || !d || d == pl || !d->IsAlive() || veh.IsLawEnforcementVehicle()) continue;
+                if (veh.vehicleFlags.bIsLocked || BadVec(veh.GetPosition())) continue;
+                const float dist = (veh.GetPosition() - pl->GetPosition()).Magnitude();
+                if (dist < bd) { bd = dist; best = &veh; }
+            }
+            if (!best) {
+                if (now - s_lastSkipLog > 5000) { s_lastSkipLog = now; NOTSA_LOG_INFO("[ROBAR] ciclo {}: no hay coche de trafico libre con conductor a menos de 250 m; se espera (vehiculos={} con_conductor={})", s_cycle + 1, total, conductores); }
+                // Donde esta CJ (junto a su casa) no se genera trafico: se le coloca sobre el nodo de carretera mas cercano
+                // y se espera a que el generador del juego cree coches alrededor (cada 25 s como maximo).
+                if (now - s_lastRelocate > 25000) {
+                    s_lastRelocate = now;
+                    const auto addr = ThePaths.FindNodeClosestToCoors(pl->GetPosition(), PATH_TYPE_VEH, 400.f, 1, 0, 0, 0, 0);
+                    if (addr.IsValid()) {
+                        if (const auto node = ThePaths.GetPathNode(addr)) {
+                            const auto np = node->GetPosition();
+                            bool ok = false;
+                            const float gz = CWorld::FindGroundZFor3DCoord(CVector{ np.x, np.y, np.z + 2.f }, &ok, nullptr);
+                            if (ok && CColStore::HasCollisionLoaded(np, CGame::currArea)) {
+                                pl->Teleport(CVector{ np.x, np.y, gz + 1.f }, false);
+                                s_nextStart = now + 12000;
+                                NOTSA_LOG_INFO("[ROBAR] ciclo {}: CJ colocado en el nodo de carretera mas cercano ({:.1f},{:.1f},{:.1f}); se espera trafico", s_cycle + 1, np.x, np.y, gz);
+                                break;
+                            }
+                        }
+                    }
+                }
+                ++s_skips; s_nextStart = now + 1000; break;
+            }
+            const auto at = best->GetPosition();
+            bool sueloOk = false;
+            const float gz = CWorld::FindGroundZFor3DCoord(CVector{ at.x, at.y, at.z + 1.f }, &sueloOk, nullptr);
+            if (!CColStore::HasCollisionLoaded(at, CGame::currArea) || !sueloOk) { ++s_skips; s_nextStart = now + 1000; break; }
+            s_lastGz = gz; s_lastAt = at;
+            s_vehRef = GetVehiclePool()->GetRef(best);
+            s_drvRef = GetPedPool()->GetRef(best->m_pDriver);
+            best->vehicleFlags.bIsLocked = false;
+            best->m_nDoorLock = CARLOCK_UNLOCKED;
+            Freeze(best);
+            const auto right = best->GetRight();
+            const auto door = best->GetPosition() - CVector{ right.x, right.y, 0.f } * 1.8f;
+            pl->Teleport(CVector{ door.x, door.y, best->GetPosition().z }, false);
+            pl->m_fCurrentRotation = pl->m_fAimingRotation = std::atan2(right.x, -right.y);
+            s_stateT0 = now;
+            s_state = State::Steal;
+            NOTSA_LOG_INFO("[ROBAR] ciclo {}: coche de TRAFICO modelo {} (conductor modelo {}) en ({:.1f},{:.1f},{:.1f}) suelo_z={:.1f} distancia={:.1f} busqueda={}",
+                s_cycle + 1, (int)best->m_nModelIndex, (int)best->m_pDriver->m_nModelIndex, at.x, at.y, at.z, gz, bd, (int)pl->GetWantedLevel());
+            break;
+        }
         const int32 model = MODELS[s_cycle % std::size(MODELS)];
         if (!CStreaming::IsModelLoaded(model)) {
             CStreaming::RequestModel(model, STREAMING_GAME_REQUIRED);
