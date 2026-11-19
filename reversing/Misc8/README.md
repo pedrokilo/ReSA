@@ -48,3 +48,6 @@ Validadas el 02/10/2026 con **11.712 pares original/candidato dentro de GTA**, t
 - Todo el estado global tocado se guarda y se restaura.
 
 Repetir: `python reversing/Misc8/build_probe.py` y `python reversing/run.py --case misc8`. Evidencia: [validation-summary.json](validation-summary.json).
+
+## Repeticiones
+- 2026-11-18, commit base b01d46f958 (pase final C, riesgo por constructores de `FxInfo*_c`): **APROBADO**, 11.712 pares con 0 diferencias EXE/DLL (20 funciones, el reparto de pares igual que en la validación). `FxInfoManager_c::AddFxInfo` ejecuta con la arena FX falsa los constructores REALES de `FxInfo*_c` (EXE con hook apagado, DLL en línea) y el volcado de la arena, incluidos los bytes +6/+7 que desde 215A/216A los constructores ya no ponen a cero, coincide en ambos lados. Informe `resultados-misc8/20261118-194325-266377`, archivado en `reversing/CppTwelveLevel6Final/runs/Misc8-20261118-194325-266377` (comparisons.jsonl.gz, RESULTADO.txt, summary.json). SHA256 de la sonda: `243b34010bfcbdc9710aea21966ce58081c3fde9ca72d4e9c15e4476765d6868`. Cambio del banco: `run_local.py` usa un analizador en flujo (como Fn232A) en vez de `probe_case.analyzer`. Este banco no tiene oráculo Python independiente (la comparación es EXE contra DLL, como en la validación original). Ninguna fuente de producción cambió.
