@@ -123,6 +123,7 @@ def rw_modules(root):
 EXCLUDED_LABELS = {
     'usercall-cubierta': '__usercall cubiertas por llamadoras validadas',
     'usercall-parcial': '__usercall con llamadoras sin validar',
+    'sustituida-por-crt': 'separador de la línea de comandos que sustituye el CRT (lote G3A)',
     'usercall-sin-llamadores': '__usercall sin llamadores',
     'usercall-renderware': '__usercall de RenderWare (plan de validación de RenderWare)',
     'salto-puro': 'saltos puros a una función ya reconstruida',

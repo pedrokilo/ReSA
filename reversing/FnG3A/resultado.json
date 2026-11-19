@@ -1,0 +1,2028 @@
+{
+ "exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+ "va": "0x00746480",
+ "sha256_cuerpo": "82d2bb6e491f95133e0024727fe2fc2ea1ab30aa0cdac2d7492cb548bc0a7ee6",
+ "emulacion_vs_oraculo": {
+  "casos": 56692,
+  "diferencias": 0
+ },
+ "oraculo_vs_crt": {
+  "casos": 56692,
+  "por_clase": {
+   "iguales": 13018,
+   "benigno": 38385,
+   "efecto-vms": 256,
+   "ub-original": 5033
+  },
+  "por_grupo": {
+   "real": {
+    "iguales": 105
+   },
+   "real-barra-final": {
+    "benigno": 14,
+    "efecto-vms": 7
+   },
+   "artificial": {
+    "iguales": 51,
+    "efecto-vms": 29,
+    "benigno": 31,
+    "ub-original": 37
+   },
+   "exhaustiva": {
+    "iguales": 9263,
+    "benigno": 14938,
+    "ub-original": 1924
+   },
+   "aleatoria": {
+    "benigno": 19040,
+    "ub-original": 2594,
+    "iguales": 2364
+   },
+   "mezcla-vms": {
+    "ub-original": 469,
+    "benigno": 4362,
+    "iguales": 1224,
+    "efecto-vms": 220
+   },
+   "larga": {
+    "iguales": 11,
+    "ub-original": 9
+   }
+  },
+  "rasgos_de_efecto_vms": {
+   "barra-invertida+comilla": 71,
+   "otro(comillas intermedias o vacias)": 15,
+   "separador-de-control(<0x20 salvo tab)": 208,
+   "comillas-dobles-seguidas": 61,
+   "comillas-impares": 57,
+   "bytes-altos": 54
+  }
+ },
+ "ejemplos": {
+  "aleatoria/benigno": [
+   {
+    "linea": "\"a\"\"\rb\"\r\\\"\"a\n \\b\r\\\t\r\"\"bab\"\\\"\" \"\t\"\t\t\t\"\\ \"a\r\n\t \" \"\"\"\n\r\rb\"\"\"\n\"\t\\\\\"\"\"\\\t\"\"\\\\\\\"\n\\ \"\t\\\n",
+    "original": [
+     "a\"\"\rb",
+     "\\\"\"a",
+     "\\b",
+     "\\",
+     "bab\"\\\"\" ",
+     "\t\t\t\"\\"
+    ],
+    "crt": [
+     "a\rb\r\\a\n",
+     "\\b\r\\",
+     "\rbab\"",
+     "\t",
+     "\\ a\r\n",
+     " \"\n\r\rb\"\n"
+    ]
+   },
+   {
+    "linea": "¶³\r·ª¼ïTk=",
+    "original": [
+     "¶³",
+     "·ª¼ïTk="
+    ],
+    "crt": [
+     "¶³\r·ª¼ïTk="
+    ]
+   },
+   {
+    "linea": "vsmwv -vv-svsww \" \"\" sw\"\"\"\"s-\"v  s - \"--",
+    "original": [
+     "vsmwv",
+     "-vv-svsww",
+     " \"\" sw\"\"\"\"s-\"v",
+     "s",
+     "-",
+     "--"
+    ],
+    "crt": [
+     "vsmwv",
+     "-vv-svsww",
+     " \" sw\"\"s-v",
+     "s",
+     "-",
+     "--"
+    ]
+   },
+   {
+    "linea": "Á\u0012ýÊïct'p»bçF§º\u0001\u0013Ècª¯ýÈÙ!\u0006o:5td|Ï\u0017­ý8\túØ½]éjÄyÊÐA°\\§öî÷;p2ë¤Ûu§âì\u0019±ù±,L*Æ",
+    "original": [
+     "Á",
+     "ýÊïct'p»bçF§º",
+     "",
+     "Ècª¯ýÈÙ!",
+     "o:5td|Ï",
+     "­ý8"
+    ],
+    "crt": [
+     "Á\u0012ýÊïct'p»bçF§º\u0001\u0013Ècª¯ýÈÙ!\u0006o:5td|Ï\u0017­ý8",
+     "úØ½]éjÄyÊÐA°\\§öî÷;p2ë¤Ûu§âì\u0019±ù±,L*Æ"
+    ]
+   },
+   {
+    "linea": "v-mwv svs- s-sw\"-\"-w ww\"\"w----mvw vwm mv m\"vmssv w wsmssmswmw-w- sw\"v-\"wm-vm\"sw\"",
+    "original": [
+     "v-mwv",
+     "svs-",
+     "s-sw\"-\"-w",
+     "ww\"\"w----mvw",
+     "vwm",
+     "mv"
+    ],
+    "crt": [
+     "v-mwv",
+     "svs-",
+     "s-sw--w",
+     "www----mvw",
+     "vwm",
+     "mv"
+    ]
+   },
+   {
+    "linea": "v -\"-ssv--m-vm w\"vws\"mw--svss mws  vm-wv",
+    "original": [
+     "v",
+     "-\"-ssv--m-vm w\"vws\"mw--svss mws  vm-wv"
+    ],
+    "crt": [
+     "v",
+     "--ssv--m-vm wvwsmw--svss mws  vm-wv"
+    ]
+   },
+   {
+    "linea": "æÚT;F×*¯!°ä¥\u0006\u0013XQöû\u000b¹#ð\u000e|\u0010I'D±( ®¡&î\u001c\u001fTWíæùIZèÿò[¿\r\u001f4\u0011ÌÊ·Là_!pÈ\b\u0006_*_\u0013x",
+    "original": [
+     "æÚT;F×*¯!°ä¥",
+     "",
+     "XQöû",
+     "¹#ð",
+     "|",
+     "I'D±("
+    ],
+    "crt": [
+     "æÚT;F×*¯!°ä¥\u0006\u0013XQöû\u000b¹#ð\u000e|\u0010I'D±(",
+     "®¡&î\u001c\u001fTWíæùIZèÿò[¿\r\u001f4\u0011ÌÊ·Là_!pÈ\b\u0006_*_\u0013x"
+    ]
+   },
+   {
+    "linea": "-\" -ma\\\\ a \\-a- \"m-v",
+    "original": [
+     "-\" -ma\\\\ a \\-a- \"m-v"
+    ],
+    "crt": [
+     "- -ma\\\\ a \\-a- m-v"
+    ]
+   },
+   {
+    "linea": "\r\\ \t\tb\" \t\rb ",
+    "original": [
+     "\\",
+     "b\" \t\rb "
+    ],
+    "crt": [
+     "\r\\",
+     "b \t\rb "
+    ]
+   },
+   {
+    "linea": "a \\ \\\" \\  \"\"",
+    "original": [
+     "a",
+     "\\",
+     "\\\" \\  \""
+    ],
+    "crt": [
+     "a",
+     "\\",
+     "\"",
+     "\\",
+     ""
+    ]
+   },
+   {
+    "linea": " \"mv\\\\-m",
+    "original": [
+     "mv\\\\-m"
+    ],
+    "crt": [
+     "",
+     "mv\\\\-m"
+    ]
+   },
+   {
+    "linea": " m ma-\"vm \\ ",
+    "original": [
+     "m",
+     "ma-\"vm \\ "
+    ],
+    "crt": [
+     "",
+     "m",
+     "ma-vm \\ "
+    ]
+   }
+  ],
+  "aleatoria/ub-original": [
+   {
+    "linea": "\"\" baab\t \"b\t",
+    "original": [
+     "baab",
+     "b\t",
+     null
+    ],
+    "crt": [
+     "",
+     "baab",
+     "b\t"
+    ]
+   },
+   {
+    "linea": "\" \r\t\r\"\" b\\ \"\\ b \\ b\ta bb \n\"bb\r\rb\ta\"\r\n\t\n\\\"\r\"\"\"a\" \\b\n\"\t\t\n\\b\r\\\"\" \r  b\\\"\"\n\\\" \t\" b\r\t\t\r\\a\t \"\"a\t\n\\ \"a\r\n\"\\a \"\n b  \\\"\" \"\"\\\n\ta \n\\\\\t b\r\\\n\" \tb\\  \r\r\\ \"\t \t\n\\\r\\\"\"\r\"\\\r\\ \"\"\na\n\"a",
+    "original": [
+     " \r\t\r\"\" b\\ \"\\",
+     "b",
+     "\\",
+     "b",
+     "a",
+     "bb"
+    ],
+    "crt": [
+     " \r\t\r b\\ \\",
+     "b",
+     "\\",
+     "b",
+     "a",
+     "bb"
+    ]
+   },
+   {
+    "linea": "\t \"\"\t\"\\\\b \"\"\"b\\\" \t \"\" ba \t\\\tbab\\ \"aab \\\"",
+    "original": [
+     "\\\\b \"\"\"b\\\" \t \"\" ba \t\\\tbab\\ \"aab",
+     "\\",
+     null
+    ],
+    "crt": [
+     "",
+     "",
+     "\\\\b \"b\"",
+     "",
+     "ba",
+     "\\"
+    ]
+   },
+   {
+    "linea": "baab \"\t\"  \"a\\\"b\\\t\" \"\"\ta\\\t \t\\\t\" \"\\a \t\"bab\t\tb\"ab\" \\a \\ ba\t\" b \"\\\"\"\\a\t\taab\t\"b\\a\\\"\t\t  \"a\t\"\t \"aa\\a \t\\bbb \"a\t\t\"\\b\tab\\   a \"b \t\t \\ a\\b\tab\tb b\t \"\"\t\\ba \t\t   abba\ta\"\t\\\t\\\"",
+    "original": [
+     "baab",
+     "\t",
+     "a\\\"b\\",
+     " \"\"\ta\\\t \t\\\t",
+     "\\a \t\"bab",
+     "b\"ab"
+    ],
+    "crt": [
+     "baab",
+     "\t",
+     "a\"b\\\t",
+     "",
+     "a\\",
+     "\\"
+    ]
+   },
+   {
+    "linea": " \"b\"\"\"b\" b a\tb\"a\\\"\\\\\\a\t\t\"b \"\t\"b\"\"b\\ab\t\"\"b\\\ta \"  b\t\" \\bb \\b a\"b\"aa\"b\ta \\\ta \\ \t\\ a\"\\\t\\ \"\\ b\" b\t \"\"a\\\t\\ \"a \"bb\t\\b\"\t\\\t b  \\\" a bbb \"\t\tab bb\ta\\\tb  ba \ta\\a\\\" \"\"\\ \\\"ba",
+    "original": [
+     "b\"\"\"b\" b a\tb\"a\\\"\\\\\\a\t\t\"b",
+     "\t\"b\"\"b\\ab",
+     "b\\",
+     "a",
+     "  b\t",
+     "\\bb"
+    ],
+    "crt": [
+     "",
+     "b\"b b a\tba\"\\\\\\a",
+     "b ",
+     "b\"b\\ab\t\"b\\\ta ",
+     "b",
+     " \\bb \\b abaab"
+    ]
+   },
+   {
+    "linea": "a a b\t\t\"",
+    "original": [
+     "a",
+     "a",
+     "b",
+     null
+    ],
+    "crt": [
+     "a",
+     "a",
+     "b",
+     ""
+    ]
+   },
+   {
+    "linea": "\"\n \"\r\"\\\"\t\"\n\" \n\\\"\r\"\t  \\ \"  \\\\aa b\"\rb\"aa\"b \ra\t\"\"\\\\  \\\n\t \n\\\r\\\r\"\" \"    \r\n\"\"\\\\\\ \t\\bb\" \n\"\"\t \\\\\\a\"b\\b\n\r \\\" \"\n\n\\\t \" \"\r\\\"a\"\"\r\\a\\ \\b\\\n\"\"\r \n \r\n\n\\a\r\rbb\"\"\n\na a\r\\\r\"  \\\nb\"a\r\r\\",
+    "original": [
+     "\n ",
+     "\\",
+     "\n",
+     "\\\"\r",
+     "\\",
+     "  \\\\aa b"
+    ],
+    "crt": [
+     "\n \r\\",
+     "\n",
+     "\n\"\r\t  \\ ",
+     "\\\\aa",
+     "b\rbaab \ra\t\"\\\\  \\\n\t \n\\\r\\\r\" ",
+     "\r\n\\\\\\"
+    ]
+   },
+   {
+    "linea": "sw---\"m -sw-sv  vvwsvwvv msvsssww\" w s- \"\" m-vwwws-- s\"s\"\" m --\"vw-wm\"-mm - \"vvm",
+    "original": [
+     "sw---\"m -sw-sv  vvwsvwvv msvsssww",
+     "w",
+     "s-",
+     "m-vwwws--",
+     "s\"s\"\" m --\"vw-wm\"-mm - \"vvm",
+     null
+    ],
+    "crt": [
+     "sw---m -sw-sv  vvwsvwvv msvsssww",
+     "w",
+     "s-",
+     "",
+     "m-vwwws--",
+     "ss\" m --vw-wm-mm - vvm"
+    ]
+   },
+   {
+    "linea": "\t\"\" \"a\"a \"a\"a\"  a\ta\tb\"\\b \\\"\"\"\tb\\\\ab\" \tbb\t a\"\"\\a\\ab\"baaa  \\\"\tbb\" b\\ \\ a\t\\\"\"aabba\\",
+    "original": [
+     "a\"a",
+     "a\"a\"  a\ta\tb\"\\b",
+     "\\\"\"\"\tb\\\\ab",
+     "bb",
+     "a\"\"\\a\\ab\"baaa  \\",
+     "bb\" b\\ \\ a\t\\\"\"aabba\\"
+    ],
+    "crt": [
+     "",
+     "",
+     "aa",
+     "aa  a\ta\tb\\b",
+     "\"",
+     "b\\\\ab \tbb\t a\"\\a\\abbaaa"
+    ]
+   },
+   {
+    "linea": "b\"\tb\\a \t\\\"a\t \"\t \"\t\\\tb\t\\\"\ta\"\"\t\\ a\tb\"\\\\b\tba ba \t\"\\\tbb\"\\ab\tb \t\\b\\aa\"\"a \"\"\tb\t\"a\t\"\" a",
+    "original": [
+     "b\"\tb\\a \t\\\"a",
+     "\t ",
+     "\\",
+     "b",
+     "\\\"\ta\"\"\t\\ a\tb\"\\\\b",
+     "ba"
+    ],
+    "crt": [
+     "b\tb\\a \t\\a",
+     "\t ",
+     "\\",
+     "b",
+     "\"",
+     "a"
+    ]
+   },
+   {
+    "linea": "\\a\n\n \n\" \"aa\"\"\"\\ \\b  \" a\"\"\"\\\t\"a\t\rb\n b\r\n\"\rb\n\" \r\\\r\t\ta \r a\t\r\"\"\r\n\t\\\n\\ \"a\tb\n\n\n\"\\b\"\\\"\"\"",
+    "original": [
+     "\\a",
+     " \"aa\"\"\"\\ \\b  ",
+     "a\"\"\"\\\t\"a",
+     "b",
+     "b",
+     "\rb\n"
+    ],
+    "crt": [
+     "\\a\n\n",
+     "\n aa\"\\ \\b  ",
+     "a\"\\\ta",
+     "\rb\n",
+     "b\r\n\rb\n",
+     "\r\\\r"
+    ]
+   },
+   {
+    "linea": " bb\"a\"\"\t \ta \"  a\t\\\\bb\ta \\\"\t\"a\t \t\"\\\\\\b\t \tb\tb\\b\taaba\"\\\t \\ a\" \\  \\\taa\t\t\"\t\t bb\\b\t a\ta\\\\b\"\" ab \"a a \"bba \t\\\\ \t\"ab\\\"\\aa\t\"a \t\\aa\tb b a a\\aba   \t \\\"\tb a\\\t\"b\"b\tb \" \\a\\aa",
+    "original": [
+     "bb\"a\"\"\t \ta ",
+     "a",
+     "\\\\bb",
+     "a",
+     "\\\"\t\"a",
+     "\\\\\\b\t \tb\tb\\b\taaba\"\\"
+    ],
+    "crt": [
+     "",
+     "bba\"\t \ta ",
+     "a",
+     "\\\\bb",
+     "a",
+     "\""
+    ]
+   }
+  ],
+  "artificial/benigno": [
+   {
+    "linea": "gta_sa.exe \"a b\"c",
+    "original": [
+     "gta_sa.exe",
+     "a b\"c"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "a bc"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe a\"b c\"d",
+    "original": [
+     "gta_sa.exe",
+     "a\"b c\"d"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "ab cd"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \\\"-vms\\\"",
+    "original": [
+     "gta_sa.exe",
+     "\\\"-vms\\"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\"-vms\""
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -x=\\\"a b\\\"",
+    "original": [
+     "gta_sa.exe",
+     "-x=\\\"a b\\"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-x=\"a",
+     "b\""
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" \"a b\"c",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "a b\"c"
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "a bc"
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" a\"b c\"d",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "a\"b c\"d"
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "ab cd"
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" \\\"-vms\\\"",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "\\\"-vms\\"
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "\"-vms\""
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" -x=\\\"a b\\\"",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-x=\\\"a b\\"
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-x=\"a",
+     "b\""
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe \"a b\"c",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "a b\"c"
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "a bc"
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe a\"b c\"d",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "a\"b c\"d"
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "ab cd"
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe \\\"-vms\\\"",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "\\\"-vms\\"
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "\"-vms\""
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe -x=\\\"a b\\\"",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "-x=\\\"a b\\"
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "-x=\"a",
+     "b\""
+    ]
+   }
+  ],
+  "artificial/efecto-vms": [
+   {
+    "linea": "gta_sa.exe -\"vms\"",
+    "original": [
+     "gta_sa.exe",
+     "-\"vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-vms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -v\"m\"s",
+    "original": [
+     "gta_sa.exe",
+     "-v\"m\"s"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-vms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -vms\r\n",
+    "original": [
+     "gta_sa.exe",
+     "-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-vms\r\n"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -vms\u0001-windowed",
+    "original": [
+     "gta_sa.exe",
+     "-vms",
+     "-windowed"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-vms\u0001-windowed"
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" -\"vms\"",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-\"vms"
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms"
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" -v\"m\"s",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-v\"m\"s"
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms"
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" -vms\r\n",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms"
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms\r\n"
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" -vms\u0001-windowed",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms",
+     "-windowed"
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms\u0001-windowed"
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe -\"vms\"",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "-\"vms"
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "-vms"
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe -v\"m\"s",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "-v\"m\"s"
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "-vms"
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe -vms\r\n",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "-vms"
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "-vms\r\n"
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe -vms\u0001-windowed",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "-vms",
+     "-windowed"
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "-vms\u0001-windowed"
+    ]
+   }
+  ],
+  "artificial/ub-original": [
+   {
+    "linea": "gta_sa.exe \"\" -vms",
+    "original": [
+     "gta_sa.exe",
+     "-vms",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "",
+     "-vms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -vms \"\"",
+    "original": [
+     "gta_sa.exe",
+     "-vms",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-vms",
+     ""
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \"\"",
+    "original": [
+     "gta_sa.exe",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     ""
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \"",
+    "original": [
+     "gta_sa.exe",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     ""
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -vms \"",
+    "original": [
+     "gta_sa.exe",
+     "-vms",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-vms",
+     ""
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" \"\" -vms",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms",
+     null
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "",
+     "-vms"
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" -vms \"\"",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms",
+     null
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms",
+     ""
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" \"\"",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     null
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     ""
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" \"",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     null
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     ""
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" -vms \"",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms",
+     null
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms",
+     ""
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe \"\" -vms",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "-vms",
+     null
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "",
+     "-vms"
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe -vms \"\"",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "-vms",
+     null
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "-vms",
+     ""
+    ]
+   }
+  ],
+  "exhaustiva/benigno": [
+   {
+    "linea": "  ",
+    "original": [],
+    "crt": [
+     ""
+    ]
+   },
+   {
+    "linea": " \t",
+    "original": [],
+    "crt": [
+     ""
+    ]
+   },
+   {
+    "linea": " \\",
+    "original": [
+     "\\"
+    ],
+    "crt": [
+     "",
+     "\\"
+    ]
+   },
+   {
+    "linea": " a",
+    "original": [
+     "a"
+    ],
+    "crt": [
+     "",
+     "a"
+    ]
+   },
+   {
+    "linea": "\t ",
+    "original": [],
+    "crt": [
+     ""
+    ]
+   },
+   {
+    "linea": "\t\t",
+    "original": [],
+    "crt": [
+     ""
+    ]
+   },
+   {
+    "linea": "\t\\",
+    "original": [
+     "\\"
+    ],
+    "crt": [
+     "",
+     "\\"
+    ]
+   },
+   {
+    "linea": "\ta",
+    "original": [
+     "a"
+    ],
+    "crt": [
+     "",
+     "a"
+    ]
+   },
+   {
+    "linea": "   ",
+    "original": [],
+    "crt": [
+     ""
+    ]
+   },
+   {
+    "linea": "  \t",
+    "original": [],
+    "crt": [
+     ""
+    ]
+   },
+   {
+    "linea": "  \\",
+    "original": [
+     "\\"
+    ],
+    "crt": [
+     "",
+     "\\"
+    ]
+   },
+   {
+    "linea": "  a",
+    "original": [
+     "a"
+    ],
+    "crt": [
+     "",
+     "a"
+    ]
+   }
+  ],
+  "exhaustiva/ub-original": [
+   {
+    "linea": " \"",
+    "original": [
+     null
+    ],
+    "crt": [
+     "",
+     ""
+    ]
+   },
+   {
+    "linea": "\t\"",
+    "original": [
+     null
+    ],
+    "crt": [
+     "",
+     ""
+    ]
+   },
+   {
+    "linea": "  \"",
+    "original": [
+     null
+    ],
+    "crt": [
+     "",
+     ""
+    ]
+   },
+   {
+    "linea": " \t\"",
+    "original": [
+     null
+    ],
+    "crt": [
+     "",
+     ""
+    ]
+   },
+   {
+    "linea": " \"\"",
+    "original": [
+     null
+    ],
+    "crt": [
+     "",
+     ""
+    ]
+   },
+   {
+    "linea": "\t \"",
+    "original": [
+     null
+    ],
+    "crt": [
+     "",
+     ""
+    ]
+   },
+   {
+    "linea": "\t\t\"",
+    "original": [
+     null
+    ],
+    "crt": [
+     "",
+     ""
+    ]
+   },
+   {
+    "linea": "\t\"\"",
+    "original": [
+     null
+    ],
+    "crt": [
+     "",
+     ""
+    ]
+   },
+   {
+    "linea": "\"\" ",
+    "original": [
+     null
+    ],
+    "crt": [
+     ""
+    ]
+   },
+   {
+    "linea": "\"\"\t",
+    "original": [
+     null
+    ],
+    "crt": [
+     ""
+    ]
+   },
+   {
+    "linea": "\"\"\"",
+    "original": [
+     null
+    ],
+    "crt": [
+     ""
+    ]
+   },
+   {
+    "linea": "\\ \"",
+    "original": [
+     "\\",
+     null
+    ],
+    "crt": [
+     "\\",
+     ""
+    ]
+   }
+  ],
+  "larga/ub-original": [
+   {
+    "linea": "p  \"\t\t\"\t\\\"\"\\\\\t\\\\\taa \t\"\"b\tab\\a\"\" \"\" \\\\\" b \"\t \\\"aa\"\\ \"\\\t\tababb\t \t\"a a\\\\baa\"  \t\tb\\b\\\t \\\"\\\\  \"\t\t\\ \\a\"a ab\\ a\tba\t  \\\\b\t\"\t\\\"a\tbb\\a\tb\"\\\" \t \"b a\t\" \ta\\\"aaab  \tbb\\b\tb  \\b",
+    "original": [
+     "p",
+     "\t\t",
+     "\\\"\"\\\\",
+     "\\\\",
+     "aa",
+     "b"
+    ],
+    "crt": [
+     "p",
+     "\t\t",
+     "\"\\\\\t\\\\\taa \t\"b\tab\\a\" \" \\",
+     "b",
+     "\t \"aa\\",
+     "\\\t\tababb\t \ta"
+    ]
+   },
+   {
+    "linea": "p \t\\\"\\\\\"\\\\ \t \"\"  \"a\\\ta\ta\\\\\t\t b\ta  b\\a\"\"\"\"abb\\b b \"\\\t a\\ba\"\t\\bbbb \"\\\\ab\tbbaba\"\\ \\\"\"b\" \t\"\"\"   b\"\\ \t\t\\\\a\t\"b a \"  \\a\\\t b\" \"b\\ \t\t \taaa\"a\"\t \\a\\aa\tb\"bab\"\tb\"\" \\baab\"\\  ",
+    "original": [
+     "p",
+     "\\\"\\\\\"\\\\",
+     "a\\\ta\ta\\\\\t\t b\ta  b\\a\"\"\"\"abb\\b b \"\\",
+     "a\\ba\"\t\\bbbb \"\\\\ab",
+     "bbaba\"\\ \\\"\"b",
+     "   b\"\\"
+    ],
+    "crt": [
+     "p",
+     "\"\\\\\\ \t \"  a\\",
+     "a",
+     "a\\\\",
+     "b",
+     "a"
+    ]
+   },
+   {
+    "linea": "p  bbaa\\\\  \"a\"a\t\\\tb\"\"\"\\\tba\t\\ba\"\tb\\\"\t \tb \"\t\tb \t\"\"\\ a\"a\\b\ta\\ a\"\ta\ta\" \t\t\t\\ba\\bbb \"\"b\"\\\tb\"ba\\ \\b\\  \t bbbba\\\t\\\tb bbb\\ba\"  \"\"b a\t   \"\\a  \"\"\\\"b\\\\bba ab\\\t\"ba\"a\\\tb\"b\\a\ta",
+    "original": [
+     "p",
+     "bbaa\\\\",
+     "a\"a",
+     "\\",
+     "b\"\"\"\\\tba\t\\ba",
+     "b\\\"\t \tb "
+    ],
+    "crt": [
+     "p",
+     "bbaa\\\\",
+     "aa",
+     "\\",
+     "b\"\\\tba\t\\ba",
+     "b\""
+    ]
+   },
+   {
+    "linea": "p b \t\" \tb\t \t \\\\a\\\\\"\"b\"\tb\t\tb\"\ta  \\\tb a\"\\\"b\"aaaa\"a\"\"  \\b\\\\b\\ b\\ \t\ta \\\\\"b\t\tbab\t  \\aaab\\ b \"\\aa\" \\\tbb \t\"\t\\\\a\t\" a \"\"a\t\" b\" \\ \\\t \\\t aaa a\"\"\\b \"a\ta\\b aa\" \"\" a\tb\tababaa",
+    "original": [
+     "p",
+     "b",
+     " \tb\t \t \\\\a\\\\\"\"b",
+     "b",
+     "b\"\ta  \\\tb a\"\\\"b\"aaaa\"a\"\"  \\b\\\\b\\ b\\ \t\ta \\\\\"b",
+     "bab"
+    ],
+    "crt": [
+     "p",
+     "b",
+     " \tb\t \t \\\\a\\\"b",
+     "b",
+     "b\ta  \\\tb a\"baaaaa",
+     "\\b\\\\b\\"
+    ]
+   },
+   {
+    "linea": "p \"\\aa\t\t\ta ab\\\\ \\\\ b\"\t  \tb  \"a \t\\\"b a\tb b ba\\aab \\\"\"\tab\tba\\\\ a b\"\\b a \t\t \\\\\\ b\ta\"\\\\\tb\\\t\"\"\"ba a\t \\ \ta bab\"b\t\tab\\\"\" \"b\"b\\a \t\"\"\ta\t\"\t\"b b \"\\b\\\\b \t aa  b\\\\\ta\\\" \" \"\\a",
+    "original": [
+     "p",
+     "\\aa\t\t\ta ab\\\\ \\\\ b",
+     "b",
+     "a \t\\\"b",
+     "a",
+     "b"
+    ],
+    "crt": [
+     "p",
+     "\\aa\t\t\ta ab\\\\ \\\\ b",
+     "b",
+     "a \t\"b a\tb b ba\\aab \"",
+     "ab",
+     "ba\\\\"
+    ]
+   },
+   {
+    "linea": "p \" \ta\\bbab\t bb\\\\b   \"b\\\" \\bb\\\"\"\t\t\\\"b\tb \"bb\t\t  \t\"\tba\"\\a\tb \\\" \t\"\t\\\" \"a\"aa\\\\\"a\"\ta\"\t \ta \" \\a\\b \\\\\ta \"\t\\\" aa bb\\ba\t\t\\ba\"a\"b\\aa\"a\\\\\tb  \tb\tb\t\ta ab\\a a\t\tb\" \" \t\tb\t\"b \t\t",
+    "original": [
+     "p",
+     " \ta\\bbab\t bb\\\\b   \"b\\\" \\bb\\\"\"\t\t\\\"b",
+     "b",
+     "bb\t\t  \t",
+     "ba\"\\a\tb \\",
+     "\t\\"
+    ],
+    "crt": [
+     "p",
+     " \ta\\bbab\t bb\\\\b   b\"",
+     "\\bb\"\t\t\"b\tb bb",
+     "\tba\\a",
+     "b",
+     "\""
+    ]
+   },
+   {
+    "linea": "p a\t\"bb\ta\t\\\t \"  \"\\ \"bba\t  \t\"\t\\\t\"b  b\\ab \"\" ba\"b\\\\\\b \t b \\\\\\\"\t\\a\"\\\t\t\"\\b\\b\\   \t\\a\"\t\"\"\" a\\ab\\\"a\t\\\\ \t\tb aa\\ a\t a\t\" aaa\t\t\\aaba\"aaa\\\t a\\\"\tab\"aa\"b\\b\\ \\ \\\\ab\"\\\"\"aabb\t\t\\",
+    "original": [
+     "p",
+     "a",
+     "bb\ta\t\\\t ",
+     "\\ \"bba",
+     "\t\\\t\"b",
+     "b\\ab"
+    ],
+    "crt": [
+     "p",
+     "a",
+     "bb\ta\t\\\t ",
+     "\\ bba",
+     "\t\\\tb",
+     "b\\ab"
+    ]
+   },
+   {
+    "linea": "p ab\\a\\  \"b\t\\\t\"\tb a \"\"\t\t\"\\a\\ ab\\\"\"\t\\a\t\"\\a\t\"\" aaa\t\"a\\\"\\a\\\"\t\" \\\t\"abb \"\t\ta\\\\a\" bab\"\" \t \\b\t\\\\\t\"\t\\ \t aba\"\\  ba\"\"\\\\a\\\\\t \"\\  a \\ab \\b \\\\ b a \\b\\\"\" \"aa \\bb\\bb\" \"\taa\t\\\"\\",
+    "original": [
+     "p",
+     "ab\\a\\",
+     "b\t\\\t",
+     "b",
+     "a",
+     "\\a\\ ab\\\"\"\t\\a\t\"\\a"
+    ],
+    "crt": [
+     "p",
+     "ab\\a\\",
+     "b\t\\\t",
+     "b",
+     "a",
+     ""
+    ]
+   },
+   {
+    "linea": "p  b \\\" a\\aab\" \\\t\t\\b\"\\  \t   \" \\b\"a\"\\\" \"\\ a \\a\t\"baba \t\"a\"\t \t \"ab baab\\ba\\a\\\t\" \t\"\t\t\\\\ b\\\"a\t \"  bbbb\" \"b\\\\\\\"\t\t \\\\\" a\"b\t\tb\"ba\"\"ab\"\"\\a\t bb\\\"\"a\"\\\" \\\ta\t\"\tabb \"b\"\\\"\ta\\ ",
+    "original": [
+     "p",
+     "b",
+     "\\\" a\\aab",
+     "\\",
+     "\\b\"\\  \t   ",
+     "\\b\"a\"\\\" \"\\"
+    ],
+    "crt": [
+     "p",
+     "b",
+     "\"",
+     "a\\aab \\\t\t\\b\\",
+     " \\ba\" \\",
+     "a"
+    ]
+   }
+  ],
+  "mezcla-vms/benigno": [
+   {
+    "linea": "gta_sa.exe \r-\r\u0001 a b\u0001 \\",
+    "original": [
+     "gta_sa.exe",
+     "-",
+     "a",
+     "b",
+     "\\"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\r-\r\u0001",
+     "a",
+     "b\u0001",
+     "\\"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe é\"a b\u0001\\\"\r",
+    "original": [
+     "gta_sa.exe",
+     "é\"a b\u0001\\"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "éa b\u0001\"\r"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \\\" \\\"\r-\"\"",
+    "original": [
+     "gta_sa.exe",
+     "\\\" \\",
+     "-\""
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\"",
+     "\"\r-"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -windowed\\\"\" \"\"-windowed-windowed\u0001",
+    "original": [
+     "gta_sa.exe",
+     "-windowed\\\"",
+     "-windowed-windowed"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-windowed\" \"-windowed-windowed\u0001"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe  --windowedé-\r -vmsvms",
+    "original": [
+     "gta_sa.exe",
+     "--windowedé-",
+     "-vmsvms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "--windowedé-\r",
+     "-vmsvms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -vms\\\\\"\\\"\"\"a bvmsa b",
+    "original": [
+     "gta_sa.exe",
+     "-vms\\\\\"\\\"\"\"a",
+     "bvmsa",
+     "b"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-vms\\\"\"a bvmsa b"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe a b \\\"\\\" -windoweda b",
+    "original": [
+     "gta_sa.exe",
+     "a",
+     "b",
+     "\\\"\\",
+     "-windoweda",
+     "b"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "a",
+     "b",
+     "\"\"",
+     "-windoweda",
+     "b"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe a bé-vms-windowed\r\"\"\\-vms",
+    "original": [
+     "gta_sa.exe",
+     "a",
+     "bé-vms-windowed",
+     "\\-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "a",
+     "bé-vms-windowed\r\\-vms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \t\\\t \u0001\"\"-windowed\"",
+    "original": [
+     "gta_sa.exe",
+     "\\",
+     "-windowed"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\\",
+     "\u0001-windowed"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \ra b",
+    "original": [
+     "gta_sa.exe",
+     "a",
+     "b"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\ra",
+     "b"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \"vmsé\\\"-windowedé",
+    "original": [
+     "gta_sa.exe",
+     "vmsé\\\"-windowedé"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "vmsé\"-windowedé"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -\té \\\"",
+    "original": [
+     "gta_sa.exe",
+     "-",
+     "é",
+     "\\"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-",
+     "é",
+     "\""
+    ]
+   }
+  ],
+  "mezcla-vms/efecto-vms": [
+   {
+    "linea": "gta_sa.exe -vms\u0001-vms-windowed\"\u0001\t\"\"-windowed",
+    "original": [
+     "gta_sa.exe",
+     "-vms",
+     "-vms-windowed\"\u0001\t\"\"-windowed"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-vms\u0001-vms-windowed\u0001\t\"-windowed"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -vms\u0001",
+    "original": [
+     "gta_sa.exe",
+     "-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-vms\u0001"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \r\t   vms \r-vms",
+    "original": [
+     "gta_sa.exe",
+     "vms",
+     "-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\r",
+     "vms",
+     "\r-vms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe a b-vmsa b\r\u0001-vms",
+    "original": [
+     "gta_sa.exe",
+     "a",
+     "b-vmsa",
+     "b",
+     "-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "a",
+     "b-vmsa",
+     "b\r\u0001-vms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe  -windowed\\\\\"\\\"\\\u0001-vms",
+    "original": [
+     "gta_sa.exe",
+     "-windowed\\\\\"\\\"\\",
+     "-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-windowed\\\"\\\u0001-vms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe  \r\\\"-windowed\u0001vms -vms ",
+    "original": [
+     "gta_sa.exe",
+     "\\\"-windowed\u0001vms -vms "
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\r\"-windowed\u0001vms",
+     "-vms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \r-vms\r\r-vms-\u0001\t\u0001",
+    "original": [
+     "gta_sa.exe",
+     "-vms",
+     "-vms-"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\r-vms\r\r-vms-\u0001",
+     "\u0001"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe   \u0001-vms \u0001vms\\",
+    "original": [
+     "gta_sa.exe",
+     "-vms",
+     "vms\\"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\u0001-vms",
+     "\u0001vms\\"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \r-vms",
+    "original": [
+     "gta_sa.exe",
+     "-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\r-vms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe é\\\t\r-vms",
+    "original": [
+     "gta_sa.exe",
+     "é\\",
+     "-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "é\\",
+     "\r-vms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \\\"- \\\"é\r-vms",
+    "original": [
+     "gta_sa.exe",
+     "\\\"- \\\"é",
+     "-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\"-",
+     "\"é\r-vms"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \t\\\"vms\t-vms",
+    "original": [
+     "gta_sa.exe",
+     "\\\"vms\t-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\"vms",
+     "-vms"
+    ]
+   }
+  ],
+  "mezcla-vms/ub-original": [
+   {
+    "linea": "gta_sa.exe é\"\" vms\r\"\" a b",
+    "original": [
+     "gta_sa.exe",
+     "é\"",
+     "vms",
+     "a",
+     "b",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "é",
+     "vms\r",
+     "a",
+     "b"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe  -\"\"é\r\"\"",
+    "original": [
+     "gta_sa.exe",
+     "-\"\"é",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-é\r"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \u0001\"\" \"\" \t-windowed-\u0001",
+    "original": [
+     "gta_sa.exe",
+     "-windowed-",
+     null,
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\u0001",
+     "",
+     "-windowed-\u0001"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -\r\"\"\r-\"\"a b",
+    "original": [
+     "gta_sa.exe",
+     "-",
+     "-\"\"a",
+     "b",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-\r\r-a",
+     "b"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \u0001\t \"\"",
+    "original": [
+     "gta_sa.exe",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\u0001",
+     ""
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \u0001\t\"",
+    "original": [
+     "gta_sa.exe",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\u0001",
+     ""
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \u0001-vms\t \"\"\t- \\\"",
+    "original": [
+     "gta_sa.exe",
+     "-vms",
+     "-",
+     "\\",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\u0001-vms",
+     "",
+     "-",
+     "\""
+    ]
+   },
+   {
+    "linea": "gta_sa.exe é\u0001\"\"",
+    "original": [
+     "gta_sa.exe",
+     "é",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "é\u0001"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \"\" -",
+    "original": [
+     "gta_sa.exe",
+     "-",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "",
+     "-"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -vms\"\"\\a b\r\t\"",
+    "original": [
+     "gta_sa.exe",
+     "-vms\"\"\\a",
+     "b",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-vms\\a",
+     "b\r",
+     ""
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \"\"\u0001-\"\"é",
+    "original": [
+     "gta_sa.exe",
+     "-\"\"é",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "\u0001-é"
+    ]
+   },
+   {
+    "linea": "gta_sa.exe \"\" \\\"\"\"vms\"\"  a b",
+    "original": [
+     "gta_sa.exe",
+     "\\\"\"\"vms\"\"  a b",
+     null
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "",
+     "\"vms",
+     "a",
+     "b"
+    ]
+   }
+  ],
+  "real-barra-final/benigno": [
+   {
+    "linea": "gta_sa.exe -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     "gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   },
+   {
+    "linea": "gta_sa.exe -vms -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     "gta_sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" -vms -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe -vms -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   },
+   {
+    "linea": "\"D:\\Grand Theft Auto San Andreas\\gta-sa.exe\" -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     "D:\\Grand Theft Auto San Andreas\\gta-sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     "D:\\Grand Theft Auto San Andreas\\gta-sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   },
+   {
+    "linea": "\"D:\\Grand Theft Auto San Andreas\\gta-sa.exe\" -vms -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     "D:\\Grand Theft Auto San Andreas\\gta-sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     "D:\\Grand Theft Auto San Andreas\\gta-sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   },
+   {
+    "linea": "\"C:\\Program Files (x86)\\Rockstar Games\\GTA San Andreas\\gta_sa.exe\" -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     "C:\\Program Files (x86)\\Rockstar Games\\GTA San Andreas\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     "C:\\Program Files (x86)\\Rockstar Games\\GTA San Andreas\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   },
+   {
+    "linea": "\"C:\\Program Files (x86)\\Rockstar Games\\GTA San Andreas\\gta_sa.exe\" -vms -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     "C:\\Program Files (x86)\\Rockstar Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     "C:\\Program Files (x86)\\Rockstar Games\\GTA San Andreas\\gta_sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   },
+   {
+    "linea": ".\\gta_sa.exe -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     ".\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     ".\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   },
+   {
+    "linea": ".\\gta_sa.exe -vms -path \"C:\\Games\\GTA SA\\\"",
+    "original": [
+     ".\\gta_sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\\"
+    ],
+    "crt": [
+     ".\\gta_sa.exe",
+     "-vms",
+     "-path",
+     "C:\\Games\\GTA SA\""
+    ]
+   }
+  ],
+  "real-barra-final/efecto-vms": [
+   {
+    "linea": "gta_sa.exe -path \"C:\\Games\\GTA SA\\\" -vms",
+    "original": [
+     "gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\",
+     "-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\" -vms"
+    ]
+   },
+   {
+    "linea": "\"C:\\Games\\GTA San Andreas\\gta_sa.exe\" -path \"C:\\Games\\GTA SA\\\" -vms",
+    "original": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\",
+     "-vms"
+    ],
+    "crt": [
+     "C:\\Games\\GTA San Andreas\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\" -vms"
+    ]
+   },
+   {
+    "linea": "C:\\Games\\gta_sa.exe -path \"C:\\Games\\GTA SA\\\" -vms",
+    "original": [
+     "C:\\Games\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\",
+     "-vms"
+    ],
+    "crt": [
+     "C:\\Games\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\" -vms"
+    ]
+   },
+   {
+    "linea": "\"D:\\Grand Theft Auto San Andreas\\gta-sa.exe\" -path \"C:\\Games\\GTA SA\\\" -vms",
+    "original": [
+     "D:\\Grand Theft Auto San Andreas\\gta-sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\",
+     "-vms"
+    ],
+    "crt": [
+     "D:\\Grand Theft Auto San Andreas\\gta-sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\" -vms"
+    ]
+   },
+   {
+    "linea": "\"C:\\Program Files (x86)\\Rockstar Games\\GTA San Andreas\\gta_sa.exe\" -path \"C:\\Games\\GTA SA\\\" -vms",
+    "original": [
+     "C:\\Program Files (x86)\\Rockstar Games\\GTA San Andreas\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\",
+     "-vms"
+    ],
+    "crt": [
+     "C:\\Program Files (x86)\\Rockstar Games\\GTA San Andreas\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\" -vms"
+    ]
+   },
+   {
+    "linea": ".\\gta_sa.exe -path \"C:\\Games\\GTA SA\\\" -vms",
+    "original": [
+     ".\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\",
+     "-vms"
+    ],
+    "crt": [
+     ".\\gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\" -vms"
+    ]
+   },
+   {
+    "linea": "\"gta_sa.exe\" -path \"C:\\Games\\GTA SA\\\" -vms",
+    "original": [
+     "gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\\",
+     "-vms"
+    ],
+    "crt": [
+     "gta_sa.exe",
+     "-path",
+     "C:\\Games\\GTA SA\" -vms"
+    ]
+   }
+  ]
+ }
+}

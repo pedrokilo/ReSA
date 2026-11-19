@@ -7,8 +7,8 @@
   "no-es-funcion": 11,
   "proteccion-descartada": 18,
   "salto-puro": 20,
+  "sustituida-por-crt": 1,
   "usercall-cubierta": 51,
-  "usercall-parcial": 1,
   "usercall-renderware": 17
  },
  "funciones_no_listadas_en_el_mapa": {
@@ -3487,7 +3487,7 @@
     }
    ],
    "referencias_datos": [],
-   "categoria": "usercall-parcial",
+   "categoria": "sustituida-por-crt",
    "llamadoras": [
     {
      "sitio": "0x00748773",
@@ -3500,11 +3500,24 @@
      "validated": 0
     }
    ],
-   "tratamiento": "Parcial: hay llamadoras sin validar, sin resolver o referencias de direccion; requiere trabajo (ver informe del lote G2A)",
+   "tratamiento": "Cerrada por inspeccion (lote G3A): su unica llamadora es NOTSA_WinMain (adaptacion NOTSA, no es codigo del juego con hook); el C++ usa __argv/__argc del CRT. El unico consumidor de las cadenas (rsPreInitCommandLine) solo compara con \"-vms\"; las diferencias con el CRT solo se dan en lineas artificiales y estan en docs/DesviacionesConocidas.md",
    "cubierta_por_llamadoras_validadas": false,
+   "sustitucion": {
+    "evidencia": "reversing/FnG3A/resultado.json",
+    "por": {
+     "iguales": 13018,
+     "benigno": 38385,
+     "efecto-vms": 256,
+     "ub-original": 5033
+    },
+    "emulacion_vs_oraculo": {
+     "casos": 56692,
+     "diferencias": 0
+    }
+   },
    "hooks_csv_relacionadas": [],
-   "validada_por_inspeccion": false,
-   "criterio_validacion": ""
+   "validada_por_inspeccion": true,
+   "criterio_validacion": "oraculo desde el desensamblado == codigo real del EXE emulado (0 diferencias) y contra el CRT: lineas reales identicas, 0 efectos sobre -vms en uso real"
   },
   {
    "va": "0x005E3630",

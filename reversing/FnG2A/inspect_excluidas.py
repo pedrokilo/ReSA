@@ -35,13 +35,15 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT_JSON = ROOT / 'reversing/FnG2A/excluidas-evidencia.json'
 JSON_REL = 'reversing/FnG2A/excluidas-evidencia.json'
 IN_CSV = ROOT / 'docs/JuegoExe/excluidas.csv'
+G3A_JSON = ROOT / 'reversing/FnG3A/resultado.json'   # evidencia del lote G3A (0x746480 sustituida por el CRT)
+G3A_REL = 'reversing/FnG3A/resultado.json'
 EXE_SHA256 = '72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b'
 RW_LO, RW_HI = 0x750000, 0x81FFFF
 HEX_MAX = 64
 
 CATEGORIAS = [
     'no-es-funcion', 'proteccion-descartada', 'salto-puro',
-    'usercall-cubierta', 'usercall-parcial', 'usercall-sin-llamadores', 'usercall-renderware', 'otra',
+    'usercall-cubierta', 'sustituida-por-crt', 'usercall-parcial', 'usercall-sin-llamadores', 'usercall-renderware', 'otra',
 ]
 
 
@@ -755,6 +757,7 @@ def resolver(ctx, entradas):
         e['categoria'] = cat
         e['tratamiento'] = tr
         e['cubierta_por_llamadoras_validadas'] = bool(cubierta[v])
+    aplicar_sustituciones(entradas)
     for e in entradas:
         # filas relacionadas de hooks.csv
         rel = {_int(e['va'])}
@@ -765,11 +768,27 @@ def resolver(ctx, entradas):
             for r in ctx.hook_rows(a):
                 rows.append(dict(address=r['address'], clase=r['class'], fn=r['fn_name'], reversed=r['reversed'], validated=r['validated']))
         e['hooks_csv_relacionadas'] = rows
-        e['validada_por_inspeccion'] = e['categoria'] in ('no-es-funcion', 'proteccion-descartada', 'salto-puro', 'usercall-cubierta')
+        e['validada_por_inspeccion'] = e['categoria'] in ('no-es-funcion', 'proteccion-descartada', 'salto-puro', 'usercall-cubierta', 'sustituida-por-crt')
         e['criterio_validacion'] = CRITERIO.get(e['categoria'], '')
 
 
+def aplicar_sustituciones(entradas):
+    """Lote G3A: 0x746480 (separador de la linea de comandos) la sustituye el CRT; la evidencia esta en reversing/FnG3A."""
+    if not G3A_JSON.exists():
+        return
+    ev = json.loads(G3A_JSON.read_text(encoding='utf-8'))
+    for e in entradas:
+        if e['va'] == ev['va'] and e['categoria'] == 'usercall-parcial':
+            e['categoria'] = 'sustituida-por-crt'
+            e['tratamiento'] = ('Cerrada por inspeccion (lote G3A): su unica llamadora es NOTSA_WinMain (adaptacion NOTSA, no es codigo del juego con hook); '
+                                'el C++ usa __argv/__argc del CRT. El unico consumidor de las cadenas (rsPreInitCommandLine) solo compara con "-vms"; '
+                                'las diferencias con el CRT solo se dan en lineas artificiales y estan en docs/DesviacionesConocidas.md')
+            e['sustitucion'] = dict(evidencia=G3A_REL, por=ev['oraculo_vs_crt']['por_clase'],
+                                    emulacion_vs_oraculo=ev['emulacion_vs_oraculo'])
+
+
 CRITERIO = {
+    'sustituida-por-crt': 'oraculo desde el desensamblado == codigo real del EXE emulado (0 diferencias) y contra el CRT: lineas reales identicas, 0 efectos sobre -vms en uso real',
     'no-es-funcion': 'sin referencias directas externas al padre + padre conocido que contiene el bloque',
     'proteccion-descartada': 'bytes/desensamblado muestran codigo del protector; no se reconstruye',
     'salto-puro': 'bytes exactos del salto + destino calculado = inicio de funcion conocida',
@@ -790,6 +809,29 @@ def documento(ctx, entradas, entrada_csv):
         funciones_no_listadas_en_el_mapa=getattr(resolver, 'funciones_no_listadas', {}),
         funciones=entradas,
     )
+
+
+def check_g3a(ctx, e):
+    """Revalida la evidencia G3A: SHA256 del EXE y del cuerpo, cero diferencias EXE-oraculo, y la regla de uso real."""
+    m = []
+    if not G3A_JSON.exists():
+        return [f'falta {G3A_REL}']
+    ev = json.loads(G3A_JSON.read_text(encoding='utf-8'))
+    if ev['exe_sha256'] != ctx.sha:
+        m.append('la evidencia G3A es de otro EXE')
+    if ev['sha256_cuerpo'] != e['sha256_cuerpo'] or ev['va'] != e['va']:
+        m.append('la evidencia G3A es de otro cuerpo')
+    if ev['emulacion_vs_oraculo']['diferencias'] != 0 or ev['emulacion_vs_oraculo']['casos'] < 16384:
+        m.append('el oraculo no coincide con el codigo del EXE emulado (o hay < 16384 casos)')
+    o = ev['oraculo_vs_crt']
+    if o['casos'] < 16384:
+        m.append('menos de 16384 casos contra el CRT')
+    real = o['por_grupo'].get('real', {})
+    if not real or set(real) != {'iguales'}:
+        m.append('las lineas de uso real no son todas identicas al CRT')
+    if e.get('sustitucion', {}).get('por') != o['por_clase']:
+        m.append('el JSON de FnG2A no refleja resultado.json de FnG3A')
+    return m
 
 
 def cmd_check(ctx, doc_path):
@@ -828,6 +870,9 @@ def cmd_check(ctx, doc_path):
             errs.append(f"{tag}: categoria del CSV ({csv_rows[tag]['categoria']}) != JSON ({e['categoria']})")
     if csv_rows and set(csv_rows) != {e['va'] for e in doc['funciones']}:
         errs.append('el CSV y el JSON no contienen las mismas direcciones')
+    for e in doc['funciones']:
+        if e['categoria'] == 'sustituida-por-crt':
+            errs.extend(f"{e['va']}: {m}" for m in check_g3a(ctx, e))
     # cuadre de cifras
     cuenta = {}
     for e in doc['funciones']:

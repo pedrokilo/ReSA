@@ -12,7 +12,8 @@ Cada fila de [docs/JuegoExe/excluidas.csv](../../docs/JuegoExe/excluidas.csv) qu
 | --- | ---: | --- |
 | `usercall-cubierta` | 51 | Cerrada: todas sus llamadoras directas están reconstruidas en C++ con `validated=1` (o son otras excluidas ya cubiertas, o funciones pequeñas que el mapa omite, ver abajo). Sin hook propio. |
 | `usercall-renderware` | 17 | Pasan al [plan de validación de RenderWare](../../docs/RenderWareExe/plan-validacion.md) (módulos `RenderWare (rwtexdict)` y `RenderWare (D3D9 raster)`). No se trabajan aquí. |
-| `usercall-parcial` | 1 | 0x00746480 (analizador de la línea de comandos): su única llamadora, `NOTSA_WinMain` (0x748710), no está validada. Ver el informe. |
+| `usercall-parcial` | 0 | — (la única, 0x00746480, se cerró en el lote G3A como `sustituida-por-crt`) |
+| `sustituida-por-crt` | 1 | 0x00746480 (separador de la línea de comandos): lo sustituye el CRT (`__argv`) en `NOTSA_WinMain`; evidencia en [reversing/FnG3A](../FnG3A/README.md) (`--check` la revalida) |
 | `usercall-sin-llamadores` | 0 | — |
 | `salto-puro` | 20 | Cerradas: un solo `jmp` (E9) a una función ya reconstruida y validada (destino con nombre y estado en el JSON). |
 | `proteccion-descartada` | 18 | Se descartan: 17 bloques de `ExeProtectionStub` (0x4027CD–0x403D07) y el bloque anti-manipulación de `VideoPlayer` 0x746800. |
