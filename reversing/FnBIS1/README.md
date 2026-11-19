@@ -87,3 +87,12 @@ Por ciclo (espera inicial desde que CJ está en el exterior, luego cada `periodo
 ## Modo automatico (-Auto): senal neutral
 
 `biseccion.ps1 -Auto` usa la DLL `dll\Debug.asi` y decide SOLO con la senal neutral: ciclos con z < -50 (jugador, coche o conductor, medido por `AutoSteal`) o NaN en la posicion/matriz del jugador o del coche, y NaN en la posicion de la sonda externa. NO usa los avisos "ha caido a traves del mapa", `Pool.h:207` ni el crash, porque son codigo de la DLL y desaparecen con `--unhook-all`/al apagar su grupo. Una ronda sin senal solo cuenta como OK con >= `-MinRobosAuto` (12) robos automaticos; si no, se descarta. `jugar.ps1 -Robar` cierra el juego al primer ciclo con z bajo/NaN (`-NoParaSenal` lo evita). Por defecto `-Robar 20,15,15,5` y el juego se cierra a los 480 s como maximo.
+
+## El control (--unhook-all) necesita la ventana del juego en primer plano
+
+Con todos los hooks apagados se ejecuta el menu y el bucle ORIGINALES del EXE, que no avanzan si la ventana del juego no tiene el foco del sistema (DirectInput da `Acquire() acceso denegado`); el juego se queda en `FRONTEND_IDLE` y el control no hace ningun ciclo (con los hooks encendidos, la DLL no tiene esa dependencia). `jugar.ps1` (ejecuciones con `-Auto`, salvo `-NoEnfocar`) llama cada 30 s a `enfocar.py`:
+
+* si el usuario lleva **>= 600 s** sin tocar teclado ni raton (`GetLastInputInfo`), trae NUESTRA ventana del juego al frente (`AllowSetForegroundWindow`, `AttachThreadInput` al hilo del primer plano, pulsacion de Alt, `ShowWindow(SW_RESTORE)`, `BringWindowToTop`, `SetForegroundWindow`);
+* si el usuario esta activo NO roba el foco: escribe en consola y en `enfocar.txt` de la carpeta de salida el aviso «el juego espera estar en primer plano: haz clic en la ventana del juego» y reintenta a los 30 s.
+
+Para el control con el usuario delante basta hacer clic en la ventana del juego al arrancar. `--robar` mantiene ademas `ForegroundApp (0x8D621C) = 1` con un hilo (para que el bucle no se pause); no basta por si solo. El 5.o campo de `--robar` (`--robar=N,p,e,c,1`) reactiva hooks de menu/carga («andamio»): experimento que NO resolvio el control; se deja apagado.

@@ -28,6 +28,7 @@ param(
     [switch]$ParaAlCaer,       # PL1: con -Auto, cierra el juego propio en cuanto aparece un aviso de caida a traves del mapa
     [int]$MinCaidas = 1,       # BIS1: con -ParaAlCaer, nº de avisos de caida que dispara el cierre
     [string]$Robar = '',       # BIS1: prueba automatica de robo (en la DLL): 'ciclos,periodo_s,espera_s,conducir_s' (p. ej. 20,20,20,6)
+    [switch]$NoEnfocar,        # BIS1: no intentar traer la ventana del juego al frente (por defecto SI en ejecuciones con -Auto, solo si el usuario lleva >= 10 min inactivo)
     [switch]$Enfocar,          # BIS1: trae la ventana del juego a primer plano cada 5 s (el bucle original se pausa en segundo plano)
     [switch]$NoParaSenal,      # BIS1: con -Robar no cerrar el juego al primer ciclo con z bajo/NaN
     [switch]$Silencioso        # BIS1: menos salida por consola (lo usa biseccion.ps1)
@@ -189,7 +190,7 @@ try {
         Write-Host '   Lanzando gta_sa.exe. Juega; al cerrar el juego se restaura todo solo.' -ForegroundColor Green
         $pr = Start-Process -FilePath (Join-Path $Carpeta 'gta_sa.exe') -WorkingDirectory $Carpeta -ArgumentList $args_ -PassThru
         if ($Auto -gt 0) {
-            $sondaLog = Join-Path $dirSalida 'sonda_pool.txt'
+            $sondaLog = Join-Path $dirSalida 'sonda_pool.txt'; $ultEnfoque = [datetime]::MinValue; $avisado = $false
             while (-not $pr.HasExited -and ((Get-Date) - $t0).TotalSeconds -lt $Auto) {
                 Start-Sleep -Seconds 5
                 if (($ParaAlCaer -or $Robar) -and (Test-Path $log)) {
@@ -203,7 +204,10 @@ try {
                         if ($txt2.Contains('[ROBAR] NaN') -and $ParaAlCaer) { Start-Sleep -Seconds 2; break }
                     } catch {}
                 }
-                if ($Enfocar -and -not $pr.HasExited) { try { $null = & python -I (Join-Path $aqui 'enfocar.py') $pr.Id 2>&1 } catch {} }
+                if (($Enfocar -or -not $NoEnfocar) -and -not $pr.HasExited -and (((Get-Date) - $ultEnfoque).TotalSeconds -ge 30 -or $ultEnfoque -eq [datetime]::MinValue)) {
+                    $ultEnfoque = Get-Date
+                    try { $oe = (& python -I (Join-Path $aqui 'enfocar.py') $pr.Id 2>&1) -join ' '; Add-Content -LiteralPath (Join-Path $dirSalida 'enfocar.txt') -Value ('{0:N0}s {1}' -f ((Get-Date) - $t0).TotalSeconds, $oe); if ($oe -like 'AVISO*' -and -not $avisado) { $avisado = $true; Write-Host "   $oe" -ForegroundColor Yellow } } catch {}
+                }
                 if ($Sonda -and -not $pr.HasExited) { try { $o = & python -I (Join-Path $pl1 'sonda_pool.py') $pr.Id $(if ($TpExit -and ((Get-Date) - $t0).TotalSeconds -gt 25) { '--tpexit' } elseif ($Tp -and ((Get-Date) - $t0).TotalSeconds -gt 25) { '--tp' }) 2>&1; Add-Content -LiteralPath $sondaLog -Value ('{0:N0}s {1}' -f ((Get-Date) - $t0).TotalSeconds, ($o -join ' ')) } catch {} }
             }
             if (-not $pr.HasExited) { [void]$pr.CloseMainWindow(); if (-not $pr.WaitForExit(8000)) { $pr.Kill() } }
