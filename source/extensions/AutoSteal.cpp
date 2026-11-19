@@ -35,10 +35,51 @@ constexpr int32 MODELS[]{ 496, 436, 401, 410, 517, 405, 549, 507 };
 CVehicle* Veh() { return s_vehRef >= 0 ? GetVehiclePool()->GetAtRef(s_vehRef) : nullptr; }
 bool BadVec(const CVector& v) { return !std::isfinite(v.x) || !std::isfinite(v.y) || !std::isfinite(v.z); }
 
+// Mantiene el coche quieto (conductor IA sin conducir) hasta que CJ lo robe.
+void Freeze(CVehicle* v) {
+    v->m_vecMoveSpeed = CVector{};
+    v->m_vecTurnSpeed = CVector{};
+    v->vehicleFlags.bIsHandbrakeOn = true;
+    v->m_autoPilot.SetCarMission(MISSION_NONE);
+    v->m_autoPilot.SetTempAction(TEMPACT_WAIT, 30000);
+}
+
+struct Rec { uint32 t; int cycle, state, task, simple, inVeh, drvIn; float p[3], v[3], d[3], vs[3]; bool mNaN; };
+Rec  s_ring[256]; uint32 s_ringN{}; bool s_dumped{};
+int  TaskT(CTask* t) { return t ? (int)t->GetTaskType() : -1; }
+
+void Record(CPlayerPed* pl, uint32 now) {
+    Rec r{}; r.t = now; r.cycle = s_cycle + 1; r.state = (int)s_state;
+    r.task = TaskT(pl->GetTaskManager().GetActiveTask()); r.simple = TaskT(pl->GetTaskManager().GetSimplestActiveTask());
+    r.inVeh = pl->bInVehicle;
+    const auto p = pl->GetPosition(); r.p[0] = p.x; r.p[1] = p.y; r.p[2] = p.z;
+    // matriz del jugador: cualquier NaN en los 12 elementos
+    if (const auto m = pl->m_matrix) { const float* f = (const float*)m; (void)f; r.mNaN = BadVec(m->GetPosition()) || BadVec(m->GetRight()) || BadVec(m->GetForward()) || BadVec(m->GetUp()); }
+    if (const auto v = Veh()) {
+        const auto q = v->GetPosition(); r.v[0] = q.x; r.v[1] = q.y; r.v[2] = q.z;
+        r.vs[0] = v->m_vecMoveSpeed.x; r.vs[1] = v->m_vecMoveSpeed.y; r.vs[2] = v->m_vecMoveSpeed.z;
+        r.drvIn = v->m_pDriver ? (v->m_pDriver == pl ? 2 : 1) : 0;
+        if (const auto d = v->m_pDriver) { const auto dp = d->GetPosition(); r.d[0] = dp.x; r.d[1] = dp.y; r.d[2] = dp.z; }
+    }
+    s_ring[s_ringN++ % std::size(s_ring)] = r;
+}
+
+void DumpRing(const char* motivo) {
+    if (s_dumped) return;
+    s_dumped = true;
+    NOTSA_LOG_WARN("[ROBAR] VOLCADO tras {}: ultimos fotogramas (t_ms ciclo estado tarea simple enVeh conductor(0 no,1 otro,2 CJ) pos_CJ pos_coche pos_cond vel_coche matrizNaN)", motivo);
+    const uint32 n = std::min<uint32>(s_ringN, 90);
+    for (uint32 i = s_ringN - n; i < s_ringN; ++i) {
+        const auto& r = s_ring[i % std::size(s_ring)];
+        NOTSA_LOG_WARN("[ROBAR]  {} c{} e{} T{} S{} v{} d{} CJ({:.2f},{:.2f},{:.2f}) car({:.2f},{:.2f},{:.2f}) drv({:.2f},{:.2f},{:.2f}) vel({:.3f},{:.3f},{:.3f}) mNaN{}",
+            r.t, r.cycle, r.state, r.task, r.simple, r.inVeh, r.drvIn, r.p[0], r.p[1], r.p[2], r.v[0], r.v[1], r.v[2], r.d[0], r.d[1], r.d[2], r.vs[0], r.vs[1], r.vs[2], (int)r.mNaN);
+    }
+}
+
 void Observe(CPlayerPed* pl) {
     const auto p = pl->GetPosition();
     if (BadVec(p)) {
-        if (!s_cycleNaN) NOTSA_LOG_WARN("[ROBAR] NaN en la posicion del jugador (ciclo {})", s_cycle + 1);
+        if (!s_cycleNaN) { NOTSA_LOG_WARN("[ROBAR] NaN en la posicion del jugador (ciclo {})", s_cycle + 1); DumpRing("NaN del jugador"); }
         s_cycleNaN = true;
     } else {
         s_minZ = std::min(s_minZ, p.z);
@@ -46,7 +87,7 @@ void Observe(CPlayerPed* pl) {
     }
     if (const auto v = Veh()) {
         if (BadVec(v->GetPosition())) {
-            if (!s_cycleNaN) NOTSA_LOG_WARN("[ROBAR] NaN en la posicion del vehiculo (ciclo {})", s_cycle + 1);
+            if (!s_cycleNaN) { NOTSA_LOG_WARN("[ROBAR] NaN en la posicion del vehiculo (ciclo {})", s_cycle + 1); DumpRing("NaN del vehiculo"); }
             s_cycleNaN = true;
         } else if (v->GetPosition().z < -50.f) {
             s_cycleFall = true;
@@ -113,6 +154,8 @@ void OnFrame() {
         s_nextStart = now + s_startDelayMs;
         NOTSA_LOG_INFO("[ROBAR] jugador en el exterior; el primer ciclo empieza en {} s", s_startDelayMs / 1000);
     }
+    Record(pl, now);
+    if (s_ring[(s_ringN - 1) % std::size(s_ring)].mNaN && !s_cycleNaN) { s_cycleNaN = true; NOTSA_LOG_WARN("[ROBAR] NaN en la matriz del jugador (ciclo {})", s_cycle + 1); DumpRing("NaN en la matriz del jugador"); }
     if (s_state != State::Wait) Observe(pl);
 
     switch (s_state) {
@@ -133,6 +176,13 @@ void OnFrame() {
         s_drvRef = d ? GetPedPool()->GetRef(d) : -1;
         v->vehicleFlags.bIsLocked = false;
         v->m_nDoorLock = CARLOCK_UNLOCKED;
+        Freeze(v);
+        {   // CJ junto a la puerta del conductor (izquierda), a ~1.8 m
+            const auto right = v->GetRight();
+            const auto door = v->GetPosition() - CVector{ right.x, right.y, 0.f } * 1.8f;
+            pl->Teleport(CVector{ door.x, door.y, pl->GetPosition().z }, false);
+            pl->m_fCurrentRotation = pl->m_fAimingRotation = std::atan2(right.x, -right.y); // mirando hacia el coche
+        }
         s_stateT0 = now;
         s_state = State::Steal;
         NOTSA_LOG_INFO("[ROBAR] ciclo {}: coche modelo {} creado con conductor={}", s_cycle + 1, model, d ? "si" : "no");
@@ -141,6 +191,7 @@ void OnFrame() {
     case State::Steal: {
         const auto v = Veh();
         if (!v) { ++s_spawnFail; EndCycle(pl, false, now); break; }
+        NOTSA_LOG_INFO("[ROBAR] ciclo {}: se asigna CTaskComplexEnterCarAsDriver a CJ (t={})", s_cycle + 1, now);
         pl->GetTaskManager().SetTask(new CTaskComplexEnterCarAsDriver{ v }, TASK_PRIMARY_PRIMARY);
         s_stateT0 = now;
         s_state = State::Enter;
@@ -149,8 +200,16 @@ void OnFrame() {
     case State::Enter: {
         const auto v = Veh();
         if (!v) { EndCycle(pl, false, now); break; }
-        if (pl->bInVehicle && pl->m_pVehicle == v) { s_stateT0 = now; s_state = State::Drive; break; }
-        if (now - s_stateT0 > 30000) EndCycle(pl, false, now);
+        if (pl->bInVehicle && pl->m_pVehicle == v) { NOTSA_LOG_INFO("[ROBAR] ciclo {}: CJ ya conduce (t={})", s_cycle + 1, now); s_stateT0 = now; s_state = State::Drive; break; }
+        if (!pl->bInVehicle) Freeze(v);   // el coche no se va mientras CJ llega y saca al conductor
+        if (now - s_stateT0 > 20000) {
+            const auto t = pl->GetTaskManager().GetActiveTask();
+            const auto simple = pl->GetTaskManager().GetSimplestActiveTask();
+            NOTSA_LOG_INFO("[ROBAR] ciclo {}: sin completar el robo en 20 s: tarea activa={} simple={} bInVehicle={} dist={:.1f} conductor_dentro={}",
+                s_cycle + 1, t ? (int)t->GetTaskType() : -1, simple ? (int)simple->GetTaskType() : -1,
+                (int)pl->bInVehicle, (v->GetPosition() - pl->GetPosition()).Magnitude(), v->m_pDriver ? 1 : 0);
+            EndCycle(pl, false, now);
+        }
         break;
     }
     case State::Drive: {

@@ -68,6 +68,7 @@ function Restaurar-Desde($dirRespaldo) {
 
 # 1) Si una ejecucion anterior se corto, restaurar primero.
 if (Test-Path -LiteralPath (Join-Path $pendiente 'respaldo.json')) {
+    if (-not $SinCandado -and ((Get-Process -Name gta_sa -ErrorAction SilentlyContinue) -or (Test-Path -LiteralPath $candado))) { throw "El candado $candado esta tomado por otra prueba (hay un respaldo pendiente que se restaurara cuando termine; no lo toco ahora)." }
     Write-Host 'Hay un respaldo pendiente de una ejecucion anterior: restaurando primero...' -ForegroundColor Yellow
     if (Restaurar-Desde $pendiente) {
         Remove-Item -LiteralPath $pendiente -Recurse -Force

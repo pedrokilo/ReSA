@@ -8,3 +8,7 @@ estado*.json.bak
 tmp/
 __pycache__/
 robar_*/
+Debug_v*.sha256
+_*.sh
+*.out
+*.done
