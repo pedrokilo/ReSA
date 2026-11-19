@@ -57,7 +57,7 @@ void Freeze(CVehicle* v) {
 }
 
 struct Rec { uint32 t; int cycle, state, task, simple, inVeh, drvIn; float p[3], v[3], d[3], vs[3]; bool mNaN;
-             bool al; int alModel, alDoor, alAnim, alType, alDoorIdx; float alCur, alTotal, alHeading, alUpZ, alRot, alAim, alZ, alVp[3]; };
+             float ts, scale, pvs[3], pts[3], cvs[3], cts[3]; bool al; int alModel, alDoor, alAnim, alType, alDoorIdx; float alCur, alTotal, alHeading, alUpZ, alRot, alAim, alZ, alVp[3]; };
 Rec  s_ring[256]; uint32 s_ringN{}; bool s_dumped{};
 int  TaskT(CTask* t) { return t ? (int)t->GetTaskType() : -1; }
 
@@ -74,6 +74,9 @@ void Record(CPlayerPed* pl, uint32 now) {
         r.drvIn = v->m_pDriver ? (v->m_pDriver == pl ? 2 : 1) : 0;
         if (const auto d = v->m_pDriver) { const auto dp = d->GetPosition(); r.d[0] = dp.x; r.d[1] = dp.y; r.d[2] = dp.z; }
     }
+    r.ts = CTimer::GetTimeStep(); r.scale = CTimer::ms_fTimeScale;
+    r.pvs[0] = pl->m_vecMoveSpeed.x; r.pvs[1] = pl->m_vecMoveSpeed.y; r.pvs[2] = pl->m_vecMoveSpeed.z;
+    r.pts[0] = pl->m_vecTurnSpeed.x; r.pts[1] = pl->m_vecTurnSpeed.y; r.pts[2] = pl->m_vecTurnSpeed.z;
     // Diagnostico de CTaskSimpleCarAlign (801): el NaN del jugador aparecio justo al pasar a esta tarea.
     if (const auto st = pl->GetTaskManager().GetSimplestActiveTask(); st && st->GetTaskType() == TASK_SIMPLE_CAR_ALIGN) {
         const auto t = static_cast<CTaskSimpleCarAlign*>(st);
@@ -81,6 +84,8 @@ void Record(CPlayerPed* pl, uint32 now) {
         if (const auto v = t->m_veh) {
             r.alModel = v->m_nModelIndex; r.alHeading = v->GetHeading();
             if (v->m_matrix) r.alUpZ = v->m_matrix->GetUp().z;
+            r.cvs[0] = v->m_vecMoveSpeed.x; r.cvs[1] = v->m_vecMoveSpeed.y; r.cvs[2] = v->m_vecMoveSpeed.z;
+            r.cts[0] = v->m_vecTurnSpeed.x; r.cts[1] = v->m_vecTurnSpeed.y; r.cts[2] = v->m_vecTurnSpeed.z;
             r.alVp[0] = v->GetPosition().x; r.alVp[1] = v->GetPosition().y; r.alVp[2] = v->GetPosition().z;
         }
         if (const auto a = t->m_anim) {
@@ -99,11 +104,13 @@ void DumpRing(const char* motivo) {
         (int)GetTaskPool()->GetNoOfUsedSpaces(), (int)GetTaskPool()->GetSize(),
         (int)GetVehiclePool()->GetNoOfUsedSpaces(), (int)GetPedPool()->GetNoOfUsedSpaces());
     NOTSA_LOG_WARN("[ROBAR] VOLCADO tras {}: ultimos fotogramas (t_ms ciclo estado tarea simple enVeh conductor(0 no,1 otro,2 CJ) pos_CJ pos_coche pos_cond vel_coche matrizNaN)", motivo);
-    const uint32 n = std::min<uint32>(s_ringN, 90);
+    const uint32 n = std::min<uint32>(s_ringN, 14);
     for (uint32 i = s_ringN - n; i < s_ringN; ++i) {
         const auto& r = s_ring[i % std::size(s_ring)];
         NOTSA_LOG_WARN("[ROBAR]  {} c{} e{} T{} S{} v{} d{} CJ({:.2f},{:.2f},{:.2f}) car({:.2f},{:.2f},{:.2f}) drv({:.2f},{:.2f},{:.2f}) vel({:.3f},{:.3f},{:.3f}) mNaN{}",
             r.t, r.cycle, r.state, r.task, r.simple, r.inVeh, r.drvIn, r.p[0], r.p[1], r.p[2], r.v[0], r.v[1], r.v[2], r.d[0], r.d[1], r.d[2], r.vs[0], r.vs[1], r.vs[2], (int)r.mNaN);
+        NOTSA_LOG_WARN("[ROBAR]    FISICA paso={:.4f} escala={:.3f} velCJ({:.4f},{:.4f},{:.4f}) giroCJ({:.4f},{:.4f},{:.4f}) velCoche({:.4f},{:.4f},{:.4f}) giroCoche({:.4f},{:.4f},{:.4f})",
+            r.ts, r.scale, r.pvs[0], r.pvs[1], r.pvs[2], r.pts[0], r.pts[1], r.pts[2], r.cvs[0], r.cvs[1], r.cvs[2], r.cts[0], r.cts[1], r.cts[2]);
         if (r.al) NOTSA_LOG_WARN("[ROBAR]    ALIGN modelo={} puerta={} anim={} t={:.4f}/{:.4f} lineup(tipo={} idx={} zPuerta={:.3f}) cocheHeading={:.3f} up.z={:.3f} coche({:.2f},{:.2f},{:.2f}) rotCJ={:.3f} aim={:.3f}",
             r.alModel, r.alDoor, r.alAnim, r.alCur, r.alTotal, r.alType, r.alDoorIdx, r.alZ, r.alHeading, r.alUpZ, r.alVp[0], r.alVp[1], r.alVp[2], r.alRot, r.alAim);
     }
