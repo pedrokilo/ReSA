@@ -20,8 +20,8 @@ END GENERATED HOOK STATUS */
 
 #include "zlibinflate.h"
 
-// Lote R5A (sin validar). zlib 1.1.4 enlazado en el EXE (inflate). Cada cuerpo se transcribio del desensamblado (0x7E9430..0x7EB5B0) y coincide con infblock.c, infcodes.c,
-// inftrees.c, inffast.c e infutil.c de zlib 1.1.4 (MANY = 1440, BMAX = 15, sin PKZIP_BUG_WORKAROUND). Todo es entero: no hay x87.
+// Lote R5A (sin validar). zlib 1.1.3 enlazado en el EXE (inflate). Cada cuerpo se transcribio del desensamblado (0x7E9430..0x7EB5B0) y coincide con infblock.c, infcodes.c,
+// inftrees.c, inffast.c e infutil.c de zlib 1.1.3 (MANY = 1440, BMAX = 15, sin PKZIP_BUG_WORKAROUND). Todo es entero: no hay x87.
 // Las tablas constantes (mascaras, orden de longitudes, bases/extras) y los mensajes de error se leen del .data/.rdata del EXE por direccion fija, de modo que `z->msg`
 // apunta a las mismas cadenas que antes. Las funciones se llaman entre si por su direccion en C++ (todas estan enganchadas).
 
@@ -67,6 +67,29 @@ inline void* ZAlloc(ZInflateStream* z, uint32 items, uint32 size) { return z->za
 inline void  ZFree(ZInflateStream* z, void* address) { z->zfree(z->opaque, address); }
 } // namespace
 
+
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+// Lote LIB1A: con la opcion CMake GTASA_WITH_ZLIB_LIBPNG, los 14 cuerpos delegan en zlib 1.1.3 compilada desde la fuente oficial (libs/zlib-1.1.3).
+// Se declaran aqui los prototipos con punteros opacos (no se incluye zlib.h para no chocar con los typedefs Byte/uInt/uLong del proyecto).
+// La estructura z_stream, inflate_blocks_state e inflate_codes_state de la biblioteca tienen la misma disposicion que las Z* de zlibinflate.h (tamanos 0x38, 0x40, 0x1C).
+extern "C" {
+    void  inflate_blocks_reset(void* s, void* z, unsigned long* c);
+    void* inflate_blocks_new(void* z, void* checkfn, unsigned int w);
+    int   inflate_blocks(void* s, void* z, int r);
+    int   inflate_blocks_free(void* s, void* z);
+    void  inflate_set_dictionary(void* s, const unsigned char* d, unsigned int n);
+    void* inflate_codes_new(unsigned int bl, unsigned int bd, void* tl, void* td, void* z);
+    int   inflate_codes(void* s, void* z, int r);
+    void  inflate_codes_free(void* c, void* z);
+    int   inflate_trees_bits(unsigned int* c, unsigned int* bb, void** tb, void* hp, void* z);
+    int   huft_build(unsigned int* b, unsigned int n, unsigned int s, const unsigned int* d, const unsigned int* e, void** t, unsigned int* m, void* hp, unsigned int* hn, unsigned int* v); // inftrees.c se compila con -Dlocal= (CMake) para exportarla
+    int   inflate_trees_dynamic(unsigned int nl, unsigned int nd, unsigned int* c, unsigned int* bl, unsigned int* bd, void** tl, void** td, void* hp, void* z);
+    int   inflate_trees_fixed(unsigned int* bl, unsigned int* bd, void** tl, void** td, void* z);
+    int   inflate_flush(void* s, void* z, int r);
+    int   inflate_fast(unsigned int bl, unsigned int bd, void* tl, void* td, void* s, void* z);
+}
+#endif
+
 void ZlibInflateInjectHooks() {
     RH_ScopedNamespaceName("ZlibInflate");
     RH_ScopedCategory("Plugins");
@@ -87,7 +110,7 @@ void ZlibInflateInjectHooks() {
     RH_ScopedGlobalInstall(InflateFast, 0x7EB260);
 }
 
-// Macros de infutil.h de zlib 1.1.4 (variables locales s, z, r, b, k, p, n, q, m).
+// Macros de infutil.h de zlib 1.1.3 (variables locales s, z, r, b, k, p, n, q, m).
 #define WAVAIL (uint32)(q < s->read ? s->read - q - 1 : s->end - q)
 #define LOADIN { p = z->next_in; n = z->avail_in; b = s->bitb; k = s->bitk; }
 #define LOADOUT { q = s->write; m = WAVAIL; }
@@ -109,6 +132,9 @@ void ZlibInflateInjectHooks() {
 
 // 0x7E9430
 void __cdecl InflateBlocksReset(ZInflateBlocksState* s, ZInflateStream* z, uint32* c) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    ::inflate_blocks_reset(s, z, reinterpret_cast<unsigned long*>(c));
+#else
     if (c != nullptr) {
         *c = s->check;
     }
@@ -125,10 +151,14 @@ void __cdecl InflateBlocksReset(ZInflateBlocksState* s, ZInflateStream* z, uint3
     if (s->checkfn != nullptr) {
         z->adler = s->check = s->checkfn(0, nullptr, 0);
     }
+#endif
 }
 
 // 0x7E94B0
 ZInflateBlocksState* __cdecl InflateBlocksNew(ZInflateStream* z, ZInflateCheckFn checkfn, uint32 windowSize) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    return static_cast<ZInflateBlocksState*>(::inflate_blocks_new(z, reinterpret_cast<void*>(checkfn), windowSize));
+#else
     auto* s = static_cast<ZInflateBlocksState*>(ZAlloc(z, 1, sizeof(ZInflateBlocksState)));
     if (s == nullptr) {
         return s;
@@ -149,10 +179,14 @@ ZInflateBlocksState* __cdecl InflateBlocksNew(ZInflateStream* z, ZInflateCheckFn
     s->mode    = B_TYPE;
     InflateBlocksReset(s, z, nullptr);
     return s;
+#endif
 }
 
 // 0x7E9570
 int __cdecl InflateBlocks(ZInflateBlocksState* s, ZInflateStream* z, int r) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    return ::inflate_blocks(s, z, r);
+#else
     uint32 t; // temporal
     uint32 b; // bitb
     uint32 k; // bits en bitb
@@ -366,25 +400,37 @@ int __cdecl InflateBlocks(ZInflateBlocksState* s, ZInflateStream* z, int r) {
             LEAVE
         }
     }
+#endif
 }
 
 // 0x7EA1C0
 int __cdecl InflateBlocksFree(ZInflateBlocksState* s, ZInflateStream* z) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    return ::inflate_blocks_free(s, z);
+#else
     InflateBlocksReset(s, z, nullptr);
     ZFree(z, s->window);
     ZFree(z, s->hufts);
     ZFree(z, s);
     return ZI_OK;
+#endif
 }
 
 // 0x7EA250
 void __cdecl InflateSetDictionary(ZInflateBlocksState* s, const uint8* dictionary, uint32 length) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    ::inflate_set_dictionary(s, dictionary, length);
+#else
     memcpy(s->window, dictionary, length);
     s->read = s->write = s->window + length;
+#endif
 }
 
 // 0x7EA2A0
 ZInflateCodesState* __cdecl InflateCodesNew(uint32 bl, uint32 bd, const ZInflateHuft* tl, const ZInflateHuft* td, ZInflateStream* z) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    return static_cast<ZInflateCodesState*>(::inflate_codes_new(bl, bd, const_cast<ZInflateHuft*>(tl), const_cast<ZInflateHuft*>(td), z));
+#else
     auto* c = static_cast<ZInflateCodesState*>(ZAlloc(z, 1, sizeof(ZInflateCodesState)));
     if (c != nullptr) {
         c->mode  = C_START;
@@ -394,10 +440,14 @@ ZInflateCodesState* __cdecl InflateCodesNew(uint32 bl, uint32 bd, const ZInflate
         c->dtree = td;
     }
     return c;
+#endif
 }
 
 // 0x7EA2E0
 int __cdecl InflateCodes(ZInflateBlocksState* s, ZInflateStream* z, int r) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    return ::inflate_codes(s, z, r);
+#else
     uint32 j;               // temporal
     const ZInflateHuft* t;  // puntero temporal
     uint32 e;               // bits extra u operacion
@@ -535,15 +585,23 @@ int __cdecl InflateCodes(ZInflateBlocksState* s, ZInflateStream* z, int r) {
             LEAVE
         }
     }
+#endif
 }
 
 // 0x7EA9E0
 void __cdecl InflateCodesFree(ZInflateCodesState* c, ZInflateStream* z) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    ::inflate_codes_free(c, z);
+#else
     ZFree(z, c);
+#endif
 }
 
 // 0x7EAA00
 int __cdecl InflateTreesBits(uint32* c, uint32* bb, ZInflateHuft** tb, ZInflateHuft* hp, ZInflateStream* z) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    return ::inflate_trees_bits(c, bb, reinterpret_cast<void**>(tb), hp, z);
+#else
     int r;
     uint32 hn = 0;
     uint32* v = static_cast<uint32*>(ZAlloc(z, 19, sizeof(uint32)));
@@ -559,10 +617,14 @@ int __cdecl InflateTreesBits(uint32* c, uint32* bb, ZInflateHuft** tb, ZInflateH
     }
     ZFree(z, v);
     return r;
+#endif
 }
 
 // 0x7EAAB0
 int __cdecl InflateHuftBuild(uint32* b, uint32 n, uint32 s, const uint32* d, const uint32* e, ZInflateHuft** t, uint32* m, ZInflateHuft* hp, uint32* hn, uint32* v) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    return ::huft_build(b, n, s, d, e, reinterpret_cast<void**>(t), m, hp, hn, v);
+#else
     uint32 a;              // contador de codigos de longitud k
     uint32 c[BMAX + 1];    // tabla de cuentas por longitud
     uint32 f;              // i se repite en la tabla cada f entradas
@@ -744,10 +806,14 @@ int __cdecl InflateHuftBuild(uint32* b, uint32 n, uint32 s, const uint32* d, con
 
     // ZI_BUF_ERROR si la tabla esta incompleta
     return y != 0 && g != 1 ? ZI_BUF_ERROR : ZI_OK;
+#endif
 }
 
 // 0x7EAF60
 int __cdecl InflateTreesDynamic(uint32 nl, uint32 nd, uint32* c, uint32* bl, uint32* bd, ZInflateHuft** tl, ZInflateHuft** td, ZInflateHuft* hp, ZInflateStream* z) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    return ::inflate_trees_dynamic(nl, nd, c, bl, bd, reinterpret_cast<void**>(tl), reinterpret_cast<void**>(td), hp, z);
+#else
     int r;
     uint32 hn = 0;
     uint32* v = static_cast<uint32*>(ZAlloc(z, 288, sizeof(uint32)));
@@ -786,19 +852,27 @@ int __cdecl InflateTreesDynamic(uint32 nl, uint32 nd, uint32* c, uint32* bl, uin
 
     ZFree(z, v);
     return ZI_OK;
+#endif
 }
 
 // 0x7EB0F0
 int __cdecl InflateTreesFixed(uint32* bl, uint32* bd, ZInflateHuft** tl, ZInflateHuft** td, ZInflateStream* /*z*/) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    return ::inflate_trees_fixed(bl, bd, reinterpret_cast<void**>(tl), reinterpret_cast<void**>(td), nullptr); // el original no lee z
+#else
     *bl = *reinterpret_cast<const uint32*>(0x8E0FC0);
     *bd = *reinterpret_cast<const uint32*>(0x8E0FC4);
     *tl = reinterpret_cast<ZInflateHuft*>(0x8E0FC8);
     *td = reinterpret_cast<ZInflateHuft*>(0x8E1FC8);
     return ZI_OK;
+#endif
 }
 
 // 0x7EB120
 int __cdecl InflateFlush(ZInflateBlocksState* s, ZInflateStream* z, int r) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    return ::inflate_flush(s, z, r);
+#else
     uint32 n;
     uint8* p;
     uint8* q;
@@ -853,10 +927,14 @@ int __cdecl InflateFlush(ZInflateBlocksState* s, ZInflateStream* z, int r) {
     z->next_out = p;
     s->read = q;
     return r;
+#endif
 }
 
 // 0x7EB260
 int __cdecl InflateFast(uint32 bl, uint32 bd, const ZInflateHuft* tl, const ZInflateHuft* td, ZInflateBlocksState* s, ZInflateStream* z) {
+#ifdef GTASA_WITH_ZLIB_LIBPNG
+    return ::inflate_fast(bl, bd, const_cast<ZInflateHuft*>(tl), const_cast<ZInflateHuft*>(td), s, z);
+#else
     const ZInflateHuft* t; // puntero temporal
     uint32 e;              // bits extra u operacion
     uint32 b;              // bitb
@@ -963,4 +1041,5 @@ int __cdecl InflateFast(uint32 bl, uint32 bd, const ZInflateHuft* tl, const ZInf
     UNGRAB
     UPDATE
     return ZI_OK;
+#endif
 }

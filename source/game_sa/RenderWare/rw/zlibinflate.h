@@ -1,6 +1,6 @@
 #pragma once
 
-// zlib 1.1.4 (inflate: infblock.c, infcodes.c, inftrees.c, inffast.c, infutil.c) enlazado estaticamente en el EXE, entre 0x7E9430 y 0x7EB5B0.
+// zlib 1.1.3 (inflate: infblock.c, infcodes.c, inftrees.c, inffast.c, infutil.c) enlazado estaticamente en el EXE, entre 0x7E9430 y 0x7EB5B0 (el EXE lleva "inflate 1.1.3 Copyright 1995-1998 Mark Adler" en 0x8841B1; no hay cadena 1.1.4; correccion del lote LIB1A).
 // No es codigo del juego ni de RenderWare (el listado de RenderWare lo atribuia por vecindad a RtQuat). Lote R5A (sin validar); ver reversing/PendienteValidar/R5A.md.
 // Las estructuras reproducen la disposicion del EXE (z_stream 0x34 bytes, inflate_blocks_state 0x40, inflate_codes_state 0x1C, inflate_huft 8). Los nombres llevan prefijo
 // para no chocar con las de la zlib del proyecto. Todas las funciones son cdecl y los callbacks de reserva/liberacion/suma de comprobacion tambien.
@@ -23,7 +23,7 @@ typedef void*  (__cdecl* ZInflateAllocFn)(void* opaque, uint32 items, uint32 siz
 typedef void   (__cdecl* ZInflateFreeFn)(void* opaque, void* address);
 typedef uint32 (__cdecl* ZInflateCheckFn)(uint32 check, const uint8* buffer, uint32 length);
 
-// z_stream de zlib 1.1.4
+// z_stream de zlib 1.1.3
 struct ZInflateStream {
     uint8*          next_in;    // +0x00
     uint32          avail_in;   // +0x04
@@ -42,7 +42,7 @@ struct ZInflateStream {
 };
 static_assert(sizeof(ZInflateStream) == 0x38 && offsetof(ZInflateStream, zalloc) == 0x20 && offsetof(ZInflateStream, adler) == 0x30);
 
-// inflate_blocks_state de zlib 1.1.4 (la union `sub` esta en +4)
+// inflate_blocks_state de zlib 1.1.3 (la union `sub` esta en +4)
 struct ZInflateBlocksState {
     uint32 mode;                        // +0x00
     union {
@@ -71,7 +71,7 @@ struct ZInflateBlocksState {
 };
 static_assert(sizeof(ZInflateBlocksState) == 0x40 && offsetof(ZInflateBlocksState, last) == 0x18 && offsetof(ZInflateBlocksState, check) == 0x3C);
 
-// inflate_codes_state de zlib 1.1.4
+// inflate_codes_state de zlib 1.1.3
 struct ZInflateCodesState {
     uint32 mode;                        // +0x00
     uint32 len;                         // +0x04

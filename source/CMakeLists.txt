@@ -414,6 +414,19 @@ if (${RE_PROJECT}_USE_SDL3)
     )
 endif()
 
+#--------------------------------------------------------------------
+# Lote LIB1A: zlib 1.1.3 y libpng 1.0.12 compiladas desde la fuente oficial (libs/), las versiones que lleva embebidas gta_sa.exe.
+# Con la opcion encendida, los 14 hooks de ZlibInflate llaman a la biblioteca en lugar de a su reconstruccion a mano.
+# Por defecto APAGADA: la DLL no cambia hasta validar (ver reversing/FnLIB1A/README.md).
+#--------------------------------------------------------------------
+option(${RE_PROJECT}_WITH_ZLIB_LIBPNG "Enlaza zlib 1.1.3 + libpng 1.0.12 (libs/) y sustituye con ellas las funciones de zlib del EXE" OFF)
+if (${RE_PROJECT}_WITH_ZLIB_LIBPNG)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/libs/zlib-1.1.3 ${CMAKE_BINARY_DIR}/libs/zlib-1.1.3)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/libs/libpng-1.0.12 ${CMAKE_BINARY_DIR}/libs/libpng-1.0.12)
+    target_link_libraries(${RE_PROJECT_LIB_NAME} PRIVATE zlib113 libpng1012)
+    target_compile_definitions(${RE_PROJECT_LIB_NAME} PRIVATE GTASA_WITH_ZLIB_LIBPNG=1)
+endif()
+
 target_include_directories(${RE_PROJECT_LIB_NAME} PRIVATE
     .
     /
