@@ -1,0 +1,13 @@
+== 23:11:35 configurar GTASA_WITH_ZLIB_LIBPNG=ON
+cfg rc=0
+== 23:11:37 compilar ON
+build ON rc=0
+226c82cc990059104060ce668ad5549d209e9dae13d68d0a6fd5511e97019d3e *bin/Debug/gta_reversed.asi
+-rwxr-xr-x 1 pedro 197609 50429952 Nov 18 23:18 bin/Debug/gta_reversed.asi
+== 23:18:29 configurar GTASA_WITH_ZLIB_LIBPNG=OFF
+cfg rc=0
+== 23:18:30 compilar OFF
+build OFF rc=0
+c034800c97c918a7412a0570b01ec0fad37088d5f1127c5f1ec82cd5df51b0e6 *bin/Debug/gta_reversed.asi
+-rwxr-xr-x 1 pedro 197609 50433024 Nov 18 23:25 bin/Debug/gta_reversed.asi
+done

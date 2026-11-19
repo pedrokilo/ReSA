@@ -1,0 +1,31 @@
+ronda 1 mutacion  1 inflate_blocks_reset     DETECTADA {'inflate_blocks_reset': 1844, 'inflate_blocks_new': 1844, 'inflate_set_dictionary': 1844}
+ronda 1 mutacion  2 inflate_blocks_new       DETECTADA {'inflate_blocks_reset': 353, 'inflate_blocks_new': 353, 'inflate_blocks_free': 5, 'inflate_codes_new': 432, 'inflate_codes': 1211, 'inflate_codes_free': 428, 'inflate_trees_dynamic': 238, 'inflate_trees_fixed': 119}
+ronda 1 mutacion  3 inflate_blocks           DETECTADA {'inflate_blocks_reset': 5, 'inflate_blocks': 4, 'inflate_blocks_free': 2}
+ronda 1 mutacion  4 inflate_blocks_free      DETECTADA {'inflate_blocks_free': 470}
+ronda 1 mutacion  5 inflate_set_dictionary   DETECTADA {'inflate_set_dictionary': 261}
+ronda 1 mutacion  6 inflate_codes_new        DETECTADA {'inflate_blocks_reset': 427, 'inflate_blocks_free': 76, 'inflate_codes_new': 1398, 'inflate_codes': 2034, 'inflate_codes_free': 686}
+ronda 1 mutacion  7 inflate_codes            DETECTADA {'inflate_blocks_reset': 97, 'inflate_blocks_free': 49, 'inflate_codes': 301, 'inflate_codes_free': 92}
+ronda 1 mutacion  8 inflate_codes_free       DETECTADA {'inflate_blocks_reset': 2836, 'inflate_blocks_free': 2836, 'inflate_codes': 1710, 'inflate_codes_free': 2715}
+ronda 1 mutacion  9 inflate_trees_bits       DETECTADA {'inflate_trees_bits': 246}
+ronda 1 mutacion 10 huft_build               DETECTADA {'huft_build': 10}
+ronda 1 mutacion 11 inflate_trees_dynamic    DETECTADA {'inflate_trees_dynamic': 335}
+ronda 1 mutacion 12 inflate_trees_fixed      DETECTADA {'inflate_trees_fixed': 1000}
+ronda 1 mutacion 13 inflate_flush            DETECTADA {'inflate_flush': 184}
+ronda 1 mutacion 14 inflate_fast             DETECTADA {'inflate_blocks_reset': 12, 'inflate_blocks_free': 12, 'inflate_codes_free': 12, 'inflate_fast': 16}
+RONDA 1 TODAS LAS MUTACIONES DETECTADAS
+ronda 2 mutacion  1 inflate_blocks_reset     DETECTADA {'inflate_blocks_reset': 236}
+ronda 2 mutacion  2 inflate_blocks_new       DETECTADA {'inflate_blocks_reset': 225, 'inflate_blocks_new': 225, 'inflate_blocks_free': 225, 'inflate_codes_new': 282, 'inflate_codes': 741, 'inflate_codes_free': 277, 'inflate_trees_dynamic': 149, 'inflate_trees_fixed': 79}
+ronda 2 mutacion  3 inflate_blocks           DETECTADA {'inflate_blocks_reset': 60, 'inflate_blocks': 1484, 'inflate_blocks_free': 16}
+ronda 2 mutacion  4 inflate_blocks_free      DETECTADA {'inflate_blocks_free': 484}
+ronda 2 mutacion  5 inflate_set_dictionary   DETECTADA {'inflate_blocks_reset': 15, 'inflate_set_dictionary': 15}
+ronda 2 mutacion  6 inflate_codes_new        DETECTADA {'inflate_codes_new': 105}
+ronda 2 mutacion  7 inflate_codes            DETECTADA {'inflate_blocks_reset': 584, 'inflate_blocks_free': 213, 'inflate_codes': 2146, 'inflate_codes_free': 666}
+ronda 2 mutacion  8 inflate_codes_free       DETECTADA {'inflate_blocks_reset': 2836, 'inflate_blocks_free': 2836, 'inflate_codes': 2439, 'inflate_codes_free': 1428}
+ronda 2 mutacion  9 inflate_trees_bits       DETECTADA {'inflate_trees_bits': 122}
+ronda 2 mutacion 10 huft_build               DETECTADA {'huft_build': 34}
+ronda 2 mutacion 11 inflate_trees_dynamic    DETECTADA {'inflate_trees_dynamic': 321}
+ronda 2 mutacion 12 inflate_trees_fixed      DETECTADA {'inflate_trees_fixed': 1000}
+ronda 2 mutacion 13 inflate_flush            DETECTADA {'inflate_flush': 154}
+ronda 2 mutacion 14 inflate_fast             DETECTADA {'inflate_blocks_reset': 282, 'inflate_blocks_free': 85, 'inflate_codes_free': 332, 'inflate_fast': 402}
+RONDA 2 TODAS LAS MUTACIONES DETECTADAS
+done

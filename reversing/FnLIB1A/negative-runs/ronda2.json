@@ -1,0 +1,161 @@
+{
+ "1": {
+  "funcion": "inflate_blocks_reset",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_blocks_reset": 236
+  }
+ },
+ "2": {
+  "funcion": "inflate_blocks_new",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_blocks_reset": 225,
+   "inflate_blocks_new": 225,
+   "inflate_blocks_free": 225,
+   "inflate_codes_new": 282,
+   "inflate_codes": 741,
+   "inflate_codes_free": 277,
+   "inflate_trees_dynamic": 149,
+   "inflate_trees_fixed": 79
+  }
+ },
+ "3": {
+  "funcion": "inflate_blocks",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_blocks_reset": 60,
+   "inflate_blocks": 1484,
+   "inflate_blocks_free": 16
+  }
+ },
+ "4": {
+  "funcion": "inflate_blocks_free",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_blocks_free": 484
+  }
+ },
+ "5": {
+  "funcion": "inflate_set_dictionary",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_blocks_reset": 15,
+   "inflate_set_dictionary": 15
+  }
+ },
+ "6": {
+  "funcion": "inflate_codes_new",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_codes_new": 105
+  }
+ },
+ "7": {
+  "funcion": "inflate_codes",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_blocks_reset": 584,
+   "inflate_blocks_free": 213,
+   "inflate_codes": 2146,
+   "inflate_codes_free": 666
+  }
+ },
+ "8": {
+  "funcion": "inflate_codes_free",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_blocks_reset": 2836,
+   "inflate_blocks_free": 2836,
+   "inflate_codes": 2439,
+   "inflate_codes_free": 1428
+  }
+ },
+ "9": {
+  "funcion": "inflate_trees_bits",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_trees_bits": 122
+  }
+ },
+ "10": {
+  "funcion": "huft_build",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "huft_build": 34
+  }
+ },
+ "11": {
+  "funcion": "inflate_trees_dynamic",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_trees_dynamic": 321
+  }
+ },
+ "12": {
+  "funcion": "inflate_trees_fixed",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_trees_fixed": 1000
+  }
+ },
+ "13": {
+  "funcion": "inflate_flush",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_flush": 154
+  }
+ },
+ "14": {
+  "funcion": "inflate_fast",
+  "detectada": true,
+  "resultado": [
+   "RESULTADO: HAY DIFERENCIAS"
+  ],
+  "diferencias_por_funcion": {
+   "inflate_blocks_reset": 282,
+   "inflate_blocks_free": 85,
+   "inflate_codes_free": 332,
+   "inflate_fast": 402
+  }
+ }
+}
