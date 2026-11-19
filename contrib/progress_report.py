@@ -155,7 +155,8 @@ def excluded_summary(root):
 
 def build(root, input_path, coverage, validation, notsa_count=0):
     root = Path(root)
-    now = datetime.datetime.now(datetime.timezone.utc)
+    # Hora de Ciudad de México (UTC-6 fijo: México no usa horario de verano desde 2022), igual que el resto de los informes.
+    now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-6)))
     fecha = now.strftime('%d/%m/%Y')
     per, tot = classify_hooks(input_path)
     g, rw = coverage['regions']['juego'], coverage['regions']['renderware']
@@ -175,7 +176,7 @@ def build(root, input_path, coverage, validation, notsa_count=0):
 
     L = ['# Progreso del reversing', '',
          '[Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md) · [Registro de validaciones](../reversing/ValidationRegistry/README.md)', '',
-         f'> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** {now:%Y-%m-%d %H:%M} UTC', '',
+         f'> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** {now:%Y-%m-%d %H:%M} (hora de Ciudad de México)', '',
          '**Índice:** [1. Dónde estamos](#donde-estamos) · [2. Código del juego](#juego) · [3. RenderWare](#renderware) · [4. Qué falta por validar](#por-validar) · [5. Clases del juego sin validar](#clases) · [6. Cómo leer y regenerar](#metodo)', '',
          '<a id="donde-estamos"></a>', '', '## 1. Dónde estamos', '',
          '@@CORE_START@@', 'Tres conceptos distintos, que no se mezclan en ninguna cifra:', '',
