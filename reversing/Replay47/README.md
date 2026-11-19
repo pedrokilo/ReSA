@@ -31,3 +31,12 @@ Banco preparado el 04/10/2026: **18.208 pares original/candidato dentro de GTA**
 - Fuera de los fixtures: creación real de peatones y vehículos (`DealWithNewPedPacket` con modelo cargado, paquetes de vehículo con slot libre y modelo cargado), extracción de vehículos existentes (`tReplay*Block::Extract*`, no catalogadas), `REPLAY_PACKET_PARTICLE` y tipos ≥ 20 (el EXE entra en bucle infinito) y el desbordamiento de la tabla de vehículos (el EXE puede quedarse colgado).
 
 Repetir: `python reversing/Replay47/build_probe.py` y `python reversing/run.py --case replay47`.
+
+## Repeticiones
+
+### 2026-11-18 (pase final A, commit base 23c47ba081): APROBADO, 18208 pares (47 funciones), 0 diferencias
+
+- Motivo: los lotes 213A/214A cambiaron `CReplay`, `CPlayerInfo::operator=` y `CPlayerPedData::operator=`. El primer intento fallo dentro de GTA en `CReplay::ProcessLookAroundCam` (violacion de acceso en `FrameMarkDirty` desde `RwFrameUpdateObjects` de la DLL): el banco solo falseaba por la direccion del EXE `RwMatrixUpdate` (0x7F18A0), `RwFrameUpdateObjects` (0x7F0910), `RwFrameOrthoNormalize` (0x7F1170) y `RwCameraSetNearClipPlane` (0x7EE1D0) bajo la suposicion «los envoltorios RW de la DLL llaman al EXE», que ya no es cierta (son C++ con hook y la DLL llama a su cuerpo). Fallo del banco, no de la fuente de produccion.
+- Cambio en el banco (comparacion intacta: mismos falsos y misma traza): `LiveComparison.hpp` instala el MISMO falso tambien en el cuerpo de la DLL de esas cuatro funciones.
+- SHA256 de la sonda ejecutada: `6efd1190ca12d4a0e466cd618cb740fc4d3a92db8c396dc46456536378afc8c4`.
+- Evidencia: `reversing/CppTwelveLevel6Final/runs/Replay47-20261118-191011-714971`.

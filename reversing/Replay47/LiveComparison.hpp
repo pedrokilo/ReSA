@@ -282,7 +282,8 @@ inline void Update() {
         EntryPatch a5(bit_cast<uintptr_t>(&CAnimBlendAssociation::SetCurrentTime),FakeSetCurrentTime), a5e(0x4CEA80,FakeSetCurrentTime);
         EntryPatch a6(bit_cast<uintptr_t>(&CAnimBlendAssociation::SetBlend),FakeSetBlend), a6e(0x4CEBA0,FakeSetBlend);
         EntryPatch c1(bit_cast<uintptr_t>(&CCamera::CalculateDerivedValues),FakeCalcDerived), c1e(0x5150E0,FakeCalcDerived);
-        EntryPatch c2(0x7F18A0,FakeMatrixUpdate), c3(0x7F0910,FakeFrameUpdate), c4(0x7F1170,FakeOrtho), c5(0x7EE1D0,FakeNearClip); // los envoltorios RW de la DLL llaman al EXE
+        EntryPatch c2(0x7F18A0,FakeMatrixUpdate), c3(0x7F0910,FakeFrameUpdate), c4(0x7F1170,FakeOrtho), c5(0x7EE1D0,FakeNearClip); // (ya no: desde los lotes R de RenderWare son C++ con hook y la DLL llama a su cuerpo, asi que tambien se parchea el cuerpo, abajo)
+        EntryPatch c2d(bit_cast<uintptr_t>(&RwMatrixUpdate),FakeMatrixUpdate), c3d(bit_cast<uintptr_t>(&RwFrameUpdateObjects),FakeFrameUpdate), c4d(bit_cast<uintptr_t>(&RwFrameOrthoNormalize),FakeOrtho), c5d(bit_cast<uintptr_t>(&RwCameraSetNearClipPlane),FakeNearClip); // pase final A (18/11/2026)
         EntryPatch c6(bit_cast<uintptr_t>(&CCamera::SetFadeColour),FakeSetFadeColour), c6e(0x50BF00,FakeSetFadeColour);
         EntryPatch c7(bit_cast<uintptr_t>(&CCamera::Fade),FakeFade), c7e(0x50AC20,FakeFade);
         EntryPatch c8(bit_cast<uintptr_t>(&CCamera::ProcessFade),FakeProcessFade), c8e(0x50B5D0,FakeProcessFade);
