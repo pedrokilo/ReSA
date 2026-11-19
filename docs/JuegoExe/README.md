@@ -160,7 +160,7 @@ Cada una está **cerrada con una categoría y una evidencia** por inspección de
 | 0x00745920 | 327 | VideoModeSelectDialog | usercall-cubierta | __usercall con registros de entrada que C++ no puede leer (EBX=combo); excluida el 15/11/2026 (lote 196A) |
 | 0x00745CC0 | 252 | VideoMode | usercall-cubierta | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 12/11/2026 (lotes 180A y 186A) |
 | 0x00745DC0 | 130 | VideoMode | usercall-cubierta | __usercall: recibe argumentos en registros que C++ no puede leer sin __asm; sus llamadores del EXE ya estan en funciones reconstruidas; excluida el 12/11/2026 (lotes 180A y 186A) |
-| 0x00746480 | 300 | WinMain | sustituida-por-crt | __usercall con registros de entrada que C++ no puede leer (EAX=linea de comandos); excluida el 15/11/2026 (lote 196A); cerrada en G3A: la sustituye el CRT (`__argv`) |
+| 0x00746480 | 300 | WinMain | sustituida-por-crt | __usercall con registros de entrada que C++ no puede leer (EAX=linea de comandos); excluida el 15/11/2026 (lote 196A) |
 | 0x00746800 | 110 | VideoPlayer | proteccion-descartada | __usercall anti-manipulacion: lee registros que C++ no puede leer; sin llamadores directos ni vtable; excluida del objetivo el 11/11/2026 (lote 161A, evidencia en reversing/Fn161A) |
 
 | Bloque | Funciones | Reemplazadas | Faltan | Bytes que faltan | Módulos con más faltantes (estimado) |
