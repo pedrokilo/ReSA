@@ -1,0 +1,65 @@
+{
+ "sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+ "tamano_archivo": 5189632,
+ "maquina": "0x14c",
+ "secciones": 7,
+ "fecha_compilacion": 1114702282,
+ "base_imagen": "0x00400000",
+ "punto_entrada": "0x00824570",
+ "tam_imagen": 9113600,
+ "tam_cabeceras": 1024,
+ "checksum": "0xdc5bea",
+ "subsistema": 2,
+ "caracteristicas_archivo": "0x10f",
+ "reubicaciones_quitadas": true,
+ "dll_characteristics": "0x0",
+ "aslr": false,
+ "dep": false,
+ "pila_reservada": 2097152,
+ "pila_confirmada": 4096,
+ "monton_reservado": 2097152,
+ "directorios": {
+  "import": {
+   "rva": "0x004A2004",
+   "tam": 200
+  },
+  "resource": {
+   "rva": "0x008B0000",
+   "tam": 1312
+  },
+  "iat": {
+   "rva": "0x00458000",
+   "tam": 888
+  },
+  "delay_import": {
+   "rva": "0x004A1EE4",
+   "tam": 160
+  }
+ },
+ "entradas_reubicacion": 0,
+ "tls": null,
+ "overlay_bytes": 0,
+ "imports_dlls": [
+  "ADVAPI32.dll",
+  "DDRAW.dll (diferida)",
+  "DINPUT8.dll (diferida)",
+  "DSOUND.dll (diferida)",
+  "EAX.DLL",
+  "GDI32.dll",
+  "KERNEL32.dll",
+  "USER32.dll",
+  "WINMM.dll",
+  "WS2_32.dll",
+  "d3d9.dll (diferida)",
+  "ole32.dll",
+  "vorbisfile.dll"
+ ],
+ "imports_total": 218,
+ "imports_diferidos": 4,
+ "recursos_total": 3,
+ "recursos_por_tipo": {
+  "DIALOG": 1,
+  "GROUP_ICON": 1,
+  "ICON": 1
+ }
+}

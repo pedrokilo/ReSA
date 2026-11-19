@@ -1,0 +1,31 @@
+{
+ "base_0x400000": true,
+ "sin_relocaciones": true,
+ "sin_aslr": true,
+ "reserva_en_0x401000": true,
+ "primer_codigo_propio": "0xcb1000",
+ "propio_fuera_de_la_reserva": true,
+ "reserva_a_cero_en_archivo": true,
+ "imports_por_dll": {
+  "ddraw.dll": 1,
+  "dsound.dll": 1,
+  "d3d9.dll": 1,
+  "winmm.dll": 4,
+  "dbghelp.dll": 8,
+  "kernel32.dll": 219,
+  "user32.dll": 159,
+  "gdi32.dll": 24,
+  "imm32.dll": 11,
+  "ole32.dll": 12,
+  "oleaut32.dll": 1,
+  "version.dll": 3,
+  "advapi32.dll": 5,
+  "setupapi.dll": 8,
+  "shell32.dll": 9,
+  "dinput8.dll": 1
+ },
+ "no_importa_gta_sa": true,
+ "simbolos_sin_resolver": 0,
+ "sin_simbolos_sin_resolver": true,
+ "todo_ok": true
+}

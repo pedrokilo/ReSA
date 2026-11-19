@@ -563,3 +563,11 @@ if (${RE_PROJECT}_INSTALL)
         install(FILES $<TARGET_PDB_FILE:${RE_PROJECT_LIB_NAME}> DESTINATION "." OPTIONAL)
     endif()
 endif()
+
+#--------------------------------------------------------------------
+# Prototipo IND0A: EXE "caparazon" (opcional, ver docs/ExeIndependiente/README.md)
+#--------------------------------------------------------------------
+option(${RE_PROJECT}_EXE_PROTOTIPO "Crea el objetivo gta_reversed_exe: enlaza los .obj ya compilados como EXE de base fija 0x400000 (sin ejecutar el juego)" OFF)
+if (${RE_PROJECT}_EXE_PROTOTIPO AND WIN32 AND NOT ${RE_PROJECT}_STANDALONE)
+    add_subdirectory(${PROJECT_SOURCE_DIR}/reversing/FnIND0A/prototipo ${CMAKE_BINARY_DIR}/ind0a_prototipo)
+endif()

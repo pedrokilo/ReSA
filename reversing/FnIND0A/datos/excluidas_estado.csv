@@ -1,0 +1,119 @@
+va,bytes,modulo,categoria,enganchada,referencias_codigo_propio,llamadoras_en_exe
+0x00746800,110,VideoPlayer,proteccion-descartada,0,0,0
+0x00709CF0,837,CShadows,usercall-cubierta,0,0,1
+0x004C4923,48,CDamageAtomicModelInfo,no-es-funcion,0,0,0
+0x006F55C0,5,CTrain,salto-puro,0,0,0
+0x004AFB40,5,CEventAcquaintancePed,salto-puro,0,0,0
+0x0059F000,5,CHandObject,salto-puro,0,0,1
+0x00655DD0,5,CTaskComplexWalkRoundFire,salto-puro,0,0,1
+0x00655E00,5,CTaskComplexWalkRoundFire,salto-puro,0,0,1
+0x00637320,5,CTaskSimpleHitFromFront,salto-puro,0,0,1
+0x00637350,5,CTaskSimpleHitFromFront,salto-puro,0,0,1
+0x00637380,5,CTaskSimpleHitFromFront,salto-puro,0,0,1
+0x006373B0,5,CTaskSimpleHitFromFront,salto-puro,0,0,1
+0x006373E0,5,CTaskSimpleHitFromFront,salto-puro,0,0,1
+0x00637410,5,CTaskSimpleHitFromFront,salto-puro,0,0,1
+0x00637440,5,CTaskSimpleHitFromFront,salto-puro,0,0,1
+0x00637470,5,CTaskSimpleHitFromFront,salto-puro,0,0,1
+0x0049EA70,5,Fx_c,salto-puro,0,0,3
+0x006935B0,5,CTaskSimpleHoldEntity,salto-puro,0,0,1
+0x006935E0,5,CTaskSimpleHoldEntity,salto-puro,0,0,1
+0x00745CC0,252,VideoMode,usercall-cubierta,0,0,0
+0x00745DC0,130,VideoMode,usercall-cubierta,0,0,0
+0x005DBE40,104,CPlantMgr,usercall-cubierta,0,0,1
+0x005DD1E0,57,CPlantMgr,usercall-cubierta,0,0,1
+0x005DD220,323,CPlantMgr,usercall-cubierta,0,0,1
+0x004B5C2A,197,CPedDamageResponseCalculator,no-es-funcion,0,0,0
+0x0070FA70,107,CStencilShadows,usercall-cubierta,0,0,2
+0x00711160,136,CStencilShadows,usercall-cubierta,0,0,1
+0x007111F0,136,CStencilShadows,usercall-cubierta,0,0,1
+0x00619910,410,CCam,usercall-cubierta,0,0,1
+0x0049B0E0,217,CShopping,usercall-cubierta,0,0,1
+0x00745920,327,VideoModeSelectDialog,usercall-cubierta,0,0,2
+0x00746480,300,WinMain,sustituida-por-crt,0,0,1
+0x005E3630,400,CPed,usercall-cubierta,0,0,1
+0x005E37C0,404,CPed,usercall-cubierta,0,0,1
+0x005A42B0,203,CClothesBuilder,usercall-cubierta,0,0,1
+0x0072E080,180,RenderWare (rwtexdict),usercall-renderware,0,0,1
+0x0072E140,217,RenderWare (rwtexdict),usercall-renderware,0,0,1
+0x0072E220,79,RenderWare (rwtexdict),usercall-renderware,0,0,1
+0x0072E270,236,RenderWare (rwtexdict),usercall-renderware,0,0,2
+0x0072E360,60,RenderWare (rwtexdict),usercall-renderware,0,0,3
+0x004F3A15,32,STL (std::string),no-es-funcion,0,0,0
+0x004F3A3E,102,STL (std::string),no-es-funcion,0,0,1
+0x004F3AAD,45,STL (std::string),no-es-funcion,0,0,0
+0x004F44B3,9,STL (std::string),no-es-funcion,0,0,0
+0x005D84C0,207,CustomBuildingPipeline,usercall-cubierta,0,0,1
+0x005D8590,723,CustomBuildingPipeline,usercall-cubierta,0,0,1
+0x0048DE60,5,CTaskSimpleAnim,salto-puro,0,0,1
+0x004D1680,971,RpAnimBlend,usercall-cubierta,0,0,1
+0x004D1A50,850,RpAnimBlend,usercall-cubierta,0,0,1
+0x004D1DB0,843,RpAnimBlend,usercall-cubierta,0,0,1
+0x004D2100,845,RpAnimBlend,usercall-cubierta,0,0,1
+0x004D2450,910,RpAnimBlend,usercall-cubierta,0,0,1
+0x004D27F0,910,RpAnimBlend,usercall-cubierta,0,0,1
+0x004D6450,73,RpAnimBlend,usercall-cubierta,0,0,1
+0x004D6510,256,RpAnimBlend,usercall-cubierta,0,0,1
+0x004D66A0,118,RpAnimBlend,usercall-cubierta,0,0,1
+0x005ED0A3,9,STL (std::vector),no-es-funcion,0,0,0
+0x005ED388,9,STL (std::vector),no-es-funcion,0,0,0
+0x005ED643,9,STL (std::vector),no-es-funcion,0,0,0
+0x005ED92A,9,STL (std::vector),no-es-funcion,0,0,0
+0x005EDBE3,9,STL (std::vector),no-es-funcion,0,0,0
+0x004027CD,58,ExeProtectionStub,proteccion-descartada,0,0,1
+0x00402A36,211,ExeProtectionStub,proteccion-descartada,0,0,0
+0x00402DC5,9,ExeProtectionStub,proteccion-descartada,0,0,0
+0x004032C5,18,ExeProtectionStub,proteccion-descartada,0,0,0
+0x0040335F,26,ExeProtectionStub,proteccion-descartada,0,0,0
+0x00403379,29,ExeProtectionStub,proteccion-descartada,0,0,0
+0x004033B2,11,ExeProtectionStub,proteccion-descartada,0,0,1
+0x004033F5,525,ExeProtectionStub,proteccion-descartada,0,0,1
+0x0040374C,437,ExeProtectionStub,proteccion-descartada,0,0,1
+0x00403902,513,ExeProtectionStub,proteccion-descartada,0,0,1
+0x00403B03,120,ExeProtectionStub,proteccion-descartada,0,0,1
+0x00403B7B,2,ExeProtectionStub,proteccion-descartada,0,0,2
+0x004CA5A0,1339,RenderWare (D3D9 raster),usercall-renderware,0,0,1
+0x004CAAE0,673,RenderWare (D3D9 raster),usercall-renderware,0,0,1
+0x004CAD90,104,RenderWare (D3D9 raster),usercall-renderware,0,0,0
+0x004CAEA0,1530,RenderWare (D3D9 raster),usercall-renderware,0,0,0
+0x004CB560,78,RenderWare (D3D9 raster),usercall-renderware,0,0,1
+0x004CB730,141,RenderWare (D3D9 raster),usercall-renderware,0,0,2
+0x004CB7C0,512,RenderWare (D3D9 raster),usercall-renderware,0,0,1
+0x004CB9C0,310,RenderWare (D3D9 raster),usercall-renderware,0,0,1
+0x004CC0C0,129,RenderWare (D3D9 raster),usercall-renderware,0,0,1
+0x004CC5C0,907,RenderWare (D3D9 raster),usercall-renderware,0,0,1
+0x004CCD70,236,RenderWare (D3D9 raster),usercall-renderware,0,0,1
+0x004CCE60,457,RenderWare (D3D9 raster),usercall-renderware,0,1,1
+0x004A2BB0,5,FxEmitter_c,salto-puro,0,1,1
+0x005C4640,226,libjpeg (jchuff/jcmarker),usercall-cubierta,0,0,2
+0x005C4760,387,libjpeg (jchuff/jcmarker),usercall-cubierta,0,0,0
+0x005C48F0,200,libjpeg (jchuff/jcmarker),usercall-cubierta,0,0,0
+0x005C4B90,224,libjpeg (jchuff/jcmarker),usercall-cubierta,0,0,0
+0x005C54F0,104,libjpeg (jchuff/jcmarker),usercall-cubierta,0,0,9
+0x005C5560,102,libjpeg (jchuff/jcmarker),usercall-cubierta,0,0,7
+0x005C7010,191,libjpeg (jcparam/jdapistd),usercall-cubierta,0,0,1
+0x005C70D0,82,libjpeg (jcparam/jdapistd),usercall-cubierta,0,0,1
+0x005C8620,100,libjpeg (jcparam/jdapistd),usercall-cubierta,0,0,1
+0x005C9C60,127,libjpeg (jdhuff/jdinput/jdmainct/jdmarker),usercall-cubierta,0,0,0
+0x005CA2A0,493,libjpeg (jdhuff/jdinput/jdmainct/jdmarker),usercall-cubierta,0,0,1
+0x005CA490,415,libjpeg (jdhuff/jdinput/jdmainct/jdmarker),usercall-cubierta,0,0,1
+0x005CA630,170,libjpeg (jdhuff/jdinput/jdmainct/jdmarker),usercall-cubierta,0,0,1
+0x005CA890,168,libjpeg (jdhuff/jdinput/jdmainct/jdmarker),usercall-cubierta,0,0,1
+0x005CAF00,164,libjpeg (jdhuff/jdinput/jdmainct/jdmarker),usercall-cubierta,0,0,0
+0x005CAFB0,777,libjpeg (jdhuff/jdinput/jdmainct/jdmarker),usercall-cubierta,0,0,0
+0x005CB2C0,751,libjpeg (jdmarker/jdmaster),usercall-cubierta,0,0,0
+0x005CB8C0,599,libjpeg (jdmarker/jdmaster),usercall-cubierta,0,0,0
+0x005CBC00,587,libjpeg (jdmarker/jdmaster),usercall-cubierta,0,0,0
+0x005CBE50,169,libjpeg (jdmarker/jdmaster),usercall-cubierta,0,0,0
+0x005CC950,119,libjpeg (jdmarker/jdmaster),usercall-cubierta,0,0,1
+0x005CC9D0,373,libjpeg (jdmarker/jdmaster),usercall-cubierta,0,0,1
+0x005CF1B0,148,libjpeg (jmemmgr),usercall-cubierta,0,0,0
+0x005CF250,151,libjpeg (jmemmgr),usercall-cubierta,0,0,0
+0x005CFA30,5,libjpeg (jcomapi),salto-puro,0,0,1
+0x005CFE00,5,libjpeg (jcomapi),salto-puro,0,0,1
+0x005CFE20,394,libjpeg (jdapimin),usercall-cubierta,0,0,1
+0x00403B7D,151,ExeProtectionStub,proteccion-descartada,0,0,2
+0x00403C14,92,ExeProtectionStub,proteccion-descartada,0,0,1
+0x00403C70,24,ExeProtectionStub,proteccion-descartada,0,0,1
+0x00403C88,127,ExeProtectionStub,proteccion-descartada,0,0,1
+0x00403D07,88,ExeProtectionStub,proteccion-descartada,0,0,0
