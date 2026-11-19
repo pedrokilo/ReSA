@@ -10,6 +10,7 @@
 #include "Timer.h"
 #include "ColStore.h"
 #include "ModelInfo.h"
+#include "reversiblehooks/RootHookCategory.h"
 #include "TaskComplexEnterCarAsDriver.h"
 #include "TaskSimpleCarSetPedOut.h"
 #include <Utility.h>
@@ -21,6 +22,7 @@ int    s_cycles{ 20 };
 uint32 s_periodMs{ 20000 };
 uint32 s_startDelayMs{ 20000 };
 uint32 s_driveMs{ 6000 };
+bool   s_scaffold{};   // 5.o campo de --robar: reactivar hooks de menu/carga (experimento; no resolvio el control)
 
 enum class State { Wait, Steal, Enter, Drive, Done };
 State  s_state{ State::Wait };
@@ -149,6 +151,7 @@ void Configure(std::string_view spec) {
         case 1: if (v > 0) s_periodMs = v * 1000u; break;
         case 2: if (v >= 0) s_startDelayMs = v * 1000u; break;
         case 3: if (v >= 0) s_driveMs = v * 1000u; break;
+        case 4: s_scaffold = v != 0; break;
         }
     }
     NOTSA_LOG_INFO("[ROBAR] activado: {} ciclos, cada {} s, espera inicial {} s, conducir {} s", s_cycles, s_periodMs / 1000, s_startDelayMs / 1000, s_driveMs / 1000);
@@ -285,8 +288,39 @@ void __cdecl IdleDetour(void* param) {
 }
 } // namespace
 
+// El bucle original del EXE se PAUSA cuando la ventana no esta en primer plano (ForegroundApp = 0 en 0x8D621C): con --unhook-all
+// el juego se quedaba cargando sin avanzar mientras el usuario usaba otra ventana. Con --robar se mantiene el dword a 1 (lo que
+// escribiria WM_ACTIVATEAPP) para que la prueba automatica no dependa de a que ventana mira el usuario. Misma conducta en A y en B.
+DWORD WINAPI KeepForegroundThread(LPVOID) {
+    for (;;) {
+        *(volatile uint32*)0x8D621C = 1;
+        Sleep(100);
+    }
+}
+
 void InstallIdleDetourIfNeeded() {
     if (!s_enabled || s_detoured) return;
+    // Con --unhook-all (o apagado el grupo) InitUserDirectories (0x744FB0) vuelve a ser el del EXE y devuelve la carpeta de
+    // partidas por defecto del juego en vez de Misc.SaveDirectoryPath del INI de pruebas: FastLoader no encuentra la ranura y el
+    // juego se queda en el menu (el control nunca empezaba). Con --robar se deja ese unico hook ENCENDIDO en A y en B (solo
+    // resuelve la ruta de las partidas; no interviene en entidades, coches ni fisica).
+    // Tambien se dejan encendidas las clases del menu y de la carga de partidas (andamio de la prueba, no sospechosas del fallo de
+    // los coches): con el menu original el FastLoader no llegaba a iniciar la partida en el control (se quedaba en FRONTEND_IDLE).
+    if (s_scaffold) ReversibleHooks::GetRootCategory().ForEachCategory([](auto& cat) {
+        const auto& n = cat.Name();
+        const bool scaffold = n == "CMenuManager" || n == "CGenericGameStorage" || n == "C_PcSave" || n == "CFileMgr" || n == "CLoadingScreen" || n == "Game";
+        size_t k = 0;
+        for (auto& item : cat.Items()) {
+            if ((scaffold || item->Name() == "InitUserDirectories") && item->Name() != "Idle" && !item->Hooked() && item->State(true)) ++k;
+        }
+        if (k) NOTSA_LOG_INFO("[ROBAR] andamio de carga: {} hooks reactivados en '{}'", k, n);
+    });
+    static bool s_threadStarted = false;
+    if (!s_threadStarted) {
+        s_threadStarted = true;
+        if (const auto h = CreateThread(nullptr, 0, KeepForegroundThread, nullptr, 0, nullptr)) CloseHandle(h);
+        NOTSA_LOG_INFO("[ROBAR] hilo que mantiene ForegroundApp=1 (el juego no se pausa en segundo plano)");
+    }
     if (*(uint8*)IDLE_ADDR == 0xE9) {
         NOTSA_LOG_INFO("[ROBAR] Idle de la DLL activo: OnFrame se llama desde el.");
         return;
