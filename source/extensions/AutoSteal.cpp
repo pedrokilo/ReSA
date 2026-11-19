@@ -8,6 +8,7 @@
 #include "MenuManager.h"
 #include "Game.h"
 #include "Timer.h"
+#include "ColStore.h"
 #include "TaskComplexEnterCarAsDriver.h"
 #include "TaskSimpleCarSetPedOut.h"
 #include <Utility.h>
@@ -30,6 +31,7 @@ int    s_vehRef{ -1 }, s_drvRef{ -1 };
 int    s_stolen{}, s_failed{}, s_nan{}, s_falls{}, s_spawnFail{};
 bool   s_cycleNaN{}, s_cycleFall{};
 float  s_minZ{ 1e9f };
+uint32 s_lastSkipLog{}; int s_skips{}; float s_lastGz{}; CVector s_lastAt{};
 constexpr int32 MODELS[]{ 496, 436, 401, 410, 517, 405, 549, 507 };
 
 CVehicle* Veh() { return s_vehRef >= 0 ? GetVehiclePool()->GetAtRef(s_vehRef) : nullptr; }
@@ -85,6 +87,18 @@ void Observe(CPlayerPed* pl) {
         s_minZ = std::min(s_minZ, p.z);
         if (p.z < -50.f) s_cycleFall = true;
     }
+    if (const auto v = Veh(); v && !s_cycleFall) {
+        const auto d = v->m_pDriver;
+        const bool dFall = d && !BadVec(d->GetPosition()) && d->GetPosition().z < -50.f;
+        const bool vFall = !BadVec(v->GetPosition()) && v->GetPosition().z < -50.f;
+        const bool pFall = !BadVec(pl->GetPosition()) && pl->GetPosition().z < -50.f;
+        if (dFall || vFall || pFall) {
+            s_cycleFall = true;
+            NOTSA_LOG_WARN("[ROBAR] CAIDA ciclo {}: cae conductor={} coche={} CJ={}; conductor z={:.1f} coche z={:.1f} CJ z={:.1f}; suelo_z de creacion={:.1f}; coche en vehiculo CJ={}",
+                s_cycle + 1, (int)dFall, (int)vFall, (int)pFall, d ? d->GetPosition().z : 0.f, v->GetPosition().z, pl->GetPosition().z, s_lastGz, (int)pl->bInVehicle);
+            DumpRing("caida a traves del mapa");
+        }
+    }
     if (const auto v = Veh()) {
         if (BadVec(v->GetPosition())) {
             if (!s_cycleNaN) { NOTSA_LOG_WARN("[ROBAR] NaN en la posicion del vehiculo (ciclo {})", s_cycle + 1); DumpRing("NaN del vehiculo"); }
@@ -118,8 +132,8 @@ void EndCycle(CPlayerPed* pl, bool stolen, uint32 now) {
     s_nextStart = now + s_periodMs;
     s_state = s_cycle >= s_cycles ? State::Done : State::Wait;
     if (s_state == State::Done) {
-        NOTSA_LOG_INFO("[ROBAR] FIN ciclos={} robados={} sin_robar={} ciclos_con_NaN={} ciclos_con_caida={} fallos_de_creacion={}",
-            s_cycle, s_stolen, s_failed, s_nan, s_falls, s_spawnFail);
+        NOTSA_LOG_INFO("[ROBAR] FIN ciclos={} robados={} sin_robar={} ciclos_con_NaN={} ciclos_con_caida={} fallos_de_creacion={} esperas_por_colision={}",
+            s_cycle, s_stolen, s_failed, s_nan, s_falls, s_spawnFail, s_skips);
     }
 }
 } // namespace
@@ -169,6 +183,16 @@ void OnFrame() {
         if (!CStreaming::IsModelLoaded(model)) { ++s_spawnFail; s_nextStart = now + 3000; break; }
         const auto fwd = pl->GetForward();
         const auto at = pl->GetPosition() + CVector{ fwd.x, fwd.y, 0.f } * 5.f;
+        // Criterio: solo se crea el coche si hay colision cargada bajo el punto y hay suelo cerca de la altura de CJ
+        // (evita el artefacto de crear un coche sobre un sitio sin colision, que haria caer al coche y al conductor).
+        bool sueloOk = false;
+        const float gz = CWorld::FindGroundZFor3DCoord(CVector{ at.x, at.y, pl->GetPosition().z + 1.f }, &sueloOk, nullptr);
+        const bool colOk = CColStore::HasCollisionLoaded(at, CGame::currArea);
+        if (!colOk || !sueloOk || std::fabs(gz - pl->GetPosition().z) > 3.f) {
+            if (now - s_lastSkipLog > 5000) { s_lastSkipLog = now; NOTSA_LOG_INFO("[ROBAR] ciclo {}: sin colision/suelo bajo ({:.1f},{:.1f}) col={} suelo={} gz={:.1f}; se espera", s_cycle + 1, at.x, at.y, (int)colOk, (int)sueloOk, gz); }
+            ++s_skips; s_nextStart = now + 1000; break;
+        }
+        s_lastGz = gz; s_lastAt = at;
         const auto v = CCarCtrl::CreateCarForScript(model, at, false);
         if (!v) { ++s_spawnFail; s_nextStart = now + 3000; break; }
         s_vehRef = GetVehiclePool()->GetRef(v);
@@ -185,7 +209,7 @@ void OnFrame() {
         }
         s_stateT0 = now;
         s_state = State::Steal;
-        NOTSA_LOG_INFO("[ROBAR] ciclo {}: coche modelo {} creado con conductor={}", s_cycle + 1, model, d ? "si" : "no");
+        NOTSA_LOG_INFO("[ROBAR] ciclo {}: coche modelo {} creado con conductor={} en ({:.1f},{:.1f},{:.1f}) suelo_z={:.1f} CJ=({:.1f},{:.1f},{:.1f}) coche_z={:.1f}", s_cycle + 1, model, d ? "si" : "no", s_lastAt.x, s_lastAt.y, s_lastAt.z, s_lastGz, pl->GetPosition().x, pl->GetPosition().y, pl->GetPosition().z, v->GetPosition().z);
         break;
     }
     case State::Steal: {
