@@ -51,3 +51,12 @@ Banco preparado el 04/10/2026 con **13.248 pares original/candidato dentro de GT
   - `operator new` nulo en `AllocateData` y `Init`.
 
 Repetir: `python reversing/RpAnim43/build_probe.py` y `python reversing/run.py --case rpanim43`. Evidencia: `validation-summary.json` (tras la ejecución).
+
+## Repeticiones
+
+### 2026-11-18 (pase final A, commit base 23c47ba081): APROBADO, 17344 pares (42 funciones; la lista del pase final decia 13248, el recuento real de casos de las 42 funciones es 17344), 0 diferencias
+
+- Motivo: 214A (`CQuaternion::Normalise` 0x4D1610, x87 de 24 bits) y 215A (callbacks de RpAnimBlend enganchados). No habia corrida registrada en `runs/` para este banco. El primer intento fallo en `RpAnimBlendClumpFillFrameArray` (388/512), `ClumpFindFrame` (381/512), `ClumpFindFrameFromHashKey` (393/512), `ClumpInit` (351/512), `CreateAnimationForHierarchy` (116/128) y `PluginAttach` (64/64): al candidato le faltaban los eventos de los falsos de `RpSkinGeometryGetSkin` (0x7C7550), `RtAnimAnimationCreate` (0x7CCE40), `RpClumpRegisterPlugin` (0x74BDD0) y 0x7CCD40, que solo estaban parcheados por la direccion del EXE (`dll = 0`) aunque la DLL ya los llama por su cuerpo C++ con hook. Fallo del banco, no de la fuente de produccion.
+- Cambio en el banco (comparacion intacta: mismos falsos y misma traza): `LiveComparison.hpp` busca para los colaboradores con `dll = 0` el hook Simple registrado en esa direccion del EXE e instala el MISMO falso tambien en su cuerpo de la DLL.
+- SHA256 de la sonda ejecutada: `83d3e7972028acbe9b05dc9c0adb29fbdd6c39dfa052c2ba56ff8adc84f7fe85`.
+- Evidencia: `reversing/CppTwelveLevel6Final/runs/RpAnim43-20261118-191557-981033`.

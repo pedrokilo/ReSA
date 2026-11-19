@@ -22,6 +22,7 @@
 #include <new>
 #include <reversiblehooks/RootHookCategory.h>
 #include <reversiblehooks/ReversibleHook/Base.h>
+#include <reversiblehooks/ReversibleHook/Simple.h>
 #include "MemoryMgr.h"
 #include "AnimBlendAssociation.h"
 #include "AnimBlendClumpData.h"
@@ -243,7 +244,13 @@ inline void Update() {
     // Cuerpos de la DLL resueltos antes de escribir ningun parche.
     struct Stub { uintptr_t exe, dll; void* fake; };
     const auto B=[](uintptr_t p){ return p ? Body(p) : uintptr_t(0); };
-    const std::array<Stub,13> stubs{{
+    // Pase final A (18/11/2026): un colaborador sin simbolo propio (dll = 0) puede haber pasado a ser C++ con hook RH (RenderWare, plugins): la DLL lo llama entonces por su cuerpo y el doble debe estar tambien ahi.
+    const auto HookBody=[](uintptr_t exe){ uintptr_t r=0;
+        ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c){ for(auto& h:c.Items())
+            if(h->Type()==ReversibleHooks::ReversibleHook::Base::HookType::Simple&&uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookGTAAddress())==exe)
+                r=uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookOurAddress()); });
+        return r ? Body(r) : uintptr_t(0); };
+    std::array<Stub,13> stubs{{
         {0x82119A,0,reinterpret_cast<void*>(&FakeNew)},{0x8214BD,0,reinterpret_cast<void*>(&FakeDelete)},
         {0x72F4C0,0,reinterpret_cast<void*>(&FakeMallocAlign)},{0x72F4F0,0,reinterpret_cast<void*>(&FakeFreeAlign)},
         {0x734820,B(bit_cast<uintptr_t>(&GetFirstAtomic)),reinterpret_cast<void*>(&FakeFirstAtomic)},
@@ -255,6 +262,7 @@ inline void Update() {
         {0x7CCE40,0,reinterpret_cast<void*>(&FakeAnimCreate)},{0x74BDD0,0,reinterpret_cast<void*>(&FakeRegPlugin)},
         {0x7CCD40,0,reinterpret_cast<void*>(&FakeRegScheme)},
     }};
+    for(auto& s:stubs)if(!s.dll)s.dll=HookBody(s.exe);
     std::vector<uintptr_t> patchedExe; for(auto& s:stubs)patchedExe.push_back(s.exe);
     std::vector<std::array<uint8,5>> savedEntries(patchedExe.size());
     for(size_t k=0;k<patchedExe.size();++k)std::memcpy(savedEntries[k].data(),reinterpret_cast<void*>(patchedExe[k]),5);
