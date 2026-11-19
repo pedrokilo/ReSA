@@ -151,7 +151,16 @@ struct StubDef { uint32 owner; uint64 mask; uintptr_t exe,dll,body; void* fn; };
 inline std::vector<StubDef> stubs;
 // IMPORTANTE (leccion 11/20): Body(dll) se calcula AL REGISTRAR (al arrancar, con todos los hooks activos) y ANTES de crear
 // ningun EntryPatch. dllSym = direccion del simbolo de la DLL (0 si el colaborador no existe en la DLL como funcion propia).
-inline void AddStub(uint32 owner,uint64 mask,uintptr_t exe,uintptr_t dllSym,void* fn){ stubs.push_back({owner,mask,exe,dllSym,dllSym ? Body(dllSym) : 0,fn}); }
+// Pase final A (18/11/2026): un colaborador que solo se daba por direccion del EXE (dllSym = 0, "la DLL llama por plugin::Call") puede haber pasado a ser C++ con hook RH: la DLL lo llama entonces por su cuerpo y el
+// doble debe estar tambien ahi. Se busca el hook Simple registrado para esa direccion del EXE y se toma su cuerpo (los hooks estan activos al registrar, igual que para el resto de dobles).
+inline uintptr_t HookBodyByExe(uintptr_t exe){
+    uintptr_t r=0;
+    ReversibleHooks::GetRootCategory().ForEachCategory([&](auto& c){ for(auto& h:c.Items())
+        if(h->Type()==ReversibleHooks::ReversibleHook::Base::HookType::Simple&&uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookGTAAddress())==exe)
+            r=uintptr_t(static_cast<ReversibleHooks::ReversibleHook::Simple*>(h.get())->GetHookOurAddress()); });
+    return r;
+}
+inline void AddStub(uint32 owner,uint64 mask,uintptr_t exe,uintptr_t dllSym,void* fn){ if(!dllSym)dllSym=HookBodyByExe(exe); stubs.push_back({owner,mask,exe,dllSym,dllSym ? Body(dllSym) : 0,fn}); }
 // Igual que AddStub pero el simbolo de la DLL sale del hook registrado cls::name (devuelve false si no existe).
 inline bool AddHookStub(uint32 owner,uint64 mask,uintptr_t exe,const char* cls,const char* name,void* fn){
     auto* h=FindHook(cls,name); const auto our=OurAddress(h); if(!h||!our)return false;

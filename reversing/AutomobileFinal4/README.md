@@ -132,3 +132,12 @@ Con las fuentes de main el banco fallaba por dos dobles que solo parcheaban la d
 - `RpClumpForAllAtomics` (0x749B70) y `RpAtomicSetFrame` (0x74BF20), con hook desde el lote 102A: `CAutomobile::Fix` llamaba al cuerpo C++ real de la DLL con el clump falso (acceso a 0xCDCDCDCD). Ahora `CasesG2.hpp` registra el símbolo de la DLL (`AddStub(..., reinterpret_cast<uintptr_t>(&RpClumpForAllAtomics), ...)`), como Cutscene35 y FileLoader47.
 - `CCarCtrl::SteerAICarWithPhysics` (0x437C20), con hook desde la fusión de CCarCtrl: en `ProcessAI` (137 de 512 pares) el lado candidato ejecutaba el cuerpo real. `CasesG5_a.hpp` pasa de `E(...)` (solo EXE) a `H("CCarCtrl","SteerAICarWithPhysics",...)`.
 Resultado: corrida `20261106-054246-390800`, APROBADO, 24192 pares, 99 funciones, estado restaurado (evidencia en `reversing/CppTwelveLevel6Final/runs/AutomobileFinal4-20261106-054246-390800`). El código de producción no cambió.
+
+## Repeticiones
+
+### 2026-11-18 (pase final A, commit base 23c47ba081): APROBADO, 24192 pares (99 funciones), 0 diferencias
+
+- Motivo: los lotes 211A/212A y R27A-R32A convirtieron en C++ con hook varios colaboradores que el banco solo falseaba por la direccion del EXE (`AddStub(..., dllSym = 0, ...)`, «la DLL llama por plugin::Call»). El primer intento fallo dentro de GTA en `CAutomobile::CustomCarPlate_AfterRenderingStop` (violacion de acceso en `RwTextureDestroy` de la DLL: el falso solo estaba en 0x7F3820, no en el cuerpo de la DLL, y la traza del candidato salia vacia). Fallo del banco, no de la fuente de produccion.
+- Cambio en el banco (comparacion intacta: mismos falsos, misma traza, mismos estados): `Support.hpp`, `AddStub` busca ahora, cuando no se da simbolo de la DLL, el hook Simple registrado para esa direccion del EXE (`HookBodyByExe`, hooks activos al registrar y antes de crear parches) e instala el MISMO falso tambien en su cuerpo de la DLL. Cubre de una vez los colaboradores de RenderWare (`RwTextureDestroy`, `RwFrameGetLTM`, `RpMaterialSetTexture`...) y cualquier otro que ya sea C++ con hook.
+- SHA256 de la sonda ejecutada: `c8b837e13ea9d9668e4069cba0c0ce10b5fe110bc74e4a589bfb0ba927516a5f`.
+- Evidencia: `reversing/CppTwelveLevel6Final/runs/AutomobileFinal4-20261118-190307-835363`.
