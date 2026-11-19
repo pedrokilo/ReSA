@@ -1,0 +1,41 @@
+{
+ "filas": 890,
+ "por_categoria": {
+  "('ruido', 'ruido')": 102,
+  "('juego', 'segura')": 26,
+  "('excluida', 'segura')": 2,
+  "('RenderWare interno', 'probable')": 192,
+  "('juego', 'probable')": 65,
+  "('juego', 'probable (promovida de ruido)')": 3,
+  "('RenderWare interno', 'segura')": 385,
+  "('biblioteca: D3DX9', 'segura')": 19,
+  "('biblioteca: libpng+zlib', 'segura')": 2,
+  "('RenderWare interno', 'probable (promovida de ruido)')": 4,
+  "('RenderWare no reconstruible', 'segura')": 31,
+  "('biblioteca: QuickTime', 'probable (promovida de ruido)')": 1,
+  "('biblioteca: QuickTime', 'probable')": 1,
+  "('biblioteca: CRT', 'segura')": 52,
+  "('biblioteca: CRT', 'probable')": 4,
+  "('biblioteca: CRT', 'probable (promovida de ruido)')": 1
+ },
+ "por_confianza": {
+  "ruido": 102,
+  "segura": 517,
+  "probable": 262,
+  "probable (promovida de ruido)": 9
+ },
+ "por_veredicto": {
+  "('ruido', 'ruido')": 98,
+  "('segura', 'funcion')": 511,
+  "('probable', 'funcion')": 261,
+  "('probable (promovida de ruido)', 'dudosa')": 3,
+  "('ruido', 'ruido_con_forma_de_funcion')": 4,
+  "('probable (promovida de ruido)', 'no_funcion')": 3,
+  "('segura', 'no_funcion')": 1,
+  "('segura', 'dudosa')": 4,
+  "('probable', 'dudosa')": 1,
+  "('segura', 'interior_de_funcion')": 1,
+  "('probable (promovida de ruido)', 'funcion')": 3
+ },
+ "hooked_ahora": []
+}

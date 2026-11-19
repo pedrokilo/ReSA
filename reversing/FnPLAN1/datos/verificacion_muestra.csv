@@ -1,0 +1,56 @@
+direccion,estrato,confianza,categoria,veredicto_manual,que_hace,nota,veredicto_auto,bytes,fuente
+0x006FF4F0,A juego,segura,juego,funcion real,distancia/clip de una linea 3D con x87 (fsub/fmul/faddp),x87; envoltura plugin::Call,funcion,669,Lines.cpp:21
+0x00746D80,A juego,segura,juego,funcion real,"configura un dispositivo DirectInput8 (estructura de 0x154 bytes, propiedades del eje)",llama por COM,funcion,322,source/app/platform/win/WinInput.cpp:163; source/app/platform/win/WinInput.cpp:1
+0x004CCE60,A juego,segura,excluida,funcion real,inicializa formato de raster D3D9 (lee tabla 0xB4E9E0); usercall-renderware,excluida (usercall): la llaman 2 sitios propios,funcion,457,RenderWare/D3D9RasterFormat.cpp:613; RenderWare/rw/rwcore.cpp:6658
+0x00508D30,A juego,segura,juego,funcion real,busca una clave de texto en un bufer (bucle de cadena) para zonas de audio,thiscall con 2 args,funcion,156,Audio/AudioZones.cpp:107
+0x004637C0,A juego,segura,juego,funcion real,CMissionCleanup::FindFree: bucle de 75 entradas de 8 bytes buscando la primera libre,"trivial, sin FPU",funcion,22,MissionCleanup.cpp:398
+0x00448890,A juego,segura,juego,funcion real,recorta un campo float de CVehicle a un minimo y llama a un metodo del vehiculo,"x87 (fcomp, fnstsw)",funcion,106,Garages.cpp:685
+0x0041B1D0,A juego,segura,juego,funcion real,"lectura de un chunk RwStream con prologo SEH (fs:[0], manejador 0x83723B)",SEH; 2 llamadas internas,funcion,275,Plugins/CollisionPlugin/CollisionPlugin.cpp:64
+0x004CF9B0,A juego,segura,juego,funcion real,CQuaternion::Scale: multiplica los 4 componentes por un float,x87; 41 bytes,funcion,41,Core/Quaternion.cpp:167
+0x007CCDE0,A RW interno,segura,RenderWare interno,funcion real,"busca en la tabla de interpoladores de animacion (0xC9B920, 0x30 por entrada) por tipo",sin FPU; datos globales,funcion,92,RenderWare/rw/rtanim.cpp:82
+0x007C60C0,A RW interno,segura,RenderWare interno,funcion real,"mezcla/slerp de cuaterniones de huesos (RpHAnim), 1024 bytes",x87 pesado,funcion,1024,RenderWare/rw/rphanim.cpp:386
+0x007F2E10,A RW interno,segura,RenderWare interno,funcion real,"devuelve &engine->metrics (lee puntero global, +0x14C)",trivial,funcion,12,RenderWare/rw/rwplcore.cpp:1695
+0x00810700,A RW interno,segura,RenderWare interno,funcion real,guarda blockSize y numBlocks de la lista libre de RpMatFX,trivial,funcion,20,RenderWare/rw/rpmatfx.cpp:266
+0x007CEF00,A RW interno,segura,RenderWare interno,funcion real,crea la tabla de un RtDict reservando memoria por el motor (0x809160),memoria falsa,funcion,91,RenderWare/rw/rtdict.cpp:328
+0x0080A450,A RW interno,segura,RenderWare interno,funcion real,llama a la funcion de motor [engine+0x138] con la cadena y devuelve 1,puntero de motor,funcion,26,RenderWare/rw/rwplcore.cpp:843
+0x00751E10,A RW interno,segura,RenderWare interno,funcion real,devuelve un puntero a datos de plugin de luz (RpLight + 0x30 via 0x808B00),trivial,funcion,22,RenderWare/rw/rpworld.cpp:2240
+0x0075B500,A RW interno,segura,RenderWare interno,funcion real,"recorrido de tiras de triangulos (RpTriStrip), 638 bytes",bucles,funcion,638,RenderWare/rw/rpworld.cpp:824
+0x008081C0,A RW interno,segura,RenderWare interno,funcion real,suma tamanos recorriendo una lista circular de un plugin del motor,listas libres,funcion,40,RenderWare/rw/rwplcore.cpp:1876
+0x00749740,A RW interno,segura,RenderWare interno,funcion real,RpClumpSetFreeListCreateParams: guarda blockSize y numBlocks,trivial,funcion,20,RenderWare/rw/rpworld.cpp:2338
+0x00818970,A QuickTime,segura,RenderWare no reconstruible,funcion real,puente de 26 bytes: salta a [0x8E2A0C] con identificador 0x1D002E (QTML),puente; no reconstruible en C++,funcion,26,Audio/Loaders/AEMFDecoder.cpp:44
+0x00819390,A QuickTime,segura,RenderWare no reconstruible,funcion real,puente de 26 bytes: identificador 0x15003F hacia QTML,puente,funcion,26,Audio/Loaders/AEMFDecoder.cpp:94
+0x0076B89B,A biblioteca,segura,biblioteca: D3DX9,funcion real,D3DX9: constructor de objeto del compilador de shaders (llama a 0x76E390),miembro stdcall; 165 bytes,funcion,165,RenderWare/rw/d3dx9math.cpp:402
+0x00823521,A biblioteca,segura,biblioteca: CRT,funcion real,CRT: cuerpo de una funcion de archivo con prologo SEH (__SEH_prolog),SEH; punto de entrada por jmp,funcion,66,RenderWare/rw/rwplcore.cpp:1780
+0x0076626B,A biblioteca,segura,biblioteca: D3DX9,funcion real,D3DX9: conversion de arreglo (float desde half) con prologo ebp,stdcall,funcion,165,RenderWare/rw/d3dx9math.cpp:83
+0x008213AE,A biblioteca,segura,biblioteca: CRT,funcion real,thunk jmp 0x8214BD (cadena hacia el _free del CRT),cadena de thunks CRT,funcion,5,Core/LinkList.h:24; Entity/Vehicle/Heli.cpp:89; Entity/Vehicle/Plane.cpp:70; Mem
+0x008220AD,A biblioteca,segura,biblioteca: CRT,funcion real,CRT: envoltura de sscanf/vsscanf con pila local,varargs,funcion,52,DecisionMakers/DecisionMakerTypes.cpp:424; FileLoader.cpp:1030; Fx/FxInfoManager
+0x005CCF60,B juego,probable,juego,funcion real,libjpeg: upsample sin cambio (copia el puntero de la fila de salida),callback; 11 bytes,funcion,11,Plugins/JPegCompressPlugin/LibJpegDecompressUpsample.cpp:146
+0x005C53D0,B juego,probable,juego,funcion real,libjpeg: start_pass del controlador principal de compresion,callback,funcion,75,Plugins/JPegCompressPlugin/LibJpegCompressEncode.cpp:85
+0x005CA110,B juego,probable,juego,funcion real,libjpeg: inicio de la decodificacion entropica Huffman (jinit),callback; 333 bytes,funcion,333,Plugins/JPegCompressPlugin/LibJpegDecompress.cpp:454
+0x0061FD10,B juego,probable,juego,funcion real,callback de fin de animacion de CTaskSimpleBeKickedOnGround (pone 2 campos),callback,funcion,16,Tasks/TaskTypes/TaskSimpleBeKickedOnGround.cpp:34
+0x005CF690,B juego,probable,juego,funcion real,libjpeg: bucle de gestor de memoria (alloc de matrices),callback,funcion,60,Plugins/JPegCompressPlugin/LibJpegMemory.cpp:433
+0x005C9340,B juego,probable,juego,funcion real,libjpeg: start_pass vacio (solo ret),callback de 1 byte,funcion,1,Plugins/JPegCompressPlugin/JPegCompress.cpp:993
+0x005C6030,B juego,probable,juego,funcion real,libjpeg: write_marker_header,callback,funcion,61,Plugins/JPegCompressPlugin/LibJpegCompress.cpp:407
+0x005C7D10,B juego,probable,juego,funcion real,libjpeg: metodo de reduccion de muestreo (downsample),callback; 211 bytes,funcion,211,Plugins/JPegCompressPlugin/JPegCompress.cpp:836
+0x00750A30,B RW interno,probable,RenderWare interno,funcion real,constructor del plugin de mundo de clump (pone 0 en la extension),callback ctor,funcion,40,RenderWare/rw/rpworld.cpp:6223
+0x00752270,B RW interno,probable,RenderWare interno,funcion real,constructor de plugin de motor RpWorld (0x505) con lista libre,callback ctor,funcion,100,RenderWare/rw/rpworld.cpp:3621
+0x008020B0,B RW interno,probable,RenderWare interno,funcion real,rwrealloc del motor: reenvia a realloc del CRT (0x824269),callback de memoria,funcion,19,RenderWare/rw/rwplcore.cpp:177
+0x00758240,B RW interno,probable,RenderWare interno,funcion real,comparador de qsort (compara 16 bits) en RpWorld,callback de qsort,funcion,39,RenderWare/rw/rpworld.cpp:6477
+0x0074FEE0,B RW interno,probable,RenderWare interno,funcion real,constructor de plugin (0x507) que llama a 0x75E310,callback ctor,funcion,121,RenderWare/rw/rpworld.cpp:3623
+0x007F3D00,B RW interno,probable,RenderWare interno,funcion real,destructor del plugin de motor 0x408 (recorre listas),callback dtor; 340 bytes,funcion,340,RenderWare/rw/rwplcore.cpp:2742
+0x007ED7D0,B RW interno,probable,RenderWare interno,funcion real,rwVectorsMultFn por defecto: multiplica una tanda de vectores por matriz,x87 probable,funcion,163,RenderWare/rw/rwplcore.cpp:1297
+0x00755BC0,B RW interno,probable,RenderWare interno,funcion real,constructor de plugin RpWorld (pone -1 en un campo),callback ctor,funcion,48,RenderWare/rw/rpworld.cpp:4640
+0x00819700,B biblioteca,probable,biblioteca: QuickTime,funcion real,"QTML: gancho tras fallo de carga (usa 0xC9ABDC, 0x8E2A40)",QuickTime,funcion,108,source/app/platform/win/QTMLRuntime.cpp:37
+0x008262B8,B biblioteca,probable,biblioteca: CRT,funcion real,CRT: funcion de archivo con prologo SEH (0x14 locales),SEH,funcion,103,RenderWare/rw/rwplcore.cpp:1783
+0x00656C62,C ruido,ruido,ruido,no es funcion (constante o interior),"instrucciones sin sentido (aas, xor): es el medio de otra funcion (BugsDebugModule)",ruido,ruido,491,
+0x00801C30,C ruido,probable (promovida de ruido),RenderWare interno,funcion real (promovida),"RwFreeListAlloc por defecto (kDefaultFreeListAlloc), 286 bytes",IND0A la dejo como ruido: falso negativo,funcion,286,RenderWare/rw/rwplcore.cpp:41; RenderWare/rw/rwplcore.cpp:2702
+0x00726F74,C ruido,ruido,ruido,no es funcion (constante o interior),"medio de funcion (and al,0xC; je)",ruido,ruido,449,
+0x00666572,C ruido,ruido,ruido,no es funcion (constante o interior),medio de funcion (AudioEngine),ruido,ruido,273,
+0x00736E75,C ruido,ruido,ruido,no es funcion (constante o interior),bytes que decodifican como basura (test/add),ruido,ruido,2313,
+0x00646E69,C ruido,ruido,ruido,no es funcion (constante o interior),medio de funcion (Cam),ruido,ruido,75,
+0x0080FFFF,C ruido,ruido,ruido,no es funcion (constante o interior),etiqueta interior de funcion (sigue a un ret),ruido,ruido_con_forma_de_funcion,37,
+0x006D0074,C ruido,ruido,ruido,no es funcion (constante o interior),medio de funcion (3dMarker),ruido,ruido,798,
+0x00856BC0,C ruido,probable (promovida de ruido),biblioteca: CRT,funcion real (promovida),"stub de inicializador estatico: mov ecx,obj; jmp ctor (0x59ACD0)",IND0A la dejo como ruido: falso negativo,dudosa,10,SpecialFX.cpp:118
+0x006C616E,C ruido,ruido,ruido,no es funcion (constante o interior),no decodifica (datos),ruido,ruido,6,
+0x0078614D,C ruido,ruido,ruido,no es funcion (constante o interior),medio de funcion D3DX9,ruido,ruido,2856,
+0x0074726F,C ruido,ruido,ruido,no es funcion (constante o interior),medio de funcion (RpWorld),ruido,ruido,141,

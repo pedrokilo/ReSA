@@ -1,0 +1,51 @@
+{
+ "total": 55,
+ "por_estrato": {
+  "A juego": {
+   "filas": 8,
+   "reales": 8
+  },
+  "A RW interno": {
+   "filas": 10,
+   "reales": 10
+  },
+  "A QuickTime": {
+   "filas": 2,
+   "reales": 2
+  },
+  "A biblioteca": {
+   "filas": 5,
+   "reales": 5
+  },
+  "B juego": {
+   "filas": 8,
+   "reales": 8
+  },
+  "B RW interno": {
+   "filas": 8,
+   "reales": 8
+  },
+  "B biblioteca": {
+   "filas": 2,
+   "reales": 2
+  },
+  "C ruido": {
+   "filas": 12,
+   "reales": 2
+  }
+ },
+ "por_confianza_ind0a": {
+  "A": {
+   "filas": 25,
+   "reales": 25
+  },
+  "B": {
+   "filas": 18,
+   "reales": 18
+  },
+  "C": {
+   "filas": 12,
+   "reales": 2
+  }
+ }
+}

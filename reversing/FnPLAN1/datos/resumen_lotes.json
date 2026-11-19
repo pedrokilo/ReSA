@@ -1,0 +1,19 @@
+{
+ "lotes": 33,
+ "por_grupo": {
+  "juego": 4,
+  "RenderWare": 29
+ },
+ "juego": 96,
+ "rw": 581,
+ "qt": 31,
+ "lib": 80,
+ "activo": 788,
+ "hooks_necesarios": 104,
+ "arranque": 112,
+ "por_oleada": {
+  "1": 271,
+  "2": 282,
+  "3": 28
+ }
+}
