@@ -18,6 +18,7 @@
 namespace AutoSteal {
 namespace {
 bool   s_enabled{};
+bool   s_watch{};      // --vigilar-nan: solo observa (sin ciclos de robo); vuelca el anillo al primer NaN/caida del jugador
 int    s_cycles{ 20 };
 uint32 s_periodMs{ 20000 };
 uint32 s_startDelayMs{ 20000 };
@@ -72,6 +73,10 @@ void Record(CPlayerPed* pl, uint32 now) {
 void DumpRing(const char* motivo) {
     if (s_dumped) return;
     s_dumped = true;
+    NOTSA_LOG_WARN("[ROBAR] contexto del volcado: busqueda={} tareas_en_uso={}/{} vehiculos_en_uso={} peatones_en_uso={}",
+        FindPlayerPed() ? (int)FindPlayerPed()->GetWantedLevel() : -1,
+        (int)GetTaskPool()->GetNoOfUsedSpaces(), (int)GetTaskPool()->GetSize(),
+        (int)GetVehiclePool()->GetNoOfUsedSpaces(), (int)GetPedPool()->GetNoOfUsedSpaces());
     NOTSA_LOG_WARN("[ROBAR] VOLCADO tras {}: ultimos fotogramas (t_ms ciclo estado tarea simple enVeh conductor(0 no,1 otro,2 CJ) pos_CJ pos_coche pos_cond vel_coche matrizNaN)", motivo);
     const uint32 n = std::min<uint32>(s_ringN, 90);
     for (uint32 i = s_ringN - n; i < s_ringN; ++i) {
@@ -157,10 +162,16 @@ void Configure(std::string_view spec) {
     NOTSA_LOG_INFO("[ROBAR] activado: {} ciclos, cada {} s, espera inicial {} s, conducir {} s", s_cycles, s_periodMs / 1000, s_startDelayMs / 1000, s_driveMs / 1000);
 }
 
-bool Enabled() { return s_enabled; }
+void ConfigureWatch() {
+    s_watch = true;
+    NOTSA_LOG_INFO("[ROBAR] vigilante de NaN activado: al primer NaN/caida del jugador se vuelcan los ultimos fotogramas y el uso de pools");
+}
+
+bool Enabled() { return s_enabled || s_watch; }
 
 void OnFrame() {
-    if (!s_enabled || s_state == State::Done) return;
+    if (!s_enabled && !s_watch) return;
+    if (s_enabled && s_state == State::Done && !s_watch) return;
     const auto pl = FindPlayerPed();
     const auto now = CTimer::GetTimeInMS();
     if (!pl || FrontEndMenuManager.m_bMenuActive || CGame::currArea != AREA_CODE_NORMAL_WORLD || !pl->IsAlive()) {
@@ -174,6 +185,7 @@ void OnFrame() {
     }
     Record(pl, now);
     if (s_ring[(s_ringN - 1) % std::size(s_ring)].mNaN && !s_cycleNaN) { s_cycleNaN = true; NOTSA_LOG_WARN("[ROBAR] NaN en la matriz del jugador (ciclo {})", s_cycle + 1); DumpRing("NaN en la matriz del jugador"); }
+    if (s_watch && !s_enabled) { Observe(pl); return; }
     if (s_state != State::Wait) Observe(pl);
 
     switch (s_state) {
@@ -299,14 +311,14 @@ DWORD WINAPI KeepForegroundThread(LPVOID) {
 }
 
 void InstallIdleDetourIfNeeded() {
-    if (!s_enabled || s_detoured) return;
+    if ((!s_enabled && !s_watch) || s_detoured) return;
     // Con --unhook-all (o apagado el grupo) InitUserDirectories (0x744FB0) vuelve a ser el del EXE y devuelve la carpeta de
     // partidas por defecto del juego en vez de Misc.SaveDirectoryPath del INI de pruebas: FastLoader no encuentra la ranura y el
     // juego se queda en el menu (el control nunca empezaba). Con --robar se deja ese unico hook ENCENDIDO en A y en B (solo
     // resuelve la ruta de las partidas; no interviene en entidades, coches ni fisica).
     // Tambien se dejan encendidas las clases del menu y de la carga de partidas (andamio de la prueba, no sospechosas del fallo de
     // los coches): con el menu original el FastLoader no llegaba a iniciar la partida en el control (se quedaba en FRONTEND_IDLE).
-    if (s_scaffold) ReversibleHooks::GetRootCategory().ForEachCategory([](auto& cat) {
+    if (s_enabled && s_scaffold) ReversibleHooks::GetRootCategory().ForEachCategory([](auto& cat) {
         const auto& n = cat.Name();
         const bool scaffold = n == "CMenuManager" || n == "CGenericGameStorage" || n == "C_PcSave" || n == "CFileMgr" || n == "CLoadingScreen" || n == "Game";
         size_t k = 0;
@@ -316,7 +328,7 @@ void InstallIdleDetourIfNeeded() {
         if (k) NOTSA_LOG_INFO("[ROBAR] andamio de carga: {} hooks reactivados en '{}'", k, n);
     });
     static bool s_threadStarted = false;
-    if (!s_threadStarted) {
+    if (s_enabled && !s_threadStarted) {
         s_threadStarted = true;
         if (const auto h = CreateThread(nullptr, 0, KeepForegroundThread, nullptr, 0, nullptr)) CloseHandle(h);
         NOTSA_LOG_INFO("[ROBAR] hilo que mantiene ForegroundApp=1 (el juego no se pausa en segundo plano)");

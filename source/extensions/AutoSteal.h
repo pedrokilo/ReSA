@@ -7,6 +7,8 @@
 namespace AutoSteal {
     // Texto tras `--robar=` (lo guarda la línea de comandos).
     void Configure(std::string_view spec);
+    // --vigilar-nan: solo observa al jugador y vuelca el estado al primer NaN o caida (sin crear coches).
+    void ConfigureWatch();
     // Se llama una vez por fotograma (desde Idle), en el hilo del juego.
     void OnFrame();
     // Si Idle del EXE no está sustituido por el de la DLL (--unhook-all, o Idle apagado), engancha el Idle original para llamar a OnFrame.

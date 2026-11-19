@@ -83,6 +83,8 @@ void ProcessArgument(std::string_view arg) {
         }
     } else if (arg.starts_with("--robar=")) {
         AutoSteal::Configure(arg.substr(sizeof("--robar=") - 1)); // BIS1: prueba automática de robo de coches
+    } else if (arg == "--vigilar-nan") {
+        AutoSteal::ConfigureWatch(); // vigilante de NaN para jugar a mano
     } else if (arg.starts_with("--historical-hooks=")) {
         // Applied after normal command-line hook settings in DllMain.
     } else {
