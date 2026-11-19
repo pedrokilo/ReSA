@@ -1,0 +1,22 @@
+[info][02:01:31.561][dllmain.cpp:95]: Funciones del juego reemplazadas por código C++: 12445 en 1000 clases/grupos (10277 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 12435. Desactivadas: 10.
+[info][02:01:31.561][dllmain.cpp:99]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][02:01:31.561][dllmain.cpp:100]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][02:01:31.566][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][02:01:31.569][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][02:01:31.821][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][02:01:32.002][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][02:01:32.036][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][02:03:22.090][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][02:03:22.132][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][02:03:22.134][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][02:03:22.134][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][02:03:22.135][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][02:03:22.135][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][02:03:22.135][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][02:03:22.135][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][02:03:22.136][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][02:03:22.136][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][02:03:22.136][CdStreamInfo.cpp:67]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][02:03:25.527][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+

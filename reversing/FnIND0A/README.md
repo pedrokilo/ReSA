@@ -4,7 +4,7 @@
 
 # FnIND0A: mapa de dependencias del código propio con el EXE original (18/11/2026)
 
-Informe: [docs/ExeIndependiente/README.md](../../docs/ExeIndependiente/README.md). Todo es estático; no se ejecuta el juego.
+Informe: [docs/ExeIndependiente/README.md](../../docs/ExeIndependiente/README.md). Todo es estático; no se ejecuta el juego. **Actualización IND1A (19/11/2026):** el cargador se depuró y se ejecutó con el juego; ver [../FnIND1A/README.md](../FnIND1A/README.md) (el `cargador_imagen.cpp` de esta carpeta es ya la versión final; entrada `IndEntrada`, callback TLS y CRT original primero).
 
 ## Reproducir
 

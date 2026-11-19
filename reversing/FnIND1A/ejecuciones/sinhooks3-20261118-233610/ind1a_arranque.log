@@ -1,0 +1,194 @@
+[     0 ms] IndCargar (callback TLS, antes del CRT propio): modo ejecutar sin-hooks
+PE original: base 0x00400000 entrada 0x00824570 secciones 7 relocaciones 0 (flags 0x10F) dll_char 0x0
+reserva 0x00401000: region base 0x00401000 tam 0x1A98000 estado 0x1000 tipo 0x1000000 prot 0x20
+seccion .text    VA 0x00401000 virtual  4546560 archivo  4546048 car 0x60000020 copiada
+seccion _rwcseg  VA 0x00857000 virtual     4096 archivo     1536 car 0x60000020 copiada
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+DLL WINMM.dll        cargada      imports   4 sin resolver 0
+DLL vorbisfile.dll   cargada      imports   7 sin resolver 0
+DLL WS2_32.dll       cargada      imports  10 sin resolver 0
+DLL EAX.DLL          cargada      imports   1 sin resolver 0
+DLL KERNEL32.dll     cargada      imports 138 sin resolver 0
+DLL USER32.dll       cargada      imports  44 sin resolver 0
+DLL GDI32.dll        cargada      imports   1 sin resolver 0
+DLL ADVAPI32.dll     cargada      imports   6 sin resolver 0
+DLL ole32.dll        cargada      imports   3 sin resolver 0
+imports: 214, sin resolver: 0
+verif .text    VA 0x00401000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=6AF626400C922D7C fnv(arch)=6AF626400C922D7C
+verif _rwcseg  VA 0x00857000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=2683E257011BA0F1 fnv(arch)=2683E257011BA0F1
+verif .rdata   VA 0x00858000: bytes distintos 799 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=8A31D8A40A9B9572 fnv(arch)=0E9DA1654F45D4FD
+verif .data    VA 0x008A4000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=8F506DDA0E0F8CCD fnv(arch)=8F506DDA0E0F8CCD
+verif _TEXT_HA VA 0x00C9E000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=678EE5E141EAFB69 fnv(arch)=678EE5E141EAFB69
+verif _rwdseg  VA 0x00CAF000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=218035740D3F1B83 fnv(arch)=218035740D3F1B83
+verif .rsrc    VA 0x00CB0000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=119A6B562005B4AB fnv(arch)=119A6B562005B4AB
+IAT 0x00858000..0x00858378: 222 palabras, 8 a cero (terminadores por DLL)
+comprobacion de la imagen cargada: OK
+[    94 ms] IndEntrada: directorio de trabajo E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A; entrando por 0x00824570 (CRT original)
+[    94 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[    94 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[    94 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[    94 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[    94 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[    94 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[    94 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+FALLO (primera oportunidad) codigo 0xC0000005 en EIP=0x774F8F56 [ntdll.dll+0x68F56] t=94 ms
+  acceso escritura a 0x00000014
+  EAX=00000000 EBX=FFFFFFFA ECX=FFFFFFFF EDX=FFFFFFFA ESI=02308378 EDI=02308368 EBP=044DF9E4 ESP=044DF958
+  bytes en EIP: FF 40 14 8B 06 8D 77 0C 89 44 24 40 89 74 24 10
+  pila (palabras que apuntan a codigo):
+    [esp+0x0] 0x02308368 propio(gta_reversed_exe.exe)
+    [esp+0x48] 0x02308368 propio(gta_reversed_exe.exe)
+    [esp+0x5C] 0x010001B4 propio(gta_reversed_exe.exe)
+    [esp+0x68] 0x02308368 propio(gta_reversed_exe.exe)
+    [esp+0x98] 0x02308368 propio(gta_reversed_exe.exe)
+    [esp+0xAC] 0x02308368 propio(gta_reversed_exe.exe)
+    [esp+0xD4] 0x01E2AE85 propio(gta_reversed_exe.exe)
+    [esp+0xD8] 0x02308368 propio(gta_reversed_exe.exe)
+    [esp+0xE0] 0x01E377D6 propio(gta_reversed_exe.exe)
+    [esp+0xF0] 0x02BA0000 memoria-dinamica
+    [esp+0x100] 0x01E37799 propio(gta_reversed_exe.exe)
+    [esp+0x108] 0x0211A29C propio(gta_reversed_exe.exe)
+    [esp+0x10C] 0x0211A294 propio(gta_reversed_exe.exe)
+    [esp+0x110] 0x0211A29C propio(gta_reversed_exe.exe)
+    [esp+0x120] 0x01E5D6B0 propio(gta_reversed_exe.exe)
+    [esp+0x12C] 0x01E376DB propio(gta_reversed_exe.exe)
+    [esp+0x134] 0x0211A29C propio(gta_reversed_exe.exe)
+    [esp+0x138] 0x0211A294 propio(gta_reversed_exe.exe)
+    [esp+0x13C] 0x0211A29C propio(gta_reversed_exe.exe)
+    [esp+0x144] 0x01E3821D propio(gta_reversed_exe.exe)
+    [esp+0x158] 0x01E2B854 propio(gta_reversed_exe.exe)
+    [esp+0x170] 0x01DD304D propio(gta_reversed_exe.exe)
+    [esp+0x180] 0x00E45DFC propio(gta_reversed_exe.exe)
+    [esp+0x184] 0x026FD290 memoria-dinamica
+  ultimas entradas a funciones originales (mas reciente primero), total 0, fallos 0:
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+FALLO (primera oportunidad) codigo 0xC0000005 en EIP=0x774F8F56 [ntdll.dll+0x68F56] t=94 ms
+  acceso escritura a 0x00000014
+  EAX=00000000 EBX=FFFFFFFA ECX=FFFFFFFF EDX=FFFFFFFA ESI=02308228 EDI=02308218 EBP=044D6B04 ESP=044D6A78
+  bytes en EIP: FF 40 14 8B 06 8D 77 0C 89 44 24 40 89 74 24 10
+  pila (palabras que apuntan a codigo):
+    [esp+0x0] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0x48] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0x68] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0x98] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0xAC] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0xD4] 0x01E2AE85 propio(gta_reversed_exe.exe)
+    [esp+0xD8] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0xE0] 0x01DE99F9 propio(gta_reversed_exe.exe)
+    [esp+0xF8] 0x01DF1A4A propio(gta_reversed_exe.exe)
+    [esp+0x10C] 0x01DD7820 propio(gta_reversed_exe.exe)
+    [esp+0x11C] 0x01DC4292 propio(gta_reversed_exe.exe)
+    [esp+0x130] 0x01DC4307 propio(gta_reversed_exe.exe)
+    [esp+0x144] 0x01DC42AF propio(gta_reversed_exe.exe)
+    [esp+0x150] 0x01E04AC7 propio(gta_reversed_exe.exe)
+    [esp+0x15C] 0x01E049F4 propio(gta_reversed_exe.exe)
+    [esp+0x168] 0x01E04A31 propio(gta_reversed_exe.exe)
+    [esp+0x174] 0x01E04A71 propio(gta_reversed_exe.exe)
+    [esp+0x180] 0x01E04A11 propio(gta_reversed_exe.exe)
+    [esp+0x18C] 0x01E04A51 propio(gta_reversed_exe.exe)
+    [esp+0x198] 0x01DFD91B propio(gta_reversed_exe.exe)
+    [esp+0x20C] 0x021050C8 propio(gta_reversed_exe.exe)
+    [esp+0x230] 0x02114138 propio(gta_reversed_exe.exe)
+    [esp+0x660] 0x01DFCE57 propio(gta_reversed_exe.exe)
+    [esp+0x674] 0x021050C0 propio(gta_reversed_exe.exe)
+  ultimas entradas a funciones originales (mas reciente primero), total 0, fallos 0:
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+FALLO (primera oportunidad) codigo 0xC0000005 en EIP=0x774F8F56 [ntdll.dll+0x68F56] t=94 ms
+  acceso escritura a 0x00000014
+  EAX=00000000 EBX=FFFFFFF6 ECX=00000000 EDX=FFFFFFF6 ESI=02308228 EDI=02308218 EBP=044CDC24 ESP=044CDB98
+  bytes en EIP: FF 40 14 8B 06 8D 77 0C 89 44 24 40 89 74 24 10
+  pila (palabras que apuntan a codigo):
+    [esp+0x0] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0x48] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0x68] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0x98] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0xAC] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0xD4] 0x01E2AE85 propio(gta_reversed_exe.exe)
+    [esp+0xD8] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0xE0] 0x01DE99F9 propio(gta_reversed_exe.exe)
+    [esp+0xF8] 0x01DF1A4A propio(gta_reversed_exe.exe)
+    [esp+0x10C] 0x01DD7820 propio(gta_reversed_exe.exe)
+    [esp+0x11C] 0x01DC4292 propio(gta_reversed_exe.exe)
+    [esp+0x130] 0x01DC4307 propio(gta_reversed_exe.exe)
+    [esp+0x144] 0x01DC42AF propio(gta_reversed_exe.exe)
+    [esp+0x150] 0x01E04AC7 propio(gta_reversed_exe.exe)
+    [esp+0x15C] 0x01E049F4 propio(gta_reversed_exe.exe)
+    [esp+0x168] 0x01E04A31 propio(gta_reversed_exe.exe)
+    [esp+0x174] 0x01E04A71 propio(gta_reversed_exe.exe)
+    [esp+0x180] 0x01E04A11 propio(gta_reversed_exe.exe)
+    [esp+0x18C] 0x01E04A51 propio(gta_reversed_exe.exe)
+    [esp+0x198] 0x01DFD91B propio(gta_reversed_exe.exe)
+    [esp+0x20C] 0x021050C8 propio(gta_reversed_exe.exe)
+    [esp+0x230] 0x02114138 propio(gta_reversed_exe.exe)
+    [esp+0x660] 0x01DFCE57 propio(gta_reversed_exe.exe)
+    [esp+0x674] 0x021050C0 propio(gta_reversed_exe.exe)
+  ultimas entradas a funciones originales (mas reciente primero), total 0, fallos 0:
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+FALLO (primera oportunidad) codigo 0xC0000005 en EIP=0x774F8F56 [ntdll.dll+0x68F56] t=94 ms
+  acceso escritura a 0x00000014
+  EAX=00000000 EBX=FFFFFFF2 ECX=00000000 EDX=FFFFFFF2 ESI=02308228 EDI=02308218 EBP=044C4D44 ESP=044C4CB8
+  bytes en EIP: FF 40 14 8B 06 8D 77 0C 89 44 24 40 89 74 24 10
+  pila (palabras que apuntan a codigo):
+    [esp+0x0] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0x48] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0x68] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0x98] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0xAC] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0xD4] 0x01E2AE85 propio(gta_reversed_exe.exe)
+    [esp+0xD8] 0x02308218 propio(gta_reversed_exe.exe)
+    [esp+0xE0] 0x01DE99F9 propio(gta_reversed_exe.exe)
+    [esp+0xF8] 0x01DF1A4A propio(gta_reversed_exe.exe)
+    [esp+0x10C] 0x01DD7820 propio(gta_reversed_exe.exe)
+    [esp+0x11C] 0x01DC4292 propio(gta_reversed_exe.exe)
+    [esp+0x130] 0x01DC4307 propio(gta_reversed_exe.exe)
+    [esp+0x144] 0x01DC42AF propio(gta_reversed_exe.exe)
+    [esp+0x150] 0x01E04AC7 propio(gta_reversed_exe.exe)
+    [esp+0x15C] 0x01E049F4 propio(gta_reversed_exe.exe)
+    [esp+0x168] 0x01E04A31 propio(gta_reversed_exe.exe)
+    [esp+0x174] 0x01E04A71 propio(gta_reversed_exe.exe)
+    [esp+0x180] 0x01E04A11 propio(gta_reversed_exe.exe)
+    [esp+0x18C] 0x01E04A51 propio(gta_reversed_exe.exe)
+    [esp+0x198] 0x01DFD91B propio(gta_reversed_exe.exe)
+    [esp+0x20C] 0x021050C8 propio(gta_reversed_exe.exe)
+    [esp+0x230] 0x02114138 propio(gta_reversed_exe.exe)
+    [esp+0x660] 0x01DFCE57 propio(gta_reversed_exe.exe)
+    [esp+0x674] 0x021050C0 propio(gta_reversed_exe.exe)
+  ultimas entradas a funciones originales (mas reciente primero), total 0, fallos 0:
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x774F8F56 [ntdll.dll+0x68F56] escribe 0x00000014 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC00000FD en 0x01DC32E7 [propio(gta_reversed_exe.exe)] 0x043E2000 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x01DC32E7 [propio(gta_reversed_exe.exe)] lee 0x043E0000 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x01DC32E7 [propio(gta_reversed_exe.exe)] lee 0x043E0000 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x01DC32E7 [propio(gta_reversed_exe.exe)] lee 0x043E0000 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x01DC32E7 [propio(gta_reversed_exe.exe)] lee 0x043E0000 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x01DC32E7 [propio(gta_reversed_exe.exe)] lee 0x043E0000 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x01DC32E7 [propio(gta_reversed_exe.exe)] lee 0x043E0000 (primera oportunidad; el original puede atraparla con SEH)
+[    94 ms] excepcion 0xC0000005 en 0x01DC32E7 [propio(gta_reversed_exe.exe)] lee 0x043E0000 (primera oportunidad; el original puede atraparla con SEH)

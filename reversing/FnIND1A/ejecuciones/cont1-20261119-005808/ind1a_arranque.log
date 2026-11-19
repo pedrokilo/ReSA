@@ -1,0 +1,188 @@
+[     0 ms] IndCargar (callback TLS, antes del CRT propio): modo ejecutar contador
+callback TLS dinamico del CRT propio (0x01DC2580, ranura 0x01EA07A8) anulado hasta que arranque el CRT propio
+PE original: base 0x00400000 entrada 0x00824570 secciones 7 relocaciones 0 (flags 0x10F) dll_char 0x0
+reserva 0x00401000: region base 0x00401000 tam 0x1A99000 estado 0x1000 tipo 0x1000000 prot 0x20
+seccion .text    VA 0x00401000 virtual  4546560 archivo  4546048 car 0x60000020 copiada
+seccion _rwcseg  VA 0x00857000 virtual     4096 archivo     1536 car 0x60000020 copiada
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+DLL WINMM.dll        cargada      imports   4 sin resolver 0
+DLL vorbisfile.dll   cargada      imports   7 sin resolver 0
+DLL WS2_32.dll       cargada      imports  10 sin resolver 0
+DLL EAX.DLL          cargada      imports   1 sin resolver 0
+DLL KERNEL32.dll     cargada      imports 138 sin resolver 0
+DLL USER32.dll       cargada      imports  44 sin resolver 0
+DLL GDI32.dll        cargada      imports   1 sin resolver 0
+DLL ADVAPI32.dll     cargada      imports   6 sin resolver 0
+DLL ole32.dll        cargada      imports   3 sin resolver 0
+imports: 214, sin resolver: 0
+verif .text    VA 0x00401000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=6AF626400C922D7C fnv(arch)=6AF626400C922D7C
+verif _rwcseg  VA 0x00857000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=2683E257011BA0F1 fnv(arch)=2683E257011BA0F1
+verif .rdata   VA 0x00858000: bytes distintos 799 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=FC3BB75898DC5315 fnv(arch)=0E9DA1654F45D4FD
+verif .data    VA 0x008A4000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=8F506DDA0E0F8CCD fnv(arch)=8F506DDA0E0F8CCD
+verif _TEXT_HA VA 0x00C9E000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=678EE5E141EAFB69 fnv(arch)=678EE5E141EAFB69
+verif _rwdseg  VA 0x00CAF000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=218035740D3F1B83 fnv(arch)=218035740D3F1B83
+verif .rsrc    VA 0x00CB0000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=119A6B562005B4AB fnv(arch)=119A6B562005B4AB
+IAT 0x00858000..0x00858378: 222 palabras, 8 a cero (terminadores por DLL)
+comprobacion de la imagen cargada: OK
+parche del cargador: 0x008246EC call 0x00748710 -> call IndWinMainOriginal (0x00D22150)
+[    63 ms] IndEntrada: directorio de trabajo E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A; entrando por 0x00824570 (CRT original)
+[    63 ms] el CRT original llego a su WinMain (cinit hecho); iniciando el CRT propio
+[    78 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos hechos)
+[    78 ms] SetProcessDEPPolicy(ENABLE): 1 (error 0)
+[    78 ms] instalando hooks (DllMain)
+[   328 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[   328 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[   766 ms] DllMain devolvio 1
+[   766 ms] proteccion .text    0x00401000 +0x456000 -> 0x2 ok
+[   766 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[   766 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[   766 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[   766 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[   766 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[   766 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   766 ms] llamando al WinMain original 0x00748710
+[  2375 ms] latido: frame=0 funciones-originales=5 fallos=63893 retornos=5 enganches=5390
+[  4406 ms] latido: frame=0 funciones-originales=5 fallos=138659 retornos=5 enganches=11621
+[  6438 ms] latido: frame=0 funciones-originales=5 fallos=192769 retornos=5 enganches=16132
+[  8469 ms] latido: frame=0 funciones-originales=5 fallos=253337 retornos=5 enganches=21178
+[ 10516 ms] latido: frame=0 funciones-originales=5 fallos=319734 retornos=5 enganches=26713
+[ 10516 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 12547 ms] latido: frame=0 funciones-originales=5 fallos=388226 retornos=5 enganches=32419
+[ 14594 ms] latido: frame=0 funciones-originales=5 fallos=458210 retornos=5 enganches=38252
+[ 16625 ms] latido: frame=0 funciones-originales=5 fallos=528409 retornos=5 enganches=44101
+[ 18656 ms] latido: frame=0 funciones-originales=5 fallos=594533 retornos=5 enganches=49611
+[ 20688 ms] latido: frame=0 funciones-originales=5 fallos=652581 retornos=5 enganches=54448
+[ 20688 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 22735 ms] latido: frame=0 funciones-originales=5 fallos=722618 retornos=5 enganches=60284
+[ 24766 ms] latido: frame=0 funciones-originales=5 fallos=789298 retornos=5 enganches=65842
+[ 26813 ms] latido: frame=0 funciones-originales=5 fallos=858087 retornos=5 enganches=71574
+[ 28844 ms] latido: frame=0 funciones-originales=5 fallos=919013 retornos=5 enganches=76649
+[ 30875 ms] latido: frame=0 funciones-originales=5 fallos=983766 retornos=5 enganches=82047
+[ 30875 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 32922 ms] latido: frame=0 funciones-originales=5 fallos=1056008 retornos=5 enganches=88068
+[ 34969 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 37016 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 39063 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 41110 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 41110 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 43156 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 45203 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 47250 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 49297 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 51344 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 51344 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 53391 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 55438 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 57485 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 59531 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 61578 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 61578 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 63641 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 65688 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 67735 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 69781 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 71828 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 71828 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 73875 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 75938 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 77985 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 80047 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 82078 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 82078 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 84125 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 86172 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 88219 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 90266 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 92313 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 92313 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 94344 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 96391 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[ 98438 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[100485 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[102531 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[102531 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[104578 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[106625 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[108672 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[110719 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[112766 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[112766 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[114813 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[116844 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[118891 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[120938 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[122969 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[122969 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[125000 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[127031 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[129063 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[131110 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[133125 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[133125 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[135156 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[137203 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[139235 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[141266 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[143281 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[143281 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[145328 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[147360 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[149391 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[151422 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[153453 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[153453 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[155500 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[157531 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[159563 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[161610 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[163641 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[163641 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[165672 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[167703 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[169735 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[171766 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[173797 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[173797 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[175828 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[177860 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[179891 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[181922 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[183969 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[183969 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[186000 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[188031 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[190063 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[192094 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[194125 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[194125 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[196156 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[198188 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[200219 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[202250 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[204281 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[204281 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[206313 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[208344 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[210375 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[212406 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[214422 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[214422 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[216453 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[218485 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[220516 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[222547 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[224578 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[224578 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[226610 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[228641 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[230688 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[232719 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[234750 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[234750 ms]   ventana 0x001200F0 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[236797 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[238828 ms] latido: frame=0 funciones-originales=5 fallos=1106643 retornos=5 enganches=92286
+[240110 ms] GUARDIA: limite de tiempo (240 s) alcanzado; se mata el proceso

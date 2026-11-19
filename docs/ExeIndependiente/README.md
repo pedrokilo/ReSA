@@ -215,3 +215,22 @@ Primer paso para sustituir las **176 funciones de libpng + zlib** (81 KB) que el
 - **Mapa EXE ↔ fuente** (`reversing/FnLIB1A/mapa_funciones.csv`): de las 343 funciones que se descubren en `0x7CF600–0x7EB5C0`, 41 con equivalencia de confianza alta, 104 media, 67 baja y 131 sin equivalente claro; de las 176 del cierre: 15 / 46 / 52 y 63 sin equivalente (incluidas las dos raíces `0x7CF600` y `0x7CF9B0`, que son `rtpng` de RenderWare, no libpng). Se corrige el dato «zlib 1.1.4» del proyecto: es 1.1.3.
 - **Banco par a par EXE original vs biblioteca** (fuera del juego: el EXE se mapea en un proceso de prueba y se llaman sus funciones por dirección): las 14 funciones de zlib, **14 de 14 sin diferencias** (296.269 casos, ≥ 18.680 pares por función, oráculos independientes de Python sin fallos; las 14 mutaciones de cada una de las 2 rondas negativas se detectan). Prueba negativa de dos rondas. **`validated` sigue en 0:** falta la corrida en juego con registro (`register_hook.py`).
 - **Siguientes lotes:** libpng lectura (`pngread/pngrutil/pngrtran/pngset/pngget`, ~90 funciones, con x87 y `png_struct` real), libpng escritura + `deflate`/`trees` (~70 funciones; `deflate 1.1.3` está en el EXE), subir la confianza de las 63 sin equivalencia, reconstruir `rtpng` y probar `ZlibInflate` con la opción encendida dentro del juego.
+
+## 8. Estado del cargador (lote IND1A, 19/11/2026)
+
+**El cargador funciona**: `gta_reversed_exe.exe` carga la imagen del `gta_sa.exe` del usuario, instala los hooks una sola vez y llega al **menú principal**, estable 170-200 s (límite de la guardia), 0 excepciones, ~145 fotogramas/s. Informe completo, tabla de iteraciones, comandos y guion de prueba a mano: [`reversing/FnIND1A/README.md`](../../reversing/FnIND1A/README.md).
+
+| Modo | Resultado |
+|---|---|
+| Solo cargar (`--ruta-original`) | Limpio: 7 secciones, hash por sección = archivo (salvo la IAT), 214/214 imports, 9 DLL. Comprobación automática `reversing/FnIND1A/verificar_carga.py` (`todo_ok: true`) |
+| `--ejecutar --sin-hooks` | El original corre solo sobre la cáscara hasta el menú |
+| `--ejecutar` | Hooks (12.445) + WinMain original hasta el menú, estable |
+| FastLoader (partida 2) | Falla en el **código original** `0x004CA5B5` (lectura de 0) tras cargar la partida; pendiente |
+
+**Cambios de diseño respecto a IND0A** (el cargador original no podía arrancar): (1) cargar la imagen desde un callback TLS (`.CRT$XLB`) del exe, antes del punto de entrada y sin CRT; (2) anular, hasta que arranque el CRT propio, la ranura del callback TLS dinámico (`thread_local` como `CGeneral::randomEngine` revientan sin los cerrojos del CRT); (3) **entrar por el CRT original** `0x824570` y redirigir su llamada a WinMain (`0x8246EC`) hacia una función propia que inicia el CRT propio, instala los hooks y llama al WinMain original: el `operator new` del proyecto usa el montón del juego (`0x82119A`) y los inicializadores estáticos propios solo pueden correr después de `_heap_init` del original.
+
+**Contador de funciones originales ejecutadas hasta el menú** (INT3 en 20.093 inicios de función; el VEH cuenta cada primera entrada): **2.832 sin hooks, 148 con hooks** (78 del CRT/bibliotecas, 53 de RenderWare/D3D, 17 del código del juego). Lista con llamadores: `reversing/FnIND1A/datos/funciones_ejecutadas_hasta_menu_hooks.md`. Es una cota inferior (solo cuenta funciones de la lista), contrastada con un contador por páginas.
+
+**Para llegar a 0 en este camino**: las 17 del juego y las 53 de RenderWare (olas pequeñas), y sustituir el CRT original (`operator new/delete`, `malloc`…, 78 funciones) por el propio, lo que exige decidir qué montón comparten el código propio y las estructuras que el original sigue liberando. Siguiente medida: repetir el contador con una partida cargada (tras resolver el fallo de FastLoader).
+
+**Prueba a mano**: `pwsh -File D:\Original\wv-6\reversing\FnIND1A\probar_a_mano.ps1` (crea `E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A`, sin `dinput8.dll` ni `scripts\` para no cargar el ASI otra vez, y lanza el exe sin límite); mirar el menú principal y que en la consola salga una sola vez «Funciones del juego reemplazadas por código C++: 12445».

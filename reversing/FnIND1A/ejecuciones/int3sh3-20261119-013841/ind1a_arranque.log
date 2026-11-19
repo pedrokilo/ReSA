@@ -1,0 +1,122 @@
+[     0 ms] IndCargar (callback TLS, antes del CRT propio): modo ejecutar sin-hooks
+callback TLS dinamico del CRT propio (0x01DC2F50, ranura 0x01EA07B0) anulado hasta que arranque el CRT propio
+PE original: base 0x00400000 entrada 0x00824570 secciones 7 relocaciones 0 (flags 0x10F) dll_char 0x0
+reserva 0x00401000: region base 0x00401000 tam 0x1A99000 estado 0x1000 tipo 0x1000000 prot 0x20
+seccion .text    VA 0x00401000 virtual  4546560 archivo  4546048 car 0x60000020 copiada
+seccion _rwcseg  VA 0x00857000 virtual     4096 archivo     1536 car 0x60000020 copiada
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+DLL WINMM.dll        cargada      imports   4 sin resolver 0
+DLL vorbisfile.dll   cargada      imports   7 sin resolver 0
+DLL WS2_32.dll       cargada      imports  10 sin resolver 0
+DLL EAX.DLL          cargada      imports   1 sin resolver 0
+DLL KERNEL32.dll     cargada      imports 138 sin resolver 0
+DLL USER32.dll       cargada      imports  44 sin resolver 0
+DLL GDI32.dll        cargada      imports   1 sin resolver 0
+DLL ADVAPI32.dll     cargada      imports   6 sin resolver 0
+DLL ole32.dll        cargada      imports   3 sin resolver 0
+imports: 214, sin resolver: 0
+verif .text    VA 0x00401000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=6AF626400C922D7C fnv(arch)=6AF626400C922D7C
+verif _rwcseg  VA 0x00857000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=2683E257011BA0F1 fnv(arch)=2683E257011BA0F1
+verif .rdata   VA 0x00858000: bytes distintos 799 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=FC3BB75898DC5315 fnv(arch)=0E9DA1654F45D4FD
+verif .data    VA 0x008A4000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=8F506DDA0E0F8CCD fnv(arch)=8F506DDA0E0F8CCD
+verif _TEXT_HA VA 0x00C9E000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=678EE5E141EAFB69 fnv(arch)=678EE5E141EAFB69
+verif _rwdseg  VA 0x00CAF000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=218035740D3F1B83 fnv(arch)=218035740D3F1B83
+verif .rsrc    VA 0x00CB0000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=119A6B562005B4AB fnv(arch)=119A6B562005B4AB
+IAT 0x00858000..0x00858378: 222 palabras, 8 a cero (terminadores por DLL)
+comprobacion de la imagen cargada: OK
+[    63 ms] IndEntrada: directorio de trabajo E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A; entrando por 0x00824570 (CRT original)
+[    63 ms] INT3 colocados: 20067 de 20086 direcciones de la lista (0 con enganche propio y 19 omitidas)
+[    63 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[    63 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[    63 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[    63 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[    63 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[    63 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[    63 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   328 ms] latido: frame=0 funciones-originales=1989 fallos=0 retornos=0 enganches=0
+[  1797 ms]   ventana 0x003A0036 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=0 800x600
+[  1797 ms]   ventana 0x002301D2 clase=IME titulo="Default IME" visible=0 0x0
+[  2328 ms] latido: frame=0 funciones-originales=2359 fallos=0 retornos=0 enganches=0
+[  4375 ms] latido: frame=0 funciones-originales=2398 fallos=0 retornos=0 enganches=0
+[  6453 ms] latido: frame=0 funciones-originales=2436 fallos=0 retornos=0 enganches=0
+[  8516 ms] latido: frame=0 funciones-originales=2436 fallos=0 retornos=0 enganches=0
+[ 10563 ms] latido: frame=0 funciones-originales=2451 fallos=0 retornos=0 enganches=0
+[ 10563 ms]   ventana 0x003A0810 clase=D3DProxyWindow titulo="D3DProxyWindow" visible=1 800x600
+[ 14750 ms]   ventana 0x003A0036 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 800x600
+[ 14750 ms]   ventana 0x001D0734 clase=IME titulo="Default IME" visible=0 0x0
+[ 14750 ms]   ventana 0x002C0A08 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 14750 ms]   ventana 0x002301D2 clase=IME titulo="Default IME" visible=0 0x0
+[ 15016 ms] latido: frame=0 funciones-originales=2471 fallos=0 retornos=0 enganches=0
+[ 17047 ms] latido: frame=0 funciones-originales=2595 fallos=0 retornos=0 enganches=0
+[ 19063 ms] latido: frame=0 funciones-originales=2652 fallos=0 retornos=0 enganches=0
+[ 21063 ms] latido: frame=0 funciones-originales=2652 fallos=0 retornos=0 enganches=0
+[ 23063 ms] latido: frame=71 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 23063 ms]   ventana 0x003A0810 clase=D3DProxyWindow titulo="D3DProxyWindow" visible=1 800x600
+[ 23078 ms]   ventana 0x005101B0 clase=QTIdle: 3604 titulo="3604" visible=0 0x0
+[ 23094 ms]   ventana 0x003A0036 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 800x600
+[ 23094 ms]   ventana 0x001D0734 clase=IME titulo="Default IME" visible=0 0x0
+[ 23110 ms]   ventana 0x002C0A08 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 23125 ms]   ventana 0x002301D2 clase=IME titulo="Default IME" visible=0 0x0
+[ 25141 ms] latido: frame=195 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 27141 ms] latido: frame=315 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 29141 ms] latido: frame=436 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 31157 ms] latido: frame=556 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 33157 ms] latido: frame=676 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 33157 ms]   ventana 0x003A0810 clase=D3DProxyWindow titulo="D3DProxyWindow" visible=1 800x600
+[ 33157 ms]   ventana 0x005101B0 clase=QTIdle: 3604 titulo="3604" visible=0 0x0
+[ 33172 ms]   ventana 0x003A0036 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 800x600
+[ 33172 ms]   ventana 0x001D0734 clase=IME titulo="Default IME" visible=0 0x0
+[ 33188 ms]   ventana 0x002C0A08 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 33219 ms]   ventana 0x002301D2 clase=IME titulo="Default IME" visible=0 0x0
+[ 35219 ms] latido: frame=800 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 37219 ms] latido: frame=920 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 39235 ms] latido: frame=1041 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 41235 ms] latido: frame=1161 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 43235 ms] latido: frame=1281 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 43235 ms]   ventana 0x003A0810 clase=D3DProxyWindow titulo="D3DProxyWindow" visible=1 800x600
+[ 43250 ms]   ventana 0x005101B0 clase=QTIdle: 3604 titulo="3604" visible=0 0x0
+[ 43282 ms]   ventana 0x003A0036 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 800x600
+[ 43282 ms]   ventana 0x001D0734 clase=IME titulo="Default IME" visible=0 0x0
+[ 43297 ms]   ventana 0x002C0A08 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 43313 ms]   ventana 0x002301D2 clase=IME titulo="Default IME" visible=0 0x0
+[ 45313 ms] latido: frame=1406 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 47313 ms] latido: frame=1526 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 49328 ms] latido: frame=1646 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 51328 ms] latido: frame=1767 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 53328 ms] latido: frame=1887 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 53328 ms]   ventana 0x003A0810 clase=D3DProxyWindow titulo="D3DProxyWindow" visible=1 800x600
+[ 53344 ms]   ventana 0x005101B0 clase=QTIdle: 3604 titulo="3604" visible=0 0x0
+[ 53360 ms]   ventana 0x003A0036 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 800x600
+[ 53360 ms]   ventana 0x001D0734 clase=IME titulo="Default IME" visible=0 0x0
+[ 53375 ms]   ventana 0x002C0A08 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 53391 ms]   ventana 0x002301D2 clase=IME titulo="Default IME" visible=0 0x0
+[ 55391 ms] latido: frame=2011 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 57391 ms] latido: frame=2131 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 59407 ms] latido: frame=2251 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 61407 ms] latido: frame=2372 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 63407 ms] latido: frame=2492 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 63407 ms]   ventana 0x003A0810 clase=D3DProxyWindow titulo="D3DProxyWindow" visible=1 800x600
+[ 63422 ms]   ventana 0x005101B0 clase=QTIdle: 3604 titulo="3604" visible=0 0x0
+[ 63438 ms]   ventana 0x003A0036 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 800x600
+[ 63438 ms]   ventana 0x001D0734 clase=IME titulo="Default IME" visible=0 0x0
+[ 63453 ms]   ventana 0x002C0A08 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 63469 ms]   ventana 0x002301D2 clase=IME titulo="Default IME" visible=0 0x0
+[ 65469 ms] latido: frame=2616 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 67485 ms] latido: frame=2736 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 69485 ms] latido: frame=2857 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 71485 ms] latido: frame=2977 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 73500 ms] latido: frame=3097 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 73500 ms]   ventana 0x003A0810 clase=D3DProxyWindow titulo="D3DProxyWindow" visible=1 800x600
+[ 73500 ms]   ventana 0x005101B0 clase=QTIdle: 3604 titulo="3604" visible=0 0x0
+[ 73516 ms]   ventana 0x003A0036 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 800x600
+[ 73516 ms]   ventana 0x001D0734 clase=IME titulo="Default IME" visible=0 0x0
+[ 73532 ms]   ventana 0x002C0A08 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 73547 ms]   ventana 0x002301D2 clase=IME titulo="Default IME" visible=0 0x0
+[ 75547 ms] latido: frame=3221 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 77563 ms] latido: frame=3341 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 79563 ms] latido: frame=3462 funciones-originales=2832 fallos=0 retornos=0 enganches=0
+[ 80063 ms] GUARDIA: limite de tiempo (80 s) alcanzado; se mata el proceso

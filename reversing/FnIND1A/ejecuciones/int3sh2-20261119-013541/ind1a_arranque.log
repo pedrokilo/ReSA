@@ -1,0 +1,134 @@
+[     0 ms] IndCargar (callback TLS, antes del CRT propio): modo ejecutar sin-hooks
+callback TLS dinamico del CRT propio (0x01DC2F50, ranura 0x01EA07B0) anulado hasta que arranque el CRT propio
+PE original: base 0x00400000 entrada 0x00824570 secciones 7 relocaciones 0 (flags 0x10F) dll_char 0x0
+reserva 0x00401000: region base 0x00401000 tam 0x1A99000 estado 0x1000 tipo 0x1000000 prot 0x20
+seccion .text    VA 0x00401000 virtual  4546560 archivo  4546048 car 0x60000020 copiada
+seccion _rwcseg  VA 0x00857000 virtual     4096 archivo     1536 car 0x60000020 copiada
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+DLL WINMM.dll        cargada      imports   4 sin resolver 0
+DLL vorbisfile.dll   cargada      imports   7 sin resolver 0
+DLL WS2_32.dll       cargada      imports  10 sin resolver 0
+DLL EAX.DLL          cargada      imports   1 sin resolver 0
+DLL KERNEL32.dll     cargada      imports 138 sin resolver 0
+DLL USER32.dll       cargada      imports  44 sin resolver 0
+DLL GDI32.dll        cargada      imports   1 sin resolver 0
+DLL ADVAPI32.dll     cargada      imports   6 sin resolver 0
+DLL ole32.dll        cargada      imports   3 sin resolver 0
+imports: 214, sin resolver: 0
+verif .text    VA 0x00401000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=6AF626400C922D7C fnv(arch)=6AF626400C922D7C
+verif _rwcseg  VA 0x00857000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=2683E257011BA0F1 fnv(arch)=2683E257011BA0F1
+verif .rdata   VA 0x00858000: bytes distintos 799 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=FC3BB75898DC5315 fnv(arch)=0E9DA1654F45D4FD
+verif .data    VA 0x008A4000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=8F506DDA0E0F8CCD fnv(arch)=8F506DDA0E0F8CCD
+verif _TEXT_HA VA 0x00C9E000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=678EE5E141EAFB69 fnv(arch)=678EE5E141EAFB69
+verif _rwdseg  VA 0x00CAF000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=218035740D3F1B83 fnv(arch)=218035740D3F1B83
+verif .rsrc    VA 0x00CB0000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=119A6B562005B4AB fnv(arch)=119A6B562005B4AB
+IAT 0x00858000..0x00858378: 222 palabras, 8 a cero (terminadores por DLL)
+comprobacion de la imagen cargada: OK
+[    62 ms] IndEntrada: directorio de trabajo E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A; entrando por 0x00824570 (CRT original)
+[    62 ms] INT3 colocados: 20785 de 20810 direcciones de la lista (0 con enganche propio y 25 omitidas)
+[    62 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[    62 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[    62 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[    62 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[    62 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[    62 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[    62 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+FALLO (primera oportunidad) codigo 0xC0000005 en EIP=0x00855B8C [original(.text)] t=93 ms
+  acceso escritura a 0x00CCA7C4
+  EAX=00855B80 EBX=00308000 ECX=00856C20 EDX=00030000 ESI=008A5984 EDI=008A5A10 EBP=001AFF6C ESP=001AFE4C
+  bytes en EIP: D9 1D C4 A7 CC 00 C3 90 90 90 90 90 90 90 90 90
+  pila (palabras que apuntan a codigo):
+    [esp+0x0] 0x00823BCF original(.text)
+    [esp+0xC] 0x008246B1 original(.text)
+    [esp+0xA0] 0x00824588 original(.text)
+    [esp+0xA4] 0x00D22EB0 propio(gta_reversed_exe.exe)
+    [esp+0xA8] 0x00D22EB0 propio(gta_reversed_exe.exe)
+    [esp+0xF4] 0x00D22430 propio(gta_reversed_exe.exe)
+    [esp+0x10C] 0x00D22F42 propio(gta_reversed_exe.exe)
+    [esp+0x114] 0x00825EA4 original(.text)
+    [esp+0x124] 0x00D22F4A propio(gta_reversed_exe.exe)
+    [esp+0x1A8] 0x00D22EB0 propio(gta_reversed_exe.exe)
+    [esp+0x398] 0x0057005C original(.text)
+    [esp+0x39C] 0x004E0049 original(.text)
+    [esp+0x3A0] 0x004F0044 original(.text)
+    [esp+0x3A4] 0x00530057 original(.text)
+    [esp+0x3A8] 0x0057005C original(.text)
+    [esp+0x3AC] 0x006E0069 original(.text)
+    [esp+0x3B0] 0x00780053 original(.text)
+    [esp+0x3B4] 0x005C0073 original(.text)
+    [esp+0x44C] 0x0069004D original(.text)
+    [esp+0x450] 0x00720063 original(.text)
+    [esp+0x454] 0x0073006F original(.text)
+    [esp+0x458] 0x0066006F original(.text)
+    [esp+0x460] 0x00690057 original(.text)
+    [esp+0x464] 0x0064006E original(.text)
+  ultimas entradas a funciones originales (mas reciente primero), total 1833, fallos 0:
+    0x00855B80 llamada desde 0x00823BCF
+    0x00855B60 llamada desde 0x00823BCF
+    0x00855B40 llamada desde 0x00823BCF
+    0x00855B20 llamada desde 0x00823BCF
+    0x00855B00 llamada desde 0x00823BCF
+    0x00855AE0 llamada desde 0x00823BCF
+    0x00855AC0 llamada desde 0x00823BCF
+    0x00855AA0 llamada desde 0x00823BCF
+    0x00855A80 llamada desde 0x00823BCF
+    0x00855A60 llamada desde 0x00823BCF
+    0x00855A40 llamada desde 0x00823BCF
+    0x00855A20 llamada desde 0x00823BCF
+    0x00855A00 llamada desde 0x00823BCF
+    0x005074B0 llamada desde 0x008559EA
+    0x008559E0 llamada desde 0x00823BCF
+    0x008559C0 llamada desde 0x00823BCF
+  bytes del .text distintos del archivo (sin INT3 pendientes): 0
+[   109 ms] excepcion 0xC0000005 en 0x00855B8C [original(.text)] escribe 0x00CCA7C4 (primera oportunidad; el original puede atraparla con SEH)
+FALLO (no manejada) codigo 0xC0000005 en EIP=0x00855B8C [original(.text)] t=109 ms
+  acceso escritura a 0x00CCA7C4
+  EAX=00855B80 EBX=00308000 ECX=00856C20 EDX=00030000 ESI=008A5984 EDI=008A5A10 EBP=001AFF6C ESP=001AFE4C
+  bytes en EIP: D9 1D C4 A7 CC 00 C3 90 90 90 90 90 90 90 90 90
+  pila (palabras que apuntan a codigo):
+    [esp+0x0] 0x00823BCF original(.text)
+    [esp+0xC] 0x008246B1 original(.text)
+    [esp+0xA0] 0x00824588 original(.text)
+    [esp+0xA4] 0x00D22EB0 propio(gta_reversed_exe.exe)
+    [esp+0xA8] 0x00D22EB0 propio(gta_reversed_exe.exe)
+    [esp+0xF4] 0x00D22430 propio(gta_reversed_exe.exe)
+    [esp+0x114] 0x00825EA4 original(.text)
+    [esp+0x124] 0x00D22F4A propio(gta_reversed_exe.exe)
+    [esp+0x1A8] 0x00D22EB0 propio(gta_reversed_exe.exe)
+    [esp+0x398] 0x0057005C original(.text)
+    [esp+0x39C] 0x004E0049 original(.text)
+    [esp+0x3A0] 0x004F0044 original(.text)
+    [esp+0x3A4] 0x00530057 original(.text)
+    [esp+0x3A8] 0x0057005C original(.text)
+    [esp+0x3AC] 0x006E0069 original(.text)
+    [esp+0x3B0] 0x00780053 original(.text)
+    [esp+0x3B4] 0x005C0073 original(.text)
+    [esp+0x44C] 0x0069004D original(.text)
+    [esp+0x450] 0x00720063 original(.text)
+    [esp+0x454] 0x0073006F original(.text)
+    [esp+0x458] 0x0066006F original(.text)
+    [esp+0x460] 0x00690057 original(.text)
+    [esp+0x464] 0x0064006E original(.text)
+    [esp+0x468] 0x0077006F original(.text)
+  ultimas entradas a funciones originales (mas reciente primero), total 1836, fallos 0:
+    0x00832ECF llamada desde 0x0082AC40
+    0x0082AC0E llamada desde 0x76DCE6F2
+    0x0082D726 llamada desde 0x00824719
+    0x00855B80 llamada desde 0x00823BCF
+    0x00855B60 llamada desde 0x00823BCF
+    0x00855B40 llamada desde 0x00823BCF
+    0x00855B20 llamada desde 0x00823BCF
+    0x00855B00 llamada desde 0x00823BCF
+    0x00855AE0 llamada desde 0x00823BCF
+    0x00855AC0 llamada desde 0x00823BCF
+    0x00855AA0 llamada desde 0x00823BCF
+    0x00855A80 llamada desde 0x00823BCF
+    0x00855A60 llamada desde 0x00823BCF
+    0x00855A40 llamada desde 0x00823BCF
+    0x00855A20 llamada desde 0x00823BCF
+    0x00855A00 llamada desde 0x00823BCF
+  bytes del .text distintos del archivo (sin INT3 pendientes): 0

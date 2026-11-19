@@ -1,0 +1,47 @@
+FALLO (no manejada) codigo 0xC0000005 en EIP=0x00855B8C [original(.text)] t=109 ms
+  acceso escritura a 0x00CCA7C4
+  EAX=00855B80 EBX=00308000 ECX=00856C20 EDX=00030000 ESI=008A5984 EDI=008A5A10 EBP=001AFF6C ESP=001AFE4C
+  bytes en EIP: D9 1D C4 A7 CC 00 C3 90 90 90 90 90 90 90 90 90
+  pila (palabras que apuntan a codigo):
+    [esp+0x0] 0x00823BCF original(.text)
+    [esp+0xC] 0x008246B1 original(.text)
+    [esp+0xA0] 0x00824588 original(.text)
+    [esp+0xA4] 0x00D22EB0 propio(gta_reversed_exe.exe)
+    [esp+0xA8] 0x00D22EB0 propio(gta_reversed_exe.exe)
+    [esp+0xF4] 0x00D22430 propio(gta_reversed_exe.exe)
+    [esp+0x114] 0x00825EA4 original(.text)
+    [esp+0x124] 0x00D22F4A propio(gta_reversed_exe.exe)
+    [esp+0x1A8] 0x00D22EB0 propio(gta_reversed_exe.exe)
+    [esp+0x398] 0x0057005C original(.text)
+    [esp+0x39C] 0x004E0049 original(.text)
+    [esp+0x3A0] 0x004F0044 original(.text)
+    [esp+0x3A4] 0x00530057 original(.text)
+    [esp+0x3A8] 0x0057005C original(.text)
+    [esp+0x3AC] 0x006E0069 original(.text)
+    [esp+0x3B0] 0x00780053 original(.text)
+    [esp+0x3B4] 0x005C0073 original(.text)
+    [esp+0x44C] 0x0069004D original(.text)
+    [esp+0x450] 0x00720063 original(.text)
+    [esp+0x454] 0x0073006F original(.text)
+    [esp+0x458] 0x0066006F original(.text)
+    [esp+0x460] 0x00690057 original(.text)
+    [esp+0x464] 0x0064006E original(.text)
+    [esp+0x468] 0x0077006F original(.text)
+  ultimas entradas a funciones originales (mas reciente primero), total 1836, fallos 0:
+    0x00832ECF llamada desde 0x0082AC40
+    0x0082AC0E llamada desde 0x76DCE6F2
+    0x0082D726 llamada desde 0x00824719
+    0x00855B80 llamada desde 0x00823BCF
+    0x00855B60 llamada desde 0x00823BCF
+    0x00855B40 llamada desde 0x00823BCF
+    0x00855B20 llamada desde 0x00823BCF
+    0x00855B00 llamada desde 0x00823BCF
+    0x00855AE0 llamada desde 0x00823BCF
+    0x00855AC0 llamada desde 0x00823BCF
+    0x00855AA0 llamada desde 0x00823BCF
+    0x00855A80 llamada desde 0x00823BCF
+    0x00855A60 llamada desde 0x00823BCF
+    0x00855A40 llamada desde 0x00823BCF
+    0x00855A20 llamada desde 0x00823BCF
+    0x00855A00 llamada desde 0x00823BCF
+  bytes del .text distintos del archivo (sin INT3 pendientes): 0

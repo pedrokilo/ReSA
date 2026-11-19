@@ -1,0 +1,63 @@
+{
+ "exit_code": 0,
+ "sin_relocaciones": true,
+ "secciones": {
+  ".text": {
+   "va": "0x401000",
+   "virtual": 4546560,
+   "sha256_memoria": "2a65c768122a6ccd37a03bdd3e3f6364fa475f66c80a90be5761bedf0a12d0d5",
+   "sha256_archivo": "2a65c768122a6ccd37a03bdd3e3f6364fa475f66c80a90be5761bedf0a12d0d5",
+   "igual_salvo_IAT": true
+  },
+  "_rwcseg": {
+   "va": "0x857000",
+   "virtual": 4096,
+   "sha256_memoria": "7aec2863dc7588a23c39e8a88b4bf57bd9fbfffcb3b6e6cd3a6de5d12568edfb",
+   "sha256_archivo": "7aec2863dc7588a23c39e8a88b4bf57bd9fbfffcb3b6e6cd3a6de5d12568edfb",
+   "igual_salvo_IAT": true
+  },
+  ".rdata": {
+   "va": "0x858000",
+   "virtual": 311296,
+   "sha256_memoria": "0fe9db9be635a926a3f7a0e591dd7b30965aef3ed0366d4da759aff456c32197",
+   "sha256_archivo": "0fe9db9be635a926a3f7a0e591dd7b30965aef3ed0366d4da759aff456c32197",
+   "igual_salvo_IAT": true
+  },
+  ".data": {
+   "va": "0x8a4000",
+   "virtual": 4169728,
+   "sha256_memoria": "f1714c67a00f56d30dd86a5e407bab731fb7a65f6744513284d6c020109b33f9",
+   "sha256_archivo": "f1714c67a00f56d30dd86a5e407bab731fb7a65f6744513284d6c020109b33f9",
+   "igual_salvo_IAT": true
+  },
+  "_TEXT_HA": {
+   "va": "0xc9e000",
+   "virtual": 69632,
+   "sha256_memoria": "8b7613ba8826ab5a23bc503bc53da4abc642393f8146a1d62c68dcb455169c71",
+   "sha256_archivo": "8b7613ba8826ab5a23bc503bc53da4abc642393f8146a1d62c68dcb455169c71",
+   "igual_salvo_IAT": true
+  },
+  "_rwdseg": {
+   "va": "0xcaf000",
+   "virtual": 4096,
+   "sha256_memoria": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+   "sha256_archivo": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+   "igual_salvo_IAT": true
+  },
+  ".rsrc": {
+   "va": "0xcb0000",
+   "virtual": 4096,
+   "sha256_memoria": "aa19a09988ce72a30742baacddd502b022836859a0484334b4c00262a3ab5fb6",
+   "sha256_archivo": "aa19a09988ce72a30742baacddd502b022836859a0484334b4c00262a3ab5fb6",
+   "igual_salvo_IAT": true
+  }
+ },
+ "iat": {
+  "palabras": 222,
+  "ceros_terminadores": 8,
+  "apuntan_dentro_de_la_imagen": 0,
+  "resueltas": 214
+ },
+ "informe_dice_imports_ok": true,
+ "todo_ok": true
+}

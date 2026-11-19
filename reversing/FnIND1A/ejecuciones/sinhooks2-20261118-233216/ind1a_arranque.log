@@ -1,0 +1,60 @@
+[    15 ms] IndCargar (callback TLS, antes del CRT propio): modo ejecutar sin-hooks
+PE original: base 0x00400000 entrada 0x00824570 secciones 7 relocaciones 0 (flags 0x10F) dll_char 0x0
+reserva 0x00401000: region base 0x00401000 tam 0x1A98000 estado 0x1000 tipo 0x1000000 prot 0x20
+seccion .text    VA 0x00401000 virtual  4546560 archivo  4546048 car 0x60000020 copiada
+seccion _rwcseg  VA 0x00857000 virtual     4096 archivo     1536 car 0x60000020 copiada
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+DLL WINMM.dll        cargada      imports   4 sin resolver 0
+DLL vorbisfile.dll   cargada      imports   7 sin resolver 0
+DLL WS2_32.dll       cargada      imports  10 sin resolver 0
+DLL EAX.DLL          cargada      imports   1 sin resolver 0
+DLL KERNEL32.dll     cargada      imports 138 sin resolver 0
+DLL USER32.dll       cargada      imports  44 sin resolver 0
+DLL GDI32.dll        cargada      imports   1 sin resolver 0
+DLL ADVAPI32.dll     cargada      imports   6 sin resolver 0
+DLL ole32.dll        cargada      imports   3 sin resolver 0
+imports: 214, sin resolver: 0
+verif .text    VA 0x00401000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=6AF626400C922D7C fnv(arch)=6AF626400C922D7C
+verif _rwcseg  VA 0x00857000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=2683E257011BA0F1 fnv(arch)=2683E257011BA0F1
+verif .rdata   VA 0x00858000: bytes distintos 799 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=8A31D8A40A9B9572 fnv(arch)=0E9DA1654F45D4FD
+verif .data    VA 0x008A4000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=8F506DDA0E0F8CCD fnv(arch)=8F506DDA0E0F8CCD
+verif _TEXT_HA VA 0x00C9E000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=678EE5E141EAFB69 fnv(arch)=678EE5E141EAFB69
+verif _rwdseg  VA 0x00CAF000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=218035740D3F1B83 fnv(arch)=218035740D3F1B83
+verif .rsrc    VA 0x00CB0000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=119A6B562005B4AB fnv(arch)=119A6B562005B4AB
+IAT 0x00858000..0x00858378: 222 palabras, 8 a cero (terminadores por DLL)
+comprobacion de la imagen cargada: OK
+FALLO (primera oportunidad) codigo 0xC0000005 en EIP=0x774CDBEA [ntdll.dll+0x3DBEA] t=62 ms
+  acceso lectura a 0x00000008
+  EAX=001AF1DC EBX=00252000 ECX=00000013 EDX=00000000 ESI=00000000 EDI=001AF320 EBP=001AF1EC ESP=001AF1C4
+  bytes en EIP: 81 7E 08 EE DD EE DD 75 40 C7 45 FC 00 00 00 00
+  pila (palabras que apuntan a codigo):
+    [esp+0x2C] 0x00824219 original(.text)
+    [esp+0x48] 0x02580000 memoria-dinamica
+    [esp+0x50] 0x025C0990 memoria-dinamica
+    [esp+0x58] 0x00825EA4 original(.text)
+    [esp+0x68] 0x0082423B original(.text)
+    [esp+0x70] 0x00824266 original(.text)
+    [esp+0x7C] 0x008211B7 original(.text)
+    [esp+0x88] 0x01354804 propio(gta_reversed_exe.exe)
+    [esp+0x94] 0x01DC2180 propio(gta_reversed_exe.exe)
+    [esp+0xA8] 0x015C3038 propio(gta_reversed_exe.exe)
+    [esp+0xAC] 0x02586590 memoria-dinamica
+    [esp+0xE0] 0x025C2E08 memoria-dinamica
+    [esp+0xE4] 0x02580000 memoria-dinamica
+    [esp+0x100] 0x02580260 memoria-dinamica
+    [esp+0x10C] 0x025C4E10 memoria-dinamica
+    [esp+0x110] 0x025C2E08 memoria-dinamica
+    [esp+0x118] 0x02580000 memoria-dinamica
+    [esp+0x130] 0x025C4E10 memoria-dinamica
+    [esp+0x158] 0x01E2EF47 propio(gta_reversed_exe.exe)
+    [esp+0x160] 0x01354850 propio(gta_reversed_exe.exe)
+    [esp+0x16C] 0x01DC2180 propio(gta_reversed_exe.exe)
+    [esp+0x238] 0x00D48720 propio(gta_reversed_exe.exe)
+    [esp+0x244] 0x01DC2180 propio(gta_reversed_exe.exe)
+    [esp+0x304] 0x01DC2180 propio(gta_reversed_exe.exe)
+  ultimas entradas a funciones originales (mas reciente primero), total 0, fallos 0:
+[    62 ms] excepcion 0xC0000005 en 0x774CDBEA [ntdll.dll+0x3DBEA] lee 0x00000008 (primera oportunidad; el original puede atraparla con SEH)

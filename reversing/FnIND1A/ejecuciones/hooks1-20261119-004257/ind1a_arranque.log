@@ -1,0 +1,106 @@
+[     0 ms] IndCargar (callback TLS, antes del CRT propio): modo ejecutar
+callback TLS dinamico del CRT propio (0x01DC2580, ranura 0x01EA07A8) anulado hasta que arranque el CRT propio
+PE original: base 0x00400000 entrada 0x00824570 secciones 7 relocaciones 0 (flags 0x10F) dll_char 0x0
+reserva 0x00401000: region base 0x00401000 tam 0x1A99000 estado 0x1000 tipo 0x1000000 prot 0x20
+seccion .text    VA 0x00401000 virtual  4546560 archivo  4546048 car 0x60000020 copiada
+seccion _rwcseg  VA 0x00857000 virtual     4096 archivo     1536 car 0x60000020 copiada
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+DLL WINMM.dll        cargada      imports   4 sin resolver 0
+DLL vorbisfile.dll   cargada      imports   7 sin resolver 0
+DLL WS2_32.dll       cargada      imports  10 sin resolver 0
+DLL EAX.DLL          cargada      imports   1 sin resolver 0
+DLL KERNEL32.dll     cargada      imports 138 sin resolver 0
+DLL USER32.dll       cargada      imports  44 sin resolver 0
+DLL GDI32.dll        cargada      imports   1 sin resolver 0
+DLL ADVAPI32.dll     cargada      imports   6 sin resolver 0
+DLL ole32.dll        cargada      imports   3 sin resolver 0
+imports: 214, sin resolver: 0
+verif .text    VA 0x00401000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=6AF626400C922D7C fnv(arch)=6AF626400C922D7C
+verif _rwcseg  VA 0x00857000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=2683E257011BA0F1 fnv(arch)=2683E257011BA0F1
+verif .rdata   VA 0x00858000: bytes distintos 799 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=FC3BB75898DC5315 fnv(arch)=0E9DA1654F45D4FD
+verif .data    VA 0x008A4000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=8F506DDA0E0F8CCD fnv(arch)=8F506DDA0E0F8CCD
+verif _TEXT_HA VA 0x00C9E000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=678EE5E141EAFB69 fnv(arch)=678EE5E141EAFB69
+verif _rwdseg  VA 0x00CAF000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=218035740D3F1B83 fnv(arch)=218035740D3F1B83
+verif .rsrc    VA 0x00CB0000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=119A6B562005B4AB fnv(arch)=119A6B562005B4AB
+IAT 0x00858000..0x00858378: 222 palabras, 8 a cero (terminadores por DLL)
+comprobacion de la imagen cargada: OK
+parche del cargador: 0x008246EC call 0x00748710 -> call IndWinMainOriginal (0x00D22150)
+[    78 ms] IndEntrada: directorio de trabajo E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A; entrando por 0x00824570 (CRT original)
+[    78 ms] el CRT original llego a su WinMain (cinit hecho); iniciando el CRT propio
+[    78 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos hechos)
+[    78 ms] instalando hooks (DllMain)
+[   343 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[   343 ms]   ventana 0x00270036 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[   750 ms] DllMain devolvio 1
+[   750 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[   750 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[   750 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[   750 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[   750 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[   750 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[   750 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   750 ms] llamando al WinMain original 0x00748710
+[  2375 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[  4375 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[  6375 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[  8390 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 10390 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 10390 ms]   ventana 0x00270810 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 10390 ms]   ventana 0x0009061E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 10390 ms]   ventana 0x00270036 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 10390 ms]   ventana 0x001A0964 clase=IME titulo="Default IME" visible=0 0x0
+[ 10390 ms]   ventana 0x0046070C clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 10390 ms]   ventana 0x00380B60 clase=IME titulo="Default IME" visible=0 0x0
+[ 12390 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 14390 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 16406 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 18406 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 20422 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 20422 ms]   ventana 0x00270810 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 20422 ms]   ventana 0x0009061E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 20422 ms]   ventana 0x00270036 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 20422 ms]   ventana 0x001A0964 clase=IME titulo="Default IME" visible=0 0x0
+[ 20422 ms]   ventana 0x0046070C clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 20422 ms]   ventana 0x00380B60 clase=IME titulo="Default IME" visible=0 0x0
+[ 22422 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 24422 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 26437 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 28437 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 30453 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 30453 ms]   ventana 0x00280810 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 30453 ms]   ventana 0x0009061E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 30453 ms]   ventana 0x00270036 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 30453 ms]   ventana 0x001B0964 clase=IME titulo="Default IME" visible=0 0x0
+[ 30453 ms]   ventana 0x0046070C clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 30453 ms]   ventana 0x00380B60 clase=IME titulo="Default IME" visible=0 0x0
+[ 32453 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 34453 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 36468 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 38468 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 40468 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 40468 ms]   ventana 0x00280810 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 40468 ms]   ventana 0x0009061E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 40468 ms]   ventana 0x00270036 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 40468 ms]   ventana 0x001B0964 clase=IME titulo="Default IME" visible=0 0x0
+[ 40468 ms]   ventana 0x0046070C clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 40468 ms]   ventana 0x00380B60 clase=IME titulo="Default IME" visible=0 0x0
+[ 42468 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 44484 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 46484 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 48484 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 50500 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 50500 ms]   ventana 0x00280810 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 50500 ms]   ventana 0x0009061E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 50500 ms]   ventana 0x00270036 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 50500 ms]   ventana 0x001B0964 clase=IME titulo="Default IME" visible=0 0x0
+[ 50500 ms]   ventana 0x0046070C clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 50500 ms]   ventana 0x00380B60 clase=IME titulo="Default IME" visible=0 0x0
+[ 52500 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 54500 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 56500 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 58515 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[ 60015 ms] GUARDIA: limite de tiempo (60 s) alcanzado; se mata el proceso

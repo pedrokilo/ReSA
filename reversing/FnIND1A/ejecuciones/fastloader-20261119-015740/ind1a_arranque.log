@@ -1,0 +1,148 @@
+[     0 ms] IndCargar (callback TLS, antes del CRT propio): modo ejecutar
+callback TLS dinamico del CRT propio (0x01DC2F60, ranura 0x01EA07B0) anulado hasta que arranque el CRT propio
+PE original: base 0x00400000 entrada 0x00824570 secciones 7 relocaciones 0 (flags 0x10F) dll_char 0x0
+reserva 0x00401000: region base 0x00401000 tam 0x1A99000 estado 0x1000 tipo 0x1000000 prot 0x20
+seccion .text    VA 0x00401000 virtual  4546560 archivo  4546048 car 0x60000020 copiada
+seccion _rwcseg  VA 0x00857000 virtual     4096 archivo     1536 car 0x60000020 copiada
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+DLL WINMM.dll        cargada      imports   4 sin resolver 0
+DLL vorbisfile.dll   cargada      imports   7 sin resolver 0
+DLL WS2_32.dll       cargada      imports  10 sin resolver 0
+DLL EAX.DLL          cargada      imports   1 sin resolver 0
+DLL KERNEL32.dll     cargada      imports 138 sin resolver 0
+DLL USER32.dll       cargada      imports  44 sin resolver 0
+DLL GDI32.dll        cargada      imports   1 sin resolver 0
+DLL ADVAPI32.dll     cargada      imports   6 sin resolver 0
+DLL ole32.dll        cargada      imports   3 sin resolver 0
+imports: 214, sin resolver: 0
+verif .text    VA 0x00401000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=6AF626400C922D7C fnv(arch)=6AF626400C922D7C
+verif _rwcseg  VA 0x00857000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=2683E257011BA0F1 fnv(arch)=2683E257011BA0F1
+verif .rdata   VA 0x00858000: bytes distintos 799 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=E5D24746F474F5F1 fnv(arch)=0E9DA1654F45D4FD
+verif .data    VA 0x008A4000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=8F506DDA0E0F8CCD fnv(arch)=8F506DDA0E0F8CCD
+verif _TEXT_HA VA 0x00C9E000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=678EE5E141EAFB69 fnv(arch)=678EE5E141EAFB69
+verif _rwdseg  VA 0x00CAF000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=218035740D3F1B83 fnv(arch)=218035740D3F1B83
+verif .rsrc    VA 0x00CB0000: bytes distintos 0 (fuera de la IAT 0) cola-virtual no cero 0  fnv(mem)=119A6B562005B4AB fnv(arch)=119A6B562005B4AB
+IAT 0x00858000..0x00858378: 222 palabras, 8 a cero (terminadores por DLL)
+comprobacion de la imagen cargada: OK
+parche del cargador: 0x008246EC call 0x00748710 -> call IndWinMainOriginal (0x00D22B00)
+[   156 ms] IndEntrada: directorio de trabajo E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A; entrando por 0x00824570 (CRT original)
+[   172 ms] el CRT original llego a su WinMain (cinit hecho); iniciando el CRT propio
+[   281 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos hechos)
+[   281 ms] instalando hooks (DllMain)
+[   547 ms] latido: frame=0 funciones-originales=0 fallos=0 retornos=0 enganches=0
+[   547 ms]   ventana 0x003001D2 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[   875 ms] DllMain devolvio 1
+[   875 ms] INT3 colocados: 7786 de 20093 direcciones de la lista (12289 con enganche propio y 18 omitidas)
+[   875 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[   875 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[   875 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[   875 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[   875 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[   875 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[   875 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   875 ms] llamando al WinMain original 0x00748710
+[  2593 ms] latido: frame=0 funciones-originales=20 fallos=0 retornos=0 enganches=0
+[  4609 ms] latido: frame=0 funciones-originales=38 fallos=0 retornos=0 enganches=0
+[  6625 ms] latido: frame=0 funciones-originales=57 fallos=0 retornos=0 enganches=0
+[  8625 ms] latido: frame=0 funciones-originales=76 fallos=0 retornos=0 enganches=0
+[ 10625 ms] latido: frame=0 funciones-originales=95 fallos=0 retornos=0 enganches=0
+[ 13500 ms]   ventana 0x009A0808 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 13500 ms]   ventana 0x003001D2 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 13500 ms]   ventana 0x002408A4 clase=IME titulo="Default IME" visible=0 0x0
+[ 13750 ms] latido: frame=0 funciones-originales=124 fallos=0 retornos=0 enganches=0
+[ 15750 ms] latido: frame=0 funciones-originales=133 fallos=0 retornos=0 enganches=0
+[ 17750 ms] latido: frame=1 funciones-originales=140 fallos=0 retornos=0 enganches=0
+[ 19765 ms] latido: frame=4 funciones-originales=152 fallos=0 retornos=0 enganches=0
+[ 21765 ms] latido: frame=4 funciones-originales=164 fallos=0 retornos=0 enganches=0
+[ 35781 ms]   ventana 0x00530C92 clase=QTIdle: 87c0 titulo="87c0" visible=0 0x0
+[ 35781 ms]   ventana 0x009A0808 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 35781 ms]   ventana 0x003001D2 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - IND1A\gta_reversed_exe.exe" visible=1 1119x647
+[ 35781 ms]   ventana 0x005801B0 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 35781 ms]   ventana 0x002408A4 clase=IME titulo="Default IME" visible=0 0x0
+[ 36031 ms] latido: frame=31589396 funciones-originales=224 fallos=0 retornos=0 enganches=0
+[ 38031 ms] latido: frame=31589396 funciones-originales=237 fallos=0 retornos=0 enganches=0
+[ 40047 ms] latido: frame=31589396 funciones-originales=250 fallos=0 retornos=0 enganches=0
+[ 42047 ms] latido: frame=31589396 funciones-originales=263 fallos=0 retornos=0 enganches=0
+[ 44047 ms] latido: frame=31589396 funciones-originales=275 fallos=0 retornos=0 enganches=0
+FALLO (primera oportunidad) codigo 0xC0000005 en EIP=0x004CA5B5 [original(.text)] t=58203 ms
+  acceso lectura a 0x00000000
+  EAX=00000000 EBX=00000000 ECX=00000000 EDX=065BF3F8 ESI=001AEEB4 EDI=00000000 EBP=065BF3F8 ESP=001AED44
+  bytes en EIP: 8B 07 3B F8 75 F8 A1 E0 E9 B4 00 03 C7 89 44 24
+  pila (palabras que apuntan a codigo):
+    [esp+0x70] 0x004CADED original(.text)
+    [esp+0x84] 0x004CAE71 original(.text)
+    [esp+0x8C] 0x016066B2 propio(gta_reversed_exe.exe)
+    [esp+0xA8] 0x004CAE60 original(.text)
+    [esp+0xB0] 0x016065E1 propio(gta_reversed_exe.exe)
+    [esp+0xD8] 0x00CCCCCC propio(gta_reversed_exe.exe)
+    [esp+0xDC] 0x00D69C5D propio(gta_reversed_exe.exe)
+    [esp+0xE4] 0x00D69D90 propio(gta_reversed_exe.exe)
+    [esp+0x120] 0x00CCCCCC propio(gta_reversed_exe.exe)
+    [esp+0x138] 0x015F4A21 propio(gta_reversed_exe.exe)
+    [esp+0x180] 0x014FE2DD propio(gta_reversed_exe.exe)
+    [esp+0x1AC] 0x01C991D0 propio(gta_reversed_exe.exe)
+    [esp+0x1E4] 0x00D69DD0 propio(gta_reversed_exe.exe)
+    [esp+0x1EC] 0x00D69CAC propio(gta_reversed_exe.exe)
+    [esp+0x210] 0x00CCCCCC propio(gta_reversed_exe.exe)
+    [esp+0x3B8] 0x01CCCCCC propio(gta_reversed_exe.exe)
+    [esp+0x3D0] 0x01504A65 propio(gta_reversed_exe.exe)
+    [esp+0x40C] 0x015F7035 propio(gta_reversed_exe.exe)
+    [esp+0x420] 0x015D2930 propio(gta_reversed_exe.exe)
+    [esp+0x428] 0x0160A02F propio(gta_reversed_exe.exe)
+    [esp+0x450] 0x007FE420 original(.text)
+    [esp+0x4F8] 0x00CCCCCC propio(gta_reversed_exe.exe)
+    [esp+0x510] 0x015F4A21 propio(gta_reversed_exe.exe)
+    [esp+0x7C0] 0x01E7EAA0 propio(gta_reversed_exe.exe)
+  ultimas entradas a funciones originales (mas reciente primero), total 361, fallos 0:
+    0x004CA5A0 llamada desde 0x004CADED
+    0x004CAD90 llamada desde 0x004CAE71
+    0x0080E270 llamada desde 0x0160919A
+    0x0080E970 llamada desde 0x0160919A
+    0x007567A0 llamada desde 0x00824881
+    0x007618B0 llamada desde 0x007C8361
+    0x007B9BC5 llamada desde 0x015A345C
+    0x00766AB7 llamada desde 0x015A345C
+    0x00756260 llamada desde 0x00757485
+    0x00756600 llamada desde 0x007575CE
+    0x00758240 llamada desde 0x00824796
+    0x00756960 llamada desde 0x0075773B
+    0x007575F0 llamada desde 0x0160919A
+    0x00761000 llamada desde 0x007C859E
+    0x00761030 llamada desde 0x007C856B
+    0x0075EDD0 llamada desde 0x007C8208
+  .text difiere del archivo en 0x00401000: archivo 55 memoria E9
+  .text difiere del archivo en 0x00401001: archivo 8B memoria DB
+  .text difiere del archivo en 0x00401002: archivo EC memoria A2
+  .text difiere del archivo en 0x00401003: archivo 53 memoria DE
+  .text difiere del archivo en 0x00401004: archivo 56 memoria 00
+  .text difiere del archivo en 0x0040104A: archivo 55 memoria E9
+  .text difiere del archivo en 0x0040104B: archivo 8B memoria 71
+  .text difiere del archivo en 0x0040104C: archivo EC memoria AD
+  .text difiere del archivo en 0x0040104D: archivo 83 memoria DE
+  .text difiere del archivo en 0x0040104E: archivo EC memoria 00
+  .text difiere del archivo en 0x0040118B: archivo 55 memoria E9
+  .text difiere del archivo en 0x0040118C: archivo 8B memoria 50
+  .text difiere del archivo en 0x0040118D: archivo EC memoria 9F
+  .text difiere del archivo en 0x0040118E: archivo 83 memoria DE
+  .text difiere del archivo en 0x0040118F: archivo EC memoria 00
+  .text difiere del archivo en 0x004012E9: archivo 55 memoria E9
+  .text difiere del archivo en 0x004012EA: archivo 8B memoria 82
+  .text difiere del archivo en 0x004012EB: archivo EC memoria A0
+  .text difiere del archivo en 0x004012EC: archivo 83 memoria DE
+  .text difiere del archivo en 0x004012ED: archivo EC memoria 00
+  .text difiere del archivo en 0x00401FBB: archivo 8D memoria E9
+  .text difiere del archivo en 0x00401FBC: archivo 35 memoria 00
+  .text difiere del archivo en 0x00401FBD: archivo D1 memoria A0
+  .text difiere del archivo en 0x00401FBE: archivo E1 memoria DE
+  .text difiere del archivo en 0x00401FBF: archivo C9 memoria 00
+  .text difiere del archivo en 0x00402370: archivo 8D memoria E9
+  .text difiere del archivo en 0x00402371: archivo 35 memoria CB
+  .text difiere del archivo en 0x00402372: archivo 18 memoria 9C
+  .text difiere del archivo en 0x00402373: archivo E8 memoria DE
+  .text difiere del archivo en 0x00402374: archivo C9 memoria 00
+  bytes del .text distintos del archivo (sin INT3 pendientes): 60064
+[ 58203 ms] excepcion 0xC0000005 en 0x004CA5B5 [original(.text)] lee 0x00000000 (primera oportunidad; el original puede atraparla con SEH)

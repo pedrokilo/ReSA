@@ -1,0 +1,2 @@
+TIMEOUT externo: el proceso sigue vivo (lo mato porque es mio)
+exit=0xFFFFFFFF

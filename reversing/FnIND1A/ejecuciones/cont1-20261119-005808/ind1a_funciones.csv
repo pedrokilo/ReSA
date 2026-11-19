@@ -1,0 +1,6 @@
+n,funcion,llamada_desde,quien_llama,ms
+1,0x0082119A,0x01354B94,propio(gta_reversed_exe.exe),766
+2,0x008286E0,0x008241BC,original(.text),766
+3,0x0082871B,0x0082421E,original(.text),766
+4,0x0082413F,0x01354C40,propio(gta_reversed_exe.exe),781
+5,0x008214BD,0x01354C40,propio(gta_reversed_exe.exe),781
