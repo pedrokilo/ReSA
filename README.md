@@ -22,7 +22,7 @@ Tres conceptos distintos, que no se mezclan en ninguna cifra:
 
 Y dos zonas del EXE que se miden por separado: el **código del juego** (0x401000–0x74FFFF, el trabajo propio del proyecto) y **RenderWare y D3D** (0x750000–0x81FFFF, el SDK enlazado dentro del EXE).
 
-Cifras al 18/11/2026.
+Cifras al 19/11/2026.
 
 | Zona | Funciones a reconstruir | Reconstruidas | Entradas del catálogo | Validadas | Sin validar |
 | --- | ---: | ---: | ---: | ---: | ---: |
