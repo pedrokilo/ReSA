@@ -173,14 +173,12 @@ void CQuaternion::Scale(float multiplier) {
 // y los denormales pasan intactos). Con origen y destino distintos es una copia de 16 bytes.
 void CQuaternion::Copy(const CQuaternion& from) {
     static_assert(sizeof(CQuaternion) == 0x10);
-    const uint32 x = std::bit_cast<uint32>(from.x);
-    const uint32 y = std::bit_cast<uint32>(from.y);
-    const uint32 z = std::bit_cast<uint32>(from.z);
-    const uint32 w = std::bit_cast<uint32>(from.w);
-    this->x = std::bit_cast<float>(x);
-    this->y = std::bit_cast<float>(y);
-    this->z = std::bit_cast<float>(z);
-    this->w = std::bit_cast<float>(w);
+    // Palabra a palabra y en el orden del EXE (x, y, z, w), sin pasar nunca por un float: en Debug un std::bit_cast<float> devuelve por la pila x87 (fld/fstp) y convierte un
+    // NaN senalizante (0x7F800001) en silencioso (0x7FC00001); el EXE copia los 32 bits tal cual.
+    std::memcpy(&this->x, &from.x, sizeof(uint32));
+    std::memcpy(&this->y, &from.y, sizeof(uint32));
+    std::memcpy(&this->z, &from.z, sizeof(uint32));
+    std::memcpy(&this->w, &from.w, sizeof(uint32));
 }
 
 // Gets a dot product for quats
