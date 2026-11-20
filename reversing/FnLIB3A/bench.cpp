@@ -892,6 +892,45 @@ static void add_huffd_tests() {
     }
 }
 
+
+// ---- compresion: Huffman (jchuff.c start_pass_huff): tablas derivadas del codificador y modo de estadisticas
+static void add_huffe_tests() {
+    g_tests.push_back({"start_pass_huff", 0x5C5090, "jchuff", "start_pass_huff", [](Rng& r, Ctx& x) {
+        auto c = new_cinfo(); c->mem = &g_mem; ((void(__cdecl*)(j_compress_ptr))lib("jchuff", "jinit_huff_encoder"))(c); void* en = c->entropy;
+        int nc = (int)R(r, 1, 4); c->comps_in_scan = nc; c->num_components = nc; auto ci = AT<jpeg_component_info>(4); memset(ci, 0, sizeof(jpeg_component_info) * 4); c->comp_info = ci;
+        bool gather = (r() % 3 == 0); c->restart_interval = (r() % 2) ? 0 : R(r, 1, 700);
+        bool idx_bad = false;
+        for (int i = 0; i < nc; i++) { int d = (int)R(r, 0, 3), a = (int)R(r, 0, 3); if (r() % 14 == 0) { d = (r() & 1) ? -1 : (int)R(r, 4, 7); idx_bad = true; } if (r() % 14 == 0) { a = (r() & 1) ? -2 : (int)R(r, 4, 9); idx_bad = true; } ci[i].dc_tbl_no = d; ci[i].ac_tbl_no = a; c->cur_comp_info[i] = &ci[i]; }
+        HT* dct = AT<HT>(4); HT* act = AT<HT>(4); bool corrupt = false;
+        for (int t = 0; t < 4; t++) {
+            ht_make(r, dct[t], false); ht_make(r, act[t], true); auto d = AT<JHUFF_TBL>(); auto a = AT<JHUFF_TBL>(); memcpy(d->bits, dct[t].bits, 17); memcpy(d->huffval, dct[t].hv, 256); d->sent_table = 0; memcpy(a->bits, act[t].bits, 17); memcpy(a->huffval, act[t].hv, 256); a->sent_table = 0;
+            if (r() % 25 == 0) { corrupt = true; a->bits[R(r, 1, 16)] = (UINT8)R(r, 100, 255); }
+            if (r() % 25 == 0) { corrupt = true; d->bits[R(r, 1, 4)] = (UINT8)R(r, 3, 9); }
+            c->dc_huff_tbl_ptrs[t] = (r() % 30 == 0) ? nullptr : d; c->ac_huff_tbl_ptrs[t] = (r() % 30 == 0) ? nullptr : a;
+        }
+        // tablas ya reservadas de una pasada anterior (con contenido basura)
+        for (int t = 0; t < 4; t++) {
+            if (r() % 4 == 0) { void* p = A(1284, 8); randwords(r, p, 1284); W32(en, 0x2C + 4 * t) = (uint32_t)(uintptr_t)p; }
+            if (r() % 4 == 0) { void* p = A(1284, 8); randwords(r, p, 1284); W32(en, 0x3C + 4 * t) = (uint32_t)(uintptr_t)p; }
+            if (r() % 4 == 0) { void* p = A(0x410, 8); randwords(r, p, 0x410); W32(en, 0x4C + 4 * t) = (uint32_t)(uintptr_t)p; }
+            if (r() % 4 == 0) { void* p = A(0x410, 8); randwords(r, p, 0x410); W32(en, 0x5C + 4 * t) = (uint32_t)(uintptr_t)p; }
+        }
+        for (int off : {4, 8}) { Ctx::FpSite q; q.off = aoff(en) + off; if (off == 4) { q.map.push_back({0x5C4C80, {"jchuff", "encode_mcu_gather"}}); q.map.push_back({0x5C49C0, {"jchuff", "encode_mcu_huff"}}); } else { q.map.push_back({0x5C4FA0, {"jchuff", "finish_pass_gather"}}); q.map.push_back({0x5C4AF0, {"jchuff", "finish_pass_huff"}}); } x.fps.push_back(q); }
+        auto pre = std::make_shared<std::vector<uint8_t>>(); for (int t = 0; t < 4; t++) { putn(*pre, dct[t].bits, 17); putn(*pre, dct[t].hv, 256); }
+        std::vector<int> dcn, acn; for (int i = 0; i < nc; i++) { dcn.push_back(ci[i].dc_tbl_no); acn.push_back(ci[i].ac_tbl_no); }
+        auto hv = std::make_shared<std::vector<uint8_t>>(); for (int t = 0; t < 4; t++) { putn(*hv, c->dc_huff_tbl_ptrs[t] ? c->dc_huff_tbl_ptrs[t]->bits : (uint8_t*)"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 17); putn(*hv, c->dc_huff_tbl_ptrs[t] ? c->dc_huff_tbl_ptrs[t]->huffval : (uint8_t*)A(256, 1), 256); put32(*hv, c->dc_huff_tbl_ptrs[t] != nullptr); putn(*hv, c->ac_huff_tbl_ptrs[t] ? c->ac_huff_tbl_ptrs[t]->bits : (uint8_t*)"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0", 17); putn(*hv, c->ac_huff_tbl_ptrs[t] ? c->ac_huff_tbl_ptrs[t]->huffval : (uint8_t*)A(256, 1), 256); put32(*hv, c->ac_huff_tbl_ptrs[t] != nullptr); }
+        x.call = [=](void* f) { ((void(__cdecl*)(j_compress_ptr, boolean))f)(c, (boolean)gather); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) {
+            put32(v, gather); put32(v, c->restart_interval); put32(v, (uint32_t)nc); put32(v, idx_bad); put32(v, corrupt);
+            for (int i = 0; i < nc; i++) { put32(v, (uint32_t)dcn[i]); put32(v, (uint32_t)acn[i]); }
+            putn(v, hv->data(), hv->size());
+            put32(v, W32(en, 0xC)); put32(v, W32(en, 0x10)); for (int i = 0; i < 4; i++) put32(v, W32(en, 0x14 + 4 * i)); put32(v, W32(en, 0x24)); put32(v, W32(en, 0x28));
+            for (int t = 0; t < 4; t++) { for (int k = 0; k < 2; k++) { uint32_t pv = W32(en, (k ? 0x3C : 0x2C) + 4 * t); put32(v, pv != 0); if (pv) { uint8_t* tb = (uint8_t*)(uintptr_t)pv; putn(v, tb, 1280); } } }
+            for (int t = 0; t < 4; t++) { for (int k = 0; k < 2; k++) { uint32_t pv = W32(en, (k ? 0x5C : 0x4C) + 4 * t); put32(v, pv != 0); if (pv) { uint8_t* tb = (uint8_t*)(uintptr_t)pv; putn(v, tb, 1028); } } }
+        };
+    }, 4000});
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -907,7 +946,7 @@ int main(int argc, char** argv) {
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
-    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests(); add_marker_tests(); add_virt_tests(); add_markerrd_tests(); add_huffd_tests();
+    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests(); add_marker_tests(); add_virt_tests(); add_markerrd_tests(); add_huffd_tests(); add_huffe_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");

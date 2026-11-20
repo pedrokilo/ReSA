@@ -177,6 +177,12 @@ R2 += [
  (59, 'decode_mcu', 'jdhuff', 'decode_mcu', '(*block)[jpeg_natural_order[k]] = (JCOEF) s;', '(*block)[jpeg_natural_order[k]] = (JCOEF) (s + ((lib3a_mut==59 && k == 17 && s == 3) ? 1 : 0));'),
  (60, 'start_pass_huff_decoder', 'jdhuff', 'start_pass_huff_decoder', 'entropy->restarts_to_go = cinfo->restart_interval;', 'entropy->restarts_to_go = cinfo->restart_interval + ((lib3a_mut==60 && cinfo->restart_interval == 3) ? 1 : 0);'),
 ]
+R1 += [
+ (61, 'start_pass_huff', 'jchuff', 'start_pass_huff', 'entropy->saved.put_bits = 0;', 'entropy->saved.put_bits = (lib3a_mut==61 && (cinfo->restart_interval & 7) == 5) ? 1 : 0;'),
+]
+R2 += [
+ (61, 'start_pass_huff', 'jchuff', 'start_pass_huff', 'entropy->next_restart_num = 0;', 'entropy->next_restart_num = (lib3a_mut==61 && cinfo->comps_in_scan == 3) ? 1 : 0;'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():

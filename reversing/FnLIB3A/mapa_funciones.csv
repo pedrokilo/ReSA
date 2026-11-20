@@ -8,7 +8,7 @@ direccion,bytes,archivo_fuente,funcion_fuente,estado,evidencia,lote_plan
 0x5C36F0,1,jccolor,null_method,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S3A
 0x5C3940,557,jcdctmgr,start_pass_fdctmgr,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S3A
 0x5C3B70,2055,jcdctmgr,forward_DCT_float,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S3A
-0x5C5090,372,jchuff,start_pass_huff,"pendiente (nombre por los comentarios del codigo propio, sin banco)",comentario de LibJpeg*.cpp,S3A
+0x5C5090,372,jchuff,start_pass_huff,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g11)",S3A
 0x5C53D0,75,jcmainct,start_pass_main,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S3A
 0x5C6030,61,jcmarker,write_marker_header,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S3A
 0x5C6070,60,jcmarker,emit_byte,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S3A
