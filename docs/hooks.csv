@@ -12440,3 +12440,12 @@ RwCore,_rxIoSpecFindCluster,0x0080F540,1,0,0,S
 RwCore,_rxPipelineReqsRelease,0x0080F570,1,0,0,S
 RwCore,_rxPipelineUnlockPropagateForced,0x0080F690,1,0,0,S
 UserTracksLegacyString,Reallocate,0x004F39C0,1,0,1,S
+ExeCrt,Qsort,0x008247E0,1,0,0,S
+ExeCrt,Strlen,0x00826330,1,0,0,S
+ExeCrt,Strcmp,0x008263C0,1,0,0,S
+ExeCrt,Strncmp,0x008214D0,1,0,0,S
+ExeCrt,Strcpy,0x00826590,1,0,0,S
+ExeCrt,Strcat,0x008265A0,1,0,0,S
+ExeCrt,Strncpy,0x00821F40,1,0,0,S
+ExeCrt,Strncat,0x00826450,1,0,0,S
+ExeCrt,Strstr,0x00822650,1,0,0,S

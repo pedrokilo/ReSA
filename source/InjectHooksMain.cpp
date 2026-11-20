@@ -671,6 +671,9 @@
 #include "reversiblehooks/RootHookCategory.h"
 
 #include "WindowedMode.hpp"
+#include "game_sa/Crt/CrtQsort.h"
+#include "game_sa/Crt/CrtString.h"
+#include "game_sa/Crt/CrtHeap.h"
 
 // Hooks de biblioteca del grupo g25b (RenderWare SDK / controlador D3D9); el sufijo evita colisiones con otros registradores.
 void RwCoreInjectHooks25b();
@@ -1192,6 +1195,9 @@ void InjectHooksMain() {
     D3DX9InjectHooks();
     RtQuatInjectHooks();
     ZlibInflateInjectHooks();
+    CrtQsortInjectHooks();   // lote CRT1A: qsort del CRT del EXE (0x8247E0), validado fuera del juego (reversing/FnCRT1A)
+    CrtStringInjectHooks();  // lote CRT1A: strlen/strcmp/strncmp/strcpy/strcat/strncpy/strncat/strstr del CRT del EXE
+    CrtHeapInjectHooks();    // lote CRT1A: malloc/free/realloc/calloc/operator new; SOLO con GTASA_CRT_HEAP_HOOKS (sin prueba dentro del juego)
 
     CIplStore::InjectHooks();
     cHandlingDataMgr::InjectHooks();

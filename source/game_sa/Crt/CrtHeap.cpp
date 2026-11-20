@@ -1,0 +1,132 @@
+#ifndef CRT_BENCH
+#include "StdInc.h"
+#endif
+#include "CrtHeap.h"
+
+// Reconstruccion de malloc/free/realloc/calloc/operator new del CRT del EXE para __active_heap == 1 (lote CRT1A). Ver CrtHeap.h y reversing/FnCRT1A/DISENO.md.
+// Las ramas del EXE para el montón de bloques pequeños (__active_heap == 3) no se reproducen: no se alcanzan en Windows 2000 o posterior (__heap_select, 0x82C457).
+
+namespace ExeCrt {
+namespace {
+inline HANDLE&       CrtHeap()          { return *reinterpret_cast<HANDLE*>(0xC9C2F4); }
+inline int&          ActiveHeap()       { return *reinterpret_cast<int*>(0xC9C2F8); }
+inline int&          NewMode()          { return *reinterpret_cast<int*>(0xC9ADCC); }
+using NewHandler = int(__cdecl*)(unsigned int);
+inline NewHandler&   NewHandlerPtr()    { return *reinterpret_cast<NewHandler*>(0xC9AC68); }
+constexpr unsigned int MAX_REQUEST = 0xFFFFFFE0u; // el EXE rechaza (size > -0x20) sin llamar al sistema
+
+// 0x826A57 _callnewh: 1 si hay manejador y pide reintentar, 0 si no
+int CallNewHandler(unsigned int size) {
+    if (const NewHandler handler = NewHandlerPtr()) {
+        return handler(size) ? 1 : 0;
+    }
+    return 0;
+}
+} // namespace
+
+bool CrtHeapIsSystemHeap() {
+    return ActiveHeap() == 1;
+}
+
+// 0x82422B
+void* __cdecl NhMalloc(unsigned int size, int callNewHandler) {
+    while (size <= MAX_REQUEST) {
+        // 0x8241B0 _heap_alloc: un tamaño 0 se convierte en 1
+        if (void* const block = HeapAlloc(CrtHeap(), 0, size ? size : 1u)) {
+            return block;
+        }
+        if (callNewHandler == 0 || CallNewHandler(size) == 0) {
+            return nullptr;
+        }
+    }
+    return nullptr;
+}
+
+// 0x824257
+void* __cdecl Malloc(unsigned int size) {
+    return NhMalloc(size, NewMode());
+}
+
+// 0x82413F
+void __cdecl Free(void* block) {
+    if (block) {
+        HeapFree(CrtHeap(), 0, block);
+    }
+}
+
+// 0x824269
+void* __cdecl Realloc(void* block, unsigned int size) {
+    if (!block) {
+        return Malloc(size);
+    }
+    if (size == 0) {
+        Free(block);
+        return nullptr;
+    }
+    for (;;) {
+        void* result = nullptr;
+        if (size <= MAX_REQUEST) {
+            result = HeapReAlloc(CrtHeap(), 0, block, size);
+        }
+        if (result) {
+            return result;
+        }
+        if (NewMode() == 0 || CallNewHandler(size) == 0) {
+            return nullptr;
+        }
+    }
+}
+
+// 0x824416
+void* __cdecl Calloc(unsigned int count, unsigned int size) {
+    unsigned int total = count * size; // imul de 32 bits: el desbordamiento no se detecta, como en el EXE
+    if (total == 0) {
+        total = 1;
+    }
+    for (;;) {
+        void* result = nullptr;
+        if (total <= MAX_REQUEST) {
+            result = HeapAlloc(CrtHeap(), HEAP_ZERO_MEMORY, total);
+        }
+        if (result) {
+            return result;
+        }
+        if (NewMode() == 0 || CallNewHandler(total) == 0) {
+            return nullptr;
+        }
+    }
+}
+
+// 0x82119A: malloc(size); si falla, el manejador de new decide reintentar; sin manejador llama a 0x8212ED (lanza std::bad_alloc), como el EXE
+void* __cdecl OperatorNew(unsigned int size) {
+    for (;;) {
+        if (void* const block = Malloc(size)) {
+            return block;
+        }
+        if (CallNewHandler(size) == 0) {
+            reinterpret_cast<void(__cdecl*)()>(0x8212ED)();
+        }
+    }
+}
+} // namespace ExeCrt
+
+#ifndef CRT_BENCH
+// Los ganchos del montón NO se instalan por defecto: el banco los valida fuera del juego (reversing/FnCRT1A) pero falta la prueba dentro del juego
+// (EJECUTAR.md). Para activarlos, compilar con GTASA_CRT_HEAP_HOOKS=1. Solo se instalan si el CRT del EXE usa el montón del sistema (__active_heap == 1).
+void CrtHeapInjectHooks() {
+#ifdef GTASA_CRT_HEAP_HOOKS
+    if (!ExeCrt::CrtHeapIsSystemHeap()) {
+        return;
+    }
+    RH_ScopedNamespaceName("ExeCrtHeap");
+    RH_ScopedCategory("Crt");
+
+    RH_ScopedGlobalInstall(ExeCrt::NhMalloc, 0x82422B);
+    RH_ScopedGlobalInstall(ExeCrt::Malloc, 0x824257);
+    RH_ScopedGlobalInstall(ExeCrt::Free, 0x82413F);
+    RH_ScopedGlobalInstall(ExeCrt::Realloc, 0x824269);
+    RH_ScopedGlobalInstall(ExeCrt::Calloc, 0x824416);
+    RH_ScopedGlobalInstall(ExeCrt::OperatorNew, 0x82119A);
+#endif
+}
+#endif
