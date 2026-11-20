@@ -1,0 +1,354 @@
+va,size,ninstr,calls,ncalls,indirect,x87,strings,known
+0x7cf600,821,305,0x7cffa0;0x7d0250;0x7d03b0;0x7d06c0;0x7d0a40;0x7d1340;0x7d1d60;0x7d2130;0x7d2630;0x7d2c20;0x7d2e80;0x7ece20;0x7ecef0;0x825f7c,21,6,0,1.0.12,1
+0x7cf940,26,7,,0,1,0,,0
+0x7cf960,19,6,,0,1,0,,0
+0x7cf980,32,11,0x7d34f0,1,0,0,,0
+0x7cf9b0,1039,401,0x7d1340;0x7d13e0;0x7d2e80;0x7d36d0;0x7d3ab0;0x7d4380;0x7d43e0;0x7d4660;0x7d4b80;0x7d5190;0x7d5440;0x7d5530;0x7d5790;0x7d6000;0x7d6020;0x7da870;0x7ece20;0x7ecef0;0x8026e0;0x802740;0x8027a0;0x802860;0x808820;0x8088d0;0x825f7c,34,3,0,1.0.12,1
+0x7cfcad,233,96,0x7d4380;0x7d43e0;0x7d4660;0x7d4b80;0x7d5530;0x7ece20,6,1,0,,0
+0x7cfde0,32,11,0x7d34f0,1,0,0,,0
+0x7cfe00,414,142,0x7d3480;0x7da940;0x7daac0;0x7dab30;0x7db190;0x7db350;0x7db410;0x7dbb40;0x7dbcb0,9,0,18,,1
+0x7cffa0,677,254,0x7cfe00;0x7d3480;0x7d34f0;0x7d3510;0x7da940;0x7daf10;0x7db910;0x7dc4f0;0x7dc760;0x7dc9b0;0x7dcc50;0x7dcd90;0x7dd020;0x7dd130;0x7dd3a0;0x7dd500,16,0,0,"Valid palette required for paletted images
+|Unable to write international text
+",1
+0x7d0250,297,111,0x7d3480;0x7d34f0;0x7d3510;0x7da940;0x7db100;0x7dcc50;0x7dcd90,7,0,0,"No IDATs written into file|Unable to write international text
+",1
+0x7d0380,35,14,0x7d03b0,1,0,0,,0
+0x7d03b0,341,136,0x7d0df0;0x7d2c20;0x7d34f0;0x7d3670;0x7dead0;0x7deb60;0x7debd0;0x7dec70;0x7ded30;0x825f7c,11,0,0,1.0.12|1.0.12|0.12|Incompatible libpng version in application and library|Application must be recompiled; versions <= 1.0.6 were incompatible,1
+0x7d0510,77,20,0x7d05d0;0x7d34f0,3,0,0,The png struct allocated by the application for writing is too small.|The info struct allocated by the application for writing is too small.|1.0.6 or earlier,0
+0x7d0560,102,29,0x7d05d0;0x7d34f0,3,0,0,The png struct allocated by the application for writing is too small.|The info struct allocated by the application for writing is too small.,0
+0x7d05d0,190,67,0x7d0df0;0x7d2c20;0x7d3510;0x7dea80;0x7deb60;0x7debd0,6,0,0,1.0.12|Application uses deprecated png_write_init() and should be recompiled.,0
+0x7d0690,41,20,0x7d0720,1,0,0,,0
+0x7d06c0,85,36,0x7d0720;0x7d13b0,2,0,0,,1
+0x7d0720,508,164,0x7dd610;0x7dd7b0;0x7ddad0;0x7ddd10;0x7decc0;0x7ded70,13,1,0,,1
+0x7d0940,25,9,,0,0,0,,0
+0x7d0960,211,60,0x7d2c00;0x7d34f0;0x7db040;0x7dfa90,5,0,0,zlib error,1
+0x7d0a40,152,56,0x7d0ae0;0x7d3010;0x7deb80;0x7dec70,5,0,0,,1
+0x7d0ae0,265,87,0x7dec70;0x7dff00,13,0,0,,1
+0x7d0bf0,479,133,0x7d34f0;0x7d3510;0x7debd0,9,0,0,Unknown row filter for method 0|Can't add Up filter after starting|Can't add Average filter after starting|Can't add Paeth filter after starting|Unknown custom filter method,0
+0x7d0df0,737,204,0x7d3510;0x7debd0,6,0,45,Unknown filter heuristic method,1
+0x7d10e0,24,7,,0,0,0,,0
+0x7d1100,24,7,,0,0,0,,0
+0x7d1120,24,7,,0,0,0,,0
+0x7d1140,82,28,0x7d3510,2,0,0,Only compression windows <= 32k supported by PNG|Only compression windows >= 256 supported by PNG|Compression window is being reset to 512,0
+0x7d11a0,46,17,0x7d3510,1,0,0,Only compression method 8 is supported by PNG,0
+0x7d11d0,15,4,,0,0,0,,0
+0x7d11e0,24,7,,0,0,0,,0
+0x7d1200,265,101,0x7cffa0;0x7d0250;0x7d0720;0x7d1310;0x7d1320;0x7d1340;0x7d1360;0x7d1380;0x7d13b0;0x7d13e0;0x7d1440;0x7d1450;0x7d1460,13,0,0,,0
+0x7d1310,9,3,,0,0,0,,0
+0x7d1320,21,6,,0,0,0,,0
+0x7d1340,30,9,,0,0,0,,1
+0x7d1360,21,5,,0,0,0,,0
+0x7d1380,36,11,,0,0,0,,0
+0x7d13b0,35,11,,0,0,0,,1
+0x7d13e0,88,24,,0,0,0,,1
+0x7d1440,12,3,,0,0,0,,0
+0x7d1450,12,3,,0,0,0,,0
+0x7d1460,9,3,,0,0,0,,0
+0x7d1470,40,17,,0,0,0,,1
+0x7d14a0,47,20,,0,0,0,,1
+0x7d14d0,77,30,,0,0,0,,1
+0x7d1520,518,248,,0,0,0,,1
+0x7d1730,194,81,,0,0,0,,1
+0x7d1800,26,8,,0,0,0,,0
+0x7d1820,8,3,,0,0,0,,0
+0x7d1830,53,20,,0,0,0,,1
+0x7d1870,619,140,,0,0,88,,1
+0x7d1ae0,242,50,,0,0,24,,1
+0x7d1be0,132,37,0x7d3510,1,0,14,Setting gamma=0,1
+0x7d1c70,69,23,0x7d3510,1,0,3,Setting gamma=0,1
+0x7d1cc0,159,55,0x7d3010;0x7d3510;0x7debd0,3,0,0,"Palette size 0, hIST allocation skipped.",1
+0x7d1d60,464,155,0x7d34f0;0x7d3510,9,0,0,Image width or height is zero in IHDR|Invalid image size in IHDR|Invalid bit depth in IHDR|Invalid color type in IHDR|Invalid color type/bit depth combination in IHDR|Unknown interlace method in IHDR|Unknown compression method in IHDR|Unknown filter method in IHDR|Width too large to process image data; rowbytes will overflow.,1
+0x7d1f30,47,16,,0,0,0,,1
+0x7d1f60,326,114,0x7debd0,4,0,0,,1
+0x7d20b0,76,20,,0,0,0,,1
+0x7d2100,47,16,,0,0,0,,1
+0x7d2130,131,47,0x7d2da0;0x7d3010,2,0,0,,1
+0x7d21c0,45,18,,0,0,0,,1
+0x7d21f0,33,12,,0,0,0,,0
+0x7d2220,258,69,0x7d1870;0x7d1ae0,2,0,5,,1
+0x7d2330,213,73,0x7d3010;0x7debd0,3,0,0,,1
+0x7d2410,478,171,0x7d3510;0x7debd0;0x7dec70,5,0,0,iTXt chunk not supported.,1
+0x7d25f0,54,21,,0,0,0,,1
+0x7d2630,162,58,0x7d3010;0x7debd0,2,0,0,,1
+0x7d26e0,321,109,0x7debd0;0x7dec70,4,0,0,,1
+0x7d2830,311,103,0x7debd0;0x7dec70,3,0,0,,1
+0x7d28d4,147,58,0x7debd0,1,0,0,,0
+0x7d2970,50,16,,0,0,0,,0
+0x7d29b0,36,13,,0,0,0,,0
+0x7d29e0,283,100,0x7debd0;0x7dec70,2,0,0,,0
+0x7d2b00,25,6,,0,0,0,,0
+0x7d2b20,72,29,0x7d3010,1,0,0,,0
+0x7d2b70,71,21,0x7debd0;0x7dec70,2,0,0,,0
+0x7d2bc0,31,12,,0,0,0,,0
+0x7d2be0,32,11,0x7d34f0,1,0,0,Call to NULL write function,1
+0x7d2c00,21,7,,0,0,0,,1
+0x7d2c20,70,21,0x7d3510,2,0,0,Attempted to set both read_data_fn and write_data_fn in|the same structure.  Resetting read_data_fn to NULL.,1
+0x7d2c70,47,18,0x7d34f0,1,0,0,Too many bytes for PNG signature.,0
+0x7d2ca0,128,44,,0,0,0,,1
+0x7d2da0,96,38,0x7debd0,1,0,0,,1
+0x7d2e00,48796,17,0x82413f,1,0,0,,1
+0x7d2e10,25,8,0x7e10a0,1,0,0,,1
+0x7d2e30,69,23,0x7e10a0,1,0,0,,1
+0x7d2e80,55,22,0x7dead0,1,0,0,,1
+0x7d2ec0,126,45,0x7d3010;0x7deb80;0x7dec70,3,0,0,,0
+0x7d2f40,34,13,0x7dea80;0x7deb60,2,0,0,,0
+0x7d2f70,51,20,0x7dea80;0x7deb60,2,0,0,,0
+0x7d2fb0,85,27,0x7d3510,1,0,0,Unknown freer parameter in png_data_freer.,0
+0x7d2fcf,54,16,0x7d3510,1,0,0,Unknown freer parameter in png_data_freer.,0
+0x7d2fd7,46,14,0x7d3510,1,0,0,Unknown freer parameter in png_data_freer.,0
+0x7d3010,946,306,0x7d3010;0x7dec70,21,0,0,,1
+0x7d33d0,85,26,0x7d3010;0x7dec70,2,0,0,,1
+0x7d3430,8,3,,0,0,0,,0
+0x7d3440,6,2,,0,0,0,"
+ libpng version 1.0.12 - June 8, 2001
+   Copyright (c) 1998-2001 Glenn Randers-Pehrson
+   Copyright (c) 1996, 1997 Andreas Dilger
+   Copyright (c) 1995, 1996 Guy Eric Schalnat, Group 42, Inc.
+",0
+0x7d3450,6,2,,0,0,0,1.0.12,0
+0x7d3460,6,2,,0,0,0,1.0.12,0
+0x7d3470,6,2,,0,0,0," libpng version 1.0.12 - June 8, 2001 (header)
+",0
+0x7d3480,70,31,,0,0,0,,1
+0x7d34d0,56658,32,0x7e9430,1,0,0,,0
+0x7d34f0,83,36,0x825ff8,1,2,0,,1
+0x7d3510,51,22,,0,1,0,,1
+0x7d3550,207,88,0x7d3590;0x825ff8,2,1,0,,1
+0x7d3590,143,56,,0,0,0,,1
+0x7d3620,80,32,0x7d3590,1,1,0,,1
+0x7d3670,26,8,,0,0,0,,1
+0x7d3690,8,3,,0,0,0,,0
+0x7d36a0,35,14,0x7d36d0,1,0,0,,0
+0x7d36d0,437,154,0x7d34f0;0x7d3670;0x7da870;0x7dead0;0x7deb60;0x7debd0;0x7dec70;0x7ded30;0x7e13f0;0x825f7c,12,0,0,1.0.12|1.0.12|0.12|Incompatible libpng version in application and library|Application must be recompiled; versions <= 1.0.6 were incompatible|1.1.3|zlib memory error|zlib version error|Unknown zlib error,1
+0x7d38b0,77,20,0x7d34f0;0x7d3970,3,0,0,The png struct allocated by the application for reading is too small.|The info struct allocated by application for reading is too small.|1.0.6 or earlier,0
+0x7d3900,102,29,0x7d34f0;0x7d3970,3,0,0,The png struct allocated by the application for reading is too small.|The info struct allocated by application for reading is too small.,0
+0x7d3970,289,85,0x7d34f0;0x7d3510;0x7da870;0x7dea80;0x7deb60;0x7debd0;0x7e13f0,7,0,0,1.0.12|Application uses deprecated png_read_init() and should be recompiled.|1.1.3|zlib memory|zlib version|Unknown zlib error,0
+0x7d3ab0,878,294,0x7d2ca0;0x7d2e10;0x7d3480;0x7d34f0;0x7da850;0x7e19f0;0x7e1a70;0x7e1f70;0x7e21f0;0x7e2600;0x7e2770;0x7e2b20;0x7e2ee0;0x7e38a0;0x7e3cf0;0x7e41a0;0x7e4500;0x7e48e0;0x7e4c40;0x7e4f60;0x7e5240;0x7e5520;0x7e5a10;0x7e5e90;0x7e61d0;0x7e6370;0x7e6560,33,0,0,Not a PNG file|PNG file corrupted by ASCII conversion|IHDR|IEND|IDAT|PLTE|IDAT|Missing IHDR before IDAT|PLTE|IDAT|bKGD|cHRM|gAMA|hIST|oFFs|pCAL|sCAL|pHYs|sBIT|sRGB|iCCP|sPLT|tEXt|tIME|tRNS|zTXt|Missing PLTE before IDAT|Missing IHDR before IDAT|Missing PLTE before IDAT,1
+0x7d3e20,66,25,0x7d3510;0x7d6e70;0x7e7530,4,0,0,Ignoring extra png_read_update_info() call; row buffer not reallocated,0
+0x7d3e70,80158,196,0x7d61a0;0x7debd0;0x7decf0,4,0,0,,0
+0x7d3e90,1082,324,0x7d2e10;0x7d34f0;0x7d6ff0;0x7da850;0x7decc0;0x7e1410;0x7e19f0;0x7e1a70;0x7e1aa0;0x7e6870;0x7e6b90;0x7e6fc0;0x7e71a0;0x7e7530,26,1,0,Invalid attempt to read row data|IDAT|Not enough image data|Decompression error|Extra compressed data,1
+0x7d42f0,137,66,0x7d3e90,3,0,0,,0
+0x7d4380,83,35,0x7d13b0;0x7d3e90,2,0,0,,1
+0x7d43e0,632,212,0x7d2e10;0x7d3480;0x7d34f0;0x7da850;0x7e19f0;0x7e1a70;0x7e1aa0;0x7e1f70;0x7e21f0;0x7e2600;0x7e2770;0x7e2b20;0x7e2ee0;0x7e38a0;0x7e3cf0;0x7e41a0;0x7e4500;0x7e48e0;0x7e4c40;0x7e4f60;0x7e5240;0x7e5520;0x7e5a10;0x7e5e90;0x7e61d0;0x7e6370;0x7e6560,30,0,0,IHDR|IEND|IDAT|Too many IDAT's found|PLTE|IDAT|Too many IDAT's found|PLTE|bKGD|cHRM|gAMA|hIST|oFFs|pCAL|sCAL|pHYs|sBIT|sRGB|iCCP|sPLT|tEXt|tIME|tRNS|zTXt,1
+0x7d4660,183,71,0x7d3010;0x7d4720;0x7deb80,6,0,0,,1
+0x7d4720,594,193,0x7d2e00;0x7d33d0;0x7dec70;0x7e1230,20,0,0,,1
+0x7d4980,15,4,,0,0,0,,0
+0x7d4990,487,175,0x7d1310;0x7d1320;0x7d1360;0x7d1380;0x7d13b0;0x7d1440;0x7d1450;0x7d1460;0x7d3010;0x7d3510;0x7d3ab0;0x7d3e90;0x7d43e0;0x7d4b80;0x7d4ba0;0x7d5480;0x7d5790;0x7d57a0;0x7d5fe0;0x7d6e70;0x7debd0;0x7e7530,24,0,0,Ignoring extra png_read_update_info() call; row buffer not reallocated,0
+0x7d4b80,29,12,,0,0,0,,1
+0x7d4ba0,23,10,,0,0,0,,0
+0x7d4bc0,26,10,,0,0,0,,0
+0x7d4be0,22,10,,0,0,0,,0
+0x7d4c00,23,10,,0,0,0,,0
+0x7d4c20,23,10,,0,0,0,,0
+0x7d4c40,23,10,,0,0,0,,0
+0x7d4c60,23,10,,0,0,0,,0
+0x7d4c80,23,10,,0,0,0,,0
+0x7d4ca0,23,10,,0,0,0,,0
+0x7d4cc0,36,15,,0,0,0,,0
+0x7d4cf0,36,15,,0,0,0,,0
+0x7d4d20,42,17,,0,0,0,,0
+0x7d4d50,76,26,,0,0,3,,0
+0x7d4da0,37,15,,0,0,0,,0
+0x7d4dd0,37,15,,0,0,0,,0
+0x7d4e00,38,16,,0,0,0,,0
+0x7d4e30,38,16,,0,0,0,,0
+0x7d4e60,23,10,,0,0,0,,0
+0x7d4e80,23,10,,0,0,0,,0
+0x7d4ea0,44,17,,0,0,0,,0
+0x7d4ed0,171,52,,0,0,16,,0
+0x7d4f80,171,52,,0,0,0,,0
+0x7d5030,44,17,,0,0,2,,0
+0x7d5060,47,17,,0,0,0,,0
+0x7d5090,48,19,,0,0,0,,0
+0x7d5130,39,13,,0,0,0,,0
+0x7d5160,44,17,,0,0,0,,0
+0x7d5190,229,86,0x7d3510,1,0,0,Width too large for libpng to process image data.,1
+0x7d5280,79,34,,0,0,0,,0
+0x7d52d0,185,63,,0,0,0,,0
+0x7d5390,89,27,,0,0,0,,0
+0x7d53f0,78,32,,0,0,0,,0
+0x7d5440,56,21,,0,0,0,,1
+0x7d5480,44,17,,0,0,0,,0
+0x7d54b0,70,27,,0,0,0,,0
+0x7d5500,46,18,,0,0,0,,0
+0x7d5530,116,43,,0,0,0,,1
+0x7d55b0,39,13,,0,0,0,,0
+0x7d55e0,17,6,,0,0,0,,0
+0x7d5600,18,7,,0,0,0,,0
+0x7d5620,18,7,,0,0,0,,0
+0x7d5640,138,49,0x7d3510,1,0,0,Can't discard critical data on CRC error.,0
+0x7d5790,14,5,,0,0,0,,1
+0x7d57a0,12,3,,0,0,0,,0
+0x7d57b0,2025,687,0x7debd0;0x7dec70,15,0,0,,0
+0x7d5fe0,14,5,,0,0,0,,0
+0x7d5ff0,14,5,,0,0,0,,0
+0x7d6000,14,5,,0,0,0,,1
+0x7d6010,14,5,,0,0,0,,0
+0x7d6020,14,5,,0,0,0,,1
+0x7d6030,138,36,0x7d60c0,1,0,18,,0
+0x7d60c0,191,63,0x7d3510,1,0,0,ignoring out of range rgb_to_gray coefficients,0
+0x7d6180,24,7,,0,0,0,,0
+0x7d61a0,3242,816,0x7da080;0x8220f0,15,0,197,,1
+0x7d6e70,379,125,,0,0,0,,0
+0x7d6ff0,1137,340,0x7d1470;0x7d14a0;0x7d14d0;0x7d1520;0x7d1730;0x7d34f0;0x7d3510;0x7d7470;0x7d75a0;0x7d77c0;0x7d78c0;0x7d7990;0x7d7c00;0x7d7d40;0x7d8520;0x7d95b0;0x7d99a0;0x7d9bd0;0x7d9f60,22,1,0,NULL row buffer|png_do_rgb_to_gray found nongray pixel|png_do_rgb_to_gray found nongray pixel|png_do_dither returned rowbytes=0,1
+0x7d7470,298,116,,0,0,0,,1
+0x7d75a0,418,164,,0,0,0,,1
+0x7d7770,72,30,,0,0,0,,0
+0x7d77c0,248,131,,0,0,0,,1
+0x7d78c0,196,93,,0,0,0,,1
+0x7d7990,618,290,,0,0,0,,1
+0x7d7c00,319,147,,0,0,0,,1
+0x7d7d40,1858,575,,0,0,0,,1
+0x7d8490,107,38,,0,0,0,,0
+0x7d8520,4162,1301,,0,0,0,,1
+0x7d95b0,975,387,,0,0,0,,1
+0x7d99a0,555,209,,0,0,0,,1
+0x7d9bd0,912,346,,0,0,0,,1
+0x7d9f60,274,118,,0,0,0,,1
+0x7da080,1990,517,0x7debd0;0x8220f0,17,0,119,,1
+0x7da850,32,11,0x7d34f0,1,0,0,Call to NULL read function,1
+0x7da870,70,20,0x7d3510,2,0,0,It's an error to set both read_data_fn and write_data_fn in the |same structure.  Resetting write_data_fn to NULL.,1
+0x7da8c0,35,13,,0,0,0,,1
+0x7da8f0,35,13,,0,0,0,,0
+0x7da920,19,7,,0,0,0,,0
+0x7da940,174,67,0x7d2be0;0x7d2e10;0x7d2e30,7,0,0,,1
+0x7da9f0,88,34,0x7d2be0;0x7d2e10;0x7d2e30,4,0,0,,0
+0x7daa50,46,23,0x7d2be0;0x7d2e30,2,0,0,,1
+0x7daa80,58,19,0x7d2be0,1,0,0,,0
+0x7daac0,102,31,0x7d2be0,1,0,0,,1
+0x7dab30,922,248,0x7d2be0;0x7d2e10;0x7d2e30;0x7d34f0;0x7d3510;0x7df4b0,15,0,0,Invalid bit depth for grayscale image|Invalid bit depth for RGB image|Invalid bit depth for paletted image|Invalid bit depth for grayscale+alpha image|Invalid bit depth for RGBA image|Invalid image color type specified|Invalid compression type specified|Invalid filter type specified|Invalid interlace type specified|IHDR|IHDR|1.1.3,1
+0x7daf10,303,103,0x7d2be0;0x7d2e10;0x7d2e30;0x7d34f0;0x7d3510,9,0,0,Invalid number of colors in palette|Ignoring request to write a PLTE chunk in grayscale PNG|PLTE|PLTE,1
+0x7db040,186,69,0x7d2be0;0x7d2e10;0x7d2e30,7,0,0,IDAT|IDAT,1
+0x7db100,133,46,0x7d2be0;0x7d2e10;0x7d2e30,5,0,0,IEND|IEND,1
+0x7db190,247,77,0x7d2be0;0x7d2e10;0x7d2e30,7,0,9,gAMA|gAMA,1
+0x7db290,190,65,0x7d2be0;0x7d2e10;0x7d2e30,7,0,0,gAMA|gAMA,0
+0x7db350,182,62,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510,8,0,0,Invalid sRGB rendering intent specified|sRGB|sRGB,1
+0x7db410,348,129,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510;0x7db570;0x7db810;0x7dcab0;0x7dec70,13,0,0,Unknown compression type in iCCP chunk|iCCP|iCCP|Empty keyword in iCCP chunk,1
+0x7db570,670,209,0x7d34f0;0x7d3510;0x7debd0;0x7dec70;0x7dfa90,14,0,0,Unknown compression type|zlib error|zlib error,1
+0x7db810,243,98,0x7d2be0;0x7d2e30;0x7dec70;0x7df8b0,9,0,0,,1
+0x7db910,546,193,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510;0x7dcab0;0x7dec70,14,0,0,sPLT|sPLT|Empty keyword in sPLT chunk,1
+0x7dbb40,366,118,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510,8,0,0,sBIT|sBIT|Invalid sBIT depth specified,1
+0x7dbcb0,1411,370,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510,11,0,136,cHRM|cHRM|Invalid cHRM blue point specified|Invalid cHRM green point specified|Invalid cHRM red point specified|Invalid cHRM white point specified,1
+0x7dc240,679,198,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510,11,0,0,cHRM|cHRM|Invalid fixed cHRM blue point specified|Invalid fixed cHRM green point specified|Invalid cHRM fixed red point specified|Invalid fixed cHRM white point specified,0
+0x7dc4f0,611,209,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510;0x7da8c0,27,0,0,tRNS|tRNS|Invalid number of transparent colors specified|tRNS|tRNS|tRNS|tRNS|Can't write tRNS with an alpha channel,1
+0x7dc760,588,195,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510;0x7da8c0,24,0,0,Invalid background palette index|bKGD|bKGD|bKGD|bKGD|bKGD|bKGD,1
+0x7dc9b0,246,90,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510,8,0,0,Invalid number of histogram entries specified|hIST|hIST,1
+0x7dcab0,406,159,0x7d3510;0x7debd0;0x7dec70,9,0,0,invalid character in keyword|trailing spaces removed from keyword|leading spaces removed from keyword|extra interior spaces removed from keyword|Zero length keyword|keyword length must be 1 - 79 characters|zero length keyword,1
+0x7dcc50,306,120,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510;0x7dcab0;0x7dec70,12,0,0,tEXt|tEXt|Empty keyword in tEXt chunk,1
+0x7dcd90,641,243,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510;0x7da8c0;0x7daa50;0x7db570;0x7db810;0x7dcab0;0x7dec70,29,0,0,zTXt|zTXt|tEXt|tEXt|Empty keyword in tEXt chunk|Empty keyword in zTXt chunk,1
+0x7dd020,258,86,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510,8,0,0,Unrecognized unit type for oFFs chunk|oFFs|oFFs,1
+0x7dd130,610,223,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510;0x7dcab0;0x7debd0;0x7dec70,18,0,0,Unrecognized equation type for pCAL chunk|pCAL|pCAL,1
+0x7dd3a0,339,129,0x7d2be0;0x7d2e10;0x7d2e30,11,0,0,sCAL|sCAL,1
+0x7dd500,258,86,0x7d2be0;0x7d2e10;0x7d2e30;0x7d3510,8,0,0,Unrecognized unit type for pHYs chunk|pHYs|pHYs,1
+0x7dd610,402,115,0x7debd0,6,0,0,,1
+0x7dd7b0,793,247,0x7d2be0;0x7d2e10;0x7d2e30;0x7d34f0;0x7df8b0;0x7dfa90,18,0,0,IDAT|IDAT|zlib error|IDAT|IDAT,1
+0x7ddad0,575,194,,0,0,0,,1
+0x7ddd10,3041,988,0x7de900,1,0,0,,1
+0x7de900,376,121,0x7d0960;0x7d2be0;0x7d2e10;0x7d2e30;0x7d34f0;0x7dd7b0;0x7dfa90,11,0,0,zlib error|IDAT|IDAT,1
+0x7dea80,70,31,0x824257,1,0,0,,0
+0x7dead0,139,51,0x824257,1,2,0,,1
+0x7deb60,18,6,,0,0,0,,1
+0x7deb80,72,20,0x82413f,1,1,0,,1
+0x7debd0,98,43,0x7d34f0;0x824257,3,1,0,Out of Memory!|Out of Memory,1
+0x7dec40,42,16,0x7d34f0;0x824257,2,0,0,Out of Memory,0
+0x7dec70,44,16,0x82413f,1,0,0,,1
+0x7deca0,24,10,0x82413f,1,0,0,,0
+0x7decc0,35,16,,0,0,0,,1
+0x7decf0,49,23,,0,0,0,,1
+0x7ded30,35,8,,0,0,0,,1
+0x7ded60,11,3,,0,0,0,,0
+0x7ded70,343,108,0x7d1470;0x7d14a0;0x7d14d0;0x7d1520;0x7d1730;0x7deed0;0x7defe0;0x7df260;0x7df370,9,1,0,,1
+0x7deed0,272,106,,0,0,0,,1
+0x7defe0,629,234,,0,0,0,,1
+0x7df260,257,130,,0,0,0,,1
+0x7df370,263,136,,0,0,0,,1
+0x7df480,37,15,0x7df4b0,1,0,0,,0
+0x7df4b0,753,255,0x7dff00;0x7e77f0,2,5,0,,1
+0x7df7b0,247,99,0x7e9300,1,0,0,,0
+0x7df8b0,267,83,0x7e77f0,1,0,0,,1
+0x7df9c0,202,65,0x7dfa90,1,0,0,,0
+0x7dfa90,1121,420,0x7e78b0;0x7e7a10,2,1,0,,1
+0x7dff00,170,69,,0,5,0,,1
+0x7dffb0,431,158,0x7dff00,1,5,0,,1
+0x7e0160,651,258,0x7e03f0;0x7e7d00,4,0,0,,0
+0x7e03f0,414,160,0x7e9300,1,0,0,,0
+0x7e0590,1041,357,0x7e03f0;0x7e09b0;0x7e7d00,4,0,0,,0
+0x7e09b0,367,134,,0,0,0,,0
+0x7e0b20,1378,459,0x7e03f0;0x7e09b0;0x7e7d00,5,0,0,,0
+0x7e1090,6,2,,0,0,0,,0
+0x7e10a0,309,109,,0,0,0,,1
+0x7e11e0,66,28,0x7e9430,1,0,0,,1
+0x7e1230,72,30,0x7ea1c0,1,1,0,,1
+0x7e1280,364,137,0x7e9430;0x7e94b0;0x7ea1c0,3,3,0,1.1.3,1
+0x7e13f0,26,10,0x7e1280,1,0,0,,1
+0x7e1410,1005,371,0x7e9430;0x7e9570,2,0,0,unknown compression method|invalid window size|incorrect header check|incorrect data check|need dictionary,1
+0x7e1840,130,59,0x7e9300;0x7ea250,2,0,0,,1
+0x7e18d0,234,98,0x7e9430,1,0,0,,1
+0x7e19c0,35037,18,,0,0,0,,0
+0x7e19f0,39,16,,0,0,0,,1
+0x7e1a20,39,16,,0,0,0,,0
+0x7e1a50,19,6,,0,0,0,,0
+0x7e1a70,38,19,0x7d2e30;0x7da850,2,0,0,,1
+0x7e1aa0,324,116,0x7d2e30;0x7d3550;0x7d3620;0x7da850,7,0,0,CRC error|CRC error,1
+0x7e1bf0,147,50,0x7da850,1,0,0,,1
+0x7e1c90,722,234,0x7d3510;0x7debd0;0x7dec70;0x7e11e0;0x7e1410,12,0,0,Error decoding compressed text|Error decoding compressed text|Incomplete compressed datastream in chunk other than IDAT|Unknown zTXt compression type,1
+0x7e1f70,602,177,0x7d1d60;0x7d2e30;0x7d34f0;0x7d3550;0x7d3620;0x7da850,8,0,0,Out of place IHDR|Invalid IHDR chunk|CRC error|CRC error,1
+0x7e21f0,1034,340,0x7d2130;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7e19f0;0x7e1bf0,31,0,0,Missing IHDR before PLTE|Invalid PLTE after IDAT|Duplicate PLTE chunk|Ignoring PLTE chunk in grayscale PNG|Invalid palette chunk|CRC error|CRC error|CRC error|CRC error|Truncating incorrect tRNS chunk length|Truncating incorrect info tRNS chunk length,1
+0x7e2600,356,125,0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850,9,0,0,No image in file|Incorrect IEND chunk length|CRC error|CRC error,1
+0x7e2770,932,318,0x7d1be0;0x7d1c70;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7e19f0;0x7e1bf0,31,0,4,Missing IHDR before gAMA|Incorrect gAMA chunk length|Invalid gAMA after IDAT|Out of place gAMA chunk|Duplicate gAMA chunk|CRC error|CRC error|Ignoring gAMA chunk with gamma=0|Ignoring incorrect gAMA value when sRGB is also present,1
+0x7e2b20,949,313,0x7d21c0;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7e19f0;0x7e1bf0,28,0,0,Missing IHDR before sBIT|Invalid sBIT after IDAT|Out of place sBIT chunk|Duplicate sBIT chunk|Incorrect sBIT chunk length|CRC error|CRC error,1
+0x7e2ee0,2481,795,0x7d1870;0x7d1ae0;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7e1aa0;0x7e1bf0,68,0,33,Missing IHDR before cHRM|Incorrect cHRM chunk length|CRC error|Invalid cHRM after IDAT|CRC error|Missing PLTE before cHRM|Duplicate cHRM chunk|CRC error|Ignoring incorrect cHRM value when sRGB is also present|Invalid cHRM blue point|Invalid cHRM green point|CRC error|Invalid cHRM red point|CRC error|Invalid cHRM white point|CRC error|CRC error,1
+0x7e38a0,1098,361,0x7d2220;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7e19f0;0x7e1bf0,30,0,0,Missing IHDR before sRGB|Incorrect sRGB chunk length|Invalid sRGB after IDAT|Out of place sRGB chunk|Duplicate sRGB chunk|CRC error|CRC error|Unknown sRGB intent|Ignoring incorrect gAMA value when sRGB is also present|Ignoring incorrect cHRM value when sRGB is also present,1
+0x7e3cf0,1188,420,0x7d2330;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7debd0;0x7dec70;0x7e1c90,34,0,0,"Missing IHDR before iCCP|Invalid iCCP after IDAT|Out of place iCCP chunk|Duplicate iCCP chunk|CRC error|CRC error|CRC error|CRC error|Malformed iCCP chunk|Ignoring nonzero compression type in iCCP chunk|Profile size field missing from iCCP chunk|Ignoring truncated iCCP profile.
+",1
+0x7e41a0,851,313,0x7d26e0;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7debd0;0x7dec70;0x7e19f0;0x7e1bf0,26,0,0,Missing IHDR before sPLT|CRC error|Invalid sPLT after IDAT|CRC error|CRC error|CRC error|malformed sPLT chunk|sPLT chunk has bad length,1
+0x7e4500,988,314,0x7d2630;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7e1aa0;0x7e1bf0,33,0,0,Missing IHDR before tRNS|Missing PLTE before tRNS|Invalid tRNS after IDAT|Duplicate tRNS chunk|Incorrect tRNS chunk length|Zero length tRNS chunk|Incorrect tRNS chunk length|CRC error|CRC error|Incorrect tRNS chunk length|tRNS chunk not allowed with alpha channel,1
+0x7e48e0,850,278,0x7d1830;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7e1bf0,23,0,0,Missing IHDR before bKGD|Invalid bKGD after IDAT|Missing PLTE before bKGD|Duplicate bKGD chunk|Incorrect bKGD chunk length|CRC error|CRC error|Incorrect bKGD chunk index value,1
+0x7e4c40,786,261,0x7d1cc0;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7e19f0;0x7e1bf0,26,0,0,Missing IHDR before hIST|Incorrect hIST chunk length|Invalid hIST after IDAT|Missing PLTE before hIST|Duplicate hIST chunk|CRC error|CRC error,1
+0x7e4f60,731,245,0x7d2100;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7e19f0;0x7e1bf0,23,0,0,Missing IHDR before pHYs|Incorrect pHYs chunk length|Invalid pHYs after IDAT|Duplicate pHYs chunk|CRC error|CRC error,1
+0x7e5240,732,245,0x7d1f30;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7e19f0;0x7e1bf0,23,0,0,Missing IHDR before oFFs|Incorrect oFFs chunk length|Invalid oFFs after IDAT|Duplicate oFFs chunk|CRC error|CRC error,1
+0x7e5520,1255,455,0x7d1f60;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7debd0;0x7dec70;0x7e19f0,35,0,0,Missing IHDR before pCAL|Invalid pCAL after IDAT|Duplicate pCAL chunk|CRC error|CRC error|CRC error|CRC error|Invalid pCAL data|Invalid pCAL parameters for equation type|Unrecognized equation type for pCAL chunk|Invalid pCAL data,1
+0x7e5a10,1147,400,0x7d20b0;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7debd0;0x7dec70;0x826071,31,0,8,Missing IHDR before sCAL|Invalid sCAL after IDAT|Duplicate sCAL chunk|CRC error|CRC error|CRC error|CRC error|malformed width string in sCAL chunk|malformed height string in sCAL chunk|Invalid sCAL data,1
+0x7e5e90,827,272,0x7d25f0;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7e19f0,21,0,0,Out of place tIME chunk|Incorrect tIME chunk length|Duplicate tIME chunk|CRC error|CRC error,1
+0x7e61d0,415,158,0x7d2410;0x7d2e30;0x7d34f0;0x7d3550;0x7d3620;0x7da850;0x7debd0;0x7dec70,13,0,0,Missing IHDR before tEXt|CRC error|CRC error,1
+0x7e6370,481,183,0x7d2410;0x7d2e30;0x7d34f0;0x7d3510;0x7d3550;0x7d3620;0x7da850;0x7debd0;0x7dec70;0x7e1c90,16,0,0,Missing IHDR before zTXt|CRC error|CRC error|Zero length zTXt chunk|Unknown compression type in zTXt chunk,1
+0x7e6560,680,248,0x7d2830;0x7d2e30;0x7d3480;0x7d3550;0x7d3620;0x7da850;0x7debd0;0x7dec70,17,1,0,IDAT|invalid chunk type|unknown critical chunk|unknown critical chunk|CRC error|CRC error,1
+0x7e6810,93,128,0x7d3590;0x825ff8,2,1,0,invalid chunk type,0
+0x7e6870,785,258,,0,0,0,,1
+0x7e6b90,1063,338,,0,0,0,,1
+0x7e6fc0,449,197,0x7d3510,1,0,0,Ignoring bad adaptive filter type,1
+0x7e71a0,912,270,0x7d2e10;0x7d2e30;0x7d34f0;0x7d3550;0x7d3620;0x7da850;0x7decf0;0x7e11e0;0x7e1410,17,0,0,CRC error|CRC error|IDAT|Not enough image data|Decompression Error|Extra compressed data|Extra compressed data|Extra compression data,1
+0x7e7530,606,190,0x7d61a0;0x7debd0;0x7decf0,4,0,0,,1
+0x7e7790,6,2,,0,0,0,1.1.3,0
+0x7e77a0,21,6,,0,0,0,,0
+0x7e77c0,19,7,0x824416,1,0,0,,1
+0x7e77e0,12,5,0x82413f,1,0,0,,1
+0x7e77f0,181,43,,0,0,0,,1
+0x7e78b0,346,115,,0,0,0,,1
+0x7e7a10,740,206,,0,0,0,,1
+0x7e7d00,1372,404,0x7e78b0;0x7e8260;0x7e87b0;0x7e88a0;0x7e8e70;0x7e9280,11,0,0,,0
+0x7e7de5,1143,334,0x7e78b0;0x7e88a0;0x7e8e70;0x7e9280,6,0,0,,0
+0x7e8260,1124,328,0x7e86d0,3,0,0,,0
+0x7e86d0,209,64,,0,0,0,,0
+0x7e87b0,231,73,,0,0,0,,0
+0x7e88a0,1303,365,,0,0,0,,0
+0x7e8be8,463,343,,0,0,0,,0
+0x7e8dc0,171,45,,0,0,0,,0
+0x7e8e70,1037,291,,0,0,0,,0
+0x7e9280,121,40,,0,0,0,,0
+0x7e9300,302,127,,0,0,0,,1
+0x7e9430,123,46,0x7ea9e0,1,2,0,,1
+0x7e94b0,190,84,,0,7,0,,1
+0x7e9570,3084,1070,0x7ea2a0;0x7ea2e0;0x7ea9e0;0x7eaa00;0x7eaf60;0x7eb0f0;0x7eb120,23,4,0,invalid block type|invalid stored block lengths|too many length or distance symbols|invalid bit length repeat,1
+0x7ea1c0,132,58,0x7ea9e0,1,5,0,,1
+0x7ea250,49,22,,0,0,0,,1
+0x7ea290,13,5,,0,0,0,,0
+0x7ea2a0,57,19,,0,1,0,,1
+0x7ea2e0,1749,585,0x7eb120;0x7eb260,6,0,0,invalid distance code|invalid literal/length code,1
+0x7ea9e0,20,8,,0,1,0,,1
+0x7eaa00,163,72,0x7eaab0,1,3,0,oversubscribed dynamic bit lengths tree|incomplete dynamic bit lengths tree,1
+0x7eaab0,1198,369,,0,0,0,,1
+0x7eaf60,393,164,0x7eaab0,2,7,0,oversubscribed distance tree|incomplete distance tree|empty distance tree with lengths|oversubscribed literal/length tree|incomplete literal/length tree,1
+0x7eb0f0,46,12,,0,0,0,,1
+0x7eb120,306,117,,0,2,0,,1
+0x7eb260,849,311,,0,0,0,invalid distance code|invalid literal/length code,1

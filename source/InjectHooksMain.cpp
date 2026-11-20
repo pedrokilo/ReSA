@@ -1192,6 +1192,7 @@ void InjectHooksMain() {
     D3DX9InjectHooks();
     RtQuatInjectHooks();
     ZlibInflateInjectHooks();
+    LibPngReadInjectHooks();
 
     CIplStore::InjectHooks();
     cHandlingDataMgr::InjectHooks();

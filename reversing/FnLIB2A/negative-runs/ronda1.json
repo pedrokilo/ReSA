@@ -1,0 +1,254 @@
+{
+ "1": {
+  "funcion": "png_get_valid",
+  "pares": 3000,
+  "diferencias": 566,
+  "detectada": true
+ },
+ "2": {
+  "funcion": "png_get_rowbytes",
+  "pares": 3000,
+  "diferencias": 564,
+  "detectada": true
+ },
+ "3": {
+  "funcion": "png_get_rows",
+  "pares": 3000,
+  "diferencias": 567,
+  "detectada": true
+ },
+ "4": {
+  "funcion": "png_get_image_width",
+  "pares": 3000,
+  "diferencias": 565,
+  "detectada": true
+ },
+ "5": {
+  "funcion": "png_get_image_height",
+  "pares": 3000,
+  "diferencias": 562,
+  "detectada": true
+ },
+ "6": {
+  "funcion": "png_get_bit_depth",
+  "pares": 3000,
+  "diferencias": 566,
+  "detectada": true
+ },
+ "7": {
+  "funcion": "png_get_color_type",
+  "pares": 3000,
+  "diferencias": 566,
+  "detectada": true
+ },
+ "8": {
+  "funcion": "png_get_filter_type",
+  "pares": 3000,
+  "diferencias": 564,
+  "detectada": true
+ },
+ "9": {
+  "funcion": "png_get_interlace_type",
+  "pares": 3000,
+  "diferencias": 568,
+  "detectada": true
+ },
+ "10": {
+  "funcion": "png_get_compression_type",
+  "pares": 3000,
+  "diferencias": 564,
+  "detectada": true
+ },
+ "11": {
+  "funcion": "png_get_x_pixels_per_meter",
+  "pares": 3000,
+  "diferencias": 123,
+  "detectada": true
+ },
+ "12": {
+  "funcion": "png_get_y_pixels_per_meter",
+  "pares": 3000,
+  "diferencias": 124,
+  "detectada": true
+ },
+ "13": {
+  "funcion": "png_get_pixels_per_meter",
+  "pares": 3000,
+  "diferencias": 335,
+  "detectada": true
+ },
+ "14": {
+  "funcion": "png_get_pixel_aspect_ratio",
+  "pares": 3000,
+  "diferencias": 9,
+  "detectada": true
+ },
+ "15": {
+  "funcion": "png_get_x_offset_microns",
+  "pares": 3000,
+  "diferencias": 301,
+  "detectada": true
+ },
+ "16": {
+  "funcion": "png_get_y_offset_microns",
+  "pares": 3000,
+  "diferencias": 295,
+  "detectada": true
+ },
+ "17": {
+  "funcion": "png_get_x_offset_pixels",
+  "pares": 3000,
+  "diferencias": 303,
+  "detectada": true
+ },
+ "18": {
+  "funcion": "png_get_y_offset_pixels",
+  "pares": 3000,
+  "diferencias": 291,
+  "detectada": true
+ },
+ "19": {
+  "funcion": "png_get_channels",
+  "pares": 3000,
+  "diferencias": 561,
+  "detectada": true
+ },
+ "20": {
+  "funcion": "png_get_signature",
+  "pares": 3000,
+  "diferencias": 564,
+  "detectada": true
+ },
+ "21": {
+  "funcion": "png_get_bKGD",
+  "pares": 3000,
+  "diferencias": 384,
+  "detectada": true
+ },
+ "22": {
+  "funcion": "png_get_cHRM",
+  "pares": 3000,
+  "diferencias": 395,
+  "detectada": true
+ },
+ "23": {
+  "funcion": "png_get_cHRM_fixed",
+  "pares": 3000,
+  "diferencias": 409,
+  "detectada": true
+ },
+ "24": {
+  "funcion": "png_get_gAMA",
+  "pares": 3000,
+  "diferencias": 385,
+  "detectada": true
+ },
+ "25": {
+  "funcion": "png_get_gAMA_fixed",
+  "pares": 3000,
+  "diferencias": 380,
+  "detectada": true
+ },
+ "26": {
+  "funcion": "png_get_sRGB",
+  "pares": 3000,
+  "diferencias": 378,
+  "detectada": true
+ },
+ "27": {
+  "funcion": "png_get_sPLT",
+  "pares": 3000,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "28": {
+  "funcion": "png_get_hIST",
+  "pares": 3000,
+  "diferencias": 375,
+  "detectada": true
+ },
+ "29": {
+  "funcion": "png_get_IHDR",
+  "pares": 3000,
+  "diferencias": 458,
+  "detectada": true
+ },
+ "30": {
+  "funcion": "png_get_oFFs",
+  "pares": 3000,
+  "diferencias": 357,
+  "detectada": true
+ },
+ "31": {
+  "funcion": "png_get_pCAL",
+  "pares": 3000,
+  "diferencias": 283,
+  "detectada": true
+ },
+ "32": {
+  "funcion": "png_get_sCAL",
+  "pares": 3000,
+  "diferencias": 352,
+  "detectada": true
+ },
+ "33": {
+  "funcion": "png_get_pHYs",
+  "pares": 3000,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "34": {
+  "funcion": "png_get_PLTE",
+  "pares": 3000,
+  "diferencias": 356,
+  "detectada": true
+ },
+ "35": {
+  "funcion": "png_get_sBIT",
+  "pares": 3000,
+  "diferencias": 375,
+  "detectada": true
+ },
+ "36": {
+  "funcion": "png_get_text",
+  "pares": 3000,
+  "diferencias": 374,
+  "detectada": true
+ },
+ "37": {
+  "funcion": "png_get_tIME",
+  "pares": 3000,
+  "diferencias": 385,
+  "detectada": true
+ },
+ "38": {
+  "funcion": "png_get_tRNS",
+  "pares": 3000,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "39": {
+  "funcion": "png_get_unknown_chunks",
+  "pares": 3000,
+  "diferencias": 580,
+  "detectada": true
+ },
+ "40": {
+  "funcion": "png_get_compression_buffer_size",
+  "pares": 3000,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "41": {
+  "funcion": "png_sig_cmp",
+  "pares": 3000,
+  "diferencias": 67,
+  "detectada": true
+ },
+ "43": {
+  "funcion": "png_set_sig_bytes",
+  "pares": 3000,
+  "diferencias": 577,
+  "detectada": true
+ }
+}

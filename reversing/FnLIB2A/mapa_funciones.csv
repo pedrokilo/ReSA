@@ -1,0 +1,344 @@
+va_exe,tam_exe,nombre_fuente,archivo_fuente,tam_fuente,confianza,metodo,en_cierre176,conocida_por_ghidra,diferencias
+0x007CF600,821,,,,sin-equivalente,"rtpng de RenderWare (Criterion), no es libpng",1,1,envoltura propia del SDK: llama a png_*; hay que reconstruirla en C++ (rtpng.cpp)
+0x007CF940,26,,,,sin-equivalente,,0,0,
+0x007CF960,19,,,,sin-equivalente,,0,0,
+0x007CF980,32,,,,sin-equivalente,,0,0,
+0x007CF9B0,1039,,,,sin-equivalente,"rtpng de RenderWare (Criterion), no es libpng",1,1,envoltura propia del SDK: llama a png_*; hay que reconstruirla en C++ (rtpng.cpp)
+0x007CFCAD,233,,,,sin-equivalente,,0,0,
+0x007CFDE0,32,,,,sin-equivalente,,0,0,
+0x007CFE00,414,png_write_info_before_PLTE,pngwrite.c,404,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.02x)
+0x007CFFA0,677,png_write_info,pngwrite.c,679,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (1.00x); uso de x87 distinto
+0x007D0250,297,png_write_end,pngwrite.c,330,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (0.90x)
+0x007D0380,35,,,,sin-equivalente,,0,0,
+0x007D03B0,341,,,,sin-equivalente,,1,1,
+0x007D0510,77,,,,sin-equivalente,,0,0,
+0x007D0560,102,,,,sin-equivalente,,0,0,
+0x007D05D0,190,,,,sin-equivalente,,0,0,
+0x007D0690,41,,,,sin-equivalente,,0,0,
+0x007D06C0,85,,,,sin-equivalente,,1,1,
+0x007D0720,508,png_destroy_write_struct,pngwrite.c,380,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas); callees NO coinciden (0/3)",1,1,tamano similar (1.34x)
+0x007D0940,25,,,,sin-equivalente,,0,0,
+0x007D0960,211,,,,sin-equivalente,,1,1,
+0x007D0A40,152,,,,sin-equivalente,,1,1,
+0x007D0AE0,265,png_write_destroy,pngwrite.c,254,alto,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas); callees coinciden 2/2",1,1,tamano similar (1.04x)
+0x007D0BF0,479,png_set_filter,pngwrite.c,424,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),0,0,tamano similar (1.13x)
+0x007D0DF0,737,png_set_filter_heuristics,pngwrite.c,653,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (1.13x)
+0x007D10E0,24,png_set_compression_level,pngwrite.c,21,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.14x)
+0x007D1100,24,png_set_compression_mem_level,pngwrite.c,21,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.14x)
+0x007D1120,24,png_set_compression_strategy,pngwrite.c,21,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.14x)
+0x007D1140,82,png_set_compression_window_bits,pngwrite.c,112,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),0,0,EXE 0.73x menor (inlining distinto)
+0x007D11A0,46,png_set_compression_method,pngwrite.c,44,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),0,0,tamano similar (1.05x)
+0x007D11D0,15,png_set_write_status_fn,pngwrite.c,17,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.88x)
+0x007D11E0,24,png_set_write_user_transform_fn,pngwrite.c,21,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.14x)
+0x007D1200,265,png_write_png,pngwrite.c,215,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.23x)
+0x007D1310,9,,,,sin-equivalente,,0,0,
+0x007D1320,21,,,,sin-equivalente,,0,0,
+0x007D1340,30,,,,sin-equivalente,,1,1,
+0x007D1360,21,,,,sin-equivalente,,0,0,
+0x007D1380,36,,,,sin-equivalente,,0,0,
+0x007D13B0,35,,,,sin-equivalente,,1,1,
+0x007D13E0,88,png_set_compression_buffer_size,pngset.c,73,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.21x)
+0x007D1440,12,,,,sin-equivalente,,0,0,
+0x007D1450,12,,,,sin-equivalente,,0,0,
+0x007D1460,9,,,,sin-equivalente,,0,0,
+0x007D1470,40,png_permit_empty_plte,pngset.c,34,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.18x)
+0x007D14A0,47,png_set_read_user_chunk_fn,pngset.c,26,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 1.81x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007D14D0,77,png_set_rows,pngset.c,71,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.08x)
+0x007D1520,518,,,,sin-equivalente,,1,1,
+0x007D1730,194,,,,sin-equivalente,,1,1,
+0x007D1800,26,,,,sin-equivalente,,0,0,
+0x007D1820,8,,,,sin-equivalente,,0,0,
+0x007D1830,53,png_set_bKGD,pngset.c,44,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.20x)
+0x007D1870,619,png_set_cHRM,pngset.c,270,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 2.29x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007D1AE0,242,png_set_cHRM_fixed,pngset.c,249,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (0.97x)
+0x007D1BE0,132,png_set_gAMA,pngset.c,82,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 1.61x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007D1C70,69,png_set_gAMA_fixed,pngset.c,74,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (0.93x)
+0x007D1CC0,159,png_set_hIST,pngset.c,144,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (1.10x)
+0x007D1D60,464,png_set_IHDR,pngset.c,444,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (1.05x)
+0x007D1F30,47,png_set_oFFs,pngset.c,43,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.09x)
+0x007D1F60,326,png_set_pCAL,pngset.c,301,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.08x)
+0x007D20B0,76,,,,sin-equivalente,,1,1,
+0x007D2100,47,png_set_pHYs,pngset.c,43,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.09x)
+0x007D2130,131,png_set_PLTE,pngset.c,110,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.19x)
+0x007D21C0,45,png_set_sBIT,pngset.c,36,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.25x)
+0x007D21F0,33,png_set_sRGB,pngset.c,31,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.06x)
+0x007D2220,258,png_set_sRGB_gAMA_and_cHRM,pngset.c,234,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas); callees NO coinciden (0/2)",1,1,tamano similar (1.10x)
+0x007D2330,213,png_set_iCCP,pngset.c,187,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.14x)
+0x007D2410,478,png_set_text,pngset.c,430,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (1.11x)
+0x007D25F0,54,png_set_tIME,pngset.c,49,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.10x)
+0x007D2630,162,png_set_tRNS,pngset.c,132,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.23x)
+0x007D26E0,321,png_set_keep_unknown_chunks,pngset.c,272,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.18x)
+0x007D2830,311,png_set_unknown_chunks,pngset.c,265,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.17x)
+0x007D28D4,147,,,,sin-equivalente,,0,0,
+0x007D2970,50,png_set_unknown_chunk_location,pngset.c,49,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.02x)
+0x007D29B0,36,,,,sin-equivalente,,0,0,
+0x007D29E0,283,,,,sin-equivalente,,0,0,
+0x007D2B00,25,png_set_invalid,pngset.c,26,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.96x)
+0x007D2B20,72,,,,sin-equivalente,,0,0,
+0x007D2B70,71,,,,sin-equivalente,,0,0,
+0x007D2BC0,31,,,,sin-equivalente,,0,0,
+0x007D2BE0,32,png_write_data,pngwio.c,35,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (0.91x)
+0x007D2C00,21,,,,sin-equivalente,,1,1,
+0x007D2C20,70,png_set_write_fn,pngwio.c,87,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (0.80x)
+0x007D2C70,47,png_set_sig_bytes,png.c,49,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),0,0,tamano similar (0.96x)
+0x007D2CA0,128,png_sig_cmp,png.c,170,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (0.75x)
+0x007D2DA0,96,png_check_sig,png.c,164,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 0.59x menor (inlining distinto)
+0x007D2E00,48796,,,,sin-equivalente,,1,1,
+0x007D2E10,25,png_reset_zstream,png.c,18,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 1.39x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007D2E30,69,,,,sin-equivalente,,1,1,
+0x007D2E80,55,png_create_info_struct,png.c,51,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.08x)
+0x007D2EC0,126,,,,sin-equivalente,,0,0,
+0x007D2F40,34,png_info_init,png.c,42,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.81x)
+0x007D2F70,51,png_info_init_3,png.c,55,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.93x)
+0x007D2FB0,85,png_convert_to_rfc1123,png.c,141,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,EXE 0.60x menor (inlining distinto)
+0x007D2FCF,54,,,,sin-equivalente,,0,0,
+0x007D2FD7,46,,,,sin-equivalente,,0,0,
+0x007D3010,946,png_free_data,png.c,1044,bajo,grafo: unico candidato llamado por los mismos callers ya emparejados,1,1,tamano similar (0.91x)
+0x007D33D0,85,png_destroy_info_struct,png.c,116,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 0.73x menor (inlining distinto)
+0x007D3430,8,png_get_io_ptr,png.c,11,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,EXE 0.73x menor (inlining distinto)
+0x007D3440,6,png_get_copyright,png.c,6,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),0,0,tamano similar (1.00x)
+0x007D3450,6,png_get_header_ver,png.c,6,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.00x)
+0x007D3460,6,,,,sin-equivalente,,0,0,
+0x007D3470,6,png_get_header_version,png.c,6,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),0,0,tamano similar (1.00x)
+0x007D3480,70,png_info_destroy,png.c,91,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (0.77x)
+0x007D34D0,56658,,,,sin-equivalente,,0,0,
+0x007D34F0,83,png_zalloc,png.c,95,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (0.87x)
+0x007D3510,51,png_reset_crc,png.c,28,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 1.82x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007D3550,207,,,,sin-equivalente,,1,1,
+0x007D3590,143,png_calculate_crc,png.c,83,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 1.72x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007D3620,80,png_handle_as_unknown,png.c,74,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.08x)
+0x007D3670,26,,,,sin-equivalente,,1,1,
+0x007D3690,8,png_mmx_support,png.c,4,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,EXE 2.00x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007D36A0,35,,,,sin-equivalente,,0,0,
+0x007D36D0,437,png_create_read_struct,pngread.c,564,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (0.77x)
+0x007D38B0,77,png_read_update_info,pngread.c,66,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas); callees NO coinciden (0/2)",0,0,tamano similar (1.17x)
+0x007D3900,102,png_destroy_read_struct,pngread.c,149,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas); callees NO coinciden (0/2)",0,0,EXE 0.68x menor (inlining distinto)
+0x007D3970,289,png_read_init_3,pngread.c,336,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",0,0,tamano similar (0.86x)
+0x007D3AB0,878,png_read_info,pngread.c,902,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (0.97x)
+0x007D3E20,66,,,,sin-equivalente,,0,0,
+0x007D3E70,80158,,,,sin-equivalente,,0,0,
+0x007D3E90,1082,png_read_rows,pngread.c,976,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (1.11x)
+0x007D42F0,137,,,,sin-equivalente,,0,0,
+0x007D4380,83,,,,sin-equivalente,,1,1,
+0x007D43E0,632,png_read_end,pngread.c,572,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (1.10x)
+0x007D4660,183,,,,sin-equivalente,,1,1,
+0x007D4720,594,png_read_destroy,pngread.c,599,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (0.99x)
+0x007D4980,15,png_set_read_status_fn,pngread.c,17,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.88x)
+0x007D4990,487,png_read_png,pngread.c,426,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.14x)
+0x007D4B80,29,png_get_valid,pngget.c,28,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.04x)
+0x007D4BA0,23,png_get_rowbytes,pngget.c,25,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.92x)
+0x007D4BC0,26,png_get_channels,pngget.c,25,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.04x)
+0x007D4BE0,22,png_get_image_width,pngget.c,24,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.92x)
+0x007D4C00,23,png_get_image_height,pngget.c,25,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.92x)
+0x007D4C20,23,png_get_bit_depth,pngget.c,25,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.92x)
+0x007D4C40,23,png_get_color_type,pngget.c,25,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.92x)
+0x007D4C60,23,png_get_filter_type,pngget.c,25,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.92x)
+0x007D4C80,23,png_get_interlace_type,pngget.c,25,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.92x)
+0x007D4CA0,23,png_get_compression_type,pngget.c,25,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.92x)
+0x007D4CC0,36,png_get_pixels_per_meter,pngget.c,40,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.90x)
+0x007D4CF0,36,png_get_x_pixels_per_meter,pngget.c,37,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.97x)
+0x007D4D20,42,png_get_y_pixels_per_meter,pngget.c,37,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.14x)
+0x007D4D50,76,png_get_pixel_aspect_ratio,pngget.c,88,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.86x)
+0x007D4DA0,37,png_get_x_offset_pixels,pngget.c,40,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.93x)
+0x007D4DD0,37,png_get_y_offset_pixels,pngget.c,40,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.93x)
+0x007D4E00,38,png_get_x_offset_microns,pngget.c,40,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.95x)
+0x007D4E30,38,png_get_y_offset_microns,pngget.c,40,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.95x)
+0x007D4E60,23,png_get_signature,pngget.c,27,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.85x)
+0x007D4E80,23,,,,sin-equivalente,,0,0,
+0x007D4EA0,44,png_get_bKGD,pngget.c,45,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.98x)
+0x007D4ED0,171,png_get_cHRM,pngget.c,161,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.06x)
+0x007D4F80,171,png_get_cHRM_fixed,pngget.c,161,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.06x)
+0x007D5030,44,png_get_gAMA,pngget.c,45,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.98x)
+0x007D5060,47,,,,sin-equivalente,,0,0,
+0x007D5090,48,png_get_gAMA_fixed,pngget.c,48,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.00x)
+0x007D5130,39,,,,sin-equivalente,,0,0,
+0x007D5160,44,png_get_hIST,pngget.c,45,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.98x)
+0x007D5190,229,png_get_IHDR,pngget.c,226,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (1.01x)
+0x007D5280,79,png_get_oFFs,pngget.c,79,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.00x)
+0x007D52D0,185,png_get_pCAL,pngget.c,166,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.11x)
+0x007D5390,89,png_get_pHYs,pngget.c,77,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.16x)
+0x007D53F0,78,png_get_PLTE,pngget.c,54,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,EXE 1.44x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007D5440,56,png_get_sRGB,pngget.c,49,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.14x)
+0x007D5480,44,png_get_sPLT,pngget.c,39,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.13x)
+0x007D54B0,70,png_get_text,pngget.c,68,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.03x)
+0x007D5500,46,png_get_tIME,pngget.c,48,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.96x)
+0x007D5530,116,png_get_tRNS,pngget.c,121,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (0.96x)
+0x007D55B0,39,png_get_unknown_chunks,pngget.c,39,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.00x)
+0x007D55E0,17,png_set_expand,pngrtran.c,15,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.13x)
+0x007D5600,18,png_set_gray_1_2_4_to_8,pngrtran.c,15,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.20x)
+0x007D5620,18,png_set_palette_to_rgb,pngrtran.c,15,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.20x)
+0x007D5640,138,png_set_crc_action,pngrtran.c,212,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),0,0,EXE 0.65x menor (inlining distinto)
+0x007D5790,14,,,,sin-equivalente,,1,1,
+0x007D57A0,12,,,,sin-equivalente,,0,0,
+0x007D57B0,2025,,,,sin-equivalente,,0,0,
+0x007D5FE0,14,,,,sin-equivalente,,0,0,
+0x007D5FF0,14,,,,sin-equivalente,,0,0,
+0x007D6000,14,,,,sin-equivalente,,1,1,
+0x007D6010,14,,,,sin-equivalente,,0,0,
+0x007D6020,14,,,,sin-equivalente,,1,1,
+0x007D6030,138,,,,sin-equivalente,,0,0,
+0x007D60C0,191,png_set_rgb_to_gray_fixed,pngrtran.c,189,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),0,0,tamano similar (1.01x)
+0x007D6180,24,png_set_read_user_transform_fn,pngrtran.c,21,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.14x)
+0x007D61A0,3242,png_build_gamma_table,pngrtran.c,1579,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 2.05x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007D6E70,379,png_do_gray_to_rgb,pngrtran.c,373,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.02x)
+0x007D6FF0,1137,png_do_read_transformations,pngrtran.c,1915,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (0/5)",1,1,EXE 0.59x menor (inlining distinto)
+0x007D7470,298,,,,sin-equivalente,,1,1,
+0x007D75A0,418,,,,sin-equivalente,,1,1,
+0x007D7770,72,,,,sin-equivalente,,0,0,
+0x007D77C0,248,,,,sin-equivalente,,1,1,
+0x007D78C0,196,,,,sin-equivalente,,1,1,
+0x007D7990,618,,,,sin-equivalente,,1,1,
+0x007D7C00,319,,,,sin-equivalente,,1,1,
+0x007D7D40,1858,,,,sin-equivalente,,1,1,
+0x007D8490,107,,,,sin-equivalente,,0,0,
+0x007D8520,4162,,,,sin-equivalente,,1,1,
+0x007D95B0,975,,,,sin-equivalente,,1,1,
+0x007D99A0,555,,,,sin-equivalente,,1,1,
+0x007D9BD0,912,,,,sin-equivalente,,1,1,
+0x007D9F60,274,,,,sin-equivalente,,1,1,
+0x007DA080,1990,png_init_read_transformations,pngrtran.c,2560,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (0.78x)
+0x007DA850,32,png_read_data,pngrio.c,35,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (0.91x)
+0x007DA870,70,png_set_read_fn,pngrio.c,79,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (0.89x)
+0x007DA8C0,35,png_default_read_data,pngrio.c,48,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 0.73x menor (inlining distinto)
+0x007DA8F0,35,,,,sin-equivalente,,0,0,
+0x007DA920,19,,,,sin-equivalente,,0,0,
+0x007DA940,174,png_write_chunk,pngwutil.c,164,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.06x)
+0x007DA9F0,88,png_write_chunk_start,pngwutil.c,83,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.06x)
+0x007DAA50,46,png_write_chunk_data,pngwutil.c,46,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.00x)
+0x007DAA80,58,png_write_chunk_end,pngwutil.c,56,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.04x)
+0x007DAAC0,102,png_write_sig,pngwutil.c,75,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 1.36x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007DAB30,922,png_write_IHDR,pngwutil.c,964,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (0.96x)
+0x007DAF10,303,png_write_PLTE,pngwutil.c,291,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (1.04x)
+0x007DB040,186,,,,sin-equivalente,,1,1,
+0x007DB100,133,png_write_IEND,pngwutil.c,116,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.15x)
+0x007DB190,247,png_write_gAMA,pngwutil.c,186,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.33x)
+0x007DB290,190,png_write_gAMA_fixed,pngwutil.c,169,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.12x)
+0x007DB350,182,png_write_sRGB,pngwutil.c,166,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (1.10x)
+0x007DB410,348,png_write_iCCP,pngwutil.c,328,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (1.06x)
+0x007DB570,670,,,,sin-equivalente,,1,1,
+0x007DB810,243,png_warning,pngerror.c,92,bajo,grafo: unico candidato llamado por los mismos callers ya emparejados; callees NO coinciden (0/2),1,1,EXE 2.64x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007DB910,546,png_write_sPLT,pngwutil.c,518,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (1.05x)
+0x007DBB40,366,png_write_sBIT,pngwutil.c,204,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (0/3)",1,1,EXE 1.79x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007DBCB0,1411,png_write_cHRM,pngwutil.c,751,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (0/3)",1,1,EXE 1.88x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007DC240,679,png_write_cHRM_fixed,pngwutil.c,431,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (0/3)",0,0,EXE 1.58x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007DC4F0,611,png_write_tRNS,pngwutil.c,335,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,EXE 1.82x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007DC760,588,png_write_bKGD,pngwutil.c,410,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,EXE 1.43x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007DC9B0,246,png_write_hIST,pngwutil.c,233,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (1.06x)
+0x007DCAB0,406,png_check_keyword,pngwutil.c,423,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (0.96x)
+0x007DCC50,306,png_write_tEXt,pngwutil.c,307,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.00x)
+0x007DCD90,641,png_write_zTXt,pngwutil.c,559,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (1.15x)
+0x007DD020,258,png_write_oFFs,pngwutil.c,228,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (1.13x)
+0x007DD130,610,png_write_pCAL,pngwutil.c,562,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.09x)
+0x007DD3A0,339,,,,sin-equivalente,,1,1,
+0x007DD500,258,png_write_pHYs,pngwutil.c,228,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,tamano similar (1.13x)
+0x007DD610,402,png_write_start_row,pngwutil.c,351,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.15x)
+0x007DD7B0,793,,,,sin-equivalente,,1,1,
+0x007DDAD0,575,png_do_write_interlace,pngwutil.c,528,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.09x)
+0x007DDD10,3041,png_write_find_filter,pngwutil.c,3127,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (0.97x)
+0x007DE900,376,png_text_compress,pngwutil.c,619,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas); callees NO coinciden (0/3)",1,1,EXE 0.61x menor (inlining distinto)
+0x007DEA80,70,,,,sin-equivalente,,0,0,
+0x007DEAD0,139,png_write_compressed_data_out,pngwutil.c,274,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 0.51x menor (inlining distinto)
+0x007DEB60,18,,,,sin-equivalente,,1,1,
+0x007DEB80,72,,,,sin-equivalente,,1,1,
+0x007DEBD0,98,,,,sin-equivalente,,1,1,
+0x007DEC40,42,png_malloc,pngmem.c,57,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),0,0,EXE 0.74x menor (inlining distinto)
+0x007DEC70,44,png_free,pngmem.c,27,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 1.63x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007DECA0,24,png_memcpy_check,pngmem.c,22,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.09x)
+0x007DECC0,35,,,,sin-equivalente,,1,1,
+0x007DECF0,49,,,,sin-equivalente,,1,1,
+0x007DED30,35,,,,sin-equivalente,,1,1,
+0x007DED60,11,,,,sin-equivalente,,0,0,
+0x007DED70,343,,,,sin-equivalente,,1,1,
+0x007DEED0,272,,,,sin-equivalente,,1,1,
+0x007DEFE0,629,,,,sin-equivalente,,1,1,
+0x007DF260,257,,,,sin-equivalente,,1,1,
+0x007DF370,263,,,,sin-equivalente,,1,1,
+0x007DF480,37,png_memset_check,pngmem.c,22,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,EXE 1.68x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007DF4B0,753,,,,sin-equivalente,,1,1,
+0x007DF7B0,247,,,,sin-equivalente,,0,0,
+0x007DF8B0,267,,,,sin-equivalente,,1,1,
+0x007DF9C0,202,,,,sin-equivalente,,0,0,
+0x007DFA90,1121,,,,sin-equivalente,,1,1,
+0x007DFF00,170,deflateEnd,deflate.c,183,bajo,grafo: unico candidato llamado por los mismos callers ya emparejados,1,1,tamano similar (0.93x)
+0x007DFFB0,431,,,,sin-equivalente,,0,1,
+0x007E0160,651,,,,sin-equivalente,,0,0,
+0x007E03F0,414,,,,sin-equivalente,,0,0,
+0x007E0590,1041,,,,sin-equivalente,,0,0,
+0x007E09B0,367,,,,sin-equivalente,,0,0,
+0x007E0B20,1378,,,,sin-equivalente,,0,0,
+0x007E1090,6,,,,sin-equivalente,,0,0,
+0x007E10A0,309,,,,sin-equivalente,,1,1,
+0x007E11E0,66,png_create_struct,pngmem.c,68,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (0.97x)
+0x007E1230,72,inflateEnd,inflate.c,75,medio,grafo: unico candidato que llama a los mismos callees ya emparejados,1,1,tamano similar (0.96x)
+0x007E1280,364,inflateInit2_,inflate.c,396,alto,grafo: unico candidato que llama a los mismos callees ya emparejados; callees coinciden 3/3,1,1,tamano similar (0.92x)
+0x007E13F0,26,png_destroy_struct,pngmem.c,21,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.24x)
+0x007E1410,1005,inflate,inflate.c,928,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (1.08x)
+0x007E1840,130,inflateSetDictionary,inflate.c,141,alto,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas); callees coinciden 2/2",0,1,tamano similar (0.92x)
+0x007E18D0,234,inflateSync,inflate.c,202,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,1,tamano similar (1.16x)
+0x007E19C0,35037,,,,sin-equivalente,,0,0,
+0x007E19F0,39,inflateSyncPoint,inflate.c,40,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (0.97x)
+0x007E1A20,39,png_get_int_32,pngrutil.c,38,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.03x)
+0x007E1A50,19,png_get_uint_16,pngrutil.c,22,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.86x)
+0x007E1A70,38,png_crc_read,pngrutil.c,26,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 1.46x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E1AA0,324,png_crc_finish,pngrutil.c,298,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.09x)
+0x007E1BF0,147,png_crc_error,pngrutil.c,121,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,tamano similar (1.21x)
+0x007E1C90,722,png_read_start_row,pngrutil.c,575,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas); callees NO coinciden (0/4)",1,1,tamano similar (1.26x)
+0x007E1F70,602,png_handle_IHDR,pngrutil.c,364,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,EXE 1.65x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E21F0,1034,png_handle_sCAL,pngrutil.c,372,bajo,grafo: unico candidato llamado por los mismos callers ya emparejados; callees NO coinciden (1/7),1,1,EXE 2.78x mayor (otro compilador/opciones; chunk helpers en linea); uso de x87 distinto
+0x007E2600,356,png_handle_PLTE,pngrutil.c,395,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas); callees NO coinciden (1/4)",1,1,tamano similar (0.90x)
+0x007E2770,932,png_handle_gAMA,pngrutil.c,373,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (3/8)",1,1,EXE 2.50x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E2B20,949,,,,sin-equivalente,,1,1,
+0x007E2EE0,2481,png_handle_cHRM,pngrutil.c,1354,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,EXE 1.83x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E38A0,1098,png_handle_sRGB,pngrutil.c,508,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (2/7)",1,1,EXE 2.16x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E3CF0,1188,,,,sin-equivalente,,1,1,
+0x007E41A0,851,png_handle_sPLT,pngrutil.c,522,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (2/8)",1,1,EXE 1.63x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E4500,988,png_handle_tRNS,pngrutil.c,500,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (3/7)",1,1,EXE 1.98x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E48E0,850,png_handle_bKGD,pngrutil.c,454,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (2/6)",1,1,EXE 1.87x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E4C40,786,,,,sin-equivalente,,1,1,
+0x007E4F60,731,png_handle_iCCP,pngrutil.c,413,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas); callees NO coinciden (1/7)",1,1,EXE 1.77x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E5240,732,,,,sin-equivalente,,1,1,
+0x007E5520,1255,png_handle_pCAL,pngrutil.c,546,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (3/7)",1,1,EXE 2.30x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E5A10,1147,,,,sin-equivalente,,1,1,
+0x007E5E90,827,,,,sin-equivalente,,1,1,
+0x007E61D0,415,png_handle_tEXt,pngrutil.c,196,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,EXE 2.12x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E6370,481,png_handle_zTXt,pngrutil.c,278,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (3/7)",1,1,EXE 1.73x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E6560,680,png_handle_unknown,pngrutil.c,396,medio,"cadenas compartidas (puntuacion ponderada, mejor mutua)",1,1,EXE 1.72x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E6810,93,png_push_crc_finish,pngpread.c,199,medio,grafo: unico candidato que llama a los mismos callees ya emparejados,0,0,EXE 0.47x menor (inlining distinto)
+0x007E6870,785,,,,sin-equivalente,,1,1,
+0x007E6B90,1063,,,,sin-equivalente,,1,1,
+0x007E6FC0,449,png_read_filter_row,pngrutil.c,456,alto,cadenas unicas en ambos lados (mensajes de error/nombres de chunk),1,1,tamano similar (0.98x)
+0x007E71A0,912,png_read_finish_row,pngrutil.c,684,bajo,"cadenas compartidas (puntuacion ponderada, mejor mutua); callees NO coinciden (2/6)",1,1,tamano similar (1.33x)
+0x007E7530,606,,,,sin-equivalente,,1,1,
+0x007E7790,6,,,,sin-equivalente,,0,0,
+0x007E77A0,21,,,,sin-equivalente,,0,0,
+0x007E77C0,19,,,,sin-equivalente,,0,1,
+0x007E77E0,12,,,,sin-equivalente,,0,1,
+0x007E77F0,181,png_handle_hIST,pngrutil.c,256,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",1,1,EXE 0.71x menor (inlining distinto)
+0x007E78B0,346,,,,sin-equivalente,,1,1,
+0x007E7A10,740,,,,sin-equivalente,,1,1,
+0x007E7D00,1372,png_push_read_chunk,pngpread.c,1679,alto,grafo: unico candidato que llama a los mismos callees ya emparejados; callees coinciden 2/2,0,0,tamano similar (0.82x)
+0x007E7DE5,1143,,,,sin-equivalente,,0,0,
+0x007E8260,1124,,,,sin-equivalente,,0,0,
+0x007E86D0,209,png_handle_oFFs,pngrutil.c,250,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.84x)
+0x007E87B0,231,png_handle_pHYs,pngrutil.c,247,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.94x)
+0x007E88A0,1303,,,,sin-equivalente,,0,0,
+0x007E8BE8,463,png_handle_sBIT,pngrutil.c,299,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,EXE 1.55x mayor (otro compilador/opciones; chunk helpers en linea)
+0x007E8DC0,171,png_handle_tIME,pngrutil.c,215,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.80x)
+0x007E8E70,1037,,,,sin-equivalente,,0,0,
+0x007E9280,121,png_check_chunk_name,pngrutil.c,98,bajo,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (1.23x)
+0x007E9300,302,adler32,adler32.c,295,alto,constantes BASE=65521 (0xFFF1) y NMAX=5552 (0x15B0) en el cuerpo; sin llamadas; a continuacion de inflate,0,1,tamano similar (1.02x)
+0x007E9430,123,inflate_blocks_reset,infblock.c,125,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (0.98x)
+0x007E94B0,190,inflate_blocks_new,infblock.c,194,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (0.98x)
+0x007E9570,3084,inflate_blocks,infblock.c,2548,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (1.21x)
+0x007EA1C0,132,inflate_blocks_free,infblock.c,147,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (0.90x)
+0x007EA250,49,inflate_set_dictionary,infblock.c,41,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (1.20x)
+0x007EA290,13,inflate_blocks_sync_point,infblock.c,16,medio,"alineamiento por orden entre anclas (tamano, llamadas, x87, cadenas)",0,0,tamano similar (0.81x)
+0x007EA2A0,57,inflate_codes_new,infcodes.c,61,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (0.93x)
+0x007EA2E0,1749,inflate_codes,infcodes.c,1664,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (1.05x)
+0x007EA9E0,20,inflate_codes_free,infcodes.c,22,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (0.91x)
+0x007EAA00,163,inflate_trees_bits,inftrees.c,142,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (1.15x)
+0x007EAAB0,1198,huft_build,inftrees.c,1121,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (1.07x)
+0x007EAF60,393,inflate_trees_dynamic,inftrees.c,364,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (1.08x)
+0x007EB0F0,46,inflate_trees_fixed,inftrees.c,45,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (1.02x)
+0x007EB120,306,inflate_flush,infutil.c,253,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (1.21x)
+0x007EB260,849,inflate_fast,inffast.c,998,alto,reconstruccion del proyecto (ZlibInflate) + cadenas + grafo,0,1,tamano similar (0.85x)
