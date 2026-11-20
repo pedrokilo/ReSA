@@ -145,6 +145,14 @@ R2 += [
  (51, 'write_tables_only', 'jcmarker', 'write_tables_only', 'if (cinfo->quant_tbl_ptrs[i] != NULL)', 'if (cinfo->quant_tbl_ptrs[i] != NULL && !(lib3a_mut==51 && i == 3))'),
  (52, 'write_scan_header', 'jcmarker', 'write_scan_header', 'marker->last_restart_interval = cinfo->restart_interval;', 'marker->last_restart_interval = cinfo->restart_interval + ((lib3a_mut==52 && (cinfo->restart_interval & 7) == 5) ? 1 : 0);'),
 ]
+R1 += [
+ (53, 'access_virt_sarray', 'jmemmgr', 'access_virt_sarray', 'ptr->cur_start_row = start_row;', 'ptr->cur_start_row = start_row + ((lib3a_mut==53 && start_row == 7) ? 1 : 0);'),
+ (54, 'access_virt_barray', 'jmemmgr', 'access_virt_barray', 'ptr->cur_start_row = start_row;', 'ptr->cur_start_row = start_row + ((lib3a_mut==54 && start_row == 7) ? 1 : 0);'),
+]
+R2 += [
+ (53, 'access_virt_sarray', 'jmemmgr', 'access_virt_sarray', 'ltemp = (long) end_row - (long) ptr->rows_in_mem;', 'ltemp = (long) end_row - (long) ptr->rows_in_mem + ((lib3a_mut==53 && end_row == 9) ? 1 : 0);'),
+ (54, 'access_virt_barray', 'jmemmgr', 'access_virt_barray', 'ltemp = (long) end_row - (long) ptr->rows_in_mem;', 'ltemp = (long) end_row - (long) ptr->rows_in_mem + ((lib3a_mut==54 && end_row == 9) ? 1 : 0);'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():

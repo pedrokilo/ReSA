@@ -646,6 +646,44 @@ static void add_marker_tests() {
     }
 }
 
+
+// ---- gestor de memoria: acceso a matrices virtuales (jmemmgr.c access_virt_sarray / access_virt_barray)
+static void __cdecl mock_bs_read(j_common_ptr c, void*, void* buf, long off, long cnt) {
+    uint32_t* L = (uint32_t*)c->client_data; uint32_t n = L[0]++; uint32_t* e = L + 1 + 4 * n; e[0] = 0; e[1] = (uint32_t)(uintptr_t)buf; e[2] = (uint32_t)off; e[3] = (uint32_t)cnt;
+    for (long k = 0; k < cnt; k++) ((uint8_t*)buf)[k] = (uint8_t)((off + k) * 7 + 3);
+}
+static void __cdecl mock_bs_write(j_common_ptr c, void*, void* buf, long off, long cnt) {
+    uint32_t* L = (uint32_t*)c->client_data; uint32_t n = L[0]++; uint32_t* e = L + 1 + 4 * n; e[0] = 1; e[1] = (uint32_t)(uintptr_t)buf; e[2] = (uint32_t)off; e[3] = (uint32_t)cnt;
+}
+static void add_virt_tests() {
+    for (int kind = 0; kind < 2; kind++) {
+        g_tests.push_back({kind == 0 ? "access_virt_sarray" : "access_virt_barray", kind == 0 ? 0x5CF2F0u : 0x5CF430u, "jmemmgr", kind == 0 ? "access_virt_sarray" : "access_virt_barray", [kind](Rng& r, Ctx& x) {
+            x.check_ret = true;
+            auto c = new_cinfo(); uint32_t* L = (uint32_t*)A(4 * (1 + 4 * 64), 8); memset(L, 0, 4 * (1 + 4 * 64)); c->client_data = L;
+            uint32_t bpr_unit = kind == 0 ? 1 : 128; uint32_t spr = R(r, 1, kind == 0 ? 24 : 4), bpr = spr * bpr_unit;
+            uint32_t rows = R(r, 1, 30), maxacc = R(r, 1, 6), rim = std::max<uint32_t>(maxacc, R(r, 1, 12)), rpc = R(r, 1, rim);
+            uint32_t cur = (r() % 3 == 0) ? 0 : R(r, 0, rows), undef = R(r, 0, rows);
+            void* p = A(0x80, 8); memset(p, 0, 0x80);
+            uint8_t* data = (uint8_t*)A((size_t)rim * bpr + 16, 8); for (size_t i = 0; i < (size_t)rim * bpr; i++) data[i] = (uint8_t)r();
+            uint8_t** rp = (uint8_t**)A(4 * rim, 8); for (uint32_t i = 0; i < rim; i++) rp[i] = data + (size_t)i * bpr;
+            W32(p, 0) = (r() % 12 == 0) ? 0u : (uint32_t)(uintptr_t)rp; W32(p, 4) = rows; W32(p, 8) = spr; W32(p, 0xC) = maxacc; W32(p, 0x10) = rim; W32(p, 0x14) = rpc; W32(p, 0x18) = cur; W32(p, 0x1C) = undef;
+            ((uint8_t*)p)[0x20] = (uint8_t)(r() & 1); ((uint8_t*)p)[0x21] = (uint8_t)(r() & 1); ((uint8_t*)p)[0x22] = (uint8_t)(r() % 8 != 0); W32(p, 0x28) = (uint32_t)(uintptr_t)mock_bs_read; W32(p, 0x2C) = (uint32_t)(uintptr_t)mock_bs_write;
+            uint32_t start = R(r, 0, rows), num = R(r, 0, maxacc + (r() % 8 == 0 ? 1 : 0)); boolean wr = (boolean)(r() & 1);
+            if (r() % 2) { start = std::min(start, rows - std::min(rows, num)); }
+            struct Pre { uint32_t rows, spr, maxacc, rim, rpc, cur, undef, pz, dirty, bso, start, num, wr, mb; std::vector<uint8_t> data; };
+            auto pre = std::make_shared<Pre>(); pre->rows = rows; pre->spr = spr; pre->maxacc = maxacc; pre->rim = rim; pre->rpc = rpc; pre->cur = cur; pre->undef = undef; pre->pz = ((uint8_t*)p)[0x20]; pre->dirty = ((uint8_t*)p)[0x21]; pre->bso = ((uint8_t*)p)[0x22];
+            pre->start = start; pre->num = num; pre->wr = wr; pre->mb = W32(p, 0); pre->data.assign(data, data + (size_t)rim * bpr);
+            x.call = [=](void* f) { return (int)((int(__cdecl*)(j_common_ptr, void*, JDIMENSION, JDIMENSION, boolean))f)((j_common_ptr)c, p, start, num, wr); };
+            x.dump = [=](std::vector<uint8_t>& v) {
+                put32(v, (uint32_t)kind); put32(v, pre->rows); put32(v, pre->spr); put32(v, pre->maxacc); put32(v, pre->rim); put32(v, pre->rpc); put32(v, pre->cur); put32(v, pre->undef); put32(v, pre->pz); put32(v, pre->dirty); put32(v, pre->bso);
+                put32(v, pre->start); put32(v, pre->num); put32(v, pre->wr); put32(v, pre->mb); put32(v, (uint32_t)(uintptr_t)rp); put32(v, (uint32_t)(uintptr_t)data);
+                putn(v, pre->data.data(), pre->data.size());
+                put32(v, W32(p, 0x18)); put32(v, W32(p, 0x1C)); put32(v, ((uint8_t*)p)[0x21]); putn(v, data, (size_t)rim * bpr); putn(v, L, 4 * (1 + 4 * 64));
+            };
+        }, 4000});
+    }
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -661,7 +699,7 @@ int main(int argc, char** argv) {
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
-    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests(); add_marker_tests();
+    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests(); add_marker_tests(); add_virt_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");

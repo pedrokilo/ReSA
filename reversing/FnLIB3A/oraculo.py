@@ -477,6 +477,57 @@ def t_marker_hdr(r, ec):
     if [t[4] for t in h] != [(s & 0xFF) if h[i][0] else 0 for i, s in enumerate(sent_h)]: return False
     return True
 
+def t_virt(r, ec):
+    kind, rows, spr, maxacc, rim, rpc, cur, undef, pz, dirty, bso, start, num, wr, mb, rp, db = [r.u32() for _ in range(17)]
+    unit = 1 if kind == 0 else 128; bpr = spr * unit; M = 2**32
+    data = bytearray(r.raw(rim * bpr)); cur1, undef1, dirty1 = r.u32(), r.u32(), r.u32() & 0xFF; fdata = r.raw(rim * bpr)
+    L = struct.unpack('<%dI' % (1 + 4 * 64), r.raw(4 * (1 + 4 * 64))); ret = r.ret
+    pz &= 0xFF; dirty &= 0xFF; bso &= 0xFF; wr &= 0xFF
+    log = []
+    def io(writing):
+        off = cur * bpr; i = 0
+        while i < rim:
+            n = min(rpc, rim - i); thisrow = cur + i; n = min(n, undef - thisrow); n = min(n, rows - thisrow)
+            if n <= 0: break
+            cnt = n * bpr
+            if writing: log.append((1, (db + i * bpr) % M, off, cnt))
+            else:
+                log.append((0, (db + i * bpr) % M, off, cnt))
+                for k in range(cnt): data[i * bpr + k] = ((off + k) * 7 + 3) & 255
+            off += cnt; i += rpc
+    err = False; res = None
+    end = start + num
+    if end > rows or num > maxacc or mb == 0: err = True
+    else:
+        if start < cur or end > cur + rim:
+            if not bso: err = True
+            else:
+                if dirty: io(True); dirty = 0
+                if start > cur: cur = start
+                else: cur = max(end - rim, 0)
+                io(False)
+        if not err and undef < end:
+            if undef < start:
+                if wr: err = True
+                else: ud = start
+            else: ud = undef
+            if not err:
+                if wr: undef = end
+                if pz:
+                    a = ud - cur; b = end - cur
+                    while a < b: data[a * bpr:(a + 1) * bpr] = bytes(bpr); a += 1
+                elif not wr: err = True
+        if not err:
+            if wr: dirty = 1
+            res = (rp + (start - cur) * 4) % M
+    if (ec != 0) != err: return False
+    if err: return cur1 == cur and undef1 == undef and dirty1 == dirty and bytes(data) == fdata
+    if ret != res or cur1 != cur or undef1 != undef or dirty1 != dirty or bytes(data) != fdata: return False
+    if L[0] != len(log): return False
+    for k, e in enumerate(log):
+        if tuple(L[1 + 4 * k:5 + 4 * k]) != e: return False
+    return True
+
 def t_start_up(r, ec):
     maxv, oh, nro, rtg = r.u32(), r.u32(), r.u32(), r.u32()
     return nro == maxv and rtg == oh and ec == 0
@@ -539,7 +590,7 @@ def t_dcolor(r, ec):
 
 def t_nothing(r, ec): return ec == 0
 
-CHECKS = {'write_tables_only': t_marker_hdr, 'write_scan_header': t_marker_hdr, 'decompress_onepass': t_onepass, 'pre_process_data': t_pre_process, 'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
+CHECKS = {'access_virt_sarray': t_virt, 'access_virt_barray': t_virt, 'write_tables_only': t_marker_hdr, 'write_scan_header': t_marker_hdr, 'decompress_onepass': t_onepass, 'pre_process_data': t_pre_process, 'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
           'emit_byte': t_marker_bytes, 'write_marker_header': t_marker_bytes, 'start_pass_prep': t_start_prep, 'reset_marker_reader': t_reset_marker, 'start_pass_dpost': t_dpost, 'jpeg_idct_float': t_idct_float, 'rgb_ycc_start': t_rgb_ycc_start, 'rgb_ycc_convert': t_color_compress('ycc'), 'rgb_gray_convert': t_color_compress('gray'), 'cmyk_ycck_convert': t_color_compress('cmyk'),
           'grayscale_convert': t_color_compress('grayc'), 'null_convert': t_color_compress('null'), 'null_method': t_nothing, 'start_pass_fdctmgr': t_start_fdct,
           'jpeg_fdct_float': t_fdct_float, 'forward_DCT_float': t_forward_dct, 'start_pass_upsample': t_start_up, 'fullsize_upsample': t_upsample, 'noop_upsample': t_upsample,
