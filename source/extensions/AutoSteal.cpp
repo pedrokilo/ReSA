@@ -232,6 +232,7 @@ void OnFrame() {
                 if (d) ++conductores;
                 if (!veh.IsAutomobile() || veh.m_nCreatedBy != RANDOM_VEHICLE || !d || d == pl || !d->IsAlive() || veh.IsLawEnforcementVehicle()) continue;
                 if (veh.vehicleFlags.bIsLocked || BadVec(veh.GetPosition())) continue;
+                if (veh.m_vecMoveSpeed.Magnitude() > 0.03f) continue; // solo coches parados (semaforos, atascos), como los que roba el usuario
                 const float dist = (veh.GetPosition() - pl->GetPosition()).Magnitude();
                 if (dist < bd) { bd = dist; best = &veh; }
             }
@@ -267,7 +268,7 @@ void OnFrame() {
             s_drvRef = GetPedPool()->GetRef(best->m_pDriver);
             best->vehicleFlags.bIsLocked = false;
             best->m_nDoorLock = CARLOCK_UNLOCKED;
-            Freeze(best);
+            // Sin Freeze: la IA del coche sigue funcionando (el congelado la apagaba y el fallo real aparece con la IA activa).
             const auto right = best->GetRight();
             const auto door = best->GetPosition() - CVector{ right.x, right.y, 0.f } * 1.8f;
             pl->Teleport(CVector{ door.x, door.y, best->GetPosition().z }, false);
@@ -333,7 +334,7 @@ void OnFrame() {
         const auto v = Veh();
         if (!v) { EndCycle(pl, false, now); break; }
         if (pl->bInVehicle && pl->m_pVehicle == v) { NOTSA_LOG_INFO("[ROBAR] ciclo {}: CJ ya conduce (t={})", s_cycle + 1, now); s_stateT0 = now; s_state = State::Drive; break; }
-        if (!pl->bInVehicle) Freeze(v);   // el coche no se va mientras CJ llega y saca al conductor
+        if (!pl->bInVehicle && !s_traffic) Freeze(v);   // el coche no se va mientras CJ llega y saca al conductor (en trafico real se deja la IA activa)
         if (now - s_stateT0 > 20000) {
             const auto t = pl->GetTaskManager().GetActiveTask();
             const auto simple = pl->GetTaskManager().GetSimplestActiveTask();

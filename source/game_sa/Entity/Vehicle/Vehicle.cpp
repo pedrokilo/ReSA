@@ -3823,11 +3823,12 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
                 tractionLoss = tractionLoss * (1.0f - std::fabs(m_GasPedal) * WS_ALREADY_SPINNING_LOSS);
             }
         }
-        float l = sqrt(speedSq);
-        // Como el original: factor = (tractionLoss / l) * adhesion
-        const float factor = (tractionLoss / l) * adhesion;
-        fwd *= factor;
-        right *= factor;
+        // Como el original (0x6D7006..0x6D7018): sqrt, division y multiplicacion se hacen en la pila x87 (24 bits de mantisa, exponente ampliado) y solo se
+        // redondea a float al guardar fwd/right: con l casi 0 `tractionLoss / l` no desborda en el EXE (en SSE de 32 bits daba inf y luego NaN).
+        const double l      = Veh83DSqrt(speedSq);
+        const double factor = Veh83DMul(Veh83DDiv(tractionLoss, l), adhesion);
+        fwd   = Veh83DStore(Veh83DMul(fwd, factor));
+        right = Veh83DStore(Veh83DMul(right, factor));
     }
 
     if (fwd != 0.0f || right != 0.0f) {
@@ -3848,24 +3849,30 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
 
         // Como el original: modulos sumados en orden (z + y) + x y normalizacion con 1 / modulo (si no es > 0 solo x = 1)
         CVector direction = totalSpeed;
-        float speed = std::sqrt((totalSpeed.z * totalSpeed.z + totalSpeed.y * totalSpeed.y) + totalSpeed.x * totalSpeed.x);
+        // Como el original (0x6D7187..0x6D7291): modulos y recipros se calculan en la pila x87 (exponente ampliado) y solo se guardan como float al final. Con
+        // componentes casi 0 (coche parado con la IA) un 1/modulo en float desborda a inf y x*inf da NaN (0*inf); el EXE conserva el recipro finito.
+        const auto Modulo = [](const CVector& v) {
+            return Veh83DStore(Veh83DSqrt(Veh83DAdd(Veh83DAdd(Veh83DMul(v.z, v.z), Veh83DMul(v.y, v.y)), Veh83DMul(v.x, v.x))));
+        };
+        const auto Normalizar = [](CVector& dst, const CVector& src, float modulo) {
+            const double recip = Veh83DDiv(1.0, modulo);   // 0x858624 = 1.0f
+            dst.x = Veh83DStore(Veh83DMul(src.x, recip));
+            dst.y = Veh83DStore(Veh83DMul(src.y, recip));
+            dst.z = Veh83DStore(Veh83DMul(src.z, recip));
+        };
+        float speed = Modulo(totalSpeed);
         float turnSpeed = speed;
         if (separateTurnForce)
-            turnSpeed = std::sqrt((turnDirection.z * turnDirection.z + turnDirection.y * turnDirection.y) + turnDirection.x * turnDirection.x);
+            turnSpeed = Modulo(turnDirection);
         if (speed > 0.0f) {
-            const float recip = 1.0f / speed;
-            direction.x = totalSpeed.x * recip;
-            direction.y = totalSpeed.y * recip;
-            direction.z = totalSpeed.z * recip;
+            Normalizar(direction, totalSpeed, speed);
         } else {
             direction.x = 1.0f;
         }
         if (separateTurnForce) {
             if (turnSpeed > 0.0f) {
-                const float recip = 1.0f / turnSpeed;
-                turnDirection.x = turnDirection.x * recip;
-                turnDirection.y = turnDirection.y * recip;
-                turnDirection.z = turnDirection.z * recip;
+                const CVector bruto = turnDirection;
+                Normalizar(turnDirection, bruto, turnSpeed);
             } else {
                 turnDirection.x = 1.0f;
             }
