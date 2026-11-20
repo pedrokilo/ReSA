@@ -1044,9 +1044,9 @@ void CTrain::AddNearbyPedAsRandomPassenger() {
         const auto dx = current.x - trainPosition.x;
         const auto dy = current.y - trainPosition.y;
         const auto distance = dx * dx + dy * dy;
-        if (!(distance <= 625.f)) continue;
+        if (distance > 625.f) continue; // Como el original (0x6F8407): fcomp + test ah,0x41 + je -> solo mayor ordenado lo salta (NaN no)
         const auto side = (current.z * m_matrix->GetRight().z + current.y * m_matrix->GetRight().y) + current.x * m_matrix->GetRight().x - originDot;
-        if ((!clockwise && side <= 0.f) || (clockwise && side >= 0.f)) {
+        if ((!clockwise && !(side > 0.f)) || (clockwise && !(side < 0.f))) { // Como el original (0x6F8434 je, 0x6F8448 jnp): con NaN pasa
             if (distance < closestDistance) {closest = ped;closestDistance = distance;}
         }
     }
@@ -1218,7 +1218,7 @@ void CTrain::ProcessControl() {
                 fStopAtStationSpeed = fStopAtStationSpeed * 0.02f - m_fTrainSpeed; // Como el original (0x6F8991): fmul [858B38] (0.02f), no / 50
                 if (fStopAtStationSpeed > 0.0f) {
                     m_fTrainGas = fStopAtStationSpeed * 30.0f;
-                    if (m_fTrainGas >= 1.0f) {
+                    if (!(m_fTrainGas < 1.0f)) { // Como el original (0x6F89B6): fcomp + test ah,5 + jnp -> con NaN tambien recorta a 1.0
                         m_fTrainGas = 1.0f;
                     }
 
@@ -1227,7 +1227,7 @@ void CTrain::ProcessControl() {
                 } else {
                     float fTrainSpeed = fStopAtStationSpeed * -30.0f;
                     m_fTrainGas = 0.0f;
-                    if (fTrainSpeed >= 1.0f) {
+                    if (!(fTrainSpeed < 1.0f)) { // Como el original (0x6F89EF): con NaN tambien recorta a 1.0
                         fTrainSpeed = 1.0f;
                     }
                     m_fTrainBrake = fTrainSpeed * 255.0f;

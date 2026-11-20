@@ -3126,7 +3126,7 @@ bool CWorld::GetIsLineOfSightClear(const CVector& origin, const CVector& target,
         return WorldSectorCoordExe(yAtEdge);
     };
 
-    if (!(target.x <= origin.x)) { // De izquierda a derecha: borde derecho del sector (x - 59) * 50
+    if (target.x > origin.x) { // De izquierda a derecha: borde derecho del sector (x - 59) * 50
         int32 endY = CrossingSectorY(originSectorX - 59);
         if (!ProcessColumn(originSectorX, originSectorY, endY)) {
             return false;
@@ -3329,7 +3329,7 @@ bool CWorld::ProcessLineOfSight(const CVector& origin, const CVector& target, CC
             return WorldSectorCoordExe(yAtEdge);
         };
 
-        if (!(target.x <= origin.x)) { // De izquierda a derecha: borde derecho del sector (x - 59) * 50
+        if (target.x > origin.x) { // De izquierda a derecha: borde derecho del sector (x - 59) * 50
             int32 endY = CrossingSectorY(originSectorX - 59);
             ProcessColumn(originSectorX, originSectorY, endY);
             for (int32 x = originSectorX + 1; x < targetSectorX; x++) {

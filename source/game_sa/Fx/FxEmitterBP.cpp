@@ -176,7 +176,7 @@ void RenderEmitterParticles355(FxEmitterBP_c& emitter, RwCamera* camera, float& 
         while (particle->m_CurrentRotation < 0.f) { particle->m_CurrentRotation += 360.f; }
         while (particle->m_CurrentRotation >= 360.f) { particle->m_CurrentRotation -= 360.f; }
         CVector right = orientation->right, up = orientation->up;
-        if (!(particle->m_CurrentRotation <= 0.f)) {
+        if (particle->m_CurrentRotation > 0.f) { // Como el original (0x4A3679): fcomp 0 + test ah,0x41 + jne -> con NaN no rota
             RotateVecAboutVec(right, right, at, particle->m_CurrentRotation * std::bit_cast<float>(0x3C8EFA2Eu));
             up = cross(at, right);
         }

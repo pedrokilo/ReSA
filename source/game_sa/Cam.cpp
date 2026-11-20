@@ -2676,7 +2676,7 @@ bool CCam::Process_DW_PlaneSpotterCam(bool) {
     progress = IntRatioCpp(elapsed, duration);
     src=position;float fov=70;
     const auto delta=position-dest;const float planar=std::sqrt(delta.y*delta.y+delta.x*delta.x);
-    if(!(planar>=5.0f)){failed=1;return false;}
+    if(planar<5.0f){failed=1;return false;} /* 0x51C502: fcomp 5.0 + test ah,5 + jnp: solo falla con menor ordenado (NaN sigue) */
     if(StaticRef<uint8>(0xB700A4)){
         const float distance=std::sqrt((delta.z*delta.z+delta.y*delta.y)+delta.x*delta.x);
         fov=PlaneSpotterEase(distance/StaticRef<float>(0x8CCD88),StaticRef<float>(0x8CCD80),StaticRef<float>(0x8CCD84));
