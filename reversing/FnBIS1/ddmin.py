@@ -127,7 +127,7 @@ PL1 = os.path.join(AQUI, '..', 'FnPL1')
 # Categorias que NO tiene sentido apagar: arranque de la aplicacion/ventana y asignador de memoria (mezclar new/delete
 # del EXE y de la DLL entre clases es lo unico que podria impedir arrancar). El juego arranca con --unhook-all, asi que
 # apagarlo todo es posible; esto solo evita mezclas absurdas.
-EXCLUIDAS_CAT = ('App/', 'Win/', 'Memory/')
+EXCLUIDAS_CAT = ('App/', 'Win/', 'Memory/', 'RenderWare/WindowedModeHooks')   # el modo ventana debe seguir siempre encendido: sin el, el juego usa pantalla completa exclusiva (1024x768) y cambia la resolucion de los monitores
 
 def candidatos():
     """Rutas Categoria/Clase apagables (--unhook), y las excluidas con el motivo."""

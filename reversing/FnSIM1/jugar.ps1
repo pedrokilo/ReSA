@@ -74,7 +74,7 @@ $args_ = @()
 $asi = $dllDebug; $pdb = Join-Path $aqui 'dll\Debug.pdb'; $descr = ''
 switch ($Variante) {
     'A' { $descr = 'DLL Debug completa + INI actual (FastLoader, ranura 2). Referencia: reproduce el fallo.' }
-    'B' { $args_ = @('--unhook-all'); $descr = 'MISMA DLL con --unhook-all (solo codigo original; la DLL solo hace de cargador) + INI actual. CONTROL decisivo.' }
+    'B' { $args_ = @('--unhook-except=RenderWare/WindowedModeHooks'); $descr = 'MISMA DLL con --unhook-all (solo codigo original; la DLL solo hace de cargador) + INI actual. CONTROL decisivo.' }
     'C' { $ini = Join-Path $aqui 'variantes\ini-C-menu.ini'; $descr = 'DLL Debug completa con FastLoader DESACTIVADO (arranque normal por menu).' }
     'D' {
         $asi = $dllRelease; $pdb = [IO.Path]::ChangeExtension($dllRelease, '.pdb')

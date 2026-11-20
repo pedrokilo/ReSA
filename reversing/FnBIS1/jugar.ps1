@@ -99,7 +99,7 @@ if ($Robar) { $args_ += "--robar=$Robar" }
 switch ($Variante) {
     'A' { $descr = 'DLL BIS1 (Debug + modo --robar) completa + INI actual (FastLoader, ranura 2).' }
     'O' { $asi = $dllOrig; $pdb = Join-Path $pl1 'dll\Debug.pdb'; $descr = 'DLL ORIGINAL del usuario (ff45...) + INI actual; no admite --robar.' }
-    'B' { $args_ = @('--unhook-all') + $args_; $descr = 'MISMA DLL con --unhook-all (solo codigo original; la DLL solo hace de cargador) + INI actual. CONTROL decisivo.' }
+    'B' { $args_ = @('--unhook-except=RenderWare/WindowedModeHooks') + $args_; $descr = 'MISMA DLL con todo apagado salvo el modo ventana (solo codigo original; la DLL solo hace de cargador) + INI actual. CONTROL decisivo.' }
     'C' { $ini = Join-Path $pl1 'variantes\ini-C-menu.ini'; $descr = 'DLL Debug completa con FastLoader DESACTIVADO (arranque normal por menu).' }
     'D' {
         $asi = $dllRelease; $pdb = [IO.Path]::ChangeExtension($dllRelease, '.pdb')

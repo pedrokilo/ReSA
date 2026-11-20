@@ -41,3 +41,10 @@ pwsh -File robar_serie.ps1 -Variante A -Veces 2 -Robar 200,6,15,2,0,1 -Auto 1500
 pwsh -File jugar.ps1 -Variante A -ArgsFile vigilar.args -Sonda                              # jugar a mano con el vigilante de NaN
 ```
 `biseccion.ps1` acepta la respuesta de las preguntas por archivo (`respuesta.txt` con `s`, `n` o `d`).
+
+## Aviso: el control «todo apagado» cambiaba la resolucion de los monitores (corregido)
+
+`--unhook-all` (y las rondas de biseccion que apagaban `RenderWare/WindowedModeHooks`) hacian que el juego arrancase con el codigo original del EXE: pantalla completa exclusiva a 1024x768.
+Tras muchas ejecuciones asi, cerradas a la fuerza, el monitor HDMI del usuario quedo reconocido como «Generic Monitor» con solo modos genericos. Las variantes B de `jugar.ps1`
+(FnBIS1, FnSIM1, FnPL1), `FnRW0A/run_phase.py` y la biseccion (`ddmin.py`, `EXCLUIDAS_CAT`) mantienen ahora `RenderWare/WindowedModeHooks` encendido (`--unhook-except=RenderWare/WindowedModeHooks`).
+Sin comprobar en juego (no se ha vuelto a lanzar el juego tras el cambio).

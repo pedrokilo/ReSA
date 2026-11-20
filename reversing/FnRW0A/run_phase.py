@@ -370,7 +370,7 @@ def main():
                 env['RWPROBE_FPTRAP'] = '1'
         args = [str(GAME / 'gta_sa.exe'), f'--dump-hooks-to={run / "hooks_dump.csv"}']
         if a.unhook_all:
-            args.append('--unhook-all')
+            args.append('--unhook-except=RenderWare/WindowedModeHooks')
         elif a.unhook_except:
             args.append('--unhook-except=' + a.unhook_except)
         elif a.unhook:
