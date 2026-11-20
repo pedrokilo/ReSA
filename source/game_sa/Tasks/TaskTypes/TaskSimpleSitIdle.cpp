@@ -108,7 +108,7 @@ bool CTaskSimpleSitIdle::ProcessPed(CPed* ped) {
             if (!closestPed) {
                 return false;
             }
-            if (DotProduct(closestPed->GetPosition() - ped->GetPosition(), ped->GetForwardVector()) <= 0.2f) { // Must be in cone of [-78, 78] deg in front of `ped`
+            if (!(DotProduct(closestPed->GetPosition() - ped->GetPosition(), ped->GetForwardVector()) > 0.2f)) { // Must be in cone of [-78, 78] deg in front of `ped` // NaN como el EXE (0x637b6b): fcom + test ah + jcc
                 return false;
             }
             if (CGeneral::GetRandomIntInRange(0, 100) >= 25) { // Como el original: 0x407180 despues del producto escalar

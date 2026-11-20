@@ -119,7 +119,7 @@ CTask* CTaskComplexArrestPed::CreateNextSubTask(CPed* ped) {
         auto delta = m_PedToArrest->GetPosition() - ped->GetPosition();
         const auto z = std::abs(delta.z);
         delta.z = 0.0f;
-        return z <= 2.0f && delta.SquaredMagnitude() <= 9.0f;
+        return !(z > 2.0f) && delta.SquaredMagnitude() <= 9.0f; // NaN como el EXE (0x69050f): fcom + test ah + jcc
     };
     const auto fallingTask = [&] {
         return static_cast<CTaskComplexFallAndGetUp*>(m_PedToArrest->GetTaskManager().FindActiveTaskByType(TASK_COMPLEX_FALL_AND_GET_UP));
@@ -271,7 +271,7 @@ CTask* CTaskComplexArrestPed::ControlSubTask(CPed* ped) {
                     auto delta = ped->GetPosition() - m_PedToArrest->GetPosition();
                     const auto z = std::abs(delta.z);
                     delta.z = 0.0f;
-                    if (z <= 2.0f && delta.SquaredMagnitude() <= 9.0f) {
+                    if (!(z > 2.0f) && delta.SquaredMagnitude() <= 9.0f) { // NaN como el EXE (0x68d684): fcom + test ah + jcc
                         falling->SetDownTime(100000);
                         requested = TASK_SIMPLE_ARREST_PED;
                     } else {

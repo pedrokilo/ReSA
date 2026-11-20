@@ -252,7 +252,7 @@ bool CTaskSimpleGangDriveBy::ProcessPed(CPed* ped) {
         a = m_pAnimAssoc;
         const bool playing = a->IsPlaying();
         if (!playing && m_nAttackTimer <= 0 && (m_nNextCommand == 2 || m_nNextCommand == 3) &&
-            (a->m_BlendHier->m_fTotalTime > a->m_CurrentTime || !(a->m_BlendDelta < 0.0f))) {
+            (a->m_BlendHier->m_fTotalTime > a->m_CurrentTime || (a->m_BlendDelta >= 0.0f))) { // NaN como el EXE (0x62d64f): fcom + test ah + jcc
             a->m_Flags |= ANIMATION_IS_PLAYING;
             m_nBurstShots = char(CGeneral::GetRandomIntInRange(1, int(float(int16(m_pWeaponInfo->m_nAmmoClip)) * 0.5f)));
             m_nLastCommand = m_nNextCommand;

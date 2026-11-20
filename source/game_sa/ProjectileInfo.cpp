@@ -338,7 +338,7 @@ void CProjectileInfo::Update() {
                 bool check = !info.m_pCreator;
                 if (info.m_pCreator) {
                     const auto delta = info.m_vecLastPosn - info.m_pCreator->GetPosition();
-                    check = delta.y * delta.y + delta.z * delta.z + delta.x * delta.x >= 2.f;
+                    check = !(delta.y * delta.y + delta.z * delta.z + delta.x * delta.x < 2.f); // NaN como el EXE (0x7397bc): fcom + test ah + jcc
                 }
                 if (check && ((physicalFlags & 0x200) || !CWorld::GetIsLineOfSightClear(info.m_vecLastPosn, position, true, true, true, true, false, false, false))) RemoveProjectile(&info, projectile);
                 CWorld::pIgnoreEntity = nullptr; ProjectileField<uint32>(projectile, 0x1C) |= 1u;

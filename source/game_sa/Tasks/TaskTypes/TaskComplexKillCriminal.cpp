@@ -637,7 +637,7 @@ CTask* CTaskComplexKillCriminal::ControlSubTask(CPed* ped) {
                     auto* vehicle = ped->m_pVehicle;
                     const auto d = squaredDistance(m_Criminal, vehicle);
                     const bool partnerReady = NoPedOrNoHp(partner) || partner->bInVehicle;
-                    if (d <= 225.f) {
+                    if (!(d > 225.f)) { // NaN como el EXE (0x68f13d): fcom + test ah + jcc
                         if ((CriminalField<uint8>(vehicle, 0x3BA) != 55 && CriminalField<uint8>(vehicle, 0x3BA) != 54)
                             || d < (vehicle->IsBike() ? 5.f : 16.f)) {
                             type = TASK_COMPLEX_KILL_PED_ON_FOOT;
@@ -651,7 +651,7 @@ CTask* CTaskComplexKillCriminal::ControlSubTask(CPed* ped) {
                 const float health = criminalVehicle->m_fHealth;
                 bool leave{};
                 if (!ped->GetVehicleIfInOne()) {
-                    if (criminalVehicle->m_vecMoveSpeed.Magnitude() >= 0.2f) {
+                    if (!(criminalVehicle->m_vecMoveSpeed.Magnitude() < 0.2f)) { // NaN como el EXE (0x68ed91): fcom + test ah + jcc
                         if (ped->m_pVehicle && !m_CantGetInCar
                             && m_pSubTask->GetTaskType() != TASK_COMPLEX_ENTER_CAR_AS_DRIVER
                             && m_pSubTask->GetTaskType() != TASK_COMPLEX_ENTER_CAR_AS_PASSENGER) {
@@ -667,7 +667,7 @@ CTask* CTaskComplexKillCriminal::ControlSubTask(CPed* ped) {
                 } else {
                     if (m_pSubTask->GetTaskType() == TASK_COMPLEX_CAR_DRIVE_MISSION
                         || m_pSubTask->GetTaskType() == TASK_SIMPLE_GANG_DRIVEBY) {
-                        if (criminalVehicle->m_vecMoveSpeed.Magnitude() >= 0.12f) {
+                        if (!(criminalVehicle->m_vecMoveSpeed.Magnitude() < 0.12f)) { // NaN como el EXE (0x68eca3): fcom + test ah + jcc
                             m_TimeToGetOutOfCar = 1.f;
                         } else {
                             m_TimeToGetOutOfCar -= CTimer::GetTimeStep() * 0.02f;
@@ -688,7 +688,7 @@ CTask* CTaskComplexKillCriminal::ControlSubTask(CPed* ped) {
                     alignas(CEventAcquaintancePedHate) uint8 storage[sizeof(CEventAcquaintancePedHate)];
                     auto* event = reinterpret_cast<CEventAcquaintancePedHate*>(storage);
                     event->Constructor2(ped);
-                    event->m_TaskId = static_cast<eTaskType>(m_Criminal->m_pVehicle->m_fHealth >= 250.f ? 1030 : 704);
+                    event->m_TaskId = static_cast<eTaskType>(!(m_Criminal->m_pVehicle->m_fHealth < 250.f) ? 1030 : 704); // NaN como el EXE (0x68ef7b): fcom + test ah + jcc
                     m_Criminal->GetEventGroup().Add(event, false);
                     m_Criminal->SetPedDefaultDecisionMaker();
                     auto* vehicle = m_Criminal->m_pVehicle;

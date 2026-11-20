@@ -1887,7 +1887,7 @@ bool CPed::OurPedCanSeeThisEntity(CEntity* entity, bool isSpotted) {
     if (!isSpotted) {
         const auto dir2D{ entity->GetPosition2D() - GetPosition2D() };
         // Como el original: Magnitude (sqrt) >= 40 (NaN tambien descarta), no el cuadrado
-        if (   DotProduct2D(dir2D, m_matrix->GetForward()) < 0.f // Is behind us
+        if (   !(DotProduct2D(dir2D, m_matrix->GetForward()) >= 0.f) // Is behind us // NaN como el EXE (0x5e16c9): fcom + test ah + jcc
             || !(std::sqrt(dir2D.y * dir2D.y + dir2D.x * dir2D.x) < 40.f)
         ) {
             return false;
@@ -2797,7 +2797,7 @@ void CPed::DoFootLanded(bool leftFoot, uint8 arg1) {
         float level;
         CWaterLevel::GetWaterLevel(pos.x, pos.y, pos.z + 1.5f, level, true, nullptr);
         splash = CVector{pos.x + CTimer::GetTimeStep() * m_vecMoveSpeed.x * 2.0f, pos.y + CTimer::GetTimeStep() * m_vecMoveSpeed.y * 2.0f, level};
-        if (pos.z - 0.4f <= level) return;
+        if (!(pos.z - 0.4f > level)) return; // NaN como el EXE (0x5e571c): fcom + test ah + jcc
     } else {
         if (!g_surfaceInfos.IsShallowWater(m_nContactSurface)) return;
         splash = position;
@@ -2839,7 +2839,7 @@ void CPed::PlayFootSteps() {
             otherBlend += anim->m_BlendAmount;
         }
     }
-    if (!walk || walkBlend <= 0.5f || otherBlend >= 1.0f) { landing(); return; }
+    if (!walk || !(walkBlend > 0.5f) || !(otherBlend < 1.0f)) { landing(); return; } // NaN como el EXE (0x5e5905,0x5e591a): fcom + test ah + jcc
     float leftTime = walk->m_BlendHier->m_fTotalTime * (1.0f / 15.0f);
     float rightTime = walk->m_BlendHier->m_fTotalTime * 0.5f + leftTime;
     if (bIsDucking) { leftTime += 0.2f; rightTime += 0.2f; }
@@ -2875,7 +2875,7 @@ void CPed::PlayFootSteps() {
         float level = 0.0f;
         if (m_nMoveState == PEDMOVE_SPRINT) level = mask ? 65.0f : 55.0f;
         else if (m_nMoveState == PEDMOVE_JOG || m_nMoveState == PEDMOVE_RUN) {
-            if (data->m_fMoveBlendRatio >= 2.0f) level = mask ? 55.0f : 45.0f;
+            if (!(data->m_fMoveBlendRatio < 2.0f)) level = mask ? 55.0f : 45.0f; // NaN como el EXE (0x5e5be6): fcom + test ah + jcc
             else if (mask && data->m_fMoveBlendRatio > 1.1f) level = (data->m_fMoveBlendRatio - 1.0f) * 20.0f + 30.0f;
             else if (data->m_fMoveBlendRatio > 1.5f) level = (data->m_fMoveBlendRatio - 1.0f) * 15.0f + 30.0f;
         }
@@ -4181,7 +4181,7 @@ void CPed::KillPedWithCar(CVehicle* car, float fDamageIntensity, bool bPlayDeadA
         bool bounce = false;
         if (runOver) {
             impact = 2;
-        } else if (DotProduct(car->m_vecMoveSpeed, car->GetForward()) >= 0.0f) {
+        } else if (!(DotProduct(car->m_vecMoveSpeed, car->GetForward()) < 0.0f)) { // NaN como el EXE (0x5f0641): fcom + test ah + jcc
             if (std::abs(side) > box.m_vecMax.x * 0.99f) {
                 impact = side > 0.0f ? 4 : 3;
                 runOver = std::abs(DotProduct(offset, car->GetForward())) < car->GetColModel()->m_boundBox.m_vecMax.y * 0.85f;

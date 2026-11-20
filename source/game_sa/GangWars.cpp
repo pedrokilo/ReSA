@@ -366,7 +366,7 @@ bool CGangWars::CreateAttackWave(int32 warFerocity, int32 waveID) {
                 alignas(4) std::array<uint8,0x18> event;
                 plugin::CallMethod<0x4B0A00>(reinterpret_cast<CEventScriptCommand*>(event.data()), 3, task, false);
                 plugin::CallMethod<0x4AB420>(reinterpret_cast<CEventGroup*>(reinterpret_cast<uint8*>(ped->GetIntelligence())+0x68), event.data(), false);
-                const auto weapon = static_cast<eWeaponType>(CGeneral::GetRandomNumberInRange(-0.3f,1.3f) <= Difficulty ? weapon2 : weapon1);
+                const auto weapon = static_cast<eWeaponType>(!(CGeneral::GetRandomNumberInRange(-0.3f,1.3f) > Difficulty) ? weapon2 : weapon1); // NaN como el EXE (0x4454fe): fcom + test ah + jcc
                 ped->GiveWeapon(weapon, 5000, false);
                 ped->SetCurrentWeapon(weapon);
                 *reinterpret_cast<uint8*>(reinterpret_cast<uint8*>(ped)+0x71A) = static_cast<uint8>(GangWaveInteger(Difficulty, 25.0f, 70.0f, 1));
@@ -725,7 +725,7 @@ bool CGangWars::PickZoneToAttack() {
             if (!zoneInfoIndex)
                 continue;
 
-            if ((float)zone->m_fX1 <= 2500.0f && (float)zone->m_fX2 >= 2500.0f && (float)zone->m_fY1 <= -1666.0f && (float)zone->m_fY2 >= -1666.0f) // todo:
+            if (!((float)zone->m_fX1 > 2500.0f) && !((float)zone->m_fX2 < 2500.0f) && !((float)zone->m_fY1 > -1666.0f) && !((float)zone->m_fY2 < -1666.0f)) // todo: // NaN como el EXE (0x443bae,0x443bc7,0x443be0,0x443bf9): fcom + test ah + jcc
                 continue;
 
             auto zoneInfo = &CTheZones::ZoneInfoArray.data()[zoneInfoIndex];

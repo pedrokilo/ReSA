@@ -336,7 +336,7 @@ void CPlayerInfo::Process(uint32 playerIndex) {
         auto& moved = StaticRef<bool>(0x8CDF21);
         initialized |= 1;
         if (CTimer::GetTimeInMS() / 20000 != CTimer::GetPreviousTimeInMS() / 20000) {
-            moved = (lastPosition - FindPlayerCoors()).Magnitude() >= 10.0f;
+            moved = !((lastPosition - FindPlayerCoors()).Magnitude() < 10.0f); // NaN como el EXE (0x57161f): fcom + test ah + jcc
             lastPosition = FindPlayerCoors();
             nearRoad = ThePaths.FindNodeClosestToCoors(FindPlayerCoors(), PATH_TYPE_VEH, 60.0f, 1, 0, 0, 0, 0).IsAreaValid();
         }
@@ -426,7 +426,7 @@ void CPlayerInfo::FindClosestCarSectorList(CPtrListDoubleLink<CVehicle*>& ptrLis
         if (car->GetStatus() == STATUS_WRECKED || car->GetStatus() == STATUS_TRAIN_MOVING) {
             continue;
         }
-        if (car->GetMatrix().GetUp().z <= 0.3f && !car->IsBike()) {
+        if (!(car->GetMatrix().GetUp().z > 0.3f) && !car->IsBike()) { // NaN como el EXE (0x56f580): fcom + test ah + jcc
             continue;
         }
         CVector position;

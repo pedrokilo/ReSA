@@ -86,7 +86,7 @@ bool CEventDeadPed::AffectsPed(CPed* ped) {
     const CVector distance = m_ped->GetPosition() - ped->GetPosition();
     if (m_ped->bKilledByStealth) {
         const float squaredMagnitude = distance.SquaredMagnitude();
-        if (DotProduct(distance, ped->GetForward()) >= 0.0f && squaredMagnitude <= sq(8.0f))
+        if (!(DotProduct(distance, ped->GetForward()) < 0.0f) && squaredMagnitude <= sq(8.0f)) // NaN como el EXE (0x4b48f0): fcom + test ah + jcc
             return sq(20.0f) > squaredMagnitude;
     }
     return false;

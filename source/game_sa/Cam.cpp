@@ -836,7 +836,7 @@ float CamPowerComplement(float base,float step) {
 void CCam::Process() {
     const auto f=[](uintptr_t address){return StaticRef<float>(address);};
     const uintptr_t activeAddress=0xB6F19C+uintptr_t(StaticRef<uint8>(0xB6F081))*sizeof(CCam);
-    if (float(StaticRef<int32>(0xB6FE34))<=f(0xB6FDC8)) StaticRef<uint8>(0xC0B184)&=0xFE;
+    if (!(float(StaticRef<int32>(0xB6FE34)) > f(0xB6FDC8))) StaticRef<uint8>(0xC0B184)&=0xFE; // NaN como el EXE (0x526fd5): fcom + test ah + jcc
     if (StaticRef<int16>(activeAddress+0xC)!=4) { StaticRef<uint8>(0xC0B184)&=0xFE;StaticRef<int32>(0xB6FE34)=0; }
     if (!m_pCamTargetEntity) { m_pCamTargetEntity=StaticRef<CEntity*>(0xB6F980);m_pCamTargetEntity->RegisterReference(&m_pCamTargetEntity); }
     if (StaticRef<uint8>(0xC8A860)==1) {
@@ -2182,10 +2182,10 @@ void CCam::Process_Cam_TwoPlayer_Separate_Cars() {
     const float step = CTimer::GetTimeStep() * StaticRef<float>(0x8CCCB4);
     if (selected == 0) {
         const float next = blend - step;
-        blend = next <= 0.f ? 0.f : next;
+        blend = !(next > 0.f) ? 0.f : next; // NaN como el EXE (0x513bc1): fcom + test ah + jcc
     } else {
         const float next = step + blend;
-        blend = next >= 1.f ? 1.f : next;
+        blend = !(next < 1.f) ? 1.f : next; // NaN como el EXE (0x513b96): fcom + test ah + jcc
     }
 }
 
@@ -3280,7 +3280,7 @@ void CCam::Process_FollowPedWithMouse(const CVector& position, float orientation
     CColPoint point; CEntity* hit{};
     if (CWorld::ProcessLineOfSight(target,m_vecSource,point,hit,true,true,true,true,false,false,true,false)) {
         float hitDistance=CamMouseFirstHitDistance355(target,point.m_vecPoint);
-        if (!hit->GetIsTypePed() || distance - hitDistance <= .4f) {
+        if (!hit->GetIsTypePed() || !(distance - hitDistance > .4f)) { // NaN como el EXE (0x50fef6): fcom + test ah + jcc
             m_vecSource = point.m_vecPoint;
             if (hitDistance < .6f) RwCameraSetNearClipPlane(Scene.m_pRwCamera,std::max(hitDistance - .3f,.05f));
         } else {
@@ -3431,7 +3431,7 @@ void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, flo
     if (!StaticRef<bool>(0xB6F080)) {
         if (!m_bResetStatics) {
             const float raised=step+m_fFOV;
-            if (70.f<=raised) { const float reduced=m_fFOV-step;m_fFOV=reduced<=70.f?70.f:reduced; }
+            if (!(70.f > raised)) { const float reduced=m_fFOV-step;m_fFOV=!(reduced>70.f)?70.f:reduced; } /* NaN como el EXE (0x522F40, 0x522F63) */
             else m_fFOV=raised;
         } else m_fFOV=70.f;
     }

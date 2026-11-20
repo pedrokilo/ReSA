@@ -257,7 +257,7 @@ bool CDoor::IsClosed() const {
 
 // 0x6F4820
 bool CDoor::IsFullyOpen() const {
-    return !(std::fabsf(GetAngleWhenOpen()) - 0.5f > std::fabsf(GetDoorAngle())); // Como el original: NaN devuelve true
+    return (std::fabsf(GetAngleWhenOpen()) - 0.5f <= std::fabsf(GetDoorAngle())); // Como el original: NaN devuelve true // NaN como el EXE (0x6f4835): fcom + test ah + jcc
 }
 
 // NOTSA

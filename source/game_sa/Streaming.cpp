@@ -835,7 +835,7 @@ void CStreaming::DeleteRwObjectsBehindCamera(size_t memoryToCleanInBytes) {
         int32 sectorEndX = 0;
         int32 factorX = 0;
 
-        if (camFwd.x <= 0.0f) {
+        if (!(camFwd.x > 0.0f)) { // NaN como el EXE (0x40d8b2): fcom + test ah + jcc
             sectorStartX = std::min(pointSecX + START_OFFSET_XY, MAX_SECTORS_X - 1);
             sectorEndX = std::min(pointSecX + END_OFFSET_XY, MAX_SECTORS_X - 1);
             factorX = -1;
@@ -859,7 +859,7 @@ void CStreaming::DeleteRwObjectsBehindCamera(size_t memoryToCleanInBytes) {
             }
         }
 
-        if (camFwd.x <= 0.0f) {
+        if (!(camFwd.x > 0.0f)) { // NaN como el EXE (0x40da36): fcom + test ah + jcc
             sectorEndX = std::min(pointSecX + END_OFFSET_XY, MAX_SECTORS_X - 1);
             sectorStartX = std::max(pointSecX - START_OFFSET_XY, 0);
             factorX = -1;
@@ -903,7 +903,7 @@ void CStreaming::DeleteRwObjectsBehindCamera(size_t memoryToCleanInBytes) {
         int32 sectorStartY = 0;
         int32 sectorEndY = 0;
         int32 factorY = 0;
-        if (camFwd.y <= 0.0f) {
+        if (!(camFwd.y > 0.0f)) { // NaN como el EXE (0x40dcff): fcom + test ah + jcc
             sectorEndY = std::min(pointSecY + END_OFFSET_XY, MAX_SECTORS_Y - 1);
             sectorStartY = std::min(pointSecY + START_OFFSET_XY, MAX_SECTORS_Y - 1);
             factorY = -1;
@@ -925,7 +925,7 @@ void CStreaming::DeleteRwObjectsBehindCamera(size_t memoryToCleanInBytes) {
                 }
             }
         }
-        if (camFwd.y <= 0.0f) {
+        if (!(camFwd.y > 0.0f)) { // NaN como el EXE (0x40de78): fcom + test ah + jcc
             sectorEndY = std::min(pointSecY + END_OFFSET_XY, MAX_SECTORS_Y - 1);
             sectorStartY = std::max(pointSecY - START_OFFSET_XY, 0);
             factorY = -1;
@@ -3863,7 +3863,7 @@ void CStreaming::Update() {
     const auto& camPos = TheCamera.GetPosition();
     const float fCamDistanceToGroundZ = camPos.z - TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_BOTTOM);
     if (!ms_disableStreaming && !CRenderer::m_loadingPriority) {
-        if (fCamDistanceToGroundZ >= 50.0f) {
+        if (!(fCamDistanceToGroundZ < 50.0f)) { // NaN como el EXE (0x40e7bc): fcom + test ah + jcc
             if (CGame::CanSeeOutSideFromCurrArea()) {
                 AddLodsToRequestList(camPos, 0);
             }

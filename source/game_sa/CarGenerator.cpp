@@ -111,7 +111,7 @@ bool CCarGenerator::CheckIfWithinRangeOfAnyPlayers()
 
     // Como el original: comparaciones sensibles a NaN (fcom + test ah,1/5/41h).
     float posnZ = m_vecPosn.z;
-    if (CGame::CanSeeOutSideFromCurrArea() ? !(posnZ < 950.0f) : posnZ < 950.0f)
+    if (CGame::CanSeeOutSideFromCurrArea() ? (posnZ >= 950.0f) : posnZ < 950.0f) // NaN como el EXE (0x6f311f): fcom + test ah + jcc
         return false;
 
     if (TheCamera.m_fGenerationDistMultiplier * 160.0f - 20.0f > relPosn.Magnitude2D() && !bHighPriority)
@@ -221,7 +221,7 @@ void CCarGenerator::DoInternalProcessing()
     else
     {
         CVector posn = m_vecPosn;
-        if (posn.z > MAP_Z_LOW_LIMIT)
+        if (!(posn.z <= MAP_Z_LOW_LIMIT)) // NaN como el EXE (0x6f3a90): fcom + test ah + jcc
             posn.z += 1.0f;
         else
             posn.z = 1000.0f;

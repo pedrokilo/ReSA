@@ -2072,7 +2072,7 @@ void CPlayerPed::EvaluateNeighbouringTarget(CEntity* target, CEntity** outTarget
     // Prioridad: -100000.0 (0x86D1E8) salvo en el lado elegido (arg5 = derecha: angulo > 0, prioridad -angulo; si no, izquierda: angulo < 0, prioridad angulo)
     float priority;
     if (arg5) {
-        priority = angle > 0.0f ? -angle : -100000.0f;
+        priority = !(angle <= 0.0f) ? -angle : -100000.0f; // NaN como el EXE (0x60d2fd): fcom + test ah + jcc
     } else {
         priority = angle < 0.0f ? angle : -100000.0f;
     }

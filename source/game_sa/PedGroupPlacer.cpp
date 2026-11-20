@@ -128,7 +128,7 @@ bool CPedGroupPlacer::PlaceFormationGroup(ePedType type, uint32 numOfPeds, const
     bool found;
     const float ground = CWorld::FindGroundZFor3DCoord({origin.x, origin.y, origin.z + 1.0f}, &found, nullptr) + 1.0f;
     if (!found) return false;
-    const float height = origin.z <= ground ? ground : origin.z;
+    const float height = !(origin.z > ground) ? ground : origin.z; // NaN como el EXE (0x5fca56): fcom + test ah + jcc
     const auto leaderModel = CGangs::ChooseGangPedModel(static_cast<eGangID>(static_cast<int32>(type) - 7));
     if (!*reinterpret_cast<void* const*>(reinterpret_cast<const uint8*>(CModelInfo::GetModelInfo(leaderModel)) + 0x1C)) return false;
     auto* leader = CPopulation::AddPed(type, leaderModel, {origin.x, origin.y, height}, false);
@@ -145,7 +145,7 @@ bool CPedGroupPlacer::PlaceFormationGroup(ePedType type, uint32 numOfPeds, const
         ped->SetPosn(leader->GetPosition() + CVector{offset.x, offset.y, 0.0f});
         const auto initial = ped->GetPosition();
         const float pedGround = CWorld::FindGroundZFor3DCoord({initial.x, initial.y, initial.z + 1.0f}, &found, nullptr) + 1.0f;
-        const float pedHeight = initial.z <= pedGround ? pedGround : initial.z;
+        const float pedHeight = !(initial.z > pedGround) ? pedGround : initial.z; // NaN como el EXE (0x5fca56): fcom + test ah + jcc
         if (!found || std::abs(pedHeight - leader->GetPosition().z) > 1.0f || !CWorld::GetIsLineOfSightClear({initial.x, initial.y, pedHeight}, leader->GetPosition(), true, false, false, false, false, false, false)) {
             CPopulation::RemovePed(ped);
             continue;

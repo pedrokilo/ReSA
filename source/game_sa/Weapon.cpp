@@ -1226,7 +1226,7 @@ void CWeapon::DoTankDoomAiming(CEntity* vehicle, CEntity* owner, CVector* startP
         const auto delta=origin-target;
         const float planar=std::sqrt(delta.y*delta.y+delta.x*delta.x);
         const float difference=origin.z-(planar*slope+target.z);
-        const float vertical=difference>=0.0f?difference:-difference;
+        const float vertical=!(difference < 0.0f)?difference:-difference; // NaN como el EXE (0x73d4e2): fcom + test ah + jcc
         if(!(vertical*3.0f<planar))continue;
         const CVector flatTarget{entity->GetPosition().x,entity->GetPosition().y,0};
         const auto* model=CModelInfo::GetModelInfo(int16(entity->GetModelIndex()));
@@ -1736,7 +1736,7 @@ CEntity* CWeapon::PickTargetForHeatSeekingMissile(CVector origin, CVector direct
         }
         const auto rating = EvaluateTargetForHeatSeekingMissile(&veh, point, direction, distanceMultiplier, arePlanesPriority, preferredExistingTarget);
         // 0x73F9DC..0x73F9F5: rating >= 0 (test ah,1) y rating < minRating ESTRICTO (test ah,5 + jp)
-        if (!(rating < 0.f) && rating < minRating) {
+        if ((rating >= 0.f) && rating < minRating) { // NaN como el EXE (0x73f9e5): fcom + test ah + jcc
             minRating = rating;
             minRated  = &veh;
         }
@@ -1924,7 +1924,7 @@ bool CWeapon::FireInstantHit(CEntity* firingEntity, CVector* origin, CVector* mu
             else if (spread > 0.f) {
                 if (targetEntity && targetEntity->GetIsTypePed() && targetEntity->AsPed()->IsPlayer()) {
                     float speed = targetEntity->AsPhysical()->m_vecMoveSpeed.Magnitude();
-                    if (speed <= .33f) speed = targetEntity->AsPhysical()->m_vecMoveSpeed.Magnitude(); else speed = .33f;
+                    if (!(speed > .33f)) speed = targetEntity->AsPhysical()->m_vecMoveSpeed.Magnitude(); else speed = .33f; // NaN como el EXE (0x74021e): fcom + test ah + jcc
                     spread = (speed * .90909094f + .8f) * spread;
                 }
                 randomSpread();
@@ -2027,7 +2027,7 @@ bool CWeapon::FireInstantHit(CEntity* firingEntity, CVector* origin, CVector* mu
                 DoBulletImpact(firingEntity,victim,start,pelletPoint.m_vecPoint,pelletPoint,index==lastTouched?-touched:1);
             }
             if (victim->GetIsTypePed() || victim->GetIsTypeVehicle()) {
-                if ((distances[0] != 1.f && float(touched) / float(count) >= .5f) || attempts > 1) victim = nullptr;
+                if ((distances[0] != 1.f && !(float(touched) / float(count) < .5f)) || attempts > 1) victim = nullptr; // NaN como el EXE (0x741233): fcom + test ah + jcc
                 else {
                     CWorld::pIgnoreEntity = victim;
                     start = hit.m_vecPoint; victim = nullptr;

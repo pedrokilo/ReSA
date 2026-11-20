@@ -972,7 +972,7 @@ void CTrain::DoTrainGenerationAndRemoval() {
     const auto nodePos = CVector{float(pTrackNodes[0][GenTrain_GenerationNode].x) * .125f,float(pTrackNodes[0][GenTrain_GenerationNode].y) * .125f,float(pTrackNodes[0][GenTrain_GenerationNode].z) * .125f};
     bool skipFirst = dist >= generationRadius;
     if (!skipFirst) {
-        if (nodePos.z + 6.f <= FindPlayerCoors(-1).z) {
+        if (!(nodePos.z + 6.f > FindPlayerCoors(-1).z)) { // NaN como el EXE (0x6f7e35): fcom + test ah + jcc
             const auto player = FindPlayerCoors(-1);
             if (!(CCullZones::FindTunnelAttributesForCoors(player) & 0x880) && (CCullZones::FindTunnelAttributesForCoors(nodePos) & 0x800)) skipFirst = true;
         }
@@ -1256,7 +1256,7 @@ void CTrain::ProcessControl() {
                 const CVector& vecPoint = GetPosition();
                 CVector vecDistance{};
                 if (CGameLogic::CalcDistanceToForbiddenTrainCrossing(vecPoint, m_vecMoveSpeed, true, vecDistance) < 230.0f) {
-                    if (DotProduct(GetForwardVector(), vecDistance) <= 0.0f) {
+                    if (!(DotProduct(GetForwardVector(), vecDistance) > 0.0f)) { // NaN como el EXE (0x6f9bb3): fcom + test ah + jcc
                         m_fTrainGas = std::max(0.0f, m_fTrainGas);
                     } else {
                         m_fTrainGas = std::min(0.0f, m_fTrainGas);
@@ -1593,7 +1593,7 @@ void CTrain::ProcessControl() {
             physicalFlags.bTouchingWater = true;
 
             float fTimeStep = 0.01f;
-            if (CTimer::GetTimeStep() >= 0.01f) {
+            if (!(CTimer::GetTimeStep() < 0.01f)) { // NaN como el EXE (0x6f9cdb): fcom + test ah + jcc
                 fTimeStep = CTimer::GetTimeStep();
             }
 

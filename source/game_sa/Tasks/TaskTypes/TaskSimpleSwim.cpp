@@ -449,7 +449,7 @@ void CTaskSimpleSwim::ProcessSwimAnims(CPed* ped) {
         break;
     }
     case SWIM_UNDERWATER_SPRINTING: {
-        if ((m_AnimID == ANIM_ID_SWIM_UNDER || m_AnimID == ANIM_ID_SWIM_GLIDE) && m_fStateChanger >= 0.0f) {
+        if ((m_AnimID == ANIM_ID_SWIM_UNDER || m_AnimID == ANIM_ID_SWIM_GLIDE) && !(m_fStateChanger < 0.0f)) { // NaN como el EXE (0x689f40): fcom + test ah + jcc
             if (player->GetPlayerData() && player->GetButtonSprintResults(SPRINT_UNDERWATER) >= 1.0f) {
                 CAnimBlendAssociation* assocUnder = RpAnimBlendClumpGetAssociation(player->GetRpClump(), ANIM_ID_SWIM_UNDER);
                 if (!assocUnder || assocUnder->m_BlendDelta < 0.0f || assocUnder->m_BlendAmount == 0.0f) {
@@ -471,7 +471,7 @@ void CTaskSimpleSwim::ProcessSwimAnims(CPed* ped) {
             CAnimBlendAssociation* assocUnder = RpAnimBlendClumpGetAssociation(player->GetRpClump(), ANIM_ID_SWIM_UNDER);
             if (assocUnder) {
                 if (m_fStateChanger < 0.0f && assocUnder->m_BlendAmount >= 0.99f) {
-                    if (m_fStateChanger > -2.0f) {
+                    if (!(m_fStateChanger <= -2.0f)) { // NaN como el EXE (0x689e3a): fcom + test ah + jcc
                         // Como el original: ángulo global 0x8D2FC4 por 0x8595EC
                         m_fStateChanger = 0.0f;
                         m_fRotationX = SwimDiveUnderAngle * SWIM_DEG_TO_RAD;

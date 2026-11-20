@@ -502,7 +502,7 @@ bool CBike::ProcessAI(uint32& extraHandlingFlags) {
             const auto bikeHandling=word(0x63C);
             const auto handling=word(0x384);
             const float lean=number(0x650);
-            const bool positive=lean>=0.f;
+            const bool positive=!(lean < 0.f); // NaN como el EXE (0x6bcb1c): fcom + test ah + jcc
             number(0xA8)=*reinterpret_cast<const float*>(bikeHandling+(positive?4:12))*lean+*reinterpret_cast<const float*>(handling+24);
             const bool forceNeeded=positive?(number(0x4A0)<0.f || !byte(0x804)):((number(0x4A0)==0.f && !(byte(0x428)&0x20)) || !byte(0x804));
             if (forceNeeded) {
@@ -620,14 +620,14 @@ void CBike::ProcessRiderAnims(CPed* rider, CVehicle* vehicle, CRideAnimData* rid
     float leanFwdTarget=0.f;
     const auto blend=[&](int id,float delta){return CAnimManager::BlendAnimation(clump,rideData->AnimGroup,static_cast<AnimationId>(id),delta);};
     const auto faded=[](CAnimBlendAssociation* animation){return !animation || (animation->m_BlendAmount<1.f && animation->m_BlendDelta<=0.f);};
-    const auto fade=[](CAnimBlendAssociation* animation){if(animation && animation->m_BlendDelta>=0.f)animation->m_BlendDelta=-4.f;};
-    if (special || std::abs(speed)>=.02f) {
+    const auto fade=[](CAnimBlendAssociation* animation){if(animation && !(animation->m_BlendDelta < 0.f))animation->m_BlendDelta=-4.f;}; // NaN como el EXE (0x6b75cb): fcom + test ah + jcc
+    if (special || !(std::abs(speed) < .02f)) { // NaN como el EXE (0x6b7568): fcom + test ah + jcc
         if (speed>=0.f) { fade(idle);fade(reverse); }
         else {
             float reverseLimit=(rider->GetBikeRidingSkill()+1.f)*3.5f;
             if (*reinterpret_cast<const int32*>(reinterpret_cast<const uint8*>(vehicle)+0x594)==2) reverseLimit+=reverseLimit;
             const float reverseVelocity=number(vehicle->m_pHandlingData,0x8C);
-            if (reverseLimit*reverseVelocity<=speed || (!contacts && (matrix.GetUp().z>=-.5f || CTimer::GetTimeInMS()-*reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(vehicle)+0x3C)>99))) {
+            if (reverseLimit*reverseVelocity<=speed || (!contacts && (!(matrix.GetUp().z < -.5f) || CTimer::GetTimeInMS()-*reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(vehicle)+0x3C)>99))) { // NaN como el EXE (0x6b7625): fcom + test ah + jcc
                 if (number(vehicle,0x49C)>=0.f || speed<=reverseVelocity*1.5f) {
                     if (player && speed<reverseVelocity*1.5f) leanFwdTarget=-1.f;
                     fade(idle);fade(reverse);
@@ -659,11 +659,11 @@ void CBike::ProcessRiderAnims(CPed* rider, CVehicle* vehicle, CRideAnimData* rid
         } else if (automobile && number(automobile,0x7F4)<=0.f && number(automobile,0x7F8)<=0.f && matrix.GetForward().z>0.f && (number(automobile,0x7FC)>0.f || number(automobile,0x800)>0.f)) {
             wheelie=true;wheelieDifference=handling->m_fWheelieAng-matrix.GetForward().z;
         }
-        if (wheelie && wheelieDifference<.15f) { if(leanFwdTarget<=.25f)leanFwdTarget=.25f;ordinary=false; }
+        if (wheelie && wheelieDifference<.15f) { if(!(leanFwdTarget > .25f))leanFwdTarget=.25f;ordinary=false; } // NaN como el EXE (0x6b7bab): fcom + test ah + jcc
         if (ordinary) {
-            if (number(vehicle,0x4A0)<=.5f || speed<=.01f) {
-                if (number(vehicle,0x49C)>.5f && leanFwdTarget<=0.f && speed<number(vehicle->m_pHandlingData,0x88)*.3f && leanFwdTarget>=-.3f) leanFwdTarget=-.3f;
-            } else if (leanFwdTarget<=.1f) leanFwdTarget=.1f;
+            if (!(number(vehicle,0x4A0) > .5f) || !(speed > .01f)) { // NaN como el EXE (0x6b7ae5,0x6b7bc6): fcom + test ah + jcc
+                if (number(vehicle,0x49C)>.5f && leanFwdTarget<=0.f && speed<number(vehicle->m_pHandlingData,0x88)*.3f && !(leanFwdTarget < -.3f)) leanFwdTarget=-.3f; // NaN como el EXE (0x6b7c05): fcom + test ah + jcc
+            } else if (!(leanFwdTarget > .1f)) leanFwdTarget=.1f; // NaN como el EXE (0x6b7afa): fcom + test ah + jcc
         }
         if (std::abs(lean)>f(0x871358)) leanFwdTarget=BikeRiderForwardLimit355(lean,leanFwdTarget);
     }
@@ -683,11 +683,11 @@ void CBike::ProcessRiderAnims(CPed* rider, CVehicle* vehicle, CRideAnimData* rid
     };
     if (player) {
         if(!forward)forward=add(199);if(!backward)backward=add(198);
-        if(rideData->AnimLeanFwd<0.f)pose(backward,forward,forwardWeight*available,-rideData->AnimLeanFwd);
+        if(!(rideData->AnimLeanFwd >= 0.f))pose(backward,forward,forwardWeight*available,-rideData->AnimLeanFwd); // NaN como el EXE (0x6b7db3): fcom + test ah + jcc
         else pose(forward,backward,forwardWeight*available,rideData->AnimLeanFwd);
     }
     if(!left)left=add(196);if(!right)right=add(197);
-    if(rideData->AnimLeanLeft<0.f)pose(left,right,lateralWeight*available,-rideData->AnimLeanLeft);
+    if(!(rideData->AnimLeanLeft >= 0.f))pose(left,right,lateralWeight*available,-rideData->AnimLeanLeft); // NaN como el EXE (0x6b7e4f): fcom + test ah + jcc
     else pose(right,left,lateralWeight*available,rideData->AnimLeanLeft);
     if (speed>.3f) {
         auto* boneMatrix=*reinterpret_cast<RwMatrix**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(rider)+0x490)+0x10);
@@ -795,8 +795,8 @@ void CBike::ProcessControlInputs(uint8 playerNum) {
         const int32 up = -int32(CPad::GetPad(playerNum)->GetSteeringUpDown());
         lean = BikeControlBlend355(lean, up, step, StaticRef<float>(0x858CC4));
     }
-    m_fRawSteerAngle = !(m_fRawSteerAngle > -1.f) ? -1.f : m_fRawSteerAngle >= 1.f ? 1.f : m_fRawSteerAngle;
-    lean = !(lean > -1.f) ? -1.f : lean >= 1.f ? 1.f : lean;
+    m_fRawSteerAngle = !(m_fRawSteerAngle > -1.f) ? -1.f : !(m_fRawSteerAngle < 1.f) ? 1.f : m_fRawSteerAngle; // NaN como el EXE (0x6be682): fcom + test ah + jcc
+    lean = !(lean > -1.f) ? -1.f : !(lean < 1.f) ? 1.f : lean; // NaN como el EXE (0x6be6c4): fcom + test ah + jcc
     const int32 accelerate = int32(CPad::GetPad(playerNum)->GetAccelerate());
     const int32 brake = int32(CPad::GetPad(playerNum)->GetBrake());
     const float pedal = float(accelerate - brake) * StaticRef<float>(0x859A3C);

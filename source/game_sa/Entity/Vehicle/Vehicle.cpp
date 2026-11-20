@@ -885,7 +885,7 @@ uint8 CVehicle::SpecialEntityCalcCollisionSteps(bool& bProcessCollisionBeforeSet
 
     float fMove = std::sqrt(fMoveSquared);
     if (!TreatAsPlayerForCollisions()) {
-        if (fMoveSquared <= std::bit_cast<float>(0x3EA3D70Bu)) { // 0x871E30
+        if (!(fMoveSquared > std::bit_cast<float>(0x3EA3D70Bu))) { // 0x871E30 // NaN como el EXE (0x6d0f1c): fcom + test ah + jcc
             fMove *= (10.0F / 4.0F);
         } else {
             fMove *= (10.0F / 3.0F);
@@ -1202,9 +1202,9 @@ void CVehicle::ProcessDrivingAnims(CPed* driver, bool blend) {
         // Preserve the executable's x87 rounding and stat-read order: fsqrt((x*x + y*y) + z*z) (0x6DF504..0x6DF52D), stored as float.
         const float fSpeed = DestroyCarDistanceCpp(&m_vecMoveSpeed.x);
         if (CStats::GetStatValue(eStats::STAT_DRIVING_SKILL) >= 100.0F) {
-            usedAnims = fSpeed <= 0.4F ? &aDriveAnimIdsProSlow : &aDriveAnimIdsPro;
+            usedAnims = !(fSpeed > 0.4F) ? &aDriveAnimIdsProSlow : &aDriveAnimIdsPro; // NaN como el EXE (0x6df5c3): fcom + test ah + jcc
         } else if (CStats::GetStatValue(eStats::STAT_DRIVING_SKILL) >= 50.0F) {
-            usedAnims = fSpeed <= 0.4F ? &aDriveAnimIdsStdSlow : &aDriveAnimIdsStd;
+            usedAnims = !(fSpeed > 0.4F) ? &aDriveAnimIdsStdSlow : &aDriveAnimIdsStd; // NaN como el EXE (0x6df5fa): fcom + test ah + jcc
         } else {
             usedAnims = fSpeed <= 0.4F ? &aDriveAnimIdsBadSlow : &aDriveAnimIdsBad;
         }
@@ -2408,7 +2408,7 @@ void CVehicle::AddDamagedVehicleParticles() {
     if (IsSubPlane())
         return;
 
-    if (m_fHealth >= 650.0f || m_fHealth < 250.0f || physicalFlags.bSubmergedInWater) {
+    if (!(m_fHealth < 650.0f) || m_fHealth < 250.0f || physicalFlags.bSubmergedInWater) { // NaN como el EXE (0x6d2a9f): fcom + test ah + jcc
         FxSystem_c::SafeKillAndClear(m_pOverheatParticle);
         return;
     }
@@ -2498,13 +2498,13 @@ bool CVehicle::AddWheelDirtAndWater(CColPoint& colPoint, bool isProduceWheelDrop
     }
     // Como el original: el azar solo se tira si la superficie es polvo/arena, y en ese caso siempre devuelve false
     if (g_surfaceInfos.CreatesWheelDust(colPoint.m_nSurfaceTypeB)) {
-        if (CWeather::WetRoads <= 0.0f || CGeneral::GetRandomNumberInRange(CWeather::WetRoads, 1.01f) <= 0.5f) {
+        if (!(CWeather::WetRoads > 0.0f) || !(CGeneral::GetRandomNumberInRange(CWeather::WetRoads, 1.01f) > 0.5f)) { // NaN como el EXE (0x6d2ea8,0x6d2ec8): fcom + test ah + jcc
             g_fx.AddWheelDust(this, colPoint.m_vecPoint, isWheelsSpinning, m_fContactSurfaceBrightness);
         }
         return false;
     }
     if (g_surfaceInfos.CreatesWheelSand(colPoint.m_nSurfaceTypeB)) {
-        if (CWeather::WetRoads <= 0.0f || CGeneral::GetRandomNumberInRange(CWeather::WetRoads, 1.01f) <= 0.5f) {
+        if (!(CWeather::WetRoads > 0.0f) || !(CGeneral::GetRandomNumberInRange(CWeather::WetRoads, 1.01f) > 0.5f)) { // NaN como el EXE (0x6d2f25,0x6d2f45): fcom + test ah + jcc
             g_fx.AddWheelSand(this, colPoint.m_vecPoint, isWheelsSpinning, m_fContactSurfaceBrightness);
         }
         return false;
@@ -7541,7 +7541,7 @@ void CVehicle::ProcessBoatControl(tBoatHandlingData* boatHandling, float* fLastW
 void CVehicle::DoBoatSplashes(float fWaterDamping) {
     // Como el original (0x6DD130): constantes leidas del EXE y cuentas en el mismo orden
     const auto speedDist = m_vecMoveSpeed.SquaredMagnitude();
-    if (speedDist <= std::bit_cast<float>(0x3B23D70Bu) /* 0x858CD8 */ || GetUp().z <= 0.0f || TheCamera.GetLookingForwardFirstPerson() || !IsVisible()) {
+    if (!(speedDist > std::bit_cast<float>(0x3B23D70Bu)) /* 0x858CD8; NaN como el EXE (0x6DD179: fcomp + test ah,0x41 + jne) */ || GetUp().z <= 0.0f || TheCamera.GetLookingForwardFirstPerson() || !IsVisible()) {
         return;
     }
 
@@ -7552,7 +7552,7 @@ void CVehicle::DoBoatSplashes(float fWaterDamping) {
     auto vec = GetPosition() - TheCamera.GetPosition(); // -> DistanceBetweenPoints2D()
     vec.z = 0.0f;
     const auto dist = vec.Magnitude();
-    if (dist >= 80.0f)
+    if (!(dist < 80.0f)) // NaN como el EXE (0x6dd209): fcom + test ah + jcc
         return;
 
     auto v9 = std::sqrt(speedDist) * 0.075f * fWaterDamping;
@@ -7562,14 +7562,14 @@ void CVehicle::DoBoatSplashes(float fWaterDamping) {
         v9 = 1.0f;
     }
 
-    if (v9 <= 0.15f) {
+    if (!(v9 > 0.15f)) { // NaN como el EXE (0x6dd26a): fcom + test ah + jcc
         return;
     }
 
     auto v48 = v9 * 0.75f;
     if (m_autoPilot.m_nCarMission == MISSION_CRUISE) {
         const auto v10 = v48 + v48;
-        v48 = v10 >= 1.0f ? 1.0f : v10;
+        v48 = !(v10 < 1.0f) ? 1.0f : v10; // NaN como el EXE (0x6dd290): fcom + test ah + jcc
     }
 
     // Como el original: el alfa es un byte (truncado con _ftol2, tope 0x40)
@@ -7589,13 +7589,13 @@ void CVehicle::DoBoatSplashes(float fWaterDamping) {
     FxPrtMult_c particleData(1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f);
 
     const auto alpha = static_cast<float>(alpha8) * std::bit_cast<float>(0x3B808081u); // 0x859A3C
-    particleData.m_Color.alpha = alpha >= 1.0f ? 1.0f : alpha;
+    particleData.m_Color.alpha = !(alpha < 1.0f) ? 1.0f : alpha; // NaN como el EXE (0x6dd370): fcom + test ah + jcc
 
     const auto size = sizeTmp * 0.1f;
-    particleData.m_fSize = size >= 1.0f ? 1.0f : size;
+    particleData.m_fSize = !(size < 1.0f) ? 1.0f : size; // NaN como el EXE (0x6dd397): fcom + test ah + jcc
 
     const auto life = life0 * 0.2f;
-    particleData.m_fLife = life >= 1.0f ? 1.0f : life;
+    particleData.m_fLife = !(life < 1.0f) ? 1.0f : life; // NaN como el EXE (0x6dd3c4): fcom + test ah + jcc
 
     const CVector& colMin = GetColModel()->GetBoundingBox().m_vecMin;
     const CVector& colMax = GetColModel()->GetBoundingBox().m_vecMax;
@@ -7848,7 +7848,7 @@ void CVehicle::AddExhaustParticles() {
 
     // Como el original: producto escalar sumado en orden z, y, x; la componente z de la velocidad queda a 0
     CVector vecParticleVelocity{ 0.0f, 0.0f, 0.0f };
-    if (((GetForward().z * m_vecMoveSpeed.z) + (GetForward().y * m_vecMoveSpeed.y)) + GetForward().x * m_vecMoveSpeed.x >= 0.05f) {
+    if (!(((GetForward().z * m_vecMoveSpeed.z) + (GetForward().y * m_vecMoveSpeed.y)) + GetForward().x * m_vecMoveSpeed.x < 0.05f)) { // NaN como el EXE (0x6de42c): fcom + test ah + jcc
         vecParticleVelocity.x = m_vecMoveSpeed.x * 30.0f;
         vecParticleVelocity.y = m_vecMoveSpeed.y * 30.0f;
     } else {
@@ -7881,12 +7881,12 @@ void CVehicle::AddExhaustParticles() {
         }
     }
 
-    if (CGeneral::GetRandomNumberInRange(1.0f, 3.0f) * (m_GasPedal + 1.1f) <= 2.5f)
+    if (!(CGeneral::GetRandomNumberInRange(1.0f, 3.0f) * (m_GasPedal + 1.1f) > 2.5f)) // NaN como el EXE (0x6de59c): fcom + test ah + jcc
         return;
 
     float fMoveSpeed = m_vecMoveSpeed.Magnitude() * 0.5f;
     float particleAlpha = 0.0f;
-    if (0.25f - fMoveSpeed >= 0.0f) {
+    if (!(0.25f - fMoveSpeed < 0.0f)) { // NaN como el EXE (0x6DE5C6: fcom + test ah + jcc)
         particleAlpha = 0.25f - fMoveSpeed;
     }
     float fLife = std::max(0.2f - fMoveSpeed, 0.0f);

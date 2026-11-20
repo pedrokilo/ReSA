@@ -1,0 +1,14 @@
+archivo,linea,occ,dir_exe_cmp
+source/game_sa/Cam.cpp,836,0,526fd5
+source/game_sa/Camera.cpp,2358,0,514698
+source/game_sa/CarGenerator.cpp,224,0,6f3a90
+source/game_sa/Door.cpp,260,0,6f4835
+source/game_sa/GangWars.cpp,369,0,4454fe
+source/game_sa/PedGeometryAnalyser.cpp,762,0,5f39f8
+source/game_sa/PedGroupPlacer.cpp,131,0,5fca56
+source/game_sa/PedGroupPlacer.cpp,148,0,5fca56
+source/game_sa/Entity/Ped/Ped.cpp,2759,0,5e571c
+source/game_sa/Entity/Vehicle/Boat.cpp,289,0,6f261d
+source/game_sa/Entity/Vehicle/Train.cpp,975,0,6f7e35
+source/game_sa/Entity/Vehicle/Vehicle.cpp,882,0,6d0f1c
+source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp,546,0,62c117

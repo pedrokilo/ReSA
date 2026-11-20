@@ -555,9 +555,9 @@ void CBmx::PreRender() {
         for (int32 w = 0; w < 2; ++w) {
             int32 ray;
             if (w == 0) {
-                ray = (!(m_aRatioHistory[0] < 1.0f) && m_aRatioHistory[1] < 1.0f) ? 1 : 0;
+                ray = ((m_aRatioHistory[0] >= 1.0f) && m_aRatioHistory[1] < 1.0f) ? 1 : 0; // NaN como el EXE (0x6c09b5): fcom + test ah + jcc
             } else {
-                ray = (!(m_aRatioHistory[3] < 1.0f) && m_aRatioHistory[2] < 1.0f) ? 2 : 3;
+                ray = ((m_aRatioHistory[3] >= 1.0f) && m_aRatioHistory[2] < 1.0f) ? 2 : 3; // NaN como el EXE (0x6c09e7): fcom + test ah + jcc
             }
 
             uint32 flags = (w == 0 || m_WheelStates[1] == WHEEL_STATE_FIXED) ? 4u : 0u;

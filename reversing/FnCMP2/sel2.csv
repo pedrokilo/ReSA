@@ -1,0 +1,11 @@
+archivo,linea,occ,dir_exe_cmp
+source/game_sa/CarGenerator.cpp,114,0,6f311f
+source/game_sa/Entity/Vehicle/Bike.cpp,623,0,6b75cb
+source/game_sa/Entity/Vehicle/Bike.cpp,686,0,6b7db3
+source/game_sa/Entity/Vehicle/Bike.cpp,690,0,6b7e4f
+source/game_sa/Entity/Vehicle/Bmx.cpp,558,0,6c09b5
+source/game_sa/Entity/Vehicle/Bmx.cpp,560,0,6c09e7
+source/game_sa/Entity/Vehicle/Vehicle.cpp,3870,0,6d71c9
+source/game_sa/Entity/Vehicle/Vehicle.cpp,3876,0,6d723b
+source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp,654,0,68ed91
+source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFoot.cpp,534,0,62662a

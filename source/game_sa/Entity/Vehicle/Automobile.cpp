@@ -2345,15 +2345,15 @@ void CAutomobile::ProcessControlInputs(uint8 playerNum) {
             m_GasPedal = gasPedalInput;
             m_BrakePedal = 0.f;
         }
-    } else if (!(fwdvel < 0.f)) { // 0x6ADB8B: se mueve hacia delante
-        if (gasPedalInput < 0.f) {
+    } else if ((fwdvel >= 0.f)) { // 0x6ADB8B: se mueve hacia delante; NaN como el EXE (0x6ADB99: fcomp + test ah,1 + jne): con NaN va a marcha atras
+        if (!(gasPedalInput >= 0.f)) { // NaN como el EXE (0x6ADBA4: test ah,1 + je a 0x6ADC08): NaN frena
             m_GasPedal = 0.f;
             m_BrakePedal = -gasPedalInput;
         } else {
             m_GasPedal = gasPedalInput;
             m_BrakePedal = 0.f;
         }
-    } else if (gasPedalInput < 0.f) { // 0x6ADBC1: marcha atras
+    } else if (!(gasPedalInput >= 0.f)) { // 0x6ADBC1: marcha atras; NaN como el EXE (test ah,1 + jne)
         m_GasPedal = gasPedalInput;
         m_BrakePedal = 0.f;
     } else if (m_GasPedal > 0.5f && fwdvel > std::bit_cast<float>(0xBE19999Au)) { // [0x86C330] (-0.15f)
@@ -3625,9 +3625,9 @@ void CAutomobile::VehicleDamage(float damageIntensity, eVehicleCollisionComponen
     }
 
     // 0x6A83DF
-    if (m_fHealth >= 250.f) {
+    if (!(m_fHealth < 250.f)) { // NaN como el EXE (0x6a83eb): fcom + test ah + jcc
         if (ModelIndices::IsBFInjection(m_nModelIndex)) {
-            if (m_fHealth >= 400.f) {
+            if (!(m_fHealth < 400.f)) { // NaN como el EXE (0x6a8472): fcom + test ah + jcc
                 if (m_fHealth < 600.f) {
                     m_damageManager.SetEngineStatus(100u);
                 }
@@ -5802,7 +5802,7 @@ void CAutomobile::ProcessBuoyancy()
             const CVector vecMoveForceHeli{ vecScaled.x * fRecip, vecScaled.y * fRecip, vecScaled.z * fRecip };
             ApplyMoveForce(vecMoveForceHeli);
             m_vecTurnSpeed *= fSpeedMult;
-            if (fBuoyancyForceZ <= 0.9F)
+            if (!(fBuoyancyForceZ > 0.9F)) // NaN como el EXE (0x6a8e91): fcom + test ah + jcc
                 return;
 
             bForceKillRotor = true;
