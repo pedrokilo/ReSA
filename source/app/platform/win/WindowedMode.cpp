@@ -365,6 +365,13 @@ struct D3D9ProxyDevice {
             auto& vm  = DisplayModes[RwEngineGetCurrentVideoMode()];
             vm.mode.Width  = pp->BackBufferWidth;
             vm.mode.Height = pp->BackBufferHeight;
+        } else if (hr == D3DERR_DEVICELOST || hr == D3DERR_DEVICENOTRESET) {
+            // Dispositivo perdido (pantalla apagada, cambio de topologia de monitores, bloqueo de sesion...): no es un error fatal; el bucle del juego reintenta el Reset.
+            // Antes un NOTSA_DEBUGBREAK() lo convertia en un cierre del juego en Debug (visto en las pruebas automaticas con la ventana en segundo plano).
+            static bool s_avisado = false;
+            if (!std::exchange(s_avisado, true)) {
+                NOTSA_LOG_WARN("D3D9 Reset devolvio 0x{:08X} (dispositivo perdido); se devuelve el error sin romper", (uint32)hr);
+            }
         } else {
             NOTSA_DEBUGBREAK();
         }
