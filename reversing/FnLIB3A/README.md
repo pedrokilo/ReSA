@@ -85,3 +85,9 @@ Ver el final de este archivo (sección 6, rellenada al terminar `build_lib3a.sh`
 - Confirmar el soporte de `jddctmgr`/`jidct*` del EXE (la configuración «solo flotante» se dedujo para compresión).
 - `validated=1`: requiere la corrida dentro del juego con `register_hook.py` (sonda en `CGame::Process`); no se ha hecho.
 - Compilar y probar Release del proyecto con la opción encendida.
+
+## 6. Compilaciones del proyecto (Debug, bajo `compile_lock`, `CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1`, `build_lib3a.sh` → `build_lib3a.out`)
+
+- **GTASA_WITH_LIBJPEG apagada (por defecto): correcta** (23:48–23:55, `build-project.ps1`; `gta_reversed.asi` 50.545.664 B, SHA256 `97882e78…1ec8`). Una primera pasada falló por falta de `#include "LibJpegCallback.h"` en dos `.cpp` (corregido).
+- **GTASA_WITH_LIBJPEG encendida: correcta** (23:55–00:03; `gta_reversed.asi` 49.679.872 B, SHA256 `f5082049…c886`). Sin errores de compilación ni de enlace; sin símbolos duplicados con libjpeg-turbo de la DLL (el directorio de includes de la biblioteca es privado).
+- No se ha cargado ni ejecutado ninguno de los dos `.asi` en el juego.

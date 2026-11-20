@@ -1,0 +1,546 @@
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=x86
+build_type=Debug
+compiler=msvc
+compiler.cppstd=23
+compiler.runtime=static
+compiler.runtime_type=Debug
+compiler.version=195
+os=Windows
+[replace_tool_requires]
+cmake/*: cmake/4.2.0
+
+Profile build:
+[settings]
+arch=x86_64
+build_type=Release
+compiler=msvc
+compiler.cppstd=14
+compiler.runtime=dynamic
+compiler.runtime_type=Release
+compiler.version=195
+os=Windows
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py (gta-reversed/1.0): D:\Original\wv-15\conanfile.py
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8 - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671 - Cache
+    nasm/2.15.05#f7d6a6f3b14f583e001d9ae84e8cd152 - Cache
+    strawberryperl/5.32.1.1#8d114504d172cfea8ea1662d09b6333e - Cache
+Replaced requires
+    cmake/[>=4.2.0]: cmake/4.2.0
+    cmake/[>=3.24]: cmake/4.2.0
+
+======== Computing necessary packages ========
+Connecting to remote 'conancenter' anonymously
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e:d0bd8d533a7041b61fb25937d6b93a4457c94369#2ffdaa798fdabc25dad911bdc8e4ff93 - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8:5fb0b9e9d2a1dc525e90d727aabc6a29fb239576#c6de6b75dac1c21e81dc592447fe66df - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c:da39a3ee5e6b4b0d3255bfef95601890afd80709#2ea4b814fc9da53f7cdf5b7d68052688 - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12:c516fcf791b8318fdd6f9eb730db085127b48b8c#9d9a81632a82d4e1614036e608cc4bc9 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c:da39a3ee5e6b4b0d3255bfef95601890afd80709#0ba8627bd47edc3a501e8f0eb9a79e5e - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce:7f3fae5b0ba8c41cc75273d1d53588332aa3ebb0#64020fc2e46c241a5f81fe6b05fe5dcd - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c:d9fbaedf85c63109816a75e7846cede313056422#fa87d8607db847da479ee390f132531d - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c:0d2dc46956f508a5ac2474c0cb303b13f4b55b28#335731cdd00192bc9d9187483e035b7b - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604:692d5931d56860716e6ac1cd283732f30703d353#38e2df2e59c194cba856855ffa7b36f3 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671:522dcea5982a3f8a5b624c16477e47195da2f84f#95951e2e6b3af57992b0ec04e5cf9607 - Cache
+Skipped binaries
+    nasm/2.15.05, strawberryperl/5.32.1.1
+
+======== Installing packages ========
+cmake/4.2.0: Already installed! (1 of 10)
+imgui/1.92.9b-docking: Already installed! (2 of 10)
+imgui/1.92.9b-docking: Appending PATH env var with : D:\Original\wv-15\reversing\CVehicle\conan-cache\p\b\imgui5396f0f7f8179\p\bin
+nlohmann_json/3.12.0: Already installed! (3 of 10)
+ogg/1.3.5: Already installed! (4 of 10)
+opengl/system: Already installed! (5 of 10)
+spdlog/1.17.0: Already installed! (6 of 10)
+tracy/cci.20220130: Already installed! (7 of 10)
+libjpeg-turbo/3.2.0: Already installed! (8 of 10)
+sdl/3.4.14: Already installed! (9 of 10)
+vorbis/1.3.7: Already installed! (10 of 10)
+WARN: deprecated: Usage of deprecated Conan 1.X features that will be removed in Conan 2.X:
+WARN: deprecated:     'env_info' used in: imgui/1.92.9b-docking
+WARN: deprecated:     'cpp_info.filenames' used in: opengl/system
+WARN: deprecated:     'cpp_info.names' used in: tracy/cci.20220130
+
+======== Finalizing install (deploy, generators) ========
+>>> Generate step for conanfile.py (gta-reversed/1.0)
+Generators folder: D:\Original\wv-15\build\generators
+Calling generate() method in recipe
+WARN: experimental: CMakeConfigDeps is experimental, and might get breaking changes in future releases
+gta-reversed/1.0: WARN: deprecated: CMakeConfigDeps does not support module find mode in libjpeg-turbo/3.2.0.
+Config mode will be used regardless.
+CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(SDL3)
+    find_package(nlohmann_json)
+    find_package(spdlog)
+    find_package(Tracy)
+    find_package(imgui)
+    find_package(Vorbis)
+    find_package(Ogg)
+    find_package(libjpeg-turbo)
+    find_package(cmake) # Optional. This is a tool-require, can't link its targets
+    target_link_libraries(... sdl::sdl nlohmann_json::nlohmann_json spdlog::spdlog Tracy::TracyClient imgui::imgui vorbis::vorbis Ogg::ogg libjpeg-turbo::libjpeg-turbo)
+CMakeToolchain generated: conan_toolchain.cmake
+CMakeToolchain: Preset 'conan-default' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-default
+    (cmake<3.23) cmake <path> -G "Visual Studio 18 2026"
+                 -DCMAKE_TOOLCHAIN_FILE=<output_folder>/generators\conan_toolchain.cmake 
+                 -DGTASA_STANDALONE_DUMP_HOOKS_ONLY=OFF -DGTASA_STANDALONE=OFF -DGTASA_WITH_SCRIPT_COMMAND_HOOKS=OFF -DGTASA_USE_SDL3=ON -DGTASA_UNITY_BUILD=OFF -DCMAKE_POLICY_DEFAULT_CMP0091=NEW
+CMakeToolchain generated: D:\Original\wv-15\build\generators\CMakePresets.json
+CMakeToolchain generated: D:\Original\wv-15\ConanPresets.json
+Generating aggregated env files
+Generated aggregated env files: ['conanbuild.bat', 'conanrun.bat']
+Install finished successfully
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=x86
+build_type=Debug
+compiler=msvc
+compiler.cppstd=23
+compiler.runtime=static
+compiler.runtime_type=Debug
+compiler.version=195
+os=Windows
+[replace_tool_requires]
+cmake/*: cmake/4.2.0
+
+Profile build:
+[settings]
+arch=x86_64
+build_type=Release
+compiler=msvc
+compiler.cppstd=14
+compiler.runtime=dynamic
+compiler.runtime_type=Release
+compiler.version=195
+os=Windows
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py (gta-reversed/1.0): D:\Original\wv-15\conanfile.py
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8 - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671 - Cache
+    nasm/2.15.05#f7d6a6f3b14f583e001d9ae84e8cd152 - Cache
+    strawberryperl/5.32.1.1#8d114504d172cfea8ea1662d09b6333e - Cache
+Replaced requires
+    cmake/[>=4.2.0]: cmake/4.2.0
+    cmake/[>=3.24]: cmake/4.2.0
+
+======== Computing necessary packages ========
+Connecting to remote 'conancenter' anonymously
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e:d0bd8d533a7041b61fb25937d6b93a4457c94369#2ffdaa798fdabc25dad911bdc8e4ff93 - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8:5fb0b9e9d2a1dc525e90d727aabc6a29fb239576#c6de6b75dac1c21e81dc592447fe66df - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c:da39a3ee5e6b4b0d3255bfef95601890afd80709#2ea4b814fc9da53f7cdf5b7d68052688 - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12:c516fcf791b8318fdd6f9eb730db085127b48b8c#9d9a81632a82d4e1614036e608cc4bc9 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c:da39a3ee5e6b4b0d3255bfef95601890afd80709#0ba8627bd47edc3a501e8f0eb9a79e5e - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce:7f3fae5b0ba8c41cc75273d1d53588332aa3ebb0#64020fc2e46c241a5f81fe6b05fe5dcd - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c:d9fbaedf85c63109816a75e7846cede313056422#fa87d8607db847da479ee390f132531d - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c:0d2dc46956f508a5ac2474c0cb303b13f4b55b28#335731cdd00192bc9d9187483e035b7b - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604:692d5931d56860716e6ac1cd283732f30703d353#38e2df2e59c194cba856855ffa7b36f3 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671:522dcea5982a3f8a5b624c16477e47195da2f84f#95951e2e6b3af57992b0ec04e5cf9607 - Cache
+Skipped binaries
+    nasm/2.15.05, strawberryperl/5.32.1.1
+
+======== Installing packages ========
+cmake/4.2.0: Already installed! (1 of 10)
+imgui/1.92.9b-docking: Already installed! (2 of 10)
+imgui/1.92.9b-docking: Appending PATH env var with : D:\Original\wv-15\reversing\CVehicle\conan-cache\p\b\imgui5396f0f7f8179\p\bin
+nlohmann_json/3.12.0: Already installed! (3 of 10)
+ogg/1.3.5: Already installed! (4 of 10)
+opengl/system: Already installed! (5 of 10)
+spdlog/1.17.0: Already installed! (6 of 10)
+tracy/cci.20220130: Already installed! (7 of 10)
+libjpeg-turbo/3.2.0: Already installed! (8 of 10)
+sdl/3.4.14: Already installed! (9 of 10)
+vorbis/1.3.7: Already installed! (10 of 10)
+WARN: deprecated: Usage of deprecated Conan 1.X features that will be removed in Conan 2.X:
+WARN: deprecated:     'env_info' used in: imgui/1.92.9b-docking
+WARN: deprecated:     'cpp_info.filenames' used in: opengl/system
+WARN: deprecated:     'cpp_info.names' used in: tracy/cci.20220130
+
+======== Finalizing install (deploy, generators) ========
+>>> Generate step for conanfile.py (gta-reversed/1.0)
+Generators folder: D:\Original\wv-15\build\generators
+Calling generate() method in recipe
+WARN: experimental: CMakeConfigDeps is experimental, and might get breaking changes in future releases
+gta-reversed/1.0: WARN: deprecated: CMakeConfigDeps does not support module find mode in libjpeg-turbo/3.2.0.
+Config mode will be used regardless.
+CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(SDL3)
+    find_package(nlohmann_json)
+    find_package(spdlog)
+    find_package(Tracy)
+    find_package(imgui)
+    find_package(Vorbis)
+    find_package(Ogg)
+    find_package(libjpeg-turbo)
+    find_package(cmake) # Optional. This is a tool-require, can't link its targets
+    target_link_libraries(... sdl::sdl nlohmann_json::nlohmann_json spdlog::spdlog Tracy::TracyClient imgui::imgui vorbis::vorbis Ogg::ogg libjpeg-turbo::libjpeg-turbo)
+CMakeToolchain generated: conan_toolchain.cmake
+CMakeToolchain: Preset 'conan-default' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-default
+    (cmake<3.23) cmake <path> -G "Visual Studio 18 2026"
+                 -DCMAKE_TOOLCHAIN_FILE=<output_folder>/generators\conan_toolchain.cmake 
+                 -DGTASA_STANDALONE_DUMP_HOOKS_ONLY=OFF -DGTASA_STANDALONE=OFF -DGTASA_WITH_SCRIPT_COMMAND_HOOKS=OFF -DGTASA_USE_SDL3=ON -DGTASA_UNITY_BUILD=OFF -DCMAKE_POLICY_DEFAULT_CMP0091=NEW
+CMakeToolchain generated: D:\Original\wv-15\build\generators\CMakePresets.json
+CMakeToolchain generated: D:\Original\wv-15\ConanPresets.json
+Generating aggregated env files
+Generated aggregated env files: ['conanbuild.bat', 'conanrun.bat']
+
+======== Calling build() ========
+>>> Build step for conanfile.py (gta-reversed/1.0)
+conanfile.py (gta-reversed/1.0): Calling build()
+conanfile.py (gta-reversed/1.0): Running CMake.configure()
+conanfile.py (gta-reversed/1.0): RUN: cmake -G "Visual Studio 18 2026" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="D:/Original/wv-15" -DGTASA_STANDALONE_DUMP_HOOKS_ONLY="OFF" -DGTASA_STANDALONE="OFF" -DGTASA_WITH_SCRIPT_COMMAND_HOOKS="OFF" -DGTASA_USE_SDL3="ON" -DGTASA_UNITY_BUILD="OFF" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" "D:/Original/wv-15"
+-- Using Conan toolchain: D:/Original/wv-15/build/generators/conan_toolchain.cmake
+-- Conan toolchain: CMAKE_GENERATOR_TOOLSET=v145
+-- Conan toolchain: Setting CMAKE_MSVC_RUNTIME_LIBRARY=$<$<CONFIG:Debug>:MultiThreadedDebug>
+-- Conan toolchain: C++ Standard 23 with extensions OFF
+-- Conan toolchain: Including CMakeConfigDeps generated conan_cmakedeps_paths.cmake
+-- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.26300.
+-- MSVC_TOOLSET_VERSION: 145
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+Doxygen need to be installed to generate the doxygen documentation
+-- Conan: Configuring Targets for nlohmann_json/3.12.0
+-- Conan: Target declared imported INTERFACE library 'nlohmann_json::nlohmann_json'
+-- Conan: Configuring Targets for ogg/1.3.5
+-- Conan: Target declared imported STATIC library 'Ogg::ogg'
+-- Conan: Configuring Targets for spdlog/1.17.0
+-- Conan: Target declared imported STATIC library 'spdlog::spdlog'
+-- Conan: Configuring Targets for tracy/cci.20220130
+-- Conan: Target declared imported STATIC library 'Tracy::TracyClient'
+-- Conan: Configuring Targets for vorbis/1.3.7
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbis'
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbisenc'
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbisfile'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbisenc-alias'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbisfile-alias'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbis'
+-- Conan: Configuring Targets for imgui/1.92.9b-docking
+-- Conan: Target declared imported STATIC library 'imgui::imgui'
+-- Conan: Configuring Targets for libjpeg-turbo/3.2.0
+-- Conan: Target declared imported STATIC library 'libjpeg-turbo::jpeg-static'
+-- Conan: Target declared imported STATIC library 'libjpeg-turbo::turbojpeg-static'
+-- Conan: Target declared imported INTERFACE library 'libjpeg-turbo::libjpeg-turbo'
+-- Conan: Configuring Targets for sdl/3.4.14
+-- Conan: Configuring Targets for opengl/system
+-- Conan: Target declared imported INTERFACE library 'opengl::opengl'
+-- Conan: Target declared imported STATIC library 'SDL3::SDL3'
+-- Conan: Target declared alias 'SDL3::SDL3-static' for 'SDL3::SDL3'
+-- Conan: Target declared imported INTERFACE library 'SDL3::Headers'
+-- Conan: Target declared imported INTERFACE library 'sdl::sdl'
+-- Configuring done (0.4s)
+-- Generating done (0.5s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_TOOLCHAIN_FILE
+
+
+-- Build files have been written to: D:/Original/wv-15/build
+
+conanfile.py (gta-reversed/1.0): Running CMake.build()
+conanfile.py (gta-reversed/1.0): RUN: cmake --build "D:\Original\wv-15\build" --config Debug
+Versión de MSBuild 18.10.1-1.26427.6+3cd27c13e para .NET Framework
+
+  1>Checking Build System
+  InjectHooksMain.cpp
+  WinPlatform.cpp
+  AnimBlendNode.cpp
+  AudioEngine.cpp
+  AEAudioChannel.cpp
+  AutoPilot.cpp
+  Checkpoints.cpp
+  CompressedBox.cpp
+  Rect.cpp
+  DecisionMaker.cpp
+  PlayerPed.cpp
+  Escalators.cpp
+  EventFireNearby.cpp
+  EventLeaderExitedCarAsDriver.cpp
+  EventPotentialWalkIntoObject.cpp
+  EventVehicleDied.cpp
+  MenuManager_Process.cpp
+  FxInfoForce.cpp
+  FxFrustumInfo.cpp
+  Garages.cpp
+  Generando código...
+  Compilando...
+  InteriorGroup_c.cpp
+  Mirrors.cpp
+  ObjectData.cpp
+  PedGroupIntelligence.cpp
+  CustomCarEnvMapPipeline_EnvAtm.cpp
+  LibJpegCompress.cpp
+  LibJpegCompressEncode.cpp
+  LibJpegDecompress.cpp
+  LibJpegDecompressUpsample.cpp
+  ProtectionStub.cpp
+  rpanisot.cpp
+  Restart.cpp
+  CLEOScriptCommands.cpp
+  StatCommands.cpp
+  SimpleTransform.cpp
+  PedGroupDefaultTaskAllocatorRandom.cpp
+  TaskSimple.cpp
+  TaskComplexAttractorPartnerWait.cpp
+  TaskComplexDragPedFromCar.cpp
+  TaskComplexFallToDeath.cpp
+  Generando código...
+  Compilando...
+  TaskComplexGoToPointAndStandStill.cpp
+  TaskComplexKillPedOnFootArmed.cpp
+  TaskComplexPartnerShove.cpp
+  TaskComplexTrackEntity.cpp
+  TaskComplexWaitForBackup.cpp
+  TaskSimpleAbseil.cpp
+  TaskSimpleCarOpenDoorFromOutside.cpp
+  TaskSimpleDie.cpp
+  TaskSimpleGoToPointFine.cpp
+  TaskSimpleIKManager.cpp
+  TaskSimpleRunNamedAnim.cpp
+  TaskSimpleTogglePedThreatScanner.cpp
+  TimeCycle.cpp
+  Weapon.cpp
+  AmbienceTrackManagerDebugModule.cpp
+  DebugModule.cpp
+  Generando código...
+  AnimManager.cpp
+  Compiling precompiled header.
+  CarCtrl.cpp
+  Compiling precompiled header.
+  Clothes.cpp
+  Compiling precompiled header.
+  Sphere.cpp
+  Compiling precompiled header.
+  DecisionMakerTypes.cpp
+  Compiling precompiled header.
+  Event.cpp
+  Compiling precompiled header.
+  EventDeath.cpp
+  Compiling precompiled header.
+  EventEditableResponse.cpp
+  Compiling precompiled header.
+  EventSpecial.cpp
+  Compiling precompiled header.
+  Fx.cpp
+  Compiling precompiled header.
+  Stats.cpp
+  Compiling precompiled header.
+  PedGroupDefaultTaskAllocators.cpp
+  Compiling precompiled header.
+  Task.cpp
+  Compiling precompiled header.
+  Generando código...
+  AttractorScanner.cpp
+  Compiling precompiled header.
+  ConversationForPed.cpp
+  Compiling precompiled header.
+  ConversationNode.cpp
+  Compiling precompiled header.
+  Vector.cpp
+  Compiling precompiled header.
+  FxInterpInfo255.cpp
+  Compiling precompiled header.
+  FxInterpInfo32.cpp
+  Compiling precompiled header.
+  FxInterpInfoFloat.cpp
+  Compiling precompiled header.
+  FxInterpInfoU255.cpp
+  Compiling precompiled header.
+  D3DTextureBuffer.cpp
+  Compiling precompiled header.
+  TaskComplexFollowPedFootsteps.cpp
+  Compiling precompiled header.
+  X87Math.cpp
+  Generando código...
+  Clouds.cpp
+  Compiling precompiled header.
+  PedSaveStructure.cpp
+  Compiling precompiled header.
+  Interior_c.cpp
+  Compiling precompiled header.
+  ModelInfo.cpp
+  D3DResourceSystem.cpp
+  Compiling precompiled header.
+  TaskInteriorSitInChair.cpp
+  Compiling precompiled header.
+  TaskComplexAvoidEntity.cpp
+  Compiling precompiled header.
+  TaskComplexExtinguishFireOnFoot.cpp
+  Compiling precompiled header.
+  TaskComplexFollowPatrolRouteX87.cpp
+  Compiling precompiled header.
+  TaskComplexGoToBoatSteeringWheel.cpp
+  Compiling precompiled header.
+  TaskComplexGoToPointAndStandStillX87.cpp
+  Compiling precompiled header.
+  TaskComplexPartner.cpp
+  Compiling precompiled header.
+  TaskComplexReactToAttack.cpp
+  Compiling precompiled header.
+  TaskComplexWalkRoundObject.cpp
+  Compiling precompiled header.
+  TaskSimpleCarGoToPointNearDoorUntilDoorNotInUseTarget.cpp
+  Compiling precompiled header.
+  TaskSimpleKillPedWithCarShake.cpp
+  Compiling precompiled header.
+  Generando código...
+spdlogd.lib(spdlog.obj) : warning LNK4099: no se encontró PDB 'spdlogd.pdb' con 'spdlogd.lib(spdlog.obj)' o en 'D:\Original\wv-15\bin\Debug\spdlogd.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+spdlogd.lib(async.obj) : warning LNK4099: no se encontró PDB 'spdlogd.pdb' con 'spdlogd.lib(async.obj)' o en 'D:\Original\wv-15\bin\Debug\spdlogd.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+spdlogd.lib(file_sinks.obj) : warning LNK4099: no se encontró PDB 'spdlogd.pdb' con 'spdlogd.lib(file_sinks.obj)' o en 'D:\Original\wv-15\bin\Debug\spdlogd.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+spdlogd.lib(color_sinks.obj) : warning LNK4099: no se encontró PDB 'spdlogd.pdb' con 'spdlogd.lib(color_sinks.obj)' o en 'D:\Original\wv-15\bin\Debug\spdlogd.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+imgui.lib(imgui.obj) : warning LNK4099: no se encontró PDB 'imgui.pdb' con 'imgui.lib(imgui.obj)' o en 'D:\Original\wv-15\bin\Debug\imgui.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+imgui.lib(imgui_widgets.obj) : warning LNK4099: no se encontró PDB 'imgui.pdb' con 'imgui.lib(imgui_widgets.obj)' o en 'D:\Original\wv-15\bin\Debug\imgui.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+imgui.lib(imgui_tables.obj) : warning LNK4099: no se encontró PDB 'imgui.pdb' con 'imgui.lib(imgui_tables.obj)' o en 'D:\Original\wv-15\bin\Debug\imgui.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+imgui.lib(imgui_demo.obj) : warning LNK4099: no se encontró PDB 'imgui.pdb' con 'imgui.lib(imgui_demo.obj)' o en 'D:\Original\wv-15\bin\Debug\imgui.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+imgui.lib(imgui_draw.obj) : warning LNK4099: no se encontró PDB 'imgui.pdb' con 'imgui.lib(imgui_draw.obj)' o en 'D:\Original\wv-15\bin\Debug\imgui.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbisfile.lib(vorbisfile.obj) : warning LNK4099: no se encontró PDB 'vorbisfile.pdb' con 'vorbisfile.lib(vorbisfile.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbisfile.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(info.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(info.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(block.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(block.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(synthesis.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(synthesis.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(sharedbook.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(sharedbook.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(codebook.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(codebook.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(psy.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(psy.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(registry.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(registry.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(mdct.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(mdct.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(envelope.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(envelope.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(smallft.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(smallft.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(bitrate.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(bitrate.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(window.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(window.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(lpc.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(lpc.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(floor0.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(floor0.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(floor1.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(floor1.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(res0.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(res0.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(mapping0.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(mapping0.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+vorbis.lib(lsp.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(lsp.obj)' o en 'D:\Original\wv-15\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jerror.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jerror.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcapimin.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcapimin.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdapimin.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdapimin.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcparam.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcparam.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcapistd-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcapistd-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdapistd-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdapistd-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdmarker.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdmarker.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcomapi.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcomapi.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcmarker.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcmarker.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jmemmgr.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jmemmgr.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jutils-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jutils-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdinput.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdinput.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcinit.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcinit.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdmaster.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdmaster.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdsample-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdsample-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jmemnobs.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jmemnobs.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcmaster.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcmaster.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcmainct-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcmainct-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcmainct-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcmainct-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcprepct-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcprepct-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcprepct-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcprepct-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jccoefct-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jccoefct-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jccoefct-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jccoefct-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jccolor-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jccolor-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jccolor-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jccolor-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcsample-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcsample-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcsample-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcsample-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcdctmgr-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcdctmgr-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcdctmgr-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcdctmgr-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jchuff.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jchuff.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcphuff.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcphuff.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcarith.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcarith.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcmainct-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcmainct-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcprepct-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcprepct-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jccolor-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jccolor-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcsample-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcsample-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcdiffct-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcdiffct-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcdiffct-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcdiffct-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jcdiffct-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jcdiffct-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jclhuff.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jclhuff.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jclossls-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jclossls-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jclossls-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jclossls-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jclossls-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jclossls-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdmainct-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdmainct-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdmainct-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdmainct-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdcoefct-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdcoefct-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdcoefct-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdcoefct-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdpostct-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdpostct-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdpostct-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdpostct-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdhuff.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdhuff.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdphuff.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdphuff.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdarith.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdarith.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jddctmgr-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jddctmgr-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jddctmgr-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jddctmgr-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdsample-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdsample-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdcolor-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdcolor-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdcolor-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdcolor-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jquant1-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jquant1-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jquant1-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jquant1-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jquant2-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jquant2-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jquant2-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jquant2-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdmerge-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdmerge-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdmerge-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdmerge-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdmainct-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdmainct-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdpostct-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdpostct-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdsample-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdsample-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdcolor-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdcolor-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jddiffct-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jddiffct-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jddiffct-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jddiffct-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jddiffct-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jddiffct-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdlhuff.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdlhuff.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdlossls-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdlossls-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdlossls-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdlossls-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jdlossls-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jdlossls-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jsimd.obj) : warning LNK4099: no se encontró PDB 'simd.pdb' con 'jpeg-static.lib(jsimd.obj)' o en 'D:\Original\wv-15\bin\Debug\simd.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jutils-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jutils-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jfdctint-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jfdctint-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jfdctfst-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jfdctfst-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jfdctflt.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jfdctflt.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jfdctint-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jfdctint-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jfdctfst-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jfdctfst-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jaricom.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jaricom.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jutils-16.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jutils-16.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jidctint-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jidctint-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jidctfst-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jidctfst-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jidctflt-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jidctflt-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jidctred-8.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jidctred-8.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jidctint-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jidctint-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jidctfst-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jidctfst-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jidctflt-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jidctflt-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+jpeg-static.lib(jidctred-12.obj) : warning LNK4099: no se encontró PDB 'jpeg-static.pdb' con 'jpeg-static.lib(jidctred-12.obj)' o en 'D:\Original\wv-15\bin\Debug\jpeg-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+ogg.lib(framing.obj) : warning LNK4099: no se encontró PDB 'ogg.pdb' con 'ogg.lib(framing.obj)' o en 'D:\Original\wv-15\bin\Debug\ogg.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+ogg.lib(bitwise.obj) : warning LNK4099: no se encontró PDB 'ogg.pdb' con 'ogg.lib(bitwise.obj)' o en 'D:\Original\wv-15\bin\Debug\ogg.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-15\build\source\gta_reversed.vcxproj]
+     Creando biblioteca D:/Original/wv-15/bin/Debug/gta_reversed.lib y objeto D:/Original/wv-15/bin/Debug/gta_reversed.exp
+  gta_reversed.vcxproj -> D:\Original\wv-15\bin\Debug\gta_reversed.asi
+  Building Custom Rule D:/Original/wv-15/CMakeLists.txt
+

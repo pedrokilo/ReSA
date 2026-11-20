@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "LibJpegCompressEncode.h"
+#include "LibJpegCallback.h"
 
 // Lote 230A (sin validar): rutinas de la libjpeg 6b del EXE (compresion). Trabajan sobre el jpeg_compress_struct del EXE; se accede a sus campos por desplazamiento (los de libjpeg-turbo de la DLL no coinciden).
 // Desplazamientos usados del jpeg_compress_struct: +0x00 err, +0x04 mem, +0x08 progress, +0x14 global_state, +0x18 dest, +0x1C image_width, +0x20 image_height, +0x24 input_components, +0x28 in_color_space,

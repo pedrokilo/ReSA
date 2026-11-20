@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "LibJpegDecompressUpsample.h"
+#include "LibJpegCallback.h"
 #include "LibJpegExe.h"
 
 // Lote 235A (sin validar): jdpostct.c (jinit_post_controller) y jdsample.c (sep_upsample, jinit_upsampler) de la libjpeg 6b del EXE.
