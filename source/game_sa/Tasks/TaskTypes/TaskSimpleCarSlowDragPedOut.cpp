@@ -141,7 +141,16 @@ CPed* CTaskSimpleCarSlowDragPedOut::GetJackedPed() const {
     if (m_TargetDoor == TARGET_DOOR_DRIVER) {
         return m_Vehicle->m_pDriver;
     } else {
-        return m_Vehicle->m_apPassengers[CCarEnterExit::ComputePassengerIndexFromCarDoor(m_Vehicle, (int32)m_TargetDoor)];
+        // Como el EXE: indexa m_apPassengers sin comprobar el indice. ComputePassengerIndexFromCarDoor devuelve -1 para puertas que no son de pasajero y el EXE lee entonces la
+        // posicion anterior al array (m_pDriver, +0x460, justo antes de m_apPassengers, +0x464). La DLL de Debug aborta con el std::array comprobado (0xC0000409).
+        const auto idx = CCarEnterExit::ComputePassengerIndexFromCarDoor(m_Vehicle, (int32)m_TargetDoor);
+        if (idx == -1) {
+            return m_Vehicle->m_pDriver;
+        }
+        if (idx >= 0 && (size_t)idx < m_Vehicle->m_apPassengers.size()) {
+            return m_Vehicle->m_apPassengers[idx];
+        }
+        return nullptr;
     }
 }
 

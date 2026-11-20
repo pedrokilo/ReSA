@@ -179,7 +179,7 @@ def siguiente(st):
         if acc == 'fin':
             return dict(accion='fin', fase=st['fase'], S=S, culpables=[U[i] for i in S], motivo=info)
         out = dict(accion='probar', fase=st['fase'], idx=S, motivo=info)
-    out['apagar'] = [U[i] for i in out['idx']]
+    out['apagar'] = [U[i] for i in out['idx']] + list(st.get('siempre_apagadas', []))   # fase de funciones: el resto de clases sigue apagado (señal mas limpia)
     out['ronda'] = len(lista_rondas(st)) + 1
     out['estimadas'] = rondas_estimadas(len(U)) + (0 if st['fase'] == 'rutas' else 0)
     return out

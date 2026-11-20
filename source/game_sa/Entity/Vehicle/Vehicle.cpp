@@ -3763,12 +3763,13 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
 
     if (bDriving) {
         fwd = thrust;
-        // Como el original: sin std::clamp (el EXE no comprueba que adhesion sea positiva)
+        // Como el original (0x6D6DBF..0x6D6DFF, fcom + test ah,0x41/5 + jne/jp): solo se asigna con comparacion ESTRICTA y ORDENADA (right > adhesion, right < -adhesion).
+        // Un NaN (comparacion no ordenada) no asigna nada; con `!(right <= adhesion)` el NaN si asignaba y se propagaba.
         if (right > 0.0f) {
-            if (!(right <= adhesion)) {
+            if (right > adhesion) {
                 right = adhesion;
             }
-        } else if (!(right >= -adhesion)) {
+        } else if (right < -adhesion) {
             right = -adhesion;
         }
     }
@@ -3789,16 +3790,18 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
                     brake *= 0.2f;
             }
         }
-        if (brake > adhesion) {
+        // Como el original (0x6D6ECE..0x6D6F10): `fcom brake, adhesion; test ah,0x41; jp` entra en esta rama con brake > adhesion O con comparacion no ordenada (brake NaN),
+        // sin tocar fwd; fuera de ella fwd solo se recorta con comparacion estricta y ordenada (fwd > brake, fwd < -brake). El brake NaN que a veces envia el codigo del
+        // coche era inocuo en el EXE; con `brake > adhesion` y `!(fwd <= brake)` aqui acababa en fwd = NaN y todo el coche en NaN.
+        if (!(brake <= adhesion)) {
             if (std::fabs(contactSpeedFwd) > 0.005f) {
                 *wheelState = WHEEL_STATE_FIXED;
             }
         } else if (fwd > 0.0f) {
-            // Como el original: sin std::clamp
-            if (!(fwd <= brake)) {
+            if (fwd > brake) {
                 fwd = brake;
             }
-        } else if (!(fwd >= -brake)) {
+        } else if (fwd < -brake) {
             fwd = -brake;
         }
     }

@@ -69,9 +69,18 @@ function Oraculo-Simulado($offRutas, $U) {
 
 function Pedir-Tecla($texto, $validas) {
     Write-Host $texto -ForegroundColor Yellow
+    $resp = Join-Path $aqui 'respuesta.txt'   # alternativa sin teclado: otro proceso escribe aqui la letra (s/n/d)
+    Remove-Item -LiteralPath $resp -ErrorAction SilentlyContinue
     while ($true) {
-        $k = [Console]::ReadKey($true).KeyChar.ToString().ToLower()
-        if ($validas -contains $k) { Write-Host "  -> $k"; return $k }
+        if (Test-Path -LiteralPath $resp) {
+            $k = ((Get-Content -Raw -LiteralPath $resp).Trim() + ' ').Substring(0, 1).ToLower()
+            Remove-Item -LiteralPath $resp -ErrorAction SilentlyContinue
+            if ($validas -contains $k) { Write-Host "  -> $k (respuesta.txt)"; return $k }
+        }
+        $k = ''
+        try { if ([Console]::KeyAvailable) { $k = [Console]::ReadKey($true).KeyChar.ToString().ToLower() } } catch { }
+        if ($k -and ($validas -contains $k)) { Write-Host "  -> $k"; return $k }
+        Start-Sleep -Milliseconds 500
     }
 }
 
