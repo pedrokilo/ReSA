@@ -1,0 +1,443 @@
+[
+ {
+  "k": 1,
+  "funcion": "rgb_ycc_start",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 2,
+  "funcion": "rgb_ycc_convert",
+  "pares": 20000,
+  "diferencias": 142,
+  "detectada": true
+ },
+ {
+  "k": 3,
+  "funcion": "rgb_gray_convert",
+  "pares": 20000,
+  "diferencias": 20,
+  "detectada": true
+ },
+ {
+  "k": 4,
+  "funcion": "cmyk_ycck_convert",
+  "pares": 20000,
+  "diferencias": 18093,
+  "detectada": true
+ },
+ {
+  "k": 5,
+  "funcion": "grayscale_convert",
+  "pares": 20000,
+  "diferencias": 5502,
+  "detectada": true
+ },
+ {
+  "k": 6,
+  "funcion": "null_convert",
+  "pares": 20000,
+  "diferencias": 9397,
+  "detectada": true
+ },
+ {
+  "k": 7,
+  "funcion": "null_method",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 8,
+  "funcion": "start_pass_fdctmgr",
+  "pares": 20000,
+  "diferencias": 16069,
+  "detectada": true
+ },
+ {
+  "k": 9,
+  "funcion": "jpeg_fdct_float",
+  "pares": 20000,
+  "diferencias": 19896,
+  "detectada": true
+ },
+ {
+  "k": 10,
+  "funcion": "forward_DCT_float",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 11,
+  "funcion": "start_pass_upsample",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 12,
+  "funcion": "fullsize_upsample",
+  "pares": 20000,
+  "diferencias": 4992,
+  "detectada": true
+ },
+ {
+  "k": 13,
+  "funcion": "noop_upsample",
+  "pares": 20000,
+  "diferencias": 5058,
+  "detectada": true
+ },
+ {
+  "k": 14,
+  "funcion": "int_upsample",
+  "pares": 20000,
+  "diferencias": 1368,
+  "detectada": true
+ },
+ {
+  "k": 15,
+  "funcion": "h2v1_upsample",
+  "pares": 20000,
+  "diferencias": 1716,
+  "detectada": true
+ },
+ {
+  "k": 16,
+  "funcion": "h2v2_upsample",
+  "pares": 20000,
+  "diferencias": 1300,
+  "detectada": true
+ },
+ {
+  "k": 17,
+  "funcion": "h2v1_fancy_upsample",
+  "pares": 20000,
+  "diferencias": 28,
+  "detectada": true
+ },
+ {
+  "k": 18,
+  "funcion": "h2v2_fancy_upsample",
+  "pares": 20000,
+  "diferencias": 68,
+  "detectada": true
+ },
+ {
+  "k": 19,
+  "funcion": "ycc_rgb_convert",
+  "pares": 20000,
+  "diferencias": 3535,
+  "detectada": true
+ },
+ {
+  "k": 20,
+  "funcion": "dc_grayscale_convert",
+  "pares": 20000,
+  "diferencias": 4940,
+  "detectada": true
+ },
+ {
+  "k": 21,
+  "funcion": "gray_rgb_convert",
+  "pares": 20000,
+  "diferencias": 19612,
+  "detectada": true
+ },
+ {
+  "k": 22,
+  "funcion": "ycck_cmyk_convert",
+  "pares": 20000,
+  "diferencias": 18502,
+  "detectada": true
+ },
+ {
+  "k": 23,
+  "funcion": "dc_null_convert",
+  "pares": 20000,
+  "diferencias": 14608,
+  "detectada": true
+ },
+ {
+  "k": 24,
+  "funcion": "start_pass_dcolor",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 25,
+  "funcion": "jpeg_idct_float",
+  "pares": 20000,
+  "diferencias": 7434,
+  "detectada": true
+ },
+ {
+  "k": 26,
+  "funcion": "emit_message",
+  "pares": 20000,
+  "diferencias": 1071,
+  "detectada": true
+ },
+ {
+  "k": 27,
+  "funcion": "reset_error_mgr",
+  "pares": 20000,
+  "diferencias": 10049,
+  "detectada": true
+ },
+ {
+  "k": 28,
+  "funcion": "format_message",
+  "pares": 20000,
+  "diferencias": 2954,
+  "detectada": true
+ },
+ {
+  "k": 29,
+  "funcion": "finish_output_pass",
+  "pares": 20000,
+  "diferencias": 9902,
+  "detectada": true
+ },
+ {
+  "k": 30,
+  "funcion": "reset_marker_reader",
+  "pares": 20000,
+  "diferencias": 807,
+  "detectada": true
+ },
+ {
+  "k": 31,
+  "funcion": "finish_input_pass",
+  "pares": 20000,
+  "diferencias": 1650,
+  "detectada": true
+ },
+ {
+  "k": 32,
+  "funcion": "start_pass_dpost",
+  "pares": 20000,
+  "diferencias": 1329,
+  "detectada": true
+ },
+ {
+  "k": 33,
+  "funcion": "start_pass_main_d",
+  "pares": 20000,
+  "diferencias": 3703,
+  "detectada": true
+ },
+ {
+  "k": 34,
+  "funcion": "start_input_pass_coef",
+  "pares": 20000,
+  "diferencias": 3236,
+  "detectada": true
+ },
+ {
+  "k": 35,
+  "funcion": "start_output_pass_coef",
+  "pares": 20000,
+  "diferencias": 1639,
+  "detectada": true
+ },
+ {
+  "k": 36,
+  "funcion": "start_pass_main_c",
+  "pares": 20000,
+  "diferencias": 2003,
+  "detectada": true
+ },
+ {
+  "k": 37,
+  "funcion": "start_pass_coef_c",
+  "pares": 20000,
+  "diferencias": 1977,
+  "detectada": true
+ },
+ {
+  "k": 38,
+  "funcion": "start_pass_prep",
+  "pares": 20000,
+  "diferencias": 2036,
+  "detectada": true
+ },
+ {
+  "k": 39,
+  "funcion": "finish_pass_master",
+  "pares": 20000,
+  "diferencias": 1572,
+  "detectada": true
+ },
+ {
+  "k": 40,
+  "funcion": "emit_byte",
+  "pares": 20000,
+  "diferencias": 76,
+  "detectada": true
+ },
+ {
+  "k": 41,
+  "funcion": "write_marker_header",
+  "pares": 20000,
+  "diferencias": 257,
+  "detectada": true
+ },
+ {
+  "k": 42,
+  "funcion": "start_pass_downsample",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 43,
+  "funcion": "sep_downsample",
+  "pares": 20000,
+  "diferencias": 8131,
+  "detectada": true
+ },
+ {
+  "k": 44,
+  "funcion": "int_downsample",
+  "pares": 20000,
+  "diferencias": 2217,
+  "detectada": true
+ },
+ {
+  "k": 45,
+  "funcion": "fullsize_downsample",
+  "pares": 20000,
+  "diferencias": 428,
+  "detectada": true
+ },
+ {
+  "k": 46,
+  "funcion": "h2v1_downsample",
+  "pares": 20000,
+  "diferencias": 11286,
+  "detectada": true
+ },
+ {
+  "k": 47,
+  "funcion": "h2v2_downsample",
+  "pares": 20000,
+  "diferencias": 10342,
+  "detectada": true
+ },
+ {
+  "k": 48,
+  "funcion": "start_pass_idctmgr",
+  "pares": 20000,
+  "diferencias": 7454,
+  "detectada": true
+ },
+ {
+  "k": 49,
+  "funcion": "pre_process_data",
+  "pares": 20000,
+  "diferencias": 2531,
+  "detectada": true
+ },
+ {
+  "k": 50,
+  "funcion": "decompress_onepass",
+  "pares": 20000,
+  "diferencias": 2067,
+  "detectada": true
+ },
+ {
+  "k": 51,
+  "funcion": "write_tables_only",
+  "pares": 20000,
+  "diferencias": 3336,
+  "detectada": true
+ },
+ {
+  "k": 52,
+  "funcion": "write_scan_header",
+  "pares": 20000,
+  "diferencias": 253,
+  "detectada": true
+ },
+ {
+  "k": 53,
+  "funcion": "access_virt_sarray",
+  "pares": 20000,
+  "diferencias": 190,
+  "detectada": true
+ },
+ {
+  "k": 54,
+  "funcion": "access_virt_barray",
+  "pares": 20000,
+  "diferencias": 209,
+  "detectada": true
+ },
+ {
+  "k": 55,
+  "funcion": "read_markers",
+  "pares": 20000,
+  "diferencias": 6899,
+  "detectada": true
+ },
+ {
+  "k": 56,
+  "funcion": "get_interesting_appn",
+  "pares": 20000,
+  "diferencias": 321,
+  "detectada": true
+ },
+ {
+  "k": 57,
+  "funcion": "read_markers",
+  "pares": 20000,
+  "diferencias": 250,
+  "detectada": true
+ },
+ {
+  "k": 58,
+  "funcion": "jinit_marker_reader",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 59,
+  "funcion": "decode_mcu",
+  "pares": 20000,
+  "diferencias": 1831,
+  "detectada": true
+ },
+ {
+  "k": 60,
+  "funcion": "start_pass_huff_decoder",
+  "pares": 20000,
+  "diferencias": 11924,
+  "detectada": true
+ },
+ {
+  "k": 61,
+  "funcion": "start_pass_huff",
+  "pares": 20000,
+  "diferencias": 715,
+  "detectada": true
+ },
+ {
+  "k": 62,
+  "funcion": "self_destruct",
+  "pares": 20000,
+  "diferencias": 19405,
+  "detectada": true
+ },
+ {
+  "k": 63,
+  "funcion": "dummy_consume_data",
+  "pares": 20000,
+  "diferencias": 3342,
+  "detectada": true
+ }
+]

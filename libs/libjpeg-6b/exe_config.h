@@ -1,0 +1,27 @@
+/* Diferencias de configuracion (jmorecfg.h) entre la libjpeg 6b oficial y la que lleva gta_sa.exe (RenderWare), descubiertas con el banco LIB3A comparando
+ * el EXE con la biblioteca. Se aplican desde los envoltorios wrap/w_*.c DESPUES de jpeglib.h y ANTES del .c, sin tocar la fuente oficial.
+ *  - MAX_COMPONENTS = 4 (oficial: 10): cambia la disposicion de las estructuras privadas (my_upsampler, jdmainct, jdcoefct...). Evidencia: start_pass_upsample (0x5CCE60)
+ *    del EXE escribe next_row_out en +0x2C (12 + 4*N + 4*N con N = 4).
+ *  - RGB_PIXELSIZE = 4 (oficial: 3): los pixeles RGB tienen 4 bytes (RGBA); evidencia: rgb_ycc_convert (0x5C32C0) avanza el puntero de entrada de 4 en 4.
+ *    RGB_RED/GREEN/BLUE siguen siendo 0/1/2.
+ *  - Solo DCT en coma flotante: DCT_ISLOW_SUPPORTED y DCT_IFAST_SUPPORTED sin definir (oficial: definidos). Evidencia: start_pass_fdctmgr (0x5C3940) del EXE da
+ *    JERR_NOT_COMPILED (48) con dct_method = JDCT_ISLOW o JDCT_IFAST. */
+#ifndef JPEG6B_EXE_CONFIG_H
+#define JPEG6B_EXE_CONFIG_H
+#undef MAX_COMPONENTS
+#define MAX_COMPONENTS 4
+#undef RGB_PIXELSIZE
+#define RGB_PIXELSIZE 4
+#undef DCT_ISLOW_SUPPORTED
+#undef DCT_IFAST_SUPPORTED
+/* LIB3B: el EXE tampoco lleva cuantizacion de 2 pasadas ni suavizado de bloques (start_pass_dpost 0x5CCD70 y start_pass_main 0x5CADC0 dan JERR_BAD_BUFFER_MODE
+ * con cualquier modo distinto de JBUF_PASS_THRU; start_output_pass de jdcoefct 0x5C8B60 solo pone output_iMCU_row = 0). jquant2.c se compila aparte con JPEG6B_KEEP_2PASS. */
+#ifndef JPEG6B_KEEP_2PASS
+#undef QUANT_2PASS_SUPPORTED
+#undef BLOCK_SMOOTHING_SUPPORTED
+#endif
+/* LIB3B: sin suavizado de entrada ni filas de contexto en compresion: start_pass_prep (0x5C76A0) solo pone rows_to_go y next_buf_row */
+#undef INPUT_SMOOTHING_SUPPORTED
+/* LIB3B: sin IDCT reducidas (escalado de salida): start_pass de jddctmgr (0x5C9510) solo acepta DCT_scaled_size == 8 (JERR_BAD_DCTSIZE en otro caso) y no existen jpeg_idct_1x1/2x2/4x4 */
+#undef IDCT_SCALING_SUPPORTED
+#endif

@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "LibJpegCompressEncode.h"
+#include "LibJpegCallback.h"
 
 // Lote 230A (sin validar): rutinas de la libjpeg 6b del EXE (compresion). Trabajan sobre el jpeg_compress_struct del EXE; se accede a sus campos por desplazamiento (los de libjpeg-turbo de la DLL no coinciden).
 // Desplazamientos usados del jpeg_compress_struct: +0x00 err, +0x04 mem, +0x08 progress, +0x14 global_state, +0x18 dest, +0x1C image_width, +0x20 image_height, +0x24 input_components, +0x28 in_color_space,
@@ -82,7 +83,7 @@ constexpr int32 CSTATE_RAW_OK = 102;
 void ExeJinitMainController(void* cinfo, int32 needFullBuffer) {
     void* const main = AllocSmall(cinfo, 1, 0x28);
     At<void*>(cinfo, 0x140) = main;
-    At<uint32>(main, 0x00) = 0x5C53D0;
+    At<uint32>(main, 0x00) = LIBJPEG_CB(0x5C53D0, "jcmainct", "start_pass_main");
     if (At<uint8>(cinfo, 0xB0)) {
         return;
     }
@@ -106,7 +107,7 @@ void ExeJinitMainController(void* cinfo, int32 needFullBuffer) {
 void ExeJinitCoefController(void* cinfo, int32 needFullBuffer) {
     void* const coef = AllocSmall(cinfo, 1, 0x50);
     At<void*>(cinfo, 0x148) = coef;
-    At<uint32>(coef, 0x00) = 0x5C2FF0;
+    At<uint32>(coef, 0x00) = LIBJPEG_CB(0x5C2FF0, "jccoefct", "start_pass_coef");
     if (static_cast<uint8>(needFullBuffer)) {
         uint8* compptr = At<uint8*>(cinfo, 0x44);
         for (int32 ci = 0; ci < At<int32>(cinfo, 0x3C); ++ci, compptr += 0x54) {
@@ -151,7 +152,7 @@ void ExeGrayscaleConvert(void* cinfo, uint8** inputBuf, uint8*** outputBuf, uint
 void ExeJinitColorConverter(void* cinfo) {
     void* const cconvert = AllocSmall(cinfo, 1, 0xC);
     At<void*>(cinfo, 0x150) = cconvert;
-    At<uint32>(cconvert, 0x00) = 0x5C36F0;
+    At<uint32>(cconvert, 0x00) = LIBJPEG_CB(0x5C36F0, "jccolor", "null_method");
 
     switch (At<int32>(cinfo, 0x28)) {
     case 1:
@@ -178,11 +179,11 @@ void ExeJinitColorConverter(void* cinfo) {
         switch (At<int32>(cinfo, 0x28)) {
         case 1:
         case 3:
-            At<uint32>(cconvert, 0x04) = 0x5C35F0;
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C35F0, "jccolor", "grayscale_convert");
             return;
         case 2:
-            At<uint32>(cconvert, 0x00) = 0x5C31E0;
-            At<uint32>(cconvert, 0x04) = 0x5C33E0;
+            At<uint32>(cconvert, 0x00) = LIBJPEG_CB(0x5C31E0, "jccolor", "rgb_ycc_start");
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C33E0, "jccolor", "rgb_gray_convert");
             return;
         default:
             ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
@@ -196,11 +197,11 @@ void ExeJinitColorConverter(void* cinfo) {
         if (At<int32>(cinfo, 0x3C) != 3) { ErrExit(cinfo, JERR_BAD_J_COLORSPACE); }
         switch (At<int32>(cinfo, 0x28)) {
         case 2:
-            At<uint32>(cconvert, 0x00) = 0x5C31E0;
-            At<uint32>(cconvert, 0x04) = 0x5C32C0;
+            At<uint32>(cconvert, 0x00) = LIBJPEG_CB(0x5C31E0, "jccolor", "rgb_ycc_start");
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C32C0, "jccolor", "rgb_ycc_convert");
             return;
         case 3:
-            At<uint32>(cconvert, 0x04) = 0x5C3660;
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C3660, "jccolor", "null_convert");
             return;
         default:
             ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
@@ -209,7 +210,7 @@ void ExeJinitColorConverter(void* cinfo) {
     case 4: // JCS_CMYK
         if (At<int32>(cinfo, 0x3C) != 4) { ErrExit(cinfo, JERR_BAD_J_COLORSPACE); }
         if (At<int32>(cinfo, 0x28) == 4) {
-            At<uint32>(cconvert, 0x04) = 0x5C3660;
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C3660, "jccolor", "null_convert");
             return;
         }
         ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
@@ -218,11 +219,11 @@ void ExeJinitColorConverter(void* cinfo) {
         if (At<int32>(cinfo, 0x3C) != 4) { ErrExit(cinfo, JERR_BAD_J_COLORSPACE); }
         switch (At<int32>(cinfo, 0x28)) {
         case 4:
-            At<uint32>(cconvert, 0x00) = 0x5C31E0;
-            At<uint32>(cconvert, 0x04) = 0x5C3490;
+            At<uint32>(cconvert, 0x00) = LIBJPEG_CB(0x5C31E0, "jccolor", "rgb_ycc_start");
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C3490, "jccolor", "cmyk_ycck_convert");
             return;
         case 5:
-            At<uint32>(cconvert, 0x04) = 0x5C3660;
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C3660, "jccolor", "null_convert");
             return;
         default:
             ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
@@ -232,7 +233,7 @@ void ExeJinitColorConverter(void* cinfo) {
         if (At<int32>(cinfo, 0x40) != At<int32>(cinfo, 0x28) || At<int32>(cinfo, 0x3C) != At<int32>(cinfo, 0x24)) {
             ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
         }
-        At<uint32>(cconvert, 0x04) = 0x5C3660;
+        At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C3660, "jccolor", "null_convert");
         return;
     }
 }
@@ -243,12 +244,12 @@ void ExeJinitColorConverter(void* cinfo) {
 void ExeJinitForwardDct(void* cinfo) {
     void* const fdct = AllocSmall(cinfo, 1, 0x30);
     At<void*>(cinfo, 0x158) = fdct;
-    At<uint32>(fdct, 0x00) = 0x5C3940;
+    At<uint32>(fdct, 0x00) = LIBJPEG_CB(0x5C3940, "jcdctmgr", "start_pass_fdctmgr");
     if (At<int32>(cinfo, 0xB8) != 2) {
         ErrExit(cinfo, JERR_NOT_COMPILED);
     } else {
-        At<uint32>(fdct, 0x04) = 0x5C3B70;
-        At<uint32>(fdct, 0x1C) = 0x5CD860;
+        At<uint32>(fdct, 0x04) = LIBJPEG_CB(0x5C3B70, "jcdctmgr", "forward_DCT_float");
+        At<uint32>(fdct, 0x1C) = LIBJPEG_CB(0x5CD860, "jfdctflt", "jpeg_fdct_float");
     }
     for (int32 i = 0; i < 4; ++i) {
         At<uint32>(fdct, 0x0C + 4 * i) = 0;
@@ -261,7 +262,7 @@ void ExeJinitForwardDct(void* cinfo) {
 void ExeJinitHuffEncoder(void* cinfo) {
     void* const entropy = AllocSmall(cinfo, 1, 0x6C);
     At<void*>(cinfo, 0x15C) = entropy;
-    At<uint32>(entropy, 0x00) = 0x5C5090;
+    At<uint32>(entropy, 0x00) = LIBJPEG_CB(0x5C5090, "jchuff", "start_pass_huff");
     for (int32 i = 0; i < 4; ++i) {
         At<uint32>(entropy, 0x3C + 4 * i) = 0;
         At<uint32>(entropy, 0x2C + 4 * i) = 0;

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegCallback.h"
 
 #include "LibJpegMemory.h"
 #include "LibJpegExe.h"
@@ -427,8 +428,8 @@ void ExeJinitMemoryMgr(void* cinfo) {
     At<uint32>(mem, 0x10) = 0x5CEF30;
     At<uint32>(mem, 0x14) = 0x5CEFA0;
     At<uint32>(mem, 0x18) = 0x5CF010;
-    At<uint32>(mem, 0x1C) = 0x5CF2F0;
-    At<uint32>(mem, 0x20) = 0x5CF430;
+    At<uint32>(mem, 0x1C) = LIBJPEG_CB(0x5CF2F0, "jmemmgr", "access_virt_sarray");
+    At<uint32>(mem, 0x20) = LIBJPEG_CB(0x5CF430, "jmemmgr", "access_virt_barray");
     At<uint32>(mem, 0x24) = 0x5CF580;
     At<uint32>(mem, 0x28) = 0x5CF690;
     At<uint32>(mem, 0x30) = EXE_MAX_ALLOC_CHUNK;

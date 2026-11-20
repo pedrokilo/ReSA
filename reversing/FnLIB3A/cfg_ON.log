@@ -1,0 +1,40 @@
+-- Using Conan toolchain: D:/Original/wv-15/build/generators/conan_toolchain.cmake
+-- Conan toolchain: CMAKE_GENERATOR_TOOLSET=v145
+-- Conan toolchain: Setting CMAKE_MSVC_RUNTIME_LIBRARY=$<$<CONFIG:Debug>:MultiThreadedDebug>
+-- Conan toolchain: C++ Standard 23 with extensions OFF
+-- Conan toolchain: Including CMakeConfigDeps generated conan_cmakedeps_paths.cmake
+-- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.26300.
+-- MSVC_TOOLSET_VERSION: 145
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+Doxygen need to be installed to generate the doxygen documentation
+-- Conan: Configuring Targets for nlohmann_json/3.12.0
+-- Conan: Target declared imported INTERFACE library 'nlohmann_json::nlohmann_json'
+-- Conan: Configuring Targets for ogg/1.3.5
+-- Conan: Target declared imported STATIC library 'Ogg::ogg'
+-- Conan: Configuring Targets for spdlog/1.17.0
+-- Conan: Target declared imported STATIC library 'spdlog::spdlog'
+-- Conan: Configuring Targets for tracy/cci.20220130
+-- Conan: Target declared imported STATIC library 'Tracy::TracyClient'
+-- Conan: Configuring Targets for vorbis/1.3.7
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbis'
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbisenc'
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbisfile'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbisenc-alias'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbisfile-alias'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbis'
+-- Conan: Configuring Targets for imgui/1.92.9b-docking
+-- Conan: Target declared imported STATIC library 'imgui::imgui'
+-- Conan: Configuring Targets for libjpeg-turbo/3.2.0
+-- Conan: Target declared imported STATIC library 'libjpeg-turbo::jpeg-static'
+-- Conan: Target declared imported STATIC library 'libjpeg-turbo::turbojpeg-static'
+-- Conan: Target declared imported INTERFACE library 'libjpeg-turbo::libjpeg-turbo'
+-- Conan: Configuring Targets for sdl/3.4.14
+-- Conan: Configuring Targets for opengl/system
+-- Conan: Target declared imported INTERFACE library 'opengl::opengl'
+-- Conan: Target declared imported STATIC library 'SDL3::SDL3'
+-- Conan: Target declared alias 'SDL3::SDL3-static' for 'SDL3::SDL3'
+-- Conan: Target declared imported INTERFACE library 'SDL3::Headers'
+-- Conan: Target declared imported INTERFACE library 'sdl::sdl'
+-- Configuring done (0.2s)
+-- Generating done (0.4s)
+-- Build files have been written to: D:/Original/wv-15/build

@@ -27,6 +27,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "jpeglib.h"
+#include "LibJpegCallback.h"
 
 static auto& g_ScreenshotFileBuf    = StaticRef<std::array<uint8, 204'800>>(0xBD0B78);
 static auto& g_JpegDecodingToRaster = StaticRef<CRGBA*>(0xBD0160);
@@ -787,12 +788,12 @@ static void __cdecl jinit_c_prep_controller(CompressInfo* cinfo, uint8 need_full
     }
     PrepCtl* prep = static_cast<PrepCtl*>(cinfo->mem->alloc_small(cinfo, kPoolImage, sizeof(PrepCtl)));
     cinfo->prep = prep;
-    prep->start_pass = 0x5C76A0;
+    prep->start_pass = LIBJPEG_CB(0x5C76A0, "jcprepct", "start_pass_prep");
     if (cinfo->downsample->need_context_rows) {
         ErrExit(cinfo, msg::NOT_COMPILED);
         return;
     }
-    prep->pre_process_data = 0x5C7710;
+    prep->pre_process_data = LIBJPEG_CB(0x5C7710, "jcprepct", "pre_process_data");
     ComponentInfo* compptr = cinfo->comp_info;
     for (int32 ci = 0; ci < cinfo->num_components; ci++, compptr++) {
         const int32 samplesPerRow = static_cast<int32>(compptr->width_in_blocks * cinfo->max_h_samp_factor * 8) / compptr->h_samp_factor;
@@ -818,8 +819,8 @@ static void __cdecl expand_right_edge(uint8** image_data, int32 num_rows, int32 
 static void __cdecl jinit_downsampler(CompressInfo* cinfo) {
     Downsampler* downsample = static_cast<Downsampler*>(cinfo->mem->alloc_small(cinfo, kPoolImage, sizeof(Downsampler)));
     cinfo->downsample = downsample;
-    downsample->start_pass = 0x5C79E0;
-    downsample->downsample = 0x5C7A50;
+    downsample->start_pass = LIBJPEG_CB(0x5C79E0, "jcsample", "start_pass_downsample");
+    downsample->downsample = LIBJPEG_CB(0x5C7A50, "jcsample", "sep_downsample");
     downsample->need_context_rows = 0;
     if (cinfo->CCIR601_sampling) {
         ErrExit(cinfo, msg::CCIR601_NOTIMPL);
@@ -829,13 +830,13 @@ static void __cdecl jinit_downsampler(CompressInfo* cinfo) {
         const int32 h = compptr->h_samp_factor;
         const int32 v = compptr->v_samp_factor;
         if (h == cinfo->max_h_samp_factor && v == cinfo->max_v_samp_factor) {
-            downsample->methods[ci] = 0x5C7C10;
+            downsample->methods[ci] = LIBJPEG_CB(0x5C7C10, "jcsample", "fullsize_downsample");
         } else if (h * 2 == cinfo->max_h_samp_factor && v == cinfo->max_v_samp_factor) {
-            downsample->methods[ci] = 0x5C7C60;
+            downsample->methods[ci] = LIBJPEG_CB(0x5C7C60, "jcsample", "h2v1_downsample");
         } else if (h * 2 == cinfo->max_h_samp_factor && v * 2 == cinfo->max_v_samp_factor) {
-            downsample->methods[ci] = 0x5C7D10;
+            downsample->methods[ci] = LIBJPEG_CB(0x5C7D10, "jcsample", "h2v2_downsample");
         } else if ((cinfo->max_h_samp_factor % h) == 0 && (cinfo->max_v_samp_factor % v) == 0) {
-            downsample->methods[ci] = 0x5C7AE0;
+            downsample->methods[ci] = LIBJPEG_CB(0x5C7AE0, "jcsample", "int_downsample");
         } else {
             ErrExit(cinfo, msg::FRACT_SAMPLE_NOTIMPL);
         }
@@ -924,8 +925,8 @@ static void __cdecl term_destination(CompressInfo* cinfo) {
 static void __cdecl jinit_d_coef_controller(DecompressInfo* cinfo, uint8 need_full_buffer) {
     CoefCtlD* coef = static_cast<CoefCtlD*>(cinfo->mem->alloc_small(cinfo, kPoolImage, sizeof(CoefCtlD)));
     cinfo->coef = coef;
-    coef->start_input_pass = 0x5C8B40;
-    coef->start_output_pass = 0x5C8B60;
+    coef->start_input_pass = LIBJPEG_CB(0x5C8B40, "jdcoefct", "start_input_pass");
+    coef->start_output_pass = LIBJPEG_CB(0x5C8B60, "jdcoefct", "start_output_pass");
     if (need_full_buffer) {
         ErrExit(cinfo, msg::NOT_COMPILED);
         return;
@@ -934,8 +935,8 @@ static void __cdecl jinit_d_coef_controller(DecompressInfo* cinfo, uint8 need_fu
     for (int32 i = 0; i < 10; i++) {
         coef->MCU_buffer[i] = buffer + i * 128;
     }
-    coef->consume_data = 0x5C8E10;
-    coef->decompress_data = 0x5C8B70;
+    coef->consume_data = LIBJPEG_CB(0x5C8E10, "jdcoefct", "dummy_consume_data");
+    coef->decompress_data = LIBJPEG_CB(0x5C8B70, "jdcoefct", "decompress_onepass");
     coef->coef_arrays = nullptr;
 }
 
@@ -990,7 +991,7 @@ static void __cdecl null_convert(DecompressInfo* cinfo, uint8*** input_buf, uint
 static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
     CconvertCtl* cconvert = static_cast<CconvertCtl*>(cinfo->mem->alloc_small(cinfo, kPoolImage, sizeof(CconvertCtl)));
     cinfo->cconvert = cconvert;
-    cconvert->start_pass = 0x5C9340;
+    cconvert->start_pass = LIBJPEG_CB(0x5C9340, "jdcolor", "start_pass_dcolor");
     switch (static_cast<uint32>(cinfo->jpeg_color_space - 1)) {
     case 0: // gris
         if (cinfo->num_components != 1) {
@@ -1019,7 +1020,7 @@ static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
     case kCsGRAYSCALE:
         cinfo->out_color_components = 1;
         if (cinfo->jpeg_color_space == kCsGRAYSCALE || cinfo->jpeg_color_space == kCsYCbCr) {
-            cconvert->color_convert = 0x5C9150;
+            cconvert->color_convert = LIBJPEG_CB(0x5C9150, "jdcolor", "grayscale_convert");
             for (int32 ci = 1; ci < cinfo->num_components; ci++) {
                 cinfo->comp_info[ci].component_needed = 0;
             }
@@ -1030,10 +1031,10 @@ static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
     case kCsRGB:
         cinfo->out_color_components = 4;
         if (cinfo->jpeg_color_space == kCsYCbCr) {
-            cconvert->color_convert = 0x5C8FB0;
+            cconvert->color_convert = LIBJPEG_CB(0x5C8FB0, "jdcolor", "ycc_rgb_convert");
             build_ycc_rgb_table(cinfo);
         } else if (cinfo->jpeg_color_space == kCsGRAYSCALE) {
-            cconvert->color_convert = 0x5C9180;
+            cconvert->color_convert = LIBJPEG_CB(0x5C9180, "jdcolor", "gray_rgb_convert");
         } else {
             ErrExit(cinfo, msg::CONVERSION_NOTIMPL);
         }
@@ -1041,10 +1042,10 @@ static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
     case kCsCMYK:
         cinfo->out_color_components = 4;
         if (cinfo->jpeg_color_space == kCsYCCK) {
-            cconvert->color_convert = 0x5C91E0;
+            cconvert->color_convert = LIBJPEG_CB(0x5C91E0, "jdcolor", "ycck_cmyk_convert");
             build_ycc_rgb_table(cinfo);
         } else if (cinfo->jpeg_color_space == kCsCMYK) {
-            cconvert->color_convert = 0x5C90D0;
+            cconvert->color_convert = LIBJPEG_CB(0x5C90D0, "jdcolor", "null_convert");
         } else {
             ErrExit(cinfo, msg::CONVERSION_NOTIMPL);
         }
@@ -1052,7 +1053,7 @@ static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
     default:
         if (cinfo->out_color_space == cinfo->jpeg_color_space) {
             cinfo->out_color_components = cinfo->num_components;
-            cconvert->color_convert = 0x5C90D0;
+            cconvert->color_convert = LIBJPEG_CB(0x5C90D0, "jdcolor", "null_convert");
         } else {
             ErrExit(cinfo, msg::CONVERSION_NOTIMPL);
         }
@@ -1070,7 +1071,7 @@ static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
 static void __cdecl jinit_inverse_dct(DecompressInfo* cinfo) {
     IdctCtl* idct = static_cast<IdctCtl*>(cinfo->mem->alloc_small(cinfo, kPoolImage, sizeof(IdctCtl)));
     cinfo->idct = idct;
-    idct->start_pass = 0x5C9510;
+    idct->start_pass = LIBJPEG_CB(0x5C9510, "jddctmgr", "start_pass");
     ComponentInfo* compptr = cinfo->comp_info;
     for (int32 ci = 0; ci < cinfo->num_components; ci++, compptr++) {
         compptr->dct_table = cinfo->mem->alloc_small(cinfo, kPoolImage, 256);

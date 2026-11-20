@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegCallback.h"
 
 #include <intrin.h>
 
@@ -401,11 +402,11 @@ void LibJpegCompress::JinitMarkerWriter(ExeJpegCompress* cinfo) {
     cinfo->marker = marker;
     marker->write_file_header = reinterpret_cast<void*>(0x5C60B0);
     marker->write_frame_header = reinterpret_cast<void*>(0x5C6100);
-    marker->write_scan_header = reinterpret_cast<void*>(0x5C61E0);
+    marker->write_scan_header = reinterpret_cast<void*>(LIBJPEG_CB(0x5C61E0, "jcmarker", "write_scan_header"));
     marker->write_file_trailer = reinterpret_cast<void*>(0x5C62D0);
-    marker->write_tables_only = reinterpret_cast<void*>(0x5C62F0);
-    marker->write_marker_header = reinterpret_cast<void*>(0x5C6030);
-    marker->write_marker_byte = reinterpret_cast<void*>(0x5C6070);
+    marker->write_tables_only = reinterpret_cast<void*>(LIBJPEG_CB(0x5C62F0, "jcmarker", "write_tables_only"));
+    marker->write_marker_header = reinterpret_cast<void*>(LIBJPEG_CB(0x5C6030, "jcmarker", "write_marker_header"));
+    marker->write_marker_byte = reinterpret_cast<void*>(LIBJPEG_CB(0x5C6070, "jcmarker", "emit_byte"));
     marker->last_restart_interval = 0;
 }
 
@@ -610,7 +611,7 @@ void LibJpegCompress::JinitCMasterControl(ExeJpegCompress* cinfo, bool transcode
     cinfo->master = master;
     master->prepare_for_pass = reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(0x5C6850);
     master->pass_startup = reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(0x5C69E0);
-    master->finish_pass = reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(0x5C6A10);
+    master->finish_pass = reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(LIBJPEG_CB(0x5C6A10, "jcmaster", "finish_pass_master"));
     master->is_last_pass = 0;
 
     InitialSetup(cinfo);
