@@ -52963,5 +52963,19 @@
     "null_comparison_records": 0,
     "state_restored": true,
     "scope": "Reconstruida en C++ (los colaboradores del EXE son falsos identicos en ambos lados en el banco). Banco FnF1A con 163840 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados."
+  },
+  "0x006D6C00": {
+    "identity": "CVehicle::ProcessWheel",
+    "converted_source_functions": 1,
+    "source": "source/game_sa/Entity/Vehicle/Vehicle.cpp",
+    "bank": "FnPW1",
+    "run": "20261120-005146-919341",
+    "pairs": 20480,
+    "own_pairs": 20480,
+    "audit": "reversing/CppTwelveLevel6Final/runs/FnPW1-20261120-005146-919341/summary.json",
+    "differences": 0,
+    "null_comparison_records": 0,
+    "state_restored": true,
+    "scope": "Reconstruida en C++ con la x87 del EXE (ayudantes Veh83D*). Banco FnPW1 con 20480 pares y cero diferencias;  Sin cobertura exhaustiva más allá de los fixtures del banco. Fuentes probadas compiladas en el worktree wv-int (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPhysical::ApplyMoveForce(CVector) 0x5429F0 y CPhysical::ApplyTurnForce 0x542A50 (el producto vectorial corre de verdad en ambos lados y lo calcula el oraculo); la fuerza y el torque aplicados se comparan como los argumentos exactos de esas dos llamadas (las palabras de float de los eventos con cualquier NaN canonizado: NaN con NaN). Corren de verdad rand() del CRT del EXE (0x821B1E, semilla fijada por lado), CTimer::ms_fTimeStep, gHandlingDataMgr.fWheelFriction, el CHandlingData, el vehiculo y las estaticas 0xC1CDAC..0xC1CDAF (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos, los sorteos de rand(), el estado de la rueda y las estaticas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: cargas de NaN, valores de las estaticas AD/AE antes de la llamada (la funcion los escribe), wheelSpeed (no se lee)."
   }
 }
