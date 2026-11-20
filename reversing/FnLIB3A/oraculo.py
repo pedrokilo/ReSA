@@ -528,6 +528,95 @@ def t_virt(r, ec):
         if tuple(L[1 + 4 * k:5 + 4 * k]) != e: return False
     return True
 
+def parse_markers(st, kind, mk):
+    """Analiza un flujo de cabeceras JPEG como lo especifica el estandar/libjpeg 6b (sin usar la biblioteca). Devuelve (error, consumido, estado) o None si el flujo no es del tipo bien formado generado."""
+    S = dict(w=0, h=0, prec=0, nc=0, prog=0, arith=0, jfif=0, jmaj=0, jmin=0, unit=0, xd=0, yd=0, adobe=0, atr=0, ri=0, ncs=0, comps=[], scan=[], Ss=0, Se=0, Ah=0, Al=0, nscan=0, q={}, h_dc={}, h_ac={}, saw_sof=0)
+    def u16(p): return (st[p] << 8) | st[p + 1]
+    def app(marker, p, ln):
+        body = st[p + 2:p + ln]; num = min(len(body), 14) if ln - 2 >= 14 else len(body)
+        data = body[:num]
+        if marker == 0xE0 and num >= 14 and data[:5] == b'JFIF\0':
+            S['jfif'] = 1; S['jmaj'] = data[5]; S['jmin'] = data[6]; S['unit'] = data[7]; S['xd'] = (data[8] << 8) | data[9]; S['yd'] = (data[10] << 8) | data[11]
+        elif marker == 0xEE and num >= 12 and data[:5] == b'Adobe':
+            S['adobe'] = 1; S['atr'] = data[11]
+    p = 0
+    if kind == 1:
+        ln = u16(0); app(mk, 0, ln); return (False, ln, S)
+    if st[0:2] != bytes([0xFF, 0xD8]): return None
+    S['jmaj'] = 1; S['jmin'] = 1; S['unit'] = 0; S['xd'] = 1; S['yd'] = 1   # get_soi fija los valores JFIF por defecto
+    p = 2
+    while True:
+        if p + 1 >= len(st) or st[p] != 0xFF: return None
+        m = st[p + 1]; p += 2; ln = u16(p)
+        if m in (0xE0, 0xEE): app(m, p, ln)
+        elif m == 0xDB:
+            q = p + 2; end = p + ln
+            while q < end:
+                t = st[q]; q += 1; prec = t >> 4; n = t & 15
+                if n > 3: return None
+                tab = [0] * 64
+                for i in range(64):
+                    if prec: v = u16(q); q += 2
+                    else: v = st[q]; q += 1
+                    tab[NAT[i]] = v
+                S['q'][n] = tab
+        elif m in (0xC0, 0xC1, 0xC2, 0xC9):
+            S['prec'] = st[p + 2]; S['h'] = u16(p + 3); S['w'] = u16(p + 5); S['nc'] = st[p + 7]; S['prog'] = 1 if m == 0xC2 else 0; S['arith'] = 1 if m == 0xC9 else 0
+            S['comps'] = [(st[p + 8 + 3 * i], st[p + 9 + 3 * i] >> 4, st[p + 9 + 3 * i] & 15, st[p + 10 + 3 * i]) for i in range(S['nc'])]; S['saw_sof'] = 1
+        elif m == 0xC4:
+            q = p + 2; end = p + ln
+            while q < end:
+                t = st[q]; q += 1; bits = [0] + list(st[q:q + 16]); q += 16; cnt = sum(bits); vals = list(st[q:q + cnt]); q += cnt
+                (S['h_ac'] if t & 0x10 else S['h_dc'])[t & 15] = (bits, vals)
+        elif m == 0xDD: S['ri'] = u16(p + 2)
+        elif m == 0xDA:
+            ns = st[p + 2]; ids = [c[0] for c in S['comps']]; scan = []
+            for i in range(ns):
+                cid = st[p + 3 + 2 * i]; tt = st[p + 4 + 2 * i]
+                if cid not in ids: return (True, None, S)
+                scan.append((cid, tt >> 4, tt & 15))
+            q = p + 3 + 2 * ns; S['Ss'] = st[q]; S['Se'] = st[q + 1]; S['Ah'] = st[q + 2] >> 4; S['Al'] = st[q + 2] & 15; S['scan'] = scan; S['ncs'] = ns; S['nscan'] = 1
+            return (False, p + ln, S)
+        p += ln
+def t_read_markers(r, ec):
+    kind, mut, sus, n = [r.u32() for _ in range(4)]; st = r.raw(n); consumed = r.u32()
+    g = [r.u32() for _ in range(16)]
+    w, h, prec, nc, prog, arith, jfif, jmaj, jmin, unit, xd, yd, adobe, atr, ri, ncs = g
+    comps = [tuple(r.u32() for _ in range(4)) for _ in range(4)]; scan = [tuple(r.u32() for _ in range(3)) for _ in range(4)]
+    Ss, Se, Ah, Al, nscan, unread = [r.u32() for _ in range(6)]
+    q = []
+    for i in range(4):
+        p = r.u32(); q.append(struct.unpack('<64H', r.raw(128)) if p else None)
+    hs = []
+    for i in range(8):
+        p = r.u32(); hs.append((r.raw(17), r.raw(256)) if p else None)
+    saw_soi, saw_sof = r.u32() & 0xFF, r.u32() & 0xFF; ret = r.ret
+    if mut or sus: return True      # flujos mutados o con suspension: solo EXE frente a biblioteca
+    res = parse_markers(st, kind, unread)
+    if res is None: return True
+    err, cons, S = res
+    if err: return ec != 0
+    if ec != 0 or (ret if kind == 0 else ret & 0xFF) != 1 or consumed != cons: return False
+    if (jfif & 0xFF, jmaj, jmin, unit, xd, yd, adobe & 0xFF, atr) != (S['jfif'], S['jmaj'], S['jmin'], S['unit'], S['xd'], S['yd'], S['adobe'], S['atr']): return False
+    if kind == 1: return True
+    if (w, h, prec, nc, prog & 0xFF, arith & 0xFF, ri, ncs) != (S['w'], S['h'], S['prec'], S['nc'], S['prog'], S['arith'], S['ri'], S['ncs']): return False
+    for i in range(S['nc']):
+        if comps[i] != S['comps'][i]: return False
+    for i in range(S['ncs']):
+        if scan[i] != S['scan'][i]: return False
+    if (Ss, Se, Ah, Al, nscan) != (S['Ss'], S['Se'], S['Ah'], S['Al'], S['nscan']) or saw_soi != 1 or saw_sof != 1: return False
+    for i in range(4):
+        if (q[i] is not None) != (i in S['q']): return False
+        if q[i] is not None and list(q[i]) != S['q'][i]: return False
+    for i in range(8):
+        d = S['h_dc'] if i < 4 else S['h_ac']; k = i & 3
+        if (hs[i] is not None) != (k in d): return False
+        if hs[i] is not None:
+            bits, vals = d[k]
+            if list(hs[i][0]) != bits or list(hs[i][1][:len(vals)]) != vals: return False
+    return True
+def unread_mk(st): return 0xE0
+
 def t_start_up(r, ec):
     maxv, oh, nro, rtg = r.u32(), r.u32(), r.u32(), r.u32()
     return nro == maxv and rtg == oh and ec == 0
@@ -590,7 +679,7 @@ def t_dcolor(r, ec):
 
 def t_nothing(r, ec): return ec == 0
 
-CHECKS = {'access_virt_sarray': t_virt, 'access_virt_barray': t_virt, 'write_tables_only': t_marker_hdr, 'write_scan_header': t_marker_hdr, 'decompress_onepass': t_onepass, 'pre_process_data': t_pre_process, 'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
+CHECKS = {'read_markers': t_read_markers, 'get_interesting_appn': t_read_markers, 'jinit_marker_reader': t_nothing, 'access_virt_sarray': t_virt, 'access_virt_barray': t_virt, 'write_tables_only': t_marker_hdr, 'write_scan_header': t_marker_hdr, 'decompress_onepass': t_onepass, 'pre_process_data': t_pre_process, 'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
           'emit_byte': t_marker_bytes, 'write_marker_header': t_marker_bytes, 'start_pass_prep': t_start_prep, 'reset_marker_reader': t_reset_marker, 'start_pass_dpost': t_dpost, 'jpeg_idct_float': t_idct_float, 'rgb_ycc_start': t_rgb_ycc_start, 'rgb_ycc_convert': t_color_compress('ycc'), 'rgb_gray_convert': t_color_compress('gray'), 'cmyk_ycck_convert': t_color_compress('cmyk'),
           'grayscale_convert': t_color_compress('grayc'), 'null_convert': t_color_compress('null'), 'null_method': t_nothing, 'start_pass_fdctmgr': t_start_fdct,
           'jpeg_fdct_float': t_fdct_float, 'forward_DCT_float': t_forward_dct, 'start_pass_upsample': t_start_up, 'fullsize_upsample': t_upsample, 'noop_upsample': t_upsample,

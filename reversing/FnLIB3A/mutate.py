@@ -153,6 +153,22 @@ R2 += [
  (53, 'access_virt_sarray', 'jmemmgr', 'access_virt_sarray', 'ltemp = (long) end_row - (long) ptr->rows_in_mem;', 'ltemp = (long) end_row - (long) ptr->rows_in_mem + ((lib3a_mut==53 && end_row == 9) ? 1 : 0);'),
  (54, 'access_virt_barray', 'jmemmgr', 'access_virt_barray', 'ltemp = (long) end_row - (long) ptr->rows_in_mem;', 'ltemp = (long) end_row - (long) ptr->rows_in_mem + ((lib3a_mut==54 && end_row == 9) ? 1 : 0);'),
 ]
+R1 += [
+ (55, 'read_markers', 'jdmarker', 'get_dqt', 'quant_ptr->quantval[jpeg_natural_order[i]] = (UINT16) tmp;', 'quant_ptr->quantval[jpeg_natural_order[i]] = (UINT16) (tmp + ((lib3a_mut==55 && i == 13 && n == 1) ? 1 : 0));'),
+ (56, 'get_interesting_appn', 'jdmarker', 'examine_app0', 'cinfo->X_density = (GETJOCTET(data[8]) << 8) + GETJOCTET(data[9]);', 'cinfo->X_density = (GETJOCTET(data[8]) << 8) + GETJOCTET(data[9]) + ((lib3a_mut==56 && (GETJOCTET(data[10]) & 15) == 7) ? 1 : 0);'),
+ (57, 'read_markers', 'jdmarker', 'get_dri', 'cinfo->restart_interval = tmp;', 'cinfo->restart_interval = tmp + ((lib3a_mut==57 && (tmp & 15) == 7) ? 1 : 0);'),
+]
+R2 += [
+ (55, 'read_markers', 'jdmarker', 'get_sof', 'compptr->v_samp_factor = (c     ) & 15;', 'compptr->v_samp_factor = ((c     ) & 15) + ((lib3a_mut==55 && ci == 2) ? 1 : 0);'),
+ (56, 'get_interesting_appn', 'jdmarker', 'examine_app14', 'cinfo->Adobe_transform = (UINT8) transform;', 'cinfo->Adobe_transform = (UINT8) (transform + ((lib3a_mut==56 && transform == 1) ? 1 : 0));'),
+ (57, 'read_markers', 'jdmarker', 'get_sos', 'cinfo->Al = (c     ) & 15;', 'cinfo->Al = ((c     ) & 15) ^ ((lib3a_mut==57 && cinfo->Se == 63) ? 1 : 0);'),
+]
+R1 += [
+ (58, 'jinit_marker_reader', 'jdmarker', 'jinit_marker_reader', 'marker->process_APPn[14] = get_interesting_appn;', 'marker->process_APPn[14] = (lib3a_mut==58) ? skip_variable : get_interesting_appn;'),
+]
+R2 += [
+ (58, 'jinit_marker_reader', 'jdmarker', 'jinit_marker_reader', 'marker->length_limit_COM = 0;', 'marker->length_limit_COM = (lib3a_mut==58) ? 1 : 0;'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():

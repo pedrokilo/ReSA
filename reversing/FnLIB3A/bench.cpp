@@ -65,7 +65,7 @@ template <class T> static T* AT(size_t n = 1) { return (T*)A(sizeof(T) * n, 8); 
 static jmp_buf g_jb; static int g_err_code; static int g_err_calls;
 static void __cdecl mock_error_exit(j_common_ptr c) { g_err_code = c->err->msg_code; g_err_calls++; longjmp(g_jb, 1); }
 static void __cdecl mock_emit(j_common_ptr, int) {}
-static void* __cdecl mock_alloc_small(j_common_ptr, int, size_t n) { return A(n, 8); }
+static void* __cdecl mock_alloc_small(j_common_ptr, int, size_t n) { void* p = A(n, 8); if (getenv("DBGALLOC")) printf("   alloc_small off=%zu n=%zu\n", (size_t)((uint8_t*)p - g_arena), n); return p; }
 static void* __cdecl mock_alloc_large(j_common_ptr, int, size_t n) { return A(n, 8); }
 static JSAMPARRAY __cdecl mock_alloc_sarray(j_common_ptr, int, JDIMENSION w, JDIMENSION h) {
     JSAMPARRAY a = (JSAMPARRAY)A(sizeof(JSAMPROW) * h, 8); for (JDIMENSION i = 0; i < h; i++) a[i] = (JSAMPROW)A(w, 8); return a;
@@ -88,7 +88,9 @@ struct Ctx {
     std::vector<Mask> masks;
     struct FpSite { size_t off; std::vector<std::pair<uint32_t, std::pair<const char*, const char*>>> map; }; // puntero a funcion en el arena: direccion del EXE <-> (archivo, funcion) de la biblioteca
     std::vector<FpSite> fps;
+    std::function<void(std::vector<uint8_t>&)> norm;  // normaliza la instantanea de cada lado antes de comparar (bytes indeterminados de la biblioteca original)
     bool check_ret = false;
+    uint32_t ret_mask = 0xFFFFFFFFu;   // boolean = unsigned char en el EXE y en la biblioteca: solo cuenta AL
 };
 struct Test {
     const char* name; uint32_t exe_addr; const char* lib_file; const char* lib_name;
@@ -684,6 +686,118 @@ static void add_virt_tests() {
     }
 }
 
+
+// ---- descompresion: lector de marcadores (jdmarker.c): read_markers, get_interesting_appn, jinit_marker_reader
+// Fuente de bytes simulada: el flujo se reparte en trozos; fill_input_buffer pasa al siguiente (o suspende si es el trozo marcado); skip_input_data como jdatasrc.c.
+struct SrcState { uint32_t nchunks; uint32_t cur; uint32_t suspend_at; uint32_t off[40]; uint32_t len[40]; uint8_t* base; uint32_t fills; };
+static SrcState* g_src_state(j_decompress_ptr c) { return (SrcState*)c->client_data; }
+static boolean __cdecl mock_fill(j_decompress_ptr c) {
+    SrcState* s = g_src_state(c); s->fills++;
+    if (s->cur + 1 >= s->nchunks) return FALSE;                    // sin mas datos: suspension
+    if (s->suspend_at != 0xFFFFFFFFu && s->cur + 1 == s->suspend_at) { s->suspend_at = 0xFFFFFFFFu; return FALSE; } // suspension en este limite (una vez)
+    s->cur++; c->src->next_input_byte = s->base + s->off[s->cur]; c->src->bytes_in_buffer = s->len[s->cur]; return TRUE;
+}
+static void __cdecl mock_skip(j_decompress_ptr c, long n) {
+    if (n <= 0) return; struct jpeg_source_mgr* src = c->src;
+    while (n > (long)src->bytes_in_buffer) { n -= (long)src->bytes_in_buffer; (void)mock_fill(c); if (src->bytes_in_buffer == 0 && g_src_state(c)->cur + 1 >= g_src_state(c)->nchunks) { return; } }
+    src->next_input_byte += n; src->bytes_in_buffer -= (size_t)n;
+}
+static void __cdecl mock_init_source(j_decompress_ptr) {}
+static boolean __cdecl mock_resync(j_decompress_ptr, int) { return TRUE; }
+static void __cdecl mock_term_source(j_decompress_ptr) {}
+static void put8(std::vector<uint8_t>& v, int b) { v.push_back((uint8_t)b); }
+static void put16be(std::vector<uint8_t>& v, int b) { v.push_back((uint8_t)(b >> 8)); v.push_back((uint8_t)b); }
+// construye un flujo de cabeceras JPEG; si hay mutacion se rompe despues
+static void gen_jpeg_header(Rng& r, std::vector<uint8_t>& s, bool full) {
+    auto seg = [&](int marker, const std::vector<uint8_t>& body) { put8(s, 0xFF); put8(s, marker); put16be(s, (int)body.size() + 2); s.insert(s.end(), body.begin(), body.end()); };
+    put8(s, 0xFF); put8(s, 0xD8);
+    if (r() % 3 == 0) { std::vector<uint8_t> b = {'J', 'F', 'I', 'F', 0, (uint8_t)R(r, 1, 1), (uint8_t)R(r, 0, 2), (uint8_t)R(r, 0, 2), (uint8_t)(r() % 256), (uint8_t)r(), (uint8_t)(r() % 256), (uint8_t)r(), 0, 0}; if (r() % 4 == 0) { b[12] = 1; b[13] = 1; b.push_back(1); b.push_back(2); b.push_back(3); } seg(0xE0, b); }
+    if (r() % 6 == 0) { std::vector<uint8_t> b = {'J', 'F', 'X', 'X', 0, 0x10, 1, 2, 3}; seg(0xE0, b); }
+    if (r() % 4 == 0) { std::vector<uint8_t> b = {'A', 'd', 'o', 'b', 'e', 0, 100, 0, 0, 0, 0, (uint8_t)R(r, 0, 2)}; if (r() % 6 == 0) b.resize(R(r, 0, 11)); seg(0xEE, b); }
+    if (r() % 5 == 0) { std::vector<uint8_t> b(R(r, 0, 20)); for (auto& q : b) q = (uint8_t)r(); seg(0xFE, b); }
+    if (r() % 5 == 0) { std::vector<uint8_t> b(R(r, 0, 30)); for (auto& q : b) q = (uint8_t)r(); seg((int)R(r, 0xE1, 0xED), b); }
+    int ndqt = (int)R(r, 1, 3); static const int dummy = 0; (void)dummy;
+    for (int i = 0; i < ndqt; i++) { int prec = r() % 5 == 0; std::vector<uint8_t> b; put8(b, (prec << 4) | (int)R(r, 0, 3)); for (int k = 0; k < 64; k++) { int v = prec ? (int)R(r, 1, 65535) : (int)R(r, 1, 255); if (prec) put8(b, v >> 8); put8(b, v); } seg(0xDB, b); }
+    int nc = (int)R(r, 1, 4); int sof = (int)(r() % 8 == 0 ? R(r, 0xC0, 0xC2) : (r() % 2 ? 0xC0 : 0xC2)); if (full) sof = (int)R(r, 0xC0, 0xC2); if (r() % 12 == 0) sof = 0xC9;
+    { std::vector<uint8_t> b; put8(b, 8); put16be(b, (int)R(r, 1, 3000)); put16be(b, (int)R(r, 1, 3000)); put8(b, nc); for (int i = 0; i < nc; i++) { put8(b, (int)R(r, 0, 255)); put8(b, ((int)R(r, 1, 4) << 4) | (int)R(r, 1, 4)); put8(b, (int)R(r, 0, 3)); } seg(sof, b);
+      // ids distintos para que SOS los encuentre
+      size_t base = s.size() - b.size(); for (int i = 0; i < nc; i++) s[base + 6 + 3 * i] = (uint8_t)(i + 1 + (r() % 3 == 0 ? 10 * (int)R(r, 0, 3) : 0)); }
+    int ndht = (int)R(r, 1, 4);
+    for (int i = 0; i < ndht; i++) { std::vector<uint8_t> b; put8(b, ((r() & 1) << 4) | (int)R(r, 0, 3)); int tot = 0; uint8_t bits[17]; for (int k = 1; k <= 16; k++) { bits[k] = (uint8_t)((tot < 200 && r() % 3 == 0) ? R(r, 0, 4) : 0); tot += bits[k]; } for (int k = 1; k <= 16; k++) put8(b, bits[k]); for (int k = 0; k < tot; k++) put8(b, (int)r() & 255); seg(0xC4, b); }
+    if (r() % 3 == 0) { std::vector<uint8_t> b; put16be(b, (int)R(r, 0, 600)); seg(0xDD, b); }
+    { // SOS: ids conocidos de SOF
+      int ns = (int)R(r, 1, nc); std::vector<uint8_t> b; put8(b, ns); size_t sofpos = 0; (void)sofpos;
+      for (int i = 0; i < ns; i++) { put8(b, i + 1); put8(b, ((int)R(r, 0, 3) << 4) | (int)R(r, 0, 3)); } put8(b, (int)R(r, 0, 63) * (r() % 3 == 0)); put8(b, (int)R(r, 0, 63)); put8(b, ((int)R(r, 0, 3) << 4) | (int)R(r, 0, 3)); seg(0xDA, b); }
+    int nd = (int)R(r, 0, 12); for (int i = 0; i < nd; i++) put8(s, (int)(r() % 256) == 0xFF ? 0 : (int)(r() & 255)); if (r() % 3 == 0) { put8(s, 0xFF); put8(s, 0xD9); }
+}
+static void add_markerrd_tests() {
+    // jinit_marker_reader (0x5CC7D0)
+    g_tests.push_back({"jinit_marker_reader", 0x5CC7D0, "jdmarker", "jinit_marker_reader", [](Rng& r, Ctx& x) {
+        auto c = rand_dinfo(r); c->mem = &g_mem; uint8_t* m = g_arena + ((g_top + 7) & ~(size_t)7);
+        static const std::pair<uint32_t, std::pair<const char*, const char*>> fps[] = {{0x5CC7A0, {"jdmarker", "reset_marker_reader"}}, {0x5CC290, {"jdmarker", "read_markers"}}, {0x5CC610, {"jdmarker", "read_restart_marker"}}, {0x5CC050, {"jdmarker", "skip_variable"}}, {0x5CBF00, {"jdmarker", "get_interesting_appn"}}};
+        Ctx::FpSite s0; for (auto& f : fps) s0.map.push_back(f);
+        for (size_t off : {(size_t)0, (size_t)4, (size_t)8, (size_t)0x18, (size_t)0x1C, (size_t)0x20, (size_t)0x24, (size_t)0x28, (size_t)0x2C, (size_t)0x30, (size_t)0x34, (size_t)0x38, (size_t)0x3C, (size_t)0x40, (size_t)0x44, (size_t)0x48, (size_t)0x4C, (size_t)0x50, (size_t)0x54, (size_t)0x58}) { Ctx::FpSite q = s0; q.off = (size_t)(m - g_arena) + off; x.fps.push_back(q); }
+        x.call = [c](void* f) { ((void(__cdecl*)(j_decompress_ptr))f)(c); return 0; };
+        x.dump = [](std::vector<uint8_t>&) {};
+    }, 1});
+    for (int kind = 0; kind < 2; kind++) {
+        g_tests.push_back({kind == 0 ? "read_markers" : "get_interesting_appn", kind == 0 ? 0x5CC290u : 0x5CBF00u, "jdmarker", kind == 0 ? "read_markers" : "get_interesting_appn", [kind](Rng& r, Ctx& x) {
+            x.check_ret = true; if (kind == 1) x.ret_mask = 0xFF;
+            auto c = new_dinfo(); c->mem = &g_mem; c->is_decompressor = TRUE;
+            std::vector<uint8_t> s;
+            bool mutated = false;
+            if (kind == 0) {
+                gen_jpeg_header(r, s, false);
+                if (r() % 3 == 0) { mutated = true; int m = (int)R(r, 1, 3); for (int k = 0; k < m && !s.empty(); k++) { switch (r() % 4) { case 0: s[r() % s.size()] ^= (uint8_t)(1 << (r() % 8)); break; case 1: s[r() % s.size()] = (uint8_t)r(); break; case 2: s.resize(R(r, 1, (uint32_t)s.size())); break; default: { size_t p = r() % s.size(); s.insert(s.begin() + p, (uint8_t)r()); } } } }
+            } else { // segmento APP0/APP14 suelto: el marcador ya se leyo (unread_marker) y el flujo empieza en la longitud
+                int mk = (r() % 2) ? 0xE0 : 0xEE; std::vector<uint8_t> b; if (mk == 0xE0) { b = {'J', 'F', 'I', 'F', 0, (uint8_t)R(r, 1, 1), (uint8_t)R(r, 0, 2), (uint8_t)R(r, 0, 2), (uint8_t)(r() % 256), (uint8_t)r(), (uint8_t)(r() % 256), (uint8_t)r(), (uint8_t)R(r, 0, 2), (uint8_t)R(r, 0, 2)}; if (r() % 3 == 0) b[R(r, 0, 4)] ^= 1; }
+                else { b = {'A', 'd', 'o', 'b', 'e', 0, 100, 0, 0, 0, 0, (uint8_t)R(r, 0, 2)}; if (r() % 3 == 0) b[R(r, 0, 4)] ^= 1; }
+                if (r() % 4 == 0) b.resize(R(r, 0, (uint32_t)b.size() + 6)); if (r() % 5 == 0) { size_t add = R(r, 1, 20); for (size_t i = 0; i < add; i++) b.push_back((uint8_t)r()); }
+                put16be(s, (int)b.size() + 2); s.insert(s.end(), b.begin(), b.end()); put8(s, 0xFF); put8(s, 0xD9); c->unread_marker = mk;
+                if (r() % 8 == 0) { s[1] = (uint8_t)(s[1] + (r() % 3)); mutated = true; } mutated = mutated || false;
+            }
+            uint32_t len = (uint32_t)s.size(); uint8_t* buf = (uint8_t*)A(len + 16, 8); memcpy(buf, s.data(), len);
+            SrcState* st = (SrcState*)A(sizeof(SrcState), 8); memset(st, 0, sizeof *st); st->base = buf;
+            uint32_t pos = 0; while (pos < len && st->nchunks < 39) { uint32_t n = (r() % 3 == 0) ? R(r, 1, 3) : R(r, 1, 40); if (r() % 6 == 0) n = len; n = std::min(n, len - pos); st->off[st->nchunks] = pos; st->len[st->nchunks] = n; st->nchunks++; pos += n; }
+            if (pos < len) { st->off[st->nchunks - 1] = st->off[st->nchunks - 1]; st->len[st->nchunks - 1] += len - pos; }
+            if (st->nchunks == 0) { st->nchunks = 1; st->off[0] = 0; st->len[0] = 0; }
+            st->suspend_at = (r() % 4 == 0 && st->nchunks > 1) ? R(r, 1, st->nchunks - 1) : 0xFFFFFFFFu;
+            c->client_data = st; auto src = (struct jpeg_source_mgr*)A(sizeof(jpeg_source_mgr), 8); memset(src, 0, sizeof *src); c->src = src;
+            src->next_input_byte = buf + st->off[0]; src->bytes_in_buffer = st->len[0]; src->init_source = mock_init_source; src->fill_input_buffer = mock_fill; src->skip_input_data = mock_skip; src->resync_to_restart = mock_resync; src->term_source = mock_term_source;
+            // marcador: estructura privada de 0xA8 bytes con los punteros del lado correspondiente (se fijan en pre)
+            uint8_t* mk = (uint8_t*)A(0xA8, 8); memset(mk, 0, 0xA8); c->marker = (struct jpeg_marker_reader*)mk;
+            if (kind == 1) { ((uint8_t*)mk)[0xC] = 1; }
+            if (getenv("DBGOFF")) printf("OFF c=%zu buf=%zu st=%zu src=%zu mk=%zu top=%zu len=%u\n", aoff(c), aoff(buf), aoff(st), aoff(src), aoff(mk), g_top, len);
+            uint32_t sus = st->suspend_at; bool mut = mutated;
+            static const std::pair<uint32_t, std::pair<const char*, const char*>> fpl[] = {{0x5CC050, {"jdmarker", "skip_variable"}}, {0x5CBF00, {"jdmarker", "get_interesting_appn"}}};
+            for (size_t off = 0x18; off <= 0x58; off += 4) { Ctx::FpSite q; q.off = (size_t)(mk - g_arena) + off; for (auto& f : fpl) q.map.push_back(f); x.fps.push_back(q); }
+            x.norm = [c](std::vector<uint8_t>& sn) { // huffval mas alla de sum(bits): en la biblioteca 6b es basura de la pila (get_dht copia un arreglo local sin inicializar)
+                for (int i = 0; i < 8; i++) { JHUFF_TBL* h = i < 4 ? c->dc_huff_tbl_ptrs[i] : c->ac_huff_tbl_ptrs[i - 4]; (void)h; }
+                auto rd32 = [&](size_t off) { uint32_t v = 0; if (off + 4 <= sn.size()) memcpy(&v, sn.data() + off, 4); return v; };
+                for (int i = 0; i < 8; i++) { size_t po = (size_t)((uint8_t*)(i < 4 ? (void*)&c->dc_huff_tbl_ptrs[i] : (void*)&c->ac_huff_tbl_ptrs[i - 4]) - g_arena); uint32_t pv = rd32(po); if (!pv) continue; size_t to = pv - (uint32_t)(uintptr_t)g_arena; if (to + 274 > sn.size()) continue; int cnt = 0; for (int k = 1; k <= 16; k++) cnt += sn[to + k]; if (cnt > 256) cnt = 256; for (int k = cnt; k < 256; k++) sn[to + 17 + k] = 0; }
+            };
+            x.pre = [=](bool exe) { uint32_t skipv = exe ? 0x5CC050 : (uint32_t)(uintptr_t)lib("jdmarker", "skip_variable"), gi = exe ? 0x5CBF00 : (uint32_t)(uintptr_t)lib("jdmarker", "get_interesting_appn");
+                W32(mk, 0x18) = skipv; for (int i = 0; i < 16; i++) W32(mk, 0x1C + 4 * i) = skipv; W32(mk, 0x1C) = gi; W32(mk, 0x54) = gi; };
+            auto sbuf = std::make_shared<std::vector<uint8_t>>(s);
+            x.call = [=](void* f) { return (int)((int(__cdecl*)(j_decompress_ptr))f)(c); };
+            x.dump = [=](std::vector<uint8_t>& v) {
+                put32(v, (uint32_t)kind); put32(v, mut); put32(v, sus != 0xFFFFFFFFu); put32(v, (uint32_t)sbuf->size()); putn(v, sbuf->data(), sbuf->size());
+                // consumido = bytes entregados al analizador
+                SrcState* S = (SrcState*)c->client_data; uint32_t consumed = S->off[S->cur] + S->len[S->cur] - (uint32_t)c->src->bytes_in_buffer; put32(v, consumed);
+                put32(v, c->image_width); put32(v, c->image_height); put32(v, (uint32_t)c->data_precision); put32(v, (uint32_t)c->num_components); put32(v, c->progressive_mode & 0xFF); put32(v, c->arith_code & 0xFF);
+                put32(v, c->saw_JFIF_marker & 0xFF); put32(v, c->JFIF_major_version); put32(v, c->JFIF_minor_version); put32(v, c->density_unit); put32(v, c->X_density); put32(v, c->Y_density);
+                put32(v, c->saw_Adobe_marker & 0xFF); put32(v, c->Adobe_transform); put32(v, c->restart_interval); put32(v, (uint32_t)c->comps_in_scan);
+                for (int i = 0; i < 4; i++) if (i < c->num_components && c->comp_info) { put32(v, (uint32_t)c->comp_info[i].component_id); put32(v, (uint32_t)c->comp_info[i].h_samp_factor); put32(v, (uint32_t)c->comp_info[i].v_samp_factor); put32(v, (uint32_t)c->comp_info[i].quant_tbl_no); } else for (int k = 0; k < 4; k++) put32(v, 0);
+                for (int i = 0; i < 4; i++) if (i < c->comps_in_scan && c->cur_comp_info[i]) { put32(v, (uint32_t)c->cur_comp_info[i]->component_id); put32(v, (uint32_t)c->cur_comp_info[i]->dc_tbl_no); put32(v, (uint32_t)c->cur_comp_info[i]->ac_tbl_no); } else for (int k = 0; k < 3; k++) put32(v, 0);
+                put32(v, (uint32_t)c->Ss); put32(v, (uint32_t)c->Se); put32(v, (uint32_t)c->Ah); put32(v, (uint32_t)c->Al); put32(v, (uint32_t)c->input_scan_number); put32(v, (uint32_t)c->unread_marker);
+                for (int i = 0; i < 4; i++) { put32(v, c->quant_tbl_ptrs[i] != nullptr); if (c->quant_tbl_ptrs[i]) putn(v, c->quant_tbl_ptrs[i]->quantval, 128); }
+                for (int i = 0; i < 8; i++) { JHUFF_TBL* h = i < 4 ? c->dc_huff_tbl_ptrs[i] : c->ac_huff_tbl_ptrs[i - 4]; put32(v, h != nullptr); if (h) { putn(v, h->bits, 17); putn(v, h->huffval, 256); } }
+                put32(v, ((uint8_t*)c->marker)[0xC]); put32(v, ((uint8_t*)c->marker)[0xD]);
+            };
+        }, 4000});
+    }
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -699,7 +813,7 @@ int main(int argc, char** argv) {
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
-    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests(); add_marker_tests(); add_virt_tests();
+    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests(); add_marker_tests(); add_virt_tests(); add_markerrd_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");
@@ -710,15 +824,16 @@ int main(int argc, char** argv) {
         std::vector<uint8_t> trace; int diffs = 0, errs = 0, pairs = 0;
         for (int k = 0; k < N; k++) {
             g_top = 0; Rng fr(rng()); fill_rand(fr, std::min(g_hi + 4096, sizeof g_arena)); g_err_calls = 0; g_err_code = 0;
-            Ctx ctx; t.build(rng, ctx); size_t top0 = g_top; std::vector<uint8_t> S0(g_arena, g_arena + top0);
+            Ctx ctx; t.build(rng, ctx); size_t top0 = g_top; size_t lim0 = std::min(sizeof g_arena, std::max(top0, g_hi) + 65536); std::vector<uint8_t> S0(g_arena, g_arena + lim0); // se restaura tambien lo que queda por encima de top0: las asignaciones hechas durante la llamada no deben heredar restos del otro lado
             int ret[2] = {0, 0}, ec[2] = {0, 0}, ecode[2] = {0, 0}; size_t topE[2] = {0, 0}; std::vector<uint8_t> snap[2];
             for (int side = 0; side < 2; side++) {
-                memcpy(g_arena, S0.data(), top0); g_top = top0; g_err_calls = 0; g_err_code = 0;
+                memcpy(g_arena, S0.data(), lim0); g_top = top0; g_err_calls = 0; g_err_code = 0;
                 void* f = side == 0 ? exef : libf; if (ctx.pre) ctx.pre(side == 0);
                 if (setjmp(g_jb) == 0) ret[side] = ctx.call(f); else { ec[side] = 1; }
                 ecode[side] = g_err_code; topE[side] = g_top; snap[side].assign(g_arena, g_arena + g_top);
                 if (side == 0) { /* conservar */ }
             }
+            if (ctx.norm) for (int s = 0; s < 2; s++) ctx.norm(snap[s]);
             // punteros a funcion: el EXE escribe direcciones propias y la biblioteca las suyas; se sustituyen por el indice del par declarado (si el valor no es ninguno de los declarados se deja crudo y delata la diferencia)
             for (auto& fp : ctx.fps) for (int s = 0; s < 2; s++) if (fp.off + 4 <= snap[s].size()) {
                 uint32_t v; memcpy(&v, snap[s].data() + fp.off, 4); uint32_t id = v;
@@ -728,11 +843,12 @@ int main(int argc, char** argv) {
             // mascara
             for (auto& m : ctx.masks) for (int s = 0; s < 2; s++) if (m.off + m.len <= snap[s].size()) memset(snap[s].data() + m.off, 0, m.len);
             pairs++;
-            bool same = ec[0] == ec[1] && ecode[0] == ecode[1] && topE[0] == topE[1] && snap[0] == snap[1] && (!ctx.check_ret || ret[0] == ret[1]);
+            bool same = ec[0] == ec[1] && ecode[0] == ecode[1] && topE[0] == topE[1] && snap[0] == snap[1] && (!ctx.check_ret || (((uint32_t)ret[0] ^ (uint32_t)ret[1]) & ctx.ret_mask) == 0);
             if (!same) {
                 diffs++; if (diffs <= 3) {
                     size_t off = 0; size_t n = std::min(snap[0].size(), snap[1].size()); while (off < n && snap[0][off] == snap[1][off]) off++;
                     printf("  DIF %s caso %d: err %d/%d cod %d/%d top %zu/%zu primer byte distinto en %zu (EXE %02x LIB %02x)\n", t.name, k, ec[0], ec[1], ecode[0], ecode[1], topE[0], topE[1], off, off < n ? snap[0][off] : 0, off < n ? snap[1][off] : 0);
+                    if (diffs == 1) { size_t o0 = off & ~(size_t)15; for (int sd = 0; sd < 2; sd++) { printf("    %s@%zu:", sd ? "LIB" : "EXE", o0); for (size_t q = o0; q < o0 + 48 && q < snap[sd].size(); q++) printf(" %02x", snap[sd][q]); printf("\n"); } }
                 }
             }
             if (ec[0]) errs++;
