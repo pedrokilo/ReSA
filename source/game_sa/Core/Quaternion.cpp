@@ -40,6 +40,7 @@ void CQuaternion::InjectHooks() {
     RH_ScopedInstall(Multiply, 0x59C270);
     RH_ScopedOverloadedInstall(Set, "euler", 0x59C530, void (CQuaternion::*)(float, float, float));
     RH_ScopedInstall(Conjugate, 0x4D37D0);
+    RH_ScopedInstall(Copy, 0x4CF9E0); // lote S1A (sin validar)
     RH_ScopedInstall(Normalise, 0x4D1610); // lote 214A (sin validar)
     RH_ScopedOverloadedInstall(Slerp, "halftheta", 0x59C300, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float, float, float));
     RH_ScopedOverloadedInstall(Slerp, "t", 0x59C630, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float));
@@ -168,8 +169,18 @@ void CQuaternion::Scale(float multiplier) {
 }
 
 // Copies value from other quat
+// 0x4CF9E0 (lote S1A, sin validar; thiscall, un argumento de pila, `ret 4`, 31 bytes): copia las cuatro palabras de 32 bits (x, y, z, w) de origen a destino, en ese orden y sin tocar la x87 (los NaN
+// y los denormales pasan intactos). Con origen y destino distintos es una copia de 16 bytes.
 void CQuaternion::Copy(const CQuaternion& from) {
-    ((void(__thiscall*)(CQuaternion*, const CQuaternion&))0x4CF9E0)(this, from);
+    static_assert(sizeof(CQuaternion) == 0x10);
+    const uint32 x = std::bit_cast<uint32>(from.x);
+    const uint32 y = std::bit_cast<uint32>(from.y);
+    const uint32 z = std::bit_cast<uint32>(from.z);
+    const uint32 w = std::bit_cast<uint32>(from.w);
+    this->x = std::bit_cast<float>(x);
+    this->y = std::bit_cast<float>(y);
+    this->z = std::bit_cast<float>(z);
+    this->w = std::bit_cast<float>(w);
 }
 
 // Gets a dot product for quats

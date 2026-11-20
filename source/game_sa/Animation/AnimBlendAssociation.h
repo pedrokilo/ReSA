@@ -42,9 +42,7 @@ enum eAnimationFlags {
 
 class CDefaultAnimCallback {
 public:
-    static void DefaultAnimCB(class CAnimBlendAssociation* animAssoc, void* something) {
-        // nothing here
-    }
+    static void DefaultAnimCB(class CAnimBlendAssociation* animAssoc, void* something); // 0x4D1390 (lote S1A)
 };
 
 class CAnimBlendLink {

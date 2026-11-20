@@ -23,6 +23,15 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 
 namespace {
+// 0x621BE0 (lote S1A, sin validar; cdecl (asociacion, tarea), `ret`, 21 bytes): callback de fin de la animacion de la tarea. Si la animacion de la tarea (+0x2C) es la recibida la deja nula.
+void GangDriveByFinishAnimCB(CAnimBlendAssociation* anim, void* data) {
+    static_assert(offsetof(CTaskSimpleGangDriveBy, m_pAnimAssoc) == 0x2C);
+    auto* const task = static_cast<CTaskSimpleGangDriveBy*>(data);
+    if (task->m_pAnimAssoc == anim) {
+        task->m_pAnimAssoc = nullptr;
+    }
+}
+
 // 0x6218C0 (lote 145A, banco Fn145A; con hook desde el lote 170A, banco Fn170A): cuerpo del destructor de CTaskSimpleGangDriveBy del EXE (thiscall, sin argumentos de pila, `ret`, 148 bytes con marco SEH que solo
 // desenrolla; vtable 0x86D944). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama el destructor con borrado como el `call 0x6218C0` del EXE (y tres destructores de objetos de pila:
 // 0x51A428, 0x69CDC3 y 0x69CF35, que no leen registros tras ella). Como el original: deja la vtable de la clase del EXE; si el byte +9 (m_bAnimsReferenced) no es cero libera la referencia al bloque de animaciones del
@@ -62,6 +71,7 @@ void CTaskSimpleGangDriveBy::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
     RH_ScopedNamedGlobalInstall(CTaskSimpleGangDriveByScalarDeletingDestructor, "ScalarDeletingDestructor", 0x6275E0); // lote 145A (banco Fn145A)
     RH_ScopedNamedGlobalInstall(CTaskSimpleGangDriveByDestructorBody, "DestructorBody", 0x6218C0); // lote 170A (banco Fn170A)
+    RH_ScopedNamedGlobalInstall(GangDriveByFinishAnimCB, "FinishAnimCB", 0x621BE0); // lote S1A (sin validar)
 
     RH_ScopedInstall(Constructor, 0x6217D0);
     RH_ScopedInstall(HasClearLineOfSight, 0x621B10);
@@ -390,8 +400,8 @@ bool CTaskSimpleGangDriveBy::SetupAnim(CPed* ped) {
 
     if (replace) {
         // Callback de borrado por defecto del EXE (0x4D1390) y callback del final de la animacion de la tarea (0x621BE0): se pasan por direccion
-        const auto defaultCB = reinterpret_cast<void(*)(CAnimBlendAssociation*, void*)>(0x4D1390);
-        const auto finishCB  = reinterpret_cast<void(*)(CAnimBlendAssociation*, void*)>(0x621BE0);
+        const auto defaultCB = &CDefaultAnimCallback::DefaultAnimCB;
+        const auto finishCB  = &GangDriveByFinishAnimCB;
         const bool hadAssoc  = m_pAnimAssoc != nullptr;
         if (hadAssoc) {
             m_pAnimAssoc->SetDeleteCallback(defaultCB, nullptr);

@@ -28,7 +28,7 @@ namespace {
 // Callback por defecto de animaciones del EXE (CDefaultAnimCallback::DefaultAnimCB, 0x4D1390: `ret`). Como el original, el destructor pasa la direccion del EXE a SetFinishCallback (la de la DLL no
 // vale para la comparacion de lo que se le pasa).
 using AnimFinishCallback = void (*)(CAnimBlendAssociation*, void*);
-const AnimFinishCallback kExeDefaultAnimCB = reinterpret_cast<AnimFinishCallback>(0x4D1390);
+const AnimFinishCallback kExeDefaultAnimCB = CDefaultAnimCallback::DefaultAnimCB; // 0x4D1390 (funcion propia, lote S1A)
 
 // 0x653090 (lote 150A, banco Fn150A): cuerpo del destructor de CTaskSimpleHitHead del EXE (thiscall, sin argumentos de pila, `ret`, 93 bytes con marco SEH que solo desenrolla): deja la vtable de la clase (0x86F1D0); si hay
 // animacion (m_pAnim, +0xC) le pone SetFinishCallback(0x4D1390, nullptr) (0x4CEBE0, con hook); y llama al cuerpo de ~CTask (0x61A3A0, con hook: vtable base 0x86D48C). Conserva ESI pero no EAX, ECX ni EDX

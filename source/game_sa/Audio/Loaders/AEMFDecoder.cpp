@@ -206,7 +206,7 @@ bool CAEMFDecoder::Initialise() {
     m_fillRecordSize    = 0x44;
     m_fillExtendedFlags = m_bVariableCompression ? 0xB : 3;
     m_fillBufferSize    = 0;
-    m_fillBufferProc    = reinterpret_cast<void*>(0x4E7B80);
+    m_fillBufferProc    = reinterpret_cast<void*>(&CAEMFDecoder::FillCallback); // 0x4E7B80 (funcion propia, lote S1A)
     m_nSampleRate       = 44100;
     m_fTimeDivider      = std::bit_cast<float>(0x42306666u); // 44.1
 
@@ -235,6 +235,50 @@ size_t CAEMFDecoder::FillBuffer(void* dest, size_t size) {
         m_soundConverter, m_fillBufferProc, &m_fillData, dest, size, &bytesWritten, &framesWritten, &outputFlags
     );
     return bytesWritten;
+}
+
+// 0x4E7B80 (lote S1A, sin validar; cdecl (SoundComponentData** salida, refCon), `ret`, 204 bytes; devuelve un Boolean en AL): callback de SoundConverterFillBuffer. refCon es el bloque +0x54 del decoder (m_fillData;
+// campos relativos: +0x10 cuenta de muestras, +0x14 buffer, +0x24 tamano, +0x30 palabra en m_fillUnk7C+8, +0x44 manejador origen, +0x48 media, +0x4C posicion, +0x50 longitud, +0x54 tamano del origen, +0x58 quedan datos,
+// +0x59 compresion variable). Como el original y en este orden: con posicion >= longitud (con signo) borra "quedan datos" y los cuatro campos de salida (+0x10, +0x14, +0x24, +0x30); sin datos escribe refCon en *salida y devuelve 0.
+// Con datos llama a 0x81A3C0 (puente QuickTime, 12 argumentos cdecl: media, manejador, tamano del origen, &salida (arranca valiendo refCon), posicion, &C, &A, 0, 0, 0, &B, 0; devuelve el OSErr en AX; A, B y C arrancan
+// en 0 aqui, basura en el EXE); con error o salida cero hace el mismo borrado y SIGUE. Despues, siempre: +0x10 = A*B (32 bits), posicion = C + A*B, +0x24 = salida y, con compresion variable, +0x30 = salida / B (idiv con
+// signo, como el EXE: B = 0 provoca la excepcion); escribe refCon en *salida y devuelve el byte "quedan datos".
+uint8 CAEMFDecoder::FillCallback(void** outData, void* refCon) {
+    static_assert(offsetof(CAEMFDecoder, m_fillData) == 0x54);
+    auto* const self = reinterpret_cast<CAEMFDecoder*>(static_cast<uint8*>(refCon) - 0x54);
+    uint8& dataLeft = *reinterpret_cast<uint8*>(&self->m_bSourceDataLeft);               // el EXE trabaja con el byte crudo
+    int32& extraWord = *reinterpret_cast<int32*>(self->m_fillUnk7C + 8);
+    const auto Clear = [&] {
+        dataLeft                  = 0;
+        self->m_fillData.buffer   = nullptr;
+        self->m_fillData.sampleCount = 0;
+        self->m_fillBufferSize    = 0;
+        extraWord                 = 0;
+    };
+    const int32 position = self->m_nPlayTime;
+    if (position >= self->m_nLength) {
+        Clear();
+    }
+    if (dataLeft == 0) {
+        *outData = refCon;
+        return dataLeft;
+    }
+    int32  a = 0, b = 0, c = 0;
+    uint32 out = static_cast<uint32>(reinterpret_cast<uintptr_t>(refCon));
+    const auto result = reinterpret_cast<int16(__cdecl*)(void*, void*, int32, uint32*, int32, int32*, int32*, int32, int32, int32, int32*, int32)>(0x81A3C0)(
+        self->m_sourceMedia, self->m_sourceBuffer, self->m_sourceBufferSize, &out, position, &c, &a, 0, 0, 0, &b, 0);
+    if (result != 0 || out == 0) {
+        Clear();
+    }
+    const int32 product = a * b;
+    self->m_fillData.sampleCount = product;
+    self->m_nPlayTime            = c + product;
+    self->m_fillBufferSize       = static_cast<int32>(out);
+    if (*reinterpret_cast<const uint8*>(&self->m_bVariableCompression) != 0) { // se relee tras la llamada, como el EXE
+        extraWord = static_cast<int32>(out) / b;
+    }
+    *outData = refCon;
+    return dataLeft;
 }
 
 // 0x4e7920
@@ -334,6 +378,7 @@ void CAEMFDecoder::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x4e77c0);
     RH_ScopedNamedGlobalInstall(MFDecoderScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4E7C50); // lote 146A (banco Fn146A)
     RH_ScopedInstall(Shutdown, 0x4E7850); // lote 146A (banco Fn146A)
+    RH_ScopedInstall(FillCallback, 0x4E7B80); // lote S1A (sin validar)
     RH_ScopedInstall(InitLibrary, 0x4e7c70);
     RH_ScopedVMTInstall(Initialise, 0x4e7cb0);
     RH_ScopedVMTInstall(FillBuffer, 0x4e7860);

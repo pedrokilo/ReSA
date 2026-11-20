@@ -31,8 +31,15 @@ namespace {
 // Callbacks de fin de animacion del EXE, pasados por su direccion del EXE como el original: 0x4D1390 (CDefaultAnimCallback::DefaultAnimCB, `ret`) y 0x61FF30 (callback propio de la tarea: pone el puntero de la animacion
 // (+0x14) a cero y el BYTE +8 a 1; sin reconstruir en este lote).
 using AnimFinishCallback = void (*)(CAnimBlendAssociation*, void*);
-const AnimFinishCallback kExeDefaultAnimCB      = reinterpret_cast<AnimFinishCallback>(0x4D1390);
-const AnimFinishCallback kExeBeHitFinishAnimCB  = reinterpret_cast<AnimFinishCallback>(0x61FF30);
+const AnimFinishCallback kExeDefaultAnimCB      = CDefaultAnimCallback::DefaultAnimCB; // 0x4D1390 (funcion propia, lote S1A)
+
+// 0x61FF30 (lote S1A, sin validar; cdecl (asociacion, tarea), `ret`, 16 bytes): callback de fin de animacion de la tarea. No lee la asociacion: pone el puntero de la animacion (+0x14) a nulo y el BYTE +8 a 1.
+void BeHitFinishAnimCB(CAnimBlendAssociation* /*anim*/, void* data) {
+    auto* const task = static_cast<CTaskSimpleBeHitWhileMoving*>(data);
+    task->m_Anim       = nullptr;
+    task->m_bIsFinished = true;
+}
+const AnimFinishCallback kExeBeHitFinishAnimCB  = BeHitFinishAnimCB;
 
 static_assert(TASK_SIMPLE_BE_HIT_WHILE_MOVING == 0x3F1); // 0x61FE60: `mov eax, 3F1h; ret`
 
@@ -297,5 +304,6 @@ void CTaskSimpleBeHitWhileMoving::InjectHooks() {
     RH_ScopedNamedGlobalInstall(BeHitWhileMovingProcessPed, "ProcessPed", 0x620290); // lote 206A (sin validar)
     RH_ScopedNamedGlobalInstall(BeHitWhileMovingClone, "Clone", 0x623190); // lote 206A (sin validar)
     RH_ScopedNamedGlobalInstall(BeHitWhileMovingScalarDeletingDestructor, "ScalarDeletingDestructor", 0x625BA0); // lote 193A (sin validar)
+    RH_ScopedNamedGlobalInstall(BeHitFinishAnimCB, "FinishAnimCB", 0x61FF30); // lote S1A (sin validar)
     // TODO: instalar las funciones conforme se reconstruyan.
 }

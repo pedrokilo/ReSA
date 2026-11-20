@@ -82,6 +82,7 @@ public:
 
     static bool InitLibrary();
     static void Shutdown();
+    static uint8 FillCallback(void** outData, void* refCon); // 0x4E7B80 (lote S1A): callback de SoundConverterFillBuffer; refCon = &m_fillData
 
 private:
     friend void InjectHooksMain();

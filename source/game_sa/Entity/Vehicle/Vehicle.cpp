@@ -449,7 +449,7 @@ void CVehicle::InjectHooks() {
 
     RH_ScopedGlobalOverloadedInstall(SetVehicleAtomicVisibilityCB, "Object", 0x6D2690, RwObject*(*)(RwObject*, void*));
     RH_ScopedGlobalOverloadedInstall(SetVehicleAtomicVisibilityCB, "Frame", 0x6D26D0, RwFrame*(*)(RwFrame*, void*));
-    // RH_ScopedGlobalInstall(SetCompAlphaCB, 0x6D2950);
+    RH_ScopedGlobalInstall(SetCompAlphaCB, 0x6D2950); // lote S1A (sin validar)
     RH_ScopedGlobalInstall(IsVehiclePointerValid, 0x6E38F0);
     RH_ScopedGlobalInstall(IsValidModForVehicle, 0x49B010);
     RH_ScopedGlobalInstall(RemoveUpgradeCB, 0x6D3300);
@@ -2324,8 +2324,11 @@ void CVehicle::ApplyBoatWaterResistance(tBoatHandlingData* boatHandling, float f
 }
 
 // 0x6D2950
+// Lote S1A (sin validar; cdecl, `ret`, 12 bytes): pone el byte de alfa del color del material (+7: `color` en +4, alfa es su 4.o byte) al byte bajo de `data` y devuelve el material.
 RpMaterial* SetCompAlphaCB(RpMaterial* material, void* data) {
-    return ((RpMaterial * (__cdecl*)(RpMaterial*, void*))0x6D2950)(material, data);
+    static_assert(offsetof(RpMaterial, color) == 4 && offsetof(RwRGBA, alpha) == 3);
+    material->color.alpha = static_cast<RwUInt8>(reinterpret_cast<uintptr_t>(data));
+    return material;
 }
 
 // 0x6D2960

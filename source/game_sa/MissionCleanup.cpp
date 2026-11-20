@@ -76,6 +76,7 @@ void CMissionCleanup::InjectHooks() {
     RH_ScopedCategoryGlobal();
 
     RH_ScopedInstall(Process, 0x468560);
+    RH_ScopedInstall(FindFree, 0x4637C0); // lote S1A (sin validar)
     RH_ScopedOverloadedInstall(AddEntityToList, "handle", 0x4637E0, void(CMissionCleanup::*)(int32, MissionCleanUpEntityType));
     RH_ScopedInstall(CheckIfCollisionHasLoadedForMissionObjects, 0x4652D0);
     RH_ScopedOverloadedInstall(RemoveEntityFromList, "handle", 0x4654B0, void(CMissionCleanup::*)(int32, MissionCleanUpEntityType)); // lote 223A (sin validar)
@@ -394,8 +395,14 @@ void CMissionCleanup::Process() {
 /* Finds a free entity, returns NULL if no free entity can be found.
  * @addr 0x4637C0
  */
+// 0x4637C0 (lote S1A, sin validar; thiscall, sin argumentos de pila, `ret`, 22 bytes): recorre las 75 entradas de 8 bytes en orden y devuelve la primera cuyo BYTE de tipo (+0) es cero; nulo si no hay ninguna.
 tMissionCleanupEntity* CMissionCleanup::FindFree() {
-    return ((tMissionCleanupEntity * (__thiscall*)(CMissionCleanup*))0x4637C0)(this);
+    for (auto& entity : m_Objects) {
+        if (entity.type == MissionCleanUpEntityType::MISSION_CLEANUP_ENTITY_TYPE_EMPTY) {
+            return &entity;
+        }
+    }
+    return nullptr;
 }
 
 /* Adds entity to list

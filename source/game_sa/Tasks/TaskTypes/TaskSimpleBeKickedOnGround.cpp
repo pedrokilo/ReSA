@@ -30,8 +30,15 @@ namespace {
 // Funciones del EXE que se pasan como callbacks de fin de animacion (se usan sus direcciones del EXE, como el original): 0x4D1390 (CDefaultAnimCallback::DefaultAnimCB, `ret`) y 0x61FD10 (callback propio de la tarea: pone
 // el puntero de la animacion (+0xC) a cero y el BYTE +8 a 1; sin reconstruir en este lote).
 using AnimFinishCallback = void (*)(CAnimBlendAssociation*, void*);
-const AnimFinishCallback kExeDefaultAnimCB        = reinterpret_cast<AnimFinishCallback>(0x4D1390);
-const AnimFinishCallback kExeBeKickedFinishAnimCB = reinterpret_cast<AnimFinishCallback>(0x61FD10);
+const AnimFinishCallback kExeDefaultAnimCB        = CDefaultAnimCallback::DefaultAnimCB; // 0x4D1390 (funcion propia, lote S1A)
+
+// 0x61FD10 (lote S1A, sin validar; cdecl (asociacion, tarea), `ret`, 16 bytes): callback de fin de animacion de la tarea. No lee la asociacion: pone el puntero de la animacion (+0xC) a nulo y el BYTE +8 a 1.
+void BeKickedFinishAnimCB(CAnimBlendAssociation* /*anim*/, void* data) {
+    auto* const task = static_cast<CTaskSimpleBeKickedOnGround*>(data);
+    task->m_Anim        = nullptr;
+    task->m_bIsFinished = true;
+}
+const AnimFinishCallback kExeBeKickedFinishAnimCB = BeKickedFinishAnimCB;
 
 static_assert(TASK_SIMPLE_BE_KICKED_ON_GROUND == 0x3EF); // 0x61FC40: `mov eax, 3EFh; ret`
 
@@ -160,5 +167,6 @@ void CTaskSimpleBeKickedOnGround::InjectHooks() {
     RH_ScopedNamedGlobalInstall(BeKickedOnGroundProcessPed, "ProcessPed", 0x61FE00); // lote 206A (sin validar)
     RH_ScopedNamedGlobalInstall(BeKickedOnGroundClone, "Clone", 0x623120); // lote 206A (sin validar)
     RH_ScopedNamedGlobalInstall(BeKickedOnGroundScalarDeletingDestructor, "ScalarDeletingDestructor", 0x625B80); // lote 192A (sin validar)
+    RH_ScopedNamedGlobalInstall(BeKickedFinishAnimCB, "FinishAnimCB", 0x61FD10); // lote S1A (sin validar)
     // TODO: instalar las funciones conforme se reconstruyan.
 }
