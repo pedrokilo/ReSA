@@ -1,0 +1,114 @@
+[
+ {
+  "k": 26,
+  "funcion": "emit_message",
+  "pares": 20000,
+  "diferencias": 1071,
+  "detectada": true
+ },
+ {
+  "k": 27,
+  "funcion": "reset_error_mgr",
+  "pares": 20000,
+  "diferencias": 10049,
+  "detectada": true
+ },
+ {
+  "k": 28,
+  "funcion": "format_message",
+  "pares": 20000,
+  "diferencias": 2954,
+  "detectada": true
+ },
+ {
+  "k": 29,
+  "funcion": "finish_output_pass",
+  "pares": 20000,
+  "diferencias": 9902,
+  "detectada": true
+ },
+ {
+  "k": 30,
+  "funcion": "reset_marker_reader",
+  "pares": 20000,
+  "diferencias": 807,
+  "detectada": true
+ },
+ {
+  "k": 31,
+  "funcion": "finish_input_pass",
+  "pares": 20000,
+  "diferencias": 1650,
+  "detectada": true
+ },
+ {
+  "k": 32,
+  "funcion": "start_pass_dpost",
+  "pares": 20000,
+  "diferencias": 1329,
+  "detectada": true
+ },
+ {
+  "k": 33,
+  "funcion": "start_pass_main_d",
+  "pares": 20000,
+  "diferencias": 3703,
+  "detectada": true
+ },
+ {
+  "k": 34,
+  "funcion": "start_input_pass_coef",
+  "pares": 20000,
+  "diferencias": 3236,
+  "detectada": true
+ },
+ {
+  "k": 35,
+  "funcion": "start_output_pass_coef",
+  "pares": 20000,
+  "diferencias": 1639,
+  "detectada": true
+ },
+ {
+  "k": 36,
+  "funcion": "start_pass_main_c",
+  "pares": 20000,
+  "diferencias": 2003,
+  "detectada": true
+ },
+ {
+  "k": 37,
+  "funcion": "start_pass_coef_c",
+  "pares": 20000,
+  "diferencias": 1977,
+  "detectada": true
+ },
+ {
+  "k": 38,
+  "funcion": "start_pass_prep",
+  "pares": 20000,
+  "diferencias": 2036,
+  "detectada": true
+ },
+ {
+  "k": 39,
+  "funcion": "finish_pass_master",
+  "pares": 20000,
+  "diferencias": 1572,
+  "detectada": true
+ },
+ {
+  "k": 40,
+  "funcion": "emit_byte",
+  "pares": 20000,
+  "diferencias": 76,
+  "detectada": true
+ },
+ {
+  "k": 41,
+  "funcion": "write_marker_header",
+  "pares": 20000,
+  "diferencias": 257,
+  "detectada": true
+ }
+]

@@ -14,4 +14,12 @@
 #define RGB_PIXELSIZE 4
 #undef DCT_ISLOW_SUPPORTED
 #undef DCT_IFAST_SUPPORTED
+/* LIB3B: el EXE tampoco lleva cuantizacion de 2 pasadas ni suavizado de bloques (start_pass_dpost 0x5CCD70 y start_pass_main 0x5CADC0 dan JERR_BAD_BUFFER_MODE
+ * con cualquier modo distinto de JBUF_PASS_THRU; start_output_pass de jdcoefct 0x5C8B60 solo pone output_iMCU_row = 0). jquant2.c se compila aparte con JPEG6B_KEEP_2PASS. */
+#ifndef JPEG6B_KEEP_2PASS
+#undef QUANT_2PASS_SUPPORTED
+#undef BLOCK_SMOOTHING_SUPPORTED
+#endif
+/* LIB3B: sin suavizado de entrada ni filas de contexto en compresion: start_pass_prep (0x5C76A0) solo pone rows_to_go y next_buf_row */
+#undef INPUT_SMOOTHING_SUPPORTED
 #endif

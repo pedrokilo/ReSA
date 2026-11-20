@@ -19,6 +19,8 @@
 #include <random>
 #include <functional>
 #include <algorithm>
+#include <stdarg.h>
+#include <math.h>
 
 #define XMD_H /* INT16/INT32 de windows.h; jmorecfg.h no los redefine */
 #undef FAR
@@ -67,9 +69,11 @@ static void* __cdecl mock_alloc_large(j_common_ptr, int, size_t n) { return A(n,
 static JSAMPARRAY __cdecl mock_alloc_sarray(j_common_ptr, int, JDIMENSION w, JDIMENSION h) {
     JSAMPARRAY a = (JSAMPARRAY)A(sizeof(JSAMPROW) * h, 8); for (JDIMENSION i = 0; i < h; i++) a[i] = (JSAMPROW)A(w, 8); return a;
 }
+static jvirt_sarray_ptr __cdecl mock_dummy(void) { return 0; }
+static JSAMPARRAY __cdecl mock_access_virt(j_common_ptr, jvirt_sarray_ptr v, JDIMENSION a, JDIMENSION b, boolean w) { return (JSAMPARRAY)(uintptr_t)(0x30000000u + a * 64u + b * 4u + (w ? 1u : 0u)); }
 static jpeg_memory_mgr g_mem; static jpeg_error_mgr g_errmgr;
 static void init_mocks() {
-    memset(&g_mem, 0, sizeof g_mem); g_mem.alloc_small = mock_alloc_small; g_mem.alloc_large = mock_alloc_large; g_mem.alloc_sarray = mock_alloc_sarray;
+    memset(&g_mem, 0, sizeof g_mem); g_mem.alloc_small = mock_alloc_small; g_mem.alloc_large = mock_alloc_large; g_mem.alloc_sarray = mock_alloc_sarray; g_mem.access_virt_sarray = mock_access_virt;
     memset(&g_errmgr, 0, sizeof g_errmgr); g_errmgr.error_exit = mock_error_exit; g_errmgr.emit_message = mock_emit;
 }
 
@@ -81,6 +85,8 @@ struct Ctx {
     std::function<void(bool)> pre;             // antes de cada llamada (true = EXE): fija punteros a funcion segun el origen en el arena; puede ser vacio
     std::function<void(std::vector<uint8_t>&)> dump; // traza para el oraculo (entradas + salidas)
     std::vector<Mask> masks;
+    struct FpSite { size_t off; std::vector<std::pair<uint32_t, std::pair<const char*, const char*>>> map; }; // puntero a funcion en el arena: direccion del EXE <-> (archivo, funcion) de la biblioteca
+    std::vector<FpSite> fps;
     bool check_ret = false;
 };
 struct Test {
@@ -319,6 +325,143 @@ static void add_idct_tests() {
     }, 4000});
 }
 
+
+// ---- helpers LIB3B
+#define W32(p, off) (*(uint32_t*)((uint8_t*)(p) + (off)))
+static void randwords(Rng& r, void* p, size_t n) { for (size_t i = 0; i + 4 <= n; i += 4) { uint32_t v = (r() % 3 == 0) ? 0 : r(); memcpy((uint8_t*)p + i, &v, 4); } }
+static void* priv(Rng& r, size_t n) { void* p = A(n, 8); randwords(r, p, n); return p; }  // estructura privada con palabras aleatorias (1/3 a cero)
+static size_t aoff(const void* p) { return (size_t)((const uint8_t*)p - g_arena); }
+static j_compress_ptr rand_cinfo(Rng& r) { auto c = new_cinfo(); jpeg_error_mgr* e = (jpeg_error_mgr*)c->err; jpeg_memory_mgr* m = c->mem; randwords(r, c, sizeof *c); c->err = e; c->mem = m; c->is_decompressor = FALSE; return c; }
+static j_decompress_ptr rand_dinfo(Rng& r) { auto c = new_dinfo(); jpeg_error_mgr* e = (jpeg_error_mgr*)c->err; jpeg_memory_mgr* m = c->mem; randwords(r, c, sizeof *c); c->err = e; c->mem = m; c->is_decompressor = TRUE; return c; }
+static int __cdecl mock_sprintf(char* b, const char* f, ...) { va_list a; va_start(a, f); int n = vsprintf(b, f, a); va_end(a); return n; }
+static void patch_call(uint32_t at, void* target) { uint8_t* p = (uint8_t*)at; if (p[0] != 0xE8) { printf("patch_call: 0x%X no es un call\n", at); exit(2); } *(int32_t*)(p + 1) = (int32_t)((uintptr_t)target - (at + 5)); }
+static void __cdecl mock_output_message(j_common_ptr c) { c->err->msg_parm.i[7]++; }
+static void __cdecl mock_finish_pass_cq(j_decompress_ptr c) { W32(c->cquantize, 0x10)++; }
+static void __cdecl mock_finish_pass_entropy(j_compress_ptr c) { W32(c->entropy, 0x20)++; }
+static boolean g_mock_flag = TRUE;
+static boolean __cdecl mock_empty_output(j_compress_ptr c) { auto d = c->dest; d->next_output_byte = (JOCTET*)(((uint8_t*)d) + 0x40); d->free_in_buffer = 7; W32(d, 0x1C)++; return g_mock_flag; }
+typedef Ctx::FpSite FpS;
+static jpeg_error_mgr* own_err(j_common_ptr c) { auto e = AT<jpeg_error_mgr>(); *e = g_errmgr; c->err = e; return e; }
+static const char* const g_msgs[] = {"<tabla 0: codigo %d>", "plain text", "one %d", "a=%d b=%d c=%d", "str=%s end", "%d%d%d%d%d%d%d%d", "pct 100%% sure %d", "hex %x %X", "tail %d%%", "%s", "", "%5d|%-5d|%05d", "%c%c", "just%%"};
+static const char* copy_msg(const char* m) { size_t L = strlen(m) + 1; char* d = (char*)A(L, 1); memcpy(d, m, L); return d; }
+
+static void add_state_tests() {
+    // ---- jerror
+    g_tests.push_back({"emit_message", 0x5CD700, "jerror", "emit_message", [](Rng& r, Ctx& x) {
+        auto c = new_dinfo(); auto e = own_err((j_common_ptr)c); e->output_message = mock_output_message;
+        e->trace_level = (int)R(r, 0, 5); e->num_warnings = (long)R(r, 0, 3); int lvl = (int)R(r, 0, 8) - 4; e->msg_parm.i[7] = 0; long nw0 = e->num_warnings;
+        x.call = [=](void* f) { ((void(__cdecl*)(j_common_ptr, int))f)((j_common_ptr)c, lvl); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) { put32(v, (uint32_t)lvl); put32(v, (uint32_t)e->trace_level); put32(v, (uint32_t)nw0); put32(v, (uint32_t)e->num_warnings); put32(v, (uint32_t)e->msg_parm.i[7]); };
+    }});
+    g_tests.push_back({"reset_error_mgr", 0x5CD7F0, "jerror", "reset_error_mgr", [](Rng& r, Ctx& x) {
+        auto c = new_dinfo(); auto e = own_err((j_common_ptr)c); e->num_warnings = (long)r(); e->msg_code = (int)r();
+        x.call = [=](void* f) { ((void(__cdecl*)(j_common_ptr))f)((j_common_ptr)c); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) { put32(v, (uint32_t)e->num_warnings); put32(v, (uint32_t)e->msg_code); };
+    }, 2});
+    g_tests.push_back({"format_message", 0x5CD740, "jerror", "format_message", [](Rng& r, Ctx& x) {
+        auto c = new_dinfo(); auto e = own_err((j_common_ptr)c);
+        int nm = (int)R(r, 3, 15); const char** tab = AT<const char*>(nm + 4); for (int i = 0; i < nm; i++) tab[i] = copy_msg(g_msgs[(i == 0) ? 0 : R(r, 1, 13)]);
+        int na = (int)R(r, 1, 5); const char** add = AT<const char*>(na + 1); for (int i = 0; i < na; i++) add[i] = copy_msg(g_msgs[R(r, 1, 13)]);
+        if (r() % 6 == 0) add[R(r, 0, na - 1)] = nullptr;
+        e->jpeg_message_table = tab; e->last_jpeg_message = (int)R(r, 0, nm - 1); e->addon_message_table = (r() % 5 == 0) ? nullptr : add; e->first_addon_message = (int)R(r, 1, 5) + e->last_jpeg_message; e->last_addon_message = e->first_addon_message + na - 1;
+        e->msg_code = (int)R(r, 0, (uint32_t)(e->last_addon_message + 3)); if (r() % 8 == 0) e->msg_code = -(int)R(r, 0, 3);
+        for (int i = 0; i < 8; i++) e->msg_parm.i[i] = (r() % 4 == 0) ? (int)r() : (int)R(r, 0, 300) - 50;
+        if (r() % 3 == 0) { for (int i = 0; i < 79; i++) e->msg_parm.s[i] = (char)('a' + r() % 26); e->msg_parm.s[R(r, 1, 78)] = 0; e->msg_parm.s[79] = 0; }
+        char* buf = (char*)A(256, 8); memset(buf, 0x7E, 256); int code = e->msg_code;
+        x.call = [=](void* f) { ((void(__cdecl*)(j_common_ptr, char*))f)((j_common_ptr)c, buf); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) {
+            put32(v, nm); put32(v, (uint32_t)e->last_jpeg_message); put32(v, na); put32(v, e->addon_message_table != nullptr); put32(v, (uint32_t)e->first_addon_message); put32(v, (uint32_t)e->last_addon_message); put32(v, (uint32_t)code);
+            for (int i = 0; i < nm; i++) { put32(v, (uint32_t)strlen(tab[i])); putn(v, tab[i], strlen(tab[i])); }
+            for (int i = 0; i < na; i++) { put32(v, add[i] ? (uint32_t)strlen(add[i]) : 0xFFFFFFFFu); if (add[i]) putn(v, add[i], strlen(add[i])); }
+            putn(v, e->msg_parm.i, 32); putn(v, e->msg_parm.s, 80); put32(v, (uint32_t)strlen(buf)); putn(v, buf, strlen(buf));
+        };
+    }});
+    // ---- jdmaster / jdmarker / jdinput / jdpostct / jdmainct / jdcoefct
+    g_tests.push_back({"finish_output_pass", 0x5CCC90, "jdmaster", "finish_output_pass", [](Rng& r, Ctx& x) {
+        auto c = rand_dinfo(r); void* m = priv(r, 0x40); c->master = (struct jpeg_decomp_master*)m; void* cq = A(0x40, 8); memset(cq, 0, 0x40); c->cquantize = (struct jpeg_color_quantizer*)cq; c->cquantize->finish_pass = mock_finish_pass_cq;
+        c->quantize_colors = (boolean)(r() & 1); uint32_t pn0 = W32(m, 0xC);
+        x.call = [=](void* f) { ((void(__cdecl*)(j_decompress_ptr))f)(c); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) { put32(v, c->quantize_colors); put32(v, pn0); put32(v, W32(m, 0xC)); put32(v, W32(cq, 0x10)); };
+    }});
+    g_tests.push_back({"reset_marker_reader", 0x5CC7A0, "jdmarker", "reset_marker_reader", [](Rng& r, Ctx& x) {
+        auto c = rand_dinfo(r); void* m = priv(r, 0x100); c->marker = (struct jpeg_marker_reader*)m;
+        x.call = [=](void* f) { ((void(__cdecl*)(j_decompress_ptr))f)(c); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) { put32(v, (uint32_t)(uintptr_t)c->comp_info); put32(v, (uint32_t)c->input_scan_number); put32(v, (uint32_t)c->unread_marker); put32(v, W32(m, 0xC)); put32(v, W32(m, 0x14)); };
+    }});
+    g_tests.push_back({"finish_input_pass", 0x5CA820, "jdinput", "finish_input_pass", [](Rng& r, Ctx& x) {
+        auto c = rand_dinfo(r); void* ic = priv(r, 0x40); c->inputctl = (struct jpeg_input_controller*)ic;
+        x.fps.push_back({aoff(ic), {{0x5CA720, {"jdinput", "consume_markers"}}}});
+        x.call = [=](void* f) { ((void(__cdecl*)(j_decompress_ptr))f)(c); return 0; };
+        x.dump = [](std::vector<uint8_t>&) {};
+    }, 1});
+    g_tests.push_back({"start_pass_dpost", 0x5CCD70, "jdpostct", "start_pass_dpost", [](Rng& r, Ctx& x) {
+        auto c = rand_dinfo(r); c->mem = &g_mem; void* po = priv(r, 0x40); c->post = (struct jpeg_d_post_controller*)po; void* up = priv(r, 0x20); c->upsample = (struct jpeg_upsampler*)up;
+        c->quantize_colors = (boolean)(r() & 1); int mode = (r() % 4) ? 0 : (int)R(r, 0, 5) - 1;
+        x.fps.push_back({aoff(po) + 4, {{0x5CCCF0, {"jdpostct", "post_process_1pass"}}}});
+        x.call = [=](void* f) { ((void(__cdecl*)(j_decompress_ptr, int))f)(c, mode); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) { put32(v, (uint32_t)mode); put32(v, c->quantize_colors); put32(v, W32(po, 0x14)); put32(v, W32(po, 0x18)); };
+    }});
+    g_tests.push_back({"start_pass_main_d", 0x5CADC0, "jdmainct", "start_pass_main", [](Rng& r, Ctx& x) {
+        auto c = rand_dinfo(r); int nc = (int)R(r, 1, 4); int M = 1 << R(r, 0, 3); c->num_components = nc; c->min_DCT_scaled_size = M;
+        auto ci = AT<jpeg_component_info>(4); memset(ci, 0, sizeof(jpeg_component_info) * 4); c->comp_info = ci;
+        void* mn = A(0x40, 8); memset(mn, 0xAB, 0x40); c->main = (struct jpeg_d_main_controller*)mn; void* up = priv(r, 0x20); c->upsample = (struct jpeg_upsampler*)up; ((uint8_t*)up)[8] = (uint8_t)(r() & 1);
+        for (int i = 0; i < nc; i++) { ci[i].v_samp_factor = (int)R(r, 1, 4); ci[i].DCT_scaled_size = M * (int)R(r, 1, 2); int rg = ci[i].v_samp_factor * ci[i].DCT_scaled_size / M; JSAMPROW* b = AT<JSAMPROW>(rg * (M + 2)); for (int k = 0; k < rg * (M + 2); k++) b[k] = (JSAMPROW)(uintptr_t)r(); W32(mn, 8 + 4 * i) = (uint32_t)(uintptr_t)b; }
+        ((void(__cdecl*)(j_decompress_ptr))lib("jdmainct", "alloc_funny_pointers"))(c);
+        int mode = (r() % 5 == 0) ? (int)R(r, 1, 3) : 0; if (r() % 12 == 0) mode = 4;
+        x.fps.push_back({aoff(mn) + 4, {{0x5CAC80, {"jdmainct", "process_data_context_main"}}, {0x5CAC10, {"jdmainct", "process_data_simple_main"}}}});
+        x.call = [=](void* f) { ((void(__cdecl*)(j_decompress_ptr, int))f)(c, mode); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) { put32(v, (uint32_t)mode); put32(v, ((uint8_t*)up)[8]); put32(v, (uint32_t)nc); put32(v, (uint32_t)M); for (int i = 0; i < nc; i++) { put32(v, (uint32_t)ci[i].v_samp_factor); put32(v, (uint32_t)ci[i].DCT_scaled_size); } };
+    }});
+    g_tests.push_back({"start_input_pass_coef", 0x5C8B40, "jdcoefct", "start_input_pass", [](Rng& r, Ctx& x) {
+        auto c = rand_dinfo(r); void* co = priv(r, 0x80); c->coef = (struct jpeg_d_coef_controller*)co;
+        auto cc = AT<jpeg_component_info>(); memset(cc, 0, sizeof *cc); cc->v_samp_factor = (int)R(r, 1, 4); cc->last_row_height = (int)R(r, 1, 4); c->cur_comp_info[0] = cc; c->comps_in_scan = (int)R(r, 1, 3); c->total_iMCU_rows = R(r, 0, 5); c->input_iMCU_row = R(r, 0, 5);
+        x.call = [=](void* f) { ((void(__cdecl*)(j_decompress_ptr))f)(c); return 0; };
+        x.dump = [](std::vector<uint8_t>&) {};
+    }, 1});
+    g_tests.push_back({"start_output_pass_coef", 0x5C8B60, "jdcoefct", "start_output_pass", [](Rng& r, Ctx& x) {
+        auto c = rand_dinfo(r); void* co = priv(r, 0x80); c->coef = (struct jpeg_d_coef_controller*)co; if (r() % 2) c->coef->coef_arrays = nullptr; c->do_block_smoothing = (boolean)(r() & 1);
+        x.call = [=](void* f) { ((void(__cdecl*)(j_decompress_ptr))f)(c); return 0; };
+        x.dump = [](std::vector<uint8_t>&) {};
+    }, 1});
+    // ---- compresion: jcmainct / jccoefct / jcprepct / jcmaster / jcmarker
+    g_tests.push_back({"start_pass_main_c", 0x5C53D0, "jcmainct", "start_pass_main", [](Rng& r, Ctx& x) {
+        auto c = rand_cinfo(r); void* mn = priv(r, 0x40); c->main = (struct jpeg_c_main_controller*)mn; c->raw_data_in = (boolean)(r() % 4 == 0);
+        int mode = (r() % 3 == 0) ? (int)R(r, 1, 4) : 0;
+        x.fps.push_back({aoff(mn) + 4, {{0x5C5320, {"jcmainct", "process_data_simple_main"}}}});
+        x.call = [=](void* f) { ((void(__cdecl*)(j_compress_ptr, int))f)(c, mode); return 0; };
+        x.dump = [](std::vector<uint8_t>&) {};
+    }});
+    g_tests.push_back({"start_pass_coef_c", 0x5C2FF0, "jccoefct", "start_pass_coef", [](Rng& r, Ctx& x) {
+        auto c = rand_cinfo(r); void* co = priv(r, 0x80); c->coef = (struct jpeg_c_coef_controller*)co;
+        auto cc = AT<jpeg_component_info>(); memset(cc, 0, sizeof *cc); cc->v_samp_factor = (int)R(r, 1, 4); cc->last_row_height = (int)R(r, 1, 4); c->cur_comp_info[0] = cc; c->comps_in_scan = (int)R(r, 1, 3); c->total_iMCU_rows = R(r, 0, 5);
+        int mode = (int)R(r, 0, 4); if (r() % 4 == 0) mode = (int)R(r, 0, 3);
+        x.fps.push_back({aoff(co) + 4, {{0x5C2910, {"jccoefct", "compress_data"}}, {0x5C2DD0, {"jccoefct", "compress_first_pass"}}, {0x5C2BC0, {"jccoefct", "compress_output"}}}});
+        x.call = [=](void* f) { ((void(__cdecl*)(j_compress_ptr, int))f)(c, mode); return 0; };
+        x.dump = [](std::vector<uint8_t>&) {};
+    }});
+    g_tests.push_back({"start_pass_prep", 0x5C76A0, "jcprepct", "start_pass_prep", [](Rng& r, Ctx& x) {
+        auto c = rand_cinfo(r); void* pr = priv(r, 0x100); c->prep = (struct jpeg_c_prep_controller*)pr; int mode = (r() % 4 == 0) ? (int)R(r, 1, 4) : 0;
+        x.call = [=](void* f) { ((void(__cdecl*)(j_compress_ptr, int))f)(c, mode); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) { put32(v, (uint32_t)mode); put32(v, c->image_height); put32(v, W32(pr, 0x18)); put32(v, W32(pr, 0x1C)); };
+    }});
+    g_tests.push_back({"finish_pass_master", 0x5C6A10, "jcmaster", "finish_pass_master", [](Rng& r, Ctx& x) {
+        auto c = rand_cinfo(r); void* ms = priv(r, 0x40); c->master = (struct jpeg_comp_master*)ms; void* en = A(0x40, 8); memset(en, 0, 0x40); c->entropy = (struct jpeg_entropy_encoder*)en; c->entropy->finish_pass = mock_finish_pass_entropy;
+        W32(ms, 0x10) = R(r, 0, 3); W32(ms, 0x14) = R(r, 0, 9); W32(ms, 0x1C) = R(r, 0, 9); c->optimize_coding = (boolean)(r() & 1); uint32_t pt0 = W32(ms, 0x10), pn0 = W32(ms, 0x14), sn0 = W32(ms, 0x1C);
+        x.call = [=](void* f) { ((void(__cdecl*)(j_compress_ptr))f)(c); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) { put32(v, pt0); put32(v, pn0); put32(v, sn0); put32(v, c->optimize_coding); put32(v, W32(ms, 0x10)); put32(v, W32(ms, 0x14)); put32(v, W32(ms, 0x1C)); put32(v, W32(en, 0x20)); };
+    }});
+    auto dest_fixture = [](Rng& r, Ctx& x, int kind) {
+        auto c = new_cinfo(); c->image_width = r(); auto d = (jpeg_destination_mgr*)A(0x200, 8); memset(d, 0, 0x200); c->dest = d;
+        uint8_t* out = (uint8_t*)A(64, 8); memset(out, 0x55, 64); d->next_output_byte = out + R(r, 0, 8); d->free_in_buffer = R(r, 1, 6); d->empty_output_buffer = mock_empty_output; g_mock_flag = (boolean)(r() % 5 != 0);
+        int val = (int)R(r, 0, 255); int mk = (int)R(r, 0xC0, 0xFE); unsigned len = (r() % 6 == 0) ? R(r, 65530, 65540) : R(r, 0, 300);
+        x.call = [=](void* f) { if (kind == 0) ((void(__cdecl*)(j_compress_ptr, int))f)(c, val); else ((void(__cdecl*)(j_compress_ptr, int, unsigned))f)(c, mk, len); return 0; };
+        uint32_t off0 = (uint32_t)(d->next_output_byte - out), free0 = (uint32_t)d->free_in_buffer; boolean fl = g_mock_flag;
+        x.dump = [=](std::vector<uint8_t>& v) { put32(v, (uint32_t)kind); put32(v, (uint32_t)val); put32(v, (uint32_t)mk); put32(v, len); put32(v, off0); put32(v, free0); put32(v, (uint32_t)fl); put32(v, (uint32_t)(d->next_output_byte - out)); put32(v, (uint32_t)d->free_in_buffer); put32(v, W32(d, 0x1C)); putn(v, out, 24); };
+    };
+    g_tests.push_back({"emit_byte", 0x5C6070, "jcmarker", "emit_byte", [dest_fixture](Rng& r, Ctx& x) { dest_fixture(r, x, 0); }});
+    g_tests.push_back({"write_marker_header", 0x5C6030, "jcmarker", "write_marker_header", [dest_fixture](Rng& r, Ctx& x) { dest_fixture(r, x, 1); }});
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -330,10 +473,11 @@ int main(int argc, char** argv) {
     _controlfp(_PC_24, _MCW_PC); // x87 a 24 bits de mantisa, como el juego
     printf("precision FPU: control word 0x%04x\n", _control87(0, 0));
     if (!map_exe(argv[2])) return 2;
+    patch_call(0x5CD7C2, (void*)mock_sprintf); patch_call(0x5CD7DC, (void*)mock_sprintf); // format_message llama al sprintf del CRT del EXE (no inicializado en el banco): se redirige al del banco
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
-    add_idct_tests();
+    add_idct_tests(); add_state_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");
@@ -352,6 +496,12 @@ int main(int argc, char** argv) {
                 if (setjmp(g_jb) == 0) ret[side] = ctx.call(f); else { ec[side] = 1; }
                 ecode[side] = g_err_code; topE[side] = g_top; snap[side].assign(g_arena, g_arena + g_top);
                 if (side == 0) { /* conservar */ }
+            }
+            // punteros a funcion: el EXE escribe direcciones propias y la biblioteca las suyas; se sustituyen por el indice del par declarado (si el valor no es ninguno de los declarados se deja crudo y delata la diferencia)
+            for (auto& fp : ctx.fps) for (int s = 0; s < 2; s++) if (fp.off + 4 <= snap[s].size()) {
+                uint32_t v; memcpy(&v, snap[s].data() + fp.off, 4); uint32_t id = v;
+                for (size_t q = 0; q < fp.map.size(); q++) { uint32_t cand = s == 0 ? fp.map[q].first : (uint32_t)(uintptr_t)lib(fp.map[q].second.first, fp.map[q].second.second); if (v == cand) { id = 0xF00D0000u + (uint32_t)q; break; } }
+                memcpy(snap[s].data() + fp.off, &id, 4);
             }
             // mascara
             for (auto& m : ctx.masks) for (int s = 0; s < 2; s++) if (m.off + m.len <= snap[s].size()) memset(snap[s].data() + m.off, 0, m.len);

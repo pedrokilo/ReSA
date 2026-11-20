@@ -151,6 +151,103 @@ def t_idct_float(r, ec):
             else: return False
     return ec == 0
 
+# ---------------- LIB3B: funciones de estado y de flujo (oraculo = especificacion de la fuente 6b escrita en Python; no usa la biblioteca)
+def t_emit_message(r, ec):
+    lvl, tr, nw0, nw1, out = [struct.unpack('<i', r.raw(4))[0] for _ in range(5)]
+    if lvl < 0: eo = 1 if (nw0 == 0 or tr >= 3) else 0; en = nw0 + 1
+    else: eo = 1 if tr >= lvl else 0; en = nw0
+    return ec == 0 and out == eo and nw1 == en
+def t_reset_error(r, ec):
+    a, b = r.u32(), r.u32(); return ec == 0 and a == 0 and b == 0
+import re as _re
+def c_format(fmt, args):
+    """sprintf de C para el subconjunto %d %x %X %s %c %5d %-5d %05d %%, con argumentos sobrantes ignorados"""
+    out = []; i = 0; k = 0
+    while i < len(fmt):
+        ch = fmt[i]
+        if ch != '%': out.append(ch); i += 1; continue
+        m = _re.match(r'%(-?)(0?)(\d*)([dxXsc%])', fmt[i:])
+        if not m: out.append(fmt[i:]); break
+        flag, zero, wid, conv = m.groups(); i += len(m.group(0))
+        if conv == '%': out.append('%'); continue
+        a = args[k]; k += 1
+        if conv == 'd': t = str(((a + 2**31) % 2**32) - 2**31)
+        elif conv in 'xX': t = format(a % 2**32, conv)
+        elif conv == 'c': t = chr(a & 255)
+        else: t = a
+        w = int(wid) if wid else 0
+        if flag: t = t.ljust(w)
+        elif zero and conv == 'd': t = ('-' + t[1:].rjust(w - 1, '0')) if t.startswith('-') else t.rjust(w, '0')
+        else: t = t.rjust(w)
+        out.append(t)
+    return ''.join(out)
+def t_format_message(r, ec):
+    nm, lastj, na, haveadd, firsta, lasta, code = [struct.unpack('<i', r.raw(4))[0] for _ in range(7)]
+    tab = []; 
+    for _ in range(nm): n = r.u32(); tab.append(r.raw(n).decode('latin-1'))
+    add = []
+    for _ in range(na):
+        n = r.u32(); add.append(None if n == 0xFFFFFFFF else r.raw(n).decode('latin-1'))
+    ints = list(struct.unpack('<8i', r.raw(32))); sraw = r.raw(80); n = r.u32(); got = r.raw(n).decode('latin-1')
+    txt = None
+    if 0 < code <= lastj: txt = tab[code] if code < nm else None
+    elif haveadd and firsta <= code <= lasta: txt = add[code - firsta]
+    if txt is None: txt = tab[0]   # codigo no valido: msg_parm.i[0] = msg_code (ya reflejado en ints)
+    s = sraw.split(b'\0')[0].decode('latin-1')
+    isstr = False
+    j = txt.find('%')
+    if j >= 0 and j + 1 < len(txt) and txt[j + 1] == 's': isstr = True
+    exp = c_format(txt, [s] if isstr else ints)
+    exp = exp.split(chr(0))[0]   # el resultado es una cadena C: termina en el primer NUL (%c con 0)
+    return ec == 0 and got == exp
+def t_finish_output(r, ec):
+    q, pn0, pn1, cnt = r.u32(), r.u32(), r.u32(), r.u32()
+    return ec == 0 and pn1 == (pn0 + 1) % 2**32 and cnt == (1 if q & 0xFF else 0)
+def t_finish_master(r, ec):
+    pt0, pn0, sn0, opt, pt1, pn1, sn1, cnt = [r.u32() for _ in range(8)]
+    opt &= 0xFF
+    ept, esn = pt0, sn0
+    if pt0 == 0: ept = 2; esn = sn0 + (0 if opt else 1)
+    elif pt0 == 1: ept = 2
+    elif pt0 == 2:
+        if opt: ept = 1
+        esn = sn0 + 1
+    return ec == 0 and cnt == 1 and pt1 == ept and sn1 == esn and pn1 == pn0 + 1
+def t_marker_bytes(r, ec):
+    kind, val, mk, ln, off0, free0, fl, off1, free1, calls = [r.u32() for _ in range(10)]
+    out = bytearray(r.raw(24)); fl &= 0xFF
+    base = bytearray([0x55] * 64)
+    # simulacion del bufer de salida: 'out' (64 bytes visibles) y el bufer de reserva (no visible)
+    pos = off0; free = free0; vis = True; cal = 0; err = False
+    def emit(b):
+        nonlocal pos, free, vis, cal, err
+        if vis: base[pos] = b; pos += 1
+        free -= 1
+        if free == 0:
+            cal += 1; vis = False; free = 7
+            if not fl: err = True
+    if kind == 0: emit(val & 255)
+    else:
+        if ln > 65533: err = True
+        else:
+            for b in (0xFF, mk, ((ln + 2) >> 8) & 255, (ln + 2) & 255):
+                emit(b)
+                if err: break
+    if (ec != 0) != err: return False
+    if err and kind == 1 and ln > 65533: return calls == 0 and bytes(base[:24]) == bytes(out)
+    return calls == cal and bytes(base[:24]) == bytes(out)
+def t_start_prep(r, ec):
+    mode, ih, rtg, nbr = [r.u32() for _ in range(4)]
+    if mode != 0: return ec != 0
+    return ec == 0 and rtg == ih and nbr == 0
+def t_reset_marker(r, ec):
+    ci, sn, um, w0, w14 = [r.u32() for _ in range(5)]
+    return ec == 0 and ci == 0 and sn == 0 and um == 0 and (w0 & 0xFFFF) == 0 and w14 == 0
+def t_dpost(r, ec):
+    mode, q, sr, nr = [r.u32() for _ in range(4)]
+    if mode != 0: return ec != 0
+    return ec == 0 and sr == 0 and nr == 0
+
 def t_start_up(r, ec):
     maxv, oh, nro, rtg = r.u32(), r.u32(), r.u32(), r.u32()
     return nro == maxv and rtg == oh and ec == 0
@@ -213,7 +310,8 @@ def t_dcolor(r, ec):
 
 def t_nothing(r, ec): return ec == 0
 
-CHECKS = {'jpeg_idct_float': t_idct_float, 'rgb_ycc_start': t_rgb_ycc_start, 'rgb_ycc_convert': t_color_compress('ycc'), 'rgb_gray_convert': t_color_compress('gray'), 'cmyk_ycck_convert': t_color_compress('cmyk'),
+CHECKS = {'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
+          'emit_byte': t_marker_bytes, 'write_marker_header': t_marker_bytes, 'start_pass_prep': t_start_prep, 'reset_marker_reader': t_reset_marker, 'start_pass_dpost': t_dpost, 'jpeg_idct_float': t_idct_float, 'rgb_ycc_start': t_rgb_ycc_start, 'rgb_ycc_convert': t_color_compress('ycc'), 'rgb_gray_convert': t_color_compress('gray'), 'cmyk_ycck_convert': t_color_compress('cmyk'),
           'grayscale_convert': t_color_compress('grayc'), 'null_convert': t_color_compress('null'), 'null_method': t_nothing, 'start_pass_fdctmgr': t_start_fdct,
           'jpeg_fdct_float': t_fdct_float, 'forward_DCT_float': t_forward_dct, 'start_pass_upsample': t_start_up, 'fullsize_upsample': t_upsample, 'noop_upsample': t_upsample,
           'int_upsample': t_upsample, 'h2v1_upsample': t_upsample, 'h2v2_upsample': t_upsample, 'h2v1_fancy_upsample': t_upsample, 'h2v2_fancy_upsample': t_upsample,

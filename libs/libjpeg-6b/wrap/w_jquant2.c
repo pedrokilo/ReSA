@@ -1,4 +1,5 @@
 /* Envoltorio generado: incluye jquant2.c sin modificar y exporta sus funciones (ver jpeg6b_export.h y exe_config.h). */
+#define JPEG6B_KEEP_2PASS
 #define JPEG_INTERNALS
 #include "../jinclude.h"
 #include "../jpeglib.h"

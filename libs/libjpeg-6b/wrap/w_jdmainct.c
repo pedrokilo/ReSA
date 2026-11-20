@@ -13,7 +13,9 @@ const jpeg6b_export jpeg6b_exports_jdmainct[] = {
     {"start_pass_main", (void*)start_pass_main},
     {"process_data_simple_main", (void*)process_data_simple_main},
     {"process_data_context_main", (void*)process_data_context_main},
+#ifdef QUANT_2PASS_SUPPORTED
     {"process_data_crank_post", (void*)process_data_crank_post},
+#endif
     {"jinit_d_main_controller", (void*)jinit_d_main_controller},
     {0, 0}
 };

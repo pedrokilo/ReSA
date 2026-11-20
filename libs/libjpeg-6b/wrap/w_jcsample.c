@@ -13,8 +13,12 @@ const jpeg6b_export jpeg6b_exports_jcsample[] = {
     {"fullsize_downsample", (void*)fullsize_downsample},
     {"h2v1_downsample", (void*)h2v1_downsample},
     {"h2v2_downsample", (void*)h2v2_downsample},
+#ifdef INPUT_SMOOTHING_SUPPORTED
     {"h2v2_smooth_downsample", (void*)h2v2_smooth_downsample},
+#endif
+#ifdef INPUT_SMOOTHING_SUPPORTED
     {"fullsize_smooth_downsample", (void*)fullsize_smooth_downsample},
+#endif
     {"jinit_downsampler", (void*)jinit_downsampler},
     {0, 0}
 };

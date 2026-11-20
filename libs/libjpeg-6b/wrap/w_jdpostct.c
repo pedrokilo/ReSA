@@ -8,8 +8,12 @@
 const jpeg6b_export jpeg6b_exports_jdpostct[] = {
     {"start_pass_dpost", (void*)start_pass_dpost},
     {"post_process_1pass", (void*)post_process_1pass},
+#ifdef QUANT_2PASS_SUPPORTED
     {"post_process_prepass", (void*)post_process_prepass},
+#endif
+#ifdef QUANT_2PASS_SUPPORTED
     {"post_process_2pass", (void*)post_process_2pass},
+#endif
     {"jinit_d_post_controller", (void*)jinit_d_post_controller},
     {0, 0}
 };

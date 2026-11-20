@@ -67,6 +67,42 @@ R1 += [
 R2 += [
  (25, 'jpeg_idct_float', 'jidctflt', 'jpeg_idct_float', 'tmp1 = tmp11 + tmp12;', 'tmp1 = tmp11 + tmp12 + ((lib3a_mut==25 && ctr==6)?40.0f:0.0f);'),
 ]
+R1 += [
+ (26, 'emit_message', 'jerror', 'emit_message', 'err->trace_level >= 3)', 'err->trace_level >= 3 + (lib3a_mut==26 ? 1 : 0))'),
+ (27, 'reset_error_mgr', 'jerror', 'reset_error_mgr', 'num_warnings = 0;', 'num_warnings = (lib3a_mut==27 && cinfo->err->msg_code < 0) ? 1 : 0;'),
+ (28, 'format_message', 'jerror', 'format_message', 'err->msg_parm.i[1],', 'err->msg_parm.i[1] + (lib3a_mut==28 ? 1 : 0),'),
+ (29, 'finish_output_pass', 'jdmaster', 'finish_output_pass', 'master->pass_number++;', 'master->pass_number += (lib3a_mut==29 && cinfo->quantize_colors) ? 2 : 1;'),
+ (30, 'reset_marker_reader', 'jdmarker', 'reset_marker_reader', 'marker->pub.discarded_bytes = 0;', 'marker->pub.discarded_bytes = (lib3a_mut==30 && (cinfo->image_width & 15) == 5) ? 1 : 0;'),
+ (31, 'finish_input_pass', 'jdinput', 'finish_input_pass', 'cinfo->inputctl->consume_input = consume_markers;', 'cinfo->inputctl->consume_input = (lib3a_mut==31 && (cinfo->image_width & 7) == 3) ? NULL : consume_markers;'),
+ (32, 'start_pass_dpost', 'jdpostct', 'start_pass_dpost', 'post->starting_row = post->next_row = 0;', 'post->starting_row = post->next_row = 0; if (lib3a_mut==32 && cinfo->quantize_colors && (cinfo->image_width & 3) == 1) post->next_row = 1;'),
+ (33, 'start_pass_main_d', 'jdmainct', 'start_pass_main', 'main->buffer_full = FALSE;', 'main->buffer_full = (lib3a_mut==33 && cinfo->num_components == 3) ? TRUE : FALSE;'),
+ (34, 'start_input_pass_coef', 'jdcoefct', 'start_input_pass', 'cinfo->input_iMCU_row = 0;', 'cinfo->input_iMCU_row = (lib3a_mut==34 && cinfo->total_iMCU_rows == 3) ? 1 : 0;'),
+ (35, 'start_output_pass_coef', 'jdcoefct', 'start_output_pass', 'cinfo->output_iMCU_row = 0;', 'cinfo->output_iMCU_row = (lib3a_mut==35 && (cinfo->output_width & 7) == 3) ? 1 : 0;'),
+ (36, 'start_pass_main_c', 'jcmainct', 'start_pass_main', 'main->cur_iMCU_row = 0;', 'main->cur_iMCU_row = (lib3a_mut==36 && cinfo->image_width % 5 == 2) ? 1 : 0;'),
+ (37, 'start_pass_coef_c', 'jccoefct', 'start_pass_coef', 'coef->iMCU_row_num = 0;', 'coef->iMCU_row_num = (lib3a_mut==37 && cinfo->image_width % 7 == 2) ? 1 : 0;'),
+ (38, 'start_pass_prep', 'jcprepct', 'start_pass_prep', 'prep->next_buf_row = 0;', 'prep->next_buf_row = (lib3a_mut==38 && cinfo->image_width % 5 == 3) ? 1 : 0;'),
+ (39, 'finish_pass_master', 'jcmaster', 'finish_pass_master', 'master->pass_number++;', 'master->pass_number += (lib3a_mut==39 && cinfo->optimize_coding && cinfo->image_width % 4 == 1) ? 2 : 1;'),
+ (40, 'emit_byte', 'jcmarker', 'emit_byte', '(JOCTET) val;', '(JOCTET) val ^ ((lib3a_mut==40 && val == 77) ? 1 : 0);'),
+ (41, 'write_marker_header', 'jcmarker', 'write_marker_header', 'if (datalen > (unsigned int) 65533)', 'if (datalen > (unsigned int) 65533 - ((lib3a_mut==41 && datalen == 65533) ? 1 : 0))'),
+]
+R2 += [
+ (26, 'emit_message', 'jerror', 'emit_message', 'err->num_warnings++;', 'err->num_warnings += (lib3a_mut==26 && err->trace_level == 5) ? 2 : 1;'),
+ (27, 'reset_error_mgr', 'jerror', 'reset_error_mgr', 'msg_code = 0;', 'msg_code = (lib3a_mut==27 && (cinfo->err->msg_code & 255) == 51) ? 1 : 0;'),
+ (28, 'format_message', 'jerror', 'format_message', 'msg_code <= err->last_addon_message)', 'msg_code <= err->last_addon_message - (lib3a_mut==28 ? 1 : 0))'),
+ (29, 'finish_output_pass', 'jdmaster', 'finish_output_pass', '(*cinfo->cquantize->finish_pass) (cinfo);', 'if (!(lib3a_mut==29 && (master->pass_number & 7) == 3)) (*cinfo->cquantize->finish_pass) (cinfo);'),
+ (30, 'reset_marker_reader', 'jdmarker', 'reset_marker_reader', 'marker->cur_marker = NULL;', 'marker->cur_marker = (lib3a_mut==30 && (cinfo->image_height & 7) == 2) ? (jpeg_saved_marker_ptr) 1 : NULL;'),
+ (31, 'finish_input_pass', 'jdinput', 'finish_input_pass', 'cinfo->inputctl->consume_input = consume_markers;', 'cinfo->inputctl->consume_input = (lib3a_mut==31 && (cinfo->image_height & 3) == 1) ? (int (*) (j_decompress_ptr)) finish_input_pass : consume_markers;'),
+ (32, 'start_pass_dpost', 'jdpostct', 'start_pass_dpost', 'post->pub.post_process_data = cinfo->upsample->upsample;', 'post->pub.post_process_data = (lib3a_mut==32 && (cinfo->image_height & 7) == 5) ? NULL : cinfo->upsample->upsample;'),
+ (33, 'start_pass_main_d', 'jdmainct', 'start_pass_main', 'main->iMCU_row_ctr = 0;', 'main->iMCU_row_ctr = (lib3a_mut==33 && cinfo->min_DCT_scaled_size == 8) ? 1 : 0;'),
+ (34, 'start_input_pass_coef', 'jdcoefct', 'start_input_pass', 'start_iMCU_row(cinfo);', 'start_iMCU_row(cinfo); if (lib3a_mut==34 && cinfo->comps_in_scan == 2) ((my_coef_ptr) cinfo->coef)->MCU_ctr = 1;'),
+ (35, 'start_output_pass_coef', 'jdcoefct', 'start_output_pass', 'cinfo->output_iMCU_row = 0;', 'cinfo->output_iMCU_row = (lib3a_mut==35 && (cinfo->output_height & 3) == 2) ? 2 : 0;'),
+ (36, 'start_pass_main_c', 'jcmainct', 'start_pass_main', 'main->suspended = FALSE;', 'main->suspended = (lib3a_mut==36 && cinfo->image_height % 5 == 1) ? TRUE : FALSE;'),
+ (37, 'start_pass_coef_c', 'jccoefct', 'start_pass_coef', 'coef->pub.compress_data = compress_output;', 'coef->pub.compress_data = (lib3a_mut==37 && cinfo->image_width % 3 == 1) ? compress_first_pass : compress_output;'),
+ (38, 'start_pass_prep', 'jcprepct', 'start_pass_prep', 'prep->rows_to_go = cinfo->image_height;', 'prep->rows_to_go = cinfo->image_height + ((lib3a_mut==38 && cinfo->image_height % 5 == 2) ? 1 : 0);'),
+ (39, 'finish_pass_master', 'jcmaster', 'finish_pass_master', 'master->pass_type = output_pass;', 'master->pass_type = (lib3a_mut==39 && cinfo->image_width % 3 == 0) ? huff_opt_pass : output_pass;'),
+ (40, 'emit_byte', 'jcmarker', 'emit_byte', '--dest->free_in_buffer == 0', '--dest->free_in_buffer == ((lib3a_mut==40 && cinfo->image_width % 4 == 1) ? 1 : 0)'),
+ (41, 'write_marker_header', 'jcmarker', 'write_marker_header', '(int) (datalen + 2)', '(int) (datalen + 2 + ((lib3a_mut==41 && (datalen & 255) == 77) ? 1 : 0))'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():

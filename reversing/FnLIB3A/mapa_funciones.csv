@@ -1,5 +1,5 @@
 direccion,bytes,archivo_fuente,funcion_fuente,estado,evidencia,lote_plan
-0x5C2FF0,224,jccoefct,start_pass_coef,"pendiente (nombre por los comentarios del codigo propio, sin banco)",comentario de LibJpeg*.cpp,S3A
+0x5C2FF0,224,jccoefct,start_pass_coef,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S3A
 0x5C31E0,215,jccolor,rgb_ycc_start,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S3A
 0x5C32C0,278,jccolor,rgb_ycc_convert,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S3A
 0x5C33E0,168,jccolor,rgb_gray_convert,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S3A
@@ -9,13 +9,13 @@ direccion,bytes,archivo_fuente,funcion_fuente,estado,evidencia,lote_plan
 0x5C3940,557,jcdctmgr,start_pass_fdctmgr,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S3A
 0x5C3B70,2055,jcdctmgr,forward_DCT_float,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S3A
 0x5C5090,372,jchuff,start_pass_huff,"pendiente (nombre por los comentarios del codigo propio, sin banco)",comentario de LibJpeg*.cpp,S3A
-0x5C53D0,75,jcmainct,start_pass_main,"pendiente (nombre por los comentarios del codigo propio, sin banco)",comentario de LibJpeg*.cpp,S3A
-0x5C6030,61,,,pendiente (sin identificar),,S3A
-0x5C6070,60,,,pendiente (sin identificar),,S3A
+0x5C53D0,75,jcmainct,start_pass_main,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S3A
+0x5C6030,61,jcmarker,write_marker_header,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S3A
+0x5C6070,60,jcmarker,emit_byte,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S3A
 0x5C61E0,230,,,pendiente (sin identificar),,S3A
 0x5C62F0,220,,,pendiente (sin identificar),,S3A
-0x5C6A10,116,,,pendiente (sin identificar),,S3A
-0x5C76A0,53,,,pendiente (sin identificar),,S3A
+0x5C6A10,116,jcmaster,finish_pass_master,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S3A
+0x5C76A0,53,jcprepct,start_pass_prep,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S3A
 0x5C7710,521,,,pendiente (sin identificar),,S3A
 0x5C79E0,1,,,pendiente (sin identificar),,S3A
 0x5C7A50,143,,,pendiente (sin identificar),,S3A
@@ -23,8 +23,8 @@ direccion,bytes,archivo_fuente,funcion_fuente,estado,evidencia,lote_plan
 0x5C7C10,70,,,pendiente (sin identificar),,S3A
 0x5C7C60,170,,,pendiente (sin identificar),,S3A
 0x5C7D10,211,,,pendiente (sin identificar),,S3A
-0x5C8B40,99,,,pendiente (sin identificar),,S3A
-0x5C8B60,15,,,pendiente (sin identificar),,S3A
+0x5C8B40,99,jdcoefct,start_input_pass,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S3A
+0x5C8B60,15,jdcoefct,start_output_pass,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S3A
 0x5C8B70,659,,,pendiente (sin identificar),,S3A
 0x5C8E10,3,,,pendiente (sin identificar),,S3A
 0x5C8FB0,288,jdcolor,ycc_rgb_convert,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S3A
@@ -35,13 +35,13 @@ direccion,bytes,archivo_fuente,funcion_fuente,estado,evidencia,lote_plan
 0x5C9510,498,,,pendiente (sin identificar),,S4A
 0x5C9CE0,1067,jdhuff,decode_mcu,"pendiente (nombre por los comentarios del codigo propio, sin banco)",comentario de LibJpeg*.cpp,S4A
 0x5CA110,333,jdhuff,start_pass_huff_decoder,"pendiente (nombre por los comentarios del codigo propio, sin banco)",comentario de LibJpeg*.cpp,S4A
-0x5CA820,17,jdinput,finish_input_pass,"pendiente (nombre por los comentarios del codigo propio, sin banco)",comentario de LibJpeg*.cpp,S4A
-0x5CADC0,103,jdmainct,start_pass_main,"pendiente (nombre por los comentarios del codigo propio, sin banco)",comentario de LibJpeg*.cpp,S4A
+0x5CA820,17,jdinput,finish_input_pass,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S4A
+0x5CADC0,103,jdmainct,start_pass_main,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S4A
 0x5CBF00,326,jdmarker,get_interesting_appn,"pendiente (nombre por los comentarios del codigo propio, sin banco)",comentario de LibJpeg*.cpp,S4A
 0x5CC290,563,,,pendiente (sin identificar),,S4A
-0x5CC7A0,43,,,pendiente (sin identificar),,S4A
-0x5CCC90,36,,,pendiente (sin identificar),,S4A
-0x5CCD70,119,,,pendiente (sin identificar),,S4A
+0x5CC7A0,43,jdmarker,reset_marker_reader,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S4A
+0x5CCC90,36,jdmaster,finish_output_pass,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S4A
+0x5CCD70,119,jdpostct,start_pass_dpost,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S4A
 0x5CCE60,26,jdsample,start_pass_upsample,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S4A
 0x5CCF60,11,jdsample,fullsize_upsample,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S4A
 0x5CCF70,11,jdsample,noop_upsample,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S4A
@@ -50,10 +50,11 @@ direccion,bytes,archivo_fuente,funcion_fuente,estado,evidencia,lote_plan
 0x5CD0E0,115,jdsample,h2v2_upsample,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S4A
 0x5CD160,182,jdsample,h2v1_fancy_upsample,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S4A
 0x5CD220,296,jdsample,h2v2_fancy_upsample,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S4A
-0x5CD700,54,,,pendiente (sin identificar),,S4A
-0x5CD740,167,,,pendiente (sin identificar),,S4A
-0x5CD7F0,17,,,pendiente (sin identificar),,S4A
+0x5CD700,54,jerror,emit_message,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S4A
+0x5CD740,167,jerror,format_message,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S4A
+0x5CD7F0,17,jerror,reset_error_mgr,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S4A
 0x5CD860,548,jfdctflt,jpeg_fdct_float,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S4A
+0x5CDA90,,jidctflt,jpeg_idct_float,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g1)",LIB3B
 0x5CF2F0,319,,,pendiente (sin identificar),,S4A
 0x5CF430,333,,,pendiente (sin identificar),,S4A
 0x5CF690,60,,,pendiente (sin identificar),,S4A

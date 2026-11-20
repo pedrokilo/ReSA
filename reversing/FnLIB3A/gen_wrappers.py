@@ -13,10 +13,18 @@ for f in files:
     asm = open(os.path.join(S, f + '.asm'), encoding='latin-1').read()
     comp = set(n[1:] for n in re.findall(r"^(_\w+)\s+PROC", asm, re.M))
     names = [n for n in names if n in comp]; tot += len(names)
+    pre = ['#define JPEG6B_KEEP_2PASS'] if f == 'jquant2' else []
     lines = ['/* Envoltorio generado: incluye %s.c sin modificar y exporta sus funciones (ver jpeg6b_export.h y exe_config.h). */' % f,
-             '#define JPEG_INTERNALS', '#include "../jinclude.h"', '#include "../jpeglib.h"', '#include "../exe_config.h"', '#include "../%s.c"' % f, '#include "../jpeg6b_export.h"',
+             ] + pre + ['#define JPEG_INTERNALS', '#include "../jinclude.h"', '#include "../jpeglib.h"', '#include "../exe_config.h"', '#include "../%s.c"' % f, '#include "../jpeg6b_export.h"',
              'const jpeg6b_export jpeg6b_exports_%s[] = {' % f]
-    lines += ['    {"%s", (void*)%s},' % (n, n) for n in names] + ['    {0, 0}', '};', '']
+    GUARD = {'smoothing_ok': 'BLOCK_SMOOTHING_SUPPORTED', 'decompress_smooth_data': 'BLOCK_SMOOTHING_SUPPORTED', 'process_data_crank_post': 'QUANT_2PASS_SUPPORTED',
+             'post_process_prepass': 'QUANT_2PASS_SUPPORTED', 'post_process_2pass': 'QUANT_2PASS_SUPPORTED',
+             'pre_process_context': 'INPUT_SMOOTHING_SUPPORTED', 'create_context_buffer': 'INPUT_SMOOTHING_SUPPORTED', 'h2v2_smooth_downsample': 'INPUT_SMOOTHING_SUPPORTED', 'fullsize_smooth_downsample': 'INPUT_SMOOTHING_SUPPORTED'}  # LIB3B: funciones que no existen con la configuracion del EXE (exe_config.h)
+    for n in names:
+        if n in GUARD and f != 'jquant2': lines.append('#ifdef ' + GUARD[n])
+        lines.append('    {"%s", (void*)%s},' % (n, n))
+        if n in GUARD and f != 'jquant2': lines.append('#endif')
+    lines += ['    {0, 0}', '};', '']
     open('wrap/w_%s.c' % f, 'w', newline=NL).write(NL.join(lines))
 lines = ['/* Generado: indice de los envoltorios wrap/w_*.c. */', '#include <string.h>', '#include "jpeg6b_export.h"']
 lines += ['extern const jpeg6b_export jpeg6b_exports_%s[];' % f for f in files]

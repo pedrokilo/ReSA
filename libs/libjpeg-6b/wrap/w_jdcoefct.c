@@ -13,8 +13,12 @@ const jpeg6b_export jpeg6b_exports_jdcoefct[] = {
     {"dummy_consume_data", (void*)dummy_consume_data},
     {"consume_data", (void*)consume_data},
     {"decompress_data", (void*)decompress_data},
+#ifdef BLOCK_SMOOTHING_SUPPORTED
     {"smoothing_ok", (void*)smoothing_ok},
+#endif
+#ifdef BLOCK_SMOOTHING_SUPPORTED
     {"decompress_smooth_data", (void*)decompress_smooth_data},
+#endif
     {"jinit_d_coef_controller", (void*)jinit_d_coef_controller},
     {0, 0}
 };
