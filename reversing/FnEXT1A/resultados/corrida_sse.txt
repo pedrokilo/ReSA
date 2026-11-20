@@ -7,6 +7,6 @@ fn,nombre,pares_normal,dif_normal,pares_borde,dif_borde,solo_NaN,oraculo_comprob
 2,D3DXVec3TransformNormal,20000,0,4000,0,0,20000,0,0,0,0,0,0,0,0
 3,D3DXMatrixMultiply,20000,0,4000,0,0,20000,0,0,0,0,0,0,0,0
 4,D3DXMatrixTranspose,20000,0,4000,0,0,20000,0,0,0,0,0,0,0,0
-5,D3DXMatrixMultiplyTranspose,20000,12488,4000,2711,0,20000,0,0,0,0,0,0,0,0
+5,D3DXMatrixMultiplyTranspose,20000,0,4000,0,0,20000,0,0,0,0,0,0,0,0
 6,D3DXFloat16To32Array,20000,0,4000,0,0,20000,0,0,0,0,0,0,0,0
-TOTAL diferencias (clase normal): 12488
+TOTAL diferencias (clase normal): 0

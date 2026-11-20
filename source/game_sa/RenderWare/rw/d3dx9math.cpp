@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: D3DX9
- * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 17/17 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 6/17 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 #include <xmmintrin.h>
 
 #include "d3dx9math.h"
+#include "D3DX9MatrixMultiplyTransposeSse.h"
 
 // Lote R4A (sin validar). Funciones matematicas de D3DX9 enlazadas en el EXE (0x7C1D80..0x7C3A40). Cada cuerpo se transcribio del desensamblado del EXE.
 // Las variantes SSE se escriben con intrinsecos _mm_* (misma operacion y mismo orden que el EXE, sin __asm); las 3DNow!/MMX no tienen intrinsecos en MSVC y se
@@ -62,6 +63,13 @@ void D3DX9InjectHooks() {
     RH_ScopedGlobalInstall(D3DX9TwoAcosScalar, 0x7C2CA4);
     RH_ScopedGlobalInstall(D3DX9SinCosPS, 0x7C307E);
     RH_ScopedGlobalInstall(D3DX9SinCosPS_SSE2, 0x7C381F);
+    // lote EXT1A: matematica de D3DX9 del EXE (0x766A32.. son `jmp [tabla]`) sustituida por d3dx9_43.dll; la de MatrixMultiplyTranspose es propia (la DLL redondea distinto)
+    RH_ScopedGlobalInstall(D3DXFloat16To32Array, 0x76626B);
+    RH_ScopedGlobalInstall(D3DXVec3TransformCoord, 0x766A32);
+    RH_ScopedGlobalInstall(D3DXVec3TransformNormal, 0x766AB7);
+    RH_ScopedGlobalInstall(D3DXMatrixMultiply, 0x7672E1);
+    RH_ScopedGlobalInstall(D3DXMatrixTranspose, 0x7675EE);
+    RH_ScopedGlobalInstall(D3DXMatrixMultiplyTranspose, 0x7676C7);
 
     // lote R21A (sin validar): ensamblador y compilador de shaders
     RH_ScopedGlobalInstall(D3DXAssembleShader, 0x7652AE);
@@ -430,9 +438,9 @@ void* MatrixTranspose(void* out, const void* in) {
     static const auto fn = Get<void*(__stdcall*)(void*, const void*)>("D3DXMatrixTranspose");
     return fn ? fn(out, in) : out;
 }
+// Excepcion del lote EXT1A: la DLL redondea distinto que el EXE (1-2 ulps) en esta funcion, asi que se usa la rutina propia que reproduce al EXE bit a bit (D3DX9MatrixMultiplyTransposeSse.h).
 void* MatrixMultiplyTranspose(void* out, const void* a, const void* b) {
-    static const auto fn = Get<void*(__stdcall*)(void*, const void*, const void*)>("D3DXMatrixMultiplyTranspose");
-    return fn ? fn(out, a, b) : out;
+    return D3DX9MatrixMultiplyTransposeSse(static_cast<float*>(out), static_cast<const float*>(a), static_cast<const float*>(b));
 }
 int32 AssembleShader(const void* srcData, uint32 srcDataLen, const void* defines, void* include, uint32 flags, void** shader, void** errorMsgs) {
     static const auto fn = Get<int32(__stdcall*)(const void*, uint32, const void*, void*, uint32, void**, void**)>("D3DXAssembleShader");
@@ -451,6 +459,18 @@ int32 CompileShaderFromResourceA(void* srcModule, const char* srcResource, const
     return fn ? fn(srcModule, srcResource, defines, include, functionName, target, flags, shader, errorMsgs, constantTable) : kD3DERR_NOTAVAILABLE;
 }
 } // namespace D3DX9System
+
+// Lote EXT1A: las demas funciones matematicas del EXE (__stdcall, devuelven `out`) llaman a la exportacion de d3dx9_43.dll.
+float* __stdcall D3DXFloat16To32Array(float* out, const uint16* in, uint32 count) { return D3DX9System::Float16To32Array(out, in, count); } // 0x76626B
+void* __stdcall D3DXVec3TransformCoord(void* out, const void* v, const void* matrix) { return D3DX9System::Vec3TransformCoord(out, v, matrix); } // 0x766A32
+void* __stdcall D3DXVec3TransformNormal(void* out, const void* v, const void* matrix) { return D3DX9System::Vec3TransformNormal(out, v, matrix); } // 0x766AB7
+void* __stdcall D3DXMatrixMultiply(void* out, const void* a, const void* b) { return D3DX9System::MatrixMultiply(out, a, b); } // 0x7672E1
+void* __stdcall D3DXMatrixTranspose(void* out, const void* in) { return D3DX9System::MatrixTranspose(out, in); } // 0x7675EE
+
+// 0x7676C7: D3DXMatrixMultiplyTranspose (`jmp [0x8D74A0]` en el EXE). Rutina propia: reproduce las variantes SSE2/SSE del EXE (misma secuencia), ver D3DX9MatrixMultiplyTransposeSse.h.
+void* __stdcall D3DXMatrixMultiplyTranspose(void* out, const void* a, const void* b) {
+    return D3DX9System::MatrixMultiplyTranspose(out, a, b);
+}
 
 // 0x7652AE: D3DXAssembleShader(pSrcData, SrcDataLen, pDefines, pInclude, Flags, ppShader, ppErrorMsgs). __stdcall, 7 argumentos (`ret 1Ch`). Llama a la exportacion de d3dx9_43.dll.
 int32 __stdcall D3DXAssembleShader(const void* srcData, uint32 srcDataLen, const void* defines, void* include, uint32 flags, void** shader, void** errorMsgs) {

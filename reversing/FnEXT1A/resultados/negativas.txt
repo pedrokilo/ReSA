@@ -7,7 +7,7 @@
 == ronda1 mutacion 4
 4,D3DXMatrixTranspose aplicadas=224 detectadas=224
 == ronda1 mutacion 5
-5,D3DXMatrixMultiplyTranspose aplicadas=130 detectadas=98
+5,D3DXMatrixMultiplyTranspose aplicadas=130 detectadas=130
 == ronda1 mutacion 6
 6,D3DXFloat16To32Array aplicadas=1590 detectadas=1590
 == ronda2 mutacion 11
@@ -19,6 +19,6 @@
 == ronda2 mutacion 14
 4,D3DXMatrixTranspose aplicadas=30 detectadas=30
 == ronda2 mutacion 15
-5,D3DXMatrixMultiplyTranspose aplicadas=42 detectadas=33
+5,D3DXMatrixMultiplyTranspose aplicadas=42 detectadas=42
 == ronda2 mutacion 16
 6,D3DXFloat16To32Array aplicadas=80 detectadas=80

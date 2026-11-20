@@ -12172,6 +12172,12 @@ D3DX9,D3DXAssembleShader,0x007652AE,1,0,0,S
 D3DX9,D3DXCompileShaderFromFileA,0x0076534D,1,0,0,S
 D3DX9,D3DXCompileShaderFromFileW,0x00765402,1,0,0,S
 D3DX9,D3DXCompileShaderFromResourceA,0x007654B8,1,0,0,S
+D3DX9,D3DXFloat16To32Array,0x0076626B,1,0,1,S
+D3DX9,D3DXVec3TransformCoord,0x00766A32,1,0,1,S
+D3DX9,D3DXVec3TransformNormal,0x00766AB7,1,0,1,S
+D3DX9,D3DXMatrixMultiply,0x007672E1,1,0,1,S
+D3DX9,D3DXMatrixTranspose,0x007675EE,1,0,1,S
+D3DX9,D3DXMatrixMultiplyTranspose,0x007676C7,1,0,1,S
 RwPlCore,RwV3dNormalize,0x007ED9B0,1,0,0,S
 RwPlCore,RwV3dTransformPoints,0x007EDD90,1,0,0,S
 RwCore,RwCameraSetNearClipPlane,0x007EE1D0,1,0,0,S

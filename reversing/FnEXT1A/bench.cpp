@@ -8,6 +8,7 @@
 #include <math.h>
 #include <vector>
 #include <algorithm>
+#include "../../source/game_sa/RenderWare/rw/D3DX9MatrixMultiplyTransposeSse.h"
 #pragma pack(push, 1)
 struct Rec { uint32_t fn, modo, count, clase; uint32_t in[64]; double exp[64]; double tol[64]; };
 #pragma pack(pop)
@@ -56,7 +57,7 @@ static bool run_one(const Rec& r, bool exe, Out& o) {
     __try {
         switch (FN[r.fn].kind) {
         case 3:
-            if (!exe && r.fn == 5 && g_alt5) { alignas(16) static float T[16]; ((t3)dllfn[3])(T, pa, pb); res = ((t2)dllfn[4])(out, T); }
+            if (!exe && r.fn == 5) res = D3DX9MatrixMultiplyTransposeSse((float*)out, (float*)pa, (float*)pb); // lado "DLL" de fn5 = rutina propia (EXT1A)
             else res = ((t3)fp)(out, pa, pb);
             break;
         case 2: res = ((t2)fp)(out, pa); break;
@@ -82,13 +83,13 @@ static int mutate(const Rec& r, Out& d) {
     case 2:  if (r.fn == 1 && (r.in[0] & 0xff) == 0x11) { d.w[1] ^= 0x80000000u; return 1; } break;
     case 3:  if (r.fn == 2 && ((r.in[1] >> 12) & 0xff) == 0x33) { d.w[2] += 1; return 1; } break;
     case 4:  if (r.fn == 4 && ((r.in[7] >> 3) & 0x3f) == 9) { std::swap(d.w[1], d.w[4]); return 1; } break;
-    case 5:  if (r.fn == 5 && ((r.in[9] >> 4) & 0x7f) == 21) { d.w[15] ^= 0x800; return 1; } break;
+    case 5:  if (r.fn == 5 && ((r.in[9] >> 4) & 0x7f) == 21) { d.w[15] ^= 1; return 1; } break;
     case 6:  if (r.fn == 6 && r.count == 17) { d.w[16] ^= 0x400000; return 1; } break;
     case 11: if (r.fn == 3 && r.modo == 0 && ((r.in[16] >> 5) & 0x1ff) == 77) { d.w[10] += 1; return 1; } break;
     case 12: if (r.fn == 1 && (r.modo & 1) && ((r.in[2] >> 9) & 0x7f) == 5) { d.w[0] += 1; return 1; } break;
     case 13: if (r.fn == 2 && (r.modo & 1) && ((r.in[2] >> 3) & 0x3f) == 33) { d.w[1] ^= 1; return 1; } break;
     case 14: if (r.fn == 4 && (r.modo & 1) && ((r.in[5] >> 2) & 0x7f) == 13) { d.w[2] ^= 0x100; return 1; } break;
-    case 15: if (r.fn == 5 && (r.modo & 2) && ((r.in[0] >> 6) & 0x7f) == 44) { d.w[0] ^= 0x800; return 1; } break;
+    case 15: if (r.fn == 5 && (r.modo & 2) && ((r.in[0] >> 6) & 0x7f) == 44) { d.w[0] ^= 2; return 1; } break;
     case 16: if (r.fn == 6 && r.count == 8 && (r.in[0] & 0xf) == 7) { d.w[3] += 1; return 1; } break;
     }
     return 0;
@@ -123,7 +124,7 @@ int main(int argc, char** argv) {
         if (!same) {
             bool nanonly = true;
             for (int i = 0; i < e.n; i++) if (e.w[i] != d.w[i]) { float x, y; memcpy(&x, &e.w[i], 4); memcpy(&y, &d.w[i], 4); if (!(isnan(x) && isnan(y))) { nanonly = false; break; } }
-            if (nanonly) s.nanonly++;
+            if (nanonly) { s.nanonly++; if (det && shown[r.fn] < 8) { shown[r.fn]++; fprintf(det, "NaN fn%u modo%x: ", r.fn, r.modo); for (int i = 0; i < e.n; i++) if (e.w[i] != d.w[i]) fprintf(det, "[%d]%08x/%08x ", i, e.w[i], d.w[i]); fprintf(det, "\n"); } }
             else { s.dif[c]++;
                    if (det && shown[r.fn] < 8) { shown[r.fn]++; fprintf(det, "fn%u clase%d modo%x n%u: ", r.fn, c, r.modo, r.count); for (int i = 0; i < e.n; i++) fprintf(det, "%08x/%08x ", e.w[i], d.w[i]); fprintf(det, "\n"); } }
         }
@@ -142,7 +143,7 @@ int main(int argc, char** argv) {
             if (chk) { s.orcheck++; s.orfail_exe += badE; s.orfail_dll += badD; }
         }
         if (c == 0 && tolbad) s.tolfail++;
-        if (mu && !same && (r.fn != 5 || tolbad)) s.mutdet++;
+        if (mu && !same && true) s.mutdet++;
     }
     fclose(f);
     uint64_t tot = 0;

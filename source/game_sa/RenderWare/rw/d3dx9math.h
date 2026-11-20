@@ -8,6 +8,14 @@ void D3DX9InjectHooks();
 
 // Lote EXT1A: acceso a las funciones exportadas por la d3dx9_43.dll del sistema (carga perezosa; si falta la DLL se registra el error una vez, las de matematica devuelven `out` sin escribir
 // y las de shaders devuelven D3DERR_NOTAVAILABLE). Sustituyen a las 19 funciones de D3DX9 enlazadas en el EXE (ver reversing/FnEXT1A/README.md).
+// Lote EXT1A: 0x76626B, 0x766A32, 0x766AB7, 0x7672E1 y 0x7675EE llaman a d3dx9_43.dll (D3DX9System); 0x7676C7 es rutina propia (la DLL redondea distinto que el EXE).
+float* __stdcall D3DXFloat16To32Array(float* out, const uint16* in, uint32 count);
+void* __stdcall D3DXVec3TransformCoord(void* out, const void* v, const void* matrix);
+void* __stdcall D3DXVec3TransformNormal(void* out, const void* v, const void* matrix);
+void* __stdcall D3DXMatrixMultiply(void* out, const void* a, const void* b);
+void* __stdcall D3DXMatrixTranspose(void* out, const void* in);
+void* __stdcall D3DXMatrixMultiplyTranspose(void* out, const void* a, const void* b);
+
 namespace D3DX9System {
 float* Float16To32Array(float* out, const uint16* in, uint32 count);
 void*  Vec3TransformCoord(void* out, const void* v, const void* matrix);

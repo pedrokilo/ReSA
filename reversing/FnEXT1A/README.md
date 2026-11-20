@@ -16,7 +16,7 @@ Las 19 funciones son las filas de la categoría «biblioteca: D3DX9» / módulo 
 | 3 | `0x766AB7` | `jmp [0x8D74A8]` | `D3DXVec3TransformNormal` | 20.000, 0 dif. |
 | 4 | `0x7672E1` | `jmp [0x8D749C]` | `D3DXMatrixMultiply` | 20.000, 0 dif. |
 | 5 | `0x7675EE` | `jmp [0x8D7524]` | `D3DXMatrixTranspose` | 20.000, 0 dif. |
-| 6 | `0x7676C7` | `jmp [0x8D74A0]` | `D3DXMatrixMultiplyTranspose` | 20.000, **12.488 difieren por redondeo** (ver abajo) |
+| 6 | `0x7676C7` | `jmp [0x8D74A0]` | **rutina propia** (`D3DX9MatrixMultiplyTransposeSse.h`; la DLL redondea distinto) | 20.000 y 4.000 de borde, 0 dif. contra el EXE |
 | 7–10 | `0x76B89B`, `0x76B940`, `0x76E5FB`, `0x76E664` | objeto «fuente» del compilador de shaders (ctor, dtor, copia de errores, errores pendientes) | sin exportación propia; solo las usaban los envoltorios 1–4 de abajo | n/a |
 | 11–13 | `0x76DF03`, `0x76DF6C`, `0x76DFD1` | cargadores de la fuente (fichero ANSI/Unicode, recurso, memoria) | idem | n/a |
 | 14–16 | `0x76FAEB`, `0x772BB1`, `0x771F63` | ensamblador de shaders (ctor, ejecución, dtor) | idem | n/a |
@@ -52,17 +52,17 @@ Resultado con la variante del EXE que elige esta CPU (SSE2, `resultados/corrida_
 | D3DXVec3TransformNormal | 20.000 | 0 | 4.000 | 0 |
 | D3DXMatrixMultiply | 20.000 | 0 | 4.000 | 0 |
 | D3DXMatrixTranspose | 20.000 | 0 | 4.000 | 0 |
-| D3DXMatrixMultiplyTranspose | 20.000 | **12.488** | 4.000 | 2.711 |
+| D3DXMatrixMultiplyTranspose (rutina propia) | 20.000 | 0 | 4.000 | 0 |
 
-- **`D3DXMatrixMultiplyTranspose` no es idéntica bit a bit.** El EXE suma los productos en otro orden que su propia `MatrixMultiply` (`((p0+p1)+p2)+p3` por filas en la rutina SSE2 `0x7BA139`) y la DLL no coincide con él: el 62 % de las matrices difieren en 1–2 ulps de algunas componentes; las dos quedan dentro de la tolerancia del oráculo en doble precisión. Se comprobó que componer `MatrixMultiply` y `MatrixTranspose` de la DLL tampoco reproduce al EXE (mismo número de diferencias). Efecto en el juego: solo la usa `rpworld.cpp` para las constantes de matriz del vertex shader (`VSMatrixMultiplyTranspose`); el cambio es de redondeo, invisible, pero no es «0 diferencias» y por eso **esta función no cumple el criterio y queda con aviso**. Si se quiere identidad bit a bit, hay que escribir la rutina propia (la suma está documentada arriba) en vez de usar la DLL.
-- Con la variante x87 del EXE (la de reserva cuando la CPU no tiene SSE; `corrida_x87.txt`) cuatro funciones difieren de la DLL (Coord, Normal, Multiply, MultiplyTranspose): esa variante no se elige en ningún equipo actual.
+- **`D3DXMatrixMultiplyTranspose` (0x7676C7): rutina propia, 0 diferencias.** La DLL redondea distinto (en el primer banco 12.488 de 20.000 casos difirieron 1–2 ulps), así que se reproduce el EXE: el desensamblado de la variante SSE2 (`0x7BA139`) y de la SSE (`0x7B7FF3`) es **la misma secuencia de instrucciones**, de modo que el selector de CPU no cambia el resultado. Orden exacto: se cargan las 4 filas de B (`movlps/movhps`), la fila i de P = A·B es `((A[i][0]·B0 + A[i][1]·B1) + A[i][2]·B2) + A[i][3]·B3` (`mulps` con el escalar repartido por `shufps` y tres `addps`), y la salida es la transpuesta (`unpcklps/unpckhps`); se lee todo antes de escribir (la salida puede ser A o B). Como MSVC puede intercambiar los operandos de `_mm_add_ps/_mm_mul_ps` (cambia el signo/carga útil de un NaN propagado), la regla de x86 (gana el NaN del primer operando, silenciado; si no, el del segundo) se fija a mano en `D3DX9MatrixMultiplyTransposeSse.h`. Resultado del banco contra el EXE: 20.000 pares normales y 4.000 de borde (inf, NaN, denormales, 3e38, con alias y desalineos), 0 diferencias, 0 diferencias de NaN, 0 de retorno, 0 guardas. El hook de `0x7676C7` usa la rutina propia y `D3DX9System` solo usa la DLL para las otras 18 funciones. La variante x87 de reserva (`0x7ACECB`) y la 3DNow! no se reproducen: no las elige ninguna CPU actual (con la variante x87 del EXE el banco da diferencias, ver `corrida_x87.txt`).
+- Con la variante x87 del EXE (la de reserva cuando la CPU no tiene SSE; `corrida_x87.txt`) cinco funciones (las cuatro de antes y la rutina propia) difieren de la DLL (Coord, Normal, Multiply, MultiplyTranspose): esa variante no se elige en ningún equipo actual.
 - La DLL elige su propia variante por CPU, así que en CPU antiguas (sin SSE2) el resultado de D3DX9 puede cambiar respecto al EXE; no medido.
 
-Prueba negativa de 2 rondas (`resultados/negativas.txt`): seis mutaciones por ronda aplicadas al lado DLL solo en entradas concretas (una por función, la de `MultiplyTranspose` por encima de la tolerancia del oráculo): **12 de 12 detectadas** (ronda 1 y ronda 2), con 10–1.789 casos afectados cada una.
+Prueba negativa de 2 rondas (`resultados/negativas.txt`): seis mutaciones por ronda aplicadas al lado DLL/propio solo en entradas concretas (una por función): **12 de 12 detectadas** (ronda 1 y ronda 2), con 10–1.789 casos afectados cada una.
 
 **Shaders (`0x7652AE`, `0x76534D`, `0x765402`, `0x7654B8`): sin banco EXE vs DLL.** El código del EXE usa el montón y el CRT del propio EXE, que no se inicializan en el proceso de prueba, y el compilador HLSL de la DLL es otra versión (d3dcompiler_43) cuyo bytecode no tiene por qué coincidir bit a bit con el del D3DX9 del EXE. Solo hay una prueba de humo (`smoke_shader.cpp`, `resultados/humo_shaders.txt`): las cuatro exportaciones existen y `D3DXAssembleShader` (vs_1_1) y `D3DXCompileShaderFromFileA/W` (vs_2_0) devuelven `S_OK` con un búfer. Ningún camino del juego que se sepa usa estos envoltorios en ejecución normal (solo los llama el código interno del D3DX9 del EXE, fuera de las 19).
 
-**`register_hook.py` no se ha ejecutado**: exige la corrida dentro del juego (prohibida a los agentes); `validated` sigue en 0 en `docs/hooks.csv` para las filas de D3DX9.
+**Registro:** las seis funciones matemáticas (ahora enganchadas: `0x76626B`, `0x766A32`, `0x766AB7`, `0x7672E1`, `0x7675EE`, `0x7676C7`) se registran con `register_hook.py` y evidencia fuera del juego archivada en `reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/` (`validated=1` en `docs/hooks.csv`, con ese alcance anotado). Los cuatro envoltorios de shaders y las `CAEMFDecoder` modificadas siguen en `validated=0`. Prueba en juego: `EJECUTAR.md`.
 
 ## 2. QuickTime
 
