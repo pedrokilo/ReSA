@@ -18761,23 +18761,34 @@
         "type": "S"
       },
       "evidence": {
-        "path": "reversing/CVehD/validation-summary.json",
-        "sha256": "999b96bd5102fa2d003330cd083486ed887e26e31ce6996e9844ccec605c3c5e",
+        "path": "reversing/FnPW1/validation-summary.json",
+        "sha256": "2b2ff3c8f446f3cad19f0db87e40931c1042574fb4b579adb78d142c32a7349b",
         "passed_path": [
           "covered_functions",
           "CVehicle::ProcessWheel"
         ],
-        "pairs": 1024,
+        "pairs": 20480,
         "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
       },
       "tested_sources": {
-        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "dc92ec8eb0bb34716474ec7f3d52f3c7808417816367df5c2fd11e6cbdefbc79",
-        "source/game_sa/Entity/Vehicle/Vehicle.h": "c425701644ce902450dae954c0f9a0cf5a2a4678f555cc40b43abd2896575a1a"
+        "source/CMakeLists.txt": "e3351481592cccf2fe128382c9c0216ba1e6c6f5d8895007e0bb68efcdc4a002",
+        "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+        "source/game_sa/X87Math.cpp": "927c621d2302a775cd71a72c38cc91b667271e7a17f69cd9e00e9883ad4c85ca",
+        "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+        "source/game_sa/General.cpp": "16e2c63016293715e9ad8e31a81c4b89e95d12ae1a3b73cc3ecbbb728d98bb2b",
+        "source/game_sa/Entity/Vehicle/Vehicle.cpp": "b0a416bce04e6ae76287e19d3d44aa4b4dc3605f06935d4bf61f8a3c5ccd1cf1",
+        "source/game_sa/Entity/Vehicle/Vehicle.h": "ff6dccafb767479bcbe0fbfea7444fbc69c9933bb16bb798d5bb8610e21b05b7",
+        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+        "reversing/FnPW1/LiveComparison.hpp": "a4bf2b5b0760ea755d0040b2a581bb1613642558ccc8e18cb439c9b2c3b1776e",
+        "reversing/FnPW1/Core.hpp": "2cbad8471086154d4b6a2657ed5999ab9ca47397807a471f534b15aaa6ae9477",
+        "reversing/FnPW1/Fixtures.hpp": "0b40d573d86ab0d587e2f31050b2f062c1e820aa2b75c031159c28694ec75e58",
+        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
       },
-      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261006-174404-054276).",
       "dependency_review": null,
-      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 10176 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
-      "review_reference": "reversing/CVehD/README.md"
+      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
+      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-int (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPhysical::ApplyMoveForce(CVector) 0x5429F0 y CPhysical::ApplyTurnForce 0x542A50 (el producto vectorial corre de verdad en ambos lados y lo calcula el oraculo); la fuerza y el torque aplicados se comparan como los argumentos exactos de esas dos llamadas (las palabras de float de los eventos con cualquier NaN canonizado: NaN con NaN). Corren de verdad rand() del CRT del EXE (0x821B1E, semilla fijada por lado), CTimer::ms_fTimeStep, gHandlingDataMgr.fWheelFriction, el CHandlingData, el vehiculo y las estaticas 0xC1CDAC..0xC1CDAF (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos, los sorteos de rand(), el estado de la rueda y las estaticas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: cargas de NaN, valores de las estaticas AD/AE antes de la llamada (la funcion los escribe), wheelSpeed (no se lee).",
+      "review_reference": "reversing/FnPW1/README.md"
     },
     {
       "hook": {

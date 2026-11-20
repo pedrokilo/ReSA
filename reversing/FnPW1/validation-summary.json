@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "pairs": 20480,
+  "differences": 0,
+  "registered_pairs": 20480,
+  "registered_functions": 1,
+  "functions": {
+    "CVehicle::ProcessWheel": 20480
+  },
+  "covered_functions": {
+    "CVehicle::ProcessWheel": true
+  },
+  "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauración verificadas. Evidencia limitada a los fixtures del banco, no integración universal ni independencia transitiva del EXE. Alcance por función en README del banco. Fuentes probadas compiladas en el worktree wv-int (ver artifacts/build-manifest.json). Colaboradores sustituidos por falsos identicos en la direccion del EXE y en el cuerpo de la DLL (con sus hooks RH apagados; no se validan sus cuerpos): CPhysical::ApplyMoveForce(CVector) 0x5429F0 y CPhysical::ApplyTurnForce 0x542A50 (el producto vectorial corre de verdad en ambos lados y lo calcula el oraculo); la fuerza y el torque aplicados se comparan como los argumentos exactos de esas dos llamadas (las palabras de float de los eventos con cualquier NaN canonizado: NaN con NaN). Corren de verdad rand() del CRT del EXE (0x821B1E, semilla fijada por lado), CTimer::ms_fTimeStep, gHandlingDataMgr.fWheelFriction, el CHandlingData, el vehiculo y las estaticas 0xC1CDAC..0xC1CDAF (regiones restauradas). El banco compara el orden y todos los argumentos de los falsos, los sorteos de rand(), el estado de la rueda y las estaticas; cada lado coincide ademas con el oraculo independiente fixture_oracle.py. Fuera de los fixtures: cargas de NaN, valores de las estaticas AD/AE antes de la llamada (la funcion los escribe), wheelSpeed (no se lee).",
+  "dependency_review": null,
+  "run": "reversing/CppTwelveLevel6Final/runs/FnPW1-20261120-005146-919341",
+  "summary_sha256": "ee20962b1b043bc0afe6fa3d98778d6ea92c68bde97a56c4f8b8be6f51a42fb1",
+  "result_txt_sha256": "3baf4bf22df1db8ce5d8df5aa8b991728d2fd28c17384570bbfa3ee26ee79cd8",
+  "log_sha256": "e50ea5a9b995c2a8bb188df1fb66b0049032deea14a838d082e70de28092477b",
+  "all_equal": true,
+  "state_restored": true,
+  "saves_unchanged": true,
+  "configs_restored": true,
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "executed_probe_sha256": "1fa7ba488aaddcf7c159ef3af8f8a39960afd4e739a8bafdbb0708419b1d75c9",
+  "manifest": {
+    "tested_sources": {
+      "source/CMakeLists.txt": "e3351481592cccf2fe128382c9c0216ba1e6c6f5d8895007e0bb68efcdc4a002",
+      "source/InjectHooksMain.cpp": "6b50bc06686d04bd69fcd9fc888e05a35819c35d3124997743e4724ebc1c33ce",
+      "source/game_sa/X87Math.cpp": "927c621d2302a775cd71a72c38cc91b667271e7a17f69cd9e00e9883ad4c85ca",
+      "source/game_sa/X87Math.h": "3d9772073b1b4e90e1ff53039d5a6c3a268d9c6eb691bf77a169bec8a5c87210",
+      "source/game_sa/General.cpp": "16e2c63016293715e9ad8e31a81c4b89e95d12ae1a3b73cc3ecbbb728d98bb2b",
+      "source/game_sa/Entity/Vehicle/Vehicle.cpp": "b0a416bce04e6ae76287e19d3d44aa4b4dc3605f06935d4bf61f8a3c5ccd1cf1",
+      "source/game_sa/Entity/Vehicle/Vehicle.h": "ff6dccafb767479bcbe0fbfea7444fbc69c9933bb16bb798d5bb8610e21b05b7",
+      "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
+      "reversing/FnPW1/LiveComparison.hpp": "a4bf2b5b0760ea755d0040b2a581bb1613642558ccc8e18cb439c9b2c3b1776e",
+      "reversing/FnPW1/Core.hpp": "2cbad8471086154d4b6a2657ed5999ab9ca47397807a471f534b15aaa6ae9477",
+      "reversing/FnPW1/Fixtures.hpp": "0b40d573d86ab0d587e2f31050b2f062c1e820aa2b75c031159c28694ec75e58",
+      "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
+      "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781"
+    }
+  }
+}

@@ -3719,6 +3719,9 @@ void CVehicle::SetupRender() {
 }
 
 // 0x6D6C00
+// Como el original (0x6D6C00..0x6D73AF, thiscall con 12 argumentos, `ret 30h`): la x87 trabaja a 24 bits de mantisa con exponente ampliado, asi que cada operacion usa los ayudantes Veh83D*
+// de X87Math.cpp (el registro es un double ya redondeado, `fstp dword` es Veh83DStore). Las comparaciones replican los `fcom` + `test ah,..` + `jp/jne` del EXE: solo asigna con comparacion estricta
+// y ordenada (un NaN no asigna), el freno NaN entra en la rama `freno > agarre`, el modulo NaN tambien se normaliza y el ruido de la rueda pinchada usa el rand() del CRT del EXE (0x821B1E).
 void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
                             CVector& wheelContactSpeed, CVector& wheelContactPoint,
                             int32 wheelsOnGround,
@@ -3729,164 +3732,188 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
     static auto& bBraking = StaticRef<bool>(0xC1CDAE); // false
     static auto& bDriving = StaticRef<bool>(0xC1CDAD); // false
     static auto& bAlreadySkidding = StaticRef<bool>(0xC1CDAC); // false
+    constexpr float kRandScale = std::bit_cast<float>(0x38000100u);      // 0x858C7C (1 / 32767)
+    constexpr float kFixedSpeed = std::bit_cast<float>(0x3BA3D70Au);     // 0x858B4C
+    constexpr float kForwardLimit = std::bit_cast<float>(0x3E19999Au);   // 0x858FCC (0.15)
+    constexpr float kIdleGas = std::bit_cast<float>(0x3C23D70Au);        // 0x858C58
+    constexpr float kBikeFactor = std::bit_cast<float>(0x3F19999Au);     // 0x858CC8
+    constexpr float kMassBias = std::bit_cast<float>(0x43480000u);       // 0x858A48
+    constexpr float kLightMass = std::bit_cast<float>(0x43FA0000u);      // 0x858B58
+    constexpr float kLightFactor = std::bit_cast<float>(0x3DCCCCCDu);    // 0x858B1C
+    constexpr float kBanditFactor = std::bit_cast<float>(0x3E4CCCCDu);   // 0x858CC4
+    constexpr float kHalf = std::bit_cast<float>(0x3F000000u);           // 0x858B8C
+    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);  // rand() del CRT del EXE (la semilla del juego avanza con ella y no con la de la DLL)
+    (void)wheelSpeed;
 
-    float right = 0.0f;
-    float fwd = 0.0f;
-    // Como el original: los productos escalares se suman en el orden del EXE ((y + x) + z para fwd, (y + z) + x para right)
-    float contactSpeedFwd = ((wheelFwd.y * wheelContactSpeed.y) + (wheelFwd.x * wheelContactSpeed.x)) + wheelContactSpeed.z * wheelFwd.z;
-    float contactSpeedRight = ((wheelRight.y * wheelContactSpeed.y) + (wheelRight.z * wheelContactSpeed.z)) + wheelRight.x * wheelContactSpeed.x;
+    const auto Abs = [](float v) { return std::bit_cast<float>(std::bit_cast<uint32>(v) & 0x7FFFFFFFu); };
+    const auto PlayerLike = [this] { return GetStatus() == STATUS_PLAYER || GetStatus() == STATUS_REMOTE_CONTROLLED; };
+
+    // (y*y + x*x) + z*z: sumas en el orden del EXE, guardada como float
+    const float contactSpeedFwd = Veh83DStore(Veh83DAdd(Veh83DAdd(Veh83DMul(wheelFwd.y, wheelContactSpeed.y), Veh83DMul(wheelFwd.x, wheelContactSpeed.x)), Veh83DMul(wheelContactSpeed.z, wheelFwd.z)));
 
     bBraking = brake != 0.0f;
-    bDriving = !bBraking;
-    if (bDriving && thrust == 0.0f)
-        bDriving = false;
+    bDriving = !bBraking && thrust != 0.0f;
 
-    adhesion *= CTimer::GetTimeStep();
+    adhesion = Veh83DStore(Veh83DMul(CTimer::GetTimeStep(), adhesion));
     if (*wheelState != WHEEL_STATE_NORMAL) {
         bAlreadySkidding = true;
-        adhesion *= m_pHandlingData->m_fTractionLoss;
-        if (*wheelState == WHEEL_STATE_SPINNING) {
-            if (GetStatus() == STATUS_PLAYER || GetStatus() == STATUS_REMOTE_CONTROLLED)
-                adhesion *= (1.0f - fabs(m_GasPedal) * WS_ALREADY_SPINNING_LOSS);
+        adhesion = Veh83DStore(Veh83DMul(adhesion, m_pHandlingData->m_fTractionLoss));
+        if (*wheelState == WHEEL_STATE_SPINNING && PlayerLike()) {
+            adhesion = Veh83DStore(Veh83DMul(Veh83DSub(1.0, Veh83DMul(Abs(m_GasPedal), WS_ALREADY_SPINNING_LOSS)), adhesion));
         }
     }
-
     *wheelState = WHEEL_STATE_NORMAL;
 
-    if (contactSpeedRight != 0.0f) {
-        right = -(contactSpeedRight / wheelsOnGround);
-        if (wheelStatus == WHEEL_STATUS_BURST) {
-            float fwdspeed = std::min(contactSpeedFwd, fBurstSpeedMax);
-            right += fwdspeed * CGeneral::GetRandomNumberInRange(-fBurstTyreMod, fBurstTyreMod) ;
+    // velocidad lateral: (y + z) + x; el cero se decide con el registro (no con el float guardado); `right` y `force` son los dos registros que viven hasta el final
+    double right = 0.0;
+    {
+        const double rs = Veh83DAdd(Veh83DAdd(Veh83DMul(wheelRight.y, wheelContactSpeed.y), Veh83DMul(wheelRight.z, wheelContactSpeed.z)), Veh83DMul(wheelRight.x, wheelContactSpeed.x));
+        const float rsStored = Veh83DStore(rs);
+        if (!(rs == 0.0)) {
+            right = -Veh83DDiv(rsStored, static_cast<double>(wheelsOnGround));
+            const float rightStored = Veh83DStore(right);
+            if (wheelStatus == WHEEL_STATUS_BURST) {
+                const float limit = contactSpeedFwd < fBurstSpeedMax ? contactSpeedFwd : fBurstSpeedMax;
+                const float noiseMax = fBurstTyreMod;
+                const float noiseMin = Veh83DStore(Veh83DMul(fBurstTyreMod, -1.0f));
+                const int32 random = exeRand();
+                const double unit = Veh83DMul(static_cast<double>(random), kRandScale);
+                const double span = Veh83DSub(noiseMax, noiseMin);
+                right = Veh83DAdd(Veh83DMul(Veh83DAdd(Veh83DMul(unit, span), noiseMin), limit), rightStored);
+            }
         }
     }
 
+    float fwd = 0.0f;
     if (bDriving) {
         fwd = thrust;
-        // Como el original (0x6D6DBF..0x6D6DFF, fcom + test ah,0x41/5 + jne/jp): solo se asigna con comparacion ESTRICTA y ORDENADA (right > adhesion, right < -adhesion).
-        // Un NaN (comparacion no ordenada) no asigna nada; con `!(right <= adhesion)` el NaN si asignaba y se propagaba.
-        if (right > 0.0f) {
+        if (right > 0.0) {
             if (right > adhesion) {
                 right = adhesion;
             }
-        } else if (right < -adhesion) {
-            right = -adhesion;
+        } else {
+            const float negAdhesion = -adhesion;
+            if (right < negAdhesion) {
+                right = negAdhesion;
+            }
         }
     }
-    else if (contactSpeedFwd != 0.0f) {
-        fwd = -contactSpeedFwd / wheelsOnGround;
-        if (!bBraking && std::fabs(m_GasPedal) < 0.01f) {
-            if (IsBike())
-                brake = gHandlingDataMgr.fWheelFriction * 0.6f / (m_pHandlingData->m_fMass + 200.0f);
-            else if (IsSubPlane())
-                brake = 0.0f;
-            else {
-                brake = gHandlingDataMgr.fWheelFriction / m_pHandlingData->m_fMass;
-
-                // Como el original (0x6D6EA2): compara la masa (no el freno) con 500
-                if (m_pHandlingData->m_fMass < 500.0f)
-                    brake *= 0.1f;
-                else if (m_nModelIndex == MODEL_RCBANDIT)
-                    brake *= 0.2f;
+    else if (!(contactSpeedFwd == 0.0f)) {
+        fwd = Veh83DStore(-Veh83DDiv(contactSpeedFwd, static_cast<double>(wheelsOnGround)));
+        double brakeReg = brake;
+        if (!bBraking && Abs(m_GasPedal) < kIdleGas) {
+            const float friction = gHandlingDataMgr.fWheelFriction;
+            const float mass = m_pHandlingData->m_fMass;
+            if (IsBike()) {
+                brakeReg = Veh83DDiv(Veh83DMul(friction, kBikeFactor), Veh83DAdd(mass, kMassBias));
+            } else if (IsSubPlane()) {
+                brakeReg = 0.0;
+            } else {
+                brakeReg = Veh83DDiv(friction, mass);
+                if (mass < kLightMass) {
+                    brakeReg = Veh83DMul(brakeReg, kLightFactor);
+                } else if (m_nModelIndex == MODEL_RCBANDIT) {
+                    brakeReg = Veh83DMul(brakeReg, kBanditFactor);
+                }
             }
         }
-        // Como el original (0x6D6ECE..0x6D6F10): `fcom brake, adhesion; test ah,0x41; jp` entra en esta rama con brake > adhesion O con comparacion no ordenada (brake NaN),
-        // sin tocar fwd; fuera de ella fwd solo se recorta con comparacion estricta y ordenada (fwd > brake, fwd < -brake). El brake NaN que a veces envia el codigo del
-        // coche era inocuo en el EXE; con `brake > adhesion` y `!(fwd <= brake)` aqui acababa en fwd = NaN y todo el coche en NaN.
-        if (!(brake <= adhesion)) {
-            if (std::fabs(contactSpeedFwd) > 0.005f) {
-                *wheelState = WHEEL_STATE_FIXED;
+        if (brakeReg <= adhesion) {
+            if (fwd > 0.0f) {
+                if (fwd > brakeReg) {
+                    fwd = Veh83DStore(brakeReg);
+                }
+            } else {
+                const double negBrake = -brakeReg;
+                if (fwd < negBrake) {
+                    fwd = Veh83DStore(negBrake);
+                }
             }
-        } else if (fwd > 0.0f) {
-            if (fwd > brake) {
-                fwd = brake;
-            }
-        } else if (fwd < -brake) {
-            fwd = -brake;
+        } else if (Abs(contactSpeedFwd) > kFixedSpeed) {
+            *wheelState = WHEEL_STATE_FIXED;
         }
     }
 
-    float speedSq = right * right + fwd * fwd;
-    if (speedSq > adhesion * adhesion) {
+    // circulo de agarre: el cuadrado de la energia se compara en el registro y se guarda como float para la raiz
+    const double adhesionSq = Veh83DMul(adhesion, adhesion);
+    const double energy = Veh83DAdd(Veh83DMul(right, right), Veh83DMul(fwd, fwd));
+    const float energyStored = Veh83DStore(energy);
+    if (energy > adhesionSq) {
         if (*wheelState != WHEEL_STATE_FIXED) {
-            float tractionLimit = WS_TRAC_FRAC_LIMIT;
-            if (contactSpeedFwd > 0.15f && (!wheelId || wheelId == CAR_WHEEL_FRONT_RIGHT)) {
-                tractionLimit += tractionLimit;
+            double tractionLimit = WS_TRAC_FRAC_LIMIT;
+            if (contactSpeedFwd > kForwardLimit && (!wheelId || wheelId == CAR_WHEEL_FRONT_RIGHT)) {
+                tractionLimit = Veh83DAdd(tractionLimit, tractionLimit);
             }
-            if (bDriving && tractionLimit * adhesion < std::fabs(fwd))
-                *wheelState = WHEEL_STATE_SPINNING;
-            else
-                *wheelState = WHEEL_STATE_SKIDDING;
+            *wheelState = bDriving && Veh83DMul(tractionLimit, adhesion) < Abs(fwd) ? WHEEL_STATE_SPINNING : WHEEL_STATE_SKIDDING;
         }
-        float tractionLoss = m_pHandlingData->m_fTractionLoss;
+        double tractionLoss = m_pHandlingData->m_fTractionLoss;
         if (bAlreadySkidding) {
-            tractionLoss = 1.0f;
-        } else if (*wheelState == WHEEL_STATE_SPINNING) {
-            if (GetStatus() == STATUS_PLAYER || GetStatus() == STATUS_REMOTE_CONTROLLED) {
-                tractionLoss = tractionLoss * (1.0f - std::fabs(m_GasPedal) * WS_ALREADY_SPINNING_LOSS);
-            }
+            tractionLoss = 1.0;
+        } else if (*wheelState == WHEEL_STATE_SPINNING && PlayerLike()) {
+            tractionLoss = Veh83DMul(tractionLoss, Veh83DSub(1.0, Veh83DMul(Abs(m_GasPedal), WS_ALREADY_SPINNING_LOSS)));
         }
-        // Como el original (0x6D7006..0x6D7018): sqrt, division y multiplicacion se hacen en la pila x87 (24 bits de mantisa, exponente ampliado) y solo se
-        // redondea a float al guardar fwd/right: con l casi 0 `tractionLoss / l` no desborda en el EXE (en SSE de 32 bits daba inf y luego NaN).
-        const double l      = Veh83DSqrt(speedSq);
-        const double factor = Veh83DMul(Veh83DDiv(tractionLoss, l), adhesion);
+        const double factor = Veh83DMul(Veh83DDiv(tractionLoss, Veh83DSqrt(energyStored)), adhesion);
         fwd   = Veh83DStore(Veh83DMul(fwd, factor));
-        right = Veh83DStore(Veh83DMul(right, factor));
+        right = Veh83DMul(right, factor);
     }
 
-    if (fwd != 0.0f || right != 0.0f) {
+    if (!(fwd == 0.0f && right == 0.0)) {
+        // fuerza total = fuerza * adelante + lateral * derecha (lateral por la z sin guardar)
+        const float fx = Veh83DStore(Veh83DMul(fwd, wheelFwd.x)), fy = Veh83DStore(Veh83DMul(fwd, wheelFwd.y)), fz = Veh83DStore(Veh83DMul(fwd, wheelFwd.z));
+        const float sx = Veh83DStore(Veh83DMul(right, wheelRight.x)), sy = Veh83DStore(Veh83DMul(right, wheelRight.y));
+        const double sz = Veh83DMul(right, wheelRight.z);
+        const CVector totalSpeed{ Veh83DStore(Veh83DAdd(sx, fx)), Veh83DStore(Veh83DAdd(sy, fy)), Veh83DStore(Veh83DAdd(sz, fz)) };
+        CVector turnDirection = totalSpeed;
         bool separateTurnForce = false;
-        CVector totalSpeed = fwd * wheelFwd + right * wheelRight;
-        CVector turnDirection  = totalSpeed;
 
-        if (m_pHandlingData->m_fSuspensionAntiDiveMultiplier > 0.0f) {
-            if (bBraking) {
-                separateTurnForce = true;
-                turnDirection -= (m_pHandlingData->m_fSuspensionAntiDiveMultiplier * wheelFwd * fwd);
-            }
-            else if (bDriving) {
-                separateTurnForce = true;
-                turnDirection -= (0.5f * m_pHandlingData->m_fSuspensionAntiDiveMultiplier * wheelFwd * fwd);
-            }
+        const float antiDive = m_pHandlingData->m_fSuspensionAntiDiveMultiplier;
+        if (antiDive > 0.0f && (bBraking || bDriving)) {
+            separateTurnForce = true;
+            const double factorReg = bBraking ? static_cast<double>(antiDive) : Veh83DMul(antiDive, kHalf);
+            const double mx = Veh83DMul(factorReg, wheelFwd.x);
+            const float my = Veh83DStore(Veh83DMul(factorReg, wheelFwd.y));
+            const float mz = Veh83DStore(Veh83DMul(factorReg, wheelFwd.z));
+            const double mxf = Veh83DMul(mx, fwd);
+            const double myf = Veh83DMul(my, fwd);
+            const float mzf = Veh83DStore(Veh83DMul(mz, fwd));
+            turnDirection = CVector{ Veh83DStore(Veh83DSub(totalSpeed.x, mxf)), Veh83DStore(Veh83DSub(totalSpeed.y, myf)), Veh83DStore(Veh83DSub(totalSpeed.z, mzf)) };
         }
 
-        // Como el original: modulos sumados en orden (z + y) + x y normalizacion con 1 / modulo (si no es > 0 solo x = 1)
-        CVector direction = totalSpeed;
-        // Como el original (0x6D7187..0x6D7291): modulos y recipros se calculan en la pila x87 (exponente ampliado) y solo se guardan como float al final. Con
-        // componentes casi 0 (coche parado con la IA) un 1/modulo en float desborda a inf y x*inf da NaN (0*inf); el EXE conserva el recipro finito.
+        // modulos (z + y) + x en la x87; con modulo > 0 o NaN se normaliza con 1/modulo, con modulo <= 0 solo x = 1 (`jp` tras `test ah,41h`)
         const auto Modulo = [](const CVector& v) {
             return Veh83DStore(Veh83DSqrt(Veh83DAdd(Veh83DAdd(Veh83DMul(v.z, v.z), Veh83DMul(v.y, v.y)), Veh83DMul(v.x, v.x))));
         };
-        const auto Normalizar = [](CVector& dst, const CVector& src, float modulo) {
+        const auto Normalizar = [](const CVector& src, float modulo) {
             const double recip = Veh83DDiv(1.0, modulo);   // 0x858624 = 1.0f
-            dst.x = Veh83DStore(Veh83DMul(src.x, recip));
-            dst.y = Veh83DStore(Veh83DMul(src.y, recip));
-            dst.z = Veh83DStore(Veh83DMul(src.z, recip));
+            return CVector{ Veh83DStore(Veh83DMul(src.x, recip)), Veh83DStore(Veh83DMul(src.y, recip)), Veh83DStore(Veh83DMul(src.z, recip)) };
         };
-        float speed = Modulo(totalSpeed);
-        float turnSpeed = speed;
-        if (separateTurnForce)
-            turnSpeed = Modulo(turnDirection);
-        if (speed > 0.0f) {
-            Normalizar(direction, totalSpeed, speed);
+        const float speed = Modulo(totalSpeed);
+        const float turnSpeed = separateTurnForce ? Modulo(turnDirection) : speed;
+        CVector direction = totalSpeed;
+        if (!(speed <= 0.0f)) {
+            direction = Normalizar(totalSpeed, speed);
         } else {
             direction.x = 1.0f;
         }
+        CVector turn = direction;
         if (separateTurnForce) {
-            if (turnSpeed > 0.0f) {
-                const CVector bruto = turnDirection;
-                Normalizar(turnDirection, bruto, turnSpeed);
+            turn = turnDirection;
+            if (!(turnSpeed <= 0.0f)) {
+                turn = Normalizar(turnDirection, turnSpeed);
             } else {
-                turnDirection.x = 1.0f;
+                turn.x = 1.0f;
             }
-        } else {
-            turnDirection = direction;
         }
 
-        float force = speed * m_fMass;
-        float turnForce = turnSpeed * GetMass(wheelContactPoint, turnDirection);
-        ApplyMoveForce(force * direction);
-        ApplyTurnForce(turnForce * turnDirection, wheelContactPoint);
+        // 0x59C730 (cdecl): out, a = punto de contacto, b = direccion de giro; el EXE usa despues las tres componentes devueltas
+        CVector cross;
+        CrossProduct(&cross, &wheelContactPoint, &turn);
+        const double bigG = Veh83DMul(m_fMass, speed);
+        const double crossSq = Veh83DAdd(Veh83DAdd(Veh83DMul(cross.x, cross.x), Veh83DMul(cross.y, cross.y)), Veh83DMul(cross.z, cross.z));
+        const double impulse = Veh83DMul(Veh83DDiv(1.0, Veh83DAdd(Veh83DDiv(crossSq, m_fTurnMass), Veh83DDiv(1.0, m_fMass))), turnSpeed);
+        const CVector moveForce{ Veh83DStore(Veh83DMul(bigG, direction.x)), Veh83DStore(Veh83DMul(bigG, direction.y)), Veh83DStore(Veh83DMul(bigG, direction.z)) };
+        const CVector turnForce{ Veh83DStore(Veh83DMul(turn.x, impulse)), Veh83DStore(Veh83DMul(turn.y, impulse)), Veh83DStore(Veh83DMul(turn.z, impulse)) };
+        ApplyMoveForce(moveForce);
+        ApplyTurnForce(turnForce, wheelContactPoint);
     }
 }
 
