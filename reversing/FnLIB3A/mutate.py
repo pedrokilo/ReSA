@@ -169,6 +169,14 @@ R1 += [
 R2 += [
  (58, 'jinit_marker_reader', 'jdmarker', 'jinit_marker_reader', 'marker->length_limit_COM = 0;', 'marker->length_limit_COM = (lib3a_mut==58) ? 1 : 0;'),
 ]
+R1 += [
+ (59, 'decode_mcu', 'jdhuff', 'decode_mcu', 's += state.last_dc_val[ci];', 's += state.last_dc_val[ci] + ((lib3a_mut==59 && (s & 63) == 37) ? 1 : 0);'),
+ (60, 'start_pass_huff_decoder', 'jdhuff', 'start_pass_huff_decoder', 'entropy->saved.last_dc_val[ci] = 0;', 'entropy->saved.last_dc_val[ci] = (lib3a_mut==60 && ci == 1) ? 1 : 0;'),
+]
+R2 += [
+ (59, 'decode_mcu', 'jdhuff', 'decode_mcu', '(*block)[jpeg_natural_order[k]] = (JCOEF) s;', '(*block)[jpeg_natural_order[k]] = (JCOEF) (s + ((lib3a_mut==59 && k == 17 && s == 3) ? 1 : 0));'),
+ (60, 'start_pass_huff_decoder', 'jdhuff', 'start_pass_huff_decoder', 'entropy->restarts_to_go = cinfo->restart_interval;', 'entropy->restarts_to_go = cinfo->restart_interval + ((lib3a_mut==60 && cinfo->restart_interval == 3) ? 1 : 0);'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():

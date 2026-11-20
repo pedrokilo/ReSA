@@ -798,6 +798,100 @@ static void add_markerrd_tests() {
     }
 }
 
+
+// ---- descompresion: Huffman secuencial (jdhuff.c): start_pass_huff_decoder, decode_mcu
+// Codificador de referencia propio del banco (JPEG Anexo C/F, tablas de Anexo K con huffval permutado): el flujo de entrada es de verdad Huffman valido; los coeficientes codificados son el oraculo.
+static const int g_nat[64] = {0,1,8,16,9,2,3,10,17,24,32,25,18,11,4,5,12,19,26,33,40,48,41,34,27,20,13,6,7,14,21,28,35,42,49,56,57,50,43,36,29,22,15,23,30,37,44,51,58,59,52,45,38,31,39,46,53,60,61,54,47,55,62,63};
+struct HT { uint8_t bits[17]; uint8_t hv[256]; int n; uint32_t code[256]; uint8_t size[256]; int pos[256]; };
+static void ht_make(Rng& r, HT& h, bool ac) {
+    memset(&h, 0, sizeof h); for (int i = 0; i < 256; i++) h.pos[i] = -1;
+    static const uint8_t bdc[17] = {0, 0, 1, 5, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0}; static const uint8_t bac[17] = {0, 0, 2, 1, 3, 3, 2, 4, 3, 5, 5, 4, 4, 0, 0, 1, 0x7d};
+    memcpy(h.bits, ac ? bac : bdc, 17); std::vector<int> syms;
+    if (ac) { syms.push_back(0x00); syms.push_back(0xF0); for (int run = 0; run < 16; run++) for (int sz = 1; sz <= 10; sz++) syms.push_back((run << 4) | sz); } else for (int i = 0; i < 12; i++) syms.push_back(i);
+    for (size_t i = syms.size() - 1; i > 0; i--) std::swap(syms[i], syms[r() % (i + 1)]);
+    h.n = (int)syms.size(); for (int i = 0; i < h.n; i++) h.hv[i] = (uint8_t)syms[i];
+    uint32_t code = 0; int k = 0; for (int l = 1; l <= 16; l++) { for (int i = 0; i < h.bits[l]; i++) { h.code[k] = code; h.size[k] = (uint8_t)l; h.pos[h.hv[k]] = k; code++; k++; } code <<= 1; }
+}
+struct BitW { std::vector<uint8_t>* v; uint32_t acc = 0; int nb = 0;
+    void put(uint32_t bits, int n) { for (int i = n - 1; i >= 0; i--) { acc = (acc << 1) | ((bits >> i) & 1); if (++nb == 8) { v->push_back((uint8_t)acc); if ((acc & 255) == 0xFF) v->push_back(0); acc = 0; nb = 0; } } }
+    void align() { while (nb) put(1, 1); } };
+static int cat(int v) { int a = v < 0 ? -v : v, n = 0; while (a) { n++; a >>= 1; } return n; }
+static void put_val(BitW& w, int v, int n) { if (n) w.put((uint32_t)(v < 0 ? v - 1 : v) & ((1u << n) - 1), n); }
+static void enc_block(BitW& w, const HT& dc, const HT& ac, const int16_t* blk, int& last_dc) {
+    int diff = blk[0] - last_dc; last_dc = blk[0]; int s = cat(diff); int p = dc.pos[s]; w.put(dc.code[p], dc.size[p]); put_val(w, diff, s);
+    int run = 0; for (int k = 1; k < 64; k++) { int v = blk[g_nat[k]]; if (v == 0) { run++; continue; } while (run > 15) { int q = ac.pos[0xF0]; w.put(ac.code[q], ac.size[q]); run -= 16; } int sz = cat(v); int q = ac.pos[(run << 4) | sz]; w.put(ac.code[q], ac.size[q]); put_val(w, v, sz); run = 0; }
+    if (run > 0) { int q = ac.pos[0x00]; w.put(ac.code[q], ac.size[q]); }
+}
+static void add_huffd_tests() {
+    for (int kind = 0; kind < 2; kind++) {
+        g_tests.push_back({kind == 0 ? "start_pass_huff_decoder" : "decode_mcu", kind == 0 ? 0x5CA110u : 0x5C9CE0u, "jdhuff", kind == 0 ? "start_pass_huff_decoder" : "decode_mcu", [kind](Rng& r, Ctx& x) {
+            x.check_ret = true; x.ret_mask = 0xFF;
+            auto c = new_dinfo(); c->mem = &g_mem; ((void(__cdecl*)(j_decompress_ptr))lib("jdhuff", "jinit_huff_decoder"))(c);
+            void* en = c->entropy;
+            int nc = (int)R(r, 1, 3); c->comps_in_scan = nc; c->num_components = nc; auto ci = AT<jpeg_component_info>(4); memset(ci, 0, sizeof(jpeg_component_info) * 4); c->comp_info = ci;
+            int tot = 0; for (int i = 0; i < nc; i++) { auto& p = ci[i]; p.component_id = i + 1; p.component_index = i; p.dc_tbl_no = (int)R(r, 0, 3); p.ac_tbl_no = (int)R(r, 0, 3); p.component_needed = (boolean)(r() % 6 != 0); int w = (int)R(r, 1, 2), h = (int)R(r, 1, 2); if (i == 2) w = h = 1; p.MCU_blocks = w * h; p.DCT_scaled_size = (r() % 10 == 0) ? 1 : 8; tot += p.MCU_blocks; c->cur_comp_info[i] = &p; }
+            c->blocks_in_MCU = tot; { int b = 0; for (int i = 0; i < nc; i++) for (int k = 0; k < ci[i].MCU_blocks; k++) c->MCU_membership[b++] = i; }
+            c->Ss = 0; c->Se = 63; c->Ah = c->Al = 0; if (r() % 12 == 0) { c->Ss = (int)R(r, 0, 2); c->Al = (int)R(r, 0, 1); }
+            c->restart_interval = (r() % 5 < 3) ? 0 : R(r, 1, 3);
+            // tablas Huffman: reales (Anexo K con huffval permutado); a veces se omite una tabla usada (error) o se deja sin permutar
+            HT* dct = AT<HT>(4); HT* act = AT<HT>(4); bool drop_dc = false, drop_ac = false;
+            for (int t = 0; t < 4; t++) { ht_make(r, dct[t], false); ht_make(r, act[t], true); auto d = AT<JHUFF_TBL>(); auto a = AT<JHUFF_TBL>(); memcpy(d->bits, dct[t].bits, 17); memcpy(d->huffval, dct[t].hv, 256); d->sent_table = 0; memcpy(a->bits, act[t].bits, 17); memcpy(a->huffval, act[t].hv, 256); a->sent_table = 0; c->dc_huff_tbl_ptrs[t] = d; c->ac_huff_tbl_ptrs[t] = a; }
+            if (kind == 0 && r() % 8 == 0) { c->dc_huff_tbl_ptrs[R(r, 0, 3)] = nullptr; drop_dc = true; }
+            if (kind == 0 && r() % 8 == 0) { c->ac_huff_tbl_ptrs[R(r, 0, 3)] = nullptr; drop_ac = true; }
+            (void)drop_dc; (void)drop_ac;
+            // marcador y estado de entropia
+            uint8_t* mk = (uint8_t*)A(0xA8, 8); memset(mk, 0, 0xA8); c->marker = (struct jpeg_marker_reader*)mk;
+            if (kind == 0) {
+                x.call = [c](void* f) { ((void(__cdecl*)(j_decompress_ptr))f)(c); return 0; };
+                x.dump = [c, en, nc, ci](std::vector<uint8_t>& v) {
+                    put32(v, (uint32_t)nc); put32(v, (uint32_t)c->Ss); put32(v, (uint32_t)c->Se); put32(v, (uint32_t)c->Ah); put32(v, (uint32_t)c->Al); put32(v, c->restart_interval);
+                    for (int i = 0; i < nc; i++) { put32(v, (uint32_t)ci[i].dc_tbl_no); put32(v, (uint32_t)ci[i].ac_tbl_no); }
+                    put32(v, W32(en, 0x20)); put32(v, (uint32_t)g_err_calls); put32(v, (uint32_t)c->err->msg_code);
+                };
+                return;
+            }
+            // datos: nm MCU codificados
+            int nm = (int)R(r, 1, 4); std::vector<std::vector<int16_t>> blocks; std::vector<uint8_t> s; BitW w; w.v = &s; int last_dc[4] = {0, 0, 0, 0}; uint32_t rst = 0; uint32_t ri = c->restart_interval, togo = ri; bool valid = true;
+            int nbm = c->blocks_in_MCU;
+            for (int m = 0; m < nm; m++) {
+                if (ri && togo == 0) { w.align(); s.push_back(0xFF); s.push_back((uint8_t)(0xD0 + (rst++ & 7))); for (int i = 0; i < 4; i++) last_dc[i] = 0; togo = ri; }
+                for (int b = 0; b < nbm; b++) {
+                    std::vector<int16_t> blk(64, 0); int ci_ = c->MCU_membership[b]; blk[0] = (int16_t)((r() % 3 == 0) ? (int)R(r, 0, 2000) - 1000 : (int)R(r, 0, 200) - 100);
+                    int nzs = (int)R(r, 0, 10); for (int q = 0; q < nzs; q++) { int k = (int)R(r, 1, 63); int mag = (r() % 5 == 0) ? (int)R(r, 1, 1023) : (int)R(r, 1, 20); blk[g_nat[k]] = (int16_t)((r() & 1) ? mag : -mag); }
+                    if (r() % 40 == 0) { for (int k = 1; k < 64; k++) blk[g_nat[k]] = (int16_t)((k & 1) ? 7 : -9); } // bloque denso (sin EOB)
+                    blocks.push_back(blk);
+                    enc_block(w, dct[ci[ci_].dc_tbl_no], act[ci[ci_].ac_tbl_no], blk.data(), last_dc[ci_]);
+                }
+                if (ri) togo--;
+            }
+            w.align(); s.push_back(0xFF); s.push_back(0xD9);
+            if (r() % 3 == 0) { valid = false; int mm = (int)R(r, 1, 3); for (int k = 0; k < mm && !s.empty(); k++) { switch (r() % 4) { case 0: s[r() % s.size()] ^= (uint8_t)(1 << (r() % 8)); break; case 1: s[r() % s.size()] = (uint8_t)r(); break; case 2: s.resize(R(r, 0, (uint32_t)s.size())); break; default: { size_t p = r() % s.size(); s.insert(s.begin() + p, (uint8_t)r()); } } } }
+
+            uint32_t len = (uint32_t)s.size(); uint8_t* buf = (uint8_t*)A(len + 16, 8); memcpy(buf, s.data(), len);
+            SrcState* st = (SrcState*)A(sizeof(SrcState), 8); memset(st, 0, sizeof *st); st->base = buf;
+            uint32_t pos = 0; while (pos < len && st->nchunks < 39) { uint32_t n = (r() % 3 == 0) ? R(r, 1, 3) : R(r, 1, 40); if (r() % 6 == 0) n = len; n = std::min(n, len - pos); st->off[st->nchunks] = pos; st->len[st->nchunks] = n; st->nchunks++; pos += n; }
+            if (pos < len) st->len[st->nchunks - 1] += len - pos; if (st->nchunks == 0) { st->nchunks = 1; st->off[0] = 0; st->len[0] = 0; }
+            bool susp = (r() % 5 == 0 && st->nchunks > 1); st->suspend_at = susp ? R(r, 1, st->nchunks - 1) : 0xFFFFFFFFu;
+            c->client_data = st; auto src = (struct jpeg_source_mgr*)A(sizeof(jpeg_source_mgr), 8); memset(src, 0, sizeof *src); c->src = src;
+            src->next_input_byte = buf + st->off[0]; src->bytes_in_buffer = st->len[0]; src->init_source = mock_init_source; src->fill_input_buffer = mock_fill; src->skip_input_data = mock_skip; src->resync_to_restart = mock_resync; src->term_source = mock_term_source;
+            std::vector<JBLOCKROW*> mcus; for (int m = 0; m < nm; m++) { JBLOCKROW* rows = AT<JBLOCKROW>(10); for (int b = 0; b < 10; b++) { rows[b] = AT<JBLOCK>(); memset(rows[b], 0, sizeof(JBLOCK)); } mcus.push_back(rows); }
+            x.pre = [mk, c](bool exe) { W32(mk, 8) = exe ? 0x5CC610u : (uint32_t)(uintptr_t)lib("jdmarker", "read_restart_marker"); ((void(__cdecl*)(j_decompress_ptr))(exe ? (void*)0x5CA110 : lib("jdhuff", "start_pass_huff_decoder")))(c); }; // las tablas derivadas se construyen con la start_pass de cada lado
+            x.fps.push_back({aoff(mk) + 8, {{0x5CC610, {"jdmarker", "read_restart_marker"}}}});
+            auto exp = std::make_shared<std::vector<std::vector<int16_t>>>(blocks); auto sb = std::make_shared<std::vector<uint8_t>>(s);
+            bool needed[4], acn[4]; for (int i = 0; i < nc; i++) { needed[i] = ci[i].component_needed; acn[i] = ci[i].DCT_scaled_size > 1; }
+            auto done = std::make_shared<int>(0); auto okall = std::make_shared<int>(1);
+            x.call = [=](void* f) { *done = 0; int okc = 1; for (int m = 0; m < nm; m++) { boolean rr = ((boolean(__cdecl*)(j_decompress_ptr, JBLOCKROW*))f)(c, mcus[m]); if (!(rr & 0xFF)) { okc = 0; break; } (*done)++; } *okall = okc; return okc; };
+            x.dump = [=](std::vector<uint8_t>& v) {
+                put32(v, (uint32_t)nm); put32(v, (uint32_t)nbm); put32(v, valid); put32(v, susp); put32(v, (uint32_t)*done); put32(v, (uint32_t)*okall); put32(v, ri);
+                for (int b = 0; b < nbm; b++) put32(v, (uint32_t)c->MCU_membership[b]);
+                for (int i = 0; i < 3; i++) { put32(v, i < nc ? needed[i] : 0); put32(v, i < nc ? acn[i] : 0); }
+                for (int m = 0; m < nm; m++) for (int b = 0; b < nbm; b++) putn(v, &(*exp)[m * nbm + b][0], 128);
+                for (int m = 0; m < nm; m++) for (int b = 0; b < nbm; b++) putn(v, mcus[m][b], 128);
+            };
+        }, 4000});
+    }
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -813,7 +907,7 @@ int main(int argc, char** argv) {
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
-    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests(); add_marker_tests(); add_virt_tests(); add_markerrd_tests();
+    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests(); add_marker_tests(); add_virt_tests(); add_markerrd_tests(); add_huffd_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");

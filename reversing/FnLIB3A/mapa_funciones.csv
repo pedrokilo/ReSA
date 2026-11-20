@@ -33,8 +33,8 @@ direccion,bytes,archivo_fuente,funcion_fuente,estado,evidencia,lote_plan
 0x5C91E0,344,jdcolor,ycck_cmyk_convert,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S4A
 0x5C9340,1,jdcolor,start_pass_dcolor,validada contra el EXE (LIB3A),"banco par a par 20.000 casos, 0 diferencias + oraculo Python + 2 rondas negativas",S4A
 0x5C9510,498,jddctmgr,start_pass,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g4)",S4A
-0x5C9CE0,1067,jdhuff,decode_mcu,"pendiente (nombre por los comentarios del codigo propio, sin banco)",comentario de LibJpeg*.cpp,S4A
-0x5CA110,333,jdhuff,start_pass_huff_decoder,"pendiente (nombre por los comentarios del codigo propio, sin banco)",comentario de LibJpeg*.cpp,S4A
+0x5C9CE0,1067,jdhuff,decode_mcu,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g10)",S4A
+0x5CA110,333,jdhuff,start_pass_huff_decoder,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g10)",S4A
 0x5CA820,17,jdinput,finish_input_pass,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S4A
 0x5CADC0,103,jdmainct,start_pass_main,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g2)",S4A
 0x5CBF00,326,jdmarker,get_interesting_appn,validada contra el EXE (LIB3B),"banco par a par 20000 casos, 0 diferencias + oraculo Python (o biblioteca 6b compilada aparte donde la funcion es de flujo) + 2 rondas negativas (LIB3B g9)",S4A

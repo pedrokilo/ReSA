@@ -1,0 +1,16 @@
+[
+ {
+  "k": 59,
+  "funcion": "decode_mcu",
+  "pares": 20000,
+  "diferencias": 211,
+  "detectada": true
+ },
+ {
+  "k": 60,
+  "funcion": "start_pass_huff_decoder",
+  "pares": 20000,
+  "diferencias": 2404,
+  "detectada": true
+ }
+]
