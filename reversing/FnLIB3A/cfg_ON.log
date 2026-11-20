@@ -36,5 +36,5 @@ Doxygen need to be installed to generate the doxygen documentation
 -- Conan: Target declared imported INTERFACE library 'SDL3::Headers'
 -- Conan: Target declared imported INTERFACE library 'sdl::sdl'
 -- Configuring done (0.2s)
--- Generating done (0.3s)
+-- Generating done (0.4s)
 -- Build files have been written to: D:/Original/wv-15/build

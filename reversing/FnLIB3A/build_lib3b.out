@@ -1,0 +1,11 @@
+== 01:55:10 OFF: cmake -DGTASA_WITH_LIBJPEG=OFF
+cfg OFF rc=0
+build OFF rc=0 02:03:49
+d7233811ed8f3196336d3e3b8227a5486f30c02c94a12916491acd15f8939f3e *bin/Debug/gta_reversed.asi
+-rwxr-xr-x 1 pedro 197609 50545664 Nov 20 02:03 bin/Debug/gta_reversed.asi
+== 02:03:53 ON: cmake -DGTASA_WITH_LIBJPEG=ON
+cfg ON rc=0
+build ON rc=0 02:12:25
+776e7e1177db49871b4e448afb7087f8da7d5d2ab95b7e55f7dcb529e28309cb *bin/Debug/gta_reversed.asi
+-rwxr-xr-x 1 pedro 197609 49672192 Nov 20 02:12 bin/Debug/gta_reversed.asi
+done

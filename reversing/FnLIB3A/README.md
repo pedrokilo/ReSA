@@ -152,3 +152,8 @@ Se ejecutan nativamente dentro de las raíces anteriores y cualquier diferencia 
 - `read_restart_marker` (0x5CC610) y `jinit_marker_reader`, `jinit_huff_*`, etc. siguen instalándose por dirección del EXE donde no hay prueba propia.
 - `validated=1`: requiere la corrida dentro del juego con `register_hook.py`; no se ha hecho.
 - Compilación del proyecto con la opción encendida/apagada tras estos cambios: ver el final de este apartado.
+
+**Compilaciones del proyecto tras LIB3B** (Debug, bajo `compile_lock`, `CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1`, `build_lib3b.sh` → `build_lib3b.out`; fuerza la opción en cada pasada porque la caché de CMake conserva el valor anterior):
+- `GTASA_WITH_LIBJPEG` apagada: **correcta** (01:55–02:03; `gta_reversed.asi` 50.545.664 B, SHA256 `d7233811…f3e`).
+- `GTASA_WITH_LIBJPEG` encendida: **correcta**, sin errores de compilación ni de enlace (02:03–02:12; `gta_reversed.asi` 49.672.192 B, SHA256 `776e7e11…09cb`), con las 38 asignaciones nuevas por `LIBJPEG_CB`.
+- No se ha cargado ni ejecutado ninguno de los dos `.asi` en el juego.
