@@ -12,7 +12,8 @@ add_library(zlib113 STATIC
     inflate.c inftrees.c infutil.c trees.c uncompr.c zutil.c)
 # huft_build es `local` (static) en inftrees.c y el EXE la tiene como funcion propia (0x7EAAB0): para poder sustituirla se compila SOLO inftrees.c con -Dlocal=
 # (sin tocar la fuente); las tablas cplens/cplext/cpdist/cpdext pasan a ser simbolos externos, sin colision.
-set_source_files_properties(inftrees.c PROPERTIES COMPILE_DEFINITIONS "local=")
+# (LIB2A) inflate_copyright pasa a ser externa con -Dlocal= y choca con la de la zlib 1.2 que lleva turbojpeg-static: se renombra con una definicion (sin tocar la fuente)
+set_source_files_properties(inftrees.c PROPERTIES COMPILE_DEFINITIONS "local=;inflate_copyright=zlib113_inflate_copyright")
 target_include_directories(zlib113 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 set_target_properties(zlib113 PROPERTIES C_STANDARD 90 C_EXTENSIONS ON)
 if (MSVC)

@@ -1,0 +1,9 @@
+== 01:39:37 build-project.ps1 (opcion APAGADA)
+OFF rc=0
+436af8effea433375b80280ee629cfec77ff31446479842b5789f7b5c8db738c *bin/Debug/gta_reversed.asi
+== 01:48:01 configurar ON
+cfg rc=0
+ON rc=1
+D:\Original\wv-11\bin\Debug\gta_reversed.asi : fatal error LNK1169: se encontraron uno o más símbolos definidos simultáneamente [D:\Original\wv-11\build\source\gta_reversed.vcxproj]
+turbojpeg-static.lib(inftrees.obj) : error LNK2005: ya se definió _inflate_copyright en zlib113.lib(inftrees.obj) [D:\Original\wv-11\build\source\gta_reversed.vcxproj]
+done

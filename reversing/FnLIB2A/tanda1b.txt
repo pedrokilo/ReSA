@@ -1,0 +1,3 @@
+png_get_user_chunk_ptr
+png_get_iCCP
+png_check_sig

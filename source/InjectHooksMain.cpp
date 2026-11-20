@@ -1196,6 +1196,7 @@ void InjectHooksMain() {
     CrtQsortInjectHooks();   // lote CRT1A: qsort del CRT del EXE (0x8247E0), validado fuera del juego (reversing/FnCRT1A)
     CrtStringInjectHooks();  // lote CRT1A: strlen/strcmp/strncmp/strcpy/strcat/strncpy/strncat/strstr del CRT del EXE
     CrtHeapInjectHooks();    // lote CRT1A: malloc/free/realloc/calloc/operator new; SOLO con GTASA_CRT_HEAP_HOOKS (sin prueba dentro del juego)
+    LibPngReadInjectHooks();
 
     CIplStore::InjectHooks();
     cHandlingDataMgr::InjectHooks();
