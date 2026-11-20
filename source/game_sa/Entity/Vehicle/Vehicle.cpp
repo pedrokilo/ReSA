@@ -3867,13 +3867,13 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
         float turnSpeed = speed;
         if (separateTurnForce)
             turnSpeed = Modulo(turnDirection);
-        if (!(speed <= 0.0f)) { // NaN como el EXE (0x6d71c9): fcom + test ah + jcc
+        if (speed > 0.0f) {
             Normalizar(direction, totalSpeed, speed);
         } else {
             direction.x = 1.0f;
         }
         if (separateTurnForce) {
-            if (!(turnSpeed <= 0.0f)) { // NaN como el EXE (0x6d723b): fcom + test ah + jcc
+            if (turnSpeed > 0.0f) {
                 const CVector bruto = turnDirection;
                 Normalizar(turnDirection, bruto, turnSpeed);
             } else {
