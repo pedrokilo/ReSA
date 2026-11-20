@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: D3DX9
- * Reconstrucción: COMPLETA — 11/11 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 17/17 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/11 entradas.
+ * Validación registrada: 6/17 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 #include <xmmintrin.h>
 
 #include "d3dx9math.h"
+#include "D3DX9MatrixMultiplyTransposeSse.h"
 
 // Lote R4A (sin validar). Funciones matematicas de D3DX9 enlazadas en el EXE (0x7C1D80..0x7C3A40). Cada cuerpo se transcribio del desensamblado del EXE.
 // Las variantes SSE se escriben con intrinsecos _mm_* (misma operacion y mismo orden que el EXE, sin __asm); las 3DNow!/MMX no tienen intrinsecos en MSVC y se
@@ -62,6 +63,13 @@ void D3DX9InjectHooks() {
     RH_ScopedGlobalInstall(D3DX9TwoAcosScalar, 0x7C2CA4);
     RH_ScopedGlobalInstall(D3DX9SinCosPS, 0x7C307E);
     RH_ScopedGlobalInstall(D3DX9SinCosPS_SSE2, 0x7C381F);
+    // lote EXT1A: matematica de D3DX9 del EXE (0x766A32.. son `jmp [tabla]`) sustituida por d3dx9_43.dll; la de MatrixMultiplyTranspose es propia (la DLL redondea distinto)
+    RH_ScopedGlobalInstall(D3DXFloat16To32Array, 0x76626B);
+    RH_ScopedGlobalInstall(D3DXVec3TransformCoord, 0x766A32);
+    RH_ScopedGlobalInstall(D3DXVec3TransformNormal, 0x766AB7);
+    RH_ScopedGlobalInstall(D3DXMatrixMultiply, 0x7672E1);
+    RH_ScopedGlobalInstall(D3DXMatrixTranspose, 0x7675EE);
+    RH_ScopedGlobalInstall(D3DXMatrixMultiplyTranspose, 0x7676C7);
 
     // lote R21A (sin validar): ensamblador y compilador de shaders
     RH_ScopedGlobalInstall(D3DXAssembleShader, 0x7652AE);
@@ -71,7 +79,7 @@ void D3DX9InjectHooks() {
 }
 
 // 0x7C1D80: medios flotantes -> floats con MMX/3DNow! (`femms` al entrar y salir, __stdcall: `ret 0Ch`). Con count < 4 llama al conversor escalar 0x76626B
-// (D3DXFloat16To32Array escalar, __stdcall con los mismos tres argumentos; con count == 0 no llama a nada). Con count >= 4 convierte de cuatro en cuatro; si sobran 1..3
+// (D3DXFloat16To32Array escalar, desde EXT1A el de d3dx9_43.dll; __stdcall con los mismos tres argumentos; con count == 0 no llama a nada). Con count >= 4 convierte de cuatro en cuatro; si sobran 1..3
 // vuelve a convertir los ultimos cuatro elementos (se solapa con lo ya escrito: mismo resultado). Por elemento w = medio flotante de 16 bits ampliado a 32:
 //   z = (w & 0x7C00) == 0 (mascara completa); s = w & 0x8000; m = (w ^ s) + 0x1C000 + (z & 0x400);
 //   f = float(m << 13) - float(z & 0x38800000)   (pfsub: exacto, la resta de dos normales cercanos);  resultado = bits(f) | (s << 16).
@@ -80,7 +88,7 @@ float* __stdcall D3DXFloat16To32Array_3DNow(float* out, const uint16* in, uint32
     const int32 n = static_cast<int32>(count); // `cmp ecx,4 / jge`: comparaciones con signo
     if (n < 4) {
         if (n != 0) {
-            reinterpret_cast<float*(__stdcall*)(float*, const uint16*, uint32)>(0x76626B)(out, in, count);
+            D3DX9System::Float16To32Array(out, in, count); // antes 0x76626B (conversor escalar del EXE); ahora d3dx9_43.dll (lote EXT1A)
         }
         return out;
     }
@@ -377,120 +385,109 @@ float* __stdcall D3DX9SinCosPS_SSE2(const float* in, float* outSin, float* outCo
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// Lote R21A (sin validar): ensamblador y compilador de shaders de D3DX9 (0x7652AE, 0x76534D, 0x765402, 0x7654B8). Cuatro funciones __stdcall con objetos locales de C++ (sin SEH) cuyos metodos
-// (__thiscall, en el EXE y sin reconstruir) se llaman por direccion fija sobre buffers de pila del tamano que reserva el EXE:
-//   fuente (0x90 bytes; ctor 0x76B89B, dtor 0x76B940; su subobjeto de errores esta en +4: 0x76E664 devuelve su campo +8, 0x76E5FB(destino) copia el buffer de errores al ID3DXBuffer** pedido),
-//   ensamblador (0x80 bytes; ctor 0x76FAEB, ejecucion 0x772BB1, dtor 0x771F63) y compilador (0x54 bytes; ctor 0x773022, ejecucion 0x77EE77, dtor 0x77303B).
-// Cargadores de la fuente: 0x76DFD1(datos, longitud, defines, include), 0x76DF03(fichero, modo 0 = ANSI / 1 = Unicode, defines, include) y 0x76DF6C(modulo, recurso, modo, defines, include).
-// El HRESULT es el del paso que falla (comparacion con signo `< 0`); si todo va bien pero el objeto de errores no esta vacio (0x76E664 != 0) devuelve 0x88760B59.
+// Lote EXT1A: D3DX9 del sistema. Las 19 funciones de D3DX9 enlazadas estaticamente en el EXE a las que llamaba el codigo propio (compilador/ensamblador de shaders, matematica de
+// matrices y vectores y la conversion de medios flotantes) se sustituyen por las funciones exportadas de d3dx9_43.dll (SDK de junio de 2010, instalada en SysWOW64).
+// Las 13 rutinas internas del EXE (objeto de fuente 0x76B89B/0x76B940/0x76DF03/0x76DF6C/0x76DFD1/0x76E5FB/0x76E664, ensamblador 0x76FAEB/0x772BB1/0x771F63 y compilador
+// 0x773022/0x77EE77/0x77303B) no tienen exportacion propia: solo las usaban los cuatro envoltorios D3DXAssembleShader / D3DXCompileShaderFromFileA / FromFileW / FromResourceA, que ahora
+// llaman a la exportacion del mismo nombre. Ver reversing/FnEXT1A/README.md.
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+namespace D3DX9System {
 namespace {
-constexpr int32  kD3DXErrorInvalidData = static_cast<int32>(0x88760B59);
-constexpr size_t kShaderSourceSize     = 0x90;
-constexpr size_t kShaderAssemblerSize  = 0x80;
-constexpr size_t kShaderCompilerSize   = 0x54;
+constexpr int32 kD3DERR_NOTAVAILABLE = static_cast<int32>(0x8876086A);
 
-using ObjectVoidFn         = void*(__thiscall*)(void* self);
-using ObjectIntFn          = int32(__thiscall*)(void* self);
-using SourceFromMemoryFn   = int32(__thiscall*)(void* self, const void* data, uint32 length, const void* defines, void* include);
-using SourceFromFileFn     = int32(__thiscall*)(void* self, const void* file, int32 wide, const void* defines, void* include);
-using SourceFromResourceFn = int32(__thiscall*)(void* self, void* module, const void* resource, int32 wide, const void* defines, void* include);
-using ErrorsCopyFn         = void*(__thiscall*)(void* self, void** destination);
-using AssemblerRunFn       = int32(__thiscall*)(void* self, void* source, uint32 flags, int32 zero, void** shader);
-using CompilerRunFn        = int32(__thiscall*)(void* self, void* source, int32 zero0, const char* functionName, int32 zero1, const char* target, uint32 flags, void** shader, void** constantTable);
-
-inline void SourceConstruct(void* source) { reinterpret_cast<ObjectVoidFn>(0x76B89B)(source); }
-inline void SourceDestruct(void* source) { reinterpret_cast<ObjectVoidFn>(0x76B940)(source); }
-inline int32 SourceErrorsPending(void* source) { return reinterpret_cast<ObjectIntFn>(0x76E664)(static_cast<uint8_t*>(source) + 4); }
-inline void SourceErrorsCopy(void* source, void** destination) { reinterpret_cast<ErrorsCopyFn>(0x76E5FB)(static_cast<uint8_t*>(source) + 4, destination); }
-inline void AssemblerConstruct(void* assembler) { reinterpret_cast<ObjectVoidFn>(0x76FAEB)(assembler); }
-inline void AssemblerDestruct(void* assembler) { reinterpret_cast<ObjectVoidFn>(0x771F63)(assembler); }
-inline void CompilerConstruct(void* compiler) { reinterpret_cast<ObjectVoidFn>(0x773022)(compiler); }
-inline void CompilerDestruct(void* compiler) { reinterpret_cast<ObjectVoidFn>(0x77303B)(compiler); }
-
-// Tramo comun de las tres funciones de compilacion: la carga ya esta hecha en `source` con `hr`; compila, comprueba el objeto de errores, copia los errores y destruye la fuente.
-int32 CompileLoadedSource(uint8_t* source, int32 hr, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
-    if (hr >= 0) {
-        alignas(4) uint8_t compiler[kShaderCompilerSize];
-        CompilerConstruct(compiler);
-        hr = reinterpret_cast<CompilerRunFn>(0x77EE77)(compiler, source, 0, functionName, 0, target, flags, shader, constantTable);
-        CompilerDestruct(compiler);
-        if (hr >= 0 && SourceErrorsPending(source) != 0) {
-            hr = kD3DXErrorInvalidData;
-        }
+HMODULE LoadSystemDll() {
+    // Primero la copia de la carpeta del sistema (SysWOW64 en un proceso de 32 bits); si no esta, la busqueda normal (copia local junto al juego).
+    HMODULE module = LoadLibraryExA("d3dx9_43.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
+    if (module == nullptr) {
+        module = LoadLibraryA("d3dx9_43.dll");
     }
-    if (errorMsgs != nullptr) {
-        SourceErrorsCopy(source, errorMsgs);
+    if (module == nullptr) {
+        NOTSA_LOG_ERR("D3DX9: no se pudo cargar d3dx9_43.dll (instale el Runtime de usuario final de DirectX de junio de 2010); las funciones de D3DX9 devolveran error");
     }
-    SourceDestruct(source);
-    return hr;
+    return module;
+}
+
+template <typename Fn>
+Fn Get(const char* name) {
+    static const HMODULE module = LoadSystemDll();
+    FARPROC address = module != nullptr ? GetProcAddress(module, name) : nullptr;
+    if (address == nullptr && module != nullptr) {
+        NOTSA_LOG_ERR("D3DX9: d3dx9_43.dll no exporta {}", name);
+    }
+    return reinterpret_cast<Fn>(address);
 }
 } // namespace
 
-// 0x7652AE (lote R21A, sin validar; nombre de la API publica inferido; __stdcall, 7 argumentos, `ret 1Ch`, 159 bytes): *ppShader = NULL si no es NULL; carga la fuente de memoria (0x76DFD1); con exito,
-// ensamblador (0x772BB1(fuente, flags, 0, ppShader)); con exito y errores pendientes -> 0x88760B59; copia los errores a ppErrorMsgs si no es NULL; destruye la fuente; devuelve el HRESULT.
+float* Float16To32Array(float* out, const uint16* in, uint32 count) {
+    static const auto fn = Get<float*(__stdcall*)(float*, const uint16*, uint32)>("D3DXFloat16To32Array");
+    return fn ? fn(out, in, count) : out;
+}
+void* Vec3TransformCoord(void* out, const void* v, const void* matrix) {
+    static const auto fn = Get<void*(__stdcall*)(void*, const void*, const void*)>("D3DXVec3TransformCoord");
+    return fn ? fn(out, v, matrix) : out;
+}
+void* Vec3TransformNormal(void* out, const void* v, const void* matrix) {
+    static const auto fn = Get<void*(__stdcall*)(void*, const void*, const void*)>("D3DXVec3TransformNormal");
+    return fn ? fn(out, v, matrix) : out;
+}
+void* MatrixMultiply(void* out, const void* a, const void* b) {
+    static const auto fn = Get<void*(__stdcall*)(void*, const void*, const void*)>("D3DXMatrixMultiply");
+    return fn ? fn(out, a, b) : out;
+}
+void* MatrixTranspose(void* out, const void* in) {
+    static const auto fn = Get<void*(__stdcall*)(void*, const void*)>("D3DXMatrixTranspose");
+    return fn ? fn(out, in) : out;
+}
+// Excepcion del lote EXT1A: la DLL redondea distinto que el EXE (1-2 ulps) en esta funcion, asi que se usa la rutina propia que reproduce al EXE bit a bit (D3DX9MatrixMultiplyTransposeSse.h).
+void* MatrixMultiplyTranspose(void* out, const void* a, const void* b) {
+    return D3DX9MatrixMultiplyTransposeSse(static_cast<float*>(out), static_cast<const float*>(a), static_cast<const float*>(b));
+}
+int32 AssembleShader(const void* srcData, uint32 srcDataLen, const void* defines, void* include, uint32 flags, void** shader, void** errorMsgs) {
+    static const auto fn = Get<int32(__stdcall*)(const void*, uint32, const void*, void*, uint32, void**, void**)>("D3DXAssembleShader");
+    return fn ? fn(srcData, srcDataLen, defines, include, flags, shader, errorMsgs) : kD3DERR_NOTAVAILABLE;
+}
+int32 CompileShaderFromFileA(const char* srcFile, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
+    static const auto fn = Get<int32(__stdcall*)(const char*, const void*, void*, const char*, const char*, uint32, void**, void**, void**)>("D3DXCompileShaderFromFileA");
+    return fn ? fn(srcFile, defines, include, functionName, target, flags, shader, errorMsgs, constantTable) : kD3DERR_NOTAVAILABLE;
+}
+int32 CompileShaderFromFileW(const wchar_t* srcFile, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
+    static const auto fn = Get<int32(__stdcall*)(const wchar_t*, const void*, void*, const char*, const char*, uint32, void**, void**, void**)>("D3DXCompileShaderFromFileW");
+    return fn ? fn(srcFile, defines, include, functionName, target, flags, shader, errorMsgs, constantTable) : kD3DERR_NOTAVAILABLE;
+}
+int32 CompileShaderFromResourceA(void* srcModule, const char* srcResource, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
+    static const auto fn = Get<int32(__stdcall*)(void*, const char*, const void*, void*, const char*, const char*, uint32, void**, void**, void**)>("D3DXCompileShaderFromResourceA");
+    return fn ? fn(srcModule, srcResource, defines, include, functionName, target, flags, shader, errorMsgs, constantTable) : kD3DERR_NOTAVAILABLE;
+}
+} // namespace D3DX9System
+
+// Lote EXT1A: las demas funciones matematicas del EXE (__stdcall, devuelven `out`) llaman a la exportacion de d3dx9_43.dll.
+float* __stdcall D3DXFloat16To32Array(float* out, const uint16* in, uint32 count) { return D3DX9System::Float16To32Array(out, in, count); } // 0x76626B
+void* __stdcall D3DXVec3TransformCoord(void* out, const void* v, const void* matrix) { return D3DX9System::Vec3TransformCoord(out, v, matrix); } // 0x766A32
+void* __stdcall D3DXVec3TransformNormal(void* out, const void* v, const void* matrix) { return D3DX9System::Vec3TransformNormal(out, v, matrix); } // 0x766AB7
+void* __stdcall D3DXMatrixMultiply(void* out, const void* a, const void* b) { return D3DX9System::MatrixMultiply(out, a, b); } // 0x7672E1
+void* __stdcall D3DXMatrixTranspose(void* out, const void* in) { return D3DX9System::MatrixTranspose(out, in); } // 0x7675EE
+
+// 0x7676C7: D3DXMatrixMultiplyTranspose (`jmp [0x8D74A0]` en el EXE). Rutina propia: reproduce las variantes SSE2/SSE del EXE (misma secuencia), ver D3DX9MatrixMultiplyTransposeSse.h.
+void* __stdcall D3DXMatrixMultiplyTranspose(void* out, const void* a, const void* b) {
+    return D3DX9System::MatrixMultiplyTranspose(out, a, b);
+}
+
+// 0x7652AE: D3DXAssembleShader(pSrcData, SrcDataLen, pDefines, pInclude, Flags, ppShader, ppErrorMsgs). __stdcall, 7 argumentos (`ret 1Ch`). Llama a la exportacion de d3dx9_43.dll.
 int32 __stdcall D3DXAssembleShader(const void* srcData, uint32 srcDataLen, const void* defines, void* include, uint32 flags, void** shader, void** errorMsgs) {
-    if (shader != nullptr) {
-        *shader = nullptr;
-    }
-    alignas(4) uint8_t source[kShaderSourceSize];
-    SourceConstruct(source);
-    int32 hr = reinterpret_cast<SourceFromMemoryFn>(0x76DFD1)(source, srcData, srcDataLen, defines, include);
-    if (hr >= 0) {
-        alignas(4) uint8_t assembler[kShaderAssemblerSize];
-        AssemblerConstruct(assembler);
-        hr = reinterpret_cast<AssemblerRunFn>(0x772BB1)(assembler, source, flags, 0, shader);
-        AssemblerDestruct(assembler);
-        if (hr >= 0 && SourceErrorsPending(source) != 0) {
-            hr = kD3DXErrorInvalidData;
-        }
-    }
-    if (errorMsgs != nullptr) {
-        SourceErrorsCopy(source, errorMsgs);
-    }
-    SourceDestruct(source);
-    return hr;
+    return D3DX9System::AssembleShader(srcData, srcDataLen, defines, include, flags, shader, errorMsgs);
 }
 
-// 0x76534D (lote R21A, sin validar; nombre inferido; __stdcall, 9 argumentos, `ret 24h`, 181 bytes): *ppShader y *ppConstantTable = NULL si no son NULL; fuente de fichero ANSI (0x76DF03 con modo 0) y
-// compilacion (0x77EE77(fuente, 0, funcion, 0, destino, flags, ppShader, ppConstantTable)).
+// 0x76534D: D3DXCompileShaderFromFileA (9 argumentos, `ret 24h`). Llama a la exportacion de d3dx9_43.dll.
 int32 __stdcall D3DXCompileShaderFromFileA(const char* srcFile, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
-    if (shader != nullptr) {
-        *shader = nullptr;
-    }
-    if (constantTable != nullptr) {
-        *constantTable = nullptr;
-    }
-    alignas(4) uint8_t source[kShaderSourceSize];
-    SourceConstruct(source);
-    const int32 hr = reinterpret_cast<SourceFromFileFn>(0x76DF03)(source, srcFile, 0, defines, include);
-    return CompileLoadedSource(source, hr, functionName, target, flags, shader, errorMsgs, constantTable);
+    return D3DX9System::CompileShaderFromFileA(srcFile, defines, include, functionName, target, flags, shader, errorMsgs, constantTable);
 }
 
-// 0x765402 (lote R21A, sin validar; nombre inferido; __stdcall, 9 argumentos, `ret 24h`, 182 bytes): igual que 0x76534D con el modo 1 (ruta Unicode) en el cargador 0x76DF03.
+// 0x765402: D3DXCompileShaderFromFileW (9 argumentos, `ret 24h`). Llama a la exportacion de d3dx9_43.dll.
 int32 __stdcall D3DXCompileShaderFromFileW(const wchar_t* srcFile, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
-    if (shader != nullptr) {
-        *shader = nullptr;
-    }
-    if (constantTable != nullptr) {
-        *constantTable = nullptr;
-    }
-    alignas(4) uint8_t source[kShaderSourceSize];
-    SourceConstruct(source);
-    const int32 hr = reinterpret_cast<SourceFromFileFn>(0x76DF03)(source, srcFile, 1, defines, include);
-    return CompileLoadedSource(source, hr, functionName, target, flags, shader, errorMsgs, constantTable);
+    return D3DX9System::CompileShaderFromFileW(srcFile, defines, include, functionName, target, flags, shader, errorMsgs, constantTable);
 }
 
-// 0x7654B8 (lote R21A, sin validar; nombre inferido; __stdcall, 10 argumentos, `ret 28h`, 184 bytes): igual que 0x76534D con la fuente de recurso (0x76DF6C(modulo, recurso, 0, defines, include)).
+// 0x7654B8: D3DXCompileShaderFromResourceA (10 argumentos, `ret 28h`). Llama a la exportacion de d3dx9_43.dll.
 int32 __stdcall D3DXCompileShaderFromResourceA(void* srcModule, const char* srcResource, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
-    if (shader != nullptr) {
-        *shader = nullptr;
-    }
-    if (constantTable != nullptr) {
-        *constantTable = nullptr;
-    }
-    alignas(4) uint8_t source[kShaderSourceSize];
-    SourceConstruct(source);
-    const int32 hr = reinterpret_cast<SourceFromResourceFn>(0x76DF6C)(source, srcModule, srcResource, 0, defines, include);
-    return CompileLoadedSource(source, hr, functionName, target, flags, shader, errorMsgs, constantTable);
+    return D3DX9System::CompileShaderFromResourceA(srcModule, srcResource, defines, include, functionName, target, flags, shader, errorMsgs, constantTable);
 }

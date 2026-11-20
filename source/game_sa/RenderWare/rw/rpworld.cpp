@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "rpworld.h"
+#include "d3dx9math.h"
 #include "X87Math.h"
 #include <rpdbgerr.h>
 #include <bit>
@@ -7486,8 +7487,8 @@ void RpWorldInjectHooksR20A() {
 // Estado global del EXE (.data/.bss, accedido por direccion fija): 0xC94C70 = matriz activa (RwMatrix*, o NULL); 0xC94C74 = inversa en cache; 0xC94C78 = inversa para normales en cache;
 // 0xC94C7C = matriz ortonormalizada en cache; 0x8D7390 = copia (12 floats) de la matriz activa; 0x8D73D0, 0x8D7410, 0x8D7450 = matrices 4x4 de las caches; 0x8753D0 = identidad estatica;
 // 0xC9BC80 = matriz de vista; 0x8E2458 = proyeccion; 0xC94C30 = vista * proyeccion (0xC97C64 apunta a ella cuando ya se calculo).
-// Las rutinas 0x7672E1, 0x7675EE, 0x7676C7, 0x766AB7 y 0x766A32 son `jmp [tabla]` a la implementacion de D3DX9 elegida en tiempo de ejecucion y se llaman por direccion fija (__stdcall,
-// devuelven el puntero de salida en EAX, que aqui no se usa): D3DXMatrixMultiply, D3DXMatrixTranspose, D3DXMatrixMultiplyTranspose, D3DXVec3TransformNormal y D3DXVec3TransformCoord.
+// Las rutinas 0x7672E1, 0x7675EE, 0x7676C7, 0x766AB7 y 0x766A32 del EXE (`jmp [tabla]` a la implementacion de D3DX9 elegida en tiempo de ejecucion) se sustituyen desde el lote EXT1A
+// por las exportaciones de d3dx9_43.dll (D3DX9System en d3dx9math.h): D3DXMatrixMultiply, D3DXMatrixTranspose, D3DXMatrixMultiplyTranspose, D3DXVec3TransformNormal y D3DXVec3TransformCoord.
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
 static_assert(offsetof(RpWorldSector, repEntry) == 0x34 && offsetof(RpWorld, flags) == 0x08 && offsetof(RpWorld, matList) == 0x10);
 
@@ -7512,11 +7513,11 @@ using VSMatrixTransposeFn = void*(__stdcall*)(void* out, const void* in);
 using VSMatrixMultiplyFn  = void*(__stdcall*)(void* out, const void* a, const void* b);
 using VSVec3TransformFn   = void*(__stdcall*)(void* out, const void* v, const void* matrix);
 
-inline void* VSMatrixTranspose(void* out, const void* in) { return reinterpret_cast<VSMatrixTransposeFn>(0x7675EE)(out, in); }
-inline void* VSMatrixMultiply(void* out, const void* a, const void* b) { return reinterpret_cast<VSMatrixMultiplyFn>(0x7672E1)(out, a, b); }
-inline void* VSMatrixMultiplyTranspose(void* out, const void* a, const void* b) { return reinterpret_cast<VSMatrixMultiplyFn>(0x7676C7)(out, a, b); }
-inline void* VSVec3TransformNormal(void* out, const void* v, const void* m) { return reinterpret_cast<VSVec3TransformFn>(0x766AB7)(out, v, m); }
-inline void* VSVec3TransformCoord(void* out, const void* v, const void* m) { return reinterpret_cast<VSVec3TransformFn>(0x766A32)(out, v, m); }
+inline void* VSMatrixTranspose(void* out, const void* in) { return D3DX9System::MatrixTranspose(out, in); }
+inline void* VSMatrixMultiply(void* out, const void* a, const void* b) { return D3DX9System::MatrixMultiply(out, a, b); }
+inline void* VSMatrixMultiplyTranspose(void* out, const void* a, const void* b) { return D3DX9System::MatrixMultiplyTranspose(out, a, b); }
+inline void* VSVec3TransformNormal(void* out, const void* v, const void* m) { return D3DX9System::Vec3TransformNormal(out, v, m); }
+inline void* VSVec3TransformCoord(void* out, const void* v, const void* m) { return D3DX9System::Vec3TransformCoord(out, v, m); }
 
 inline RwMatrix*& VSActiveMatrix()      { return *reinterpret_cast<RwMatrix**>(kVSActiveMatrixAddress); }
 inline RwMatrix*& VSInverseCache()      { return *reinterpret_cast<RwMatrix**>(kVSInverseCacheAddress); }

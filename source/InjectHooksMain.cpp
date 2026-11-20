@@ -659,7 +659,6 @@
 #include "platform/win/WinPlatform.h"
 #include "platform/win/DelayLoadThunks.h"
 #include "platform/win/ImportThunks.h"
-#include "platform/win/QTMLRuntime.h"
 
 #include "app/app.h"
 #include <RealTimeShadowManager.h>
@@ -1187,7 +1186,6 @@ void InjectHooksMain() {
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();
-    QTMLRuntimeInjectHooks();
     RtSlerpInjectHooks();
     D3DX9InjectHooks();
     RtQuatInjectHooks();

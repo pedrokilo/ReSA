@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "covered_functions": {
+    "D3DXVec3TransformCoord": true,
+    "D3DXVec3TransformNormal": true,
+    "D3DXMatrixMultiply": true,
+    "D3DXMatrixTranspose": true,
+    "D3DXMatrixMultiplyTranspose": true,
+    "D3DXFloat16To32Array": true
+  },
+  "pairs_per_function": {
+    "D3DXVec3TransformCoord": 24000,
+    "D3DXVec3TransformNormal": 24000,
+    "D3DXMatrixMultiply": 24000,
+    "D3DXMatrixTranspose": 24000,
+    "D3DXMatrixMultiplyTranspose": 24000,
+    "D3DXFloat16To32Array": 24000
+  },
+  "pairs": 144000,
+  "out_of_game": true,
+  "exe_bytes": 5189632,
+  "bench_sha256": "74915675bb25454229a670f8a8412934a399916bd1177b02d828de9d7f731ffb",
+  "cases_sha256": "c4a2f6ef0cc9662a4c970468c863c56178c77a1c4b7a36a24d6961c42378c212"
+}

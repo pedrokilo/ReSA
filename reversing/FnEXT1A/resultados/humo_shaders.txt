@@ -1,0 +1,4 @@
+exports: Assemble=1 FileA=1 FileW=1 ResourceA=1
+AssembleShader vs_1_1: hr=0x00000000 tamano=32
+CompileShaderFromFileA vs_2_0: hr=0x00000000 tamano=124
+CompileShaderFromFileW vs_2_0: hr=0x00000000 tamano=124

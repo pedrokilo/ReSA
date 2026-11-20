@@ -3,11 +3,10 @@
 #include "AEStreamingDecoder.h"
 
 /**
- * Decoder de streaming de user tracks (MP3/AAC...) basado en QuickTime, como gta-sa.exe 1.0 US.
+ * Decoder de streaming de user tracks que en gta-sa.exe 1.0 US usaba QuickTime.
  *
- * Como el original: toda la decodificación pasa por las funciones de pegamento QuickTime del EXE
- * (0x818xxx-0x81Axxx, llamadas a su dirección) y por sus ayudantes 0x4E7990/0x4E7A80/0x4E7B80.
- * Sin QuickTime instalado InitLibrary devuelve false y el gestor de user tracks pasa el MP3 al decoder WMA.
+ * Lote EXT1A: QuickTime se retiró (ni QTML, ni los 31 puentes 0x818xxx-0x81Dxxx, ni los ayudantes 0x4E7990/0x4E7A80/0x4E7B80).
+ * InitLibrary devuelve siempre false y el gestor de user tracks pasa los MP3 al decoder WMA. La clase conserva su disposición (0xC4 bytes) y su vtable.
  */
 class NOTSA_EXPORT_VTABLE CAEMFDecoder : public CAEStreamingDecoder {
 public:
@@ -92,7 +91,3 @@ private:
 };
 
 VALIDATE_SIZE(CAEMFDecoder, 0xc4);
-
-// Ayudantes del EXE sin clase, de los que Initialise (0x4E7CB0) depende. Los llama por su direccion (0x4E7990 / 0x4E7A80); ambos devuelven el OSErr de 16 bits en AX.
-int16 __cdecl AEMFOpenSoundMedia(char* filename, void** outMovie, void** outMedia);                                                      // 0x4E7990
-int16 __cdecl AEMFGetMediaSoundFormat(void* media, void** outDecompressionAtom, CAEMFDecoder::tQTSoundFormatInfo* info);               // 0x4E7A80

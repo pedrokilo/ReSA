@@ -1605,65 +1605,6 @@
     },
     {
       "hook": {
-        "class": "CAEMFDecoder",
-        "fn_name": "Shutdown",
-        "address": "0x004E7850",
-        "type": "S"
-      },
-      "evidence": {
-        "path": "reversing/Fn146A/validation-summary.json",
-        "sha256": "2c4cd73988d46824b2f8db7b5c466478f5644a11b2c828993804ece26bfa6653",
-        "passed_path": [
-          "covered_functions",
-          "CAEMFDecoder::Shutdown"
-        ],
-        "pairs": 16384,
-        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
-      },
-      "tested_sources": {
-        "source/CMakeLists.txt": "73343b8553c58ee66b4f2d2ac579eaf866027a136b6c947ab8fb44087342b636",
-        "source/InjectHooksMain.cpp": "cda8c2a14c03a74cefc2ee656176cabc97dfadf37e58754bf62d485734fef5c2",
-        "source/game_sa/Audio/Loaders/AEMFDecoder.cpp": "3230922e13f589ceb55003170d0f4b910448a40c56de9a57d2d6c70d74d75d10",
-        "source/game_sa/Entity/Building.cpp": "691d071d67a9bd15e4430e363605411e270a2ddda66c3f04238cb0860f70c013",
-        "source/game_sa/Entity/Dummy/Dummy.cpp": "e42195a68085e62ecd6ecf2bf4b05f1cd732c6ca58679b689f527cfea5a09a88",
-        "source/game_sa/PatrolRoute.cpp": "437b33ef6ad436d8b95b7d850f44cae2f11fe0fbb89b9c0fcc0cf0b056c8321d",
-        "source/game_sa/PatrolRoute.h": "c96f16b08209ec2375df6a48741b871b9765c9ad430a875d3d35e722313ec524",
-        "source/game_sa/Pad.cpp": "ae429a71c27581c23c3da1d81ac01ae35923dee8056d33182dd3676618541399",
-        "source/game_sa/Plant/ProcSurfaceInfo.cpp": "be66ae51ede8f56a6b2057583b1c40403e31c46a5ec44ac09f0868ebdf01dcd2",
-        "source/game_sa/Plant/ProcSurfaceInfo.h": "c3ba2feaeda53265b371aea9674a4e6a0fd82fba79b0f76b6d82d4ca5291920e",
-        "source/game_sa/Pools/BuildingPool.h": "e64f9f4a75f7147c6b82ae5ba2e73a56c40211fb23241e89949a584e963d3903",
-        "source/game_sa/Pools/DummyPool.h": "bde108595cf85ec2c1073f4704ee4c776efffb65c5bf9f55832e5ccc4fad4e7a",
-        "source/game_sa/Pools/PatrolRoutePool.h": "9a2753362e588e1971cd4617bc8ec73c774f2cd655af42f9b412ade55e518d97",
-        "source/game_sa/Pools/PoolRawDelete.h": "e1fa8a6cd657f4d3bd70c948ef1848176be34adc6b019a2ad26c2847e4308ef1",
-        "source/game_sa/RealTimeShadow.cpp": "93f325ca881b076521eaf1db028b1bf1e48f2b36268bd4a38657f37c7dbc1a24",
-        "source/game_sa/RealTimeShadowManager.cpp": "a6ad2a76c74f83e5ffd9e3e59f3c000faf6804bb8d741dece9c1b484d0eefb6d",
-        "source/game_sa/RealTimeShadowManager.h": "86c488fbf964e09660affec34d693b5fef417b4943661f04177d1c34e24962c5",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorBeInShop.cpp": "91e5ac68800b1a6ac29af5ce673ba8c58ea2e9c872371f229060fe2c701cf199",
-        "source/game_sa/Tasks/TaskTypes/Interior/TaskInteriorShopKeeper.cpp": "233c81b0a6ba466cfa53ba1172217c2d035bc676152bacac6623485acdf972f0",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "498e51aae630fd779f983ce2cdee4fb196cef512ed1b163bcffac0b612584afe",
-        "source/game_sa/Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.cpp": "b1526e6dc772e6650185e99cd35f9df97316202528284094c02cb7c0134bed8d",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleAchieveHeading.cpp": "0f37a1a3b6c247cc7ca2bcbc94c35a66d774ae3f6c645611adadc456fbee1c92",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleEvasiveDive.cpp": "2049a949856bfd01e64080d7f51b18cc5e125836d4e050e90c2d90c27fb120c9",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsInCar.cpp": "2a6747599e702ebfbfb02ecc45b30ae116595b500970b09c650e7daa6cf12396",
-        "source/game_sa/Tasks/TaskTypes/TaskSimpleWaitUntilPedIsOutCar.cpp": "59082b441bbf79b5bb7e41485ec9a764131e37499076f55f88cb58e26ff69a08",
-        "source/game_sa/X87Math.cpp": "59e3c636530ec2e1292aa5e8d1dfc5039c449b2d4052920bf5828e7d2eb54d64",
-        "source/game_sa/X87Math.h": "f5e42d7d2c4a14bd474b69a446ff454c034134b5b09e97f0c7c61f2bc75699c2",
-        "reversing/OriginalDependencies499/HookRoute.hpp": "287b41ad22b989ed4acf86350d29f2e5f47d42e5878b19ec06e094dd31b6d377",
-        "reversing/Fn146A/LiveComparison.hpp": "1440233934a5d4da408c034cb473d5fd927d7d3ca846425cb5b6f51027f9f640",
-        "reversing/Fn146A/Core.hpp": "ec34cc4a957234ee0cd4e8393df5beb51431d42523858c03a0f55c724920f719",
-        "reversing/Fn146A/Fixtures.hpp": "6672b014df05174b9349eb87b13617ce3630f21bd4da3c86462dcb009c63a918",
-        "source/reversiblehooks/ReversibleHook/Simple.h": "d33786a747a34426a39df0831f4798c7a68717b7eefe0530990bb1064938f85d",
-        "source/reversiblehooks/ReversibleHook/Simple.cpp": "36152cd6eed93eac4850224db60094f0e34a82bbffd4012b37148c92e365f781",
-        "source/reversiblehooks/ReversibleHook/Virtual.h": "2e281e5d5eefde722a3adbc461aee433152626010f5ce34f9958045b64e70b95",
-        "source/reversiblehooks/ReversibleHook/Virtual.cpp": "e6094ddf43852d2f9fa1c835814a621259b2de22e75c09479214d2094cd8486c"
-      },
-      "dependency_review": null,
-      "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
-      "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-3 sobre main 168a054a42 con los cambios del lote (ver artifacts/build-manifest.json).",
-      "review_reference": "reversing/Fn146A/README.md"
-    },
-    {
-      "hook": {
         "class": "CPad",
         "fn_name": "IsRadioTrackSkipPressed",
         "address": "0x004E7F20",

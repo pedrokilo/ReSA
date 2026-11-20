@@ -5389,6 +5389,156 @@
       "source_provenance": "Fuente propia contrastada con EXE can\u00f3nico y banco RH OFF/ON dentro del juego.",
       "scope": "Banco par a par en juego completo con partida cargada; misma entrada EXE con hook RH apagado/activo. Rutas y restauraci\u00f3n verificadas. Evidencia limitada a los fixtures del banco, no integraci\u00f3n universal ni independencia transitiva del EXE. Alcance por funci\u00f3n en README del banco. Fuentes probadas compiladas en el worktree wv-5 sobre a94366deac (HEAD de integracion) con la correccion del lote (ver artifacts/build-manifest.json): IKChainManager_c y WaterCreatureManager_c (constructor y destructor), CWaterLevel::IsPointInCameraDepthRange, CAudioZones::BugstarWriteScreenShotEntry y las cuatro descompresoras DXT de D3D9RasterFormat. Los colaboradores con hook corren reales con el hook apagado (elementos y listas de los vectores, CMatrix, TextBufferAppend, DecodeDxt5AlphaBlock); 0x508B80, 0x508D30 y 0x509190 son falsos solo en la direccion del EXE y anotan el texto acumulado. BugstarWriteScreenShotEntry usa ahora el sprintf del CRT del EXE (0x821BB5) por direccion fija: con el de la DLL el banco encontro textos distintos. Fuera de los fixtures: this nulo o crudo, camaras reales de RenderWare, imagenes de mas de 200 bytes, dimensiones DXT mayores de 36 o con desbordamiento, y la exactitud de los colaboradores falseados.",
       "review_reference": "reversing/FnF1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "D3DX9",
+        "fn_name": "D3DXVec3TransformCoord",
+        "address": "0x00766A32",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json",
+        "sha256": "245162fe0a07b8c1a64b9dde284ac4a2087012d12e15bfdc4e250b006c724cd2",
+        "passed_path": [
+          "covered_functions",
+          "D3DXVec3TransformCoord"
+        ],
+        "pairs": 24000
+      },
+      "tested_sources": {
+        "source/game_sa/RenderWare/rw/d3dx9math.cpp": "4698839ba25c1cc4114484d9d3d25565474afaebde7f57a469fbddd8804f9c1d",
+        "source/game_sa/RenderWare/rw/D3DX9MatrixMultiplyTransposeSse.h": "2d71ff593fcf86334dd628ca02f90e764dad23e3324bee291348803a6ccffa02"
+      },
+      "dependency_review": null,
+      "source_provenance": "Envoltorio sobre la exportacion de d3dx9_43.dll contrastado con el EXE canonico (banco fuera del juego).",
+      "scope": "Banco par a par FUERA DEL JUEGO (EXE original mapeado en un proceso de 32 bits, solo lectura, contra d3dx9_43.dll del sistema; MatrixMultiplyTranspose contra la rutina propia D3DX9MatrixMultiplyTransposeSse.h): 20.000 pares normales + 4.000 de borde (inf, NaN, denormales, 3e38) por funcion, con alias de salida y desalineos, oraculo independiente en Python (doble precision), mutaciones de 2 rondas (12 de 12 detectadas). Variante del EXE: la que elige su selector en CPU con SSE2/SSE (identicas entre si); la x87 de reserva no se prueba como destino. En D3DXVec3TransformCoord las salidas coinciden bit a bit salvo el signo/carga util del NaN en 31 de 4.000 casos de borde con NaN en ambas. Sin corrida dentro del juego.",
+      "review_reference": "reversing/FnEXT1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "D3DX9",
+        "fn_name": "D3DXVec3TransformNormal",
+        "address": "0x00766AB7",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json",
+        "sha256": "245162fe0a07b8c1a64b9dde284ac4a2087012d12e15bfdc4e250b006c724cd2",
+        "passed_path": [
+          "covered_functions",
+          "D3DXVec3TransformNormal"
+        ],
+        "pairs": 24000
+      },
+      "tested_sources": {
+        "source/game_sa/RenderWare/rw/d3dx9math.cpp": "4698839ba25c1cc4114484d9d3d25565474afaebde7f57a469fbddd8804f9c1d",
+        "source/game_sa/RenderWare/rw/D3DX9MatrixMultiplyTransposeSse.h": "2d71ff593fcf86334dd628ca02f90e764dad23e3324bee291348803a6ccffa02"
+      },
+      "dependency_review": null,
+      "source_provenance": "Envoltorio sobre la exportacion de d3dx9_43.dll contrastado con el EXE canonico (banco fuera del juego).",
+      "scope": "Banco par a par FUERA DEL JUEGO (EXE original mapeado en un proceso de 32 bits, solo lectura, contra d3dx9_43.dll del sistema; MatrixMultiplyTranspose contra la rutina propia D3DX9MatrixMultiplyTransposeSse.h): 20.000 pares normales + 4.000 de borde (inf, NaN, denormales, 3e38) por funcion, con alias de salida y desalineos, oraculo independiente en Python (doble precision), mutaciones de 2 rondas (12 de 12 detectadas). Variante del EXE: la que elige su selector en CPU con SSE2/SSE (identicas entre si); la x87 de reserva no se prueba como destino. En D3DXVec3TransformCoord las salidas coinciden bit a bit salvo el signo/carga util del NaN en 31 de 4.000 casos de borde con NaN en ambas. Sin corrida dentro del juego.",
+      "review_reference": "reversing/FnEXT1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "D3DX9",
+        "fn_name": "D3DXMatrixMultiply",
+        "address": "0x007672E1",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json",
+        "sha256": "245162fe0a07b8c1a64b9dde284ac4a2087012d12e15bfdc4e250b006c724cd2",
+        "passed_path": [
+          "covered_functions",
+          "D3DXMatrixMultiply"
+        ],
+        "pairs": 24000
+      },
+      "tested_sources": {
+        "source/game_sa/RenderWare/rw/d3dx9math.cpp": "4698839ba25c1cc4114484d9d3d25565474afaebde7f57a469fbddd8804f9c1d",
+        "source/game_sa/RenderWare/rw/D3DX9MatrixMultiplyTransposeSse.h": "2d71ff593fcf86334dd628ca02f90e764dad23e3324bee291348803a6ccffa02"
+      },
+      "dependency_review": null,
+      "source_provenance": "Envoltorio sobre la exportacion de d3dx9_43.dll contrastado con el EXE canonico (banco fuera del juego).",
+      "scope": "Banco par a par FUERA DEL JUEGO (EXE original mapeado en un proceso de 32 bits, solo lectura, contra d3dx9_43.dll del sistema; MatrixMultiplyTranspose contra la rutina propia D3DX9MatrixMultiplyTransposeSse.h): 20.000 pares normales + 4.000 de borde (inf, NaN, denormales, 3e38) por funcion, con alias de salida y desalineos, oraculo independiente en Python (doble precision), mutaciones de 2 rondas (12 de 12 detectadas). Variante del EXE: la que elige su selector en CPU con SSE2/SSE (identicas entre si); la x87 de reserva no se prueba como destino. En D3DXVec3TransformCoord las salidas coinciden bit a bit salvo el signo/carga util del NaN en 31 de 4.000 casos de borde con NaN en ambas. Sin corrida dentro del juego.",
+      "review_reference": "reversing/FnEXT1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "D3DX9",
+        "fn_name": "D3DXMatrixTranspose",
+        "address": "0x007675EE",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json",
+        "sha256": "245162fe0a07b8c1a64b9dde284ac4a2087012d12e15bfdc4e250b006c724cd2",
+        "passed_path": [
+          "covered_functions",
+          "D3DXMatrixTranspose"
+        ],
+        "pairs": 24000
+      },
+      "tested_sources": {
+        "source/game_sa/RenderWare/rw/d3dx9math.cpp": "4698839ba25c1cc4114484d9d3d25565474afaebde7f57a469fbddd8804f9c1d",
+        "source/game_sa/RenderWare/rw/D3DX9MatrixMultiplyTransposeSse.h": "2d71ff593fcf86334dd628ca02f90e764dad23e3324bee291348803a6ccffa02"
+      },
+      "dependency_review": null,
+      "source_provenance": "Envoltorio sobre la exportacion de d3dx9_43.dll contrastado con el EXE canonico (banco fuera del juego).",
+      "scope": "Banco par a par FUERA DEL JUEGO (EXE original mapeado en un proceso de 32 bits, solo lectura, contra d3dx9_43.dll del sistema; MatrixMultiplyTranspose contra la rutina propia D3DX9MatrixMultiplyTransposeSse.h): 20.000 pares normales + 4.000 de borde (inf, NaN, denormales, 3e38) por funcion, con alias de salida y desalineos, oraculo independiente en Python (doble precision), mutaciones de 2 rondas (12 de 12 detectadas). Variante del EXE: la que elige su selector en CPU con SSE2/SSE (identicas entre si); la x87 de reserva no se prueba como destino. En D3DXVec3TransformCoord las salidas coinciden bit a bit salvo el signo/carga util del NaN en 31 de 4.000 casos de borde con NaN en ambas. Sin corrida dentro del juego.",
+      "review_reference": "reversing/FnEXT1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "D3DX9",
+        "fn_name": "D3DXMatrixMultiplyTranspose",
+        "address": "0x007676C7",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json",
+        "sha256": "245162fe0a07b8c1a64b9dde284ac4a2087012d12e15bfdc4e250b006c724cd2",
+        "passed_path": [
+          "covered_functions",
+          "D3DXMatrixMultiplyTranspose"
+        ],
+        "pairs": 24000
+      },
+      "tested_sources": {
+        "source/game_sa/RenderWare/rw/d3dx9math.cpp": "4698839ba25c1cc4114484d9d3d25565474afaebde7f57a469fbddd8804f9c1d",
+        "source/game_sa/RenderWare/rw/D3DX9MatrixMultiplyTransposeSse.h": "2d71ff593fcf86334dd628ca02f90e764dad23e3324bee291348803a6ccffa02"
+      },
+      "dependency_review": null,
+      "source_provenance": "Rutina propia contrastada con el EXE canonico (banco fuera del juego).",
+      "scope": "Banco par a par FUERA DEL JUEGO (EXE original mapeado en un proceso de 32 bits, solo lectura, contra d3dx9_43.dll del sistema; MatrixMultiplyTranspose contra la rutina propia D3DX9MatrixMultiplyTransposeSse.h): 20.000 pares normales + 4.000 de borde (inf, NaN, denormales, 3e38) por funcion, con alias de salida y desalineos, oraculo independiente en Python (doble precision), mutaciones de 2 rondas (12 de 12 detectadas). Variante del EXE: la que elige su selector en CPU con SSE2/SSE (identicas entre si); la x87 de reserva no se prueba como destino. En D3DXVec3TransformCoord las salidas coinciden bit a bit salvo el signo/carga util del NaN en 31 de 4.000 casos de borde con NaN en ambas. Sin corrida dentro del juego.",
+      "review_reference": "reversing/FnEXT1A/README.md"
+    },
+    {
+      "hook": {
+        "class": "D3DX9",
+        "fn_name": "D3DXFloat16To32Array",
+        "address": "0x0076626B",
+        "type": "S"
+      },
+      "evidence": {
+        "path": "reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json",
+        "sha256": "245162fe0a07b8c1a64b9dde284ac4a2087012d12e15bfdc4e250b006c724cd2",
+        "passed_path": [
+          "covered_functions",
+          "D3DXFloat16To32Array"
+        ],
+        "pairs": 24000
+      },
+      "tested_sources": {
+        "source/game_sa/RenderWare/rw/d3dx9math.cpp": "4698839ba25c1cc4114484d9d3d25565474afaebde7f57a469fbddd8804f9c1d",
+        "source/game_sa/RenderWare/rw/D3DX9MatrixMultiplyTransposeSse.h": "2d71ff593fcf86334dd628ca02f90e764dad23e3324bee291348803a6ccffa02"
+      },
+      "dependency_review": null,
+      "source_provenance": "Envoltorio sobre la exportacion de d3dx9_43.dll contrastado con el EXE canonico (banco fuera del juego).",
+      "scope": "Banco par a par FUERA DEL JUEGO (EXE original mapeado en un proceso de 32 bits, solo lectura, contra d3dx9_43.dll del sistema; MatrixMultiplyTranspose contra la rutina propia D3DX9MatrixMultiplyTransposeSse.h): 20.000 pares normales + 4.000 de borde (inf, NaN, denormales, 3e38) por funcion, con alias de salida y desalineos, oraculo independiente en Python (doble precision), mutaciones de 2 rondas (12 de 12 detectadas). Variante del EXE: la que elige su selector en CPU con SSE2/SSE (identicas entre si); la x87 de reserva no se prueba como destino. En D3DXVec3TransformCoord las salidas coinciden bit a bit salvo el signo/carga util del NaN en 31 de 4.000 casos de borde con NaN en ambas. Sin corrida dentro del juego.",
+      "review_reference": "reversing/FnEXT1A/README.md"
     }
   ]
 }
