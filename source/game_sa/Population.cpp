@@ -1938,7 +1938,7 @@ void PopulationCouple(eModelID maleModel, eModelID femaleModel, CVector position
     auto* female=CPopulation::AddPed(PED_TYPE_CIVFEMALE,femaleModel,position,true);
     if (!female) return;
     const float femaleSpeed=female->GetWalkAnimSpeed(),maleSpeed=male->GetWalkAnimSpeed();
-    if (!(femaleSpeed >= .75f) || !(maleSpeed >= .75f) || std::abs(femaleSpeed-maleSpeed)>.45f) return;
+    if (femaleSpeed < .75f || maleSpeed < .75f || std::abs(femaleSpeed-maleSpeed)>.45f) return;
     if (femaleSpeed>maleSpeed) {
         male->GetTaskManager().SetTask(PopulationTask<0x6836F0>(0x20,female,false,true,true,10.0f),TASK_PRIMARY_PRIMARY,false);
         female->GetTaskManager().SetTask(PopulationTask<0x6836F0>(0x20,male,true,true,true,10.0f),TASK_PRIMARY_PRIMARY,false);
@@ -2358,7 +2358,7 @@ void CPopulation::ManageObject(CObject* object, const CVector& posn) {
     }
     const auto remove = [&] { CWorld::Remove(object); delete object; };
     if (model == ModelIndices::MI_ROADWORKBARRIER1 || model == ModelIndices::MI_ROADBLOCKFUCKEDCAR1 || model == ModelIndices::MI_ROADBLOCKFUCKEDCAR2 || model == ModelIndices::MI_BEACHBALL) {
-        if (!(distance <= 120.0f)) remove();
+        if (distance > 120.0f) remove(); // 0x615F40: fcomp 120 + test ah,0x41 + jne -> solo mayor ordenado elimina (NaN no)
         return;
     }
     if (static_cast<uint32>(model) >= static_cast<uint32>(ModelIndices::MI_BEACHTOWEL01) && static_cast<uint32>(model) <= static_cast<uint32>(ModelIndices::MI_BEACHTOWEL04)) {

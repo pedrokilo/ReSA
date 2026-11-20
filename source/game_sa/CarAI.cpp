@@ -299,7 +299,8 @@ bool CCarAI::EntitiesGoHeadOn(CEntity* eA, CEntity* eB) {
     if (HeadOnDot(*eA, d) > -0.8f) {
         return false;
     }
-    return HeadOnDot(*eB, d) >= 0.8f;
+    // Como el original (0x41CE06): fcomp 0.8 + test ah,5 + jp -> con >= 0.8 o NaN devuelve true
+    return !(HeadOnDot(*eB, d) < 0.8f);
 }
 
 // 0x41CA40

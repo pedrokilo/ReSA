@@ -282,7 +282,7 @@ void GangWaveBlip(CPed* ped, eGangID gang, int32 scale) {
 bool CGangWars::CreateAttackWave(int32 warFerocity, int32 waveID) {
     const auto playerPosition = FindPlayerCoors();
     auto* player = FindPlayerPed();
-    if (CGame::currArea || !(playerPosition.z <= 950.0f) ||
+    if (CGame::currArea || playerPosition.z > 950.0f ||
         !ThePaths.AreNodesLoadedForArea(playerPosition.x - 20.0f, playerPosition.x + 20.0f, playerPosition.y - 20.0f, playerPosition.y + 20.0f)) return false;
     if (!PedStreamedInForThisGang(Gang1)) {
         const int32 group = *reinterpret_cast<int32*>(0x8D2618 + int32(Gang1) * 12);
@@ -1086,8 +1086,8 @@ void CGangWars::Update() {
             message("GW_WARN", "GW_WARN");
         }
     }
-    if (State != NOT_IN_WAR || CTheScripts::IsPlayerOnAMission() || !(FindPlayerCoors().z <= 950.0f)) {
-        if (TimeTillNextAttack <= 30000.0f) TimeTillNextAttack = 30000.0f;
+    if (State != NOT_IN_WAR || CTheScripts::IsPlayerOnAMission() || FindPlayerCoors().z > 950.0f) {
+        if (!(TimeTillNextAttack > 30000.0f)) TimeTillNextAttack = 30000.0f; // 0x446AE6: fcomp + test ah,0x41 + je -> con NaN tambien fija 30000
     }
     const auto expired = [&] {
         FightTimer += GangWarTimeDelta(true);
@@ -1104,7 +1104,7 @@ void CGangWars::Update() {
         }
     } else if (State2 == WAR_NOTIFIED) {
         const auto delta = FindPlayerCoors() - PointOfAttack;
-        if (std::sqrt(delta.y * delta.y + delta.x * delta.x) >= 70.0f) {
+        if (!(std::sqrt(delta.y * delta.y + delta.x * delta.x) < 70.0f)) { // 0x446C99: fcomp + test ah,5 + jp -> con NaN va por esta rama
             if (expired()) {
                 message("GW_NOSH", "GW_NOSH");
                 State2 = NO_ATTACK;
@@ -1146,7 +1146,7 @@ void CGangWars::Update() {
     }
     if (State2 != NO_ATTACK) {
         const auto delta = FindPlayerCoors() - PointOfAttack;
-        if (std::sqrt(delta.y * delta.y + delta.x * delta.x) >= 150.0f) {
+        if (!(std::sqrt(delta.y * delta.y + delta.x * delta.x) < 150.0f)) { // 0x446F0C: fcomp + test ah,5 + jp -> con NaN va por esta rama
             bPlayerIsCloseby = false;
         } else if (!bPlayerIsCloseby) {
             CStreaming::StreamZoneModels_Gangs(FindPlayerCoors());

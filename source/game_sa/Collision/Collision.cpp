@@ -3066,7 +3066,7 @@ bool CCollision::IsStoredPolyStillValidVerticalLine(const CVector& lineOrigin, f
     const float az = n.z < 0.0f ? -n.z : n.z;
     if (ax > ay && ax > az) {
         orientation = n.x > 0.0f ? 0 : 1;
-    } else if (!(ay <= az)) {
+    } else if (ay > az) { // Como el original (0x414EFD): fcomp st(1) + test ah,0x41 + jne -> con NaN va a la rama Z
         orientation = n.y > 0.0f ? 2 : 3;
     } else {
         orientation = n.z > 0.0f ? 4 : 5;
