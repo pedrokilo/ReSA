@@ -242,7 +242,7 @@ void CTimer::UpdateVariables(float timeElapsed)
     ms_fOldTimeStep = ms_fTimeStep;
     // Como el original: un NaN acaba en 3.0 (solo se copia si es < 3) y el mínimo es 0.00001
     const float clipped = ms_fTimeStepNonClipped < 3.0f ? ms_fTimeStepNonClipped : 3.0f;
-    ms_fTimeStep = clipped > 0.00001f ? clipped : 0.00001f;
+    ms_fTimeStep = !(clipped <= 0.00001f) ? clipped : 0.00001f; // NaN como el EXE (0x5619a8): fcom + test ah + jcc
 }
 
 // 0x561B10

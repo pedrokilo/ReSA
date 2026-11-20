@@ -1,0 +1,15 @@
+archivo,linea,occ,dir_exe_cmp
+source/game_sa/Camera.cpp,3163,0,51f040
+source/game_sa/Rope.cpp,276,1,55858a
+source/game_sa/Streaming.cpp,3866,0,40e7bc
+source/game_sa/Entity/Ped/Ped.cpp,4143,0,5f0641
+source/game_sa/Entity/Vehicle/Bike.cpp,505,0,6bcb1c
+source/game_sa/Entity/Vehicle/Bike.cpp,664,0,6b7bc6
+source/game_sa/Entity/Vehicle/Bike.cpp,664,1,6b7ae5
+source/game_sa/Entity/Vehicle/Boat.cpp,1190,0,6f24cd
+source/game_sa/Entity/Vehicle/Train.cpp,1259,0,6f9bb3
+source/game_sa/Entity/Vehicle/Vehicle.cpp,1199,0,6df5c3
+source/game_sa/Entity/Vehicle/Vehicle.cpp,1201,0,6df5fa
+source/game_sa/Tasks/TaskTypes/TaskComplexArrestPed.cpp,122,0,69050f
+source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp,691,0,68ef7b
+source/game_sa/Tasks/TaskTypes/TaskSimpleSwim.cpp,452,0,689f40

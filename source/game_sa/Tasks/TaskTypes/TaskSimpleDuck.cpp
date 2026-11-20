@@ -209,7 +209,7 @@ bool CTaskSimpleDuck::ControlDuckMove(CVector2D moveDir) {
 
     if (std::abs(moveDir.y) < 0.1f && std::abs(moveDir.x) > 0.9f) { // Como el original: 0.9 exacto no cuenta
         m_MoveCmd.y = 0.f;
-        m_MoveCmd.x = moveDir.x <= 0.f ? -1.f : 1.f;
+        m_MoveCmd.x = !(moveDir.x > 0.f) ? -1.f : 1.f; // NaN como el EXE (0x69248e): fcom + test ah + jcc
     }
     return true; // Como el original: devuelve siempre 1
 }

@@ -2362,7 +2362,7 @@ void CPopulation::ManageObject(CObject* object, const CVector& posn) {
         return;
     }
     if (static_cast<uint32>(model) >= static_cast<uint32>(ModelIndices::MI_BEACHTOWEL01) && static_cast<uint32>(model) <= static_cast<uint32>(ModelIndices::MI_BEACHTOWEL04)) {
-        if (distance <= 64.5f && (distance <= 35.0f || object->GetIsOnScreen())) return;
+        if (!(distance > 64.5f) && (!(distance > 35.0f) || object->GetIsOnScreen())) return; // NaN como el EXE (0x615e7a,0x615e87): fcom + test ah + jcc
         remove();
         return;
     }

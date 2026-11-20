@@ -243,7 +243,7 @@ void CPedDamageResponseCalculator::ComputeWillKillPed(CPed* ped, CPedDamageRespo
         return;
     }
 
-    if (rsp.m_bForceDeath || ped->m_fHealth - m_fDamageFactor < 1.0f) {
+    if (rsp.m_bForceDeath || !(ped->m_fHealth - m_fDamageFactor >= 1.0f)) { // NaN como el EXE (0x4b32f7): fcom + test ah + jcc
         rsp.m_fDamageHealth = ped->m_fHealth;
         rsp.m_bHealthZero   = true;
         ped->m_fHealth      = 0.0f;

@@ -52,7 +52,7 @@ CVector2D::CVector2D(const CVector& v3) :
 
 void CVector2D::Normalise(float* outMag) {
     auto mag = Magnitude();
-    if (mag > 0.0f) {
+    if (!(mag <= 0.0f)) { // NaN como el EXE (0x44e499): fcom + test ah + jcc
         auto recip = 1.0F / mag;
         x *= recip;
         y *= recip;

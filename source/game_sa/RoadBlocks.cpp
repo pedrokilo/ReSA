@@ -452,9 +452,9 @@ void CRoadBlocks::GenerateRoadBlocks() {
             }
             const auto& mainNode = ThePaths.GetPathNode(mrbNode);
             const auto  playerPos = FindPlayerCoors();
-            if (std::abs(playerPos.x - mainNode->GetPosition().x) >= 90.0f ||
-                std::abs(playerPos.y - mainNode->GetPosition().y) >= 90.0f ||
-                DistanceBetweenPoints2D(playerPos, mainNode->GetPosition()) >= 90.0f)
+            if (!(std::abs(playerPos.x - mainNode->GetPosition().x) < 90.0f) || // NaN como el EXE (0x462b38): fcom + test ah + jcc
+                !(std::abs(playerPos.y - mainNode->GetPosition().y) < 90.0f) || // NaN como el EXE (0x462b91): fcom + test ah + jcc
+                !(DistanceBetweenPoints2D(playerPos, mainNode->GetPosition()) < 90.0f)) // NaN como el EXE (0x462bb6): fcom + test ah + jcc
             {
                 InOrOut[counter2] = false;
                 continue;
@@ -500,8 +500,8 @@ void CRoadBlocks::GenerateRoadBlocks() {
                 }
                 const auto& node = ThePaths.GetPathNode(nodeAddr);
 
-                if (std::abs(mainNode->GetPosition().x - node->GetPosition().x) >= 30.0f ||
-                    std::abs(mainNode->GetPosition().y - node->GetPosition().y) >= 30.0f)
+                if (!(std::abs(mainNode->GetPosition().x - node->GetPosition().x) < 30.0f) || // NaN como el EXE (0x462f4b): fcom + test ah + jcc
+                    !(std::abs(mainNode->GetPosition().y - node->GetPosition().y) < 30.0f)) // NaN como el EXE (0x462f93): fcom + test ah + jcc
                 {
                     continue;
                 }
@@ -566,7 +566,7 @@ void CRoadBlocks::GenerateRoadBlocks() {
     if (auto& srb = aScriptRoadBlocks[CTimer::GetFrameCounter() % MAX_SCRIPT_ROADBLOCKS]; srb.IsActive) {
         const auto c = CVector::Centroid({ srb.CornerA, srb.CornerB });
 
-        if (DistanceBetweenPoints(FindPlayerCoors(), c) >= 90.0f) {
+        if (!(DistanceBetweenPoints(FindPlayerCoors(), c) < 90.0f)) { // NaN como el EXE (0x462e49): fcom + test ah + jcc
             srb.IsSafeToCreate = true;
         } else if (srb.IsSafeToCreate) {
             CreateRoadBlockBetween2Points(srb.CornerA, srb.CornerB, srb.IsGangRoadBlock);

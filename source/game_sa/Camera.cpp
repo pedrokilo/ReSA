@@ -2355,7 +2355,7 @@ void CCamera::AvoidTheGeometry(const CVector& source, const CVector& target, CVe
         const double toTargetLength = Veh83DSqrt(Veh83DAdd(Veh83DAdd(Veh83DMul(toTarget.x, toTarget.x), Veh83DMul(toTarget.z, toTarget.z)), Veh83DMul(toTarget.y, toTarget.y)));
         const double clearance = Veh83DSub(toTargetLength, 0.5); // 0x8CC38C
         if (clearance < double(rwCamera()->nearPlane)) {
-            if (clearance <= double(0.15f)) { // 0x8CC390
+            if (!(clearance > double(0.15f))) { // 0x8CC390 // NaN como el EXE (0x514698): fcom + test ah + jcc
                 RwCameraSetNearClipPlane(rwCamera(), 0.15f);
             } else {
                 RwCameraSetNearClipPlane(rwCamera(), Fn85GStore(clearance));
@@ -3160,7 +3160,7 @@ bool CCamera::TryToStartNewCamMode(int32 camSequence) {
             if (camSequence == 7 && (reinterpret_cast<uint8*>(candidate)[0x36] & 0xF8) != 0x18) continue;
             const float deltaX = candidate->GetPosition().x - FindPlayerCoors(-1).x;
             const float deltaY = candidate->GetPosition().y - FindPlayerCoors(-1).y;
-            if ((FindPlayerCoors(-1) - candidate->GetPosition()).Magnitude() >= 30.f) continue;
+            if (!((FindPlayerCoors(-1) - candidate->GetPosition()).Magnitude() < 30.f)) continue; // NaN como el EXE (0x51f040): fcom + test ah + jcc
             const float ahead = deltaX * FindPlayerVehicle(-1, false)->GetMatrix().GetForward().x + deltaY * FindPlayerVehicle(-1, false)->GetMatrix().GetForward().y;
             if (!(ahead < 0.f)) continue;
             const float alignment = FindPlayerVehicle(-1, false)->GetMatrix().GetForward().x * candidate->GetMatrix().GetForward().x + FindPlayerVehicle(-1, false)->GetMatrix().GetForward().y * candidate->GetMatrix().GetForward().y;
@@ -3956,7 +3956,7 @@ void CameraControlPedCycle(CCamera& camera) {
                 && *reinterpret_cast<int16*>(reinterpret_cast<uint8*>(CPad::GetPad(0)) + 0x20) == 0
                 && *reinterpret_cast<int16*>(reinterpret_cast<uint8*>(CPad::GetPad(0)) + 0x22) == 0
                 && *reinterpret_cast<int16*>(reinterpret_cast<uint8*>(CPad::GetPad(0)) + 0x1A) == 0
-                && static_cast<float>(CTimer::GetTimeInMS() - camera.m_nFirstPersonCamLastInputTime) <= 2850.0f) {
+                && !(static_cast<float>(CTimer::GetTimeInMS() - camera.m_nFirstPersonCamLastInputTime) > 2850.0f)) { // NaN como el EXE (0x528f0d): fcom + test ah + jcc
                 if (!CPad::GetPad(0)->GetEnterTargeting()) {
                     maintainFirstPerson = true;
                 } else {

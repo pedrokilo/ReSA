@@ -171,7 +171,7 @@ void CPedGeometryAnalyser::ComputeClearTarget(const CPed& ped, const CVector& a2
     const auto samples = static_cast<int32>(5.f / epsilon) + 1;
     for (auto i = 0; i < samples; ++i) {
         const auto delta = origin - a3;
-        if ((delta.z * delta.z + delta.y * delta.y) + delta.x * delta.x >= 25.f || (delta.x * direction.x + delta.y * direction.y) + direction.z * delta.z < 0.f) { return; }
+        if ((delta.z * delta.z + delta.y * delta.y) + delta.x * delta.x >= 25.f || !((delta.x * direction.x + delta.y * direction.y) + direction.z * delta.z >= 0.f)) { return; } // NaN como el EXE (0x5f6094): fcom + test ah + jcc
         CColPoint point; CEntity* entity;
         CWorld::ProcessLineOfSight(origin, a3, point, entity, true, false, false, false, true, false, false, false);
         if (CWorld::ms_iProcessLineNumCrossings % 2 != 1) { return; }
@@ -756,10 +756,10 @@ CPed* CPedGeometryAnalyser::GetNearestPed(const CVector& point) {
 // 0x5F3970
 bool CPedGeometryAnalyser::IsEntityBlockingTarget(CEntity* entity, const CVector& point, float distance) {
     const auto delta = entity->GetPosition() - point;
-    if (!(std::abs(delta.z) <= 3.f)) { return false; }
+    if ((std::abs(delta.z) > 3.f)) { return false; } // NaN como el EXE (0x5f39b2): fcom + test ah + jcc
     const auto radius = entity->GetColModel()->m_boundSphere.m_fRadius;
     // The executable compares squared radii with the unsquared XY distance.
-    if (!(distance * distance + radius * radius >= std::sqrt(delta.x * delta.x + delta.y * delta.y))) { return false; }
+    if ((distance * distance + radius * radius < std::sqrt(delta.x * delta.x + delta.y * delta.y))) { return false; } // NaN como el EXE (0x5f39f8): fcom + test ah + jcc
     CVector corners[4], planes[4];
     float dots[4];
     const auto z = entity->GetPosition().z;

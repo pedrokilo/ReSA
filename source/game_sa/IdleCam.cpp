@@ -274,7 +274,7 @@ bool CIdleCam::IsTargetValid(CEntity* target) {
         return false;
     }
 
-    if (m_SlerpTime < 1.0f) {
+    if (!(m_SlerpTime >= 1.0f)) { // NaN como el EXE (0x517802): fcom + test ah + jcc
         return true;
     }
 

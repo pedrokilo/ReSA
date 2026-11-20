@@ -686,7 +686,7 @@ void CGarages::StopCarFromBlowingUp(CAutomobile* vehicle) {
 
     // untested
     vehicle->m_fBurnTimer = 0.0f;
-    vehicle->m_fHealth = vehicle->m_fHealth <= 300.0f ? 300.0f : vehicle->m_fHealth;
+    vehicle->m_fHealth = !(vehicle->m_fHealth > 300.0f) ? 300.0f : vehicle->m_fHealth; // NaN como el EXE (0x4488aa): fcom + test ah + jcc
 
     auto& manager = vehicle->m_damageManager;
     if (manager.GetEngineStatus() >= 275) {

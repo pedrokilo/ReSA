@@ -174,7 +174,7 @@ void CTaskSimpleGoToPointFine::SetBlendedMoveAnim(CPed* ped) {
 
     // Como el original: las comparaciones son "<= 1", "<= 2" y "<= 3" (con NaN se sale sin tocar el estado)
     eMoveState moveState;
-    if (m_fMoveRatio <= 1.0f) {
+    if (!(m_fMoveRatio > 1.0f)) { // NaN como el EXE (0x65f008): fcom + test ah + jcc
         if (!walkAnimAssoc) {
             walkAnimAssoc = CAnimManager::AddAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_WALK);
             walkAnimAssoc->m_BlendAmount = 0.0f;

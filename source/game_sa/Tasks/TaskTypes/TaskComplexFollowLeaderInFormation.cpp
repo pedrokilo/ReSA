@@ -199,7 +199,7 @@ CTask* CTaskComplexFollowLeaderInFormation::ControlSubTask(CPed* ped) {
                 *reinterpret_cast<int32*>(bytes + 0x2C) = 0;
                 bytes[0x30] = 1;
             }
-            if (m_Dist <= 0.f) return result;
+            if (!(m_Dist > 0.f)) return result; // NaN como el EXE (0x6969e7): fcom + test ah + jcc
             if ((ped->GetPosition() - m_Leader->GetPosition()).SquaredMagnitude() <= m_Dist*m_Dist) return result;
             if (!m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_LEISURE, nullptr)) return result;
             CTaskSimpleStandStill stand(0, false, false, 8.f);

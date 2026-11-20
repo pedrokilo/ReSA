@@ -557,8 +557,8 @@ void CTaskSimplePlayerOnFoot::ProcessPlayerWeapon(CPlayerPed* player) {
                 taskSimpleFight->ControlFight(nullptr, fightCommand);
             }
             if (intelligence->GetTaskUseGun()) {
-                if (pad->GetWeapon(nullptr) || (float)pad->GetPedWalkUpDown() <= 50.0f && (float)pad->GetPedWalkUpDown() >= -50.0f && (float)pad->GetPedWalkLeftRight() <= 50.0f &&
-                                                   (float)pad->GetPedWalkLeftRight() >= -50.0f) {
+                if (pad->GetWeapon(nullptr) || !((float)pad->GetPedWalkUpDown() > 50.0f) && !((float)pad->GetPedWalkUpDown() < -50.0f) && !((float)pad->GetPedWalkLeftRight() > 50.0f) && // NaN como el EXE (0x686fe7,0x687006,0x687025): fcom + test ah + jcc
+                                                   !((float)pad->GetPedWalkLeftRight() < -50.0f)) { // NaN como el EXE (0x687044): fcom + test ah + jcc
                     CTaskSimpleUseGun* taskUseGun = intelligence->GetTaskUseGun();
                     taskUseGun->PlayerPassiveControlGun();
                 } else {

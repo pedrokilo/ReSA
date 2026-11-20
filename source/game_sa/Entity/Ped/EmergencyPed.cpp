@@ -101,5 +101,5 @@ bool CEmergencyPed::InRange(CPed* ped) {
     if (!m_pVehicle)
         return true;
 
-    return (m_pVehicle->GetPosition() - ped->GetPosition()).Magnitude() <= 30.0f;
+    return !((m_pVehicle->GetPosition() - ped->GetPosition()).Magnitude() > 30.0f); // NaN como el EXE (0x5de4ca): fcom + test ah + jcc
 }

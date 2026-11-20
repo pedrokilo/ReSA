@@ -174,7 +174,7 @@ bool CTaskUtilityLineUpPedWithCar::ProcessPed(CPed* ped, CVehicle* vehicle, CAni
         else if (animId >= 0x15F && animId <= 0x162) {
             progress = 1.0f;
             const auto timing = blendTime();
-            if (std::abs(timing) >= 10.0f) {
+            if (!(std::abs(timing) < 10.0f)) { // NaN como el EXE (0x65154c): fcom + test ah + jcc
                 const auto critical = std::abs(timing) - 11.0f;
                 if (timing - 11.0f <= 0.0f) verticalBlend = fraction >= critical ? (fraction - critical) / (1.0f - critical) : 0.0f;
                 else verticalBlend = fraction >= critical ? 1.0f : fraction / critical;
@@ -182,12 +182,12 @@ bool CTaskUtilityLineUpPedWithCar::ProcessPed(CPed* ped, CVehicle* vehicle, CAni
             if (vehicle->m_nModelIndex == 577) verticalBlend = 1.0f;
         } else if (animId >= 0x163 && animId <= 0x166) {
             progress = 1.0f;
-            if (std::abs(blendTime()) >= 10.0f || vehicle->m_nModelIndex == 577) verticalBlend = 1.0f;
+            if (!(std::abs(blendTime()) < 10.0f) || vehicle->m_nModelIndex == 577) verticalBlend = 1.0f; // NaN como el EXE (0x651625): fcom + test ah + jcc
         } else if (animId >= 0x167 && animId <= 0x16B) {
             progress = 1.0f - fraction;
             const auto timing = blendTime();
             const auto critical = std::abs(timing);
-            if (critical >= 10.0f) verticalBlend = 1.0f;
+            if (!(critical < 10.0f)) verticalBlend = 1.0f; // NaN como el EXE (0x6516ab): fcom + test ah + jcc
             else if (timing <= 0.0f) verticalBlend = fraction >= critical ? (fraction - critical) / (1.0f - critical) : 0.0f;
             else verticalBlend = fraction >= critical ? 1.0f : fraction / critical;
             if (vehicle->m_nModelIndex == 577) verticalBlend = 1.0f;
@@ -240,7 +240,7 @@ bool CTaskUtilityLineUpPedWithCar::ProcessPed(CPed* ped, CVehicle* vehicle, CAni
             if (animId >= 0x175 && animId <= 0x178) bikeBlend = 1.0f - progress;
             else if (animId >= 0x167 && animId <= 0x16A) {
                 const auto fraction = assoc->m_CurrentTime / assoc->m_BlendHier->m_fTotalTime;
-                bikeBlend = fraction + fraction <= 1.0f ? fraction + fraction : 1.0f;
+                bikeBlend = !(fraction + fraction > 1.0f) ? fraction + fraction : 1.0f; // NaN como el EXE (0x651b6e): fcom + test ah + jcc
             }
             adjustment = ((vehicle->GetPosition().z - vehicle->GetHeightAboveRoad()) + 1.0f - m_fDoorOpenPosZ) * bikeBlend;
         } else {

@@ -350,7 +350,7 @@ CTask* CTaskComplexEnterCar::CreateNextSubTask(CPed* ped) {
         if (m_bAsDriver && ped->IsPlayer() && m_Car->IsAutomobile() && !m_Car->IsSubPlane() && !m_Car->IsSubHeli()) {
             const auto pad = CPad::GetPad(0);
             // Como el original: !(acelerar < 255) o !(frenar < 255)
-            if (!((float)pad->GetAccelerate() < 255.f) || !((float)pad->GetBrake() < 255.f)) {
+            if (((float)pad->GetAccelerate() >= 255.f) || ((float)pad->GetBrake() >= 255.f)) { // NaN como el EXE (0x63f417,0x63f439): fcom + test ah + jcc
                 // Como el original: estado de la puerta (componente) antes de CarHasDoorToClose
                 auto& dm = m_Car->AsAutomobile()->GetDamageManager();
                 const auto comp = (tComponent)m_TargetDoor;

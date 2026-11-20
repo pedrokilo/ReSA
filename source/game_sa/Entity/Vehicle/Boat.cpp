@@ -286,7 +286,7 @@ void CBoat::AddWakePoint(CVector pos) {
     }
 
     // Too close to last wake point
-    if (DistanceBetweenPointsSquared2D(m_WakeCoords[0], GetPosition()) <= sq(MIN_WAKE_INTERVAL)) {
+    if (!(DistanceBetweenPointsSquared2D(m_WakeCoords[0], GetPosition()) > sq(MIN_WAKE_INTERVAL))) { // NaN como el EXE (0x6f261d): fcom + test ah + jcc
         return;
     }
 
@@ -734,7 +734,7 @@ void CBoat::ProcessControl() {
         }
     }
 
-    if (m_fHealth > 460.0F || GetStatus() == STATUS_WRECKED) {
+    if (!(m_fHealth <= 460.0F) || GetStatus() == STATUS_WRECKED) { // NaN como el EXE (0x6f1c7e): fcom + test ah + jcc
         m_BlowUpTimer = 0.0F;
         FxSystem_c::SafeKillAndClear(m_pFireParticle);
     } else {
@@ -1047,7 +1047,7 @@ void CBoat::ProcessControlInputs(uint8 padNum) {
     // (objetivo - freno) * 0.1 + freno y recorte que manda NaN a 0
     float newBrake = (static_cast<float>(pad->GetBrake()) * BOAT_INV_255 - m_BrakePedal) * 0.1F + m_BrakePedal;
     if (newBrake > 0.0F) {
-        if (newBrake >= 1.0F) {
+        if (!(newBrake < 1.0F)) { // NaN como el EXE (0x6f0a79): fcom + test ah + jcc
             newBrake = 1.0F;
         }
     } else {
@@ -1055,7 +1055,7 @@ void CBoat::ProcessControlInputs(uint8 padNum) {
     }
     m_BrakePedal = newBrake;
 
-    if (m_BrakePedal >= 0.05f) {
+    if (!(m_BrakePedal < 0.05f)) { // NaN como el EXE (0x6f0aab): fcom + test ah + jcc
         m_GasPedal = m_BrakePedal * -0.3f;
     } else {
         m_BrakePedal = 0.0f;
@@ -1187,7 +1187,7 @@ void CBoat::BlowUpCar(CEntity* culprit, bool inACutscene) {
     obj->m_nRemovalTime = CTimer::GetTimeInMS() + 20'000;
 
     obj->m_vecMoveSpeed = m_vecMoveSpeed;
-    if (GetUp().z <= 0.0F) {
+    if (!(GetUp().z > 0.0F)) { // NaN como el EXE (0x6f24cd): fcom + test ah + jcc
         obj->m_vecMoveSpeed.z = 0.0F;
     } else {
         obj->m_vecMoveSpeed.z = 0.3F;

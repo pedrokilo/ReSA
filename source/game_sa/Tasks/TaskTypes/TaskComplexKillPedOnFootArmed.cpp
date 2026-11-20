@@ -543,7 +543,7 @@ CTask* CTaskComplexKillPedOnFootArmed::CreateFirstSubTask(CPed* ped) {
         const auto& ourActiveWep = ped->GetActiveWeapon().GetWeaponInfo(ped);
 
         // Como el original: 0x62C104 distSq <= (rango * rango) * 0.25 (fmul [858C84h]); antes era (rango / 4)^2
-        if (targetToOurPedDistSq <= sq(ourActiveWep.m_fTargetRange) * 0.25f && LineOfSightClearForAttack(ped)) {
+        if (!(targetToOurPedDistSq > sq(ourActiveWep.m_fTargetRange) * 0.25f) && LineOfSightClearForAttack(ped)) { // NaN como el EXE (0x62c117): fcom + test ah + jcc
             return TASK_SIMPLE_GUN_CTRL;
         }
 
