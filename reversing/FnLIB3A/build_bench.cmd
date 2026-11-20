@@ -8,7 +8,7 @@ if "%J%"=="" set J=%~dp0..\..\libs\libjpeg-6b
 mkdir %OUT% 2>nul
 set CF=/nologo /O2 /Ob2 /Oy- /GS- /Gd /arch:IA32 /W0 /MT /Zp8 /Zi /D_CRT_SECURE_NO_WARNINGS /I%J%
 set OBJS=
-for %%f in (%J%\wrap\w_*.c) do (cl %CF% /c /Fo%OUT%\%%~nf.obj %%f || exit /b 1)
+for %%f in (%J%\wrap\w_*.c) do (if /I "%%~nf"=="w_jmemnobs" (cl %CF% /Dmalloc=lib3b_malloc /Dfree=lib3b_free /c /Fo%OUT%\%%~nf.obj %%f || exit /b 1) else (cl %CF% /c /Fo%OUT%\%%~nf.obj %%f || exit /b 1))
 cl %CF% /c /Fo%OUT%\jpeg6b_exports.obj %J%\jpeg6b_exports.c || exit /b 1
 ml /nologo /c /Fo%OUT%\reserva.obj %~dp0reserva_imagen.asm || exit /b 1
 cl /nologo /O2 /GS- /arch:IA32 /MT /EHsc /std:c++17 /Zi /W3 /D_CRT_SECURE_NO_WARNINGS /I%J% /c /Fo%OUT%\bench.obj %~dp0bench.cpp || exit /b 1

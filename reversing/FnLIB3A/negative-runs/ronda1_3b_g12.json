@@ -1,0 +1,16 @@
+[
+ {
+  "k": 62,
+  "funcion": "self_destruct",
+  "pares": 20000,
+  "diferencias": 19405,
+  "detectada": true
+ },
+ {
+  "k": 63,
+  "funcion": "dummy_consume_data",
+  "pares": 20000,
+  "diferencias": 3342,
+  "detectada": true
+ }
+]

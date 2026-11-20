@@ -931,6 +931,52 @@ static void add_huffe_tests() {
     }, 4000});
 }
 
+
+// ---- gestor de memoria: self_destruct (jmemmgr.c) con malloc/free de la biblioteca (jmemnobs) y del EXE redirigidos a un asignador del banco con registro
+//   - biblioteca: w_jmemnobs.c se compila con -Dmalloc=lib3b_malloc -Dfree=lib3b_free (solo en el banco; el .c oficial no se toca)
+//   - EXE: las 4 llamadas del CRT en jpeg_get/free_small/large (0x5CF800-0x5CF835) se desvian a los mismos ganchos
+static uint32_t* g_flog = nullptr; static int g_tag_pool = -1, g_tag_kind = 0;
+enum { FL_NMALLOC = 1, FL_NFREE = 0, FL_NCLOSE = 2, FL_MAL = 8, FL_FREE = 8 + 3 * 64, FL_CLOSE = 8 + 3 * 64 + 128 };
+extern "C" void* __cdecl lib3b_malloc(size_t n) { void* p = A(n, 8); if (g_flog && g_flog[FL_NMALLOC] < 64) { uint32_t k = g_flog[FL_NMALLOC]++; uint32_t* e = g_flog + FL_MAL + 3 * k; e[0] = (uint32_t)(uintptr_t)p; e[1] = (uint32_t)g_tag_pool; e[2] = (uint32_t)g_tag_kind; } return p; }
+extern "C" void __cdecl lib3b_free(void* p) { if (g_flog && g_flog[FL_NFREE] < 128) { uint32_t k = g_flog[FL_NFREE]++; g_flog[FL_FREE + k] = (uint32_t)(uintptr_t)p; } }
+static void* __cdecl exe_malloc_hook(size_t n, int) { return lib3b_malloc(n); }
+static void __cdecl exe_free_hook(void* p) { lib3b_free(p); }
+static void __cdecl mock_bs_close(j_common_ptr, void* info) { if (g_flog && g_flog[FL_NCLOSE] < 128) { uint32_t k = g_flog[FL_NCLOSE]++; g_flog[FL_CLOSE + k] = (uint32_t)(uintptr_t)info; } }
+static void add_selfd_tests() {
+    g_tests.push_back({"self_destruct", 0x5CF690, "jmemmgr", "self_destruct", [](Rng& r, Ctx& x) {
+        auto c = new_cinfo(); g_flog = (uint32_t*)A(4 * (FL_CLOSE + 128), 8); memset(g_flog, 0, 4 * (FL_CLOSE + 128));
+        c->mem = nullptr; g_tag_pool = -1; g_tag_kind = 9; ((void(__cdecl*)(j_common_ptr))lib("jmemmgr", "jinit_memory_mgr"))((j_common_ptr)c);
+        jpeg_memory_mgr* m = c->mem; std::vector<void*> sa, ba; int nops = (int)R(r, 1, 12);
+        for (int i = 0; i < nops; i++) {
+            int pool = (int)R(r, 0, 1); g_tag_pool = pool; uint32_t k = r() % 4; if (getenv("DBGSD")) printf("   op %d pool %d k %u mem=%p\n", i, pool, k, (void*)m);
+            if (k == 0) { g_tag_kind = 0; m->alloc_small((j_common_ptr)c, pool, R(r, 1, 400)); }
+            else if (k == 1) { g_tag_kind = 1; m->alloc_large((j_common_ptr)c, pool, R(r, 1, 3000)); }
+            else if (k == 2) { g_tag_kind = 0; g_tag_pool = 1; sa.push_back(m->request_virt_sarray((j_common_ptr)c, 1, FALSE, R(r, 1, 50), R(r, 1, 50), R(r, 1, 4))); }
+            else { g_tag_kind = 0; g_tag_pool = 1; ba.push_back(m->request_virt_barray((j_common_ptr)c, 1, FALSE, R(r, 1, 5), R(r, 1, 50), R(r, 1, 4))); }
+        }
+        for (void* p : sa) if (r() % 2) { ((uint8_t*)p)[0x22] = 1; W32(p, 0x30) = (uint32_t)(uintptr_t)mock_bs_close; }
+        for (void* p : ba) if (r() % 2) { ((uint8_t*)p)[0x22] = 1; W32(p, 0x30) = (uint32_t)(uintptr_t)mock_bs_close; }
+        auto sas = std::make_shared<std::vector<uint32_t>>(); for (void* p : sa) sas->push_back((uint32_t)(uintptr_t)p + 0x28); auto bas = std::make_shared<std::vector<uint32_t>>(); for (void* p : ba) bas->push_back((uint32_t)(uintptr_t)p + 0x28);
+        auto sopen = std::make_shared<std::vector<uint32_t>>(); for (void* p : sa) sopen->push_back(((uint8_t*)p)[0x22]); auto bopen = std::make_shared<std::vector<uint32_t>>(); for (void* p : ba) bopen->push_back(((uint8_t*)p)[0x22]);
+        uint32_t* L = g_flog; uint32_t mgr = (uint32_t)(uintptr_t)m; (void)mgr;
+        x.call = [=](void* f) { ((void(__cdecl*)(j_common_ptr))f)((j_common_ptr)c); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) {
+            put32(v, (uint32_t)(uintptr_t)c->mem); put32(v, L[FL_NMALLOC]); for (uint32_t k = 0; k < L[FL_NMALLOC]; k++) { put32(v, L[FL_MAL + 3 * k]); put32(v, L[FL_MAL + 3 * k + 1]); put32(v, L[FL_MAL + 3 * k + 2]); }
+            put32(v, L[FL_NFREE]); for (uint32_t k = 0; k < L[FL_NFREE]; k++) put32(v, L[FL_FREE + k]);
+            put32(v, L[FL_NCLOSE]); for (uint32_t k = 0; k < L[FL_NCLOSE]; k++) put32(v, L[FL_CLOSE + k]);
+            put32(v, (uint32_t)sas->size()); for (size_t k = 0; k < sas->size(); k++) { put32(v, (*sas)[k]); put32(v, (*sopen)[k]); }
+            put32(v, (uint32_t)bas->size()); for (size_t k = 0; k < bas->size(); k++) { put32(v, (*bas)[k]); put32(v, (*bopen)[k]); }
+        };
+    }, 4000});
+}
+
+// ---- jdcoefct: dummy_consume_data (0x5C8E10): devuelve JPEG_SUSPENDED
+static void add_dummy_tests() {
+    g_tests.push_back({"dummy_consume_data", 0x5C8E10, "jdcoefct", "dummy_consume_data", [](Rng& r, Ctx& x) {
+        x.check_ret = true; auto c = rand_dinfo(r); x.call = [c](void* f) { return (int)((int(__cdecl*)(j_decompress_ptr))f)(c); }; x.dump = [](std::vector<uint8_t>&) {};
+    }, 1});
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -939,14 +985,16 @@ int main(int argc, char** argv) {
     std::string outdir = argv[1], flt; int N = 20000; unsigned seed = 12345;
     for (int i = 3; i < argc; i++) { if (!strcmp(argv[i], "--filtro") && i + 1 < argc) flt = argv[++i]; else if (!strcmp(argv[i], "--n") && i + 1 < argc) N = atoi(argv[++i]); else if (!strcmp(argv[i], "--dct") && i + 1 < argc) g_opt_dct = atoi(argv[++i]); else if (!strcmp(argv[i], "--seed") && i + 1 < argc) seed = (unsigned)atoi(argv[++i]); }
     if (const char* m = getenv("LIB3A_MUT")) lib3a_mut = atoi(m);
+    setvbuf(stdout, NULL, _IONBF, 0);
     _controlfp(_PC_24, _MCW_PC); // x87 a 24 bits de mantisa, como el juego
     printf("precision FPU: control word 0x%04x\n", _control87(0, 0));
     if (!map_exe(argv[2])) return 2;
     patch_call(0x5CD7C2, (void*)mock_sprintf); patch_call(0x5CD7DC, (void*)mock_sprintf); // format_message llama al sprintf del CRT del EXE (no inicializado en el banco): se redirige al del banco
+    patch_call(0x5CF807, (void*)exe_malloc_hook); patch_call(0x5CF815, (void*)exe_free_hook); patch_call(0x5CF827, (void*)exe_malloc_hook); patch_call(0x5CF835, (void*)exe_free_hook); // jpeg_get/free_small/large del EXE -> asignador del banco
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
-    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests(); add_marker_tests(); add_virt_tests(); add_markerrd_tests(); add_huffd_tests(); add_huffe_tests();
+    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests(); add_marker_tests(); add_virt_tests(); add_markerrd_tests(); add_huffd_tests(); add_huffe_tests(); add_selfd_tests(); add_dummy_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");
@@ -957,7 +1005,7 @@ int main(int argc, char** argv) {
         std::vector<uint8_t> trace; int diffs = 0, errs = 0, pairs = 0;
         for (int k = 0; k < N; k++) {
             g_top = 0; Rng fr(rng()); fill_rand(fr, std::min(g_hi + 4096, sizeof g_arena)); g_err_calls = 0; g_err_code = 0;
-            Ctx ctx; t.build(rng, ctx); size_t top0 = g_top; size_t lim0 = std::min(sizeof g_arena, std::max(top0, g_hi) + 65536); std::vector<uint8_t> S0(g_arena, g_arena + lim0); // se restaura tambien lo que queda por encima de top0: las asignaciones hechas durante la llamada no deben heredar restos del otro lado
+            Ctx ctx; if (setjmp(g_jb) != 0) { printf("ERROR en el montaje del caso %d de %s (codigo %d)\n", k, t.name, g_err_code); exit(3); } t.build(rng, ctx); size_t top0 = g_top; size_t lim0 = std::min(sizeof g_arena, std::max(top0, g_hi) + 65536); std::vector<uint8_t> S0(g_arena, g_arena + lim0); // se restaura tambien lo que queda por encima de top0: las asignaciones hechas durante la llamada no deben heredar restos del otro lado
             int ret[2] = {0, 0}, ec[2] = {0, 0}, ecode[2] = {0, 0}; size_t topE[2] = {0, 0}; std::vector<uint8_t> snap[2];
             for (int side = 0; side < 2; side++) {
                 memcpy(g_arena, S0.data(), lim0); g_top = top0; g_err_calls = 0; g_err_code = 0;

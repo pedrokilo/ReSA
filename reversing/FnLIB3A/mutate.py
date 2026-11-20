@@ -183,6 +183,14 @@ R1 += [
 R2 += [
  (61, 'start_pass_huff', 'jchuff', 'start_pass_huff', 'entropy->next_restart_num = 0;', 'entropy->next_restart_num = (lib3a_mut==61 && cinfo->comps_in_scan == 3) ? 1 : 0;'),
 ]
+R1 += [
+ (62, 'self_destruct', 'jmemmgr', 'self_destruct', 'for (pool = JPOOL_NUMPOOLS-1; pool >= JPOOL_PERMANENT; pool--) {', 'for (pool = (lib3a_mut==62) ? JPOOL_PERMANENT : JPOOL_NUMPOOLS-1; pool >= JPOOL_PERMANENT; pool--) {'),
+ (63, 'dummy_consume_data', 'jdcoefct', 'dummy_consume_data', 'return JPEG_SUSPENDED;', 'return (lib3a_mut==63 && (cinfo->image_width & 3) == 1) ? JPEG_ROW_COMPLETED : JPEG_SUSPENDED;'),
+]
+R2 += [
+ (62, 'self_destruct', 'jmemmgr', 'self_destruct', 'jpeg_free_small(cinfo, (void *) cinfo->mem, SIZEOF(my_memory_mgr));', 'if (!(lib3a_mut==62 && (((unsigned long) cinfo->mem >> 3) & 1))) jpeg_free_small(cinfo, (void *) cinfo->mem, SIZEOF(my_memory_mgr));'),
+ (63, 'dummy_consume_data', 'jdcoefct', 'dummy_consume_data', 'return JPEG_SUSPENDED;', 'return (lib3a_mut==63 && (cinfo->image_height & 7) == 2) ? JPEG_SCAN_COMPLETED : JPEG_SUSPENDED;'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():
