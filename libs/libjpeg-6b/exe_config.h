@@ -22,4 +22,6 @@
 #endif
 /* LIB3B: sin suavizado de entrada ni filas de contexto en compresion: start_pass_prep (0x5C76A0) solo pone rows_to_go y next_buf_row */
 #undef INPUT_SMOOTHING_SUPPORTED
+/* LIB3B: sin IDCT reducidas (escalado de salida): start_pass de jddctmgr (0x5C9510) solo acepta DCT_scaled_size == 8 (JERR_BAD_DCTSIZE en otro caso) y no existen jpeg_idct_1x1/2x2/4x4 */
+#undef IDCT_SCALING_SUPPORTED
 #endif

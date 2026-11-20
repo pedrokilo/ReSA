@@ -6,8 +6,14 @@
 #include "../jidctred.c"
 #include "../jpeg6b_export.h"
 const jpeg6b_export jpeg6b_exports_jidctred[] = {
+#ifdef IDCT_SCALING_SUPPORTED
     {"jpeg_idct_4x4", (void*)jpeg_idct_4x4},
+#endif
+#ifdef IDCT_SCALING_SUPPORTED
     {"jpeg_idct_2x2", (void*)jpeg_idct_2x2},
+#endif
+#ifdef IDCT_SCALING_SUPPORTED
     {"jpeg_idct_1x1", (void*)jpeg_idct_1x1},
+#endif
     {0, 0}
 };

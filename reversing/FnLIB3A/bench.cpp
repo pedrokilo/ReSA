@@ -506,6 +506,32 @@ static void add_downsample_tests() {
     }
 }
 
+
+// ---- descompresion: gestor de IDCT (jddctmgr.c)
+static void add_idctmgr_tests() {
+    g_tests.push_back({"start_pass_idctmgr", 0x5C9510, "jddctmgr", "start_pass", [](Rng& r, Ctx& x) {
+        auto c = rand_dinfo(r); int nc = (int)R(r, 0, 4); c->num_components = nc;
+        void* idct = A(0x40, 8); memset(idct, 0xAB, 0x40); c->idct = (struct jpeg_inverse_dct*)idct;
+        auto ci = AT<jpeg_component_info>(4); memset(ci, 0, sizeof(jpeg_component_info) * 4); c->comp_info = ci;
+        c->dct_method = (r() % 8 == 0) ? (J_DCT_METHOD)R(r, 0, 1) : JDCT_FLOAT;
+        std::vector<uint16_t> qv[4]; JQUANT_TBL* qt[4]; FAST_FLOAT* tab[4];
+        for (int i = 0; i < 4; i++) {
+            ci[i].DCT_scaled_size = (r() % 14 == 0) ? (int)R(r, 0, 9) : 8; ci[i].component_needed = (boolean)(r() % 5 != 0);
+            qt[i] = nullptr; if (r() % 6) { qt[i] = AT<JQUANT_TBL>(); for (int k = 0; k < 64; k++) qt[i]->quantval[k] = (UINT16)((r() % 7 == 0) ? r() : (r() % 5 == 0 ? R(r, 1, 255) : R(r, 1, 80))); }
+            ci[i].quant_table = qt[i]; tab[i] = AT<FAST_FLOAT>(64); for (int k = 0; k < 64; k++) tab[i][k] = (FAST_FLOAT)(r() % 1000); ci[i].dct_table = tab[i];
+            W32(idct, 0x14 + 4 * i) = (r() % 3 == 0) ? 2u : (uint32_t)R(r, 0, 3);
+        }
+        uint32_t cm0[4]; for (int i = 0; i < 4; i++) cm0[i] = W32(idct, 0x14 + 4 * i);
+        x.fps.push_back({aoff(idct) + 4, {{0x5CDA90, {"jidctflt", "jpeg_idct_float"}}}}); x.fps.push_back({aoff(idct) + 8, {{0x5CDA90, {"jidctflt", "jpeg_idct_float"}}}});
+        x.fps.push_back({aoff(idct) + 12, {{0x5CDA90, {"jidctflt", "jpeg_idct_float"}}}}); x.fps.push_back({aoff(idct) + 16, {{0x5CDA90, {"jidctflt", "jpeg_idct_float"}}}});
+        x.call = [=](void* f) { ((void(__cdecl*)(j_decompress_ptr))f)(c); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) {
+            put32(v, (uint32_t)nc); put32(v, (uint32_t)c->dct_method);
+            for (int i = 0; i < 4; i++) { put32(v, (uint32_t)ci[i].DCT_scaled_size); put32(v, (uint32_t)(ci[i].component_needed & 0xFF)); put32(v, qt[i] != nullptr); if (qt[i]) putn(v, qt[i]->quantval, 128); put32(v, cm0[i]); put32(v, W32(idct, 0x14 + 4 * i)); putn(v, tab[i], 256); put32(v, W32(idct, 4 + 4 * i) != 0); }
+        };
+    }});
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -521,7 +547,7 @@ int main(int argc, char** argv) {
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
-    add_idct_tests(); add_state_tests(); add_downsample_tests();
+    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");

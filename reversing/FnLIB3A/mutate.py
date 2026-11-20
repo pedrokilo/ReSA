@@ -119,6 +119,12 @@ R2 += [
  (46, 'h2v1_downsample', 'jcsample', 'h2v1_downsample', 'bias = 0;', 'bias = (lib3a_mut==46 && outrow==1) ? 1 : 0;'),
  (47, 'h2v2_downsample', 'jcsample', 'h2v2_downsample', 'bias = 1;', 'bias = (lib3a_mut==47 && outrow==1) ? 2 : 1;'),
 ]
+R1 += [
+ (48, 'start_pass_idctmgr', 'jddctmgr', 'start_pass', 'aanscalefactor[row] * aanscalefactor[col]);', 'aanscalefactor[row] * aanscalefactor[col] * ((lib3a_mut==48 && i == 37) ? 1.001 : 1.0));'),
+]
+R2 += [
+ (48, 'start_pass_idctmgr', 'jddctmgr', 'start_pass', 'idct->cur_method[ci] = method;', 'idct->cur_method[ci] = (lib3a_mut==48 && ci == 2) ? method + 1 : method;'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():

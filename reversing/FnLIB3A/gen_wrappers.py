@@ -15,11 +15,13 @@ for f in files:
     names = [n for n in names if n in comp]; tot += len(names)
     pre = ['#define JPEG6B_KEEP_2PASS'] if f == 'jquant2' else []
     lines = ['/* Envoltorio generado: incluye %s.c sin modificar y exporta sus funciones (ver jpeg6b_export.h y exe_config.h). */' % f,
-             ] + pre + ['#define JPEG_INTERNALS', '#include "../jinclude.h"', '#include "../jpeglib.h"', '#include "../exe_config.h"', '#include "../%s.c"' % f, '#include "../jpeg6b_export.h"',
+             ] + pre + (['#define JPEG_INTERNALS', '#include "../jinclude.h"', '#define jpeg_inverse_dct jpeg_inverse_dct_oficial', '#include "../jpeglib.h"', '#undef jpeg_inverse_dct', '#include "../exe_config.h"',
+              'struct jpeg_inverse_dct { JMETHOD(void, start_pass, (j_decompress_ptr cinfo)); inverse_DCT_method_ptr inverse_DCT[MAX_COMPONENTS]; };'] if f == 'jddctmgr' else ['#define JPEG_INTERNALS', '#include "../jinclude.h"', '#include "../jpeglib.h"', '#include "../exe_config.h"']) + ['#include "../%s.c"' % f, '#include "../jpeg6b_export.h"',
              'const jpeg6b_export jpeg6b_exports_%s[] = {' % f]
     GUARD = {'smoothing_ok': 'BLOCK_SMOOTHING_SUPPORTED', 'decompress_smooth_data': 'BLOCK_SMOOTHING_SUPPORTED', 'process_data_crank_post': 'QUANT_2PASS_SUPPORTED',
              'post_process_prepass': 'QUANT_2PASS_SUPPORTED', 'post_process_2pass': 'QUANT_2PASS_SUPPORTED',
-             'pre_process_context': 'INPUT_SMOOTHING_SUPPORTED', 'create_context_buffer': 'INPUT_SMOOTHING_SUPPORTED', 'h2v2_smooth_downsample': 'INPUT_SMOOTHING_SUPPORTED', 'fullsize_smooth_downsample': 'INPUT_SMOOTHING_SUPPORTED'}  # LIB3B: funciones que no existen con la configuracion del EXE (exe_config.h)
+             'pre_process_context': 'INPUT_SMOOTHING_SUPPORTED', 'create_context_buffer': 'INPUT_SMOOTHING_SUPPORTED', 'h2v2_smooth_downsample': 'INPUT_SMOOTHING_SUPPORTED', 'fullsize_smooth_downsample': 'INPUT_SMOOTHING_SUPPORTED',
+             'jpeg_idct_4x4': 'IDCT_SCALING_SUPPORTED', 'jpeg_idct_2x2': 'IDCT_SCALING_SUPPORTED', 'jpeg_idct_1x1': 'IDCT_SCALING_SUPPORTED'}  # LIB3B: funciones que no existen con la configuracion del EXE (exe_config.h)
     for n in names:
         if n in GUARD and f != 'jquant2': lines.append('#ifdef ' + GUARD[n])
         lines.append('    {"%s", (void*)%s},' % (n, n))
