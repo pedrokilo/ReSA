@@ -125,6 +125,12 @@ R1 += [
 R2 += [
  (48, 'start_pass_idctmgr', 'jddctmgr', 'start_pass', 'idct->cur_method[ci] = method;', 'idct->cur_method[ci] = (lib3a_mut==48 && ci == 2) ? method + 1 : method;'),
 ]
+R1 += [
+ (49, 'pre_process_data', 'jcprepct', 'pre_process_data', 'prep->rows_to_go -= numrows;', 'prep->rows_to_go -= numrows + ((lib3a_mut==49 && numrows == 3) ? 1 : 0);'),
+]
+R2 += [
+ (49, 'pre_process_data', 'jcprepct', 'pre_process_data', 'prep->next_buf_row = 0;', 'prep->next_buf_row = (lib3a_mut==49 && *out_row_group_ctr == 2) ? 1 : 0;'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():

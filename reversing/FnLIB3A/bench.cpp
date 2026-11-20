@@ -532,6 +532,45 @@ static void add_idctmgr_tests() {
     }});
 }
 
+
+// ---- compresion: preprocesamiento (jcprepct.c, sin contexto)
+static uint32_t mk_hash(uint32_t call, uint32_t ci, uint32_t row, uint32_t x) { return (call * 31 + ci * 17 + row * 7 + x * 3 + 5) & 255; }
+static void __cdecl mock_cconv(j_compress_ptr c, JSAMPARRAY in, JSAMPIMAGE out, JDIMENSION orow, int n) {
+    uint32_t* L = (uint32_t*)c->client_data; uint32_t call = L[0]++; uint32_t* e = L + 2 + 4 * call; e[0] = (uint32_t)(uintptr_t)in; e[1] = (uint32_t)(uintptr_t)out; e[2] = orow; e[3] = (uint32_t)n;
+    for (int ci = 0; ci < c->num_components; ci++) for (int i = 0; i < n; i++) for (JDIMENSION x = 0; x < c->image_width; x++) out[ci][orow + i][x] = (JSAMPLE)mk_hash(call, (uint32_t)ci, orow + i, x);
+}
+static void __cdecl mock_dsamp(j_compress_ptr c, JSAMPIMAGE in, JDIMENSION in_idx, JSAMPIMAGE out, JDIMENSION ogi) {
+    uint32_t* L = (uint32_t*)c->client_data; uint32_t call = L[1]++; uint32_t* e = L + 2 + 4 * 24 + 4 * call; e[0] = (uint32_t)(uintptr_t)in; e[1] = in_idx; e[2] = (uint32_t)(uintptr_t)out; e[3] = ogi;
+    for (int ci = 0; ci < c->num_components; ci++) { jpeg_component_info* cp = c->comp_info + ci; for (int r = 0; r < cp->v_samp_factor; r++) for (JDIMENSION x = 0; x < cp->width_in_blocks * 8; x++) out[ci][ogi * cp->v_samp_factor + r][x] = (JSAMPLE)(mk_hash(100 + call, (uint32_t)ci, ogi * cp->v_samp_factor + r, x)); }
+}
+static void add_prep_tests() {
+    g_tests.push_back({"pre_process_data", 0x5C7710, "jcprepct", "pre_process_data", [](Rng& r, Ctx& x) {
+        auto c = new_cinfo(); int nc = (int)R(r, 1, 3); c->num_components = nc; int maxv = (int)R(r, 1, 4); c->max_v_samp_factor = maxv; c->image_width = R(r, 1, 40);
+        auto ci = AT<jpeg_component_info>(4); memset(ci, 0, sizeof(jpeg_component_info) * 4); c->comp_info = ci;
+        uint32_t* L = (uint32_t*)A(4 * (2 + 4 * 48), 8); memset(L, 0, 4 * (2 + 4 * 48)); c->client_data = L;
+        void* cv = A(0x20, 8); memset(cv, 0, 0x20); c->cconvert = (struct jpeg_color_converter*)cv; W32(cv, 4) = (uint32_t)(uintptr_t)mock_cconv;
+        void* ds = A(0x20, 8); memset(ds, 0, 0x20); c->downsample = (struct jpeg_downsampler*)ds; W32(ds, 4) = (uint32_t)(uintptr_t)mock_dsamp;
+        void* pr = A(0x100, 8); memset(pr, 0xAB, 0x100); c->prep = (struct jpeg_c_prep_controller*)pr;
+        uint32_t W = c->image_width, inavail = R(r, 1, 12), inctr = R(r, 0, inavail - 1), ogavail = R(r, 1, 4), ogctr = R(r, 0, ogavail - 1);
+        for (int i = 0; i < nc; i++) { ci[i].component_index = i; ci[i].v_samp_factor = (int)R(r, 1, (uint32_t)maxv); ci[i].width_in_blocks = R(r, 1, 6); }
+        JSAMPIMAGE colb = (JSAMPIMAGE)AT<JSAMPARRAY>(nc); JSAMPIMAGE ob = (JSAMPIMAGE)AT<JSAMPARRAY>(nc);
+        for (int i = 0; i < nc; i++) { colb[i] = make_rows(r, (uint32_t)maxv, W, 0, true); ob[i] = make_rows(r, ogavail * (uint32_t)ci[i].v_samp_factor, ci[i].width_in_blocks * 8, 0, true); W32(pr, 8 + 4 * i) = (uint32_t)(uintptr_t)colb[i]; }
+        JSAMPARRAY in = make_rows(r, inavail, W * 3, 0, true);
+        uint32_t rtg = (r() % 4 == 0) ? (inavail - inctr) : R(r, 1, inavail + 6); uint32_t nbr = R(r, 0, (uint32_t)maxv - 1); W32(pr, 0x18) = rtg; W32(pr, 0x1C) = nbr;
+        uint32_t* pin = (uint32_t*)A(8, 8); uint32_t* pout = (uint32_t*)A(8, 8); *pin = inctr; *pout = ogctr;
+        std::vector<uint8_t> init; for (int i = 0; i < nc; i++) { for (int k = 0; k < maxv; k++) putn(init, colb[i][k], W); for (uint32_t k = 0; k < ogavail * (uint32_t)ci[i].v_samp_factor; k++) putn(init, ob[i][k], ci[i].width_in_blocks * 8); }
+        x.call = [=](void* f) { ((void(__cdecl*)(j_compress_ptr, JSAMPARRAY, JDIMENSION*, JDIMENSION, JSAMPIMAGE, JDIMENSION*, JDIMENSION))f)(c, in, pin, inavail, ob, pout, ogavail); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) {
+            put32(v, (uint32_t)nc); put32(v, (uint32_t)maxv); put32(v, W); put32(v, inavail); put32(v, inctr); put32(v, ogavail); put32(v, ogctr); put32(v, rtg); put32(v, nbr);
+            for (int i = 0; i < nc; i++) { put32(v, (uint32_t)ci[i].v_samp_factor); put32(v, ci[i].width_in_blocks); }
+            putn(v, init.data(), init.size());
+            for (int i = 0; i < nc; i++) { for (int k = 0; k < maxv; k++) putn(v, colb[i][k], W); for (uint32_t k = 0; k < ogavail * (uint32_t)ci[i].v_samp_factor; k++) putn(v, ob[i][k], ci[i].width_in_blocks * 8); }
+            put32(v, *pin); put32(v, *pout); put32(v, W32(pr, 0x18)); put32(v, W32(pr, 0x1C)); putn(v, L, 4 * (2 + 4 * 48));
+            put32(v, (uint32_t)(uintptr_t)in); put32(v, (uint32_t)(uintptr_t)pr); put32(v, (uint32_t)(uintptr_t)ob);
+        };
+    }, 4000});
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -547,7 +586,7 @@ int main(int argc, char** argv) {
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
-    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests();
+    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");

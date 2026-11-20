@@ -304,6 +304,54 @@ def t_idctmgr(r, ec):
                 k += 1
     return (ec != 0) == err
 
+def mk_hash(call, ci, row, x): return (call * 31 + ci * 17 + row * 7 + x * 3 + 5) & 255
+def t_pre_process(r, ec):
+    nc, maxv, W, inavail, inctr, ogavail, ogctr, rtg, nbr = [r.u32() for _ in range(9)]
+    comps = [(r.u32(), r.u32()) for _ in range(nc)]
+    colb = []; ob = []
+    for ci, (v, wib) in enumerate(comps):
+        colb.append([bytearray(r.raw(W)) for _ in range(maxv)]); ob.append([bytearray(r.raw(wib * 8)) for _ in range(ogavail * v)])
+    fcol = []; fob = []
+    for ci, (v, wib) in enumerate(comps):
+        fcol.append([bytearray(r.raw(W)) for _ in range(maxv)]); fob.append([bytearray(r.raw(wib * 8)) for _ in range(ogavail * v)])
+    pin, pout, rtg1, nbr1 = r.u32(), r.u32(), r.u32(), r.u32()
+    L = struct.unpack('<%dI' % (2 + 4 * 48), r.raw(4 * (2 + 4 * 48))); inb, prb, obb = r.u32(), r.u32(), r.u32()
+    M = 2**32
+    def expand_bottom(rows, width, inrows, outrows):
+        for i in range(inrows, outrows): rows[i][:width] = rows[inrows - 1][:width]
+    cc = []; dd = []
+    while inctr < inavail and ogctr < ogavail:
+        numrows = min(maxv - nbr, inavail - inctr)
+        call = len(cc); cc.append((inctr, nbr, numrows))
+        for ci in range(nc):
+            for i in range(numrows):
+                for x in range(W): colb[ci][nbr + i][x] = mk_hash(call, ci, nbr + i, x)
+        inctr += numrows; nbr += numrows; rtg = (rtg - numrows) % M
+        if rtg == 0 and nbr < maxv:
+            for ci in range(nc): expand_bottom(colb[ci], W, nbr, maxv)
+            nbr = maxv
+        if nbr == maxv:
+            dc = len(dd); dd.append(ogctr)
+            for ci, (v, wib) in enumerate(comps):
+                for rr in range(v):
+                    for x in range(wib * 8): ob[ci][ogctr * v + rr][x] = mk_hash(100 + dc, ci, ogctr * v + rr, x)
+            nbr = 0; ogctr += 1
+        if rtg == 0 and ogctr < ogavail:
+            for ci, (v, wib) in enumerate(comps): expand_bottom(ob[ci], wib * 8, ogctr * v, ogavail * v)
+            ogctr = ogavail; break
+    if ec != 0 or pin != inctr or pout != ogctr or rtg1 != rtg or nbr1 != nbr: return False
+    for ci in range(nc):
+        if colb[ci] != fcol[ci] or ob[ci] != fob[ci]: return False
+    if L[0] != len(cc) or L[1] != len(dd): return False
+    for k, (ic, nb0, nr) in enumerate(cc):
+        e = L[2 + 4 * k:6 + 4 * k]
+        if e != (inb + 4 * ic) % M or True:
+            if (e[0], e[1], e[2], e[3]) != ((inb + 4 * ic) % M, (prb + 8) % M, nb0, nr): return False
+    for k, og in enumerate(dd):
+        e = L[2 + 96 + 4 * k:6 + 96 + 4 * k]
+        if (e[0], e[1], e[2], e[3]) != ((prb + 8) % M, 0, obb, og): return False
+    return True
+
 def t_start_up(r, ec):
     maxv, oh, nro, rtg = r.u32(), r.u32(), r.u32(), r.u32()
     return nro == maxv and rtg == oh and ec == 0
@@ -366,7 +414,7 @@ def t_dcolor(r, ec):
 
 def t_nothing(r, ec): return ec == 0
 
-CHECKS = {'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
+CHECKS = {'pre_process_data': t_pre_process, 'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
           'emit_byte': t_marker_bytes, 'write_marker_header': t_marker_bytes, 'start_pass_prep': t_start_prep, 'reset_marker_reader': t_reset_marker, 'start_pass_dpost': t_dpost, 'jpeg_idct_float': t_idct_float, 'rgb_ycc_start': t_rgb_ycc_start, 'rgb_ycc_convert': t_color_compress('ycc'), 'rgb_gray_convert': t_color_compress('gray'), 'cmyk_ycck_convert': t_color_compress('cmyk'),
           'grayscale_convert': t_color_compress('grayc'), 'null_convert': t_color_compress('null'), 'null_method': t_nothing, 'start_pass_fdctmgr': t_start_fdct,
           'jpeg_fdct_float': t_fdct_float, 'forward_DCT_float': t_forward_dct, 'start_pass_upsample': t_start_up, 'fullsize_upsample': t_upsample, 'noop_upsample': t_upsample,
