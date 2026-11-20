@@ -19,6 +19,7 @@
 #include <random>
 #include <functional>
 #include <algorithm>
+#include <memory>
 #include <stdarg.h>
 #include <math.h>
 
@@ -615,6 +616,36 @@ static void add_onepass_tests() {
     }, 4000});
 }
 
+
+// ---- compresion: cabeceras de marcadores (jcmarker.c write_tables_only / write_scan_header)
+static void add_marker_tests() {
+    for (int kind = 0; kind < 2; kind++) {
+        g_tests.push_back({kind == 0 ? "write_tables_only" : "write_scan_header", kind == 0 ? 0x5C62F0u : 0x5C61E0u, "jcmarker", kind == 0 ? "write_tables_only" : "write_scan_header", [kind](Rng& r, Ctx& x) {
+            auto c = new_cinfo(); auto d = (jpeg_destination_mgr*)A(0x40, 8); memset(d, 0, 0x40); c->dest = d; uint8_t* out = (uint8_t*)A(4200, 8); memset(out, 0x55, 4200);
+            d->next_output_byte = out; d->free_in_buffer = 4000; d->empty_output_buffer = mock_empty_output; g_mock_flag = TRUE;
+            void* mk = priv(r, 0x40); c->marker = (struct jpeg_marker_writer*)mk;
+            c->arith_code = (boolean)(r() % 6 == 0); c->progressive_mode = (boolean)(r() % 3 == 0); c->Ss = (int)R(r, 0, 2) * (r() % 2); c->Se = (int)R(r, 0, 63); c->Ah = (int)R(r, 0, 3); c->Al = (int)R(r, 0, 3);
+            c->restart_interval = (r() % 3 == 0) ? 0 : R(r, 1, 600); uint32_t lri = (r() % 2) ? c->restart_interval : R(r, 0, 600); W32(mk, 0x1C) = lri;
+            struct Q { bool p; int sent; uint16_t qv[64]; }; struct H { bool p; int sent; uint8_t bits[17]; uint8_t hv[256]; };
+            auto qs = std::make_shared<std::vector<Q>>(4); auto hs = std::make_shared<std::vector<H>>(8);
+            JQUANT_TBL* qp[4]; JHUFF_TBL* hp[8];
+            for (int i = 0; i < 4; i++) { qp[i] = nullptr; (*qs)[i].p = false; if (r() % 4) { qp[i] = AT<JQUANT_TBL>(); (*qs)[i].p = true; for (int k = 0; k < 64; k++) qp[i]->quantval[k] = (UINT16)((r() % 12 == 0) ? R(r, 256, 1000) : R(r, 1, 255)); qp[i]->sent_table = (boolean)(r() % 3 == 0); (*qs)[i].sent = qp[i]->sent_table; memcpy((*qs)[i].qv, qp[i]->quantval, 128); c->quant_tbl_ptrs[i] = qp[i]; } }
+            for (int i = 0; i < 8; i++) { hp[i] = nullptr; (*hs)[i].p = false; if (r() % 5) { hp[i] = AT<JHUFF_TBL>(); (*hs)[i].p = true; hp[i]->bits[0] = 0; for (int k = 1; k <= 16; k++) hp[i]->bits[k] = (UINT8)((r() % 4 == 0) ? R(r, 0, 12) : R(r, 0, 2)); for (int k = 0; k < 256; k++) hp[i]->huffval[k] = (UINT8)r(); hp[i]->sent_table = (boolean)(r() % 3 == 0); (*hs)[i].sent = hp[i]->sent_table; memcpy((*hs)[i].bits, hp[i]->bits, 17); memcpy((*hs)[i].hv, hp[i]->huffval, 256); if (i < 4) c->dc_huff_tbl_ptrs[i] = hp[i]; else c->ac_huff_tbl_ptrs[i - 4] = hp[i]; } }
+            int nc = (int)R(r, 1, 4); c->comps_in_scan = nc; auto ci = AT<jpeg_component_info>(4); memset(ci, 0, sizeof(jpeg_component_info) * 4); c->comp_info = ci; c->num_components = nc;
+            for (int i = 0; i < 4; i++) { ci[i].component_id = (int)R(r, 0, 255); ci[i].dc_tbl_no = (int)R(r, 0, 3); ci[i].ac_tbl_no = (int)R(r, 0, 3); c->cur_comp_info[i] = &ci[i]; }
+            bool arith = c->arith_code, prog = c->progressive_mode; int Ss = c->Ss, Se = c->Se, Ah = c->Ah, Al = c->Al; uint32_t ri = c->restart_interval;
+            x.call = [=](void* f) { ((void(__cdecl*)(j_compress_ptr))f)(c); return 0; };
+            x.dump = [=](std::vector<uint8_t>& v) {
+                put32(v, (uint32_t)kind); put32(v, arith); put32(v, prog); put32(v, (uint32_t)Ss); put32(v, (uint32_t)Se); put32(v, (uint32_t)Ah); put32(v, (uint32_t)Al); put32(v, ri); put32(v, lri); put32(v, (uint32_t)nc);
+                for (int i = 0; i < nc; i++) { put32(v, (uint32_t)ci[i].component_id); put32(v, (uint32_t)ci[i].dc_tbl_no); put32(v, (uint32_t)ci[i].ac_tbl_no); }
+                for (int i = 0; i < 4; i++) { put32(v, (*qs)[i].p); put32(v, (uint32_t)(*qs)[i].sent); putn(v, (*qs)[i].qv, 128); put32(v, qp[i] ? (uint32_t)(qp[i]->sent_table & 0xFF) : 0); }
+                for (int i = 0; i < 8; i++) { put32(v, (*hs)[i].p); put32(v, (uint32_t)(*hs)[i].sent); putn(v, (*hs)[i].bits, 17); putn(v, (*hs)[i].hv, 256); put32(v, hp[i] ? (uint32_t)(hp[i]->sent_table & 0xFF) : 0); }
+                put32(v, W32(mk, 0x1C)); uint32_t n = (uint32_t)(d->next_output_byte - out); put32(v, n); putn(v, out, n > 4100 ? 4100 : n);
+            };
+        }, 4000});
+    }
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -630,7 +661,7 @@ int main(int argc, char** argv) {
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
-    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests();
+    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests(); add_marker_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");

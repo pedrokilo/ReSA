@@ -403,6 +403,80 @@ def t_onepass(r, ec):
         if tuple(L[64 + 2 + 5 * k:64 + 7 + 5 * k]) != e: return False
     return True
 
+NAT = [0,1,8,16,9,2,3,10,17,24,32,25,18,11,4,5,12,19,26,33,40,48,41,34,27,20,13,6,7,14,21,28,35,42,49,56,57,50,43,36,29,22,15,23,30,37,44,51,58,59,52,45,38,31,39,46,53,60,61,54,47,55,62,63]
+def t_marker_hdr(r, ec):
+    kind, arith, prog, Ss, Se, Ah, Al, ri, lri, nc = [r.u32() for _ in range(10)]
+    comps = [(r.u32(), r.u32(), r.u32()) for _ in range(nc)]
+    q = []
+    for i in range(4):
+        p, sent = r.u32(), r.u32(); qv = struct.unpack('<64H', r.raw(128)); sa = r.u32(); q.append([p, sent, qv, sa])
+    h = []
+    for i in range(8):
+        p, sent = r.u32(), r.u32(); bits = r.raw(17); hv = r.raw(256); sa = r.u32(); h.append([p, sent, bits, hv, sa])
+    lri1 = r.u32(); n = r.u32(); got = r.raw(min(n, 4100))
+    out = bytearray(); sent_q = [t[1] for t in q]; sent_h = [t[1] for t in h]
+    class E(Exception): pass
+    def eb(b): out.append(b & 255)
+    def em(m): eb(0xFF); eb(m)
+    def e2(v): eb((v >> 8) & 255); eb(v & 255)
+    def dqt(i):
+        if not q[i][0]: raise E()
+        qv = q[i][2]; prec = 1 if any(v > 255 for v in qv) else 0
+        if not sent_q[i]:
+            em(0xDB); e2(131 if prec else 67); eb(i + (prec << 4))
+            for k in range(64):
+                v = qv[NAT[k]]
+                if prec: eb(v >> 8)
+                eb(v & 255)
+            sent_q[i] = 1
+    def dht(i, ac):
+        t = h[(4 if ac else 0) + i]; idx = i + (0x10 if ac else 0)
+        if not t[0]: raise E()
+        if not sent_h[(4 if ac else 0) + i]:
+            em(0xC4); length = sum(t[2][1:17]); e2(length + 19); eb(idx)
+            for k in range(1, 17): eb(t[2][k])
+            for k in range(length): eb(t[3][k])
+            sent_h[(4 if ac else 0) + i] = 1
+    err = False
+    try:
+        if kind == 0:
+            em(0xD8)
+            for i in range(4):
+                if q[i][0]: dqt(i)
+            if not arith:
+                for i in range(4):
+                    if h[i][0]: dht(i, 0)
+                    if h[4 + i][0]: dht(i, 1)
+            em(0xD9)
+        else:
+            if not arith:
+                for (cid, dc, ac) in comps:
+                    if prog:
+                        if Ss == 0:
+                            if Ah == 0: dht(dc, 0)
+                        else: dht(ac, 1)
+                    else: dht(dc, 0); dht(ac, 1)
+            if ri != lri:
+                em(0xDD); e2(4); e2(ri & 0xFFFF); lri = ri
+            em(0xDA); e2(2 * nc + 6); eb(nc)
+            for (cid, dc, ac) in comps:
+                td, ta = dc, ac
+                if prog:
+                    if Ss == 0:
+                        ta = 0
+                        if Ah != 0 and not arith: td = 0
+                    else: td = 0
+                eb(cid); eb((td << 4) + ta)
+            eb(Ss); eb(Se); eb((Ah << 4) + Al)
+    except E:
+        err = True
+    if (ec != 0) != err: return False
+    if bytes(out) != bytes(got) or n != len(out): return False
+    if lri1 != lri: return False
+    if [t[3] for t in q] != [(s & 0xFF) if q[i][0] else 0 for i, s in enumerate(sent_q)]: return False
+    if [t[4] for t in h] != [(s & 0xFF) if h[i][0] else 0 for i, s in enumerate(sent_h)]: return False
+    return True
+
 def t_start_up(r, ec):
     maxv, oh, nro, rtg = r.u32(), r.u32(), r.u32(), r.u32()
     return nro == maxv and rtg == oh and ec == 0
@@ -465,7 +539,7 @@ def t_dcolor(r, ec):
 
 def t_nothing(r, ec): return ec == 0
 
-CHECKS = {'decompress_onepass': t_onepass, 'pre_process_data': t_pre_process, 'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
+CHECKS = {'write_tables_only': t_marker_hdr, 'write_scan_header': t_marker_hdr, 'decompress_onepass': t_onepass, 'pre_process_data': t_pre_process, 'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
           'emit_byte': t_marker_bytes, 'write_marker_header': t_marker_bytes, 'start_pass_prep': t_start_prep, 'reset_marker_reader': t_reset_marker, 'start_pass_dpost': t_dpost, 'jpeg_idct_float': t_idct_float, 'rgb_ycc_start': t_rgb_ycc_start, 'rgb_ycc_convert': t_color_compress('ycc'), 'rgb_gray_convert': t_color_compress('gray'), 'cmyk_ycck_convert': t_color_compress('cmyk'),
           'grayscale_convert': t_color_compress('grayc'), 'null_convert': t_color_compress('null'), 'null_method': t_nothing, 'start_pass_fdctmgr': t_start_fdct,
           'jpeg_fdct_float': t_fdct_float, 'forward_DCT_float': t_forward_dct, 'start_pass_upsample': t_start_up, 'fullsize_upsample': t_upsample, 'noop_upsample': t_upsample,

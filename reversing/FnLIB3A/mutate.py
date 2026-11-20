@@ -137,6 +137,14 @@ R1 += [
 R2 += [
  (50, 'decompress_onepass', 'jdcoefct', 'decompress_onepass', 'start_col = MCU_col_num * compptr->MCU_sample_width;', 'start_col = MCU_col_num * compptr->MCU_sample_width + ((lib3a_mut==50 && yoffset == 2) ? 1 : 0);'),
 ]
+R1 += [
+ (51, 'write_tables_only', 'jcmarker', 'write_tables_only', 'emit_marker(cinfo, M_EOI);', 'emit_marker(cinfo, M_EOI + ((lib3a_mut==51 && cinfo->arith_code) ? 1 : 0));'),
+ (52, 'write_scan_header', 'jcmarker', 'write_scan_header', 'emit_dri(cinfo);', 'emit_dri(cinfo); if (lib3a_mut==52 && (cinfo->restart_interval & 15) == 3) emit_dri(cinfo);'),
+]
+R2 += [
+ (51, 'write_tables_only', 'jcmarker', 'write_tables_only', 'if (cinfo->quant_tbl_ptrs[i] != NULL)', 'if (cinfo->quant_tbl_ptrs[i] != NULL && !(lib3a_mut==51 && i == 3))'),
+ (52, 'write_scan_header', 'jcmarker', 'write_scan_header', 'marker->last_restart_interval = cinfo->restart_interval;', 'marker->last_restart_interval = cinfo->restart_interval + ((lib3a_mut==52 && (cinfo->restart_interval & 7) == 5) ? 1 : 0);'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():
