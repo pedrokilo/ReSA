@@ -1,0 +1,170 @@
+[
+ {
+  "k": 1,
+  "funcion": "rgb_ycc_start",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 2,
+  "funcion": "rgb_ycc_convert",
+  "pares": 20000,
+  "diferencias": 142,
+  "detectada": true
+ },
+ {
+  "k": 3,
+  "funcion": "rgb_gray_convert",
+  "pares": 20000,
+  "diferencias": 20,
+  "detectada": true
+ },
+ {
+  "k": 4,
+  "funcion": "cmyk_ycck_convert",
+  "pares": 20000,
+  "diferencias": 18093,
+  "detectada": true
+ },
+ {
+  "k": 5,
+  "funcion": "grayscale_convert",
+  "pares": 20000,
+  "diferencias": 5502,
+  "detectada": true
+ },
+ {
+  "k": 6,
+  "funcion": "null_convert",
+  "pares": 20000,
+  "diferencias": 9397,
+  "detectada": true
+ },
+ {
+  "k": 7,
+  "funcion": "null_method",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 8,
+  "funcion": "start_pass_fdctmgr",
+  "pares": 20000,
+  "diferencias": 16069,
+  "detectada": true
+ },
+ {
+  "k": 9,
+  "funcion": "jpeg_fdct_float",
+  "pares": 20000,
+  "diferencias": 19896,
+  "detectada": true
+ },
+ {
+  "k": 10,
+  "funcion": "forward_DCT_float",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 11,
+  "funcion": "start_pass_upsample",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 12,
+  "funcion": "fullsize_upsample",
+  "pares": 20000,
+  "diferencias": 4992,
+  "detectada": true
+ },
+ {
+  "k": 13,
+  "funcion": "noop_upsample",
+  "pares": 20000,
+  "diferencias": 5058,
+  "detectada": true
+ },
+ {
+  "k": 14,
+  "funcion": "int_upsample",
+  "pares": 20000,
+  "diferencias": 1368,
+  "detectada": true
+ },
+ {
+  "k": 15,
+  "funcion": "h2v1_upsample",
+  "pares": 20000,
+  "diferencias": 1716,
+  "detectada": true
+ },
+ {
+  "k": 16,
+  "funcion": "h2v2_upsample",
+  "pares": 20000,
+  "diferencias": 1300,
+  "detectada": true
+ },
+ {
+  "k": 17,
+  "funcion": "h2v1_fancy_upsample",
+  "pares": 20000,
+  "diferencias": 28,
+  "detectada": true
+ },
+ {
+  "k": 18,
+  "funcion": "h2v2_fancy_upsample",
+  "pares": 20000,
+  "diferencias": 68,
+  "detectada": true
+ },
+ {
+  "k": 19,
+  "funcion": "ycc_rgb_convert",
+  "pares": 20000,
+  "diferencias": 3535,
+  "detectada": true
+ },
+ {
+  "k": 20,
+  "funcion": "dc_grayscale_convert",
+  "pares": 20000,
+  "diferencias": 4940,
+  "detectada": true
+ },
+ {
+  "k": 21,
+  "funcion": "gray_rgb_convert",
+  "pares": 20000,
+  "diferencias": 19612,
+  "detectada": true
+ },
+ {
+  "k": 22,
+  "funcion": "ycck_cmyk_convert",
+  "pares": 20000,
+  "diferencias": 18502,
+  "detectada": true
+ },
+ {
+  "k": 23,
+  "funcion": "dc_null_convert",
+  "pares": 20000,
+  "diferencias": 14608,
+  "detectada": true
+ },
+ {
+  "k": 24,
+  "funcion": "start_pass_dcolor",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ }
+]

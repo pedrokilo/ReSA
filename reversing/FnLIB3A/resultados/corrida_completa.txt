@@ -1,0 +1,27 @@
+precision FPU: control word 0xa001f
+funcion                  direccion      pares      difs   errores
+rgb_ycc_start            0x5C31E0     20000         0         0
+rgb_ycc_convert          0x5C32C0     20000         0         0
+rgb_gray_convert         0x5C33E0     20000         0         0
+cmyk_ycck_convert        0x5C3490     20000         0         0
+grayscale_convert        0x5C35F0     20000         0         0
+null_convert             0x5C3660     20000         0         0
+null_method              0x5C36F0     20000         0         0
+start_pass_fdctmgr       0x5C3940     20000         0      5695
+jpeg_fdct_float          0x5CD860     20000         0         0
+forward_DCT_float        0x5C3B70     20000         0         0
+start_pass_upsample      0x5CCE60     20000         0         0
+fullsize_upsample        0x5CCF60     20000         0         0
+noop_upsample            0x5CCF70     20000         0         0
+int_upsample             0x5CCF80     20000         0         0
+h2v1_upsample            0x5CD080     20000         0         0
+h2v2_upsample            0x5CD0E0     20000         0         0
+h2v1_fancy_upsample      0x5CD160     20000         0         0
+h2v2_fancy_upsample      0x5CD220     20000         0         0
+start_pass_dcolor        0x5C9340     20000         0         0
+ycc_rgb_convert          0x5C8FB0     20000         0         0
+dc_null_convert          0x5C90D0     20000         0         0
+dc_grayscale_convert     0x5C9150     20000         0         0
+gray_rgb_convert         0x5C9180     20000         0         0
+ycck_cmyk_convert        0x5C91E0     20000         0         0
+TOTAL de diferencias: 0

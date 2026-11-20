@@ -1,0 +1,27 @@
+funcion                      casos    fallos
+rgb_ycc_start                    4         0
+rgb_ycc_convert              20000         0
+rgb_gray_convert             20000         0
+cmyk_ycck_convert            20000         0
+grayscale_convert            20000         0
+null_convert                 20000         0
+null_method                      1         0
+start_pass_fdctmgr           20000         0
+jpeg_fdct_float               1500         0
+forward_DCT_float             1500         0
+start_pass_upsample          20000         0
+fullsize_upsample            20000         0
+noop_upsample                20000         0
+int_upsample                 20000         0
+h2v1_upsample                20000         0
+h2v2_upsample                20000         0
+h2v1_fancy_upsample          20000         0
+h2v2_fancy_upsample          20000         0
+ycc_rgb_convert              20000         0
+dc_null_convert              20000         0
+start_pass_dcolor                1         0
+dc_grayscale_convert         20000         0
+gray_rgb_convert             20000         0
+ycck_cmyk_convert            20000         0
+forward_DCT_float: coeficientes 191936, identicos al redondeo exacto 191761, empates .5 con +-1 175; max |jpeg_fdct_float - DCT exacta escalada| = 0.00101
+FALLOS DEL ORACULO: 0

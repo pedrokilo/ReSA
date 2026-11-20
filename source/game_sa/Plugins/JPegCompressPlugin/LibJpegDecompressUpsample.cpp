@@ -112,7 +112,7 @@ void ExeSepUpsample(void* cinfo, uint8*** inputBuf, uint32* inRowGroupCtr, uint3
 void ExeJinitUpsampler(void* cinfo) {
     uint8* const up = static_cast<uint8*>(AllocSmallViaMem(cinfo, 1, 0x4C));
     At<uint8*>(cinfo, 0x1A0) = up;
-    At<uint32>(up, 0x00) = 0x5CCE60;
+    At<uint32>(up, 0x00) = LIBJPEG_CB(0x5CCE60, "jdsample", "start_pass_upsample");
     At<uint32>(up, 0x04) = 0x5CCE80;
     At<uint8>(up, 0x08) = 0;
     if (At<uint8>(cinfo, 0x10A) != 0) {
@@ -140,29 +140,29 @@ void ExeJinitUpsampler(void* cinfo) {
         At<int32>(up, 0x34 + 4 * idx) = vInGroup;
         bool allocBuffer = true;
         if (At<uint8>(compptr, 0x30) == 0) {
-            At<uint32>(up, 0x1C + 4 * idx) = 0x5CCF70;
+            At<uint32>(up, 0x1C + 4 * idx) = LIBJPEG_CB(0x5CCF70, "jdsample", "noop_upsample");
             allocBuffer = false;
         } else if (hInGroup == maxH && vInGroup == maxV) {
-            At<uint32>(up, 0x1C + 4 * idx) = 0x5CCF60;
+            At<uint32>(up, 0x1C + 4 * idx) = LIBJPEG_CB(0x5CCF60, "jdsample", "fullsize_upsample");
             allocBuffer = false;
         } else if (hInGroup * 2 == maxH && vInGroup == maxV) {
             if (doFancy != 0 && At<uint32>(compptr, 0x28) > 2) {
-                At<uint32>(up, 0x1C + 4 * idx) = 0x5CD160;
+                At<uint32>(up, 0x1C + 4 * idx) = LIBJPEG_CB(0x5CD160, "jdsample", "h2v1_fancy_upsample");
             } else {
-                At<uint32>(up, 0x1C + 4 * idx) = 0x5CD080;
+                At<uint32>(up, 0x1C + 4 * idx) = LIBJPEG_CB(0x5CD080, "jdsample", "h2v1_upsample");
             }
         } else if (hInGroup * 2 == maxH && vInGroup * 2 == maxV) {
             if (doFancy != 0 && At<uint32>(compptr, 0x28) > 2) {
-                At<uint32>(up, 0x1C + 4 * idx) = 0x5CD220;
+                At<uint32>(up, 0x1C + 4 * idx) = LIBJPEG_CB(0x5CD220, "jdsample", "h2v2_fancy_upsample");
                 At<uint8>(up, 0x08) = 1;
             } else {
-                At<uint32>(up, 0x1C + 4 * idx) = 0x5CD0E0;
+                At<uint32>(up, 0x1C + 4 * idx) = LIBJPEG_CB(0x5CD0E0, "jdsample", "h2v2_upsample");
             }
         } else {
             const int32 hExpand = maxH / hInGroup;
             if (maxH % hInGroup == 0 && maxV % vInGroup == 0) {
                 const int32 vExpand = maxV / vInGroup;
-                At<uint32>(up, 0x1C + 4 * idx) = 0x5CCF80;
+                At<uint32>(up, 0x1C + 4 * idx) = LIBJPEG_CB(0x5CCF80, "jdsample", "int_upsample");
                 At<uint8>(up, 0x44 + idx) = static_cast<uint8>(hExpand);
                 At<uint8>(up, 0x48 + idx) = static_cast<uint8>(vExpand);
             } else {

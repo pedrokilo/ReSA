@@ -1,5 +1,7 @@
 #pragma once
 
+#include "LibJpegCallback.h"
+
 /**
  * Ayudantes comunes (solo cabecera) de las rutinas de la libjpeg 6b que lleva el EXE. Las estructuras del EXE
  * (jpeg_common/compress/decompress_struct, jpeg_error_mgr, my_memory_mgr...) no coinciden con las de la libjpeg-turbo

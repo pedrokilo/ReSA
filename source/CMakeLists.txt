@@ -427,6 +427,18 @@ if (${RE_PROJECT}_WITH_ZLIB_LIBPNG)
     target_compile_definitions(${RE_PROJECT_LIB_NAME} PRIVATE GTASA_WITH_ZLIB_LIBPNG=1)
 endif()
 
+#--------------------------------------------------------------------
+# Lote LIB3A: libjpeg 6b (IJG) compilada desde la fuente oficial (libs/libjpeg-6b), la version que lleva embebida gta_sa.exe.
+# Con la opcion encendida, los callbacks de libjpeg que el codigo propio instala por direccion del EXE (LibJpegExe.h: LibJpegCallback) apuntan a la biblioteca.
+# Por defecto APAGADA: la DLL no cambia hasta validar (ver reversing/FnLIB3A/README.md).
+#--------------------------------------------------------------------
+option(${RE_PROJECT}_WITH_LIBJPEG "Enlaza libjpeg 6b (libs/) y sustituye con ella los callbacks de libjpeg del EXE" OFF)
+if (${RE_PROJECT}_WITH_LIBJPEG)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/libs/libjpeg-6b ${CMAKE_BINARY_DIR}/libs/libjpeg-6b)
+    target_link_libraries(${RE_PROJECT_LIB_NAME} PRIVATE libjpeg6b)
+    target_compile_definitions(${RE_PROJECT_LIB_NAME} PRIVATE GTASA_WITH_LIBJPEG=1)
+endif()
+
 target_include_directories(${RE_PROJECT_LIB_NAME} PRIVATE
     .
     /

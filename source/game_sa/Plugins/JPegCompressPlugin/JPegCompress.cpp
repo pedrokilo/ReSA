@@ -27,6 +27,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "jpeglib.h"
+#include "LibJpegCallback.h"
 
 static auto& g_ScreenshotFileBuf    = StaticRef<std::array<uint8, 204'800>>(0xBD0B78);
 static auto& g_JpegDecodingToRaster = StaticRef<CRGBA*>(0xBD0160);
@@ -990,7 +991,7 @@ static void __cdecl null_convert(DecompressInfo* cinfo, uint8*** input_buf, uint
 static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
     CconvertCtl* cconvert = static_cast<CconvertCtl*>(cinfo->mem->alloc_small(cinfo, kPoolImage, sizeof(CconvertCtl)));
     cinfo->cconvert = cconvert;
-    cconvert->start_pass = 0x5C9340;
+    cconvert->start_pass = LIBJPEG_CB(0x5C9340, "jdcolor", "start_pass_dcolor");
     switch (static_cast<uint32>(cinfo->jpeg_color_space - 1)) {
     case 0: // gris
         if (cinfo->num_components != 1) {
@@ -1019,7 +1020,7 @@ static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
     case kCsGRAYSCALE:
         cinfo->out_color_components = 1;
         if (cinfo->jpeg_color_space == kCsGRAYSCALE || cinfo->jpeg_color_space == kCsYCbCr) {
-            cconvert->color_convert = 0x5C9150;
+            cconvert->color_convert = LIBJPEG_CB(0x5C9150, "jdcolor", "grayscale_convert");
             for (int32 ci = 1; ci < cinfo->num_components; ci++) {
                 cinfo->comp_info[ci].component_needed = 0;
             }
@@ -1030,10 +1031,10 @@ static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
     case kCsRGB:
         cinfo->out_color_components = 4;
         if (cinfo->jpeg_color_space == kCsYCbCr) {
-            cconvert->color_convert = 0x5C8FB0;
+            cconvert->color_convert = LIBJPEG_CB(0x5C8FB0, "jdcolor", "ycc_rgb_convert");
             build_ycc_rgb_table(cinfo);
         } else if (cinfo->jpeg_color_space == kCsGRAYSCALE) {
-            cconvert->color_convert = 0x5C9180;
+            cconvert->color_convert = LIBJPEG_CB(0x5C9180, "jdcolor", "gray_rgb_convert");
         } else {
             ErrExit(cinfo, msg::CONVERSION_NOTIMPL);
         }
@@ -1041,10 +1042,10 @@ static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
     case kCsCMYK:
         cinfo->out_color_components = 4;
         if (cinfo->jpeg_color_space == kCsYCCK) {
-            cconvert->color_convert = 0x5C91E0;
+            cconvert->color_convert = LIBJPEG_CB(0x5C91E0, "jdcolor", "ycck_cmyk_convert");
             build_ycc_rgb_table(cinfo);
         } else if (cinfo->jpeg_color_space == kCsCMYK) {
-            cconvert->color_convert = 0x5C90D0;
+            cconvert->color_convert = LIBJPEG_CB(0x5C90D0, "jdcolor", "null_convert");
         } else {
             ErrExit(cinfo, msg::CONVERSION_NOTIMPL);
         }
@@ -1052,7 +1053,7 @@ static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
     default:
         if (cinfo->out_color_space == cinfo->jpeg_color_space) {
             cinfo->out_color_components = cinfo->num_components;
-            cconvert->color_convert = 0x5C90D0;
+            cconvert->color_convert = LIBJPEG_CB(0x5C90D0, "jdcolor", "null_convert");
         } else {
             ErrExit(cinfo, msg::CONVERSION_NOTIMPL);
         }

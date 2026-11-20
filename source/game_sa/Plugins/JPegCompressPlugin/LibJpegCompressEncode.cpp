@@ -151,7 +151,7 @@ void ExeGrayscaleConvert(void* cinfo, uint8** inputBuf, uint8*** outputBuf, uint
 void ExeJinitColorConverter(void* cinfo) {
     void* const cconvert = AllocSmall(cinfo, 1, 0xC);
     At<void*>(cinfo, 0x150) = cconvert;
-    At<uint32>(cconvert, 0x00) = 0x5C36F0;
+    At<uint32>(cconvert, 0x00) = LIBJPEG_CB(0x5C36F0, "jccolor", "null_method");
 
     switch (At<int32>(cinfo, 0x28)) {
     case 1:
@@ -178,11 +178,11 @@ void ExeJinitColorConverter(void* cinfo) {
         switch (At<int32>(cinfo, 0x28)) {
         case 1:
         case 3:
-            At<uint32>(cconvert, 0x04) = 0x5C35F0;
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C35F0, "jccolor", "grayscale_convert");
             return;
         case 2:
-            At<uint32>(cconvert, 0x00) = 0x5C31E0;
-            At<uint32>(cconvert, 0x04) = 0x5C33E0;
+            At<uint32>(cconvert, 0x00) = LIBJPEG_CB(0x5C31E0, "jccolor", "rgb_ycc_start");
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C33E0, "jccolor", "rgb_gray_convert");
             return;
         default:
             ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
@@ -196,11 +196,11 @@ void ExeJinitColorConverter(void* cinfo) {
         if (At<int32>(cinfo, 0x3C) != 3) { ErrExit(cinfo, JERR_BAD_J_COLORSPACE); }
         switch (At<int32>(cinfo, 0x28)) {
         case 2:
-            At<uint32>(cconvert, 0x00) = 0x5C31E0;
-            At<uint32>(cconvert, 0x04) = 0x5C32C0;
+            At<uint32>(cconvert, 0x00) = LIBJPEG_CB(0x5C31E0, "jccolor", "rgb_ycc_start");
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C32C0, "jccolor", "rgb_ycc_convert");
             return;
         case 3:
-            At<uint32>(cconvert, 0x04) = 0x5C3660;
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C3660, "jccolor", "null_convert");
             return;
         default:
             ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
@@ -209,7 +209,7 @@ void ExeJinitColorConverter(void* cinfo) {
     case 4: // JCS_CMYK
         if (At<int32>(cinfo, 0x3C) != 4) { ErrExit(cinfo, JERR_BAD_J_COLORSPACE); }
         if (At<int32>(cinfo, 0x28) == 4) {
-            At<uint32>(cconvert, 0x04) = 0x5C3660;
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C3660, "jccolor", "null_convert");
             return;
         }
         ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
@@ -218,11 +218,11 @@ void ExeJinitColorConverter(void* cinfo) {
         if (At<int32>(cinfo, 0x3C) != 4) { ErrExit(cinfo, JERR_BAD_J_COLORSPACE); }
         switch (At<int32>(cinfo, 0x28)) {
         case 4:
-            At<uint32>(cconvert, 0x00) = 0x5C31E0;
-            At<uint32>(cconvert, 0x04) = 0x5C3490;
+            At<uint32>(cconvert, 0x00) = LIBJPEG_CB(0x5C31E0, "jccolor", "rgb_ycc_start");
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C3490, "jccolor", "cmyk_ycck_convert");
             return;
         case 5:
-            At<uint32>(cconvert, 0x04) = 0x5C3660;
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C3660, "jccolor", "null_convert");
             return;
         default:
             ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
@@ -232,7 +232,7 @@ void ExeJinitColorConverter(void* cinfo) {
         if (At<int32>(cinfo, 0x40) != At<int32>(cinfo, 0x28) || At<int32>(cinfo, 0x3C) != At<int32>(cinfo, 0x24)) {
             ErrExit(cinfo, JERR_CONVERSION_NOTIMPL);
         }
-        At<uint32>(cconvert, 0x04) = 0x5C3660;
+        At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C3660, "jccolor", "null_convert");
         return;
     }
 }
@@ -243,12 +243,12 @@ void ExeJinitColorConverter(void* cinfo) {
 void ExeJinitForwardDct(void* cinfo) {
     void* const fdct = AllocSmall(cinfo, 1, 0x30);
     At<void*>(cinfo, 0x158) = fdct;
-    At<uint32>(fdct, 0x00) = 0x5C3940;
+    At<uint32>(fdct, 0x00) = LIBJPEG_CB(0x5C3940, "jcdctmgr", "start_pass_fdctmgr");
     if (At<int32>(cinfo, 0xB8) != 2) {
         ErrExit(cinfo, JERR_NOT_COMPILED);
     } else {
-        At<uint32>(fdct, 0x04) = 0x5C3B70;
-        At<uint32>(fdct, 0x1C) = 0x5CD860;
+        At<uint32>(fdct, 0x04) = LIBJPEG_CB(0x5C3B70, "jcdctmgr", "forward_DCT_float");
+        At<uint32>(fdct, 0x1C) = LIBJPEG_CB(0x5CD860, "jfdctflt", "jpeg_fdct_float");
     }
     for (int32 i = 0; i < 4; ++i) {
         At<uint32>(fdct, 0x0C + 4 * i) = 0;
