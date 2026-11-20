@@ -91,3 +91,9 @@ Ver el final de este archivo (sección 6, rellenada al terminar `build_lib3a.sh`
 - **GTASA_WITH_LIBJPEG apagada (por defecto): correcta** (23:48–23:55, `build-project.ps1`; `gta_reversed.asi` 50.545.664 B, SHA256 `97882e78…1ec8`). Una primera pasada falló por falta de `#include "LibJpegCallback.h"` en dos `.cpp` (corregido).
 - **GTASA_WITH_LIBJPEG encendida: correcta** (23:55–00:03; `gta_reversed.asi` 49.679.872 B, SHA256 `f5082049…c886`). Sin errores de compilación ni de enlace; sin símbolos duplicados con libjpeg-turbo de la DLL (el directorio de includes de la biblioteca es privado).
 - No se ha cargado ni ejecutado ninguno de los dos `.asi` en el juego.
+
+## 7. Tanda 2 (parcial, 20/11/2026): configuración de descompresión
+
+- **Confirmado: la descompresión también es solo coma flotante.** `0x5CDA90` (4.364 B, 1.121 instrucciones) es `jpeg_idct_float`: usa exactamente las constantes de `jidctflt.c` (1,414213562, 1,847759065, 1,082392200, 2,613125930). En todo el rango 0x5C2600–0x5D8000 no aparece ninguna constante entera de `jidctint.c` (FIX_1_175875602 = 9633, FIX_2_562915447 = 20995) ni de `jidctfst.c` (277, 473). Coherente con `DCT_ISLOW/IFAST_SUPPORTED` sin definir de `exe_config.h` (la biblioteca compilada así ya no trae `jpeg_idct_islow/ifast`). Falta ubicar `start_pass`/`jinit_inverse_dct` de `jddctmgr` (no es 0x5CD740, que es `format_message` de `jerror`) y comprobar `jidctred`.
+- `0x5CDA90` queda identificada como `jpeg_idct_float` pero **sin banco todavía**.
+- **Las 36 raíces restantes siguen sin hacerse** (no se construyeron los fixtures de `jccoefct`, `jchuff`, `jcmainct`, `jdhuff`, `jdinput`, `jdmainct`, `jdmarker`, `jdmerge`, `jdpostct` ni su oráculo). Siguen pendientes y sin cambios en `mapa_funciones.csv`; los `jinit_*` no se tocan salvo donde el código propio ya usa `LIBJPEG_CB` (hoy: `jinit_color_converter`, `jinit_forward_dct`, `jinit_upsampler`, `jinit_color_deconverter`).
