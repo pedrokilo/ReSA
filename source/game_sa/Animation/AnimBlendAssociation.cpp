@@ -52,7 +52,17 @@ CAnimBlendAssociation* __fastcall CAnimBlendAssociationScalarDeletingDestructor(
 /**
  * Registra las operaciones del estado dinámico de reproducción de una animación.
  */
+// 0x4D1390 (lote S1A, sin validar; cdecl, `ret`, 1 byte): callback por defecto de borrado y fin de animacion; no hace nada (no lee sus argumentos).
+void CDefaultAnimCallback::DefaultAnimCB(CAnimBlendAssociation* /*animAssoc*/, void* /*something*/) {
+}
+
 void CAnimBlendAssociation::InjectHooks() {
+    {
+        RH_ScopedClass(CDefaultAnimCallback);
+        RH_ScopedCategory("Animation");
+        RH_ScopedInstall(DefaultAnimCB, 0x4D1390); // lote S1A (sin validar)
+    }
+
     RH_ScopedClass(CAnimBlendAssociation);
     RH_ScopedCategory("Animation");
 

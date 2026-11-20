@@ -322,8 +322,31 @@ namespace {
 using FightAnimCallback = void (*)(CAnimBlendAssociation*, void*);
 
 // Callback de "borrado" que deja el EXE en las asociaciones (0x4D1390) y callback del final de la animacion de combate (0x61DAE0, cdecl (asociacion, tarea)).
-const auto FightDefaultAnimCB = reinterpret_cast<FightAnimCallback>(0x4D1390);
-const auto FightMeleeAnimCB   = reinterpret_cast<FightAnimCallback>(0x61DAE0);
+const FightAnimCallback FightDefaultAnimCB = CDefaultAnimCallback::DefaultAnimCB; // 0x4D1390 (funcion propia, lote S1A)
+
+// 0x61DAE0 (lote S1A, sin validar; cdecl (asociacion, tarea), `ret`, 79 bytes): callback de fin/borrado de las animaciones de combate. Como el original y en este orden: si la animacion es la de golpe (+0x1C) la deja
+// nula y, si no, si es la de reposo (+0x20) la deja nula; si el identificador de la animacion (palabra +0x2C) es 0x2F pone el BYTE +8 a 1; y sin animacion de reposo, si el BYTE +0x27 (ultimo comando) vale 0x10, 0x11,
+// 0xF o 1, tambien pone el BYTE +8 a 1.
+void FightMeleeAnimFinishCB(CAnimBlendAssociation* anim, void* data) {
+    static_assert(offsetof(CAnimBlendAssociation, m_AnimId) == 0x2C);
+    static_assert(offsetof(CTaskSimpleFight, m_pAnim) == 0x1C && offsetof(CTaskSimpleFight, m_pIdleAnim) == 0x20 && offsetof(CTaskSimpleFight, m_nLastCommand) == 0x27);
+    auto* const task = static_cast<CTaskSimpleFight*>(data);
+    if (task->m_pAnim == anim) {
+        task->m_pAnim = nullptr;
+    } else if (task->m_pIdleAnim == anim) {
+        task->m_pIdleAnim = nullptr;
+    }
+    if (static_cast<int16>(static_cast<AnimationId>(anim->m_AnimId)) == 0x2F) {
+        task->m_bIsFinished = true;
+    }
+    if (!task->m_pIdleAnim) {
+        const uint8 command = task->m_nLastCommand;
+        if (command == 0x10 || command == 0x11 || command == 0xF || command == 1) {
+            task->m_bIsFinished = true;
+        }
+    }
+}
+const FightAnimCallback FightMeleeAnimCB = FightMeleeAnimFinishCB;
 
 constexpr uintptr_t FightLevelsAddress = 0xC177D0; // siete vectores (x, y, z) de "START_LEVELS" de melee.dat
 
@@ -1878,6 +1901,7 @@ void CTaskSimpleFight::InjectHooks() {
     RH_ScopedCategory("Tasks/TaskTypes");
 
     RH_ScopedInstall(Constructor, 0x61C470);
+    RH_ScopedNamedGlobalInstall(FightMeleeAnimFinishCB, "MeleeAnimFinishCB", 0x61DAE0); // lote S1A (sin validar)
     RH_ScopedInstall(Destructor, 0x61C530);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x6239D0); // lote 166A (banco Fn166A)
     RH_ScopedVMTInstall(Clone, 0x622E40);                 // lote 166A
@@ -1980,7 +2004,7 @@ CTaskSimpleFight* CTaskSimpleFight::Constructor(CEntity* entity, int32 nCommand,
 #pragma runtime_checks("", off)
 // 0x61C530
 CTaskSimpleFight* CTaskSimpleFight::Destructor() {
-    const auto DefaultAnimCallback = reinterpret_cast<void(*)(CAnimBlendAssociation*, void*)>(0x4D1390);
+    const auto DefaultAnimCallback = &CDefaultAnimCallback::DefaultAnimCB;
 
     const uint32 previousHead = __readfsdword(0);
     FightFrame frame{ reinterpret_cast<FightFrame*>(static_cast<uintptr_t>(previousHead)), reinterpret_cast<void*>(&FightUnwind), this };

@@ -104,13 +104,31 @@ __declspec(noinline) CTaskInteriorSitInChair* __fastcall SitInChairScalarDeletin
     return self;
 }
 
-// Ayudantes de ProcessPed (0x676D30). El EXE llama al callback de fin de animacion 0x675DD0 (aun sin reconstruir) y a 0x59C890 (CMatrix * CVector) por direccion fija.
-constexpr uint32 SIT_IN_CHAIR_FINISH_CALLBACK = 0x675DD0;
+// Ayudantes de ProcessPed (0x676D30). El EXE llama al callback de fin de animacion 0x675DD0 (funcion propia desde el lote S1A) y a 0x59C890 (CMatrix * CVector) por direccion fija.
 constexpr int16  SIT_ANIM_IN       = 0x157; // animacion de entrada (se pide con 4.0 si no es instantanea)
 constexpr int16  SIT_ANIM_LOOP     = 0x158; // en reposo
 constexpr int16  SIT_ANIM_OUT      = 0x159; // salida
 constexpr auto   SIT_ANIM_GROUP    = static_cast<AssocGroupId>(0x54);
 static_assert(offsetof(CPed, m_vecAnimMovingShiftLocal) == 0x4D8);
+
+// 0x675DD0 (lote S1A, sin validar; cdecl (asociacion, tarea), `ret`, 65 bytes): callback de fin de la animacion de sentarse. Guarda el identificador de la animacion (palabra +0x2C con signo) en +0x18 de la tarea; si es el de
+// reposo (0x158) pone el m_BlendDelta (+0x1C) de la animacion a -1000.0f y el BYTE +0x29 de la tarea a 1; si ademas el BYTE +0x2A es distinto de cero y el valor guardado en +0x18 es la entrada (0x157) repite ambas
+// escrituras; y deja el puntero de animacion (+0x14) a cero.
+static void SitInChairFinishAnimCB(CAnimBlendAssociation* anim, void* data) {
+    static_assert(offsetof(CAnimBlendAssociation, m_AnimId) == 0x2C && offsetof(CAnimBlendAssociation, m_BlendDelta) == 0x1C);
+    auto* const task = static_cast<CTaskInteriorSitInChair*>(data);
+    const int32 animId = static_cast<int16>(static_cast<AnimationId>(anim->m_AnimId));
+    SitInChairField<int32>(task, 0x18) = animId;
+    if (animId == 0x158) {
+        anim->m_BlendDelta = -1000.0f;
+        SitInChairField<uint8>(task, 0x29) = 1;
+    }
+    if (SitInChairField<uint8>(task, 0x2A) != 0 && SitInChairField<int32>(task, 0x18) == 0x157) {
+        anim->m_BlendDelta = -1000.0f;
+        SitInChairField<uint8>(task, 0x29) = 1;
+    }
+    SitInChairField<uint32>(task, 0x14) = 0;
+}
 
 // Identificador de la animacion como el EXE lo lee (MOVSX de una palabra con signo)
 static int32 SitAnimIdOf(const CAnimBlendAssociation* assoc) {
@@ -122,7 +140,7 @@ static int32 SitAnimIdOf(const CAnimBlendAssociation* assoc) {
 static CAnimBlendAssociation* SitInChairBlendAnim(CTaskInteriorSitInChair* self, CPed* ped, int16 animId, float blendDelta) {
     auto* const assoc = CAnimManager::BlendAnimation(reinterpret_cast<RpClump*>(ped->GetRwObject()), SIT_ANIM_GROUP, static_cast<AnimationId>(animId), blendDelta);
     SitInChairField<CAnimBlendAssociation*>(self, 0x14) = assoc;
-    assoc->SetFinishCallback(reinterpret_cast<void(*)(CAnimBlendAssociation*, void*)>(SIT_IN_CHAIR_FINISH_CALLBACK), self);
+    assoc->SetFinishCallback(SitInChairFinishAnimCB, self);
     return assoc;
 }
 
@@ -305,6 +323,7 @@ void CTaskInteriorSitInChair::InjectHooks() {
     RH_ScopedNamedGlobalInstall(SitInChairMakeAbortable, "MakeAbortable", 0x675D60);     // lote 176A (sin validar)
     RH_ScopedNamedGlobalInstall(SitInChairScalarDeletingDestructor, "ScalarDeletingDestructor", 0x676D10); // lote 204A (sin validar)
     RH_ScopedNamedGlobalInstall(SitInChairProcessPed, "ProcessPed", 0x676D30);           // lote 204A (sin validar)
+    RH_ScopedNamedGlobalInstall(SitInChairFinishAnimCB, "FinishAnimCB", 0x675DD0);       // lote S1A (sin validar)
 }
 
 // Como el original: conserva la vtable EXE para los demás métodos. Deja EAX = this, ECX = (info con el byte bajo = modo) y EDX = duracion.

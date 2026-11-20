@@ -27,7 +27,7 @@ namespace {
 // Callback por defecto de animaciones del EXE (CDefaultAnimCallback::DefaultAnimCB, 0x4D1390: `ret`). Como el original, el destructor pasa la direccion del EXE a SetDeleteCallback (la de la DLL no vale para la
 // comparacion de lo que se le pasa).
 using AnimDeleteCallback = void (*)(CAnimBlendAssociation*, void*);
-const AnimDeleteCallback kExeDefaultAnimCB = reinterpret_cast<AnimDeleteCallback>(0x4D1390);
+const AnimDeleteCallback kExeDefaultAnimCB = CDefaultAnimCallback::DefaultAnimCB; // 0x4D1390 (funcion propia, lote S1A)
 
 // 0x678D50 (lote 152A, banco Fn152A): cuerpo del destructor de CTaskSimpleInAir del EXE (thiscall, sin argumentos de pila, `ret`, 109 bytes con marco SEH que solo desenrolla; el listado lo atribuia a la
 // misma clase): deja la vtable de la clase (0x8704D8); si hay animacion (m_pAnim, +0x1C) le pone SetDeleteCallback(0x4D1390, nullptr) (0x4CEBC0, con hook); si hay entidad de trepada (m_pClimbEntity, +0x38)
