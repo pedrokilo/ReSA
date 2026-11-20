@@ -84,3 +84,5 @@ Ver el final de este archivo (sección «Compilación»). Archivos del lote: `be
 ## Compilación
 
 Proyecto completo en Debug (`reversing/CVehicle/build-project.ps1`, bajo `compile_lock`, `CMAKE_BUILD_PARALLEL_LEVEL=1`, `_CL_=-MP1`, worktree `wv-13`): **correcto** (EXIT=0, sin errores de compilación ni de enlace; el primer intento falló solo en el enlace por falta de espacio en D:, LNK1108, y se repitió). Sin ejecutar el juego: ni la prueba en juego ni `register_hook.py` se han hecho.
+
+Segunda compilación (con la rutina propia de MatrixMultiplyTranspose, los seis hooks matemáticos y el registro): Debug completo correcto, EXIT=0, sin errores (asi 50.543.616 bytes). Regeneración de docs: `python contrib/sync_docs.py` aborta en este árbol porque 2.633 evidencias históricas de `validated=1` no están versionadas (hooks.csv 11.780 frente a 9.147 aprobadas); no se ha ejecutado `sync_validated_flags.py` (pondría a 0 esas filas) y `docs/hooks.csv` se editó a mano (6 filas nuevas con validated=1). Los banners de `d3dx9math.cpp` ya cuentan 17/17 y 6/17 validadas.
