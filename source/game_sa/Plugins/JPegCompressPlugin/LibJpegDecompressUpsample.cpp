@@ -50,7 +50,7 @@ inline void** AllocSarrayViaMem(void* cinfo, void* mem, int32 pool, uint32 sampl
 void ExeJinitPostController(void* cinfo, int32 needFullBuffer) {
     uint8* const post = static_cast<uint8*>(AllocSmallViaMem(cinfo, 1, 0x1C));
     At<uint8*>(cinfo, 0x18C) = post;
-    At<uint32>(post, 0x00) = 0x5CCD70;
+    At<uint32>(post, 0x00) = LIBJPEG_CB(0x5CCD70, "jdpostct", "start_pass_dpost");
     At<uint32>(post, 0x08) = 0;
     At<uint32>(post, 0x0C) = 0;
     if (At<uint8>(cinfo, 0x4A) == 0) {

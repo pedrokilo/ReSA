@@ -83,7 +83,7 @@ constexpr int32 CSTATE_RAW_OK = 102;
 void ExeJinitMainController(void* cinfo, int32 needFullBuffer) {
     void* const main = AllocSmall(cinfo, 1, 0x28);
     At<void*>(cinfo, 0x140) = main;
-    At<uint32>(main, 0x00) = 0x5C53D0;
+    At<uint32>(main, 0x00) = LIBJPEG_CB(0x5C53D0, "jcmainct", "start_pass_main");
     if (At<uint8>(cinfo, 0xB0)) {
         return;
     }
@@ -107,7 +107,7 @@ void ExeJinitMainController(void* cinfo, int32 needFullBuffer) {
 void ExeJinitCoefController(void* cinfo, int32 needFullBuffer) {
     void* const coef = AllocSmall(cinfo, 1, 0x50);
     At<void*>(cinfo, 0x148) = coef;
-    At<uint32>(coef, 0x00) = 0x5C2FF0;
+    At<uint32>(coef, 0x00) = LIBJPEG_CB(0x5C2FF0, "jccoefct", "start_pass_coef");
     if (static_cast<uint8>(needFullBuffer)) {
         uint8* compptr = At<uint8*>(cinfo, 0x44);
         for (int32 ci = 0; ci < At<int32>(cinfo, 0x3C); ++ci, compptr += 0x54) {
@@ -262,7 +262,7 @@ void ExeJinitForwardDct(void* cinfo) {
 void ExeJinitHuffEncoder(void* cinfo) {
     void* const entropy = AllocSmall(cinfo, 1, 0x6C);
     At<void*>(cinfo, 0x15C) = entropy;
-    At<uint32>(entropy, 0x00) = 0x5C5090;
+    At<uint32>(entropy, 0x00) = LIBJPEG_CB(0x5C5090, "jchuff", "start_pass_huff");
     for (int32 i = 0; i < 4; ++i) {
         At<uint32>(entropy, 0x3C + 4 * i) = 0;
         At<uint32>(entropy, 0x2C + 4 * i) = 0;

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegCallback.h"
 
 #include "LibJpegError.h"
 #include "LibJpegExe.h"
@@ -47,10 +48,10 @@ void ExeOutputMessage(void* cinfo) {
 // Devuelve err.
 void* ExeJpegStdError(void* err) {
     At<uint32>(err, 0x00) = 0x5CD6B0;
-    At<uint32>(err, 0x04) = 0x5CD700;
+    At<uint32>(err, 0x04) = LIBJPEG_CB(0x5CD700, "jerror", "emit_message");
     At<uint32>(err, 0x08) = 0x5CD6D0;
-    At<uint32>(err, 0x0C) = 0x5CD740;
-    At<uint32>(err, 0x10) = 0x5CD7F0;
+    At<uint32>(err, 0x0C) = LIBJPEG_CB(0x5CD740, "jerror", "format_message");
+    At<uint32>(err, 0x10) = LIBJPEG_CB(0x5CD7F0, "jerror", "reset_error_mgr");
     At<uint32>(err, 0x68) = 0;
     At<uint32>(err, 0x6C) = 0;
     At<uint32>(err, 0x14) = 0;

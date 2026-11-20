@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegCallback.h"
 
 #include "LibJpegDecompress.h"
 
@@ -451,8 +452,8 @@ int32 ExeJpegHuffDecode(uint8* state, int32 getBuffer, int32 bitsLeft, uint8* ht
 void ExeJinitHuffDecoder(void* cinfo) {
     uint8* const entropy = static_cast<uint8*>(AllocSmall(cinfo, 1, 0xAC));
     At<void*>(cinfo, 0x198) = entropy;
-    At<uint32>(entropy, 0x00) = 0x5CA110;
-    At<uint32>(entropy, 0x04) = 0x5C9CE0;
+    At<uint32>(entropy, 0x00) = LIBJPEG_CB(0x5CA110, "jdhuff", "start_pass_huff_decoder");
+    At<uint32>(entropy, 0x04) = LIBJPEG_CB(0x5C9CE0, "jdhuff", "decode_mcu");
     for (uint32 i = 0; i < 4; ++i) {
         At<uint32>(entropy, 0x38 + 4 * i) = 0;
         At<uint32>(entropy, 0x28 + 4 * i) = 0;
@@ -526,7 +527,7 @@ void ExeJinitInputController(void* cinfo) {
     At<uint32>(inputctl, 0x00) = 0x5CA720;
     At<uint32>(inputctl, 0x04) = 0x5CA7E0;
     At<uint32>(inputctl, 0x08) = 0x5CA6E0;
-    At<uint32>(inputctl, 0x0C) = 0x5CA820;
+    At<uint32>(inputctl, 0x0C) = LIBJPEG_CB(0x5CA820, "jdinput", "finish_input_pass");
     At<uint8>(inputctl, 0x10) = 0;
     At<uint8>(inputctl, 0x11) = 0;
     At<uint8>(inputctl, 0x14) = 1;
@@ -606,7 +607,7 @@ void ExeSetBottomPointers(void* cinfo) {
 void ExeJinitDMainController(void* cinfo, int32 needFullBuffer) {
     uint8* const main = static_cast<uint8*>(AllocSmall(cinfo, 1, 0x38));
     At<void*>(cinfo, 0x184) = main;
-    At<uint32>(main, 0x00) = 0x5CADC0;
+    At<uint32>(main, 0x00) = LIBJPEG_CB(0x5CADC0, "jdmainct", "start_pass_main");
     if (static_cast<uint8>(needFullBuffer)) {
         ErrExit(cinfo, JERR_BAD_BUFFER_MODE);
     }
@@ -897,17 +898,17 @@ bool ExeReadRestartMarker(void* cinfo) {
 void ExeJinitMarkerReader(void* cinfo) {
     uint8* const marker = static_cast<uint8*>(AllocSmall(cinfo, 0, 0xA8));
     At<void*>(cinfo, 0x194) = marker;
-    At<uint32>(marker, 0x00) = 0x5CC7A0;
-    At<uint32>(marker, 0x04) = 0x5CC290;
+    At<uint32>(marker, 0x00) = LIBJPEG_CB(0x5CC7A0, "jdmarker", "reset_marker_reader");
+    At<uint32>(marker, 0x04) = LIBJPEG_CB(0x5CC290, "jdmarker", "read_markers");
     At<uint32>(marker, 0x08) = 0x5CC610;
-    At<uint32>(marker, 0x18) = 0x5CC050;
+    At<uint32>(marker, 0x18) = LIBJPEG_CB(0x5CC050, "jdmarker", "skip_variable");
     At<uint32>(marker, 0x5C) = 0;
     for (uint32 i = 0; i < 16; ++i) {
-        At<uint32>(marker, 0x1C + 4 * i) = 0x5CC050;
+        At<uint32>(marker, 0x1C + 4 * i) = LIBJPEG_CB(0x5CC050, "jdmarker", "skip_variable");
         At<uint32>(marker, 0x60 + 4 * i) = 0;
     }
-    At<uint32>(marker, 0x1C) = 0x5CBF00;
-    At<uint32>(marker, 0x54) = 0x5CBF00;
+    At<uint32>(marker, 0x1C) = LIBJPEG_CB(0x5CBF00, "jdmarker", "get_interesting_appn");
+    At<uint32>(marker, 0x54) = LIBJPEG_CB(0x5CBF00, "jdmarker", "get_interesting_appn");
     uint8* const marker2 = At<uint8*>(cinfo, 0x194);
     At<uint32>(cinfo, 0xC4) = 0;
     At<uint32>(cinfo, 0x7C) = 0;
@@ -1090,7 +1091,7 @@ void ExeJinitMasterDecompress(void* cinfo) {
     uint8* const master = static_cast<uint8*>(AllocSmall(cinfo, 1, 0x1C));
     At<void*>(cinfo, 0x180) = master;
     At<uint32>(master, 0x00) = 0x5CCB50;
-    At<uint32>(master, 0x04) = 0x5CCC90;
+    At<uint32>(master, 0x04) = LIBJPEG_CB(0x5CCC90, "jdmaster", "finish_output_pass");
     At<uint8>(master, 0x08) = 0;
     MasterSelection(cinfo);
 }
