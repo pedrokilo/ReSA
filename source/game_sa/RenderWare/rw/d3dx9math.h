@@ -6,6 +6,18 @@
 
 void D3DX9InjectHooks();
 
+// Lote EXT1A: acceso a las funciones exportadas por la d3dx9_43.dll del sistema (carga perezosa; si falta la DLL se registra el error una vez, las de matematica devuelven `out` sin escribir
+// y las de shaders devuelven D3DERR_NOTAVAILABLE). Sustituyen a las 19 funciones de D3DX9 enlazadas en el EXE (ver reversing/FnEXT1A/README.md).
+namespace D3DX9System {
+float* Float16To32Array(float* out, const uint16* in, uint32 count);
+void*  Vec3TransformCoord(void* out, const void* v, const void* matrix);
+void*  Vec3TransformNormal(void* out, const void* v, const void* matrix);
+void*  MatrixMultiply(void* out, const void* a, const void* b);
+void*  MatrixTranspose(void* out, const void* in);
+void*  MatrixMultiplyTranspose(void* out, const void* a, const void* b);
+} // namespace D3DX9System
+
+
 // 0x7C1D80: D3DXFloat16To32Array, variante 3DNow!/MMX. Convierte `count` medios flotantes a float; devuelve `out`.
 float* __stdcall D3DXFloat16To32Array_3DNow(float* out, const uint16* in, uint32 count);
 

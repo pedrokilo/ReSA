@@ -1,0 +1,24 @@
+== ronda1 mutacion 1
+3,D3DXMatrixMultiply aplicadas=1789 detectadas=1789
+== ronda1 mutacion 2
+1,D3DXVec3TransformCoord aplicadas=67 detectadas=67
+== ronda1 mutacion 3
+2,D3DXVec3TransformNormal aplicadas=77 detectadas=77
+== ronda1 mutacion 4
+4,D3DXMatrixTranspose aplicadas=224 detectadas=224
+== ronda1 mutacion 5
+5,D3DXMatrixMultiplyTranspose aplicadas=130 detectadas=98
+== ronda1 mutacion 6
+6,D3DXFloat16To32Array aplicadas=1590 detectadas=1590
+== ronda2 mutacion 11
+3,D3DXMatrixMultiply aplicadas=10 detectadas=10
+== ronda2 mutacion 12
+1,D3DXVec3TransformCoord aplicadas=36 detectadas=36
+== ronda2 mutacion 13
+2,D3DXVec3TransformNormal aplicadas=67 detectadas=67
+== ronda2 mutacion 14
+4,D3DXMatrixTranspose aplicadas=30 detectadas=30
+== ronda2 mutacion 15
+5,D3DXMatrixMultiplyTranspose aplicadas=42 detectadas=33
+== ronda2 mutacion 16
+6,D3DXFloat16To32Array aplicadas=80 detectadas=80

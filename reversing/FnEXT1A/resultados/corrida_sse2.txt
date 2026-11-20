@@ -1,0 +1,12 @@
+EXE tamano 5189632
+configuracion EXE: sse2; punteros: [0x8D749C]=007b92c6 [0x8D74A0]=007ba139 [0x8D74A8]=007b9bc5 [0x8D74B8]=007b9d6e [0x8D7524]=007675f4
+DLL: C:\WINDOWS\SYSTEM32\d3dx9_43.dll
+
+fn,nombre,pares_normal,dif_normal,pares_borde,dif_borde,solo_NaN,oraculo_comprobados,fallos_oraculo_EXE,fallos_oraculo_DLL,dif_fuera_tolerancia_oraculo,dif_retorno,guardas,fallos_SEH,mutaciones_aplicadas,detectadas
+1,D3DXVec3TransformCoord,20000,0,4000,0,31,20000,0,0,0,0,0,0,0,0
+2,D3DXVec3TransformNormal,20000,0,4000,0,0,20000,0,0,0,0,0,0,0,0
+3,D3DXMatrixMultiply,20000,0,4000,0,0,20000,0,0,0,0,0,0,0,0
+4,D3DXMatrixTranspose,20000,0,4000,0,0,20000,0,0,0,0,0,0,0,0
+5,D3DXMatrixMultiplyTranspose,20000,12488,4000,2711,0,20000,0,0,0,0,0,0,0,0
+6,D3DXFloat16To32Array,20000,0,4000,0,0,20000,0,0,0,0,0,0,0,0
+TOTAL diferencias (clase normal): 12488
