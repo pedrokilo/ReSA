@@ -846,7 +846,8 @@ static void add_huffd_tests() {
                 x.dump = [c, en, nc, ci](std::vector<uint8_t>& v) {
                     put32(v, (uint32_t)nc); put32(v, (uint32_t)c->Ss); put32(v, (uint32_t)c->Se); put32(v, (uint32_t)c->Ah); put32(v, (uint32_t)c->Al); put32(v, c->restart_interval);
                     for (int i = 0; i < nc; i++) { put32(v, (uint32_t)ci[i].dc_tbl_no); put32(v, (uint32_t)ci[i].ac_tbl_no); }
-                    put32(v, W32(en, 0x20)); put32(v, (uint32_t)g_err_calls); put32(v, (uint32_t)c->err->msg_code);
+                    for (int t = 0; t < 4; t++) { put32(v, c->dc_huff_tbl_ptrs[t] != nullptr); put32(v, c->ac_huff_tbl_ptrs[t] != nullptr); }
+                    put32(v, W32(en, 0x24)); put32(v, (uint32_t)g_err_calls); put32(v, (uint32_t)c->err->msg_code);
                 };
                 return;
             }

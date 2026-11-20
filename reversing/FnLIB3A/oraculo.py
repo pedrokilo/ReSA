@@ -709,6 +709,19 @@ def t_self_destruct(r, ec):
     ef += mgr
     return ec == 0 and mem_after == 0 and frees == ef and closes == ec_exp
 
+def t_start_hd(r, ec):
+    nc, Ss, Se, Ah, Al, ri = [r.u32() for _ in range(6)]
+    comps = [(r.u32(), r.u32()) for _ in range(nc)]
+    pres = [(r.u32(), r.u32()) for _ in range(4)]
+    rtg, nerr, code = r.u32(), r.u32(), r.u32()
+    err = False
+    for (d, a) in comps:
+        if not (0 <= d < 4) or not pres[d][0]: err = True; break
+        if not (0 <= a < 4) or not pres[a][1]: err = True; break
+    if (ec != 0) != err: return False
+    if err: return True
+    return rtg == ri
+
 def t_start_up(r, ec):
     maxv, oh, nro, rtg = r.u32(), r.u32(), r.u32(), r.u32()
     return nro == maxv and rtg == oh and ec == 0
@@ -771,7 +784,7 @@ def t_dcolor(r, ec):
 
 def t_nothing(r, ec): return ec == 0
 
-CHECKS = {'self_destruct': t_self_destruct, 'start_pass_huff': t_start_huff, 'decode_mcu': t_decode_mcu, 'start_pass_huff_decoder': t_nothing, 'read_markers': t_read_markers, 'get_interesting_appn': t_read_markers, 'jinit_marker_reader': t_nothing, 'access_virt_sarray': t_virt, 'access_virt_barray': t_virt, 'write_tables_only': t_marker_hdr, 'write_scan_header': t_marker_hdr, 'decompress_onepass': t_onepass, 'pre_process_data': t_pre_process, 'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
+CHECKS = {'self_destruct': t_self_destruct, 'start_pass_huff': t_start_huff, 'decode_mcu': t_decode_mcu, 'start_pass_huff_decoder': t_start_hd, 'read_markers': t_read_markers, 'get_interesting_appn': t_read_markers, 'jinit_marker_reader': t_nothing, 'access_virt_sarray': t_virt, 'access_virt_barray': t_virt, 'write_tables_only': t_marker_hdr, 'write_scan_header': t_marker_hdr, 'decompress_onepass': t_onepass, 'pre_process_data': t_pre_process, 'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
           'emit_byte': t_marker_bytes, 'write_marker_header': t_marker_bytes, 'start_pass_prep': t_start_prep, 'reset_marker_reader': t_reset_marker, 'start_pass_dpost': t_dpost, 'jpeg_idct_float': t_idct_float, 'rgb_ycc_start': t_rgb_ycc_start, 'rgb_ycc_convert': t_color_compress('ycc'), 'rgb_gray_convert': t_color_compress('gray'), 'cmyk_ycck_convert': t_color_compress('cmyk'),
           'grayscale_convert': t_color_compress('grayc'), 'null_convert': t_color_compress('null'), 'null_method': t_nothing, 'start_pass_fdctmgr': t_start_fdct,
           'jpeg_fdct_float': t_fdct_float, 'forward_DCT_float': t_forward_dct, 'start_pass_upsample': t_start_up, 'fullsize_upsample': t_upsample, 'noop_upsample': t_upsample,

@@ -166,5 +166,278 @@
   "pares": 20000,
   "diferencias": 20000,
   "detectada": true
+ },
+ {
+  "k": 25,
+  "funcion": "jpeg_idct_float",
+  "pares": 20000,
+  "diferencias": 9457,
+  "detectada": true
+ },
+ {
+  "k": 26,
+  "funcion": "emit_message",
+  "pares": 20000,
+  "diferencias": 1547,
+  "detectada": true
+ },
+ {
+  "k": 27,
+  "funcion": "reset_error_mgr",
+  "pares": 20000,
+  "diferencias": 88,
+  "detectada": true
+ },
+ {
+  "k": 28,
+  "funcion": "format_message",
+  "pares": 20000,
+  "diferencias": 1094,
+  "detectada": true
+ },
+ {
+  "k": 29,
+  "funcion": "finish_output_pass",
+  "pares": 20000,
+  "diferencias": 798,
+  "detectada": true
+ },
+ {
+  "k": 30,
+  "funcion": "reset_marker_reader",
+  "pares": 20000,
+  "diferencias": 1684,
+  "detectada": true
+ },
+ {
+  "k": 31,
+  "funcion": "finish_input_pass",
+  "pares": 20000,
+  "diferencias": 3352,
+  "detectada": true
+ },
+ {
+  "k": 32,
+  "funcion": "start_pass_dpost",
+  "pares": 20000,
+  "diferencias": 453,
+  "detectada": true
+ },
+ {
+  "k": 33,
+  "funcion": "start_pass_main_d",
+  "pares": 20000,
+  "diferencias": 1820,
+  "detectada": true
+ },
+ {
+  "k": 34,
+  "funcion": "start_input_pass_coef",
+  "pares": 20000,
+  "diferencias": 6691,
+  "detectada": true
+ },
+ {
+  "k": 35,
+  "funcion": "start_output_pass_coef",
+  "pares": 20000,
+  "diferencias": 3347,
+  "detectada": true
+ },
+ {
+  "k": 36,
+  "funcion": "start_pass_main_c",
+  "pares": 20000,
+  "diferencias": 1971,
+  "detectada": true
+ },
+ {
+  "k": 37,
+  "funcion": "start_pass_coef_c",
+  "pares": 20000,
+  "diferencias": 643,
+  "detectada": true
+ },
+ {
+  "k": 38,
+  "funcion": "start_pass_prep",
+  "pares": 20000,
+  "diferencias": 2059,
+  "detectada": true
+ },
+ {
+  "k": 39,
+  "funcion": "finish_pass_master",
+  "pares": 20000,
+  "diferencias": 2775,
+  "detectada": true
+ },
+ {
+  "k": 40,
+  "funcion": "emit_byte",
+  "pares": 20000,
+  "diferencias": 1656,
+  "detectada": true
+ },
+ {
+  "k": 41,
+  "funcion": "write_marker_header",
+  "pares": 20000,
+  "diferencias": 61,
+  "detectada": true
+ },
+ {
+  "k": 42,
+  "funcion": "start_pass_downsample",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 43,
+  "funcion": "sep_downsample",
+  "pares": 20000,
+  "diferencias": 4024,
+  "detectada": true
+ },
+ {
+  "k": 44,
+  "funcion": "int_downsample",
+  "pares": 20000,
+  "diferencias": 4981,
+  "detectada": true
+ },
+ {
+  "k": 45,
+  "funcion": "fullsize_downsample",
+  "pares": 20000,
+  "diferencias": 2567,
+  "detectada": true
+ },
+ {
+  "k": 46,
+  "funcion": "h2v1_downsample",
+  "pares": 20000,
+  "diferencias": 12557,
+  "detectada": true
+ },
+ {
+  "k": 47,
+  "funcion": "h2v2_downsample",
+  "pares": 20000,
+  "diferencias": 12384,
+  "detectada": true
+ },
+ {
+  "k": 48,
+  "funcion": "start_pass_idctmgr",
+  "pares": 20000,
+  "diferencias": 1894,
+  "detectada": true
+ },
+ {
+  "k": 49,
+  "funcion": "pre_process_data",
+  "pares": 20000,
+  "diferencias": 4643,
+  "detectada": true
+ },
+ {
+  "k": 50,
+  "funcion": "decompress_onepass",
+  "pares": 20000,
+  "diferencias": 2255,
+  "detectada": true
+ },
+ {
+  "k": 51,
+  "funcion": "write_tables_only",
+  "pares": 20000,
+  "diferencias": 10006,
+  "detectada": true
+ },
+ {
+  "k": 52,
+  "funcion": "write_scan_header",
+  "pares": 20000,
+  "diferencias": 528,
+  "detectada": true
+ },
+ {
+  "k": 53,
+  "funcion": "access_virt_sarray",
+  "pares": 20000,
+  "diferencias": 164,
+  "detectada": true
+ },
+ {
+  "k": 54,
+  "funcion": "access_virt_barray",
+  "pares": 20000,
+  "diferencias": 168,
+  "detectada": true
+ },
+ {
+  "k": 55,
+  "funcion": "read_markers",
+  "pares": 20000,
+  "diferencias": 7065,
+  "detectada": true
+ },
+ {
+  "k": 56,
+  "funcion": "get_interesting_appn",
+  "pares": 20000,
+  "diferencias": 1671,
+  "detectada": true
+ },
+ {
+  "k": 57,
+  "funcion": "read_markers",
+  "pares": 20000,
+  "diferencias": 125,
+  "detectada": true
+ },
+ {
+  "k": 58,
+  "funcion": "jinit_marker_reader",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 59,
+  "funcion": "decode_mcu",
+  "pares": 20000,
+  "diferencias": 211,
+  "detectada": true
+ },
+ {
+  "k": 60,
+  "funcion": "start_pass_huff_decoder",
+  "pares": 20000,
+  "diferencias": 2404,
+  "detectada": true
+ },
+ {
+  "k": 61,
+  "funcion": "start_pass_huff",
+  "pares": 20000,
+  "diferencias": 2591,
+  "detectada": true
+ },
+ {
+  "k": 62,
+  "funcion": "self_destruct",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 63,
+  "funcion": "dummy_consume_data",
+  "pares": 20000,
+  "diferencias": 1664,
+  "detectada": true
  }
 ]

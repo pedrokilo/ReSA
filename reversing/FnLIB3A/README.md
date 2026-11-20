@@ -1,5 +1,7 @@
 # FnLIB3A: libjpeg 6b (IJG) compilada desde la fuente oficial (19/11/2026)
 
+> **Estado a 20/11/2026 (LIB3B, sección 8): las 60 filas del mapa están validadas (22 de la tanda 1 + 38 de la tanda 3; 62 pruebas con las 24 funciones de la tanda 1, 1.240.000 pares, 0 diferencias, 126 mutaciones detectadas).** Las secciones 4, 5 y 7 describen el estado de la tanda 1/2 y quedan superadas por la 8.
+
 Lote del hito «EXE independiente» para libjpeg: compilar **libjpeg 6b** (la que lleva `gta_sa.exe`, `jversion` «6b 27-Mar-1998»), mapear sus funciones contra las del EXE y sustituir con la biblioteca los callbacks que el código propio todavía toma del EXE, validándolos par a par contra el EXE. Método de `reversing/FnLIB1A/README.md`. **Primera tanda: 24 funciones (22 de las 58 raíces S3A/S4A de `docs/ExeIndependiente/raices.csv`).**
 
 | | Resultado |
@@ -97,3 +99,56 @@ Ver el final de este archivo (sección 6, rellenada al terminar `build_lib3a.sh`
 - **Confirmado: la descompresión también es solo coma flotante.** `0x5CDA90` (4.364 B, 1.121 instrucciones) es `jpeg_idct_float`: usa exactamente las constantes de `jidctflt.c` (1,414213562, 1,847759065, 1,082392200, 2,613125930). En todo el rango 0x5C2600–0x5D8000 no aparece ninguna constante entera de `jidctint.c` (FIX_1_175875602 = 9633, FIX_2_562915447 = 20995) ni de `jidctfst.c` (277, 473). Coherente con `DCT_ISLOW/IFAST_SUPPORTED` sin definir de `exe_config.h` (la biblioteca compilada así ya no trae `jpeg_idct_islow/ifast`). Falta ubicar `start_pass`/`jinit_inverse_dct` de `jddctmgr` (no es 0x5CD740, que es `format_message` de `jerror`) y comprobar `jidctred`.
 - `0x5CDA90` queda identificada como `jpeg_idct_float` pero **sin banco todavía**.
 - **Las 36 raíces restantes siguen sin hacerse** (no se construyeron los fixtures de `jccoefct`, `jchuff`, `jcmainct`, `jdhuff`, `jdinput`, `jdmainct`, `jdmarker`, `jdmerge`, `jdpostct` ni su oráculo). Siguen pendientes y sin cambios en `mapa_funciones.csv`; los `jinit_*` no se tocan salvo donde el código propio ya usa `LIBJPEG_CB` (hoy: `jinit_color_converter`, `jinit_forward_dct`, `jinit_upsampler`, `jinit_color_deconverter`).
+
+
+## 8. Tanda 3 (LIB3B, 20/11/2026): las raíces que quedaban «pendiente»
+
+Continuación de LIB3A con el mismo banco (`bench.cpp`, ahora con 62 pruebas) y el mismo oráculo (`oraculo.py`). **38 funciones nuevas validadas par a par contra el EXE** (62 en total con las 24 de la tanda 1; las 34 raíces «pendiente» del README original más `jpeg_idct_float` y `dummy_consume_data`, que no estaban en la lista). Las dos filas que seguían sin identificar en `mapa_funciones.csv` quedan resueltas: `0x5C8E10` = `dummy_consume_data` (jdcoefct) y `0x5CF690` = `self_destruct` (jmemmgr). Las 4 funciones de `jdmarker`/`jdhuff`/`jchuff` que sólo se ejercitan dentro de otra quedan como «validada indirectamente».
+
+| | Resultado |
+|---|---|
+| Pruebas del banco | **62 de 62 sin diferencias**: 20.000 pares por función (≥ 16.384), 1.240.000 pares, 0 diferencias (`resultados/corrida_completa_3b.txt`), x87 a 24 bits |
+| Oráculo independiente | 0 fallos en las 62 (`resultados/oraculo_3b.txt`); aritmética en Python para IDCT, tabla de multiplicadores, submuestreo, preproceso; **codificador Huffman de referencia propio** (oráculo de `decode_mcu`); analizador de marcadores en Python; flujo de bytes de DQT/DHT/DRI/SOS; códigos canónicos del estándar |
+| Prueba negativa | **126 de 126 mutaciones detectadas** (63 por ronda × 2 rondas; `resultados/negativas_3b.txt`, `negative-runs/ronda1.json`, `ronda2.json`); mutaciones de 2 rondas por función, activadas sólo con datos concretos |
+| `mapa_funciones.csv` | 60 raíces: **todas validadas** (22 de LIB3A + 38 de LIB3B) y 4 funciones internas «validadas indirectamente» |
+| `validated=1` en `hooks.csv` | **ninguna** (el juego no se lanza desde este lote; falta la corrida dentro del juego) |
+| Código propio | 38 asignaciones de callbacks ya validados pasan por `LIBJPEG_CB` (`JPegCompress.cpp`, `LibJpegCompress*.cpp`, `LibJpegDecompress*.cpp`, `LibJpegError.cpp`, `LibJpegMemory.cpp`); con la opción apagada siguen siendo las direcciones del EXE |
+
+### 8.1 Grupos (un commit por grupo)
+
+| Grupo | Funciones (dirección) | Fixture y oráculo |
+|---|---|---|
+| 1 jidctflt | `jpeg_idct_float` 0x5CDA90 | `cinfo` con tabla de recorte, tabla AAN real (oráculo: IDCT exacta en doble precisión, máx. ±1 por el truncamiento de la biblioteca; 154.551 de 161.024 muestras idénticas al redondeo exacto) y tablas con NaN/inf/denormales (sólo EXE frente a biblioteca) |
+| 2 estado | `emit_message` 0x5CD700, `format_message` 0x5CD740, `reset_error_mgr` 0x5CD7F0, `finish_output_pass` 0x5CCC90, `reset_marker_reader` 0x5CC7A0, `finish_input_pass` 0x5CA820, `start_pass_dpost` 0x5CCD70, `start_pass_main` (d) 0x5CADC0 y (c) 0x5C53D0, `start_input_pass` 0x5C8B40, `start_output_pass` 0x5C8B60, `start_pass_coef` 0x5C2FF0, `start_pass_prep` 0x5C76A0, `finish_pass_master` 0x5C6A10, `emit_byte` 0x5C6070, `write_marker_header` 0x5C6030 | estructuras privadas con palabras aleatorias; los punteros a función que escribe cada lado se comparan por **identidad** (`Ctx::fps`: dirección del EXE ↔ función de la biblioteca); oráculo Python de las transiciones de estado, de `sprintf` (subconjunto C) y del búfer de salida con vaciado |
+| 3 jcsample | `start_pass_downsample` 0x5C79E0, `sep_downsample` 0x5C7A50, `int_downsample` 0x5C7AE0, `fullsize_downsample` 0x5C7C10, `h2v1_downsample` 0x5C7C60, `h2v2_downsample` 0x5C7D10 | filas aleatorias, relaciones de muestreo 1–4, anchos no múltiplos de 8; oráculo Python del promedio con sesgo alterno y de la extensión del borde derecho |
+| 4 jddctmgr | `start_pass` 0x5C9510 | 1–4 componentes, métodos DCT 0–2, tamaños DCT erróneos; oráculo: tabla `q·aan[f]·aan[c]` **emulando el x87 a 24 bits** (bit a bit) |
+| 5 jcprepct | `pre_process_data` 0x5C7710 | simulación completa en Python con conversión de color y submuestreo simulados (hash determinista), relleno inferior y registro de argumentos |
+| 6 jdcoefct | `decompress_onepass` 0x5C8B70 | `decode_mcu` e IDCT simulados con registro; suspensión a mitad de fila; simulación Python de contadores y retorno |
+| 7 jcmarker | `write_tables_only` 0x5C62F0, `write_scan_header` 0x5C61E0 | tablas DQT (8/16 bits) y DHT reales, modo progresivo, aritmético, `restart_interval`; oráculo: el flujo de bytes y las banderas `sent_table` |
+| 8 jmemmgr | `access_virt_sarray` 0x5CF2F0, `access_virt_barray` 0x5CF430 | almacenamiento de respaldo simulado (lectura/escritura registradas); oráculo: máquina de estados completa (ventana, volcado, relleno a cero) |
+| 9 jdmarker | `read_markers` 0x5CC290, `get_interesting_appn` 0x5CBF00, `jinit_marker_reader` 0x5CC7D0 | cabeceras JPEG generadas (SOI, JFIF/JFXX/Adobe, COM, APPn, DQT, SOF0/1/2/9, DHT, DRI, SOS) y mutadas (bits, bytes, truncado, inserción), repartidas en trozos con **suspensión** de la fuente (`fill_input_buffer`/`skip_input_data` simulados); oráculo: analizador Python del estándar (dimensiones, componentes, tablas, JFIF/Adobe, reinicio, SOS, bytes consumidos) |
+| 10 jdhuff | `decode_mcu` 0x5C9CE0, `start_pass_huff_decoder` 0x5CA110 | **codificador Huffman de referencia propio** (tablas del Anexo K con `huffval` permutado, bits de relleno 1, byte stuffing, RSTn, bloques densos); en `decode_mcu` las tablas derivadas se construyen con la `start_pass` de cada lado; 2.295 casos válidos (23.618 bloques) idénticos a los codificados, más flujos corruptos/truncados/suspendidos (EXE frente a biblioteca) |
+| 11 jchuff | `start_pass_huff` 0x5C5090 | modo estadísticas y modo normal, índices fuera de rango, tablas ausentes o corruptas, tablas ya reservadas; oráculo: códigos canónicos del estándar |
+| 12 jmemmgr / jdcoefct | `self_destruct` 0x5CF690, `dummy_consume_data` 0x5C8E10 | `malloc`/`free` de la biblioteca (`w_jmemnobs.c` con `-Dmalloc=lib3b_malloc -Dfree=lib3b_free`, sólo en el banco) y los 4 `call` del CRT del EXE (0x5CF807/0x5CF815/0x5CF827/0x5CF835) desviados a un asignador del banco con registro; oráculo Python del orden de liberación (pools en orden inverso, listas LIFO, arrays virtuales cerrados al liberar el pool de imagen) |
+
+### 8.2 Hallazgos de esta tanda
+
+1. **Más diferencias de configuración EXE ↔ oficial** (en `exe_config.h`; `JPEG6B_KEEP_2PASS` mantiene `jquant2.c` aparte): sin cuantización de 2 pasadas (`start_pass_dpost`, `start_pass_main` y `start_pass_main` de compresión dan `JERR_BAD_BUFFER_MODE` con cualquier modo distinto de `JBUF_PASS_THRU`), sin suavizado de bloques (`start_output_pass` de jdcoefct sólo pone `output_iMCU_row = 0`), sin suavizado de entrada ni filas de contexto en compresión (`start_pass_prep` sólo escribe `rows_to_go` y `next_buf_row`), sin IDCT reducidas (`start_pass` de jddctmgr sólo admite `DCT_scaled_size == 8`) y sin aritmética (`write_scan_header` se la salta). Los wrappers exportan sólo lo que existe con esa configuración (guardas en `wrap/w_jdcoefct.c`, `w_jdmainct.c`, `w_jdpostct.c`, `w_jcprepct.c`, `w_jcsample.c`, `w_jidctred.c`; `gen_wrappers.py` actualizado).
+2. **`jpeg_inverse_dct` de 4 componentes**: `jpegint.h` declara `inverse_DCT[MAX_COMPONENTS]` antes de que `exe_config.h` fije `MAX_COMPONENTS = 4`; `w_jddctmgr.c` redeclara la estructura con la disposición del EXE (`cur_method` en +0x14, como lee `start_pass` 0x5C9510). Sólo `jddctmgr` depende de ese tamaño.
+3. **`boolean` = `unsigned char`** (EXE y biblioteca): las funciones que devuelven `boolean` sólo comparan `AL` (`Ctx::ret_mask`); EAX alto es basura distinta en cada lado.
+4. **`get_dht` copia `huffval` de la pila sin inicializar**: los bytes de `huffval` más allá de `sum(bits)` son indeterminados en la biblioteca original; el banco los normaliza a 0 antes de comparar (`Ctx::norm`) y el oráculo sólo los compara hasta `sum(bits)`.
+5. **El EXE está compilado con optimización de programa completo**: los auxiliares internos usan convenciones por registro (`emit_marker`, `emit_2bytes`, `emit_dht`, `get_sof`, `get_dht`, `expand_right_edge`…), por eso sólo se llaman por dirección las raíces con entrada `cdecl` y los auxiliares se validan por flujo dentro de ellas (marcadores, Huffman, escritura de cabeceras).
+6. **Mejoras del banco** (todas las pruebas anteriores se repitieron: 0 diferencias): se restaura el arena completo (hasta `g_hi + 64 KB`) entre un lado y el otro, no sólo hasta el último byte reservado (las reservas hechas durante la llamada heredaban restos del otro lado); `Ctx::fps` (identidad de punteros a función), `Ctx::norm`, `Ctx::ret_mask`; error durante el montaje de un caso (no `longjmp` suelto); `sprintf`, `malloc` y `free` del EXE desviados a ganchos del banco.
+7. `read_markers` del EXE también acepta SOF aritméticos (0xC9…) con `get_sof` por registro; las ramas se ejercitan con `SOF9` en el 8 % de los flujos.
+
+### 8.3 Validadas indirectamente (sin prueba propia)
+
+Se ejecutan nativamente dentro de las raíces anteriores y cualquier diferencia habría roto la comparación del arena completo: `skip_variable` 0x5CC050 y `read_restart_marker` 0x5CC610 (como punteros de cada lado en `read_markers`/`decode_mcu`), `jpeg_make_d_derived_tbl` 0x5C9790 (`start_pass_huff_decoder`), `jpeg_make_c_derived_tbl` 0x5C43F0 (`start_pass_huff`) y, sin fila propia en el mapa, `get_soi` 0x5CAF00, `get_sof` 0x5CAFB0, `get_sos` 0x5CB2C0, `get_dht` 0x5CB8C0, `get_dqt` 0x5CBB20, `examine_app0` 0x5CBC00, `examine_app14` 0x5CBE50, `next_marker` 0x5CC0F0, `first_marker` 0x5CC1F0 (dentro de `read_markers`; los nombres salen del orden del archivo y del flujo, no de símbolos), `jpeg_fill_bit_buffer` 0x5C9A60, `jpeg_huff_decode` 0x5C9B80, `process_restart` 0x5C9C60, `start_iMCU_row` 0x5C8AF0, `expand_right_edge` 0x5C79F0, `free_pool` 0x5CF580, `do_sarray_io` 0x5CF1B0.
+
+### 8.4 Qué falta
+
+- `jinit_*` (jcinit, jcprepct, jdmaster…, 0x5C5210, 0x5C30D0, 0x5CA260…), `jdmaster`/`jdinput` completos, `jdapimin`/`jdapistd`, `jcapimin`, `jerror` restante (`output_message`, `error_exit`), `jmemmgr` (`alloc_*`, `request_*`, `realize_virt_arrays`), `jcmaster` salvo `finish_pass_master` y las ~250 funciones de la biblioteca que no son raíces del plan: sin banco.
+- **`jmemmgr`: `self_destruct` está validada, pero `LIBJPEG_CB` NO se aplica a `self_destruct` (0x5CF690) en `LibJpegMemory.cpp`**: la versión de la biblioteca libera con el `free` de la DLL bloques reservados con el asignador del EXE (`jpeg_get_small` 0x5CF800), y con la opción encendida mezclaría montones.
+- `read_restart_marker` (0x5CC610) y `jinit_marker_reader`, `jinit_huff_*`, etc. siguen instalándose por dirección del EXE donde no hay prueba propia.
+- `validated=1`: requiere la corrida dentro del juego con `register_hook.py`; no se ha hecho.
+- Compilación del proyecto con la opción encendida/apagada tras estos cambios: ver el final de este apartado.
