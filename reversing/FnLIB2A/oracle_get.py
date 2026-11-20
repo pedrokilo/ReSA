@@ -48,6 +48,43 @@ def models(name, a, png, info, bufs):
         return (rd(info, I(f), 'I') if offs and u8('offset_unit_type') == unit else 0), {}
     if name == 'png_get_signature': return (a[1] + I('signature') if ok else 0), {}
     if name == 'png_get_rows': return (rd(info, I('row_pointers'), 'I') if ok else 0), {}
+    P32 = lambda v: struct.pack('<I', v & 0xFFFFFFFF)
+    def w(i, data): return {i: data}
+    if name == 'png_get_IHDR':
+        if not (ok and all(a[k] for k in (2, 3, 4, 5))): return 0, {}
+        wr = {2: P32(u32('width')), 3: P32(u32('height')), 4: P32(u8('bit_depth')), 5: P32(u8('color_type'))}
+        for k, f in ((6, 'interlace_type'), (7, 'compression_type'), (8, 'filter_type')):
+            if a[k]: wr[k] = P32(u8(f))
+        return 1, wr
+    if name == 'png_get_pHYs':
+        if not (ok and (valid & 0x80) and (a[2] or a[3] or a[4])): return 0, {}
+        wr = {}
+        if a[2]: wr[2] = P32(u32('x_pixels_per_unit'))
+        if a[3]: wr[3] = P32(u32('y_pixels_per_unit'))
+        if a[4]: wr[4] = P32(u8('phys_unit_type'))
+        return 0x80, wr
+    if name == 'png_get_oFFs':
+        if not (ok and (valid & 0x100) and a[2] and a[3] and a[4]): return 0, {}
+        wr = {}
+        if a[2]: wr[2] = P32(rd(info, I('x_offset'), 'I'))
+        if a[3]: wr[3] = P32(rd(info, I('y_offset'), 'I'))
+        if a[4]: wr[4] = P32(u8('offset_unit_type'))
+        return 0x100, wr
+    if name == 'png_get_sRGB':
+        if not (ok and (valid & 0x800) and a[2]): return 0, {}
+        return 0x800, {2: P32(u8('srgb_intent'))}
+    if name == 'png_get_gAMA':
+        if not (ok and (valid & 1) and a[2]): return 0, {}
+        return 1, {2: struct.pack('<d', rd(info, I('gamma'), 'f'))}
+    if name == 'png_get_tIME':
+        if not (ok and (valid & 0x200) and a[2]): return 0, {}
+        return 0x200, {2: P32(a[1] + I('mod_time'))}
+    if name == 'png_get_bKGD':
+        if not (ok and (valid & 0x20) and a[2]): return 0, {}
+        return 0x20, {2: P32(a[1] + I('background'))}
+    if name == 'png_get_sBIT':
+        if not (ok and (valid & 0x2) and a[2]): return 0, {}
+        return 2, {2: P32(a[1] + I('sig_bit'))}
     return None
 
 def check(name):
@@ -68,11 +105,14 @@ def check(name):
         m = models(name, a, png, info, bufs)
         if m is None: continue
         modeled += 1
-        exp_ret, _ = m
+        exp_ret, wr = m
         if (r1 & 0xFFFFFFFF) != exp_ret or (r2 & 0xFFFFFFFF) != exp_ret:
             # los retornos de 8 bits se enmascaran en el banco
             if name.endswith(('channels', 'bit_depth', 'color_type', 'filter_type', 'interlace_type', 'compression_type')): exp_ret &= 0xFF
-            if r1 != exp_ret or r2 != exp_ret: bad += 1
+            if r1 != exp_ret or r2 != exp_ret: bad += 1; continue
+        for idx, exp in wr.items():   # salidas: los bytes escritos en el buffer de salida deben coincidir en los dos lados
+            for bp, pre, ex, li in bufs:
+                if bp == a[idx] and (ex[:len(exp)] != exp or li[:len(exp)] != exp): bad += 1; break
     return n, modeled, bad
 
 if __name__ == '__main__':

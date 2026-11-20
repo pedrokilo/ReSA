@@ -1,0 +1,6 @@
+png_set_cHRM
+png_set_keep_unknown_chunks
+png_set_read_user_chunk_fn
+png_set_rows
+png_set_compression_buffer_size
+png_set_sPLT

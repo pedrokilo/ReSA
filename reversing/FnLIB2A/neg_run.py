@@ -8,7 +8,7 @@ rnd, exe, gta = sys.argv[1], sys.argv[2], sys.argv[3]
 n = sys.argv[4] if len(sys.argv) > 4 else '3000'
 tab = {l.split()[0]: l.split()[4] for l in (HERE / 'tabla.txt').read_text().splitlines() if l.strip()}
 namesf = Path(sys.argv[5]) if len(sys.argv) > 5 else None
-names = namesf.read_text().split() if namesf else [k for k, v in tab.items() if v != '0']
+names = namesf.read_text().split() if namesf else (HERE / 'validadas.txt').read_text().split()
 out = {}; ok_all = True
 for k, name in enumerate(names, 1):
     if tab.get(name, '0') == '0': continue

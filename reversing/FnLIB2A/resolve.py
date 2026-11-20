@@ -8,15 +8,20 @@ bench, exe, tanda = sys.argv[1], sys.argv[2], sys.argv[3]
 def run(args, timeout=1500):
     return subprocess.run([bench, exe] + args, capture_output=True, text=True, timeout=timeout)
 subprocess.run([sys.executable, str(HERE / 'gen_table.py'), tanda], check=True, cwd=HERE)
-r = run([str(HERE / 'tabla.txt'), '--n', '150', '--diffs', '0'])
+from concurrent.futures import ThreadPoolExecutor
 bad = []; good = []
-for l in r.stdout.splitlines():
-    m = re.match(r'^(\w+)\s+0x([0-9A-F]+)\s+(\d+)\s+(\d+)', l)
-    if m: (bad if int(m.group(4)) else good).append((m.group(1), int(m.group(2), 16)))
-    elif 'HANG' in l or 'SIN SIMBOLO' in l: print(l)
-for l in open(HERE / 'tabla.txt'):
-    t = l.split()
-    if t[4] == '0': bad.append((t[0], 0))
+tab_lines = [l.split() for l in open(HERE / 'tabla.txt') if l.strip()]
+def one(t):
+    if t[4] == '0': return (t[0], 0, 'cero')
+    try: r = run([str(HERE / 'tabla.txt'), '--n', '150', '--diffs', '0', '--filtro', t[0]], timeout=300)
+    except subprocess.TimeoutExpired: return (t[0], int(t[4], 16), 'timeout')
+    m = re.search(r'^%s\s+0x([0-9A-F]+)\s+(\d+)\s+(\d+)' % t[0], r.stdout, re.M)
+    if not m: return (t[0], int(t[4], 16), 'cae')
+    return (t[0], int(t[4], 16), 'bien' if int(m.group(3)) == 0 else 'dif')
+with ThreadPoolExecutor(6) as ex:
+    for n, a, st in ex.map(one, tab_lines):
+        if st == 'bien': good.append((n, a))
+        else: bad.append((n, a))
 print('coinciden', len(good), 'difieren', len(bad))
 conf = {}
 conff = HERE / 'confirmadas.csv'

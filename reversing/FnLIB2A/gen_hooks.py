@@ -7,7 +7,7 @@ import protos
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 P = protos.load()
-conf = {r[0]: r[1] for r in csv.reader(open(HERE / 'confirmadas.csv')) if r and not r[0].startswith(('#', '?'))}
+conf = {l.split()[0]: l.split()[4] for l in open(HERE / 'tabla.txt') if l.strip() and l.split()[4] != '0'}   # direcciones de la tabla del banco (las validadas)
 names = [n for n in (HERE / 'enganchables.txt').read_text().split() if n in conf]
 
 def ctype(t, ret=False):

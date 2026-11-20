@@ -2,193 +2,193 @@
  "1": {
   "funcion": "png_get_valid",
   "pares": 3000,
-  "diferencias": 34,
+  "diferencias": 600,
   "detectada": true
  },
  "2": {
   "funcion": "png_get_rowbytes",
   "pares": 3000,
-  "diferencias": 36,
+  "diferencias": 600,
   "detectada": true
  },
  "3": {
   "funcion": "png_get_rows",
   "pares": 3000,
-  "diferencias": 32,
+  "diferencias": 600,
   "detectada": true
  },
  "4": {
   "funcion": "png_get_image_width",
   "pares": 3000,
-  "diferencias": 34,
+  "diferencias": 600,
   "detectada": true
  },
  "5": {
   "funcion": "png_get_image_height",
   "pares": 3000,
-  "diferencias": 37,
+  "diferencias": 600,
   "detectada": true
  },
  "6": {
   "funcion": "png_get_bit_depth",
   "pares": 3000,
-  "diferencias": 33,
+  "diferencias": 600,
   "detectada": true
  },
  "7": {
   "funcion": "png_get_color_type",
   "pares": 3000,
-  "diferencias": 34,
+  "diferencias": 600,
   "detectada": true
  },
  "8": {
   "funcion": "png_get_filter_type",
   "pares": 3000,
-  "diferencias": 35,
+  "diferencias": 600,
   "detectada": true
  },
  "9": {
   "funcion": "png_get_interlace_type",
   "pares": 3000,
-  "diferencias": 32,
+  "diferencias": 600,
   "detectada": true
  },
  "10": {
   "funcion": "png_get_compression_type",
   "pares": 3000,
-  "diferencias": 35,
+  "diferencias": 600,
   "detectada": true
  },
  "11": {
   "funcion": "png_get_x_pixels_per_meter",
   "pares": 3000,
-  "diferencias": 199,
+  "diferencias": 600,
   "detectada": true
  },
  "12": {
   "funcion": "png_get_y_pixels_per_meter",
   "pares": 3000,
-  "diferencias": 193,
+  "diferencias": 600,
   "detectada": true
  },
  "13": {
   "funcion": "png_get_pixels_per_meter",
   "pares": 3000,
-  "diferencias": 195,
+  "diferencias": 600,
   "detectada": true
  },
  "14": {
   "funcion": "png_get_pixel_aspect_ratio",
   "pares": 3000,
-  "diferencias": 386,
+  "diferencias": 406,
   "detectada": true
  },
  "15": {
   "funcion": "png_get_x_offset_microns",
   "pares": 3000,
-  "diferencias": 187,
+  "diferencias": 600,
   "detectada": true
  },
  "16": {
   "funcion": "png_get_y_offset_microns",
   "pares": 3000,
-  "diferencias": 197,
+  "diferencias": 600,
   "detectada": true
  },
  "17": {
   "funcion": "png_get_x_offset_pixels",
   "pares": 3000,
-  "diferencias": 189,
+  "diferencias": 600,
   "detectada": true
  },
  "18": {
   "funcion": "png_get_y_offset_pixels",
   "pares": 3000,
-  "diferencias": 200,
+  "diferencias": 600,
   "detectada": true
  },
  "19": {
   "funcion": "png_get_channels",
   "pares": 3000,
-  "diferencias": 38,
+  "diferencias": 600,
   "detectada": true
  },
  "20": {
   "funcion": "png_get_signature",
   "pares": 3000,
-  "diferencias": 35,
+  "diferencias": 600,
   "detectada": true
  },
  "21": {
   "funcion": "png_get_bKGD",
   "pares": 3000,
-  "diferencias": 215,
+  "diferencias": 600,
   "detectada": true
  },
  "22": {
   "funcion": "png_get_cHRM",
   "pares": 3000,
-  "diferencias": 205,
+  "diferencias": 600,
   "detectada": true
  },
  "23": {
   "funcion": "png_get_cHRM_fixed",
   "pares": 3000,
-  "diferencias": 190,
+  "diferencias": 600,
   "detectada": true
  },
  "24": {
   "funcion": "png_get_gAMA",
   "pares": 3000,
-  "diferencias": 214,
+  "diferencias": 600,
   "detectada": true
  },
  "25": {
   "funcion": "png_get_gAMA_fixed",
   "pares": 3000,
-  "diferencias": 219,
+  "diferencias": 600,
   "detectada": true
  },
  "26": {
   "funcion": "png_get_sRGB",
   "pares": 3000,
-  "diferencias": 221,
+  "diferencias": 600,
   "detectada": true
  },
  "27": {
   "funcion": "png_get_sPLT",
   "pares": 3000,
-  "diferencias": 582,
+  "diferencias": 589,
   "detectada": true
  },
  "28": {
   "funcion": "png_get_hIST",
   "pares": 3000,
-  "diferencias": 224,
+  "diferencias": 600,
   "detectada": true
  },
  "29": {
   "funcion": "png_get_IHDR",
   "pares": 3000,
-  "diferencias": 141,
+  "diferencias": 600,
   "detectada": true
  },
  "30": {
   "funcion": "png_get_oFFs",
   "pares": 3000,
-  "diferencias": 242,
+  "diferencias": 600,
   "detectada": true
  },
  "31": {
   "funcion": "png_get_pCAL",
   "pares": 3000,
-  "diferencias": 316,
+  "diferencias": 600,
   "detectada": true
  },
  "32": {
   "funcion": "png_get_sCAL",
   "pares": 3000,
-  "diferencias": 189,
+  "diferencias": 540,
   "detectada": true
  },
  "33": {
@@ -200,25 +200,25 @@
  "34": {
   "funcion": "png_get_PLTE",
   "pares": 3000,
-  "diferencias": 221,
+  "diferencias": 578,
   "detectada": true
  },
  "35": {
   "funcion": "png_get_sBIT",
   "pares": 3000,
-  "diferencias": 224,
+  "diferencias": 600,
   "detectada": true
  },
  "36": {
   "funcion": "png_get_text",
   "pares": 3000,
-  "diferencias": 225,
+  "diferencias": 600,
   "detectada": true
  },
  "37": {
   "funcion": "png_get_tIME",
   "pares": 3000,
-  "diferencias": 214,
+  "diferencias": 600,
   "detectada": true
  },
  "38": {
@@ -230,7 +230,7 @@
  "39": {
   "funcion": "png_get_unknown_chunks",
   "pares": 3000,
-  "diferencias": 580,
+  "diferencias": 582,
   "detectada": true
  },
  "40": {
@@ -242,13 +242,403 @@
  "41": {
   "funcion": "png_sig_cmp",
   "pares": 3000,
-  "diferencias": 125,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "42": {
+  "funcion": "png_set_sig_bytes",
+  "pares": 3000,
+  "diferencias": 581,
   "detectada": true
  },
  "43": {
-  "funcion": "png_set_sig_bytes",
+  "funcion": "png_set_bKGD",
   "pares": 3000,
-  "diferencias": 341,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "44": {
+  "funcion": "png_set_cHRM",
+  "pares": 3000,
+  "diferencias": 584,
+  "detectada": true
+ },
+ "45": {
+  "funcion": "png_set_cHRM_fixed",
+  "pares": 3000,
+  "diferencias": 581,
+  "detectada": true
+ },
+ "46": {
+  "funcion": "png_set_gAMA",
+  "pares": 3000,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "47": {
+  "funcion": "png_set_gAMA_fixed",
+  "pares": 3000,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "48": {
+  "funcion": "png_set_hIST",
+  "pares": 3000,
+  "diferencias": 579,
+  "detectada": true
+ },
+ "49": {
+  "funcion": "png_set_IHDR",
+  "pares": 3000,
+  "diferencias": 584,
+  "detectada": true
+ },
+ "50": {
+  "funcion": "png_set_oFFs",
+  "pares": 3000,
+  "diferencias": 580,
+  "detectada": true
+ },
+ "51": {
+  "funcion": "png_set_pCAL",
+  "pares": 3000,
+  "diferencias": 581,
+  "detectada": true
+ },
+ "52": {
+  "funcion": "png_set_sCAL",
+  "pares": 3000,
+  "diferencias": 586,
+  "detectada": true
+ },
+ "53": {
+  "funcion": "png_set_pHYs",
+  "pares": 3000,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "54": {
+  "funcion": "png_set_PLTE",
+  "pares": 3000,
+  "diferencias": 581,
+  "detectada": true
+ },
+ "55": {
+  "funcion": "png_set_sBIT",
+  "pares": 3000,
+  "diferencias": 581,
+  "detectada": true
+ },
+ "56": {
+  "funcion": "png_set_sRGB",
+  "pares": 3000,
+  "diferencias": 583,
+  "detectada": true
+ },
+ "57": {
+  "funcion": "png_set_sRGB_gAMA_and_cHRM",
+  "pares": 3000,
+  "diferencias": 580,
+  "detectada": true
+ },
+ "58": {
+  "funcion": "png_set_iCCP",
+  "pares": 3000,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "59": {
+  "funcion": "png_set_text",
+  "pares": 3000,
+  "diferencias": 574,
+  "detectada": true
+ },
+ "60": {
+  "funcion": "png_set_tIME",
+  "pares": 3000,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "61": {
+  "funcion": "png_set_tRNS",
+  "pares": 3000,
+  "diferencias": 580,
+  "detectada": true
+ },
+ "62": {
+  "funcion": "png_set_unknown_chunks",
+  "pares": 3000,
+  "diferencias": 584,
+  "detectada": true
+ },
+ "63": {
+  "funcion": "png_set_unknown_chunk_location",
+  "pares": 3000,
+  "diferencias": 579,
+  "detectada": true
+ },
+ "64": {
+  "funcion": "png_set_keep_unknown_chunks",
+  "pares": 3000,
+  "diferencias": 584,
+  "detectada": true
+ },
+ "65": {
+  "funcion": "png_set_read_user_chunk_fn",
+  "pares": 3000,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "66": {
+  "funcion": "png_set_rows",
+  "pares": 3000,
+  "diferencias": 545,
+  "detectada": true
+ },
+ "67": {
+  "funcion": "png_set_compression_buffer_size",
+  "pares": 3000,
+  "diferencias": 584,
+  "detectada": true
+ },
+ "68": {
+  "funcion": "png_set_invalid",
+  "pares": 3000,
+  "diferencias": 583,
+  "detectada": true
+ },
+ "69": {
+  "funcion": "png_create_info_struct",
+  "pares": 3000,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "70": {
+  "funcion": "png_destroy_info_struct",
+  "pares": 3000,
+  "diferencias": 546,
+  "detectada": true
+ },
+ "71": {
+  "funcion": "png_info_destroy",
+  "pares": 3000,
+  "diferencias": 522,
+  "detectada": true
+ },
+ "72": {
+  "funcion": "png_free_data",
+  "pares": 3000,
+  "diferencias": 570,
+  "detectada": true
+ },
+ "73": {
+  "funcion": "png_zalloc",
+  "pares": 3000,
+  "diferencias": 540,
+  "detectada": true
+ },
+ "74": {
+  "funcion": "png_zfree",
+  "pares": 3000,
+  "diferencias": 562,
+  "detectada": true
+ },
+ "75": {
+  "funcion": "png_reset_crc",
+  "pares": 3000,
+  "diferencias": 584,
+  "detectada": true
+ },
+ "76": {
+  "funcion": "png_calculate_crc",
+  "pares": 3000,
+  "diferencias": 583,
+  "detectada": true
+ },
+ "77": {
+  "funcion": "png_handle_as_unknown",
+  "pares": 3000,
+  "diferencias": 583,
+  "detectada": true
+ },
+ "78": {
+  "funcion": "png_get_copyright",
+  "pares": 3000,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "79": {
+  "funcion": "png_get_header_ver",
+  "pares": 3000,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "80": {
+  "funcion": "png_get_header_version",
+  "pares": 3000,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "81": {
+  "funcion": "png_get_io_ptr",
+  "pares": 3000,
+  "diferencias": 584,
+  "detectada": true
+ },
+ "82": {
+  "funcion": "png_reset_zstream",
+  "pares": 3000,
+  "diferencias": 587,
+  "detectada": true
+ },
+ "83": {
+  "funcion": "png_malloc",
+  "pares": 3000,
+  "diferencias": 355,
+  "detectada": true
+ },
+ "84": {
+  "funcion": "png_free",
+  "pares": 3000,
+  "diferencias": 583,
+  "detectada": true
+ },
+ "85": {
+  "funcion": "png_memcpy_check",
+  "pares": 3000,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "86": {
+  "funcion": "png_memset_check",
+  "pares": 3000,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "87": {
+  "funcion": "png_create_struct_2",
+  "pares": 3000,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "88": {
+  "funcion": "png_destroy_struct_2",
+  "pares": 3000,
+  "diferencias": 600,
+  "detectada": true
+ },
+ "89": {
+  "funcion": "png_read_data",
+  "pares": 3000,
+  "diferencias": 583,
+  "detectada": true
+ },
+ "90": {
+  "funcion": "png_set_read_fn",
+  "pares": 3000,
+  "diferencias": 581,
+  "detectada": true
+ },
+ "91": {
+  "funcion": "png_error",
+  "pares": 3000,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "92": {
+  "funcion": "png_warning",
+  "pares": 3000,
+  "diferencias": 581,
+  "detectada": true
+ },
+ "93": {
+  "funcion": "png_crc_read",
+  "pares": 3000,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "94": {
+  "funcion": "png_crc_finish",
+  "pares": 3000,
+  "diferencias": 412,
+  "detectada": true
+ },
+ "95": {
+  "funcion": "png_crc_error",
+  "pares": 3000,
+  "diferencias": 583,
+  "detectada": true
+ },
+ "96": {
+  "funcion": "png_check_chunk_name",
+  "pares": 3000,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "97": {
+  "funcion": "png_read_filter_row",
+  "pares": 3000,
+  "diferencias": 580,
+  "detectada": true
+ },
+ "98": {
+  "funcion": "png_read_finish_row",
+  "pares": 3000,
+  "diferencias": 426,
+  "detectada": true
+ },
+ "99": {
+  "funcion": "png_set_read_status_fn",
+  "pares": 3000,
+  "diferencias": 584,
+  "detectada": true
+ },
+ "100": {
+  "funcion": "png_set_expand",
+  "pares": 3000,
+  "diferencias": 582,
+  "detectada": true
+ },
+ "101": {
+  "funcion": "png_set_gray_1_2_4_to_8",
+  "pares": 3000,
+  "diferencias": 580,
+  "detectada": true
+ },
+ "102": {
+  "funcion": "png_set_palette_to_rgb",
+  "pares": 3000,
+  "diferencias": 581,
+  "detectada": true
+ },
+ "103": {
+  "funcion": "png_set_crc_action",
+  "pares": 3000,
+  "diferencias": 581,
+  "detectada": true
+ },
+ "104": {
+  "funcion": "png_set_rgb_to_gray_fixed",
+  "pares": 3000,
+  "diferencias": 580,
+  "detectada": true
+ },
+ "105": {
+  "funcion": "png_set_read_user_transform_fn",
+  "pares": 3000,
+  "diferencias": 576,
+  "detectada": true
+ },
+ "106": {
+  "funcion": "png_do_gray_to_rgb",
+  "pares": 3000,
+  "diferencias": 558,
+  "detectada": true
+ },
+ "107": {
+  "funcion": "png_do_read_transformations",
+  "pares": 3000,
+  "diferencias": 582,
   "detectada": true
  }
 }

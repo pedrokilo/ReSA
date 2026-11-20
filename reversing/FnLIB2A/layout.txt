@@ -1,4 +1,4 @@
-sizeof png_struct=580 png_info=288
+sizeof png_struct=500 png_info=288
 png_info.width=0
 png_info.height=4
 png_info.valid=8
@@ -75,8 +75,7 @@ png_struct.color_type=294
 png_struct.channels=298
 png_struct.pixel_depth=297
 png_struct.chunk_name=284
-png_struct.free_me=532
-png_struct.mem_ptr=568
+png_struct.mem_ptr=488
 png_struct.interlaced=291
 png_struct.filter=290
 png_struct.compression=289

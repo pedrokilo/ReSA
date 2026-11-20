@@ -12,8 +12,8 @@ add_library(libpng1012 STATIC
     pngset.c pngtrans.c pngwio.c pngwrite.c pngwtran.c pngwutil.c)
 target_include_directories(libpng1012 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(libpng1012 PUBLIC zlib113)
-# El EXE compila libpng con PNG_USER_MEM_SUPPORTED (png_create_read_struct_2, png_struct con mem_ptr/malloc_fn/free_fn): LIB2A.
-target_compile_definitions(libpng1012 PUBLIC PNG_USER_MEM_SUPPORTED)
+# El EXE compila libpng con PNG_USER_MEM_SUPPORTED (png_create_read_struct_2, png_struct con mem_ptr/malloc_fn/free_fn) , SIN lectura progresiva y SIN stdio (png_struct de 0x1F4 bytes y png_info de 0x120, como en el EXE; ver reversing/FnLIB2A/README.md): LIB2A.
+target_compile_definitions(libpng1012 PUBLIC PNG_USER_MEM_SUPPORTED PNG_NO_PROGRESSIVE_READ PNG_NO_STDIO)
 set_target_properties(libpng1012 PROPERTIES C_STANDARD 90 C_EXTENSIONS ON)
 if (MSVC)
     set_target_properties(libpng1012 PROPERTIES MSVC_RUNTIME_CHECKS "" MSVC_DEBUG_INFORMATION_FORMAT Embedded)

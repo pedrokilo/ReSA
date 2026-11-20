@@ -24,6 +24,7 @@ extern "C" {
 #include "png.h"
 }
 typedef uint32_t u32; typedef uint8_t u8; typedef uint16_t u16;
+static_assert(sizeof(png_struct) == 0x1F4 && sizeof(png_info) == 0x120, "el EXE reserva png_struct de 0x1F4 y png_info de 0x120 (png_create_struct_2): hacen falta PNG_USER_MEM_SUPPORTED, PNG_NO_PROGRESSIVE_READ y PNG_NO_STDIO");
 
 // ---------------------------------------------------------------- RNG
 struct Rng {
@@ -205,6 +206,8 @@ static void fuzz_png(png_structp p) {
     p->mng_features_permitted = (u8)R->next(); p->free_me = R->next() & 0xFFFF;
     p->read_row_fn = R->chance(50) ? cb_status : nullptr;
     p->idat_size &= 0xFFFFF;
+    p->num_chunk_list = (int)R->below(6); p->chunk_list = mkbuf(40, 3);
+    p->zstream.total_in = R->next(); p->zstream.total_out = R->next(); p->zstream.msg = R->chance(50) ? mkstr(10) : nullptr; p->zstream.adler = R->next(); p->zstream.data_type = (int)R->below(3);
     p->user_chunk_ptr = (png_voidp)(uintptr_t)R->next(); p->error_ptr = (png_voidp)(uintptr_t)R->next();
     p->zbuf_size = R->chance(50) ? 8192 : (png_size_t)R->next();
     p->zlib_level = (int)R->below(10) - 1; p->zlib_method = (int)R->below(10); p->zlib_window_bits = (int)R->below(20); p->zlib_mem_level = (int)R->below(10); p->zlib_strategy = (int)R->below(5);
@@ -214,8 +217,8 @@ static void fuzz_png(png_structp p) {
 
 // ---------------------------------------------------------------- llamada
 struct Res { u32 ret = 0; bool err = false, crash = false; u32 exc = 0, fcw = 0, ftag = 0; std::vector<u32> log; std::vector<u8> mem; size_t brk = 0; };
-typedef u32 (__cdecl* FNU)(u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32);
-typedef float (__cdecl* FNF)(u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32);
+typedef u32 (__cdecl* FNU)(u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32);
+typedef float (__cdecl* FNF)(u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32, u32);
 static u32 g_exc;
 static int filt(unsigned c) { g_exc = c; return EXCEPTION_EXECUTE_HANDLER; }
 static u32 fpu_tag_reset() {
@@ -232,14 +235,23 @@ static void do_call(void* fn, char ret, const u32* a, u32* oret, bool* err, bool
     *err = false; *crash = false; *exc = 0; *oret = 0;
     __try {
         if (setjmp(g_jb) == 0) {
-            if (ret == 'f') { float f = ((FNF)fn)(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11]); memcpy(oret, &f, 4); }
-            else *oret = ((FNU)fn)(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11]);
+            if (ret == 'f') { float f = ((FNF)fn)(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15], a[16], a[17], a[18], a[19]); memcpy(oret, &f, 4); }
+            else *oret = ((FNU)fn)(a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15], a[16], a[17], a[18], a[19]);
         } else *err = true;
     } __except (filt(GetExceptionCode())) { *crash = true; *exc = g_exc; }
 }
-static void run_side(void* fn, const Fn& f, const u32* a, Res& r, size_t hi) {
+// El png_struct del EXE (0x1F4 bytes) no tiene free_me (+0x1C8 en la biblioteca): todos los campos desde +0x1CC estan 4 bytes antes. Antes de llamar a una funcion del EXE
+// (o a la biblioteca sobre la disposicion del EXE, modo 2) se traduce la estructura a la disposicion del EXE y despues se devuelve a la de la biblioteca.
+static u32 g_saved_free_me;
+static const size_t FM_OFF = 0x1C8;
+static void to_exe_layout(png_structp) {}   // con PNG_NO_STDIO la disposicion de png_struct es la del EXE (0x1F4); sin traduccion
+static void from_exe_layout(png_structp) {}
+static void run_side(void* fn, const Fn& f, const u32* a, Res& r, size_t hi, int mode = 0) {
     g_log.clear(); _controlfp(_PC_24, _MCW_PC); _clearfp();
+    if (mode) to_exe_layout(g_png);
     do_call(fn, f.ret, a, &r.ret, &r.err, &r.crash, &r.exc);
+    if (mode) from_exe_layout(g_png);
+    if (f.ret == 's') { u32 h = 2166136261u; const char* p = (const char*)(uintptr_t)r.ret; if (!r.crash && !r.err && p) { __try { for (; *p; p++) h = (h ^ (u8)*p) * 16777619u; } __except (EXCEPTION_EXECUTE_HANDLER) { h = 0xBAD; } r.ret = h; } else if (!r.crash) r.ret = 0; }
     r.ret &= f.mask; r.fcw = _controlfp(0, 0) & (_MCW_PC | _MCW_RC); r.ftag = fpu_tag_reset();
     r.log = g_log; r.brk = g_brk;
     size_t n = std::max(g_brk, hi) + 256; if (n > ARENA) n = ARENA;
@@ -256,6 +268,7 @@ static bool mem_equal(const Res& a, const Res& b, std::string& why, u32& ptrnorm
         u32 x = *(u32*)&a.mem[i], y = *(u32*)&b.mem[i];
         if (x == y) continue;
         if (is_code(x) && is_code(y)) { ptrnorm++; continue; }
+        if (x >= 0x00100000 && x < 0x00400000 && y >= 0x00100000 && y < 0x00400000) { ptrnorm++; continue; }   // direcciones de pila (variables locales distintas en cada compilacion)
         // palabras vecinas: comparar byte a byte para informar
         char t[160]; sprintf(t, "memoria +0x%zX EXE %08X LIB %08X", i, x, y);
         if (ok) why = t; ok = false;
@@ -267,14 +280,14 @@ static bool mem_equal(const Res& a, const Res& b, std::string& why, u32& ptrnorm
     return ok;
 }
 
-struct Stats { u32 pairs = 0, diffs = 0, crash_exe = 0, crash_lib = 0, err_exe = 0, err_lib = 0, ptrnorm = 0, oracle = 0; };
+struct Stats { u32 layout_sens = 0, pairs = 0, diffs = 0, crash_exe = 0, crash_lib = 0, err_exe = 0, err_lib = 0, ptrnorm = 0, oracle = 0; };
 static FILE* g_orc;
 static const char* g_orcdir;
 
 static void build_args(const Fn& f, u32* a, std::vector<std::pair<u32, u32>>& bufs) {
-    memset(a, 0, 12 * 4); int k = 0;
+    memset(a, 0, 20 * 4); int k = 0;
     for (char c : f.spec) {
-        if (k >= 12) break;
+        if (k >= 19) break;
         switch (c) {
         case 'P': a[k++] = R->chance(3) ? 0 : (u32)(uintptr_t)g_png; break;
         case 'I': a[k++] = R->chance(3) ? 0 : (u32)(uintptr_t)g_info; break;
@@ -285,7 +298,16 @@ static void build_args(const Fn& f, u32* a, std::vector<std::pair<u32, u32>>& bu
         case 'S': a[k++] = (u32)(uintptr_t)mkstr(40); break;
         case 'o': { u32 p = R->chance(5) ? 0 : (u32)(uintptr_t)mkbuf(64, 0); a[k++] = p; if (p) bufs.push_back({p, 64}); break; }
         case 'O': { u32 p = (u32)(uintptr_t)mkbuf(64, 0); a[k++] = p; bufs.push_back({p, 64}); break; }
+        case 'R': { png_row_infop ri = (png_row_infop)ar_alloc(sizeof(png_row_info), 4); static const u8 pds[] = {1, 2, 4, 8, 16, 24, 32, 48, 64}; u32 pd = pds[R->below(9)];
+                    u32 w = 1 + R->below(120); ri->width = w; ri->pixel_depth = (png_byte)pd; ri->rowbytes = (w * pd + 7) >> 3; ri->bit_depth = (png_byte)(pd >= 24 ? (pd % 3 == 0 ? 8 : (pd == 32 ? 8 : 16)) : pd);
+                    ri->channels = (png_byte)(pd >= 8 ? pd / ri->bit_depth : 1); if (ri->channels == 0) ri->channels = 1; static const u8 cts[] = {0, 2, 3, 4, 6}; ri->color_type = cts[R->below(5)];
+                    a[k++] = (u32)(uintptr_t)ri; break; }
+        case 'F': a[k++] = R->chance(20) ? 0 : (u32)(uintptr_t)cb_read; break;
+        case 'G': a[k++] = (u32)(uintptr_t)cb_malloc; break;
+        case 'H': a[k++] = (u32)(uintptr_t)cb_free; break;
+        case 'Y': { u32* slot = (u32*)ar_alloc(8, 4); slot[0] = (u32)(uintptr_t)g_info; slot[1] = 0; a[k++] = (u32)(uintptr_t)slot; break; }
         case 'n': a[k++] = R->below(5); break;
+        case 'M': a[k++] = R->chance(10) ? 0 : R->below(201); break;
         case 'N': a[k++] = R->chance(10) ? 256 + R->below(10) : R->below(257); break;
         case 'T': { png_textp t = (png_textp)ar_alloc(8 * sizeof(png_text), 4); memset(t, 0, 8 * sizeof(png_text));
                     for (int i = 0; i < 8; i++) { t[i].compression = (int)R->below(5) - 1; t[i].key = mkstr(24); if (R->chance(10)) t[i].key = (char*)""; t[i].text = R->chance(6) ? nullptr : mkstr(60); t[i].text_length = t[i].text ? strlen(t[i].text) : 0;
@@ -296,13 +318,14 @@ static void build_args(const Fn& f, u32* a, std::vector<std::pair<u32, u32>>& bu
                     for (int i = 0; i < 4; i++) { for (int j = 0; j < 4; j++) t[i].name[j] = (u8)(R->chance(50) ? 'a' + R->below(26) : 'A' + R->below(26)); t[i].name[4] = 0; t[i].data = mkbuf(40); t[i].size = R->below(40); t[i].location = (png_byte)R->below(8); }
                     a[k++] = (u32)(uintptr_t)t; break; }
         case 'Q': { char** q = (char**)ar_alloc(8 * sizeof(char*), 4); for (int i = 0; i < 8; i++) q[i] = mkstr(12); a[k++] = (u32)(uintptr_t)q; break; }
-        case 'C': { char* c = (char*)ar_alloc(8); for (int i = 0; i < 4; i++) c[i] = (char)(R->chance(85) ? (R->chance(50) ? 'a' : 'A') + R->below(26) : R->next()); c[4] = 0; a[k++] = (u32)(uintptr_t)c; break; }
+        case 'C': { char* c = (char*)ar_alloc(8); for (int i = 0; i < 4; i++) c[i] = (char)(R->chance(85) ? (R->chance(50) ? 'a' : 'A') + R->below(26) : R->next()); c[4] = 0; if (g_png->num_chunk_list > 0 && R->chance(45)) memcpy(c, g_png->chunk_list + 5 * R->below(g_png->num_chunk_list), 4); a[k++] = (u32)(uintptr_t)c; break; }
         case 'd': { double d = rd(); memcpy(&a[k], &d, 8); k += 2; break; }
         case 'f': { float v = rf(); memcpy(&a[k], &v, 4); k++; break; }
         }
     }
 }
 
+static volatile DWORD g_t0; static volatile u32 g_cur_addr; static const char* g_cur_name = "";
 static uint64_t g_seed = 1; static size_t g_maxused;
 static int g_show_diffs = 4;
 static Stats run_function(const Fn& f, void* exefn, u32 N, bool quiet) {
@@ -314,19 +337,20 @@ static Stats run_function(const Fn& f, void* exefn, u32 N, bool quiet) {
     }
     int shown = 0;
     for (u32 c = 0; c < N; c++) {
+        g_t0 = GetTickCount();
         Rng rng(g_seed * 1000003 + nh + c); R = &rng;
         if (g_maxused > g_hw0) memset(g_ar + g_hw0, 0, g_maxused - g_hw0);
         memcpy(g_ar, g_base_img.data(), g_hw0); g_brk = g_hw0;
         g_small_ppu = !g_wide && (f.name == "png_get_pixel_aspect_ratio");
         fuzz_png(g_png); fuzz_info(g_info);
         { u32 len = R->below(3000); g_io->data = mkbuf(len + 8); g_io->len = len; g_io->pos = 0; }
-        u32 a[12]; std::vector<std::pair<u32, u32>> bufs; build_args(f, a, bufs);
+        u32 a[20]; std::vector<std::pair<u32, u32>> bufs; build_args(f, a, bufs);
         size_t hwpre = g_brk; std::vector<u8> pre(g_ar, g_ar + hwpre);
         Res r1, r2;
-        run_side(exefn, f, a, r1, hwpre);
+        run_side(exefn, f, a, r1, hwpre, 1);
         memset(g_ar + hwpre, 0, std::min(ARENA - hwpre, r1.mem.size() > hwpre ? r1.mem.size() - hwpre : 0));
         memcpy(g_ar, pre.data(), hwpre); g_brk = hwpre;
-        run_side(f.lib, f, a, r2, hwpre);
+        run_side(f.lib, f, a, r2, hwpre, 0);
         g_maxused = std::max(g_maxused, std::max(r1.mem.size(), r2.mem.size()));
         st.pairs++; st.crash_exe += r1.crash; st.crash_lib += r2.crash; st.err_exe += r1.err; st.err_lib += r2.err;
         std::string why; bool eq = true; char t[200];
@@ -359,7 +383,6 @@ static Stats run_function(const Fn& f, void* exefn, u32 N, bool quiet) {
     return st;
 }
 
-static volatile DWORD g_t0; static volatile u32 g_cur_addr; static const char* g_cur_name = "";
 static DWORD WINAPI watchdog(LPVOID) {
     for (;;) { Sleep(250); DWORD t = g_t0; if (t && GetTickCount() - t > 8000) { printf("HANG %s exe %08X\n", g_cur_name, g_cur_addr); fflush(stdout); ExitProcess(9); } }
 }
@@ -378,7 +401,7 @@ static void print_layout() {
     OFF(png_info, row_pointers);
     OFF(png_struct, mode); OFF(png_struct, flags); OFF(png_struct, transformations); OFF(png_struct, width); OFF(png_struct, height); OFF(png_struct, rowbytes); OFF(png_struct, io_ptr);
     OFF(png_struct, error_ptr); OFF(png_struct, idat_size); OFF(png_struct, crc); OFF(png_struct, sig_bytes); OFF(png_struct, bit_depth); OFF(png_struct, color_type); OFF(png_struct, channels);
-    OFF(png_struct, pixel_depth); OFF(png_struct, chunk_name); OFF(png_struct, free_me); OFF(png_struct, mem_ptr); OFF(png_struct, interlaced); OFF(png_struct, filter); OFF(png_struct, compression);
+    OFF(png_struct, pixel_depth); OFF(png_struct, chunk_name); OFF(png_struct, mem_ptr); OFF(png_struct, interlaced); OFF(png_struct, filter); OFF(png_struct, compression);
     OFF(png_struct, num_palette); OFF(png_struct, num_trans); OFF(png_struct, palette);
 }
 
@@ -435,7 +458,7 @@ int main(int argc, char** argv) {
         g_cur_name = f.name.c_str(); g_cur_addr = f.exe; g_t0 = GetTickCount();
         Stats s = run_function(f, (void*)(uintptr_t)f.exe, N, false);
         g_t0 = 0; nfn++; total_diffs += s.diffs; minpairs = std::min(minpairs, s.pairs);
-        printf("%-34s 0x%06X %8u %6u  fallos %u/%u  png_error %u/%u  ptrnorm %u  oraculo %u\n", f.name.c_str(), f.exe, s.pairs, s.diffs, s.crash_exe, s.crash_lib, s.err_exe, s.err_lib, s.ptrnorm, s.oracle);
+        printf("%-34s 0x%06X %8u %6u  fallos %u/%u  png_error %u/%u  ptrnorm %u  oraculo %u  disposicion %u\n", f.name.c_str(), f.exe, s.pairs, s.diffs, s.crash_exe, s.crash_lib, s.err_exe, s.err_lib, s.ptrnorm, s.oracle, s.layout_sens);
         fflush(stdout);
     }
     printf("RESULTADO funciones %u  diferencias %u  minimo de pares %u\n", nfn, total_diffs, nfn ? minpairs : 0);
