@@ -131,6 +131,12 @@ R1 += [
 R2 += [
  (49, 'pre_process_data', 'jcprepct', 'pre_process_data', 'prep->next_buf_row = 0;', 'prep->next_buf_row = (lib3a_mut==49 && *out_row_group_ctr == 2) ? 1 : 0;'),
 ]
+R1 += [
+ (50, 'decompress_onepass', 'jdcoefct', 'decompress_onepass', 'compptr->last_col_width;', 'compptr->last_col_width + ((lib3a_mut==50 && compptr->MCU_width == 2 && MCU_col_num == 2) ? 1 : 0);'),
+]
+R2 += [
+ (50, 'decompress_onepass', 'jdcoefct', 'decompress_onepass', 'start_col = MCU_col_num * compptr->MCU_sample_width;', 'start_col = MCU_col_num * compptr->MCU_sample_width + ((lib3a_mut==50 && yoffset == 2) ? 1 : 0);'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():

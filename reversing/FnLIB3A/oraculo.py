@@ -352,6 +352,57 @@ def t_pre_process(r, ec):
         if (e[0], e[1], e[2], e[3]) != ((prb + 8) % M, 0, obb, og): return False
     return True
 
+def t_onepass(r, ec):
+    mpr, totr, inrow, outrow, nc, blocks, rows_per, vo, ctr, stop = [r.u32() for _ in range(10)]
+    comps = [tuple(r.u32() for _ in range(6)) for _ in range(nc)]
+    ob = [r.u32() for _ in range(nc)]
+    inrow1, outrow1, ctr1, vo1, rows1, ctr1b = [r.u32() for _ in range(6)]
+    L = struct.unpack('<%dI' % (64 + 2 + 5 * 256), r.raw(4 * (64 + 2 + 5 * 256))); mb0 = r.u32(); vs0 = r.u32(); M = 2**32
+    ret = r.ret
+    last_col = mpr - 1; last_row = totr - 1
+    calls = 0; idct = []; dec = []; res = None; fctr = None; fvo = None
+    for yoff in range(vo, rows_per):
+        mcu = ctr
+        while mcu <= last_col:
+            n = calls; calls += 1; dec.append(mb0)
+            if stop != 0 and n + 1 == stop: res = 0; fctr = mcu; fvo = yoff; break
+            blkn = 0
+            for ci in range(nc):
+                needed, w, h, lcw, lrh, ptr = comps[ci]
+                if not needed: blkn += w * h; continue
+                useful = w if mcu < last_col else lcw
+                outp = (ob[ci] + yoff * 8 * 4) % M; sc = mcu * w * 8
+                for yi in range(h):
+                    if inrow < last_row or yoff + yi < lrh:
+                        oc = sc
+                        for xi in range(useful):
+                            idct.append((ptr, (mb0 + (blkn + xi) * 128) % M, outp, oc, (n * 3 + blkn + xi + 1) & 0xFFFF)); oc += 8
+                    blkn += w; outp = (outp + 32) % M
+            mcu += 1
+        if res is not None: break
+        ctr = 0
+    fin = 0
+    if res is None:
+        outrow += 1; inrow += 1
+        if inrow < totr:
+            res = 3; fctr = 0; fvo = 0
+            rows_per = 1 if nc > 1 else (vs0 if inrow < totr - 1 else comps[0][4])
+        else:
+            res = 4; fin = 1; fctr = ctr; fvo = vo if False else 0 if False else None
+    if ec != 0 or ret != res: return False
+    if L[0] != calls or L[64] != fin or L[65] != len(idct): return False
+    if res == 0:
+        if (inrow1, outrow1, ctr1, vo1) != (inrow, outrow, fctr, fvo): return False
+    else:
+        if (inrow1, outrow1) != (inrow, outrow): return False
+        if res == 3 and (ctr1, vo1, rows1) != (0, 0, rows_per): return False
+        if res == 4 and ctr1 != 0: return False
+    for k, e in enumerate(dec):
+        if L[2 + k] != e: return False
+    for k, e in enumerate(idct):
+        if tuple(L[64 + 2 + 5 * k:64 + 7 + 5 * k]) != e: return False
+    return True
+
 def t_start_up(r, ec):
     maxv, oh, nro, rtg = r.u32(), r.u32(), r.u32(), r.u32()
     return nro == maxv and rtg == oh and ec == 0
@@ -414,7 +465,7 @@ def t_dcolor(r, ec):
 
 def t_nothing(r, ec): return ec == 0
 
-CHECKS = {'pre_process_data': t_pre_process, 'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
+CHECKS = {'decompress_onepass': t_onepass, 'pre_process_data': t_pre_process, 'start_pass_idctmgr': t_idctmgr, 'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
           'emit_byte': t_marker_bytes, 'write_marker_header': t_marker_bytes, 'start_pass_prep': t_start_prep, 'reset_marker_reader': t_reset_marker, 'start_pass_dpost': t_dpost, 'jpeg_idct_float': t_idct_float, 'rgb_ycc_start': t_rgb_ycc_start, 'rgb_ycc_convert': t_color_compress('ycc'), 'rgb_gray_convert': t_color_compress('gray'), 'cmyk_ycck_convert': t_color_compress('cmyk'),
           'grayscale_convert': t_color_compress('grayc'), 'null_convert': t_color_compress('null'), 'null_method': t_nothing, 'start_pass_fdctmgr': t_start_fdct,
           'jpeg_fdct_float': t_fdct_float, 'forward_DCT_float': t_forward_dct, 'start_pass_upsample': t_start_up, 'fullsize_upsample': t_upsample, 'noop_upsample': t_upsample,
@@ -429,7 +480,7 @@ if __name__ == '__main__':
         if not os.path.exists(p): continue
         n = fails = 0
         for rec in records(p):
-            rd = Rd(rec); ec = rd.u32(); rd.u32()
+            rd = Rd(rec); ec = rd.u32(); rd.ret = rd.u32()
             n += 1
             if not chk(rd, ec): fails += 1
         print('%-24s %9d %9d' % (name, n, fails)); total_fail += fails

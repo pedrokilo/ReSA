@@ -571,6 +571,50 @@ static void add_prep_tests() {
     }, 4000});
 }
 
+
+// ---- descompresion: coeficientes de una pasada (jdcoefct.c decompress_onepass)
+static boolean __cdecl mock_decode_mcu_b(j_decompress_ptr c, JBLOCKROW* mcu) {
+    uint32_t* L = (uint32_t*)c->client_data; uint32_t n = L[0]++; L[2 + n] = (uint32_t)(uintptr_t)mcu[0];
+    for (int b = 0; b < c->blocks_in_MCU; b++) mcu[b][0][0] = (JCOEF)(n * 3 + (uint32_t)b + 1);
+    uint32_t stop = L[1]; return (stop != 0 && n + 1 == stop) ? FALSE : TRUE;
+}
+static void __cdecl mock_idct_o(j_decompress_ptr c, jpeg_component_info* cp, JCOEFPTR blk, JSAMPARRAY out, JDIMENSION col) {
+    uint32_t* L = (uint32_t*)c->client_data; uint32_t n = L[64 + 1]++; uint32_t* e = L + 64 + 2 + 5 * n; e[0] = (uint32_t)(uintptr_t)cp; e[1] = (uint32_t)(uintptr_t)blk; e[2] = (uint32_t)(uintptr_t)out; e[3] = col; e[4] = (uint32_t)(uint16_t)blk[0];
+}
+static void __cdecl mock_finish_input(j_decompress_ptr c) { uint32_t* L = (uint32_t*)c->client_data; L[64]++; }
+static void add_onepass_tests() {
+    g_tests.push_back({"decompress_onepass", 0x5C8B70, "jdcoefct", "decompress_onepass", [](Rng& r, Ctx& x) {
+        auto c = new_dinfo(); c->mem = &g_mem; x.check_ret = true;
+        ((void(__cdecl*)(j_decompress_ptr, boolean))lib("jdcoefct", "jinit_d_coef_controller"))(c, FALSE);
+        void* co = c->coef;
+        int nc = (int)R(r, 1, 3); c->comps_in_scan = nc; int tot = 0;
+        auto ci = AT<jpeg_component_info>(4); memset(ci, 0, sizeof(jpeg_component_info) * 4);
+        for (int i = 0; i < nc; i++) {
+            auto& p = ci[i]; p.component_index = i; p.component_needed = (boolean)(r() % 5 != 0); p.MCU_width = i == 2 ? 1 : (int)R(r, 1, 2); p.MCU_height = i == 2 ? 1 : (int)R(r, 1, 2); p.v_samp_factor = (int)R(r, 1, 3); p.MCU_blocks = p.MCU_width * p.MCU_height; tot += p.MCU_blocks;
+            p.DCT_scaled_size = 8; p.MCU_sample_width = p.MCU_width * 8; p.last_col_width = (int)R(r, 1, (uint32_t)p.MCU_width); p.last_row_height = (int)R(r, 1, (uint32_t)p.MCU_height);
+            c->cur_comp_info[i] = &p;
+        }
+        c->blocks_in_MCU = tot; c->MCUs_per_row = R(r, 1, 4); c->total_iMCU_rows = R(r, 1, 4); c->input_iMCU_row = R(r, 0, c->total_iMCU_rows - 1 + (r() % 3 == 0 ? 1 : 0)); c->output_iMCU_row = R(r, 0, 5);
+        uint32_t rows_per = R(r, 1, 3); W32(co, 0x1C) = rows_per; W32(co, 0x18) = R(r, 0, rows_per - 1); W32(co, 0x14) = R(r, 0, c->MCUs_per_row - 1);
+        void* idct = A(0x40, 8); memset(idct, 0, 0x40); c->idct = (struct jpeg_inverse_dct*)idct; for (int i = 0; i < 4; i++) W32(idct, 4 + 4 * i) = (uint32_t)(uintptr_t)mock_idct_o;
+        void* en = A(0x40, 8); memset(en, 0, 0x40); c->entropy = (struct jpeg_entropy_decoder*)en; c->entropy->decode_mcu = mock_decode_mcu_b;
+        void* ic = A(0x40, 8); memset(ic, 0, 0x40); c->inputctl = (struct jpeg_input_controller*)ic; c->inputctl->finish_input_pass = mock_finish_input;
+        uint32_t* L = (uint32_t*)A(4 * (64 + 2 + 5 * 256), 8); memset(L, 0, 4 * (64 + 2 + 5 * 256)); c->client_data = L; L[1] = (r() % 3 == 0) ? R(r, 1, 6) : 0;
+        JSAMPIMAGE ob = (JSAMPIMAGE)AT<JSAMPARRAY>(4); for (int i = 0; i < 4; i++) ob[i] = (JSAMPARRAY)(uintptr_t)(0x100000 * (i + 1));
+        // fija la mascara de estado del controlador que el banco compara: todo el arena (incluye los 10 bloques del MCU)
+        uint32_t ctr0 = W32(co, 0x14), vo0 = W32(co, 0x18);
+        std::vector<uint32_t> cinfo_vals = {c->MCUs_per_row, c->total_iMCU_rows, c->input_iMCU_row, c->output_iMCU_row, (uint32_t)c->comps_in_scan, (uint32_t)c->blocks_in_MCU, rows_per, vo0, ctr0, L[1]};
+        x.call = [=](void* f) { return (int)((int(__cdecl*)(j_decompress_ptr, JSAMPIMAGE))f)(c, ob); };
+        x.dump = [=](std::vector<uint8_t>& v) {
+            for (auto q : cinfo_vals) put32(v, q);
+            for (int i = 0; i < nc; i++) { auto& p = ci[i]; put32(v, (uint32_t)p.component_needed & 0xFF); put32(v, (uint32_t)p.MCU_width); put32(v, (uint32_t)p.MCU_height); put32(v, (uint32_t)p.last_col_width); put32(v, (uint32_t)p.last_row_height); put32(v, (uint32_t)(uintptr_t)&p); }
+            for (int i = 0; i < nc; i++) put32(v, (uint32_t)(uintptr_t)ob[i]);
+            put32(v, c->input_iMCU_row); put32(v, c->output_iMCU_row); put32(v, W32(co, 0x14)); put32(v, W32(co, 0x18)); put32(v, W32(co, 0x1C)); put32(v, W32(c->coef, 0x14));
+            putn(v, L, 4 * (64 + 2 + 5 * 256)); put32(v, (uint32_t)(uintptr_t)((JBLOCKROW*)((uint8_t*)co + 0x20))[0]); put32(v, (uint32_t)ci[0].v_samp_factor);
+        };
+    }, 4000});
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -586,7 +630,7 @@ int main(int argc, char** argv) {
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
-    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests();
+    add_idct_tests(); add_state_tests(); add_downsample_tests(); add_idctmgr_tests(); add_prep_tests(); add_onepass_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");

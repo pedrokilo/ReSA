@@ -1,0 +1,9 @@
+[
+ {
+  "k": 50,
+  "funcion": "decompress_onepass",
+  "pares": 20000,
+  "diferencias": 2255,
+  "detectada": true
+ }
+]
