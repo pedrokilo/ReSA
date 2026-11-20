@@ -1,0 +1,22 @@
+qsort-corte-7 (qsort): rc=127 0 lineas DIFERENCIA
+qsort-primer-bucle-estricto (qsort): rc=127 0 lineas DIFERENCIA
+qsort-shortsort-igual-cuenta (qsort): rc=127 0 lineas DIFERENCIA
+qsort-mediana-sin-tercera (qsort): rc=1  lineas DIFERENCIA
+qsort-ordena-menor-primero (qsort): rc=1  lineas DIFERENCIA
+strncpy-sin-relleno (cadenas): rc=1  lineas DIFERENCIA
+strncat-sin-cero-final (cadenas): rc=1  lineas DIFERENCIA
+strcmp-devuelve-diferencia (cadenas): rc=1  lineas DIFERENCIA
+strstr-aguja-vacia-nula (cadenas): rc=1  lineas DIFERENCIA
+calloc-sin-ceros (monton): rc=1  lineas DIFERENCIA
+malloc-cero-sin-uno (monton): rc=1  lineas DIFERENCIA
+realloc-cero-no-libera (monton): rc=1  lineas DIFERENCIA
+free-ignora-nulo-invertido (monton): rc=127 0 lineas DIFERENCIA
+FIN rc_all=0 (0 = todas las mutaciones detectadas)
+qsort-corte-7 (qsort): rc=1 6 lineas DIFERENCIA
+qsort-primer-bucle-estricto (qsort): rc=1 6 lineas DIFERENCIA
+qsort-shortsort-igual-cuenta: NO SE PUDO COMPILAR (ver /d/Original/_crt1a_work/neg/mut_qsort-shortsort-igual-cuenta/build.log)
+free-ignora-nulo-invertido: NO SE PUDO COMPILAR (ver /d/Original/_crt1a_work/neg/mut_free-ignora-nulo-invertido/build.log)
+FIN rc_all=1 (0 = todas las mutaciones detectadas)
+qsort-shortsort-igual-cuenta (qsort): rc=1 6 lineas DIFERENCIA
+free-ignora-nulo-invertido (monton): rc=127 0 lineas DIFERENCIA
+FIN rc_all=0 (0 = todas las mutaciones detectadas)

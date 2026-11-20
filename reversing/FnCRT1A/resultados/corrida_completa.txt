@@ -1,0 +1,14 @@
+qsort: 300000 casos, 0 diferencias
+  por comparador: u32 asc=39828 u32 desc=39371 byte0=39676 byte0&7=39617 inconsistente=39719 todo igual=39827 diferencia c/desborde=39509 EXE 7C8720=7465 EXE 7567A0=7482 EXE 758240=7506
+  por ancho: 1=30596 2=23326 3=23043 4=23174 5=23207 6=30575 7=22998 8=30627 12=23077 16=23106 24=23343 33=22928
+strlen: 75000 pares, 0 diferencias
+strcmp: 75000 pares, 0 diferencias
+strncmp: 75000 pares, 0 diferencias
+strcpy: 75000 pares, 0 diferencias
+strcat: 75000 pares, 0 diferencias
+strncpy: 75000 pares, 0 diferencias
+strncat: 75000 pares, 0 diferencias
+strstr: 75000 pares, 0 diferencias
+montón (malloc/calloc/realloc/free/new/delete): 75000 secuencias; operaciones malloc=327211 calloc=327212 realloc=327360 free=327251 delete=326962 new=327154 malloc(0)=328069; 0 diferencias
+RESULTADO: SIN DIFERENCIAS
+rc=0
