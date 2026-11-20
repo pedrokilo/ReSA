@@ -1,0 +1,21 @@
+0x4E7B80: MFDec
+0x61DAE0: FightProcessPed31, Fn85I
+0x61FD10: Fn206A
+0x61FF30: Fn206A
+0x621BE0: LeaveCar67
+0x675DD0: Fn204A
+0x6D2950: CVehC
+0x734850: (ninguno)
+0x735140: (ninguno)
+0x7352D0: (ninguno)
+0x4D1390: Anim20, AnimMgr31, CTaskSimpleUseGun, CTasks10b, CTasks14b, CTasks15, CTasks19, CTasks61a, CTasks61b, CTasks61c, CTasks8c, CTasks9d, CppTrigClimb, CppTrigJetPack, DependenciesTask12, EventsTasks56, FightAbort31, FightProcessPed31, Fn108A, Fn150A, Fn152A, Fn154A, Fn155A, Fn156A, Fn157A, Fn159A, Fn164A, Fn167A, Fn169A, Fn170A, Fn176A, Fn187A, Fn191A, Fn192A, Fn193A, Fn204A, Fn206A, Fn85I, Gun19, LeaveCar67, Mgr7, Ped9, STasks10, STasks19, STasks43, STasks6a, STasks6b, STasks6c, STasks7, STasks8a, STasks8b, STasks9, SimpleTasks52
+0x4637C0: (ninguno)
+0x4CF9E0: (ninguno)
+0x749000: Fn226A
+0x749010: Fn226A
+0x749020: Fn226A
+0x749030: Fn226A
+0x749040: Fn226A
+0x749060: Fn226A
+0x7490B0: Fn226A
+0x7490F0: Fn226A
