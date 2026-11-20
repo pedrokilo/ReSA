@@ -1,0 +1,13 @@
+funcion,direccion,archivo_parcheado,banco_registro_validacion,pares,resumen_banco,nota
+CCam::Process_DW_PlaneSpotterCam,0x0051C250,source/game_sa/Cam.cpp,reversing/validation-registry/parte-002.json,2048,reversing/CamSpotter355/validation-summary.json,repetir con entradas de posicion con NaN (planar NaN)
+CCarAI::EntitiesGoHeadOn,0x0041CD00,source/game_sa/CarAI.cpp,reversing/validation-registry/parte-001.json,1024,reversing/CarAI25/validation-summary.json,repetir con producto escalar NaN
+CCollision::IsStoredPolyStillValidVerticalLine,0x00414D70,source/game_sa/Collision/Collision.cpp,reversing/validation-registry/parte-001.json,512,reversing/ColProc59b/validation-summary.json,repetir con normal NaN/componentes iguales
+CTrain::AddNearbyPedAsRandomPassenger,0x006F8170,source/game_sa/Entity/Vehicle/Train.cpp,reversing/validation-registry/parte-002.json,1024,reversing/TrainAddPassenger355/validation-summary.json,repetir con posicion de peaton NaN
+CTrain::ProcessControl (virtual 0x6F86A0),0x006F86A0,source/game_sa/Entity/Vehicle/Train.cpp,reversing/validation-registry/parte-004.json,1024,reversing/TrainWave3/validation-summary.json,repetir con m_fTrainSpeed NaN en la rama de parada en estacion
+FxEmitterBP_c::Render (virtual 0x4A2C40) y RenderHeatHaze 0x4A1940,0x004A2C40,source/game_sa/Fx/FxEmitterBP.cpp,reversing/validation-registry/parte-003.json,2048,reversing/FxEmitterRender355/validation-summary.json,solo render; entradas con rotacion NaN
+CGangWars::CreateAttackWave,0x00444810,source/game_sa/GangWars.cpp,reversing/validation-registry/parte-002.json,1024,reversing/GangWarsPending/validation-summary-reval-20261103.json,repetir con z del jugador NaN
+CGangWars::Update,0x00446610,source/game_sa/GangWars.cpp,reversing/validation-registry/parte-002.json,1024,reversing/GangWarsPending/validation-summary-reval-20261103.json,repetir con z NaN y con distancia NaN al punto de ataque
+CPopulation::AddToPopulation (contiene PopulationCouple),0x00614720,source/game_sa/Population.cpp,reversing/validation-registry/parte-002.json,1024,reversing/PopulationPending/validation-summary.json,velocidad de andar NaN
+CPopulation::ManageObject,0x00615DC0,source/game_sa/Population.cpp,reversing/validation-registry/parte-002.json,1024,reversing/PopulationPending/validation-summary.json,distancia NaN en la rama de objetos temporales (barrera/pelota)
+CWorld::GetIsLineOfSightClear,0x0056A490,source/game_sa/World.cpp,reversing/validation-registry/parte-002.json,1024,reversing/WldB/validation-summary.json,destino.x NaN (recorrido de sectores)
+CWorld::ProcessLineOfSight,0x0056BA00,source/game_sa/World.cpp,reversing/validation-registry/parte-002.json,1024,reversing/WldB/validation-summary.json,destino.x NaN (recorrido de sectores); lo usan camara, fisicas e IA
