@@ -181338,6 +181338,90 @@
       "dependency_review": null,
       "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 32256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
       "review_reference": "reversing/CTasks61b/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWanderCriminal",
+        "fn_name": "ScanForStuff",
+        "address": "0x00670350",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CTasks61b/validation-summary.json",
+        "sha256": "c328f5344f0f3b47f7c686f0cd754af57f05ab32d2d1121e9dd9cf933418f753",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexWanderCriminal::ScanForStuff"
+        ],
+        "pairs": 1024,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "9cd9cc14b9bc66892ab306cd11afa8329cf1bf3d9c6d3dade7ad55d4f3e88247",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.h": "f38146f1df86caf78a07b7acd7bcb4b6aed23a3c5be186b1caab79a741e22ae0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp": "fb8dd2aaca7e2edde69463dbde8aad6ea54e94f96b6b44f4bc00919ec62f2279",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.h": "0a8e75e2cbceab0429b8c23525a249be3930d8b9e5af465cdedd4df47915a25a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "5afda88100e6f795e35b1cd911c09f173e118c3e3287ac9e00b1da73c29f6ec1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "fdeac7ecf80b8be0e3e4060fa6ad3386599a737110b735ebd6cc7c97b5626a5e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "498e51aae630fd779f983ce2cdee4fb196cef512ed1b163bcffac0b612584afe",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h": "82bbd730ecb4a26b7207b12330163c4779fa98c542b8a60812245329189c7a2d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "7c00e0066d8c57aaf9c871234d92d91a1b9baa5c02769c84601943ea9a87d87b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h": "2b11017c74fa8320ad5b41895c9ccf8f54765693fe859164ae42738ae026c6cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "5e396a5b9ad2194f0e4d02255d3847cd188b25f4d83d44be6caad75424563d82",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h": "8003882353696c8da5abc6696d0a354b6fdfb5f6638c73ec68bb4ab8e336aaf9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "ca9a8c3e5f96bd56e03ef8d7db7d7b41cfc9e4b5792c1479cab8cc8bef854ea6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h": "46f871e6205cd64012a94fa1a253f9619803196705075cb5a8f739e19a7f04ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "2e2eab2e5b93910aaf4d39af2bcfa1e7ac869404db1521f3370438d840b44018",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "7be4c19913cbee1270d11f00c453ea684d3e3be2d23e20be0a732ce9e66be520",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp": "e9fbfa255cceec21fbc2e0582a7156d6bf40ff5edf895474461e763d16e86f13",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h": "d42e928aa41d040a093f37849ce18f4d4984cde1f26490519e1a9ca8af378b27"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-204334-550890).",
+      "dependency_review": null,
+      "scope": "1024 pares original/candidato con hook conmutado dentro del motor; banco de 32256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CTasks61b/README.md"
+    },
+    {
+      "hook": {
+        "class": "CTaskComplexWanderProstitute",
+        "fn_name": "Clone",
+        "address": "0x00673C80",
+        "type": "V"
+      },
+      "evidence": {
+        "path": "reversing/CTasks61b/validation-summary.json",
+        "sha256": "c328f5344f0f3b47f7c686f0cd754af57f05ab32d2d1121e9dd9cf933418f753",
+        "passed_path": [
+          "covered_functions",
+          "CTaskComplexWanderProstitute::Clone"
+        ],
+        "pairs": 256,
+        "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b"
+      },
+      "tested_sources": {
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.cpp": "9cd9cc14b9bc66892ab306cd11afa8329cf1bf3d9c6d3dade7ad55d4f3e88247",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderCriminal.h": "f38146f1df86caf78a07b7acd7bcb4b6aed23a3c5be186b1caab79a741e22ae0",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.cpp": "fb8dd2aaca7e2edde69463dbde8aad6ea54e94f96b6b44f4bc00919ec62f2279",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexWanderProstitute.h": "0a8e75e2cbceab0429b8c23525a249be3930d8b9e5af465cdedd4df47915a25a",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.cpp": "5afda88100e6f795e35b1cd911c09f173e118c3e3287ac9e00b1da73c29f6ec1",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveCower.h": "fdeac7ecf80b8be0e3e4060fa6ad3386599a737110b735ebd6cc7c97b5626a5e",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.cpp": "498e51aae630fd779f983ce2cdee4fb196cef512ed1b163bcffac0b612584afe",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexEvasiveStep.h": "82bbd730ecb4a26b7207b12330163c4779fa98c542b8a60812245329189c7a2d",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.cpp": "7c00e0066d8c57aaf9c871234d92d91a1b9baa5c02769c84601943ea9a87d87b",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexBeInCouple.h": "2b11017c74fa8320ad5b41895c9ccf8f54765693fe859164ae42738ae026c6cc",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.cpp": "5e396a5b9ad2194f0e4d02255d3847cd188b25f4d83d44be6caad75424563d82",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexSignalAtPed.h": "8003882353696c8da5abc6696d0a354b6fdfb5f6638c73ec68bb4ab8e336aaf9",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.cpp": "ca9a8c3e5f96bd56e03ef8d7db7d7b41cfc9e4b5792c1479cab8cc8bef854ea6",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexCrossRoadLookAndAchieveHeading.h": "46f871e6205cd64012a94fa1a253f9619803196705075cb5a8f739e19a7f04ef",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.cpp": "2e2eab2e5b93910aaf4d39af2bcfa1e7ac869404db1521f3370438d840b44018",
+        "source/game_sa/Tasks/TaskTypes/TaskComplexDestroyCar.h": "7be4c19913cbee1270d11f00c453ea684d3e3be2d23e20be0a732ce9e66be520",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.cpp": "e9fbfa255cceec21fbc2e0582a7156d6bf40ff5edf895474461e763d16e86f13",
+        "source/game_sa/Tasks/TaskTypes/TaskSimpleChoking.h": "d42e928aa41d040a093f37849ce18f4d4984cde1f26490519e1a9ca8af378b27"
+      },
+      "source_provenance": "Independent in-engine fixtures; source hashes from the archived probe build manifest (20261005-204334-550890).",
+      "dependency_review": null,
+      "scope": "256 pares original/candidato con hook conmutado dentro del motor; banco de 32256 pares. Objetos falsos; dependencias simuladas y trazadas en el EXE y en la DLL; estado global y pools restaurados por ejecucion. Ver README del banco.",
+      "review_reference": "reversing/CTasks61b/README.md"
     }
   ]
 }

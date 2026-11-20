@@ -1,0 +1,17 @@
+{
+  "passed": false,
+  "saves_before": {
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf1.b": "96c87e3da21fefa4198aef3a73e1dca3d60b67eed37761e767e4221425a31560",
+    "E:\\JUEGOS\\GTA San Andreas - CVehicle Test\\userfiles\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa",
+    "C:\\Users\\pedro\\OneDrive\\Documents\\GTA San Andreas User Files\\GTASAsf2.b": "b089c48d157740acad950bb427a5b795d17f656c643d7e87b15da16b64b2d8fa"
+  },
+  "executed_probe_sha256": "423c75ecb873c2116d98d49ebafb76c62d326dc764a3724663b1a8a8a234b16e",
+  "original_exe_sha256": "72ae59e44c761389e354a50dc6215e964fe771121e2f4b1877273a493ceecc9b",
+  "config_hashes_before": {
+    "gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d",
+    "scripts/gta-reversed.ini": "dd44afb3e8aa2d801079baa39d60999299338dc51215ea1e8d58437c7867d42d"
+  },
+  "error": "Funciones con diferencias: RpAnisot::EngineConstructor: 136/2048; RpAnisot::EngineDestructor: 121/2048; RpAnisot::TextureConstructor: 604/2048; RpAnisot::TextureDestructor: 1038/2048; RpAnisot::TextureCopy: 934/2048; RpAnisot::StreamRead: 237/2048; RpAnisot::StreamWrite: 543/2048; RpAnisot::StreamGetSize: 284/2048; CMissionCleanup::FindFree: 513/2048; CQuaternion::Copy: 887/2048; CDefaultAnimCallback::DefaultAnimCB: 1535/2048; CAEMFDecoder::FillCallback: 236/2048; CTaskSimpleFight::MeleeAnimFinishCB: 60/2048; CTaskSimpleBeKickedOnGround::FinishAnimCB: 607/2048; CTaskSimpleBeHitWhileMoving::FinishAnimCB: 604/2048; CTaskSimpleGangDriveBy::FinishAnimCB: 302/2048; CTaskInteriorSitInChair::FinishAnimCB: 551/2048; Vehicle::SetCompAlphaCB: 567/2048; RwHelper::Get2DEffectAtomicCallback: 204/2048; RwHelper::SkinGetBonePositions: 493/2048; RwHelper::SkinSetBonePositions: 451/2048",
+  "saves_unchanged": true,
+  "configs_restored": true
+}
