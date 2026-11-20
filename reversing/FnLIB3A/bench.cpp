@@ -462,6 +462,50 @@ static void add_state_tests() {
     g_tests.push_back({"write_marker_header", 0x5C6030, "jcmarker", "write_marker_header", [dest_fixture](Rng& r, Ctx& x) { dest_fixture(r, x, 1); }});
 }
 
+
+// ---- compresion: submuestreo (jcsample.c)
+static uint32_t* g_log;   // registro de llamadas de los mocks (dentro del arena)
+static void __cdecl mock_down(j_compress_ptr c, jpeg_component_info* cp, JSAMPARRAY in, JSAMPARRAY out) {
+    uint32_t* L = (uint32_t*)c->client_data; uint32_t n = L[0]++; L[1 + 4 * n] = (uint32_t)(uintptr_t)cp; L[2 + 4 * n] = (uint32_t)(uintptr_t)in; L[3 + 4 * n] = (uint32_t)(uintptr_t)out; L[4 + 4 * n] = (uint32_t)c->image_width ^ (uint32_t)cp->component_index;
+}
+static void add_downsample_tests() {
+    g_tests.push_back({"start_pass_downsample", 0x5C79E0, "jcsample", "start_pass_downsample", [](Rng& r, Ctx& x) {
+        auto c = rand_cinfo(r); x.call = [c](void* f) { ((void(__cdecl*)(j_compress_ptr))f)(c); return 0; }; x.dump = [](std::vector<uint8_t>&) {};
+    }, 1});
+    g_tests.push_back({"sep_downsample", 0x5C7A50, "jcsample", "sep_downsample", [](Rng& r, Ctx& x) {
+        auto c = new_cinfo(); int nc = (int)R(r, 0, 4); c->num_components = nc; auto ci = AT<jpeg_component_info>(4); memset(ci, 0, sizeof(jpeg_component_info) * 4); c->comp_info = ci;
+        uint32_t* L = (uint32_t*)A(4 * 4 * 5 + 16, 8); memset(L, 0, 16 * 5 + 16); c->client_data = L; c->image_width = r();
+        void* ds = A(0x40, 8); memset(ds, 0, 0x40); c->downsample = (struct jpeg_downsampler*)ds;
+        for (int i = 0; i < 4; i++) { ci[i].component_index = i; ci[i].v_samp_factor = (int)R(r, 1, 4); W32(ds, 0xC + 4 * i) = (uint32_t)(uintptr_t)mock_down; }
+        JSAMPIMAGE ib = (JSAMPIMAGE)AT<JSAMPARRAY>(4), ob = (JSAMPIMAGE)AT<JSAMPARRAY>(4); for (int i = 0; i < 4; i++) { ib[i] = (JSAMPARRAY)(uintptr_t)(0x1000 * (i + 1) + 0x100); ob[i] = (JSAMPARRAY)(uintptr_t)(0x9000 * (i + 1) + 0x200); }
+        uint32_t ir = R(r, 0, 20), orow = R(r, 0, 9);
+        x.call = [=](void* f) { ((void(__cdecl*)(j_compress_ptr, JSAMPIMAGE, JDIMENSION, JSAMPIMAGE, JDIMENSION))f)(c, ib, ir, ob, orow); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) { put32(v, (uint32_t)nc); put32(v, ir); put32(v, orow); put32(v, c->image_width); for (int i = 0; i < 4; i++) { put32(v, (uint32_t)ci[i].v_samp_factor); put32(v, (uint32_t)(uintptr_t)ib[i]); put32(v, (uint32_t)(uintptr_t)ob[i]); } putn(v, L, 4 * 17); put32(v, (uint32_t)(uintptr_t)ci); };
+    }});
+    struct DS { const char* name; uint32_t addr; const char* lib; int kind; };
+    DS dss[] = {{"int_downsample", 0x5C7AE0, "int_downsample", 0}, {"fullsize_downsample", 0x5C7C10, "fullsize_downsample", 1}, {"h2v1_downsample", 0x5C7C60, "h2v1_downsample", 2}, {"h2v2_downsample", 0x5C7D10, "h2v2_downsample", 3}};
+    for (auto& d0 : dss) {
+        DS t = d0;
+        g_tests.push_back({t.name, t.addr, "jcsample", t.lib, [t](Rng& r, Ctx& x) {
+            auto c = new_cinfo(); auto cp = AT<jpeg_component_info>(); memset(cp, 0, sizeof *cp);
+            int hs = (int)R(r, 1, 2), vs = (int)R(r, 1, 3), he = 1, ve = 1;
+            switch (t.kind) { case 0: he = (int)R(r, 1, 4); ve = (int)R(r, 1, 4); break; case 1: break; case 2: he = 2; break; case 3: he = 2; ve = 2; break; }
+            cp->h_samp_factor = hs; cp->v_samp_factor = vs; cp->width_in_blocks = R(r, 1, 5); c->max_h_samp_factor = hs * he; c->max_v_samp_factor = vs * ve;
+            uint32_t OC = cp->width_in_blocks * 8, inw = OC * (uint32_t)he;
+            uint32_t iw = (r() % 3 == 0) ? inw : R(r, 1, inw); if (t.kind == 1) iw = std::min(iw, OC); if (r() % 5 == 0) iw = std::max<uint32_t>(1, std::min(iw, inw));
+            c->image_width = iw; c->num_components = 1;
+            uint32_t inrows = (uint32_t)c->max_v_samp_factor, outrows = (t.kind == 1) ? inrows : (uint32_t)vs;
+            JSAMPARRAY in = make_rows(r, inrows, inw, 8, true); JSAMPARRAY out = make_rows(r, outrows, OC, 8, false);
+            std::vector<uint8_t> in0; for (uint32_t i = 0; i < inrows; i++) putn(in0, in[i], iw);
+            x.call = [=](void* f) { ((void(__cdecl*)(j_compress_ptr, jpeg_component_info*, JSAMPARRAY, JSAMPARRAY))f)(c, cp, in, out); return 0; };
+            x.dump = [=](std::vector<uint8_t>& v) {
+                put32(v, (uint32_t)t.kind); put32(v, (uint32_t)hs); put32(v, (uint32_t)vs); put32(v, (uint32_t)he); put32(v, (uint32_t)ve); put32(v, cp->width_in_blocks); put32(v, iw); put32(v, inrows); put32(v, outrows);
+                putn(v, in0.data(), in0.size()); for (uint32_t i = 0; i < outrows; i++) putn(v, out[i], OC);
+            };
+        }});
+    }
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -477,7 +521,7 @@ int main(int argc, char** argv) {
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
-    add_idct_tests(); add_state_tests();
+    add_idct_tests(); add_state_tests(); add_downsample_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");

@@ -1,0 +1,44 @@
+[
+ {
+  "k": 42,
+  "funcion": "start_pass_downsample",
+  "pares": 20000,
+  "diferencias": 20000,
+  "detectada": true
+ },
+ {
+  "k": 43,
+  "funcion": "sep_downsample",
+  "pares": 20000,
+  "diferencias": 8131,
+  "detectada": true
+ },
+ {
+  "k": 44,
+  "funcion": "int_downsample",
+  "pares": 20000,
+  "diferencias": 2217,
+  "detectada": true
+ },
+ {
+  "k": 45,
+  "funcion": "fullsize_downsample",
+  "pares": 20000,
+  "diferencias": 428,
+  "detectada": true
+ },
+ {
+  "k": 46,
+  "funcion": "h2v1_downsample",
+  "pares": 20000,
+  "diferencias": 11286,
+  "detectada": true
+ },
+ {
+  "k": 47,
+  "funcion": "h2v2_downsample",
+  "pares": 20000,
+  "diferencias": 10342,
+  "detectada": true
+ }
+]

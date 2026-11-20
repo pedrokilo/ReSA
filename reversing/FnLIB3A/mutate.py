@@ -103,6 +103,22 @@ R2 += [
  (40, 'emit_byte', 'jcmarker', 'emit_byte', '--dest->free_in_buffer == 0', '--dest->free_in_buffer == ((lib3a_mut==40 && cinfo->image_width % 4 == 1) ? 1 : 0)'),
  (41, 'write_marker_header', 'jcmarker', 'write_marker_header', '(int) (datalen + 2)', '(int) (datalen + 2 + ((lib3a_mut==41 && (datalen & 255) == 77) ? 1 : 0))'),
 ]
+R1 += [
+ (42, 'start_pass_downsample', 'jcsample', 'start_pass_downsample', '/* no work for now */', 'if (lib3a_mut==42) cinfo->image_width++;'),
+ (43, 'sep_downsample', 'jcsample', 'sep_downsample', 'in_ptr = input_buf[ci] + in_row_index;', 'in_ptr = input_buf[ci] + in_row_index + ((lib3a_mut==43 && ci==2) ? 1 : 0);'),
+ (44, 'int_downsample', 'jcsample', 'int_downsample', 'numpix2 = numpix/2;', 'numpix2 = numpix/2 + ((lib3a_mut==44 && numpix==6) ? 1 : 0);'),
+ (45, 'fullsize_downsample', 'jcsample', 'fullsize_downsample', 'cinfo->max_v_samp_factor, cinfo->image_width);', 'cinfo->max_v_samp_factor, cinfo->image_width - ((lib3a_mut==45 && cinfo->image_width == 13) ? 1 : 0));'),
+ (46, 'h2v1_downsample', 'jcsample', 'h2v1_downsample', 'bias ^= 1;', 'bias ^= 1 ^ ((lib3a_mut==46 && outcol == 9) ? 1 : 0);'),
+ (47, 'h2v2_downsample', 'jcsample', 'h2v2_downsample', 'bias ^= 3;', 'bias ^= 3 ^ ((lib3a_mut==47 && outcol == 10) ? 1 : 0);'),
+]
+R2 += [
+ (42, 'start_pass_downsample', 'jcsample', 'start_pass_downsample', '/* no work for now */', 'if (lib3a_mut==42) cinfo->num_components ^= 1;'),
+ (43, 'sep_downsample', 'jcsample', 'sep_downsample', 'out_ptr = output_buf[ci] + (out_row_group_index * compptr->v_samp_factor);', 'out_ptr = output_buf[ci] + (out_row_group_index * compptr->v_samp_factor) - ((lib3a_mut==43 && ci==3) ? 1 : 0);'),
+ (44, 'int_downsample', 'jcsample', 'int_downsample', 'outcol++, outcol_h += h_expand)', 'outcol++, outcol_h += h_expand + ((lib3a_mut==44 && h_expand==3 && outcol==5) ? 1 : 0))'),
+ (45, 'fullsize_downsample', 'jcsample', 'fullsize_downsample', 'compptr->width_in_blocks * DCTSIZE);', 'compptr->width_in_blocks * DCTSIZE - ((lib3a_mut==45 && compptr->width_in_blocks == 3) ? 1 : 0));'),
+ (46, 'h2v1_downsample', 'jcsample', 'h2v1_downsample', 'bias = 0;', 'bias = (lib3a_mut==46 && outrow==1) ? 1 : 0;'),
+ (47, 'h2v2_downsample', 'jcsample', 'h2v2_downsample', 'bias = 1;', 'bias = (lib3a_mut==47 && outrow==1) ? 2 : 1;'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():

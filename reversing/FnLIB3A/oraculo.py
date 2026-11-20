@@ -248,6 +248,40 @@ def t_dpost(r, ec):
     if mode != 0: return ec != 0
     return ec == 0 and sr == 0 and nr == 0
 
+def t_sep_down(r, ec):
+    nc, ir, orow, iw = r.u32(), r.u32(), r.u32(), r.u32()
+    comp = [(r.u32(), r.u32(), r.u32()) for _ in range(4)]
+    L = struct.unpack('<17I', r.raw(68)); base = r.u32()
+    if ec != 0 or L[0] != nc: return False
+    for i in range(nc):
+        cp, inp, outp, tag = L[1 + 4 * i], L[2 + 4 * i], L[3 + 4 * i], L[4 + 4 * i]
+        vs, ib, ob = comp[i]
+        if cp != (base + 0x54 * i) % 2**32 or inp != (ib + 4 * ir) % 2**32 or outp != (ob + 4 * orow * vs) % 2**32 or tag != (iw ^ i): return False
+    return True
+def t_downsample(r, ec):
+    kind, hs, vs, he, ve, wib, iw, inrows, outrows = [r.u32() for _ in range(9)]
+    OC = wib * 8; inw = OC * he
+    rows = [list(r.raw(iw)) for _ in range(inrows)]
+    out = [list(r.raw(OC)) for _ in range(outrows)]
+    def padded(row, n): return row + [row[-1]] * (n - len(row)) if n > len(row) else row
+    if kind == 1:
+        for i in range(outrows):
+            if out[i] != padded(rows[i], OC): return False
+        return ec == 0
+    pr = [padded(row, OC * he) for row in rows]
+    for orow in range(vs):
+        for oc in range(OC):
+            if kind == 0:
+                tot = sum(pr[orow * ve + v][oc * he + h] for v in range(ve) for h in range(he)); n = he * ve
+                e = (tot + n // 2) // n
+            elif kind == 2:
+                e = (pr[orow][2 * oc] + pr[orow][2 * oc + 1] + (oc & 1)) >> 1
+            else:
+                bias = 1 if oc % 2 == 0 else 2
+                e = (pr[2 * orow][2 * oc] + pr[2 * orow][2 * oc + 1] + pr[2 * orow + 1][2 * oc] + pr[2 * orow + 1][2 * oc + 1] + bias) >> 2
+            if out[orow][oc] != e: return False
+    return ec == 0
+
 def t_start_up(r, ec):
     maxv, oh, nro, rtg = r.u32(), r.u32(), r.u32(), r.u32()
     return nro == maxv and rtg == oh and ec == 0
@@ -310,7 +344,7 @@ def t_dcolor(r, ec):
 
 def t_nothing(r, ec): return ec == 0
 
-CHECKS = {'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
+CHECKS = {'start_pass_downsample': t_nothing, 'sep_downsample': t_sep_down, 'int_downsample': t_downsample, 'fullsize_downsample': t_downsample, 'h2v1_downsample': t_downsample, 'h2v2_downsample': t_downsample, 'emit_message': t_emit_message, 'reset_error_mgr': t_reset_error, 'format_message': t_format_message, 'finish_output_pass': t_finish_output, 'finish_pass_master': t_finish_master,
           'emit_byte': t_marker_bytes, 'write_marker_header': t_marker_bytes, 'start_pass_prep': t_start_prep, 'reset_marker_reader': t_reset_marker, 'start_pass_dpost': t_dpost, 'jpeg_idct_float': t_idct_float, 'rgb_ycc_start': t_rgb_ycc_start, 'rgb_ycc_convert': t_color_compress('ycc'), 'rgb_gray_convert': t_color_compress('gray'), 'cmyk_ycck_convert': t_color_compress('cmyk'),
           'grayscale_convert': t_color_compress('grayc'), 'null_convert': t_color_compress('null'), 'null_method': t_nothing, 'start_pass_fdctmgr': t_start_fdct,
           'jpeg_fdct_float': t_fdct_float, 'forward_DCT_float': t_forward_dct, 'start_pass_upsample': t_start_up, 'fullsize_upsample': t_upsample, 'noop_upsample': t_upsample,
