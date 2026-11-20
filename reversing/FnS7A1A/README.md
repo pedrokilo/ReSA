@@ -54,7 +54,8 @@ la llamasen por direccion del EXE; ahora todos usan `CDefaultAnimCallback::Defau
 
 ## Lo que se NO pudo hacer ni verificar aqui
 - **El banco no se ha ejecutado** (el juego esta denegado al agente). Todo esta preparado: `EJECUTAR.md` tiene el comando de una linea.
-- **Compilacion**: ver la seccion siguiente (resultado de la compilacion de las fuentes y de la sonda).
+- **Compilacion**: hecha con el candado (`CMAKE_BUILD_PARALLEL_LEVEL=1 _CL_=-MP1`, `build-project.ps1` en wv-12): ASI Debug completo `EXIT=0` y la sonda del banco (`build_probe`, con `install=False` para no tocar la copia de pruebas) tambien compila. Lo que falta es solo ejecutarlo en el juego.
+- **Comprobacion sin juego ya hecha (`emu_check.py`)**: cada funcion ORIGINAL (bytes del EXE) se emula con Unicorn con el mismo estado inicial, falsos y llamadas que el banco y se compara con el oraculo: **43008 casos (2048 por funcion) sin diferencias** (y 10752 mas tras ajustar la distribucion del byte de la tabla de huesos). Confirma la lectura del desensamblado en el oraculo; el lado DLL solo lo prueba el banco dentro del juego.
 - **Regresion de bancos anteriores**: al sustituir direcciones del EXE por funciones propias cambia lo que algunas clases guardan (`CAEMFDecoder::Initialise` guarda el puntero de `FillCallback`: antes 0x4E7B80, ahora la direccion de la DLL;
   las clases de tareas pasan la direccion propia de los callbacks). Los bancos que citan esas direcciones o comparan esos punteros deben repetirse o canonizar el puntero (lista de bancos en `EJECUTAR.md`).
 - **Archivos generados**: `docs/ReversedClasses.md`, los bloques `BEGIN GENERATED HOOK STATUS` de las fuentes y los CSV de estado no se han regenerado (lo hace la integracion). Solo se anadieron las 21 filas a `docs/hooks.csv`.

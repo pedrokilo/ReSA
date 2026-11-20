@@ -16,7 +16,7 @@ python reversing/FnS7A1A/register_hook.py "E:/JUEGOS/GTA San Andreas - CVehicle 
 
 (pone `validated=1` en las 21 filas de `docs/hooks.csv`, archiva la corrida y escribe `validation-summary.json`). Antes revisar `scope_note.txt`.
 
-Comprobaciones previas sin juego (ya pasadas): `python -I reversing/FnS7A1A/fixture_selfcheck.py` (344064 casos por el oraculo, cobertura de ramas >= 50) y `python -I reversing/FnS7A1A/mutate.py check` (las 42 mutaciones apuntan a un texto unico).
+Comprobaciones previas sin juego (ya pasadas): `python -I reversing/FnS7A1A/emu_check.py 2048` (EXE emulado frente al oraculo, 43008 casos sin diferencias), `python -I reversing/FnS7A1A/fixture_selfcheck.py` (344064 casos por el oraculo, cobertura de ramas >= 50) y `python -I reversing/FnS7A1A/mutate.py check` (las 42 mutaciones apuntan a un texto unico).
 
 ## Notas
 - `build_probe.py` instala el ASI de la sonda en la copia de pruebas (`_baseline`): es el comportamiento de todas las sondas; no se ejecuto aqui.
