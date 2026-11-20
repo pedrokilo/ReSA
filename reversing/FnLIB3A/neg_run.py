@@ -14,11 +14,12 @@ for ronda in (1, 2):
     if not os.path.exists(os.path.join(bdir, 'bench.exe')): print(r.stdout[-2000:], r.stderr[-2000:]); sys.exit(2)
     res = []
     for k, test, fil, func, old, new in mutate.RONDAS[ronda]:
+        if k < int(os.environ.get('NEG_FROM', '1')): continue   # LIB3B: solo las mutaciones nuevas (NEG_FROM=25...)
         env = dict(os.environ, LIB3A_MUT=str(k))
         p = subprocess.run([os.path.join(bdir, 'bench.exe'), os.path.join(work, 'neg_out'), exe, '--filtro', '=' + test, '--n', n], env=env, capture_output=True, text=True)
         m = re.search(r'^%s\s+0x[0-9A-F]+\s+(\d+)\s+(\d+)\s+(\d+)' % re.escape(test), p.stdout, re.M)
         pares, difs = (int(m.group(1)), int(m.group(2))) if m else (0, -1)
         res.append(dict(k=k, funcion=test, pares=pares, diferencias=difs, detectada=difs > 0)); allok &= difs > 0
         print('ronda %d mutacion %2d %-22s pares %6d diferencias %6d %s' % (ronda, k, test, pares, difs, 'DETECTADA' if difs > 0 else 'NO DETECTADA'))
-    json.dump(res, open(os.path.join(HERE, 'negative-runs', 'ronda%d.json' % ronda), 'w'), indent=1)
+    json.dump(res, open(os.path.join(HERE, 'negative-runs', 'ronda%d%s.json' % (ronda, os.environ.get('NEG_TAG', ''))), 'w'), indent=1)
 print('TODAS DETECTADAS' if allok else 'HAY MUTACIONES SIN DETECTAR'); sys.exit(0 if allok else 1)

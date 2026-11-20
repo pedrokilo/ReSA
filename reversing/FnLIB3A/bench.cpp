@@ -276,6 +276,49 @@ static void add_dcolor_tests(uint32_t a_ycc, uint32_t a_null, uint32_t a_gray, u
     }
 }
 
+
+// ---------------------------------------------------------------- LIB3B
+static float f_special(Rng& r) {
+    switch (r() % 12) {
+    case 0: return 0.0f; case 1: return -0.0f; case 2: { uint32_t b = 0x7FC00000u | (r() & 0x3FFFFF); float f; memcpy(&f, &b, 4); return f; }
+    case 3: return (r() & 1) ? INFINITY : -INFINITY; case 4: { uint32_t b = r() & 0x807FFFFFu; float f; memcpy(&f, &b, 4); return f; } // denormal
+    case 5: return 1e30f; case 6: return -1e30f;
+    default: return (float)((double)(int)(r() % 2000001) / 1000.0 - 1000.0);
+    }
+}
+static const double aanscale[8] = {1.0, 1.387039845, 1.306562965, 1.175875602, 1.0, 0.785694958, 0.541196100, 0.275899379};
+static void add_idct_tests() {
+    g_tests.push_back({"jpeg_idct_float", 0x5CDA90, "jidctflt", "jpeg_idct_float", [](Rng& r, Ctx& x) {
+        auto c = new_dinfo(); make_range_limit(c);
+        auto cp = AT<jpeg_component_info>(); memset(cp, 0, sizeof *cp);
+        int mode = (int)R(r, 0, 5); // 0-4: tabla de cuantizacion realista (oraculo); 5: tabla con NaN/inf/denormales (solo EXE vs biblioteca)
+        FAST_FLOAT* tab = AT<FAST_FLOAT>(64); cp->dct_table = tab; uint16_t q[64];
+        for (int i = 0; i < 64; i++) {
+            q[i] = (uint16_t)((r() % 5 == 0) ? R(r, 1, 255) : R(r, 1, 40));
+            tab[i] = mode == 5 ? f_special(r) : (FAST_FLOAT)((double)q[i] * aanscale[i / 8] * aanscale[i % 8]);
+        }
+        JCOEF* coef = AT<JCOEF>(64); memset(coef, 0, 128);
+        int cm = mode == 5 ? (int)R(r, 0, 3) : mode;
+        switch (cm) {
+        case 0: coef[0] = (JCOEF)((int)R(r, 0, 2000) - 1000); break;                                    // solo DC (atajo de columnas nulas)
+        case 1: { int nc = R(r, 1, 3); for (int k = 0; k < nc; k++) coef[(r() % 8) * 8 + (r() % 3)] = (JCOEF)((int)R(r, 0, 800) - 400); break; } // pocas columnas
+        case 2: { int nz = R(r, 1, 12); for (int k = 0; k < nz; k++) coef[R(r, 0, 63)] = (JCOEF)((int)R(r, 0, 400) - 200); break; }
+        case 3: for (int i = 0; i < 64; i++) coef[i] = (JCOEF)((int)R(r, 0, 60) - 30); break;
+        default: for (int i = 0; i < 64; i++) coef[i] = (r() % 4) ? (JCOEF)((int)R(r, 0, 24) - 12) : (JCOEF)(int16_t)r(); break;       // con valores extremos de 16 bits
+        }
+        if (mode < 4) for (int i = 0; i < 64; i++) { int lim = std::max(1, 160 / (int)q[i]); if (coef[i] > lim) coef[i] = (JCOEF)lim; if (coef[i] < -lim) coef[i] = (JCOEF)-lim; } // dentro del dominio de la tabla de recorte (oraculo)
+        // algunas filas de coeficientes nulas (rama de ceros por columna: ramas 1..7 en cero)
+        if (r() % 3 == 0) { int col = R(r, 0, 7); for (int y = 1; y < 8; y++) coef[y * 8 + col] = 0; }
+        uint32_t ocol = R(r, 0, 3);
+        JSAMPARRAY ob = make_rows(r, 8, ocol + 8, 4, false);
+        x.call = [=](void* f) { ((void(__cdecl*)(j_decompress_ptr, jpeg_component_info*, JCOEFPTR, JSAMPARRAY, JDIMENSION))f)(c, cp, coef, ob, ocol); return 0; };
+        x.dump = [=](std::vector<uint8_t>& v) {
+            put32(v, mode); putn(v, q, 128); putn(v, tab, 256); putn(v, coef, 128);
+            for (int y = 0; y < 8; y++) putn(v, ob[y] + ocol, 8);
+        };
+    }, 4000});
+}
+
 // ---------------------------------------------------------------- ejecucion
 static void fill_rand(Rng& r, size_t n) { for (size_t i = 0; i < n; i += 4) { uint32_t x = r(); memcpy(g_arena + i, &x, std::min<size_t>(4, n - i)); } }
 
@@ -290,6 +333,7 @@ int main(int argc, char** argv) {
     init_mocks();
     CreateDirectoryA(outdir.c_str(), nullptr);
     add_color_tests(); add_dct_tests(); add_upsample_tests();
+    add_idct_tests();
     add_dcolor_tests(0x5C8FB0, 0x5C90D0, 0x5C9150, 0x5C9180, 0x5C91E0, 0x5C9340, 0x5C8EE0);
     int total_fail = 0;
     printf("%-24s %-10s %9s %9s %9s\n", "funcion", "direccion", "pares", "difs", "errores");

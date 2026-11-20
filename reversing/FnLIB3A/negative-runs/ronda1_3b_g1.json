@@ -1,0 +1,9 @@
+[
+ {
+  "k": 25,
+  "funcion": "jpeg_idct_float",
+  "pares": 20000,
+  "diferencias": 7434,
+  "detectada": true
+ }
+]

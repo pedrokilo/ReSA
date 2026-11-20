@@ -121,6 +121,36 @@ def t_forward_dct(r, ec):
             else: return False
     return ec == 0
 
+
+STAT.update({'idct_total': 0, 'idct_exact': 0, 'idct_off1': 0, 'idct_checked': 0})
+def idct_exact(f):  # IDCT 8x8 ortonormal de JPEG en doble precision; f en orden fila(v)-columna(u)
+    out = [0.0] * 64
+    for y in range(8):
+        for x in range(8):
+            s = 0.0
+            for v in range(8):
+                cv = 1 / math.sqrt(2) if v == 0 else 1.0
+                for u in range(8):
+                    cu = 1 / math.sqrt(2) if u == 0 else 1.0
+                    s += cu * cv * f[v * 8 + u] * COS[v][y] * COS[u][x]
+            out[y * 8 + x] = 0.25 * s
+    return out
+def t_idct_float(r, ec):
+    mode = r.u32(); q = struct.unpack('<64H', r.raw(128)); tab = struct.unpack('<64f', r.raw(256)); coef = struct.unpack('<64h', r.raw(128))
+    out = [r.raw(8) for _ in range(8)]
+    if mode == 5: return ec == 0   # tabla con NaN/inf/denormales: solo EXE vs biblioteca
+    f = [coef[i] * q[i] for i in range(64)]
+    t = idct_exact(f)
+    if max(abs(v) for v in t) > 380: STAT['idct_skipped'] = STAT.get('idct_skipped', 0) + 1; return ec == 0   # fuera del dominio de la tabla de recorte (se enrolla con & RANGE_MASK): solo EXE vs biblioteca
+    STAT['idct_checked'] += 1
+    for y in range(8):
+        for x in range(8):
+            e = t[y * 8 + x] + 128; lo = clamp(int(math.floor(e + 0.5))); o = out[y][x]; STAT['idct_total'] += 1
+            if o == lo: STAT['idct_exact'] += 1
+            elif abs(o - lo) <= 1: STAT['idct_off1'] += 1   # truncacion float + (x+4)>>3 de la biblioteca frente al redondeo exacto
+            else: return False
+    return ec == 0
+
 def t_start_up(r, ec):
     maxv, oh, nro, rtg = r.u32(), r.u32(), r.u32(), r.u32()
     return nro == maxv and rtg == oh and ec == 0
@@ -183,7 +213,7 @@ def t_dcolor(r, ec):
 
 def t_nothing(r, ec): return ec == 0
 
-CHECKS = {'rgb_ycc_start': t_rgb_ycc_start, 'rgb_ycc_convert': t_color_compress('ycc'), 'rgb_gray_convert': t_color_compress('gray'), 'cmyk_ycck_convert': t_color_compress('cmyk'),
+CHECKS = {'jpeg_idct_float': t_idct_float, 'rgb_ycc_start': t_rgb_ycc_start, 'rgb_ycc_convert': t_color_compress('ycc'), 'rgb_gray_convert': t_color_compress('gray'), 'cmyk_ycck_convert': t_color_compress('cmyk'),
           'grayscale_convert': t_color_compress('grayc'), 'null_convert': t_color_compress('null'), 'null_method': t_nothing, 'start_pass_fdctmgr': t_start_fdct,
           'jpeg_fdct_float': t_fdct_float, 'forward_DCT_float': t_forward_dct, 'start_pass_upsample': t_start_up, 'fullsize_upsample': t_upsample, 'noop_upsample': t_upsample,
           'int_upsample': t_upsample, 'h2v1_upsample': t_upsample, 'h2v2_upsample': t_upsample, 'h2v1_fancy_upsample': t_upsample, 'h2v2_fancy_upsample': t_upsample,
@@ -202,4 +232,5 @@ if __name__ == '__main__':
             if not chk(rd, ec): fails += 1
         print('%-24s %9d %9d' % (name, n, fails)); total_fail += fails
     print('forward_DCT_float: coeficientes %d, identicos al redondeo exacto %d, empates .5 con +-1 %d; max |jpeg_fdct_float - DCT exacta escalada| = %.5f' % (STAT['dct_total'], STAT['dct_exact'], STAT['dct_off1'], STAT['max_abs_fdct']))
+    print('jpeg_idct_float: muestras %d, identicas al redondeo exacto %d, +-1 %d, bloques comprobados %d, fuera de dominio %d' % (STAT['idct_total'], STAT['idct_exact'], STAT['idct_off1'], STAT['idct_checked'], STAT.get('idct_skipped', 0)))
     print('FALLOS DEL ORACULO:', total_fail); sys.exit(1 if total_fail else 0)

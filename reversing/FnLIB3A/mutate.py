@@ -60,6 +60,13 @@ R2 += [
  (23, 'dc_null_convert', K, 'null_convert', 'outptr += num_components;', 'outptr += num_components - ((lib3a_mut==23 && ci==2 && count==7)?1:0);'),
  (24, 'start_pass_dcolor', K, 'start_pass_dcolor', '/* no work needed */', 'if (lib3a_mut==24) cinfo->num_components ^= 2;'),
 ]
+# ---- LIB3B
+R1 += [
+ (25, 'jpeg_idct_float', 'jidctflt', 'jpeg_idct_float', 'wsptr[DCTSIZE*5] = tmp2 - tmp5;', 'wsptr[DCTSIZE*5] = tmp2 - tmp5 - ((lib3a_mut==25 && ctr==3)?8.0f:0.0f);'),
+]
+R2 += [
+ (25, 'jpeg_idct_float', 'jidctflt', 'jpeg_idct_float', 'tmp1 = tmp11 + tmp12;', 'tmp1 = tmp11 + tmp12 + ((lib3a_mut==25 && ctr==6)?40.0f:0.0f);'),
+]
 RONDAS = {1: R1, 2: R2}
 
 def main():
