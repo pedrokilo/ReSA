@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "MenuManager.h"
 #include "MenuManager_Internal.h"
@@ -960,7 +961,7 @@ void CMenuManager::SaveStatsToFile() {
                     if (!(percent < 100.0f)) {
                         percent = 100.0f;
                     }
-                    std::sprintf(valFormatted, "%0.0f%%", (double)percent);
+                    ExeCrt::Sprintf(valFormatted, "%0.0f%%", (double)percent); // 0x821BB5: _output del EXE (el sprintf de la DLL cambia el formato con NaN, inf y -0)
                 }
 
                 for (auto v = valFormatted; *v; v++) {

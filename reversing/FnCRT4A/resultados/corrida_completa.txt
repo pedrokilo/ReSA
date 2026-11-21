@@ -1,0 +1,8 @@
+ld12 (add/shl/shr/addl/mul/multtenpow/dtold): 300000 casos, 0 diferencias
+i10/fltout2/fptostr: 300000 casos, 0 diferencias
+cfltcvt/cftoe/cftof/cftog/forcdecpt/cropzeros: 300000 casos, 0 diferencias
+_output: 300000 formatos (192162 con coma flotante, 15790480 caracteres escritos, 0 fallos SEH en ambos), 0 diferencias
+_input: 300000 casos (104541 con alguna conversion), 0 diferencias
+ctype/ungetc/getbuf: 302056 casos, 0 diferencias
+texto -> coma flotante (strgtold12/ld12cvt/mtold12/atodbl/atoflt/fassign): 300000 casos, 0 diferencias
+RESULTADO: SIN DIFERENCIAS

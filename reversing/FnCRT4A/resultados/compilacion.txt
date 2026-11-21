@@ -1,0 +1,10 @@
+  InjectHooksMain.cpp
+  CrtCtype.cpp
+  CrtFile.cpp
+  CrtFloat.cpp
+  CrtFloatIn.cpp
+  CrtFormat.cpp
+  CrtInput.cpp
+  gta_reversed.vcxproj -> D:\Original\wv-25\bin\Debug\gta_reversed.asi
+EXIT=0
+-rwxr-xr-x 1 pedro 197609 50085376 Nov 21 01:17 wv-25/bin/Debug/gta_reversed.asi

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "Boat.h"
 #include "CarCtrl.h"
@@ -221,10 +222,10 @@ void CBoat::DebugCode() {
 // unused
 // 0x6F0D90
 void CBoat::DisplayHandlingData() {
-    // Como el original: dos sprintf sobre un búfer local de 64 bytes sin inicializar
+    // Como el original: dos sprintf (0x821BB5, motor _output reconstruido: NaN, inf y -0 salen como en el EXE) sobre un búfer local de 64 bytes sin inicializar
     char cBuffer[64];
-    sprintf(cBuffer, "Thrust %3.2f", m_pHandlingData->m_transmissionData.m_EngineAcceleration * m_pHandlingData->m_fMass);
-    sprintf(cBuffer, "Rudder Angle  %3.2f", m_pHandlingData->m_fSteeringLock);
+    ExeCrt::Sprintf(cBuffer, "Thrust %3.2f", m_pHandlingData->m_transmissionData.m_EngineAcceleration * m_pHandlingData->m_fMass);
+    ExeCrt::Sprintf(cBuffer, "Rudder Angle  %3.2f", m_pHandlingData->m_fSteeringLock);
 }
 
 // debug function

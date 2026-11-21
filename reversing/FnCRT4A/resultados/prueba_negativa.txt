@@ -1,0 +1,33 @@
+== mutacion 1: CrtFloat.cpp: 'if (W(&x)[5] >= 0x3FFF) {' -> 'if (W(&x)[5] > 0x3FFF) {'
+DIFERENCIA i10 lo=00000000 hi=a2178900 se=400c nd=7 fl=0
+DIFERENCIA fltout2 40c442f120000000
+== mutacion 2: CrtFloat.cpp: 'if (roundDigit >= '5') {' -> 'if (roundDigit > '5') {'
+DIFERENCIA i10 lo=2142f800 hi=8e3843f5 se=c044 nd=17 fl=0
+DIFERENCIA fltout2 c441c7087ea4285f
+== mutacion 3: CrtFloat.cpp: 'if (acc[0] > 0x8000 || low == 0x18000u) {' -> 'if (acc[0] >= 0x8000 || low == 0x18000u) {'
+DIFERENCIA multtenpow12 power=2249 flag=0
+DIFERENCIA multtenpow12 power=4488 flag=0
+== mutacion 4: CrtFloat.cpp: 'if (*p == dp) {' -> 'if (*p == dp + 1) {'
+DIFERENCIA forcdecpt/cropzeros sobre '7.e-309'
+DIFERENCIA forcdecpt/cropzeros sobre '279609958608939400000000000000000000000000000000000000000000'
+== mutacion 5: CrtFormat.cpp: 'hexAdd = (type == 'x') ? 0x27 : 7;' -> 'hexAdd = (type == 'x') ? 0x26 : 7;'
+DIFERENCIA output fmt='tx%x%29f' ret exe=39 own=39
+DIFERENCIA output fmt='%*.lX%# #.lc%Ix%.17n%%end' ret exe=17 own=17
+== mutacion 6: CrtFormat.cpp: 'flags &= ~FL_LEADZERO;' -> ';'
+DIFERENCIA output fmt='%0025.19lotx%8C' ret exe=35 own=35
+DIFERENCIA output fmt='tx%0 #27.12ptx%+0Gtx%8lG' ret exe=48 own=48
+== mutacion 7: CrtInput.cpp: 'if (width < 1) {' -> 'if (width < 0) {'
+DIFERENCIA input fmt='	%3I32i%n' src='+0XxBb	5' ret exe=0 own=0 cnt 4/5
+DIFERENCIA input fmt='%2I32X%lu,%I32X%G' src='0x+z%epC' ret exe=0 own=0 cnt 5/6
+== mutacion 8: CrtInput.cpp: 'bx = (bx & ~0x20) - 7;' -> 'bx = (bx & ~0x20) - 8;'
+DIFERENCIA input fmt='%40I64x%*ld%n' src='-0x96cb287_8aEx1
+DIFERENCIA input fmt='	%x %c %*c%I64X' src='4 afBC6Ex0,Cf0a b. fC' ret exe=3 own=3 cnt 13/13
+== mutacion 21: CrtFloatIn.cpp: 'if (!Ld12TailZero(w, bit)) {' -> 'if (Ld12TailZero(w, bit)) {'
+DIFERENCIA round bit=35
+DIFERENCIA atodbl '-1.4e-45' b69ff868bf4d956a/b69ff868bf4d9569 ret 0/0
+== mutacion 22: CrtFloatIn.cpp: 'if (ndig > 0x18) {' -> 'if (ndig > 0x19) {'
+DIFERENCIA strgtold12 '858356.67347390016823647388097807' mf=0 sc=0 ad=0 md=1 ret 0/0 fin 33/33
+DIFERENCIA atodbl '858356.67347390016823647388097807' 412a31e958d19230/40c7a64cc466764c ret 0/0
+== mutacion 23: CrtFloatIn.cpp: 'if (digits[0x17] >= 5) {' -> 'if (digits[0x17] > 5) {'
+DIFERENCIA strgtold12 '675807276928133640628885432tail' mf=1 sc=0 ad=-2 md=0 ret 0/0 fin 27/27
+DIFERENCIA strgtold12 '289734513129635840379505647' mf=1 sc=0 ad=0 md=1 ret 0/0 fin 27/27
