@@ -40,6 +40,8 @@ END GENERATED HOOK STATUS */
 //   lista de buferes de vertices dinamicos D3D9 0xC97B8C (cabeza)
 //   superficie de profundidad actual 0xC9808C ; dispositivo D3D9 (_RwD3DDevice) 0xC97C28
 //   registros de plugins: textureTKList 0x8E23CC, texDictTKList 0x8E23E4, rasterTKList 0x8E2518
+RwBool _rwDeviceSystemRequest(RwDevice* device, RwInt32 requestID, void* pOut, void* pInOut, RwInt32 numIn); // 0x7F2AB0 (rwplcore.cpp)
+RwCamera* _rwCameraUpdateZScale(RwCamera* camera);                                                              // 0x7EE200 (mas abajo)
 namespace {
 auto& TextureModuleGlobalsOffset  = StaticRef<RwInt32>(0xC97B4C);
 auto& RasterModuleGlobalsOffset   = StaticRef<RwInt32>(0xC980D8);
@@ -238,8 +240,15 @@ __declspec(noinline) void __cdecl RxD3D9ResEntryHeaderDestroyExe(uint8* header) 
 // original: desplazamiento = RwRasterRegisterPlugin(0x24, 0x40C, constructor 0x4C9A60, destructor 0x4C9A80, sin copia) (0x7FB0B0, con hook), guardado SIEMPRE en 0xB4E9E0; si es negativo devuelve 0. Si no: pone a
 // cero 0x80 dwords desde 0xB4E7E0 (la tabla de formatos de pixel por D3DFORMAT, 4 bytes por entrada: alfa, profundidad y formato RW de 16 bits) y escribe las entradas de los formatos conocidos; devuelve 1. Las
 // 138 escrituras (bytes y palabras, en el orden del EXE) salen del desensamblado con bl = 0, al = 1, cl = 0x20, dl = 0x10, di = 0x700 y si = 0x900 como en el original.
+// 0x4C9A60 (lote S15A, sin validar; 19 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de raster D3D9: pone a 0 el dword +0x1C de la extension (objeto + [0xB4E9E0] + 0x1C). Devuelve el objeto.
+// Antes se registraba por su direccion del EXE; ahora RwRasterRegisterPlugin recibe esta funcion y lleva hook en 0x4C9A60.
+static void* RwD3D9RasterExtConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    *reinterpret_cast<RwUInt32*>(static_cast<RwUInt8*>(object) + D3D9RasterExtOffset + 0x1C) = 0;
+    return object;
+}
+
 __declspec(noinline) RwBool __cdecl D3D9RasterPluginAttachExe() {
-    const RwInt32 offset = RwRasterRegisterPlugin(0x24, 0x40C, reinterpret_cast<RwPluginObjectConstructor>(0x4C9A60), reinterpret_cast<RwPluginObjectDestructor>(0x4C9A80), nullptr);
+    const RwInt32 offset = RwRasterRegisterPlugin(0x24, 0x40C, reinterpret_cast<RwPluginObjectConstructor>(&RwD3D9RasterExtConstructor), reinterpret_cast<RwPluginObjectDestructor>(0x4C9A80), nullptr);
     D3D9RasterExtOffset = offset;
     if (offset < 0) {
         return 0;
@@ -677,8 +686,10 @@ void* RxHeapRealloc(RxHeap* heap, void* block, RwUInt32 newSize, RwBool allowCop
     return ((void*(__cdecl *)(RxHeap*, void*, RwUInt32, RwBool))0x809D10)(heap, block, newSize, allowCopy);
 }
 
+// 0x804FC0 (lote S16A, sin validar; 20 bytes; era una envoltura; cdecl, (tamano de bloque, bloques a reservar)): guarda los dos parametros en 0x8E26A0 y 0x8E26A4 (los lee RxPipelineCreate al crear su lista libre).
 void RxPipelineSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x804FC0)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8E26A0) = blockSize;
+    StaticRef<RwInt32>(0x8E26A4) = numBlocksToPrealloc;
 }
 
 // 0x804FE0 (_rxPipelineOpen): reconstruida al final del archivo (lote R31A, RwCoreInjectHooksR31A).
@@ -762,20 +773,52 @@ RxPipeline* RxPipelineExecute(RxPipeline* pipeline, void* data, RwBool heapReset
     return result != 0 ? pipeline : nullptr;
 }
 
+// 0x805300 (lote S16A, sin validar; 44 bytes; era una envoltura; cdecl, (nodo)): la tuberia en ejecucion (0xC9BC40) pasa a estado de paquete 2 (+0x10) y su paquete embebido (+0x14) recibe del nodo la tabla de
+// entrada a ranura de cluster (nodo + 0x18 -> paquete + 8), la tabla de continuacion (nodo + 0x10 -> paquete + 0xC) y las referencias de ranura (nodo + 0xC -> paquete + 0x10). Devuelve el paquete.
 RxPacket* RxPacketCreate(RxPipelineNode* node) {
-    return ((RxPacket*(__cdecl *)(RxPipelineNode*))0x805300)(node);
+    StaticRef<RxPipeline*>(0xC9BC40)->embeddedPacketState = static_cast<rxEmbeddedPacketState>(2);
+    RxPacket* const packet = StaticRef<RxPipeline*>(0xC9BC40)->embeddedPacket;
+    packet->inputToClusterSlot = node->inputToClusterSlot;
+    packet->slotsContinue = node->slotsContinue;
+    packet->slotClusterRefs = node->slotClusterRefs;
+    return packet;
 }
 
+// 0x805330 (lote S16A, sin validar; 14 bytes; era una envoltura; cdecl, (cluster, paso)): stride (palabra de 16 bits en +2) = byte bajo y alto de `stride`. Devuelve el cluster.
 RxCluster* RxClusterSetStride(RxCluster* cluster, RwInt32 stride) {
-    return ((RxCluster*(__cdecl *)(RxCluster*, RwInt32))0x805330)(cluster, stride);
+    cluster->stride = static_cast<RwUInt16>(stride);
+    return cluster;
 }
 
+// 0x805340 (lote S16A, sin validar; 81 bytes; era una envoltura; cdecl, (cluster, datos, paso, elementos)): si el cluster tiene datos propios (data != NULL, bit 2 de flags apagado) y son distintos de los nuevos,
+// los libera en el monton global de Rx (0xC9A6B0; RxHeapFree 0x8098B0) y pone data a NULL. Despues flags |= 3, data = currentData = datos, numAlloced = numUsed = elementos y stride (16 bits). Devuelve el cluster.
 RxCluster* RxClusterSetExternalData(RxCluster* cluster, void* data, RwInt32 stride, RwInt32 numElements) {
-    return ((RxCluster*(__cdecl *)(RxCluster*, void*, RwInt32, RwInt32))0x805340)(cluster, data, stride, numElements);
+    if (cluster->data != nullptr && (cluster->flags & 2) == 0 && cluster->data != data) {
+        RxHeapFree(StaticRef<RxHeap*>(0xC9A6B0), cluster->data);
+        cluster->data = nullptr;
+    }
+    cluster->flags = static_cast<RwUInt16>(cluster->flags | 3);
+    cluster->data = data;
+    cluster->currentData = data;
+    cluster->numAlloced = static_cast<RwUInt32>(numElements);
+    cluster->numUsed = static_cast<RwUInt32>(numElements);
+    cluster->stride = static_cast<RwUInt16>(stride);
+    return cluster;
 }
 
+// 0x8053A0 (lote S16A, sin validar; 81 bytes; era una envoltura; cdecl, (cluster, datos, paso, elementos)): igual que 0x805340 pero con flags |= 1.
 RxCluster* RxClusterSetData(RxCluster* cluster, void* data, RwInt32 stride, RwInt32 numElements) {
-    return ((RxCluster*(__cdecl *)(RxCluster*, void*, RwInt32, RwInt32))0x8053A0)(cluster, data, stride, numElements);
+    if (cluster->data != nullptr && (cluster->flags & 2) == 0 && cluster->data != data) {
+        RxHeapFree(StaticRef<RxHeap*>(0xC9A6B0), cluster->data);
+        cluster->data = nullptr;
+    }
+    cluster->flags = static_cast<RwUInt16>(cluster->flags | 1);
+    cluster->data = data;
+    cluster->currentData = data;
+    cluster->numAlloced = static_cast<RwUInt32>(numElements);
+    cluster->numUsed = static_cast<RwUInt32>(numElements);
+    cluster->stride = static_cast<RwUInt16>(stride);
+    return cluster;
 }
 
 // 0x80F070 (_rxPacketDestroy): reconstruida al final del archivo (lote R34A, RwCoreInjectHooksR34A).
@@ -788,8 +831,17 @@ RxCluster* RxClusterResizeData(RxCluster* CurrentCluster, RwUInt32 NumElements) 
     return ((RxCluster*(__cdecl *)(RxCluster*, RwUInt32))0x805470)(CurrentCluster, NumElements);
 }
 
+// 0x8054C0 (lote S16A, sin validar; 45 bytes; era una envoltura; cdecl, (cluster)): si los datos son del cluster (bit 2 de flags apagado) los libera en el monton global de Rx (0xC9A6B0). Despues data = 0, numAlloced = 0,
+// numUsed = 0 y flags (16 bits) = 0; currentData no se toca. El EXE devuelve 0 (EAX = 0), no el cluster.
 RxCluster* RxClusterDestroyData(RxCluster* CurrentCluster) {
-    return ((RxCluster*(__cdecl *)(RxCluster*))0x8054C0)(CurrentCluster);
+    if ((CurrentCluster->flags & 2) == 0) {
+        RxHeapFree(StaticRef<RxHeap*>(0xC9A6B0), CurrentCluster->data);
+    }
+    CurrentCluster->data = nullptr;
+    CurrentCluster->numAlloced = 0;
+    CurrentCluster->numUsed = 0;
+    CurrentCluster->flags = 0;
+    return nullptr;
 }
 
 RxCluster* RxClusterLockWrite(RxPacket* packet, RwUInt32 clusterIndex, RxPipelineNode* node) {
@@ -900,8 +952,9 @@ RxPipeline* RxPipelineInsertDebugNode(RxPipeline* pipeline, RxPipelineNode* befo
     return ((RxPipeline*(__cdecl *)(RxPipeline*, RxPipelineNode*, RxPipelineNode*, RxNodeDefinition*))0x8071B0)(pipeline, before, after, debugNode);
 }
 
+// 0x7F57F0 (lote S16A, sin validar; 10 bytes; era una envoltura; cdecl, (tamano)): guarda el tamano por defecto de los buferes de vertices en 0x8E2414.
 void RwD3D9VertexBufferManagerChangeDefaultSize(RwUInt32 defaultSize) {
-    ((void(__cdecl *)(RwUInt32))0x7F57F0)(defaultSize);
+    StaticRef<RwUInt32>(0x8E2414) = defaultSize;
 }
 
 // --- Lote R7A (sin validar): gestor de buferes de vertices D3D9 de RenderWare (0x7F5500..0x7F5A00; el listado dejaba 0x7F5800..0x7F5940 en RpSkin/D3DX9 con confianza baja) ---
@@ -1391,14 +1444,19 @@ RwBool _rwD3D9DynamicVertexBufferRestore() {
     return _rwD3D9DynamicVertexBufferManagerOpen();
 }
 
+// 0x7FB350 (lote S16A, sin validar; 20 bytes; era una envoltura; cdecl, (tamano de bloque, bloques a reservar)): guarda los parametros en 0x8E2530 y 0x8E2534.
 void RwRasterSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x7FB350)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8E2530) = blockSize;
+    StaticRef<RwInt32>(0x8E2534) = numBlocksToPrealloc;
 }
 
 // 0x7FB230 (RwRasterCreate) y 0x7FB020 (RwRasterDestroy): reconstruidas al final del archivo (lote R28A, RwCoreInjectHooksR28A).
 
+// 0x7FAEA0 (lote S16A, sin validar; 27 bytes; era una envoltura; cdecl, (raster, x*, y*)): escribe nOffsetX (+0x1C) y nOffsetY (+0x1E) (palabras de 16 bits) en los dos punteros (sin comprobar NULL). Devuelve el raster.
 RwRaster* RwRasterGetOffset(RwRaster* raster, RwInt16* xOffset, RwInt16* yOffset) {
-    return ((RwRaster*(__cdecl *)(RwRaster*, RwInt16*, RwInt16*))0x7FAEA0)(raster, xOffset, yOffset);
+    *xOffset = raster->nOffsetX;
+    *yOffset = raster->nOffsetY;
+    return raster;
 }
 
 // 0x7FB160 (RwRasterGetNumLevels): reconstruida al final del archivo (lote R28A, RwCoreInjectHooksR28A).
@@ -1453,8 +1511,9 @@ RwInt32 RwRasterRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectCo
     return _rwPluginRegistryAddPlugin(&RasterTKList, size, pluginID, constructCB, destructCB, copyCB);
 }
 
+// 0x7FAE40 (lote S16A, sin validar; 19 bytes; era una envoltura; cdecl, (id)): _rwPluginRegistryGetPluginOffset(registro de plugins de raster 0x8E2518, id).
 RwInt32 RwRasterGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x7FAE40)(pluginID);
+    return _rwPluginRegistryGetPluginOffset(&RasterTKList, pluginID);
 }
 
 // 0x80EA40 (RxRenderStateVectorSetDefaultRenderStateVector): reconstruida al final del archivo (lote R34A, RwCoreInjectHooksR34A).
@@ -1958,20 +2017,24 @@ RwBool RwTextureGetAutoMipmapping() {
     return TextureGlobals().autoMipmapping;
 }
 
+// 0x7F3C70 / 0x7F3C90 / 0x7F3CA0 / 0x7F3CC0 (lote S16A, sin validar; 26, 16, 26 y 16 bytes; eran envolturas; cdecl): callback de generacion de mipmaps (modulo de texturas + 0x2C) y de nombre de mipmaps (+0x30): los
+// "Set" lo guardan y devuelven TRUE; los "Get" lo devuelven.
 RwBool RwTextureSetMipmapGenerationCallBack(RwTextureCallBackMipmapGeneration callback) {
-    return ((RwBool(__cdecl *)(RwTextureCallBackMipmapGeneration))0x7F3C70)(callback);
+    TextureGlobals().mipmapGenerationCallBack = callback;
+    return TRUE;
 }
 
 RwTextureCallBackMipmapGeneration RwTextureGetMipmapGenerationCallBack() {
-    return ((RwTextureCallBackMipmapGeneration(__cdecl *)(void))0x7F3C90)();
+    return TextureGlobals().mipmapGenerationCallBack;
 }
 
 RwBool RwTextureSetMipmapNameCallBack(RwTextureCallBackMipmapName callback) {
-    return ((RwBool(__cdecl *)(RwTextureCallBackMipmapName))0x7F3CA0)(callback);
+    TextureGlobals().mipmapNameCallBack = callback;
+    return TRUE;
 }
 
 RwTextureCallBackMipmapName RwTextureGetMipmapNameCallBack() {
-    return ((RwTextureCallBackMipmapName(__cdecl *)(void))0x7F3CC0)();
+    return TextureGlobals().mipmapNameCallBack;
 }
 
 RwBool RwTextureGenerateMipmapName(RwChar* name, RwChar* maskName, RwUInt8 mipLevel, RwInt32 format) {
@@ -1983,16 +2046,21 @@ RwBool RwTextureRasterGenerateMipmaps(RwRaster* raster, RwImage* image) {
     return TextureGlobals().mipmapGenerationCallBack(raster, image) != nullptr;
 }
 
+// 0x7F3590 (lote S15A, sin validar; 42 bytes; era una envoltura; cdecl, (activar)): mipmapping (+0x1C) y auto-mipmapping (+0x20) del modulo de texturas = el valor. Devuelve TRUE.
 RwBool _rwTextureSetAutoMipMapState(RwBool enable) {
-    return ((RwBool(__cdecl *)(RwBool))0x7F3590)(enable);
+    TextureGlobals().mipmapping = enable;
+    TextureGlobals().autoMipmapping = enable;
+    return TRUE;
 }
 
+// 0x7F35C0 (lote S15A, sin validar; 16 bytes; era una envoltura): auto-mipmapping (+0x20).
 RwBool _rwTextureGetAutoMipMapState() {
-    return ((RwBool(__cdecl *)(void))0x7F35C0)();
+    return TextureGlobals().autoMipmapping;
 }
 
+// 0x7F3520 (lote S15A, sin validar; 16 bytes; era una envoltura): callback de lectura de texturas (+0x14).
 RwTextureCallBackRead RwTextureGetReadCallBack() {
-    return ((RwTextureCallBackRead(__cdecl *)(void))0x7F3520)();
+    return TextureGlobals().readCallBack;
 }
 
 // 0x7F3500 (lote R24A, sin validar; 26 bytes; era una envoltura; cdecl, (callback)): RwTextureGlobals::readCallBack (+0x14) = callback (sin sustituir nulos). Devuelve TRUE.
@@ -2025,8 +2093,10 @@ RwTexture* RwTextureSetMaskName(RwTexture* texture, const RwChar* maskName) {
     return texture;
 }
 
+// 0x7F3E80 (lote S16A, sin validar; 20 bytes; era una envoltura; cdecl, (tamano de bloque, bloques a reservar)): guarda los parametros en 0x8E2404 y 0x8E2408.
 void RwTexDictionarySetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x7F3E80)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8E2404) = blockSize;
+    StaticRef<RwInt32>(0x8E2408) = numBlocksToPrealloc;
 }
 
 // 0x7F3600 (lote R25A, sin validar; 152 bytes; era una envoltura; cdecl, sin argumentos): reserva el diccionario en la lista libre de los globales de textura (+0x0C, pista 0x30016); sin memoria -> NULL. Pone
@@ -2281,24 +2351,27 @@ RwInt32 RwTexDictionaryRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginO
     return _rwPluginRegistryAddPlugin(&TexDictTKList, size, pluginID, constructCB, destructCB, copyCB);
 }
 
+// 0x7F3BE0 / 0x7F3C40 (lote S15A, sin validar; 19 bytes cada una; eran envolturas; cdecl, (id)): _rwPluginRegistryGetPluginOffset con el registro de plugins de textura (0x8E23CC) o de diccionario (0x8E23E4).
 RwInt32 RwTextureGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x7F3BE0)(pluginID);
+    return _rwPluginRegistryGetPluginOffset(&TextureTKList, pluginID);
 }
 
 RwInt32 RwTexDictionaryGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x7F3C40)(pluginID);
+    return _rwPluginRegistryGetPluginOffset(&TexDictTKList, pluginID);
 }
 
+// 0x7F3C00 / 0x7F3C60 (lotes S15A y S16A, sin validar; 6 bytes cada una; eran envolturas): devuelven TRUE siempre (`mov eax, 1 / ret`).
 RwBool RwTextureValidatePlugins(const RwTexture* texture) {
-    return ((RwBool(__cdecl *)(const RwTexture*))0x7F3C00)(texture);
+    return TRUE;
 }
 
 RwBool RwTexDictionaryValidatePlugins(const RwTexDictionary* dict) {
-    return ((RwBool(__cdecl *)(const RwTexDictionary*))0x7F3C60)(dict);
+    return TRUE;
 }
 
+// 0x7EFDD0 (lote S15A, sin validar; 16 bytes; era una envoltura): direccion del estado de transformacion de Im3D = modulo Im3D (RwEngineInstance + [0xC9C078]) + 0x38.
 rwIm3DPool* _rwIm3DGetPool() {
-    return ((rwIm3DPool*(__cdecl *)(void))0x7EFDD0)();
+    return reinterpret_cast<rwIm3DPool*>(reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9C078) + 0x38);
 }
 
 // Lote R23A (sin validar): Im3D (rwim3d.c). El modulo cuelga de RwEngineInstance + [0xC9C078]: +0x00 tuberia de transformacion; +0x04/+0x08/+0x0C/+0x10/+0x14 tuberias de render de los tipos de primitiva
@@ -2430,12 +2503,21 @@ RwBool RwIm3DRenderPrimitive(RwPrimitiveType primType) {
     return RxPipelineExecute(R23AIm3DField<RxPipeline*>(packet, 0x20), packet, FALSE) != nullptr ? TRUE : FALSE;
 }
 
+// 0x7EF9D0 (lote S15A, sin validar; 15 bytes; era una envoltura): tuberia de transformacion del modulo Im3D (+0x00).
 RxPipeline* RwIm3DGetTransformPipeline() {
-    return ((RxPipeline*(__cdecl *)(void))0x7EF9D0)();
+    return R23AIm3DField<RxPipeline*>(R23AIm3DModule(), kIm3DTransformPipeline);
 }
 
+// 0x7EF9E0 (lote S15A, sin validar; 191 bytes; era una envoltura; cdecl, (tipo de primitiva)): tuberia de render del tipo (tabla de saltos 0x7EFAA0: tipos 1..6 -> +0x10, +0x14, +0x04, +0x0C, +0x08, +0x18 del modulo Im3D).
+// Otro tipo (comparacion sin signo del tipo - 1 con 5): RwError { 1, _rwerror(0x25, tipo) } y devuelve NULL.
 RxPipeline* RwIm3DGetRenderPipeline(RwPrimitiveType primType) {
-    return ((RxPipeline*(__cdecl *)(RwPrimitiveType))0x7EF9E0)(primType);
+    constexpr uint32 offsets[6] = { 0x10, 0x14, 0x04, 0x0C, 0x08, 0x18 };
+    const uint32 index = static_cast<uint32>(primType) - 1u;
+    if (index > 5u) {
+        R23ARaiseError(0x25, static_cast<RwInt32>(primType));
+        return nullptr;
+    }
+    return R23AIm3DField<RxPipeline*>(R23AIm3DModule(), offsets[index]);
 }
 
 // 0x7EFAC0 (lote R24A, sin validar; 71 bytes; era una envoltura; cdecl, (tuberia)): tuberia de transformacion del modulo Im3D (+0x00) = la tuberia dada o, si es nula, la de por defecto (+0x1C). Devuelve la que queda.
@@ -2594,8 +2676,9 @@ void RwD3D9GetTextureStageState(RwUInt32 stage, RwUInt32 type, void* value) {
 
 // 0x7FC3C0 (RwD3D9SetSamplerState): reconstruida al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
 
+// 0x7FC400 (lote S16A, sin validar; 34 bytes; era una envoltura; cdecl, (etapa, tipo, valor*)): copia local de los estados de muestreo: *valor = tabla[etapa * 14 + tipo] (dwords desde 0xC98938). Sin comprobar rangos.
 void RwD3D9GetSamplerState(RwUInt32 stage, RwUInt32 type, void* value) {
-   ((void(__cdecl *)(RwUInt32, RwUInt32, void*))0x7FC400)(stage, type, value);
+    *static_cast<RwUInt32*>(value) = reinterpret_cast<const RwUInt32*>(0xC98938)[type + stage * 14];
 }
 
 // 0x7F9D30 (RwD3D9SetStencilClear): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
@@ -4321,8 +4404,11 @@ RwFrame* RwFrameRotate(RwFrame* frame, const RwV3d* axis, RwReal angle, RwOpComb
     return frame;
 }
 
+// 0x7F0ED0 (lote S15A, sin validar; 146 bytes; era una envoltura; cdecl, (marco, vector, combinacion)): RwMatrixScale(&marco->modelling, vector, combinacion) y despues el marcado de sucio (FrameMarkDirty). Devuelve el marco.
 RwFrame* RwFrameScale(RwFrame* frame, const RwV3d* v, RwOpCombineType combine) {
-    return ((RwFrame*(__cdecl *)(RwFrame*, const RwV3d*, RwOpCombineType))0x7F0ED0)(frame, v, combine);
+    RwMatrixScale(&frame->modelling, v, combine);
+    FrameMarkDirty(frame);
+    return frame;
 }
 
 // 0x7F0F70 (lote R24A, sin validar; 146 bytes; era una envoltura; cdecl, (marco, matriz, combinacion)): RwMatrixTransform(&marco->modelling, matriz, combinacion) y el marcado de sucio. Devuelve el marco.
@@ -4360,8 +4446,24 @@ RwFrame* RwFrameSetIdentity(RwFrame* frame) {
     return frame;
 }
 
+// 0x7F0250 (lote S15A, sin validar; 235 bytes; era una envoltura; cdecl, (marco raiz)): clon = _rwFrameCloneRec(raiz, NULL). Con clon: apaga los bits 0 y 1 de su privateFlags (& 0xFC) y lo marca sucio (FrameMarkDirty). Despues,
+// con o sin clon, repara los campos `root` de la jerarquia ORIGINAL (el clonado los dejo apuntando a los clones): raiz.root = la raiz del padre si tiene padre, si no ella misma, y la misma raiz para cada hijo (recursivo,
+// _rwFrameSetRootRec). Devuelve el clon (NULL si fallo).
 RwFrame* RwFrameCloneHierarchy(RwFrame* root) {
-    return ((RwFrame*(__cdecl *)(RwFrame*))0x7F0250)(root);
+    RwFrame* const clone = _rwFrameCloneRec(root, nullptr);
+    if (clone != nullptr) {
+        clone->object.privateFlags = static_cast<RwUInt8>(clone->object.privateFlags & 0xFC);
+        FrameMarkDirty(clone);
+    }
+    RwFrame* const parent = static_cast<RwFrame*>(root->object.parent);
+    RwFrame* const newRoot = (parent != nullptr) ? parent->root : root;
+    RwFrame* child = root->child;
+    root->root = newRoot;
+    while (child != nullptr) {
+        _rwFrameSetRootRec(child, newRoot);
+        child = child->next;
+    }
+    return clone;
 }
 
 // 0x7F08A0 (lote R24A, sin validar; 112 bytes; era una envoltura; cdecl, (marco)): igual que _rwFrameDestroyRec pero SOLO para el marco dado (el EXE inlina el cuerpo): marco nulo -> TRUE sin hacer nada; si no destruye
@@ -4475,8 +4577,9 @@ RwFrame* RwFrameAddChildNoUpdate(RwFrame* parent, RwFrame* child) {
     return parent;
 }
 
+// 0x7F09B0 (lote S15A, sin validar; 11 bytes; era una envoltura): raiz del marco (+0xA0).
 RwFrame* RwFrameGetRoot(const RwFrame* frame) {
-    return ((RwFrame*(__cdecl *)(const RwFrame*))0x7F09B0)(frame);
+    return frame->root;
 }
 
 // 0x7F0990 (lote R24A, sin validar; 31 bytes; era una envoltura; cdecl, (marco)): si la raiz del marco tiene el bit 0 de privateFlags (LTM de la jerarquia sucia) sincroniza con _rwFrameSyncHierarchyLTM(raiz) (0x8097D0).
@@ -4496,8 +4599,10 @@ RwFrame* RwFrameUpdateObjects(RwFrame* frame) {
     return frame;
 }
 
+// 0x7EFED0 (lote S15A, sin validar; 20 bytes; era una envoltura; cdecl, (tamano de bloque, bloques a reservar)): guarda los parametros en 0x8E2288 y 0x8E228C.
 void RwFrameSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x7EFED0)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8E2288) = blockSize;
+    StaticRef<RwInt32>(0x8E228C) = numBlocksToPrealloc;
 }
 
 // 0x7F0410 (lote R24A, sin validar; 51 bytes; era una envoltura; cdecl, sin argumentos): reserva el marco en la lista libre (pista 0x3000E; sin memoria -> NULL) e inicializa los campos con rwFrameInitFields (0x7F0360).
@@ -4537,12 +4642,37 @@ RwBool RwFrameDestroy(RwFrame* frame) {
     return TRUE;
 }
 
+// 0x7F0450 (lote S15A, sin validar; 29 bytes; era una envoltura; cdecl, (marco)): rwFrameInitFields (0x7F0360) y despues privateFlags |= 0x10 (leido DESPUES de inicializar). Devuelve TRUE.
 RwBool _rwFrameInit(RwFrame* frame) {
-    return ((RwBool(__cdecl *)(RwFrame*))0x7F0450)(frame);
+    rwFrameInitFields(frame);
+    frame->object.privateFlags = static_cast<RwUInt8>(frame->object.privateFlags | 0x10);
+    return TRUE;
 }
 
+// 0x7F06F0 (lote S15A, sin validar; 305 bytes; era una envoltura; cdecl, (marco)): _rwPluginRegistryDeInitObject(registro 0x8E2270, marco). Con padre: lo saca de la lista de hijos del padre (FrameUnlinkFromParent), padre = NULL,
+// hermano = NULL, raiz = el propio marco, pone esa raiz en cada hijo (_rwFrameSetRootRec) y lo marca sucio (FrameMarkDirty). Con privateFlags & 3 (con o sin padre) lo saca de la lista de marcos sucios (FrameUnlinkDirty).
+// Por ultimo pone padre = NULL en cada hijo. Devuelve TRUE.
 RwBool _rwFrameDeInit(RwFrame* frame) {
-    return ((RwBool(__cdecl *)(RwFrame*))0x7F06F0)(frame);
+    _rwPluginRegistryDeInitObject(FrameRegistry(), frame);
+    if (frame->object.parent != nullptr) {
+        FrameUnlinkFromParent(frame);
+        RwFrame* child = frame->child;
+        frame->object.parent = nullptr;
+        frame->next = nullptr;
+        frame->root = frame;
+        while (child != nullptr) {
+            _rwFrameSetRootRec(child, frame);
+            child = child->next;
+        }
+        FrameMarkDirty(frame);
+    }
+    if ((frame->object.privateFlags & 3) != 0) {
+        FrameUnlinkDirty(frame);
+    }
+    for (RwFrame* child = frame->child; child != nullptr; child = child->next) {
+        child->object.parent = nullptr;
+    }
+    return TRUE;
 }
 
 // 0x7F0340: bits 0 y 1 del indicador privado del marco RAIZ (frame->root, +0xA0; privateFlags en +3). Lee la raiz sin comprobar nulos.
@@ -4552,8 +4682,13 @@ RwBool RwFrameDirty(const RwFrame* frame) {
     return frame->root->object.privateFlags & 3;
 }
 
+// 0x7F0E00 (lote S15A, sin validar; 47 bytes; era una envoltura; cdecl, (marco)): numero de marcos de la jerarquia = 1 + la suma de RwFrameCount de cada hijo.
 RwInt32 RwFrameCount(RwFrame* frame) {
-    return ((RwInt32(__cdecl *)(RwFrame*))0x7F0E00)(frame);
+    RwInt32 count = 1;
+    for (RwFrame* child = frame->child; child != nullptr; child = child->next) {
+        count += RwFrameCount(child);
+    }
+    return count;
 }
 
 // 0x7F1260 (lote R24A, sin validar; 39 bytes; era una envoltura; cdecl, (tamano, id, constructor, destructor, copia)): _rwPluginRegistryAddPlugin(registro de RwFrame 0x8E2270, ...) con los mismos argumentos; devuelve su resultado.
@@ -4561,12 +4696,14 @@ RwInt32 RwFrameRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectCon
     return _rwPluginRegistryAddPlugin(FrameRegistry(), size, pluginID, constructCB, destructCB, copyCB);
 }
 
+// 0x7F1290 (lote S15A, sin validar; 19 bytes; era una envoltura; cdecl, (id)): _rwPluginRegistryGetPluginOffset(registro de plugins de RwFrame 0x8E2270, id).
 RwInt32 RwFrameGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x7F1290)(pluginID);
+    return _rwPluginRegistryGetPluginOffset(FrameRegistry(), pluginID);
 }
 
+// 0x7F12B0 (lote S15A, sin validar; 6 bytes; era una envoltura): TRUE siempre.
 RwBool RwFrameValidatePlugins(const RwFrame* frame) {
-    return ((RwBool(__cdecl *)(const RwFrame*))0x7F12B0)(frame);
+    return TRUE;
 }
 
 // 0x7EFFB0 (lote R24A, sin validar; 153 bytes; era una envoltura; cdecl, (raiz)): clona la jerarquia con _rwFrameCloneRec(raiz, NULL); sin clon -> NULL. Si hay: clon.privateFlags &= 0xFC y lo marca sucio (FrameMarkDirty:
@@ -4604,8 +4741,9 @@ RwInt32 RwTextureRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCa
     return _rwPluginRegistryAddPluginStream(&TextureTKList, pluginID, readCB, writeCB, getSizeCB);
 }
 
+// 0x804580 (lote S16A, sin validar; 24 bytes; era una envoltura; cdecl, (id, callback)): _rwPluginRegistryAddPlgnStrmlwysCB(registro de plugins de textura 0x8E23CC, id, callback).
 RwInt32 RwTextureSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x804580)(pluginID, alwaysCB);
+    return _rwPluginRegistryAddPlgnStrmlwysCB(&TextureTKList, pluginID, alwaysCB);
 }
 
 // 0x8045A0 (lote R30A, sin validar; 54 bytes; era una envoltura; cdecl, (textura); `RwTextureStreamGetSize` del SDK): tamano en el flujo = (_rwStringStreamGetSize(nombre +0x10) + 0x1C) +
@@ -4706,28 +4844,152 @@ const RwTexture* RwTextureStreamWrite(const RwTexture* texture, RwStream* stream
 }
 
 
+// 0x8048E0 (lote S16A, sin validar; 34 bytes; era una envoltura; cdecl, (id, lectura, escritura, tamano)): _rwPluginRegistryAddPluginStream(registro de plugins de diccionario 0x8E23E4, id, lectura, escritura, tamano).
 RwInt32 RwTexDictionaryRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkReadCallBack, RwPluginDataChunkWriteCallBack, RwPluginDataChunkGetSizeCallBack))0x8048E0)(pluginID, readCB, writeCB, getSizeCB);
+    return _rwPluginRegistryAddPluginStream(&TexDictTKList, pluginID, readCB, writeCB, getSizeCB);
 }
 
+// 0x804910 (lote S16A, sin validar; 24 bytes; era una envoltura; cdecl, (id, callback)): _rwPluginRegistryAddPlgnStrmlwysCB(registro de plugins de diccionario 0x8E23E4, id, callback).
 RwInt32 RwTexDictionarySetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x804910)(pluginID, alwaysCB);
+    return _rwPluginRegistryAddPlgnStrmlwysCB(&TexDictTKList, pluginID, alwaysCB);
 }
 
+namespace {
+// Estado que comparten RwTexDictionaryStreamGetSize / RwTexDictionaryStreamWrite con los callbacks por textura: { acumulador de tamano o contador, estado (1 = bien, 0 = fallo) } o { flujo, estado }.
+struct TexDictSizeState {
+    RwUInt32 size;
+    RwInt32  ok;
+};
+struct TexDictWriteState {
+    RwStream* stream;
+    RwInt32   ok;
+};
+}
+
+// 0x804990 (lote S16A, sin validar; 80 bytes; sin nombre en el SDK: callback por textura de RwTexDictionaryForAllTextures; cdecl, (textura, estado)): llama a stdFunc[rwSTANDARDNATIVETEXTUREGETSIZE] (RwEngineInstance + 0xAC)(&tamano, textura, 0);
+// si falla pone estado.ok (+4) a 0 y devuelve NULL. Si no, estado.size += tamano + 0xC, luego += _rwPluginRegistryGetSize(registro de texturas 0x8E23CC, textura) + 0xC (el acumulador se relee tras la llamada) y
+// devuelve la textura.
+static RwTexture* TexDictionarySizeTextureCallBack(RwTexture* texture, void* data) {
+    TexDictSizeState* const state = static_cast<TexDictSizeState*>(data);
+    RwInt32 nativeSize = 0;
+    if (RwEngineInstance->stdFunc[rwSTANDARDNATIVETEXTUREGETSIZE](&nativeSize, texture, 0) == 0) {
+        state->ok = 0;
+        return nullptr;
+    }
+    state->size += static_cast<RwUInt32>(nativeSize) + 0xC;
+    const RwInt32 pluginSize = _rwPluginRegistryGetSize(&TextureTKList, texture);
+    state->size += static_cast<RwUInt32>(pluginSize) + 0xC;
+    return texture;
+}
+
+// 0x804B60 (lote S16A, sin validar; 14 bytes; callback por textura; cdecl, (textura, contador*)): suma 1 al contador y devuelve la textura.
+static RwTexture* TexDictionaryCountTextureCallBack(RwTexture* texture, void* data) {
+    ++*static_cast<RwUInt32*>(data);
+    return texture;
+}
+
+// 0x804B70 (lote S16A, sin validar; 176 bytes; callback por textura; cdecl, (textura, estado)): escribe una textura nativa. tamano = stdFunc[rwSTANDARDNATIVETEXTUREGETSIZE](...) (fallo: estado.ok = 0 y NULL);
+// total = tamano + _rwPluginRegistryGetSize(registro de texturas 0x8E23CC, textura) + 0xC; _rwStreamWriteVersionedChunkHeader(flujo, 0x15 (textura nativa), total, 0x36003, 0xFFFF); stdFunc[rwSTANDARDNATIVETEXTUREWRITE]
+// (RwEngineInstance + 0xB4)(flujo, textura, total) y _rwPluginRegistryWriteDataChunks(registro 0x8E23CC, flujo, textura); cualquier fallo pone estado.ok a 0 y devuelve NULL; si no devuelve la textura.
+static RwTexture* TexDictionaryWriteTextureCallBack(RwTexture* texture, void* data) {
+    TexDictWriteState* const state = static_cast<TexDictWriteState*>(data);
+    RwInt32 size = 0;
+    if (RwEngineInstance->stdFunc[rwSTANDARDNATIVETEXTUREGETSIZE](&size, texture, 0) == 0) {
+        state->ok = 0;
+        return nullptr;
+    }
+    const RwInt32 pluginSize = _rwPluginRegistryGetSize(&TextureTKList, texture);
+    size = size + pluginSize + 0xC;
+    if (_rwStreamWriteVersionedChunkHeader(state->stream, 0x15, static_cast<RwInt32>(size), 0x36003, 0xFFFF) == nullptr) {
+        state->ok = 0;
+        return nullptr;
+    }
+    if (RwEngineInstance->stdFunc[rwSTANDARDNATIVETEXTUREWRITE](state->stream, texture, size) == 0) {
+        state->ok = 0;
+        return nullptr;
+    }
+    if (_rwPluginRegistryWriteDataChunks(&TextureTKList, state->stream, texture) == nullptr) {
+        state->ok = 0;
+        return nullptr;
+    }
+    return texture;
+}
+
+// 0x804930 (lote S16A, sin validar; 85 bytes; era una envoltura; cdecl, (diccionario)): estado { 0x10, 1 } y RwTexDictionaryForAllTextures(diccionario, 0x804990, &estado); con estado.ok = 0 devuelve 0; si no
+// estado.size + _rwPluginRegistryGetSize(registro de diccionarios 0x8E23E4, diccionario) + 0xC.
 RwUInt32 RwTexDictionaryStreamGetSize(const RwTexDictionary* texDict) {
-    return ((RwUInt32(__cdecl *)(const RwTexDictionary*))0x804930)(texDict);
+    TexDictSizeState state = { 0x10, 1 };
+    RwTexDictionaryForAllTextures(texDict, &TexDictionarySizeTextureCallBack, &state);
+    if (state.ok == 0) {
+        return 0;
+    }
+    return state.size + static_cast<RwUInt32>(_rwPluginRegistryGetSize(&TexDictTKList, texDict)) + 0xC;
 }
 
 RwTexDictionary* RwTexDictionaryStreamRead(RwStream* stream) {
     return ((RwTexDictionary*(__cdecl *)(RwStream*))0x804C30)(stream);
 }
 
+// 0x8049F0 (lote S16A, sin validar; 355 bytes; era una envoltura; cdecl, (diccionario, flujo)): tamano = igual que 0x804930 (estado { 0x10, 1 } con el callback 0x804990 + plugins + 0xC; con estado.ok = 0 o tamano 0: NULL);
+// cabecera de trozo versionada (flujo, 0x16 (diccionario de texturas), tamano, 0x36003, 0xFFFF) y otra (1 (struct), 4, 0x36003, 0xFFFF); cuenta las texturas (callback 0x804B60; 0x10000 o mas: NULL) y escribe 4 bytes
+// { numero de texturas (16 bits), identificador de dispositivo (16 bits: _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETID) con el byte alto a 0) } con RwStreamWrite; escribe cada textura
+// (callback 0x804B70, estado { flujo, 1 }) y los trozos de datos de los plugins (_rwPluginRegistryWriteDataChunks, registro 0x8E23E4); cualquier fallo (tambien estado.ok = 0): NULL. Devuelve el diccionario.
 const RwTexDictionary* RwTexDictionaryStreamWrite(const RwTexDictionary* texDict, RwStream* stream) {
-    return ((const RwTexDictionary*(__cdecl *)(const RwTexDictionary*, RwStream*))0x8049F0)(texDict, stream);
+    TexDictSizeState sizeState = { 0x10, 1 };
+    RwTexDictionaryForAllTextures(texDict, &TexDictionarySizeTextureCallBack, &sizeState);
+    if (sizeState.ok == 0) {
+        return nullptr;
+    }
+    const RwUInt32 size = sizeState.size + static_cast<RwUInt32>(_rwPluginRegistryGetSize(&TexDictTKList, texDict)) + 0xC;
+    if (size == 0) {
+        return nullptr;
+    }
+    if (_rwStreamWriteVersionedChunkHeader(stream, 0x16, static_cast<RwInt32>(size), 0x36003, 0xFFFF) == nullptr) {
+        return nullptr;
+    }
+    if (_rwStreamWriteVersionedChunkHeader(stream, 1, 4, 0x36003, 0xFFFF) == nullptr) {
+        return nullptr;
+    }
+    RwUInt32 count = 0;
+    RwTexDictionaryForAllTextures(texDict, &TexDictionaryCountTextureCallBack, &count);
+    if (count >= 0x10000) {
+        return nullptr;
+    }
+    struct {
+        RwUInt16 numTextures;
+        RwUInt16 deviceId;
+        RwUInt32 spill; // el EXE escribe el identificador sobre la ranura de su argumento: sitio de sobra por si el dispositivo escribe 32 bits
+    } info = { static_cast<RwUInt16>(count), 0, 0 };
+    _rwDeviceSystemRequest(&RwEngineInstance->dOpenDevice, rwDEVICESYSTEMGETID, &info.deviceId, nullptr, 0);
+    info.deviceId = static_cast<RwUInt16>(info.deviceId & 0xFF);
+    if (RwStreamWrite(stream, &info, 4) == nullptr) {
+        return nullptr;
+    }
+    TexDictWriteState writeState = { stream, 1 };
+    RwTexDictionaryForAllTextures(texDict, &TexDictionaryWriteTextureCallBack, &writeState);
+    if (_rwPluginRegistryWriteDataChunks(&TexDictTKList, stream, texDict) == nullptr || writeState.ok == 0) {
+        return nullptr;
+    }
+    return texDict;
 }
 
+// 0x804E60 (lote S16A, sin validar; 132 bytes; era una envoltura; cdecl, (flujo, informacion, bytes leidos*)): RwStreamFindChunk(flujo, 1 (struct), &longitud, NULL) (FALSE: NULL); lee 4 bytes con RwStreamRead (distinto de 4: NULL);
+// *bytesRead = longitud + 0xC y RwStreamSkip(flujo, longitud - 4). Informacion: filtrado = byte bajo, direccionamiento U = bits 8..11 y V = bits 12..15 de los 4 bytes. Devuelve la informacion.
 RwTextureChunkInfo* _rwTextureChunkInfoRead(RwStream* stream, RwTextureChunkInfo* textureChunkInfo, RwInt32* bytesRead) {
-    return ((RwTextureChunkInfo*(__cdecl *)(RwStream*, RwTextureChunkInfo*, RwInt32*))0x804E60)(stream, textureChunkInfo, bytesRead);
+    RwUInt32 length;
+    if (RwStreamFindChunk(stream, 1, &length, nullptr) == FALSE) {
+        return nullptr;
+    }
+    RwUInt32 packed = 0;
+    if (RwStreamRead(stream, &packed, 4) != 4) {
+        return nullptr;
+    }
+    *bytesRead = static_cast<RwInt32>(length + 0xC);
+    RwStreamSkip(stream, length - 4);
+    textureChunkInfo->filtering = static_cast<RwTextureFilterMode>(packed & 0xFF);
+    textureChunkInfo->addressingU = static_cast<RwTextureAddressMode>((packed >> 8) & 0xF);
+    textureChunkInfo->addressingV = static_cast<RwTextureAddressMode>((packed >> 12) & 0xF);
+    return textureChunkInfo;
 }
 
 void RwFrameListSetAutoUpdate(RwBool flag) {
@@ -4805,12 +5067,41 @@ RwCamera* RwCameraShowRaster(RwCamera* camera, void* pDev, RwUInt32 flags) {
     return RwRasterShowRaster(RwCameraGetRaster(camera), pDev, flags) != 0 ? camera : nullptr;
 }
 
+// 0x7EE0F0 (lote S15A, sin validar; 20 bytes; era una envoltura; cdecl, (tamano de bloque, bloques a reservar)): guarda los parametros en 0x8E2244 y 0x8E2248.
 void RwCameraSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x7EE0F0)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8E2244) = blockSize;
+    StaticRef<RwInt32>(0x8E2248) = numBlocksToPrealloc;
 }
 
+// 0x7EF3B0 (lote S15A, sin validar; 157 bytes; era una envoltura; cdecl, (camara)): clon = RwCameraCreate (NULL: NULL); _rwObjectHasFrameSetFrame(clon, marco de la camara (+4)); copia como palabras de 32 bits (sin x87:
+// los NaN pasan intactos) beginUpdate (+0x18), endUpdate (+0x1C), ventana de vision, su inversa y el desplazamiento (+0x68..+0x7C), plano cercano, lejano y de niebla (+0x80..+0x88), bufer de imagen (+0x60), bufer Z (+0x64)
+// y proyeccion (+0x14); _rwCameraUpdateZScale (0x7EE200) y _rwPluginRegistryCopyObject(registro de camaras 0x8E222C, clon, camara). Devuelve el clon.
 RwCamera* RwCameraClone(RwCamera* camera) {
-    return ((RwCamera*(__cdecl *)(RwCamera*))0x7EF3B0)(camera);
+    RwCamera* const clone = RwCameraCreate();
+    if (clone == nullptr) {
+        return nullptr;
+    }
+    _rwObjectHasFrameSetFrame(clone, static_cast<RwFrame*>(camera->object.object.parent));
+    const auto copyWord = [](const void* from, void* to) {
+        memcpy(to, from, 4);
+    };
+    copyWord(&camera->beginUpdate, &clone->beginUpdate);
+    copyWord(&camera->endUpdate, &clone->endUpdate);
+    copyWord(&camera->viewWindow.x, &clone->viewWindow.x);
+    copyWord(&camera->viewWindow.y, &clone->viewWindow.y);
+    copyWord(&camera->recipViewWindow.x, &clone->recipViewWindow.x);
+    copyWord(&camera->recipViewWindow.y, &clone->recipViewWindow.y);
+    copyWord(&camera->viewOffset.x, &clone->viewOffset.x);
+    copyWord(&camera->viewOffset.y, &clone->viewOffset.y);
+    copyWord(&camera->nearPlane, &clone->nearPlane);
+    copyWord(&camera->farPlane, &clone->farPlane);
+    copyWord(&camera->fogPlane, &clone->fogPlane);
+    copyWord(&camera->frameBuffer, &clone->frameBuffer);
+    copyWord(&camera->zBuffer, &clone->zBuffer);
+    copyWord(&camera->projectionType, &clone->projectionType);
+    _rwCameraUpdateZScale(clone);
+    _rwPluginRegistryCopyObject(reinterpret_cast<RwPluginRegistry*>(0x8E222C), clone, camera);
+    return clone;
 }
 
 // Direcciones del EXE usadas por las funciones del lote 25 (g25c) de este archivo.
@@ -4988,12 +5279,14 @@ RwInt32 RwCameraRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectCo
     return _rwPluginRegistryAddPlugin(reinterpret_cast<RwPluginRegistry*>(kCameraPluginRegistry), size, pluginID, constructCB, destructCB, copyCB);
 }
 
+// 0x7EE480 (lote S15A, sin validar; 19 bytes; era una envoltura; cdecl, (id)): _rwPluginRegistryGetPluginOffset(registro de plugins de camara 0x8E222C, id).
 RwInt32 RwCameraGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x7EE480)(pluginID);
+    return _rwPluginRegistryGetPluginOffset(reinterpret_cast<const RwPluginRegistry*>(0x8E222C), pluginID);
 }
 
+// 0x7EE4A0 (lote S15A, sin validar; 6 bytes; era una envoltura): TRUE siempre.
 RwBool RwCameraValidatePlugins(const RwCamera* camera) {
-    return ((RwBool(__cdecl *)(const RwCamera*))0x7EE4A0)(camera);
+    return TRUE;
 }
 
 // 0x7EE2D0 (lote R23A, sin validar; 104 bytes; era una envoltura; cdecl, (camara, esfera)): por cada uno de los 6 planos (+0x94, de 0x14 bytes) d = ((n.y*c.y + n.x*c.x) + n.z*c.z) - distancia; d > radio -> 0 (fuera,
@@ -11708,4 +12001,61 @@ void RwCoreInjectHooksR34A() {
     RH_ScopedGlobalInstall(_rxIoSpecFindCluster, 0x80F540);
     RH_ScopedGlobalInstall(_rxPipelineReqsRelease, 0x80F570);
     RH_ScopedGlobalInstall(_rxPipelineUnlockPropagateForced, 0x80F690);
+}
+
+// Lotes S15A y S16A (sin validar): envolturas de RwCore (camara, Im3D, marcos, texturas, diccionarios, rasters, Rx) reconstruidas en C++, mas el constructor del plugin de raster D3D9 (0x4C9A60) y tres callbacks por
+// textura de la escritura de diccionarios (0x804990, 0x804B60, 0x804B70) que esas funciones pasaban por direccion del EXE.
+void RwCoreInjectHooksS15A16A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RwCameraSetFreeListCreateParams, 0x7EE0F0);
+    RH_ScopedGlobalInstall(RwCameraGetPluginOffset, 0x7EE480);
+    RH_ScopedGlobalInstall(RwCameraValidatePlugins, 0x7EE4A0);
+    RH_ScopedGlobalInstall(RwCameraClone, 0x7EF3B0);
+    RH_ScopedGlobalInstall(RwIm3DGetTransformPipeline, 0x7EF9D0);
+    RH_ScopedGlobalInstall(RwIm3DGetRenderPipeline, 0x7EF9E0);
+    RH_ScopedGlobalInstall(_rwIm3DGetPool, 0x7EFDD0);
+    RH_ScopedGlobalInstall(RwFrameSetFreeListCreateParams, 0x7EFED0);
+    RH_ScopedGlobalInstall(RwFrameCloneHierarchy, 0x7F0250);
+    RH_ScopedGlobalInstall(_rwFrameInit, 0x7F0450);
+    RH_ScopedGlobalInstall(_rwFrameDeInit, 0x7F06F0);
+    RH_ScopedGlobalInstall(RwFrameGetRoot, 0x7F09B0);
+    RH_ScopedGlobalInstall(RwFrameCount, 0x7F0E00);
+    RH_ScopedGlobalInstall(RwFrameScale, 0x7F0ED0);
+    RH_ScopedGlobalInstall(RwFrameGetPluginOffset, 0x7F1290);
+    RH_ScopedGlobalInstall(RwFrameValidatePlugins, 0x7F12B0);
+    RH_ScopedGlobalInstall(RwTextureGetReadCallBack, 0x7F3520);
+    RH_ScopedGlobalInstall(_rwTextureSetAutoMipMapState, 0x7F3590);
+    RH_ScopedGlobalInstall(_rwTextureGetAutoMipMapState, 0x7F35C0);
+    RH_ScopedGlobalInstall(RwTextureGetPluginOffset, 0x7F3BE0);
+    RH_ScopedGlobalInstall(RwTextureValidatePlugins, 0x7F3C00);
+    RH_ScopedGlobalInstall(RwTexDictionaryGetPluginOffset, 0x7F3C40);
+    RH_ScopedGlobalInstall(RwTexDictionaryValidatePlugins, 0x7F3C60);
+    RH_ScopedGlobalInstall(RwTextureSetMipmapGenerationCallBack, 0x7F3C70);
+    RH_ScopedGlobalInstall(RwTextureGetMipmapGenerationCallBack, 0x7F3C90);
+    RH_ScopedGlobalInstall(RwTextureSetMipmapNameCallBack, 0x7F3CA0);
+    RH_ScopedGlobalInstall(RwTextureGetMipmapNameCallBack, 0x7F3CC0);
+    RH_ScopedGlobalInstall(RwTexDictionarySetFreeListCreateParams, 0x7F3E80);
+    RH_ScopedGlobalInstall(RwD3D9VertexBufferManagerChangeDefaultSize, 0x7F57F0);
+    RH_ScopedGlobalInstall(RwRasterGetPluginOffset, 0x7FAE40);
+    RH_ScopedGlobalInstall(RwRasterGetOffset, 0x7FAEA0);
+    RH_ScopedGlobalInstall(RwRasterSetFreeListCreateParams, 0x7FB350);
+    RH_ScopedGlobalInstall(RwD3D9GetSamplerState, 0x7FC400);
+    RH_ScopedGlobalInstall(RwTextureSetStreamAlwaysCallBack, 0x804580);
+    RH_ScopedGlobalInstall(RwTexDictionaryRegisterPluginStream, 0x8048E0);
+    RH_ScopedGlobalInstall(RwTexDictionarySetStreamAlwaysCallBack, 0x804910);
+    RH_ScopedGlobalInstall(RwTexDictionaryStreamGetSize, 0x804930);
+    RH_ScopedGlobalInstall(TexDictionarySizeTextureCallBack, 0x804990);
+    RH_ScopedGlobalInstall(RwTexDictionaryStreamWrite, 0x8049F0);
+    RH_ScopedGlobalInstall(TexDictionaryCountTextureCallBack, 0x804B60);
+    RH_ScopedGlobalInstall(TexDictionaryWriteTextureCallBack, 0x804B70);
+    RH_ScopedGlobalInstall(_rwTextureChunkInfoRead, 0x804E60);
+    RH_ScopedGlobalInstall(RxPipelineSetFreeListCreateParams, 0x804FC0);
+    RH_ScopedGlobalInstall(RxPacketCreate, 0x805300);
+    RH_ScopedGlobalInstall(RxClusterSetStride, 0x805330);
+    RH_ScopedGlobalInstall(RxClusterSetExternalData, 0x805340);
+    RH_ScopedGlobalInstall(RxClusterSetData, 0x8053A0);
+    RH_ScopedGlobalInstall(RxClusterDestroyData, 0x8054C0);
+    RH_ScopedGlobalInstall(RwD3D9RasterExtConstructor, 0x4C9A60);
 }
