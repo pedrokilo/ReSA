@@ -1,0 +1,188 @@
+{
+ "corregidos": {
+  "2536": {
+   "comando": "GET_CHAR_AREA_VISIBLE",
+   "causa": "devolvia un booleano (area != mundo normal) en vez del byte de area del peaton (ped+0x2F, id del interior): rompia el ropero de CJ. Corregido antes del banco (7ae347e7c4); el banco lo detecta si se revierte (prueba negativa, ronda 1).",
+   "correccion": "devuelve (uint32)(uint8)ped.GetAreaCode()",
+   "estado_final": "corregido (antes del banco)"
+  },
+  "550": {
+   "comando": "GET_CHAR_HEALTH",
+   "causa": "devolvia el float de la salud: guardaba sus bits (100.0f = 0x42C80000) en la variable entera del script; el EXE trunca con _ftol (0x47EA4B).",
+   "correccion": "int32 GetCharHealth: low32(int64(ped.m_fHealth)) (_ftol: truncamiento a 64 bits, como el EXE incluso fuera de rango)",
+   "estado_final": "corregido"
+  },
+  "1245": {
+   "comando": "GET_CHAR_ARMOUR",
+   "causa": "igual que GET_CHAR_HEALTH: devolvia los bits del float (el EXE usa _ftol, 0x48C14B).",
+   "correccion": "int32 GetCharArmour: low32(int64(ped.m_fArmour))",
+   "estado_final": "corregido"
+  },
+  "1708": {
+   "comando": "GET_CHAR_SPEED",
+   "causa": "usaba siempre la velocidad del peaton; el EXE usa la del vehiculo si va en uno (0x497243..0x497260).",
+   "correccion": "GetPedOrItsVehicle(ped).GetMoveSpeed().Magnitude() * 50",
+   "estado_final": "corregido"
+  },
+  "2109": {
+   "comando": "GET_CHAR_VELOCITY",
+   "causa": "devolvia la velocidad por fotograma; el EXE multiplica cada componente por 50.0 (0x470D70).",
+   "correccion": "componentes * 50.0f",
+   "estado_final": "corregido"
+  },
+  "704": {
+   "comando": "GET_CLOSEST_CHAR_NODE",
+   "causa": "no actualizaba la bandera de comparacion; el EXE la pone a \"nodo encontrado\" (0x47FBC8).",
+   "correccion": "devuelve MultiRet<CVector, CompareFlagUpdate>",
+   "estado_final": "corregido"
+  },
+  "2517": {
+   "comando": "SET_CHAR_SAY_CONTEXT_IMPORTANT",
+   "causa": "devolvia int16 y StoreArg lo guardaba con extension a cero (-1 -> 0x0000FFFF); el EXE hace movsx (-1 -> 0xFFFFFFFF).",
+   "correccion": "StoreArg extiende el signo de los enteros con signo de menos de 32 bits",
+   "estado_final": "corregido"
+  },
+  "242": {
+   "comando": "LOCATE_*_CHAR_2D / _3D (242-244, 260-262)",
+   "causa": "la posicion del peaton destino era la del propio peaton aunque vaya en un vehiculo; el EXE usa la del vehiculo (0x487166..0x4871E8).",
+   "correccion": "LocateCharEntity2D/3D reciben GetPedOrItsVehicle(ped2)",
+   "estado_final": "corregido"
+  },
+  "1526": {
+   "comando": "IS_CHAR_IN_ANGLED_AREA_* (1526, 1528, 1532-1534)",
+   "causa": "version NOTSA (AngledRect + marcadores propios): resultado distinto en los bordes y resaltado distinto al del juego.",
+   "correccion": "usan CRunningScript::CharInAngledAreaCheckCommand (0x487F60, ya reconstruida)",
+   "estado_final": "corregido"
+  },
+  "388": {
+   "comando": "IS_CHAR_HEALTH_GREATER",
+   "causa": "leia el parametro como float (una variable entera daba los bits de un float) y comparaba con >=; el original lee un entero (fild) y compara estrictamente.",
+   "correccion": "parametro int32; !(float(health) >= ped.m_fHealth)",
+   "estado_final": "corregido"
+  },
+  "547": {
+   "comando": "SET_CHAR_HEALTH",
+   "causa": "igual: parametro float en vez de entero (el EXE compara con 0 como entero y convierte con fild).",
+   "correccion": "parametro int32",
+   "estado_final": "corregido"
+  },
+  "2108": {
+   "comando": "SET_CHAR_VELOCITY",
+   "causa": "dividia por 50.0; el EXE multiplica por la constante float 0.02 (0x3CA3D70A): 1 ulp de diferencia.",
+   "correccion": "velocidad * 0.02f (constante del EXE)",
+   "estado_final": "corregido"
+  },
+  "932": {
+   "comando": "SCRIPT_NAME",
+   "causa": "calculaba el nombre en minusculas pero copiaba el original (SetName(name)); el EXE copia el nombre en minusculas con strncpy(…, 8).",
+   "correccion": "memcpy de los 8 bytes en minusculas",
+   "estado_final": "corregido"
+  },
+  "1152": {
+   "comando": "CAN_CHAR_SEE_DEAD_CHAR",
+   "causa": "leia 1 parametro y el EXE lee 2 (peaton y tipo de peaton, CollectParameters(2)): desalineaba el IP del script.",
+   "correccion": "segundo parametro int32 (sin uso, como en el EXE)",
+   "estado_final": "corregido"
+  },
+  "2103": {
+   "comando": "IS_OBJECT_PLAYING_ANIM",
+   "causa": "desreferenciaba el objeto RenderWare nulo de un objeto sin modelo cargado (el EXE devuelve falso).",
+   "correccion": "comprobacion de nulo antes de RwObjectGetType",
+   "estado_final": "corregido"
+  }
+ },
+ "abiertos": {
+  "ruido": {
+   "descripcion": "1 caso de 32 con un contador del mundo distinto (valores que cambian con hilos/estado externo; no se repite al volver a correr)",
+   "ids": [
+    21,
+    96,
+    265,
+    517,
+    739,
+    1439,
+    1662
+   ]
+  },
+  "dominio_exe": {
+   "descripcion": "el EXE desreferencia punteros nulos o estructuras del mundo con el estado perturbado de las fixtures (excepcion solo del lado EXE); el C++ comprueba nulos. No es un error del C++",
+   "ids": [
+    161,
+    375,
+    866,
+    1124,
+    1167,
+    1268,
+    1703,
+    1938,
+    2110,
+    2610
+   ]
+  },
+  "nop_sin_parametros": {
+   "descripcion": "el EXE trata el comando como NOP sin leer parametros (comando retirado); el C++ lee parametros y actua. No lo usa ningun script de SA",
+   "ids": [
+    592,
+    1291
+   ]
+  },
+  "rng": {
+   "descripcion": "el C++ no usa la semilla de rand() del EXE (CRT estatico, _getptd()+0x14): mismos valores no reproducibles; la secuencia aleatoria propia solo cambia el azar",
+   "ids": [
+    153,
+    520,
+    521
+   ]
+  },
+  "creacion": {
+   "descripcion": "crea una entidad: el manejador devuelto depende del orden de reserva del pool; no comparable por identidad",
+   "ids": [
+    263
+   ]
+  },
+  "etiquetas_en_variables": {
+   "descripcion": "cadenas guardadas en variables de script (SET_VAR_TEXT_LABEL, IS_VAR_TEXT_LABEL_EMPTY...): el generador no produce una codificacion de variable de cadena valida para el EXE (excepcion del EXE)",
+   "ids": [
+    1449,
+    1450,
+    1453,
+    1454,
+    1745,
+    1746,
+    2116,
+    2117,
+    2118,
+    2119,
+    2297,
+    2298
+   ]
+  },
+  "denormales": {
+   "descripcion": "floats denormales perturbados: la DLL (SSE, flush-to-zero) y el EXE (x87) difieren; fuera de dominio",
+   "ids": [
+    2109
+   ]
+  },
+  "dibujo_camara_hud": {
+   "descripcion": "diferencias en memoria de dibujo/camara/sombras/texto (345, 367, 719, 830, 897, 1047, 1114, 1115, 2044, 2227, 2330, 2358, 2541, 2569, 2571, 2597). 830/1114/1115/2044: el C++ escribe bytes de relleno de tScriptText que el EXE no escribe (benigno). El resto sin analizar: pendientes",
+   "ids": [
+    345,
+    367,
+    719,
+    830,
+    897,
+    1047,
+    1114,
+    1115,
+    2044,
+    2227,
+    2330,
+    2358,
+    2541,
+    2569,
+    2571,
+    2597
+   ]
+  }
+ }
+}

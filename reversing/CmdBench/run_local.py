@@ -41,6 +41,20 @@ def last_command_started(path):
     return cur
 
 
+def completed_commands(path):
+    done = set()
+    if path.exists():
+        with path.open('r', encoding='utf-8', errors='replace') as f:
+            for line in f:
+                try:
+                    r = json.loads(line)
+                except ValueError:
+                    continue
+                if r.get('event') in ('command_summary', 'command_skipped'):
+                    done.add(r['command'])
+    return done
+
+
 def analyze(path):
     """Devuelve el resumen cuando el registro termino (evento complete/error/assertion); None mientras corre."""
     path = Path(path)
@@ -203,6 +217,8 @@ def main():
     ap.add_argument('--retry', type=int, default=6)
     ap.add_argument('--timeout', type=int, default=3600)
     ap.add_argument('--tag', default='run')
+    ap.add_argument('--domain', default='safe', help='safe (enteros 0..6) o wide')
+    ap.add_argument('--done-since', default='', help='carpeta AAAAMMDD-HHMMSS: los comandos con resumen en carpetas desde esa marca no se repiten')
     args = ap.parse_args()
     if args.analyze:
         print(json.dumps(analyze(args.analyze), indent=2))
@@ -219,6 +235,12 @@ def main():
         print('hay un gta_sa.exe ajeno que no se cierra: no se lanza nada')
         return 2
     rc = 1
+    no_culprit = 0
+    done = set()
+    if args.done_since:
+        for f in sorted(Path(runtime_runner.GAME / 'resultados-cmdbench').iterdir()):
+            if f.name >= args.done_since and (f / 'comparisons.jsonl').exists():
+                done |= completed_commands(f / 'comparisons.jsonl')
     snap = guard_snapshot()
     try:
         for attempt in range(args.retry + 1):
@@ -229,7 +251,7 @@ def main():
                 wait_no_game(5)
                 guard_restore(snap)
                 time.sleep(8)
-            todo = [i for i in ids if i not in skip]
+            todo = [i for i in ids if i not in skip and i not in done]
             if not todo:
                 break
             cmds_file = HERE / f'cmds-{args.tag}.txt'
@@ -238,16 +260,24 @@ def main():
             os.environ['CMDBENCH_CMDS'] = str(cmds_file)
             os.environ['CMDBENCH_SKIP'] = str(skip_file)
             os.environ['CMDBENCH_CASES'] = str(args.cases)
+            os.environ['CMDBENCH_DOMAIN'] = args.domain
             log = runtime_runner.GAME / 'cmdbench-runtime.jsonl'
             (runtime_runner.GAME / 'cmdbench-runtime.start').unlink(missing_ok=True)   # resto de una corrida propia interrumpida (este script posee el candado)
             t_attempt = time.time()
             rc = runtime_runner.run_case('cmdbench', manifest['binaries']['asi'], analyze, 'CmdBench ' + args.tag, timeout=args.timeout)
             fresh = log.exists() and log.stat().st_mtime >= t_attempt
+            if fresh:
+                done |= completed_commands(log)
             culprit = last_command_started(log) if (rc and fresh) else None
             # el registro se archiva dentro de run_case; si fallo y quedo un comando sin resumen, es el culpable
             if rc and culprit is not None:
                 print(f'comando {culprit} no termino: se omite y se reintenta ({attempt + 1}/{args.retry})')
                 skip.add(culprit)
+                no_culprit = 0
+                continue
+            if rc and no_culprit < 5 and not STOP_FILE.exists():
+                no_culprit += 1
+                print(f'caida sin comando en curso (arranque del juego): reintento {no_culprit}/5')
                 continue
             break
     finally:

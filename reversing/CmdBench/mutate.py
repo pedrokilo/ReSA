@@ -27,8 +27,8 @@ ROUNDS = {
         (CH, "auto IsCharStopped(CPed& ped) {\n    return CTheScripts::IsPedStopped(&ped);\n}", "auto IsCharStopped(CPed& ped) {\n    return !CTheScripts::IsPedStopped(&ped);\n}", 672),
         (CH, "auto IsCharOnScreen(CPed& ped) {\n    return ped.GetIsOnScreen();\n}", "auto IsCharOnScreen(CPed& ped) {\n    return !ped.GetIsOnScreen();\n}", 715),
         (CH, "    return CTheZones::FindZone(GetCharCoordinates(ped), zoneName, ZONE_TYPE_NAVI);\n", "    return CTheZones::FindZone(ped.GetPosition(), zoneName, ZONE_TYPE_NAVI);\n", 340),
-        (CH, "    return static_cast<int32>(ped.m_fHealth);\n", "    return static_cast<int32>(ped.m_fHealth + 0.5f);\n", 550),
-        (CH, "    return static_cast<int32>(ped.m_fArmour);\n", "    return static_cast<int32>(ped.m_fArmour + 0.5f);\n", 1245),
+        (CH, "    return static_cast<int32>(static_cast<int64>(ped.m_fHealth));", "    return static_cast<int32>(static_cast<int64>(ped.m_fHealth + 0.5f));", 550),
+        (CH, "    return static_cast<int32>(static_cast<int64>(ped.m_fArmour));", "    return static_cast<int32>(static_cast<int64>(ped.m_fArmour + 0.5f));", 1245),
     ],
 }
 

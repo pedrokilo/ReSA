@@ -74,6 +74,29 @@ def catalogo_despachadores():
     return out
 
 
+BANCO_CSV = RAIZ / 'reversing/CmdBench/RESULTADOS.csv'
+BANCO_HALLAZGOS = RAIZ / 'reversing/CmdBench/hallazgos.json'
+
+
+def cargar_banco():
+    """Resultados del banco por comando (reversing/CmdBench): {id: fila} y hallazgos {id: {...}}; vacios si no existen."""
+    res, hall = {}, {}
+    if BANCO_CSV.exists():
+        for r in csv.DictReader(open(BANCO_CSV, encoding='utf-8')):
+            res[int(r['id'])] = r
+    if BANCO_HALLAZGOS.exists():
+        import json
+        dd = json.loads(BANCO_HALLAZGOS.read_text(encoding='utf-8'))
+        hall = {int(k): v for k, v in dd.get('corregidos', dd).items()}
+        global ABIERTOS
+        ABIERTOS = dd.get('abiertos', {})
+    return res, hall
+
+
+BANCO, HALLAZGOS = {}, {}
+ABIERTOS = {}
+
+
 def escribir_md(filas, cuenta, cuenta_disp):
     import collections
     por_arch = {}
@@ -117,9 +140,31 @@ def escribir_md(filas, cuenta, cuenta_disp):
     for f in rs:
         arch = f[5].split(':')[0].split('/')[-1].replace('Commands.cpp', ''); por.setdefault(arch, collections.Counter())[f[10]] += 1
     for k, c in sorted(por.items()): L.append(f"| {k} | {c.get('alto', 0)} | {c.get('medio', 0)} | {c.get('bajo', 0)} |")
+    cb = collections.Counter((BANCO.get(f[1]) or {}).get('estado', 'no_probado') for f in rs)
+    L += ['', '## Banco por comando (CmdBench)', '',
+          'Banco de validacion de los 668 manejadores reescritos contra el manejador original del EXE (`reversing/CmdBench`, ver su README): mismo script sintetico y parametros deterministas, estado de partida restaurado entre el lado C++ y el lado EXE; se compara retorno, IP, bandera, variables de salida y todos los bytes cambiados en `.data` y en las fixtures. Resultados: `reversing/CmdBench/RESULTADOS.csv`.', '',
+          '| Estado del banco | Comandos |', '| --- | ---: |'] + [f'| {k} | {cb.get(k, 0)} |' for k in ('validado', 'sin_efecto', 'diferencia', 'no_original', 'no_registrado', 'no_probado')] + ['']
+    if HALLAZGOS:
+        L += ['### Diferencias halladas y corregidas', '', '| Comando | Causa | Correccion |', '| --- | --- | --- |']
+        for cid, h in sorted(HALLAZGOS.items()):
+            L.append(f"| `{h.get('comando', cid)}` ({cid}) | {h['causa']} | {h['correccion']} |")
+        L.append('')
+    if ABIERTOS:
+        L += ['### Diferencias abiertas (no corregidas) por causa', '', '| Causa | Comandos | Descripcion |', '| --- | --- | --- |']
+        for k, v in ABIERTOS.items():
+            L.append(f"| {k} | {', '.join(str(i) for i in v['ids'])} | {v['descripcion']} |")
+        L.append('')
+    nop = [f for f in rs if (BANCO.get(f[1]) or {}).get('estado', 'no_probado') in ('no_probado', 'sin_efecto', 'no_original', 'no_registrado')]
+    if nop:
+        L += ['### No probados o sin efecto observable', '', '| Id | Comando | Estado | Motivo |', '| --- | --- | --- | --- |']
+        for f in nop:
+            b = BANCO.get(f[1]) or {}
+            L.append(f"| {f[0]} | `{f[2]}` | {b.get('estado', 'no_probado')} | {b.get('nota') or 'sin resultados del banco'} |")
+        L.append('')
     L += ['', '## Pendiente', '',
-          '- Banco por comando: ejecutar cada manejador reescrito y el original del EXE con los mismos parametros y comparar valores devueltos, variables escritas y efectos. `GTASA_CMD_BYPASS` (archivo con ids) permite volver al manejador original de cualquier comando para esas comparaciones o para bisecciones.',
-          '- Primer error hallado en este inventario: `GET_CHAR_AREA_VISIBLE` (0x09E8) devolvia un booleano en vez del id del interior (ropero de la casa de CJ).', '']
+          '- Banco por comando: hecho (`reversing/CmdBench`, ver su README). Quedan las diferencias abiertas, los comandos no probados y los `sin_efecto` de la seccion anterior; `GTASA_CMD_BYPASS` (archivo con ids) sigue permitiendo volver al manejador original de cualquier comando en el juego normal.',
+          '- `GET_CHAR_AREA_VISIBLE` (0x09E8) fue el primer error hallado en este inventario (devolvia un booleano en vez del id del interior; ropero de la casa de CJ): el banco lo detecta si se revierte la correccion.',
+          '- Los 14 comandos de `Path` y `Draw` con manejador C++ no se registran (faltan `c::path::RegisterHandlers()` y `c::draw::RegisterHandlers()` en `RunningScript.cpp`): el juego usa el original del EXE y su codigo C++ esta inactivo.', '']
     SALIDA_MD.write_text(chr(10).join(L), encoding='utf-8')
 
 def main():
@@ -137,12 +182,16 @@ def main():
         dv = ('si' if dc and dc[1] == '1' else 'no') if da else ''
         if estado == 'original': cuenta_disp[dr] = cuenta_disp.get(dr, 0) + 1
         filas.append([f'0x{cid:04X}', cid, nombre, estado, fn, f'{arch}:{lin}' if arch else '', f'0x{disp[cid//100]:08X}' if cid//100 in disp else '', 'si' if dup else '', dr, dv])
+    global BANCO, HALLAZGOS
+    BANCO, HALLAZGOS = cargar_banco()
     riesgos = riesgo_mod.clasificar_filas([dict(estado=f[3], id_hex=f[0], fuente=f[5], manejador_cpp=f[4]) for f in filas])
     for f in filas:
         r = riesgos.get(f[0])
         f.extend([r['riesgo'], r['devuelve'], r['mundo'], r['motivo']] if r else ['', '', '', ''])
+        b = BANCO.get(f[1]) if f[3] == 'reescrito' else None
+        f.extend([b['estado'], b['casos'], b['diferencias'], (HALLAZGOS.get(f[1], {}).get('estado_final') or b['nota'] or b['tipos'])] if b else (['no_probado', '0', '0', 'sin resultados del banco'] if f[3] == 'reescrito' else ['', '', '', '']))
     with open(SALIDA, 'w', newline='', encoding='utf-8') as fh:
-        w = csv.writer(fh, lineterminator=chr(10)); w.writerow(['id_hex', 'id', 'comando', 'estado', 'manejador_cpp', 'fuente', 'despachador_exe', 'registro_duplicado', 'despachador_reescrito', 'despachador_validado', 'riesgo', 'devuelve', 'mundo', 'motivo_riesgo'])
+        w = csv.writer(fh, lineterminator=chr(10)); w.writerow(['id_hex', 'id', 'comando', 'estado', 'manejador_cpp', 'fuente', 'despachador_exe', 'registro_duplicado', 'despachador_reescrito', 'despachador_validado', 'riesgo', 'devuelve', 'mundo', 'motivo_riesgo', 'banco_estado', 'banco_casos', 'banco_dif', 'banco_nota'])
         w.writerows(filas)
     escribir_md(filas, cuenta, cuenta_disp)
     print(f'{len(filas)} comandos -> {SALIDA.relative_to(RAIZ)} y {SALIDA_MD.relative_to(RAIZ)}')

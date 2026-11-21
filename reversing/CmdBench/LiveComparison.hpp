@@ -106,6 +106,8 @@ inline const std::set<int> kNeedsInCar{ 217, 960, 2065 };
 inline std::set<int> gNeedsInCar = kNeedsInCar;
 // Dominios validos de parametros enteros que el original usa como indice sin comprobar (asiento, ranura, etc.): {comando, indice de parametro de script} -> valores permitidos
 inline const std::map<std::pair<int, int>, std::vector<int>> kParamDomain{
+    { { 2, 1 }, { -16, -24, -32, -64, -100 } }, { { 76, 1 }, { -16, -24, -32, -64, -100 } }, { { 77, 1 }, { -16, -24, -32, -64, -100 } }, { { 80, 1 }, { -16, -24, -32, -64, -100 } },   // GOTO/GOSUB: destino negativo = relativo a m_BaseIP (dentro del bytecode propio)
+    { { 214, 1 }, { 0, 1, 2, 3, 21, 22, 23 } },   // ANDOR: 0 (ninguno), 1..8 (AND), 21..28 (OR)
     { { 1074, 1 }, { 0, 1, 2, 3 } },   // GET_CHAR_IN_CAR_PASSENGER_SEAT: asiento 0..3
     { { 1208, 1 }, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 } },   // GET_CHAR_WEAPON_IN_SLOT: ranuras de arma 0..12
 };
@@ -120,9 +122,12 @@ struct Enc {
     void D(u32 v) { W((uint16_t)v); W((uint16_t)(v >> 16)); }
 };
 
+inline bool gSafeDomain = false;   // CMDBENCH_DOMAIN=safe: enteros en [0,6] (sin indices fuera de rango); wide: dominio amplio
 inline u32 PickInt(Rng& r, u8 kind) {
+    if (gSafeDomain && kind != S::K_BOOL) return 1 + r.U(6);   // 1..6: los indices de estilo/bandera de los comandos de texto son 1-based (valor - 1)
     switch (kind) {
     case S::K_BOOL: return r.U(2);
+    case S::K_ENUM: return r.U(100) < 85 ? r.U(5) : r.U(10);   // enumerados: indices pequenos (el EXE los usa como indice de tablas sin comprobar)
     case S::K_I8: { int d = (int)r.U(100); return (u32)(d < 70 ? (int)r.U(9) : d < 85 ? (int)r.U(100) : d < 92 ? -1 : (int)r.U(256) - 128); }
     case S::K_U8: { int d = (int)r.U(100); return d < 70 ? r.U(9) : d < 90 ? r.U(100) : r.U(256); }
     case S::K_I16: { int d = (int)r.U(100); return (u32)(d < 60 ? (int)r.U(9) : d < 85 ? (int)r.U(300) : d < 92 ? -1 : (int)r.U(65536) - 32768); }
@@ -181,7 +186,7 @@ inline Case MakeCase(int cmd, const S::CmdSig& sg, u32 n) {
     auto NewGlobalSlot = [&]() { auto v = nextGlobal; nextGlobal += 4; return v; };
     e.W((uint16_t)cmd);   // el bit alto (NotFlag) lo fija ProcessOneCommand; aqui el opcode va limpio y m_NotFlag se asigna aparte
     char buf[64];
-    const std::string forced = BasicOperandKinds(::notsa::script::GetScriptCommandName((eScriptCommands)cmd).data());
+    const std::string forced = BasicOperandKinds(std::string(::notsa::script::GetScriptCommandName((eScriptCommands)cmd)));
     size_t operand = 0;
     for (u8 i = 0; i < sg.nIn; ++i) {
         const u8 k = sg.in[i];
@@ -245,7 +250,7 @@ inline Case MakeCase(int cmd, const S::CmdSig& sg, u32 n) {
 struct Side {
     bool exc{}; u32 excCode{}; uintptr_t excEip{}; std::string assertMsg; int ret{-99};
     int ipDelta{}; bool cond{}; u16 andor{}; bool notFlag{}; std::vector<u8> scriptBytes; std::vector<u8> codeBytes;
-    Diff diff; bool wroteOut{}; std::vector<u32> outVals; u32 seed{};
+    Diff diff; bool wroteOut{}; std::vector<u32> outVals; u32 seed{}; u32 effect{};
 };
 inline thread_local char gAssertMsg[256];
 inline thread_local bool gAssertHit{};
@@ -268,6 +273,7 @@ inline int CallExe(CRunningScript* s, int cmd) {
     return r;
 }
 
+inline int gCurCmd{};
 inline void PrepareScript(const Case& c) {
     auto* s = gScript;
     std::memset((void*)s, 0, sizeof(CRunningScript));
@@ -279,6 +285,7 @@ inline void PrepareScript(const Case& c) {
     for (auto& [i, v] : c.locals) s->m_LocalVars[(size_t)i].iParam = (int32)v;
     for (auto& [o, v] : c.globals) *(u32*)&CTheScripts::ScriptSpace[o] = v;
     s->m_NotFlag = c.notFlag;
+    if (gCurCmd == 81) { s->m_StackDepth = 1; s->m_IPStack[0] = gCode + 64; }   // RETURN necesita una direccion de retorno en la pila
 }
 
 // La semilla de rand() del EXE (CRT estatico, 0x821B1E) vive en los datos del hilo (_getptd()+0x14), no en .data: se fija antes de cada lado y se compara al final
@@ -288,6 +295,7 @@ inline u32 gSeed0{};
 
 // Ejecuta un lado y deja el estado resultante en `out`; no restaura (lo hace el llamador).
 inline void RunSide(int side, int cmd, const Case& c, const std::vector<std::vector<u8>>& base, Side& out) {
+    gCurCmd = cmd;
     PrepareScript(c);
     auto* s = gScript;
     // ProcessOneCommand: lee el opcode (avanza 2) y asigna m_NotFlag
@@ -316,7 +324,7 @@ inline void RunSide(int side, int cmd, const Case& c, const std::vector<std::vec
 // ----------------------------------------------------------------------------------------------------------------- comparacion
 inline std::string Hex(u32 v) { char b[16]; std::snprintf(b, sizeof b, "%08X", v); return b; }
 
-struct CmdStats { u32 ptrJitter{}, noiseBytes{}, nondet{}, cases{}, equal{}, diffs{}, excCpp{}, excExe{}, excBoth{}, excDiff{}, wroteOut{}, flagChanged{}, memChanged{}, ipMoved{}, assertCpp{}; };
+struct CmdStats { u32 unhandled{}, effect{}, ptrJitter{}, noiseBytes{}, nondet{}, cases{}, equal{}, diffs{}, excCpp{}, excExe{}, excBoth{}, excDiff{}, wroteOut{}, flagChanged{}, memChanged{}, ipMoved{}, assertCpp{}; };
 
 inline json DescribeIn(const Case& c) {
     json a = json::array();
@@ -371,6 +379,18 @@ inline u32 IgnoreHeapPointerJitter(Diff& a, Diff& b, const std::vector<std::vect
     }
     return n;
 }
+// bytes que el comando cambio realmente: fuera del objeto de script, el bytecode y las variables globales de trabajo
+inline u32 EffectBytes(const Diff& d) {
+    const uintptr_t locals0 = (uintptr_t)&gScript->m_LocalVars[0], locals1 = locals0 + sizeof(gScript->m_LocalVars);
+    u32 n = 0;
+    for (auto& [a, v] : d.bytes) {
+        const bool inScript = a >= (uintptr_t)gScript && a < (uintptr_t)gScript + sizeof(CRunningScript);
+        if (inScript && !(a >= locals0 && a < locals1)) continue;   // cabecera del script (IP, banderas): se compara aparte
+        if (a >= (uintptr_t)gCode && a < (uintptr_t)gCode + kCodeSize) continue;
+        ++n;
+    }
+    return n;
+}
 inline bool SideEqual(const Side& a, const Side& b) {
     if (a.exc != b.exc) return false;
     if (a.exc) return true;   // las dos fallaron: no se compara el resto (estado indefinido), se anota aparte
@@ -410,6 +430,12 @@ inline void ApplyMode(u64 seed, int cmd) {
     gMode = ((rg.U(100) < 30 || gNeedsInCar.count(cmd)) && gP1 && gV0) ? 1 : 0;
     if (gMode == 1) {   // ped1 al volante de veh0 (estado de reposo + vinculo)
         gP1->m_pVehicle = gV0; gP1->bInVehicle = true; gP1->m_nPedState = PEDSTATE_DRIVING; gV0->m_pDriver = gP1;
+    }    // salud/armadura con parte fraccionaria (los lectores GET_*_HEALTH truncan; sin esto casi todos los casos tendrian valores enteros)
+    Rng r2(seed ^ 0x5151ull);
+    if (r2.U(100) < 60) {
+        if (gP0) { gP0->m_fHealth = r2.F(1.f, 200.f); gP0->m_fArmour = r2.F(0.f, 100.f); }
+        if (gP1) { gP1->m_fHealth = r2.F(1.f, 200.f); gP1->m_fArmour = r2.F(0.f, 100.f); }
+        if (gV0) gV0->m_fHealth = r2.F(1.f, 1000.f);
     }
 }
 inline void PerturbFixtures(u64 seed) {
@@ -450,6 +476,7 @@ inline int EnvInt(const char* name, int def) { char* env = nullptr; size_t len =
 
 inline void Run() {
     const int cases = EnvInt("CMDBENCH_CASES", 64);
+    { char* d = nullptr; size_t l = 0; if (_dupenv_s(&d, &l, "CMDBENCH_DOMAIN") == 0 && d) { gSafeDomain = std::strcmp(d, "safe") == 0; free(d); } }
     auto wanted = ReadIdList("CMDBENCH_CMDS");
     auto skip = ReadIdList("CMDBENCH_SKIP");
     // 1. despachadores reescritos del EXE: se apagan para que la ranura apunte al codigo original
@@ -492,7 +519,7 @@ inline void Run() {
         if (skip.count(id)) continue;
         cmds.push_back(id);
     }
-    Write({ { "event", "begin" }, { "cases_per_command", cases }, { "commands", (int)cmds.size() }, { "hooks", hookInfo },
+    Write({ { "event", "begin" }, { "domain", gSafeDomain ? "safe" : "wide" }, { "cases_per_command", cases }, { "commands", (int)cmds.size() }, { "hooks", hookInfo },
             { "no_compare", "ScriptParams 0xA43C78..+128" }, { "entry_hooked_after", { { "0x481300", ReversingProbe::JumpsToDll(0x481300) }, { "0x48B590", ReversingProbe::JumpsToDll(0x48B590) }, { "0x46B460", ReversingProbe::JumpsToDll(0x46B460) } } },
             { "fixtures", { { "ped0", gPed0 }, { "ped1", gPed1 }, { "veh0", gVeh0 }, { "obj0", gObj0 } } },
             { "regions", [&] { json a = json::array(); for (auto& r : regions) a.push_back({ { "name", r.name }, { "addr", Hex((u32)r.addr) }, { "size", r.size } }); return a; }() } });
@@ -503,7 +530,8 @@ inline void Run() {
     for (int cmd : cmds) {
         const auto& sg = tab[(size_t)cmd];
         CmdStats st;
-        const char* name = ::notsa::script::GetScriptCommandName((eScriptCommands)cmd).data();
+        const std::string nameStr(::notsa::script::GetScriptCommandName((eScriptCommands)cmd));   // string_view: puede estar vacio (comandos sin nombre en la tabla)
+        const char* name = nameStr.c_str();
         if (!Supported(sg)) {
             Write({ { "event", "command_skipped" }, { "command", cmd }, { "name", name }, { "known", sg.known }, { "reason", "firma no soportada por el generador (ver Supported)" } });
             continue;
@@ -513,6 +541,8 @@ inline void Run() {
             Case c = MakeCase(cmd, sg, (u32)n);
             PerturbFixtures((u64)cmd * 1000003ull + (u64)n);
             ApplyMode((u64)cmd * 1000003ull + (u64)n, cmd);
+            gCurCmd = cmd;
+            PrepareScript(c);   // la instantanea incluye el andamiaje: el diff solo recoge lo que cambia el comando
             Snap();
             gSeed0 = 0x5EED0000u + (u32)n * 7919u + (u32)cmd;
             Side a, b, a2, b2;
@@ -533,6 +563,7 @@ inline void Run() {
             // Punteros a memoria dinamica (RenderWare, tareas...): su valor depende del orden de las reservas, no del comando. Se ignoran los dwords que difieren cuando ambos
             // lados escriben un valor de montones (0x01000000..0x7FFFFFFF) que no apunta a una fixture ni al script.
             st.ptrJitter += IgnoreHeapPointerJitter(a.diff, b.diff, base);
+            b.effect = EffectBytes(b.diff);
             st.noiseBytes += (u32)noise.size();
             if (a2.exc != a.exc || b2.exc != b.exc) ++st.nondet;
             for (auto& r : regions) if (r.fixture) std::memcpy((void*)r.addr, r.pristine.data(), r.size);
@@ -544,6 +575,8 @@ inline void Run() {
             st.flagChanged += (b.cond != false);
             st.memChanged += !b.diff.bytes.empty();
             st.wroteOut += b.wroteOut;
+            st.effect += (b.effect > 0);
+            st.unhandled += (b.ret == -1 && b.ipDelta == 2 && !b.exc);   // la rama por defecto del despachador del EXE (OR_INTERRUPT sin leer parametros): el original no implementa el comando
             if (!eq) {
                 ++totalDiffs;
                 Write({ { "event", "comparison" }, { "command", cmd }, { "name", name }, { "case", n }, { "equal", false }, { "mode", gMode }, { "input", DescribeIn(c) }, { "not_flag", c.notFlag },
@@ -553,7 +586,7 @@ inline void Run() {
             }
         }
         Write({ { "event", "command_summary" }, { "command", cmd }, { "name", name }, { "cases", st.cases }, { "equal", st.equal }, { "diffs", st.diffs }, { "exc_cpp", st.excCpp }, { "exc_exe", st.excExe }, { "exc_both", st.excBoth },
-                { "exc_differ", st.excDiff }, { "assert_cpp", st.assertCpp }, { "exe_mem_changed", st.memChanged }, { "exe_wrote_out", st.wroteOut }, { "noise_bytes", st.noiseBytes }, { "ptr_jitter", st.ptrJitter }, { "nondet_exc", st.nondet }, { "exe_flag_set", st.flagChanged }, { "ret", (int)sg.ret }, { "n_in", sg.nIn }, { "n_out", sg.nOut } });
+                { "exc_differ", st.excDiff }, { "assert_cpp", st.assertCpp }, { "exe_mem_changed", st.memChanged }, { "exe_wrote_out", st.wroteOut }, { "exe_effect", st.effect }, { "exe_unhandled", st.unhandled }, { "noise_bytes", st.noiseBytes }, { "ptr_jitter", st.ptrJitter }, { "nondet_exc", st.nondet }, { "exe_flag_set", st.flagChanged }, { "ret", (int)sg.ret }, { "n_in", sg.nIn }, { "n_out", sg.nOut } });
     }
     // restauracion final
     for (size_t i = 0; i < regions.size(); ++i) std::memcpy((void*)regions[i].addr, base[i].data(), regions[i].size);

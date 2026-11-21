@@ -35,3 +35,23 @@ con los mismos parametros, y compara el resultado.
 ## Lo que no cubre
 Ver la seccion de resultados en `docs/ComandosScript.md`. Resumen de limites: estado de montones (pools de tareas, nodos de listas del mundo, texturas) fuera de
 `.data`; comandos que dependen de tiempo (WAIT), de varios fotogramas o de scripts reales; firmas con tipos sin generador.
+
+## Resultados (corrida del 21/11/2026, dominio `safe`, 32 casos por comando, build Debug de la rama `cmdbench`)
+
+| Estado | Comandos |
+| --- | ---: |
+| validado (sin diferencias y con efecto observable en el EXE) | 533 |
+| diferencia (abierta; ver `docs/ComandosScript.md`) | 50 |
+| sin_efecto (sin diferencias pero el EXE no produjo efecto observable con los parametros generados) | 5 |
+| no_original (el EXE no implementa el comando: rama por defecto del despachador, devuelve -1 sin leer parametros) | 27 |
+| no_registrado (`path`/`draw::RegisterHandlers()` no se llaman: el juego usa el EXE) | 14 |
+| no_probado (cae o bloquea el juego, necesita estado que el banco no da) | 39 |
+
+Detalle por comando: `RESULTADOS.csv` (se regenera con `python resumen_banco.py --desde AAAAMMDD-HHMMSS --csv RESULTADOS.csv`, y `python contrib/inventario_comandos_script.py` lo vuelca a `docs/ComandosScript.csv` y `.md`). Hallazgos y causas de las diferencias abiertas: `hallazgos.json`.
+
+Prueba negativa (`mutate.py`): ronda 1 (regresion real de `GET_CHAR_AREA_VISIBLE` + 4 mutaciones) detecta 3 de 5 (`GET_CHAR_AREA_VISIBLE`, `GET_CHAR_COORDINATES`, `GET_CHAR_HEADING`); no detecta `IS_CHAR_IN_ANY_CAR` (bInVehicle sin vehiculo no ocurre en las fixtures) ni `GET_CHAR_MODEL` (& 0xFF con modelos < 256): mutantes equivalentes con estas fixtures. Ronda 2 detecta 4 de 5 (`IS_CHAR_STOPPED`, `IS_CHAR_ON_SCREEN`, `GET_CHAR_HEALTH`, `GET_CHAR_ARMOUR`); `IS_CHAR_IN_ZONE` queda sin detectar (las zonas aleatorias nunca coinciden).
+
+## Como repetirlo
+1. `python reversing/CmdBench/build_probe.py` (CMAKE_BUILD_PARALLEL_LEVEL=1, _CL_=-MP1) compila la sonda y la deja en `_baseline` de la copia de pruebas.
+2. `python -B reversing/CmdBench/run_local.py --cases 32 --domain safe --skip reversing/CmdBench/known-skip.txt --tag X` (toma el candado `D:/Original/gta_lock`, espera a que no haya `gta_sa.exe`, restaura ASI/INI/PDB al terminar). Un fichero `reversing/CmdBench/cmdbench.stop` cierra solo el juego lanzado por el ejecutor y detiene los reintentos. No matar el ejecutor con el juego abierto (deja la sonda instalada).
+3. `python reversing/CmdBench/informe.py --desde AAAAMMDD-HHMMSS` / `--detalle ID`, `python reversing/CmdBench/exe_case.py ID` (desensamblado del caso del EXE).
