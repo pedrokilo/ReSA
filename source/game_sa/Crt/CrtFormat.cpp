@@ -27,6 +27,7 @@ END GENERATED HOOK STATUS */
 #include "CrtHeap.h"
 #include "CrtString.h"
 #include "CrtCtype.h"
+#include "CrtLocale.h"
 
 // Reconstruccion de _output (0x827F4B) del CRT del EXE (lote CRT4A). Ver CrtFormat.h y reversing/FnCRT4A/README.md.
 
@@ -40,7 +41,7 @@ constexpr unsigned int FL_SIGN = 0x1, FL_SIGNSP = 0x2, FL_LEFT = 0x4, FL_LEADZER
 
 // Funciones del EXE que quedan por direccion (ver CrtFormat.h)
 inline int CallFlsbuf(int ch, File* f) { return Flsbuf(ch, f); }
-inline int CallWctomb(char* dst, int wc) { return reinterpret_cast<int(__cdecl*)(char*, int)>(0x83353C)(dst, wc); }
+inline int CallWctomb(char* dst, int wc) { return Wctomb(dst, static_cast<unsigned short>(wc)); } // _wctomb 0x83353C (CrtLocale)
 
 // 0x827E9E (write_char: ecx = FILE, esi = &numwritten, al = caracter)
 void WriteChar(unsigned char ch, File* f, int* numWritten) {

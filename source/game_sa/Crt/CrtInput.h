@@ -8,7 +8,7 @@
 //   _ungetc_nolock 0x83375D (el "_un_inc" de _input)   _getbuf 0x83361B
 // _inc (0x829094, argumento en edx) esta reconstruida como funcion propia. Dependencias que siguen siendo del EXE (se llaman por su direccion):
 //   _filbuf 0x82AF38 (relleno del buffer de un FILE de verdad; una cadena de sscanf nunca llega: devuelve -1),
-//   _mbtowc 0x8338CE (solo %lc/%ls). La conversion del texto de %e/%f/%g (_fassign) es propia: CrtFloatIn.{h,cpp}.
+//   _mbtowc 0x8338CE (propia, CrtLocale; solo %lc/%ls). La conversion del texto de %e/%f/%g (_fassign) es propia: CrtFloatIn.{h,cpp}.
 //
 // Reconstruido desde el desensamblado, sin __asm. Verificacion: reversing/FnCRT4A/README.md.
 

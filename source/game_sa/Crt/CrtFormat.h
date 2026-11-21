@@ -8,7 +8,7 @@
 // Los ayudantes de escritura (write_char 0x827E9E, write_multi_char 0x827ED1, write_string 0x827EF5) reciben argumentos en registros: no se enganchan,
 // estan reconstruidos como funciones propias dentro de este archivo. La conversion de coma flotante esta en CrtFloat.{h,cpp}.
 // Dependencias que siguen siendo del EXE y se llaman por su direccion (no se reconstruyeron): _flsbuf 0x828B31 (solo cuando la FILE se queda sin
-// buffer: sprintf nunca llega a el) y _wctomb 0x83353C (solo %c con 'l'/'w' y %ls/%Z con cadena ancha).
+// buffer: sprintf nunca llega a el) y _wctomb 0x83353C (propia, CrtLocale; solo %c con 'l'/'w' y %ls/%Z con cadena ancha).
 //
 // Reconstruido desde el desensamblado, sin __asm. Verificacion: reversing/FnCRT4A/README.md.
 
