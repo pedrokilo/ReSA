@@ -6,6 +6,7 @@
 #include "CrtFile.h"
 #include "CrtString.h"
 #include "CrtFormat.h"
+#include "CrtInput.h"
 
 // Reconstruccion de las envolturas de E/S y formato del CRT del EXE (lote CRT2A). Ver CrtFile.h y reversing/FnCRT2A/README.md.
 
@@ -39,7 +40,6 @@ struct FakeFile {
     }
 };
 using OutputFn = int(__cdecl*)(File*, const char*, va_list);
-using InputFn  = int(__cdecl*)(File*, const char*, va_list);
 using FlsbufFn = int(__cdecl*)(int, File*);
 
 // Cierre de cadena de sprintf/vsprintf: decrementa el contador de la FILE falsa; si se agota, _flsbuf (0x828B31)
@@ -226,7 +226,7 @@ int __cdecl Sscanf(const char* src, const char* fmt, ...) {
     va_list args;
     va_start(args, fmt);
     FakeFile ff(const_cast<char*>(src), static_cast<int>(Strlen(src)), 0x49);
-    const int result = Exe<InputFn>(0x8290D4)(&ff.f, fmt, args);
+    const int result = Input(&ff.f, reinterpret_cast<const unsigned char*>(fmt), args);
     va_end(args);
     return result;
 }

@@ -38,8 +38,6 @@ inline const unsigned char* Pow10Entry(unsigned int exeAddress) { return kPow10T
 
 inline uint16_t* W(Ld12* x) { return reinterpret_cast<uint16_t*>(x); }
 inline const uint16_t* W(const Ld12* x) { return reinterpret_cast<const uint16_t*>(x); }
-inline uint32_t Load32(const void* p) { uint32_t v; std::memcpy(&v, p, 4); return v; }
-inline void Store32(void* p, uint32_t v) { std::memcpy(p, &v, 4); }
 
 
 // 0x826B7E (_shift, recibe eax = cadena y edi = cantidad): desplaza la cadena n posiciones a la derecha (con su cero final)

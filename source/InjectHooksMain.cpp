@@ -679,6 +679,8 @@
 #include "game_sa/Crt/CrtFloat.h"
 #include "game_sa/Crt/CrtFormat.h"
 #include "game_sa/Crt/CrtCtype.h"
+#include "game_sa/Crt/CrtInput.h"
+#include "game_sa/Crt/CrtFloatIn.h"
 
 // Hooks de biblioteca del grupo g25b (RenderWare SDK / controlador D3D9); el sufijo evita colisiones con otros registradores.
 void RwCoreInjectHooks25b();
@@ -1209,6 +1211,8 @@ void InjectHooksMain() {
     CrtFloatInjectHooks();   // lote CRT4A: conversion de coma flotante a texto (_cfltcvt, _fltout2, $I10_OUTPUT, ...), aritmetica entera
     CrtFormatInjectHooks();  // lote CRT4A: _output (motor de printf)
     CrtCtypeInjectHooks();   // lote CRT4A: _tolower/isdigit/isspace/isxdigit del locale del hilo
+    CrtInputInjectHooks();   // lote CRT4A: _input (motor de scanf), _ungetc_nolock, _getbuf
+    CrtFloatInInjectHooks(); // lote CRT4A: texto -> coma flotante (_strgtold12, _ld12cvt, _atodbl, _atoflt, _fassign)
     LibPngReadInjectHooks();
 
     CIplStore::InjectHooks();

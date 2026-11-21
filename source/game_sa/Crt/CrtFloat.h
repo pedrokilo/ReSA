@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <cstring>
 
 // Conversion de coma flotante a texto del CRT estatico del EXE (MSVC 7.1), lote CRT4A. Es la pila que usa _output para %e %E %f %g %G:
 //
@@ -14,6 +15,12 @@
 // Reconstruido desde el desensamblado, sin __asm. Verificacion: reversing/FnCRT4A/README.md.
 
 namespace ExeCrt {
+// Lecturas y escrituras sin alineacion (el EXE lee dwords y words en cualquier posicion de los bloques de 12 bytes)
+inline uint32_t Load32(const void* p) { uint32_t v; std::memcpy(&v, p, 4); return v; }
+inline void Store32(void* p, uint32_t v) { std::memcpy(p, &v, 4); }
+inline uint16_t Load16(const void* p) { uint16_t v; std::memcpy(&v, p, 2); return v; }
+inline void Store16(void* p, uint16_t v) { std::memcpy(p, &v, 2); }
+
 // Entero de 96 bits (little endian) que el EXE llama "ld12": palabra 0 = extension, palabras 1..4 = mantisa de 64 bits (bit explicito), palabra 5 = signo y exponente.
 struct Ld12 {
     uint32_t d[3];
