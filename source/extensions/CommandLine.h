@@ -11,6 +11,7 @@ namespace CommandLine {
     extern bool s_UnhookAll;
     extern std::vector<std::string_view> s_UnhookSome;
     extern std::vector<std::string_view> s_UnhookExcept;
+    extern std::vector<std::string_view> s_HookSome; // --hook=A,B: activa hooks que nacen desactivados (FnD3DX9B)
     extern fs::path s_DumpHooksPath;
 
     // Debug features

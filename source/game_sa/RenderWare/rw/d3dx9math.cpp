@@ -462,21 +462,84 @@ void* MatrixTranspose(void* out, const void* in) {
 void* MatrixMultiplyTranspose(void* out, const void* a, const void* b) {
     return D3DX9MatrixMultiplyTransposeSse(static_cast<float*>(out), static_cast<const float*>(a), static_cast<const float*>(b));
 }
+namespace {
+// FnD3DX9B: diagnostico (--d3dx9-log). ID3DXBuffer por tabla virtual: [3] GetBufferPointer, [4] GetBufferSize (igual que lo usa el EXE en 0x760C74).
+struct IBufferLike { void** vtbl; };
+const void* BufferPtr(void* b) { return b ? reinterpret_cast<const void*(__stdcall*)(void*)>(static_cast<IBufferLike*>(b)->vtbl[3])(b) : nullptr; }
+uint32      BufferSize(void* b) { return b ? reinterpret_cast<uint32(__stdcall*)(void*)>(static_cast<IBufferLike*>(b)->vtbl[4])(b) : 0; }
+
+std::string Escape(const void* data, size_t len) {
+    std::string out;
+    const auto* p = static_cast<const char*>(data);
+    for (size_t i = 0; data && i < len && i < 200; ++i) {
+        const char c = p[i];
+        if (c == '\n') out += "\\n"; else if (c == '\r') out += "\\r"; else if (c >= 32 && c < 127) out += c; else out += '.';
+    }
+    return out;
+}
+std::string BufferText(void* b) {
+    if (!b) return {};
+    return Escape(BufferPtr(b), std::min<uint32>(BufferSize(b), 400));
+}
+} // namespace
+
+bool s_LogCalls = false; // --d3dx9-log
+
+namespace {
+// Retorna el contenido de un puntero a fuente (ANSI) o de un nombre limitado a 200 bytes.
+std::string Head(const char* s, size_t n = SIZE_MAX) { return s ? Escape(s, n == SIZE_MAX ? strnlen(s, 200) : n) : "(null)"; }
+} // namespace
+
+// Causa de EXT1A/R21A (FnD3DX9B): d3dx9_43.dll rechaza con D3DERR_INVALIDCALL (0x8876086C) cualquier bandera de D3DXAssembleShader distinta de D3DXSHADER_DEBUG (1) y
+// D3DXSHADER_SKIPVALIDATION (2). El juego (0x760C66, generador de vertex shaders de piel/mundo) llama con Flags = 4 (D3DXSHADER_SKIPOPTIMIZATION), que el ensamblador antiguo
+// del EXE ignoraba: la DLL no devolvia ningun shader y los modelos con esqueleto salian invisibles o cortados. Se enmascara a DEBUG|SKIPVALIDATION; si aun asi la validacion
+// de la DLL rechaza el codigo (mas estricta que la del EXE) se reintenta sin validar, como hacia el EXE (el controlador valida otra vez en CreateVertexShader).
 int32 AssembleShader(const void* srcData, uint32 srcDataLen, const void* defines, void* include, uint32 flags, void** shader, void** errorMsgs) {
     static const auto fn = Get<int32(__stdcall*)(const void*, uint32, const void*, void*, uint32, void**, void**)>("D3DXAssembleShader");
-    return fn ? fn(srcData, srcDataLen, defines, include, flags, shader, errorMsgs) : kD3DERR_NOTAVAILABLE;
+    if (!fn) return kD3DERR_NOTAVAILABLE;
+    constexpr uint32 kAllowed = 1u | 2u; // D3DXSHADER_DEBUG | D3DXSHADER_SKIPVALIDATION
+    const uint32 used = flags & kAllowed;
+    void* localShader = nullptr;
+    int32 hr = fn(srcData, srcDataLen, defines, include, used, shader ? shader : &localShader, errorMsgs);
+    bool retried = false;
+    if (hr < 0 && !(used & 2u)) {
+        retried = true;
+        const auto firstError = s_LogCalls ? BufferText(errorMsgs ? *errorMsgs : nullptr) : std::string{};
+        if (s_LogCalls) NOTSA_LOG_WARN("D3DX9 AssembleShader: validacion rechazada hr=0x{:08X} error='{}'; se reintenta con SKIPVALIDATION", static_cast<uint32>(hr), firstError);
+        if (errorMsgs && *errorMsgs) { // liberar el buffer de errores del primer intento (Release = vtable[2])
+            reinterpret_cast<uint32(__stdcall*)(void*)>(static_cast<IBufferLike*>(*errorMsgs)->vtbl[2])(*errorMsgs);
+            *errorMsgs = nullptr;
+        }
+        hr = fn(srcData, srcDataLen, defines, include, used | 2u, shader ? shader : &localShader, errorMsgs);
+    }
+    if (s_LogCalls) {
+        static uint32 s_Count = 0;
+        NOTSA_LOG_INFO("D3DX9 AssembleShader #{}: len={} flagsEXE=0x{:X} flagsDLL=0x{:X}{} hr=0x{:08X} bytecode={} bytes errores='{}' fuente(200)='{}'",
+                       ++s_Count, srcDataLen, flags, used, retried ? "+SKIPVALIDATION" : "", static_cast<uint32>(hr),
+                       BufferSize(shader ? *shader : nullptr), BufferText(errorMsgs ? *errorMsgs : nullptr), Escape(srcData, srcDataLen));
+    }
+    if (!shader && localShader) {
+        reinterpret_cast<uint32(__stdcall*)(void*)>(static_cast<IBufferLike*>(localShader)->vtbl[2])(localShader);
+    }
+    return hr;
 }
 int32 CompileShaderFromFileA(const char* srcFile, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
     static const auto fn = Get<int32(__stdcall*)(const char*, const void*, void*, const char*, const char*, uint32, void**, void**, void**)>("D3DXCompileShaderFromFileA");
-    return fn ? fn(srcFile, defines, include, functionName, target, flags, shader, errorMsgs, constantTable) : kD3DERR_NOTAVAILABLE;
+    const int32 hr = fn ? fn(srcFile, defines, include, functionName, target, flags, shader, errorMsgs, constantTable) : kD3DERR_NOTAVAILABLE;
+    if (s_LogCalls) NOTSA_LOG_INFO("D3DX9 CompileShaderFromFileA: archivo='{}' funcion='{}' destino='{}' flags=0x{:X} hr=0x{:08X} bytecode={} bytes errores='{}'", Head(srcFile), Head(functionName), Head(target), flags, static_cast<uint32>(hr), BufferSize(shader ? *shader : nullptr), BufferText(errorMsgs ? *errorMsgs : nullptr));
+    return hr;
 }
 int32 CompileShaderFromFileW(const wchar_t* srcFile, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
     static const auto fn = Get<int32(__stdcall*)(const wchar_t*, const void*, void*, const char*, const char*, uint32, void**, void**, void**)>("D3DXCompileShaderFromFileW");
-    return fn ? fn(srcFile, defines, include, functionName, target, flags, shader, errorMsgs, constantTable) : kD3DERR_NOTAVAILABLE;
+    const int32 hr = fn ? fn(srcFile, defines, include, functionName, target, flags, shader, errorMsgs, constantTable) : kD3DERR_NOTAVAILABLE;
+    if (s_LogCalls) NOTSA_LOG_INFO("D3DX9 CompileShaderFromFileW: funcion='{}' destino='{}' flags=0x{:X} hr=0x{:08X} bytecode={} bytes errores='{}'", Head(functionName), Head(target), flags, static_cast<uint32>(hr), BufferSize(shader ? *shader : nullptr), BufferText(errorMsgs ? *errorMsgs : nullptr));
+    return hr;
 }
 int32 CompileShaderFromResourceA(void* srcModule, const char* srcResource, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
     static const auto fn = Get<int32(__stdcall*)(void*, const char*, const void*, void*, const char*, const char*, uint32, void**, void**, void**)>("D3DXCompileShaderFromResourceA");
-    return fn ? fn(srcModule, srcResource, defines, include, functionName, target, flags, shader, errorMsgs, constantTable) : kD3DERR_NOTAVAILABLE;
+    const int32 hr = fn ? fn(srcModule, srcResource, defines, include, functionName, target, flags, shader, errorMsgs, constantTable) : kD3DERR_NOTAVAILABLE;
+    if (s_LogCalls) NOTSA_LOG_INFO("D3DX9 CompileShaderFromResourceA: recurso='{}' funcion='{}' destino='{}' flags=0x{:X} hr=0x{:08X} bytecode={} bytes errores='{}'", Head(srcResource), Head(functionName), Head(target), flags, static_cast<uint32>(hr), BufferSize(shader ? *shader : nullptr), BufferText(errorMsgs ? *errorMsgs : nullptr));
+    return hr;
 }
 } // namespace D3DX9System
 
