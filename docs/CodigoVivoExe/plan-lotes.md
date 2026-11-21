@@ -78,9 +78,9 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | F2 | P5 | fase 8 | CRT y arranque | FASE8 | inicializadores estáticos | 4 | 248 | 0x00826A72–0x008339CA | alto | F1 | pendiente |
 | F3 | P5 | fase 8 | Importaciones y carga retardada | FASE8 | enlace (delay-load) | 6 | 120 | 0x00807C10–0x00836AFC | bajo |  | pendiente |
 | F4 | P5 | revisar | Excepciones (Unwind/Catch) | REVISAR | dueño no resuelto | 44 | 592 | 0x00838190–0x00838A46 | bajo |  | pendiente |
-| H1 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 21,802 | 0x00402705–0x0050E462 | medio |  | pendiente |
-| H2 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 15,986 | 0x005173F0–0x005CC289 | medio |  | pendiente |
-| H3 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 12,802 | 0x005CC698–0x00728B06 | medio |  | pendiente |
-| H4 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 24,479 | 0x0072F505–0x00761C26 | medio |  | pendiente |
-| H5 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 34,977 | 0x00761DDE–0x007EF33E | medio |  | pendiente |
-| H6 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 18,311 | 0x007F12E3–0x008568AB | medio |  | pendiente |
+| H1 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 21,802 | 0x00402705–0x0050E462 | medio |  | clasificado: 42 de 45 huecos cerrados |
+| H2 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 15,986 | 0x005173F0–0x005CC289 | medio |  | clasificado: 45 de 45 huecos cerrados |
+| H3 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 12,802 | 0x005CC698–0x00728B06 | medio |  | clasificado: 45 de 45 huecos cerrados |
+| H4 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 24,479 | 0x0072F505–0x00761C26 | medio |  | clasificado: 42 de 45 huecos cerrados |
+| H5 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 34,977 | 0x00761DDE–0x007EF33E | medio |  | clasificado: 42 de 45 huecos cerrados |
+| H6 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 18,311 | 0x007F12E3–0x008568AB | medio |  | clasificado: 43 de 45 huecos cerrados |
