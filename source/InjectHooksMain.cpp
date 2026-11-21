@@ -724,6 +724,7 @@ void RwCoreInjectHooksR25A();     // diccionarios y texturas, lectura de imagene
 void RwD3D9InjectHooksR25A();     // controlador D3D9: gestor de buferes de vertices, render target, caches de estado, multimuestreo, CreateVertexShader y caja en frustum (rwcore.cpp)
 void RwD3D9InjectHooksR26A();     // controlador D3D9: parametros de presentacion, parada, estandares, modos de video, liberacion/restauracion del dispositivo, multimuestreo, cambio de modo y camara con ventana (rwcore.cpp)
 void RwD3D9InjectHooksR27A();     // controlador D3D9: soporte DXT, caches de estado, render target, declaracion, shaders, flujos, indices, dibujo, transformaciones y luces (rwcore.cpp)
+void RwCoreInjectHooksS15A16A();   // lotes S15A/S16A: envolturas de RwCore (camara, Im3D, marcos, texturas, diccionarios, rasters, Rx) y 0x4C9A60 (rwcore.cpp)
 void RwCoreInjectHooksR28A();      // rasters de RwCore (baraster.c): crear, destruir, contexto, bloqueo, niveles, dibujo y mostrar (rwcore.cpp)
 void RwD3D9InjectHooksR28A();     // controlador D3D9: luces, declaraciones, Im2D, caches de estados, material, reinicio de estados, RwD3D9SetTexture y formato de imagen (rwcore.cpp)
 void RwCoreInjectHooksR29A();      // imagenes de RwCore (baimage.c): crear, destruir, reservar y liberar pixeles y mascara (rwcore.cpp)
@@ -1186,6 +1187,7 @@ void InjectHooksMain() {
     RwPlCoreInjectHooksR34A();
     RwD3D9InjectHooksR34A();
     RwCoreInjectHooksR34A();
+    RwCoreInjectHooksS15A16A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();

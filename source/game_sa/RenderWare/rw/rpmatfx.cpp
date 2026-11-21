@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "rpmatfx.h"
+#include "X87Math.h"
 
 #include <emmintrin.h>
 
@@ -68,6 +69,27 @@ MatFXEffectData* FindEffect(const RpMaterial* material, RwUInt32 type) {
     return nullptr;
 }
 
+// Palabras de 32 bits de un RwReal (copia sin pasar por la x87).
+RwUInt32 RealBits(RwReal value) {
+    RwUInt32 bits;
+    memcpy(&bits, &value, sizeof(bits));
+    return bits;
+}
+void StoreBits(RwReal& field, RwUInt32 bits) {
+    memcpy(&field, &bits, sizeof(bits));
+}
+// `fld dword` + `fstp dword` de la x87: un NaN senalizante sale como NaN silencioso (bit 22 a 1); el resto de valores (denormales incluidos) sale con los mismos bits.
+RwUInt32 X87Reload(RwUInt32 bits) {
+    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x007FFFFFu) != 0) {
+        bits |= 0x00400000u;
+    }
+    return bits;
+}
+// `fld dword` + `fchs` + `fstp dword`.
+RwUInt32 X87ReloadNegated(RwUInt32 bits) {
+    return X87Reload(bits) ^ 0x80000000u;
+}
+
 // Llamada COM stdcall por la tabla virtual (this primero).
 template<size_t Slot, typename R, typename... Args>
 R ComCall(void* self, Args... args) {
@@ -76,6 +98,7 @@ R ComCall(void* self, Args... args) {
 }
 constexpr size_t kSlotDrawPrimitive        = 81;  // IDirect3DDevice9::DrawPrimitive (+0x144)
 constexpr size_t kSlotDrawIndexedPrimitive = 82;  // IDirect3DDevice9::DrawIndexedPrimitive (+0x148)
+constexpr size_t kSlotSetIndices           = 104; // IDirect3DDevice9::SetIndices (+0x1A0)
 constexpr size_t kSlotSetVertexShader      = 92;  // IDirect3DDevice9::SetVertexShader (+0x170)
 constexpr size_t kSlotSetPixelShader       = 107; // IDirect3DDevice9::SetPixelShader (+0x1AC)
 
@@ -99,6 +122,9 @@ constexpr uintptr_t kUvScratchMatrix         = 0x8E29C8; // matriz D3D de trabaj
 constexpr uintptr_t kEnvPixelShaders         = 0xC9AB94; // seis pixel shaders consecutivos 0xC9AB94..0xC9ABA8 (ver _rpMatFXPipelinesCreate)
 auto& D3D9LastFVF                = StaticRef<RwUInt32>(0x8E2440);  // ultimo FVF (0xFFFFFFFF = declaracion de vertices activa)
 auto& D3D9LastVertexDeclaration  = StaticRef<uintptr_t>(0x8E2444); // ultima declaracion de vertices (0xFFFFFFFF = FVF activo)
+auto& D3D9LastIndexBuffer        = StaticRef<void*>(0x8E2450);     // ultimo bufer de indices activo (SetIndices)
+auto& MatFXFreeListBlockSize     = StaticRef<RwInt32>(0x8E29B8);   // parametros de RpMatFXMaterialDataSetFreeListCreateParams
+auto& MatFXFreeListNumPrealloc   = StaticRef<RwInt32>(0x8E29BC);
 
 void*& MatFXPixelShader(size_t index) { return reinterpret_cast<void**>(kEnvPixelShaders)[index]; }
 
@@ -224,6 +250,32 @@ void _rpMatFXD3D9RenderDualTexture(RxD3D9ResEntryHeader* header, RxD3D9InstanceD
 void _rpMatFXD3D9RenderEnvMapPass(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* instance, RwUInt32 flags, RwUInt32 pass, RwTexture* baseTexture, RwTexture* envTexture);
 void _rpMatFXD3D9RenderBumpMap(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* instance, RwUInt32 flags, RwTexture* baseTexture, RwTexture* bumpedTexture, RwTexture* envTexture);
 RwBool _rpMatFXPipelinesDestroy();
+void _rwD3D9SetClippingForObject(void* object, RwInt32 type);   // 0x756D90 (rpworld.cpp)
+RwBool _rwD3D9RenderStateVertexAlphaEnable(RwBool enable);      // 0x7FE0A0 (rwcore.cpp)
+
+// Lotes S13A y S14A (sin validar): callbacks del plugin 0x120 y del canal D3D9 que el codigo propio pasaba por direccion del EXE (todos cdecl). Se registran por su direccion propia (RpMatFXPluginAttach y
+// _rpMatFXPipelinesCreate) y llevan hook en la direccion del EXE.
+static void*     _rpMatFXEngineDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                               // 0x810BB0
+static void*     _rpMatFXEngineConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                              // 0x810BF0
+static void*     _rpMatFXMaterialConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                            // 0x810C40
+static void*     _rpMatFXMaterialDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                             // 0x810C60
+static void*     _rpMatFXMaterialCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject);                         // 0x810D20
+static RwStream* _rpMatFXMaterialStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x8111F0
+static RwStream* _rpMatFXMaterialStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);        // 0x811410
+static RwInt32   _rpMatFXMaterialStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                   // 0x811970
+static void*     _rpMatFXAtomicConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                              // 0x811A00
+static void*     _rpMatFXAtomicDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                               // 0x811A20
+static void*     _rpMatFXAtomicCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject);                          // 0x811A40
+static RwStream* _rpMatFXAtomicStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);   // 0x811A60
+static RwInt32   _rpMatFXAtomicStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                     // 0x811AE0
+static void*     _rpMatFXWorldSectorConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                         // 0x811B00
+static void*     _rpMatFXWorldSectorDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                          // 0x811B20
+static void*     _rpMatFXWorldSectorCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject);                     // 0x811B40
+static RwStream* _rpMatFXWorldSectorStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x811B60
+static RwInt32   _rpMatFXWorldSectorStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                // 0x811BE0
+static void      _rpMatFXD3D9AllInOneRender(RwResEntry* repEntry, void* object, RwUInt8 type, RwUInt32 flags);                                       // 0x815C20
+static RwBool    _rpMatFXAtomicInstanceCallBack(void* object, RxD3D9ResEntryHeader* header, RwBool reinstance);                                      // 0x8160A0
+static RwBool    _rpMatFXWorldSectorInstanceCallBack(void* object, RxD3D9ResEntryHeader* header, RwBool reinstance);                                 // 0x816120
 
 void RpMatFXInjectHooks() {
     RH_ScopedCategory("Renderware");
@@ -260,10 +312,58 @@ void RpMatFXInjectHooks() {
     RH_ScopedGlobalInstall(_rpMatFXD3D9RenderEnvMapPass, 0x813A10);
     RH_ScopedGlobalInstall(_rpMatFXD3D9RenderBumpMap, 0x814460);
     RH_ScopedGlobalInstall(_rpMatFXPipelinesDestroy, 0x816190);
+
+    // Lotes S13A y S14A (sin validar)
+    RH_ScopedGlobalInstall(RpMatFXMaterialDataSetFreeListCreateParams, 0x810700);
+    RH_ScopedGlobalInstall(_rpMatFXEngineDestructor, 0x810BB0);
+    RH_ScopedGlobalInstall(_rpMatFXEngineConstructor, 0x810BF0);
+    RH_ScopedGlobalInstall(_rpMatFXMaterialConstructor, 0x810C40);
+    RH_ScopedGlobalInstall(_rpMatFXMaterialDestructor, 0x810C60);
+    RH_ScopedGlobalInstall(_rpMatFXMaterialCopy, 0x810D20);
+    RH_ScopedGlobalInstall(_rpMatFXMaterialStreamWrite, 0x8111F0);
+    RH_ScopedGlobalInstall(_rpMatFXMaterialStreamRead, 0x811410);
+    RH_ScopedGlobalInstall(_rpMatFXMaterialStreamGetSize, 0x811970);
+    RH_ScopedGlobalInstall(_rpMatFXAtomicConstructor, 0x811A00);
+    RH_ScopedGlobalInstall(_rpMatFXAtomicDestructor, 0x811A20);
+    RH_ScopedGlobalInstall(_rpMatFXAtomicCopy, 0x811A40);
+    RH_ScopedGlobalInstall(_rpMatFXAtomicStreamWrite, 0x811A60);
+    RH_ScopedGlobalInstall(_rpMatFXAtomicStreamGetSize, 0x811AE0);
+    RH_ScopedGlobalInstall(_rpMatFXWorldSectorConstructor, 0x811B00);
+    RH_ScopedGlobalInstall(_rpMatFXWorldSectorDestructor, 0x811B20);
+    RH_ScopedGlobalInstall(_rpMatFXWorldSectorCopy, 0x811B40);
+    RH_ScopedGlobalInstall(_rpMatFXWorldSectorStreamWrite, 0x811B60);
+    RH_ScopedGlobalInstall(_rpMatFXWorldSectorStreamGetSize, 0x811BE0);
+    RH_ScopedGlobalInstall(RpMatFXAtomicEnableEffects, 0x811C00);
+    RH_ScopedGlobalInstall(RpMatFXWorldSectorEnableEffects, 0x811C40);
+    RH_ScopedGlobalInstall(RpMatFXWorldSectorQueryEffects, 0x811C70);
+    RH_ScopedGlobalInstall(RpMatFXMaterialSetupBumpMap, 0x811E00);
+    RH_ScopedGlobalInstall(RpMatFXMaterialSetupEnvMap, 0x811ED0);
+    RH_ScopedGlobalInstall(RpMatFXMaterialSetupDualTexture, 0x812040);
+    RH_ScopedGlobalInstall(RpMatFXMaterialSetBumpMapFrame, 0x812320);
+    RH_ScopedGlobalInstall(RpMatFXMaterialSetBumpMapCoefficient, 0x812380);
+    RH_ScopedGlobalInstall(RpMatFXMaterialGetBumpMapBumpedTexture, 0x8123E0);
+    RH_ScopedGlobalInstall(RpMatFXMaterialGetBumpMapTexture, 0x812430);
+    RH_ScopedGlobalInstall(RpMatFXMaterialGetBumpMapFrame, 0x812480);
+    RH_ScopedGlobalInstall(RpMatFXMaterialGetBumpMapCoefficient, 0x8124D0);
+    RH_ScopedGlobalInstall(RpMatFXMaterialSetEnvMapTexture, 0x812530);
+    RH_ScopedGlobalInstall(RpMatFXMaterialSetEnvMapFrameBufferAlpha, 0x812610);
+    RH_ScopedGlobalInstall(RpMatFXMaterialGetEnvMapTexture, 0x8126F0);
+    RH_ScopedGlobalInstall(RpMatFXMaterialGetEnvMapFrame, 0x812740);
+    RH_ScopedGlobalInstall(RpMatFXMaterialGetEnvMapFrameBufferAlpha, 0x812790);
+    RH_ScopedGlobalInstall(RpMatFXMaterialGetEnvMapCoefficient, 0x8127E0);
+    RH_ScopedGlobalInstall(RpMatFXMaterialSetDualTexture, 0x812830);
+    RH_ScopedGlobalInstall(RpMatFXMaterialGetDualTexture, 0x812930);
+    RH_ScopedGlobalInstall(RpMatFXMaterialGetDualBlendModes, 0x812980);
+    RH_ScopedGlobalInstall(RpMatFXMaterialGetUVTransformMatrices, 0x812A50);
+    RH_ScopedGlobalInstall(_rpMatFXD3D9AllInOneRender, 0x815C20);
+    RH_ScopedGlobalInstall(_rpMatFXAtomicInstanceCallBack, 0x8160A0);
+    RH_ScopedGlobalInstall(_rpMatFXWorldSectorInstanceCallBack, 0x816120);
+    RH_ScopedGlobalInstall(RpMatFXGetD3D9Pipeline, 0x8162F0);
 }
 
 void RpMatFXMaterialDataSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x810700)(blockSize, numBlocksToPrealloc);
+    MatFXFreeListBlockSize = blockSize;
+    MatFXFreeListNumPrealloc = numBlocksToPrealloc;
 }
 
 // 0x810AA0 (lote R8A, sin validar; cdecl sin argumentos, `ret`, 266 bytes): registra el plugin 0x120 y devuelve TRUE si todos los registros dieron >= 0 (el ultimo lo comprueba con setge; los demas
@@ -271,34 +371,34 @@ void RpMatFXMaterialDataSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBl
 // el desplazamiento va a 0xC9AB74) y su flujo (lee 0x811410, escribe 0x8111F0, tamano 0x811970), atomico (tamano 4, ctor 0x811A00, dtor 0x811A20, copia 0x811A40; desplazamiento a 0xC9AB84) y su flujo
 // (lee 0x811A90, escribe 0x811A60, tamano 0x811AE0) y sector (tamano 4, ctor 0x811B00, dtor 0x811B20, copia 0x811B40; a 0xC9AB88) con su flujo (lee 0x811B90, escribe 0x811B60, tamano 0x811BE0).
 RwBool RpMatFXPluginAttach() {
-    if (RwEngineRegisterPlugin(0, kMatFXPluginID, reinterpret_cast<RwPluginObjectConstructor>(0x810BF0), reinterpret_cast<RwPluginObjectDestructor>(0x810BB0)) < 0) {
+    if (RwEngineRegisterPlugin(0, kMatFXPluginID, reinterpret_cast<RwPluginObjectConstructor>(&_rpMatFXEngineConstructor), reinterpret_cast<RwPluginObjectDestructor>(&_rpMatFXEngineDestructor)) < 0) {
         return FALSE;
     }
-    MatFXMaterialDataOffset = RpMaterialRegisterPlugin(4, kMatFXPluginID, reinterpret_cast<RwPluginObjectConstructor>(0x810C40), reinterpret_cast<RwPluginObjectDestructor>(0x810C60),
-                                                       reinterpret_cast<RwPluginObjectCopy>(0x810D20));
+    MatFXMaterialDataOffset = RpMaterialRegisterPlugin(4, kMatFXPluginID, reinterpret_cast<RwPluginObjectConstructor>(&_rpMatFXMaterialConstructor), reinterpret_cast<RwPluginObjectDestructor>(&_rpMatFXMaterialDestructor),
+                                                       reinterpret_cast<RwPluginObjectCopy>(&_rpMatFXMaterialCopy));
     if (MatFXMaterialDataOffset < 0) {
         return FALSE;
     }
-    if (RpMaterialRegisterPluginStream(kMatFXPluginID, reinterpret_cast<RwPluginDataChunkReadCallBack>(0x811410), reinterpret_cast<RwPluginDataChunkWriteCallBack>(0x8111F0),
-                                       reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(0x811970)) < 0) {
+    if (RpMaterialRegisterPluginStream(kMatFXPluginID, reinterpret_cast<RwPluginDataChunkReadCallBack>(&_rpMatFXMaterialStreamRead), reinterpret_cast<RwPluginDataChunkWriteCallBack>(&_rpMatFXMaterialStreamWrite),
+                                       reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(&_rpMatFXMaterialStreamGetSize)) < 0) {
         return FALSE;
     }
-    MatFXAtomicDataOffset = RpAtomicRegisterPlugin(4, kMatFXPluginID, reinterpret_cast<RwPluginObjectConstructor>(0x811A00), reinterpret_cast<RwPluginObjectDestructor>(0x811A20),
-                                                   reinterpret_cast<RwPluginObjectCopy>(0x811A40));
+    MatFXAtomicDataOffset = RpAtomicRegisterPlugin(4, kMatFXPluginID, reinterpret_cast<RwPluginObjectConstructor>(&_rpMatFXAtomicConstructor), reinterpret_cast<RwPluginObjectDestructor>(&_rpMatFXAtomicDestructor),
+                                                   reinterpret_cast<RwPluginObjectCopy>(&_rpMatFXAtomicCopy));
     if (MatFXAtomicDataOffset < 0) {
         return FALSE;
     }
-    if (RpAtomicRegisterPluginStream(kMatFXPluginID, reinterpret_cast<RwPluginDataChunkReadCallBack>(&_rpMatFXAtomicStreamRead), reinterpret_cast<RwPluginDataChunkWriteCallBack>(0x811A60),
-                                     reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(0x811AE0)) < 0) {
+    if (RpAtomicRegisterPluginStream(kMatFXPluginID, reinterpret_cast<RwPluginDataChunkReadCallBack>(&_rpMatFXAtomicStreamRead), reinterpret_cast<RwPluginDataChunkWriteCallBack>(&_rpMatFXAtomicStreamWrite),
+                                     reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(&_rpMatFXAtomicStreamGetSize)) < 0) {
         return FALSE;
     }
-    MatFXWorldSectorDataOffset = RpWorldSectorRegisterPlugin(4, kMatFXPluginID, reinterpret_cast<RwPluginObjectConstructor>(0x811B00), reinterpret_cast<RwPluginObjectDestructor>(0x811B20),
-                                                             reinterpret_cast<RwPluginObjectCopy>(0x811B40));
+    MatFXWorldSectorDataOffset = RpWorldSectorRegisterPlugin(4, kMatFXPluginID, reinterpret_cast<RwPluginObjectConstructor>(&_rpMatFXWorldSectorConstructor), reinterpret_cast<RwPluginObjectDestructor>(&_rpMatFXWorldSectorDestructor),
+                                                             reinterpret_cast<RwPluginObjectCopy>(&_rpMatFXWorldSectorCopy));
     if (MatFXWorldSectorDataOffset < 0) {
         return FALSE;
     }
-    return RpWorldSectorRegisterPluginStream(kMatFXPluginID, reinterpret_cast<RwPluginDataChunkReadCallBack>(&_rpMatFXWorldSectorStreamRead), reinterpret_cast<RwPluginDataChunkWriteCallBack>(0x811B60),
-                                             reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(0x811BE0)) >= 0
+    return RpWorldSectorRegisterPluginStream(kMatFXPluginID, reinterpret_cast<RwPluginDataChunkReadCallBack>(&_rpMatFXWorldSectorStreamRead), reinterpret_cast<RwPluginDataChunkWriteCallBack>(&_rpMatFXWorldSectorStreamWrite),
+                                             reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(&_rpMatFXWorldSectorStreamGetSize)) >= 0
                ? TRUE
                : FALSE;
 }
@@ -380,8 +480,17 @@ RwStream* _rpMatFXWorldSectorStreamRead(RwStream* stream, RwInt32 binaryLength, 
     return stream;
 }
 
+// 0x811C00 (lote S13A, sin validar; 48 bytes; era una envoltura; cdecl, (atomico)): si la bandera del atomico (en atomic + 0xC9AB84) es 0 pone el pipeline de MatFX (0x816260); si devuelve NULL, devuelve NULL sin tocar
+// la bandera; si no la pone a 1. Devuelve el atomico.
 RpAtomic* RpMatFXAtomicEnableEffects(RpAtomic* atomic) {
-    return ((RpAtomic*(__cdecl *)(RpAtomic*))0x811C00)(atomic);
+    RwInt32* const flag = reinterpret_cast<RwInt32*>(reinterpret_cast<RwUInt8*>(atomic) + MatFXAtomicDataOffset);
+    if (*flag == 0) {
+        if (_rpMatFXAtomicPipelineSet(atomic) == nullptr) {
+            return nullptr;
+        }
+        *flag = 1;
+    }
+    return atomic;
 }
 
 // 0x811C30 (lote R8A, sin validar; cdecl, 1 argumento, `ret`, 14 bytes): lee la bandera del atomico (en atomic + 0xC9AB84).
@@ -389,12 +498,21 @@ RwBool RpMatFXAtomicQueryEffects(RpAtomic* atomic) {
     return *reinterpret_cast<RwBool*>(reinterpret_cast<RwUInt8*>(atomic) + MatFXAtomicDataOffset);
 }
 
+// 0x811C40 (lote S13A, sin validar; 48 bytes; era una envoltura; cdecl, (sector)): igual que 0x811C00 para RpWorldSector (bandera en sector + 0xC9AB88, pipeline con 0x816270).
 RpWorldSector* RpMatFXWorldSectorEnableEffects(RpWorldSector* worldSector) {
-    return ((RpWorldSector*(__cdecl *)(RpWorldSector*))0x811C40)(worldSector);
+    RwInt32* const flag = reinterpret_cast<RwInt32*>(reinterpret_cast<RwUInt8*>(worldSector) + MatFXWorldSectorDataOffset);
+    if (*flag == 0) {
+        if (_rpMatFXWorldSectorPipelineSet(worldSector) == nullptr) {
+            return nullptr;
+        }
+        *flag = 1;
+    }
+    return worldSector;
 }
 
+// 0x811C70 (lote S13A, sin validar; 14 bytes; era una envoltura; cdecl, (sector)): lee la bandera del sector (en sector + 0xC9AB88).
 RwBool RpMatFXWorldSectorQueryEffects(RpWorldSector* worldSector) {
-    return ((RwBool(__cdecl *)(RpWorldSector*))0x811C70)(worldSector);
+    return *reinterpret_cast<RwBool*>(reinterpret_cast<RwUInt8*>(worldSector) + MatFXWorldSectorDataOffset);
 }
 
 // 0x811C80 (lote R8A, sin validar; cdecl, 2 argumentos, `ret`, 356 bytes): asigna (RwFreeListAlloc de 0xC9AB80, pista 0x30120; NULL si falla) y pone a cero los datos del material si no los tiene; limpia
@@ -448,16 +566,63 @@ RpMaterial* RpMatFXMaterialSetEffects(RpMaterial* material, RpMatFXMaterialFlags
     }
 }
 
+// 0x811E00 (lote S14A, sin validar; 202 bytes; era una envoltura; cdecl, (material, textura de relieve, marco, coeficiente)): RpMatFXMaterialSetBumpMapTexture (0x812160); si devuelve NULL, devuelve NULL. Despues guarda el
+// marco en la ranura de relieve (bandera 1; NULL si no existe y entonces el EXE escribe en la direccion 0), comprueba que el material no sea NULL (si lo es, NULL) y guarda el coeficiente NEGADO en +0xC (fld + fchs + fstp:
+// un NaN senalizante sale silencioso). Devuelve el material.
 RpMaterial* RpMatFXMaterialSetupBumpMap(RpMaterial* material, RwTexture* texture, RwFrame* frame, RwReal coef) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RwTexture*, RwFrame*, RwReal))0x811E00)(material, texture, frame, coef);
+    if (RpMatFXMaterialSetBumpMapTexture(material, texture) == nullptr) {
+        return nullptr;
+    }
+    FindEffect(material, rpMATFXEFFECTBUMPMAP)->data.bumpMap.frame = frame;
+    if (material == nullptr) {
+        return nullptr;
+    }
+    StoreBits(FindEffect(material, rpMATFXEFFECTBUMPMAP)->data.bumpMap.coef, X87ReloadNegated(RealBits(coef)));
+    return material;
 }
 
+// 0x811ED0 (lote S14A, sin validar; 355 bytes; era una envoltura; cdecl, (material, textura, marco, usar alfa del bufer, coeficiente)): en la ranura de entorno (bandera 2; NULL si no existe y entonces el EXE escribe
+// en la direccion 4): textura + 1 referencia (SIN comprobar NULL), destruye la anterior (+4) y guarda la nueva. Material NULL: devuelve NULL. Despues guarda el marco (+0), el alfa del bufer (+0xC) y el coeficiente
+// (+8, palabra tal cual, sin x87). Devuelve el material.
 RpMaterial* RpMatFXMaterialSetupEnvMap(RpMaterial* material, RwTexture* texture, RwFrame* frame, RwBool useFrameBufferAlpha, RwReal coef) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RwTexture*, RwFrame*, RwBool, RwReal))0x811ED0)(material, texture, frame, useFrameBufferAlpha, coef);
+    MatFXEnvMapData& env = FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap;
+    ++texture->refCount;
+    if (env.texture != nullptr) {
+        RwTextureDestroy(env.texture);
+        env.texture = nullptr;
+    }
+    env.texture = texture;
+    if (material == nullptr) {
+        return nullptr;
+    }
+    FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap.frame = frame;
+    FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap.useFrameBufferAlpha = useFrameBufferAlpha;
+    StoreBits(FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap.coef, RealBits(coef));
+    return material;
 }
 
+// 0x812040 (lote S13A, sin validar; 247 bytes; era una envoltura; cdecl, (material, textura, mezcla origen, mezcla destino)): en la ranura dual (bandera 4; NULL si no existe y entonces el EXE escribe en 0): textura + 1
+// referencia (SIN comprobar NULL), destruye la anterior (+0), guarda la nueva y llama al relleno 0x816280 con 2 y 1. Material NULL: devuelve NULL. Despues guarda las dos mezclas (+4, +8) y llama al relleno con 0xA y
+// 0xB. Devuelve el material.
 RpMaterial* RpMatFXMaterialSetupDualTexture(RpMaterial* material, RwTexture* texture, RwBlendFunction srcBlendMode, RwBlendFunction dstBlendMode) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RwTexture*, RwBlendFunction, RwBlendFunction))0x812040)(material, texture, srcBlendMode, dstBlendMode);
+    MatFXEffectData* const effect = FindEffect(material, rpMATFXEFFECTDUAL);
+    ++texture->refCount;
+    if (effect->data.dual.texture != nullptr) {
+        RwTextureDestroy(effect->data.dual.texture);
+        effect->data.dual.texture = nullptr;
+    }
+    effect->data.dual.texture = texture;
+    _rpMatFXD3D9EffectStub(effect, 2);
+    _rpMatFXD3D9EffectStub(effect, 1);
+    if (material == nullptr) {
+        return nullptr;
+    }
+    MatFXEffectData* const dual = FindEffect(material, rpMATFXEFFECTDUAL);
+    dual->data.dual.srcBlendMode = srcBlendMode;
+    dual->data.dual.dstBlendMode = dstBlendMode;
+    _rpMatFXD3D9EffectStub(dual, 0xA);
+    _rpMatFXD3D9EffectStub(dual, 0xB);
+    return material;
 }
 
 // 0x812140 (lote R8A, sin validar; cdecl, 1 argumento, `ret`, 22 bytes): banderas de efecto del material; 0 si no tiene datos.
@@ -537,32 +702,50 @@ RpMaterial* RpMatFXMaterialSetBumpMapTexture(RpMaterial* material, RwTexture* te
     return material;
 }
 
+// 0x812320 (lote S13A, sin validar; 86 bytes; era una envoltura; cdecl, (material, marco)): guarda el marco en la ranura de relieve (bandera 1; NULL si no existe y entonces el EXE escribe en 0). Devuelve el material.
 RpMaterial* RpMatFXMaterialSetBumpMapFrame(RpMaterial* material, RwFrame* frame) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RwFrame*))0x812320)(material, frame);
+    FindEffect(material, rpMATFXEFFECTBUMPMAP)->data.bumpMap.frame = frame;
+    return material;
 }
 
+// 0x812380 (lote S14A, sin validar; 93 bytes; era una envoltura; cdecl, (material, coeficiente)): guarda el coeficiente NEGADO (fld + fchs + fstp: un NaN senalizante sale silencioso) en +0xC de la ranura de relieve
+// (NULL si no existe y entonces el EXE escribe en 0xC). Devuelve el material.
 RpMaterial* RpMatFXMaterialSetBumpMapCoefficient(RpMaterial* material, RwReal coef) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RwReal))0x812380)(material, coef);
+    StoreBits(FindEffect(material, rpMATFXEFFECTBUMPMAP)->data.bumpMap.coef, X87ReloadNegated(RealBits(coef)));
+    return material;
 }
 
+// 0x812430 (lote S13A, sin validar; 77 bytes; era una envoltura; cdecl, (material)): textura de relieve (+8) de la ranura de relieve (NULL si no existe y entonces el EXE lee la direccion 8).
 RwTexture* RpMatFXMaterialGetBumpMapTexture(const RpMaterial* material) {
-    return ((RwTexture*(__cdecl *)(const RpMaterial*))0x812430)(material);
+    return FindEffect(material, rpMATFXEFFECTBUMPMAP)->data.bumpMap.bumpTexture;
 }
 
+// 0x8123E0 (lote S13A, sin validar; 77 bytes; era una envoltura; cdecl, (material)): textura generada (+4) de la ranura de relieve (NULL si no existe y entonces el EXE lee la direccion 4).
 RwTexture* RpMatFXMaterialGetBumpMapBumpedTexture(const RpMaterial* material) {
-    return ((RwTexture*(__cdecl *)(const RpMaterial*))0x8123E0)(material);
+    return FindEffect(material, rpMATFXEFFECTBUMPMAP)->data.bumpMap.texture;
 }
 
+// 0x812480 (lote S14A, sin validar; 75 bytes; era una envoltura; cdecl, (material)): marco (+0) de la ranura de relieve (NULL si no existe y entonces el EXE lee la direccion 0).
 RwFrame* RpMatFXMaterialGetBumpMapFrame(const RpMaterial* material) {
-    return ((RwFrame*(__cdecl *)(const RpMaterial*))0x812480)(material);
+    return FindEffect(material, rpMATFXEFFECTBUMPMAP)->data.bumpMap.frame;
 }
 
+// 0x8124D0 (lote S14A, sin validar; 81 bytes; era una envoltura; cdecl, (material)): coeficiente de relieve = - (+0xC) (fld + fchs; devuelto en ST0). NULL si no existe la ranura: el EXE lee la direccion 0xC.
 RwReal RpMatFXMaterialGetBumpMapCoefficient(const RpMaterial* material) {
-    return ((RwReal(__cdecl *)(const RpMaterial*))0x8124D0)(material);
+    return -FindEffect(material, rpMATFXEFFECTBUMPMAP)->data.bumpMap.coef;
 }
 
+// 0x812530 (lote S14A, sin validar; 114 bytes; era una envoltura; cdecl, (material, textura)): en la ranura de entorno (bandera 2; NULL si no existe y entonces el EXE escribe en 4): textura + 1 referencia (SIN
+// comprobar NULL), destruye la anterior (+4) y guarda la nueva. Devuelve el material.
 RpMaterial* RpMatFXMaterialSetEnvMapTexture(RpMaterial* material, RwTexture* texture) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RwTexture*))0x812530)(material, texture);
+    MatFXEnvMapData& env = FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap;
+    ++texture->refCount;
+    if (env.texture != nullptr) {
+        RwTextureDestroy(env.texture);
+        env.texture = nullptr;
+    }
+    env.texture = texture;
+    return material;
 }
 
 // 0x8125B0 (lote R8A, sin validar; cdecl, 2 argumentos, `ret`, 95 bytes): guarda el marco en la ranura de entorno (bandera 2; NULL si no existe y entonces el EXE escribe en la direccion 0). Sin cuenta de
@@ -572,8 +755,10 @@ RpMaterial* RpMatFXMaterialSetEnvMapFrame(RpMaterial* material, RwFrame* frame) 
     return material;
 }
 
+// 0x812610 (lote S14A, sin validar; 97 bytes; era una envoltura; cdecl, (material, alfa del bufer)): guarda el valor en +0xC de la ranura de entorno (NULL si no existe y entonces el EXE escribe en 0xC). Devuelve el material.
 RpMaterial* RpMatFXMaterialSetEnvMapFrameBufferAlpha(RpMaterial* material, RwBool useFrameBufferAlpha) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RwBool))0x812610)(material, useFrameBufferAlpha);
+    FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap.useFrameBufferAlpha = useFrameBufferAlpha;
+    return material;
 }
 
 // 0x812680 (lote R8A, sin validar; cdecl, 2 argumentos, `ret`, 97 bytes): guarda el coeficiente (copiado como dword, sin pasar por la x87) en la ranura de entorno (+8; NULL si no existe y entonces
@@ -583,24 +768,37 @@ RpMaterial* RpMatFXMaterialSetEnvMapCoefficient(RpMaterial* material, RwReal coe
     return material;
 }
 
+// 0x8126F0 / 0x812740 / 0x812790 / 0x8127E0 (lote S14A, sin validar; 77, 75, 77 y 77 bytes; eran envolturas; cdecl, (material)): campos de la ranura de entorno (bandera 2; NULL si no existe y entonces el EXE lee la direccion
+// del campo): textura (+4), marco (+0), alfa del bufer (+0xC) y coeficiente (+8, fld: devuelto en ST0).
 RwTexture* RpMatFXMaterialGetEnvMapTexture(const RpMaterial* material) {
-    return ((RwTexture*(__cdecl *)(const RpMaterial*))0x8126F0)(material);
+    return FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap.texture;
 }
 
 RwFrame* RpMatFXMaterialGetEnvMapFrame(const RpMaterial* material) {
-    return ((RwFrame*(__cdecl *)(const RpMaterial*))0x812740)(material);
+    return FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap.frame;
 }
 
 RwBool RpMatFXMaterialGetEnvMapFrameBufferAlpha(const RpMaterial* material) {
-    return ((RwBool(__cdecl *)(const RpMaterial*))0x812790)(material);
+    return FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap.useFrameBufferAlpha;
 }
 
 RwReal RpMatFXMaterialGetEnvMapCoefficient(const RpMaterial* material) {
-    return ((RwReal(__cdecl *)(const RpMaterial*))0x8127E0)(material);
+    return FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap.coef;
 }
 
+// 0x812830 (lote S14A, sin validar; 134 bytes; era una envoltura; cdecl, (material, textura)): en la ranura dual (bandera 4; NULL si no existe y entonces el EXE escribe en 0): textura + 1 referencia (SIN comprobar NULL),
+// destruye la anterior (+0), guarda la nueva y llama al relleno 0x816280 con 2 y 1. Devuelve el material.
 RpMaterial* RpMatFXMaterialSetDualTexture(RpMaterial* material, RwTexture* texture) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RwTexture*))0x812830)(material, texture);
+    MatFXEffectData* const effect = FindEffect(material, rpMATFXEFFECTDUAL);
+    ++texture->refCount;
+    if (effect->data.dual.texture != nullptr) {
+        RwTextureDestroy(effect->data.dual.texture);
+        effect->data.dual.texture = nullptr;
+    }
+    effect->data.dual.texture = texture;
+    _rpMatFXD3D9EffectStub(effect, 2);
+    _rpMatFXD3D9EffectStub(effect, 1);
+    return material;
 }
 
 // 0x8128C0 (lote R8A, sin validar; cdecl, 3 argumentos, `ret`, 112 bytes; sustituye la envoltura): guarda las dos funciones de mezcla en la ranura dual (bandera 4; NULL si no existe y entonces el EXE escribe
@@ -614,12 +812,18 @@ RpMaterial* RpMatFXMaterialSetDualBlendModes(RpMaterial* material, RwBlendFuncti
     return material;
 }
 
+// 0x812930 (lote S14A, sin validar; 75 bytes; era una envoltura; cdecl, (material)): textura (+0) de la ranura dual (bandera 4; NULL si no existe y entonces el EXE lee la direccion 0).
 RwTexture* RpMatFXMaterialGetDualTexture(const RpMaterial* material) {
-    return ((RwTexture*(__cdecl *)(const RpMaterial*))0x812930)(material);
+    return FindEffect(material, rpMATFXEFFECTDUAL)->data.dual.texture;
 }
 
+// 0x812980 (lote S14A, sin validar; 91 bytes; era una envoltura; cdecl, (material, mezcla origen*, mezcla destino*)): escribe +4 y +8 de la ranura dual (NULL si no existe y entonces el EXE lee las direcciones 4 y 8)
+// en los dos punteros (sin comprobar NULL). Devuelve el material.
 const RpMaterial* RpMatFXMaterialGetDualBlendModes(const RpMaterial* material, RwBlendFunction* srcBlendMode, RwBlendFunction* dstBlendMode) {
-    return ((const RpMaterial*(__cdecl *)(const RpMaterial*, RwBlendFunction*, RwBlendFunction*))0x812980)(material, srcBlendMode, dstBlendMode);
+    MatFXEffectData* const effect = FindEffect(material, rpMATFXEFFECTDUAL);
+    *srcBlendMode = effect->data.dual.srcBlendMode;
+    *dstBlendMode = effect->data.dual.dstBlendMode;
+    return material;
 }
 
 // 0x8129E0 (lote R8A, sin validar; cdecl, 3 argumentos, `ret`, 100 bytes; sustituye la envoltura): guarda las dos matrices UV en la ranura de transformacion UV (bandera 5; NULL si no existe y entonces el EXE
@@ -631,8 +835,18 @@ RpMaterial* RpMatFXMaterialSetUVTransformMatrices(RpMaterial* material, RwMatrix
     return material;
 }
 
-const RpMaterial* RpMatFXMaterialGetUVTransformMatrices(const RpMaterial* material, RwMatrix* baseTransform, RwMatrix* dualTransform) {
-    return ((const RpMaterial*(__cdecl *)(const RpMaterial*, RwMatrix*, RwMatrix*))0x812A50)(material, baseTransform, dualTransform);
+// 0x812A50 (lote S14A, sin validar; 98 bytes; era una envoltura; cdecl, (material, matriz base**, matriz dual**)): con cada puntero de salida no NULL escribe la matriz base (+0) y la dual (+4) de la ranura de
+// transformacion UV (bandera 5; NULL si no existe y entonces el EXE lee las direcciones 0 y 4 solo si el puntero no es NULL). La firma del cpp tenia un solo nivel de puntero; la del SDK (y la del .h) es RwMatrix**.
+// Devuelve el material.
+const RpMaterial* RpMatFXMaterialGetUVTransformMatrices(const RpMaterial* material, RwMatrix** baseTransform, RwMatrix** dualTransform) {
+    MatFXEffectData* const effect = FindEffect(material, rpMATFXEFFECTUVTRANSFORM);
+    if (baseTransform != nullptr) {
+        *baseTransform = effect->data.uvAnim.baseTransform;
+    }
+    if (dualTransform != nullptr) {
+        *dualTransform = effect->data.uvAnim.dualTransform;
+    }
+    return material;
 }
 
 // 0x812C90 (lote R8A, sin validar; cdecl, 2 argumentos (cabecera de la entrada de recursos y malla instanciada), `ret`, 166 bytes; llamador: 0x815E01, del callback de render 0x815C20): dibujo por defecto de una malla.
@@ -1070,8 +1284,8 @@ RwBool _rpMatFXPipelinesCreate() {
     MatFXAtomicPipeline = atomicPipeline;
     RxPipelineNode* node = RxPipelineFindNodeByName(MatFXAtomicPipeline, RxNodeDefinitionGetD3D9AtomicAllInOne()->name, nullptr, nullptr);
     MatFXAtomicInstanceCB = RxD3D9AllInOneGetInstanceCallBack(node);
-    RxD3D9AllInOneSetInstanceCallBack(node, reinterpret_cast<RxD3D9AllInOneInstanceCallBack>(0x8160A0));
-    RxD3D9AllInOneSetRenderCallBack(node, reinterpret_cast<RxD3D9AllInOneRenderCallBack>(0x815C20));
+    RxD3D9AllInOneSetInstanceCallBack(node, &_rpMatFXAtomicInstanceCallBack);
+    RxD3D9AllInOneSetRenderCallBack(node, &_rpMatFXD3D9AllInOneRender);
 
     RxPipeline* sectorPipeline = RxPipelineCreate();
     if (sectorPipeline != nullptr) {
@@ -1087,8 +1301,8 @@ RwBool _rpMatFXPipelinesCreate() {
     MatFXWorldSectorPipeline = sectorPipeline;
     node = RxPipelineFindNodeByName(MatFXWorldSectorPipeline, RxNodeDefinitionGetD3D9WorldSectorAllInOne()->name, nullptr, nullptr);
     MatFXSectorInstanceCB = RxD3D9AllInOneGetInstanceCallBack(node);
-    RxD3D9AllInOneSetInstanceCallBack(node, reinterpret_cast<RxD3D9AllInOneInstanceCallBack>(0x816120));
-    RxD3D9AllInOneSetRenderCallBack(node, reinterpret_cast<RxD3D9AllInOneRenderCallBack>(0x815C20));
+    RxD3D9AllInOneSetInstanceCallBack(node, &_rpMatFXWorldSectorInstanceCallBack);
+    RxD3D9AllInOneSetRenderCallBack(node, &_rpMatFXD3D9AllInOneRender);
 
     const D3DCAPS9* const caps = static_cast<const D3DCAPS9*>(RwD3D9GetCaps());
     MatFXMaxBlendStages = static_cast<RwInt32>(caps->MaxTextureBlendStages);
@@ -1157,8 +1371,16 @@ RwTexture* _rpMatFXD3D9BumpedTextureCreate(RwTexture* texture, RwTexture* bumpTe
     return _rpMatFXD3D9BumpedTextureCombine(texture, bumpTexture);
 }
 
+// 0x8162F0 (lote S14A, sin validar; 25 bytes; era una envoltura; cdecl, (indice)): 1 = pipeline de atomico (0xC9AB8C), 2 = pipeline de sector (0xC9AB90); otro valor: NULL.
 RxPipeline* RpMatFXGetD3D9Pipeline(RpMatFXD3D9Pipeline d3d9Pipeline) {
-    return ((RxPipeline*(__cdecl *)(RpMatFXD3D9Pipeline))0x8162F0)(d3d9Pipeline);
+    switch (static_cast<RwInt32>(d3d9Pipeline)) {
+    case rpMATFXD3D9ATOMICPIPELINE:
+        return MatFXAtomicPipeline;
+    case rpMATFXD3D9WORLDSECTORPIPELINE:
+        return MatFXWorldSectorPipeline;
+    default:
+        return nullptr;
+    }
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1991,4 +2213,608 @@ RwBool _rpMatFXPipelinesDestroy() {
         }
     }
     return TRUE;
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lotes S13A y S14A (sin validar): callbacks del plugin 0x120 (motor, RpMaterial, RpAtomic, RpWorldSector) y del canal D3D9 de MatFX. Cada cuerpo sale del desensamblado del EXE (capstone); los almacenamientos que el
+// compilador del EXE hacia en las ranuras de los argumentos de la pila se han pasado a variables locales. Las busquedas de ranura en linea del EXE son `FindEffect` (NULL si no existe: el EXE desreferencia ese NULL).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+// 0x810BB0 (cdecl, (objeto, desplazamiento, tamano); 51 bytes): contador de aperturas (0xC9AB7C) - 1; al llegar a 0 destruye los pipelines (0x816190). Despues, si existe la lista libre de datos (0xC9AB80) la destruye
+// (RwFreeListDestroy 0x801B80) y la pone a NULL. Devuelve el objeto.
+static void* _rpMatFXEngineDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    StaticRef<RwInt32>(0xC9AB7C) -= 1;
+    if (StaticRef<RwInt32>(0xC9AB7C) == 0) {
+        _rpMatFXPipelinesDestroy();
+    }
+    if (MatFXDataFreeList != nullptr) {
+        RwFreeListDestroy(MatFXDataFreeList);
+        MatFXDataFreeList = nullptr;
+    }
+    return object;
+}
+
+// 0x810BF0 (cdecl, (objeto, desplazamiento, tamano); 80 bytes): con el contador de aperturas (0xC9AB7C) a 0 crea la lista libre de datos (RwFreeListCreateAndPreallocateSpace: entrada 0x34, bloque 0x8E29B8, alineacion 4,
+// bloques a reservar 0x8E29BC, espacio en el lugar 0xC9AB50, pista 0x40120; NULL -> NULL) y los pipelines (0x815E60; FALSE -> NULL). Cuenta + 1 y devuelve el objeto.
+static void* _rpMatFXEngineConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    if (StaticRef<RwInt32>(0xC9AB7C) == 0) {
+        MatFXDataFreeList = RwFreeListCreateAndPreallocateSpace(0x34, MatFXFreeListBlockSize, 4, MatFXFreeListNumPrealloc, reinterpret_cast<RwFreeList*>(0xC9AB50), 0x40120);
+        if (MatFXDataFreeList == nullptr) {
+            return nullptr;
+        }
+        if (_rpMatFXPipelinesCreate() == FALSE) {
+            return nullptr;
+        }
+    }
+    StaticRef<RwInt32>(0xC9AB7C) += 1;
+    return object;
+}
+
+// 0x810C40 (cdecl, (objeto, desplazamiento, tamano); 18 bytes): puntero de datos de MatFX del material (en objeto + 0xC9AB74) = NULL. Devuelve el objeto.
+static void* _rpMatFXMaterialConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    MaterialData(static_cast<const RpMaterial*>(object)) = nullptr;
+    return object;
+}
+
+// 0x810C60 (cdecl, (objeto, desplazamiento, tamano); 64 bytes): si el material tiene datos: _rpMatFXMaterialDataClean (0x810CA0), los devuelve a la lista libre (RwFreeListFree) y deja el puntero a NULL. Devuelve el objeto.
+static void* _rpMatFXMaterialDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    rpMatFXMaterialData* const data = MaterialData(static_cast<const RpMaterial*>(object));
+    if (data != nullptr) {
+        _rpMatFXMaterialDataClean(data);
+        RwFreeListFree(MatFXDataFreeList, data);
+        MaterialData(static_cast<const RpMaterial*>(object)) = nullptr;
+    }
+    return object;
+}
+
+// 0x810D20 (cdecl, (destino, origen, desplazamiento, tamano); 1043 bytes; fld/fchs/fstp en el coeficiente de relieve): copia de los datos de MatFX. Sin datos en el origen: NULL. Sin datos en el destino los reserva (lista
+// libre, pista 0x30120; NULL -> NULL) a cero. RpMatFXMaterialSetEffects(destino, banderas del origen) y, por cada una de las dos ranuras segun la bandera de la ranura del origen:
+//  1 relieve: marco (+0) y coeficiente (copiado por la x87: un NaN senalizante sale silencioso) con las busquedas de efecto del EXE; despues ranura destino +4 = textura generada y +8 = textura de relieve del origen; +1 al refCount de la textura +4 del origen y
+//    +1 al de la +8 copiada (cada una si no es NULL; el marco ya se copio con la busqueda de efecto);
+//  2 entorno: textura (+4), marco (+0), coeficiente (+8, por la x87) y alfa del bufer (+0xC); con textura: +1 referencia, destruye la anterior y la guarda; despues marco, alfa y coeficiente en la ranura destino;
+//  3: nada; 4 dual: textura (+0) y mezclas (+4, +8); con textura: +1 referencia, destruye la anterior, la guarda y llama al relleno 0x816280 con 2 y 1; despues mezclas y relleno con 0xA y 0xB;
+//  5 transformacion UV: matrices (+0, +4) a la ranura destino. Devuelve el destino.
+static void* _rpMatFXMaterialCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    RpMaterial* const dst = static_cast<RpMaterial*>(dstObject);
+    const RpMaterial* const src = static_cast<const RpMaterial*>(srcObject);
+    rpMatFXMaterialData* const srcData = MaterialData(src);
+    if (srcData == nullptr) {
+        return nullptr;
+    }
+    rpMatFXMaterialData* dstData = MaterialData(dst);
+    if (dstData == nullptr) {
+        dstData = static_cast<rpMatFXMaterialData*>(RwFreeListAlloc(MatFXDataFreeList, kMatFXMaterialMemHint));
+        if (dstData == nullptr) {
+            return nullptr;
+        }
+        memset(dstData, 0, sizeof(rpMatFXMaterialData));
+        MaterialData(dst) = dstData;
+    }
+    RpMatFXMaterialSetEffects(dst, srcData->flags);
+    for (RwInt32 slot = 0; slot < 2; ++slot) {
+        MatFXEffectData& dstSlot = dstData->data[slot];
+        const MatFXEffectData& srcSlot = srcData->data[slot];
+        switch (static_cast<RwUInt32>(srcSlot.flag)) {
+        case rpMATFXEFFECTBUMPMAP: {
+            RwFrame* const frame = _rpMatFXMaterialFindEffectConst(src, rpMATFXEFFECTBUMPMAP)->data.bumpMap.frame;
+            const RwUInt32 coefBits = X87Reload(RealBits(_rpMatFXMaterialFindEffectConst(src, rpMATFXEFFECTBUMPMAP)->data.bumpMap.coef)); // fld + fchs + fstp, y otra vez
+            _rpMatFXMaterialFindEffect(dst, rpMATFXEFFECTBUMPMAP)->data.bumpMap.frame = frame;
+            StoreBits(_rpMatFXMaterialFindEffect(dst, rpMATFXEFFECTBUMPMAP)->data.bumpMap.coef, coefBits);
+            dstSlot.data.bumpMap.texture = srcSlot.data.bumpMap.texture;
+            dstSlot.data.bumpMap.bumpTexture = srcSlot.data.bumpMap.bumpTexture;
+            if (srcSlot.data.bumpMap.texture != nullptr) {
+                ++srcSlot.data.bumpMap.texture->refCount;
+            }
+            if (dstSlot.data.bumpMap.bumpTexture != nullptr) {
+                ++dstSlot.data.bumpMap.bumpTexture->refCount;
+            }
+            break;
+        }
+        case rpMATFXEFFECTENVMAP: {
+            RwTexture* const texture = _rpMatFXMaterialFindEffectConst(src, rpMATFXEFFECTENVMAP)->data.envMap.texture;
+            RwFrame* const frame = _rpMatFXMaterialFindEffectConst(src, rpMATFXEFFECTENVMAP)->data.envMap.frame;
+            const RwUInt32 coefBits = X87Reload(RealBits(_rpMatFXMaterialFindEffectConst(src, rpMATFXEFFECTENVMAP)->data.envMap.coef));
+            const RwBool fba = _rpMatFXMaterialFindEffectConst(src, rpMATFXEFFECTENVMAP)->data.envMap.useFrameBufferAlpha;
+            if (texture != nullptr) {
+                MatFXEnvMapData& env = _rpMatFXMaterialFindEffect(dst, rpMATFXEFFECTENVMAP)->data.envMap;
+                ++texture->refCount;
+                if (env.texture != nullptr) {
+                    RwTextureDestroy(env.texture);
+                    env.texture = nullptr;
+                }
+                env.texture = texture;
+            }
+            FindEffect(dst, rpMATFXEFFECTENVMAP)->data.envMap.frame = frame;
+            FindEffect(dst, rpMATFXEFFECTENVMAP)->data.envMap.useFrameBufferAlpha = fba;
+            StoreBits(FindEffect(dst, rpMATFXEFFECTENVMAP)->data.envMap.coef, coefBits);
+            break;
+        }
+        case rpMATFXEFFECTDUAL: {
+            RwTexture* const texture = FindEffect(src, rpMATFXEFFECTDUAL)->data.dual.texture;
+            const RwBlendFunction srcBlend = FindEffect(src, rpMATFXEFFECTDUAL)->data.dual.srcBlendMode;
+            const RwBlendFunction dstBlend = FindEffect(src, rpMATFXEFFECTDUAL)->data.dual.dstBlendMode;
+            if (texture != nullptr) {
+                MatFXEffectData* const effect = _rpMatFXMaterialFindEffect(dst, rpMATFXEFFECTDUAL);
+                ++texture->refCount;
+                if (effect->data.dual.texture != nullptr) {
+                    RwTextureDestroy(effect->data.dual.texture);
+                    effect->data.dual.texture = nullptr;
+                }
+                effect->data.dual.texture = texture;
+                _rpMatFXD3D9EffectStub(effect, 2);
+                _rpMatFXD3D9EffectStub(effect, 1);
+            }
+            MatFXEffectData* const effect = _rpMatFXMaterialFindEffect(dst, rpMATFXEFFECTDUAL);
+            effect->data.dual.srcBlendMode = srcBlend;
+            effect->data.dual.dstBlendMode = dstBlend;
+            _rpMatFXD3D9EffectStub(effect, 0xA);
+            _rpMatFXD3D9EffectStub(effect, 0xB);
+            break;
+        }
+        case rpMATFXEFFECTUVTRANSFORM: {
+            MatFXEffectData* const effect = _rpMatFXMaterialFindEffectConst(src, rpMATFXEFFECTUVTRANSFORM);
+            RwMatrix* const baseTransform = effect->data.uvAnim.baseTransform;
+            RwMatrix* const dualTransform = effect->data.uvAnim.dualTransform;
+            MatFXEffectData* const target = FindEffect(dst, rpMATFXEFFECTUVTRANSFORM);
+            target->data.uvAnim.baseTransform = baseTransform;
+            target->data.uvAnim.dualTransform = dualTransform;
+            break;
+        }
+        default:
+            break;
+        }
+    }
+    return dst;
+}
+
+// 0x8111F0 (cdecl, (flujo, longitud, objeto, desplazamiento, tamano); 534 bytes; RwStreamWriteReal 0x7ED3D0 y RwStreamWriteInt32 0x7ED460): escritura de los datos de MatFX. Banderas de los datos (4 bytes) y, por cada una
+// de las dos ranuras: su bandera (4 bytes) y segun ella: 1 relieve = coeficiente NEGADO (fld + fchs + fstp, real), "hay textura generada" (+4; entero), su textura (RwTextureStreamWrite 0x8045E0 si hay), "hay textura de
+// relieve" (+8) y su textura; 2 entorno = coeficiente (+8, real tal cual), alfa del bufer (+0xC), "hay textura" (+4) y su textura; 4 dual = mezclas (+4 y +8), "hay textura" (+0) y su textura; las demas banderas no
+// escriben nada. Cualquier fallo de escritura devuelve NULL; al final devuelve el flujo. Sin comprobar que existan los datos (el EXE los desreferencia).
+static RwStream* _rpMatFXMaterialStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    rpMatFXMaterialData* const data = MaterialData(static_cast<const RpMaterial*>(object));
+    RwInt32 value = static_cast<RwInt32>(data->flags);
+    if (RwStreamWriteInt32(stream, &value, 4) == nullptr) {
+        return nullptr;
+    }
+    for (RwUInt8 i = 0; i < 2; ++i) {
+        MatFXEffectData* const slot = &data->data[i];
+        const RwInt32 flag = static_cast<RwInt32>(slot->flag);
+        value = flag;
+        if (RwStreamWriteInt32(stream, &value, 4) == nullptr) {
+            return nullptr;
+        }
+        switch (flag) {
+        case rpMATFXEFFECTBUMPMAP: {
+            RwReal negatedCoef;
+            StoreBits(negatedCoef, X87ReloadNegated(RealBits(slot->data.bumpMap.coef)));
+            if (RwStreamWriteReal(stream, &negatedCoef, 4) == nullptr) {
+                return nullptr;
+            }
+            RwTexture* texture = slot->data.bumpMap.texture;
+            value = (texture != nullptr) ? 1 : 0;
+            if (RwStreamWriteInt32(stream, &value, 4) == nullptr) {
+                return nullptr;
+            }
+            if (value != 0 && RwTextureStreamWrite(texture, stream) == nullptr) {
+                return nullptr;
+            }
+            if (stream == nullptr) {
+                return nullptr;
+            }
+            texture = slot->data.bumpMap.bumpTexture;
+            value = (texture != nullptr) ? 1 : 0;
+            if (RwStreamWriteInt32(stream, &value, 4) == nullptr) {
+                return nullptr;
+            }
+            if (value != 0 && RwTextureStreamWrite(texture, stream) == nullptr) {
+                return nullptr;
+            }
+            break;
+        }
+        case rpMATFXEFFECTENVMAP:
+        case rpMATFXEFFECTDUAL: {
+            RwTexture* texture;
+            if (flag == rpMATFXEFFECTENVMAP) {
+                if (RwStreamWriteReal(stream, &slot->data.envMap.coef, 4) == nullptr) {
+                    return nullptr;
+                }
+                value = slot->data.envMap.useFrameBufferAlpha;
+                if (RwStreamWriteInt32(stream, &value, 4) == nullptr) {
+                    return nullptr;
+                }
+                texture = slot->data.envMap.texture;
+            } else {
+                value = slot->data.dual.srcBlendMode;
+                if (RwStreamWriteInt32(stream, &value, 4) == nullptr) {
+                    return nullptr;
+                }
+                value = slot->data.dual.dstBlendMode;
+                if (RwStreamWriteInt32(stream, &value, 4) == nullptr) {
+                    return nullptr;
+                }
+                texture = slot->data.dual.texture;
+            }
+            value = (texture != nullptr) ? 1 : 0;
+            if (RwStreamWriteInt32(stream, &value, 4) == nullptr) {
+                return nullptr;
+            }
+            if (value != 0 && RwTextureStreamWrite(texture, stream) == nullptr) {
+                return nullptr;
+            }
+            if (stream == nullptr) {
+                return nullptr;
+            }
+            break;
+        }
+        default:
+            break;
+        }
+    }
+    return stream;
+}
+
+namespace {
+// Lectura de una textura del flujo como la compila el EXE en 0x811410: RwStreamFindChunk(flujo, rwID_TEXTURE = 6, NULL, NULL) (FALSE -> fallo), RwErrorGet, RwTextureStreamRead (0x8046E0) y, si da NULL, RwErrorGet otra vez:
+// si el codigo de error no es 0x80000000 ni 0x16 hace RwErrorSet y es un fallo; con esos dos codigos sigue con textura NULL.
+bool MatFXReadTexture(RwStream* stream, RwTexture*& texture) {
+    texture = nullptr;
+    if (RwStreamFindChunk(stream, 6, nullptr, nullptr) == FALSE) {
+        return false;
+    }
+    RwError error;
+    RwErrorGet(&error);
+    texture = RwTextureStreamRead(stream);
+    if (texture == nullptr) {
+        RwErrorGet(&error);
+        if (error.errorCode != static_cast<RwInt32>(0x80000000) && error.errorCode != 0x16) {
+            RwErrorSet(&error);
+            return false;
+        }
+    }
+    return true;
+}
+} // namespace
+
+// 0x811410 (cdecl, (flujo, longitud, objeto, desplazamiento, tamano); 1361 bytes; x87: 1.0f / ancho y fchs): lectura de los datos de MatFX. Reserva los datos si faltan (lista libre, pista 0x30120, a cero; NULL -> NULL).
+// Lee las banderas (RwStreamReadInt32 0x7ED540; fallo -> NULL), RpMatFXMaterialSetEffects y por cada una de las dos ranuras lee el tipo (fallo -> NULL):
+//  4 dual: dos mezclas (8 bytes), "hay textura" y su textura (MatFXReadTexture; sin textura NULL); con textura: +1 referencia, destruye la de +0, la guarda, relleno 0x816280 (2 y 1) y RwTextureDestroy; despues
+//    RpMatFXMaterialSetDualBlendModes (0x8128C0);
+//  1 relieve: coeficiente (RwStreamReadReal 0x7ED4F0), "hay textura generada" y su textura, y "hay textura de relieve" y la suya (un fallo de lectura de la segunda destruye la primera y devuelve NULL); con la
+//    generada: +4 = esa, +8 = la de relieve (o NULL) e invBumpWidth (+0x10) = 1.0f / ancho de su raster (fild + fdivr 1.0f, en x87); sin ella y con la de relieve: RpMatFXMaterialSetBumpMapTexture (0x812160) y
+//    RwTextureDestroy; sin ninguna: +4 = +8 = NULL. Termina con coeficiente (+0xC) = - lo leido (fld + fchs + fstp) en la ranura de relieve;
+//  2 entorno: coeficiente, alfa del bufer y "hay textura" y su textura; con textura: +1 referencia, destruye la de +4, la guarda y RwTextureDestroy. Despues coeficiente (+8; palabra tal cual) y alfa (+0xC);
+//  otros tipos: nada. Devuelve el flujo.
+static RwStream* _rpMatFXMaterialStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    RpMaterial* const material = static_cast<RpMaterial*>(object);
+    rpMatFXMaterialData* data = MaterialData(material);
+    if (data == nullptr) {
+        data = static_cast<rpMatFXMaterialData*>(RwFreeListAlloc(MatFXDataFreeList, kMatFXMaterialMemHint));
+        if (data == nullptr) {
+            return nullptr;
+        }
+        memset(data, 0, sizeof(rpMatFXMaterialData));
+        MaterialData(material) = data;
+    }
+    RwInt32 flags;
+    if (RwStreamReadInt32(stream, &flags, 4) == nullptr) {
+        return nullptr;
+    }
+    RpMatFXMaterialSetEffects(material, static_cast<RpMatFXMaterialFlags>(flags));
+    for (RwUInt8 i = 0; i < 2; ++i) {
+        RwInt32 type;
+        if (RwStreamReadInt32(stream, &type, 4) == nullptr) {
+            return nullptr;
+        }
+        switch (type) {
+        case rpMATFXEFFECTDUAL: {
+            RwInt32 blends[2];
+            if (RwStreamReadInt32(stream, blends, 8) == nullptr) {
+                return nullptr;
+            }
+            RwInt32 hasTexture;
+            if (RwStreamReadInt32(stream, &hasTexture, 4) == nullptr) {
+                return nullptr;
+            }
+            RwTexture* texture = nullptr;
+            if (hasTexture != 0 && !MatFXReadTexture(stream, texture)) {
+                return nullptr;
+            }
+            if (stream == nullptr) {
+                return nullptr;
+            }
+            if (texture != nullptr) {
+                MatFXEffectData* const effect = _rpMatFXMaterialFindEffect(material, rpMATFXEFFECTDUAL);
+                ++texture->refCount;
+                if (effect->data.dual.texture != nullptr) {
+                    RwTextureDestroy(effect->data.dual.texture);
+                    effect->data.dual.texture = nullptr;
+                }
+                effect->data.dual.texture = texture;
+                _rpMatFXD3D9EffectStub(effect, 2);
+                _rpMatFXD3D9EffectStub(effect, 1);
+                RwTextureDestroy(texture);
+            }
+            RpMatFXMaterialSetDualBlendModes(material, static_cast<RwBlendFunction>(blends[0]), static_cast<RwBlendFunction>(blends[1]));
+            break;
+        }
+        case rpMATFXEFFECTBUMPMAP: {
+            MatFXEffectData* const slot = &data->data[i];
+            RwReal coef;
+            if (RwStreamReadReal(stream, &coef, 4) == nullptr) {
+                return nullptr;
+            }
+            RwInt32 hasBumped;
+            if (RwStreamReadInt32(stream, &hasBumped, 4) == nullptr) {
+                return nullptr;
+            }
+            RwTexture* bumped = nullptr;
+            if (hasBumped != 0 && !MatFXReadTexture(stream, bumped)) {
+                return nullptr;
+            }
+            if (stream == nullptr) {
+                return nullptr;
+            }
+            RwTexture* bumpTexture = nullptr;
+            bool failed = false;
+            RwInt32 hasBumpTexture;
+            if (RwStreamReadInt32(stream, &hasBumpTexture, 4) == nullptr) {
+                failed = true;
+            } else if (hasBumpTexture != 0 && !MatFXReadTexture(stream, bumpTexture)) {
+                failed = true;
+            }
+            if (failed) {
+                if (bumped != nullptr) {
+                    RwTextureDestroy(bumped);
+                }
+                return nullptr;
+            }
+            if (bumped != nullptr) {
+                slot->data.bumpMap.texture = bumped;
+                slot->data.bumpMap.bumpTexture = bumpTexture;
+                const double inverse = Veh83DDiv(1.0, static_cast<double>(bumped->raster->width)); // fild + fdivr [1.0f]
+                slot->data.bumpMap.invBumpWidth = Veh83DStore(inverse);
+            } else if (bumpTexture != nullptr) {
+                RpMatFXMaterialSetBumpMapTexture(material, bumpTexture);
+                RwTextureDestroy(bumpTexture);
+            } else {
+                slot->data.bumpMap.texture = nullptr;
+                slot->data.bumpMap.bumpTexture = nullptr;
+            }
+            StoreBits(FindEffect(material, rpMATFXEFFECTBUMPMAP)->data.bumpMap.coef, X87ReloadNegated(RealBits(coef)));
+            break;
+        }
+        case rpMATFXEFFECTENVMAP: {
+            RwReal coef;
+            if (RwStreamReadReal(stream, &coef, 4) == nullptr) {
+                return nullptr;
+            }
+            RwInt32 useFrameBufferAlpha;
+            if (RwStreamReadInt32(stream, &useFrameBufferAlpha, 4) == nullptr) {
+                return nullptr;
+            }
+            RwInt32 hasTexture;
+            if (RwStreamReadInt32(stream, &hasTexture, 4) == nullptr) {
+                return nullptr;
+            }
+            RwTexture* texture = nullptr;
+            if (hasTexture != 0 && !MatFXReadTexture(stream, texture)) {
+                return nullptr;
+            }
+            if (stream == nullptr) {
+                return nullptr;
+            }
+            if (texture != nullptr) {
+                MatFXEffectData* const effect = _rpMatFXMaterialFindEffect(material, rpMATFXEFFECTENVMAP);
+                ++texture->refCount;
+                if (effect->data.envMap.texture != nullptr) {
+                    RwTextureDestroy(effect->data.envMap.texture);
+                    effect->data.envMap.texture = nullptr;
+                }
+                effect->data.envMap.texture = texture;
+                RwTextureDestroy(texture);
+            }
+            StoreBits(FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap.coef, RealBits(coef));
+            FindEffect(material, rpMATFXEFFECTENVMAP)->data.envMap.useFrameBufferAlpha = useFrameBufferAlpha;
+            break;
+        }
+        default:
+            break;
+        }
+    }
+    return stream;
+}
+
+// 0x811970 (cdecl, (objeto, desplazamiento, tamano); 141 bytes): tamano de los datos de MatFX en el flujo. Sin datos o con banderas 0: 0. Si no, 4 + por cada una de las dos ranuras (4 de la bandera mas): 1 relieve = 4 + el
+// de la textura generada (+4: 4 si no hay, RwTextureStreamGetSize 0x8045A0 + 0x10 si hay) + el de la de relieve (+8); 2 entorno = 8 + el de la textura (+4); 4 dual = 8 + el de la textura (+0); otras banderas: nada mas.
+static RwInt32 _rpMatFXMaterialStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    const rpMatFXMaterialData* const data = MaterialData(static_cast<const RpMaterial*>(object));
+    if (data == nullptr || data->flags == 0) {
+        return 0;
+    }
+    const auto textureTerm = [](const RwTexture* texture) -> RwUInt32 {
+        return texture != nullptr ? RwTextureStreamGetSize(texture) + 0x10 : 4;
+    };
+    RwUInt32 size = 4;
+    for (RwInt32 i = 0; i < 2; ++i) {
+        const MatFXEffectData& slot = data->data[i];
+        size += 4;
+        switch (static_cast<RwUInt32>(slot.flag)) {
+        case rpMATFXEFFECTBUMPMAP:
+            size += 4;
+            size += textureTerm(slot.data.bumpMap.texture);
+            size += textureTerm(slot.data.bumpMap.bumpTexture);
+            break;
+        case rpMATFXEFFECTENVMAP:
+            size += 8;
+            size += textureTerm(slot.data.envMap.texture);
+            break;
+        case rpMATFXEFFECTDUAL:
+            size += 8;
+            size += textureTerm(slot.data.dual.texture);
+            break;
+        default:
+            break;
+        }
+    }
+    return static_cast<RwInt32>(size);
+}
+
+// 0x811A00 / 0x811A20 / 0x811B00 / 0x811B20 (cdecl, (objeto, desplazamiento, tamano); 18 bytes cada una): ponen a 0 la bandera de MatFX del atomico (en objeto + 0xC9AB84) o del sector (+ 0xC9AB88). Devuelven el objeto.
+static void* _rpMatFXAtomicConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    *reinterpret_cast<RwInt32*>(static_cast<RwUInt8*>(object) + MatFXAtomicDataOffset) = 0;
+    return object;
+}
+static void* _rpMatFXAtomicDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    *reinterpret_cast<RwInt32*>(static_cast<RwUInt8*>(object) + MatFXAtomicDataOffset) = 0;
+    return object;
+}
+static void* _rpMatFXWorldSectorConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    *reinterpret_cast<RwInt32*>(static_cast<RwUInt8*>(object) + MatFXWorldSectorDataOffset) = 0;
+    return object;
+}
+static void* _rpMatFXWorldSectorDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    *reinterpret_cast<RwInt32*>(static_cast<RwUInt8*>(object) + MatFXWorldSectorDataOffset) = 0;
+    return object;
+}
+
+// 0x811A40 / 0x811B40 (cdecl, (destino, origen, desplazamiento, tamano); 29 bytes): si la bandera del origen no es 0 pone la del destino a 1. Devuelven el destino.
+static void* _rpMatFXAtomicCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    if (*reinterpret_cast<const RwInt32*>(static_cast<const RwUInt8*>(srcObject) + MatFXAtomicDataOffset) != 0) {
+        *reinterpret_cast<RwInt32*>(static_cast<RwUInt8*>(dstObject) + MatFXAtomicDataOffset) = 1;
+    }
+    return dstObject;
+}
+static void* _rpMatFXWorldSectorCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    if (*reinterpret_cast<const RwInt32*>(static_cast<const RwUInt8*>(srcObject) + MatFXWorldSectorDataOffset) != 0) {
+        *reinterpret_cast<RwInt32*>(static_cast<RwUInt8*>(dstObject) + MatFXWorldSectorDataOffset) = 1;
+    }
+    return dstObject;
+}
+
+// 0x811A60 / 0x811B60 (cdecl, (flujo, longitud, objeto, desplazamiento, tamano); 38 bytes): RwStreamWriteInt32(flujo, bandera del objeto, 4) (el valor entero tal cual) y devuelve su resultado.
+static RwStream* _rpMatFXAtomicStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    RwInt32 value = *reinterpret_cast<const RwInt32*>(static_cast<const RwUInt8*>(object) + MatFXAtomicDataOffset);
+    return RwStreamWriteInt32(stream, &value, 4);
+}
+static RwStream* _rpMatFXWorldSectorStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    RwInt32 value = *reinterpret_cast<const RwInt32*>(static_cast<const RwUInt8*>(object) + MatFXWorldSectorDataOffset);
+    return RwStreamWriteInt32(stream, &value, 4);
+}
+
+// 0x811AE0 / 0x811BE0 (cdecl, (objeto, desplazamiento, tamano); 21 bytes): 4 si la bandera del objeto no es 0, si no 0.
+static RwInt32 _rpMatFXAtomicStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    return *reinterpret_cast<const RwInt32*>(static_cast<const RwUInt8*>(object) + MatFXAtomicDataOffset) != 0 ? 4 : 0;
+}
+static RwInt32 _rpMatFXWorldSectorStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    return *reinterpret_cast<const RwInt32*>(static_cast<const RwUInt8*>(object) + MatFXWorldSectorDataOffset) != 0 ? 4 : 0;
+}
+
+// 0x815C20 (cdecl, (entrada de recursos, objeto, tipo, banderas); 504 bytes; callback de render de los dos pipelines de MatFX): _rwD3D9SetClippingForObject(objeto, tipo). Con la iluminacion (estado 0x89) apagada y sin
+// la bandera 8: "modo plano" (textura 0, TEXTUREFACTOR 0xFF000000 y COLOROP/COLORARG2/ALPHAOP/ALPHAARG2 de la etapa 0 a 3). Cabecera = entrada + 0x18, mallas = cabecera + 0x40. Con bufer de indices distinto del ultimo
+// (0x8E2450): SetIndices (+0x1A0). _rwD3D9SetStreams (flujos, useOffsets) y, si la declaracion de vertices difiere de la ultima (0x8E2444): la guarda, FVF 0x8E2440 = 0xFFFFFFFF y SetVertexDeclaration (+0x15C).
+// Por malla (do-while sobre numMeshes): alfa por vertice 0 si la malla no lo tiene y el material es opaco (alfa 0xFF), si no 1 (0x7FE0A0); modo plano: _rpMatFXD3D9DrawMesh; si no, con la iluminacion encendida
+// RwD3D9SetSurfaceProperties(material + 0xC, material + 4, banderas) y segun las banderas de los datos de MatFX (1 relieve, 2 entorno, 3 relieve + entorno, 4 dual, 6 UV + dual en la ranura 1, el resto
+// transformacion UV): _rpMatFXD3D9RenderBumpMap / RenderEnvMapPass / RenderDualTexture / DrawMeshUVTransform con la textura del material como base.
+static void _rpMatFXD3D9AllInOneRender(RwResEntry* repEntry, void* object, RwUInt8 type, RwUInt32 flags) {
+    _rwD3D9SetClippingForObject(object, type);
+    const RwUInt32 lighting = GetRs(0x89);
+    bool plain = false;
+    if (lighting == 0 && (flags & 8) == 0) {
+        plain = true;
+        RwD3D9SetTexture(nullptr, 0);
+        SetRs(0x3C, 0xFF000000u);
+        Tss(0, 1, 3);
+        Tss(0, 3, 3);
+        Tss(0, 4, 3);
+        Tss(0, 6, 3);
+    }
+    RxD3D9ResEntryHeader* const header = reinterpret_cast<RxD3D9ResEntryHeader*>(reinterpret_cast<RwUInt8*>(repEntry) + 0x18);
+    RxD3D9InstanceData* instance = reinterpret_cast<RxD3D9InstanceData*>(reinterpret_cast<RwUInt8*>(header) + 0x40);
+    if (header->indexBuffer != nullptr && D3D9LastIndexBuffer != header->indexBuffer) {
+        D3D9LastIndexBuffer = header->indexBuffer;
+        ComCall<kSlotSetIndices, long>(Device(), static_cast<void*>(header->indexBuffer));
+    }
+    _rwD3D9SetStreams(header->vertexStream, header->useOffsets);
+    if (D3D9LastVertexDeclaration != reinterpret_cast<uintptr_t>(header->vertexDeclaration)) {
+        D3D9LastVertexDeclaration = reinterpret_cast<uintptr_t>(header->vertexDeclaration);
+        D3D9LastFVF = 0xFFFFFFFFu;
+        ComCall<kSlotSetVertexDeclaration, long>(Device(), static_cast<void*>(header->vertexDeclaration));
+    }
+    if (header->numMeshes == 0) {
+        return;
+    }
+    RwUInt32 remaining = header->numMeshes;
+    do {
+        _rwD3D9RenderStateVertexAlphaEnable((instance->vertexAlpha == 0 && instance->material->color.alpha == 0xFF) ? FALSE : TRUE);
+        if (plain) {
+            _rpMatFXD3D9DrawMesh(header, instance);
+        } else {
+            RpMaterial* const material = instance->material;
+            if (lighting != 0) {
+                RwD3D9SetSurfaceProperties(&material->surfaceProps, &material->color, flags);
+            }
+            const rpMatFXMaterialData* const data = MaterialData(material);
+            RwUInt32 effects = (data == nullptr) ? 0 : static_cast<RwUInt32>(data->flags);
+            switch (effects) {
+            case 1:
+                _rpMatFXD3D9RenderBumpMap(header, instance, flags, material->texture, data->data[0].data.bumpMap.texture, nullptr);
+                break;
+            case 2:
+                _rpMatFXD3D9RenderEnvMapPass(header, instance, flags, 0, material->texture, data->data[0].data.envMap.texture);
+                break;
+            case 3:
+                _rpMatFXD3D9RenderBumpMap(header, instance, flags, material->texture, data->data[0].data.bumpMap.texture, data->data[1].data.envMap.texture);
+                break;
+            case 4:
+                _rpMatFXD3D9RenderDualTexture(header, instance, flags, material->texture, data->data[0].data.dual.texture);
+                break;
+            case 6:
+                _rpMatFXD3D9RenderDualTexture(header, instance, flags, material->texture, data->data[1].data.dual.texture);
+                break;
+            default:
+                _rpMatFXD3D9DrawMeshUVTransform(header, instance, flags, material->texture);
+                break;
+            }
+        }
+        ++instance;
+        --remaining;
+    } while (remaining != 0);
+}
+
+// 0x8160A0 (cdecl, (atomico, cabecera, reinstanciar); 116 bytes; callback de instanciado del pipeline de atomico): con reinstanciar = 0, por cada malla de la cabecera (do-while sobre numMeshes; malla = cabecera + 0x40 + 0x24 * n)
+// cuyo material tenga datos de MatFX con banderas 1 o 3 y con pixel shaders disponibles (0xC9ABC0): RpD3D9GeometrySetUsageFlags(geometria del atomico, uso | 0x10000). Termina llamando al instanciado original guardado
+// (0xC9ABC4) con los mismos argumentos y devuelve su resultado.
+static RwBool _rpMatFXAtomicInstanceCallBack(void* object, RxD3D9ResEntryHeader* header, RwBool reinstance) {
+    if (reinstance == 0) {
+        RxD3D9InstanceData* instance = reinterpret_cast<RxD3D9InstanceData*>(reinterpret_cast<RwUInt8*>(header) + 0x40);
+        RwUInt32 remaining = header->numMeshes;
+        do {
+            const rpMatFXMaterialData* const data = MaterialData(instance->material);
+            if (data != nullptr && (data->flags == 1 || data->flags == 3) && MatFXPixelShadersOk != 0) {
+                RpGeometry* const geometry = static_cast<RpAtomic*>(object)->geometry;
+                RpD3D9GeometrySetUsageFlags(geometry, static_cast<RpD3D9GeometryUsageFlag>(RpD3D9GeometryGetUsageFlags(geometry) | 0x10000));
+            }
+            ++instance;
+            --remaining;
+        } while (remaining != 0);
+    }
+    return MatFXAtomicInstanceCB(object, header, reinstance);
+}
+
+// 0x816120 (cdecl, (sector, cabecera, reinstanciar); 101 bytes; callback de instanciado del pipeline de sector): igual que 0x8160A0 pero SIN mirar `reinstanciar` y con RpD3D9WorldSector{Get,Set}UsageFlags sobre el sector;
+// termina con el instanciado original guardado (0xC9ABC8).
+static RwBool _rpMatFXWorldSectorInstanceCallBack(void* object, RxD3D9ResEntryHeader* header, RwBool reinstance) {
+    RxD3D9InstanceData* instance = reinterpret_cast<RxD3D9InstanceData*>(reinterpret_cast<RwUInt8*>(header) + 0x40);
+    RwUInt32 remaining = header->numMeshes;
+    do {
+        const rpMatFXMaterialData* const data = MaterialData(instance->material);
+        if (data != nullptr && (data->flags == 1 || data->flags == 3) && MatFXPixelShadersOk != 0) {
+            RpWorldSector* const sector = static_cast<RpWorldSector*>(object);
+            RpD3D9WorldSectorSetUsageFlags(sector, static_cast<RpD3D9WorldSectorUsageFlag>(RpD3D9WorldSectorGetUsageFlags(sector) | 0x10000));
+        }
+        ++instance;
+        --remaining;
+    } while (remaining != 0);
+    return MatFXSectorInstanceCB(object, header, reinstance);
 }
