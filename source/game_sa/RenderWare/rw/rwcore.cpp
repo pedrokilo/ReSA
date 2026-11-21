@@ -13537,3 +13537,183 @@ void RwCoreInjectHooksS20A() {
     RH_ScopedGlobalInstall(_rwRasterModuleClose, 0x7FB310);
     RH_ScopedGlobalInstall(_rwRasterModuleOpen, 0x7FB370);
 }
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote S22A (sin validar): callbacks de los plugins de motor 0x406 (modulo de imagenes) y 0x408 (modulo de texturas) que registra RwEngineInit (rwplcore.cpp).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+// Lista libre del modulo de imagenes en el bloque del modulo +0x218 (lista de nodos de formato; el campo unknown218 de ImageModuleGlobalsR30A).
+RwFreeList*& ImageFormatNodeFreeList(ImageModuleGlobalsR30A* module) {
+    return *reinterpret_cast<RwFreeList**>(module->unknown218);
+}
+RwInt32& ImageSearchPathSize(ImageModuleGlobalsR30A* module) {
+    return *reinterpret_cast<RwInt32*>(module->unknown008);
+}
+}
+
+// 0x802280 (lote S22A, sin validar; 608 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x406 (modulo de imagenes): [0xC9A65C] = desplazamiento; modulo = motor + desplazamiento.
+// Crea la lista libre de imagenes (RwFreeListCreateAndPreallocateSpace(tamano del registro 0x8E2670, [0x8E2688], 4, [0x8E268C], 0xC9A664, 0x40018)); sin lista devuelve 0. Crea la de nodos de formato (0x34, [0x8E2688], 4, [0x8E2694],
+// 0xC9A638, 0x40406; en +0x218; si falla destruye la primera y devuelve 0). Tamano de la ruta (+8) = 0x100 y ruta (+4) = rwmalloc(0x100, 0x1040406) (si falla destruye las dos listas y devuelve 0); ruta[0] = 0; [0xC9A660] += 1;
+// RwImageSetGamma(1.0f) (0x803FE0); formatos (+0x21C) = 0; tamano del bufer temporal (+0x214) = 0x100 y bufer (+0x210) = rwmalloc(0x100, 0x1040018) (si falla libera la ruta, pone ruta y tamano a 0, destruye las dos listas y
+// devuelve 0). Devuelve el objeto.
+void* _rwImageModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC9A65C) = offsetInObject;
+    ImageModuleGlobalsR30A* module = ImageModuleR30A();
+    module->freeList = RwFreeListCreateAndPreallocateSpace(StaticRef<RwInt32>(0x8E2670), StaticRef<RwInt32>(0x8E2688), 4, StaticRef<RwInt32>(0x8E268C), reinterpret_cast<RwFreeList*>(0xC9A664), 0x40018);
+    module = ImageModuleR30A();
+    if (module->freeList == nullptr) {
+        return nullptr;
+    }
+    module = ImageModuleR30A();
+    ImageFormatNodeFreeList(module) = RwFreeListCreateAndPreallocateSpace(0x34, StaticRef<RwInt32>(0x8E2688), 4, StaticRef<RwInt32>(0x8E2694), reinterpret_cast<RwFreeList*>(0xC9A638), 0x40406);
+    module = ImageModuleR30A();
+    if (ImageFormatNodeFreeList(module) == nullptr) {
+        RwFreeListDestroy(module->freeList);
+        ImageModuleR30A()->freeList = nullptr;
+        return nullptr;
+    }
+    ImageSearchPathSize(module) = 0x100;
+    module = ImageModuleR30A();
+    module->searchPath = static_cast<char*>(RwEngineInstance->memoryFuncs.rwmalloc(static_cast<size_t>(ImageSearchPathSize(module)), 0x1040406));
+    module = ImageModuleR30A();
+    if (module->searchPath == nullptr) {
+        RwFreeListDestroy(ImageFormatNodeFreeList(module));
+        ImageFormatNodeFreeList(ImageModuleR30A()) = nullptr;
+        RwFreeListDestroy(ImageModuleR30A()->freeList);
+        ImageModuleR30A()->freeList = nullptr;
+        return nullptr;
+    }
+    module->searchPath[0] = 0;
+    StaticRef<RwInt32>(0xC9A660) = StaticRef<RwInt32>(0xC9A660) + 1;
+    RwImageSetGamma(1.0f);
+    ImageModuleR30A()->formats = nullptr;
+    ImageModuleR30A()->scratchSize = 0x100;
+    module = ImageModuleR30A();
+    module->scratchBuffer = RwEngineInstance->memoryFuncs.rwmalloc(static_cast<size_t>(module->scratchSize), 0x1040018);
+    module = ImageModuleR30A();
+    if (module->scratchBuffer == nullptr) {
+        RwEngineInstance->memoryFuncs.rwfree(module->searchPath);
+        ImageModuleR30A()->searchPath = nullptr;
+        ImageSearchPathSize(ImageModuleR30A()) = 0;
+        RwFreeListDestroy(ImageFormatNodeFreeList(ImageModuleR30A()));
+        ImageFormatNodeFreeList(ImageModuleR30A()) = nullptr;
+        RwFreeListDestroy(ImageModuleR30A()->freeList);
+        ImageModuleR30A()->freeList = nullptr;
+        return nullptr;
+    }
+    return object;
+}
+
+// 0x8024E0 (lote S22A, sin validar; 313 bytes; cdecl, (objeto, desplazamiento, tamano)): destructor del plugin de motor 0x406: libera (rwfree) y pone a NULL el bufer temporal (+0x210, tamano +0x214 a 0) y la ruta (+4, tamano +8 a 0)
+// si existen; devuelve a la lista de nodos (+0x218) cada formato de la lista (+0x21C) con memoryFree (+0x148; el siguiente se lee antes); destruye y pone a NULL la lista de nodos (+0x218) y la de imagenes (+0)
+// si existen; [0xC9A660] -= 1; devuelve el objeto.
+void* _rwImageModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    ImageModuleGlobalsR30A* module = ImageModuleR30A();
+    if (module->scratchBuffer != nullptr) {
+        RwEngineInstance->memoryFuncs.rwfree(module->scratchBuffer);
+        module = ImageModuleR30A();
+        module->scratchBuffer = nullptr;
+        module->scratchSize = 0;
+        module = ImageModuleR30A();
+    }
+    if (module->searchPath != nullptr) {
+        RwEngineInstance->memoryFuncs.rwfree(module->searchPath);
+        module = ImageModuleR30A();
+        module->searchPath = nullptr;
+        ImageSearchPathSize(module) = 0;
+        module = ImageModuleR30A();
+    }
+    while (module->formats != nullptr) {
+        ImageFormatNodeR30A* const node = module->formats;
+        module->formats = node->next;
+        RwEngineInstance->memoryFree(ImageFormatNodeFreeList(ImageModuleR30A()), node);
+        module = ImageModuleR30A();
+    }
+    if (ImageFormatNodeFreeList(module) != nullptr) {
+        RwFreeListDestroy(ImageFormatNodeFreeList(module));
+        ImageFormatNodeFreeList(ImageModuleR30A()) = nullptr;
+        module = ImageModuleR30A();
+    }
+    if (module->freeList != nullptr) {
+        RwFreeListDestroy(module->freeList);
+        ImageModuleR30A()->freeList = nullptr;
+    }
+    StaticRef<RwInt32>(0xC9A660) = StaticRef<RwInt32>(0xC9A660) - 1;
+    return object;
+}
+
+// 0x7F3D00 (lote S22A, sin validar; 340 bytes; cdecl, (objeto, desplazamiento, tamano)): destructor del plugin de motor 0x408 (modulo de texturas; globales en motor + [0xC97B4C]): si +0x24 no es NULL lo libera con rwfree y pone +0x24 y la
+// palabra +0x28 a 0. Con las listas libres de texturas (+8) y de diccionarios (+0xC) no nulas y el anillo de diccionarios (+0) no vacio: busca en el anillo el diccionario guardado en 0xC97B78 (cada enlace +0x10 del diccionario);
+// si esta: si es el actual (+0x10) lo anula; destruye una a una sus texturas con RwTextureDestroy (0x7F3820; el recorrido para si una devuelve 0), _rwPluginRegistryDeInitObject (0x808740) con el registro 0x8E23E4, lo saca
+// del anillo, lo devuelve a la lista de diccionarios con memoryFree (+0x148) y pone 0xC97B78 a 0. Despues destruye y pone a NULL las listas de texturas (+8) y de diccionarios (+0xC); [0xC97B50] -= 1; devuelve el objeto.
+void* _rwTextureModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    auto moduleBytes = []() { return reinterpret_cast<RwUInt8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC97B4C); };
+    if (*reinterpret_cast<void**>(moduleBytes() + 0x24) != nullptr) {
+        RwEngineInstance->memoryFuncs.rwfree(*reinterpret_cast<void**>(moduleBytes() + 0x24));
+        *reinterpret_cast<void**>(moduleBytes() + 0x24) = nullptr;
+        *reinterpret_cast<uint16*>(moduleBytes() + 0x28) = 0;
+    }
+    TextureGlobalsLayout* globals = reinterpret_cast<TextureGlobalsLayout*>(moduleBytes());
+    if (globals->textureFreeList != nullptr && globals->texDictFreeList != nullptr) {
+        RwLLLink* const head = &globals->texDictList;
+        RwTexDictionary* const target = StaticRef<RwTexDictionary*>(0xC97B78);
+        bool found = false;
+        for (RwLLLink* link = head->next; link != head; link = link->next) {
+            if (reinterpret_cast<RwTexDictionary*>(reinterpret_cast<RwUInt8*>(link) - offsetof(RwTexDictionary, lInInstance)) == target) {
+                found = true;
+                break;
+            }
+        }
+        if (found) {
+            if (globals->currentTexDict == target) {
+                globals->currentTexDict = nullptr;
+            }
+            RwLLLink* const end = &target->texturesInDict.link;
+            RwLLLink* link = end->next;
+            if (link != end) {
+                for (;;) {
+                    RwLLLink* const next = link->next;
+                    RwTexture* const texture = reinterpret_cast<RwTexture*>(reinterpret_cast<RwUInt8*>(link) - offsetof(RwTexture, lInDictionary));
+                    if (!RwTextureDestroy(texture)) {
+                        break;
+                    }
+                    link = next;
+                    if (next == end) {
+                        break;
+                    }
+                }
+            }
+            _rwPluginRegistryDeInitObject(reinterpret_cast<const RwPluginRegistry*>(&TexDictTKList), target);
+            RwLLLink* const instance = &target->lInInstance;
+            instance->prev->next = instance->next;
+            instance->next->prev = instance->prev;
+            RwEngineInstance->memoryFree(reinterpret_cast<TextureGlobalsLayout*>(moduleBytes())->texDictFreeList, target);
+            StaticRef<RwTexDictionary*>(0xC97B78) = nullptr;
+        }
+    }
+    globals = reinterpret_cast<TextureGlobalsLayout*>(moduleBytes());
+    if (globals->textureFreeList != nullptr) {
+        RwFreeListDestroy(globals->textureFreeList);
+        reinterpret_cast<TextureGlobalsLayout*>(moduleBytes())->textureFreeList = nullptr;
+        globals = reinterpret_cast<TextureGlobalsLayout*>(moduleBytes());
+    }
+    if (globals->texDictFreeList != nullptr) {
+        RwFreeListDestroy(globals->texDictFreeList);
+        reinterpret_cast<TextureGlobalsLayout*>(moduleBytes())->texDictFreeList = nullptr;
+    }
+    StaticRef<RwInt32>(0xC97B50) = StaticRef<RwInt32>(0xC97B50) - 1;
+    return object;
+}
+
+// Lote S22A (sin validar): ganchos de los callbacks de modulo de imagenes y texturas.
+void RwCoreInjectHooksS22A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(_rwTextureModuleDestruct, 0x7F3D00);   // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwImageModuleConstruct, 0x802280);    // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwImageModuleDestruct, 0x8024E0);     // lote S22A (sin validar)
+}

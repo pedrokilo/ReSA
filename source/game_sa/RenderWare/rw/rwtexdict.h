@@ -8,6 +8,7 @@ extern RwTexture* GetFirstTexture(RwTexDictionary* txd);
 
 // 0x734930
 extern RwTexture* GetFirstTextureCallback(RwTexture* texture, void* data);
+extern RwTexture* TexDictDestroyTextureCallback(RwTexture* texture, void* data); // 0x730E50 (lote S22A)
 
 // Read texture from RW stream
 // 0x730E60

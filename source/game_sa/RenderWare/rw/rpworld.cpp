@@ -24,6 +24,37 @@ END GENERATED HOOK STATUS */
 #include <rpdbgerr.h>
 #include <bit>
 #include <cstring>
+
+// Lotes S23A, S24A y S25A (sin validar): callbacks de plugin y de flujo que antes ejecutaba el EXE; se definen al final del archivo con su hook (RpWorldInjectHooksS23A25A).
+static RwInt32  AtomicRightsStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);        // 0x7491A0
+static void*    ClumpModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                   // 0x749760
+static void*    ClumpModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                    // 0x749480
+static void*    CameraClumpLinkConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);               // 0x749880
+static void*    CameraClumpLinkDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                // 0x7498A0
+static void*    LightClumpLinkConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                // 0x7498B0
+static void*    LightClumpLinkDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                 // 0x7498D0
+static void*    GeometryModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                // 0x74BFA0
+static void*    GeometryModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                 // 0x74BFC0
+static RwInt32  MaterialRightsStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);      // 0x74D850
+static void*    MaterialModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                // 0x74D8E0
+static void*    MaterialModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                 // 0x74D950
+static void*    WorldModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                   // 0x74FEE0
+static void*    WorldModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                    // 0x74FE90
+static void*    TieModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                     // 0x750280
+static void*    TieModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                      // 0x750370
+static void*    CameraWorldPluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);             // 0x7503E0
+static void*    CameraWorldPluginCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x750710
+static void*    AtomicWorldPluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);             // 0x7507B0
+static void*    AtomicWorldPluginCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x7509A0
+static void*    ClumpWorldPluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);              // 0x750A30
+static void*    ClumpWorldPluginCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x750A60
+static void*    ClumpWorldPluginDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);               // 0x750A90
+static void*    LightWorldPluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);              // 0x750AA0
+static void*    LightWorldPluginCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x750CD0
+static RwStream* GeometryMeshStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x750D90
+static RwInt32  GeometryMeshStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);        // 0x750DE0
+static RwStream* GeometryNativeStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x750E00
+static RwStream* GeometryNativeStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);       // 0x750E20
 #include "X87Math.h"
 
 // Direcciones del EXE usadas por las funciones de este archivo.
@@ -172,8 +203,10 @@ RxNodeDefinition* RxNodeDefinitionGetD3D9AtomicAllInOne() {
     return reinterpret_cast<RxNodeDefinition*>(kD3D9AtomicAllInOneNode);
 }
 
+// 0x74D8C0 (lote S24A, sin validar; 20 bytes; cdecl, (bloque, bloques)): guarda los parametros de la lista libre de materiales en 0x8D62C8 (entradas por bloque) y 0x8D62CC (bloques a preasignar).
 void RpMaterialSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x74D8C0)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8D62C8) = blockSize;
+    StaticRef<RwInt32>(0x8D62CC) = numBlocksToPrealloc;
 }
 
 // 0x74D990
@@ -238,20 +271,25 @@ RwInt32 RpMaterialRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadC
     return _rwPluginRegistryAddPluginStream(&s_materialTKList, pluginID, readCB, writeCB, getSizeCB);
 }
 
+// 0x74DC50 (lote S24A, sin validar; 24 bytes; cdecl, (id de plugin, callback)): _rwPluginRegistryAddPlgnStrmlwysCB sobre el registro de materiales (0x8D62A4).
 RwInt32 RpMaterialSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x74DC50)(pluginID, alwaysCB);
+    return _rwPluginRegistryAddPlgnStrmlwysCB(&s_materialTKList, pluginID, alwaysCB);
 }
 
+// 0x74DC70 (lote S24A, sin validar; 24 bytes; cdecl, (id de plugin, callback)): _rwPluginRegistryAddPlgnStrmRightsCB sobre el registro de materiales (0x8D62A4).
 RwInt32 RpMaterialSetStreamRightsCallBack(RwUInt32 pluginID, RwPluginDataChunkRightsCallBack rightsCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkRightsCallBack))0x74DC70)(pluginID, rightsCB);
+    return _rwPluginRegistryAddPlgnStrmRightsCB(&s_materialTKList, pluginID, rightsCB);
 }
 
+// 0x74DC90 (lote S24A, sin validar; 19 bytes; cdecl, (id de plugin)): _rwPluginRegistryGetPluginOffset sobre el registro de materiales (0x8D62A4).
 RwInt32 RpMaterialGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x74DC90)(pluginID);
+    return _rwPluginRegistryGetPluginOffset(&s_materialTKList, pluginID);
 }
 
+// 0x74DCB0 (lote S24A, sin validar; 6 bytes): `mov eax, 1; ret`; devuelve 1 sin tocar el material.
 RwBool RpMaterialValidatePlugins(const RpMaterial* material) {
-    return ((RwBool(__cdecl *)(const RpMaterial*))0x74DCB0)(material);
+    UNUSED(material);
+    return TRUE;
 }
 
 // 0x74DD30
@@ -369,12 +407,67 @@ RwStream* _rpMaterialRightsStreamWrite(RwStream* stream, RwInt32 binaryLength, c
     return RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&material->pipeline->pluginData), 4) ? stream : nullptr;
 }
 
+// 0x74E050 (lote S24A, sin validar; 248 bytes; cdecl, (material, flujo)): tamano = (textura ? RwTextureStreamGetSize + 0x34 : 0x28) + _rwPluginRegistryGetSize(0x8D62A4, material) + 12. Escribe la cabecera de chunk material (tipo 7,
+// version 0x36003, build 0xFFFF; NULL si falla), la del chunk estructura (tipo 1, 0x1C bytes) y la estructura de 28 bytes {flags 0, color, sin usar, con textura (1 o 0), ambiente, especular, difuso} con RwStreamWrite (el campo sin usar
+// es basura de pila en el EXE; aqui 0). Con textura RwTextureStreamWrite (NULL si falla) y por ultimo _rwPluginRegistryWriteDataChunks del registro de materiales. Devuelve el material si esa ultima da algo distinto de NULL.
 const RpMaterial* RpMaterialStreamWrite(const RpMaterial* material, RwStream* stream) {
-    return ((const RpMaterial*(__cdecl *)(const RpMaterial*, RwStream*))0x74E050)(material, stream);
+    RwUInt32 textureSize = 0x28;
+    if (material->texture != nullptr) {
+        textureSize = RwTextureStreamGetSize(material->texture) + 0x34;
+    }
+    const RwUInt32 chunkSize = textureSize + static_cast<RwUInt32>(_rwPluginRegistryGetSize(&s_materialTKList, material)) + 0xC;
+    if (!_rwStreamWriteVersionedChunkHeader(stream, 7, static_cast<RwInt32>(chunkSize), 0x36003, 0xFFFF)) {
+        return nullptr;
+    }
+    if (!_rwStreamWriteVersionedChunkHeader(stream, 1, 0x1C, 0x36003, 0xFFFF)) {
+        return nullptr;
+    }
+    struct MaterialChunkWords {
+        RwUInt32 flags;
+        RwUInt32 color;
+        RwUInt32 unused;
+        RwUInt32 textured;
+        RwUInt32 ambient;
+        RwUInt32 specular;
+        RwUInt32 diffuse;
+    } chunk;
+    static_assert(sizeof(MaterialChunkWords) == 0x1C);
+    const RwUInt32* const materialWords = reinterpret_cast<const RwUInt32*>(material);
+    chunk.flags = 0;
+    chunk.color = materialWords[1];
+    chunk.unused = 0;
+    chunk.textured = material->texture != nullptr ? 1u : 0u;
+    chunk.ambient = materialWords[3];
+    chunk.specular = materialWords[4];
+    chunk.diffuse = materialWords[5];
+    if (!RwStreamWrite(stream, &chunk, 0x1C)) {
+        return nullptr;
+    }
+    if (material->texture != nullptr && !RwTextureStreamWrite(material->texture, stream)) {
+        return nullptr;
+    }
+    return _rwPluginRegistryWriteDataChunks(&s_materialTKList, stream, material) != nullptr ? material : nullptr;
 }
 
+// 0x74DCC0 (lote S24A, sin validar; 109 bytes; cdecl, (flujo, info, bytesLeidos)): busca el chunk estructura (tipo 1, sin version; sin chunk NULL), pone a cero los 28 bytes de la info y lee `longitud` bytes (sin limitar a 28;
+// distinto -> NULL), *bytesLeidos = longitud + 12; con longitud <= 16 pone las tres propiedades de superficie (+0x10, +0x18 y +0x14, en ese orden) a 1.0f. Devuelve la info.
 RpMaterialChunkInfo* _rpMaterialChunkInfoRead(RwStream* stream, RpMaterialChunkInfo* materialChunkInfo, RwInt32* bytesRead) {
-    return ((RpMaterialChunkInfo*(__cdecl *)(RwStream*, RpMaterialChunkInfo*, RwInt32*))0x74DCC0)(stream, materialChunkInfo, bytesRead);
+    RwUInt32 length;
+    if (!RwStreamFindChunk(stream, 1, &length, nullptr)) {
+        return nullptr;
+    }
+    std::memset(materialChunkInfo, 0, 0x1C);
+    if (RwStreamRead(stream, materialChunkInfo, length) != length) {
+        return nullptr;
+    }
+    *bytesRead = static_cast<RwInt32>(length + 0xC);
+    if (length <= 0x10) {
+        RwUInt32* const words = reinterpret_cast<RwUInt32*>(materialChunkInfo);
+        words[4] = 0x3F800000u;
+        words[6] = 0x3F800000u;
+        words[5] = 0x3F800000u;
+    }
+    return materialChunkInfo;
 }
 
 // Registros de plugins del SDK (RwPluginRegistry en .data del EXE) y desplazamientos de plugin que dejan registrados RpWorldPluginAttach y RpD3D9 (grupo g25b).
@@ -1570,8 +1663,9 @@ RwInt32 RpGeometryAddMorphTargets(RpGeometry* geometry, RwInt32 mtcount) {
     return geometry->numMorphTargets - mtcount;
 }
 
+// 0x74C4D0 (lote S24A, sin validar; 16 bytes; cdecl, (geometria)): RpGeometryAddMorphTargets (0x74C310) con 1 y devuelve su resultado.
 RwInt32 RpGeometryAddMorphTarget(RpGeometry* geometry) {
-    return ((RwInt32(__cdecl *)(RpGeometry*))0x74C4D0)(geometry);
+    return RpGeometryAddMorphTargets(geometry, 1);
 }
 
 RpGeometry* RpGeometryRemoveMorphTarget(RpGeometry* geometry, RwInt32 morphTarget) {
@@ -1605,8 +1699,18 @@ RpGeometry* RpGeometryTriangleSetMaterial(RpGeometry* geometry, RpTriangle* tria
     return geometry;
 }
 
+// 0x74C720 (lote S24A, sin validar; 53 bytes; cdecl, (geometria, triangulo, v1, v2, v3)): escribe los tres indices de vertice (words +0, +2 y +4 del triangulo) en los punteros que no sean nulos, en ese orden. Devuelve la geometria.
 const RpGeometry* RpGeometryTriangleGetVertexIndices(const RpGeometry* geometry, const RpTriangle* triangle, RwUInt16* vert1, RwUInt16* vert2, RwUInt16* vert3) {
-    return ((const RpGeometry*(__cdecl *)(const RpGeometry*, const RpTriangle*, RwUInt16*, RwUInt16*, RwUInt16*))0x74C720)(geometry, triangle, vert1, vert2, vert3);
+    if (vert1 != nullptr) {
+        *vert1 = triangle->vertIndex[0];
+    }
+    if (vert2 != nullptr) {
+        *vert2 = triangle->vertIndex[1];
+    }
+    if (vert3 != nullptr) {
+        *vert3 = triangle->vertIndex[2];
+    }
+    return geometry;
 }
 
 // 0x74C760
@@ -1734,8 +1838,13 @@ RpGeometry* RpGeometryUnlock(RpGeometry* geometry) {
     return nullptr;
 }
 
+// 0x74CA60 (lote S24A, sin validar; 43 bytes; cdecl, (geometria, callback, datos)): con cabecera de mallas (+0x54) no nula llama a _rpMeshHeaderForAllMeshes (0x758D30); si devuelve algo distinto de NULL devuelve la geometria, si no NULL.
 const RpGeometry* RpGeometryForAllMeshes(const RpGeometry* geometry, RpMeshCallBack fpCallBack, void* data) {
-    return ((const RpGeometry*(__cdecl *)(const RpGeometry*, RpMeshCallBack, void*))0x74CA60)(geometry, fpCallBack, data);
+    static_assert(offsetof(RpGeometry, mesh) == 0x54);
+    if (geometry->mesh != nullptr && _rpMeshHeaderForAllMeshes(geometry->mesh, fpCallBack, data) != nullptr) {
+        return geometry;
+    }
+    return nullptr;
 }
 
 // 0x74CA90
@@ -1887,20 +1996,29 @@ RwInt32 RpGeometryRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadC
     return _rwPluginRegistryAddPluginStream(&geometryTKList, pluginID, readCB, writeCB, getSizeCB);
 }
 
+// 0x74CDD0 (lote S24A, sin validar; 24 bytes; cdecl, (id de plugin, callback)): _rwPluginRegistryAddPlgnStrmlwysCB sobre el registro de geometrias (0x8D628C). Devuelve su resultado.
 RwInt32 RpGeometrySetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x74CDD0)(pluginID, alwaysCB);
+    return _rwPluginRegistryAddPlgnStrmlwysCB(&geometryTKList, pluginID, alwaysCB);
 }
 
+// 0x74CDF0 (lote S24A, sin validar; 19 bytes; cdecl, (id de plugin)): _rwPluginRegistryGetPluginOffset sobre el registro de geometrias (0x8D628C). Devuelve su resultado.
 RwInt32 RpGeometryGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x74CDF0)(pluginID);
+    return _rwPluginRegistryGetPluginOffset(&geometryTKList, pluginID);
 }
 
+// 0x74CE10 (lote S24A, sin validar; 6 bytes): `mov eax, 1; ret`; devuelve 1 sin tocar la geometria.
 RwBool RpGeometryValidatePlugins(const RpGeometry* geometry) {
-    return ((RwBool(__cdecl *)(const RpGeometry*))0x74CE10)(geometry);
+    UNUSED(geometry);
+    return TRUE;
 }
 
+// 0x74CE20 (lote S24A, sin validar; 51 bytes; cdecl, (geometria)): tamano del chunk de la geometria = f(geometria) + 12 + tamano de la lista de materiales (_rpMaterialListStreamGetSize de geometria + 0x20) + 12
+// + tamano de los plugins (_rwPluginRegistryGetSize con el registro 0x8D628C) + 12. f es 0x74CE60 (tamano del chunk estructura, sin reconstruir; se llama por direccion; se evalua antes que las otras dos).
 RwUInt32 RpGeometryStreamGetSize(const RpGeometry* geometry) {
-    return ((RwUInt32(__cdecl *)(const RpGeometry*))0x74CE20)(geometry);
+    const RwInt32 structureSize = reinterpret_cast<RwInt32(__cdecl*)(const RpGeometry*)>(0x74CE60)(geometry);
+    const RwUInt32 materialsSize = _rpMaterialListStreamGetSize(&geometry->matList);
+    const RwInt32 pluginsSize = _rwPluginRegistryGetSize(&geometryTKList, geometry);
+    return static_cast<RwUInt32>(structureSize + 0xC) + materialsSize + 0xC + static_cast<RwUInt32>(pluginsSize) + 0xC;
 }
 
 const RpGeometry* RpGeometryStreamWrite(const RpGeometry* geometry, RwStream* stream) {
@@ -2117,8 +2235,21 @@ RpGeometry* RpGeometryStreamRead(RwStream* stream) {
     return geometry;
 }
 
+// 0x74D750 (lote S24A, sin validar; 114 bytes; cdecl, (flujo, info, bytesLeidos)): busca el chunk estructura (tipo 1; sin chunk NULL), pone a cero los 16 bytes de la info y lee 16 bytes (menos -> NULL); salta el resto del
+// chunk (RwStreamSkip de longitud - 16, resultado ignorado), *bytesLeidos = longitud + 12 y devuelve la info.
 RpGeometryChunkInfo* _rpGeometryChunkInfoRead(RwStream* stream, RpGeometryChunkInfo* geometryChunkInfo, RwInt32* bytesRead) {
-    return ((RpGeometryChunkInfo*(__cdecl *)(RwStream*, RpGeometryChunkInfo*, RwInt32*))0x74D750)(stream, geometryChunkInfo, bytesRead);
+    RwUInt32 length;
+    RwUInt32 version;
+    if (!RwStreamFindChunk(stream, 1, &length, &version)) {
+        return nullptr;
+    }
+    std::memset(geometryChunkInfo, 0, 0x10);
+    if (RwStreamRead(stream, geometryChunkInfo, 0x10) != 0x10) {
+        return nullptr;
+    }
+    RwStreamSkip(stream, length - 0x10);
+    *bytesRead = static_cast<RwInt32>(length + 0xC);
+    return geometryChunkInfo;
 }
 
 RpWorldSector* RpWorldSectorRender(RpWorldSector* worldSector) {
@@ -2331,12 +2462,16 @@ void _rwD3D9LightsEnable(RwBool enable, RwUInt32 type) {
     ((void(__cdecl *)(RwBool, RwUInt32))0x756600)(enable, type);
 }
 
+// 0x749720 (lote S23A, sin validar; 20 bytes; cdecl, (bloque, bloques)): guarda los parametros de la lista libre de atomicos en 0x8D627C (entradas por bloque) y 0x8D6280 (bloques a preasignar).
 void RpAtomicSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x749720)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8D627C) = blockSize;
+    StaticRef<RwInt32>(0x8D6280) = numBlocksToPrealloc;
 }
 
+// 0x749740 (lote S23A, sin validar; 20 bytes; cdecl, (bloque, bloques)): igual para la lista libre de clumps: 0x8D6284 y 0x8D6288.
 void RpClumpSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x749740)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8D6284) = blockSize;
+    StaticRef<RwInt32>(0x8D6288) = numBlocksToPrealloc;
 }
 
 // 0x7491C0
@@ -2542,11 +2677,11 @@ static void AtomicFreeListDestroyCallBack(void* atomic, void* data) {
 // constructores/destructores del EXE 0x749880/0x7498A0 y RpLightRegisterPlugin con 0x7498B0/0x7498D0 (se llaman por su direccion). El desplazamiento de camara se guarda en 0xC924D8
 // aunque falle (si es negativo devuelve 0 sin registrar luces); el de luz se guarda siempre en 0xC924DC; devuelve 1 si no es negativo.
 static RwBool ClumpPluginAttach() {
-    s_cameraClumpLinkOffset = RwCameraRegisterPlugin(0xC, 0x10, reinterpret_cast<RwPluginObjectConstructor>(0x749880), reinterpret_cast<RwPluginObjectDestructor>(0x7498A0), nullptr);
+    s_cameraClumpLinkOffset = RwCameraRegisterPlugin(0xC, 0x10, CameraClumpLinkConstruct, CameraClumpLinkDestruct, nullptr);
     if (s_cameraClumpLinkOffset < 0) {
         return FALSE;
     }
-    const RwInt32 lightOffset = RpLightRegisterPlugin(0xC, 0x10, reinterpret_cast<RwPluginObjectConstructor>(0x7498B0), reinterpret_cast<RwPluginObjectDestructor>(0x7498D0), nullptr);
+    const RwInt32 lightOffset = RpLightRegisterPlugin(0xC, 0x10, LightClumpLinkConstruct, LightClumpLinkDestruct, nullptr);
     s_lightClumpLinkOffset = lightOffset;
     return lightOffset >= 0;
 }
@@ -2635,8 +2770,10 @@ constexpr RwInt32 kErrCloneAtomicWithoutFrame = 5;
 constexpr RwInt32 kErrorPluginID = 2; // rwPLUGIN_ID del modulo world en las estructuras RwError del EXE
 
 // Funciones del EXE que se llaman por direccion fija (aun sin reconstruir en este lote).
-RpClumpCallBack DefaultClumpCallBack() { return reinterpret_cast<RpClumpCallBack>(static_cast<uintptr_t>(0x74A260)); }       // devuelve su primer argumento
-RwCameraCallBack ClumpCameraDestroyCallBack() { return reinterpret_cast<RwCameraCallBack>(static_cast<uintptr_t>(0x74A200)); } // quita la camara de la lista del clump y la destruye
+RpClump* ClumpDefaultCallBackFn(RpClump* clump, void* data);        // 0x74A260 (lote S23A)
+RwCamera* ClumpCameraDestroyCallBackFn(RwCamera* camera, void* data); // 0x74A200 (lote S23A)
+RpClumpCallBack DefaultClumpCallBack() { return ClumpDefaultCallBackFn; }                // 0x74A260: devuelve su primer argumento
+RwCameraCallBack ClumpCameraDestroyCallBack() { return ClumpCameraDestroyCallBackFn; }   // 0x74A200: quita la camara de la lista del clump y la destruye
 
 // Globales del modulo de clump dentro de RwEngineInstance (+globalsOffset): listas libres de atomicos (+0) y de clumps (+4).
 struct ClumpModuleGlobals {
@@ -2979,16 +3116,22 @@ RpClump* RpClumpRemoveLight(RpClump* clump, RpLight* light) {
     return clump;
 }
 
+// 0x74A4F0 (lote S23A, sin validar; 45 bytes; cdecl, (clump, luz)): inserta el enlace del plugin de la luz (luz + [0xC924DC] + 4) al principio de la lista de luces del clump (+0x10) y guarda el clump en +0 del plugin. Devuelve el clump.
 RpClump* RpClumpAddLight(RpClump* clump, RpLight* light) {
-    return ((RpClump*(__cdecl *)(RpClump*, RpLight*))0x74A4F0)(clump, light);
+    AttachListEntry(ListEntryOf(light, s_lightClumpOffset), clump, &clump->lightList);
+    return clump;
 }
 
+// 0x74A580 (lote S23A, sin validar; 44 bytes; cdecl, (clump, camara)): saca el enlace del plugin de la camara de la lista del clump y pone a cero prev, next y clump (en ese orden). Devuelve el clump.
 RpClump* RpClumpRemoveCamera(RpClump* clump, RwCamera* camera) {
-    return ((RpClump*(__cdecl *)(RpClump*, RwCamera*))0x74A580)(clump, camera);
+    UnlinkListEntry(ListEntryOf(camera, s_cameraClumpOffset));
+    return clump;
 }
 
+// 0x74A550 (lote S23A, sin validar; 45 bytes; cdecl, (clump, camara)): igual con la lista de camaras (+0x18) y el desplazamiento de 0xC924D8.
 RpClump* RpClumpAddCamera(RpClump* clump, RwCamera* camera) {
-    return ((RpClump*(__cdecl *)(RpClump*, RwCamera*))0x74A550)(clump, camera);
+    AttachListEntry(ListEntryOf(camera, s_cameraClumpOffset), clump, &clump->cameraList);
+    return clump;
 }
 
 // 0x74A310: destruye el clump: destructores de plugins, atomicos (almacenamiento propio, sin sacarlos de la lista), luces y camaras
@@ -3311,12 +3454,19 @@ RpAtomic* RpAtomicSetGeometry(RpAtomic* atomic, RpGeometry* geometry, RwUInt32 f
     return atomic;
 }
 
+// 0x74A240 (lote S23A, sin validar; 24 bytes; cdecl, (clump, callback)): callback del clump (+0x28) = el dado, o el por defecto (0x74A260) si es nulo. Devuelve el clump.
 RpClump* RpClumpSetCallBack(RpClump* clump, RpClumpCallBack callback) {
-    return ((RpClump*(__cdecl *)(RpClump*, RpClumpCallBack))0x74A240)(clump, callback);
+    clump->callback = callback != nullptr ? callback : DefaultClumpCallBack();
+    return clump;
 }
 
+// 0x74A270 (lote S23A, sin validar; 21 bytes; cdecl, (clump)): callback del clump (+0x28), o NULL si es el por defecto (0x74A260 del EXE o nuestra ClumpDefaultCallBack).
 RpClumpCallBack RpClumpGetCallBack(const RpClump* clump) {
-    return ((RpClumpCallBack(__cdecl *)(const RpClump*))0x74A270)(clump);
+    const RpClumpCallBack callback = clump->callback;
+    if (callback == DefaultClumpCallBack() || reinterpret_cast<uintptr_t>(callback) == 0x74A260) {
+        return nullptr;
+    }
+    return callback;
 }
 
 // 0x7498E0
@@ -3334,28 +3484,68 @@ RwInt32 RpClumpGetNumAtomics(RpClump* clump) {
     return numAtomics;
 }
 
+// 0x749910 (lote S23A, sin validar; 43 bytes; cdecl, (clump)): cuenta los enlaces de la lista de luces del clump (+0x10); como en RpClumpGetNumAtomics el EXE corta tras contar un enlace cuya direccion sea el
+// desplazamiento del plugin de luz + 4 (luz nula); el desplazamiento (0xC924DC) se lee una sola vez antes del bucle.
 RwInt32 RpClumpGetNumLights(RpClump* clump) {
-    return ((RwInt32(__cdecl *)(RpClump*))0x749910)(clump);
+    RwInt32 numLights = 0;
+    const RwLLLink* const end = &clump->lightList.link;
+    const RwLLLink* link = end->next;
+    if (link != end) {
+        const RwInt32 offset = s_lightClumpLinkOffset;
+        for (;;) {
+            ++numLights;
+            if (reinterpret_cast<uintptr_t>(link) - static_cast<uintptr_t>(offset) - 4u == 0) {
+                break;
+            }
+            link = link->next;
+            if (link == end) {
+                break;
+            }
+        }
+    }
+    return numLights;
 }
 
+// 0x749940 (lote S23A, sin validar; 43 bytes; cdecl, (clump)): igual que RpClumpGetNumLights con la lista de camaras (+0x18) y el desplazamiento de 0xC924D8.
 RwInt32 RpClumpGetNumCameras(RpClump* clump) {
-    return ((RwInt32(__cdecl *)(RpClump*))0x749940)(clump);
+    RwInt32 numCameras = 0;
+    const RwLLLink* const end = &clump->cameraList.link;
+    const RwLLLink* link = end->next;
+    if (link != end) {
+        const RwInt32 offset = s_cameraClumpLinkOffset;
+        for (;;) {
+            ++numCameras;
+            if (reinterpret_cast<uintptr_t>(link) - static_cast<uintptr_t>(offset) - 4u == 0) {
+                break;
+            }
+            link = link->next;
+            if (link == end) {
+                break;
+            }
+        }
+    }
+    return numCameras;
 }
 
+// 0x749E40 (lote S23A, sin validar; 14 bytes; cdecl, (luz)): devuelve el clump guardado en los datos de plugin de la luz (luz + [0xC924DC], +0).
 RpClump* RpLightGetClump(const RpLight* light) {
-    return ((RpClump*(__cdecl *)(const RpLight*))0x749E40)(light);
+    return *reinterpret_cast<RpClump* const*>(reinterpret_cast<const uint8*>(light) + static_cast<uintptr_t>(s_lightClumpLinkOffset));
 }
 
+// 0x749E50 (lote S23A, sin validar; 14 bytes; cdecl, (camara)): devuelve el clump guardado en los datos de plugin de la camara (camara + [0xC924D8], +0).
 RpClump* RwCameraGetClump(const RwCamera* camera) {
-    return ((RpClump*(__cdecl *)(const RwCamera*))0x749E50)(camera);
+    return *reinterpret_cast<RpClump* const*>(reinterpret_cast<const uint8*>(camera) + static_cast<uintptr_t>(s_cameraClumpLinkOffset));
 }
 
 RwUInt32 RpAtomicStreamGetSize(RpAtomic* atomic) {
     return ((RwUInt32(__cdecl *)(RpAtomic*))0x74A5B0)(atomic);
 }
 
+// 0x74B030 (lote S23A, sin validar; 37 bytes; cdecl, (flujo)): ClumpAtomicStreamRead (0x74B060) con una lista de marcos y otra de geometrias vacias (puntero basura y cantidad 0 en el EXE; aqui punteros nulos).
 RpAtomic* RpAtomicStreamRead(RwStream* stream) {
-    return ((RpAtomic*(__cdecl *)(RwStream*))0x74B030)(stream);
+    rwFrameList frameList{};
+    RpGeometryList geomList{};
+    return ClumpAtomicStreamRead(stream, &frameList, &geomList);
 }
 
 RpAtomic* RpAtomicStreamWrite(RpAtomic* atomic, RwStream* stream) {
@@ -3521,8 +3711,19 @@ RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream) {
     return ((RpClump*(__cdecl *)(RpClump*, RwStream*))0x74AA10)(clump, stream);
 }
 
+// 0x74BD40 (lote S23A, sin validar; 82 bytes; cdecl, (flujo, info, bytesLeidos)): busca el chunk estructura (RwStreamFindChunk, tipo 1; sin chunk devuelve NULL), lee 12 bytes en la info (menos de 12 -> NULL),
+// *bytesLeidos = longitud del chunk + 12 y devuelve la info.
 RpClumpChunkInfo* _rpClumpChunkInfoRead(RwStream* stream, RpClumpChunkInfo* clumpChunkInfo, RwInt32* bytesRead) {
-    return ((RpClumpChunkInfo*(__cdecl *)(RwStream*, RpClumpChunkInfo*, RwInt32*))0x74BD40)(stream, clumpChunkInfo, bytesRead);
+    RwUInt32 length;
+    RwUInt32 version;
+    if (!RwStreamFindChunk(stream, 1, &length, &version)) {
+        return nullptr;
+    }
+    if (RwStreamRead(stream, clumpChunkInfo, 0xC) != 0xC) {
+        return nullptr;
+    }
+    *bytesRead = static_cast<RwInt32>(length + 0xC);
+    return clumpChunkInfo;
 }
 
 // 0x74BDA0: registra el plugin en la lista de RpAtomic (0x8D624C) con _rwPluginRegistryAddPlugin.
@@ -3555,8 +3756,9 @@ RwInt32 RpClumpRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCall
     return _rwPluginRegistryAddPluginStream(&s_clumpTKList, pluginID, readCB, writeCB, getSizeCB);
 }
 
+// 0x74BEA0 (lote S23A, sin validar; 24 bytes; cdecl, (id de plugin, callback)): _rwPluginRegistryAddPlgnStrmlwysCB sobre el registro de clumps (0x8D6264). Devuelve su resultado.
 RwInt32 RpClumpSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x74BEA0)(pluginID, alwaysCB);
+    return _rwPluginRegistryAddPlgnStrmlwysCB(&s_clumpTKList, pluginID, alwaysCB);
 }
 
 // 0x74BEC0
@@ -3564,16 +3766,21 @@ RwInt32 RpAtomicGetPluginOffset(RwUInt32 pluginID) {
     return _rwPluginRegistryGetPluginOffset(&s_atomicTKList, pluginID);
 }
 
+// 0x74BEE0 (lote S23A, sin validar; 19 bytes; cdecl, (id de plugin)): _rwPluginRegistryGetPluginOffset sobre el registro de clumps (0x8D6264). Devuelve su resultado.
 RwInt32 RpClumpGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x74BEE0)(pluginID);
+    return _rwPluginRegistryGetPluginOffset(&s_clumpTKList, pluginID);
 }
 
+// 0x74BF00 (lote S24A, sin validar; 6 bytes): `mov eax, 1; ret`; devuelve 1 sin tocar el atomico.
 RwBool RpAtomicValidatePlugins(const RpAtomic* atomic) {
-    return ((RwBool(__cdecl *)(const RpAtomic*))0x74BF00)(atomic);
+    UNUSED(atomic);
+    return TRUE;
 }
 
+// 0x74BF10 (lote S24A, sin validar; 6 bytes): `mov eax, 1; ret`; devuelve 1 sin tocar el clump.
 RwBool RpClumpValidatePlugins(const RpClump* clump) {
-    return ((RwBool(__cdecl *)(const RpClump*))0x74BF10)(clump);
+    UNUSED(clump);
+    return TRUE;
 }
 
 RwBool RpAtomicInstance(RpAtomic* atomic) {
@@ -3596,8 +3803,36 @@ RpWorldSector* _rpWorldSectorForAllLocalLights(RpWorldSector* sector, RpLightCal
     return ((RpWorldSector*(__cdecl *)(RpWorldSector*, RpLightCallBack, void*))0x74EF60)(sector, callBack, data);
 }
 
+// 0x74F1A0 (lote S24A, sin validar; 101 bytes; cdecl, (mundo)): sin raiz (+0x1C) devuelve NULL. Recorre el arbol de sectores con una pila de 64 entradas: un sector con tipo < 0 (hoja) destruye su cabecera de mallas
+// (_rpMeshDestroy, 0x758BC0) si la tiene (+0x78) y la pone a NULL; un sector de plano (tipo >= 0) apila su subarbol derecho (+0xC) y sigue por el izquierdo (+8). Devuelve el mundo.
 RpWorld* RpWorldLock(RpWorld* world) {
-    return ((RpWorld*(__cdecl *)(RpWorld*))0x74F1A0)(world);
+    static_assert(offsetof(RpWorldSector, mesh) == 0x78 && offsetof(RpPlaneSector, leftSubTree) == 8 && offsetof(RpPlaneSector, rightSubTree) == 0xC);
+    RpSector* sector = world->rootSector;
+    if (sector == nullptr) {
+        return nullptr;
+    }
+    RpSector* pending[64];
+    RwInt32 depth = 0;
+    do {
+        if (reinterpret_cast<RpPlaneSector*>(sector)->type < 0) {
+            RpWorldSector* const leaf = reinterpret_cast<RpWorldSector*>(sector);
+            if (leaf->mesh != nullptr) {
+                _rpMeshDestroy(leaf->mesh);
+                leaf->mesh = nullptr;
+            }
+            if (depth == 0) {
+                break;
+            }
+            sector = pending[depth];
+            --depth;
+        } else {
+            RpPlaneSector* const plane = reinterpret_cast<RpPlaneSector*>(sector);
+            sector = plane->leftSubTree;
+            ++depth;
+            pending[depth] = plane->rightSubTree;
+        }
+    } while (depth >= 0);
+    return world;
 }
 
 void _rpWorldRegisterWorld(RpWorld* world, RwUInt32 memorySize) {
@@ -3615,13 +3850,13 @@ void _rpWorldUnregisterWorld(RpWorld* world) {
 RwBool RpWorldPluginAttach() {
     const auto ctor = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectConstructor>(address); };
     const auto dtor = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectDestructor>(address); };
-    RwInt32 status = RwEngineRegisterPlugin(4, 0x501, ctor(0x74D8E0), dtor(0x74D950));
+    RwInt32 status = RwEngineRegisterPlugin(4, 0x501, MaterialModuleConstruct, MaterialModuleDestruct);
     status |= RwEngineRegisterPlugin(0x30, 0x502, ctor(0x758970), dtor(0x758940));
-    status |= RwEngineRegisterPlugin(4, 0x503, ctor(0x74BFA0), dtor(0x74BFC0));
-    status |= RwEngineRegisterPlugin(8, 0x504, ctor(0x749760), dtor(0x749480));
+    status |= RwEngineRegisterPlugin(4, 0x503, GeometryModuleConstruct, GeometryModuleDestruct);
+    status |= RwEngineRegisterPlugin(8, 0x504, ClumpModuleConstruct, ClumpModuleDestruct);
     status |= RwEngineRegisterPlugin(4, 0x505, ctor(0x752270), dtor(0x7521B0));
     status |= RwEngineRegisterPlugin(0, 0x50A, ctor(0x761C30), dtor(0x761C40));
-    status |= RwEngineRegisterPlugin(0xC, 0x507, ctor(0x74FEE0), dtor(0x74FE90));
+    status |= RwEngineRegisterPlugin(0xC, 0x507, WorldModuleConstruct, WorldModuleDestruct);
     status |= RwEngineRegisterPlugin(0, 0x50B, ctor(0x7637E0), dtor(0x7637D0));
     if (status < 0) {
         return FALSE;
@@ -3647,12 +3882,16 @@ RpWorld* RpWorldRender(RpWorld* world) {
     return ((RpWorld*(__cdecl *)(RpWorld*))0x74F570)(world);
 }
 
+// 0x74F730 (lote S24A, sin validar; 21 bytes; cdecl, (mundo, callback)): callback de render de sectores del mundo (+0x68) = el dado o, si es nulo, el por defecto 0x74EEC0 del EXE. Devuelve el mundo.
 RpWorld* RpWorldSetSectorRenderCallBack(RpWorld* world, RpWorldSectorCallBackRender fpCallBack) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RpWorldSectorCallBackRender))0x74F730)(world, fpCallBack);
+    static_assert(offsetof(RpWorld, renderCallBack) == 0x68);
+    world->renderCallBack = fpCallBack != nullptr ? fpCallBack : reinterpret_cast<RpWorldSectorCallBackRender>(0x74EEC0);
+    return world;
 }
 
+// 0x74F750 (lote S25A, sin validar; 8 bytes; cdecl, (mundo)): devuelve el callback de render de sectores del mundo (+0x68).
 RpWorldSectorCallBackRender RpWorldGetSectorRenderCallBack(const RpWorld* world) {
-    return ((RpWorldSectorCallBackRender(__cdecl *)(const RpWorld*))0x74F750)(world);
+    return world->renderCallBack;
 }
 
 // 0x74FCD0
@@ -3665,20 +3904,25 @@ RwInt32 RpWorldRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCall
     return _rwPluginRegistryAddPluginStream(&s_worldTKList, pluginID, readCB, writeCB, getSizeCB);
 }
 
+// 0x74FD30 (lote S25A, sin validar; 24 bytes; cdecl, (id de plugin, callback)): _rwPluginRegistryAddPlgnStrmlwysCB sobre el registro de mundos (0x8D62D0).
 RwInt32 RpWorldSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x74FD30)(pluginID, alwaysCB);
+    return _rwPluginRegistryAddPlgnStrmlwysCB(&s_worldTKList, pluginID, alwaysCB);
 }
 
+// 0x74FD50 (lote S25A, sin validar; 24 bytes; cdecl, (id de plugin, callback)): _rwPluginRegistryAddPlgnStrmRightsCB sobre el registro de mundos (0x8D62D0).
 RwInt32 RpWorldSetStreamRightsCallBack(RwUInt32 pluginID, RwPluginDataChunkRightsCallBack rightsCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkRightsCallBack))0x74FD50)(pluginID, rightsCB);
+    return _rwPluginRegistryAddPlgnStrmRightsCB(&s_worldTKList, pluginID, rightsCB);
 }
 
+// 0x74FD70 (lote S25A, sin validar; 19 bytes; cdecl, (id de plugin)): _rwPluginRegistryGetPluginOffset sobre el registro de mundos (0x8D62D0).
 RwInt32 RpWorldGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x74FD70)(pluginID);
+    return _rwPluginRegistryGetPluginOffset(&s_worldTKList, pluginID);
 }
 
+// 0x74FD90 (lote S25A, sin validar; 6 bytes): `mov eax, 1; ret`; devuelve 1 sin tocar el mundo.
 RwBool RpWorldValidatePlugins(RpWorld* world) {
-    return ((RwBool(__cdecl *)(RpWorld*))0x74FD90)(world);
+    UNUSED(world);
+    return TRUE;
 }
 
 // 0x7588B0 (lote R18A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, `ret`, 17 bytes): escribe el dword de flags en geometria + desplazamiento del plugin (0xC926E8), sin comprobar nada.
@@ -4949,12 +5193,16 @@ RpGeometry* RpGeometrySortByMaterial(const RpGeometry* geometry, RpGeometrySortB
     return ((RpGeometry*(__cdecl *)(const RpGeometry*, RpGeometrySortByMaterialCallBack))0x75DAE0)(geometry, callback);
 }
 
+// 0x74FF60 (lote S25A, sin validar; 20 bytes; cdecl, (bloque, bloques)): guarda los parametros de la lista libre de RpTie en 0x8D62E8 (entradas por bloque) y 0x8D62EC (bloques a preasignar).
 void RpTieSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x74FF60)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8D62E8) = blockSize;
+    StaticRef<RwInt32>(0x8D62EC) = numBlocksToPrealloc;
 }
 
+// 0x74FF80 (lote S25A, sin validar; 20 bytes; cdecl, (bloque, bloques)): igual para RpLightTie: 0x8D62F0 y 0x8D62F4.
 void RpLightTieSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x74FF80)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8D62F0) = blockSize;
+    StaticRef<RwInt32>(0x8D62F4) = numBlocksToPrealloc;
 }
 
 // 0x750F50 (lote R16A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, 33 bytes): los datos de plugin de la camara (camara + [0xC925A4]) guardan el mundo en +0x0C. Si es nulo devuelve NULL
@@ -6218,34 +6466,34 @@ static RwBool _rpTieMeshPluginAttach() {
     const auto writeCB = [](uintptr_t address) { return reinterpret_cast<RwPluginDataChunkWriteCallBack>(address); };
     const auto sizeCB = [](uintptr_t address) { return reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(address); };
 
-    RwInt32 status = RwEngineRegisterPlugin(0xC, 0x509, ctor(0x750280), dtor(0x750370));
-    s_cameraWorldOffset = RwCameraRegisterPlugin(0x1C, 0x509, ctor(0x7503E0), dtor(0x750760), copy(0x750710));
+    RwInt32 status = RwEngineRegisterPlugin(0xC, 0x509, TieModuleConstruct, TieModuleDestruct);
+    s_cameraWorldOffset = RwCameraRegisterPlugin(0x1C, 0x509, CameraWorldPluginConstruct, dtor(0x750760), CameraWorldPluginCopy);
     status |= s_cameraWorldOffset;
-    s_atomicWorldOffset = RpAtomicRegisterPlugin(8, 0x509, ctor(0x7507B0), dtor(0x7509B0), copy(0x7509A0));
+    s_atomicWorldOffset = RpAtomicRegisterPlugin(8, 0x509, AtomicWorldPluginConstruct, dtor(0x7509B0), AtomicWorldPluginCopy);
     status |= s_atomicWorldOffset;
-    s_clumpWorldOffset = RpClumpRegisterPlugin(8, 0x509, ctor(0x750A30), dtor(0x750A90), copy(0x750A60));
+    s_clumpWorldOffset = RpClumpRegisterPlugin(8, 0x509, ClumpWorldPluginConstruct, ClumpWorldPluginDestruct, ClumpWorldPluginCopy);
     status |= s_clumpWorldOffset;
-    s_lightWorldOffset = RpLightRegisterPlugin(8, 0x509, ctor(0x750AA0), LightWorldPluginDestruct, copy(0x750CD0));
+    s_lightWorldOffset = RpLightRegisterPlugin(8, 0x509, LightWorldPluginConstruct, LightWorldPluginDestruct, LightWorldPluginCopy);
     status |= s_lightWorldOffset;
 
     status |= RpGeometryRegisterPlugin(0, 0x50E, nullptr, nullptr, nullptr);
     status |= RpWorldSectorRegisterPlugin(0, 0x50E, nullptr, nullptr, nullptr);
-    status |= RpGeometryRegisterPluginStream(0x50E, GeometryMeshStreamRead, writeCB(0x750D90), sizeCB(0x750DE0));
+    status |= RpGeometryRegisterPluginStream(0x50E, GeometryMeshStreamRead, GeometryMeshStreamWrite, GeometryMeshStreamGetSize);
     status |= RpWorldSectorRegisterPluginStream(0x50E, SectorMeshStreamRead, SectorMeshStreamWrite, SectorMeshStreamGetSize);
 
     status |= RpGeometryRegisterPlugin(0, 0x510, nullptr, nullptr, nullptr);
     status |= RpWorldSectorRegisterPlugin(0, 0x510, nullptr, nullptr, nullptr);
-    status |= RpGeometryRegisterPluginStream(0x510, readCB(0x750E20), writeCB(0x750E00), sizeCB(0x750E40));
+    status |= RpGeometryRegisterPluginStream(0x510, GeometryNativeStreamRead, GeometryNativeStreamWrite, sizeCB(0x750E40));
     status |= RpWorldSectorRegisterPluginStream(0x510, readCB(0x750E70), writeCB(0x750E50), sizeCB(0x750E90));
 
     status |= RpAtomicRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
-    status |= RpAtomicRegisterPluginStream(0x1F, readCB(0x749120), writeCB(0x749160), sizeCB(0x7491A0));
+    status |= RpAtomicRegisterPluginStream(0x1F, readCB(0x749120), writeCB(0x749160), AtomicRightsStreamGetSize);
     status |= RpWorldRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
     status |= RpWorldRegisterPluginStream(0x1F, _rpWorldRightsStreamRead, _rpWorldRightsStreamWrite, sizeCB(0x761DE0));
     status |= RpWorldSectorRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
     status |= RpWorldSectorRegisterPluginStream(0x1F, _rpWorldSectorRightsStreamRead, _rpWorldSectorRightsStreamWrite, sizeCB(0x761E80));
     status |= RpMaterialRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
-    status |= RpMaterialRegisterPluginStream(0x1F, readCB(0x74D7D0), writeCB(0x74D810), sizeCB(0x74D850));
+    status |= RpMaterialRegisterPluginStream(0x1F, readCB(0x74D7D0), writeCB(0x74D810), MaterialRightsStreamGetSize);
 
     if (status < 0) {
         return FALSE;
@@ -8132,4 +8380,443 @@ void RpWorldInjectHooksR21A() {
     RH_ScopedGlobalInstall(_rwD3D9VSGetNormalInLocalSpace, 0x764D30);
     RH_ScopedGlobalInstall(_rwD3D9VSGetPointInLocalSpace, 0x764E70);
     RH_ScopedGlobalInstall(_rwD3D9VSGetRadiusInLocalSpace, 0x764F60);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lotes S23A, S24A y S25A (sin validar): callbacks de plugin y de flujo de RpWorld que antes ejecutaba el EXE (modulos de clump, geometria, material, mundo y ties; plugins de camara, atomo, clump y luz
+// del plugin 0x509; plugins de derechos 0x1F; flujos de malla 0x50E y 0x510) y los callbacks por defecto del clump. Las llamadoras propias usan estas funciones en lugar de la direccion del EXE.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+// 0x74A260 (lote S23A, sin validar; 5 bytes; cdecl, (clump, datos)): callback por defecto de clump; devuelve el clump.
+RpClump* ClumpDefaultCallBackFn(RpClump* clump, void* data) {
+    UNUSED(data);
+    return clump;
+}
+
+// 0x74A200 (lote S23A, sin validar; 52 bytes; cdecl, (camara, datos)): callback de RpClumpForAllCameras al destruir un clump: saca el enlace del plugin de la camara (camara + [0xC924D8]) de la lista del clump y lo pone a cero
+// (prev, next y clump), destruye la camara (RwCameraDestroy, 0x7EE4B0) y devuelve la camara.
+RwCamera* ClumpCameraDestroyCallBackFn(RwCamera* camera, void* data) {
+    UNUSED(data);
+    UnlinkListEntry(ListEntryOf(camera, s_cameraClumpOffset));
+    RwCameraDestroy(camera);
+    return camera;
+}
+
+inline RwUInt8* EngineBytes() { return reinterpret_cast<RwUInt8*>(RwEngineInstance); }
+inline RwFreeList*& EngineFreeListAt(RwInt32 offset, RwInt32 extra) { return *reinterpret_cast<RwFreeList**>(EngineBytes() + offset + extra); }
+}
+
+// 0x7491A0 (lote S23A, sin validar; 27 bytes; cdecl, (atomo, desplazamiento, tamano)): tamano del plugin de derechos de render (id 0x1F) del atomo: 8 si el atomo tiene tuberia (+0x6C) con pluginId (+0x2C) distinto de 0; si no 0.
+static RwInt32 AtomicRightsStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    const RxPipeline* const pipeline = static_cast<const RpAtomic*>(object)->pipeline;
+    if (pipeline != nullptr && pipeline->pluginId != 0) {
+        return 8;
+    }
+    return 0;
+}
+
+// 0x749760 (lote S23A, sin validar; 205 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x504 (modulo de clump): [0xC924AC] = desplazamiento; lista libre de atomicos (modulo +0) =
+// RwFreeListCreateAndPreallocateSpace(tamano del registro de atomos 0x8D624C, [0x8D627C], 4, [0x8D6280], 0xC92484, 0x40010); sin lista devuelve 0. Lista de clumps (+4) = (tamano del registro de clumps 0x8D6264, [0x8D6284], 4,
+// [0x8D6288], 0xC924B4, 0x40014): con lista [0xC924B0] += 1 y devuelve el objeto; sin ella destruye la de atomicos, la pone a NULL y devuelve 0.
+static void* ClumpModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    s_clumpModuleOffset = offsetInObject;
+    EngineFreeListAt(s_clumpModuleOffset, 0) = RwFreeListCreateAndPreallocateSpace(s_atomicTKList.sizeOfStruct, StaticRef<RwInt32>(0x8D627C), 4, StaticRef<RwInt32>(0x8D6280), reinterpret_cast<RwFreeList*>(0xC92484), 0x40010);
+    if (EngineFreeListAt(s_clumpModuleOffset, 0) == nullptr) {
+        return nullptr;
+    }
+    EngineFreeListAt(s_clumpModuleOffset, 4) = RwFreeListCreateAndPreallocateSpace(s_clumpTKList.sizeOfStruct, StaticRef<RwInt32>(0x8D6284), 4, StaticRef<RwInt32>(0x8D6288), reinterpret_cast<RwFreeList*>(0xC924B4), 0x40014);
+    if (EngineFreeListAt(s_clumpModuleOffset, 4) != nullptr) {
+        StaticRef<RwInt32>(0xC924B0) = StaticRef<RwInt32>(0xC924B0) + 1;
+        return object;
+    }
+    RwFreeListDestroy(EngineFreeListAt(s_clumpModuleOffset, 0));
+    EngineFreeListAt(s_clumpModuleOffset, 0) = nullptr;
+    return nullptr;
+}
+
+// 0x749480 (lote S23A, sin validar; 152 bytes; cdecl, (objeto, desplazamiento, tamano)): destructor del plugin 0x504: RwFreeListForAllUsed (0x801E90) sobre la lista de clumps (+4) con ClumpFreeListDestroyCallBack (0x749520) y datos 0 y
+// despues sobre la de atomicos (+0) con AtomicFreeListDestroyCallBack (0x7496A0); destruye la de atomicos y la de clumps (en ese orden) y las pone a NULL; [0xC924B0] -= 1; devuelve el objeto.
+static void* ClumpModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwFreeListForAllUsed(EngineFreeListAt(s_clumpModuleOffset, 4), ClumpFreeListDestroyCallBack, nullptr);
+    RwFreeListForAllUsed(EngineFreeListAt(s_clumpModuleOffset, 0), AtomicFreeListDestroyCallBack, nullptr);
+    RwFreeListDestroy(EngineFreeListAt(s_clumpModuleOffset, 0));
+    RwFreeListDestroy(EngineFreeListAt(s_clumpModuleOffset, 4));
+    EngineFreeListAt(s_clumpModuleOffset, 0) = nullptr;
+    EngineFreeListAt(s_clumpModuleOffset, 4) = nullptr;
+    StaticRef<RwInt32>(0xC924B0) = StaticRef<RwInt32>(0xC924B0) - 1;
+    return object;
+}
+
+// 0x749880 (lote S23A, sin validar; 23 bytes; cdecl, (camara, desplazamiento, tamano)): constructor del plugin de la camara que la enlaza a su clump (id 0x10, 12 bytes): pone a cero los tres dwords de camara + [0xC924D8]
+// (clump, enlace next y prev; ignora el desplazamiento recibido). Devuelve la camara.
+static void* CameraClumpLinkConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwUInt32* const data = reinterpret_cast<RwUInt32*>(static_cast<RwUInt8*>(object) + static_cast<uintptr_t>(s_cameraClumpLinkOffset));
+    data[2] = 0;
+    data[1] = 0;
+    data[0] = 0;
+    return object;
+}
+
+// 0x7498A0 (lote S23A, sin validar; 5 bytes): destructor del plugin anterior; no hace nada y devuelve el objeto.
+static void* CameraClumpLinkDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return object;
+}
+
+// 0x7498B0 (lote S23A, sin validar; 23 bytes): constructor del plugin de la luz que la enlaza a su clump (como el de camara con el desplazamiento de 0xC924DC). Devuelve la luz.
+static void* LightClumpLinkConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwUInt32* const data = reinterpret_cast<RwUInt32*>(static_cast<RwUInt8*>(object) + static_cast<uintptr_t>(s_lightClumpLinkOffset));
+    data[2] = 0;
+    data[1] = 0;
+    data[0] = 0;
+    return object;
+}
+
+// 0x7498D0 (lote S23A, sin validar; 5 bytes): destructor del plugin de luz; no hace nada y devuelve el objeto.
+static void* LightClumpLinkDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return object;
+}
+
+// 0x74BFA0 (lote S24A, sin validar; 25 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x503 (modulo de geometria): [0xC924E0] = desplazamiento; [0xC924E4] += 1; devuelve el objeto.
+static void* GeometryModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC924E0) = offsetInObject;
+    StaticRef<RwInt32>(0xC924E4) = StaticRef<RwInt32>(0xC924E4) + 1;
+    return object;
+}
+
+// 0x74BFC0 (lote S24A, sin validar; 16 bytes): destructor del plugin 0x503: [0xC924E4] -= 1; devuelve el objeto.
+static void* GeometryModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC924E4) = StaticRef<RwInt32>(0xC924E4) - 1;
+    return object;
+}
+
+// 0x74D850 (lote S24A, sin validar; 27 bytes; cdecl, (material, desplazamiento, tamano)): tamano del plugin de derechos de render (id 0x1F) del material: 8 si tiene tuberia (+8) con pluginId (+0x2C) distinto de 0; si no 0.
+static RwInt32 MaterialRightsStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    const RxPipeline* const pipeline = static_cast<const RpMaterial*>(object)->pipeline;
+    if (pipeline != nullptr && pipeline->pluginId != 0) {
+        return 8;
+    }
+    return 0;
+}
+
+// 0x74D8E0 (lote S24A, sin validar; 100 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x501 (modulo de materiales): [0xC92514] = desplazamiento; lista libre de materiales (motor + desplazamiento) =
+// RwFreeListCreateAndPreallocateSpace(tamano del registro de materiales 0x8D62A4, [0x8D62C8], 4, [0x8D62CC], 0xC924EC, 0x40007); sin lista devuelve 0; si no [0xC92518] += 1 y devuelve el objeto.
+static void* MaterialModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    s_materialGlobalsOffset = offsetInObject;
+    MaterialFreeList() = RwFreeListCreateAndPreallocateSpace(s_materialTKList.sizeOfStruct, StaticRef<RwInt32>(0x8D62C8), 4, StaticRef<RwInt32>(0x8D62CC), reinterpret_cast<RwFreeList*>(0xC924EC), 0x40007);
+    if (MaterialFreeList() == nullptr) {
+        return nullptr;
+    }
+    StaticRef<RwInt32>(0xC92518) = StaticRef<RwInt32>(0xC92518) + 1;
+    return object;
+}
+
+// 0x74D950 (lote S24A, sin validar; 61 bytes): destructor del plugin 0x501: destruye la lista libre de materiales si existe (RwFreeListDestroy) y la pone a NULL; [0xC92518] -= 1; devuelve el objeto.
+static void* MaterialModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    if (MaterialFreeList() != nullptr) {
+        RwFreeListDestroy(MaterialFreeList());
+        MaterialFreeList() = nullptr;
+    }
+    StaticRef<RwInt32>(0xC92518) = StaticRef<RwInt32>(0xC92518) - 1;
+    return object;
+}
+
+// 0x74FEE0 (lote S25A, sin validar; 121 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x507 (modulo de mundo): [0xC9254C] = desplazamiento; _rpWorldPipelinesOpen (0x75E310) (0 -> devuelve 0);
+// lista libre en motor + desplazamiento = RwFreeListCreateAndPreallocateSpace(0x10, 8, 4, 1, 0xC92528, 0x4000B) (sin lista devuelve 0); el enlace de motor + desplazamiento + 4 es un anillo vacio propio (next = prev = el mismo);
+// [0xC92550] += 1; devuelve el objeto.
+static void* WorldModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC9254C) = offsetInObject;
+    if (!_rpWorldPipelinesOpen()) {
+        return nullptr;
+    }
+    EngineFreeListAt(StaticRef<RwInt32>(0xC9254C), 0) = RwFreeListCreateAndPreallocateSpace(0x10, 8, 4, 1, reinterpret_cast<RwFreeList*>(0xC92528), 0x4000B);
+    if (EngineFreeListAt(StaticRef<RwInt32>(0xC9254C), 0) == nullptr) {
+        return nullptr;
+    }
+    RwLLLink* const sentinel = reinterpret_cast<RwLLLink*>(EngineBytes() + StaticRef<RwInt32>(0xC9254C) + 4);
+    sentinel->next = sentinel;
+    sentinel->prev = reinterpret_cast<RwLLLink*>(EngineBytes() + StaticRef<RwInt32>(0xC9254C) + 4);
+    StaticRef<RwInt32>(0xC92550) = StaticRef<RwInt32>(0xC92550) + 1;
+    return object;
+}
+
+// 0x74FE90 (lote S25A, sin validar; 66 bytes): destructor del plugin 0x507: destruye la lista libre (motor + [0xC9254C]) si existe y la pone a NULL; _rpWorldPipelinesClose (0x75E300); [0xC92550] -= 1; devuelve el objeto.
+static void* WorldModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    if (EngineFreeListAt(StaticRef<RwInt32>(0xC9254C), 0) != nullptr) {
+        RwFreeListDestroy(EngineFreeListAt(StaticRef<RwInt32>(0xC9254C), 0));
+        EngineFreeListAt(StaticRef<RwInt32>(0xC9254C), 0) = nullptr;
+    }
+    _rpWorldPipelinesClose();
+    StaticRef<RwInt32>(0xC92550) = StaticRef<RwInt32>(0xC92550) - 1;
+    return object;
+}
+
+// 0x750280 (lote S25A, sin validar; 225 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x509 (ties): [0xC9259C] = desplazamiento; lista libre de RpTie (motor + desplazamiento) =
+// RwFreeListCreateAndPreallocateSpace(0x18, [0x8D62E8], 4, [0x8D62EC], 0xC92578, 0x40507) (sin lista devuelve 0); lista de RpLightTie (+4) = (0x18, [0x8D62F0], 4, [0x8D62F4], 0xC92554, 0x40507) (sin ella destruye la
+// primera, la pone a NULL y devuelve 0). Despues pone la palabra del motor +8 a 1, el dword motor + desplazamiento + 8 (contador de ties) a 0, [0xC925A0] += 1 y devuelve el objeto.
+static void* TieModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC9259C) = offsetInObject;
+    EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 0) = RwFreeListCreateAndPreallocateSpace(0x18, StaticRef<RwInt32>(0x8D62E8), 4, StaticRef<RwInt32>(0x8D62EC), reinterpret_cast<RwFreeList*>(0xC92578), 0x40507);
+    if (EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 0) == nullptr) {
+        return nullptr;
+    }
+    EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 4) = RwFreeListCreateAndPreallocateSpace(0x18, StaticRef<RwInt32>(0x8D62F0), 4, StaticRef<RwInt32>(0x8D62F4), reinterpret_cast<RwFreeList*>(0xC92554), 0x40507);
+    if (EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 4) == nullptr) {
+        RwFreeListDestroy(EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 0));
+        EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 0) = nullptr;
+        return nullptr;
+    }
+    *reinterpret_cast<RwUInt16*>(EngineBytes() + 8) = 1;
+    *reinterpret_cast<RwUInt32*>(EngineBytes() + StaticRef<RwInt32>(0xC9259C) + 8) = 0;
+    StaticRef<RwInt32>(0xC925A0) = StaticRef<RwInt32>(0xC925A0) + 1;
+    return object;
+}
+
+// 0x750370 (lote S25A, sin validar; 109 bytes): destructor del plugin 0x509: destruye la lista de RpLightTie (+4) y despues la de RpTie (+0), cada una solo si existe y poniendola a NULL; [0xC925A0] -= 1; devuelve el objeto.
+static void* TieModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    if (EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 4) != nullptr) {
+        RwFreeListDestroy(EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 4));
+        EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 4) = nullptr;
+    }
+    if (EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 0) != nullptr) {
+        RwFreeListDestroy(EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 0));
+        EngineFreeListAt(StaticRef<RwInt32>(0xC9259C), 0) = nullptr;
+    }
+    StaticRef<RwInt32>(0xC925A0) = StaticRef<RwInt32>(0xC925A0) - 1;
+    return object;
+}
+
+// 0x7503E0 (lote S25A, sin validar; 67 bytes; cdecl, (camara, desplazamiento, tamano)): constructor del plugin 0x509 de la camara (28 bytes en camara + [0xC925A4]): +0, +4 y +8 a cero; guarda en +0x10, +0x14 y +0x18 los dwords
+// +0x18, +0x1C y +0x10 de la camara (punteros de funcion originales) y los sustituye por 0x750430 (+0x18), 0x750460 (+0x1C) y 0x750480 (+0x10) del EXE (envolturas que aun no estan reconstruidas); +0xC = 0. Devuelve la camara.
+static void* CameraWorldPluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwUInt8* const camera = static_cast<RwUInt8*>(object);
+    RwUInt32* const data = reinterpret_cast<RwUInt32*>(camera + static_cast<uintptr_t>(StaticRef<RwInt32>(0xC925A4)));
+    data[0] = 0;
+    data[1] = 0;
+    data[2] = 0;
+    data[4] = *reinterpret_cast<RwUInt32*>(camera + 0x18);
+    data[5] = *reinterpret_cast<RwUInt32*>(camera + 0x1C);
+    data[6] = *reinterpret_cast<RwUInt32*>(camera + 0x10);
+    *reinterpret_cast<RwUInt32*>(camera + 0x10) = 0x750480;
+    *reinterpret_cast<RwUInt32*>(camera + 0x18) = 0x750430;
+    *reinterpret_cast<RwUInt32*>(camera + 0x1C) = 0x750460;
+    data[3] = 0;
+    return object;
+}
+
+// 0x750710 (lote S25A, sin validar; 72 bytes; cdecl, (destino, origen, desplazamiento, tamano)): copia del plugin 0x509 de la camara: pone a cero +0, +4 y +8 de los datos del destino (destino + [0xC925A4]); si el origen tiene
+// mundo (+0xC de sus datos): con marco padre en el destino (+4) hace RwFrameUpdateObjects (0x7F0910) y copia el mundo a +0xC de los datos del destino. Devuelve el destino.
+static void* CameraWorldPluginCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwUInt8* const dst = static_cast<RwUInt8*>(dstObject);
+    const RwUInt8* const src = static_cast<const RwUInt8*>(srcObject);
+    RwUInt32* const dstData = reinterpret_cast<RwUInt32*>(dst + static_cast<uintptr_t>(StaticRef<RwInt32>(0xC925A4)));
+    const RwUInt32* const srcData = reinterpret_cast<const RwUInt32*>(src + static_cast<uintptr_t>(StaticRef<RwInt32>(0xC925A4)));
+    dstData[0] = 0;
+    dstData[1] = 0;
+    dstData[2] = 0;
+    const RwUInt32 world = srcData[3];
+    if (world != 0) {
+        RwFrame* const frame = *reinterpret_cast<RwFrame**>(dst + 4);
+        if (frame != nullptr) {
+            RwFrameUpdateObjects(frame);
+        }
+        reinterpret_cast<RwUInt32*>(dst + static_cast<uintptr_t>(StaticRef<RwInt32>(0xC925A4)))[3] = world;
+    }
+    return dstObject;
+}
+
+// 0x7507B0 (lote S25A, sin validar; 48 bytes; cdecl, (atomo, desplazamiento, tamano)): constructor del plugin 0x509 del atomo (8 bytes en atomo + [0xC925A8]): +0 = 0; la palabra +0x60 del atomo = (palabra del motor +8) - 1;
+// +4 = el dword +0x10 del atomo (render callback) y ese dword pasa a ser 0x7507E0 del EXE (envoltura sin reconstruir). Devuelve el atomo.
+static void* AtomicWorldPluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwUInt8* const atomic = static_cast<RwUInt8*>(object);
+    RwUInt32* const data = reinterpret_cast<RwUInt32*>(atomic + static_cast<uintptr_t>(StaticRef<RwInt32>(0xC925A8)));
+    data[0] = 0;
+    const RwUInt16 frame = static_cast<RwUInt16>(*reinterpret_cast<RwUInt16*>(EngineBytes() + 8) - 1);
+    *reinterpret_cast<RwUInt16*>(atomic + 0x60) = frame;
+    data[1] = *reinterpret_cast<RwUInt32*>(atomic + 0x10);
+    *reinterpret_cast<RwUInt32*>(atomic + 0x10) = 0x7507E0;
+    return object;
+}
+
+// 0x7509A0 (lote S25A, sin validar; 5 bytes): copia del plugin 0x509 del atomo; no hace nada y devuelve el destino.
+static void* AtomicWorldPluginCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(srcObject); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return dstObject;
+}
+
+// 0x750A30 (lote S25A, sin validar; 40 bytes; cdecl, (clump, desplazamiento, tamano)): constructor del plugin 0x509 del clump (8 bytes en clump + [0xC925AC]): +0 = 0 (mundo) y +4 = el dword motor + [0xC9259C] + 8 (contador
+// de ties). Devuelve el clump.
+static void* ClumpWorldPluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwUInt32* const data = reinterpret_cast<RwUInt32*>(static_cast<RwUInt8*>(object) + static_cast<uintptr_t>(s_clumpWorldOffset));
+    data[0] = 0;
+    data[1] = *reinterpret_cast<RwUInt32*>(EngineBytes() + StaticRef<RwInt32>(0xC9259C) + 8);
+    return object;
+}
+
+// 0x750A60 (lote S25A, sin validar; 41 bytes; cdecl, (destino, origen, desplazamiento, tamano)): copia del plugin 0x509 del clump: si el origen esta en un mundo (clump + [0xC925AC], +0) mete el destino en ese mundo con
+// RpWorldAddClump (0x751300). Devuelve el destino.
+static void* ClumpWorldPluginCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RpWorld* const world = *reinterpret_cast<RpWorld* const*>(static_cast<const RwUInt8*>(srcObject) + static_cast<uintptr_t>(s_clumpWorldOffset));
+    if (world != nullptr) {
+        RpWorldAddClump(world, static_cast<RpClump*>(dstObject));
+    }
+    return dstObject;
+}
+
+// 0x750A90 (lote S25A, sin validar; 5 bytes): destructor del plugin 0x509 del clump; no hace nada y devuelve el objeto.
+static void* ClumpWorldPluginDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return object;
+}
+
+// 0x750AA0 (lote S25A, sin validar; 32 bytes; cdecl, (luz, desplazamiento, tamano)): constructor del plugin 0x509 de la luz (8 bytes en luz + [0xC925B0]): +0 = 0 (mundo) y +4 = el dword +0x10 de la luz, que pasa a ser 0x750AC0
+// del EXE (envoltura sin reconstruir). Devuelve la luz.
+static void* LightWorldPluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwUInt8* const light = static_cast<RwUInt8*>(object);
+    RwUInt32* const data = reinterpret_cast<RwUInt32*>(light + static_cast<uintptr_t>(s_lightWorldOffset));
+    data[0] = 0;
+    data[1] = *reinterpret_cast<RwUInt32*>(light + 0x10);
+    *reinterpret_cast<RwUInt32*>(light + 0x10) = 0x750AC0;
+    return object;
+}
+
+// 0x750CD0 (lote S25A, sin validar; 85 bytes; cdecl, (destino, origen, desplazamiento, tamano)): copia del plugin 0x509 de la luz: si el origen esta en un mundo (luz + [0xC925B0], +0) mete el destino en ese mundo
+// (guarda el mundo en sus datos; subTipo < 0x80 -> lista de luces direccionales (+0x3C) sin tocar el marco; el resto actualiza el marco padre y va a la lista de luces (+0x34)): es RpWorldAddLight. Devuelve el destino.
+static void* LightWorldPluginCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RpWorld* const world = *reinterpret_cast<RpWorld* const*>(static_cast<const RwUInt8*>(srcObject) + static_cast<uintptr_t>(s_lightWorldOffset));
+    if (world != nullptr) {
+        RpWorldAddLight(world, static_cast<RpLight*>(dstObject));
+    }
+    return dstObject;
+}
+
+// 0x750D90 (lote S25A, sin validar; 27 bytes; cdecl, (flujo, longitud, geometria, desplazamiento, tamano)): escritura del plugin de malla 0x50E de la geometria: _rpMeshWrite (0x758D70) con la cabecera de mallas (+0x54), la geometria,
+// el flujo y la lista de materiales (+0x20). Devuelve su resultado.
+static RwStream* GeometryMeshStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(binaryLength); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    const RpGeometry* const geometry = static_cast<const RpGeometry*>(object);
+    static_assert(offsetof(RpGeometry, matList) == 0x20 && offsetof(RpGeometry, mesh) == 0x54);
+    return _rpMeshWrite(geometry->mesh, geometry, stream, &geometry->matList);
+}
+
+// 0x750DE0 (lote S25A, sin validar; 18 bytes; cdecl, (geometria, desplazamiento, tamano)): tamano del plugin de malla 0x50E: _rpMeshSize (0x759090) con la cabecera de mallas (+0x54) y la geometria.
+static RwInt32 GeometryMeshStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    const RpGeometry* const geometry = static_cast<const RpGeometry*>(object);
+    return _rpMeshSize(geometry->mesh, geometry);
+}
+
+// 0x750E00 (lote S25A, sin validar; 19 bytes; cdecl, (flujo, longitud, geometria, desplazamiento, tamano)): escritura del plugin nativo 0x510: _rpD3D9GeometryNativeWrite (0x7637F0) con el flujo y la geometria. Devuelve su resultado.
+static RwStream* GeometryNativeStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(binaryLength); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return _rpD3D9GeometryNativeWrite(stream, const_cast<RpGeometry*>(static_cast<const RpGeometry*>(object)));
+}
+
+// 0x750E20 (lote S25A, sin validar; 27 bytes; cdecl, (flujo, longitud, geometria, desplazamiento, tamano)): lectura del plugin nativo 0x510: _rpD3D9GeometryNativeRead (0x763A80); devuelve el flujo si su resultado no es NULL, si no NULL.
+static RwStream* GeometryNativeStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(binaryLength); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return _rpD3D9GeometryNativeRead(stream, static_cast<RpGeometry*>(object)) != nullptr ? stream : nullptr;
+}
+
+// Lotes S23A, S24A y S25A (sin validar): ganchos de los callbacks y funciones reconstruidas de RpWorld.
+void RpWorldInjectHooksS23A25A() {
+    RH_ScopedCategory("Plugins");
+    RH_ScopedNamespaceName("RpWorld");
+
+    RH_ScopedGlobalInstall(AtomicRightsStreamGetSize, 0x7491A0);        // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(ClumpModuleDestruct, 0x749480);              // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpAtomicSetFreeListCreateParams, 0x749720);  // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpSetFreeListCreateParams, 0x749740);   // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(ClumpModuleConstruct, 0x749760);             // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(CameraClumpLinkConstruct, 0x749880);         // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(CameraClumpLinkDestruct, 0x7498A0);          // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(LightClumpLinkConstruct, 0x7498B0);          // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(LightClumpLinkDestruct, 0x7498D0);           // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpGetNumLights, 0x749910);              // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpGetNumCameras, 0x749940);             // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpLightGetClump, 0x749E40);                  // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RwCameraGetClump, 0x749E50);                 // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(ClumpCameraDestroyCallBackFn, 0x74A200);     // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpSetCallBack, 0x74A240);               // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(ClumpDefaultCallBackFn, 0x74A260);           // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpGetCallBack, 0x74A270);               // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpAddLight, 0x74A4F0);                  // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpAddCamera, 0x74A550);                 // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpRemoveCamera, 0x74A580);              // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpAtomicStreamRead, 0x74B030);               // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(_rpClumpChunkInfoRead, 0x74BD40);            // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpSetStreamAlwaysCallBack, 0x74BEA0);   // lote S23A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpGetPluginOffset, 0x74BEE0);           // lote S23A (sin validar)
+
+    RH_ScopedGlobalInstall(RpAtomicValidatePlugins, 0x74BF00);          // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpValidatePlugins, 0x74BF10);           // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(GeometryModuleConstruct, 0x74BFA0);          // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(GeometryModuleDestruct, 0x74BFC0);           // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpGeometryAddMorphTarget, 0x74C4D0);         // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpGeometryTriangleGetVertexIndices, 0x74C720); // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpGeometryForAllMeshes, 0x74CA60);           // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpGeometrySetStreamAlwaysCallBack, 0x74CDD0); // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpGeometryGetPluginOffset, 0x74CDF0);        // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpGeometryValidatePlugins, 0x74CE10);        // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpGeometryStreamGetSize, 0x74CE20);          // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(_rpGeometryChunkInfoRead, 0x74D750);         // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(MaterialRightsStreamGetSize, 0x74D850);      // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpMaterialSetFreeListCreateParams, 0x74D8C0); // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(MaterialModuleConstruct, 0x74D8E0);          // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(MaterialModuleDestruct, 0x74D950);           // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpMaterialSetStreamAlwaysCallBack, 0x74DC50); // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpMaterialSetStreamRightsCallBack, 0x74DC70); // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpMaterialGetPluginOffset, 0x74DC90);        // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpMaterialValidatePlugins, 0x74DCB0);        // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(_rpMaterialChunkInfoRead, 0x74DCC0);         // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpMaterialStreamWrite, 0x74E050);            // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldLock, 0x74F1A0);                      // lote S24A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldSetSectorRenderCallBack, 0x74F730);   // lote S24A (sin validar)
+
+    RH_ScopedGlobalInstall(RpWorldGetSectorRenderCallBack, 0x74F750);   // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldSetStreamAlwaysCallBack, 0x74FD30);   // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldSetStreamRightsCallBack, 0x74FD50);   // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldGetPluginOffset, 0x74FD70);           // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldValidatePlugins, 0x74FD90);           // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(WorldModuleDestruct, 0x74FE90);              // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(WorldModuleConstruct, 0x74FEE0);             // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(RpTieSetFreeListCreateParams, 0x74FF60);     // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(RpLightTieSetFreeListCreateParams, 0x74FF80); // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(TieModuleConstruct, 0x750280);               // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(TieModuleDestruct, 0x750370);                // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(CameraWorldPluginConstruct, 0x7503E0);       // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(CameraWorldPluginCopy, 0x750710);            // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(AtomicWorldPluginConstruct, 0x7507B0);       // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(AtomicWorldPluginCopy, 0x7509A0);            // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(ClumpWorldPluginConstruct, 0x750A30);        // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(ClumpWorldPluginCopy, 0x750A60);             // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(ClumpWorldPluginDestruct, 0x750A90);         // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(LightWorldPluginConstruct, 0x750AA0);        // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(LightWorldPluginCopy, 0x750CD0);             // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(GeometryMeshStreamWrite, 0x750D90);          // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(GeometryMeshStreamGetSize, 0x750DE0);        // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(GeometryNativeStreamWrite, 0x750E00);        // lote S25A (sin validar)
+    RH_ScopedGlobalInstall(GeometryNativeStreamRead, 0x750E20);         // lote S25A (sin validar)
 }
