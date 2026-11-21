@@ -45,3 +45,6 @@ Todas reconstruidas y enganchadas (14 de 14). Particularidades conservadas: RtAn
 - 0x543100 ApplyFrictionTurnForce, 0x544100 ApplySpringDampeningOld, 0x546ED0 ApplyScriptCollision: x87 largos, sin llamadores (funciones sin uso); pendientes.
 - 0x7469A0 diMouseInit: ya reconstruida pero bloqueada (el hook da ACCESS DENIED); sin cambios.
 - 0x4A2BB0 (jmp 4A9F40, destructor de FxPrim_c) y 0x4CCE60 (callback de raster): excluidas del plan.
+
+## Compilacion
+Primera pasada del build (log D:\Original\_build_S2A5A6A.log, candado propio): rtanim/rtbmp/rtdict/rtquat, RwHelper, Lines, Garages, Game, Camera, Quaternion, AudioZones, Ped, CollisionPlugin, FxInfoAttractLine y WinInput compilaron sin errores. Al redactar esto el build seguia en curso (varias pasadas con PCH, MP1) sin ningun error C y sin enlazar; FxInterpInfoFloat.cpp y Sprite2d.cpp aun sin confirmar en el log. Revisar `EXIT=` al final del log.
