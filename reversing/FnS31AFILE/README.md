@@ -54,7 +54,7 @@ Total: 8.000 escenarios, 40.000 comparaciones de tiras y 8.000 de geometria, 0 d
 
 ## 4. Verificacion y lo que queda
 
-- Compilacion del proyecto (Debug): ver el informe final (rama `s31a-file`, `_build_S31AFILE.log`).
-- Sesion de humo: solo tiene sentido en el juego; estas funciones solo corren al generar tiras de triangulos (`RpMeshSetTriStripMethod` con el generador de tunel o por defecto) y al ordenar geometrias por material.
+- Compilacion del proyecto (Debug, `_build_S31AFILE.sh` con el candado `compile_lock`): `EXIT=0` (`D:\Original\_build_S31AFILE.log`); `contrib/audit_hook_catalog.py --strict` OK; `audit_cpp_assembly.py`: 0 ocurrencias de `__asm`/`naked`.
+- Sesion de humo (`prueba_humo.py`, copia de `FnBIS1/prueba_ropero.py` generada por `mk_humo.py` que prueba la DLL de este arbol con `jugar.ps1 -Variante X`; espero a que el juego del usuario terminara): `cal_mal.args`, **VEREDICTO BIEN** (puerta True, marcador True, 15 entidades, 12 marcadores; sin cierres del juego). Ojo: estas funciones solo corren al generar tiras de triangulos (`RpMeshSetTriStripMethod` con el generador de tunel o por defecto) y al ordenar geometrias por material, y no hay garantia de que esa escena las ejerza; la evidencia fuerte de equivalencia es el banco de arriba.
 - Pendiente: limpieza a nombres de dominio de las cinco transcripciones; `RpGeometrySortByMaterial` contra el motor real (hace falta un banco con RenderWare inicializado).
 - Herramientas: `desens.py`/`nombres.py`/`fns.py` (desensamblado con capstone y mapa de funciones), `dis_*.txt` (desensamblados con nombres), `chk.bat`/`chk.ps1` (comprobacion de sintaxis `cl /Zs`).
