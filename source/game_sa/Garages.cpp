@@ -31,6 +31,7 @@ void CGarages::InjectHooks() {
     RH_ScopedInstall(GivePlayerDetonator, 0x448660); // lote 150A (banco Fn150A)
     RH_ScopedInstall(Init, 0x447120);
     RH_ScopedInstall(Init_AfterRestart, 0x448B60);
+    RH_ScopedInstall(StopCarFromBlowingUp, 0x448890); // lote S2A (sin validar)
     RH_ScopedInstall(Shutdown, 0x4471B0);
     RH_ScopedInstall(AddOne, 0x4471E0);
     RH_ScopedInstall(CloseHideOutGaragesBeforeSave, 0x44A170);
@@ -679,20 +680,21 @@ void CGarages::StoreCarInNearestImpoundingGarage(CVehicle* vehicle) {
     stored[count].StoreCar(vehicle);
 }
 
-// unused
-// 0x448890
+static_assert(offsetof(CAutomobile, m_fBurnTimer) == 0x8E4 && offsetof(CAutomobile, m_fHealth) == 0x4C0);
+// 0x448890 (lote S2A, sin validar; cdecl, un argumento, 106 bytes): pone m_fBurnTimer (+0x8E4) a 0; la salud (+0x4C0) queda en 300 salvo que sea MAYOR que 300 (comparacion del EXE:
+// `fcomp` + `test ah,41h` + `jne`: con 300 o menos y con NaN pasa a 300, no solo con `<=`); y el estado del motor del gestor de danos (+0x5A0) pasa a SetEngineStatus(max(estado, 275))
+// (SetEngineStatus limita a 250: con estado < 275 el EXE llama a Set(275) y queda 250).
 void CGarages::StopCarFromBlowingUp(CAutomobile* vehicle) {
-    return plugin::Call<0x448890, CVehicle*>(vehicle);
-
-    // untested
     vehicle->m_fBurnTimer = 0.0f;
-    vehicle->m_fHealth = vehicle->m_fHealth <= 300.0f ? 300.0f : vehicle->m_fHealth;
+    if (!(vehicle->m_fHealth > 300.0f)) {
+        vehicle->m_fHealth = 300.0f;
+    }
 
     auto& manager = vehicle->m_damageManager;
-    if (manager.GetEngineStatus() >= 275) {
-        manager.SetEngineStatus(manager.GetEngineStatus());
-    } else {
+    if (manager.GetEngineStatus() < 275u) {
         manager.SetEngineStatus(275u);
+    } else {
+        manager.SetEngineStatus(manager.GetEngineStatus());
     }
 }
 

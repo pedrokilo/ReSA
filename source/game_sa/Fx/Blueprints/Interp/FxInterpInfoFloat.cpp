@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 
 #include "FxInterpInfoFloat.h"
 #include "FxManager.h"
+#include "X87Math.h"
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
@@ -36,6 +37,7 @@ void FxInterpInfoFloat_c::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x004A8460);
     RH_ScopedInstall(ScalarDeletingDestructor, 0x004A8D30);
     RH_ScopedOverloadedInstall(GetVal, "values", 0x4A8470, void (FxInterpInfoFloat_c::*)(float*, float));
+    RH_ScopedOverloadedInstall(GetVal, "attrib", 0x4A85C0, float (FxInterpInfoFloat_c::*)(int32, float, float)); // lote S2A (sin validar)
 }
 
 // 0x4A8440
@@ -93,9 +95,77 @@ void FxInterpInfoFloat_c::Allocate(int32 count) {
     m_Keys = g_fxMan.Allocate<float*>(count);
 }
 
-// 0x4A85C0
+// 0x4A85C0 (lote S2A, sin validar; thiscall, tres argumentos de pila, `ret 0Ch`, 515 bytes): integral de la curva de claves `attrib` (lineal a trozos; m_pTimes en 1/256) entre t0 = time - deltaTime y
+// `time`. Aritmetica de la x87 a 24 bits con la pila sin guardar (Veh83D*): solo se guardan como float Tc/Tp dentro del bucle (fstp dword) y el resultado se devuelve en ST0.
+//  - una clave (m_nNumKeys == 1): deltaTime * clave[0].
+//  - se busca la primera clave i con t0 < T[i] (T = tiempo * 1/256; comparacion ordenada). Si no hay ninguna: deltaTime * clave[numKeys - 1] (lee clave[-1] con 0 claves, como el EXE);
+//    con numKeys < 0 devuelve 0. Si i == 0 el valor inicial Y = clave[0]; si no, Y = interpolacion de la clave i-1 a la i en t0.
+//  - desde la clave i, por cada clave: Tc/Tp (guardados como float; Tp = tiempo de la clave anterior, para i == 0 lee el uint16 anterior al vector, como el EXE); si Tc == time: suma
+//    ((clave - Y) * 0.5 + Y) * (Tc - t0) y termina; si Tc < time: suma lo mismo, Y = clave, t0 = Tc y sigue; si Tc > time: Vend = clave[i-1] + (time - Tp) / (Tc - Tp) * (clave[i] - clave[i-1]),
+//    suma ((Vend - Y) * 0.5 + Y) * (time - t0) y termina; con NaN en la comparacion sigue sin sumar. Si se agotan las claves suma un ultimo trapecio con el ultimo tiempo (ancho Tlast - t0).
 float FxInterpInfoFloat_c::GetVal(int32 attrib, float time, float deltaTime) {
-    return plugin::CallMethodAndReturn<float, 0x4A85C0, FxInterpInfoFloat_c*, int32, float, float>(this, attrib, time, deltaTime);
+    constexpr double kTimeScale = 0.00390625; // 0x859AA0
+    constexpr double kHalf      = 0.5;        // 0x858B8C
+    if (m_nNumKeys == 1) {
+        return Veh83DStore(Veh83DMul(deltaTime, m_Keys[attrib][0]));
+    }
+
+    double t0     = Veh83DSub(time, deltaTime);
+    const int32 numKeys = m_nNumKeys; // int8 con signo (movsx)
+    double acc    = 0.0;
+    int32 index   = 0;
+    double keyTime = 0.0;
+    bool found    = false;
+    for (; index < numKeys; ++index) {
+        keyTime = Veh83DMul(m_pTimes[index], kTimeScale);
+        if (t0 < keyTime) {
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        if (index == numKeys) {
+            return Veh83DStore(Veh83DMul(deltaTime, m_Keys[attrib][index - 1]));
+        }
+        return Veh83DStore(acc);
+    }
+
+    const float* const keys = m_Keys[attrib];
+    double current;
+    if (index <= 0) {
+        current = keys[0];
+    } else {
+        const double previousTime = Veh83DMul(m_pTimes[index - 1], kTimeScale);
+        const double fraction     = Veh83DDiv(Veh83DSub(t0, previousTime), Veh83DSub(keyTime, previousTime));
+        current = Veh83DAdd(Veh83DMul(fraction, Veh83DSub(keys[index], keys[index - 1])), keys[index - 1]);
+    }
+
+    for (; index < numKeys; ++index) {
+        const float timeCurrent  = Veh83DStore(Veh83DMul(m_pTimes[index], kTimeScale));
+        const float timePrevious = Veh83DStore(Veh83DMul(m_pTimes[index - 1], kTimeScale));
+        if (timeCurrent == time) {
+            const double mid = Veh83DAdd(Veh83DMul(Veh83DSub(keys[index], current), kHalf), current);
+            acc = Veh83DAdd(acc, Veh83DMul(mid, Veh83DSub(timeCurrent, t0)));
+            return Veh83DStore(acc);
+        }
+        if (timeCurrent < time) {
+            const double mid = Veh83DAdd(Veh83DMul(Veh83DSub(keys[index], current), kHalf), current);
+            acc     = Veh83DAdd(acc, Veh83DMul(mid, Veh83DSub(timeCurrent, t0)));
+            current = keys[index];
+            t0      = timeCurrent;
+        } else if (timeCurrent > time) {
+            const double fraction = Veh83DDiv(Veh83DSub(time, timePrevious), Veh83DSub(timeCurrent, timePrevious));
+            const double end      = Veh83DAdd(Veh83DMul(fraction, Veh83DSub(keys[index], keys[index - 1])), keys[index - 1]);
+            const double mid      = Veh83DAdd(Veh83DMul(Veh83DSub(end, current), kHalf), current);
+            acc = Veh83DAdd(acc, Veh83DMul(mid, Veh83DSub(time, t0)));
+            return Veh83DStore(acc);
+        }
+    }
+
+    const double lastTime = Veh83DMul(m_pTimes[index - 1], kTimeScale);
+    const double mid      = Veh83DAdd(Veh83DMul(Veh83DSub(keys[index - 1], current), kHalf), current);
+    acc = Veh83DAdd(acc, Veh83DMul(mid, Veh83DSub(lastTime, t0)));
+    return Veh83DStore(acc);
 }
 
 // 0x4A8470

@@ -19,6 +19,9 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "FxInfoAttractLine.h"
+#include "X87Math.h"
+
+void FindClosestPtOnLine(CVector& out, CVector& lineA, CVector& lineB, CVector& point);
 
 void FxInfoAttractLine_c::InjectHooks() {
     RH_ScopedClass(FxInfoAttractLine_c);
@@ -27,6 +30,7 @@ void FxInfoAttractLine_c::InjectHooks() {
     RH_ScopedInstall(Constructor, 0x4A57C0); // lote 215A (sin validar)
     RH_ScopedInstall(ScalarDeletingDestructor, 0x4A7020);
     RH_ScopedInstall(DestructorBody, 0x4A7040);
+    RH_ScopedGlobalInstall(FindClosestPtOnLine, 0x4A4880); // lote S2A (sin validar)
 }
 
 // 0x4A57C0
@@ -40,16 +44,30 @@ void FxInfoAttractLine_c::Load(FILESTREAM file, int32 version) {
     m_InterpInfo.Load(file);
 }
 
-// 0x4A4880
+// 0x4A4880 (lote S2A, sin validar; cdecl, cuatro referencias, 185 bytes): punto de la recta A-B mas cercano a `point`. Aritmetica de la x87 a 24 bits con la pila sin guardar (Veh83D*):
+// d = B - A por componentes (dx tambien se guarda como float: se usa asi en el producto escalar y en la salida); dot = ((p.z - a.z) * dz + (p.y - a.y) * dy) + (p.x - a.x) * dxF;
+// t = dot / ((dz*dz + dy*dy) + dx*dx); t < 0 -> 0 (ordenado); t > 1 -> 1 (ordenado; con NaN no se toca); salida = d * t + A por componente (x, y, z en ese orden y cada resta de B - A
+// se recalcula leyendo la memoria en ese momento: con `out` alias de A o B las lecturas de y y z ya ven la escritura anterior solo en su propio componente).
 void FindClosestPtOnLine(CVector& out, CVector& lineA, CVector& lineB, CVector& point) {
-    return plugin::Call<0x4A4880, CVector&, CVector&, CVector&, CVector&>(out, lineA, lineB, point);
+    const double dx = Veh83DSub(lineB.x, lineA.x);
+    const float  dxStored = Veh83DStore(dx);
+    const double dy = Veh83DSub(lineB.y, lineA.y);
+    const double dz = Veh83DSub(lineB.z, lineA.z);
 
-    const auto a = DistanceBetweenPoints(point, lineA);
-    const auto b = DistanceBetweenPoints(lineB, lineA);
-    const auto a3m2 = lineB - lineA;
-    const auto a4m2 = point - lineA;
-    float v9 = DotProduct(a4m2, a3m2) / a3m2.SquaredMagnitude();
-    out = a3m2 * std::clamp(v9, 0.0f, 1.0f) + lineA;
+    const double termZ = Veh83DMul(Veh83DSub(point.z, lineA.z), Veh83DSub(lineB.z, lineA.z));
+    const double termY = Veh83DMul(Veh83DSub(point.y, lineA.y), Veh83DSub(lineB.y, lineA.y));
+    const double dot   = Veh83DAdd(Veh83DAdd(termZ, termY), Veh83DMul(Veh83DSub(point.x, lineA.x), dxStored));
+    const double sumSq = Veh83DAdd(Veh83DAdd(Veh83DMul(dz, dz), Veh83DMul(dy, dy)), Veh83DMul(dx, dx));
+    double t = Veh83DDiv(dot, sumSq);
+    if (t < 0.0) {
+        t = 0.0;
+    } else if (t > 1.0) {
+        t = 1.0;
+    }
+
+    out.x = Veh83DStore(Veh83DAdd(Veh83DMul(dxStored, t), lineA.x));
+    out.y = Veh83DStore(Veh83DAdd(Veh83DMul(Veh83DSub(lineB.y, lineA.y), t), lineA.y));
+    out.z = Veh83DStore(Veh83DAdd(Veh83DMul(Veh83DSub(lineB.z, lineA.z), t), lineA.z));
 }
 
 // 0x4A5850

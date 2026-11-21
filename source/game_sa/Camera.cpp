@@ -278,6 +278,7 @@ void CCamera::InjectHooks() {
     RH_ScopedOverloadedInstall(ProcessFOVLerp, "0", 0x50D510, void(CCamera::*)(float));
     RH_ScopedOverloadedInstall(ProcessFOVLerp, "1", 0x516500, void(CCamera::*)());
     RH_ScopedOverloadedInstall(ProcessShake, "float", 0x516560, CVector*(CCamera::*)(float));
+    RH_ScopedOverloadedInstall(ProcessShake, "void", 0x51A6F0, void(CCamera::*)()); // lote S2A (sin validar)
 
     RH_ScopedGlobalInstall(CamShakeNoPos, 0x50A970);
 }
@@ -2549,10 +2550,15 @@ void CCamera::ProcessVectorMoveLinear() {
     }
 }
 
-// unused
-// 0x51A6F0
+static_assert(offsetof(CCamera, m_fStartShakeTime) == 0xC94 && offsetof(CCamera, m_fEndShakeTime) == 0xC98);
+// 0x51A6F0 (lote S2A, sin validar; thiscall sin argumentos, 70 bytes): ahora = CTimer::m_snTimeInMilliseconds (0xB7CB84) como entero con signo cargado con fild (+2^32 si es negativo, redondeado a 24 bits).
+// Si ahora <= m_fEndShakeTime (comparacion ordenada del EXE: false con NaN) llama a ProcessShake(float) (0x516560) con (ahora - m_fStartShakeTime) / (m_fEndShakeTime - m_fStartShakeTime) calculado en
+// la x87 a 24 bits (los dos numeradores y el cociente sin guardar) y guardado como float; si no, no hace nada.
 void CCamera::ProcessShake() {
-    plugin::CallMethod<0x51A6F0, CCamera*>(this);
+    const double now = CameraLinearTime();
+    if (now <= m_fEndShakeTime) {
+        ProcessShake(Veh83DStore(Veh83DDiv(Veh83DSub(now, m_fStartShakeTime), Veh83DSub(m_fEndShakeTime, m_fStartShakeTime))));
+    }
 }
 
 // shakeIntensity not used

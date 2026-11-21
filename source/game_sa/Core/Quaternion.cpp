@@ -41,6 +41,7 @@ void CQuaternion::InjectHooks() {
     RH_ScopedOverloadedInstall(Set, "euler", 0x59C530, void (CQuaternion::*)(float, float, float));
     RH_ScopedInstall(Conjugate, 0x4D37D0);
     RH_ScopedInstall(Copy, 0x4CF9E0); // lote S1A (sin validar)
+    RH_ScopedInstall(Scale, 0x4CF9B0); // lote S2A (sin validar)
     RH_ScopedInstall(Normalise, 0x4D1610); // lote 214A (sin validar)
     RH_ScopedOverloadedInstall(Slerp, "halftheta", 0x59C300, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float, float, float));
     RH_ScopedOverloadedInstall(Slerp, "t", 0x59C630, void (CQuaternion::*)(const CQuaternion&, const CQuaternion&, float));
@@ -164,8 +165,13 @@ float CQuaternion::GetLengthSquared() const {
 }
 
 // Multiplies quat by a floating point value
+// 0x4CF9B0 (lote S2A, sin validar; thiscall, un argumento de pila, `ret 4`, 41 bytes): x, y, z y w por separado (en ese orden) = multiplicador * componente: fld arg; fmul [campo]; fstp [campo]
+// con la x87 a 24 bits (producto redondeado a 24 bits con exponente ampliado y luego a float, desnormales incluidos: Veh83CMulStore).
 void CQuaternion::Scale(float multiplier) {
-    ((void(__thiscall*)(CQuaternion*, float))0x4CF9B0)(this, multiplier);
+    x = Veh83CMulStore(multiplier, x);
+    y = Veh83CMulStore(multiplier, y);
+    z = Veh83CMulStore(multiplier, z);
+    w = Veh83CMulStore(multiplier, w);
 }
 
 // Copies value from other quat
