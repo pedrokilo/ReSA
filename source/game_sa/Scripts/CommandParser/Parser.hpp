@@ -4,6 +4,7 @@
 #include "StoreArg.hpp"
 #include "ReadArg.hpp"
 #include "RunningScript.h"
+#include "Signature.hpp"
 
 #ifdef NOTSA_WITH_SCRIPT_COMMAND_HOOKS
 #include <reversiblehooks/ReversibleHook/ScriptCommand.h>
@@ -85,6 +86,7 @@ inline void AddCommandHandler() {
         NOTSA_UNREACHABLE("Command already handled!\nOpcode: {:04X} ({})", (unsigned)(Command), GetScriptCommandName(Command));
     }
     entry = &CommandParser<Command, CommandFn>; // Register handler
+    ::notsa::script::sig::Record<Command, CommandFn>(); // Firma del manejador (banco de comandos)
 }
 }; // namespace detail
 }; // namespace script
