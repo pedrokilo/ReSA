@@ -24,6 +24,10 @@ File*        __cdecl Fopen(const char* path, const char* mode);                 
 int          __cdecl Fprintf(File* f, const char* fmt, ...);                                   // 0x823A30
 int          __cdecl Sprintf(char* dst, const char* fmt, ...);                                 // 0x821BB5
 int          __cdecl Vsprintf(char* dst, const char* fmt, va_list args);                       // 0x8230B8
+int          __cdecl Snprintf(char* dst, unsigned int n, const char* fmt, ...);               // 0x825C29 (_snprintf, lote CRT5A)
+int          __cdecl Vsnprintf(char* dst, unsigned int n, const char* fmt, va_list args);      // 0x825BD3 (_vsnprintf, lote CRT5A)
+int          __cdecl Scprintf(const char* fmt, ...);                                           // 0x821C0D (_scprintf, lote CRT5A)
+int          __cdecl Vscprintf(const char* fmt, va_list args);                                 // 0x82310F (_vscprintf, lote CRT5A)
 int          __cdecl Sscanf(const char* src, const char* fmt, ...);                            // 0x8220AD
 char*        __cdecl Getenv(const char* name);                                                 // 0x8240C7
 int          __cdecl Stbuf(File* f);                                                           // 0x827DEC (__stbuf)

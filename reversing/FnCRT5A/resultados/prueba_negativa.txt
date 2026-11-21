@@ -1,0 +1,100 @@
+== mutacion 1: CrtLowIo.cpp: 'if (!(Io(fh)->osfile & 0x40)) {' -> 'if (Io(fh)->osfile & 0x40) {'  (grupo fd)
+DIFERENCIA fd semilla=12345 operacion 13
+RESULTADO: HAY DIFERENCIAS
+== mutacion 2: CrtLowIo.cpp: 'return written - lfCount;' -> 'return written;'  (grupo fd)
+DIFERENCIA fd semilla=12345 operacion 15
+RESULTADO: HAY DIFERENCIAS
+== mutacion 3: CrtLowIo.cpp: '    Io(fh)->osfile &= 0xFD;
+    return static_cast<long>(pos);' -> '    Io(fh)->osfile &= 0xFB;
+    return static_cast<long>(pos);'  (grupo fd)
+DIFERENCIA fd semilla=12345 operacion 14
+RESULTADO: HAY DIFERENCIAS
+== mutacion 4: CrtLowIo.cpp: 'if (!((~UmaskVal()) & pmode & 0x80)) {' -> 'if (!((~UmaskVal()) & pmode & 0x100)) {'  (grupo fd)
+DIFERENCIA fd semilla=12365 operacion 18
+RESULTADO: HAY DIFERENCIAS
+== mutacion 5: CrtLowIo.cpp: 'case 0x600: disposition = TRUNCATE_EXISTING; break;' -> 'case 0x600: disposition = OPEN_EXISTING; break;'  (grupo fd)
+DIFERENCIA fd semilla=12347 operacion 10
+RESULTADO: HAY DIFERENCIAS
+== mutacion 6: CrtLowIo.cpp: 'fileflags = 0x10;' -> 'fileflags = 0x20;'  (grupo fd)
+DIFERENCIA fd semilla=12346 operacion 42
+RESULTADO: HAY DIFERENCIAS
+== mutacion 7: CrtLowIo.cpp: 'ReadNolock(fh, &last, 1) == 0 && last == 0x1A' -> 'ReadNolock(fh, &last, 1) == 0 && last == 0x1B'  (grupo fd)
+DIFERENCIA fd semilla=12410 operacion 5
+RESULTADO: HAY DIFERENCIAS
+== mutacion 8: CrtLowIo.cpp: 'std::memset(zeros, 0, sizeof(zeros));' -> 'std::memset(zeros, 1, sizeof(zeros));'  (grupo fd)
+DIFERENCIA fd semilla=12345 operacion 41
+RESULTADO: HAY DIFERENCIAS
+== mutacion 9: CrtLowIo.cpp: 'const int old = (flags & 0x80) ? 0x4000 : 0x8000;' -> 'const int old = (flags & 0x80) ? 0x8000 : 0x4000;'  (grupo fd)
+DIFERENCIA fd semilla=12345 operacion 34
+RESULTADO: HAY DIFERENCIAS
+== mutacion 10: CrtLowIo.cpp: 'DosErrno() = err;' -> 'DosErrno() = 0;'  (grupo fd)
+DIFERENCIA fd semilla=12346 operacion 5
+RESULTADO: HAY DIFERENCIAS
+== mutacion 11: CrtLowIo.cpp: 'if (oscode >= 0x13 && oscode <= 0x24) {' -> 'if (oscode >= 0x13 && oscode <= 0x23) {'  (grupo unit)
+DIFERENCIA dosmaperr(36): EXE 13/36 propio 22/36
+RESULTADO: HAY DIFERENCIAS
+== mutacion 12: CrtLowIo.cpp: 'NHandle() += 0x20;' -> 'NHandle() += 0x10;'  (grupo many)
+DIFERENCIA descriptores masivos rep=0 en 37: EXE 'fd=32 nh=64' propio 'fd=32 nh=48'
+DIFERENCIA descriptores masivos rep=1 en 37: EXE 'fd=32 nh=64' propio 'fd=32 nh=48'
+== mutacion 13: CrtLowIo.cpp: '    Io(fh)->osfile &= 0xFD;
+    return static_cast<long long>' -> '    Io(fh)->osfile &= 0xFB;
+    return static_cast<long long>'  (grupo fd)
+DIFERENCIA fd semilla=12345 operacion 18
+RESULTADO: HAY DIFERENCIAS
+== mutacion 14: CrtLowIo.cpp: 'fileflags += 0x20;' -> 'fileflags += 0x10;'  (grupo fd)
+DIFERENCIA fd semilla=12346 operacion 18
+RESULTADO: HAY DIFERENCIAS
+== mutacion 15: CrtLowIo.cpp: 'SopenHelper(&unlockFlag, &fh, path, oflag, pmode, 0x40);' -> 'SopenHelper(&unlockFlag, &fh, path, oflag, pmode, 0x10);'  (grupo fd)
+DIFERENCIA fd semilla=12345 operacion 23
+RESULTADO: HAY DIFERENCIAS
+== mutacion 16: CrtLowIo.cpp: 'if (OsPlatform() != 1) {' -> 'if (OsPlatform() != 2) {'  (grupo unit)
+DIFERENCIA InitCritSecAndSpinCount plat=2: 1/1 76E1E8C0/00833B96
+RESULTADO: HAY DIFERENCIAS
+== mutacion 17: CrtLowIo.cpp: 'SetStdHandle(STD_ERROR_HANDLE, reinterpret_cast<HANDLE>(static_cast<intptr_t>(osHandle)));' -> 'SetStdHandle(STD_OUTPUT_HANDLE, reinterpret_cast<HANDLE>(static_cast<intptr_t>(osHandle)));'  (grupo std)
+DIFERENCIA std fd=2
+RESULTADO: HAY DIFERENCIAS
+== mutacion 18: CrtLowIo.cpp: 'io->osfile = 0x81;' -> 'io->osfile = 0x80;'  (grupo init)
+DIFERENCIA init rep=0
+DIFERENCIA init rep=1
+== mutacion 19: CrtStdio.cpp: '*f->base = static_cast<char>(ch);' -> '*f->base = static_cast<char>(ch + 1);'  (grupo stdio)
+DIFERENCIA stdio semilla=1012345 operacion 39
+RESULTADO: HAY DIFERENCIAS
+== mutacion 20: CrtStdio.cpp: 'f->flag |= (n != 0) ? 0x20 : 0x10;' -> 'f->flag |= (n != 0) ? 0x10 : 0x20;'  (grupo stdio)
+DIFERENCIA stdio semilla=1012345 operacion 2
+RESULTADO: HAY DIFERENCIAS
+== mutacion 21: CrtStdio.cpp: 'toRead = remaining - remaining % bufSize;' -> 'toRead = remaining;'  (grupo stdio)
+DIFERENCIA stdio semilla=1012345 operacion 33
+RESULTADO: HAY DIFERENCIAS
+== mutacion 22: CrtStdio.cpp: 'if (static_cast<unsigned int>(w) < toWrite) {' -> 'if (static_cast<unsigned int>(w) <= toWrite) {'  (grupo stdio)
+DIFERENCIA stdio semilla=1012345 operacion 19
+RESULTADO: HAY DIFERENCIAS
+== mutacion 23: CrtStdio.cpp: '++adjust;' -> 'adjust += 2;'  (grupo stdio)
+DIFERENCIA stdio semilla=1012345 operacion 10
+RESULTADO: HAY DIFERENCIAS
+== mutacion 24: CrtStdio.cpp: 'offset += FtellNolock(f);' -> 'offset -= FtellNolock(f);'  (grupo stdio)
+DIFERENCIA stdio semilla=1012345 operacion 3
+RESULTADO: HAY DIFERENCIAS
+== mutacion 25: CrtStdio.cpp: 'oflag = 0x109;' -> 'oflag = 0x108;'  (grupo stdio)
+DIFERENCIA stdio semilla=1012346 operacion 36
+RESULTADO: HAY DIFERENCIAS
+== mutacion 26: CrtStdio.cpp: '++count;' -> 'count += 2;'  (grupo stdio)
+DIFERENCIA stdio semilla=1012351 operacion 46
+RESULTADO: HAY DIFERENCIAS
+== mutacion 27: CrtStdio.cpp: 'if (Close(f->file) < 0) {' -> 'if (Close(f->file) <= 0) {'  (grupo stdio)
+DIFERENCIA stdio semilla=1012345 operacion 23
+RESULTADO: HAY DIFERENCIAS
+== mutacion 28: CrtStdio.cpp: 'f->flag &= ~0x0408;' -> 'f->flag &= ~0x0008;'  (grupo stdio)
+RESULTADO: SIN DIFERENCIAS
+== mutacion 29: CrtStdio.cpp: '                    f->flag &= ~2;' -> '                    f->flag &= ~1;'  (grupo stdio)
+DIFERENCIA stdio semilla=1012345 operacion 13
+RESULTADO: HAY DIFERENCIAS
+== mutacion 30: CrtStdio.cpp: 'f->flag |= 0x2000;' -> 'f->flag |= 0x1000;'  (grupo stdio)
+DIFERENCIA stdio semilla=1012346 operacion 62
+RESULTADO: HAY DIFERENCIAS
+== mutacion 31: CrtStdio.cpp: 'n = 0x200;' -> 'n = 0x100;'  (grupo init)
+DIFERENCIA init rep=9
+DIFERENCIA init rep=18
+ax error near unexpected token `done'
+./neg_run.sh: line 66: `$k.txt; done'
+
+RESUMEN: 31 mutaciones de una linea (18 en CrtLowIo.cpp, 13 en CrtStdio.cpp): 30 detectadas por el banco, 1 NO detectada (28: Freebuf borra solo _IOMYBUF en vez de _IOMYBUF y _IOSETVBUF 0x400; el banco nunca activa _IOSETVBUF porque no llama a setvbuf, asi que la mutacion es equivalente en estos guiones).

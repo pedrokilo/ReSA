@@ -683,6 +683,8 @@
 #include "game_sa/Crt/CrtFormat.h"
 #include "game_sa/Crt/CrtCtype.h"
 #include "game_sa/Crt/CrtInput.h"
+#include "game_sa/Crt/CrtLowIo.h"
+#include "game_sa/Crt/CrtStdio.h"
 #include "game_sa/Crt/CrtFloatIn.h"
 
 // Hooks de biblioteca del grupo g25b (RenderWare SDK / controlador D3D9); el sufijo evita colisiones con otros registradores.
@@ -1245,6 +1247,8 @@ void InjectHooksMain() {
     CrtCtypeInjectHooks();   // lote CRT4A: _tolower/isdigit/isspace/isxdigit del locale del hilo
     CrtInputInjectHooks();   // lote CRT4A: _input (motor de scanf), _ungetc_nolock, _getbuf
     CrtFloatInInjectHooks(); // lote CRT4A: texto -> coma flotante (_strgtold12, _ld12cvt, _atodbl, _atoflt, _fassign)
+    CrtLowIoInjectHooks();   // lote CRT5A: capa baja de E/S del CRT (_open/_sopen/_close/_read/_write/_lseek/_commit/_chsize, __pioinfo y sus bloqueos)
+    CrtStdioInjectHooks();   // lote CRT5A: nucleos de stdio (_filbuf/_flsbuf/_flush/_fread_nolock/_fwrite_nolock/_fseek_nolock/_ftell_nolock/_fclose_nolock/_fsopen/__getstream/__openfile)
     LibPngReadInjectHooks();
 
     CIplStore::InjectHooks();

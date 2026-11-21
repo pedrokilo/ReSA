@@ -28,6 +28,8 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "VehicleRecording.h"
 #include "game_sa/Crt/CrtOnexit.h"
+#include "game_sa/Crt/CrtLowIo.h"
+#include "game_sa/Crt/CrtStdio.h"
 
 #ifdef EXTRA_CARREC_LOGS
     #define CARREC_LOG(...) NOTSA_LOG_DEBUG(__VA_ARGS__)
@@ -401,23 +403,14 @@ static int __cdecl CrtAtexit(void(__cdecl* func)()) {
     return ExeCrt::Onexit(reinterpret_cast<void*>(func)) ? 0 : -1; // CRT3A: _onexit reconstruido (CrtOnexit)
 }
 
-// 0x823FD1: _lock_file2(index, stream). Los flujos 0..19 usan el cerrojo de tabla 16 + index (_lock, 0x82ADBE); los demás tienen su propia sección crítica
-// embebida en el FILE ampliado (stream + 0x20) que se entra con EnterCriticalSection (entrada de importación 0x8580EC). Comparación con signo (jge).
+// 0x823FD1: _lock_file2(index, stream). Cuerpo reconstruido en CRT5A (ExeCrt::LockFile2, CrtStdio.cpp): este gancho solo lo reenvia.
 static void __cdecl CrtLockFile2(int index, void* stream) {
-    if (index < 20) {
-        reinterpret_cast<void(__cdecl*)(int)>(0x82ADBE)(index + 16);
-        return;
-    }
-    (*reinterpret_cast<void(__stdcall**)(void*)>(0x8580EC))(static_cast<uint8*>(stream) + 0x20);
+    ExeCrt::LockFile2(index, static_cast<ExeCrt::File*>(stream));
 }
 
-// 0x824023: _unlock_file2(index, stream), simétrica de la anterior: _unlock (0x82AD12) con 16 + index, o LeaveCriticalSection (0x8580E8) sobre stream + 0x20.
+// 0x824023: _unlock_file2(index, stream), simétrica de la anterior (ExeCrt::UnlockFile2).
 static void __cdecl CrtUnlockFile2(int index, void* stream) {
-    if (index < 20) {
-        reinterpret_cast<void(__cdecl*)(int)>(0x82AD12)(index + 16);
-        return;
-    }
-    (*reinterpret_cast<void(__stdcall**)(void*)>(0x8580E8))(static_cast<uint8*>(stream) + 0x20);
+    ExeCrt::UnlockFile2(index, static_cast<ExeCrt::File*>(stream));
 }
 
 // 0x824257: malloc(size) de la CRT del EXE (no es CMemoryMgr::Malloc, que es 0x72F420 y solo reenvía aquí) = _nh_malloc(size, _newmode) con _newmode en 0xC9ADCC.
@@ -427,10 +420,9 @@ static void* __cdecl CrtMalloc(uint32 size) {
     return reinterpret_cast<NhMallocFn>(0x82422B)(size, StaticRef<int>(0xC9ADCC));
 }
 
-// 0x82B181: _errno() = &_getptd()->_terrno (el campo está en el desplazamiento 8 de _tiddata). _getptd (0x827B3D) es cdecl sin argumentos y devuelve el bloque del hilo en EAX.
+// 0x82B181: _errno() = &_getptd()->_terrno. Cuerpo reconstruido en CRT5A (ExeCrt::ErrnoPtr, CrtLowIo.cpp); este es el unico gancho de esa direccion.
 static int* __cdecl CrtErrno() {
-    using GetPtdFn = uint8*(__cdecl*)();
-    return reinterpret_cast<int*>(reinterpret_cast<GetPtdFn>(0x827B3D)() + 8);
+    return ExeCrt::ErrnoPtr();
 }
 
 // 0x45A610

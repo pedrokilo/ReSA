@@ -7,6 +7,8 @@
 #include "CrtString.h"
 #include "CrtFormat.h"
 #include "CrtInput.h"
+#include "CrtLowIo.h"
+#include "CrtStdio.h"
 
 // Reconstruccion de las envolturas de E/S y formato del CRT del EXE (lote CRT2A). Ver CrtFile.h y reversing/FnCRT2A/README.md.
 
@@ -40,7 +42,6 @@ struct FakeFile {
     }
 };
 using OutputFn = int(__cdecl*)(File*, const char*, va_list);
-using FlsbufFn = int(__cdecl*)(int, File*);
 
 // Cierre de cadena de sprintf/vsprintf: decrementa el contador de la FILE falsa; si se agota, _flsbuf (0x828B31)
 inline void TerminateString(char* dst, FakeFile& ff) {
@@ -48,7 +49,7 @@ inline void TerminateString(char* dst, FakeFile& ff) {
         if (--ff.f.cnt >= 0) {
             *ff.f.ptr = 0;
         } else {
-            Exe<FlsbufFn>(0x828B31)(0, &ff.f);
+            Flsbuf(0, &ff.f);
         }
     }
 }
@@ -57,19 +58,19 @@ inline void TerminateString(char* dst, FakeFile& ff) {
 // 0x823521
 unsigned int __cdecl Fread(void* buf, unsigned int size, unsigned int count, File* f) {
     FileLock lock(f);
-    return Exe<unsigned int(__cdecl*)(void*, unsigned int, unsigned int, File*)>(0x823438)(buf, size, count, f);
+    return FreadNolock(buf, size, count, f);
 }
 
 // 0x823674
 unsigned int __cdecl Fwrite(const void* buf, unsigned int size, unsigned int count, File* f) {
     FileLock lock(f);
-    return Exe<unsigned int(__cdecl*)(const void*, unsigned int, unsigned int, File*)>(0x82356D)(buf, size, count, f);
+    return FwriteNolock(buf, size, count, f);
 }
 
 // 0x82374F
 int __cdecl Fseek(File* f, long offset, int whence) {
     FileLock lock(f);
-    return Exe<int(__cdecl*)(File*, long, int)>(0x8236C0)(f, offset, whence);
+    return FseekNolock(f, offset, whence);
 }
 
 // 0x82318B: una FILE con _IOSTRG (0x40) no se cierra: solo se borra el indicador y devuelve -1
@@ -79,16 +80,16 @@ int __cdecl Fclose(File* f) {
         return -1;
     }
     FileLock lock(f);
-    return Exe<int(__cdecl*)(File*)>(0x82313F)(f);
+    return FcloseNolock(f);
 }
 
 // 0x823E86
 int __cdecl Fflush(File* f) {
     if (f == nullptr) {
-        return Exe<int(__cdecl*)(int)>(0x823DB1)(0);
+        return FlushAll(0);
     }
     FileLock lock(f);
-    return Exe<int(__cdecl*)(File*)>(0x823D83)(f);
+    return FflushNolock(f);
 }
 
 // 0x823798: lee hasta n-1 caracteres o el salto de linea; getc inline (--cnt < 0 -> _filbuf 0x82AF38)
@@ -101,7 +102,7 @@ char* __cdecl Fgets(char* buf, int n, File* f) {
     while (--n != 0) {
         int c;
         if (--f->cnt < 0) {
-            c = Exe<int(__cdecl*)(File*)>(0x82AF38)(f);
+            c = Filbuf(f);
         } else {
             c = static_cast<unsigned char>(*f->ptr++);
         }
@@ -122,7 +123,7 @@ char* __cdecl Fgets(char* buf, int n, File* f) {
 
 // 0x827DEC (__stbuf): da un buffer temporal de 4 KiB a stdout/stderr conectados a un dispositivo (para que el formato salga de una vez)
 int __cdecl Stbuf(File* f) {
-    if (Exe<int(__cdecl*)(int)>(0x8334B2)(f->file) == 0) { // _isatty
+    if (Isatty(f->file) == 0) { // _isatty
         return 0;
     }
     int index;
@@ -164,7 +165,7 @@ void __cdecl Ftbuf(int flag, File* f) {
     }
     unsigned char* const flag2 = reinterpret_cast<unsigned char*>(f) + 0xD;
     if (*flag2 & 0x10) {
-        Exe<void(__cdecl*)(File*)>(0x823D26)(f); // _flush
+        Flush(f); // _flush
         *flag2 &= 0xEE;
         f->bufsiz = 0;
         f->ptr = nullptr;
@@ -177,14 +178,14 @@ int __cdecl Fputs(const char* str, File* f) {
     const unsigned int len = Strlen(str);
     FileLock lock(f);
     const int stbuf = Stbuf(f);
-    const unsigned int written = Exe<unsigned int(__cdecl*)(const void*, unsigned int, unsigned int, File*)>(0x82356D)(str, 1, len, f);
+    const unsigned int written = FwriteNolock(str, 1, len, f);
     Ftbuf(stbuf, f);
     return written == len ? 0 : -1;
 }
 
 // 0x8232D8: fopen = _fsopen(path, mode, _SH_DENYNO 0x40)
 File* __cdecl Fopen(const char* path, const char* mode) {
-    return Exe<File*(__cdecl*)(const char*, const char*, int)>(0x82327C)(path, mode, 0x40);
+    return Fsopen(path, mode, 0x40);
 }
 
 // 0x823A30 (aparece como fwprintf en el desensamblado; llama a _output de 8 bits: es fprintf)
@@ -221,6 +222,41 @@ int __cdecl Sprintf(char* dst, const char* fmt, ...) {
     return result;
 }
 
+// 0x825C29: _snprintf(dst, n, fmt, ...). FILE falsa de n bytes; el cero final solo se escribe si queda hueco (o por _flsbuf)
+int __cdecl Snprintf(char* dst, unsigned int n, const char* fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    FakeFile ff(dst, static_cast<int>(n), 0x42);
+    const int result = Output(&ff.f, fmt, args);
+    TerminateString(dst, ff);
+    va_end(args);
+    return result;
+}
+
+// 0x825BD3: _vsnprintf(dst, n, fmt, args)
+int __cdecl Vsnprintf(char* dst, unsigned int n, const char* fmt, va_list args) {
+    FakeFile ff(dst, static_cast<int>(n), 0x42);
+    const int result = Output(&ff.f, fmt, args);
+    TerminateString(dst, ff);
+    return result;
+}
+
+// 0x821C0D: _scprintf(fmt, ...): longitud que tendria el texto (FILE falsa sin destino)
+int __cdecl Scprintf(const char* fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    FakeFile ff(nullptr, 0x7FFFFFFF, 0x42);
+    const int result = Output(&ff.f, fmt, args);
+    va_end(args);
+    return result;
+}
+
+// 0x82310F: _vscprintf(fmt, args)
+int __cdecl Vscprintf(const char* fmt, va_list args) {
+    FakeFile ff(nullptr, 0x7FFFFFFF, 0x42);
+    return Output(&ff.f, fmt, args);
+}
+
 // 0x8220AD (FILE falsa de solo lectura: _IOREAD | _IOSTRG | _IOMYBUF = 0x49)
 int __cdecl Sscanf(const char* src, const char* fmt, ...) {
     va_list args;
@@ -240,7 +276,7 @@ char* __cdecl Getenv(const char* name) {
 // 0x826261
 int __cdecl LockedCall8260FF(File* f) {
     FileLock lock(f);
-    return Exe<int(__cdecl*)(File*)>(0x8260FF)(f);
+    return static_cast<int>(FtellNolock(f));
 }
 
 // 0x823CAE
@@ -275,6 +311,10 @@ void CrtFileInjectHooks() {
     RH_ScopedGlobalInstall(ExeCrt::Fprintf, 0x823A30);
     RH_ScopedGlobalInstall(ExeCrt::Sprintf, 0x821BB5);
     RH_ScopedGlobalInstall(ExeCrt::Vsprintf, 0x8230B8);
+    RH_ScopedGlobalInstall(ExeCrt::Snprintf, 0x825C29);
+    RH_ScopedGlobalInstall(ExeCrt::Vsnprintf, 0x825BD3);
+    RH_ScopedGlobalInstall(ExeCrt::Scprintf, 0x821C0D);
+    RH_ScopedGlobalInstall(ExeCrt::Vscprintf, 0x82310F);
     RH_ScopedGlobalInstall(ExeCrt::Sscanf, 0x8220AD);
     RH_ScopedGlobalInstall(ExeCrt::Getenv, 0x8240C7);
     RH_ScopedGlobalInstall(ExeCrt::Stbuf, 0x827DEC);

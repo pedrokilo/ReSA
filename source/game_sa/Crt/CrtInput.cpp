@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 #include <cstdint>
 #include <cstring>
 #include "CrtInput.h"
+#include "CrtStdio.h"
 #include "CrtCtype.h"
 #include "CrtHeap.h"
 #include "CrtFloatIn.h"
@@ -31,7 +32,7 @@ END GENERATED HOOK STATUS */
 
 namespace ExeCrt {
 namespace {
-inline int CallFilbuf(File* f) { return reinterpret_cast<int(__cdecl*)(File*)>(0x82AF38)(f); }
+inline int CallFilbuf(File* f) { return Filbuf(f); }
 inline int CallMbtowc(void* dst, const char* src, unsigned int n) { return reinterpret_cast<int(__cdecl*)(void*, const char*, unsigned int)>(0x8338CE)(dst, src, n); }
 inline unsigned int MbCurMax() { return *reinterpret_cast<unsigned int*>(0x8E37D0); }
 
