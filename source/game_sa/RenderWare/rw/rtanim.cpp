@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include "rpdbgerr.h"
 #include "rtanim.h"
+#include "X87Math.h"
 
 static_assert(sizeof(RtAnimInterpolatorInfo) == 0x30 && offsetof(RtAnimInterpolatorInfo, interpKeyFrameSize) == 0x04 && offsetof(RtAnimInterpolatorInfo, animKeyFrameSize) == 0x08 && offsetof(RtAnimInterpolatorInfo, customDataSize) == 0x2C);
 static_assert(sizeof(RtAnimAnimation) == 0x18 && offsetof(RtAnimAnimation, duration) == 0x0C && offsetof(RtAnimAnimation, pFrames) == 0x10 && offsetof(RtAnimAnimation, customData) == 0x14);
@@ -44,17 +45,49 @@ void RaiseRtAnimError(RwInt32 code) {
     error.errorCode = _rwerror(code);
     RwErrorSet(&error);
 }
+
+// Parametros de la lista libre de animaciones: dos dwords del EXE (0x8DEDEC = entradas por bloque, 0x8DEDF0 = bloques a reservar de antemano) y la lista libre en 0xC9BC20 (lista en 0xC9B8E0).
+RwInt32& FreeListBlockSize() { return *reinterpret_cast<RwInt32*>(0x8DEDEC); }
+RwInt32& FreeListNumBlocks() { return *reinterpret_cast<RwInt32*>(0x8DEDF0); }
+RwFreeList*& AnimationFreeList() { return *reinterpret_cast<RwFreeList**>(0xC9BC20); }
 } // namespace
 
+
+static void* RtAnimEngineConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x7CCCD0
+static void* RtAnimEngineDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);  // 0x7CCD10
+
+// 0x7CCC80 (lote S5A, sin validar): guarda los dos parametros en los globales 0x8DEDEC (blockSize) y 0x8DEDF0 (numBlocksToPrealloc).
 void RtAnimAnimationFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x7CCC80)(blockSize, numBlocksToPrealloc);
+    FreeListBlockSize() = blockSize;
+    FreeListNumBlocks() = numBlocksToPrealloc;
+}
+
+// 0x7CCCD0 (lote S5A, sin validar): constructor del plugin de motor 0x1B7. Crea la lista libre de animaciones, RwFreeListCreateAndPreallocateSpace(0x18, [0x8DEDEC], 4, [0x8DEDF0], lista en
+// 0xC9B8E0, pista 0x4001B), y la guarda en 0xC9BC20 (el EXE lee primero el segundo global y luego el primero). Si falla devuelve NULL; si no, devuelve el objeto recibido.
+static void* RtAnimEngineConstructor(void* object, RwInt32, RwInt32) {
+    const RwInt32 numBlocks = FreeListNumBlocks();
+    const RwInt32 blockSize = FreeListBlockSize();
+    AnimationFreeList() = RwFreeListCreateAndPreallocateSpace(0x18, blockSize, 4, numBlocks, reinterpret_cast<RwFreeList*>(0xC9B8E0), 0x4001B);
+    if (AnimationFreeList() == nullptr) {
+        return nullptr;
+    }
+    return object;
+}
+
+// 0x7CCD10 (lote S5A, sin validar): destructor del plugin de motor 0x1B7. Pone a 0 el contador de esquemas (0xC97900); si hay lista libre la destruye y deja el puntero en 0; devuelve el objeto.
+static void* RtAnimEngineDestructor(void* object, RwInt32, RwInt32) {
+    NumInterpolatorInfos() = 0;
+    if (AnimationFreeList() != nullptr) {
+        RwFreeListDestroy(AnimationFreeList());
+        AnimationFreeList() = nullptr;
+    }
+    return object;
 }
 
 // 0x7CCCA0: registra el plugin de motor de RtAnim con RwEngineRegisterPlugin (0x7F2BB0): tamano 0, id 0x1B7, constructor 0x7CCCD0 (crea la lista libre de animaciones con los
-// parametros de 0x7CCC80) y destructor 0x7CCD10 (pone a 0 el contador de esquemas y destruye la lista libre); ambos por direccion fija (no reconstruidos). Devuelve (resultado > 0), con signo.
+// parametros de 0x7CCC80) y destructor 0x7CCD10 (pone a 0 el contador de esquemas y destruye la lista libre); desde el lote S5A son funciones propias. Devuelve (resultado > 0), con signo.
 RwBool RtAnimInitialize() {
-    const RwInt32 result = RwEngineRegisterPlugin(0, kRtAnimPluginID,
-        reinterpret_cast<RwPluginObjectConstructor>(0x7CCCD0), reinterpret_cast<RwPluginObjectDestructor>(0x7CCD10));
+    const RwInt32 result = RwEngineRegisterPlugin(0, kRtAnimPluginID, RtAnimEngineConstructor, RtAnimEngineDestructor);
     return result > 0;
 }
 
@@ -78,8 +111,16 @@ RwBool RtAnimRegisterInterpolationScheme(RtAnimInterpolatorInfo* interpolatorInf
     return TRUE;
 }
 
+// 0x7CCDE0 (lote S5A, sin validar): busca el esquema por typeID en la tabla (0xC9B920, contador 0xC97900); si no esta: RWERROR(2) y NULL.
 RtAnimInterpolatorInfo* RtAnimGetInterpolatorInfo(RwInt32 typeID) {
-    return ((RtAnimInterpolatorInfo*(__cdecl *)(RwInt32))0x7CCDE0)(typeID);
+    const RwInt32 count = NumInterpolatorInfos();
+    for (RwInt32 i = 0; i < count; ++i) {
+        if (InterpolatorInfos()[i].typeID == typeID) {
+            return &InterpolatorInfos()[i];
+        }
+    }
+    RaiseRtAnimError(2);
+    return nullptr;
 }
 
 // 0x7CCE40: busca el esquema por typeID en la tabla (0xC9B920); si no esta: RWERROR(2) y NULL. Reserva animKeyFrameSize * numFrames + customDataSize + 0x18 bytes
@@ -168,20 +209,98 @@ RtAnimAnimation* RtAnimAnimationRead(const RwChar* filename) {
     return animation;
 }
 
+namespace {
+constexpr RwUInt32 kRtAnimStreamVersion = 0x36003; // push 36003h
+constexpr RwUInt32 kRtAnimStreamBuild   = 0xFFFF;  // push 0FFFFh
+constexpr RwInt32  kRtAnimChunkType     = 0x1B;
+constexpr RwInt32  kRtAnimFileVersion   = 0x100;
+
+// Cuerpo comun de escritura de RtAnimAnimationWrite / RtAnimAnimationStreamWrite tras abrir el flujo: cabecera versionada del chunk 0x1B (tamano = getSizeCB + 0x14), version 0x100, y los
+// cuatro campos typeID (primer dword de la informacion de interpolacion), numFrames, flags y duracion (RwStreamWriteReal). Con el primer fallo devuelve FALSE; si todo va bien llama a
+// interpInfo->keyFrameStreamWriteCB(animation, stream) sin mirar su resultado y devuelve TRUE.
+RwBool WriteAnimationBody(const RtAnimAnimation* animation, RwStream* stream) {
+    const RwInt32 version = kRtAnimFileVersion;
+    const RwInt32 size    = animation->interpInfo->keyFrameStreamGetSizeCB(animation) + 0x14;
+    _rwStreamWriteVersionedChunkHeader(stream, kRtAnimChunkType, size, kRtAnimStreamVersion, kRtAnimStreamBuild);
+    if (!RwStreamWriteInt32(stream, &version, 4)) {
+        return FALSE;
+    }
+    if (!RwStreamWriteInt32(stream, &animation->interpInfo->typeID, 4)) {
+        return FALSE;
+    }
+    if (!RwStreamWriteInt32(stream, &animation->numFrames, 4)) {
+        return FALSE;
+    }
+    if (!RwStreamWriteInt32(stream, &animation->flags, 4)) {
+        return FALSE;
+    }
+    if (!RwStreamWriteReal(stream, &animation->duration, 4)) {
+        return FALSE;
+    }
+    animation->interpInfo->keyFrameStreamWriteCB(animation, stream);
+    return TRUE;
+}
+} // namespace
+
+// 0x7CD160 (lote S6A, sin validar): abre el archivo para escribir (rwSTREAMFILENAME = 2, rwSTREAMWRITE = 2); si no se abre devuelve FALSE. Escribe el chunk (WriteAnimationBody: un fallo de
+// escritura salta directamente al cierre) y SIEMPRE cierra con RwStreamClose(stream, 0) y devuelve TRUE (aunque la escritura haya fallado).
 RwBool RtAnimAnimationWrite(const RtAnimAnimation* animation, const RwChar* filename) {
-    return ((RwBool(__cdecl *)(const RtAnimAnimation*, const RwChar*))0x7CD160)(animation, filename);
+    RwStream* const stream = RwStreamOpen(rwSTREAMFILENAME, rwSTREAMWRITE, filename);
+    if (stream == nullptr) {
+        return FALSE;
+    }
+    WriteAnimationBody(animation, stream);
+    RwStreamClose(stream, nullptr);
+    return TRUE;
 }
 
+// 0x7CD220 (lote S6A, sin validar): lee de un flujo ya abierto: version (RwStreamReadInt32, 4 bytes; debe ser 0x100), typeID, busqueda del esquema (RWERROR(2) y NULL si no esta), numFrames,
+// flags y duracion (RwStreamReadReal). Cualquier fallo devuelve NULL sin cerrar el flujo. Crea la animacion como RtAnimAnimationCreate (el EXE lo inlina, con una segunda busqueda) y llama a
+// interpInfo->keyFrameStreamReadCB(stream, animacion) sin mirar su resultado; devuelve la animacion.
 RtAnimAnimation* RtAnimAnimationStreamRead(RwStream* stream) {
-    return ((RtAnimAnimation*(__cdecl *)(RwStream*))0x7CD220)(stream);
+    RwInt32 version;
+    if (!RwStreamReadInt32(stream, &version, 4)) {
+        return nullptr;
+    }
+    if (version != kRtAnimFileVersion) {
+        return nullptr;
+    }
+    RwInt32 typeID;
+    if (!RwStreamReadInt32(stream, &typeID, 4)) {
+        return nullptr;
+    }
+    if (RtAnimGetInterpolatorInfo(typeID) == nullptr) {
+        return nullptr;
+    }
+    RwInt32 numFrames;
+    if (!RwStreamReadInt32(stream, &numFrames, 4)) {
+        return nullptr;
+    }
+    RwInt32 flags;
+    if (!RwStreamReadInt32(stream, &flags, 4)) {
+        return nullptr;
+    }
+    RwReal duration;
+    if (!RwStreamReadReal(stream, &duration, 4)) {
+        return nullptr;
+    }
+    RtAnimInterpolatorInfo* const info = RtAnimGetInterpolatorInfo(typeID);
+    if (info == nullptr) {
+        return nullptr;
+    }
+    RtAnimAnimation* const animation = RtAnimAnimationCreate(typeID, numFrames, flags, duration);
+    info->keyFrameStreamReadCB(stream, animation);
+    return animation;
 }
 
+// 0x7CD410 (lote S6A, sin validar): como RtAnimAnimationWrite sobre un flujo ya abierto y sin cerrarlo; devuelve FALSE en el primer fallo de escritura y TRUE si llega al final.
 RwBool RtAnimAnimationStreamWrite(const RtAnimAnimation* animation, RwStream* stream) {
-    return ((RwBool(__cdecl *)(const RtAnimAnimation*, RwStream*))0x7CD410)(animation, stream);
+    return WriteAnimationBody(animation, stream);
 }
 
+// 0x7CD4D0 (lote S6A, sin validar): interpInfo->keyFrameStreamGetSizeCB(animation) + 0x14.
 RwInt32 RtAnimAnimationStreamGetSize(const RtAnimAnimation* animation) {
-    return ((RwInt32(__cdecl *)(const RtAnimAnimation*))0x7CD4D0)(animation);
+    return animation->interpInfo->keyFrameStreamGetSizeCB(animation) + 0x14;
 }
 
 // 0x7CD4F0: cuenta los nodos de la animacion recorriendo las cabeceras de fotogramas clave (paso = interpInfo->animKeyFrameSize, +8 de la info):
@@ -339,24 +458,99 @@ RtAnimInterpolatorSetCurrentAnim(RtAnimInterpolator *animI,
     RWRETURN(TRUE);
 }
 
+// 0x7CD660 (lote S6A, sin validar): busca el esquema keyFrameTypeID (RWERROR(2) y FALSE si no esta) y copia a la interpolacion los callbacks apply (+0x0C -> +0x3C), blend (+0x10 -> +0x40),
+// interpolate (+0x14 -> +0x44) y add (+0x18 -> +0x48) como dwords. No toca los tamanos de fotograma. Devuelve TRUE.
 RwBool RtAnimInterpolatorSetKeyFrameCallBacks(RtAnimInterpolator* anim, RwInt32 keyFrameTypeID) {
-    return ((RwBool(__cdecl *)(RtAnimInterpolator*, RwInt32))0x7CD660)(anim, keyFrameTypeID);
+    const RtAnimInterpolatorInfo* const info = RtAnimGetInterpolatorInfo(keyFrameTypeID);
+    if (info == nullptr) {
+        return FALSE;
+    }
+    anim->keyFrameApplyCB       = info->keyFrameApplyCB;
+    anim->keyFrameBlendCB       = info->keyFrameBlendCB;
+    anim->keyFrameInterpolateCB = info->keyFrameInterpolateCB;
+    anim->keyFrameAddCB         = info->keyFrameAddCB;
+    return TRUE;
 }
 
+// 0x7CD6F0 (lote S6A, sin validar): pAnimLoopCallBack (+0x18) = callBack; pAnimLoopCallBackData (+0x1C) = data.
 void RtAnimInterpolatorSetAnimLoopCallBack(RtAnimInterpolator* anim, RtAnimCallBack callBack, void* data) {
-    ((void(__cdecl *)(RtAnimInterpolator*, RtAnimCallBack, void*))0x7CD6F0)(anim, callBack, data);
+    anim->pAnimLoopCallBack     = callBack;
+    anim->pAnimLoopCallBackData = data;
 }
 
+// 0x7CD710 (lote S6A, sin validar): pAnimCallBack (+0x0C) = callBack; pAnimCallBackData (+0x10) = data; animCallBackTime (+0x14) = time (copiado como dword).
 void RtAnimInterpolatorSetAnimCallBack(RtAnimInterpolator* anim, RtAnimCallBack callBack, RwReal time, void* data) {
-    ((void(__cdecl *)(RtAnimInterpolator*, RtAnimCallBack, RwReal, void*))0x7CD710)(anim, callBack, time, data);
+    anim->pAnimCallBack     = callBack;
+    anim->pAnimCallBackData = data;
+    memcpy(&anim->animCallBackTime, &time, sizeof(RwUInt32));
 }
 
+// 0x7CD730 (lote S6A, sin validar): copia los fotogramas interpolados de inAnim a outAnim (desde +0x4C): outAnim->numNodes * outAnim->currentInterpKeyFrameSize bytes (rep movsd + rep movsb).
+// Devuelve TRUE.
 RwBool RtAnimInterpolatorCopy(RtAnimInterpolator* outAnim, RtAnimInterpolator* inAnim) {
-    return ((RwBool(__cdecl *)(RtAnimInterpolator*, RtAnimInterpolator*))0x7CD730)(outAnim, inAnim);
+    const RwUInt32 bytes = static_cast<RwUInt32>(outAnim->numNodes * outAnim->currentInterpKeyFrameSize);
+    memcpy(outAnim + 1, inAnim + 1, bytes);
+    return TRUE;
 }
 
+// 0x7CD760 (lote S6A, sin validar): retrocede el tiempo de la animacion. Aritmetica en float (x87 a 24 bits). Comparaciones del EXE (fnstsw + test ah):
+//   disparo puntual (fired): currentTime > animCallBackTime (ordenado) y (currentTime - time) <= animCallBackTime (ordenado); con NaN no se dispara.
+//   newTime = currentTime - time se guarda en currentTime. Si newTime < 0 (ordenado; con 0, positivo o NaN va a la otra rama): suma la duracion hasta que deje de ser < 0, guarda el tiempo,
+//   reinicia con RtAnimInterpolatorSetCurrentAnim(anim, pCurrentAnim) y avanza con RtAnimInterpolatorAddAnimTime(anim, tiempo corregido); looped = TRUE y fired |= currentTime < animCallBackTime.
+//   Si no: por cada nodo retrocede keyFrame1/keyFrame2 mientras currentTime < keyFrame1->time (ordenado) y llama a keyFrameInterpolateCB(frame, kf1, kf2, currentTime, customData); pNextFrame = 0.
+// Despues dispara pAnimCallBack(anim, data) si fired (la anula si devuelve NULL) y, si looped, pAnimLoopCallBack(anim, data) (idem). Devuelve TRUE.
 RwBool RtAnimInterpolatorSubAnimTime(RtAnimInterpolator* anim, RwReal time) {
-    return ((RwBool(__cdecl *)(RtAnimInterpolator*, RwReal))0x7CD760)(anim, time);
+    bool looped = false;
+    bool fired  = false;
+    if (anim->currentTime > anim->animCallBackTime) {
+        fired = (anim->currentTime - time) <= anim->animCallBackTime;
+    }
+
+    RtAnimAnimation* const currentAnim = anim->pCurrentAnim;
+    const RwReal newTime = anim->currentTime - time;
+    anim->currentTime = newTime;
+    if (newTime < 0.0f) {
+        RwReal corrected = anim->currentTime;
+        const RwReal duration = currentAnim->duration;
+        do {
+            corrected = corrected + duration;
+        } while (corrected < 0.0f);
+        anim->currentTime = corrected;
+        RtAnimInterpolatorSetCurrentAnim(anim, currentAnim);
+        RtAnimInterpolatorAddAnimTime(anim, corrected);
+        looped = true;
+        if (anim->currentTime < anim->animCallBackTime) {
+            fired = true;
+        }
+    } else {
+        const RwInt32 numNodes = anim->numNodes;
+        if (numNodes != 0) {
+            auto* frame = reinterpret_cast<RtAnimInterpFrameHeader*>(anim + 1);
+            RwInt32 remaining = numNodes;
+            do {
+                while (anim->currentTime < frame->keyFrame1->time) {
+                    RtAnimKeyFrameHeader* const old = frame->keyFrame1;
+                    frame->keyFrame2 = old;
+                    frame->keyFrame1 = *reinterpret_cast<RtAnimKeyFrameHeader**>(old);
+                }
+                anim->keyFrameInterpolateCB(frame, frame->keyFrame1, frame->keyFrame2, anim->currentTime, anim->pCurrentAnim->customData);
+                frame = reinterpret_cast<RtAnimInterpFrameHeader*>(reinterpret_cast<uint8*>(frame) + anim->currentInterpKeyFrameSize);
+            } while (--remaining != 0);
+        }
+        anim->pNextFrame = nullptr;
+    }
+
+    if (fired && anim->pAnimCallBack) {
+        if (!anim->pAnimCallBack(anim, anim->pAnimCallBackData)) {
+            anim->pAnimCallBack = nullptr;
+        }
+    }
+    if (looped && anim->pAnimLoopCallBack) {
+        if (!anim->pAnimLoopCallBack(anim, anim->pAnimLoopCallBackData)) {
+            anim->pAnimLoopCallBack = nullptr;
+        }
+    }
+    return TRUE;
 }
 
 // 0x7CD8D0: avanza el tiempo de la animacion. Con time <= 0 (o NaN) no hace nada y devuelve TRUE. Si no: dispara la devolucion de llamada puntual (callbackFired) cuando
@@ -440,32 +634,156 @@ RwBool RtAnimInterpolatorAddAnimTime(RtAnimInterpolator* anim, RwReal time) {
     return TRUE;
 }
 
+namespace {
+// Fotograma interpolado `index` de una interpolacion: justo tras la cabecera (+0x4C), de currentInterpKeyFrameSize bytes cada uno (sin comprobar limites, como el EXE).
+void* InterpFrame(RtAnimInterpolator* anim, RwInt32 index) {
+    return reinterpret_cast<uint8*>(anim + 1) + anim->currentInterpKeyFrameSize * index;
+}
+} // namespace
+
+// 0x7CDAB0 (lote S6A, sin validar): diferencia = time - currentTime (float). Si diferencia < 0 (ordenado) llama a RtAnimInterpolatorSubAnimTime(anim, -diferencia); si no (incluidos 0 y NaN)
+// a RtAnimInterpolatorAddAnimTime(anim, diferencia). Devuelve TRUE.
 RwBool RtAnimInterpolatorSetCurrentTime(RtAnimInterpolator* anim, RwReal time) {
-    return ((RwBool(__cdecl *)(RtAnimInterpolator*, RwReal))0x7CDAB0)(anim, time);
+    const RwReal difference = time - anim->currentTime;
+    if (difference < 0.0f) {
+        RtAnimInterpolatorSubAnimTime(anim, -difference);
+    } else {
+        RtAnimInterpolatorAddAnimTime(anim, difference);
+    }
+    return TRUE;
 }
 
+// 0x7CDB00 (lote S6A, sin validar): crea una interpolacion temporal (RtAnimInterpolatorCreate(numNodes, interpInfo->interpKeyFrameSize); NULL -> FALSE), le pone la animacion con
+// RtAnimInterpolatorSetCurrentAnim y la lleva al tiempo `time` (diferencia = time - currentTime; < 0 ordenado -> SubAnimTime(-diferencia), si no AddAnimTime). Despues, por nodo, llama a
+// interpInfo->keyFrameMulRecipCB(fotograma, fotograma interpolado) y, mientras el tiempo del fotograma no sea EXACTAMENTE igual a la duracion (== ordenado; con NaN tampoco), pasa al
+// siguiente fotograma del mismo nodo (el que tiene como anterior al actual; sin limite de busqueda) y repite. Cada nodo avanza currentAnimKeyFrameSize / currentInterpKeyFrameSize.
+// Libera la interpolacion con el RwFree del motor y devuelve TRUE.
 RwBool RtAnimAnimationMakeDelta(RtAnimAnimation* animation, RwInt32 numNodes, RwReal time) {
-    return ((RwBool(__cdecl *)(RtAnimAnimation*, RwInt32, RwReal))0x7CDB00)(animation, numNodes, time);
+    RtAnimInterpolator* const interpolator = RtAnimInterpolatorCreate(numNodes, animation->interpInfo->interpKeyFrameSize);
+    if (interpolator == nullptr) {
+        return FALSE;
+    }
+    RtAnimInterpolatorSetCurrentAnim(interpolator, animation);
+    const RwReal difference = time - interpolator->currentTime;
+    if (difference < 0.0f) {
+        RtAnimInterpolatorSubAnimTime(interpolator, -difference);
+    } else {
+        RtAnimInterpolatorAddAnimTime(interpolator, difference);
+    }
+
+    uint8* keyFrames   = static_cast<uint8*>(animation->pFrames);
+    uint8* interpFrame = reinterpret_cast<uint8*>(interpolator + 1);
+    for (RwInt32 node = numNodes; node > 0; --node) {
+        uint8* frame = keyFrames;
+        for (;;) {
+            animation->interpInfo->keyFrameMulRecipCB(frame, interpFrame);
+            if (*reinterpret_cast<RwReal*>(frame + 4) == animation->duration) {
+                break;
+            }
+            uint8* next = frame;
+            if (*reinterpret_cast<uint8**>(frame) != frame) {
+                uint8* link;
+                do {
+                    const RwInt32 step = interpolator->currentAnimKeyFrameSize;
+                    link = *reinterpret_cast<uint8**>(next + step);
+                    next += step;
+                } while (link != frame);
+            }
+            frame = next;
+        }
+        interpFrame += interpolator->currentInterpKeyFrameSize;
+        keyFrames += interpolator->currentAnimKeyFrameSize;
+    }
+    RwFree(interpolator);
+    return TRUE;
 }
 
+// 0x7CDBF0 (lote S6A, sin validar): por cada nodo de outAnim (numNodes se relee tras cada llamada) llama a outAnim->keyFrameBlendCB(salida[i], entrada1[i], entrada2[i], alpha); cada
+// fotograma se direcciona con el tamano de SU interpolacion (+0x24). Devuelve TRUE.
 RwBool RtAnimInterpolatorBlend(RtAnimInterpolator* outAnim, RtAnimInterpolator* inAnim1, RtAnimInterpolator* inAnim2, RwReal alpha) {
-    return ((RwBool(__cdecl *)(RtAnimInterpolator*, RtAnimInterpolator*, RtAnimInterpolator*, RwReal))0x7CDBF0)(outAnim, inAnim1, inAnim2, alpha);
+    for (RwInt32 i = 0; i < outAnim->numNodes; ++i) {
+        outAnim->keyFrameBlendCB(InterpFrame(outAnim, i), InterpFrame(inAnim1, i), InterpFrame(inAnim2, i), alpha);
+    }
+    return TRUE;
 }
 
+// 0x7CDC50 (lote S6A, sin validar): por cada nodo de outAnim llama a outAnim->keyFrameAddCB(salida[i], entrada1[i], entrada2[i]). Devuelve TRUE.
 RwBool RtAnimInterpolatorAddTogether(RtAnimInterpolator* outAnim, RtAnimInterpolator* inAnim1, RtAnimInterpolator* inAnim2) {
-    return ((RwBool(__cdecl *)(RtAnimInterpolator*, RtAnimInterpolator*, RtAnimInterpolator*))0x7CDC50)(outAnim, inAnim1, inAnim2);
+    for (RwInt32 i = 0; i < outAnim->numNodes; ++i) {
+        outAnim->keyFrameAddCB(InterpFrame(outAnim, i), InterpFrame(inAnim1, i), InterpFrame(inAnim2, i));
+    }
+    return TRUE;
 }
 
+// 0x7CDCB0 (lote S6A, sin validar): maxInterpKeyFrameSize == -1 -> el de la interpolacion padre (+0x20). Crea la interpolacion con RtAnimInterpolatorCreate(numNodes, tamano) y le pone
+// isSubInterpolator = 1, offsetInParent = startNode y parentAnimation = parentAnim (sin comprobar NULL, como el EXE). Devuelve la nueva interpolacion.
 RtAnimInterpolator* RtAnimInterpolatorCreateSubInterpolator(RtAnimInterpolator* parentAnim, RwInt32 startNode, RwInt32 numNodes, RwInt32 maxInterpKeyFrameSize) {
-    return ((RtAnimInterpolator*(__cdecl *)(RtAnimInterpolator*, RwInt32, RwInt32, RwInt32))0x7CDCB0)(parentAnim, startNode, numNodes, maxInterpKeyFrameSize);
+    if (maxInterpKeyFrameSize == -1) {
+        maxInterpKeyFrameSize = parentAnim->maxInterpKeyFrameSize;
+    }
+    RtAnimInterpolator* const sub = RtAnimInterpolatorCreate(numNodes, maxInterpKeyFrameSize);
+    sub->parentAnimation   = parentAnim;
+    sub->offsetInParent    = startNode;
+    sub->isSubInterpolator = TRUE;
+    return sub;
 }
 
+// 0x7CDCF0 (lote S6A, sin validar): mezcla en el espacio de nodos del padre (offsetInParent). Tres casos segun isSubInterpolator == 1 (comparacion exacta con 1):
+//  - outAnim es sub: para cada nodo k de [out.off, out.off + out.numNodes) (numNodes y offset se releen tras cada llamada): outAnim->keyFrameBlendCB(out[k - out.off], in1[k - in1.off], in2[k - in2.off], alpha)
+//    con los desplazamientos de in1 e in2 leidos al principio.
+//  - si no y inAnim1 es sub: copia in2 -> out para los in1.off primeros nodos (in1.off * out.size bytes), mezcla los nodos [in1.off, in1.off + in1.numNodes) con
+//    keyFrameBlendCB(out[k], in1[k - in1.off], in2[k], alpha) y copia el resto (out.numNodes - in1.numNodes - in1.off nodos de tamano out.size; el origen se direcciona con el tamano de in2).
+//  - si no: igual con inAnim1 e inAnim2 intercambiados (copia in1 -> out en los in2.off primeros nodos, mezcla [in2.off, ...) con keyFrameBlendCB(out[k], in1[k], in2[k - in2.off], alpha), el resto con el tamano de in1 en el origen).
+// Devuelve TRUE.
 RwBool RtAnimInterpolatorBlendSubInterpolator(RtAnimInterpolator* outAnim, RtAnimInterpolator* inAnim1, RtAnimInterpolator* inAnim2, RwReal alpha) {
-    return ((RwBool(__cdecl *)(RtAnimInterpolator*, RtAnimInterpolator*, RtAnimInterpolator*, RwReal))0x7CDCF0)(outAnim, inAnim1, inAnim2, alpha);
+    if (outAnim->isSubInterpolator == 1) {
+        RwInt32 k = outAnim->offsetInParent;
+        if (k >= outAnim->numNodes + k) {
+            return TRUE;
+        }
+        const RwInt32 in1Off = inAnim1->offsetInParent;
+        const RwInt32 in2Off = inAnim2->offsetInParent;
+        const RwInt32 outOff = k;
+        do {
+            outAnim->keyFrameBlendCB(InterpFrame(outAnim, k - outOff), InterpFrame(inAnim1, k - in1Off), InterpFrame(inAnim2, k - in2Off), alpha);
+            ++k;
+        } while (k < outAnim->numNodes + outAnim->offsetInParent);
+        return TRUE;
+    }
+
+    uint8* const outFrames = reinterpret_cast<uint8*>(outAnim + 1);
+    if (inAnim1->isSubInterpolator == 1) {
+        memcpy(outFrames, inAnim2 + 1, static_cast<RwUInt32>(inAnim1->offsetInParent * outAnim->currentInterpKeyFrameSize));
+        for (RwInt32 k = inAnim1->offsetInParent; k < inAnim1->numNodes + inAnim1->offsetInParent; ++k) {
+            outAnim->keyFrameBlendCB(InterpFrame(outAnim, k), InterpFrame(inAnim1, k - inAnim1->offsetInParent), InterpFrame(inAnim2, k), alpha);
+        }
+        const RwInt32 first = inAnim1->offsetInParent + inAnim1->numNodes;
+        const RwInt32 rest  = (outAnim->numNodes - inAnim1->numNodes - inAnim1->offsetInParent) * outAnim->currentInterpKeyFrameSize;
+        memcpy(outFrames + first * outAnim->currentInterpKeyFrameSize, reinterpret_cast<uint8*>(inAnim2 + 1) + inAnim2->currentInterpKeyFrameSize * first, static_cast<RwUInt32>(rest));
+        return TRUE;
+    }
+
+    memcpy(outFrames, inAnim1 + 1, static_cast<RwUInt32>(outAnim->currentInterpKeyFrameSize * inAnim2->offsetInParent));
+    for (RwInt32 k = inAnim2->offsetInParent; k < inAnim2->numNodes + inAnim2->offsetInParent; ++k) {
+        outAnim->keyFrameBlendCB(InterpFrame(outAnim, k), InterpFrame(inAnim1, k), InterpFrame(inAnim2, k - inAnim2->offsetInParent), alpha);
+    }
+    const RwInt32 first = inAnim2->offsetInParent + inAnim2->numNodes;
+    const RwInt32 rest  = (outAnim->numNodes - inAnim2->numNodes - inAnim2->offsetInParent) * outAnim->currentInterpKeyFrameSize;
+    memcpy(outFrames + first * outAnim->currentInterpKeyFrameSize, reinterpret_cast<uint8*>(inAnim1 + 1) + inAnim1->currentInterpKeyFrameSize * first, static_cast<RwUInt32>(rest));
+    return TRUE;
 }
 
+// 0x7CDEF0 (lote S6A, sin validar): para cada nodo i de outAnim (numNodes se relee): outAnim->keyFrameAddCB(salida[base + i], principal[sub.off + i], sub[i]) con base = sub.off si
+// outAnim NO es sub (isSubInterpolator == 0) y 0 si lo es. Cada fotograma se direcciona con el tamano de su interpolacion. Devuelve TRUE.
 RwBool RtAnimInterpolatorAddSubInterpolator(RtAnimInterpolator* outAnim, RtAnimInterpolator* mainAnim, RtAnimInterpolator* subAnim) {
-    return ((RwBool(__cdecl *)(RtAnimInterpolator*, RtAnimInterpolator*, RtAnimInterpolator*))0x7CDEF0)(outAnim, mainAnim, subAnim);
+    RwInt32 base = 0;
+    if (outAnim->isSubInterpolator == 0) {
+        base = subAnim->offsetInParent;
+    }
+    for (RwInt32 i = 0; i < outAnim->numNodes; ++i) {
+        outAnim->keyFrameAddCB(InterpFrame(outAnim, base + i), InterpFrame(mainAnim, subAnim->offsetInParent + i), InterpFrame(subAnim, i));
+    }
+    return TRUE;
 }
 
 void RtAnim::InjectHooks() {
@@ -482,4 +800,24 @@ void RtAnim::InjectHooks() {
     RH_ScopedGlobalInstall(RtAnimInterpolatorDestroy, 0x7CD590);
     RH_ScopedGlobalInstall(RtAnimInterpolatorSetCurrentAnim, 0x7CD5A0);
     RH_ScopedGlobalInstall(RtAnimInterpolatorAddAnimTime, 0x7CD8D0);
+    RH_ScopedGlobalInstall(RtAnimAnimationFreeListCreateParams, 0x7CCC80);          // lote S5A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimEngineConstructor, 0x7CCCD0);                      // lote S5A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimEngineDestructor, 0x7CCD10);                       // lote S5A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimGetInterpolatorInfo, 0x7CCDE0);                    // lote S5A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimAnimationWrite, 0x7CD160);                         // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimAnimationStreamRead, 0x7CD220);                    // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimAnimationStreamWrite, 0x7CD410);                   // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimAnimationStreamGetSize, 0x7CD4D0);                 // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimInterpolatorSetKeyFrameCallBacks, 0x7CD660);       // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimInterpolatorSetAnimLoopCallBack, 0x7CD6F0);        // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimInterpolatorSetAnimCallBack, 0x7CD710);            // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimInterpolatorCopy, 0x7CD730);                       // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimInterpolatorSubAnimTime, 0x7CD760);                // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimInterpolatorSetCurrentTime, 0x7CDAB0);             // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimAnimationMakeDelta, 0x7CDB00);                     // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimInterpolatorBlend, 0x7CDBF0);                      // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimInterpolatorAddTogether, 0x7CDC50);                // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimInterpolatorCreateSubInterpolator, 0x7CDCB0);      // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimInterpolatorBlendSubInterpolator, 0x7CDCF0);       // lote S6A (sin validar)
+    RH_ScopedGlobalInstall(RtAnimInterpolatorAddSubInterpolator, 0x7CDEF0);         // lote S6A (sin validar)
 }
