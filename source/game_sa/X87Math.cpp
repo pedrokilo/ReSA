@@ -16,6 +16,7 @@ extern "C" double __cdecl tan(double);
 #include <bit>
 #include <cmath>
 #include "X87Math.h"
+#include "game_sa/Crt/CrtPow.h"
 
 // --- Palabra de control como la del CRT del EXE (_CIasin/_CIacos, 0x821E70/0x822380): (anterior & 0x300) | 0x7F, solo la x87 ---
 // _control87 del CRT de la DLL modifica ademas MXCSR (redondeo y mascaras) y, al restaurar con el valor leido de la x87, lo dejaria igualado a ella si antes diferian.
@@ -12402,8 +12403,7 @@ void FlcCrtPow(FlcX87& fp) {
     double base, exponent;
     fp.FstpD(base);
     fp.FstpD(exponent);
-    using PowCore = double(__cdecl*)(double, double);
-    const double result = reinterpret_cast<PowCore>(0x00829B99)(base, exponent);
+    const double result = ExeCrt::PowSse2(base, exponent); // CRT3A: nucleo SSE2 reconstruido (CrtPow), antes por direccion
     fp.FldD(result);
 }
 

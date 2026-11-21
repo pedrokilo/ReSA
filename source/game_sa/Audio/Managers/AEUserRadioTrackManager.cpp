@@ -72,6 +72,7 @@ END GENERATED HOOK STATUS */
 
 #include "FileMgr.h"
 #include "MenuManager.h"
+#include "game_sa/Crt/CrtException.h"
 
 #include <reversiblebugfixes/Bugs.hpp>
 
@@ -738,11 +739,11 @@ void CopyBytesLikeExe(char* dst, const char* src, uint32 n) {
 }
 
 [[noreturn]] void StringXlen() { // 0x821255, no vuelve
-    plugin::Call<0x821255>();
+    ExeCrt::StringXlen(); // CRT3A: CrtException.cpp
     __assume(0);
 }
 [[noreturn]] void StringXran() { // 0x8211FD, no vuelve
-    plugin::Call<0x8211FD>();
+    ExeCrt::StringXran(); // CRT3A: CrtException.cpp
     __assume(0);
 }
 
@@ -874,7 +875,7 @@ LegacyString* __fastcall StringFromChars(LegacyString* self, void* /*edx*/, cons
 // 0x4F4090 (lote 209A, sin validar; 95 bytes con marco SEH que solo destruye la base si la asignacion lanzara: omitido; thiscall con (const std::string&), `ret 4`): std::runtime_error::runtime_error(const string&):
 // std::exception::exception() (0x822D97), vtable 0x887D5C, el string en +0xC con capacidad 0xF, longitud 0 y primer byte 0 y assign(mensaje, 0, -1) (0x4F3E80). Devuelve this.
 LegacyRuntimeError* __fastcall RuntimeErrorFromString(LegacyRuntimeError* self, void* /*edx*/, const LegacyString* message) {
-    plugin::CallMethod<0x822D97, LegacyRuntimeError*>(self);
+    reinterpret_cast<notsa::StdException*>(self)->Construct(); // CRT3A: CrtException.cpp
     self->vtable         = 0x887D5C;
     self->message.res    = 0xF;
     self->message.size   = 0;
@@ -886,7 +887,7 @@ LegacyRuntimeError* __fastcall RuntimeErrorFromString(LegacyRuntimeError* self, 
 // 0x4F4230 (lote 209A, sin validar; 101 bytes con marco SEH que solo destruye la base: omitido; thiscall con (const runtime_error&), `ret 4`): constructor de copia de std::runtime_error: constructor de copia de std::exception (0x822DE5),
 // vtable 0x887D5C, el string en +0xC vacio (capacidad 0xF, longitud 0, primer byte 0) y assign(string del otro, 0, -1). Devuelve this.
 LegacyRuntimeError* __fastcall RuntimeErrorCopy(LegacyRuntimeError* self, void* /*edx*/, const LegacyRuntimeError* other) {
-    plugin::CallMethod<0x822DE5, LegacyRuntimeError*, const LegacyRuntimeError*>(self, other);
+    reinterpret_cast<notsa::StdException*>(self)->CopyConstruct(*reinterpret_cast<const notsa::StdException*>(other)); // CRT3A: CrtException.cpp
     self->vtable         = 0x887D5C;
     self->message.res    = 0xF;
     self->message.size   = 0;
@@ -905,7 +906,7 @@ void __fastcall RuntimeErrorDestructorBody(LegacyRuntimeError* self, void* /*edx
     self->message.res    = 0xF;
     self->message.size   = 0;
     self->message.sso[0] = 0;
-    plugin::CallMethod<0x822E2F, LegacyRuntimeError*>(self);
+    reinterpret_cast<notsa::StdException*>(self)->Destruct(); // CRT3A: CrtException.cpp
 }
 
 // 0x4F3D50 (lote 209A, sin validar; 14 bytes, thiscall sin argumentos, `ret`): std::runtime_error::what(): c_str() del string en +0xC (puntero si la capacidad es >= 16, si no el buffer interno).

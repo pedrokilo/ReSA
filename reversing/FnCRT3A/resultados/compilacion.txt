@@ -1,0 +1,6 @@
+Compilacion del proyecto completo (wv-24, rama crt3a), 21/11/2026: EXIT=0, gta_reversed.asi generado (Debug). Log: _build_CRT3A.log
+563:  CrtException.cpp
+567:  CrtOnexit.cpp
+568:  CrtPow.cpp
+1676:EXIT=0
+1677:fin Sat Nov 21 01:06:44     2026
