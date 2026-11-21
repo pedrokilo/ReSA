@@ -1192,7 +1192,7 @@ bool CCam::ProcessArrestCamOne() {
         }else if(target->GetType()==ENTITY_TYPE_VEHICLE){auto* driver=static_cast<CVehicle*>(target)->m_pDriver;if(driver&&driver->IsPlayer()){actor=driver;actor->GetBonePosition(&dest,static_cast<eBoneTag>(3),true);}else dest=target->GetPosition();
             cop=playerCop();if(cop&&float(std::rand())*std::bit_cast<float>(0x38000100u)>.65f)sequence={2,8,3,2,-1,-1};else sequence={8,3,2,-1,-1,-1};
         }else return false;
-        if(!StaticRef<uint8>(0xBAADC0)){const auto text=TheText.Get("BUSTED");CMessages::AddBigMessage(text,5000u,static_cast<eMessageStyle>(2));}
+        if(!StaticRef<uint8>(0xBAADC0)){const auto text=plugin::CallMethodAndReturn<const GxtChar*,0x6A0050>(&TheText,"BUSTED");plugin::Call<0x69F2B0>(text,uint32(5000),int32(2));}
         bool eligible=false;
         for(int32 index=0;;++index){
             if(mode||index>=6||sequence[index]<1){geometry(source);axes();if(mode)m_bResetStatics=false;return true;}
@@ -3589,7 +3589,7 @@ void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, flo
         TheCamera.CameraColDetAndReact(&m_vecSource,&focal);TheCamera.ImproveNearClip(nullptr,ped,&m_vecSource,&focal);CameraRoundVector4(m_vecSource);
     }
     StaticRef<bool>(0xB6F042)=false;StaticRef<bool>(0xB6F043)=false;CameraRoundVector4(m_vecSource);GetVectorsReadyForRW();
-    if (!interior && StaticRef<int32>(0xB6F0D8)!=1 && (flags&1) && !CGameLogic::IsCoopGameGoingOn() && !StaticRef<bool>(0xB6FCDD) && !StaticRef<bool>(0xB6FD14) && !StaticRef<bool>(0xB6FCB4) && ped->m_vecMoveSpeed.SquaredMagnitude()<.0001f) gIdleCam.Process();
+    if (!interior && StaticRef<int32>(0xB6F0D8)!=1 && (flags&1) && !plugin::CallMethodAndReturn<bool,0x441390>(ped) && !StaticRef<bool>(0xB6FCDD) && !StaticRef<bool>(0xB6FD14) && !StaticRef<bool>(0xB6FCB4) && ped->m_vecMoveSpeed.SquaredMagnitude()<.0001f) gIdleCam.Process();
     else StaticRef<uint32>(0xB6FE34)=0;
     m_bResetStatics=false;
 }

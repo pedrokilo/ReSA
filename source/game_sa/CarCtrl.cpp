@@ -381,7 +381,7 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
             } while (current < pick);
         }
         if (StaticRef<uint8>(0x96915B)) {
-            gang = CGeneral::GetRandomIntInRange(0, 9);
+            gang = reinterpret_cast<int32(__cdecl*)(int32, int32)>(0x407180)(0, 9);
         }
         *arg1 = gang + 14;
         if (CPopulation::PickGangCar(static_cast<eGangID>(gang)) < 0) {
