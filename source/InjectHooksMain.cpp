@@ -739,6 +739,11 @@ void RwPlCoreInjectHooksR33A();  // transformaciones SSE de puntos/vectores y pr
 void RwPlCoreInjectHooksR34A();  // transformaciones SSE2 de puntos/vectores con prueba de alineacion (0x80D440..0x80D600) (rwplcore.cpp)
 void RwD3D9InjectHooksR34A();    // deteccion de CPU, Im3D de D3D9 y nodos de Rx de D3D9 (0x80D680..0x80E9A0) (rwcore.cpp)
 void RwCoreInjectHooksR34A();    // vector de estados de render por defecto, paquetes y asignacion de clusters de Rx (0x80E9B0..0x80F690) (rwcore.cpp)
+void RwCoreInjectHooksS17A();    // lote S17A (sin validar): 23 raices de RwCore (tuberias de Rx, listas de marcos) sustituidas por C++ (rwcore.cpp)
+void RwCoreInjectHooksS18A();    // lote S18A (sin validar): 23 raices de RwCore (camara, raster 2D, imagenes, plugins de camara, D3D9) sustituidas por C++ (rwcore.cpp)
+void RwCoreInjectHooksS19A();    // lote S19A (sin validar): raices de RwCore de cuerpo grande (Im3D, rasters, diccionarios, clusters y nodos de Rx, monton de Rx, lista de marcos) sustituidas por C++ (rwcore.cpp)
+void RwCoreInjectHooksS20A();    // lote S20A (sin validar): modulos de motor de camaras, Im3D, marcos, texturas y rasters sustituidos por C++ (rwcore.cpp)
+void RwPlCoreInjectHooksS20A();  // lote S20A (sin validar): modulos de motor de flujos y matrices, enteros de 16 bits y consultas del motor (rwplcore.cpp)
 
 void InjectHooksMain() {
     /**
@@ -1186,6 +1191,11 @@ void InjectHooksMain() {
     RwPlCoreInjectHooksR34A();
     RwD3D9InjectHooksR34A();
     RwCoreInjectHooksR34A();
+    RwCoreInjectHooksS17A();
+    RwCoreInjectHooksS18A();
+    RwCoreInjectHooksS19A();
+    RwCoreInjectHooksS20A();
+    RwPlCoreInjectHooksS20A();
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();
