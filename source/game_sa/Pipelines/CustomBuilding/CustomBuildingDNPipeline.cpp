@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include <Pipelines/PipelinesCommon.hpp>
@@ -296,7 +297,7 @@ RpMaterial* CCustomBuildingDNPipeline::CustomPipeMaterialSetup(RpMaterial* mater
     }
     uint32 hasEnvMap = 0;
     if (auto* const envData = *reinterpret_cast<uint8**>(raw + CCustomCarEnvMapPipeline::ms_envMapPluginOffset)) {
-        if (static_cast<float>(envData[4]) * StaticRef<float>(0x859A3C) /* 1/255 */ != 0.0f && *reinterpret_cast<void**>(envData + 8)) {
+        if (static_cast<float>(envData[4]) * DatosExe::Rdata::k859A3C /* 1/255 */ != 0.0f && *reinterpret_cast<void**>(envData + 8)) {
             hasEnvMap = 1;
         }
     }
@@ -362,7 +363,7 @@ void CCustomBuildingDNPipeline::CustomPipeRenderCB(RwResEntry* entry, void* obje
             RwD3D9SetTexture(*reinterpret_cast<RwTexture**>(envData + 8), 1);
 
             // Como el original: brillo (byte) * (1/255) * 254 truncado (_ftol2) y saturado a 255 (comparación con signo); factor opaco con el brillo en R, G y B.
-            int32 shininess = (int32)((float)envData[4] * StaticRef<float>(0x859A3C) * DatosExe::Rdata::k86BE90);
+            int32 shininess = (int32)((float)envData[4] * DatosExe::Rdata::k859A3C * DatosExe::Rdata::k86BE90);
             if (shininess > 255) {
                 shininess = 255;
             }

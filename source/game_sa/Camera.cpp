@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "Camera.h"
@@ -1517,12 +1518,12 @@ T& CameraRawField(CCamera* camera, uint32 offset) {
 // (el vector hacia delante x0.5 si el modo de la camara activa es de los de persona/jugador y el objetivo es un ped, x5 en el resto) y guarda la distancia al suelo (20 si no toca nada);
 // todos los fotogramas interpola entre el valor anterior y el nuevo con (resto + 1) / 6 (0x85F0A0 = 0x3E2AAAAB). Aritmetica x87 de 24 bits en X87Math.cpp (CamSound*).
 void CCamera::UpdateSoundDistances() {
-    float scale = StaticRef<float>(0x858C80); // 5.0f
+    float scale = DatosExe::Rdata::k858C80; // 5.0f
     switch (static_cast<int16>(GetActiveCam().m_nMode)) {
     case 0x10: case 0x07: case 0x27: case 0x28: case 0x34: case 0x2A: case 0x2B:
     case 0x29: case 0x2D: case 0x2E: case 0x22: case 0x08: case 0x33:
         if (CameraRawField<CEntity*>(this, 0x958)->GetIsTypePed()) {
-            scale = StaticRef<float>(0x858B8C); // 0.5f
+            scale = DatosExe::Rdata::k858B8C; // 0.5f
         }
         break;
     default:
@@ -1531,7 +1532,7 @@ void CCamera::UpdateSoundDistances() {
 
     CVector point;
     float rayEnd;
-    CamSoundPointCpp(&CameraRawField<float>(this, 0x984), scale, &GetPosition().x, StaticRef<float>(0x858BA4) /* 20.0f */, &point.x, &rayEnd);
+    CamSoundPointCpp(&CameraRawField<float>(this, 0x984), scale, &GetPosition().x, DatosExe::Rdata::k858BA4 /* 20.0f */, &point.x, &rayEnd);
 
     const uint16 phase = static_cast<uint16>(CTimer::GetFrameCounter() % 12u);
     if (phase == 0) {
@@ -1544,14 +1545,14 @@ void CCamera::UpdateSoundDistances() {
             CameraRawField<uint32>(this, 0x15C) = 0x41A00000u; // mov [esi+15Ch],41A00000h (20.0f)
         }
     }
-    CameraRawField<float>(this, 0x158) = CamSoundBlendCpp(static_cast<int32>(static_cast<int16>(phase)) + 1, StaticRef<float>(0x85F0A0),
-        StaticRef<float>(0x858624) /* 1.0f */, CameraRawField<float>(this, 0x160), CameraRawField<float>(this, 0x15C));
+    CameraRawField<float>(this, 0x158) = CamSoundBlendCpp(static_cast<int32>(static_cast<int16>(phase)) + 1, DatosExe::Rdata::k85F0A0,
+        DatosExe::Rdata::k858624 /* 1.0f */, CameraRawField<float>(this, 0x160), CameraRawField<float>(this, 0x15C));
 }
 
 // unused
 // 0x50CB90
 void CCamera::SetNearClipBasedOnPedCollision(float arg2) {
-    const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=StaticRef<float>(0x8CCC84),maximum=StaticRef<float>(0x858C24);
+    const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=StaticRef<float>(0x8CCC84),maximum=DatosExe::Rdata::k858C24;
     const float clip = CameraNearClipPedCpp(arg2, base, denominator, factor, maximum);
     RwCameraSetNearClipPlane(Scene.m_pRwCamera,clip);
 }
@@ -2699,8 +2700,8 @@ void CCamera::Process() {
     }
     if (m_bUseNearClipScript) RwCameraSetNearClipPlane(Scene.m_pRwCamera, m_fNearClipScript);
     float headingChange = afterHeading - beforeHeading;
-    while (headingChange >= StaticRef<float>(0x858CB8)) headingChange -= StaticRef<float>(0x858CBC);
-    while (headingChange < -StaticRef<float>(0x858CB8)) headingChange += StaticRef<float>(0x858CBC);
+    while (headingChange >= DatosExe::Rdata::k858CB8) headingChange -= DatosExe::Rdata::k858CBC;
+    while (headingChange < -DatosExe::Rdata::k858CB8) headingChange += DatosExe::Rdata::k858CBC;
     if (std::abs(headingChange) > .3f) m_bJust_Switched = true;
     const bool forceVehicle = GetActiveCam().m_nDirectionWasLooking != 3 && m_pTargetEntity->GetIsTypeVehicle();
     const float now = float(CTimer::GetTimeInMS());
@@ -2773,7 +2774,7 @@ void CCamera::Process() {
     }
     const float drunk = StaticRef<float>(0xC73C58);
     if (drunk > 0.f) {
-        const float angle = StaticRef<float>(0xB6EC30) * StaticRef<float>(0x8595EC);
+        const float angle = StaticRef<float>(0xB6EC30) * DatosExe::Rdata::k8595EC;
         const float cosine = std::cos(angle), sine = std::sin(angle);
         source.x += cosine * drunk * -.02f; source.z += sine * drunk * -.02f;
         up.Normalise(); up.x += cosine * drunk * .05f; up.y += sine * drunk * .05f;
@@ -2812,7 +2813,7 @@ void CCamera::Process() {
         m_fCameraSpeedSoFar = 0.f; m_nNumFramesSoFar = 0;
         m_fCameraAverageSpeed = CameraProcessAverageDistance(accumulatedDistance, int32(m_nWorkOutSpeedThisNumFrames));
     }
-    const float orientation = m_fOrientation + StaticRef<float>(0x858CB8);
+    const float orientation = m_fOrientation + DatosExe::Rdata::k858CB8;
     m_vecPreviousCameraPosition = m_mCameraMatrix.GetPosition();
     if (GetActiveCam().m_nDirectionWasLooking != 3 && int(GetActiveCam().m_nMode) != 37) {
         GetActiveCam().m_vecSource = GetActiveCam().m_vecSourceBeforeLookBehind; m_fOrientation = orientation;
@@ -3985,10 +3986,10 @@ void CameraControlPedCycle(CCamera& camera) {
     }
 }
 float CameraControlWrapHeading(float heading, float reference) {
-    if (heading > reference + StaticRef<float>(0x858CB8)) {
-        heading -= StaticRef<float>(0x858CBC);
-    } else if (heading < reference - StaticRef<float>(0x858CB8)) {
-        heading += StaticRef<float>(0x858CBC);
+    if (heading > reference + DatosExe::Rdata::k858CB8) {
+        heading -= DatosExe::Rdata::k858CBC;
+    } else if (heading < reference - DatosExe::Rdata::k858CB8) {
+        heading += DatosExe::Rdata::k858CBC;
     }
     return heading;
 }
@@ -4022,7 +4023,7 @@ void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, boo
             const auto heading = CameraControlWrapHeading(
                 CameraControlTargetHeadingMinusHalfPi(ped), cam.m_fHorizontalAngle
             );
-            if (StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC)
+            if (StaticRef<float>(0x8CC46C) * DatosExe::Rdata::k8595EC
                 < std::fabs(heading - cam.m_fHorizontalAngle)) {
                 jump = true;
             } else {
@@ -4076,9 +4077,9 @@ void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, boo
         if (ped->CanWeRunAndFireWithWeapon()
             && (*reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(ped) + 0x46C) & 0x4000000) == 0) {
             const auto heading = CameraControlWrapHeading(
-                ped->GetHeading() - StaticRef<float>(0x858FE4), cam.m_fHorizontalAngle
+                ped->GetHeading() - DatosExe::Rdata::k858FE4, cam.m_fHorizontalAngle
             );
-            aimingJump = StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC)
+            aimingJump = StaticRef<float>(0x8CC46C) * DatosExe::Rdata::k8595EC
                 < std::fabs(heading - cam.m_fHorizontalAngle) || !ped->bIsStanding;
             if (StaticRef<uint8>(0xB6EC2E) != 0) {
                 aimingJump = false;
@@ -4090,7 +4091,7 @@ void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, boo
         {16, 7, 34, 8, 51, 29, 32, 33, 30, 39, 40, 52, 42, 43, 41, 45, 1, 37, 46});
     if ((leavingSpecialMode || aimingJump || wasArrested) && !camera.m_bJustCameOutOfGarage) {
         if (CameraControlModeIn(oldMode, {7, 8, 51, 34, 16, 39, 40, 52, 42, 43, 41, 45, 46})) {
-            const auto angle = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) - StaticRef<float>(0x858FE4);
+            const auto angle = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) - DatosExe::Rdata::k858FE4;
             const auto ped = static_cast<CPed*>(camera.m_pTargetEntity);
             ped->m_fCurrentRotation = angle;
             ped->m_fAimingRotation = angle;
@@ -4103,7 +4104,7 @@ void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, boo
             displacement.Normalise();
             cam.m_fTransitionBeta = CGeneral::GetATanOfXY(0.001f, 1.0f);
         } else {
-            cam.m_fTransitionBeta = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) + StaticRef<float>(0x858CB8);
+            cam.m_fTransitionBeta = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) + DatosExe::Rdata::k858CB8;
         }
     }
 }

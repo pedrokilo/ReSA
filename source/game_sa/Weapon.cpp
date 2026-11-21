@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 
 #include "Weapon.h"
 
@@ -1601,7 +1602,7 @@ bool CWeapon::FireInstantHitFromCar(CVehicle* vehicle, bool leftSide, bool right
     CVector start, target;
     if (!bike || vehicle->m_pDriver) {
         start = weaponInfo->m_vecFireOffset;
-        if (!bike && rightSide) { start *= constant(0x859BB4); start.z -= constant(0x858B1C); }
+        if (!bike && rightSide) { start *= DatosExe::Rdata::k859BB4; start.z -= DatosExe::Rdata::k858B1C; }
         auto* driver = vehicle->m_pDriver;
         auto* hierarchy = GetAnimHierarchyFromSkinClump(driver->GetRpClump());
         auto* hand = *reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(driver) + 0x4A0);
@@ -1628,24 +1629,24 @@ bool CWeapon::FireInstantHitFromCar(CVehicle* vehicle, bool leftSide, bool right
             const auto seatPosition = seat();
             auto* collision = vehicle->GetColModel();
             const uint32 random = uint32(std::rand());
-            offset.x = float(random & 0xFF) * constant(0x858CDC) - constant(0x858EE8);
-            offset.y = collision->m_boundBox.m_vecMax.y + seatPosition.y + constant(0x858CC4);
-            offset.z = seatPosition.z + constant(0x866CAC);
-            targetOffset = CVector{0.f, weaponInfo->m_fWeaponRange, seat().z + constant(0x858B8C)};
+            offset.x = float(random & 0xFF) * DatosExe::Rdata::k858CDC - DatosExe::Rdata::k858EE8;
+            offset.y = collision->m_boundBox.m_vecMax.y + seatPosition.y + DatosExe::Rdata::k858CC4;
+            offset.z = seatPosition.z + DatosExe::Rdata::k866CAC;
+            targetOffset = CVector{0.f, weaponInfo->m_fWeaponRange, seat().z + DatosExe::Rdata::k858B8C};
         } else if (!leftSide) {
             const auto seatPosition = seat();
             const uint32 random = uint32(std::rand()); auto* collision = vehicle->GetColModel();
-            offset.x = collision->m_boundBox.m_vecMax.x + constant(0x858C84);
-            offset.y = (seatPosition.y - constant(0x872C68)) + float(random & 0xFF) * constant(0x858CDC);
-            offset.z = seatPosition.z + constant(0x8665BC);
-            const auto again = seat(); targetOffset = CVector{weaponInfo->m_fWeaponRange, again.y, again.z + constant(0x858B8C)};
+            offset.x = collision->m_boundBox.m_vecMax.x + DatosExe::Rdata::k858C84;
+            offset.y = (seatPosition.y - DatosExe::Rdata::k872C68) + float(random & 0xFF) * DatosExe::Rdata::k858CDC;
+            offset.z = seatPosition.z + DatosExe::Rdata::k8665BC;
+            const auto again = seat(); targetOffset = CVector{weaponInfo->m_fWeaponRange, again.y, again.z + DatosExe::Rdata::k858B8C};
         } else {
             const auto seatPosition = seat();
             const uint32 random = uint32(std::rand()); auto* collision = vehicle->GetColModel();
-            offset.x = -collision->m_boundBox.m_vecMax.x - constant(0x858C84);
-            offset.y = (seatPosition.y - constant(0x858C28)) + float(random & 0xFF) * constant(0x858CDC);
-            offset.z = seatPosition.z + constant(0x872C6C);
-            const auto again = seat(); targetOffset = CVector{-weaponInfo->m_fWeaponRange, again.y, again.z + constant(0x858CC8)};
+            offset.x = -collision->m_boundBox.m_vecMax.x - DatosExe::Rdata::k858C84;
+            offset.y = (seatPosition.y - DatosExe::Rdata::k858C28) + float(random & 0xFF) * DatosExe::Rdata::k858CDC;
+            offset.z = seatPosition.z + DatosExe::Rdata::k872C6C;
+            const auto again = seat(); targetOffset = CVector{-weaponInfo->m_fWeaponRange, again.y, again.z + DatosExe::Rdata::k858CC8};
         }
         start = vehicle->GetMatrix().TransformPoint(offset);
         start.x = CTimer::GetTimeStep() * vehicle->m_vecMoveSpeed.x + start.x;
@@ -1654,10 +1655,10 @@ bool CWeapon::FireInstantHitFromCar(CVehicle* vehicle, bool leftSide, bool right
         target = vehicle->GetMatrix().TransformPoint(targetOffset);
     }
     const uint32 randomY = uint32(std::rand()), randomX = uint32(std::rand());
-    target.x = (float(randomX & 0xFF) * constant(0x858C58) - constant(0x872C64)) + target.x;
-    target.y = target.y + (float(randomY & 0xFF) * constant(0x858C58) - constant(0x872C64));
+    target.x = (float(randomX & 0xFF) * DatosExe::Rdata::k858C58 - DatosExe::Rdata::k872C64) + target.x;
+    target.y = target.y + (float(randomY & 0xFF) * DatosExe::Rdata::k858C58 - DatosExe::Rdata::k872C64);
     const uint32 randomZ = uint32(std::rand());
-    target.z += float(randomZ & 0xFF) * constant(0x858C58) - constant(0x872C64);
+    target.z += float(randomZ & 0xFF) * DatosExe::Rdata::k858C58 - DatosExe::Rdata::k872C64;
     DoDriveByAutoAiming(FindPlayerPed(-1), vehicle, &start, &target, false);
     FireInstantHitFromCar2(start, target, vehicle, vehicle->m_pDriver);
     return true;
@@ -1782,7 +1783,7 @@ template<class T> T& InstantHitField(void* p, size_t offset) { return *reinterpr
 float InstantHitConstant(uintptr_t address) { return *reinterpret_cast<const float*>(address); }
 int32 InstantHitAnimationDuration(CWeaponInfo* wi) {
     const float animationStart = wi->m_fAnimLoopStart, animationEnd = wi->m_fAnimLoopEnd;
-    const float scale = InstantHitConstant(0x858978);
+    const float scale = DatosExe::Rdata::k858978;
     // (fin - inicio) * escala a 24 bits por operacion y truncado como _ftol2 (0x821B40): conversion a 64 bits y 32 bits bajos
     return static_cast<int32>(static_cast<long long>((animationEnd - animationStart) * scale));
 }
@@ -1840,12 +1841,12 @@ bool CWeapon::FireInstantHit(CEntity* firingEntity, CVector* origin, CVector* mu
         CWorld::ProcessLineOfSight(from, end, hit, victim, true, true, true, true, true, false, false, true);
     };
     const auto randomSpread = [&] {
-        const float first = float(std::rand()) * InstantHitConstant(0x858C7C);
-        const float second = float(std::rand()) * InstantHitConstant(0x858C7C);
-        const float third = float(std::rand()) * InstantHitConstant(0x858C7C);
-        const float zOffset = (first * InstantHitConstant(0x858CC4) - InstantHitConstant(0x858B1C)) * spread;
-        end.x += (third * InstantHitConstant(0x858EE8) - InstantHitConstant(0x858CC4)) * spread;
-        end.y += (second * InstantHitConstant(0x858EE8) - InstantHitConstant(0x858CC4)) * spread;
+        const float first = float(std::rand()) * DatosExe::Rdata::k858C7C;
+        const float second = float(std::rand()) * DatosExe::Rdata::k858C7C;
+        const float third = float(std::rand()) * DatosExe::Rdata::k858C7C;
+        const float zOffset = (first * DatosExe::Rdata::k858CC4 - DatosExe::Rdata::k858B1C) * spread;
+        end.x += (third * DatosExe::Rdata::k858EE8 - DatosExe::Rdata::k858CC4) * spread;
+        end.y += (second * DatosExe::Rdata::k858EE8 - DatosExe::Rdata::k858CC4) * spread;
         end.z += zOffset;
     };
     const auto sway = [&](bool cameraRay) {

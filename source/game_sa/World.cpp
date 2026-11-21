@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "World.h"
@@ -2350,7 +2351,7 @@ void CWorld::TriggerExplosionSectorList(PtrListType& ptrList, const CVector& poi
                         ped->bIsStanding = false;
                         z = z + 4.f;
                     } else {
-                        z = CTimer::GetTimeStep() * ped->m_fMass * StaticRef<float>(0x863984) + z; // 0x863984 = 1/125; paso * masa, no GetTimeStepInMS
+                        z = CTimer::GetTimeStep() * ped->m_fMass * DatosExe::Rdata::k863984 + z; // 0x863984 = 1/125; paso * masa, no GetTimeStepInMS
                     }
                     impactVelocity.z = z;
 

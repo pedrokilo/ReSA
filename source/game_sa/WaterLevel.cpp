@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 #include "WaterLevel.h"
 #include "PostEffects.h"
@@ -357,9 +358,9 @@ struct WaterLayerParams { float scale, shiftU, shiftV; uint8 alpha; };
 // Como el original (0x6E8F00..0x6E8FF3 / 0x6E9974..): constantes float 0.08f/0.04f (multiplicacion, no division) y alfa de capa.
 WaterLayerParams GetWaterLayerParams(int32 layer) {
     if (layer == 0) {
-        return { StaticRef<float>(0x859018), StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };
+        return { DatosExe::Rdata::k859018, StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };
     }
-    return { StaticRef<float>(0x858CEC), StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };
+    return { DatosExe::Rdata::k858CEC, StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };
 }
 // Como el original: fild + fmul 0.577f (0x872004) + _ftol2, solo el byte bajo; alfa de la capa en el byte alto.
 uint32 WaterVertexColor(const CRGBA& c, uint8 alpha) {
@@ -1316,8 +1317,8 @@ void WaterRenderShifts() {
     WaterLevelShiftsAdvanceCpp(CTimer::GetTimeStep(), CWaterLevel::m_CurrentFlow.x, CWaterLevel::m_CurrentFlow.y, StaticRef<float>(0x8D392C), shifts);
     const uint32 time = CTimer::GetTimeInMS();
     const float angleA = IntTimesFloatCpp(int32(time & 0xFFFu), std::bit_cast<float>(0x3AC90FDBu));  // fild * 0x872174
-    CWaterLevel::TextureShiftSecondU = WaterLevelSinMulMulAddCpp(angleA, CWeather::Wavyness, StaticRef<float>(0x859018), shifts[0]); // 0xC21184
-    CWaterLevel::TextureShiftSecondV = WaterLevelCosMulMulAddCpp(angleA, CWeather::Wavyness, StaticRef<float>(0x859018), shifts[1]); // 0xC21180
+    CWaterLevel::TextureShiftSecondU = WaterLevelSinMulMulAddCpp(angleA, CWeather::Wavyness, DatosExe::Rdata::k859018, shifts[0]); // 0xC21184
+    CWaterLevel::TextureShiftSecondV = WaterLevelCosMulMulAddCpp(angleA, CWeather::Wavyness, DatosExe::Rdata::k859018, shifts[1]); // 0xC21180
     const float angleB = IntTimesFloatCpp(int32(time & 0x1FFFu), std::bit_cast<float>(0x3A490FDBu));  // fild * 0x872170
     StaticRef<uint32>(0xC2117C) = StaticRef<uint32>(0x8D382C);                                         // copia de los bits (mov eax,[0x8D382C]; mov [0xC2117C],eax)
     const float firstNoise = StaticRef<float>(0x8D3928);

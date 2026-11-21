@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "AERadioTrackManager.h"
@@ -553,7 +554,7 @@ void CAERadioTrackManager::CheckForStationRetune() {
             m_ActiveSettings.StationID = static_cast<eRadioID>(-1);
         } else StopRadio(nullptr, false);
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_RETUNE_START, 0.f, 1.f);
-        const auto delay = !(StaticRef<float>(0xB6F14C) > StaticRef<float>(0x858C20)) ? 2000u : 4000u;
+        const auto delay = !(StaticRef<float>(0xB6F14C) > DatosExe::Rdata::k858C20) ? 2000u : 4000u;
         if (StaticRef<uint32>(0xB7CB84) <= m_nTimeRadioStationRetuned + 1500u) return;
         if (StaticRef<uint32>(0xB7CB84) <= field_60 + delay) return;
     }

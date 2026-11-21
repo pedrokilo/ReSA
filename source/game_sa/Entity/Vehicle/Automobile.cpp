@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
@@ -977,7 +978,7 @@ void CAutomobile::ProcessControl()
                 const bool steerOpposed = m_fSteerAngle < 0.0f && speedRight > 0.05f
                     || m_fSteerAngle > 0.0f && speedRight < -0.05f
                     || vehicleFlags.bIsHandbrakeOn;
-                m_fSteerAngle = AutomobileSteerFactorCpp(steerAngle, m_pHandlingData->m_fSteeringLock, StaticRef<float>(0x8595EC), m_fSteerAngle, steerOpposed);
+                m_fSteerAngle = AutomobileSteerFactorCpp(steerAngle, m_pHandlingData->m_fSteeringLock, DatosExe::Rdata::k8595EC, m_fSteerAngle, steerOpposed);
                 steerAngleApplied = true;
             }
             if (!steerAngleApplied)

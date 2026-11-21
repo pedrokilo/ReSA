@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "MonsterTruck.h"
@@ -165,7 +166,7 @@ void CMonsterTruck::ProcessSuspension() {
         if (m_apWheelCollisionEntity[i]) {
             speeds[i] -= m_apWheelCollisionEntity[i]->GetSpeed(m_vWheelCollisionPos[i]);
         }
-        if (m_fWheelsSuspensionCompression[i] < DatosExe::Rdata::k8717D4 && m_wheelColPoint[i].m_vecNormal.z > StaticRef<float>(0x858F9C)) {
+        if (m_fWheelsSuspensionCompression[i] < DatosExe::Rdata::k8717D4 && m_wheelColPoint[i].m_vecNormal.z > DatosExe::Rdata::k858F9C) {
             directions[i] = -m_wheelColPoint[i].m_vecNormal;
         }
     }
@@ -247,7 +248,7 @@ void CMonsterTruck::SetupSuspensionLines() {
         disk.m_fRadius = m_fSuspensionRadius;
         disk.m_vecCenter = wheel;
         disk.m_vThickness = CVector{i < 2 ? -1.f : 1.f, 0.f, 0.f};
-        disk.m_fThickness = m_fSuspensionRadius * StaticRef<float>(0x858CC8);
+        disk.m_fThickness = m_fSuspensionRadius * DatosExe::Rdata::k858CC8;
         disk.m_Surface.m_nMaterial = static_cast<eSurfaceType>(60);
         disk.m_Surface.m_nPiece = std::array<uint8, 4>{13, 15, 14, 16}[i];
         disk.m_Surface.m_nLighting = tColLighting(255);

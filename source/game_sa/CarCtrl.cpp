@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
@@ -3694,7 +3695,7 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
         if (nearRange) {
             range = 45.0f; // 0x42340000
         } else {
-            range = Car81ScaleCpp(StaticRef<float>(0xB6F11C), StaticRef<float>(0x858F98)); // multiplicador de la camara * 170.0f, guardado como float
+            range = Car81ScaleCpp(StaticRef<float>(0xB6F11C), DatosExe::Rdata::k858F98); // multiplicador de la camara * 170.0f, guardado como float
         }
         if (Car81LessCpp(StaticRef<float>(0xB6F9B4), DatosExe::Rdata::k858CAC)) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
             range = 70.0f; // 0x428C0000
@@ -3724,7 +3725,7 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
         const uint32 status = vehicle->GetStatus();
         if (status == STATUS_SIMPLE) {
             const CMatrixLink* const matrix = vehicle->m_matrix; // sin comprobar nulo, como el EXE
-            if (Car81FlatCpp(matrix->GetUp().z, StaticRef<float>(0x858B50), DatosExe::Rdata::k858F90)) {
+            if (Car81FlatCpp(matrix->GetUp().z, DatosExe::Rdata::k858B50, DatosExe::Rdata::k858F90)) {
                 remove(vehicle);
                 return;
             }
@@ -3747,7 +3748,7 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
             const uint32 switched = vehicle->m_autoPilot.m_nTimeSwitchedToRealPhysics;
             if (now - switched > 5000u && vehicle->m_nTimeTillWeNeedThisCar == 0 && now != 0 && !vehicle->GetIsOnScreen()) {
                 const CVector difference = *positionOf(vehicle) - centre; // 0x40FE60
-                if (Car81Dist2dAboveCpp(&difference.x, StaticRef<float>(0x858F8C))
+                if (Car81Dist2dAboveCpp(&difference.x, DatosExe::Rdata::k858F8C)
                     && !IsThisVehicleInteresting(vehicle) && !vehicle->vehicleFlags.bIsLocked && vehicle->CanBeDeleted()
                     && !CTrafficLights::ShouldCarStopForLight(vehicle, true) && !CTrafficLights::ShouldCarStopForBridge(vehicle)) { // 0x49D610, 0x49D420
                     CVector point;

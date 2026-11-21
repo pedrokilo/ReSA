@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 
 #include "AEPedAudioEntity.h"
 #include "AEAudioHardware.h"
@@ -28,7 +29,7 @@ END GENERATED HOOK STATUS */
 // entero de la tabla 0x8AD914 (16 bytes por superficie), lo multiplica por 0.01f (0x858C58) con la x87 a 24 bits, y devuelve en ST0 20 * log10 de ese valor (fldlg2 + fyl2x y fmul 20.0f
 // (0x858BA4), un solo redondeo). Es el calculo que CAEPedAudioEntity::HandlePedHit llevaba en linea; el EXE tambien la usa desde 0x4E1FE5 y 0x4E2077.
 static float __cdecl SurfaceVolumeDb(uint8 surfaceId) {
-    const float value = IntTimesFloatCpp(reinterpret_cast<const int32*>(0x8AD914)[size_t(surfaceId) * 4], StaticRef<float>(0x858C58));
+    const float value = IntTimesFloatCpp(reinterpret_cast<const int32*>(0x8AD914)[size_t(surfaceId) * 4], DatosExe::Rdata::k858C58);
     return AudioLog10Times20Cpp(value);
 }
 
@@ -329,7 +330,7 @@ void CAEPedAudioEntity::UpdateJetPack(float thrustFwd, float thrustAngle) {
     m_JetPackSound1->m_Speed  = StaticRef<float>(0x8AE5F8); // mov [eax+1Ch],[8AE5F8] = 0.56
 
     m_JetPackSound2->m_Volume = zero + m_fVolume3;
-    m_JetPackSound2->m_Speed  = (absSin * StaticRef<float>(0x8AE620) + StaticRef<float>(0x858624)) * m_JetPackSoundSpeedMult;
+    m_JetPackSound2->m_Speed  = (absSin * StaticRef<float>(0x8AE620) + DatosExe::Rdata::k858624) * m_JetPackSoundSpeedMult;
 }
 
 // 0x4E1170
@@ -456,7 +457,7 @@ void CAEPedAudioEntity::HandleFootstepEvent(eAudioEvents event, float volume, fl
             return;
         }
         if (reduceVolume) {
-            vol = vol - StaticRef<float>(0x858B3C);
+            vol = vol - DatosExe::Rdata::k858B3C;
         }
         PlaySoundNow(SND_BANK_SLOT_FOOTSTEPS_GENERIC, CAEAudioUtility::GetRandomNumberInRange(1, 5), 0);
     };
@@ -733,7 +734,7 @@ void CAEPedAudioEntity::HandleSwimWake(eAudioEvents event) {
         if (!AEAudioHardware.EnsureSoundBankIsLoaded(SND_BANK_GENRL_COLLISIONS, SND_BANK_SLOT_COLLISIONS, true)) {
             return; // sin tocar m_LastSwimWakeTriggerTimeMs (salta a 0x4E2893)
         }
-        const float volume = GetDefaultVolume(event) - StaticRef<float>(0x858BA4); // fild / fsub [858BA4] = 20.0
+        const float volume = GetDefaultVolume(event) - DatosExe::Rdata::k858BA4; // fild / fsub [858BA4] = 20.0
         // 0x4E283C..0x4E2877: m_tempSound; speed 0.75, flags 0x84 y evento escritos a mano tras Initialise
         m_tempSound.Initialise(SND_BANK_SLOT_COLLISIONS, static_cast<eSoundID>(3), this, m_pPed->GetPosition(), volume, 1.0f, 1.0f, 1.0f, 0, 0, 0.0f, 0);
         m_tempSound.m_Speed = 0.75f;

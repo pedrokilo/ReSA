@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 
 #include "IKChainManager.h"
 #include "IKChain.h"
@@ -151,7 +152,7 @@ void IKChainManager_c::RemoveIKChain(IKChain_c* chain) {
 
 // 0x618800
 inline bool IKChainManager_c::CanAccept(CPed* ped, float range) const {
-    static auto& s_MaxRange = StaticRef<float>(0x866BEC); // 999.0f
+    static auto& s_MaxRange = DatosExe::Rdata::k866BEC; // 999.0f
 
     // Como el original: comprueba m_pRwObject antes de leer la matriz RW de su marco
     if (!ped->GetRwObject() || !ped->GetRwMatrix()) {

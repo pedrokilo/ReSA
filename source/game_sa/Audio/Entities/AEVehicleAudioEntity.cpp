@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "AEVehicleAudioEntity.h"
@@ -4247,7 +4248,7 @@ void CAEVehicleAudioEntity::ProcessGenericJet(bool bEngineOn, tVehicleParams& pa
     auto& fadingThrust = StaticRef<float>(reinterpret_cast<uintptr_t>(this) + 0x230);
     fadingThrust = fAccelRatio > 0.f ? thrust : fadingThrust - 1.f;
     const auto thrustVolume = (AudioLog10ScaledExe(fEngineSpeed, 20.0f) + fadingThrust) + fStalledVolume;
-    const auto target = (((bank * StaticRef<float>(0x858B1C) + tilt * StaticRef<float>(0x858FCC)) + pitch) + 1.f) * fStalledFrequency;
+    const auto target = (((bank * DatosExe::Rdata::k858B1C + tilt * DatosExe::Rdata::k858FCC) + pitch) + 1.f) * fStalledFrequency;
     auto& frequency = m_CurrentRotorFrequency;
     if (frequency < 0.f) frequency = target;
     frequency = target < frequency ? std::max(target, frequency - DatosExe::Rdata::k862D04) : std::min(target, frequency + DatosExe::Rdata::k862D04);
@@ -4358,10 +4359,10 @@ void CAEVehicleAudioEntity::ProcessDummyHovercraft(tVehicleParams& params) {
     const auto ratio = std::clamp(std::abs(*reinterpret_cast<float*>(bytes+0x988) * DatosExe::Rdata::k862D68), 0.f, 1.f);
     int16 accel = int16(std::bit_cast<uint32>(ratio)), brake = accel;
     if (!(bytes[0x36] & 0xF8)) {
-        if (params.Speed < StaticRef<float>(0x858CDC)) { accel=pad->GetAccelerate(); accel=int16(accel-pad->GetBrake()); brake=0; }
+        if (params.Speed < DatosExe::Rdata::k858CDC) { accel=pad->GetAccelerate(); accel=int16(accel-pad->GetBrake()); brake=0; }
         else { brake=pad->GetBrake(); accel=pad->GetAccelerate(); }
     }
-    float offset = accel > 0 ? StaticRef<float>(0x858B1C) : ratio;
+    float offset = accel > 0 ? DatosExe::Rdata::k858B1C : ratio;
     if (brake > 0) offset = DatosExe::Rdata::k85901C;
     const auto rev = std::clamp(*reinterpret_cast<float*>(bytes+0x9C4) * DatosExe::Rdata::k862D18, 0.f, 1.f);
     const auto volume = StaticRef<float>(0xB6BA90) * rev + StaticRef<float>(0x8CBFAC);
@@ -5025,7 +5026,7 @@ void ProcessBicycleAudio(CAEVehicleAudioEntity& self, CAEVehicleAudioEntity::tVe
     auto* vehicle = reinterpret_cast<uint8*>(params.Vehicle);
     if (player) {
         if (*reinterpret_cast<float*>(vehicle+0x818) > 5.f && StaticRef<float>(0xB6BAD0) * *reinterpret_cast<float*>(vehicle+0x820) < 0.f && StaticRef<float>(0xB6BACC) == 0.f) StaticRef<float>(0xB6BACC)=6.f;
-        StaticRef<float>(0xB6BACC) -= StaticRef<float>(0x858CB0);
+        StaticRef<float>(0xB6BACC) -= DatosExe::Rdata::k858CB0;
         if (StaticRef<float>(0xB6BACC)<0.f) StaticRef<float>(0xB6BACC)=0.f;
     }
     // 0x4FFE75..0x4FFED9 / 0x5000EE..0x50014F: |v / vmax| limitado a 1 con NaN -> 1.0 (el EXE no usa clamp: fcomp + test ah,5 / jp), y un resultado <= 0 se guarda como +0

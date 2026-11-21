@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 
 #pragma warning(push, 0)
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "game_sa/Crt/CrtFile.h"
 #pragma warning(pop)
 #include <intrin.h>
@@ -1008,7 +1009,7 @@ const char* RatingKey(int32 rating) {
         }
         if (step.special == 2) {
             // fild [0xB790C4] * [0x863FD0] * [0x859044] -> _ftol2; cmp eax,10; jle
-            return StatsFlightMinutesCpp(IntStat(STAT_FLIGHT_TIME), ExeFloat(0x863FD0), ExeFloat(0x859044)) > 10 ? "RATNG50" : "RATNG49";
+            return StatsFlightMinutesCpp(IntStat(STAT_FLIGHT_TIME), DatosExe::Rdata::k863FD0, DatosExe::Rdata::k859044) > 10 ? "RATNG50" : "RATNG49";
         }
         return step.key;
     }
@@ -2112,20 +2113,20 @@ __declspec(safebuffers) uint32 __fastcall StatsCyclingBody(uint32 entryEcx, uint
     float multiplier = 0.0f;
     bool  moving     = false;
     if (*reinterpret_cast<const uint8*>(bmx + 0x804) < 2) {
-        const double lowSquare = StatsSquareCpp(ExeFloat(0x863E58));                 // 0.05f
+        const double lowSquare = StatsSquareCpp(DatosExe::Rdata::k863E58);                 // 0.05f
         const uint32 axLow     = StatsCompareDblDblAxCpp(lowSquare, StatsSpeedSumSqCpp(velocity), 2);
         if (!AhJp(axLow, 0x05)) {
-            multiplier = ExeFloat(0x863E64);                                         // 3.0f
+            multiplier = DatosExe::Rdata::k863E64;                                         // 3.0f
             moving     = true;
         }
     }
     if (!moving) {                                                                   // 0x55C8E6
-        const double square  = StatsSquareCpp(ExeFloat(0x863E54));                   // 0.2f
+        const double square  = StatsSquareCpp(DatosExe::Rdata::k863E54);                   // 0.2f
         const uint32 axSpeed = StatsCompareDblDblAxCpp(square, StatsSpeedSumSqCpp(velocity), 2);
         if (AhJp(axSpeed, 0x05)) {                                                   // jp 0x55C98A: pop esi; pop ebx; ret
             STATS_EXIT(ecx, edx, skillHigh | (axSpeed & 0xFFFFu));
         }
-        multiplier = sprint != 0 ? ExeFloat(0x863E60) : ExeFloat(0x863E5C);          // 1.5f : 1.0f
+        multiplier = sprint != 0 ? DatosExe::Rdata::k863E60 : DatosExe::Rdata::k863E5C;          // 1.5f : 1.0f
     }
     // 0x55C92C: fcom 0.0; fnstsw ax; test ah,41h; jne 0x55C988 (los multiplicadores son constantes positivas: no se toma)
     const uint32 axMultiplier = StatsCompareFltFltAxCpp(multiplier, 0.0f, 1);
@@ -2244,7 +2245,7 @@ __declspec(safebuffers) uint32 __fastcall StatsDrivingBody(uint32 entryEcx, uint
 
     // 0x55CB36: velocidad = sqrt((x*x + y*y) + z*z) con x,y,z = [vehiculo+0x44..0x4C]; fcom [0x863E70] (0.8f); test ah,41h; je 0x55CBBE
     const double speed = StatsSpeedCpp(reinterpret_cast<const float*>(vehicleAddress + 0x44));
-    const uint32 axFast = StatsCompareDblFltAxCpp(speed, ExeFloat(0x863E70), 1);
+    const uint32 axFast = StatsCompareDblFltAxCpp(speed, DatosExe::Rdata::k863E70, 1);
     bool fast = AhJe(axFast, 0x41);
     if (!fast && wheelsVehicle != 0 && *reinterpret_cast<const uint8*>(static_cast<uintptr_t>(wheelsVehicle) + 0x960) == 0) {
         fast = true;                                                       // sin ruedas en contacto: je 0x55CBBE
@@ -2252,13 +2253,13 @@ __declspec(safebuffers) uint32 __fastcall StatsDrivingBody(uint32 entryEcx, uint
     float multiplier;
     if (!fast) {
         // 0x55CB72: fcomp [0x863E68] (0.2f); test ah,41h; jne 0x55CBFD
-        const uint32 axSlow = StatsCompareDblFltAxCpp(speed, ExeFloat(0x863E68), 0);
+        const uint32 axSlow = StatsCompareDblFltAxCpp(speed, DatosExe::Rdata::k863E68, 0);
         if (!AhJe(axSlow, 0x41)) {
             STATS_EXIT(entryEcx, vehicle, (counter & 0xFFFF0000u) | (axSlow & 0xFFFFu));
         }
-        multiplier = ExeFloat(0x863E6C);                                   // 0.5f
+        multiplier = DatosExe::Rdata::k863E6C;                                   // 0.5f
     } else {
-        multiplier = ExeFloat(0x863E74);                                   // 1.5f (fstp st(0) descarta la velocidad)
+        multiplier = DatosExe::Rdata::k863E74;                                   // 1.5f (fstp st(0) descarta la velocidad)
     }
     // ftol(paso * 0.02f * 1000.0f) -> fild (+2^32 si es negativo) * multiplicador + contador (float) -> ftol -> [0xB794EC]
     const Ftol2Regs ticks = StatsStepMsRegsCpp(CTimer::GetTimeStep(), wheelsVehicle);
@@ -2321,7 +2322,7 @@ __declspec(safebuffers) uint32 __fastcall StatsFlyingBody(uint32 entryEcx, uint3
     }
     // 0x55CC84: velocidad = sqrt((x*x + y*y) + z*z); fcom [0x863E80] (1.3f); test ah,41h; je 0x55CD11
     const double speed = StatsSpeedCpp(reinterpret_cast<const float*>(vehicleAddress + 0x44));
-    const uint32 axFast = StatsCompareDblFltAxCpp(speed, ExeFloat(0x863E80), 1);
+    const uint32 axFast = StatsCompareDblFltAxCpp(speed, DatosExe::Rdata::k863E80, 1);
     bool fast = AhJe(axFast, 0x41);
     float multiplier = 0.0f;
     if (!fast) {
@@ -2332,15 +2333,15 @@ __declspec(safebuffers) uint32 __fastcall StatsFlyingBody(uint32 entryEcx, uint3
             fast = true;
         } else {
             // fcomp [0x863E78] (0.5f); test ah,41h; jne 0x55CD50
-            const uint32 axSlow = StatsCompareDblFltAxCpp(speed, ExeFloat(0x863E78), 0);
+            const uint32 axSlow = StatsCompareDblFltAxCpp(speed, DatosExe::Rdata::k863E78, 0);
             if (!AhJe(axSlow, 0x41)) {
                 STATS_EXIT(entryEcx, entryEdx, (matrix & 0xFFFF0000u) | (axSlow & 0xFFFFu));
             }
-            multiplier = ExeFloat(0x863E7C);                               // 0.5f
+            multiplier = DatosExe::Rdata::k863E7C;                               // 0.5f
         }
     }
     if (fast) {
-        multiplier = ExeFloat(0x863E84);                                   // 1.5f (fstp st(0) descarta la velocidad)
+        multiplier = DatosExe::Rdata::k863E84;                                   // 1.5f (fstp st(0) descarta la velocidad)
     }
     const Ftol2Regs ticks = StatsStepMsRegsCpp(CTimer::GetTimeStep(), vehicle);
     const Ftol2Regs total = StatsAccumulateRegsCpp(static_cast<int32>(ticks.eax), multiplier, counterFloat, ticks.ecx);
