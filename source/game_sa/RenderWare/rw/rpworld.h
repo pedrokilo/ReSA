@@ -2359,7 +2359,7 @@ void _rwD3D9VSGetWorldViewMultiplyTransposeMatrix(void* worldViewMultiplyMatrix,
 void _rwD3D9VSGetWorldNormalizedMultiplyTransposeMatrix(void* worldMultiplyMatrix, const RwMatrix* matrix); // 0x764A70
 void _rwD3D9VSGetWorldNormalizedViewMultiplyTransposeMatrix(void* worldViewMultiplyMatrix, const RwMatrix* matrix); // 0x764B50
 void _rwD3D9VSGetWorldNormalizedTransposeMatrix(void* matrix); // 0x764C60 (el EXE le pasa la matriz de salida)
-void _rwD3D9VSGetProjectionTransposedMatrix(); // 0x764D20
+void _rwD3D9VSGetProjectionTransposedMatrix(void* matrix); // 0x764D20 (lote S31A: recibe la matriz de salida)
 void _rwD3D9VSGetNormalInLocalSpace(const RwV3d* normalWorldSpace, RwV3d* normalLocalSpace); // 0x764D30
 void _rwD3D9VSGetPointInLocalSpace(const RwV3d* pointWorldSpace, RwV3d* pointLocalSpace); // 0x764E70
 void _rwD3D9VSGetRadiusInLocalSpace(RwReal radiusWorldSpace, RwReal* radiusLocalSpace); // 0x764F60

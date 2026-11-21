@@ -1,0 +1,308 @@
+
+=== 0x007F6786 (235 bytes)
+7f6786 jge 0x7f6799
+7f6788 xor eax, eax
+7f678a pop edi
+7f678b pop esi
+7f678c mov dword ptr [0xc97c38], eax
+7f6791 pop ebp
+7f6792 add esp, 0x470
+7f6798 ret 
+7f6799 mov eax, dword ptr [0xc97c1c]
+7f679e cmp eax, ebp
+7f67a0 je 0x7f67c1
+7f67a2 lea ecx, [esp + 0x10]
+7f67a6 push ecx
+7f67a7 push eax
+7f67a8 call dword ptr [0x858304]
+7f67ae mov edx, dword ptr [esp + 0x18]
+7f67b2 mov eax, dword ptr [esp + 0x1c]
+7f67b6 mov dword ptr [0xc9bee4], edx
+7f67bc mov dword ptr [0xc9bee8], eax
+7f67c1 mov eax, dword ptr [0xc97c28]
+7f67c6 push 0xc97c30
+7f67cb push ebp
+7f67cc push eax
+7f67cd mov ecx, dword ptr [eax]
+7f67cf call dword ptr [ecx + 0x98]
+7f67d5 mov eax, dword ptr [0xc97c30]
+7f67da push eax
+7f67db mov edx, dword ptr [eax]
+7f67dd call dword ptr [edx + 8]
+7f67e0 mov eax, dword ptr [0xc97c28]
+7f67e5 push 0xc97c2c
+7f67ea push eax
+7f67eb mov ecx, dword ptr [eax]
+7f67ed call dword ptr [ecx + 0xa0]
+7f67f3 mov eax, dword ptr [0xc97c2c]
+7f67f8 push eax
+7f67f9 mov edx, dword ptr [eax]
+7f67fb call dword ptr [edx + 8]
+7f67fe xor eax, eax
+7f6800 mov dword ptr [0xc9808c], ebp
+7f6806 mov dword ptr [0xc98090], eax
+7f680b mov dword ptr [0xc98094], eax
+7f6810 mov dword ptr [0xc98098], eax
+7f6815 mov dword ptr [0xc9809c], eax
+7f681a call 0x7f6b00    ; _rwD3D9StateCacheReset
+7f681f call 0x7f6b40    ; _rwD3D9TransformCacheReset
+7f6824 mov eax, dword ptr [0xc98088]
+7f6829 mov dword ptr [0xc98084], ebp
+7f682f cmp eax, ebp
+7f6831 je 0x7f6849
+7f6833 mov ecx, dword ptr [0xc97b24]
+7f6839 push eax
+7f683a call dword ptr [ecx + 0x138]
+7f6840 add esp, 4
+7f6843 mov dword ptr [0xc98088], ebp
+7f6849 call 0x4cc150    ; RasterListInit
+7f684e call 0x7fb480    ; _rwD3D9Im2DRenderOpen
+7f6853 call 0x7fcac0    ; _rwD3D9RenderStateOpen
+7f6858 call 0x7f5cb0    ; _rwD3D9VertexBufferManagerOpen
+7f685d mov eax, 1
+7f6862 pop edi
+7f6863 pop esi
+7f6864 mov dword ptr [0xc97c38], eax
+7f6869 pop ebp
+7f686a add esp, 0x470
+7f6870 ret 
+
+=== 0x007F9F30 (56 bytes)
+7f9f30 mov eax, dword ptr [0x8e2440]
+7f9f35 push esi
+7f9f36 mov esi, dword ptr [esp + 8]
+7f9f3a cmp eax, esi
+7f9f3c je 0x7f9f66
+7f9f3e mov eax, dword ptr [0xc97c28]
+7f9f43 push esi
+7f9f44 push eax
+7f9f45 mov ecx, dword ptr [eax]
+7f9f47 call dword ptr [ecx + 0x164]
+7f9f4d or ecx, 0xffffffff
+7f9f50 test eax, eax
+7f9f52 mov dword ptr [0x8e2440], ecx
+7f9f58 jl 0x7f9f60
+7f9f5a mov dword ptr [0x8e2440], esi
+7f9f60 mov dword ptr [0x8e2444], ecx
+7f9f66 pop esi
+7f9f67 ret 
+
+=== 0x007FA1F0 (151 bytes)
+7fa1f0 mov eax, dword ptr [0xc97bd8]
+7fa1f5 push esi
+7fa1f6 xor esi, esi
+7fa1f8 cmp eax, esi
+7fa1fa jne 0x7fa20c
+7fa1fc cmp dword ptr [0xc97bdc], esi
+7fa202 jne 0x7fa20c
+7fa204 cmp dword ptr [0xc97be0], esi
+7fa20a je 0x7fa230
+7fa20c mov eax, dword ptr [0xc97c28]
+7fa211 push esi
+7fa212 push esi
+7fa213 mov dword ptr [0xc97bd8], esi
+7fa219 mov dword ptr [0xc97bdc], esi
+7fa21f mov dword ptr [0xc97be0], esi
+7fa225 mov ecx, dword ptr [eax]
+7fa227 push esi
+7fa228 push esi
+7fa229 push eax
+7fa22a call dword ptr [ecx + 0x190]
+7fa230 cmp dword ptr [0x8e2450], esi
+7fa236 je 0x7fa24d
+7fa238 mov eax, dword ptr [0xc97c28]
+7fa23d mov dword ptr [0x8e2450], esi
+7fa243 push esi
+7fa244 push eax
+7fa245 mov edx, dword ptr [eax]
+7fa247 call dword ptr [edx + 0x1a0]
+7fa24d call 0x7fc200    ; _rwD3D9RenderStateFlushCache
+7fa252 mov edx, dword ptr [esp + 0x20]
+7fa256 mov eax, dword ptr [0xc97c28]
+7fa25b push edx
+7fa25c mov edx, dword ptr [esp + 0x20]
+7fa260 push edx
+7fa261 mov edx, dword ptr [esp + 0x20]
+7fa265 push 0x65
+7fa267 push edx
+7fa268 mov edx, dword ptr [esp + 0x24]
+7fa26c mov ecx, dword ptr [eax]
+7fa26e push edx
+7fa26f mov edx, dword ptr [esp + 0x24]
+7fa273 push edx
+7fa274 mov edx, dword ptr [esp + 0x24]
+7fa278 push edx
+7fa279 mov edx, dword ptr [esp + 0x24]
+7fa27d push edx
+7fa27e push eax
+7fa27f call dword ptr [ecx + 0x150]
+7fa285 pop esi
+7fa286 ret 
+
+=== 0x007FA290 (134 bytes)
+7fa290 mov eax, dword ptr [0xc97bd8]
+7fa295 push esi
+7fa296 xor esi, esi
+7fa298 cmp eax, esi
+7fa29a jne 0x7fa2ac
+7fa29c cmp dword ptr [0xc97bdc], esi
+7fa2a2 jne 0x7fa2ac
+7fa2a4 cmp dword ptr [0xc97be0], esi
+7fa2aa je 0x7fa2d0
+7fa2ac mov eax, dword ptr [0xc97c28]
+7fa2b1 push esi
+7fa2b2 push esi
+7fa2b3 mov dword ptr [0xc97bd8], esi
+7fa2b9 mov dword ptr [0xc97bdc], esi
+7fa2bf mov dword ptr [0xc97be0], esi
+7fa2c5 mov ecx, dword ptr [eax]
+7fa2c7 push esi
+7fa2c8 push esi
+7fa2c9 push eax
+7fa2ca call dword ptr [ecx + 0x190]
+7fa2d0 cmp dword ptr [0x8e2450], esi
+7fa2d6 je 0x7fa2ed
+7fa2d8 mov eax, dword ptr [0xc97c28]
+7fa2dd mov dword ptr [0x8e2450], esi
+7fa2e3 push esi
+7fa2e4 push eax
+7fa2e5 mov edx, dword ptr [eax]
+7fa2e7 call dword ptr [edx + 0x1a0]
+7fa2ed call 0x7fc200    ; _rwD3D9RenderStateFlushCache
+7fa2f2 mov edx, dword ptr [esp + 0x14]
+7fa2f6 mov eax, dword ptr [0xc97c28]
+7fa2fb push edx
+7fa2fc mov edx, dword ptr [esp + 0x14]
+7fa300 mov ecx, dword ptr [eax]
+7fa302 push edx
+7fa303 mov edx, dword ptr [esp + 0x14]
+7fa307 push edx
+7fa308 mov edx, dword ptr [esp + 0x14]
+7fa30c push edx
+7fa30d push eax
+7fa30e call dword ptr [ecx + 0x14c]
+7fa314 pop esi
+7fa315 ret 
+
+=== 0x007FFD60 (37 bytes)
+7ffd60 mov eax, dword ptr [esp + 8]
+7ffd64 mov ecx, dword ptr [esp + 4]
+7ffd68 mov edx, eax
+7ffd6a shr edx, 4
+7ffd6d and dl, 0xf0
+7ffd70 mov byte ptr [ecx + 3], 0xff
+7ffd74 mov byte ptr [ecx], dl
+7ffd76 mov dl, al
+7ffd78 and dl, 0xf0
+7ffd7b shl al, 4
+7ffd7e mov byte ptr [ecx + 1], dl
+7ffd81 mov byte ptr [ecx + 2], al
+7ffd84 ret 
+
+=== 0x007FFD90 (31 bytes)
+7ffd90 mov ecx, dword ptr [esp + 8]
+7ffd94 mov eax, dword ptr [esp + 4]
+7ffd98 mov edx, ecx
+7ffd9a shr edx, 0x10
+7ffd9d mov byte ptr [eax], dl
+7ffd9f mov edx, ecx
+7ffda1 shr edx, 8
+7ffda4 mov byte ptr [eax + 1], dl
+7ffda7 mov byte ptr [eax + 2], cl
+7ffdaa mov byte ptr [eax + 3], 0xff
+7ffdae ret 
+
+=== 0x007FFDB0 (29 bytes)
+7ffdb0 mov eax, dword ptr [esp + 8]
+7ffdb4 mov ecx, dword ptr [esp + 4]
+7ffdb8 mov edx, eax
+7ffdba mov byte ptr [ecx], al
+7ffdbc mov byte ptr [ecx + 3], 0xff
+7ffdc0 shr edx, 8
+7ffdc3 shr eax, 0x10
+7ffdc6 mov byte ptr [ecx + 1], dl
+7ffdc9 mov byte ptr [ecx + 2], al
+7ffdcc ret 
+
+=== 0x007FFDD0 (25 bytes)
+7ffdd0 mov ecx, dword ptr [esp + 4]
+7ffdd4 mov eax, dword ptr [esp + 8]
+7ffdd8 mov byte ptr [ecx], al
+7ffdda mov byte ptr [ecx + 2], 0
+7ffdde shr eax, 8
+7ffde1 mov byte ptr [ecx + 1], al
+7ffde4 mov byte ptr [ecx + 3], 0xff
+7ffde8 ret 
+
+=== 0x007FFDF0 (33 bytes)
+7ffdf0 mov eax, dword ptr [esp + 8]
+7ffdf4 mov ecx, dword ptr [esp + 4]
+7ffdf8 mov edx, eax
+7ffdfa shr edx, 0x10
+7ffdfd mov byte ptr [ecx], dl
+7ffdff mov edx, eax
+7ffe01 mov byte ptr [ecx + 2], al
+7ffe04 shr edx, 8
+7ffe07 shr eax, 0x18
+7ffe0a mov byte ptr [ecx + 1], dl
+7ffe0d mov byte ptr [ecx + 3], al
+7ffe10 ret 
+
+=== 0x007FFE20 (33 bytes)
+7ffe20 mov eax, dword ptr [esp + 8]
+7ffe24 mov ecx, dword ptr [esp + 4]
+7ffe28 mov edx, eax
+7ffe2a shr edx, 8
+7ffe2d mov byte ptr [ecx + 1], dl
+7ffe30 mov edx, eax
+7ffe32 mov byte ptr [ecx], al
+7ffe34 shr edx, 0x10
+7ffe37 shr eax, 0x18
+7ffe3a mov byte ptr [ecx + 2], dl
+7ffe3d mov byte ptr [ecx + 3], al
+7ffe40 ret 
+
+=== 0x007FFE50 (21 bytes)
+7ffe50 mov eax, dword ptr [esp + 4]
+7ffe54 mov cl, byte ptr [esp + 8]
+7ffe58 mov byte ptr [eax], cl
+7ffe5a mov byte ptr [eax + 1], cl
+7ffe5d mov byte ptr [eax + 2], cl
+7ffe60 mov byte ptr [eax + 3], 0xff
+7ffe64 ret 
+
+=== 0x007FFE70 (22 bytes)
+7ffe70 mov eax, dword ptr [esp + 4]
+7ffe74 mov cl, 0xff
+7ffe76 mov byte ptr [eax], cl
+7ffe78 mov byte ptr [eax + 1], cl
+7ffe7b mov byte ptr [eax + 2], cl
+7ffe7e mov cl, byte ptr [esp + 8]
+7ffe82 mov byte ptr [eax + 3], cl
+7ffe85 ret 
+
+=== 0x007FFE90 (41 bytes)
+7ffe90 mov ecx, dword ptr [esp + 8]
+7ffe94 mov edx, dword ptr [esp + 4]
+7ffe98 mov al, cl
+7ffe9a shl al, 4
+7ffe9d cmp ecx, 0xf0
+7ffea3 mov byte ptr [edx], al
+7ffea5 mov byte ptr [edx + 1], al
+7ffea8 mov byte ptr [edx + 2], al
+7ffeab jb 0x7ffeb2
+7ffead mov byte ptr [edx + 3], 0xff
+7ffeb1 ret 
+7ffeb2 and cl, 0xf0
+7ffeb5 mov byte ptr [edx + 3], cl
+7ffeb8 ret 
+
+=== 0x007FFEC0 (23 bytes)
+7ffec0 mov ecx, dword ptr [esp + 4]
+7ffec4 mov eax, dword ptr [esp + 8]
+7ffec8 mov byte ptr [ecx], al
+7ffeca mov byte ptr [ecx + 1], al
+7ffecd mov byte ptr [ecx + 2], al
+7ffed0 shr eax, 8
+7ffed3 mov byte ptr [ecx + 3], al
+7ffed6 ret 

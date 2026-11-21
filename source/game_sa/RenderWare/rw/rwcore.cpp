@@ -2484,9 +2484,7 @@ RxPipeline* RwIm3DSetRenderPipeline(RxPipeline* pipeline, RwPrimitiveType primTy
     return R23AIm3DField<RxPipeline*>(R23AIm3DModule(), slots[index]);
 }
 
-RwRaster* RwD3D9RasterStreamReadDDS(RwStream* stream) {
-    return ((RwRaster*(__cdecl *)(RwStream*))0x81F360)(stream);
-}
+// 0x81F360 (RwD3D9RasterStreamReadDDS): reconstruida en rwcore_dds.cpp (lote S30A33A, RwD3D9InjectHooksDDS).
 
 RwTexture* RwD3D9DDSTextureRead(const RwChar* name, const RwChar* maskname) {
     return ((RwTexture*(__cdecl *)(const RwChar*, const RwChar*))0x820A10)(name, maskname);
@@ -2511,17 +2509,11 @@ void* RwD3D9GetCurrentD3DDevice() { // IDirect3DDevice9
 
 // 0x7F84E0, 0x7F84F0 y 0x7F8580: reconstruidas al final del archivo (lote R26A, RwD3D9InjectHooksR26A).
 
-void RwD3D9EngineSetMultiThreadSafe(RwBool enable) {
-    ((void(__cdecl *)(RwBool))0x7F8620)(enable);
-}
+// 0x7F8620 (RwD3D9EngineSetMultiThreadSafe): reconstruida al final del archivo (lote S32A/S33A, RwD3D9InjectHooksS32A33A).
 
-void RwD3D9EngineSetSoftwareVertexProcessing(RwBool enable) {
-    ((void(__cdecl *)(RwBool))0x7F8630)(enable);
-}
+// 0x7F8630 (RwD3D9EngineSetSoftwareVertexProcessing): reconstruida al final del archivo (lote S32A/S33A, RwD3D9InjectHooksS32A33A).
 
-void* RwD3D9GetCurrentD3DRenderTarget(RwUInt32 index) {
-    return ((void*(__cdecl *)(RwUInt32))0x7F9E80)(index);
-}
+// 0x7F9E80 (RwD3D9GetCurrentD3DRenderTarget): reconstruida al final del archivo (lote S32A/S33A, RwD3D9InjectHooksS32A33A).
 
 // 0x7F9E90: reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
@@ -2576,13 +2568,9 @@ void _rwD3D9RenderStateFlushCache() {
     }
 }
 
-void _rwD3D9DrawIndexedPrimitiveUP(RwUInt32 primitiveType, RwUInt32 minIndex, RwUInt32 numVertices, RwUInt32 primitiveCount, const void* indexData, const void* vertexStreamZeroData, RwUInt32 VertexStreamZeroStride) {
-   ((void(__cdecl *)(RwUInt32, RwUInt32, RwUInt32, RwUInt32, const void*, const void*, RwUInt32))0x7FA1F0)(primitiveType, minIndex, numVertices, primitiveCount, indexData, vertexStreamZeroData, VertexStreamZeroStride);
-}
+// 0x7FA1F0 (_rwD3D9DrawIndexedPrimitiveUP): reconstruida al final del archivo (lote S32A/S33A, RwD3D9InjectHooksS32A33A).
 
-void _rwD3D9DrawPrimitiveUP(RwUInt32 primitiveType, RwUInt32 primitiveCount, const void* vertexStreamZeroData, RwUInt32 VertexStreamZeroStride) {
-   ((void(__cdecl *)(RwUInt32, RwUInt32, const void*, RwUInt32))0x7FA290)(primitiveType, primitiveCount, vertexStreamZeroData, VertexStreamZeroStride);
-}
+// 0x7FA290 (_rwD3D9DrawPrimitiveUP): reconstruida al final del archivo (lote S32A/S33A, RwD3D9InjectHooksS32A33A).
 
 // 0x7FA320 y 0x7FA360 (_rwD3D9DrawIndexedPrimitive y _rwD3D9DrawPrimitive): reconstruidas al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
@@ -2590,17 +2578,13 @@ void _rwD3D9DrawPrimitiveUP(RwUInt32 primitiveType, RwUInt32 primitiveCount, con
 
 // 0x7FAD00 (_rwD3D9SetPixelShaderConstant): reconstruida al final del archivo (lote S18A).
 
-void _rwD3D9SetFVF(RwUInt32 fvf) {
-   ((void(__cdecl *)(RwUInt32))0x7F9F30)(fvf);
-}
+// 0x7F9F30 (_rwD3D9SetFVF): reconstruida al final del archivo (lote S32A/S33A, RwD3D9InjectHooksS32A33A).
 
 // 0x7F9F70, 0x7F9FB0 y 0x7F9FF0 (declaracion de vertices, vertex shader y pixel shader): reconstruidas al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
 // 0x7FC2D0, 0x7FC320 y 0x7FC340 (RwD3D9SetRenderState, RwD3D9GetRenderState y RwD3D9SetTextureStageState): reconstruidas al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
 
-void RwD3D9GetTextureStageState(RwUInt32 stage, RwUInt32 type, void* value) {
-   ((void(__cdecl *)(RwUInt32, RwUInt32, void*))0x7FC3A0)(stage, type, value);
-}
+// 0x7FC3A0 (RwD3D9GetTextureStageState): reconstruida al final del archivo (lote S32A/S33A, RwD3D9InjectHooksS32A33A).
 
 // 0x7FC3C0 (RwD3D9SetSamplerState): reconstruida al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
 
@@ -2611,9 +2595,7 @@ void RwD3D9GetSamplerState(RwUInt32 stage, RwUInt32 type, void* value) {
 
 // 0x7F9D30 (RwD3D9SetStencilClear): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
-RwUInt32 RwD3D9GetStencilClear() {
-   return ((RwUInt32(__cdecl *)(void))0x7F9D40)();
-}
+// 0x7F9D40 (RwD3D9GetStencilClear): reconstruida al final del archivo (lote S32A/S33A, RwD3D9InjectHooksS32A33A).
 
 // 0x7FDE70 (RwD3D9SetTexture): reconstruida al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
 
@@ -2655,9 +2637,7 @@ __declspec(noinline) RwBool RwD3D9SetMaterial(const void* material) {
 
 // 0x7FA660 (RwD3D9SetLight): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
-void RwD3D9GetLight(RwInt32 index, void* light) {
-   ((void(__cdecl *)(RwInt32, void*))0x7FA820)(index, light);
-}
+// 0x7FA820 (RwD3D9GetLight): reconstruida al final del archivo (lote S32A/S33A, RwD3D9InjectHooksS32A33A).
 
 // 0x7FA860 (RwD3D9EnableLight): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
@@ -3739,6 +3719,26 @@ RwBool _rwD3D9PixelToRGB(RwUInt8* color, const RwUInt32* pixel, RwUInt32 format)
     }
 }
 
+// Conversores de pixel cdecl (destino RGBA, valor): lotes S32A y S33A (cuerpos al final del archivo) y 0x7FFEE0 (lote R28A).
+static void _rwD3D9PixelConvertA8R8G8B8Rgba(RwUInt32* destination, RwUInt32 value); // 0x7FFDF0
+static void _rwD3D9PixelConvertX8R8G8B8(RwUInt32* destination, RwUInt32 value); // 0x7FFD90
+static void _rwD3D9PixelConvertR5G6B5(RwUInt32* destination, RwUInt32 value); // 0x7FFC10
+static void _rwD3D9PixelConvertX1R5G5B5(RwUInt32* destination, RwUInt32 value); // 0x7FFBE0
+static void _rwD3D9PixelConvertA1R5G5B5(RwUInt32* destination, RwUInt32 value); // 0x7FFC70
+static void _rwD3D9PixelConvertA4R4G4B4(RwUInt32* destination, RwUInt32 value); // 0x7FFCB0
+static void _rwD3D9PixelConvertR3G3B2(RwUInt32* destination, RwUInt32 value); // 0x7FFD30
+static void _rwD3D9PixelConvertA8(RwUInt32* destination, RwUInt32 value); // 0x7FFE70
+static void _rwD3D9PixelConvertA8R3G3B2(RwUInt32* destination, RwUInt32 value); // 0x7FFD00
+static void _rwD3D9PixelConvertX4R4G4B4(RwUInt32* destination, RwUInt32 value); // 0x7FFD60
+static void _rwD3D9PixelConvertA8B8G8R8(RwUInt32* destination, RwUInt32 value); // 0x7FFE20
+static void _rwD3D9PixelConvertX8B8G8R8(RwUInt32* destination, RwUInt32 value); // 0x7FFDB0
+static void _rwD3D9PixelConvertL8(RwUInt32* destination, RwUInt32 value); // 0x7FFE50
+static void _rwD3D9PixelConvertA8L8(RwUInt32* destination, RwUInt32 value); // 0x7FFEC0
+static void _rwD3D9PixelConvertA4L4(RwUInt32* destination, RwUInt32 value); // 0x7FFE90
+static void _rwD3D9PixelConvertV8U8(RwUInt32* destination, RwUInt32 value); // 0x7FFDD0
+static void _rwD3D9PixelConvertR5G5B6(RwUInt32* destination, RwUInt32 value); // 0x7FFC40
+void _rwD3D9PixelConvertL16(RwUInt32* destination, RwUInt32 value); // 0x7FFEE0
+
 // 0x7FF8C0 (lote R11A, sin validar; nombre inferido; cdecl, (RwImage* imagen, RwRaster* raster), `ret` sin valor definido, 564 bytes): conversion generica raster -> imagen de 32 bits por una funcion por pixel
 // segun el D3DFORMAT de la extension del raster padre (ext + 0x18 menos 0x15 como indice de la tabla 0x7FFB40; formatos sin entrada dejan el puntero a 0, que el EXE llamaria igualmente: aqui se sale sin escribir).
 // Las funciones por pixel son cdecl (RwUInt32* destino, RwUInt32 valor): D3DFMT 0x15 -> 0x7FFDF0, 0x16 -> 0x7FFD90, 0x17 -> 0x7FFC10, 0x18 -> 0x7FFBE0, 0x19 -> 0x7FFC70, 0x1A -> 0x7FFCB0, 0x1B -> 0x7FFD30,
@@ -3747,29 +3747,29 @@ RwBool _rwD3D9PixelToRGB(RwUInt8* color, const RwUInt32* pixel, RwUInt32 format)
 // filas de 0 a alto - 1 (si el alto es <= 0 no escribe nada; el ancho se recorre con do-while).
 void _rwD3D9RasterToImageGeneric(RwImage* image, RwRaster* raster) {
     using PixelConvert = void(__cdecl*)(RwUInt32*, RwUInt32);
-    uintptr_t convert = 0;
+    PixelConvert convert = nullptr;
     switch (D3D9RasterExt(raster->parent).d3dFormat) {
-    case 0x15: convert = 0x7FFDF0; break;
-    case 0x16: convert = 0x7FFD90; break;
-    case 0x17: convert = 0x7FFC10; break;
-    case 0x18: convert = 0x7FFBE0; break;
-    case 0x19: convert = 0x7FFC70; break;
-    case 0x1A: convert = 0x7FFCB0; break;
-    case 0x1B: convert = 0x7FFD30; break;
-    case 0x1C: convert = 0x7FFE70; break;
-    case 0x1D: convert = 0x7FFD00; break;
-    case 0x1E: convert = 0x7FFD60; break;
-    case 0x20: convert = 0x7FFE20; break;
-    case 0x21: convert = 0x7FFDB0; break;
-    case 0x32: convert = 0x7FFE50; break;
-    case 0x33: convert = 0x7FFEC0; break;
-    case 0x34: convert = 0x7FFE90; break;
-    case 0x3C: convert = 0x7FFDD0; break;
-    case 0x3D: convert = 0x7FFC40; break;
-    case 0x3E: convert = 0x7FFDB0; break;
-    case 0x3F: convert = 0x7FFE20; break;
-    case 0x51: convert = 0x7FFEE0; break;
-    case 0x75: convert = 0x7FFDD0; break;
+    case 0x15: convert = &_rwD3D9PixelConvertA8R8G8B8Rgba; break;
+    case 0x16: convert = &_rwD3D9PixelConvertX8R8G8B8; break;
+    case 0x17: convert = &_rwD3D9PixelConvertR5G6B5; break;
+    case 0x18: convert = &_rwD3D9PixelConvertX1R5G5B5; break;
+    case 0x19: convert = &_rwD3D9PixelConvertA1R5G5B5; break;
+    case 0x1A: convert = &_rwD3D9PixelConvertA4R4G4B4; break;
+    case 0x1B: convert = &_rwD3D9PixelConvertR3G3B2; break;
+    case 0x1C: convert = &_rwD3D9PixelConvertA8; break;
+    case 0x1D: convert = &_rwD3D9PixelConvertA8R3G3B2; break;
+    case 0x1E: convert = &_rwD3D9PixelConvertX4R4G4B4; break;
+    case 0x20: convert = &_rwD3D9PixelConvertA8B8G8R8; break;
+    case 0x21: convert = &_rwD3D9PixelConvertX8B8G8R8; break;
+    case 0x32: convert = &_rwD3D9PixelConvertL8; break;
+    case 0x33: convert = &_rwD3D9PixelConvertA8L8; break;
+    case 0x34: convert = &_rwD3D9PixelConvertA4L4; break;
+    case 0x3C: convert = &_rwD3D9PixelConvertV8U8; break;
+    case 0x3D: convert = &_rwD3D9PixelConvertR5G5B6; break;
+    case 0x3E: convert = &_rwD3D9PixelConvertX8B8G8R8; break;
+    case 0x3F: convert = &_rwD3D9PixelConvertA8B8G8R8; break;
+    case 0x51: convert = &_rwD3D9PixelConvertL16; break;
+    case 0x75: convert = &_rwD3D9PixelConvertV8U8; break;
     default: break;
     }
     const RwInt32 depthIndex = raster->depth - 4;
@@ -3784,7 +3784,7 @@ void _rwD3D9RasterToImageGeneric(RwImage* image, RwRaster* raster) {
         D3D9RaiseError(static_cast<RwInt32>(0x8000000C));
         return;
     }
-    if (convert == 0) {
+    if (convert == nullptr) {
         return; // el EXE hace `call 0` aqui
     }
     for (RwInt32 y = 0; y < raster->height; ++y) {
@@ -3800,7 +3800,7 @@ void _rwD3D9RasterToImageGeneric(RwImage* image, RwRaster* raster) {
             } else {
                 pixel = *reinterpret_cast<const uint32*>(source);
             }
-            reinterpret_cast<PixelConvert>(convert)(reinterpret_cast<RwUInt32*>(destination), pixel);
+            convert(reinterpret_cast<RwUInt32*>(destination), pixel);
             source += unit;
             destination += 4;
             --count;
@@ -6834,6 +6834,9 @@ RwBool _rwD3D9DeviceSystemStop(void* /*out*/, void* /*inOut*/, RwInt32 /*in*/) {
     return TRUE;
 }
 
+// 0x7F7530 (lote S32A): funcion estandar nula (cuerpo al final del archivo).
+static RwInt32 _rwD3D9DeviceStandardNull();
+
 // 0x7F72E0 (lote R26A, sin validar; 579 bytes; cdecl, (salida, inOut sin uso, numero de funciones); `D3D9DeviceSystemStandards` del SDK; nombre inferido): rellena la tabla de funciones estandar del dispositivo. Con numero > 0
 // pone en las `numero` primeras entradas la funcion nula 0x7F7530 (xor eax, eax; ret) y, con numero > 1, escribe despues (del ultimo par al primero) tabla[indice] = funcion para 27 pares fijos, sin comprobar el limite. Las
 // direcciones son del EXE (incluye 0x7F8F20 y 0x7F7730, enganchadas por WindowedMode.cpp, y 0x4Cxxxx del controlador de rasters). Devuelve TRUE.
@@ -6848,7 +6851,7 @@ RwBool _rwD3D9DeviceSystemStandards(void* out, void* /*inOut*/, RwInt32 numStand
     uint32* const standards = static_cast<uint32*>(out);
     if (numStandards > 0) {
         for (RwInt32 i = 0; i < numStandards; ++i) {
-            standards[i] = 0x7F7530;
+            standards[i] = static_cast<uint32>(reinterpret_cast<uintptr_t>(&_rwD3D9DeviceStandardNull));
         }
     }
     for (int k = 26; k >= 0; --k) {
@@ -13716,4 +13719,310 @@ void RwCoreInjectHooksS22A() {
     RH_ScopedGlobalInstall(_rwTextureModuleDestruct, 0x7F3D00);   // lote S22A (sin validar)
     RH_ScopedGlobalInstall(_rwImageModuleConstruct, 0x802280);    // lote S22A (sin validar)
     RH_ScopedGlobalInstall(_rwImageModuleDestruct, 0x8024E0);     // lote S22A (sin validar)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lotes S32A y S33A (sin validar): estado del controlador D3D9 (motor, dispositivo, luces, FVF, dibujo con datos de usuario) y conversores de pixel de 0x7FFBE0..0x7FFEC0. Todas eran direcciones del EXE llamadas
+// por puntero (envolturas) o guardadas como puntero de funcion (la tabla de _rwD3D9DeviceSystemStandards y el selector de _rwD3D9RasterToImageGeneric); ahora las llamadas van a C++ y cada direccion queda enganchada.
+// 0x7F6786 (S33A): no es una funcion sino el interior de la creacion del dispositivo (retorno del parche `naked` de WindowedMode.cpp); no se reconstruye aqui (ver reversing/FnS30A33A/README.md).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+constexpr size_t kSlotDeviceSetFVF                    = 89;  // IDirect3DDevice9::SetFVF (+0x164)
+constexpr size_t kSlotDeviceDrawPrimitiveUP           = 83;  // IDirect3DDevice9::DrawPrimitiveUP (+0x14C)
+constexpr size_t kSlotDeviceDrawIndexedPrimitiveUP    = 84;  // IDirect3DDevice9::DrawIndexedPrimitiveUP (+0x150)
+constexpr size_t kSlotDeviceSetStreamSourceS33A       = 100; // IDirect3DDevice9::SetStreamSource (+0x190)
+constexpr size_t kSlotDeviceSetIndicesS33A            = 104; // IDirect3DDevice9::SetIndices (+0x1A0)
+
+// Si el flujo 0 de la cache de vertices no esta vacio lo vacia y lo desengancha del dispositivo; si hay buffer de indices cacheado lo desengancha. Es el preludio comun de los dos dibujos con datos de usuario.
+void D3D9UnbindStreamAndIndices() {
+    D3D9LastStream& stream0 = D3D9LastStreams[0];
+    if (stream0.vertexBuffer != 0 || stream0.offset != 0 || stream0.stride != 0) {
+        stream0.vertexBuffer = 0;
+        stream0.offset       = 0;
+        stream0.stride       = 0;
+        ComCall<kSlotDeviceSetStreamSourceS33A, int32>(D3D9Device, 0u, static_cast<void*>(nullptr), 0u, 0u);
+    }
+    if (reinterpret_cast<uintptr_t>(D3D9LastIndexBuffer) != 0) {
+        D3D9LastIndexBuffer = nullptr;
+        ComCall<kSlotDeviceSetIndicesS33A, int32>(D3D9Device, static_cast<void*>(nullptr));
+    }
+}
+} // namespace
+
+// 0x7F7530 (lote S32A, sin validar; 3 bytes; `xor eax, eax; ret`): funcion estandar nula del dispositivo; devuelve 0 (sin parametros que lea).
+static RwInt32 _rwD3D9DeviceStandardNull() {
+    return 0;
+}
+
+// 0x7F8620 (lote S32A, sin validar; 10 bytes; cdecl, (activar)): guarda la bandera de multihilo seguro del motor D3D9 en 0xC97C4C.
+void RwD3D9EngineSetMultiThreadSafe(RwBool enable) {
+    StaticRef<RwInt32>(0xC97C4C) = enable;
+}
+
+// 0x7F8630 (lote S32A, sin validar; 10 bytes; cdecl, (activar)): guarda la bandera de procesamiento de vertices por software en 0xC97C50.
+void RwD3D9EngineSetSoftwareVertexProcessing(RwBool enable) {
+    StaticRef<RwInt32>(0xC97C50) = enable;
+}
+
+// 0x7F9D40 (lote S32A, sin validar; 6 bytes; cdecl sin argumentos): valor de limpieza del stencil (0xC97C44) que fija RwD3D9SetStencilClear (0x7F9D30).
+RwUInt32 RwD3D9GetStencilClear() {
+    return StaticRef<RwUInt32>(0xC97C44);
+}
+
+// 0x7F9E80 (lote S32A, sin validar; 12 bytes; cdecl, (indice)): superficie de render actual del indice (0xC98090 + indice * 4). Sin comprobar el rango, como el EXE.
+void* RwD3D9GetCurrentD3DRenderTarget(RwUInt32 index) {
+    return reinterpret_cast<void* const*>(0xC98090)[index];
+}
+
+// 0x7FA820 (lote S32A, sin validar; 56 bytes; cdecl, (indice, luz*)): copia los 0x68 bytes (26 dwords) de la luz D3DLIGHT9 del indice de la cache de luces (0xC98088, 0x6C bytes cada una) si indice < numero de luces
+// (0xC98084, con signo); si no, rellena el destino con ceros.
+void RwD3D9GetLight(RwInt32 index, void* light) {
+    uint32* const destination = static_cast<uint32*>(light);
+    if (index < D3D9LightCount) {
+        const uint32* const source = reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(D3D9LightCache) + static_cast<intptr_t>(index) * 0x6C);
+        for (int i = 0; i < 26; ++i) {
+            destination[i] = source[i];
+        }
+    } else {
+        for (int i = 0; i < 26; ++i) {
+            destination[i] = 0;
+        }
+    }
+}
+
+// 0x7FC3A0 (lote S32A, sin validar; 31 bytes; cdecl, (etapa, tipo, valor*)): *valor = el estado de etapa pedido en la cache (dword en 0xC980F8 + 8 * (tipo + etapa * 33)); sin comprobar rangos.
+void RwD3D9GetTextureStageState(RwUInt32 stage, RwUInt32 type, void* value) {
+    const RwUInt32 index = stage + (type + (stage << 5));
+    *static_cast<RwUInt32*>(value) = reinterpret_cast<const RwUInt32*>(0xC980F8)[index * 2];
+}
+
+// 0x7F9F30 (lote S33A, sin validar; 56 bytes; cdecl, (fvf)): si el FVF cacheado (0x8E2440) es otro llama a SetFVF (+0x164); la cache queda en 0xFFFFFFFF y, si el HRESULT no es negativo, pasa a ser el nuevo FVF; la declaracion
+// cacheada (0x8E2444) queda siempre en 0xFFFFFFFF. Si es el mismo FVF no hace nada.
+void _rwD3D9SetFVF(RwUInt32 fvf) {
+    if (reinterpret_cast<uintptr_t>(D3D9LastFvf) == fvf) {
+        return;
+    }
+    const int32 result = ComCall<kSlotDeviceSetFVF, int32>(D3D9Device, fvf);
+    D3D9LastFvf = kD3D9CacheInvalid;
+    if (result >= 0) {
+        D3D9LastFvf = reinterpret_cast<void*>(static_cast<uintptr_t>(fvf));
+    }
+    D3D9LastVertexDeclaration = kD3D9CacheInvalid;
+}
+
+// 0x7FA1F0 (lote S33A, sin validar; 151 bytes; cdecl, (tipo, minimo, vertices, primitivas, indices*, vertices*, paso)): desengancha el flujo 0 y los indices, vuelca los estados pendientes (_rwD3D9RenderStateFlushCache,
+// 0x7FC200) y llama a DrawIndexedPrimitiveUP (+0x150) con indices de 16 bits (D3DFMT_INDEX16 = 0x65).
+void _rwD3D9DrawIndexedPrimitiveUP(RwUInt32 primitiveType, RwUInt32 minIndex, RwUInt32 numVertices, RwUInt32 primitiveCount, const void* indexData, const void* vertexStreamZeroData, RwUInt32 VertexStreamZeroStride) {
+    D3D9UnbindStreamAndIndices();
+    _rwD3D9RenderStateFlushCache();
+    ComCall<kSlotDeviceDrawIndexedPrimitiveUP, int32>(D3D9Device, primitiveType, minIndex, numVertices, primitiveCount, indexData, 0x65u, vertexStreamZeroData, VertexStreamZeroStride);
+}
+
+// 0x7FA290 (lote S33A, sin validar; 134 bytes; cdecl, (tipo, primitivas, vertices*, paso)): igual preludio que _rwD3D9DrawIndexedPrimitiveUP y DrawPrimitiveUP (+0x14C).
+void _rwD3D9DrawPrimitiveUP(RwUInt32 primitiveType, RwUInt32 primitiveCount, const void* vertexStreamZeroData, RwUInt32 VertexStreamZeroStride) {
+    D3D9UnbindStreamAndIndices();
+    _rwD3D9RenderStateFlushCache();
+    ComCall<kSlotDeviceDrawPrimitiveUP, int32>(D3D9Device, primitiveType, primitiveCount, vertexStreamZeroData, VertexStreamZeroStride);
+}
+
+// Conversores de pixel (cdecl, (destino de 4 bytes R, G, B, A, valor)); cada byte es la palabra baja truncada, como el EXE. Los nombres de formato son inferidos del D3DFORMAT al que sirve cada uno.
+static inline RwUInt8* PixelBytes(RwUInt32* destination) { return reinterpret_cast<RwUInt8*>(destination); }
+
+// 0x7FFBE0 (S32A, 40 bytes; D3DFMT_X1R5G5B5): R = (v >> 7) & 0xF8, G = (v >> 2) & 0xF8, B = v << 3, A = 0xFF.
+static void _rwD3D9PixelConvertX1R5G5B5(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[3] = 0xFF;
+    c[0] = static_cast<RwUInt8>((value >> 7) & 0xF8u);
+    c[1] = static_cast<RwUInt8>((value >> 2) & 0xF8u);
+    c[2] = static_cast<RwUInt8>(value << 3);
+}
+
+// 0x7FFC10 (S32A, 40 bytes; D3DFMT_R5G6B5): R = (v >> 8) & 0xF8, G = (v >> 3) & 0xFC, B = v << 3, A = 0xFF.
+static void _rwD3D9PixelConvertR5G6B5(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[3] = 0xFF;
+    c[0] = static_cast<RwUInt8>((value >> 8) & 0xF8u);
+    c[1] = static_cast<RwUInt8>((value >> 3) & 0xFCu);
+    c[2] = static_cast<RwUInt8>(value << 3);
+}
+
+// 0x7FFC40 (S32A, 39 bytes; D3DFMT 0x3D): byte0 = v << 3, byte1 = (v >> 2) & 0xF8, byte2 = (v >> 8) & 0xFC, A = 0xFF.
+static void _rwD3D9PixelConvertR5G5B6(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[0] = static_cast<RwUInt8>(value << 3);
+    c[1] = static_cast<RwUInt8>((value >> 2) & 0xF8u);
+    c[2] = static_cast<RwUInt8>((value >> 8) & 0xFCu);
+    c[3] = 0xFF;
+}
+
+// 0x7FFC70 (S32A, 50 bytes; D3DFMT_A1R5G5B5): A = 0xFF si el bit 15 esta puesto, si no 0; R = (v >> 7) & 0xF8, G = (v >> 2) & 0xF8, B = v << 3.
+static void _rwD3D9PixelConvertA1R5G5B5(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[3] = (static_cast<RwUInt8>(value >> 8) & 0x80u) != 0 ? 0xFF : 0x00;
+    c[0] = static_cast<RwUInt8>((value >> 7) & 0xF8u);
+    c[1] = static_cast<RwUInt8>((value >> 2) & 0xF8u);
+    c[2] = static_cast<RwUInt8>(value << 3);
+}
+
+// 0x7FFCB0 (S32A, 66 bytes; D3DFMT_A4R4G4B4): A = 0xFF si los cuatro bits altos del word son 0xF, si no (v >> 8) & 0xF0; R = (v >> 4) & 0xF0, G = v & 0xF0, B = v << 4.
+static void _rwD3D9PixelConvertA4R4G4B4(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    if ((value & 0xF000u) == 0xF000u) {
+        c[3] = 0xFF;
+    } else {
+        c[3] = static_cast<RwUInt8>((value >> 8) & 0xF0u);
+    }
+    c[0] = static_cast<RwUInt8>((value >> 4) & 0xF0u);
+    c[1] = static_cast<RwUInt8>(value & 0xF0u);
+    c[2] = static_cast<RwUInt8>(value << 4);
+}
+
+// 0x7FFD00 (S32A, 41 bytes; D3DFMT_A8R3G3B2): R = v & 0xE0, G = (v & 0xFC) << 3, B = v << 6, A = v >> 8.
+static void _rwD3D9PixelConvertA8R3G3B2(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[0] = static_cast<RwUInt8>(value & 0xE0u);
+    c[1] = static_cast<RwUInt8>((value & 0xFCu) << 3);
+    c[2] = static_cast<RwUInt8>(value << 6);
+    c[3] = static_cast<RwUInt8>(value >> 8);
+}
+
+// 0x7FFD30 (S32A, 37 bytes; D3DFMT_R3G3B2): como 0x7FFD00 con el byte bajo y A = 0xFF.
+static void _rwD3D9PixelConvertR3G3B2(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    const RwUInt8 v = static_cast<RwUInt8>(value);
+    c[3] = 0xFF;
+    c[0] = static_cast<RwUInt8>(v & 0xE0u);
+    c[1] = static_cast<RwUInt8>((v & 0xFCu) << 3);
+    c[2] = static_cast<RwUInt8>(v << 6);
+}
+
+// 0x7FFD60 (S33A, 37 bytes; D3DFMT_X4R4G4B4): R = (v >> 4) & 0xF0, G = v & 0xF0, B = v << 4, A = 0xFF.
+static void _rwD3D9PixelConvertX4R4G4B4(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[3] = 0xFF;
+    c[0] = static_cast<RwUInt8>((value >> 4) & 0xF0u);
+    c[1] = static_cast<RwUInt8>(value & 0xF0u);
+    c[2] = static_cast<RwUInt8>(value << 4);
+}
+
+// 0x7FFD90 (S33A, 31 bytes; D3DFMT_X8R8G8B8): R = v >> 16, G = v >> 8, B = v, A = 0xFF.
+static void _rwD3D9PixelConvertX8R8G8B8(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[0] = static_cast<RwUInt8>(value >> 16);
+    c[1] = static_cast<RwUInt8>(value >> 8);
+    c[2] = static_cast<RwUInt8>(value);
+    c[3] = 0xFF;
+}
+
+// 0x7FFDB0 (S33A, 29 bytes; D3DFMT_X8B8G8R8): byte0 = v, byte1 = v >> 8, byte2 = v >> 16, A = 0xFF.
+static void _rwD3D9PixelConvertX8B8G8R8(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[0] = static_cast<RwUInt8>(value);
+    c[3] = 0xFF;
+    c[1] = static_cast<RwUInt8>(value >> 8);
+    c[2] = static_cast<RwUInt8>(value >> 16);
+}
+
+// 0x7FFDD0 (S33A, 25 bytes; D3DFMT_V8U8): byte0 = v, byte1 = v >> 8, byte2 = 0, A = 0xFF.
+static void _rwD3D9PixelConvertV8U8(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[0] = static_cast<RwUInt8>(value);
+    c[2] = 0;
+    c[1] = static_cast<RwUInt8>(value >> 8);
+    c[3] = 0xFF;
+}
+
+// 0x7FFDF0 (S33A, 33 bytes; D3DFMT_A8R8G8B8 a bytes R, G, B, A): byte0 = v >> 16, byte1 = v >> 8, byte2 = v, byte3 = v >> 24.
+static void _rwD3D9PixelConvertA8R8G8B8Rgba(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[0] = static_cast<RwUInt8>(value >> 16);
+    c[2] = static_cast<RwUInt8>(value);
+    c[1] = static_cast<RwUInt8>(value >> 8);
+    c[3] = static_cast<RwUInt8>(value >> 24);
+}
+
+// 0x7FFE20 (S33A, 33 bytes; D3DFMT_A8B8G8R8): copia los cuatro bytes en el mismo orden.
+static void _rwD3D9PixelConvertA8B8G8R8(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[1] = static_cast<RwUInt8>(value >> 8);
+    c[0] = static_cast<RwUInt8>(value);
+    c[2] = static_cast<RwUInt8>(value >> 16);
+    c[3] = static_cast<RwUInt8>(value >> 24);
+}
+
+// 0x7FFE50 (S33A, 21 bytes; D3DFMT_L8): R = G = B = byte bajo, A = 0xFF.
+static void _rwD3D9PixelConvertL8(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    const RwUInt8 gray = static_cast<RwUInt8>(value);
+    c[0] = gray;
+    c[1] = gray;
+    c[2] = gray;
+    c[3] = 0xFF;
+}
+
+// 0x7FFE70 (S33A, 22 bytes; D3DFMT_A8): R = G = B = 0xFF, A = byte bajo.
+static void _rwD3D9PixelConvertA8(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    c[0] = 0xFF;
+    c[1] = 0xFF;
+    c[2] = 0xFF;
+    c[3] = static_cast<RwUInt8>(value);
+}
+
+// 0x7FFE90 (S33A, 41 bytes; D3DFMT_A4L4): R = G = B = v << 4; A = 0xFF si v >= 0xF0 (sin signo, valor completo), si no v & 0xF0.
+static void _rwD3D9PixelConvertA4L4(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    const RwUInt8 gray = static_cast<RwUInt8>(value << 4);
+    c[0] = gray;
+    c[1] = gray;
+    c[2] = gray;
+    if (value >= 0xF0u) {
+        c[3] = 0xFF;
+    } else {
+        c[3] = static_cast<RwUInt8>(value & 0xF0u);
+    }
+}
+
+// 0x7FFEC0 (S33A, 23 bytes; D3DFMT_A8L8): R = G = B = byte bajo, A = (v >> 8).
+static void _rwD3D9PixelConvertA8L8(RwUInt32* destination, RwUInt32 value) {
+    RwUInt8* const c = PixelBytes(destination);
+    const RwUInt8 gray = static_cast<RwUInt8>(value);
+    c[0] = gray;
+    c[1] = gray;
+    c[2] = gray;
+    c[3] = static_cast<RwUInt8>(value >> 8);
+}
+
+// Lotes S32A y S33A (sin validar): ganchos.
+void RwD3D9InjectHooksS32A33A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwD3D9");
+
+    RH_ScopedGlobalInstall(_rwD3D9DeviceStandardNull, 0x7F7530);
+    RH_ScopedGlobalInstall(RwD3D9EngineSetMultiThreadSafe, 0x7F8620);
+    RH_ScopedGlobalInstall(RwD3D9EngineSetSoftwareVertexProcessing, 0x7F8630);
+    RH_ScopedGlobalInstall(RwD3D9GetStencilClear, 0x7F9D40);
+    RH_ScopedGlobalInstall(RwD3D9GetCurrentD3DRenderTarget, 0x7F9E80);
+    RH_ScopedGlobalInstall(RwD3D9GetLight, 0x7FA820);
+    RH_ScopedGlobalInstall(RwD3D9GetTextureStageState, 0x7FC3A0);
+    RH_ScopedGlobalInstall(_rwD3D9SetFVF, 0x7F9F30);
+    RH_ScopedGlobalInstall(_rwD3D9DrawIndexedPrimitiveUP, 0x7FA1F0);
+    RH_ScopedGlobalInstall(_rwD3D9DrawPrimitiveUP, 0x7FA290);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertX1R5G5B5, 0x7FFBE0);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertR5G6B5, 0x7FFC10);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertR5G5B6, 0x7FFC40);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertA1R5G5B5, 0x7FFC70);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertA4R4G4B4, 0x7FFCB0);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertA8R3G3B2, 0x7FFD00);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertR3G3B2, 0x7FFD30);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertX4R4G4B4, 0x7FFD60);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertX8R8G8B8, 0x7FFD90);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertX8B8G8R8, 0x7FFDB0);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertV8U8, 0x7FFDD0);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertA8R8G8B8Rgba, 0x7FFDF0);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertA8B8G8R8, 0x7FFE20);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertL8, 0x7FFE50);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertA8, 0x7FFE70);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertA4L4, 0x7FFE90);
+    RH_ScopedGlobalInstall(_rwD3D9PixelConvertA8L8, 0x7FFEC0);
 }
