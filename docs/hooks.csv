@@ -12548,3 +12548,8 @@ CAudioZones,TextBufferAddTyped,0x00508D30,1,0,0,S
 CAudioZones,BugstarFlushReport,0x00509190,1,0,0,S
 ExeCrt,Pow,0x008220F0,1,0,0,S
 ExeCrt,PowSse2,0x00829B99,1,0,0,S
+StdException,Construct,0x00822D97,1,0,0,S
+StdException,CopyConstruct,0x00822DE5,1,0,0,S
+StdException,Destruct,0x00822E2F,1,0,0,S
+ExeCrt,StringXran,0x008211FD,1,0,0,S
+ExeCrt,StringXlen,0x00821255,1,0,0,S
