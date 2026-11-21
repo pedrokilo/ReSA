@@ -19,6 +19,8 @@ Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código 
 | **Vigente** | La evidencia sigue valiendo para el árbol actual (fuentes y dependencias sin cambios desde la prueba) | [Inventario](ValidationInventory.md) |
 | **Independiente** | La función ya no ejecuta código original del EXE, ni siquiera de forma transitiva | Sin medir todavía |
 
+Los **comandos de script** (2.826 opcodes de SCM) no son entradas de `hooks.csv`, porque el EXE los atiende dentro de despachadores por centenas y no tienen funcion propia. Se inventarian aparte en [ComandosScript.md](ComandosScript.md) (668 reescritos sin banco de validacion, 282 nop, 713 no implementados en el juego, 1.163 sin manejador propio); no suman a los contadores de arriba.
+
 Se miden por separado dos zonas del EXE: el **código del juego** (0x401000–0x74FFFF) y **RenderWare y D3D** (0x750000–0x81FFFF). El CRT de MSVC queda fuera del objetivo.
 
 ## Fases

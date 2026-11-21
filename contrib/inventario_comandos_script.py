@@ -19,6 +19,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 ENUM = RAIZ / 'source/game_sa/Enums/eScriptCommands.h'
 CMDS = RAIZ / 'source/game_sa/Scripts/Commands'
 SALIDA = RAIZ / 'docs/ComandosScript.csv'
+SALIDA_MD = RAIZ / 'docs/ComandosScript.md'
 
 def leer_enum():
     ids = {}
@@ -70,6 +71,39 @@ def catalogo_despachadores():
                 out[int(r['address'], 16)] = (r['reversed'], r['validated'])
     return out
 
+
+def escribir_md(filas, cuenta, cuenta_disp):
+    por_arch = {}
+    for f in filas:
+        arch = f[5].split(':')[0].split('/')[-1].replace('Commands.cpp', '') if f[5] else '(sin manejador propio)'
+        d = por_arch.setdefault(arch, {'reescrito': 0, 'nop': 0, 'no_implementado': 0, 'original': 0}); d[f[3]] += 1
+    por_disp = {}
+    for f in filas:
+        if f[3] != 'original' or not f[6]: continue
+        d = por_disp.setdefault(f[6], [0, f[8], f[9]]); d[0] += 1
+    L = ['# Comandos de script (opcodes)', '',
+         'Inventario de los comandos de SCM del juego (`docs/ComandosScript.csv`, generado por `contrib/inventario_comandos_script.py`).',
+         'No forman parte de `hooks.csv`: el EXE los atiende dentro de despachadores por centenas (`ProcessCommandsNNNtoMMM`) y no tienen',
+         'una funcion con direccion propia. Los contadores de `ReversedClasses.md` **no los incluyen**.', '',
+         '## Resumen', '', '| Estado | Comandos | Significado |', '| --- | ---: | --- |',
+         f"| reescrito | {cuenta.get('reescrito', 0)} | manejador C++ propio; **sin banco de validacion contra el EXE** |",
+         f"| nop | {cuenta.get('nop', 0)} | el comando no hace nada, como en el original |",
+         f"| no implementado | {cuenta.get('no_implementado', 0)} | el propio juego no lo implementa |",
+         f"| original | {cuenta.get('original', 0)} | sin manejador propio: pasa por el despachador de su centena |",
+         f"| **Total** | **{len(filas)}** | |", '',
+         f"De los {cuenta.get('original', 0)} comandos *original*: despachador reescrito en `hooks.csv` = {cuenta_disp.get('si', 0)}; despachador del EXE = {cuenta_disp.get('no', 0)}; sin despachador identificado = {cuenta_disp.get('', 0)}.", '',
+         '## Por categoria (archivo de `Scripts/Commands`)', '', '| Categoria | Reescritos | Nop | No impl. | Original |', '| --- | ---: | ---: | ---: | ---: |']
+    for k, d in sorted(por_arch.items()): L.append(f"| {k} | {d['reescrito']} | {d['nop']} | {d['no_implementado']} | {d['original']} |")
+    L += ['', '## Despachadores del EXE que atienden comandos sin manejador propio', '', '| Despachador | Comandos | Reescrito en hooks.csv | Validado |', '| --- | ---: | --- | --- |']
+    for k, d in sorted(por_disp.items()): L.append(f"| `{k}` | {d[0]} | {d[1]} | {d[2]} |")
+    L += ['', '## Comandos reescritos (sin validar por banco)', '', '| Id | Comando | Manejador | Fuente |', '| --- | --- | --- | --- |']
+    for f in filas:
+        if f[3] == 'reescrito': L.append(f"| {f[0]} | `{f[2]}` | `{f[4]}` | {f[5]} |")
+    L += ['', '## Pendiente', '',
+          '- Banco por comando: ejecutar cada manejador reescrito y el original del EXE con los mismos parametros y comparar valores devueltos, variables escritas y efectos. `GTASA_CMD_BYPASS` (archivo con ids) permite volver al manejador original de cualquier comando para esas comparaciones o para bisecciones.',
+          '- Primer error hallado en este inventario: `GET_CHAR_AREA_VISIBLE` (0x09E8) devolvia un booleano en vez del id del interior (ropero de la casa de CJ).', '']
+    SALIDA_MD.write_text(chr(10).join(L), encoding='utf-8')
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument('--exe', default='E:/JUEGOS/GTA San Andreas - CVehicle Test/gta_sa.exe')
     a = ap.parse_args()
@@ -88,7 +122,8 @@ def main():
     with open(SALIDA, 'w', newline='', encoding='utf-8') as fh:
         w = csv.writer(fh); w.writerow(['id_hex', 'id', 'comando', 'estado', 'manejador_cpp', 'fuente', 'despachador_exe', 'registro_duplicado', 'despachador_reescrito', 'despachador_validado'])
         w.writerows(filas)
-    print(f'{len(filas)} comandos -> {SALIDA.relative_to(RAIZ)}')
+    escribir_md(filas, cuenta, cuenta_disp)
+    print(f'{len(filas)} comandos -> {SALIDA.relative_to(RAIZ)} y {SALIDA_MD.relative_to(RAIZ)}')
     for k, v in sorted(cuenta.items()): print(f'  {k:16} {v}')
     print('  de los "original": despachador reescrito en hooks.csv:', cuenta_disp)
     ext = sorted(set(reg) - set(ids))
