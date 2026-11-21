@@ -19723,6 +19723,336 @@ __declspec(noinline) float __cdecl UVAnimDegreesCpp(float theta, float factor) {
 }
 #pragma float_control(pop)
 
+// --- Lote S9A (sin validar): RpUVAnim, interpolacion de fotogramas clave (secuencias x87 del EXE; solo se redondea a float en cada `fstp dword`) ---
+#pragma float_control(precise, on, push)
+// Reduccion de la diferencia de angulos de 0x7CC600 y 0x7CC6A0: `fcom [-pi]; test ah,5; jp` (si d < -pi: d + 2pi; con mayor o NaN salta) y, si no, `fcom [pi]; and eax,0x4100; jne` (solo si d > pi, ordenado: resta 2pi).
+// Constantes del EXE: 0x858CC0 = -3.14159274f, 0x858CB8 = 3.14159274f, 0x858CBC = 6.28318548f.
+static double UVAnimWrapAngle(double d) {
+    if (d < double(-3.14159274101257324f)) {
+        d = d + double(6.28318548202514648f);
+    } else if (d > double(3.14159274101257324f)) {
+        d = d - double(6.28318548202514648f);
+    }
+    return d;
+}
+
+// 0x7CC600: alpha = (time - in1.time) / (in2.time - in1.time) (en la pila x87); theta: reduccion del angulo, producto por alpha y suma de in1; los demas: (in2 - in1) * alpha + in1.
+__declspec(noinline) void __cdecl UVAnimParamInterpolateCpp(float* out, const float* in1, const float* in2, float time) {
+    const double alpha = (double(time) - double(in1[1])) / (double(in2[1]) - double(in1[1]));
+    double d = UVAnimWrapAngle(double(in2[2]) - double(in1[2]));
+    out[2] = float(d * alpha + double(in1[2]));
+    out[3] = float((double(in2[3]) - double(in1[3])) * alpha + double(in1[3]));
+    out[4] = float((double(in2[4]) - double(in1[4])) * alpha + double(in1[4]));
+    out[5] = float((double(in2[5]) - double(in1[5])) * alpha + double(in1[5]));
+    out[6] = float((double(in2[6]) - double(in1[6])) * alpha + double(in1[6]));
+    out[7] = float((double(in2[7]) - double(in1[7])) * alpha + double(in1[7]));
+}
+
+// 0x7CC6A0: igual con alpha recibido como float.
+__declspec(noinline) void __cdecl UVAnimParamBlendCpp(float* out, const float* in1, const float* in2, float alpha) {
+    double d = UVAnimWrapAngle(double(in2[2]) - double(in1[2]));
+    out[2] = float(d * double(alpha) + double(in1[2]));
+    out[3] = float((double(in2[3]) - double(in1[3])) * double(alpha) + double(in1[3]));
+    out[4] = float((double(in2[4]) - double(in1[4])) * double(alpha) + double(in1[4]));
+    out[5] = float((double(in2[5]) - double(in1[5])) * double(alpha) + double(in1[5]));
+    out[6] = float((double(in2[6]) - double(in1[6])) * double(alpha) + double(in1[6]));
+    out[7] = float((double(in2[7]) - double(in1[7])) * double(alpha) + double(in1[7]));
+}
+
+// 0x7CCA40: interpolacion lineal (sin reduccion de angulo).
+__declspec(noinline) void __cdecl UVAnimLinearInterpolateCpp(float* out, const float* in1, const float* in2, float time) {
+    const double alpha = (double(time) - double(in1[1])) / (double(in2[1]) - double(in1[1]));
+    out[2] = float((double(in2[2]) - double(in1[2])) * alpha + double(in1[2]));
+    out[3] = float((double(in2[3]) - double(in1[3])) * alpha + double(in1[3]));
+    out[4] = float((double(in2[4]) - double(in1[4])) * alpha + double(in1[4]));
+    out[5] = float((double(in2[5]) - double(in1[5])) * alpha + double(in1[5]));
+    out[6] = float((double(in2[6]) - double(in1[6])) * alpha + double(in1[6]));
+    out[7] = float((double(in2[7]) - double(in1[7])) * alpha + double(in1[7]));
+}
+
+// 0x7CCAC0: mezcla lineal con alpha float.
+__declspec(noinline) void __cdecl UVAnimLinearBlendCpp(float* out, const float* in1, const float* in2, float alpha) {
+    out[2] = float((double(in2[2]) - double(in1[2])) * double(alpha) + double(in1[2]));
+    out[3] = float((double(in2[3]) - double(in1[3])) * double(alpha) + double(in1[3]));
+    out[4] = float((double(in2[4]) - double(in1[4])) * double(alpha) + double(in1[4]));
+    out[5] = float((double(in2[5]) - double(in1[5])) * double(alpha) + double(in1[5]));
+    out[6] = float((double(in2[6]) - double(in1[6])) * double(alpha) + double(in1[6]));
+    out[7] = float((double(in2[7]) - double(in1[7])) * double(alpha) + double(in1[7]));
+}
+
+// 0x7CCBE0: out = in2 * in1 en la parte 2x2 (dos productos sumados por componente, las escrituras siguen el orden del EXE por si out solapa) y suma de la traslacion.
+__declspec(noinline) void __cdecl UVAnimLinearAddCpp(float* out, const float* in1, const float* in2) {
+    out[2] = float(double(in2[2]) * double(in1[2]) + double(in2[4]) * double(in1[3]));
+    out[3] = float(double(in2[3]) * double(in1[2]) + double(in2[5]) * double(in1[3]));
+    out[4] = float(double(in2[4]) * double(in1[5]) + double(in2[2]) * double(in1[4]));
+    out[5] = float(double(in2[5]) * double(in1[5]) + double(in2[3]) * double(in1[4]));
+    out[6] = float(double(in2[6]) + double(in1[6]));
+    out[7] = float(double(in2[7]) + double(in1[7]));
+}
+
+// 0x7CCB30: frame *= recip(start). det = a*d - b*c de los cuatro primeros datos de start (a = +0x08, b = +0x0C, c = +0x10, d = +0x14); si det == 0 (comparacion de la x87: con NaN SI se invierte) se salta la parte 2x2.
+// inv = 1.0 / det sin redondear; id = inv*d, nib = -(inv*b) sin redondear y nic = float(-(inv*c)) (unico valor guardado: [esp+0x18]); b y d del fotograma se guardan antes de escribir (copia de dwords).
+// Secuencia del EXE: f2 = nib*C + id*A; f3 = nib*D + id*B; f4 = (C + A) * nic; f5 = (D + B) * nic (A = f2, B = f3, C = f4, D = f5 originales). Despues f6 -= s6 y f7 -= s7.
+__declspec(noinline) void __cdecl UVAnimLinearMulRecipCpp(float* f, const float* s) {
+    const double det = double(s[2]) * double(s[5]) - double(s[3]) * double(s[4]);
+    if (det != 0.0) {
+        const double inv = 1.0 / det;
+        float bCopy, dCopy;
+        memcpy(&bCopy, &f[3], sizeof(float));
+        memcpy(&dCopy, &f[5], sizeof(float));
+        const double a = double(f[2]);
+        const double c = double(f[4]);
+        const double id = inv * double(s[5]);
+        const double nib = -(inv * double(s[3]));
+        const float nic = float(-(inv * double(s[4])));
+        f[2] = float(nib * c + id * a);
+        f[3] = float(nib * double(dCopy) + id * double(bCopy));
+        f[4] = float((c + a) * double(nic));
+        f[5] = float((double(dCopy) + double(bCopy)) * double(nic));
+    }
+    f[6] = float(double(f[6]) - double(s[6]));
+    f[7] = float(double(f[7]) - double(s[7]));
+}
+#pragma float_control(pop)
+
+// --- Lote S11A (sin validar): RpHAnim, fotogramas clave con cuaterniones (secuencias x87 del EXE) ---
+#pragma float_control(precise, on, push)
+// 0x7C5B80: cuaternion (x, y, z, w) a matriz. xx, yy, zz, yz, zx, xy y wx se guardan como float en la pila local (fstp dword); wy y wz quedan en la pila x87 sin redondear. Las nueve entradas son 2*(a + b) y 1 - 2*(a + b).
+__declspec(noinline) void __cdecl HAnimKeyFrameApplyCpp(float* m, const float* f) {
+    const double x = double(f[2]);
+    const double y = double(f[3]);
+    const double z = double(f[4]);
+    const double w = double(f[5]);
+    const float xx = float(x * x);
+    const float yy = float(y * y);
+    const float zz = float(z * z);
+    const float yz = float(z * y);
+    const float zx = float(z * x);
+    const float xy = float(y * x);
+    const float wx = float(w * x);
+    const double wy = w * y;
+    const double wz = w * z;
+    m[0] = float(1.0 - ((double(zz) + double(yy)) + (double(zz) + double(yy))));
+    m[1] = float((double(xy) + wz) + (double(xy) + wz));
+    m[2] = float((double(zx) - wy) + (double(zx) - wy));
+    m[4] = float((double(xy) - wz) + (double(xy) - wz));
+    m[5] = float(1.0 - ((double(zz) + double(xx)) + (double(zz) + double(xx))));
+    m[6] = float((double(wx) + double(yz)) + (double(wx) + double(yz)));
+    m[8] = float((wy + double(zx)) + (wy + double(zx)));
+    m[9] = float((double(yz) - double(wx)) + (double(yz) - double(wx)));
+    const unsigned int flagsOrthonormal = 3;
+    memcpy(&m[3], &flagsOrthonormal, sizeof(flagsOrthonormal)); // flags = 3
+    m[10] = float(1.0 - ((double(yy) + double(xx)) + (double(yy) + double(xx))));
+    memcpy(&m[12], &f[6], sizeof(float));
+    memcpy(&m[13], &f[7], sizeof(float));
+    memcpy(&m[14], &f[8], sizeof(float));
+}
+
+// 0x7C6720: producto de cuaterniones sumado a la traslacion; las escrituras siguen el orden del EXE (out puede solapar las entradas). in1 = ecx, in2 = eax.
+__declspec(noinline) void __cdecl HAnimKeyFrameAddCpp(float* out, const float* in1, const float* in2) {
+    out[5] = float(double(in2[5]) * double(in1[5]) - ((double(in2[3]) * double(in1[3]) + double(in2[2]) * double(in1[2])) + double(in2[4]) * double(in1[4])));
+    out[2] = float(double(in1[3]) * double(in2[4]) - double(in2[3]) * double(in1[4]));
+    out[3] = float(double(in2[2]) * double(in1[4]) - double(in1[2]) * double(in2[4]));
+    out[4] = float(double(in2[3]) * double(in1[2]) - double(in2[2]) * double(in1[3]));
+    out[2] = float(double(in1[5]) * double(in2[2]) + double(out[2]));
+    out[3] = float(double(in1[5]) * double(in2[3]) + double(out[3]));
+    out[4] = float(double(in1[5]) * double(in2[4]) + double(out[4]));
+    out[2] = float(double(in2[5]) * double(in1[2]) + double(out[2]));
+    out[3] = float(double(in2[5]) * double(in1[3]) + double(out[3]));
+    out[4] = float(double(in2[5]) * double(in1[4]) + double(out[4]));
+    out[6] = float(double(in1[6]) + double(in2[6]));
+    out[7] = float(double(in1[7]) + double(in2[7]));
+    out[8] = float(double(in1[8]) + double(in2[8]));
+}
+
+// 0x7C65C0: frame = frame * recip(start). N = ((sx*sx + sy*sy) + sz*sz) + sw*sw; solo si N > 0 (ordenado) se calculan inv = 1/N, T1 = float(inv*sw) (guardado), nx = float(-inv*sx), ny = float(-inv*sy) (guardados) y
+// nzr = -inv*sz (en la pila x87 sin redondear). Con N <= 0 o NaN el EXE usa valores de pila sin inicializar: aqui ceros (T1 = nx = ny = nzr = 0). Despues el cuaternion del fotograma (fx, fy, fz, fw, copiado) se multiplica y la traslacion se resta.
+__declspec(noinline) void __cdecl HAnimKeyFrameMulRecipCpp(float* f, const float* s) {
+    const double sx = double(s[2]);
+    const double sy = double(s[3]);
+    const double sz = double(s[4]);
+    const double sw = double(s[5]);
+    const double norm = ((sx * sx + sy * sy) + sz * sz) + sw * sw;
+    float t1 = 0.0f, nx = 0.0f, ny = 0.0f;
+    double nzr = 0.0;
+    if (norm > 0.0) {
+        const double inv = 1.0 / norm;
+        t1 = float(inv * sw);
+        const double minusInv = -inv;
+        nx = float(sx * minusInv);
+        ny = float(sy * minusInv);
+        nzr = minusInv * sz;
+    }
+    float fx, fy, fz, fw;
+    memcpy(&fx, &f[2], sizeof(float));
+    memcpy(&fy, &f[3], sizeof(float));
+    memcpy(&fz, &f[4], sizeof(float));
+    memcpy(&fw, &f[5], sizeof(float));
+    f[7 - 2] = float(double(fw) * double(t1) - ((double(fy) * double(ny) + double(fx) * double(nx)) + double(fz) * nzr));
+    f[2] = float(((double(fz) * double(ny) - double(fy) * nzr) + double(fw) * double(nx)) + double(fx) * double(t1));
+    f[3] = float(((double(fx) * nzr - double(fz) * double(nx)) + double(fw) * double(ny)) + double(fy) * double(t1));
+    f[4] = float(((double(fy) * double(nx) - double(fx) * double(ny)) + double(fw) * nzr) + double(fz) * double(t1));
+    f[6] = float(double(f[6]) - double(s[6]));
+    f[7] = float(double(f[7]) - double(s[7]));
+    f[8] = float(double(f[8]) - double(s[8]));
+}
+#pragma float_control(pop)
+
+// --- Lote S11A (sin validar): RpHAnim, interpolacion esferica (0x7C5CA0 y 0x7C60C0) ---
+#pragma float_control(precise, on, push)
+// Constante float del EXE (por sus bits), cargada como double como lo hace `fld dword`.
+static double HAnimK(unsigned int bits) {
+    float f;
+    memcpy(&f, &bits, sizeof(f));
+    return double(f);
+}
+
+// Seno en linea del EXE: z = x*x; v = ((((c6*z - cA)*z + cB)*z - cC)*z + cD)*z - cE; sin = v*(z*x) + x.
+// c6 = 0x86D2B0, cA = 0x86D2AC, cB = 0x86D2A8, cC = 0x86D2A4, cD = 0x864E0C, cE = 0x85F0A0.
+static double HAnimSinKernel(double x) {
+    const double z = x * x;
+    double v = HAnimK(0x2f2ec9d3) * z;
+    v = v - HAnimK(0x32d72f34);
+    v = v * z;
+    v = v + HAnimK(0x3638ef1b);
+    v = v * z;
+    v = v - HAnimK(0x39500d01);
+    v = v * z;
+    v = v + HAnimK(0x3c088889);
+    v = v * z;
+    v = v - HAnimK(0x3e2aaaab);
+    return v * (z * x) + x;
+}
+
+// p(z) y q(z) de acosf (fdlibm) con las constantes del EXE: p = ((((((pS5*z + pS4)*z - pS3)*z + pS2)*z - pS1)*z + pS0)*z; q = ((((z*qS4 - qS3)*z + qS2)*z - qS1)*z + 1.0.
+// pS5 = 0x874E90, pS4 = 0x874E8C, pS3 = 0x874E88, pS2 = 0x874E84, pS1 = 0x874E80, pS0 = 0x85F0A0; qS4 = 0x874E7C, qS3 = 0x874E78, qS2 = 0x874E74, qS1 = 0x874E70.
+static double HAnimAcosP(double z) {
+    double p = HAnimK(0x3811ef08) * z;
+    p = p + HAnimK(0x3a4f7f04);
+    p = p * z;
+    p = p - HAnimK(0x3d241146);
+    p = p * z;
+    p = p + HAnimK(0x3e4e0aa8);
+    p = p * z;
+    p = p - HAnimK(0x3ea6b090);
+    p = p * z;
+    p = p + HAnimK(0x3e2aaaab);
+    p = p * z;
+    return p;
+}
+static double HAnimAcosQ(double z) {
+    double q = z * HAnimK(0x3d9dc62e);
+    q = q - HAnimK(0x3f303361);
+    q = q * z;
+    q = q + HAnimK(0x4001572d);
+    q = q * z;
+    q = q - HAnimK(0x4019d139);
+    q = q * z;
+    q = q + 1.0;
+    return q;
+}
+
+// acos en linea del EXE (acosf de fdlibm con la x87) de x = |dot| ya en la pila (sin redondear a float salvo el chequeo de rango, que usa float(x)).
+// pio2_hi = 0x874E68, pio2_lo = 0x874E6C, pi (fdlibm) = 0x874E64, pi/2 = 0x858FE4, pi = 0x858CB8.
+static double HAnimAcos(double x, float (__cdecl* sqrtFn)(float)) {
+    const float xf = float(x);
+    unsigned int bits;
+    memcpy(&bits, &xf, sizeof(bits));
+    const unsigned int absBits = bits & 0x7fffffffu;
+    if (absBits >= 0x3f800000u) {
+        return static_cast<int>(bits) > 0 ? 0.0 : HAnimK(0x40490fdb);
+    }
+    if (absBits >= 0x3f000000u) {
+        if (static_cast<int>(bits) < 0) {
+            const float zf = float((1.0 + x) * double(0.5f));
+            const double s = double(sqrtFn(zf));
+            const double p = HAnimAcosP(double(zf));
+            const double q = HAnimAcosQ(double(zf));
+            const double r = p / q;
+            const double rs = r * s;
+            const double t = s + (rs - HAnimK(0x33a22168));
+            return HAnimK(0x40490fda) - (t + t);
+        }
+        const float zf = float((1.0 - x) * double(0.5f));
+        const double s = double(sqrtFn(zf));
+        const float sf = float(s);
+        unsigned int sBits;
+        memcpy(&sBits, &sf, sizeof(sBits));
+        sBits &= 0xfffff000u;
+        float df;
+        memcpy(&df, &sBits, sizeof(df));
+        const double p = HAnimAcosP(double(zf));
+        const double q = HAnimAcosQ(double(zf));
+        const double r = p / q;
+        const double rs = r * s;
+        const double dd = double(df) * double(df);
+        const double c = (double(zf) - dd) / (double(df) + s);
+        const double w = rs + c;
+        const double t = w + double(df);
+        return t + t;
+    }
+    if (absBits <= 0x23000000u) {
+        return HAnimK(0x3fc90fdb);
+    }
+    const double z = x * x;
+    const double p = HAnimAcosP(z);
+    const double q = HAnimAcosQ(z);
+    const double r = p / q;
+    const double rx = r * x;
+    const double inner = HAnimK(0x33a22168) - rx;
+    const double sub = x - inner;
+    return HAnimK(0x3fc90fda) - sub;
+}
+
+// Cuerpo comun de 0x7C5CA0 y 0x7C60C0: producto escalar de los cuaterniones (((x2*x1 + y1*y2) + z2*z1) + w1*w2) sin redondear; traslacion out.t = (in2.t - in1.t) * alpha + in1.t (alpha como float); si el producto es
+// < 0 (ordenado) se niega (y se niega en sitio el cuaternion de in2); w1 = float(1 - alpha). Con producto >= 0.999 (ordenado) los pesos son (1 - alpha, alpha); si no (incluido NaN) omega = acos(producto) y los pesos son
+// float(sin(w1*omega) / sin(omega)) y float(sin(alpha*omega) / sin(omega)). out.q = w2*in2.q + w1*in1.q (suma de dos productos).
+static void HAnimSlerpBody(float* out, float* in1, float* in2, float alpha, float (__cdecl* sqrtFn)(float)) {
+    double dot = double(in2[2]) * double(in1[2]);
+    dot = dot + double(in1[3]) * double(in2[3]);
+    dot = dot + double(in2[4]) * double(in1[4]);
+    dot = dot + double(in1[5]) * double(in2[5]);
+    out[6] = float((double(in2[6]) - double(in1[6])) * double(alpha) + double(in1[6]));
+    out[7] = float((double(in2[7]) - double(in1[7])) * double(alpha) + double(in1[7]));
+    out[8] = float((double(in2[8]) - double(in1[8])) * double(alpha) + double(in1[8]));
+    if (dot < 0.0) {
+        dot = -dot;
+        in2[2] = float(-double(in2[2]));
+        in2[3] = float(-double(in2[3]));
+        in2[4] = float(-double(in2[4]));
+        in2[5] = float(-double(in2[5]));
+    }
+    float w1 = float(1.0 - double(alpha));
+    float w2 = alpha;
+    if (!(dot >= HAnimK(0x3f7fbe77))) {
+        const double omega = HAnimAcos(dot, sqrtFn);
+        const double sinOmega = HAnimSinKernel(omega);
+        const double recip = 1.0 / sinOmega;
+        const double x1 = omega * double(w1);
+        const float n1 = float(HAnimSinKernel(x1) * recip);
+        const double x2 = omega * double(alpha);
+        const float n2 = float(HAnimSinKernel(x2) * recip);
+        w1 = n1;
+        w2 = n2;
+    }
+    out[2] = float(double(w2) * double(in2[2]) + double(w1) * double(in1[2]));
+    out[3] = float(double(w1) * double(in1[3]) + double(w2) * double(in2[3]));
+    out[4] = float(double(w2) * double(in2[4]) + double(w1) * double(in1[4]));
+    out[5] = float(double(w1) * double(in1[5]) + double(w2) * double(in2[5]));
+}
+
+// 0x7C5CA0: alpha = float((time - in1.time) / (in2.time - in1.time)) (guardado como float: `fstp dword`) y el cuerpo comun.
+__declspec(noinline) void __cdecl HAnimKeyFrameInterpolateCpp(float* out, float* in1, float* in2, float time, float (__cdecl* sqrtFn)(float)) {
+    const float alpha = float((double(time) - double(in1[1])) / (double(in2[1]) - double(in1[1])));
+    HAnimSlerpBody(out, in1, in2, alpha, sqrtFn);
+}
+
+// 0x7C60C0: con alpha recibido.
+__declspec(noinline) void __cdecl HAnimKeyFrameBlendCpp(float* out, float* in1, float* in2, float alpha, float (__cdecl* sqrtFn)(float)) {
+    HAnimSlerpBody(out, in1, in2, alpha, sqrtFn);
+}
+#pragma float_control(pop)
+
 // --- Lote R12A (sin validar): vectores y matrices de RenderWare (RwPlCore) ---
 #pragma float_control(precise, on, push)
 // RwV3dLength 0x7EDAC0 y normalizaciones de 0x7F1930: (x*x + y*y) + z*z en la x87 y `fstp dword` del resultado.
