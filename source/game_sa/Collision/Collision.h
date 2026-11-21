@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "ColModel.h"
 #include "ColPoint.h"
@@ -27,7 +28,7 @@ public:
     static inline auto& bCamCollideWithObjects = StaticRef<bool>(0x8A5B15);          // = true
     static inline auto& bCamCollideWithPeds = StaticRef<bool>(0x8A5B17);             // = true
     static inline auto& bCamCollideWithBuildings = StaticRef<bool>(0x8A5B16);        // = true
-    static inline auto& relVelCamCollisionVehiclesSqr = StaticRef<float>(0x8A5B18); // = 0.01f
+    static inline auto& relVelCamCollisionVehiclesSqr = DatosExe::Data::v8A5B18; // = 0.01f
 
     static inline struct DebugSettings {
         struct ShapeShapeCollision {

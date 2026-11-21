@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include "X87Math.h"
 #include "TaskSimpleFightingControl.h"
@@ -29,8 +30,8 @@ END GENERATED HOOK STATUS */
 constexpr auto FIGHT_CTRL_FIGHT_IDLE_TIME = 60000.f;
 
 static auto& FightControlAttackInterval = StaticRef<uint32>(0x8D2E4C);
-static auto& FightControlIdleTime = StaticRef<float>(0x8D2E50);
-static auto& FightControlBlockChance = StaticRef<float>(0x8D2E54);
+static auto& FightControlIdleTime = DatosExe::Data::v8D2E50;
+static auto& FightControlBlockChance = DatosExe::Data::v8D2E54;
 static auto& FightControlBlockTimeMin = StaticRef<int32>(0x8D2E58);
 static auto& FightControlBlockTimeMax = StaticRef<int32>(0x8D2E5C);
 

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "Rope.h"
@@ -260,8 +261,8 @@ void CRope::Update() {
             const auto change=[&](uintptr_t enable,size_t padOffset,bool increase){if(!StaticRef<uint8>(enable))return;const auto amount=(float(field.operator()<int16>(pad,padOffset))*CTimer::GetTimeStep())*DatosExe::Rdata::k858C14;if(amount>0.f&&(increase?amount+m_fSegmentLength<.9f:.01f<m_fSegmentLength-amount))AudioEngine.ReportMissionAudioEvent(104,reinterpret_cast<CPhysical*>(m_pRopeHolder),0.f,1.f);m_fSegmentLength+=increase?amount:-amount;};change(0xA44496,0x1C,true);change(0xA44495,0x20,false);
         }}
         m_fSegmentLength=std::clamp(m_fSegmentLength,.01f,.9f);
-        auto* suspended=m_pRopeAttachObject?m_pRopeAttachObject:m_pAttachedEntity;float coupling=StaticRef<float>(0x8CD898);
-        if(m_pRopeAttachObject){const auto mass=model(suspended)==428?750.f:field.operator()<float>(suspended,0x8C);coupling=(StaticRef<float>(0x8CD89C)*DatosExe::Rdata::k863E30)*mass+coupling;coupling=std::min(coupling,.5f);field.operator()<uint8>(suspended,0xB8)=0;}else field.operator()<uint32>(suspended,0x1C)|=1;
+        auto* suspended=m_pRopeAttachObject?m_pRopeAttachObject:m_pAttachedEntity;float coupling=DatosExe::Data::v8CD898;
+        if(m_pRopeAttachObject){const auto mass=model(suspended)==428?750.f:field.operator()<float>(suspended,0x8C);coupling=(DatosExe::Data::v8CD89C*DatosExe::Rdata::k863E30)*mass+coupling;coupling=std::min(coupling,.5f);field.operator()<uint8>(suspended,0xB8)=0;}else field.operator()<uint32>(suspended,0x1C)|=1;
         if(suspended){const auto oldPosition=position(suspended);CVector newPosition;
             if(UpdateWeightInRope(oldPosition.x,oldPosition.y,oldPosition.z,0x3DCCCCCD,&newPosition.x)){
                 position(suspended)=newPosition;auto relativeSpeed=speed(suspended);auto holderOffset=m_aSegments[0]-position(m_pRopeHolder);auto holderSpeed=reinterpret_cast<CPhysical*>(m_pRopeHolder)->GetSpeed(holderOffset);if(type>=4&&type<=7){holderOffset=CVector{0.f,0.f,0.f};holderSpeed=CVector{0.f,0.f,0.f};}relativeSpeed-=holderSpeed;auto direction=position(suspended)-m_aSegments[0];direction.Normalise();const auto dot=(direction.z*relativeSpeed.z+direction.x*relativeSpeed.x)+direction.y*relativeSpeed.y;if(dot>0.f){relativeSpeed.x-=direction.x*dot;relativeSpeed.y-=dot*direction.y;relativeSpeed.z-=dot*direction.z;}const auto delta=CVector{(relativeSpeed.x+holderSpeed.x)-speed(suspended).x,(holderSpeed.y+relativeSpeed.y)-speed(suspended).y,(holderSpeed.z+relativeSpeed.z)-speed(suspended).z};const auto remaining=1.f-coupling;speed(suspended)=CVector{delta.x*remaining+speed(suspended).x,delta.y*remaining+speed(suspended).y,delta.z*remaining+speed(suspended).z};speed(m_pRopeHolder)=CVector{speed(m_pRopeHolder).x-delta.x*coupling,speed(m_pRopeHolder).y-delta.y*coupling,speed(m_pRopeHolder).z-delta.z*coupling};

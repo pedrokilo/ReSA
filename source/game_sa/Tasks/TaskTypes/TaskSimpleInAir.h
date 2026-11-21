@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "TaskSimple.h"
 #include "TaskTimer.h"
@@ -32,7 +33,7 @@ public:
     CTaskTimer m_timer;
     CEntity*   m_pClimbEntity;
 
-    static inline auto& ms_fSlowFallThreshold = StaticRef<float>(0x8D2EFC); // -0.05f
+    static inline auto& ms_fSlowFallThreshold = DatosExe::Data::v8D2EFC; // -0.05f
     static inline auto& ms_nMaxSlowFallFrames = StaticRef<uint32>(0x8D2EF8); // 10
 
 public:

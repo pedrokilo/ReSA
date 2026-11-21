@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "RegisteredCorona.h"
 
@@ -20,7 +21,7 @@ struct CFlareDefinition {
 
 class CCoronas {
 public:
-    static inline auto& LightsMult = StaticRef<float>(0x8D4B5C); // 1.0f
+    static inline auto& LightsMult = DatosExe::Data::v8D4B5C; // 1.0f
     static inline auto& SunScreenX = StaticRef<float>(0xC3E028);
     static inline auto& SunScreenY = StaticRef<float>(0xC3E02C);
     // are there any obstacles between sun and camera

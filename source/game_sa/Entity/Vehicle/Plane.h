@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "Automobile.h"
 
@@ -76,13 +77,13 @@ public:
     static inline auto& GenPlane_LastTimeGenerated = StaticRef<uint32>(0xC1CAE0);
 
     static inline auto& GenPlane_Active = StaticRef<bool>(0x8D33BC);
-    static inline auto& ANDROM_COL_ANGLE_MULT = StaticRef<float>(0x8D33C0);
+    static inline auto& ANDROM_COL_ANGLE_MULT = DatosExe::Data::v8D33C0;
     static inline auto& HARRIER_NOZZLE_ROTATE_LIMIT = StaticRef<uint16>(0x8D33C4);
     static inline auto& HARRIER_NOZZLE_SWITCH_LIMIT = StaticRef<uint16>(0x8D33C8);
-    static inline auto& PLANE_MIN_PROP_SPEED = StaticRef<float>(0x8D33CC);
-    static inline auto& PLANE_STD_PROP_SPEED = StaticRef<float>(0x8D33D0);
-    static inline auto& PLANE_MAX_PROP_SPEED = StaticRef<float>(0x8D33D4);
-    static inline auto& PLANE_ROC_PROP_SPEED = StaticRef<float>(0x8D33D8);
+    static inline auto& PLANE_MIN_PROP_SPEED = DatosExe::Data::v8D33CC;
+    static inline auto& PLANE_STD_PROP_SPEED = DatosExe::Data::v8D33D0;
+    static inline auto& PLANE_MAX_PROP_SPEED = DatosExe::Data::v8D33D4;
+    static inline auto& PLANE_ROC_PROP_SPEED = DatosExe::Data::v8D33D8;
 
 public:
     CPlane(int32 modelIndex, eVehicleCreatedBy createdBy);

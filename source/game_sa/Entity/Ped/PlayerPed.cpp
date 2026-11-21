@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
@@ -1990,7 +1991,7 @@ void CPlayerPed::MakeChangesForNewWeapon(uint32 weaponSlot) {
         MakeChangesForNewWeapon(GetWeaponInSlot(weaponSlot).m_Type);
 }
 
-static auto& PLAYER_MAX_TARGET_VIEW_ANGLE = StaticRef<float>(0x8D243C); // 140.0f
+static auto& PLAYER_MAX_TARGET_VIEW_ANGLE = DatosExe::Data::v8D243C; // 140.0f
 
 // Como el original: GetATanOfXY (0x53CC70) deja el ángulo en ST0 sin redondear a float y el EXE le resta
 // la compensación directamente (una sola rotura a 24 bits)
@@ -2429,7 +2430,7 @@ bool CPlayerPed::FindWeaponLockOnTarget() {
     }
 
     // ---- peatones (de atras adelante)
-    const float viewLimit = StaticRef<float>(0x8D243C) * DatosExe::Rdata::k8631D4; // 140 grados en radianes
+    const float viewLimit = DatosExe::Data::v8D243C * DatosExe::Rdata::k8631D4; // 140 grados en radianes
     const auto limitAngle = [](float angle) {
         if (angle > PLAYER_PI) {
             do {
@@ -2482,12 +2483,12 @@ bool CPlayerPed::FindWeaponLockOnTarget() {
         // Punto 3 m por detras: posicion - normalizado(vector hacia delante) * 3
         CVector forward = m_matrix->GetForward();
         forward.Normalise(); // 0x59C910
-        const CVector scaled = forward * StaticRef<float>(0x8D2440); // 0x40FEC0
+        const CVector scaled = forward * DatosExe::Data::v8D2440; // 0x40FEC0
         const CVector behind = GetPosition() - scaled; // 0x40FE60
         const float dy2 = ped->GetPosition().y - behind.y;
         const float dx2 = ped->GetPosition().x - behind.x;
         angle = limitAngle(PlayerPedATanMinus(dx2, dy2, heading));
-        if (!(angle < StaticRef<float>(0x8D2438) * DatosExe::Rdata::k8631D4)) { // 90 grados
+        if (!(angle < DatosExe::Data::v8D2438 * DatosExe::Rdata::k8631D4)) { // 90 grados
             continue;
         }
         const CVector toPed = ped->GetPosition() - GetPosition();

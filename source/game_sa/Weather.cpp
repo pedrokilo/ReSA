@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include "eWeatherType.h"
 #include "game_sa/Data/Weather.def"
@@ -53,9 +54,9 @@ auto& WaterFogFXValue         = StaticRef<float>(0xC81444);   // valor suavizado
 auto& WaterFogFXHolding       = StaticRef<uint8>(0xC81440);   // 1 mientras el valor baja
 auto& HeatHazeFXLevel         = StaticRef<float>(0xC81448);   // nivel acumulado de la calima
 auto& HeatHazeLastMinute      = StaticRef<int32>(0x8D6078);   // ultimo minuto del juego visto por la calima
-auto& HeatHazeFadeSpeed       = StaticRef<float>(0x8D50DC);   // 0.05
-auto& HeatHazeInsideFadeSpeed = StaticRef<float>(0x8D50E0);   // 0.5
-auto& RainSplashScale         = StaticRef<float>(0x8D5FF0);   // 1.0
+auto& HeatHazeFadeSpeed       = DatosExe::Data::v8D50DC;   // 0.05
+auto& HeatHazeInsideFadeSpeed = DatosExe::Data::v8D50E0;   // 0.5
+auto& RainSplashScale         = DatosExe::Data::v8D5FF0;   // 1.0
 auto& ClockSecondsByte        = StaticRef<uint8>(0xB70150);   // el EXE lee solo el byte bajo de los segundos
 auto& WaterFogSourceWord      = StaticRef<uint16>(0xB7C540);  // origen (palabra) del efecto de niebla de agua
 auto& CameraOrientation       = StaticRef<float>(0xB6F178);

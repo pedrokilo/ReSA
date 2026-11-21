@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include "Physical.h"
 #include "CarCtrl.h"
@@ -2103,9 +2104,9 @@ bool CPhysical::ApplyFriction(CPhysical* entity, float fFriction, CColPoint& col
         float fThisSpeedDotProduct = DotProduct(&vecThisSpeed, &colPoint.m_vecNormal);
         float fEntitySpeedDotProduct = DotProduct(&vecEntitySpeed, &colPoint.m_vecNormal);
         // Como el original: las constantes se leen de variables globales (0x8CD7CC * 0x8CD7C8, 0x8CD7C4)
-        if (StaticRef<float>(0x8CD7CC) * StaticRef<float>(0x8CD7C8) > fabs(fThisSpeedDotProduct))
+        if (DatosExe::Data::v8CD7CC * DatosExe::Data::v8CD7C8 > fabs(fThisSpeedDotProduct))
         {
-            fFriction = StaticRef<float>(0x8CD7C4) * fFriction;
+            fFriction = DatosExe::Data::v8CD7C4 * fFriction;
         }
 
         CVector vecThisSpeedDifference = vecThisSpeed - (fThisSpeedDotProduct * colPoint.m_vecNormal);
@@ -2858,11 +2859,11 @@ void CPhysical::ApplyFriction()
         && !physicalFlags.bCarriedByRope && GetStatus() == STATUS_ABANDONED
         && fabs(GetUp().z) < 0.707f
         // Como el original: umbrales y base leídos de las variables 0x8CD7F4, 0x8CD7F0 y 0x8CD7EC
-        && StaticRef<float>(0x8CD7F4) * StaticRef<float>(0x8CD7F4) > m_vecMoveSpeed.SquaredMagnitude()
-        && StaticRef<float>(0x8CD7F0) * StaticRef<float>(0x8CD7F0) > m_vecTurnSpeed.SquaredMagnitude())
+        && DatosExe::Data::v8CD7F4 * DatosExe::Data::v8CD7F4 > m_vecMoveSpeed.SquaredMagnitude()
+        && DatosExe::Data::v8CD7F0 * DatosExe::Data::v8CD7F0 > m_vecTurnSpeed.SquaredMagnitude())
     {
         // Como el original: pow con el _CIpow del EXE (0x822130), redondeado a float (fstp) para CVector::operator*=
-        const float fPow = CnvDecayPowCpp(StaticRef<float>(0x8CD7EC), CTimer::GetTimeStep());
+        const float fPow = CnvDecayPowCpp(DatosExe::Data::v8CD7EC, CTimer::GetTimeStep());
         m_vecMoveSpeed *= fPow;
     }
 }

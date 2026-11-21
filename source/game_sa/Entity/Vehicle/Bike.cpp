@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
@@ -711,7 +712,7 @@ bool CBike::BurstTyre(uint8 component, bool physicalEffect) {
         m_vehicleAudio.AddAudioEvent(static_cast<eAudioEvents>(90), 0.f);
         if (GetStatus() == STATUS_SIMPLE) CCarCtrl::SwitchVehicleToRealPhysics(this);
         if (physicalEffect) {
-            const auto limit = StaticRef<float>(0x8D322C);
+            const auto limit = DatosExe::Data::v8D322C;
             const auto force = CGeneral::GetRandomNumberInRange<float>(-limit, limit) * m_fMass;
             ApplyMoveForce(GetRight() * force);
             const auto turn = CGeneral::GetRandomNumberInRange<float>(-limit, limit) * m_fTurnMass;
@@ -722,8 +723,8 @@ bool CBike::BurstTyre(uint8 component, bool physicalEffect) {
     // Component 13 is mapped to zero above; the EXE's later front-wheel event branch is unreachable.
     if (m_pDriver && component == 14 && (m_aRatioHistory[2] < DatosExe::Rdata::k871284 || m_aRatioHistory[3] < DatosExe::Rdata::k871284)) {
         const auto speed = std::sqrt((m_vecMoveSpeed.x * m_vecMoveSpeed.x + m_vecMoveSpeed.y * m_vecMoveSpeed.y) + m_vecMoveSpeed.z * m_vecMoveSpeed.z);
-        if (speed > StaticRef<float>(0x8D3230) && (GetStatus() != STATUS_PLAYER || speed > StaticRef<float>(0x8D3234))) {
-            const auto amount = (StaticRef<float>(0x8D322C) * m_fTurnMass) * 2.f;
+        if (speed > DatosExe::Data::v8D3230 && (GetStatus() != STATUS_PLAYER || speed > DatosExe::Data::v8D3234)) {
+            const auto amount = (DatosExe::Data::v8D322C * m_fTurnMass) * 2.f;
             ApplyTurnForce(GetRight() * amount, GetForward());
         }
     }
@@ -1075,8 +1076,8 @@ void CBike::ProcessControl() {
     } else {
         // 0x6B93DA..0x6B97A6
         float leanCoef  = DatosExe::Rdata::k8712D8;                           // [esp+34h]
-        float dampX     = StaticRef<float>(0x8D3238);                           // [esp+3Ch]
-        float dampY     = StaticRef<float>(0x8D323C);                           // [esp+40h]
+        float dampX     = DatosExe::Data::v8D3238;                           // [esp+3Ch]
+        float dampY     = DatosExe::Data::v8D323C;                           // [esp+40h]
         const CVector angVel = BikeMultiply3x3VMExe(m_vecTurnSpeed, *m_matrix); // 0x59C810 sobre [esp+68h]
         float stabilise;                                                        // ST0 en 0x6B95AD
         if (GetStatus() == STATUS_PLAYER) {                                     // test [esi+36h],F8h
@@ -1897,13 +1898,13 @@ void CBike::ProcessControl() {
         }
         {
             const float length = std::sqrt((m_vecMoveSpeed.x * m_vecMoveSpeed.x + m_vecMoveSpeed.y * m_vecMoveSpeed.y) + m_vecMoveSpeed.z * m_vecMoveSpeed.z);
-            const float sideStrength = ((((length * m_fMass) * m_BikeHandling->m_fWheelieSteer) * m_RideAnimData.BarSteerAngle) * CTimer::GetTimeStep()) * StaticRef<float>(0x8D3288);
+            const float sideStrength = ((((length * m_fMass) * m_BikeHandling->m_fWheelieSteer) * m_RideAnimData.BarSteerAngle) * CTimer::GetTimeStep()) * DatosExe::Data::v8D3288;
             const float forceY = sideStrength * matrix.GetRight().y;
             const float forceZ = sideStrength * matrix.GetRight().z;
             const float speed = std::sqrt((m_vecMoveSpeed.x * m_vecMoveSpeed.x + m_vecMoveSpeed.y * m_vecMoveSpeed.y) + m_vecMoveSpeed.z * m_vecMoveSpeed.z);   // [esp+10h]
             ApplyMoveForce(CVector{(sideStrength * matrix.GetRight().x) * speed, forceY * speed, forceZ * speed});                                        // 0x6BC664
         }
-        m_RideAnimData.LeanAngle = CTimer::GetTimeStep() * m_RideAnimData.BarSteerAngle * StaticRef<float>(0x8D3284) + m_RideAnimData.LeanAngle;
+        m_RideAnimData.LeanAngle = CTimer::GetTimeStep() * m_RideAnimData.BarSteerAngle * DatosExe::Data::v8D3284 + m_RideAnimData.LeanAngle;
         return;
     }
 
@@ -1926,7 +1927,7 @@ void CBike::ProcessControl() {
         pitchForce(angleDifference, m_BikeHandling->m_fStoppieStabMult);
         {
             const float alongRight = (m_vecMoveSpeed.z * matrix.GetRight().z + m_vecMoveSpeed.y * matrix.GetRight().y) + matrix.GetRight().x * m_vecMoveSpeed.x;
-            const float strength = ((alongRight * m_fTurnMass) * CTimer::GetTimeStep()) * StaticRef<float>(0x8D3280);
+            const float strength = ((alongRight * m_fTurnMass) * CTimer::GetTimeStep()) * DatosExe::Data::v8D3280;
             CVector axis = BikeCrossExe(CVector{0.0f, 0.0f, 1.0f}, matrix.GetRight());   // 0x6BC87F
             axis.Normalise();
             const float negated = -strength;
@@ -1985,7 +1986,7 @@ void CBike::DoSoftGroundResistance(uint32& arg0) {
         if (m_aWheelRatios[i] < 1.f && m_aWheelColPoints[i].m_nSurfaceTypeB == 178) {
             const auto& up = GetUp();
             const auto vertical = (m_vecMoveSpeed.x * up.x + m_vecMoveSpeed.y * up.y) + m_vecMoveSpeed.z * up.z;
-            const auto factor = -(CTimer::GetTimeStep() * m_fMass * StaticRef<float>(0x8D34AC));
+            const auto factor = -(CTimer::GetTimeStep() * m_fMass * DatosExe::Data::v8D34AC);
             ApplyMoveForce(CVector{(m_vecMoveSpeed.x - vertical * up.x) * factor, (m_vecMoveSpeed.y - vertical * up.y) * factor, (m_vecMoveSpeed.z - vertical * up.z) * factor});
             return;
         }

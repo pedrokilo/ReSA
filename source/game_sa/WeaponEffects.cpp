@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include "WeaponEffects.h"
 #include "X87Math.h"
@@ -220,7 +221,7 @@ void CWeaponEffects::Render() {
             screen.z = std::max(screen.z, 2.5f);
             const auto weaponRadius = player->GetWeaponRadiusOnScreen();
             if (weaponRadius > 0.f) {
-                inner = weaponRadius * StaticRef<float>(0x8D6148);
+                inner = weaponRadius * DatosExe::Data::v8D6148;
                 outer = ch.m_fSize * 20.f + inner;
             }
             state(rwRENDERSTATESRCBLEND, rwBLENDZERO);
@@ -284,7 +285,7 @@ void CWeaponEffects::Render() {
             float s, c, unusedOneMinusCos;
             angleTo(player->GetPosition(), s, c, unusedOneMinusCos);
             CVector2D base{ camOneMinusCos * float(RsGlobal.maximumWidth) * 0.5f, (1.f - camSin) * float(RsGlobal.maximumHeight) * 0.5f };
-            const float radius = StaticRef<float>(0x8D6140);
+            const float radius = DatosExe::Data::v8D6140;
             const float t1 = s * 0.5f + c;
             const float t2 = c * 0.5f + s;
             const float rs = radius * s;

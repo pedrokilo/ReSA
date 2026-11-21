@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include "Ragdoll/IKChainManager.h"
 
@@ -891,7 +892,7 @@ void CTaskComplexEnterCar::GetCameraStickModifier(CPed* ped, float distance, flo
         choice,
         StaticRef<float>(0x86E684 + 4 * choice),
         StaticRef<float>(0x86E678 + 4 * choice),
-        StaticRef<float>(0x8D2ECC),
+        DatosExe::Data::v8D2ECC,
         &verticalAngle,
         &horizontalAngle,
         &alphaStick,

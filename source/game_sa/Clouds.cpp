@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "Clouds.h"
 #include "X87Math.h"
 #include "Camera.h"
@@ -40,7 +41,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(pop)
 #endif
 
-auto& CurrentFogIntensity = StaticRef<float>(0x8D5798);
+auto& CurrentFogIntensity = DatosExe::Data::v8D5798;
 
 auto& gpMoonMask = StaticRef<RwTexture*>(0xC6AA74);
 auto& gpCloudTex = StaticRef<RwTexture*>(0xC6AA78);

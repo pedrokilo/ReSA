@@ -24,6 +24,8 @@ from pe_inventory import PE  # noqa: E402
 NL = chr(10)
 PRIMS = {'float': 4, 'double': 8, 'int32': 4, 'uint32': 4, 'int16': 2, 'uint16': 2, 'int8': 1, 'uint8': 1, 'bool': 1}
 STRUCT = {'float': 'f', 'double': 'd', 'int32': 'i', 'uint32': 'I', 'int16': 'h', 'uint16': 'H', 'int8': 'b', 'uint8': 'B', 'bool': 'B'}
+# Direcciones que las pruebas de humo escriben o leen en el proceso del juego (ForegroundApp: evita que el juego se pause sin foco).
+HARNESS = {0x8D621C, 0x8D514C}
 EXCL = ('/RenderWare/', '/Crt', '/crt', 'ExeProtectionStub', 'DatosExe/')
 
 
@@ -68,6 +70,8 @@ def main():
         if not (0x8A4000 <= va < 0x8E4000):
             continue
         rs = por_va[va]
+        if va in HARNESS:
+            continue
         if any(any(x in r['archivo'] for x in EXCL) for r in rs):
             continue
         if {r['forma'] for r in rs} != {'StaticRef'}:

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "Vector.h"
 
@@ -6,11 +7,11 @@ class CVehicle;
 struct RwFrame;
 
 class  CBouncingPanel {
-    static inline auto& BOUNCE_SPRING_DAMP_MULT = StaticRef<float>(0x8D3954); // 0.95
-    static inline auto& BOUNCE_SPRING_RETURN_MULT = StaticRef<float>(0x8D3958); // 0.1
-    static inline auto& BOUNCE_VEL_CHANGE_LIMIT = StaticRef<float>(0x8D395C); // 0.1
-    static inline auto& BOUNCE_HANGING_DAMP_MULT = StaticRef<float>(0x8D3960); // 0.98
-    static inline auto& BOUNCE_HANGING_RETURN_MULT = StaticRef<float>(0x8D3964); // 0.02
+    static inline auto& BOUNCE_SPRING_DAMP_MULT = DatosExe::Data::v8D3954; // 0.95
+    static inline auto& BOUNCE_SPRING_RETURN_MULT = DatosExe::Data::v8D3958; // 0.1
+    static inline auto& BOUNCE_VEL_CHANGE_LIMIT = DatosExe::Data::v8D395C; // 0.1
+    static inline auto& BOUNCE_HANGING_DAMP_MULT = DatosExe::Data::v8D3960; // 0.98
+    static inline auto& BOUNCE_HANGING_RETURN_MULT = DatosExe::Data::v8D3964; // 0.02
 
 public:
     // Como el original (CAutomobile::CAutomobile 0x6B0AF2): el constructor solo pone m_nFrameId a -1 (mov word ptr [eax],0FFFFh);

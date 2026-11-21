@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include "AEPoliceScannerAudioEntity.h"
 
@@ -327,7 +328,7 @@ void CAEPoliceScannerAudioEntity::UpdateParameters(CAESound* sound, int16 curPla
     }
 
     if (s_bStoppingScanner) {
-        sound->m_Volume = sound->m_Volume - StaticRef<float>(0x8C8150); // Como el original: fsub [8C8150h]
+        sound->m_Volume = sound->m_Volume - DatosExe::Data::v8C8150; // Como el original: fsub [8C8150h]
         return;
     }
 
@@ -342,7 +343,7 @@ void CAEPoliceScannerAudioEntity::UpdateParameters(CAESound* sound, int16 curPla
 // 0x4E7630
 void CAEPoliceScannerAudioEntity::Service() {
     const auto startDelay = StaticRef<uint32>(0x8C8154);
-    const auto noiseVolume = StaticRef<float>(0x8C8158);
+    const auto noiseVolume = DatosExe::Data::v8C8158;
     const auto clickVolume = StaticRef<float>(0xB61D54);
 
     bool finishPlaying;
@@ -370,7 +371,7 @@ void CAEPoliceScannerAudioEntity::Service() {
 
         if (CTimer::GetTimeInMS() >= s_nPlaybackStartTime) {
             // Como el original (0x4E769B): lee 0xB6B98C (s_pPlayerAttachedForRadio), no 0xB6B99C
-            s_fVolumeOffset = CAEVehicleAudioEntity::s_pPlayerAttachedForRadio ? 0.0f : StaticRef<float>(0x8C815C);
+            s_fVolumeOffset = CAEVehicleAudioEntity::s_pPlayerAttachedForRadio ? 0.0f : DatosExe::Data::v8C815C;
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SCANNER_CLICK,       s_fVolumeOffset + clickVolume, 1.0f);
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SCANNER_NOISE_START, s_fVolumeOffset + noiseVolume, 1.0f); // todo: noiseVolume is gSpeechContextLookup[367][0]
             s_nPlaybackStartTime = startDelay + CTimer::GetTimeInMS(); // todo: startDelay is gSpeechContextLookup[366][6]

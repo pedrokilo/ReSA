@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
@@ -956,7 +957,7 @@ void CAutomobile::ProcessControl()
         }
 
         // Como el original: 6B28D6 fld [0x8D3214] (= 4.0f, global en .data); fcomp 0; jne -> si no es > 0 se salta todo el bloque (incluido el producto por m_fSteerAngle)
-        if (StaticRef<float>(0x8D3214) > 0.0f) {
+        if (DatosExe::Data::v8D3214 > 0.0f) {
             float steerAngle = 1.0f; // todo: Repeated branch in conditional chain
             bool steerAngleApplied = false;
             if (!(speedForward > 0.01f) || !(m_WheelCounts[CAR_WHEEL_FRONT_LEFT] > 0.0f) && !(m_WheelCounts[CAR_WHEEL_REAR_LEFT] > 0.0f))
@@ -970,7 +971,7 @@ void CAutomobile::ProcessControl()
                 float speedRight = DotProduct(m_vecMoveSpeed, GetRight());
                 float adhesive = g_surfaceInfos.GetAdhesiveLimit(&colPoint);
                 // Como el original: 6B2970..6B2988 ((adhesive * traction) * [0x8D3214]) * 4.0f / (speedForward^2)
-                steerAngle = adhesive * traction * StaticRef<float>(0x8D3214) * 4.0f / (speedForward * speedForward);
+                steerAngle = adhesive * traction * DatosExe::Data::v8D3214 * 4.0f / (speedForward * speedForward);
                 steerAngle = (1.0f < steerAngle) ? 1.0f : steerAngle;
                 // Como el original: 6B2989..6B2A34. El cociente asin(x) / (steeringLock * 0.017453292f) (asin del CRT del EXE, 0x821E70) se queda sin
                 // redondear en ST0 hasta el producto por m_fSteerAngle (fmul [esi+494h]; fstp): todo va en un ayudante x87 (un solo redondeo a float).
@@ -1183,7 +1184,7 @@ void CAutomobile::ProcessControl()
             // Como el original: 6B30E0..6B317E. speedTimeStep = pow(0.985f, ts) / (tsf^2 * 5 + 1); speed = pow(speedTimeStep, ts) * tsf - tsf (pow del CRT del
             // EXE, 0x822130) queda sin redondear en ST0 y alimenta los tres productos (speed * (up * -1.0f)) * m_fTurnMass: todo en un ayudante x87.
             CVector force;
-            AutomobileHydraulicForceCpp(turnSpeedForward, CTimer::GetTimeStep(), StaticRef<float>(0x8D3210), StaticRef<float>(0x8D320C), &GetUp().x, m_fTurnMass, &force.x);
+            AutomobileHydraulicForceCpp(turnSpeedForward, CTimer::GetTimeStep(), DatosExe::Data::v8D3210, DatosExe::Data::v8D320C, &GetUp().x, m_fTurnMass, &force.x);
             CVector point = GetRight() + G5Multiply3x3(GetMatrix(), m_vecCentreOfMass); // Como el original: 6B318E call 59C790
             ApplyTurnForce(force, point);
         }
@@ -7822,7 +7823,7 @@ void AutoPreRenderBfInjection(CAutomobile& car, CMatrix& frameMatrix, const CCol
 
 // 0x6AC507..0x6AC6D4 (modelo 525): brazo de la grua
 void AutoPreRenderTowTruck(CAutomobile& car, CMatrix& frameMatrix) {
-    const float towAngle = AutoPreTowAngleCpp(car.m_wMiscComponentAngle, StaticRef<float>(0x8D3144), StaticRef<uint16>(0x8D313C));
+    const float towAngle = AutoPreTowAngleCpp(car.m_wMiscComponentAngle, DatosExe::Data::v8D3144, StaticRef<uint16>(0x8D313C));
     car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_A], AXIS_X, towAngle, true);
     if (car.m_pVehicleBeingTowed) {
         const float negAngle = towAngle * -1.0f; // fmul por -1.0f (0x858C1C)
@@ -7834,7 +7835,7 @@ void AutoPreRenderTowTruck(CAutomobile& car, CMatrix& frameMatrix) {
             return;
         }
         float angleA, angleB;
-        AutoPreTowAnglesCpp(&hitch.x, &bar.x, &car.m_matrix->GetForward().x, &car.m_matrix->GetRight().x, StaticRef<float>(0x8D3148), negAngle, &angleA, &angleB);
+        AutoPreTowAnglesCpp(&hitch.x, &bar.x, &car.m_matrix->GetForward().x, &car.m_matrix->GetRight().x, DatosExe::Data::v8D3148, negAngle, &angleA, &angleB);
         car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_B], AXIS_X, angleA, true);
         car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_B], AXIS_Y, angleB, false);
     } else {
@@ -7875,9 +7876,9 @@ void AutoPreRenderHarvester(CAutomobile& car, CMatrix& frameMatrix, CVehicleMode
 
     float tilt = 0.f;
     if (car.m_matrix->GetUp().z > 0.f && car.m_nGettingInFlags == 0 && car.m_nGettingOutFlags == 0) {
-        tilt = AutoPreClampedAsinCpp(car.m_matrix->GetRight().z, StaticRef<float>(0x8D31EC));
+        tilt = AutoPreClampedAsinCpp(car.m_matrix->GetRight().z, DatosExe::Data::v8D31EC);
     }
-    car.m_fDoomVerticalRotation = AutomobileWheelSpinAudioCpp(StaticRef<float>(0x8D31E8), CTimer::GetTimeStep(), car.m_fDoomVerticalRotation, tilt);
+    car.m_fDoomVerticalRotation = AutomobileWheelSpinAudioCpp(DatosExe::Data::v8D31E8, CTimer::GetTimeStep(), car.m_fDoomVerticalRotation, tilt);
     car.SetComponentRotation(car.m_aCarNodes[CAR_CHASSIS], AXIS_Y, car.m_fDoomVerticalRotation, true);
 }
 
@@ -7903,7 +7904,7 @@ void AutoPreRenderModelComponents(CAutomobile& car, CMatrix& frameMatrix, const 
     } else if (model == 525) { // 0x20D
         AutoPreRenderTowTruck(car, frameMatrix);
     } else if (model == 531) { // 0x213
-        car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, AutoPreTowAngleCpp(car.m_wMiscComponentAngle, StaticRef<float>(0x8D3144), StaticRef<uint16>(0x8D313C)), true);
+        car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, AutoPreTowAngleCpp(car.m_wMiscComponentAngle, DatosExe::Data::v8D3144, StaticRef<uint16>(0x8D313C)), true);
     } else if (model == 530 && nodes[CAR_MISC_A]) { // 0x212
         AutoPreRenderForklift(car, frameMatrix);
     } else if (model == 532) { // 0x214

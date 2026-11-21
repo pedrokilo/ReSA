@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include <common.h>
 
@@ -53,7 +54,7 @@ int32 DefaultVolumeInt(eAudioEvents event) {
 void FadeWeatherSoundOut(CAESound* sound) {
     const float cur = sound->m_Volume;
     if (cur > -50.f) {
-        const float v = cur - StaticRef<float>(0x8CC2AC);
+        const float v = cur - DatosExe::Data::v8CC2AC;
         sound->m_Volume = v > -50.f ? v : -50.f;
     } else {
         sound->StopSoundAndForget();
@@ -236,7 +237,7 @@ void CAEWeatherAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) 
         static auto& sbWindOffset  = StaticRef<uint8>(0x8CC2C0);
         static auto& sfWindOffset  = StaticRef<float>(0xB6BAFC);
         static auto& sfWindFreq    = StaticRef<float>(0xB6BAF8);
-        static auto& sfOldFreqLeft = StaticRef<float>(0x8CC2C4);
+        static auto& sfOldFreqLeft = DatosExe::Data::v8CC2C4;
         using Points = const float (*)[2];
 
         const float height = TheCamera.GetPosition().z * std::bit_cast<float>(0x3B03126Fu);
@@ -246,30 +247,30 @@ void CAEWeatherAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) 
         const float wind = CWeather::WindClipped;
         const float windClamped = 1.f < wind ? 1.f : (0.f > wind ? 0.f : wind);
         const float windRatio = (high - low) * windClamped + low;
-        if (CAEAudioUtility::ResolveProbability(StaticRef<float>(0x8CC2CC))) {
+        if (CAEAudioUtility::ResolveProbability(DatosExe::Data::v8CC2CC)) {
             sbWindOffset = (uint8)(sbWindOffset == 0 ? 1 : 0);
         }
         const float windOn = (float)sbWindOffset;
-        sfWindOffset = StaticRef<float>(0x8CC2B0) * windOn * windRatio;
-        sfWindFreq   = windOn * StaticRef<float>(0x8CC2B4) * windRatio;
+        sfWindOffset = DatosExe::Data::v8CC2B0 * windOn * windRatio;
+        sfWindFreq   = windOn * DatosExe::Data::v8CC2B4 * windRatio;
         if (CGame::currArea != AREA_CODE_NORMAL_WORLD) {
             FadeWeatherSoundOut(sound);
             return;
         }
-        const float targetVolume = StaticRef<float>(0x8CC2A4) + sfWindOffset;
+        const float targetVolume = DatosExe::Data::v8CC2A4 + sfWindOffset;
         const float cur = sound->m_Volume;
         if (cur < targetVolume) {
-            const float v = cur + StaticRef<float>(0x8CC2A8);
+            const float v = cur + DatosExe::Data::v8CC2A8;
             sound->m_Volume = v < targetVolume ? v : targetVolume;
         } else if (cur > targetVolume) {
-            const float v = cur - StaticRef<float>(0x8CC2AC);
+            const float v = cur - DatosExe::Data::v8CC2AC;
             sound->m_Volume = v > targetVolume ? v : targetVolume;
         }
         if (sfOldFreqLeft < sfWindFreq) {
-            const float v = StaticRef<float>(0x8CC2B8) + sfOldFreqLeft;
+            const float v = DatosExe::Data::v8CC2B8 + sfOldFreqLeft;
             sfOldFreqLeft = v < sfWindFreq ? v : sfWindFreq;
         } else if (sfOldFreqLeft > sfWindFreq) {
-            const float v = sfOldFreqLeft - StaticRef<float>(0x8CC2BC);
+            const float v = sfOldFreqLeft - DatosExe::Data::v8CC2BC;
             sfOldFreqLeft = v > 1.f ? v : 1.f;
         }
         sound->m_Speed = sfOldFreqLeft;

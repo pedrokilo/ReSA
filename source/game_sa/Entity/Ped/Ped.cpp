@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
@@ -2802,8 +2803,8 @@ void CPed::DoFootLanded(bool leftFoot, uint8 arg1) {
     } else {
         if (!g_surfaceInfos.IsShallowWater(m_nContactSurface)) return;
         splash = position;
-        splash.z += StaticRef<float>(0x8D21EC);
-        splash += GetForwardVector() * StaticRef<float>(0x8D21E8);
+        splash.z += DatosExe::Data::v8D21EC;
+        splash += GetForwardVector() * DatosExe::Data::v8D21E8;
     }
     g_fx.TriggerFootSplash(splash);
     m_pedAudio.AddAudioEvent(AE_PED_FOOTSTEP_LEFT, 0.0f, 1.0f, nullptr, eSurfaceType(39), 0, 0);
@@ -4317,10 +4318,10 @@ void CPed::KillPedWithCar(CVehicle* car, float fDamageIntensity, bool bPlayDeadA
     direction.Normalise();
     const float speed = DotProduct(direction, car->m_vecMoveSpeed);
     if (!bKnockedUpIntoAir) direction.z -= 0.2f;
-    const float forceFactor = speed * (car->IsBike() ? StaticRef<float>(0x8D22AC) : StaticRef<float>(0x8D22A8));
-    const auto point = offset * StaticRef<float>(0x8D22A4);
-    const float massScale = std::min(1.0f, car->m_fMass / StaticRef<float>(0x8D22A0));
-    const float force = std::min(car->m_fMass, StaticRef<float>(0x8D22A0)) * massScale * forceFactor;
+    const float forceFactor = speed * (car->IsBike() ? DatosExe::Data::v8D22AC : DatosExe::Data::v8D22A8);
+    const auto point = offset * DatosExe::Data::v8D22A4;
+    const float massScale = std::min(1.0f, car->m_fMass / DatosExe::Data::v8D22A0);
+    const float force = std::min(car->m_fMass, DatosExe::Data::v8D22A0) * massScale * forceFactor;
     car->ApplyForce(direction * force, point, true);
 }
 
@@ -5381,7 +5382,7 @@ int32 CPed::ProcessEntityCollision(CEntity* entity, CColPoint* colPoints)
                 {
                     // todo en la pila x87 (X87Math.cpp): 0x8D12C0 = mezcla dia/noche, 0x8D21E4 = factor de suavizado del jugador
                     const bool player = m_nPedType == PED_TYPE_PLAYER1 || m_nPedType == PED_TYPE_PLAYER2;
-                    m_fContactSurfaceBrightness = PecBrightnessCpp(lp0.m_nLightingB.value, StaticRef<float>(0x8D12C0), CTimer::ms_fTimeStep, StaticRef<float>(0x8D21E4), m_fContactSurfaceBrightness, player);
+                    m_fContactSurfaceBrightness = PecBrightnessCpp(lp0.m_nLightingB.value, DatosExe::Data::v8D12C0, CTimer::ms_fTimeStep, DatosExe::Data::v8D21E4, m_fContactSurfaceBrightness, player);
                 }
 
                 // entidad de contacto (0x5E2A5B..0x5E2B4C)

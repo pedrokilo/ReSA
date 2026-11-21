@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 
 #include "AEPedAudioEntity.h"
@@ -248,10 +249,10 @@ void CAEPedAudioEntity::TurnOnJetPack() {
 
     // Como el original (0x4E28EA..0x4E2919): los valores iniciales salen de la tabla 0x8AE5F0/0x8AE600/0x8AE610/0x8AE618
     // (-100, -100, 2.0, 0.4) y se escriben antes de m_bJetPackPlaying.
-    m_fVolume2 = StaticRef<float>(0x8AE5F0);
-    m_fVolume1 = StaticRef<float>(0x8AE600);
-    m_fVolume3 = StaticRef<float>(0x8AE610);
-    m_JetPackSoundSpeedMult = StaticRef<float>(0x8AE618);
+    m_fVolume2 = DatosExe::Data::v8AE5F0;
+    m_fVolume1 = DatosExe::Data::v8AE600;
+    m_fVolume3 = DatosExe::Data::v8AE610;
+    m_JetPackSoundSpeedMult = DatosExe::Data::v8AE618;
 
     m_bJetPackPlaying = true;
 
@@ -320,17 +321,17 @@ void CAEPedAudioEntity::UpdateJetPack(float thrustFwd, float thrustAngle) {
     const float k    = StaticRef<float>(0xB613B0); // 0.93f - 1.0f, calculado por el inicializador 0x84C7E0
     // 0x4E1068..0x4E10A2: el seno de fsin queda sin redondear en ST0 para |sin|·k + 1.0 (velocidad del sonido 0); el float guardado (fst) es sinF.
     float sinF{};
-    const float speed0 = PedAudioJetPackSinCpp(thrustAngle, k, StaticRef<float>(0x8AE608), &sinF);
+    const float speed0 = PedAudioJetPackSinCpp(thrustAngle, k, DatosExe::Data::v8AE608, &sinF);
     const float absSin = sinF < 0.0f ? -sinF : sinF; // fcomp 0 / test ah,5 / jp / fchs (NaN y 0 sin cambio)
 
     m_JetPackSound0->m_Volume = zero + m_fVolume1;
     m_JetPackSound0->m_Speed  = speed0;
 
     m_JetPackSound1->m_Volume = zero + m_fVolume2;
-    m_JetPackSound1->m_Speed  = StaticRef<float>(0x8AE5F8); // mov [eax+1Ch],[8AE5F8] = 0.56
+    m_JetPackSound1->m_Speed  = DatosExe::Data::v8AE5F8; // mov [eax+1Ch],[8AE5F8] = 0.56
 
     m_JetPackSound2->m_Volume = zero + m_fVolume3;
-    m_JetPackSound2->m_Speed  = (absSin * StaticRef<float>(0x8AE620) + DatosExe::Rdata::k858624) * m_JetPackSoundSpeedMult;
+    m_JetPackSound2->m_Speed  = (absSin * DatosExe::Data::v8AE620 + DatosExe::Rdata::k858624) * m_JetPackSoundSpeedMult;
 }
 
 // 0x4E1170

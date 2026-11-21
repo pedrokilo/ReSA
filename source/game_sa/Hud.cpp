@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataCadenas.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "game_sa/Crt/CrtState.h"
@@ -930,7 +931,7 @@ void CHud::DrawHelpText() {
         CFont::SetWrapx(sx * m_fHelpMessageBoxWidth == nominal ? (sx * 34.f + nominal) - sx * 4.f : sx * 34.f + (m_fHelpMessageBoxWidth - 4.f) * sx);
     } else CFont::SetWrapx(float(RsGlobal.maximumWidth));
     CFont::SetFontStyle(static_cast<eFontStyle>(1)); CFont::SetBackground(true, true); CFont::SetDropShadowPosition(0); CFont::SetBackgroundColor(CRGBA(0, 0, 0, uint8(int32(alpha)))); CFont::SetColor(HudColour.GetRGB(static_cast<eHudColours>(4)));
-    const float offset = StaticRef<float>(0x8D0938);
+    const float offset = DatosExe::Data::v8D0938;
     float x = sx * 34.f, y = sy * 28.f + ((150.f - offset) * .6f) * sy;
     if (!m_nHelpMessageStatId) {
         const int shift = TheCamera.m_bWideScreenOn && !StaticRef<bool>(0xBA6793) ? 56 : 0;

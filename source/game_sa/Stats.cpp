@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 
 #pragma warning(push, 0)
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "game_sa/Crt/CrtFile.h"
 #pragma warning(pop)
@@ -1718,8 +1719,8 @@ void CStats::UpdateRespectStat(uint8 arg0) {
     // Como el original (0x55BC50..0x55BF1B). Los ultimos valores mostrados estan en 0x8CDEC4 (bajo) y 0x8CDEC8 (alto); -99.0f = sin valor. Con arg0 distinto de cero solo los reinicia.
     // La aritmetica va en la x87 de 24 bits (Stw60RespectPartialCpp / Stw60RespectFinishCpp en X87Math): la primera mitad hasta los dos float guardados en pila, la segunda tras
     // GetPercentageTagged (0x49CDA0). Ningun llamador del EXE lee EAX/ECX/EDX (0x442ADF y 0x573393 no los usan).
-    auto& shownLow = StaticRef<float>(0x8CDEC4);
-    auto& shownHigh = StaticRef<float>(0x8CDEC8);
+    auto& shownLow = DatosExe::Data::v8CDEC4;
+    auto& shownHigh = DatosExe::Data::v8CDEC8;
     constexpr float NO_VALUE = -99.0f;                                            // 0x86430C
 
     if (arg0) {

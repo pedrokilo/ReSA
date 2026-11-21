@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "Events/EventPedEnteredMyVehicle.h"
 
 #include "PedStats.h"
@@ -662,7 +663,7 @@ bool CCarEnterExit::IsPlayerToQuitCarEnter(const CPed* ped, const CVehicle* vehi
     if(*reinterpret_cast<CEntity*const*>(reinterpret_cast<const uint8*>(vehicle)+0x490))return true;
     if(pad->DisablePlayerControls)return false;
     if(special){if(pad->MeleeAttackJustDown(false))return true;}
-    else {const auto elapsed=CTimer::GetTimeInMS()-uint32(startTime);const double time=int32(elapsed)<0?double(float(double(int32(elapsed))+4294967296.0)):double(int32(elapsed));if(!(time>double(StaticRef<float>(0x8D2ED8))))return false;}
+    else {const auto elapsed=CTimer::GetTimeInMS()-uint32(startTime);const double time=int32(elapsed)<0?double(float(double(int32(elapsed))+4294967296.0)):double(int32(elapsed));if(!(time>double(DatosExe::Data::v8D2ED8)))return false;}
     const float upDown=float(pad->GetPedWalkUpDown()),leftRight=float(pad->GetPedWalkLeftRight());
     const float magnitude=std::sqrt(leftRight*leftRight+upDown*upDown)*0.0078125f;
     const float upper=heading+pi,lower=heading-pi,threshold=std::bit_cast<float>(0x3F490FDBu);

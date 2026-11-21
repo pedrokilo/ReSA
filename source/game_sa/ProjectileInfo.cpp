@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
@@ -250,7 +251,7 @@ template<typename T> T& ProjectileField(CEntity* entity, size_t offset) {
     return *reinterpret_cast<T*>(reinterpret_cast<uint8*>(entity) + offset);
 }
 float ProjectileDamping(float timestep) {
-    const float base = StaticRef<float>(0x8D6104);
+    const float base = DatosExe::Data::v8D6104;
     // fld base; fld timestep; call _CIpow (0x822130); fstp result (0x7395CF).
     const float result = float(ExeCompatiblePowCpp(double(base), double(timestep)));
     return result;
@@ -372,7 +373,7 @@ void CProjectileInfo::Update() {
                     const auto targetVelocity = best->AsPhysical()->m_vecMoveSpeed;
                     const bool fast = std::sqrt(targetVelocity.z * targetVelocity.z + targetVelocity.y * targetVelocity.y + targetVelocity.x * targetVelocity.x) > .8f;
                     float damping = 1.f;
-                    if (hunter) { damping = ProjectileDamping(timestep); acceleration = StaticRef<float>(0x8D6108); }
+                    if (hunter) { damping = ProjectileDamping(timestep); acceleration = DatosExe::Data::v8D6108; }
                     velocity *= damping; AddProjectileSteering(velocity, steering, acceleration, timestep, fast && !hunter); LimitProjectileSpeed(projectile);
                     projectile->GetMatrix().GetForward() = oldVelocity;
                 }

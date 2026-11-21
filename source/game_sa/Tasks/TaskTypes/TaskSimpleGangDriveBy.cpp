@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -238,9 +239,9 @@ bool CTaskSimpleGangDriveBy::ProcessPed(CPed* ped) {
     if (m_nRequiredAnimGroup == AssocGroupId(74) && int(ped->m_pVehicle->m_nVehicleType) == 9) {
         *(reinterpret_cast<uint8*>(ped->m_pVehicle) + 0x7B4) = 1;
     }
-    auto& loopStart = StaticRef<float>(0x8D2E7C);
-    auto& loopEnd = StaticRef<float>(0x8D2E80);
-    auto& fireTime = StaticRef<float>(0x8D2E84);
+    auto& loopStart = DatosExe::Data::v8D2E7C;
+    auto& loopEnd = DatosExe::Data::v8D2E80;
+    auto& fireTime = DatosExe::Data::v8D2E84;
     const auto crossed = [](const CAnimBlendAssociation* a, float t) {
         return a->m_CurrentTime > t && a->m_CurrentTime - a->m_TimeStep < t;
     };
@@ -416,7 +417,7 @@ bool CTaskSimpleGangDriveBy::SetupAnim(CPed* ped) {
             m_nBurstShots = static_cast<char>(CGeneral::GetRandomIntInRange(2, static_cast<int16>(m_pWeaponInfo->m_nAmmoClip))); // 0x407180 (movsx de la palabra baja)
         }
         if (hadAssoc) {
-            m_pAnimAssoc->SetCurrentTime(StaticRef<float>(0x8D2E7C));
+            m_pAnimAssoc->SetCurrentTime(DatosExe::Data::v8D2E7C);
             *reinterpret_cast<uint8*>(&m_pAnimAssoc->m_Flags) &= 0xFE;
             m_nLastCommand = 1;
             m_nNextCommand = 0;

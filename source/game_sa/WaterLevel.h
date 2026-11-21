@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "Base.h"
 #include "Vector.h"
@@ -120,7 +121,7 @@ class CWaterLevel {
     };
     static inline auto& ms_WaterFog = StaticRef<WaterFog>(0xC21188);
     static inline auto& gWaterFogIndex = StaticRef<uint32>(0xC228E4);
-    static inline auto& m_fWaterFogHeight = StaticRef<float>(0x8D37E4);
+    static inline auto& m_fWaterFogHeight = DatosExe::Data::v8D37E4;
     static inline auto& gbPlayerIsInsideWaterFog = StaticRef<bool>(0xC228E8);
 
 

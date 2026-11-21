@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "rwcore.h"
 
@@ -78,27 +79,27 @@ public:
     static void Render();
 
 public:
-    static inline auto& SCREEN_EXTRA_MULT_CHANGE_RATE = StaticRef<float>(0x8D5168); // 0.0005f;
-    static inline auto& SCREEN_EXTRA_MULT_BASE_CAP = StaticRef<float>(0x8D516C); // 0.35f;
-    static inline auto& SCREEN_EXTRA_MULT_BASE_MULT = StaticRef<float>(0x8D5170); // 1.0f;
+    static inline auto& SCREEN_EXTRA_MULT_CHANGE_RATE = DatosExe::Data::v8D5168; // 0.0005f;
+    static inline auto& SCREEN_EXTRA_MULT_BASE_CAP = DatosExe::Data::v8D516C; // 0.35f;
+    static inline auto& SCREEN_EXTRA_MULT_BASE_MULT = DatosExe::Data::v8D5170; // 1.0f;
 
     static inline auto& m_bDisableAllPostEffect = StaticRef<bool>(0xC402CF);
     static inline auto& m_bSavePhotoFromScript = StaticRef<bool>(0xC402D0);
     static inline auto& m_bInCutscene = StaticRef<bool>(0xC402B7);
 
-    static inline auto& m_xoffset = StaticRef<float>(0x8D5130); // 4.0f
-    static inline auto& m_yoffset = StaticRef<float>(0x8D5134); // 24.0f
+    static inline auto& m_xoffset = DatosExe::Data::v8D5130; // 4.0f
+    static inline auto& m_yoffset = DatosExe::Data::v8D5134; // 24.0f
 
-    static inline auto& m_colour1Multiplier = StaticRef<float>(0x8D5160); // 1.0f;
-    static inline auto& m_colour2Multiplier = StaticRef<float>(0x8D5164); // 1.0f;
-    static inline auto& m_colourLeftUOffset = StaticRef<float>(0x8D5150); // 8
-    static inline auto& m_colourRightUOffset = StaticRef<float>(0x8D5154); // 8
-    static inline auto& m_colourTopVOffset = StaticRef<float>(0x8D5158); // 8
-    static inline auto& m_colourBottomVOffset = StaticRef<float>(0x8D515C); // 8
+    static inline auto& m_colour1Multiplier = DatosExe::Data::v8D5160; // 1.0f;
+    static inline auto& m_colour2Multiplier = DatosExe::Data::v8D5164; // 1.0f;
+    static inline auto& m_colourLeftUOffset = DatosExe::Data::v8D5150; // 8
+    static inline auto& m_colourRightUOffset = DatosExe::Data::v8D5154; // 8
+    static inline auto& m_colourTopVOffset = DatosExe::Data::v8D5158; // 8
+    static inline auto& m_colourBottomVOffset = DatosExe::Data::v8D515C; // 8
 
     static inline auto& m_bNightVision = StaticRef<bool>(0xC402B8);
     static inline auto& m_fNightVisionSwitchOnFXCount = StaticRef<float>(0xC40300); // = CPostEffects::m_fNightVisionSwitchOnFXTime
-    static inline auto& m_fNightVisionSwitchOnFXTime = StaticRef<float>(0x8D50B0); // 50.0f
+    static inline auto& m_fNightVisionSwitchOnFXTime = DatosExe::Data::v8D50B0; // 50.0f
     static inline auto& m_NightVisionGrainStrength = StaticRef<int32>(0x8D50A8); // 48
     static inline auto& m_NightVisionMainCol = StaticRef<CRGBA>(0x8D50AC); // { 255, 0, 130, 0};
 
@@ -107,8 +108,8 @@ public:
     static inline auto& m_DarknessFilterAlphaDefault = StaticRef<int32>(0x8D50F4); // 170
     static inline auto& m_DarknessFilterRadiosityIntensityLimit = StaticRef<int32>(0x8D50F8); // 45
 
-    static inline auto& m_fWaterFXStartUnderWaterness = StaticRef<float>(0x8D514C); // 0.535f;
-    static inline auto& m_fWaterFullDarknessDepth = StaticRef<float>(0x8D5148); // 90.0f
+    static inline auto& m_fWaterFXStartUnderWaterness = DatosExe::Data::v8D514C; // 0.535f;
+    static inline auto& m_fWaterFullDarknessDepth = DatosExe::Data::v8D5148; // 90.0f
     static inline auto& m_bWaterDepthDarkness = StaticRef<bool>(0x8D5144);  // true;
 
     static inline auto& m_bHeatHazeFX = StaticRef<bool>(0xC402BA);
@@ -159,24 +160,24 @@ public:
     static inline auto& m_RadiosityFilterPasses = StaticRef<uint32>(0x8D5110); // 1
     static inline auto& m_RadiosityRenderPasses = StaticRef<uint32>(0x8D510C); // 2
 
-    static inline auto& m_VisionFXDayNightBalance = StaticRef<float>(0x8D50A4); // 1.0f
+    static inline auto& m_VisionFXDayNightBalance = DatosExe::Data::v8D50A4; // 1.0f
 
     static inline auto& m_bInfraredVision = StaticRef<bool>(0xC402B9);
     static inline auto& m_InfraredVisionGrainStrength = StaticRef<int32>(0x8D50B4); // 64
-    static inline auto& m_fInfraredVisionFilterRadius = StaticRef<float>(0x8D50B8); // 0.003f
+    static inline auto& m_fInfraredVisionFilterRadius = DatosExe::Data::v8D50B8; // 0.003f
     // float& m_fInfraredVisionSwitchOnFXCount;
     static inline auto& m_InfraredVisionCol = StaticRef<CRGBA>(0x8D50CC);      // { FF, 3C, 28, 6E }
     static inline auto& m_InfraredVisionMainCol = StaticRef<CRGBA>(0x8D50D0);      // { FF, C8, 00, 64 }
     static inline auto& m_fInfraredVisionHeatObjectCol = StaticRef<RwRGBAReal>(0x8D50BC); // { 1.0f, 0.0f, 0.0f, 1.0f }
     static inline auto& m_HeatHazeFXHourOfDayStart = StaticRef<int32>(0x8D50D4); // 10
     static inline auto& m_HeatHazeFXHourOfDayEnd = StaticRef<int32>(0x8D50D8); // 19
-    static inline auto& m_fHeatHazeFXFadeSpeed = StaticRef<float>(0x8D50DC); // 0.05f
-    static inline auto& m_fHeatHazeFXInsideBuildingFadeSpeed = StaticRef<float>(0x8D50DC); // 0.5f
+    static inline auto& m_fHeatHazeFXFadeSpeed = DatosExe::Data::v8D50DC; // 0.05f
+    static inline auto& m_fHeatHazeFXInsideBuildingFadeSpeed = DatosExe::Data::v8D50DC; // 0.5f
 
     static inline auto& m_waterEnable = StaticRef<bool>(0xC402D3);
-    static inline auto& m_waterStrength = StaticRef<float>(0x8D512C); // 64
-    static inline auto& m_waterSpeed = StaticRef<float>(0x8D5138); // 0.0015f
-    static inline auto& m_waterFreq = StaticRef<float>(0x8D513C); // 0.04f
+    static inline auto& m_waterStrength = DatosExe::Data::v8D512C; // 64
+    static inline auto& m_waterSpeed = DatosExe::Data::v8D5138; // 0.0015f
+    static inline auto& m_waterFreq = DatosExe::Data::v8D513C; // 0.04f
     static inline auto& m_waterCol = StaticRef<CRGBA>(0x8D5140); // { 64, 64, 64, 64 }
 
     // Immediate Mode Filter
