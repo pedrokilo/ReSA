@@ -422,8 +422,7 @@ CTask* CTaskComplexProstituteSolicit::ControlSubTask(CPed* ped) {
         const auto scaledMass = veh->m_fMass * (1.f / 15.f);
         const auto minMass = 150.f < scaledMass ? 150.f : scaledMass;
         const auto mass = minMass > m_pClient->m_fMass ? minMass : m_pClient->m_fMass;
-        // Original force helper (0x65DA70), separate from this task's catalog.
-        plugin::CallMethod<0x65DA70>(veh, 0.f, 0.f, mass * factor, position.x - carPos.x, position.y - carPos.y, 0.f);
+        veh->ApplyTurnForceComponents(0.f, 0.f, mass * factor, position.x - carPos.x, position.y - carPos.y, 0.f);
         veh->m_vehicleAudio.AddAudioEvent(eAudioEvents(108), 0.f);
         if (b10 && uint32(random) > 0xFFFFFFF) {
             ped->Say(eGlobalSpeechContext((random & 0xFFFF) < 0xFF ? 112 : 116), 0, 0.5f);

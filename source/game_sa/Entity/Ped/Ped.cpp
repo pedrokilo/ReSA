@@ -23,6 +23,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
+#include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -2600,10 +2602,10 @@ void CPed::SetCharCreatedBy(ePedCreatedBy createdBy) {
  * @addr 0x5E4C50
  */
 void CPed::CalculateNewVelocity() {
-    const auto turnMinimum = StaticRef<float>(0x86C284);
-    const auto turnAcceleration = StaticRef<float>(0x86C288);
-    const auto slopeBlend = StaticRef<float>(0x86C278);
-    const auto slopeDecay = StaticRef<float>(0x86C280);
+    const auto turnMinimum = DatosExe::Rdata::k86C284;
+    const auto turnAcceleration = DatosExe::Rdata::k86C288;
+    const auto slopeBlend = DatosExe::Rdata::k86C278;
+    const auto slopeDecay = DatosExe::Rdata::k86C280;
     const auto step = CTimer::GetTimeStep();
     if (!bIsInTheAir && !bIsLanding && m_nPedState != PEDSTATE_DIE && m_nPedState != PEDSTATE_DEAD && m_nPedState != PEDSTATE_ARRESTED) {
         const float turnStep = m_fHeadingChangeRate * 0.01745329238474369f * step;
@@ -2771,8 +2773,8 @@ void CPed::DoFootLanded(bool leftFoot, uint8 arg1) {
     position += forward * 0.2f;
     if (bDoBloodyFootprints && CLocalisation::Blood()) {
         CShadows::AddPermanentShadow(SHADOW_DEFAULT, gpBloodPoolTex, &position,
-            forward.x * StaticRef<float>(0x86C338), forward.y * StaticRef<float>(0x86C338),
-            right.x * StaticRef<float>(0x86C33C), right.y * StaticRef<float>(0x86C33C),
+            forward.x * DatosExe::Rdata::k86C338, forward.y * DatosExe::Rdata::k86C338,
+            right.x * DatosExe::Rdata::k86C33C, right.y * DatosExe::Rdata::k86C33C,
             255, 200, 0, 0, 4.0f, 3000, 1.0f);
         if (uint32(m_nDeathTimeMS) > 20) m_nDeathTimeMS -= 20;
         else { m_nDeathTimeMS = 0; bDoBloodyFootprints = false; }
@@ -2780,7 +2782,7 @@ void CPed::DoFootLanded(bool leftFoot, uint8 arg1) {
     if (g_surfaceInfos.LeavesFootsteps(m_nContactSurface)
         && (CVector2D{TheCamera.GetPosition()} - CVector2D{GetPosition()}).Magnitude() < 10.0f) {
         CShadows::AddPermanentShadow(SHADOW_DEFAULT, gpShadowPedTex, &position,
-            forward.x * StaticRef<float>(0x86C334), forward.y * StaticRef<float>(0x86C334),
+            forward.x * DatosExe::Rdata::k86C334, forward.y * DatosExe::Rdata::k86C334,
             right.x * -0.1f, right.y * -0.1f, 120, 250, 250, 50, 4.0f, IsPlayer() ? 5000 : 2000, 1.0f);
     }
     if (CWeather::Rain > 0.1f && !CCullZones::CamNoRain() && !CCullZones::PlayerNoRain() && CGame::currArea == AREA_CODE_NORMAL_WORLD) {
@@ -2801,8 +2803,8 @@ void CPed::DoFootLanded(bool leftFoot, uint8 arg1) {
     } else {
         if (!g_surfaceInfos.IsShallowWater(m_nContactSurface)) return;
         splash = position;
-        splash.z += StaticRef<float>(0x8D21EC);
-        splash += GetForwardVector() * StaticRef<float>(0x8D21E8);
+        splash.z += DatosExe::Data::v8D21EC;
+        splash += GetForwardVector() * DatosExe::Data::v8D21E8;
     }
     g_fx.TriggerFootSplash(splash);
     m_pedAudio.AddAudioEvent(AE_PED_FOOTSTEP_LEFT, 0.0f, 1.0f, nullptr, eSurfaceType(39), 0, 0);
@@ -4316,10 +4318,10 @@ void CPed::KillPedWithCar(CVehicle* car, float fDamageIntensity, bool bPlayDeadA
     direction.Normalise();
     const float speed = DotProduct(direction, car->m_vecMoveSpeed);
     if (!bKnockedUpIntoAir) direction.z -= 0.2f;
-    const float forceFactor = speed * (car->IsBike() ? StaticRef<float>(0x8D22AC) : StaticRef<float>(0x8D22A8));
-    const auto point = offset * StaticRef<float>(0x8D22A4);
-    const float massScale = std::min(1.0f, car->m_fMass / StaticRef<float>(0x8D22A0));
-    const float force = std::min(car->m_fMass, StaticRef<float>(0x8D22A0)) * massScale * forceFactor;
+    const float forceFactor = speed * (car->IsBike() ? DatosExe::Data::v8D22AC : DatosExe::Data::v8D22A8);
+    const auto point = offset * DatosExe::Data::v8D22A4;
+    const float massScale = std::min(1.0f, car->m_fMass / DatosExe::Data::v8D22A0);
+    const float force = std::min(car->m_fMass, DatosExe::Data::v8D22A0) * massScale * forceFactor;
     car->ApplyForce(direction * force, point, true);
 }
 
@@ -5380,7 +5382,7 @@ int32 CPed::ProcessEntityCollision(CEntity* entity, CColPoint* colPoints)
                 {
                     // todo en la pila x87 (X87Math.cpp): 0x8D12C0 = mezcla dia/noche, 0x8D21E4 = factor de suavizado del jugador
                     const bool player = m_nPedType == PED_TYPE_PLAYER1 || m_nPedType == PED_TYPE_PLAYER2;
-                    m_fContactSurfaceBrightness = PecBrightnessCpp(lp0.m_nLightingB.value, StaticRef<float>(0x8D12C0), CTimer::ms_fTimeStep, StaticRef<float>(0x8D21E4), m_fContactSurfaceBrightness, player);
+                    m_fContactSurfaceBrightness = PecBrightnessCpp(lp0.m_nLightingB.value, DatosExe::Data::v8D12C0, CTimer::ms_fTimeStep, DatosExe::Data::v8D21E4, m_fContactSurfaceBrightness, player);
                 }
 
                 // entidad de contacto (0x5E2A5B..0x5E2B4C)

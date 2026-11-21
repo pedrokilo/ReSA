@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
 
 #include "AEWeaponAudioEntity.h"
 #include "X87Math.h"
@@ -35,7 +36,7 @@ END GENERATED HOOK STATUS */
 namespace {
 // Como el original: la tabla de variaciones de los aviones se lee del EXE (0x8CC29C = {1.08, 1.0}); con un índice
 // -1 (módulo con signo de un byte >= 0x80) el original lee 0x8CC298.
-auto& gfWeaponPlaneFrequencyVariations = StaticRef<std::array<float, 2>>(0x8CC29C);
+auto& gfWeaponPlaneFrequencyVariations = DatosExe::Data::v8CC29C;
 
 // Atenuación que usa el original (0x3F28F5C3 = 0.66f, no 2/3).
 constexpr float WEAPON_ROLL_OFF = 0.66f;

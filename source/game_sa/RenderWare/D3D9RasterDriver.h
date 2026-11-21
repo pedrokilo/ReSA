@@ -8,4 +8,14 @@
 class RwD3D9RasterDriver {
 public:
     static void InjectHooks();
+
+    // Cuerpos reconstruidos en un espacio de nombres anonimo de D3D9RasterDriver.cpp, expuestos para que el resto del C++ no llame al EXE por direccion.
+    static void  RasterListPushCpp(RwRaster* raster);                              // 0x4CB530
+    static int32 RasterDestroyCpp(void* device, RwRaster* raster, int32 flags);   // 0x4CBB00
+    static int32 CheckDepthStencilSurfaceFormatCpp(uint32 format);                // 0x4CBD80
+    static int32 CheckTextureFormatCpp(uint32 format);                            // 0x4CBDE0
+    static int32 CheckRenderTargetTextureFormatCpp(uint32 format);                // 0x4CBE20
+    static int32 CheckDepthStencilTextureFormatCpp(uint32 format);                // 0x4CBE80
+    static int32 CheckRenderTargetCubeFormatCpp(uint32 format);                   // 0x4CBF20
+    static int32 CheckTextureFormatUsage400Cpp(uint32 format);                    // 0x4CBF80
 };

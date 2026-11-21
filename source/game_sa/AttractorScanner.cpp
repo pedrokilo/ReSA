@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "AttractorScanner.h"
 #include "Entity/Ped/Ped.h"
@@ -45,7 +46,7 @@ END GENERATED HOOK STATUS */
 // 0x5FFF90
 uint64 CAttractorScanner::Clear() {
     // 0x86C52C: distancia base; el cuadrado se calcula con la FPU
-    const auto& baseDistance = StaticRef<float>(0x86C52C);
+    const auto& baseDistance = DatosExe::Rdata::k86C52C;
     for (int32 i = 0; i < 10; i++) {
         field_18[i] = 0;
         field_40[i] = 0;
@@ -182,7 +183,7 @@ void CAttractorScanner::ScanEntityList(const void* list, CPed* ped) {
             if ((effect->pedAttractor.m_nFlags & 1) && !enableDisabledAttractors) {
                 continue;
             }
-            plugin::CallMethod<0x5FFFD0, CAttractorScanner*, C2dEffect*, CEntity*, CPed*>(this, effect, entity, ped);
+            ScanEffect(reinterpret_cast<C2dEffectPedAttractor*>(effect), entity, ped);
         }
     }
 }

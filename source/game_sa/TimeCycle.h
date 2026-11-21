@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "ColourSet.h"
 #include "eWeatherType.h"
@@ -17,7 +18,7 @@ public:
 };
 VALIDATE_SIZE(CTimeCycleBox, 0x28);
 
-static inline auto& gfLaRiotsLightMult = StaticRef<float>(0x8CD060); // 1.0f
+static inline auto& gfLaRiotsLightMult = DatosExe::Data::v8CD060; // 1.0f
 
 enum eTimeType {
     TIME_MIDNIGHT,

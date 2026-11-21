@@ -1,12 +1,12 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 19/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11781 con evidencia histórica y 660 pendientes de validación en 18 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 21/11/2026 (Ciudad de México):** 1004 grupos / 13311 funciones reconstruidas; 11801 con evidencia histórica y 1510 pendientes de validación en 39 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Direcciones de memoria del EXE (guía para mods)
 
 Cada función que este proyecto ha reconstruido en C++ lleva comentada **la dirección de su original en el EXE**, y todas están en una tabla que se puede abrir con una hoja de cálculo: [`direcciones.csv`](direcciones.csv). Sirve para saber dónde vive en `gta_sa.exe` lo que lees en `source/`, enganchar el juego con un ASI, o depurar con Cheat Engine, IDA o Ghidra.
 
-- **12,441** funciones catalogadas en **998** clases/grupos; **11,781** validadas y **660** reconstruidas sin validar.
+- **13,311** funciones catalogadas en **1004** clases/grupos; **11,801** validadas y **1,510** reconstruidas sin validar.
 - **2,169** son métodos virtuales (con vtable y ranura); el resto son funciones normales.
 - Las direcciones se resuelven del propio código (macros `RH_Scoped*`) y, en los virtuales, se comprueban contra la vtable del EXE original.
 
@@ -47,7 +47,7 @@ Para buscarla desde la consola: `git grep -n "0x6D05E0" source/` (o con ceros, `
 | `ranura` | Solo virtuales: posición en la tabla (0, 1, 2…). Si dos ranuras apuntan a la misma función se separan con `\|`. |
 | `entrada_vtable` | Dirección donde el EXE guarda el puntero: `vtable + 4 × ranura`. |
 | `estado` | `reconstruida` o `validada` (ver abajo). |
-| `definicion` | `archivo:línea` de la definición en `source/`. Vacío si la función no tiene definición propia localizable (64 casos: plantillas compartidas o funciones generadas por macros); entonces `registro` indica dónde se engancha. |
+| `definicion` | `archivo:línea` de la definición en `source/`. Vacío si la función no tiene definición propia localizable (168 casos: plantillas compartidas o funciones generadas por macros); entonces `registro` indica dónde se engancha. |
 | `registro` | `archivo:línea` de la macro `RH_Scoped*` que la engancha. |
 
 ### Virtuales y ranuras
@@ -61,7 +61,7 @@ Un método virtual no se llama por su dirección sino por `[vtable + 4 × ranura
 
 ## Qué no está en la tabla
 
-- **Funciones excluidas** (118): no se pueden reconstruir en C++ puro (por ejemplo, usan registros de forma no estándar, `__usercall`) o son un simple `jmp` a otra función sin trabajo propio. Están listadas con el motivo en [`JuegoExe/excluidas.csv`](JuegoExe/excluidas.csv); siguen existiendo en el EXE, solo que no tienen reconstrucción.
+- **Funciones excluidas** (125): no se pueden reconstruir en C++ puro (por ejemplo, usan registros de forma no estándar, `__usercall`) o son un simple `jmp` a otra función sin trabajo propio. Están listadas con el motivo en [`JuegoExe/excluidas.csv`](JuegoExe/excluidas.csv); siguen existiendo en el EXE, solo que no tienen reconstrucción.
 - **RenderWare, Direct3D y CRT** (`0x750000–0x81FFFF`) y todo lo no catalogado: ver [JuegoExe](JuegoExe/README.md) y [RenderWareExe](RenderWareExe/).
 - Lo que añade el proyecto y no existe en el EXE (NOTSA, ver [HooksNOTSA.md](HooksNOTSA.md)).
 

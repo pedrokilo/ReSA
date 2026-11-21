@@ -24,6 +24,8 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "TaskComplexWanderCriminal.h"
+#include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -138,8 +140,8 @@ void CPopulation::InjectHooks() {
 // fild * 2^-15 (0x858B14), fimul (superior - inferior) y _ftol2 en X87Math.cpp (PopulationRandomRangeCpp); suma entera del limite inferior.
 // Unico llamador del EXE: CPopulation::AddToPopulation (0x614AC6), que solo guarda EAX (recarga ECX y EDX), asi que no hay residuo que reproducir.
 int32 CPopulation::RandomIntInLimitRange() {
-    const int32 upper = StaticRef<int32>(0x86C6C8);
-    const int32 lower = StaticRef<int32>(0x86C6C4);
+    const int32 upper = DatosExe::Rdata::k86C6C8;
+    const int32 lower = DatosExe::Rdata::k86C6C4;
     const uint32 random = CGeneral::GetRandomNumber() & 0xFFFFu;
     return static_cast<int32>(static_cast<uint32>(lower) + static_cast<uint32>(PopulationRandomRangeCpp(static_cast<int>(random), static_cast<int>(static_cast<uint32>(upper) - static_cast<uint32>(lower)))));
 }
@@ -1965,7 +1967,7 @@ void PopulationDefaultTask(CPed* ped,ePedType type) {
     } else if ((CGeneral::GetRandomNumber()&3)!=0) {
         auto* memory=static_cast<CTask*>(CTask::operator new(0x38));
         CTask* task=nullptr;
-        if(memory) task=plugin::CallMethodAndReturn<CTask*,0x48E610>(memory,6,CGeneral::GetRandomIntInRange(0,8),true);
+        if(memory) task=::new(memory) CTaskComplexWanderCriminal(static_cast<eMoveState>(6),static_cast<uint8>(CGeneral::GetRandomIntInRange(0,8)),true);
         ped->GetTaskManager().SetTask(task,TASK_PRIMARY_DEFAULT,false);
     } else if(type!=PED_TYPE_COP) {
         auto* memory=static_cast<CObject*>(CObject::operator new(0x17C));
@@ -1974,7 +1976,7 @@ void PopulationDefaultTask(CPed* ped,ePedType type) {
         ped->GetTaskManager().SetTask(CTaskComplexWander::GetWanderTaskByPedType(ped),TASK_PRIMARY_DEFAULT,false);
         CVector offset{0.0f,.45f,.35f};
         auto* task=PopulationTask<0x6913A0>(0x3C,object,&offset,uint8(1),uint8(1),0x13E,0x51,false);
-        plugin::CallMethod<0x681B60>(&ped->GetTaskManager(),task,4);
+        ped->GetTaskManager().SetTaskSecondary(task,static_cast<eSecondaryTask>(4));
     }
 }
 bool PopulationSunbathe(CPed* ped,const CVector& position) {
@@ -2133,7 +2135,7 @@ bool CPopulation::AddToPopulation(float minDist, float maxDist, float minDistClo
     const uint32 density=std::min(traffic(first),traffic(second));
     if(uint32(CGeneral::GetRandomNumber()&0xF)>density) return underLimit;
     const auto random=CGeneral::GetRandomNumber();
-    plugin::CallMethod<0x44DA30>(&ThePaths,first,second,random,&position.x,&position.y);
+    ThePaths.AddRandomOffsetToNodePosition(first,second,static_cast<int16>(random),&position.x,&position.y);
     if(gang) {PlaceGangMembers(type,count,position);return underLimit;}
     if(maleModel!=MODEL_INVALID&&femaleModel!=MODEL_INVALID) {PopulationCouple(maleModel,femaleModel,position);return underLimit;}
     CPed* firstPed=nullptr;

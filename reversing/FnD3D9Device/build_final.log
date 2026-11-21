@@ -1,0 +1,339 @@
+candado propio adquirido Sat Nov 21 14:55:45     2026
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=x86
+build_type=Debug
+compiler=msvc
+compiler.cppstd=23
+compiler.runtime=static
+compiler.runtime_type=Debug
+compiler.version=195
+os=Windows
+[replace_tool_requires]
+cmake/*: cmake/4.2.0
+
+Profile build:
+[settings]
+arch=x86_64
+build_type=Release
+compiler=msvc
+compiler.cppstd=14
+compiler.runtime=dynamic
+compiler.runtime_type=Release
+compiler.version=195
+os=Windows
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py (gta-reversed/1.0): D:\Original\wv-d3d9\conanfile.py
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8 - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671 - Cache
+    nasm/2.15.05#f7d6a6f3b14f583e001d9ae84e8cd152 - Cache
+    strawberryperl/5.32.1.1#8d114504d172cfea8ea1662d09b6333e - Cache
+Replaced requires
+    cmake/[>=4.2.0]: cmake/4.2.0
+    cmake/[>=3.24]: cmake/4.2.0
+
+======== Computing necessary packages ========
+Connecting to remote 'conancenter' anonymously
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e:d0bd8d533a7041b61fb25937d6b93a4457c94369#2ffdaa798fdabc25dad911bdc8e4ff93 - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8:5fb0b9e9d2a1dc525e90d727aabc6a29fb239576#c6de6b75dac1c21e81dc592447fe66df - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c:da39a3ee5e6b4b0d3255bfef95601890afd80709#2ea4b814fc9da53f7cdf5b7d68052688 - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12:c516fcf791b8318fdd6f9eb730db085127b48b8c#9d9a81632a82d4e1614036e608cc4bc9 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c:da39a3ee5e6b4b0d3255bfef95601890afd80709#0ba8627bd47edc3a501e8f0eb9a79e5e - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce:7f3fae5b0ba8c41cc75273d1d53588332aa3ebb0#64020fc2e46c241a5f81fe6b05fe5dcd - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c:d9fbaedf85c63109816a75e7846cede313056422#fa87d8607db847da479ee390f132531d - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c:0d2dc46956f508a5ac2474c0cb303b13f4b55b28#335731cdd00192bc9d9187483e035b7b - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604:692d5931d56860716e6ac1cd283732f30703d353#38e2df2e59c194cba856855ffa7b36f3 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671:522dcea5982a3f8a5b624c16477e47195da2f84f#95951e2e6b3af57992b0ec04e5cf9607 - Cache
+Skipped binaries
+    nasm/2.15.05, strawberryperl/5.32.1.1
+
+======== Installing packages ========
+cmake/4.2.0: Already installed! (1 of 10)
+imgui/1.92.9b-docking: Already installed! (2 of 10)
+imgui/1.92.9b-docking: Appending PATH env var with : D:\Original\wv-d3d9\reversing\CVehicle\conan-cache\p\b\imgui5396f0f7f8179\p\bin
+nlohmann_json/3.12.0: Already installed! (3 of 10)
+ogg/1.3.5: Already installed! (4 of 10)
+opengl/system: Already installed! (5 of 10)
+spdlog/1.17.0: Already installed! (6 of 10)
+tracy/cci.20220130: Already installed! (7 of 10)
+libjpeg-turbo/3.2.0: Already installed! (8 of 10)
+sdl/3.4.14: Already installed! (9 of 10)
+vorbis/1.3.7: Already installed! (10 of 10)
+WARN: deprecated: Usage of deprecated Conan 1.X features that will be removed in Conan 2.X:
+WARN: deprecated:     'env_info' used in: imgui/1.92.9b-docking
+WARN: deprecated:     'cpp_info.filenames' used in: opengl/system
+WARN: deprecated:     'cpp_info.names' used in: tracy/cci.20220130
+
+======== Finalizing install (deploy, generators) ========
+>>> Generate step for conanfile.py (gta-reversed/1.0)
+Generators folder: D:\Original\wv-d3d9\build\generators
+Calling generate() method in recipe
+WARN: experimental: CMakeConfigDeps is experimental, and might get breaking changes in future releases
+gta-reversed/1.0: WARN: deprecated: CMakeConfigDeps does not support module find mode in libjpeg-turbo/3.2.0.
+Config mode will be used regardless.
+CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(SDL3)
+    find_package(nlohmann_json)
+    find_package(spdlog)
+    find_package(Tracy)
+    find_package(imgui)
+    find_package(Vorbis)
+    find_package(Ogg)
+    find_package(libjpeg-turbo)
+    find_package(cmake) # Optional. This is a tool-require, can't link its targets
+    target_link_libraries(... sdl::sdl nlohmann_json::nlohmann_json spdlog::spdlog Tracy::TracyClient imgui::imgui vorbis::vorbis Ogg::ogg libjpeg-turbo::libjpeg-turbo)
+CMakeToolchain generated: conan_toolchain.cmake
+CMakeToolchain: Preset 'conan-default' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-default
+    (cmake<3.23) cmake <path> -G "Visual Studio 18 2026"
+                 -DCMAKE_TOOLCHAIN_FILE=<output_folder>/generators\conan_toolchain.cmake 
+                 -DGTASA_STANDALONE_DUMP_HOOKS_ONLY=OFF -DGTASA_STANDALONE=OFF -DGTASA_WITH_SCRIPT_COMMAND_HOOKS=OFF -DGTASA_USE_SDL3=ON -DGTASA_UNITY_BUILD=OFF -DCMAKE_POLICY_DEFAULT_CMP0091=NEW
+CMakeToolchain generated: D:\Original\wv-d3d9\build\generators\CMakePresets.json
+CMakeToolchain generated: D:\Original\wv-d3d9\ConanPresets.json
+Generating aggregated env files
+Generated aggregated env files: ['conanbuild.bat', 'conanrun.bat']
+Install finished successfully
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=x86
+build_type=Debug
+compiler=msvc
+compiler.cppstd=23
+compiler.runtime=static
+compiler.runtime_type=Debug
+compiler.version=195
+os=Windows
+[replace_tool_requires]
+cmake/*: cmake/4.2.0
+
+Profile build:
+[settings]
+arch=x86_64
+build_type=Release
+compiler=msvc
+compiler.cppstd=14
+compiler.runtime=dynamic
+compiler.runtime_type=Release
+compiler.version=195
+os=Windows
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py (gta-reversed/1.0): D:\Original\wv-d3d9\conanfile.py
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8 - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671 - Cache
+    nasm/2.15.05#f7d6a6f3b14f583e001d9ae84e8cd152 - Cache
+    strawberryperl/5.32.1.1#8d114504d172cfea8ea1662d09b6333e - Cache
+Replaced requires
+    cmake/[>=4.2.0]: cmake/4.2.0
+    cmake/[>=3.24]: cmake/4.2.0
+
+======== Computing necessary packages ========
+Connecting to remote 'conancenter' anonymously
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e:d0bd8d533a7041b61fb25937d6b93a4457c94369#2ffdaa798fdabc25dad911bdc8e4ff93 - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8:5fb0b9e9d2a1dc525e90d727aabc6a29fb239576#c6de6b75dac1c21e81dc592447fe66df - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c:da39a3ee5e6b4b0d3255bfef95601890afd80709#2ea4b814fc9da53f7cdf5b7d68052688 - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12:c516fcf791b8318fdd6f9eb730db085127b48b8c#9d9a81632a82d4e1614036e608cc4bc9 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c:da39a3ee5e6b4b0d3255bfef95601890afd80709#0ba8627bd47edc3a501e8f0eb9a79e5e - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce:7f3fae5b0ba8c41cc75273d1d53588332aa3ebb0#64020fc2e46c241a5f81fe6b05fe5dcd - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c:d9fbaedf85c63109816a75e7846cede313056422#fa87d8607db847da479ee390f132531d - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c:0d2dc46956f508a5ac2474c0cb303b13f4b55b28#335731cdd00192bc9d9187483e035b7b - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604:692d5931d56860716e6ac1cd283732f30703d353#38e2df2e59c194cba856855ffa7b36f3 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671:522dcea5982a3f8a5b624c16477e47195da2f84f#95951e2e6b3af57992b0ec04e5cf9607 - Cache
+Skipped binaries
+    nasm/2.15.05, strawberryperl/5.32.1.1
+
+======== Installing packages ========
+cmake/4.2.0: Already installed! (1 of 10)
+imgui/1.92.9b-docking: Already installed! (2 of 10)
+imgui/1.92.9b-docking: Appending PATH env var with : D:\Original\wv-d3d9\reversing\CVehicle\conan-cache\p\b\imgui5396f0f7f8179\p\bin
+nlohmann_json/3.12.0: Already installed! (3 of 10)
+ogg/1.3.5: Already installed! (4 of 10)
+opengl/system: Already installed! (5 of 10)
+spdlog/1.17.0: Already installed! (6 of 10)
+tracy/cci.20220130: Already installed! (7 of 10)
+libjpeg-turbo/3.2.0: Already installed! (8 of 10)
+sdl/3.4.14: Already installed! (9 of 10)
+vorbis/1.3.7: Already installed! (10 of 10)
+WARN: deprecated: Usage of deprecated Conan 1.X features that will be removed in Conan 2.X:
+WARN: deprecated:     'env_info' used in: imgui/1.92.9b-docking
+WARN: deprecated:     'cpp_info.filenames' used in: opengl/system
+WARN: deprecated:     'cpp_info.names' used in: tracy/cci.20220130
+
+======== Finalizing install (deploy, generators) ========
+>>> Generate step for conanfile.py (gta-reversed/1.0)
+Generators folder: D:\Original\wv-d3d9\build\generators
+Calling generate() method in recipe
+WARN: experimental: CMakeConfigDeps is experimental, and might get breaking changes in future releases
+gta-reversed/1.0: WARN: deprecated: CMakeConfigDeps does not support module find mode in libjpeg-turbo/3.2.0.
+Config mode will be used regardless.
+CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(SDL3)
+    find_package(nlohmann_json)
+    find_package(spdlog)
+    find_package(Tracy)
+    find_package(imgui)
+    find_package(Vorbis)
+    find_package(Ogg)
+    find_package(libjpeg-turbo)
+    find_package(cmake) # Optional. This is a tool-require, can't link its targets
+    target_link_libraries(... sdl::sdl nlohmann_json::nlohmann_json spdlog::spdlog Tracy::TracyClient imgui::imgui vorbis::vorbis Ogg::ogg libjpeg-turbo::libjpeg-turbo)
+CMakeToolchain generated: conan_toolchain.cmake
+CMakeToolchain: Preset 'conan-default' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-default
+    (cmake<3.23) cmake <path> -G "Visual Studio 18 2026"
+                 -DCMAKE_TOOLCHAIN_FILE=<output_folder>/generators\conan_toolchain.cmake 
+                 -DGTASA_STANDALONE_DUMP_HOOKS_ONLY=OFF -DGTASA_STANDALONE=OFF -DGTASA_WITH_SCRIPT_COMMAND_HOOKS=OFF -DGTASA_USE_SDL3=ON -DGTASA_UNITY_BUILD=OFF -DCMAKE_POLICY_DEFAULT_CMP0091=NEW
+CMakeToolchain generated: D:\Original\wv-d3d9\build\generators\CMakePresets.json
+CMakeToolchain generated: D:\Original\wv-d3d9\ConanPresets.json
+Generating aggregated env files
+Generated aggregated env files: ['conanbuild.bat', 'conanrun.bat']
+
+======== Calling build() ========
+>>> Build step for conanfile.py (gta-reversed/1.0)
+conanfile.py (gta-reversed/1.0): Calling build()
+conanfile.py (gta-reversed/1.0): Running CMake.configure()
+conanfile.py (gta-reversed/1.0): RUN: cmake -G "Visual Studio 18 2026" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="D:/Original/wv-d3d9" -DGTASA_STANDALONE_DUMP_HOOKS_ONLY="OFF" -DGTASA_STANDALONE="OFF" -DGTASA_WITH_SCRIPT_COMMAND_HOOKS="OFF" -DGTASA_USE_SDL3="ON" -DGTASA_UNITY_BUILD="OFF" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" "D:/Original/wv-d3d9"
+-- Using Conan toolchain: D:/Original/wv-d3d9/build/generators/conan_toolchain.cmake
+-- Conan toolchain: CMAKE_GENERATOR_TOOLSET=v145
+-- Conan toolchain: Setting CMAKE_MSVC_RUNTIME_LIBRARY=$<$<CONFIG:Debug>:MultiThreadedDebug>
+-- Conan toolchain: C++ Standard 23 with extensions OFF
+-- Conan toolchain: Including CMakeConfigDeps generated conan_cmakedeps_paths.cmake
+-- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.26300.
+-- MSVC_TOOLSET_VERSION: 145
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+Doxygen need to be installed to generate the doxygen documentation
+-- Conan: Configuring Targets for nlohmann_json/3.12.0
+-- Conan: Target declared imported INTERFACE library 'nlohmann_json::nlohmann_json'
+-- Conan: Configuring Targets for ogg/1.3.5
+-- Conan: Target declared imported STATIC library 'Ogg::ogg'
+-- Conan: Configuring Targets for spdlog/1.17.0
+-- Conan: Target declared imported STATIC library 'spdlog::spdlog'
+-- Conan: Configuring Targets for tracy/cci.20220130
+-- Conan: Target declared imported STATIC library 'Tracy::TracyClient'
+-- Conan: Configuring Targets for vorbis/1.3.7
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbis'
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbisenc'
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbisfile'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbisenc-alias'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbisfile-alias'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbis'
+-- Conan: Configuring Targets for imgui/1.92.9b-docking
+-- Conan: Target declared imported STATIC library 'imgui::imgui'
+-- Conan: Configuring Targets for libjpeg-turbo/3.2.0
+-- Conan: Target declared imported STATIC library 'libjpeg-turbo::jpeg-static'
+-- Conan: Target declared imported STATIC library 'libjpeg-turbo::turbojpeg-static'
+-- Conan: Target declared imported INTERFACE library 'libjpeg-turbo::libjpeg-turbo'
+-- Conan: Configuring Targets for sdl/3.4.14
+-- Conan: Configuring Targets for opengl/system
+-- Conan: Target declared imported INTERFACE library 'opengl::opengl'
+-- Conan: Target declared imported STATIC library 'SDL3::SDL3'
+-- Conan: Target declared alias 'SDL3::SDL3-static' for 'SDL3::SDL3'
+-- Conan: Target declared imported INTERFACE library 'SDL3::Headers'
+-- Conan: Target declared imported INTERFACE library 'sdl::sdl'
+-- Configuring done (0.3s)
+-- Generating done (0.7s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_TOOLCHAIN_FILE
+
+
+-- Build files have been written to: D:/Original/wv-d3d9/build
+
+conanfile.py (gta-reversed/1.0): Running CMake.build()
+conanfile.py (gta-reversed/1.0): RUN: cmake --build "D:\Original\wv-d3d9\build" --config Debug
+Versión de MSBuild 18.10.1-1.26427.6+3cd27c13e para .NET Framework
+
+  1>Checking Build System
+  libjpeg6b.vcxproj -> D:\Original\wv-d3d9\build\libs\libjpeg-6b\Debug\libjpeg6b.lib
+  zlib113.vcxproj -> D:\Original\wv-d3d9\build\libs\zlib-1.1.3\Debug\zlib113.lib
+  libpng1012.vcxproj -> D:\Original\wv-d3d9\build\libs\libpng-1.0.12\Debug\libpng1012.lib
+  app_input.cpp
+  WinInput.cpp
+  AudioZones.cpp
+  Camera.cpp
+  Quaternion.cpp
+  CrtCtype.cpp
+  CrtException.cpp
+  CrtFile.cpp
+  CrtFloat.cpp
+  CrtFloatIn.cpp
+  CrtFormat.cpp
+  CrtInput.cpp
+  CrtLowIo.cpp
+  CrtMath.cpp
+  CrtOnexit.cpp
+  CrtPow.cpp
+  CrtQsort.cpp
+  CrtState.cpp
+  CrtStdio.cpp
+  CrtString.cpp
+  Generando código...
+  Compilando...
+  Ped.cpp
+  Physical.cpp
+  Vehicle.cpp
+  FxInfoAttractLine.cpp
+  Game.cpp
+  Garages.cpp
+  Lines.cpp
+  Pad.cpp
+  CollisionPlugin.cpp
+  libpngwrite.cpp
+  rpmatfx.cpp
+  rpworld.cpp
+  rpworld_s30a31a.cpp
+  rtanim.cpp
+  rtbmp.cpp
+  rtdict.cpp
+  rtpng.cpp
+  rtquat.cpp
+  rwcore.cpp
+  rwcore_dds.cpp
+  Generando código...
+  Compilando...
+  rwplcore.cpp
+  zlibdeflate.cpp
+  RwHelper.cpp
+  Sprite2d.cpp
+  Generando código...
+  FxInterpInfoFloat.cpp
+  Compiling precompiled header.
+  gta_reversed.vcxproj -> D:\Original\wv-d3d9\bin\Debug\gta_reversed.asi
+  Building Custom Rule D:/Original/wv-d3d9/CMakeLists.txt
+
+EXIT=0
+candado liberado Sat Nov 21 14:56:14     2026

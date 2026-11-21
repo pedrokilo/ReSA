@@ -35,6 +35,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 
 #include "Garage.h"
 #include "Garages.h"
@@ -151,7 +152,7 @@ void CGarage::TidyUpGarageClose() {
             int32       sphereIndex = 0;
             do {
                 CVector        transformed;
-                CVector* const point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, vehicle->m_matrix, &spheres[sphereIndex].m_vecCenter);
+                CVector* const point = MatrixTimesPointExe(&transformed, vehicle->m_matrix, &spheres[sphereIndex].m_vecCenter);
                 spheres = data->m_pSpheres;
                 if (!IsPointInsideGarage(*point, spheres[sphereIndex].m_fRadius))
                     remove = true;
@@ -264,7 +265,7 @@ bool CGarage::EntityHasASphereWayOutsideGarage(CEntity* entity, float fRadius) {
         CColSphere* const sphere = &data->m_pSpheres[index];
         CMatrix&          matrix = entity->GetMatrix();
         CVector           transformed;
-        CVector* const    point  = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, &matrix, &sphere->m_vecCenter);
+        CVector* const    point  = MatrixTimesPointExe(&transformed, &matrix, &sphere->m_vecCenter);
         const float       radius = RpNanAddCpp(fRadius, sphere->m_fRadius);
         if (!IsPointInsideGarage(*point, radius))
             return true;
@@ -315,7 +316,7 @@ __declspec(noinline) bool CGarage::IsEntityTouching3D(CEntity* entity) {
         CColSphere* const sphere = &data->m_pSpheres[index];
         CMatrix&          matrix = entity->GetMatrix();
         CVector           transformed;
-        CVector* const    point  = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, &matrix, &sphere->m_vecCenter);
+        CVector* const    point  = MatrixTimesPointExe(&transformed, &matrix, &sphere->m_vecCenter);
         if (IsPointInsideGarage(*point, sphere->m_fRadius))
             return true;
         ++index;
@@ -343,7 +344,7 @@ __declspec(noinline) bool CGarage::IsEntityEntirelyOutside(CEntity* entity, floa
         }
         CColSphere* const sphere = &data->m_pSpheres[index];
         CVector           transformed;
-        CVector* const    point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, entity->m_matrix, &sphere->m_vecCenter);
+        CVector* const    point = MatrixTimesPointExe(&transformed, entity->m_matrix, &sphere->m_vecCenter);
         const float       sphereRadius = RpNanAddCpp(radius, data->m_pSpheres[index].m_fRadius);
         if (IsPointInsideGarage(*point, sphereRadius))
             return false;
@@ -398,7 +399,7 @@ __declspec(noinline) bool CGarage::IsEntityEntirelyInside3D(CEntity* entity, flo
         CColSphere* const sphere = &data->m_pSpheres[index];
         CMatrix&          matrix = entity->GetMatrix();
         CVector           transformed;
-        CVector* const    point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, &matrix, &sphere->m_vecCenter);
+        CVector* const    point = MatrixTimesPointExe(&transformed, &matrix, &sphere->m_vecCenter);
         const float       sphereRadius = GarageDiffCpp(radius, data->m_pSpheres[index].m_fRadius);
         if (!IsPointInsideGarage(*point, sphereRadius))
             return false;
@@ -478,7 +479,7 @@ template<class T> inline T& GaField(const void* base, uint32 offset) {
     return *reinterpret_cast<T*>(const_cast<uint8*>(reinterpret_cast<const uint8*>(base)) + offset);
 }
 
-inline const char* GaKey(uint32 address) { return reinterpret_cast<const char*>(address); }   // clave GXT del EXE
+inline const char* GaKey(const char* key) { return key; }   // clave GXT del EXE
 // Posicion de la entidad como el EXE: matriz + 0x30 si existe, si no m_placement (+4).
 inline const float* GaPos(CEntity* entity) {
     return entity->m_matrix ? &entity->m_matrix->GetPosition().x : &entity->m_placement.m_vPosn.x;
@@ -490,7 +491,7 @@ inline void  GaFindDoorsWithGarage(CGarage* g, CObject** first, CObject** second
 inline int32& GaMoney() { return *reinterpret_cast<int32*>(0xB7CE50 + static_cast<uint32>(CWorld::PlayerInFocus) * 0x190u); }   // CPlayerInfo::m_nMoney del jugador en foco
 inline CStoredCar* GaStoredCars(eGarageType type) { return reinterpret_cast<CStoredCar*>(0x96ABD8 + static_cast<uint32>(CGarages::FindSafeHouseIndexForGarageType(type)) * 0x100u); }
 inline void GaAudio(uint32 event) { AudioEngine.ReportFrontendAudioEvent(static_cast<eAudioEvents>(event), 0.0f, 1.0f); }
-inline void GaMessage(uint32 key) { CGarages::TriggerMessage(GaKey(key), -1, 0xFA0, -1); }
+inline void GaMessage(const char* key) { CGarages::TriggerMessage(GaKey(key), -1, 0xFA0, -1); }
 // CPad::GetPad(0) + 0x10E: bit 2 desactiva los controles del jugador.
 inline void GaPadControls(bool disable) {
     uint8& flags = GaField<uint8>(CPad::GetPad(0), 0x10E);
@@ -626,7 +627,7 @@ __declspec(noinline) bool CGarage::IsAnyCarBlockingDoor() {
         int32 index = 0;
         do {
             CVector        transformed;
-            CVector* const point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, vehicle->m_matrix, &data->m_pSpheres[index].m_vecCenter);
+            CVector* const point = MatrixTimesPointExe(&transformed, vehicle->m_matrix, &data->m_pSpheres[index].m_vecCenter);
             if (!IsPointInsideGarage(*point, data->m_pSpheres[index].m_fRadius))
                 return true;
             ++index;
@@ -656,7 +657,7 @@ __declspec(noinline) bool CGarage::IsAnyOtherCarTouchingGarage(CVehicle* ignored
         int32 index = 0;
         do {
             CVector        transformed;
-            CVector* const point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, vehicle->m_matrix, &data->m_pSpheres[index].m_vecCenter);
+            CVector* const point = MatrixTimesPointExe(&transformed, vehicle->m_matrix, &data->m_pSpheres[index].m_vecCenter);
             if (IsPointInsideGarage(*point, data->m_pSpheres[index].m_fRadius))
                 return true;
             ++index;
@@ -684,7 +685,7 @@ __declspec(noinline) void CGarage::ThrowCarsNearDoorOutOfGarage(CVehicle* ignore
         int32 index = 0;
         do {
             CVector        transformed;
-            CVector* const point = plugin::CallAndReturn<CVector*, 0x59C890, CVector*, CMatrix*, CVector*>(&transformed, vehicle->m_matrix, &data->m_pSpheres[index].m_vecCenter);
+            CVector* const point = MatrixTimesPointExe(&transformed, vehicle->m_matrix, &data->m_pSpheres[index].m_vecCenter);
             if (!IsPointInsideGarage(*point, 0.0f)) {
                 const float* const position = GaPos(vehicle);
                 CVector            direction;
@@ -916,7 +917,7 @@ L_AC50:
         vehicle = GaFpv();
         if (CGarages::IsCarSprayable(vehicle)) {
             if (GaMoney() < 100 && !CGarages::RespraysAreFree) {
-                GaMessage(0x859A58);
+                GaMessage(DatosExe::Rdata::kS859A58);
                 m_nDoorState = static_cast<eGarageDoorState>(4);
                 GaAudio(0xE);
                 goto L_AD2D;
@@ -927,7 +928,7 @@ L_AC50:
             goto L_AD2D;
         }
         vehicle = GaFpv();
-        GaMessage(GaField<int32>(vehicle, 0x594) == 0xA ? 0x859A50u : 0x859A48u);
+        GaMessage(GaField<int32>(vehicle, 0x594) == 0xA ? DatosExe::Rdata::kS859A50 : DatosExe::Rdata::kS859A48);
         m_nDoorState = static_cast<eGarageDoorState>(4);
         GaAudio(0xF);
         goto L_AD2D;
@@ -1055,7 +1056,7 @@ L_B2DA:
     flag = hasWanted;
 L_B2DE:
     if (m_nFlags & 0x80) {
-        GaMessage(0x859A34);
+        GaMessage(DatosExe::Rdata::kS859A34);
         goto L_B38D;
     }
     if (fixedCar && !CGarages::RespraysAreFree) {
@@ -1066,11 +1067,11 @@ L_B2DE:
             GaMoney() = money;
         }
         CStats::IncrementStat(static_cast<eStats>(0x10), 100.0f);
-        GaMessage(hasWanted ? 0x859A2Cu : 0x859A24u);
+        GaMessage(hasWanted ? DatosExe::Rdata::kS859A2C : DatosExe::Rdata::kS859A24);
         goto L_B38D;
     }
     if (flag) {
-        GaMessage((plugin::CallAndReturn<int32, 0x821B1E>() & 1) ? 0x859A1Cu : 0x859A14u);
+        GaMessage((plugin::CallAndReturn<int32, 0x821B1E>() & 1) ? DatosExe::Rdata::kS859A1C : DatosExe::Rdata::kS859A14);
     }
 L_B38D:
     m_nFlags = static_cast<uint8>(m_nFlags | 4);
@@ -1118,13 +1119,13 @@ L_B42D:
     if (GaField<int32>(GaFpv(), 0x594) == 0xA)
         goto L_C7C4;
     if (GaField<uint8>(GaFpv(), 0x4A8) & 7) {
-        GaMessage(0x859A04);
+        GaMessage(DatosExe::Rdata::kS859A04);
         m_nDoorState = static_cast<eGarageDoorState>(4);
         GaAudio(0x11);
         goto L_C7C4;
     }
     if (!CGarages::BombsAreFree && GaMoney() < 500) {
-        GaMessage(0x859A0C);
+        GaMessage(DatosExe::Rdata::kS859A0C);
         m_nDoorState = static_cast<eGarageDoorState>(4);
         GaAudio(0xE);
         goto L_C7C4;
@@ -1186,17 +1187,17 @@ L_B5CA:   // estado 0
     }
     {
         const uint32 type = static_cast<uint8>(m_nType);
-        uint32       key;
+        const char*  key;
         if (type == 2 || type == 3) {
             const uint16 button = GaField<uint16>(CPad::GetPad(0), 0x10A);
             if (button <= 2)
-                key = type == 2 ? 0x8599DCu : 0x8599ECu;
+                key = type == 2 ? DatosExe::Rdata::kS8599DC : DatosExe::Rdata::kS8599EC;
             else if (button == 3)
-                key = type == 2 ? 0x8599E4u : 0x8599F4u;
+                key = type == 2 ? DatosExe::Rdata::kS8599E4 : DatosExe::Rdata::kS8599F4;
             else
                 goto L_C7C4;
         } else if (type == 4) {
-            key = 0x8599FC;
+            key = DatosExe::Rdata::kS8599FC;
         } else {
             goto L_C7C4;
         }
@@ -1507,7 +1508,7 @@ L_C13E:
         goto L_C7C4;
     if (GaFpv()->GetVehicleAppearance() == static_cast<eVehicleAppearance>(5))
         goto L_C7C4;
-    CHud::SetHelpMessage(TheText.Get(GaKey(0x8599C0)), false, false, true);
+    CHud::SetHelpMessage(TheText.Get(GaKey(DatosExe::Rdata::kS8599C0)), false, false, true);
     CGarages::LastTimeHelpMessage = CTimer::GetTimeInMS();
     goto L_C7C4;
 L_C1C3:
@@ -1895,9 +1896,9 @@ inline uint32 GaX87QuietFloatBits(uint32 bits) {
     return (bits & 0x7F800000u) == 0x7F800000u && (bits & 0x007FFFFFu) ? (bits | 0x00400000u) : bits;
 }
 // operator new (0x6E2D50) + constructor del vehiculo (thiscall (modelo, 1)); una reserva nula no se construye (el EXE se cae despues al usar el vehiculo).
-template<uint32 Size, uint32 Constructor> inline CVehicle* GaConstructStored(uint32 model) {
-    void* const memory = plugin::CallAndReturn<void*, 0x6E2D50, uint32>(Size);
-    return memory ? plugin::CallMethodAndReturn<CVehicle*, Constructor, CVehicle*, int32, int32>(static_cast<CVehicle*>(memory), static_cast<int32>(model), 1) : nullptr;
+template<uint32 Size, typename VehicleType> inline CVehicle* GaConstructStored(uint32 model) {
+    void* const memory = CVehicle::operator new(Size);
+    return memory ? ::new (memory) VehicleType(static_cast<int32>(model), RANDOM_VEHICLE) : nullptr;
 }
 }
 
@@ -1949,7 +1950,7 @@ void CStoredCar::StoreCar(CVehicle* vehicle) {
     for (auto i = 0; i < 15; i++)
         m_awCarMods[i] = GaField<int16>(vehicle, 0x43A + 2 * i);
 
-    m_nPaintJob    = static_cast<uint8>(plugin::CallMethodAndReturn<uint32, 0x6D0B70, CVehicle*>(vehicle)); // CVehicle::GetRemapIndex
+    m_nPaintJob    = static_cast<uint8>(vehicle->GetRemapIndex());
     m_nNitroBoosts = GaField<uint8>(vehicle, 0x48A);
 }
 
@@ -1960,11 +1961,11 @@ void CStoredCar::StoreCar(CVehicle* vehicle) {
 // mejoras y remapeo (0x6E3400 y 0x6D0C00 por su direccion). Tambien deja el byte +0x36 en (+0x36 & 7) | 0x20 y las filas up de la matriz (+0x20/+0x24/+0x28) en (0, 0, 1). Como el EXE, no comprueba la reserva ni la matriz del vehiculo nuevo (el EXE se cae); devuelve el vehiculo.
 CVehicle* CStoredCar::RestoreCar() {
     const uint32 model = m_wModelIndex;
-    plugin::Call<0x4087E0, int32, int32>(static_cast<int32>(model), 8); // CStreaming::RequestModel
+    CStreaming::RequestModel(static_cast<int32>(model), 8);
 
     for (auto i = 0; i < 15; i++) {
         if (m_awCarMods[i] != static_cast<int16>(0xFFFF))
-            plugin::Call<0x408C70, int32, int32>(static_cast<int32>(m_awCarMods[i]), 0); // CStreaming::RequestVehicleUpgrade
+            CStreaming::RequestVehicleUpgrade(static_cast<int32>(m_awCarMods[i]), 0);
     }
 
     if (*reinterpret_cast<const uint8*>(0x8E4CD0 + model * 20) != 1)
@@ -1972,7 +1973,7 @@ CVehicle* CStoredCar::RestoreCar() {
 
     for (auto i = 0; i < 15; i++) {
         if (m_awCarMods[i] != static_cast<int16>(0xFFFF)) {
-            if (!plugin::CallAndReturn<bool, 0x407820, int32>(static_cast<int32>(m_awCarMods[i]))) // CStreaming::HasVehicleUpgradeLoaded
+            if (!CStreaming::HasVehicleUpgradeLoaded(static_cast<int32>(m_awCarMods[i])))
                 return nullptr;
         }
     }
@@ -1984,23 +1985,23 @@ CVehicle* CStoredCar::RestoreCar() {
     const uint32 index       = vehicleType - 1;
     CVehicle*    vehicle;
     switch (index > 10 ? 99u : index) {
-    case 0:  vehicle = GaConstructStored<0x99C, 0x6C8D60>(model); break;
-    case 1:  vehicle = GaConstructStored<0x9BC, 0x6CE370>(model); break;
-    case 2:  vehicle = GaConstructStored<0xA18, 0x6C4190>(model); break;
-    case 3:  vehicle = GaConstructStored<0xA04, 0x6C8E20>(model); break;
-    case 4:  vehicle = GaConstructStored<0x7E8, 0x6F2940>(model); break;
+    case 0:  vehicle = GaConstructStored<0x99C, CMonsterTruck>(model); break;
+    case 1:  vehicle = GaConstructStored<0x9BC, CQuadBike>(model); break;
+    case 2:  vehicle = GaConstructStored<0xA18, CHeli>(model); break;
+    case 3:  vehicle = GaConstructStored<0xA04, CPlane>(model); break;
+    case 4:  vehicle = GaConstructStored<0x7E8, CBoat>(model); break;
     case 8:
-        vehicle = GaConstructStored<0x814, 0x6BF430>(model);
+        vehicle = GaConstructStored<0x814, CBike>(model);
         GaField<uint8>(vehicle, 0x614) |= 0x10;
         break;
     case 9:
-        vehicle = GaConstructStored<0x838, 0x6BF820>(model);
+        vehicle = GaConstructStored<0x838, CBmx>(model);
         GaField<uint8>(vehicle, 0x614) |= 0x10;
         break;
-    case 10: vehicle = GaConstructStored<0x9F4, 0x6D03A0>(model); break;
+    case 10: vehicle = GaConstructStored<0x9F4, CTrailer>(model); break;
     default: {
-        void* const memory = plugin::CallAndReturn<void*, 0x6E2D50, uint32>(0x988);
-        vehicle = memory ? plugin::CallMethodAndReturn<CVehicle*, 0x6B0A90, CVehicle*, int32, int32, int32>(static_cast<CVehicle*>(memory), static_cast<int32>(model), 1, 1) : nullptr;
+        void* const memory = CVehicle::operator new(0x988);
+        vehicle = memory ? ::new (memory) CAutomobile(static_cast<int32>(model), RANDOM_VEHICLE, true) : nullptr;
         break;
     }
     }
@@ -2056,8 +2057,8 @@ CVehicle* CStoredCar::RestoreCar() {
     for (auto i = 0; i < 15; i++)
         GaField<int16>(vehicle, 0x43A + 2 * i) = m_awCarMods[i];
 
-    plugin::CallMethod<0x6E3400, CVehicle*>(vehicle);                                         // CVehicle::SetupUpgradesAfterLoad
-    plugin::CallMethod<0x6D0C00, CVehicle*, int32>(vehicle, static_cast<int8>(m_nPaintJob)); // CVehicle::SetRemap
+    vehicle->SetupUpgradesAfterLoad();
+    vehicle->SetRemap(static_cast<int8>(m_nPaintJob));
 
     GaField<uint8>(vehicle, 0x428) &= 0xEF;
     GaField<uint8>(vehicle, 0x48A)  = m_nNitroBoosts;

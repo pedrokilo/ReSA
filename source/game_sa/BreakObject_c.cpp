@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "X87Math.h"
 
 #include "BreakObject_c.h"
@@ -214,9 +215,9 @@ void BreakObject_c::SetGroupData(const RwMatrix* matrix, const CVector* vecVeloc
 
 // 0x59D7F0
 void BreakObject_c::SetBreakInfo(BreakInfo_t* info, int32 bJustFaces) {
-    static auto& ambientRed = StaticRef<float>(0x8D0A0C); // 32.0f
-    static auto& ambientGreen = StaticRef<float>(0x8D0A08); // 32.0f
-    static auto& ambientBlue = StaticRef<float>(0x8D0A04); // 32.0f
+    static auto& ambientRed = DatosExe::Data::v8D0A0C; // 32.0f
+    static auto& ambientGreen = DatosExe::Data::v8D0A08; // 32.0f
+    static auto& ambientBlue = DatosExe::Data::v8D0A04; // 32.0f
 
     // El original compara bJustFaces con 1 (no con distinto de cero) y reserva con operator new.
     const bool justFaces = bJustFaces == 1;
@@ -291,9 +292,9 @@ void BreakObject_c::SetBreakInfo(BreakInfo_t* info, int32 bJustFaces) {
 // 0x59DE40
 // Transcrito del original: unidad aleatoria rand * (1/32767), RwV3dNormalize/RwV3dLength y sumas en su orden.
 void BreakObject_c::DoCollisionResponse(BreakGroup_t* group, float timeStep, const CVector* vecNormal, float groundZ) const {
-    static auto& dotMultiplier = StaticRef<float>(0x8D0A18);   // 0.85f
-    static auto& timestepScaling = StaticRef<float>(0x8D0A14); // 0.05f
-    static auto& velocityScaling = StaticRef<float>(0x8D0A10); // 0.8f
+    static auto& dotMultiplier = DatosExe::Data::v8D0A18;   // 0.85f
+    static auto& timestepScaling = DatosExe::Data::v8D0A14; // 0.05f
+    static auto& velocityScaling = DatosExe::Data::v8D0A10; // 0.8f
 
     const auto RandUnit = [] { return (float)CGeneral::GetRandomNumber() * (1.0f / 32767.0f); };
 

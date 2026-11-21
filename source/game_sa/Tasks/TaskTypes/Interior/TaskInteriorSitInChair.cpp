@@ -218,7 +218,7 @@ bool __fastcall SitInChairProcessPed(CTaskInteriorSitInChair* self, void* /*edx*
             if (animId == SIT_ANIM_OUT) {
                 // 0x59C890 (matriz * vector fijo 0xC18C78) por direccion fija; la matriz no se comprueba (como el EXE)
                 CVector T;
-                plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&T, ped->m_matrix, &StaticRef<CVector>(0xC18C78));
+                MatrixTimesPointExe(&T, ped->m_matrix, &StaticRef<CVector>(0xC18C78));
                 const float rotation = ped->m_fCurrentRotation + 3.14159274f; // 0x858CB8
                 std::memcpy(&V, &T, sizeof(V));
                 const float limited = CGeneral::LimitRadianAngle(rotation); // 0x53CB50
@@ -231,7 +231,7 @@ bool __fastcall SitInChairProcessPed(CTaskInteriorSitInChair* self, void* /*edx*
                 }
             } else if (animId == SIT_ANIM_LOOP) {
                 CVector T;
-                plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&T, ped->m_matrix, &StaticRef<CVector>(0xC18C78));
+                MatrixTimesPointExe(&T, ped->m_matrix, &StaticRef<CVector>(0xC18C78));
                 std::memcpy(&V, &T, sizeof(V));
             }
             std::memcpy(&V.z, &Wbits, sizeof(Wbits));
@@ -280,7 +280,7 @@ bool __fastcall SitInChairProcessPed(CTaskInteriorSitInChair* self, void* /*edx*
             uint32 dirX, dirY;
             std::memcpy(&dirX, &info->Dir.x, sizeof(dirX));
             std::memcpy(&dirY, &info->Dir.y, sizeof(dirY));
-            const float angle = reinterpret_cast<float(__cdecl*)(uint32, uint32, uint32, uint32)>(0x53CBE0)(dirX, dirY, 0u, 0u); // CGeneral::GetRadianAngleBetweenPoints
+            const float angle = CGeneral::GetRadianAngleBetweenPoints(std::bit_cast<float>(dirX), std::bit_cast<float>(dirY), 0.0f, 0.0f);
             ped->m_fAimingRotation = CGeneral::LimitRadianAngle(angle); // 0x53CB50 // 0x53CBE0, 0x53CB50
         }
     }

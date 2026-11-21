@@ -644,6 +644,11 @@ CVector operator*(const CMatrix& a, const CVector& b) {
     return result;
 }
 
+CVector* MatrixTimesPointExe(CVector* out, const CMatrix* matrix, const CVector* point) {
+    Hp65MatrixTimesPointCpp(reinterpret_cast<const float*>(matrix), &point->x, &out->x);
+    return out;
+}
+
 // 0x59BFA0 (cdecl, puntero de retorno oculto como primer argumento, EAX = destino): suma componente a componente con la x87 del EXE (MatrixAdd103Cpp, X87Math, lote 103A). El EXE suma las doce
 // componentes en un temporal de pila antes de escribir (por eso se leen aqui a un temporal local antes de construir el resultado: la salida oculta puede solaparse con a o b), copia los 16 dwords
 // (las palabras de relleno +0x0C, +0x1C, +0x2C y +0x3C son basura de la pila: aqui no se escriben) y pone a cero +0x40 y +0x44.

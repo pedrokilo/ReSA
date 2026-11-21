@@ -23,8 +23,17 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
+#include "DatosExe/RdataAyudantes.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "Train.h"
+#include "Tasks/TaskComplexSequence.h"
+#include "TaskComplexEnterCarAsDriver.h"
+#include "TaskComplexEnterCarAsPassenger.h"
+#include "TaskComplexLeaveCarAndWander.h"
+#include "SeekEntity/TaskComplexSeekEntity.h"
+#include "SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.h"
 
 #include "Buoyancy.h"
 #include "CarCtrl.h"
@@ -179,7 +188,7 @@ CTrain::CTrain(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(created
     m_fElasticity = .05f;
     m_fBuoyancyConstant = m_pHandlingData->m_fBuoyancyConstant;
     const auto drag = m_pHandlingData->m_fDragMult;
-    m_fAirResistance = drag > StaticRef<float>(0x858C58) ? (drag / StaticRef<float>(0x872364)) * StaticRef<float>(0x858B8C) : drag;
+    m_fAirResistance = drag > DatosExe::Rdata::k858C58 ? (drag / DatosExe::Rdata::k872364) * DatosExe::Rdata::k858B8C : drag;
     physicalFlags.bCollidable = false;
     physicalFlags.bDisableCollisionForce = true;
     m_bTunnelTransition = true;
@@ -332,7 +341,7 @@ void CTrain::InitTrains() {
     for (int32 station = 0; station < 6; ++station) {
         int32 track;
         const auto index = FindClosestTrackNode(aStationCoors[station], &track);
-        StationDist[station] = float(nodes[index].m_nDistanceFromStart) * StaticRef<float>(0x859040);
+        StationDist[station] = float(nodes[index].m_nDistanceFromStart) * DatosExe::Rdata::k859040;
     }
 }
 
@@ -412,8 +421,8 @@ void CTrain::FindCoorsFromPositionOnTrack(float railDistance, int32 trackId, CVe
     const auto count = NumTrackNodes[trackId];
     for (int32 i = 0; i < count; ++i) {
         const auto next = (i + 1) % count;
-        const auto before = railDistance - float(nodes[i].m_nDistanceFromStart) * StaticRef<float>(0x859040);
-        const auto after = float(nodes[next].m_nDistanceFromStart) * StaticRef<float>(0x859040) - railDistance;
+        const auto before = railDistance - float(nodes[i].m_nDistanceFromStart) * DatosExe::Rdata::k859040;
+        const auto after = float(nodes[next].m_nDistanceFromStart) * DatosExe::Rdata::k859040 - railDistance;
         if (before >= 0.f && after >= 0.f) {
             const auto inverse = 1.f / (after + before);
             outCoors->x = (float(nodes[i].x) * .125f * after + float(nodes[next].x) * .125f * before) * inverse;
@@ -653,10 +662,9 @@ void CTrain::RemoveRandomPassenger() {
     m_nNumPassengersToLeave = uint8(m_nNumPassengersToLeave - 1);
     m_pTemporaryPassenger = ped;
     ped->RegisterReference(reinterpret_cast<CEntity**>(&m_pTemporaryPassenger));
-    // Preserve the existing task constructor and task-manager dependency ABI.
     auto* storage = CTask::operator new(0x1C);
-    auto* leave = storage ? reinterpret_cast<CTask*(__thiscall*)(void*,CVehicle*,int32,int32,bool)>(0x63BDD0)(storage, this, 0, 0, true) : nullptr;
-    reinterpret_cast<void(__thiscall*)(CTaskManager*,CTask*,ePrimaryTasks,bool)>(0x681AF0)(&ped->GetTaskManager(), leave, TASK_PRIMARY_PRIMARY, false);
+    CTask* leave = storage ? ::new (storage) CTaskComplexLeaveCarAndWander(this, TARGET_DOOR_FRONT_LEFT, 0, true) : nullptr;
+    ped->GetTaskManager().SetTask(leave, TASK_PRIMARY_PRIMARY, false);
 }
 
 
@@ -741,7 +749,7 @@ void CTrain::FindPositionOnTrackFromCoors() {
         const auto ny = float(nodes[next].y) * .125f;
         const auto& pos = GetPosition();
         const auto factor = TrainProjectionCpp(x, y, nx, ny, pos.x, pos.y);
-        if (!(factor > StaticRef<float>(0x858CDC) && factor < StaticRef<float>(0x872490))) continue;
+        if (!(factor > DatosExe::Rdata::k858CDC && factor < DatosExe::Rdata::k872490)) continue;
         const auto dx = nx - x;
         const auto dy = ny - y;
         const auto ax = dx * factor;
@@ -757,11 +765,11 @@ void CTrain::FindPositionOnTrackFromCoors() {
             if (bool(trainFlags.bClockwiseDirection) == (dot > 0.f)) m_fTrainSpeed = -m_fTrainSpeed;
             return;
         }
-        const auto lighting = reinterpret_cast<uint8(__thiscall*)(CTrainNode*)>(0x6F5F80)(&nodes[i]);
-        const auto day = StaticRef<float>(0x8D12C0);
+        const auto lighting = nodes[i].GetLightingFromCollision().value;
+        const auto day = DatosExe::Data::v8D12C0;
         const auto previous = TrainNodeLightingCpp(lighting & 15, lighting >> 4, day);
-        const auto nextLighting = reinterpret_cast<uint8(__thiscall*)(CTrainNode*)>(0x6F5F80)(&nodes[next]);
-        const auto nextDay = StaticRef<float>(0x8D12C0);
+        const auto nextLighting = nodes[next].GetLightingFromCollision().value;
+        const auto nextDay = DatosExe::Data::v8D12C0;
         m_fContactSurfaceBrightness = TrainLightingBlendCpp(nextLighting & 15, nextLighting >> 4, nextDay, previous, factor);
     }
 }
@@ -825,14 +833,14 @@ void CTrain::SkipToNextAllowedStation(CTrain* train) {
     CStreaming::LoadAllRequestedModels(false);
     const auto dx = aStationCoors[station].x - engine->GetPosition().x;
     const auto dy = aStationCoors[station].y - engine->GetPosition().y;
-    const auto minutes = std::sqrt(dx * dx + dy * dy) * StaticRef<float>(0x858C28) + StaticRef<float>(0x858F84);
+    const auto minutes = std::sqrt(dx * dx + dy * dy) * DatosExe::Rdata::k858C28 + DatosExe::Rdata::k858F84;
     CGameLogic::PassTime(uint32(int64(minutes)));
 }
 
 // 0x6F7550
 void CTrain::CreateMissionTrain(CVector posn, bool clockwise, uint32 type, CTrain** first, CTrain** last, int32 nodeIndex, int32 track, bool mission) {
     if (nodeIndex < 0) nodeIndex = FindClosestTrackNode(posn, &track);
-    auto rail = float(pTrackNodes[track][nodeIndex].m_nDistanceFromStart) * StaticRef<float>(0x859040);
+    auto rail = float(pTrackNodes[track][nodeIndex].m_nDistanceFromStart) * DatosExe::Rdata::k859040;
     auto* models = reinterpret_cast<const int32*>(0x8D44F8 + type * 0x40);
     std::array<CTrain*,16> carriages;
     int32 count = 0;
@@ -1059,23 +1067,21 @@ void CTrain::AddNearbyPedAsRandomPassenger() {
     auto relative = inverse.TransformPoint(doorPosition);
     if (!clockwise) relative -= GetRight();
     else relative += GetRight();
-    // These existing task constructors and sequencing calls remain dependencies outside this scope.
     auto* seekStorage = CTask::operator new(0x58);
-    auto* seek = seekStorage ? reinterpret_cast<CTask*(__thiscall*)(void*,CEntity*,int32,int32,float,float,float,bool,bool)>(0x661DC0)(seekStorage, this, 50000, 1000, StaticRef<float>(0x86FC2C), StaticRef<float>(0x86FC28), StaticRef<float>(0x86FC30), true, true) : nullptr;
+    CTask* seek = seekStorage ? ::new (seekStorage) CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>(this, 50000, 1000, DatosExe::Rdata::k86FC2C, DatosExe::Rdata::k86FC28, DatosExe::Rdata::k86FC30, true, true) : nullptr;
     *reinterpret_cast<CVector*>(reinterpret_cast<uint8*>(seek) + 0x44) = relative;
     *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(seek) + 0x50) = 7;
     auto* sequenceStorage = CTask::operator new(0x40);
-    auto* sequence = sequenceStorage ? reinterpret_cast<CTask*(__thiscall*)(void*)>(0x632BD0)(sequenceStorage) : nullptr;
-    const auto append = reinterpret_cast<bool(__thiscall*)(CTask*,CTask*)>(0x632D10);
-    append(sequence, seek);
+    auto* sequence = sequenceStorage ? ::new (sequenceStorage) CTaskComplexSequence() : nullptr;
+    sequence->AddTask(seek);
     auto* enterStorage = CTask::operator new(0x50);
     CTask* enter = nullptr;
     if (enterStorage) {
-        if (!clockwise) enter = reinterpret_cast<CTask*(__thiscall*)(void*,CVehicle*)>(0x6402F0)(enterStorage, this);
-        else enter = reinterpret_cast<CTask*(__thiscall*)(void*,CVehicle*,int32,bool)>(0x640340)(enterStorage, this, 0, false);
+        if (!clockwise) enter = ::new (enterStorage) CTaskComplexEnterCarAsDriver(this);
+        else enter = ::new (enterStorage) CTaskComplexEnterCarAsPassenger(this, 0, false);
     }
-    append(sequence, enter);
-    reinterpret_cast<void(__thiscall*)(CTaskManager*,CTask*,ePrimaryTasks,bool)>(0x681AF0)(&closest->GetTaskManager(), sequence, TASK_PRIMARY_PRIMARY, false);
+    sequence->AddTask(enter);
+    closest->GetTaskManager().SetTask(sequence, TASK_PRIMARY_PRIMARY, false);
     m_nNumPassengersToLeave = uint8(m_nNumPassengersToLeave + 1);
     m_pTemporaryPassenger = closest;
     closest->RegisterReference(reinterpret_cast<CEntity**>(&m_pTemporaryPassenger));

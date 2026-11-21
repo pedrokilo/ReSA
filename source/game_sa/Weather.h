@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "Vector.h"
 #include "AEWeatherAudioEntity.h"
@@ -59,7 +60,7 @@ public:
     static inline auto& NewWeatherType = StaticRef<eWeatherType>(0xC8131C);
     static inline auto& OldWeatherType = StaticRef<eWeatherType>(0xC81320);
     static inline auto& m_WeatherAudioEntity = StaticRef<CAEWeatherAudioEntity>(0xC81360);
-    static inline auto& StreamAfterRainTimer = StaticRef<int32>(0x8D5EAC);
+    static inline auto& StreamAfterRainTimer = DatosExe::Data::v8D5EAC;
     static inline auto& StreamAfterRainFlag = StaticRef<int32>(0xC81328); // != 0 mientras ha llovido hace poco
     static inline auto& RainFXAlpha = StaticRef<float>(0xC81410);        // alfa del efecto de particulas de lluvia
 

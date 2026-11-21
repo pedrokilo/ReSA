@@ -23,6 +23,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
+#include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -58,28 +60,28 @@ END GENERATED HOOK STATUS */
 
 auto& planeRotorDmgTimeMS = StaticRef<uint32>(0xC1CC1C);
 
-auto& fBurstTyreMod = StaticRef<float>(0x8D34B4);                // 0.13f
-auto& fBurstSpeedMax = StaticRef<float>(0x8D34B8);               // 0.3f
-auto& CAR_NOS_EXTRA_SKID_LOSS = StaticRef<float>(0x8D34BC);      // 0.9f
-auto& WS_TRAC_FRAC_LIMIT = StaticRef<float>(0x8D34C0);           // 0.3f
-auto& WS_ALREADY_SPINNING_LOSS = StaticRef<float>(0x8D34C4);     // 0.2f
-auto& fBurstBikeTyreMod = StaticRef<float>(0x8D34C8);            // 0.05f
-auto& fBurstBikeSpeedMax = StaticRef<float>(0x8D34CC);           // 0.12f
-auto& fTweakBikeWheelTurnForce = StaticRef<float>(0x8D34D0);     // 2.0f
+auto& fBurstTyreMod = DatosExe::Data::v8D34B4;                // 0.13f
+auto& fBurstSpeedMax = DatosExe::Data::v8D34B8;               // 0.3f
+auto& CAR_NOS_EXTRA_SKID_LOSS = DatosExe::Data::v8D34BC;      // 0.9f
+auto& WS_TRAC_FRAC_LIMIT = DatosExe::Data::v8D34C0;           // 0.3f
+auto& WS_ALREADY_SPINNING_LOSS = DatosExe::Data::v8D34C4;     // 0.2f
+auto& fBurstBikeTyreMod = DatosExe::Data::v8D34C8;            // 0.05f
+auto& fBurstBikeSpeedMax = DatosExe::Data::v8D34CC;           // 0.12f
+auto& fTweakBikeWheelTurnForce = DatosExe::Data::v8D34D0;     // 2.0f
 auto& AUTOGYRO_ROTORSPIN_MULT = StaticRef<float>(0x8D34D4);      // 0.006f
 auto& AUTOGYRO_ROTORSPIN_MULTLIMIT = StaticRef<float>(0x8D34D8); // 0.25f
 auto& AUTOGYRO_ROTORSPIN_DAMP = StaticRef<float>(0x8D34DC);      // 0.997f
 auto& AUTOGYRO_ROTORLIFT_MULT = StaticRef<float>(0x8D34E0);      // 4.5f
 auto& AUTOGYRO_ROTORLIFT_FALLOFF = StaticRef<float>(0x8D34E4);   // 0.75f
 auto& AUTOGYRO_ROTORTILT_ANGLE = StaticRef<float>(0x8D34E8);     // 0.25f
-auto& ROTOR_SEMI_THICKNESS = StaticRef<float>(0x8D34EC);         // 0.05f
+auto& ROTOR_SEMI_THICKNESS = DatosExe::Data::v8D34EC;         // 0.05f
 float* gfSpeedMult = (float*)0x8D34F8;                   // float fSpeedMult[5] = { 0.8f, 0.75f, 0.85f, 0.9f, 0.85f, 0.85f }
-auto& fDamagePosSpeedShift = StaticRef<float>(0x8D3510);         // 0.4f
-auto& DIFF_LIMIT = StaticRef<float>(0x8D35B4);                   // 0.8f
-auto& DIFF_SPRING_MULT_X = StaticRef<float>(0x8D35B8);           // 0.05f
-auto& DIFF_SPRING_MULT_Y = StaticRef<float>(0x8D35BC);           // 0.05f
-auto& DIFF_SPRING_MULT_Z = StaticRef<float>(0x8D35C0);           // 0.1f
-auto& DIFF_SPRING_COMPRESS_MULT = StaticRef<float>(0x8D35C4);    // 2.0f
+auto& fDamagePosSpeedShift = DatosExe::Data::v8D3510;         // 0.4f
+auto& DIFF_LIMIT = DatosExe::Data::v8D35B4;                   // 0.8f
+auto& DIFF_SPRING_MULT_X = DatosExe::Data::v8D35B8;           // 0.05f
+auto& DIFF_SPRING_MULT_Y = DatosExe::Data::v8D35BC;           // 0.05f
+auto& DIFF_SPRING_MULT_Z = DatosExe::Data::v8D35C0;           // 0.1f
+auto& DIFF_SPRING_COMPRESS_MULT = DatosExe::Data::v8D35C4;    // 2.0f
 auto& VehicleGunOffset = StaticRef<std::array<CVector, 14>>(0x8D35D4); // maybe [12]
 
 // Auxiliares del banco CVehE: reproducen el orden de operaciones (x87 a 24 bits) de los helpers del EXE
@@ -8231,7 +8233,7 @@ void CVehicle::UpdateTrailerLink(bool arg0, bool arg1) {
 
     // Como el original: diferencia entre las dos posiciones, distancia contra limite (0x871DF0) * max(paso, 0.7f) y, con los ejes delantero (< -0.3f) y superior (< 0) demasiado torcidos, se rompe el enlace
     float diff[3];
-    if (Veh81ATooFarCpp(&bar.x, &hitch.x, CTimer::ms_fTimeStep, StaticRef<float>(0x871DF0), diff)) {
+    if (Veh81ATooFarCpp(&bar.x, &hitch.x, CTimer::ms_fTimeStep, DatosExe::Rdata::k871DF0, diff)) {
         BreakTowLink();
         return;
     }
@@ -8266,7 +8268,7 @@ void CVehicle::UpdateTrailerLink(bool arg0, bool arg1) {
 
     // Como el original: solo con arg0 = false y arg1 = true la diferencia de posiciones, amortiguada por 0x871DF4 / max(1, paso), sustituye a la de velocidades
     if (!arg0 && arg1) {
-        Veh81ADampCpp(diff, CTimer::ms_fTimeStep, StaticRef<float>(0x871DF4), relative);
+        Veh81ADampCpp(diff, CTimer::ms_fTimeStep, DatosExe::Rdata::k871DF4, relative);
     }
     // Como el original: si this es un remolque (tipo 11) y 0x6D0AF0 (dword +0x9EC == -1000.0f) se cumple, se quita la componente a lo largo del eje superior
     if (m_nVehicleSubType == VEHICLE_TYPE_TRAILER && *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(this) + 0x9EC) == 0xC47A0000u) {

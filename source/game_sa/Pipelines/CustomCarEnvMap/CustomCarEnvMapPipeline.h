@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "RenderWare.h"
 #include "Pool.h"
@@ -140,9 +141,9 @@ public:
     };
 
 public:
-    static inline auto& ms_envMapPluginOffset = StaticRef<int32>(0x8D12C4);      // -1
-    static inline auto& ms_envMapAtmPluginOffset = StaticRef<int32>(0x8D12C8);   // -1
-    static inline auto& ms_specularMapPluginOffset = StaticRef<int32>(0x8D12CC); // -1
+    static inline auto& ms_envMapPluginOffset = DatosExe::Data::v8D12C4;      // -1
+    static inline auto& ms_envMapAtmPluginOffset = DatosExe::Data::v8D12C8;   // -1
+    static inline auto& ms_specularMapPluginOffset = DatosExe::Data::v8D12CC; // -1
 
     static inline auto& ObjPipeline = StaticRef<RxPipeline*>(0xC02D24);
 

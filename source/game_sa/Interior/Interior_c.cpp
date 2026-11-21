@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -68,7 +69,7 @@ namespace {
 // 0x821B40 (_ftol) de: fild random; fmul factor; fimul extent. random < 65536 y el factor es 2^-15: el primer producto es exacto, el segundo se redondea una vez.
 int32 InteriorRandomCoordinate(int32 extent) {
     const int32 random = CGeneral::GetRandomNumber() & 0xFFFF;
-    const float factor = StaticRef<float>(0x858B14);
+    const float factor = DatosExe::Rdata::k858B14;
     return int32(IntTimesFloatCpp(extent, float(random) * factor));
 }
 // fild * 0,5 + offset + 0,5 para x e y; z es fild * 0,5 (cada paso redondeado a 24 bits; el entero entra exacto en fild).
@@ -2920,7 +2921,7 @@ CEntity* Interior_c::PlaceFurnitureOnWall(int32 group, int32 subgroup, int32 id,
     const int32 originalDirection = direction, originalAlong = alongWall;
     const int32 attempts = direction != -1 && alongWall != -1 ? 1 : 100;
     for (int32 attempt = 0; attempt < attempts; ++attempt) {
-        const auto randomScaled = [](int32 range) { return int32(double(CGeneral::GetRandomNumber() & 0xFFFF) * double(StaticRef<float>(0x858B14)) * double(range)); };
+        const auto randomScaled = [](int32 range) { return int32(double(CGeneral::GetRandomNumber() & 0xFFFF) * double(DatosExe::Rdata::k858B14) * double(range)); };
         if (originalDirection == -1) direction = randomScaled(4);
         int32 x, y;
         if (direction == 1 || direction == 3) {
@@ -2954,7 +2955,7 @@ CEntity* Interior_c::PlaceFurnitureInCorner(int32 group, int32 subgroup, int32 i
     const int32 originalDirection = direction, attempts = direction == -1 ? 20 : 1;
     int32 x = direction, y = direction;
     for (int32 attempt = 0; attempt < attempts; ++attempt) {
-        if (originalDirection == -1) direction = int32(double(CGeneral::GetRandomNumber() & 0xFFFF) * double(StaticRef<float>(0x858B14)) * 4.0);
+        if (originalDirection == -1) direction = int32(double(CGeneral::GetRandomNumber() & 0xFFFF) * double(DatosExe::Rdata::k858B14) * 4.0);
         switch (direction) {
         case 1: x = inset; y = 0; break;
         case 3: x = int32(box[2]) - uint8(furniture->m_nWidthY) - inset; y = int32(box[3]) - uint8(furniture->m_nWidthX); break;

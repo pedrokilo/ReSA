@@ -1,0 +1,9 @@
+mapeado
+InitializeThunk 8194B0       escenarios  20000 diferencias 0
+TerminateThunk 8194C0        escenarios  20000 diferencias 0
+ResolveEntryPoints 819520    escenarios  20000 diferencias 0
+Initialize 8195C0            escenarios  20000 diferencias 0
+Terminate 819770             escenarios  20000 diferencias 0
+LoadLibrary 81DAE0           escenarios  20000 diferencias 0
+eventos de maqueta comparados (lado EXE): 1731096
+TOTAL: 0 diferencias

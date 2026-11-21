@@ -17,11 +17,12 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
 
 #include "AEFireAudioEntity.h"
 #include "AEAudioHardware.h"
 
-auto& gfFireFrequencyVariations = StaticRef<std::array<float, 5>>(0x8AE598);
+auto& gfFireFrequencyVariations = DatosExe::Data::v8AE598;
 
 // 0x4DCF20
 // Vincula la entidad al FxSystem_c cuyo movimiento/estado seguirá el sonido.

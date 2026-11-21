@@ -1,0 +1,163 @@
+{
+  "funciones_ghidra": 17765,
+  "trozos": 19169,
+  "bytes_funciones": 3724559,
+  "por_estado": {
+    "reemplazada": {
+      "funciones": 12486,
+      "bytes": 3189149
+    },
+    "viva": {
+      "funciones": 5087,
+      "bytes": 495892
+    },
+    "enganchada": {
+      "funciones": 192,
+      "bytes": 39518
+    }
+  },
+  "vivas_trozos": 5350,
+  "vivas_por_region": {
+    "juego": {
+      "funciones": 120,
+      "bytes": 29070
+    },
+    "renderware": {
+      "funciones": 1037,
+      "bytes": 376401
+    },
+    "crt": {
+      "funciones": 3922,
+      "bytes": 89539
+    },
+    "rwcseg": {
+      "funciones": 8,
+      "bytes": 882
+    }
+  },
+  "funcinfo_excepciones": 1727,
+  "inicializadores_tabla": 1673,
+  "inicializadores_en_hueco": 1669,
+  "entradas_sin_catalogar": 9223,
+  "destinos_sin_catalogo": 819,
+  "destinos_por_estado": {
+    "enganchada": 5,
+    "viva": 20,
+    "reemplazada": 794
+  },
+  "destinos_por_decision": {
+    "REEMPLAZAR_LLAMADA": 39,
+    "ENLAZAR": 3,
+    "RETIRADA": 760,
+    "DESCARTAR": 17
+  },
+  "motivos": {
+    "función real, ya reemplazada (falta nombre en el catálogo)|reemplazada": {
+      "funciones": 3840,
+      "bytes": 782169
+    },
+    "excluida del juego (proteccion-descartada)|viva": {
+      "funciones": 18,
+      "bytes": 2551
+    },
+    "thunk o salto puro|reemplazada": {
+      "funciones": 107,
+      "bytes": 370
+    },
+    "thunk o salto puro|viva": {
+      "funciones": 43,
+      "bytes": 217
+    },
+    "excluida del juego (usercall-cubierta)|viva": {
+      "funciones": 51,
+      "bytes": 17876
+    },
+    "fragmento interno (excluida «no es función»)|viva": {
+      "funciones": 11,
+      "bytes": 478
+    },
+    "excluida del juego (usercall-renderware)|viva": {
+      "funciones": 17,
+      "bytes": 7188
+    },
+    "excluida del juego (retirada-quicktime)|viva": {
+      "funciones": 2,
+      "bytes": 483
+    },
+    "excluida del juego (sustituida-por-crt)|viva": {
+      "funciones": 1,
+      "bytes": 300
+    },
+    "biblioteca: D3DX9|viva": {
+      "funciones": 912,
+      "bytes": 330441
+    },
+    "funclet de excepciones (Unwind/Catch)|viva": {
+      "funciones": 3548,
+      "bytes": 37430
+    },
+    "fragmento interno (salto condicional entrante, sin llamadas)|viva": {
+      "funciones": 1,
+      "bytes": 57
+    },
+    "función real viva (sin nombre ni reemplazo)|viva": {
+      "funciones": 16,
+      "bytes": 1983
+    },
+    "biblioteca: libpng y zlib|enganchada": {
+      "funciones": 47,
+      "bytes": 9665
+    },
+    "biblioteca: libpng y zlib|viva": {
+      "funciones": 62,
+      "bytes": 43848
+    },
+    "thunk o salto puro|enganchada": {
+      "funciones": 1,
+      "bytes": 5
+    },
+    "función real, ya reemplazada (falta nombre en el catálogo)|enganchada": {
+      "funciones": 2,
+      "bytes": 4558
+    },
+    "thunk de importación (jmp [IAT])|viva": {
+      "funciones": 2,
+      "bytes": 12
+    },
+    "biblioteca: QuickTime/QTML|viva": {
+      "funciones": 32,
+      "bytes": 832
+    },
+    "biblioteca: CRT y bibliotecas estáticas (0x820000+)|enganchada": {
+      "funciones": 140,
+      "bytes": 25246
+    },
+    "biblioteca: CRT y bibliotecas estáticas (0x820000+)|viva": {
+      "funciones": 368,
+      "bytes": 50842
+    },
+    "excluida del juego (arranque-sin-gancho)|viva": {
+      "funciones": 1,
+      "bytes": 510
+    },
+    "excluida del juego (sin-equivalente-cpp)|viva": {
+      "funciones": 1,
+      "bytes": 7
+    }
+  },
+  "referencias_cpp_por_direccion": {
+    "dirección ": 170,
+    "entrada viva": 39,
+    "entrada reemplazada": 390,
+    "mitad reemplazada": 10,
+    "entrada enganchada": 44,
+    "mitad enganchada": 3
+  },
+  "huecos": {
+    "huecos": 15636,
+    "bytes": 822371
+  },
+  "alcanzables_desde_cpp": 133,
+  "alcanzables_desde_entrada": 103,
+  "raices_cpp_vivas": 39
+}

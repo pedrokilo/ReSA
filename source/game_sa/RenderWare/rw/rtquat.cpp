@@ -55,14 +55,14 @@ constexpr RwInt32 kRtQuatPluginID = 0x195;
 void RaiseRtQuatError(RwInt32 code) {
     RwError error;
     error.pluginID  = kRtQuatPluginID;
-    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code);
+    error.errorCode = _rwerror(code);
     RwErrorSet(&error);
 }
 
 void RaiseRtQuatError(RwInt32 code, const char* argument) {
     RwError error;
     error.pluginID  = kRtQuatPluginID;
-    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code, argument);
+    error.errorCode = _rwerror(code, argument);
     RwErrorSet(&error);
 }
 

@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "Rope.h"
 #include "Ropes.h"
@@ -245,22 +247,22 @@ void CRope::Update() {
     const auto matchingModel=[&](CEntity* entity,std::initializer_list<uintptr_t> addresses){const auto id=model(entity);for(const auto address:addresses)if(id==StaticRef<int32>(address))return true;return false;};
     const auto magnitude=[](const CVector& v){return std::sqrt((v.y*v.y+v.z*v.z)+v.x*v.x);};
     const auto visitPool=[&](uintptr_t poolAddress,int32 stride,auto&& callback){auto* pool=StaticRef<uint8*>(poolAddress);const auto storage=*reinterpret_cast<uint8**>(pool);const auto map=*reinterpret_cast<int8**>(pool+4);for(int32 i=*reinterpret_cast<int32*>(pool+8)-1;i>=0;--i)if(map[i]>=0&&callback(reinterpret_cast<CEntity*>(storage+i*stride)))break;};
-    const float blend=float(std::pow(StaticRef<double>(0x863E40),double(CTimer::GetTimeStep())));
+    const float blend=float(std::pow(DatosExe::Rdata::k863E40,double(CTimer::GetTimeStep())));
     const auto camera=TheCamera.GetPosition();const auto cameraDelta=camera-m_aSegments[0];
     if(!(std::sqrt(cameraDelta.y*cameraDelta.y+cameraDelta.x*cameraDelta.x) < 200.f))return; // NaN como el EXE (0x55759d): fcom + test ah + jcc
-    if(!(m_nFlags2&1)&&m_nTime<CTimer::GetTimeInMS()){m_aSpeed[0].z-=CTimer::GetTimeStep()*StaticRef<float>(0x863E38);m_aSegments[0].x=CTimer::GetTimeStep()*m_aSpeed[0].x+m_aSegments[0].x;m_aSegments[0].y=CTimer::GetTimeStep()*m_aSpeed[0].y+m_aSegments[0].y;m_aSegments[0].z=CTimer::GetTimeStep()*m_aSpeed[0].z+m_aSegments[0].z;}
+    if(!(m_nFlags2&1)&&m_nTime<CTimer::GetTimeInMS()){m_aSpeed[0].z-=CTimer::GetTimeStep()*DatosExe::Rdata::k863E38;m_aSegments[0].x=CTimer::GetTimeStep()*m_aSpeed[0].x+m_aSegments[0].x;m_aSegments[0].y=CTimer::GetTimeStep()*m_aSpeed[0].y+m_aSegments[0].y;m_aSegments[0].z=CTimer::GetTimeStep()*m_aSpeed[0].z+m_aSegments[0].z;}
     if((m_nFlags2&4)&&(CTimer::GetFrameCounter()&7)==2)m_fGroundZ=CWorld::FindGroundZFor3DCoord(m_aSegments[0],nullptr,nullptr);
     if((m_nFlags2&4)&&m_pRopeAttachObject&&((field.operator()<uint8>(m_pRopeAttachObject,0x36)&7)==2||matchingModel(m_pRopeAttachObject,{0x8CD6C8,0x8CD6CC,0x8CD6D0,0x8CD6D8})))m_fGroundZ=position(m_pAttachedEntity).z-.5f;
     for(uint32 i=m_nSegments+1;i<32;++i){const auto previous=m_aSegments[i];m_aSpeed[i].x+=float(int32(CGeneral::GetRandomNumber()&15)-8)*.001f;m_aSpeed[i].y+=float(int32(CGeneral::GetRandomNumber()&15)-8)*.001f;const auto weight=1.f-blend;m_aSpeed[i]=CVector{weight*m_aSpeed[i-1].x+blend*m_aSpeed[i].x,weight*m_aSpeed[i-1].y+blend*m_aSpeed[i].y,weight*m_aSpeed[i-1].z+blend*m_aSpeed[i].z};m_aSegments[i].z-=CTimer::GetTimeStep()*.15f;if(m_nFlags2&4)m_aSegments[i].z=std::max(m_fGroundZ+.3f,m_aSegments[i].z);const auto delta=m_aSegments[i]-m_aSegments[i-1];const auto ratio=m_fTotalLength/std::sqrt((delta.x*delta.x+delta.y*delta.y)+delta.z*delta.z);m_aSegments[i]=CVector{delta.x*ratio+m_aSegments[i-1].x,delta.y*ratio+m_aSegments[i-1].y,delta.z*ratio+m_aSegments[i-1].z};const auto inverse=1.f/CTimer::GetTimeStep();m_aSpeed[i]=CVector{inverse*(m_aSegments[i].x-previous.x),inverse*(m_aSegments[i].y-previous.y),inverse*(m_aSegments[i].z-previous.z)};}
     const auto type=uint8(m_nType);
     if(type>=1&&type<=7){
         const bool controls=DoControlsApply();
-        if(controls){auto* pad=CPad::GetPad(0);if(type<=3){const auto axis=pad->GetCarGunUpDown();if((axis<0&&StaticRef<uint8>(0xA44496))||(axis>0&&StaticRef<uint8>(0xA44495)))m_fSegmentLength-=(float(axis)*CTimer::GetTimeStep())*StaticRef<float>(0x858C14);if(m_fSegmentLength>.84f)m_fSegmentLength=.84f;}else{
-            const auto change=[&](uintptr_t enable,size_t padOffset,bool increase){if(!StaticRef<uint8>(enable))return;const auto amount=(float(field.operator()<int16>(pad,padOffset))*CTimer::GetTimeStep())*StaticRef<float>(0x858C14);if(amount>0.f&&(increase?amount+m_fSegmentLength<.9f:.01f<m_fSegmentLength-amount))AudioEngine.ReportMissionAudioEvent(104,reinterpret_cast<CPhysical*>(m_pRopeHolder),0.f,1.f);m_fSegmentLength+=increase?amount:-amount;};change(0xA44496,0x1C,true);change(0xA44495,0x20,false);
+        if(controls){auto* pad=CPad::GetPad(0);if(type<=3){const auto axis=pad->GetCarGunUpDown();if((axis<0&&StaticRef<uint8>(0xA44496))||(axis>0&&StaticRef<uint8>(0xA44495)))m_fSegmentLength-=(float(axis)*CTimer::GetTimeStep())*DatosExe::Rdata::k858C14;if(m_fSegmentLength>.84f)m_fSegmentLength=.84f;}else{
+            const auto change=[&](uintptr_t enable,size_t padOffset,bool increase){if(!StaticRef<uint8>(enable))return;const auto amount=(float(field.operator()<int16>(pad,padOffset))*CTimer::GetTimeStep())*DatosExe::Rdata::k858C14;if(amount>0.f&&(increase?amount+m_fSegmentLength<.9f:.01f<m_fSegmentLength-amount))AudioEngine.ReportMissionAudioEvent(104,reinterpret_cast<CPhysical*>(m_pRopeHolder),0.f,1.f);m_fSegmentLength+=increase?amount:-amount;};change(0xA44496,0x1C,true);change(0xA44495,0x20,false);
         }}
         m_fSegmentLength=std::clamp(m_fSegmentLength,.01f,.9f);
-        auto* suspended=m_pRopeAttachObject?m_pRopeAttachObject:m_pAttachedEntity;float coupling=StaticRef<float>(0x8CD898);
-        if(m_pRopeAttachObject){const auto mass=model(suspended)==428?750.f:field.operator()<float>(suspended,0x8C);coupling=(StaticRef<float>(0x8CD89C)*StaticRef<float>(0x863E30))*mass+coupling;coupling=std::min(coupling,.5f);field.operator()<uint8>(suspended,0xB8)=0;}else field.operator()<uint32>(suspended,0x1C)|=1;
+        auto* suspended=m_pRopeAttachObject?m_pRopeAttachObject:m_pAttachedEntity;float coupling=DatosExe::Data::v8CD898;
+        if(m_pRopeAttachObject){const auto mass=model(suspended)==428?750.f:field.operator()<float>(suspended,0x8C);coupling=(DatosExe::Data::v8CD89C*DatosExe::Rdata::k863E30)*mass+coupling;coupling=std::min(coupling,.5f);field.operator()<uint8>(suspended,0xB8)=0;}else field.operator()<uint32>(suspended,0x1C)|=1;
         if(suspended){const auto oldPosition=position(suspended);CVector newPosition;
             if(UpdateWeightInRope(oldPosition.x,oldPosition.y,oldPosition.z,0x3DCCCCCD,&newPosition.x)){
                 position(suspended)=newPosition;auto relativeSpeed=speed(suspended);auto holderOffset=m_aSegments[0]-position(m_pRopeHolder);auto holderSpeed=reinterpret_cast<CPhysical*>(m_pRopeHolder)->GetSpeed(holderOffset);if(type>=4&&type<=7){holderOffset=CVector{0.f,0.f,0.f};holderSpeed=CVector{0.f,0.f,0.f};}relativeSpeed-=holderSpeed;auto direction=position(suspended)-m_aSegments[0];direction.Normalise();const auto dot=(direction.z*relativeSpeed.z+direction.x*relativeSpeed.x)+direction.y*relativeSpeed.y;if(dot>0.f){relativeSpeed.x-=direction.x*dot;relativeSpeed.y-=dot*direction.y;relativeSpeed.z-=dot*direction.z;}const auto delta=CVector{(relativeSpeed.x+holderSpeed.x)-speed(suspended).x,(holderSpeed.y+relativeSpeed.y)-speed(suspended).y,(holderSpeed.z+relativeSpeed.z)-speed(suspended).z};const auto remaining=1.f-coupling;speed(suspended)=CVector{delta.x*remaining+speed(suspended).x,delta.y*remaining+speed(suspended).y,delta.z*remaining+speed(suspended).z};speed(m_pRopeHolder)=CVector{speed(m_pRopeHolder).x-delta.x*coupling,speed(m_pRopeHolder).y-delta.y*coupling,speed(m_pRopeHolder).z-delta.z*coupling};

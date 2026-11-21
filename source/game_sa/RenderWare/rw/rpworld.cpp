@@ -69,7 +69,6 @@ static void*      LightModuleConstruct(void* object, RwInt32 offsetInObject, RwI
 static void*      LightModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                   // 0x7521B0
 static void*      LightD3D9PluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);              // 0x755BC0
 static void*      LightD3D9PluginCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x755CE0
-static int        BuildMeshTriangleCompare(const void* first, const void* second);                                   // 0x759640
 static int        TriangleIndicesCompare(const void* first, const void* second);                                     // 0x7567A0
 static int        VertexElementCompare(const void* first, const void* second);                                       // 0x758240
 static void*      UsageFlagsConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                   // 0x758850
@@ -132,20 +131,20 @@ namespace {
 void RaiseRwError(RwInt32 code) {
     RwError error;
     error.pluginID  = 2;
-    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code);
+    error.errorCode = _rwerror(code);
     RwErrorSet(&error);
 }
 
 void RaiseRwError(RwInt32 code, RwUInt32 argument) {
     RwError error;
     error.pluginID  = 2;
-    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code, argument);
+    error.errorCode = _rwerror(code, argument);
     RwErrorSet(&error);
 }
 
-// RwSqrt del SDK (0x7EDB30): raiz cuadrada por tabla de RenderWare; recibe el float por la pila y lo devuelve en ST0. No esta reconstruida: se llama por direccion fija.
+// RwSqrt del SDK (0x7EDB30): raiz cuadrada por tabla de RenderWare (reconstruida en rwplcore.cpp).
 RwReal RwSqrtFromExe(RwReal value) {
-    return reinterpret_cast<RwReal(__cdecl*)(RwReal)>(0x7EDB30)(value);
+    return _rwSqrt(value);
 }
 
 // Lista libre de RpMaterial: puntero guardado en RwEngineInstance + globalsOffset del modulo de materiales (0xC92514).
@@ -521,6 +520,7 @@ static RwStream* AtomicRightsStreamWrite(RwStream* stream, RwInt32 binaryLength,
 static void      ClumpFreeListDestroyCallBack(void* clump, void* data); // 0x749520
 static void      AtomicFreeListDestroyCallBack(void* atomic, void* data); // 0x7496A0
 static RwBool    ClumpPluginAttach(); // 0x749830
+static RwBool    _rpD3D9PluginAttach(); // 0x74EA40
 static RwBool    _rpTieMeshPluginAttach(); // 0x750050 (lote R16A)
 static RpAtomic* AtomicSyncCallBack(RpAtomic* atomic); // 0x749D20
 
@@ -874,13 +874,7 @@ RpMeshHeader* _rpMeshHeaderCreate(RwUInt32 size) {
     return static_cast<RpMeshHeader*>(RwMalloc(size, kMeshHeaderMemoryHint));
 }
 
-RpTriStripMesh* RpTriStripMeshTunnel(RpTriStripMesh* mesh, void* data) {
-    return ((RpTriStripMesh*(__cdecl *)(RpTriStripMesh*, void*))0x75B780)(mesh, data);
-}
-
-RpMeshHeader* RpBuildMeshGenerateTriStrip(RpBuildMesh* buildMesh, void* data) {
-    return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75C380)(buildMesh, data);
-}
+// 0x75B780 (RpTriStripMeshTunnel) y 0x75C380 (RpBuildMeshGenerateTriStrip): reconstruidas en rpworld_s30a31a.cpp (lote S31A, cierre; RpWorldInjectHooksS30A31A).
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Lote R19A (sin validar): generador de tiras por defecto de RpBuildMesh (0x7591D0) y sus rutinas internas (0x759790, 0x75A090, 0x75A1B0, 0x75A250, 0x75A370).
@@ -1382,7 +1376,7 @@ RpMeshHeader* _rpBuildMeshGenerateTriStrip(RpBuildMesh* buildMesh, RwInt32 tryRo
                 ++cursor;
             }
             _rpBuildStripListGenerate(copy, record->count, &list, tryRotations);
-            reinterpret_cast<void(__cdecl*)(RpBuildStripList**, RwInt32)>(0x75A660)(&list, joinMode);
+            _rpBuildStripListJoin(&list, joinMode);
 
             for (RpBuildStripList* strip = list; strip != nullptr; strip = strip->next) {
                 // Bloque RpMesh {indices, cantidad, material} seguido de sus indices (12 + 2 * cantidad bytes).
@@ -2348,9 +2342,9 @@ static RwFreeList* EngineFreeList(int32 slot) {
     return *reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8*>(RwEngineInstance) + s_engineFreeListsOffset + slot * 4);
 }
 
-// 0x74CCB0 (RpGeometryAddRef: solo incrementa refCount): se llama por su direccion, como el EXE.
+// 0x74CCB0 (RpGeometryAddRef: solo incrementa refCount).
 static RpGeometry* GeometryAddRef(RpGeometry* geometry) {
-    return reinterpret_cast<RpGeometry*(__cdecl*)(RpGeometry*)>(0x74CCB0)(geometry);
+    return RpGeometryAddRef(geometry);
 }
 
 // Parte de AtomicDestroyBody: suelta la geometria; si el atomo tiene marco y esta en un mundo, actualiza los objetos del marco.
@@ -3672,7 +3666,7 @@ RwBool RpWorldPluginAttach() {
     if (!ClumpPluginAttach()) {
         return FALSE;
     }
-    return reinterpret_cast<RwBool(__cdecl*)()>(0x74EA40)() != 0;
+    return _rpD3D9PluginAttach() != 0;
 }
 
 // 0x74F570 (RpWorldRender): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
@@ -4955,9 +4949,7 @@ void _rpD3D9VertexDeclarationUnInstV3d(RwUInt32 type, RwV3d* dst, const RwUInt8*
 // 0x75D9D0 (RpGeometryIsCorrectlySorted): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 
-RpGeometry* RpGeometrySortByMaterial(const RpGeometry* geometry, RpGeometrySortByMaterialCallBack callback) {
-    return ((RpGeometry*(__cdecl *)(const RpGeometry*, RpGeometrySortByMaterialCallBack))0x75DAE0)(geometry, callback);
-}
+// 0x75DAE0 (RpGeometrySortByMaterial): reconstruida en rpworld_s30a31a.cpp (lote S31A, cierre; RpWorldInjectHooksS30A31A).
 
 // 0x74FF60 (lote S25A, sin validar; 20 bytes; cdecl, (bloque, bloques)): guarda los parametros de la lista libre de RpTie en 0x8D62E8 (entradas por bloque) y 0x8D62EC (bloques a preasignar).
 void RpTieSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
@@ -6194,7 +6186,7 @@ static RwBool _rpTieMeshPluginAttach() {
     if (status < 0) {
         return FALSE;
     }
-    return reinterpret_cast<RwBool(__cdecl*)()>(0x75E3E0)() != 0;
+    return _rpWorldPipelinesAttach() != 0;
 }
 
 // Registro de los hooks del lote R16A de RpWorld (sin validar).
@@ -9107,7 +9099,7 @@ RpMeshHeader* RpBuildMeshGenerateTrivialTriStrip(RpBuildMesh* buildMesh, void* d
 // 0x759640 (lote S27A, sin validar; 334 bytes; cdecl, (puntero a triangulo A, puntero a triangulo B)): comparador de qsort de _rpBuildMeshGenerateTriStrip. Mismo material -> 0. Cada triangulo
 // aporta una marca 0x10 si su material tiene textura con formato de raster con alfa (0x100, 0x300 o 0x500) o color con alfa distinto de 0xFF. Resultado = (bits "B menor que A" | marca de A)
 // - (bits "A menor que B" | marca de B), con 8 = indice de raster, 4 = de tuberia, 2 = de textura y 1 = de material (comparaciones de 16 bits sin signo).
-static int BuildMeshTriangleCompare(const void* first, const void* second) {
+int BuildMeshTriangleCompare(const void* first, const void* second) {
     const RpBuildMeshTriangle* const a = *static_cast<const RpBuildMeshTriangle* const*>(first);
     const RpBuildMeshTriangle* const b = *static_cast<const RpBuildMeshTriangle* const*>(second);
     if (a->material == b->material) {

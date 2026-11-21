@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 
 #include "TaskComplexPresentIDToCop.h"
 
@@ -135,7 +136,7 @@ __declspec(noinline) CTask* CTaskComplexPresentIDToCop::CreateSubTask(eTaskType 
         if (!memory) {
             return nullptr;
         }
-        memory->Constructor(ANIM_GROUP_DEFAULT, ANIM_ID_HANDSUP, 4.0f, -4.0f, 3000u, TASK_SIMPLE_HANDS_UP, reinterpret_cast<const char*>(0x85A2C4) /*"HandsUp"*/, false);
+        memory->Constructor(ANIM_GROUP_DEFAULT, ANIM_ID_HANDSUP, 4.0f, -4.0f, 3000u, TASK_SIMPLE_HANDS_UP, DatosExe::Rdata::kS85A2C4 /*"HandsUp"*/, false);
         *reinterpret_cast<uint32*>(memory) = 0x85A29C;
         return memory;
     }

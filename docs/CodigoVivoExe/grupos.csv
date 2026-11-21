@@ -1,0 +1,20 @@
+grupo,decision,funciones,bytes,enganchadas,vivas,bytes_vivas,con_referencia_cpp,alcanzables_desde_cpp,alcanzables_desde_entrada,sin_alcance
+CRT y arranque,CUBIERTA,142,25290,142,0,0,32,0,0,140
+CRT y arranque,DESCARTAR,203,31723,0,203,31723,0,0,0,203
+CRT y arranque,ENLAZAR,135,15244,0,135,15244,10,48,75,0
+CRT y arranque,FASE8,31,3365,0,31,3365,2,10,24,0
+CRT y arranque,SUSTITUIR,4,830,0,4,830,2,2,2,0
+D3DX9,DESCARTAR,932,330595,0,932,330595,0,0,0,753
+Excepciones (Unwind/Catch),DESCARTAR,3504,36838,0,3504,36838,0,0,0,3504
+Excepciones (Unwind/Catch),REVISAR,44,592,0,44,592,0,0,0,44
+Importaciones y carga retardada,FASE8,6,120,0,6,120,0,1,1,1
+Juego excluido (cerrado por inspección),DESCARTAR,85,19808,0,85,19808,2,2,1,80
+Protección del EXE,DESCARTAR,18,2551,0,18,2551,6,7,0,11
+QuickTime/QTML,DESCARTAR,31,1237,0,31,1237,0,0,0,31
+QuickTime/QTML,SUSTITUIR,3,78,0,3,78,3,3,0,0
+RenderWare no reconstruible,CUBIERTA,2,4558,2,0,0,2,0,0,2
+RenderWare no reconstruible,DESCARTAR,17,5656,0,17,5656,0,0,0,17
+RenderWare no reconstruible,SUSTITUIR,12,3407,0,12,3407,7,12,0,0
+libpng y zlib,CUBIERTA,48,9670,48,0,0,10,0,0,48
+libpng y zlib,DESCARTAR,14,10924,0,14,10924,0,0,0,14
+libpng y zlib,ENLAZAR,48,32924,0,48,32924,7,48,0,0

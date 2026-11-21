@@ -53,6 +53,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h" // TODO: Remove
+#include "DatosExe/RdataCadenas.h"
 
 #include <cstdio>
 
@@ -932,7 +933,7 @@ LegacyRuntimeError* __fastcall RuntimeErrorScalarDeletingDestructor(LegacyRuntim
     text.res    = 0xF;
     text.size   = 0;
     text.sso[0] = 0;
-    const char* const message = reinterpret_cast<const char*>(0x860AB0);
+    const char* const message = DatosExe::Rdata::kS860AB0;
     StringAssignChars(&text, nullptr, message, static_cast<uint32>(std::strlen(message)));
     LegacyRuntimeError error;
     RuntimeErrorFromString(&error, nullptr, &text);

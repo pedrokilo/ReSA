@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
 
 #include "AEExplosionAudioEntity.h"
 #include "AEAudioHardware.h"
@@ -24,7 +25,7 @@ END GENERATED HOOK STATUS */
 #include "AEAudioUtility.h"
 
 // Tabla del EXE (1.12, 1.0, 0.88); el índice es un byte con signo como en el original
-static auto& gfExplosionFrequencyVariations = StaticRef<float[3]>(0x8AE58C);
+static auto& gfExplosionFrequencyVariations = DatosExe::Data::v8AE58C;
 constexpr int32 NUM_VARIATIONS = 3;
 
 // 0x5074B0

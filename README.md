@@ -22,25 +22,25 @@ Tres conceptos distintos, que no se mezclan en ninguna cifra:
 
 Y dos zonas del EXE que se miden por separado: el **código del juego** (0x401000–0x74FFFF, el trabajo propio del proyecto) y **RenderWare y D3D** (0x750000–0x81FFFF, el SDK enlazado dentro del EXE).
 
-Cifras al 20/11/2026.
+Cifras al 21/11/2026.
 
 | Zona | Funciones a reconstruir | Reconstruidas | Entradas del catálogo | Validadas | Sin validar |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| **Código del juego** | 11.686 | 11.684 (99,98%) | 11.632 | 11.627 | 5 |
-| **RenderWare y D3D** | 724 | 724 (100,00%) | 822 | 168 | 654 |
+| **Código del juego** | 11.684 | 11.684 (100,00%) | 11.657 | 11.627 | 30 |
+| **RenderWare y D3D** | 724 | 796 (109,94%) | 1.508 | 168 | 1.340 |
 
-**Cómo leer la tabla:** «Funciones a reconstruir» y «Reconstruidas» se cuentan en funciones del EXE; «Validadas» y «Sin validar» se cuentan en entradas del catálogo (`hooks.csv`), y suman las «Entradas del catálogo». No coinciden con las funciones porque una función puede tener varias entradas (cuerpo, destructor con borrado, ranura virtual, envoltura). En el código del juego se descartan 118 funciones excluidas (no reconstruibles en C++ puro); en RenderWare, 1.111 funciones de libpng, zlib y D3DX9 (se enlaza la original) y 54 no reconstruibles.
+**Cómo leer la tabla:** «Funciones a reconstruir» y «Reconstruidas» se cuentan en funciones del EXE; «Validadas» y «Sin validar» se cuentan en entradas del catálogo (`hooks.csv`), y suman las «Entradas del catálogo». No coinciden con las funciones porque una función puede tener varias entradas (cuerpo, destructor con borrado, ranura virtual, envoltura). En el código del juego se descartan 123 funciones excluidas (no reconstruibles en C++ puro); en RenderWare, 1.111 funciones de libpng, zlib y D3DX9 (se enlaza la original) y 54 no reconstruibles.
 
-En total hay **12.469 entradas reconstruidas, 11.801 validadas y 668 sin validar** en el catálogo (11.801 con evidencia registrada). Quedan además 15 entradas fuera de ambas zonas (CRT y utilidades).
+En total hay **13.311 entradas reconstruidas, 11.801 validadas y 1.510 sin validar** en el catálogo (11.801 con evidencia registrada). Quedan además 146 entradas fuera de ambas zonas (CRT y utilidades).
 
 ### Fase del proceso
 
 | Fase | Estado |
 | --- | --- |
-| Reconstruir el código del juego en C++ puro | **Hecha**: 99,98% de las funciones y 99,98% de los bytes; faltan 2 y hay 118 excluidas por no ser reconstruibles |
-| Reconstruir el SDK de RenderWare | **Hecha**: 724 de 724 funciones reconstruibles (100,00%); aparte, 1.111 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
-| **Validar el código del juego** | **En curso**: 11.627 de 11.632 reconstruidas (99,96%); el resto va por oleadas de lotes (detalle en el [informe](docs/ReversedClasses.md#por-validar)) |
-| Validar RenderWare | **Apenas empezada**: 168 de 822 (20,44%); plan de bancos escrito ([plan de validación](docs/RenderWareExe/plan-validacion.md)); empieza al cerrar las oleadas del juego, con funciones puras, después flujos y memoria falsos y al final el dispositivo D3D falso |
+| Reconstruir el código del juego en C++ puro | **Hecha**: 100,00% de las funciones y 100,00% de los bytes; faltan 0 y hay 123 excluidas por no ser reconstruibles |
+| Reconstruir el SDK de RenderWare | **Hecha**: 796 de 724 funciones reconstruibles (109,94%); aparte, 1.111 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
+| **Validar el código del juego** | **En curso**: 11.627 de 11.657 reconstruidas (99,74%); el resto va por oleadas de lotes (detalle en el [informe](docs/ReversedClasses.md#por-validar)) |
+| Validar RenderWare | **Apenas empezada**: 168 de 1.508 (11,14%); plan de bancos escrito ([plan de validación](docs/RenderWareExe/plan-validacion.md)); empieza al cerrar las oleadas del juego, con funciones puras, después flujos y memoria falsos y al final el dispositivo D3D falso |
 | Pase final de bancos viejos | Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió |
 | Ejecutable propio | Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](docs/ProjectRoadmap.md)) |
 <!-- RESA-PROGRESO:END -->

@@ -17,18 +17,20 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "AEAudioEnvironment.h"
 
 auto& gAudioZoneToReverbEnvironmentMap = StaticRef<sReverbEnvironment[NUM_AUDIO_ENVIRONMENTS]>(0x8AD670);
 
 // Variables globales del EXE que el original lee (no constantes)
-static auto& gMikeCutOff          = StaticRef<float>(0x8AC258); // 0.707
-static auto& gMikeCutOffLow       = StaticRef<float>(0x8AC25C); // -0.707
-static auto& gMikeAttenuation     = StaticRef<float>(0x8AC260); // -6
-static auto& gCameraOffsetMax     = StaticRef<float>(0x8AC264); // 0.5
-static auto& gCameraOffsetSub     = StaticRef<float>(0x8AC268); // 0.5
-static auto& gCameraOffset1stPers = StaticRef<float>(0x8AC26C); // 2
-static auto& gExeAttenuationTable = StaticRef<std::array<float, 1280>>(0x8AC270);
+static auto& gMikeCutOff          = DatosExe::Data::v8AC258; // 0.707
+static auto& gMikeCutOffLow       = DatosExe::Data::v8AC25C; // -0.707
+static auto& gMikeAttenuation     = DatosExe::Data::v8AC260; // -6
+static auto& gCameraOffsetMax     = DatosExe::Data::v8AC264; // 0.5
+static auto& gCameraOffsetSub     = DatosExe::Data::v8AC268; // 0.5
+static auto& gCameraOffset1stPers = DatosExe::Data::v8AC26C; // 2
+static auto& gExeAttenuationTable = DatosExe::Data::v8AC270;
 
 #include "data/SoundAttenuationTable.h"
 

@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -238,9 +240,9 @@ bool CTaskSimpleGangDriveBy::ProcessPed(CPed* ped) {
     if (m_nRequiredAnimGroup == AssocGroupId(74) && int(ped->m_pVehicle->m_nVehicleType) == 9) {
         *(reinterpret_cast<uint8*>(ped->m_pVehicle) + 0x7B4) = 1;
     }
-    auto& loopStart = StaticRef<float>(0x8D2E7C);
-    auto& loopEnd = StaticRef<float>(0x8D2E80);
-    auto& fireTime = StaticRef<float>(0x8D2E84);
+    auto& loopStart = DatosExe::Data::v8D2E7C;
+    auto& loopEnd = DatosExe::Data::v8D2E80;
+    auto& fireTime = DatosExe::Data::v8D2E84;
     const auto crossed = [](const CAnimBlendAssociation* a, float t) {
         return a->m_CurrentTime > t && a->m_CurrentTime - a->m_TimeStep < t;
     };
@@ -416,7 +418,7 @@ bool CTaskSimpleGangDriveBy::SetupAnim(CPed* ped) {
             m_nBurstShots = static_cast<char>(CGeneral::GetRandomIntInRange(2, static_cast<int16>(m_pWeaponInfo->m_nAmmoClip))); // 0x407180 (movsx de la palabra baja)
         }
         if (hadAssoc) {
-            m_pAnimAssoc->SetCurrentTime(StaticRef<float>(0x8D2E7C));
+            m_pAnimAssoc->SetCurrentTime(DatosExe::Data::v8D2E7C);
             *reinterpret_cast<uint8*>(&m_pAnimAssoc->m_Flags) &= 0xFE;
             m_nLastCommand = 1;
             m_nNextCommand = 0;
@@ -519,7 +521,7 @@ void CTaskSimpleGangDriveBy::AITarget(CPed* ped) {
     const float* target = &m_vecCoords.x;
     if (m_pTargetEntity) {
         auto& matrix = m_pTargetEntity->GetMatrix();
-        plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&transformed, &matrix, &m_vecCoords); // CMatrix * CVector del EXE
+        MatrixTimesPointExe(&transformed, &matrix, &m_vecCoords); // CMatrix * CVector del EXE
         target = &transformed.x;
     }
 
@@ -679,7 +681,7 @@ void CTaskSimpleGangDriveBy::AimGun(CPed* ped) {
         } else {
             CVector transformed;
             auto& matrix = entity->GetMatrix();
-            plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&transformed, &matrix, &m_vecCoords);
+            MatrixTimesPointExe(&transformed, &matrix, &m_vecCoords);
             target = transformed;
         }
     } else if (!(X87IsZero(m_vecCoords.x) && X87IsZero(m_vecCoords.y) && X87IsZero(m_vecCoords.z))) {
@@ -808,5 +810,5 @@ void CTaskSimpleGangDriveBy::FireGun(CPed* ped) {
         }
         weapon.Fire(ped, &muzzle, &muzzle, m_pTargetEntity, &target, &hit);
     }
-    ped->DoGunFlash(StaticRef<uint16>(0x8D2E90), false); // 0x5DF340: duracion 250
+    ped->DoGunFlash(DatosExe::Data::v8D2E90, false); // 0x5DF340: duracion 250
 }

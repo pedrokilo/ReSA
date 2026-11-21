@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include "Buoyancy.h"
 
@@ -24,9 +25,9 @@ auto& mod_Buoyancy = StaticRef<cBuoyancy>(0xC1C890);
 
 namespace {
 // Como el original: peso de la normal vertical al promediar la normal del agua en los barcos (0x8D3384, 2.0)
-auto& fBuoyancyBoatNormalWeight = StaticRef<float>(0x8D3384);
+auto& fBuoyancyBoatNormalWeight = DatosExe::Data::v8D3384;
 // Como el original: velocidad máxima usada para las salpicaduras (0x8D3388, 0.1)
-auto& fBuoyancySplashMaxSpeed = StaticRef<float>(0x8D3388);
+auto& fBuoyancySplashMaxSpeed = DatosExe::Data::v8D3388;
 
 // Como el original: Multiply3x3 (0x59C790), con el orden de sumas del EXE
 CVector BuoyancyMultiply3x3(const CMatrix& m, const CVector& v) {

@@ -1,7 +1,3 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 19/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11781 con evidencia histórica y 660 pendientes de validación en 18 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # RenderWare y D3D en el EXE: mapa de las 1,889 funciones
 
 [Lista completa (CSV)](funciones.csv) · [Pendientes por clase](pendientes-por-clase.md) · [Plan de validación](plan-validacion.md) · [Mapa del código del juego](../JuegoExe/README.md)
@@ -21,11 +17,11 @@ Estas funciones **no cuentan** en las cifras de reconstrucción del juego: para 
 | C · Falta: solo la llaman funciones aún no reemplazadas | 0 | 0.0% | 0 | 0.0% |
 | D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 0 | 0.0% | 0 | 0.0% |
 | No reconstruible en C++ puro (ABI de registros, 3DNow!, fragmento) · documentada | 54 | 2.9% | 9,908 | 1.6% |
-| Biblioteca de terceros: se enlaza la original, no se reconstruye | 1,111 | 58.8% | 409,460 | 68.1% |
+| Biblioteca de terceros: se enlaza la original, no se reconstruye | 1,033 | 54.7% | 380,721 | 63.4% |
 | Envoltura pendiente (la DLL aún llama al EXE) | 0 | 0.0% | 0 | 0.0% |
-| Reemplazada por C++ | 724 | 38.3% | 181,603 | 30.2% |
+| Reemplazada por C++ | 802 | 42.5% | 210,342 | 35.0% |
 
-Clase/módulo identificado por nombre: 750 de 1,889 funciones; el resto se estima por vecindad (columna `confianza`).
+Clase/módulo identificado por nombre: 782 de 1,889 funciones; el resto se estima por vecindad (columna `confianza`).
 
 ## Por bloque de direcciones (64 KB)
 
@@ -53,7 +49,7 @@ Ordenado por funciones que faltan.
 | --- | ---: | ---: | ---: | ---: |
 | Carga retardada de DLL | 5 | 0 | 0 | 0 |
 | Controlador D3D9 (RwD3D9) | 118 | 115 | 0 | 0 |
-| D3DX9 (compilador de shaders) | 950 | 11 | 0 | 0 |
+| D3DX9 (compilador de shaders) | 950 | 17 | 0 | 0 |
 | QuickTime/QTML (puentes) | 32 | 0 | 0 | 0 |
 | RpHAnim | 7 | 7 | 0 | 0 |
 | RpMatFX | 58 | 58 | 0 | 0 |
@@ -67,4 +63,4 @@ Ordenado por funciones que faltan.
 | RtSlerp | 1 | 1 | 0 | 0 |
 | RwCore | 202 | 202 | 0 | 0 |
 | RwPlCore | 132 | 132 | 0 | 0 |
-| libpng + zlib | 196 | 14 | 0 | 0 |
+| libpng + zlib | 196 | 86 | 0 | 0 |

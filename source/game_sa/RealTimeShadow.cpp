@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "RealTimeShadow.h"
 #include "X87Math.h"
 #include "RealTimeShadowManager.h"
@@ -140,7 +141,7 @@ bool CRealTimeShadow::SetupForThisEntity(CPhysical* owner) {
         RwFrameGetMatrix(static_cast<RwFrame*>(rwObjectGetParent(object)))
     );
 
-    m_camera.SetFrustum(FloatTimesFloatCpp(m_boundingSphere.m_fRadius, StaticRef<float>(0x858F14)) /* 1.1f: fmul del x87, conserva denormales */);
+    m_camera.SetFrustum(FloatTimesFloatCpp(m_boundingSphere.m_fRadius, DatosExe::Rdata::k858F14) /* 1.1f: fmul del x87, conserva denormales */);
     m_camera.SetCenter(m_baseSphere.m_vecCenter);
     return true;
 }

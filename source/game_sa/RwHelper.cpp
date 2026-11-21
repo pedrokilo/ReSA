@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include <intrin.h>
 #include "X87Math.h"
 
@@ -401,7 +402,7 @@ namespace {
 // _rpAtomicResyncInterpolatedSphere (0x7491F0). El resultado se devuelve por la salida del RwV3dTransformPoints (0x7EDD90).
 RwV3d TransformAtomicSphereCenter(RpAtomic* atomic) {
     RpClump* const clump = atomic->clump;
-    const bool useLtm = StaticRef<uint8>(0x8D60BC) != 0;
+    const bool useLtm = DatosExe::Data::v8D60BC != 0;
     RwV3d point;
     if (useLtm) {
         if (atomic->interpolator.flags & 2) {
@@ -458,7 +459,7 @@ static RpAtomic* RpClumpBoundingSphereRadiusCallback(RpAtomic* atomic, void* dat
 // RwMatrixInvert) de la LTM del marco del clump (global distinto de 0) o de su matriz local (marco + 0x10). Los dos callbacks son funciones propias (lote S2A).
 // Ningun llamador del EXE lee ECX/EDX; EAX es el clump (o 0).
 RpClump* RpClumpGetBoundingSphere(RpClump* clump, RwSphere* sphere, bool bUseLTM) {
-    auto& useLtm = StaticRef<uint8>(0x8D60BC);
+    auto& useLtm = DatosExe::Data::v8D60BC;
     useLtm = std::bit_cast<uint8>(bUseLTM);
     if (!clump || !sphere) {
         return nullptr;
@@ -509,11 +510,11 @@ void SkinGetBonePositions(RpClump* clump) {
     calculated = 1;
 
     RpAtomic* atomic = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734810), &atomic); // GetFirstAtomicCallback
+    RpClumpForAllAtomics(clump, GetFirstAtomicCallback, &atomic); // GetFirstAtomicCallback
     RpSkin* const skin = RpSkinGeometryGetSkin(RpAtomicGetGeometry(atomic));
 
     RpHAnimHierarchy* hierarchy = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734A20), &hierarchy); // SkinAtomicGetHAnimHierarchCB
+    RpClumpForAllAtomics(clump, SkinAtomicGetHAnimHierarchCB, &hierarchy); // SkinAtomicGetHAnimHierarchCB
 
     table[0].position.x = 0.0f;
     table[0].position.y = 0.0f;
@@ -555,11 +556,11 @@ void SkinSetBonePositions(RpClump* clump) {
     auto& table = *reinterpret_cast<BoneEntry(*)[64]>(0xC88258);
 
     RpAtomic* atomic = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734810), &atomic); // GetFirstAtomicCallback
+    RpClumpForAllAtomics(clump, GetFirstAtomicCallback, &atomic); // GetFirstAtomicCallback
     RpSkin* const skin = RpSkinGeometryGetSkin(RpAtomicGetGeometry(atomic));
 
     RpHAnimHierarchy* hierarchy = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734A20), &hierarchy); // SkinAtomicGetHAnimHierarchCB
+    RpClumpForAllAtomics(clump, SkinAtomicGetHAnimHierarchCB, &hierarchy); // SkinAtomicGetHAnimHierarchCB
     RwMatrix* const matrices = RpHAnimHierarchyGetMatrixArray(hierarchy);
 
     const int32 numBones = static_cast<int32>(RpSkinGetNumBones(skin));
@@ -582,11 +583,11 @@ void SkinGetBonePositionsToTable(RpClump* clump, RwV3d* table) {
     }
 
     RpAtomic* atomic = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734810), &atomic); // GetFirstAtomicCallback
+    RpClumpForAllAtomics(clump, GetFirstAtomicCallback, &atomic); // GetFirstAtomicCallback
     RpSkin* const skin = RpSkinGeometryGetSkin(RpAtomicGetGeometry(atomic));
 
     RpHAnimHierarchy* hierarchy = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734A20), &hierarchy); // SkinAtomicGetHAnimHierarchCB
+    RpClumpForAllAtomics(clump, SkinAtomicGetHAnimHierarchCB, &hierarchy); // SkinAtomicGetHAnimHierarchCB
 
     table[0].x = 0.0f;
     table[0].y = 0.0f;

@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "AEScriptAudioEntity.h"
 #include "AESoundManager.h"
@@ -921,13 +923,13 @@ void CAEScriptAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
             break;
         case 1086:
             if (now > m_nLastTimeHornPlayed + 4500u) {
-                if (sound->m_Volume > StaticRef<float>(0x85A708)) sound->m_Volume -= StaticRef<float>(0x858B1C);
+                if (sound->m_Volume > DatosExe::Rdata::k85A708) sound->m_Volume -= DatosExe::Rdata::k858B1C;
                 else {
                     sound->StopSoundAndForget();
                     m_nLastTimeHornPlayed = 0;
                 }
                 if (sound->m_Speed > 0.f) {
-                    auto speed = sound->m_Speed - StaticRef<float>(0x858CDC);
+                    auto speed = sound->m_Speed - DatosExe::Rdata::k858CDC;
                     if (0.f > speed) speed = 0.f;
                     sound->m_Speed = speed;
                 }
@@ -943,13 +945,13 @@ void CAEScriptAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
             auto volume = GetDefaultVolume(static_cast<eAudioEvents>(sound->m_Event));
             if (std::bit_cast<uint32>(field_8C) == 0x3F800000u) {
                 if (sound->m_Volume < volume) {
-                    const auto increased = sound->m_Volume + StaticRef<float>(0x858B1C);
+                    const auto increased = sound->m_Volume + DatosExe::Rdata::k858B1C;
                     sound->m_Volume = increased < volume ? increased : volume;
                 }
             } else if (std::bit_cast<uint32>(field_8C) == 0x40000000u) {
-                volume -= StaticRef<float>(0x859008);
+                volume -= DatosExe::Rdata::k859008;
                 if (sound->m_Volume > volume) {
-                    const auto reduced = sound->m_Volume - StaticRef<float>(0x858B1C);
+                    const auto reduced = sound->m_Volume - DatosExe::Rdata::k858B1C;
                     sound->m_Volume = reduced > volume ? reduced : volume;
                 } else sound->StopSoundAndForget();
             }

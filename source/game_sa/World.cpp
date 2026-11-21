@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/RdataAyudantes.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "World.h"
 #include "Ragdoll/IKChainManager.h"
@@ -1377,7 +1380,7 @@ void CWorld::SetCarsOnFire(CVector pos, float radius, CEntity* fireCreator) {
 
 // 0x565B70
 eSprayPaintState CWorld::SprayPaintWorld(CVector& posn, CVector& outDir, float radius, bool processTagAlphaState) {
-    const int16 SPRAY_ALPHA_CHANGE = StaticRef<int16>(0x8CDEF0); // Como el original: se lee la variable del EXE (vale 8)
+    const int16 SPRAY_ALPHA_CHANGE = DatosExe::Data::v8CDEF0; // Como el original: se lee la variable del EXE (vale 8)
 
     CEntity* objects[15]; // Como el original: sin inicializar (solo se leen los 'count' primeros)
     int16 count;
@@ -2206,7 +2209,7 @@ void CWorld::TriggerExplosionSectorList(PtrListType& ptrList, const CVector& poi
             entityRelDistToRadiusEnd_Doubled = doubled < 1.0f ? doubled : 1.0f;
         }
 
-        float impactVelocityFactor = entity->m_fMass * StaticRef<float>(0x864F98) * entityRelDistToRadiusEnd_Doubled * visibleDistance; // 0x864F98 = 1/1400
+        float impactVelocityFactor = entity->m_fMass * DatosExe::Rdata::k864F98 * entityRelDistToRadiusEnd_Doubled * visibleDistance; // 0x864F98 = 1/1400
 
         const float invDist = 1.0f / (entityToPointDist < 0.01f ? 0.01f : entityToPointDist);
         CVector impactVelocity{ dx * invDist, dy * invDist, dz * invDist };
@@ -2349,7 +2352,7 @@ void CWorld::TriggerExplosionSectorList(PtrListType& ptrList, const CVector& poi
                         ped->bIsStanding = false;
                         z = z + 4.f;
                     } else {
-                        z = CTimer::GetTimeStep() * ped->m_fMass * StaticRef<float>(0x863984) + z; // 0x863984 = 1/125; paso * masa, no GetTimeStepInMS
+                        z = CTimer::GetTimeStep() * ped->m_fMass * DatosExe::Rdata::k863984 + z; // 0x863984 = 1/125; paso * masa, no GetTimeStepInMS
                     }
                     impactVelocity.z = z;
 

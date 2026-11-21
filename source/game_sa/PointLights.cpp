@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include "PointLights.h"
 #include "X87Math.h"
@@ -155,7 +156,7 @@ void CPointLights::AddLight(uint8 lightType, CVector point, CVector direction, f
 // Llamada a CSprite::RenderBufferedOneXLUSprite_Rotate_Aspect con los argumentos que calcula PointLightsFogSpriteCpp (0x70076A..0x700817 y 0x700AAC..0x700B6B).
 static void FogEmitSprite(const CPointLight& light, const float& alpha, const RwV3d& screen, float w, float h, int32 tab, uint32 timeValue, bool pointLight) {
     PointLightsFogSprite sprite;
-    PointLightsFogSpriteCpp(&light, &alpha, &screen.x, w, h, &StaticRef<float>(0x8D5068), tab, static_cast<int32>(timeValue), pointLight, &sprite);
+    PointLightsFogSpriteCpp(&light, &alpha, &screen.x, w, h, &DatosExe::Data::v8D5068, tab, static_cast<int32>(timeValue), pointLight, &sprite);
     CSprite::RenderBufferedOneXLUSprite_Rotate_Aspect(sprite.x, sprite.y, sprite.z, sprite.w, sprite.h, static_cast<uint8>(sprite.red), static_cast<uint8>(sprite.green),
         static_cast<uint8>(sprite.blue), static_cast<int16>(sprite.intensity), sprite.recipNearZ, sprite.angle, 255);
 }

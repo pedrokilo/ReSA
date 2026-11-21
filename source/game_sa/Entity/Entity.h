@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/RdataAyudantes.h"
 
 #include <rwplcore.h> // RwObject, etc...
 #include <rpworld.h>  // RpAtomic, RpClump, etc...
@@ -458,4 +459,4 @@ static RpMaterial* MaterialUpdateUVAnimCB(RpMaterial* material, void* data);
 
 bool IsEntityPointerValid(CEntity* entity);
 
-static inline auto& GAME_GRAVITY = StaticRef<float>(0x863984); // default 0.008f
+static inline auto& GAME_GRAVITY = DatosExe::Rdata::k863984; // default 0.008f

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include <span>
 
@@ -21,11 +22,11 @@ public:
     static inline auto&    NumOccludersOnMap                 = StaticRef<size_t>(0xC73F98);
     static inline auto&    NumActiveOccluders                = StaticRef<size_t>(0xC73CC0);
 
-    static inline auto&    NearbyList                        = StaticRef<int16>(0x8D5D6C);
+    static inline auto&    NearbyList                        = DatosExe::Data::v8D5D6C;
 
-    static inline auto&    FarAwayList                       = StaticRef<int16>(0x8D5D68);
-    static inline auto&    ListWalkThroughFA                 = StaticRef<int16>(0x8D5D70);
-    static inline auto&    PreviousListWalkThroughFA         = StaticRef<int16>(0x8D5D74);
+    static inline auto&    FarAwayList                       = DatosExe::Data::v8D5D68;
+    static inline auto&    ListWalkThroughFA                 = DatosExe::Data::v8D5D70;
+    static inline auto&    PreviousListWalkThroughFA         = DatosExe::Data::v8D5D74;
 
 public:
     static void InjectHooks();

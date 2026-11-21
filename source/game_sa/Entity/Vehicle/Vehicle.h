@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include <optional>
 #include <extensions/EntityRef.hpp>
@@ -416,13 +417,13 @@ public:
     int16        m_nRemapTxd;
     RwTexture*   m_pRemapTexture;
 
-    static inline auto& WHEELSPIN_TARGET_RATE = StaticRef<float>(0x8D3498);
-    static inline auto& WHEELSPIN_INAIR_TARGET_RATE = StaticRef<float>(0x8D349C);
-    static inline auto& WHEELSPIN_RISE_RATE = StaticRef<float>(0x8D34A0);
-    static inline auto& WHEELSPIN_FALL_RATE = StaticRef<float>(0x8D34A4);
-    static inline auto& m_fAirResistanceMult = StaticRef<float>(0x8D34A8);
-    static inline auto& ms_fRailTrackResistance = StaticRef<float>(0x8D34AC);
-    static inline auto& ms_fRailTrackResistanceDefault = StaticRef<float>(0x8D34B0);
+    static inline auto& WHEELSPIN_TARGET_RATE = DatosExe::Data::v8D3498;
+    static inline auto& WHEELSPIN_INAIR_TARGET_RATE = DatosExe::Data::v8D349C;
+    static inline auto& WHEELSPIN_RISE_RATE = DatosExe::Data::v8D34A0;
+    static inline auto& WHEELSPIN_FALL_RATE = DatosExe::Data::v8D34A4;
+    static inline auto& m_fAirResistanceMult = DatosExe::Data::v8D34A8;
+    static inline auto& ms_fRailTrackResistance = DatosExe::Data::v8D34AC;
+    static inline auto& ms_fRailTrackResistanceDefault = DatosExe::Data::v8D34B0;
     static inline auto& bDisableRemoteDetonation = StaticRef<bool>(0xC1CC00);
     static inline auto& bDisableRemoteDetonationOnContact = StaticRef<bool>(0xC1CC01);
     static inline auto& m_bEnableMouseSteering = StaticRef<bool>(0xC1CC02);

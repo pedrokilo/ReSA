@@ -4,6 +4,7 @@
 
 #include "rwcore.h"
 #include "RenderWare/D3D9RasterFormat.h"
+#include "RenderWare/D3D9RasterDriver.h"
 
 // 0x7FED70 (_rwD3D9CheckValidTextureSize, definida en rwcore.cpp; cdecl, (ancho*, alto*, formato)): ajusta el tamano de la textura a las capacidades del dispositivo.
 void _rwD3D9CheckValidTextureSize(RwInt32* width, RwInt32* height, RwUInt32 format);
@@ -88,10 +89,10 @@ uint8 DdsFormatTableByte(uint32 format, uint32 offset) {
     return *reinterpret_cast<const uint8*>(0xB4E7E0u + format * 4u + offset);
 }
 
-// Comprobaciones de formato del EXE (cdecl, un argumento de pila, resultado 0/1): 0x4CBDE0 = textura normal (ya reconstruida, en D3D9RasterDriver.cpp en un espacio de nombres anonimo);
+// Comprobaciones de formato (cdecl, un argumento de pila, resultado 0/1): 0x4CBDE0 = textura normal (D3D9RasterDriver.cpp);
 // 0x4CBEE0 = textura de cubo (sin cuerpo C++ todavia; se llama por direccion).
 bool DdsCheckTextureFormat(uint32 format) {
-    return reinterpret_cast<int32(__cdecl*)(uint32)>(0x4CBDE0)(format) != 0;
+    return RwD3D9RasterDriver::CheckTextureFormatCpp(format) != 0;
 }
 bool DdsCheckCubeTextureFormat(uint32 format) {
     return reinterpret_cast<int32(__cdecl*)(uint32)>(0x4CBEE0)(format) != 0;

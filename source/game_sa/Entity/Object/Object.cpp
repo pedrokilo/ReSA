@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -50,10 +51,10 @@ const float OBJ_MINUS_PI = ObjF(0xC0490FDBu); // 0x858CC0
 const float OBJ_HALF_PI  = ObjF(0x3FC90FDBu); // 0x858FE4
 
 // Como el original: variables globales del EXE usadas por las puertas y los pasos de colisión
-auto& fObjectStepSizeMult = StaticRef<float>(0x8D0A28); // 0.5
-auto& fDoorSpeedMult      = StaticRef<float>(0x8D0A2C); // 0.002
-auto& fDoorCutoffSpeed    = StaticRef<float>(0x8D0A30); // 0.02
-auto& fMaxDoorDiff        = StaticRef<float>(0x8D0A34); // 0.3
+auto& fObjectStepSizeMult = DatosExe::Data::v8D0A28; // 0.5
+auto& fDoorSpeedMult      = DatosExe::Data::v8D0A2C; // 0.002
+auto& fDoorCutoffSpeed    = DatosExe::Data::v8D0A30; // 0.02
+auto& fMaxDoorDiff        = DatosExe::Data::v8D0A34; // 0.3
 
 // Como el original: Multiply3x3 (0x59C790), con el orden de sumas del EXE
 CVector ObjMultiply3x3(const CMatrix& m, const CVector& v) {

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "Matrix.h"
 #include "Vector.h"
@@ -56,7 +57,7 @@ public:
     CVector m_vecTurnPoint;              // Calculated buoyancy move force
     uint32  field_CC;                    // 204
 
-    static inline auto& fPointVolMultiplier = StaticRef<float>(0x8D32C8);
+    static inline auto& fPointVolMultiplier = DatosExe::Data::v8D32C8;
     static inline auto& calcStruct = StaticRef<CBuoyancyCalcStruct>(0xC1C858);
     static inline auto& afBoatVolumeDistribution = StaticRef<float[3][3]>(0x8D32CC); // 3x3 array of buoyancy modifiers for other boats
     static inline auto& afBoatVolumeDistributionCat = StaticRef<float[3][3]>(0x8D32F0); // Catamaran volume distribution, unused in game, as there is no matching vehicle (Address fixed via DWARF)

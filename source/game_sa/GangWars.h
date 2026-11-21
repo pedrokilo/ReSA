@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "CarCtrl.h"
 #include "Radar.h"
@@ -49,7 +50,7 @@ constexpr union {
 
 class CGangWars {
 public:
-    static inline auto& ZoneInfoForTraining = StaticRef<int32>(0x8A5F40); // -1
+    static inline auto& ZoneInfoForTraining = DatosExe::Data::v8A5F40; // -1
     static inline auto& pDriveByCar = StaticRef<CVehicle*>(0x96AB28);
     static inline auto& GangRatingStrength = StaticRef<std::array<int32, 3>>(0x96AB2C);
     static inline auto& GangRatings = StaticRef<std::array<int32, 3>>(0x96AB38);

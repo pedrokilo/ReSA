@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "Automobile.h"
 
@@ -41,7 +42,7 @@ public:
     std::array<float, 4>   field_988{}; // unused
     float m_fSuspensionRadius;
 
-    static inline auto& DUMPER_COL_ANGLEMULT = StaticRef<float>(0x8D33A8); // 0.0002f
+    static inline auto& DUMPER_COL_ANGLEMULT = DatosExe::Data::v8D33A8; // 0.0002f
 
     static constexpr auto Type = VEHICLE_TYPE_MTRUCK;
 

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "TaskComplexKillPedOnFootArmed.h"
 #include "TaskSimpleGoToPoint.h"
@@ -379,7 +380,7 @@ CTask* CTaskComplexKillPedOnFootArmed::CreateNextSubTask(CPed* ped) {
     auto random = [] { return plugin::CallAndReturn<int32, 0x821B1E>(); };
     auto seek = [&](float radius) -> CTask* {
         return new CTaskComplexSeekEntityStandard{m_target, 50000, 1000, radius,
-            StaticRef<float>(0x859E30), StaticRef<float>(0x859E34), true, true};
+            DatosExe::Rdata::k859E30, DatosExe::Rdata::k859E34, true, true};
     };
     auto finish = [&](CTask* result) -> CTask* {
         if (!result) {

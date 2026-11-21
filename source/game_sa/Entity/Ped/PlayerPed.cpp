@@ -23,6 +23,10 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/DataInicializadaA.h"
+#include "DatosExe/RdataAyudantes.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "PlayerPed.h"
 #include "TagManager.h"
@@ -534,10 +538,10 @@ void CPlayerPed::ProcessAnimGroups() {
     bool lookAtCamera = false;
     {
         const float heading = m_pPlayerData->m_fFPSMoveHeading;
-        if (!(heading > StaticRef<float>(0x86D1D4))) {
+        if (!(heading > DatosExe::Rdata::k86D1D4)) {
             lookAtCamera = true;
         } else {
-            lookAtCamera = !(m_pPlayerData->m_fFPSMoveHeading < StaticRef<float>(0x86D1D0));
+            lookAtCamera = !(m_pPlayerData->m_fFPSMoveHeading < DatosExe::Rdata::k86D1D0);
         }
     }
     if (lookAtCamera) {
@@ -1617,7 +1621,7 @@ void CPlayerPed::KeepAreaAroundPlayerClear() {
         }
         CTaskComplexSmartFleeEntity* fleeTask = nullptr;
         if (void* const memory = CTask::operator new(sizeof(CTaskComplexSmartFleeEntity))) { // 0x61A5A0
-            fleeTask = ::new (memory) CTaskComplexSmartFleeEntity(this, false, 1000.0f, 100000, StaticRef<int32>(0x86F678), StaticRef<float>(0xC18CF0)); // 0x65C430
+            fleeTask = ::new (memory) CTaskComplexSmartFleeEntity(this, false, 1000.0f, 100000, DatosExe::Rdata::k86F678, StaticRef<float>(0xC18CF0)); // 0x65C430
         }
         fleeTask->m_moveState = PEDMOVE_WALK; // Como el original: [tarea + 0x30] = 4 (caminar; el constructor de la DLL deja SPRINT = 7) y sin comprobar el nulo de la reserva
         CEventScriptCommand scriptEvent{ 3, fleeTask, false }; // 0x4B0A00 (ranura primaria 3)
@@ -1651,10 +1655,10 @@ void CPlayerPed::KeepAreaAroundPlayerClear() {
         CMatrixLink* const matrix = vehicle->m_matrix;
         const float* const vehiclePos = reinterpret_cast<const float*>(matrix ? &matrix->GetPosition() : &vehicle->m_placement.m_vPosn);
         const float* const referencePos = reinterpret_cast<const float*>(reference);
-        if (Ka80VehicleFarCpp(vehiclePos, referencePos, StaticRef<float>(0x858FE8))) { // 25.0f
+        if (Ka80VehicleFarCpp(vehiclePos, referencePos, DatosExe::Rdata::k858FE8)) { // 25.0f
             vehicle->m_autoPilot.m_nTempAction = TEMPACT_WAIT;
             vehicle->m_autoPilot.m_nTempActionTime = CTimer::m_snTimeInMilliseconds + 5000;
-        } else if (Ka80VehicleAheadCpp(referencePos, vehiclePos, &matrix->GetForward().x, StaticRef<float>(0x858B50))) { // 0.0f
+        } else if (Ka80VehicleAheadCpp(referencePos, vehiclePos, &matrix->GetForward().x, DatosExe::Rdata::k858B50)) { // 0.0f
             vehicle->m_autoPilot.m_nTempAction = TEMPACT_REVERSE;
             vehicle->m_autoPilot.m_nTempActionTime = CTimer::m_snTimeInMilliseconds + 2000;
         } else {
@@ -1855,9 +1859,9 @@ void CPlayerPed::MakeThisPedJoinOurGroup(CPed* ped) {
     CStats::DisplayScriptStatUpdateMessage(static_cast<eStatUpdateState>(1), static_cast<eStats>(0x150), 1.0f); // 0x55B980
 
     // Color del blip: tres bytes de la tabla de colores de bandas (indice 1) en 0x8D1345, 0x8D1351 y 0x8D135D, mas alfa 0xFF
-    const uint32 colorA = StaticRef<uint8>(0x8D1345);
-    const uint32 colorB = StaticRef<uint8>(0x8D1351);
-    const uint32 colorC = StaticRef<uint8>(0x8D135D);
+    const uint32 colorA = DatosExe::Data::v8D1345;
+    const uint32 colorB = DatosExe::Data::v8D1351;
+    const uint32 colorC = DatosExe::Data::v8D135D;
     const uint32 color = (((((colorA << 8) | colorB) << 8) | colorC) << 8) | 0xFFu;
     const int32 ref = static_cast<int32>(GetPedPool()->GetRef(ped)); // 0x4442D0
     const auto blip = CRadar::SetEntityBlip(BLIP_CHAR, ref, color, BLIP_DISPLAY_BLIPONLY); // 0x5839A0
@@ -1867,7 +1871,7 @@ void CPlayerPed::MakeThisPedJoinOurGroup(CPed* ped) {
 
     ped->bClearRadarBlipOnDeath = true; // or [ped + 0x474], 0x2000
     const uint32 slot = GetPlayerData()->m_nPlayerGroup;
-    const uint32 separation = StaticRef<uint32>(0x86C6C0);
+    const uint32 separation = DatosExe::Rdata::k86C6C0_u;
     std::memcpy(reinterpret_cast<uint8*>(&CPedGroups::ms_groups.data()[slot].GetMembership()) + 0x24, &separation, sizeof(separation)); // separacion maxima del grupo del jugador (+0x24)
     ped->Say(CTX_GLOBAL_JOIN_GANG_YES, 2500, 1.0f, true, false, false); // 0x5EFFE0 (0x7E)
 }
@@ -1988,7 +1992,7 @@ void CPlayerPed::MakeChangesForNewWeapon(uint32 weaponSlot) {
         MakeChangesForNewWeapon(GetWeaponInSlot(weaponSlot).m_Type);
 }
 
-static auto& PLAYER_MAX_TARGET_VIEW_ANGLE = StaticRef<float>(0x8D243C); // 140.0f
+static auto& PLAYER_MAX_TARGET_VIEW_ANGLE = DatosExe::Data::v8D243C; // 140.0f
 
 // Como el original: GetATanOfXY (0x53CC70) deja el ángulo en ST0 sin redondear a float y el EXE le resta
 // la compensación directamente (una sola rotura a 24 bits)
@@ -2097,7 +2101,7 @@ void CPlayerPed::ProcessGroupBehaviour(CPad* pad) {
     const auto TargetIsPed = [&] { return target && target->GetType() == ENTITY_TYPE_PED; };
     // Como el original: _ftol2 (0x821B40) de paso_sin_recortar * 0.02f (0x858B38) * 1000 (0x858C4C); se suma a un uint16 (add word ptr)
     const auto HoldStep = [] {
-        const float step = (CTimer::ms_fTimeStepNonClipped * StaticRef<float>(0x858B38)) * StaticRef<float>(0x858C4C);
+        const float step = (CTimer::ms_fTimeStepNonClipped * DatosExe::Rdata::k858B38) * DatosExe::Rdata::k858C4C;
         return static_cast<uint16>(static_cast<uint32>(static_cast<int64>(step)));
     };
 
@@ -2373,7 +2377,7 @@ bool CPlayerPed::FindWeaponLockOnTarget() {
     } else if (m_nPedType == 1) {
         pad = CPad::GetPad(1);
     }
-    const float deadZone = StaticRef<float>(0x858B34); // 60.0f
+    const float deadZone = DatosExe::Rdata::k858B34; // 60.0f
     bool stick = static_cast<float>(std::abs(static_cast<int32>(pad->GetPedWalkLeftRight()))) > deadZone; // 0x53FC90
     if (!stick) {
         stick = static_cast<float>(std::abs(static_cast<int32>(pad->GetPedWalkUpDown()))) > deadZone; // 0x53FD30
@@ -2383,7 +2387,7 @@ bool CPlayerPed::FindWeaponLockOnTarget() {
         const int32 upDown = pad->GetPedWalkUpDown();
         const int32 leftRight = pad->GetPedWalkLeftRight();
         const float stickAngle = CGeneral::GetRadianAngleBetweenPoints(0.0f, 0.0f, static_cast<float>(-leftRight), static_cast<float>(upDown)); // 0x53CBE0
-        const float adjusted = (stickAngle - StaticRef<float>(0xB6F178)) + StaticRef<float>(0x858FE4); // - orientacion de la camara + pi/2
+        const float adjusted = (stickAngle - StaticRef<float>(0xB6F178)) + DatosExe::Rdata::k858FE4; // - orientacion de la camara + pi/2
         heading = CGeneral::LimitRadianAngle(adjusted); // 0x53CB50
     }
 
@@ -2396,7 +2400,7 @@ bool CPlayerPed::FindWeaponLockOnTarget() {
             sprayHeading = m_placement.m_fHeading;
         }
         CVector centre;
-        Pp79SprayCentreCpp(&m_matrix->GetForward().x, &GetPosition().x, StaticRef<float>(0x859000), &centre.x); // 8.0f
+        Pp79SprayCentreCpp(&m_matrix->GetForward().x, &GetPosition().x, DatosExe::Rdata::k859000, &centre.x); // 8.0f
         CEntity* found[15];
         int16 count;
         CWorld::FindObjectsInRange(centre, 8.0f, false, &count, 15, found, true, false, false, false, false); // 0x564A20
@@ -2427,7 +2431,7 @@ bool CPlayerPed::FindWeaponLockOnTarget() {
     }
 
     // ---- peatones (de atras adelante)
-    const float viewLimit = StaticRef<float>(0x8D243C) * StaticRef<float>(0x8631D4); // 140 grados en radianes
+    const float viewLimit = DatosExe::Data::v8D243C * DatosExe::Rdata::k8631D4; // 140 grados en radianes
     const auto limitAngle = [](float angle) {
         if (angle > PLAYER_PI) {
             do {
@@ -2480,12 +2484,12 @@ bool CPlayerPed::FindWeaponLockOnTarget() {
         // Punto 3 m por detras: posicion - normalizado(vector hacia delante) * 3
         CVector forward = m_matrix->GetForward();
         forward.Normalise(); // 0x59C910
-        const CVector scaled = forward * StaticRef<float>(0x8D2440); // 0x40FEC0
+        const CVector scaled = forward * DatosExe::Data::v8D2440; // 0x40FEC0
         const CVector behind = GetPosition() - scaled; // 0x40FE60
         const float dy2 = ped->GetPosition().y - behind.y;
         const float dx2 = ped->GetPosition().x - behind.x;
         angle = limitAngle(PlayerPedATanMinus(dx2, dy2, heading));
-        if (!(angle < StaticRef<float>(0x8D2438) * StaticRef<float>(0x8631D4))) { // 90 grados
+        if (!(angle < DatosExe::Data::v8D2438 * DatosExe::Rdata::k8631D4)) { // 90 grados
             continue;
         }
         const CVector toPed = ped->GetPosition() - GetPosition();

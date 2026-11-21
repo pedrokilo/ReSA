@@ -1,0 +1,133 @@
+{
+ "exe": "D:/Grand Theft Auto San Andreas/gta-sa.exe",
+ "referencias_dll": 8767,
+ "direcciones_dll": 5276,
+ "objetos": 14719,
+ "formas": {
+  "literal": 2172,
+  "StaticRef": 5071,
+  "reinterpret_cast": 381,
+  "cast": 46,
+  "ayudante": 625,
+  "hook_vtable": 469,
+  "parche": 3
+ },
+ "iat": {
+  "va": "0x00858000",
+  "bytes": 888,
+  "directorio_importacion": "0x008A2004",
+  "tam_dir": 200
+ },
+ "funciones_exe": 19169,
+ "funciones_vivas": 5569,
+ "por_seccion": [
+  {
+   "seccion": ".rdata",
+   "va_ini": "0x00858000",
+   "tam_seccion": 311296,
+   "objetos": 6074,
+   "bytes_objetos": 91369,
+   "objetos_con_ref_dll": 989,
+   "bytes_con_ref_dll": 25438,
+   "objetos_solo_exe": 5085,
+   "bytes_solo_exe": 65931,
+   "objetos_compartidos": 82,
+   "bytes_compartidos": 1006,
+   "bytes_tam_fiable_dll": 1886,
+   "con_valor_inicial": true
+  },
+  {
+   "seccion": ".data",
+   "va_ini": "0x008A4000",
+   "tam_seccion": 262144,
+   "objetos": 2677,
+   "bytes_objetos": 34488,
+   "objetos_con_ref_dll": 1287,
+   "bytes_con_ref_dll": 16575,
+   "objetos_solo_exe": 1390,
+   "bytes_solo_exe": 17913,
+   "objetos_compartidos": 27,
+   "bytes_compartidos": 473,
+   "bytes_tam_fiable_dll": 11330,
+   "con_valor_inicial": true
+  },
+  {
+   "seccion": ".bss",
+   "va_ini": "0x008E4000",
+   "tam_seccion": 3907584,
+   "objetos": 5766,
+   "bytes_objetos": 97931,
+   "objetos_con_ref_dll": 2830,
+   "bytes_con_ref_dll": 69938,
+   "objetos_solo_exe": 2936,
+   "bytes_solo_exe": 27993,
+   "objetos_compartidos": 74,
+   "bytes_compartidos": 539,
+   "bytes_tam_fiable_dll": 53622,
+   "con_valor_inicial": false
+  },
+  {
+   "seccion": "_TEXT_HA",
+   "va_ini": "0x00C9E000",
+   "tam_seccion": 69632,
+   "objetos": 200,
+   "bytes_objetos": 900,
+   "objetos_con_ref_dll": 170,
+   "bytes_con_ref_dll": 797,
+   "objetos_solo_exe": 30,
+   "bytes_solo_exe": 103,
+   "objetos_compartidos": 19,
+   "bytes_compartidos": 76,
+   "bytes_tam_fiable_dll": 669,
+   "con_valor_inicial": false
+  },
+  {
+   "seccion": "_rwdseg",
+   "va_ini": "0x00CAF000",
+   "tam_seccion": 4096,
+   "objetos": 2,
+   "bytes_objetos": 8,
+   "objetos_con_ref_dll": 0,
+   "bytes_con_ref_dll": 0,
+   "objetos_solo_exe": 2,
+   "bytes_solo_exe": 8,
+   "objetos_compartidos": 0,
+   "bytes_compartidos": 0,
+   "bytes_tam_fiable_dll": 0,
+   "con_valor_inicial": false
+  },
+  {
+   "seccion": ".rsrc",
+   "va_ini": "0x00CB0000",
+   "tam_seccion": 4096,
+   "objetos": 0,
+   "bytes_objetos": 0,
+   "objetos_con_ref_dll": 0,
+   "bytes_con_ref_dll": 0,
+   "objetos_solo_exe": 0,
+   "bytes_solo_exe": 0,
+   "objetos_compartidos": 0,
+   "bytes_compartidos": 0,
+   "bytes_tam_fiable_dll": 0,
+   "con_valor_inicial": false
+  }
+ ],
+ "bytes_por_clase": {
+  ".rdata": {
+   "resto_sin_clasificar": 142249,
+   "iat": 888,
+   "objeto_con_ref_dll": 25370,
+   "objeto_solo_exe": 65191,
+   "cadena_ascii": 35387,
+   "ceros_relleno": 42211
+  },
+  ".data(inicializado)": {
+   "resto_sin_clasificar": 185579,
+   "iat": 0,
+   "objeto_con_ref_dll": 16562,
+   "objeto_solo_exe": 17601,
+   "cadena_ascii": 18686,
+   "ceros_relleno": 23716
+  }
+ }
+}

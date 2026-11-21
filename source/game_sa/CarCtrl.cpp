@@ -29,6 +29,8 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
+#include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -89,10 +91,10 @@ auto& aCarsToKeepTime = StaticRef<std::array<uint32, 2>>(0x96907C);
 
 // Lote 63 (aire): colaboradores del EXE sin reconstruir que se llaman por direccion (los bancos los sustituyen por falsos identicos).
 // CVector::Normalise (0x59C910, thiscall, in situ; deja la x87 vacia) y rand() del CRT del EXE (0x821B1E: avanza la semilla del juego, la rand() de la DLL no).
-static void CarCtrlAirExeNormalise(CVector* v) { reinterpret_cast<void(__thiscall*)(CVector*)>(0x59C910)(v); }
+static void CarCtrlAirExeNormalise(CVector* v) { v->Normalise(); }
 static int CarCtrlAirExeRand() { return ExeCrt::Rand(); }
 // Funcion del EXE sin reconstruir que llama SteerAIBoatWithPhysicsAttackingPlayer con el modelo 430 (0x73DF00, thiscall sobre el vehiculo)
-static void CarCtrlAirExeBoatSpecial(CVehicle* boat) { reinterpret_cast<void(__thiscall*)(CVehicle*)>(0x73DF00)(boat); }
+static void CarCtrlAirExeBoatSpecial(CVehicle* boat) { boat->FireFixedMachineGuns(); }
 
 // 0x424100: XOR AL,AL; RET. Conserva EAX alto, ECX/EDX y los registros no volátiles. Función suelta (alias de dirección):
 // CCarCtrl es sólo el dueño de la instrumentación. Optimizada por pragma para que el cuerpo mida 3 bytes como el del EXE.
@@ -579,9 +581,9 @@ CTask* Car75NewDriveWanderTask(CVehicle* vehicle) {
     void* const memory = CTask::operator new(0x24);
     return memory ? ::new (memory) CTaskComplexCarDriveWander(vehicle, DRIVING_STYLE_STOP_FOR_CARS, 10.0f) : nullptr;
 }
-// CTaskManager::SetTask (0x681AF0) esta definido en linea en la cabecera: se llama por la direccion del EXE, como el original (conductor sin comprobar, ranura 4)
+// CTaskManager::SetTask (conductor sin comprobar, ranura 4)
 void Car75SetDriverTask(CVehicle* vehicle, CTask* task) {
-    reinterpret_cast<void(__thiscall*)(CTaskManager*, CTask*, ePrimaryTasks, bool)>(0x681AF0)(&vehicle->m_pDriver->GetTaskManager(), task, TASK_PRIMARY_DEFAULT, false);
+    vehicle->m_pDriver->GetTaskManager().SetTask(task, TASK_PRIMARY_DEFAULT, false);
 }
 // Dos disparos verticales desde el punto (1000 hacia arriba, -1000 hacia abajo; solo edificios y objetos ficticios) y se queda con el golpe mas cercano en z al punto. 1e9 (0x4E6E6B28) si no hay golpe.
 uint32 Car75FindGround(const CVector& point) {
@@ -2633,7 +2635,7 @@ bool CCarCtrl::IsThisAnAppropriateNode(CVehicle* vehicle, CNodeAddress nodeAddre
                 }
             } else {
                 CVector right;
-                reinterpret_cast<CVector*(__thiscall*)(CVehicle*, CVector*)>(0x41CC70)(vehicle, &right);
+                right = vehicle->GetRightVector();
                 if (Cc63fRightDotNegativeCpp(&right.x, &position3.x, &point.x)) {
                     return false;
                 }
@@ -3693,14 +3695,14 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
         if (nearRange) {
             range = 45.0f; // 0x42340000
         } else {
-            range = Car81ScaleCpp(StaticRef<float>(0xB6F11C), StaticRef<float>(0x858F98)); // multiplicador de la camara * 170.0f, guardado como float
+            range = Car81ScaleCpp(StaticRef<float>(0xB6F11C), DatosExe::Rdata::k858F98); // multiplicador de la camara * 170.0f, guardado como float
         }
-        if (Car81LessCpp(StaticRef<float>(0xB6F9B4), StaticRef<float>(0x858CAC))) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
+        if (Car81LessCpp(StaticRef<float>(0xB6F9B4), DatosExe::Rdata::k858CAC)) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
             range = 70.0f; // 0x428C0000
         }
 
         const int16 extendedRange = vehicle->m_nExtendedRemovalRange;
-        if (Car81FarCpp(extendedRange, range, StaticRef<float>(0x858F94), distance)) { // max(rango extendido, 170.0f) * rango * (1/170) < distancia
+        if (Car81FarCpp(extendedRange, range, DatosExe::Rdata::k858F94, distance)) { // max(rango extendido, 170.0f) * rango * (1/170) < distancia
             if (vehicle->m_autoPilot.m_nCarMission != MISSION_PLANE_ATTACK_PLAYER_POLICE) {
                 CVector point;
                 memcpy(&point, positionOf(vehicle), sizeof(point)); // copia de tres dwords (sin pasar por la x87)
@@ -3723,7 +3725,7 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
         const uint32 status = vehicle->GetStatus();
         if (status == STATUS_SIMPLE) {
             const CMatrixLink* const matrix = vehicle->m_matrix; // sin comprobar nulo, como el EXE
-            if (Car81FlatCpp(matrix->GetUp().z, StaticRef<float>(0x858B50), StaticRef<float>(0x858F90))) {
+            if (Car81FlatCpp(matrix->GetUp().z, DatosExe::Rdata::k858B50, DatosExe::Rdata::k858F90)) {
                 remove(vehicle);
                 return;
             }
@@ -3746,7 +3748,7 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
             const uint32 switched = vehicle->m_autoPilot.m_nTimeSwitchedToRealPhysics;
             if (now - switched > 5000u && vehicle->m_nTimeTillWeNeedThisCar == 0 && now != 0 && !vehicle->GetIsOnScreen()) {
                 const CVector difference = *positionOf(vehicle) - centre; // 0x40FE60
-                if (Car81Dist2dAboveCpp(&difference.x, StaticRef<float>(0x858F8C))
+                if (Car81Dist2dAboveCpp(&difference.x, DatosExe::Rdata::k858F8C)
                     && !IsThisVehicleInteresting(vehicle) && !vehicle->vehicleFlags.bIsLocked && vehicle->CanBeDeleted()
                     && !CTrafficLights::ShouldCarStopForLight(vehicle, true) && !CTrafficLights::ShouldCarStopForBridge(vehicle)) { // 0x49D610, 0x49D420
                     CVector point;
@@ -3768,7 +3770,7 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
                 const CMatrixLink* const matrix = vehicle->m_matrix; // se lee una vez y se reutiliza para las dos copias de la posicion
                 const CVector* const vehiclePos = matrix ? &matrix->GetPosition() : &vehicle->m_placement.m_vPosn;
                 const CVector difference = *vehiclePos - centre;
-                if (Car81SquaredMagnitudeAboveCpp(&difference.x, StaticRef<float>(0x858F88))) { // 0x406DA0
+                if (Car81SquaredMagnitudeAboveCpp(&difference.x, DatosExe::Rdata::k858F88)) { // 0x406DA0
                     CVector point;
                     memcpy(&point, vehiclePos, sizeof(point));
                     if (!CGarages::IsPointWithinHideOutGarage(point)) {
@@ -4154,13 +4156,13 @@ T& WvRaw(const void* base, uint32 offset) {
 // Colaboradores matematicos del EXE sin reconstruir: CMatrix * CVector (0x59C890) y Multiply3x3 (0x59C790)
 CVector WvMatrixTimesPoint(const CMatrix* matrix, const CVector& point) {
     CVector result;
-    plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&result, matrix, &point);
+    MatrixTimesPointExe(&result, matrix, &point);
     return result;
 }
 
 CVector WvMatrixTimesVector(const CMatrix* matrix, const CVector& vector) {
     CVector result;
-    plugin::CallAndReturn<CVector*, 0x59C790, CVector*, const CMatrix*, const CVector*>(&result, matrix, &vector);
+    Multiply3x3Exe(&result, matrix, &vector);
     return result;
 }
 } // namespace
@@ -4719,9 +4721,8 @@ CTask* ParkNewLeaveAnyCarTask() {
     return mem ? ::new (mem) CTaskComplexLeaveAnyCar(0, true, false) : nullptr;
 }
 
-// CTaskManager::SetTask (0x681AF0) esta definido en linea en la cabecera: se llama por la direccion del EXE, como el original
 void ParkSetPrimaryTask(CPed* ped, CTask* task) {
-    reinterpret_cast<void(__thiscall*)(CTaskManager*, CTask*, ePrimaryTasks, bool)>(0x681AF0)(&ped->GetTaskManager(), task, TASK_PRIMARY_PRIMARY, false);
+    ped->GetTaskManager().SetTask(task, TASK_PRIMARY_PRIMARY, false);
 }
 
 void ParkOccupantsLeave(CVehicle* vehicle) {
@@ -7188,8 +7189,7 @@ void CCarCtrl::UpdateCarCount(CVehicle* vehicle, uint8 bDecrease) {
 // 0x436540
 void CCarCtrl::UpdateCarOnRails(CVehicle* vehicle) {
     // Como el original: aritmetica de float (x87 a 24 bits). Los enteros entran por fild (exactos) y se calculan en double antes de redondear una vez a float.
-    // Colaboradores sin reconstruir (0x422590, 0x432B10, 0x42EC90, 0x59C910) por su direccion.
-    plugin::Call<0x422590, CVehicle*>(vehicle);
+    CCarCtrl::StopCarIfNodesAreInvalid(vehicle);
     auto& autoPilot = vehicle->m_autoPilot;
     if (WvRaw<uint8>(vehicle, 0x3DC) & 1) { // m_nMovementFlags.bIsStopped
         return;
@@ -7216,7 +7216,7 @@ void CCarCtrl::UpdateCarOnRails(CVehicle* vehicle) {
     uint32 now = CTimer::GetTimeInMS();
     const int32 limit = static_cast<int32>(autoPilot.field_C) + static_cast<int32>(autoPilot.m_nSpeedScaleFactor);
     if (limit < 0 || now >= static_cast<uint32>(limit)) {
-        plugin::Call<0x432B10, CVehicle*>(vehicle);
+        CCarCtrl::PickNextNodeAccordingStrategy(vehicle);
         now = CTimer::GetTimeInMS();
     }
     if ((WvRaw<uint8>(vehicle, 0x36) & 0xF8) == 0x18) { // estado 3
@@ -7259,8 +7259,8 @@ void CCarCtrl::UpdateCarOnRails(CVehicle* vehicle) {
 
     CVector directionA{ jitterA1 + aDirX, jitterA2 + aDirY, 0.0f };
     CVector directionB{ jitterB1 + bDirX, jitterB2 + bDirY, 0.0f };
-    plugin::CallMethod<0x59C910, CVector*>(&directionA); // CVector::Normalise del EXE
-    plugin::CallMethod<0x59C910, CVector*>(&directionB);
+    directionA.Normalise();
+    directionB.Normalise();
 
     constexpr float kEighth = 0.125f; // 0x858C48
     const CVector start{ static_cast<float>(reinterpret_cast<const int16*>(a)[0]) * kEighth + widthA * aDirY, static_cast<float>(reinterpret_cast<const int16*>(a)[1]) * kEighth - widthA * aDirX, 0.0f };
@@ -7270,7 +7270,7 @@ void CCarCtrl::UpdateCarOnRails(CVehicle* vehicle) {
     CVector speed;
     CCurves::CalcCurvePoint(start, end, directionA, directionB, progress, static_cast<int32>(autoPilot.m_nSpeedScaleFactor), position, speed); // 0x43C900
     position.z = 15.0f;
-    plugin::Call<0x42EC90, CVehicle*, CVector*>(vehicle, &position);
+    CCarCtrl::DragCarToPoint(vehicle, &position);
 
     constexpr float kPerSecond = std::bit_cast<float>(0x3C888889u); // 0x859044 (1/60)
     speed.x = speed.x * kPerSecond;

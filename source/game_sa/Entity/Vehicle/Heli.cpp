@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -741,12 +742,11 @@ bool CHeli::SendDownSwat() {
     void* const wanderMemory = CTask::operator new(sizeof(CTaskComplexWanderCop)); // 0x50
     CTaskComplexWanderCop* wanderTask = nullptr;
     if (wanderMemory) {
-        const int32 direction = reinterpret_cast<int32(__cdecl*)(int32, int32)>(0x407180)(0, 8); // CGeneral::GetRandomNumberInRange_int32
+        const int32 direction = CGeneral::GetRandomIntInRange(0, 8);
         wanderTask = ::new (wanderMemory) CTaskComplexWanderCop(static_cast<eMoveState>(4), static_cast<uint8>(direction));
     }
     sequence->AddTask(wanderTask);
-    // CTaskManager::SetTask (0x681AF0) esta definido en linea en la cabecera: se llama por la direccion del EXE, como el original
-    reinterpret_cast<void(__thiscall*)(CTaskManager*, CTask*, ePrimaryTasks, bool)>(0x681AF0)(&ped->GetTaskManager(), sequence, TASK_PRIMARY_PRIMARY, false);
+    ped->GetTaskManager().SetTask(sequence, TASK_PRIMARY_PRIMARY, false);
 
     ped->m_bUsesCollision = false;
     m_nNumSwatOccupants = static_cast<int8>(m_nNumSwatOccupants - 1);
@@ -1335,7 +1335,7 @@ void CHeli::PreRender() {
     }
 
     const bool heavy = model == 0x1D5 || model == 0x1BF || model == 0x1E7 || model == 0x1E8 || model == 0x1F1;
-    Heli75AngleACpp(CTimer::GetTimeStep(), m_fHeliRotorSpeed, heavy, StaticRef<float>(0x8D33A0), &m_fRotorZ);
+    Heli75AngleACpp(CTimer::GetTimeStep(), m_fHeliRotorSpeed, heavy, DatosExe::Data::v8D33A0, &m_fRotorZ);
     Heli75AngleBCpp(CTimer::GetTimeStep(), m_fHeliRotorSpeed, model == 0x1A1, &m_fSecondRotorZ);
 
     // 0x6C56E9..0x6C589D: la misma CMatrix local unida al modelling de cada paleta (nodos 12 y 13 con SetRotateZ(angulo 1), 14 y 15 con SetRotateX(angulo 2))

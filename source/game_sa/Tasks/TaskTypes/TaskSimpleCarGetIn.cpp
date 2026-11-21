@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "TaskSimpleCarGetIn.h"
 #include "TaskUtilityLineUpPedWithCar.h"
 
@@ -156,10 +157,10 @@ bool CTaskSimpleCarGetIn::ProcessPed(CPed* ped) {
         case ANIM_ID_CAR_GETIN_RHS_0:
         case ANIM_ID_CAR_GETIN_LHS_1:
         case ANIM_ID_CAR_GETIN_RHS_1: {
-            const auto& flt_8D2ED4 = StaticRef<float>(0x8D2ED4); // 10.f
+            const auto& flt_8D2ED4 = DatosExe::Data::v8D2ED4; // 10.f
             // Como el original: se multiplica por 1/30 (0x858F10) en vez de dividir por 30
             if (flt_8D2ED4 * std::bit_cast<float>(0x3D088889u) < m_anim->m_CurrentTime) {
-                const auto& flt_8D2ED0 = StaticRef<float>(0x8D2ED0); // 0.01f
+                const auto& flt_8D2ED0 = DatosExe::Data::v8D2ED0; // 0.01f
                 // Como el original: primero el escalar (paso * masa * k) y luego el vector
                 m_veh->ApplyMoveForce(m_veh->GetForward() * (CTimer::GetTimeStep() * m_veh->m_fMass * flt_8D2ED0));
             }

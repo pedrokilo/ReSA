@@ -28,7 +28,9 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "rwcore.h"
+#include "RenderWare/D3D9RasterFormat.h"
 #include "X87Math.h"
+#include "WindowedMode.hpp"
 #include "game_sa/Crt/CrtPow.h"
 #include <xmmintrin.h>
 #include <intrin.h>
@@ -137,6 +139,9 @@ RxNodeDefinition* _rwD3D9RxNodeDefinitionGetImmInstance();
 RxNodeDefinition* _rwD3D9RxNodeDefinitionGetSubmitNoLight();
 RwBool _rwD3D9Im3DRenderOpen();
 void _rwD3D9Im3DRenderClose();
+RwBool _rwD3D9Im2DRenderOpen();
+void _rwD3D9Im2DRenderClose();
+void _rwD3D9RenderStateReset();
 RwInt32 _rxPipelineUnlockAllocateClusters(RxPipeline* pipeline);
 
 // --- Lote 223A (sin validar): plugin de raster del controlador D3D9 de RenderWare (0x4C9990..0x4CA5A0; el listado las atribuia a CWeaponModelInfo) ---
@@ -2904,7 +2909,7 @@ RwBool RwD3D9CameraIsBBoxFullyInsideFrustum(const void* camera, const void* boun
 }
 
 void _rwD3D9RasterConvertToNonPalettized(RwRaster* raster) {
-   ((void(__cdecl *)(RwRaster*))0x4CD250)(raster);
+   D3D9RasterFormat::ConvertRasterToDisplayFormat(raster);
 }
 
 // 0x7F5F60: salto directo a 0x4C9AB0 (registro del plugin de raster D3D9, sin reconstruir; cuerpo del EXE)
@@ -6430,7 +6435,7 @@ void RwD3D9InjectHooksR25A() {
 }
 
 // --- Lote R26A (sin validar): controlador D3D9 de RenderWare: parametros de presentacion, parada del sistema, tabla de estandares, modos de video, liberacion y restauracion del dispositivo, multimuestreo,
-// cambio de modo y camara con ventana (0x7F6CB0..0x7F8D70; el listado las atribuia a RwCore por vecindad). 0x7F6781 (cola de una rutina, enganchada por WindowedMode.cpp) y 0x7F7730
+// cambio de modo y camara con ventana (0x7F6CB0..0x7F8D70; el listado las atribuia a RwCore por vecindad). 0x7F6781 (cola de la funcion 0x7F5F70, antes enganchada con un parche `naked` en WindowedMode.cpp; hoy esa funcion entera es `_rwD3D9System`) y 0x7F7730
 // (_rwD3D9CameraClear, enganchada por WindowedMode.cpp con la correccion NOTSA del suelo reflectante) no se rehacen aqui. ---
 // Estado global del EXE que usan (direcciones):
 //   0xC9C040 D3DPRESENT_PARAMETERS (0x38 bytes)    0xC9BEE4 modo actual (ancho, alto, frecuencia, formato; 16 bytes) y 0xC9BEF4 su profundidad, 0xC9BEF8 su bandera, 0xC9BEFC profundidad del Z-buffer
@@ -6562,8 +6567,8 @@ bool D3D9RestoreAfterReset() {
     ComCall<kSlotDeviceGetDepthStencilSurface, HRESULT>(D3D9Device, &D3D9DepthStencilSurface);
     ComCall<kSlotRelease, ULONG>(D3D9DepthStencilSurface);
     bool ok = false;
-    if (((RwBool(__cdecl *)(void))0x4CC970)() != 0 && _rwD3D9DynamicVertexBufferRestore() != 0) {
-        ((void(__cdecl *)(void))0x7FD100)();
+    if (D3D9RasterFormat::VideoMemoryRasterListRestore() != 0 && _rwD3D9DynamicVertexBufferRestore() != 0) {
+        _rwD3D9RenderStateReset();
         bool lightsOk = true;
         if (D3D9LightCount > 0) {
             int32 index = 0;
@@ -6577,7 +6582,7 @@ bool D3D9RestoreAfterReset() {
             } while (index < D3D9LightCount);
             lightsOk = last >= 0;
         }
-        if (lightsOk && ((RwBool(__cdecl *)(void))0x7FB480)() != 0 && _rwD3D9Im3DRenderOpen() != 0) {
+        if (lightsOk && _rwD3D9Im2DRenderOpen() != 0 && _rwD3D9Im3DRenderOpen() != 0) {
             ok = true;
         }
     }
@@ -6828,7 +6833,7 @@ RwBool _rwD3D9DeviceSystemStop(void* /*out*/, void* /*inOut*/, RwInt32 /*in*/) {
     D3D9ExtraRecordUnused = 0;
     ((void(__cdecl *)(void))0x4CC170)();
     _rwD3D9VertexBufferManagerClose();
-    ((void(__cdecl *)(void))0x7FB5F0)();
+    _rwD3D9Im2DRenderClose();
     ComCall<kSlotRelease, ULONG>(D3D9Device);
     D3D9Device = nullptr;
     return TRUE;
@@ -6958,7 +6963,7 @@ RwBool _rwD3D9DeviceReleaseVideoMemory() {
         CurrentDepthStencilSurface = depthSurface;
         ComCall<kSlotSetDepthStencilSurface, HRESULT>(device, depthSurface);
     }
-    ((void(__cdecl *)(void))0x7FB5F0)();
+    _rwD3D9Im2DRenderClose();
     _rwD3D9Im3DRenderClose();
     _rwD3D9DynamicVertexBufferRelease();
     ((void(__cdecl *)(void))0x4CB640)();
@@ -7182,6 +7187,335 @@ RwBool RwD3D9CameraAttachWindow(void* cameraPointer, void* windowPointer) {
     return TRUE;
 }
 
+// --- 0x7F5F70: `D3D9System` (despachador del sistema del dispositivo D3D9; lote D3D9DEV, sin validar). Reemplaza la funcion completa del EXE (23 peticiones, 0x7F5F70..0x7F6A1B con la tabla de saltos en 0x7F6A1C) y
+// elimina el parche `naked` de WindowedMode.cpp que vivia en 0x7F6781 (la llamada a IDirect3D9::CreateDevice de la peticion START). La unica copia de la tabla de funciones del dispositivo (0x8E2498, RwDevice) sigue apuntando
+// a 0x7F5F70, que ahora salta a esta funcion. Los llamadores son solo ese puntero (RwEngineInit -> _rwDeviceSystemRequest, 0x7F2AB0).
+namespace {
+constexpr size_t kSlotSysD3DGetAdapterCount        = 4;   // IDirect3D9::GetAdapterCount (+0x10)
+constexpr size_t kSlotSysD3DGetAdapterIdentifier   = 5;   // +0x14
+constexpr size_t kSlotSysD3DGetDeviceCaps          = 14;  // +0x38
+constexpr size_t kSlotSysD3DCreateDevice           = 16;  // +0x40
+constexpr size_t kSlotSysDeviceGetAvailableTexMem  = 4;   // IDirect3DDevice9::GetAvailableTextureMem (+0x10)
+
+// Peticiones de RwDeviceSystemRequest (rwcore.h, rwDEVICESYSTEM*).
+enum D3D9SystemRequest : RwInt32 {
+    kRequestOpen = 0, kRequestClose = 1, kRequestStart = 2, kRequestStop = 3, kRequestRegister = 4, kRequestGetNumModes = 5, kRequestGetModeInfo = 6,
+    kRequestUseMode = 7, kRequestFocus = 8, kRequestInitPipeline = 9, kRequestGetMode = 10, kRequestStandards = 11, kRequestGetTexMemSize = 12,
+    kRequestGetNumSubSystems = 13, kRequestGetSubSystemInfo = 14, kRequestGetCurrentSubSystem = 15, kRequestSetSubSystem = 16, kRequestFinalizeStart = 17,
+    kRequestInitiateStop = 18, kRequestGetMaxTextureSize = 19, kRequestUnused20 = 20, kRequestUnused21 = 21, kRequestGetD3DVersionWord = 22,
+};
+
+// RwVideoMode (rwcore.h): ancho, alto, profundidad, banderas, frecuencia y formato de raster (0x18 bytes).
+struct D3D9RwVideoModeLayout {
+    int32 width, height, depth, flags, refRate, format;
+};
+static_assert(sizeof(D3D9RwVideoModeLayout) == 0x18);
+
+// Formato de raster de RenderWare para un D3DFORMAT (tablas 0x7F6AC8 + 0x7F6AB0): A8R8G8B8 y A2B10G10R10 -> 0x500, X8R8G8B8 -> 0x600, R5G6B5 -> 0x200, X1R5G5B5 -> 0xA00, A1R5G5B5 -> 0x100, el resto 0.
+RwInt32 D3D9RasterFormatOfD3DFormat(uint32 format) {
+    switch (format) {
+    case 0x15: case 0x23: return 0x500;
+    case 0x16:            return 0x600;
+    case 0x17:            return 0x200;
+    case 0x18:            return 0xA00;
+    case 0x19:            return 0x100;
+    default:              return 0;
+    }
+}
+
+// Suma de los modos de pantalla de los tres formatos que consulta el EXE (tabla 0x884788: R5G6B5, X8R8G8B8, A2B10G10R10) en el adaptador actual -> 0xC9BEE0.
+void D3D9CountAdapterModes() {
+    static constexpr uint32 kFormats[3] = { 0x17, 0x16, 0x23 };
+    D3D9AdapterModeCount = 0;
+    for (const uint32 format : kFormats) {
+        D3D9AdapterModeCount += ComCall<kSlotD3DGetAdapterModeCount, uint32>(D3D9DirectObject, D3D9AdapterIndex, format);
+    }
+}
+
+// Modo del escritorio del adaptador actual (GetAdapterDisplayMode) -> modo actual (0xC9BEE4).
+void D3D9ReadDesktopMode() {
+    ComCall<kSlotD3DGetAdapterDisplayMode, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, &D3D9CurrentMode);
+}
+
+auto& D3D9SysAdapterCaps  = StaticRef<D3DCAPS9>(0xC9BF00);
+auto& D3D9SysSoftwareVP   = StaticRef<int32>(0xC97C50);   // != 0: fuerza el procesado de vertices por software
+auto& D3D9SysMultithread  = StaticRef<int32>(0xC97C4C);   // != 0: D3DCREATE_MULTITHREADED
+auto& D3D9SysDesktopW     = StaticRef<uint32>(0xC97BC8);  // copia del modo del escritorio al abrir (ancho, alto, frecuencia)
+auto& D3D9SysDesktopH     = StaticRef<uint32>(0xC97BCC);
+auto& D3D9SysDesktopHz    = StaticRef<uint32>(0xC97BD0);
+auto& D3D9SysMMX          = StaticRef<int32>(0xC980A0);   // resultados de la deteccion de CPU (MMX, SSE, SSE2, 3DNow!)
+auto& D3D9SysSSE          = StaticRef<int32>(0xC980A4);
+auto& D3D9SysSSE2         = StaticRef<int32>(0xC980A8);
+auto& D3D9Sys3DNow        = StaticRef<int32>(0xC980AC);
+} // namespace
+
+RwInt32 _rwD3D9CPUDetectMMX();
+RwInt32 _rwD3D9CPUDetectSSE();
+RwInt32 _rwD3D9CPUDetectSSE2();
+RwInt32 _rwD3D9CPUDetect3DNow();
+void _rwD3D9RenderStateOpen();
+RwBool _rwD3D9Im2DRenderOpen();
+RwBool _rwMatrixSetMultFn(rwMatrixMultFn multMat);
+RwBool _rwVectorSetMultFn(rwVectorMultFn multPoint, rwVectorsMultFn multPoints, rwVectorMultFn multVector, rwVectorsMultFn multVectors);
+
+// 0x7F5F70 (lote D3D9DEV, sin validar; cdecl, (peticion, salida, inOut, entrada) -> RwBool; `D3D9System` del SDK, nombre inferido). Sustituye a la funcion entera del EXE; cada peticion repite sus llamadas COM en el
+// mismo orden. Peticiones (los valores 9, 18, 20 y 21 y las fuera de 0..22 devuelven FALSE; el EXE salta a un epilogo comun con EAX = 0):
+//  0 OPEN: ventana = *(HWND*)inOut; Direct3DCreate9(31) (0xC97C20; NULL -> FALSE); nombre del adaptador = "D3D9" (0x8E2510) con rwstrcpy en 0xC9BCE0; busca desde el adaptador 0 el primero cuyo GetDeviceCaps (tipo 1,
+//    caps en 0xC9BF00) sea >= 0 (si no hay: Release, 0xC97C20 = NULL y FALSE); suma los modos de los 3 formatos (0xC9BEE0), toma el modo del escritorio (0xC9BEE4), profundidad (0xC9BEF4), bandera de pantalla completa (0xC9BEF8) = 0,
+//    copia el modo a 0xC97BC8..0xC97BD4 (ancho, alto, frecuencia, formato), modo actual (0xC97C18) = 0, _rwD3D9FindMSLevels y las deteccion de MMX/SSE/SSE2/3DNow! (0xC980A0..0xC980AC). TRUE.
+//  1 CLOSE: libera la tabla de modos (0xC97C48 y 0xC97C40 = 0) y el IDirect3D9 (0xC97C20 = NULL). TRUE.
+//  2 START: GetAdapterDisplayMode (local), D3DPRESENT_PARAMETERS (0xC9C040) a 0, _rwD3D9SetPresentParameters(0xC9BEE4, bandera 0xC9BEF8, formato del adaptador), hDeviceWindow = ventana, Flags = 0, GetDeviceCaps de nuevo,
+//    banderas de comportamiento (MULTITHREADED si 0xC97C4C; con 0xC97C50: SOFTWARE_VP, DevCaps &= ~HWTRANSFORMANDLIGHT y DeclTypes = 0; si no HARDWARE_VP | PUREDEVICE si hay T&L y PUREDEVICE, HARDWARE_VP si solo
+//    T&L, SOFTWARE_VP si ninguno) y CreateDevice. NOTSA: antes de CreateDevice se ajustan los parametros al modo ventana y, tras un CreateDevice correcto, se instala el proxy del dispositivo (WindowedMode.cpp); un
+//    fallo cierra el proceso (exit(10), como el parche anterior). Sin NOTSA_WINDOWED_MODE un fallo pone 0xC97C38 = 0 y devuelve FALSE. Con exito: modo del cliente de la ventana (GetClientRect -> 0xC9BEE4/8), render target 0
+//    y superficie de profundidad (se anotan y se liberan), tabla de render targets 0xC9808C..0xC9809C = 0, cache de estado y de matrices, libera las luces (0xC98088; 0xC98084 = 0), lista de rasters (0x4CC150),
+//    _rwD3D9Im2DRenderOpen, _rwD3D9RenderStateOpen y gestor de buferes de vertices; 0xC97C38 = 1. TRUE.
+//  3 STOP / 11 STANDARDS: _rwD3D9DeviceSystemStop / _rwD3D9DeviceSystemStandards (salida, inOut, entrada).
+//  4 REGISTER: copia los 0x38 bytes de RwDevice (0x8E2498) en `salida` y 0xC9BCC4 = inOut. TRUE.
+//  5 GETNUMMODES / 6 GETMODEINFO: enumeran los modos si la tabla no existe (0x7F7540); el segundo rellena el RwVideoMode (ancho, alto, profundidad, banderas, frecuencia, formato de raster) o devuelve FALSE si el indice
+//    (con signo) esta fuera de rango. 7 USEMODE: FALSE si 0xC97C38 != 0 o el indice no es valido; si no copia el modo a 0xC9BEE4.., profundidad y bandera (0xC9BEF8), _rwD3D9FindMSLevels y TRUE.
+//  8 FOCUS: sin dispositivo FALSE; con Present.Windowed != 0 TRUE sin mas; si no ShowWindow(ventana, entrada ? SW_RESTORE : SW_HIDE). TRUE.
+//  10 GETMODE: *salida = 0xC97C18. 12 GETTEXMEMSIZE: GetAvailableTextureMem. 13 GETNUMSUBSYSTEMS: GetAdapterCount. 14 GETSUBSYSTEMINFO: GetAdapterIdentifier(entrada) y rwstrcpy de la descripcion.
+//  15 GETCURRENTSUBSYSTEM: *salida = adaptador (0xC97C24). 16 SETSUBSYSTEM: adaptador = entrada, recuenta modos, modo del escritorio, 0x7F7540 y _rwD3D9FindMSLevels (siempre TRUE).
+//  17 FINALIZESTART: fija la palabra de control x87 (0x857404 del EXE: guarda la anterior en 0xCAF004 para 0x85742B), con SSE pone FZ en MXCSR, _rwMatrixSetMultFn(0x8572A0) y _rwVectorSetMultFn con el juego de
+//    callbacks que toca (sin SSE: 0x8570EF/0x857000/0x857160/0x85707F; SSE2 sin 3DNow!: 0x80D570/0x80D440/0x80D600/0x80D4E0; resto: 0x80D280/0x80D070/0x80D370/0x80D180). TRUE.
+//  19 GETMAXTEXTURESIZE: *salida = max (sin signo) de MaxTextureWidth/Height (0xC9BF58/0xC9BF5C). 22: *(uint16*)salida = 2. TRUE.
+RwBool _rwD3D9System(RwInt32 request, void* out, void* inOut, RwInt32 in) {
+    switch (request) {
+    case kRequestOpen: {
+        D3D9MainWindow = *static_cast<void**>(inOut);
+        D3D9DirectObject = Direct3DCreate9(31);
+        if (D3D9DirectObject == nullptr) {
+            return FALSE;
+        }
+        rwstrcpy(reinterpret_cast<RwChar*>(0xC9BCE0), reinterpret_cast<const RwChar*>(0x8E2510));
+        const uint32 adapterCount = ComCall<kSlotSysD3DGetAdapterCount, uint32>(D3D9DirectObject);
+        D3D9AdapterIndex = 0;
+        D3D9DeviceType = 1;
+        bool found = false;
+        if (adapterCount != 0) {
+            do {
+                const HRESULT result = ComCall<kSlotSysD3DGetDeviceCaps, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, &D3D9SysAdapterCaps);
+                if (result >= 0) {
+                    found = D3D9AdapterIndex < adapterCount;
+                    break;
+                }
+                ++D3D9AdapterIndex;
+            } while (D3D9AdapterIndex < adapterCount);
+        }
+        if (!found) {
+            ComCall<kSlotRelease, ULONG>(D3D9DirectObject);
+            D3D9DirectObject = nullptr;
+            return FALSE;
+        }
+        D3D9CountAdapterModes();
+        D3D9ReadDesktopMode();
+        D3D9CurrentModeDepth = D3D9FindDepth(D3D9AdapterFormat);
+        D3D9FullScreenFlag = 0;
+        const uint32 desktopFormat = D3D9AdapterFormat;
+        D3D9SysDesktopW = D3D9CurrentMode.width;
+        D3D9SysDesktopH = D3D9CurrentMode.height;
+        D3D9SysDesktopHz = D3D9CurrentMode.refreshRate;
+        D3D9BaseAdapterFormat = desktopFormat;
+        D3D9CurrentVideoMode = 0;
+        _rwD3D9FindMSLevels();
+        D3D9SysMMX = _rwD3D9CPUDetectMMX();
+        D3D9SysSSE = _rwD3D9CPUDetectSSE();
+        D3D9SysSSE2 = _rwD3D9CPUDetectSSE2();
+        D3D9Sys3DNow = _rwD3D9CPUDetect3DNow();
+        return TRUE;
+    }
+    case kRequestClose:
+        if (D3D9VideoModes != nullptr) {
+            RwFree(D3D9VideoModes);
+            D3D9VideoModes = nullptr;
+            D3D9VideoModeCount = 0;
+        }
+        if (D3D9DirectObject != nullptr) {
+            ComCall<kSlotRelease, ULONG>(D3D9DirectObject);
+            D3D9DirectObject = nullptr;
+        }
+        return TRUE;
+    case kRequestStart: {
+        D3DDISPLAYMODE adapterMode;
+        ComCall<kSlotD3DGetAdapterDisplayMode, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, &adapterMode);
+        memset(&D3D9Present, 0, sizeof(D3D9Present));
+        _rwD3D9SetPresentParameters(&D3D9CurrentMode, static_cast<RwUInt32>(D3D9FullScreenFlag), static_cast<RwUInt32>(adapterMode.Format));
+        D3D9Present.deviceWindow = D3D9MainWindow;
+        D3D9Present.flags = 0;
+        ComCall<kSlotSysD3DGetDeviceCaps, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, &D3D9SysAdapterCaps);
+        uint32 behavior = (D3D9SysMultithread != 0) ? D3DCREATE_MULTITHREADED : 0u;
+        if (D3D9SysSoftwareVP != 0) {
+            behavior |= D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+            D3D9SysAdapterCaps.DevCaps &= ~D3DDEVCAPS_HWTRANSFORMANDLIGHT;
+            D3D9SysAdapterCaps.DeclTypes = 0;
+        } else if (D3D9SysAdapterCaps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT) {
+            behavior |= (D3D9SysAdapterCaps.DevCaps & D3DDEVCAPS_PUREDEVICE)
+                ? (D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_PUREDEVICE)
+                : D3DCREATE_HARDWARE_VERTEXPROCESSING;
+        } else {
+            behavior |= D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+        }
+#ifdef NOTSA_WINDOWED_MODE
+        notsa::WindowedMode::BeforeCreateDevice();
+#endif
+        const HRESULT created = ComCall<kSlotSysD3DCreateDevice, HRESULT>(D3D9DirectObject, D3D9AdapterIndex, D3D9DeviceType, D3D9MainWindow, behavior, &D3D9Present, &D3D9Device);
+#ifdef NOTSA_WINDOWED_MODE
+        if (FAILED(created)) {
+            NOTSA_LOG_ERR("CreateDevice falló, saliendo...");
+            Sleep(10);
+            exit(10);
+        }
+        notsa::WindowedMode::AfterCreateDevice();
+#else
+        if (created < 0) {
+            D3D9ModesReady = 0;
+            return FALSE;
+        }
+#endif
+        if (D3D9MainWindow != nullptr) {
+            RECT client;
+            GetClientRect(static_cast<HWND>(D3D9MainWindow), &client);
+            D3D9CurrentMode.width = static_cast<uint32>(client.right);
+            D3D9CurrentMode.height = static_cast<uint32>(client.bottom);
+        }
+        ComCall<kSlotDeviceGetRenderTarget, HRESULT>(D3D9Device, 0u, &D3D9RenderSurface);
+        ComCall<kSlotRelease, ULONG>(D3D9RenderSurface);
+        ComCall<kSlotDeviceGetDepthStencilSurface, HRESULT>(D3D9Device, &D3D9DepthStencilSurface);
+        ComCall<kSlotRelease, ULONG>(D3D9DepthStencilSurface);
+        CurrentDepthStencilSurface = nullptr;
+        for (void*& target : D3D9CurrentRenderTargets) {
+            target = nullptr;
+        }
+        _rwD3D9StateCacheReset();
+        _rwD3D9TransformCacheReset();
+        D3D9LightEntry* const lights = D3D9LightCache;
+        D3D9LightCount = 0;
+        if (lights != nullptr) {
+            RwFree(lights);
+            D3D9LightCache = nullptr;
+        }
+        ((void(__cdecl*)(void))0x4CC150)();
+        _rwD3D9Im2DRenderOpen();
+        _rwD3D9RenderStateOpen();
+        _rwD3D9VertexBufferManagerOpen();
+        D3D9ModesReady = 1;
+        return TRUE;
+    }
+    case kRequestStop:
+        return _rwD3D9DeviceSystemStop(out, inOut, in);
+    case kRequestRegister:
+        memcpy(out, reinterpret_cast<const void*>(0x8E2498), 0x38);
+        StaticRef<void*>(0xC9BCC4) = inOut;
+        return TRUE;
+    case kRequestGetNumModes:
+        if (D3D9VideoModes == nullptr) {
+            _rwD3D9EnumerateDisplayModes();
+        }
+        *static_cast<int32*>(out) = D3D9VideoModeCount;
+        return TRUE;
+    case kRequestGetModeInfo: {
+        if (D3D9VideoModes == nullptr) {
+            _rwD3D9EnumerateDisplayModes();
+        }
+        if (in < 0 || in >= D3D9VideoModeCount) {
+            return FALSE;
+        }
+        const D3D9VideoModeLayout& entry = D3D9VideoModes[in];
+        D3D9RwVideoModeLayout* const mode = static_cast<D3D9RwVideoModeLayout*>(out);
+        mode->width = entry.mode.width;
+        mode->height = entry.mode.height;
+        mode->depth = static_cast<int32>(D3D9FindDepth(entry.mode.format));
+        mode->flags = entry.flags;
+        mode->refRate = entry.mode.refreshRate;
+        mode->format = D3D9RasterFormatOfD3DFormat(entry.mode.format);
+        return TRUE;
+    }
+    case kRequestUseMode: {
+        if (D3D9ModesReady != 0) {
+            return FALSE;
+        }
+        if (in < 0 || in >= D3D9VideoModeCount) {
+            return FALSE;
+        }
+        D3D9CurrentVideoMode = in;
+        const D3D9VideoModeLayout& entry = D3D9VideoModes[in];
+        D3D9CurrentMode.width = entry.mode.width;
+        D3D9CurrentMode.height = entry.mode.height;
+        D3D9CurrentMode.refreshRate = entry.mode.refreshRate;
+        D3D9CurrentMode.format = entry.mode.format;
+        D3D9FullScreenFlag = static_cast<uint32>(entry.flags);
+        D3D9CurrentModeDepth = D3D9FindDepth(entry.mode.format);
+        _rwD3D9FindMSLevels();
+        return TRUE;
+    }
+    case kRequestFocus:
+        if (D3D9Device == nullptr) {
+            return FALSE;
+        }
+        if (D3D9Present.windowed == 0) {
+            ShowWindow(static_cast<HWND>(D3D9MainWindow), in != 0 ? SW_RESTORE : SW_HIDE);
+        }
+        return TRUE;
+    case kRequestGetMode:
+        *static_cast<int32*>(out) = D3D9CurrentVideoMode;
+        return TRUE;
+    case kRequestStandards:
+        return _rwD3D9DeviceSystemStandards(out, inOut, in);
+    case kRequestGetTexMemSize:
+        *static_cast<uint32*>(out) = ComCall<kSlotSysDeviceGetAvailableTexMem, uint32>(D3D9Device);
+        return TRUE;
+    case kRequestGetNumSubSystems:
+        *static_cast<uint32*>(out) = ComCall<kSlotSysD3DGetAdapterCount, uint32>(D3D9DirectObject);
+        return TRUE;
+    case kRequestGetSubSystemInfo: {
+        D3DADAPTER_IDENTIFIER9 identifier;
+        ComCall<kSlotSysD3DGetAdapterIdentifier, HRESULT>(D3D9DirectObject, static_cast<uint32>(in), 0u, &identifier);
+        rwstrcpy(static_cast<RwChar*>(out), identifier.Description);
+        return TRUE;
+    }
+    case kRequestGetCurrentSubSystem:
+        *static_cast<uint32*>(out) = D3D9AdapterIndex;
+        return TRUE;
+    case kRequestSetSubSystem:
+        D3D9AdapterIndex = static_cast<uint32>(in);
+        D3D9CountAdapterModes();
+        D3D9ReadDesktopMode();
+        _rwD3D9EnumerateDisplayModes();
+        _rwD3D9FindMSLevels();
+        return TRUE;
+    case kRequestFinalizeStart: {
+        ((void(__cdecl*)(void))0x857404)();
+        if (D3D9SysSSE != 0) {
+            _mm_setcsr(_mm_getcsr() | 0x8000u);
+        }
+        _rwMatrixSetMultFn(reinterpret_cast<rwMatrixMultFn>(0x8572A0));
+        if (D3D9SysSSE == 0) {
+            _rwVectorSetMultFn(reinterpret_cast<rwVectorMultFn>(0x8570EF), reinterpret_cast<rwVectorsMultFn>(0x857000),
+                               reinterpret_cast<rwVectorMultFn>(0x857160), reinterpret_cast<rwVectorsMultFn>(0x85707F));
+        } else if (D3D9SysSSE2 != 0 && D3D9Sys3DNow == 0) {
+            _rwVectorSetMultFn(reinterpret_cast<rwVectorMultFn>(0x80D570), reinterpret_cast<rwVectorsMultFn>(0x80D440),
+                               reinterpret_cast<rwVectorMultFn>(0x80D600), reinterpret_cast<rwVectorsMultFn>(0x80D4E0));
+        } else {
+            _rwVectorSetMultFn(reinterpret_cast<rwVectorMultFn>(0x80D280), reinterpret_cast<rwVectorsMultFn>(0x80D070),
+                               reinterpret_cast<rwVectorMultFn>(0x80D370), reinterpret_cast<rwVectorsMultFn>(0x80D180));
+        }
+        return TRUE;
+    }
+    case kRequestGetMaxTextureSize: {
+        const uint32 width = StaticRef<uint32>(0xC9BF58);
+        const uint32 height = StaticRef<uint32>(0xC9BF5C);
+        *static_cast<uint32*>(out) = (width >= height) ? width : height;
+        return TRUE;
+    }
+    case kRequestGetD3DVersionWord:
+        *static_cast<uint16*>(out) = 2;
+        return TRUE;
+    default: // 9, 18, 20, 21 y fuera de rango
+        return FALSE;
+    }
+}
+
 // Lote R26A (sin validar): controlador D3D9 de RenderWare: multimuestreo (0x7F84E0, 0x7F84F0, 0x7F8A90), frecuencia (0x7F8580), parametros de presentacion (0x7F6CB0), parada del sistema (0x7F7100), estandares (0x7F72E0),
 // modos de video (0x7F7540), liberacion y restauracion del dispositivo (0x7F7F70, 0x7F8300), cambio de modo (0x7F8640) y camara con ventana (0x7F8D70).
 void RwD3D9InjectHooksR26A() {
@@ -7189,6 +7523,7 @@ void RwD3D9InjectHooksR26A() {
     RH_ScopedNamespaceName("RwD3D9");
 
     RH_ScopedGlobalInstall(_rwD3D9SetPresentParameters, 0x7F6CB0);
+    RH_ScopedGlobalInstall(_rwD3D9System, 0x7F5F70);
     RH_ScopedGlobalInstall(_rwD3D9DeviceSystemStop, 0x7F7100);
     RH_ScopedGlobalInstall(_rwD3D9DeviceSystemStandards, 0x7F72E0);
     RH_ScopedGlobalInstall(_rwD3D9EnumerateDisplayModes, 0x7F7540);
@@ -7671,11 +8006,12 @@ RwRaster* RwRasterUnlock(RwRaster* raster) {
     return raster;
 }
 
-// 0x7FAF50 (lote R28A, sin validar; 53 bytes; era una envoltura; cdecl, (raster, x, y); `RwRasterRenderFast` del SDK): stdFunc[rwSTANDARDRASTERRENDERFAST] (+0x94) con (&{x, y}, raster, 0); devuelve el raster
-// (el resultado de la funcion estandar se ignora). El EXE reserva 16 bytes de local y solo escribe x e y.
+// 0x7FAF50 (lote R28A, sin validar; 53 bytes; era una envoltura; cdecl, (raster, x, y); `RwRasterRenderFast` del SDK): stdFunc[rwSTANDARDRASTERRENDERFAST] (+0x94) con (raster, &{x, y}, 0); devuelve el raster
+// (el resultado de la funcion estandar se ignora). El EXE reserva 16 bytes de local y solo escribe x e y. Orden de los argumentos como en el EXE (push 0, push &{x, y}, push raster): igual que RwRasterRender (0x7FAFB0);
+// el lote R28A los habia puesto al reves ((&{x, y}, raster, 0)) y los efectos que copian el fotograma (agua, calima, CCTV) dibujaban la pantalla en negro.
 RwRaster* RwRasterRenderFast(RwRaster* raster, RwInt32 x, RwInt32 y) {
     RwInt32 position[2] = { x, y };
-    RwEngineInstance->stdFunc[rwSTANDARDRASTERRENDERFAST](position, raster, 0);
+    RwEngineInstance->stdFunc[rwSTANDARDRASTERRENDERFAST](raster, position, 0);
     return raster;
 }
 
@@ -13724,7 +14060,7 @@ void RwCoreInjectHooksS22A() {
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // Lotes S32A y S33A (sin validar): estado del controlador D3D9 (motor, dispositivo, luces, FVF, dibujo con datos de usuario) y conversores de pixel de 0x7FFBE0..0x7FFEC0. Todas eran direcciones del EXE llamadas
 // por puntero (envolturas) o guardadas como puntero de funcion (la tabla de _rwD3D9DeviceSystemStandards y el selector de _rwD3D9RasterToImageGeneric); ahora las llamadas van a C++ y cada direccion queda enganchada.
-// 0x7F6786 (S33A): no es una funcion sino el interior de la creacion del dispositivo (retorno del parche `naked` de WindowedMode.cpp); no se reconstruye aqui (ver reversing/FnS30A33A/README.md).
+// 0x7F6786 (S33A): no es una funcion sino el interior de la peticion START de la funcion 0x7F5F70 (antes retorno del parche `naked` de WindowedMode.cpp); resuelto al reconstruir 0x7F5F70 entera (`_rwD3D9System`, lote D3D9DEV; ver reversing/FnD3D9Device/README.md).
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 namespace {
 constexpr size_t kSlotDeviceSetFVF                    = 89;  // IDirect3DDevice9::SetFVF (+0x164)

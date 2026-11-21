@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "game_sa/Crt/CrtFile.h"
 
 #include "MenuManager.h"
@@ -622,7 +623,7 @@ void CMenuManager::SetDefaultPreferences(eMenuScreen screen) {
 
 // 0x573E70
 uint32 CMenuManager::GetNumberOfMenuOptions() {
-    static auto& s_PrevScreen = StaticRef<int32>(0x8CDFF0);
+    static auto& s_PrevScreen = DatosExe::Data::v8CDFF0;
 
     if (m_nCurrentScreen == SCREEN_MAP || m_nCurrentScreen == SCREEN_BRIEF) {
         return 2;

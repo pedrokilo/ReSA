@@ -203,7 +203,7 @@ CTask* CTaskComplexWaitForPed::ControlSubTaskBody(CPed* ped) {
     const float*   fromPos;
     if (auto* const alongside = m_ped->GetIntelligence()->FindTaskByType(TASK_COMPLEX_WALK_ALONGSIDE_PED)) {
         const CVector local = *reinterpret_cast<const CVector*>(reinterpret_cast<const uint8*>(alongside) + 0x14);
-        plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&world, ped->m_matrix, &local);
+        MatrixTimesPointExe(&world, ped->m_matrix, &local);
         fromPos = &world.x;
     } else {
         fromPos = &ped->GetPosition().x;

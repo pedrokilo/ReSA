@@ -41,6 +41,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "X87Math.h"
 
 #include "VehicleModelInfo.h"
@@ -54,8 +55,8 @@ auto& carFrame = StaticRef<RwFrame*>(0xB4E6B8);
 auto& gLightSurfProps = StaticRef<RwSurfaceProperties>(0x8A645C);
 auto& gRestoreEntries = StaticRef<tRestoreEntry[NUM_RESTORE_ENTRIES]>(0xB4DBE8);
 auto& gpWhiteTexture = StaticRef<RwTexture*>(0xB4E3EC);
-auto& fEnvMapDefaultCoeff = StaticRef<float>(0x8A7780);
-auto& fRearDoubleWheelOffsetFactor = StaticRef<float>(0x8A7784);
+auto& fEnvMapDefaultCoeff = DatosExe::Data::v8A7780;
+auto& fRearDoubleWheelOffsetFactor = DatosExe::Data::v8A7784;
 
 // 0x4C5920 (lote 143A, banco Fn143A): cuerpo del destructor de CVehicleModelInfo del EXE (thiscall, sin argumentos, `ret`, 7 bytes: `mov dword [ecx],0x85BB9C`): el EXE expande en linea los destructores de las
 // clases intermedias y solo deja la vtable de CBaseModelInfo; no toca nada mas. Lo pasan a los iteradores de vectores del almacen de vehiculos (CStore de 212 elementos de 0x308 bytes, 0x4C5F51 y 0x4C6375).

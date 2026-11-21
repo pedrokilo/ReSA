@@ -17,12 +17,13 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 
 #include "TaskSimpleAbseil.h"
 
 namespace {
 // Cadena "Abseil" del EXE (0x86F484): el constructor de CTaskSimpleRunAnim la ignora, pero el EXE empuja esta direccion
-const char* const kExeAbseilName = reinterpret_cast<const char*>(0x86F484);
+const char* const kExeAbseilName = DatosExe::Rdata::kS86F484;
 
 // 0x659E00 (lote 193A, sin validar; el listado decia CTaskComplexUseWaterCannon: es el cuerpo del destructor de CTaskSimpleAbseil, ranura 0 de la vtable 0x86F45C; thiscall, sin argumentos de pila, 5 bytes: `jmp 0x61A6F0`): no escribe
 // ninguna vtable ni toca campos; sigue con el cuerpo de ~CTaskSimpleAnim (0x61A6F0, con hook; deja la vtable 0x86D504, suelta la animacion y termina en CTask::Destructor). Funcion propia sin expansion en linea.
