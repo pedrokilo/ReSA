@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: RpUVAnim
- * Reconstrucción: COMPLETA — 16/16 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 42/42 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 2/16 entradas.
+ * Validación registrada: 2/42 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -26,6 +26,14 @@ END GENERATED HOOK STATUS */
 RwStream* _rpUVAnimMaterialStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);
 RpUVAnimMaterialExtension* _rpUVAnimMaterialUpdateMatrices(RpUVAnimMaterialExtension* extension);
 RpUVAnim* _rpUVAnimDefaultAnimCreate(const RwChar* name);
+// Callbacks del plugin 0x135 y de los esquemas de interpolacion (lotes S8A y S9A; cdecl). Se registran por su direccion propia y llevan hook en la direccion del EXE.
+static void*     RpUVAnimEngineConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                          // 0x7CB9B0
+static void*     RpUVAnimEngineDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                           // 0x7CBA20
+static void*     RpUVAnimMaterialConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                        // 0x7CBA80
+static void*     RpUVAnimMaterialDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                         // 0x7CBAA0
+static void*     RpUVAnimMaterialCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject);     // 0x7CBB30
+static RwStream* RpUVAnimMaterialStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x7CBC20
+static RwInt32   RpUVAnimMaterialStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                // 0x7CBF20
 
 void RpUVAnimInjectHooks() {
     RH_ScopedNamespaceName("RpUVAnim");
@@ -48,6 +56,33 @@ void RpUVAnimInjectHooks() {
     RH_ScopedGlobalInstall(RpMaterialUVAnimExists, 0x7CC530);
     RH_ScopedGlobalInstall(RpUVAnimParamKeyFrameDataInitFromMatrix, 0x7CC760);
     RH_ScopedGlobalInstall(RpUVAnimKeyFrameInit, 0x7CC810);
+    // Lotes S8A y S9A (sin validar)
+    RH_ScopedGlobalInstall(RpUVAnimEngineConstructor, 0x7CB9B0);
+    RH_ScopedGlobalInstall(RpUVAnimEngineDestructor, 0x7CBA20);
+    RH_ScopedGlobalInstall(RpUVAnimMaterialConstructor, 0x7CBA80);
+    RH_ScopedGlobalInstall(RpUVAnimMaterialDestructor, 0x7CBAA0);
+    RH_ScopedGlobalInstall(RpUVAnimMaterialCopy, 0x7CBB30);
+    RH_ScopedGlobalInstall(RpUVAnimMaterialStreamRead, 0x7CBC20);
+    RH_ScopedGlobalInstall(RpUVAnimMaterialStreamGetSize, 0x7CBF20);
+    RH_ScopedGlobalInstall(RpUVAnimCreate, 0x7CC020);
+    RH_ScopedGlobalInstall(RpUVAnimAddRef, 0x7CC100);
+    RH_ScopedGlobalInstall(RpUVAnimGetName, 0x7CC3A0);
+    RH_ScopedGlobalInstall(RpMaterialUVAnimGetInterpolator, 0x7CC430);
+    RH_ScopedGlobalInstall(RpMaterialUVAnimSetInterpolator, 0x7CC450);
+    RH_ScopedGlobalInstall(RpMaterialUVAnimSetCurrentTime, 0x7CC470);
+    RH_ScopedGlobalInstall(RpMaterialUVAnimSubAnimTime, 0x7CC4F0);
+    RH_ScopedGlobalInstall(RpUVAnimParamKeyFrameApply, 0x7CC560);
+    RH_ScopedGlobalInstall(RpUVAnimParamKeyFrameInterpolate, 0x7CC600);
+    RH_ScopedGlobalInstall(RpUVAnimParamKeyFrameBlend, 0x7CC6A0);
+    RH_ScopedGlobalInstall(RpUVAnimParamKeyFrameMulRecip, 0x7CC740);
+    RH_ScopedGlobalInstall(RpUVAnimParamKeyFrameAdd, 0x7CC750);
+    RH_ScopedGlobalInstall(RpUVAnimKeyFrameStreamRead, 0x7CC870);
+    RH_ScopedGlobalInstall(RpUVAnimKeyFrameStreamWrite, 0x7CC920);
+    RH_ScopedGlobalInstall(RpUVAnimLinearKeyFrameApply, 0x7CC9F0);
+    RH_ScopedGlobalInstall(RpUVAnimLinearKeyFrameInterpolate, 0x7CCA40);
+    RH_ScopedGlobalInstall(RpUVAnimLinearKeyFrameBlend, 0x7CCAC0);
+    RH_ScopedGlobalInstall(RpUVAnimLinearKeyFrameMulRecip, 0x7CCB30);
+    RH_ScopedGlobalInstall(RpUVAnimLinearKeyFrameAdd, 0x7CCBE0);
 }
 
 static_assert(offsetof(RwMatrix, up) == 0x10 && offsetof(RwMatrix, pos) == 0x30 && sizeof(RpUVAnimLinearKeyFrameData) == 0x18);
@@ -79,16 +114,6 @@ RpUVAnimMaterialExtension* MaterialExt(const void* material) {
     return reinterpret_cast<RpUVAnimMaterialExtension*>(const_cast<RwUInt8*>(static_cast<const RwUInt8*>(material)) + UVAnimMaterialOffset());
 }
 
-// Funciones del EXE (por direccion fija) que quedan fuera del lote: constructores, destructores y copia de los plugins, lectura y tamano del flujo del material y callbacks de aplicacion de fotogramas.
-constexpr uintptr_t kEngineCtor   = 0x7CB9B0; // constructor del plugin de motor (crea la lista libre y registra los dos esquemas de interpolacion)
-constexpr uintptr_t kEngineDtor   = 0x7CBA20;
-constexpr uintptr_t kMaterialCtor = 0x7CBA80; // pone a cero 10 dwords en la extension
-constexpr uintptr_t kMaterialDtor = 0x7CBAA0;
-constexpr uintptr_t kMaterialCopy = 0x7CBB30;
-constexpr uintptr_t kMaterialRead = 0x7CBC20;
-constexpr uintptr_t kMaterialSize = 0x7CBF20;
-constexpr uintptr_t kLinearApply  = 0x7CC9F0; // RpUVAnimLinearKeyFrameApply
-constexpr uintptr_t kParamApply   = 0x7CC560; // RpUVAnimParamKeyFrameApply
 } // namespace
 
 // 0x7CCC50 (clase RpUVAnim: la llama 0x7CC810, de este modulo; el listado la daba por RtAnim con confianza baja): copia seis floats de la matriz a los datos lineales
@@ -239,69 +264,308 @@ RwUInt32 _rpUVAnimCustomDataStreamGetSize(const _rpUVAnimCustomData* customData)
     return 0x40;
 }
 
+// Elimina una referencia a los datos de usuario de una animacion y, si era la ultima, libera el bloque en la lista libre 0xC978F4 y destruye la animacion (secuencia comun de 0x7CBAA0 y 0x7CBC20).
+static void UVAnimReleaseAnim(RtAnimAnimation* anim) {
+    _rpUVAnimCustomData* const customData = static_cast<_rpUVAnimCustomData*>(anim->customData);
+    if (--customData->refCount == 0) {
+        RwFreeListFree(UVAnimFreeList(), anim->customData);
+        RtAnimAnimationDestroy(anim);
+    }
+}
+
+// 0x7CB9B0 (lote S8A, sin validar; cdecl, 3 argumentos, 103 bytes): constructor del plugin de motor 0x135. Crea la lista libre de datos de animacion (RwFreeListCreateAndPreallocateSpace(0x44, [0x8DED48], 4, [0x8DED4C],
+// [0xC978F4], 0x40135)) y la guarda en 0xC978F4 (aunque sea NULL); RtDictSchemaInit(esquema 0x8DED50) y RtAnimRegisterInterpolationScheme de los esquemas lineal (0x8DED84) y parametrico (0x8DEDB4) (resultados ignorados);
+// sube el contador de 0xC978FC. Devuelve el objeto, o NULL si no se pudo crear la lista.
+static void* RpUVAnimEngineConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    UVAnimFreeList() = RwFreeListCreateAndPreallocateSpace(0x44, *reinterpret_cast<const RwInt32*>(0x8DED48), 4, *reinterpret_cast<const RwInt32*>(0x8DED4C), UVAnimFreeList(), kUVAnimMemHint);
+    void* const result = UVAnimFreeList() != nullptr ? object : nullptr;
+    RtDictSchemaInit(&RpUVAnimDictSchema);
+    RtAnimRegisterInterpolationScheme(&UVAnimLinearInfo());
+    RtAnimRegisterInterpolationScheme(&UVAnimParamInfo());
+    ++*reinterpret_cast<RwInt32*>(0xC978FC);
+    return result;
+}
+
+// 0x7CBA20 (lote S8A, sin validar; cdecl, 3 argumentos, 59 bytes): destructor del plugin de motor: baja el contador de 0xC978FC, RtDictSchemaDestruct(esquema 0x8DED50) y, si existe la lista libre (0xC978F4), la destruye
+// con RwFreeListDestroy y pone el puntero a NULL. Devuelve el objeto.
+static void* RpUVAnimEngineDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    --*reinterpret_cast<RwInt32*>(0xC978FC);
+    RtDictSchemaDestruct(&RpUVAnimDictSchema);
+    if (UVAnimFreeList() != nullptr) {
+        RwFreeListDestroy(UVAnimFreeList());
+        UVAnimFreeList() = nullptr;
+    }
+    return object;
+}
+
+// 0x7CBA80 (lote S8A, sin validar; cdecl, 3 argumentos, 29 bytes): constructor del plugin de material: pone a cero los diez dwords de la extension en objeto + [0xC9B8D0] (no usa el desplazamiento recibido). Devuelve el objeto.
+static void* RpUVAnimMaterialConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    memset(MaterialExt(object), 0, sizeof(RpUVAnimMaterialExtension));
+    return object;
+}
+
+// 0x7CBAA0 (lote S9A, sin validar; cdecl, 3 argumentos, 130 bytes): destructor del plugin de material. Para cada matriz UV (2): RwMatrixDestroy si existe y la ranura queda a NULL (siempre). Para cada ranura de interpolacion
+// (8) no nula: baja el contador de referencias de los datos de usuario de su animacion y, si llega a cero, libera el bloque en la lista libre y destruye la animacion (RtAnimAnimationDestroy); despues
+// RtAnimInterpolatorDestroy(interpolacion) (la ranura NO se vacia). Devuelve el objeto.
+static void* RpUVAnimMaterialDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RpUVAnimMaterialExtension* const extension = MaterialExt(object);
+    for (RwUInt32 channel = 0; channel < RP_UVANIM_APPLIEDCHANNELS; ++channel) {
+        if (extension->uv[channel] != nullptr) {
+            RwMatrixDestroy(extension->uv[channel]);
+        }
+        extension->uv[channel] = nullptr;
+    }
+    for (RwUInt32 slot = 0; slot < RP_UVANIM_MAXSLOTS; ++slot) {
+        if (RtAnimInterpolator* const interp = extension->interp[slot]) {
+            UVAnimReleaseAnim(interp->pCurrentAnim);
+            RtAnimInterpolatorDestroy(interp);
+        }
+    }
+    return object;
+}
+
+// 0x7CBB30 (lote S8A, sin validar; cdecl, 4 argumentos, 61 bytes): copia del plugin de material: copia los diez dwords de la extension (src + [0xC9B8D0] a dst + [0xC9B8D0]) y, por cada una de las 8 ranuras con interpolacion
+// (los punteros se comparten, no se clonan), suma uno al contador de referencias de los datos de usuario de su animacion. Devuelve el objeto destino.
+static void* RpUVAnimMaterialCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RpUVAnimMaterialExtension* const dst = MaterialExt(dstObject);
+    memcpy(dst, MaterialExt(srcObject), sizeof(RpUVAnimMaterialExtension));
+    for (RwUInt32 slot = 0; slot < RP_UVANIM_MAXSLOTS; ++slot) {
+        if (const RtAnimInterpolator* const interp = dst->interp[slot]) {
+            ++static_cast<_rpUVAnimCustomData*>(interp->pCurrentAnim->customData)->refCount;
+        }
+    }
+    return dstObject;
+}
+
+// 0x7CBC20 (lote S9A, sin validar; cdecl, 5 argumentos, 339 bytes): lectura de la extension del material desde el flujo. RwStreamFindChunk(flujo, 1, 0, 0) (0 -> NULL); mascara con RwStreamReadInt32 (fallo -> NULL). Por cada
+// ranura (0..7) con su bit: RwStreamRead(flujo, nombre de 0x20 bytes) (fallo -> NULL); animacion = entrada del diccionario actual del esquema (RtDictSchemaGetCurrentDict + RtDictFindNamedEntry) con una referencia mas, o
+// la animacion por defecto (_rpUVAnimDefaultAnimCreate) si no hay diccionario o no esta (NULL -> NULL); interpolacion = RtAnimInterpolatorCreate(RtAnimAnimationGetNumNodes(anim), interpKeyFrameSize) guardada en la ranura aunque sea
+// NULL; RtAnimInterpolatorSetCurrentAnim (0 -> baja una referencia de la animacion con la misma liberacion que el destructor y devuelve NULL). Al final _rpUVAnimMaterialUpdateMatrices(extension): devuelve el flujo si no es NULL, si no NULL.
+// El nombre se lee en un buffer de 0x20 bytes sin terminador garantizado (como el EXE).
+static RwStream* RpUVAnimMaterialStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(binaryLength); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RpUVAnimMaterialExtension* const extension = MaterialExt(object);
+    if (RwStreamFindChunk(stream, 1, nullptr, nullptr) == 0) {
+        return nullptr;
+    }
+    RwUInt32 mask;
+    if (RwStreamReadInt32(stream, reinterpret_cast<RwInt32*>(&mask), 4) == nullptr) {
+        return nullptr;
+    }
+    for (RwUInt32 slot = 0; slot < RP_UVANIM_MAXSLOTS; ++slot) {
+        if ((mask & (1u << slot)) == 0) {
+            continue;
+        }
+        RwChar name[RP_UVANIM_MAXNAME];
+        if (RwStreamRead(stream, name, 0x20) == 0) {
+            return nullptr;
+        }
+        RtAnimAnimation* anim;
+        RtDict* const dict = RtDictSchemaGetCurrentDict(&RpUVAnimDictSchema);
+        if (dict != nullptr) {
+            anim = static_cast<RtAnimAnimation*>(RtDictFindNamedEntry(dict, name));
+            if (anim != nullptr) {
+                ++static_cast<_rpUVAnimCustomData*>(anim->customData)->refCount;
+            } else {
+                anim = _rpUVAnimDefaultAnimCreate(name);
+            }
+        } else {
+            anim = _rpUVAnimDefaultAnimCreate(name);
+        }
+        if (anim == nullptr) {
+            return nullptr;
+        }
+        const RwInt32 maxInterpKeyFrameSize = anim->interpInfo->interpKeyFrameSize;
+        extension->interp[slot] = RtAnimInterpolatorCreate(RtAnimAnimationGetNumNodes(anim), maxInterpKeyFrameSize);
+        if (extension->interp[slot] == nullptr || RtAnimInterpolatorSetCurrentAnim(extension->interp[slot], anim) == 0) {
+            UVAnimReleaseAnim(anim);
+            return nullptr;
+        }
+    }
+    return _rpUVAnimMaterialUpdateMatrices(extension) != nullptr ? stream : nullptr;
+}
+
+// 0x7CBF20 (lote S8A, sin validar; cdecl, 3 argumentos, 65 bytes): tamano de la extension en el flujo: 0 si no hay ninguna interpolacion; si no, 0x10 + 0x20 por cada ranura con interpolacion.
+static RwInt32 RpUVAnimMaterialStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    const RpUVAnimMaterialExtension* const extension = MaterialExt(object);
+    RwInt32 count = 0;
+    for (RwUInt32 slot = 0; slot < RP_UVANIM_MAXSLOTS; ++slot) {
+        if (extension->interp[slot] != nullptr) {
+            ++count;
+        }
+    }
+    return count == 0 ? 0 : 0x10 + 0x20 * count;
+}
+
 // 0x7CB940 (lote R6A, sin validar; cdecl, sin argumentos, `ret`, 111 bytes): registra el plugin 0x135. Motor: RwEngineRegisterPlugin(0, 0x135, ctor 0x7CB9B0, dtor 0x7CBA20) (si < 0 devuelve FALSE sin seguir);
 // material: RpMaterialRegisterPlugin(0x28, 0x135, ctor 0x7CBA80, dtor 0x7CBAA0, copia 0x7CBB30), cuyo resultado se guarda SIEMPRE en 0xC9B8D0 antes de registrar el flujo RpMaterialRegisterPluginStream(0x135,
-// lectura 0x7CBC20, escritura 0x7CBB70, tamano 0x7CBF20) (si < 0 devuelve FALSE); si el desplazamiento guardado es negativo tambien FALSE; si no, TRUE. Los callbacks se pasan por direccion fija como en el EXE
-// (0x7CBB70 queda enganchado a la version en C++).
+// lectura 0x7CBC20, escritura 0x7CBB70, tamano 0x7CBF20) (si < 0 devuelve FALSE); si el desplazamiento guardado es negativo tambien FALSE; si no, TRUE. Lotes S8A/S9A: los callbacks son funciones propias
+// (con hook en su direccion del EXE) y ya no se pasan por direccion fija.
 RwBool RpUVAnimPluginAttach() {
-    if (RwEngineRegisterPlugin(0, kUVAnimPluginID, reinterpret_cast<RwPluginObjectConstructor>(kEngineCtor), reinterpret_cast<RwPluginObjectDestructor>(kEngineDtor)) < 0) {
+    if (RwEngineRegisterPlugin(0, kUVAnimPluginID, RpUVAnimEngineConstructor, RpUVAnimEngineDestructor) < 0) {
         return FALSE;
     }
-    UVAnimMaterialOffset() = RpMaterialRegisterPlugin(0x28, kUVAnimPluginID, reinterpret_cast<RwPluginObjectConstructor>(kMaterialCtor), reinterpret_cast<RwPluginObjectDestructor>(kMaterialDtor),
-                                                      reinterpret_cast<RwPluginObjectCopy>(kMaterialCopy));
-    if (RpMaterialRegisterPluginStream(kUVAnimPluginID, reinterpret_cast<RwPluginDataChunkReadCallBack>(kMaterialRead), reinterpret_cast<RwPluginDataChunkWriteCallBack>(0x7CBB70),
-                                       reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(kMaterialSize)) < 0) {
+    UVAnimMaterialOffset() = RpMaterialRegisterPlugin(0x28, kUVAnimPluginID, RpUVAnimMaterialConstructor, RpUVAnimMaterialDestructor, RpUVAnimMaterialCopy);
+    if (RpMaterialRegisterPluginStream(kUVAnimPluginID, RpUVAnimMaterialStreamRead, _rpUVAnimMaterialStreamWrite, RpUVAnimMaterialStreamGetSize) < 0) {
         return FALSE;
     }
     return UVAnimMaterialOffset() < 0 ? FALSE : TRUE;
 }
 
+// Los fotogramas se tratan como arrays de floats: indice 0 = prevFrame (puntero), 1 = time, 2..7 = datos (RpUVAnimKeyFrame +0x08..+0x1C; en la interpolada los indices 0 y 1 son los dos punteros y 2..7 los datos).
+static float* FrameFloats(void* frame) { return static_cast<float*>(frame); }
+static const float* FrameFloats(const void* frame) { return static_cast<const float*>(frame); }
+
+// 0x7CC9F0 (lote S9A, sin validar; cdecl, 2 argumentos, `ret`, 75 bytes): matriz UV a partir de los seis datos lineales (copia de dwords, sin x87): right = (uv0, uv1, 0), up = (uv2, uv3, 0), at = (0, 0, 0),
+// pos = (uv4, uv5, 0) (los rellenos +0x0C, +0x1C, +0x2C, +0x3C no se tocan) y RwMatrixUpdate(matriz) (0x7F18A0), que fija las banderas.
 void RpUVAnimLinearKeyFrameApply(void* matrix, void* voidIFrame) {
-    ((void(__cdecl *)(void*, void*))0x7CC9F0)(matrix, voidIFrame);
+    RwUInt32* const m = static_cast<RwUInt32*>(matrix);
+    const RwUInt32* const f = static_cast<const RwUInt32*>(voidIFrame);
+    m[0] = f[2];
+    m[1] = f[3];
+    m[2] = 0;
+    m[4] = f[4];
+    m[5] = f[5];
+    m[6] = 0;
+    m[8] = 0;
+    m[9] = 0;
+    m[10] = 0;
+    m[12] = f[6];
+    m[13] = f[7];
+    m[14] = 0;
+    RwMatrixUpdate(static_cast<RwMatrix*>(matrix));
 }
 
+// 0x7CCAC0 (lote S9A, sin validar; x87, 109 bytes): mezcla de dos fotogramas interpolados con un peso: out[i] = float((in2[i] - in1[i]) * alpha + in1[i]) para los seis datos (X87Math.cpp).
 void RpUVAnimLinearKeyFrameBlend(void* voidOut, void* voidIn1, void* voidIn2, RwReal alpha) {
-    ((void(__cdecl *)(void*, void*, void*, RwReal))0x7CCAC0)(voidOut, voidIn1, voidIn2, alpha);
+    UVAnimLinearBlendCpp(FrameFloats(voidOut), FrameFloats(voidIn1), FrameFloats(voidIn2), alpha);
 }
 
+// 0x7CCA40 (lote S9A, sin validar; x87, 114 bytes): interpolacion lineal: alpha = (time - in1.time) / (in2.time - in1.time) sin redondear a float y out[i] = float((in2[i] - in1[i]) * alpha + in1[i]).
+// El quinto argumento (customData) no se usa.
 void RpUVAnimLinearKeyFrameInterpolate(void* voidOut, void* voidIn1, void* voidIn2, RwReal time, void* customData) {
-    ((void(__cdecl *)(void*, void*, void*, RwReal, void*))0x7CCA40)(voidOut, voidIn1, voidIn2, time, customData);
+    UNUSED(customData);
+    UVAnimLinearInterpolateCpp(FrameFloats(voidOut), FrameFloats(voidIn1), FrameFloats(voidIn2), time);
 }
 
+// 0x7CCBE0 (lote S9A, sin validar; x87, 99 bytes): suma de fotogramas (producto de matrices 2x2 en los cuatro primeros datos y suma de la traslacion) (X87Math.cpp).
 void RpUVAnimLinearKeyFrameAdd(void* voidOut, void* voidIn1, void* voidIn2) {
-    ((void(__cdecl *)(void*, void*, void*))0x7CCBE0)(voidOut, voidIn1, voidIn2);
+    UVAnimLinearAddCpp(FrameFloats(voidOut), FrameFloats(voidIn1), FrameFloats(voidIn2));
 }
 
+// 0x7CCB30 (lote S9A, sin validar; x87, 173 bytes): frame = frame * inverso(start) (X87Math.cpp; conserva la secuencia exacta del EXE, incluido que con determinante 0 no se invierte).
 void RpUVAnimLinearKeyFrameMulRecip(void* voidFrame, void* voidStart) {
-    ((void(__cdecl *)(void*, void*))0x7CCB30)(voidFrame, voidStart);
+    UVAnimLinearMulRecipCpp(FrameFloats(voidFrame), FrameFloats(voidStart));
 }
 
+// 0x7CC560 (lote S9A, sin validar; cdecl, 2 argumentos, `ret`, 159 bytes): macro RpUVAnimParamKeyFrameToMatrix: right = (s0, skew, 0), up = (0, s1, 0), at = (0, 0, 0), pos = (x, y, 0) (copia de dwords; los
+// rellenos no se tocan) y RwMatrixUpdate; despues, POSTCONCAT: RwMatrixTranslate(pivote 0x882ED4), RwMatrixRotate(eje z = (0, 0, 1), float(theta * 57.2957763671875f) con la x87) y RwMatrixTranslate(pivote inverso 0x882EE0).
 void RpUVAnimParamKeyFrameApply(void* matrix, void* voidIFrame) {
-    ((void(__cdecl *)(void*, void*))0x7CC560)(matrix, voidIFrame);
+    RwUInt32* const m = static_cast<RwUInt32*>(matrix);
+    const RwUInt32* const f = static_cast<const RwUInt32*>(voidIFrame);
+    const RwV3d zAxis = {0.0f, 0.0f, 1.0f};
+    m[0] = f[3];  // right.x = s0
+    m[1] = f[5];  // right.y = skew
+    m[2] = 0;
+    m[4] = 0;
+    m[5] = f[4];  // up.y = s1
+    m[6] = 0;
+    m[8] = 0;
+    m[9] = 0;
+    m[10] = 0;
+    m[12] = f[6]; // pos.x = x
+    m[13] = f[7]; // pos.y = y
+    m[14] = 0;
+    RwMatrixUpdate(static_cast<RwMatrix*>(matrix));
+    RwMatrixTranslate(static_cast<RwMatrix*>(matrix), &UVAnimPivot(), rwCOMBINEPOSTCONCAT);
+    float theta;
+    memcpy(&theta, &f[2], sizeof(theta));
+    RwMatrixRotate(static_cast<RwMatrix*>(matrix), &zAxis, UVAnimDegreesCpp(theta, kDegreesPerRadianExe), rwCOMBINEPOSTCONCAT);
+    RwMatrixTranslate(static_cast<RwMatrix*>(matrix), &UVAnimInvPivot(), rwCOMBINEPOSTCONCAT);
 }
 
+// 0x7CC6A0 (lote S9A, sin validar; x87, 153 bytes): como la mezcla lineal pero la diferencia de angulos (theta) se reduce a [-pi, pi] (si < -pi suma 2 pi; si no, si > pi resta 2 pi; con NaN no cambia) (X87Math.cpp).
 void RpUVAnimParamKeyFrameBlend(void* voidOut, void* voidIn1, void* voidIn2, RwReal alpha) {
-    ((void(__cdecl *)(void*, void*, void*, RwReal))0x7CC6A0)(voidOut, voidIn1, voidIn2, alpha);
+    UVAnimParamBlendCpp(FrameFloats(voidOut), FrameFloats(voidIn1), FrameFloats(voidIn2), alpha);
 }
 
+// 0x7CC600 (lote S9A, sin validar; x87, 158 bytes): interpolacion parametrica con la reduccion del angulo (X87Math.cpp). El quinto argumento (customData) no se usa.
 void RpUVAnimParamKeyFrameInterpolate(void* voidOut, void* voidIn1, void* voidIn2, RwReal time, void* customData) {
-    ((void(__cdecl *)(void*, void*, void*, RwReal, void*))0x7CC600)(voidOut, voidIn1, voidIn2, time, customData);
+    UNUSED(customData);
+    UVAnimParamInterpolateCpp(FrameFloats(voidOut), FrameFloats(voidIn1), FrameFloats(voidIn2), time);
 }
 
+// 0x7CC750 (lote S8A, sin validar): un solo `ret` (no hace nada).
 void RpUVAnimParamKeyFrameAdd(void* voidOut, void* voidIn1, void* voidIn2) {
-    ((void(__cdecl *)(void*, void*, void*))0x7CC750)(voidOut, voidIn1, voidIn2);
+    UNUSED(voidOut); UNUSED(voidIn1); UNUSED(voidIn2);
 }
 
+// 0x7CC740 (lote S8A, sin validar): un solo `ret` (no hace nada).
 void RpUVAnimParamKeyFrameMulRecip(void* voidFrame, void* voidStart) {
-    ((void(__cdecl *)(void*, void*))0x7CC740)(voidFrame, voidStart);
+    UNUSED(voidFrame); UNUSED(voidStart);
 }
 
+// 0x7CC870 (lote S8A, sin validar; cdecl, 2 argumentos, 163 bytes): lee los fotogramas de una animacion. RwStreamReadInt32(flujo, &entero, 4) (valor que no se usa; 0 -> NULL); customData = _rpUVAnimCustomDataStreamRead(flujo)
+// (NULL -> NULL) que se guarda en animation->customData; por cada fotograma (numFrames con signo): RwStreamReadReal(flujo, &fotograma->time, 0x1c) (time + seis datos; fallo -> NULL), RwStreamReadInt32(flujo, &indice, 4)
+// (fallo -> NULL) y fotograma->prevFrame = pFrames + (indice << 5) (el indice no se comprueba). Devuelve la animacion.
 RtAnimAnimation* RpUVAnimKeyFrameStreamRead(RwStream* stream, RtAnimAnimation* animation) {
-    return ((RtAnimAnimation*(__cdecl *)(RwStream*, RtAnimAnimation*))0x7CC870)(stream, animation);
+    RwInt32 header;
+    if (RwStreamReadInt32(stream, &header, 4) == nullptr) {
+        return nullptr;
+    }
+    _rpUVAnimCustomData* const customData = _rpUVAnimCustomDataStreamRead(stream);
+    if (customData == nullptr) {
+        return nullptr;
+    }
+    RwUInt8* const frames = static_cast<RwUInt8*>(animation->pFrames);
+    animation->customData = customData;
+    RwUInt8* frame = frames;
+    for (RwInt32 i = 0; i < animation->numFrames; ++i) {
+        RpUVAnimKeyFrame* const keyFrame = reinterpret_cast<RpUVAnimKeyFrame*>(frame);
+        if (RwStreamReadReal(stream, &keyFrame->time, 0x1c) == nullptr) {
+            return nullptr;
+        }
+        RwInt32 index;
+        if (RwStreamReadInt32(stream, &index, 4) == nullptr) {
+            return nullptr;
+        }
+        keyFrame->prevFrame = reinterpret_cast<RpUVAnimKeyFrame*>(static_cast<RwUInt32>(index << 5) + reinterpret_cast<RwUInt32>(frames));
+        frame += 0x20;
+    }
+    return animation;
 }
 
+// 0x7CC920 (lote S8A, sin validar; cdecl, 2 argumentos, 168 bytes): escribe los fotogramas. RwStreamWriteInt32(flujo, &0, 4) (fallo -> 0); _rpUVAnimCustomDataStreamWrite(animation->customData, flujo) (NULL -> 0); por cada
+// fotograma (numFrames con signo): RwStreamWriteReal(flujo, &fotograma->time, 0x1c) (fallo -> 0) y RwStreamWriteInt32(flujo, &indice, 4) con indice = (prevFrame - pFrames) >> 5 (desplazamiento aritmetico de 32 bits;
+// con prevFrame NULL sale -(pFrames >> 5)) (fallo -> 0). Devuelve TRUE.
 RwBool RpUVAnimKeyFrameStreamWrite(const RtAnimAnimation* animation, RwStream* stream) {
-    return ((RwBool(__cdecl *)(const RtAnimAnimation*, RwStream*))0x7CC920)(animation, stream);
+    RwInt32 zero = 0;
+    if (RwStreamWriteInt32(stream, &zero, 4) == nullptr) {
+        return FALSE;
+    }
+    if (_rpUVAnimCustomDataStreamWrite(static_cast<const _rpUVAnimCustomData*>(animation->customData), stream) == nullptr) {
+        return FALSE;
+    }
+    const RwUInt8* const frames = static_cast<const RwUInt8*>(animation->pFrames);
+    const RwUInt8* frame = frames;
+    for (RwInt32 i = 0; i < animation->numFrames; ++i) {
+        const RpUVAnimKeyFrame* const keyFrame = reinterpret_cast<const RpUVAnimKeyFrame*>(frame);
+        if (RwStreamWriteReal(stream, &keyFrame->time, 0x1c) == nullptr) {
+            return FALSE;
+        }
+        const RwInt32 index = static_cast<RwInt32>(reinterpret_cast<RwUInt32>(keyFrame->prevFrame) - reinterpret_cast<RwUInt32>(frames)) >> 5;
+        if (RwStreamWriteInt32(stream, &index, 4) == nullptr) {
+            return FALSE;
+        }
+        frame += 0x20;
+    }
+    return TRUE;
 }
 
 // 0x7CC9D0: tamano en flujo de los fotogramas clave: numFrames * 32 (cada fotograma de 32 bytes) + _rpUVAnimCustomDataStreamGetSize(customData) + 4.
@@ -311,8 +575,33 @@ RwInt32 RpUVAnimKeyFrameStreamGetSize(const RtAnimAnimation* animation) {
     return static_cast<RwInt32>((static_cast<uint32>(animation->numFrames) << 5) + (customDataSize + 4));
 }
 
+// 0x7CC020 (lote S9A, sin validar; cdecl, 6 argumentos, 150 bytes): crea una animacion UV. Tipo 0 -> esquema lineal ([0x8DED84]), tipo 1 -> parametrico ([0x8DEDB4]), otro -> NULL. RtAnimAnimationCreate(typeID, numFrames, 0, duration)
+// (NULL -> NULL); bloque de datos de la lista libre 0xC978F4 (pista 0x30135; NULL -> NULL y la animacion se pierde); strncpy(nombre, 0x20) con el byte 0x1F a 0; el mapa nodo->canal se copia con `rep movsd` de numNodes dwords
+// SIN limite (mas de 8 nodos desbordan el bloque de 0x44 bytes, como en el EXE); refCount = 1; anim->customData = bloque. Devuelve la animacion.
 RpUVAnim* RpUVAnimCreate(const RwChar* name, RwUInt32 numNodes, RwUInt32 numFrames, RwReal duration, RwUInt32* nodeIndexToUVChannelMap, RpUVAnimKeyFrameType keyframeType) {
-    return ((RpUVAnim*(__cdecl *)(const RwChar*, RwUInt32, RwUInt32, RwReal, RwUInt32*, RpUVAnimKeyFrameType))0x7CC020)(name, numNodes, numFrames, duration, nodeIndexToUVChannelMap, keyframeType);
+    RwInt32 typeID;
+    if (keyframeType == rpUVANIMLINEARKEYFRAMES) {
+        typeID = UVAnimLinearInfo().typeID;
+    } else if (keyframeType == rpUVANIMPARAMKEYFRAMES) {
+        typeID = UVAnimParamInfo().typeID;
+    } else {
+        return nullptr;
+    }
+    RtAnimAnimation* const anim = RtAnimAnimationCreate(typeID, numFrames, 0, duration);
+    if (anim == nullptr) {
+        return nullptr;
+    }
+    _rpUVAnimCustomData* const customData = static_cast<_rpUVAnimCustomData*>(RwFreeListAlloc(UVAnimFreeList(), kUVAnimMemHint));
+    if (customData == nullptr) {
+        return nullptr;
+    }
+#pragma warning(suppress : 4996)
+    strncpy(customData->name, name, 0x20);
+    customData->name[RP_UVANIM_MAXNAME - 1] = 0;
+    memcpy(customData->nodeToUVChannelMap, nodeIndexToUVChannelMap, static_cast<size_t>(numNodes) * sizeof(RwUInt32));
+    customData->refCount = 1;
+    anim->customData = customData;
+    return anim;
 }
 
 // 0x7CC0C0 (lote R6A, sin validar; cdecl, 56 bytes): baja el contador de referencias (customData + 0x40); si llega a cero libera el bloque de datos en la lista libre 0xC978F4 (relee anim->customData) y despues
@@ -326,12 +615,15 @@ RwBool RpUVAnimDestroy(RpUVAnim* anim) {
     return TRUE;
 }
 
+// 0x7CC100 (lote S8A, sin validar; 11 bytes): suma uno al contador de referencias de los datos de usuario (anim->customData + 0x40) y devuelve la animacion.
 RpUVAnim* RpUVAnimAddRef(RpUVAnim* anim) {
-    return ((RpUVAnim*(__cdecl *)(RpUVAnim*))0x7CC100)(anim);
+    ++static_cast<_rpUVAnimCustomData*>(anim->customData)->refCount;
+    return anim;
 }
 
+// 0x7CC3A0 (lote S8A, sin validar; 8 bytes): devuelve anim->customData (el nombre es el primer campo de los datos).
 const RwChar* RpUVAnimGetName(const RpUVAnim* anim) {
-    return ((const RwChar*(__cdecl *)(const RpUVAnim*))0x7CC3A0)(anim);
+    return static_cast<const RwChar*>(anim->customData);
 }
 
 // 0x7CC3B0 (lote R6A, sin validar; cdecl, 3 argumentos, `ret`, 118 bytes): asigna la animacion a una ranura (sin comprobar el rango). Interpolacion nueva con RtAnimInterpolatorCreate(RtAnimAnimationGetNumNodes(anim),
@@ -354,16 +646,26 @@ RpMaterial* RpMaterialSetUVAnim(RpMaterial* material, RpUVAnim* anim, RwUInt32 s
     return material;
 }
 
+// 0x7CC430 (lote S8A, sin validar; 22 bytes): devuelve la interpolacion de la ranura (sin comprobar el rango).
 RpUVAnimInterpolator* RpMaterialUVAnimGetInterpolator(RpMaterial* material, RwUInt32 slot) {
-    return ((RpUVAnimInterpolator*(__cdecl *)(RpMaterial*, RwUInt32))0x7CC430)(material, slot);
+    return MaterialExt(material)->interp[slot];
 }
 
+// 0x7CC450 (lote S8A, sin validar; 26 bytes): guarda la interpolacion en la ranura (sin comprobar el rango ni liberar la anterior) y devuelve el material.
 RpMaterial* RpMaterialUVAnimSetInterpolator(RpMaterial* material, RpUVAnimInterpolator* interp, RwUInt32 slot) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RpUVAnimInterpolator*, RwUInt32))0x7CC450)(material, interp, slot);
+    MaterialExt(material)->interp[slot] = interp;
+    return material;
 }
 
+// 0x7CC470 (lote S9A, sin validar; 55 bytes): RtAnimInterpolatorSetCurrentTime(interp, time) (0x7CDAB0) en cada ranura con interpolacion. Devuelve el material.
 RpMaterial* RpMaterialUVAnimSetCurrentTime(RpMaterial* material, RwReal time) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RwReal))0x7CC470)(material, time);
+    RpUVAnimMaterialExtension* const extension = MaterialExt(material);
+    for (RwUInt32 slot = 0; slot < RP_UVANIM_MAXSLOTS; ++slot) {
+        if (extension->interp[slot] != nullptr) {
+            RtAnimInterpolatorSetCurrentTime(extension->interp[slot], time);
+        }
+    }
+    return material;
 }
 
 // 0x7CC4B0 (lote R6A, sin validar; cdecl, 2 argumentos, `ret`, 55 bytes): RtAnimInterpolatorAddAnimTime(interp, deltaTime) (0x7CD8D0) en cada una de las 8 ranuras con interpolacion. Devuelve el material.
@@ -377,8 +679,15 @@ RpMaterial* RpMaterialUVAnimAddAnimTime(RpMaterial* material, RwReal deltaTime) 
     return material;
 }
 
+// 0x7CC4F0 (lote S9A, sin validar; 55 bytes): RtAnimInterpolatorSubAnimTime(interp, deltaTime) (0x7CD760) en cada ranura con interpolacion. Devuelve el material.
 RpMaterial* RpMaterialUVAnimSubAnimTime(RpMaterial* material, RwReal deltaTime) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*, RwReal))0x7CC4F0)(material, deltaTime);
+    RpUVAnimMaterialExtension* const extension = MaterialExt(material);
+    for (RwUInt32 slot = 0; slot < RP_UVANIM_MAXSLOTS; ++slot) {
+        if (extension->interp[slot] != nullptr) {
+            RtAnimInterpolatorSubAnimTime(extension->interp[slot], deltaTime);
+        }
+    }
+    return material;
 }
 
 // 0x7CC110 (lote R6A, sin validar; cdecl, un argumento, `ret`, 649 bytes): reconstruye las matrices UV del material a partir de las interpolaciones. (1) Cada matriz UV existente pasa a identidad (right.x, up.y,
@@ -431,7 +740,7 @@ RpMaterial* RpMaterialUVAnimApplyUpdate(RpMaterial* material) {
             RwMatrix local;
             memset(&local, 0, sizeof(local));
             RwUInt32* const localBits = reinterpret_cast<RwUInt32*>(&local);
-            if (applyCallBack == reinterpret_cast<RtAnimKeyFrameApplyCallBack>(kLinearApply)) {
+            if (applyCallBack == UVAnimLinearInfo().keyFrameApplyCB) {
                 localBits[0] = fields[0];  // right.x = uv[0]
                 localBits[1] = fields[1];  // right.y = uv[1]
                 localBits[4] = fields[2];  // up.x = uv[2]
@@ -439,7 +748,7 @@ RpMaterial* RpMaterialUVAnimApplyUpdate(RpMaterial* material) {
                 localBits[12] = fields[4]; // pos.x = uv[4]
                 localBits[13] = fields[5]; // pos.y = uv[5]
                 RwMatrixUpdate(&local);
-            } else if (applyCallBack == reinterpret_cast<RtAnimKeyFrameApplyCallBack>(kParamApply)) {
+            } else if (applyCallBack == UVAnimParamInfo().keyFrameApplyCB) {
                 const RwV3d zAxis = {0.0f, 0.0f, 1.0f};
                 localBits[0] = fields[1];  // right.x = s0
                 localBits[5] = fields[2];  // up.y = s1
