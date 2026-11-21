@@ -160,8 +160,10 @@ void SetObjectAnimSpeed(CObject& obj, const char* animName, float speed) {
 }
 
 bool IsObjectPlayingAnim(CObject& obj, const char* animName) {
-    auto* const clump = RwObjectGetType(obj.GetRwObject()) == rpCLUMP 
-        ? obj.GetRpClump() 
+    // Como el original: un objeto sin objeto RenderWare (modelo sin cargar / invisible) no esta reproduciendo la animacion (la version anterior desreferenciaba el puntero nulo).
+    auto* const rwObject = obj.GetRwObject();
+    auto* const clump = (rwObject && RwObjectGetType(rwObject) == rpCLUMP)
+        ? obj.GetRpClump()
         : nullptr;
     return clump != nullptr
         && RpAnimBlendClumpIsInitialized(clump)

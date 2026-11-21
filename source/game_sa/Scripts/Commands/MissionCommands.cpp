@@ -61,9 +61,10 @@ void LoadAndLaunchMissionInternal(int32 missionId) {
 }
 
 void ScriptName(CRunningScript* S, std::string_view name) {
+    // Como el original (0x4846A1..0x4846E0): el nombre se pasa a minusculas y se copia con strncpy(nombre, minusculas, 8) (la version anterior calculaba `lowered` y copiaba `name`).
     char lowered[8]{0};
-    rng::transform(name, lowered, [](char c) { return (char)std::tolower(c); });
-    S->SetName(name);
+    rng::transform(name | std::views::take(8), lowered, [](char c) { return (char)std::tolower(c); });
+    std::memcpy(S->m_szName, lowered, sizeof(lowered));
 }
 
 int32 StartScriptFire(CVector pos, int8 propagation, int32 size) {
