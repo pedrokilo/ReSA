@@ -2484,9 +2484,7 @@ RxPipeline* RwIm3DSetRenderPipeline(RxPipeline* pipeline, RwPrimitiveType primTy
     return R23AIm3DField<RxPipeline*>(R23AIm3DModule(), slots[index]);
 }
 
-RwRaster* RwD3D9RasterStreamReadDDS(RwStream* stream) {
-    return ((RwRaster*(__cdecl *)(RwStream*))0x81F360)(stream);
-}
+// 0x81F360 (RwD3D9RasterStreamReadDDS): reconstruida en rwcore_dds.cpp (lote S30A33A, RwD3D9InjectHooksDDS).
 
 RwTexture* RwD3D9DDSTextureRead(const RwChar* name, const RwChar* maskname) {
     return ((RwTexture*(__cdecl *)(const RwChar*, const RwChar*))0x820A10)(name, maskname);

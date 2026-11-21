@@ -1,0 +1,182 @@
+
+=== 0x007F7530 (3 bytes)
+7f7530 xor eax, eax
+7f7532 ret 
+
+=== 0x007F8620 (10 bytes)
+7f8620 mov eax, dword ptr [esp + 4]
+7f8624 mov dword ptr [0xc97c4c], eax
+7f8629 ret 
+
+=== 0x007F8630 (10 bytes)
+7f8630 mov eax, dword ptr [esp + 4]
+7f8634 mov dword ptr [0xc97c50], eax
+7f8639 ret 
+
+=== 0x007F9D40 (6 bytes)
+7f9d40 mov eax, dword ptr [0xc97c44]
+7f9d45 ret 
+
+=== 0x007F9E80 (12 bytes)
+7f9e80 mov eax, dword ptr [esp + 4]
+7f9e84 mov eax, dword ptr [eax*4 + 0xc98090]
+7f9e8b ret 
+
+=== 0x007FA820 (56 bytes)
+7fa820 mov eax, dword ptr [esp + 4]
+7fa824 mov ecx, dword ptr [0xc98084]
+7fa82a push edi
+7fa82b mov edi, dword ptr [esp + 0xc]
+7fa82f cmp eax, ecx
+7fa831 jge 0x7fa84d
+7fa833 mov ecx, dword ptr [0xc98088]
+7fa839 lea eax, [eax + eax*2]
+7fa83c push esi
+7fa83d lea eax, [eax + eax*8]
+7fa840 lea esi, [ecx + eax*4]
+7fa843 mov ecx, 0x1a
+7fa848 rep movsd dword ptr es:[edi], dword ptr [esi]
+7fa84a pop esi
+7fa84b pop edi
+7fa84c ret 
+7fa84d mov ecx, 0x1a
+7fa852 xor eax, eax
+7fa854 rep stosd dword ptr es:[edi], eax
+7fa856 pop edi
+7fa857 ret 
+
+=== 0x007FC3A0 (31 bytes)
+7fc3a0 mov eax, dword ptr [esp + 4]
+7fc3a4 mov edx, dword ptr [esp + 8]
+7fc3a8 mov ecx, eax
+7fc3aa shl ecx, 5
+7fc3ad add edx, ecx
+7fc3af mov ecx, dword ptr [esp + 0xc]
+7fc3b3 add eax, edx
+7fc3b5 mov eax, dword ptr [eax*8 + 0xc980f8]
+7fc3bc mov dword ptr [ecx], eax
+7fc3be ret 
+
+=== 0x007FFBE0 (40 bytes)
+7ffbe0 mov eax, dword ptr [esp + 8]
+7ffbe4 mov ecx, dword ptr [esp + 4]
+7ffbe8 mov edx, eax
+7ffbea shr edx, 7
+7ffbed and dl, 0xf8
+7ffbf0 mov byte ptr [ecx + 3], 0xff
+7ffbf4 mov byte ptr [ecx], dl
+7ffbf6 mov edx, eax
+7ffbf8 shr edx, 2
+7ffbfb and dl, 0xf8
+7ffbfe shl al, 3
+7ffc01 mov byte ptr [ecx + 1], dl
+7ffc04 mov byte ptr [ecx + 2], al
+7ffc07 ret 
+
+=== 0x007FFC10 (40 bytes)
+7ffc10 mov eax, dword ptr [esp + 8]
+7ffc14 mov ecx, dword ptr [esp + 4]
+7ffc18 mov edx, eax
+7ffc1a shr edx, 8
+7ffc1d and dl, 0xf8
+7ffc20 mov byte ptr [ecx + 3], 0xff
+7ffc24 mov byte ptr [ecx], dl
+7ffc26 mov edx, eax
+7ffc28 shr edx, 3
+7ffc2b and dl, 0xfc
+7ffc2e shl al, 3
+7ffc31 mov byte ptr [ecx + 1], dl
+7ffc34 mov byte ptr [ecx + 2], al
+7ffc37 ret 
+
+=== 0x007FFC40 (39 bytes)
+7ffc40 mov eax, dword ptr [esp + 8]
+7ffc44 mov ecx, dword ptr [esp + 4]
+7ffc48 mov dl, al
+7ffc4a shl dl, 3
+7ffc4d mov byte ptr [ecx], dl
+7ffc4f mov edx, eax
+7ffc51 shr edx, 2
+7ffc54 shr eax, 8
+7ffc57 and dl, 0xf8
+7ffc5a and al, 0xfc
+7ffc5c mov byte ptr [ecx + 1], dl
+7ffc5f mov byte ptr [ecx + 2], al
+7ffc62 mov byte ptr [ecx + 3], 0xff
+7ffc66 ret 
+
+=== 0x007FFC70 (50 bytes)
+7ffc70 mov eax, dword ptr [esp + 8]
+7ffc74 mov ecx, dword ptr [esp + 4]
+7ffc78 test ah, ah
+7ffc7a jns 0x7ffc82
+7ffc7c mov byte ptr [ecx + 3], 0xff
+7ffc80 jmp 0x7ffc86
+7ffc82 mov byte ptr [ecx + 3], 0
+7ffc86 mov edx, eax
+7ffc88 shr edx, 7
+7ffc8b and dl, 0xf8
+7ffc8e mov byte ptr [ecx], dl
+7ffc90 mov edx, eax
+7ffc92 shr edx, 2
+7ffc95 and dl, 0xf8
+7ffc98 shl al, 3
+7ffc9b mov byte ptr [ecx + 1], dl
+7ffc9e mov byte ptr [ecx + 2], al
+7ffca1 ret 
+
+=== 0x007FFCB0 (66 bytes)
+7ffcb0 mov eax, dword ptr [esp + 8]
+7ffcb4 mov ecx, eax
+7ffcb6 and ecx, 0xf000
+7ffcbc cmp ecx, 0xf000
+7ffcc2 mov ecx, dword ptr [esp + 4]
+7ffcc6 jne 0x7ffcce
+7ffcc8 mov byte ptr [ecx + 3], 0xff
+7ffccc jmp 0x7ffcd9
+7ffcce mov edx, eax
+7ffcd0 shr edx, 8
+7ffcd3 and dl, 0xf0
+7ffcd6 mov byte ptr [ecx + 3], dl
+7ffcd9 mov edx, eax
+7ffcdb shr edx, 4
+7ffcde and dl, 0xf0
+7ffce1 mov byte ptr [ecx], dl
+7ffce3 mov dl, al
+7ffce5 and dl, 0xf0
+7ffce8 shl al, 4
+7ffceb mov byte ptr [ecx + 1], dl
+7ffcee mov byte ptr [ecx + 2], al
+7ffcf1 ret 
+
+=== 0x007FFD00 (41 bytes)
+7ffd00 mov eax, dword ptr [esp + 8]
+7ffd04 mov ecx, dword ptr [esp + 4]
+7ffd08 mov dl, al
+7ffd0a and dl, 0xe0
+7ffd0d mov byte ptr [ecx], dl
+7ffd0f mov dl, al
+7ffd11 and dl, 0xfc
+7ffd14 shl dl, 3
+7ffd17 mov byte ptr [ecx + 1], dl
+7ffd1a mov dl, al
+7ffd1c shl dl, 6
+7ffd1f shr eax, 8
+7ffd22 mov byte ptr [ecx + 2], dl
+7ffd25 mov byte ptr [ecx + 3], al
+7ffd28 ret 
+
+=== 0x007FFD30 (37 bytes)
+7ffd30 mov al, byte ptr [esp + 8]
+7ffd34 mov ecx, dword ptr [esp + 4]
+7ffd38 mov dl, al
+7ffd3a and dl, 0xe0
+7ffd3d mov byte ptr [ecx + 3], 0xff
+7ffd41 mov byte ptr [ecx], dl
+7ffd43 mov dl, al
+7ffd45 and dl, 0xfc
+7ffd48 shl dl, 3
+7ffd4b shl al, 6
+7ffd4e mov byte ptr [ecx + 1], dl
+7ffd51 mov byte ptr [ecx + 2], al
+7ffd54 ret 

@@ -25,6 +25,10 @@ END GENERATED HOOK STATUS */
 #include <bit>
 #include <cstring>
 
+// Lotes S30A y S31A (sin validar): callbacks que ahora estan en rpworld_s30a31a.cpp.
+void* _rwD3D9LightPluginDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);          // 0x755BF0
+RpMesh* _rpTriListMeshOptimize(RpMesh* mesh, RpMeshHeader* meshHeader, void* data);                      // 0x75D730
+
 // Lotes S23A, S24A y S25A (sin validar): callbacks de plugin y de flujo que antes ejecutaba el EXE; se definen al final del archivo con su hook (RpWorldInjectHooksS23A25A).
 static RwInt32  AtomicRightsStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);        // 0x7491A0
 static void*    ClumpModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                   // 0x749760
@@ -139,9 +143,7 @@ void _rwD3D9VSGetWorldMultiplyMatrix(RwMatrix* worldMultiplyMatrix, const RwMatr
     ((void(__cdecl *)(RwMatrix*, const RwMatrix*))0x764920)(worldMultiplyMatrix, matrix);
 }
 
-void _rwD3D9VSGetProjectionTransposedMatrix() {
-    ((void(__cdecl *)(void))0x764D20)();
-}
+// 0x764D20 (_rwD3D9VSGetProjectionTransposedMatrix): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 
 void* _rpD3D9GetVertexShader(const _rpD3D9VertexShaderDescriptor* desc, _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
@@ -152,45 +154,27 @@ RwUInt32 _rpD3D9GetNumConstantsUsed(const _rpD3D9VertexShaderDescriptor* desc) {
     return ((RwUInt32(__cdecl *)(const _rpD3D9VertexShaderDescriptor*))0x75EDD0)(desc);
 }
 
-void _rxD3D9VertexShaderDefaultBeginCallBack(void* object, RwUInt32 type, _rpD3D9VertexShaderDescriptor* desc) {
-    ((void(__cdecl *)(void*, RwUInt32, _rpD3D9VertexShaderDescriptor*))0x760DF0)(object, type, desc);
-}
+// 0x760DF0 (_rxD3D9VertexShaderDefaultBeginCallBack): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-RwV4d* _rxD3D9VertexShaderDefaultLightingCallBack(void* object, RwUInt32 type, RwV4d* shaderConstantPtr, _rpD3D9VertexShaderDescriptor* desc) {
-    return ((RwV4d*(__cdecl *)(void*, RwUInt32, RwV4d*, _rpD3D9VertexShaderDescriptor*))0x761170)(object, type, shaderConstantPtr, desc);
-}
+// 0x761170 (_rxD3D9VertexShaderDefaultLightingCallBack): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-void* _rxD3D9VertexShaderDefaultGetMaterialShaderCallBack(const RpMaterial* material, _rpD3D9VertexShaderDescriptor* desc, _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
-    return ((void*(__cdecl *)(const RpMaterial*, _rpD3D9VertexShaderDescriptor*, _rpD3D9VertexShaderDispatchDescriptor*))0x761010)(material, desc, dispatch);
-}
+// 0x761010 (_rxD3D9VertexShaderDefaultGetMaterialShaderCallBack): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-void _rxD3D9VertexShaderDefaultMeshRenderCallBack(RxD3D9ResEntryHeader* resEntryHeader, RxD3D9InstanceData* instancedMesh, const _rpD3D9VertexShaderDescriptor* desc, const _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
-    ((void(__cdecl *)(RxD3D9ResEntryHeader*, RxD3D9InstanceData*, const _rpD3D9VertexShaderDescriptor*, const _rpD3D9VertexShaderDispatchDescriptor*))0x761030)(resEntryHeader, instancedMesh, desc, dispatch);
-}
+// 0x761030 (_rxD3D9VertexShaderDefaultMeshRenderCallBack): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 void _rxD3D9VertexShaderDefaultEndCallBack(void* object, RwUInt32 type, _rpD3D9VertexShaderDescriptor* desc) {
     ((void(__cdecl *)(void*, RwUInt32, _rpD3D9VertexShaderDescriptor*))0x761000)(object, type, desc);
 }
 
-void _rpD3D9VertexShaderUpdateLightsColors(RwV4d* shaderConstantPtr, const _rpD3D9VertexShaderDescriptor* desc, RwReal ambientCoef, RwReal diffuseCoef) {
-    ((void(__cdecl *)(RwV4d*, const _rpD3D9VertexShaderDescriptor*, RwReal, RwReal))0x761720)(shaderConstantPtr, desc, ambientCoef, diffuseCoef);
-}
+// 0x761720 (_rpD3D9VertexShaderUpdateLightsColors): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-void _rpD3D9VertexShaderUpdateMaterialColor(const RwRGBA* color, const _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
-    ((void(__cdecl *)(const RwRGBA*, const _rpD3D9VertexShaderDispatchDescriptor*))0x761820)(color, dispatch);
-}
+// 0x761820 (_rpD3D9VertexShaderUpdateMaterialColor): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-void _rpD3D9VertexShaderUpdateFogData(const _rpD3D9VertexShaderDescriptor* desc, const _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
-    ((void(__cdecl *)(const _rpD3D9VertexShaderDescriptor*, const _rpD3D9VertexShaderDispatchDescriptor*))0x7618B0)(desc, dispatch);
-}
+// 0x7618B0 (_rpD3D9VertexShaderUpdateFogData): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-void _rpD3D9VertexShaderUpdateMorphingCoef(RwReal morphingCoef, const _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
-    ((void(__cdecl *)(RwReal, const _rpD3D9VertexShaderDispatchDescriptor*))0x761950)(morphingCoef, dispatch);
-}
+// 0x761950 (_rpD3D9VertexShaderUpdateMorphingCoef): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-void _rpD3DVertexShaderSetUVAnimMatrix(RwMatrix* matrix, const _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
-    ((void(__cdecl *)(RwMatrix*, const _rpD3D9VertexShaderDispatchDescriptor*))0x7619A0)(matrix, dispatch);
-}
+// 0x7619A0 (_rpD3DVertexShaderSetUVAnimMatrix): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 
 // 0x75E9F0: `mov eax, 0x8D63B8; ret`; devuelve la direccion de la definicion estatica del EXE, sin leer ni escribir nada.
@@ -647,9 +631,7 @@ RwInt32 _rpMaterialListFindMaterialIndex(const RpMaterialList* matList, const Rp
     return static_cast<RwInt32>(static_cast<RwUInt32>(index) - 1u);
 }
 
-const RpMaterialList* _rpMaterialListStreamWrite(const RpMaterialList* matList, RwStream* stream) {
-    return ((const RpMaterialList*(__cdecl *)(const RpMaterialList*, RwStream*))0x74E4B0)(matList, stream);
-}
+// 0x74E4B0 (_rpMaterialListStreamWrite): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 void* _rpMeshOpen(void* instance, RwInt32 offset, RwInt32 size) {
     return ((void*(__cdecl *)(void*, RwInt32, RwInt32))0x758970)(instance, offset, size);
@@ -898,9 +880,7 @@ RwInt32 _rpMeshSize(const RpMeshHeader* meshHeader, const void* object) {
     return static_cast<RwInt32>((meshHeader->totalIndicesInMesh + static_cast<RwUInt32>(meshHeader->numMeshes) * 2) * 4 + 0xC);
 }
 
-void _rpMeshHeaderDestroy(RpMeshHeader* meshHeader) {
-    ((void(__cdecl *)(RpMeshHeader*))0x758910)(meshHeader);
-}
+// 0x758910 (_rpMeshHeaderDestroy): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 // 0x758920: `call [RwEngineInstance + 0x134](size, 0x30502)`, es decir RwMalloc del motor (memoryFuncs.rwmalloc) con la pista de memoria
 // global de mallas. Lee el puntero del motor (0xC97B24) en cada llamada y devuelve tal cual lo que devuelva el asignador; no escribe nada.
@@ -1508,9 +1488,7 @@ RpMeshHeader* RpBuildMeshGeneratePreprocessTriStrip(RpBuildMesh* buildmesh, void
     return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75A900)(buildmesh, data);
 }
 
-RpMeshHeader* RpBuildMeshGenerateExhaustiveTriStrip(RpBuildMesh* buildmesh, void* data) {
-    return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75A940)(buildmesh, data);
-}
+// 0x75A940 (RpBuildMeshGenerateExhaustiveTriStrip): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 RpMeshHeader* RpBuildMeshGenerateDefaultIgnoreWindingTriStrip(RpBuildMesh* buildmesh, void* data) {
     return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75A8E0)(buildmesh, data);
@@ -1520,9 +1498,7 @@ RpMeshHeader* RpBuildMeshGeneratePreprocessIgnoreWindingTriStrip(RpBuildMesh* bu
     return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75A920)(buildmesh, data);
 }
 
-RpMeshHeader* RpBuildMeshGenerateExhaustiveIgnoreWindingTriStrip(RpBuildMesh* buildmesh, void* data) {
-    return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75B4E0)(buildmesh, data);
-}
+// 0x75B4E0 (RpBuildMeshGenerateExhaustiveIgnoreWindingTriStrip): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 RwBool RpMeshSetTriStripMethod(RpTriStripMeshCallBack callback, void* data) {
     return ((RwBool(__cdecl *)(RpTriStripMeshCallBack, void*))0x75D4C0)(callback, data);
@@ -1533,9 +1509,7 @@ RwBool RpMeshGetTriStripMethod(RpTriStripMeshCallBack* callback, void* data) {
 }
 
 
-RpGeometry* RpGeometryTransform(RpGeometry* geometry, const RwMatrix* matrix) {
-    return ((RpGeometry*(__cdecl *)(RpGeometry*, const RwMatrix*))0x74BFE0)(geometry, matrix);
-}
+// 0x74BFE0 (RpGeometryTransform): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 RpGeometry* RpGeometryCreateSpace(RwReal radius) {
     return ((RpGeometry*(__cdecl *)(RwReal))0x74C130)(radius);
@@ -2021,9 +1995,7 @@ RwUInt32 RpGeometryStreamGetSize(const RpGeometry* geometry) {
     return static_cast<RwUInt32>(structureSize + 0xC) + materialsSize + 0xC + static_cast<RwUInt32>(pluginsSize) + 0xC;
 }
 
-const RpGeometry* RpGeometryStreamWrite(const RpGeometry* geometry, RwStream* stream) {
-    return ((const RpGeometry*(__cdecl *)(const RpGeometry*, RwStream*))0x74CED0)(geometry, stream);
-}
+// 0x74CED0 (RpGeometryStreamWrite): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 // 0x74D6D0
 // Cola de destruccion de un geometry ya sin referencias: suma uno al refCount, marca lockedSinceLastInst |= 0xFFF, destruye la malla (si la hay; el puntero se lee antes de sumar), DeInitObject
@@ -2252,9 +2224,7 @@ RpGeometryChunkInfo* _rpGeometryChunkInfoRead(RwStream* stream, RpGeometryChunkI
     return geometryChunkInfo;
 }
 
-RpWorldSector* RpWorldSectorRender(RpWorldSector* worldSector) {
-    return ((RpWorldSector*(__cdecl *)(RpWorldSector*))0x761C50)(worldSector);
-}
+// 0x761C50 (RpWorldSectorRender): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 const RpWorldSector* RpWorldSectorForAllMeshes(const RpWorldSector* sector, RpMeshCallBack fpCallBack, void* data) {
     return ((const RpWorldSector*(__cdecl *)(const RpWorldSector*, RpMeshCallBack, void*))0x761C60)(sector, fpCallBack, data);
@@ -2360,13 +2330,9 @@ RpLight* RpLightSetColor(RpLight* light, const RwRGBAReal* color) {
     return light;
 }
 
-RwReal RpLightGetConeAngle(const RpLight* light) {
-    return ((RwReal(__cdecl *)(const RpLight*))0x751AE0)(light);
-}
+// 0x751AE0 (RpLightGetConeAngle): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-RpLight* RpLightSetConeAngle(RpLight* ight, RwReal angle) {
-    return ((RpLight*(__cdecl *)(RpLight*, RwReal))0x751D20)(ight, angle);
-}
+// 0x751D20 (RpLightSetConeAngle): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 RwUInt32 RpLightStreamGetSize(const RpLight* light) {
     return ((RwUInt32(__cdecl *)(const RpLight*))0x751E10)(light);
@@ -2446,17 +2412,11 @@ void RpD3D9LightGetAttenuationParams(const RpLight* light, RpD3D9AttenuationPara
     ((void(__cdecl *)(const RpLight*, RpD3D9AttenuationParams*))0x755D50)(light, params);
 }
 
-RwBool _rwD3D9LightsGlobalEnable(RpLightFlag flags) {
-    return ((RwBool(__cdecl *)(RpLightFlag))0x756070)(flags);
-}
+// 0x756070 (_rwD3D9LightsGlobalEnable): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-RwBool _rwD3D9LightDirectionalEnable(RpLight* light) {
-    return ((RwBool(__cdecl *)(RpLight*))0x756260)(light);
-}
+// 0x756260 (_rwD3D9LightDirectionalEnable): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-RwBool _rwD3D9LightLocalEnable(RpLight* light) {
-    return ((RwBool(__cdecl *)(RpLight*))0x756390)(light);
-}
+// 0x756390 (_rwD3D9LightLocalEnable): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 void _rwD3D9LightsEnable(RwBool enable, RwUInt32 type) {
     ((void(__cdecl *)(RwBool, RwUInt32))0x756600)(enable, type);
@@ -3067,9 +3027,7 @@ void ClumpReadAbortWithGeometries(RpClump* clump, rwFrameList* frameList, RpGeom
 
 } // namespace
 
-RpClump* RpClumpCreateSpace(const RwV3d* position, RwReal radius) {
-    return ((RpClump*(__cdecl *)(const RwV3d*, RwReal))0x749970)(position, radius);
-}
+// 0x749970 (RpClumpCreateSpace): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 // 0x749B20
 // Para cada atomo de la lista cuyo indicador `flags` tiene el bit 4 (rpATOMICRENDER): RwFrameGetLTM(marco) (resultado ignorado) y su callback de dibujo; si el callback devuelve nulo
@@ -3537,9 +3495,7 @@ RpClump* RwCameraGetClump(const RwCamera* camera) {
     return *reinterpret_cast<RpClump* const*>(reinterpret_cast<const uint8*>(camera) + static_cast<uintptr_t>(s_cameraClumpLinkOffset));
 }
 
-RwUInt32 RpAtomicStreamGetSize(RpAtomic* atomic) {
-    return ((RwUInt32(__cdecl *)(RpAtomic*))0x74A5B0)(atomic);
-}
+// 0x74A5B0 (RpAtomicStreamGetSize): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 // 0x74B030 (lote S23A, sin validar; 37 bytes; cdecl, (flujo)): ClumpAtomicStreamRead (0x74B060) con una lista de marcos y otra de geometrias vacias (puntero basura y cantidad 0 en el EXE; aqui punteros nulos).
 RpAtomic* RpAtomicStreamRead(RwStream* stream) {
@@ -3548,13 +3504,9 @@ RpAtomic* RpAtomicStreamRead(RwStream* stream) {
     return ClumpAtomicStreamRead(stream, &frameList, &geomList);
 }
 
-RpAtomic* RpAtomicStreamWrite(RpAtomic* atomic, RwStream* stream) {
-    return ((RpAtomic*(__cdecl *)(RpAtomic*, RwStream*))0x74A850)(atomic, stream);
-}
+// 0x74A850 (RpAtomicStreamWrite): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-RwUInt32 RpClumpStreamGetSize(RpClump* clump) {
-    return ((RwUInt32(__cdecl *)(RpClump*))0x74A5E0)(clump);
-}
+// 0x74A5E0 (RpClumpStreamGetSize): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 // 0x74B420: lee un clump del flujo: chunk estructura (version 0x34000..0x36003, 12 bytes con numAtomics/numLights/numCameras),
 // lista de marcos, lista de geometrias, atomicos, luces y camaras (cada luz/camara con su indice de marco) y datos de plugins.
@@ -3707,9 +3659,7 @@ RpClump* RpClumpStreamRead(RwStream* stream) {
     return clump;
 }
 
-RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream) {
-    return ((RpClump*(__cdecl *)(RpClump*, RwStream*))0x74AA10)(clump, stream);
-}
+// 0x74AA10 (RpClumpStreamWrite): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 // 0x74BD40 (lote S23A, sin validar; 82 bytes; cdecl, (flujo, info, bytesLeidos)): busca el chunk estructura (RwStreamFindChunk, tipo 1; sin chunk devuelve NULL), lee 12 bytes en la info (menos de 12 -> NULL),
 // *bytesLeidos = longitud del chunk + 12 y devuelve la info.
@@ -3787,9 +3737,7 @@ RwBool RpAtomicInstance(RpAtomic* atomic) {
     return ((RwBool(__cdecl *)(RpAtomic*))0x74BF40)(atomic);
 }
 
-RwBool _rpWorldFindBBox(RpWorld* world, RwBBox* boundingBox) {
-    return ((RwBool(__cdecl *)(RpWorld*, RwBBox*))0x74EFA0)(world, boundingBox);
-}
+// 0x74EFA0 (_rpWorldFindBBox): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 RpWorld* _rpWorldSetupSectorBoundingBoxes(RpWorld* world) {
     return ((RpWorld*(__cdecl *)(RpWorld*))0x74F020)(world);
@@ -3878,9 +3826,7 @@ RpWorld* RpWorldForAllLights(RpWorld* world, RpLightCallBack fpCallBack, void* d
     return ((RpWorld*(__cdecl *)(RpWorld*, RpLightCallBack, void*))0x74FC00)(world, fpCallBack, data);
 }
 
-RpWorld* RpWorldRender(RpWorld* world) {
-    return ((RpWorld*(__cdecl *)(RpWorld*))0x74F570)(world);
-}
+// 0x74F570 (RpWorldRender): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 // 0x74F730 (lote S24A, sin validar; 21 bytes; cdecl, (mundo, callback)): callback de render de sectores del mundo (+0x68) = el dado o, si es nulo, el por defecto 0x74EEC0 del EXE. Devuelve el mundo.
 RpWorld* RpWorldSetSectorRenderCallBack(RpWorld* world, RpWorldSectorCallBackRender fpCallBack) {
@@ -3973,9 +3919,7 @@ RwUInt32 _rpD3D9VertexDeclarationGetStride(const void* vertexDeclaration) {
     return ((RwUInt32(__cdecl *)(const void*))0x7522F0)(vertexDeclaration);
 }
 
-RwUInt32 _rpD3D9VertexDeclarationInstV3dComp(RwUInt32 type, RwUInt8* mem, const RpVertexNormal* src, RwInt32 numVerts, RwUInt32 stride) {
-    return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RpVertexNormal*, RwInt32, RwUInt32))0x7531B0)(type, mem, src, numVerts, stride);
-}
+// 0x7531B0 (_rpD3D9VertexDeclarationInstV3dComp): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 RwUInt32 _rpD3D9VertexDeclarationInstIndices(RwUInt32 type, RwUInt8* mem, const RwUInt32* indices, RwInt32 numVerts, RwUInt32 stride) {
     return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwUInt32*, RwInt32, RwUInt32))0x754B40)(type, mem, indices, numVerts, stride);
@@ -4878,12 +4822,12 @@ inline void StoreWord(uintptr_t address, RwUInt32 value) {
     *reinterpret_cast<RwUInt32*>(address) = value;
 }
 
-// 0x755B90 (lote R17A, sin validar; nombre inferido; cdecl sin argumentos, `ret`, 45 bytes; la llama _rpD3D9PluginAttach en 0x74EA41): registra el plugin 0x505 de RpLight (tamano 0x10, constructor 0x755BC0, destructor 0x755BF0, copia 0x755CE0,
+// 0x755B90 (lote R17A, sin validar; nombre inferido; cdecl sin argumentos, `ret`, 45 bytes; la llama _rpD3D9PluginAttach en 0x74EA41): registra el plugin 0x505 de RpLight (tamano 0x10, constructor 0x755BC0, destructor 0x755BF0 (lote S30A, ya en C++), copia 0x755CE0,
 // que se llaman por direccion fija) con RpLightRegisterPlugin (0x751D60); guarda el desplazamiento resultante en 0xC926B0 y devuelve TRUE si no es negativo.
 RwBool D3D9LightPluginAttach() {
     const RwInt32 offset = RpLightRegisterPlugin(0x10, 0x505,
                                                  reinterpret_cast<RwPluginObjectConstructor>(0x755BC0),
-                                                 reinterpret_cast<RwPluginObjectDestructor>(0x755BF0),
+                                                 _rwD3D9LightPluginDestruct,
                                                  reinterpret_cast<RwPluginObjectCopy>(0x755CE0));
     s_d3d9LightPluginOffset = offset;
     return offset >= 0 ? TRUE : FALSE;
@@ -5172,22 +5116,16 @@ void _rpD3D9VertexDeclarationUnInstV3d(RwUInt32 type, RwV3d* dst, const RwUInt8*
     }
 }
 
-void _rpD3D9GetMinMaxValuesV3d(const RwV3d* src, RwInt32 numElements, RwV3d* min, RwV3d* max) {
-    ((void(__cdecl *)(const RwV3d*, RwInt32, RwV3d*, RwV3d*))0x755830)(src, numElements, min, max);
-}
+// 0x755830 (_rpD3D9GetMinMaxValuesV3d): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-RwUInt32 _rpD3D9FindFormatV3d(const RwV3d* src, RwInt32 numElements) {
-    return ((RwUInt32(__cdecl *)(const RwV3d*, RwInt32))0x755980)(src, numElements);
-}
+// 0x755980 (_rpD3D9FindFormatV3d): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 
 RxPipeline* RpMaterialSetDefaultPipeline(RxPipeline* pipeline) {
     return ((RxPipeline*(__cdecl *)(RxPipeline*))0x75E2D0)(pipeline);
 }
 
-const RpGeometry* RpGeometryIsCorrectlySorted(const RpGeometry* geometry, RwBool* result) {
-    return ((const RpGeometry*(__cdecl *)(const RpGeometry*, RwBool*))0x75D9D0)(geometry, result);
-}
+// 0x75D9D0 (RpGeometryIsCorrectlySorted): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 RpGeometry* RpGeometrySortByMaterial(const RpGeometry* geometry, RpGeometrySortByMaterialCallBack callback) {
     return ((RpGeometry*(__cdecl *)(const RpGeometry*, RpGeometrySortByMaterialCallBack))0x75DAE0)(geometry, callback);
@@ -5310,13 +5248,9 @@ RpWorld* RpLightGetWorld(const RpLight* light) {
     return ((RpWorld*(__cdecl *)(const RpLight*))0x7519E0)(light);
 }
 
-RwCamera* RwCameraForAllClumpsInFrustum(RwCamera* camera, void* data) {
-    return ((RwCamera*(__cdecl *)(RwCamera*, void*))0x7516C0)(camera, data);
-}
+// 0x7516C0 (RwCameraForAllClumpsInFrustum): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-RwCamera* RwCameraForAllAtomicsInFrustum(RwCamera* camera, RpAtomicCallBack callback, void* data) {
-    return ((RwCamera*(__cdecl *)(RwCamera*, RpAtomicCallBack, void*))0x7517F0)(camera, callback, data);
-}
+// 0x7517F0 (RwCameraForAllAtomicsInFrustum): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 RwCamera* RwCameraForAllSectorsInFrustum(RwCamera* camera, RpWorldSectorCallBack callBack, void* data) {
     return ((RwCamera*(__cdecl *)(RwCamera*, RpWorldSectorCallBack, void*))0x751660)(camera, callBack, data);
@@ -5365,13 +5299,9 @@ RwUInt32 RpWorldStreamGetSize(const RpWorld* world) {
     return ((RwUInt32(__cdecl *)(const RpWorld*))0x761EA0)(world);
 }
 
-RpWorld* RpWorldStreamRead(RwStream* stream) {
-    return ((RpWorld*(__cdecl *)(RwStream*))0x762960)(stream);
-}
+// 0x762960 (RpWorldStreamRead): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
-const RpWorld* RpWorldStreamWrite(const RpWorld* world, RwStream* stream) {
-    return ((const RpWorld*(__cdecl *)(const RpWorld*, RwStream*))0x762150)(world, stream);
-}
+// 0x762150 (RpWorldStreamWrite): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
 
 RpWorldSectorChunkInfo* _rpWorldSectorChunkInfoRead(RwStream* stream, RpWorldSectorChunkInfo* worldSectorChunkInfo, RwInt32* bytesRead) {
     return ((RpWorldSectorChunkInfo*(__cdecl *)(RwStream*, RpWorldSectorChunkInfo*, RwInt32*))0x7635B0)(stream, worldSectorChunkInfo, bytesRead);
@@ -7180,7 +7110,7 @@ RpMeshHeader* _rpTriListMeshGenerate(RpBuildMesh* buildMesh, void* data) {
         ++triangleIndex;
     } while (triangleIndex < buildMesh->numTriangles);
 
-    _rpMeshHeaderForAllMeshes(header, reinterpret_cast<RpMeshCallBack>(0x75D730), nullptr);
+    _rpMeshHeaderForAllMeshes(header, _rpTriListMeshOptimize, nullptr);
     RwFree(pointers);
     return header;
 }
