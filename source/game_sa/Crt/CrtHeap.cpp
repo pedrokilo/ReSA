@@ -2,6 +2,7 @@
 #include "StdInc.h"
 #endif
 #include "CrtHeap.h"
+#include "CrtState.h"
 
 // Reconstruccion de malloc/free/realloc/calloc/operator new del CRT del EXE para __active_heap == 1 (lote CRT1A). Ver CrtHeap.h y reversing/FnCRT1A/DISENO.md.
 // Las ramas del EXE para el montón de bloques pequeños (__active_heap == 3) no se reproducen: no se alcanzan en Windows 2000 o posterior (__heap_select, 0x82C457).
@@ -11,18 +12,33 @@ namespace {
 inline HANDLE&       CrtHeap()          { return *reinterpret_cast<HANDLE*>(0xC9C2F4); }
 inline int&          ActiveHeap()       { return *reinterpret_cast<int*>(0xC9C2F8); }
 inline int&          NewMode()          { return *reinterpret_cast<int*>(0xC9ADCC); }
-using NewHandler = int(__cdecl*)(unsigned int);
+using NewHandler = NewHandlerFn;
 inline NewHandler&   NewHandlerPtr()    { return *reinterpret_cast<NewHandler*>(0xC9AC68); }
 constexpr unsigned int MAX_REQUEST = 0xFFFFFFE0u; // el EXE rechaza (size > -0x20) sin llamar al sistema
 
+} // namespace
+
 // 0x826A57 _callnewh: 1 si hay manejador y pide reintentar, 0 si no
-int CallNewHandler(unsigned int size) {
+int __cdecl CallNewHandler(unsigned int size) {
     if (const NewHandler handler = NewHandlerPtr()) {
         return handler(size) ? 1 : 0;
     }
     return 0;
 }
-} // namespace
+
+// 0x826A2D _set_new_handler: __lock(4); anterior = [0xC9AC68]; [0xC9AC68] = handler; __unlock(4); devuelve el anterior
+NewHandlerFn __cdecl SetNewHandler(NewHandlerFn handler) {
+    Lock(4);
+    const NewHandler previous = NewHandlerPtr();
+    NewHandlerPtr()           = handler;
+    Unlock(4);
+    return previous;
+}
+
+// 0x826A51 _query_new_handler
+NewHandlerFn __cdecl QueryNewHandler() {
+    return NewHandlerPtr();
+}
 
 bool CrtHeapIsSystemHeap() {
     return ActiveHeap() == 1;
@@ -108,6 +124,21 @@ void* __cdecl OperatorNew(unsigned int size) {
         }
     }
 }
+
+// 0x821195 (`jmp 0x82119A`)
+void* __cdecl OperatorNewArray(unsigned int size) {
+    return OperatorNew(size);
+}
+
+// 0x8214BD (`jmp 0x82413F`)
+void __cdecl OperatorDelete(void* block) {
+    Free(block);
+}
+
+// 0x8213AE (`jmp 0x8214BD`)
+void __cdecl OperatorDeleteArray(void* block) {
+    OperatorDelete(block);
+}
 } // namespace ExeCrt
 
 #ifndef CRT_BENCH
@@ -127,6 +158,13 @@ void CrtHeapInjectHooks() {
     RH_ScopedGlobalInstall(ExeCrt::Realloc, 0x824269);
     RH_ScopedGlobalInstall(ExeCrt::Calloc, 0x824416);
     RH_ScopedGlobalInstall(ExeCrt::OperatorNew, 0x82119A);
+    // Lote NEWDEL: new[]/delete/delete[] (tres `jmp` de 5 bytes del EXE) y el manejador de new.
+    RH_ScopedGlobalInstall(ExeCrt::OperatorNewArray, 0x821195);
+    RH_ScopedGlobalInstall(ExeCrt::OperatorDelete, 0x8214BD);
+    RH_ScopedGlobalInstall(ExeCrt::OperatorDeleteArray, 0x8213AE);
+    RH_ScopedGlobalInstall(ExeCrt::CallNewHandler, 0x826A57);
+    RH_ScopedGlobalInstall(ExeCrt::SetNewHandler, 0x826A2D);
+    RH_ScopedGlobalInstall(ExeCrt::QueryNewHandler, 0x826A51);
 #endif
 }
 #endif

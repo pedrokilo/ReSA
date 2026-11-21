@@ -1,0 +1,8 @@
+Compilacion con _build_NEWDEL.sh (candado /d/Original/compile_lock) del arbol wv-nd, rama new-delete-d3dx9:
+  D3dxHlslCompiler.cpp
+  D3dxShaderAssembler.cpp
+  D3dxShaderSource.cpp
+  gta_reversed.vcxproj -> D:\Original\wv-nd\bin\Debug\gta_reversed.asi
+EXIT=0
+Auditorias: audit_hook_catalog.py --strict -> OK; audit_cpp_assembly.py -> 0 archivos con ensamblador, 0 naked.
+Prueba de humo (prueba_humo.py, cal_mal.args): VEREDICTO BIEN con D:\Original\wv-nd\bin\Debug\gta_reversed.asi (sha256 e9325fd5ac6e...)
