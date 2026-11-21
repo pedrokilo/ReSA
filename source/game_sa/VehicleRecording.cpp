@@ -27,6 +27,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "VehicleRecording.h"
+#include "game_sa/Crt/CrtOnexit.h"
 
 #ifdef EXTRA_CARREC_LOGS
     #define CARREC_LOG(...) NOTSA_LOG_DEBUG(__VA_ARGS__)
@@ -397,8 +398,7 @@ static int __cdecl CrtPrintf(const char* format, ...) {
 
 // 0x821D1E: atexit(func) = (_onexit(func) == NULL) ? -1 : 0. _onexit (0x821CE6) guarda func en la tabla de la CRT del EXE y devuelve func (o NULL si no cabe).
 static int __cdecl CrtAtexit(void(__cdecl* func)()) {
-    using OnexitFn = void*(__cdecl*)(void*);
-    return reinterpret_cast<OnexitFn>(0x821CE6)(reinterpret_cast<void*>(func)) ? 0 : -1;
+    return ExeCrt::Onexit(reinterpret_cast<void*>(func)) ? 0 : -1; // CRT3A: _onexit reconstruido (CrtOnexit)
 }
 
 // 0x823FD1: _lock_file2(index, stream). Los flujos 0..19 usan el cerrojo de tabla 16 + index (_lock, 0x82ADBE); los demás tienen su propia sección crítica
