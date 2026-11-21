@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "X87Math.h"
+#include "Crt/CrtHeap.h"
 
 #include <cstdlib>
 
@@ -553,19 +554,35 @@ void operator delete(void* memory) {
 #endif
 
 #ifndef NOTSA_STANDALONE
+// Operadores globales del proyecto = los del CRT del EXE (0x82119A / 0x821195 / 0x8214BD / 0x8213AE). Con el montón del sistema activo
+// (__active_heap == 1) se llama directamente a la reconstruccion en C++ (ExeCrt, CrtHeap.cpp), que trabaja sobre el mismo _crtheap que malloc/free
+// del EXE y de los hooks, igual que con el gancho puesto o quitado. Antes de que el EXE inicialice su montón (constructores estaticos de la DLL)
+// o si no es el montón del sistema, se llama al EXE por su direccion, como siempre.
 void* operator new(size_t size) {
+    if (ExeCrt::CrtHeapIsSystemHeap()) {
+        return ExeCrt::OperatorNew(static_cast<unsigned int>(size));
+    }
     return plugin::CallAndReturn<void*, 0x82119A, size_t>(size);
 }
 
 void* operator new[](size_t size) {
+    if (ExeCrt::CrtHeapIsSystemHeap()) {
+        return ExeCrt::OperatorNewArray(static_cast<unsigned int>(size));
+    }
     return plugin::CallAndReturn<void*, 0x821195, size_t>(size);
 }
 
 void operator delete(void* p) {
+    if (ExeCrt::CrtHeapIsSystemHeap()) {
+        return ExeCrt::OperatorDelete(p);
+    }
     plugin::Call<0x8214BD, void*>(p);
 }
 
 void operator delete[](void* p) {
+    if (ExeCrt::CrtHeapIsSystemHeap()) {
+        return ExeCrt::OperatorDeleteArray(p);
+    }
     plugin::Call<0x8213AE, void*>(p);
 }
 #endif

@@ -1,0 +1,3 @@
+new/new[]/delete/delete[]: 50000 secuencias; operaciones new=305004 new[]=305035 delete=304160 delete[]=305311 delete(0)=305599; 0 diferencias
+_set_new_handler/_query_new_handler/_callnewh: 200000 casos (set=66699 query=67184 callnewh=66117); 0 diferencias
+RESULTADO: SIN DIFERENCIAS

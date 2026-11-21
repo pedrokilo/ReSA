@@ -11,14 +11,23 @@
 //
 //   malloc 0x824257 (-> _nh_malloc 0x82422B -> _heap_alloc 0x8241B0)   free 0x82413F   realloc 0x824269   calloc 0x824416
 //   operator new 0x82119A (new[] 0x821195 salta a este)   operator delete 0x8214BD (delete[] 0x8213AE salta a 0x8214BD) -> free 0x82413F
+//   _set_new_handler 0x826A2D   _query_new_handler 0x826A51   _callnewh 0x826A57   (lote NEWDEL; el EXE no trae _set_new_mode ni las variantes nothrow)
+//   0x8212ED (lanza std::bad_alloc: _CxxThrowException con el ThrowInfo 0x8A1ED4) NO se reconstruye: se llama por direccion (ver reversing/FnNEWDEL/README.md)
 
 namespace ExeCrt {
+using NewHandlerFn = int(__cdecl*)(unsigned int);
 void* __cdecl NhMalloc(unsigned int size, int callNewHandler); // 0x82422B
 void* __cdecl Malloc(unsigned int size);                        // 0x824257 (= NhMalloc(size, _newmode))
 void  __cdecl Free(void* block);                                // 0x82413F (puntero nulo: no hace nada)
 void* __cdecl Realloc(void* block, unsigned int size);          // 0x824269
 void* __cdecl Calloc(unsigned int count, unsigned int size);    // 0x824416
 void* __cdecl OperatorNew(unsigned int size);                   // 0x82119A (reintenta con el manejador de new; sin memoria y sin manejador: lanza como el EXE)
+void* __cdecl OperatorNewArray(unsigned int size);              // 0x821195 (jmp a 0x82119A)
+void  __cdecl OperatorDelete(void* block);                      // 0x8214BD (jmp a free 0x82413F)
+void  __cdecl OperatorDeleteArray(void* block);                 // 0x8213AE (jmp a 0x8214BD)
+int   __cdecl CallNewHandler(unsigned int size);                // 0x826A57 _callnewh: 1 si hay manejador y pide reintentar, 0 si no
+NewHandlerFn  __cdecl SetNewHandler(NewHandlerFn handler);      // 0x826A2D _set_new_handler: bajo el cerrojo 4 cambia 0xC9AC68 y devuelve el anterior
+NewHandlerFn  __cdecl QueryNewHandler();                        // 0x826A51 _query_new_handler
 
 // true si el CRT del EXE usa el montón del sistema (__active_heap == 1), unica condicion en la que estas versiones son equivalentes
 bool CrtHeapIsSystemHeap();

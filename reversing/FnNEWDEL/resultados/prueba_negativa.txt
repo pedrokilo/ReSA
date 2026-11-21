@@ -1,0 +1,8 @@
+mutacion 1 DETECTADA: NewHandlerPtr()           = handler;  ->  NewHandlerPtr()           = nullptr;
+mutacion 2 DETECTADA:     return previous;  ->      return handler;
+mutacion 3 DETECTADA: return handler(size) ? 1 : 0;  ->  return handler(size);
+mutacion 4 DETECTADA:     Free(block);
+mutacion 5 DETECTADA:     return NewHandlerPtr();  ->      return nullptr;
+mutacion 6 DETECTADA:     return OperatorNew(size);  ->      return Malloc(size);
+mutacion 7 DETECTADA:         if (CallNewHandler(size) == 0) {
+NEGATIVA: 7 de 7 detectadas

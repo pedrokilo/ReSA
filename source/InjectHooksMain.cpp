@@ -16,6 +16,10 @@
 #include "PedSaveStructure.h"
 #include "Interior/TaskInteriorSitInChair.h"
 #include "MBlur.h"
+#include "RenderWare/rw/D3dxErrorLog.h"
+#include "RenderWare/rw/D3dxShaderSource.h"
+#include "RenderWare/rw/D3dxShaderAssembler.h"
+#include "RenderWare/rw/D3dxHlslCompiler.h"
 #include "Rubbish.h"
 #include "PlaneBanners.h"
 // Lote 216A (sin validar): constructores y destructores de los FxInfo*_c
@@ -1233,6 +1237,10 @@ void InjectHooksMain() {
     QTMLRuntimeInjectHooks();
     RtSlerpInjectHooks();
     D3DX9InjectHooks();
+    D3dxErrorLog::InjectHooks();       // lote NEWDEL: rutinas internas del compilador de shaders de D3DX9 del EXE
+    D3dxShaderSource::InjectHooks();
+    D3dxShaderAssembler::InjectHooks();
+    D3dxHlslCompiler::InjectHooks();
     RtQuatInjectHooks();
     ZlibInflateInjectHooks();
     CrtQsortInjectHooks();   // lote CRT1A: qsort del CRT del EXE (0x8247E0), validado fuera del juego (reversing/FnCRT1A)

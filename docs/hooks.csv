@@ -12184,6 +12184,7 @@ D3DX9,D3DXVec3TransformNormal,0x00766AB7,1,0,1,S
 D3DX9,D3DXMatrixMultiply,0x007672E1,1,0,1,S
 D3DX9,D3DXMatrixTranspose,0x007675EE,1,0,1,S
 D3DX9,D3DXMatrixMultiplyTranspose,0x007676C7,1,0,1,S
+D3DX9,D3dxCompileShaderEntry,0x0077EE77,1,0,0,S
 RwPlCore,RwV3dNormalize,0x007ED9B0,1,0,0,S
 RwPlCore,RwV3dTransformPoints,0x007EDD90,1,0,0,S
 RwCore,RwCameraSetNearClipPlane,0x007EE1D0,1,0,0,S
@@ -13329,3 +13330,14 @@ RpWorld,RpBuildMeshGenerateTriStrip,0x0075C380,1,0,0,S
 RpWorld,GeometrySortCompare,0x0075E230,1,0,0,S
 RpWorld,RpGeometrySortByMaterial,0x0075DAE0,1,0,0,S
 RpWorld,_rpGeometryPluginFirstEntry,0x0074BFD0,1,0,0,S
+D3dxErrorLog,ToBuffer,0x0076E5FB,1,0,0,S
+D3dxShaderSource,Constructor,0x0076B89B,1,0,0,S
+D3dxShaderSource,Destructor,0x0076B940,1,0,0,S
+D3dxShaderSource,InitFromMemory,0x0076DFD1,1,0,0,S
+D3dxShaderSource,InitFromFile,0x0076DF03,1,0,0,S
+D3dxShaderSource,InitFromResource,0x0076DF6C,1,0,0,S
+D3dxShaderAssembler,Constructor,0x0076FAEB,1,0,0,S
+D3dxShaderAssembler,Destructor,0x00771F63,1,0,0,S
+D3dxShaderAssembler,Assemble,0x00772BB1,1,0,0,S
+D3dxHlslCompiler,Constructor,0x00773022,1,0,0,S
+D3dxHlslCompiler,Destructor,0x0077303B,1,0,0,S
