@@ -75,6 +75,9 @@ static notsa::log_ptr logger;
 #include <fstream>
 #endif
 
+#include <fstream>
+#include <string>
+#include <cstdio>
 #include "CommandParser/Parser.hpp"
 #include "CommandParser/LUTGenerator.hpp"
 #include "reversiblehooks/ReversibleHook/ScriptCommand.h"
@@ -1227,7 +1230,26 @@ OpcodeResult CRunningScript::ProcessOneCommand() {
     
     m_NotFlag = op.NotFlag;
 
-    if (const auto handler = CustomCommandHandlerOf((eScriptCommands)(op.Command))) {
+    // Herramienta de bisección: GTASA_CMD_BYPASS=<archivo> (líneas "N" o "A-B" en decimal) obliga a usar el manejador original
+    // del EXE para esos comandos, sin tocar el resto. Sin la variable no cambia nada.
+    static const std::vector<bool> s_Bypass = []() {
+        std::vector<bool> v((size_t)COMMAND_HIGHEST_ID_TO_HOOK + 1, false);
+        char* env = nullptr; size_t len = 0;
+        if (_dupenv_s(&env, &len, "GTASA_CMD_BYPASS") == 0 && env) {
+            if (std::ifstream in{ env }) {
+                for (std::string line; std::getline(in, line);) {
+                    int a = 0, b = 0;
+                    if (std::sscanf(line.c_str(), "%d-%d", &a, &b) == 2) {
+                    } else if (std::sscanf(line.c_str(), "%d", &a) == 1) { b = a; } else { continue; }
+                    for (int i = std::max(a, 0); i <= b && i < (int)v.size(); ++i) v[(size_t)i] = true;
+                }
+            }
+            free(env);
+        }
+        return v;
+    }();
+    const bool bypass = (size_t)op.Command < s_Bypass.size() && s_Bypass[(size_t)op.Command];
+    if (const auto handler = bypass ? notsa::script::CommandHandlerFunction{} : CustomCommandHandlerOf((eScriptCommands)(op.Command))) {
         return std::invoke(handler, this);
     } else {
         return std::invoke(s_OriginalCommandHandlerTable[(size_t)op.Command / 100], this, (eScriptCommands)(op.Command));

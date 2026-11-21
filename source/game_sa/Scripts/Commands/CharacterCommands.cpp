@@ -3371,7 +3371,8 @@ bool IsCharGettingInToACar(CPed& ped) {
  * @returns {int} areaId
  */
 uint32 GetCharAreaVisible(CPed& ped) {
-    return ped.GetAreaCode() != eAreaCodes::AREA_CODE_NORMAL_WORLD;
+    // Como el original (0x47B145): devuelve el byte de area del peaton (ped+0x2F), es decir el id del interior, no un booleano.
+    return (uint32)(uint8)ped.GetAreaCode();
 }
 
 /*

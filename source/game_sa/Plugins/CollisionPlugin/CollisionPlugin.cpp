@@ -61,7 +61,7 @@ static void* ClumpCollisionCopyConstructor(void* dstObject, const void* srcObjec
  * 0x30 bytes, 0x40FC30) y lo construye (0x40FB60; si no hay memoria el puntero queda a NULL y las llamadas siguientes lo usan igual, como el EXE). Segun la cabecera de 4 bytes:
  * "COLL" -> LoadCollisionModel(&PC_Scratch[0x20], modelo); "COL2" -> LoadCollisionModelVer2(&PC_Scratch[0x20], PC_Scratch[4] - 0x18, modelo, NULL); "COL3" -> Ver3 igual;
  * cualquier otra -> LoadCollisionModel(&PC_Scratch[0], modelo) (desde el principio del bloque). Despues MakeMultipleAlloc, SetColModel(modelo, true) sobre el modelo actual (0x9689E0),
- * pone su indicador bDontWriteZBuffer (bit 3 del byte +0x13, releyendo el puntero), ReleaseScratchPad (0x72F4B0) y devuelve el flujo.
+ * pone el bit 3 del byte +0x13 (bOwnsCollisionModel de las banderas de clump, releyendo el puntero), ReleaseScratchPad (0x72F4B0) y devuelve el flujo.
  */
 static RwStream* ClumpCollisionStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
     CMemoryMgr::LockScratchPad();
@@ -85,7 +85,9 @@ static RwStream* ClumpCollisionStreamRead(RwStream* stream, RwInt32 binaryLength
 
     model->MakeMultipleAlloc();
     CCollisionPlugin::ms_currentModel->SetColModel(model, true);
-    CCollisionPlugin::ms_currentModel->bDontWriteZBuffer = true;
+    // El EXE hace `or byte [modelo + 0x13], 8`: el bit 3 del byte +0x13 son las banderas de CLUMP (bOwnsCollisionModel), no `bDontWriteZBuffer`, que es el bit 3 del byte
+    // +0x12. Con bDontWriteZBuffer todos los vehiculos se dibujaban sin escribir en el z-buffer y se veian mal (error de S2A, corregido el 21/11/2026).
+    CCollisionPlugin::ms_currentModel->bOwnsCollisionModel = true;
     CMemoryMgr::ReleaseScratchPad();
     return stream;
 }
