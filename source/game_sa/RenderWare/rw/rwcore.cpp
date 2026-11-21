@@ -13547,7 +13547,7 @@ RwFreeList*& ImageFormatNodeFreeList(ImageModuleGlobalsR30A* module) {
     return *reinterpret_cast<RwFreeList**>(module->unknown218);
 }
 RwInt32& ImageSearchPathSize(ImageModuleGlobalsR30A* module) {
-    return *reinterpret_cast<RwInt32*>(module->unknown008);
+    return module->searchPathSize; // +0x008 (antes unknown008; otra rama lo nombro)
 }
 }
 
