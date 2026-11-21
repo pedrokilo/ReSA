@@ -676,6 +676,9 @@
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
+#include "game_sa/Crt/CrtFloat.h"
+#include "game_sa/Crt/CrtFormat.h"
+#include "game_sa/Crt/CrtCtype.h"
 
 // Hooks de biblioteca del grupo g25b (RenderWare SDK / controlador D3D9); el sufijo evita colisiones con otros registradores.
 void RwCoreInjectHooks25b();
@@ -1203,6 +1206,9 @@ void InjectHooksMain() {
     CrtStateInjectHooks();   // lote CRT2A: __getptd/rand/srand/strtok/isprint/bloqueos (estado del CRT del EXE, sin duplicar el generador)
     CrtMathInjectHooks();    // lote CRT2A: floor y ceil del CRT del EXE (rama SSE2)
     CrtFileInjectHooks();    // lote CRT2A: envolturas de FILE (fread/fwrite/fseek/fclose/fflush/fgets/fputs/fopen), sprintf/vsprintf/fprintf/sscanf, getenv, __stbuf/__ftbuf, _CxxThrowException
+    CrtFloatInjectHooks();   // lote CRT4A: conversion de coma flotante a texto (_cfltcvt, _fltout2, $I10_OUTPUT, ...), aritmetica entera
+    CrtFormatInjectHooks();  // lote CRT4A: _output (motor de printf)
+    CrtCtypeInjectHooks();   // lote CRT4A: _tolower/isdigit/isspace/isxdigit del locale del hilo
     LibPngReadInjectHooks();
 
     CIplStore::InjectHooks();
