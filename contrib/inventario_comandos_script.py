@@ -14,6 +14,8 @@ Uso: python contrib/inventario_comandos_script.py [--exe RUTA]   (la ruta del EX
 """
 import argparse, csv, re, struct, sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import riesgo_comandos_script as riesgo_mod
 
 RAIZ = Path(__file__).resolve().parent.parent
 ENUM = RAIZ / 'source/game_sa/Enums/eScriptCommands.h'
@@ -73,6 +75,7 @@ def catalogo_despachadores():
 
 
 def escribir_md(filas, cuenta, cuenta_disp):
+    import collections
     por_arch = {}
     for f in filas:
         arch = f[5].split(':')[0].split('/')[-1].replace('Commands.cpp', '') if f[5] else '(sin manejador propio)'
@@ -96,9 +99,24 @@ def escribir_md(filas, cuenta, cuenta_disp):
     for k, d in sorted(por_arch.items()): L.append(f"| {k} | {d['reescrito']} | {d['nop']} | {d['no_implementado']} | {d['original']} |")
     L += ['', '## Despachadores del EXE que atienden comandos sin manejador propio', '', '| Despachador | Comandos | Reescrito en hooks.csv | Validado |', '| --- | ---: | --- | --- |']
     for k, d in sorted(por_disp.items()): L.append(f"| `{k}` | {d[0]} | {d[1]} | {d[2]} |")
-    L += ['', '## Comandos reescritos (sin validar por banco)', '', '| Id | Comando | Manejador | Fuente |', '| --- | --- | --- | --- |']
+    L += ['', '## Comandos reescritos (sin validar por banco)', '', '| Id | Comando | Manejador | Riesgo | Fuente |', '| --- | --- | --- | --- | --- |']
     for f in filas:
-        if f[3] == 'reescrito': L.append(f"| {f[0]} | `{f[2]}` | `{f[4]}` | {f[5]} |")
+        if f[3] == 'reescrito': L.append(f"| {f[0]} | `{f[2]}` | `{f[4]}` | {f[10] if len(f) > 10 else ''} | {f[5]} |")
+    rs = [f for f in filas if f[3] == 'reescrito']
+    cnt = collections.Counter(f[10] for f in rs)
+    L += ['', '## Riesgo (Fase 0 del banco de comandos)', '',
+          'Clasificacion de los reescritos por analisis de texto del manejador C++ (`contrib/riesgo_comandos_script.py`, reproducible; columnas `riesgo`, `devuelve`, `mundo`, `motivo_riesgo` del CSV).',
+          '- **alto**: devuelve valor al script (variable, varias variables o control de flujo) y lee/escribe estado del mundo. Un error de tipo o de semantica cambia el flujo del script sin ruido (caso `GET_CHAR_AREA_VISIBLE`).',
+          '- **medio**: escribe estado del mundo sin devolver valor, condiciones (bandera) que leen el mundo, o valores calculados.',
+          '- **bajo**: puro o trivial (aritmetica, comparaciones, asignaciones de variables de script).', '',
+          '| Riesgo | Comandos |', '| --- | ---: |'] + [f'| {k} | {cnt.get(k, 0)} |' for k in ('alto', 'medio', 'bajo')] + ['',
+          '| Retorno / mundo | Comandos |', '| --- | ---: |']
+    for (dv, mu), n in sorted(collections.Counter((f[11], f[12]) for f in rs).items(), key=lambda kv: -kv[1]): L.append(f'| devuelve={dv}, mundo={mu} | {n} |')
+    L += ['', '| Categoria | alto | medio | bajo |', '| --- | ---: | ---: | ---: |']
+    por = {}
+    for f in rs:
+        arch = f[5].split(':')[0].split('/')[-1].replace('Commands.cpp', ''); por.setdefault(arch, collections.Counter())[f[10]] += 1
+    for k, c in sorted(por.items()): L.append(f"| {k} | {c.get('alto', 0)} | {c.get('medio', 0)} | {c.get('bajo', 0)} |")
     L += ['', '## Pendiente', '',
           '- Banco por comando: ejecutar cada manejador reescrito y el original del EXE con los mismos parametros y comparar valores devueltos, variables escritas y efectos. `GTASA_CMD_BYPASS` (archivo con ids) permite volver al manejador original de cualquier comando para esas comparaciones o para bisecciones.',
           '- Primer error hallado en este inventario: `GET_CHAR_AREA_VISIBLE` (0x09E8) devolvia un booleano en vez del id del interior (ropero de la casa de CJ).', '']
@@ -119,8 +137,12 @@ def main():
         dv = ('si' if dc and dc[1] == '1' else 'no') if da else ''
         if estado == 'original': cuenta_disp[dr] = cuenta_disp.get(dr, 0) + 1
         filas.append([f'0x{cid:04X}', cid, nombre, estado, fn, f'{arch}:{lin}' if arch else '', f'0x{disp[cid//100]:08X}' if cid//100 in disp else '', 'si' if dup else '', dr, dv])
+    riesgos = riesgo_mod.clasificar_filas([dict(estado=f[3], id_hex=f[0], fuente=f[5], manejador_cpp=f[4]) for f in filas])
+    for f in filas:
+        r = riesgos.get(f[0])
+        f.extend([r['riesgo'], r['devuelve'], r['mundo'], r['motivo']] if r else ['', '', '', ''])
     with open(SALIDA, 'w', newline='', encoding='utf-8') as fh:
-        w = csv.writer(fh); w.writerow(['id_hex', 'id', 'comando', 'estado', 'manejador_cpp', 'fuente', 'despachador_exe', 'registro_duplicado', 'despachador_reescrito', 'despachador_validado'])
+        w = csv.writer(fh, lineterminator=chr(10)); w.writerow(['id_hex', 'id', 'comando', 'estado', 'manejador_cpp', 'fuente', 'despachador_exe', 'registro_duplicado', 'despachador_reescrito', 'despachador_validado', 'riesgo', 'devuelve', 'mundo', 'motivo_riesgo'])
         w.writerows(filas)
     escribir_md(filas, cuenta, cuenta_disp)
     print(f'{len(filas)} comandos -> {SALIDA.relative_to(RAIZ)} y {SALIDA_MD.relative_to(RAIZ)}')
