@@ -1,0 +1,17 @@
+categoria,region,huecos,bytes
+código con referencia (sin función de Ghidra),crt,12,3686
+código con referencia (sin función de Ghidra),juego,161,58602
+código con referencia (sin función de Ghidra),renderware,97,66069
+"envoltura de excepciones (mov eax,tabla; jmp __CxxFrameHandler)",crt,1717,35468
+inicializador estático (_initterm),crt,4,54804
+relleno de alineación,crt,50,258
+relleno de alineación,juego,9402,74985
+relleno de alineación,renderware,535,4492
+sin referencia directa (datos o código no alcanzado),crt,292,12163
+sin referencia directa (datos o código no alcanzado),juego,2260,257550
+sin referencia directa (datos o código no alcanzado),renderware,496,160736
+"tabla de datos del .text (índices o saltos, referenciada por el código)",juego,225,52486
+"tabla de datos del .text (índices o saltos, referenciada por el código)",renderware,44,21209
+tabla de saltos o punteros,crt,14,344
+tabla de saltos o punteros,juego,299,17877
+tabla de saltos o punteros,renderware,28,1642

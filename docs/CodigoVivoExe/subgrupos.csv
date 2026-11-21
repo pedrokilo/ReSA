@@ -1,0 +1,59 @@
+grupo,subgrupo,decision,funciones_vivas,bytes_vivas
+CRT y arranque,E/S y stdio,DESCARTAR,3,142
+CRT y arranque,E/S y stdio,ENLAZAR,4,472
+CRT y arranque,E/S y stdio (por vecinos),DESCARTAR,4,58
+CRT y arranque,E/S y stdio (por vecinos),ENLAZAR,11,381
+CRT y arranque,arranque,DESCARTAR,6,467
+CRT y arranque,arranque,FASE8,15,2245
+CRT y arranque,arranque (por vecinos),DESCARTAR,3,302
+CRT y arranque,arranque (por vecinos),FASE8,12,872
+CRT y arranque,cadenas y memoria,DESCARTAR,10,742
+CRT y arranque,cadenas y memoria,ENLAZAR,8,1984
+CRT y arranque,cadenas y memoria (por vecinos),DESCARTAR,19,4387
+CRT y arranque,cadenas y memoria (por vecinos),ENLAZAR,4,523
+CRT y arranque,estado por hilo y bloqueos,ENLAZAR,3,222
+CRT y arranque,estado por hilo y bloqueos (por vecinos),DESCARTAR,17,2396
+CRT y arranque,estado por hilo y bloqueos (por vecinos),ENLAZAR,12,259
+CRT y arranque,excepciones,DESCARTAR,5,1677
+CRT y arranque,excepciones,ENLAZAR,22,1824
+CRT y arranque,excepciones (por vecinos),DESCARTAR,9,1851
+CRT y arranque,excepciones (por vecinos),ENLAZAR,29,2519
+CRT y arranque,inicializador estático (en _initterm),FASE8,4,248
+CRT y arranque,locale,DESCARTAR,12,2406
+CRT y arranque,locale,ENLAZAR,13,4641
+CRT y arranque,locale (por vecinos),DESCARTAR,10,985
+CRT y arranque,locale (por vecinos),ENLAZAR,7,675
+CRT y arranque,montón,DESCARTAR,8,3849
+CRT y arranque,montón,ENLAZAR,6,190
+CRT y arranque,montón (por vecinos),DESCARTAR,11,1888
+CRT y arranque,montón (por vecinos),ENLAZAR,15,1541
+CRT y arranque,numérico,DESCARTAR,36,2921
+CRT y arranque,numérico,SUSTITUIR,2,167
+CRT y arranque,numérico (por vecinos),DESCARTAR,47,7219
+CRT y arranque,numérico (por vecinos),SUSTITUIR,2,663
+CRT y arranque,separador de la línea de comandos (sustituida por CRT),DESCARTAR,1,300
+CRT y arranque,sin rol identificado,DESCARTAR,2,133
+CRT y arranque,sin rol identificado,ENLAZAR,1,13
+D3DX9,enlazada,DESCARTAR,922,327191
+D3DX9,no_reconstruible,DESCARTAR,10,3404
+Excepciones (Unwind/Catch),funclet,DESCARTAR,3504,36838
+Excepciones (Unwind/Catch),funclet,REVISAR,44,592
+Importaciones y carga retardada,thunk de importación,FASE8,6,120
+Juego excluido (cerrado por inspección),arranque-sin-gancho,DESCARTAR,1,510
+Juego excluido (cerrado por inspección),no-es-funcion,DESCARTAR,11,478
+Juego excluido (cerrado por inspección),salto-puro,DESCARTAR,20,100
+Juego excluido (cerrado por inspección),sin-equivalente-cpp,DESCARTAR,1,7
+Juego excluido (cerrado por inspección),usercall-cubierta,DESCARTAR,52,18713
+Protección del EXE,proteccion-descartada,DESCARTAR,18,2551
+QuickTime/QTML,no_reconstruible,DESCARTAR,29,754
+QuickTime/QTML,no_reconstruible,SUSTITUIR,3,78
+QuickTime/QTML,retirada-quicktime,DESCARTAR,2,483
+RenderWare no reconstruible,Controlador D3D9 (RwD3D9),DESCARTAR,1,240
+RenderWare no reconstruible,RpSkin,DESCARTAR,3,270
+RenderWare no reconstruible,RtAnim,DESCARTAR,1,490
+RenderWare no reconstruible,_rwcseg: callbacks de vectores x87 (sin SSE),DESCARTAR,1,31
+RenderWare no reconstruible,_rwcseg: callbacks de vectores x87 (sin SSE),SUSTITUIR,6,844
+RenderWare no reconstruible,usercall (excluida del juego),DESCARTAR,11,4625
+RenderWare no reconstruible,usercall (excluida del juego),SUSTITUIR,6,2563
+libpng y zlib,enlazada,DESCARTAR,14,10924
+libpng y zlib,enlazada,ENLAZAR,48,32924

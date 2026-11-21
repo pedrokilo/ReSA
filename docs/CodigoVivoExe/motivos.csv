@@ -1,0 +1,24 @@
+motivo,estado,funciones,bytes
+"función real, ya reemplazada (falta nombre en el catálogo)",reemplazada,3840,782169
+funclet de excepciones (Unwind/Catch),viva,3548,37430
+biblioteca: D3DX9,viva,912,330441
+biblioteca: CRT y bibliotecas estáticas (0x820000+),viva,368,50842
+biblioteca: CRT y bibliotecas estáticas (0x820000+),enganchada,140,25246
+thunk o salto puro,reemplazada,107,370
+biblioteca: libpng y zlib,viva,62,43848
+excluida del juego (usercall-cubierta),viva,51,17876
+biblioteca: libpng y zlib,enganchada,47,9665
+thunk o salto puro,viva,43,217
+biblioteca: QuickTime/QTML,viva,32,832
+excluida del juego (proteccion-descartada),viva,18,2551
+excluida del juego (usercall-renderware),viva,17,7188
+función real viva (sin nombre ni reemplazo),viva,16,1983
+fragmento interno (excluida «no es función»),viva,11,478
+excluida del juego (retirada-quicktime),viva,2,483
+"función real, ya reemplazada (falta nombre en el catálogo)",enganchada,2,4558
+thunk de importación (jmp [IAT]),viva,2,12
+excluida del juego (sustituida-por-crt),viva,1,300
+"fragmento interno (salto condicional entrante, sin llamadas)",viva,1,57
+thunk o salto puro,enganchada,1,5
+excluida del juego (arranque-sin-gancho),viva,1,510
+excluida del juego (sin-equivalente-cpp),viva,1,7
