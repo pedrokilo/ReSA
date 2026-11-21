@@ -20865,3 +20865,120 @@ __declspec(noinline) bool __cdecl GammaLevelEqualCpp(float level, float target) 
     return level <= target && level >= target;
 }
 #pragma float_control(pop)
+
+// --- Lotes S21A/S22A (sin validar): RwPlCore (listas, vectores y matrices por defecto). Misma convencion que R12A: double = registro de la x87 sin redondear, float = guardado con fstp dword. ---
+#pragma float_control(precise, on, push)
+// 0x7EDBF0 y 0x7EDC60: s = (x*x + y*y) guardado como float.
+__declspec(noinline) float __cdecl V2dSumSquaresCpp(const float* v) {
+    const double x = double(v[0]);
+    const double y = double(v[1]);
+    double sum = x * x;
+    sum = sum + y * y;
+    return float(sum);
+}
+// 0x7F12F0 (generado desde el desensamblado con reversing/FnS21A25A/x87gen.py): out = a * b (3x3 y posicion; a = matriz izquierda, b = derecha), una sentencia por fstp dword en el orden del EXE.
+__declspec(noinline) void __cdecl MatrixMultiplyDefaultCpp(float* out, const float* a, const float* b) {
+    out[0] = float((((double(a[0]) * double(b[0])) + (double(a[2]) * double(b[8]))) + (double(b[4]) * double(a[1]))));
+    out[1] = float((((double(b[5]) * double(a[1])) + (double(b[1]) * double(a[0]))) + (double(b[9]) * double(a[2]))));
+    out[2] = float((((double(b[6]) * double(a[1])) + (double(b[2]) * double(a[0]))) + (double(b[10]) * double(a[2]))));
+    out[4] = float((((double(a[6]) * double(b[8])) + (double(a[4]) * double(b[0]))) + (double(a[5]) * double(b[4]))));
+    out[5] = float((((double(a[4]) * double(b[1])) + (double(a[6]) * double(b[9]))) + (double(a[5]) * double(b[5]))));
+    out[6] = float((((double(a[4]) * double(b[2])) + (double(a[6]) * double(b[10]))) + (double(a[5]) * double(b[6]))));
+    out[8] = float((((double(a[9]) * double(b[4])) + (double(a[10]) * double(b[8]))) + (double(a[8]) * double(b[0]))));
+    out[9] = float((((double(b[9]) * double(a[10])) + (double(b[5]) * double(a[9]))) + (double(a[8]) * double(b[1]))));
+    out[10] = float((((double(b[10]) * double(a[10])) + (double(b[6]) * double(a[9]))) + (double(a[8]) * double(b[2]))));
+    out[12] = float(((((double(a[14]) * double(b[8])) + (double(a[12]) * double(b[0]))) + (double(a[13]) * double(b[4]))) + double(b[12])));
+    out[13] = float(((((double(a[12]) * double(b[1])) + (double(a[14]) * double(b[9]))) + (double(a[13]) * double(b[5]))) + double(b[13])));
+    out[14] = float(((((double(a[12]) * double(b[2])) + (double(a[14]) * double(b[10]))) + (double(a[13]) * double(b[6]))) + double(b[14])));
+}
+// 0x7F2720: c = ((m0 + m5) + m10) - 1 y v = (m6 - m9, m8 - m2, m1 - m4), cada uno guardado como float.
+__declspec(noinline) void __cdecl MatrixQueryRotatePrepCpp(const float* m, float* cosTerm, float* v) {
+    *cosTerm = float(((double(m[0]) + double(m[5])) + double(m[10])) - 1.0);
+    v[0] = float(double(m[6]) - double(m[9]));
+    v[1] = float(double(m[8]) - double(m[2]));
+    v[2] = float(double(m[1]) - double(m[4]));
+}
+// 0x7F2720: r = 1 / len sin redondear; axis = (v.x * r, v.y * r, r * v.z), cada una guardada como float.
+__declspec(noinline) void __cdecl MatrixQueryRotateAxisCpp(const float* v, float len, float* axis) {
+    const double r = 1.0 / double(len);
+    axis[0] = float(double(v[0]) * r);
+    axis[1] = float(double(v[1]) * r);
+    axis[2] = float(r * double(v[2]));
+}
+// 0x7F2720: angulo en grados = float(fpatan(len, c) * 57.29578f).
+__declspec(noinline) float __cdecl MatrixQueryRotateAngleCpp(float len, float cosTerm) {
+    return float(atan2(double(len), double(cosTerm)) * double(57.295780181884766f));
+}
+// 0x7F2720: matriz auxiliar T = (1 - m0, -m1, -m2 | -m4, 1 - m5, -m6 | -m8, -m9, 1 - m10 | pos 0) (la resta como fsub/fsubr de la x87 y el cambio de signo como fchs sobre el valor cargado).
+__declspec(noinline) void __cdecl MatrixQueryRotateBuildCpp(const float* m, float* t) {
+    t[0] = float(1.0 - double(m[0]));
+    t[1] = float(-double(m[1]));
+    t[2] = float(-double(m[2]));
+    t[4] = float(-double(m[4]));
+    t[5] = float(1.0 - double(m[5]));
+    t[6] = float(-double(m[6]));
+    t[8] = float(-double(m[8]));
+    t[9] = float(-double(m[9]));
+    t[10] = float(1.0 - double(m[10]));
+    t[12] = 0.0f;
+    t[13] = 0.0f;
+    t[14] = 0.0f;
+}
+// 0x7F2720: center += p.x * O.right + p.y * O.up + p.z * O.at (p = m[12..14], O = inversa), cada suma guardada como float en el orden x, y, z de cada fila.
+__declspec(noinline) void __cdecl MatrixQueryRotateCenterCpp(const float* m, const float* inv, float* center) {
+    center[0] = float(double(m[12]) * double(inv[0]) + double(center[0]));
+    center[1] = float(double(m[12]) * double(inv[1]) + double(center[1]));
+    center[2] = float(double(m[12]) * double(inv[2]) + double(center[2]));
+    center[0] = float(double(m[13]) * double(inv[4]) + double(center[0]));
+    center[1] = float(double(m[13]) * double(inv[5]) + double(center[1]));
+    center[2] = float(double(m[13]) * double(inv[6]) + double(center[2]));
+    center[0] = float(double(m[14]) * double(inv[8]) + double(center[0]));
+    center[1] = float(double(m[14]) * double(inv[9]) + double(center[1]));
+    center[2] = float(double(m[14]) * double(inv[10]) + double(center[2]));
+}
+// 0x7EDE90: tabla de la raiz (0x800 + 0x800 entradas): x = 1.0f (bits 0x3F800000), por cada entrada t = float(fsqrt(x)); la primera mitad (indices 0x800..0xFFF) guarda bits(t) - 0x1FC00000 y la segunda (0..0x7FF)
+// bits(t) - 0x20000000; los bits de x suben 0x1000 en cada paso y NO se reinician entre las dos mitades. La x87 va con la precision que tenga el proceso en ese momento.
+__declspec(noinline) void __cdecl RwVectorSqrtTableFillCpp(unsigned int* table) {
+    unsigned int xBits = 0x3F800000u;
+    for (unsigned int i = 0; i < 0x800; ++i) {
+        float x;
+        memcpy(&x, &xBits, 4);
+        const float t = float(sqrt(double(x)));
+        unsigned int tBits;
+        memcpy(&tBits, &t, 4);
+        table[0x800 + i] = tBits - 0x1FC00000u;
+        xBits += 0x1000;
+    }
+    for (unsigned int i = 0; i < 0x800; ++i) {
+        float x;
+        memcpy(&x, &xBits, 4);
+        const float t = float(sqrt(double(x)));
+        unsigned int tBits;
+        memcpy(&tBits, &t, 4);
+        table[i] = tBits - 0x20000000u;
+        xBits += 0x1000;
+    }
+}
+// 0x7EDE90: tabla de la inversa de la raiz: igual con t = float(1.0 / fsqrt(x)) (fdivr con la constante 1.0 de 64 bits en 0x85A310); primera mitad (0x800..0xFFF) bits(t) - 0x20000000 y segunda (0..0x7FF) bits(t) - 0x1FC00000.
+__declspec(noinline) void __cdecl RwVectorInvSqrtTableFillCpp(unsigned int* table) {
+    unsigned int xBits = 0x3F800000u;
+    for (unsigned int i = 0; i < 0x800; ++i) {
+        float x;
+        memcpy(&x, &xBits, 4);
+        const float t = float(1.0 / sqrt(double(x)));
+        unsigned int tBits;
+        memcpy(&tBits, &t, 4);
+        table[0x800 + i] = tBits - 0x20000000u;
+        xBits += 0x1000;
+    }
+    for (unsigned int i = 0; i < 0x800; ++i) {
+        float x;
+        memcpy(&x, &xBits, 4);
+        const float t = float(1.0 / sqrt(double(x)));
+        unsigned int tBits;
+        memcpy(&tBits, &t, 4);
+        table[i] = tBits - 0x1FC00000u;
+        xBits += 0x1000;
+    }
+}
+#pragma float_control(pop)

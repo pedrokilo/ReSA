@@ -23,6 +23,14 @@ RwTexture* GetFirstTextureCallback(RwTexture* texture, void* data) {
     return nullptr;
 }
 
+// 0x730E50 (lote S22A, sin validar; 16 bytes; cdecl, (textura, datos)): callback de RwTexDictionaryForAllTextures que destruye la textura (RwTextureDestroy, 0x7F3820; el resultado se descarta) y devuelve NULL.
+// Lo usa la lectura de diccionarios de este archivo al fallar una textura. El hook esta en RwHelper.cpp.
+RwTexture* TexDictDestroyTextureCallback(RwTexture* texture, void* data) {
+    UNUSED(data);
+    RwTextureDestroy(texture);
+    return nullptr;
+}
+
 // Como el original: contadores de depuracion del tiempo medio de lectura de texturas (se actualizan solo con el juego en marcha, gGameState == 8).
 static auto& s_textureReadCount   = StaticRef<int32>(0xC87FF0);
 static auto& s_textureReadAverage = StaticRef<float>(0xC87FEC);
@@ -109,7 +117,7 @@ RwTexDictionary* RwTexDictionaryGtaStreamRead(RwStream* stream) {
             --remaining;
             RwTexture* const texture = RwTextureGtaStreamRead(stream);
             if (!texture) {
-                RwTexDictionaryForAllTextures(txd, reinterpret_cast<RwTextureCallBack>(0x730E50), nullptr);
+                RwTexDictionaryForAllTextures(txd, TexDictDestroyTextureCallback, nullptr);
                 RwTexDictionaryDestroy(txd);
                 return nullptr;
             }
@@ -164,7 +172,7 @@ RwTexDictionary* RwTexDictionaryGtaStreamRead1(RwStream* stream) {
         do {
             RwTexture* const texture = RwTextureGtaStreamRead(stream);
             if (!texture) {
-                RwTexDictionaryForAllTextures(txd, reinterpret_cast<RwTextureCallBack>(0x730E50), nullptr);
+                RwTexDictionaryForAllTextures(txd, TexDictDestroyTextureCallback, nullptr);
                 RwTexDictionaryDestroy(txd);
                 return nullptr;
             }
@@ -187,7 +195,7 @@ RwTexDictionary* RwTexDictionaryGtaStreamRead2(RwStream* stream, RwTexDictionary
             s_txdTexturesLeft = s_txdTexturesLeft - 1;
             RwTexture* const texture = RwTextureGtaStreamRead(stream);
             if (!texture) {
-                RwTexDictionaryForAllTextures(txd, reinterpret_cast<RwTextureCallBack>(0x730E50), nullptr);
+                RwTexDictionaryForAllTextures(txd, TexDictDestroyTextureCallback, nullptr);
                 RwTexDictionaryDestroy(txd);
                 return nullptr;
             }

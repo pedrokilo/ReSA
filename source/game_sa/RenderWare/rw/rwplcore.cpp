@@ -19,7 +19,48 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "rwplcore.h"
+#include "rwcore.h"
 #include "X87Math.h"
+
+// Lotes S21A/S22A (sin validar): callbacks por defecto y de plugins de motor que antes ejecutaba el EXE; se definen al final del archivo.
+static void* _rwMemoryMallocDefault(size_t size, RwUInt32 hint);                             // 0x8020A0
+static void* _rwPluginDefaultConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                         // 0x8086B0
+static void* _rwPluginDefaultDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                          // 0x8086C0
+static void* _rwPluginDefaultCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject);   // 0x8086D0
+static RwChar* _rwStringStrupr(RwChar* string);                                              // 0x80A3A0
+static RwChar* _rwStringStrlwr(RwChar* string);                                              // 0x80A3D0
+static RwChar* _rwStringStrchr(const RwChar* string, RwInt32 ch);                            // 0x80A400
+static RwChar* _rwStringStrrchr(const RwChar* string, RwInt32 ch);                           // 0x80A420
+static void* _rwMemoryReallocDefault(void* memory, size_t size);                             // 0x8020B0
+static void* _rwMemoryCallocDefault(size_t count, size_t size);                              // 0x8020D0
+static RwBool _rwFileSystemExist(const RwChar* path);                                        // 0x804200
+static void* _rwMemoryStaticAlloc(RwFreeList* freeList, RwUInt32 hint);                      // 0x7F3490
+static void* _rwMemoryStaticFree(RwFreeList* freeList, void* memory);                        // 0x7F34B0
+static void* _rwFreeListAllocDefault(RwFreeList* freeList, RwUInt32 hint);                   // 0x801C30
+static void* _rwVectorModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);  // 0x7EDE90
+static void* _rwVectorModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);   // 0x7EDE20
+static void* _rwResourcesModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x807C90
+static void* _rwResourcesModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);  // 0x807D80
+static void* _rwPipelineModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x807C40
+static void* _rwPipelineModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);  // 0x807C60
+static void* _rwErrorModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);   // 0x8087D0
+static void* _rwErrorModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);    // 0x808810
+static void* _rwSListModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);   // 0x80A780
+static void* _rwSListModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);    // 0x80A7E0
+static void* _rwDeviceModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);  // 0x80AA40
+static void* _rwDeviceModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);   // 0x80AA50
+static void _rwFreeListFreeEntryCallback(void* memory, void* data);                          // 0x8083F0
+RwV3d* _rwV3dTransformPointsDefault(RwV3d* pointsOut, const RwV3d* pointsIn, RwInt32 numPoints, const RwMatrix* matrix);   // 0x7ED670
+RwV3d* _rwV3dTransformVectorsDefault(RwV3d* vectorsOut, const RwV3d* vectorsIn, RwInt32 numPoints, const RwMatrix* matrix); // 0x7ED7D0
+void _rwMatrixMultiplyDefault(RwMatrix* matrixOut, const RwMatrix* matrixIn1, const RwMatrix* matrixIn2);                  // 0x7F12F0
+void _rwMatrixInvertGeneral(RwMatrix* matrixOut, const RwMatrix* matrixIn);
+RwBool _rwResArenaHeapInit(void* memory, RwInt32 size);
+RwBool _rwResArenaHeapDestroy(void* heap);
+void* _rwResArenaHeapAlloc(void* heap, RwUInt32 size);
+// Callbacks de modulos de RwCore (rwcore.cpp): imagenes (0x802280, 0x8024E0) y texturas (0x7F3D00).
+void* _rwImageModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);
+void* _rwImageModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);
+void* _rwTextureModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 // Lote R14A (sin validar): listas libres (RwFreeList), memoria y sistema de ficheros del motor, registro de plugins y arena de recursos de RwPlCore.
@@ -38,7 +79,13 @@ RwInt32&     FreeListsReady()         { return StaticRef<RwInt32>(0xC9A630); }
 RwFreeList*& FreeListOfFreeLists()    { return StaticRef<RwFreeList*>(0xC9A634); }
 RwInt32&     FreeListPreallocMode()   { return StaticRef<RwInt32>(0x8E266C); }
 constexpr uintptr_t kFreeListOfFreeListsStorage = 0xC9A60C;
-constexpr uintptr_t kDefaultFreeListAlloc       = 0x801C30; // RwFreeListAlloc por defecto (memoryAlloc del motor, +0x144)
+constexpr uintptr_t kDefaultFreeListAlloc       = 0x801C30; // direccion del EXE de RwFreeListAlloc por defecto (memoryAlloc del motor, +0x144); ver IsDefaultFreeListAlloc
+
+// El memoryAlloc por defecto del motor: nuestra _rwFreeListAllocDefault (hook en 0x801C30) o su direccion del EXE (el codigo del EXE que compara con 0x801C30 sigue viendola igual).
+bool IsDefaultFreeListAlloc(RwMemoryAllocFn function) {
+    const uintptr_t address = reinterpret_cast<uintptr_t>(function);
+    return address == kDefaultFreeListAlloc || address == reinterpret_cast<uintptr_t>(_rwFreeListAllocDefault);
+}
 
 // Retira un nodo de un anillo doble: prev->next = next y next->prev = prev (el EXE relee los campos del nodo tras la primera escritura).
 void LinkRemove(RwLLLink* link) {
@@ -172,10 +219,10 @@ RwBool _rwMemoryOpen(const RwMemoryFunctions* memFuncs) {
         engine->memoryFuncs.rwcalloc  = memFuncs->rwcalloc;
         return TRUE;
     }
-    engine->memoryFuncs.rwmalloc  = reinterpret_cast<decltype(engine->memoryFuncs.rwmalloc)>(0x8020A0);
+    engine->memoryFuncs.rwmalloc  = reinterpret_cast<decltype(engine->memoryFuncs.rwmalloc)>(_rwMemoryMallocDefault);
     engine->memoryFuncs.rwfree    = reinterpret_cast<decltype(engine->memoryFuncs.rwfree)>(0x82413F);
-    engine->memoryFuncs.rwrealloc = reinterpret_cast<decltype(engine->memoryFuncs.rwrealloc)>(0x8020B0);
-    engine->memoryFuncs.rwcalloc  = reinterpret_cast<decltype(engine->memoryFuncs.rwcalloc)>(0x8020D0);
+    engine->memoryFuncs.rwrealloc = reinterpret_cast<decltype(engine->memoryFuncs.rwrealloc)>(_rwMemoryReallocDefault);
+    engine->memoryFuncs.rwcalloc  = reinterpret_cast<decltype(engine->memoryFuncs.rwcalloc)>(_rwMemoryCallocDefault);
     return TRUE;
 }
 
@@ -256,8 +303,10 @@ void RwPlCoreInjectHooks() {
     RH_ScopedGlobalInstall(_rwStringStreamGetSize, 0x80A470);
 }
 
+// 0x802230 (lote S21A, sin validar; 11 bytes; sin argumentos): devuelve la direccion de las funciones de memoria del motor (RwEngineInstance + 0x134, el campo memoryFuncs).
 RwMemoryFunctions* RwOsGetMemoryInterface() {
-    return ((RwMemoryFunctions*(__cdecl *)(void))0x802230)();
+    static_assert(offsetof(RwGlobals, memoryFuncs) == 0x134);
+    return &RwEngineInstance->memoryFuncs;
 }
 
 // 0x801980: RwFreeListCreate de la compilacion sin RWDEBUG (4 argumentos de pila; la version con fileCreate/lineCreate es solo de depuracion):
@@ -282,12 +331,14 @@ RwBool RwFreeListDestroy(RwFreeList* freelist) {
     return TRUE;
 }
 
+// 0x801C10 (lote S21A, sin validar; 15 bytes; cdecl, (lista, flags)): suma (OR) a los flags de la lista (+0x18) los de `flags` SIN el bit 0 (el bit 0, estatica, no se puede poner desde aqui).
 void RwFreeListSetFlags(RwFreeList* freeList, RwUInt32 flags) {
-    ((void(__cdecl *)(RwFreeList*, RwUInt32))0x801C10)(freeList, flags);
+    freeList->flags |= flags & 0xFFFFFFFEu;
 }
 
+// 0x801C20 (lote S21A, sin validar; 8 bytes; cdecl, (lista)): devuelve los flags de la lista (+0x18).
 RwUInt32 RwFreeListGetFlags(RwFreeList* freeList) {
-    return ((RwUInt32(__cdecl *)(RwFreeList*))0x801C20)(freeList);
+    return freeList->flags;
 }
 
 // 0x801E00 (lote R14A, sin validar; 138 bytes; era una envoltura): recorre los bloques de la lista; cada uno se saca del anillo y, si su mascara de uso suma 0 (ninguna entrada usada), se libera con rwfree
@@ -795,15 +846,15 @@ RwBool _rwStringOpen() {
     funcs.vecStrncpy = reinterpret_cast<vecStrncpyFunc>(0x821F40);
     funcs.vecStrcat = reinterpret_cast<vecStrcatFunc>(0x8265A0);
     funcs.vecStrncat = reinterpret_cast<vecStrncatFunc>(0x826450);
-    funcs.vecStrrchr = reinterpret_cast<vecStrrchrFunc>(0x80A420);
-    funcs.vecStrchr = reinterpret_cast<vecStrchrFunc>(0x80A400);
+    funcs.vecStrrchr = reinterpret_cast<vecStrrchrFunc>(_rwStringStrrchr);
+    funcs.vecStrchr = reinterpret_cast<vecStrchrFunc>(_rwStringStrchr);
     funcs.vecStrstr = reinterpret_cast<vecStrstrFunc>(0x822650);
     funcs.vecStrcmp = reinterpret_cast<vecStrcmpFunc>(0x8263C0);
     funcs.vecStrncmp = reinterpret_cast<vecStrncmpFunc>(0x8214D0);
     funcs.vecStricmp = reinterpret_cast<vecStricmpFunc>(0x80A350);
     funcs.vecStrlen = reinterpret_cast<vecStrlenFunc>(0x826330);
-    funcs.vecStrupr = reinterpret_cast<vecStruprFunc>(0x80A3A0);
-    funcs.vecStrlwr = reinterpret_cast<vecStrlwrFunc>(0x80A3D0);
+    funcs.vecStrupr = reinterpret_cast<vecStruprFunc>(_rwStringStrupr);
+    funcs.vecStrlwr = reinterpret_cast<vecStrlwrFunc>(_rwStringStrlwr);
     funcs.vecStrtok = reinterpret_cast<vecStrtokFunc>(0x82244B);
     funcs.vecSscanf = reinterpret_cast<vecSscanfFunc>(0x8220AD);
     return TRUE;
@@ -839,8 +890,10 @@ int _rwStringStricmp(const RwChar* string1, const RwChar* string2) {
 void _rwStringClose() {
 }
 
+// 0x80A450 (lote S22A, sin validar; 26 bytes; cdecl, (cadena)): libera la cadena con rwfree del motor (+0x138) y devuelve 1.
 RwBool _rwStringDestroy(RwChar* string) {
-    return ((RwBool(__cdecl *)(RwChar*))0x80A450)(string);
+    RwEngineInstance->memoryFuncs.rwfree(string);
+    return TRUE;
 }
 
 // 0x80A470: una cadena nula se sustituye por la cadena vacía del EXE (0x884F6A); la longitud sale de rwstrlen del motor
@@ -948,12 +1001,24 @@ RwChar* _rwStringStreamFindAndRead(RwChar* string, RwStream* stream) {
     }
 }
 
+// 0x8087B0 (lote S21A, sin validar; 20 bytes; cdecl, (bloque, bloques)): guarda los parametros de la lista libre de entradas de plugins en 0x8E26AC (entradas por bloque) y 0x8E26B0 (bloques a preasignar).
 void RwPluginRegistrySetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x8087B0)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8E26AC) = blockSize;
+    StaticRef<RwInt32>(0x8E26B0) = numBlocksToPrealloc;
 }
 
+// 0x808430 (lote S21A, sin validar; 59 bytes; cdecl, (registro, tamano)): solo si sizeOfStruct (+0) == origSizeOfStruct (+4): si maxSizeOfStruct (+8) es <= 0 (con signo) lo pone a sizeOfStruct + tamano;
+// si es > 0 solo lo cambia (a sizeOfStruct + tamano) cuando tamano < maximo (con signo). Despues staticAlloc (+0xC) = 1 y devuelve 1. Si los dos tamanos difieren devuelve 0 sin tocar nada.
 RwBool _rwPluginRegistrySetStaticPluginsSize(RwPluginRegistry* reg, RwInt32 size) {
-    return ((RwBool(__cdecl *)(RwPluginRegistry*, RwInt32))0x808430)(reg, size);
+    if (reg->sizeOfStruct != reg->origSizeOfStruct) {
+        return FALSE;
+    }
+    const RwInt32 maxSize = reg->maxSizeOfStruct;
+    if (maxSize <= 0 || size < maxSize) {
+        reg->maxSizeOfStruct = reg->sizeOfStruct + size;
+    }
+    reg->staticAlloc = 1;
+    return TRUE;
 }
 
 // 0x8084A0 (lote R14A, sin validar; 515 bytes; era una envoltura): cdecl (registro, tamano, pluginID, constructor, destructor, copia). Sin lista libre de entradas (0xC9A6E4 nula): -1 sin error. Con el motor
@@ -972,7 +1037,7 @@ RwInt32 _rwPluginRegistryAddPlugin(RwPluginRegistry* reg, RwInt32 size, RwUInt32
         return -1;
     }
     RwGlobals* const engine = RwEngineInstance;
-    if (reinterpret_cast<uintptr_t>(engine->memoryAlloc) != kDefaultFreeListAlloc) {
+    if (!IsDefaultFreeListAlloc(engine->memoryAlloc)) {
         RwPluginRegistry**& registries = StaticRef<RwPluginRegistry**>(0xC9A6E8);
         RwUInt32& registryCount = StaticRef<RwUInt32>(0xC9A6EC);
         RwUInt32 found = 0;
@@ -1019,9 +1084,9 @@ RwInt32 _rwPluginRegistryAddPlugin(RwPluginRegistry* reg, RwInt32 size, RwUInt32
     entry->getSizeCB = nullptr;
     entry->alwaysCB = nullptr;
     entry->rightsCB = nullptr;
-    entry->constructCB = constructCB != nullptr ? constructCB : reinterpret_cast<RwPluginObjectConstructor>(0x8086B0);
-    entry->destructCB = destructCB != nullptr ? destructCB : reinterpret_cast<RwPluginObjectDestructor>(0x8086C0);
-    entry->copyCB = copyCB != nullptr ? copyCB : reinterpret_cast<RwPluginObjectCopy>(0x8086D0);
+    entry->constructCB = constructCB != nullptr ? constructCB : _rwPluginDefaultConstruct;
+    entry->destructCB = destructCB != nullptr ? destructCB : _rwPluginDefaultDestruct;
+    entry->copyCB = copyCB != nullptr ? copyCB : _rwPluginDefaultCopy;
     entry->errStrCB = nullptr;
     entry->nextRegEntry = nullptr;
     entry->prevRegEntry = nullptr;
@@ -1292,9 +1357,9 @@ R12AMatrixModuleData& R12AMatrixModule() {
 // 0x7ED730, 0x7ED670, 0x7ED880 y 0x7ED7D0. Devuelve TRUE.
 RwBool _rwVectorSetMultFn(rwVectorMultFn multPoint, rwVectorsMultFn multPoints, rwVectorMultFn multVector, rwVectorsMultFn multVectors) {
     R12AVectorModule().multPoint = multPoint ? multPoint : reinterpret_cast<rwVectorMultFn>(0x7ED730);
-    R12AVectorModule().multPoints = multPoints ? multPoints : reinterpret_cast<rwVectorsMultFn>(0x7ED670);
+    R12AVectorModule().multPoints = multPoints ? multPoints : _rwV3dTransformPointsDefault;
     R12AVectorModule().multVector = multVector ? multVector : reinterpret_cast<rwVectorMultFn>(0x7ED880);
-    R12AVectorModule().multVectors = multVectors ? multVectors : reinterpret_cast<rwVectorsMultFn>(0x7ED7D0);
+    R12AVectorModule().multVectors = multVectors ? multVectors : _rwV3dTransformVectorsDefault;
     return TRUE;
 }
 
@@ -1378,8 +1443,39 @@ RwMatrix* RwMatrixOrthoNormalize(RwMatrix* matrixOut, const RwMatrix* matrixIn) 
     return RwMatrixOrthoNormalizeImpl(matrixOut, matrixIn);
 }
 
+// 0x7F2720 (lote S22A, sin validar; 525 bytes; cdecl, (matriz, eje, angulo, centro); devuelve la matriz; `RwMatrixQueryRotate` del SDK). c = float(((m0 + m5) + m10) - 1) y v = (m6 - m9, m8 - m2, m1 - m4), todo guardado como
+// float; len = RwV3dLength(v) (0x7EDAC0). Con len > 0 (ordenado: NaN no) eje = v * (1 / len) (x, y y z guardados como float; z se multiplica como r * v.z); si no eje = (0, 0, 0). *angulo = float(atan2(len, c) * 57.29578f) siempre.
+// Con len <= 0.01f y c <= 0.0f (los dos ordenados) llama a 0x7F2930 (matriz, eje) del EXE (caso de giro cercano a 180 grados; sin reconstruir) que recalcula el eje. Despues: T.right = (1 - m0, -m1, -m2),
+// T.up = (-m4, 1 - m5, -m6), T.at = (-m8, -m9, 1 - m10), posicion 0, flags 1; O = inversa general de T (0x7F2160) y centro = O.pos (copia de 32 bits) + p.x * O.right + p.y * O.up + p.z * O.at con p = posicion de la matriz
+// (cada suma guardada como float, en el orden x, y, z de cada fila). Los rellenos de T y O (que el EXE deja con basura de pila) aqui van a cero.
 const RwMatrix* RwMatrixQueryRotate(const RwMatrix* matrix, RwV3d* unitAxis, RwReal* angle, RwV3d* center) {
-    return ((const RwMatrix*(__cdecl *)(const RwMatrix*, RwV3d*, RwReal*, RwV3d*))0x7F2720)(matrix, unitAxis, angle, center);
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    float cosTerm;
+    float v[3];
+    MatrixQueryRotatePrepCpp(m, &cosTerm, v);
+    const RwReal len = RwV3dLength(reinterpret_cast<const RwV3d*>(v));
+    if (len > 0.0f) {
+        MatrixQueryRotateAxisCpp(v, len, &unitAxis->x);
+    } else {
+        unitAxis->x = 0.0f;
+        unitAxis->y = 0.0f;
+        unitAxis->z = 0.0f;
+    }
+    *angle = MatrixQueryRotateAngleCpp(len, cosTerm);
+    if (len <= 0.01f && cosTerm <= 0.0f) {
+        reinterpret_cast<void(__cdecl*)(const RwMatrix*, RwV3d*)>(0x7F2930)(matrix, unitAxis);
+    }
+    RwMatrix temp{};
+    RwMatrix inverse{};
+    inverse.flags = 1;
+    MatrixQueryRotateBuildCpp(m, reinterpret_cast<float*>(&temp));
+    temp.flags = 1;
+    _rwMatrixInvertGeneral(&inverse, &temp);
+    std::memcpy(&center->x, &inverse.pos.x, 4);
+    std::memcpy(&center->y, &inverse.pos.y, 4);
+    std::memcpy(&center->z, &inverse.pos.z, 4);
+    MatrixQueryRotateCenterCpp(m, reinterpret_cast<const float*>(&inverse), &center->x);
+    return matrix;
 }
 
 // 0x7F18A0 (lote R24A, sin validar; 12 bytes; era una envoltura; cdecl, (matriz)): flags (+0xC) &= 0xFFFDFFFC (borra los bits 0 y 1 -normal y ortogonal- y el 0x20000 -identidad interna-). Devuelve la matriz.
@@ -1419,7 +1515,7 @@ RwBool RwMatrixDestroy(RwMatrix* mpMat) {
 // 0x7F12C0 (lote R24A, sin validar; 35 bytes; cdecl, (funcion); nombre real de RenderWare: _rwMatrixSetMultFn): guarda en el callback de multiplicacion del modulo de matrices (+8) la funcion, o 0x7F12F0 (la
 // de por defecto) si es nula. Devuelve TRUE.
 RwBool _rwMatrixSetMultFn(rwMatrixMultFn multMat) {
-    R12AMatrixModule().multFn = multMat ? reinterpret_cast<void*>(multMat) : reinterpret_cast<void*>(0x7F12F0);
+    R12AMatrixModule().multFn = multMat ? reinterpret_cast<void*>(multMat) : reinterpret_cast<void*>(_rwMatrixMultiplyDefault);
     return TRUE;
 }
 
@@ -1506,12 +1602,43 @@ RwReal RwV3dLength(const RwV3d* in) {
     return std::bit_cast<RwReal>(bits);
 }
 
+// 0x7EDBF0 (lote S22A, sin validar; 101 bytes; cdecl, (vector); devuelve el float en ST0; `RwV2dLength` del SDK): s = (x*x + y*y) guardado como float; con los bits de s distintos de cero (tambien -0.0f)
+// aproxima la raiz con la tabla del modulo de vectores (+0): bits += 0x800; resultado = tabla[(bits >> 12) & 0xFFF] + ((bits >> 1) & 0x3FC00000); con bits cero devuelve s.
 RwReal RwV2dLength(const RwV2d* in) {
-    return ((RwReal(__cdecl *)(const RwV2d*))0x7EDBF0)(in);
+    const float sum = V2dSumSquaresCpp(&in->x);
+    RwUInt32 bits = std::bit_cast<RwUInt32>(sum);
+    if (bits != 0) {
+        bits += 0x800;
+        bits = R12AVectorModule().sqrtTable[(bits >> 12) & 0xFFF] + ((bits >> 1) & 0x3FC00000u);
+    }
+    return std::bit_cast<RwReal>(bits);
 }
 
+// 0x7EDC60 (lote S22A, sin validar; 250 bytes; cdecl, (salida, entrada); `RwV2dNormalize` del SDK): s = (x*x + y*y) guardado como float. Con los bits de s distintos de cero: longitud aproximada (tabla +0 como
+// RwV2dLength) e inverso (tabla +4 como _rwInvSqrt); con bits cero la "longitud" es 0 y el "inverso" es s. salida.x = inverso * entrada.x y despues salida.y = entrada.y * inverso (cada una guardada como float; la
+// entrada se lee despues de escribir la componente anterior). Si la longitud es <= 0.0f (comparacion ordenada: NaN no entra) pone el error RwError { 1, _rwerror(0x19) } con RwErrorSet. Devuelve la longitud (ST0).
 RwReal RwV2dNormalize(RwV2d* out, const RwV2d* in) {
-    return ((RwReal(__cdecl *)(RwV2d*, const RwV2d*))0x7EDC60)(out, in);
+    const float sum = V2dSumSquaresCpp(&in->x);
+    const RwUInt32 sumBits = std::bit_cast<RwUInt32>(sum);
+    RwUInt32 lengthBits = sumBits;
+    float inverse = sum;
+    if (sumBits != 0) {
+        const RwUInt32 shifted = sumBits + 0x800;
+        lengthBits = R12AVectorModule().sqrtTable[(shifted >> 12) & 0xFFF] + ((shifted >> 1) & 0x3FC00000u);
+        inverse = std::bit_cast<RwReal>(R12AVectorModule().invSqrtTable[(shifted >> 12) & 0xFFF] + (((~shifted) >> 1) & 0x3FC00000u));
+    }
+    const float x = float(double(inverse) * double(in->x));
+    out->x = x;
+    const float y = float(double(in->y) * double(inverse));
+    out->y = y;
+    const RwReal length = std::bit_cast<RwReal>(lengthBits);
+    if (length <= 0.0f) {
+        RwError error;
+        error.pluginID  = 1;
+        error.errorCode = _rwerror(0x19);
+        RwErrorSet(&error);
+    }
+    return length;
 }
 
 // 0x7EDD60 (lote R12A, sin validar; 38 bytes): llama al callback del modulo de vectores (motor + [0xC97934] + 8, cdecl) con (salida, entrada, matriz), ignora su resultado y devuelve la salida.
@@ -1563,8 +1690,24 @@ RwReal _rwInvSqrt(const RwReal num) {
     return std::bit_cast<RwReal>(bits);
 }
 
+// 0x7ED910 (lote S22A, sin validar; 149 bytes; cdecl, (salida, entrada); devuelve el inverso en ST0; version rapida de RwV3dNormalize sin comprobacion de error): s = (x*x + y*y) + z*z guardado como float. Con los bits de s
+// distintos de cero el inverso sale de la tabla +4 del modulo de vectores como en _rwInvSqrt; con bits cero es s. salida.x = inverso * entrada.x, luego salida.y = entrada.y * inverso y salida.z = entrada.z * inverso
+// (cada una guardada como float; la entrada se lee despues de escribir la anterior, asi que salida == entrada funciona). Devuelve el inverso.
 RwReal _rwV3dNormalize(RwV3d* out, const RwV3d* in) {
-    return ((RwReal(__cdecl *)(RwV3d*, const RwV3d*))0x7ED910)(out, in);
+    const float sum = V3dSumSquaresCpp(&in->x);
+    RwUInt32 bits = std::bit_cast<RwUInt32>(sum);
+    float inverse = sum;
+    if (bits != 0) {
+        bits += 0x800;
+        inverse = std::bit_cast<RwReal>(R12AVectorModule().invSqrtTable[(bits >> 12) & 0xFFF] + (((~bits) >> 1) & 0x3FC00000u));
+    }
+    const float x = float(double(inverse) * double(in->x));
+    out->x = x;
+    const float y = float(double(in->y) * double(inverse));
+    out->y = y;
+    const float z = float(double(in->z) * double(inverse));
+    out->z = z;
+    return inverse;
 }
 
 // 0x809160 (lote R15A, sin validar; 205 bytes; era una envoltura; cdecl, (tamano de entrada, pista)): reserva la cabecera (0x10 bytes, rwmalloc con pista 0x30000); fallo: error {1, _rwerror(0x80000013, 0x10)}
@@ -1734,9 +1877,9 @@ RwBool _rwPluginRegistryClose() {
     if (entryList == nullptr) {
         return TRUE;
     }
-    RwFreeListForAllUsed(entryList, reinterpret_cast<RwFreeListCallBack>(0x8083F0), entryList);
+    RwFreeListForAllUsed(entryList, _rwFreeListFreeEntryCallback, entryList);
     RwGlobals* const engine = RwEngineInstance;
-    if (reinterpret_cast<uintptr_t>(engine->memoryAlloc) != kDefaultFreeListAlloc) {
+    if (!IsDefaultFreeListAlloc(engine->memoryAlloc)) {
         RwPluginRegistry**& registries = StaticRef<RwPluginRegistry**>(0xC9A6E8);
         if (StaticRef<RwUInt32>(0xC9A6EC) != 0) {
             for (RwUInt32 index = 0; index < StaticRef<RwUInt32>(0xC9A6EC); index++) {
@@ -1774,7 +1917,7 @@ RwBool _rwPluginRegistryClose() {
 // 0x82318B, 0x823521, 0x823674, 0x823798, 0x8262B8, 0x8262A2, 0x82374F, 0x823E86 y 0x826261 (funciones de la CRT del EXE) y devuelve 1.
 RwBool _rwFileSystemOpen() {
     RwGlobals* const engine = RwEngineInstance;
-    engine->fileFuncs[0]  = reinterpret_cast<void*>(0x804200);
+    engine->fileFuncs[0]  = reinterpret_cast<void*>(_rwFileSystemExist);
     engine->fileFuncs[1]  = reinterpret_cast<void*>(0x8232D8);
     engine->fileFuncs[2]  = reinterpret_cast<void*>(0x82318B);
     engine->fileFuncs[3]  = reinterpret_cast<void*>(0x823521);
@@ -1864,16 +2007,47 @@ RwInt32 _rwerror(RwInt32 code, ...) {
     return code;
 }
 
+// 0x8080C0 (lote S22A, sin validar; 239 bytes; cdecl, (tamano)): con el modulo cerrado (contador 0xC9BC5C == 0) solo guarda el tamano inicial del arena (motor + 0x154) y devuelve 1. Con el modulo abierto: maxSize = tamano,
+// RwResourcesEmptyArena (0x8081F0), destruye (0x810030) y libera con rwfree el monton anterior, reserva uno nuevo con rwmalloc(tamano, 0x3040B); sin memoria maxSize = 0, error {1, _rwerror(0x80000013, tamano)} y 0. Si
+// _rwResArenaHeapInit (0x80FFE0) falla: rwfree del monton (el puntero no se borra), error {1, _rwerror(0xC, 0)} y 0. Si no, 1.
 RwBool RwResourcesSetArenaSize(RwUInt32 size) {
-    return ((RwBool(__cdecl *)(RwUInt32))0x8080C0)(size);
+    if (StaticRef<RwInt32>(0xC9BC5C) == 0) {
+        RwEngineInstance->resArenaInitSize = size;
+        return TRUE;
+    }
+    rwResources* const res = reinterpret_cast<rwResources*>(reinterpret_cast<RwUInt8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9BC58));
+    res->maxSize = static_cast<RwInt32>(size);
+    RwResourcesEmptyArena();
+    _rwResArenaHeapDestroy(res->memHeap);
+    RwEngineInstance->memoryFuncs.rwfree(res->memHeap);
+    res->memHeap = RwEngineInstance->memoryFuncs.rwmalloc(size, 0x3040B);
+    if (res->memHeap == nullptr) {
+        res->maxSize = 0;
+        StreamRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(size));
+        return FALSE;
+    }
+    if (!_rwResArenaHeapInit(res->memHeap, static_cast<RwInt32>(size))) {
+        RwEngineInstance->memoryFuncs.rwfree(res->memHeap);
+        StreamRaiseError(0xC, 0);
+        return FALSE;
+    }
+    return TRUE;
 }
 
+// 0x8081B0 (lote S21A, sin validar; 15 bytes; sin argumentos): devuelve maxSize (+0) del modulo de recursos (motor + [0xC9BC58]).
 RwInt32 RwResourcesGetArenaSize() {
-    return ((RwInt32(__cdecl *)(void))0x8081B0)();
+    return reinterpret_cast<const RwInt32*>(reinterpret_cast<const RwUInt8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9BC58))[0];
 }
 
+// 0x8081C0 (lote S21A, sin validar; 40 bytes; sin argumentos): reusageSize (+8) del modulo de recursos mas la suma de los tamanos (+8 de cada entrada) de todas las entradas del anillo usedEntries (+0x24).
 RwInt32 RwResourcesGetArenaUsage() {
-    return ((RwInt32(__cdecl *)(void))0x8081C0)();
+    const RwUInt8* const module = reinterpret_cast<const RwUInt8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9BC58);
+    RwInt32 usage = *reinterpret_cast<const RwInt32*>(module + 8);
+    const RwLLLink* const head = &(*reinterpret_cast<RwLinkList* const*>(module + 0x24))->link;
+    for (const RwLLLink* link = head->next; link != head; link = link->next) {
+        usage += *reinterpret_cast<const RwInt32*>(reinterpret_cast<const RwUInt8*>(link) + 8);
+    }
+    return usage;
 }
 
 void _rwResArenaHeapFree(void* memory); // 0x810040 (lote R15A); definida mas abajo con el monton del arena
@@ -1928,8 +2102,49 @@ RwBool RwResourcesEmptyArena() {
     return TRUE;
 }
 
-RwResEntry* RwResourcesAllocateResEntry(void* owner, RwResEntry* ownerRef, RwInt32 size, RwResEntryDestroyNotify destroyNotify) {
-    return ((RwResEntry*(__cdecl *)(void*, RwResEntry*, RwInt32, RwResEntryDestroyNotify))0x807ED0)(owner, ownerRef, size, destroyNotify);
+// 0x807ED0 (lote S22A, sin validar; 482 bytes; cdecl, (propietario, ref del propietario, tamano, notificacion de destruccion); `RwResourcesAllocateResEntry` del SDK): pide tamano + 0x18 bytes al monton del arena (0x8100C0).
+// Sin memoria libera entradas hasta que quepa: primero la ULTIMA de la lista freeEntries (+0x20), despues la ULTIMA de usedEntries (+0x24) (esta suma antes su tamano a reusageSize); cada una se destruye como en
+// RwResourcesFreeResEntry (notificacion, *ref = NULL, sacar de la lista, restar de currentSize y devolver al monton; sin enlace rwfree). Si no queda ninguna: *ref = NULL (si no es nulo), error {1, _rwerror(0xC, tamano)}
+// y NULL. Con memoria: la entrada se inserta la PRIMERA de usedEntries, con propietario, tamano (sin los 0x18), ref y notificacion; currentSize += tamano; *ref = entrada (si no es nulo). Devuelve la entrada.
+RwResEntry* RwResourcesAllocateResEntry(void* owner, RwResEntry** ownerRef, RwInt32 size, RwResEntryDestroyNotify destroyNotify) {
+    RwResEntry** const ref = ownerRef;
+    for (;;) {
+        rwResources* const res = ResourcesModule();
+        RwResEntry* const entry = static_cast<RwResEntry*>(_rwResArenaHeapAlloc(res->memHeap, static_cast<RwUInt32>(size) + 0x18u));
+        if (entry != nullptr) {
+            RwLLLink* const head = &res->usedEntries->link;
+            entry->link.next = head->next;
+            entry->link.prev = head;
+            head->next->prev = &entry->link;
+            head->next = &entry->link;
+            entry->owner = owner;
+            entry->size = size;
+            entry->ownerRef = ref;
+            entry->destroyNotify = destroyNotify;
+            res->currentSize += size;
+            if (ref != nullptr) {
+                *ref = entry;
+            }
+            return entry;
+        }
+        RwLLLink* const freeHead = &res->freeEntries->link;
+        if (freeHead->prev != freeHead) {
+            DestroyResEntry(reinterpret_cast<RwResEntry*>(freeHead->prev));
+            continue;
+        }
+        RwLLLink* const usedHead = &res->usedEntries->link;
+        if (usedHead->prev != usedHead) {
+            RwResEntry* const victim = reinterpret_cast<RwResEntry*>(usedHead->prev);
+            res->reusageSize += victim->size;
+            DestroyResEntry(victim);
+            continue;
+        }
+        if (ref != nullptr) {
+            *ref = nullptr;
+        }
+        StreamRaiseError(0xC, size);
+        return nullptr;
+    }
 }
 
 // 0x807DE0 (lote R14A, sin validar; 106 bytes; era una envoltura): destroyNotify(entrada) si existe, *ownerRef = NULL si existe; con enlace (+0 != 0) la saca de su lista, resta su tamano (+8) de currentSize
@@ -2684,6 +2899,9 @@ RwInt32 EnginePluginAdd(RwInt32 size, RwUInt32 pluginID, uintptr_t constructor, 
     return _rwPluginRegistryAddPlugin(reinterpret_cast<RwPluginRegistry*>(kEngineRegistryAddr), size, pluginID, reinterpret_cast<RwPluginObjectConstructor>(constructor),
                                       reinterpret_cast<RwPluginObjectDestructor>(destructor), nullptr);
 }
+RwInt32 EnginePluginAdd(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructor, RwPluginObjectDestructor destructor) {
+    return EnginePluginAdd(size, pluginID, reinterpret_cast<uintptr_t>(constructor), reinterpret_cast<uintptr_t>(destructor));
+}
 }
 
 // 0x7F3170 (lote R13A, sin validar; 788 bytes; era una envoltura; cdecl, (memFuncs, initFlags, resArenaSize)): RwEngineInstance = bloque estatico 0xC979C8; con initFlags & 1 los asignadores de lista libre (+0x144 y +0x148) son 0x7F3490 y 0x7F34B0
@@ -2695,11 +2913,11 @@ RwBool RwEngineInit(const RwMemoryFunctions* memFuncs, RwUInt32 initFlags, RwUIn
     RwEngineInstance = &EngineStaticGlobals();
     RwInt32 arenaMode;
     if ((initFlags & 1) != 0) {
-        EngineStaticGlobals().memoryAlloc = reinterpret_cast<RwMemoryAllocFn>(0x7F3490);
-        EngineStaticGlobals().memoryFree = reinterpret_cast<RwMemoryFreeFn>(0x7F34B0);
+        EngineStaticGlobals().memoryAlloc = reinterpret_cast<RwMemoryAllocFn>(_rwMemoryStaticAlloc);
+        EngineStaticGlobals().memoryFree = reinterpret_cast<RwMemoryFreeFn>(_rwMemoryStaticFree);
         arenaMode = 0;
     } else {
-        EngineStaticGlobals().memoryAlloc = reinterpret_cast<RwMemoryAllocFn>(0x801C30);
+        EngineStaticGlobals().memoryAlloc = reinterpret_cast<RwMemoryAllocFn>(_rwFreeListAllocDefault);
         EngineStaticGlobals().memoryFree = reinterpret_cast<RwMemoryFreeFn>(0x801D50);
         arenaMode = 1;
     }
@@ -2730,21 +2948,21 @@ RwBool RwEngineInit(const RwMemoryFunctions* memFuncs, RwUInt32 initFlags, RwUIn
         _rwStringClose();
         return 0;
     }
-    const RwInt32 r1 = EnginePluginAdd(8, 0x40F, 0x8087D0, 0x808810);
-    const RwInt32 r2 = EnginePluginAdd(0x18, 0x401, 0x7EDE90, 0x7EDE20);
-    const RwInt32 r3 = EnginePluginAdd(0, 0x40D, 0x80AA40, 0x80AA50);
+    const RwInt32 r1 = EnginePluginAdd(8, 0x40F, _rwErrorModuleConstruct, _rwErrorModuleDestruct);
+    const RwInt32 r2 = EnginePluginAdd(0x18, 0x401, _rwVectorModuleConstruct, _rwVectorModuleDestruct);
+    const RwInt32 r3 = EnginePluginAdd(0, 0x40D, _rwDeviceModuleConstruct, _rwDeviceModuleDestruct);
     const RwInt32 r4 = EnginePluginAdd(0x18, 0x402, 0x7F16C0, 0x7F1660);
     const RwInt32 r5 = EnginePluginAdd(4, 0x403, 0x7EFEF0, 0x7EFF70);
     const RwInt32 r6 = EnginePluginAdd(4, 0x404, 0x7EC780, 0x7EC7E0);
     const RwInt32 r7 = EnginePluginAdd(4, 0x405, 0x7EE110, 0x7EE0B0);
-    const RwInt32 r8 = EnginePluginAdd(0x220, 0x406, 0x802280, 0x8024E0);
+    const RwInt32 r8 = EnginePluginAdd(0x220, 0x406, _rwImageModuleConstruct, _rwImageModuleDestruct);
     const RwInt32 r9 = EnginePluginAdd(0x64, 0x407, 0x7FB370, 0x7FB310);
-    const RwInt32 r10 = EnginePluginAdd(0x34, 0x408, 0x7F3EA0, 0x7F3D00);
-    const RwInt32 r11 = EnginePluginAdd(0x60, 0x409, 0x807C40, 0x807C60);
-    const RwInt32 r12 = EnginePluginAdd(4, 0x412, 0x80A780, 0x80A7E0);
+    const RwInt32 r10 = EnginePluginAdd(0x34, 0x408, 0x7F3EA0, reinterpret_cast<uintptr_t>(_rwTextureModuleDestruct));
+    const RwInt32 r11 = EnginePluginAdd(0x60, 0x409, _rwPipelineModuleConstruct, _rwPipelineModuleDestruct);
+    const RwInt32 r12 = EnginePluginAdd(4, 0x412, _rwSListModuleConstruct, _rwSListModuleDestruct);
     const RwInt32 rExtra = _rwEngineModuleStubOpen();
     const RwInt32 r13 = EnginePluginAdd(0x74, 0x40A, 0x7EFE20, 0x7EFDE0);
-    const RwInt32 r14 = EnginePluginAdd(0x28, 0x40B, 0x807C90, 0x807D80);
+    const RwInt32 r14 = EnginePluginAdd(0x28, 0x40B, _rwResourcesModuleConstruct, _rwResourcesModuleDestruct);
     const RwInt32 combined = rExtra | r12 | r11 | r10 | r9 | r8 | r7 | r6 | r5 | r4 | r3 | r2 | r1 | r14 | r13;
     if (combined < 0) {
         _rwPluginRegistryClose();
@@ -3199,4 +3417,447 @@ void RwPlCoreInjectHooksR34A() {
     RH_ScopedGlobalInstall(_rwIntelSSE2V3dTransformVectors, 0x80D4E0);
     RH_ScopedGlobalInstall(_rwIntelSSE2V3dTransformPoint, 0x80D570);
     RH_ScopedGlobalInstall(_rwIntelSSE2V3dTransformVector, 0x80D600);
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lotes S21A y S22A (sin validar): callbacks por defecto (memoria, cadenas, plugins), callbacks de plugin de los modulos del motor (error, vectores, pipelines, recursos, listas, dispositivo),
+// ensamblador por defecto de transformaciones x87 (puntos, vectores, matrices) y el asignador de listas libres. Cada una tiene su comentario con la direccion del EXE; las llamadoras propias
+// (RwEngineInit, _rwMemoryOpen, _rwStringOpen, _rwPluginRegistryAddPlugin, _rwVectorSetMultFn...) usan estas funciones en lugar de la direccion del EXE y cada una lleva hook en su direccion.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+using ExeMallocFn  = void*(__cdecl*)(uint32);
+using ExeReallocFn = void*(__cdecl*)(void*, uint32);
+using ExeCallocFn  = void*(__cdecl*)(uint32, uint32);
+using ExeFileOpenFn  = void*(__cdecl*)(const char*, const char*);
+using ExeFileCloseFn = int(__cdecl*)(void*);
+}
+
+// 0x8020A0 (lote S21A, sin validar; 14 bytes; cdecl, (tamano, pista)): rwmalloc por defecto del motor: malloc de la CRT del EXE (0x824257) con el tamano; la pista se ignora.
+static void* _rwMemoryMallocDefault(size_t size, RwUInt32 hint) {
+    UNUSED(hint);
+    return reinterpret_cast<ExeMallocFn>(uintptr_t{0x824257})(static_cast<uint32>(size));
+}
+
+// 0x8020B0 (lote S22A, sin validar; 19 bytes; cdecl, (memoria, tamano)): rwrealloc por defecto: realloc de la CRT del EXE (0x824269).
+static void* _rwMemoryReallocDefault(void* memory, size_t size) {
+    return reinterpret_cast<ExeReallocFn>(uintptr_t{0x824269})(memory, static_cast<uint32>(size));
+}
+
+// 0x8020D0 (lote S22A, sin validar; 19 bytes; cdecl, (cantidad, tamano)): rwcalloc por defecto: calloc de la CRT del EXE (0x824416).
+static void* _rwMemoryCallocDefault(size_t count, size_t size) {
+    return reinterpret_cast<ExeCallocFn>(uintptr_t{0x824416})(static_cast<uint32>(count), static_cast<uint32>(size));
+}
+
+// 0x8086B0 (lote S21A, sin validar; 5 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor de plugin por defecto; devuelve el objeto.
+static void* _rwPluginDefaultConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return object;
+}
+
+// 0x8086C0 (lote S21A, sin validar; 5 bytes): destructor de plugin por defecto; devuelve el objeto.
+static void* _rwPluginDefaultDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return object;
+}
+
+// 0x8086D0 (lote S21A, sin validar; 5 bytes; cdecl, (destino, origen, desplazamiento, tamano)): copia de plugin por defecto; devuelve el destino.
+static void* _rwPluginDefaultCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(srcObject); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return dstObject;
+}
+
+// 0x80A3A0 (lote S21A, sin validar; 42 bytes; cdecl, (cadena)): strupr del motor: cadena nula -> nada; pasa a mayuscula (resta 0x20) cada byte entre 'a' y 'z' (comparacion CON signo) hasta el cero. Devuelve la cadena.
+static RwChar* _rwStringStrupr(RwChar* string) {
+    if (string != nullptr) {
+        for (RwChar* cursor = string; *cursor != 0; ++cursor) {
+            const signed char c = static_cast<signed char>(*cursor);
+            if (c >= 0x61 && c <= 0x7A) {
+                *cursor = static_cast<RwChar>(c - 0x20);
+            }
+        }
+    }
+    return string;
+}
+
+// 0x80A3D0 (lote S21A, sin validar; 42 bytes; cdecl, (cadena)): strlwr del motor: igual que strupr con 'A'-'Z' y suma 0x20. Devuelve la cadena.
+static RwChar* _rwStringStrlwr(RwChar* string) {
+    if (string != nullptr) {
+        for (RwChar* cursor = string; *cursor != 0; ++cursor) {
+            const signed char c = static_cast<signed char>(*cursor);
+            if (c >= 0x41 && c <= 0x5A) {
+                *cursor = static_cast<RwChar>(c + 0x20);
+            }
+        }
+    }
+    return string;
+}
+
+// 0x80A400 (lote S21A, sin validar; 26 bytes; cdecl, (cadena, caracter)): strchr del motor: compara el byte bajo del caracter con cada byte (el cero final incluido, asi que buscar 0 devuelve el final); NULL si no esta.
+static RwChar* _rwStringStrchr(const RwChar* string, RwInt32 ch) {
+    const RwUInt8 wanted = static_cast<RwUInt8>(ch);
+    for (const RwChar* cursor = string;; ++cursor) {
+        const RwUInt8 c = static_cast<RwUInt8>(*cursor);
+        if (c == wanted) {
+            return const_cast<RwChar*>(cursor);
+        }
+        if (c == 0) {
+            return nullptr;
+        }
+    }
+}
+
+// 0x80A420 (lote S21A, sin validar; 26 bytes; cdecl, (cadena, caracter)): strrchr del motor: ultima aparicion del byte bajo del caracter (el cero final incluido); NULL si no esta.
+static RwChar* _rwStringStrrchr(const RwChar* string, RwInt32 ch) {
+    const RwUInt8 wanted = static_cast<RwUInt8>(ch);
+    const RwChar* found = nullptr;
+    for (const RwChar* cursor = string;; ++cursor) {
+        const RwUInt8 c = static_cast<RwUInt8>(*cursor);
+        if (c == wanted) {
+            found = cursor;
+        }
+        if (c == 0) {
+            return const_cast<RwChar*>(found);
+        }
+    }
+}
+
+// 0x804200 (lote S22A, sin validar; 58 bytes; cdecl, (ruta)): fileFuncs[0] del motor (existe el fichero): fopen(ruta, "rb") con fileFuncs[1] (motor + 0xC8) y, si abre, fclose con fileFuncs[2] (+0xCC).
+// Devuelve 1 si se pudo abrir y 0 si no.
+static RwBool _rwFileSystemExist(const RwChar* path) {
+    RwGlobals* const engine = RwEngineInstance;
+    void* const file = reinterpret_cast<ExeFileOpenFn>(engine->fileFuncs[1])(path, reinterpret_cast<const char*>(0x8E2220));
+    const RwBool opened = file != nullptr ? TRUE : FALSE;
+    if (file != nullptr) {
+        reinterpret_cast<ExeFileCloseFn>(RwEngineInstance->fileFuncs[2])(file);
+    }
+    return opened;
+}
+
+// 0x7F3490 (lote S22A, sin validar; 21 bytes; cdecl, (lista, pista)): memoryAlloc del motor con initFlags & 1 (asignador estatico): rwmalloc del motor con el primer dword de la lista (entrySize) como tamano y la pista.
+static void* _rwMemoryStaticAlloc(RwFreeList* freeList, RwUInt32 hint) {
+    return RwEngineInstance->memoryFuncs.rwmalloc(static_cast<size_t>(freeList->entrySize), hint);
+}
+
+// 0x7F34B0 (lote S22A, sin validar; 25 bytes; cdecl, (lista, memoria)): memoryFree del motor estatico: rwfree de la memoria; devuelve la lista.
+static void* _rwMemoryStaticFree(RwFreeList* freeList, void* memory) {
+    RwEngineInstance->memoryFuncs.rwfree(memory);
+    return freeList;
+}
+
+// 0x801C30 (lote S22A, sin validar; 286 bytes; cdecl, (lista, pista)): RwFreeListAlloc por defecto (memoryAlloc del motor, +0x144). Recorre los bloques de la lista (anillo en +0x10) buscando un bit libre de su mascara de uso
+// (heapSize bytes desde bloque + 8; el bit 7 del primer byte es la entrada 0); los bytes 0xFF restan 8 de las entradas restantes (aritmetica de 32 bits sin signo) y se salta cada bit con 0 entradas restantes. Con el bit libre lo marca
+// y devuelve ((bloque + alineacion + heapSize + 7) & ~(alineacion - 1)) + indice * entrySize. Sin hueco reserva un bloque nuevo con rwmalloc(entradas * entrySize + alineacion + heapSize + 7, pista), pone a cero su mascara, lo
+// enlaza el PRIMERO del anillo, marca la entrada 0 y devuelve su direccion; sin memoria NULL.
+static void* _rwFreeListAllocDefault(RwFreeList* freeList, RwUInt32 hint) {
+    RwUInt32 result = 0;
+    const RwUInt32 maskBytes = freeList->heapSize;
+    RwLLLink* const head = &freeList->blockList.link;
+    const RwUInt32 alignment = static_cast<RwUInt32>(freeList->alignment);
+    for (RwLLLink* block = head->next; block != head && result == 0; block = block->next) {
+        RwUInt32 remaining = freeList->entriesPerBlock;
+        RwUInt8* const mask = reinterpret_cast<RwUInt8*>(block) + 8;
+        for (RwUInt32 byteIndex = 0; byteIndex < maskBytes; ++byteIndex) {
+            RwUInt8 bits = mask[byteIndex];
+            if (bits == 0xFF) {
+                remaining -= 8;
+                continue;
+            }
+            for (RwUInt32 bit = 0; remaining != 0;) {
+                const RwUInt8 flag = static_cast<RwUInt8>(0x80 >> bit);
+                if ((bits & flag) == 0) {
+                    bits |= flag;
+                    mask[byteIndex] = bits;
+                    const RwUInt32 index = bit + byteIndex * 8;
+                    const RwUInt32 aligned = (static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(block)) + alignment + maskBytes + 7u) & ~(alignment - 1u);
+                    result = aligned + index * static_cast<RwUInt32>(freeList->entrySize);
+                    break;
+                }
+                --remaining;
+                if (++bit >= 8) {
+                    break;
+                }
+            }
+            if (result != 0) {
+                break;
+            }
+        }
+    }
+    if (result != 0) {
+        return reinterpret_cast<void*>(static_cast<uintptr_t>(result));
+    }
+    const RwUInt32 blockBytes = static_cast<RwUInt32>(freeList->entriesPerBlock) * static_cast<RwUInt32>(freeList->entrySize) + alignment + maskBytes + 7u;
+    RwLLLink* const created = static_cast<RwLLLink*>(RwEngineInstance->memoryFuncs.rwmalloc(blockBytes, hint));
+    if (created == nullptr) {
+        return nullptr;
+    }
+    std::memset(reinterpret_cast<RwUInt8*>(created) + 8, 0, maskBytes);
+    RwLLLink* const first = head->next;
+    created->prev = head;
+    created->next = first;
+    first->prev = created;
+    head->next = created;
+    reinterpret_cast<RwUInt8*>(created)[8] = 0x80;
+    const RwUInt32 aligned = (static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(created)) + alignment + maskBytes + 7u) & ~(alignment - 1u);
+    return reinterpret_cast<void*>(static_cast<uintptr_t>(aligned));
+}
+
+// 0x8083F0 (lote S22A, sin validar; 55 bytes; cdecl, (entrada de plugin, lista)): callback de RwFreeListForAllUsed del cierre del registro de plugins: si el registro padre (+0x38) tiene plugins (firstRegEntry +0x10 != NULL)
+// restaura su tamano (sizeOfStruct = origSizeOfStruct) y pone first y last (+0x10, +0x14) a NULL; despues devuelve la entrada a la lista con memoryFree del motor (+0x148; lista, entrada).
+static void _rwFreeListFreeEntryCallback(void* memory, void* data) {
+    RwPluginRegEntry* const entry = static_cast<RwPluginRegEntry*>(memory);
+    RwPluginRegistry* const parent = entry->parentRegistry;
+    if (parent->firstRegEntry != nullptr) {
+        parent->sizeOfStruct = parent->origSizeOfStruct;
+        parent->firstRegEntry = nullptr;
+        parent->lastRegEntry = nullptr;
+    }
+    RwEngineInstance->memoryFree(static_cast<RwFreeList*>(data), memory);
+}
+
+// 0x7ED670 (lote S21A, sin validar; 183 bytes; cdecl, (salida, entrada, cantidad, matriz)): callback de puntos por defecto de _rwVectorSetMultFn: con cantidad - 1 < 0 (con signo) no hace nada; si no repite `cantidad` veces (contador
+// de 32 bits sin signo) la transformacion de punto de 0x7ED730 (ver V3dTransformPointDefaultCpp: la secuencia x87 es la misma) sobre entrada[i] y salida[i]. Devuelve la salida.
+RwV3d* _rwV3dTransformPointsDefault(RwV3d* pointsOut, const RwV3d* pointsIn, RwInt32 numPoints, const RwMatrix* matrix) {
+    if (static_cast<RwInt32>(static_cast<RwUInt32>(numPoints) - 1u) >= 0) {
+        RwV3d* out = pointsOut;
+        const RwV3d* in = pointsIn;
+        for (RwUInt32 remaining = static_cast<RwUInt32>(numPoints); remaining != 0; --remaining, ++in, ++out) {
+            V3dTransformPointDefaultCpp(&out->x, &in->x, reinterpret_cast<const float*>(matrix));
+        }
+    }
+    return pointsOut;
+}
+
+// 0x7ED7D0 (lote S22A, sin validar; 163 bytes; cdecl, (salida, entrada, cantidad, matriz)): igual que el de puntos pero con la transformacion de vector de 0x7ED880 (V3dTransformVectorDefaultCpp). Devuelve la salida.
+RwV3d* _rwV3dTransformVectorsDefault(RwV3d* vectorsOut, const RwV3d* vectorsIn, RwInt32 numPoints, const RwMatrix* matrix) {
+    if (static_cast<RwInt32>(static_cast<RwUInt32>(numPoints) - 1u) >= 0) {
+        RwV3d* out = vectorsOut;
+        const RwV3d* in = vectorsIn;
+        for (RwUInt32 remaining = static_cast<RwUInt32>(numPoints); remaining != 0; --remaining, ++in, ++out) {
+            V3dTransformVectorDefaultCpp(&out->x, &in->x, reinterpret_cast<const float*>(matrix));
+        }
+    }
+    return vectorsOut;
+}
+
+// 0x7F12F0 (lote S22A, sin validar; 314 bytes; cdecl, (salida, a, b)): multiplicacion de matrices por defecto de _rwMatrixSetMultFn (3x3 + posicion; los rellenos y los flags no se tocan). Cada componente de salida se calcula con la
+// secuencia x87 del EXE y se guarda como float en el orden del original (ver MatrixMultiplyDefaultCpp; salida puede solaparse con las entradas: las lecturas siguen el orden de las escrituras).
+void _rwMatrixMultiplyDefault(RwMatrix* matrixOut, const RwMatrix* matrixIn1, const RwMatrix* matrixIn2) {
+    MatrixMultiplyDefaultCpp(reinterpret_cast<float*>(matrixOut), reinterpret_cast<const float*>(matrixIn1), reinterpret_cast<const float*>(matrixIn2));
+}
+
+// 0x7EDE90 (lote S22A, sin validar; 543 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x401 (modulo de vectores): [0xC97934] = desplazamiento; escribe en el modulo los cuatro callbacks por
+// defecto (+8 0x7ED730, +0xC 0x7ED670, +0x10 0x7ED880, +0x14 0x7ED7D0). Reserva con rwmalloc(0x4000, 0x40401) la tabla de la raiz (modulo +0) y la rellena (ver RwVectorSqrtTableFillCpp); sin memoria error {1, _rwerror(0x80000013, 0x4000)}
+// y 0. Reserva otra igual para la tabla de la inversa de la raiz (modulo +4; si falla da el mismo error y 0, SIN liberar la primera) y la rellena (RwVectorInvSqrtTableFillCpp); [0xC97938] += 1. Devuelve el objeto.
+static void* _rwVectorModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC97934) = offsetInObject;
+    R12AVectorModuleData& module = R12AVectorModule();
+    module.multPoint   = _rwV3dTransformPointDefault;
+    module.multPoints  = _rwV3dTransformPointsDefault;
+    module.multVector  = _rwV3dTransformVectorDefault;
+    module.multVectors = _rwV3dTransformVectorsDefault;
+    RwUInt32* const sqrtTable = static_cast<RwUInt32*>(RwEngineInstance->memoryFuncs.rwmalloc(0x4000, 0x40401));
+    if (sqrtTable == nullptr) {
+        StreamRaiseError(static_cast<RwInt32>(0x80000013), 0x4000);
+        return nullptr;
+    }
+    RwVectorSqrtTableFillCpp(sqrtTable);
+    R12AVectorModule().sqrtTable = sqrtTable;
+    RwUInt32* const invSqrtTable = static_cast<RwUInt32*>(RwEngineInstance->memoryFuncs.rwmalloc(0x4000, 0x40401));
+    if (invSqrtTable == nullptr) {
+        StreamRaiseError(static_cast<RwInt32>(0x80000013), 0x4000);
+        return nullptr;
+    }
+    RwVectorInvSqrtTableFillCpp(invSqrtTable);
+    R12AVectorModule().invSqrtTable = invSqrtTable;
+    StaticRef<RwInt32>(0xC97938) = StaticRef<RwInt32>(0xC97938) + 1;
+    return object;
+}
+
+// 0x7EDE20 (lote S22A, sin validar; 110 bytes; cdecl, (objeto, desplazamiento, tamano)): destructor del plugin de motor 0x401: libera con rwfree y pone a NULL la tabla de la inversa (modulo +4) y la de la raiz (+0) si existen;
+// [0xC97938] -= 1; devuelve el objeto.
+static void* _rwVectorModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    if (R12AVectorModule().invSqrtTable != nullptr) {
+        RwEngineInstance->memoryFuncs.rwfree(const_cast<RwUInt32*>(R12AVectorModule().invSqrtTable));
+        R12AVectorModule().invSqrtTable = nullptr;
+    }
+    if (R12AVectorModule().sqrtTable != nullptr) {
+        RwEngineInstance->memoryFuncs.rwfree(const_cast<RwUInt32*>(R12AVectorModule().sqrtTable));
+        R12AVectorModule().sqrtTable = nullptr;
+    }
+    StaticRef<RwInt32>(0xC97938) = StaticRef<RwInt32>(0xC97938) - 1;
+    return object;
+}
+
+// 0x807C90 (lote S22A, sin validar; 240 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x40B (modulo de recursos): [0xC9BC58] = desplazamiento; modulo = motor + desplazamiento. Con
+// resArenaInitSize (motor + 0x154) != 0: monton = rwmalloc(tamano, 0x4040B) (sin memoria: error {1, _rwerror(0x80000013, tamano)} y 0) e _rwResArenaHeapInit (0x80FFE0) (si falla: rwfree, error {1, _rwerror(0xC, 0)} y 0);
+// con 0 el monton es NULL. Despues entriesA (+0x10) y entriesB (+0x18) son anillos vacios, usedEntries (+0x24) = &entriesA, freeEntries (+0x20) = &entriesB, maxSize = tamano, currentSize = reusageSize = 0 y [0xC9BC5C] += 1.
+// Devuelve el objeto.
+static void* _rwResourcesModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC9BC58) = offsetInObject;
+    rwResources* const module = reinterpret_cast<rwResources*>(reinterpret_cast<RwUInt8*>(RwEngineInstance) + offsetInObject);
+    const RwUInt32 arenaSize = RwEngineInstance->resArenaInitSize;
+    if (arenaSize != 0) {
+        module->memHeap = RwEngineInstance->memoryFuncs.rwmalloc(arenaSize, 0x4040B);
+        if (module->memHeap == nullptr) {
+            StreamRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(arenaSize));
+            return nullptr;
+        }
+        if (!_rwResArenaHeapInit(module->memHeap, static_cast<RwInt32>(arenaSize))) {
+            RwEngineInstance->memoryFuncs.rwfree(module->memHeap);
+            StreamRaiseError(0xC, 0);
+            return nullptr;
+        }
+    } else {
+        module->memHeap = nullptr;
+    }
+    module->entriesA.link.prev = &module->entriesA.link;
+    module->entriesB.link.prev = &module->entriesB.link;
+    module->entriesA.link.next = &module->entriesA.link;
+    module->entriesB.link.next = &module->entriesB.link;
+    module->usedEntries = &module->entriesA;
+    module->freeEntries = &module->entriesB;
+    module->maxSize = static_cast<RwInt32>(arenaSize);
+    module->currentSize = 0;
+    module->reusageSize = 0;
+    StaticRef<RwInt32>(0xC9BC5C) = StaticRef<RwInt32>(0xC9BC5C) + 1;
+    return object;
+}
+
+// 0x807D80 (lote S22A, sin validar; 86 bytes; cdecl, (objeto, desplazamiento, tamano)): destructor del plugin de motor 0x40B: RwResourcesEmptyArena (0x8081F0), _rwResArenaHeapDestroy (0x810030) del monton, rwfree del monton,
+// monton = NULL; [0xC9BC5C] -= 1; devuelve el objeto.
+static void* _rwResourcesModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwResourcesEmptyArena();
+    _rwResArenaHeapDestroy(ResourcesModule()->memHeap);
+    RwEngineInstance->memoryFuncs.rwfree(ResourcesModule()->memHeap);
+    ResourcesModule()->memHeap = nullptr;
+    StaticRef<RwInt32>(0xC9BC5C) = StaticRef<RwInt32>(0xC9BC5C) - 1;
+    return object;
+}
+
+// 0x807C40 (lote S21A, sin validar; 25 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x409 (tuberias Rx): [0xC9BC60] = desplazamiento; abre el modulo de tuberias (_rxPipelineOpen, 0x804FE0)
+// y devuelve el objeto si dio un resultado distinto de 0, si no NULL.
+static void* _rwPipelineModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC9BC60) = offsetInObject;
+    return _rxPipelineOpen() != 0 ? object : nullptr;
+}
+
+// 0x807C60 (lote S21A, sin validar; 10 bytes): destructor del plugin 0x409: cierra el modulo de tuberias (_rxPipelineClose, 0x804F60) y devuelve el objeto.
+static void* _rwPipelineModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    _rxPipelineClose();
+    return object;
+}
+
+// 0x8087D0 (lote S21A, sin validar; 59 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x40F (errores): [0xC9A6F0] = desplazamiento; [0xC9A6F4] += 1; el dword del motor + desplazamiento (codigo
+// de error actual) = 0 y el de motor + desplazamiento + 4 = 0x80000000 (error sin establecer; el desplazamiento se relee de 0xC9A6F0). Devuelve el objeto.
+static void* _rwErrorModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC9A6F4) = StaticRef<RwInt32>(0xC9A6F4) + 1;
+    StaticRef<RwInt32>(0xC9A6F0) = offsetInObject;
+    *reinterpret_cast<RwUInt32*>(reinterpret_cast<RwUInt8*>(RwEngineInstance) + offsetInObject) = 0;
+    *reinterpret_cast<RwUInt32*>(reinterpret_cast<RwUInt8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9A6F0) + 4) = 0x80000000u;
+    return object;
+}
+
+// 0x808810 (lote S21A, sin validar; 16 bytes): destructor del plugin 0x40F: [0xC9A6F4] -= 1; devuelve el objeto.
+static void* _rwErrorModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC9A6F4) = StaticRef<RwInt32>(0xC9A6F4) - 1;
+    return object;
+}
+
+// 0x80A780 (lote S21A, sin validar; 96 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x412 (listas S): [0xC9A6F8] = desplazamiento; el dword del motor + desplazamiento = lista libre creada con
+// RwFreeListCreateAndPreallocateSpace(0x21, [0x8E26D8], 4, [0x8E26DC], 0xC9A700, 0x40412); sin lista devuelve 0; con lista [0xC9A6FC] += 1 y devuelve el objeto.
+static void* _rwSListModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC9A6F8) = offsetInObject;
+    RwFreeList* const list = RwFreeListCreateAndPreallocateSpace(0x21, StaticRef<RwInt32>(0x8E26D8), 4, StaticRef<RwInt32>(0x8E26DC), reinterpret_cast<RwFreeList*>(0xC9A700), 0x40412);
+    *reinterpret_cast<RwFreeList**>(reinterpret_cast<RwUInt8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9A6F8)) = list;
+    if (*reinterpret_cast<RwFreeList**>(reinterpret_cast<RwUInt8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9A6F8)) == nullptr) {
+        return nullptr;
+    }
+    StaticRef<RwInt32>(0xC9A6FC) = StaticRef<RwInt32>(0xC9A6FC) + 1;
+    return object;
+}
+
+// 0x80A7E0 (lote S21A, sin validar; 43 bytes): destructor del plugin 0x412: si hay lista libre en motor + [0xC9A6F8] la destruye (RwFreeListDestroy, 0x801B80); [0xC9A6FC] -= 1; devuelve el objeto.
+static void* _rwSListModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwFreeList* const list = *reinterpret_cast<RwFreeList**>(reinterpret_cast<RwUInt8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9A6F8));
+    if (list != nullptr) {
+        RwFreeListDestroy(list);
+    }
+    StaticRef<RwInt32>(0xC9A6FC) = StaticRef<RwInt32>(0xC9A6FC) - 1;
+    return object;
+}
+
+// 0x80AA40 (lote S21A, sin validar; 16 bytes): constructor del plugin de motor 0x40D (sin datos): [0xC9A728] += 1; devuelve el objeto.
+static void* _rwDeviceModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC9A728) = StaticRef<RwInt32>(0xC9A728) + 1;
+    return object;
+}
+
+// 0x80AA50 (lote S21A, sin validar; 16 bytes): destructor del plugin 0x40D: [0xC9A728] -= 1; devuelve el objeto.
+static void* _rwDeviceModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC9A728) = StaticRef<RwInt32>(0xC9A728) - 1;
+    return object;
+}
+
+// Lotes S21A y S22A (sin validar): ganchos de los callbacks y funciones reconstruidas de RwPlCore.
+void RwPlCoreInjectHooksS21A22A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwPlCore");
+
+    RH_ScopedGlobalInstall(_rwV3dTransformPointsDefault, 0x7ED670);        // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(RwFreeListSetFlags, 0x801C10);                  // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(RwFreeListGetFlags, 0x801C20);                  // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwMemoryMallocDefault, 0x8020A0);              // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(RwOsGetMemoryInterface, 0x802230);              // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwPipelineModuleConstruct, 0x807C40);          // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwPipelineModuleDestruct, 0x807C60);           // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(RwResourcesGetArenaSize, 0x8081B0);             // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(RwResourcesGetArenaUsage, 0x8081C0);            // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwPluginRegistrySetStaticPluginsSize, 0x808430); // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwPluginDefaultConstruct, 0x8086B0);           // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwPluginDefaultDestruct, 0x8086C0);            // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwPluginDefaultCopy, 0x8086D0);                // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(RwPluginRegistrySetFreeListCreateParams, 0x8087B0); // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwErrorModuleConstruct, 0x8087D0);             // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwErrorModuleDestruct, 0x808810);              // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwStringStrupr, 0x80A3A0);                     // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwStringStrlwr, 0x80A3D0);                     // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwStringStrchr, 0x80A400);                     // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwStringStrrchr, 0x80A420);                    // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwSListModuleConstruct, 0x80A780);             // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwSListModuleDestruct, 0x80A7E0);              // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwDeviceModuleConstruct, 0x80AA40);            // lote S21A (sin validar)
+    RH_ScopedGlobalInstall(_rwDeviceModuleDestruct, 0x80AA50);             // lote S21A (sin validar)
+
+    RH_ScopedGlobalInstall(_rwV3dTransformVectorsDefault, 0x7ED7D0);       // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwV3dNormalize, 0x7ED910);                     // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(RwV2dLength, 0x7EDBF0);                         // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(RwV2dNormalize, 0x7EDC60);                      // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwVectorModuleDestruct, 0x7EDE20);             // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwVectorModuleConstruct, 0x7EDE90);            // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwMatrixMultiplyDefault, 0x7F12F0);            // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(RwMatrixQueryRotate, 0x7F2720);                 // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwMemoryStaticAlloc, 0x7F3490);                // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwMemoryStaticFree, 0x7F34B0);                 // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwFreeListAllocDefault, 0x801C30);             // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwMemoryReallocDefault, 0x8020B0);             // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwMemoryCallocDefault, 0x8020D0);              // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwFileSystemExist, 0x804200);                  // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwResourcesModuleConstruct, 0x807C90);         // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwResourcesModuleDestruct, 0x807D80);          // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(RwResourcesAllocateResEntry, 0x807ED0);         // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(RwResourcesSetArenaSize, 0x8080C0);             // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwFreeListFreeEntryCallback, 0x8083F0);        // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwStringDestroy, 0x80A450);                    // lote S22A (sin validar)
 }

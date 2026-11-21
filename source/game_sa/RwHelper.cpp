@@ -64,6 +64,7 @@ void RwHelperInjectHooks() {
     RH_ScopedGlobalInstall(RwTexDictionaryGtaStreamRead, 0x730FC0);
     RH_ScopedGlobalInstall(RwTextureGtaStreamRead, 0x730E60);
     RH_ScopedGlobalInstall(GetFirstTextureCallback, 0x734930);
+    RH_ScopedGlobalInstall(TexDictDestroyTextureCallback, 0x730E50); // lote S22A (sin validar)
     RH_ScopedGlobalInstall(RwTexDictionaryGtaStreamRead1, 0x731070);
     RH_ScopedGlobalInstall(RwTexDictionaryGtaStreamRead2, 0x731150);
     RH_ScopedGlobalInstall(RpClumpGtaStreamRead1, 0x72E570);

@@ -2518,3 +2518,18 @@ float __cdecl AtomicMatrixMaxLengthSquaredCpp(const float* matrix);
 void __cdecl GammaLevelCpp(float gamma, float* level);
 float __cdecl GammaPowerCpp(float level);
 bool __cdecl GammaLevelEqualCpp(float level, float target);
+
+// Lotes S21A/S22A (sin validar): RwPlCore. Todas siguen la secuencia x87 del EXE (solo se redondea a float donde el original hace `fstp dword`).
+// 0x7EDBF0 y 0x7EDC60: (x*x + y*y) de un vector de dos floats, guardado como float.
+float __cdecl V2dSumSquaresCpp(const float* v);
+// 0x7F12F0: multiplicacion de matrices por defecto (a * b; 16 floats de RwMatrix cada una; los rellenos y los flags no se tocan): una sentencia por componente en el orden del EXE.
+void __cdecl MatrixMultiplyDefaultCpp(float* out, const float* a, const float* b);
+// 0x7F2720 (RwMatrixQueryRotate): partes aritmeticas (ver rwplcore.cpp): Prep = (c, v), Axis = v / len, Angle = grados, Build = matriz auxiliar T, Center = centro tras la inversa.
+void __cdecl MatrixQueryRotatePrepCpp(const float* m, float* cosTerm, float* v);
+void __cdecl MatrixQueryRotateAxisCpp(const float* v, float len, float* axis);
+float __cdecl MatrixQueryRotateAngleCpp(float len, float cosTerm);
+void __cdecl MatrixQueryRotateBuildCpp(const float* m, float* t);
+void __cdecl MatrixQueryRotateCenterCpp(const float* m, const float* inv, float* center);
+// 0x7EDE90: relleno de las tablas de raiz e inversa de raiz del modulo de vectores (4096 dwords cada una).
+void __cdecl RwVectorSqrtTableFillCpp(unsigned int* table);
+void __cdecl RwVectorInvSqrtTableFillCpp(unsigned int* table);
