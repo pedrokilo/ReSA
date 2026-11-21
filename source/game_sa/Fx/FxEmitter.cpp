@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "FxEmitter.h"
 #include "EmissionInfo.h"
@@ -206,7 +209,7 @@ void FxEmitter_c::CreateParticles(float currentTime, float deltaTime) {
 
 // rand() del CRT del EXE (0x821B1E): el del juego avanza la misma semilla que el resto del EXE, no el de la DLL. `% 10000` es el idiv del EXE (el resultado de rand es >= 0).
 static int FxEmitterExeRemainder() {
-    return reinterpret_cast<int(__cdecl*)()>(0x821B1E)() % 10000;
+    return ExeCrt::Rand() % 10000;
 }
 
 // 0x4A2580 (thiscall, ret 1Ch). Orden de los rand() del EXE (0x821B1E, todos `% 10000`): vida, tres bytes aleatorios, rotacion, [GetRWMatrix si createLocal], posicion (3; esfera con radio > 0: un cuarto),

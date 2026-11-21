@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "TaskSimpleGangDriveBy.h"
 #include "Events/EventDamage.h"
@@ -499,7 +502,7 @@ bool CTaskSimpleGangDriveBy::HasClearLineOfSight(CPed* ped, const CVector* aimPo
             CWorld::pIgnoreEntity = nullptr;
         }
         // Proxima comprobacion: ahora - ftol(-500 * (rand() & 0xFFFF) / 32768) + 1750; rand es el del EXE (0x821B1E, avanza la semilla del juego) y _ftol2 toma los 32 bits bajos
-        const int32 r        = reinterpret_cast<int32(__cdecl*)()>(0x821B1E)() & 0xFFFF;
+        const int32 r        = ExeCrt::Rand() & 0xFFFF;
         const int32 jitter   = static_cast<int32>(static_cast<int64>((double(r) * double(3.0517578125e-05f)) * double(-500.0f))); // 0x858B14, 0x85AB78
         m_nLOSCheckTime = CTimer::m_snTimeInMilliseconds - static_cast<uint32>(jitter) + 1750u;
     }

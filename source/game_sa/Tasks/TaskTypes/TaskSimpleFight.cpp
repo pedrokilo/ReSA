@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "TaskSimpleFight.h"
 #include "X87Math.h"
@@ -937,7 +940,7 @@ constexpr auto      FightHitPedPlayerTask  = static_cast<eTaskType>(0xCD);      
 
 // rand() del CRT del EXE (0x821B1E: avanza la semilla del juego, la rand() de la DLL no).
 int32 FightExeRand() {
-    return reinterpret_cast<int32(__cdecl*)()>(0x821B1E)();
+    return ExeCrt::Rand();
 }
 // Posicion del placeable: matriz + 0x30 si la tiene, si no la posicion compacta (+4).
 const CVector* FightPositionOf(const CPlaceable* placeable) {

@@ -24,6 +24,9 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "Population.h"
 #include "Glass.h"
@@ -2030,7 +2033,7 @@ CObject* CPopulation::CreateSunbatheObject(const CVector* position, int32 type) 
     if (CObject::nNoTempObjects >= 150) {
         return nullptr;
     }
-    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     auto& firstModel = StaticRef<uint16>(0x8CD638);
     uint16 model = firstModel;
     bool isStatic = false;

@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "TaskComplexWander.h"
 #include "X87Math.h"
@@ -497,7 +500,7 @@ CTaskComplexWander* CTaskComplexWander::GetWanderTaskByPedTypeId(int32 pedType) 
         if (!memory) {
             return nullptr;
         }
-        const int32 random = reinterpret_cast<int(__cdecl*)()>(0x821B1E)() & 0xFFFF;
+        const int32 random = ExeCrt::Rand() & 0xFFFF;
         const uint8 dir = uint8(int32(float(random) * 3.0517578125e-05f * 8.0f));
         return static_cast<CTaskComplexWanderStandard*>(memory)->Constructor(PEDMOVE_WALK, dir, true);
     }

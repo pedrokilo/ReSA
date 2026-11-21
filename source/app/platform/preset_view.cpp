@@ -1,4 +1,7 @@
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "platform.h"
 #include "X87Math.h"
@@ -164,7 +167,7 @@ bool RsLoadPresetViews() {
                 char* out = line;
                 if (line[0]) {
                     for (const char* in = line;;) {
-                        if (reinterpret_cast<int(__cdecl*)(int)>(0x8228B5)(uint8(*in))) {
+                        if (ExeCrt::Isprint(uint8(*in))) {
                             *out++ = *in;
                         }
                         ++in;

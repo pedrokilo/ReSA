@@ -1,0 +1,31 @@
+== mutacion 1: CrtMath.cpp: 'result = (x < t) ? SubSd(t, 1.0) : t;' -> 'result = (x <= t) ? SubSd(t, 1.0) : t;'
+DIFERENCIA floor x=c19782d5ec000000 exe=c19782d5ec000000 ours=c19782d5f0000000
+DIFERENCIA floor x=c18b77ceb0000000 exe=c18b77ceb0000000 ours=c18b77ceb8000000
+DIFERENCIA floor x=c1b1d255e8000000 exe=c1b1d255e8000000 ours=c1b1d255e9000000
+== mutacion 2: CrtMath.cpp: 'result = !(x <= t) ? AddSd(t, 1.0) : t;' -> 'result = (x > t + 0.5) ? AddSd(t, 1.0) : t;'
+DIFERENCIA ceil x=41407fa03c800000 exe=41407fa080000000 ours=41407fa000000000
+DIFERENCIA ceil x=40d70d5480000000 exe=40d70d8000000000 ours=40d70d4000000000
+DIFERENCIA ceil x=40c5a5ab20000000 exe=40c5a60000000000 ours=40c5a58000000000
+== mutacion 3: CrtMath.cpp: 'if (static_cast<int32_t>(e12) < 0xBFF) {  ' -> 'if (static_cast<int32_t>(e12) < 0xBFE) {  '
+DIFERENCIA floor x=bfe0000000000000 exe=bff0000000000000 ours=bfe0000000000000
+DIFERENCIA floor x=bfe40210ab694fde exe=bff0000000000000 ours=bff8000000000000
+DIFERENCIA floor x=bfe0000000000000 exe=bff0000000000000 ours=bfe0000000000000
+== mutacion 4: CrtState.cpp: 'ptd->holdrand * 0x343FDu + 0x269EC3u' -> 'ptd->holdrand * 0x343FDu + 0x269EC2u'
+DIFERENCIA rand seed=0
+DIFERENCIA rand seed=3793882298
+DIFERENCIA rand seed=553599097
+== mutacion 5: CrtState.cpp: '(next >> 16) & 0x7FFF' -> '(next >> 15) & 0x7FFF'
+DIFERENCIA rand seed=0
+DIFERENCIA rand seed=3793882298
+DIFERENCIA rand seed=553599097
+== mutacion 6: CrtState.cpp: 'return start == p ? nullptr' -> 'return start == p + 1 ? nullptr'
+DIFERENCIA strtok caso 0
+DIFERENCIA strtok caso 1
+DIFERENCIA strtok caso 2
+== mutacion 7: CrtState.cpp: 'ptd->holdrand = 1;' -> 'ptd->holdrand = 2;'
+DIFERENCIA en __getptd (error 1234/1234)
+RESULTADO: HAY DIFERENCIAS
+== mutacion 8: CrtState.cpp: 'return table[c] & 0x157;' -> 'return table[c] & 0x156;'
+DIFERENCIA isprint 0
+DIFERENCIA isprint 1
+DIFERENCIA isprint 4

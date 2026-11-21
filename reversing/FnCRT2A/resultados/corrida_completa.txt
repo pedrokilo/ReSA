@@ -1,0 +1,7 @@
+floor: 299982 casos, 0 diferencias; ceil: 299982 casos, 0 diferencias; NaN detectados por el nucleo: 36
+  ptd propio: +4=ffffffff +0x14=1 +0x54=8e3510 ultimo error conservado=1234
+__getptd: 0 diferencias
+rand/srand: 1800096 valores comparados, 0 diferencias
+strtok: 300000 casos, 0 diferencias
+isprint: 257 valores, 0 diferencias
+RESULTADO: SIN DIFERENCIAS

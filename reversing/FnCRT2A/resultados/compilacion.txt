@@ -1,0 +1,1 @@
+Compilacion completa del proyecto (build-project.ps1 bajo candado, wv-22): EXIT=0, sin errores. Primer intento fallo por __thiscall en funciones libres (std::exception) y la macro 'small'; corregido.

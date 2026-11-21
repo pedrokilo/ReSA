@@ -17,6 +17,10 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
+#include "game_sa/Crt/CrtString.h"
 
 #include "rwplcore.h"
 #include "X87Math.h"
@@ -789,23 +793,23 @@ RwStream* RwStreamReadChunkHeaderInfo(RwStream* stream, RwChunkHeaderInfo* chunk
 // strncmp 0x8214D0, stricmp 0x80A350, strlen 0x826330, strupr 0x80A3A0, strlwr 0x80A3D0, strtok 0x82244B y sscanf 0x8220AD. Devuelve 1.
 RwBool _rwStringOpen() {
     RwStringFunctions& funcs = RwEngineInstance->stringFuncs;
-    funcs.vecSprintf = reinterpret_cast<vecSprintfFunc>(0x821BB5);
-    funcs.vecVsprintf = reinterpret_cast<vecVsprintfFunc>(0x8230B8);
-    funcs.vecStrcpy = reinterpret_cast<vecStrcpyFunc>(0x826590);
-    funcs.vecStrncpy = reinterpret_cast<vecStrncpyFunc>(0x821F40);
-    funcs.vecStrcat = reinterpret_cast<vecStrcatFunc>(0x8265A0);
-    funcs.vecStrncat = reinterpret_cast<vecStrncatFunc>(0x826450);
+    funcs.vecSprintf = reinterpret_cast<vecSprintfFunc>(&ExeCrt::Sprintf);
+    funcs.vecVsprintf = reinterpret_cast<vecVsprintfFunc>(&ExeCrt::Vsprintf);
+    funcs.vecStrcpy = reinterpret_cast<vecStrcpyFunc>(&ExeCrt::Strcpy);
+    funcs.vecStrncpy = reinterpret_cast<vecStrncpyFunc>(&ExeCrt::Strncpy);
+    funcs.vecStrcat = reinterpret_cast<vecStrcatFunc>(&ExeCrt::Strcat);
+    funcs.vecStrncat = reinterpret_cast<vecStrncatFunc>(&ExeCrt::Strncat);
     funcs.vecStrrchr = reinterpret_cast<vecStrrchrFunc>(0x80A420);
     funcs.vecStrchr = reinterpret_cast<vecStrchrFunc>(0x80A400);
-    funcs.vecStrstr = reinterpret_cast<vecStrstrFunc>(0x822650);
-    funcs.vecStrcmp = reinterpret_cast<vecStrcmpFunc>(0x8263C0);
-    funcs.vecStrncmp = reinterpret_cast<vecStrncmpFunc>(0x8214D0);
+    funcs.vecStrstr = reinterpret_cast<vecStrstrFunc>(&ExeCrt::Strstr);
+    funcs.vecStrcmp = reinterpret_cast<vecStrcmpFunc>(&ExeCrt::Strcmp);
+    funcs.vecStrncmp = reinterpret_cast<vecStrncmpFunc>(&ExeCrt::Strncmp);
     funcs.vecStricmp = reinterpret_cast<vecStricmpFunc>(0x80A350);
-    funcs.vecStrlen = reinterpret_cast<vecStrlenFunc>(0x826330);
+    funcs.vecStrlen = reinterpret_cast<vecStrlenFunc>(&ExeCrt::Strlen);
     funcs.vecStrupr = reinterpret_cast<vecStruprFunc>(0x80A3A0);
     funcs.vecStrlwr = reinterpret_cast<vecStrlwrFunc>(0x80A3D0);
-    funcs.vecStrtok = reinterpret_cast<vecStrtokFunc>(0x82244B);
-    funcs.vecSscanf = reinterpret_cast<vecSscanfFunc>(0x8220AD);
+    funcs.vecStrtok = reinterpret_cast<vecStrtokFunc>(&ExeCrt::Strtok);
+    funcs.vecSscanf = reinterpret_cast<vecSscanfFunc>(&ExeCrt::Sscanf);
     return TRUE;
 }
 

@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 
 #pragma warning(push, 0)
 #include "StdInc.h"
+#include "game_sa/Crt/CrtFile.h"
 #pragma warning(pop)
 #include <intrin.h>
 #include <bit>
@@ -405,7 +406,7 @@ namespace {
 using ExeSprintfFn = int(__cdecl*)(char*, const char*, ...);
 template<class... Args>
 int StatsExeSprintf(char* dst, const char* format, Args... args) {
-    return reinterpret_cast<ExeSprintfFn>(0x821BB5)(dst, format, args...);
+    return reinterpret_cast<ExeSprintfFn>(&ExeCrt::Sprintf)(dst, format, args...);
 }
 const char* StatsGxtToAscii(const GxtChar* text) {
     return GxtCharToAscii(text, 0);

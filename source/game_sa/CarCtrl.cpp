@@ -29,6 +29,9 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "CarCtrl.h"
 #include "TrafficLights.h"
@@ -87,7 +90,7 @@ auto& aCarsToKeepTime = StaticRef<std::array<uint32, 2>>(0x96907C);
 // Lote 63 (aire): colaboradores del EXE sin reconstruir que se llaman por direccion (los bancos los sustituyen por falsos identicos).
 // CVector::Normalise (0x59C910, thiscall, in situ; deja la x87 vacia) y rand() del CRT del EXE (0x821B1E: avanza la semilla del juego, la rand() de la DLL no).
 static void CarCtrlAirExeNormalise(CVector* v) { reinterpret_cast<void(__thiscall*)(CVector*)>(0x59C910)(v); }
-static int CarCtrlAirExeRand() { return reinterpret_cast<int(__cdecl*)()>(0x821B1E)(); }
+static int CarCtrlAirExeRand() { return ExeCrt::Rand(); }
 // Funcion del EXE sin reconstruir que llama SteerAIBoatWithPhysicsAttackingPlayer con el modelo 430 (0x73DF00, thiscall sobre el vehiculo)
 static void CarCtrlAirExeBoatSpecial(CVehicle* boat) { reinterpret_cast<void(__thiscall*)(CVehicle*)>(0x73DF00)(boat); }
 
@@ -336,7 +339,7 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
     // Con el byte 0x96917A: un rand & 0xFFFF * 1/65536 * 100.0f truncado distinto de 0 -> -1. Se sortea f = rand (sin enmascarar) * 0x38000100 como float y t = (float)total y la
     // categoria es la primera cuyo acumulado / t supera a f: dealers (0x19: el modelo es [0xC0F240] si esta cargado, si no -1), pandillas (con el byte 0x96915B tambien),
     // policia (13: ni guerra de pandillas ni coches de policia prohibidos -> ChoosePoliceCarModel(0)) u otros (0: [0xA4448C] o PickRandomCar(true, false)).
-    const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     const int32 total = Cc63eTotalCpp(CPopCycle::m_NumOther_Cars, CPopCycle::m_NumCops_Cars, CPopCycle::m_NumGangs_Cars, CPopCycle::m_NumDealers_Cars);
     if (total <= 0) {
         return -1;
@@ -1160,7 +1163,7 @@ void CCarCtrl::FindLinksToGoWithTheseNodes(CVehicle* vehicle) {
     {
         const uint16 seed = *reinterpret_cast<const uint16*>(raw + 0x45E);
         if (seed) {
-            reinterpret_cast<void(__cdecl*)(uint32)>(0x821B11)(seed);
+            ExeCrt::Srand(seed);
         }
     }
     const auto nodeAt = [](CNodeAddress address) { return reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[address.m_wAreaId]) + static_cast<size_t>(address.m_wNodeId) * 0x1C; };
@@ -2925,12 +2928,12 @@ void CCarCtrl::PickNextNodeRandomly(CVehicle* vehicle) {
     // actual <- siguiente <- elegido) y los signos, calcula los carriles y, en estado 2, la x87 (24 bits: cada operacion se redondea a float, ver X87Math) del punto de salida y de llegada del tramo.
     auto* const raw = reinterpret_cast<uint8*>(vehicle);
     auto& autoPilot = vehicle->m_autoPilot;
-    const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     const auto nodeAt = [](uint16 area, uint16 node) { return reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[area]) + static_cast<size_t>(node) * 0x1C; };
     const auto linkAt = [](CCarPathLinkAddress address) { return reinterpret_cast<const uint8*>(ThePaths.m_pNaviNodes[address.m_wAreaId]) + static_cast<size_t>(address.m_wCarPathLinkId) * 0xE; };
     const auto attachedTo = [](const uint8* link, CNodeAddress node) { return *reinterpret_cast<const uint16*>(link + 4) == node.m_wAreaId && *reinterpret_cast<const uint16*>(link + 6) == node.m_wNodeId; };
     if (const uint16 seed = *reinterpret_cast<const uint16*>(raw + 0x45E)) {
-        reinterpret_cast<void(__cdecl*)(uint32)>(0x821B11)(seed);
+        ExeCrt::Srand(seed);
     }
     const CNodeAddress previous = autoPilot.m_currentAddress;
     if (!ThePaths.m_pPathNodes[previous.m_wAreaId]) {
@@ -3240,7 +3243,7 @@ bool CCarCtrl::PickNextNodeToChaseCar(CVehicle* vehicle, float destX, float dest
     static_assert(offsetof(CAutoPilot, m_nSpeedScaleFactor) == 0x10 && offsetof(CAutoPilot, field_50) == 0x50);
     auto* const raw = reinterpret_cast<uint8*>(vehicle);
     auto& autoPilot = vehicle->m_autoPilot;
-    const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     const auto nodeAt = [](uint16 area, uint16 node) { return reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[area]) + static_cast<size_t>(node) * 0x1C; };
     const auto linkAt = [](uint32 address) { return reinterpret_cast<const uint8*>(ThePaths.m_pNaviNodes[address >> 10]) + static_cast<size_t>(address & 0x3FF) * 0xE; };
     const auto gameZone = [] { return *reinterpret_cast<const int16*>(0xC81314); };
@@ -3251,7 +3254,7 @@ bool CCarCtrl::PickNextNodeToChaseCar(CVehicle* vehicle, float destX, float dest
     };
     constexpr float kEighth = 0.125f; // 0x858C48
     if (const uint16 seed = *reinterpret_cast<const uint16*>(raw + 0x45E)) {
-        reinterpret_cast<void(__cdecl*)(uint32)>(0x821B11)(seed);
+        ExeCrt::Srand(seed);
     }
     CNodeAddress nodes[2];
     nodes[0].m_wAreaId = 0xFFFF;
@@ -3444,14 +3447,14 @@ bool CCarCtrl::PickNextNodeToFollowPath(CVehicle* vehicle) {
     static_assert(offsetof(CAutoPilot, m_nSpeedScaleFactor) == 0x10 && offsetof(CAutoPilot, m_nNextLane) == 0x28);
     auto* const raw = reinterpret_cast<uint8*>(vehicle);
     auto& autoPilot = vehicle->m_autoPilot;
-    const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     const auto nodeAt = [](uint16 area, uint16 node) { return reinterpret_cast<const uint8*>(ThePaths.m_pPathNodes[area]) + static_cast<size_t>(node) * 0x1C; };
     const auto linkAt = [](uint32 address) { return reinterpret_cast<const uint8*>(ThePaths.m_pNaviNodes[address >> 10]) + static_cast<size_t>(address & 0x3FF) * 0xE; };
     const auto same = [](const CNodeAddress& a, const CNodeAddress& b) { return a.m_wAreaId == b.m_wAreaId && a.m_wNodeId == b.m_wNodeId; };
     constexpr float kEighth = 0.125f;                               // 0x858C48
     constexpr float kHundredth = std::bit_cast<float>(0x3C23D70Au); // 0x858C58 (0.01f)
     if (const uint16 seed = *reinterpret_cast<const uint16*>(raw + 0x45E)) {
-        reinterpret_cast<void(__cdecl*)(uint32)>(0x821B11)(seed);
+        ExeCrt::Srand(seed);
     }
     const CNodeAddress previousNext = autoPilot.m_startingRouteNode; // el EXE lo guarda antes de la busqueda y lo usa para el signo del tramo
     CNodeAddress* const nodes = autoPilot.m_aPathFindNodesInfo.data();
@@ -4092,7 +4095,7 @@ void CCarCtrl::SetUpDriverAndPassengersForVehicle(CVehicle* vehicle, int32 arg2,
     // Como el original (0x4217C0..0x4218F2). arg2 = tipo de peaton (14..23 = bandas), arg3 = minimo de pasajeros. rand es el del EXE (0x821B1E, no la de la DLL).
     // El conductor (+0x460, sin comprobar nulo) y cada pasajero de banda sostienen un objeto (word 0x8CD72C) si rand() < 0x3FFF. Cada pasajero extra hasta el maximo
     // (byte +0x488) se anade con probabilidad 1/8 (rand * 0x858C7C < 0.125f); en los coches con la animacion de furgoneta ("van", 0x858EE0) como mucho 1.
-    const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     const uint16 heldModel = StaticRef<uint16>(0x8CD72C);
     vehicle->SetUpDriver(arg2, arg4, arg5);
     if (arg2 >= 14 && arg2 <= 23 && exeRand() < 0x3FFF) {

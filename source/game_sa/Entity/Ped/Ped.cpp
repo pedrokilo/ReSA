@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "Ped.h"
 #include "PedPlacement.h"
@@ -4510,7 +4513,7 @@ void CPed::DeleteRwObject()
 namespace {
 // rand() del CRT del EXE (0x821B1E): avanza la semilla del juego (la rand() de la DLL no).
 int PedCtlExeRand() {
-    return reinterpret_cast<int(__cdecl*)()>(0x821B1E)();
+    return ExeCrt::Rand();
 }
 
 // Matriz de CColPoint que 0x5E8F26 pasa a CCollision::ProcessColModels (no es CWorld::m_aTempColPts, que esta en 0xB9ACD0).

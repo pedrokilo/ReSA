@@ -26,6 +26,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "PedGeometryAnalyser.h"
 #include "Interior/InteriorManager_c.h"
@@ -798,7 +801,7 @@ CPedGeometryAnalyser::WanderPathClearness CPedGeometryAnalyser::IsWanderPathClea
     if (!CWorld::GetIsLineOfSightClear({from.x, from.y, z}, {to.x, to.y, z}, true, false, false, false, false, false, false)) { return WanderPathClearness::BLOCKED_LOS; }
     auto direction = to - from;
     const auto length = std::sqrt((direction.z * direction.z + direction.x * direction.x) + direction.y * direction.y);
-    const auto samples = std::min(maxSamples, static_cast<int32>(reinterpret_cast<double(__cdecl*)(double)>(0x8219F0)(length)));
+    const auto samples = std::min(maxSamples, static_cast<int32>(ExeCrt::Floor(length)));
     if (samples != 0) {
         direction.Normalise();
         for (auto i = 1; i < samples; ++i) {

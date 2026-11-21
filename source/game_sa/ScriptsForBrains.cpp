@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "ScriptsForBrains.h"
 
@@ -147,7 +150,7 @@ void CScriptsForBrains::CheckIfNewEntityNeedsScript(CEntity* entity, int8 attach
         }
         // Como el original: rand del EXE (0x821B1E) & 0xFFFF, * 2^-15 (0x858B14), * 100.0 (0x858628), truncado (_ftol2).
         // El producto es exacto en float (k < 65536, k * 100 < 2^24), asi que no depende de la precision del x87.
-        const auto exeRand = reinterpret_cast<int(__cdecl*)()>(0x821B1E);
+        const auto exeRand = &ExeCrt::Rand;
         const int32 roll = static_cast<int32>(static_cast<float>(static_cast<uint32>(exeRand()) & 0xFFFFu) * std::bit_cast<float>(0x38000000u) * 100.0f);
         if (roll < static_cast<int32>(brain.m_PercentageChance)) {
             StartOrRequestNewStreamedScriptBrain(i, entity, attachType, true);

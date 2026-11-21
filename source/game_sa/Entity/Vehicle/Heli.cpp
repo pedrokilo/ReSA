@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 #include "X87Math.h"
 #include "Ropes.h"
 #include "Population.h"
@@ -54,7 +57,7 @@ extern "C" double __cdecl GeneralRandomInRangeDblCpp(int random, float min, floa
 namespace {
 // rand() del CRT del EXE (0x821B1E: avanza la semilla del juego; la rand() de la DLL no).
 int32 HeliExeRand() {
-    return reinterpret_cast<int32(__cdecl*)()>(0x821B1E)();
+    return ExeCrt::Rand();
 }
 
 // Acceso crudo a un campo del EXE cuando el ancho de la escritura es parte del comportamiento (bytes y palabras sueltas).
@@ -199,7 +202,7 @@ CHeli::CHeli(int32 modelIndex, eVehicleCreatedBy createdBy) : CAutomobile(modelI
     field_9B8 = 0;
     m_bSearchLightEnabled = false;
     // rand() del CRT del EXE (0x821B1E: avanza la semilla del juego; la rand() de la DLL no) y el lerp x87 del EXE (rnd * (1/32767) * 6.0 + 2.0, sin redondear antes del fstp)
-    field_A14 = static_cast<float>(GeneralRandomInRangeDblCpp(reinterpret_cast<int32(__cdecl*)()>(0x821B1E)(), 2.0f, 8.0f));
+    field_A14 = static_cast<float>(GeneralRandomInRangeDblCpp(ExeCrt::Rand(), 2.0f, 8.0f));
 }
 
 // 0x6C4340
