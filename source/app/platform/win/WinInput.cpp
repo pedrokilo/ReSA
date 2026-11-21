@@ -150,19 +150,19 @@ void diMouseInit(bool exclusive) {
 // 0x7477C0: enumera los mandos conectados (clase DI8DEVCLASS_GAMECTRL = 4, DIEDFL_ATTACHEDONLY = 1) con la funcion de retorno del EXE (0x747020, sin dato de usuario). Si EnumDevices
 // devuelve algo distinto de 0 lo devuelve tal cual. Si no: sin primer mando (+0x20 de psGlobal) devuelve 1 (sin tocar el segundo); con primer mando fija sus rangos con 0x746D80
 // (mando, 0) y, si hay segundo mando (+0x24), (mando, 1); devuelve 0. psGlobal se vuelve a leer en cada uso, como el EXE.
-// Como el EXE, la funcion de retorno y los rangos se llaman por su direccion: con NOTSA_USE_SDL3 (la configuracion de las pruebas) EnumDevicesCallback y diPadSetRanges no se enganchan,
-// asi que 0x747020 y 0x746D80 son codigo del EXE; sin SDL3 los hooks de InjectHooks las redirigen a la DLL.
+// Lote S2A (sin validar): la funcion de retorno (0x747020) y los rangos (0x746D80) son ahora funciones propias (EnumDevicesCallback y diPadSetRanges) y se llaman directamente, tambien con
+// NOTSA_USE_SDL3; sus hooks (0x747020 y 0x746D80) se registran en InjectPadHooks, junto a diPadEnumerate.
 int32 diPadEnumerate() {
-    const HRESULT result = RsGlobal.ps->diInterface->EnumDevices(DI8DEVCLASS_GAMECTRL, reinterpret_cast<LPDIENUMDEVICESCALLBACKA>(0x747020), nullptr, DIEDFL_ATTACHEDONLY);
+    const HRESULT result = RsGlobal.ps->diInterface->EnumDevices(DI8DEVCLASS_GAMECTRL, reinterpret_cast<LPDIENUMDEVICESCALLBACKA>(EnumDevicesCallback), nullptr, DIEDFL_ATTACHEDONLY);
     if (result != 0) {
         return result;
     }
     if (!RsGlobal.ps->diDevice1) {
         return 1;
     }
-    plugin::Call<0x746D80, LPDIRECTINPUTDEVICE8, DWORD>(RsGlobal.ps->diDevice1, 0);
+    diPadSetRanges(RsGlobal.ps->diDevice1, 0);
     if (RsGlobal.ps->diDevice2) {
-        plugin::Call<0x746D80, LPDIRECTINPUTDEVICE8, DWORD>(RsGlobal.ps->diDevice2, 1);
+        diPadSetRanges(RsGlobal.ps->diDevice2, 1);
     }
     return 0;
 }
@@ -344,6 +344,8 @@ void InjectPadHooks() {
 
     RH_ScopedGlobalInstall(diPadInit, 0x7485C0);
     RH_ScopedGlobalInstall(diPadEnumerate, 0x7477C0);
+    RH_ScopedGlobalInstall(EnumDevicesCallback, 0x747020); // lote S2A (sin validar): antes solo en InjectHooks; aqui tambien con SDL3
+    RH_ScopedGlobalInstall(diPadSetRanges, 0x746D80);      // lote S2A (sin validar): idem
     RH_ScopedGlobalInstall(InputShutdown, 0x747000); // lote 196A (sin validar): se registra aqui (no en InjectHooks) para que exista tambien con SDL3, como diPadInit; el EXE de SDL no llega a 0x74803B (salida de WinMain), asi que enganchar es inocuo
 
 #ifdef NOTSA_USE_SDL3
@@ -360,8 +362,6 @@ void InjectHooks() {
 
     RH_ScopedGlobalInstall(Initialise, 0x7487CF); 
     RH_ScopedGlobalInstall(diMouseInit, 0x7469A0, {.locked = true}); // Can't be hooked because it fails with ACCESS DENIED and crashes
-    RH_ScopedGlobalInstall(EnumDevicesCallback, 0x747020);
-    RH_ScopedGlobalInstall(diPadSetRanges, 0x746D80);
     RH_ScopedGlobalInstall(GetMouseSetUpExe, 0x53F2D0);
 }
 

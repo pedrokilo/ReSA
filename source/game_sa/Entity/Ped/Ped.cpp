@@ -90,6 +90,7 @@ void CPed::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x5E8030);
     RH_ScopedInstall(Destructor, 0x5E8620);
+    RH_ScopedInstall(SortPeds, 0x5E17E0); // lote S2A (sin validar)
     RH_ScopedNamedGlobalInstall(PedScalarDeletingDestructor, "ScalarDeletingDestructor", 0x5E8C80); // lote 199A (sin validar)
     RH_ScopedInstall(CanWeRunAndFireWithWeapon, 0x5E88E0);                                           // lote 199A (sin validar)
 
@@ -1906,12 +1907,49 @@ bool CPed::OurPedCanSeeThisEntity(CEntity* entity, bool isSpotted) {
 }
 
 /*!
-* @addr 0x5E17E0
-* @unused
+* @addr 0x5E17E0 (lote S2A, sin validar; thiscall, tres argumentos de pila, `ret 0Ch`, 356 bytes)
+* @brief Quicksort (Hoare, pivote central) de `pedList[lo..hi]` por distancia creciente a este ped. Pivote = pedList[(lo + hi) / 2] (division con truncamiento, cdq + sar) y su distancia se guarda como
+*        float; las distancias de los demas se comparan SIN guardar (x87 a 24 bits: sqrt((dz*dz + dy*dy) + dx*dx) con d = esta posicion - la del otro): avanza i mientras dist < pivote y retrocede j
+*        mientras dist > pivote (comparaciones ordenadas: con NaN se detiene); si i <= j intercambia e itera. Despues se ordena recursivamente [lo, j] y se sigue (sin recursion) con [i, hi_original].
 */
 void CPed::SortPeds(CPed** pedList, int32 arg1, int32 arg2)
 {
-    ((void(__thiscall *)(CPed*, CPed**, int32, int32))0x5E17E0)(this, pedList, arg1, arg2);
+    if (arg1 >= arg2) {
+        return;
+    }
+    const auto distanceTo = [this](const CPed* other) -> double {
+        const CVector& thisPos  = GetPosition();
+        const CVector& otherPos = other->GetPosition();
+        const double dx = Veh83DSub(thisPos.x, otherPos.x);
+        const double dy = Veh83DSub(thisPos.y, otherPos.y);
+        const double dz = Veh83DSub(thisPos.z, otherPos.z);
+        return Veh83DSqrt(Veh83DAdd(Veh83DAdd(Veh83DMul(dz, dz), Veh83DMul(dy, dy)), Veh83DMul(dx, dx)));
+    };
+    int32 low = arg1;
+    for (;;) {
+        int32 i = low;
+        int32 j = arg2;
+        const float pivotDistance = Veh83DStore(distanceTo(pedList[(low + arg2) / 2]));
+        do {
+            while (distanceTo(pedList[i]) < pivotDistance) {
+                ++i;
+            }
+            while (distanceTo(pedList[j]) > pivotDistance) {
+                --j;
+            }
+            if (i > j) {
+                break;
+            }
+            std::swap(pedList[i], pedList[j]);
+            ++i;
+            --j;
+        } while (i <= j);
+        SortPeds(pedList, low, j);
+        low = i;
+        if (!(low < arg2)) {
+            break;
+        }
+    }
 }
 
 /*!

@@ -1031,6 +1031,7 @@ void InjectHooksMain() {
     CZoneInjectHooksLote124A(); // Only CZone::GetTranslatedName 0x5720C0.
     CMenuManager::InjectHooks();
     CSprite2d::InjectHooks();
+    CLines::InjectHooks(); // lote S2A (sin validar)
     CCheat::InjectHooks();
     CBirds::InjectHooks();
     WaterCreature_c::InjectHooks();
