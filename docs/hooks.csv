@@ -12672,3 +12672,9 @@ StdException,Destruct,0x00822E2F,1,0,0,S
 ExeCrt,StringXran,0x008211FD,1,0,0,S
 ExeCrt,StringXlen,0x00821255,1,0,0,S
 ExeCrt,Onexit,0x00821CE6,1,0,0,S
+CPad,UpdatePads,0x00541DD0,1,0,0,S
+Input,diMouseInit,0x007469A0,1,1,0,S
+CPhysical,ApplyFrictionTurnForce,0x00543100,1,0,0,S
+CPhysical,ApplySpringDampeningOld,0x00544100,1,0,0,S
+CPhysical,ApplyScriptCollision,0x00546ED0,1,0,0,S
+CVehicle,DoSunGlare,0x006DD6F0,1,0,0,S

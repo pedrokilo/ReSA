@@ -120,6 +120,7 @@ void CPhysical::InjectHooks()
     RH_ScopedVMTInstall(ProcessEntityCollision, 0x546D00);
     RH_ScopedInstall(ApplyGravity, 0x542FE0);
     RH_ScopedInstall(ApplyFrictionMoveForce, 0x5430A0);
+    RH_ScopedInstall(ApplyFrictionTurnForce, 0x543100); // lote S2Aresto (sin validar)
     RH_ScopedInstall(ApplyFrictionForce, 0x543220);
     RH_ScopedInstall(SkipPhysics, 0x5433B0);
     RH_ScopedInstall(AddCollisionRecord, 0x543490);
@@ -130,6 +131,7 @@ void CPhysical::InjectHooks()
     RH_ScopedInstall(ApplySpringCollision, 0x543C90);
     RH_ScopedInstall(ApplySpringCollisionAlt, 0x543D60);
     RH_ScopedInstall(ApplySpringDampening, 0x543E90);
+    RH_ScopedInstall(ApplySpringDampeningOld, 0x544100); // lote S2Aresto (sin validar)
     RH_ScopedInstall(RemoveRefsToEntity, 0x544280);
     RH_ScopedInstall(DettachEntityFromEntity, 0x5442F0);
     RH_ScopedInstall(DettachAutoAttachedEntity, 0x5446A0);
@@ -153,6 +155,7 @@ void CPhysical::InjectHooks()
     RH_ScopedInstall(CheckCollision, 0x54D920);
     RH_ScopedInstall(CheckCollision_SimpleCar, 0x54DAB0);
     RH_ScopedInstall(PlacePhysicalRelativeToOtherPhysical, 0x546DB0);
+    RH_ScopedInstall(ApplyScriptCollision, 0x546ED0); // lote S2Aresto (sin validar)
     RH_ScopedInstall(PositionAttachedEntity, 0x546FF0);
 }
 
@@ -969,10 +972,32 @@ void CPhysical::ApplyFrictionMoveForce(CVector moveForce)
 }
 
 // Unused
-// 0x543100
+// 0x543100 (lote S2Aresto, sin validar): es la mitad de giro de ApplyFrictionForce. Los dos CVector por valor son (fuerza, punto) en ese orden (la pila del EXE: +4 fuerza, +10h punto).
+// Sin turn force desactivado: masa de giro += z*masa*z*0.5 (masa infinita, centro de masa a cero) o centro rotado con Multiply3x3 (0x59C790); con move force desactivado z de punto y fuerza a 0;
+// friccion de giro += (punto - centro) x fuerza * (1 / masaGiro).
 void CPhysical::ApplyFrictionTurnForce(CVector posn, CVector velocity)
 {
-    ((void(__thiscall*)(CPhysical*, CVector, CVector))0x543100)(this, posn, velocity);
+    CVector& moveForce = posn;
+    CVector& point = velocity;
+    if (physicalFlags.bDisableTurnForce)
+        return;
+
+    float fTurnMass = m_fTurnMass;
+    CVector vecCentreOfMassMultiplied{};
+    if (physicalFlags.bInfiniteMass)
+        fTurnMass += m_vecCentreOfMass.z * m_fMass * m_vecCentreOfMass.z * 0.5f;
+    else
+        vecCentreOfMassMultiplied.FromMultiply3x3(*m_matrix, m_vecCentreOfMass);
+
+    if (physicalFlags.bDisableMoveForce) {
+        point.z = 0.0f;
+        moveForce.z = 0.0f;
+    }
+
+    const CVector vecDifference = point - vecCentreOfMassMultiplied;
+    const CVector vecCross = CrossProduct(vecDifference, moveForce);
+    const float invTurnMass = 1.0f / fTurnMass;
+    m_vecFrictionTurnSpeed += vecCross * invTurnMass;
 }
 
 // 0x543220
@@ -1344,9 +1369,41 @@ bool CPhysical::ApplySpringDampening(float fDampingForce, float fSpringForceDamp
 }
 
 // Unused
+// 0x544100 (lote S2Aresto, sin validar): version antigua de ApplySpringDampening. Los argumentos de pila son (amortiguacion, limite sin usar, direccion, punto de colision, posicion de colision);
+// el EXE nunca lee arg1. Orden de las sumas como el EXE: ((y + z) + x). Comparaciones segun el salto: tope de 3.0 si el paso no es menor (NaN -> 3.0); R > 1 -> 1 (NaN se conserva);
+// |Z| se obtiene negando solo si Z < 0; el escalado ocurre solo si |Z| > R. Devuelve siempre true.
 bool CPhysical::ApplySpringDampeningOld(float arg0, float arg1, CVector& arg2, CVector& arg3, CVector& arg4)
 {
-    return ((bool(__thiscall*)(CPhysical*, float, float, CVector&, CVector&, CVector&))0x544100)(this, arg0, arg1, arg2, arg3, arg4);
+    const CVector& direction = arg2;
+    const CVector& collisionPoint = arg3;
+    const CVector& collisionPos = arg4;
+
+    const float dotPos = (collisionPos.y * direction.y + collisionPos.z * direction.z) + direction.x * collisionPos.x;
+    const CVector speed = GetSpeed(collisionPoint);
+    const float dotSpeed = (speed.y * direction.y + speed.z * direction.z) + speed.x * direction.x;
+    const float half = (dotSpeed + dotPos) * 0.5f;
+
+    const float timeStep = CTimer::GetTimeStep() < 3.0f ? CTimer::GetTimeStep() : 3.0f;
+    float force = half * (timeStep * m_fMass);
+    force = force * arg0;
+    force = force * -0.53f; // 0x863C04
+    if (physicalFlags.bMakeMassTwiceAsBig)
+        force += force;
+
+    const float sumSq = (collisionPoint.x * collisionPoint.x + collisionPoint.y * collisionPoint.y) + collisionPoint.z * collisionPoint.z;
+    float limit = m_fTurnMass / (((sumSq + 1.0f) * m_fMass) * 2.0f);
+    if (limit > 1.0f)
+        limit = 1.0f;
+
+    float ratio = force / (dotSpeed * m_fMass);
+    if (ratio < 0.0f)
+        ratio = -ratio;
+    if (ratio > limit)
+        force = force * (limit / ratio);
+
+    const CVector vecForce{ force * direction.x, force * direction.y, force * direction.z };
+    ApplyForce(vecForce, collisionPoint, true);
+    return true;
 }
 
 // 0x544280
@@ -2355,10 +2412,33 @@ void CPhysical::PlacePhysicalRelativeToOtherPhysical(CPhysical* relativeToPhysic
 }
 
 // Unused
-// 0x546ED0
+// 0x546ED0 (lote S2Aresto, sin validar): colision de script. arg0 es la normal; el punto es *arg3 o, sin arg3, posicion - normal * radio de la esfera del modelo (cada producto
+// y cada resta redondeados a float). Fija la elasticidad a arg1 durante la llamada, llama a ApplyCollision (0x5435C0, entidad = this) y, si devolvio true y arg2 > 0 (con NaN no), a
+// ApplyFriction (0x5454C0). Restaura la elasticidad y devuelve la intensidad de dano (0 si no hubo). Del CColPoint del EXE solo se rellenan punto y normal; el resto es basura de pila.
 float CPhysical::ApplyScriptCollision(CVector arg0, float arg1, float arg2, CVector* arg3)
 {
-    return ((float(__thiscall*)(CPhysical*, CVector, float, float, CVector*))0x546ED0)(this, arg0, arg1, arg2, arg3);
+    float damageIntensity = 0.0f;
+    const float savedElasticity = m_fElasticity;
+
+    CColPoint colPoint{};
+    colPoint.m_vecNormal = arg0;
+    if (arg3) {
+        colPoint.m_vecPoint = *arg3;
+    } else {
+        const CVector pos = GetPosition();
+        const float radius = GetColModel()->m_boundSphere.m_fRadius;
+        const float sx = arg0.x * radius;
+        const float sy = arg0.y * radius;
+        const float sz = arg0.z * radius;
+        colPoint.m_vecPoint = CVector{ pos.x - sx, pos.y - sy, pos.z - sz };
+    }
+
+    m_fElasticity = arg1;
+    if (ApplyCollision(this, colPoint, damageIntensity) && arg2 > 0.0f) {
+        ApplyFriction(arg2, colPoint);
+    }
+    m_fElasticity = savedElasticity;
+    return damageIntensity;
 }
 
 // 0x546FF0

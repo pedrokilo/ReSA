@@ -46,6 +46,9 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexEnterCarAsDriver.h"
 #include "TaskComplexEnterCarAsPassenger.h"
 #include "Shadows.h"
+#include "Coronas.h"
+#include "Collision/Collision.h"
+#include "Weather.h"
 #include "CustomBuildingDNPipeline.h"
 #include "PedClothesDesc.h"
 #include "X87Math.h"
@@ -416,7 +419,7 @@ void CVehicle::InjectHooks() {
     RH_ScopedInstall(SetComponentRotation, 0x6DBA30);
     RH_ScopedInstall(SetTransmissionRotation, 0x6DBBB0);
     RH_ScopedInstall(DoBoatSplashes, 0x6DD130);
-    // RH_ScopedInstall(DoSunGlare, 0x6DD6F0);
+    RH_ScopedInstall(DoSunGlare, 0x6DD6F0); // lote S2Aresto (sin validar)
     RH_ScopedInstall(AddWaterSplashParticles, 0x6DDF60);
     RH_ScopedInstall(AddExhaustParticles, 0x6DE240);
     RH_ScopedInstall(AddSingleWheelParticles, 0x6DE880);
@@ -7622,16 +7625,152 @@ void CVehicle::DoBoatSplashes(float fWaterDamping) {
     g_fx.m_BoatSplash->AddParticle(p1, vel1, 0.0f, particleData);
 }
 
-// 0x6DD6F0
+// 0x6DD6F0 (lote S2Aresto, sin validar): destello del sol en los parabrisas de un coche. Reconstruida de los 2158 bytes x87 del EXE, instrucciones y saltos comparados uno a uno.
+// Salidas tempranas (en este orden): bit 29 de las banderas fisicas (+0x40), up.z < 0 (solo "menor": con NaN sigue), apariencia != automovil, CWeather::SunGlare <= 0 o NaN.
+// D = camara - posicion; dist = sqrt((dx*dx + dz*dz) + dy*dy) guardada como float; C = D * (2/dist) (el 2/dist queda en la x87 sin pasar por float: ayudantes Veh83D*, para no
+// desbordar con dist denormal); S = C + vector al sol[m_CurrentStoredValue] (indice sin comprobar); P = (S.right, S.forward, 0) con CVector::Normalise (0x59C910, con hook exacto).
+// A = |dot(C.xy normalizado, forward.xy normalizado)| (CVector2D::Normalise 0x44E480; |x| = negar solo si x < 0): A > 0.995 -> v = 1; A <= 0.99 o NaN -> fin; si no v = (A-0.99)*200.
+// Distancia: dist > 30 no cambia v; dist <= 13 o NaN -> fin; si no v = (v*(dist-13))/17 (0x871FC0). Color de cada canal = ftol(((nucleo_solar + 510) * (v*0.8) * SunGlare) * 0.3333)
+// truncado al byte (los dwords con basura de pila del EXE solo se usan por su byte bajo). Para cada pareja de triangulos (i, i+1) de la colision, i de 2 en 2: se exige vertice A de
+// tri[i] con z > 0 y que tri[i+1] aporte exactamente UN vertice distinto de A, B, C de tri[i] (cuarto vertice del cuadrilatero); centro = (V0+V1+V2+V3)*0.25 (suma por componentes
+// como el EXE: ((V1+V0)+V2)+V3); m = min(|cx-V0.x|, |cy-V0.y|) (si |dx| < |dy| dx, si no dy; con empate o NaN dy) * 1.4; si m > 0.6 registra una corona (0x6FC580) en
+// matriz * (P*m + centro) + C con radio SunGlare*0.9, alcance 90, tipo 0, atraccion a camara 1.5, velocidad de aparicion 15 e id = this + i + 0x1B.
 void CVehicle::DoSunGlare() {
-    return ((void(__thiscall*)(CVehicle*))0x6DD6F0)(this);
-
-    /*
-    * Below code should be good so far, I'm lazy to finish it, srry.
-    if (physicalFlags.bDestroyed || GetUp().z < 0.f || GetVehicleAppearance() != eVehicleAppearance::VEHICLE_APPEARANCE_AUTOMOBILE || CWeather::SunGlare <= 0.f) {
+    if (m_nPhysicalFlags & 0x20000000u) // bRenderScorched / bDestroyed segun la fuente
         return;
+
+    const CMatrix& mat = *m_matrix;
+    if (mat.GetUp().z < 0.0f)
+        return;
+    if (GetVehicleAppearance() != eVehicleAppearance::VEHICLE_APPEARANCE_AUTOMOBILE)
+        return;
+    if (!(CWeather::SunGlare > 0.0f))
+        return;
+
+    const CVector vehPos = GetPosition();
+    const CVector camPos = TheCamera.GetPosition();
+    const float dx = camPos.x - vehPos.x;
+    const float dy = camPos.y - vehPos.y;
+    const float dz = camPos.z - vehPos.z;
+    const float dist = std::sqrt((dx * dx + dz * dz) + dy * dy);
+
+    const double inv = Veh83DDiv(2.0, dist);
+    const CVector C{ Veh83DStore(Veh83DMul(dx, inv)), Veh83DStore(Veh83DMul(dy, inv)), Veh83DStore(Veh83DMul(dz, inv)) };
+
+    const CVector& sun = (&CTimeCycle::m_VectorToSun.front())[CTimeCycle::m_CurrentStoredValue]; // sin comprobar el indice, como el EXE
+    const float sx = C.x + sun.x;
+    const float sy = C.y + sun.y;
+    const float sz = C.z + sun.z;
+    CVector P{
+        (sz * mat.GetRight().z + sy * mat.GetRight().y) + sx * mat.GetRight().x,
+        (sz * mat.GetForward().z + sy * mat.GetForward().y) + sx * mat.GetForward().x,
+        0.0f
+    };
+    P.Normalise();
+
+    CVector2D fwd2{ mat.GetForward().x, mat.GetForward().y };
+    CVector2D c2{ C.x, C.y };
+    VehENormalise2D(fwd2);
+    VehENormalise2D(c2);
+    float v = c2.y * fwd2.y + c2.x * fwd2.x;
+    if (v < 0.0f)
+        v = -v;
+    if (v > 0.995f) { // 0x871FC4
+        v = 1.0f;
+    } else {
+        if (!(v > 0.99f)) // 0x862CD0
+            return;
+        v = (v - 0.99f) * 200.0f;
     }
-    */
+    if (!(dist > 30.0f)) {
+        if (!(dist > 13.0f))
+            return;
+        v = (v * (dist - 13.0f)) * std::bit_cast<float>(0x3D70F0F1u); // 0x871FC0
+    }
+
+    const float w = v * 0.8f; // 0x858C98
+    const auto channel = [&](uint16 core) -> uint8 {
+        float t = static_cast<float>(static_cast<int32>(core) + 0x1FE) * w;
+        t = t * CWeather::SunGlare;
+        t = t * std::bit_cast<float>(0x3EAAAAABu); // 0x859040
+        return static_cast<uint8>(static_cast<int64>(t));
+    };
+    const uint8 red   = channel(CTimeCycle::m_CurrentColours.m_nSunCoreRed);
+    const uint8 green = channel(CTimeCycle::m_CurrentColours.m_nSunCoreGreen);
+    const uint8 blue  = channel(CTimeCycle::m_CurrentColours.m_nSunCoreBlue);
+
+    CCollisionData* const colData = GetColModel()->m_pColData;
+    if (!colData) // el EXE lo desreferencia sin comprobar
+        return;
+    CCollision::CalculateTrianglePlanes(colData); // 0x416330
+
+    const auto numTriangles = [colData]() { return static_cast<int32>(static_cast<int16>(colData->m_nNumTriangles)); };
+    if (numTriangles() - 2 < 0)
+        return;
+
+    const auto unpack = [colData](uint16 index) {
+        const int16* vtx = reinterpret_cast<const int16*>(colData->m_pVertices) + static_cast<size_t>(index) * 3;
+        return CVector{ static_cast<float>(vtx[0]) * 0.0078125f, static_cast<float>(vtx[1]) * 0.0078125f, static_cast<float>(vtx[2]) * 0.0078125f }; // 0x858B88
+    };
+
+    for (int32 i = 0; i <= numTriangles() - 2; i += 2) {
+        const CColTriangle* tri = colData->m_pTriangles;
+        const uint16 ia = tri[i].vA;
+        const uint16 ib = tri[i].vB;
+        const uint16 ic = tri[i].vC;
+
+        const CVector v0 = unpack(ia);
+        if (!(v0.z > 0.0f))
+            continue;
+        const CVector v1 = unpack(ib);
+        const CVector v2 = unpack(ic);
+
+        int32   extra = 0;
+        CVector v3{};
+        for (const uint16 other : { tri[i + 1].vA, tri[i + 1].vB, tri[i + 1].vC }) {
+            if (other != ia && other != ib && other != ic) {
+                v3 = unpack(other);
+                ++extra;
+            }
+        }
+        if (extra != 1)
+            continue;
+
+        const float sumX = ((v1.x + v0.x) + v2.x) + v3.x;
+        const float sumY = ((v1.y + v0.y) + v2.y) + v3.y;
+        const float sumZ = ((v1.z + v0.z) + v2.z) + v3.z;
+        const float cx = sumX * 0.25f; // 0x858C84
+        const float cy = sumY * 0.25f;
+        const float cz = sumZ * 0.25f;
+
+        float adx = cx - v0.x;
+        const float dyc = cy - v0.y;
+        if (adx < 0.0f)
+            adx = -adx;
+        float ady = dyc;
+        if (ady < 0.0f)
+            ady = -ady;
+        // |dx| < |dy| -> dx; si no (mayor, igual o NaN) -> dy
+        const float m = (adx < ady ? adx : ady) * 1.4f; // 0x859994
+        if (!(m > 0.6f))                                // 0x858CC8
+            continue;
+
+        const float px = P.x * m;
+        const float py = m * P.y;
+        const float pz = m * P.z;
+        const CVector local{ px + cx, py + cy, pz + cz };
+        CVector world = CVehDMatPoint(mat, local);
+        world.x = world.x + C.x;
+        world.y = world.y + C.y;
+        world.z = world.z + C.z;
+
+        CCoronas::RegisterCorona(
+            static_cast<uint32>(reinterpret_cast<uintptr_t>(this)) + static_cast<uint32>(i) + 0x1Bu,
+            nullptr, red, green, blue, 0xFF, world,
+            CWeather::SunGlare * 0.9f, 90.0f,
+            CORONATYPE_SHINYSTAR, FLARETYPE_NONE, CORREFL_NONE, LOSCHECK_OFF, TRAIL_OFF,
+            0.0f, false, 1.5f, false, 15.0f, false, false);
+    }
 }
 
 // 0x6DDF60
