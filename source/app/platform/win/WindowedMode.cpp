@@ -407,49 +407,15 @@ struct D3D9ProxyDevice {
     }
 };
 
-// Allocate stack space for function
-#define STACK_PUSH               \
-    _asm push ebp                \
-    _asm mov ebp, esp            \
-    _asm sub esp, __LOCAL_SIZE 
+// NOTSA: puntos de enganche de la creacion del dispositivo D3D9. Antes eran un parche `naked` (HookDirect3DDeviceReplacerSA, 0x7F6781) en mitad de la funcion
+// del sistema del dispositivo (0x7F5F70); ahora esa funcion esta reconstruida en C++ (_rwD3D9System, rwcore.cpp) y llama a estas dos funciones normales:
+// antes de CreateDevice (ajusta los parametros de presentacion al modo ventana) y despues de un CreateDevice correcto (instala el proxy de Reset/SetViewport).
+void BeforeCreateDevice() noexcept {
+    AdjustPresentParams(&Present);
+}
 
-// De-allocate stack space for function
-#define STACK_POP       \
-    _asm mov esp, ebp   \
-    _asm pop ebp
-
-void __declspec(naked) HookDirect3DDeviceReplacerSA() noexcept {
-    _asm pushad
-    STACK_PUSH
-
-    WindowedMode::AdjustPresentParams(&Present);
-
-    HRESULT hr;
-    {
-        //ScopedRestoreWindowInfo restore;
-
-        STACK_POP
-        _asm popad           // Restore original arguments
-        _asm call[edx + 40h] // Call `CreateDevice` (as the original code did)
-        STACK_PUSH
-        _asm mov hr, eax     // Save result temporarily to `hr` (Because registers will be restored)
-        _asm pushad
-    }
-
-    if (SUCCEEDED(hr)) {
-        D3D9ProxyDevice::Initialize(GetD3D9Device());
-    } else {
-        NOTSA_LOG_ERR("CreateDevice falló, saliendo...");
-        Sleep(10);
-        exit(10);
-    }
-
-    _asm popad             // Restore registers to pre-jump
-    STACK_POP
-    _asm test eax, eax     // Restore original code (Replaced by the jump to this function)
-    _asm mov eax, 0x7F6786 // eax isn't used after this, so we can re-use it
-    _asm jmp eax           // Jump back to the `jge` instruction
-
+void AfterCreateDevice() noexcept {
+    D3D9ProxyDevice::Initialize(GetD3D9Device());
 }
 
 //static auto HookDxCamFix_Return = 0x7F7C4C;
@@ -1897,7 +1863,6 @@ void notsa::InjectWindowedModeHooks() {
         notsa::WindowedMode::D3D9ProxyDevice::Initialize(GetD3D9Device());
     }
 
-    RH_ScopedGlobalInstall(notsa::WindowedMode::HookDirect3DDeviceReplacerSA, 0x7F6781);
     //RH_ScopedGlobalInstall(notsa::WindowedMode::HookDxCamFix, 0x7F7C41);
 
     // Something in this function causes the floor in CJ's house not to be reflective
