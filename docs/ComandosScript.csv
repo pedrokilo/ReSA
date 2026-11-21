@@ -2639,7 +2639,7 @@ id_hex,id,comando,estado,manejador_cpp,fuente,despachador_exe,registro_duplicado
 0x0A4D,2637,COMMAND_IS_JAPANESE_VERSION,reescrito,IsJapaneseVersion,source/game_sa/Scripts/Commands/GameCommands.cpp:201,0x00479DA0,,no,no,bajo,flag,no,puro o trivial,validado,32,0,
 0x0A4E,2638,COMMAND_IS_XBOX_PLAYER2_PRESSING_START,original,,,0x00479DA0,,no,no,,,,,,,,
 0x0A4F,2639,COMMAND_FINISHED_WITH_XBOX_PLAYER2,original,,,0x00479DA0,,no,no,,,,,,,,
-0x0A50,2640,COMMAND_DO_DEBUG_STUFF,reescrito,DoDebugStuff,source/game_sa/Scripts/Commands/GameCommands.cpp:225,0x00479DA0,,no,no,medio,no,escribe,escribe estado del mundo,no_probado,0,0,sin resultados en las corridas incluidas
+0x0A50,2640,COMMAND_DO_DEBUG_STUFF,reescrito,DoDebugStuff,source/game_sa/Scripts/Commands/GameCommands.cpp:225,0x00479DA0,,no,no,medio,no,escribe,escribe estado del mundo,no_probado,0,0,DO_DEBUG_STUFF: no figura en la tabla de firmas (su manejador no se registra en el juego)
 0x0A8C,2700,COMMAND_WRITE_MEMORY,original,,,,,,,,,,,,,,
 0x0A8D,2701,COMMAND_READ_MEMORY,original,,,,,,,,,,,,,,
 0x0A8E,2702,COMMAND_INT_ADD,original,,,,,,,,,,,,,,

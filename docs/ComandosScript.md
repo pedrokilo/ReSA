@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 21/11/2026 (Ciudad de México):** 1004 grupos / 13311 funciones reconstruidas; 11801 con evidencia histórica y 1510 pendientes de validación en 39 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Comandos de script (opcodes)
 
 Inventario de los comandos de SCM del juego (`docs/ComandosScript.csv`, generado por `contrib/inventario_comandos_script.py`).
@@ -932,7 +936,7 @@ Banco de validacion de los 668 manejadores reescritos contra el manejador origin
 | 0x0A07 | `COMMAND_SKIP_TO_NEXT_ALLOWED_STATION` | no_probado | firma no soportada por el generador |
 | 0x0A0E | `COMMAND_CLEAR_THIS_PRINT_BIG_NOW` | sin_efecto | sin resultados del banco |
 | 0x0A47 | `COMMAND_FINISH_SETTING_UP_CONVERSATION_NO_SUBTITLES` | no_probado | conversaciones: FINISH_SETTING_UP_CONVERSATION_NO_SUBTITLES necesita una conversacion montada |
-| 0x0A50 | `COMMAND_DO_DEBUG_STUFF` | no_probado | sin resultados en las corridas incluidas |
+| 0x0A50 | `COMMAND_DO_DEBUG_STUFF` | no_probado | DO_DEBUG_STUFF: no figura en la tabla de firmas (su manejador no se registra en el juego) |
 
 
 ## Pendiente
