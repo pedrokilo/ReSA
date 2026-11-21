@@ -4,6 +4,8 @@
 #include <windows.h>
 #include "CrtState.h"
 #include "CrtHeap.h"
+#include "CrtLocale.h"
+#include <cstring>
 
 // Reconstruccion de las funciones con estado del CRT del EXE (lote CRT2A). Ver CrtState.h y reversing/FnCRT2A/README.md.
 
@@ -13,11 +15,8 @@ namespace {
 inline void  CallAmsgExit(int code) { reinterpret_cast<void(__cdecl*)(int)>(0x8244D1)(code); }          // _amsg_exit
 inline int   CallMtInitLockNum(int n) { return reinterpret_cast<int(__cdecl*)(int)>(0x82AD3F)(n); }      // _mtinitlocknum
 inline void* CallCalloc(unsigned int n, unsigned int s) { return reinterpret_cast<void*(__cdecl*)(unsigned int, unsigned int)>(0x824416)(n, s); }
-inline void* CallUpdateTLocInfo() { return reinterpret_cast<void*(__cdecl*)()>(0x825456)(); }           // __updatetlocinfo
-inline int   CallIsctype(void* locinfo, int c, int mask) { return reinterpret_cast<int(__cdecl*)(void*, int, int)>(0x82AAE2)(locinfo, c, mask); }
 
 inline DWORD&         TlsIndex()   { return *reinterpret_cast<DWORD*>(0x8E3110); }
-inline void*&         GlobalLocInfo() { return *reinterpret_cast<void**>(0x8E2F14); }
 inline CRITICAL_SECTION*& LockSlot(int n) { return *reinterpret_cast<CRITICAL_SECTION**>(0x8E31C0 + n * 8); }
 constexpr unsigned int FIRST_STD_FILE = 0x8E2C30;
 constexpr unsigned int LAST_STD_FILE  = 0x8E2E90;
@@ -87,19 +86,15 @@ char* __cdecl Strtok(char* str, const char* delims) {
     return start == p ? nullptr : reinterpret_cast<char*>(start);
 }
 
-// 0x8228B5: ctype del locale actual (maximo de bytes por caracter 1: tabla de palabras; mayor que 1: _isctype del EXE). _PRINT = 0x157
+// 0x8228B5: ctype del locale actual (maximo de bytes por caracter 1: tabla de palabras; mayor que 1: _isctype). _PRINT = 0x157
 int __cdecl Isprint(int c) {
-    ThreadData* const ptd = Getptd();
-    void* locinfo = ptd->locInfo;
-    if (locinfo != GlobalLocInfo()) {
-        locinfo = CallUpdateTLocInfo();
+    LocInfo* const li = CurrentLocInfo();
+    if (li->mbCurMax > 1) {
+        return IsctypeMt(li, c, 0x157);
     }
-    const auto bytes = reinterpret_cast<unsigned char*>(locinfo);
-    if (*reinterpret_cast<int*>(bytes + 0x28) > 1) {
-        return CallIsctype(locinfo, c, 0x157);
-    }
-    const unsigned short* const table = *reinterpret_cast<unsigned short**>(bytes + 0x48);
-    return table[c] & 0x157;
+    unsigned short w;
+    std::memcpy(&w, li->pctype + c * 2, 2);
+    return w & 0x157;
 }
 
 // 0x82ADBE

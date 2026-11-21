@@ -1,0 +1,16 @@
+== mutacion 1: CrtLocale.cpp: 'if (old && old->refCount == 0 &&' -> 'if (old && old->refCount <= 0 && old->refCount != 0 &&'
+RESULTADO: HAY DIFERENCIAS
+== mutacion 2: CrtLocale.cpp: 'for (int i = 3; i < 10; i++) {' -> 'for (int i = 3; i < 9; i++) {'
+RESULTADO: HAY DIFERENCIAS
+== mutacion 3: CrtLocale.cpp: 'if (wc <= 0xFF) {' -> 'if (wc < 0xFF) {'
+RESULTADO: HAY DIFERENCIAS
+== mutacion 4: CrtLocale.cpp: 'MultiByteToWideChar(li->codePage, 9, src, cur,' -> 'MultiByteToWideChar(li->codePage, 1, src, cur,'
+RESULTADO: HAY DIFERENCIAS
+== mutacion 5: CrtLocale.cpp: 'return typeAndMask[0] & (static_cast<unsigned int>(typeAndMask[1])' -> 'return typeAndMask[0] & (static_cast<unsigned int>(mask)'
+RESULTADO: HAY DIFERENCIAS
+== mutacion 6: CrtLocale.cpp: 'return (c >= 0x61 && c <= 0x7A) ? c - 0x20 : c;' -> 'return (c >= 0x61 && c < 0x7A) ? c - 0x20 : c;'
+RESULTADO: HAY DIFERENCIAS
+== mutacion 7: CrtCtype.cpp: 'return static_cast<int>(sign == '-' ? 0u - total : total);' -> 'return static_cast<int>(sign == '+' ? 0u - total : total);'
+RESULTADO: HAY DIFERENCIAS
+== mutacion 8: CrtCtype.cpp: 'return l1 < l2 ? -1 : 1;' -> 'return l1 > l2 ? -1 : 1;'
+RESULTADO: HAY DIFERENCIAS
