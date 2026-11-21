@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 #include <windows.h>
 #include <cstring>
 #include "CrtFormat.h"
+#include "CrtStdio.h"
 #include "CrtFloat.h"
 #include "CrtHeap.h"
 #include "CrtString.h"
@@ -38,7 +39,7 @@ constexpr unsigned int FL_SIGN = 0x1, FL_SIGNSP = 0x2, FL_LEFT = 0x4, FL_LEADZER
                        FL_ALTERNATE = 0x80, FL_NEGATIVE = 0x100, FL_FORCEOCTAL = 0x200, FL_WIDECHAR = 0x800, FL_I64 = 0x8000;
 
 // Funciones del EXE que quedan por direccion (ver CrtFormat.h)
-inline int CallFlsbuf(int ch, File* f) { return reinterpret_cast<int(__cdecl*)(int, File*)>(0x828B31)(ch, f); }
+inline int CallFlsbuf(int ch, File* f) { return Flsbuf(ch, f); }
 inline int CallWctomb(char* dst, int wc) { return reinterpret_cast<int(__cdecl*)(char*, int)>(0x83353C)(dst, wc); }
 
 // 0x827E9E (write_char: ecx = FILE, esi = &numwritten, al = caracter)

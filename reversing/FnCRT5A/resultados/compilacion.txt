@@ -1,0 +1,18 @@
+Compilacion del proyecto completo (lote CRT5A, rama crt5a, worktree wv-29), Debug x86, 1 hilo:
+  fuentes tocadas: CrtLowIo.cpp, CrtStdio.cpp (nuevos), CrtFile.cpp, CrtFormat.cpp, CrtInput.cpp, VehicleRecording.cpp, InjectHooksMain.cpp
+  gta_reversed.vcxproj -> D:\Original\wv-29\bin\Debug\gta_reversed.asi
+EXIT=0
+Primera compilacion completa desde cero (1110 unidades) con CrtLowIo/CrtStdio: EXIT=0 (04:26); incrementales posteriores tras anadir _ioinit/_ioterm/__initstdio/_fcloseall/_snprintf: EXIT=0 (04:50 y 04:55)
+50585600 bin/Debug/gta_reversed.asi
+
+contrib/audit_hook_catalog.py --strict:
+
+Comprobaciones críticas:
+  hooks activos ausentes de hooks.csv: 0
+  registros indirectos ausentes de hooks.csv: 0
+  clases/grupos del CSV sin scope fuente: 0
+  llamadas directas con instalaciones propias sin owner catalogado: 0
+  owners catalogados cuya función de registro nunca se invoca: 0
+  llamadas que resuelven a un InjectHooks heredado: 0
+
+Resultado: OK

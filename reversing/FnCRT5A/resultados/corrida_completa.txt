@@ -1,0 +1,10 @@
+dosmaperr/_mtinitlocknum/__crtInitCritSecAndSpinCount: 4100 + 26 casos, 0 diferencias
+_snprintf/_vsnprintf/_scprintf/_vscprintf: 360 casos, 0 diferencias
+_ioinit/_ioterm/__initstdio (con y sin descriptores heredados): 60 casos, 0 diferencias
+_set_osfhnd/_free_osfhnd con __app_type 1: 3 casos, 0 diferencias
+descriptores masivos (_alloc_osfhnd, bloques nuevos de __pioinfo): 5941 operaciones, 0 diferencias
+lowio (_sopen/_open/_read/_write/_lseek/_lseeki64/_commit/_chsize/_setmode/_isatty/_open_osfhandle/_close): 1500 guiones, 71580 operaciones, 0 diferencias
+  cobertura: 4827 aperturas con exito, 9959 fallidas; 7841 lecturas/escrituras con datos, 18822 sin datos o con error; 36547 operaciones que fijaron errno; 0 guiones repetidos por ruido del sistema de archivos
+stdio (_fsopen/__openfile/__getstream/_fread_nolock/_fwrite_nolock/_fseek_nolock/_ftell_nolock/_filbuf/_flsbuf/_flush/_flsall/_fclose_nolock): 1500 guiones, 76593 operaciones, 0 diferencias
+  cobertura: 10850 aperturas con exito, 9010 fallidas; 10801 lecturas/escrituras con datos, 8661 sin datos o con error; 11550 operaciones que fijaron errno; 0 guiones repetidos por ruido del sistema de archivos
+RESULTADO: SIN DIFERENCIAS
