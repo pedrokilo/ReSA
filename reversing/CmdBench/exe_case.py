@@ -61,46 +61,66 @@ def dispatcher_of(pe, cmd):
     return pe.u32(0x8A6168 + 4 * (cmd // 100))
 
 
-def find_case(pe, cmd):
-    disp = dispatcher_of(pe, cmd)
+def find_case(pe, cmd, disp=None):
+    disp = disp or dispatcher_of(pe, cmd)
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
     code = pe.bytes(disp, 600)
     ins = list(md.disasm(code, disp))
-    # patron: [sub/add eax, K] ... cmp eax, N ... ja default ... (movzx ecx, byte [eax+T2]) jmp [ecx*4+T1] | jmp [eax*4+T1]
     base = None
     t1 = t2 = None
-    for i in ins:
-        if i.mnemonic == 'add' and i.op_str.startswith('eax, -') or (i.mnemonic == 'sub' and i.op_str.startswith('eax, ')):
-            try:
-                v = int(i.op_str.split(',')[1].strip(), 0)
-                base = v if i.mnemonic == 'sub' else -v
-            except ValueError:
-                pass
-        if i.mnemonic == 'lea' and i.op_str.startswith('eax, [') and ' - ' in i.op_str:
-            base = int(i.op_str.split(' - ')[1].strip(' ]'), 0)
+    jmp_i = None
+    for n, i in enumerate(ins):
         if i.mnemonic == 'jmp' and '*4 +' in i.op_str:
             t1 = int(i.op_str.split('+')[-1].strip(' ]'), 0)
-        if i.mnemonic == 'movzx' and 'byte ptr [eax +' in i.op_str:
-            t2 = int(i.op_str.split('+')[-1].strip(' ]'), 0)
+            jmp_i = n
+            break
+    if jmp_i is not None:
+        for i in ins[:jmp_i]:
+            if base is None and i.mnemonic == 'lea' and ' - ' in i.op_str and i.op_str.split(',')[0] in ('eax', 'ecx', 'edx', 'ebx', 'edi', 'ebp'):
+                base = int(i.op_str.split(' - ')[1].strip(' ]'), 0)
+            elif base is None and i.mnemonic == 'sub' and i.op_str.split(',')[0] in ('eax', 'ecx', 'edx') and i.op_str.split(',')[1].strip().startswith('0x'):
+                base = int(i.op_str.split(',')[1].strip(), 0)
+            elif base is None and i.mnemonic == 'add' and i.op_str.split(',')[0] in ('eax', 'ecx', 'edx') and i.op_str.split(',')[1].strip().startswith(('0x', '-')):
+                v = int(i.op_str.split(',')[1].strip(), 0)
+                base = -v if v < 0 else ((1 << 32) - v if v >= 0x80000000 else None)
+            if i.mnemonic == 'movzx' and 'byte ptr [' in i.op_str and '+' in i.op_str:
+                try:
+                    v = int(i.op_str.split('+')[-1].strip(' ]'), 0)
+                    if v >= 0x400000:
+                        t2 = v
+                except ValueError:
+                    pass
     return disp, base, t1, t2, ins
+
+
 
 
 def main():
     cmd = int(sys.argv[1])
     mx = int(sys.argv[sys.argv.index('--max') + 1]) if '--max' in sys.argv else 120
     pe = Pe(EXE)
-    disp, base, t1, t2, ins = find_case(pe, cmd)
-    print(f'despachador {disp:#x}  base={base}  tabla_saltos={t1 and hex(t1)}  tabla_indices={t2 and hex(t2)}')
-    if t1 is None:
-        print('no se encontro el switch; cabecera del despachador:')
-        print('\n'.join(f'{i.address:08X}: {i.mnemonic} {i.op_str}' for i in ins[:40]))
-        return
-    idx = cmd - base
-    if t2 is not None:
-        idx = pe.u8(t2 + idx)
-    target = pe.u32(t1 + 4 * idx)
-    print(f'comando {cmd}: indice {idx} -> caso {target:#x}')
-    print('\n'.join(disasm(pe, target, mx)))
+    disp = None
+    target = 0
+    for depth in range(4):
+        disp, base, t1, t2, ins = find_case(pe, cmd, disp)
+        print(f'despachador {disp:#x}  base={base}  tabla_saltos={t1 and hex(t1)}  tabla_indices={t2 and hex(t2)}')
+        if t1 is None or base is None:
+            print('no se encontro el switch; cabecera del despachador:')
+            print(chr(10).join(f'{i.address:08X}: {i.mnemonic} {i.op_str}' for i in ins[:40]))
+            return
+        idx = cmd - base
+        if t2 is not None:
+            idx = pe.u8(t2 + idx)
+        target = pe.u32(t1 + 4 * idx)
+        body = disasm(pe, target, 6)
+        print(f'comando {cmd}: indice {idx} -> caso {target:#x}')
+        # caso que reenvia a otro despachador: push eax; mov ecx, esi; call X
+        if len(body) >= 3 and 'push eax' in body[0] and 'mov ecx, esi' in body[1] and 'call' in body[2]:
+            disp = int(body[2].split('call ')[1], 0)
+            print(f'  (reenvia al despachador {disp:#x})')
+            continue
+        break
+    print(chr(10).join(disasm(pe, target, mx)))
 
 
 if __name__ == '__main__':

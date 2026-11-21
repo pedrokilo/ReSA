@@ -61,11 +61,16 @@ inline bool InNoCompare(uintptr_t a) { for (auto& r : noCompare) if (a >= r.firs
 inline void SnapAll() { for (auto& r : regions) std::memcpy(r.snap.data(), (void*)r.addr, r.size); }
 
 struct Diff { std::map<uintptr_t, u8> bytes; };
+constexpr size_t kBlock = 256;
 inline Diff DiffAgainstSnap(const std::vector<std::vector<u8>>& base, const std::set<uintptr_t>* mask = nullptr) {
     Diff d;
     for (size_t i = 0; i < regions.size(); ++i) {
         const auto* live = (const u8*)regions[i].addr; const auto* b = base[i].data();
-        for (size_t k = 0; k < regions[i].size; ++k) if (live[k] != b[k]) { if (!InNoCompare(regions[i].addr + k) && (!mask || !mask->count(regions[i].addr + k))) d.bytes[regions[i].addr + k] = live[k]; }
+        for (size_t o = 0; o < regions[i].size; o += kBlock) {
+            const size_t n = std::min(kBlock, regions[i].size - o);
+            if (std::memcmp(live + o, b + o, n) == 0) continue;
+            for (size_t k = o; k < o + n; ++k) if (live[k] != b[k]) { if (!InNoCompare(regions[i].addr + k) && (!mask || !mask->count(regions[i].addr + k))) d.bytes[regions[i].addr + k] = live[k]; }
+        }
     }
     return d;
 }
@@ -73,7 +78,11 @@ inline bool InNoRestore(uintptr_t a) { for (auto& r : noRestore) if (a >= r.firs
 inline void RestoreChanged(const std::vector<std::vector<u8>>& base) {
     for (size_t i = 0; i < regions.size(); ++i) {
         auto* live = (u8*)regions[i].addr; const auto* b = base[i].data();
-        for (size_t k = 0; k < regions[i].size; ++k) if (live[k] != b[k] && !InNoRestore(regions[i].addr + k)) live[k] = b[k];
+        for (size_t o = 0; o < regions[i].size; o += kBlock) {
+            const size_t n = std::min(kBlock, regions[i].size - o);
+            if (std::memcmp(live + o, b + o, n) == 0) continue;
+            for (size_t k = o; k < o + n; ++k) if (live[k] != b[k] && !InNoRestore(regions[i].addr + k)) live[k] = b[k];
+        }
     }
 }
 
@@ -92,6 +101,14 @@ struct Case {
 };
 
 inline int gPed0{}, gPed1{}, gVeh0{}, gObj0{};   // manejadores de fixtures
+// Comandos con precondicion "el peaton va en un coche" (el original no la comprueba o el C++ lanza si no se cumple): el parametro de peaton es siempre ped1 y ped1 conduce veh0.
+inline const std::set<int> kNeedsInCar{ 217, 960, 2065 };
+inline std::set<int> gNeedsInCar = kNeedsInCar;
+// Dominios validos de parametros enteros que el original usa como indice sin comprobar (asiento, ranura, etc.): {comando, indice de parametro de script} -> valores permitidos
+inline const std::map<std::pair<int, int>, std::vector<int>> kParamDomain{
+    { { 1074, 1 }, { 0, 1, 2, 3 } },   // GET_CHAR_IN_CAR_PASSENGER_SEAT: asiento 0..3
+    { { 1208, 1 }, { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 } },   // GET_CHAR_WEAPON_IN_SLOT: ranuras de arma 0..12
+};
 inline CVector gPlayerPos{};
 inline std::vector<int> gModels{};
 
@@ -138,6 +155,23 @@ inline bool Supported(const S::CmdSig& s) {
     return true;
 }
 
+// Comandos de BasicCommands (SET/CSET/ADD/SUB/MULT/DIV/IS_*): el tipo de cada operando lo fija el nombre (VAR = global, LVAR = local, NUMBER/CONSTANT/VAL = constante); el EXE lee las
+// variables con GetPointerToScriptVariable, que no admite una constante. Devuelve 'g', 'l' o 'c' por operando en el orden del bytecode (ADD_x_TO_y y SUB_x_FROM_y llevan el destino primero).
+inline std::string BasicOperandKinds(const std::string& name) {
+    static const char* prefixes[] = { "SET_", "CSET_", "ADD_", "SUB_", "MULT_", "DIV_", "IS_", "ABS_" };
+    bool ok = false; for (auto* p : prefixes) if (name.rfind(p, 0) == 0) ok = true;
+    if (!ok) return {};
+    std::string kinds; size_t pos = 0;
+    while (pos <= name.size()) {
+        size_t e = name.find('_', pos); if (e == std::string::npos) e = name.size();
+        const std::string w = name.substr(pos, e - pos);
+        if (w == "VAR") kinds += 'g'; else if (w == "LVAR") kinds += 'l'; else if (w == "NUMBER" || w == "CONSTANT" || w == "VAL") kinds += 'c'; else if (w == "TEXT" || w == "LABEL" || w == "LABEL16") return {};
+        pos = e + 1;
+    }
+    if (kinds.size() == 2 && (name.rfind("ADD_", 0) == 0 || name.rfind("SUB_", 0) == 0)) std::swap(kinds[0], kinds[1]);
+    return kinds;
+}
+
 inline Case MakeCase(int cmd, const S::CmdSig& sg, u32 n) {
     Rng r((u64)cmd * 1000003ull + n * 7919ull + 17);
     Case c; Enc e{c.code};
@@ -147,11 +181,16 @@ inline Case MakeCase(int cmd, const S::CmdSig& sg, u32 n) {
     auto NewGlobalSlot = [&]() { auto v = nextGlobal; nextGlobal += 4; return v; };
     e.W((uint16_t)cmd);   // el bit alto (NotFlag) lo fija ProcessOneCommand; aqui el opcode va limpio y m_NotFlag se asigna aparte
     char buf[64];
+    const std::string forced = BasicOperandKinds(::notsa::script::GetScriptCommandName((eScriptCommands)cmd).data());
+    size_t operand = 0;
     for (u8 i = 0; i < sg.nIn; ++i) {
         const u8 k = sg.in[i];
         Param p; p.kind = k; p.sub = sg.inSub[i];
+        char fk = 0;
+        if (!forced.empty() && k != S::K_CMD && k != S::K_SCRIPT && operand < forced.size()) fk = forced[operand++];
         auto emitInt = [&](u32 v, bool allowVar) {
             u32 mode = r.U(100);
+            if (fk) mode = fk == 'l' ? 0 : fk == 'g' ? 15 : 99;
             if (allowVar && mode < 12) { auto s = NewLocalSlot(); e.B(3); e.W((uint16_t)s); c.locals.push_back({ s, v }); p.enc = 3; }
             else if (allowVar && mode < 20) { auto s = NewGlobalSlot(); e.B(2); e.W(s); c.globals.push_back({ s, v }); p.enc = 2; }
             else if (mode < 50 && (int)v >= -128 && (int)v <= 127) { e.B(4); e.B((u8)v); p.enc = 4; }
@@ -160,7 +199,8 @@ inline Case MakeCase(int cmd, const S::CmdSig& sg, u32 n) {
             p.raw = v;
         };
         auto emitFloat = [&](float f) {
-            u32 raw; std::memcpy(&raw, &f, 4); const u32 mode = r.U(100);
+            u32 raw; std::memcpy(&raw, &f, 4); u32 mode = r.U(100);
+            if (fk) mode = fk == 'l' ? 0 : fk == 'g' ? 12 : 99;
             if (mode < 10) { auto s = NewLocalSlot(); e.B(3); e.W((uint16_t)s); c.locals.push_back({ s, raw }); p.enc = 3; }
             else if (mode < 16) { auto s = NewGlobalSlot(); e.B(2); e.W(s); c.globals.push_back({ s, raw }); p.enc = 2; }
             else { e.B(6); e.D(raw); p.enc = 6; }
@@ -174,18 +214,19 @@ inline Case MakeCase(int cmd, const S::CmdSig& sg, u32 n) {
             const char* t = L[r.U(8)]; std::memset(p.str, 0, 8); std::strncpy(p.str, t, 7); e.B(9); for (int q = 0; q < 8; ++q) e.B((u8)p.str[q]); p.enc = 9; break; }
         case S::K_PED: {
             u32 d = r.U(100); int h = d < 45 ? gPed1 : d < 85 ? gPed0 : -1; if ((p.sub & 0x80) == 0 && h == -1) h = gPed1;
+            if (gNeedsInCar.count(cmd)) h = gPed1;
             emitInt((u32)h, true); break; }
         case S::K_VEH: { u32 d = r.U(100); int h = d < 85 ? gVeh0 : -1; if ((p.sub & 0x80) == 0 && h == -1) h = gVeh0; emitInt((u32)h, true); break; }
         case S::K_OBJ: { u32 d = r.U(100); int h = d < 85 ? gObj0 : -1; if ((p.sub & 0x80) == 0 && h == -1) h = gObj0; emitInt((u32)h, true); break; }
         case S::K_PLAYERPED: case S::K_PLAYERINFO: emitInt(0, true); break;
         case S::K_MODEL: emitInt((u32)gModels[r.U((u32)gModels.size())], true); break;
         case S::K_VAR_I32: case S::K_VAR_F32: case S::K_VAR_OTHER: {
-            const bool loc = r.U(2); u32 v = k == S::K_VAR_F32 ? 0 : PickInt(r, S::K_I32);
+            bool loc = r.U(2); if (fk) loc = (fk == 'l'); u32 v = k == S::K_VAR_F32 ? 0 : PickInt(r, S::K_I32);
             if (k == S::K_VAR_F32) { float f = PickFloat(r); std::memcpy(&v, &f, 4); }
             if (loc) { auto s = NewLocalSlot(); e.B(3); e.W((uint16_t)s); c.locals.push_back({ s, v }); p.enc = 3; }
             else { auto s = NewGlobalSlot(); e.B(2); e.W(s); c.globals.push_back({ s, v }); p.enc = 2; }
             p.raw = v; break; }
-        default: emitInt(PickInt(r, k), true); break;
+        default: { auto dom = kParamDomain.find({ cmd, (int)i }); emitInt(dom != kParamDomain.end() ? (u32)dom->second[r.U((u32)dom->second.size())] : PickInt(r, k), true); break; }
         }
         c.in.push_back(p);
     }
@@ -204,14 +245,14 @@ inline Case MakeCase(int cmd, const S::CmdSig& sg, u32 n) {
 struct Side {
     bool exc{}; u32 excCode{}; uintptr_t excEip{}; std::string assertMsg; int ret{-99};
     int ipDelta{}; bool cond{}; u16 andor{}; bool notFlag{}; std::vector<u8> scriptBytes; std::vector<u8> codeBytes;
-    Diff diff; bool wroteOut{}; std::vector<u32> outVals;
+    Diff diff; bool wroteOut{}; std::vector<u32> outVals; u32 seed{};
 };
 inline thread_local char gAssertMsg[256];
 inline thread_local bool gAssertHit{};
 inline void __cdecl BenchAssert(const wchar_t* expr, const wchar_t* file, unsigned line) {
+    // Como en una compilacion Release: se anota y se sigue (no se lanza excepcion)
+    if (!gAssertHit) std::snprintf(gAssertMsg, sizeof gAssertMsg, "%ls:%u %.60ls", file, line, expr);
     gAssertHit = true;
-    std::snprintf(gAssertMsg, sizeof gAssertMsg, "%ls:%u %.60ls", file, line, expr);
-    RaiseException(0xE0CB0001u, 0, 0, nullptr);
 }
 inline u32 gExcCode{}; inline uintptr_t gExcEip{};
 inline int Filter(EXCEPTION_POINTERS* p) { gExcCode = p->ExceptionRecord->ExceptionCode; gExcEip = (uintptr_t)p->ExceptionRecord->ExceptionAddress; return EXCEPTION_EXECUTE_HANDLER; }
@@ -240,7 +281,10 @@ inline void PrepareScript(const Case& c) {
     s->m_NotFlag = c.notFlag;
 }
 
-inline bool gHaveOriginalSlot[27]{};
+// La semilla de rand() del EXE (CRT estatico, 0x821B1E) vive en los datos del hilo (_getptd()+0x14), no en .data: se fija antes de cada lado y se compara al final
+// (el numero de llamadas a rand() es parte del comportamiento).
+inline u32& GameRandSeed() { return *reinterpret_cast<u32*>(reinterpret_cast<char*>(reinterpret_cast<void*(__cdecl*)()>(0x827B3D)()) + 0x14); }
+inline u32 gSeed0{};
 
 // Ejecuta un lado y deja el estado resultante en `out`; no restaura (lo hace el llamador).
 inline void RunSide(int side, int cmd, const Case& c, const std::vector<std::vector<u8>>& base, Side& out) {
@@ -251,11 +295,13 @@ inline void RunSide(int side, int cmd, const Case& c, const std::vector<std::vec
     s->m_NotFlag = c.notFlag;
     CRunningScript::ScriptArgCharNextFreeBuffer = 0;
     gAssertHit = false;
+    GameRandSeed() = gSeed0;
     const auto h = CRunningScript::CustomCommandHandlerOf((eScriptCommands)cmd);
     if (side == 0) out.ret = CallCpp(h, s); else out.ret = CallExe(s, cmd);
     out.exc = (out.ret == -88);
     if (out.exc) { out.excCode = gExcCode; out.excEip = gExcEip; }
     if (gAssertHit) out.assertMsg = gAssertMsg;
+    out.seed = GameRandSeed();
     out.ipDelta = (int)(s->m_IP - gCode);
     out.cond = s->m_CondResult; out.andor = s->m_AndOrState; out.notFlag = s->m_NotFlag;
     for (size_t i = 0; i < c.out.size(); ++i) {
@@ -270,29 +316,66 @@ inline void RunSide(int side, int cmd, const Case& c, const std::vector<std::vec
 // ----------------------------------------------------------------------------------------------------------------- comparacion
 inline std::string Hex(u32 v) { char b[16]; std::snprintf(b, sizeof b, "%08X", v); return b; }
 
-struct CmdStats { u32 cases{}, equal{}, diffs{}, excCpp{}, excExe{}, excBoth{}, excDiff{}, wroteOut{}, flagChanged{}, memChanged{}, ipMoved{}, assertCpp{}; };
+struct CmdStats { u32 ptrJitter{}, noiseBytes{}, nondet{}, cases{}, equal{}, diffs{}, excCpp{}, excExe{}, excBoth{}, excDiff{}, wroteOut{}, flagChanged{}, memChanged{}, ipMoved{}, assertCpp{}; };
 
 inline json DescribeIn(const Case& c) {
     json a = json::array();
     for (auto& p : c.in) a.push_back({ { "k", p.kind }, { "enc", p.enc }, { "v", p.kind == S::K_STR ? json(std::string(p.str, strnlen(p.str, 8))) : json(p.raw) } });
     return a;
 }
+inline const std::vector<std::vector<u8>>* gBaseForLog{};
+inline int BaseByte(uintptr_t a) {
+    if (!gBaseForLog) return -1;
+    for (size_t i = 0; i < regions.size(); ++i) if (a >= regions[i].addr && a < regions[i].addr + regions[i].size) return (*gBaseForLog)[i][a - regions[i].addr];
+    return -1;
+}
 inline json DiffSample(const Diff& a, const Diff& b, size_t max = 12) {
     json out = json::array();
     std::set<uintptr_t> keys; for (auto& [k, v] : a.bytes) keys.insert(k); for (auto& [k, v] : b.bytes) keys.insert(k);
+    std::set<uintptr_t> shown;
     for (auto k : keys) {
         auto ia = a.bytes.find(k), ib = b.bytes.find(k);
         const int va = ia == a.bytes.end() ? -1 : ia->second, vb = ib == b.bytes.end() ? -1 : ib->second;
-        if (va != vb) { out.push_back({ { "addr", Hex((u32)k) }, { "cpp", va }, { "exe", vb } }); if (out.size() >= max) break; }
+        if (va != vb) {
+            const uintptr_t w = k & ~(uintptr_t)3;
+            if (shown.count(w)) continue;
+            shown.insert(w);
+            auto D = [&](const Diff& d) { u32 v = 0; for (int q = 3; q >= 0; --q) { auto it = d.bytes.find(w + (uintptr_t)q); int x = it != d.bytes.end() ? it->second : BaseByte(w + (uintptr_t)q); v = (v << 8) | (u32)(x < 0 ? 0 : x); } return Hex(v); };
+            u32 bv = 0; for (int q = 3; q >= 0; --q) { int x = BaseByte(w + (uintptr_t)q); bv = (bv << 8) | (u32)(x < 0 ? 0 : x); }
+            out.push_back({ { "addr", Hex((u32)k) }, { "cpp", va }, { "exe", vb }, { "dword", Hex((u32)w) }, { "base4", Hex(bv) }, { "cpp4", D(a) }, { "exe4", D(b) } });
+            if (out.size() >= max) break;
+        }
     }
     return out;
 }
 
+inline bool PointsToFixture(u32 v) {
+    for (auto& r : regions) if (r.fixture || r.name == "script" || r.name == "code") if (v >= (u32)r.addr && v < (u32)r.addr + (u32)r.size) return true;
+    return false;
+}
+inline u32 IgnoreHeapPointerJitter(Diff& a, Diff& b, const std::vector<std::vector<u8>>& base) {
+    std::set<uintptr_t> words;
+    for (auto& [k, v] : a.bytes) words.insert(k & ~(uintptr_t)3);
+    for (auto& [k, v] : b.bytes) words.insert(k & ~(uintptr_t)3);
+    u32 n = 0;
+    auto Val = [&](const Diff& d, uintptr_t w) { u32 v = 0; for (int q = 3; q >= 0; --q) { auto it = d.bytes.find(w + (uintptr_t)q); int x = it != d.bytes.end() ? it->second : BaseByte(w + (uintptr_t)q); v = (v << 8) | (u32)(x < 0 ? 0 : x); } return v; };
+    gBaseForLog = &base;
+    for (auto w : words) {
+        const u32 va = Val(a, w), vb = Val(b, w);
+        if (va == vb) continue;
+        auto heap = [](u32 v) { return v >= 0x01000000u && v < 0x7FFF0000u; };
+        if (heap(va) && heap(vb) && !PointsToFixture(va) && !PointsToFixture(vb)) {
+            for (int q = 0; q < 4; ++q) { a.bytes.erase(w + (uintptr_t)q); b.bytes.erase(w + (uintptr_t)q); }
+            ++n;
+        }
+    }
+    return n;
+}
 inline bool SideEqual(const Side& a, const Side& b) {
     if (a.exc != b.exc) return false;
     if (a.exc) return true;   // las dos fallaron: no se compara el resto (estado indefinido), se anota aparte
     if (a.ret != b.ret || a.ipDelta != b.ipDelta || a.cond != b.cond || a.andor != b.andor || a.notFlag != b.notFlag) return false;
-    return a.outVals == b.outVals && a.diff.bytes == b.diff.bytes;
+    return a.outVals == b.outVals && a.seed == b.seed && a.diff.bytes == b.diff.bytes;
 }
 
 // ----------------------------------------------------------------------------------------------------------------- fixtures
@@ -321,6 +404,14 @@ inline void AddRegion(uintptr_t a, size_t n, const char* name, bool fixture = fa
 }
 // Perturbacion de las fixtures por caso: los enteros/banderas/flotantes (no los punteros ni el indice de modelo) de ped, vehiculo y objeto se alteran
 // para que los lectores (GET_*, IS_*) vean valores distintos de los del estado de reposo; el estado vuelve al original tras cada caso.
+inline int gMode{};
+inline void ApplyMode(u64 seed, int cmd) {
+    Rng rg(seed ^ 0x77ull);
+    gMode = ((rg.U(100) < 30 || gNeedsInCar.count(cmd)) && gP1 && gV0) ? 1 : 0;
+    if (gMode == 1) {   // ped1 al volante de veh0 (estado de reposo + vinculo)
+        gP1->m_pVehicle = gV0; gP1->bInVehicle = true; gP1->m_nPedState = PEDSTATE_DRIVING; gV0->m_pDriver = gP1;
+    }
+}
 inline void PerturbFixtures(u64 seed) {
     for (auto& r : regions) {
         if (!r.fixture) continue;
@@ -421,15 +512,29 @@ inline void Run() {
         for (int n = 0; n < cases; ++n) {
             Case c = MakeCase(cmd, sg, (u32)n);
             PerturbFixtures((u64)cmd * 1000003ull + (u64)n);
+            ApplyMode((u64)cmd * 1000003ull + (u64)n, cmd);
             Snap();
-            Side a, b;
-            RunSide(0, cmd, c, base, a);
-            RestoreChanged(base);
-            // el lado C++ puede haber dejado los datos de la fixture distintos si fallo: se vuelve a la instantanea completa de las regiones pequenas
-            for (size_t i = 1; i < regions.size(); ++i) std::memcpy((void*)regions[i].addr, base[i].data(), regions[i].size);
-            RunSide(1, cmd, c, base, b);
-            RestoreChanged(base);
-            for (size_t i = 1; i < regions.size(); ++i) std::memcpy((void*)regions[i].addr, base[i].data(), regions[i].size);
+            gSeed0 = 0x5EED0000u + (u32)n * 7919u + (u32)cmd;
+            Side a, b, a2, b2;
+            auto Reset = [&]() { RestoreChanged(base); for (size_t i = 1; i < regions.size(); ++i) std::memcpy((void*)regions[i].addr, base[i].data(), regions[i].size); };
+            RunSide(0, cmd, c, base, a);  Reset();
+            RunSide(1, cmd, c, base, b);  Reset();
+            RunSide(0, cmd, c, base, a2); Reset();
+            RunSide(1, cmd, c, base, b2); Reset();
+            // ruido: bytes que cambian de forma distinta entre dos ejecuciones del MISMO lado desde el mismo estado (hilos de audio/streaming, contadores): se descartan en la comparacion
+            gBaseForLog = &base;
+            std::set<uintptr_t> noise;
+            auto Noise = [&](const Diff& x, const Diff& y) {
+                for (auto& [k, v] : x.bytes) { auto it = y.bytes.find(k); if (it == y.bytes.end() || it->second != v) noise.insert(k); }
+                for (auto& [k, v] : y.bytes) if (!x.bytes.count(k)) noise.insert(k);
+            };
+            Noise(a.diff, a2.diff); Noise(b.diff, b2.diff);
+            for (auto k : noise) { a.diff.bytes.erase(k); b.diff.bytes.erase(k); }
+            // Punteros a memoria dinamica (RenderWare, tareas...): su valor depende del orden de las reservas, no del comando. Se ignoran los dwords que difieren cuando ambos
+            // lados escriben un valor de montones (0x01000000..0x7FFFFFFF) que no apunta a una fixture ni al script.
+            st.ptrJitter += IgnoreHeapPointerJitter(a.diff, b.diff, base);
+            st.noiseBytes += (u32)noise.size();
+            if (a2.exc != a.exc || b2.exc != b.exc) ++st.nondet;
             for (auto& r : regions) if (r.fixture) std::memcpy((void*)r.addr, r.pristine.data(), r.size);
             const bool eq = SideEqual(a, b);
             ++st.cases; ++totalCases;
@@ -441,20 +546,29 @@ inline void Run() {
             st.wroteOut += b.wroteOut;
             if (!eq) {
                 ++totalDiffs;
-                Write({ { "event", "comparison" }, { "command", cmd }, { "name", name }, { "case", n }, { "equal", false }, { "input", DescribeIn(c) }, { "not_flag", c.notFlag },
-                        { "cpp", { { "exc", a.exc }, { "code", a.excCode }, { "eip", Hex((u32)a.excEip) }, { "assert", a.assertMsg }, { "ret", a.ret }, { "ip", a.ipDelta }, { "cond", a.cond }, { "andor", a.andor }, { "diff_bytes", a.diff.bytes.size() } } },
-                        { "exe", { { "exc", b.exc }, { "code", b.excCode }, { "eip", Hex((u32)b.excEip) }, { "ret", b.ret }, { "ip", b.ipDelta }, { "cond", b.cond }, { "andor", b.andor }, { "diff_bytes", b.diff.bytes.size() } } },
+                Write({ { "event", "comparison" }, { "command", cmd }, { "name", name }, { "case", n }, { "equal", false }, { "mode", gMode }, { "input", DescribeIn(c) }, { "not_flag", c.notFlag },
+                        { "cpp", { { "exc", a.exc }, { "code", a.excCode }, { "eip", Hex((u32)a.excEip) }, { "assert", a.assertMsg }, { "ret", a.ret }, { "ip", a.ipDelta }, { "cond", a.cond }, { "andor", a.andor }, { "diff_bytes", a.diff.bytes.size() }, { "out", a.outVals }, { "seed", a.seed } } },
+                        { "exe", { { "exc", b.exc }, { "code", b.excCode }, { "eip", Hex((u32)b.excEip) }, { "ret", b.ret }, { "ip", b.ipDelta }, { "cond", b.cond }, { "andor", b.andor }, { "diff_bytes", b.diff.bytes.size() }, { "out", b.outVals }, { "seed", b.seed } } },
                         { "diff_sample", DiffSample(a.diff, b.diff) } });
             }
         }
         Write({ { "event", "command_summary" }, { "command", cmd }, { "name", name }, { "cases", st.cases }, { "equal", st.equal }, { "diffs", st.diffs }, { "exc_cpp", st.excCpp }, { "exc_exe", st.excExe }, { "exc_both", st.excBoth },
-                { "exc_differ", st.excDiff }, { "assert_cpp", st.assertCpp }, { "exe_mem_changed", st.memChanged }, { "exe_wrote_out", st.wroteOut }, { "exe_flag_set", st.flagChanged }, { "ret", (int)sg.ret }, { "n_in", sg.nIn }, { "n_out", sg.nOut } });
+                { "exc_differ", st.excDiff }, { "assert_cpp", st.assertCpp }, { "exe_mem_changed", st.memChanged }, { "exe_wrote_out", st.wroteOut }, { "noise_bytes", st.noiseBytes }, { "ptr_jitter", st.ptrJitter }, { "nondet_exc", st.nondet }, { "exe_flag_set", st.flagChanged }, { "ret", (int)sg.ret }, { "n_in", sg.nIn }, { "n_out", sg.nOut } });
     }
     // restauracion final
     for (size_t i = 0; i < regions.size(); ++i) std::memcpy((void*)regions[i].addr, base[i].data(), regions[i].size);
     Write({ { "event", "complete" }, { "cases", totalCases }, { "diff_cases", totalDiffs } });
 }
 
+inline LONG WINAPI CrashFilter(EXCEPTION_POINTERS* p) {
+    json st = json::array();
+    const auto* sp = reinterpret_cast<const uint32_t*>(p->ContextRecord->Esp);
+    for (int k = 0; k < 16; ++k) { MEMORY_BASIC_INFORMATION mi{}; if (!VirtualQuery(sp + k, &mi, sizeof(mi)) || mi.State != MEM_COMMIT) break; st.push_back(Hex(sp[k])); }
+    Write({ { "event", "error" }, { "reason", "unhandled_exception" }, { "code", Hex(p->ExceptionRecord->ExceptionCode) }, { "eip", Hex(p->ContextRecord->Eip) }, { "stack", st },
+            { "access", p->ExceptionRecord->NumberParameters > 1 ? json(Hex((u32)p->ExceptionRecord->ExceptionInformation[1])) : json(nullptr) } });
+    ExitProcess(95);
+    return EXCEPTION_EXECUTE_HANDLER;
+}
 inline void ModuleMarker() {}
 
 inline void Update() {
@@ -465,6 +579,7 @@ inline void Update() {
         log.open(dir / "cmdbench-runtime.jsonl", std::ios::app); Write({ { "event", "waiting_for_player" } });
         ReversingProbe::InstallFailureCapture("cmdbench");
         static ReversingProbe::EntryPatch patch(reinterpret_cast<uintptr_t>(&_wassert), BenchAssert);
+        SetUnhandledExceptionFilter(CrashFilter);
     }
     static int frames = 0;
     if (!FindPlayerPed() || CCutsceneMgr::IsRunning()) { frames = 0; return; }

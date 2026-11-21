@@ -4,3 +4,4 @@ cmds-*.txt
 skip-*.txt
 run_*.out
 __pycache__/
+cmdbench.stop

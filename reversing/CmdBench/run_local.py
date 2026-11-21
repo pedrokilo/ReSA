@@ -121,7 +121,7 @@ def wait_no_game(minutes=60):
     end = time.time() + minutes * 60
     while time.time() < end:
         out = subprocess.run(['tasklist', '/FI', 'IMAGENAME eq gta_sa.exe', '/NH'], capture_output=True, text=True).stdout
-        if 'gta_sa.exe' not in out.lower():
+        if 'gta_sa.exe' not in out.lower() and not (runtime_runner.GAME / 'reversed-tests.lock').exists():
             return True
         time.sleep(10)
     return False
@@ -135,7 +135,64 @@ def release_lock():
         pass
 
 
+GUARDED = ['scripts/gta_reversed.asi', 'scripts/gta_reversed.pdb', 'gta-reversed.ini', 'scripts/gta-reversed.ini']
+
+
+def guard_snapshot():
+    """Copia de seguridad de los archivos que run_case sustituye (ASI/PDB normales e INI). Se toma con el candado en mano y sin juego."""
+    import shutil
+    bk = HERE / 'artifacts' / 'normal_game_files'
+    bk.mkdir(parents=True, exist_ok=True)
+    out = {}
+    for rel in GUARDED:
+        src = runtime_runner.GAME / rel
+        dst = bk / rel.replace('/', '__')
+        h = digest(src)
+        probes = {json.loads((HERE / 'artifacts/build-manifest.json').read_text())['binaries'].get('asi')}
+        if rel.endswith('.asi') and h in probes:
+            raise SystemExit('el ASI instalado es una sonda de CmdBench (restauracion previa fallida): restaurar a mano antes de seguir')
+        shutil.copy2(src, dst)
+        out[rel] = (dst, h)
+    return out
+
+
+def guard_restore(snap):
+    import shutil
+    for rel, (dst, h) in snap.items():
+        tgt = runtime_runner.GAME / rel
+        for _ in range(30):
+            try:
+                if digest(tgt) != h:
+                    shutil.copy2(dst, tgt)
+                if digest(tgt) == h:
+                    break
+            except OSError:
+                pass
+            time.sleep(1)
+        else:
+            print('NO SE PUDO RESTAURAR', rel)
+
+
+STOP_FILE = HERE / 'cmdbench.stop'
+
+
+def watchdog():
+    """Si aparece cmdbench.stop se cierra SOLO el gta_sa.exe lanzado por este proceso (hijo directo) y el bucle de reintentos termina."""
+    me = os.getpid()
+    while True:
+        time.sleep(3)
+        if not STOP_FILE.exists():
+            continue
+        out = subprocess.run(['powershell', '-NoProfile', '-Command', f"Get-CimInstance Win32_Process -Filter \"ParentProcessId={me} AND Name='gta_sa.exe'\" | ForEach-Object {{ $_.ProcessId }}"],
+                             capture_output=True, text=True).stdout.split()
+        for pid in out:
+            subprocess.run(['taskkill', '/PID', pid, '/F'], capture_output=True)
+
+
 def main():
+    import threading
+    threading.Thread(target=watchdog, daemon=True).start()
+    STOP_FILE.unlink(missing_ok=True)
     ap = argparse.ArgumentParser()
     ap.add_argument('--analyze')
     ap.add_argument('--ids')
@@ -162,8 +219,16 @@ def main():
         print('hay un gta_sa.exe ajeno que no se cierra: no se lanza nada')
         return 2
     rc = 1
+    snap = guard_snapshot()
     try:
         for attempt in range(args.retry + 1):
+            if STOP_FILE.exists():
+                print('parada pedida (cmdbench.stop)')
+                break
+            if attempt:
+                wait_no_game(5)
+                guard_restore(snap)
+                time.sleep(8)
             todo = [i for i in ids if i not in skip]
             if not todo:
                 break
@@ -174,8 +239,11 @@ def main():
             os.environ['CMDBENCH_SKIP'] = str(skip_file)
             os.environ['CMDBENCH_CASES'] = str(args.cases)
             log = runtime_runner.GAME / 'cmdbench-runtime.jsonl'
+            (runtime_runner.GAME / 'cmdbench-runtime.start').unlink(missing_ok=True)   # resto de una corrida propia interrumpida (este script posee el candado)
+            t_attempt = time.time()
             rc = runtime_runner.run_case('cmdbench', manifest['binaries']['asi'], analyze, 'CmdBench ' + args.tag, timeout=args.timeout)
-            culprit = last_command_started(runtime_runner.GAME / 'cmdbench-runtime.jsonl') if rc else None
+            fresh = log.exists() and log.stat().st_mtime >= t_attempt
+            culprit = last_command_started(log) if (rc and fresh) else None
             # el registro se archiva dentro de run_case; si fallo y quedo un comando sin resumen, es el culpable
             if rc and culprit is not None:
                 print(f'comando {culprit} no termino: se omite y se reintenta ({attempt + 1}/{args.retry})')
@@ -183,6 +251,8 @@ def main():
                 continue
             break
     finally:
+        wait_no_game(5)
+        guard_restore(snap)
         release_lock()
     return rc
 
