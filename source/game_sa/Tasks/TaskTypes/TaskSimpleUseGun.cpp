@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "Ragdoll/IKChainManager.h"
@@ -381,7 +382,7 @@ void CTaskSimpleUseGun::AimGun(CPed* ped) {
     // Como el original: velocidad y tiempo de mezcla de la IK salen de variables del EXE;
     // apuntar inmediato los sustituye una sola vez (el indicador se consume)
     float ikSpeed     = DatosExe::Data::v8D2E70;
-    int32 ikBlendTime = StaticRef<int32>(0x8D2E74);
+    int32 ikBlendTime = DatosExe::Data::v8D2E74;
     if (m_IsAimImmediate) {
         ikBlendTime      = 0;
         ikSpeed          = 1.f;

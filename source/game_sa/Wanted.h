@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "CrimeBeingQd.h"
 #include "AEPoliceScannerAudioEntity.h"
@@ -61,7 +62,7 @@ private:
 
 public:
     static inline auto& MaximumWantedLevel = StaticRef<eWantedLevel>(0x8CDEE4); // 6
-    static inline auto& MaximumChaosLevel = StaticRef<uint32>(0x8CDEE8); // 9200; nMaximumWantedLevel
+    static inline auto& MaximumChaosLevel = DatosExe::Data::v8CDEE8; // 9200; nMaximumWantedLevel
     static inline auto& UseNewsHeliInAdditionToPolice = StaticRef<bool>(0xB7CB8C);
 
 public:

@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataAyudantes.h"
 
 #include "Weapon.h"
@@ -2010,7 +2011,7 @@ bool CWeapon::FireInstantHit(CEntity* firingEntity, CVector* origin, CVector* mu
         int32 attempts = 0;
         do {
             ++attempts;
-            const int32 count = m_Type == WEAPON_SPAS12_SHOTGUN ? StaticRef<int32>(0x8D6124) : StaticRef<int32>(0x8D6120);
+            const int32 count = m_Type == WEAPON_SPAS12_SHOTGUN ? DatosExe::Data::v8D6124 : DatosExe::Data::v8D6120;
             CMatrix pelletMatrix;
             SetUpPelletCol(count, firingEntity, victim, pelletOrigin, hit, pelletMatrix);
             std::array<float,15> distances; distances.fill(1.f);

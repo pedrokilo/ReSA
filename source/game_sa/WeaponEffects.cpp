@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "WeaponEffects.h"
@@ -362,7 +363,7 @@ void CWeaponEffects::RenderPlayerCrosshair(CPlayerInfo& info, int32 playerIndex)
     state(rwRENDERSTATESRCBLEND, rwBLENDSRCALPHA);
     state(rwRENDERSTATEDESTBLEND, rwBLENDINVDESTALPHA);
     // Como el original: textura 0xC3E000[indice en 0x8CDF1C] (gpCoronaTexture), sin comprobar el indice
-    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, reinterpret_cast<RwTexture**>(0xC3E000)[StaticRef<int32>(0x8CDF1C)]->raster);
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, reinterpret_cast<RwTexture**>(0xC3E000)[DatosExe::Data::v8CDF1C]->raster);
 
     int32 r, g, b;
     if (playerIndex != 0) {

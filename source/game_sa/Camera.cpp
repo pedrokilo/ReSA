@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -43,13 +44,13 @@ END GENERATED HOOK STATUS */
 
 auto& TheCamera = StaticRef<CCamera>(0xB6F028);
 auto& gbModelViewer = StaticRef<bool>(0xBA6728);
-auto& gbCineyCamMessageDisplayed = StaticRef<int8>(0x8CC381); // 2
-auto& gCameraDirection = StaticRef<int32>(0x8CC384);         // 3
+auto& gbCineyCamMessageDisplayed = DatosExe::Data::v8CC381; // 2
+auto& gCameraDirection = DatosExe::Data::v8CC384;         // 3
 auto& gCameraMode = StaticRef<eCamMode>(0x8CC388);        // -1
 auto& gLastTime2PlayerCameraWasOK = StaticRef<uint32>(0xB6EC24);    // 0
 auto& gLastTime2PlayerCameraCollided = StaticRef<uint32>(0xB6EC28); // 0
-auto& gPlayerPedVisible = StaticRef<bool>(0x8CC380); // true
-auto& gCurCamColVars = StaticRef<uint8>(0x8CCB80);
+auto& gPlayerPedVisible = DatosExe::Data::v8CC380; // true
+auto& gCurCamColVars = DatosExe::Data::v8CCB80;
 auto& gCurDistForCam = StaticRef<float>(0x8CCB84);
 auto& gpCamColVars = StaticRef<float*>(0xB6FE88);
 auto& gCamColVars = StaticRef<float[28][6]>(0x8CC8E0);
@@ -1915,8 +1916,8 @@ constexpr ObbeCinemaKind ObbeBoat{0x8CCEFC, 0xB70130, 0x8CC8B0, 3, false, false,
 void CameraObbeCinemaCycle(CCamera& camera, const ObbeCinemaKind& kind) {
     auto& processed = StaticRef<uint8>(0xB6EC2D);        // CCamera::bDidWeProcessAnyCinemaCam
     auto& cinemaActive = StaticRef<uint8>(0xB6EC34);
-    auto& messageCount = StaticRef<int8>(0x8CC381);      // gbCineyCamMessageDisplayed
-    const auto step = [] { return int32(StaticRef<int8>(0x8CC471)); };
+    auto& messageCount = DatosExe::Data::v8CC381;      // gbCineyCamMessageDisplayed
+    const auto step = [] { return int32(DatosExe::Data::v8CC471); };
     auto& index = StaticRef<int32>(kind.indexAddress);
     auto& lastTime = StaticRef<uint32>(kind.timeAddress);
     const auto* table = reinterpret_cast<const int32*>(kind.tableAddress);
@@ -2022,13 +2023,13 @@ bool CCamera::IsItTimeForNewCamera(int32 camSequence, int32 startTime) {
         return true;
     }
 
-    auto& stickAlert = StaticRef<uint8>(0x8CCDF4);
+    auto& stickAlert = DatosExe::Data::v8CCDF4;
     const float stick = float(CPad::GetPad(0)->GetRightStickX());
     const double stickMagnitude = std::fabs(double(stick));
     if (stickMagnitude <= 32.0) { // 0x85950C
         stickAlert = 1;
     } else if (stickMagnitude > 96.0 && stickAlert != 0) { // 0x863218
-        StaticRef<int8>(0x8CC471) = stick > 0.0f ? int8(1) : int8(-1);
+        DatosExe::Data::v8CC471 = stick > 0.0f ? int8(1) : int8(-1);
         stickAlert = 0;
         return true;
     }
@@ -4360,9 +4361,9 @@ void CCamera::CamControl() {
             m_bWantsToSwitchWidescreenOff = m_bWideScreenOn;
         }
         if (m_pTargetEntity->GetIsTypeVehicle()) {
-            if (StaticRef<int32>(0x8CC824) > 0) {
-                requested = static_cast<uint16>(StaticRef<int32>(0x8CC824));
-                StaticRef<int32>(0x8CC824) = -1;
+            if (DatosExe::Data::v8CC824 > 0) {
+                requested = static_cast<uint16>(DatosExe::Data::v8CC824);
+                DatosExe::Data::v8CC824 = -1;
             }
             if (static_cast<CVehicle*>(m_pTargetEntity)->m_nVehicleType == VEHICLE_TYPE_TRAIN) {
                 requested = 3;

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "Vector.h"
 #include "RGBA.h"
@@ -264,7 +265,7 @@ struct C2dEffect : public C2dEffectBase {
     };
 
 public:
-    static inline auto& ms_nTxdSlot = StaticRef<int32>(0x8D4948);
+    static inline auto& ms_nTxdSlot = DatosExe::Data::v8D4948;
     static inline auto& g2dEffectPluginOffset = StaticRef<uint32>(0xC3A1E0);
 
     template<std::derived_from<C2dEffectBase> To, std::derived_from<C2dEffectBase> From>

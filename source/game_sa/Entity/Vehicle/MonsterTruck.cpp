@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -210,7 +211,7 @@ void CMonsterTruck::ProcessControlCollisionCheck(bool applySpeed) {
 
 // 0x6C8250
 void CMonsterTruck::ProcessControl() {
-    const auto clampNegative = StaticRef<uint8>(0x8D33B0);
+    const auto clampNegative = DatosExe::Data::v8D33B0;
     for (size_t i = 0; i < 4; ++i) {
         if (m_fWheelsSuspensionCompression[i] < 1.f) {
             m_fWheelsSuspensionCompression[i] = (m_aSuspensionSpringLength[i] - m_wheelPosition[i]) / (m_aSuspensionSpringLength[i] - m_aSuspensionLineLength[i]);

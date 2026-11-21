@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -1151,7 +1152,7 @@ void CPlane::ProcessFlyingCarStuff() {
                     const float upper = PlaneFlightBoundCpp(spread, false), lower = PlaneFlightBoundCpp(spread, true);
                     const int32 random = CGeneral::GetRandomNumber();
                     m_fAccelerationBreakStatus = PlanePropellerWaveCpp(m_fAccelerationBreakStatus, upper, lower,
-                        random, damage, uint32(m_planeDamageWave), StaticRef<uint32>(0x8D3448), CTimer::GetTimeStep(),
+                        random, damage, uint32(m_planeDamageWave), DatosExe::Data::v8D3448, CTimer::GetTimeStep(),
                         DatosExe::Rdata::k858C7C, DatosExe::Rdata::k858CBC, DatosExe::Data::v8D3444);
                 }
                 strength = float(damage) * .5f;

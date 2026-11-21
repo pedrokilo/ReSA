@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 
 #include "3dMarker.h"
 #include "3dMarkers.h"
@@ -157,7 +158,7 @@ void C3dMarker::Render() {
     }
 
     // TODO: What the fuck? I dont' think this does what they intended it to.
-    static auto& s_SavedAlpha = StaticRef<uint8>(0x8D5E44);
+    static auto& s_SavedAlpha = DatosExe::Data::v8D5E44;
     if (m_Color.a == s_SavedAlpha) {
         m_Color.a += m_Color.a < 128u ? 1 : -1; // But then again, this doesn't make a lot more sense either
     }

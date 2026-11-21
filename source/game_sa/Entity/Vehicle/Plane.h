@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "Automobile.h"
@@ -76,7 +77,7 @@ public:
     static inline auto& GenPlane_Status = StaticRef<uint32>(0xC1CADC);
     static inline auto& GenPlane_LastTimeGenerated = StaticRef<uint32>(0xC1CAE0);
 
-    static inline auto& GenPlane_Active = StaticRef<bool>(0x8D33BC);
+    static inline auto& GenPlane_Active = DatosExe::Data::v8D33BC;
     static inline auto& ANDROM_COL_ANGLE_MULT = DatosExe::Data::v8D33C0;
     static inline auto& HARRIER_NOZZLE_ROTATE_LIMIT = StaticRef<uint16>(0x8D33C4);
     static inline auto& HARRIER_NOZZLE_SWITCH_LIMIT = StaticRef<uint16>(0x8D33C8);

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
@@ -809,5 +810,5 @@ void CTaskSimpleGangDriveBy::FireGun(CPed* ped) {
         }
         weapon.Fire(ped, &muzzle, &muzzle, m_pTargetEntity, &target, &hit);
     }
-    ped->DoGunFlash(StaticRef<uint16>(0x8D2E90), false); // 0x5DF340: duracion 250
+    ped->DoGunFlash(DatosExe::Data::v8D2E90, false); // 0x5DF340: duracion 250
 }

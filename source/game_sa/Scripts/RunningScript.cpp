@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "X87Math.h"
 #include "Tasks/TaskTypes/TaskSimpleFinishBrain.h"
 #include "Tasks/ScriptedBrainTaskStore.h"
@@ -2300,7 +2301,7 @@ OpcodeResult CRunningScript::ProcessCommands1900To1999(int32 command) {
     }
     case 1953: // SET_NEXT_DESIRED_MOVE_STATE
         CollectParameters(1);
-        StaticRef<int32>(0x8D237C) = sp[0].iParam;
+        DatosExe::Data::v8D237C = sp[0].iParam;
         return OR_CONTINUE;
     case 1955: { // TASK_GOTO_CHAR_AIMING
         CollectParameters(4);

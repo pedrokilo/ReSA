@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "Vector.h"
@@ -57,7 +58,7 @@ struct tVolumetricClouds {
 class CClouds {
 public:
     static inline auto& m_fVolumetricCloudDensity = DatosExe::Data::v8D5388;
-    static inline auto& m_bVolumetricCloudHeightSwitch = StaticRef<int8>(0x8D538C);
+    static inline auto& m_bVolumetricCloudHeightSwitch = DatosExe::Data::v8D538C;
     static inline auto& m_fVolumetricCloudWindMoveFactor = DatosExe::Data::v8D5390;
     static inline auto& m_fVolumetricCloudMaxDistance = StaticRef<float>(0xC6AA58);
     static inline auto& m_VolumetricCloudsUsedNum = StaticRef<int32>(0xC6AA5C); // Como el original: dword con signo (jle/jl)

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "Automobile.h"
 
@@ -94,7 +95,7 @@ public:
     bool         m_bSearchLightEnabled;
     float        field_A14;
 
-    static inline auto& bPoliceHelisAllowed = StaticRef<bool>(0x8D338C); // 1
+    static inline auto& bPoliceHelisAllowed = DatosExe::Data::v8D338C; // 1
     static inline auto& TestForNewRandomHelisTimer = StaticRef<uint32>(0xC1C960);
     static inline auto& pHelis = StaticRef<std::array<CHeli*, 2>>(0xC1C964);
     static inline auto& NumberOfSearchLights = StaticRef<uint32>(0xC1C96C);

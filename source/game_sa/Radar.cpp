@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataCadenas.h"
 #include "DatosExe/RdataAyudantes.h"
 
@@ -1095,7 +1096,7 @@ void CRadar::DrawRotatingRadarSprite(CSprite2d& sprite, float x, float y, float 
 // 0x584960
 void CRadar::DrawYouAreHereSprite(float x, float y) {
     static auto& mapYouAreHereTimer = StaticRef<uint32>(0xBAA358);
-    static auto& mapYouAreHereDisplay = StaticRef<bool>(0x8D0930);
+    static auto& mapYouAreHereDisplay = DatosExe::Data::v8D0930;
 
     // Como el original (0x584960..0x5849AA): visible -> se apaga cuando pasan mas de 500 ms; apagado -> se enciende cuando pasan mas de 200 ms
     if (mapYouAreHereDisplay) {

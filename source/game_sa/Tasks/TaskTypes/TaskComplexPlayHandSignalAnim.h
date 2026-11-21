@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 
 #include "TaskComplex.h"
@@ -13,7 +14,7 @@
 
 class NOTSA_EXPORT_VTABLE CTaskComplexPlayHandSignalAnim : public CTaskComplex {
 public:
-    static inline auto& ms_animBlock = StaticRef<uint32>(0x8D2E38);
+    static inline auto& ms_animBlock = DatosExe::Data::v8D2E38;
 
 public:
     AnimationId m_animationId{};

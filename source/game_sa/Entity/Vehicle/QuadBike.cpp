@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "QuadBike.h"
@@ -24,7 +25,7 @@ END GENERATED HOOK STATUS */
 #include "ControllerConfigManager.h"
 #include "X87Math.h"
 
-auto& bDoQuadDamping = StaticRef<bool>(0x8D3450); // true
+auto& bDoQuadDamping = DatosExe::Data::v8D3450; // true
 auto& QUAD_HBSTEER_ANIM_MULT = DatosExe::Data::v8D3454; // -0.4f
 auto& vecQuadResistance = StaticRef<CVector>(0x8D3458); // { 0.995f, 0.995f, 1.0f }
 

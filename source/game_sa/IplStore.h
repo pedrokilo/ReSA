@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "IplDef.h"
 #include "QuadTreeNode.h"
@@ -57,9 +58,9 @@ public:
 };
 
 static inline auto& ppCurrIplInstance = StaticRef<CEntity**>(0x8E3EFC);
-static inline auto& NumIplEntityIndexArrays = StaticRef<int32>(0x8E3F00);
+static inline auto& NumIplEntityIndexArrays = DatosExe::Data::v8E3F00;
 static inline auto& IplEntityIndexArrays = StaticRef<std::array<CEntity**, 40>>(0x8E3F08); // Array of CEntity* array pointers
-static inline auto& gbIplsNeededAtPosn = StaticRef<bool>(0x8E3FA8);
+static inline auto& gbIplsNeededAtPosn = DatosExe::Data::v8E3FA8;
 static inline auto& gvecIplsNeededAtPosn = StaticRef<CVector>(0x8E3FD0);
 static inline auto& gNumLoadedBuildings = StaticRef<uint32>(0xBCC0D8);
 static inline auto& gpLoadedBuildings = StaticRef<std::array<CEntity*, 4'096>>(0xBCC0E0);

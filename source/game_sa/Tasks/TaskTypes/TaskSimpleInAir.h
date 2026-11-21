@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "TaskSimple.h"
@@ -34,7 +35,7 @@ public:
     CEntity*   m_pClimbEntity;
 
     static inline auto& ms_fSlowFallThreshold = DatosExe::Data::v8D2EFC; // -0.05f
-    static inline auto& ms_nMaxSlowFallFrames = StaticRef<uint32>(0x8D2EF8); // 10
+    static inline auto& ms_nMaxSlowFallFrames = DatosExe::Data::v8D2EF8; // 10
 
 public:
     static constexpr auto Type = TASK_SIMPLE_IN_AIR;

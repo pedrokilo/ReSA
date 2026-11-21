@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -1858,9 +1859,9 @@ void CPlayerPed::MakeThisPedJoinOurGroup(CPed* ped) {
     CStats::DisplayScriptStatUpdateMessage(static_cast<eStatUpdateState>(1), static_cast<eStats>(0x150), 1.0f); // 0x55B980
 
     // Color del blip: tres bytes de la tabla de colores de bandas (indice 1) en 0x8D1345, 0x8D1351 y 0x8D135D, mas alfa 0xFF
-    const uint32 colorA = StaticRef<uint8>(0x8D1345);
-    const uint32 colorB = StaticRef<uint8>(0x8D1351);
-    const uint32 colorC = StaticRef<uint8>(0x8D135D);
+    const uint32 colorA = DatosExe::Data::v8D1345;
+    const uint32 colorB = DatosExe::Data::v8D1351;
+    const uint32 colorC = DatosExe::Data::v8D135D;
     const uint32 color = (((((colorA << 8) | colorB) << 8) | colorC) << 8) | 0xFFu;
     const int32 ref = static_cast<int32>(GetPedPool()->GetRef(ped)); // 0x4442D0
     const auto blip = CRadar::SetEntityBlip(BLIP_CHAR, ref, color, BLIP_DISPLAY_BLIPONLY); // 0x5839A0

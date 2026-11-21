@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 
 #include "BoneNode.h"
 #include "BoneNodeManager.h"
@@ -140,7 +141,7 @@ inline int32 BoneNode_c::GetIdFromBoneTag(eBoneTag32 tag) {
 // Empty in Android
 // 0x6175D0
 void BoneNode_c::ClampLimitsCurrent(bool limitX, bool limitY, bool limitZ) {
-    static auto& s_TestSkipClampCurrent = StaticRef<bool>(0x8D2BD1); // true
+    static auto& s_TestSkipClampCurrent = DatosExe::Data::v8D2BD1; // true
 
     if (!s_TestSkipClampCurrent) {
         CVector current;
@@ -160,7 +161,7 @@ void BoneNode_c::ClampLimitsCurrent(bool limitX, bool limitY, bool limitZ) {
 // Empty in Android
 // 0x617530
 void BoneNode_c::ClampLimitsDefault(bool limitX, bool limitY, bool limitZ) {
-    static auto& s_TestSkipClampDefault = StaticRef<bool>(0x8D2BD0); // true
+    static auto& s_TestSkipClampDefault = DatosExe::Data::v8D2BD0; // true
 
     if (!s_TestSkipClampDefault) {
         if (const auto* info = GetBoneInfo()) { // BUGFIX: Check if info is available

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 static constexpr auto MAX_SAVEGAME_SLOTS{ 8u };
 
@@ -55,7 +56,7 @@ class CGenericGameStorage {
     };
         
 public:
-    static inline auto& ms_WorkBufferSize = StaticRef<uint32>(0x8D2BE0);
+    static inline auto& ms_WorkBufferSize = DatosExe::Data::v8D2BE0;
     static inline auto& ms_SaveFileNameJustSaved = StaticRef<char[MAX_PATH]>(0xC16030);
     static inline auto& ms_SaveFileName = StaticRef<char[256]>(0xC16DB8);
     static inline auto& ms_LoadFileName = StaticRef<char[104]>(0xC15FC8);

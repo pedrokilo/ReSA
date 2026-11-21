@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "RenderWare.h"
 #include <extensions/utility.hpp>
@@ -63,7 +64,7 @@ public:
     };
 
 public:
-    static inline auto& ms_useCutsceneShadows = StaticRef<int8>(0x8AC158);
+    static inline auto& ms_useCutsceneShadows = DatosExe::Data::v8AC158;
     static inline auto& numPlayerWeaponsToRestore = StaticRef<int32>(0xB5EB58);
 
     static inline auto& playerWeaponsToRestore_Ammo = StaticRef<std::array<int32, 13>>(0xB5EB5C); // TODO: Where does the 13 number come from? 

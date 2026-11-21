@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
@@ -629,7 +630,7 @@ void CPostEffects::HeatHazeFX(float fIntensity, bool bAlphaMaskMode) {
     if(fIntensity<0.f)fIntensity=0.f;else if(fIntensity>1.f)fIntensity=1.f;
     HeatHazeFXInit();state(2,3);RwCameraEndUpdate(Scene.m_pRwCamera);RwRasterPushContext(pRasterFrontBuffer);RwRasterRenderFast(Scene.m_pRwCamera->frameBuffer,0,0);RwRasterPopContext();RwCameraBeginUpdate(Scene.m_pRwCamera);
     auto& count=StaticRef<int32>(0xC4B950);auto& indexCount=StaticRef<int32>(0xC4B954);count=indexCount=0;
-    state(14,0);state(12,1);const auto alpha=int32(float(StaticRef<int32>(0x8D50E8))*fIntensity);count=0;
+    state(14,0);state(12,1);const auto alpha=int32(float(DatosExe::Data::v8D50E8)*fIntensity);count=0;
     if(alphaTest){state(24,1);state(26,1);state(25,3);}
     state(6,0);state(8,0);state(1,reinterpret_cast<uintptr_t>(pRasterFrontBuffer));state(9,2);state(10,5);state(11,6);
     auto* vertices=reinterpret_cast<uint32*>(0xC5F958);auto* indices=reinterpret_cast<int16*>(0xC4B958);
@@ -647,7 +648,7 @@ void CPostEffects::HeatHazeFX(float fIntensity, bool bAlphaMaskMode) {
             put(count+2,float(x),float(y+renderY),float(ux)/float(pRasterFrontBuffer->width),float(uy+scanY)/float(pRasterFrontBuffer->height),color);
             put(count+3,float(x+renderX),float(y+renderY),float(ux+scanX)/float(pRasterFrontBuffer->width),float(uy+scanY)/float(pRasterFrontBuffer->height),color);
             const auto begin=count;indices[indexCount]=int16(begin);indices[indexCount+1]=int16(begin+2);indices[indexCount+2]=int16(begin+1);indices[indexCount+3]=int16(begin+1);indices[indexCount+4]=int16(begin+2);indices[indexCount+5]=int16(begin+3);indexCount+=6;count+=4;
-            hpY[i]-=int32((CTimer::GetTimeStep()*.5f)*float(hpS[i]));if(hpY[i]<0){hpX[i]=randomScaled(pRasterFrontBuffer->width-scanX);hpY[i]=pRasterFrontBuffer->height-scanY;const auto min=StaticRef<int32>(0x8D50EC);hpS[i]=randomScaled(StaticRef<int32>(0x8D50F0)-min)+min;}
+            hpY[i]-=int32((CTimer::GetTimeStep()*.5f)*float(hpS[i]));if(hpY[i]<0){hpX[i]=randomScaled(pRasterFrontBuffer->width-scanX);hpY[i]=pRasterFrontBuffer->height-scanY;const auto min=DatosExe::Data::v8D50EC;hpS[i]=randomScaled(DatosExe::Data::v8D50F0-min)+min;}
         }
     } else {
         const auto color=(uint32(alpha)<<24)|0xFF0000u;const auto begin=count;put(count,0.f,0.f,0.f,0.f,color,false);put(count+1,float(pRasterFrontBuffer->width),0.f,0.f,0.f,color,false);put(count+2,0.f,float(pRasterFrontBuffer->height),0.f,0.f,color,false,false);put(count+3,float(pRasterFrontBuffer->width),float(pRasterFrontBuffer->height),0.f,0.f,color,false,false);
@@ -1072,7 +1073,7 @@ void CPostEffects::Radiosity(int32 intensityLimit, int32 filterPasses, int32 ren
     put(0,0.f,0.f,0.f,0.f,0,false,false);vertices[5]=vertices[6]=0;
     put(1,float(StaticRef<uint8>(0x8D510B)?RsGlobal.maximumWidth:width),float(StaticRef<uint8>(0x8D510B)?RsGlobal.maximumHeight:height),1.f,1.f,0,true,false);
     count=0;state(6,1);
-    if(filterPasses>0){state(9,2);for(int32 i=0;i<filterPasses;++i){const auto nextWidth=width/2,nextHeight=height/2;put(count,0.f,0.f,float(StaticRef<int32>(0x8D511C))/float(pRasterFrontBuffer->width),float(StaticRef<int32>(0x8D5120))/float(pRasterFrontBuffer->height),0xFFFFFFFF);put(count+1,float(nextWidth+1),float(nextHeight+1),float(width)/float(pRasterFrontBuffer->width),float(height)/float(pRasterFrontBuffer->height),0xFFFFFFFF);count+=2;width=nextWidth;height=nextHeight;}}
+    if(filterPasses>0){state(9,2);for(int32 i=0;i<filterPasses;++i){const auto nextWidth=width/2,nextHeight=height/2;put(count,0.f,0.f,float(DatosExe::Data::v8D511C)/float(pRasterFrontBuffer->width),float(DatosExe::Data::v8D5120)/float(pRasterFrontBuffer->height),0xFFFFFFFF);put(count+1,float(nextWidth+1),float(nextHeight+1),float(width)/float(pRasterFrontBuffer->width),float(height)/float(pRasterFrontBuffer->height),0xFFFFFFFF);count+=2;width=nextWidth;height=nextHeight;}}
     state(10,5);state(11,6);
     const auto color=(((uint32(intensityLimit)|0xFFFF8000u)<<8|uint32(intensityLimit))<<8)|uint32(intensityLimit);
     put(count,0.f,0.f,0.f,0.f,color,false);put(count+1,float(width+1),float(height+1),0.f,0.f,color,false);count+=2;

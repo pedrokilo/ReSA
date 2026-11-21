@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "MenuManager.h"
@@ -427,7 +428,7 @@ void CMenuManager::PrintMap() {
 void CMenuManager::PrintStats() {
     static auto& currentStatId  = StaticRef<eStats>(0xB794CC);
     static auto& scrollPos      = DatosExe::Data::v8CDFF4; // -120.0f
-    static auto& prevScreenItem = StaticRef<int8>(0x8CDFF8);  // 15
+    static auto& prevScreenItem = DatosExe::Data::v8CDFF8;  // 15
 
     // Como el original (0x57490B): el ítem se limita a 8 en una copia local de 8 bits;
     // m_nCurrentScreenItem no se modifica.
@@ -573,7 +574,7 @@ void CMenuManager::PrintBriefs() {
     }
     CFont::SetJustify(false); // redundant
 
-    static auto& drawArrows = StaticRef<bool>(0x8CDFF9); // true
+    static auto& drawArrows = DatosExe::Data::v8CDFF9; // true
 
     if (!m_bMapLoaded)
         return;

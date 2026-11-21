@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "RegisteredCorona.h"
@@ -30,7 +31,7 @@ public:
     static inline auto& bChangeBrightnessImmediately = StaticRef<int32>(0xC3E034);
     // coronas intensity multiplier
     // this is used to control moon size when you shooting it with sniper
-    static inline auto& MoonSize = StaticRef<uint32>(0x8D4B60); // 3
+    static inline auto& MoonSize = DatosExe::Data::v8D4B60; // 3
     // num of registered coronas in frame
     static inline auto& NumCoronas = StaticRef<uint32>(0xC3E038);
 

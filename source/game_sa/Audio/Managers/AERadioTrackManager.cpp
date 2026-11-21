@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
@@ -864,7 +865,7 @@ bool CAERadioTrackManager::QueueUpTracksForStation(eRadioID id, int8* count, int
     };
     const auto queueOutro = [&] {
         const auto index = station * 31 + int32(settings.TrackIndices.data()[*count]);
-        const auto* range = &StaticRef<int32>(0x8CA1B0) + index * 2;
+        const auto* range = &DatosExe::Data::v8CA1B0 + index * 2;
         return queueSimple(CAEAudioUtility::GetRandomNumberInRange(range[0], range[1]), TYPE_OUTRO, false);
     };
     switch (state) {
@@ -880,10 +881,10 @@ bool CAERadioTrackManager::QueueUpTracksForStation(eRadioID id, int8* count, int
         }
         settings.TrackIndices.data()[*count] = ChooseMusicTrackIndex(id);
         const auto index = station * 31 + int32(settings.TrackIndices.data()[*count]);
-        const auto* introRange = &StaticRef<int32>(0x8C9610) + index * 2;
+        const auto* introRange = &DatosExe::Data::v8C9610 + index * 2;
         queueSimple(CAEAudioUtility::GetRandomNumberInRange(introRange[0], introRange[1]), TYPE_INTRO, false);
         settings.TrackIndices.data()[*count] = settings.TrackIndices.data()[*count - 1];
-        queueSimple((&StaticRef<int32>(0x8C9040))[station * 31 + int32(settings.TrackIndices.data()[*count])], TYPE_TRACK, false);
+        queueSimple((&DatosExe::Data::v8C9040)[station * 31 + int32(settings.TrackIndices.data()[*count])], TYPE_TRACK, false);
         settings.TrackIndices.data()[*count] = settings.TrackIndices.data()[*count - 1];
         return queueOutro();
     }
@@ -897,7 +898,7 @@ bool CAERadioTrackManager::QueueUpTracksForStation(eRadioID id, int8* count, int
             return true;
         }
         settings.TrackIndices.data()[*count] = ChooseMusicTrackIndex(id);
-        queueSimple((&StaticRef<int32>(0x8C9040))[station * 31 + int32(settings.TrackIndices.data()[*count])], TYPE_TRACK, false);
+        queueSimple((&DatosExe::Data::v8C9040)[station * 31 + int32(settings.TrackIndices.data()[*count])], TYPE_TRACK, false);
         settings.TrackIndices.data()[*count] = settings.TrackIndices.data()[*count - 1];
         return queueOutro();
     case TYPE_OUTRO:
@@ -997,7 +998,7 @@ void CAERadioTrackManager::StopRadio(tVehicleAudioSettings* options, bool during
 // 0x4E94C0
 int32 CAERadioTrackManager::ChooseIdentIndex(eRadioID id) {
     const auto station = int32(int8(id));
-    const auto* range = &StaticRef<int32>(0x8C8FB0) + station * 2;
+    const auto* range = &DatosExe::Data::v8C8FB0 + station * 2;
     if (range[0] == 1922) {
         return -1;
     }
@@ -1024,10 +1025,10 @@ int32 CAERadioTrackManager::ChooseIdentIndex(eRadioID id) {
 // 0x4E9570
 int32 CAERadioTrackManager::ChooseAdvertIndex(eRadioID id) {
     const auto station = int32(int8(id));
-    const auto* banned = &StaticRef<int32>(0x8CADD0) + station * 23;
+    const auto* banned = &DatosExe::Data::v8CADD0 + station * 23;
     const auto* history = &StaticRef<int32>(0xB620C0) + station * 40;
     for (;;) {
-        const auto selected = CAEAudioUtility::GetRandomNumberInRange(StaticRef<int32>(0x8C8B88), StaticRef<int32>(0x8C8B8C));
+        const auto selected = CAEAudioUtility::GetRandomNumberInRange(DatosExe::Data::v8C8B88, DatosExe::Data::v8C8B8C);
         bool repeated = false;
         for (int32 i = 0; i < 23; ++i) {
             if (banned[i] == selected) {
@@ -1056,7 +1057,7 @@ int8 CAERadioTrackManager::ChooseMusicTrackIndex(eRadioID id) {
         return ChooseTalkRadioShow();
     }
     const auto station = int32(int8(id));
-    const auto available = (&StaticRef<int32>(0x8C9010))[station];
+    const auto available = (&DatosExe::Data::v8C9010)[station];
     const auto* history = &StaticRef<int8>(0xB62B40) + station * 20;
     for (;;) {
         const auto selected = int8(CAEAudioUtility::GetRandomNumberInRange(0, available - 1));
@@ -1080,14 +1081,14 @@ int32 CAERadioTrackManager::ChooseDJBanterIndex(eRadioID id) {
     const auto index = int32(StaticRef<int8>(0xB62C72));
     int32 selected = -1;
     if (special == 0) {
-        selected = (&StaticRef<int32>(0x8C8BF0))[station * 2];
+        selected = (&DatosExe::Data::v8C8BF0)[station * 2];
     } else if (special == 1) {
-        const auto* range = &StaticRef<int32>(0x8C8C50) + station * 2;
+        const auto* range = &DatosExe::Data::v8C8C50 + station * 2;
         if (index == 0 || (index == 1 && range[0] != range[1])) {
             selected = range[index];
         }
     } else if (special == 2) {
-        selected = (&StaticRef<int32>(0x8CB280))[station * 22 + index];
+        selected = (&DatosExe::Data::v8CB280)[station * 22 + index];
     }
     if (selected == 1922) {
         selected = -1;
@@ -1554,7 +1555,7 @@ void CAERadioTrackManager::CheckForPause() {
 // 0x4EB9A0
 void CAERadioTrackManager::Service(int32 playTime) {
     auto& settings = m_ActiveSettings;
-    StaticRef<int32>(0x8CBA68) = settings.PlayTime;
+    DatosExe::Data::v8CBA68 = settings.PlayTime;
     settings.PlayTime = playTime;
     settings.TrackLengthMs = AEAudioHardware.GetTrackLengthMs();
     settings.CurrTrackID = AEAudioHardware.GetPlayingTrackID();

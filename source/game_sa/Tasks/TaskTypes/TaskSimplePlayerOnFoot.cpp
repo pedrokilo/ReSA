@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "TaskSimplePlayerOnFoot.h"
@@ -33,10 +34,10 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleDuck.h"
 #include "X87Math.h"
 
-auto& gLastRandomNumberForIdleAnimationID = StaticRef<int32>(0x8D2FEC);
+auto& gLastRandomNumberForIdleAnimationID = DatosExe::Data::v8D2FEC;
 auto& gLastTouchTimeDelta = StaticRef<uint32>(0xC19664);
 auto& gDuckAnimBlendData = DatosExe::Data::v8D2FF0; // 4.0f
-auto& gbUnknown_8D2FE8 = StaticRef<bool>(0x8D2FE8);     // default value true; also always true
+auto& gbUnknown_8D2FE8 = DatosExe::Data::v8D2FE8;     // default value true; also always true
 
 namespace {
 // 0x6857D0 (con hook propio, Destructor): cuerpo del destructor de CTaskSimplePlayerOnFoot del EXE. Funcion propia sin expansion en linea para que el banco Fn160A pueda sustituirla; la llama el destructor con borrado

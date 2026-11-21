@@ -17,12 +17,13 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 
 #include "GrassRenderer.h"
 #include "PPTriPlantBuffer.h"
 
 auto& gTriPlantBuf = StaticRef<CPPTriPlantBuffer>(0xC02DE8);
-auto& g_GrassCurrentScanCode = StaticRef<uint16>(0x8D1330); // -1
+auto& g_GrassCurrentScanCode = DatosExe::Data::v8D1330; // -1
 
 void CGrassRenderer::InjectHooks() {
     RH_ScopedClass(CGrassRenderer);

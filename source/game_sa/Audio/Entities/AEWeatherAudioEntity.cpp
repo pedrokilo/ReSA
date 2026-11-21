@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include <common.h>
@@ -234,7 +235,7 @@ void CAEWeatherAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) 
     }
     case 4:
     case 5: { // Viento (0x506527)
-        static auto& sbWindOffset  = StaticRef<uint8>(0x8CC2C0);
+        static auto& sbWindOffset  = DatosExe::Data::v8CC2C0;
         static auto& sfWindOffset  = StaticRef<float>(0xB6BAFC);
         static auto& sfWindFreq    = StaticRef<float>(0xB6BAF8);
         static auto& sfOldFreqLeft = DatosExe::Data::v8CC2C4;

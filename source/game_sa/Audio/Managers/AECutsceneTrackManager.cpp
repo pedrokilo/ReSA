@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 
 #include "AECutsceneTrackManager.h"
 #include "AEAudioHardware.h"
@@ -116,7 +117,7 @@ void CAECutsceneTrackManager::PauseTrack(bool pause) {
  */
 void CAECutsceneTrackManager::Service(int32 trackPlayTime) {
     // Como el original: guarda en cada llamada el play time anterior en la global 0x8AE588.
-    StaticRef<int32>(0x8AE588) = m_nTrackPlayTime;
+    DatosExe::Data::v8AE588 = m_nTrackPlayTime;
     m_nTrackPlayTime = trackPlayTime;
     m_nTrackLengthMs = AEAudioHardware.GetTrackLengthMs();
     m_nPlayingTrackId = AEAudioHardware.GetPlayingTrackID();

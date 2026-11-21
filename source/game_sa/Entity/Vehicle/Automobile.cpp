@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -7895,7 +7896,7 @@ void AutoPreRenderModelComponents(CAutomobile& car, CMatrix& frameMatrix, const 
     } else if (model == 524) { // 0x20C
         if (car.GetStatus() != STATUS_WRECKED) {
             car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, DatosExe::Rdata::k871050, true);
-            car.m_fPropRotate = AutoPreMixerPropCpp(car.m_wMiscComponentAngle, StaticRef<int16>(0x8D314C), CTimer::GetTimeStep(), car.m_fPropRotate);
+            car.m_fPropRotate = AutoPreMixerPropCpp(car.m_wMiscComponentAngle, DatosExe::Data::v8D314C, CTimer::GetTimeStep(), car.m_fPropRotate);
             car.SetComponentRotation(nodes[CAR_MISC_B], AXIS_Y, car.m_fPropRotate, true);
             car.SetComponentRotation(nodes[CAR_MISC_B], AXIS_X, DatosExe::Rdata::k871050, false);
         }
