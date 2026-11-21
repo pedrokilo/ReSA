@@ -1,0 +1,21 @@
+mapeado
+  primera diferencia de llamadas en 11; estado inicial cnt=5 mod=0 hook=819520 disp=8194d0; globales EXE: 5 0 0 cb4300 d2d0 d260 | C++: 5 0 0 cb4300 d2d0 d260
+DIF InitializeThunk 8194B0 semilla 5: llamadas 53/53 ret 00000000/00000000
+  primera diferencia de llamadas en 6; estado inicial cnt=0 mod=0 hook=819520 disp=cb4300; globales EXE: 0 0 0 cb4300 d2d0 d260 | C++: 0 0 0 cb4300 d2d0 d260
+DIF InitializeThunk 8194B0 semilla 9: llamadas 33/33 ret 0000f52c/0000f52c
+  primera diferencia de llamadas en 6; estado inicial cnt=5 mod=0 hook=819520 disp=cb4300; globales EXE: 5 0 0 cb4300 d2d0 d260 | C++: 5 0 0 cb4300 d2d0 d260
+DIF InitializeThunk 8194B0 semilla 14: llamadas 33/33 ret 00007bad/00007bad
+  primera diferencia de llamadas en 9; estado inicial cnt=0 mod=0 hook=819520 disp=8194d0; globales EXE: 0 0 0 cb4300 d2d0 d260 | C++: 0 0 0 cb4300 d2d0 d260
+DIF InitializeThunk 8194B0 semilla 25: llamadas 36/36 ret 0000d7e7/0000d7e7
+  primera diferencia de llamadas en 6; estado inicial cnt=0 mod=0 hook=819520 disp=8194d0; globales EXE: 0 0 819520 8194d0 d0d0 d1d1 | C++: 0 0 819520 8194d0 d0d0 d1d1
+DIF InitializeThunk 8194B0 semilla 28: llamadas 27/27 ret 0000f7d1/0000f7d1
+  primera diferencia de llamadas en 6; estado inicial cnt=5 mod=0 hook=819520 disp=8194d0; globales EXE: 5 0 0 cb4300 d2d0 d260 | C++: 5 0 0 cb4300 d2d0 d260
+DIF InitializeThunk 8194B0 semilla 43: llamadas 40/40 ret 0000cbc2/0000cbc2
+InitializeThunk 8194B0       escenarios   5000 diferencias 368
+TerminateThunk 8194C0        escenarios   5000 diferencias 345
+ResolveEntryPoints 819520    escenarios   5000 diferencias 1046
+Initialize 8195C0            escenarios   5000 diferencias 1080
+Terminate 819770             escenarios   5000 diferencias 57
+LoadLibrary 81DAE0           escenarios   5000 diferencias 1389
+eventos de maqueta comparados (lado EXE): 434001
+CONTROL NEGATIVO: 4285 diferencias

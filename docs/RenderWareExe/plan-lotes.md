@@ -1,12 +1,8 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 21/11/2026 (Ciudad de México):** 1004 grupos / 13311 funciones reconstruidas; 11801 con evidencia histórica y 1510 pendientes de validación en 39 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Plan de reconstrucción de RenderWare y D3D por partes y lotes
 
 [Mapa de la región](README.md) · [Pendientes por clase](pendientes-por-clase.md) · [Lista de funciones por lote (CSV)](plan-lotes.csv)
 
-Región **0x750000–0x81FFFF**: 6 funciones por reconstruir (1,556 bytes) repartidas en **1 lotes** y **1 partes**. Generado por `contrib/rw_plan.py` a partir de `funciones.csv`.
+Región **0x750000–0x81FFFF**: 0 funciones por reconstruir (0 bytes) repartidas en **0 lotes** y **0 partes**. Generado por `contrib/rw_plan.py` a partir de `funciones.csv`.
 
 Reglas: lotes de hasta 32 funciones y unos 5 KB; una función de 3 KB o más va sola («grande»); las funciones de un lote son contiguas dentro de su clase o módulo; seis lotes por parte. Los lotes se numeran desde 240A para continuar el plan del código del juego (191A–239A).
 
@@ -18,17 +14,9 @@ Aviso: la clase o módulo de cada función es exacta solo si la confianza lo dic
 
 | Parte | Lotes | Funciones | Bytes | Clases / módulos |
 | --- | ---: | ---: | ---: | ---: |
-| Parte 1 | 240A–240A | 6 | 1,556 | RpMatFX |
 
 ## Por grupo
 
 | Grupo | Lotes | Funciones | Bytes |
 | --- | ---: | ---: | ---: |
-| SDK de RenderWare | 1 | 6 | 1,556 |
-
-## Parte 1 · lotes 240A–240A
-
-| Lote | Clase / módulo | Rango | Funciones | Bytes | Tamaño | Envolturas | Clase exacta |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| 240A | RpMatFX | 0x008194B0–0x0081DAE0 | 6 | 1,556 | mediana | 1 | 0/6 |
 

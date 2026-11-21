@@ -1,10 +1,6 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 21/11/2026 (Ciudad de México):** 1004 grupos / 13311 funciones reconstruidas; 11801 con evidencia histórica y 1510 pendientes de validación en 39 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Funciones pendientes de RenderWare y D3D, por clase
 
-Generado de `docs/RenderWareExe/funciones.csv`. Total: **5** funciones sin reemplazar en 1 clases/módulos (rango 0x750000–0x81FFFF).
+Generado de `docs/RenderWareExe/funciones.csv`. Total: **0** funciones sin reemplazar en 0 clases/módulos (rango 0x750000–0x81FFFF).
 
 Estados: **A** llamada desde código ya en C++ · **B** método virtual o por tabla · **C** solo la llaman funciones pendientes · **D** sin llamadas ni vtable.
 
@@ -14,17 +10,4 @@ Aviso: cuando la confianza no es «exacta» la clase es una estimación por veci
 
 | Clase / módulo | Funciones | Bytes |
 | --- | ---: | ---: |
-| RpMatFX | 5 | 1,388 |
-
-## RpMatFX
-
-5 funciones, 1,388 bytes.
-
-| Dirección | Bytes | Estado | Confianza | Nombre | Llamadas |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| 0x008194B0 | 5 | C | baja | — | 1 |
-| 0x008194C0 | 5 | C | baja | — | 1 |
-| 0x00819520 | 148 | C | baja | — | 32 |
-| 0x008195C0 | 319 | A | baja | — | 1 |
-| 0x0081DAE0 | 911 | C | baja | — | 2 |
 
