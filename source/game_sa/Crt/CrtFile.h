@@ -11,7 +11,6 @@
 //   fread 0x823521  fwrite 0x823674  fseek 0x82374F  fclose 0x82318B  fflush 0x823E86  fgets 0x823798  fputs 0x8262B8  fopen 0x8232D8
 //   fprintf 0x823A30  sprintf 0x821BB5  vsprintf 0x8230B8  sscanf 0x8220AD  getenv 0x8240C7  __stbuf 0x827DEC  __ftbuf 0x827E74
 //   0x826261 (bloquea una FILE y llama a 0x8260FF)  0x823CAE (llama a 0x823BDB con 0, 0)  __CxxThrowException 0x822D5D
-//   std::exception: ctor 0x822D97, ctor de copia 0x822DE5, destructor 0x822E2F
 
 namespace ExeCrt {
 unsigned int __cdecl Fread(void* buf, unsigned int size, unsigned int count, File* f);        // 0x823521
@@ -32,16 +31,6 @@ void         __cdecl Ftbuf(int flag, File* f);                                  
 int          __cdecl LockedCall8260FF(File* f);                                                // 0x826261
 int          __cdecl Call823BDB(int a);                                                        // 0x823CAE
 void         __stdcall CxxThrowException(void* object, const void* throwInfo);                 // 0x822D5D
-
-// std::exception del CRT del EXE (vtable 0x887E80): puntero al texto en +4 y bandera de "texto propio" en +8 (miembros thiscall, sin clase en el proyecto)
-struct ExeException {
-    const void* vtable;  // +0
-    const char* what;    // +4
-    int         doFree;  // +8
-};
-ExeException* __thiscall ExceptionCtor(ExeException* self);                                  // 0x822D97
-ExeException* __thiscall ExceptionCopyCtor(ExeException* self, const ExeException* other);   // 0x822DE5 (retn 4)
-void          __thiscall ExceptionDtor(ExeException* self);                                  // 0x822E2F (cuerpo del destructor: libera el texto propio)
 } // namespace ExeCrt
 
 void CrtFileInjectHooks();

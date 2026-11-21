@@ -12477,9 +12477,6 @@ ExeCrt,Ftbuf,0x00827E74,1,0,0,S
 ExeCrt,LockedCall8260FF,0x00826261,1,0,0,S
 ExeCrt,Call823BDB,0x00823CAE,1,0,0,S
 ExeCrt,CxxThrowException,0x00822D5D,1,0,0,S
-ExeCrt,ExceptionCtor,0x00822D97,1,0,0,S
-ExeCrt,ExceptionCopyCtor,0x00822DE5,1,0,0,S
-ExeCrt,ExceptionDtor,0x00822E2F,1,0,0,S
 RpAnisot,RpAnisotEngineConstructor,0x00749000,1,0,1,S
 RpAnisot,RpAnisotEngineDestructor,0x00749010,1,0,1,S
 RpAnisot,RpAnisotTextureConstructor,0x00749020,1,0,1,S

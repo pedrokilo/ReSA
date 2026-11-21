@@ -2,7 +2,7 @@
 
 Lote CRT2A (continuación de [FnCRT1A](../FnCRT1A/README.md)). Rama `crt2a` (sin subir). Decisión del 20/11: se reconstruye y se engancha (hook activo), se compila y se comprueba que no rompe; no se valida con bancos en juego. El juego no se ejecutó. Además hay un banco **fuera del juego** (método de FnCRT1A/FnLIB1A: el `gta_sa.exe` original, solo lectura, mapeado en un proceso de prueba y llamado por dirección) para las funciones puras o de estado simple.
 
-Código: `source/game_sa/Crt/CrtState.{h,cpp}` (datos por hilo, rand, strtok, isprint, bloqueos), `CrtMath.{h,cpp}` (floor, ceil), `CrtFile.{h,cpp}` (envolturas de FILE, formato, std::exception). Registro en `source/InjectHooksMain.cpp` (`CrtStateInjectHooks`, `CrtMathInjectHooks`, `CrtFileInjectHooks`) y 33 filas nuevas en `docs/hooks.csv` (clase `ExeCrt`, `validated=0`). Sin `__asm`.
+Código: `source/game_sa/Crt/CrtState.{h,cpp}` (datos por hilo, rand, strtok, isprint, bloqueos), `CrtMath.{h,cpp}` (floor, ceil), `CrtFile.{h,cpp}` (envolturas de FILE, formato, std::exception). Registro en `source/InjectHooksMain.cpp` (`CrtStateInjectHooks`, `CrtMathInjectHooks`, `CrtFileInjectHooks`) y 30 filas nuevas en `docs/hooks.csv` (clase `ExeCrt`, `validated=0`). Sin `__asm`.
 
 ## Diseño
 
@@ -10,7 +10,7 @@ Código: `source/game_sa/Crt/CrtState.{h,cpp}` (datos por hilo, rand, strtok, is
 - **Math (floor 0x8219F0, ceil 0x823820)**: rama SSE2 reconstruida con la misma aritmética entera (cuenta `0x433 - exponente`, `psrlq/psllq`, cuenta >= 64 da 0) y `addsd/subsd` con intrínsecos SSE2 (inmunes a la precisión de 24 bits de la x87 que fija el juego). El EXE entra por SSE2 solo si `0xC9C400 != 0` y MXCSR/FPU tienen todas las excepciones enmascaradas; si no, va a la rama x87 (floor 0x828A60, ceil 0x82BA31): se invocan por dirección. Con NaN el EXE llama al manejador 0x82872C(&x, &x, &x, 0x3ED floor / 0x3EC ceil) y devuelve el argumento: igual aquí. Llamadores propios (Hud, Object, PedGeometryAnalyser) cambiados.
 - **FILE y formato**: las envolturas públicas (`fread`, `fwrite`, `fseek`, `fclose`, `fflush`, `fgets`, `fputs`, `fopen`, `fprintf`, `sprintf`, `vsprintf`, `sscanf`, `getenv`) se reconstruyen con el mismo orden `lock -> operación -> unlock`; el `try/finally` SEH del EXE se sustituye por un objeto RAII (camino normal idéntico; con excepción también desbloquea). `_lock_file`/`_unlock_file`/`__lock`/`_unlock` se reconstruyen enteros. Los **núcleos** (`_fread_nolock`, `_fwrite_nolock`, `_fseek_nolock`, `_output` 0x827F4B, `_input` 0x8290D4, `_filbuf`, `_flsbuf`, `_fsopen`, `_flush`...) siguen siendo del EXE y se llaman por dirección: no se reconstruyeron (el motor de formato incluye `%f` con conversión de coma flotante: 1.904 bytes + biblioteca de conversión).
 - **sprintf/vsprintf/sscanf**: FILE falsa de 0x20 bytes en la pila como el EXE (ptr/cnt/base/flag 0x42 o 0x49). `rwplcore.cpp` (`_rwStringOpen`) y `Stats.cpp`/`AudioZones.cpp`/`preset_view.cpp` llaman ahora a las versiones del proyecto.
-- **std::exception** (ctor 0x822D97, ctor de copia 0x822DE5, destructor 0x822E2F) y `_CxxThrowException` (0x822D5D, copia la plantilla de 32 bytes de 0x887E5C y `RaiseException`): reconstruidos como funciones libres `__thiscall`/`__stdcall`.
+- `_CxxThrowException` (0x822D5D, copia la plantilla de 32 bytes de 0x887E5C y `RaiseException`): reconstruida como `__stdcall`. std::exception (ctor 0x822D97, ctor de copia 0x822DE5, destructor 0x822E2F) NO se engancha: MSVC no admite `__thiscall` en funciones libres y el proyecto no tiene la clase; el desensamblado queda documentado (vtable 0x887E80, texto en +4, bandera de texto propio en +8).
 
 ## Tabla de las 57 raíces CRT del EXE (con las de CRT1A)
 
@@ -25,7 +25,8 @@ Código: `source/game_sa/Crt/CrtState.{h,cpp}` (datos por hilo, rand, strtok, is
 | 0x82ADBE `__lock`, 0x82AD12 `_unlock`, 0x823FA2 `_lock_file`*, 0x823FF4 `_unlock_file`*, 0x8262A2 ferror | HECHAS, enganchadas | sin banco (solo compilación) |
 | 0x823521 fread, 0x823674 fwrite, 0x82374F fseek, 0x82318B fclose, 0x823E86 fflush, 0x823798 fgets, 0x8262B8 fputs, 0x8232D8 fopen, 0x826261, 0x823CAE | HECHAS (envolturas), enganchadas | sin banco (requiere el estado de arranque de las FILE) |
 | 0x823A30 fprintf (el análisis lo llamaba fwprintf), 0x821BB5 sprintf, 0x8230B8 vsprintf, 0x8220AD sscanf, 0x8240C7 getenv, 0x827DEC `__stbuf`, 0x827E74 `__ftbuf` | HECHAS (envolturas), enganchadas | sin banco |
-| 0x822D5D `_CxxThrowException`, 0x822D97 / 0x822DE5 / 0x822E2F std::exception | HECHAS, enganchadas | sin banco |
+| 0x822D5D `_CxxThrowException` | HECHA, enganchada | sin banco |
+| 0x822D97, 0x822DE5, 0x822E2F std::exception | PENDIENTES | miembros thiscall: requieren una clase en el proyecto (no se admite `__thiscall` en funciones libres) |
 | 0x8211FD, 0x821255 | PENDIENTES | construyen y lanzan una excepción con marcos de excepciones de C++ propios del EXE (`_EH_prolog` 0x825D74, destructores con tablas de desenrollado): no se pueden sustituir sin duplicar las tablas de desenrollado de MSVC |
 | 0x821CE6 `__onexit` | PENDIENTE | el núcleo 0x821C3E recibe el argumento en EDI (convención propia): no se puede llamar desde C++ sin ensamblador; hay que reconstruir también 0x821C3E y la lista de atexit (0xC9D42C) |
 | 0x8220F0 pow, 0x829B99 (pow SSE2 de Intel, 2.861 bytes), 0x8219F0-familia restante | PENDIENTES (pow, 0x829B99) | la tabla de coeficientes y las ramas de la biblioteca matemática de Intel (mas de 700 instrucciones SSE2 con tablas) piden un banco propio de pow con NaN/inf/denormales; no se empezó para no dejarla a medias |

@@ -146,9 +146,9 @@ int __cdecl Stbuf(File* f) {
         f->bufsiz = 0x1000;
         f->cnt = 0x1000;
     } else { // sin memoria: buffer de 2 bytes dentro de la propia FILE (_charbuf)
-        char* const small = reinterpret_cast<char*>(f) + 0x14;
-        f->base = small;
-        f->ptr = small;
+        char* const tiny = reinterpret_cast<char*>(f) + 0x14;
+        f->base = tiny;
+        f->ptr = tiny;
         f->bufsiz = 2;
         f->cnt = 2;
     }
@@ -256,39 +256,6 @@ void __stdcall CxxThrowException(void* object, const void* throwInfo) {
     RaiseException(record[0], record[1], record[4], reinterpret_cast<const ULONG_PTR*>(&record[5]));
 }
 
-// 0x822D97
-ExeException* __thiscall ExceptionCtor(ExeException* self) {
-    self->what = nullptr;
-    self->doFree = 0;
-    self->vtable = reinterpret_cast<const void*>(0x887E80);
-    return self;
-}
-
-// 0x822DE5: copia el texto si es propio (malloc + strcpy del EXE); si no, comparte el puntero
-ExeException* __thiscall ExceptionCopyCtor(ExeException* self, const ExeException* other) {
-    self->vtable = reinterpret_cast<const void*>(0x887E80);
-    self->doFree = other->doFree;
-    if (self->doFree != 0) {
-        const unsigned int size = Strlen(other->what) + 1;
-        char* const copy = static_cast<char*>(Exe<void*(__cdecl*)(unsigned int)>(0x824257)(size));
-        self->what = copy;
-        if (copy) {
-            Strcpy(copy, other->what);
-        }
-    } else {
-        self->what = other->what;
-    }
-    return self;
-}
-
-// 0x822E2F
-void __thiscall ExceptionDtor(ExeException* self) {
-    const int doFree = self->doFree;
-    self->vtable = reinterpret_cast<const void*>(0x887E80);
-    if (doFree != 0) {
-        Exe<void(__cdecl*)(void*)>(0x82413F)(const_cast<char*>(self->what)); // free
-    }
-}
 } // namespace ExeCrt
 
 #ifndef CRT_BENCH
@@ -314,8 +281,5 @@ void CrtFileInjectHooks() {
     RH_ScopedGlobalInstall(ExeCrt::LockedCall8260FF, 0x826261);
     RH_ScopedGlobalInstall(ExeCrt::Call823BDB, 0x823CAE);
     RH_ScopedGlobalInstall(ExeCrt::CxxThrowException, 0x822D5D);
-    RH_ScopedGlobalInstall(ExeCrt::ExceptionCtor, 0x822D97);
-    RH_ScopedGlobalInstall(ExeCrt::ExceptionCopyCtor, 0x822DE5);
-    RH_ScopedGlobalInstall(ExeCrt::ExceptionDtor, 0x822E2F);
 }
 #endif
