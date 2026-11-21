@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: RpSkin
- * Reconstrucción: COMPLETA — 34/34 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 59/59 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/34 entradas.
+ * Validación registrada: 1/59 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -23,6 +23,25 @@ END GENERATED HOOK STATUS */
 
 #include "rpskin.h"
 #include "X87Math.h"
+#include "Crt/CrtQsort.h"
+
+// Callbacks del plugin 0x116 (lote S12A; cdecl). Se registran por su direccion propia en RpSkinPluginAttach y llevan hook en la direccion del EXE.
+static void*     RpSkinEngineConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                // 0x7C68E0
+static void*     RpSkinEngineDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                 // 0x7C69A0
+static void*     RpSkinGeometryConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                              // 0x7C69F0
+static void*     RpSkinGeometryDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                               // 0x7C6A10
+static void*     RpSkinGeometryCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject);           // 0x7C6A70
+static void*     RpSkinAtomicConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                // 0x7C6A80
+static void*     RpSkinAtomicDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                                 // 0x7C6AA0
+static void*     RpSkinAtomicCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject);             // 0x7C6AC0
+static RwBool    RpSkinAtomicStreamAlwaysCallBack(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                       // 0x7C6AE0
+static RwInt32   RpSkinGeometryStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                      // 0x7C6BE0
+static RwStream* RpSkinGeometryStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x7C6C30
+static RwStream* RpSkinGeometryStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);       // 0x7C6D20
+static RwStream* RpSkinAtomicStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);         // 0x7C72A0
+static RwStream* RpSkinAtomicStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);   // 0x7C7500
+static RwInt32   RpSkinAtomicStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                        // 0x7C7510
+static int __cdecl RpSkinUsedBoneCompare(const void* a, const void* b);                                                              // 0x7C8720
 
 namespace {
 // Plugin RpSkin: id 0x116; las reservas de skin usan la pista 0x30116 (0x116 | rwMEMHINTDUR_EVENT).
@@ -101,29 +120,406 @@ void RpSkinInjectHooks() {
     RH_ScopedGlobalInstall(_rpSkinSSETransformPoints, 0x7CAAD0); // lote R7A (sin validar)
     RH_ScopedGlobalInstall(_rpSkinSSETransformPointsIndexed, 0x7CAB80); // lote R7A (sin validar)
     RH_ScopedGlobalInstall(_rpSkinD3D9CreateGenericPipeline, 0x7CB2B0); // lote R7A (sin validar)
+    // Lote S12A (sin validar)
+    RH_ScopedGlobalInstall(RpSkinSetFreeListCreateParams, 0x7C67F0);
+    RH_ScopedGlobalInstall(RpSkinEngineConstructor, 0x7C68E0);
+    RH_ScopedGlobalInstall(RpSkinEngineDestructor, 0x7C69A0);
+    RH_ScopedGlobalInstall(RpSkinGeometryConstructor, 0x7C69F0);
+    RH_ScopedGlobalInstall(RpSkinGeometryDestructor, 0x7C6A10);
+    RH_ScopedGlobalInstall(RpSkinGeometryCopy, 0x7C6A70);
+    RH_ScopedGlobalInstall(RpSkinAtomicConstructor, 0x7C6A80);
+    RH_ScopedGlobalInstall(RpSkinAtomicDestructor, 0x7C6AA0);
+    RH_ScopedGlobalInstall(RpSkinAtomicCopy, 0x7C6AC0);
+    RH_ScopedGlobalInstall(RpSkinAtomicStreamAlwaysCallBack, 0x7C6AE0);
+    RH_ScopedGlobalInstall(RpSkinGeometryStreamGetSize, 0x7C6BE0);
+    RH_ScopedGlobalInstall(RpSkinGeometryStreamWrite, 0x7C6C30);
+    RH_ScopedGlobalInstall(RpSkinGeometryStreamRead, 0x7C6D20);
+    RH_ScopedGlobalInstall(RpSkinAtomicStreamRead, 0x7C72A0);
+    RH_ScopedGlobalInstall(RpSkinAtomicStreamWrite, 0x7C7500);
+    RH_ScopedGlobalInstall(RpSkinAtomicStreamGetSize, 0x7C7510);
+    RH_ScopedGlobalInstall(RpSkinDestroy, 0x7C77A0);
+    RH_ScopedGlobalInstall(RpSkinIsSplit, 0x7C7820);
+    RH_ScopedGlobalInstall(RpSkinAtomicSetType, 0x7C7830);
+    RH_ScopedGlobalInstall(RpSkinAtomicGetType, 0x7C7880);
+    RH_ScopedGlobalInstall(RpSkinUsedBoneCompare, 0x7C8720);
+    RH_ScopedGlobalInstall(_rpSkinGetMeshBoneRemapIndices, 0x7C8A40);
+    RH_ScopedGlobalInstall(_rpSkinGetMeshBoneRLECount, 0x7C8A50);
+    RH_ScopedGlobalInstall(_rpSkinGetMeshBoneRLE, 0x7C8A60);
+    RH_ScopedGlobalInstall(RxNodeDefinitionGetD3D9SkinAtomicAllInOne, 0x7CB2A0);
 }
 
+// 0x7C67F0 (lote S12A, sin validar; 20 bytes): guarda el tamano de bloque de la lista libre de skins en 0x8DECE0 y el numero de bloques a reservar en 0x8DECE4.
 void RpSkinSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x7C67F0)(blockSize, numBlocksToPrealloc);
+    StaticRef<RwInt32>(0x8DECE0) = blockSize;
+    StaticRef<RwInt32>(0x8DECE4) = numBlocksToPrealloc;
 }
 
-// 0x7C6820: registra el plugin 0x116 en el motor, en los atomics y en las geometrias. Constructor/destructor/copia y las rutinas de flujo que no estan
-// reconstruidas se pasan por direccion fija (0x7C68E0, 0x7C69A0, 0x7C6A80, 0x7C6AA0, 0x7C6AC0, 0x7C72A0, 0x7C7500, 0x7C7510, 0x7C6AE0, 0x7C69F0, 0x7C6A10, 0x7C6A70,
-// 0x7C6D20, 0x7C6C30, 0x7C6BE0). Solo se guardan los desplazamientos del motor (0xC978A0), del atomic (0xC978A4) y de la geometria (0xC978A8); el resto de resultados
+// Calcula maxNumWeightsPerVertex como 0x7C72A0 y 0x7C6D20 (rama de formato antiguo): parte de 1 y, por cada vertice, mientras el peso (comparado como dword != 0) en la posicion `max` no sea cero sube `max`
+// y mira la siguiente (hasta 4; al llegar a 4 termina).
+static void SkinComputeMaxWeights(RpSkin* skin, RwUInt32 numVertices) {
+    const RwUInt32* const weights = reinterpret_cast<const RwUInt32*>(skin->vertexBoneWeights);
+    skin->maxNumWeightsPerVertex = 1;
+    for (RwUInt32 v = 0; v < numVertices; ++v) {
+        RwUInt32 k = skin->maxNumWeightsPerVertex;
+        if (k >= 4) {
+            continue;
+        }
+        const RwUInt32* weight = weights + k + v * 4;
+        while (*weight != 0) {
+            ++skin->maxNumWeightsPerVertex;
+            if (skin->maxNumWeightsPerVertex == 4) {
+                return;
+            }
+            ++k;
+            ++weight;
+            if (k >= 4) {
+                break;
+            }
+        }
+    }
+}
+
+// Cambia el skin de la geometria (con _rpSkinDeinitialize del anterior si lo habia y _rpSkinInitialize del nuevo) salvo que ya sea ese (cola comun de 0x7C72A0 y 0x7C6D20).
+static void SkinInstallOnGeometry(RpGeometry* geometry, RpSkin* skin) {
+    RpSkin* const previous = GeometrySkin(geometry);
+    if (skin == previous) {
+        return;
+    }
+    if (previous != nullptr) {
+        _rpSkinDeinitialize(geometry);
+    }
+    GeometrySkin(geometry) = skin;
+    _rpSkinInitialize(geometry);
+}
+
+// 0x7C68E0 (lote S12A, sin validar; cdecl, 3 argumentos, 185 bytes): constructor del plugin de motor 0x116. Solo la primera vez (contador 0xC978C0 a 0): _rpSkinPipelinesCreate(tipos) con tipos = 1, 3 si existe el plugin
+// de motor 0x120 y |4 si existe el 0x12E; lista libre de skins (RwFreeListCreateAndPreallocateSpace(0x40, [0x8DECE0], 4, [0x8DECE4], espacio propio 0xC97078, pista 0x40116)) en 0xC978B8; bloque de 0x400F bytes a cero
+// (RwMalloc, pista 0x40116) en 0xC978B0 y su direccion alineada a 16 (+15 y &~15) en 0xC978AC. Siempre sube el contador. Devuelve el objeto.
+// Si el RwMalloc fallase el EXE escribiria en NULL; aqui se omite la puesta a cero.
+static void* RpSkinEngineConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwInt32& initCount = StaticRef<RwInt32>(0xC978C0);
+    if (initCount == 0) {
+        RwUInt32 types = 1;
+        if (RwEngineGetPluginOffset(0x120) != -1) {
+            types = 3;
+        }
+        if (RwEngineGetPluginOffset(0x12E) != -1) {
+            types |= 4;
+        }
+        _rpSkinPipelinesCreate(types);
+        SkinFreeList() = RwFreeListCreateAndPreallocateSpace(0x40, StaticRef<RwInt32>(0x8DECE0), 4, StaticRef<RwInt32>(0x8DECE4), reinterpret_cast<RwFreeList*>(0xC97078), 0x40116);
+        void* const block = RwMalloc(0x400F, 0x40116);
+        StaticRef<void*>(0xC978B0) = block;
+        if (block != nullptr) {
+            memset(block, 0, 0x400F);
+        }
+        StaticRef<uintptr_t>(0xC978AC) = (reinterpret_cast<uintptr_t>(StaticRef<void*>(0xC978B0)) + 0xF) & ~static_cast<uintptr_t>(0xF);
+    }
+    initCount = initCount + 1;
+    return object;
+}
+
+// 0x7C69A0 (lote S12A, sin validar; cdecl, 3 argumentos, 76 bytes): destructor del plugin de motor: baja el contador 0xC978C0 y, si llega a 0, _rpSkinPipelinesDestroy, RwFreeListDestroy de la lista de skins (0xC978B8, que
+// queda a NULL) y RwFree del bloque de 0xC978B0 (que queda a NULL). Devuelve el objeto.
+static void* RpSkinEngineDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwInt32& initCount = StaticRef<RwInt32>(0xC978C0);
+    initCount = initCount - 1;
+    if (initCount == 0) {
+        _rpSkinPipelinesDestroy();
+        RwFreeListDestroy(SkinFreeList());
+        void* const block = StaticRef<void*>(0xC978B0);
+        SkinFreeList() = nullptr;
+        RwFree(block);
+        StaticRef<void*>(0xC978B0) = nullptr;
+    }
+    return object;
+}
+
+// 0x7C69F0 (lote S12A, sin validar; 18 bytes): constructor del plugin de geometria: skin = NULL en geometria + [0xC978A8]. Devuelve el objeto.
+static void* RpSkinGeometryConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    GeometrySkin(static_cast<RpGeometry*>(object)) = nullptr;
+    return object;
+}
+
+// 0x7C6A10 (lote S12A, sin validar; cdecl, 3 argumentos, 96 bytes): destructor del plugin de geometria. Si tiene skin: _rpSkinDeinitialize(geometria) (0x7C8820), RwFree del bloque de datos (skin+0x3C) si existe,
+// _rpSkinSplitDataDestroy (0x7C8B10), devuelve el skin a la lista libre y deja el campo a NULL. Devuelve el objeto.
+static void* RpSkinGeometryDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RpGeometry* const geometry = static_cast<RpGeometry*>(object);
+    if (RpSkin* const skin = GeometrySkin(geometry)) {
+        _rpSkinDeinitialize(geometry);
+        if (skin->allocation != nullptr) {
+            RwFree(skin->allocation);
+        }
+        _rpSkinSplitDataDestroy(skin);
+        RwFreeListFree(SkinFreeList(), skin);
+        GeometrySkin(geometry) = nullptr;
+    }
+    return object;
+}
+
+// 0x7C6A70 (lote S12A, sin validar; 5 bytes): copia del plugin de geometria: no copia nada y devuelve el objeto destino.
+static void* RpSkinGeometryCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(srcObject); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return dstObject;
+}
+
+// 0x7C6A80 (lote S12A, sin validar; 19 bytes): constructor del plugin de atomic: dato (4 bytes) = 0 en atomic + [0xC978A4]. Devuelve el objeto.
+static void* RpSkinAtomicConstructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    *reinterpret_cast<RwUInt32*>(reinterpret_cast<uintptr_t>(object) + static_cast<uint32>(SkinAtomicOffset())) = 0;
+    return object;
+}
+
+// 0x7C6AA0 (lote S12A, sin validar; 24 bytes): destructor del plugin de atomic: pone a 0 el dato (si no lo era). Devuelve el objeto.
+static void* RpSkinAtomicDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    *reinterpret_cast<RwUInt32*>(reinterpret_cast<uintptr_t>(object) + static_cast<uint32>(SkinAtomicOffset())) = 0;
+    return object;
+}
+
+// 0x7C6AC0 (lote S12A, sin validar; 21 bytes): copia del plugin de atomic: el dato (dword) del destino = el del origen. Devuelve el destino.
+static void* RpSkinAtomicCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    const RwUInt32 value = *reinterpret_cast<const RwUInt32*>(reinterpret_cast<uintptr_t>(srcObject) + static_cast<uint32>(SkinAtomicOffset()));
+    *reinterpret_cast<RwUInt32*>(reinterpret_cast<uintptr_t>(dstObject) + static_cast<uint32>(SkinAtomicOffset())) = value;
+    return dstObject;
+}
+
+// 0x7C6AE0 (lote S12A, sin validar; cdecl, 3 argumentos, 142 bytes): callback "siempre" del flujo del atomic. Tipo = 1, o 2 si el plugin de motor 0x120 esta registrado y el byte de su dato en el atomic
+// (RpAtomicGetPluginOffset(0x120)) no es 0. Si el atomic tiene geometria con skin: tipo 2 sin plugin 0x120 -> 1 y, si no, tipo 3 sin plugin 0x12E -> 1; _rpSkinPipelineAtomicAttach(atomic, tipo) (0x7C89B0). Devuelve TRUE.
+static RwBool RpSkinAtomicStreamAlwaysCallBack(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RpAtomic* const atomic = static_cast<RpAtomic*>(object);
+    RwUInt32 type = 1;
+    if (RwEngineGetPluginOffset(0x120) != -1) {
+        if (*(reinterpret_cast<const RwUInt8*>(atomic) + static_cast<uint32>(RpAtomicGetPluginOffset(0x120))) != 0) {
+            type = 2;
+        }
+    }
+    RpGeometry* const geometry = atomic->geometry;
+    if (geometry != nullptr && GeometrySkin(geometry) != nullptr) {
+        if (RwEngineGetPluginOffset(0x120) == -1 && type == 2) {
+            type = 1;
+        } else if (RwEngineGetPluginOffset(0x12E) == -1 && type == 3) {
+            type = 1;
+        }
+        _rpSkinPipelineAtomicAttach(atomic, type);
+    }
+    return TRUE;
+}
+
+// 0x7C6BE0 (lote S12A, sin validar; cdecl, 3 argumentos, 75 bytes): tamano en flujo del skin de la geometria. Sin skin: 0. Geometria nativa (flags & 0x1000000): _rpSkinNativeGeometryGetSize (0x7C8830). Si no:
+// numBones * 64 + numVertices * 20 + numUsedBones + 4 + _rpSkinSplitDataGetStreamSize(skin) (0x7C8D40).
+static RwInt32 RpSkinGeometryStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    const RpGeometry* const geometry = static_cast<const RpGeometry*>(object);
+    const RpSkin* const skin = GeometrySkin(geometry);
+    if (skin == nullptr) {
+        return 0;
+    }
+    if (geometry->flags & rpGEOMETRYNATIVE) {
+        return static_cast<RwInt32>(_rpSkinNativeGeometryGetSize(geometry));
+    }
+    const RwUInt32 base = (skin->numBones << 6) + static_cast<RwUInt32>(geometry->numVertices) * 20u + skin->numUsedBones + 4u;
+    return static_cast<RwInt32>(base + _rpSkinSplitDataGetStreamSize(skin));
+}
+
+// 0x7C6C30 (lote S12A, sin validar; cdecl, 5 argumentos, 240 bytes): escritura del skin de la geometria. Sin skin: devuelve el flujo sin escribir. Nativa: _rpSkinNativeGeometryWrite(flujo, geometria) (0 -> NULL).
+// Si no: cabecera de 4 bytes con numBones (8 bits bajos) | numUsedBones (8 bits bajos) << 8 | maxNumWeightsPerVertex (8 bits bajos) << 16 (RwStreamWriteInt32), huesos usados (RwStreamWrite, numUsedBones bytes),
+// indices (numVertices * 4, RwStreamWriteInt32), pesos (numVertices * 16, RwStreamWriteReal), matrices (numBones * 64, RwStreamWriteReal) y _rpSkinSplitDataStreamWrite(flujo, skin); cualquier fallo -> NULL.
+static RwStream* RpSkinGeometryStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(binaryLength); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    const RpGeometry* const geometry = static_cast<const RpGeometry*>(object);
+    const RpSkin* const skin = GeometrySkin(geometry);
+    if (skin == nullptr) {
+        return stream;
+    }
+    if (geometry->flags & rpGEOMETRYNATIVE) {
+        return _rpSkinNativeGeometryWrite(stream, geometry) != 0 ? stream : nullptr;
+    }
+    const RwUInt32 numVertices = static_cast<RwUInt32>(geometry->numVertices);
+    const RwUInt32 header = (skin->numBones & 0xFFu) | ((skin->numUsedBones & 0xFFu) << 8) | ((skin->maxNumWeightsPerVertex & 0xFFu) << 16);
+    if (RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(&header), 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamWrite(stream, skin->usedBonesArray, skin->numUsedBones) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamWriteInt32(stream, reinterpret_cast<const RwInt32*>(skin->vertexBoneIndices), numVertices * 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamWriteReal(stream, reinterpret_cast<const RwReal*>(skin->vertexBoneWeights), numVertices << 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamWriteReal(stream, reinterpret_cast<const RwReal*>(skin->skinToBoneMatrices), skin->numBones << 6) == nullptr) {
+        return nullptr;
+    }
+    return _rpSkinSplitDataStreamWrite(stream, skin) != 0 ? stream : nullptr;
+}
+
+// 0x7C6D20 (lote S12A, sin validar; cdecl, 5 argumentos, 926 bytes): lectura del skin de la geometria. Nativa: _rpSkinNativeGeometryRead(flujo, geometria) (0 -> NULL). Si no: cabecera (RwStreamReadInt32; fallo -> NULL) con
+// numBones, numUsedBones y maxNumWeightsPerVertex (8 bits cada uno). Bloque de la lista libre 0xC978B8 (pista 0x30116) a cero (0x40 bytes) y _rpSkinCreateData(skin, numBones, numUsedBones, numVertices, buffer de 256 bytes, NULL, NULL, NULL)
+// (fallo: devuelve el bloque a la lista y NULL). Formato antiguo (max 0): numUsedBones = numBones (si es 0, _rpSkinFindUsedBones sin datos), sin lectura de huesos usados; nuevo: RwStreamRead de numUsedBones bytes en usedBonesArray
+// (cantidad distinta -> NULL). Despues indices (V*4) y pesos (V*16) (fallo -> NULL). Nuevo: maxNumWeightsPerVertex = max, matrices (numBones*64) y _rpSkinSplitDataStreamRead (fallo -> NULL). Antiguo: por matriz RwStreamSkip(4) +
+// RwStreamReadReal(0x40) (fallo -> NULL), maxNumWeightsPerVertex y huesos usados recalculados. Si el skin no era ya el de la geometria: _rpSkinDeinitialize del anterior (si habia), se guarda y _rpSkinInitialize. Devuelve el flujo.
+// El buffer de huesos usados del EXE es de pila sin inicializar (se copia y se vuelve a calcular); aqui va a cero. Con la lista libre agotada el EXE escribiria en NULL; aqui devuelve NULL.
+static RwStream* RpSkinGeometryStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(binaryLength); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RpGeometry* const geometry = static_cast<RpGeometry*>(object);
+    if (geometry->flags & rpGEOMETRYNATIVE) {
+        return _rpSkinNativeGeometryRead(stream, geometry) != 0 ? stream : nullptr;
+    }
+    RwUInt32 header;
+    if (RwStreamReadInt32(stream, reinterpret_cast<RwInt32*>(&header), 4) == nullptr) {
+        return nullptr;
+    }
+    const RwUInt32 numBones = header & 0xFFu;
+    const RwUInt32 numUsedBones = (header >> 8) & 0xFFu;
+    const RwUInt32 maxWeights = (header >> 16) & 0xFFu;
+    const RwUInt32 numVertices = static_cast<RwUInt32>(geometry->numVertices);
+    RpSkin* const skin = static_cast<RpSkin*>(RwFreeListAlloc(SkinFreeList(), kSkinMemHint));
+    if (skin == nullptr) {
+        return nullptr;
+    }
+    memset(skin, 0, 0x40);
+    RwUInt8 bonesBuffer[0x100] = {};
+    if (maxWeights == 0) {
+        RwUInt32 usedBones = numBones;
+        if (usedBones == 0) {
+            _rpSkinFindUsedBones(skin, nullptr, nullptr, bonesBuffer, &usedBones, numVertices);
+        }
+        if (!_rpSkinCreateData(skin, numBones, usedBones, numVertices, bonesBuffer, nullptr, nullptr, nullptr)) {
+            RwFreeListFree(SkinFreeList(), skin);
+            return nullptr;
+        }
+    } else {
+        if (!_rpSkinCreateData(skin, numBones, numUsedBones, numVertices, bonesBuffer, nullptr, nullptr, nullptr)) {
+            RwFreeListFree(SkinFreeList(), skin);
+            return nullptr;
+        }
+        if (RwStreamRead(stream, skin->usedBonesArray, numUsedBones) != numUsedBones) {
+            return nullptr;
+        }
+    }
+    if (RwStreamReadInt32(stream, reinterpret_cast<RwInt32*>(skin->vertexBoneIndices), numVertices * 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamReadReal(stream, reinterpret_cast<RwReal*>(skin->vertexBoneWeights), numVertices << 4) == nullptr) {
+        return nullptr;
+    }
+    if (maxWeights != 0) {
+        skin->maxNumWeightsPerVertex = maxWeights;
+        if (RwStreamReadReal(stream, reinterpret_cast<RwReal*>(skin->skinToBoneMatrices), skin->numBones << 6) == nullptr) {
+            return nullptr;
+        }
+        if (_rpSkinSplitDataStreamRead(stream, skin) == nullptr) {
+            return nullptr;
+        }
+    } else {
+        RwUInt32 offset = 0;
+        for (RwUInt32 i = 0; i < skin->numBones; ++i, offset += 0x40) {
+            if (RwStreamSkip(stream, 4) == nullptr) {
+                return nullptr;
+            }
+            if (RwStreamReadReal(stream, reinterpret_cast<RwReal*>(reinterpret_cast<RwUInt8*>(skin->skinToBoneMatrices) + offset), 0x40) == nullptr) {
+                return nullptr;
+            }
+        }
+        SkinComputeMaxWeights(skin, numVertices);
+        _rpSkinFindUsedBones(skin, skin->vertexBoneIndices, skin->vertexBoneWeights, skin->usedBonesArray, &skin->numUsedBones, numVertices);
+    }
+    SkinInstallOnGeometry(geometry, skin);
+    return stream;
+}
+
+// 0x7C72A0 (lote S12A, sin validar; cdecl, 5 argumentos, 593 bytes): lectura del skin en el flujo del atomic (formato antiguo). Si la geometria del atomic ya tiene skin: RwStreamSkip(flujo, sizeInObject) (el EXE usa el
+// quinto argumento) y devuelve el flujo (fallo -> NULL). Si no: numBones (RwStreamReadInt32; fallo -> NULL), bloque de la lista libre (pista 0x30116) a cero, si numBones es 0 _rpSkinFindUsedBones sin datos, _rpSkinCreateData(skin,
+// numBones, numUsedBones = numBones o el resultado, numVertices, buffer de 256 bytes, NULL, NULL, NULL) (fallo: devuelve el bloque a la lista; el EXE sigue con el skin a NULL y falla despues, aqui devuelve NULL),
+// RwStreamSkip(4), indices (V*4), pesos (V*16 reales), por matriz RwStreamSkip(12) + RwStreamReadReal(0x40) (fallos -> NULL), maxNumWeightsPerVertex y huesos usados recalculados y el skin pasa a la geometria
+// (_rpSkinDeinitialize del anterior, _rpSkinInitialize). Devuelve el flujo.
+static RwStream* RpSkinAtomicStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(binaryLength); UNUSED(offsetInObject);
+    RpAtomic* const atomic = static_cast<RpAtomic*>(object);
+    RpGeometry* const geometry = atomic->geometry;
+    if (GeometrySkin(geometry) != nullptr) {
+        return RwStreamSkip(stream, static_cast<RwUInt32>(sizeInObject)) != nullptr ? stream : nullptr;
+    }
+    RwInt32 count;
+    if (RwStreamReadInt32(stream, &count, 4) == nullptr) {
+        return nullptr;
+    }
+    const RwUInt32 numVertices = static_cast<RwUInt32>(geometry->numVertices);
+    const RwUInt32 numBones = static_cast<RwUInt32>(count);
+    RpSkin* const skin = static_cast<RpSkin*>(RwFreeListAlloc(SkinFreeList(), kSkinMemHint));
+    if (skin == nullptr) {
+        return nullptr;
+    }
+    memset(skin, 0, 0x40);
+    RwUInt8 bonesBuffer[0x100] = {};
+    RwUInt32 usedBones = numBones;
+    if (usedBones == 0) {
+        _rpSkinFindUsedBones(skin, nullptr, nullptr, bonesBuffer, &usedBones, numVertices);
+    }
+    if (!_rpSkinCreateData(skin, numBones, usedBones, numVertices, bonesBuffer, nullptr, nullptr, nullptr)) {
+        RwFreeListFree(SkinFreeList(), skin);
+        return nullptr;
+    }
+    if (RwStreamSkip(stream, 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamReadInt32(stream, reinterpret_cast<RwInt32*>(skin->vertexBoneIndices), numVertices * 4) == nullptr) {
+        return nullptr;
+    }
+    if (RwStreamReadReal(stream, reinterpret_cast<RwReal*>(skin->vertexBoneWeights), numVertices << 4) == nullptr) {
+        return nullptr;
+    }
+    RwUInt32 offset = 0;
+    for (RwUInt32 i = 0; i < skin->numBones; ++i, offset += 0x40) {
+        if (RwStreamSkip(stream, 0xC) == nullptr) {
+            return nullptr;
+        }
+        if (RwStreamReadReal(stream, reinterpret_cast<RwReal*>(reinterpret_cast<RwUInt8*>(skin->skinToBoneMatrices) + offset), 0x40) == nullptr) {
+            return nullptr;
+        }
+    }
+    SkinComputeMaxWeights(skin, numVertices);
+    _rpSkinFindUsedBones(skin, skin->vertexBoneIndices, skin->vertexBoneWeights, skin->usedBonesArray, &skin->numUsedBones, numVertices);
+    SkinInstallOnGeometry(geometry, skin);
+    return stream;
+}
+
+// 0x7C7500 (lote S12A, sin validar; 5 bytes): escritura del flujo del atomic: no escribe nada y devuelve el flujo.
+static RwStream* RpSkinAtomicStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(binaryLength); UNUSED(object); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return stream;
+}
+
+// 0x7C7510 (lote S12A, sin validar; 3 bytes): tamano del flujo del atomic: 0.
+static RwInt32 RpSkinAtomicStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(object); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return 0;
+}
+
+// 0x7C8720 (lote S12A, sin validar; cdecl, 2 argumentos, 19 bytes): comparador de qsort de los huesos usados: diferencia de los bytes (sin signo) apuntados.
+static int __cdecl RpSkinUsedBoneCompare(const void* a, const void* b) {
+    return static_cast<int>(*static_cast<const RwUInt8*>(a)) - static_cast<int>(*static_cast<const RwUInt8*>(b));
+}
+
+// 0x7C6820: registra el plugin 0x116 en el motor, en los atomics y en las geometrias. Lote S12A: constructor/destructor/copia, rutinas de flujo y callback "siempre" son funciones propias
+// (con hook en su direccion del EXE: 0x7C68E0, 0x7C69A0, 0x7C6A80, 0x7C6AA0, 0x7C6AC0, 0x7C72A0, 0x7C7500, 0x7C7510, 0x7C6AE0, 0x7C69F0, 0x7C6A10, 0x7C6A70, 0x7C6D20, 0x7C6C30, 0x7C6BE0). Solo se guardan los desplazamientos del motor (0xC978A0), del atomic (0xC978A4) y de la geometria (0xC978A8); el resto de resultados
 // se ignora. Devuelve siempre TRUE.
 RwBool RpSkinPluginAttach() {
-    SkinEngineOffset() = RwEngineRegisterPlugin(0, kSkinPluginID,
-        reinterpret_cast<RwPluginObjectConstructor>(0x7C68E0), reinterpret_cast<RwPluginObjectDestructor>(0x7C69A0));
-    SkinAtomicOffset() = RpAtomicRegisterPlugin(4, kSkinPluginID,
-        reinterpret_cast<RwPluginObjectConstructor>(0x7C6A80), reinterpret_cast<RwPluginObjectDestructor>(0x7C6AA0), reinterpret_cast<RwPluginObjectCopy>(0x7C6AC0));
-    RpAtomicRegisterPluginStream(kSkinPluginID,
-        reinterpret_cast<RwPluginDataChunkReadCallBack>(0x7C72A0), reinterpret_cast<RwPluginDataChunkWriteCallBack>(0x7C7500), reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(0x7C7510));
-    RpAtomicSetStreamAlwaysCallBack(kSkinPluginID, reinterpret_cast<RwPluginDataChunkAlwaysCallBack>(0x7C6AE0));
+    SkinEngineOffset() = RwEngineRegisterPlugin(0, kSkinPluginID, RpSkinEngineConstructor, RpSkinEngineDestructor);
+    SkinAtomicOffset() = RpAtomicRegisterPlugin(4, kSkinPluginID, RpSkinAtomicConstructor, RpSkinAtomicDestructor, RpSkinAtomicCopy);
+    RpAtomicRegisterPluginStream(kSkinPluginID, RpSkinAtomicStreamRead, RpSkinAtomicStreamWrite, RpSkinAtomicStreamGetSize);
+    RpAtomicSetStreamAlwaysCallBack(kSkinPluginID, RpSkinAtomicStreamAlwaysCallBack);
     RpAtomicSetStreamRightsCallBack(kSkinPluginID, reinterpret_cast<RwPluginDataChunkRightsCallBack>(_rpSkinAtomicStreamRightsCallBack));
-    SkinGeometryOffset() = RpGeometryRegisterPlugin(4, kSkinPluginID,
-        reinterpret_cast<RwPluginObjectConstructor>(0x7C69F0), reinterpret_cast<RwPluginObjectDestructor>(0x7C6A10), reinterpret_cast<RwPluginObjectCopy>(0x7C6A70));
-    RpGeometryRegisterPluginStream(kSkinPluginID,
-        reinterpret_cast<RwPluginDataChunkReadCallBack>(0x7C6D20), reinterpret_cast<RwPluginDataChunkWriteCallBack>(0x7C6C30), reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(0x7C6BE0));
+    SkinGeometryOffset() = RpGeometryRegisterPlugin(4, kSkinPluginID, RpSkinGeometryConstructor, RpSkinGeometryDestructor, RpSkinGeometryCopy);
+    RpGeometryRegisterPluginStream(kSkinPluginID, RpSkinGeometryStreamRead, RpSkinGeometryStreamWrite, RpSkinGeometryStreamGetSize);
     return TRUE;
 }
 
@@ -308,8 +704,14 @@ RpSkin* RpSkinCreate(RwUInt32 numVertices, RwUInt32 numBones, RwMatrixWeights* v
     return skin;
 }
 
+// 0x7C77A0 (lote S12A, sin validar; cdecl, 1 argumento, 60 bytes): libera el bloque de datos (skin+0x3C) si existe, _rpSkinSplitDataDestroy(skin) (0x7C8B10), devuelve el skin a la lista libre 0xC978B8 y devuelve NULL.
 RpSkin* RpSkinDestroy(RpSkin* skin) {
-    return ((RpSkin*(__cdecl *)(RpSkin*))0x7C77A0)(skin);
+    if (skin->allocation != nullptr) {
+        RwFree(skin->allocation);
+    }
+    _rpSkinSplitDataDestroy(skin);
+    RwFreeListFree(SkinFreeList(), skin);
+    return nullptr;
 }
 
 // 0x7C77E0: primer dword del skin.
@@ -332,16 +734,30 @@ const RwMatrix* RpSkinGetSkinToBoneMatrices(RpSkin* skin) {
     return skin->skinToBoneMatrices;
 }
 
+// 0x7C7820 (lote S12A, sin validar; 14 bytes): TRUE si skin+0x28 (numero de mallas) no es cero (sin signo).
 RwBool RpSkinIsSplit(RpSkin* skin) {
-    return ((RwBool(__cdecl *)(RpSkin*))0x7C7820)(skin);
+    return skin->numMeshes != 0 ? TRUE : FALSE;
 }
 
+// 0x7C7830 (lote S12A, sin validar; cdecl, 2 argumentos, 72 bytes): si el plugin de motor 0x120 no esta registrado y el tipo es 2, o (si no) el 0x12E no esta registrado y el tipo es 3, el tipo pasa a 1; despues
+// _rpSkinPipelineAtomicAttach(atomic, tipo) (0x7C89B0) cuyo resultado se devuelve.
 RpAtomic* RpSkinAtomicSetType(RpAtomic* atomic, RpSkinType type) {
-    return ((RpAtomic*(__cdecl *)(RpAtomic*, RpSkinType))0x7C7830)(atomic, type);
+    RwUInt32 skinType = static_cast<RwUInt32>(type);
+    if (RwEngineGetPluginOffset(0x120) == -1 && skinType == 2) {
+        skinType = 1;
+    } else if (RwEngineGetPluginOffset(0x12E) == -1 && skinType == 3) {
+        skinType = 1;
+    }
+    return _rpSkinPipelineAtomicAttach(atomic, skinType);
 }
 
+// 0x7C7880 (lote S12A, sin validar; 23 bytes): si el pipeline del atomic (atomic+0x6C) pertenece al plugin 0x116 (pluginId +0x2C) devuelve su dato (+0x30), el tipo; si no, 0.
 RpSkinType RpSkinAtomicGetType(RpAtomic* atomic) {
-    return ((RpSkinType(__cdecl *)(RpAtomic*))0x7C7880)(atomic);
+    const RxPipeline* const pipeline = atomic->pipeline;
+    if (pipeline->pluginId == kSkinPluginID) {
+        return static_cast<RpSkinType>(pipeline->pluginData);
+    }
+    return static_cast<RpSkinType>(0);
 }
 
 // 0x7C86F0: destruye (0x805820) los cuatro pipelines de skin guardados en 0xC978C4..0xC978D4 que no sean NULL y los pone a NULL. Devuelve TRUE.
@@ -401,7 +817,7 @@ RpGeometry* _rpSkinInitialize(RpGeometry* geometry) {
         }
     }
     if (skin->usedBonesArray != nullptr) {
-        ((void(__cdecl *)(void*, RwUInt32, RwUInt32, void*))0x8247E0)(skin->usedBonesArray, skin->numUsedBones, 1, reinterpret_cast<void*>(0x7C8720));
+        ExeCrt::Qsort(skin->usedBonesArray, skin->numUsedBones, 1, RpSkinUsedBoneCompare);
     }
     return geometry;
 }
@@ -797,16 +1213,19 @@ RwBool _rpSkinD3D9CreateVertexBuffer(RpAtomic* atomic, RxD3D9ResEntryHeader* hea
     return TRUE;
 }
 
+// 0x7C8A40 (lote S12A, sin validar; 8 bytes): skin+0x30.
 RwUInt8* _rpSkinGetMeshBoneRemapIndices(RpSkin* skin) {
-    return ((RwUInt8*(__cdecl *)(RpSkin*))0x7C8A40)(skin);
+    return skin->meshBoneRemapIndices;
 }
 
+// 0x7C8A50 (lote S12A, sin validar; 8 bytes): skin+0x34.
 RwUInt8* _rpSkinGetMeshBoneRLECount(RpSkin* skin) {
-    return ((RwUInt8*(__cdecl *)(RpSkin*))0x7C8A50)(skin);
+    return skin->meshBoneRLECount;
 }
 
+// 0x7C8A60 (lote S12A, sin validar; 8 bytes): skin+0x38.
 RwUInt8* _rpSkinGetMeshBoneRLE(RpSkin* skin) {
-    return ((RwUInt8*(__cdecl *)(RpSkin*))0x7C8A60)(skin);
+    return skin->meshBoneRLE;
 }
 
 // 0x7C8A70: libera los datos divididos anteriores (skin+0x30, RwFree del motor) y pone a 0 los campos +0x24..+0x38; reserva numMatrices + 2*(numMeshes+numRLE) bytes
@@ -1230,10 +1649,11 @@ RxPipeline* _rpSkinD3D9CreateGenericPipeline() {
         _rxPipelineDestroy(pipeline);
         return nullptr;
     }
-    RxLockedPipeUnlock(RxLockedPipeAddFragment(lockedPipe, nullptr, reinterpret_cast<RxNodeDefinition*>(0x8DED08), nullptr));
+    RxLockedPipeUnlock(RxLockedPipeAddFragment(lockedPipe, nullptr, RxNodeDefinitionGetD3D9SkinAtomicAllInOne(), nullptr));
     return pipeline;
 }
 
+// 0x7CB2A0 (lote S12A, sin validar; `mov eax, 0x8DED08; ret`): definicion del nodo de skin D3D9 (datos del EXE, no se copian).
 RxNodeDefinition* RxNodeDefinitionGetD3D9SkinAtomicAllInOne() {
-    return ((RxNodeDefinition*(__cdecl *)(void))0x7CB2A0)();
+    return reinterpret_cast<RxNodeDefinition*>(0x8DED08);
 }
