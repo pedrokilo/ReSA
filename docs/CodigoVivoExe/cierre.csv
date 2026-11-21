@@ -1,0 +1,10 @@
+lote,estado,nota
+V1,parcial,"11 de 18 funciones verificadas sin alcance por aristas, busqueda bruta de la direccion, referencias del C++ ni llamadas por registro conocidas; 6 abiertas, 1 condicionadas (detalle en cierre-p1.csv)"
+V2-1,parcial,"25 de 45 funciones verificadas sin alcance por aristas, busqueda bruta de la direccion, referencias del C++ ni llamadas por registro conocidas; 1 abiertas, 19 condicionadas (detalle en cierre-p1.csv)"
+V2-2,parcial,"28 de 40 funciones verificadas sin alcance por aristas, busqueda bruta de la direccion, referencias del C++ ni llamadas por registro conocidas; 2 abiertas, 10 condicionadas (detalle en cierre-p1.csv)"
+V3-1,parcial,"599 de 600 funciones verificadas sin alcance por aristas, busqueda bruta de la direccion, referencias del C++ ni llamadas por registro conocidas; 0 abiertas, 1 condicionadas (detalle en cierre-p1.csv)"
+V3-2,cerrado,"600 de 600 funciones verificadas sin alcance por aristas, busqueda bruta de la direccion, referencias del C++ ni llamadas por registro conocidas; 0 abiertas, 0 condicionadas (detalle en cierre-p1.csv)"
+V3-3,parcial,"599 de 600 funciones verificadas sin alcance por aristas, busqueda bruta de la direccion, referencias del C++ ni llamadas por registro conocidas; 1 abiertas, 0 condicionadas (detalle en cierre-p1.csv)"
+V3-4,cerrado,"600 de 600 funciones verificadas sin alcance por aristas, busqueda bruta de la direccion, referencias del C++ ni llamadas por registro conocidas; 0 abiertas, 0 condicionadas (detalle en cierre-p1.csv)"
+V3-5,cerrado,"600 de 600 funciones verificadas sin alcance por aristas, busqueda bruta de la direccion, referencias del C++ ni llamadas por registro conocidas; 0 abiertas, 0 condicionadas (detalle en cierre-p1.csv)"
+V3-6,cerrado,"504 de 504 funciones verificadas sin alcance por aristas, busqueda bruta de la direccion, referencias del C++ ni llamadas por registro conocidas; 0 abiertas, 0 condicionadas (detalle en cierre-p1.csv)"

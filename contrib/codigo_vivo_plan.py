@@ -132,14 +132,31 @@ def main():
             [dict(va=h['va'], bytes=h['bytes']) for h in c], 'medio', '',
             'bytes ejecutables con llamador o referencia pero sin función en Ghidra; decidir si son funciones, envolturas o datos')
 
+    # ------------------------------------------------ estado de cierre (lo escriben codigo_vivo_cierre.py y los cierres de P2)
+    cierre_csv = out / 'cierre.csv'
+    if cierre_csv.exists():
+        with open(cierre_csv, encoding='utf-8', newline='') as s:
+            cierre = {r['lote']: r for r in csv.DictReader(s)}
+        for l in lotes:
+            c = cierre.get(l['lote'])
+            if c:
+                l['estado'] = c['estado']
+                l['nota'] = (l['nota'] + ' | ' if l['nota'] else '') + c['nota']
+    cierre_fn = {}
+    cierre_p1 = out / 'cierre-p1.csv'
+    if cierre_p1.exists():
+        with open(cierre_p1, encoding='utf-8', newline='') as s:
+            cierre_fn = {r['va']: r['cierre'] for r in csv.DictReader(s)}
+
     # ------------------------------------------------ salida
     with open(out / 'plan.csv', 'w', encoding='utf-8', newline='') as s:
         w = csv.DictWriter(s, fieldnames=list(lotes[0]))
         w.writeheader()
         w.writerows(lotes)
-    campos_f = list(filas[0]) + (['lote'] if 'lote' not in filas[0] else [])
+    campos_f = list(filas[0]) + (['lote'] if 'lote' not in filas[0] else []) + (['cierre'] if 'cierre' not in filas[0] else [])
     for x in filas:
         x['lote'] = asign.get(x['va'], '')
+        x['cierre'] = cierre_fn.get(x['va'], '')
     with open(out / 'funciones-vivas.csv', 'w', encoding='utf-8', newline='') as s:
         w = csv.DictWriter(s, fieldnames=campos_f)
         w.writeheader()
@@ -156,11 +173,11 @@ def main():
         ls = [l for l in lotes if l['parte'] == p]
         md.append(f"| {p} | {d} | {len(ls)} | {sum(l['funciones'] for l in ls):,} | {sum(l['bytes'] for l in ls):,} |")
     md += ['', '## Lotes', '',
-           '| Lote | Parte | Tipo | Grupo | Decisión | Destino | Func. | Bytes | Rango | Riesgo | Depende de |',
-           '| --- | --- | --- | --- | --- | --- | ---: | ---: | --- | --- | --- |']
+           '| Lote | Parte | Tipo | Grupo | Decisión | Destino | Func. | Bytes | Rango | Riesgo | Depende de | Estado |',
+           '| --- | --- | --- | --- | --- | --- | ---: | ---: | --- | --- | --- | --- |']
     for l in lotes:
         md.append(f"| {l['lote']} | {l['parte']} | {l['tipo']} | {l['grupo']} | {l['decision']} | {l['destino']} | {l['funciones']:,} | {l['bytes']:,} | "
-                  f"{l['va_min']}–{l['va_max']} | {l['riesgo']} | {l['depende_de']} |")
+                  f"{l['va_min']}–{l['va_max']} | {l['riesgo']} | {l['depende_de']} | {l['estado']} |")
     (out / 'plan-lotes.md').write_text('\n'.join(md) + '\n', encoding='utf-8')
     print(len(lotes), 'lotes;', sum(1 for x in filas if x['lote']), 'funciones con lote de', len(filas), dict(Counter(l['parte'] for l in lotes)))
 
