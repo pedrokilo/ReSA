@@ -306,8 +306,9 @@ auto IsCharDucking(CPed& ped) {
  * 
  * @returns {Vector} 
  */
+// Como el original (0x470D6A..0x470D98): cada componente de la velocidad del peaton por 50.0 (la version anterior devolvia la velocidad por fotograma).
 auto GetCharVelocity(CPed& ped) {
-    return ped.GetMoveSpeed();
+    return CVector{ ped.GetMoveSpeed().x * 50.0f, ped.GetMoveSpeed().y * 50.0f, ped.GetMoveSpeed().z * 50.0f };
 }
 
 /*
@@ -321,8 +322,10 @@ auto GetCharVelocity(CPed& ped) {
  * @param {Char} self
  * @param {Vector} 
  */
+// Como el original (0x470CFD..0x470D32): cada componente se MULTIPLICA por la constante float 0.02 (0x3CA3D70A, 0x858B38); dividir por 50 difiere en 1 ulp.
 auto SetCharVelocity(CPed& ped, CVector velocity) {
-    ped.SetVelocity(velocity / 50.f);
+    constexpr float kScale = std::bit_cast<float>(0x3CA3D70Au);
+    ped.SetVelocity(CVector{ velocity.x * kScale, velocity.y * kScale, velocity.z * kScale });
 }
 
 /*
@@ -876,7 +879,7 @@ auto LocateStoppedCharInCar3D(CRunningScript& S, CPed& ped, CVector pos, CVector
  * @param {bool} drawSphere
  */
 auto LocateCharAnyMeansChar2D(CRunningScript& S, CPed& ped1, CPed& ped2, CVector2D radius, bool highlightArea) {
-    return LocateCharEntity2D(S, ped1, ped2, radius, highlightArea, false, false);
+    return LocateCharEntity2D(S, ped1, GetPedOrItsVehicle(ped2), radius, highlightArea, false, false);
 }
 
 /*
@@ -893,7 +896,7 @@ auto LocateCharAnyMeansChar2D(CRunningScript& S, CPed& ped1, CPed& ped2, CVector
  * @param {bool} drawSphere
  */
 auto LocateCharOnFootChar2D(CRunningScript& S, CPed& ped1, CPed& ped2, CVector2D radius, bool highlightArea) {
-    return LocateCharEntity2D(S, ped1, ped2, radius, highlightArea, false, true);
+    return LocateCharEntity2D(S, ped1, GetPedOrItsVehicle(ped2), radius, highlightArea, false, true);
 }
 
 /*
@@ -910,7 +913,7 @@ auto LocateCharOnFootChar2D(CRunningScript& S, CPed& ped1, CPed& ped2, CVector2D
  * @param {bool} drawSphere
  */
 auto LocateCharInCarChar2D(CRunningScript& S, CPed& ped1, CPed& ped2, CVector2D radius, bool highlightArea) {
-    return LocateCharEntity2D(S, ped1, ped2, radius, highlightArea, true, false);
+    return LocateCharEntity2D(S, ped1, GetPedOrItsVehicle(ped2), radius, highlightArea, true, false);
 }
 
 // => 3D
@@ -929,7 +932,7 @@ auto LocateCharInCarChar2D(CRunningScript& S, CPed& ped1, CPed& ped2, CVector2D 
  * @param {bool} drawSphere
  */
 auto LocateCharAnyMeansChar3D(CRunningScript& S, CPed& ped1, CPed& ped2, CVector radius, bool highlightArea) {
-    return LocateCharEntity3D(S, ped1, ped2, radius, highlightArea, false, false);
+    return LocateCharEntity3D(S, ped1, GetPedOrItsVehicle(ped2), radius, highlightArea, false, false);
 }
 
 /*
@@ -946,7 +949,7 @@ auto LocateCharAnyMeansChar3D(CRunningScript& S, CPed& ped1, CPed& ped2, CVector
  * @param {bool} drawSphere
  */
 auto LocateCharOnFootChar3D(CRunningScript& S, CPed& ped1, CPed& ped2, CVector radius, bool highlightArea) {
-    return LocateCharEntity3D(S, ped1, ped2, radius, highlightArea, false, true);
+    return LocateCharEntity3D(S, ped1, GetPedOrItsVehicle(ped2), radius, highlightArea, false, true);
 }
 
 /*
@@ -963,7 +966,7 @@ auto LocateCharOnFootChar3D(CRunningScript& S, CPed& ped1, CPed& ped2, CVector r
  * @param {bool} drawSphere
  */
 auto LocateCharInCarChar3D(CRunningScript& S, CPed& ped1, CPed& ped2, CVector radius, bool highlightArea) {
-    return LocateCharEntity3D(S, ped1, ped2, radius, highlightArea, true, false);
+    return LocateCharEntity3D(S, ped1, GetPedOrItsVehicle(ped2), radius, highlightArea, true, false);
 }
 
 //
@@ -1191,6 +1194,12 @@ auto LocateCharInCarObject3D(CRunningScript& S, CPed& ped, CObject& obj, CVector
 //
 
 // => 2D
+
+// Como el original: los IS_CHAR_[STOPPED_]IN_ANGLED_AREA_* comparten el cuerpo 0x487F60 (comprobacion de area angulada con la x87, resaltado con HighlightImportantAngledArea y bandera de comparacion), que ya
+// esta reconstruido en CRunningScript::CharInAngledAreaCheckCommand. Las versiones NOTSA (AngledRect + marcadores propios) daban otro resultado en los bordes y no dibujaban el area como el juego (hallazgo del banco por comando).
+void CharInAngledAreaCheck(CRunningScript& S, eScriptCommands cmd) {
+    S.CharInAngledAreaCheckCommand((int32)cmd);
+}
 
 bool IsPositionWitihinAngledArea2D_Impl(CVector2D pos, CVector2D a, CVector2D b, float widthAndDir, bool highlightArea, bool otherChecksFailed) {
     if (otherChecksFailed) {
@@ -1558,8 +1567,10 @@ auto SetCharAmmo(CPed& ped, eWeaponType wep, int32 nammo) {
  * @param {Char} self
  * @param {int} health
  */
-auto IsCharHealthGreater(CPed& ped, float health) {
-    return ped.m_fHealth >= health;
+// Como el original (0x47CE3E..0x47CE56): el parametro es un ENTERO (`fild`) y la comparacion es estricta (salud > parametro); un NaN en la salud da verdadero. La version anterior leia el parametro como float (una variable
+// entera se interpretaba como los bits de un float) y comparaba con >=.
+auto IsCharHealthGreater(CPed& ped, int32 health) {
+    return !(static_cast<float>(health) >= ped.m_fHealth);
 }
 
 auto CreatePed(CRunningScript& S, ePedType pedType, eModelID pedModel) -> CPed& {
@@ -1602,8 +1613,10 @@ CPed& CreateCharInsideCar(CRunningScript& S, CVehicle& veh, ePedType pedType, eM
  * @param {Char} self
  * @param {int} health
  */
-auto SetCharHealth(CPed& ped, float health) {
-    if (health != 0.f) {
+// Como el original (0x47E89A..): el parametro es un ENTERO (se compara con 0 como entero y se convierte con `fild`); como float, una variable entera se leia como los bits de un float.
+auto SetCharHealth(CPed& ped, int32 healthInt) {
+    const float health = static_cast<float>(healthInt);
+    if (healthInt != 0) {
         if (ped.IsPlayer()) {
             const auto slot = CWorld::FindPlayerSlotWithPedPointer(&ped);
             ped.m_fHealth = std::min(health, (float)CWorld::Players[slot].m_nMaxHealth);
@@ -1642,7 +1655,7 @@ auto SetCharHealth(CPed& ped, float health) {
  */
 // Como el original (0x47EA45: `fld [ped+0x540]; call _ftol`): la salud se guarda como ENTERO (truncado); devolver el float guardaba sus bits (100.0f = 0x42C80000) en la variable.
 int32 GetCharHealth(CPed& ped) {
-    return static_cast<int32>(ped.m_fHealth);
+    return static_cast<int32>(static_cast<int64>(ped.m_fHealth)); // _ftol: truncamiento a 64 bits (los 32 bajos), como el EXE para valores fuera de rango
 }
 
 /*
@@ -1702,12 +1715,13 @@ auto SetCharOnlyDamagedByPlayer(CPed& ped, bool enabled) {
  * 
  * @returns {Vector} node
  */
-auto GetClosestCharNode(CVector pos) -> CVector {
+// Como el original (0x47FB6C..0x47FBCA): escribe el nodo (o 0,0,0 si no hay) y actualiza la bandera de comparacion con "encontrado" (la version anterior no tocaba la bandera).
+auto GetClosestCharNode(CVector pos) -> notsa::script::MultiRet<CVector, CompareFlagUpdate> {
     CWorld::PutToGroundIfTooLow(pos);
     if (const auto node = ThePaths.FindNodeClosestToCoors(pos)) {
-        return ThePaths.GetPathNode(node)->GetPosition();
+        return { ThePaths.GetPathNode(node)->GetPosition(), CompareFlagUpdate{ true } };
     }
-    return {}; // Can't find anything nearby
+    return { CVector{}, CompareFlagUpdate{ false } }; // Can't find anything nearby
 }
 
 /*
@@ -2281,7 +2295,8 @@ auto GetCurrentCharWeapon(CPed& ped) {
  * @param {Char} self
  * @param {PedType} pedType
  */
-auto CanCharSeeDeadChar(CPed& ped) {
+// Como el original (0x48ABDA: CollectParameters(2)): lee DOS parametros (peaton y tipo de peaton); la version anterior solo leia uno y desalineaba el IP del script.
+auto CanCharSeeDeadChar(CPed& ped, int32 /*pedType*/) {
     for (auto& nearbyPed : ped.GetIntelligence()->GetPedScanner().GetEntities<CPed>()) {
         if (!nearbyPed.IsAlive() && CPedGeometryAnalyser::CanPedTargetPed(ped, nearbyPed, true)) {
             return true;
@@ -2512,8 +2527,9 @@ auto IsCharInFlyingVehicle(CPed& ped) {
  * 
  * @returns {int} armor
  */
-auto GetCharArmour(CPed& ped) {
-    return ped.m_fArmour;
+// Como el original (0x48C145: `fld [ped+0x548]; call _ftol`): la armadura se guarda como entero truncado, no como los bits del float.
+int32 GetCharArmour(CPed& ped) {
+    return static_cast<int32>(static_cast<int64>(ped.m_fArmour)); // _ftol: truncamiento a 64 bits (los 32 bajos), como el EXE para valores fuera de rango
 }
 
 // 0x48C12E - COMMAND_GET_CHAR_ARMOUR
@@ -3113,8 +3129,9 @@ void MarkCharAsNoLongerNeeded(CRunningScript& S, int32 handle) { // TODO: Some w
  * 
  * @returns {float} speed
  */
+// Como el original (0x497243..0x497260): si el peaton va en un vehiculo se usa la velocidad del vehiculo.
 float GetCharSpeed(CPed& ped) {
-    return ped.GetMoveSpeed().Magnitude() * 50.0f;
+    return GetPedOrItsVehicle(ped).GetMoveSpeed().Magnitude() * 50.0f;
 }
 
 // IS_CHAR_IN_SEARCH_LIGHT
@@ -4212,11 +4229,11 @@ void notsa::script::commands::character::RegisterHandlers() {
     REGISTER_COMMAND_HANDLER(COMMAND_SET_LOAD_COLLISION_FOR_CHAR_FLAG, SetLoadCollisionForCharFlag);
     REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_DUCKING, IsCharDucking);
     REGISTER_COMMAND_HANDLER(COMMAND_TASK_KILL_CHAR_ON_FOOT, TaskKillCharOnFoot);
-    REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_IN_ANGLED_AREA_2D, IsCharInAngledArea2D);
-    REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_IN_ANGLED_AREA_IN_CAR_2D, IsCharInAngledAreaInCar2D);
-    REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_IN_ANGLED_AREA_3D, IsCharInAngledArea3D);
-    REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_IN_ANGLED_AREA_ON_FOOT_3D, IsCharInAngledAreaOnFoot3D);
-    REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_IN_ANGLED_AREA_IN_CAR_3D, IsCharInAngledAreaInCar3D);
+    REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_IN_ANGLED_AREA_2D, CharInAngledAreaCheck);
+    REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_IN_ANGLED_AREA_IN_CAR_2D, CharInAngledAreaCheck);
+    REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_IN_ANGLED_AREA_3D, CharInAngledAreaCheck);
+    REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_IN_ANGLED_AREA_ON_FOOT_3D, CharInAngledAreaCheck);
+    REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_IN_ANGLED_AREA_IN_CAR_3D, CharInAngledAreaCheck);
     REGISTER_COMMAND_HANDLER(COMMAND_IS_CHAR_IN_TAXI, IsCharInTaxi);
     REGISTER_COMMAND_HANDLER(COMMAND_LOAD_CHAR_DECISION_MAKER, LoadCharDecisionMaker);
     REGISTER_COMMAND_HANDLER(COMMAND_SET_CHAR_DECISION_MAKER, SetCharDecisionMaker);
