@@ -7671,11 +7671,12 @@ RwRaster* RwRasterUnlock(RwRaster* raster) {
     return raster;
 }
 
-// 0x7FAF50 (lote R28A, sin validar; 53 bytes; era una envoltura; cdecl, (raster, x, y); `RwRasterRenderFast` del SDK): stdFunc[rwSTANDARDRASTERRENDERFAST] (+0x94) con (&{x, y}, raster, 0); devuelve el raster
-// (el resultado de la funcion estandar se ignora). El EXE reserva 16 bytes de local y solo escribe x e y.
+// 0x7FAF50 (lote R28A, sin validar; 53 bytes; era una envoltura; cdecl, (raster, x, y); `RwRasterRenderFast` del SDK): stdFunc[rwSTANDARDRASTERRENDERFAST] (+0x94) con (raster, &{x, y}, 0); devuelve el raster
+// (el resultado de la funcion estandar se ignora). El EXE reserva 16 bytes de local y solo escribe x e y. Orden de los argumentos como en el EXE (push 0, push &{x, y}, push raster): igual que RwRasterRender (0x7FAFB0);
+// el lote R28A los habia puesto al reves ((&{x, y}, raster, 0)) y los efectos que copian el fotograma (agua, calima, CCTV) dibujaban la pantalla en negro.
 RwRaster* RwRasterRenderFast(RwRaster* raster, RwInt32 x, RwInt32 y) {
     RwInt32 position[2] = { x, y };
-    RwEngineInstance->stdFunc[rwSTANDARDRASTERRENDERFAST](position, raster, 0);
+    RwEngineInstance->stdFunc[rwSTANDARDRASTERRENDERFAST](raster, position, 0);
     return raster;
 }
 
