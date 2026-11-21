@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "AEAudioEntity.h"
 
@@ -12,7 +13,7 @@ class NOTSA_EXPORT_VTABLE CAEWeatherAudioEntity : public CAEAudioEntity {
 public:
     int8 m_nThunderFrequencyVariationCounter;
 
-    static inline auto& m_sfRainVolume = StaticRef<float>(0x8CC30C); // -100.0f
+    static inline auto& m_sfRainVolume = DatosExe::Data::v8CC30C; // -100.0f
 
 public:
     CAEWeatherAudioEntity();

@@ -34,6 +34,7 @@ END GENERATED HOOK STATUS */
 
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "X87Math.h"
 
 #include <numbers>
@@ -3824,7 +3825,7 @@ bool CCollision::CheckCameraCollisionVehicles(
 
     static auto& gpLastSittingOnEntity   = StaticRef<CEntity*>(0x9689D8);
     static auto& gFramesSittingOnTimeOut = StaticRef<int32>(0x9689D4);
-    static auto& gFramesToConsiderSittingOnStillTrue = StaticRef<int32>(0x8A5B1C); // 30
+    static auto& gFramesToConsiderSittingOnStillTrue = DatosExe::Data::v8A5B1C; // 30
 
     bool anyCollided = false;
     // Como el original: indice del sector repetido con `& 0xF`

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "X87Math.h"
 
 #include "IKChain.h"
@@ -230,7 +231,7 @@ void IKChain_c::SetBlend(float blend) {
 
 // 0x6178B0
 void IKChain_c::MoveBonesToTarget() {
-    static auto& s_bLimitBones = StaticRef<bool>(0x8D2BD2); // true; Como el original: Limit solo si está activo
+    static auto& s_bLimitBones = DatosExe::Data::v8D2BD2; // true; Como el original: Limit solo si está activo
 
     const auto rootBone = m_Bones[0]; // Como el original: se lee antes de mirar el número de huesos
 

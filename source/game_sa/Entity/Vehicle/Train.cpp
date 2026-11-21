@@ -23,6 +23,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "Train.h"
@@ -180,7 +182,7 @@ CTrain::CTrain(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(created
     m_fElasticity = .05f;
     m_fBuoyancyConstant = m_pHandlingData->m_fBuoyancyConstant;
     const auto drag = m_pHandlingData->m_fDragMult;
-    m_fAirResistance = drag > StaticRef<float>(0x858C58) ? (drag / DatosExe::Rdata::k872364) * StaticRef<float>(0x858B8C) : drag;
+    m_fAirResistance = drag > DatosExe::Rdata::k858C58 ? (drag / DatosExe::Rdata::k872364) * DatosExe::Rdata::k858B8C : drag;
     physicalFlags.bCollidable = false;
     physicalFlags.bDisableCollisionForce = true;
     m_bTunnelTransition = true;
@@ -742,7 +744,7 @@ void CTrain::FindPositionOnTrackFromCoors() {
         const auto ny = float(nodes[next].y) * .125f;
         const auto& pos = GetPosition();
         const auto factor = TrainProjectionCpp(x, y, nx, ny, pos.x, pos.y);
-        if (!(factor > StaticRef<float>(0x858CDC) && factor < DatosExe::Rdata::k872490)) continue;
+        if (!(factor > DatosExe::Rdata::k858CDC && factor < DatosExe::Rdata::k872490)) continue;
         const auto dx = nx - x;
         const auto dy = ny - y;
         const auto ax = dx * factor;
@@ -759,10 +761,10 @@ void CTrain::FindPositionOnTrackFromCoors() {
             return;
         }
         const auto lighting = reinterpret_cast<uint8(__thiscall*)(CTrainNode*)>(0x6F5F80)(&nodes[i]);
-        const auto day = StaticRef<float>(0x8D12C0);
+        const auto day = DatosExe::Data::v8D12C0;
         const auto previous = TrainNodeLightingCpp(lighting & 15, lighting >> 4, day);
         const auto nextLighting = reinterpret_cast<uint8(__thiscall*)(CTrainNode*)>(0x6F5F80)(&nodes[next]);
-        const auto nextDay = StaticRef<float>(0x8D12C0);
+        const auto nextDay = DatosExe::Data::v8D12C0;
         m_fContactSurfaceBrightness = TrainLightingBlendCpp(nextLighting & 15, nextLighting >> 4, nextDay, previous, factor);
     }
 }
@@ -826,7 +828,7 @@ void CTrain::SkipToNextAllowedStation(CTrain* train) {
     CStreaming::LoadAllRequestedModels(false);
     const auto dx = aStationCoors[station].x - engine->GetPosition().x;
     const auto dy = aStationCoors[station].y - engine->GetPosition().y;
-    const auto minutes = std::sqrt(dx * dx + dy * dy) * StaticRef<float>(0x858C28) + DatosExe::Rdata::k858F84;
+    const auto minutes = std::sqrt(dx * dx + dy * dy) * DatosExe::Rdata::k858C28 + DatosExe::Rdata::k858F84;
     CGameLogic::PassTime(uint32(int64(minutes)));
 }
 

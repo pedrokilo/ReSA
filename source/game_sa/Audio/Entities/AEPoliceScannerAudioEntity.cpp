@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include "AEPoliceScannerAudioEntity.h"
 
@@ -196,7 +198,7 @@ void CAEPoliceScannerAudioEntity::FinishedPlayingScannerDialogue() {
     s_pCurrentSlots              = nullptr;
     s_bStoppingScanner           = false;
     // Como el original (0x4E6C45..0x4E6C5D): tiempo actual + dword de 0x8C8140 (10000); NO se suma el valor previo.
-    s_NextNewScannerDialogueTime = CTimer::GetTimeInMS() + StaticRef<uint32>(0x8C8140);
+    s_NextNewScannerDialogueTime = CTimer::GetTimeInMS() + DatosExe::Data::v8C8140;
     s_fVolumeOffset              = 0.0f;
 
     // Como el original: mov [B61D14],10001h / [B61D18],10001h / word [B61D1C],1 -> los cinco estados valen 1
@@ -240,7 +242,7 @@ void CAEPoliceScannerAudioEntity::PlayLoadedDialogue() {
                 --v4;
             } while (v4);
             s_nPlaybackStartTime = 0;
-            s_nAbortPlaybackTime = StaticRef<uint32>(0x8C8148) + CTimer::GetTimeInMS();
+            s_nAbortPlaybackTime = DatosExe::Data::v8C8148 + CTimer::GetTimeInMS();
             s_nScannerPlaybackState = TWO;
         }
     } else {
@@ -306,8 +308,8 @@ void CAEPoliceScannerAudioEntity::PlayPoliceScannerDialogue(tScannerSlot* first,
         s_nScannerPlaybackState = TWO;
         // Como el original (0x4E6F31..0x4E6F50): una sola lectura del reloj y los retardos salen de 0x8C8144/0x8C8148
         const auto now = CTimer::GetTimeInMS();
-        s_nPlaybackStartTime = now + StaticRef<uint32>(0x8C8144);
-        s_nAbortPlaybackTime = now + StaticRef<uint32>(0x8C8148);
+        s_nPlaybackStartTime = now + DatosExe::Data::v8C8144;
+        s_nAbortPlaybackTime = now + DatosExe::Data::v8C8148;
     }
 }
 
@@ -327,11 +329,11 @@ void CAEPoliceScannerAudioEntity::UpdateParameters(CAESound* sound, int16 curPla
     }
 
     if (s_bStoppingScanner) {
-        sound->m_Volume = sound->m_Volume - StaticRef<float>(0x8C8150); // Como el original: fsub [8C8150h]
+        sound->m_Volume = sound->m_Volume - DatosExe::Data::v8C8150; // Como el original: fsub [8C8150h]
         return;
     }
 
-    if (sound->m_Length > 0 && curPlayPos > sound->m_Length - int32(StaticRef<int16>(0x8C814C)) && sound->m_BankSlot != 37) { // todo: -40 should be replaced with by gSpeechContextLookup[366][2]
+    if (sound->m_Length > 0 && curPlayPos > sound->m_Length - int32(DatosExe::Data::v8C814C) && sound->m_BankSlot != 37) { // todo: -40 should be replaced with by gSpeechContextLookup[366][2]
         sound->SetFlags(eSoundEnvironment::SOUND_REQUEST_UPDATES, false);
         s_pSound = nullptr;
         PlayLoadedDialogue();
@@ -341,8 +343,8 @@ void CAEPoliceScannerAudioEntity::UpdateParameters(CAESound* sound, int16 curPla
 
 // 0x4E7630
 void CAEPoliceScannerAudioEntity::Service() {
-    const auto startDelay = StaticRef<uint32>(0x8C8154);
-    const auto noiseVolume = StaticRef<float>(0x8C8158);
+    const auto startDelay = DatosExe::Data::v8C8154;
+    const auto noiseVolume = DatosExe::Data::v8C8158;
     const auto clickVolume = StaticRef<float>(0xB61D54);
 
     bool finishPlaying;
@@ -370,7 +372,7 @@ void CAEPoliceScannerAudioEntity::Service() {
 
         if (CTimer::GetTimeInMS() >= s_nPlaybackStartTime) {
             // Como el original (0x4E769B): lee 0xB6B98C (s_pPlayerAttachedForRadio), no 0xB6B99C
-            s_fVolumeOffset = CAEVehicleAudioEntity::s_pPlayerAttachedForRadio ? 0.0f : StaticRef<float>(0x8C815C);
+            s_fVolumeOffset = CAEVehicleAudioEntity::s_pPlayerAttachedForRadio ? 0.0f : DatosExe::Data::v8C815C;
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SCANNER_CLICK,       s_fVolumeOffset + clickVolume, 1.0f);
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SCANNER_NOISE_START, s_fVolumeOffset + noiseVolume, 1.0f); // todo: noiseVolume is gSpeechContextLookup[367][0]
             s_nPlaybackStartTime = startDelay + CTimer::GetTimeInMS(); // todo: startDelay is gSpeechContextLookup[366][6]

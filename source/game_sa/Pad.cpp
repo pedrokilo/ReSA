@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 
 #include "Pad.h"
 #include "Cam.h"
@@ -42,7 +43,7 @@ END GENERATED HOOK STATUS */
 // mouse states 
 
 static auto& byte_B73403 = StaticRef<bool>(0xB73403); // TODO: Find out what modifies this, as it has no value by default..
-static auto& byte_8CD782 = StaticRef<bool>(0x8CD782); // true by default, left here for documentation purposes, as it's used in multiple CPad functions
+static auto& byte_8CD782 = DatosExe::Data::v8CD782; // true by default, left here for documentation purposes, as it's used in multiple CPad functions
 static auto& byte_B73401 = StaticRef<char>(0xB73401); // unused, unknown
 
 namespace {

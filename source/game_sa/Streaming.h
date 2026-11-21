@@ -6,6 +6,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "Vector.h"
 #include "StreamingInfo.h"
@@ -184,8 +185,8 @@ VALIDATE_SIZE(tStreamingChannel, 0x98);
 class CStreaming {
 public:
     static inline auto& ms_memoryAvailable = StaticRef<size_t>(0x8A5A80); // 25'600'000 == 25.6 MB
-    static inline auto& desiredNumVehiclesLoaded = StaticRef<uint32>(0x8A5A84);
-    static inline auto& ms_bLoadVehiclesInLoadScene = StaticRef<bool>(0x8A5A88);
+    static inline auto& desiredNumVehiclesLoaded = DatosExe::Data::v8A5A84;
+    static inline auto& ms_bLoadVehiclesInLoadScene = DatosExe::Data::v8A5A88;
 
     // Default models for each level (see eLevelNames):
 
@@ -200,8 +201,8 @@ public:
     static inline auto& ms_aDefaultFiremanModel = StaticRef<std::array<int32, 4>>(0x8A5AE4);
 
     // Default models for current level
-    static inline auto& ms_DefaultCopBikeModel = StaticRef<int32>(0x8A5A9C);
-    static inline auto& ms_DefaultCopBikerModel = StaticRef<int32>(0x8A5AB0);
+    static inline auto& ms_DefaultCopBikeModel = DatosExe::Data::v8A5A9C;
+    static inline auto& ms_DefaultCopBikerModel = DatosExe::Data::v8A5AB0;
 
     static inline auto& ms_pExtraObjectsDir = StaticRef<CDirectory*>(0x8E48D0);
     static inline auto& ms_files = StaticRef<tStreamingFileDesc[TOTAL_IMG_ARCHIVES]>(0x8E48D8);

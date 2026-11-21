@@ -17,11 +17,14 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/DataInicializadaA.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "MonsterTruck.h"
 
-auto& fWheelExtensionRate = StaticRef<float>(0x8D33AC);
+auto& fWheelExtensionRate = DatosExe::Data::v8D33AC;
 
 namespace {
 __declspec(noinline) void __fastcall MonsterTruckDestructorBody(CMonsterTruck* self, void* edx); // 0x6C7D10 (lote 174A), definida mas abajo
@@ -165,7 +168,7 @@ void CMonsterTruck::ProcessSuspension() {
         if (m_apWheelCollisionEntity[i]) {
             speeds[i] -= m_apWheelCollisionEntity[i]->GetSpeed(m_vWheelCollisionPos[i]);
         }
-        if (m_fWheelsSuspensionCompression[i] < DatosExe::Rdata::k8717D4 && m_wheelColPoint[i].m_vecNormal.z > StaticRef<float>(0x858F9C)) {
+        if (m_fWheelsSuspensionCompression[i] < DatosExe::Rdata::k8717D4 && m_wheelColPoint[i].m_vecNormal.z > DatosExe::Rdata::k858F9C) {
             directions[i] = -m_wheelColPoint[i].m_vecNormal;
         }
     }
@@ -179,15 +182,15 @@ void CMonsterTruck::ProcessSuspension() {
         auto& colPoint = m_wheelColPoint[i];
         if (m_fWheelsSuspensionCompression[i] < 1.f && collision && collision->GetType() == ENTITY_TYPE_VEHICLE) {
             if (m_fWheelsSuspensionCompression[i] < .5f) {
-                static_cast<CVehicle*>(collision)->VehicleDamage((1.f - m_fWheelsSuspensionCompression[i]) * m_fMass * StaticRef<float>(0x8D33B8), static_cast<eVehicleCollisionComponent>(colPoint.m_nPieceTypeB), this, &colPoint.m_vecPoint, &colPoint.m_vecNormal, static_cast<eWeaponType>(49));
+                static_cast<CVehicle*>(collision)->VehicleDamage((1.f - m_fWheelsSuspensionCompression[i]) * m_fMass * DatosExe::Data::v8D33B8, static_cast<eVehicleCollisionComponent>(colPoint.m_nPieceTypeB), this, &colPoint.m_vecPoint, &colPoint.m_vecNormal, static_cast<eWeaponType>(49));
             }
             if (colPoint.m_vecNormal.z > .5f) {
                 const auto point = colPoint.m_vecPoint - collision->GetPosition();
                 const auto ratio = 1.f - m_fWheelsSuspensionCompression[i];
                 CVector force{colPoint.m_vecNormal.x * .25f, colPoint.m_vecNormal.y * .25f, colPoint.m_vecNormal.z};
-                force.x = ((force.x * StaticRef<float>(0x8D33B4)) * ratio) * collision->m_fMass;
-                force.y = ((force.y * StaticRef<float>(0x8D33B4)) * ratio) * collision->m_fMass;
-                force.z = ((force.z * StaticRef<float>(0x8D33B4)) * ratio) * collision->m_fMass;
+                force.x = ((force.x * DatosExe::Data::v8D33B4) * ratio) * collision->m_fMass;
+                force.y = ((force.y * DatosExe::Data::v8D33B4) * ratio) * collision->m_fMass;
+                force.z = ((force.z * DatosExe::Data::v8D33B4) * ratio) * collision->m_fMass;
                 collision->ApplyForce(force, point, true);
             }
         }
@@ -208,7 +211,7 @@ void CMonsterTruck::ProcessControlCollisionCheck(bool applySpeed) {
 
 // 0x6C8250
 void CMonsterTruck::ProcessControl() {
-    const auto clampNegative = StaticRef<uint8>(0x8D33B0);
+    const auto clampNegative = DatosExe::Data::v8D33B0;
     for (size_t i = 0; i < 4; ++i) {
         if (m_fWheelsSuspensionCompression[i] < 1.f) {
             m_fWheelsSuspensionCompression[i] = (m_aSuspensionSpringLength[i] - m_wheelPosition[i]) / (m_aSuspensionSpringLength[i] - m_aSuspensionLineLength[i]);
@@ -247,7 +250,7 @@ void CMonsterTruck::SetupSuspensionLines() {
         disk.m_fRadius = m_fSuspensionRadius;
         disk.m_vecCenter = wheel;
         disk.m_vThickness = CVector{i < 2 ? -1.f : 1.f, 0.f, 0.f};
-        disk.m_fThickness = m_fSuspensionRadius * StaticRef<float>(0x858CC8);
+        disk.m_fThickness = m_fSuspensionRadius * DatosExe::Rdata::k858CC8;
         disk.m_Surface.m_nMaterial = static_cast<eSurfaceType>(60);
         disk.m_Surface.m_nPiece = std::array<uint8, 4>{13, 15, 14, 16}[i];
         disk.m_Surface.m_nLighting = tColLighting(255);

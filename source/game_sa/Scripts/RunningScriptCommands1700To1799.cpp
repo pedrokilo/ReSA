@@ -1,4 +1,6 @@
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/RdataCadenas.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include <bit>
@@ -83,7 +85,7 @@ inline void CopyTextLabel16(char* dest, const char* src) {
     }
 }
 // 0x8D237C: movimiento por defecto de CTaskComplexSeekEntity (vale 6); el EXE lo copia al task y lo vuelve a escribir con 6.
-inline auto& SeekMoveStateGlobal = StaticRef<int32>(0x8D237C);
+inline auto& SeekMoveStateGlobal = DatosExe::Data::v8D237C;
 } // namespace
 
 static_assert(offsetof(CVehicle, m_autoPilot) + offsetof(CAutoPilot, m_nCarMission) == 0x3BA);
@@ -157,7 +159,7 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
         }
         if (pedHandle != -1) {
             CPed* const ped = PedOf(pedHandle);
-            g_ikChainMan.LookAt(reinterpret_cast<const char*>(0x85A3F0), ped, nullptr, duration, BONE_UNKNOWN, &pos, false, 0.25f, 500, 6, true);
+            g_ikChainMan.LookAt(DatosExe::Rdata::kS85A3F0, ped, nullptr, duration, BONE_UNKNOWN, &pos, false, 0.25f, 500, 6, true);
         } else {
             auto* const task = new CTaskSimpleTriggerLookAt(nullptr, duration, static_cast<int32>(-1), pos, true, 0.25f, 1000, 3);
             CTaskSequences::GetActiveSequence().AddTask(task);

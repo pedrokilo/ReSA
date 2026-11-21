@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
+#include "DatosExe/RdataCadenas.h"
 
 #include "platform.h"
 #include "VideoMode.h"
@@ -92,8 +94,8 @@ void RsInjectHooks() {
     RH_ScopedGlobalInstall(RsDestroyPresetViews, 0x6198C0);  // lote 191A (sin validar)
 }
 
-static auto& KeysShifted = StaticRef<std::array<uint8, 256>>(0x8D2D00);
-static auto& KeysNormal = StaticRef<std::array<uint8, 256>>(0x8D2C00);
+static auto& KeysShifted = DatosExe::Data::v8D2D00;
+static auto& KeysNormal = DatosExe::Data::v8D2C00;
 
 // 0x6193F0
 uint8 RsKeyFromScanCode(uint8 scan, int32 shiftKeyDown) {
@@ -242,7 +244,7 @@ void RsTerminate() {
 
 // 0x619600
 RwBool RsInitialize() {
-    RsGlobal.appName        = reinterpret_cast<const RwChar*>(0x86D388); // Como el original: la cadena "GTA: San Andreas" del EXE
+    RsGlobal.appName        = DatosExe::Rdata::kS86D388; // Como el original: la cadena "GTA: San Andreas" del EXE
     RsGlobal.maximumWidth   = 640;
     RsGlobal.maximumHeight  = 480; // Como el original: 480 (no DEFAULT_SCREEN_HEIGHT = 448)
     RsGlobal.frameLimit     = APP_MAX_FPS;

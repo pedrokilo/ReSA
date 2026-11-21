@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "HudColours.h"
 #include "3dMarker.h"
@@ -49,7 +50,7 @@ VALIDATE_SIZE(tDirectionArrow, 0x30);
 
 class C3dMarkers {
 public:
-    static inline auto& m_colDiamond = StaticRef<uint8>(0x8D5D8B); // default 255
+    static inline auto& m_colDiamond = DatosExe::Data::v8D5D8B; // default 255
     static inline auto& m_user3dMarkerColor = StaticRef<CRGBA>(0xC7C620);
     static inline auto& IgnoreRenderLimit = StaticRef<bool>(0xC7C704);
     static inline auto& m_angleDiamondDeg = StaticRef<float>(0xC7C700);

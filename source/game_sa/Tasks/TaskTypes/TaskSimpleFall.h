@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "TaskSimple.h"
 class CAnimBlendAssociation;
@@ -12,7 +13,7 @@ public:
     int32                  m_nTotalDownTime; // TODO: uint32?
     uint32                 m_nCurrentDownTime;
 
-    static inline auto& m_nMaxPlayerDownTime = StaticRef<uint32>(0x8D2EF4);
+    static inline auto& m_nMaxPlayerDownTime = DatosExe::Data::v8D2EF4;
 
 public:
     static constexpr auto Type = TASK_SIMPLE_FALL;

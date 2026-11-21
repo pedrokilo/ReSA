@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "eEventType.h"
 #include "Enums/eMoveState.h"
@@ -64,10 +65,10 @@ public:
     CVector                m_vecLastPedPosDuringDamageEntity;
     CEntity*               m_apInterestingEntities[3];
 
-    static inline auto& STEALTH_KILL_RANGE = StaticRef<float>(0x8D2398); // 2.5f
-    static inline auto& LIGHT_AI_LEVEL_MAX = StaticRef<float>(0x8D2380); // 0.3f
-    static inline auto& flt_8D2384 = StaticRef<float>(0x8D2384); // 30.0f
-    static inline auto& flt_8D2388 = StaticRef<float>(0x8D2388); // 50.0f
+    static inline auto& STEALTH_KILL_RANGE = DatosExe::Data::v8D2398; // 2.5f
+    static inline auto& LIGHT_AI_LEVEL_MAX = DatosExe::Data::v8D2380; // 0.3f
+    static inline auto& flt_8D2384 = DatosExe::Data::v8D2384; // 30.0f
+    static inline auto& flt_8D2388 = DatosExe::Data::v8D2388; // 50.0f
 
 public:
     static void InjectHooks();

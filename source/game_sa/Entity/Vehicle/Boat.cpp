@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "game_sa/Crt/CrtFile.h"
 
 #include "Boat.h"
@@ -40,7 +41,7 @@ const float BOAT_STEER_DAMP_BASE = 0.985f; // 0x872198
 const float fShapeLength = 0.4f; // 0x8D3944
 const float fShapeTime = 0.05f; // 0x8D3948
 
-auto& fRangeMult = StaticRef<float>(0x8D394C); // 0.6f
+auto& fRangeMult = DatosExe::Data::v8D394C; // 0.6f
 auto& fTimeMult = StaticRef<float>(0xC279CC); // 1.2f / CBoat::WAKE_LIFETIME
 
 // Como el original: los contadores son las globales del EXE (no copias de la DLL)

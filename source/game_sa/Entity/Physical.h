@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "Entity.h"
 #include "ColPoint.h"
@@ -146,16 +147,16 @@ public:
     float               m_fDynamicLighting;
     CRealTimeShadow*    m_pShadowData;
 
-    static inline auto& DAMPING_LIMIT_IN_FRAME = StaticRef<float>(0x8CD7A0);
-    static inline auto& DAMPING_LIMIT_OF_SPRING_FORCE = StaticRef<float>(0x8CD7A4);
-    static inline auto& PHYSICAL_SHIFT_SPEED_DAMP = StaticRef<float>(0x8CD788);
-    static inline auto& SOFTCOL_SPEED_MULT = StaticRef<float>(0x8CD794);
-    static inline auto& SOFTCOL_SPEED_MULT2 = StaticRef<float>(0x8CD798);
-    static inline auto& SOFTCOL_DEPTH_MIN = StaticRef<float>(0x8CD78C);
-    static inline auto& SOFTCOL_DEPTH_MULT = StaticRef<float>(0x8CD790);
-    static inline auto& SOFTCOL_CARLINE_SPEED_MULT = StaticRef<float>(0x8CD79C);
-    static inline auto& TEST_ADD_AMBIENT_LIGHT_FRAC = StaticRef<float>(0x8CD7B8);
-    static inline auto& HIGHSPEED_ELASTICITY_MULT_COPCAR = StaticRef<float>(0x8CD784);
+    static inline auto& DAMPING_LIMIT_IN_FRAME = DatosExe::Data::v8CD7A0;
+    static inline auto& DAMPING_LIMIT_OF_SPRING_FORCE = DatosExe::Data::v8CD7A4;
+    static inline auto& PHYSICAL_SHIFT_SPEED_DAMP = DatosExe::Data::v8CD788;
+    static inline auto& SOFTCOL_SPEED_MULT = DatosExe::Data::v8CD794;
+    static inline auto& SOFTCOL_SPEED_MULT2 = DatosExe::Data::v8CD798;
+    static inline auto& SOFTCOL_DEPTH_MIN = DatosExe::Data::v8CD78C;
+    static inline auto& SOFTCOL_DEPTH_MULT = DatosExe::Data::v8CD790;
+    static inline auto& SOFTCOL_CARLINE_SPEED_MULT = DatosExe::Data::v8CD79C;
+    static inline auto& TEST_ADD_AMBIENT_LIGHT_FRAC = DatosExe::Data::v8CD7B8;
+    static inline auto& HIGHSPEED_ELASTICITY_MULT_COPCAR = DatosExe::Data::v8CD784;
     static inline auto& fxDirection = StaticRef<CVector>(0xB73720);
 
 public:

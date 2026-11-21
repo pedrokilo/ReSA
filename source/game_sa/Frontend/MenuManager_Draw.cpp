@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 
 #include "MenuManager.h"
 #include "MenuManager_Internal.h"
@@ -286,9 +287,9 @@ void CMenuManager::DrawBackground() {
 
     // 0x57BC19
     if (m_bScanningUserTracks) {
-        static auto& updateScanningTime = StaticRef<bool>(0x8CDFFA); // true
-        static auto& progressDir = StaticRef<int32>(0x8CDFFC); // -1
-        static auto& progressPos = StaticRef<int32>(0x8CE000); // DEFAULT_SCREEN_WIDTH / 2
+        static auto& updateScanningTime = DatosExe::Data::v8CDFFA; // true
+        static auto& progressDir = DatosExe::Data::v8CDFFC; // -1
+        static auto& progressPos = DatosExe::Data::v8CE000; // DEFAULT_SCREEN_WIDTH / 2
 
         if (!bScanningUserTracks) {
             bScanningUserTracks = true;

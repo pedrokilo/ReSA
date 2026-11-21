@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -1335,7 +1336,7 @@ void CHeli::PreRender() {
     }
 
     const bool heavy = model == 0x1D5 || model == 0x1BF || model == 0x1E7 || model == 0x1E8 || model == 0x1F1;
-    Heli75AngleACpp(CTimer::GetTimeStep(), m_fHeliRotorSpeed, heavy, StaticRef<float>(0x8D33A0), &m_fRotorZ);
+    Heli75AngleACpp(CTimer::GetTimeStep(), m_fHeliRotorSpeed, heavy, DatosExe::Data::v8D33A0, &m_fRotorZ);
     Heli75AngleBCpp(CTimer::GetTimeStep(), m_fHeliRotorSpeed, model == 0x1A1, &m_fSecondRotorZ);
 
     // 0x6C56E9..0x6C589D: la misma CMatrix local unida al modelling de cada paleta (nodos 12 y 13 con SetRotateZ(angulo 1), 14 y 15 con SetRotateX(angulo 2))

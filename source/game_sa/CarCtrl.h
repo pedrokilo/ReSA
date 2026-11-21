@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include "PathFind.h"
 #include "Vector.h"
@@ -27,14 +28,14 @@ public:
     static inline auto& NumParkedCars = StaticRef<uint32>(0x9690A0);
     static inline auto& NumAmbulancesOnDuty = StaticRef<uint32>(0x9690A8);
     static inline auto& NumFireTrucksOnDuty = StaticRef<uint32>(0x9690AC);
-    static inline auto& MaxNumberOfCarsInUse = StaticRef<uint32>(0x8A5B24);
+    static inline auto& MaxNumberOfCarsInUse = DatosExe::Data::v8A5B24;
     static inline auto& CarDensityMultiplier = StaticRef<float>(0x8A5B20);
     static inline auto& NumRandomCars = StaticRef<int32>(0x969094);
     static inline auto& NumMissionCars = StaticRef<int32>(0x96909C);
     static inline auto& NumPermanentVehicles = StaticRef<int32>(0x9690A4);
     static inline auto& LastTimeAmbulanceCreated = StaticRef<int32>(0x9690B0);
     static inline auto& LastTimeFireTruckCreated = StaticRef<int32>(0x9690B4);
-    static inline auto& bAllowEmergencyServicesToBeCreated = StaticRef<bool>(0x8A5B28);
+    static inline auto& bAllowEmergencyServicesToBeCreated = DatosExe::Data::v8A5B28;
     static inline auto& bCarsGeneratedAroundCamera = StaticRef<bool>(0x9690C1);
     static inline auto& CountDownToCarsAtStart = StaticRef<int8>(0x9690C0);
     static inline auto& TimeNextMadDriverChaseCreated = StaticRef<float>(0x9690BC);

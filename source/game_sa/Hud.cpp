@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
+#include "DatosExe/RdataCadenas.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -44,8 +47,8 @@ inline float ExeFloat(uintptr_t address) {
     return std::bit_cast<float>(*reinterpret_cast<const uint32*>(address));
 }
 // fild maximumWidth/Height * 0x859520/0x859524 (x87 a 24 bits); el EXE multiplica despues por la constante de cada elemento.
-inline float StretchBaseX() { return (float)RsGlobal.maximumWidth * ExeFloat(0x859520); }
-inline float StretchBaseY() { return (float)RsGlobal.maximumHeight * ExeFloat(0x859524); }
+inline float StretchBaseX() { return (float)RsGlobal.maximumWidth * DatosExe::Rdata::k859520; }
+inline float StretchBaseY() { return (float)RsGlobal.maximumHeight * DatosExe::Rdata::k859524; }
 
 // 0x406CE0: floorf del CRT del EXE (cdecl, un float en pila). `fld dword [esp+4]; sub esp,8; fstp qword [esp]` lo amplia a double (exacto, NaN silenciados) y llama al floor
 // del CRT (0x8219F0, sin reconstruir, cdecl con un double) cuyo resultado queda en ST0 y se devuelve sin tocar (double: ni se redondea a float ni se pasa por SSE). Los
@@ -207,7 +210,7 @@ float CHud::GetYPosBasedOnHealth(uint8 playerId, float pos, int8 offset) {
     if (!((float)FindPlayerInfo(playerId).m_nMaxHealth < 101.0f)) {
         return pos;
     }
-    const float scale = (float)RsGlobal.maximumHeight * std::bit_cast<float>(*reinterpret_cast<const uint32*>(0x859524));
+    const float scale = (float)RsGlobal.maximumHeight * std::bit_cast<float>(DatosExe::Rdata::k859524_u);
     return pos - scale * (float)(int32)offset;
 }
 
@@ -538,15 +541,15 @@ void CHud::DrawAreaName() {
         return;
 
     // Como el original: ms = _ftol2(ms_fTimeStep * 0x858B38 * 1000.0 | -1000.0) y alfa = fade * 0x858CDC (0.001) * 255.0.
-    const auto stepMs    = [] { return (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C)); };
-    const auto stepMsNeg = [] { return (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x859948)); };
-    const auto fadeAlpha = [] { return (float)(int32)m_ZoneFadeTimer * ExeFloat(0x858CDC) * ExeFloat(0x859AAC); };
+    const auto stepMs    = [] { return (int32)(int64)(CTimer::GetTimeStep() * DatosExe::Rdata::k858B38 * DatosExe::Rdata::k858C4C); };
+    const auto stepMsNeg = [] { return (int32)(int64)(CTimer::GetTimeStep() * DatosExe::Rdata::k858B38 * DatosExe::Rdata::k859948); };
+    const auto fadeAlpha = [] { return (float)(int32)m_ZoneFadeTimer * DatosExe::Rdata::k858CDC * DatosExe::Rdata::k859AAC; };
 
     float alpha = 255.0f;
     switch (m_ZoneState) {
     case NAME_SHOW:
         m_ZoneFadeTimer = 1000;
-        if ((float)(int32)m_ZoneNameTimer > ExeFloat(0x859A94)) { // fild + fcomp 3000.0 (0x58AC7A..0x58AC9E)
+        if ((float)(int32)m_ZoneNameTimer > DatosExe::Rdata::k859A94) { // fild + fcomp 3000.0 (0x58AC7A..0x58AC9E)
             m_ZoneState = NAME_FADE_OUT;
             m_ZoneFadeTimer = 1000;
         }
@@ -557,7 +560,7 @@ void CHud::DrawAreaName() {
             m_ZoneFadeTimer += stepMs();
         }
 
-        if (!((float)m_ZoneFadeTimer <= ExeFloat(0x858C4C))) {
+        if (!((float)m_ZoneFadeTimer <= DatosExe::Rdata::k858C4C)) {
             m_ZoneFadeTimer = 1000;
             m_ZoneState = NAME_SHOW;
         }
@@ -609,11 +612,11 @@ void CHud::DrawAreaName() {
     m_ZoneNameTimer += stepMs();
     CFont::SetProportional(true);
     CFont::SetBackground(false, false);
-    CFont::SetScaleForCurrentLanguage(StretchBaseX() * ExeFloat(0x858F08),
-                                      StretchBaseY() * ExeFloat(0x866C0C));
+    CFont::SetScaleForCurrentLanguage(StretchBaseX() * DatosExe::Rdata::k858F08,
+                                      StretchBaseY() * DatosExe::Rdata::k866C0C);
     CFont::SetEdge(2);
     CFont::SetOrientation(eFontAlignment::ALIGN_RIGHT);
-    CFont::SetRightJustifyWrap((float)RsGlobal.maximumWidth * ExeFloat(0x859520) * ExeFloat(0x85A994));
+    CFont::SetRightJustifyWrap((float)RsGlobal.maximumWidth * DatosExe::Rdata::k859520 * DatosExe::Rdata::k85A994);
     const uint8 alphaByte = (uint8)(int64)alpha; // _ftol2 + movzx bl,al (0x58AD80..0x58AD87)
     CFont::SetDropColor({ 0, 0, 0, alphaByte });
     CFont::SetFontStyle(FONT_GOTHIC);
@@ -626,9 +629,9 @@ void CHud::DrawAreaName() {
     }
 
     // Como el original (0x58AE07..0x58AE5A): y = (H - sy*104) + sy*76 con sy = c524*H; x = W - (W*c520)*32.
-    const float sy = ExeFloat(0x859524) * (float)RsGlobal.maximumHeight;
-    const float y = ((float)RsGlobal.maximumHeight - ExeFloat(0x866B70) * sy) + sy * ExeFloat(0x866B74);
-    const float x = (float)RsGlobal.maximumWidth - (float)RsGlobal.maximumWidth * ExeFloat(0x859520) * ExeFloat(0x85950C);
+    const float sy = DatosExe::Rdata::k859524 * (float)RsGlobal.maximumHeight;
+    const float y = ((float)RsGlobal.maximumHeight - DatosExe::Rdata::k866B70 * sy) + sy * DatosExe::Rdata::k866B74;
+    const float x = (float)RsGlobal.maximumWidth - (float)RsGlobal.maximumWidth * DatosExe::Rdata::k859520 * DatosExe::Rdata::k85950C;
     CFont::PrintStringFromBottom(x, y, m_ZoneToPrint);
     CFont::SetSlant(0.0f);
 }
@@ -651,7 +654,7 @@ void CHud::DrawBustedWastedMessage() {
 
     // 0x58CA74..0x58CA97: (float)(maximumHeight / 2) - (fild maximumHeight * 0x859524) * 30.0
     const auto computePosY = [] {
-        return (float)(RsGlobal.maximumHeight / 2) - StretchBaseY() * ExeFloat(0x858CA4);
+        return (float)(RsGlobal.maximumHeight / 2) - StretchBaseY() * DatosExe::Rdata::k858CA4;
     };
 
     if (!(guard & 1)) {
@@ -674,18 +677,18 @@ void CHud::DrawBustedWastedMessage() {
     }
 
     // 0x58CB4A..0x58CB92: ms = _ftol2(ts * 0x858B38 * 1000.0), tratado como dword sin signo (fadd 2^32 si es negativo)
-    const int32 ms = (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C));
+    const int32 ms = (int32)(int64)(CTimer::GetTimeStep() * DatosExe::Rdata::k858B38 * DatosExe::Rdata::k858C4C);
     float msFloat = (float)ms;
     if (ms < 0) {
-        msFloat += ExeFloat(0x858C54);
+        msFloat += DatosExe::Rdata::k858C54;
     }
-    messageAlpha = msFloat * ExeFloat(0x858EE8) + messageAlpha;
-    if (messageAlpha > ExeFloat(0x859AAC)) {
-        messageAlpha = ExeFloat(0x859AAC);
+    messageAlpha = msFloat * DatosExe::Rdata::k858EE8 + messageAlpha;
+    if (messageAlpha > DatosExe::Rdata::k859AAC) {
+        messageAlpha = DatosExe::Rdata::k859AAC;
     }
 
     CFont::SetBackground(false, false);
-    CFont::SetScale(StretchBaseX() * ExeFloat(0x859974), StretchBaseY() * ExeFloat(0x859974));
+    CFont::SetScale(StretchBaseX() * DatosExe::Rdata::k859974, StretchBaseY() * DatosExe::Rdata::k859974);
     CFont::SetProportional(true);
     CFont::SetJustify(false);
     CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
@@ -723,7 +726,7 @@ void CHud::DrawCrossHairs() {
     if (!custom && !circle && !script) return;
     RwRenderStateSet(rwRENDERSTATETEXTUREFILTER, RWRSTATE(2)); RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(0));
     const auto f = [](uintptr_t a) { return *reinterpret_cast<const float*>(a); };
-    const float sx = float(RsGlobal.maximumWidth) * f(0x859520), sy = float(RsGlobal.maximumHeight) * f(0x859524);
+    const float sx = float(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520, sy = float(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524;
     const auto rect = [](float left,float bottom,float right,float top) { CRect result;result.left=left;result.bottom=bottom;result.right=right;result.top=top;return result; };
     const auto quadrants = [&](float originX, float originY, float extentX, float extentY) {
         const float right = extentX * .5f + originX, top = extentY * .5f + originY;
@@ -736,7 +739,7 @@ void CHud::DrawCrossHairs() {
     if (circle && (mode == 53 || mode == 55 || mode == 65)) {
         const float x = float(RsGlobal.maximumWidth) * CCamera::m_f3rdPersonCHairMultX, y = float(RsGlobal.maximumHeight) * CCamera::m_f3rdPersonCHairMultY;
         const float radius = player->GetWeaponRadiusOnScreen();
-        if (radius == f(0x858CC4)) CSprite2d::DrawRect(rect(x - 1.f, y - 1.f, x + 1.f, y + 1.f), CRGBA(255, 255, 255, 255));
+        if (radius == DatosExe::Rdata::k858CC4) CSprite2d::DrawRect(rect(x - 1.f, y - 1.f, x + 1.f, y + 1.f), CRGBA(255, 255, 255, 255));
         const float ex = sx * 64.f * radius, ey = sy * 64.f * radius;
         quadrants((ex * .5f + x) - ex, (ey * .5f + y) - ey, ex, ey);
     } else if (script != 2 && (mode == 34 || mode == 42 || mode == 41 || mode == 45)) {
@@ -820,30 +823,30 @@ float CHud::DrawFadeState(DRAW_FADE_STATE fadingElement, int32 forceFadingIn) {
     // Como el original (0x58D61D..0x58D628): los estados 0 y 5 saltan directamente a guardar (no suman al temporizador).
     if (state != 0 && state != 5) {
         // 0x58D701: _ftol2(ms_fTimeStep * 0x858B38 * 1000.0)
-        const int32 ms = (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C));
+        const int32 ms = (int32)(int64)(CTimer::GetTimeStep() * DatosExe::Rdata::k858B38 * DatosExe::Rdata::k858C4C);
         switch (state) {
         case 1: // 0x58D6D9
             fadeTimer = 1000;
-            if ((float)timer > ExeFloat(0x859AA4)) { // 10000.0
+            if ((float)timer > DatosExe::Rdata::k859AA4) { // 10000.0
                 state = 3;
                 fadeTimer = 3000;
             }
             break;
         case 2: // 0x58D69D
             fadeTimer += ms;
-            if (!((float)fadeTimer <= ExeFloat(0x858C4C))) {
+            if (!((float)fadeTimer <= DatosExe::Rdata::k858C4C)) {
                 fadeTimer = 1000;
                 state = 1;
             }
-            alpha = (float)fadeTimer * ExeFloat(0x858CDC) * ExeFloat(0x859AAC);
+            alpha = (float)fadeTimer * DatosExe::Rdata::k858CDC * DatosExe::Rdata::k859AAC;
             break;
         case 3: // 0x58D641: se suma _ftol2(ms_fTimeStep * 0x858B38 * -1000.0)
-            fadeTimer += (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x859948));
+            fadeTimer += (int32)(int64)(CTimer::GetTimeStep() * DatosExe::Rdata::k858B38 * DatosExe::Rdata::k859948);
             if ((float)fadeTimer < 0.0f) {
                 fadeTimer = 0;
                 state = 0;
             }
-            alpha = (float)fadeTimer * ExeFloat(0x858CDC) * ExeFloat(0x859AAC);
+            alpha = (float)fadeTimer * DatosExe::Rdata::k858CDC * DatosExe::Rdata::k859AAC;
             break;
         default:
             break;
@@ -880,8 +883,8 @@ float CHud::DrawFadeState(DRAW_FADE_STATE fadingElement, int32 forceFadingIn) {
     if (alpha < 0.0f) {
         return 0.0f;
     }
-    if (alpha > ExeFloat(0x859AAC)) {
-        return ExeFloat(0x859AAC);
+    if (alpha > DatosExe::Rdata::k859AAC) {
+        return DatosExe::Rdata::k859AAC;
     }
     return alpha;
 }
@@ -890,7 +893,7 @@ float CHud::DrawFadeState(DRAW_FADE_STATE fadingElement, int32 forceFadingIn) {
 void CHud::DrawHelpText() {
     if (!m_pHelpMessage[0]) { m_nHelpMessageState = 0; return; }
     const auto f = [](uintptr_t a) { return *reinterpret_cast<const float*>(a); };
-    const float sx = float(RsGlobal.maximumWidth) * f(0x859520), sy = float(RsGlobal.maximumHeight) * f(0x859524);
+    const float sx = float(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520, sy = float(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524;
     if (!CMessages::StringCompare(m_pHelpMessage, m_pLastHelpMessage, 400)) {
         if (!m_nHelpMessageState) {
             m_nHelpMessageState = 2; m_nHelpMessageTimer = 0; m_nHelpMessageFadeTimer = 0;
@@ -904,21 +907,21 @@ void CHud::DrawHelpText() {
     }
     if (!m_nHelpMessageState) return;
     float alpha = 200.f;
-    const auto ticks = [&] { return int32((CTimer::GetTimeStep() * f(0x858B38)) * f(0x858C4C)); };
+    const auto ticks = [&] { return int32((CTimer::GetTimeStep() * DatosExe::Rdata::k858B38) * DatosExe::Rdata::k858C4C); };
     const auto fade = [&]() -> int32& { return reinterpret_cast<int32&>(m_nHelpMessageFadeTimer); };
     if (m_nHelpMessageState == 1) {
         fade() = 600;
         if (!m_bHelpMessagePermanent && (m_fHelpMessageTime * 1000.f < float(int32(m_nHelpMessageTimer)) || (m_bHelpMessageQuick && 3000.f < float(int32(m_nHelpMessageTimer))))) { m_nHelpMessageState = 3; fade() = 600; }
     } else if (m_nHelpMessageState == 2) {
-        if (!TheCamera.m_bWideScreenOn) { fade() += ticks() * 2; if (float(fade()) > 0.f) { fade() = 0; m_nHelpMessageState = 1; } alpha = (float(fade()) * f(0x858CDC)) * 200.f; }
+        if (!TheCamera.m_bWideScreenOn) { fade() += ticks() * 2; if (float(fade()) > 0.f) { fade() = 0; m_nHelpMessageState = 1; } alpha = (float(fade()) * DatosExe::Rdata::k858CDC) * 200.f; }
     } else if (m_nHelpMessageState == 3) {
-        fade() -= ticks() * 2; if (float(fade()) < 0.f || TheCamera.m_bWideScreenOn) { fade() = 0; m_nHelpMessageState = 0; } alpha = (float(fade()) * f(0x858CDC)) * 200.f;
+        fade() -= ticks() * 2; if (float(fade()) < 0.f || TheCamera.m_bWideScreenOn) { fade() = 0; m_nHelpMessageState = 0; } alpha = (float(fade()) * DatosExe::Rdata::k858CDC) * 200.f;
     } else if (m_nHelpMessageState == 4) {
-        fade() -= ticks() * 2; if (float(fade()) < 0.f) { fade() = 0; m_nHelpMessageState = 2; CMessages::StringCopy(m_pHelpMessageToPrint, m_pLastHelpMessage, 400); } alpha = (float(fade()) * f(0x858CDC)) * 200.f;
+        fade() -= ticks() * 2; if (float(fade()) < 0.f) { fade() = 0; m_nHelpMessageState = 2; CMessages::StringCopy(m_pHelpMessageToPrint, m_pLastHelpMessage, 400); } alpha = (float(fade()) * DatosExe::Rdata::k858CDC) * 200.f;
     }
     if (CCutsceneMgr::ms_running) return;
     m_nHelpMessageTimer += uint32(ticks());
-    CFont::SetAlphaFade(alpha); CFont::SetProportional(true); CFont::SetScaleForCurrentLanguage(sx * f(0x8665BC), sy * f(0x858F14));
+    CFont::SetAlphaFade(alpha); CFont::SetProportional(true); CFont::SetScaleForCurrentLanguage(sx * DatosExe::Rdata::k8665BC, sy * DatosExe::Rdata::k858F14);
     const auto finish = [] { CFont::SetAlphaFade(255.f); };
     if (!m_nHelpMessageStatId && (m_BigMessage[0][0] || m_BigMessage[4][0] || StaticRef<bool>(0x96C014))) { finish(); return; }
     if (m_nHelpMessageStatId && TheCamera.m_bWideScreenOn) { finish(); return; }
@@ -928,7 +931,7 @@ void CHud::DrawHelpText() {
         CFont::SetWrapx(sx * m_fHelpMessageBoxWidth == nominal ? (sx * 34.f + nominal) - sx * 4.f : sx * 34.f + (m_fHelpMessageBoxWidth - 4.f) * sx);
     } else CFont::SetWrapx(float(RsGlobal.maximumWidth));
     CFont::SetFontStyle(static_cast<eFontStyle>(1)); CFont::SetBackground(true, true); CFont::SetDropShadowPosition(0); CFont::SetBackgroundColor(CRGBA(0, 0, 0, uint8(int32(alpha)))); CFont::SetColor(HudColour.GetRGB(static_cast<eHudColours>(4)));
-    const float offset = StaticRef<float>(0x8D0938);
+    const float offset = DatosExe::Data::v8D0938;
     float x = sx * 34.f, y = sy * 28.f + ((150.f - offset) * .6f) * sy;
     if (!m_nHelpMessageStatId) {
         const int shift = TheCamera.m_bWideScreenOn && !StaticRef<bool>(0xBA6793) ? 56 : 0;
@@ -938,7 +941,7 @@ void CHud::DrawHelpText() {
         std::sprintf(gString, format, int(m_nHelpMessageStatId));
         x = sx * 10.f + sx * 34.f + CFont::GetStringWidth(TheText.Get(gString), true, false);
         CFont::SetWrapx(sx * 75.f + x); CFont::PrintString(sx * 34.f, y, TheText.Get(gString));
-        AsciiToGxtChar(reinterpret_cast<const char*>(0x866C18), reinterpret_cast<GxtChar*>(0xC1B100));
+        AsciiToGxtChar(DatosExe::Rdata::kS866C18, reinterpret_cast<GxtChar*>(0xC1B100));
         const float value = m_nHelpMessageStatId == 336 ? float(FindPlayerPed(-1)->GetPlayerGroup().GetMembership().CountMembersExcludingLeader()) : CStats::GetStatValue(static_cast<eStats>(m_nHelpMessageStatId));
         const bool positive = m_pHelpMessageToPrint[0] == StaticRef<GxtChar>(0xC1B100);
         const auto progressColor = HudColour.GetRGBA(static_cast<eHudColours>(positive ? 1 : 0), uint8(int32(alpha)));
@@ -946,7 +949,7 @@ void CHud::DrawHelpText() {
         const float inverse = 1.f / float(m_nHelpMessageMaxStatValue);
         const float progressAdd = (inverse * m_fHelpMessageStatUpdateValue) * 100.f;
         const float progress = (inverse * value) * 100.f;
-        CSprite2d::DrawBarChart(x, sy * 28.f + (155.f - offset) * .6f, uint16(int32(sx * f(0x86503C))), uint8(int32(sy * f(0x858CCC))), progress > 2.f ? progress : 2.f, int8(int32(progressAdd > 3.f ? progressAdd : 3.f)), 0, 0, barColor, progressColor);
+        CSprite2d::DrawBarChart(x, sy * 28.f + (155.f - offset) * .6f, uint16(int32(sx * DatosExe::Rdata::k86503C)), uint8(int32(sy * DatosExe::Rdata::k858CCC)), progress > 2.f ? progress : 2.f, int8(int32(progressAdd > 3.f ? progressAdd : 3.f)), 0, 0, barColor, progressColor);
         x += sx * 65.f;
     }
     CFont::PrintString(x, y, m_pHelpMessageToPrint); CFont::SetWrapx(float(RsGlobal.maximumWidth)); finish();
@@ -957,22 +960,22 @@ void CHud::DrawHelpText() {
 void CHud::DrawMissionTimers() {
     if ((m_BigMessage[4][0] && !StaticRef<bool>(0xBAA3FA)) || StaticRef<bool>(0x96C014)) return;
     const auto f = [](uintptr_t a) { return *reinterpret_cast<const float*>(a); };
-    const float sx = float(RsGlobal.maximumWidth) * f(0x859520), sy = float(RsGlobal.maximumHeight) * f(0x859524);
+    const float sx = float(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520, sy = float(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524;
     const auto focus = CWorld::PlayerInFocus;
     const bool coop = StaticRef<uint32>(0xB7CF28) != 0;
-    float clockY = GetYPosBasedOnHealth(1, GetYPosBasedOnHealth(focus, sy * f(0x859518), 12), 12);
-    float counterY = GetYPosBasedOnHealth(1, GetYPosBasedOnHealth(focus, sy * f(0x858BA4) + sy * f(0x859518), 12), 12);
-    if (coop) { clockY += sy * f(0x858C90); counterY += sy * f(0x858C90); }
-    CFont::SetProportional(true); CFont::SetBackground(false, false); CFont::SetScale(sx * f(0x858B8C), sy);
+    float clockY = GetYPosBasedOnHealth(1, GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k859518, 12), 12);
+    float counterY = GetYPosBasedOnHealth(1, GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k858BA4 + sy * DatosExe::Rdata::k859518, 12), 12);
+    if (coop) { clockY += sy * DatosExe::Rdata::k858C90; counterY += sy * DatosExe::Rdata::k858C90; }
+    CFont::SetProportional(true); CFont::SetBackground(false, false); CFont::SetScale(sx * DatosExe::Rdata::k858B8C, sy);
     CFont::SetOrientation(static_cast<eFontAlignment>(2)); CFont::SetRightJustifyWrap(0.f); CFont::SetFontStyle(static_cast<eFontStyle>(2));
-    CFont::SetWrapx(sx * f(0x85951C)); CFont::SetEdge(2); CFont::SetDropColor(CRGBA(0, 0, 0, 255));
+    CFont::SetWrapx(sx * DatosExe::Rdata::k85951C); CFont::SetEdge(2); CFont::SetDropColor(CRGBA(0, 0, 0, 255));
     auto* clock = reinterpret_cast<const uint8*>(0xBA1788);
     auto* flags = reinterpret_cast<uint8*>(0xBAA394);
     if (coop && !clock[0x38]) StaticRef<uint8>(0xBAA38A) = 0;
     for (int i = 0; i < 4; ++i) if (!*reinterpret_cast<const uint8*>(0xBA1806 + 0x44 * i)) flags[i] = 0;
     if (StaticRef<uint8>(0xBA18D8) != 1) return;
     GxtChar text[200];
-    const float textX = float(RsGlobal.maximumWidth) - sx * f(0x85950C);
+    const float textX = float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C;
     if (clock[0x38] == 1) {
         auto& blink = StaticRef<int16>(0xBAA388);
         if (!StaticRef<uint8>(0xBAA38A)) blink = 1;
@@ -981,12 +984,12 @@ void CHud::DrawMissionTimers() {
         CFont::SetColor(HudColour.GetRGB(static_cast<eHudColours>(4)));
         if ((CTimer::GetFrameCounter() & 4) || !blink) {
             AsciiToGxtChar(reinterpret_cast<const char*>(clock + 0xE), text); CFont::PrintString(textX, clockY, text);
-            if (clock[4]) CFont::PrintString(textX - sx * f(0x85991C), clockY, TheText.Get(reinterpret_cast<const char*>(clock + 4)));
+            if (clock[4]) CFont::PrintString(textX - sx * DatosExe::Rdata::k85991C, clockY, TheText.Get(reinterpret_cast<const char*>(clock + 4)));
         }
     } else {
-        counterY = GetYPosBasedOnHealth(focus, sy * f(0x859518), 12);
-        if (StaticRef<uint8>(0xB7D077) < 101) counterY -= sy * f(0x858CCC);
-        if (coop) counterY += sy * f(0x858C90);
+        counterY = GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k859518, 12);
+        if (StaticRef<uint8>(0xB7D077) < 101) counterY -= sy * DatosExe::Rdata::k858CCC;
+        if (coop) counterY += sy * DatosExe::Rdata::k858C90;
     }
     for (int i = 0; i < 4; ++i) {
         const auto* counter = reinterpret_cast<const uint8*>(0xBA17C8 + i * 0x44);
@@ -998,15 +1001,15 @@ void CHud::DrawMissionTimers() {
         if (!(CTimer::GetFrameCounter() & 4) && blink) continue;
         const auto color = static_cast<eHudColours>(counter[0x40]);
         CFont::SetColor(HudColour.GetRGB(color));
-        const float y = ((sy * f(0x858BA4)) * float(i)) * sy + counterY;
+        const float y = ((sy * DatosExe::Rdata::k858BA4) * float(i)) * sy + counterY;
         if (*reinterpret_cast<const int16*>(counter + 0x12) == 1) {
             const int16 value = int16(std::atol(reinterpret_cast<const char*>(counter + 0x14)));
-            const float width = sx * f(0x866C10);
-            CSprite2d::DrawBarChart(textX - width, sy * f(0x858B44) + y, uint16(int32(width)), uint8(int32(sy * f(0x85EED4))), (float(value) * f(0x858C58)) * f(0x858628), 0, 0, 1, HudColour.GetRGB(color), CRGBA(0, 0, 0, 0));
+            const float width = sx * DatosExe::Rdata::k866C10;
+            CSprite2d::DrawBarChart(textX - width, sy * DatosExe::Rdata::k858B44 + y, uint16(int32(width)), uint8(int32(sy * DatosExe::Rdata::k85EED4)), (float(value) * DatosExe::Rdata::k858C58) * DatosExe::Rdata::k858628, 0, 0, 1, HudColour.GetRGB(color), CRGBA(0, 0, 0, 0));
         } else {
             AsciiToGxtChar(reinterpret_cast<const char*>(counter + 0x14), text); CFont::PrintString(textX, y, text);
         }
-        if (counter[8]) CFont::PrintString(textX - sx * f(0x85991C), y, TheText.Get(reinterpret_cast<const char*>(counter + 8)));
+        if (counter[8]) CFont::PrintString(textX - sx * DatosExe::Rdata::k85991C, y, TheText.Get(reinterpret_cast<const char*>(counter + 8)));
     }
 }
 
@@ -1036,14 +1039,14 @@ void CHud::DrawMissionTitle() {
     CFont::SetRightJustifyWrap(0.0f);
     CFont::SetOrientation(eFontAlignment::ALIGN_RIGHT);
     CFont::SetFontStyle(FONT_PRICEDOWN);
-    CFont::SetScale(StretchBaseX(), StretchBaseY() * ExeFloat(0x859918));
+    CFont::SetScale(StretchBaseX(), StretchBaseY() * DatosExe::Rdata::k859918);
 
     // Como el original (0x58D30F..0x58D348): ms = _ftol2(ms_fTimeStep * 0x858B38 * 1000.0) como dword sin signo (fadd 2^32 si es negativo).
     const auto stepMsFloat = [] {
-        const int32 ms = (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C));
+        const int32 ms = (int32)(int64)(CTimer::GetTimeStep() * DatosExe::Rdata::k858B38 * DatosExe::Rdata::k858C4C);
         float msFloat = (float)ms;
         if (ms < 0) {
-            msFloat += ExeFloat(0x858C54);
+            msFloat += DatosExe::Rdata::k858C54;
         }
         return msFloat;
     };
@@ -1051,7 +1054,7 @@ void CHud::DrawMissionTitle() {
     // 0x58D2E9..0x58D30D: fild (maximumWidth - 20) comparado con messageInUse, jne si (W - 20) <= messageInUse (o NaN)
     if (!((float)(RsGlobal.maximumWidth - 20) > messageInUse)) {
         messageX = CTimer::GetTimeStep() + messageX;
-        if (messageX >= ExeFloat(0x858BB0)) { // fcomp 120.0 + test ah,1 + jne (un NaN no entra)
+        if (messageX >= DatosExe::Rdata::k858BB0) { // fcomp 120.0 + test ah,1 + jne (un NaN no entra)
             messageX = 120.0f;
             messageAlpha = messageAlpha - stepMsFloat();
         }
@@ -1062,7 +1065,7 @@ void CHud::DrawMissionTitle() {
         }
     } else {
         messageAlpha = 255.0f;
-        messageInUse = stepMsFloat() * ExeFloat(0x858C24) + messageInUse;
+        messageInUse = stepMsFloat() * DatosExe::Rdata::k858C24 + messageInUse;
     }
 
     CFont::SetEdge(2);
@@ -1071,8 +1074,8 @@ void CHud::DrawMissionTitle() {
     CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_GOLD, alphaByte));
     // 0x58D42E..0x58D470: x = W - (W * c520) * 20.0, y = H - (H * c524) * 115.0
     CFont::PrintStringFromBottom(
-        (float)RsGlobal.maximumWidth - StretchBaseX() * ExeFloat(0x858BA4),
-        (float)RsGlobal.maximumHeight - StretchBaseY() * ExeFloat(0x863194),
+        (float)RsGlobal.maximumWidth - StretchBaseX() * DatosExe::Rdata::k858BA4,
+        (float)RsGlobal.maximumHeight - StretchBaseY() * DatosExe::Rdata::k863194,
         message
     );
     CFont::SetEdge(0);
@@ -1089,15 +1092,15 @@ void CHud::DrawOddJobMessage(bool displayImmediately) {
     if (displayImmediately == CTheScripts::bDrawOddJobTitleBeforeFade && !m1[0] && m4[0]) {
         CFont::SetBackground(false, false);
         CFont::SetJustify(false);
-        CFont::SetScaleForCurrentLanguage(StretchBaseX() * ExeFloat(0x858CC8), StretchBaseY() * ExeFloat(0x866C48));
+        CFont::SetScaleForCurrentLanguage(StretchBaseX() * DatosExe::Rdata::k858CC8, StretchBaseY() * DatosExe::Rdata::k866C48);
         CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
         CFont::SetProportional(true);
-        CFont::SetCentreSize(StretchBaseX() * ExeFloat(0x858A4C));
+        CFont::SetCentreSize(StretchBaseX() * DatosExe::Rdata::k858A4C);
         CFont::SetFontStyle(FONT_MENU);
         CFont::SetEdge(2);
         CFont::SetDropColor({ 0, 0, 0, 255 });
         CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_GOLD));
-        CFont::PrintStringFromBottom(halfWidth(), StretchBaseY() * ExeFloat(0x865374), m4);
+        CFont::PrintStringFromBottom(halfWidth(), StretchBaseY() * DatosExe::Rdata::k865374, m4);
     }
 
     if (!displayImmediately)
@@ -1107,41 +1110,41 @@ void CHud::DrawOddJobMessage(bool displayImmediately) {
     if (m6[0]) {
         CFont::SetBackground(false, false);
         CFont::SetJustify(false);
-        CFont::SetScaleForCurrentLanguage(StretchBaseX(), StretchBaseY() * ExeFloat(0x859BB4));
+        CFont::SetScaleForCurrentLanguage(StretchBaseX(), StretchBaseY() * DatosExe::Rdata::k859BB4);
         CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
         CFont::SetProportional(true);
-        CFont::SetCentreSize(StretchBaseX() * ExeFloat(0x858B58));
+        CFont::SetCentreSize(StretchBaseX() * DatosExe::Rdata::k858B58);
         CFont::SetFontStyle(FONT_PRICEDOWN);
         CFont::SetEdge(2);
         CFont::SetDropColor({ 0, 0, 0, 255 });
         CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_LIGHT_BLUE));
-        CFont::PrintString(halfWidth(), StretchBaseY() * ExeFloat(0x858B34), m6);
+        CFont::PrintString(halfWidth(), StretchBaseY() * DatosExe::Rdata::k858B34, m6);
     }
 
     const auto& m3 = m_BigMessage[STYLE_MIDDLE_SMALLER];
     if (m3[0]) {
         CFont::SetBackground(false, false);
         CFont::SetJustify(false);
-        CFont::SetScaleForCurrentLanguage(StretchBaseX() * ExeFloat(0x858CC8), StretchBaseY() * ExeFloat(0x866C48));
+        CFont::SetScaleForCurrentLanguage(StretchBaseX() * DatosExe::Rdata::k858CC8, StretchBaseY() * DatosExe::Rdata::k866C48);
         CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
         CFont::SetProportional(true);
-        CFont::SetCentreSize(StretchBaseX() * ExeFloat(0x858B58));
+        CFont::SetCentreSize(StretchBaseX() * DatosExe::Rdata::k858B58);
         CFont::SetFontStyle(FONT_MENU);
         CFont::SetEdge(2);
         CFont::SetDropColor({ 0, 0, 0, 255 });
         CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_GOLD));
-        CFont::PrintString(halfWidth(), StretchBaseY() * ExeFloat(0x859990), m3);
+        CFont::PrintString(halfWidth(), StretchBaseY() * DatosExe::Rdata::k859990, m3);
     }
 
     // Como el original: ms = _ftol2(ms_fTimeStep * 0x858B38 * 1000.0); como dword sin signo para el temporizador flotante (fadd 2^32 si es negativo).
-    const auto stepMs = [] { return (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C)); };
+    const auto stepMs = [] { return (int32)(int64)(CTimer::GetTimeStep() * DatosExe::Rdata::k858B38 * DatosExe::Rdata::k858C4C); };
 
     // 0x58CFA8..0x58CFEA: fcomp 0.0 + test ah,41h + jne
-    if (OddJob2OffTimer > ExeFloat(0x858B50)) {
+    if (OddJob2OffTimer > DatosExe::Rdata::k858B50) {
         const int32 ms = stepMs();
         float msFloat = (float)ms;
         if (ms < 0) {
-            msFloat += ExeFloat(0x858C54);
+            msFloat += DatosExe::Rdata::k858C54;
         }
         OddJob2OffTimer = OddJob2OffTimer - msFloat;
     }
@@ -1151,7 +1154,7 @@ void CHud::DrawOddJobMessage(bool displayImmediately) {
         return;
 
     // 0x58CFFD..0x58D00E: jp => sale con el temporizador > 0 o NaN
-    if (!(OddJob2OffTimer <= ExeFloat(0x858B50)))
+    if (!(OddJob2OffTimer <= DatosExe::Rdata::k858B50))
         return;
 
     switch ((int32)(int16)OddJob2On) {
@@ -1160,13 +1163,13 @@ void CHud::DrawOddJobMessage(bool displayImmediately) {
         OddJob2On = 1;
         break;
     case 1:
-        if (!(OddJob2XOffset > ExeFloat(0x858CA0))) { // fcomp 2.0 + test ah,41h + jne
+        if (!(OddJob2XOffset > DatosExe::Rdata::k858CA0)) { // fcomp 2.0 + test ah,41h + jne
             OddJob2On = 2;
             OddJob2Timer = 0;
         } else {
-            float step = OddJob2XOffset * ExeFloat(0x85F0A0); // 0x58D05C: * 0.16666667
-            if (step > ExeFloat(0x858A10)) {                  // fcom 40.0
-                step = ExeFloat(0x858A10);
+            float step = OddJob2XOffset * DatosExe::Rdata::k85F0A0; // 0x58D05C: * 0.16666667
+            if (step > DatosExe::Rdata::k858A10) {                  // fcom 40.0
+                step = DatosExe::Rdata::k858A10;
             }
             OddJob2XOffset = OddJob2XOffset - step;
         }
@@ -1178,12 +1181,12 @@ void CHud::DrawOddJobMessage(bool displayImmediately) {
         }
         break;
     case 3: {
-        float step = OddJob2XOffset * ExeFloat(0x858CC4); // 0x58D0E3: * 0.2
-        if (step < ExeFloat(0x858CA4)) {                  // fcom 30.0 + test ah,5
-            step = ExeFloat(0x858CA4);
+        float step = OddJob2XOffset * DatosExe::Rdata::k858CC4; // 0x58D0E3: * 0.2
+        if (step < DatosExe::Rdata::k858CA4) {                  // fcom 30.0 + test ah,5
+            step = DatosExe::Rdata::k858CA4;
         }
         OddJob2XOffset = OddJob2XOffset - step;
-        if (OddJob2XOffset < ExeFloat(0x866C44)) {        // -380.0
+        if (OddJob2XOffset < DatosExe::Rdata::k866C44) {        // -380.0
             OddJob2On = 0;
             OddJob2OffTimer = 5000.0f; // mov dword ptr [0BAA398h],459C4000h
         }
@@ -1195,15 +1198,15 @@ void CHud::DrawOddJobMessage(bool displayImmediately) {
 
     if (!m1[0]) {
         CFont::SetBackground(false, false);
-        CFont::SetScaleForCurrentLanguage(StretchBaseX() * ExeFloat(0x858CC8), StretchBaseY() * ExeFloat(0x866C48));
+        CFont::SetScaleForCurrentLanguage(StretchBaseX() * DatosExe::Rdata::k858CC8, StretchBaseY() * DatosExe::Rdata::k866C48);
         CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
         CFont::SetProportional(true);
-        CFont::SetCentreSize(StretchBaseX() * ExeFloat(0x858B58));
+        CFont::SetCentreSize(StretchBaseX() * DatosExe::Rdata::k858B58);
         CFont::SetFontStyle(FONT_MENU);
         CFont::SetEdge(2);
         CFont::SetDropColor({ 0, 0, 0, 255 });
         CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_LIGHT_GRAY));
-        CFont::PrintString(halfWidth(), StretchBaseY() * ExeFloat(0x866C40), m5);
+        CFont::PrintString(halfWidth(), StretchBaseY() * DatosExe::Rdata::k866C40, m5);
     }
 }
 
@@ -1241,8 +1244,8 @@ void CHud::DrawRadar() {
     // con el orden exacto de multiplicaciones/sumas del EXE (x87 a 24 bits); las constantes se leen del EXE.
     const float sx = StretchBaseX();
     const float sy = StretchBaseY();
-    const float sx40 = ExeFloat(0x858A10) * sx; // 40.0 * sx
-    const float baseY = (float)RsGlobal.maximumHeight - sy * ExeFloat(0x866B70); // H - sy * 104.0
+    const float sx40 = DatosExe::Rdata::k858A10 * sx; // 40.0 * sx
+    const float baseY = (float)RsGlobal.maximumHeight - sy * DatosExe::Rdata::k866B70; // H - sy * 104.0
 
     CVehicle* vehicle = FindPlayerVehicle(-1, false);
     if (vehicle && vehicle->m_nVehicleSubType == VEHICLE_TYPE_PLANE && vehicle->m_nModelIndex != MODEL_VORTEX) {
@@ -1251,17 +1254,17 @@ void CHud::DrawRadar() {
         const auto& matrix = *vehicle->m_matrix;
         const float negRightZ = -matrix.GetRight().z;
         const float upZ       = matrix.GetUp().z;
-        const float quarterPi = ExeFloat(0x859AB0);
+        const float quarterPi = DatosExe::Rdata::k859AB0;
         // fld negRightZ; fld upZ; fpatan; fchs; fsub quarterPi; fstp (0x58A422..0x58A435): -atan2(-right.z, up.z) - pi/4 con un solo redondeo
         const float baseAngle = HudRadarBaseAngleCpp(negRightZ, upZ, quarterPi);
-        const float p1      = ExeFloat(0x866B78) * sx;              // 94.0 * sx
-        const float radiusX = p1 - sx * ExeFloat(0x859008);         // p1 - 18.0 * sx
-        const float centerX = p1 * ExeFloat(0x858B8C);              // p1 * 0.5
-        const float q       = ExeFloat(0x866B74) * sy;              // 76.0 * sy
-        const float radiusY = q - ExeFloat(0x859008) * sy;          // q - 18.0 * sy
-        const float centerY = q * ExeFloat(0x858B8C);               // q * 0.5
-        const float zero    = ExeFloat(0x858B50);                   // 0.0 (el EXE multiplica por el, no lo elimina)
-        const float halfPi  = ExeFloat(0x858FE4);
+        const float p1      = DatosExe::Rdata::k866B78 * sx;              // 94.0 * sx
+        const float radiusX = p1 - sx * DatosExe::Rdata::k859008;         // p1 - 18.0 * sx
+        const float centerX = p1 * DatosExe::Rdata::k858B8C;              // p1 * 0.5
+        const float q       = DatosExe::Rdata::k866B74 * sy;              // 76.0 * sy
+        const float radiusY = q - DatosExe::Rdata::k859008 * sy;          // q - 18.0 * sy
+        const float centerY = q * DatosExe::Rdata::k858B8C;               // q * 0.5
+        const float zero    = DatosExe::Rdata::k858B50;                   // 0.0 (el EXE multiplica por el, no lo elimina)
+        const float halfPi  = DatosExe::Rdata::k858FE4;
         float xs[4], ys[4];
         for (int32 k = 0; k < 4; ++k) {
             const float angle = (float)k * halfPi + baseAngle;
@@ -1278,7 +1281,7 @@ void CHud::DrawRadar() {
                                && vehicle2->m_nModelIndex != MODEL_VORTEX;
     if (flyingVehicle || FindPlayerPed(-1)->GetActiveWeapon().m_Type == WEAPON_PARACHUTE) {
         // CRect(left, bottom, right, top): +0xC = Y menor, +4 = Y mayor
-        const CRect altimeter = HudRawRect( sx40 - sx * ExeFloat(0x858BA4), baseY, sx40 - sx * ExeFloat(0x85862C), ExeFloat(0x866B74) * sy + baseY );
+        const CRect altimeter = HudRawRect( sx40 - sx * DatosExe::Rdata::k858BA4, baseY, sx40 - sx * DatosExe::Rdata::k85862C, DatosExe::Rdata::k866B74 * sy + baseY );
         CSprite2d::DrawRect(altimeter, CRGBA(10, 10, 10, 100)); // rectangulo
 
         const CVehicle* v = FindPlayerVehicle(-1, false);
@@ -1291,27 +1294,27 @@ void CHud::DrawRadar() {
         }
         // 0x58A68F..0x58A6C6: fcom 200.0 + test ah,41h + jne => z <= 200 (o NaN) usa 0x858B4C; si no, 0x866C08.
         const float z = pos->z;
-        const float seventySixSy = ExeFloat(0x866B74) * sy;
-        const float factor = z > ExeFloat(0x858A48) ? ExeFloat(0x866C08) : ExeFloat(0x858B4C);
+        const float seventySixSy = DatosExe::Rdata::k866B74 * sy;
+        const float factor = z > DatosExe::Rdata::k858A48 ? DatosExe::Rdata::k866C08 : DatosExe::Rdata::k858B4C;
         const float product = seventySixSy * (z * factor);
         RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(NULL));
 
         // min() del EXE (0x404330): (a < b) ? a : b
         const float minimum = seventySixSy < product ? seventySixSy : product;
         const float lineY = (baseY + seventySixSy) - minimum; // 0x58A722..0x58A734
-        const CRect line = HudRawRect( sx40 - sx * ExeFloat(0x858FE8), lineY, sx40 - ExeFloat(0x858C80), lineY + ExeFloat(0x858CA0) );
+        const CRect line = HudRawRect( sx40 - sx * DatosExe::Rdata::k858FE8, lineY, sx40 - DatosExe::Rdata::k858C80, lineY + DatosExe::Rdata::k858CA0 );
         CSprite2d::DrawRect(line, CRGBA(200, 200, 200, 200)); // linea horizontal (altura actual)
     }
 
     // Discos del radar (0x58A782..0x58AA25). El EXE los calcula uno a uno (no reutiliza un CRect) y los pasa a
     // CSprite2d::Draw(CRect, CRGBA) de la ranura RADAR_DISC; el 2.o y el 4.o tienen left > right (espejo horizontal).
     const auto black = CRGBA(0, 0, 0, 255);
-    const float discRight = ExeFloat(0x866B78) * sx * ExeFloat(0x858B8C) + sx40;          // (94*sx)*0.5 + 40*sx
-    const float discBottomTop = (ExeFloat(0x866B74) * sy) * ExeFloat(0x858B8C) + baseY;    // (76*sy)*0.5 + baseY
-    const float fourSy = sy * ExeFloat(0x858B90);                                          // 4.0 * sy
-    const float discLeft1 = sx40 - sx * ExeFloat(0x858B90);                                // 40*sx - 4*sx
-    const float discLeft2 = (sx * ExeFloat(0x858B90) + sx40) + ExeFloat(0x866B78) * sx;    // (4*sx + 40*sx) + 94*sx
-    const float lower = (fourSy + baseY) + ExeFloat(0x866B74) * sy;                        // (4*sy + baseY) + 76*sy
+    const float discRight = DatosExe::Rdata::k866B78 * sx * DatosExe::Rdata::k858B8C + sx40;          // (94*sx)*0.5 + 40*sx
+    const float discBottomTop = (DatosExe::Rdata::k866B74 * sy) * DatosExe::Rdata::k858B8C + baseY;    // (76*sy)*0.5 + baseY
+    const float fourSy = sy * DatosExe::Rdata::k858B90;                                          // 4.0 * sy
+    const float discLeft1 = sx40 - sx * DatosExe::Rdata::k858B90;                                // 40*sx - 4*sx
+    const float discLeft2 = (sx * DatosExe::Rdata::k858B90 + sx40) + DatosExe::Rdata::k866B78 * sx;    // (4*sx + 40*sx) + 94*sx
+    const float lower = (fourSy + baseY) + DatosExe::Rdata::k866B74 * sy;                        // (4*sy + baseY) + 76*sy
 
     Sprites[SPRITE_RADAR_DISC].Draw(HudRawRect( discLeft1, baseY - fourSy, discRight, discBottomTop ), black); // arriba izquierda
     Sprites[SPRITE_RADAR_DISC].Draw(HudRawRect( discLeft2, baseY - fourSy, discRight, discBottomTop ), black); // arriba derecha
@@ -1335,7 +1338,7 @@ void CHud::DrawScriptText(bool isBeforeFade) {
 
         // Como el original (0x58C0BB..0x58C14B): sin correccion de relacion de aspecto; todo es
         // (fild maximumWidth/Height * 0x859520/0x859524) * valor, y la altura de la escala se multiplica por 0.5 al final.
-        CFont::SetScale(StretchBaseX() * t.Scale.x, StretchBaseY() * t.Scale.y * ExeFloat(0x858B8C));
+        CFont::SetScale(StretchBaseX() * t.Scale.x, StretchBaseY() * t.Scale.y * DatosExe::Rdata::k858B8C);
         CFont::SetColor(t.Color);
         CFont::SetJustify(t.Justify);
         if (t.HasRightJustify) {
@@ -1370,8 +1373,8 @@ void CHud::DrawScriptText(bool isBeforeFade) {
         CMessages::InsertPlayerControlKeysInString(text);
         // Como el original (0x58C1DD..0x58C225): x = W - (640.0 - Pos.x) * (W * c520), y = H - (448.0 - Pos.y) * (H * c524)
         CFont::PrintString(
-            (float)RsGlobal.maximumWidth - (ExeFloat(0x85951C) - t.Pos.x) * StretchBaseX(),
-            (float)RsGlobal.maximumHeight - (ExeFloat(0x8652B0) - t.Pos.y) * StretchBaseY(),
+            (float)RsGlobal.maximumWidth - (DatosExe::Rdata::k85951C - t.Pos.x) * StretchBaseX(),
+            (float)RsGlobal.maximumHeight - (DatosExe::Rdata::k8652B0 - t.Pos.y) * StretchBaseY(),
             text
         );
         CFont::SetEdge(0);
@@ -1381,16 +1384,16 @@ void CHud::DrawScriptText(bool isBeforeFade) {
 namespace {
 float SubtitleScaleY(int height, bool widescreen) {
     // fild height; fmul 0x859524; fmul (0x858F08 con pantalla ancha, 0x866C20 si no); fstp
-    return IntTimesTwoFloatsCpp(height, ExeFloat(0x859524), ExeFloat(widescreen ? 0x858F08 : 0x866C20));
+    return IntTimesTwoFloatsCpp(height, DatosExe::Rdata::k859524, ExeFloat(widescreen ? 0x858F08 : 0x866C20));
 }
 float SubtitleCentreVitals(int width) {
     // 0x58C4F6..0x58C52F: la cadena x87 de fild/fmul/fsub/fadd con el ancho entero exacto; ayudante de X87Math
-    return HudSubtitleCentreVitalsCpp(width, ExeFloat(0x859520), ExeFloat(0x859000), ExeFloat(0x858BA4), ExeFloat(0x865374), ExeFloat(0x858C98));
+    return HudSubtitleCentreVitalsCpp(width, DatosExe::Rdata::k859520, DatosExe::Rdata::k859000, DatosExe::Rdata::k858BA4, DatosExe::Rdata::k865374, DatosExe::Rdata::k858C98);
 }
 float SubtitleScaleX(int width, bool vitals) {
     // fild width; fmul 0x859520; fmul 0x866C24; [fmul 0x858C98 con vitals]; fstp (el producto parcial ya es un float de 24 bits)
-    const float base = IntTimesTwoFloatsCpp(width, ExeFloat(0x859520), ExeFloat(0x866C24));
-    return vitals ? base * ExeFloat(0x858C98) : base;
+    const float base = IntTimesTwoFloatsCpp(width, DatosExe::Rdata::k859520, DatosExe::Rdata::k866C24);
+    return vitals ? base * DatosExe::Rdata::k858C98 : base;
 }
 }
 // 0x58C250
@@ -1417,7 +1420,7 @@ void CHud::DrawSubtitles() {
         wasWidescreen = false;
         CFont::SetScaleForCurrentLanguage(SubtitleScaleX(RsGlobal.maximumWidth, false), SubtitleScaleY(RsGlobal.maximumHeight, false));
         // Como el original: mantiene ambos operandos en x87 hasta guardar la coordenada.
-        y = HudSubtitleBottomYCpp(RsGlobal.maximumHeight, ExeFloat(0x859524), ExeFloat(0x866C1C));
+        y = HudSubtitleBottomYCpp(RsGlobal.maximumHeight, DatosExe::Rdata::k859524, DatosExe::Rdata::k866C1C);
         if (CTheScripts::bUseMessageFormatting) {
             CFont::SetCentreSize(float(sx * CTheScripts::MessageWidth));
             x = float(sx * CTheScripts::MessageCentre);
@@ -1453,8 +1456,8 @@ void CHud::DrawSuccessFailedMessage() {
     auto& initialized = StaticRef<uint32>(0xBAB21C);
     auto& baseline = StaticRef<float>(0xBAB218);
     const auto constant = [](uintptr_t address) { return *reinterpret_cast<const float*>(address); };
-    const float sy = float(RsGlobal.maximumHeight) * constant(0x859524);
-    const float middle = float(RsGlobal.maximumHeight / 2) - sy * constant(0x85862C);
+    const float sy = float(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524;
+    const float middle = float(RsGlobal.maximumHeight / 2) - sy * DatosExe::Rdata::k85862C;
     if (!(initialized & 1)) { initialized |= 1; baseline = middle; }
     auto& message = m_BigMessage[0];
     auto& age = BigMessageX[0];
@@ -1463,33 +1466,33 @@ void CHud::DrawSuccessFailedMessage() {
     if (!message[0]) { age = 0.f; return; }
     if (age == 0.f) {
         position = -60.f; age = 1.f; alpha = 0.f;
-        if (m_BigMessage[3][0] || m_BigMessage[5][0]) baseline = middle + sy * constant(0x858FE8);
-        else if (!m_BigMessage[2][0] && CFont::GetNumberLines(float(RsGlobal.maximumWidth / 2), middle, message) > 1) baseline = middle - sy * constant(0x858B48);
+        if (m_BigMessage[3][0] || m_BigMessage[5][0]) baseline = middle + sy * DatosExe::Rdata::k858FE8;
+        else if (!m_BigMessage[2][0] && CFont::GetNumberLines(float(RsGlobal.maximumWidth / 2), middle, message) > 1) baseline = middle - sy * DatosExe::Rdata::k858B48;
         else baseline = middle;
         return;
     }
     CFont::SetBackground(false, false);
-    CFont::SetScale(float(double(float(RsGlobal.maximumWidth) * constant(0x859520)) * *reinterpret_cast<const double*>(0x866C30)), float(double(sy) * *reinterpret_cast<const double*>(0x866C38)));
+    CFont::SetScale(float(double(float(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520) * DatosExe::Rdata::k866C30_d), float(double(sy) * DatosExe::Rdata::k866C38_d));
     CFont::SetProportional(true);
     CFont::SetJustify(false);
     CFont::SetOrientation(static_cast<eFontAlignment>(0));
-    CFont::SetCentreSize(float(RsGlobal.maximumWidth) * constant(0x859520) * constant(0x866C28));
+    CFont::SetCentreSize(float(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520 * DatosExe::Rdata::k866C28);
     CFont::SetFontStyle(static_cast<eFontStyle>(3));
     CFont::SetEdge(2);
     const auto opacity = uint8(int32(alpha));
     CFont::SetDropColor(CRGBA(0, 0, 0, opacity));
     CFont::SetColor(HudColour.GetRGBA(static_cast<eHudColours>(6), opacity));
     if (float(RsGlobal.maximumWidth - 20) > position) {
-        const uint32 ticks = uint32(int32((CTimer::GetTimeStep() * constant(0x858B38)) * constant(0x858C4C)));
-        const float delta = float(ticks) * constant(0x858C24);
+        const uint32 ticks = uint32(int32((CTimer::GetTimeStep() * DatosExe::Rdata::k858B38) * DatosExe::Rdata::k858C4C));
+        const float delta = float(ticks) * DatosExe::Rdata::k858C24;
         position += delta; alpha += delta;
         if (alpha > 255.f) alpha = 255.f;
     } else {
         age += CTimer::GetTimeStep();
-        if (age >= constant(0x858BB0)) {
+        if (age >= DatosExe::Rdata::k858BB0) {
             age = 120.f;
-            const uint32 ticks = uint32(int32((CTimer::GetTimeStep() * constant(0x858B38)) * constant(0x858C4C)));
-            alpha -= float(ticks) * constant(0x858C24);
+            const uint32 ticks = uint32(int32((CTimer::GetTimeStep() * DatosExe::Rdata::k858B38) * DatosExe::Rdata::k858C4C));
+            alpha -= float(ticks) * DatosExe::Rdata::k858C24;
         }
         if (alpha < 0.f) { alpha = 0.f; message[0] = 0; }
     }
@@ -1534,23 +1537,23 @@ void CHud::DrawVehicleName() {
         return;
 
     // Como el original: ms = _ftol2(ms_fTimeStep * 0x858B38 * 1000.0 | -1000.0) y alfa = fade * 0x858CDC (0.001) * 255.0.
-    const auto stepMs    = [] { return (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x858C4C)); };
-    const auto stepMsNeg = [] { return (int32)(int64)(CTimer::GetTimeStep() * ExeFloat(0x858B38) * ExeFloat(0x859948)); };
-    const auto fadeAlpha = [] { return (float)m_VehicleFadeTimer * ExeFloat(0x858CDC) * ExeFloat(0x859AAC); };
+    const auto stepMs    = [] { return (int32)(int64)(CTimer::GetTimeStep() * DatosExe::Rdata::k858B38 * DatosExe::Rdata::k858C4C); };
+    const auto stepMsNeg = [] { return (int32)(int64)(CTimer::GetTimeStep() * DatosExe::Rdata::k858B38 * DatosExe::Rdata::k859948); };
+    const auto fadeAlpha = [] { return (float)m_VehicleFadeTimer * DatosExe::Rdata::k858CDC * DatosExe::Rdata::k859AAC; };
 
     // En el EXE el alfa queda SIN inicializar si el estado no esta en 1..4 (0x58AF3D..0x58AF40 salta a 0x58B040): el 0 es solo un valor definido.
     float alpha = 0.0f;
     switch (m_VehicleState) {
     case NAME_SHOW:
-        if ((float)(int32)m_VehicleNameTimer > ExeFloat(0x859A94)) { // fild + fcomp 3000.0
+        if ((float)(int32)m_VehicleNameTimer > DatosExe::Rdata::k859A94) { // fild + fcomp 3000.0
             m_VehicleState = NAME_FADE_OUT;
             m_VehicleFadeTimer = 1000;
         }
-        alpha = ExeFloat(0x859AAC);
+        alpha = DatosExe::Rdata::k859AAC;
         break;
     case NAME_FADE_IN:
         m_VehicleFadeTimer += stepMs();
-        if (!((float)m_VehicleFadeTimer <= ExeFloat(0x858C4C))) {
+        if (!((float)m_VehicleFadeTimer <= DatosExe::Rdata::k858C4C)) {
             m_VehicleFadeTimer = 1000;
             m_VehicleState = NAME_SHOW;
         }
@@ -1583,7 +1586,7 @@ void CHud::DrawVehicleName() {
         CFont::SetProportional(true);
         CFont::SetBackground(false, false);
         // Como el original (0x58B080..0x58B0A5): x = fild W * c520, y = (fild H * c524) * 1.5 (0x858CE8)
-        CFont::SetScaleForCurrentLanguage(StretchBaseX(), StretchBaseY() * ExeFloat(0x858CE8));
+        CFont::SetScaleForCurrentLanguage(StretchBaseX(), StretchBaseY() * DatosExe::Rdata::k858CE8);
         CFont::SetOrientation(eFontAlignment::ALIGN_RIGHT);
         CFont::SetRightJustifyWrap(0.0f);
         CFont::SetFontStyle(eFontStyle::FONT_MENU);
@@ -1594,8 +1597,8 @@ void CHud::DrawVehicleName() {
         if (CTheScripts::bDisplayHud) {
             // 0x58B116..0x58B156: x = W - (W * c520) * 32.0, y = H - (H * c524) * 104.0
             CFont::PrintString(
-                (float)RsGlobal.maximumWidth - StretchBaseX() * ExeFloat(0x85950C),
-                (float)RsGlobal.maximumHeight - StretchBaseY() * ExeFloat(0x866B70),
+                (float)RsGlobal.maximumWidth - StretchBaseX() * DatosExe::Rdata::k85950C,
+                (float)RsGlobal.maximumHeight - StretchBaseY() * DatosExe::Rdata::k866B70,
                 m_pVehicleNameToPrint
             );
         }
@@ -1610,28 +1613,28 @@ void CHud::DrawVitalStats() {
     auto* player = FindPlayerPed(-1);
     auto weapon = player->GetActiveWeapon().m_Type;
     if (int(weapon) == 32) weapon = static_cast<eWeaponType>(28);
-    const float sx = float(RsGlobal.maximumWidth) * f(0x859520), sy = float(RsGlobal.maximumHeight) * f(0x859524);
-    CFont::SetBackground(false, false); CFont::SetColor(CRGBA(225, 225, 225, 255)); CFont::SetWrapx(sx * f(0x85951C)); CFont::SetRightJustifyWrap(0.f); CFont::SetProportional(true);
-    const int16 labelX = int16(int32(sx * f(0x85862C) + f(0x858A10)));
-    const int16 barX = int16(int32(sx * f(0x85991C) + f(0x858A10)));
-    const int16 barOffset = int16(int32(sy * f(0x858C80)));
+    const float sx = float(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520, sy = float(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524;
+    CFont::SetBackground(false, false); CFont::SetColor(CRGBA(225, 225, 225, 255)); CFont::SetWrapx(sx * DatosExe::Rdata::k85951C); CFont::SetRightJustifyWrap(0.f); CFont::SetProportional(true);
+    const int16 labelX = int16(int32(sx * DatosExe::Rdata::k85862C + DatosExe::Rdata::k858A10));
+    const int16 barX = int16(int32(sx * DatosExe::Rdata::k85991C + DatosExe::Rdata::k858A10));
+    const int16 barOffset = int16(int32(sy * DatosExe::Rdata::k858C80));
     const bool hasSkill = player->GetIntelligence()->GetTaskSwim() || (int(weapon) >= 22 && int(weapon) <= 32);
-    const float top = float(RsGlobal.maximumHeight) - sy * f(0x865374);
-    const float panelTop = hasSkill ? top : top + sy * f(0x858B48);
-    FrontEndMenuManager.DrawWindow(HudRawRect(40.f, panelTop, sx * f(0x858F98) + 40.f, top + sy * f(0x86532C)), "FEH_STA", 0, CRGBA(0, 0, 0, 190), false, true);
-    int16 labelY = int16(int32(top + (hasSkill ? sy * f(0x858B48) : (sy * f(0x858B48)) + (sy * f(0x858B48)))));
-    CFont::SetFontStyle(static_cast<eFontStyle>(1)); CFont::SetOrientation(static_cast<eFontAlignment>(1)); CFont::SetScale(sx * f(0x858F9C), sy * f(0x858C20)); CFont::SetColor(CRGBA(225, 225, 225, 255)); CFont::SetEdge(0);
+    const float top = float(RsGlobal.maximumHeight) - sy * DatosExe::Rdata::k865374;
+    const float panelTop = hasSkill ? top : top + sy * DatosExe::Rdata::k858B48;
+    FrontEndMenuManager.DrawWindow(HudRawRect(40.f, panelTop, sx * DatosExe::Rdata::k858F98 + 40.f, top + sy * DatosExe::Rdata::k86532C), "FEH_STA", 0, CRGBA(0, 0, 0, 190), false, true);
+    int16 labelY = int16(int32(top + (hasSkill ? sy * DatosExe::Rdata::k858B48 : (sy * DatosExe::Rdata::k858B48) + (sy * DatosExe::Rdata::k858B48))));
+    CFont::SetFontStyle(static_cast<eFontStyle>(1)); CFont::SetOrientation(static_cast<eFontAlignment>(1)); CFont::SetScale(sx * DatosExe::Rdata::k858F9C, sy * DatosExe::Rdata::k858C20); CFont::SetColor(CRGBA(225, 225, 225, 255)); CFont::SetEdge(0);
     const auto bar = [&](float value) {
-        CSprite2d::DrawBarChart(float(barX), float(int(labelY) + barOffset), uint16(int32(sx * f(0x858CE0))), uint8(int32(sy * f(0x85862C))), value, 0, 0, 1, CRGBA(200, 200, 200, 255), CRGBA(0, 0, 0, 0));
+        CSprite2d::DrawBarChart(float(barX), float(int(labelY) + barOffset), uint16(int32(sx * DatosExe::Rdata::k858CE0)), uint8(int32(sy * DatosExe::Rdata::k85862C)), value, 0, 0, 1, CRGBA(200, 200, 200, 255), CRGBA(0, 0, 0, 0));
     };
     CFont::PrintString(float(labelX), float(labelY), TheText.Get("STAT068"));
-    bar((CStats::GetStatValue(static_cast<eStats>(64)) * f(0x858CDC)) * f(0x858628));
-    labelY = int16(int32(float(labelY) + sy * f(0x858B48)));
+    bar((CStats::GetStatValue(static_cast<eStats>(64)) * DatosExe::Rdata::k858CDC) * DatosExe::Rdata::k858628);
+    labelY = int16(int32(float(labelY) + sy * DatosExe::Rdata::k858B48));
     bool skillShown=false;
     if (player->GetIntelligence()->GetTaskSwim()) {
         skillShown=true;
         CFont::PrintString(float(labelX), float(labelY), TheText.Get("STAT225"));
-        bar((CStats::GetStatValue(static_cast<eStats>(225)) * f(0x858CDC)) * f(0x858628));
+        bar((CStats::GetStatValue(static_cast<eStats>(225)) * DatosExe::Rdata::k858CDC) * DatosExe::Rdata::k858628);
     } else if (int(weapon) >= 22 && int(weapon) <= 32) {
         skillShown=true;
         CFont::PrintString(float(labelX), float(labelY), TheText.Get("CURWSKL"));
@@ -1640,22 +1643,22 @@ void CHud::DrawVitalStats() {
         const float product = *reinterpret_cast<const float*>(0xB78EB4 + int(stat) * 4) * reaction;
         const float value = CStats::GetStatValue(stat);
         float progress = 1.f;
-        if (value <= f(0x866BEC)) {
-            const float rounded = static_cast<float>(FloorFloat((reaction * f(0x858B1C) + value) / product));
-            progress = (rounded * product) * f(0x858CDC);
+        if (value <= DatosExe::Rdata::k866BEC) {
+            const float rounded = static_cast<float>(FloorFloat((reaction * DatosExe::Rdata::k858B1C + value) / product));
+            progress = (rounded * product) * DatosExe::Rdata::k858CDC;
         }
-        bar(progress * f(0x858628));
+        bar(progress * DatosExe::Rdata::k858628);
     }
-    if (skillShown) labelY = int16(int32(float(labelY) + sy * f(0x858B48)));
+    if (skillShown) labelY = int16(int32(float(labelY) + sy * DatosExe::Rdata::k858B48));
     constexpr int stats[]{22, 23, 21, 25}; constexpr const char* keys[]{"STAT022", "STAT023", "STAT021", "STAT025"};
     for (int i = 0; i < 4; ++i) {
         CFont::PrintString(float(labelX), float(labelY), TheText.Get(keys[i]));
-        bar((CStats::GetStatValue(static_cast<eStats>(stats[i])) * f(0x858CDC)) * f(0x858628));
-        labelY = int16(int32(float(labelY) + sy * f(0x858B48) + (i==3?sy*f(0x858B3C):0.f)));
+        bar((CStats::GetStatValue(static_cast<eStats>(stats[i])) * DatosExe::Rdata::k858CDC) * DatosExe::Rdata::k858628);
+        labelY = int16(int32(float(labelY) + sy * DatosExe::Rdata::k858B48 + (i==3?sy*DatosExe::Rdata::k858B3C:0.f)));
     }
-    CFont::SetFontStyle(static_cast<eFontStyle>(3)); CFont::SetOrientation(static_cast<eFontAlignment>(2)); CFont::SetScale(sx * f(0x858CB0), sy * f(0x858CB0)); CFont::SetEdge(1); CFont::SetColor(CRGBA(200, 200, 200, 255)); CFont::SetDropColor(CRGBA(0, 0, 0, 255));
+    CFont::SetFontStyle(static_cast<eFontStyle>(3)); CFont::SetOrientation(static_cast<eFontAlignment>(2)); CFont::SetScale(sx * DatosExe::Rdata::k858CB0, sy * DatosExe::Rdata::k858CB0); CFont::SetEdge(1); CFont::SetColor(CRGBA(200, 200, 200, 255)); CFont::SetDropColor(CRGBA(0, 0, 0, 255));
     std::sprintf(gString, "DAY_%d", int(StaticRef<uint8>(0xB7014E)));
-    CFont::PrintString(sx * f(0x858970) + 40.f, float(labelY), TheText.Get(gString));
+    CFont::PrintString(sx * DatosExe::Rdata::k858970 + 40.f, float(labelY), TheText.Get(gString));
 }
 
 // 0x588A50
@@ -1720,12 +1723,12 @@ void CHud::DrawAmmo(CPed* ped, int32 x, int32 y, float alpha) {
     AsciiToGxtChar(gString, gGxtString);
 
     // Como el original (0x5894A6..0x58952A): anchura = fild maximumWidth * 0x859520 * k; altura = fild maximumHeight * 0x859524 * k.
-    const float stretchX = (float)RsGlobal.maximumWidth  * ExeFloat(0x859520);
-    const float stretchY = (float)RsGlobal.maximumHeight * ExeFloat(0x859524);
+    const float stretchX = (float)RsGlobal.maximumWidth  * DatosExe::Rdata::k859520;
+    const float stretchY = (float)RsGlobal.maximumHeight * DatosExe::Rdata::k859524;
     CFont::SetBackground(false, false);
-    CFont::SetScale(stretchX * ExeFloat(0x858C24), stretchY * ExeFloat(0x858CB0));
+    CFont::SetScale(stretchX * DatosExe::Rdata::k858C24, stretchY * DatosExe::Rdata::k858CB0);
     CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
-    CFont::SetCentreSize(stretchX * ExeFloat(0x85951C)); // OJO: el EXE usa maximumWidth (0xC17044), no la altura
+    CFont::SetCentreSize(stretchX * DatosExe::Rdata::k85951C); // OJO: el EXE usa maximumWidth (0xC17044), no la altura
     CFont::SetProportional(true);
     CFont::SetEdge(1);
     CFont::SetDropColor({ 0, 0, 0, 255 });
@@ -1758,18 +1761,18 @@ void CHud::DrawAmmo(CPed* ped, int32 x, int32 y, float alpha) {
 // 0x58EAF0
 void CHud::DrawPlayerInfo() {
     const auto f = [](uintptr_t a) { return *reinterpret_cast<const float*>(a); };
-    const float sx = float(RsGlobal.maximumWidth) * f(0x859520), sy = float(RsGlobal.maximumHeight) * f(0x859524);
+    const float sx = float(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520, sy = float(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524;
     const auto focus = CWorld::PlayerInFocus;
     auto* player = CWorld::Players[focus].m_pPed;
     auto* other = StaticRef<CPlayerPed*>(0xB7CF28);
     GxtChar text[200]; char ascii[200];
     const auto typography = [&] {
-        CFont::SetBackground(false, false); CFont::SetScale(sx * f(0x866CAC), sy * f(0x858F14)); CFont::SetProportional(false); CFont::SetFontStyle(static_cast<eFontStyle>(3)); CFont::SetOrientation(static_cast<eFontAlignment>(2)); CFont::SetRightJustifyWrap(0.f); CFont::SetEdge(2);
+        CFont::SetBackground(false, false); CFont::SetScale(sx * DatosExe::Rdata::k866CAC, sy * DatosExe::Rdata::k858F14); CFont::SetProportional(false); CFont::SetFontStyle(static_cast<eFontStyle>(3)); CFont::SetOrientation(static_cast<eFontAlignment>(2)); CFont::SetRightJustifyWrap(0.f); CFont::SetEdge(2);
     };
     if (StaticRef<uint32>(0xBAA400) == 1) {
         typography(); CFont::SetDropColor(CRGBA(0, 0, 0, 255));
         std::sprintf(ascii, "%02d:%02d", int(StaticRef<uint8>(0xB70153)), int(StaticRef<uint8>(0xB70152))); AsciiToGxtChar(ascii, text);
-        CFont::SetColor(HudColour.GetRGB(static_cast<eHudColours>(4))); CFont::PrintString(float(RsGlobal.maximumWidth) - sx * f(0x85950C), sy * f(0x858F8C), text); CFont::SetEdge(0);
+        CFont::SetColor(HudColour.GetRGB(static_cast<eHudColours>(4))); CFont::PrintString(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C, sy * DatosExe::Rdata::k858F8C, text); CFont::SetEdge(0);
     }
     const auto fadeElement = [&](uintptr_t address, int current) {
         auto& state = StaticRef<int32>(address); auto& fade = StaticRef<int32>(address + 4); auto& timer = StaticRef<int32>(address + 8); auto& previous = StaticRef<int32>(address + 12);
@@ -1779,14 +1782,14 @@ void CHud::DrawPlayerInfo() {
             if (!state || state == 1 || state == 3) { state = 2; timer = 5; }
         }
         if (state && state != 5) {
-            if (state == 1) { fade = 1000; if (float(timer) > f(0x859AA4)) { state = 3; fade = 3000; } }
+            if (state == 1) { fade = 1000; if (float(timer) > DatosExe::Rdata::k859AA4) { state = 3; fade = 3000; } }
             else if (state == 2 || state == 3) {
-                fade += int32((CTimer::GetTimeStep() * f(0x858B38)) * (state == 2 ? f(0x858C4C) : f(0x859948)));
+                fade += int32((CTimer::GetTimeStep() * DatosExe::Rdata::k858B38) * (state == 2 ? DatosExe::Rdata::k858C4C : DatosExe::Rdata::k859948));
                 if (state == 2 && float(fade) > 1000.f) { fade = 1000; state = 1; }
                 if (state == 3 && float(fade) < 0.f) { fade = 0; state = 0; }
-                alpha = (float(fade) * f(0x858CDC)) * 255.f;
+                alpha = (float(fade) * DatosExe::Rdata::k858CDC) * 255.f;
             }
-            timer += int32((CTimer::GetTimeStep() * f(0x858B38)) * f(0x858C4C));
+            timer += int32((CTimer::GetTimeStep() * DatosExe::Rdata::k858B38) * DatosExe::Rdata::k858C4C);
         }
         previous = current;
         if (alpha < 0.f) alpha = 0.f; else if (alpha > 255.f) alpha = 255.f;
@@ -1794,11 +1797,11 @@ void CHud::DrawPlayerInfo() {
     };
     fadeElement(0xBAA434, StaticRef<int32>(0xB7CE7C + 400 * focus));
     if (m_EnergyLostState) {
-        const int healthX = int32(float(RsGlobal.maximumWidth) - sx * f(0x86535C)), armorX = int32(float(RsGlobal.maximumWidth) - sx * f(0x866B78));
-        RenderHealthBar(focus, healthX, int32(GetYPosBasedOnHealth(focus, sy * f(0x866CA8), 10)));
-        if (other) RenderHealthBar(1, healthX, int32(GetYPosBasedOnHealth(1, GetYPosBasedOnHealth(focus, sy * f(0x866CA4), 12), 12)));
-        RenderArmorBar(focus, armorX, int32(GetYPosBasedOnHealth(focus, sy * f(0x862D38), 3)));
-        if (other) RenderArmorBar(1, armorX, int32(GetYPosBasedOnHealth(1, GetYPosBasedOnHealth(focus, sy * f(0x866CA0), 12), 12)));
+        const int healthX = int32(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k86535C), armorX = int32(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k866B78);
+        RenderHealthBar(focus, healthX, int32(GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k866CA8, 10)));
+        if (other) RenderHealthBar(1, healthX, int32(GetYPosBasedOnHealth(1, GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k866CA4, 12), 12)));
+        RenderArmorBar(focus, armorX, int32(GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k862D38, 3)));
+        if (other) RenderArmorBar(1, armorX, int32(GetYPosBasedOnHealth(1, GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k866CA0, 12), 12)));
         const auto submerged = [](CPlayerPed* p) {
             if (p->GetIntelligence()->GetTaskSwim()) return true;
             const auto* raw = reinterpret_cast<const uint8*>(p);
@@ -1813,25 +1816,25 @@ void CHud::DrawPlayerInfo() {
         if (breath) m_LastBreathTime = int32(CTimer::GetTimeInMS());
         bool otherBreath = false;
         if (other) { otherBreath = submerged(other); if (!otherBreath) otherBreath = other->GetPlayerData()->m_fBreath < CStats::GetFatAndMuscleModifier(STAT_MOD_AIR_IN_LUNG); if (otherBreath) m_LastBreathTime = int32(CTimer::GetTimeInMS()); }
-        if (breath) RenderBreathBar(focus, armorX, int32(GetYPosBasedOnHealth(focus, sy * f(0x86503C), 6)));
-        if (otherBreath && other) RenderBreathBar(1, armorX, int32(GetYPosBasedOnHealth(1, GetYPosBasedOnHealth(focus, sy * f(0x866C9C), 12), 12)));
+        if (breath) RenderBreathBar(focus, armorX, int32(GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k86503C, 6)));
+        if (otherBreath && other) RenderBreathBar(1, armorX, int32(GetYPosBasedOnHealth(1, GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k866C9C, 12), 12)));
     }
     const int money = StaticRef<int32>(0xB7CE54 + 400 * focus);
     const auto moneyAlpha = uint8(int32(fadeElement(0xBAA424, money)));
     if (m_DisplayScoreState) {
         CFont::SetColor(HudColour.GetRGBA(static_cast<eHudColours>(money < 0 ? 0 : 1), moneyAlpha));
         std::sprintf(ascii, money < 0 ? "-$%07d" : "$%08d", money < 0 ? -money : money); AsciiToGxtChar(ascii, text);
-        CFont::SetProportional(false); CFont::SetBackground(false, false); CFont::SetScale(sx * f(0x866CAC), sy * f(0x858F14)); CFont::SetOrientation(static_cast<eFontAlignment>(2)); CFont::SetRightJustifyWrap(0.f); CFont::SetFontStyle(static_cast<eFontStyle>(3)); CFont::SetDropShadowPosition(0); CFont::SetEdge(2); CFont::SetDropColor(CRGBA(0,0,0,moneyAlpha));
-        CFont::PrintString(float(RsGlobal.maximumWidth) - sx * f(0x85950C), GetYPosBasedOnHealth(focus, sy * f(0x866C88), 12), text); CFont::SetEdge(0);
+        CFont::SetProportional(false); CFont::SetBackground(false, false); CFont::SetScale(sx * DatosExe::Rdata::k866CAC, sy * DatosExe::Rdata::k858F14); CFont::SetOrientation(static_cast<eFontAlignment>(2)); CFont::SetRightJustifyWrap(0.f); CFont::SetFontStyle(static_cast<eFontStyle>(3)); CFont::SetDropShadowPosition(0); CFont::SetEdge(2); CFont::SetDropColor(CRGBA(0,0,0,moneyAlpha));
+        CFont::PrintString(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C, GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k866C88, 12), text); CFont::SetEdge(0);
     }
     const float weaponAlpha = fadeElement(0xBAA404, int(player->GetActiveWeapon().m_Type));
     if (m_WeaponState) {
-        const float iconX = float(RsGlobal.maximumWidth) - (sx * f(0x85950C) + float(RsGlobal.maximumWidth) * f(0x866C84));
-        DrawWeaponIcon(player, int32(iconX), int32(sy * f(0x858BA4)), weaponAlpha);
-        if (other) DrawWeaponIcon(other, int32(float(RsGlobal.maximumWidth) - (sx * f(0x85950C) + f(0x866C7C))), int32(GetYPosBasedOnHealth(focus, sy * f(0x866C80), 12)), weaponAlpha);
-        const int ammoX = int32(iconX + (sx * f(0x866C4C)) * .5f);
-        DrawAmmo(player, ammoX, int32(sy * f(0x858BA4) + sy * f(0x866C78)), weaponAlpha);
-        if (other) DrawAmmo(other, ammoX, int32(GetYPosBasedOnHealth(focus, sy * f(0x866C80) + sy * f(0x866C78), 12)), weaponAlpha);
+        const float iconX = float(RsGlobal.maximumWidth) - (sx * DatosExe::Rdata::k85950C + float(RsGlobal.maximumWidth) * DatosExe::Rdata::k866C84);
+        DrawWeaponIcon(player, int32(iconX), int32(sy * DatosExe::Rdata::k858BA4), weaponAlpha);
+        if (other) DrawWeaponIcon(other, int32(float(RsGlobal.maximumWidth) - (sx * DatosExe::Rdata::k85950C + DatosExe::Rdata::k866C7C)), int32(GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k866C80, 12)), weaponAlpha);
+        const int ammoX = int32(iconX + (sx * DatosExe::Rdata::k866C4C) * .5f);
+        DrawAmmo(player, ammoX, int32(sy * DatosExe::Rdata::k858BA4 + sy * DatosExe::Rdata::k866C78), weaponAlpha);
+        if (other) DrawAmmo(other, ammoX, int32(GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k866C80 + sy * DatosExe::Rdata::k866C78, 12)), weaponAlpha);
     }
 }
 
@@ -1907,15 +1910,15 @@ inline void CHud::DrawWeapon(CPlayerPed* ped0, CPlayerPed* ped1) {
 void CHud::DrawTripSkip() {
     // Como el original (0x58A163..0x58A1DB): todo en x87 a 24 bits, con este orden exacto de operaciones.
     const float sx = StretchBaseX();                                    // fild maximumWidth * 0x859520
-    const float left = ExeFloat(0x858C94) * sx;                         // 54.0 * sx
-    const float sy = ExeFloat(0x859524) * (float)RsGlobal.maximumHeight;
-    const float top = ((float)RsGlobal.maximumHeight - sy * ExeFloat(0x866B70)) - sy * ExeFloat(0x85989C); // (H - sy*104) - sy*85
+    const float left = DatosExe::Rdata::k858C94 * sx;                         // 54.0 * sx
+    const float sy = DatosExe::Rdata::k859524 * (float)RsGlobal.maximumHeight;
+    const float top = ((float)RsGlobal.maximumHeight - sy * DatosExe::Rdata::k866B70) - sy * DatosExe::Rdata::k85989C; // (H - sy*104) - sy*85
     // CRect(left, bottom, right, top): la Y menor va en +0xC (0x58A1CB = top) y la mayor en +4 (0x58A1DF = sy*64 + top).
-    const CRect rect = HudRawRect(left, top, sx * ExeFloat(0x859A44) + left, sy * ExeFloat(0x859A44) + top);
+    const CRect rect = HudRawRect(left, top, sx * DatosExe::Rdata::k859A44 + left, sy * DatosExe::Rdata::k859A44 + top);
     Sprites[SPRITE_SKIP_ICON].Draw(rect, CRGBA(255, 255, 255, 255));
 
     CFont::SetBackground(false, false);
-    CFont::SetScale(StretchBaseX() * ExeFloat(0x858C24), StretchBaseY() * ExeFloat(0x858CB0));
+    CFont::SetScale(StretchBaseX() * DatosExe::Rdata::k858C24, StretchBaseY() * DatosExe::Rdata::k858CB0);
     CFont::SetOrientation(eFontAlignment::ALIGN_CENTER);
     CFont::SetCentreSize((float)RsGlobal.maximumWidth);
     CFont::SetProportional(true);
@@ -1928,8 +1931,8 @@ void CHud::DrawTripSkip() {
     const float sx2 = StretchBaseX();
     const float sy2 = StretchBaseY();
     const GxtChar* text = TheText.Get("FEC_TSK"); // TRIP SKIP
-    const float y = (((float)RsGlobal.maximumHeight - sy2 * ExeFloat(0x866B70)) - sy2 * ExeFloat(0x85989C) + sy2 * ExeFloat(0x859A44)) - (sy2 + sy2);
-    const float x = sx2 * ExeFloat(0x859A44) * ExeFloat(0x858B8C) + sx2 * ExeFloat(0x858C94);
+    const float y = (((float)RsGlobal.maximumHeight - sy2 * DatosExe::Rdata::k866B70) - sy2 * DatosExe::Rdata::k85989C + sy2 * DatosExe::Rdata::k859A44) - (sy2 + sy2);
+    const float x = sx2 * DatosExe::Rdata::k859A44 * DatosExe::Rdata::k858B8C + sx2 * DatosExe::Rdata::k858C94;
     CFont::PrintString(x, y, text);
 }
 
@@ -1949,44 +1952,44 @@ void CHud::DrawWanted() {
     if (state && state != 5) {
         if (state == 1) {
             fade = 1000;
-            if (float(timer) > f(0x859AA4)) { state = 3; fade = 3000; }
+            if (float(timer) > DatosExe::Rdata::k859AA4) { state = 3; fade = 3000; }
         } else if (state == 2 || state == 3) {
-            const float rate = state == 2 ? f(0x858C4C) : f(0x859948);
-            fade += int32((CTimer::GetTimeStep() * f(0x858B38)) * rate);
-            if (state == 2 && float(fade) > f(0x858C4C)) { fade = 1000; state = 1; }
+            const float rate = state == 2 ? DatosExe::Rdata::k858C4C : DatosExe::Rdata::k859948;
+            fade += int32((CTimer::GetTimeStep() * DatosExe::Rdata::k858B38) * rate);
+            if (state == 2 && float(fade) > DatosExe::Rdata::k858C4C) { fade = 1000; state = 1; }
             if (state == 3 && float(fade) < 0.f) { fade = 0; state = 0; }
-            alpha = (float(fade) * f(0x858CDC)) * 255.f;
+            alpha = (float(fade) * DatosExe::Rdata::k858CDC) * 255.f;
         }
-        timer += int32((CTimer::GetTimeStep() * f(0x858B38)) * f(0x858C4C));
+        timer += int32((CTimer::GetTimeStep() * DatosExe::Rdata::k858B38) * DatosExe::Rdata::k858C4C);
     }
     m_WantedState = uint32(state); m_WantedFadeTimer = uint32(fade); m_WantedTimer = uint32(timer);
     if (alpha < 0.f) alpha = 0.f; else if (alpha > 255.f) alpha = 255.f;
     StaticRef<bool>(0xBAB228) = !changed;
     if (!state) return;
-    const float sx = float(RsGlobal.maximumWidth) * f(0x859520), sy = float(RsGlobal.maximumHeight) * f(0x859524);
-    const float width = sx * f(0x866C60), height = sy * f(0x866C64);
+    const float sx = float(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520, sy = float(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524;
+    const float width = sx * DatosExe::Rdata::k866C60, height = sy * DatosExe::Rdata::k866C64;
     CFont::SetBackground(false, false); CFont::SetScale(width, height);
     CFont::SetOrientation(static_cast<eFontAlignment>(2)); CFont::SetProportional(true); CFont::SetFontStyle(static_cast<eFontStyle>(0));
     GxtChar star[20]; AsciiToGxtChar("]", star);
-    float x = float(RsGlobal.maximumWidth) - sx * f(0x863210);
+    float x = float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k863210;
     if (!(wanted > 0 && StaticRef<bool>(0xBAB228)) && parole <= 0) return;
     const uint8 opacity = uint8(int32(alpha));
     for (int i = 0; i < 6; ++i) {
         CFont::SetEdge(1); CFont::SetDropColor(CRGBA(0, 0, 0, opacity)); CFont::SetScale(width, height);
         if (i < wanted && (CTimer::GetTimeInMS() > FindPlayerWanted(-1)->m_LastTimeWantedLevelChanged + 2000u || (CTimer::GetFrameCounter() & 4))) {
             CFont::SetColor(HudColour.GetRGBA(static_cast<eHudColours>(6), opacity));
-            float y = sy * f(0x866C5C);
-            if (*reinterpret_cast<const uint8*>(0xB7CEE7 + 400 * CWorld::PlayerInFocus) < 101) y -= sy * f(0x858CCC);
+            float y = sy * DatosExe::Rdata::k866C5C;
+            if (*reinterpret_cast<const uint8*>(0xB7CEE7 + 400 * CWorld::PlayerInFocus) < 101) y -= sy * DatosExe::Rdata::k858CCC;
             CFont::PrintString(x, y, star);
         } else if (i < parole && (CTimer::GetFrameCounter() & 4)) {
-            CFont::SetColor(CRGBA(uint8(int32(float(*reinterpret_cast<const uint8*>(0xBAB244)) * f(0x858C98))), uint8(int32(float(*reinterpret_cast<const uint8*>(0xBAB245)) * f(0x858C98))), uint8(int32(float(*reinterpret_cast<const uint8*>(0xBAB246)) * f(0x858C98))), opacity));
-            CFont::PrintString(x, GetYPosBasedOnHealth(CWorld::PlayerInFocus, sy * f(0x866C5C), 12), star);
+            CFont::SetColor(CRGBA(uint8(int32(float(*reinterpret_cast<const uint8*>(0xBAB244)) * DatosExe::Rdata::k858C98)), uint8(int32(float(*reinterpret_cast<const uint8*>(0xBAB245)) * DatosExe::Rdata::k858C98)), uint8(int32(float(*reinterpret_cast<const uint8*>(0xBAB246)) * DatosExe::Rdata::k858C98)), opacity));
+            CFont::PrintString(x, GetYPosBasedOnHealth(CWorld::PlayerInFocus, sy * DatosExe::Rdata::k866C5C, 12), star);
         } else if (i >= wanted) {
-            CFont::SetEdge(0); CFont::SetColor(CRGBA(0, 0, 0, uint8(int32(alpha * f(0x858CB0)))));
-            CFont::SetScale(width * f(0x858F08), height * f(0x858F08));
-            CFont::PrintString(x, GetYPosBasedOnHealth(CWorld::PlayerInFocus, sy * f(0x866C5C), 12) - (sy + sy), star);
+            CFont::SetEdge(0); CFont::SetColor(CRGBA(0, 0, 0, uint8(int32(alpha * DatosExe::Rdata::k858CB0))));
+            CFont::SetScale(width * DatosExe::Rdata::k858F08, height * DatosExe::Rdata::k858F08);
+            CFont::PrintString(x, GetYPosBasedOnHealth(CWorld::PlayerInFocus, sy * DatosExe::Rdata::k866C5C, 12) - (sy + sy), star);
         }
-        x -= sx * f(0x859008);
+        x -= sx * DatosExe::Rdata::k859008;
     }
     CFont::SetEdge(0);
 }
@@ -2000,8 +2003,8 @@ void CHud::DrawWeaponIcon(CPed* ped, int32 x, int32 y, float alpha) {
     if (modelId <= 0) {
         // Como el original (0x58D917..0x58D988): rectangulo con
         // ancho = (fild maximumWidth * 0x859520) * 47.0 y alto = (fild maximumHeight * 0x859524) * 58.0; alfa por _ftol2.
-        const float width  = (float)RsGlobal.maximumWidth  * ExeFloat(0x859520) * ExeFloat(0x866C4C);
-        const float height = (float)RsGlobal.maximumHeight * ExeFloat(0x859524) * ExeFloat(0x866C50);
+        const float width  = (float)RsGlobal.maximumWidth  * DatosExe::Rdata::k859520 * DatosExe::Rdata::k866C4C;
+        const float height = (float)RsGlobal.maximumHeight * DatosExe::Rdata::k859524 * DatosExe::Rdata::k866C50;
         const float x0 = (float)x;
         const float y0 = (float)y;
         // CRect(left, bottom, right, top): el EXE escribe {x, alto + y, x + ancho, y} (offsets 0, 4, 8, 0xC).
@@ -2024,8 +2027,8 @@ void CHud::DrawWeaponIcon(CPed* ped, int32 x, int32 y, float alpha) {
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE,   RWRSTATE(NULL));
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(texture)));
     // Como el original (0x58D877..0x58D8FA): mitades = ((fild max * const) * 47.0|58.0) * 0.5, centro = coordenada + mitad.
-    const float halfHeight = (float)RsGlobal.maximumHeight * ExeFloat(0x859524) * ExeFloat(0x866C50) * ExeFloat(0x858B8C);
-    const float halfWidth  = (float)RsGlobal.maximumWidth  * ExeFloat(0x859520) * ExeFloat(0x866C4C) * ExeFloat(0x858B8C);
+    const float halfHeight = (float)RsGlobal.maximumHeight * DatosExe::Rdata::k859524 * DatosExe::Rdata::k866C50 * DatosExe::Rdata::k858B8C;
+    const float halfWidth  = (float)RsGlobal.maximumWidth  * DatosExe::Rdata::k859520 * DatosExe::Rdata::k866C4C * DatosExe::Rdata::k858B8C;
     CSprite::RenderOneXLUSprite(
         { (float)x + halfWidth, (float)y + halfHeight, 1.0f },
         { halfWidth, halfHeight },
@@ -2050,8 +2053,8 @@ void CHud::RenderArmorBar(int32 playerId, int32 x, int32 y) {
     // Como el original: el maximo sale de Players[playerId] (0x589110, [esi+0B7CEE8h]) y la anchura/altura son
     // fild maximumWidth/Height * 0x859520/0x859524 * 62.0/9.0 (x87 a 24 bits), truncadas con _ftol2.
     const auto& info = FindPlayerInfo(playerId);
-    const float width  = (float)RsGlobal.maximumWidth  * ExeFloat(0x859520) * ExeFloat(0x86503C);
-    const float height = (float)RsGlobal.maximumHeight * ExeFloat(0x859524) * ExeFloat(0x85EED4);
+    const float width  = (float)RsGlobal.maximumWidth  * DatosExe::Rdata::k859520 * DatosExe::Rdata::k86503C;
+    const float height = (float)RsGlobal.maximumHeight * DatosExe::Rdata::k859524 * DatosExe::Rdata::k85EED4;
     CSprite2d::DrawBarChart(
         (float)x,
         (float)y,
@@ -2072,8 +2075,8 @@ void CHud::RenderBreathBar(int32 playerId, int32 x, int32 y) {
         return;
 
     auto* player = FindPlayerPed(playerId);
-    const float width  = (float)RsGlobal.maximumWidth  * ExeFloat(0x859520) * ExeFloat(0x86503C);
-    const float height = (float)RsGlobal.maximumHeight * ExeFloat(0x859524) * ExeFloat(0x85EED4);
+    const float width  = (float)RsGlobal.maximumWidth  * DatosExe::Rdata::k859520 * DatosExe::Rdata::k86503C;
+    const float height = (float)RsGlobal.maximumHeight * DatosExe::Rdata::k859524 * DatosExe::Rdata::k85EED4;
     CSprite2d::DrawBarChart(
         (float)x,
         (float)y,
@@ -2100,11 +2103,11 @@ void CHud::RenderHealthBar(int32 playerId, int32 x, int32 y) {
 
     // Como el original (0x5892B8..0x5892EC): (fild maximumWidth * 0x859520) * maxHealth * 109.0 (0x866BB8) / modificador(10), _ftol2.
     const auto& info = FindPlayerInfo(playerId);
-    const float x109 = (float)RsGlobal.maximumWidth * ExeFloat(0x859520) * (float)(int32)info.m_nMaxHealth * ExeFloat(0x866BB8);
+    const float x109 = (float)RsGlobal.maximumWidth * DatosExe::Rdata::k859520 * (float)(int32)info.m_nMaxHealth * DatosExe::Rdata::k866BB8;
     const auto totalWidth = (uint16)(int64)(x109 / CStats::GetFatAndMuscleModifier(STAT_MOD_10));
-    const float height = (float)RsGlobal.maximumHeight * ExeFloat(0x859524) * ExeFloat(0x85EED4);
+    const float height = (float)RsGlobal.maximumHeight * DatosExe::Rdata::k859524 * DatosExe::Rdata::k85EED4;
     // 0x58933C..0x58939A: X = (fild maximumWidth * 0x859520 * 109.0) - totalWidth + x
-    const float x109b = (float)RsGlobal.maximumWidth * ExeFloat(0x859520) * ExeFloat(0x866BB8);
+    const float x109b = (float)RsGlobal.maximumWidth * DatosExe::Rdata::k859520 * DatosExe::Rdata::k866BB8;
 
     CSprite2d::DrawBarChart(
         x109b - (float)totalWidth + (float)x,

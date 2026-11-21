@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/DataInicializadaA.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 #include "WaterLevel.h"
 #include "PostEffects.h"
@@ -357,9 +360,9 @@ struct WaterLayerParams { float scale, shiftU, shiftV; uint8 alpha; };
 // Como el original (0x6E8F00..0x6E8FF3 / 0x6E9974..): constantes float 0.08f/0.04f (multiplicacion, no division) y alfa de capa.
 WaterLayerParams GetWaterLayerParams(int32 layer) {
     if (layer == 0) {
-        return { StaticRef<float>(0x859018), StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };
+        return { DatosExe::Rdata::k859018, StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };
     }
-    return { StaticRef<float>(0x858CEC), StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };
+    return { DatosExe::Rdata::k858CEC, StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), DatosExe::Data::v8D380C };
 }
 // Como el original: fild + fmul 0.577f (0x872004) + _ftol2, solo el byte bajo; alfa de la capa en el byte alto.
 uint32 WaterVertexColor(const CRGBA& c, uint8 alpha) {
@@ -1093,7 +1096,7 @@ void CWaterLevel::RenderWaterFog() {
     gWaterFogIndex = 0;
     auto& insideFade = StaticRef<float>(0xC228EC);
     auto& insideHold = StaticRef<float>(0xC228F0);
-    const float fadeSpeed = StaticRef<float>(0x8D37F0);
+    const float fadeSpeed = DatosExe::Data::v8D37F0;
     const float timeStep = CTimer::GetTimeStep();
     if (gbPlayerIsInsideWaterFog) {
         const double fade = double(timeStep) * fadeSpeed + insideFade;
@@ -1195,7 +1198,7 @@ void CWaterLevel::CalculateWavesOnlyForCoordinate(
     WaterLevelWavesFullCpp(setup.absX, setup.absY, setup.multX, setup.multY, CWeather::Wavyness, setup.rem1, setup.rem2, setup.rem3,
         bigWavesAmplitude, smallWavesAmplitude, WaterSinTable(), &outWave, &vecNormal.x);
     vecNormal.Normalise();
-    WaterLevelWaveColorGlareCpp(&vecNormal.x, StaticRef<float>(0x8D3924), StaticRef<float>(0x8D3920), CWeather::SunGlare, &colorMult, &glare);
+    WaterLevelWaveColorGlareCpp(&vecNormal.x, DatosExe::Data::v8D3924, DatosExe::Data::v8D3920, CWeather::SunGlare, &colorMult, &glare);
 }
 
 // 0x6E5810
@@ -1313,23 +1316,23 @@ namespace {
 // la CRT del EXE (0x821B1E) se llama por direccion, en el mismo orden y con la pila x87 vacia.
 void WaterRenderShifts() {
     auto* shifts = reinterpret_cast<float*>(0x8D3824); // 0x8D3824, 0x8D3828, 0x8D382C, 0x8D3830
-    WaterLevelShiftsAdvanceCpp(CTimer::GetTimeStep(), CWaterLevel::m_CurrentFlow.x, CWaterLevel::m_CurrentFlow.y, StaticRef<float>(0x8D392C), shifts);
+    WaterLevelShiftsAdvanceCpp(CTimer::GetTimeStep(), CWaterLevel::m_CurrentFlow.x, CWaterLevel::m_CurrentFlow.y, DatosExe::Data::v8D392C, shifts);
     const uint32 time = CTimer::GetTimeInMS();
     const float angleA = IntTimesFloatCpp(int32(time & 0xFFFu), std::bit_cast<float>(0x3AC90FDBu));  // fild * 0x872174
-    CWaterLevel::TextureShiftSecondU = WaterLevelSinMulMulAddCpp(angleA, CWeather::Wavyness, StaticRef<float>(0x859018), shifts[0]); // 0xC21184
-    CWaterLevel::TextureShiftSecondV = WaterLevelCosMulMulAddCpp(angleA, CWeather::Wavyness, StaticRef<float>(0x859018), shifts[1]); // 0xC21180
+    CWaterLevel::TextureShiftSecondU = WaterLevelSinMulMulAddCpp(angleA, CWeather::Wavyness, DatosExe::Rdata::k859018, shifts[0]); // 0xC21184
+    CWaterLevel::TextureShiftSecondV = WaterLevelCosMulMulAddCpp(angleA, CWeather::Wavyness, DatosExe::Rdata::k859018, shifts[1]); // 0xC21180
     const float angleB = IntTimesFloatCpp(int32(time & 0x1FFFu), std::bit_cast<float>(0x3A490FDBu));  // fild * 0x872170
-    StaticRef<uint32>(0xC2117C) = StaticRef<uint32>(0x8D382C);                                         // copia de los bits (mov eax,[0x8D382C]; mov [0xC2117C],eax)
-    const float firstNoise = StaticRef<float>(0x8D3928);
+    StaticRef<uint32>(0xC2117C) = DatosExe::Data::v8D382C;                                         // copia de los bits (mov eax,[0x8D382C]; mov [0xC2117C],eax)
+    const float firstNoise = DatosExe::Data::v8D3928;
     const float cosineSpill = TrigSimpleCosCpp(angleB);
     CWaterLevel::TextureShiftFirstV = TrigCompoundCosMulAdd(angleB, std::bit_cast<float>(0x3CC49BA6u), shifts[3]); // 0xC21178: cos * 0x87216C + 0x8D3830
     const int32 randomA = plugin::CallAndReturn<int32, 0x821B1E>();
     const float noiseScale = std::bit_cast<float>(0x38000100u);                                         // 0x858C7C
     StaticRef<float>(0xC21174) = WaterLevelNoiseFirstCpp(randomA, noiseScale, firstNoise);
-    const float secondNoise = StaticRef<float>(0x8D3928);
+    const float secondNoise = DatosExe::Data::v8D3928;
     const int32 randomB = plugin::CallAndReturn<int32, 0x821B1E>();
-    StaticRef<float>(0xC21174) = TrigCompoundSinMulAdd(angleB, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21174));
-    StaticRef<float>(0xC21170) = WaterLevelNoiseSecondCpp(randomB, noiseScale, secondNoise, cosineSpill, StaticRef<float>(0x8D3834));
+    StaticRef<float>(0xC21174) = TrigCompoundSinMulAdd(angleB, DatosExe::Data::v8D3834, StaticRef<float>(0xC21174));
+    StaticRef<float>(0xC21170) = WaterLevelNoiseSecondCpp(randomB, noiseScale, secondNoise, cosineSpill, DatosExe::Data::v8D3834);
 }
 }
 
@@ -1428,7 +1431,7 @@ void CWaterLevel::RenderWater() {
         const auto& camera = TheCamera.GetPosition();
         const double dx = double(camera.x) - ((double(x) + 0.5) * 500.0 - 3000.0);
         const double dy = double(camera.y) - ((double(y) + 0.5) * 500.0 - 3000.0);
-        const bool distant = std::sqrt(dx * dx + dy * dy) >= StaticRef<float>(0x8D3934);
+        const bool distant = std::sqrt(dx * dx + dy * dy) >= DatosExe::Data::v8D3934;
         const auto segment = [&](float minX, float maxX, float minY, float maxY) {
             if (distant) RenderSeaBedSegment(x, y, minX, maxX, minY, maxY);
             else RenderSeaBedSegmentNear(x, y, minX, maxX, minY, maxY);
@@ -1453,7 +1456,7 @@ void CWaterLevel::RenderWater() {
     };
     flush();
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(FALSE));
-    RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(StaticRef<uint32>(0x8D3930)));
+    RwRenderStateSet(rwRENDERSTATETEXTUREADDRESS, RWRSTATE(DatosExe::Data::v8D3930));
     WaterRenderShifts();
     const auto lowByte = [](float value) {return uint8(int64(value));};
     WaterColor.r = lowByte(StaticRef<float>(0xB7C508));
@@ -1934,12 +1937,12 @@ void CWaterLevel::RenderHighDetailWaterTriangle_OneLayer(int32 X1, int32 Y1, CRe
                 } else if (WaterLayer == 2) {
                     // Como el original (0x6E8B8B..0x6E8C0E): capa gris con otra escala (0x8D3834, 0xC21174, 0xC21170) y z + 0.1f (0x858B1C); el brillo multiplica una ranura de pila sin inicializar (aqui 0.0f).
                     auto& vertex = WaterBufferVertex(vtx);
-                    vertex.u = Wl91Affine(xOffset, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21174));
-                    vertex.v = Wl91Affine(yOffset, StaticRef<float>(0x8D3834), StaticRef<float>(0xC21170));
+                    vertex.u = Wl91Affine(xOffset, DatosExe::Data::v8D3834, StaticRef<float>(0xC21174));
+                    vertex.v = Wl91Affine(yOffset, DatosExe::Data::v8D3834, StaticRef<float>(0xC21170));
                     vertex.objVertex.x = xf;
                     vertex.objVertex.y = yf;
                     vertex.objVertex.z = Wl91AddZ(z, 0.1f);
-                    const uint32 gray = uint8(Wl91ColorByte(StaticRef<int32>(0x8D3810), 0.0f));
+                    const uint32 gray = uint8(Wl91ColorByte(DatosExe::Data::v8D3810, 0.0f));
                     vertex.color = (((((0xFFFFFF00u | gray) << 8) | gray) << 8) | gray);
                 }
                 // Como el original (0x6E8DC2..0x6E8E4B): dos triangulos por vertice salvo en la primera fila y la primera columna.

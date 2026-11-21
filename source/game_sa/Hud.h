@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 #include "Stats.h"
 #include "eHud.h"
@@ -101,7 +102,7 @@ public:
     static inline auto& OddJob2Timer = StaticRef<uint16>(0xBAA3A0);
     static inline auto& OddJob2On = StaticRef<uint16>(0xBAB1E0);
 
-    static inline auto& PagerXOffset = StaticRef<float>(0x8D0938); // 150.0f
+    static inline auto& PagerXOffset = DatosExe::Data::v8D0938; // 150.0f
     static inline auto& HelpTripSkipShown = StaticRef<bool>(0xBAB229);
 
 public:

@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #pragma warning(push, 0)
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 #pragma warning(pop)
 
 #include <bit>
@@ -77,7 +78,7 @@ namespace {
 constexpr uintptr_t kExeOperatorNew  = 0x82119A; // cdecl(size_t)
 constexpr uintptr_t kExeOperatorDel  = 0x8214BD; // cdecl(void*)
 constexpr uintptr_t kExeConstruct    = 0x4650F0; // thiscall(CDecisionMakerTypes*), ret; EAX = this. Reconstruido (CDecisionMakerTypes::Constructor, con hook): GetInstance lo alcanza por su direccion
-constexpr uintptr_t kExePedEventFile = 0x86CD44; // "PedEvent.txt"
+// "PedEvent.txt": cadena propia DatosExe::Rdata::kS86CD44 (antes la del EXE en 0x86CD44)
 
 using ExeOperatorNew  = uint64(__cdecl*)(uint32 size);
 using ExeOperatorDel  = void(__cdecl*)(void* block);
@@ -406,7 +407,7 @@ void CDecisionMakerTypes::FlushDecisionMakerEventResponse(int32 decisionMakerInd
 
 // 0x600840: ECX = this. Lee data/decision/PedEvent.txt (cadena del EXE 0x86CD44) con ReadEventIndices (0x5BB9F0) sobre this + 0xC034 (m_EventIndices); es la ultima llamada.
 void CDecisionMakerTypes::LoadEventIndices() {
-    ReadEventIndices(m_EventIndices.data(), reinterpret_cast<const char*>(kExePedEventFile));
+    ReadEventIndices(m_EventIndices.data(), DatosExe::Rdata::kS86CD44);
 }
 
 // 0x5BB9F0 (stdcall, ret 8): pone a cero los 96 enteros de `indices` y lee el archivo de eventos linea a linea desde data\decision\ (SetDir(""), SetDir("data\\decision\\"),

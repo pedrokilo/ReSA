@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 
 #include "AEAudioHardware.h"
 #include "AEMP3BankLoader.h"
@@ -901,7 +902,7 @@ void CAEAudioHardware::ResumeAllSounds() {
 }
 
 // GUID de propiedades EAX del EXE (la DLL no incluye las cabeceras EAX)
-static inline auto& s_EAXContextPropertySet = StaticRef<GUID>(0x85EFEC);
+static inline auto& s_EAXContextPropertySet = DatosExe::Rdata::kG85EFEC;
 static inline auto& s_EAXFXSlot0PropertySet = StaticRef<GUID>(0x85EFDC);
 
 // 0x4D8490

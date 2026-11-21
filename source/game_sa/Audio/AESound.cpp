@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include <reversiblebugfixes/Bugs.hpp>
 #include "AESound.h"
 
@@ -289,7 +290,7 @@ float CAESound::GetRelativePlaybackFrequencyWithDoppler() const {
 // 0x4EF440
 // Como el original: el factor de cámara lenta se lee de la variable global del EXE 0x8CBA6C (0.5), no de una constante.
 float CAESound::GetSlowMoFrequencyScalingFactor() const {
-    static auto& slowMoFrequencyScalingFactor = StaticRef<float>(0x8CBA6C);
+    static auto& slowMoFrequencyScalingFactor = DatosExe::Data::v8CBA6C;
     return IsUnpausable() || !CTimer::GetIsSlowMotionActive() || CCamera::GetActiveCamera().m_nMode == eCamMode::MODE_CAMERA
         ? 1.f
         : slowMoFrequencyScalingFactor;

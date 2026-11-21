@@ -1,4 +1,6 @@
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include <Weapon.h>
 #include <Vector.h>
@@ -64,10 +66,10 @@ public:
     static inline auto& GameState = StaticRef<eGameLogicState>(0x96A8B0);
     static inline auto& ActivePlayers = StaticRef<uint8>(0x96A8B1); // Como el original: byte
 
-    static inline auto& bPenaltyForDeathApplies = StaticRef<bool>(0x8A5E48);
-    static inline auto& bPenaltyForArrestApplies = StaticRef<bool>(0x8A5E49);
-    static inline auto& bLimitPlayerDistance = StaticRef<bool>(0x8A5E4A);
-    static inline auto& MaxPlayerDistance = StaticRef<float>(0x8A5E4C);  // default 20.0
+    static inline auto& bPenaltyForDeathApplies = DatosExe::Data::v8A5E48;
+    static inline auto& bPenaltyForArrestApplies = DatosExe::Data::v8A5E49;
+    static inline auto& bLimitPlayerDistance = DatosExe::Data::v8A5E4A;
+    static inline auto& MaxPlayerDistance = DatosExe::Data::v8A5E4C;  // default 20.0
     static inline auto& n2PlayerPedInFocus = StaticRef<eFocusedPlayer>(0x8A5E50); // default eFocusedPlayer::NONE
 
 public:

@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "PostEffects.h"
@@ -55,8 +57,8 @@ int32 ExePow2Above(int32 exponentPlusOne) {
 
 // Como el original: escala de pantalla del HeatHazeFXInit: (dimension * unidad_EXE) * k con las unidades 1/640 (0x859520) y 1/448 (0x859524) del EXE
 // y _ftol2 (0x821B40), no (k * dimension) / 640.
-int32 HazeScaleX(float k) { return static_cast<int32>(static_cast<int64>(static_cast<float>(RsGlobal.maximumWidth)  * StaticRef<float>(0x859520) * k)); }
-int32 HazeScaleY(float k) { return static_cast<int32>(static_cast<int64>(static_cast<float>(RsGlobal.maximumHeight) * StaticRef<float>(0x859524) * k)); }
+int32 HazeScaleX(float k) { return static_cast<int32>(static_cast<int64>(static_cast<float>(RsGlobal.maximumWidth)  * DatosExe::Rdata::k859520 * k)); }
+int32 HazeScaleY(float k) { return static_cast<int32>(static_cast<int64>(static_cast<float>(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524 * k)); }
 
 // Como el original: 0x703A46..0x703A9C. ms sin signo (fild + 2^32 si el dword es negativo, 0x858C54) * speed ; freq * y ; suma ; fsin (precision completa) ; * xoffset.
 float RippleWave(uint32 timeMs, float speed, float freq, float y, float xoffset) {
@@ -80,10 +82,10 @@ float FogCosCoord(float angle, float quarter, float radius, float half, float th
 // Como el original: 0x704825..0x704B79 canal * multiplicador y luego limite [0,255] (fcom 255.0 / fcom 0.0): >=255 o NaN -> 255, <=0 -> 0; despues _ftol2 y se guarda el byte bajo.
 uint8 ExeClampScaleChannel(uint8 channel, float mult) {
     float v = static_cast<float>(channel) * mult;
-    if (!(v < StaticRef<float>(0x859AAC))) {
-        v = StaticRef<float>(0x859AAC);          // v >= 255 (o NaN, C0=C2=C3=1 -> test ah,5 = 5 -> jp)
-    } else if (!(v > StaticRef<float>(0x858B50))) {
-        v = StaticRef<float>(0x858B50);          // v <= 0
+    if (!(v < DatosExe::Rdata::k859AAC)) {
+        v = DatosExe::Rdata::k859AAC;          // v >= 255 (o NaN, C0=C2=C3=1 -> test ah,5 = 5 -> jp)
+    } else if (!(v > DatosExe::Rdata::k858B50)) {
+        v = DatosExe::Rdata::k858B50;          // v <= 0
     }
     return static_cast<uint8>(static_cast<int64>(v));
 }
@@ -628,7 +630,7 @@ void CPostEffects::HeatHazeFX(float fIntensity, bool bAlphaMaskMode) {
     if(fIntensity<0.f)fIntensity=0.f;else if(fIntensity>1.f)fIntensity=1.f;
     HeatHazeFXInit();state(2,3);RwCameraEndUpdate(Scene.m_pRwCamera);RwRasterPushContext(pRasterFrontBuffer);RwRasterRenderFast(Scene.m_pRwCamera->frameBuffer,0,0);RwRasterPopContext();RwCameraBeginUpdate(Scene.m_pRwCamera);
     auto& count=StaticRef<int32>(0xC4B950);auto& indexCount=StaticRef<int32>(0xC4B954);count=indexCount=0;
-    state(14,0);state(12,1);const auto alpha=int32(float(StaticRef<int32>(0x8D50E8))*fIntensity);count=0;
+    state(14,0);state(12,1);const auto alpha=int32(float(DatosExe::Data::v8D50E8)*fIntensity);count=0;
     if(alphaTest){state(24,1);state(26,1);state(25,3);}
     state(6,0);state(8,0);state(1,reinterpret_cast<uintptr_t>(pRasterFrontBuffer));state(9,2);state(10,5);state(11,6);
     auto* vertices=reinterpret_cast<uint32*>(0xC5F958);auto* indices=reinterpret_cast<int16*>(0xC4B958);
@@ -646,7 +648,7 @@ void CPostEffects::HeatHazeFX(float fIntensity, bool bAlphaMaskMode) {
             put(count+2,float(x),float(y+renderY),float(ux)/float(pRasterFrontBuffer->width),float(uy+scanY)/float(pRasterFrontBuffer->height),color);
             put(count+3,float(x+renderX),float(y+renderY),float(ux+scanX)/float(pRasterFrontBuffer->width),float(uy+scanY)/float(pRasterFrontBuffer->height),color);
             const auto begin=count;indices[indexCount]=int16(begin);indices[indexCount+1]=int16(begin+2);indices[indexCount+2]=int16(begin+1);indices[indexCount+3]=int16(begin+1);indices[indexCount+4]=int16(begin+2);indices[indexCount+5]=int16(begin+3);indexCount+=6;count+=4;
-            hpY[i]-=int32((CTimer::GetTimeStep()*.5f)*float(hpS[i]));if(hpY[i]<0){hpX[i]=randomScaled(pRasterFrontBuffer->width-scanX);hpY[i]=pRasterFrontBuffer->height-scanY;const auto min=StaticRef<int32>(0x8D50EC);hpS[i]=randomScaled(StaticRef<int32>(0x8D50F0)-min)+min;}
+            hpY[i]-=int32((CTimer::GetTimeStep()*.5f)*float(hpS[i]));if(hpY[i]<0){hpX[i]=randomScaled(pRasterFrontBuffer->width-scanX);hpY[i]=pRasterFrontBuffer->height-scanY;const auto min=DatosExe::Data::v8D50EC;hpS[i]=randomScaled(DatosExe::Data::v8D50F0-min)+min;}
         }
     } else {
         const auto color=(uint32(alpha)<<24)|0xFF0000u;const auto begin=count;put(count,0.f,0.f,0.f,0.f,color,false);put(count+1,float(pRasterFrontBuffer->width),0.f,0.f,0.f,color,false);put(count+2,0.f,float(pRasterFrontBuffer->height),0.f,0.f,color,false,false);put(count+3,float(pRasterFrontBuffer->width),float(pRasterFrontBuffer->height),0.f,0.f,color,false,false);
@@ -802,7 +804,7 @@ void CPostEffects::InfraredVisionStoreAndSetLightsForHeatObjects(CPed* ped) {
     if (ped->m_nPedState == PEDSTATE_DEAD) {
         const auto time = std::abs((int32)(CTimer::GetTimeInMS() - ped->m_nDeathTimeMS));
         // Como el original: 0x70137B fild [esp+10h] ; 0x70137F fmul [0x858FC4] (0.0001f): el entero entra exacto al x87 y se multiplica una vez; no (float)time / 10000
-        const auto k = StaticRef<float>(0x858FC4);
+        const auto k = DatosExe::Rdata::k858FC4;
         const float delta = IntTimesFloatCpp(time, k);
 
         m_fInfraredVisionHeatObjectCol.red = std::max(m_fInfraredVisionHeatObjectCol.red - delta, 0.0f);
@@ -840,20 +842,20 @@ void CPostEffects::Fog() {
     // Como el original: 0x704175..0x7041AD. Mitades, 2/3 (0x862D68 = 0.6666667f, no 2*W/3) y de ahi el tercio (2/3 * 0.5) y el cuarto/0,35 (mitad * 0.5 / mitad * 0.7f)
     const float width         = static_cast<float>(RsGlobal.maximumWidth);
     const float height        = static_cast<float>(RsGlobal.maximumHeight);
-    const float halfWidth     = width  * StaticRef<float>(0x858B8C);
-    const float halfHeight    = height * StaticRef<float>(0x858B8C);
+    const float halfWidth     = width  * DatosExe::Rdata::k858B8C;
+    const float halfHeight    = height * DatosExe::Rdata::k858B8C;
     const float twoThirdsW    = width  * DatosExe::Rdata::k862D68;
     const float twoThirdsH    = height * DatosExe::Rdata::k862D68;
-    const float thirdW        = twoThirdsW * StaticRef<float>(0x858B8C);
-    const float thirdH        = twoThirdsH * StaticRef<float>(0x858B8C);
-    const float quarterW      = halfWidth  * StaticRef<float>(0x858B8C);
-    const float quarterH      = halfHeight * StaticRef<float>(0x858B8C);
-    const float outerW        = halfWidth  * StaticRef<float>(0x858CB0);
-    const float outerH        = halfHeight * StaticRef<float>(0x858CB0);
+    const float thirdW        = twoThirdsW * DatosExe::Rdata::k858B8C;
+    const float thirdH        = twoThirdsH * DatosExe::Rdata::k858B8C;
+    const float quarterW      = halfWidth  * DatosExe::Rdata::k858B8C;
+    const float quarterH      = halfHeight * DatosExe::Rdata::k858B8C;
+    const float outerW        = halfWidth  * DatosExe::Rdata::k858CB0;
+    const float outerH        = halfHeight * DatosExe::Rdata::k858CB0;
 
     // Como el original: 0x7041B1..0x704247. Modulo de la velocidad (fsqrt) frente a 0.06f (0x859934); fcomp ; test ah,41h ; jne -> con velocidad <= 0.06f o NaN se reduce el radio.
     const float speed = FindPlayerSpeed(-1).Magnitude();
-    const float step  = CTimer::GetTimeStep() * StaticRef<float>(0x858C84);
+    const float step  = CTimer::GetTimeStep() * DatosExe::Rdata::k858C84;
     if (!(speed > DatosExe::Rdata::k859934)) {
         s_FogRadius = s_FogRadius - step;
         if (s_FogRadius < 0.0f) {
@@ -861,15 +863,15 @@ void CPostEffects::Fog() {
         }
     } else {
         s_FogRadius = step + s_FogRadius;
-        if (s_FogRadius > StaticRef<float>(0x858970)) {
-            s_FogRadius = StaticRef<float>(0x858970); // 160.0f
+        if (s_FogRadius > DatosExe::Rdata::k858970) {
+            s_FogRadius = DatosExe::Rdata::k858970; // 160.0f
         }
     }
 
     const auto skyBottom = CTimeCycle::GetCurrentSkyBottomColor();
     for (auto i = 0; i < 10; i++) {
         // Como el original: 0x704291 fild i ; fmul 36.0 (0x863204) ; fadd angulo ; fmul 0.01745329f (0x8595EC)
-        const float angle = (static_cast<float>(i) * DatosExe::Rdata::k863204 + s_FogAngle) * StaticRef<float>(0x8595EC);
+        const float angle = (static_cast<float>(i) * DatosExe::Rdata::k863204 + s_FogAngle) * DatosExe::Rdata::k8595EC;
         DrawQuad(
             FogCosCoord(angle, quarterW, s_FogRadius, halfWidth, thirdW),
             FogSinCoord(angle, quarterH, s_FogRadius, halfHeight, thirdH),
@@ -885,7 +887,7 @@ void CPostEffects::Fog() {
 
     for (auto i = 0; i < 10; i++) {
         // Como el original: 0x704330..0x704355 (el signo se invierte antes de multiplicar por 0.01745329f)
-        const float angle = -(static_cast<float>(i) * DatosExe::Rdata::k863204 + s_FogAngle) * StaticRef<float>(0x8595EC);
+        const float angle = -(static_cast<float>(i) * DatosExe::Rdata::k863204 + s_FogAngle) * DatosExe::Rdata::k8595EC;
         DrawQuad(
             FogCosCoord(angle, outerW, s_FogRadius, halfWidth, thirdW),
             FogSinCoord(angle, outerH, s_FogRadius, halfHeight, thirdH),
@@ -900,7 +902,7 @@ void CPostEffects::Fog() {
     }
 
     // Como el original: 0x7043A6 fld timeStep ; fmul [0x85F0A0] (0.16666667f) ; fadd angulo, no timeStep / 6
-    s_FogAngle = CTimer::GetTimeStep() * StaticRef<float>(0x85F0A0) + s_FogAngle;
+    s_FogAngle = CTimer::GetTimeStep() * DatosExe::Rdata::k85F0A0 + s_FogAngle;
     ImmediateModeRenderStatesReStore();
 }
 
@@ -925,7 +927,7 @@ void CPostEffects::CCTV() {
     ImmediateModeRenderStatesSet();
 
     // Como el original: 0x702F8C..0x702FB4. 2 * (H * 1/448 del EXE (0x859524)) -> _ftol2 ; paddind = 2 * lineHeight ; numLines = H / padding con idiv (con signo)
-    const auto lineHeight  = static_cast<int32>(static_cast<int64>(2.0f * (static_cast<float>(RsGlobal.maximumHeight) * StaticRef<float>(0x859524))));
+    const auto lineHeight  = static_cast<int32>(static_cast<int64>(2.0f * (static_cast<float>(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524)));
     const auto linePadding = 2 * lineHeight;
     const auto numLines    = RsGlobal.maximumHeight / linePadding;
     for (auto i = 0, y = 0; i < numLines; i++, y += linePadding) {
@@ -969,8 +971,8 @@ void CPostEffects::Grain(int32 strengthMask, bool update) {
 
     // Como el original: 0x70389E..0x7038C7. Con un ancho <= 640 (cmp eax,280h ; jle) ux vale 1.5f (0x858CE8) tal cual; solo por encima se escala (ancho * 1/640 del EXE (0x859520)) * 1.5f
     const auto ux = RsGlobal.maximumWidth > 640
-        ? static_cast<float>(RsGlobal.maximumWidth) * StaticRef<float>(0x859520) * StaticRef<float>(0x858CE8)
-        : StaticRef<float>(0x858CE8);
+        ? static_cast<float>(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520 * DatosExe::Rdata::k858CE8
+        : DatosExe::Rdata::k858CE8;
     const auto uy = SCREEN_HEIGHT / SCREEN_WIDTH * ux;
 
     ms_imf.quad[0].u = 0.0f;
@@ -1002,7 +1004,7 @@ void CPostEffects::SpeedFX(float speed) {
     if(passes<=0)return;
     ImmediateModeRenderStatesStore();ImmediateModeRenderStatesSet();
     float jx=0.f,jy=0.f;
-    if(int32(jitter)>0){const auto jitterScale=float(jitter)*DatosExe::Rdata::k859CE0;jx=ms_imf.fFrontBufferU2*jitterScale;jy=ms_imf.fFrontBufferV2*jitterScale;jx=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jx;jy=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jy;}
+    if(int32(jitter)>0){const auto jitterScale=float(jitter)*DatosExe::Rdata::k859CE0;jx=ms_imf.fFrontBufferU2*jitterScale;jy=ms_imf.fFrontBufferV2*jitterScale;jx=(float(CGeneral::GetRandomNumber())*DatosExe::Rdata::k858C7C)*jx;jy=(float(CGeneral::GetRandomNumber())*DatosExe::Rdata::k858C7C)*jy;}
     const auto dx=(ms_imf.fFrontBufferU2*float(int32(spread)))*DatosExe::Rdata::k86C340;
     const auto dy=(float(int32(spread))*ms_imf.fFrontBufferV2)*DatosExe::Rdata::k86C340;
     float left=-dx,right=dx,top=-dy,bottom=dy;
@@ -1071,7 +1073,7 @@ void CPostEffects::Radiosity(int32 intensityLimit, int32 filterPasses, int32 ren
     put(0,0.f,0.f,0.f,0.f,0,false,false);vertices[5]=vertices[6]=0;
     put(1,float(StaticRef<uint8>(0x8D510B)?RsGlobal.maximumWidth:width),float(StaticRef<uint8>(0x8D510B)?RsGlobal.maximumHeight:height),1.f,1.f,0,true,false);
     count=0;state(6,1);
-    if(filterPasses>0){state(9,2);for(int32 i=0;i<filterPasses;++i){const auto nextWidth=width/2,nextHeight=height/2;put(count,0.f,0.f,float(StaticRef<int32>(0x8D511C))/float(pRasterFrontBuffer->width),float(StaticRef<int32>(0x8D5120))/float(pRasterFrontBuffer->height),0xFFFFFFFF);put(count+1,float(nextWidth+1),float(nextHeight+1),float(width)/float(pRasterFrontBuffer->width),float(height)/float(pRasterFrontBuffer->height),0xFFFFFFFF);count+=2;width=nextWidth;height=nextHeight;}}
+    if(filterPasses>0){state(9,2);for(int32 i=0;i<filterPasses;++i){const auto nextWidth=width/2,nextHeight=height/2;put(count,0.f,0.f,float(DatosExe::Data::v8D511C)/float(pRasterFrontBuffer->width),float(DatosExe::Data::v8D5120)/float(pRasterFrontBuffer->height),0xFFFFFFFF);put(count+1,float(nextWidth+1),float(nextHeight+1),float(width)/float(pRasterFrontBuffer->width),float(height)/float(pRasterFrontBuffer->height),0xFFFFFFFF);count+=2;width=nextWidth;height=nextHeight;}}
     state(10,5);state(11,6);
     const auto color=(((uint32(intensityLimit)|0xFFFF8000u)<<8|uint32(intensityLimit))<<8)|uint32(intensityLimit);
     put(count,0.f,0.f,0.f,0.f,color,false);put(count+1,float(width+1),float(height+1),0.f,0.f,color,false);count+=2;
@@ -1288,8 +1290,8 @@ void CPostEffects::Render() {
         }
 
         // Como el original: 0x705247..0x705298. yoffset = (H * 1/448) * 24.0 ; xoffset = ((W * 1/640) * (verdeAgua * 1/24)) * 4.0 con las unidades del EXE (0x859520 / 0x859524 / 0x87265C)
-        const auto yoffset = static_cast<float>(RsGlobal.maximumHeight) * StaticRef<float>(0x859524) * m_yoffset;
-        const auto xoffset = static_cast<float>(RsGlobal.maximumWidth) * StaticRef<float>(0x859520) * (s_WaterGreen * DatosExe::Rdata::k87265C) * m_xoffset;
+        const auto yoffset = static_cast<float>(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524 * m_yoffset;
+        const auto xoffset = static_cast<float>(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520 * (s_WaterGreen * DatosExe::Rdata::k87265C) * m_xoffset;
         UnderWaterRipple(
             color,
             xoffset,

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 #include <Base.h>
 #include "eLevelName.h"
@@ -34,8 +35,8 @@ class CPopulation {
 public:
     static inline auto& PedDensityMultiplier = StaticRef<float>(0x8D2530);
     static inline auto& m_AllRandomPedsThisType = StaticRef<int32>(0x8D2534);
-    static inline auto& MaxNumberOfPedsInUse = StaticRef<uint32>(0x8D2538);
-    static inline auto& NumberOfPedsInUseInterior = StaticRef<uint32>(0x8D253C);
+    static inline auto& MaxNumberOfPedsInUse = DatosExe::Data::v8D2538;
+    static inline auto& NumberOfPedsInUseInterior = DatosExe::Data::v8D253C;
     static inline auto& m_TranslationArray = StaticRef<tPedGroupTranslationData[POPCYCLE_TOTAL_GROUPS]>(0x8D2540);
     static inline auto& m_LoadedBoats = StaticRef<CLoadedCarGroup>(0xC0E998);
     static inline auto& m_InAppropriateLoadedCars = StaticRef<CLoadedCarGroup>(0xC0E9C8);

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 
 #include <extensions/ci_string.hpp>
 
@@ -28,9 +29,9 @@ auto& playerImgEntries = StaticRef<CDirectory::DirectoryInfo>(0xBBCDC8);
 
 auto& gBoneIndices = StaticRef<notsa::mdarray<int16, 10, 64>>(0xBBC8C8);
 
-auto& ms_ratiosHaveChanged  = StaticRef<bool>(0x8D0AA4);
-auto& ms_geometryHasChanged = StaticRef<bool>(0x8D0AA5);
-auto& ms_textureHasChanged  = StaticRef<bool>(0x8D0AA6);
+auto& ms_ratiosHaveChanged  = DatosExe::Data::v8D0AA4;
+auto& ms_geometryHasChanged = DatosExe::Data::v8D0AA5;
+auto& ms_textureHasChanged  = DatosExe::Data::v8D0AA6;
 
 // 0x5A44A0 (lote 203A, sin validar; cdecl, dos argumentos de pila (la textura y un dato sin usar), `ret`, 24 bytes): callback de RwTexDictionaryForAllTextures. Como el original: saca la textura de su diccionario (RwTexDictionaryRemoveTexture 0x7F39C0)
 // y despues la destruye (RwTextureDestroy 0x7F3820); devuelve la textura (el valor que sigue la iteracion). Es el lambda que CreateSkinnedClump llevaba en linea.

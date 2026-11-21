@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
 #include "X87Math.h"
 
 #include "TaskSimpleSwim.h"
@@ -136,9 +137,9 @@ constexpr float SWIM_THIRD        = std::bit_cast<float>(0x3EAAAAABu); // 0x8590
 constexpr float SWIM_POW_09       = 0.9f;                              // 0x8708D0
 
 // Como el original: variables globales del EXE (no constantes)
-auto& SwimDiveUnderAngle  = StaticRef<float>(0x8D2FC4); // -35
-auto& SwimStopTime        = StaticRef<float>(0x8D2FC0); // 15
-auto& SwimAnimShiftFactor = StaticRef<float>(0x8D2FF4); // 0,5
+auto& SwimDiveUnderAngle  = DatosExe::Data::v8D2FC4; // -35
+auto& SwimStopTime        = DatosExe::Data::v8D2FC0; // 15
+auto& SwimAnimShiftFactor = DatosExe::Data::v8D2FF4; // 0,5
 
 float WrapSwimAngle(float a) {
     if (a > SWIM_PI) {

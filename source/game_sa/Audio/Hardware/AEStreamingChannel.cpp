@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include <extensions/utility.hpp>
@@ -354,7 +355,7 @@ int32 CAEStreamingChannel::UpdatePlayTime() {
     const auto ToFloat = [](uint32 v) {
         auto f = static_cast<float>(static_cast<int32>(v));
         if (static_cast<int32>(v) < 0) {
-            f = f + StaticRef<float>(0x858C54);
+            f = f + DatosExe::Rdata::k858C54;
         }
         return f;
     };

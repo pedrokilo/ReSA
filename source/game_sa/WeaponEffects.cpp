@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
+#include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/DataInicializadaA.h"
 
 #include "WeaponEffects.h"
 #include "X87Math.h"
@@ -132,7 +135,7 @@ void CWeaponEffects::Render() {
         return;
     }
     auto& pulse = StaticRef<std::array<float, 2>>(0xC8A8A0);
-    auto& expanding = StaticRef<std::array<bool, 2>>(0x8D6144);
+    auto& expanding = DatosExe::Data::v8D6144;
     auto& flightX = StaticRef<float>(0xC8A89C);
     auto& flightY = StaticRef<float>(0xC8A898);
     auto& previousTarget = StaticRef<CEntity*>(0xC8A894);
@@ -220,7 +223,7 @@ void CWeaponEffects::Render() {
             screen.z = std::max(screen.z, 2.5f);
             const auto weaponRadius = player->GetWeaponRadiusOnScreen();
             if (weaponRadius > 0.f) {
-                inner = weaponRadius * StaticRef<float>(0x8D6148);
+                inner = weaponRadius * DatosExe::Data::v8D6148;
                 outer = ch.m_fSize * 20.f + inner;
             }
             state(rwRENDERSTATESRCBLEND, rwBLENDZERO);
@@ -284,7 +287,7 @@ void CWeaponEffects::Render() {
             float s, c, unusedOneMinusCos;
             angleTo(player->GetPosition(), s, c, unusedOneMinusCos);
             CVector2D base{ camOneMinusCos * float(RsGlobal.maximumWidth) * 0.5f, (1.f - camSin) * float(RsGlobal.maximumHeight) * 0.5f };
-            const float radius = StaticRef<float>(0x8D6140);
+            const float radius = DatosExe::Data::v8D6140;
             const float t1 = s * 0.5f + c;
             const float t2 = c * 0.5f + s;
             const float rs = radius * s;
@@ -361,7 +364,7 @@ void CWeaponEffects::RenderPlayerCrosshair(CPlayerInfo& info, int32 playerIndex)
     state(rwRENDERSTATESRCBLEND, rwBLENDSRCALPHA);
     state(rwRENDERSTATEDESTBLEND, rwBLENDINVDESTALPHA);
     // Como el original: textura 0xC3E000[indice en 0x8CDF1C] (gpCoronaTexture), sin comprobar el indice
-    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, reinterpret_cast<RwTexture**>(0xC3E000)[StaticRef<int32>(0x8CDF1C)]->raster);
+    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, reinterpret_cast<RwTexture**>(0xC3E000)[DatosExe::Data::v8CDF1C]->raster);
 
     int32 r, g, b;
     if (playerIndex != 0) {

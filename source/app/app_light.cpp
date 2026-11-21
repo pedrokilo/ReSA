@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
 
 #include "app.h"
 #include "PostEffects.h"
@@ -345,9 +346,9 @@ void SetDirectionalColours(RwRGBAReal* color) {
 // unused
 // 0x735C90
 void SetAmbientColoursToIndicateRoadGroup(int32 idx) {
-    static auto& IndicateR = StaticRef<std::array<uint8, 8>>(0x8D60D0);
-    static auto& IndicateG = StaticRef<std::array<uint8, 8>>(0x8D60D8);
-    static auto& IndicateB = StaticRef<std::array<uint8, 8>>(0x8D60E0);
+    static auto& IndicateR = DatosExe::Data::v8D60D0;
+    static auto& IndicateG = DatosExe::Data::v8D60D8;
+    static auto& IndicateB = DatosExe::Data::v8D60E0;
 
     // Como el original: índice idx % 7 con signo (cdq/idiv); un idx negativo lee antes de la tabla.
     const int32 i = idx % 7;

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaB.h"
 
 
 enum class eLoadingLogo : uint8 {
@@ -58,9 +59,9 @@ private:
     static inline auto& m_bSignalDelete = StaticRef<bool>(0xBAB33C); // unused
     static inline auto& m_bReadyToDelete = StaticRef<bool>(0xBAB33D);
 
-    static inline auto& m_numChunksLoaded = StaticRef<int32>(0x8D0940); // -1
+    static inline auto& m_numChunksLoaded = DatosExe::Data::v8D0940; // -1
     // static int32 m_nChunksToLoad; // Added in Mobile
-    static inline auto& m_chunkBarAppeared = StaticRef<int32>(0x8D0944); // -1
+    static inline auto& m_chunkBarAppeared = DatosExe::Data::v8D0944; // -1
     static inline auto& m_timeSinceLastScreen = StaticRef<float>(0xBAB340);
 
 public:

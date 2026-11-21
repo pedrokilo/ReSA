@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 
 #include "ShadowCamera.h"
 
@@ -312,8 +313,8 @@ RwCamera* CShadowCamera::Update(RpAtomic* atomic) {
 // Como el original: devuelve el raster de la cámara (también si falla RwCameraBeginUpdate) y la intensidad sale de
 // dos enteros globales del EXE (0x8D5218 = 128 al principio, 0x8D521C = 64 al final).
 RwRaster* CShadowCamera::MakeGradientRaster() {
-    static auto& gradientStart = StaticRef<int32>(0x8D5218);
-    static auto& gradientEnd   = StaticRef<int32>(0x8D521C);
+    static auto& gradientStart = DatosExe::Data::v8D5218;
+    static auto& gradientEnd   = DatosExe::Data::v8D521C;
 
     if (!m_pRwCamera) {
         return nullptr;

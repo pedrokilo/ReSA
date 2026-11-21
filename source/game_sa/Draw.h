@@ -5,13 +5,14 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaA.h"
 
 static inline auto& JustLoadedDontFadeInYet = StaticRef<bool>(0xC16EDC);
 static inline auto& StillToFadeOut = StaticRef<bool>(0xC16EDD);
 
 class CDraw {
 public:
-    static inline auto& ms_fFOV = StaticRef<float>(0x8D5038); // 45.0
+    static inline auto& ms_fFOV = DatosExe::Data::v8D5038; // 45.0
     static inline auto& ms_fLODDistance = StaticRef<float>(0xC3EF98);
     static inline auto& ms_fNearClipZ = StaticRef<float>(0xC3EFA0);
     static inline auto& ms_fFarClipZ = StaticRef<float>(0xC3EF9C);

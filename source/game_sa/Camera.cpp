@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/DataInicializadaA.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "Camera.h"
@@ -41,13 +44,13 @@ END GENERATED HOOK STATUS */
 
 auto& TheCamera = StaticRef<CCamera>(0xB6F028);
 auto& gbModelViewer = StaticRef<bool>(0xBA6728);
-auto& gbCineyCamMessageDisplayed = StaticRef<int8>(0x8CC381); // 2
-auto& gCameraDirection = StaticRef<int32>(0x8CC384);         // 3
+auto& gbCineyCamMessageDisplayed = DatosExe::Data::v8CC381; // 2
+auto& gCameraDirection = DatosExe::Data::v8CC384;         // 3
 auto& gCameraMode = StaticRef<eCamMode>(0x8CC388);        // -1
 auto& gLastTime2PlayerCameraWasOK = StaticRef<uint32>(0xB6EC24);    // 0
 auto& gLastTime2PlayerCameraCollided = StaticRef<uint32>(0xB6EC28); // 0
-auto& gPlayerPedVisible = StaticRef<bool>(0x8CC380); // true
-auto& gCurCamColVars = StaticRef<uint8>(0x8CCB80);
+auto& gPlayerPedVisible = DatosExe::Data::v8CC380; // true
+auto& gCurCamColVars = DatosExe::Data::v8CCB80;
 auto& gCurDistForCam = StaticRef<float>(0x8CCB84);
 auto& gpCamColVars = StaticRef<float*>(0xB6FE88);
 auto& gCamColVars = StaticRef<float[28][6]>(0x8CC8E0);
@@ -827,7 +830,7 @@ void CCamera::CopyCameraMatrixToRWCam(bool bUpdateMatrix) {
             StaticRef<CVector>(0xB6FFB4-bit*12)=CVector{-99999.0f,-99999.0f,-99999.0f};
         }
     }
-    const float positionThreshold=StaticRef<float>(0x8CCC7C),directionThreshold=StaticRef<float>(0x8CCC78);
+    const float positionThreshold=DatosExe::Data::v8CCC7C,directionThreshold=DatosExe::Data::v8CCC78;
     const auto stabilize=[](RwV3d& value,CVector& previous,float threshold){
         const float x=previous.x-value.x,y=previous.y-value.y,z=previous.z-value.z;
         if(x*x+y*y+z*z<threshold*threshold)value=previous;
@@ -1289,7 +1292,7 @@ void CCamera::UpdateTargetEntity() {
     m_bPlayerWasOnBike = false;
     if (m_pTargetEntity && m_pTargetEntity->GetIsTypeVehicle()) {
         const auto& speed = m_pTargetEntity->AsVehicle()->m_vecMoveSpeed;
-        if (((speed.x * speed.x + speed.y * speed.y) + speed.z * speed.z) > StaticRef<float>(0x8CCC80)) {
+        if (((speed.x * speed.x + speed.y * speed.y) + speed.z * speed.z) > DatosExe::Data::v8CCC80) {
             m_bPlayerWasOnBike = true;
         }
     }
@@ -1517,12 +1520,12 @@ T& CameraRawField(CCamera* camera, uint32 offset) {
 // (el vector hacia delante x0.5 si el modo de la camara activa es de los de persona/jugador y el objetivo es un ped, x5 en el resto) y guarda la distancia al suelo (20 si no toca nada);
 // todos los fotogramas interpola entre el valor anterior y el nuevo con (resto + 1) / 6 (0x85F0A0 = 0x3E2AAAAB). Aritmetica x87 de 24 bits en X87Math.cpp (CamSound*).
 void CCamera::UpdateSoundDistances() {
-    float scale = StaticRef<float>(0x858C80); // 5.0f
+    float scale = DatosExe::Rdata::k858C80; // 5.0f
     switch (static_cast<int16>(GetActiveCam().m_nMode)) {
     case 0x10: case 0x07: case 0x27: case 0x28: case 0x34: case 0x2A: case 0x2B:
     case 0x29: case 0x2D: case 0x2E: case 0x22: case 0x08: case 0x33:
         if (CameraRawField<CEntity*>(this, 0x958)->GetIsTypePed()) {
-            scale = StaticRef<float>(0x858B8C); // 0.5f
+            scale = DatosExe::Rdata::k858B8C; // 0.5f
         }
         break;
     default:
@@ -1531,7 +1534,7 @@ void CCamera::UpdateSoundDistances() {
 
     CVector point;
     float rayEnd;
-    CamSoundPointCpp(&CameraRawField<float>(this, 0x984), scale, &GetPosition().x, StaticRef<float>(0x858BA4) /* 20.0f */, &point.x, &rayEnd);
+    CamSoundPointCpp(&CameraRawField<float>(this, 0x984), scale, &GetPosition().x, DatosExe::Rdata::k858BA4 /* 20.0f */, &point.x, &rayEnd);
 
     const uint16 phase = static_cast<uint16>(CTimer::GetFrameCounter() % 12u);
     if (phase == 0) {
@@ -1544,14 +1547,14 @@ void CCamera::UpdateSoundDistances() {
             CameraRawField<uint32>(this, 0x15C) = 0x41A00000u; // mov [esi+15Ch],41A00000h (20.0f)
         }
     }
-    CameraRawField<float>(this, 0x158) = CamSoundBlendCpp(static_cast<int32>(static_cast<int16>(phase)) + 1, StaticRef<float>(0x85F0A0),
-        StaticRef<float>(0x858624) /* 1.0f */, CameraRawField<float>(this, 0x160), CameraRawField<float>(this, 0x15C));
+    CameraRawField<float>(this, 0x158) = CamSoundBlendCpp(static_cast<int32>(static_cast<int16>(phase)) + 1, DatosExe::Rdata::k85F0A0,
+        DatosExe::Rdata::k858624 /* 1.0f */, CameraRawField<float>(this, 0x160), CameraRawField<float>(this, 0x15C));
 }
 
 // unused
 // 0x50CB90
 void CCamera::SetNearClipBasedOnPedCollision(float arg2) {
-    const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=StaticRef<float>(0x8CCC84),maximum=StaticRef<float>(0x858C24);
+    const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=DatosExe::Data::v8CCC84,maximum=DatosExe::Rdata::k858C24;
     const float clip = CameraNearClipPedCpp(arg2, base, denominator, factor, maximum);
     RwCameraSetNearClipPlane(Scene.m_pRwCamera,clip);
 }
@@ -1639,7 +1642,7 @@ void CCamera::CameraVehicleModeSpecialCases(CVehicle* vehicle) {
 
     const auto& speed = vehicle->m_vecMoveSpeed;
     const float speedSquared = (speed.x * speed.x + speed.y * speed.y) + speed.z * speed.z;
-    const float limit = StaticRef<float>(0x8CCC88);
+    const float limit = DatosExe::Data::v8CCC88;
     if (limit * limit < speedSquared) {
         CCollision::relVelCamCollisionVehiclesSqr = 1.0f;
         CCollision::bCamCollideWithVehicles = true;
@@ -1707,8 +1710,8 @@ void CCamera::ResetDuckingSystem(CPed* ped) {
     const auto& speed = ped->m_vecMoveSpeed;
     const float speedSquared = (speed.x * speed.x + speed.y * speed.y) + speed.z * speed.z;
     m_fDuckCamMotionFactor    = speedSquared > std::bit_cast<float>(0x358637BEu)
-        ? StaticRef<float>(0x8CCB98) - 0.5f
-        : StaticRef<float>(0x8CCB94) - 1.0f;
+        ? DatosExe::Data::v8CCB98 - 0.5f
+        : DatosExe::Data::v8CCB94 - 1.0f;
     m_fDuckAimCamMotionFactor = std::bit_cast<float>(0xBEB33333u); // -0.35f
 }
 
@@ -1722,8 +1725,8 @@ void CCamera::HandleCameraMotionForDucking(CPed* ped, CVector* source, CVector* 
         const auto& speed = ped->m_vecMoveSpeed;
         const auto square = (speed.x * speed.x + speed.y * speed.y) + speed.z * speed.z;
         target = !(square > std::bit_cast<float>(0x358637BEu))
-            ? StaticRef<float>(0x8CCB94) - 1.0f
-            : StaticRef<float>(0x8CCB98) - 0.5f;
+            ? DatosExe::Data::v8CCB94 - 1.0f
+            : DatosExe::Data::v8CCB98 - 0.5f;
     }
     if (!arg5) {
         const auto change = target - m_fDuckCamMotionFactor;
@@ -1913,8 +1916,8 @@ constexpr ObbeCinemaKind ObbeBoat{0x8CCEFC, 0xB70130, 0x8CC8B0, 3, false, false,
 void CameraObbeCinemaCycle(CCamera& camera, const ObbeCinemaKind& kind) {
     auto& processed = StaticRef<uint8>(0xB6EC2D);        // CCamera::bDidWeProcessAnyCinemaCam
     auto& cinemaActive = StaticRef<uint8>(0xB6EC34);
-    auto& messageCount = StaticRef<int8>(0x8CC381);      // gbCineyCamMessageDisplayed
-    const auto step = [] { return int32(StaticRef<int8>(0x8CC471)); };
+    auto& messageCount = DatosExe::Data::v8CC381;      // gbCineyCamMessageDisplayed
+    const auto step = [] { return int32(DatosExe::Data::v8CC471); };
     auto& index = StaticRef<int32>(kind.indexAddress);
     auto& lastTime = StaticRef<uint32>(kind.timeAddress);
     const auto* table = reinterpret_cast<const int32*>(kind.tableAddress);
@@ -2020,13 +2023,13 @@ bool CCamera::IsItTimeForNewCamera(int32 camSequence, int32 startTime) {
         return true;
     }
 
-    auto& stickAlert = StaticRef<uint8>(0x8CCDF4);
+    auto& stickAlert = DatosExe::Data::v8CCDF4;
     const float stick = float(CPad::GetPad(0)->GetRightStickX());
     const double stickMagnitude = std::fabs(double(stick));
     if (stickMagnitude <= 32.0) { // 0x85950C
         stickAlert = 1;
     } else if (stickMagnitude > 96.0 && stickAlert != 0) { // 0x863218
-        StaticRef<int8>(0x8CC471) = stick > 0.0f ? int8(1) : int8(-1);
+        DatosExe::Data::v8CC471 = stick > 0.0f ? int8(1) : int8(-1);
         stickAlert = 0;
         return true;
     }
@@ -2656,7 +2659,7 @@ void CameraProcessOrthonormalise(CVector& front, CVector& up, eCamMode mode) {
 }
 void CameraProcessMinimumDistance(CVector& source, const CVector& target) {
     const float dx = source.x - target.x, dy = source.y - target.y;
-    const float minimum = StaticRef<float>(0x8CCF20);
+    const float minimum = DatosExe::Data::v8CCF20;
     if (std::sqrt(dx * dx + dy * dy) < minimum) {
         const float angle = CGeneral::GetATanOfXY(dx, dy);
         source.x = std::cos(angle) * minimum + target.x;
@@ -2699,8 +2702,8 @@ void CCamera::Process() {
     }
     if (m_bUseNearClipScript) RwCameraSetNearClipPlane(Scene.m_pRwCamera, m_fNearClipScript);
     float headingChange = afterHeading - beforeHeading;
-    while (headingChange >= StaticRef<float>(0x858CB8)) headingChange -= StaticRef<float>(0x858CBC);
-    while (headingChange < -StaticRef<float>(0x858CB8)) headingChange += StaticRef<float>(0x858CBC);
+    while (headingChange >= DatosExe::Rdata::k858CB8) headingChange -= DatosExe::Rdata::k858CBC;
+    while (headingChange < -DatosExe::Rdata::k858CB8) headingChange += DatosExe::Rdata::k858CBC;
     if (std::abs(headingChange) > .3f) m_bJust_Switched = true;
     const bool forceVehicle = GetActiveCam().m_nDirectionWasLooking != 3 && m_pTargetEntity->GetIsTypeVehicle();
     const float now = float(CTimer::GetTimeInMS());
@@ -2773,7 +2776,7 @@ void CCamera::Process() {
     }
     const float drunk = StaticRef<float>(0xC73C58);
     if (drunk > 0.f) {
-        const float angle = StaticRef<float>(0xB6EC30) * StaticRef<float>(0x8595EC);
+        const float angle = StaticRef<float>(0xB6EC30) * DatosExe::Rdata::k8595EC;
         const float cosine = std::cos(angle), sine = std::sin(angle);
         source.x += cosine * drunk * -.02f; source.z += sine * drunk * -.02f;
         up.Normalise(); up.x += cosine * drunk * .05f; up.y += sine * drunk * .05f;
@@ -2812,7 +2815,7 @@ void CCamera::Process() {
         m_fCameraSpeedSoFar = 0.f; m_nNumFramesSoFar = 0;
         m_fCameraAverageSpeed = CameraProcessAverageDistance(accumulatedDistance, int32(m_nWorkOutSpeedThisNumFrames));
     }
-    const float orientation = m_fOrientation + StaticRef<float>(0x858CB8);
+    const float orientation = m_fOrientation + DatosExe::Rdata::k858CB8;
     m_vecPreviousCameraPosition = m_mCameraMatrix.GetPosition();
     if (GetActiveCam().m_nDirectionWasLooking != 3 && int(GetActiveCam().m_nMode) != 37) {
         GetActiveCam().m_vecSource = GetActiveCam().m_vecSourceBeforeLookBehind; m_fOrientation = orientation;
@@ -3019,29 +3022,29 @@ void CCamera::CalculateDerivedValues(bool bForMirror, bool bOriented) {
 void CCamera::ImproveNearClip(CVehicle* vehicle, CPed* ped, CVector* source, CVector* targPosn) {
     const auto delta=*source-*targPosn;const float distance=std::sqrt((delta.z*delta.z+delta.y*delta.y)+delta.x*delta.x);
     auto* camera=Scene.m_pRwCamera;
-    if(distance>StaticRef<float>(0x8CCD08)){const float nearClipValue=StaticRef<float>(0x8CCD04)*gCurDistForCam;if(camera->nearPlane<nearClipValue)RwCameraSetNearClipPlane(camera,nearClipValue);}
+    if(distance>DatosExe::Data::v8CCD08){const float nearClipValue=DatosExe::Data::v8CCD04*gCurDistForCam;if(camera->nearPlane<nearClipValue)RwCameraSetNearClipPlane(camera,nearClipValue);}
     const uint8 active=*reinterpret_cast<const uint8*>(reinterpret_cast<const uint8*>(this)+0x59);
     auto* activeCam=reinterpret_cast<CCam*>(reinterpret_cast<uint8*>(this)+0x174+uint32(active)*sizeof(CCam));
     if(vehicle){
         const auto type=vehicle->m_nVehicleSubType;
         if(type==VEHICLE_TYPE_HELI||type==VEHICLE_TYPE_PLANE){
-            if(gCurDistForCam>StaticRef<float>(0x8CCD00)){
+            if(gCurDistForCam>DatosExe::Data::v8CCD00){
                 const float ground=CalculateGroundHeight(static_cast<eGroundHeightType>(0));
-                if(activeCam->m_vecSource.z-ground>StaticRef<float>(0x8CCCFC)){
-                    const float limit=StaticRef<float>(0x8CCCF8)*gCurDistForCam,value=distance*StaticRef<float>(0x8CCCF4);const float nearClipValue=value<limit?value:limit;
+                if(activeCam->m_vecSource.z-ground>DatosExe::Data::v8CCCFC){
+                    const float limit=DatosExe::Data::v8CCCF8*gCurDistForCam,value=distance*DatosExe::Data::v8CCCF4;const float nearClipValue=value<limit?value:limit;
                     if(camera->nearPlane<nearClipValue)RwCameraSetNearClipPlane(camera,nearClipValue);
                 }
-            }else if(type==VEHICLE_TYPE_HELI)RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCF0));
+            }else if(type==VEHICLE_TYPE_HELI)RwCameraSetNearClipPlane(camera,DatosExe::Data::v8CCCF0);
         }
     }else if(ped){
         if(!ped->bIsStanding){
             const bool parachute=ped->GetIntelligence()->GetUsingParachute();auto* swim=ped->GetIntelligence()->GetTaskSwim();
             if(swim){float water=0;const bool found=CWaterLevel::GetWaterLevel(source->x,source->y,source->z,water,0,nullptr);
-                if(found&&std::abs(water-source->z)<StaticRef<float>(0x8CCCEC))RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCE8));
-                else if(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(swim)+0xA)==4&&StaticRef<int32>(0xB6F0F0)==1)RwCameraSetNearClipPlane(camera,StaticRef<float>(0x8CCCE4));
+                if(found&&std::abs(water-source->z)<DatosExe::Data::v8CCCEC)RwCameraSetNearClipPlane(camera,DatosExe::Data::v8CCCE8);
+                else if(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(swim)+0xA)==4&&StaticRef<int32>(0xB6F0F0)==1)RwCameraSetNearClipPlane(camera,DatosExe::Data::v8CCCE4);
             }else if(parachute||ped->GetIntelligence()->GetTaskJetPack()){
-                if(GetRoughDistanceToGround()>StaticRef<float>(0x8CCCFC)){
-                    const float value=delta.Magnitude()*StaticRef<float>(0x8CCCDC),limit=StaticRef<float>(0x8CCCE0)*gCurDistForCam;
+                if(GetRoughDistanceToGround()>DatosExe::Data::v8CCCFC){
+                    const float value=delta.Magnitude()*DatosExe::Data::v8CCCDC,limit=DatosExe::Data::v8CCCE0*gCurDistForCam;
                     const float nearClipValue=value<limit?value:limit;if(nearClipValue>camera->nearPlane)RwCameraSetNearClipPlane(camera,nearClipValue);
                 }
             }
@@ -3056,12 +3059,12 @@ void CCamera::ImproveNearClip(CVehicle* vehicle, CPed* ped, CVector* source, CVe
             const auto* spheres=model->m_pHitColModel->m_pColData->m_pSpheres;float minimum=999999.0f;
             for(int32 i=0;i<12;++i){const auto& sphere=spheres[i];const auto& center=sphere.m_vecCenter;
                 float value=(center.x*cam.m_vecFront.x+center.z*cam.m_vecFront.z)+center.y*cam.m_vecFront.y;value=(value-plane)-sphere.m_fRadius;
-                if(sphere.m_Surface.m_nPiece==9)value-=StaticRef<float>(0x8CCCD8)*sphere.m_fRadius;
+                if(sphere.m_Surface.m_nPiece==9)value-=DatosExe::Data::v8CCCD8*sphere.m_fRadius;
                 if(value<minimum)minimum=value;
             }
             float nearClipValue;
-            if(minimum>limit)nearClipValue=limit;else nearClipValue=minimum<StaticRef<float>(0x8CCCD4)?StaticRef<float>(0x8CCCD4):minimum;
-            if(nearClipValue>StaticRef<float>(0x8CCCD0))nearClipValue=StaticRef<float>(0x8CCCD0);
+            if(minimum>limit)nearClipValue=limit;else nearClipValue=minimum<DatosExe::Data::v8CCCD4?DatosExe::Data::v8CCCD4:minimum;
+            if(nearClipValue>DatosExe::Data::v8CCCD0)nearClipValue=DatosExe::Data::v8CCCD0;
             nearClipValue=float(int32(nearClipValue*100.0f))*.01f;RwCameraSetNearClipPlane(camera,nearClipValue);
         }
     }
@@ -3135,9 +3138,9 @@ bool CCamera::TryToStartNewCamMode(int32 camSequence) {
     const auto waterFloor = [](CVector& position, float level) {
         float water;
         if (CWaterLevel::GetWaterLevelNoWaves(position, &water, nullptr, nullptr)) {
-            float clearance = StaticRef<float>(0x8CC8C0);
+            float clearance = DatosExe::Data::v8CC8C0;
             if (auto* vehicle = FindPlayerVehicle(-1, false)) {
-                if (*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(FindPlayerVehicle(-1, false)) + 0x590) == 5) clearance = StaticRef<float>(0x8CC8C4);
+                if (*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(FindPlayerVehicle(-1, false)) + 0x590) == 5) clearance = DatosExe::Data::v8CC8C4;
             }
             if (position.z < clearance + water) position.z = clearance + water;
         }
@@ -3270,7 +3273,7 @@ bool CCamera::TryToStartNewCamMode(int32 camSequence) {
 bool CCamera::CameraColDetAndReact(CVector* source, CVector* target) {
     const CVector delta=*source-*target;
     const float length=std::sqrt((delta.z*delta.z+delta.y*delta.y)+delta.x*delta.x);
-    float radius=length*gpCamColVars[0]*StaticRef<float>(0x8CCB90);
+    float radius=length*gpCamColVars[0]*DatosExe::Data::v8CCB90;
     auto* ignored=CWorld::pIgnoreEntity;
     if(gCurCamColVars>=10&&ignored){
         float limit;
@@ -3299,11 +3302,11 @@ bool CCamera::CameraColDetAndReact(CVector* source, CVector* target) {
         else if(limit<radius)radius=limit;
     }
     if(gpCamColVars[1]<radius)radius=gpCamColVars[1];
-    if(radius<StaticRef<float>(0x8CCE18))radius=StaticRef<float>(0x8CCE18);
+    if(radius<DatosExe::Data::v8CCE18)radius=DatosExe::Data::v8CCE18;
     float minDistance=gpCamColVars[2];
     if(gCurCamColVars<10)minDistance=StaticRef<float>(gCurCamColVars<4?0x8CCE10:0x8CCE14)/length;
     const bool bike=gCurCamColVars>=10&&ignored&&ignored->GetType()==ENTITY_TYPE_VEHICLE&&reinterpret_cast<CVehicle*>(ignored)->m_nVehicleType==VEHICLE_TYPE_BIKE;
-    if(bike)minDistance=StaticRef<float>(0x8CCE0C);
+    if(bike)minDistance=DatosExe::Data::v8CCE0C;
     StaticRef<float>(0xB6EC6C)=radius;
     CVector resolved;
     float fraction;
@@ -3314,17 +3317,17 @@ bool CCamera::CameraColDetAndReact(CVector* source, CVector* target) {
         auto& previous=StaticRef<CVector>(0xB700DC);
         if(!(flags&1)){flags|=1;previous=CVector{0,0,0};}
         const auto moved=*source-previous;
-        const float threshold=StaticRef<float>(0x8CCE08);
+        const float threshold=DatosExe::Data::v8CCE08;
         if(threshold*threshold<(moved.z*moved.z+moved.y*moved.y)+moved.x*moved.x){
             float step=(CTimer::GetTimeStep()*gpCamColVars[5])*(fraction-gCurDistForCam);
-            if(StaticRef<float>(0x8CCE04)<step)step=StaticRef<float>(0x8CCE04);
+            if(DatosExe::Data::v8CCE04<step)step=DatosExe::Data::v8CCE04;
             gCurDistForCam+=step;
         }
         previous=*source;
     }else gCurDistForCam=fraction;
     if(gCurDistForCam>1.0f)gCurDistForCam=1.0f;
     *source=CVector{delta.x*gCurDistForCam+target->x,delta.y*gCurDistForCam+target->y,delta.z*gCurDistForCam+target->z};
-    if(bike&&gCurDistForCam<StaticRef<float>(0x8CCE00))RwCameraSetNearClipPlane(Scene.m_pRwCamera,StaticRef<float>(0x8CCDFC));
+    if(bike&&gCurDistForCam<DatosExe::Data::v8CCE00)RwCameraSetNearClipPlane(Scene.m_pRwCamera,DatosExe::Data::v8CCDFC);
     return collided;
 }
 
@@ -3688,7 +3691,7 @@ void CameraControlPedZoom(CCamera& camera) {
         }
     } else {
         heightOffset = 0.7f;
-        CameraControlStepZoom(camera.m_fPedZoomSmoothed, StaticRef<float>(0x8CCF14));
+        CameraControlStepZoom(camera.m_fPedZoomSmoothed, DatosExe::Data::v8CCF14);
     }
     plugin::Call<0x509AE0, float, float*, float*, float, float, bool>(
         heightOffset, &cam.m_fCloseInPedHeightOffset, &cam.m_fCloseInPedHeightOffsetSpeed,
@@ -3851,7 +3854,7 @@ void CameraControlWeaponMode(CCamera& camera, bool stairs) {
             && (static_cast<CPed*>(FindPlayerPed()->m_pTargetedObject)->m_nPedState == PEDSTATE_DEAD
                 || static_cast<CPed*>(FindPlayerPed()->m_pTargetedObject)->m_nPedState == PEDSTATE_DIE)) {
             targetDead = true;
-            deadDistance = StaticRef<float>(0x8CCF08);
+            deadDistance = DatosExe::Data::v8CCF08;
         }
         const auto distance = std::sqrt(aimDisplacement.x * aimDisplacement.x + aimDisplacement.y * aimDisplacement.y);
         const auto azimuth = CGeneral::GetATanOfXY(sourceDisplacement.x, sourceDisplacement.y);
@@ -3864,7 +3867,7 @@ void CameraControlWeaponMode(CCamera& camera, bool stairs) {
             auto threshold = deadDistance;
             if (CameraControlMode(camera.m_aCams[camera.m_nActiveCam]) == 35
                 && FindPlayerPed()->m_pTargetedObject->GetIsTypePed()) {
-                threshold = StaticRef<float>(0x8CCF04);
+                threshold = DatosExe::Data::v8CCF04;
             }
             if (distance < threshold) {
                 fixedDistance = 5.6f;
@@ -3985,10 +3988,10 @@ void CameraControlPedCycle(CCamera& camera) {
     }
 }
 float CameraControlWrapHeading(float heading, float reference) {
-    if (heading > reference + StaticRef<float>(0x858CB8)) {
-        heading -= StaticRef<float>(0x858CBC);
-    } else if (heading < reference - StaticRef<float>(0x858CB8)) {
-        heading += StaticRef<float>(0x858CBC);
+    if (heading > reference + DatosExe::Rdata::k858CB8) {
+        heading -= DatosExe::Rdata::k858CBC;
+    } else if (heading < reference - DatosExe::Rdata::k858CB8) {
+        heading += DatosExe::Rdata::k858CBC;
     }
     return heading;
 }
@@ -4022,7 +4025,7 @@ void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, boo
             const auto heading = CameraControlWrapHeading(
                 CameraControlTargetHeadingMinusHalfPi(ped), cam.m_fHorizontalAngle
             );
-            if (StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC)
+            if (DatosExe::Data::v8CC46C * DatosExe::Rdata::k8595EC
                 < std::fabs(heading - cam.m_fHorizontalAngle)) {
                 jump = true;
             } else {
@@ -4076,9 +4079,9 @@ void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, boo
         if (ped->CanWeRunAndFireWithWeapon()
             && (*reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(ped) + 0x46C) & 0x4000000) == 0) {
             const auto heading = CameraControlWrapHeading(
-                ped->GetHeading() - StaticRef<float>(0x858FE4), cam.m_fHorizontalAngle
+                ped->GetHeading() - DatosExe::Rdata::k858FE4, cam.m_fHorizontalAngle
             );
-            aimingJump = StaticRef<float>(0x8CC46C) * StaticRef<float>(0x8595EC)
+            aimingJump = DatosExe::Data::v8CC46C * DatosExe::Rdata::k8595EC
                 < std::fabs(heading - cam.m_fHorizontalAngle) || !ped->bIsStanding;
             if (StaticRef<uint8>(0xB6EC2E) != 0) {
                 aimingJump = false;
@@ -4090,7 +4093,7 @@ void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, boo
         {16, 7, 34, 8, 51, 29, 32, 33, 30, 39, 40, 52, 42, 43, 41, 45, 1, 37, 46});
     if ((leavingSpecialMode || aimingJump || wasArrested) && !camera.m_bJustCameOutOfGarage) {
         if (CameraControlModeIn(oldMode, {7, 8, 51, 34, 16, 39, 40, 52, 42, 43, 41, 45, 46})) {
-            const auto angle = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) - StaticRef<float>(0x858FE4);
+            const auto angle = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) - DatosExe::Rdata::k858FE4;
             const auto ped = static_cast<CPed*>(camera.m_pTargetEntity);
             ped->m_fCurrentRotation = angle;
             ped->m_fAimingRotation = angle;
@@ -4103,7 +4106,7 @@ void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, boo
             displacement.Normalise();
             cam.m_fTransitionBeta = CGeneral::GetATanOfXY(0.001f, 1.0f);
         } else {
-            cam.m_fTransitionBeta = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) + StaticRef<float>(0x858CB8);
+            cam.m_fTransitionBeta = CGeneral::GetATanOfXY(cam.m_vecFront.x, cam.m_vecFront.y) + DatosExe::Rdata::k858CB8;
         }
     }
 }
@@ -4358,9 +4361,9 @@ void CCamera::CamControl() {
             m_bWantsToSwitchWidescreenOff = m_bWideScreenOn;
         }
         if (m_pTargetEntity->GetIsTypeVehicle()) {
-            if (StaticRef<int32>(0x8CC824) > 0) {
-                requested = static_cast<uint16>(StaticRef<int32>(0x8CC824));
-                StaticRef<int32>(0x8CC824) = -1;
+            if (DatosExe::Data::v8CC824 > 0) {
+                requested = static_cast<uint16>(DatosExe::Data::v8CC824);
+                DatosExe::Data::v8CC824 = -1;
             }
             if (static_cast<CVehicle*>(m_pTargetEntity)->m_nVehicleType == VEHICLE_TYPE_TRAIN) {
                 requested = 3;

@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaA.h"
+#include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "ProjectileInfo.h"
@@ -103,7 +105,7 @@ static float ProjectileCreatorHeading(CEntity* creator) {
     return heading;
 }
 static CVector ProjectileThrownVelocity(float heading, float speed, float height) {
-    const float negative = StaticRef<float>(0x858C1C);
+    const float negative = DatosExe::Rdata::k858C1C;
     // fsin; fmul speed; fmul negative; fstp x. fcos; fmul speed; fstp y (0x737DA6).
     const float outputX = TrigSimpleSinMulCpp(heading, speed) * negative;
     const float outputY = TrigSimpleCosMulCpp(heading, speed);
@@ -118,13 +120,13 @@ bool CProjectileInfo::AddProjectile(CEntity* creator, eWeaponType projectileType
     const auto constant = [](uintptr_t address) { return StaticRef<float>(address); };
     if (type == 16 || type == 17 || type == 18 || type == 39) {
         destroyTime = CTimer::GetTimeInMS() + (type == 17 ? 20000u : 2000u);
-        float speed = force == 0.f && type != 18 ? 0.f : force * constant(0x8717AC) + constant(0x858FCC);
-        if (type == 39) speed *= constant(0x858B8C);
-        if (type == 18 && speed < constant(0x858CC4)) speed = constant(0x858CC4);
+        float speed = force == 0.f && type != 18 ? 0.f : force * DatosExe::Rdata::k8717AC + DatosExe::Rdata::k858FCC;
+        if (type == 39) speed *= DatosExe::Rdata::k858B8C;
+        if (type == 18 && speed < DatosExe::Rdata::k858CC4) speed = DatosExe::Rdata::k858CC4;
         float heading = ProjectileCreatorHeading(creator);
-        if ((type == 16 || type == 39) && creator->GetIsTypeVehicle()) heading = CGeneral::LimitRadianAngle(heading + constant(0x858CB8));
+        if ((type == 16 || type == 39) && creator->GetIsTypeVehicle()) heading = CGeneral::LimitRadianAngle(heading + DatosExe::Rdata::k858CB8);
         matrix.SetTranslate(CVector{0.f, 0.f, 0.f}); matrix.RotateZ(heading); matrix.GetPosition() += origin;
-        const float height = type == 18 ? (force * constant(0x858CC4) + constant(0x858EE8)) * speed : (force + 1.f) * constant(0x858EE8) * speed;
+        const float height = type == 18 ? (force * DatosExe::Rdata::k858CC4 + DatosExe::Rdata::k858EE8) * speed : (force + 1.f) * DatosExe::Rdata::k858EE8 * speed;
         velocity = ProjectileThrownVelocity(heading, speed, height);
         if ((type == 16 || type == 39) && creator->m_nModelIndex == 405) velocity += creator->AsPhysical()->m_vecMoveSpeed;
         if (type != 18) { objectInfo = 5; elasticity = type == 39 ? std::bit_cast<float>(0x3CF5C28Fu) : .5f; }
@@ -166,10 +168,10 @@ bool CProjectileInfo::AddProjectile(CEntity* creator, eWeaponType projectileType
         auto* data = collision->m_pColData;
         if (!data) {
             collision->AllocateData(1, 0, 0, 0, 0, false);
-            collision->m_pColData->m_pSpheres[0].Set(collision->m_boundSphere.m_fRadius * constant(0x858F34), collision->m_boundSphere.m_vecCenter, static_cast<eSurfaceType>(56), 0, tColLighting{0xFF});
+            collision->m_pColData->m_pSpheres[0].Set(collision->m_boundSphere.m_fRadius * DatosExe::Rdata::k858F34, collision->m_boundSphere.m_vecCenter, static_cast<eSurfaceType>(56), 0, tColLighting{0xFF});
         } else if (!data->m_nNumSpheres && !data->m_pSpheres) {
             data->m_nNumSpheres = 1; data->m_pSpheres = static_cast<CColSphere*>(CMemoryMgr::Malloc(20, 0));
-            data->m_pSpheres[0].Set(collision->m_boundSphere.m_fRadius * constant(0x858F34), collision->m_boundSphere.m_vecCenter, static_cast<eSurfaceType>(56), 0, tColLighting{0xFF});
+            data->m_pSpheres[0].Set(collision->m_boundSphere.m_fRadius * DatosExe::Rdata::k858F34, collision->m_boundSphere.m_vecCenter, static_cast<eSurfaceType>(56), 0, tColLighting{0xFF});
         }
     }
     if (type == 58) projectile->m_fAirResistance = .9f;
@@ -249,7 +251,7 @@ template<typename T> T& ProjectileField(CEntity* entity, size_t offset) {
     return *reinterpret_cast<T*>(reinterpret_cast<uint8*>(entity) + offset);
 }
 float ProjectileDamping(float timestep) {
-    const float base = StaticRef<float>(0x8D6104);
+    const float base = DatosExe::Data::v8D6104;
     // fld base; fld timestep; call _CIpow (0x822130); fstp result (0x7395CF).
     const float result = float(ExeCompatiblePowCpp(double(base), double(timestep)));
     return result;
@@ -259,7 +261,7 @@ void RemoveBackwardProjectileSteering(CVector& steering,const CVector& direction
     ProjInfoRemoveBackwardSteeringCpp(&steering.x, &direction.x);
 }
 void AddProjectileSteering(CVector& velocity, const CVector& steering, float acceleration, float timestep, bool fast) {
-    const float speedMultiplier = StaticRef<float>(0x858F08);
+    const float speedMultiplier = DatosExe::Rdata::k858F08;
     ProjInfoAddSteeringCpp(&velocity.x, &steering.x, acceleration, timestep, fast, speedMultiplier);
 }
 void LimitProjectileSpeed(CProjectile* projectile) {
@@ -371,7 +373,7 @@ void CProjectileInfo::Update() {
                     const auto targetVelocity = best->AsPhysical()->m_vecMoveSpeed;
                     const bool fast = std::sqrt(targetVelocity.z * targetVelocity.z + targetVelocity.y * targetVelocity.y + targetVelocity.x * targetVelocity.x) > .8f;
                     float damping = 1.f;
-                    if (hunter) { damping = ProjectileDamping(timestep); acceleration = StaticRef<float>(0x8D6108); }
+                    if (hunter) { damping = ProjectileDamping(timestep); acceleration = DatosExe::Data::v8D6108; }
                     velocity *= damping; AddProjectileSteering(velocity, steering, acceleration, timestep, fast && !hunter); LimitProjectileSpeed(projectile);
                     projectile->GetMatrix().GetForward() = oldVelocity;
                 }

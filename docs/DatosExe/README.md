@@ -72,9 +72,9 @@ Detalle en [plan-lotes.md](plan-lotes.md) y [plan-lotes.csv](plan-lotes.csv). So
 | Parte | Grupo | Contenido | Objetos | Riesgo | Estado |
 | --- | --- | --- | ---: | --- | --- |
 | 1 | G1 · DE01 | Constantes escalares `.rdata` (float, double, int32, uint32) con `StaticRef` tipado | 154 | bajo | **hecho** |
-| 1 | G2 · DE02 | Constantes `.rdata` por otras vías (ayudante `f(0x…)`, `LoadWord`, `reinterpret_cast`, literal) | 224 | bajo | pendiente |
-| 1 | G3 · DE03 | Tablas y cadenas `.rdata` del juego (más de 8 bytes) | 36 | bajo | pendiente |
-| 2 | G4 · DE04 | `.data` inicializado del juego sin lector vivo (tablas mutables) | 1.065 | medio | pendiente |
+| 1 | G2 · DE02 | Constantes `.rdata` por otras vías (ayudante `f(0x…)`, `LoadWord`, `reinterpret_cast`, literal) | 224 | bajo | **hecho** (185 constantes) |
+| 1 | G3 · DE03 | Tablas y cadenas `.rdata` del juego (más de 8 bytes) | 36 | bajo | **hecho** (cadenas y GUID; 33 eran vtables → G9) |
+| 2 | G4 · DE04 | `.data` inicializado del juego sin lector vivo (tablas mutables) | 1.065 | medio | **hecho** parcial (539 objetos en A, B y C) |
 | 3 | G5 · DE05 | `.bss` del juego sin lector vivo (estado) | 2.354 | medio | pendiente |
 | 4 | G6 · DE06 | Datos del juego que aún lee código vivo | 20 | alto | tras cortar el lector |
 | 5 | G7 · DE07 | RenderWare y D3D | 619 | alto | con el plan 240A–389A |
@@ -101,12 +101,56 @@ Por lote: (1) `contrib/datos_exe.py` para tener la medición actual; (2) `contri
 
 154 constantes (float, double, int32, uint32) con 221 referencias en 29 archivos reescritas de `StaticRef<T>(0x…)` a `DatosExe::Rdata::k<DIR>`. Definiciones en `source/game_sa/DatosExe/RdataConstantes.cpp` y `.h` con los valores extraídos del EXE (`std::bit_cast` de los bytes exactos). Lista en [lotes/DE01.csv](lotes/DE01.csv). Tras el lote la DLL tiene 8.546 referencias a 5.124 direcciones (de 8.767 y 5.276): 221 y 152 menos; dos objetos del lote conservan una referencia por otra vía. Compilación completa correcta (`bin\Debug\gta_reversed.asi`, build-project.ps1 con el candado) y pruebas de humo en BIEN con esa DLL: `prueba_ropero.py` (puerta y marcador, 15 entidades y 12 marcadores) y `prueba_agua.py` (UnderWaterness 1,0, brillo medio 44,9).
 
-## 6. Reproducir
+### DE02 · constantes de `.rdata` por ayudante, cast o literal (hecho)
+
+185 constantes (180 float, 3 double, 2 uint32) y 913 referencias en 26 archivos. Cubre `ExeFloat(0x…)`, `RadarExeFloat`, `CamExeFloat`, `InstantHitConstant`, los lambdas locales `f(0x…)` y `constant(0x…)` (solo en archivos donde todas sus definiciones devuelven `float`, verificado por el script), `*reinterpret_cast<T*>(0x…)`, `*(T*)0x…` y los `StaticRef` que DE01 dejó por tipos mixtos. Definiciones en `RdataAyudantes.h/.cpp` (sufijos `_d`, `_i`, `_u`). Script: `contrib/datos_exe_de02.py`. Compiló a la primera.
+
+### DE03 · cadenas, claves GXT y GUID de `.rdata` (hecho)
+
+30 cadenas y 2 GUID en `RdataCadenas.h/.cpp`: 13 cadenas leídas con `reinterpret_cast<const char*>` (HandsUp, sunbathe, CODEAIR, JPEGMEM, "GTA: San Andreas"…), las 16 claves GXT `GA_*` de `Garage.cpp` (`GaKey` y `GaMessage` pasan a recibir `const char*`), `PedEvent.txt` de `DecisionMakerTypes.cpp` y los GUID de EAX de `AEAudioChannel.cpp` y `AEAudioHardware.cpp`. Script: `contrib/datos_exe_de03.py`. Quedan sin convertir tres usos de direcciones de cadena que se pasan a funciones del EXE o se ignoran: los nombres de animación del teléfono (`NewPhoneAnimTask`, parámetro ignorado por el EXE), `ThrowRuntimeError` de `CrtException.cpp` (grupo CRT) y los literales de vtable.
+
+**Hallazgo sobre G3:** de los 36 objetos del grupo, 33 eran vtables del EXE que la DLL escribe en `this` al construir objetos (`*reinterpret_cast<uint32*>(self) = 0x85A788;`, cientos de sitios). No son datos copiables: son punteros a código del EXE y desaparecen cuando las vtables las genera el compilador. Se reasignan al grupo G9 (DE09), que es mucho más grande que los 469 `RH_ScopedVirtualClass`.
+
+### DE04 · `.data` inicializado del juego (hecho en tres lotes)
+
+Variables propias en `DataInicializadaA/B/C.h/.cpp` (namespace `DatosExe::Data`, nombre `v<DIR>`, no `const`: son estado vivo) con el valor inicial del EXE. Script: `contrib/datos_exe_de04.py <A|B|C>`. Un objeto solo se convierte si es seguro con las cotas de la medición: todas las referencias de la DLL a esa dirección son `StaticRef` con el mismo tipo (si no habría dos copias), ninguna otra dirección referenciada cae dentro de su extensión, ninguna función viva del EXE la lee, la escribe ni le toma la dirección, y el tipo es primitivo o array de primitivos. Se excluyen las direcciones que usan las pruebas de humo (ForegroundApp 0x8D621C, 0x8D514C).
+
+| Lote | Contenido | Objetos | Referencias | Bytes |
+| --- | --- | ---: | ---: | ---: |
+| DE04-A | escalares `float` | 335 | 379 | 1.340 |
+| DE04-B | otros escalares (int32, uint32, int16, uint8, bool, double) | 175 | 229 | 515 |
+| DE04-C | arrays de primitivos (`std::array<T,N>` y `T[N]`) | 29 | 29 | 6.830 |
+
+Quedan fuera de DE04 (por criterio): 313 objetos con formas distintas de `StaticRef`, 147 de tamaño desconocido, 125 con lector vivo, 27 de tipos mixtos y los de tipo estructura (`CRGBA`, `CVector`, `RwRGBA`): necesitan inicialización de agregados por tipo.
+
+## 6. Cifras antes y después
+
+| Medida | Antes (origin/main 4d39c9866b) | Después (DE01–DE04) | Diferencia |
+| --- | ---: | ---: | ---: |
+| Referencias de la DLL a datos del EXE | 8.767 | 6.983 | −1.784 |
+| Direcciones distintas | 5.276 | 4.434 | −842 |
+| `.rdata`: objetos con ref. de la DLL | 989 | 678 | −311 |
+| `.data`: objetos con ref. de la DLL | 1.287 | 756 | −531 |
+| `.bss`: objetos con ref. de la DLL | 2.830 | 2.830 | 0 |
+| Formas: `StaticRef` / ayudante / literal | 5.071 / 625 / 2.172 | 3.884 / 394 / 1.824 | |
+
+Todas las compilaciones completas fueron correctas (`_build_DATOS1..4C.sh` con el candado) y cada lote pasó `prueba_ropero.py` y `prueba_agua.py` en BIEN con la DLL de la rama (brillo medio del agua entre 44,9 y 50,1).
+
+## 7. Reproducir
 
 ```
 python -X utf8 contrib/datos_exe.py                       # medición completa → docs/DatosExe/*.csv, resumen.json
 python -X utf8 contrib/datos_exe_plan.py                  # plan-lotes.md/.csv, plan-objetos.csv
-python -X utf8 contrib/datos_exe_lote.py DE01 [--aplicar] # informa o aplica el lote
+python -X utf8 contrib/datos_exe_lote.py DE01 [--aplicar] # lote DE01
+python -X utf8 contrib/datos_exe_de02.py [--aplicar]      # lote DE02
+python -X utf8 contrib/datos_exe_de03.py [--aplicar]      # lote DE03
+python -X utf8 contrib/datos_exe_de04.py A|B|C [--aplicar]# lote DE04
 ```
 
-La medición guardada en esta carpeta es la **anterior** al lote DE01 (así el plan conserva los lotes hechos); para ver el estado actual ejecutar `datos_exe.py` con `--salida` a otra carpeta.
+La medición guardada en esta carpeta (`objetos.csv`, `referencias-dll.csv`, `por-*.csv`, `resumen.json`) es la **anterior** a los lotes, para que el plan conserve los lotes hechos; para ver el estado actual ejecutar `datos_exe.py` con `--salida` a otra carpeta. Lo aplicado está en [lotes/](lotes/). Los scripts DE02 a DE04 re-escanean la fuente actual, así que no dependen de esa medición.
+
+## 8. Siguiente
+
+* DE05: `.bss` del juego sin lector vivo (2.354 objetos). Mismo criterio que DE04, pero hay que tener en cuenta que las pruebas de humo leen y escriben direcciones `.bss` del proceso (0xB7CD74 jugador, 0xC8D4C0 estado de juego, 0xB72914 área, 0xB7C4A0 colores…): esas se excluyen o se adapta la prueba.
+* DE04-D: estructuras (`CRGBA`, `CVector`) y las formas no `StaticRef` de `.data`.
+* DE09 ampliado: vtables escritas por constructores de la DLL.

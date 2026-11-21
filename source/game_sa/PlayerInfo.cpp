@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaB.h"
 #include "X87Math.h"
 
 #include "PlayerInfo.h"
@@ -332,8 +333,8 @@ void CPlayerInfo::Process(uint32 playerIndex) {
     if (wanted && !CTheScripts::IsPlayerOnAMission()) {
         auto& lastPosition = StaticRef<CVector>(0xB9B994);
         auto& initialized = StaticRef<uint32>(0xB9B9A0);
-        auto& nearRoad = StaticRef<bool>(0x8CDF20);
-        auto& moved = StaticRef<bool>(0x8CDF21);
+        auto& nearRoad = DatosExe::Data::v8CDF20;
+        auto& moved = DatosExe::Data::v8CDF21;
         initialized |= 1;
         if (CTimer::GetTimeInMS() / 20000 != CTimer::GetPreviousTimeInMS() / 20000) {
             moved = !((lastPosition - FindPlayerCoors()).Magnitude() < 10.0f); // NaN como el EXE (0x57161f): fcom + test ah + jcc
