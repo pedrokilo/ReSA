@@ -2430,6 +2430,20 @@ void __cdecl SkinBlendPointCpp(const float* m, const float* in, float weight, fl
 float __cdecl UVAnimParamThetaCpp(float upX, float rightX);
 // RpUVAnim 0x7CC110 / 0x7CC760: grados = float(theta * factor) con la x87 (24 bits).
 float __cdecl UVAnimDegreesCpp(float theta, float factor);
+// Lote S9A (sin validar): RpUVAnim, callbacks de interpolacion de fotogramas (0x7CC600, 0x7CC6A0, 0x7CCA40, 0x7CCAC0, 0x7CCB30, 0x7CCBE0). Los punteros son a floats: indice 1 = time, 2..7 = datos (+0x08..+0x1C).
+void __cdecl UVAnimParamInterpolateCpp(float* out, const float* in1, const float* in2, float time);
+void __cdecl UVAnimParamBlendCpp(float* out, const float* in1, const float* in2, float alpha);
+void __cdecl UVAnimLinearInterpolateCpp(float* out, const float* in1, const float* in2, float time);
+void __cdecl UVAnimLinearBlendCpp(float* out, const float* in1, const float* in2, float alpha);
+void __cdecl UVAnimLinearAddCpp(float* out, const float* in1, const float* in2);
+void __cdecl UVAnimLinearMulRecipCpp(float* frame, const float* start);
+// Lote S11A (sin validar): RpHAnim, callbacks de fotogramas (0x7C5B80, 0x7C6720, 0x7C65C0). Los punteros son a floats: indice 2..5 = cuaternion (x, y, z, w), 6..8 = traslacion; la matriz son 16 floats.
+void __cdecl HAnimKeyFrameApplyCpp(float* matrix, const float* frame);
+void __cdecl HAnimKeyFrameAddCpp(float* out, const float* in1, const float* in2);
+void __cdecl HAnimKeyFrameMulRecipCpp(float* frame, const float* start);
+// 0x7C5CA0 y 0x7C60C0: interpolacion esferica de cuaterniones (con el acos y el seno en linea del EXE). `sqrtFn` es _rwSqrt (0x7EDB30). `in2` puede quedar con el cuaternion negado, como en el EXE.
+void __cdecl HAnimKeyFrameInterpolateCpp(float* out, float* in1, float* in2, float time, float (__cdecl* sqrtFn)(float));
+void __cdecl HAnimKeyFrameBlendCpp(float* out, float* in1, float* in2, float alpha, float (__cdecl* sqrtFn)(float));
 
 // Lote R12A (sin validar): RwPlCore (vectores y matrices de RenderWare). Todas siguen la secuencia x87 del EXE (24 bits; solo se redondea a float donde el original hace `fstp dword`).
 // ((x*x + y*y) + z*z) de un vector de tres floats, guardado como float (RwV3dLength 0x7EDAC0 y las normalizaciones de 0x7F1930).
