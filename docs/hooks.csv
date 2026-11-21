@@ -13310,3 +13310,15 @@ LibPngWrite,PngError,0x007D34F0,1,0,0,S
 LibPngWrite,PngWarning,0x007D3510,1,0,0,S
 LibPngWrite,PngDoPack,0x007DEED0,1,0,0,S
 LibPngWrite,PngWriteChunk,0x007DA940,1,0,0,S
+RpWorld,_rpTriStripTunnelToggle,0x0075BB20,1,0,0,S
+RpWorld,_rpTriStripPolygonCountStripEdges,0x0075BB50,1,0,0,S
+RpWorld,_rpTriStripTunnelIsValid,0x0075BB80,1,0,0,S
+RpWorld,_rpTriStripTunnelCost,0x0075BC80,1,0,0,S
+RpWorld,RpTriStripMeshTunnel,0x0075B780,1,0,0,S
+RpWorld,TriStripMeshCreate,0x0075C660,1,0,0,S
+RpWorld,TriStripEmit,0x0075C9D0,1,0,0,S
+RpWorld,TriStripNeighbours,0x0075D240,1,0,0,S
+RpWorld,RpBuildMeshGenerateTriStrip,0x0075C380,1,0,0,S
+RpWorld,GeometrySortCompare,0x0075E230,1,0,0,S
+RpWorld,RpGeometrySortByMaterial,0x0075DAE0,1,0,0,S
+RpWorld,_rpGeometryPluginFirstEntry,0x0074BFD0,1,0,0,S
