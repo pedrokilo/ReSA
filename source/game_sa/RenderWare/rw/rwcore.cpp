@@ -108,6 +108,16 @@ constexpr size_t kSlotSetRenderState = 57;              // IDirect3DDevice9::Set
 constexpr size_t kSlotSetTextureStageState = 67;        // IDirect3DDevice9::SetTextureStageState (+0x10C; lote R10A)
 } // namespace
 
+// Declaraciones adelantadas de las funciones de los lotes S17A/S18A (se definen al final del archivo): devoluciones de llamada que el propio codigo registra en lugar de la direccion del EXE.
+void* _rwD3D9RasterExtDestructor(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);   // 0x4C9A80
+RwObjectHasFrame* _rwCameraSyncCallBack(RwObjectHasFrame* object);                              // 0x7EE5A0
+RwCamera* _rwCameraEndUpdateCallBack(RwCamera* camera);                                         // 0x7EF340
+RwCamera* _rwCameraBeginUpdateCallBack(RwCamera* camera);                                       // 0x7EF370
+void* _rwImageOpenCallback(char* path, void* data);                                             // 0x8032D0
+void* _rwImageExtensionCallback(char* path, void* data);                                        // 0x803340
+void _rwCameraBeginUpdateStub(void* camera);                                              // 0x807C80 (rwplcore.cpp)
+RwBool _rwDeviceSystemRequest(RwDevice* device, RwInt32 requestID, void* pOut, void* pInOut, RwInt32 numIn); // 0x7F2AB0 (rwplcore.cpp)
+
 // Lote R25A (sin validar): ayudantes de las texturas (batextur.c). CopyStringChecked se define mas abajo (lote R7A). RwRaiseError es el RWERROR del SDK con el pluginID literal 1 del EXE:
 // RwError { 1, _rwerror(codigo [, argumentos]) } y RwErrorSet (0x808820).
 namespace {
@@ -248,7 +258,7 @@ static void* RwD3D9RasterExtConstructor(void* object, RwInt32 offsetInObject, Rw
 }
 
 __declspec(noinline) RwBool __cdecl D3D9RasterPluginAttachExe() {
-    const RwInt32 offset = RwRasterRegisterPlugin(0x24, 0x40C, reinterpret_cast<RwPluginObjectConstructor>(&RwD3D9RasterExtConstructor), reinterpret_cast<RwPluginObjectDestructor>(0x4C9A80), nullptr);
+    const RwInt32 offset = RwRasterRegisterPlugin(0x24, 0x40C, reinterpret_cast<RwPluginObjectConstructor>(&RwD3D9RasterExtConstructor), &_rwD3D9RasterExtDestructor, nullptr);
     D3D9RasterExtOffset = offset;
     if (offset < 0) {
         return 0;
@@ -676,15 +686,11 @@ void RwCoreInjectHooks() {
 
 // 0x809F90 (RxHeapCreate), 0x809F30 (RxHeapDestroy) y 0x809EC0 (_rxHeapReset): reconstruidas al final del archivo (lote R32A).
 
-void* RxHeapAlloc(RxHeap* heap, RwUInt32 size) {
-    return ((void*(__cdecl *)(RxHeap*, RwUInt32))0x809AA0)(heap, size);
-}
+// 0x809AA0 (RxHeapAlloc): reconstruida al final del archivo (lote S19A).
 
 // 0x8098B0 (RxHeapFree): reconstruida al final del archivo (lote R32A).
 
-void* RxHeapRealloc(RxHeap* heap, void* block, RwUInt32 newSize, RwBool allowCopy) {
-    return ((void*(__cdecl *)(RxHeap*, void*, RwUInt32, RwBool))0x809D10)(heap, block, newSize, allowCopy);
-}
+// 0x809D10 (RxHeapRealloc): reconstruida al final del archivo (lote S19A).
 
 // 0x804FC0 (lote S16A, sin validar; 20 bytes; era una envoltura; cdecl, (tamano de bloque, bloques a reservar)): guarda los dos parametros en 0x8E26A0 y 0x8E26A4 (los lee RxPipelineCreate al crear su lista libre).
 void RxPipelineSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
@@ -823,13 +829,9 @@ RxCluster* RxClusterSetData(RxCluster* cluster, void* data, RwInt32 stride, RwIn
 
 // 0x80F070 (_rxPacketDestroy): reconstruida al final del archivo (lote R34A, RwCoreInjectHooksR34A).
 
-RxCluster* RxClusterInitializeData(RxCluster* cluster, RwUInt32 numElements, RwUInt16 stride) {
-    return ((RxCluster*(__cdecl *)(RxCluster*, RwUInt32, RwUInt16))0x805400)(cluster, numElements, stride);
-}
+// 0x805400 (RxClusterInitializeData): reconstruida al final del archivo (lote S19A).
 
-RxCluster* RxClusterResizeData(RxCluster* CurrentCluster, RwUInt32 NumElements) {
-    return ((RxCluster*(__cdecl *)(RxCluster*, RwUInt32))0x805470)(CurrentCluster, NumElements);
-}
+// 0x805470 (RxClusterResizeData): reconstruida al final del archivo (lote S19A).
 
 // 0x8054C0 (lote S16A, sin validar; 45 bytes; era una envoltura; cdecl, (cluster)): si los datos son del cluster (bit 2 de flags apagado) los libera en el monton global de Rx (0xC9A6B0). Despues data = 0, numAlloced = 0,
 // numUsed = 0 y flags (16 bits) = 0; currentData no se toca. El EXE devuelve 0 (EAX = 0), no el cluster.
@@ -844,113 +846,63 @@ RxCluster* RxClusterDestroyData(RxCluster* CurrentCluster) {
     return nullptr;
 }
 
-RxCluster* RxClusterLockWrite(RxPacket* packet, RwUInt32 clusterIndex, RxPipelineNode* node) {
-    return ((RxCluster*(__cdecl *)(RxPacket*, RwUInt32, RxPipelineNode*))0x8054F0)(packet, clusterIndex, node);
-}
+// 0x8054F0 (RxClusterLockWrite): reconstruida al final del archivo (lote S19A).
 
-void RxClusterUnlock(RxCluster* cluster) {
-    ((void(__cdecl *)(RxCluster*))0x8055C0)(cluster);
-}
+// 0x8055C0 (RxClusterUnlock): reconstruida al final del archivo (lote S17A).
 
-RwUInt32 RxPipelineNodeSendConfigMsg(RxPipelineNode* dest, RwUInt32 msg, RwUInt32 intparam, void* ptrparam) {
-    return ((RwUInt32(__cdecl *)(RxPipelineNode*, RwUInt32, RwUInt32, void*))0x8055D0)(dest, msg, intparam, ptrparam);
-}
+// 0x8055D0 (RxPipelineNodeSendConfigMsg): reconstruida al final del archivo (lote S19A).
 
-RxPipelineNode* RxPipelineNodeForAllConnectedOutputs(RxPipelineNode* node, RxPipeline* pipeline, RxPipelineNodeOutputCallBack callbackfn, void* callbackdata) {
-    return ((RxPipelineNode*(__cdecl *)(RxPipelineNode*, RxPipeline*, RxPipelineNodeOutputCallBack, void*))0x8055F0)(node, pipeline, callbackfn, callbackdata);
-}
+// 0x8055F0 (RxPipelineNodeForAllConnectedOutputs): reconstruida al final del archivo (lote S19A).
 
-RxPipelineCluster* RxPipelineNodeGetPipelineCluster(RxPipelineNode* node, RwUInt32 clustersOfInterestIndex) {
-    return ((RxPipelineCluster*(__cdecl *)(RxPipelineNode*, RwUInt32))0x805680)(node, clustersOfInterestIndex);
-}
+// 0x805680 (RxPipelineNodeGetPipelineCluster): reconstruida al final del archivo (lote S17A).
 
-RwUInt32 RxPipelineClusterGetCreationAttributes(RxPipelineCluster* cluster) {
-    return ((RwUInt32(__cdecl *)(RxPipelineCluster*))0x8056B0)(cluster);
-}
+// 0x8056B0 (RxPipelineClusterGetCreationAttributes): reconstruida al final del archivo (lote S17A).
 
-RxPipelineCluster* RxPipelineClusterSetCreationAttributes(RxPipelineCluster* cluster, RwUInt32 creationAttributes) {
-    return ((RxPipelineCluster*(__cdecl *)(RxPipelineCluster*, RwUInt32))0x8056C0)(cluster, creationAttributes);
-}
+// 0x8056C0 (RxPipelineClusterSetCreationAttributes): reconstruida al final del archivo (lote S17A).
 
-RwUInt32 RxClusterGetAttributes(RxCluster* cluster) {
-    return ((RwUInt32(__cdecl *)(RxCluster*))0x8056E0)(cluster);
-}
+// 0x8056E0 (RxClusterGetAttributes): reconstruida al final del archivo (lote S17A).
 
-RxCluster* RxClusterSetAttributes(RxCluster* cluster, RwUInt32 attributes) {
-    return ((RxCluster*(__cdecl *)(RxCluster*, RwUInt32))0x8056F0)(cluster, attributes);
-}
+// 0x8056F0 (RxClusterSetAttributes): reconstruida al final del archivo (lote S17A).
 
-RxNodeOutput RxPipelineNodeFindOutputByName(RxPipelineNode* node, const RwChar* outputname) {
-    return ((RxNodeOutput(__cdecl *)(RxPipelineNode*, const RwChar*))0x805D10)(node, outputname);
-}
+// 0x805D10 (RxPipelineNodeFindOutputByName): reconstruida al final del archivo (lote S19A).
 
-RxNodeOutput RxPipelineNodeFindOutputByIndex(RxPipelineNode* node, RwUInt32 outputindex) {
-    return ((RxNodeOutput(__cdecl *)(RxPipelineNode*, RwUInt32))0x805D70)(node, outputindex);
-}
+// 0x805D70 (RxPipelineNodeFindOutputByIndex): reconstruida al final del archivo (lote S17A).
 
-RxNodeInput RxPipelineNodeFindInput(RxPipelineNode* node) {
-    return ((RxNodeInput(__cdecl *)(RxPipelineNode*))0x805DA0)(node);
-}
+// 0x805DA0 (RxPipelineNodeFindInput): reconstruida al final del archivo (lote S17A).
 
 // 0x8059C0 (RxPipelineNodeCloneDefinition): reconstruida al final del archivo (lote R31A, RwCoreInjectHooksR31A).
 
-RxPipeline* RxPipelineNodeRequestCluster(RxPipeline* pipeline, RxPipelineNode* node, RxClusterDefinition* clusterDef) {
-    return ((RxPipeline*(__cdecl *)(RxPipeline*, RxPipelineNode*, RxClusterDefinition*))0x805DB0)(pipeline, node, clusterDef);
-}
+// 0x805DB0 (RxPipelineNodeRequestCluster): reconstruida al final del archivo (lote S17A).
 
-RxPipeline* RxPipelineNodeReplaceCluster(RxPipeline* pipeline, RxPipelineNode* node, RxClusterDefinition* oldClusterDef, RxClusterDefinition* newClusterDef) {
-    return ((RxPipeline*(__cdecl *)(RxPipeline*, RxPipelineNode*, RxClusterDefinition*, RxClusterDefinition*))0x805E20)(pipeline, node, oldClusterDef, newClusterDef);
-}
+// 0x805E20 (RxPipelineNodeReplaceCluster): reconstruida al final del archivo (lote S17A).
 
-void* RxPipelineNodeGetInitData(RxPipelineNode* node) {
-    return ((void*(__cdecl *)(RxPipelineNode*))0x805F30)(node);
-}
+// 0x805F30 (RxPipelineNodeGetInitData): reconstruida al final del archivo (lote S17A).
 
-void* RxPipelineNodeCreateInitData(RxPipelineNode* node, RwUInt32 size) {
-    return ((void*(__cdecl *)(RxPipelineNode*, RwUInt32))0x805EA0)(node, size);
-}
+// 0x805EA0 (RxPipelineNodeCreateInitData): reconstruida al final del archivo (lote S19A).
 
-RxPipeline* RxPipelineClone(RxPipeline* pipeline) {
-    return ((RxPipeline*(__cdecl *)(RxPipeline*))0x806AC0)(pipeline);
-}
+// 0x806AC0 (RxPipelineClone): reconstruida al final del archivo (lote S17A).
 
 // 0x806B30 (RxPipelineFindNodeByName): reconstruida al final del archivo (lote R32A, RwCoreInjectHooksR32A).
 
-RxPipelineNode* RxPipelineFindNodeByIndex(RxPipeline* pipeline, RwUInt32 nodeindex) {
-    return ((RxPipelineNode*(__cdecl *)(RxPipeline*, RwUInt32))0x806BC0)(pipeline, nodeindex);
-}
+// 0x806BC0 (RxPipelineFindNodeByIndex): reconstruida al final del archivo (lote S17A).
 
 // 0x806990 (RxPipelineLock) y 0x805F40 (RxLockedPipeUnlock): reconstruidas al final del archivo (lote R31A, RwCoreInjectHooksR31A).
 
-RxPipeline* RxLockedPipeReplaceNode(RxLockedPipe* pipeline, RxPipelineNode* node, RxNodeDefinition* nodeDef) {
-    return ((RxPipeline*(__cdecl *)(RxLockedPipe*, RxPipelineNode*, RxNodeDefinition*))0x806F20)(pipeline, node, nodeDef);
-}
+// 0x806F20 (RxLockedPipeReplaceNode): reconstruida al final del archivo (lote S17A).
 
-RxPipeline* RxLockedPipeDeleteNode(RxLockedPipe* pipeline, RxPipelineNode* node) {
-    return ((RxPipeline*(__cdecl *)(RxLockedPipe*, RxPipelineNode*))0x807040)(pipeline, node);
-}
+// 0x807040 (RxLockedPipeDeleteNode): reconstruida al final del archivo (lote S17A).
 
-RxPipeline* RxLockedPipeSetEntryPoint(RxLockedPipe* pipeline, RxNodeInput in) {
-    return ((RxPipeline*(__cdecl *)(RxLockedPipe*, RxNodeInput))0x807070)(pipeline, in);
-}
+// 0x807070 (RxLockedPipeSetEntryPoint): reconstruida al final del archivo (lote S17A).
 
 // 0x806BE0 (RxLockedPipeAddFragment): reconstruida al final del archivo (lote R32A, RwCoreInjectHooksR32A).
 
-RxPipelineNode* RxLockedPipeGetEntryPoint(RxLockedPipe* pipeline) {
-    return ((RxPipelineNode*(__cdecl *)(RxLockedPipe*))0x8070D0)(pipeline);
-}
+// 0x8070D0 (RxLockedPipeGetEntryPoint): reconstruida al final del archivo (lote S17A).
 
-RxPipeline* RxLockedPipeAddPath(RxLockedPipe* pipeline, RxNodeOutput out, RxNodeInput in) {
-    return ((RxPipeline*(__cdecl *)(RxLockedPipe*, RxNodeOutput, RxNodeInput))0x807100)(pipeline, out, in);
-}
+// 0x807100 (RxLockedPipeAddPath): reconstruida al final del archivo (lote S17A).
 
-RxPipeline* RxLockedPipeDeletePath(RxLockedPipe* pipeline, RxNodeOutput out, RxNodeInput in) {
-    return ((RxPipeline*(__cdecl *)(RxLockedPipe*, RxNodeOutput, RxNodeInput))0x807170)(pipeline, out, in);
-}
+// 0x807170 (RxLockedPipeDeletePath): reconstruida al final del archivo (lote S17A).
 
-RxPipeline* RxPipelineInsertDebugNode(RxPipeline* pipeline, RxPipelineNode* before, RxPipelineNode* after, RxNodeDefinition* debugNode) {
-    return ((RxPipeline*(__cdecl *)(RxPipeline*, RxPipelineNode*, RxPipelineNode*, RxNodeDefinition*))0x8071B0)(pipeline, before, after, debugNode);
-}
+// 0x8071B0 (RxPipelineInsertDebugNode): reconstruida al final del archivo (lote S19A).
 
 // 0x7F57F0 (lote S16A, sin validar; 10 bytes; era una envoltura; cdecl, (tamano)): guarda el tamano por defecto de los buferes de vertices en 0x8E2414.
 void RwD3D9VertexBufferManagerChangeDefaultSize(RwUInt32 defaultSize) {
@@ -1461,19 +1413,13 @@ RwRaster* RwRasterGetOffset(RwRaster* raster, RwInt16* xOffset, RwInt16* yOffset
 
 // 0x7FB160 (RwRasterGetNumLevels): reconstruida al final del archivo (lote R28A, RwCoreInjectHooksR28A).
 
-RwRaster* RwRasterSubRaster(RwRaster* subRaster, RwRaster* raster, RwRect* rect) {
-    return ((RwRaster*(__cdecl *)(RwRaster*, RwRaster*, RwRect*))0x7FB1D0)(subRaster, raster, rect);
-}
+// 0x7FB1D0 (RwRasterSubRaster): reconstruida al final del archivo (lote S18A).
 
 // 0x7FAF50 (RwRasterRenderFast): reconstruida al final del archivo (lote R28A, RwCoreInjectHooksR28A).
 
-RwRaster* RwRasterRender(RwRaster* raster, RwInt32 x, RwInt32 y) {
-    return ((RwRaster*(__cdecl *)(RwRaster*, RwInt32, RwInt32))0x7FAFB0)(raster, x, y);
-}
+// 0x7FAFB0 (RwRasterRender): reconstruida al final del archivo (lote S18A).
 
-RwRaster* RwRasterRenderScaled(RwRaster* raster, RwRect* rect) {
-    return ((RwRaster*(__cdecl *)(RwRaster*, RwRect*))0x7FAE80)(raster, rect);
-}
+// 0x7FAE80 (RwRasterRenderScaled): reconstruida al final del archivo (lote S18A).
 
 // 0x7FB060 y 0x7FB110 (RwRasterPushContext y RwRasterPopContext): reconstruidas al final del archivo (lote R28A, RwCoreInjectHooksR28A).
 
@@ -1483,13 +1429,9 @@ RwRaster* RwRasterGetCurrentContext() {
     return *(globals.rasterStack + globals.rasterSP);
 }
 
-RwBool RwRasterClear(RwInt32 pixelValue) {
-    return ((RwBool(__cdecl *)(RwInt32))0x7FAEE0)(pixelValue);
-}
+// 0x7FAEE0 (RwRasterClear): reconstruida al final del archivo (lote S18A).
 
-RwBool RwRasterClearRect(RwRect* rpRect, RwInt32 pixelValue) {
-    return ((RwBool(__cdecl *)(RwRect*, RwInt32))0x7FAF90)(rpRect, pixelValue);
-}
+// 0x7FAF90 (RwRasterClearRect): reconstruida al final del archivo (lote S18A).
 
 // 0x7FB1A0 (RwRasterShowRaster), 0x7FB2D0 (RwRasterLock) y 0x7FAEC0 (RwRasterUnlock): reconstruidas al final del archivo (lote R28A, RwCoreInjectHooksR28A).
 //! NOTE: RwRasterLock is responsible for calculating the `stride` in the `raster`
@@ -1542,7 +1484,7 @@ static_assert(sizeof(ImageFormatNodeR30A) == 0x34 && offsetof(ImageFormatNodeR30
 struct ImageModuleGlobalsR30A {
     RwFreeList* freeList;            // +0x000
     char*       searchPath;          // +0x004
-    uint8       unknown008[4];       // +0x008
+    RwInt32     searchPathSize;      // +0x008 (capacidad de la ruta, RwImageSetPath)
     uint8       gammaTable[256];     // +0x00C
     uint8       gammaInverse[256];   // +0x10C
     RwReal      gamma;               // +0x20C
@@ -1631,7 +1573,7 @@ const RwChar* _rwImageForAllPaths(const RwChar* name, RwInt32 extra, ImagePathCa
 // _rwImageForAllPaths(nombre, 0x14, 0x803340, &resultado) con resultado = NULL y lo devuelve (NULL si ninguna extension existe; es el puntero a la cadena del nodo del formato).
 const RwChar* _rwImageFindFormatExtension(const RwChar* name) {
     const RwChar* found = nullptr;
-    _rwImageForAllPaths(name, 0x14, reinterpret_cast<ImagePathCallbackR30A>(kImageExtensionCallbackAddress), &found);
+    _rwImageForAllPaths(name, 0x14, &_rwImageExtensionCallback, &found);
     return found;
 }
 
@@ -1923,16 +1865,14 @@ RwImage* RwImageRead(const RwChar* imageName) {
                 RwImageCallBackRead read;
                 RwImage*            result;
             } context = { format->read, nullptr };
-            _rwImageForAllPaths(imageName, 5, reinterpret_cast<ImagePathCallbackR30A>(kImageOpenCallbackAddress), &context);
+            _rwImageForAllPaths(imageName, 5, &_rwImageOpenCallback, &context);
             return context.result;
         }
     }
     return nullptr;
 }
 
-const RwChar* RwImageSetPath(const RwChar* path) {
-    return ((const RwChar*(__cdecl *)(const RwChar*))0x802EA0)(path);
-}
+// 0x802EA0 (RwImageSetPath): reconstruida al final del archivo (lote S18A).
 
 // 0x803FE0 (lote R30A, sin validar; 325 bytes; era una envoltura; cdecl, (gamma float); `RwImageSetGamma` del SDK): guarda gamma en el modulo de imagenes (+0x20C) y rellena las dos tablas de 256 bytes:
 // tabla (+0x0C)[0] = tabla inversa (+0x10C)[0] = 0 y, para i = 1..255, t = float(i * (1 / 255)) (0x859A3C; fild + fmul y guardado como float), tabla[i] = byte de truncar(float(pow(t, float(1.0f / gamma)) * 255.0f
@@ -2037,9 +1977,7 @@ RwTextureCallBackMipmapName RwTextureGetMipmapNameCallBack() {
     return TextureGlobals().mipmapNameCallBack;
 }
 
-RwBool RwTextureGenerateMipmapName(RwChar* name, RwChar* maskName, RwUInt8 mipLevel, RwInt32 format) {
-    return ((RwBool(__cdecl *)(RwChar*, RwChar*, RwUInt8, RwInt32))0x7F3AA0)(name, maskName, mipLevel, format);
-}
+// 0x7F3AA0 (RwTextureGenerateMipmapName): reconstruida al final del archivo (lote S18A).
 
 // 0x7F3CD0: llama al callback de generacion de mipmaps del motor (sin comprobar que exista) y devuelve TRUE si no devuelve NULL.
 RwBool RwTextureRasterGenerateMipmaps(RwRaster* raster, RwImage* image) {
@@ -2337,9 +2275,7 @@ const RwTexDictionary* RwTexDictionaryForAllTextures(const RwTexDictionary* dict
     return dict;
 }
 
-RwBool RwTexDictionaryForAllTexDictionaries(RwTexDictionaryCallBack fpCallBack, void* data) {
-    return ((RwBool(__cdecl *)(RwTexDictionaryCallBack, void*))0x7F3770)(fpCallBack, data);
-}
+// 0x7F3770 (RwTexDictionaryForAllTexDictionaries): reconstruida al final del archivo (lote S18A).
 
 // 0x7F3BB0: _rwPluginRegistryAddPlugin(&textureTKList, ...)
 RwInt32 RwTextureRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
@@ -2442,13 +2378,9 @@ RwBool RwIm3DEnd() {
     return TRUE;
 }
 
-RwBool RwIm3DRenderLine(RwInt32 vert1, RwInt32 vert2) {
-    return ((RwBool(__cdecl *)(RwInt32, RwInt32))0x7EF900)(vert1, vert2);
-}
+// 0x7EF900 (RwIm3DRenderLine): reconstruida al final del archivo (lote S19A).
 
-RwBool RwIm3DRenderTriangle(RwInt32 vert1, RwInt32 vert2, RwInt32 vert3) {
-    return ((RwBool(__cdecl *)(RwInt32, RwInt32, RwInt32))0x7EF810)(vert1, vert2, vert3);
-}
+// 0x7EF810 (RwIm3DRenderTriangle): reconstruida al final del archivo (lote S19A).
 
 // 0x7EF550 (lote R23A, sin validar; 318 bytes; era una envoltura; cdecl, (tipo, indices, numero)): sin vertices en curso -> RwError { 1, _rwerror(0x23) } y FALSE. Rellena el paquete (modulo + 0x44): tuberia = 0 (+0x64),
 // tipo (+0x68), indices (+0x6C), numero (+0x70) y elige la tuberia por tipo (tabla de saltos de tipo - 1, sin signo): 1 (lineas) +0x10 con numero -= numero % 2 (resto con signo); 2 +0x14; 3 (triangulos) +0x04 con
@@ -2654,13 +2586,9 @@ void _rwD3D9DrawPrimitiveUP(RwUInt32 primitiveType, RwUInt32 primitiveCount, con
 
 // 0x7FA320 y 0x7FA360 (_rwD3D9DrawIndexedPrimitive y _rwD3D9DrawPrimitive): reconstruidas al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
-void _rwD3D9SetVertexShaderConstant(RwUInt32 registerAddress, const void* constantData, RwUInt32 constantCount) {
-   ((void(__cdecl *)(RwUInt32, const void*, RwUInt32))0x7FACA0)(registerAddress, constantData, constantCount);
-}
+// 0x7FACA0 (_rwD3D9SetVertexShaderConstant): reconstruida al final del archivo (lote S18A).
 
-void _rwD3D9SetPixelShaderConstant(RwUInt32 registerAddress, const void* constantData, RwUInt32 constantCount) {
-   ((void(__cdecl *)(RwUInt32, const void*, RwUInt32))0x7FAD00)(registerAddress, constantData, constantCount);
-}
+// 0x7FAD00 (_rwD3D9SetPixelShaderConstant): reconstruida al final del archivo (lote S18A).
 
 void _rwD3D9SetFVF(RwUInt32 fvf) {
    ((void(__cdecl *)(RwUInt32))0x7F9F30)(fvf);
@@ -2719,9 +2647,7 @@ __declspec(noinline) RwBool RwD3D9SetMaterial(const void* material) {
     return ComCall<kSlotDeviceSetMaterial, int32>(D3D9Device, material) >= 0;
 }
 
-RwBool RwD3D9SetClipPlane(RwUInt32 index, const RwV4d* plane) {
-   return ((RwBool(__cdecl *)(RwUInt32, const RwV4d*))0x7FC4A0)(index, plane);
-}
+// 0x7FC4A0 (RwD3D9SetClipPlane): reconstruida al final del archivo (lote S18A).
 
 // 0x7FA520 (RwD3D9SetTransformWorld): reconstruida al final del archivo (lote R27A, RwD3D9InjectHooksR27A).
 
@@ -4218,13 +4144,9 @@ RwRaster* RwRasterSetFromImage(RwRaster* raster, RwImage* image) {
 }
 
 
-RwRaster* RwRasterRead(const RwChar* filename) {
-    return ((RwRaster*(__cdecl *)(const RwChar*))0x8043F0)(filename);
-}
+// 0x8043F0 (RwRasterRead): reconstruida al final del archivo (lote S19A).
 
-RwRaster* RwRasterReadMaskedRaster(const RwChar* filename, const RwChar* maskname) {
-    return ((RwRaster*(__cdecl *)(const RwChar*, const RwChar*))0x8044E0)(filename, maskname);
-}
+// 0x8044E0 (RwRasterReadMaskedRaster): reconstruida al final del archivo (lote S19A).
 
 // 0x8042C0 (lote R30A, sin validar; 107 bytes; era una llamada por direccion fija; cdecl, (imagen, tipo de raster, &ancho, &alto, &profundidad, &formato); `RwImageFindRasterFormat` del SDK): stdFunc[
 // rwSTANDARDIMAGEFINDRASTERFORMAT] (+0x6C) con (&raster temporal de 0x34 bytes sin inicializar en la pila, imagen, tipo); si da 0 devuelve NULL. Si no escribe ancho (+0xC), alto (+0x10) y profundidad (+0x14)
@@ -4926,9 +4848,7 @@ RwUInt32 RwTexDictionaryStreamGetSize(const RwTexDictionary* texDict) {
     return state.size + static_cast<RwUInt32>(_rwPluginRegistryGetSize(&TexDictTKList, texDict)) + 0xC;
 }
 
-RwTexDictionary* RwTexDictionaryStreamRead(RwStream* stream) {
-    return ((RwTexDictionary*(__cdecl *)(RwStream*))0x804C30)(stream);
-}
+// 0x804C30 (RwTexDictionaryStreamRead): reconstruida al final del archivo (lote S19A).
 
 // 0x8049F0 (lote S16A, sin validar; 355 bytes; era una envoltura; cdecl, (diccionario, flujo)): tamano = igual que 0x804930 (estado { 0x10, 1 } con el callback 0x804990 + plugins + 0xC; con estado.ok = 0 o tamano 0: NULL);
 // cabecera de trozo versionada (flujo, 0x16 (diccionario de texturas), tamano, 0x36003, 0xFFFF) y otra (1 (struct), 4, 0x36003, 0xFFFF); cuenta las texturas (callback 0x804B60; 0x10000 o mas: NULL) y escribe 4 bytes
@@ -4992,23 +4912,15 @@ RwTextureChunkInfo* _rwTextureChunkInfoRead(RwStream* stream, RwTextureChunkInfo
     return textureChunkInfo;
 }
 
-void RwFrameListSetAutoUpdate(RwBool flag) {
-    ((void(__cdecl *)(RwBool))0x807570)(flag);
-}
+// 0x807570 (RwFrameListSetAutoUpdate): reconstruida al final del archivo (lote S17A).
 
 // 0x807580 (RwFrameRegisterPluginStream): reconstruida al final del archivo (lote R32A).
 
-RwInt32 RwFrameSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x8075B0)(pluginID, alwaysCB);
-}
+// 0x8075B0 (RwFrameSetStreamAlwaysCallBack): reconstruida al final del archivo (lote S17A).
 
-rwFrameList* _rwFrameListInitialize(rwFrameList* frameList, RwFrame* frame) {
-    return ((rwFrameList*(__cdecl *)(rwFrameList*, RwFrame*))0x8075D0)(frameList, frame);
-}
+// 0x8075D0 (_rwFrameListInitialize): reconstruida al final del archivo (lote S19A).
 
-RwBool _rwFrameListFindFrame(const rwFrameList* frameList, const RwFrame* frame, RwInt32* npIndex) {
-    return ((RwBool(__cdecl *)(const rwFrameList*, const RwFrame*, RwInt32*))0x8076E0)(frameList, frame, npIndex);
-}
+// 0x8076E0 (_rwFrameListFindFrame): reconstruida al final del archivo (lote S17A).
 
 // 0x807720: si numFrames (+4) no es 0 libera el vector `frames` (+0) con la función rwfree del motor ([RwEngineInstance + 0x138], cdecl, un argumento)
 // y devuelve la propia lista. El EXE comprueba numFrames, no el puntero.
@@ -5019,29 +4931,19 @@ rwFrameList* _rwFrameListDeinitialize(rwFrameList* frameList) {
     return frameList;
 }
 
-RwUInt32 _rwFrameListStreamGetSize(const rwFrameList* frameList) {
-    return ((RwUInt32(__cdecl *)(const rwFrameList*))0x807750)(frameList);
-}
+// 0x807750 (_rwFrameListStreamGetSize): reconstruida al final del archivo (lote S17A).
 
 // 0x807970 (_rwFrameListStreamRead): reconstruida al final del archivo (lote R32A).
 
-const rwFrameList* _rwFrameListStreamWrite(const rwFrameList* frameList, RwStream* stream) {
-    return ((const rwFrameList*(__cdecl *)(const rwFrameList*, RwStream*))0x8077A0)(frameList, stream);
-}
+// 0x8077A0 (_rwFrameListStreamWrite): reconstruida al final del archivo (lote S18A).
 
 // RwBBoxCalculate (0x808F60) vive ahora en rwplcore.cpp (RwPlCore, lote R25A).
 
-RwBBox* RwBBoxInitialize(RwBBox* boundBox, const RwV3d* vertex) {
-    return ((RwBBox*(__cdecl *)(RwBBox*, const RwV3d*))0x809020)(boundBox, vertex);
-}
+// 0x809020 (RwBBoxInitialize): reconstruida al final del archivo (lote S18A).
 
-RwBBox* RwBBoxAddPoint(RwBBox* boundBox, const RwV3d* vertex) {
-    return ((RwBBox*(__cdecl *)(RwBBox*, const RwV3d*))0x809060)(boundBox, vertex);
-}
+// 0x809060 (RwBBoxAddPoint): reconstruida al final del archivo (lote S19A).
 
-RwBool RwBBoxContainsPoint(const RwBBox* boundBox, const RwV3d* vertex) {
-    return ((RwBool(__cdecl *)(const RwBBox*, const RwV3d*))0x8090E0)(boundBox, vertex);
-}
+// 0x8090E0 (RwBBoxContainsPoint): reconstruida al final del archivo (lote S19A).
 
 // 0x7EE190
 RwCamera* RwCameraBeginUpdate(RwCamera* camera) {
@@ -5253,9 +5155,9 @@ RwCamera* RwCameraCreate() {
     camera->object.object.flags = 0;
     camera->object.object.privateFlags = 0;
     camera->object.object.parent = nullptr;
-    camera->object.sync = reinterpret_cast<RwObjectHasFrameSyncFunction>(0x7EE5A0);
-    camera->beginUpdate = reinterpret_cast<RwCameraBeginUpdateFunc>(0x7EF370);
-    camera->endUpdate = reinterpret_cast<RwCameraEndUpdateFunc>(0x7EF340);
+    camera->object.sync = &_rwCameraSyncCallBack;
+    camera->beginUpdate = &_rwCameraBeginUpdateCallBack;
+    camera->endUpdate = &_rwCameraEndUpdateCallBack;
     camera->viewWindow.y = 1.0f;
     camera->viewWindow.x = 1.0f;
     camera->recipViewWindow.y = 1.0f;
@@ -5295,27 +5197,17 @@ RwFrustumTestResult RwCameraFrustumTestSphere(const RwCamera* camera, const RwSp
     return static_cast<RwFrustumTestResult>(CameraFrustumTestSphereCpp(reinterpret_cast<const float*>(&camera->frustumPlanes[0]), reinterpret_cast<const float*>(sphere)));
 }
 
-RwInt32 RwCameraRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkReadCallBack, RwPluginDataChunkWriteCallBack, RwPluginDataChunkGetSizeCallBack))0x808C90)(pluginID, readCB, writeCB, getSizeCB);
-}
+// 0x808C90 (RwCameraRegisterPluginStream): reconstruida al final del archivo (lote S18A).
 
-RwInt32 RwCameraSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x808CC0)(pluginID, alwaysCB);
-}
+// 0x808CC0 (RwCameraSetStreamAlwaysCallBack): reconstruida al final del archivo (lote S18A).
 
-RwUInt32 RwCameraStreamGetSize(const RwCamera* camera) {
-    return ((RwUInt32(__cdecl *)(const RwCamera*))0x808CE0)(camera);
-}
+// 0x808CE0 (RwCameraStreamGetSize): reconstruida al final del archivo (lote S18A).
 
 // 0x808DE0 (RwCameraStreamRead): reconstruida al final del archivo (lote R32A).
 
-const RwCamera* RwCameraStreamWrite(const RwCamera* camera, RwStream* stream) {
-    return ((const RwCamera*(__cdecl *)(const RwCamera*, RwStream*))0x808D00)(camera, stream);
-}
+// 0x808D00 (RwCameraStreamWrite): reconstruida al final del archivo (lote S19A).
 
-RwCameraChunkInfo* RwCameraChunkInfoRead(RwStream* stream, RwCameraChunkInfo* cameraChunkInfo, RwInt32* bytesRead) {
-    return ((RwCameraChunkInfo*(__cdecl *)(RwStream*, RwCameraChunkInfo*, RwInt32*))0x808EF0)(stream, cameraChunkInfo, bytesRead);
-}
+// 0x808EF0 (RwCameraChunkInfoRead): reconstruida al final del archivo (lote S18A).
 
 // 0x804EF0 (lote R25A, sin validar; 76 bytes; era una envoltura; cdecl, (objeto, marco), sin retorno): si el objeto ya tiene marco (object.parent) saca su enlace lFrame (+8) de la lista de objetos de ese marco
 // (prev->next = next; next->prev = prev). object.parent = marco. Si el marco no es NULL inserta lFrame a la CABEZA de su lista de objetos (+0x90: lFrame.prev = &cabeza; lFrame.next = cabeza.next;
@@ -12058,4 +11950,1590 @@ void RwCoreInjectHooksS15A16A() {
     RH_ScopedGlobalInstall(RxClusterSetData, 0x8053A0);
     RH_ScopedGlobalInstall(RxClusterDestroyData, 0x8054C0);
     RH_ScopedGlobalInstall(RwD3D9RasterExtConstructor, 0x4C9A60);
+}
+
+// ============================================================================================================================================================
+// Lote S17A (sin validar): sustitucion de 23 raices de RwCore (tuberias de Rx, listas de marcos). Antes eran envolturas que llamaban a la direccion del EXE; ahora el cuerpo es C++ y lleva hook.
+// Disposicion del EXE comprobada en tiempo de compilacion: RxPipelineNode 0x28 bytes, RxNodeDefinition::io en +0x20, RxPipeline::entryPoint en +0x28.
+// ============================================================================================================================================================
+static_assert(sizeof(RxPipelineNode) == 0x28 && offsetof(RxNodeDefinition, io) == 0x20 && offsetof(RxPipeline, entryPoint) == 0x28 && offsetof(RxPipeline, pluginId) == 0x2C);
+static_assert(offsetof(RxPipelineNode, inputToClusterSlot) == 0x18 && offsetof(RxPipelineNode, slotClusterRefs) == 0x0C && offsetof(RxPipelineNode, initializationData) == 0x20);
+
+namespace {
+// Indice de un nodo dentro del vector de nodos de la tuberia: (nodo - nodos) / 40 con la division con signo del EXE (imul 0x66666667 + sar 4 + bit de signo).
+RwInt32 S17NodeIndex(const RxPipeline* pipeline, const RxPipelineNode* node) {
+    const RwInt32 diff = static_cast<RwInt32>(reinterpret_cast<uintptr_t>(node) - reinterpret_cast<uintptr_t>(pipeline->nodes));
+    return diff / 40;
+}
+// Direccion del nodo `index` (aritmetica de 32 bits como el EXE: lea ecx,[idx+idx*4]; lea eax,[base+ecx*8]).
+RxPipelineNode* S17NodeAt(const RxPipeline* pipeline, RwUInt32 index) {
+    return reinterpret_cast<RxPipelineNode*>(static_cast<uintptr_t>(static_cast<uint32>(reinterpret_cast<uintptr_t>(pipeline->nodes) + index * 40u)));
+}
+}
+
+// 0x8055C0: `ret` (cdecl, un argumento sin usar).
+void RxClusterUnlock(RxCluster* /*cluster*/) {
+}
+
+// 0x805680: nodo NULL -> NULL. indice >= numClustersOfInterest (sin signo) -> NULL; ranura = inputToClusterSlot[indice]; -1 -> NULL; si no slotClusterRefs[ranura].
+RxPipelineCluster* RxPipelineNodeGetPipelineCluster(RxPipelineNode* node, RwUInt32 clustersOfInterestIndex) {
+    if (node == nullptr) {
+        return nullptr;
+    }
+    if (clustersOfInterestIndex >= node->nodeDef->io.numClustersOfInterest) {
+        return nullptr;
+    }
+    const RwUInt32 slot = node->inputToClusterSlot[clustersOfInterestIndex];
+    if (slot == 0xFFFFFFFFu) {
+        return nullptr;
+    }
+    return node->slotClusterRefs[slot];
+}
+
+// 0x8056B0: NULL -> 0xFFFFFFFF; si no creationAttributes (+4).
+RwUInt32 RxPipelineClusterGetCreationAttributes(RxPipelineCluster* cluster) {
+    return cluster ? cluster->creationAttributes : 0xFFFFFFFFu;
+}
+
+// 0x8056C0: NULL -> NULL; si no creationAttributes = valor y devuelve el cluster.
+RxPipelineCluster* RxPipelineClusterSetCreationAttributes(RxPipelineCluster* cluster, RwUInt32 creationAttributes) {
+    if (cluster == nullptr) {
+        return nullptr;
+    }
+    cluster->creationAttributes = creationAttributes;
+    return cluster;
+}
+
+// 0x8056E0: NULL -> 0xFFFFFFFF; si no attributes (+0x18).
+RwUInt32 RxClusterGetAttributes(RxCluster* cluster) {
+    return cluster ? cluster->attributes : 0xFFFFFFFFu;
+}
+
+// 0x8056F0: NULL -> NULL; si no attributes = valor y devuelve el cluster.
+RxCluster* RxClusterSetAttributes(RxCluster* cluster, RwUInt32 attributes) {
+    if (cluster == nullptr) {
+        return nullptr;
+    }
+    cluster->attributes = attributes;
+    return cluster;
+}
+
+// 0x805D70: nodo NULL, sin definicion o indice >= numOutputs (sin signo) -> NULL; si no &outputs[indice].
+RxNodeOutput RxPipelineNodeFindOutputByIndex(RxPipelineNode* node, RwUInt32 outputindex) {
+    if (node == nullptr || node->nodeDef == nullptr || outputindex >= node->numOutputs) {
+        return nullptr;
+    }
+    return &node->outputs[outputindex];
+}
+
+// 0x805DA0: nodo NULL o sin definicion -> NULL; si no el propio nodo.
+RxNodeInput RxPipelineNodeFindInput(RxPipelineNode* node) {
+    if (node == nullptr || node->nodeDef == nullptr) {
+        return nullptr;
+    }
+    return node;
+}
+
+// 0x805DB0: exige tuberia bloqueada, nodo con definicion y definicion de cluster. Si el cluster ya es de interes del nodo -> NULL. Si no, _rxNodeDefinitionClone (0x805A20) del nodo con el
+// cluster de mas (NULL -> NULL) y pone el requisito de entrada del ultimo cluster (el nuevo) a 2.
+RxPipeline* RxPipelineNodeRequestCluster(RxPipeline* pipeline, RxPipelineNode* node, RxClusterDefinition* clusterDef) {
+    if (pipeline == nullptr || pipeline->locked == 0 || node == nullptr || node->nodeDef == nullptr || clusterDef == nullptr) {
+        return nullptr;
+    }
+    const RwUInt32 count = node->nodeDef->io.numClustersOfInterest;
+    for (RwUInt32 i = 0; i < count; ++i) {
+        if (node->nodeDef->io.clustersOfInterest[i].clusterDef == clusterDef) {
+            return nullptr;
+        }
+    }
+    RxNodeDefinition* const clone = _rxNodeDefinitionClone(node, clusterDef);
+    if (clone == nullptr) {
+        return nullptr;
+    }
+    clone->io.inputRequirements[clone->io.numClustersOfInterest - 1] = static_cast<RxClusterValidityReq>(2);
+    return pipeline;
+}
+
+// 0x805E20: como la anterior pero exige las dos definiciones de cluster; busca `oldClusterDef` entre los clusters de interes (no esta -> NULL), clona la definicion sin cluster nuevo (0x805A20 con NULL;
+// NULL -> NULL) y pone clustersOfInterest[indice].clusterDef = newClusterDef en la copia.
+RxPipeline* RxPipelineNodeReplaceCluster(RxPipeline* pipeline, RxPipelineNode* node, RxClusterDefinition* oldClusterDef, RxClusterDefinition* newClusterDef) {
+    if (pipeline == nullptr || pipeline->locked == 0 || node == nullptr || node->nodeDef == nullptr || oldClusterDef == nullptr || newClusterDef == nullptr) {
+        return nullptr;
+    }
+    const RwUInt32 count = node->nodeDef->io.numClustersOfInterest;
+    RwUInt32 index = 0;
+    while (index < count && node->nodeDef->io.clustersOfInterest[index].clusterDef != oldClusterDef) {
+        ++index;
+    }
+    if (index == count) {
+        return nullptr;
+    }
+    RxNodeDefinition* const clone = _rxNodeDefinitionClone(node, nullptr);
+    if (clone == nullptr) {
+        return nullptr;
+    }
+    clone->io.clustersOfInterest[index].clusterDef = newClusterDef;
+    return pipeline;
+}
+
+// 0x805F30: node->initializationData (+0x20), sin comprobar NULL.
+void* RxPipelineNodeGetInitData(RxPipelineNode* node) {
+    return node->initializationData;
+}
+
+// 0x806AC0: tuberia NULL o bloqueada -> NULL. Crea una tuberia nueva (NULL -> NULL), copia pluginId y pluginData; sin nodos la devuelve tal cual. Si no: la bloquea, reconstruye la disposicion
+// bloqueada desde el origen (0x8065E0) y la desbloquea; si cualquiera falla destruye la copia y devuelve NULL.
+RxPipeline* RxPipelineClone(RxPipeline* pipeline) {
+    if (pipeline == nullptr || pipeline->locked != 0) {
+        return nullptr;
+    }
+    RxPipeline* const copy = RxPipelineCreate();
+    if (copy == nullptr) {
+        return nullptr;
+    }
+    copy->pluginId = pipeline->pluginId;
+    copy->pluginData = pipeline->pluginData;
+    if (pipeline->numNodes == 0) {
+        return copy;
+    }
+    if (RxPipelineLock(copy) != nullptr && _rxPipelineBuildLockedLayout(copy, pipeline) != 0 && RxLockedPipeUnlock(copy) != nullptr) {
+        return copy;
+    }
+    _rxPipelineDestroy(copy);
+    return nullptr;
+}
+
+// 0x806BC0: tuberia NULL o indice >= numNodes (sin signo) -> NULL; si no &nodes[indice].
+RxPipelineNode* RxPipelineFindNodeByIndex(RxPipeline* pipeline, RwUInt32 nodeindex) {
+    if (pipeline == nullptr || nodeindex >= pipeline->numNodes) {
+        return nullptr;
+    }
+    return S17NodeAt(pipeline, nodeindex);
+}
+
+// 0x806F20: tuberia bloqueada, nodo con definicion y definicion nueva. Crea un nodo nuevo al final (0x806DE0; fallo -> NULL), copia min(numOutputs) salidas del viejo, rellena con
+// 0xFFFFFFFF las que sobran (en las del viejo, ver abajo), redirige a todos los nodos que apuntaban al viejo (por indice) hacia el nuevo y destruye el viejo (0x8050C0).
+RxPipeline* RxLockedPipeReplaceNode(RxLockedPipe* pipeline, RxPipelineNode* node, RxNodeDefinition* nodeDef) {
+    if (pipeline == nullptr || pipeline->locked == 0 || node == nullptr || node->nodeDef == nullptr || nodeDef == nullptr) {
+        return nullptr;
+    }
+    RxPipelineNode* const created = S17NodeAt(pipeline, pipeline->numNodes);
+    if (_rxPipelineNodeCreate(pipeline, created, nodeDef) == 0) {
+        return nullptr;
+    }
+    RwUInt32 common = created->numOutputs;
+    if (!(common < node->numOutputs)) {
+        common = node->numOutputs;
+    }
+    for (RwUInt32 i = 0; i < common; ++i) {
+        created->outputs[i] = node->outputs[i];
+    }
+    // OJO: el EXE rellena con 0xFFFFFFFF las salidas del nodo VIEJO (`mov edi, [esi + 8]` con esi = nodo), no las del nuevo; si el nuevo tiene mas salidas esto escribe pasado el final de las del viejo. Se reproduce tal cual.
+    for (RwUInt32 i = common; i < created->numOutputs; ++i) {
+        node->outputs[i] = 0xFFFFFFFFu;
+    }
+    const RwInt32 newIndex = S17NodeIndex(pipeline, created);
+    const RwInt32 oldIndex = S17NodeIndex(pipeline, node);
+    for (RwUInt32 n = 0; n < pipeline->numNodes; ++n) {
+        RxPipelineNode* const other = S17NodeAt(pipeline, n);
+        for (RwUInt32 j = 0; j < other->numOutputs; ++j) {
+            if (static_cast<RwInt32>(other->outputs[j]) == oldIndex) {
+                other->outputs[j] = static_cast<RwUInt32>(newIndex);
+            }
+        }
+    }
+    _rxPipelineNodeDestroy(node, pipeline);
+    return pipeline;
+}
+
+// 0x807040: tuberia bloqueada y nodo con definicion; destruye el nodo (0x8050C0) y devuelve la tuberia.
+RxPipeline* RxLockedPipeDeleteNode(RxLockedPipe* pipeline, RxPipelineNode* node) {
+    if (pipeline == nullptr || pipeline->locked == 0 || node == nullptr || node->nodeDef == nullptr) {
+        return nullptr;
+    }
+    _rxPipelineNodeDestroy(node, pipeline);
+    return pipeline;
+}
+
+// 0x807070: tuberia bloqueada y nodo con definicion. Calcula el indice del nodo; su direccion debe coincidir exactamente (sino NULL), indice < numNodes (sin signo) y != -1. entryPoint = indice.
+RxPipeline* RxLockedPipeSetEntryPoint(RxLockedPipe* pipeline, RxNodeInput in) {
+    if (pipeline == nullptr || pipeline->locked == 0 || in == nullptr || in->nodeDef == nullptr) {
+        return nullptr;
+    }
+    const RwInt32 index = S17NodeIndex(pipeline, in);
+    if (S17NodeAt(pipeline, static_cast<RwUInt32>(index)) != in || static_cast<RwUInt32>(index) >= pipeline->numNodes || index == -1) {
+        return nullptr;
+    }
+    pipeline->entryPoint = static_cast<RwUInt32>(index);
+    return pipeline;
+}
+
+// 0x8070D0: tuberia NULL o desbloqueada -> NULL; entryPoint == -1 -> NULL; entryPoint >= numNodes (sin signo) -> NULL; si no &nodes[entryPoint].
+RxPipelineNode* RxLockedPipeGetEntryPoint(RxLockedPipe* pipeline) {
+    if (pipeline == nullptr || pipeline->locked == 0) {
+        return nullptr;
+    }
+    const RwUInt32 entry = pipeline->entryPoint;
+    if (entry == 0xFFFFFFFFu || entry >= pipeline->numNodes) {
+        return nullptr;
+    }
+    return S17NodeAt(pipeline, entry);
+}
+
+// 0x807100: tuberia bloqueada, salida no NULL y libre (*out == -1), entrada con definicion; la direccion del nodo debe coincidir con su indice, indice < numNodes y != -1. *out = indice.
+RxPipeline* RxLockedPipeAddPath(RxLockedPipe* pipeline, RxNodeOutput out, RxNodeInput in) {
+    if (pipeline == nullptr || pipeline->locked == 0 || out == nullptr || *out != 0xFFFFFFFFu || in == nullptr || in->nodeDef == nullptr) {
+        return nullptr;
+    }
+    const RwInt32 index = S17NodeIndex(pipeline, in);
+    if (S17NodeAt(pipeline, static_cast<RwUInt32>(index)) != in || static_cast<RwUInt32>(index) >= pipeline->numNodes || index == -1) {
+        return nullptr;
+    }
+    *out = static_cast<RwUInt32>(index);
+    return pipeline;
+}
+
+// 0x807170: tuberia bloqueada, salida y entrada no NULL; el nodo al que apunta *out (nodos + *out * 0x28, sin comprobar el rango) debe ser `in`. *out = 0xFFFFFFFF.
+RxPipeline* RxLockedPipeDeletePath(RxLockedPipe* pipeline, RxNodeOutput out, RxNodeInput in) {
+    if (pipeline == nullptr || pipeline->locked == 0 || out == nullptr || in == nullptr) {
+        return nullptr;
+    }
+    if (S17NodeAt(pipeline, *out) != in) {
+        return nullptr;
+    }
+    *out = 0xFFFFFFFFu;
+    return pipeline;
+}
+
+// 0x807570: bandera global 0x8E26A8 = flag (la lee _rwFrameListStreamRead para elegir RwFrameAddChild o RwFrameAddChildNoUpdate).
+void RwFrameListSetAutoUpdate(RwBool flag) {
+    StaticRef<RwInt32>(0x8E26A8) = flag;
+}
+
+// 0x8075B0: _rwPluginRegistryAddPlgnStrmlwysCB (0x808920) del registro de RwFrame (0x8E2270).
+RwInt32 RwFrameSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
+    return _rwPluginRegistryAddPlgnStrmlwysCB(FrameRegistry(), pluginID, alwaysCB);
+}
+
+// 0x8076E0: busca `frame` en frames[0..numFrames) (numFrames con signo: <= 0 -> FALSE); si lo encuentra *npIndex = posicion y TRUE.
+RwBool _rwFrameListFindFrame(const rwFrameList* frameList, const RwFrame* frame, RwInt32* npIndex) {
+    for (RwInt32 i = 0; i < frameList->numFrames; ++i) {
+        if (frameList->frames[i] == frame) {
+            *npIndex = i;
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+// 0x807750: 0x10 + 0x38 * numFrames + suma sobre cada marco de (_rwPluginRegistryGetSize(registro de RwFrame, marco) + 0xC).
+RwUInt32 _rwFrameListStreamGetSize(const rwFrameList* frameList) {
+    RwUInt32 size = static_cast<RwUInt32>(frameList->numFrames) * 0x38u + 0x10u;
+    for (RwInt32 i = 0; i < frameList->numFrames; ++i) {
+        size += static_cast<RwUInt32>(_rwPluginRegistryGetSize(FrameRegistry(), frameList->frames[i])) + 0xCu;
+    }
+    return size;
+}
+
+// Lote S17A (sin validar): ganchos.
+void RwCoreInjectHooksS17A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RxClusterUnlock, 0x8055C0);
+    RH_ScopedGlobalInstall(RxPipelineNodeGetPipelineCluster, 0x805680);
+    RH_ScopedGlobalInstall(RxPipelineClusterGetCreationAttributes, 0x8056B0);
+    RH_ScopedGlobalInstall(RxPipelineClusterSetCreationAttributes, 0x8056C0);
+    RH_ScopedGlobalInstall(RxClusterGetAttributes, 0x8056E0);
+    RH_ScopedGlobalInstall(RxClusterSetAttributes, 0x8056F0);
+    RH_ScopedGlobalInstall(RxPipelineNodeFindOutputByIndex, 0x805D70);
+    RH_ScopedGlobalInstall(RxPipelineNodeFindInput, 0x805DA0);
+    RH_ScopedGlobalInstall(RxPipelineNodeRequestCluster, 0x805DB0);
+    RH_ScopedGlobalInstall(RxPipelineNodeReplaceCluster, 0x805E20);
+    RH_ScopedGlobalInstall(RxPipelineNodeGetInitData, 0x805F30);
+    RH_ScopedGlobalInstall(RxPipelineClone, 0x806AC0);
+    RH_ScopedGlobalInstall(RxPipelineFindNodeByIndex, 0x806BC0);
+    RH_ScopedGlobalInstall(RxLockedPipeReplaceNode, 0x806F20);
+    RH_ScopedGlobalInstall(RxLockedPipeDeleteNode, 0x807040);
+    RH_ScopedGlobalInstall(RxLockedPipeSetEntryPoint, 0x807070);
+    RH_ScopedGlobalInstall(RxLockedPipeGetEntryPoint, 0x8070D0);
+    RH_ScopedGlobalInstall(RxLockedPipeAddPath, 0x807100);
+    RH_ScopedGlobalInstall(RxLockedPipeDeletePath, 0x807170);
+    RH_ScopedGlobalInstall(RwFrameListSetAutoUpdate, 0x807570);
+    RH_ScopedGlobalInstall(RwFrameSetStreamAlwaysCallBack, 0x8075B0);
+    RH_ScopedGlobalInstall(_rwFrameListFindFrame, 0x8076E0);
+    RH_ScopedGlobalInstall(_rwFrameListStreamGetSize, 0x807750);
+}
+
+// ============================================================================================================================================================
+// Lote S18A (sin validar): sustitucion de 23 raices de RwCore (camara, raster 2D, imagenes, plugins de camara y de lista de marcos, D3D9). Los cuerpos salen del desensamblado del EXE.
+// ============================================================================================================================================================
+static_assert(offsetof(RwCamera, projectionType) == 0x14 && offsetof(RwCamera, viewMatrix) == 0x20 && offsetof(RwCamera, recipViewWindow) == 0x70 && offsetof(RwCamera, viewOffset) == 0x78);
+static_assert(offsetof(RwCamera, frustumBoundBox) == 0x10C && offsetof(RwCamera, frustumCorners) == 0x124 && offsetof(RwFrame, ltm) == 0x50 && offsetof(RwTexDictionary, lInInstance) == 0x10);
+static_assert(offsetof(RwGlobals, stdFunc) == 0x48 && offsetof(RwRaster, cFlags) == 0x21 && offsetof(RwRaster, nOffsetX) == 0x1C);
+
+// 0x4C9A80: destructor del plugin de raster D3D9 (0x40C): libera (Release, ranura 2) el objeto COM guardado en raster + _RwD3D9RasterExtOffset + 0x1C y lo pone a NULL. Devuelve el raster.
+void* _rwD3D9RasterExtDestructor(void* object, RwInt32 /*offsetInObject*/, RwInt32 /*sizeInObject*/) {
+    void** const slot = reinterpret_cast<void**>(static_cast<uint8*>(object) + static_cast<uintptr_t>(static_cast<uint32>(D3D9RasterExtOffset)) + 0x1C);
+    if (*slot != nullptr) {
+        ComCall<kSlotRelease, ULONG>(*slot);
+        *slot = nullptr;
+    }
+    return object;
+}
+
+// 0x7EE5A0 (sincronizacion de la camara con su marco; devuelve la camara). Perspectiva (projectionType == 1): matriz de vista a partir de la ltm del marco, con a = ventanaInversa.x * -0.5, t = 0.5 - desplazamiento.x * a
+// (columna 0) y b = ventanaInversa.y * -0.5, t2 = desplazamiento.y * b + 0.5 (columna 1); termina con RwMatrixOptimize(vista, NULL) y el frustum de perspectiva. Paralela: matriz y frustum paralelos. En los dos casos
+// RwBBoxCalculate de las 8 esquinas. Todas las operaciones x87 se redondean a 24 bits (como un float) en el orden del EXE.
+RwObjectHasFrame* _rwCameraSyncCallBack(RwObjectHasFrame* object) {
+    RwCamera* const camera = reinterpret_cast<RwCamera*>(object);
+    if (static_cast<RwInt32>(camera->projectionType) == 1) {
+        const float* const L = reinterpret_cast<const float*>(&static_cast<const RwFrame*>(camera->object.object.parent)->ltm);
+        float* const V = reinterpret_cast<float*>(&camera->viewMatrix);
+
+        // Columna 0.
+        const float a = camera->recipViewWindow.x * -0.5f;
+        const float aRight = a * L[0];
+        const float t1x = L[1] * a;
+        const float t2x = L[2] * a;
+        const float t = 0.5f - camera->viewOffset.x * a;
+        const float X = L[8] * t + aRight;
+        const float Y = L[9] * t + t1x;
+        const float Z = L[10] * t + t2x;
+        V[0] = X;
+        V[4] = Y;
+        V[8] = Z;
+        V[12] = 0.5f - (((L[13] * Y + L[12] * X) + L[14] * Z) + t);
+
+        // Columna 1.
+        const float b = camera->recipViewWindow.y * -0.5f;
+        const float bUp = L[4] * b;
+        const float t1y = L[5] * b;
+        const float t2y = L[6] * b;
+        const float u = camera->viewOffset.y * b + 0.5f;
+        const float X2 = L[8] * u + bUp;
+        const float Y2 = L[9] * u + t1y;
+        const float Z2 = L[10] * u + t2y;
+        V[1] = X2;
+        V[5] = Y2;
+        V[9] = Z2;
+        V[13] = 0.5f - (((L[13] * Y2 + L[12] * X2) + L[14] * Z2) + u);
+
+        // Columna 2 (copia de palabras de 32 bits, sin pasar por la x87) y traslacion z.
+        std::memcpy(&V[2], &L[8], 4);
+        std::memcpy(&V[6], &L[9], 4);
+        std::memcpy(&V[10], &L[10], 4);
+        V[14] = -((L[9] * L[13] + L[12] * L[8]) + L[14] * L[10]);
+
+        RwMatrixOptimize(&camera->viewMatrix, nullptr);
+        _rwCameraBuildFrustumPerspective(camera);
+    } else {
+        _rwCameraBuildViewMatrixParallel(camera);
+        _rwCameraBuildFrustumParallel(camera);
+    }
+    RwBBoxCalculate(&camera->frustumBoundBox, camera->frustumCorners, 8);
+    return object;
+}
+
+// 0x7EF340 (RwCamera::endUpdate): stdFunc[rwSTANDARDCAMERAENDUPDATE](NULL, camara, 0); si da TRUE pone RwGlobals::curCamera a NULL y devuelve la camara; si no NULL.
+RwCamera* _rwCameraEndUpdateCallBack(RwCamera* camera) {
+    if (RwEngineInstance->stdFunc[rwSTANDARDCAMERAENDUPDATE](nullptr, camera, 0) != 0) {
+        RwEngineInstance->curCamera = nullptr;
+        return camera;
+    }
+    return nullptr;
+}
+
+// 0x7EF370 (RwCamera::beginUpdate): curCamera = camara; _rwFrameSyncDirty (0x809550); stdFunc[rwSTANDARDCAMERABEGINUPDATE](NULL, camara, 0); si da TRUE llama a 0x807C80(camara) y devuelve la camara; si no NULL.
+RwCamera* _rwCameraBeginUpdateCallBack(RwCamera* camera) {
+    RwEngineInstance->curCamera = camera;
+    _rwFrameSyncDirty();
+    if (RwEngineInstance->stdFunc[rwSTANDARDCAMERABEGINUPDATE](nullptr, camera, 0) != 0) {
+        _rwCameraBeginUpdateStub(camera);
+        return camera;
+    }
+    return nullptr;
+}
+
+// 0x7F3770: recorre la lista circular de diccionarios (cabeza = bloque de texturas del motor + 0); para cada uno (enlace - 0x10) llama a fpCallBack(diccionario, datos) y para si devuelve NULL.
+// Guarda el siguiente enlace antes de llamar. Devuelve siempre TRUE.
+RwBool RwTexDictionaryForAllTexDictionaries(RwTexDictionaryCallBack fpCallBack, void* data) {
+    RwLLLink* const head = &TextureGlobals().texDictList;
+    RwLLLink* link = head->next;
+    if (link != head) {
+        do {
+            RwLLLink* const next = link->next;
+            if (fpCallBack(reinterpret_cast<RwTexDictionary*>(reinterpret_cast<uint8*>(link) - 0x10), data) == nullptr) {
+                break;
+            }
+            link = next;
+            if (next == head) {
+                break;
+            }
+        } while (true);
+    }
+    return TRUE;
+}
+
+// 0x7F3AA0: salto a la devolucion de llamada de nombre de mipmap (bloque de texturas + 0x30) con los mismos argumentos; sin ella devuelve FALSE.
+RwBool RwTextureGenerateMipmapName(RwChar* name, RwChar* maskName, RwUInt8 mipLevel, RwInt32 format) {
+    const auto callback = TextureGlobals().mipmapNameCallBack;
+    if (callback == nullptr) {
+        return FALSE;
+    }
+    return callback(name, maskName, mipLevel, format);
+}
+
+// 0x7FACA0: IDirect3DDevice9::SetVertexShaderConstantF (ranura 94, +0x178)(dispositivo, registro, datos, cuenta); resultado ignorado.
+void _rwD3D9SetVertexShaderConstant(RwUInt32 registerAddress, const void* constantData, RwUInt32 constantCount) {
+    ComCall<94, int32>(D3D9Device, registerAddress, constantData, constantCount);
+}
+
+// 0x7FAD00: IDirect3DDevice9::SetPixelShaderConstantF (ranura 109, +0x1B4); resultado ignorado.
+void _rwD3D9SetPixelShaderConstant(RwUInt32 registerAddress, const void* constantData, RwUInt32 constantCount) {
+    ComCall<109, int32>(D3D9Device, registerAddress, constantData, constantCount);
+}
+
+// 0x7FC4A0: IDirect3DDevice9::SetClipPlane (ranura 55, +0xDC)(dispositivo, indice, plano); TRUE si el HRESULT no es negativo.
+RwBool RwD3D9SetClipPlane(RwUInt32 index, const RwV4d* plane) {
+    return ComCall<55, int32>(D3D9Device, index, plane) >= 0;
+}
+
+// 0x7FAE80: stdFunc[rwSTANDARDRASTERRENDERSCALED](raster, rect, 0); devuelve el raster.
+RwRaster* RwRasterRenderScaled(RwRaster* raster, RwRect* rect) {
+    RwEngineInstance->stdFunc[rwSTANDARDRASTERRENDERSCALED](raster, rect, 0);
+    return raster;
+}
+
+// 0x7FAEE0: con el puntero de la pila de contextos de rasters > 0 (con signo) llama a stdFunc[rwSTANDARDRASTERCLEAR](NULL, NULL, valor) y devuelve TRUE; si no emite RwError { 1, _rwerror(0x15) } y devuelve FALSE.
+RwBool RwRasterClear(RwInt32 pixelValue) {
+    if (RasterGlobals().rasterSP > 0) {
+        RwEngineInstance->stdFunc[rwSTANDARDRASTERCLEAR](nullptr, nullptr, pixelValue);
+        return TRUE;
+    }
+    RwRaiseError(0x15);
+    return FALSE;
+}
+
+// 0x7FAF90: stdFunc[rwSTANDARDRASTERCLEARRECT](NULL, rect, valor); devuelve TRUE.
+RwBool RwRasterClearRect(RwRect* rpRect, RwInt32 pixelValue) {
+    RwEngineInstance->stdFunc[rwSTANDARDRASTERCLEARRECT](nullptr, rpRect, pixelValue);
+    return TRUE;
+}
+
+// 0x7FAFB0: stdFunc[rwSTANDARDRASTERRENDER](raster, &{x, y}, 0); devuelve el raster.
+RwRaster* RwRasterRender(RwRaster* raster, RwInt32 x, RwInt32 y) {
+    RwInt32 position[2] = { x, y };
+    RwEngineInstance->stdFunc[rwSTANDARDRASTERRENDER](raster, position, 0);
+    return raster;
+}
+
+// 0x7FB1D0: el subraster debe tener rwRASTERDONTALLOCATE (cFlags bit 0x80), si no NULL. Antes de llamar copia el tamano del rect (w, h) y el desplazamiento (el del raster + rect.x/rect.y, 16 bits); llama a
+// stdFunc[rwSTANDARDRASTERSUBRASTER](subraster, raster, 0): FALSE -> NULL (los campos ya quedan escritos); TRUE -> subraster->parent = raster->parent y devuelve el subraster.
+RwRaster* RwRasterSubRaster(RwRaster* subRaster, RwRaster* raster, RwRect* rect) {
+    if ((subRaster->cFlags & 0x80) == 0) {
+        return nullptr;
+    }
+    subRaster->width = rect->w;
+    subRaster->height = rect->h;
+    subRaster->nOffsetX = static_cast<RwInt16>(raster->nOffsetX + static_cast<RwInt16>(rect->x));
+    subRaster->nOffsetY = static_cast<RwInt16>(raster->nOffsetY + static_cast<RwInt16>(rect->y));
+    if (RwEngineInstance->stdFunc[rwSTANDARDRASTERSUBRASTER](subRaster, raster, 0) == 0) {
+        return nullptr;
+    }
+    subRaster->parent = raster->parent;
+    return subRaster;
+}
+
+// 0x802EA0: guarda la ruta de busqueda de imagenes. n = rwstrlen(ruta) + 1; si n (con signo) > capacidad (modulo + 8): RwRealloc(ruta actual, n, 0x1040406) (se llama tambien con NULL); fallo -> RwError
+// { 1, _rwerror(0x80000013, n) } y NULL; si no actualiza ruta (+4) y capacidad. Copia n bytes de la ruta y devuelve la ruta recibida.
+const RwChar* RwImageSetPath(const RwChar* path) {
+    const RwInt32 length = static_cast<RwInt32>(rwstrlen(path)) + 1;
+    if (length > ImageModuleR30A()->searchPathSize) {
+        char* const grown = static_cast<char*>(RwRealloc(ImageModuleR30A()->searchPath, static_cast<size_t>(length), 0x1040406));
+        if (grown == nullptr) {
+            RwRaiseError(static_cast<RwInt32>(0x80000013), length);
+            return nullptr;
+        }
+        ImageModuleR30A()->searchPath = grown;
+        ImageModuleR30A()->searchPathSize = length;
+    }
+    std::memcpy(ImageModuleR30A()->searchPath, path, static_cast<size_t>(static_cast<uint32>(length)));
+    return path;
+}
+
+namespace {
+struct ImageOpenContextS18A {
+    RwImage* (__cdecl* read)(const char*); // devolucion de lectura del formato
+    RwImage* result;                       // imagen leida (NULL: no se pudo)
+};
+}
+
+// 0x8032D0 (devolucion de _rwImageForAllPaths; datos = {lectura, resultado}): si el archivo no existe (rwfexist, fileFuncs[0]) devuelve la ruta (sigue buscando); si existe resultado = lectura(ruta) y devuelve
+// NULL si hay imagen (para la busqueda) o la ruta si no.
+void* _rwImageOpenCallback(char* path, void* data) {
+    auto* const context = static_cast<ImageOpenContextS18A*>(data);
+    const auto fileExists = reinterpret_cast<RwInt32(__cdecl*)(const char*)>(RwEngineInstance->fileFuncs[0]);
+    if (fileExists(path) == 0) {
+        return path;
+    }
+    context->result = context->read(path);
+    return (context->result != nullptr) ? nullptr : path;
+}
+
+// 0x803340 (devolucion de _rwImageForAllPaths; datos = &extension encontrada): `fin` = ruta + rwstrlen(ruta). Para cada formato registrado (lista +0x21C): rwstrcpy(fin, extension) y si el archivo existe guarda
+// la extension en *datos y devuelve NULL; si no igual con la extension alternativa (+0x14). Sin ninguna devuelve la ruta.
+void* _rwImageExtensionCallback(char* path, void* data) {
+    char* const end = path + rwstrlen(path);
+    const auto fileExists = reinterpret_cast<RwInt32(__cdecl*)(const char*)>(RwEngineInstance->fileFuncs[0]);
+    for (ImageFormatNodeR30A* node = ImageModuleR30A()->formats; node != nullptr; node = node->next) {
+        rwstrcpy(end, node->extension);
+        if (fileExists(path) != 0) {
+            *static_cast<char**>(data) = node->extension;
+            return nullptr;
+        }
+        rwstrcpy(end, node->alternate);
+        if (fileExists(path) != 0) {
+            *static_cast<char**>(data) = node->alternate;
+            return nullptr;
+        }
+    }
+    return path;
+}
+
+// 0x8077A0: escribe la lista de marcos. Chunk 0xE (struct contenedor) con tamano 0x10 + 0x38 * n + suma de (tamano de plugins del marco + 0xC); chunk 1 (struct) de 0x38 * n + 4 con n y, por marco, 0x38 bytes:
+// right, up, at, pos de la matriz local (sin las palabras de relleno), indice del padre en la lista (-1 si no esta) y banderas de la matriz. Despues los plugins de cada marco (0x808B40). Cualquier fallo -> NULL.
+const rwFrameList* _rwFrameListStreamWrite(const rwFrameList* frameList, RwStream* stream) {
+    RwUInt32 size = static_cast<RwUInt32>(frameList->numFrames) * 0x38u + 0x10u;
+    for (RwInt32 i = 0; i < frameList->numFrames; ++i) {
+        size += static_cast<RwUInt32>(_rwPluginRegistryGetSize(FrameRegistry(), frameList->frames[i])) + 0xCu;
+    }
+    if (_rwStreamWriteVersionedChunkHeader(stream, 0xE, static_cast<RwInt32>(size), 0x36003, 0xFFFF) == nullptr) {
+        return nullptr;
+    }
+    if (_rwStreamWriteVersionedChunkHeader(stream, 1, static_cast<RwInt32>(static_cast<RwUInt32>(frameList->numFrames) * 0x38u + 4u), 0x36003, 0xFFFF) == nullptr) {
+        return nullptr;
+    }
+    RwInt32 numFrames = frameList->numFrames;
+    if (RwStreamWrite(stream, &numFrames, 4) == nullptr) {
+        return nullptr;
+    }
+    for (RwInt32 i = 0; i < frameList->numFrames; ++i) {
+        struct FrameRecord {
+            RwV3d    right, up, at, pos;
+            RwInt32  parentIndex;
+            RwUInt32 matrixFlags;
+        } record;
+        static_assert(sizeof(FrameRecord) == 0x38);
+        const RwFrame* const frame = frameList->frames[i];
+        std::memcpy(&record.right, &frame->modelling.right, sizeof(RwV3d));
+        std::memcpy(&record.up, &frame->modelling.up, sizeof(RwV3d));
+        std::memcpy(&record.at, &frame->modelling.at, sizeof(RwV3d));
+        std::memcpy(&record.pos, &frame->modelling.pos, sizeof(RwV3d));
+        const void* const parent = frame->object.parent;
+        RwInt32 parentIndex = -1;
+        if (parent != nullptr) {
+            for (RwInt32 k = 0; k < frameList->numFrames; ++k) {
+                if (frameList->frames[k] == parent) {
+                    parentIndex = k;
+                    break;
+                }
+            }
+        }
+        record.parentIndex = parentIndex;
+        record.matrixFlags = frame->modelling.flags;
+        if (RwStreamWrite(stream, &record, sizeof(record)) == nullptr) {
+            return nullptr;
+        }
+    }
+    for (RwInt32 i = 0; i < frameList->numFrames; ++i) {
+        if (_rwPluginRegistryWriteDataChunks(FrameRegistry(), stream, frameList->frames[i]) == nullptr) {
+            return nullptr;
+        }
+    }
+    return frameList;
+}
+
+// 0x808C90: _rwPluginRegistryAddPluginStream (0x8088E0) del registro de camaras (0x8E222C).
+RwInt32 RwCameraRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
+    return _rwPluginRegistryAddPluginStream(reinterpret_cast<RwPluginRegistry*>(kCameraPluginRegistry), pluginID, readCB, writeCB, getSizeCB);
+}
+
+// 0x808CC0: _rwPluginRegistryAddPlgnStrmlwysCB (0x808920) del registro de camaras.
+RwInt32 RwCameraSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
+    return _rwPluginRegistryAddPlgnStrmlwysCB(reinterpret_cast<RwPluginRegistry*>(kCameraPluginRegistry), pluginID, alwaysCB);
+}
+
+// 0x808CE0: _rwPluginRegistryGetSize (0x808B00) del registro de camaras + 0x38.
+RwUInt32 RwCameraStreamGetSize(const RwCamera* camera) {
+    return static_cast<RwUInt32>(_rwPluginRegistryGetSize(reinterpret_cast<const RwPluginRegistry*>(kCameraPluginRegistry), camera)) + 0x38u;
+}
+
+// 0x808EF0: busca el chunk 1 (RwStreamFindChunk, sin version); si no esta devuelve NULL. Pone a cero 0x20 bytes de la estructura, lee 0x20 bytes (otra cantidad -> NULL), *bytesRead = longitud + 0xC y salta
+// el resto del chunk (longitud - 0x20). Devuelve la estructura.
+RwCameraChunkInfo* RwCameraChunkInfoRead(RwStream* stream, RwCameraChunkInfo* cameraChunkInfo, RwInt32* bytesRead) {
+    RwUInt32 length = 0;
+    if (!RwStreamFindChunk(stream, 1, &length, nullptr)) {
+        return nullptr;
+    }
+    std::memset(cameraChunkInfo, 0, 0x20);
+    if (RwStreamRead(stream, cameraChunkInfo, 0x20) != 0x20) {
+        return nullptr;
+    }
+    *bytesRead = static_cast<RwInt32>(length + 0xC);
+    RwStreamSkip(stream, length - 0x20);
+    return cameraChunkInfo;
+}
+
+// 0x809020: inf (+0xC) = vertice y sup (+0) = vertice, copias de palabras de 32 bits (en ese orden). Devuelve la caja.
+RwBBox* RwBBoxInitialize(RwBBox* boundBox, const RwV3d* vertex) {
+    std::memcpy(&boundBox->inf, vertex, sizeof(RwV3d));
+    std::memcpy(&boundBox->sup, vertex, sizeof(RwV3d));
+    return boundBox;
+}
+
+// Lote S18A (sin validar): ganchos.
+void RwCoreInjectHooksS18A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(_rwD3D9RasterExtDestructor, 0x4C9A80);
+    RH_ScopedGlobalInstall(_rwCameraSyncCallBack, 0x7EE5A0);
+    RH_ScopedGlobalInstall(_rwCameraEndUpdateCallBack, 0x7EF340);
+    RH_ScopedGlobalInstall(_rwCameraBeginUpdateCallBack, 0x7EF370);
+    RH_ScopedGlobalInstall(RwTexDictionaryForAllTexDictionaries, 0x7F3770);
+    RH_ScopedGlobalInstall(RwTextureGenerateMipmapName, 0x7F3AA0);
+    RH_ScopedGlobalInstall(_rwD3D9SetVertexShaderConstant, 0x7FACA0);
+    RH_ScopedGlobalInstall(_rwD3D9SetPixelShaderConstant, 0x7FAD00);
+    RH_ScopedGlobalInstall(RwRasterRenderScaled, 0x7FAE80);
+    RH_ScopedGlobalInstall(RwRasterClear, 0x7FAEE0);
+    RH_ScopedGlobalInstall(RwRasterClearRect, 0x7FAF90);
+    RH_ScopedGlobalInstall(RwRasterRender, 0x7FAFB0);
+    RH_ScopedGlobalInstall(RwRasterSubRaster, 0x7FB1D0);
+    RH_ScopedGlobalInstall(RwD3D9SetClipPlane, 0x7FC4A0);
+    RH_ScopedGlobalInstall(RwImageSetPath, 0x802EA0);
+    RH_ScopedGlobalInstall(_rwImageOpenCallback, 0x8032D0);
+    RH_ScopedGlobalInstall(_rwImageExtensionCallback, 0x803340);
+    RH_ScopedGlobalInstall(_rwFrameListStreamWrite, 0x8077A0);
+    RH_ScopedGlobalInstall(RwCameraRegisterPluginStream, 0x808C90);
+    RH_ScopedGlobalInstall(RwCameraSetStreamAlwaysCallBack, 0x808CC0);
+    RH_ScopedGlobalInstall(RwCameraStreamGetSize, 0x808CE0);
+    RH_ScopedGlobalInstall(RwCameraChunkInfoRead, 0x808EF0);
+    RH_ScopedGlobalInstall(RwBBoxInitialize, 0x809020);
+}
+
+// ============================================================================================================================================================
+// Lote S19A (sin validar): sustitucion de raices de RwCore de cuerpo grande (Im3D, lectura de rasters y diccionarios, clusters y nodos de Rx, monton de Rx, lista de marcos, camara, caja envolvente).
+// Ademas de las raices del lote se reconstruyen dos funciones internas que esas raices llaman por direccion y que ningun lote cubria: 0x809C70 (reserva desde una entrada libre del monton) y 0x804E40
+// (devolucion de llamada que destruye una textura). Los cuerpos salen del desensamblado; las comparaciones de float reproducen el salto real del EXE (ver cada funcion).
+// ============================================================================================================================================================
+namespace {
+// Copia sin pasar por la x87 (palabras de 32 bits).
+inline void S19CopyWord(void* destination, const void* source) {
+    std::memcpy(destination, source, 4);
+}
+// fld dword + fstp dword: una x87 convierte un NaN senalizante en silencioso (pone el bit 22); cualquier otro valor pasa igual.
+inline uint32 S19X87FloatPassThrough(float value) {
+    uint32 bits;
+    std::memcpy(&bits, &value, 4);
+    if ((bits & 0x7F800000u) == 0x7F800000u && (bits & 0x007FFFFFu) != 0) {
+        bits |= 0x00400000u;
+    }
+    return bits;
+}
+}
+
+// 0x809C70 (interna; llamada por RxHeapAlloc): reserva `size` bytes del bloque libre de la entrada `entry` ({tamano +0, cabecera +4}). Si el sobrante (tamano - size) es < 0x100 consume el bloque entero: la ultima
+// entrada del vector ocupa el hueco de esta (y su bloque la apunta), entriesUsed -= 1 y la cabecera pierde su entrada libre. Si no parte el bloque: cabecera nueva en cabecera + size + 0x20 con el sobrante - 0x20, enlazada
+// tras la cabecera original, y la entrada pasa a describirla. Devuelve cabecera + 0x20.
+void* _rxHeapAllocFromEntry(RxHeap* heap, rxHeapFreeBlock* entry, RwUInt32 size) {
+    RwUInt32 remainder = entry->size - size;
+    rxHeapBlockHeader* const header = entry->ptr;
+    if (remainder < 0x100) {
+        rxHeapFreeBlock* const last = &heap->freeBlocks[heap->entriesUsed - 1];
+        if (last != entry) {
+            entry->size = last->size;
+            entry->ptr = last->ptr;
+            last->ptr->freeEntry = entry;
+        }
+        heap->entriesUsed = heap->entriesUsed - 1;
+        header->freeEntry = nullptr;
+        return reinterpret_cast<uint8*>(header) + 0x20;
+    }
+    remainder -= 0x20;
+    rxHeapBlockHeader* const fresh = reinterpret_cast<rxHeapBlockHeader*>(reinterpret_cast<uint8*>(header) + size + 0x20);
+    fresh->size = remainder;
+    fresh->prev = header;
+    fresh->next = header->next;
+    fresh->freeEntry = entry;
+    header->size = size;
+    header->next = fresh;
+    if (fresh->next != nullptr) {
+        fresh->next->prev = fresh;
+    }
+    entry->ptr = fresh;
+    entry->size = fresh->size;
+    header->freeEntry = nullptr;
+    return reinterpret_cast<uint8*>(header) + 0x20;
+}
+
+// 0x809AA0 (`RxHeapAlloc`): tamano redondeado a 32 (+0x1F, & ~0x1F). Busca de la ULTIMA entrada libre a la primera (do-while como el EXE) la primera con tamano >= pedido: la encontrada marca el monton sucio (+0x18) y
+// reserva con 0x809C70. Si no hay: superbloque nuevo de max(pedido + 0x60, superBlockSize) (RwMalloc de eso + 0x8B con pista 0x1040409; NULL -> error 0x80000013 con el pedido redondeado), inicio alineado a 128, se
+// da formato con _rxHeapAddSuperBlock (fallo: libera y error), se enlaza como cabeza y se reserva de la entrada del primer bloque. (El EXE ademas formatea con rwsprintf "Heap resized from %d to %d bytes" en un
+// bufer local y descarta el resultado; no tiene efecto visible y no se reproduce.)
+void* RxHeapAlloc(RxHeap* heap, RwUInt32 size) {
+    const RwUInt32 aligned = (size + 0x1Fu) & 0xFFFFFFE0u;
+    RwUInt32 count = heap->entriesUsed;
+    rxHeapFreeBlock* entry = heap->freeBlocks + count - 1;
+    do {
+        if (entry->size >= aligned) {
+            heap->dirty = 1;
+            return _rxHeapAllocFromEntry(heap, entry, aligned);
+        }
+        --entry;
+        --count;
+    } while (count != 0);
+
+    RwUInt32 superSize = aligned + 0x60u;
+    if (superSize < heap->superBlockSize) {
+        superSize = heap->superBlockSize;
+    }
+    auto* const descriptor = static_cast<rxHeapSuperBlockDescriptor*>(RwMalloc(static_cast<size_t>(superSize + 0x8Bu), 0x1040409));
+    if (descriptor == nullptr) {
+        RwRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(aligned));
+        return nullptr;
+    }
+    descriptor->start = reinterpret_cast<void*>((reinterpret_cast<uintptr_t>(descriptor) + 0x8Bu) & 0xFFFFFF80u);
+    descriptor->size = superSize;
+    descriptor->next = nullptr;
+    if (_rxHeapAddSuperBlock(descriptor, heap->head, heap) == 0) {
+        RwFree(descriptor);
+        RwRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(aligned));
+        return nullptr;
+    }
+    descriptor->next = heap->head;
+    heap->head = descriptor;
+    auto* const block = reinterpret_cast<rxHeapBlockHeader*>(static_cast<uint8*>(descriptor->start) + 0x20);
+    heap->dirty = 1;
+    return _rxHeapAllocFromEntry(heap, block->freeEntry, aligned);
+}
+
+// 0x809D10 (`RxHeapRealloc`; allowCopy no se usa). Tamano nuevo redondeado a 32. Crece (nuevo - actual > 0): si el bloque siguiente esta libre y cabe (tamano + 0x20 >= lo que falta) se amplia en sitio: si lo que
+// sobra de la union es < 0x100 absorbe el bloque libre entero (saca su entrada del vector con la ultima entrada), si no desplaza la cabecera libre; si no cabe reserva otro (RxHeapAlloc; fallo: error 0x80000013 y NULL),
+// copia el tamano antiguo, libera el viejo y devuelve el nuevo. Encoge o igual: si se liberan >= 0x100 (con signo) crea un bloque libre nuevo con una entrada (0x8099F0; NULL: no hace nada) tras el bloque; sin fusionar
+// con el siguiente. Devuelve el bloque.
+void* RxHeapRealloc(RxHeap* heap, void* block, RwUInt32 newSize, RwBool /*allowCopy*/) {
+    const RwUInt32 aligned = (newSize + 0x1Fu) & 0xFFFFFFE0u;
+    rxHeapBlockHeader* const header = reinterpret_cast<rxHeapBlockHeader*>(static_cast<uint8*>(block) - 0x20);
+    const RwUInt32 oldSize = header->size;
+    const RwInt32 delta = static_cast<RwInt32>(aligned - oldSize);
+    if (delta > 0) {
+        rxHeapBlockHeader* const next = header->next;
+        if (next != nullptr && next->freeEntry != nullptr) {
+            rxHeapFreeBlock* const nextEntry = next->freeEntry;
+            const RwUInt32 nextSize = next->size;
+            if (!(nextSize + 0x20u < static_cast<RwUInt32>(delta))) {
+                const RwUInt32 combined = nextSize + oldSize + 0x20u;
+                if (combined - aligned < 0x100u) {
+                    rxHeapFreeBlock* const last = &heap->freeBlocks[heap->entriesUsed - 1];
+                    if (last != nextEntry) {
+                        nextEntry->size = last->size;
+                        nextEntry->ptr = last->ptr;
+                        last->ptr->freeEntry = nextEntry;
+                    }
+                    heap->entriesUsed = heap->entriesUsed - 1;
+                    header->size = combined;
+                    rxHeapBlockHeader* const afterNext = header->next->next;
+                    header->next = afterNext;
+                    if (afterNext != nullptr) {
+                        afterNext->prev = header;
+                    }
+                    return block;
+                }
+                rxHeapBlockHeader* const fresh = reinterpret_cast<rxHeapBlockHeader*>(reinterpret_cast<uint8*>(header) + aligned + 0x20);
+                fresh->freeEntry = nextEntry;
+                fresh->prev = header;
+                fresh->size = header->next->size - static_cast<RwUInt32>(delta);
+                fresh->next = header->next->next;
+                if (fresh->next != nullptr) {
+                    fresh->next->prev = fresh;
+                }
+                header->size = aligned;
+                header->next = fresh;
+                fresh->freeEntry->ptr = fresh;
+                fresh->freeEntry->size = fresh->size;
+                return block;
+            }
+        }
+        void* const moved = RxHeapAlloc(heap, aligned);
+        if (moved == nullptr) {
+            RwRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(aligned));
+            return nullptr;
+        }
+        std::memcpy(moved, block, header->size);
+        RxHeapFree(heap, block);
+        return moved;
+    }
+    const RwInt32 shrink = -delta;
+    if (shrink >= 0x100) {
+        rxHeapFreeBlock* const entry = _rxHeapGetFreeEntry(heap);
+        if (entry != nullptr) {
+            rxHeapBlockHeader* const fresh = reinterpret_cast<rxHeapBlockHeader*>(reinterpret_cast<uint8*>(header) + aligned + 0x20);
+            fresh->size = static_cast<RwUInt32>(shrink) - 0x20u;
+            fresh->prev = header;
+            fresh->freeEntry = entry;
+            fresh->next = header->next;
+            header->size = aligned;
+            header->next = fresh;
+            if (fresh->next != nullptr) {
+                fresh->next->prev = fresh;
+            }
+            entry->ptr = fresh;
+            entry->size = fresh->size;
+        }
+    }
+    return block;
+}
+
+// 0x7EF810 (`RwIm3DRenderTriangle`): RxHeapGetGlobalHeap; sin vertices en curso -> RwError { 1, _rwerror(0x23) } y FALSE. Paquete (modulo + 0x44): tuberia = la de triangulos (modulo + 4), tipo 3, indices 0, numero 3;
+// indices = RxHeapAlloc(monton, 6) con los tres indices de 16 bits; RxPipelineExecute(tuberia, paquete, FALSE); libera los indices; TRUE si la ejecucion dio algo, si no FALSE.
+RwBool RwIm3DRenderTriangle(RwInt32 vert1, RwInt32 vert2, RwInt32 vert3) {
+    const RwBool hasVertices = R23AIm3DField<void*>(R23AIm3DModule(), kIm3DVerts) != nullptr;
+    RxHeap* const heap = RxHeapGetGlobalHeap();
+    if (!hasVertices) {
+        R23ARaiseError(0x23);
+        return FALSE;
+    }
+    uint8* const module = R23AIm3DModule();
+    uint8* const packet = module + kIm3DRenderPacket;
+    R23AIm3DField<RxPipeline*>(packet, 0x20) = R23AIm3DField<RxPipeline*>(module, 0x04);
+    R23AIm3DField<RwInt32>(packet, 0x24) = 3;
+    R23AIm3DField<void*>(packet, 0x28) = nullptr;
+    R23AIm3DField<RwInt32>(packet, 0x2C) = 3;
+    auto* const indices = static_cast<RwUInt16*>(RxHeapAlloc(heap, 6));
+    R23AIm3DField<void*>(packet, 0x28) = indices;
+    indices[0] = static_cast<RwUInt16>(vert1);
+    indices[1] = static_cast<RwUInt16>(vert2);
+    indices[2] = static_cast<RwUInt16>(vert3);
+    const bool ok = RxPipelineExecute(R23AIm3DField<RxPipeline*>(packet, 0x20), packet, FALSE) != nullptr;
+    RxHeapFree(heap, R23AIm3DField<void*>(packet, 0x28));
+    return ok ? TRUE : FALSE;
+}
+
+// 0x7EF900 (`RwIm3DRenderLine`): igual con la tuberia de lineas (modulo + 0x10), tipo 1, numero 2 y 4 bytes de indices. Primero RxHeapGetGlobalHeap y despues la comprobacion de vertices.
+RwBool RwIm3DRenderLine(RwInt32 vert1, RwInt32 vert2) {
+    RxHeap* const heap = RxHeapGetGlobalHeap();
+    if (R23AIm3DField<void*>(R23AIm3DModule(), kIm3DVerts) == nullptr) {
+        R23ARaiseError(0x23);
+        return FALSE;
+    }
+    uint8* const module = R23AIm3DModule();
+    uint8* const packet = module + kIm3DRenderPacket;
+    R23AIm3DField<RxPipeline*>(packet, 0x20) = R23AIm3DField<RxPipeline*>(module, 0x10);
+    R23AIm3DField<RwInt32>(packet, 0x24) = 1;
+    R23AIm3DField<void*>(packet, 0x28) = nullptr;
+    R23AIm3DField<RwInt32>(packet, 0x2C) = 2;
+    auto* const indices = static_cast<RwUInt16*>(RxHeapAlloc(heap, 4));
+    R23AIm3DField<void*>(packet, 0x28) = indices;
+    indices[0] = static_cast<RwUInt16>(vert1);
+    indices[1] = static_cast<RwUInt16>(vert2);
+    const bool ok = RxPipelineExecute(R23AIm3DField<RxPipeline*>(packet, 0x20), packet, FALSE) != nullptr;
+    RxHeapFree(heap, R23AIm3DField<void*>(packet, 0x28));
+    return ok ? TRUE : FALSE;
+}
+
+// 0x8043F0 (`RwRasterRead`): RwImageRead (0x802FD0; NULL -> NULL). stdFunc[rwSTANDARDIMAGEFINDRASTERFORMAT](&raster local de 0x34 bytes, imagen, 0): si da TRUE anchura, altura, profundidad (+0xC, +0x10, +0x14)
+// y banderas = (cFormat << 8) | cType salen de la estructura; si da FALSE el EXE deja anchura = altura = banderas = el puntero del nombre de archivo (pila) y la profundidad sin inicializar (aqui 0). Si la imagen no tiene
+// ese tamano la remuestrea (RwImageCreateResample 0x80CD10) y destruye la original. RwRasterCreate(ancho, alto, prof., banderas); NULL: destruye la imagen y NULL. stdFunc[rwSTANDARDRASTERSETIMAGE](raster,
+// imagen, 0); si da TRUE y la imagen tiene la bandera 2 (corregida de gamma) raster->privateFlags |= 1. Destruye la imagen y devuelve el raster.
+RwRaster* RwRasterRead(const RwChar* filename) {
+    RwImage* image = RwImageRead(filename);
+    if (image == nullptr) {
+        return nullptr;
+    }
+    RwRaster format;
+    std::memset(&format, 0, sizeof(format));
+    RwInt32 width;
+    RwInt32 height;
+    RwInt32 depth;
+    RwUInt32 flags;
+    if (RwEngineInstance->stdFunc[rwSTANDARDIMAGEFINDRASTERFORMAT](&format, image, 0) != 0) {
+        width = format.width;
+        height = format.height;
+        depth = format.depth;
+        flags = (static_cast<RwUInt32>(format.cFormat) << 8) | static_cast<RwUInt32>(format.cType);
+    } else {
+        width = height = static_cast<RwInt32>(reinterpret_cast<uintptr_t>(filename));
+        flags = static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(filename));
+        depth = 0;
+    }
+    if (width != image->width || height != image->height) {
+        RwImage* const resampled = RwImageCreateResample(image, width, height);
+        RwImageDestroy(image);
+        image = resampled;
+    }
+    RwRaster* const raster = RwRasterCreate(width, height, depth, flags);
+    if (raster == nullptr) {
+        RwImageDestroy(image);
+        return nullptr;
+    }
+    if (RwEngineInstance->stdFunc[rwSTANDARDRASTERSETIMAGE](raster, image, 0) != 0 && (image->flags & 2) != 0) {
+        raster->privateFlags |= 1;
+    }
+    RwImageDestroy(image);
+    return raster;
+}
+
+// 0x8044E0 (`RwRasterReadMaskedRaster`): RwImageReadMaskedImage (0x8035C0; NULL -> NULL); RwRasterCreate(ancho y alto de la imagen, profundidad 0, banderas 0); NULL: destruye la imagen y NULL. Igual que RwRasterRead:
+// RASTERSETIMAGE, bandera de gamma, destruir la imagen y devolver el raster.
+RwRaster* RwRasterReadMaskedRaster(const RwChar* filename, const RwChar* maskname) {
+    RwImage* const image = RwImageReadMaskedImage(filename, maskname);
+    if (image == nullptr) {
+        return nullptr;
+    }
+    RwRaster* const raster = RwRasterCreate(image->width, image->height, 0, 0);
+    if (raster == nullptr) {
+        RwImageDestroy(image);
+        return nullptr;
+    }
+    if (RwEngineInstance->stdFunc[rwSTANDARDRASTERSETIMAGE](raster, image, 0) != 0 && (image->flags & 2) != 0) {
+        raster->privateFlags |= 1;
+    }
+    RwImageDestroy(image);
+    return raster;
+}
+
+// 0x804E40 (interna; devolucion de llamada de RwTexDictionaryForAllTextures): RwTextureDestroy (0x7F3820) de la textura y devuelve la textura.
+RwTexture* _rwTextureDestroyCallBack(RwTexture* texture, void* /*data*/) {
+    RwTextureDestroy(texture);
+    return texture;
+}
+
+// 0x804C30 (`RwTexDictionaryStreamRead`): busca el chunk 1 (struct) y su version (fuera de 0x34000..0x36003: RwError { 1, _rwerror(0x80000004) } y NULL); lee `longitud` bytes en una estructura de 4 bytes {numero de texturas,
+// dispositivo}; distinto de `longitud` -> NULL. Pide al dispositivo (0x7F2AB0, peticion 0x16) su identificador (byte bajo); si ambos no son 0 y difieren -> NULL. Crea un diccionario (NULL -> NULL) y por cada textura
+// busca el chunk 0x15, comprueba la version (error 0x80000004 con limpieza), lee la textura nativa (stdFunc[rwSTANDARDNATIVETEXTUREREAD](flujo, &textura, longitud)), lee sus plugins con el registro de texturas
+// (0x8E23CC) y la anade; despues lee los plugins del diccionario (0x8E23E4). Cualquier fallo destruye las texturas leidas (0x804E40) y el diccionario y devuelve NULL.
+RwTexDictionary* RwTexDictionaryStreamRead(RwStream* stream) {
+    RwUInt32 length = 0;
+    RwUInt32 version = 0;
+    if (!RwStreamFindChunk(stream, 1, &length, &version)) {
+        return nullptr;
+    }
+    if (version < 0x34000u || version > 0x36003u) {
+        RwRaiseError(static_cast<RwInt32>(0x80000004));
+        return nullptr;
+    }
+    struct { RwUInt16 numTextures; RwUInt16 deviceId; } header = {};
+    RwDevice* const device = &RwEngineInstance->dOpenDevice;
+    if (RwStreamRead(stream, &header, length) != length) {
+        return nullptr;
+    }
+    RwUInt32 deviceInfo = 0;
+    _rwDeviceSystemRequest(device, 0x16, &deviceInfo, nullptr, 0);
+    const RwUInt32 deviceId = deviceInfo & 0xFFu;
+    if (static_cast<RwUInt16>(deviceId) != 0 && header.deviceId != 0 && static_cast<RwUInt16>(deviceId) != header.deviceId) {
+        return nullptr;
+    }
+    RwTexDictionary* const dictionary = RwTexDictionaryCreate();
+    if (dictionary == nullptr) {
+        return nullptr;
+    }
+    const auto fail = [&]() -> RwTexDictionary* {
+        RwTexDictionaryForAllTextures(dictionary, &_rwTextureDestroyCallBack, nullptr);
+        RwTexDictionaryDestroy(dictionary);
+        return nullptr;
+    };
+    RwUInt16 remaining = header.numTextures;
+    while (remaining != 0) {
+        --remaining;
+        RwUInt32 textureLength = 0;
+        RwUInt32 textureVersion = 0;
+        if (!RwStreamFindChunk(stream, 0x15, &textureLength, &textureVersion)) {
+            return fail();
+        }
+        if (textureVersion < 0x34000u || textureVersion > 0x36003u) {
+            RwTexDictionary* const result = fail();
+            RwRaiseError(static_cast<RwInt32>(0x80000004));
+            return result;
+        }
+        RwTexture* texture = nullptr;
+        if (RwEngineInstance->stdFunc[rwSTANDARDNATIVETEXTUREREAD](stream, &texture, textureLength) == 0 || texture == nullptr) {
+            return fail();
+        }
+        if (_rwPluginRegistryReadDataChunks(reinterpret_cast<RwPluginRegistry*>(0x8E23CC), stream, texture) == nullptr) {
+            return fail();
+        }
+        RwTexDictionaryAddTexture(dictionary, texture);
+    }
+    if (_rwPluginRegistryReadDataChunks(reinterpret_cast<RwPluginRegistry*>(0x8E23E4), stream, dictionary) == nullptr) {
+        return fail();
+    }
+    return dictionary;
+}
+
+// 0x805400 (`RxClusterInitializeData`): tamano = (paso & 0xFFFF) * numero. Si ya hay datos y la bandera 2 (externos) esta a 0 los libera del monton global (0xC9A6B0) con RxHeapFree; reserva los nuevos con RxHeapAlloc
+// (sin comprobar NULL); flags |= 1, datos = cursor = lo reservado, numAlloced = numero, numUsed = 0, paso (+2) = paso. Devuelve el cluster.
+RxCluster* RxClusterInitializeData(RxCluster* cluster, RwUInt32 numElements, RwUInt16 stride) {
+    const RwUInt32 size = static_cast<RwUInt32>(stride) * numElements;
+    if (cluster->data != nullptr && (cluster->flags & 2) == 0) {
+        RxHeapFree(RxHeapGetGlobalHeap(), cluster->data);
+    }
+    void* const data = RxHeapAlloc(RxHeapGetGlobalHeap(), size);
+    cluster->flags |= 1;
+    cluster->data = data;
+    cluster->currentData = data;
+    cluster->numAlloced = numElements;
+    cluster->numUsed = 0;
+    cluster->stride = stride;
+    return cluster;
+}
+
+// 0x805470 (`RxClusterResizeData`): RxHeapRealloc(monton global, datos, paso * numero, TRUE); flags |= 1, datos = cursor = lo devuelto, numAlloced = numero y, si numUsed > numero (sin signo), numUsed = numero.
+RxCluster* RxClusterResizeData(RxCluster* CurrentCluster, RwUInt32 NumElements) {
+    void* const data = RxHeapRealloc(RxHeapGetGlobalHeap(), CurrentCluster->data, static_cast<RwUInt32>(CurrentCluster->stride) * NumElements, TRUE);
+    CurrentCluster->flags |= 1;
+    CurrentCluster->data = data;
+    CurrentCluster->currentData = data;
+    const RwUInt32 used = CurrentCluster->numUsed;
+    CurrentCluster->numAlloced = NumElements;
+    if (used > NumElements) {
+        CurrentCluster->numUsed = NumElements;
+    }
+    return CurrentCluster;
+}
+
+// 0x8054F0 (`RxClusterLockWrite`; el nodo no se usa): ranura = inputToClusterSlot[indice]; 0xFFFFFFFF -> NULL. Cluster = clusters[ranura] (0x1C bytes cada uno desde +0x14). Sin clusterRef (+0x14 del cluster) toma el de
+// slotClusterRefs[ranura] y sus atributos de creacion. flags |= 8. Con (flags & 6) == 2 (datos compartidos de solo lectura) quita el bit 2, reserva una copia de paso * numAlloced en el monton global (sin comprobar
+// NULL), pone flags |= 1 y copia paso * numUsed bytes. Siempre cursor = datos. Devuelve el cluster.
+RxCluster* RxClusterLockWrite(RxPacket* packet, RwUInt32 clusterIndex, RxPipelineNode* /*node*/) {
+    const RwUInt32 slot = packet->inputToClusterSlot[clusterIndex];
+    if (slot == 0xFFFFFFFFu) {
+        return nullptr;
+    }
+    RxCluster* const cluster = &packet->clusters[slot];
+    if (cluster->clusterRef == nullptr) {
+        RxPipelineCluster* const reference = packet->slotClusterRefs[slot];
+        cluster->clusterRef = reference;
+        cluster->attributes = reference->creationAttributes;
+    }
+    cluster->flags = static_cast<RwUInt16>(cluster->flags | 8u);
+    if ((cluster->flags & 6u) == 2u) {
+        const RwUInt16 stride = cluster->stride;
+        cluster->flags = static_cast<RwUInt16>(cluster->flags & 0xFFFDu);
+        const RwUInt32 allocated = cluster->numAlloced;
+        const RwUInt32 used = cluster->numUsed;
+        void* const old = cluster->data;
+        cluster->data = nullptr;
+        void* const copy = RxHeapAlloc(RxHeapGetGlobalHeap(), static_cast<RwUInt32>(stride) * allocated);
+        cluster->flags = static_cast<RwUInt16>(cluster->flags | 1u);
+        cluster->stride = stride;
+        cluster->numAlloced = allocated;
+        cluster->numUsed = used;
+        cluster->data = copy;
+        cluster->currentData = copy;
+        std::memcpy(copy, old, static_cast<size_t>(static_cast<RwUInt32>(stride) * used));
+    }
+    cluster->currentData = cluster->data;
+    return cluster;
+}
+
+// 0x8055D0 (`RxPipelineNodeSendConfigMsg`): destino NULL -> 0xFFFFFFFF; sin controlador (nodeDef + 0x1C) -> 0; si no llama a controlador(destino, mensaje, entero, puntero) y devuelve su resultado.
+RwUInt32 RxPipelineNodeSendConfigMsg(RxPipelineNode* dest, RwUInt32 msg, RwUInt32 intparam, void* ptrparam) {
+    if (dest == nullptr) {
+        return 0xFFFFFFFFu;
+    }
+    const RxConfigMsgHandlerFn handler = dest->nodeDef->nodeMethods.configMsgHandler;
+    if (handler == nullptr) {
+        return 0;
+    }
+    return handler(dest, msg, intparam, ptrparam);
+}
+
+// 0x8055F0 (`RxPipelineNodeForAllConnectedOutputs`): nodo y tuberia no NULL, el nodo dentro del vector de nodos de la tuberia (>= nodos y < nodos + 0x28 * numNodes, comparacion sin signo) y devolucion no NULL; si no NULL.
+// Para cada salida (numOutputs releido en cada vuelta) con indice < numNodes (sin signo) llama a devolucion(nodo, nodo de destino, datos) y para si devuelve NULL. Devuelve el nodo.
+RxPipelineNode* RxPipelineNodeForAllConnectedOutputs(RxPipelineNode* node, RxPipeline* pipeline, RxPipelineNodeOutputCallBack callbackfn, void* callbackdata) {
+    if (node == nullptr || pipeline == nullptr) {
+        return nullptr;
+    }
+    RxPipelineNode* const first = pipeline->nodes;
+    if (reinterpret_cast<uintptr_t>(node) < reinterpret_cast<uintptr_t>(first)) {
+        return nullptr;
+    }
+    if (reinterpret_cast<uintptr_t>(node) >= static_cast<uintptr_t>(static_cast<uint32>(reinterpret_cast<uintptr_t>(first) + pipeline->numNodes * 40u))) {
+        return nullptr;
+    }
+    if (callbackfn == nullptr) {
+        return nullptr;
+    }
+    for (RwUInt32 i = 0; i < node->numOutputs; ++i) {
+        const RwUInt32 target = node->outputs[i];
+        if (target < pipeline->numNodes) {
+            if (callbackfn(node, S17NodeAt(pipeline, target), callbackdata) == nullptr) {
+                break;
+            }
+        }
+    }
+    return node;
+}
+
+// 0x805D10 (`RxPipelineNodeFindOutputByName`): nodo, definicion y nombre no NULL; recorre las salidas de la definicion (numOutputs con signo, +0x2C; cada una de 0xC bytes) comparando su nombre con rwstrcmp
+// (RwGlobals + 0x114); la primera que coincide devuelve &nodo->outputs[i]; si no NULL.
+RxNodeOutput RxPipelineNodeFindOutputByName(RxPipelineNode* node, const RwChar* outputname) {
+    if (node == nullptr || node->nodeDef == nullptr || outputname == nullptr) {
+        return nullptr;
+    }
+    const RwInt32 count = static_cast<RwInt32>(node->nodeDef->io.numOutputs);
+    for (RwInt32 i = 0; i < count; ++i) {
+        if (rwstrcmp(node->nodeDef->io.outputs[i].name, outputname) == 0) {
+            return &node->outputs[i];
+        }
+    }
+    return nullptr;
+}
+
+// 0x805EA0 (`RxPipelineNodeCreateInitData`): si ya hay datos de inicializacion (+0x20) los libera (RwFree) y pone datos y tamano (+0x24) a 0; RwMalloc(tamano, 0x30409); NULL -> RwError { 1, _rwerror(0x80000013, tamano) } y
+// NULL (los datos quedan en NULL); si no guarda puntero y tamano y devuelve el puntero.
+void* RxPipelineNodeCreateInitData(RxPipelineNode* node, RwUInt32 size) {
+    if (node->initializationData != nullptr) {
+        RwFree(node->initializationData);
+        node->initializationData = nullptr;
+        node->initializationDataSize = 0;
+    }
+    void* const data = RwMalloc(static_cast<size_t>(size), 0x30409);
+    node->initializationData = data;
+    if (data == nullptr) {
+        RwRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(size));
+        return nullptr;
+    }
+    node->initializationDataSize = size;
+    return data;
+}
+
+// 0x8071B0 (`RxPipelineInsertDebugNode`): inserta el nodo de depuracion entre `before` y `after` (alguno puede ser NULL). Valida: tuberia, (before o after), definicion; before NULL -> after debe ser el primer nodo, si no el
+// indice de before debe ser exacto, < numNodes y != -1; after NULL -> before no puede tener salidas, si no igual validacion del indice de after; con los dos busca la primera salida de before que apunta a after (si no hay
+// -> NULL). Reserva 8 * packetNumClusterSlots bytes (RwMalloc, pista 0x10409; NULL -> error 0x80000013 y NULL), reune ahi sin repetir las definiciones de cluster de las ranuras de before y de after, bloquea la tuberia
+// (NULL -> NULL, sin liberar la lista como el EXE), anade el nodo (0x806BE0; el resultado NO se comprueba), pide cada cluster al nodo nuevo, reconecta (before -> nodo nuevo, quitando el camino a after; nodo nuevo -> after por
+// su primera salida) y desbloquea; si falla destruye la tuberia. Libera la lista y devuelve el resultado del desbloqueo. Los tramos inlineados del EXE son RxPipelineNodeFindOutputByIndex, RxLockedPipeDeletePath/AddPath y
+// RxPipelineNodeRequestCluster (misma semantica).
+RxPipeline* RxPipelineInsertDebugNode(RxPipeline* pipeline, RxPipelineNode* before, RxPipelineNode* after, RxNodeDefinition* debugNode) {
+    if (pipeline == nullptr || (before == nullptr && after == nullptr) || debugNode == nullptr) {
+        return nullptr;
+    }
+    RxPipelineNode* const nodes = pipeline->nodes;
+    RwUInt32 afterIndex = 0xFFFFFFFFu;
+    RwUInt32 outputIndex = 0xFFFFFFFFu;
+    if (before == nullptr) {
+        if (after != nodes) {
+            return nullptr;
+        }
+    } else {
+        const RwInt32 index = S17NodeIndex(pipeline, before);
+        if (S17NodeAt(pipeline, static_cast<RwUInt32>(index)) != before || static_cast<RwUInt32>(index) >= pipeline->numNodes || index == -1) {
+            return nullptr;
+        }
+    }
+    if (after == nullptr) {
+        if (before->numOutputs != 0) {
+            return nullptr;
+        }
+    } else {
+        const RwInt32 index = S17NodeIndex(pipeline, after);
+        if (S17NodeAt(pipeline, static_cast<RwUInt32>(index)) != after || static_cast<RwUInt32>(index) >= pipeline->numNodes) {
+            return nullptr;
+        }
+        afterIndex = static_cast<RwUInt32>(index);
+        if (index == -1) {
+            return nullptr;
+        }
+    }
+    if (before != nullptr && after != nullptr) {
+        if (before->numOutputs == 0) {
+            return nullptr;
+        }
+        for (RwUInt32 i = 0; i < before->numOutputs; ++i) {
+            if (before->outputs[i] == afterIndex) {
+                outputIndex = i;
+                break;
+            }
+        }
+        if (outputIndex == 0xFFFFFFFFu) {
+            return nullptr;
+        }
+    }
+
+    const RwUInt32 listBytes = pipeline->packetNumClusterSlots << 3;
+    auto* const list = static_cast<RxClusterDefinition**>(RwMalloc(static_cast<size_t>(listBytes), 0x10409));
+    if (list == nullptr) {
+        RwRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(listBytes));
+        return nullptr;
+    }
+    RwUInt32 count = 0;
+    const auto collect = [&](const RxPipelineNode* owner) {
+        for (RwUInt32 i = 0; i < pipeline->packetNumClusterSlots; ++i) {
+            const RxPipelineCluster* const reference = owner->slotClusterRefs[i];
+            if (reference != nullptr) {
+                RxClusterDefinition* const definition = reference->clusterRef;
+                bool found = false;
+                for (RwUInt32 k = 0; k < count; ++k) {
+                    if (list[k] == definition) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    list[count++] = definition;
+                }
+            }
+        }
+    };
+    if (before != nullptr) {
+        collect(before);
+    }
+    if (after != nullptr) {
+        collect(after);
+    }
+
+    RxLockedPipe* const locked = RxPipelineLock(pipeline);
+    if (locked == nullptr) {
+        return nullptr;
+    }
+    RwUInt32 newIndex = 0xFFFFFFFFu;
+    RxLockedPipe* const edited = RxLockedPipeAddFragment(locked, &newIndex, debugNode, static_cast<RxNodeDefinition*>(nullptr));
+    RxPipelineNode* const created = S17NodeAt(edited, newIndex);
+    for (RwUInt32 i = 0; i < count; ++i) {
+        RxPipelineNodeRequestCluster(pipeline, created, list[i]);
+    }
+    if (before != nullptr) {
+        RxLockedPipeDeletePath(edited, RxPipelineNodeFindOutputByIndex(before, outputIndex), after);
+        RxLockedPipeAddPath(edited, RxPipelineNodeFindOutputByIndex(before, outputIndex), created);
+    }
+    if (after != nullptr) {
+        RxLockedPipeAddPath(edited, RxPipelineNodeFindOutputByIndex(created, 0), after);
+    }
+    RxPipeline* const result = RxLockedPipeUnlock(edited);
+    if (result == nullptr) {
+        _rxPipelineDestroy(edited);
+    }
+    RwFree(list);
+    return result;
+}
+
+namespace {
+// 0x8076A0 (interna; recursiva): guarda el marco en el cursor, avanza y recorre primero el hermano (+0x9C) y despues el hijo (+0x98).
+void S19FrameListAdd(RwFrame*** cursor, RwFrame* frame) {
+    if (frame == nullptr) {
+        return;
+    }
+    **cursor = frame;
+    ++*cursor;
+    S19FrameListAdd(cursor, frame->next);
+    S19FrameListAdd(cursor, frame->child);
+}
+}
+
+// 0x8075D0 (`_rwFrameListInitialize`): n = RwFrameCount(marco); RwMalloc(4 * n, 0x4000E) (NULL -> error 0x80000013 con 4 * n y NULL). Con marco no NULL: vector[0] = marco y despues, si tiene hijo, el hijo y recursivamente
+// el hermano y el hijo del hijo (0x8076A0). frames = vector, numFrames = n. Devuelve la lista.
+rwFrameList* _rwFrameListInitialize(rwFrameList* frameList, RwFrame* frame) {
+    const RwInt32 count = RwFrameCount(frame);
+    const RwUInt32 bytes = static_cast<RwUInt32>(count) * 4u;
+    auto* const frames = static_cast<RwFrame**>(RwMalloc(static_cast<size_t>(bytes), 0x4000E));
+    if (frames == nullptr) {
+        RwRaiseError(static_cast<RwInt32>(0x80000013), static_cast<RwInt32>(bytes));
+        return nullptr;
+    }
+    RwFrame** cursor = frames;
+    if (frame != nullptr) {
+        *cursor++ = frame;
+        RwFrame* const child = frame->child;
+        if (child != nullptr) {
+            *cursor++ = child;
+            S19FrameListAdd(&cursor, child->next);
+            S19FrameListAdd(&cursor, child->child);
+        }
+    }
+    frameList->frames = frames;
+    frameList->numFrames = count;
+    return frameList;
+}
+
+// 0x808D00 (`RwCameraStreamWrite`): chunk 5 con tamano = _rwPluginRegistryGetSize(registro de camaras, camara) + 0x38, chunk 1 de 0x20 bytes (fallo -> NULL) y 0x20 bytes: ventana (+0x68, +0x6C) y desplazamiento
+// (+0x78, +0x7C) copiados como palabras; near, far y fog (+0x80, +0x84, +0x88) cargados y guardados por la x87 (un NaN senalizante sale silencioso); y la proyeccion (+0x14). Despues los plugins de la camara (0x808B40);
+// devuelve la camara si todo fue bien, si no NULL.
+const RwCamera* RwCameraStreamWrite(const RwCamera* camera, RwStream* stream) {
+    const RwInt32 size = _rwPluginRegistryGetSize(reinterpret_cast<const RwPluginRegistry*>(kCameraPluginRegistry), camera) + 0x38;
+    if (_rwStreamWriteVersionedChunkHeader(stream, 5, size, 0x36003, 0xFFFF) == nullptr) {
+        return nullptr;
+    }
+    if (_rwStreamWriteVersionedChunkHeader(stream, 1, 0x20, 0x36003, 0xFFFF) == nullptr) {
+        return nullptr;
+    }
+    uint32 record[8];
+    S19CopyWord(&record[0], &camera->viewWindow.x);
+    S19CopyWord(&record[1], &camera->viewWindow.y);
+    S19CopyWord(&record[2], &camera->viewOffset.x);
+    S19CopyWord(&record[3], &camera->viewOffset.y);
+    record[4] = S19X87FloatPassThrough(camera->nearPlane);
+    record[5] = S19X87FloatPassThrough(camera->farPlane);
+    record[6] = S19X87FloatPassThrough(camera->fogPlane);
+    S19CopyWord(&record[7], &camera->projectionType);
+    if (RwStreamWrite(stream, record, 0x20) == nullptr) {
+        return nullptr;
+    }
+    return (_rwPluginRegistryWriteDataChunks(reinterpret_cast<const RwPluginRegistry*>(kCameraPluginRegistry), stream, camera) != nullptr) ? camera : nullptr;
+}
+
+// 0x809060 (`RwBBoxAddPoint`): fld + fcomp + fnstsw y los saltos del EXE. Minimos (inf, +0xC..): `and ax, 0x4100; jne` salta cuando NO es (inf > v) ordenado: se copia v solo si inf > v (con NaN no). Maximos (sup, +0..):
+// `test ah, 5; jp` salta salvo cuando sup < v (C0 = 1, C2 = 0): se copia v solo si sup < v (con NaN no). Copias de palabras sin x87, en el orden inf.x, inf.y, inf.z, sup.x, sup.y, sup.z. Devuelve la caja.
+RwBBox* RwBBoxAddPoint(RwBBox* boundBox, const RwV3d* vertex) {
+    if (boundBox->inf.x > vertex->x) {
+        S19CopyWord(&boundBox->inf.x, &vertex->x);
+    }
+    if (boundBox->inf.y > vertex->y) {
+        S19CopyWord(&boundBox->inf.y, &vertex->y);
+    }
+    if (boundBox->inf.z > vertex->z) {
+        S19CopyWord(&boundBox->inf.z, &vertex->z);
+    }
+    if (boundBox->sup.x < vertex->x) {
+        S19CopyWord(&boundBox->sup.x, &vertex->x);
+    }
+    if (boundBox->sup.y < vertex->y) {
+        S19CopyWord(&boundBox->sup.y, &vertex->y);
+    }
+    if (boundBox->sup.z < vertex->z) {
+        S19CopyWord(&boundBox->sup.z, &vertex->z);
+    }
+    return boundBox;
+}
+
+// 0x8090E0 (`RwBBoxContainsPoint`): FALSE si inf.x > v.x, inf.y > v.y, inf.z > v.z (ordenados, en ese orden) o sup.x < v.x, sup.y < v.y, sup.z < v.z (ordenados); con NaN las comparaciones no dan FALSE (TRUE).
+RwBool RwBBoxContainsPoint(const RwBBox* boundBox, const RwV3d* vertex) {
+    if (boundBox->inf.x > vertex->x) {
+        return FALSE;
+    }
+    if (boundBox->inf.y > vertex->y) {
+        return FALSE;
+    }
+    if (boundBox->inf.z > vertex->z) {
+        return FALSE;
+    }
+    if (boundBox->sup.x < vertex->x) {
+        return FALSE;
+    }
+    if (boundBox->sup.y < vertex->y) {
+        return FALSE;
+    }
+    if (boundBox->sup.z < vertex->z) {
+        return FALSE;
+    }
+    return TRUE;
+}
+
+// Lote S19A (sin validar): ganchos.
+void RwCoreInjectHooksS19A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(RwIm3DRenderTriangle, 0x7EF810);
+    RH_ScopedGlobalInstall(RwIm3DRenderLine, 0x7EF900);
+    RH_ScopedGlobalInstall(RwRasterRead, 0x8043F0);
+    RH_ScopedGlobalInstall(RwRasterReadMaskedRaster, 0x8044E0);
+    RH_ScopedGlobalInstall(_rwTextureDestroyCallBack, 0x804E40);   // interna: la usa 0x804C30
+    RH_ScopedGlobalInstall(RwTexDictionaryStreamRead, 0x804C30);
+    RH_ScopedGlobalInstall(RxClusterInitializeData, 0x805400);
+    RH_ScopedGlobalInstall(RxClusterResizeData, 0x805470);
+    RH_ScopedGlobalInstall(RxClusterLockWrite, 0x8054F0);
+    RH_ScopedGlobalInstall(RxPipelineNodeSendConfigMsg, 0x8055D0);
+    RH_ScopedGlobalInstall(RxPipelineNodeForAllConnectedOutputs, 0x8055F0);
+    RH_ScopedGlobalInstall(RxPipelineNodeFindOutputByName, 0x805D10);
+    RH_ScopedGlobalInstall(RxPipelineNodeCreateInitData, 0x805EA0);
+    RH_ScopedGlobalInstall(RxPipelineInsertDebugNode, 0x8071B0);
+    RH_ScopedGlobalInstall(_rwFrameListInitialize, 0x8075D0);
+    RH_ScopedGlobalInstall(RwCameraStreamWrite, 0x808D00);
+    RH_ScopedGlobalInstall(RwBBoxAddPoint, 0x809060);
+    RH_ScopedGlobalInstall(RwBBoxContainsPoint, 0x8090E0);
+    RH_ScopedGlobalInstall(RxHeapAlloc, 0x809AA0);
+    RH_ScopedGlobalInstall(_rxHeapAllocFromEntry, 0x809C70);       // interna: la usa 0x809AA0
+    RH_ScopedGlobalInstall(RxHeapRealloc, 0x809D10);
+}
+
+// ============================================================================================================================================================
+// Lote S20A (sin validar), parte RwCore: constructores y destructores de los modulos de motor de camaras, Im3D, marcos, texturas y rasters (se registran con EnginePluginAdd en RwEngineInit). Cada uno recibe
+// (objeto, desplazamiento, tamano) y devuelve el objeto, o NULL si el constructor falla. Las variables con el desplazamiento y el contador de instancias son globales del EXE (por direccion).
+// ============================================================================================================================================================
+namespace {
+// Campo del bloque de un modulo: [RwEngineInstance + [direccion del desplazamiento] + campo].
+template<typename T>
+T& S20ModuleField(uint32 offsetAddress, uint32 fieldOffset) {
+    return *reinterpret_cast<T*>(reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(offsetAddress) + fieldOffset);
+}
+}
+
+// 0x7EE110 (constructor del plugin de motor 0x405, modulo de camaras): guarda el desplazamiento en 0xC97960; lista libre (tamano de RwCamera = [0x8E222C], [0x8E2244] por bloque, alineacion 4, [0x8E2248] a reservar,
+// bloque estatico 0xC9793C, pista 0x40005) en el modulo; NULL -> NULL; si no suma 1 a 0xC97964.
+void* _rwCameraModuleOpen(void* object, RwInt32 offset, RwInt32 /*size*/) {
+    StaticRef<RwInt32>(0xC97960) = offset;
+    RwFreeList* const list = RwFreeListCreateAndPreallocateSpace(StaticRef<RwInt32>(0x8E222C), StaticRef<RwInt32>(0x8E2244), 4, StaticRef<RwInt32>(0x8E2248), reinterpret_cast<RwFreeList*>(0xC9793C), 0x40005);
+    S20ModuleField<RwFreeList*>(0xC97960, 0) = list;
+    if (S20ModuleField<RwFreeList*>(0xC97960, 0) == nullptr) {
+        return nullptr;
+    }
+    StaticRef<RwInt32>(0xC97964) = StaticRef<RwInt32>(0xC97964) + 1;
+    return object;
+}
+
+// 0x7EE0B0 (destructor del modulo de camaras): destruye la lista libre si existe y la pone a NULL; resta 1 a 0xC97964.
+void* _rwCameraModuleClose(void* object, RwInt32 /*offset*/, RwInt32 /*size*/) {
+    RwFreeList* const list = S20ModuleField<RwFreeList*>(0xC97960, 0);
+    if (list != nullptr) {
+        RwFreeListDestroy(list);
+        S20ModuleField<RwFreeList*>(0xC97960, 0) = nullptr;
+    }
+    StaticRef<RwInt32>(0xC97964) = StaticRef<RwInt32>(0xC97964) - 1;
+    return object;
+}
+
+// 0x7EFE20 (constructor del plugin de motor 0x40A, modulo de Im3D, 0x74 bytes): guarda el desplazamiento en 0xC9C078, suma 1 a 0xC9C07C, guarda la direccion del bloque en 0xC97968 y lo pone a cero (0x1D palabras).
+// Crea la tuberia de transformacion por defecto (+0x1C, 0x80A0A0) y las cinco de render (+0x20, 0x80A1A0); si alguna falla las destruye (0x80A140 y 0x80A110), resta 1 a 0xC9C07C y devuelve NULL.
+void* _rwIm3DModuleOpen(void* object, RwInt32 offset, RwInt32 /*size*/) {
+    StaticRef<RwInt32>(0xC9C078) = offset;
+    uint8* const module = reinterpret_cast<uint8*>(RwEngineInstance) + offset;
+    StaticRef<RwInt32>(0xC9C07C) = StaticRef<RwInt32>(0xC9C07C) + 1;
+    StaticRef<void*>(0xC97968) = module;
+    std::memset(module, 0, 0x1D * 4);
+    if (_rwIm3DDefaultTransformPipelineCreate(&S20ModuleField<RxPipeline*>(0xC9C078, 0x1C)) != 0 && _rwIm3DDefaultPipelinesCreate(&S20ModuleField<RxPipeline*>(0xC9C078, 0x20)) != 0) {
+        return object;
+    }
+    _rwIm3DDefaultPipelinesDestroy(&S20ModuleField<RxPipeline*>(0xC9C078, 0x20));
+    _rwIm3DDefaultTransformPipelineDestroy(&S20ModuleField<RxPipeline*>(0xC9C078, 0x1C));
+    StaticRef<RwInt32>(0xC9C07C) = StaticRef<RwInt32>(0xC9C07C) - 1;
+    return nullptr;
+}
+
+// 0x7EFDE0 (destructor del modulo de Im3D): destruye las tuberias de render (+0x20, 0x80A140) y la de transformacion (+0x1C, 0x80A110) y resta 1 a 0xC9C07C.
+void* _rwIm3DModuleClose(void* object, RwInt32 /*offset*/, RwInt32 /*size*/) {
+    _rwIm3DDefaultPipelinesDestroy(&S20ModuleField<RxPipeline*>(0xC9C078, 0x20));
+    _rwIm3DDefaultTransformPipelineDestroy(&S20ModuleField<RxPipeline*>(0xC9C078, 0x1C));
+    StaticRef<RwInt32>(0xC9C07C) = StaticRef<RwInt32>(0xC9C07C) - 1;
+    return object;
+}
+
+// 0x7EFEF0 (constructor del plugin de motor 0x403, modulo de marcos): guarda el desplazamiento en 0xC9796C; lista libre (tamano de RwFrame = [0x8E2270], [0x8E2288] por bloque, alineacion 4, [0x8E228C] a reservar,
+// bloque estatico 0xC97974, pista 0x4000E) en el modulo; NULL -> NULL. Inicia la lista de marcos sucios (RwEngineInstance + 0xBC, circular: siguiente y anterior apuntan a la cabeza) y suma 1 a 0xC97970.
+void* _rwFrameModuleOpen(void* object, RwInt32 offset, RwInt32 /*size*/) {
+    StaticRef<RwInt32>(0xC9796C) = offset;
+    RwFreeList* const list = RwFreeListCreateAndPreallocateSpace(StaticRef<RwInt32>(0x8E2270), StaticRef<RwInt32>(0x8E2288), 4, StaticRef<RwInt32>(0x8E228C), reinterpret_cast<RwFreeList*>(0xC97974), 0x4000E);
+    S20ModuleField<RwFreeList*>(0xC9796C, 0) = list;
+    if (S20ModuleField<RwFreeList*>(0xC9796C, 0) == nullptr) {
+        return nullptr;
+    }
+    RwLLLink* const head = &RwEngineInstance->dirtyFrameList.link;
+    head->next = head;
+    RwEngineInstance->dirtyFrameList.link.prev = &RwEngineInstance->dirtyFrameList.link;
+    StaticRef<RwInt32>(0xC97970) = StaticRef<RwInt32>(0xC97970) + 1;
+    return object;
+}
+
+// 0x7EFF70 (destructor del modulo de marcos): destruye la lista libre si existe y la pone a NULL; resta 1 a 0xC97970.
+void* _rwFrameModuleClose(void* object, RwInt32 /*offset*/, RwInt32 /*size*/) {
+    RwFreeList* const list = S20ModuleField<RwFreeList*>(0xC9796C, 0);
+    if (list != nullptr) {
+        RwFreeListDestroy(list);
+        S20ModuleField<RwFreeList*>(0xC9796C, 0) = nullptr;
+    }
+    StaticRef<RwInt32>(0xC97970) = StaticRef<RwInt32>(0xC97970) - 1;
+    return object;
+}
+
+// 0x7F3EA0 (constructor del plugin de motor 0x408, modulo de texturas, 0x34 bytes): guarda el desplazamiento en 0xC97B4C. Lista libre de texturas (tamano [0x8E23CC], [0x8E23FC] por bloque, alineacion 4, [0x8E2400]
+// a reservar, bloque estatico 0xC97B54, pista 0x40006) en +8; NULL -> NULL. Lista libre de diccionarios ([0x8E23E4], [0x8E2404], 4, [0x8E2408], 0xC97B28, 0x40408) en +0xC; NULL -> destruye la de texturas (+8
+// = NULL) y NULL. Lista de diccionarios circular vacia en +0 (siguiente y anterior a si misma), suma 1 a 0xC97B50 y crea el diccionario actual (RwTexDictionaryCreate, 0x7F3600) en 0xC97B78 y en +0x10; NULL -> destruye
+// las dos listas (poniendo a NULL +0xC y +8; el contador queda sumado, como en el EXE) y NULL. Si no mipmapping (+0x1C) y automipmapping (+0x20) a 0, funciones por defecto: busqueda 0x7F53D0 (+0x18), lectura
+// 0x7F40F0 (+0x14), generacion de mipmaps 0x7F5140 (+0x2C), nombre de mipmaps 0x7F4080 (+0x30), +0x24 a 0 y la palabra +0x28 a 0.
+void* _rwTextureModuleOpen(void* object, RwInt32 offset, RwInt32 /*size*/) {
+    StaticRef<RwInt32>(0xC97B4C) = offset;
+    RwFreeList* const textureList = RwFreeListCreateAndPreallocateSpace(StaticRef<RwInt32>(0x8E23CC), StaticRef<RwInt32>(0x8E23FC), 4, StaticRef<RwInt32>(0x8E2400), reinterpret_cast<RwFreeList*>(0xC97B54), 0x40006);
+    S20ModuleField<RwFreeList*>(0xC97B4C, 8) = textureList;
+    if (S20ModuleField<RwFreeList*>(0xC97B4C, 8) == nullptr) {
+        return nullptr;
+    }
+    RwFreeList* const dictionaryList = RwFreeListCreateAndPreallocateSpace(StaticRef<RwInt32>(0x8E23E4), StaticRef<RwInt32>(0x8E2404), 4, StaticRef<RwInt32>(0x8E2408), reinterpret_cast<RwFreeList*>(0xC97B28), 0x40408);
+    S20ModuleField<RwFreeList*>(0xC97B4C, 0xC) = dictionaryList;
+    {
+        uint8* const module = reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC97B4C);
+        if (*reinterpret_cast<RwFreeList**>(module + 0xC) == nullptr) {
+            RwFreeListDestroy(*reinterpret_cast<RwFreeList**>(module + 8));
+            S20ModuleField<RwFreeList*>(0xC97B4C, 8) = nullptr;
+            return nullptr;
+        }
+        *reinterpret_cast<void**>(module) = module;
+        S20ModuleField<void*>(0xC97B4C, 4) = reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC97B4C);
+    }
+    StaticRef<RwInt32>(0xC97B50) = StaticRef<RwInt32>(0xC97B50) + 1;
+    RwTexDictionary* const current = RwTexDictionaryCreate();
+    StaticRef<RwTexDictionary*>(0xC97B78) = current;
+    S20ModuleField<RwTexDictionary*>(0xC97B4C, 0x10) = current;
+    if (S20ModuleField<RwTexDictionary*>(0xC97B4C, 0x10) == nullptr) {
+        RwFreeListDestroy(S20ModuleField<RwFreeList*>(0xC97B4C, 0xC));
+        S20ModuleField<RwFreeList*>(0xC97B4C, 0xC) = nullptr;
+        RwFreeListDestroy(S20ModuleField<RwFreeList*>(0xC97B4C, 8));
+        S20ModuleField<RwFreeList*>(0xC97B4C, 8) = nullptr;
+        return nullptr;
+    }
+    S20ModuleField<RwInt32>(0xC97B4C, 0x1C) = 0;
+    S20ModuleField<RwInt32>(0xC97B4C, 0x20) = 0;
+    S20ModuleField<void*>(0xC97B4C, 0x18) = reinterpret_cast<void*>(0x7F53D0);
+    S20ModuleField<void*>(0xC97B4C, 0x14) = reinterpret_cast<void*>(0x7F40F0);
+    S20ModuleField<void*>(0xC97B4C, 0x2C) = reinterpret_cast<void*>(0x7F5140);
+    S20ModuleField<void*>(0xC97B4C, 0x30) = reinterpret_cast<void*>(&_rwTextureDefaultMipmapNameCallBack);
+    S20ModuleField<RwInt32>(0xC97B4C, 0x24) = 0;
+    S20ModuleField<RwUInt16>(0xC97B4C, 0x28) = 0;
+    return object;
+}
+
+// 0x7FB370 (constructor del plugin de motor 0x407, modulo de rasters, 0x64 bytes): guarda el desplazamiento en 0xC980D8 y pone a cero el raster por defecto de +0x2C (0x34 bytes), cuyo cFlags (+0x21) queda en
+// 0x80 (rwRASTERDONTALLOCATE); pila de contextos: puntero de pila (+0x28) = 0 y pila[0] (+0) = ese raster. Lista libre de rasters (tamano [0x8E2518], [0x8E2530] por bloque, alineacion 4, [0x8E2534] a reservar,
+// bloque estatico 0xC980B4, pista 0x40407) en +0x60; NULL -> NULL; si no suma 1 a 0xC980DC.
+void* _rwRasterModuleOpen(void* object, RwInt32 offset, RwInt32 /*size*/) {
+    uint8* const module = reinterpret_cast<uint8*>(RwEngineInstance) + offset;
+    StaticRef<RwInt32>(0xC980D8) = offset;
+    std::memset(module + 0x2C, 0, 0xD * 4);
+    RwRaster* const defaultRaster = reinterpret_cast<RwRaster*>(module + 0x2C);
+    defaultRaster->cFlags = 0x80;
+    RasterGlobals().rasterSP = 0;
+    *reinterpret_cast<void**>(module) = defaultRaster;
+    RwFreeList* const list = RwFreeListCreateAndPreallocateSpace(StaticRef<RwInt32>(0x8E2518), StaticRef<RwInt32>(0x8E2530), 4, StaticRef<RwInt32>(0x8E2534), reinterpret_cast<RwFreeList*>(0xC980B4), 0x40407);
+    S20ModuleField<RwFreeList*>(0xC980D8, 0x60) = list;
+    if (S20ModuleField<RwFreeList*>(0xC980D8, 0x60) == nullptr) {
+        return nullptr;
+    }
+    StaticRef<RwInt32>(0xC980DC) = StaticRef<RwInt32>(0xC980DC) + 1;
+    return object;
+}
+
+// 0x7FB310 (destructor del modulo de rasters): destruye la lista libre (+0x60) si existe y la pone a NULL; resta 1 a 0xC980DC.
+void* _rwRasterModuleClose(void* object, RwInt32 /*offset*/, RwInt32 /*size*/) {
+    RwFreeList* const list = S20ModuleField<RwFreeList*>(0xC980D8, 0x60);
+    if (list != nullptr) {
+        RwFreeListDestroy(list);
+        S20ModuleField<RwFreeList*>(0xC980D8, 0x60) = nullptr;
+    }
+    StaticRef<RwInt32>(0xC980DC) = StaticRef<RwInt32>(0xC980DC) - 1;
+    return object;
+}
+
+// Lote S20A (sin validar): ganchos de RwCore (modulos de motor).
+void RwCoreInjectHooksS20A() {
+    RH_ScopedCategory("Renderware");
+    RH_ScopedNamespaceName("RwCore");
+
+    RH_ScopedGlobalInstall(_rwCameraModuleClose, 0x7EE0B0);
+    RH_ScopedGlobalInstall(_rwCameraModuleOpen, 0x7EE110);
+    RH_ScopedGlobalInstall(_rwIm3DModuleClose, 0x7EFDE0);
+    RH_ScopedGlobalInstall(_rwIm3DModuleOpen, 0x7EFE20);
+    RH_ScopedGlobalInstall(_rwFrameModuleOpen, 0x7EFEF0);
+    RH_ScopedGlobalInstall(_rwFrameModuleClose, 0x7EFF70);
+    RH_ScopedGlobalInstall(_rwTextureModuleOpen, 0x7F3EA0);
+    RH_ScopedGlobalInstall(_rwRasterModuleClose, 0x7FB310);
+    RH_ScopedGlobalInstall(_rwRasterModuleOpen, 0x7FB370);
 }
