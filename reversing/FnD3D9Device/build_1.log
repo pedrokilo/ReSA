@@ -1,0 +1,1689 @@
+candado propio adquirido Sat Nov 21 14:38:51     2026
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=x86
+build_type=Debug
+compiler=msvc
+compiler.cppstd=23
+compiler.runtime=static
+compiler.runtime_type=Debug
+compiler.version=195
+os=Windows
+[replace_tool_requires]
+cmake/*: cmake/4.2.0
+
+Profile build:
+[settings]
+arch=x86_64
+build_type=Release
+compiler=msvc
+compiler.cppstd=14
+compiler.runtime=dynamic
+compiler.runtime_type=Release
+compiler.version=195
+os=Windows
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py (gta-reversed/1.0): D:\Original\wv-d3d9\conanfile.py
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8 - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671 - Cache
+    nasm/2.15.05#f7d6a6f3b14f583e001d9ae84e8cd152 - Cache
+    strawberryperl/5.32.1.1#8d114504d172cfea8ea1662d09b6333e - Cache
+Replaced requires
+    cmake/[>=4.2.0]: cmake/4.2.0
+    cmake/[>=3.24]: cmake/4.2.0
+
+======== Computing necessary packages ========
+Connecting to remote 'conancenter' anonymously
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e:d0bd8d533a7041b61fb25937d6b93a4457c94369#2ffdaa798fdabc25dad911bdc8e4ff93 - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8:5fb0b9e9d2a1dc525e90d727aabc6a29fb239576#c6de6b75dac1c21e81dc592447fe66df - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c:da39a3ee5e6b4b0d3255bfef95601890afd80709#2ea4b814fc9da53f7cdf5b7d68052688 - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12:c516fcf791b8318fdd6f9eb730db085127b48b8c#9d9a81632a82d4e1614036e608cc4bc9 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c:da39a3ee5e6b4b0d3255bfef95601890afd80709#0ba8627bd47edc3a501e8f0eb9a79e5e - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce:7f3fae5b0ba8c41cc75273d1d53588332aa3ebb0#64020fc2e46c241a5f81fe6b05fe5dcd - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c:d9fbaedf85c63109816a75e7846cede313056422#fa87d8607db847da479ee390f132531d - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c:0d2dc46956f508a5ac2474c0cb303b13f4b55b28#335731cdd00192bc9d9187483e035b7b - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604:692d5931d56860716e6ac1cd283732f30703d353#38e2df2e59c194cba856855ffa7b36f3 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671:522dcea5982a3f8a5b624c16477e47195da2f84f#95951e2e6b3af57992b0ec04e5cf9607 - Cache
+Skipped binaries
+    nasm/2.15.05, strawberryperl/5.32.1.1
+
+======== Installing packages ========
+cmake/4.2.0: Already installed! (1 of 10)
+imgui/1.92.9b-docking: Already installed! (2 of 10)
+imgui/1.92.9b-docking: Appending PATH env var with : D:\Original\wv-d3d9\reversing\CVehicle\conan-cache\p\b\imgui5396f0f7f8179\p\bin
+nlohmann_json/3.12.0: Already installed! (3 of 10)
+ogg/1.3.5: Already installed! (4 of 10)
+opengl/system: Already installed! (5 of 10)
+spdlog/1.17.0: Already installed! (6 of 10)
+tracy/cci.20220130: Already installed! (7 of 10)
+libjpeg-turbo/3.2.0: Already installed! (8 of 10)
+sdl/3.4.14: Already installed! (9 of 10)
+vorbis/1.3.7: Already installed! (10 of 10)
+WARN: deprecated: Usage of deprecated Conan 1.X features that will be removed in Conan 2.X:
+WARN: deprecated:     'env_info' used in: imgui/1.92.9b-docking
+WARN: deprecated:     'cpp_info.filenames' used in: opengl/system
+WARN: deprecated:     'cpp_info.names' used in: tracy/cci.20220130
+
+======== Finalizing install (deploy, generators) ========
+>>> Generate step for conanfile.py (gta-reversed/1.0)
+Generators folder: D:\Original\wv-d3d9\build\generators
+Calling generate() method in recipe
+WARN: experimental: CMakeConfigDeps is experimental, and might get breaking changes in future releases
+gta-reversed/1.0: WARN: deprecated: CMakeConfigDeps does not support module find mode in libjpeg-turbo/3.2.0.
+Config mode will be used regardless.
+CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(SDL3)
+    find_package(nlohmann_json)
+    find_package(spdlog)
+    find_package(Tracy)
+    find_package(imgui)
+    find_package(Vorbis)
+    find_package(Ogg)
+    find_package(libjpeg-turbo)
+    find_package(cmake) # Optional. This is a tool-require, can't link its targets
+    target_link_libraries(... sdl::sdl nlohmann_json::nlohmann_json spdlog::spdlog Tracy::TracyClient imgui::imgui vorbis::vorbis Ogg::ogg libjpeg-turbo::libjpeg-turbo)
+CMakeToolchain generated: conan_toolchain.cmake
+CMakeToolchain: Preset 'conan-default' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-default
+    (cmake<3.23) cmake <path> -G "Visual Studio 18 2026"
+                 -DCMAKE_TOOLCHAIN_FILE=<output_folder>/generators\conan_toolchain.cmake 
+                 -DGTASA_STANDALONE_DUMP_HOOKS_ONLY=OFF -DGTASA_STANDALONE=OFF -DGTASA_WITH_SCRIPT_COMMAND_HOOKS=OFF -DGTASA_USE_SDL3=ON -DGTASA_UNITY_BUILD=OFF -DCMAKE_POLICY_DEFAULT_CMP0091=NEW
+CMakeToolchain generated: D:\Original\wv-d3d9\build\generators\CMakePresets.json
+CMakeToolchain generated: D:\Original\wv-d3d9\ConanPresets.json
+Generating aggregated env files
+Generated aggregated env files: ['conanbuild.bat', 'conanrun.bat']
+Install finished successfully
+
+======== Input profiles ========
+Profile host:
+[settings]
+arch=x86
+build_type=Debug
+compiler=msvc
+compiler.cppstd=23
+compiler.runtime=static
+compiler.runtime_type=Debug
+compiler.version=195
+os=Windows
+[replace_tool_requires]
+cmake/*: cmake/4.2.0
+
+Profile build:
+[settings]
+arch=x86_64
+build_type=Release
+compiler=msvc
+compiler.cppstd=14
+compiler.runtime=dynamic
+compiler.runtime_type=Release
+compiler.version=195
+os=Windows
+
+
+======== Computing dependency graph ========
+Graph root
+    conanfile.py (gta-reversed/1.0): D:\Original\wv-d3d9\conanfile.py
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8 - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671 - Cache
+    nasm/2.15.05#f7d6a6f3b14f583e001d9ae84e8cd152 - Cache
+    strawberryperl/5.32.1.1#8d114504d172cfea8ea1662d09b6333e - Cache
+Replaced requires
+    cmake/[>=4.2.0]: cmake/4.2.0
+    cmake/[>=3.24]: cmake/4.2.0
+
+======== Computing necessary packages ========
+Connecting to remote 'conancenter' anonymously
+Requirements
+    imgui/1.92.9b-docking#e46e8051a5c5e45422ddf7fa3c28e96e:d0bd8d533a7041b61fb25937d6b93a4457c94369#2ffdaa798fdabc25dad911bdc8e4ff93 - Cache
+    libjpeg-turbo/3.2.0#408aa1196343c45acb93e68250cca2d8:5fb0b9e9d2a1dc525e90d727aabc6a29fb239576#c6de6b75dac1c21e81dc592447fe66df - Cache
+    nlohmann_json/3.12.0#2d634ab0ec8d9f56353e5ccef6d6612c:da39a3ee5e6b4b0d3255bfef95601890afd80709#2ea4b814fc9da53f7cdf5b7d68052688 - Cache
+    ogg/1.3.5#e8186fe05ebe9f8e706fa4bde2164d12:c516fcf791b8318fdd6f9eb730db085127b48b8c#9d9a81632a82d4e1614036e608cc4bc9 - Cache
+    opengl/system#cfcf523b9d2bad75cbf377f56562634c:da39a3ee5e6b4b0d3255bfef95601890afd80709#0ba8627bd47edc3a501e8f0eb9a79e5e - Cache
+    sdl/3.4.14#162ae1cefa61e290d31d9849820ee4ce:7f3fae5b0ba8c41cc75273d1d53588332aa3ebb0#64020fc2e46c241a5f81fe6b05fe5dcd - Cache
+    spdlog/1.17.0#bcbaaf7147bda6ad24ffbd1ac3d7142c:d9fbaedf85c63109816a75e7846cede313056422#fa87d8607db847da479ee390f132531d - Cache
+    tracy/cci.20220130#5b779d92b705504f18a4c6620eea369c:0d2dc46956f508a5ac2474c0cb303b13f4b55b28#335731cdd00192bc9d9187483e035b7b - Cache
+    vorbis/1.3.7#a019e93187ade6ee8a51762f88092604:692d5931d56860716e6ac1cd283732f30703d353#38e2df2e59c194cba856855ffa7b36f3 - Cache
+Build requirements
+    cmake/4.2.0#ae0a44f44a1ef9ab68fd4b3e9a1f8671:522dcea5982a3f8a5b624c16477e47195da2f84f#95951e2e6b3af57992b0ec04e5cf9607 - Cache
+Skipped binaries
+    nasm/2.15.05, strawberryperl/5.32.1.1
+
+======== Installing packages ========
+cmake/4.2.0: Already installed! (1 of 10)
+imgui/1.92.9b-docking: Already installed! (2 of 10)
+imgui/1.92.9b-docking: Appending PATH env var with : D:\Original\wv-d3d9\reversing\CVehicle\conan-cache\p\b\imgui5396f0f7f8179\p\bin
+nlohmann_json/3.12.0: Already installed! (3 of 10)
+ogg/1.3.5: Already installed! (4 of 10)
+opengl/system: Already installed! (5 of 10)
+spdlog/1.17.0: Already installed! (6 of 10)
+tracy/cci.20220130: Already installed! (7 of 10)
+libjpeg-turbo/3.2.0: Already installed! (8 of 10)
+sdl/3.4.14: Already installed! (9 of 10)
+vorbis/1.3.7: Already installed! (10 of 10)
+WARN: deprecated: Usage of deprecated Conan 1.X features that will be removed in Conan 2.X:
+WARN: deprecated:     'env_info' used in: imgui/1.92.9b-docking
+WARN: deprecated:     'cpp_info.filenames' used in: opengl/system
+WARN: deprecated:     'cpp_info.names' used in: tracy/cci.20220130
+
+======== Finalizing install (deploy, generators) ========
+>>> Generate step for conanfile.py (gta-reversed/1.0)
+Generators folder: D:\Original\wv-d3d9\build\generators
+Calling generate() method in recipe
+WARN: experimental: CMakeConfigDeps is experimental, and might get breaking changes in future releases
+gta-reversed/1.0: WARN: deprecated: CMakeConfigDeps does not support module find mode in libjpeg-turbo/3.2.0.
+Config mode will be used regardless.
+CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(SDL3)
+    find_package(nlohmann_json)
+    find_package(spdlog)
+    find_package(Tracy)
+    find_package(imgui)
+    find_package(Vorbis)
+    find_package(Ogg)
+    find_package(libjpeg-turbo)
+    find_package(cmake) # Optional. This is a tool-require, can't link its targets
+    target_link_libraries(... sdl::sdl nlohmann_json::nlohmann_json spdlog::spdlog Tracy::TracyClient imgui::imgui vorbis::vorbis Ogg::ogg libjpeg-turbo::libjpeg-turbo)
+CMakeToolchain generated: conan_toolchain.cmake
+CMakeToolchain: Preset 'conan-default' added to CMakePresets.json.
+    (cmake>=3.23) cmake --preset conan-default
+    (cmake<3.23) cmake <path> -G "Visual Studio 18 2026"
+                 -DCMAKE_TOOLCHAIN_FILE=<output_folder>/generators\conan_toolchain.cmake 
+                 -DGTASA_STANDALONE_DUMP_HOOKS_ONLY=OFF -DGTASA_STANDALONE=OFF -DGTASA_WITH_SCRIPT_COMMAND_HOOKS=OFF -DGTASA_USE_SDL3=ON -DGTASA_UNITY_BUILD=OFF -DCMAKE_POLICY_DEFAULT_CMP0091=NEW
+CMakeToolchain generated: D:\Original\wv-d3d9\build\generators\CMakePresets.json
+CMakeToolchain generated: D:\Original\wv-d3d9\ConanPresets.json
+Generating aggregated env files
+Generated aggregated env files: ['conanbuild.bat', 'conanrun.bat']
+
+======== Calling build() ========
+>>> Build step for conanfile.py (gta-reversed/1.0)
+conanfile.py (gta-reversed/1.0): Calling build()
+conanfile.py (gta-reversed/1.0): Running CMake.configure()
+conanfile.py (gta-reversed/1.0): RUN: cmake -G "Visual Studio 18 2026" -DCMAKE_TOOLCHAIN_FILE="generators/conan_toolchain.cmake" -DCMAKE_INSTALL_PREFIX="D:/Original/wv-d3d9" -DGTASA_STANDALONE_DUMP_HOOKS_ONLY="OFF" -DGTASA_STANDALONE="OFF" -DGTASA_WITH_SCRIPT_COMMAND_HOOKS="OFF" -DGTASA_USE_SDL3="ON" -DGTASA_UNITY_BUILD="OFF" -DCMAKE_POLICY_DEFAULT_CMP0091="NEW" "D:/Original/wv-d3d9"
+-- Using Conan toolchain: D:/Original/wv-d3d9/build/generators/conan_toolchain.cmake
+-- Conan toolchain: CMAKE_GENERATOR_TOOLSET=v145
+-- Conan toolchain: Setting CMAKE_MSVC_RUNTIME_LIBRARY=$<$<CONFIG:Debug>:MultiThreadedDebug>
+-- Conan toolchain: C++ Standard 23 with extensions OFF
+-- Conan toolchain: Including CMakeConfigDeps generated conan_cmakedeps_paths.cmake
+-- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.26300.
+-- The C compiler identification is MSVC 19.51.36257.0
+-- The CXX compiler identification is MSVC 19.51.36257.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x86/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.51.36231/bin/Hostx64/x86/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- MSVC_TOOLSET_VERSION: 145
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+Doxygen need to be installed to generate the doxygen documentation
+-- Conan: Configuring Targets for nlohmann_json/3.12.0
+-- Conan: Target declared imported INTERFACE library 'nlohmann_json::nlohmann_json'
+-- Conan: Configuring Targets for ogg/1.3.5
+-- Conan: Target declared imported STATIC library 'Ogg::ogg'
+-- Conan: Configuring Targets for spdlog/1.17.0
+-- Conan: Target declared imported STATIC library 'spdlog::spdlog'
+-- Conan: Configuring Targets for tracy/cci.20220130
+-- Conan: Target declared imported STATIC library 'Tracy::TracyClient'
+-- Conan: Configuring Targets for vorbis/1.3.7
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbis'
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbisenc'
+-- Conan: Target declared imported STATIC library 'Vorbis::vorbisfile'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbisenc-alias'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbisfile-alias'
+-- Conan: Target declared imported INTERFACE library 'vorbis::vorbis'
+-- Conan: Configuring Targets for imgui/1.92.9b-docking
+-- Conan: Target declared imported STATIC library 'imgui::imgui'
+-- Conan: Configuring Targets for libjpeg-turbo/3.2.0
+-- Conan: Target declared imported STATIC library 'libjpeg-turbo::jpeg-static'
+-- Conan: Target declared imported STATIC library 'libjpeg-turbo::turbojpeg-static'
+-- Conan: Target declared imported INTERFACE library 'libjpeg-turbo::libjpeg-turbo'
+-- Conan: Configuring Targets for sdl/3.4.14
+-- Conan: Configuring Targets for opengl/system
+-- Conan: Target declared imported INTERFACE library 'opengl::opengl'
+-- Conan: Target declared imported STATIC library 'SDL3::SDL3'
+-- Conan: Target declared alias 'SDL3::SDL3-static' for 'SDL3::SDL3'
+-- Conan: Target declared imported INTERFACE library 'SDL3::Headers'
+-- Conan: Target declared imported INTERFACE library 'sdl::sdl'
+-- Configuring done (4.6s)
+-- Generating done (0.3s)
+-- Build files have been written to: D:/Original/wv-d3d9/build
+
+conanfile.py (gta-reversed/1.0): Running CMake.build()
+conanfile.py (gta-reversed/1.0): RUN: cmake --build "D:\Original\wv-d3d9\build" --config Debug
+Versión de MSBuild 18.10.1-1.26427.6+3cd27c13e para .NET Framework
+
+  1>Checking Build System
+  Building Custom Rule D:/Original/wv-d3d9/libs/libjpeg-6b/CMakeLists.txt
+  w_jcapimin.c
+  w_jcapistd.c
+  w_jccoefct.c
+  w_jccolor.c
+  w_jcdctmgr.c
+  w_jchuff.c
+  w_jcinit.c
+  w_jcmainct.c
+  w_jcmarker.c
+  w_jcmaster.c
+  w_jcomapi.c
+  w_jcparam.c
+  w_jcphuff.c
+  w_jcprepct.c
+  w_jcsample.c
+  w_jctrans.c
+  w_jdapimin.c
+  w_jdapistd.c
+  w_jdatadst.c
+  w_jdatasrc.c
+  Generando código...
+  Compilando...
+  w_jdcoefct.c
+  w_jdcolor.c
+  w_jddctmgr.c
+  w_jdhuff.c
+  w_jdinput.c
+  w_jdmainct.c
+  w_jdmarker.c
+  w_jdmaster.c
+  w_jdmerge.c
+  w_jdphuff.c
+  w_jdpostct.c
+  w_jdsample.c
+  w_jdtrans.c
+  w_jerror.c
+  w_jfdctflt.c
+  w_jfdctfst.c
+  w_jfdctint.c
+  w_jidctflt.c
+  w_jidctfst.c
+  w_jidctint.c
+  Generando código...
+  Compilando...
+  w_jidctred.c
+  w_jmemmgr.c
+  w_jmemnobs.c
+  w_jquant1.c
+  w_jquant2.c
+  w_jutils.c
+  jpeg6b_exports.c
+  Generando código...
+  libjpeg6b.vcxproj -> D:\Original\wv-d3d9\build\libs\libjpeg-6b\Debug\libjpeg6b.lib
+  Building Custom Rule D:/Original/wv-d3d9/libs/zlib-1.1.3/CMakeLists.txt
+  adler32.c
+  compress.c
+  crc32.c
+  gzio.c
+  infblock.c
+  infcodes.c
+  inffast.c
+  inflate.c
+  infutil.c
+  uncompr.c
+  zutil.c
+  Generando código...
+  deflate.c
+  trees.c
+  Generando código...
+  inftrees.c
+  zlib113.vcxproj -> D:\Original\wv-d3d9\build\libs\zlib-1.1.3\Debug\zlib113.lib
+  Building Custom Rule D:/Original/wv-d3d9/libs/libpng-1.0.12/CMakeLists.txt
+  png.c
+  pngerror.c
+  pngget.c
+  pngmem.c
+  pngpread.c
+  pngread.c
+  pngrio.c
+  pngrtran.c
+  pngrutil.c
+  pngset.c
+  pngtrans.c
+  pngwio.c
+  pngwrite.c
+  pngwtran.c
+  Generando código...
+  pngwutil.c
+  libpng1012.vcxproj -> D:\Original\wv-d3d9\build\libs\libpng-1.0.12\Debug\libpng1012.lib
+  Building Custom Rule D:/Original/wv-d3d9/source/CMakeLists.txt
+  cmake_pch.cxx
+  Compiling precompiled header.
+  InjectHooksMain.cpp
+  PluginBase.cpp
+  StdInc.cpp
+  app.cpp
+  app_camera.cpp
+  app_debug.cpp
+  app_game.cpp
+  app_input.cpp
+  app_light.cpp
+  SDLWrapper.cpp
+  platform.cpp
+  preset_view.cpp
+  DelayLoadThunks.cpp
+  ImportThunks.cpp
+  QTMLRuntime.cpp
+  VideoMode.cpp
+  VideoModeSelectDialog.cpp
+  VideoPlayer.cpp
+  WinInput.cpp
+  WinMain.cpp
+  Generando código...
+  Compilando...
+  WinPlatform.cpp
+  WinPs.cpp
+  WindowedMode.cpp
+  WndProc.cpp
+  Securom.cpp
+  dllmain.cpp
+  AutoSteal.cpp
+  CommandLine.cpp
+  AngledRect.cpp
+  3dMarker.cpp
+  3dMarkers.cpp
+  Accident.cpp
+  AccidentManager.cpp
+  Acquaintance.cpp
+  ActiveOccluder.cpp
+  AnimAssocDefinitions.cpp
+  AnimBlendAssocGroup.cpp
+  AnimBlendAssociation.cpp
+  AnimBlendClumpData.cpp
+  AnimBlendHierarchy.cpp
+  Generando código...
+  Compilando...
+  AnimBlendNode.cpp
+  AnimBlendSequence.cpp
+  AnimBlendStaticAssociation.cpp
+  PedAtmAttractor.cpp
+  PedAttractor.cpp
+  PedAttractorPedPlacer.cpp
+  PedLookAtAttractor.cpp
+  PedParkAttractor.cpp
+  PedPizzaAttractor.cpp
+  PedScriptedAttractor.cpp
+  PedSeatAttractor.cpp
+  PedShelterAttractor.cpp
+  PedStepAttractor.cpp
+  PedStopAttractor.cpp
+  PedTriggerScriptAttractor.cpp
+  AEAudioEnvironment.cpp
+  AEAudioUtility.cpp
+  AESmoothFadeThread.cpp
+  AESound.cpp
+  AEStreamThread.cpp
+  Generando código...
+  Compilando...
+  AudioEngine.cpp
+  AudioZones.cpp
+  AEAudioEntity.cpp
+  AECollisionAudioEntity.cpp
+  AEDoorAudioEntity.cpp
+  AEExplosionAudioEntity.cpp
+  AEFireAudioEntity.cpp
+  AEFrontendAudioEntity.cpp
+  AEGlobalWeaponAudioEntity.cpp
+  AEPedAudioEntity.cpp
+  AEPedSpeechAudioEntity.cpp
+  AEPedWeaponAudioEntity.cpp
+  AEPedlessSpeechAudioEntity.cpp
+  AEPoliceScannerAudioEntity.cpp
+  AEScriptAudioEntity.cpp
+  AETwinLoopSoundEntity.cpp
+  AEVehicleAudioEntity.cpp
+  AEWaterCannonAudioEntity.cpp
+  AEWeaponAudioEntity.cpp
+  AEWeatherAudioEntity.cpp
+  Generando código...
+  Compilando...
+  AEAudioChannel.cpp
+  AEAudioHardware.cpp
+  AEStaticChannel.cpp
+  AEStreamingChannel.cpp
+  AEBankLoader.cpp
+  AEDataStream.cpp
+  AEMFDecoder.cpp
+  AEMP3BankLoader.cpp
+  AEMP3TrackLoader.cpp
+  AEStreamTransformer.cpp
+  AEStreamingDecoder.cpp
+  AETrackLoader.cpp
+  AEVorbisDecoder.cpp
+  AEWMADecoder.cpp
+  AEWaveDecoder.cpp
+  AEAmbienceTrackManager.cpp
+  AECutsceneTrackManager.cpp
+  AERadioTrackManager.cpp
+  AESoundManager.cpp
+  AEUserRadioTrackManager.cpp
+  Generando código...
+  Compilando...
+  AutoPilot.cpp
+  Birds.cpp
+  BouncingPanel.cpp
+  BreakManager_c.cpp
+  BreakObject_c.cpp
+  Bridge.cpp
+  BrightLights.cpp
+  BulletInfo.cpp
+  BulletTrace.cpp
+  BulletTraces.cpp
+  Buoyancy.cpp
+  C_PcSave.cpp
+  Cam.cpp
+  Camera.cpp
+  CarAI.cpp
+  CarEnterExit.cpp
+  CarGenerator.cpp
+  CdStreamInfo.cpp
+  Cheat.cpp
+  Checkpoint.cpp
+  Generando código...
+  Compilando...
+  Checkpoints.cpp
+  Clock.cpp
+  ClothesBuilder.cpp
+  BoundingBox.cpp
+  Box.cpp
+  ColAccel.cpp
+  ColBox.cpp
+  ColDisk.cpp
+  ColLine.cpp
+  ColModel.cpp
+  ColPoint.cpp
+  ColSphere.cpp
+  ColStore.cpp
+  ColTriangle.cpp
+  ColTrianglePlane.cpp
+  Collision.cpp
+  CollisionData.cpp
+  CollisionEventScanner.cpp
+  ColourSet.cpp
+  TempColModels.cpp
+  Generando código...
+  Compilando...
+  CompressedBox.cpp
+  CompressedMatrixNotAligned.cpp
+  CompressedVector.cpp
+  ControllerConfigManager.cpp
+  ControllerState.cpp
+  Conversations.cpp
+  PedToPlayerConversations.cpp
+  EntryInfoList.cpp
+  EntryInfoNode.cpp
+  KeyGen.cpp
+  ListItem_c.cpp
+  List_c.cpp
+  Matrix.cpp
+  MatrixLink.cpp
+  MatrixLinkList.cpp
+  OctTree.cpp
+  OctTreeBase.cpp
+  PtrNodeDoubleLink.cpp
+  PtrNodeSingleLink.cpp
+  Quaternion.cpp
+  Generando código...
+  Compilando...
+  Rect.cpp
+  Vector2D.cpp
+  Coronas.cpp
+  Cover.cpp
+  CoverPoint.cpp
+  Cranes.cpp
+  Credits.cpp
+  CreepingFire.cpp
+  Crime.cpp
+  CrtCtype.cpp
+  CrtException.cpp
+  CrtFile.cpp
+  CrtFloat.cpp
+  CrtFloatIn.cpp
+  CrtFormat.cpp
+  CrtHeap.cpp
+  CrtInput.cpp
+  CrtLowIo.cpp
+  CrtMath.cpp
+  CrtOnexit.cpp
+  Generando código...
+  Compilando...
+  CrtPow.cpp
+  CrtQsort.cpp
+  CrtState.cpp
+  CrtStdio.cpp
+  CrtString.cpp
+  CullZones.cpp
+  CurrentVehicle.cpp
+  Curves.cpp
+  CustomCarPlateMgr.cpp
+  CustomRoadsignMgr.cpp
+  CutsceneMgr.cpp
+  DamageManager.cpp
+  Darkel.cpp
+  Date.cpp
+  Debug.cpp
+  Decision.cpp
+  DecisionMaker.cpp
+  DecisionMakerTypesFileLoader.cpp
+  DecisionSimple.cpp
+  Directory.cpp
+  Generando código...
+  Compilando...
+  Door.cpp
+  Draw.cpp
+  AnimatedBuilding.cpp
+  Building.cpp
+  Dummy.cpp
+  DummyObject.cpp
+  DummyPed.cpp
+  Entity.cpp
+  CutsceneObject.cpp
+  HandObject.cpp
+  Object.cpp
+  Projectile.cpp
+  CivilianPed.cpp
+  CopPed.cpp
+  EmergencyPed.cpp
+  Ped.cpp
+  PlayerPed.cpp
+  PlayerSkin.cpp
+  Physical.cpp
+  Placeable.cpp
+  Generando código...
+  Compilando...
+  Automobile.cpp
+  Bike.cpp
+  Bmx.cpp
+  Boat.cpp
+  Heli.cpp
+  MonsterTruck.cpp
+  Plane.cpp
+  QuadBike.cpp
+  Trailer.cpp
+  Train.cpp
+  Vehicle.cpp
+  EntityScanner.cpp
+  EntryExit.cpp
+  EntryExitManager.cpp
+  eCarWheel.cpp
+  Escalator.cpp
+  Escalators.cpp
+  EventAcquaintancePed.cpp
+  EventAcquaintancePedDislike.cpp
+  EventAcquaintancePedHate.cpp
+  Generando código...
+  Compilando...
+  EventAcquaintancePedHateBadlyLit.cpp
+  EventAcquaintancePedLike.cpp
+  EventAcquaintancePedRespect.cpp
+  EventAreaCodes.cpp
+  EventAttractor.cpp
+  EventBuildingCollision.cpp
+  EventCarUpsideDown.cpp
+  EventChatPartner.cpp
+  EventCopCarBeingStolen.cpp
+  EventCreatePartnerTask.cpp
+  EventDamage.cpp
+  EventDanger.cpp
+  EventDeadPed.cpp
+  EventDontJoinPlayerGroup.cpp
+  EventDraggedOutCar.cpp
+  EventEscalator.cpp
+  EventFireNearby.cpp
+  EventGlobalGroup.cpp
+  EventGotKnockedOverByCar.cpp
+  EventGroup.cpp
+  Generando código...
+  Compilando...
+  EventGroupEvent.cpp
+  EventGunAimedAt.cpp
+  EventGunShot.cpp
+  EventGunShotWhizzedBy.cpp
+  EventHandler.cpp
+  EventHandlerHistory.cpp
+  EventHealthLow.cpp
+  EventHealthReallyLow.cpp
+  EventHighAngerAtPlayer.cpp
+  EventHitByWaterCannon.cpp
+  EventInAir.cpp
+  EventInWater.cpp
+  EventInteriorUseInfo.cpp
+  EventKnockOffBike.cpp
+  EventLeaderEnteredCarAsDriver.cpp
+  EventLeaderEntryExit.cpp
+  EventLeaderExitedCarAsDriver.cpp
+  EventLeaderQuitEnteringCarAsDriver.cpp
+  EventLeanOnVehicle.cpp
+  EventLowAngerAtPlayer.cpp
+  Generando código...
+  Compilando...
+  EventNewGangMember.cpp
+  EventObjectCollision.cpp
+  EventOnFire.cpp
+  EventPassObject.cpp
+  EventPedCollisionWithPed.cpp
+  EventPedCollisionWithPlayer.cpp
+  EventPedEnteredMyVehicle.cpp
+  EventPedToChase.cpp
+  EventPedToFlee.cpp
+  EventPlayerCollisionWithPed.cpp
+  EventPlayerCommandToGroup.cpp
+  EventPlayerCommandToGroupAttack.cpp
+  EventPlayerCommandToGroupGather.cpp
+  EventPotentialGetRunOver.cpp
+  EventPotentialWalkIntoBuilding.cpp
+  EventPotentialWalkIntoFire.cpp
+  EventPotentialWalkIntoObject.cpp
+  EventPotentialWalkIntoPed.cpp
+  EventPotentialWalkIntoVehicle.cpp
+  EventRevived.cpp
+  Generando código...
+  Compilando...
+  EventScanner.cpp
+  EventScriptCommand.cpp
+  EventScriptedAttractor.cpp
+  EventSeenCop.cpp
+  EventSeenPanickedPed.cpp
+  EventSexyPed.cpp
+  EventSexyVehicle.cpp
+  EventSignalAtPed.cpp
+  EventSoundLoud.cpp
+  EventSoundQuiet.cpp
+  EventSource.cpp
+  EventStuckInAir.cpp
+  EventVehicleCollision.cpp
+  EventVehicleDamage.cpp
+  EventVehicleDamageCollision.cpp
+  EventVehicleDamageWeapon.cpp
+  EventVehicleDied.cpp
+  EventVehicleHitAndRun.cpp
+  EventVehicleOnFire.cpp
+  EventVehicleThreat.cpp
+  Generando código...
+  Compilando...
+  EventVehicleToSteal.cpp
+  GroupEventHandler.cpp
+  ExeProtectionStub.cpp
+  Explosion.cpp
+  FallingGlassPane.cpp
+  FileLoader.cpp
+  FileMgr.cpp
+  Fire.cpp
+  FireManager.cpp
+  Font.cpp
+  Formation.cpp
+  MenuManager_Draw.cpp
+  MenuManager_Gallery.cpp
+  MenuManager_Input.cpp
+  MenuManager_Internal.cpp
+  MenuManager_Pages.cpp
+  MenuManager_Process.cpp
+  FxInfo.cpp
+  FxInfoAnimTexture.cpp
+  FxInfoAttractLine.cpp
+  Generando código...
+  Compilando...
+  FxInfoAttractPt.cpp
+  FxInfoColour.cpp
+  FxInfoColourBright.cpp
+  FxInfoColourRange.cpp
+  FxInfoDir.cpp
+  FxInfoEmAngle.cpp
+  FxInfoEmDir.cpp
+  FxInfoEmLife.cpp
+  FxInfoEmPos.cpp
+  FxInfoEmRate.cpp
+  FxInfoEmRotation.cpp
+  FxInfoEmSize.cpp
+  FxInfoEmSpeed.cpp
+  FxInfoEmWeather.cpp
+  FxInfoFlat.cpp
+  FxInfoFloat.cpp
+  FxInfoForce.cpp
+  FxInfoFriction.cpp
+  FxInfoGroundCollide.cpp
+  FxInfoHeatHaze.cpp
+  Generando código...
+  Compilando...
+  FxInfoJitter.cpp
+  FxInfoNoise.cpp
+  FxInfoRotSpeed.cpp
+  FxInfoSelfLit.cpp
+  FxInfoSize.cpp
+  FxInfoSmoke.cpp
+  FxInfoSpriteRect.cpp
+  FxInfoTrail.cpp
+  FxInfoUnderwater.cpp
+  FxInfoWind.cpp
+  FxInterpInfo.cpp
+  CarFXRenderer.cpp
+  FxBox.cpp
+  FxEmitter.cpp
+  FxEmitterBP.cpp
+  FxEmitterPrt.cpp
+  FxFrustumInfo.cpp
+  FxInfoManager.cpp
+  FxManager.cpp
+  FxMemoryPool.cpp
+  Generando código...
+  Compilando...
+  FxPlane_c.cpp
+  FxPrim.cpp
+  FxPrimBP.cpp
+  FxPrtMult.cpp
+  FxSphere.cpp
+  FxSystem.cpp
+  FxSystemBP.cpp
+  FxTools.cpp
+  Particle.cpp
+  Game.cpp
+  GameLogic.cpp
+  Gamma.cpp
+  GangWars.cpp
+  GangWarsSaveStructure.cpp
+  Gangs.cpp
+  Garage.cpp
+  Garages.cpp
+  General.cpp
+  GenericGameStorage.cpp
+  Glass.cpp
+  Generando código...
+  Compilando...
+  GrassRenderer.cpp
+  GridRef.cpp
+  GxtChar.cpp
+  HandShaker.cpp
+  Hud.cpp
+  HudColours.cpp
+  IdleCam.cpp
+  InformFriendsEventQueue.cpp
+  InformGroupEvent.cpp
+  InformGroupEventQueue.cpp
+  IniFile.cpp
+  InterestingEvents.cpp
+  FurnitureGroup_c.cpp
+  FurnitureManager_c.cpp
+  FurnitureSubGroup_c.cpp
+  Furniture_c.cpp
+  InteriorGroup_c.cpp
+  InteriorManager_c.cpp
+  IplStore.cpp
+  KeyboardState.cpp
+  Generando código...
+  Compilando...
+  Lines.cpp
+  LoadMonitor.cpp
+  LoadedCarGroup.cpp
+  LoadingScreen.cpp
+  Localisation.cpp
+  MBlur.cpp
+  Maths.cpp
+  CommonSize.cpp
+  HeapBlockDesc.cpp
+  HeapFreeBlockDesc.cpp
+  MemoryHeap.cpp
+  MemoryMgr.cpp
+  MentalHealth.cpp
+  MenuManager.cpp
+  MenuSystem.cpp
+  Messages.cpp
+  Mirrors.cpp
+  MissionCleanup.cpp
+  ModelIndices.cpp
+  ModelInfoAccelerator.cpp
+  Generando código...
+  Compilando...
+  AtomicModelInfo.cpp
+  BaseModelInfo.cpp
+  ClumpModelInfo.cpp
+  DamageAtomicModelInfo.cpp
+  LodAtomicModelInfo.cpp
+  LodTimeModelInfo.cpp
+  PedModelInfo.cpp
+  TimeInfo.cpp
+  TimeModelInfo.cpp
+  VehicleModelInfo.cpp
+  WeaponModelInfo.cpp
+  MotionBlurStreaks.cpp
+  MouseControllerState.cpp
+  MovingThings.cpp
+  NodeAddress.cpp
+  NodeRoute.cpp
+  ObjectData.cpp
+  ObjectSaveStructure.cpp
+  ObjectScanner.cpp
+  Occluder.cpp
+  Generando código...
+  Compilando...
+  Occlusion.cpp
+  OnscreenCounterEntry.cpp
+  OnscreenTimer.cpp
+  OnscreenTimerEntry.cpp
+  PPTriPlantBuffer.cpp
+  Pad.cpp
+  Pad_SDL.cpp
+  PathFind.cpp
+  PatrolRoute.cpp
+  PedAttractorManager.cpp
+  PedClothesDesc.cpp
+  PedDamageResponse.cpp
+  PedDamageResponseCalculator.cpp
+  PedDebugVisualiser.cpp
+  PedGeometryAnalyser.cpp
+  PedGroup.cpp
+  PedGroupIntelligence.cpp
+  PedGroupMembership.cpp
+  PedGroupPlacer.cpp
+  PedGroups.cpp
+  Generando código...
+  Compilando...
+  PedIK.cpp
+  PedIntelligence.cpp
+  PedList.cpp
+  PedPlacement.cpp
+  PedScanner.cpp
+  PedStats.cpp
+  PedStuckChecker.cpp
+  PedTaskPair.cpp
+  PedType.cpp
+  PhoneInfo.cpp
+  Pickup.cpp
+  Pickups.cpp
+  CustomBuildingDNPipeline.cpp
+  CustomBuildingPipeline.cpp
+  CustomBuildingRenderer.cpp
+  CustomCarEnvMapPipeline.cpp
+  CustomCarEnvMapPipeline_EnvAtm.cpp
+  CustomCarEnvMapPipeline_EnvMat.cpp
+  CustomCarEnvMapPipeline_SpecMat.cpp
+  PlaceName.cpp
+  Generando código...
+  Compilando...
+  PlaneBanners.cpp
+  PlaneTrail.cpp
+  PlaneTrails.cpp
+  PlantColEntEntry.cpp
+  PlantLocTri.cpp
+  ProcObjectMan.cpp
+  ProcSurfaceInfo.cpp
+  PlantMgr.cpp
+  PlantSurfPropMgr.cpp
+  PlayerInfo.cpp
+  PlayerInfoSaveStructure.cpp
+  PlayerPedData.cpp
+  PlayerRelationshipRecorder.cpp
+  BreakablePlugin.cpp
+  CollisionPlugin.cpp
+  JPegCompress.cpp
+  LibJpegCompress.cpp
+  LibJpegCompressApi.cpp
+  LibJpegCompressEncode.cpp
+  LibJpegDecompress.cpp
+  Generando código...
+  Compilando...
+  LibJpegDecompressApi.cpp
+  LibJpegDecompressUpsample.cpp
+  LibJpegError.cpp
+  LibJpegMemory.cpp
+  NodeName.cpp
+  PipelinePlugin.cpp
+  RpAnimBlend.cpp
+  2dEffect.cpp
+  PointLights.cpp
+  PointList.cpp
+  PolyBunch.cpp
+  Pools.cpp
+  PopCycle.cpp
+  Population.cpp
+  PostEffects.cpp
+  ProjectileInfo.cpp
+  ProtectionStub.cpp
+  RGBA.cpp
+  Radar.cpp
+  BoneNode.cpp
+  Generando código...
+  Compilando...
+  BoneNodeManager.cpp
+  IKChain.cpp
+  IKChainManager.cpp
+  Range2D.cpp
+  Range3D.cpp
+  RealTimeShadow.cpp
+  RealTimeShadowManager.cpp
+  References.cpp
+  RegisteredCorona.cpp
+  RegisteredMotionBlurStreak.cpp
+  Remote.cpp
+  RenderBuffer.cpp
+  D3D9RasterDriver.cpp
+  D3D9RasterFormat.cpp
+  D3DIndexDataBuffer.cpp
+  d3dx9math.cpp
+  libpngread.cpp
+  libpngwrite.cpp
+  rpanisot.cpp
+  rpdbgerr.cpp
+  Generando código...
+  Compilando...
+  rphanim.cpp
+  rpmatfx.cpp
+  rpskin.cpp
+  rpuvanim.cpp
+  rpworld.cpp
+  rpworld_s30a31a.cpp
+  rtanim.cpp
+  rtbmp.cpp
+  rtdict.cpp
+  rtpng.cpp
+  rtquat.cpp
+  rtslerp.cpp
+  rwcore.cpp
+  rwcore_dds.cpp
+  rwplcore.cpp
+  rwtexdict.cpp
+  zlibdeflate.cpp
+  zlibinflate.cpp
+  Renderer.cpp
+  Replay.cpp
+  Generando código...
+  Compilando...
+  ReplayBlockType.cpp
+  Restart.cpp
+  RideAnimData.cpp
+  RideAnims.cpp
+  RoadBlocks.cpp
+  Rope.cpp
+  Ropes.cpp
+  Rubbish.cpp
+  RuntimeHelpers.cpp
+  RwHelper.cpp
+  Scene.cpp
+  ScriptResourceManager.cpp
+  BasicCommands.cpp
+  CLEOAudioStreamCommands.cpp
+  CLEOCharacterCommands.cpp
+  CLEODynamicLibraryCommands.cpp
+  CLEOFsCommands.cpp
+  CLEOGameCommands.cpp
+  CLEOGenericCommands.cpp
+  CLEOMemoryCommands.cpp
+  Generando código...
+  Compilando...
+  CLEOPadCommands.cpp
+  CLEOScriptCommands.cpp
+  CLEOVehicleCommands.cpp
+  CLEOWorldCommands.cpp
+  CameraCommands.cpp
+  CharacterCommands.cpp
+  ClockCommands.cpp
+  ComparasionCommands.cpp
+  ConversationCommands.cpp
+  DrawCommands.cpp
+  GameCommands.cpp
+  GenericCommands.cpp
+  MathCommands.cpp
+  MissionCommands.cpp
+  ObjectCommands.cpp
+  PadCommands.cpp
+  PathCommands.cpp
+  PedCommands.cpp
+  PlayerCommands.cpp
+  ScriptCommands.cpp
+  Generando código...
+  Compilando...
+  SequenceCommands.cpp
+  StatCommands.cpp
+  TextCommands.cpp
+  UnusedCommands.cpp
+  UtilityCommands.cpp
+  VehicleCommands.cpp
+  ZoneCommands.cpp
+  RunningScript.cpp
+  RunningScriptCommands1700To1799.cpp
+  Scripted2dEffects.cpp
+  TheScripts.cpp
+  ScriptsForBrains.cpp
+  SearchLight.cpp
+  Sector.cpp
+  SetPiece.cpp
+  SetPieces.cpp
+  ShadowCamera.cpp
+  Shadows.cpp
+  ShinyTexts.cpp
+  Shopping.cpp
+  Generando código...
+  Compilando...
+  ShotInfo.cpp
+  SimpleTransform.cpp
+  SimpleVariablesSaveStructure.cpp
+  Skidmark.cpp
+  Skidmarks.cpp
+  SpecialFX.cpp
+  SpecialPlateHandler.cpp
+  Sprite.cpp
+  Sprite2d.cpp
+  StencilShadowObject.cpp
+  StencilShadows.cpp
+  StreamedScripts.cpp
+  Streaming.cpp
+  StreamingInfo.cpp
+  StuckCarCheck.cpp
+  StuntJumpManager.cpp
+  SurfaceInfos_c.cpp
+  TagManager.cpp
+  PedGroupDefaultTaskAllocatorChat.cpp
+  PedGroupDefaultTaskAllocatorFollowAnyMeans.cpp
+  Generando código...
+  Compilando...
+  PedGroupDefaultTaskAllocatorFollowLimited.cpp
+  PedGroupDefaultTaskAllocatorRandom.cpp
+  PedGroupDefaultTaskAllocatorSitInLeaderCar.cpp
+  PedGroupDefaultTaskAllocatorStandStill.cpp
+  TaskAllocator.cpp
+  TaskAllocatorAttack.cpp
+  TaskAllocatorKillOnFoot.cpp
+  TaskAllocatorKillThreatsBasic.cpp
+  TaskAllocatorKillThreatsBasicRandomGroup.cpp
+  TaskAllocatorKillThreatsDriveby.cpp
+  TaskAllocatorPlayerCommandAttack.cpp
+  TaskAllocatorPlayerCommandRetreat.cpp
+  TaskAllocatorRetreat.cpp
+  PedScriptedTaskRecord.cpp
+  ScriptedBrainTaskStore.cpp
+  TaskCategories.cpp
+  TaskComplex.cpp
+  TaskComplexSequence.cpp
+  TaskComplexUseSequence.cpp
+  TaskManager.cpp
+  Generando código...
+  Compilando...
+  TaskSequences.cpp
+  TaskSimple.cpp
+  TaskTimer.cpp
+  TaskInteriorBeInHouse.cpp
+  TaskInteriorBeInOffice.cpp
+  TaskInteriorBeInShop.cpp
+  TaskInteriorGoToInfo.cpp
+  TaskInteriorLieInBed.cpp
+  TaskInteriorShopKeeper.cpp
+  TaskInteriorSitAtDesk.cpp
+  TaskInteriorUseInfo.cpp
+  EntitySeekPosCalculator.cpp
+  EntitySeekPosCalculatorFixedPos.cpp
+  EntitySeekPosCalculatorRadiusAngleOffset.cpp
+  EntitySeekPosCalculatorStandard.cpp
+  EntitySeekPosCalculatorXYOffset.cpp
+  TaskComplexSeekEntityAnyMeansXYOffset.cpp
+  TaskComplexSeekEntityRadiusAngleOffset.cpp
+  TaskComplexSeekEntityStandard.cpp
+  TaskComplexSeekEntityXYOffset.cpp
+  Generando código...
+  Compilando...
+  TaskComplexArrestPed.cpp
+  TaskComplexAttractorPartnerWait.cpp
+  TaskComplexAvoidOtherPedWhileWandering.cpp
+  TaskComplexBeCop.cpp
+  TaskComplexBeInCouple.cpp
+  TaskComplexBeInGroup.cpp
+  TaskComplexBeStill.cpp
+  TaskComplexCarDrive.cpp
+  TaskComplexCarDriveMission.cpp
+  TaskComplexCarSlowBeDraggedOut.cpp
+  TaskComplexCarSlowBeDraggedOutAndStandUp.cpp
+  TaskComplexChat.cpp
+  TaskComplexClimb.cpp
+  TaskComplexCopInCar.cpp
+  TaskComplexCrossRoadLookAndAchieveHeading.cpp
+  TaskComplexDestroyCar.cpp
+  TaskComplexDestroyCarArmed.cpp
+  TaskComplexDestroyCarMelee.cpp
+  TaskComplexDie.cpp
+  TaskComplexDieInCar.cpp
+  Generando código...
+  Compilando...
+  TaskComplexDiveFromAttachedEntityAndGetUp.cpp
+  TaskComplexDragPedFromCar.cpp
+  TaskComplexDriveFireTruck.cpp
+  TaskComplexDrivePointRoute.cpp
+  TaskComplexDriveToPoint.cpp
+  TaskComplexDriveWander.cpp
+  TaskComplexEnterAnyCarAsDriver.cpp
+  TaskComplexEnterBoatAsDriver.cpp
+  TaskComplexEnterCar.cpp
+  TaskComplexEnterCarAsDriver.cpp
+  TaskComplexEnterCarAsDriverTimed.cpp
+  TaskComplexEnterCarAsPassenger.cpp
+  TaskComplexEnterCarAsPassengerTimed.cpp
+  TaskComplexEnterCarAsPassengerWait.cpp
+  TaskComplexEvasiveCower.cpp
+  TaskComplexEvasiveDiveAndGetUp.cpp
+  TaskComplexEvasiveStep.cpp
+  TaskComplexExtinguishFires.cpp
+  TaskComplexFacial.cpp
+  TaskComplexFallAndGetUp.cpp
+  Generando código...
+  Compilando...
+  TaskComplexFallAndStayDown.cpp
+  TaskComplexFallToDeath.cpp
+  TaskComplexFleeAnyMeans.cpp
+  TaskComplexFleeEntity.cpp
+  TaskComplexFleePoint.cpp
+  TaskComplexFleeShooting.cpp
+  TaskComplexFollowLeaderAnyMeans.cpp
+  TaskComplexFollowLeaderInFormation.cpp
+  TaskComplexFollowNodeRoute.cpp
+  TaskComplexFollowNodeRouteShooting.cpp
+  TaskComplexFollowPatrolRoute.cpp
+  TaskComplexFollowPointRoute.cpp
+  TaskComplexGangFollower.cpp
+  TaskComplexGangJoinRespond.cpp
+  TaskComplexGangLeader.cpp
+  TaskComplexGetOnBoatSeat.cpp
+  TaskComplexGetUpAndStandStill.cpp
+  TaskComplexGoPickUpEntity.cpp
+  TaskComplexGoToAttractor.cpp
+  TaskComplexGoToCarDoorAndStandStill.cpp
+  Generando código...
+  Compilando...
+  TaskComplexGoToPointAiming.cpp
+  TaskComplexGoToPointAndStandStill.cpp
+  TaskComplexGoToPointAndStandStillAndAchieveHeading.cpp
+  TaskComplexGoToPointAndStandStillTimed.cpp
+  TaskComplexGoToPointAnyMeans.cpp
+  TaskComplexGoToPointShooting.cpp
+  TaskComplexGoToPointUntilCollisionAndStandStill.cpp
+  TaskComplexGotoDoorAndOpen.cpp
+  TaskComplexHitByGunResponse.cpp
+  TaskComplexHitPedWithCar.cpp
+  TaskComplexHitResponse.cpp
+  TaskComplexInAirAndLand.cpp
+  TaskComplexInWater.cpp
+  TaskComplexInvestigateDeadPed.cpp
+  TaskComplexInvestigateDisturbance.cpp
+  TaskComplexJump.cpp
+  TaskComplexKillAllThreats.cpp
+  TaskComplexKillCriminal.cpp
+  TaskComplexKillPedFromBoat.cpp
+  TaskComplexKillPedGroupOnFoot.cpp
+  Generando código...
+  Compilando...
+  TaskComplexKillPedOnFoot.cpp
+  TaskComplexKillPedOnFootArmed.cpp
+  TaskComplexKillPedOnFootMelee.cpp
+  TaskComplexKillPedOnFootStealth.cpp
+  TaskComplexLeaveAnyCar.cpp
+  TaskComplexLeaveBoat.cpp
+  TaskComplexLeaveCar.cpp
+  TaskComplexLeaveCarAndDie.cpp
+  TaskComplexLeaveCarAndFlee.cpp
+  TaskComplexLeaveCarAndWander.cpp
+  TaskComplexLeaveCarAsPassengerWait.cpp
+  TaskComplexMedicTreatInjuredPed.cpp
+  TaskComplexMoveBackAndJump.cpp
+  TaskComplexObserveTrafficLights.cpp
+  TaskComplexObserveTrafficLightsAndAchieveHeading.cpp
+  TaskComplexOnFire.cpp
+  TaskComplexOpenDriverDoor.cpp
+  TaskComplexOpenPassengerDoor.cpp
+  TaskComplexPartnerChat.cpp
+  TaskComplexPartnerDeal.cpp
+  Generando código...
+  Compilando...
+  TaskComplexPartnerGreet.cpp
+  TaskComplexPartnerShove.cpp
+  TaskComplexPassObject.cpp
+  TaskComplexPlayHandSignalAnim.cpp
+  TaskComplexPolicePursuit.cpp
+  TaskComplexPresentIDToCop.cpp
+  TaskComplexProstituteSolicit.cpp
+  TaskComplexReactToGunAimedAt.cpp
+  TaskComplexRoadRage.cpp
+  TaskComplexScreamInCarThenLeave.cpp
+  TaskComplexSeekCoverUntilTargetDead.cpp
+  TaskComplexSeekEntityAiming.cpp
+  TaskComplexShuffleSeats.cpp
+  TaskComplexSignalAtPed.cpp
+  TaskComplexSitDownThenIdleThenStandUp.cpp
+  TaskComplexSmartFleeEntity.cpp
+  TaskComplexSmartFleePoint.cpp
+  TaskComplexStareAtPed.cpp
+  TaskComplexStealCar.cpp
+  TaskComplexStuckInAir.cpp
+  Generando código...
+  Compilando...
+  TaskComplexSunbathe.cpp
+  TaskComplexTrackEntity.cpp
+  TaskComplexTreatAccident.cpp
+  TaskComplexTurnToFaceEntityOrCoord.cpp
+  TaskComplexUseAttractor.cpp
+  TaskComplexUseAttractorPartner.cpp
+  TaskComplexUseClosestFreeScriptedAttractor.cpp
+  TaskComplexUseClosestFreeScriptedAttractorRun.cpp
+  TaskComplexUseClosestFreeScriptedAttractorSprint.cpp
+  TaskComplexUseEffect.cpp
+  TaskComplexUseEffectRunning.cpp
+  TaskComplexUseEffectSprinting.cpp
+  TaskComplexUseEntryExit.cpp
+  TaskComplexUseGoggles.cpp
+  TaskComplexUseMobilePhone.cpp
+  TaskComplexUsePairedAttractor.cpp
+  TaskComplexUseScriptedAttractor.cpp
+  TaskComplexUseScriptedBrain.cpp
+  TaskComplexUseSwatRope.cpp
+  TaskComplexUseWaterCannon.cpp
+  Generando código...
+  Compilando...
+  TaskComplexWaitAtAttractor.cpp
+  TaskComplexWaitForBackup.cpp
+  TaskComplexWaitForBus.cpp
+  TaskComplexWaitForDryWeather.cpp
+  TaskComplexWaitForPed.cpp
+  TaskComplexWalkAlongsidePed.cpp
+  TaskComplexWalkRoundBuildingAttempt.cpp
+  TaskComplexWalkRoundCar.cpp
+  TaskComplexWalkRoundFire.cpp
+  TaskComplexWander.cpp
+  TaskComplexWanderCop.cpp
+  TaskComplexWanderCriminal.cpp
+  TaskComplexWanderFlee.cpp
+  TaskComplexWanderGang.cpp
+  TaskComplexWanderMedic.cpp
+  TaskComplexWanderProstitute.cpp
+  TaskComplexWanderStandard.cpp
+  TaskGangHasslePed.cpp
+  TaskGangHassleVehicle.cpp
+  TaskGoToVehicleAndLean.cpp
+  Generando código...
+  Compilando...
+  TaskLeanOnVehicle.cpp
+  TaskSimpleAbseil.cpp
+  TaskSimpleAchieveHeading.cpp
+  TaskSimpleAffectSecondaryBehaviour.cpp
+  TaskSimpleAnim.cpp
+  TaskSimpleArrestPed.cpp
+  TaskSimpleBeHit.cpp
+  TaskSimpleBeHitWhileMoving.cpp
+  TaskSimpleBeKickedOnGround.cpp
+  TaskSimpleBikeJacked.cpp
+  TaskSimpleCarAlign.cpp
+  TaskSimpleCarCloseDoorFromInside.cpp
+  TaskSimpleCarCloseDoorFromOutside.cpp
+  TaskSimpleCarDrive.cpp
+  TaskSimpleCarDriveTimed.cpp
+  TaskSimpleCarFallOut.cpp
+  TaskSimpleCarForcePedOut.cpp
+  TaskSimpleCarGetIn.cpp
+  TaskSimpleCarGetOut.cpp
+  TaskSimpleCarGoToPointNearDoorUntilDoorNotInUse.cpp
+  Generando código...
+  Compilando...
+  TaskSimpleCarJumpOut.cpp
+  TaskSimpleCarOpenDoorFromOutside.cpp
+  TaskSimpleCarOpenLockedDoorFromOutside.cpp
+  TaskSimpleCarSetPedInAsDriver.cpp
+  TaskSimpleCarSetPedInAsPassenger.cpp
+  TaskSimpleCarSetPedOut.cpp
+  TaskSimpleCarSetPedSlowDraggedOut.cpp
+  TaskSimpleCarSetTempAction.cpp
+  TaskSimpleCarShuffle.cpp
+  TaskSimpleCarSlowBeDraggedOut.cpp
+  TaskSimpleCarSlowDragPedOut.cpp
+  TaskSimpleCarWaitForDoorNotToBeInUse.cpp
+  TaskSimpleCarWaitToSlowDown.cpp
+  TaskSimpleChat.cpp
+  TaskSimpleChoking.cpp
+  TaskSimpleClearLookAt.cpp
+  TaskSimpleClimb.cpp
+  TaskSimpleCower.cpp
+  TaskSimpleCreateCarAndGetIn.cpp
+  TaskSimpleDead.cpp
+  Generando código...
+  Compilando...
+  TaskSimpleDetonate.cpp
+  TaskSimpleDie.cpp
+  TaskSimpleDieInCar.cpp
+  TaskSimpleDoHandSignal.cpp
+  TaskSimpleDrown.cpp
+  TaskSimpleDrownInCar.cpp
+  TaskSimpleDuck.cpp
+  TaskSimpleDuckToggle.cpp
+  TaskSimpleDuckWhileShotsWhizzing.cpp
+  TaskSimpleEvasiveDive.cpp
+  TaskSimpleEvasiveStep.cpp
+  TaskSimpleFacial.cpp
+  TaskSimpleFall.cpp
+  TaskSimpleFight.cpp
+  TaskSimpleFightingControl.cpp
+  TaskSimpleFinishBrain.cpp
+  TaskSimpleGangDriveBy.cpp
+  TaskSimpleGetUp.cpp
+  TaskSimpleGiveCPR.cpp
+  TaskSimpleGoTo.cpp
+  Generando código...
+  Compilando...
+  TaskSimpleGoToPoint.cpp
+  TaskSimpleGoToPointFine.cpp
+  TaskSimpleGunControl.cpp
+  TaskSimpleHailTaxi.cpp
+  TaskSimpleHailTaxiAndPause.cpp
+  TaskSimpleHandsUp.cpp
+  TaskSimpleHitByGunFromFront.cpp
+  TaskSimpleHitByGunFromLeft.cpp
+  TaskSimpleHitByGunFromRear.cpp
+  TaskSimpleHitByGunFromRight.cpp
+  TaskSimpleHitFromBack.cpp
+  TaskSimpleHitFromBehind.cpp
+  TaskSimpleHitFromFront.cpp
+  TaskSimpleHitFromLeft.cpp
+  TaskSimpleHitFromRight.cpp
+  TaskSimpleHitHead.cpp
+  TaskSimpleHitWall.cpp
+  TaskSimpleHoldEntity.cpp
+  TaskSimpleHurtPedWithCar.cpp
+  TaskSimpleIKChain.cpp
+  Generando código...
+  Compilando...
+  TaskSimpleIKLookAt.cpp
+  TaskSimpleIKManager.cpp
+  TaskSimpleIKPointArm.cpp
+  TaskSimpleInAir.cpp
+  TaskSimpleJetPack.cpp
+  TaskSimpleJump.cpp
+  TaskSimpleKillPedWithCar.cpp
+  TaskSimpleLand.cpp
+  TaskSimpleLeaveGroup.cpp
+  TaskSimpleLookAbout.cpp
+  TaskSimpleNone.cpp
+  TaskSimpleOnEscalator.cpp
+  TaskSimplePause.cpp
+  TaskSimplePickUpBike.cpp
+  TaskSimplePickUpEntity.cpp
+  TaskSimplePlayHandSignalAnim.cpp
+  TaskSimplePlayerOnFire.cpp
+  TaskSimplePlayerOnFoot.cpp
+  TaskSimplePutDownEntity.cpp
+  TaskSimpleRunAnim.cpp
+  Generando código...
+  Compilando...
+  TaskSimpleRunAnimLoopedMiddle.cpp
+  TaskSimpleRunNamedAnim.cpp
+  TaskSimpleRunTimedAnim.cpp
+  TaskSimpleSay.cpp
+  TaskSimpleScratchHead.cpp
+  TaskSimpleSetCharDecisionMaker.cpp
+  TaskSimpleSetCharIgnoreWeaponRangeFlag.cpp
+  TaskSimpleSetKindaStayInSamePlace.cpp
+  TaskSimpleSetPedAsAutoDriver.cpp
+  TaskSimpleSetStayInSamePlace.cpp
+  TaskSimpleShakeFist.cpp
+  TaskSimpleSitDown.cpp
+  TaskSimpleSitIdle.cpp
+  TaskSimpleSlideToCoord.cpp
+  TaskSimpleStandStill.cpp
+  TaskSimpleStandUp.cpp
+  TaskSimpleStealthKill.cpp
+  TaskSimpleSwim.cpp
+  TaskSimpleThrowControl.cpp
+  TaskSimpleThrowProjectile.cpp
+  Generando código...
+  Compilando...
+  TaskSimpleTired.cpp
+  TaskSimpleTogglePedThreatScanner.cpp
+  TaskSimpleTriggerEvent.cpp
+  TaskSimpleTriggerLookAt.cpp
+  TaskSimpleTurn180.cpp
+  TaskSimpleUninterruptable.cpp
+  TaskSimpleUseAtm.cpp
+  TaskSimpleUseGun.cpp
+  TaskSimpleWaitForBus.cpp
+  TaskSimpleWaitForPizza.cpp
+  TaskSimpleWaitUntilAreaCodesMatch.cpp
+  TaskSimpleWaitUntilLeaderAreaCodesMatch.cpp
+  TaskSimpleWaitUntilPedIsInCar.cpp
+  TaskSimpleWaitUntilPedIsOutCar.cpp
+  TaskUtilityLineUpPedWithCar.cpp
+  Data.cpp
+  KeyArray.cpp
+  MissionTextOffsets.cpp
+  Text.cpp
+  TheCarGenerators.cpp
+  Generando código...
+  Compilando...
+  TheZones.cpp
+  TimeCycle.cpp
+  Timer.cpp
+  TrafficLights.cpp
+  TrainNode.cpp
+  TxdDef.cpp
+  TxdStore.cpp
+  TxdStore_Plugin.cpp
+  UpsideDownCarCheck.cpp
+  UserDisplay.cpp
+  VehicleAnimGroupData.cpp
+  VehicleRecording.cpp
+  VehicleSaveStructure.cpp
+  VehicleScanner.cpp
+  VisibilityPlugins.cpp
+  Wanted.cpp
+  WaterCannon.cpp
+  WaterCannons.cpp
+  WaterCreatureManager_c.cpp
+  WaterCreature_c.cpp
+  Generando código...
+  Compilando...
+  WaterLevel.cpp
+  Weapon.cpp
+  WeaponEffects.cpp
+  WeaponInfo.cpp
+  Weather.cpp
+  WindModifiers.cpp
+  WinsockLink.cpp
+  World.cpp
+  World_Helper.cpp
+  Zone.cpp
+  cHandlingDataMgr.cpp
+  cTransmission.cpp
+  common.cpp
+  imgui_impl_dx9.cpp
+  imgui_impl_sdl3.cpp
+  imgui_stdlib.cpp
+  oswrapper_win.cpp
+  Simple.cpp
+  Virtual.cpp
+  ReversibleHooks.cpp
+  Generando código...
+  Compilando...
+  CDebugMenuToolInput.cpp
+  AmbienceTrackManagerDebugModule.cpp
+  AudioDebugModule.cpp
+  CutsceneTrackManagerDebugModule.cpp
+  PoliceScannerAudioEntityDebugModule.cpp
+  VehicleAudioEntityDebugModule.cpp
+  SoundManagerDebugModule.cpp
+  UserRadioTrackDebugModule.cpp
+  AudioZonesDebugModule.cpp
+  BugsDebugModule.cpp
+  CDarkelDebugModule.cpp
+  COcclusionDebugModule.cpp
+  CPickupsDebugModule.cpp
+  CStreamingDebugModule.cpp
+  CTeleportDebugModule.cpp
+  CheatDebugModule.cpp
+  CheckpointsDebugModule.cpp
+  CloudsDebugModule.cpp
+  CollisionDebugModule.cpp
+  CoverPointsDebugModule.cpp
+  Generando código...
+  Compilando...
+  CullZonesDebugModule.cpp
+  DebugModule.cpp
+  DebugModules.cpp
+  DoorDebugModule.cpp
+  HooksDebugModule.cpp
+  ImGuiDebugModule.cpp
+  LoadMonitorDebugModule.cpp
+  ParticleDebugModule.cpp
+  PedDebugModule.cpp
+  PoolsDebugModule.cpp
+  PostEffectsDebugModule.cpp
+  ProcObjectDebugModule.cpp
+  MissionDebugModule.cpp
+  ScriptDebugModule.cpp
+  SpawnerDebugModule.cpp
+  TextDebugModule.cpp
+  TimeCycleDebugModule.cpp
+  TwoDEffectsDebugModule.cpp
+  VehicleInfoDebugModule.cpp
+  WaterLevelDebugModule.cpp
+  Generando código...
+  Compilando...
+  WeaponDebugModule.cpp
+  UIRenderer.cpp
+  Generando código...
+  AnimManager.cpp
+  Compiling precompiled header.
+  CarCtrl.cpp
+  Compiling precompiled header.
+  Clothes.cpp
+  Compiling precompiled header.
+  Sphere.cpp
+  Compiling precompiled header.
+  DecisionMakerTypes.cpp
+  Compiling precompiled header.
+  Event.cpp
+  Compiling precompiled header.
+  EventDeath.cpp
+  Compiling precompiled header.
+  EventEditableResponse.cpp
+  Compiling precompiled header.
+  EventSpecial.cpp
+  Compiling precompiled header.
+  Fx.cpp
+  Compiling precompiled header.
+  Stats.cpp
+  Compiling precompiled header.
+  PedGroupDefaultTaskAllocators.cpp
+  Compiling precompiled header.
+  Task.cpp
+  Compiling precompiled header.
+  Generando código...
+  AttractorScanner.cpp
+  Compiling precompiled header.
+  ConversationForPed.cpp
+  Compiling precompiled header.
+  ConversationNode.cpp
+  Compiling precompiled header.
+  Vector.cpp
+  Compiling precompiled header.
+  FxInterpInfo255.cpp
+  Compiling precompiled header.
+  FxInterpInfo32.cpp
+  Compiling precompiled header.
+  FxInterpInfoFloat.cpp
+  Compiling precompiled header.
+  FxInterpInfoU255.cpp
+  Compiling precompiled header.
+  D3DTextureBuffer.cpp
+  Compiling precompiled header.
+  TaskComplexFollowPedFootsteps.cpp
+  Compiling precompiled header.
+  X87Math.cpp
+  Generando código...
+  Clouds.cpp
+  Compiling precompiled header.
+  PedSaveStructure.cpp
+  Compiling precompiled header.
+  Interior_c.cpp
+  Compiling precompiled header.
+  ModelInfo.cpp
+  D3DResourceSystem.cpp
+  Compiling precompiled header.
+  TaskInteriorSitInChair.cpp
+  Compiling precompiled header.
+  TaskComplexAvoidEntity.cpp
+  Compiling precompiled header.
+  TaskComplexExtinguishFireOnFoot.cpp
+  Compiling precompiled header.
+  TaskComplexFollowPatrolRouteX87.cpp
+  Compiling precompiled header.
+  TaskComplexGoToBoatSteeringWheel.cpp
+  Compiling precompiled header.
+  TaskComplexGoToPointAndStandStillX87.cpp
+  Compiling precompiled header.
+  TaskComplexPartner.cpp
+  Compiling precompiled header.
+  TaskComplexReactToAttack.cpp
+  Compiling precompiled header.
+  TaskComplexWalkRoundObject.cpp
+  Compiling precompiled header.
+  TaskSimpleCarGoToPointNearDoorUntilDoorNotInUseTarget.cpp
+  Compiling precompiled header.
+  TaskSimpleKillPedWithCarShake.cpp
+  Compiling precompiled header.
+  Generando código...
+spdlogd.lib(spdlog.obj) : warning LNK4099: no se encontró PDB 'spdlogd.pdb' con 'spdlogd.lib(spdlog.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\spdlogd.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+spdlogd.lib(async.obj) : warning LNK4099: no se encontró PDB 'spdlogd.pdb' con 'spdlogd.lib(async.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\spdlogd.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+spdlogd.lib(file_sinks.obj) : warning LNK4099: no se encontró PDB 'spdlogd.pdb' con 'spdlogd.lib(file_sinks.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\spdlogd.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+spdlogd.lib(color_sinks.obj) : warning LNK4099: no se encontró PDB 'spdlogd.pdb' con 'spdlogd.lib(color_sinks.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\spdlogd.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+imgui.lib(imgui.obj) : warning LNK4099: no se encontró PDB 'imgui.pdb' con 'imgui.lib(imgui.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\imgui.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+imgui.lib(imgui_widgets.obj) : warning LNK4099: no se encontró PDB 'imgui.pdb' con 'imgui.lib(imgui_widgets.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\imgui.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+imgui.lib(imgui_tables.obj) : warning LNK4099: no se encontró PDB 'imgui.pdb' con 'imgui.lib(imgui_tables.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\imgui.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+imgui.lib(imgui_demo.obj) : warning LNK4099: no se encontró PDB 'imgui.pdb' con 'imgui.lib(imgui_demo.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\imgui.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+imgui.lib(imgui_draw.obj) : warning LNK4099: no se encontró PDB 'imgui.pdb' con 'imgui.lib(imgui_draw.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\imgui.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbisfile.lib(vorbisfile.obj) : warning LNK4099: no se encontró PDB 'vorbisfile.pdb' con 'vorbisfile.lib(vorbisfile.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbisfile.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(info.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(info.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(block.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(block.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(synthesis.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(synthesis.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(sharedbook.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(sharedbook.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(codebook.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(codebook.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(psy.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(psy.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(registry.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(registry.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(mdct.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(mdct.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(envelope.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(envelope.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(smallft.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(smallft.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(bitrate.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(bitrate.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(window.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(window.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(lpc.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(lpc.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(floor0.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(floor0.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(floor1.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(floor1.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(res0.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(res0.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(mapping0.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(mapping0.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+vorbis.lib(lsp.obj) : warning LNK4099: no se encontró PDB 'vorbis.pdb' con 'vorbis.lib(lsp.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\vorbis.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+turbojpeg-static.lib(inflate.obj) : warning LNK4099: no se encontró PDB 'zlib-static.pdb' con 'turbojpeg-static.lib(inflate.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\zlib-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+turbojpeg-static.lib(inftrees.obj) : warning LNK4099: no se encontró PDB 'zlib-static.pdb' con 'turbojpeg-static.lib(inftrees.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\zlib-static.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+ogg.lib(framing.obj) : warning LNK4099: no se encontró PDB 'ogg.pdb' con 'ogg.lib(framing.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\ogg.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+ogg.lib(bitwise.obj) : warning LNK4099: no se encontró PDB 'ogg.pdb' con 'ogg.lib(bitwise.obj)' o en 'D:\Original\wv-d3d9\bin\Debug\ogg.pdb'; se vinculará el objeto sin tener en cuenta información de depuración [D:\Original\wv-d3d9\build\source\gta_reversed.vcxproj]
+     Creando biblioteca D:/Original/wv-d3d9/bin/Debug/gta_reversed.lib y objeto D:/Original/wv-d3d9/bin/Debug/gta_reversed.exp
+  gta_reversed.vcxproj -> D:\Original\wv-d3d9\bin\Debug\gta_reversed.asi
+  Building Custom Rule D:/Original/wv-d3d9/CMakeLists.txt
+
+EXIT=0
+candado liberado Sat Nov 21 14:47:53     2026

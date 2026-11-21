@@ -1,0 +1,6 @@
+estado de juego 9 alcanzado: True
+Present: ancho 800 alto 600 formato 22 backbuffers 1 multimuestreo 4/0 swap 1 hDeviceWindow 0081041c windowed 1 autoDS 1 dsFormat 75 flags 0 hz 0 intervalo 00000000
+dispositivo 0f3823e0 modos_listos 1 ventana 0081041c estilo 14cf0000 (WS_CAPTION=True)
+Reset -> 6a6b30c4 (gta_reversed.asi)  SetViewport -> 6a69e796 (gta_reversed.asi)  CreateDevice via _rwD3D9System: hook en 0x7F5F70 = e9
+VEREDICTO BIEN
+exit=0
