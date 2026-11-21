@@ -12511,3 +12511,8 @@ RwHelper,RpClumpBoundingSphereCenterCallback,0x00734970,1,0,0,S
 RwHelper,RpClumpBoundingSphereRadiusCallback,0x00734ED0,1,0,0,S
 Input,EnumDevicesCallback,0x00747020,1,0,0,S
 Input,diPadSetRanges,0x00746D80,1,0,0,S
+CCollisionPlugin,ClumpCollisionStreamRead,0x0041B1D0,1,0,0,S
+CAudioZones,TextBufferAppendTagged,0x005089B0,1,0,0,S
+CAudioZones,TextBufferAddInt,0x00508B80,1,0,0,S
+CAudioZones,TextBufferAddTyped,0x00508D30,1,0,0,S
+CAudioZones,BugstarFlushReport,0x00509190,1,0,0,S

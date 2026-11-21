@@ -64,6 +64,82 @@ __declspec(noinline) void __fastcall AudioZonesTextBufferClear(TextBufferRaw* se
     }
 }
 
+// 0x5089B0 (lote S2A, sin validar; thiscall, tres argumentos de pila (etiqueta, texto, longitud), `ret 0Ch`, 85 bytes): agrega una entrada {etiqueta, longitud, texto sin terminador} a la cadena. Como el
+// original: reserva longitud + 8 bytes con operator new (0x82119A), escribe etiqueta (+0) y longitud (+4), copia el texto desde +8 (rep movsd / rep movsb), agrega el bloque entero con 0x508930
+// (AudioZonesTextBufferAppend) y lo libera con operator delete (0x8214BD).
+__declspec(noinline) void __fastcall AudioZonesTextBufferAppendTagged(TextBufferRaw* self, void* /*edx*/, uint32 tag, const void* text, uint32 length) {
+    uint8* const block = static_cast<uint8*>(::operator new(length + 8));
+    *reinterpret_cast<uint32*>(block + 4) = length;
+    *reinterpret_cast<uint32*>(block)     = tag;
+    __movsd(reinterpret_cast<unsigned long*>(block + 8), static_cast<const unsigned long*>(text), length >> 2);
+    __movsb(block + 8 + (length >> 2) * 4, static_cast<const unsigned char*>(text) + (length >> 2) * 4, length & 3);
+    AudioZonesTextBufferAppend(self, nullptr, block, length + 8);
+    ::operator delete(block);
+}
+
+// 0x508B80 (lote S2A, sin validar; thiscall, un entero de pila, `ret 4`, 142 bytes): formatea el entero con el sprintf del EXE (0x821BB5, "%d" de 0x859508) en un bufer local de 0x800 bytes y agrega
+// la cadena como entrada de tipo 0xB (AudioZonesTextBufferAppendTagged, con la longitud hasta el terminador).
+__declspec(noinline) void __fastcall AudioZonesTextBufferAddInt(TextBufferRaw* self, void* /*edx*/, int32 value) {
+    char formatted[0x800];
+    reinterpret_cast<int(__cdecl*)(char*, const char*, ...)>(0x821BB5)(formatted, "%d", value);
+    AudioZonesTextBufferAppendTagged(self, nullptr, 0xB, formatted, static_cast<uint32>(strlen(formatted)));
+}
+
+// 0x508D30 (lote S2A, sin validar; thiscall, dos cadenas de pila (clave, tipo), `ret 8`, 156 bytes): agrega una entrada de tipo 0x11 con el bloque {longitud de la clave, clave, longitud del tipo, tipo}
+// (sin terminadores; ambas longitudes se miden primero, luego operator new de suma + 8 bytes, copias con rep movsd / rep movsb), con AudioZonesTextBufferAppendTagged, y libera el bloque.
+__declspec(noinline) void __fastcall AudioZonesTextBufferAddTyped(TextBufferRaw* self, void* /*edx*/, const char* key, const char* type) {
+    const uint32 keyLength  = static_cast<uint32>(strlen(key));
+    const uint32 typeLength = static_cast<uint32>(strlen(type));
+    const uint32 size       = typeLength + keyLength + 8;
+    uint8* const block      = static_cast<uint8*>(::operator new(size));
+    *reinterpret_cast<uint32*>(block) = keyLength;
+    __movsd(reinterpret_cast<unsigned long*>(block + 4), reinterpret_cast<const unsigned long*>(key), keyLength >> 2);
+    __movsb(block + 4 + (keyLength >> 2) * 4, reinterpret_cast<const unsigned char*>(key) + (keyLength >> 2) * 4, keyLength & 3);
+    *reinterpret_cast<uint32*>(block + keyLength + 4) = typeLength;
+    __movsd(reinterpret_cast<unsigned long*>(block + keyLength + 8), reinterpret_cast<const unsigned long*>(type), typeLength >> 2);
+    __movsb(block + keyLength + 8 + (typeLength >> 2) * 4, reinterpret_cast<const unsigned char*>(type) + (typeLength >> 2) * 4, typeLength & 3);
+    AudioZonesTextBufferAppendTagged(self, nullptr, 0x11, block, size);
+    ::operator delete(block);
+}
+
+// Registro de informes de "bugstar.cnf" (objeto distinto de TextBufferRaw: lo que se le pasa a 0x509190 es el objeto de informe): +4 = objeto de E/S con vtabla (ranura 1 abrir, ranura 2 cerrar,
+// ranura 3 escribir; thiscall con ECX = el objeto de E/S, los argumentos de pila los limpia el llamado), +8 = argumento de apertura, +0xC = manejador, +0x9A = cadena (nombre).
+struct BugstarReportRaw {
+    void* unknown0;
+    struct IoRaw {
+        struct VTable {
+            void* slot0;
+            int32 (__thiscall* open)(IoRaw* io, int32 argument, char* name);                     // +4
+            int32 (__thiscall* close)(IoRaw* io, int32 handle);                                  // +8
+            int32 (__thiscall* write)(IoRaw* io, int32 handle, const void* buffer, int32 size);  // +0xC
+        }* vtable;
+    }* io;
+    int32 openArgument; // +8
+    int32 handle;       // +0xC
+    uint8 padding[0x9A - 0x10];
+    char  name[1];      // +0x9A
+};
+static_assert(offsetof(BugstarReportRaw, io) == 4 && offsetof(BugstarReportRaw, handle) == 0xC && offsetof(BugstarReportRaw, name) == 0x9A);
+
+// 0x509190 (lote S2A, sin validar; thiscall, tres argumentos de pila (entero, bloque, longitud), `ret 0Ch`, 152 bytes): abre el informe con io->abrir(+8 del informe, nombre en +0x9A) y guarda el
+// manejador en +0xC; si es 0 devuelve 0 sin mas. Si no escribe tres dwords con io->escribir(manejador, buffer, 4): el valor 4, el primer argumento de pila (con tamano igual al valor local, que sigue
+// siendo 4) y 0; despues llama a 0x508EB0 (thiscall con el informe: bloque y longitud, `ret 8`, sin reconstruir), cierra con io->cerrar(manejador), pone +0xC a 0 y devuelve 0.
+__declspec(noinline) int32 __fastcall BugstarFlushReport(BugstarReportRaw* self, void* /*edx*/, int32 firstValue, const char* data, uint32 length) {
+    self->handle = self->io->vtable->open(self->io, self->openArgument, self->name);
+    if (self->handle == 0) {
+        return 0;
+    }
+    int32 four = 4;
+    self->io->vtable->write(self->io, self->handle, &four, 4);
+    self->io->vtable->write(self->io, self->handle, &firstValue, four);
+    int32 zero = 0;
+    self->io->vtable->write(self->io, self->handle, &zero, 4);
+    plugin::CallMethod<0x508EB0, BugstarReportRaw*, const char*, uint32>(self, data, length);
+    self->io->vtable->close(self->io, self->handle);
+    self->handle = 0;
+    return 0;
+}
+
 // 0x509230 (lote F1A, sin validar; el listado decia CAudioZones por cercania y daba 139 bytes: la funcion real llega hasta 0x50962E, `ret 1Ch`, unos 1022 bytes con marco SEH que solo destruye la cadena local;
 // ningun llamador en el EXE: sin `call`/`jmp` ni referencias). thiscall, siete argumentos de pila (tres floats, dos `char*`, un bloque (puntero y tamano)). Es parte del volcado de informes de "bugstar.cnf"
 // (cadenas "XCoord", "YCoord", "ZCoord", "grid", "ScreenShot", "image", "text", "SA"): serializa un registro en una cadena local TextBufferRaw (0x508930 agregar, 0x508A10 vaciar) y la entrega a 0x509190. `self` (ECX)
@@ -104,7 +180,7 @@ __declspec(noinline) void __fastcall BugstarWriteScreenShotEntry(void* self, voi
         AudioZonesTextBufferAppend(&text, nullptr, &zero, 4);
     };
     const auto addTyped = [&](const char* key, const char* type) { // 0x508D30
-        plugin::CallMethod<0x508D30, TextBufferRaw*, const char*, const char*>(&text, key, type);
+        AudioZonesTextBufferAddTyped(&text, nullptr, key, type);
     };
     const auto appendCoordinate = [&](float value, const char* key) {
         char formatted[0x44];
@@ -116,7 +192,7 @@ __declspec(noinline) void __fastcall BugstarWriteScreenShotEntry(void* self, voi
     };
 
     appendTagged(0, title);
-    plugin::CallMethod<0x508B80, TextBufferRaw*, int32>(&text, 1);
+    AudioZonesTextBufferAddInt(&text, nullptr, 1); // 0x508B80
     appendTagged(0xA, "SA");
 
     appendCoordinate(x, "XCoord");
@@ -134,7 +210,7 @@ __declspec(noinline) void __fastcall BugstarWriteScreenShotEntry(void* self, voi
     const char* const data   = text.data;
     const uint32      length = text.length;
     // plugin::CallMethod exige un puntero a clase: `self` (ECX del EXE) se pasa tal cual, solo cambia el tipo del puntero
-    plugin::CallMethod<0x509190, TextBufferRaw*, int32, const char*, uint32>(static_cast<TextBufferRaw*>(self), 0, data, length);
+    BugstarFlushReport(static_cast<BugstarReportRaw*>(self), nullptr, 0, data, length); // 0x509190
     if (data) {
         ::operator delete(const_cast<char*>(data));
     }
@@ -156,6 +232,10 @@ void CAudioZones::InjectHooks() {
     RH_ScopedNamedGlobalInstall(AudioZonesTextBufferAppend, "TextBufferAppend", 0x508930); // lote 172A (banco Fn172A)
     RH_ScopedNamedGlobalInstall(AudioZonesTextBufferClear, "TextBufferClear", 0x508A10);   // lote 172A (banco Fn172A)
     RH_ScopedNamedGlobalInstall(AudioZonesTextBufferClear, "TextBufferClear-2", 0x509140); // lote 172A (banco Fn172A): copia identica
+    RH_ScopedNamedGlobalInstall(AudioZonesTextBufferAppendTagged, "TextBufferAppendTagged", 0x5089B0); // lote S2A (sin validar)
+    RH_ScopedNamedGlobalInstall(AudioZonesTextBufferAddInt, "TextBufferAddInt", 0x508B80);            // lote S2A (sin validar)
+    RH_ScopedNamedGlobalInstall(AudioZonesTextBufferAddTyped, "TextBufferAddTyped", 0x508D30);        // lote S2A (sin validar)
+    RH_ScopedNamedGlobalInstall(BugstarFlushReport, "BugstarFlushReport", 0x509190);                  // lote S2A (sin validar)
     RH_ScopedNamedGlobalInstall(BugstarWriteScreenShotEntry, "BugstarWriteScreenShotEntry", 0x509230); // lote F1A (sin validar)
 }
 
