@@ -183,7 +183,7 @@ void CAttractorScanner::ScanEntityList(const void* list, CPed* ped) {
             if ((effect->pedAttractor.m_nFlags & 1) && !enableDisabledAttractors) {
                 continue;
             }
-            plugin::CallMethod<0x5FFFD0, CAttractorScanner*, C2dEffect*, CEntity*, CPed*>(this, effect, entity, ped);
+            ScanEffect(reinterpret_cast<C2dEffectPedAttractor*>(effect), entity, ped);
         }
     }
 }

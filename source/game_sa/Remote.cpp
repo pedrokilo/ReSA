@@ -76,13 +76,13 @@ void CRemote::GivePlayerRemoteControlledCar(CVector pos, float rotation, int16 m
     CVehicle* vehicle;
     if (CModelInfo::IsHeliModel(model)) {                                                   // 0x4C5B00
         void* const memory = CVehicle::operator new(0xA18u);                                // 0x6E2D50
-        vehicle = memory ? reinterpret_cast<CVehicle*(__thiscall*)(void*, int32, int32)>(0x6C4190)(memory, model, MISSION_VEHICLE) : nullptr;
+        vehicle = memory ? ::new (memory) CHeli(model, MISSION_VEHICLE) : nullptr;
     } else if (CModelInfo::IsPlaneModel(model)) {                                           // 0x4C5B30
         void* const memory = CVehicle::operator new(0xA04u);
-        vehicle = memory ? reinterpret_cast<CVehicle*(__thiscall*)(void*, int32, int32)>(0x6C8E20)(memory, model, MISSION_VEHICLE) : nullptr;
+        vehicle = memory ? ::new (memory) CPlane(model, MISSION_VEHICLE) : nullptr;
     } else {
         void* const memory = CVehicle::operator new(0x988u);
-        vehicle = memory ? reinterpret_cast<CVehicle*(__thiscall*)(void*, int32, int32, int32)>(0x6B0A90)(memory, model, MISSION_VEHICLE, 1) : nullptr;
+        vehicle = memory ? ::new (memory) CAutomobile(model, MISSION_VEHICLE, true) : nullptr;
     }
 
     // 0x45ABC8..0x45AC4E: z = suelo bajo (x, y, z + 2.0f) + distancia del centro de masa a la base; x e y se copian como enteros (sin pasar por la x87).

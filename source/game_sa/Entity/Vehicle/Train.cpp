@@ -28,6 +28,12 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/RdataConstantes.h"
 
 #include "Train.h"
+#include "Tasks/TaskComplexSequence.h"
+#include "TaskComplexEnterCarAsDriver.h"
+#include "TaskComplexEnterCarAsPassenger.h"
+#include "TaskComplexLeaveCarAndWander.h"
+#include "SeekEntity/TaskComplexSeekEntity.h"
+#include "SeekEntity/PosCalculators/EntitySeekPosCalculatorXYOffset.h"
 
 #include "Buoyancy.h"
 #include "CarCtrl.h"
@@ -656,10 +662,9 @@ void CTrain::RemoveRandomPassenger() {
     m_nNumPassengersToLeave = uint8(m_nNumPassengersToLeave - 1);
     m_pTemporaryPassenger = ped;
     ped->RegisterReference(reinterpret_cast<CEntity**>(&m_pTemporaryPassenger));
-    // Preserve the existing task constructor and task-manager dependency ABI.
     auto* storage = CTask::operator new(0x1C);
-    auto* leave = storage ? reinterpret_cast<CTask*(__thiscall*)(void*,CVehicle*,int32,int32,bool)>(0x63BDD0)(storage, this, 0, 0, true) : nullptr;
-    reinterpret_cast<void(__thiscall*)(CTaskManager*,CTask*,ePrimaryTasks,bool)>(0x681AF0)(&ped->GetTaskManager(), leave, TASK_PRIMARY_PRIMARY, false);
+    CTask* leave = storage ? ::new (storage) CTaskComplexLeaveCarAndWander(this, TARGET_DOOR_FRONT_LEFT, 0, true) : nullptr;
+    ped->GetTaskManager().SetTask(leave, TASK_PRIMARY_PRIMARY, false);
 }
 
 
@@ -760,10 +765,10 @@ void CTrain::FindPositionOnTrackFromCoors() {
             if (bool(trainFlags.bClockwiseDirection) == (dot > 0.f)) m_fTrainSpeed = -m_fTrainSpeed;
             return;
         }
-        const auto lighting = reinterpret_cast<uint8(__thiscall*)(CTrainNode*)>(0x6F5F80)(&nodes[i]);
+        const auto lighting = nodes[i].GetLightingFromCollision().value;
         const auto day = DatosExe::Data::v8D12C0;
         const auto previous = TrainNodeLightingCpp(lighting & 15, lighting >> 4, day);
-        const auto nextLighting = reinterpret_cast<uint8(__thiscall*)(CTrainNode*)>(0x6F5F80)(&nodes[next]);
+        const auto nextLighting = nodes[next].GetLightingFromCollision().value;
         const auto nextDay = DatosExe::Data::v8D12C0;
         m_fContactSurfaceBrightness = TrainLightingBlendCpp(nextLighting & 15, nextLighting >> 4, nextDay, previous, factor);
     }
@@ -1062,23 +1067,21 @@ void CTrain::AddNearbyPedAsRandomPassenger() {
     auto relative = inverse.TransformPoint(doorPosition);
     if (!clockwise) relative -= GetRight();
     else relative += GetRight();
-    // These existing task constructors and sequencing calls remain dependencies outside this scope.
     auto* seekStorage = CTask::operator new(0x58);
-    auto* seek = seekStorage ? reinterpret_cast<CTask*(__thiscall*)(void*,CEntity*,int32,int32,float,float,float,bool,bool)>(0x661DC0)(seekStorage, this, 50000, 1000, DatosExe::Rdata::k86FC2C, DatosExe::Rdata::k86FC28, DatosExe::Rdata::k86FC30, true, true) : nullptr;
+    CTask* seek = seekStorage ? ::new (seekStorage) CTaskComplexSeekEntity<CEntitySeekPosCalculatorXYOffset>(this, 50000, 1000, DatosExe::Rdata::k86FC2C, DatosExe::Rdata::k86FC28, DatosExe::Rdata::k86FC30, true, true) : nullptr;
     *reinterpret_cast<CVector*>(reinterpret_cast<uint8*>(seek) + 0x44) = relative;
     *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(seek) + 0x50) = 7;
     auto* sequenceStorage = CTask::operator new(0x40);
-    auto* sequence = sequenceStorage ? reinterpret_cast<CTask*(__thiscall*)(void*)>(0x632BD0)(sequenceStorage) : nullptr;
-    const auto append = reinterpret_cast<bool(__thiscall*)(CTask*,CTask*)>(0x632D10);
-    append(sequence, seek);
+    auto* sequence = sequenceStorage ? ::new (sequenceStorage) CTaskComplexSequence() : nullptr;
+    sequence->AddTask(seek);
     auto* enterStorage = CTask::operator new(0x50);
     CTask* enter = nullptr;
     if (enterStorage) {
-        if (!clockwise) enter = reinterpret_cast<CTask*(__thiscall*)(void*,CVehicle*)>(0x6402F0)(enterStorage, this);
-        else enter = reinterpret_cast<CTask*(__thiscall*)(void*,CVehicle*,int32,bool)>(0x640340)(enterStorage, this, 0, false);
+        if (!clockwise) enter = ::new (enterStorage) CTaskComplexEnterCarAsDriver(this);
+        else enter = ::new (enterStorage) CTaskComplexEnterCarAsPassenger(this, 0, false);
     }
-    append(sequence, enter);
-    reinterpret_cast<void(__thiscall*)(CTaskManager*,CTask*,ePrimaryTasks,bool)>(0x681AF0)(&closest->GetTaskManager(), sequence, TASK_PRIMARY_PRIMARY, false);
+    sequence->AddTask(enter);
+    closest->GetTaskManager().SetTask(sequence, TASK_PRIMARY_PRIMARY, false);
     m_nNumPassengersToLeave = uint8(m_nNumPassengersToLeave + 1);
     m_pTemporaryPassenger = closest;
     closest->RegisterReference(reinterpret_cast<CEntity**>(&m_pTemporaryPassenger));

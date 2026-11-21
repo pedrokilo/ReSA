@@ -521,7 +521,7 @@ void CTaskSimpleGangDriveBy::AITarget(CPed* ped) {
     const float* target = &m_vecCoords.x;
     if (m_pTargetEntity) {
         auto& matrix = m_pTargetEntity->GetMatrix();
-        plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&transformed, &matrix, &m_vecCoords); // CMatrix * CVector del EXE
+        MatrixTimesPointExe(&transformed, &matrix, &m_vecCoords); // CMatrix * CVector del EXE
         target = &transformed.x;
     }
 
@@ -681,7 +681,7 @@ void CTaskSimpleGangDriveBy::AimGun(CPed* ped) {
         } else {
             CVector transformed;
             auto& matrix = entity->GetMatrix();
-            plugin::CallAndReturn<CVector*, 0x59C890, CVector*, const CMatrix*, const CVector*>(&transformed, &matrix, &m_vecCoords);
+            MatrixTimesPointExe(&transformed, &matrix, &m_vecCoords);
             target = transformed;
         }
     } else if (!(X87IsZero(m_vecCoords.x) && X87IsZero(m_vecCoords.y) && X87IsZero(m_vecCoords.z))) {

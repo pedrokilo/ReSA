@@ -59,7 +59,7 @@ CVector StencilTransformFromObjectSpace(const CEntity* entity, const CVector& of
         return StencilMulPoint(*entity->m_matrix, offset);
     }
     CVector result;
-    plugin::Call<0x54ECE0, CVector*, const CSimpleTransform*, const CVector*>(&result, &entity->m_placement, &offset);
+    TransformPoint(result, entity->m_placement, offset);
     return result;
 }
 

@@ -1623,9 +1623,9 @@ void CAERadioTrackManager::Service(int32 playTime) {
         }
         const auto record = [&](int8 type, int32 track, int8 index) {
             if (type == TYPE_INTRO || type == TYPE_TRACK || type == TYPE_OUTRO || type == TYPE_USER_TRACK) AddMusicTrackIndexToHistory(settings.StationID, index);
-            else if (type == TYPE_INDENT) reinterpret_cast<void(__thiscall*)(CAERadioTrackManager*,eRadioID,int32)>(0x4E9720)(this, settings.StationID, track);
-            else if (type == TYPE_ADVERT) reinterpret_cast<void(__thiscall*)(CAERadioTrackManager*,eRadioID,int32)>(0x4E9760)(this, settings.StationID, track);
-            else if (type == TYPE_DJ_BANTER) reinterpret_cast<void(__thiscall*)(CAERadioTrackManager*,eRadioID,int32)>(0x4E97B0)(this, settings.StationID, track);
+            else if (type == TYPE_INDENT) AddIdentIndexToHistory(settings.StationID, track);
+            else if (type == TYPE_ADVERT) AddAdvertIndexToHistory(settings.StationID, track);
+            else if (type == TYPE_DJ_BANTER) AddDJBanterIndexToHistory(settings.StationID, track);
         };
         if (settings.TrackQueue[0] == settings.CurrTrackID) {
             record(settings.TrackTypes[0], settings.TrackQueue[0], settings.TrackIndices[0]);

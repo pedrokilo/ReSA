@@ -3604,15 +3604,15 @@ bool CameraControlApplyCinematic(CCamera& camera, bool& jump) {
     if (camera.m_pTargetEntity->GetIsTypeVehicle()) {
         const auto vehicle = static_cast<CVehicle*>(camera.m_pTargetEntity);
         if (vehicle->m_nVehicleSubType == VEHICLE_TYPE_PLANE) {
-            plugin::CallMethod<0x526C80, CCamera*>(&camera);
+            camera.ProcessObbeCinemaCameraPlane();
         } else if (static_cast<int32>(vehicle->GetVehicleAppearance()) == 3) {
-            plugin::CallMethod<0x526AE0, CCamera*>(&camera);
+            camera.ProcessObbeCinemaCameraHeli();
         } else if (vehicle->m_nVehicleSubType == VEHICLE_TYPE_BOAT) {
-            plugin::CallMethod<0x526E20, CCamera*>(&camera);
+            camera.ProcessObbeCinemaCameraBoat();
         } else if (vehicle->m_nVehicleSubType == VEHICLE_TYPE_TRAIN) {
-            plugin::CallMethod<0x526950, CCamera*>(&camera);
+            camera.ProcessObbeCinemaCameraTrain();
         } else {
-            plugin::CallMethod<0x5267C0, CCamera*>(&camera);
+            camera.ProcessObbeCinemaCameraCar();
         }
     }
     return true;
@@ -3665,8 +3665,8 @@ void CameraControlVehicleZoom(CCamera& camera) {
         CameraControlStepZoom(camera.m_fCarZoomSmoothed, -0.65f);
     }
     auto& cam = camera.m_aCams[camera.m_nActiveCam];
-    plugin::Call<0x509AE0, float, float*, float*, float, float, bool>(
-        heightOffset, &cam.m_fCloseInCarHeightOffset, &cam.m_fCloseInCarHeightOffsetSpeed,
+    WellBufferMe(
+        heightOffset, cam.m_fCloseInCarHeightOffset, cam.m_fCloseInCarHeightOffsetSpeed,
         0.1f, 0.25f, false
     );
 }
@@ -3693,8 +3693,8 @@ void CameraControlPedZoom(CCamera& camera) {
         heightOffset = 0.7f;
         CameraControlStepZoom(camera.m_fPedZoomSmoothed, DatosExe::Data::v8CCF14);
     }
-    plugin::Call<0x509AE0, float, float*, float*, float, float, bool>(
-        heightOffset, &cam.m_fCloseInPedHeightOffset, &cam.m_fCloseInPedHeightOffsetSpeed,
+    WellBufferMe(
+        heightOffset, cam.m_fCloseInPedHeightOffset, cam.m_fCloseInPedHeightOffsetSpeed,
         0.1f, 0.025f, false
     );
 }

@@ -260,18 +260,16 @@ int32 GangWaveInteger(float value, float scale, float base, int32 multiple) {
     return GangWarsScaledTruncCpp(value, scale, base, multiple);
 }
 void GangWaveCommand(CPed* ped, CTask* task) {
-    alignas(4) std::array<uint8, 0x18> event;
-    plugin::CallMethod<0x4B0A00>(reinterpret_cast<CEventScriptCommand*>(event.data()), 3, task, false);
+    CEventScriptCommand event(3, task, false);
     auto* group = reinterpret_cast<CEventGroup*>(reinterpret_cast<uint8*>(ped->GetIntelligence()) + 0x68);
-    plugin::CallMethod<0x4AB420>(group, event.data(), false);
-    plugin::CallMethod<0x4B0A50>(reinterpret_cast<CEventScriptCommand*>(event.data()));
+    group->Add(&event, false);
 }
 void GangWaveBlip(CPed* ped, eGangID gang, int32 scale) {
     const uint32 color = (uint32(*reinterpret_cast<uint8*>(0x8D1344 + gang)) << 24) |
                          (uint32(*reinterpret_cast<uint8*>(0x8D1350 + gang)) << 16) |
                          (uint32(*reinterpret_cast<uint8*>(0x8D135C + gang)) << 8) | 255u;
     auto* pool = *reinterpret_cast<CPedPool**>(0xB74490);
-    const int32 ref = plugin::CallMethodAndReturn<int32, 0x4442D0>(pool, ped);
+    const int32 ref = pool->GetRef(ped);
     const auto blip = CRadar::SetEntityBlip(BLIP_CHAR, ref, color, BLIP_DISPLAY_BLIPONLY);
     CRadar::ChangeBlipScale(blip, scale);
     CRadar::ChangeBlipColour(blip, static_cast<eBlipColour>(color));
@@ -357,15 +355,14 @@ bool CGangWars::CreateAttackWave(int32 warFerocity, int32 waveID) {
                 if (!PickStreamedInPedForThisGang(gang, model)) continue;
                 pedPosition.z = CWorld::FindGroundZFor3DCoord({pedPosition.x,pedPosition.y,pedPosition.z+2.0f}, nullptr, nullptr) + 1.3f;
                 auto* memory = CPed::operator new(0x79C);
-                auto* ped = memory ? plugin::CallMethodAndReturn<CPed*,0x5DDB70>(static_cast<CPed*>(memory), int32(Gang1)+7, model) : nullptr;
+                auto* ped = memory ? ::new (memory) CCivilianPed(static_cast<ePedType>(int32(Gang1)+7), static_cast<uint32>(model)) : nullptr;
                 ped->SetPosn(pedPosition);
                 ped->SetCharCreatedBy(PED_MISSION);
                 CWorld::Add(ped);
                 auto* taskMemory = CTask::operator new(0x38);
-                auto* task = taskMemory ? plugin::CallMethodAndReturn<CTask*,0x620E30>(static_cast<CTask*>(taskMemory), player, -1, 0, 0, 0, 2) : nullptr;
-                alignas(4) std::array<uint8,0x18> event;
-                plugin::CallMethod<0x4B0A00>(reinterpret_cast<CEventScriptCommand*>(event.data()), 3, task, false);
-                plugin::CallMethod<0x4AB420>(reinterpret_cast<CEventGroup*>(reinterpret_cast<uint8*>(ped->GetIntelligence())+0x68), event.data(), false);
+                CTask* task = taskMemory ? ::new (taskMemory) CTaskComplexKillPedOnFoot(player, -1, 0, 0, 0, 2) : nullptr;
+                CEventScriptCommand event(3, task, false);
+                reinterpret_cast<CEventGroup*>(reinterpret_cast<uint8*>(ped->GetIntelligence())+0x68)->Add(&event, false);
                 const auto weapon = static_cast<eWeaponType>(!(CGeneral::GetRandomNumberInRange(-0.3f,1.3f) > Difficulty) ? weapon2 : weapon1); // NaN como el EXE (0x4454fe): fcom + test ah + jcc
                 ped->GiveWeapon(weapon, 5000, false);
                 ped->SetCurrentWeapon(weapon);
@@ -374,7 +371,6 @@ bool CGangWars::CreateAttackWave(int32 warFerocity, int32 waveID) {
                 ped->m_fHealth = ped->m_fMaxHealth = 120.0f;
                 GangWaveBlip(ped, gang, 2);
                 madePed = true;
-                plugin::CallMethod<0x4B0A50>(reinterpret_cast<CEventScriptCommand*>(event.data()));
             }
         }
         CVector pickup{GangWaveRandomOffset(position.x,4.0f,2.0f),GangWaveRandomOffset(position.y,4.0f,2.0f),position.z};
@@ -476,7 +472,7 @@ bool CGangWars::CreateDefendingGroup(int32 unused) {
         // Como el original (0x44560A..0x44563D) y como CreateAttackWave: CPed::operator new(0x79C) (0x5E4720) y el constructor del
         // EXE 0x5DDB70 (CCivilianPed::CCivilianPed(tipo, modelo)); si no hay memoria el EXE sigue usando el puntero nulo
         auto* const pedMemory = CPed::operator new(0x79C);
-        auto* const ped = pedMemory ? plugin::CallMethodAndReturn<CCivilianPed*, 0x5DDB70>(static_cast<CCivilianPed*>(pedMemory), Gang1 + 7, outPedId) : nullptr;
+        auto* const ped = pedMemory ? ::new (pedMemory) CCivilianPed(static_cast<ePedType>(Gang1 + 7), static_cast<uint32>(outPedId)) : nullptr;
         ped->SetPosn(pedPos);
         ped->m_fAimingRotation = angle;
         ped->m_fCurrentRotation = angle;

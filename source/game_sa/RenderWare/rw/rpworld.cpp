@@ -131,20 +131,20 @@ namespace {
 void RaiseRwError(RwInt32 code) {
     RwError error;
     error.pluginID  = 2;
-    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code);
+    error.errorCode = _rwerror(code);
     RwErrorSet(&error);
 }
 
 void RaiseRwError(RwInt32 code, RwUInt32 argument) {
     RwError error;
     error.pluginID  = 2;
-    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code, argument);
+    error.errorCode = _rwerror(code, argument);
     RwErrorSet(&error);
 }
 
-// RwSqrt del SDK (0x7EDB30): raiz cuadrada por tabla de RenderWare; recibe el float por la pila y lo devuelve en ST0. No esta reconstruida: se llama por direccion fija.
+// RwSqrt del SDK (0x7EDB30): raiz cuadrada por tabla de RenderWare (reconstruida en rwplcore.cpp).
 RwReal RwSqrtFromExe(RwReal value) {
-    return reinterpret_cast<RwReal(__cdecl*)(RwReal)>(0x7EDB30)(value);
+    return _rwSqrt(value);
 }
 
 // Lista libre de RpMaterial: puntero guardado en RwEngineInstance + globalsOffset del modulo de materiales (0xC92514).
@@ -520,6 +520,7 @@ static RwStream* AtomicRightsStreamWrite(RwStream* stream, RwInt32 binaryLength,
 static void      ClumpFreeListDestroyCallBack(void* clump, void* data); // 0x749520
 static void      AtomicFreeListDestroyCallBack(void* atomic, void* data); // 0x7496A0
 static RwBool    ClumpPluginAttach(); // 0x749830
+static RwBool    _rpD3D9PluginAttach(); // 0x74EA40
 static RwBool    _rpTieMeshPluginAttach(); // 0x750050 (lote R16A)
 static RpAtomic* AtomicSyncCallBack(RpAtomic* atomic); // 0x749D20
 
@@ -1375,7 +1376,7 @@ RpMeshHeader* _rpBuildMeshGenerateTriStrip(RpBuildMesh* buildMesh, RwInt32 tryRo
                 ++cursor;
             }
             _rpBuildStripListGenerate(copy, record->count, &list, tryRotations);
-            reinterpret_cast<void(__cdecl*)(RpBuildStripList**, RwInt32)>(0x75A660)(&list, joinMode);
+            _rpBuildStripListJoin(&list, joinMode);
 
             for (RpBuildStripList* strip = list; strip != nullptr; strip = strip->next) {
                 // Bloque RpMesh {indices, cantidad, material} seguido de sus indices (12 + 2 * cantidad bytes).
@@ -2341,9 +2342,9 @@ static RwFreeList* EngineFreeList(int32 slot) {
     return *reinterpret_cast<RwFreeList**>(reinterpret_cast<uint8*>(RwEngineInstance) + s_engineFreeListsOffset + slot * 4);
 }
 
-// 0x74CCB0 (RpGeometryAddRef: solo incrementa refCount): se llama por su direccion, como el EXE.
+// 0x74CCB0 (RpGeometryAddRef: solo incrementa refCount).
 static RpGeometry* GeometryAddRef(RpGeometry* geometry) {
-    return reinterpret_cast<RpGeometry*(__cdecl*)(RpGeometry*)>(0x74CCB0)(geometry);
+    return RpGeometryAddRef(geometry);
 }
 
 // Parte de AtomicDestroyBody: suelta la geometria; si el atomo tiene marco y esta en un mundo, actualiza los objetos del marco.
@@ -3665,7 +3666,7 @@ RwBool RpWorldPluginAttach() {
     if (!ClumpPluginAttach()) {
         return FALSE;
     }
-    return reinterpret_cast<RwBool(__cdecl*)()>(0x74EA40)() != 0;
+    return _rpD3D9PluginAttach() != 0;
 }
 
 // 0x74F570 (RpWorldRender): reconstruida en rpworld_s30a31a.cpp (lotes S30A y S31A, RpWorldInjectHooksS30A31A).
@@ -6185,7 +6186,7 @@ static RwBool _rpTieMeshPluginAttach() {
     if (status < 0) {
         return FALSE;
     }
-    return reinterpret_cast<RwBool(__cdecl*)()>(0x75E3E0)() != 0;
+    return _rpWorldPipelinesAttach() != 0;
 }
 
 // Registro de los hooks del lote R16A de RpWorld (sin validar).

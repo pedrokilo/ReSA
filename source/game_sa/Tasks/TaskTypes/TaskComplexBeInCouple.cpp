@@ -184,9 +184,8 @@ CTask* CTaskComplexBeInCouple::ControlSubTask(CPed* ped) {
     if (distSq > 4.0f && m_isLeader) {
         AbortArmIK(ped);
         if (!ped->GetIntelligence()->FindTaskByType(TASK_COMPLEX_WAIT_FOR_PED)) {
-            // El constructor de CTaskComplexWaitForPed (0x683340) aun no esta reconstruido: se llama al del EXE
             auto* const mem = CTask::operator new(sizeof(CTaskComplexWaitForPed));
-            return plugin::CallMethodAndReturn<CTask*, 0x683340, CTask*, CPed*, float, uint32, bool>(static_cast<CTask*>(mem), m_partner, 0.75f, 20000u, false);
+            return static_cast<CTaskComplexWaitForPed*>(mem)->Constructor(m_partner, 0.75f, 20000u, false);
         }
     }
 

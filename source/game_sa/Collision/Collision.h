@@ -66,7 +66,6 @@ public:
 
 public:
     static void InjectHooks();
-    static void Tests(int32 i);
 
     // dummy function
     static void Init();

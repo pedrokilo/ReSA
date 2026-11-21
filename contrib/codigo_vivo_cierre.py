@@ -59,8 +59,12 @@ def main():
     ap.add_argument('--exe', default=cv.EXE_DEFECTO)
     ap.add_argument('--cache', default=None)
     ap.add_argument('--aplicar', action='store_true')
+    ap.add_argument('--escribir-lotes', default='', help='con --aplicar, solo se escriben estos lotes (los demas intervienen en el calculo pero no se tocan)')
+    ap.add_argument('--sin-garantia', default='', help='lotes que se verifican pero no se cierran (no se descartan las llamadas por registro o dependen de otro lote)')
+    ap.add_argument('--motivo-sin-garantia', default='no se cierra: quedan llamadas por registro sin descartar con garantias')
     args = ap.parse_args()
     lotes = args.lotes.split(',')
+    blandos_lotes = set(filter(None, args.sin_garantia.split(',')))
 
     hechos = cv.cargar_ejecutado(argparse.Namespace(exe=args.exe, cache=args.cache))
     funcs, ex = hechos['funcs'], hechos['ex']
@@ -192,6 +196,8 @@ def main():
             r['cierre'] = 'condicionada (dueno vivo: se cierra con el lote de su biblioteca)'
         elif r['referencias_a_clasificar']:
             r['cierre'] = 'condicionada (hueco o tabla por clasificar: P6)'
+        elif r['lote'] in blandos_lotes:
+            r['cierre'] = 'verificada (sin alcance estatico); lote no cerrado'
         else:
             r['cierre'] = 'cerrada'
     por_lote = defaultdict(list)
@@ -209,21 +215,28 @@ def main():
 
     if not args.aplicar:
         return
-    escribir(OUT / 'cierre-p1.csv', filas, list(filas[0]))
+    solo = set(filter(None, args.escribir_lotes.split(','))) or set(lotes)
+    filas_w = [r for r in filas if r['lote'] in solo]
+    previo_p1 = [r for r in leer(OUT / 'cierre-p1.csv') if r['lote'] not in solo] if (OUT / 'cierre-p1.csv').exists() else []
+    escribir(OUT / 'cierre-p1.csv', sorted(previo_p1 + filas_w, key=lambda r: r['va']), list(filas[0]))
     # estado por lote
     previo = {x['lote']: x for x in leer(OUT / 'cierre.csv')} if (OUT / 'cierre.csv').exists() else {}
     for l, n, c in resumen:
-        if c.get('cerrada', 0) == n:
+        if l not in solo:
+            continue
+        if l in blandos_lotes:
+            est = 'verificado sin cerrar'
+        elif c.get('cerrada', 0) == n:
             est = 'cerrado'
         elif c.get('cerrada', 0) == 0:
             est = 'verificado sin cerrar'
         else:
             est = 'parcial'
         previo[l] = dict(lote=l, estado=est,
-                         nota=f'{c.get("cerrada", 0)} de {n} funciones verificadas sin alcance por aristas, busqueda bruta de la direccion, referencias del C++ ni llamadas por registro conocidas; '
-                              f'{c.get("abierta", 0)} abiertas, {n - c.get("cerrada", 0) - c.get("abierta", 0)} condicionadas (detalle en cierre-p1.csv)')
+                         nota=(args.motivo_sin_garantia + '. ' if l in blandos_lotes else '') + f'{c.get("cerrada", 0) + c.get("verificada (sin alcance estatico); lote no cerrado", 0)} de {n} funciones verificadas sin alcance por aristas, busqueda bruta de la direccion, referencias del C++ ni llamadas por registro conocidas; '
+                              f'{c.get("abierta", 0)} abiertas, {sum(v for k, v in c.items() if k.startswith("condicionada"))} condicionadas (detalle en cierre-p1.csv)')
     escribir(OUT / 'cierre.csv', list(previo.values()), ['lote', 'estado', 'nota'])
-    cierre_va = {r['va']: r['cierre'] for r in filas}
+    cierre_va = {r['va']: r['cierre'] for r in filas_w}
     if 'cierre' not in vivas[0]:
         campos = list(vivas[0]) + ['cierre']
     else:

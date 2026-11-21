@@ -1631,14 +1631,14 @@ using SectorReadFn  = RpSector*(__cdecl*)(RwStream* stream, void** memoryCursor,
 void RaiseWorldError(RwInt32 code) {
     RwError error;
     error.pluginID  = 2;
-    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code);
+    error.errorCode = _rwerror(code);
     RwErrorSet(&error);
 }
 
 void RaiseWorldError(RwInt32 code, RwUInt32 argument) {
     RwError error;
     error.pluginID  = 2;
-    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code, argument);
+    error.errorCode = _rwerror(code, argument);
     RwErrorSet(&error);
 }
 

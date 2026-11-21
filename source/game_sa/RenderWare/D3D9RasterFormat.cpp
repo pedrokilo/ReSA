@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "D3D9RasterFormat.h"
+#include "D3D9RasterDriver.h"
 
 // Lote 225A (sin validar): reconstruccion en C++ puro de funciones del controlador D3D9 de rasters de RenderWare. Revisado contra el desensamblado instruccion por instruccion; no hay banco.
 // El listado atribuia estas direcciones a CWeaponModelInfo y a "Win"; la clase real sale del desensamblado (acceden a la extension D3D9 del raster en raster + 0xB4E9E0 y a los globales _RwD3D*).
@@ -83,13 +84,13 @@ int32 ZBufferDepth() { return StaticRef<int32>(0xC9BEFC); }                     
 int32 BackBufferFormat() { return StaticRef<int32>(0xC9C048); }                   // Present.BackBufferFormat
 uint8 TextureCapsLowByte() { return StaticRef<uint8>(0xC9BF3C); }                 // byte bajo de D3DCAPS9.TextureCaps (bit 7 = ALPHAPALETTE)
 
-// Comprobaciones de formato del EXE (cdecl, un argumento de pila, resultado 0/1 en EAX); se llaman por direccion fija.
-int32 CheckTextureFormat(int32 fmt)      { return plugin::CallAndReturn<int32, 0x4CBDE0, int32>(fmt); } // textura normal
-int32 CheckRenderTargetFormat(int32 fmt) { return plugin::CallAndReturn<int32, 0x4CBE20, int32>(fmt); } // textura de render target
-int32 CheckDepthTextureFormat(int32 fmt) { return plugin::CallAndReturn<int32, 0x4CBE80, int32>(fmt); } // textura de profundidad
-int32 CheckCubeRenderTargetFormat(int32 fmt) { return plugin::CallAndReturn<int32, 0x4CBF20, int32>(fmt); } // cubo de render target
-int32 CheckAutoGenMipFormat(int32 fmt)   { return plugin::CallAndReturn<int32, 0x4CBF80, int32>(fmt); } // generacion automatica de mipmaps
-int32 CheckDepthSurfaceFormat(int32 fmt) { return plugin::CallAndReturn<int32, 0x4CBD80, int32>(fmt); } // superficie de profundidad
+// Comprobaciones de formato del controlador D3D9 (cdecl, un argumento de pila, resultado 0/1), reconstruidas en D3D9RasterDriver.cpp.
+int32 CheckTextureFormat(int32 fmt)      { return RwD3D9RasterDriver::CheckTextureFormatCpp(fmt); } // textura normal
+int32 CheckRenderTargetFormat(int32 fmt) { return RwD3D9RasterDriver::CheckRenderTargetTextureFormatCpp(fmt); } // textura de render target
+int32 CheckDepthTextureFormat(int32 fmt) { return RwD3D9RasterDriver::CheckDepthStencilTextureFormatCpp(fmt); } // textura de profundidad
+int32 CheckCubeRenderTargetFormat(int32 fmt) { return RwD3D9RasterDriver::CheckRenderTargetCubeFormatCpp(fmt); } // cubo de render target
+int32 CheckAutoGenMipFormat(int32 fmt)   { return RwD3D9RasterDriver::CheckTextureFormatUsage400Cpp(fmt); } // generacion automatica de mipmaps
+int32 CheckDepthSurfaceFormat(int32 fmt) { return RwD3D9RasterDriver::CheckDepthStencilSurfaceFormatCpp(fmt); } // superficie de profundidad
 
 // 0x4CC0C0 (usercall: EAX = es cubo, EDX = formato D3D, ECX = tipo de raster; sin argumentos de pila, 129 bytes; solo lo llama 0x4CD250, que esta reconstruida abajo): ayudante local, sin hook (los registros no se
 // pueden leer desde C++). Tipo 0 y 4: IDirect3D9::CheckDeviceFormat (formato del adaptador 0xC9BEF0, uso 0, recurso cubo (5) o textura (3)) >= 0; tipo 5: 0x4CBF20 (cubo) o 0x4CBE20; cualquier otro tipo: 0.
@@ -546,7 +547,7 @@ RwRaster* D3D9RasterFormat::CreateRasterFromD3DFormat(RwInt32 width, RwInt32 hei
     }
 
     if (pool == 0) {
-        plugin::Call<0x4CB530, RwRaster*>(raster); // anade el raster a la lista de video (0xB4E9FC)
+        RwD3D9RasterDriver::RasterListPushCpp(raster); // anade el raster a la lista de video (0xB4E9FC)
     }
 
     raster->cFlags  &= 0x7Fu;
@@ -609,7 +610,7 @@ void D3D9RasterFormat::ConvertRasterToDisplayFormat(RwRaster* raster) {
     }
 
 L_Rebuild:
-    plugin::CallAndReturn<int32, 0x4CBB00, int32, RwRaster*, int32>(0, raster, 0);
+    RwD3D9RasterDriver::RasterDestroyCpp(nullptr, raster, 0);
     plugin::CallAndReturn<int32, 0x4CCE60, int32, RwRaster*, uint32>(0, raster, (raster->cType & 7u) | newFormat | 0x9000u);
     plugin::CallAndReturn<RwRaster*, 0x8001E0, RwRaster*, RwImage*, int32>(raster, image, 0);
     RwImageDestroy(image);

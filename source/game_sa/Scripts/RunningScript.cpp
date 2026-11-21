@@ -3280,10 +3280,10 @@ OpcodeResult CRunningScript::ProcessCommands800To899(int32 commandId) {
             model   = static_cast<eModelID>(7);
         }
         void* const  pedMemory = CPed::operator new(0x79C); // 0x5E4720
-        CPed* const  ped       = pedMemory ? plugin::CallMethodAndReturn<CCivilianPed*, 0x5DDB70>(static_cast<CCivilianPed*>(pedMemory), static_cast<ePedType>(pedType), static_cast<uint32>(model)) : nullptr;
+        CPed* const  ped       = pedMemory ? ::new (pedMemory) CCivilianPed(static_cast<ePedType>(pedType), static_cast<uint32>(model)) : nullptr;
         void* const  taskMemory = CTask::operator new(0x20); // 0x61A5A0
         CTask* const task       = taskMemory ? ::new (taskMemory) CTaskSimpleStandStill(999999, true, false, 8.0f) : nullptr; // 0x62F310
-        reinterpret_cast<void(__thiscall*)(CTaskManager*, CTask*, ePrimaryTasks, bool)>(0x681AF0)(&ped->GetTaskManager(), task, TASK_PRIMARY_DEFAULT, false); // CTaskManager::SetTask
+        ped->GetTaskManager().SetTask(task, TASK_PRIMARY_DEFAULT, false); // CTaskManager::SetTask
         ped->SetCharCreatedBy(PED_MISSION); // 0x5E47E0
         ped->bAllowMedicsToReviveMe = false; // bit 31 de las banderas (+0x46C)
 

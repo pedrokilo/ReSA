@@ -510,11 +510,11 @@ void SkinGetBonePositions(RpClump* clump) {
     calculated = 1;
 
     RpAtomic* atomic = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734810), &atomic); // GetFirstAtomicCallback
+    RpClumpForAllAtomics(clump, GetFirstAtomicCallback, &atomic); // GetFirstAtomicCallback
     RpSkin* const skin = RpSkinGeometryGetSkin(RpAtomicGetGeometry(atomic));
 
     RpHAnimHierarchy* hierarchy = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734A20), &hierarchy); // SkinAtomicGetHAnimHierarchCB
+    RpClumpForAllAtomics(clump, SkinAtomicGetHAnimHierarchCB, &hierarchy); // SkinAtomicGetHAnimHierarchCB
 
     table[0].position.x = 0.0f;
     table[0].position.y = 0.0f;
@@ -556,11 +556,11 @@ void SkinSetBonePositions(RpClump* clump) {
     auto& table = *reinterpret_cast<BoneEntry(*)[64]>(0xC88258);
 
     RpAtomic* atomic = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734810), &atomic); // GetFirstAtomicCallback
+    RpClumpForAllAtomics(clump, GetFirstAtomicCallback, &atomic); // GetFirstAtomicCallback
     RpSkin* const skin = RpSkinGeometryGetSkin(RpAtomicGetGeometry(atomic));
 
     RpHAnimHierarchy* hierarchy = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734A20), &hierarchy); // SkinAtomicGetHAnimHierarchCB
+    RpClumpForAllAtomics(clump, SkinAtomicGetHAnimHierarchCB, &hierarchy); // SkinAtomicGetHAnimHierarchCB
     RwMatrix* const matrices = RpHAnimHierarchyGetMatrixArray(hierarchy);
 
     const int32 numBones = static_cast<int32>(RpSkinGetNumBones(skin));
@@ -583,11 +583,11 @@ void SkinGetBonePositionsToTable(RpClump* clump, RwV3d* table) {
     }
 
     RpAtomic* atomic = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734810), &atomic); // GetFirstAtomicCallback
+    RpClumpForAllAtomics(clump, GetFirstAtomicCallback, &atomic); // GetFirstAtomicCallback
     RpSkin* const skin = RpSkinGeometryGetSkin(RpAtomicGetGeometry(atomic));
 
     RpHAnimHierarchy* hierarchy = nullptr;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734A20), &hierarchy); // SkinAtomicGetHAnimHierarchCB
+    RpClumpForAllAtomics(clump, SkinAtomicGetHAnimHierarchCB, &hierarchy); // SkinAtomicGetHAnimHierarchCB
 
     table[0].x = 0.0f;
     table[0].y = 0.0f;

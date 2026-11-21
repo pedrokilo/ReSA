@@ -391,6 +391,15 @@ __declspec(noinline) void __cdecl RasterListShutdown() {
 }
 } // namespace
 
+void  RwD3D9RasterDriver::RasterListPushCpp(RwRaster* raster) { ::RasterListPush(raster); }
+int32 RwD3D9RasterDriver::RasterDestroyCpp(void* device, RwRaster* raster, int32 flags) { return ::RasterDestroy(device, raster, flags); }
+int32 RwD3D9RasterDriver::CheckDepthStencilSurfaceFormatCpp(uint32 format) { return ::CheckDepthStencilSurfaceFormat(format); }
+int32 RwD3D9RasterDriver::CheckTextureFormatCpp(uint32 format) { return ::CheckTextureFormat(format); }
+int32 RwD3D9RasterDriver::CheckRenderTargetTextureFormatCpp(uint32 format) { return ::CheckRenderTargetTextureFormat(format); }
+int32 RwD3D9RasterDriver::CheckDepthStencilTextureFormatCpp(uint32 format) { return ::CheckDepthStencilTextureFormat(format); }
+int32 RwD3D9RasterDriver::CheckRenderTargetCubeFormatCpp(uint32 format) { return ::CheckRenderTargetCubeFormat(format); }
+int32 RwD3D9RasterDriver::CheckTextureFormatUsage400Cpp(uint32 format) { return ::CheckTextureFormatUsage400(format); }
+
 /**
  * Registra las rutinas del controlador de rasters D3D9 (lote 224A, sin validar).
  */

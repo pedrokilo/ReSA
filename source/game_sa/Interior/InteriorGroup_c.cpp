@@ -241,7 +241,7 @@ void InteriorGroup_c::SetupPaths() {
             const float square = (delta.x * delta.x + delta.y * delta.y) + delta.z * delta.z;
             if (square < best) { best = square; closest = j; }
         }
-        if (best >= 3.0f) plugin::CallMethod<0x44DF60>(&ThePaths, unmatchedNodes[i]);
+        if (best >= 3.0f) ThePaths.RemoveInteriorLinks(unmatchedNodes[i]);
         else { matched[i] = matched[closest] = true; ThePaths.AddInteriorLink(unmatchedNodes[i], unmatchedNodes[closest]); }
     }
     ThePaths.CompleteNewInterior(nullptr);

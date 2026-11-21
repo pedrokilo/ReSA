@@ -1417,7 +1417,7 @@ void CWaterLevel::RenderSeaBedSegmentNear(int32 x, int32 y, float minX, float ma
 void CWaterLevel::RenderWater() {
     if (!CGame::CanSeeWaterFromCurrArea()) return;
     SetCameraRange();
-    plugin::Call<0x734650>();
+    DefinedState();
     uiTempBufferIndicesStored = 0;
     uiTempBufferVerticesStored = 0;
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, seabd32Raster);
@@ -1502,7 +1502,7 @@ void CWaterLevel::RenderWater() {
     }
     flush();
     RenderBoatWakes();
-    plugin::Call<0x734650>();
+    DefinedState();
 }
 
 // 0x6E76E0 (lote 173A, banco Fn173A; cdecl, sin argumentos, `ret`, 11 bytes: `mov eax,[0xB7CB84]; mov [0xC228A4],eax; ret`; el listado decia CWaterLevel): copia el reloj del juego

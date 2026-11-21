@@ -142,6 +142,11 @@ const auto D3D9DeviceReleaseVideoMemory  = _rwD3D9DeviceReleaseVideoMemory;
 // 0x7F5F20: ya esta reconstruida en rwcore.cpp (lote R25A, RwD3D9); se enlaza el cuerpo C++ en vez de llamar al EXE por direccion.
 RwBool _rwD3D9SetRenderTarget(RwUInt32 index, void* surface);
 
+// Cuerpos ya reconstruidos en rwcore.cpp (ambito global).
+RwBool _rwD3D9Im2DRenderOpen();
+RwBool _rwD3D9Im3DRenderOpen();
+void _rwD3D9RenderStateReset();
+
 namespace notsa::WindowedMode {
 bool bWindowed        = true;
 bool bFullMode        = !bWindowed;
@@ -515,7 +520,7 @@ _rwD3D9DynamicVertexBufferRestore
 Purpose:   Restore all video memory Dinamic vertex buffers
 
 */
-const auto _rwD3D9DynamicVertexBufferRestore = plugin::CallAndReturn<RwBool, 0x7F58D0>;
+inline RwBool _rwD3D9DynamicVertexBufferRestore() { return ::_rwD3D9DynamicVertexBufferRestore(); }
 
 
 /****************************************************************************
@@ -524,7 +529,7 @@ _rwD3D9RenderStateReset
 On entry   :
 On exit    :
 */
-const auto _rwD3D9RenderStateReset = plugin::Call<0x7FD100>;
+inline void _rwD3D9RenderStateReset() { ::_rwD3D9RenderStateReset(); }
 
 /****************************************************************************
 D3D9RestoreCacheLights
@@ -570,7 +575,7 @@ _rwD3D9Im2DRenderOpen
 
 On exit    : TRUE on succes
 */
-const auto _rwD3D9Im2DRenderOpen = plugin::CallAndReturn<RwBool, 0x7FB480>;
+inline RwBool _rwD3D9Im2DRenderOpen() { return ::_rwD3D9Im2DRenderOpen(); }
 
 /****************************************************************************
 _rwD3D9Im3DRenderOpen
@@ -578,7 +583,7 @@ _rwD3D9Im3DRenderOpen
 On entry   :
 On exit    :
 */
-const auto _rwD3D9Im3DRenderOpen = plugin::CallAndReturn<RwBool, 0x80E020>;
+inline RwBool _rwD3D9Im3DRenderOpen() { return ::_rwD3D9Im3DRenderOpen(); }
 
 /****************************************************************************
 rwD3D9DeviceRestoreVideoMemory

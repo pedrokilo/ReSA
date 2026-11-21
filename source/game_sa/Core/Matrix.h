@@ -263,6 +263,8 @@ CMatrix operator*(const CMatrix& a, const CMatrix& b);
 // Cuerpo de la multiplicacion de matrices del EXE (0x59BE30) con el puntero de salida explicito (lote 99A): ver Matrix.cpp.
 CMatrix* MatrixMultiplyExe(CMatrix* out, const CMatrix* a, const CMatrix* b);
 [[deprecated]] CVector operator*(const CMatrix& a, const CVector& b);
+// 0x59C890 con el puntero de salida explicito (cdecl; devuelve `out`): matriz * punto con las sumas y los redondeos de la x87 del EXE. Ver Matrix.cpp.
+CVector* MatrixTimesPointExe(CVector* out, const CMatrix* matrix, const CVector* point);
 CMatrix operator+(const CMatrix& a, const CMatrix& b);
 
 CMatrix& Invert(CMatrix& in, CMatrix& out);

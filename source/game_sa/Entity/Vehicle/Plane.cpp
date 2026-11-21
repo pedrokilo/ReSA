@@ -612,7 +612,7 @@ void CPlane::DoPlaneGenerationAndRemoval(){
  CVector coordinates,target;float heading,height;
  if(GenPlane_ModelIndex==497){
   FindPlaneCreationCoors(&coordinates,&target,&heading,&height,false);
-  auto* storage=plugin::CallAndReturn<void*,0x6E2D50>(0xA18);
+  auto* storage=CVehicle::operator new(0xA18);
   CVehicle* vehicle=storage?::new(storage) CHeli(GenPlane_ModelIndex,RANDOM_VEHICLE):nullptr;
   vehicle->SetPosn(coordinates);PlaneGenerationHeading355(vehicle,heading);CCarCtrl::JoinCarWithRoadSystem(vehicle);
   auto* bytes=reinterpret_cast<uint8*>(vehicle);*reinterpret_cast<float*>(bytes+0x84C)=std::bit_cast<float>(0x3E6147AEu);vehicle->SetStatus(STATUS_PHYSICS);CWorld::Add(vehicle);
@@ -634,8 +634,8 @@ void CPlane::DoPlaneGenerationAndRemoval(){
  }else{
   const bool large=GenPlane_ModelIndex==577||GenPlane_ModelIndex==592;
   FindPlaneCreationCoors(&coordinates,&target,&heading,&height,large);
-  auto* storage=plugin::CallAndReturn<void*,0x6E2D50>(0xA04);
-  auto* plane=storage?reinterpret_cast<CPlane*(__thiscall*)(void*,int32,int32)>(0x6C8E20)(storage,GenPlane_ModelIndex,1):nullptr;
+  auto* storage=CVehicle::operator new(0xA04);
+  auto* plane=storage?::new (storage) CPlane(GenPlane_ModelIndex,RANDOM_VEHICLE):nullptr;
   plane->SetPosn(coordinates);plane->m_planeCreationHeading=heading;PlaneGenerationHeading355(plane,heading);CCarCtrl::JoinCarWithRoadSystem(plane);
   plane->SetStatus(STATUS_PHYSICS);CWorld::Add(plane);auto* bytes=reinterpret_cast<uint8*>(plane);
   plane->m_planeHeading=heading;plane->m_minAltitude=height;bytes[0x3BA]=36;plane->m_planeHeadingPrev=heading;plane->m_maxAltitude=height;
@@ -1183,7 +1183,7 @@ void CPlane::ProcessFlyingCarStuff() {
                 const CVector* cameraPosition = cameraMatrix ? &cameraMatrix->GetPosition() : &StaticRef<CVector>(0xB6F02C);
                 if ((PlaneDistanceBelowCpp(&GetPosition().x, &cameraPosition->x, DatosExe::Rdata::k859AEC) || status() == 0) && m_aCarNodes[node]) {
                     CVector point;
-                    reinterpret_cast<CVector*(__cdecl*)(CVector*, const CMatrix*, const CVector*)>(0x59C890)(
+                    MatrixTimesPointExe(
                         &point, m_matrix, reinterpret_cast<const CVector*>(&m_aCarNodes[node]->modelling.pos));
                     FxPrtMult_c mults{0.f, 0.f, 0.f, .2f, 1.f, 1.f, strength};
                     CVector velocity;
@@ -1230,7 +1230,7 @@ void CPlane::ProcessFlyingCarStuff() {
     if (m_nModelIndex == 520 && status() == 0 && int32(*reinterpret_cast<uint16*>(bytes + 0x86C)) >= int32(StaticRef<int16>(0x8D33C8))) {
         auto* old = m_pFlyingHandlingData;
         auto* modelInfo = StaticRef<uint8*>(0xA9B76C);
-        m_pFlyingHandlingData = reinterpret_cast<tFlyingHandlingData*(__thiscall*)(void*, uint8)>(0x6F52D0)(reinterpret_cast<void*>(0xC2B9C8), modelInfo[0x4A]);
+        m_pFlyingHandlingData = gHandlingDataMgr.GetFlyingPointer(modelInfo[0x4A]);
         if (double(m_fAccelerationBreakStatus) > DatosExe::Rdata::k859EF8 || (bytes[0x960] < 4 && !(*reinterpret_cast<uint32*>(bytes + 0x40) & 0x08000000)))
             FlyingControl(eFlightModel(6), skid, up, -lateral, m_fAccelerationBreakStatus * DatosExe::Data::v8D341C);
         m_pFlyingHandlingData = old;

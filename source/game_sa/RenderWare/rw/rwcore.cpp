@@ -28,6 +28,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "rwcore.h"
+#include "RenderWare/D3D9RasterFormat.h"
 #include "X87Math.h"
 #include "WindowedMode.hpp"
 #include "game_sa/Crt/CrtPow.h"
@@ -138,6 +139,9 @@ RxNodeDefinition* _rwD3D9RxNodeDefinitionGetImmInstance();
 RxNodeDefinition* _rwD3D9RxNodeDefinitionGetSubmitNoLight();
 RwBool _rwD3D9Im3DRenderOpen();
 void _rwD3D9Im3DRenderClose();
+RwBool _rwD3D9Im2DRenderOpen();
+void _rwD3D9Im2DRenderClose();
+void _rwD3D9RenderStateReset();
 RwInt32 _rxPipelineUnlockAllocateClusters(RxPipeline* pipeline);
 
 // --- Lote 223A (sin validar): plugin de raster del controlador D3D9 de RenderWare (0x4C9990..0x4CA5A0; el listado las atribuia a CWeaponModelInfo) ---
@@ -2905,7 +2909,7 @@ RwBool RwD3D9CameraIsBBoxFullyInsideFrustum(const void* camera, const void* boun
 }
 
 void _rwD3D9RasterConvertToNonPalettized(RwRaster* raster) {
-   ((void(__cdecl *)(RwRaster*))0x4CD250)(raster);
+   D3D9RasterFormat::ConvertRasterToDisplayFormat(raster);
 }
 
 // 0x7F5F60: salto directo a 0x4C9AB0 (registro del plugin de raster D3D9, sin reconstruir; cuerpo del EXE)
@@ -6563,8 +6567,8 @@ bool D3D9RestoreAfterReset() {
     ComCall<kSlotDeviceGetDepthStencilSurface, HRESULT>(D3D9Device, &D3D9DepthStencilSurface);
     ComCall<kSlotRelease, ULONG>(D3D9DepthStencilSurface);
     bool ok = false;
-    if (((RwBool(__cdecl *)(void))0x4CC970)() != 0 && _rwD3D9DynamicVertexBufferRestore() != 0) {
-        ((void(__cdecl *)(void))0x7FD100)();
+    if (D3D9RasterFormat::VideoMemoryRasterListRestore() != 0 && _rwD3D9DynamicVertexBufferRestore() != 0) {
+        _rwD3D9RenderStateReset();
         bool lightsOk = true;
         if (D3D9LightCount > 0) {
             int32 index = 0;
@@ -6578,7 +6582,7 @@ bool D3D9RestoreAfterReset() {
             } while (index < D3D9LightCount);
             lightsOk = last >= 0;
         }
-        if (lightsOk && ((RwBool(__cdecl *)(void))0x7FB480)() != 0 && _rwD3D9Im3DRenderOpen() != 0) {
+        if (lightsOk && _rwD3D9Im2DRenderOpen() != 0 && _rwD3D9Im3DRenderOpen() != 0) {
             ok = true;
         }
     }
@@ -6829,7 +6833,7 @@ RwBool _rwD3D9DeviceSystemStop(void* /*out*/, void* /*inOut*/, RwInt32 /*in*/) {
     D3D9ExtraRecordUnused = 0;
     ((void(__cdecl *)(void))0x4CC170)();
     _rwD3D9VertexBufferManagerClose();
-    ((void(__cdecl *)(void))0x7FB5F0)();
+    _rwD3D9Im2DRenderClose();
     ComCall<kSlotRelease, ULONG>(D3D9Device);
     D3D9Device = nullptr;
     return TRUE;
@@ -6959,7 +6963,7 @@ RwBool _rwD3D9DeviceReleaseVideoMemory() {
         CurrentDepthStencilSurface = depthSurface;
         ComCall<kSlotSetDepthStencilSurface, HRESULT>(device, depthSurface);
     }
-    ((void(__cdecl *)(void))0x7FB5F0)();
+    _rwD3D9Im2DRenderClose();
     _rwD3D9Im3DRenderClose();
     _rwD3D9DynamicVertexBufferRelease();
     ((void(__cdecl *)(void))0x4CB640)();

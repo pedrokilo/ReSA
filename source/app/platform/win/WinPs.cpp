@@ -232,8 +232,8 @@ RwBool psInitialize() {
     // Como el original: los ajustes se cargan antes de comprobar nada
     FrontEndMenuManager.LoadSettings();
 
-    // Como el original: GetDXVersion (0x745650, no reversada) detecta la version de DirectX
-    s_OSStatus.DxVer = plugin::CallAndReturn<DWORD, 0x745650>();
+    // Como el original: GetDXVersion (0x745650) detecta la version de DirectX
+    s_OSStatus.DxVer = GetDXVersion();
 
     // Como el original: MessageBoxA, con el titulo pedido antes que el texto
     if (s_OSStatus.OSVer == WinVer::WIN_95) {

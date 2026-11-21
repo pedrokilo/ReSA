@@ -67,7 +67,7 @@ RpSkin*& GeometrySkin(const RpGeometry* geometry) {
 void RaiseSkinError(RwInt32 code) {
     RwError error;
     error.pluginID  = kSkinPluginID;
-    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code);
+    error.errorCode = _rwerror(code);
     RwErrorSet(&error);
 }
 
