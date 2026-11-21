@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "Clouds.h"
 #include "X87Math.h"
@@ -488,9 +489,9 @@ void CClouds::Render() {
             // Como el original: la base de color ya incluye el balance de nubes/niebla.
             const int32 colorC = CloudsFtol((1.0f - balance) * static_cast<float>(t));
 
-            const auto& starsY     = StaticRef<std::array<float, 9>>(0x8D55EC);
-            const auto& starsZ     = StaticRef<std::array<float, 9>>(0x8D5610);
-            const auto& starsSizes = StaticRef<std::array<float, 9>>(0x8D5634);
+            const auto& starsY     = DatosExe::Data::v8D55EC;
+            const auto& starsZ     = DatosExe::Data::v8D5610;
+            const auto& starsSizes = DatosExe::Data::v8D5634;
 
             RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(gpCoronaTexture[CORONATYPE_SHINYSTAR])));
 
@@ -546,9 +547,9 @@ void CClouds::Render() {
 
             ms_cameraRoll = TheCamera.GetRoll();
 
-            const auto& coordsX = StaticRef<std::array<float, 12>>(0x8D5394);
-            const auto& coordsY = StaticRef<std::array<float, 12>>(0x8D53C4);
-            const auto& coordsZ = StaticRef<std::array<float, 12>>(0x8D53F4);
+            const auto& coordsX = DatosExe::Data::v8D5394;
+            const auto& coordsY = DatosExe::Data::v8D53C4;
+            const auto& coordsZ = DatosExe::Data::v8D53F4;
             for (int32 i = 0; i < 12; i++) {
                 const auto& camPos = TheCamera.GetPosition();
                 // Como el original: Z no suma la cámara.
@@ -570,9 +571,9 @@ void CClouds::Render() {
     // Arcoíris [0x71422F - 0x714387]
     //
     if (s_DebugSettings.Rainbow.Enabled && (s_DebugSettings.Rainbow.Force || CWeather::Rainbow != 0.0f)) {
-        const auto& lineR = StaticRef<std::array<uint8, 6>>(0x8D5370);
-        const auto& lineG = StaticRef<std::array<uint8, 6>>(0x8D5378);
-        const auto& lineB = StaticRef<std::array<uint8, 6>>(0x8D5380);
+        const auto& lineR = DatosExe::Data::v8D5370;
+        const auto& lineG = DatosExe::Data::v8D5378;
+        const auto& lineB = DatosExe::Data::v8D5380;
 
         RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(gpCoronaTexture[CORONATYPE_SHINYSTAR])));
 
@@ -839,7 +840,7 @@ void CClouds::RenderBottomFromHeight() {
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(gpCloudMaskTex)));
 
     const int32 baseAlpha = int32(colours.m_fCloudAlpha);
-    const auto& random = StaticRef<std::array<float, 80>>(0x8D5658);
+    const auto& random = DatosExe::Data::v8D5658;
     const auto sample = [&](int i) { return random[i % random.size()]; };
     const auto blockCentre = [](float value, int32 mask, int32 half) { return (int32(value) & mask) + half; };
     auto& vertices = StaticRef<uint32>(0xC4B950);
@@ -890,8 +891,8 @@ void CClouds::RenderBottomFromHeight() {
 
     CSprite::InitSpriteBuffer();
     if (baseAlpha > 0) {
-        const auto& xs = StaticRef<std::array<float, 30>>(0x8D5818);
-        const auto& ys = StaticRef<std::array<float, 30>>(0x8D57A0);
+        const auto& xs = DatosExe::Data::v8D5818;
+        const auto& ys = DatosExe::Data::v8D57A0;
         for (int i = 0; i < 30; ++i) {
             const float shift = windShift * 0.5f;
             const float dx = shift + xs[i] - camera.x;

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -77,8 +78,8 @@ class CWaterLevel {
     static inline auto& m_bWaterFogScript = DatosExe::Data::v8D37D5;
     static inline auto& m_WaterFogDensity = DatosExe::Data::v8D37E0;
 
-    static inline auto& faWaveMultipliersX = StaticRef<std::array<float, 8>>(0x8D38C8);
-    static inline auto& faWaveMultipliersY = StaticRef<std::array<float, 8>>(0x8D38E8);
+    static inline auto& faWaveMultipliersX = DatosExe::Data::v8D38C8;
+    static inline auto& faWaveMultipliersY = DatosExe::Data::v8D38E8;
     static inline auto& ms_WakePointAlphaMults = StaticRef<std::array<float, 4>>(0x8D390C);
 
     static inline auto& waterclear256Raster = StaticRef<RwRaster*>(0xC228A8);

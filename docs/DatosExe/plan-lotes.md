@@ -9,13 +9,13 @@ Generado por `contrib/datos_exe_plan.py`. 5276 objetos con referencia de la DLL 
 | Grupo | Descripcion | Riesgo | Lotes | Objetos | Bytes (cota) | Bytes de tamano fiable | Hechos | Propietarios |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | G1 (DE01) | Constantes escalares de .rdata (StaticRef tipado) | bajo | 1 | 154 | 632 | 632 | 154 | 28 |
-| G2 (DE02) | Constantes de .rdata por otras vias (ayudante, reinterpret_cast, literal, mezcla) | bajo | 6 | 224 | 861 | 781 | 0 | 34 |
-| G3 (DE03) | Tablas y cadenas de .rdata del juego (mas de 8 bytes) | bajo | 1 | 36 | 1,236 | 0 | 0 | 35 |
-| G4 (DE04) | Datos inicializados (.data) del juego sin lector vivo | medio | 27 | 1065 | 14,497 | 10,672 | 0 | 137 |
+| G2 (DE02) | Constantes de .rdata por otras vias (ayudante, reinterpret_cast, literal, mezcla) | bajo | 6 | 224 | 861 | 781 | 169 | 34 |
+| G3 (DE03) | Tablas y cadenas de .rdata del juego (mas de 8 bytes) | bajo | 1 | 36 | 1,236 | 0 | 3 | 35 |
+| G4 (DE04) | Datos inicializados (.data) del juego sin lector vivo | medio | 27 | 1065 | 14,497 | 10,672 | 538 | 137 |
 | G5 (DE05) | Estado en ejecucion (.bss) del juego sin lector vivo | medio | 61 | 2354 | 66,413 | 51,600 | 0 | 264 |
 | G6 (DE06) | Datos del juego que aun lee codigo vivo del EXE (.data/.bss compartidos) | alto | 1 | 20 | 202 | 74 | 0 | 12 |
-| G7 (DE07) | Datos de RenderWare y D3D (cualquier seccion) | alto | 16 | 619 | 4,992 | 2,429 | 0 | 24 |
-| G8 (DE08) | CRT, x87 y bibliotecas (cualquier seccion) | alto | 5 | 165 | 1,910 | 650 | 0 | 22 |
+| G7 (DE07) | Datos de RenderWare y D3D (cualquier seccion) | alto | 16 | 619 | 4,992 | 2,429 | 5 | 24 |
+| G8 (DE08) | CRT, x87 y bibliotecas (cualquier seccion) | alto | 5 | 165 | 1,910 | 650 | 28 | 22 |
 | G9 (DE09) | vtables de las clases enganchadas (hook_vtable en .rdata/.data) | alto | 12 | 469 | 21,208 | 0 | 0 | 459 |
 | G10 (DE10) | Proteccion del EXE (_TEXT_HA, _rwdseg) | descartado | 5 | 170 | 797 | 669 | 0 | 1 |
 

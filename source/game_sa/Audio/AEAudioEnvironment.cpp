@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "AEAudioEnvironment.h"
 
@@ -29,7 +30,7 @@ static auto& gMikeAttenuation     = DatosExe::Data::v8AC260; // -6
 static auto& gCameraOffsetMax     = DatosExe::Data::v8AC264; // 0.5
 static auto& gCameraOffsetSub     = DatosExe::Data::v8AC268; // 0.5
 static auto& gCameraOffset1stPers = DatosExe::Data::v8AC26C; // 2
-static auto& gExeAttenuationTable = StaticRef<std::array<float, 1280>>(0x8AC270);
+static auto& gExeAttenuationTable = DatosExe::Data::v8AC270;
 
 #include "data/SoundAttenuationTable.h"
 

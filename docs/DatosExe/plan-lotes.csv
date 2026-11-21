@@ -1,39 +1,39 @@
 lote,grupo,propietario,objetos,bytes,seccion,va_min,va_max,estado
 DE01,G1,"Bike, Plane, Cam ...",154,632,.rdata,0x00858A28,0x00872C00,hecho
-DE02-1,G2,"Cam, Bike, Camera ...",40,157,.rdata,0x00858B10,0x00871358,pendiente
-DE02-2,G2,"Hud, Garage, EntitySeekPosCalculator ...",40,181,.rdata,0x0085862C,0x0085A968,pendiente
-DE02-3,G2,Hud,40,165,.rdata,0x00859A44,0x00866C80,pendiente
-DE02-4,G2,"ImportThunks, JPegCompress, Hud ...",40,127,.rdata,0x00858068,0x0086B818,pendiente
-DE02-5,G2,"Radar, Stats, Matrix ...",40,156,.rdata,0x00858970,0x00871A70,pendiente
-DE02-6,G2,"Vehicle, TaskComplexSunbathe, Weapon ...",24,75,.rdata,0x00858978,0x00872C6C,pendiente
-DE03-1,G3,"TaskComplexUseMobilePhone, AEAudioChannel, AEAudioHardware ...",36,1236,.rdata,0x00859A58,0x00887D5C,pendiente
-DE04-1,G4,"AEPedAudioEntity, AEAudioEnvironment, AECutsceneTrackManager ...",40,5632,.data,0x008ABC70,0x008D5E44,pendiente
-DE04-2,G4,"AEPedSpeechAudioEntity, AEPoliceScannerAudioEntity, AEPedAudioEntity ...",40,1179,.data,0x008AE6A0,0x008C8B88,pendiente
-DE04-3,G4,"AERadioTrackManager, AEVehicleAudioEntity, AESound ...",40,521,.data,0x008C8B8C,0x008CCF24,pendiente
-DE04-4,G4,"AEWeatherAudioEntity, Automobile, AEVehicleAudioEntity ...",40,297,.data,0x008AA5A8,0x008D3394,pendiente
-DE04-5,G4,"Bike, Buoyancy, Cam ...",40,315,.data,0x008A5B14,0x008D3964,pendiente
-DE04-6,G4,Cam,40,286,.data,0x008CC398,0x008CC7DC,pendiente
-DE04-7,G4,Cam,40,173,.data,0x008CC7E0,0x008CCCA0,pendiente
-DE04-8,G4,Cam,40,160,.data,0x008CCCA4,0x008CCD9C,pendiente
-DE04-9,G4,Cam,40,157,.data,0x008CCDA0,0x008CCEA0,pendiente
-DE04-10,G4,"Cam, Camera",40,165,.data,0x008CC380,0x008D610C,pendiente
-DE04-11,G4,Camera,40,341,.data,0x008CC824,0x008CCE14,pendiente
-DE04-12,G4,"Camera, CarCtrl, CdStreamInfo ...",40,299,.data,0x008A5AB4,0x008E3FFC,pendiente
-DE04-13,G4,"ClothesBuilder, Clouds, Collision ...",40,987,.data,0x008A5B16,0x008D5818,pendiente
-DE04-14,G4,"CustomCarEnvMapPipeline, EventScanner, GangWars ...",40,170,.data,0x008A5E48,0x008D5CD8,pendiente
-DE04-15,G4,"ModelIndices, IplStore, LoadingScreen ...",40,292,.data,0x008CD4F4,0x008E3FD0,pendiente
+DE02-1,G2,"Cam, Bike, Camera ...",40,157,.rdata,0x00858B10,0x00871358,parcial
+DE02-2,G2,"Hud, Garage, EntitySeekPosCalculator ...",40,181,.rdata,0x0085862C,0x0085A968,parcial
+DE02-3,G2,Hud,40,165,.rdata,0x00859A44,0x00866C80,parcial
+DE02-4,G2,"ImportThunks, JPegCompress, Hud ...",40,127,.rdata,0x00858068,0x0086B818,parcial
+DE02-5,G2,"Radar, Stats, Matrix ...",40,156,.rdata,0x00858970,0x00871A70,parcial
+DE02-6,G2,"Vehicle, TaskComplexSunbathe, Weapon ...",24,75,.rdata,0x00858978,0x00872C6C,parcial
+DE03-1,G3,"TaskComplexUseMobilePhone, AEAudioChannel, AEAudioHardware ...",36,1236,.rdata,0x00859A58,0x00887D5C,parcial
+DE04-1,G4,"AEPedAudioEntity, AEAudioEnvironment, AECutsceneTrackManager ...",40,5632,.data,0x008ABC70,0x008D5E44,parcial
+DE04-2,G4,"AEPedSpeechAudioEntity, AEPoliceScannerAudioEntity, AEPedAudioEntity ...",40,1179,.data,0x008AE6A0,0x008C8B88,parcial
+DE04-3,G4,"AERadioTrackManager, AEVehicleAudioEntity, AESound ...",40,521,.data,0x008C8B8C,0x008CCF24,parcial
+DE04-4,G4,"AEWeatherAudioEntity, Automobile, AEVehicleAudioEntity ...",40,297,.data,0x008AA5A8,0x008D3394,parcial
+DE04-5,G4,"Bike, Buoyancy, Cam ...",40,315,.data,0x008A5B14,0x008D3964,parcial
+DE04-6,G4,Cam,40,286,.data,0x008CC398,0x008CC7DC,parcial
+DE04-7,G4,Cam,40,173,.data,0x008CC7E0,0x008CCCA0,parcial
+DE04-8,G4,Cam,40,160,.data,0x008CCCA4,0x008CCD9C,parcial
+DE04-9,G4,Cam,40,157,.data,0x008CCDA0,0x008CCEA0,parcial
+DE04-10,G4,"Cam, Camera",40,165,.data,0x008CC380,0x008D610C,parcial
+DE04-11,G4,Camera,40,341,.data,0x008CC824,0x008CCE14,parcial
+DE04-12,G4,"Camera, CarCtrl, CdStreamInfo ...",40,299,.data,0x008A5AB4,0x008E3FFC,parcial
+DE04-13,G4,"ClothesBuilder, Clouds, Collision ...",40,987,.data,0x008A5B16,0x008D5818,parcial
+DE04-14,G4,"CustomCarEnvMapPipeline, EventScanner, GangWars ...",40,170,.data,0x008A5E48,0x008D5CD8,parcial
+DE04-15,G4,"ModelIndices, IplStore, LoadingScreen ...",40,292,.data,0x008CD4F4,0x008E3FD0,parcial
 DE04-16,G4,ModelIndices,40,80,.data,0x008CD544,0x008CD5E4,pendiente
 DE04-17,G4,ModelIndices,40,80,.data,0x008CD5E8,0x008CD698,pendiente
 DE04-18,G4,ModelIndices,40,86,.data,0x008CD69C,0x008CD74C,pendiente
-DE04-19,G4,"ModelIndices, Ped, Object ...",40,174,.data,0x008A6260,0x008D5D74,pendiente
-DE04-20,G4,"Physical, Plane, PedIntelligence ...",40,229,.data,0x008A5F48,0x008D6080,pendiente
-DE04-21,G4,"PostEffects, Plane, PlayerPed ...",40,203,.data,0x008CDF20,0x008D50E8,pendiente
-DE04-22,G4,"PostEffects, ProjectileInfo",40,222,.data,0x008CD75C,0x008D6104,pendiente
-DE04-23,G4,"Stats, Rope, Streaming ...",40,809,.data,0x008A5A80,0x008E2A14,pendiente
-DE04-24,G4,"TaskComplexFallToDeath, Streaming, TaskSimpleFightingControl ...",40,195,.data,0x008A5A9C,0x008D2FF4,pendiente
-DE04-25,G4,"Vehicle, TrafficLights, Train ...",40,388,.data,0x008A6214,0x008D48F8,pendiente
-DE04-26,G4,"WaterLevel, VehicleModelInfo, VideoMode ...",40,336,.data,0x008A7740,0x008D6248,pendiente
-DE04-27,G4,"WeaponEffects, Weather, app_light ...",25,721,.data,0x008CDEF0,0x008D6238,pendiente
+DE04-19,G4,"ModelIndices, Ped, Object ...",40,174,.data,0x008A6260,0x008D5D74,parcial
+DE04-20,G4,"Physical, Plane, PedIntelligence ...",40,229,.data,0x008A5F48,0x008D6080,parcial
+DE04-21,G4,"PostEffects, Plane, PlayerPed ...",40,203,.data,0x008CDF20,0x008D50E8,parcial
+DE04-22,G4,"PostEffects, ProjectileInfo",40,222,.data,0x008CD75C,0x008D6104,parcial
+DE04-23,G4,"Stats, Rope, Streaming ...",40,809,.data,0x008A5A80,0x008E2A14,parcial
+DE04-24,G4,"TaskComplexFallToDeath, Streaming, TaskSimpleFightingControl ...",40,195,.data,0x008A5A9C,0x008D2FF4,parcial
+DE04-25,G4,"Vehicle, TrafficLights, Train ...",40,388,.data,0x008A6214,0x008D48F8,parcial
+DE04-26,G4,"WaterLevel, VehicleModelInfo, VideoMode ...",40,336,.data,0x008A7740,0x008D6248,parcial
+DE04-27,G4,"WeaponEffects, Weather, app_light ...",25,721,.data,0x008CDEF0,0x008D6238,parcial
 DE05-1,G5,"3dMarkers, AEGlobalWeaponAudioEntity, AEPedSpeechAudioEntity ...",40,264,.bss,0x00B5F898,0x00C80444,pendiente
 DE05-2,G5,"AEPedSpeechAudioEntity, AEPoliceScannerAudioEntity, AERadioTrackManager",40,214,.bss,0x00B613E6,0x00B62C5A,pendiente
 DE05-3,G5,"AERadioTrackManager, AESmoothFadeThread, AESoundManager ...",40,200,.bss,0x00B608D0,0x00BA67F8,pendiente
@@ -96,7 +96,7 @@ DE05-59,G5,"Weather, WinPlatform, WinPs ...",40,304,.bss,0x00C812EC,0x00C9BCE0,p
 DE05-60,G5,"World, app_light, app ...",40,187,.bss,0x00B72C68,0x00C9246C,pendiente
 DE05-61,G5,"common, cTransmission, preset_view",11,828,.bss,0x00B71510,0x00C1CB54,pendiente
 DE06-1,G6,"VideoMode, DelayLoadThunks, Plane ...",20,202,.bss/.data,0x008D6220,0x00C97C34,pendiente
-DE07-1,G7,"D3D9RasterDriver, D3D9RasterFormat, D3DResourceSystem ...",40,263,.bss/.data/.rdata,0x00858B50,0x00C9C068,pendiente
+DE07-1,G7,"D3D9RasterDriver, D3D9RasterFormat, D3DResourceSystem ...",40,263,.bss/.data/.rdata,0x00858B50,0x00C9C068,parcial
 DE07-2,G7,"WindowedMode, rpmatfx, rphanim ...",40,292,.bss/.data/.rdata,0x008852F0,0x00C9BF00,pendiente
 DE07-3,G7,"rpmatfx, rpskin, rpuvanim",40,296,.bss/.data/.rdata,0x00882ED4,0x00C9ABC8,pendiente
 DE07-4,G7,"rpworld, rpuvanim",40,536,.bss/.data/.rdata,0x00874EF8,0x00C9B8D0,pendiente
@@ -112,9 +112,9 @@ DE07-13,G7,rwcore,40,256,.bss,0x00C9A4D4,0x00C9A6B0,pendiente
 DE07-14,G7,"rwcore, rwplcore, rwcore_dds",40,287,.bss/.data/.rdata,0x00884F6A,0x00C9C07C,pendiente
 DE07-15,G7,"rwplcore, rwtexdict, zlibinflate",40,391,.bss/.data/.rdata,0x00884160,0x00C9BC5C,pendiente
 DE07-16,G7,zlibinflate,19,157,.data/.rdata,0x00884358,0x008E21B8,pendiente
-DE08-1,G8,"Cam, CrtException, CrtFile ...",40,449,.bss/.data/.rdata,0x00858B1C,0x00C9AC4C,pendiente
+DE08-1,G8,"Cam, CrtException, CrtFile ...",40,449,.bss/.data/.rdata,0x00858B1C,0x00C9AC4C,parcial
 DE08-2,G8,"CrtPow, CrtLowIo, CrtHeap ...",40,812,.bss/.data/.rdata,0x008884F0,0x00C9D42C,pendiente
-DE08-3,G8,"X87Math, CrtPow, CrtStdio ...",40,349,.bss/.data/.rdata,0x00858624,0x00C9D420,pendiente
+DE08-3,G8,"X87Math, CrtPow, CrtStdio ...",40,349,.bss/.data/.rdata,0x00858624,0x00C9D420,parcial
 DE08-4,G8,X87Math,40,280,.bss/.data/.rdata,0x008631B8,0x00B6F8B0,pendiente
 DE08-5,G8,X87Math,5,20,.bss,0x00B6F8B4,0x00C9ABFC,pendiente
 DE09-1,G9,"AudioEngine, AEAudioChannel, AEDataStream ...",40,1516,.rdata,0x008585C8,0x00872A74,pendiente

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "AECutsceneTrackManager.h"
@@ -199,7 +200,7 @@ void CAECutsceneTrackManager::PreloadCutsceneTrack(int16 trackId, bool wait) {
 
 // 0x4DC130
 void CAECutsceneTrackManager::PreloadBeatTrack(int16 trackId, bool wait) {
-    static auto& gBeatTrackLookup = StaticRef<std::array<int16, 14>>(0x8AE538);
+    static auto& gBeatTrackLookup = DatosExe::Data::v8AE538;
 
     PreloadCutsceneTrack(gBeatTrackLookup[trackId], wait);
 }

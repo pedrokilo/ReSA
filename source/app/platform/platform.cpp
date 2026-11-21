@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/RdataCadenas.h"
 
 #include "platform.h"
@@ -93,8 +94,8 @@ void RsInjectHooks() {
     RH_ScopedGlobalInstall(RsDestroyPresetViews, 0x6198C0);  // lote 191A (sin validar)
 }
 
-static auto& KeysShifted = StaticRef<std::array<uint8, 256>>(0x8D2D00);
-static auto& KeysNormal = StaticRef<std::array<uint8, 256>>(0x8D2C00);
+static auto& KeysShifted = DatosExe::Data::v8D2D00;
+static auto& KeysNormal = DatosExe::Data::v8D2C00;
 
 // 0x6193F0
 uint8 RsKeyFromScanCode(uint8 scan, int32 shiftKeyDown) {

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -112,7 +113,7 @@ void CAEWeatherAudioEntity::AddAudioEvent(eAudioEvents event) {
     // Como el original (0x5068BA): duracion sin signo, log10 con fyl2x sin redondear y la suma entera, todo en la pila x87.
     const float volume = WeatherAudioThunderBaseCpp(CWeather::LightningDuration, DefaultVolumeInt(AE_THUNDER));
     m_nThunderFrequencyVariationCounter = (m_nThunderFrequencyVariationCounter + 1) % 3;
-    const auto& frequencies = StaticRef<std::array<float, 3>>(0x8CC300);
+    const auto& frequencies = DatosExe::Data::v8CC300;
     const float pitch = frequencies[m_nThunderFrequencyVariationCounter];
     constexpr CVector left{-0.906f, 0.423f, 0.f}, right{0.906f, 0.423f, 0.f};
     // 0x862E44 vale 0x3EB674D2 (0.35636002f): un ulp por encima de lo que da el literal 0.35636f.

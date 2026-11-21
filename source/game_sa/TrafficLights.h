@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "Vehicle.h"
@@ -18,8 +19,8 @@ enum eTrafficLightsDirection {
 
 class CTrafficLights {
 private:
-    static inline auto& aTrafficLightColoursR = StaticRef<std::array<uint8, 3>>(0x8A6214);
-    static inline auto& aTrafficLightColoursG = StaticRef<std::array<uint8, 3>>(0x8A6218);
+    static inline auto& aTrafficLightColoursR = DatosExe::Data::v8A6214;
+    static inline auto& aTrafficLightColoursG = DatosExe::Data::v8A6218;
     static inline auto& aTrafficLightColoursB = StaticRef<std::array<uint8, 3>>(0xA9AD94);
     static inline auto& fLightMult = DatosExe::Data::v8A621C;
 
