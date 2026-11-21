@@ -210,11 +210,15 @@ int __cdecl IsctypeMt(LocInfo* li, int c, int mask) {
         buf[1] = 0;
         size = 1;
     }
-    unsigned short type;
-    if (!CrtGetStringTypeA(1, buf, size, &type, static_cast<int>(li->codePage), static_cast<int>(li->handle[2]), 1)) {
+    // En el EXE el resultado de GetStringTypeA se escribe en [ebp+0xe]: la mitad alta del argumento c y, con dos bytes, tambien el argumento mask
+    // (una palabra de tipo por byte), de modo que el valor devuelto es tipo[0] & tipo[1]. Se reproduce con una matriz de palabras (tipo, mask).
+    unsigned short typeAndMask[8] = {};
+    typeAndMask[1] = static_cast<unsigned short>(mask);
+    typeAndMask[2] = static_cast<unsigned short>(static_cast<unsigned int>(mask) >> 16);
+    if (!CrtGetStringTypeA(1, buf, size, typeAndMask, static_cast<int>(li->codePage), static_cast<int>(li->handle[2]), 1)) {
         return 0;
     }
-    return type & mask;
+    return typeAndMask[0] & (static_cast<unsigned int>(typeAndMask[1]) | (static_cast<unsigned int>(typeAndMask[2]) << 16));
 }
 
 namespace {
