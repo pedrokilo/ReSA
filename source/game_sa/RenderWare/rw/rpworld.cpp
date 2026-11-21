@@ -55,6 +55,37 @@ static RwStream* GeometryMeshStreamWrite(RwStream* stream, RwInt32 binaryLength,
 static RwInt32  GeometryMeshStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);        // 0x750DE0
 static RwStream* GeometryNativeStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x750E00
 static RwStream* GeometryNativeStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);       // 0x750E20
+
+// Lotes S26A-S29A (sin validar): callbacks y comparadores que antes ejecutaba el EXE; se definen al final del archivo con su hook (RpWorldInjectHooksS26A29A).
+static RwObjectHasFrame* LightSyncCallBack(RwObjectHasFrame* object);                                               // 0x7521A0
+static RpAtomic*  AtomicWorldAddCallBack(RpAtomic* atomic, void* data);                                              // 0x751390
+static RpLight*   LightWorldAddCallBack(RpLight* light, void* data);                                                 // 0x7513D0
+static RwCamera*  CameraWorldAddCallBack(RwCamera* camera, void* data);                                              // 0x751420
+static void*      LightModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                  // 0x752270
+static void*      LightModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                   // 0x7521B0
+static void*      LightD3D9PluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);              // 0x755BC0
+static void*      LightD3D9PluginCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x755CE0
+static int        BuildMeshTriangleCompare(const void* first, const void* second);                                   // 0x759640
+static int        TriangleIndicesCompare(const void* first, const void* second);                                     // 0x7567A0
+static int        VertexElementCompare(const void* first, const void* second);                                       // 0x758240
+static void*      UsageFlagsConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                   // 0x758850
+static void*      UsageFlagsDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                    // 0x758860
+static void*      UsageFlagsCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x758870
+static void*      D3D9EnginePluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);             // 0x758890
+static void*      D3D9EnginePluginDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);              // 0x7588A0
+static void*      SectorModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                 // 0x761C30
+static void*      SectorModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                  // 0x761C40
+static void*      NativeModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                 // 0x7637E0
+static void*      NativeModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                  // 0x7637D0
+static void*      CameraWorldPluginDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);             // 0x750760
+static void*      AtomicWorldPluginDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);             // 0x7509B0
+static RwInt32    GeometryNativeStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);     // 0x750E40
+static RwStream*  SectorNativeStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x750E50
+static RwStream*  SectorNativeStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);       // 0x750E70
+static RwInt32    SectorNativeStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);       // 0x750E90
+static RwInt32    WorldRightsStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);        // 0x761DE0
+static RwInt32    SectorRightsStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);       // 0x761E80
+static void       D3D9RestoreCallBack();                                                                             // 0x74EA80
 #include "X87Math.h"
 
 // Direcciones del EXE usadas por las funciones de este archivo.
@@ -131,26 +162,10 @@ void RpWorldInjectHooks() {
     RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationUnInstV3d, 0x7551F0); // lote R10A (sin validar)
 }
 
-void _rwD3D9VSGetWorldViewMatrix() {
-    ((void(__cdecl *)(void))0x764760)();
-}
-
-void _rwD3D9VSGetWorldMultiplyMatrix(RwMatrix* worldMultiplyMatrix, const RwMatrix* matrix) {
-    ((void(__cdecl *)(RwMatrix*, const RwMatrix*))0x764920)(worldMultiplyMatrix, matrix);
-}
-
 void _rwD3D9VSGetProjectionTransposedMatrix() {
     ((void(__cdecl *)(void))0x764D20)();
 }
 
-
-void* _rpD3D9GetVertexShader(const _rpD3D9VertexShaderDescriptor* desc, _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
-    return ((void*(__cdecl *)(const _rpD3D9VertexShaderDescriptor*, _rpD3D9VertexShaderDispatchDescriptor*))0x75EED0)(desc, dispatch);
-}
-
-RwUInt32 _rpD3D9GetNumConstantsUsed(const _rpD3D9VertexShaderDescriptor* desc) {
-    return ((RwUInt32(__cdecl *)(const _rpD3D9VertexShaderDescriptor*))0x75EDD0)(desc);
-}
 
 void _rxD3D9VertexShaderDefaultBeginCallBack(void* object, RwUInt32 type, _rpD3D9VertexShaderDescriptor* desc) {
     ((void(__cdecl *)(void*, RwUInt32, _rpD3D9VertexShaderDescriptor*))0x760DF0)(object, type, desc);
@@ -166,10 +181,6 @@ void* _rxD3D9VertexShaderDefaultGetMaterialShaderCallBack(const RpMaterial* mate
 
 void _rxD3D9VertexShaderDefaultMeshRenderCallBack(RxD3D9ResEntryHeader* resEntryHeader, RxD3D9InstanceData* instancedMesh, const _rpD3D9VertexShaderDescriptor* desc, const _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
     ((void(__cdecl *)(RxD3D9ResEntryHeader*, RxD3D9InstanceData*, const _rpD3D9VertexShaderDescriptor*, const _rpD3D9VertexShaderDispatchDescriptor*))0x761030)(resEntryHeader, instancedMesh, desc, dispatch);
-}
-
-void _rxD3D9VertexShaderDefaultEndCallBack(void* object, RwUInt32 type, _rpD3D9VertexShaderDescriptor* desc) {
-    ((void(__cdecl *)(void*, RwUInt32, _rpD3D9VertexShaderDescriptor*))0x761000)(object, type, desc);
 }
 
 void _rpD3D9VertexShaderUpdateLightsColors(RwV4d* shaderConstantPtr, const _rpD3D9VertexShaderDescriptor* desc, RwReal ambientCoef, RwReal diffuseCoef) {
@@ -242,10 +253,6 @@ RwBool RpMaterialDestroy(RpMaterial* material) {
     }
     material->refCount = static_cast<RwInt16>(refCount - 1);
     return TRUE;
-}
-
-RpMaterial* RpMaterialClone(RpMaterial* material) {
-    return ((RpMaterial*(__cdecl *)(RpMaterial*))0x74DA80)(material);
 }
 
 // 0x74DBC0
@@ -613,21 +620,9 @@ RpMaterialList* _rpMaterialListInitialize(RpMaterialList* matList) {
     return matList;
 }
 
-RpMaterial** _rpMaterialListAlloc(RwUInt32 count) {
-    return ((RpMaterial**(__cdecl *)(RwUInt32))0x74E1C0)(count);
-}
-
 // 0x74E2B0
 RpMaterial* _rpMaterialListGetMaterial(const RpMaterialList* matList, RwInt32 matIndex) {
     return matList->materials[matIndex];
-}
-
-RpMaterialList* _rpMaterialListSetSize(RpMaterialList* matList, RwInt32 size) {
-    return ((RpMaterialList*(__cdecl *)(RpMaterialList*, RwInt32))0x74E2C0)(matList, size);
-}
-
-RpMaterialList* _rpMaterialListCopy(RpMaterialList* matListOut, const RpMaterialList* matListIn) {
-    return ((RpMaterialList*(__cdecl *)(RpMaterialList*, const RpMaterialList*))0x74E1F0)(matListOut, matListIn);
 }
 
 // 0x74E420
@@ -649,18 +644,6 @@ RwInt32 _rpMaterialListFindMaterialIndex(const RpMaterialList* matList, const Rp
 
 const RpMaterialList* _rpMaterialListStreamWrite(const RpMaterialList* matList, RwStream* stream) {
     return ((const RpMaterialList*(__cdecl *)(const RpMaterialList*, RwStream*))0x74E4B0)(matList, stream);
-}
-
-void* _rpMeshOpen(void* instance, RwInt32 offset, RwInt32 size) {
-    return ((void*(__cdecl *)(void*, RwInt32, RwInt32))0x758970)(instance, offset, size);
-}
-
-void* _rpMeshClose(void* instance, RwInt32 offset, RwInt32 size) {
-    return ((void*(__cdecl *)(void*, RwInt32, RwInt32))0x758940)(instance, offset, size);
-}
-
-RwInt16 _rpMeshGetNextSerialNumber(void) {
-    return ((RwInt16(__cdecl *)(void))0x7590E0)();
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -910,28 +893,12 @@ RpMeshHeader* _rpMeshHeaderCreate(RwUInt32 size) {
     return static_cast<RpMeshHeader*>(RwMalloc(size, kMeshHeaderMemoryHint));
 }
 
-RpTriStripPolygon* RpTriStripPolygonFollowStrip(RpTriStripPolygon* curr, RpTriStripPolygon* prev) {
-    return ((RpTriStripPolygon*(__cdecl *)(RpTriStripPolygon*, RpTriStripPolygon*))0x75C330)(curr, prev);
-}
-
-RwUInt32 RpTriStripDefaultCost(RpTriStripPolygon* startPolygon, RwUInt32 testFrame, void* data) {
-    return ((RwUInt32(__cdecl *)(RpTriStripPolygon*, RwUInt32, void*))0x75B500)(startPolygon, testFrame, data);
-}
-
 RpTriStripMesh* RpTriStripMeshTunnel(RpTriStripMesh* mesh, void* data) {
     return ((RpTriStripMesh*(__cdecl *)(RpTriStripMesh*, void*))0x75B780)(mesh, data);
 }
 
-RpTriStripMesh* RpTriStripMeshQuick(RpTriStripMesh* mesh, void* data) {
-    return ((RpTriStripMesh*(__cdecl *)(RpTriStripMesh*, void*))0x75BD80)(mesh, data);
-}
-
 RpMeshHeader* RpBuildMeshGenerateTriStrip(RpBuildMesh* buildMesh, void* data) {
     return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75C380)(buildMesh, data);
-}
-
-RpMeshHeader* RpBuildMeshGenerateTrivialTriStrip(RpBuildMesh* buildMesh, void* data) {
-    return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x759100)(buildMesh, data);
 }
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -1382,7 +1349,7 @@ RpMeshHeader* _rpBuildMeshGenerateTriStrip(RpBuildMesh* buildMesh, RwInt32 tryRo
     }
     using CompareFn = int(__cdecl*)(const void*, const void*);
     using QsortFn = void(__cdecl*)(void*, size_t, size_t, CompareFn);
-    reinterpret_cast<QsortFn>(0x8247E0)(pointers, numTriangles, 4, reinterpret_cast<CompareFn>(0x759640));
+    reinterpret_cast<QsortFn>(0x8247E0)(pointers, numTriangles, 4, BuildMeshTriangleCompare);
 
     RwUInt32 numGroups = 1;
     if (buildMesh->numTriangles >= 2) {
@@ -1504,41 +1471,17 @@ RpMeshHeader* RpBuildMeshGenerateDefaultTriStrip(RpBuildMesh* buildmesh, void* d
     return _rpBuildMeshGenerateTriStrip(buildmesh, 0, 1);
 }
 
-RpMeshHeader* RpBuildMeshGeneratePreprocessTriStrip(RpBuildMesh* buildmesh, void* data) {
-    return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75A900)(buildmesh, data);
-}
-
 RpMeshHeader* RpBuildMeshGenerateExhaustiveTriStrip(RpBuildMesh* buildmesh, void* data) {
     return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75A940)(buildmesh, data);
-}
-
-RpMeshHeader* RpBuildMeshGenerateDefaultIgnoreWindingTriStrip(RpBuildMesh* buildmesh, void* data) {
-    return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75A8E0)(buildmesh, data);
-}
-
-RpMeshHeader* RpBuildMeshGeneratePreprocessIgnoreWindingTriStrip(RpBuildMesh* buildmesh, void* data) {
-    return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75A920)(buildmesh, data);
 }
 
 RpMeshHeader* RpBuildMeshGenerateExhaustiveIgnoreWindingTriStrip(RpBuildMesh* buildmesh, void* data) {
     return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75B4E0)(buildmesh, data);
 }
 
-RwBool RpMeshSetTriStripMethod(RpTriStripMeshCallBack callback, void* data) {
-    return ((RwBool(__cdecl *)(RpTriStripMeshCallBack, void*))0x75D4C0)(callback, data);
-}
-
-RwBool RpMeshGetTriStripMethod(RpTriStripMeshCallBack* callback, void* data) {
-    return ((RwBool(__cdecl *)(RpTriStripMeshCallBack*, void*))0x75D500)(callback, data);
-}
-
 
 RpGeometry* RpGeometryTransform(RpGeometry* geometry, const RwMatrix* matrix) {
     return ((RpGeometry*(__cdecl *)(RpGeometry*, const RwMatrix*))0x74BFE0)(geometry, matrix);
-}
-
-RpGeometry* RpGeometryCreateSpace(RwReal radius) {
-    return ((RpGeometry*(__cdecl *)(RwReal))0x74C130)(radius);
 }
 
 // 0x74C200
@@ -1666,10 +1609,6 @@ RwInt32 RpGeometryAddMorphTargets(RpGeometry* geometry, RwInt32 mtcount) {
 // 0x74C4D0 (lote S24A, sin validar; 16 bytes; cdecl, (geometria)): RpGeometryAddMorphTargets (0x74C310) con 1 y devuelve su resultado.
 RwInt32 RpGeometryAddMorphTarget(RpGeometry* geometry) {
     return RpGeometryAddMorphTargets(geometry, 1);
-}
-
-RpGeometry* RpGeometryRemoveMorphTarget(RpGeometry* geometry, RwInt32 morphTarget) {
-    return ((RpGeometry*(__cdecl *)(RpGeometry*, RwInt32))0x74C4E0)(geometry, morphTarget);
 }
 
 // 0x74C690: escribe los tres indices (16 bits) en el orden 0, 1, 2 y devuelve el geometry.
@@ -2256,10 +2195,6 @@ RpWorldSector* RpWorldSectorRender(RpWorldSector* worldSector) {
     return ((RpWorldSector*(__cdecl *)(RpWorldSector*))0x761C50)(worldSector);
 }
 
-const RpWorldSector* RpWorldSectorForAllMeshes(const RpWorldSector* sector, RpMeshCallBack fpCallBack, void* data) {
-    return ((const RpWorldSector*(__cdecl *)(const RpWorldSector*, RpMeshCallBack, void*))0x761C60)(sector, fpCallBack, data);
-}
-
 // 0x761C90: registra el plugin en la lista de plugins de RpWorldSector (0x8D736C) con _rwPluginRegistryAddPlugin (0x8084A0).
 RwInt32 RpWorldSectorRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
     return _rwPluginRegistryAddPlugin(reinterpret_cast<RwPluginRegistry*>(kWorldSectorPluginRegistry), size, pluginID, constructCB, destructCB, copyCB);
@@ -2268,26 +2203,6 @@ RwInt32 RpWorldSectorRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObj
 // 0x761CC0: igual para los callbacks de flujo (_rwPluginRegistryAddPluginStream, 0x8088E0) sobre la lista de RpWorldSector.
 RwInt32 RpWorldSectorRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
     return _rwPluginRegistryAddPluginStream(reinterpret_cast<RwPluginRegistry*>(kWorldSectorPluginRegistry), pluginID, readCB, writeCB, getSizeCB);
-}
-
-RwInt32 RpWorldSectorSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x761CF0)(pluginID, alwaysCB);
-}
-
-RwInt32 RpWorldSectorSetStreamRightsCallBack(RwUInt32 pluginID, RwPluginDataChunkRightsCallBack rightsCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkRightsCallBack))0x761D10)(pluginID, rightsCB);
-}
-
-RwInt32 RpWorldSectorGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x761D30)(pluginID);
-}
-
-RwBool RpWorldSectorValidatePlugins(const RpWorldSector* sector) {
-    return ((RwBool(__cdecl *)(const RpWorldSector*))0x761D50)(sector);
-}
-
-void RpLightSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
-    ((void(__cdecl *)(RwInt32, RwInt32))0x752250)(blockSize, numBlocksToPrealloc);
 }
 
 // 0x752110 (lote R16A, sin validar; sustituye la envoltura; cdecl, 1 argumento, 144 bytes): pide un RpLight a la lista libre (hint 0x30012; sin memoria devuelve NULL sin error) y lo deja asi:
@@ -2306,7 +2221,7 @@ RpLight* RpLightCreate(RwInt32 type) {
     light->color.alpha = 1.0f;
     light->object.object.flags  = 0;
     light->object.object.parent = nullptr;
-    light->object.sync = reinterpret_cast<RwObjectHasFrameSyncFunction>(static_cast<uintptr_t>(0x7521A0));
+    light->object.sync = LightSyncCallBack;
     light->radius = 0.0f;
     light->minusCosAngle = 0.0f;
     light->object.object.privateFlags = 1;
@@ -2368,10 +2283,6 @@ RpLight* RpLightSetConeAngle(RpLight* ight, RwReal angle) {
     return ((RpLight*(__cdecl *)(RpLight*, RwReal))0x751D20)(ight, angle);
 }
 
-RwUInt32 RpLightStreamGetSize(const RpLight* light) {
-    return ((RwUInt32(__cdecl *)(const RpLight*))0x751E10)(light);
-}
-
 // 0x751F00 (lote R16A, sin validar; sustituye la envoltura; cdecl, 1 argumento, 338 bytes): lee una luz de un flujo. RwStreamFindChunk(flujo, 1 (struct), &longitud, &version); version fuera de
 // 0x34000..0x36003 -> RWERROR 0x80000004 (plugin 2) y NULL. Lee `longitud` bytes en un RpLightChunkInfo de 24 bytes puesto a cero (el EXE no limita la longitud: con mas de 24 desborda la pila);
 // si no se leen todos devuelve NULL. RpLightCreate(tipo = byte +0x16 de typeAndFlags; sin memoria NULL); radio, color, y el angulo: con version < 0x30300 (inalcanzable tras la comprobacion anterior)
@@ -2413,37 +2324,9 @@ RpLight* RpLightStreamRead(RwStream* stream) {
     return light;
 }
 
-RpLightChunkInfo* _rpLightChunkInfoRead(RwStream* stream, RpLightChunkInfo* lightChunkInfo, RwInt32* bytesRead) {
-    return ((RpLightChunkInfo*(__cdecl *)(RwStream*, RpLightChunkInfo*, RwInt32*))0x752060)(stream, lightChunkInfo, bytesRead);
-}
-
 // 0x751D60
 RwInt32 RpLightRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor constructCB, RwPluginObjectDestructor destructCB, RwPluginObjectCopy copyCB) {
     return _rwPluginRegistryAddPlugin(&s_lightTKList, size, pluginID, constructCB, destructCB, copyCB);
-}
-
-RwInt32 RpLightRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkReadCallBack, RwPluginDataChunkWriteCallBack, RwPluginDataChunkGetSizeCallBack))0x751D90)(pluginID, readCB, writeCB, getSizeCB);
-}
-
-RwInt32 RpLightSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
-    return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x751DC0)(pluginID, alwaysCB);
-}
-
-RwInt32 RpLightGetPluginOffset(RwUInt32 pluginID) {
-    return ((RwInt32(__cdecl *)(RwUInt32))0x751DE0)(pluginID);
-}
-
-RwBool RpLightValidatePlugins(const RpLight* light) {
-    return ((RwBool(__cdecl *)(const RpLight*))0x751E00)(light);
-}
-
-void RpD3D9LightSetAttenuationParams(RpLight* light, const RpD3D9AttenuationParams* params) {
-    ((void(__cdecl *)(RpLight*, const RpD3D9AttenuationParams*))0x755D20)(light, params);
-}
-
-void RpD3D9LightGetAttenuationParams(const RpLight* light, RpD3D9AttenuationParams* params) {
-    ((void(__cdecl *)(const RpLight*, RpD3D9AttenuationParams*))0x755D50)(light, params);
 }
 
 RwBool _rwD3D9LightsGlobalEnable(RpLightFlag flags) {
@@ -2456,10 +2339,6 @@ RwBool _rwD3D9LightDirectionalEnable(RpLight* light) {
 
 RwBool _rwD3D9LightLocalEnable(RpLight* light) {
     return ((RwBool(__cdecl *)(RpLight*))0x756390)(light);
-}
-
-void _rwD3D9LightsEnable(RwBool enable, RwUInt32 type) {
-    ((void(__cdecl *)(RwBool, RwUInt32))0x756600)(enable, type);
 }
 
 // 0x749720 (lote S23A, sin validar; 20 bytes; cdecl, (bloque, bloques)): guarda los parametros de la lista libre de atomicos en 0x8D627C (entradas por bloque) y 0x8D6280 (bloques a preasignar).
@@ -3783,24 +3662,8 @@ RwBool RpClumpValidatePlugins(const RpClump* clump) {
     return TRUE;
 }
 
-RwBool RpAtomicInstance(RpAtomic* atomic) {
-    return ((RwBool(__cdecl *)(RpAtomic*))0x74BF40)(atomic);
-}
-
 RwBool _rpWorldFindBBox(RpWorld* world, RwBBox* boundingBox) {
     return ((RwBool(__cdecl *)(RpWorld*, RwBBox*))0x74EFA0)(world, boundingBox);
-}
-
-RpWorld* _rpWorldSetupSectorBoundingBoxes(RpWorld* world) {
-    return ((RpWorld*(__cdecl *)(RpWorld*))0x74F020)(world);
-}
-
-RwBool _rpWorldForAllGlobalLights(RpLightCallBack callBack, void* data) {
-    return ((RwBool(__cdecl *)(RpLightCallBack, void*))0x74EF10)(callBack, data);
-}
-
-RpWorldSector* _rpWorldSectorForAllLocalLights(RpWorldSector* sector, RpLightCallBack callBack, void* data) {
-    return ((RpWorldSector*(__cdecl *)(RpWorldSector*, RpLightCallBack, void*))0x74EF60)(sector, callBack, data);
 }
 
 // 0x74F1A0 (lote S24A, sin validar; 101 bytes; cdecl, (mundo)): sin raiz (+0x1C) devuelve NULL. Recorre el arbol de sectores con una pila de 64 entradas: un sector con tipo < 0 (hoja) destruye su cabecera de mallas
@@ -3835,29 +3698,19 @@ RpWorld* RpWorldLock(RpWorld* world) {
     return world;
 }
 
-void _rpWorldRegisterWorld(RpWorld* world, RwUInt32 memorySize) {
-    ((void(__cdecl *)(RpWorld*, RwUInt32))0x74F0C0)(world, memorySize);
-}
-
-void _rpWorldUnregisterWorld(RpWorld* world) {
-    ((void(__cdecl *)(RpWorld*))0x74F140)(world);
-}
-
 // 0x74FDA0 (lote 230A, sin validar; cdecl sin argumentos; el listado decia Win): registra los ocho plugins de motor del modulo RpWorld con RwEngineRegisterPlugin (0x7F2BB0), en este orden y con las
 // rutinas del EXE por direccion fija (tamano, id, constructor, destructor): (4, 0x501, 0x74D8E0, 0x74D950), (0x30, 0x502, 0x758970, 0x758940), (4, 0x503, 0x74BFA0, 0x74BFC0), (8, 0x504, 0x749760, 0x749480),
 // (4, 0x505, 0x752270, 0x7521B0), (0, 0x50A, 0x761C30, 0x761C40), (0xC, 0x507, 0x74FEE0, 0x74FE90) y (0, 0x50B, 0x7637E0, 0x7637D0). Los resultados se acumulan con OR (el EXE no corta al primer fallo): si el
 // OR es negativo devuelve 0; si no, 0x750050 (registro del plugin de sectores, id 0x509), ClumpPluginAttach (0x749830) y 0x74EA40, cada uno cortando con 0 si devuelve 0; el resultado final es (0x74EA40() != 0).
 RwBool RpWorldPluginAttach() {
-    const auto ctor = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectConstructor>(address); };
-    const auto dtor = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectDestructor>(address); };
     RwInt32 status = RwEngineRegisterPlugin(4, 0x501, MaterialModuleConstruct, MaterialModuleDestruct);
-    status |= RwEngineRegisterPlugin(0x30, 0x502, ctor(0x758970), dtor(0x758940));
+    status |= RwEngineRegisterPlugin(0x30, 0x502, _rpMeshOpen, _rpMeshClose);
     status |= RwEngineRegisterPlugin(4, 0x503, GeometryModuleConstruct, GeometryModuleDestruct);
     status |= RwEngineRegisterPlugin(8, 0x504, ClumpModuleConstruct, ClumpModuleDestruct);
-    status |= RwEngineRegisterPlugin(4, 0x505, ctor(0x752270), dtor(0x7521B0));
-    status |= RwEngineRegisterPlugin(0, 0x50A, ctor(0x761C30), dtor(0x761C40));
+    status |= RwEngineRegisterPlugin(4, 0x505, LightModuleConstruct, LightModuleDestruct);
+    status |= RwEngineRegisterPlugin(0, 0x50A, SectorModuleConstruct, SectorModuleDestruct);
     status |= RwEngineRegisterPlugin(0xC, 0x507, WorldModuleConstruct, WorldModuleDestruct);
-    status |= RwEngineRegisterPlugin(0, 0x50B, ctor(0x7637E0), dtor(0x7637D0));
+    status |= RwEngineRegisterPlugin(0, 0x50B, NativeModuleConstruct, NativeModuleDestruct);
     if (status < 0) {
         return FALSE;
     }
@@ -3868,14 +3721,6 @@ RwBool RpWorldPluginAttach() {
         return FALSE;
     }
     return reinterpret_cast<RwBool(__cdecl*)()>(0x74EA40)() != 0;
-}
-
-RpWorld* RpWorldForAllClumps(RpWorld* world, RpClumpCallBack fpCallBack, void* data) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RpClumpCallBack, void*))0x74FB80)(world, fpCallBack, data);
-}
-
-RpWorld* RpWorldForAllLights(RpWorld* world, RpLightCallBack fpCallBack, void* data) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RpLightCallBack, void*))0x74FC00)(world, fpCallBack, data);
 }
 
 RpWorld* RpWorldRender(RpWorld* world) {
@@ -3945,21 +3790,9 @@ RpD3D9WorldSectorUsageFlag RpD3D9WorldSectorGetUsageFlags(const RpWorldSector* s
     return *reinterpret_cast<const RpD3D9WorldSectorUsageFlag*>(reinterpret_cast<uintptr_t>(sector) + static_cast<uintptr_t>(s_sectorUsageFlagsOffset));
 }
 
-void RxD3D9AllInOneSetLightingCallBack(RxPipelineNode* node, RxD3D9AllInOneLightingCallBack callback) {
-    ((void(__cdecl *)(RxPipelineNode*, RxD3D9AllInOneLightingCallBack))0x7573C0)(node, callback);
-}
-
-RxD3D9AllInOneLightingCallBack RxD3D9AllInOneGetLightingCallBack(RxPipelineNode* node) {
-    return ((RxD3D9AllInOneLightingCallBack(__cdecl *)(RxPipelineNode*))0x7573D0)(node);
-}
-
 // 0x7573E0 (lote R18A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, `ret`, 15 bytes): privateData (+0x14 del nodo)->render (+0xC) = callback.
 void RxD3D9AllInOneSetRenderCallBack(RxPipelineNode* node, RxD3D9AllInOneRenderCallBack callback) {
     *reinterpret_cast<RxD3D9AllInOneRenderCallBack*>(static_cast<uint8_t*>(node->privateData) + 0xC) = callback;
-}
-
-RxD3D9AllInOneRenderCallBack RxD3D9AllInOneGetRenderCallBack(RxPipelineNode* node) {
-    return ((RxD3D9AllInOneRenderCallBack(__cdecl *)(RxPipelineNode*))0x7573F0)(node);
 }
 
 // 0x7522E0
@@ -3969,16 +3802,8 @@ RwUInt32 _rpD3D9VertexDeclarationGetSize(RwUInt32 type) {
     return sizes[type];
 }
 
-RwUInt32 _rpD3D9VertexDeclarationGetStride(const void* vertexDeclaration) {
-    return ((RwUInt32(__cdecl *)(const void*))0x7522F0)(vertexDeclaration);
-}
-
 RwUInt32 _rpD3D9VertexDeclarationInstV3dComp(RwUInt32 type, RwUInt8* mem, const RpVertexNormal* src, RwInt32 numVerts, RwUInt32 stride) {
     return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RpVertexNormal*, RwInt32, RwUInt32))0x7531B0)(type, mem, src, numVerts, stride);
-}
-
-RwUInt32 _rpD3D9VertexDeclarationInstIndices(RwUInt32 type, RwUInt8* mem, const RwUInt32* indices, RwInt32 numVerts, RwUInt32 stride) {
-    return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwUInt32*, RwInt32, RwUInt32))0x754B40)(type, mem, indices, numVerts, stride);
 }
 
 namespace {
@@ -4882,9 +4707,9 @@ inline void StoreWord(uintptr_t address, RwUInt32 value) {
 // que se llaman por direccion fija) con RpLightRegisterPlugin (0x751D60); guarda el desplazamiento resultante en 0xC926B0 y devuelve TRUE si no es negativo.
 RwBool D3D9LightPluginAttach() {
     const RwInt32 offset = RpLightRegisterPlugin(0x10, 0x505,
-                                                 reinterpret_cast<RwPluginObjectConstructor>(0x755BC0),
+                                                 LightD3D9PluginConstruct,
                                                  reinterpret_cast<RwPluginObjectDestructor>(0x755BF0),
-                                                 reinterpret_cast<RwPluginObjectCopy>(0x755CE0));
+                                                 LightD3D9PluginCopy);
     s_d3d9LightPluginOffset = offset;
     return offset >= 0 ? TRUE : FALSE;
 }
@@ -4918,7 +4743,7 @@ void _rpD3D9SortTriangles(RwUInt16* indices, RwUInt32 numIndices) {
     using CompareFn = int(__cdecl*)(const void*, const void*);
     using QsortFn = void(__cdecl*)(void*, size_t, size_t, CompareFn);
     const RwUInt32 numTriangles = static_cast<RwUInt32>((static_cast<unsigned long long>(numIndices) * 0xAAAAAAABull) >> 33);
-    reinterpret_cast<QsortFn>(0x8247E0)(indices, numTriangles, 6, reinterpret_cast<CompareFn>(0x7567A0));
+    reinterpret_cast<QsortFn>(0x8247E0)(indices, numTriangles, 6, TriangleIndicesCompare);
 }
 
 // 0x756830 (lote R17A, sin validar; nombre inferido; cdecl, 4 argumentos (destino, tira de indices de 16 bits, cantidad de indices, desplazamiento), `ret`, 296 bytes reales (el listado daba 159; termina en 0x756957); llamador 0x756BF0): convierte una tira
@@ -5181,10 +5006,6 @@ RwUInt32 _rpD3D9FindFormatV3d(const RwV3d* src, RwInt32 numElements) {
 }
 
 
-RxPipeline* RpMaterialSetDefaultPipeline(RxPipeline* pipeline) {
-    return ((RxPipeline*(__cdecl *)(RxPipeline*))0x75E2D0)(pipeline);
-}
-
 const RpGeometry* RpGeometryIsCorrectlySorted(const RpGeometry* geometry, RwBool* result) {
     return ((const RpGeometry*(__cdecl *)(const RpGeometry*, RwBool*))0x75D9D0)(geometry, result);
 }
@@ -5229,18 +5050,6 @@ RpWorld* RpWorldAddCamera(RpWorld* world, RwCamera* camera) {
     return world;
 }
 
-RpWorld* RwCameraGetWorld(const RwCamera* camera) {
-    return ((RpWorld*(__cdecl *)(const RwCamera*))0x750F80)(camera);
-}
-
-RpWorld* RpWorldRemoveAtomic(RpWorld* world, RpAtomic* atomic) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RpAtomic*))0x750FC0)(world, atomic);
-}
-
-RpWorld* RpWorldAddAtomic(RpWorld* world, RpAtomic* atomic) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RpAtomic*))0x750F90)(world, atomic);
-}
-
 // 0x751050
 RpWorld* RpAtomicGetWorld(const RpAtomic* atomic) {
     return *reinterpret_cast<RpWorld* const*>(reinterpret_cast<uintptr_t>(atomic) + static_cast<uintptr_t>(s_atomicWorldOffset));
@@ -5260,23 +5069,15 @@ RpWorld* RpWorldAddClump(RpWorld* world, RpClump* clump) {
     world->clumpList.link.next = link;
     ++world->numClumpsInWorld;
     *reinterpret_cast<RpWorld**>(data) = world;
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(static_cast<uintptr_t>(0x751390)), world);
-    RpClumpForAllLights(clump, reinterpret_cast<RpLightCallBack>(static_cast<uintptr_t>(0x7513D0)), world);
-    RpClumpForAllCameras(clump, reinterpret_cast<RwCameraCallBack>(static_cast<uintptr_t>(0x751420)), world);
+    RpClumpForAllAtomics(clump, AtomicWorldAddCallBack, world);
+    RpClumpForAllLights(clump, LightWorldAddCallBack, world);
+    RpClumpForAllCameras(clump, CameraWorldAddCallBack, world);
     if (frame) {
         RwMatrixOptimize(&frame->modelling, nullptr);
         RwFrameUpdateObjects(frame);
     }
     *reinterpret_cast<RwUInt32*>(data + 4) = TieGlobals().tieFrame;
     return world;
-}
-
-RpWorld* RpWorldRemoveClump(RpWorld* world, RpClump* clump) {
-    return ((RpWorld*(__cdecl *)(RpWorld*, RpClump*))0x751460)(world, clump);
-}
-
-RpWorld* RpClumpGetWorld(const RpClump* clump) {
-    return ((RpWorld*(__cdecl *)(const RpClump*))0x7516B0)(clump);
 }
 
 // 0x751910 (lote R16A, sin validar; sustituye la envoltura; cdecl, 2 argumentos, 71 bytes): guarda el mundo en los datos de plugin de la luz (luz + [0xC925B0], +0). subType < 0x80 (direccional y
@@ -5306,20 +5107,12 @@ RpWorld* RpWorldRemoveLight(RpWorld* world, RpLight* light) {
     return world;
 }
 
-RpWorld* RpLightGetWorld(const RpLight* light) {
-    return ((RpWorld*(__cdecl *)(const RpLight*))0x7519E0)(light);
-}
-
 RwCamera* RwCameraForAllClumpsInFrustum(RwCamera* camera, void* data) {
     return ((RwCamera*(__cdecl *)(RwCamera*, void*))0x7516C0)(camera, data);
 }
 
 RwCamera* RwCameraForAllAtomicsInFrustum(RwCamera* camera, RpAtomicCallBack callback, void* data) {
     return ((RwCamera*(__cdecl *)(RwCamera*, RpAtomicCallBack, void*))0x7517F0)(camera, callback, data);
-}
-
-RwCamera* RwCameraForAllSectorsInFrustum(RwCamera* camera, RpWorldSectorCallBack callBack, void* data) {
-    return ((RwCamera*(__cdecl *)(RwCamera*, RpWorldSectorCallBack, void*))0x751660)(camera, callBack, data);
 }
 
 // 0x7519F0 (lote R16A, sin validar; sustituye la envoltura; cdecl, 3 argumentos, 114 bytes): subType < 0x80: si la luz esta en un mundo (datos de plugin +0), RpWorldForAllWorldSectors(mundo,
@@ -5345,44 +5138,12 @@ RpLight* RpLightForAllWorldSectors(RpLight* light, RpWorldSectorCallBack callbac
     return light;
 }
 
-RpAtomic* RpAtomicForAllWorldSectors(RpAtomic* atomic, RpWorldSectorCallBack callback, void* data) {
-    return ((RpAtomic*(__cdecl *)(RpAtomic*, RpWorldSectorCallBack, void*))0x751060)(atomic, callback, data);
-}
-
-RpWorldSector* RpWorldSectorForAllAtomics(RpWorldSector* sector, RpAtomicCallBack callback, void* data) {
-    return ((RpWorldSector*(__cdecl *)(RpWorldSector*, RpAtomicCallBack, void*))0x7510A0)(sector, callback, data);
-}
-
-RpWorldSector* RpWorldSectorForAllCollisionAtomics(RpWorldSector* sector, RpAtomicCallBack callback, void* data) {
-    return ((RpWorldSector*(__cdecl *)(RpWorldSector*, RpAtomicCallBack, void*))0x751140)(sector, callback, data);
-}
-
-RpWorldSector* RpWorldSectorForAllLights(RpWorldSector* sector, RpLightCallBack callback, void* data) {
-    return ((RpWorldSector*(__cdecl *)(RpWorldSector*, RpLightCallBack, void*))0x7511E0)(sector, callback, data);
-}
-
-RwUInt32 RpWorldStreamGetSize(const RpWorld* world) {
-    return ((RwUInt32(__cdecl *)(const RpWorld*))0x761EA0)(world);
-}
-
 RpWorld* RpWorldStreamRead(RwStream* stream) {
     return ((RpWorld*(__cdecl *)(RwStream*))0x762960)(stream);
 }
 
 const RpWorld* RpWorldStreamWrite(const RpWorld* world, RwStream* stream) {
     return ((const RpWorld*(__cdecl *)(const RpWorld*, RwStream*))0x762150)(world, stream);
-}
-
-RpWorldSectorChunkInfo* _rpWorldSectorChunkInfoRead(RwStream* stream, RpWorldSectorChunkInfo* worldSectorChunkInfo, RwInt32* bytesRead) {
-    return ((RpWorldSectorChunkInfo*(__cdecl *)(RwStream*, RpWorldSectorChunkInfo*, RwInt32*))0x7635B0)(stream, worldSectorChunkInfo, bytesRead);
-}
-
-RpPlaneSectorChunkInfo* _rpPlaneSectorChunkInfoRead(RwStream* stream, RpPlaneSectorChunkInfo* planeSectorChunkInfo, RwInt32* bytesRead) {
-    return ((RpPlaneSectorChunkInfo*(__cdecl *)(RwStream*, RpPlaneSectorChunkInfo*, RwInt32*))0x763620)(stream, planeSectorChunkInfo, bytesRead);
-}
-
-RpWorldChunkInfo* _rpWorldChunkInfoRead(RwStream* stream, RpWorldChunkInfo* worldChunkInfo, RwInt32* bytesRead) {
-    return ((RpWorldChunkInfo*(__cdecl *)(RwStream*, RpWorldChunkInfo*, RwInt32*))0x763690)(stream, worldChunkInfo, bytesRead);
 }
 
 
@@ -5478,7 +5239,6 @@ constexpr RwUInt32 kWorldAllocHint = 0x3000B;
 constexpr RwUInt32 kWorldListEntryHint = 0x40507;
 constexpr RwUInt32 kDynamicGeometryHint = 0x3050D;
 constexpr uintptr_t kSectorDefaultRenderCallBackAddress = 0x74EEC0; // el EXE guarda ESTA direccion en RpWorld::renderCallBack
-constexpr uintptr_t kD3D9RestoreCallBackAddress = 0x74EA80;         // callback de restauracion del dispositivo (sin reconstruir)
 
 // Posiciones dentro de las globales del modulo de tuberias (RwEngineInstance + [0xC9BC60] + desplazamiento).
 constexpr uint32 kPipelineSlotDefaultSector = 0x40;
@@ -5839,7 +5599,7 @@ static RwBool _rpD3D9PluginAttach() {
         result = TRUE;
     }
     s_prevRestoreCallBack = _rwD3D9DeviceGetRestoreCallback();
-    _rwD3D9DeviceSetRestoreCallback(reinterpret_cast<rwD3D9DeviceRestoreCallBack>(kD3D9RestoreCallBackAddress));
+    _rwD3D9DeviceSetRestoreCallback(D3D9RestoreCallBack);
     return result;
 }
 
@@ -6459,17 +6219,14 @@ static void LightFreeListDestroyCallBack(void* light, void* data) {
 //     RpWorldSectorRegisterPlugin y su flujo (0x761E00, 0x761E40, 0x761E80); RpMaterialRegisterPlugin y su flujo (0x74D7D0, 0x74D810, 0x74D850).
 // Si el OR es negativo devuelve 0; si no, devuelve (0x75E3E0() != 0).
 static RwBool _rpTieMeshPluginAttach() {
-    const auto ctor = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectConstructor>(address); };
-    const auto dtor = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectDestructor>(address); };
-    const auto copy = [](uintptr_t address) { return reinterpret_cast<RwPluginObjectCopy>(address); };
     const auto readCB = [](uintptr_t address) { return reinterpret_cast<RwPluginDataChunkReadCallBack>(address); };
     const auto writeCB = [](uintptr_t address) { return reinterpret_cast<RwPluginDataChunkWriteCallBack>(address); };
     const auto sizeCB = [](uintptr_t address) { return reinterpret_cast<RwPluginDataChunkGetSizeCallBack>(address); };
 
     RwInt32 status = RwEngineRegisterPlugin(0xC, 0x509, TieModuleConstruct, TieModuleDestruct);
-    s_cameraWorldOffset = RwCameraRegisterPlugin(0x1C, 0x509, CameraWorldPluginConstruct, dtor(0x750760), CameraWorldPluginCopy);
+    s_cameraWorldOffset = RwCameraRegisterPlugin(0x1C, 0x509, CameraWorldPluginConstruct, CameraWorldPluginDestruct, CameraWorldPluginCopy);
     status |= s_cameraWorldOffset;
-    s_atomicWorldOffset = RpAtomicRegisterPlugin(8, 0x509, AtomicWorldPluginConstruct, dtor(0x7509B0), AtomicWorldPluginCopy);
+    s_atomicWorldOffset = RpAtomicRegisterPlugin(8, 0x509, AtomicWorldPluginConstruct, AtomicWorldPluginDestruct, AtomicWorldPluginCopy);
     status |= s_atomicWorldOffset;
     s_clumpWorldOffset = RpClumpRegisterPlugin(8, 0x509, ClumpWorldPluginConstruct, ClumpWorldPluginDestruct, ClumpWorldPluginCopy);
     status |= s_clumpWorldOffset;
@@ -6483,15 +6240,15 @@ static RwBool _rpTieMeshPluginAttach() {
 
     status |= RpGeometryRegisterPlugin(0, 0x510, nullptr, nullptr, nullptr);
     status |= RpWorldSectorRegisterPlugin(0, 0x510, nullptr, nullptr, nullptr);
-    status |= RpGeometryRegisterPluginStream(0x510, GeometryNativeStreamRead, GeometryNativeStreamWrite, sizeCB(0x750E40));
-    status |= RpWorldSectorRegisterPluginStream(0x510, readCB(0x750E70), writeCB(0x750E50), sizeCB(0x750E90));
+    status |= RpGeometryRegisterPluginStream(0x510, GeometryNativeStreamRead, GeometryNativeStreamWrite, GeometryNativeStreamGetSize);
+    status |= RpWorldSectorRegisterPluginStream(0x510, SectorNativeStreamRead, SectorNativeStreamWrite, SectorNativeStreamGetSize);
 
     status |= RpAtomicRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
     status |= RpAtomicRegisterPluginStream(0x1F, readCB(0x749120), writeCB(0x749160), AtomicRightsStreamGetSize);
     status |= RpWorldRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
-    status |= RpWorldRegisterPluginStream(0x1F, _rpWorldRightsStreamRead, _rpWorldRightsStreamWrite, sizeCB(0x761DE0));
+    status |= RpWorldRegisterPluginStream(0x1F, _rpWorldRightsStreamRead, _rpWorldRightsStreamWrite, WorldRightsStreamGetSize);
     status |= RpWorldSectorRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
-    status |= RpWorldSectorRegisterPluginStream(0x1F, _rpWorldSectorRightsStreamRead, _rpWorldSectorRightsStreamWrite, sizeCB(0x761E80));
+    status |= RpWorldSectorRegisterPluginStream(0x1F, _rpWorldSectorRightsStreamRead, _rpWorldSectorRightsStreamWrite, SectorRightsStreamGetSize);
     status |= RpMaterialRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
     status |= RpMaterialRegisterPluginStream(0x1F, readCB(0x74D7D0), writeCB(0x74D810), MaterialRightsStreamGetSize);
 
@@ -6565,22 +6322,22 @@ void RpWorldInjectHooksR17A() {
 // `resultado >= 0`. Los callbacks (constructor/destructor/copia, que ponen a cero o copian el dword de flags de uso) siguen en el EXE y se pasan por direccion fija.
 RwBool D3D9GeometryPluginAttach() {
     if (RwEngineRegisterPlugin(0, 0x50F,
-                               reinterpret_cast<RwPluginObjectConstructor>(0x758890),
-                               reinterpret_cast<RwPluginObjectDestructor>(0x7588A0)) < 0) {
+                               D3D9EnginePluginConstruct,
+                               D3D9EnginePluginDestruct) < 0) {
         return FALSE;
     }
     const RwInt32 geometryOffset = RpGeometryRegisterPlugin(4, 0x50F,
-                                                            reinterpret_cast<RwPluginObjectConstructor>(0x758850),
-                                                            reinterpret_cast<RwPluginObjectDestructor>(0x758860),
-                                                            reinterpret_cast<RwPluginObjectCopy>(0x758870));
+                                                            UsageFlagsConstruct,
+                                                            UsageFlagsDestruct,
+                                                            UsageFlagsCopy);
     s_geometryUsageFlagsOffset = geometryOffset;
     if (geometryOffset < 0) {
         return FALSE;
     }
     const RwInt32 sectorOffset = RpWorldSectorRegisterPlugin(4, 0x50F,
-                                                             reinterpret_cast<RwPluginObjectConstructor>(0x758850),
-                                                             reinterpret_cast<RwPluginObjectDestructor>(0x758860),
-                                                             reinterpret_cast<RwPluginObjectCopy>(0x758870));
+                                                             UsageFlagsConstruct,
+                                                             UsageFlagsDestruct,
+                                                             UsageFlagsCopy);
     s_sectorUsageFlagsOffset = sectorOffset;
     return sectorOffset >= 0 ? TRUE : FALSE;
 }
@@ -6725,7 +6482,7 @@ RwBool D3D9AtomicDefaultInstanceCallback(void* object, RxD3D9ResEntryHeader* hea
         }
         using CompareFn = int(__cdecl*)(const void*, const void*);
         using QsortFn = void(__cdecl*)(void*, size_t, size_t, CompareFn);
-        reinterpret_cast<QsortFn>(0x8247E0)(elements, count, 8, reinterpret_cast<CompareFn>(0x758240));
+        reinterpret_cast<QsortFn>(0x8247E0)(elements, count, 8, VertexElementCompare);
         elements[count] = { 0xFF, 0, static_cast<RwUInt8>(kDefaultInstElementEnd), 0, 0, 0 };
         RwD3D9CreateVertexDeclaration(elements, reinterpret_cast<void**>(&header->vertexDeclaration));
 
@@ -7129,7 +6886,7 @@ RpMeshHeader* _rpTriListMeshGenerate(RpBuildMesh* buildMesh, void* data) {
     }
     using CompareFn = int(__cdecl*)(const void*, const void*);
     using QsortFn = void(__cdecl*)(void*, size_t, size_t, CompareFn);
-    reinterpret_cast<QsortFn>(0x8247E0)(pointers, buildMesh->numTriangles, 4, reinterpret_cast<CompareFn>(0x759640));
+    reinterpret_cast<QsortFn>(0x8247E0)(pointers, buildMesh->numTriangles, 4, BuildMeshTriangleCompare);
 
     RwUInt32 numGroups = 1;
     if (buildMesh->numTriangles >= 2) {
@@ -8819,4 +8576,1892 @@ void RpWorldInjectHooksS23A25A() {
     RH_ScopedGlobalInstall(GeometryMeshStreamGetSize, 0x750DE0);        // lote S25A (sin validar)
     RH_ScopedGlobalInstall(GeometryNativeStreamWrite, 0x750E00);        // lote S25A (sin validar)
     RH_ScopedGlobalInstall(GeometryNativeStreamRead, 0x750E20);         // lote S25A (sin validar)
+}
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Lotes S26A, S27A, S28A y S29A del plan de sustitucion (sin validar): 96 raices de RpWorld que antes ejecutaba el EXE (envolturas por direccion y callbacks pasados por direccion).
+// Todo sigue el desensamblado (reversing/FnS26A29A/dis_Sxx.txt). Se conservan por direccion las rutinas del EXE que no son de estos lotes: 0x751500, 0x7515A0 y 0x751630 (callbacks de
+// RpWorldRemoveClump), 0x75C290 (siguiente arista de tira), 0x75F0B0 (crea un vertex shader), 0x762040 (tamano de un subarbol de sectores) y 0x755BF0.
+// ---------------------------------------------------------------------------------------------------------------------
+namespace {
+constexpr RwUInt32 kVertexShaderCacheMax = 0x100;
+
+// Formato de raster: nibble bajo de cFormat desplazado 8 bits (0x100 = 1555, 0x300 = 4444 y 0x500 = 8888 tienen alfa).
+inline bool RasterFormatHasAlpha(const RwRaster* raster) {
+    const RwUInt32 format = (static_cast<RwUInt32>(raster->cFormat) & 0xF) << 8;
+    return format == 0x100 || format == 0x300 || format == 0x500;
+}
+
+// Poligono al otro lado de una arista (poly1 salvo que sea el propio, entonces poly2).
+inline RpTriStripPolygon* StripAcross(const RpTriStripPolygon* poly, const RpTriStripEdge* edge) {
+    return edge->poly1 == poly ? edge->poly2 : edge->poly1;
+}
+
+// 0x75C290 (no es de estos lotes): dada la arista, el poligono, un vertice (16 bits) y el marco de prueba, devuelve la siguiente arista de la tira o NULL.
+inline RpTriStripEdge* StripNextEdge(RpTriStripEdge* edge, RpTriStripPolygon* poly, RwUInt32 vertex, RwUInt32 frame) {
+    return reinterpret_cast<RpTriStripEdge*(__cdecl*)(RpTriStripEdge*, RpTriStripPolygon*, RwUInt32, RwUInt32)>(0x75C290)(edge, poly, vertex, frame);
+}
+
+// Vertice compartido que continua la tira: el primero de la arista vieja si esta en la nueva, si no el segundo.
+inline RwUInt16 StripSharedVertex(const RpTriStripEdge* oldEdge, const RpTriStripEdge* newEdge) {
+    const RwUInt16 first = oldEdge->vert1;
+    return (first == newEdge->vert1 || first == newEdge->vert2) ? first : oldEdge->vert2;
+}
+
+// Lee un bloque de datos fijo de un chunk (cabecera de luz 0x18 bytes, de sector de plano 0x18 y de sector 0x2C): busca el chunk estructura (tipo 1, sin version), pone a cero `size`
+// bytes del destino y lee `size`; si no lee todo devuelve NULL. *bytesRead = longitud + 12 y salta el resto de la estructura (longitud - size, sin signo).
+void* ReadFixedChunkInfo(RwStream* stream, void* info, RwInt32* bytesRead, RwUInt32 size) {
+    RwUInt32 length;
+    if (!RwStreamFindChunk(stream, 1, &length, nullptr)) {
+        return nullptr;
+    }
+    std::memset(info, 0, size);
+    if (RwStreamRead(stream, info, size) != size) {
+        return nullptr;
+    }
+    *bytesRead = static_cast<RwInt32>(length + 0xC);
+    RwStreamSkip(stream, length - size);
+    return info;
+}
+
+// Quita todos los RpTie de un atomo (lista de sectores del atomo, +0x64): por cada enlace (el segundo enlace del RpTie, +0x0C) con atomo y sector, desenlaza el nodo completo y lo libera en la
+// lista libre de RpTie. El siguiente enlace se lee antes de tocar el nodo. Es el bucle comun de 0x7509B0 y 0x750FC0.
+void AtomicDestroyAllTies(RpAtomic* atomic) {
+    static_assert(offsetof(RpAtomic, llWorldSectorsInAtomic) == 0x64 && offsetof(RpTie, lWorldSectorInAtomic) == 0xC && offsetof(RpTie, apAtom) == 8 && offsetof(RpTie, worldSector) == 0x14);
+    RwLLLink* const end = &atomic->llWorldSectorsInAtomic.link;
+    RwLLLink* link = end->next;
+    while (link != end) {
+        RpTie* const tie = reinterpret_cast<RpTie*>(reinterpret_cast<RwUInt8*>(link) - offsetof(RpTie, lWorldSectorInAtomic));
+        RwLLLink* const next = link->next;
+        if (tie->apAtom != nullptr && tie->worldSector != nullptr) {
+            TieUnlinkBoth(&tie->lAtomicInWorldSector, &tie->lWorldSectorInAtomic);
+            RwFreeListFree(TieGlobals().tieFreeList, tie);
+        }
+        link = next;
+    }
+}
+
+// Recorrido de una lista de enlaces que tolera cambios en la lista durante el callback: antes de llamar mete un marcador local detras del enlace actual y despues lo quita (copia de
+// 0x7510A0, 0x751140 y 0x7511E0). El objeto es el puntero guardado en +8 del enlace (el saltado si es NULL). Devuelve false si el callback corto el recorrido.
+template <typename Item, typename Callback>
+bool ForAllLinksWithMarker(RwLLLink* end, Callback callback) {
+    RwLLLink* current = end->next;
+    while (current != end) {
+        RwLLLink marker;
+        marker.next = current->next;
+        marker.prev = current;
+        current->next->prev = &marker;
+        current->next = &marker;
+        Item* const item = *reinterpret_cast<Item**>(reinterpret_cast<RwUInt8*>(current) + 8);
+        if (item != nullptr && !callback(item)) {
+            marker.prev->next = marker.next;
+            marker.next->prev = marker.prev;
+            return false;
+        }
+        marker.prev->next = marker.next;
+        marker.next->prev = marker.prev;
+        current = marker.next;
+    }
+    return true;
+}
+} // namespace
+
+// ===== S26A =====
+
+// 0x750E40 (lote S26A, sin validar; 14 bytes; cdecl, (geometria, desplazamiento, tamano)): tamano del plugin nativo 0x510 de la geometria: _rpD3D9GeometryNativeSize (0x763EB0).
+static RwInt32 GeometryNativeStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return _rpD3D9GeometryNativeSize(static_cast<const RpGeometry*>(object));
+}
+
+// 0x750E50 (lote S26A, sin validar; 19 bytes; cdecl, (flujo, longitud, sector, desplazamiento, tamano)): escritura del plugin nativo 0x510 del sector: _rpD3D9WorldSectorNativeWrite (0x763F20).
+static RwStream* SectorNativeStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(binaryLength); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return _rpD3D9WorldSectorNativeWrite(stream, static_cast<const RpWorldSector*>(object));
+}
+
+// 0x750E70 (lote S26A, sin validar; 27 bytes; cdecl, (flujo, longitud, sector, desplazamiento, tamano)): lectura del plugin nativo 0x510 del sector: _rpD3D9WorldSectorNativeRead (0x7641C0);
+// devuelve el flujo si su resultado no es NULL, si no NULL.
+static RwStream* SectorNativeStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(binaryLength); UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return _rpD3D9WorldSectorNativeRead(stream, static_cast<RpWorldSector*>(object)) != nullptr ? stream : nullptr;
+}
+
+// 0x750E90 (lote S26A, sin validar; 14 bytes; cdecl, (sector, desplazamiento, tamano)): tamano del plugin nativo 0x510 del sector: _rpD3D9WorldSectorNativeSize (0x7645C0).
+static RwInt32 SectorNativeStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    return _rpD3D9WorldSectorNativeSize(static_cast<const RpWorldSector*>(object));
+}
+
+// 0x750F80 (lote S26A, sin validar; 15 bytes; cdecl, (camara)): el mundo de la camara = dword +0x0C de los datos del plugin 0x509 (camara + [0xC925A4]).
+RpWorld* RwCameraGetWorld(const RwCamera* camera) {
+    return *reinterpret_cast<RpWorld* const*>(reinterpret_cast<const RwUInt8*>(camera) + static_cast<uintptr_t>(s_cameraWorldOffset) + 0xC);
+}
+
+// 0x750F90 (lote S26A, sin validar; 38 bytes; cdecl, (mundo, atomo)): con marco padre (+4) hace RwFrameUpdateObjects (0x7F0910); guarda el mundo en los datos del plugin 0x509 del atomo
+// (atomo + [0xC925A8]). Devuelve el mundo.
+RpWorld* RpWorldAddAtomic(RpWorld* world, RpAtomic* atomic) {
+    RwFrame* const frame = static_cast<RwFrame*>(atomic->object.object.parent);
+    if (frame != nullptr) {
+        RwFrameUpdateObjects(frame);
+    }
+    *reinterpret_cast<RpWorld**>(reinterpret_cast<RwUInt8*>(atomic) + static_cast<uintptr_t>(s_atomicWorldOffset)) = world;
+    return world;
+}
+
+// 0x751390 (lote S26A, sin validar; 52 bytes; cdecl, (atomo, mundo)): callback de RpWorldAddClump por cada atomo: igual que RpWorldAddAtomic pero devuelve el atomo.
+static RpAtomic* AtomicWorldAddCallBack(RpAtomic* atomic, void* data) {
+    RpWorldAddAtomic(static_cast<RpWorld*>(data), atomic);
+    return atomic;
+}
+
+// 0x7513D0 (lote S26A, sin validar; 71 bytes; cdecl, (luz, mundo)): callback de RpWorldAddClump por cada luz: igual que RpWorldAddLight pero devuelve la luz.
+static RpLight* LightWorldAddCallBack(RpLight* light, void* data) {
+    RpWorldAddLight(static_cast<RpWorld*>(data), light);
+    return light;
+}
+
+// 0x751420 (lote S26A, sin validar; 54 bytes; cdecl, (camara, mundo)): callback de RpWorldAddClump por cada camara: igual que RpWorldAddCamera pero devuelve la camara.
+static RwCamera* CameraWorldAddCallBack(RwCamera* camera, void* data) {
+    RpWorldAddCamera(static_cast<RpWorld*>(data), camera);
+    return camera;
+}
+
+// 0x751460 (lote S26A, sin validar; 160 bytes; cdecl, (mundo, clump)): el clump debe estar en un mundo (datos del plugin 0x509, clump + [0xC925AC], +0); si no, error 4 (RwError con
+// plugin 2) y NULL. Resta uno a numClumpsInWorld del mundo del clump, mueve currentClumpLink al siguiente si apuntaba a este clump y lo desenlaza de la lista (+0x20). Despues recorre atomos, luces
+// y camaras del clump con los callbacks 0x751500, 0x7515A0 y 0x751630 (por direccion, no son de estos lotes) y como dato el mundo dado; pone el mundo del clump a NULL y devuelve el mundo.
+RpWorld* RpWorldRemoveClump(RpWorld* world, RpClump* clump) {
+    RpWorld** const slot = reinterpret_cast<RpWorld**>(reinterpret_cast<RwUInt8*>(clump) + static_cast<uintptr_t>(s_clumpWorldOffset));
+    RpWorld* const owner = *slot;
+    if (owner == nullptr) {
+        RaiseRwError(4);
+        return nullptr;
+    }
+    --owner->numClumpsInWorld;
+    RwLLLink* const link = &clump->inWorldLink;
+    if (link == owner->currentClumpLink) {
+        owner->currentClumpLink = link->next;
+    }
+    link->prev->next = link->next;
+    link->next->prev = link->prev;
+    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(static_cast<uintptr_t>(0x751500)), world);
+    RpClumpForAllLights(clump, reinterpret_cast<RpLightCallBack>(static_cast<uintptr_t>(0x7515A0)), world);
+    RpClumpForAllCameras(clump, reinterpret_cast<RwCameraCallBack>(static_cast<uintptr_t>(0x751630)), world);
+    *slot = nullptr;
+    return world;
+}
+
+// 0x7516B0 (lote S26A, sin validar; 14 bytes; cdecl, (clump)): el mundo del clump = dword +0 de sus datos del plugin 0x509 (clump + [0xC925AC]).
+RpWorld* RpClumpGetWorld(const RpClump* clump) {
+    return *reinterpret_cast<RpWorld* const*>(reinterpret_cast<const RwUInt8*>(clump) + static_cast<uintptr_t>(s_clumpWorldOffset));
+}
+
+// 0x7519E0 (lote S26A, sin validar; 14 bytes; cdecl, (luz)): el mundo de la luz = dword +0 de sus datos del plugin 0x509 (luz + [0xC925B0]).
+RpWorld* RpLightGetWorld(const RpLight* light) {
+    return *reinterpret_cast<RpWorld* const*>(reinterpret_cast<const RwUInt8*>(light) + static_cast<uintptr_t>(s_lightWorldOffset));
+}
+
+// 0x751D90 (lote S26A, sin validar; 34 bytes; cdecl, (id, lectura, escritura, tamano)): _rwPluginRegistryAddPluginStream sobre el registro de luces (0x8D62F8).
+RwInt32 RpLightRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB) {
+    return _rwPluginRegistryAddPluginStream(&s_lightTKList, pluginID, readCB, writeCB, getSizeCB);
+}
+
+// 0x751DC0 (lote S26A, sin validar; 24 bytes; cdecl, (id, callback)): _rwPluginRegistryAddPlgnStrmlwysCB sobre el registro de luces.
+RwInt32 RpLightSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
+    return _rwPluginRegistryAddPlgnStrmlwysCB(&s_lightTKList, pluginID, alwaysCB);
+}
+
+// 0x751DE0 (lote S26A, sin validar; 19 bytes; cdecl, (id)): _rwPluginRegistryGetPluginOffset sobre el registro de luces.
+RwInt32 RpLightGetPluginOffset(RwUInt32 pluginID) {
+    return _rwPluginRegistryGetPluginOffset(&s_lightTKList, pluginID);
+}
+
+// 0x751E00 (lote S26A, sin validar; 6 bytes): `mov eax, 1; ret`; devuelve 1 sin tocar la luz.
+RwBool RpLightValidatePlugins(const RpLight* light) {
+    UNUSED(light);
+    return TRUE;
+}
+
+// 0x751E10 (lote S26A, sin validar; 22 bytes; cdecl, (luz)): _rwPluginRegistryGetSize del registro de luces + 0x30.
+RwUInt32 RpLightStreamGetSize(const RpLight* light) {
+    return static_cast<RwUInt32>(_rwPluginRegistryGetSize(&s_lightTKList, light)) + 0x30;
+}
+
+// 0x752060 (lote S26A, sin validar; 101 bytes; cdecl, (flujo, info, bytesLeidos)): estructura de 0x18 bytes de una luz (ver ReadFixedChunkInfo).
+RpLightChunkInfo* _rpLightChunkInfoRead(RwStream* stream, RpLightChunkInfo* lightChunkInfo, RwInt32* bytesRead) {
+    return static_cast<RpLightChunkInfo*>(ReadFixedChunkInfo(stream, lightChunkInfo, bytesRead, 0x18));
+}
+
+// 0x7521A0 (lote S26A, sin validar; 5 bytes): callback de sincronizacion de marco de la luz; devuelve el objeto sin tocarlo.
+static RwObjectHasFrame* LightSyncCallBack(RwObjectHasFrame* object) {
+    return object;
+}
+
+// 0x7521B0 (lote S26A, sin validar; 84 bytes; cdecl, (objeto, desplazamiento, tamano)): destructor del plugin de motor 0x505 (luces): RwFreeListForAllUsed con 0x752210 (LightFreeListDestroyCallBack) y
+// dato 0, RwFreeListDestroy de la lista (RwEngineInstance + [0xC925D8]), puntero a NULL y [0xC925DC] -= 1. Devuelve el objeto.
+static void* LightModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwFreeListForAllUsed(LightFreeList(), LightFreeListDestroyCallBack, nullptr);
+    RwFreeListDestroy(LightFreeList());
+    LightFreeList() = nullptr;
+    StaticRef<RwInt32>(0xC925DC) = StaticRef<RwInt32>(0xC925DC) - 1;
+    return object;
+}
+
+// 0x752250 (lote S26A, sin validar; 20 bytes; cdecl, (bloque, bloques)): guarda los parametros de la lista libre de luces en 0x8D6310 (entradas por bloque) y 0x8D6314 (bloques a preasignar).
+void RpLightSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc) {
+    StaticRef<RwInt32>(0x8D6310) = blockSize;
+    StaticRef<RwInt32>(0x8D6314) = numBlocksToPrealloc;
+}
+
+// 0x752270 (lote S26A, sin validar; 100 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x505: [0xC925D8] = desplazamiento; la lista libre de luces (motor +
+// desplazamiento) = RwFreeListCreateAndPreallocateSpace(tamano del registro de luces [0x8D62F8], [0x8D6310], 4, [0x8D6314], 0xC925B4, 0x40012); sin lista devuelve NULL; si no [0xC925DC] += 1
+// y devuelve el objeto.
+static void* LightModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    s_lightModuleOffset = offsetInObject;
+    LightFreeList() = RwFreeListCreateAndPreallocateSpace(s_lightTKList.sizeOfStruct, StaticRef<RwInt32>(0x8D6310), 4, StaticRef<RwInt32>(0x8D6314), reinterpret_cast<RwFreeList*>(0xC925B4), 0x40012);
+    if (LightFreeList() == nullptr) {
+        return nullptr;
+    }
+    StaticRef<RwInt32>(0xC925DC) = StaticRef<RwInt32>(0xC925DC) + 1;
+    return object;
+}
+
+// 0x7522F0 (lote S26A, sin validar; 45 bytes; cdecl, (declaracion)): suma el tamano (tabla 0x874EF8 de _rpD3D9VertexDeclarationGetSize) del tipo de cada D3DVERTEXELEMENT9 (8 bytes, Type en +4)
+// hasta el primero con tipo >= 0x11 (D3DDECL_END); sin elementos devuelve 0.
+RwUInt32 _rpD3D9VertexDeclarationGetStride(const void* vertexDeclaration) {
+    const RwUInt8* element = static_cast<const RwUInt8*>(vertexDeclaration) + 4;
+    RwUInt32 stride = 0;
+    RwUInt32 type = *element;
+    while (type < 0x11) {
+        stride += _rpD3D9VertexDeclarationGetSize(type);
+        element += 8;
+        type = *element;
+    }
+    return stride;
+}
+
+// 0x754B40 (lote S26A, sin validar; 290 bytes; cdecl, (tipo, destino, indices, numVertices, stride)): copia los indices de cada vertice (4 bytes de origen) al destino segun el tipo D3DDECLTYPE:
+// 4 (D3DCOLOR) reordena los bytes (b2, b1, b0, b3), 5 (UBYTE4) los copia tal cual, 6 (SHORT2) amplia los dos primeros bytes a palabras y 7 (SHORT4) los cuatro; el destino avanza `stride` bytes por
+// vertice y el origen 4. Cualquier otro tipo no copia nada. Devuelve el tamano del tipo (tabla 0x874EF8).
+RwUInt32 _rpD3D9VertexDeclarationInstIndices(RwUInt32 type, RwUInt8* mem, const RwUInt32* indices, RwInt32 numVerts, RwUInt32 stride) {
+    const RwUInt8* src = reinterpret_cast<const RwUInt8*>(indices);
+    RwUInt8* dst = mem;
+    switch (type) {
+    case 4:
+        for (RwInt32 i = numVerts; i > 0; --i) {
+            dst[0] = src[2];
+            dst[1] = src[1];
+            dst[2] = src[0];
+            dst[3] = src[3];
+            src += 4;
+            dst += stride;
+        }
+        break;
+    case 5:
+        for (RwInt32 i = numVerts; i > 0; --i) {
+            dst[0] = src[0];
+            dst[1] = src[1];
+            dst[2] = src[2];
+            dst[3] = src[3];
+            src += 4;
+            dst += stride;
+        }
+        break;
+    case 6:
+        for (RwInt32 i = numVerts; i > 0; --i) {
+            *reinterpret_cast<RwUInt16*>(dst) = src[0];
+            *reinterpret_cast<RwUInt16*>(dst + 2) = src[1];
+            src += 4;
+            dst += stride;
+        }
+        break;
+    case 7:
+        for (RwInt32 i = numVerts; i > 0; --i) {
+            *reinterpret_cast<RwUInt16*>(dst) = src[0];
+            *reinterpret_cast<RwUInt16*>(dst + 2) = src[1];
+            *reinterpret_cast<RwUInt16*>(dst + 4) = src[2];
+            *reinterpret_cast<RwUInt16*>(dst + 6) = src[3];
+            src += 4;
+            dst += stride;
+        }
+        break;
+    default:
+        break;
+    }
+    return _rpD3D9VertexDeclarationGetSize(type);
+}
+
+// ===== S27A =====
+
+// 0x755BC0 (lote S27A, sin validar; 48 bytes; cdecl, (luz, desplazamiento, tamano)): constructor del plugin 0x505 de la luz (16 bytes en luz + [0xC926B0]): con luz NULL devuelve NULL; si no deja
+// {-1, 1.0f, 0.0f, 5.0f} (indice de luz de D3D9 y parametros de atenuacion) y devuelve la luz.
+static void* LightD3D9PluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    if (object == nullptr) {
+        return nullptr;
+    }
+    RwUInt32* const data = reinterpret_cast<RwUInt32*>(static_cast<RwUInt8*>(object) + static_cast<uintptr_t>(s_d3d9LightPluginOffset));
+    data[0] = 0xFFFFFFFFu;
+    data[1] = 0x3F800000u;
+    data[2] = 0;
+    data[3] = 0x40A00000u;
+    return object;
+}
+
+// 0x755CE0 (lote S27A, sin validar; 51 bytes; cdecl, (destino, origen, desplazamiento, tamano)): copia del plugin 0x505 de la luz: con origen y destino no nulos copia los cuatro dwords de los datos
+// (luz + [0xC926B0]). Devuelve el destino.
+static void* LightD3D9PluginCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    if (srcObject != nullptr && dstObject != nullptr) {
+        const uintptr_t offset = static_cast<uintptr_t>(s_d3d9LightPluginOffset);
+        std::memcpy(static_cast<RwUInt8*>(dstObject) + offset, static_cast<const RwUInt8*>(srcObject) + offset, 16);
+    }
+    return dstObject;
+}
+
+// 0x755D20 (lote S27A, sin validar; 35 bytes; cdecl, (luz, parametros)): copia los tres dwords de atenuacion a los datos del plugin 0x505 de la luz (luz + [0xC926B0] + 4).
+void RpD3D9LightSetAttenuationParams(RpLight* light, const RpD3D9AttenuationParams* params) {
+    std::memcpy(reinterpret_cast<RwUInt8*>(light) + static_cast<uintptr_t>(s_d3d9LightPluginOffset) + 4, params, 12);
+}
+
+// 0x755D50 (lote S27A, sin validar; 35 bytes; cdecl, (luz, parametros)): el inverso: copia los tres dwords de +4 de los datos del plugin 0x505 de la luz a los parametros.
+void RpD3D9LightGetAttenuationParams(const RpLight* light, RpD3D9AttenuationParams* params) {
+    std::memcpy(params, reinterpret_cast<const RwUInt8*>(light) + static_cast<uintptr_t>(s_d3d9LightPluginOffset) + 4, 12);
+}
+
+// 0x756600 (lote S27A, sin validar; 268 bytes; cdecl, (activar, tipo); el tipo no se usa): con activar = 0 solo hace RwD3D9SetRenderState(0x89 (D3DRS_LIGHTING), 0). Si no: acota el recuento de luces
+// activas [0xC926CC] a [0xC926B4] (maximo del dispositivo); apaga (RwD3D9EnableLight(indice, 0)) cada luz de la lista anterior (vector [0xC926D4], recuento [0xC926D8]) que no este en la lista
+// nueva (vector [0xC926C8], recuento [0xC926CC], que se relee tras cada llamada); enciende las de la lista nueva; intercambia los dos vectores y sus capacidades ([0xC926D0] y [0xC926DC]),
+// deja [0xC926D8] = recuento (o 0 sin luces), pone [0xC926CC] = 0 y hace RwD3D9SetRenderState(0x89, 1).
+void _rwD3D9LightsEnable(RwBool enable, RwUInt32 type) {
+    UNUSED(type);
+    if (!enable) {
+        RwD3D9SetRenderState(0x89, 0);
+        return;
+    }
+    if (s_lightsStateCC > s_lightsMaxActive) {
+        s_lightsStateCC = s_lightsMaxActive;
+    }
+    RwUInt32 count = s_lightsStateCC;
+    if (s_lightsStateD8 != 0) {
+        for (RwUInt32 i = 0; i < s_lightsStateD8; ++i) {
+            const RwUInt32 index = static_cast<RwUInt32*>(s_lightsArrayC)[i];
+            RwUInt32 found = 0;
+            if (count != 0) {
+                const RwUInt32* const current = static_cast<RwUInt32*>(s_lightsArrayB);
+                while (found < count && current[found] != index) {
+                    ++found;
+                }
+            }
+            if (found >= count) {
+                RwD3D9EnableLight(static_cast<RwInt32>(index), FALSE);
+                count = s_lightsStateCC;
+            }
+        }
+    }
+    if (count != 0) {
+        RwUInt32 i = 0;
+        do {
+            RwD3D9EnableLight(static_cast<RwInt32>(static_cast<RwUInt32*>(s_lightsArrayB)[i]), TRUE);
+            count = s_lightsStateCC;
+            ++i;
+        } while (i < count);
+        void* const previousList = s_lightsArrayC;
+        s_lightsArrayC = s_lightsArrayB;
+        s_lightsArrayB = previousList;
+        const RwUInt32 capacity = s_lightsStateD0;
+        s_lightsStateD0 = s_lightsStateDC;
+        s_lightsStateDC = capacity;
+        s_lightsStateD8 = count;
+    } else {
+        s_lightsStateD8 = 0;
+    }
+    s_lightsStateCC = 0;
+    RwD3D9SetRenderState(0x89, 1);
+}
+
+// 0x7567A0 (lote S27A, sin validar; 137 bytes; cdecl, (triangulo A, triangulo B)): comparador de qsort de _rpD3D9SortTriangles: cada triangulo son tres indices de 16 bits que se ordenan de menor a
+// mayor; compara el menor, despues el mediano y despues el mayor (resta sin signo de 32 bits, como el EXE).
+static int TriangleIndicesCompare(const void* first, const void* second) {
+    const auto sortedIndices = [](const void* triangle, RwUInt32 (&out)[3]) {
+        const RwUInt16* const words = static_cast<const RwUInt16*>(triangle);
+        RwUInt32 a = words[0];
+        RwUInt32 b = words[1];
+        RwUInt32 c = words[2];
+        if (a > b) {
+            const RwUInt32 t = a;
+            a = b;
+            b = t;
+        }
+        if (b > c) {
+            const RwUInt32 t = b;
+            b = c;
+            c = t;
+            if (a > b) {
+                const RwUInt32 u = a;
+                a = b;
+                b = u;
+            }
+        }
+        out[0] = a;
+        out[1] = b;
+        out[2] = c;
+    };
+    RwUInt32 sortedA[3];
+    RwUInt32 sortedB[3];
+    sortedIndices(first, sortedA);
+    sortedIndices(second, sortedB);
+    if (sortedA[0] != sortedB[0]) {
+        return static_cast<int>(sortedA[0] - sortedB[0]);
+    }
+    if (sortedA[1] != sortedB[1]) {
+        return static_cast<int>(sortedA[1] - sortedB[1]);
+    }
+    return static_cast<int>(sortedA[2] - sortedB[2]);
+}
+
+// 0x7573C0 (lote S27A, sin validar; 15 bytes; cdecl, (nodo, callback)): datos privados del nodo (+0x14)->lighting (+8) = callback.
+void RxD3D9AllInOneSetLightingCallBack(RxPipelineNode* node, RxD3D9AllInOneLightingCallBack callback) {
+    *reinterpret_cast<RxD3D9AllInOneLightingCallBack*>(static_cast<RwUInt8*>(node->privateData) + 8) = callback;
+}
+
+// 0x7573D0 (lote S27A, sin validar; 11 bytes; cdecl, (nodo)): datos privados del nodo (+0x14)->lighting (+8).
+RxD3D9AllInOneLightingCallBack RxD3D9AllInOneGetLightingCallBack(RxPipelineNode* node) {
+    return *reinterpret_cast<RxD3D9AllInOneLightingCallBack*>(static_cast<RwUInt8*>(node->privateData) + 8);
+}
+
+// 0x7573F0 (lote S27A, sin validar; 11 bytes; cdecl, (nodo)): datos privados del nodo (+0x14)->render (+0xC).
+RxD3D9AllInOneRenderCallBack RxD3D9AllInOneGetRenderCallBack(RxPipelineNode* node) {
+    return *reinterpret_cast<RxD3D9AllInOneRenderCallBack*>(static_cast<RwUInt8*>(node->privateData) + 0xC);
+}
+
+// 0x758240 (lote S27A, sin validar; 39 bytes; cdecl, (elemento A, elemento B)): comparador de qsort de los D3DVERTEXELEMENT9: diferencia del flujo (word +0) y, si es 0, del desplazamiento (word +2).
+static int VertexElementCompare(const void* first, const void* second) {
+    const RwUInt16* const a = static_cast<const RwUInt16*>(first);
+    const RwUInt16* const b = static_cast<const RwUInt16*>(second);
+    const RwInt32 stream = static_cast<RwInt32>(static_cast<RwUInt32>(a[0]) - static_cast<RwUInt32>(b[0]));
+    if (stream != 0) {
+        return stream;
+    }
+    return static_cast<int>(static_cast<RwUInt32>(a[1]) - static_cast<RwUInt32>(b[1]));
+}
+
+// 0x758850 (lote S27A, sin validar; 16 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin 0x50F (flags de uso de D3D9) de geometrias y sectores: el dword objeto + desplazamiento = 0.
+static void* UsageFlagsConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    *reinterpret_cast<RwUInt32*>(static_cast<RwUInt8*>(object) + offsetInObject) = 0;
+    return object;
+}
+
+// 0x758860 (lote S27A, sin validar; 16 bytes; cdecl, (objeto, desplazamiento, tamano)): destructor del mismo plugin: pone el dword a 0.
+static void* UsageFlagsDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    *reinterpret_cast<RwUInt32*>(static_cast<RwUInt8*>(object) + offsetInObject) = 0;
+    return object;
+}
+
+// 0x758870 (lote S27A, sin validar; 19 bytes; cdecl, (destino, origen, desplazamiento, tamano)): copia del mismo plugin: copia el dword del origen al destino. Devuelve el destino.
+static void* UsageFlagsCopy(void* dstObject, const void* srcObject, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(sizeInObject);
+    *reinterpret_cast<RwUInt32*>(static_cast<RwUInt8*>(dstObject) + offsetInObject) = *reinterpret_cast<const RwUInt32*>(static_cast<const RwUInt8*>(srcObject) + offsetInObject);
+    return dstObject;
+}
+
+// 0x758890 (lote S27A, sin validar; 16 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x50F: [0xC926E4] += 1; devuelve el objeto.
+static void* D3D9EnginePluginConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC926E4) = StaticRef<RwInt32>(0xC926E4) + 1;
+    return object;
+}
+
+// 0x7588A0 (lote S27A, sin validar; 16 bytes; cdecl, (objeto, desplazamiento, tamano)): destructor del plugin de motor 0x50F: [0xC926E4] -= 1; devuelve el objeto.
+static void* D3D9EnginePluginDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC926E4) = StaticRef<RwInt32>(0xC926E4) - 1;
+    return object;
+}
+
+// 0x758940 (lote S27A, sin validar; 46 bytes; cdecl, (objeto, desplazamiento, tamano)): destructor del plugin de motor 0x502 (mallas): [0xC9B8C4] -= 1; si llega a 0 y existe la lista libre de
+// RpBuildMesh ([0xC926F0]) la destruye y la pone a NULL. Devuelve el objeto.
+void* _rpMeshClose(void* instance, RwInt32 offset, RwInt32 size) {
+    UNUSED(offset); UNUSED(size);
+    RwInt32& openCount = StaticRef<RwInt32>(0xC9B8C4);
+    --openCount;
+    if (openCount == 0 && s_buildMeshFreeList != nullptr) {
+        RwFreeListDestroy(s_buildMeshFreeList);
+        s_buildMeshFreeList = nullptr;
+    }
+    return instance;
+}
+
+// 0x758970 (lote S27A, sin validar; 282 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x502: [0xC9B8C0] = desplazamiento; con [0xC9B8C4] = 0 crea la lista libre
+// de RpBuildMesh (RwFreeListCreate(0xC, 0x32, 4, 0x40502) en [0xC926F0]; sin lista devuelve NULL). Pone a 1 el contador de serie de 16 bits (motor + desplazamiento), suma 1 a [0xC9B8C4] y escribe
+// los bytes +8..0x2D de los datos: +8 = 3, +9 = 4, +0xA = 5, +0xC = 1, +0x10 = 2, +0x18 = 6, +0x28 = 4, +0x29 = 8, +0x2A = 0, +0x2B = 1, +0x2C = 2, +0x2D = 0x10. Devuelve el objeto.
+void* _rpMeshOpen(void* instance, RwInt32 offset, RwInt32 size) {
+    UNUSED(size);
+    s_meshSerialOffset = static_cast<RwUInt32>(offset);
+    RwInt32& openCount = StaticRef<RwInt32>(0xC9B8C4);
+    if (openCount == 0) {
+        s_buildMeshFreeList = RwFreeListCreate(0xC, 0x32, 4, 0x40502);
+        if (s_buildMeshFreeList == nullptr) {
+            return nullptr;
+        }
+    }
+    RwUInt8* const data = reinterpret_cast<RwUInt8*>(static_cast<RwGlobals*>(RwEngineInstance)) + static_cast<uintptr_t>(s_meshSerialOffset);
+    *reinterpret_cast<RwUInt16*>(data) = 1;
+    ++openCount;
+    data[0x08] = 3;
+    data[0x09] = 4;
+    data[0x0A] = 5;
+    data[0x0C] = 1;
+    data[0x10] = 2;
+    data[0x18] = 6;
+    data[0x28] = 4;
+    data[0x29] = 8;
+    data[0x2A] = 0;
+    data[0x2B] = 1;
+    data[0x2C] = 2;
+    data[0x2D] = 0x10;
+    return instance;
+}
+
+// 0x7590E0 (lote S27A, sin validar; 26 bytes; cdecl sin argumentos): devuelve el contador de serie de mallas de 16 bits (motor + [0xC9B8C0]) y lo incrementa.
+RwInt16 _rpMeshGetNextSerialNumber(void) {
+    RwUInt16& serial = *reinterpret_cast<RwUInt16*>(reinterpret_cast<RwUInt8*>(static_cast<RwGlobals*>(RwEngineInstance)) + static_cast<uintptr_t>(s_meshSerialOffset));
+    const RwUInt16 current = serial;
+    serial = static_cast<RwUInt16>(current + 1);
+    return static_cast<RwInt16>(current);
+}
+
+// 0x759100 (lote S27A, sin validar; 162 bytes; cdecl, (RpBuildMesh, dato)): genera una cabecera de mallas con una malla de tres indices por triangulo. Reserva 16 + 18 * n bytes con
+// _rpMeshHeaderCreate (sin comprobar NULL) y los rellena con 0xCD; cabecera: flags 1, numMeshes = n (16 bits), serialNum 0, totalIndicesInMesh = 3n, firstMeshOffset 0. Por triangulo, una RpMesh
+// {indices en linea tras las mallas, 3, material} y sus tres primeros indices (16 bits). Devuelve la cabecera.
+RpMeshHeader* RpBuildMeshGenerateTrivialTriStrip(RpBuildMesh* buildMesh, void* data) {
+    UNUSED(data);
+    const RwUInt32 numTriangles = buildMesh->numTriangles;
+    RpMeshHeader* const header = _rpMeshHeaderCreate(numTriangles * 18 + 0x10);
+    std::memset(header, 0xCD, numTriangles * 18 + 0x10);
+    header->numMeshes = static_cast<RwUInt16>(numTriangles);
+    header->totalIndicesInMesh = numTriangles * 3;
+    header->flags = 1;
+    header->serialNum = 0;
+    header->firstMeshOffset = 0;
+    RpMesh* mesh = reinterpret_cast<RpMesh*>(reinterpret_cast<RwUInt8*>(header) + 0x10);
+    RwUInt16* indices = reinterpret_cast<RwUInt16*>(reinterpret_cast<RwUInt8*>(mesh) + numTriangles * sizeof(RpMesh));
+    const RpBuildMeshTriangle* triangle = buildMesh->meshTriangles;
+    for (RwUInt32 i = 0; i < numTriangles; ++i) {
+        mesh->indices = indices;
+        mesh->numIndices = 3;
+        mesh->material = triangle->material;
+        indices[0] = triangle->vertIndex[0];
+        indices[1] = triangle->vertIndex[1];
+        indices[2] = triangle->vertIndex[2];
+        indices += 3;
+        ++triangle;
+        ++mesh;
+    }
+    return header;
+}
+
+// 0x759640 (lote S27A, sin validar; 334 bytes; cdecl, (puntero a triangulo A, puntero a triangulo B)): comparador de qsort de _rpBuildMeshGenerateTriStrip. Mismo material -> 0. Cada triangulo
+// aporta una marca 0x10 si su material tiene textura con formato de raster con alfa (0x100, 0x300 o 0x500) o color con alfa distinto de 0xFF. Resultado = (bits "B menor que A" | marca de A)
+// - (bits "A menor que B" | marca de B), con 8 = indice de raster, 4 = de tuberia, 2 = de textura y 1 = de material (comparaciones de 16 bits sin signo).
+static int BuildMeshTriangleCompare(const void* first, const void* second) {
+    const RpBuildMeshTriangle* const a = *static_cast<const RpBuildMeshTriangle* const*>(first);
+    const RpBuildMeshTriangle* const b = *static_cast<const RpBuildMeshTriangle* const*>(second);
+    if (a->material == b->material) {
+        return 0;
+    }
+    const auto alphaMark = [](const RpMaterial* material) -> RwUInt32 {
+        RwUInt32 mark = 0;
+        if (material != nullptr) {
+            if (material->texture != nullptr && RasterFormatHasAlpha(material->texture->raster)) {
+                mark = 0x10;
+            }
+            if (material->color.alpha != 0xFF) {
+                mark |= 0x10;
+            }
+        }
+        return mark;
+    };
+    const RwUInt32 markA = alphaMark(a->material);
+    const RwUInt32 markB = alphaMark(b->material);
+    const auto lessBits = [](const RpBuildMeshTriangle* x, const RpBuildMeshTriangle* y) -> RwUInt32 {
+        RwUInt32 bits = 0;
+        if (x->rasterIndex < y->rasterIndex) bits |= 8;
+        if (x->pipelineIndex < y->pipelineIndex) bits |= 4;
+        if (x->textureIndex < y->textureIndex) bits |= 2;
+        if (x->matIndex < y->matIndex) bits |= 1;
+        return bits;
+    };
+    const RwUInt32 aBelowB = lessBits(a, b) | markB;
+    const RwUInt32 bBelowA = lessBits(b, a) | markA;
+    return static_cast<int>(bBelowA - aBelowB);
+}
+
+// 0x75A8E0 (lote S27A, sin validar; 18 bytes; cdecl, (RpBuildMesh, dato)): _rpBuildMeshGenerateTriStrip (0x7591D0) con (malla, 0, 0).
+RpMeshHeader* RpBuildMeshGenerateDefaultIgnoreWindingTriStrip(RpBuildMesh* buildmesh, void* data) {
+    UNUSED(data);
+    return _rpBuildMeshGenerateTriStrip(buildmesh, 0, 0);
+}
+
+// 0x75A900 (lote S27A, sin validar; 18 bytes; cdecl, (RpBuildMesh, dato)): _rpBuildMeshGenerateTriStrip con (malla, 1, 1).
+RpMeshHeader* RpBuildMeshGeneratePreprocessTriStrip(RpBuildMesh* buildmesh, void* data) {
+    UNUSED(data);
+    return _rpBuildMeshGenerateTriStrip(buildmesh, 1, 1);
+}
+
+// 0x75A920 (lote S27A, sin validar; 18 bytes; cdecl, (RpBuildMesh, dato)): _rpBuildMeshGenerateTriStrip con (malla, 1, 0).
+RpMeshHeader* RpBuildMeshGeneratePreprocessIgnoreWindingTriStrip(RpBuildMesh* buildmesh, void* data) {
+    UNUSED(data);
+    return _rpBuildMeshGenerateTriStrip(buildmesh, 1, 0);
+}
+
+// 0x75B500 (lote S27A, sin validar; 638 bytes; cdecl, (poligono inicial, marco de prueba, dato)): coste de una tira. Parte de coste 0x9C40, contador 1 y marca 0. Marca el poligono inicial con el
+// marco; busca el primer vecino por una arista de tira con ambos poligonos, el segundo (arista de tira que no vuelve al inicial) y el tercero, marcandolos; sin alguno devuelve el coste. Luego, con
+// la ventana (P, A, B, C): marca C; si algun vertice de P esta en A, en B y en C (la busqueda en C se compara con numEdges de B, como el EXE) suma 0x2710 y pone la marca a 1; si no, suma 1 a la marca
+// (si ya era distinta de 0) o al contador. La ventana avanza (P = A, A = B, B = C, C = vecino de C por una arista de tira que no vuelve a B) hasta quedarse sin vecino. Devuelve el coste mas la
+// menor de las dos cuentas (marca si es <= contador, si no contador).
+RwUInt32 RpTriStripDefaultCost(RpTriStripPolygon* startPolygon, RwUInt32 testFrame, void* data) {
+    UNUSED(data);
+    RwUInt32 cost = 0x9C40;
+    RwUInt32 count = 1;
+    RwUInt32 flag = 0;
+    startPolygon->testFrame = testFrame;
+
+    RpTriStripPolygon* first = nullptr;
+    for (RwUInt32 i = 0; i < startPolygon->numEdges; ++i) {
+        RpTriStripEdge* const edge = startPolygon->edges[i];
+        if (edge->strip != 0 && edge->poly1 != nullptr && edge->poly2 != nullptr) {
+            first = StripAcross(startPolygon, edge);
+            break;
+        }
+    }
+    if (first == nullptr) {
+        return cost + flag;
+    }
+    first->testFrame = testFrame;
+
+    RpTriStripPolygon* second = nullptr;
+    for (RwUInt32 i = 0; i < first->numEdges; ++i) {
+        RpTriStripEdge* const edge = first->edges[i];
+        if (edge->strip != 0 && startPolygon != edge->poly1 && startPolygon != edge->poly2) {
+            second = StripAcross(first, edge);
+            break;
+        }
+    }
+    if (second == nullptr) {
+        return cost + flag;
+    }
+    second->testFrame = testFrame;
+
+    RpTriStripPolygon* third = nullptr;
+    for (RwUInt32 i = 0; i < second->numEdges; ++i) {
+        RpTriStripEdge* const edge = second->edges[i];
+        if (edge->strip != 0 && first != edge->poly1 && first != edge->poly2) {
+            third = StripAcross(second, edge);
+            break;
+        }
+    }
+    if (third == nullptr) {
+        return cost + flag;
+    }
+
+    RpTriStripPolygon* p = startPolygon;
+    RpTriStripPolygon* a = first;
+    RpTriStripPolygon* b = second;
+    RpTriStripPolygon* c = third;
+    for (;;) {
+        c->testFrame = testFrame;
+        bool shared = false;
+        for (RwUInt32 j = 0; j < p->numEdges; ++j) {
+            const RwUInt16 vertex = p->vertIndex[j];
+            RwUInt32 inA = 0;
+            while (inA < a->numEdges && a->vertIndex[inA] != vertex) {
+                ++inA;
+            }
+            if (inA >= a->numEdges) {
+                continue;
+            }
+            RwUInt32 inB = 0;
+            while (inB < b->numEdges && b->vertIndex[inB] != vertex) {
+                ++inB;
+            }
+            if (inB >= b->numEdges) {
+                continue;
+            }
+            RwUInt32 inC = 0;
+            while (inC < c->numEdges && c->vertIndex[inC] != vertex) {
+                ++inC;
+            }
+            if (inC < b->numEdges) {
+                shared = true;
+                break;
+            }
+        }
+        if (shared) {
+            cost += 0x2710;
+            flag = 1;
+        } else if (flag != 0) {
+            ++flag;
+        } else {
+            ++count;
+        }
+
+        RpTriStripPolygon* next = nullptr;
+        for (RwUInt32 i = 0; i < c->numEdges; ++i) {
+            RpTriStripEdge* const edge = c->edges[i];
+            if (edge->strip != 0 && b != edge->poly1 && b != edge->poly2) {
+                next = StripAcross(c, edge);
+                break;
+            }
+        }
+        p = a;
+        a = b;
+        b = c;
+        c = next;
+        if (c == nullptr) {
+            break;
+        }
+    }
+    return cost + (flag <= count ? flag : count);
+}
+
+// ===== S28A =====
+
+// 0x75BD80 (lote S28A, sin validar; 1283 bytes; cdecl, (malla de poligonos, dato)): generador de tiras rapido. Reparte los poligonos de polygonUsedList (+0xC) en cuatro cubos segun el numero de
+// aristas con un vecino distinto de si mismo (el enlace es el inFreeLink, +0x10, de cada poligono). Mientras haya cubos con poligonos (se vuelve a empezar por el cubo 0 tras cada tira), toma el
+// primero del cubo mas bajo y prueba las 6 formas de salir de el (3 aristas x 2 sentidos) siguiendo la tira con 0x75C290 y un marco que crece en cada intento; se queda con la mas larga (la primera
+// en empate). La construye: marca las aristas como de tira, quita los poligonos de su cubo (enlaces a NULL) y de polygonEndList (+0x4) salvo el primero y el ultimo, y despues recorre la tira de
+// extremo a extremo recolocando en su cubo (segun el nuevo numero de aristas con vecino aun libre) a los vecinos que todavia estaban en un cubo. Devuelve la malla.
+RpTriStripMesh* RpTriStripMeshQuick(RpTriStripMesh* mesh, void* data) {
+    UNUSED(data);
+    static_assert(offsetof(RpTriStripPolygon, inUsedLink) == 8 && offsetof(RpTriStripPolygon, inFreeLink) == 0x10 && offsetof(RpTriStripPolygon, testFrame) == 0x30);
+    static_assert(offsetof(RpTriStripPolygon, edges) == 0x1C && offsetof(RpTriStripPolygon, vertIndex) == 0x28 && offsetof(RpTriStripEdge, strip) == 0x1C);
+
+    RwLinkList bucket[4];
+    for (RwLinkList& list : bucket) {
+        list.link.next = &list.link;
+        list.link.prev = &list.link;
+    }
+
+    // Vecinos distintos de si mismo (con cualquiera de los dos poligonos de la arista).
+    const auto neighbourCount = [](const RpTriStripPolygon* poly) -> RwUInt32 {
+        RwUInt32 count = 0;
+        for (RwUInt32 i = 0; i < poly->numEdges; ++i) {
+            const RpTriStripEdge* const edge = poly->edges[i];
+            if ((edge->poly1 != nullptr && edge->poly1 != poly) || (edge->poly2 != nullptr && edge->poly2 != poly)) {
+                ++count;
+            }
+        }
+        return count;
+    };
+    // Vecinos distintos de si mismo que siguen en un cubo (enlace inFreeLink con siguiente no nulo).
+    const auto openCount = [](const RpTriStripPolygon* poly) -> RwUInt32 {
+        RwUInt32 count = 0;
+        for (RwUInt32 i = 0; i < poly->numEdges; ++i) {
+            const RpTriStripEdge* const edge = poly->edges[i];
+            if ((edge->poly1 != nullptr && edge->poly1 != poly && edge->poly1->inFreeLink.next != nullptr)
+                || (edge->poly2 != nullptr && edge->poly2 != poly && edge->poly2->inFreeLink.next != nullptr)) {
+                ++count;
+            }
+        }
+        return count;
+    };
+
+    RwLLLink* const usedEnd = &mesh->polygonUsedList.link;
+    for (RwLLLink* link = usedEnd->next; link != usedEnd; link = link->next) {
+        RpTriStripPolygon* const poly = reinterpret_cast<RpTriStripPolygon*>(reinterpret_cast<RwUInt8*>(link) - offsetof(RpTriStripPolygon, inUsedLink));
+        RwLinkList* const target = &bucket[neighbourCount(poly)];
+        rwLinkListAddLLLink(target, &poly->inFreeLink);
+    }
+
+    RwUInt32 frame = 0;
+    RwUInt32 bucketIndex = 0;
+    while (bucketIndex < 4) {
+        RwLLLink* const head = &bucket[bucketIndex].link;
+        if (head->next == head) {
+            ++bucketIndex;
+            continue;
+        }
+        RpTriStripPolygon* const start = reinterpret_cast<RpTriStripPolygon*>(reinterpret_cast<RwUInt8*>(head->next) - offsetof(RpTriStripPolygon, inFreeLink));
+
+        // Prueba las seis salidas y recuerda la de tira mas larga.
+        RwUInt32 bestLength = 0;
+        RwUInt32 bestAttempt = 0;
+        for (RwUInt32 attempt = 0; attempt < 6; ++attempt) {
+            RpTriStripEdge* edge = start->edges[attempt % 3];
+            RpTriStripPolygon* neighbour = StripAcross(start, edge);
+            RwUInt32 length = 1;
+            if (neighbour != nullptr && neighbour->inFreeLink.next != nullptr) {
+                RwUInt16 vertex = attempt < 3 ? edge->vert1 : edge->vert2;
+                ++frame;
+                if (frame == 0) {
+                    frame = 1;
+                }
+                start->testFrame = frame;
+                while (neighbour->testFrame != frame) {
+                    neighbour->testFrame = frame;
+                    ++length;
+                    RpTriStripEdge* const next = StripNextEdge(edge, neighbour, vertex, frame);
+                    if (next == nullptr) {
+                        break;
+                    }
+                    vertex = StripSharedVertex(edge, next);
+                    edge = next;
+                    neighbour = StripAcross(neighbour, next);
+                    if (neighbour == nullptr) {
+                        break;
+                    }
+                }
+            }
+            if (length > bestLength) {
+                bestAttempt = attempt;
+                bestLength = length;
+            }
+        }
+
+        // Construye la tira elegida.
+        rwLinkListRemoveLLLink(&start->inFreeLink);
+        start->inFreeLink.next = nullptr;
+        start->inFreeLink.prev = nullptr;
+        {
+            RpTriStripEdge* edge = start->edges[bestAttempt % 3];
+            RpTriStripPolygon* neighbour = StripAcross(start, edge);
+            if (neighbour != nullptr && neighbour->inFreeLink.next != nullptr) {
+                RwUInt16 vertex = bestAttempt < 3 ? edge->vert1 : edge->vert2;
+                while (neighbour->testFrame != 0) {
+                    edge->strip = TRUE;
+                    neighbour->testFrame = 0;
+                    rwLinkListRemoveLLLink(&neighbour->inFreeLink);
+                    neighbour->inFreeLink.next = nullptr;
+                    neighbour->inFreeLink.prev = nullptr;
+                    RpTriStripEdge* const next = StripNextEdge(edge, neighbour, vertex, 0);
+                    if (next == nullptr) {
+                        break;
+                    }
+                    vertex = StripSharedVertex(edge, next);
+                    edge = next;
+                    rwLinkListRemoveLLLink(&neighbour->inEndLink);
+                    neighbour->inEndLink.next = nullptr;
+                    neighbour->inEndLink.prev = nullptr;
+                    neighbour = StripAcross(neighbour, next);
+                    if (neighbour == nullptr) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Extremo de la tira: sigue el primer vecino por arista de tira (con ambos poligonos) y despues por aristas de tira que no vuelvan atras.
+        RpTriStripPolygon* current = start;
+        RpTriStripPolygon* previous = nullptr;
+        RpTriStripPolygon* walker = nullptr;
+        for (RwUInt32 i = 0; i < start->numEdges; ++i) {
+            RpTriStripEdge* const edge = start->edges[i];
+            if (edge->strip != 0 && edge->poly1 != nullptr && edge->poly2 != nullptr) {
+                walker = StripAcross(start, edge);
+                break;
+            }
+        }
+        while (walker != nullptr) {
+            RpTriStripPolygon* const came = current;
+            previous = came;
+            current = walker;
+            walker = nullptr;
+            for (RwUInt32 i = 0; i < current->numEdges; ++i) {
+                RpTriStripEdge* const edge = current->edges[i];
+                if (edge->strip != 0 && came != edge->poly1 && came != edge->poly2) {
+                    walker = StripAcross(current, edge);
+                    break;
+                }
+            }
+        }
+
+        // Desde el extremo hacia el principio: recoloca los vecinos libres de cada poligono de la tira.
+        for (;;) {
+            for (RwUInt32 k = 0; k < 3; ++k) {
+                RpTriStripEdge* const edge = current->edges[k];
+                RpTriStripPolygon* const neighbour = StripAcross(current, edge);
+                if (neighbour != nullptr && neighbour->inFreeLink.next != nullptr) {
+                    rwLinkListRemoveLLLink(&neighbour->inFreeLink);
+                    neighbour->inFreeLink.prev = nullptr;
+                    neighbour->inFreeLink.next = nullptr;
+                    RwLinkList* const target = &bucket[openCount(neighbour)];
+                    rwLinkListAddLLLink(target, &neighbour->inFreeLink);
+                }
+            }
+            RpTriStripPolygon* const last = current;
+            if (previous == nullptr) {
+                break;
+            }
+            current = previous;
+            previous = nullptr;
+            for (RwUInt32 i = 0; i < current->numEdges; ++i) {
+                RpTriStripEdge* const edge = current->edges[i];
+                if (edge->strip != 0 && last != edge->poly1 && last != edge->poly2) {
+                    previous = StripAcross(current, edge);
+                    break;
+                }
+            }
+        }
+        bucketIndex = 0;
+    }
+    return mesh;
+}
+
+// 0x75C330 (lote S28A, sin validar; 76 bytes; cdecl, (poligono, anterior)): vecino por la primera arista de tira del poligono (con la marca de tira, y que no vuelva a `anterior` por ninguno de sus
+// dos poligonos); NULL si no hay ninguna. El vecino es el otro poligono de la arista.
+RpTriStripPolygon* RpTriStripPolygonFollowStrip(RpTriStripPolygon* curr, RpTriStripPolygon* prev) {
+    for (RwUInt32 i = 0; i < curr->numEdges; ++i) {
+        RpTriStripEdge* const edge = curr->edges[i];
+        if (edge->strip != 0 && prev != edge->poly1 && prev != edge->poly2) {
+            return StripAcross(curr, edge);
+        }
+    }
+    return nullptr;
+}
+
+// 0x75D4C0 (lote S28A, sin validar; 54 bytes; cdecl, (callback, dato)): fija el generador de mallas ([0x8D6388]) y su dato ([0x8D638C]); con callback NULL vuelve al por defecto
+// (RpBuildMeshGenerateDefaultTriStrip, 0x7591B0) con dato NULL. Devuelve TRUE.
+RwBool RpMeshSetTriStripMethod(RpTriStripMeshCallBack callback, void* data) {
+    if (callback != nullptr) {
+        s_meshGeneratorCallBack = callback;
+        s_meshGeneratorData = data;
+        return TRUE;
+    }
+    s_meshGeneratorCallBack = RpBuildMeshGenerateDefaultTriStrip;
+    s_meshGeneratorData = nullptr;
+    return TRUE;
+}
+
+// 0x75D500 (lote S28A, sin validar; 38 bytes; cdecl, (destino del callback, destino del dato)): copia el generador y su dato a los punteros dados (si no son NULL; el dato va a un `void**`).
+// Devuelve TRUE.
+RwBool RpMeshGetTriStripMethod(RpTriStripMeshCallBack* callback, void* data) {
+    if (callback != nullptr) {
+        *callback = s_meshGeneratorCallBack;
+    }
+    if (data != nullptr) {
+        *static_cast<void**>(data) = s_meshGeneratorData;
+    }
+    return TRUE;
+}
+
+// 0x75E2D0 (lote S28A, sin validar; 46 bytes; cdecl, (tuberia)): fija la tuberia de material por defecto (modulo de tuberias, motor + [0xC9BC60] + 0x44): la dada o, si es NULL, la que hay en +0x5C.
+// Devuelve la tuberia fijada.
+RxPipeline* RpMaterialSetDefaultPipeline(RxPipeline* pipeline) {
+    RwUInt8* const globals = reinterpret_cast<RwUInt8*>(static_cast<RwGlobals*>(RwEngineInstance)) + static_cast<uintptr_t>(s_pipelineModuleOffset);
+    if (pipeline == nullptr) {
+        pipeline = *reinterpret_cast<RxPipeline**>(globals + 0x5C);
+    }
+    *reinterpret_cast<RxPipeline**>(globals + 0x44) = pipeline;
+    return pipeline;
+}
+
+// 0x75EDD0 (lote S28A, sin validar; 132 bytes; cdecl, (descriptor)): numero de constantes de vertex shader que usa un descriptor de 4 bytes. Parte de 5; si el nibble bajo del byte 0 no es 0 pasa
+// a 2 * nibble + 5; con el nibble alto h del byte 0 suma (h + 3) / 4 + 2 * h; con el nibble bajo l del byte 1 suma (l + 3) / 4 + 4 * l; +1 si el bit 7 del byte 2; +1 si los bits 0-1 del byte 3;
+// suma la tabla de contadores 0xC94AF8 indexada por byte3 >> 2 (si los bits 2-7 no son 0); +1 si el bit 0 del byte 2.
+RwUInt32 _rpD3D9GetNumConstantsUsed(const _rpD3D9VertexShaderDescriptor* desc) {
+    const RwUInt8* const bytes = reinterpret_cast<const RwUInt8*>(desc);
+    RwUInt32 total = 5;
+    if ((bytes[0] & 0x0F) != 0) {
+        total = static_cast<RwUInt32>(bytes[0] & 0x0F) * 2 + 5;
+    }
+    if ((bytes[0] & 0xF0) != 0) {
+        const RwUInt32 high = static_cast<RwUInt32>(bytes[0]) >> 4;
+        total = total + ((high + 3) >> 2) + high * 2;
+    }
+    if ((bytes[1] & 0x0F) != 0) {
+        const RwUInt32 low = static_cast<RwUInt32>(bytes[1] & 0x0F);
+        total = total + ((low + 3) >> 2) + low * 4;
+    }
+    if ((bytes[2] & 0x80) != 0) {
+        ++total;
+    }
+    if ((bytes[3] & 0x03) != 0) {
+        ++total;
+    }
+    if ((bytes[3] & 0xFC) != 0) {
+        total += s_vsConstantTable[static_cast<RwUInt32>(bytes[3]) >> 2];
+    }
+    if ((bytes[2] & 0x01) != 0) {
+        ++total;
+    }
+    return total;
+}
+
+// 0x75EED0 (lote S28A, sin validar; 467 bytes; cdecl, (descriptor, despacho)): cache de vertex shaders de D3D9 (256 entradas de 0x14 bytes en 0xC926F8 ordenadas por clave, recuento 0xC94BF8, ultima
+// usada 0xC94BFC). La clave es el dword del descriptor. Si es la de la ultima usada, o la encuentra con busqueda binaria, actualiza el sello de la entrada (word +8 del motor) y devuelve su shader
+// copiando su despacho (2 dwords) al argumento. Si no la encuentra crea el shader con 0x75F0B0 (por direccion, no es de estos lotes). Con la cache llena (>= 0x100) reutiliza la entrada de menor
+// sello (la primera en empate; sin recolocarla, igual que el EXE) liberando su shader con RwD3D9DeleteVertexShader; si no, hace hueco en el punto de insercion (memmove) y la inserta. En ambos casos
+// guarda clave, sello, shader y despacho, la deja como ultima usada y devuelve el shader.
+void* _rpD3D9GetVertexShader(const _rpD3D9VertexShaderDescriptor* desc, _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
+    D3D9VertexShaderCacheEntry* const entries = VertexShaderCacheEntries();
+    const RwUInt32 key = *reinterpret_cast<const RwUInt32*>(desc);
+    const auto engineStamp = []() -> RwUInt32 {
+        return *reinterpret_cast<const RwUInt16*>(reinterpret_cast<const RwUInt8*>(static_cast<RwGlobals*>(RwEngineInstance)) + 8);
+    };
+    const auto useEntry = [&](D3D9VertexShaderCacheEntry* entry) -> void* {
+        entry->key1 = engineStamp();
+        s_vsCacheLast = entry;
+        RwUInt32* const out = reinterpret_cast<RwUInt32*>(dispatch);
+        out[0] = s_vsCacheLast->field0C;
+        out[1] = s_vsCacheLast->field10;
+        return s_vsCacheLast->shader;
+    };
+    if (s_vsCacheLast->key0 == key) {
+        return useEntry(s_vsCacheLast);
+    }
+
+    // Busqueda binaria: positivo = indice encontrado; negativo = ~posicion de insercion.
+    RwInt32 lo = 0;
+    RwInt32 hi = s_vsCacheCount - 1;
+    RwInt32 span = s_vsCacheCount;
+    RwInt32 result = 0;
+    bool resolved = false;
+    if (s_vsCacheCount > 0) {
+        for (;;) {
+            if (span > 1) {
+                const RwInt32 index = lo + (span >> 1) + (span & 1) - 1;
+                const RwUInt32 probe = entries[index].key0;
+                if (key == probe) {
+                    result = index;
+                    resolved = true;
+                    break;
+                }
+                if (key < probe) {
+                    hi = index - 1;
+                } else {
+                    lo = index + 1;
+                }
+                span = hi - lo + 1;
+                if (span > 0) {
+                    continue;
+                }
+                break;
+            }
+            const RwUInt32 probe = entries[lo].key0;
+            if (key == probe) {
+                result = lo;
+                resolved = true;
+            } else if (key < probe) {
+                result = -1 - lo;
+                resolved = true;
+            } else {
+                result = -2 - lo;
+                resolved = true;
+            }
+            break;
+        }
+    }
+    if (!resolved) {
+        result = -1 - lo;
+    }
+    if (result >= 0) {
+        return useEntry(&entries[result]);
+    }
+
+    using CreateVertexShader = void*(__cdecl*)(const _rpD3D9VertexShaderDescriptor*, _rpD3D9VertexShaderDispatchDescriptor*);
+    void* const shader = reinterpret_cast<CreateVertexShader>(0x75F0B0)(desc, dispatch);
+    const RwUInt32* const dispatchWords = reinterpret_cast<const RwUInt32*>(dispatch);
+    const RwInt32 count = s_vsCacheCount;
+    if (count >= static_cast<RwInt32>(kVertexShaderCacheMax)) {
+        D3D9VertexShaderCacheEntry* oldest = &entries[0];
+        for (RwInt32 i = 1; i < count; ++i) {
+            if (entries[i].key1 < oldest->key1) {
+                oldest = &entries[i];
+            }
+        }
+        oldest->key0 = key;
+        oldest->key1 = engineStamp();
+        if (oldest->shader != nullptr) {
+            RwD3D9DeleteVertexShader(oldest->shader);
+        }
+        oldest->shader = shader;
+        oldest->field0C = dispatchWords[0];
+        oldest->field10 = dispatchWords[1];
+        s_vsCacheLast = oldest;
+        return shader;
+    }
+    const RwInt32 position = -1 - result;
+    if (position < count) {
+        std::memmove(&entries[position + 1], &entries[position], static_cast<size_t>(count - position) * sizeof(D3D9VertexShaderCacheEntry));
+    }
+    D3D9VertexShaderCacheEntry* const slot = &entries[position];
+    s_vsCacheLast = slot;
+    slot->key0 = key;
+    slot->key1 = engineStamp();
+    slot->shader = shader;
+    slot->field0C = dispatchWords[0];
+    slot->field10 = dispatchWords[1];
+    s_vsCacheCount = count + 1;
+    return shader;
+}
+
+// 0x761000 (lote S28A, sin validar; 1 byte): callback de fin de los vertex shaders por defecto: `ret`, no hace nada.
+void _rxD3D9VertexShaderDefaultEndCallBack(void* object, RwUInt32 type, _rpD3D9VertexShaderDescriptor* desc) {
+    UNUSED(object); UNUSED(type); UNUSED(desc);
+}
+
+// 0x761C30 (lote S28A, sin validar; 16 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x50A: [0xC94C0C] += 1; devuelve el objeto.
+static void* SectorModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC94C0C) = StaticRef<RwInt32>(0xC94C0C) + 1;
+    return object;
+}
+
+// 0x761C40 (lote S28A, sin validar; 16 bytes; cdecl, (objeto, desplazamiento, tamano)): destructor del plugin de motor 0x50A: [0xC94C0C] -= 1; devuelve el objeto.
+static void* SectorModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC94C0C) = StaticRef<RwInt32>(0xC94C0C) - 1;
+    return object;
+}
+
+// 0x761C60 (lote S28A, sin validar; 43 bytes; cdecl, (sector, callback, dato)): con cabecera de mallas (+0x78) recorre sus mallas con _rpMeshHeaderForAllMeshes (0x758D30); si devuelve algo
+// distinto de NULL devuelve el sector, si no NULL.
+const RpWorldSector* RpWorldSectorForAllMeshes(const RpWorldSector* sector, RpMeshCallBack fpCallBack, void* data) {
+    if (sector->mesh != nullptr && _rpMeshHeaderForAllMeshes(sector->mesh, fpCallBack, data) != nullptr) {
+        return sector;
+    }
+    return nullptr;
+}
+
+// 0x761CF0 (lote S28A, sin validar; 24 bytes; cdecl, (id, callback)): _rwPluginRegistryAddPlgnStrmlwysCB sobre el registro de sectores (0x8D736C).
+RwInt32 RpWorldSectorSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB) {
+    return _rwPluginRegistryAddPlgnStrmlwysCB(reinterpret_cast<RwPluginRegistry*>(kWorldSectorPluginRegistry), pluginID, alwaysCB);
+}
+
+// 0x761D10 (lote S28A, sin validar; 24 bytes; cdecl, (id, callback)): _rwPluginRegistryAddPlgnStrmRightsCB sobre el registro de sectores.
+RwInt32 RpWorldSectorSetStreamRightsCallBack(RwUInt32 pluginID, RwPluginDataChunkRightsCallBack rightsCB) {
+    return _rwPluginRegistryAddPlgnStrmRightsCB(reinterpret_cast<RwPluginRegistry*>(kWorldSectorPluginRegistry), pluginID, rightsCB);
+}
+
+// 0x761D30 (lote S28A, sin validar; 19 bytes; cdecl, (id)): _rwPluginRegistryGetPluginOffset sobre el registro de sectores.
+RwInt32 RpWorldSectorGetPluginOffset(RwUInt32 pluginID) {
+    return _rwPluginRegistryGetPluginOffset(reinterpret_cast<RwPluginRegistry*>(kWorldSectorPluginRegistry), pluginID);
+}
+
+// 0x761D50 (lote S28A, sin validar; 6 bytes): `mov eax, 1; ret`; devuelve 1 sin tocar el sector.
+RwBool RpWorldSectorValidatePlugins(const RpWorldSector* sector) {
+    UNUSED(sector);
+    return TRUE;
+}
+
+// 0x761DE0 (lote S28A, sin validar; 27 bytes; cdecl, (mundo, desplazamiento, tamano)): tamano del plugin 0x1F (derechos de render) del mundo: 8 si tiene tuberia (+0x6C) con pluginId (+0x2C) distinto
+// de 0, si no 0.
+static RwInt32 WorldRightsStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    const RxPipeline* const pipeline = static_cast<const RpWorld*>(object)->pipeline;
+    return (pipeline != nullptr && pipeline->pluginId != 0) ? 8 : 0;
+}
+
+// 0x761E80 (lote S28A, sin validar; 27 bytes; cdecl, (sector, desplazamiento, tamano)): igual para el sector (tuberia en +0x7C).
+static RwInt32 SectorRightsStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    const RxPipeline* const pipeline = static_cast<const RpWorldSector*>(object)->pipeline;
+    return (pipeline != nullptr && pipeline->pluginId != 0) ? 8 : 0;
+}
+
+namespace {
+// Bytes de datos de un sector de hoja en un flujo (parte de 0x761EA0): 0x2C; si el mundo no es nativo (0x1000000) 12 * vertices + 0x2C, mas 4 * vertices con normales (0x10) y 4 * vertices con
+// colores precalculados (0x8), mas 8 * (juegos de coordenadas * vertices + triangulos).
+RwUInt32 WorldSectorDataSize(const RpWorld* world, const RpWorldSector* sector) {
+    RwUInt32 size = 0x2C;
+    if ((world->flags & 0x1000000) == 0) {
+        const RwUInt32 numVertices = sector->numVertices;
+        size = numVertices * 12 + 0x2C;
+        if ((world->flags & 0x10) != 0) {
+            size += numVertices * 4;
+        }
+        if ((world->flags & 0x08) != 0) {
+            size += numVertices * 4;
+        }
+        size += (static_cast<RwUInt32>(world->numTexCoordSets) * numVertices + sector->numTriangles) * 8;
+    }
+    return size;
+}
+}
+
+// 0x761EA0 (lote S28A, sin validar; 412 bytes; cdecl, (mundo)): tamano en bytes del mundo en un flujo: _rpMaterialListStreamGetSize + 0x58 y el tamano del arbol de sectores. Raiz de hoja:
+// datos del sector + plugins del sector (0x8D736C) + 0x24; raiz de plano: cada hijo aporta (hoja) plugins + datos + 0x48 (izquierdo) o + 0x24 (derecho), o (subarbol, 0x762040 por direccion
+// con (sector, mundo, flags)) + 0x30 (izquierdo) o + 0xC (derecho), mas 0xC. Al total se suman los plugins del mundo (0x8D62D0) y 0xC.
+RwUInt32 RpWorldStreamGetSize(const RpWorld* world) {
+    using SubtreeSize = RwUInt32(__cdecl*)(const void*, const RpWorld*, RwUInt32);
+    const RwUInt32 flags = world->flags;
+    const RwUInt32 base = static_cast<RwUInt32>(_rpMaterialListStreamGetSize(&world->matList)) + 0x58;
+    RpSector* const root = world->rootSector;
+    RwUInt32 total;
+    if (root->type < 0) {
+        const RpWorldSector* const sector = reinterpret_cast<const RpWorldSector*>(root);
+        const RwUInt32 plugins = static_cast<RwUInt32>(_rwPluginRegistryGetSize(reinterpret_cast<RwPluginRegistry*>(kWorldSectorPluginRegistry), sector));
+        total = base + plugins + WorldSectorDataSize(world, sector) + 0x24;
+    } else {
+        const RpPlaneSector* const plane = reinterpret_cast<const RpPlaneSector*>(root);
+        RwUInt32 children;
+        if (plane->leftSubTree->type < 0) {
+            const RpWorldSector* const left = reinterpret_cast<const RpWorldSector*>(plane->leftSubTree);
+            const RwUInt32 plugins = static_cast<RwUInt32>(_rwPluginRegistryGetSize(reinterpret_cast<RwPluginRegistry*>(kWorldSectorPluginRegistry), left));
+            children = plugins + WorldSectorDataSize(world, left) + 0x48;
+        } else {
+            children = reinterpret_cast<SubtreeSize>(0x762040)(plane->leftSubTree, world, flags) + 0x30;
+        }
+        if (plane->rightSubTree->type < 0) {
+            const RpWorldSector* const right = reinterpret_cast<const RpWorldSector*>(plane->rightSubTree);
+            const RwUInt32 plugins = static_cast<RwUInt32>(_rwPluginRegistryGetSize(reinterpret_cast<RwPluginRegistry*>(kWorldSectorPluginRegistry), right));
+            children += plugins + WorldSectorDataSize(world, right) + 0x24;
+        } else {
+            children += reinterpret_cast<SubtreeSize>(0x762040)(plane->rightSubTree, world, flags) + 0xC;
+        }
+        total = base + children + 0xC;
+    }
+    return static_cast<RwUInt32>(_rwPluginRegistryGetSize(&s_worldTKList, world)) + total + 0xC;
+}
+
+// 0x7635B0 (lote S28A, sin validar; 101 bytes; cdecl, (flujo, info, bytesLeidos)): estructura de 0x2C bytes de un sector (ver ReadFixedChunkInfo).
+RpWorldSectorChunkInfo* _rpWorldSectorChunkInfoRead(RwStream* stream, RpWorldSectorChunkInfo* worldSectorChunkInfo, RwInt32* bytesRead) {
+    return static_cast<RpWorldSectorChunkInfo*>(ReadFixedChunkInfo(stream, worldSectorChunkInfo, bytesRead, 0x2C));
+}
+
+// 0x763620 (lote S28A, sin validar; 101 bytes; cdecl, (flujo, info, bytesLeidos)): estructura de 0x18 bytes de un sector de plano (ver ReadFixedChunkInfo).
+RpPlaneSectorChunkInfo* _rpPlaneSectorChunkInfoRead(RwStream* stream, RpPlaneSectorChunkInfo* planeSectorChunkInfo, RwInt32* bytesRead) {
+    return static_cast<RpPlaneSectorChunkInfo*>(ReadFixedChunkInfo(stream, planeSectorChunkInfo, bytesRead, 0x18));
+}
+
+// 0x763690 (lote S28A, sin validar; 310 bytes; cdecl, (flujo, info, bytesLeidos)): cabecera del mundo (0x40 bytes). RwStreamFindChunk(flujo, 1, &longitud, &version); sin chunk devuelve NULL; version
+// fuera de 0x34000..0x36003 da error 0x80000004 (plugin 2) y NULL. Pone a cero los 0x40 bytes de la info. Version < 0x34001: formato antiguo, lee `longitud` bytes a partir de la segunda palabra de
+// un bloque de 13 palabras a cero y mueve sus palabras a la info (info[0] = 0, [1..3] = palabras 1..3, [4..6] = 7..9, [7..9] = 10..12 del bloque); si no, lee `longitud` bytes directamente. Si no lee
+// toda la longitud devuelve NULL; *bytesRead = longitud + 12; devuelve la info.
+RpWorldChunkInfo* _rpWorldChunkInfoRead(RwStream* stream, RpWorldChunkInfo* worldChunkInfo, RwInt32* bytesRead) {
+    RwUInt32 length;
+    RwUInt32 version;
+    if (!RwStreamFindChunk(stream, 1, &length, &version)) {
+        return nullptr;
+    }
+    if (version < kStreamVersionMin || version > kStreamVersionMax) {
+        RaiseRwError(kErrorBadVersion);
+        return nullptr;
+    }
+    RwUInt32* const info = reinterpret_cast<RwUInt32*>(worldChunkInfo);
+    std::memset(info, 0, 0x40);
+    if (version < 0x34001) {
+        RwUInt32 block[0x40] = {};
+        if (RwStreamRead(stream, &block[1], length) != length) {
+            return nullptr;
+        }
+        info[0] = block[0];
+        info[1] = block[1];
+        info[2] = block[2];
+        info[3] = block[3];
+        info[5] = block[8];
+        info[4] = block[7];
+        info[7] = block[10];
+        info[6] = block[9];
+        info[9] = block[12];
+        info[8] = block[11];
+        *bytesRead = static_cast<RwInt32>(length + 0xC);
+        return worldChunkInfo;
+    }
+    if (RwStreamRead(stream, info, length) != length) {
+        return nullptr;
+    }
+    *bytesRead = static_cast<RwInt32>(length + 0xC);
+    return worldChunkInfo;
+}
+
+// 0x7637D0 (lote S28A, sin validar; 16 bytes; cdecl, (objeto, desplazamiento, tamano)): destructor del plugin de motor 0x50B: [0xC94C24] -= 1; devuelve el objeto.
+static void* NativeModuleDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC94C24) = StaticRef<RwInt32>(0xC94C24) - 1;
+    return object;
+}
+
+// 0x7637E0 (lote S28A, sin validar; 16 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor del plugin de motor 0x50B: [0xC94C24] += 1; devuelve el objeto.
+static void* NativeModuleConstruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    StaticRef<RwInt32>(0xC94C24) = StaticRef<RwInt32>(0xC94C24) + 1;
+    return object;
+}
+
+// 0x764760 (lote S28A, sin validar; 70 bytes; cdecl, (matriz destino)): matriz mundo-vista del vertex shader. Con matriz de camara ([0xC94C70]) no nula: RwMatrixMultiply(destino, camara,
+// 0xC9BC80) y deja a cero las palabras de flags/relleno +0xC, +0x1C y +0x2C y a 1.0f la +0x3C; si no copia los 0x40 bytes de 0xC9BC80.
+void _rwD3D9VSGetWorldViewMatrix(RwMatrix* worldViewMatrix) {
+    RwMatrix* const* const cameraMatrix = reinterpret_cast<RwMatrix* const*>(0xC94C70);
+    RwMatrix* const worldMatrix = reinterpret_cast<RwMatrix*>(0xC9BC80);
+    if (*cameraMatrix != nullptr) {
+        RwMatrixMultiply(worldViewMatrix, *cameraMatrix, worldMatrix);
+        RwUInt32* const words = reinterpret_cast<RwUInt32*>(worldViewMatrix);
+        words[3] = 0;
+        words[7] = 0;
+        words[11] = 0;
+        words[15] = 0x3F800000u;
+        return;
+    }
+    std::memcpy(worldViewMatrix, worldMatrix, 0x40);
+}
+
+// 0x764920 (lote S28A/S29A, sin validar; 49 bytes; cdecl, (destino, matriz)): con matriz de camara ([0xC94C70]) no nula RwMatrixMultiply(destino, camara, matriz); si no copia los 0x40 bytes
+// de la matriz dada al destino.
+void _rwD3D9VSGetWorldMultiplyMatrix(RwMatrix* worldMultiplyMatrix, const RwMatrix* matrix) {
+    RwMatrix* const cameraMatrix = *reinterpret_cast<RwMatrix* const*>(0xC94C70);
+    if (cameraMatrix != nullptr) {
+        RwMatrixMultiply(worldMultiplyMatrix, cameraMatrix, matrix);
+        return;
+    }
+    std::memcpy(worldMultiplyMatrix, matrix, 0x40);
+}
+
+// ===== S29A =====
+
+// 0x74BF40 (lote S29A, sin validar; 88 bytes; cdecl, (atomo)): instancia la geometria del atomo. Con un solo morph target (si no devuelve FALSE) y sin el flag nativo (0x1000000): libera la
+// entrada de recursos de la geometria (+0x58) si la hay, pone el flag de instanciado nativo (0x2000000), llama al callback de render del atomo (+0x48) con el atomo y deja la geometria con el
+// flag nativo (sin el de instanciado). Devuelve TRUE.
+RwBool RpAtomicInstance(RpAtomic* atomic) {
+    RpGeometry* const geometry = atomic->geometry;
+    if (geometry->numMorphTargets != 1) {
+        return FALSE;
+    }
+    if ((geometry->flags & 0x1000000) == 0) {
+        if (geometry->repEntry != nullptr) {
+            RwResourcesFreeResEntry(geometry->repEntry);
+        }
+        geometry->flags |= 0x2000000;
+        atomic->renderCallBack(atomic);
+        geometry->flags = (geometry->flags & 0xFDFFFFFFu) | 0x1000000;
+    }
+    return TRUE;
+}
+
+// 0x74C130 (lote S29A, sin validar; 206 bytes; cdecl, (radio)): crea una geometria sin vertices (RpGeometryCreate(0, 0, 0)); con ella pone el centro de la esfera de su morph target a (0, 0, 0) y el
+// radio al dado; RpGeometryUnlock. Si el desbloqueo devuelve algo distinto de NULL devuelve la geometria; si no la destruye (cuerpo identico a RpGeometryDestroy) y devuelve NULL.
+RpGeometry* RpGeometryCreateSpace(RwReal radius) {
+    RpGeometry* const geometry = RpGeometryCreate(0, 0, 0);
+    if (geometry != nullptr) {
+        RwUInt32* const target = reinterpret_cast<RwUInt32*>(geometry->morphTarget);
+        RwUInt32 radiusBits;
+        std::memcpy(&radiusBits, &radius, sizeof(radiusBits));
+        target[1] = 0;
+        target[2] = 0;
+        target[3] = 0;
+        target[4] = radiusBits;
+    }
+    if (RpGeometryUnlock(geometry) != nullptr) {
+        return geometry;
+    }
+    RpGeometryDestroy(geometry);
+    return nullptr;
+}
+
+// 0x74C4E0 (lote S29A, sin validar; 419 bytes; cdecl, (geometria, indice)): quita un morph target. Reserva un bloque nuevo de (n - 1) * (28 + 12 * vertices [+ 12 * vertices con normales]) bytes
+// (RwMalloc, pista 0x3000F; sin memoria: error 0x80000013 con el tamano y NULL). Copia las cabeceras de los morph targets (28 bytes) salvo la del indice y despues los datos de vertices (y normales)
+// de cada uno salvo el del indice; libera el bloque viejo, resta uno a numMorphTargets, instala el bloque y recoloca los punteros verts/normals de cada morph target. Devuelve la geometria.
+RpGeometry* RpGeometryRemoveMorphTarget(RpGeometry* geometry, RwInt32 morphTarget) {
+    const RwUInt32 vertexBytes = static_cast<RwUInt32>(geometry->numVertices) * 12;
+    RwUInt32 perTarget = vertexBytes + 0x1C;
+    if ((geometry->flags & 0x10) != 0) {
+        perTarget += vertexBytes;
+    }
+    const RwInt32 oldCount = geometry->numMorphTargets;
+    const RwUInt32 newSize = static_cast<RwUInt32>(oldCount - 1) * perTarget;
+    RwUInt8* const newBlock = static_cast<RwUInt8*>(RwMalloc(newSize, kGeometryMemoryHint));
+    if (newBlock == nullptr) {
+        RaiseRwError(kErrorNoMemory, newSize);
+        return nullptr;
+    }
+    const RwUInt8* const oldBlock = reinterpret_cast<const RwUInt8*>(geometry->morphTarget);
+
+    RwUInt8* write = newBlock;
+    RwInt32 kept = 0;
+    for (RwInt32 i = 0; i < oldCount; ++i) {
+        if (i != morphTarget) {
+            std::memcpy(write, oldBlock + static_cast<size_t>(i) * 0x1C, 0x1C);
+            ++kept;
+            write += 0x1C;
+        }
+    }
+    const RwUInt32 dataBytes = perTarget - 0x1C;
+    const RwUInt8* read = oldBlock + static_cast<size_t>(oldCount) * 0x1C;
+    RwUInt8* out = newBlock + static_cast<size_t>(kept) * 0x1C;
+    for (RwInt32 i = 0; i < oldCount; ++i) {
+        if (i != morphTarget) {
+            std::memcpy(out, read, dataBytes);
+            out += dataBytes;
+        }
+        read += dataBytes;
+    }
+
+    RwFree(geometry->morphTarget);
+    const RwInt32 newCount = geometry->numMorphTargets - 1;
+    geometry->numMorphTargets = newCount;
+    geometry->morphTarget = reinterpret_cast<RpMorphTarget*>(newBlock);
+    RwUInt8* cursor = newBlock + static_cast<size_t>(newCount) * 0x1C;
+    for (RwInt32 i = 0; i < geometry->numMorphTargets; ++i) {
+        RpMorphTarget* const target = &geometry->morphTarget[i];
+        target->verts = nullptr;
+        target->normals = nullptr;
+        if (geometry->numVertices != 0) {
+            target->verts = reinterpret_cast<RwV3d*>(cursor);
+            cursor += static_cast<size_t>(geometry->numVertices) * 12;
+            if ((geometry->flags & 0x10) != 0) {
+                target->normals = reinterpret_cast<RwV3d*>(cursor);
+                cursor += static_cast<size_t>(geometry->numVertices) * 12;
+            }
+        }
+    }
+    return geometry;
+}
+
+// 0x74DA80 (lote S29A, sin validar; 313 bytes; cdecl, (material)): clona un material. Pide un RpMaterial a la lista libre (pista 0x30007; sin memoria NULL) y lo deja como RpMaterialCreate (refCount 1,
+// color blanco, sin textura ni tuberia, propiedades por defecto) con _rwPluginRegistryInitObject. Copia la textura (suma una referencia y suelta la anterior si la hubiera), el color (+4), la tuberia (+8)
+// y las propiedades de superficie (+0xC, tres dwords) y llama a _rwPluginRegistryCopyObject(registro de materiales, clon, original). Devuelve el clon. (La rama del EXE para propiedades de
+// superficie nulas, inalcanzable porque su direccion es material + 0xC, destruye el clon con el mismo cuerpo que RpMaterialDestroy.)
+RpMaterial* RpMaterialClone(RpMaterial* material) {
+    RpMaterial* const clone = RpMaterialCreate();
+    if (clone == nullptr) {
+        return nullptr;
+    }
+    RwTexture* const texture = material->texture;
+    if (texture != nullptr) {
+        ++texture->refCount;
+        if (clone->texture != nullptr) {
+            RwTextureDestroy(clone->texture);
+        }
+        clone->texture = texture;
+    }
+    clone->color = material->color;
+    clone->pipeline = material->pipeline;
+    const RwSurfaceProperties* const surfaceProps = &material->surfaceProps;
+    if (surfaceProps == nullptr) {
+        RpMaterialDestroy(clone);
+        return nullptr;
+    }
+    clone->surfaceProps = *surfaceProps;
+    _rwPluginRegistryCopyObject(&s_materialTKList, clone, material);
+    return clone;
+}
+
+// 0x74E1C0 (lote S29A, sin validar; 33 bytes; cdecl, (cantidad)): RwMalloc(cantidad * 4, 0x1030008).
+RpMaterial** _rpMaterialListAlloc(RwUInt32 count) {
+    return static_cast<RpMaterial**>(RwMalloc(count * 4, kMatListAllocHint));
+}
+
+// 0x74E1F0 (lote S29A, sin validar; 189 bytes; cdecl, (destino, origen)): copia una lista de materiales: numMaterials y space del origen, materiales NULL; si el origen tiene vector reserva
+// space * 4 bytes (_rpMaterialListAlloc; sin memoria: error 0x80000013 con space * 4 y NULL), copia los numMaterials punteros sumando una referencia a cada material y pone a NULL el resto hasta
+// space. Devuelve el destino.
+RpMaterialList* _rpMaterialListCopy(RpMaterialList* matListOut, const RpMaterialList* matListIn) {
+    matListOut->numMaterials = matListIn->numMaterials;
+    matListOut->space = matListIn->space;
+    matListOut->materials = nullptr;
+    if (matListIn->materials != nullptr) {
+        matListOut->materials = _rpMaterialListAlloc(static_cast<RwUInt32>(matListOut->space) * 4);
+        if (matListOut->materials == nullptr) {
+            RaiseRwError(kErrorNoMemory, static_cast<RwUInt32>(matListOut->space) * 4);
+            return nullptr;
+        }
+        RwInt32 i = 0;
+        for (; i < matListOut->numMaterials; ++i) {
+            matListOut->materials[i] = matListIn->materials[i];
+            ++matListOut->materials[i]->refCount;
+        }
+        for (; i < matListOut->space; ++i) {
+            matListOut->materials[i] = nullptr;
+        }
+    }
+    return matListOut;
+}
+
+// 0x74E2C0 (lote S29A, sin validar; 133 bytes; cdecl, (lista, tamano)): si space < tamano pide tamano * 4 bytes (RwRealloc con pista 0x1030008 si ya hay vector, si no RwMalloc; sin memoria:
+// error 0x80000013 con tamano * 4 y NULL) y deja vector y space = tamano. Devuelve la lista.
+RpMaterialList* _rpMaterialListSetSize(RpMaterialList* matList, RwInt32 size) {
+    if (matList->space < size) {
+        const RwUInt32 bytes = static_cast<RwUInt32>(size) * 4;
+        RpMaterial** block;
+        if (matList->materials != nullptr) {
+            block = static_cast<RpMaterial**>(RwRealloc(matList->materials, bytes, kMatListAllocHint));
+        } else {
+            block = static_cast<RpMaterial**>(RwMalloc(bytes, kMatListAllocHint));
+        }
+        if (block == nullptr) {
+            RaiseRwError(kErrorNoMemory, bytes);
+            return nullptr;
+        }
+        matList->materials = block;
+        matList->space = size;
+    }
+    return matList;
+}
+
+// 0x74EA80 (lote S29A, sin validar; 39 bytes; cdecl sin argumentos): callback de restauracion del dispositivo D3D9 de RpWorld: llama al anterior ([0xC9251C]) si lo hay y marca como sucia
+// (lockedSinceLastInst = 0xFFF) cada geometria de la lista de geometrias dinamicas ([0xC92520]; nodos {geometria, siguiente}).
+static void D3D9RestoreCallBack() {
+    if (s_prevRestoreCallBack != nullptr) {
+        s_prevRestoreCallBack();
+    }
+    for (void** node = static_cast<void**>(s_dynamicGeometryHead); node != nullptr; node = static_cast<void**>(node[1])) {
+        *reinterpret_cast<RwUInt16*>(static_cast<RwUInt8*>(node[0]) + 0xC) = 0xFFF;
+    }
+}
+
+// 0x74EF10 (lote S29A, sin validar; 66 bytes; cdecl, (callback, dato)): recorre las luces direccionales del mundo actual (RwEngineInstance + 4, lista +0x3C; la luz esta 0x34 bytes antes del enlace)
+// llamando al callback hasta que devuelva FALSE (el siguiente se lee antes de llamar). Devuelve siempre TRUE.
+RwBool _rpWorldForAllGlobalLights(RpLightCallBack callBack, void* data) {
+    RpWorld* const world = static_cast<RpWorld*>(static_cast<RwGlobals*>(RwEngineInstance)->curWorld);
+    RwLLLink* const end = &world->directionalLightList.link;
+    RwLLLink* link = end->next;
+    if (link != end) {
+        for (;;) {
+            RwLLLink* const next = link->next;
+            RpLight* const light = reinterpret_cast<RpLight*>(reinterpret_cast<RwUInt8*>(link) - offsetof(RpLight, inWorld));
+            if (light != nullptr && callBack(light, data) == nullptr) {
+                break;
+            }
+            link = next;
+            if (next == end) {
+                break;
+            }
+        }
+    }
+    return TRUE;
+}
+
+// 0x74EF60 (lote S29A, sin validar; 61 bytes; cdecl, (sector, callback, dato)): recorre la lista de luces locales del sector (+0x40; el puntero a la luz esta en +8 del enlace) llamando al callback
+// hasta que devuelva FALSE (el siguiente se lee antes). Devuelve el sector.
+RpWorldSector* _rpWorldSectorForAllLocalLights(RpWorldSector* sector, RpLightCallBack callBack, void* data) {
+    RwLLLink* const end = &sector->lightsInWorldSector.link;
+    RwLLLink* link = end->next;
+    while (link != end) {
+        RwLLLink* const next = link->next;
+        RpLight* const light = *reinterpret_cast<RpLight**>(reinterpret_cast<RwUInt8*>(link) + 8);
+        if (light != nullptr && callBack(light, data) == nullptr) {
+            break;
+        }
+        link = next;
+    }
+    return sector;
+}
+
+// 0x74F020 (lote S29A, sin validar; 156 bytes; cdecl, (mundo)): calcula las cajas de cada sector hoja del arbol. Parte de la caja del mundo (+0x50) y recorre el arbol con una pila de sectores y una
+// de cajas: en un plano (tipo >= 0; el tipo es el desplazamiento en bytes del eje, 0/4/8) apila el subarbol derecho con una copia de la caja actual cuyo minimo del eje pasa a rightValue (+0x14) y sigue por
+// el izquierdo con el maximo del eje = leftValue (+0x10); en una hoja copia la caja actual a su boundingBox (+0x48) y recupera la caja apilada. Las palabras de los floats se copian como dwords.
+// Devuelve el mundo.
+RpWorld* _rpWorldSetupSectorBoundingBoxes(RpWorld* world) {
+    static_assert(sizeof(RwBBox) == 0x18 && offsetof(RpWorldSector, boundingBox) == 0x48 && offsetof(RpPlaneSector, leftValue) == 0x10 && offsetof(RpPlaneSector, rightValue) == 0x14);
+    RwUInt32 current[6];
+    RwUInt32 boxStack[0x40 + 1][6] = {};
+    RpSector* sectorStack[0x40 + 1] = {};
+    std::memcpy(current, &world->boundingBox, sizeof(current));
+    RwInt32 depth = 0;
+    RpSector* sector = world->rootSector;
+    do {
+        if (sector->type < 0) {
+            RpWorldSector* const leaf = reinterpret_cast<RpWorldSector*>(sector);
+            std::memcpy(&leaf->boundingBox, current, sizeof(current));
+            sector = sectorStack[depth];
+            std::memcpy(current, boxStack[depth], sizeof(current));
+            --depth;
+        } else {
+            RpPlaneSector* const plane = reinterpret_cast<RpPlaneSector*>(sector);
+            const RwUInt32 axis = static_cast<RwUInt32>(plane->type);
+            ++depth;
+            sectorStack[depth] = plane->rightSubTree;
+            std::memcpy(boxStack[depth], current, sizeof(current));
+            std::memcpy(reinterpret_cast<RwUInt8*>(&boxStack[depth][3]) + axis, &plane->rightValue, sizeof(RwUInt32));
+            std::memcpy(reinterpret_cast<RwUInt8*>(current) + axis, &plane->leftValue, sizeof(RwUInt32));
+            sector = plane->leftSubTree;
+        }
+    } while (depth >= 0);
+    return world;
+}
+
+// 0x74F0C0 (lote S29A, sin validar; 122 bytes; cdecl, (mundo, tamano de memoria)): pide un nodo a la lista libre del modulo de mundos (motor + [0xC9254C], pista 0x40507; sin memoria no hace nada),
+// guarda {mundo, tamano} y mete su enlace (+8) al principio de la lista de mundos registrados (motor + [0xC9254C] + 4).
+void _rpWorldRegisterWorld(RpWorld* world, RwUInt32 memorySize) {
+    RwUInt32* const node = static_cast<RwUInt32*>(RwFreeListAlloc(EngineFreeListAt(s_worldModuleOffset, 0), kWorldListEntryHint));
+    if (node == nullptr) {
+        return;
+    }
+    node[0] = static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(world));
+    node[1] = memorySize;
+    RwLinkList* const list = reinterpret_cast<RwLinkList*>(EngineBytes() + s_worldModuleOffset + 4);
+    rwLinkListAddLLLink(list, reinterpret_cast<RwLLLink*>(&node[2]));
+}
+
+// 0x74F140 (lote S29A, sin validar; 93 bytes; cdecl, (mundo)): busca el mundo en la lista de mundos registrados (motor + [0xC9254C] + 4; el nodo esta 8 bytes antes del enlace); al encontrarlo lo
+// desenlaza y lo devuelve a la lista libre. Sin coincidencia no hace nada.
+void _rpWorldUnregisterWorld(RpWorld* world) {
+    RwLinkList* const list = reinterpret_cast<RwLinkList*>(EngineBytes() + s_worldModuleOffset + 4);
+    RwLLLink* const end = &list->link;
+    for (RwLLLink* link = end->next; link != end; link = link->next) {
+        RwUInt32* const node = reinterpret_cast<RwUInt32*>(reinterpret_cast<RwUInt8*>(link) - 8);
+        if (node[0] == static_cast<RwUInt32>(reinterpret_cast<uintptr_t>(world))) {
+            rwLinkListRemoveLLLink(link);
+            RwFreeListFree(EngineFreeListAt(s_worldModuleOffset, 0), node);
+            return;
+        }
+    }
+}
+
+// 0x74FB80 (lote S29A, sin validar; 57 bytes; cdecl, (mundo, callback, dato)): recorre la lista de clumps del mundo (+0x2C; el clump esta 0x20 bytes antes del enlace) llamando al callback hasta que
+// devuelva FALSE (el siguiente se lee antes de llamar). Devuelve el mundo.
+RpWorld* RpWorldForAllClumps(RpWorld* world, RpClumpCallBack fpCallBack, void* data) {
+    RwLLLink* const end = &world->clumpList.link;
+    RwLLLink* link = end->next;
+    if (link != end) {
+        for (;;) {
+            RwLLLink* const next = link->next;
+            RpClump* const clump = reinterpret_cast<RpClump*>(reinterpret_cast<RwUInt8*>(link) - offsetof(RpClump, inWorldLink));
+            if (fpCallBack(clump, data) == nullptr) {
+                break;
+            }
+            link = next;
+            if (next == end) {
+                break;
+            }
+        }
+    }
+    return world;
+}
+
+// 0x74FC00 (lote S29A, sin validar; 97 bytes; cdecl, (mundo, callback, dato)): recorre primero las luces direccionales (lista +0x3C) y despues las demas (lista +0x34), con la luz 0x34 bytes antes
+// del enlace, hasta que el callback devuelva FALSE (en ese caso no sigue con la segunda lista). Devuelve el mundo.
+RpWorld* RpWorldForAllLights(RpWorld* world, RpLightCallBack fpCallBack, void* data) {
+    RwLinkList* const lists[2] = { &world->directionalLightList, &world->lightList };
+    for (RwLinkList* const list : lists) {
+        RwLLLink* const end = &list->link;
+        RwLLLink* link = end->next;
+        while (link != end) {
+            RwLLLink* const next = link->next;
+            RpLight* const light = reinterpret_cast<RpLight*>(reinterpret_cast<RwUInt8*>(link) - offsetof(RpLight, inWorld));
+            if (fpCallBack(light, data) == nullptr) {
+                return world;
+            }
+            link = next;
+        }
+    }
+    return world;
+}
+
+// 0x750760 (lote S29A, sin validar; 80 bytes; cdecl, (camara, desplazamiento, tamano)): destructor del plugin 0x509 de la camara (datos en camara + [0xC925A4]): libera el bloque de +0 (sectores en el
+// frustum) si existe, pone a cero +0, +4 y +8 y restaura los tres punteros de funcion de la camara que guardo el constructor: +0x10 -> +0x18 de la camara, +0x14 -> +0x1C y +0x18 -> +0x10.
+// Devuelve la camara.
+static void* CameraWorldPluginDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RwUInt8* const camera = static_cast<RwUInt8*>(object);
+    RwUInt32* const data = reinterpret_cast<RwUInt32*>(camera + static_cast<uintptr_t>(StaticRef<RwInt32>(0xC925A4)));
+    if (data[0] != 0) {
+        RwFree(reinterpret_cast<void*>(static_cast<uintptr_t>(data[0])));
+    }
+    const RwUInt32 saved18 = data[4];
+    data[0] = 0;
+    data[1] = 0;
+    data[2] = 0;
+    *reinterpret_cast<RwUInt32*>(camera + 0x18) = saved18;
+    *reinterpret_cast<RwUInt32*>(camera + 0x1C) = data[5];
+    *reinterpret_cast<RwUInt32*>(camera + 0x10) = data[6];
+    return object;
+}
+
+// 0x7509B0 (lote S29A, sin validar; 119 bytes; cdecl, (atomo, desplazamiento, tamano)): destructor del plugin 0x509 del atomo: quita todos sus RpTie (AtomicDestroyAllTies) y restaura el dword +0x10
+// del atomo (callback de sincronizacion) con el valor guardado en +4 de los datos (atomo + [0xC925A8]). Devuelve el atomo.
+static void* AtomicWorldPluginDestruct(void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
+    UNUSED(offsetInObject); UNUSED(sizeInObject);
+    RpAtomic* const atomic = static_cast<RpAtomic*>(object);
+    const RwUInt32* const data = reinterpret_cast<const RwUInt32*>(reinterpret_cast<const RwUInt8*>(atomic) + static_cast<uintptr_t>(s_atomicWorldOffset));
+    AtomicDestroyAllTies(atomic);
+    *reinterpret_cast<RwUInt32*>(reinterpret_cast<RwUInt8*>(atomic) + 0x10) = data[1];
+    return object;
+}
+
+// 0x750FC0 (lote S29A, sin validar; 135 bytes; cdecl, (mundo, atomo)): libera la entrada de recursos del atomo (+0x14) si la hay, quita todos sus RpTie y pone a NULL el mundo de los datos del
+// plugin 0x509 del atomo (atomo + [0xC925A8]). Devuelve el mundo.
+RpWorld* RpWorldRemoveAtomic(RpWorld* world, RpAtomic* atomic) {
+    if (atomic->repEntry != nullptr) {
+        RwResourcesFreeResEntry(atomic->repEntry);
+    }
+    AtomicDestroyAllTies(atomic);
+    *reinterpret_cast<RpWorld**>(reinterpret_cast<RwUInt8*>(atomic) + static_cast<uintptr_t>(s_atomicWorldOffset)) = nullptr;
+    return world;
+}
+
+// 0x751060 (lote S29A, sin validar; 57 bytes; cdecl, (atomo, callback, dato)): recorre la lista de sectores del atomo (+0x64; el sector esta en +8 del enlace) llamando al callback hasta que devuelva
+// FALSE (el siguiente se lee antes). Devuelve el atomo.
+RpAtomic* RpAtomicForAllWorldSectors(RpAtomic* atomic, RpWorldSectorCallBack callback, void* data) {
+    RwLLLink* const end = &atomic->llWorldSectorsInAtomic.link;
+    RwLLLink* link = end->next;
+    while (link != end) {
+        RwLLLink* const next = link->next;
+        RpWorldSector* const sector = *reinterpret_cast<RpWorldSector**>(reinterpret_cast<RwUInt8*>(link) + 8);
+        if (callback(sector, data) == nullptr) {
+            break;
+        }
+        link = next;
+    }
+    return atomic;
+}
+
+// 0x7510A0 (lote S29A, sin validar; 154 bytes; cdecl, (sector, callback, dato)): recorre los atomos del sector (lista +0x38; el atomo esta en +8 del enlace) con un marcador local en la lista
+// durante cada callback (ForAllLinksWithMarker) hasta que devuelva FALSE. Devuelve el sector.
+RpWorldSector* RpWorldSectorForAllAtomics(RpWorldSector* sector, RpAtomicCallBack callback, void* data) {
+    ForAllLinksWithMarker<RpAtomic>(&sector->collAtomicsInWorldSector.link, [&](RpAtomic* atomic) { return callback(atomic, data) != nullptr; });
+    return sector;
+}
+
+// 0x751140 (lote S29A, sin validar; 154 bytes; cdecl, (sector, callback, dato)): mismo cuerpo que 0x7510A0 sobre la misma lista (+0x38).
+RpWorldSector* RpWorldSectorForAllCollisionAtomics(RpWorldSector* sector, RpAtomicCallBack callback, void* data) {
+    ForAllLinksWithMarker<RpAtomic>(&sector->collAtomicsInWorldSector.link, [&](RpAtomic* atomic) { return callback(atomic, data) != nullptr; });
+    return sector;
+}
+
+// 0x7511E0 (lote S29A, sin validar; 279 bytes; cdecl, (sector, callback, dato)): recorre las luces locales del sector (lista +0x40; la luz esta en +8 del enlace) con marcador local y, si no se
+// corto, las luces direccionales del mundo del sector (RpWorldSectorGetWorld, 0x74F4E0; lista +0x3C, la luz 0x34 bytes antes del enlace) tambien con marcador. Un FALSE del callback corta
+// todo. Devuelve el sector.
+RpWorldSector* RpWorldSectorForAllLights(RpWorldSector* sector, RpLightCallBack callback, void* data) {
+    if (!ForAllLinksWithMarker<RpLight>(&sector->lightsInWorldSector.link, [&](RpLight* light) { return callback(light, data) != nullptr; })) {
+        return sector;
+    }
+    RpWorld* const world = RpWorldSectorGetWorld(sector);
+    if (world == nullptr) {
+        return sector;
+    }
+    RwLLLink* const end = &world->directionalLightList.link;
+    RwLLLink* current = end->next;
+    while (current != end) {
+        RwLLLink marker;
+        marker.next = current->next;
+        marker.prev = current;
+        current->next->prev = &marker;
+        current->next = &marker;
+        RpLight* const light = reinterpret_cast<RpLight*>(reinterpret_cast<RwUInt8*>(current) - offsetof(RpLight, inWorld));
+        const bool keepGoing = light == nullptr || callback(light, data) != nullptr;
+        marker.prev->next = marker.next;
+        marker.next->prev = marker.prev;
+        if (!keepGoing) {
+            return sector;
+        }
+        current = marker.next;
+    }
+    return sector;
+}
+
+// 0x751660 (lote S29A, sin validar; 71 bytes; cdecl, (camara, callback, dato)): recorre los sectores en el frustum de la camara (datos del plugin 0x509: vector en +0, cantidad en +8) llamando al
+// callback hasta que devuelva FALSE. Devuelve la camara.
+RwCamera* RwCameraForAllSectorsInFrustum(RwCamera* camera, RpWorldSectorCallBack callBack, void* data) {
+    const RwUInt8* const slot = reinterpret_cast<const RwUInt8*>(camera) + static_cast<uintptr_t>(s_cameraWorldOffset);
+    RpWorldSector* const* sectors = *reinterpret_cast<RpWorldSector* const* const*>(slot);
+    RwUInt32 remaining = *reinterpret_cast<const RwUInt32*>(slot + 8);
+    while (remaining != 0) {
+        if (callBack(*sectors, data) == nullptr) {
+            break;
+        }
+        ++sectors;
+        --remaining;
+    }
+    return camera;
+}
+
+// Lotes S26A, S27A, S28A y S29A (sin validar): ganchos de las raices de RpWorld reconstruidas en C++.
+void RpWorldInjectHooksS26A29A() {
+    RH_ScopedCategory("Plugins");
+    RH_ScopedNamespaceName("RpWorld");
+
+    RH_ScopedGlobalInstall(GeometryNativeStreamGetSize, 0x750E40); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(SectorNativeStreamWrite, 0x750E50); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(SectorNativeStreamRead, 0x750E70); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(SectorNativeStreamGetSize, 0x750E90); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(RwCameraGetWorld, 0x750F80); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldAddAtomic, 0x750F90); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(AtomicWorldAddCallBack, 0x751390); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(LightWorldAddCallBack, 0x7513D0); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(CameraWorldAddCallBack, 0x751420); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldRemoveClump, 0x751460); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpGetWorld, 0x7516B0); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(RpLightGetWorld, 0x7519E0); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(RpLightRegisterPluginStream, 0x751D90); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(RpLightSetStreamAlwaysCallBack, 0x751DC0); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(RpLightGetPluginOffset, 0x751DE0); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(RpLightValidatePlugins, 0x751E00); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(RpLightStreamGetSize, 0x751E10); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(_rpLightChunkInfoRead, 0x752060); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(LightSyncCallBack, 0x7521A0); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(LightModuleDestruct, 0x7521B0); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(RpLightSetFreeListCreateParams, 0x752250); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(LightModuleConstruct, 0x752270); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationGetStride, 0x7522F0); // lote S26A (sin validar)
+    RH_ScopedGlobalInstall(_rpD3D9VertexDeclarationInstIndices, 0x754B40); // lote S26A (sin validar)
+
+    RH_ScopedGlobalInstall(LightD3D9PluginConstruct, 0x755BC0); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(LightD3D9PluginCopy, 0x755CE0); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(RpD3D9LightSetAttenuationParams, 0x755D20); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(RpD3D9LightGetAttenuationParams, 0x755D50); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(_rwD3D9LightsEnable, 0x756600); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(TriangleIndicesCompare, 0x7567A0); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(RxD3D9AllInOneSetLightingCallBack, 0x7573C0); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(RxD3D9AllInOneGetLightingCallBack, 0x7573D0); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(RxD3D9AllInOneGetRenderCallBack, 0x7573F0); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(VertexElementCompare, 0x758240); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(UsageFlagsConstruct, 0x758850); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(UsageFlagsDestruct, 0x758860); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(UsageFlagsCopy, 0x758870); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(D3D9EnginePluginConstruct, 0x758890); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(D3D9EnginePluginDestruct, 0x7588A0); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(_rpMeshClose, 0x758940); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(_rpMeshOpen, 0x758970); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(_rpMeshGetNextSerialNumber, 0x7590E0); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(RpBuildMeshGenerateTrivialTriStrip, 0x759100); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(BuildMeshTriangleCompare, 0x759640); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(RpBuildMeshGenerateDefaultIgnoreWindingTriStrip, 0x75A8E0); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(RpBuildMeshGeneratePreprocessTriStrip, 0x75A900); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(RpBuildMeshGeneratePreprocessIgnoreWindingTriStrip, 0x75A920); // lote S27A (sin validar)
+    RH_ScopedGlobalInstall(RpTriStripDefaultCost, 0x75B500); // lote S27A (sin validar)
+
+    RH_ScopedGlobalInstall(RpTriStripMeshQuick, 0x75BD80); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(RpTriStripPolygonFollowStrip, 0x75C330); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(RpMeshSetTriStripMethod, 0x75D4C0); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(RpMeshGetTriStripMethod, 0x75D500); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(RpMaterialSetDefaultPipeline, 0x75E2D0); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(_rpD3D9GetNumConstantsUsed, 0x75EDD0); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(_rpD3D9GetVertexShader, 0x75EED0); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(_rxD3D9VertexShaderDefaultEndCallBack, 0x761000); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(SectorModuleConstruct, 0x761C30); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(SectorModuleDestruct, 0x761C40); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldSectorForAllMeshes, 0x761C60); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldSectorSetStreamAlwaysCallBack, 0x761CF0); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldSectorSetStreamRightsCallBack, 0x761D10); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldSectorGetPluginOffset, 0x761D30); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldSectorValidatePlugins, 0x761D50); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(WorldRightsStreamGetSize, 0x761DE0); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(SectorRightsStreamGetSize, 0x761E80); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldStreamGetSize, 0x761EA0); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(_rpWorldSectorChunkInfoRead, 0x7635B0); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(_rpPlaneSectorChunkInfoRead, 0x763620); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(_rpWorldChunkInfoRead, 0x763690); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(NativeModuleDestruct, 0x7637D0); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(NativeModuleConstruct, 0x7637E0); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(_rwD3D9VSGetWorldViewMatrix, 0x764760); // lote S28A (sin validar)
+
+    RH_ScopedGlobalInstall(RpAtomicInstance, 0x74BF40); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(RpGeometryCreateSpace, 0x74C130); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(RpGeometryRemoveMorphTarget, 0x74C4E0); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(RpMaterialClone, 0x74DA80); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(_rpMaterialListAlloc, 0x74E1C0); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(_rpMaterialListCopy, 0x74E1F0); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(_rpMaterialListSetSize, 0x74E2C0); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(D3D9RestoreCallBack, 0x74EA80); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(_rpWorldForAllGlobalLights, 0x74EF10); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(_rpWorldSectorForAllLocalLights, 0x74EF60); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(_rpWorldSetupSectorBoundingBoxes, 0x74F020); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(_rpWorldRegisterWorld, 0x74F0C0); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(_rpWorldUnregisterWorld, 0x74F140); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldForAllClumps, 0x74FB80); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldForAllLights, 0x74FC00); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(CameraWorldPluginDestruct, 0x750760); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(AtomicWorldPluginDestruct, 0x7509B0); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldRemoveAtomic, 0x750FC0); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(RpAtomicForAllWorldSectors, 0x751060); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldSectorForAllAtomics, 0x7510A0); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldSectorForAllCollisionAtomics, 0x751140); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(RpWorldSectorForAllLights, 0x7511E0); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(RwCameraForAllSectorsInFrustum, 0x751660); // lote S29A (sin validar)
+    RH_ScopedGlobalInstall(_rwD3D9VSGetWorldMultiplyMatrix, 0x764920); // lote S29A (sin validar)
 }

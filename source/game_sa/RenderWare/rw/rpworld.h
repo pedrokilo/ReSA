@@ -2347,7 +2347,7 @@ struct rpWorldChunkInfo34000
 void _rwD3D9VSSetActiveWorldMatrix(const RwMatrix* worldMatrix); // 0x764650
 void _rwD3D9VSGetComposedTransformMatrix(void* matrix); // 0x7646E0 (el EXE le pasa la matriz 4x4 de salida)
 void _rwD3D9VSGetWorldViewTransposedMatrix(void* matrix); // 0x764730 (el EXE le pasa la matriz 4x4 de salida)
-void _rwD3D9VSGetWorldViewMatrix(); // 0x764760
+void _rwD3D9VSGetWorldViewMatrix(RwMatrix* worldViewMatrix); // 0x764760
 void _rwD3D9VSInvertRigidMatrix(float* out, const float* in); // 0x764890 (nombre inferido; lote R21A)
 RwInt32 _rpD3D9WorldSectorNativeSize(const RpWorldSector* sector); // 0x7645C0 (nombre inferido; lote R21A)
 RwStream* _rpD3D9WorldSectorNativeWrite(RwStream* stream, const RpWorldSector* sector); // 0x763F20 (nombre inferido; lote R21A)
