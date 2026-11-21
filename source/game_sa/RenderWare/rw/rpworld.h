@@ -2422,6 +2422,7 @@ RpMeshHeader* _rpMeshHeaderCreate(RwUInt32 size); // 0x758920
 RpTriStripPolygon* RpTriStripPolygonFollowStrip(RpTriStripPolygon* curr, RpTriStripPolygon* prev); // 0x75C330
 RwUInt32 RpTriStripDefaultCost(RpTriStripPolygon* startPolygon, RwUInt32 testFrame, void* data); // 0x75B500
 RpTriStripMesh* RpTriStripMeshTunnel(RpTriStripMesh* mesh, void* data); // 0x75B780
+int BuildMeshTriangleCompare(const void* first, const void* second); // 0x759640 (comparador de qsort de RpBuildMeshGenerateTriStrip y del generador por defecto)
 RpTriStripMesh* RpTriStripMeshQuick(RpTriStripMesh* mesh, void* data); // 0x75BD80
 RpMeshHeader* RpBuildMeshGenerateTriStrip(RpBuildMesh* buildMesh, void* data); // 0x75C380
 RpMeshHeader* RpBuildMeshGenerateTrivialTriStrip(RpBuildMesh* buildMesh, void* data); // 0x759100
