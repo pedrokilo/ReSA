@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 
+#include <float.h>
 #include <emmintrin.h>
 #include <xmmintrin.h>
 
@@ -71,11 +72,13 @@ void D3DX9InjectHooks() {
     RH_ScopedGlobalInstall(D3DXMatrixTranspose, 0x7675EE);
     RH_ScopedGlobalInstall(D3DXMatrixMultiplyTranspose, 0x7676C7);
 
-    // lote R21A (sin validar): ensamblador y compilador de shaders
-    RH_ScopedGlobalInstall(D3DXAssembleShader, 0x7652AE);
-    RH_ScopedGlobalInstall(D3DXCompileShaderFromFileA, 0x76534D);
-    RH_ScopedGlobalInstall(D3DXCompileShaderFromFileW, 0x765402);
-    RH_ScopedGlobalInstall(D3DXCompileShaderFromResourceA, 0x7654B8);
+    // lote R21A (sin validar): ensamblador y compilador de shaders. DESACTIVADOS por defecto (20/11/2026): con el ensamblador de d3dx9_43.dll (lote EXT1A) los modelos con
+    // esqueleto (CJ y los peatones) salian cortados o invisibles (el juego ensambla sus shaders de vertices de piel al arrancar); con ellos apagados se ve bien. Se sigue
+    // usando el ensamblador/compilador propio del EXE (13 rutinas internas sin sustituir). Para reactivarlos: --unhook-except o SetState en codigo.
+    RH_ScopedGlobalInstall(D3DXAssembleShader, 0x7652AE, {.enabled = false});
+    RH_ScopedGlobalInstall(D3DXCompileShaderFromFileA, 0x76534D, {.enabled = false});
+    RH_ScopedGlobalInstall(D3DXCompileShaderFromFileW, 0x765402, {.enabled = false});
+    RH_ScopedGlobalInstall(D3DXCompileShaderFromResourceA, 0x7654B8, {.enabled = false});
 }
 
 // 0x7C1D80: medios flotantes -> floats con MMX/3DNow! (`femms` al entrar y salir, __stdcall: `ret 0Ch`). Con count < 4 llama al conversor escalar 0x76626B
@@ -396,10 +399,27 @@ namespace {
 constexpr int32 kD3DERR_NOTAVAILABLE = static_cast<int32>(0x8876086A);
 
 HMODULE LoadSystemDll() {
+    // Al cargarse, d3dx9_43.dll (y su CRT) puede reiniciar el estado de coma flotante del hilo: la precision x87 que fija Direct3D al crear el dispositivo (24 bits) y el control
+    // de SSE. El juego depende de ese estado en todo su calculo con esqueletos (los modelos de CJ y los peatones salian cortados o en pose T con la DLL cargada a mitad del
+    // dibujado). Se guarda antes de cargar y se restaura despues.
+    unsigned int fpuAntes = 0;
+    _controlfp_s(&fpuAntes, 0, 0);
+    const unsigned int mxcsrAntes = _mm_getcsr();
+
     // Primero la copia de la carpeta del sistema (SysWOW64 en un proceso de 32 bits); si no esta, la busqueda normal (copia local junto al juego).
     HMODULE module = LoadLibraryExA("d3dx9_43.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
     if (module == nullptr) {
         module = LoadLibraryA("d3dx9_43.dll");
+    }
+
+    unsigned int fpuDespues = 0;
+    _controlfp_s(&fpuDespues, 0, 0);
+    const unsigned int mxcsrDespues = _mm_getcsr();
+    if (fpuDespues != fpuAntes || mxcsrDespues != mxcsrAntes) {
+        NOTSA_LOG_WARN("D3DX9: al cargar d3dx9_43.dll cambio el estado de coma flotante (x87 0x{:08X} -> 0x{:08X}, MXCSR 0x{:08X} -> 0x{:08X}); se restaura", fpuAntes, fpuDespues, mxcsrAntes, mxcsrDespues);
+        unsigned int ignorado = 0;
+        _controlfp_s(&ignorado, fpuAntes, _MCW_EM | _MCW_RC | _MCW_PC | _MCW_IC | _MCW_DN);
+        _mm_setcsr(mxcsrAntes);
     }
     if (module == nullptr) {
         NOTSA_LOG_ERR("D3DX9: no se pudo cargar d3dx9_43.dll (instale el Runtime de usuario final de DirectX de junio de 2010); las funciones de D3DX9 devolveran error");

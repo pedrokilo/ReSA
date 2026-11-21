@@ -417,9 +417,9 @@ endif()
 #--------------------------------------------------------------------
 # Lote LIB1A: zlib 1.1.3 y libpng 1.0.12 compiladas desde la fuente oficial (libs/), las versiones que lleva embebidas gta_sa.exe.
 # Con la opcion encendida, los 14 hooks de ZlibInflate llaman a la biblioteca en lugar de a su reconstruccion a mano.
-# Por defecto APAGADA: la DLL no cambia hasta validar (ver reversing/FnLIB1A/README.md).
+# Por defecto ENCENDIDA (decision del 20/11/2026: todos los hooks activos; la evidencia es fuera del juego, ver reversing/FnLIB1A/README.md y FnLIB2A).
 #--------------------------------------------------------------------
-option(${RE_PROJECT}_WITH_ZLIB_LIBPNG "Enlaza zlib 1.1.3 + libpng 1.0.12 (libs/) y sustituye con ellas las funciones de zlib del EXE" OFF)
+option(${RE_PROJECT}_WITH_ZLIB_LIBPNG "Enlaza zlib 1.1.3 + libpng 1.0.12 (libs/) y sustituye con ellas las funciones de zlib del EXE" ON)
 if (${RE_PROJECT}_WITH_ZLIB_LIBPNG)
     add_subdirectory(${CMAKE_SOURCE_DIR}/libs/zlib-1.1.3 ${CMAKE_BINARY_DIR}/libs/zlib-1.1.3)
     add_subdirectory(${CMAKE_SOURCE_DIR}/libs/libpng-1.0.12 ${CMAKE_BINARY_DIR}/libs/libpng-1.0.12)
@@ -430,13 +430,22 @@ endif()
 #--------------------------------------------------------------------
 # Lote LIB3A: libjpeg 6b (IJG) compilada desde la fuente oficial (libs/libjpeg-6b), la version que lleva embebida gta_sa.exe.
 # Con la opcion encendida, los callbacks de libjpeg que el codigo propio instala por direccion del EXE (LibJpegExe.h: LibJpegCallback) apuntan a la biblioteca.
-# Por defecto APAGADA: la DLL no cambia hasta validar (ver reversing/FnLIB3A/README.md).
+# Por defecto ENCENDIDA (decision del 20/11/2026: todos los hooks activos; la evidencia es fuera del juego, ver reversing/FnLIB3A/README.md).
 #--------------------------------------------------------------------
-option(${RE_PROJECT}_WITH_LIBJPEG "Enlaza libjpeg 6b (libs/) y sustituye con ella los callbacks de libjpeg del EXE" OFF)
+option(${RE_PROJECT}_WITH_LIBJPEG "Enlaza libjpeg 6b (libs/) y sustituye con ella los callbacks de libjpeg del EXE" ON)
 if (${RE_PROJECT}_WITH_LIBJPEG)
     add_subdirectory(${CMAKE_SOURCE_DIR}/libs/libjpeg-6b ${CMAKE_BINARY_DIR}/libs/libjpeg-6b)
     target_link_libraries(${RE_PROJECT_LIB_NAME} PRIVATE libjpeg6b)
     target_compile_definitions(${RE_PROJECT_LIB_NAME} PRIVATE GTASA_WITH_LIBJPEG=1)
+endif()
+
+#--------------------------------------------------------------------
+# Lote CRT1A: ganchos del montón del CRT del EXE (malloc/free/realloc/calloc/operator new). Solo se instalan en ejecucion si el CRT del EXE usa HeapAlloc directo.
+# Encendidos por defecto desde el 20/11/2026 (todos los hooks activos; ver reversing/FnCRT1A/DISENO.md).
+#--------------------------------------------------------------------
+option(${RE_PROJECT}_CRT_HEAP_HOOKS "Instala los ganchos del monton del CRT del EXE (CrtHeap.cpp)" ON)
+if (${RE_PROJECT}_CRT_HEAP_HOOKS)
+    target_compile_definitions(${RE_PROJECT_LIB_NAME} PRIVATE GTASA_CRT_HEAP_HOOKS=1)
 endif()
 
 target_include_directories(${RE_PROJECT_LIB_NAME} PRIVATE

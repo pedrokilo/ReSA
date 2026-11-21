@@ -122,7 +122,7 @@ void CrtHeapInjectHooks() {
     RH_ScopedCategory("Crt");
 
     RH_ScopedGlobalInstall(ExeCrt::NhMalloc, 0x82422B);
-    RH_ScopedGlobalInstall(ExeCrt::Malloc, 0x824257);
+    // malloc 0x824257 ya lo engancha VehicleRecording.cpp (CRT/CrtMalloc -> _nh_malloc 0x82422B, que si engancha NhMalloc de arriba): un segundo gancho en la misma direccion es un error.
     RH_ScopedGlobalInstall(ExeCrt::Free, 0x82413F);
     RH_ScopedGlobalInstall(ExeCrt::Realloc, 0x824269);
     RH_ScopedGlobalInstall(ExeCrt::Calloc, 0x824416);

@@ -3231,8 +3231,6 @@ va,bytes,estado,modulo,confianza_modulo,nombre_catalogo,llamadas_directas,llamad
 0x004E78E0,49,reemplazada,CAEMFDecoder,exacta,CAEMFDecoder::SetCursor,0,0,,sí
 0x004E7920,18,reemplazada,CAEMFDecoder,exacta,CAEMFDecoder::GetStreamLengthMs,0,0,,sí
 0x004E7940,28,reemplazada,CAEMFDecoder,exacta,CAEMFDecoder::GetStreamPlayTimeMs,0,0,,sí
-0x004E7990,238,reemplazada,CAEMFDecoder,alta,,1,1,,
-0x004E7A80,245,reemplazada,CAEMFDecoder,alta,,1,1,,
 0x004E7C50,27,reemplazada,CAEMFDecoder,alta,,0,0,,sí
 0x004E7C70,54,reemplazada,CAEMFDecoder,exacta,CAEMFDecoder::InitLibrary,1,1,,
 0x004E7CB0,545,reemplazada,CAEMFDecoder,exacta,CAEMFDecoder::Initialise,0,0,,sí

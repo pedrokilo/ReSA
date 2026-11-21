@@ -1,12 +1,8 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 19/11/2026 (Ciudad de México):** 998 grupos / 12441 funciones reconstruidas; 11781 con evidencia histórica y 660 pendientes de validación en 18 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
-# Código del juego en el EXE: mapa de las 11,686 funciones
+# Código del juego en el EXE: mapa de las 11,684 funciones
 
 [Progreso del reversing](../ReversedClasses.md#cobertura-exe) · [Lista completa (CSV)](funciones.csv)
 
-Región **0x401000–0x74FFFF**: 11,686 funciones, 2,979,290 bytes. Es el código propio del juego y la capa de plataforma; RenderWare, D3D y el CRT quedan fuera (se sustituyen enlazando bibliotecas equivalentes). Generado por `contrib/game_function_map.py`; cotas y método en `contrib/exe_coverage.py`.
+Región **0x401000–0x74FFFF**: 11,684 funciones, 2,978,807 bytes. Es el código propio del juego y la capa de plataforma; RenderWare, D3D y el CRT quedan fuera (se sustituyen enlazando bibliotecas equivalentes). Generado por `contrib/game_function_map.py`; cotas y método en `contrib/exe_coverage.py`.
 
 ## Estado
 
@@ -17,7 +13,7 @@ Región **0x401000–0x74FFFF**: 11,686 funciones, 2,979,290 bytes. Es el códig
 | C · Falta: solo la llaman funciones aún no reemplazadas | 0 | 0.0% | 0 | 0.0% |
 | D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 0 | 0.0% | 0 | 0.0% |
 | Envoltura pendiente (la DLL aún llama al EXE) | 0 | 0.0% | 0 | 0.0% |
-| Reemplazada por C++ | 11,686 | 100.0% | 2,979,290 | 100.0% |
+| Reemplazada por C++ | 11,684 | 100.0% | 2,978,807 | 100.0% |
 
 Las funciones de A–D son **lo que falta**. El grupo A es el piso para la independencia (la DLL ya depende de ellas); es una cota inferior porque hay 6,004 llamadas indirectas sin resolver. Las envolturas pendientes (que ya tienen hook pero llaman al EXE) se cuentan aparte, por eso A–D suman menos que en la tabla de cobertura de ReversedClasses. Listas: [A](pendientes-A.md) · [B](pendientes-B.md) · [C](pendientes-C.md) · [D](pendientes-D.md).
 
@@ -29,7 +25,7 @@ El código se enlaza por unidad de compilación, así que cada bloque suele corr
 
 ## Excluidas del objetivo
 
-118 función(es) del rango del juego no se cuentan en las cifras de arriba porque no son viables en C++ puro (lista en [excluidas.csv](excluidas.csv)):
+120 función(es) del rango del juego no se cuentan en las cifras de arriba porque no son viables en C++ puro (lista en [excluidas.csv](excluidas.csv)):
 
 Cada una está **cerrada con una categoría y una evidencia** por inspección del EXE ([reversing/FnG2A](../../reversing/FnG2A/README.md); evidencia en [excluidas-evidencia.json](../../reversing/FnG2A/excluidas-evidencia.json)):
 
@@ -37,6 +33,7 @@ Cada una está **cerrada con una categoría y una evidencia** por inspección de
 | --- | ---: |
 | `no-es-funcion` | 11 |
 | `proteccion-descartada` | 18 |
+| `retirada-quicktime` | 2 |
 | `salto-puro` | 20 |
 | `sustituida-por-crt` | 1 |
 | `usercall-cubierta` | 51 |
@@ -89,6 +86,8 @@ Cada una está **cerrada con una categoría y una evidencia** por inspección de
 | 0x004D6450 | 73 | RpAnimBlend | usercall-cubierta | __usercall con registros de entrada que C++ no puede leer (EAX/ESI/EDI/EBX); cuerpos ya en C++ dentro de funciones enganchadas; excluida el 15/11/2026 (lote 215A) |
 | 0x004D6510 | 256 | RpAnimBlend | usercall-cubierta | __usercall con registros de entrada que C++ no puede leer (EAX/ESI/EDI/EBX); cuerpos ya en C++ dentro de funciones enganchadas; excluida el 15/11/2026 (lote 215A) |
 | 0x004D66A0 | 118 | RpAnimBlend | usercall-cubierta | __usercall con registros de entrada que C++ no puede leer (EAX/ESI/EDI/EBX); cuerpos ya en C++ dentro de funciones enganchadas; excluida el 15/11/2026 (lote 215A) |
+| 0x004E7990 | 238 | CAEMFDecoder | retirada-quicktime | Ayudante de QuickTime (abre la pelicula de la pista de usuario): QuickTime se retira por decision del usuario el 19/11/2026 (lote EXT1A); su unico llamador, CAEMFDecoder::Initialise, devuelve false y ya no la llama; excluida del objetivo el 20/11/2026 |
+| 0x004E7A80 | 245 | CAEMFDecoder | retirada-quicktime | Ayudante de QuickTime (lee el formato de sonido de la pelicula): QuickTime se retira por decision del usuario el 19/11/2026 (lote EXT1A); su unico llamador, CAEMFDecoder::Initialise, devuelve false y ya no la llama; excluida del objetivo el 20/11/2026 |
 | 0x004F3A15 | 32 | STL (std::string) | no-es-funcion | no es una funcion: funclet de catch(...) del marco de otra funcion (lee [ebp-N] del padre, sin ret, solo lo invoca la tabla de excepciones del EXE); artefacto del mapa de std::string::_Copy (0x4F39C0); excluida el 15/11/2026 (lote 208A) |
 | 0x004F3A3E | 102 | STL (std::string) | no-es-funcion | no es una funcion: funclet de catch(...) del marco de otra funcion (lee [ebp-N] del padre, sin ret, solo lo invoca la tabla de excepciones del EXE); artefacto del mapa de std::string::_Copy (0x4F39C0) y de 0x4F4320; excluida el 15/11/2026 (lote 209A) |
 | 0x004F3AAD | 45 | STL (std::string) | no-es-funcion | no es una funcion: funclet de catch(...) del marco de otra funcion (lee [ebp-N] del padre, sin ret, solo lo invoca la tabla de excepciones del EXE); artefacto del mapa de std::string::_Copy (0x4F39C0) y de 0x4F4320; excluida el 15/11/2026 (lote 209A) |
@@ -179,7 +178,7 @@ Cada una está **cerrada con una categoría y una evidencia** por inspección de
 | 0x4B0000 | 359 | 100% | 0 | 0 | — |
 | 0x4C0000 | 358 | 100% | 0 | 0 | — |
 | 0x4D0000 | 310 | 100% | 0 | 0 | — |
-| 0x4E0000 | 246 | 100% | 0 | 0 | — |
+| 0x4E0000 | 244 | 100% | 0 | 0 | — |
 | 0x4F0000 | 199 | 100% | 0 | 0 | — |
 | 0x500000 | 305 | 100% | 0 | 0 | — |
 | 0x510000 | 61 | 100% | 0 | 0 | — |

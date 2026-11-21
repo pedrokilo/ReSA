@@ -275,8 +275,8 @@ void CVehicle::InjectHooks() {
     RH_ScopedVMTInstall(CanPedJumpOutCar, 0x6D2030);
     RH_ScopedVMTInstall(GetTowHitchPos, 0x6DFB70);
     RH_ScopedVMTInstall(GetTowBarPos, 0x6DFBE0);
-    RH_ScopedVMTInstall(Save, 0x5D4760, {.enabled = false });
-    RH_ScopedVMTInstall(Load, 0x5D2900, {.enabled = false });
+    RH_ScopedVMTInstall(Save, 0x5D4760);
+    RH_ScopedVMTInstall(Load, 0x5D2900);
 
     RH_ScopedVMTInstall(ProcessDrivingAnims, 0x6DF4A0);
 
