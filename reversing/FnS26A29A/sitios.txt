@@ -1,0 +1,265 @@
+## S29A 74BF40
+source/game_sa/RenderWare/rw/rpworld.cpp:3787: return ((RwBool(__cdecl *)(RpAtomic*))0x74BF40)(atomic);
+source/game_sa/RenderWare/rw/rpworld.h:2549: RwBool RpAtomicInstance(RpAtomic* atomic); // 0x74BF40
+## S29A 74C130
+source/game_sa/RenderWare/rw/rpworld.cpp:1541: return ((RpGeometry*(__cdecl *)(RwReal))0x74C130)(radius);
+source/game_sa/RenderWare/rw/rpworld.h:2439: RpGeometry* RpGeometryCreateSpace(RwReal radius); // 0x74C130
+## S29A 74C4E0
+source/game_sa/RenderWare/rw/rpworld.cpp:1672: return ((RpGeometry*(__cdecl *)(RpGeometry*, RwInt32))0x74C4E0)(geometry, morphTarget);
+source/game_sa/RenderWare/rw/rpworld.h:2443: RpGeometry* RpGeometryRemoveMorphTarget(RpGeometry* geometry, RwInt32 morphTarget); // 0x74C4E0
+## S29A 74DA80
+source/game_sa/RenderWare/rw/rpworld.cpp:248: return ((RpMaterial*(__cdecl *)(RpMaterial*))0x74DA80)(material);
+source/game_sa/RenderWare/rw/rpworld.h:2386: RpMaterial* RpMaterialClone(RpMaterial* material); // 0x74DA80
+## S29A 74E1C0
+source/game_sa/RenderWare/rw/rpworld.cpp:617: return ((RpMaterial**(__cdecl *)(RwUInt32))0x74E1C0)(count);
+source/game_sa/RenderWare/rw/rpworld.h:2400: RpMaterial** _rpMaterialListAlloc(RwUInt32 count); // 0x74E1C0
+## S29A 74E1F0
+source/game_sa/RenderWare/rw/rpworld.cpp:630: return ((RpMaterialList*(__cdecl *)(RpMaterialList*, const RpMaterialList*))0x74E1F0)(matListOut, matListIn);
+source/game_sa/RenderWare/rw/rpworld.h:2403: RpMaterialList* _rpMaterialListCopy(RpMaterialList* matListOut, const RpMaterialList* matListIn); // 0x74E1F0
+## S29A 74E2C0
+source/game_sa/RenderWare/rw/rpworld.cpp:626: return ((RpMaterialList*(__cdecl *)(RpMaterialList*, RwInt32))0x74E2C0)(matList, size);
+source/game_sa/RenderWare/rw/rpworld.h:2402: RpMaterialList* _rpMaterialListSetSize(RpMaterialList* matList, RwInt32 size); // 0x74E2C0
+## S29A 74EA80
+source/game_sa/RenderWare/rw/rpworld.cpp:5481: constexpr uintptr_t kD3D9RestoreCallBackAddress = 0x74EA80;         // callback de restauracion del dispositivo (sin reconstruir)
+## S29A 74EF10
+source/game_sa/RenderWare/rw/rpworld.cpp:3799: return ((RwBool(__cdecl *)(RpLightCallBack, void*))0x74EF10)(callBack, data);
+source/game_sa/RenderWare/rw/rpworld.h:2554: RwBool _rpWorldForAllGlobalLights(RpLightCallBack callBack, void* data); // 0x74EF10
+## S29A 74EF60
+source/game_sa/RenderWare/rw/rpworld.cpp:3803: return ((RpWorldSector*(__cdecl *)(RpWorldSector*, RpLightCallBack, void*))0x74EF60)(sector, callBack, data);
+source/game_sa/RenderWare/rw/rpworld.h:2555: RpWorldSector* _rpWorldSectorForAllLocalLights(RpWorldSector* sector, RpLightCallBack callBack, void* data); // 0x74EF60
+## S29A 74F020
+source/game_sa/RenderWare/rw/rpworld.cpp:3795: return ((RpWorld*(__cdecl *)(RpWorld*))0x74F020)(world);
+source/game_sa/RenderWare/rw/rpworld.h:2551: RpWorld* _rpWorldSetupSectorBoundingBoxes(RpWorld* world); // 0x74F020
+## S29A 74F0C0
+source/game_sa/RenderWare/rw/rpworld.cpp:3839: ((void(__cdecl *)(RpWorld*, RwUInt32))0x74F0C0)(world, memorySize);
+source/game_sa/RenderWare/rw/rpworld.h:2559: void _rpWorldRegisterWorld(RpWorld* world, RwUInt32 memorySize); // 0x74F0C0
+## S29A 74F140
+source/game_sa/RenderWare/rw/rpworld.cpp:3843: ((void(__cdecl *)(RpWorld*))0x74F140)(world);
+source/game_sa/RenderWare/rw/rpworld.h:2560: void _rpWorldUnregisterWorld(RpWorld* world); // 0x74F140
+## S29A 74FB80
+source/game_sa/RenderWare/rw/rpworld.cpp:3874: return ((RpWorld*(__cdecl *)(RpWorld*, RpClumpCallBack, void*))0x74FB80)(world, fpCallBack, data);
+source/game_sa/RenderWare/rw/rpworld.h:2562: RpWorld* RpWorldForAllClumps(RpWorld* world, RpClumpCallBack fpCallBack, void* data); // 0x74FB80
+## S29A 74FC00
+source/game_sa/RenderWare/rw/rpworld.cpp:3878: return ((RpWorld*(__cdecl *)(RpWorld*, RpLightCallBack, void*))0x74FC00)(world, fpCallBack, data);
+source/game_sa/RenderWare/rw/rpworld.h:2564: RpWorld* RpWorldForAllLights(RpWorld* world, RpLightCallBack fpCallBack, void* data); // 0x74FC00
+## S29A 750760
+source/game_sa/RenderWare/rw/rpworld.cpp:6470: s_cameraWorldOffset = RwCameraRegisterPlugin(0x1C, 0x509, CameraWorldPluginConstruct, dtor(0x750760), CameraWorldPluginCopy);
+## S29A 7509B0
+source/game_sa/RenderWare/rw/rpworld.cpp:6472: s_atomicWorldOffset = RpAtomicRegisterPlugin(8, 0x509, AtomicWorldPluginConstruct, dtor(0x7509B0), AtomicWorldPluginCopy);
+## S26A 750E40
+source/game_sa/RenderWare/rw/rpworld.cpp:6486: status |= RpGeometryRegisterPluginStream(0x510, GeometryNativeStreamRead, GeometryNativeStreamWrite, sizeCB(0x750E40));
+## S26A 750E50
+source/game_sa/RenderWare/rw/rpworld.cpp:6487: status |= RpWorldSectorRegisterPluginStream(0x510, readCB(0x750E70), writeCB(0x750E50), sizeCB(0x750E90));
+## S26A 750E70
+source/game_sa/RenderWare/rw/rpworld.cpp:6487: status |= RpWorldSectorRegisterPluginStream(0x510, readCB(0x750E70), writeCB(0x750E50), sizeCB(0x750E90));
+## S26A 750E90
+source/game_sa/RenderWare/rw/rpworld.cpp:6487: status |= RpWorldSectorRegisterPluginStream(0x510, readCB(0x750E70), writeCB(0x750E50), sizeCB(0x750E90));
+## S26A 750F80
+source/game_sa/RenderWare/rw/rpworld.cpp:5233: return ((RpWorld*(__cdecl *)(const RwCamera*))0x750F80)(camera);
+source/game_sa/RenderWare/rw/rpworld.h:2663: RpWorld* RwCameraGetWorld(const RwCamera* camera); // 0x750F80
+## S26A 750F90
+source/game_sa/RenderWare/rw/rpworld.cpp:5241: return ((RpWorld*(__cdecl *)(RpWorld*, RpAtomic*))0x750F90)(world, atomic);
+source/game_sa/RenderWare/rw/rpworld.h:2665: RpWorld* RpWorldAddAtomic(RpWorld* world, RpAtomic* atomic); // 0x750F90
+## S29A 750FC0
+source/game_sa/RenderWare/rw/rpworld.cpp:5237: return ((RpWorld*(__cdecl *)(RpWorld*, RpAtomic*))0x750FC0)(world, atomic);
+source/game_sa/RenderWare/rw/rpworld.h:2664: RpWorld* RpWorldRemoveAtomic(RpWorld* world, RpAtomic* atomic); // 0x750FC0
+## S29A 751060
+source/game_sa/RenderWare/rw/rpworld.cpp:5349: return ((RpAtomic*(__cdecl *)(RpAtomic*, RpWorldSectorCallBack, void*))0x751060)(atomic, callback, data);
+source/game_sa/RenderWare/rw/rpworld.h:2677: RpAtomic* RpAtomicForAllWorldSectors(RpAtomic* atomic, RpWorldSectorCallBack callback, void* data); // 0x751060
+## S29A 7510A0
+source/game_sa/RenderWare/rw/rpworld.cpp:5353: return ((RpWorldSector*(__cdecl *)(RpWorldSector*, RpAtomicCallBack, void*))0x7510A0)(sector, callback, data);
+source/game_sa/RenderWare/rw/rpworld.h:2678: RpWorldSector* RpWorldSectorForAllAtomics(RpWorldSector* sector, RpAtomicCallBack callback, void* data); // 0x7510A0
+## S29A 751140
+source/game_sa/RenderWare/rw/rpworld.cpp:5357: return ((RpWorldSector*(__cdecl *)(RpWorldSector*, RpAtomicCallBack, void*))0x751140)(sector, callback, data);
+source/game_sa/RenderWare/rw/rpworld.h:2679: RpWorldSector* RpWorldSectorForAllCollisionAtomics(RpWorldSector* sector, RpAtomicCallBack callback, void* data); // 0x751140
+## S29A 7511E0
+source/game_sa/RenderWare/rw/rpworld.cpp:5361: return ((RpWorldSector*(__cdecl *)(RpWorldSector*, RpLightCallBack, void*))0x7511E0)(sector, callback, data);
+source/game_sa/RenderWare/rw/rpworld.h:2680: RpWorldSector* RpWorldSectorForAllLights(RpWorldSector* sector, RpLightCallBack callback, void* data); // 0x7511E0
+## S26A 751390
+source/game_sa/RenderWare/rw/rpworld.cpp:5263: RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(static_cast<uintptr_t>(0x751390)), world);
+## S26A 7513D0
+source/game_sa/RenderWare/rw/rpworld.cpp:5264: RpClumpForAllLights(clump, reinterpret_cast<RpLightCallBack>(static_cast<uintptr_t>(0x7513D0)), world);
+## S26A 751420
+source/game_sa/RenderWare/rw/rpworld.cpp:5265: RpClumpForAllCameras(clump, reinterpret_cast<RwCameraCallBack>(static_cast<uintptr_t>(0x751420)), world);
+## S26A 751460
+source/game_sa/RenderWare/rw/rpworld.cpp:5275: return ((RpWorld*(__cdecl *)(RpWorld*, RpClump*))0x751460)(world, clump);
+source/game_sa/RenderWare/rw/rpworld.h:2668: RpWorld* RpWorldRemoveClump(RpWorld* world, RpClump* clump); // 0x751460
+## S29A 751660
+source/game_sa/RenderWare/rw/rpworld.cpp:5322: return ((RwCamera*(__cdecl *)(RwCamera*, RpWorldSectorCallBack, void*))0x751660)(camera, callBack, data);
+source/game_sa/RenderWare/rw/rpworld.h:2675: RwCamera* RwCameraForAllSectorsInFrustum(RwCamera* camera, RpWorldSectorCallBack callBack, void* data); // 0x751660
+## S26A 7516B0
+source/game_sa/RenderWare/rw/rpworld.cpp:5279: return ((RpWorld*(__cdecl *)(const RpClump*))0x7516B0)(clump);
+source/game_sa/RenderWare/rw/rpworld.h:2669: RpWorld* RpClumpGetWorld(const RpClump* clump); // 0x7516B0
+## S26A 7519E0
+source/game_sa/RenderWare/rw/rpworld.cpp:5310: return ((RpWorld*(__cdecl *)(const RpLight*))0x7519E0)(light);
+source/game_sa/RenderWare/rw/rpworld.h:2672: RpWorld* RpLightGetWorld(const RpLight* light); // 0x7519E0
+## S26A 751D90
+source/game_sa/RenderWare/rw/rpworld.cpp:2426: return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkReadCallBack, RwPluginDataChunkWriteCallBack, RwPluginDataChunkGetSizeCallBack))0x751D90)(pluginID, readCB, writeCB, getSizeCB);
+source/game_sa/RenderWare/rw/rpworld.h:2487: RwInt32 RpLightRegisterPluginStream(RwUInt32 pluginID, RwPluginDataChunkReadCallBack readCB, RwPluginDataChunkWriteCallBack writeCB, RwPluginDataChunkGetSizeCallBack getSizeCB); // 0x751D90
+## S26A 751DC0
+source/game_sa/RenderWare/rw/rpworld.cpp:2430: return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x751DC0)(pluginID, alwaysCB);
+source/game_sa/RenderWare/rw/rpworld.h:2488: RwInt32 RpLightSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB); // 0x751DC0
+## S26A 751DE0
+source/game_sa/RenderWare/rw/rpworld.cpp:2434: return ((RwInt32(__cdecl *)(RwUInt32))0x751DE0)(pluginID);
+source/game_sa/RenderWare/rw/rpworld.h:2489: RwInt32 RpLightGetPluginOffset(RwUInt32 pluginID); // 0x751DE0
+## S26A 751E00
+source/game_sa/RenderWare/rw/rpworld.cpp:2438: return ((RwBool(__cdecl *)(const RpLight*))0x751E00)(light);
+source/game_sa/RenderWare/rw/rpworld.h:2490: RwBool RpLightValidatePlugins(const RpLight* light); // 0x751E00
+## S26A 751E10
+source/game_sa/RenderWare/rw/rpworld.cpp:2372: return ((RwUInt32(__cdecl *)(const RpLight*))0x751E10)(light);
+source/game_sa/RenderWare/rw/rpworld.h:2483: RwUInt32 RpLightStreamGetSize(const RpLight* light); // 0x751E10
+## S26A 752060
+source/game_sa/RenderWare/rw/rpworld.cpp:2417: return ((RpLightChunkInfo*(__cdecl *)(RwStream*, RpLightChunkInfo*, RwInt32*))0x752060)(stream, lightChunkInfo, bytesRead);
+source/game_sa/RenderWare/rw/rpworld.h:2485: RpLightChunkInfo* _rpLightChunkInfoRead(RwStream* stream, RpLightChunkInfo* lightChunkInfo, RwInt32* bytesRead); // 0x752060
+## S26A 7521A0
+source/game_sa/RenderWare/rw/rpworld.cpp:2309: light->object.sync = reinterpret_cast<RwObjectHasFrameSyncFunction>(static_cast<uintptr_t>(0x7521A0));
+## S26A 7521B0
+source/game_sa/RenderWare/rw/rpworld.cpp:3857: status |= RwEngineRegisterPlugin(4, 0x505, ctor(0x752270), dtor(0x7521B0));
+## S26A 752250
+source/game_sa/RenderWare/rw/rpworld.cpp:2290: ((void(__cdecl *)(RwInt32, RwInt32))0x752250)(blockSize, numBlocksToPrealloc);
+source/game_sa/RenderWare/rw/rpworld.h:2476: void RpLightSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc); // 0x752250
+## S26A 752270
+source/game_sa/RenderWare/rw/rpworld.cpp:3857: status |= RwEngineRegisterPlugin(4, 0x505, ctor(0x752270), dtor(0x7521B0));
+## S26A 7522F0
+source/game_sa/RenderWare/rw/rpworld.cpp:3973: return ((RwUInt32(__cdecl *)(const void*))0x7522F0)(vertexDeclaration);
+source/game_sa/RenderWare/rw/rpworld.h:2638: RwUInt32 _rpD3D9VertexDeclarationGetStride(const void* vertexDeclaration); // 0x7522F0
+## S26A 754B40
+source/game_sa/RenderWare/rw/rpworld.cpp:3981: return ((RwUInt32(__cdecl *)(RwUInt32, RwUInt8*, const RwUInt32*, RwInt32, RwUInt32))0x754B40)(type, mem, indices, numVerts, stride);
+source/game_sa/RenderWare/rw/rpworld.h:2644: RwUInt32 _rpD3D9VertexDeclarationInstIndices(RwUInt32 type, RwUInt8* mem, const RwUInt32* indices, RwInt32 numVerts, RwUInt32 stride); // 0x754B40
+## S27A 755BC0
+source/game_sa/RenderWare/rw/rpworld.cpp:4885: reinterpret_cast<RwPluginObjectConstructor>(0x755BC0),
+## S27A 755CE0
+source/game_sa/RenderWare/rw/rpworld.cpp:4887: reinterpret_cast<RwPluginObjectCopy>(0x755CE0));
+## S27A 755D20
+source/game_sa/RenderWare/rw/rpworld.cpp:2442: ((void(__cdecl *)(RpLight*, const RpD3D9AttenuationParams*))0x755D20)(light, params);
+source/game_sa/RenderWare/rw/rpworld.h:2491: void RpD3D9LightSetAttenuationParams(RpLight* light, const RpD3D9AttenuationParams* params); // 0x755D20
+## S27A 755D50
+source/game_sa/RenderWare/rw/rpworld.cpp:2446: ((void(__cdecl *)(const RpLight*, RpD3D9AttenuationParams*))0x755D50)(light, params);
+source/game_sa/RenderWare/rw/rpworld.h:2492: void RpD3D9LightGetAttenuationParams(const RpLight* light, RpD3D9AttenuationParams* params); // 0x755D50
+## S27A 756600
+source/game_sa/RenderWare/rw/rpworld.cpp:2462: ((void(__cdecl *)(RwBool, RwUInt32))0x756600)(enable, type);
+source/game_sa/RenderWare/rw/rpworld.h:2497: void _rwD3D9LightsEnable(RwBool enable, RwUInt32 type); // 0x756600
+## S27A 7567A0
+source/game_sa/RenderWare/rw/rpworld.cpp:4921: reinterpret_cast<QsortFn>(0x8247E0)(indices, numTriangles, 6, reinterpret_cast<CompareFn>(0x7567A0));
+## S27A 7573C0
+source/game_sa/RenderWare/rw/rpworld.cpp:3949: ((void(__cdecl *)(RxPipelineNode*, RxD3D9AllInOneLightingCallBack))0x7573C0)(node, callback);
+source/game_sa/RenderWare/rw/rpworld.h:2586: void RxD3D9AllInOneSetLightingCallBack(RxPipelineNode* node, RxD3D9AllInOneLightingCallBack callback); // 0x7573C0
+## S27A 7573D0
+source/game_sa/RenderWare/rw/rpworld.cpp:3953: return ((RxD3D9AllInOneLightingCallBack(__cdecl *)(RxPipelineNode*))0x7573D0)(node);
+source/game_sa/RenderWare/rw/rpworld.h:2587: RxD3D9AllInOneLightingCallBack RxD3D9AllInOneGetLightingCallBack(RxPipelineNode* node); // 0x7573D0
+## S27A 7573F0
+source/game_sa/RenderWare/rw/rpworld.cpp:3962: return ((RxD3D9AllInOneRenderCallBack(__cdecl *)(RxPipelineNode*))0x7573F0)(node);
+source/game_sa/RenderWare/rw/rpworld.h:2589: RxD3D9AllInOneRenderCallBack RxD3D9AllInOneGetRenderCallBack(RxPipelineNode* node); // 0x7573F0
+## S27A 758240
+source/game_sa/RenderWare/rw/rpworld.cpp:6728: reinterpret_cast<QsortFn>(0x8247E0)(elements, count, 8, reinterpret_cast<CompareFn>(0x758240));
+## S27A 758850
+source/game_sa/RenderWare/rw/rpworld.cpp:6573: reinterpret_cast<RwPluginObjectConstructor>(0x758850),
+source/game_sa/RenderWare/rw/rpworld.cpp:6581: reinterpret_cast<RwPluginObjectConstructor>(0x758850),
+## S27A 758860
+source/game_sa/RenderWare/rw/rpworld.cpp:6574: reinterpret_cast<RwPluginObjectDestructor>(0x758860),
+source/game_sa/RenderWare/rw/rpworld.cpp:6582: reinterpret_cast<RwPluginObjectDestructor>(0x758860),
+## S27A 758870
+source/game_sa/RenderWare/rw/rpworld.cpp:6575: reinterpret_cast<RwPluginObjectCopy>(0x758870));
+source/game_sa/RenderWare/rw/rpworld.cpp:6583: reinterpret_cast<RwPluginObjectCopy>(0x758870));
+## S27A 758890
+source/game_sa/RenderWare/rw/rpworld.cpp:6568: reinterpret_cast<RwPluginObjectConstructor>(0x758890),
+## S27A 7588A0
+source/game_sa/RenderWare/rw/rpworld.cpp:6569: reinterpret_cast<RwPluginObjectDestructor>(0x7588A0)) < 0) {
+## S27A 758940
+source/game_sa/RenderWare/rw/rpworld.cpp:659: return ((void*(__cdecl *)(void*, RwInt32, RwInt32))0x758940)(instance, offset, size);
+source/game_sa/RenderWare/rw/rpworld.cpp:3854: status |= RwEngineRegisterPlugin(0x30, 0x502, ctor(0x758970), dtor(0x758940));
+source/game_sa/RenderWare/rw/rpworld.h:2410: void* _rpMeshClose(void* instance, RwInt32 offset, RwInt32 size); // 0x758940
+## S27A 758970
+source/game_sa/RenderWare/rw/rpworld.cpp:655: return ((void*(__cdecl *)(void*, RwInt32, RwInt32))0x758970)(instance, offset, size);
+source/game_sa/RenderWare/rw/rpworld.cpp:3854: status |= RwEngineRegisterPlugin(0x30, 0x502, ctor(0x758970), dtor(0x758940));
+source/game_sa/RenderWare/rw/rpworld.h:2409: void* _rpMeshOpen(void* instance, RwInt32 offset, RwInt32 size); // 0x758970
+## S27A 7590E0
+source/game_sa/RenderWare/rw/rpworld.cpp:663: return ((RwInt16(__cdecl *)(void))0x7590E0)();
+source/game_sa/RenderWare/rw/rpworld.h:2411: RwInt16 _rpMeshGetNextSerialNumber(void); // 0x7590E0
+## S27A 759100
+source/game_sa/RenderWare/rw/rpworld.cpp:934: return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x759100)(buildMesh, data);
+source/game_sa/RenderWare/rw/rpworld.h:2427: RpMeshHeader* RpBuildMeshGenerateTrivialTriStrip(RpBuildMesh* buildMesh, void* data); // 0x759100
+## S27A 759640
+source/game_sa/RenderWare/rw/rpworld.cpp:1385: reinterpret_cast<QsortFn>(0x8247E0)(pointers, numTriangles, 4, reinterpret_cast<CompareFn>(0x759640));
+source/game_sa/RenderWare/rw/rpworld.cpp:7132: reinterpret_cast<QsortFn>(0x8247E0)(pointers, buildMesh->numTriangles, 4, reinterpret_cast<CompareFn>(0x759640));
+## S27A 75A8E0
+source/game_sa/RenderWare/rw/rpworld.cpp:1516: return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75A8E0)(buildmesh, data);
+source/game_sa/RenderWare/rw/rpworld.h:2431: RpMeshHeader* RpBuildMeshGenerateDefaultIgnoreWindingTriStrip(RpBuildMesh* buildmesh, void* data); // 0x75A8E0
+## S27A 75A900
+source/game_sa/RenderWare/rw/rpworld.cpp:1508: return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75A900)(buildmesh, data);
+source/game_sa/RenderWare/rw/rpworld.h:2429: RpMeshHeader* RpBuildMeshGeneratePreprocessTriStrip(RpBuildMesh* buildmesh, void* data); // 0x75A900
+## S27A 75A920
+source/game_sa/RenderWare/rw/rpworld.cpp:1520: return ((RpMeshHeader*(__cdecl *)(RpBuildMesh*, void*))0x75A920)(buildmesh, data);
+source/game_sa/RenderWare/rw/rpworld.h:2432: RpMeshHeader* RpBuildMeshGeneratePreprocessIgnoreWindingTriStrip(RpBuildMesh* buildmesh, void* data); // 0x75A920
+## S27A 75B500
+source/game_sa/RenderWare/rw/rpworld.cpp:918: return ((RwUInt32(__cdecl *)(RpTriStripPolygon*, RwUInt32, void*))0x75B500)(startPolygon, testFrame, data);
+source/game_sa/RenderWare/rw/rpworld.h:2423: RwUInt32 RpTriStripDefaultCost(RpTriStripPolygon* startPolygon, RwUInt32 testFrame, void* data); // 0x75B500
+## S28A 75BD80
+source/game_sa/RenderWare/rw/rpworld.cpp:926: return ((RpTriStripMesh*(__cdecl *)(RpTriStripMesh*, void*))0x75BD80)(mesh, data);
+source/game_sa/RenderWare/rw/rpworld.h:2425: RpTriStripMesh* RpTriStripMeshQuick(RpTriStripMesh* mesh, void* data); // 0x75BD80
+## S28A 75C330
+source/game_sa/RenderWare/rw/rpworld.cpp:914: return ((RpTriStripPolygon*(__cdecl *)(RpTriStripPolygon*, RpTriStripPolygon*))0x75C330)(curr, prev);
+source/game_sa/RenderWare/rw/rpworld.h:2422: RpTriStripPolygon* RpTriStripPolygonFollowStrip(RpTriStripPolygon* curr, RpTriStripPolygon* prev); // 0x75C330
+## S28A 75D4C0
+source/game_sa/RenderWare/rw/rpworld.cpp:1528: return ((RwBool(__cdecl *)(RpTriStripMeshCallBack, void*))0x75D4C0)(callback, data);
+source/game_sa/RenderWare/rw/rpworld.h:2434: RwBool RpMeshSetTriStripMethod(RpTriStripMeshCallBack callback, void* data); // 0x75D4C0
+## S28A 75D500
+source/game_sa/RenderWare/rw/rpworld.cpp:1532: return ((RwBool(__cdecl *)(RpTriStripMeshCallBack*, void*))0x75D500)(callback, data);
+source/game_sa/RenderWare/rw/rpworld.h:2435: RwBool RpMeshGetTriStripMethod(RpTriStripMeshCallBack* callback, void* data); // 0x75D500
+## S28A 75E2D0
+source/game_sa/RenderWare/rw/rpworld.cpp:5185: return ((RxPipeline*(__cdecl *)(RxPipeline*))0x75E2D0)(pipeline);
+source/game_sa/RenderWare/rw/rpworld.h:2656: RxPipeline* RpMaterialSetDefaultPipeline(RxPipeline* pipeline); // 0x75E2D0
+## S28A 75EDD0
+source/game_sa/RenderWare/rw/rpworld.cpp:152: return ((RwUInt32(__cdecl *)(const _rpD3D9VertexShaderDescriptor*))0x75EDD0)(desc);
+source/game_sa/RenderWare/rw/rpworld.h:2368: RwUInt32 _rpD3D9GetNumConstantsUsed(const _rpD3D9VertexShaderDescriptor* desc); // 0x75EDD0
+## S28A 75EED0
+source/game_sa/RenderWare/rw/rpworld.cpp:148: return ((void*(__cdecl *)(const _rpD3D9VertexShaderDescriptor*, _rpD3D9VertexShaderDispatchDescriptor*))0x75EED0)(desc, dispatch);
+source/game_sa/RenderWare/rw/rpworld.h:2367: void* _rpD3D9GetVertexShader(const _rpD3D9VertexShaderDescriptor* desc, _rpD3D9VertexShaderDispatchDescriptor* dispatch); // 0x75EED0
+## S28A 761000
+source/game_sa/RenderWare/rw/rpworld.cpp:172: ((void(__cdecl *)(void*, RwUInt32, _rpD3D9VertexShaderDescriptor*))0x761000)(object, type, desc);
+source/game_sa/RenderWare/rw/rpworld.h:2373: void _rxD3D9VertexShaderDefaultEndCallBack(void* object, RwUInt32 type, _rpD3D9VertexShaderDescriptor* desc); // 0x761000
+## S28A 761C30
+source/game_sa/RenderWare/rw/rpworld.cpp:3858: status |= RwEngineRegisterPlugin(0, 0x50A, ctor(0x761C30), dtor(0x761C40));
+## S28A 761C40
+source/game_sa/RenderWare/rw/rpworld.cpp:3858: status |= RwEngineRegisterPlugin(0, 0x50A, ctor(0x761C30), dtor(0x761C40));
+## S28A 761C60
+source/game_sa/RenderWare/rw/rpworld.cpp:2260: return ((const RpWorldSector*(__cdecl *)(const RpWorldSector*, RpMeshCallBack, void*))0x761C60)(sector, fpCallBack, data);
+source/game_sa/RenderWare/rw/rpworld.h:2469: const RpWorldSector* RpWorldSectorForAllMeshes(const RpWorldSector* sector, RpMeshCallBack fpCallBack, void* data); // 0x761C60
+## S28A 761CF0
+source/game_sa/RenderWare/rw/rpworld.cpp:2274: return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkAlwaysCallBack))0x761CF0)(pluginID, alwaysCB);
+source/game_sa/RenderWare/rw/rpworld.h:2472: RwInt32 RpWorldSectorSetStreamAlwaysCallBack(RwUInt32 pluginID, RwPluginDataChunkAlwaysCallBack alwaysCB); // 0x761CF0
+## S28A 761D10
+source/game_sa/RenderWare/rw/rpworld.cpp:2278: return ((RwInt32(__cdecl *)(RwUInt32, RwPluginDataChunkRightsCallBack))0x761D10)(pluginID, rightsCB);
+source/game_sa/RenderWare/rw/rpworld.h:2473: RwInt32 RpWorldSectorSetStreamRightsCallBack(RwUInt32 pluginID, RwPluginDataChunkRightsCallBack rightsCB); // 0x761D10
+## S28A 761D30
+source/game_sa/RenderWare/rw/rpworld.cpp:2282: return ((RwInt32(__cdecl *)(RwUInt32))0x761D30)(pluginID);
+source/game_sa/RenderWare/rw/rpworld.h:2474: RwInt32 RpWorldSectorGetPluginOffset(RwUInt32 pluginID); // 0x761D30
+## S28A 761D50
+source/game_sa/RenderWare/rw/rpworld.cpp:2286: return ((RwBool(__cdecl *)(const RpWorldSector*))0x761D50)(sector);
+source/game_sa/RenderWare/rw/rpworld.h:2475: RwBool RpWorldSectorValidatePlugins(const RpWorldSector* sector); // 0x761D50
+## S28A 761DE0
+source/game_sa/RenderWare/rw/rpworld.cpp:6492: status |= RpWorldRegisterPluginStream(0x1F, _rpWorldRightsStreamRead, _rpWorldRightsStreamWrite, sizeCB(0x761DE0));
+## S28A 761E80
+source/game_sa/RenderWare/rw/rpworld.cpp:6494: status |= RpWorldSectorRegisterPluginStream(0x1F, _rpWorldSectorRightsStreamRead, _rpWorldSectorRightsStreamWrite, sizeCB(0x761E80));
+## S28A 761EA0
+source/game_sa/RenderWare/rw/rpworld.cpp:5365: return ((RwUInt32(__cdecl *)(const RpWorld*))0x761EA0)(world);
+source/game_sa/RenderWare/rw/rpworld.h:2681: RwUInt32 RpWorldStreamGetSize(const RpWorld* world); // 0x761EA0
+## S28A 7635B0
+source/game_sa/RenderWare/rw/rpworld.cpp:5377: return ((RpWorldSectorChunkInfo*(__cdecl *)(RwStream*, RpWorldSectorChunkInfo*, RwInt32*))0x7635B0)(stream, worldSectorChunkInfo, bytesRead);
+source/game_sa/RenderWare/rw/rpworld.h:2684: RpWorldSectorChunkInfo* _rpWorldSectorChunkInfoRead(RwStream* stream, RpWorldSectorChunkInfo* worldSectorChunkInfo, RwInt32* bytesRead); // 0x7635B0
+## S28A 763620
+source/game_sa/RenderWare/rw/rpworld.cpp:5381: return ((RpPlaneSectorChunkInfo*(__cdecl *)(RwStream*, RpPlaneSectorChunkInfo*, RwInt32*))0x763620)(stream, planeSectorChunkInfo, bytesRead);
+source/game_sa/RenderWare/rw/rpworld.h:2685: RpPlaneSectorChunkInfo* _rpPlaneSectorChunkInfoRead(RwStream* stream, RpPlaneSectorChunkInfo* planeSectorChunkInfo, RwInt32* bytesRead); // 0x763620
+## S28A 763690
+source/game_sa/RenderWare/rw/rpworld.cpp:5385: return ((RpWorldChunkInfo*(__cdecl *)(RwStream*, RpWorldChunkInfo*, RwInt32*))0x763690)(stream, worldChunkInfo, bytesRead);
+source/game_sa/RenderWare/rw/rpworld.h:2686: RpWorldChunkInfo* _rpWorldChunkInfoRead(RwStream* stream, RpWorldChunkInfo* worldChunkInfo, RwInt32* bytesRead); // 0x763690
+## S28A 7637D0
+source/game_sa/RenderWare/rw/rpworld.cpp:3860: status |= RwEngineRegisterPlugin(0, 0x50B, ctor(0x7637E0), dtor(0x7637D0));
+## S28A 7637E0
+source/game_sa/RenderWare/rw/rpworld.cpp:3860: status |= RwEngineRegisterPlugin(0, 0x50B, ctor(0x7637E0), dtor(0x7637D0));
+## S28A 764760
+source/game_sa/RenderWare/rw/rpworld.cpp:135: ((void(__cdecl *)(void))0x764760)();
+source/game_sa/RenderWare/rw/rpworld.h:2350: void _rwD3D9VSGetWorldViewMatrix(); // 0x764760
+## S29A 764920
+source/game_sa/RenderWare/rw/rpworld.cpp:139: ((void(__cdecl *)(RwMatrix*, const RwMatrix*))0x764920)(worldMultiplyMatrix, matrix);
+source/game_sa/RenderWare/rw/rpworld.h:2356: void _rwD3D9VSGetWorldMultiplyMatrix(RwMatrix* worldMultiplyMatrix, const RwMatrix* matrix); // 0x764920

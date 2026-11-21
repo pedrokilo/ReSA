@@ -750,6 +750,7 @@ void RwCoreInjectHooksR33A();    // cuantificador de paleta (arbol, cortes, indi
 void RwPlCoreInjectHooksR33A();  // transformaciones SSE de puntos/vectores y producto de matrices (0x80CE10..0x80D370) (rwplcore.cpp)
 void RwCoreInjectHooksS22A();  // lote S22A: modulo de imagenes y destructor del modulo de texturas (rwcore.cpp)
 void RpWorldInjectHooksS23A25A();  // lotes S23A, S24A y S25A: callbacks de plugin y de flujo de RpWorld (rpworld.cpp)
+void RpWorldInjectHooksS26A29A();  // lotes S26A, S27A, S28A y S29A: plugins, tiras de triangulos, luces, sectores y listas de RpWorld (rpworld.cpp)
 void RwPlCoreInjectHooksS21A22A();  // lotes S21A y S22A: callbacks por defecto y de modulos de RwPlCore (rwplcore.cpp)
 void RwPlCoreInjectHooksR34A();  // transformaciones SSE2 de puntos/vectores con prueba de alineacion (0x80D440..0x80D600) (rwplcore.cpp)
 void RwD3D9InjectHooksR34A();    // deteccion de CPU, Im3D de D3D9 y nodos de Rx de D3D9 (0x80D680..0x80E9A0) (rwcore.cpp)
@@ -1208,6 +1209,7 @@ void InjectHooksMain() {
     RwPlCoreInjectHooksS21A22A();
     RwCoreInjectHooksS22A();
     RpWorldInjectHooksS23A25A();
+    RpWorldInjectHooksS26A29A();
     RwD3D9InjectHooksR34A();
     RwCoreInjectHooksR34A();
     RwCoreInjectHooksS15A16A();
