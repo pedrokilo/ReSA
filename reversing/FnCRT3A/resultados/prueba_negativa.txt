@@ -1,0 +1,67 @@
+== mutacion 1: CrtPow.cpp: 'eax &= 0xFF; eax += 1; eax &= 0x1FE;
+    x7 = _mm_mul_sd(x7, LdS(0x8884F0 + eax * 4));' -> 'eax &= 0xFF; eax += 1; eax &= 0x1FC;
+    x7 = _mm_mul_sd(x7, LdS(0x8884F0 + eax * 4));'
+DIFERENCIA nucleo x=412326ce17e0344a y=40361f457dfea600 exe=5a90abaa0f29c6f6/0/0 propio=5a90abaa0edeb4b5/0/0
+DIFERENCIA envoltura x=412326ce17e0344a y=40361f457dfea600
+== mutacion 2: CrtPow.cpp: 'x6 = _mm_add_pd(x6, LdP(0x889520 + eax * 4));' -> 'x6 = _mm_add_pd(x6, LdP(0x889530 + eax * 4));'
+DIFERENCIA nucleo x=3ff9a0da12083fd0 y=3f38d2a64e4d7b68 exe=3ff000bb200d8f84/0/0 propio=3ff000bb2c77f000/0/0
+DIFERENCIA envoltura x=3ff9a0da12083fd0 y=3f38d2a64e4d7b68
+== mutacion 3: CrtPow.cpp: '    x0 = _mm_add_sd(x0, x3);
+    return Ret(x0);' -> '    return Ret(x0);'
+DIFERENCIA nucleo x=3ff9a0da12083fd0 y=3f38d2a64e4d7b68 exe=3ff000bb200d8f84/0/0 propio=3f276401b1f088f2/0/0
+DIFERENCIA envoltura x=3ff9a0da12083fd0 y=3f38d2a64e4d7b68
+== mutacion 4: CrtPow.cpp: 'edx = 0x3EE;' -> 'edx = 0x3EF;'
+DIFERENCIA nucleo x=7ff9a5ae53392f8b y=bfc4fd81d3a66200 exe=7ff9a5ae53392f8b/1/1006 propio=7ff9a5ae53392f8b/1/1007
+DIFERENCIA envoltura x=7ff9a5ae53392f8b y=bfc4fd81d3a66200
+== mutacion 5: CrtPow.cpp: '    edx = 0x18;
+    if (ecx == 0) goto LA634;' -> '    edx = 0x19;
+    if (ecx == 0) goto LA634;'
+DIFERENCIA nucleo x=00feb919575932f7 y=f0a9e55861e43999 exe=7ff0000000000000/1/24 propio=7ff0000000000000/1/25
+DIFERENCIA envoltura x=00feb919575932f7 y=f0a9e55861e43999
+== mutacion 6: CrtPow.cpp: 'edx = 0x7FEF;
+    edx -= ecx;' -> 'edx = 0x7FEE;
+    edx -= ecx;'
+DIFERENCIA nucleo x=7fefffffffffffff y=c043037bb02a44e1 exe=0000000000000000/1/25 propio=7ff0000000000000/1/1006
+DIFERENCIA envoltura x=7fefffffffffffff y=c043037bb02a44e1
+== mutacion 7: CrtPow.cpp: 'edx = 0x1B;' -> 'edx = 0x1A;'
+DIFERENCIA nucleo x=8000000000000000 y=bff2fcd872c31720 exe=7ff0000000000000/1/27 propio=7ff0000000000000/1/26
+DIFERENCIA envoltura x=8000000000000000 y=bff2fcd872c31720
+== mutacion 8: CrtPow.cpp: 'if (eax < 0x3FF0u) goto LA31E;' -> 'if (eax <= 0x3FF0u) goto LA31E;'
+DIFERENCIA nucleo x=3ff1f36a05eb6b31 y=fff0000000000000 exe=0000000000000000/0/0 propio=7ff0000000000000/0/0
+DIFERENCIA envoltura x=3ff1f36a05eb6b31 y=fff0000000000000
+== mutacion 9: CrtPow.cpp: 'x3 = _mm_sub_sd(x3, LdS(0x88BD70));' -> 'x3 = _mm_sub_sd(x3, LdS(0x88BD80));'
+DIFERENCIA nucleo x=3ff9a0da12083fd0 y=3f38d2a64e4d7b68 exe=3ff000bb200d8f84/0/0 propio=cd94bc8168c85cd7/0/0
+DIFERENCIA envoltura x=3ff9a0da12083fd0 y=3f38d2a64e4d7b68
+== mutacion 10: CrtPow.cpp: '    if (UseSse2MathPath()) {
+        return PowSse2(x, y);' -> '    if (!UseSse2MathPath()) {
+        return PowSse2(x, y);'
+DIFERENCIA envoltura x=00feb919575932f7 y=f0a9e55861e43999
+DIFERENCIA envoltura x=8035f1a92a5dd099 y=c001dafc4324442e
+== mutacion 11: CrtException.cpp: 'ExeCrt::Strlen(o.m_what) + 1' -> 'ExeCrt::Strlen(o.m_what)'
+== mutacion 12: CrtException.cpp: '    if (doFree != 0) {
+        ExeFree' -> '    if (doFree != 0 && false) {
+        ExeFree'
+DIFERENCIA Destruct
+DIFERENCIA Destruct
+== mutacion 13: CrtException.cpp: '    m_doFree = 0;
+    m_vtbl' -> '    m_doFree = 1;
+    m_vtbl'
+DIFERENCIA Construct
+DIFERENCIA Construct
+== mutacion 14: CrtException.cpp: 'ThrowRuntimeError(0x887D7C, 0x887D74, 0x8A1E54)' -> 'ThrowRuntimeError(0x887D7C, 0x887D75, 0x8A1E54)'
+DIFERENCIA _Xran
+RESULTADO: HAY DIFERENCIAS
+== mutacion 15: CrtException.cpp: 'ThrowRuntimeError(0x887D94, 0x887D68, 0x893634)' -> 'ThrowRuntimeError(0x887D7C, 0x887D68, 0x893634)'
+DIFERENCIA _Xlen
+RESULTADO: HAY DIFERENCIAS
+== mutacion 16: CrtException.cpp: '    TempStringGuard guard{&tmp};' -> '    (void)0;'
+RESULTADO: SIN DIFERENCIAS
+== mutacion 17: CrtOnexit.cpp: 'unsigned int grow = size < 0x800 ? size : 0x800;' -> 'unsigned int grow = size < 0x400 ? size : 0x400;'
+DIFERENCIA onexit caso 1 (limitado=1, n=545)
+DIFERENCIA onexit caso 3 (limitado=1, n=1388)
+== mutacion 18: CrtOnexit.cpp: 'Realloc(reinterpret_cast<void*>(TableBegin()), size + 0x10)' -> 'Realloc(reinterpret_cast<void*>(TableBegin()), size + 0x20)'
+DIFERENCIA onexit caso 15529 (limitado=1, n=1435)
+RESULTADO: HAY DIFERENCIAS
+== mutacion 19: CrtOnexit.cpp: 'if (size < TableEnd() - TableBegin() + 4) {' -> 'if (size < TableEnd() - TableBegin() + 8) {'
+DIFERENCIA onexit caso 0 (limitado=1, n=285)
+DIFERENCIA onexit caso 1 (limitado=1, n=545)

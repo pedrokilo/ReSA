@@ -1,0 +1,9 @@
+pow: 300000 casos; diferencias nucleo 0x829B99: 0, envoltura 0x8220F0: 0 (coherencia del EXE: 0); banderas MXCSR distintas: 0
+  resultados: 119470 por el manejador de errores, NaN 66785, inf 28221, cero 25236, subnormal 1578; por codigo: 24:26760 25:25384 26:15 27:487 28:59940 29:39 1006:6845
+std::exception: 900000 comparaciones, 0 diferencias
+  _Xran: codigo EXE E06D7363/propio E06D7363, ThrowInfo 008A1E54/008A1E54, vtable 00887D74/00887D74, texto 'invalid string position'/'invalid string position', bloques vivos tras desenrollar 1/1
+  _Xlen: codigo EXE E06D7363/propio E06D7363, ThrowInfo 00893634/00893634, vtable 00887D68/00887D68, texto 'string too long'/'string too long', bloques vivos tras desenrollar 1/1
+_Xran/_Xlen: 2 lanzadores, 0 diferencias
+__onexit: 20000 secuencias, 0 diferencias
+fldcw: 11 palabras, cw igual en 9, mxcsr igual en 8
+RESULTADO: SIN DIFERENCIAS
