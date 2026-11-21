@@ -12546,3 +12546,9 @@ CAudioZones,TextBufferAppendTagged,0x005089B0,1,0,0,S
 CAudioZones,TextBufferAddInt,0x00508B80,1,0,0,S
 CAudioZones,TextBufferAddTyped,0x00508D30,1,0,0,S
 CAudioZones,BugstarFlushReport,0x00509190,1,0,0,S
+CPad,UpdatePads,0x00541DD0,1,0,0,S
+Input,diMouseInit,0x007469A0,1,1,0,S
+CPhysical,ApplyFrictionTurnForce,0x00543100,1,0,0,S
+CPhysical,ApplySpringDampeningOld,0x00544100,1,0,0,S
+CPhysical,ApplyScriptCollision,0x00546ED0,1,0,0,S
+CVehicle,DoSunGlare,0x006DD6F0,1,0,0,S
