@@ -1640,8 +1640,9 @@ auto SetCharHealth(CPed& ped, float health) {
  * 
  * @returns {int} health
  */
-auto GetCharHealth(CPed& ped) {
-    return ped.m_fHealth;
+// Como el original (0x47EA45: `fld [ped+0x540]; call _ftol`): la salud se guarda como ENTERO (truncado); devolver el float guardaba sus bits (100.0f = 0x42C80000) en la variable.
+int32 GetCharHealth(CPed& ped) {
+    return static_cast<int32>(ped.m_fHealth);
 }
 
 /*
