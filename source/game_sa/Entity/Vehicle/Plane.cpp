@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -588,12 +589,12 @@ static void PlaneGenerationSelect355(int32 aircraftCount){
   }
   if(state)return;
  }
- if(StaticRef<bool>(0xC0BC5C)){
+ if(DatosExe::Bss::bC0BC5C){
   if(!CTheScripts::IsPlayerOnAMission()&&uint32(previous+350000u)<CTimer::GetTimeInMS()){model=497;state=1;return;}
   if(state)return;
  }
  if(CGameLogic::LaRiotsActiveHere()){state=1;model=497;return;}
- if(!state&&StaticRef<int16>(0xC81314)!=0&&StaticRef<int16>(0xC81314)!=4&&!StaticRef<bool>(0xC0BC5C)&&StaticRef<int16>(0xC81320)!=19&&StaticRef<int16>(0xC8131C)!=19&&uint32(previous+200000u)<CTimer::GetTimeInMS()&&!CPlane::AreWeInNoBigPlaneZone()){
+ if(!state&&StaticRef<int16>(0xC81314)!=0&&StaticRef<int16>(0xC81314)!=4&&!DatosExe::Bss::bC0BC5C&&StaticRef<int16>(0xC81320)!=19&&StaticRef<int16>(0xC8131C)!=19&&uint32(previous+200000u)<CTimer::GetTimeInMS()&&!CPlane::AreWeInNoBigPlaneZone()){
   bool allowed=FindPlayerVehicle(-1,false)==nullptr;
   if(!allowed){allowed=int32(appearance())!=3;if(allowed)allowed=int32(appearance())!=5;}
   if(allowed){model=(CGeneral::GetRandomNumber()&1)?592:577;state=1;}

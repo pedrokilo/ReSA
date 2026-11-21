@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "AtomicModelInfo.h"
 
@@ -12,7 +13,7 @@ class NOTSA_EXPORT_VTABLE CDamageAtomicModelInfo : public CAtomicModelInfo {
 public:
     RpAtomic* m_pDamagedAtomic; //!< Plantilla dañada propiedad del model info.
 
-    static inline auto& ms_bCreateDamagedVersion = StaticRef<bool>(0xA9B0B0);
+    static inline auto& ms_bCreateDamagedVersion = DatosExe::Bss::bA9B0B0;
 
 public:
     CDamageAtomicModelInfo() : CAtomicModelInfo() {}

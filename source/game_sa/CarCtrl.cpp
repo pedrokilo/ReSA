@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
@@ -352,12 +353,12 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
         }
     }
     volatile float roll = Cc63eRatioCpp(exeRand());
-    const uint8 flag = StaticRef<uint8>(0x96915B);
+    const uint8 flag = DatosExe::Bss::b96915B;
     volatile float totalFloat = static_cast<float>(total);
     const auto loaded = [](int32 model) { return StaticRef<uint8>(0x8E4CD0 + static_cast<uintptr_t>(model) * 20) == 1; };
     if (Cc63eTierExceedsCpp(CPopCycle::m_NumDealers_Cars, 0.0f, 0.0f, 1, totalFloat, roll) && !flag) {
         *arg1 = 0x19;
-        const int32 model = StaticRef<uint16>(0xC0F240);
+        const int32 model = DatosExe::Bss::bC0F240;
         return loaded(model) ? model : -1;
     }
     if (Cc63eTierExceedsCpp(CPopCycle::m_NumGangs_Cars, CPopCycle::m_NumDealers_Cars, 0.0f, 2, totalFloat, roll) || flag) {
@@ -380,7 +381,7 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
                 ++gang;
             } while (current < pick);
         }
-        if (StaticRef<uint8>(0x96915B)) {
+        if (DatosExe::Bss::b96915B) {
             gang = reinterpret_cast<int32(__cdecl*)(int32, int32)>(0x407180)(0, 9);
         }
         *arg1 = gang + 14;

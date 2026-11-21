@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include <Base.h>
 #include "ZoneInfo.h"
@@ -204,7 +205,7 @@ public:
     static inline auto& m_fPercCops = StaticRef<float>(0xC0BC50);
     static inline auto& m_fPercGangs = StaticRef<float>(0xC0BC54);
     static inline auto& m_fPercDealers = StaticRef<float>(0xC0BC58);
-    static inline auto& m_bCurrentZoneIsGangArea = StaticRef<bool>(0xC0BC5C);
+    static inline auto& m_bCurrentZoneIsGangArea = DatosExe::Bss::bC0BC5C;
     static inline auto& m_fCurrentZoneDodgyness = StaticRef<float>(0xC0BC60);
     static inline auto& m_pCurrZone = StaticRef<CZone*>(0xC0BC64);
     static inline auto& m_pCurrZoneInfo = StaticRef<CZoneInfo*>(0xC0BC68);

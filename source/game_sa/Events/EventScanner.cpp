@@ -62,6 +62,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "EventScanner.h"
@@ -854,7 +855,7 @@ bool CPedAcquaintanceScanner::CreateAcquaintanceEvent(CPed* ped, int32 id, CEnti
     case 4: {
         const float visibility = ped->GetIntelligence()->CanSeeEntityWithLights(entity, 0);
         if (visibility > 0.0f) {
-            const bool toGroup = StaticRef<uint8>(0x96913F) != 0 || (CGameLogic::LaRiotsActiveHere() && CanJoinRiotAgainst(ped, other));
+            const bool toGroup = DatosExe::Bss::b96913F != 0 || (CGameLogic::LaRiotsActiveHere() && CanJoinRiotAgainst(ped, other));
             CEventAcquaintancePedHate event{ other };
             if (!toGroup) {
                 added = eventGroup().Add(&event, false) != nullptr;

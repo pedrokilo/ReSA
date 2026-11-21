@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
 #include "Vector2D.h"
@@ -27,7 +28,7 @@ using CEntryExitsPool = CPool<CEntryExit>;
 class CEntryExitManager {
 public:
     static inline auto& ms_entryExitStack = StaticRef<CEntryExit*[4]>(0x96A720);
-    static inline auto& ms_bBurglaryHousesEnabled = StaticRef<bool>(0x96A730);
+    static inline auto& ms_bBurglaryHousesEnabled = DatosExe::Bss::b96A730;
     static inline auto& ms_oldAreaCode = StaticRef<int32>(0x96A734);
     static inline auto& ms_visibleEntityList = StaticRef<CEntity*[32]>(0x96A738);
     static inline auto& ms_entryExitStackPosn = StaticRef<uint32>(0x96A7C4); // No. of enex's on the stack

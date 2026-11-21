@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include <Base.h>
@@ -42,8 +43,8 @@ public:
     static inline auto& m_InAppropriateLoadedCars = StaticRef<CLoadedCarGroup>(0xC0E9C8);
     static inline auto& m_AppropriateLoadedCars = StaticRef<CLoadedCarGroup>(0xC0E9F8);
     static inline auto& m_LoadedGangCars = StaticRef<std::array<CLoadedCarGroup, 10>>(0xC0EA28);
-    static inline auto& bZoneChangeHasHappened = StaticRef<bool>(0xC0EC22);
-    static inline auto& m_CountDownToPedsAtStart = StaticRef<uint8>(0xC0EC23);
+    static inline auto& bZoneChangeHasHappened = DatosExe::Bss::bC0EC22;
+    static inline auto& m_CountDownToPedsAtStart = DatosExe::Bss::bC0EC23;
     static inline auto& ms_nTotalMissionPeds = StaticRef<uint32>(0xC0EC24);
     static inline auto& ms_nTotalPeds = StaticRef<uint32>(0xC0EC28);
     static inline auto& ms_nTotalGangPeds = StaticRef<uint32>(0xC0EC2C);
@@ -60,7 +61,7 @@ public:
     static inline auto& m_bOnlyCreateRandomGangMembers = StaticRef<bool>(0xC0FCB3);
     static inline auto& m_bDontCreateRandomCops = StaticRef<bool>(0xC0FCB4);
     static inline auto& m_bMoreCarsAndFewerPeds = StaticRef<bool>(0xC0FCB5);
-    static inline auto& bInPoliceStation = StaticRef<bool>(0xC0FCB6);
+    static inline auto& bInPoliceStation = DatosExe::Bss::bC0FCB6;
     static inline auto& NumMiamiViceCops = StaticRef<uint32>(0xC0FCB8);
     static inline auto& CurrentWorldZone = StaticRef<uint32>(0xC0FCBC);
 

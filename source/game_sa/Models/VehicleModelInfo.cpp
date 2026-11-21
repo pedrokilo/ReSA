@@ -41,6 +41,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "X87Math.h"
 
@@ -1349,7 +1350,7 @@ void CVehicleModelInfo::SetDirtTextures(CVehicleModelInfo* info, int32 dirtLevel
 void CVehicleModelInfo::ShutdownEnvironmentMaps()
 {
     // Como el original (0x4C87D9): mov byte ptr ds:[0B4E6BCh], 0 (bandera global del EXE; antes era una estática local de la DLL)
-    StaticRef<bool>(0xB4E6BC) = false;
+    DatosExe::Bss::bB4E6BC = false;
     RwTextureDestroy(gpWhiteTexture);
     gpWhiteTexture = nullptr;
 

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "RGBA.h"
 #include "eFontAlignment.h"
@@ -81,30 +82,30 @@ public:
     // button textures array
     static inline auto& ButtonSprite = StaticRef<CSprite2d[MAX_FONT_BUTTON_SPRITES]>(0xC71AD8);
     static inline auto& PS2Symbol = StaticRef<eExtraFontSymbol>(0xC71A54);
-    static inline auto& m_bNewLine = StaticRef<bool>(0xC71A55);
+    static inline auto& m_bNewLine = DatosExe::Bss::bC71A55;
     static inline auto& m_Color = StaticRef<CRGBA>(0xC71A60);
     static inline auto& m_Scale = StaticRef<CVector2D>(0xC71A64);
     static inline auto& m_fSlant = StaticRef<float>(0xC71A6C);
     static inline auto& m_fSlantRefPoint = StaticRef<CVector2D>(0xC71A70);
-    static inline auto& m_bFontJustify = StaticRef<bool>(0xC71A78);
-    static inline auto& m_bFontCentreAlign = StaticRef<bool>(0xC71A79);
-    static inline auto& m_bFontRightAlign = StaticRef<bool>(0xC71A7A);
-    static inline auto& m_bFontBackground = StaticRef<bool>(0xC71A7B);
-    static inline auto& m_bEnlargeBackgroundBox = StaticRef<bool>(0xC71A7C);
-    static inline auto& m_bFontPropOn = StaticRef<bool>(0xC71A7D);
-    static inline auto& m_bFontIsBlip = StaticRef<bool>(0xC71A7E);
+    static inline auto& m_bFontJustify = DatosExe::Bss::bC71A78;
+    static inline auto& m_bFontCentreAlign = DatosExe::Bss::bC71A79;
+    static inline auto& m_bFontRightAlign = DatosExe::Bss::bC71A7A;
+    static inline auto& m_bFontBackground = DatosExe::Bss::bC71A7B;
+    static inline auto& m_bEnlargeBackgroundBox = DatosExe::Bss::bC71A7C;
+    static inline auto& m_bFontPropOn = DatosExe::Bss::bC71A7D;
+    static inline auto& m_bFontIsBlip = DatosExe::Bss::bC71A7E;
     static inline auto& m_fFontAlpha = StaticRef<float>(0xC71A80);
     static inline auto& m_FontBackgroundColor = StaticRef<CRGBA>(0xC71A84);
     static inline auto& m_fWrapx = StaticRef<float>(0xC71A88);
     static inline auto& m_fFontCentreSize = StaticRef<float>(0xC71A8C);
     static inline auto& m_fRightJustifyWrap = StaticRef<float>(0xC71A90);
-    static inline auto& m_FontTextureId = StaticRef<uint8>(0xC71A94);
-    static inline auto& m_FontStyle = StaticRef<uint8>(0xC71A95);
-    static inline auto& m_nFontShadow = StaticRef<uint8>(0xC71A96);
+    static inline auto& m_FontTextureId = DatosExe::Bss::bC71A94;
+    static inline auto& m_FontStyle = DatosExe::Bss::bC71A95;
+    static inline auto& m_nFontShadow = DatosExe::Bss::bC71A96;
     static inline auto& m_FontDropColor = StaticRef<CRGBA>(0xC71A97);
-    static inline auto& m_nFontOutlineSize = StaticRef<uint8>(0xC71A9B);
-    static inline auto& m_nFontOutline = StaticRef<uint8>(0xC71A9C);
-    static inline auto& m_nFontOutlineOrShadow = StaticRef<uint8>(0xC71A9C);
+    static inline auto& m_nFontOutlineSize = DatosExe::Bss::bC71A9B;
+    static inline auto& m_nFontOutline = DatosExe::Bss::bC71A9C;
+    static inline auto& m_nFontOutlineOrShadow = DatosExe::Bss::bC71A9C;
 
 public:
     static void InjectHooks();

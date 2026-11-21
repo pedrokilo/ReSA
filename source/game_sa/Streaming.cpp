@@ -26,6 +26,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "Streaming.h"
 #include "Radar.h"
@@ -2121,7 +2122,7 @@ void CStreaming::ReadIniFile() {
 
     // Como el original (0x5BCCD0..0x5BCF14): atoi (= strtol base 10) para los enteros y (float)atof para los reales; los valores pe_leftx/pe_rightx/pe_topy/
     // pe_bottomy se guardan como ENTERO en la direccion del dato (0x8D5150..0x8D515C, `mov [..],eax` tras atoi) y dontbuildpaths escribe el byte 0x96F016.
-    static auto& bDontBuildPaths = StaticRef<bool>(0x96F016);
+    static auto& bDontBuildPaths = DatosExe::Bss::b96F016;
     const auto StoreInt = [](float& dst, int32 value) { std::memcpy(&dst, &value, sizeof(value)); };
 
     bool bHasDevkitMemory = false;

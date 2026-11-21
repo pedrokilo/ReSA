@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 class CTimer {
 public:
@@ -21,9 +22,9 @@ public:
     static inline auto& ms_fnTimerFunction = StaticRef<TimerFunction_t>(0xB7CB28); // Izzotop: Added in commit 50ce121c. That should be just timerDef.
 
     // class variables
-    static inline auto& m_sbEnableTimeDebug = StaticRef<bool>(0xB7CB40);
-    static inline auto& bSkipProcessThisFrame = StaticRef<bool>(0xB7CB89);
-    static inline auto& bSlowMotionActive = StaticRef<bool>(0xB7CB88);
+    static inline auto& m_sbEnableTimeDebug = DatosExe::Bss::bB7CB40;
+    static inline auto& bSkipProcessThisFrame = DatosExe::Bss::bB7CB89;
+    static inline auto& bSlowMotionActive = DatosExe::Bss::bB7CB88;
     static inline auto& game_FPS = StaticRef<float>(0xB7CB50);
 
     static inline auto& m_CodePause = StaticRef<bool>(0xB7CB48);

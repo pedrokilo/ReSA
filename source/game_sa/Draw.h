@@ -5,10 +5,11 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 
-static inline auto& JustLoadedDontFadeInYet = StaticRef<bool>(0xC16EDC);
-static inline auto& StillToFadeOut = StaticRef<bool>(0xC16EDD);
+static inline auto& JustLoadedDontFadeInYet = DatosExe::Bss::bC16EDC;
+static inline auto& StillToFadeOut = DatosExe::Bss::bC16EDD;
 
 class CDraw {
 public:
@@ -18,10 +19,10 @@ public:
     static inline auto& ms_fFarClipZ = StaticRef<float>(0xC3EF9C);
     static inline auto& ms_fAspectRatio = StaticRef<float>(0xC3EFA4);
 
-    static inline auto& FadeRed = StaticRef<uint8>(0xC3EFA8);
-    static inline auto& FadeGreen = StaticRef<uint8>(0xC3EFA9);
-    static inline auto& FadeBlue = StaticRef<uint8>(0xC3EFAA);
-    static inline auto& FadeValue = StaticRef<uint8>(0xC3EFAB);
+    static inline auto& FadeRed = DatosExe::Bss::bC3EFA8;
+    static inline auto& FadeGreen = DatosExe::Bss::bC3EFA9;
+    static inline auto& FadeBlue = DatosExe::Bss::bC3EFAA;
+    static inline auto& FadeValue = DatosExe::Bss::bC3EFAB;
 
 public:
     static void InjectHooks();

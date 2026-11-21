@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "MenuManager_Internal.h"
 
@@ -291,8 +292,8 @@ public:
 
     static int32& nLastMenuPage;
 
-    static inline auto& bInvertMouseX = StaticRef<bool>(0xBA6744);
-    static inline auto& bInvertMouseY = StaticRef<bool>(0xBA6745);
+    static inline auto& bInvertMouseX = DatosExe::Bss::bBA6744;
+    static inline auto& bInvertMouseY = DatosExe::Bss::bBA6745;
 
     // notsa colors
 

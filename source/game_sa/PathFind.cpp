@@ -41,6 +41,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -149,7 +150,7 @@ __declspec(safebuffers) float CPathFind::CalcRoadDensity(float x, float y) {
 
 // TODO: Move into the class itself
 auto& s_pathsNeededPosn = StaticRef<CVector>(0x977B70);
-auto& s_bLoadPathsNeeded = StaticRef<bool>(0x96F030);
+auto& s_bLoadPathsNeeded = DatosExe::Bss::b96F030;
 
 // Como el original (0x44D080..): ToBeStreamed y ToBeStreamedForScript son dos globales de 64 bytes que se indexan por columnas
 // ([x * 8 + y]); el id del area (nodes%d.dat) es x + y * 8.

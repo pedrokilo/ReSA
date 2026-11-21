@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "AEAudioEntity.h"
 
@@ -29,11 +30,11 @@ public:
     };
 
     static inline auto& s_fVolumeOffset = StaticRef<float>(0xB61CF8);
-    static inline auto& s_bStoppingScanner = StaticRef<bool>(0xB61CFC);
+    static inline auto& s_bStoppingScanner = DatosExe::Bss::bB61CFC;
     static inline auto& s_pSound = StaticRef<CAESound*>(0xB61D00);
     static inline auto& s_nAbortPlaybackTime = StaticRef<uint32>(0xB61D08);
     static inline auto& s_nPlaybackStartTime = StaticRef<uint32>(0xB61D0C);
-    static inline auto& s_nSectionPlaying = StaticRef<int16>(0xB61D04);
+    static inline auto& s_nSectionPlaying = DatosExe::Bss::bB61D04;
 
     static inline auto& s_SlotState = StaticRef<int16[NUM_POLICE_SCANNER_SLOTS]>(0xB61D14);
     static inline auto& s_pCurrentSlots = StaticRef<tScannerSlot*>(0xB61D10);
@@ -42,7 +43,7 @@ public:
 
     static inline auto& s_pPSControlling = StaticRef<CAEPoliceScannerAudioEntity*>(0xB61D48);
     static inline auto& s_nScannerPlaybackState = StaticRef<CAEPoliceScannerAudioEntity::State>(0xB61D4C);
-    static inline auto& s_bScannerDisabled = StaticRef<bool>(0xB61D4E);
+    static inline auto& s_bScannerDisabled = DatosExe::Bss::bB61D4E;
     static inline auto& s_NextNewScannerDialogueTime = StaticRef<uint32>(0xB61D50);
 
 public:

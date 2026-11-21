@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "Vehicle.h"
 #include "Door.h"
@@ -80,10 +81,10 @@ public:
 
     static inline auto& GenTrain_Track = StaticRef<uint32>(0xC37FFC);
     static inline auto& GenTrain_TrainConfig = StaticRef<uint32>(0xC38000);
-    static inline auto& GenTrain_Direction = StaticRef<uint8>(0xC38004);
+    static inline auto& GenTrain_Direction = DatosExe::Bss::bC38004;
     static inline auto& GenTrain_GenerationNode = StaticRef<uint32>(0xC38008);
     static inline auto& GenTrain_Status = StaticRef<uint32>(0xC3800C);
-    static inline auto& bDisableRandomTrains = StaticRef<bool>(0xC38010);
+    static inline auto& bDisableRandomTrains = DatosExe::Bss::bC38010;
     static inline auto& aStationCoors = StaticRef<CVector[6]>(0x8D48F8);
 
     static constexpr auto Type = VEHICLE_TYPE_TRAIN;

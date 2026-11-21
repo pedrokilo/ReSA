@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "ColourSet.h"
@@ -136,7 +137,7 @@ public:
 
     // Como el original: CalcColoursForPoint guarda aquí (words) los tipos de clima viejo y nuevo que usa
     static inline auto& m_nCurrentOldWeatherType = StaticRef<int16>(0xB7CB20);
-    static inline auto& m_nCurrentNewWeatherType = StaticRef<int16>(0xB7CB24);
+    static inline auto& m_nCurrentNewWeatherType = DatosExe::Bss::bB7CB24;
 
 public:
     static void InjectHooks();

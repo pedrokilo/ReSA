@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -26,7 +27,7 @@ public:
     static inline auto& SunScreenX = StaticRef<float>(0xC3E028);
     static inline auto& SunScreenY = StaticRef<float>(0xC3E02C);
     // are there any obstacles between sun and camera
-    static inline auto& SunBlockedByClouds = StaticRef<bool>(0xC3E030);
+    static inline auto& SunBlockedByClouds = DatosExe::Bss::bC3E030;
     // frame counter for immediate corona brightness updates after camera turn (3-frame duration).
     static inline auto& bChangeBrightnessImmediately = StaticRef<int32>(0xC3E034);
     // coronas intensity multiplier

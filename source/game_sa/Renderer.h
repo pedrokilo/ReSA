@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "PtrListDoubleLink.h"
@@ -69,8 +70,8 @@ public:
 
 class CRenderer {
 public:
-    static inline auto& ms_bRenderTunnels = StaticRef<bool>(0xB745C0);
-    static inline auto& ms_bRenderOutsideTunnels = StaticRef<bool>(0xB745C1);
+    static inline auto& ms_bRenderTunnels = DatosExe::Bss::bB745C0;
+    static inline auto& ms_bRenderOutsideTunnels = DatosExe::Bss::bB745C1;
     static inline auto& ms_pLodDontRenderList = StaticRef<tRenderListEntry*>(0xB745CC);
     static inline auto& ms_pLodRenderList = StaticRef<tRenderListEntry*>(0xB745D0);
     static inline auto& m_pFirstPersonVehicle = StaticRef<CVehicle*>(0xB745D4);

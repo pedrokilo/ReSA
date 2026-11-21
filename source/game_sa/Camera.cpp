@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -43,7 +44,7 @@ END GENERATED HOOK STATUS */
 #include "HandShaker.h"
 
 auto& TheCamera = StaticRef<CCamera>(0xB6F028);
-auto& gbModelViewer = StaticRef<bool>(0xBA6728);
+auto& gbModelViewer = DatosExe::Bss::bBA6728;
 auto& gbCineyCamMessageDisplayed = DatosExe::Data::v8CC381; // 2
 auto& gCameraDirection = DatosExe::Data::v8CC384;         // 3
 auto& gCameraMode = StaticRef<eCamMode>(0x8CC388);        // -1
@@ -443,7 +444,7 @@ void CCamera::Init() {
     m_fPlayerExhaustion = 1.0f;
     m_fPedOrientForBehindOrInFront = 0.0f;
     // 0xBA67A5 = CMenuManager::m_bStartGameLoading
-    if (!StaticRef<uint8>(0xBA67A5)) {
+    if (!DatosExe::Bss::bBA67A5) {
         m_bFading = false;
         CDraw::FadeValue = 0;
         m_fFadeAlpha = 0.0f;
@@ -452,7 +453,7 @@ void CCamera::Init() {
         m_fEffectsFaderScalingFactor = 0.0f;
         m_fMouseAccelVertical = std::bit_cast<float>(0x3AC49BA6u);
     }
-    if (StaticRef<uint8>(0xBA67A5) == 1) {
+    if (DatosExe::Bss::bBA67A5 == 1) {
         m_fTimeToFadeMusic = 0.0f;
     }
     m_bStartingSpline = false;
@@ -1915,7 +1916,7 @@ constexpr ObbeCinemaKind ObbeBoat{0x8CCEFC, 0xB70130, 0x8CC8B0, 3, false, false,
 
 void CameraObbeCinemaCycle(CCamera& camera, const ObbeCinemaKind& kind) {
     auto& processed = StaticRef<uint8>(0xB6EC2D);        // CCamera::bDidWeProcessAnyCinemaCam
-    auto& cinemaActive = StaticRef<uint8>(0xB6EC34);
+    auto& cinemaActive = DatosExe::Bss::bB6EC34;
     auto& messageCount = DatosExe::Data::v8CC381;      // gbCineyCamMessageDisplayed
     const auto step = [] { return int32(DatosExe::Data::v8CC471); };
     auto& index = StaticRef<int32>(kind.indexAddress);
@@ -2339,7 +2340,7 @@ void CCamera::AvoidTheGeometry(const CVector& source, const CVector& target, CVe
     if (CWorld::ProcessLineOfSight(target, out, colPoint, hitEntity, true, false, false, true, false, false, true, false)) {
         const CVector firstHit = colPoint.m_vecPoint;
         out = firstHit;
-        if (StaticRef<uint8>(0xB6EC65) != 0
+        if (DatosExe::Bss::bB6EC65 != 0
             && CWorld::ProcessLineOfSight(out, target, colPoint, hitEntity, false, true, true, true, false, false, true, false)) {
             const CVector secondHit = colPoint.m_vecPoint;
             if (distance(out, secondHit) < double(rwCamera()->nearPlane)) {
@@ -2571,7 +2572,7 @@ CVector* CCamera::ProcessShake(float intensity) {
     (void)intensity; // el EXE ignora el argumento y lee m_fShakeIntensity (+0xC90)
 
     // Tabla de parametros de temblor (0xB6ECA0, entradas de 0x94 bytes): el EXE la rellena la primera vez (guarda 0xB70048), en este orden.
-    if (!StaticRef<bool>(0xB70048)) {
+    if (!DatosExe::Bss::bB70048) {
         const auto put = [](uintptr_t address, uint32 bits) { StaticRef<uint32>(address) = bits; };
         put(0xB6ED40, 0x3CA3D70A); put(0xB6ED44, 0x3CA3D70A); put(0xB6ED4C, 0x3951B717); put(0xB6ED48, 0x3C23D70A);
         put(0xB6ED50, 0x3951B717); put(0xB6ED64, 0x3FA66666); put(0xB6ED54, 0x38D1B717); put(0xB6ED68, 0x3FA66666);
@@ -2579,7 +2580,7 @@ CVector* CCamera::ProcessShake(float intensity) {
         put(0xB6EDDC, 0x3D23D70A); put(0xB6EDE4, 0x3951B717); put(0xB6EDF8, 0x3FA66666); put(0xB6EDE8, 0x38D1B717);
         put(0xB6EDFC, 0x3FA66666); put(0xB6EE68, 0x3CA3D70A); put(0xB6EE6C, 0x3CA3D70A); put(0xB6EE00, 0x3FB33333);
         put(0xB6EE70, 0x3C23D70A); put(0xB6EE74, 0x3951B717);
-        StaticRef<bool>(0xB70048) = true;
+        DatosExe::Bss::bB70048 = true;
         put(0xB6EDB8, 0x3E99999A); put(0xB6EDBC, 0x3F800000); put(0xB6EDC0, 0x0000000F); put(0xB6EDC4, 0x3A83126F);
         put(0xB6EE4C, 0x3E99999A); put(0xB6EE50, 0x3F800000); put(0xB6EE54, 0x00000014); put(0xB6EE58, 0x3A83126F);
         put(0xB6EE78, 0x3951B717); put(0xB6EE7C, 0x38D1B717);
@@ -2719,7 +2720,7 @@ void CCamera::Process() {
             CVector side = CrossProduct(front, up); side.Normalise();
             up = CrossProduct(side, front); up.Normalise();
         }
-        StaticRef<bool>(0xB70143) = false;
+        DatosExe::Bss::bB70143 = false;
         fov = active.m_fFOV;
     } else {
         const uint32 elapsed = std::min(CTimer::GetTimeInMS() - m_nTimeTransitionStart, m_nTransitionDuration);
@@ -2796,11 +2797,11 @@ void CCamera::Process() {
     if (amount > 0.f && int(m_nBlurType) != 1) m_nMotionBlurAddAlpha = uint32(std::min(150, 25 - CameraProcessTruncateProduct(shake, DatosExe::Rdata::k86327C)));
     if (int(GetActiveCam().m_nMode) == 16 && FindPlayerVehicle(-1, false) && FindPlayerVehicle(-1, false)->GetMatrix().GetUp().z < .2f) {
         m_nBlurBlue = 255; m_nBlurGreen = 255; m_nBlurRed = 255; m_nBlurType = static_cast<eMotionBlurType>(1); m_nMotionBlur = 240;
-        StaticRef<bool>(0xB70142) = true;
-    } else if (StaticRef<bool>(0xB70142)) StaticRef<bool>(0xB70142) = false;
+        DatosExe::Bss::bB70142 = true;
+    } else if (DatosExe::Bss::bB70142) DatosExe::Bss::bB70142 = false;
     CDraw::SetFOV(fov); CalculateDerivedValues(false, true); CopyCameraMatrixToRWCam(false);
     m_vecGameCamPos = m_mCameraMatrix.GetPosition(); UpdateSoundDistances();
-    m_fLODDistMultiplier = !StaticRef<bool>(0xB5F851) || StaticRef<bool>(0xB5F853) ? 70.f / CDraw::ms_fFOV : 1.f;
+    m_fLODDistMultiplier = !StaticRef<bool>(0xB5F851) || DatosExe::Bss::bB5F853 ? 70.f / CDraw::ms_fFOV : 1.f;
     m_fGenerationDistMultiplier = m_fLODDistMultiplier;
     m_fLODDistMultiplier *= CRenderer::ms_lodDistScale;
     const int32 farClip = CameraProcessTruncateProduct(StaticRef<float>(uintptr_t(Scene.m_pRwCamera) + 0x84), 100.f);
@@ -3403,7 +3404,7 @@ void CameraControlFinish(CCamera& camera, uint16 initialMode, bool cinematicAllo
             && (camera.m_bLookingAtPlayer || camera.m_nWhoIsInControlOfTheCamera == 2)
             && !camera.m_bWideScreenOn
             && (camera.m_nWhoIsInControlOfTheCamera != 2
-                || (StaticRef<uint8>(0xB6EC34) == 1
+                || (DatosExe::Bss::bB6EC34 == 1
                     && *reinterpret_cast<int16*>(reinterpret_cast<uint8*>(CPad::GetPad(0)) + 0x10E) == 0))) {
             AudioEngine.ReportFrontendAudioEvent(static_cast<eAudioEvents>(32), 0.0f, 1.0f);
         }
@@ -3431,7 +3432,7 @@ uint16 CameraControlBegin(CCamera& camera) {
     camera.m_bTargetJustCameOffTrain = false;
     camera.m_bInATunnelAndABigVehicle = false;
     camera.m_bJustJumpedOutOf1stPersonBecauseOfTarget = false;
-    StaticRef<uint8>(0xB6EC34) = 0;
+    DatosExe::Bss::bB6EC34 = 0;
     if (!camera.m_aCams[camera.m_nActiveCam].m_pCamTargetEntity && !camera.m_pTargetEntity) {
         const auto player = StaticRef<uint8>(0xB7CD74);
         camera.m_pTargetEntity = *reinterpret_cast<CPed**>(0xB7CD98 + player * 400);
@@ -3457,7 +3458,7 @@ uint16 CameraControlBegin(CCamera& camera) {
 // 0x52A002..0x52A2C7: cooperative mode and arrest/death overrides.
 // Returns the previous arrest latch, which participates in jump selection below.
 bool CameraControlApplyPlayerOverrides(CCamera& camera) {
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     auto& cam = camera.m_aCams[camera.m_nActiveCam];
     auto* const player0 = StaticRef<CPed*>(0xB7CD98);
     auto* const player1 = StaticRef<CPed*>(0xB7CF28);
@@ -3477,7 +3478,7 @@ bool CameraControlApplyPlayerOverrides(CCamera& camera) {
     }
     const auto activePlayer = StaticRef<uint8>(0xB7CD74);
     const auto player = *reinterpret_cast<CPed**>(0xB7CD98 + activePlayer * 400);
-    auto& arrestLatch = StaticRef<uint8>(0xB7013C);
+    auto& arrestLatch = DatosExe::Bss::bB7013C;
     const bool wasArrested = player->m_nPedState != PEDSTATE_ARRESTED && arrestLatch != 0;
     if (player->m_nPedState == PEDSTATE_ARRESTED) {
         arrestLatch = 1;
@@ -3533,13 +3534,13 @@ void CameraControlApplyRestore(CCamera& camera) {
     if (!camera.m_bRestoreByJumpCut) {
         return;
     }
-    const auto requested = StaticRef<uint16>(0xB70140);
+    const auto requested = DatosExe::Bss::bB70140;
     if (!CameraControlModeIn(requested, {4, 34, 7, 8, 51, 46, 11, 28, 35, 18, 3})
         && StaticRef<uint8>(0xB6EC2E) == 0) {
         camera.SetCameraDirectlyBehindForFollowPed_CamOnAString();
     }
     auto& cam = camera.m_aCams[camera.m_nActiveCam];
-    StaticRef<uint16>(0xB70140) = static_cast<uint16>(camera.m_nModeToGoTo);
+    DatosExe::Bss::bB70140 = static_cast<uint16>(camera.m_nModeToGoTo);
     cam.m_nMode = camera.m_nModeToGoTo;
     camera.m_bJust_Switched = true;
     cam.m_bResetStatics = true;
@@ -3553,7 +3554,7 @@ void CameraControlApplyRestore(CCamera& camera) {
 // Those five EXE collaborators have no reconstructed body in this catalogue;
 // their exact thiscall entry points are deliberately external to CamControl.
 bool CameraControlApplyCinematic(CCamera& camera, bool& jump) {
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     auto& cam = camera.m_aCams[camera.m_nActiveCam];
     if (gbModelViewer) {
         requested = 9;
@@ -3631,7 +3632,7 @@ void CameraControlStepZoom(float& value, float target) {
 }
 // 0x528AC6..0x528CEB: per-appearance car zoom and cull height buffering.
 void CameraControlVehicleZoom(CCamera& camera) {
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     const auto vehicle = static_cast<CVehicle*>(camera.m_pTargetEntity);
     int32 zoomIndex = 0;
     camera.GetArrPosForVehicleType(static_cast<eVehicleType>(vehicle->GetVehicleAppearance()), zoomIndex);
@@ -3700,7 +3701,7 @@ void CameraControlPedZoom(CCamera& camera) {
 }
 // 0x52B252..0x52B4FB: script control and temporarily permitted first person.
 void CameraControlScriptTransition(CCamera& camera) {
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     bool changeNow = false;
     bool useWeaponMode = false;
     if (camera.m_bEnable1rstPersonCamCntrlsScript || camera.m_bAllow1rstPersonWeaponsCamera) {
@@ -3745,7 +3746,7 @@ void CameraControlScriptTransition(CCamera& camera) {
 }
 // 0x52ADD6..0x52B24D: choose interpolation, continuation, or an immediate switch.
 void CameraControlPlayerTransition(CCamera& camera, bool jump) {
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     auto& cam = camera.m_aCams[camera.m_nActiveCam];
     const auto oldMode = CameraControlMode(cam);
     if (requested != oldMode && !cam.m_pCamTargetEntity) {
@@ -3821,7 +3822,7 @@ void CameraControlPolarSource(float angle, float radius, const CVector& position
 }
 // 0x529BA3..0x52A002: queued player/weapon modes and fixed dead-target aiming.
 void CameraControlWeaponMode(CCamera& camera, bool stairs) {
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     const auto weaponMode = camera.m_PlayerWeaponMode.m_nMode;
     if (!CPad::GetPad(0)->GetTarget() && weaponMode != 0
         && !CameraControlModeIn(weaponMode, {45, 55, 65})
@@ -3875,10 +3876,10 @@ void CameraControlWeaponMode(CCamera& camera, bool stairs) {
             }
         }
         if (requested != 35) {
-            StaticRef<uint8>(0xB7013D) = 0;
+            DatosExe::Bss::bB7013D = 0;
             return;
         }
-        if (StaticRef<uint8>(0xB7013D) == 0) {
+        if (DatosExe::Bss::bB7013D == 0) {
             CVector source;
             CameraControlPolarSource(azimuth, fixedDistance, camera.m_pTargetEntity->GetPosition(), source);
             CColPoint collision;
@@ -3889,7 +3890,7 @@ void CameraControlWeaponMode(CCamera& camera, bool stairs) {
             } else {
                 camera.SetCamPositionForFixedMode(source, CVector{0.0f, 0.0f, 0.0f});
             }
-            StaticRef<uint8>(0xB7013D) = 1;
+            DatosExe::Bss::bB7013D = 1;
         }
         return;
     }
@@ -3905,7 +3906,7 @@ bool CameraControlCycleUp(CPad* pad) {
     return pad->GetCameraCycleUp();
 }
 void CameraControlVehicleCycle(CCamera& camera) {
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     const bool cycle = CameraControlCycleUp(CPad::GetPad(0)) || CPad::GetPad(0)->sub_5404F0();
     if (cycle && StaticRef<uint8>(0xA43088) != 1 && !camera.m_bWideScreenOn) {
         if (!camera.m_bFailedCullZoneTestPreviously
@@ -3946,7 +3947,7 @@ void CameraControlPedCycle(CCamera& camera) {
         }
         camera.m_nPedZoom = zoom;
     }
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     requested = 4;
     bool maintainFirstPerson = false;
     if ((camera.m_bLookingAtPlayer || camera.m_bEnable1rstPersonCamCntrlsScript)
@@ -4009,7 +4010,7 @@ float CameraControlTargetHeadingMinusHalfPi(CPed* ped) {
 }
 // 0x52A714..0x52ADD6: native mode-pair jump rules and transition beta.
 void CameraControlChooseJump(CCamera& camera, bool stairs, bool wasArrested, bool& jump) {
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     auto& cam = camera.m_aCams[camera.m_nActiveCam];
     const auto oldMode = CameraControlMode(cam);
     if (CameraControlModeIn(requested, {1, 16, 37})
@@ -4189,7 +4190,7 @@ void CameraControlLeaveGarage(CCamera& camera) {
 }
 // 0x52829E..0x528AC6: vehicle garage and stairs selection.
 void CameraControlVehicleGarage(CCamera& camera, bool& stairs) {
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     const auto vehicle = static_cast<CVehicle*>(camera.m_pTargetEntity);
     auto vehicleType = vehicle->m_nVehicleType;
     if (vehicleType == VEHICLE_TYPE_BOAT && vehicle->m_nModelIndex != 460) {
@@ -4264,7 +4265,7 @@ void CameraControlVehicleGarage(CCamera& camera, bool& stairs) {
 }
 // 0x52915F..0x529B9E: pedestrian garage/stairs camera geometry.
 void CameraControlPedGarage(CCamera& camera, bool& stairs) {
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     CAttributeZone* zone = nullptr;
     if (CCullZones::CamStairsForPlayer()) {
         zone = CCullZones::FindZoneWithStairsAttributeForPlayer();
@@ -4350,7 +4351,7 @@ void CCamera::CamControl() {
     const auto initialMode = CameraControlBegin(*this);
     bool jump = false;
     bool stairs = false;
-    auto& requested = StaticRef<uint16>(0xB70140);
+    auto& requested = DatosExe::Bss::bB70140;
     if (StaticRef<uint8>(0xB7CB49) == 0 && StaticRef<uint8>(0xB7CB48) == 0 && !m_bIdleOn) {
         if (m_bTargetJustBeenOnTrain
             && (!m_pTargetEntity->GetIsTypeVehicle()

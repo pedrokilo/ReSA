@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
 #include <PlantColEntEntry.h>
@@ -20,7 +21,7 @@ public:
     static inline auto& PC_PlantTextureTab = StaticRef<RwTexture*[4][4]>(0xC039A0);
     static inline auto& PC_PlantModelsTab = StaticRef<RpAtomic*[4][4]>(0xC039F0);
 
-    static inline auto& m_scanCode = StaticRef<int16>(0xC03980);
+    static inline auto& m_scanCode = DatosExe::Bss::bC03980;
     static inline auto& m_UnusedLocTriListHead = StaticRef<CPlantLocTri*>(0xC03984);
     static inline auto& m_CloseLocTriListHead = StaticRef<CPlantLocTri*[4]>(0xC03988);
     static inline auto& m_UnusedColEntListHead = StaticRef<CPlantColEntEntry*>(0xC03998);

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "CutsceneObject.h"
 
@@ -222,7 +223,7 @@ void CCutsceneObject::RemoveLighting(bool bRemove) {
 // Calcula una vez las claves de nombres de modelo y configura el pipeline de
 // vehículos solo para los atomics de modelos reconocidos en las cinemáticas.
 void CCutsceneObject::SetupCarPipeAtomicsForClump(unsigned modelId, RpClump* clump) {
-    static auto& bCarPipeAtomicsInitialized = StaticRef<bool>(0xBC4058); // false
+    static auto& bCarPipeAtomicsInitialized = DatosExe::Bss::bBC4058; // false
     static auto& anHashKeys = StaticRef<uint32[NUM_CUTSCENE_VEHS]>(0xBC4040);
 
     if (!bCarPipeAtomicsInitialized) {

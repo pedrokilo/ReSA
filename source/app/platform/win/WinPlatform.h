@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #define APP_CLASS "Grand theft auto San Andreas"
 
@@ -39,7 +40,7 @@ struct OSStatus {
 };
 inline auto& s_OSStatus = StaticRef<OSStatus>(0xC8CF68);
 
-inline auto& anisotropySupportedByGFX = StaticRef<bool>(0xC87FFC);
+inline auto& anisotropySupportedByGFX = DatosExe::Bss::bC87FFC;
 inline auto& isForeground = StaticRef<bool>(0xC920EC);
 inline auto& Windowed = StaticRef<bool>(0xC920CC);
 

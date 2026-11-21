@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "Physical.h"
@@ -92,7 +93,7 @@ public:
     uint32        m_nBurnTime;     // time when particles must be stopped
     float         m_fBurnDamage;
 
-    static inline auto& nNoTempObjects = StaticRef<uint16>(0xBB4A70);
+    static inline auto& nNoTempObjects = DatosExe::Bss::bBB4A70;
     static inline auto& fDistToNearestTree = DatosExe::Data::v8D0A20;
     static inline auto& bAircraftCarrierSamSiteDisabled = StaticRef<bool>(0x8D0A24);
     static inline auto& bArea51SamSiteDisabled = StaticRef<bool>(0xBB4A72);

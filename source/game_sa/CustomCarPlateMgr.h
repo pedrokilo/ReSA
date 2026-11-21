@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "RenderWare.h"
 
@@ -29,7 +30,7 @@ private:
     
     static inline auto& pCharsetTex = StaticRef<RwTexture*>(0xC3EF5C);
     static inline auto& CurrentLicensePlateMaterial = StaticRef<RpMaterial*>(0xC3EF7C);
-    static inline auto& CurrentLicensePlateType = StaticRef<uint8>(0xC3EF80);
+    static inline auto& CurrentLicensePlateType = DatosExe::Bss::bC3EF80;
     static inline auto& pPlatebackTexTab = StaticRef<RwTexture*[3]>(0xC3EF60);
     static inline auto& pPalette1555Tab = StaticRef<void*[3]>(0xC3EF6C);
     static inline auto& pCharsetLockedData = StaticRef<RwUInt8*>(0xC3EF78); 

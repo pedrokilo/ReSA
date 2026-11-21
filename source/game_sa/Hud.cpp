@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataCadenas.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -934,7 +935,7 @@ void CHud::DrawHelpText() {
     const float offset = DatosExe::Data::v8D0938;
     float x = sx * 34.f, y = sy * 28.f + ((150.f - offset) * .6f) * sy;
     if (!m_nHelpMessageStatId) {
-        const int shift = TheCamera.m_bWideScreenOn && !StaticRef<bool>(0xBA6793) ? 56 : 0;
+        const int shift = TheCamera.m_bWideScreenOn && !DatosExe::Bss::bBA6793 ? 56 : 0;
         y = sy * 28.f + ((float(150 + shift) - offset) * .6f) * sy;
     } else {
         const char* format = m_nHelpMessageStatId < 10 ? "STAT00%d" : m_nHelpMessageStatId < 100 ? "STAT0%d" : "STAT%d";
@@ -973,11 +974,11 @@ void CHud::DrawMissionTimers() {
     auto* flags = reinterpret_cast<uint8*>(0xBAA394);
     if (coop && !clock[0x38]) StaticRef<uint8>(0xBAA38A) = 0;
     for (int i = 0; i < 4; ++i) if (!*reinterpret_cast<const uint8*>(0xBA1806 + 0x44 * i)) flags[i] = 0;
-    if (StaticRef<uint8>(0xBA18D8) != 1) return;
+    if (DatosExe::Bss::bBA18D8 != 1) return;
     GxtChar text[200];
     const float textX = float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C;
     if (clock[0x38] == 1) {
-        auto& blink = StaticRef<int16>(0xBAA388);
+        auto& blink = DatosExe::Bss::bBAA388;
         if (!StaticRef<uint8>(0xBAA38A)) blink = 1;
         StaticRef<uint8>(0xBAA38A) = 1;
         if (blink && ++blink > 50) blink = 0;
@@ -1413,7 +1414,7 @@ void CHud::DrawSubtitles() {
     CFont::SetDropColor(CRGBA{0,0,0,255});
     const double sx = double(RsGlobal.maximumWidth) * double(0.0015625f);
     const double sy = double(RsGlobal.maximumHeight) * double(0.002232143f);
-    auto& wasWidescreen = StaticRef<bool>(0xBAB214);
+    auto& wasWidescreen = DatosExe::Bss::bBAB214;
     float x, y;
     if (!TheCamera.m_bWideScreenOn) {
         if (wasWidescreen) m_Message[0] = 0;
@@ -1438,7 +1439,7 @@ void CHud::DrawSubtitles() {
         }
     } else {
         wasWidescreen = true;
-        if (!StaticRef<bool>(0xBA678C) && CCutsceneMgr::ms_running) {
+        if (!DatosExe::Bss::bBA678C && CCutsceneMgr::ms_running) {
             CFont::SetDropShadowPosition(0);
             return;
         }
@@ -1657,7 +1658,7 @@ void CHud::DrawVitalStats() {
         labelY = int16(int32(float(labelY) + sy * DatosExe::Rdata::k858B48 + (i==3?sy*DatosExe::Rdata::k858B3C:0.f)));
     }
     CFont::SetFontStyle(static_cast<eFontStyle>(3)); CFont::SetOrientation(static_cast<eFontAlignment>(2)); CFont::SetScale(sx * DatosExe::Rdata::k858CB0, sy * DatosExe::Rdata::k858CB0); CFont::SetEdge(1); CFont::SetColor(CRGBA(200, 200, 200, 255)); CFont::SetDropColor(CRGBA(0, 0, 0, 255));
-    std::sprintf(gString, "DAY_%d", int(StaticRef<uint8>(0xB7014E)));
+    std::sprintf(gString, "DAY_%d", int(DatosExe::Bss::bB7014E));
     CFont::PrintString(sx * DatosExe::Rdata::k858970 + 40.f, float(labelY), TheText.Get(gString));
 }
 
@@ -1771,7 +1772,7 @@ void CHud::DrawPlayerInfo() {
     };
     if (StaticRef<uint32>(0xBAA400) == 1) {
         typography(); CFont::SetDropColor(CRGBA(0, 0, 0, 255));
-        std::sprintf(ascii, "%02d:%02d", int(StaticRef<uint8>(0xB70153)), int(StaticRef<uint8>(0xB70152))); AsciiToGxtChar(ascii, text);
+        std::sprintf(ascii, "%02d:%02d", int(StaticRef<uint8>(0xB70153)), int(DatosExe::Bss::bB70152)); AsciiToGxtChar(ascii, text);
         CFont::SetColor(HudColour.GetRGB(static_cast<eHudColours>(4))); CFont::PrintString(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C, sy * DatosExe::Rdata::k858F8C, text); CFont::SetEdge(0);
     }
     const auto fadeElement = [&](uintptr_t address, int current) {
@@ -1964,7 +1965,7 @@ void CHud::DrawWanted() {
     }
     m_WantedState = uint32(state); m_WantedFadeTimer = uint32(fade); m_WantedTimer = uint32(timer);
     if (alpha < 0.f) alpha = 0.f; else if (alpha > 255.f) alpha = 255.f;
-    StaticRef<bool>(0xBAB228) = !changed;
+    DatosExe::Bss::bBAB228 = !changed;
     if (!state) return;
     const float sx = float(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520, sy = float(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524;
     const float width = sx * DatosExe::Rdata::k866C60, height = sy * DatosExe::Rdata::k866C64;
@@ -1972,7 +1973,7 @@ void CHud::DrawWanted() {
     CFont::SetOrientation(static_cast<eFontAlignment>(2)); CFont::SetProportional(true); CFont::SetFontStyle(static_cast<eFontStyle>(0));
     GxtChar star[20]; AsciiToGxtChar("]", star);
     float x = float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k863210;
-    if (!(wanted > 0 && StaticRef<bool>(0xBAB228)) && parole <= 0) return;
+    if (!(wanted > 0 && DatosExe::Bss::bBAB228) && parole <= 0) return;
     const uint8 opacity = uint8(int32(alpha));
     for (int i = 0; i < 6; ++i) {
         CFont::SetEdge(1); CFont::SetDropColor(CRGBA(0, 0, 0, opacity)); CFont::SetScale(width, height);

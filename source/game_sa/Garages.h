@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "Garage.h"
 
@@ -23,16 +24,16 @@ public:
     static inline auto& MessageIDString = StaticRef<char[8]>(0x96C014);
     static inline auto& LastGaragePlayerWasIn = StaticRef<int32>(0x96BFDC);
     static inline auto& LastTimeHelpMessage = StaticRef<int32>(0x96BFE0);
-    static inline auto& bCamShouldBeOutside = StaticRef<bool>(0x96BFE4);
+    static inline auto& bCamShouldBeOutside = DatosExe::Bss::b96BFE4;
     static inline auto& CrushedCarId = StaticRef<int32>(0x96BFE8);
     static inline auto& CarTypesCollected = StaticRef<int32[MAX_CARS_IN_SAFEHOUSE]>(0x96BFEC);
     static inline auto& PoliceCarsCollected = StaticRef<int32>(0x96BFFC);
     static inline auto& BankVansCollected = StaticRef<int32>(0x96C000);
     static inline auto& CarsCollected = StaticRef<int32>(0x96C004);
     static inline auto& NoResprays = StaticRef<bool>(0x96C008);
-    static inline auto& RespraysAreFree = StaticRef<int8>(0x96C009);
-    static inline auto& BombsAreFree = StaticRef<int8>(0x96C00A);
-    static inline auto& PlayerInGarage = StaticRef<int8>(0x96C00B);
+    static inline auto& RespraysAreFree = DatosExe::Bss::b96C009;
+    static inline auto& BombsAreFree = DatosExe::Bss::b96C00A;
+    static inline auto& PlayerInGarage = DatosExe::Bss::b96C00B;
     static inline auto& MessageNumberInString = StaticRef<int32>(0x96C00C);
     static inline auto& MessageNumberInString2 = StaticRef<int32>(0x96C010);
     static inline auto& MessageEndTime = StaticRef<uint32>(0x96C01C);

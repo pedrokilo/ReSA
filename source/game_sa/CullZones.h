@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
 
@@ -148,7 +149,7 @@ public:
     static inline auto& aTunnelAttributeZones = StaticRef<std::array<CAttributeZone, 40>>(0xC81C80);
     static inline auto& aMirrorAttributeZones = StaticRef<std::array<CMirrorAttributeZone, 72>>(0xC815C0);
 
-    static inline auto& bRenderCullzones = StaticRef<bool>(0xC87ACC); // unused
+    static inline auto& bRenderCullzones = DatosExe::Bss::bC87ACC; // unused
 
 public:
     static void InjectHooks();

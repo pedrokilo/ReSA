@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
 #include "RGBA.h"
@@ -211,7 +212,7 @@ public:
 
     static inline auto& m_radarRange = StaticRef<float>(0xBA8314); // 2990.0 by default
     static inline auto& MapLegendList = StaticRef<std::array<int16, MAX_RADAR_TRACES>>(0xBA8318); // do not convert int16 to eRadarSprite, they have different sizes.
-    static inline auto& MapLegendCounter = StaticRef<uint16>(0xBA86B8); // num icons in legend
+    static inline auto& MapLegendCounter = DatosExe::Bss::bBA86B8; // num icons in legend
     static inline auto& ArrowBlipColour = StaticRef<std::array<CRGBA, 6>>(0xBA86D4);
     static inline auto& ms_RadarTrace = StaticRef<std::array<tRadarTrace, MAX_RADAR_TRACES>>(0xBA86F0);
     static inline auto& vec2DRadarOrigin = StaticRef<CVector2D>(0xBAA248);

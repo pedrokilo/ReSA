@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "Ped.h"
 #include "Pad.h"
@@ -23,7 +24,7 @@ public:
     int32 field_7A0;
 
     // did we display "JCK_HLP" message
-    static inline auto& bHasDisplayedPlayerQuitEnterCarHelpText = StaticRef<bool>(0xC0BC15);
+    static inline auto& bHasDisplayedPlayerQuitEnterCarHelpText = DatosExe::Bss::bC0BC15;
 
     // Android
     static bool bDebugPlayerInvincible;

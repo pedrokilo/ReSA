@@ -6,6 +6,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "Vector.h"
@@ -206,7 +207,7 @@ public:
 
     static inline auto& ms_pExtraObjectsDir = StaticRef<CDirectory*>(0x8E48D0);
     static inline auto& ms_files = StaticRef<tStreamingFileDesc[TOTAL_IMG_ARCHIVES]>(0x8E48D8);
-    static inline auto& ms_bLoadingBigModel = StaticRef<bool>(0x8E4A58);
+    static inline auto& ms_bLoadingBigModel = DatosExe::Bss::b8E4A58;
     // There are only two channels within CStreaming::ms_channel
     static inline auto& ms_channel = StaticRef<std::array<tStreamingChannel, 2>>(0x8E4A60);
     static inline auto& ms_channelError = StaticRef<int32>(0x8E4B90);
@@ -248,15 +249,15 @@ public:
     static inline auto& ms_aInfoForModel = StaticRef<std::array<CStreamingInfo, 26316>>(0x8E4CC0);
     static inline auto& ms_disableStreaming = StaticRef<bool>(0x9654B0);
     static inline auto& ms_bIsInitialised = StaticRef<int32>(0x9654B8);
-    static inline auto& m_bBoatsNeeded = StaticRef<bool>(0x9654BC);
-    static inline auto& ms_bLoadingScene = StaticRef<bool>(0x9654BD);
-    static inline auto& m_bCopBikeLoaded = StaticRef<bool>(0x9654BE);
-    static inline auto& m_bDisableCopBikes = StaticRef<bool>(0x9654BF);
+    static inline auto& m_bBoatsNeeded = DatosExe::Bss::b9654BC;
+    static inline auto& ms_bLoadingScene = DatosExe::Bss::b9654BD;
+    static inline auto& m_bCopBikeLoaded = DatosExe::Bss::b9654BE;
+    static inline auto& m_bDisableCopBikes = DatosExe::Bss::b9654BF;
     static inline auto& ms_rwObjectInstances = StaticRef<CLinkList<CEntity*>>(0x9654F0);
     static inline auto& ms_renderEntityLink = StaticRef<CLink<CEntity*>*>(0x8E48A0);
-    static inline auto& m_bLoadingAllRequestedModels = StaticRef<bool>(0x965538);
-    static inline auto& m_bModelStreamNotLoaded = StaticRef<bool>(0x9654C4);
-    static inline auto& ms_bReadLayerForceFully = StaticRef<bool>(0x9654C4);
+    static inline auto& m_bLoadingAllRequestedModels = DatosExe::Bss::b965538;
+    static inline auto& m_bModelStreamNotLoaded = DatosExe::Bss::b9654C4;
+    static inline auto& ms_bReadLayerForceFully = DatosExe::Bss::b9654C4;
     static inline auto& ms_oldSectorX = StaticRef<int32>(0x8E4B98);
     static inline auto& ms_oldSectorY = StaticRef<int32>(0x8E4B94);
 

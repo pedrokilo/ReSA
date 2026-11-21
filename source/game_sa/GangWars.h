@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "CarCtrl.h"
@@ -72,12 +73,12 @@ public:
     static inline auto& pZoneInfoToFightOver = StaticRef<CZoneInfo*>(0x96AB8C);
     static inline auto& bGangWarsActive = StaticRef<bool>(0x96AB90);
     static inline auto& bTrainingMission = StaticRef<bool>(0x96AB91);
-    static inline auto& bPlayerIsCloseby = StaticRef<bool>(0x96AB92);
+    static inline auto& bPlayerIsCloseby = DatosExe::Bss::b96AB92;
     static inline auto& bCanTriggerGangWarWhenOnAMission = StaticRef<bool>(0x96AB93);
     static inline auto& NumSpecificZones = StaticRef<int32>(0x96AB94);
     static inline auto& RadarBlip = StaticRef<int32>(0x96AB98);
     static inline auto& TerritoryUnderControlPercentage = StaticRef<float>(0x96AB9C);
-    static inline auto& bIsPlayerOnAMission = StaticRef<bool>(0x96ABA0);
+    static inline auto& bIsPlayerOnAMission = DatosExe::Bss::b96ABA0;
     static inline auto& CoorsOfPlayerAtStartOfWar = StaticRef<CVector>(0x96ABBC);
     static inline auto& PointOfAttack = StaticRef<CVector>(0x96ABC8);
     // Cursor de PickStreamedInPedForThisGang (0x443A44/0x443A63/0x443A96); no tiene nombre en el EXE

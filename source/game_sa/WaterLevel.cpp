@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -1792,7 +1793,7 @@ void CWaterLevel::RenderHighDetailWaterRectangle_OneLayer(int32 minX, int32 maxX
                     colorIndex = ci;
                 }
                 // Como el original (0x6E9859..0x6E98C0): con el byte 0xC278E0 distinto de cero no se avanza ni el vertice ni los indices; si no, dos triangulos (salvo en la primera fila y columna).
-                if (StaticRef<uint8>(0xC278E0) == 0) {
+                if (DatosExe::Bss::bC278E0 == 0) {
                     if (jY != 0 && i != 0) {
                         const int32 base = vtx - halfX;
                         WaterIndexWord(idx + 0) = uint16(base - 2);

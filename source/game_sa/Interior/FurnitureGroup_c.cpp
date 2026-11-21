@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "FurnitureGroup_c.h"
 #include "FurnitureManager_c.h"
 
@@ -59,7 +60,7 @@ void FurnitureGroup_c::Exit() {
  */
 bool FurnitureGroup_c::AddSubGroup(int32 subGroupId, int32 minWidth, int32 minDepth, int32 maxWidth, int32 maxDepth, uint8 canPlaceInFrontOfWindow, bool isTall, bool canSteal) {
     // Como el original: NewSubGroup en línea con el contador de 16 bits sin signo de 0xBAB37C (mov/inc dx, jae)
-    auto& numSubGroups  = StaticRef<uint16>(0xBAB37C);
+    auto& numSubGroups  = DatosExe::Bss::bBAB37C;
     auto& subGroupStore = StaticRef<std::array<FurnitureSubGroup_c, 128>>(0xBAD3F8);
     if (numSubGroups >= subGroupStore.size()) {
         return false;

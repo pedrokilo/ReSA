@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "RenderWare.h"
@@ -77,11 +78,11 @@ public:
     static inline auto& ms_cutsceneLoadStatus = StaticRef<LoadStatus>(0xB5F84C);
     static inline auto& ms_running = StaticRef<int8>(0xB5F851);
     static inline auto& ms_cutsceneProcessing = StaticRef<bool>(0xB5F852);
-    static inline auto& ms_useLodMultiplier = StaticRef<bool>(0xB5F853);
-    static inline auto& ms_wasCutsceneSkipped = StaticRef<bool>(0xB5F854);
-    static inline auto& ms_hasFileInfo = StaticRef<int8>(0xB5F855);
+    static inline auto& ms_useLodMultiplier = DatosExe::Bss::bB5F853;
+    static inline auto& ms_wasCutsceneSkipped = DatosExe::Bss::bB5F854;
+    static inline auto& ms_hasFileInfo = DatosExe::Bss::bB5F855;
     static inline auto& ms_numAppendObjectNames = StaticRef<int32>(0xB5F858);
-    static inline auto& restoreEverythingAfterCutscene = StaticRef<bool>(0xB5F85C);
+    static inline auto& restoreEverythingAfterCutscene = DatosExe::Bss::bB5F85C;
     //! Armas del jugador guardadas para restaurarlas al borrar la cinemática con `m_bDontClearZone` (ver 0x5AFFE5)
     static inline auto& numPlayerWeaponsToRestoreInZone = StaticRef<int32>(0xBC1CFC);
     static inline auto& playerWeaponsToRestoreInZone_Ammo = StaticRef<std::array<int32, 13>>(0xBC1D00);
@@ -113,15 +114,15 @@ public:
     static inline auto& ms_iNumHiddenEntities = StaticRef<uint32>(0xBC3FF8);
     static inline auto& ms_iNumParticleEffects = StaticRef<uint32>(0xBC3FFC);
     static inline auto& m_PrevExtraColour = StaticRef<int32>(0xBC4000);
-    static inline auto& m_PrevExtraColourOn = StaticRef<bool>(0xBC4004);
-    static inline auto& m_bDontClearZone = StaticRef<bool>(0xBC4005);
+    static inline auto& m_PrevExtraColourOn = DatosExe::Bss::bBC4004;
+    static inline auto& m_bDontClearZone = DatosExe::Bss::bBC4005;
 
     //! If the camera splines were loaded (See `LoadCutsceneData_postload`)
     //! from the .DAT file of the cutscene found in CUTS.IMG
-    static inline auto& dataFileLoaded = StaticRef<bool>(0xBC4006);
+    static inline auto& dataFileLoaded = DatosExe::Bss::bBC4006;
 
     //! If the anims were loaded (From the cutscene's .IFP file found in CUTS.IMG)
-    static inline auto& ms_animLoaded = StaticRef<bool>(0xB5F850);
+    static inline auto& ms_animLoaded = DatosExe::Bss::bB5F850;
 
     static inline auto& ms_cutsceneAssociations = StaticRef<CAnimBlendAssocGroup>(0xBC4020);
     static inline auto& ms_cutsceneOffset = StaticRef<CVector>(0xBC4034);

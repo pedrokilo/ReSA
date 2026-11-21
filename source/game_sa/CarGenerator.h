@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
 #include "CompressedVector.h"
@@ -61,7 +62,7 @@ public:
     // char             _pad1E[2];
 
 public:
-    static inline auto& m_bHotdogVendorPositionOffsetInitialized = StaticRef<bool>(0xC2B974);
+    static inline auto& m_bHotdogVendorPositionOffsetInitialized = DatosExe::Bss::bC2B974;
     static inline auto& m_HotdogVendorPositionOffset = StaticRef<CVector>(0xC2B968);
 
 public:

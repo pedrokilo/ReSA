@@ -24,12 +24,13 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "X87Math.h"
 
 static inline auto& bRotateWithNeck = DatosExe::Data::v8D2354;
 // Como el original: PitchForSlope elige el producto de los muslos según este byte del EXE (0xC0AFC0)
-static inline auto& bPitchForSlopeAbsAsin = StaticRef<bool>(0xC0AFC0);
+static inline auto& bPitchForSlopeAbsAsin = DatosExe::Bss::bC0AFC0;
 
 namespace {
 // Como el original: 0x859878 = 0x42652EE0 (57.29578f, no es 180/PI redondeado)

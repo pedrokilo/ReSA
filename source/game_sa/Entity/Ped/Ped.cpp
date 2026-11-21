@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
@@ -2754,7 +2755,7 @@ __declspec(noinline) static void EmitFootDustParticles(CPed* ped, CVector* posit
         velocity.x = (static_cast<float>(CGeneral::GetRandomNumber()) * kFootRandScale) * 0.3F - 0.15F;
         velocity.y = (static_cast<float>(CGeneral::GetRandomNumber()) * kFootRandScale) * 0.3F - 0.15F;
         velocity.z = 0.0F;
-        if (!StaticRef<uint8>(0xB72C70)) { // el EXE solo emite si este byte es 0
+        if (!DatosExe::Bss::bB72C70) { // el EXE solo emite si este byte es 0
             g_fx.m_SmokeII3expand->AddParticle(point, velocity, 0.0F, mult, -1.0F, 1.2F, 0.6F, false);
         }
     }

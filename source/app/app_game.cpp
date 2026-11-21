@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "extensions/AutoSteal.h"
 
 #include <Tracy.hpp>
@@ -89,7 +90,7 @@ static float ExeViewWindow() {
 void InitialiseGame() {
     ZoneScoped;
 
-    static auto& version_number = StaticRef<int16>(0xB72C68);
+    static auto& version_number = DatosExe::Bss::bB72C68;
     version_number = 78;
 
     CGame::Initialise(GAME_LEVEL_FILE);

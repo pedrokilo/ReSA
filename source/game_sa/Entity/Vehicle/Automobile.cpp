@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -7944,7 +7945,7 @@ void AutoPreRenderHydraulics(CAutomobile& car, CVehicleModelInfo& modelInfo) {
 // 0x6AAB50
 void CAutomobile::PreRender() {
     CVehicle::PreRender(); // 0x6D6480
-    if (StaticRef<bool>(0x969152)) { // CCheat::m_aCheatsActive[CHEAT_CARS_ON_WATER]
+    if (DatosExe::Bss::b969152) { // CCheat::m_aCheatsActive[CHEAT_CARS_ON_WATER]
         DoHoverSuspensionRatios();   // virtual +0x114
     }
     const CCollisionData* const colData = GetColModel()->m_pColData; // 0x535300; ColData en +0x2C (se guarda en [esp+70h])

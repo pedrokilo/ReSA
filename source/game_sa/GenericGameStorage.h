@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 static constexpr auto MAX_SAVEGAME_SLOTS{ 8u };
@@ -67,8 +68,8 @@ public:
     static inline auto& ms_FileHandle = StaticRef<FILE*>(0xC16EF0);
     static inline auto& ms_FilePos = StaticRef<uint32>(0xC16EF4);
     static inline auto& ms_FileSize = StaticRef<uint32>(0xC16EF8);
-    static inline auto& ms_bFailed = StaticRef<bool>(0xC16EFC);
-    static inline auto& ms_bLoading = StaticRef<bool>(0xC16EFD);
+    static inline auto& ms_bFailed = DatosExe::Bss::bC16EFC;
+    static inline auto& ms_bLoading = DatosExe::Bss::bC16EFD;
     static inline const char ms_BlockTagName[] = "BLOCK";
     static inline auto& ms_SlotSaveDate = StaticRef<std::array<tSlotSaveDate, MAX_SAVEGAME_SLOTS>>(0xC16138);
     static inline auto& ms_SlotFileName = StaticRef<std::array<tSlotFileName, MAX_SAVEGAME_SLOTS>>(0xC16368);

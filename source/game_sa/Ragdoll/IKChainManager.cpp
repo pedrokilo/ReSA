@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/RdataAyudantes.h"
 
 #include "IKChainManager.h"
@@ -287,7 +288,7 @@ void IKChainManager_c::LookAt(
     int32       priority,
     bool        bForceLooking
 ) {
-    static auto& s_bDisableLookAts = StaticRef<bool>(0xC1542C); // Como el original: solo se lee aquí
+    static auto& s_bDisableLookAts = DatosExe::Bss::bC1542C; // Como el original: solo se lee aquí
 
     if (!bForceLooking) {
         if (!CanAcceptLookAt(ped)) {

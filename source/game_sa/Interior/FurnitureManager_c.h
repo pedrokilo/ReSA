@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "Base.h"
 #include "FurnitureGroup_c.h"
@@ -16,8 +17,8 @@ class Furniture_c;
  */
 class FurnitureManager_c {
 private:
-    static inline auto& g_currSubGroupId  = StaticRef<uint16>(0xBAB37C); // Como el original: word
-    static inline auto& g_currFurnitureId = StaticRef<uint16>(0xBAB378); // Como el original: word
+    static inline auto& g_currSubGroupId  = DatosExe::Bss::bBAB37C; // Como el original: word
+    static inline auto& g_currFurnitureId = DatosExe::Bss::bBAB378; // Como el original: word
     static inline auto& g_subGroupStore   = StaticRef<std::array<FurnitureSubGroup_c, 128>>(0xBAD3F8);
 
 public:

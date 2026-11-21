@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 class CPed;
 class CVehicle;
@@ -27,8 +28,8 @@ public:
     static inline auto& m_Topic                        = StaticRef<int32>(0x9691BC);     //!< Selector de tema/voz utilizado por el Update() original.
     static inline auto& m_TimeOfLastPlayerConversation = StaticRef<uint32>(0x9691B4);  //!< Marca temporal usada para limitar/registrar conversaciones recientes.
     static inline auto& m_StartTime                    = StaticRef<uint32>(0x9691B8);   //!< Marca temporal en la que comenzó el intercambio actual.
-    static inline auto& m_bPositiveReply               = StaticRef<bool>(0x9691B0);     //!< Existe en memoria original; actualmente no se usa en el código reconstruido.
-    static inline auto& m_bPositiveOpening             = StaticRef<bool>(0x9691B1);     //!< Indica si la apertura seleccionada por la rutina original es positiva.
+    static inline auto& m_bPositiveReply               = DatosExe::Bss::b9691B0;     //!< Existe en memoria original; actualmente no se usa en el código reconstruido.
+    static inline auto& m_bPositiveOpening             = DatosExe::Bss::b9691B1;     //!< Indica si la apertura seleccionada por la rutina original es positiva.
     static inline auto& m_PedPoolIndex                 = StaticRef<int32>(0x969A3C);    //!< Exploración circular: hasta ocho slots por actualización.
     static inline auto& m_LastPlayerVehicle            = StaticRef<CVehicle*>(0x969A40); //!< Último vehículo del jugador, registrado como referencia de entidad.
 

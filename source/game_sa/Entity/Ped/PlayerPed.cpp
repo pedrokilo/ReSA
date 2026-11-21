@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -2214,7 +2215,7 @@ void CPlayerPed::ProcessWeaponSwitch(CPad* pad) {
     const auto activeSlot = [this] { return static_cast<int8>(m_nActiveWeaponSlot); };
     const auto chosenRef = [this]() -> uint8& { return m_pPlayerData->m_nChosenWeapon; };
     const auto chosen = [&] { return static_cast<int8>(chosenRef()); };
-    const auto cameraMode = [] { return StaticRef<uint16>(0xB6F858); };                                                // modo de la camara activa (word)
+    const auto cameraMode = [] { return DatosExe::Bss::bB6F858; };                                                // modo de la camara activa (word)
     const auto lastGunCommand = [](const CTaskSimpleUseGun* task) { return static_cast<int8>(task->m_LastCmd); };
 
     const bool skipToCheck = CDarkel::FrenzyOnGoing() || m_pAttachedTo || m_pIntelligence->GetTaskJetPack();

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "Bmx.h"
@@ -181,10 +182,10 @@ public:
 
     static inline auto& Mode = StaticRef<eReplayMode>(0xA43088);
     static inline auto& bReplayEnabled = DatosExe::Data::v8A6160;
-    static inline auto& bPlayingBackFromFile = StaticRef<bool>(0x97FAE1);
-    static inline auto& bAllowLookAroundCam = StaticRef<bool>(0x97FAE0);
-    static inline auto& bDoLoadSceneWhenDone = StaticRef<bool>(0x97FACC);
-    static inline auto& bIsUsingRemoteCar = StaticRef<bool>(0x97F66D);
+    static inline auto& bPlayingBackFromFile = DatosExe::Bss::b97FAE1;
+    static inline auto& bAllowLookAroundCam = DatosExe::Bss::b97FAE0;
+    static inline auto& bDoLoadSceneWhenDone = DatosExe::Bss::b97FACC;
+    static inline auto& bIsUsingRemoteCar = DatosExe::Bss::b97F66D;
 
     static inline auto& pReferences = StaticRef<void*>(0x97FB0C);
     static inline auto& pPickups = StaticRef<void*>(0x97FB08);
@@ -206,8 +207,8 @@ public:
     static inline auto& TimeScale = StaticRef<float>(0x97FB3C);
 
     // Como el original: OldWeatherType es int16 (0x97FAEC), así que la hora y los minutos no se solapan
-    inline static auto& ClockHours = StaticRef<uint8>(0x97FAEF);
-    inline static auto& ClockMinutes = StaticRef<uint8>(0x97FAEE);
+    inline static auto& ClockHours = DatosExe::Bss::b97FAEF;
+    inline static auto& ClockMinutes = DatosExe::Bss::b97FAEE;
 
     static inline auto& OldWeatherType = StaticRef<eWeatherType>(0x97FAEC);
     static inline auto& NewWeatherType = StaticRef<eWeatherType>(0x97FAE8);
@@ -236,7 +237,7 @@ public:
     static inline auto& CameraMode = StaticRef<eReplayCamMode>(0x97FB30);
     static inline auto& FramesActiveLookAroundCam = StaticRef<int32>(0x97FAD0);
     static inline auto& OldRadioStation = StaticRef<int32>(0x97FABC); // Como el original: dword (movsx al guardar)
-    static inline auto& CurrArea = StaticRef<int8>(0x97FAB8);
+    static inline auto& CurrArea = DatosExe::Bss::b97FAB8;
     static inline auto& BufferStatus = StaticRef<std::array<eReplayBufferStatus, NUM_REPLAY_BUFFERS>>(0x97FB7C);
 
     static inline auto& Buffers = StaticRef<std::array<tReplayBuffer, NUM_REPLAY_BUFFERS>>(0x97FB88);

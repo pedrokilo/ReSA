@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "eStats.h"
 #include "eStatModAbilities.h"
@@ -51,7 +52,7 @@ public:
     static inline auto& StatTypesInt = StaticRef<std::array<int32, 223>>(0xB79000);
     static inline auto& StatTypesFloat = StaticRef<std::array<float, 82>>(0xB79380);
     static inline auto& m_ThisStatIsABarChart = StaticRef<int16>(0xB794CC);
-    static inline auto& bStatUpdateMessageDisplayed = StaticRef<bool>(0xB794D4);
+    static inline auto& bStatUpdateMessageDisplayed = DatosExe::Bss::bB794D4;
     static inline auto& m_SprintStaminaCounter = StaticRef<uint32>(0xB794D8);
     static inline auto& m_CycleStaminaCounter = StaticRef<uint32>(0xB794DC);
     static inline auto& m_CycleSkillCounter = StaticRef<uint32>(0xB794E0);

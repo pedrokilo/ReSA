@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "Stats.h"
@@ -34,16 +35,16 @@ public:
     static inline auto& m_pLastVehicleName = StaticRef<const GxtChar*>(0xBAA454);
     static inline auto& m_pVehicleName = StaticRef<const GxtChar*>(0xBAA458);
 
-    static inline auto& m_bDraw3dMarkers = StaticRef<bool>(0xBAA45C);
-    static inline auto& m_Wants_To_Draw_Hud = StaticRef<bool>(0xBAA45D);
+    static inline auto& m_bDraw3dMarkers = DatosExe::Bss::bBAA45C;
+    static inline auto& m_Wants_To_Draw_Hud = DatosExe::Bss::bBAA45D;
 
     static inline auto& m_fHelpMessageTime = StaticRef<float>(0xBAA460); // in seconds
     static inline auto& m_fHelpMessageBoxWidth = StaticRef<float>(0x8D0934); // default 200.0
-    static inline auto& m_bHelpMessagePermanent = StaticRef<bool>(0xBAA464);
+    static inline auto& m_bHelpMessagePermanent = DatosExe::Bss::bBAA464;
     static inline auto& m_fHelpMessageStatUpdateValue = StaticRef<float>(0xBAA468);
-    static inline auto& m_nHelpMessageMaxStatValue = StaticRef<uint16>(0xBAA46C);
-    static inline auto& m_nHelpMessageStatId = StaticRef<uint16>(0xBAA470);
-    static inline auto& m_bHelpMessageQuick = StaticRef<bool>(0xBAA472);
+    static inline auto& m_nHelpMessageMaxStatValue = DatosExe::Bss::bBAA46C;
+    static inline auto& m_nHelpMessageStatId = DatosExe::Bss::bBAA470;
+    static inline auto& m_bHelpMessageQuick = DatosExe::Bss::bBAA472;
     static inline auto& m_nHelpMessageState = StaticRef<int32>(0xBAA474);
     static inline auto& m_nHelpMessageFadeTimer = StaticRef<uint32>(0xBAA478);
     static inline auto& m_nHelpMessageTimer = StaticRef<uint32>(0xBAA47C);
@@ -59,7 +60,7 @@ public:
     static inline auto& m_pZoneName = StaticRef<const GxtChar*>(0xBAB1D8);
 
     static inline auto& m_ItemToFlash = StaticRef<eHudItem>(0xBAB1DC);
-    static inline auto& bDrawingVitalStats = StaticRef<bool>(0xBAB1DE);
+    static inline auto& bDrawingVitalStats = DatosExe::Bss::bBAB1DE;
 
     static inline auto& m_LastBreathTime = StaticRef<int32>(0xBAA3FC);
 
@@ -92,18 +93,18 @@ public:
 
     static inline auto& Sprites = StaticRef<std::array<CSprite2d, 6>>(0xBAB1FC);
 
-    static inline auto& TimerMainCounterHideState = StaticRef<int16>(0xBAA388);
+    static inline auto& TimerMainCounterHideState = DatosExe::Bss::bBAA388;
     static inline auto& TimerMainCounterWasDisplayed = StaticRef<bool>(0xBAA38A);
     static inline auto& TimerCounterHideState = StaticRef<std::array<int16, 4>>(0xBAA38C);
     static inline auto& TimerCounterWasDisplayed = StaticRef<std::array<int16, 4>>(0xBAA394);
 
     static inline auto& OddJob2OffTimer = StaticRef<float>(0xBAA398);
     static inline auto& OddJob2XOffset = StaticRef<float>(0xBAA39C);
-    static inline auto& OddJob2Timer = StaticRef<uint16>(0xBAA3A0);
-    static inline auto& OddJob2On = StaticRef<uint16>(0xBAB1E0);
+    static inline auto& OddJob2Timer = DatosExe::Bss::bBAA3A0;
+    static inline auto& OddJob2On = DatosExe::Bss::bBAB1E0;
 
     static inline auto& PagerXOffset = DatosExe::Data::v8D0938; // 150.0f
-    static inline auto& HelpTripSkipShown = StaticRef<bool>(0xBAB229);
+    static inline auto& HelpTripSkipShown = DatosExe::Bss::bBAB229;
 
 public:
     static void InjectHooks();

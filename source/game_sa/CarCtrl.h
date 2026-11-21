@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "PathFind.h"
@@ -23,7 +24,7 @@ constexpr auto TIME_COPS_WAIT_TO_EXIT_AFTER_STOPPING = 2500;
 
 class CCarCtrl {
 public:
-    static inline auto& bCarIsBeingCreated = StaticRef<bool>(0x9690CC);
+    static inline auto& bCarIsBeingCreated = DatosExe::Bss::b9690CC;
     static inline auto& NumLawEnforcerCars = StaticRef<uint32>(0x969098);
     static inline auto& NumParkedCars = StaticRef<uint32>(0x9690A0);
     static inline auto& NumAmbulancesOnDuty = StaticRef<uint32>(0x9690A8);
@@ -36,12 +37,12 @@ public:
     static inline auto& LastTimeAmbulanceCreated = StaticRef<int32>(0x9690B0);
     static inline auto& LastTimeFireTruckCreated = StaticRef<int32>(0x9690B4);
     static inline auto& bAllowEmergencyServicesToBeCreated = DatosExe::Data::v8A5B28;
-    static inline auto& bCarsGeneratedAroundCamera = StaticRef<bool>(0x9690C1);
-    static inline auto& CountDownToCarsAtStart = StaticRef<int8>(0x9690C0);
+    static inline auto& bCarsGeneratedAroundCamera = DatosExe::Bss::b9690C1;
+    static inline auto& CountDownToCarsAtStart = DatosExe::Bss::b9690C0;
     static inline auto& TimeNextMadDriverChaseCreated = StaticRef<float>(0x9690BC);
     static inline auto& SequenceElements = StaticRef<int32>(0x969078);
     static inline auto& SequenceRandomOffset = StaticRef<int32>(0x969074);
-    static inline auto& bSequenceOtherWay = StaticRef<bool>(0x969070);
+    static inline auto& bSequenceOtherWay = DatosExe::Bss::b969070;
     static inline auto& LastTimeLawEnforcerCreated = StaticRef<int32>(0x9690B8);
 
 public:

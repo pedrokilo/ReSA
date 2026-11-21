@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -48,7 +49,7 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 #include "Plugins/RpAnimBlendPlugin/RpAnimBlend.h"
 
-auto& gbFirstPersonRunThisFrame = StaticRef<bool>(0xB6EC20);
+auto& gbFirstPersonRunThisFrame = DatosExe::Bss::bB6EC20;
 auto& gLastFrameProcessedDWCineyCam = DatosExe::Data::v8CCB9C;
 
 static inline auto& gbExitCam = StaticRef<std::array<bool, 9>>(0xB6EC5C);
@@ -617,7 +618,7 @@ void CCam::KeepTrackOfTheSpeed(const CVector& source, const CVector& target, con
     if (!(flags & 16)) { oldAlpha = alpha; flags |= 16; }
     const float previousFov = flags & 32 ? oldFov : fov;
     flags |= 32;
-    if (StaticRef<bool>(0xB6F052)) {
+    if (DatosExe::Bss::bB6F052) {
         oldSource = source;
         oldTarget = target;
         oldUp = up;
@@ -753,9 +754,9 @@ bool CCam::RotCamIfInFrontCar(const CVector& target, float orientation) {
     const float forwardSpeed=(matrix.GetForward().x*velocity.x+matrix.GetForward().y*velocity.y)+matrix.GetForward().z*velocity.z;
     if(std::abs(difference)>std::bit_cast<float>(0x3EB2B8C0u)&&forwardSpeed>0.1f&&!StaticRef<uint8>(0xB6F080))m_bFixingBeta=true;
     if(!CPad::GetPad(0)->GetLookBehindForCar()&&!CPad::GetPad(0)->GetLookBehindForPed()&&!CPad::GetPad(0)->GetLookLeft()&&!CPad::GetPad(0)->GetLookRight()&&m_nDirectionWasLooking!=3)StaticRef<uint8>(0xB6F042)=1;
-    const auto back=StaticRef<uint8>(0xB6F05F),front=StaticRef<uint8>(0xB6F042),rear=StaticRef<uint8>(0xB6F043);
+    const auto back=DatosExe::Bss::bB6F05F,front=StaticRef<uint8>(0xB6F042),rear=StaticRef<uint8>(0xB6F043);
     if(!m_bFixingBeta&&!back&&!front&&!rear)return false;
-    const bool active=uintptr_t(this)==0xB6F19Cu+uint32(StaticRef<uint8>(0xB6F081))*sizeof(CCam);
+    const bool active=uintptr_t(this)==0xB6F19Cu+uint32(DatosExe::Bss::bB6F081)*sizeof(CCam);
     const bool force=(front==1||rear==1||back==1)&&active;
     if(m_bFixingBeta||force){
         WellBufferMe(orientation,m_fHorizontalAngle,m_fBetaSpeed,0.1f,std::bit_cast<float>(0x3B449BA6u),true);
@@ -839,11 +840,11 @@ float CamPowerComplement(float base,float step) {
 // 0x526FC0
 void CCam::Process() {
     const auto f=[](uintptr_t address){return StaticRef<float>(address);};
-    const uintptr_t activeAddress=0xB6F19C+uintptr_t(StaticRef<uint8>(0xB6F081))*sizeof(CCam);
-    if (!(float(StaticRef<int32>(0xB6FE34)) > f(0xB6FDC8))) StaticRef<uint8>(0xC0B184)&=0xFE; // NaN como el EXE (0x526fd5): fcom + test ah + jcc
+    const uintptr_t activeAddress=0xB6F19C+uintptr_t(DatosExe::Bss::bB6F081)*sizeof(CCam);
+    if (!(float(StaticRef<int32>(0xB6FE34)) > f(0xB6FDC8))) DatosExe::Bss::bC0B184&=0xFE; // NaN como el EXE (0x526fd5): fcom + test ah + jcc
     if (StaticRef<int16>(activeAddress+0xC)!=4) { StaticRef<uint8>(0xC0B184)&=0xFE;StaticRef<int32>(0xB6FE34)=0; }
     if (!m_pCamTargetEntity) { m_pCamTargetEntity=StaticRef<CEntity*>(0xB6F980);m_pCamTargetEntity->RegisterReference(&m_pCamTargetEntity); }
-    if (StaticRef<uint8>(0xC8A860)==1) {
+    if (DatosExe::Bss::bC8A860==1) {
         auto* player=FindPlayerPed(-1);
         if (!player || !player->m_pVehicle || player->m_pVehicle->GetModelIndex()!=520) CWeaponEffects::ClearCrossHairImmediately(0);
     }
@@ -900,25 +901,25 @@ void CCam::Process() {
             auto* vehicle=static_cast<CVehicle*>(m_pCamTargetEntity);
             const bool specialVehicle=vehicle && (vehicle->GetVehicleAppearance()==VEHICLE_APPEARANCE_HELI || vehicle->GetVehicleAppearance()==VEHICLE_APPEARANCE_PLANE);
             if (CPad::GetPad(0)->GetLookBehindForCar()) {
-                StaticRef<bool>(0xB6F080)=StaticRef<bool>(0xB6F077)=StaticRef<bool>(0xB6F062)=false;
-                if (m_nDirectionWasLooking!=0) StaticRef<bool>(0xB6F052)=true;
+                StaticRef<bool>(0xB6F080)=DatosExe::Bss::bB6F077=DatosExe::Bss::bB6F062=false;
+                if (m_nDirectionWasLooking!=0) DatosExe::Bss::bB6F052=true;
                 DatosExe::Data::v8CC384=0;
             } else {
                 int direction=3;
                 if (CPad::GetPad(0)->GetLookLeft() && !specialVehicle) direction=1;
                 else if (CPad::GetPad(0)->GetLookRight() && !specialVehicle) direction=2;
                 DatosExe::Data::v8CC384=direction;
-                if (direction!=3) StaticRef<bool>(0xB6F062)=StaticRef<bool>(0xB6F077)=StaticRef<bool>(0xB6F080)=false;
-                if (m_nDirectionWasLooking!=uint32(direction)) StaticRef<bool>(0xB6F052)=true;
+                if (direction!=3) DatosExe::Bss::bB6F062=DatosExe::Bss::bB6F077=StaticRef<bool>(0xB6F080)=false;
+                if (m_nDirectionWasLooking!=uint32(direction)) DatosExe::Bss::bB6F052=true;
             }
         } else if (mode==4 && m_pCamTargetEntity->GetIsTypePed()) {
             if (CPad::GetPad(0)->GetLookBehindForPed()) {
-                if (m_nDirectionWasLooking!=0 && !StaticRef<bool>(0xB6F080)) StaticRef<bool>(0xB6F052)=true;
+                if (m_nDirectionWasLooking!=0 && !StaticRef<bool>(0xB6F080)) DatosExe::Bss::bB6F052=true;
                 DatosExe::Data::v8CC384=0;
             } else if (m_nDirectionWasLooking!=3) StaticRef<float>(0x8CCB84)=1.f;
         } else if (mode==53 && m_nDirectionWasLooking!=3) StaticRef<float>(0x8CCB84)=1.f;
     }
-    if (StaticRef<bool>(0xB6F052)) { StaticRef<float>(0x8CCB84)=1.f;StaticRef<bool>(0xB6F999)=true; }
+    if (DatosExe::Bss::bB6F052) { StaticRef<float>(0x8CCB84)=1.f;DatosExe::Bss::bB6F999=true; }
     const int mode=int(m_nMode);
     if (mode!=3 && mode!=18 && mode!=22 && mode!=16 && mode!=49) StaticRef<bool>(0x8D5109)=false;
     gbFirstPersonRunThisFrame=false;
@@ -931,7 +932,7 @@ void CCam::Process() {
     case 15:Process_Fixed(target,orientation,m_fSpeedVar,targetSpeed);break;
     case 16:Process_1stPerson(target,orientation,m_fSpeedVar,targetSpeed);break;
     case 17:Process_FlyBy(target,orientation,m_fSpeedVar,targetSpeed);break;
-    case 29:ProcessPedsDeadBaby();StaticRef<bool>(0xB6F04E)=StaticRef<bool>(0xB6F050)=false;break;
+    case 29:ProcessPedsDeadBaby();DatosExe::Bss::bB6F04E=DatosExe::Bss::bB6F050=false;break;
     case 32:ProcessArrestCamOne();break;
     case 33:break;
     case 35:Process_SpecialFixedForSyphon(target,orientation,m_fSpeedVar,targetSpeed);break;
@@ -967,9 +968,9 @@ void CCam::Process() {
         if (direction==0) LookBehind();else if (direction==1) LookRight(false);else if (direction==2) LookRight(true);
         m_nDirectionWasLooking=DatosExe::Data::v8CC384;
     }
-    if (StaticRef<bool>(0xB6FCDD)) { m_fFOV=f(0xB6FCE0);StaticRef<bool>(0xB6FCDD)=false; }
-    if (StaticRef<bool>(0xB6FD14)) { m_vecSource=StaticRef<CVector>(0xB6FD08);StaticRef<bool>(0xB6FD14)=false; }
-    if (StaticRef<bool>(0xB6FCB4)) { m_vecFront=StaticRef<CVector>(0xB6FCA8)-m_vecSource;m_vecFront.Normalise();GetVectorsReadyForRW();StaticRef<bool>(0xB6FCB4)=false; }
+    if (DatosExe::Bss::bB6FCDD) { m_fFOV=f(0xB6FCE0);DatosExe::Bss::bB6FCDD=false; }
+    if (DatosExe::Bss::bB6FD14) { m_vecSource=StaticRef<CVector>(0xB6FD08);DatosExe::Bss::bB6FD14=false; }
+    if (DatosExe::Bss::bB6FCB4) { m_vecFront=StaticRef<CVector>(0xB6FCA8)-m_vecSource;m_vecFront.Normalise();GetVectorsReadyForRW();DatosExe::Bss::bB6FCB4=false; }
 }
 
 // 0x516010 (thiscall, ECX = this sin usar, cuatro argumentos en pila, `ret 10h`): posicion de la camara de arresto para la secuencia alternativa (GetArrestCamCopSourceNormal, 0x515D80, es el normal).
@@ -1097,7 +1098,7 @@ bool CCam::ProcessArrestCamCheese(CPed* from, bool initialise) {
     }
     auto& startTime = StaticRef<float>(0xB6EC60);
     auto& offsetTime = StaticRef<float>(0xB70024);
-    auto& blinkState = StaticRef<uint8>(0xB70020);
+    auto& blinkState = DatosExe::Bss::bB70020;
     const int32 now = static_cast<int32>(CTimer::m_snTimeInMilliseconds);
     double elapsed = double(now);
     if (now < 0) {
@@ -1192,7 +1193,7 @@ bool CCam::ProcessArrestCamOne() {
         }else if(target->GetType()==ENTITY_TYPE_VEHICLE){auto* driver=static_cast<CVehicle*>(target)->m_pDriver;if(driver&&driver->IsPlayer()){actor=driver;actor->GetBonePosition(&dest,static_cast<eBoneTag>(3),true);}else dest=target->GetPosition();
             cop=playerCop();if(cop&&float(std::rand())*std::bit_cast<float>(0x38000100u)>.65f)sequence={2,8,3,2,-1,-1};else sequence={8,3,2,-1,-1,-1};
         }else return false;
-        if(!StaticRef<uint8>(0xBAADC0)){const auto text=plugin::CallMethodAndReturn<const GxtChar*,0x6A0050>(&TheText,"BUSTED");plugin::Call<0x69F2B0>(text,uint32(5000),int32(2));}
+        if(!DatosExe::Bss::bBAADC0){const auto text=plugin::CallMethodAndReturn<const GxtChar*,0x6A0050>(&TheText,"BUSTED");plugin::Call<0x69F2B0>(text,uint32(5000),int32(2));}
         bool eligible=false;
         for(int32 index=0;;++index){
             if(mode||index>=6||sequence[index]<1){geometry(source);axes();if(mode)m_bResetStatics=false;return true;}
@@ -1284,7 +1285,7 @@ void CCam::ProcessPedsDeadBaby() {
     }
     m_vecSource=source;
     TheCamera.AvoidTheGeometry(source,dest,m_vecSource,m_fFOV);
-    StaticRef<uint8>(0xB6F055)=0;
+    DatosExe::Bss::bB6F055=0;
 }
 
 // 0x50EB70
@@ -1292,7 +1293,7 @@ void CCam::Process_1rstPersonPedOnPC(const CVector&, float orientation, float, f
     const auto f = [](uintptr_t a) { return *reinterpret_cast<const float*>(a); };
     StaticRef<uint32>(0xB6FFE0) |= 1;
     if (m_nMode != MODE_SNIPER_RUNABOUT) m_fFOV = 70.f;
-    StaticRef<bool>(0xB6F066) = false;
+    DatosExe::Bss::bB6F066 = false;
     if (!m_pCamTargetEntity->GetRwObject()) return;
     if (m_pCamTargetEntity->GetIsTypePed()) {
         auto* ped = m_pCamTargetEntity->AsPed();
@@ -1306,7 +1307,7 @@ void CCam::Process_1rstPersonPedOnPC(const CVector&, float orientation, float, f
         if (m_bResetStatics) {
             m_fHorizontalAngle = orientation; m_fVerticalAngle = 0.f; m_fInitialPlayerOrientation = orientation;
             m_fHorizontalAngle = ped->m_fCurrentRotation + DatosExe::Rdata::k858FE4; m_fVerticalAngle = 0.f;
-            StaticRef<bool>(0xB6FFDC) = false; StaticRef<float>(0xB6FFD8) = 0.f; StaticRef<float>(0xB6FFD4) = 0.f;
+            DatosExe::Bss::bB6FFDC = false; StaticRef<float>(0xB6FFD8) = 0.f; StaticRef<float>(0xB6FFD4) = 0.f;
             m_bCollisionChecksOn = true; m_fInitialPlayerOrientation = ped->m_fCurrentRotation + DatosExe::Rdata::k858FE4;
             m_vecBufferedPlayerBodyOffset = point; StaticRef<float>(0xB6FFD0) = 0.f; initial = point;
         }
@@ -1669,7 +1670,7 @@ void CCam::Process_AimWeapon(const CVector& targetPosition, float, float, float)
     }
     if (m_bResetStatics) {
         TheCamera.ResetDuckingSystem(ped);m_bRotating=false;m_bCollisionChecksOn=true;m_fAlphaSpeed=m_fBetaSpeed=0.f;
-        StaticRef<bool>(0xB6EC44)=true;StaticRef<int32>(0xB6EC48)=60000;DatosExe::Data::v8CC530=-1001.f;StaticRef<uint32>(0xB6EC4C)=0;
+        DatosExe::Bss::bB6EC44=true;StaticRef<int32>(0xB6EC48)=60000;DatosExe::Data::v8CC530=-1001.f;StaticRef<uint32>(0xB6EC4C)=0;
         if (!StaticRef<bool>(0xB6EC2E) || ped->m_pTargetedObject) {
             m_fVerticalAngle=f(row+12);
             if (!inVehicle || !vehicle) {
@@ -1723,7 +1724,7 @@ void CCam::Process_AimWeapon(const CVector& targetPosition, float, float, float)
             float betaChange=(1.f-weight)*betaInput+weight*m_fBetaSpeed;
             float alphaChange=weight*m_fAlphaSpeed+(1.f-weight)*alphaInput;
             m_fBetaSpeed=betaChange;m_fAlphaSpeed=alphaChange;
-            auto& following=StaticRef<bool>(0xB6EC44);
+            auto& following=DatosExe::Bss::bB6EC44;
             auto& idle=StaticRef<int32>(0xB6EC48);
             auto& followHeading=DatosExe::Data::v8CC530;
             if (driver) {
@@ -1815,7 +1816,7 @@ void CCam::Process_AimWeapon(const CVector& targetPosition, float, float, float)
         float heading=-1000.f;
         if (weapon==41) heading=CamAimHeading355(m_vecFront.x,m_vecFront.y,verticalOffset);
         else if (auto* aimed=ped->m_pTargetedObject) { const CVector delta=aimed->GetPosition()-ped->GetPosition();heading=CamAimHeading355(delta.x,delta.y,0.f); }
-        else if (StaticRef<bool>(0xB6EC44)) heading=CamAimHeading355(m_vecFront.x,m_vecFront.y,verticalOffset);
+        else if (DatosExe::Bss::bB6EC44) heading=CamAimHeading355(m_vecFront.x,m_vecFront.y,verticalOffset);
         if (heading>-100.f) {ped->m_fCurrentRotation=ped->m_fAimingRotation=heading-.05f;ped->SetHeading(heading);ped->UpdateRwMatrix();}
         StaticRef<CPed*>(0xB6F980)->GetPlayerData()->m_fLookPitch=TheCamera.Find3rdPersonQuickAimPitch();
     }
@@ -1828,7 +1829,7 @@ void CCam::Process_AttachedCam() {
     m_fFOV=70.0f;const float angle=StaticRef<float>(0xB6F978)*std::bit_cast<float>(0x3C8EFA35u);
     auto* attached=StaticRef<CEntity*>(0xB6F984);const auto& matrix=attached->GetMatrix();
     m_vecSource=matrix.TransformVector(StaticRef<CVector>(0xB6F960));m_vecSource+=attached->GetPosition();
-    if(!StaticRef<uint8>(0xB6F054))m_vecFront=StaticRef<CEntity*>(0xB6F980)->GetPosition()-m_vecSource;
+    if(!DatosExe::Bss::bB6F054)m_vecFront=StaticRef<CEntity*>(0xB6F980)->GetPosition()-m_vecSource;
     else {m_vecFront=matrix.TransformVector(StaticRef<CVector>(0xB6F96C));m_vecFront+=attached->GetPosition();m_vecFront-=m_vecSource;}
     m_vecFront.Normalise();auto side=CrossProduct(m_vecFront,CVector{0,0,1});side.Normalise();auto vertical=CrossProduct(side,m_vecFront);vertical.Normalise();
     float water=0;
@@ -2289,7 +2290,7 @@ bool CCam::Process_DW_BirdyCam(bool) {
     if (!(flags & 1)) { flags |= 1; } // EXE 0x404350 is a no-op default constructor.
     const int32 maximum = DatosExe::Data::v8CCD74;
     if (!(flags & 2)) { flags |= 2; counter = maximum; }
-    auto& failed = StaticRef<uint8>(0xB6EC72);
+    auto& failed = DatosExe::Bss::bB6EC72;
     auto& start = DatosExe::Data::v8CCBA0; auto& end = DatosExe::Data::v8CCBA4;
     const auto eligible = [](CEntity* object) {
         const uint32 objectFlags = *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(object) + 0x1C);
@@ -2376,7 +2377,7 @@ bool CCam::Process_DW_CamManCam(bool) {
     GetCoreDataForDWCineyCamMode(entity,vehicle,dest,src,up,right,forward,velocity,speed,angular,angularSpeed,sphere);
     const auto now=CTimer::GetTimeInMS();auto& flags=StaticRef<uint32>(0xB70078);flags|=1;auto& counter=StaticRef<int32>(0xB70074);const int32 maximum=DatosExe::Data::v8CCD58;
     if(!(flags&2)){flags|=2;counter=maximum;}
-    auto& mode=DatosExe::Data::v8CC488;auto& start=DatosExe::Data::v8CCBA0;auto& end=DatosExe::Data::v8CCBA4;auto& failed=StaticRef<uint8>(0xB6EC71);
+    auto& mode=DatosExe::Data::v8CC488;auto& start=DatosExe::Data::v8CCBA0;auto& end=DatosExe::Data::v8CCBA4;auto& failed=DatosExe::Bss::bB6EC71;
     if(mode!=0x39||gLastFrameProcessedDWCineyCam<CTimer::GetFrameCounter()-1u){
         mode=0x39;end=DatosExe::Data::v8CCBAC+now;counter=maximum;failed=0;start=now;gHandShaker[0].Reset();
         const float range=DatosExe::Data::v8CCD54;const CVector center{forward.x*range+dest.x,forward.y*range+dest.y,forward.z*range+dest.z};
@@ -2454,7 +2455,7 @@ bool CCam::Process_DW_HeliChaseCam(bool) {
     float speed, angularSpeed; CColSphere sphere;
     GetCoreDataForDWCineyCamMode(target, vehicle, dest, source, up, right, forward, velocity, speed, angularVelocity, angularSpeed, sphere);
     const uint32 now = CTimer::GetTimeInMS();
-    auto& failed = StaticRef<uint8>(0xB6EC70);
+    auto& failed = DatosExe::Bss::bB6EC70;
     const auto resetState = [&] {
         integer(0x44) = integer(0x48); number(0x7C) = number(0x2C) - number(0x30);
         flag(0x40) = flag(0x5C) = flag(0x80) = flag(0x81) = flag(0x88) = 0;
@@ -2604,7 +2605,7 @@ bool CCam::Process_DW_PlaneCam3(bool) {
     CColSphere sphere;
     GetCoreDataForDWCineyCamMode(entity,vehicle,dest,src,up,right,forward,velocity,speed,angular,angularSpeed,sphere);
     const auto now=CTimer::GetTimeInMS();
-    auto& failed=StaticRef<uint8>(0xB6EC78);
+    auto& failed=DatosExe::Bss::bB6EC78;
     if(dest.z<DatosExe::Data::v8CCDEC){failed=1;return false;}
     auto& mode=DatosExe::Data::v8CC488;
     auto& start=DatosExe::Data::v8CCBA0;
@@ -2660,7 +2661,7 @@ bool CCam::Process_DW_PlaneSpotterCam(bool) {
     CEntity* entity;CVehicle* vehicle;CVector dest,src,up,right,forward,velocity,angular;float speed,angularSpeed;CColSphere sphere;
     GetCoreDataForDWCineyCamMode(entity,vehicle,dest,src,up,right,forward,velocity,speed,angular,angularSpeed,sphere);
     const auto now=CTimer::GetTimeInMS();auto& flags=StaticRef<uint32>(0xB700B4);flags|=1;
-    auto& mode=DatosExe::Data::v8CC488;auto& start=DatosExe::Data::v8CCBA0;auto& end=DatosExe::Data::v8CCBA4;auto& failed=StaticRef<uint8>(0xB6EC73);auto& position=StaticRef<CVector>(0xB700A8);
+    auto& mode=DatosExe::Data::v8CC488;auto& start=DatosExe::Data::v8CCBA0;auto& end=DatosExe::Data::v8CCBA4;auto& failed=DatosExe::Bss::bB6EC73;auto& position=StaticRef<CVector>(0xB700A8);
     CColPoint point;CEntity* hit;
     if(mode!=0x3B||gLastFrameProcessedDWCineyCam<CTimer::GetFrameCounter()-1u){
         mode=0x3B;end=DatosExe::Data::v8CCBB4+now;failed=0;start=now;
@@ -2674,14 +2675,14 @@ bool CCam::Process_DW_PlaneSpotterCam(bool) {
             if(blocked){position=CVector{point.m_vecPoint.x,point.m_vecPoint.y,point.m_vecPoint.z+2.0f};break;}
         }
         if(tries>0&&!blocked){failed=1;return false;}
-        StaticRef<uint8>(0xB700A4)=uint8(std::rand()<0x3FFF);
+        DatosExe::Bss::bB700A4=uint8(std::rand()<0x3FFF);
     }
     const int32 elapsed=int32(now-start),duration=int32(end-start);float progress;
     progress = IntRatioCpp(elapsed, duration);
     src=position;float fov=70;
     const auto delta=position-dest;const float planar=std::sqrt(delta.y*delta.y+delta.x*delta.x);
     if(planar<5.0f){failed=1;return false;} /* 0x51C502: fcomp 5.0 + test ah,5 + jnp: solo falla con menor ordenado (NaN sigue) */
-    if(StaticRef<uint8>(0xB700A4)){
+    if(DatosExe::Bss::bB700A4){
         const float distance=std::sqrt((delta.z*delta.z+delta.y*delta.y)+delta.x*delta.x);
         fov=PlaneSpotterEase(distance/DatosExe::Data::v8CCD88,DatosExe::Data::v8CCD80,DatosExe::Data::v8CCD84);
         if(progress<DatosExe::Data::v8CCD7C){if(!(flags&2)){flags|=2;StaticRef<float>(0xB700A0)=DatosExe::Data::v8CCD80;}fov=PlaneSpotterEase(progress/DatosExe::Data::v8CCD7C,StaticRef<float>(0xB700A0),fov);}
@@ -2697,7 +2698,7 @@ bool CCam::Process_DW_PlaneSpotterCam(bool) {
 // 0x50F3F0 - debug
 void CCam::Process_Editor(const CVector& target, float orientation, float speedVar, float speedVarWanted) {
     static auto& s_LookAtAngle     = StaticRef<float>(0xB6FFE4);
-    static auto& s_DoRenderShadows = StaticRef<bool>(0xB7295A);
+    static auto& s_DoRenderShadows = DatosExe::Bss::bB7295A;
 
     if (m_bResetStatics) {
         m_vecSource = CVector{ 796.0f, -937.0f, 40.0f }; // 0x44470000, 0xC46A4000, 0x42200000
@@ -2856,7 +2857,7 @@ void CCam::Process_Fixed(const CVector& target, float orientation, float speedVa
 
     m_fFOV = 70.0f;
     // Como el original (0x51D5B5..0x51D5C9): si el byte 0xB6F05E vale 1, el FOV es el float de 0xB6F158
-    if (StaticRef<uint8>(0xB6F05E) == 1) {
+    if (DatosExe::Bss::bB6F05E == 1) {
         m_fFOV = StaticRef<float>(0xB6F158);
     }
 
@@ -2880,13 +2881,13 @@ void CCam::Process_Fixed(const CVector& target, float orientation, float speedVa
 
 // 0x5B25F0
 void CCam::Process_FlyBy(const CVector&, float, float, float) {
-    if(StaticRef<uint8>(0xB6F045))return;
+    if(DatosExe::Bss::bB6F045)return;
     m_vecUp=CVector{0,0,1};
     auto* fovPath=StaticRef<float*>(0xB6F988);auto* rollPath=StaticRef<float*>(0xB6F98C);auto* sourcePath=StaticRef<float*>(0xB6F990);auto* targetPath=StaticRef<float*>(0xB6F994);
     auto& fovIndex=StaticRef<int32>(0xBC4084);auto& rollIndex=StaticRef<int32>(0xBC4088);auto& sourceIndex=StaticRef<int32>(0xBC4080);auto& targetIndex=StaticRef<int32>(0xBC407C);
-    if(!StaticRef<uint8>(0xB6F05B)){
+    if(!DatosExe::Bss::bB6F05B){
         m_fTimeElapsedFloat=0;const int32 count=int32(sourcePath[0]);m_nFinishTime=uint32(int32(sourcePath[count*10-9]*1000.0f));
-        fovIndex=rollIndex=5;sourceIndex=targetIndex=11;StaticRef<uint8>(0xB6F05B)=1;StaticRef<float>(0xBC4074)=fovPath[2];StaticRef<float>(0xBC4078)=fovPath[2];
+        fovIndex=rollIndex=5;sourceIndex=targetIndex=11;DatosExe::Bss::bB6F05B=1;StaticRef<float>(0xBC4074)=fovPath[2];StaticRef<float>(0xBC4078)=fovPath[2];
     }else m_fTimeElapsedFloat+=(CTimer::GetTimeStepNonClipped()*0.02f)*1000.0f;
     const uint32 integerTime=uint32(int32(m_fTimeElapsedFloat));
     const float time=float(integerTime),finish=float(m_nFinishTime);
@@ -3036,8 +3037,8 @@ void CCam::Process_FollowCar_SA(const CVector& targetPosition,float,float,float,
         m_fFOV=std::clamp(m_fFOV,70.f,100.f);
     } else m_fFOV=70.f;
     if (reset || StaticRef<bool>(0xB6F042) || StaticRef<bool>(0xB6F043)) {
-        m_bResetStatics=false;m_bRotating=false;m_bCollisionChecksOn=true;StaticRef<bool>(0xB6F999)=true;
-        if (!StaticRef<bool>(0xB6F050) && !preserveAngles) {
+        m_bResetStatics=false;m_bRotating=false;m_bCollisionChecksOn=true;DatosExe::Bss::bB6F999=true;
+        if (!DatosExe::Bss::bB6F050 && !preserveAngles) {
             m_fVerticalAngle=0.f;m_fHorizontalAngle=CameraHeadingMinusHalfPI(vehicle);
             if (StaticRef<bool>(0xB6F043)) m_fHorizontalAngle+=DatosExe::Rdata::k858CB8;
         }
@@ -3045,7 +3046,7 @@ void CCam::Process_FollowCar_SA(const CVector& targetPosition,float,float,float,
         m_vecFront=M16Direction(m_fHorizontalAngle,m_fVerticalAngle);
         m_avecTargetHistoryPos[0]=CamFollowCarHistory355(focal,m_vecFront,historyDistance);m_anTargetHistoryTime[0]=CTimer::GetTimeInMS();
         m_avecTargetHistoryPos[1]=CamFollowCarHistory355(focal,m_vecFront,distance);m_nCurrentHistoryPoints=0;
-        if (!StaticRef<bool>(0xB6F050) && !preserveAngles) m_fVerticalAngle=-verticalOffset;
+        if (!DatosExe::Bss::bB6F050 && !preserveAngles) m_fVerticalAngle=-verticalOffset;
     }
     m_vecFront=focal-m_avecTargetHistoryPos[0];m_vecFront.Normalise();
     const float actualDistance=CamFollowCarActualDistance355(focal,m_avecTargetHistoryPos[1]);
@@ -3120,7 +3121,7 @@ void CCam::Process_FollowCar_SA(const CVector& targetPosition,float,float,float,
             alphaInput=upper-f(0x8CCEC8)<=m_fVerticalAngle?0.f:step*f(0x8CCEC4);
     }
     if (restricted) {
-        auto& locked=StaticRef<bool>(0xB70114);
+        auto& locked=DatosExe::Bss::bB70114;
         bool correct=!locked;
         if (StaticRef<int32>(0x8CC388)!=18) { locked=false;correct=true; }
         if (correct && std::abs(verticalOffset+m_fVerticalAngle)>.05f) alphaInput=(-verticalOffset-m_fVerticalAngle)*f(0x8CCEC0);
@@ -3133,7 +3134,7 @@ void CCam::Process_FollowCar_SA(const CVector& targetPosition,float,float,float,
     // The helper applies the EXE cutoff before the extended x87 result is discarded.
     if (!mouseActive) betaInput=step*m_fBetaSpeed;
     m_fHorizontalAngle+=betaInput;
-    if (StaticRef<bool>(0xB6F050)) m_fHorizontalAngle=CGeneral::GetATanOfXY(m_vecFront.x,m_vecFront.y)+DatosExe::Rdata::k858CB8;
+    if (DatosExe::Bss::bB6F050) m_fHorizontalAngle=CGeneral::GetATanOfXY(m_vecFront.x,m_vecFront.y)+DatosExe::Rdata::k858CB8;
     ClipBeta();
     if (state<2 && idealAlpha<m_fVerticalAngle && distance<=actualDistance) {
         const uint8 contacts=type==0?*raw(vehicle,0x960):(type==9?*raw(vehicle,0x804):0);
@@ -3158,7 +3159,7 @@ void CCam::Process_FollowCar_SA(const CVector& targetPosition,float,float,float,
     if (DatosExe::Data::v8CC384==3) {
         StaticRef<bool>(0xB6FC70)=false;CWorld::pIgnoreEntity=vehicle;
         TheCamera.CameraVehicleModeSpecialCases(vehicle);
-        if (*raw(vehicle,0x429)&4) StaticRef<bool>(0x9655E5)=true;
+        if (*raw(vehicle,0x429)&4) DatosExe::Bss::b9655E5=true;
         TheCamera.CameraColDetAndReact(&m_vecSource,&focal);TheCamera.ImproveNearClip(vehicle,nullptr,&m_vecSource,&focal);
         CWorld::pIgnoreEntity=nullptr;CameraRoundVector4(m_vecSource);
     }
@@ -3259,8 +3260,8 @@ void CCam::Process_FollowPedWithMouse(const CVector& position, float orientation
         auto direction = m_vecSource - target; direction.Normalise();
         betaChange = CamMouseRecenterDelta355(direction,orientation,m_fHorizontalAngle); alphaChange = 0.f;
     }
-    const auto transition = StaticRef<uint8>(0xC3EFAB);
-    const bool controlsCamera = StaticRef<uint8>(0xB6F079) != 0 && StaticRef<uint16>(0xB6FC58) == 1;
+    const auto transition = DatosExe::Bss::bC3EFAB;
+    const bool controlsCamera = StaticRef<uint8>(0xB6F079) != 0 && DatosExe::Bss::bB6FC58 == 1;
     if ((controlsCamera && DatosExe::Data::v8CC7D4 < transition) || transition > 200 || recenter) alphaChange = std::clamp(DatosExe::Data::v8CC7D8 - m_fVerticalAngle,-.05f,.05f);
     m_fHorizontalAngle = betaChange + m_fHorizontalAngle; m_fVerticalAngle = alphaChange + m_fVerticalAngle; ClipBeta();
     m_fVerticalAngle = std::clamp(m_fVerticalAngle,std::bit_cast<float>(0xBFC7F1E7u),std::bit_cast<float>(0x3F490FDBu));
@@ -3268,7 +3269,7 @@ void CCam::Process_FollowPedWithMouse(const CVector& position, float orientation
     const float alphaMultiplier = DatosExe::Data::v8CC7C8;
     float distance;
     CamFollowMouseDistanceCpp(alpha, alphaMultiplier, &distance);
-    if (StaticRef<uint8>(0xB6F05F) == 1) m_fHorizontalAngle = *reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(this) + 0x9C);
+    if (DatosExe::Bss::bB6F05F == 1) m_fHorizontalAngle = *reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(this) + 0x9C);
     if (StaticRef<uint8>(0xB6F042) == 1) m_fHorizontalAngle = StaticRef<float>(0xB6F148) + DatosExe::Rdata::k858CB8;
     if (StaticRef<uint8>(0xB6F043) == 1) m_fHorizontalAngle = StaticRef<float>(0xB6F148);
     if (specialVehicle) m_fHorizontalAngle = orientation;
@@ -3457,8 +3458,8 @@ void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, flo
         }
     }
     if (reset) {
-        TheCamera.ResetDuckingSystem(ped);m_bRotating=false;StaticRef<bool>(0xB6EC54)=false;m_bCollisionChecksOn=true;
-        const bool preserve=StaticRef<bool>(0xB6F050) || resetHistory;
+        TheCamera.ResetDuckingSystem(ped);m_bRotating=false;DatosExe::Bss::bB6EC54=false;m_bCollisionChecksOn=true;
+        const bool preserve=DatosExe::Bss::bB6F050 || resetHistory;
         if (!preserve) {
             m_fHorizontalAngle=CameraHeadingMinusHalfPI(ped);
             if (StaticRef<bool>(0xB6F043)) m_fHorizontalAngle+=DatosExe::Rdata::k858CB8;
@@ -3484,7 +3485,7 @@ void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, flo
     float pedAngle=CameraHeadingMinusHalfPI(ped);
     float difference=pedAngle-historyAngle;
     if (difference>DatosExe::Rdata::k858CB8) pedAngle-=DatosExe::Rdata::k858CBC;else if (difference < -DatosExe::Rdata::k858CB8) pedAngle+=DatosExe::Rdata::k858CBC;
-    auto& forceBehind=StaticRef<bool>(0xB6EC54);
+    auto& forceBehind=DatosExe::Bss::bB6EC54;
     if (pad->GetForceCameraBehindPlayer()) forceBehind=true;
     else if (forceBehind && (ped->m_vecMoveSpeed.SquaredMagnitude()>.001f || std::abs(pedAngle-historyAngle)<.01f || pad->AimWeaponLeftRight(ped)!=0 || pad->AimWeaponUpDown(ped)!=0)) forceBehind=false;
     difference=pedAngle-historyAngle;
@@ -3561,7 +3562,7 @@ void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, flo
     float alphaDelta=alphaAuto;
     if (mouse) {
         alphaStick=m_fFOV*.0125f*f(0xB73428)*2.5f*f(0xB6EC1C);
-        const uint8 transition=StaticRef<uint8>(0xC3EFAB);
+        const uint8 transition=DatosExe::Bss::bC3EFAB;
         if ((StaticRef<bool>(0xB6F079) && TheCamera.GetFadingDirection()==1 && transition>45) || transition>200) alphaStick=std::clamp(-verticalOffset-m_fVerticalAngle,-.05f,.05f);
         m_fAlphaSpeed=0.f;alphaDelta=alphaStick;
     }
@@ -3589,7 +3590,7 @@ void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, flo
         TheCamera.CameraColDetAndReact(&m_vecSource,&focal);TheCamera.ImproveNearClip(nullptr,ped,&m_vecSource,&focal);CameraRoundVector4(m_vecSource);
     }
     StaticRef<bool>(0xB6F042)=false;StaticRef<bool>(0xB6F043)=false;CameraRoundVector4(m_vecSource);GetVectorsReadyForRW();
-    if (!interior && StaticRef<int32>(0xB6F0D8)!=1 && (flags&1) && !plugin::CallMethodAndReturn<bool,0x441390>(ped) && !StaticRef<bool>(0xB6FCDD) && !StaticRef<bool>(0xB6FD14) && !StaticRef<bool>(0xB6FCB4) && ped->m_vecMoveSpeed.SquaredMagnitude()<.0001f) gIdleCam.Process();
+    if (!interior && StaticRef<int32>(0xB6F0D8)!=1 && (flags&1) && !plugin::CallMethodAndReturn<bool,0x441390>(ped) && !DatosExe::Bss::bB6FCDD && !DatosExe::Bss::bB6FD14 && !DatosExe::Bss::bB6FCB4 && ped->m_vecMoveSpeed.SquaredMagnitude()<.0001f) gIdleCam.Process();
     else StaticRef<uint32>(0xB6FE34)=0;
     m_bResetStatics=false;
 }
@@ -3648,7 +3649,7 @@ void CCam::Process_M16_1stPerson(const CVector&, float, float, float) {
     float upper = std::bit_cast<float>(0x3F860A92u), lower = std::bit_cast<float>(0x3FBF0243u);
     float upOffset = .1f, backOffset = .3f;
     auto& zoom = StaticRef<float>(0xB6FFE8);
-    auto& obstruction = StaticRef<bool>(0xB6FFF4);
+    auto& obstruction = DatosExe::Bss::bB6FFF4;
     if (m_bResetStatics) {
         if (!StaticRef<bool>(0xB6EC2E) || ped->m_pTargetedObject || attached) {
             m_fHorizontalAngle = attached ? constant(0xA4449C) : ped->m_fCurrentRotation - DatosExe::Rdata::k858FE4;
@@ -3801,7 +3802,7 @@ void CCam::Process_M16_1stPerson(const CVector&, float, float, float) {
 void CCam::Process_Rocket(const CVector& target, float orientation, float speedVar, float speedVarWanted, bool isHeatSeeking) {
     static auto& dword_B6FFF8 = StaticRef<uint32>(0xB6FFF8);
     static auto& dword_B6FFFC = StaticRef<uint32>(0xB6FFFC);
-    static auto& byte_B70000  = StaticRef<bool>(0xB70000);
+    static auto& byte_B70000  = DatosExe::Bss::bB70000;
 
     // Como el original (0x511B58..0x511B66): si el objetivo no es un ped se salta directamente al final (que fija el plano cercano)
     if (m_pCamTargetEntity->GetIsTypePed()) {

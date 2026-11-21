@@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "X87Math.h"
 
 #include "Renderer.h"
@@ -1392,7 +1393,7 @@ void CRenderer::ScanWorld() {
 
     static auto& lastCameraPosition = StaticRef<CVector>(0xB76888);
     static auto& lastCameraForward = StaticRef<CVector>(0xB7687C);
-    static auto& bCameraHasNotMoved = StaticRef<bool>(0xB745C8); // sin uso en el EXE
+    static auto& bCameraHasNotMoved = DatosExe::Bss::bB745C8; // sin uso en el EXE
 
     // Como el original: la cámara "no se ha movido" si |pos - última|² < 16 (sumando z, x, y) y
     // forward · último forward > 0,98 (sumando z, x, y)

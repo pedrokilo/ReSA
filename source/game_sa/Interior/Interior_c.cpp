@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
@@ -1462,7 +1463,7 @@ int32 Interior_c::Office_PlaceEdgeFillers(int32 arg0, int32 a2, int32 a3, int32 
         return n15;
     }
     n17 = n4;
-    if ((n17 <= 90) || (StaticRef<uint8>(0xBB3DC8) != 0)) {
+    if ((n17 <= 90) || (DatosExe::Bss::bBB3DC8 != 0)) {
         if (n17 <= 75) {
             if (n17 <= 25) {
                 return 1;
@@ -1491,7 +1492,7 @@ int32 Interior_c::Office_PlaceEdgeFillers(int32 arg0, int32 a2, int32 a3, int32 
         if (furniture14 != nullptr) {
             AddInteriorInfo(7, float(n7), float(n8), ((n3 - 2) & 3), nullptr);
         }
-        StaticRef<uint8>(0xBB3DC8) = uint8(1);
+        DatosExe::Bss::bBB3DC8 = uint8(1);
         PlaceFurniture(furniture14, a2, a3, 0.0f, 1, n3, &n15, &n16, 0);
         return n15;
     }
@@ -2466,7 +2467,7 @@ void Interior_c::Unfurnish() {
         auto* entity = item->m_entity;
         if (held && held == entity && held->GetType() == ENTITY_TYPE_OBJECT
             && (*reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(held) + 0x140) & 0x2000)) {
-            ++StaticRef<uint16>(0xBB4A70);
+            ++DatosExe::Bss::bBB4A70;
             auto* bytes = reinterpret_cast<uint8*>(held);
             bytes[0x13C] = 3;
             *reinterpret_cast<uint32*>(bytes + 0x150) = CTimer::GetTimeInMS() + 99999999u;

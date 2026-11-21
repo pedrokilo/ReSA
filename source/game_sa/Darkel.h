@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "eWeaponType.h"
 
@@ -33,9 +34,9 @@ public:
     static inline auto& WeaponType = StaticRef<eWeaponType>(0x96A700);
     static inline auto& Status = StaticRef<eDarkelStatus>(0x96A704);
 
-    static inline auto& bHeadShotRequired = StaticRef<bool>(0x969A49);
-    static inline auto& bStandardSoundAndMessages = StaticRef<bool>(0x969A4A);
-    static inline auto& bProperKillFrenzy = StaticRef<bool>(0x969A48);
+    static inline auto& bHeadShotRequired = DatosExe::Bss::b969A49;
+    static inline auto& bStandardSoundAndMessages = DatosExe::Bss::b969A4A;
+    static inline auto& bProperKillFrenzy = DatosExe::Bss::b969A48;
 
 public:
     static void InjectHooks();

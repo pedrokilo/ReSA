@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include <Base.h>
 #include "Vector.h"
@@ -233,7 +234,7 @@ public:
 
 public:
     static inline auto& InteriorIDBeingBuilt = StaticRef<int32>(0x96EF88);
-    static inline auto& bInteriorBeingBuilt = StaticRef<bool>(0x96F031);
+    static inline auto& bInteriorBeingBuilt = DatosExe::Bss::b96F031;
     static inline auto& NumNodesGiven = StaticRef<uint32>(0x96EF80);
     static inline auto& NumLinksToExteriorNodes = StaticRef<int32>(0x96EAB8);
     static inline auto& NewInteriorSlot = StaticRef<int32>(0x96EF84);

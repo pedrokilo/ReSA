@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataCadenas.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -2063,10 +2064,10 @@ void CRadar::DrawCoordBlip(int32 blipIndex, bool isSprite) {
 }
 
 // Estaticas locales de DrawEntityBlip en el EXE (0xBAA370..0xBAA380): el destello de la pista de aterrizaje y sus banderas de inicializacion (bit 0: BAA37C, bit 1: BAA378).
-static auto& airstripFlashDone  = StaticRef<bool>(0xBAA370);
+static auto& airstripFlashDone  = DatosExe::Bss::bBAA370;
 static auto& airstripFlashTime  = StaticRef<uint32>(0xBAA374);
-static auto& airstripFlashEnd   = StaticRef<int16>(0xBAA378);
-static auto& airstripFlashStep  = StaticRef<int16>(0xBAA37C);
+static auto& airstripFlashEnd   = DatosExe::Bss::bBAA378;
+static auto& airstripFlashStep  = DatosExe::Bss::bBAA37C;
 static auto& airstripFlashGuard = StaticRef<uint32>(0xBAA380);
 
 /*

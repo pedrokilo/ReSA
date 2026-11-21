@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include <CarGenerator.h>
 #include <SpecialPlateHandler.h>
@@ -13,8 +14,8 @@ static constexpr int32 NUM_CAR_GENERATORS = 500;
 
 class CTheCarGenerators {
 public:
-    static inline auto& GenerateEvenIfPlayerIsCloseCounter = StaticRef<uint8>(0xC279D0);
-    static inline auto& ProcessCounter = StaticRef<uint8>(0xC279D1);
+    static inline auto& GenerateEvenIfPlayerIsCloseCounter = DatosExe::Bss::bC279D0;
+    static inline auto& ProcessCounter = DatosExe::Bss::bC279D1;
     static inline auto& NumOfCarGenerators = StaticRef<uint32>(0xC279D4);
     static inline auto& m_SpecialPlateHandler = StaticRef<CSpecialPlateHandler>(0xC279D8);
     static inline auto& CarGeneratorArray = StaticRef<CCarGenerator[NUM_CAR_GENERATORS]>(0xC27AD0);

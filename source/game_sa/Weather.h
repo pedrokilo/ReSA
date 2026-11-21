@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "Vector.h"
@@ -22,7 +23,7 @@ enum eWeatherRegion : int16 {
 class CWeather {
 public:
     static inline auto& TrafficLightsBrightness = StaticRef<float>(0xC812A8);
-    static inline auto& bScriptsForceRain = StaticRef<bool>(0xC812AC);
+    static inline auto& bScriptsForceRain = DatosExe::Bss::bC812AC;
     static inline auto& Earthquake = StaticRef<float>(0xC81340);
     static inline auto& CurrentRainParticleStrength = StaticRef<uint32>(0xC812B0);
     static inline auto& LightningStartY = StaticRef<uint32>(0xC812B4); // only initialized (0), not used
@@ -31,8 +32,8 @@ public:
     static inline auto& WhenToPlayLightningSound = StaticRef<int32>(0xC812C0);
     static inline auto& LightningDuration = StaticRef<uint32>(0xC812C4);
     static inline auto& LightningStart = StaticRef<uint32>(0xC812C8); // frame number
-    static inline auto& LightningFlash = StaticRef<bool>(0xC812CC);
-    static inline auto& LightningBurst = StaticRef<bool>(0xC812CD);
+    static inline auto& LightningFlash = DatosExe::Bss::bC812CC;
+    static inline auto& LightningBurst = DatosExe::Bss::bC812CD;
     static inline auto& HeadLightsSpectrum = StaticRef<float>(0xC812D0);
     static inline auto& WaterFogFXControl = StaticRef<float>(0xC81338);
     static inline auto& HeatHazeFXControl = StaticRef<float>(0xC812D8);

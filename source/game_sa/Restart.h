@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
 
@@ -6,21 +7,21 @@ class CRestart {
 public:
     static constexpr uint32 MAX_RESTART_POINTS{ 10u };
 
-    static inline auto& bOverrideRespawnBasePointForMission = StaticRef<bool>(0xA43248);
+    static inline auto& bOverrideRespawnBasePointForMission = DatosExe::Bss::bA43248;
     static inline auto& OverrideRespawnBasePointForMission = StaticRef<CVector>(0xA4342C);
     static inline auto& OverrideHeading = StaticRef<float>(0xA43260);
-    static inline auto& bOverrideRestart = StaticRef<bool>(0xA43264);
+    static inline auto& bOverrideRestart = DatosExe::Bss::bA43264;
     static inline auto& OverridePosition = StaticRef<CVector>(0xA43408);
 
-    static inline auto& bFadeInAfterNextArrest = StaticRef<bool>(0xA4325C);
-    static inline auto& bFadeInAfterNextDeath = StaticRef<bool>(0xA4325D);
+    static inline auto& bFadeInAfterNextArrest = DatosExe::Bss::bA4325C;
+    static inline auto& bFadeInAfterNextDeath = DatosExe::Bss::bA4325D;
 
-    static inline auto& NumberOfPoliceRestarts = StaticRef<uint16>(0xA43268);
+    static inline auto& NumberOfPoliceRestarts = DatosExe::Bss::bA43268;
     static inline auto& PoliceRestartWhenToUse = StaticRef<int32[MAX_RESTART_POINTS]>(0xA43270);
     static inline auto& PoliceRestartHeadings = StaticRef<float[MAX_RESTART_POINTS]>(0xA43298);
     static inline auto& PoliceRestartPoints = StaticRef<CVector[MAX_RESTART_POINTS]>(0xA43390);
 
-    static inline auto& NumberOfHospitalRestarts = StaticRef<uint16>(0xA4326C);
+    static inline auto& NumberOfHospitalRestarts = DatosExe::Bss::bA4326C;
     static inline auto& HospitalRestartWhenToUse = StaticRef<int32[MAX_RESTART_POINTS]>(0xA432C0);
     static inline auto& HospitalRestartHeadings = StaticRef<float[MAX_RESTART_POINTS]>(0xA432E8);
     static inline auto& HospitalRestartPoints = StaticRef<CVector[MAX_RESTART_POINTS]>(0xA43318);

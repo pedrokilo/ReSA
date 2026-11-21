@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -894,7 +895,7 @@ void CTrain::CreateMissionTrain(CVector posn, bool clockwise, uint32 type, CTrai
 
 // 0x6F7900
 void CTrain::DoTrainGenerationAndRemoval() {
-    auto& nearStation = StaticRef<uint8>(0xC38068);
+    auto& nearStation = DatosExe::Bss::bC38068;
     const auto now = StaticRef<uint32>(0xB7CB84);
     const auto previousTime = StaticRef<uint32>(0xB7CB78);
     if (now / 3000u != previousTime / 3000u) {

@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
@@ -3740,9 +3741,9 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
                             int8 wheelId, float* wheelSpeed,
                             tWheelState* wheelState, uint16 wheelStatus
 ) {
-    static auto& bBraking = StaticRef<bool>(0xC1CDAE); // false
-    static auto& bDriving = StaticRef<bool>(0xC1CDAD); // false
-    static auto& bAlreadySkidding = StaticRef<bool>(0xC1CDAC); // false
+    static auto& bBraking = DatosExe::Bss::bC1CDAE; // false
+    static auto& bDriving = DatosExe::Bss::bC1CDAD; // false
+    static auto& bAlreadySkidding = DatosExe::Bss::bC1CDAC; // false
     constexpr float kRandScale = std::bit_cast<float>(0x38000100u);      // 0x858C7C (1 / 32767)
     constexpr float kFixedSpeed = std::bit_cast<float>(0x3BA3D70Au);     // 0x858B4C
     constexpr float kForwardLimit = std::bit_cast<float>(0x3E19999Au);   // 0x858FCC (0.15)
@@ -3937,10 +3938,10 @@ void CVehicle::ProcessBikeWheel(CVector& wheelFwd, CVector& wheelRight, CVector&
                   offsetof(CVehicle, m_pHandlingData) == 0x384 && offsetof(CPhysical, m_fMass) == 0x8C && offsetof(CPhysical, m_fTurnMass) == 0x90 &&
                   offsetof(tHandlingData, m_fMass) == 0x4 && offsetof(tHandlingData, m_fTractionLoss) == 0xA4);
     // Estaticas del EXE: los cuatro bytes los escribe esta funcion; el ultimo (ya patinaba) solo se pone a true aqui
-    static auto& bBraking = StaticRef<bool>(0xC1CDB2);
-    static auto& bDriving = StaticRef<bool>(0xC1CDB1);
-    static auto& bReversing = StaticRef<bool>(0xC1CDB0);
-    static auto& bAlreadySkidding = StaticRef<bool>(0xC1CDAF);
+    static auto& bBraking = DatosExe::Bss::bC1CDB2;
+    static auto& bDriving = DatosExe::Bss::bC1CDB1;
+    static auto& bReversing = DatosExe::Bss::bC1CDB0;
+    static auto& bAlreadySkidding = DatosExe::Bss::bC1CDAF;
     // Constantes de 0x858xxx / 0x8D34xx del EXE
     constexpr float kLimitSpeed = std::bit_cast<float>(0x3DF5C28Fu);     // 0x8D34CC
     constexpr float kWobble = std::bit_cast<float>(0x3D4CCCCDu);         // 0x8D34C8 (el minimo es -1.0 * este valor)

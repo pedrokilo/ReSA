@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 
 #include "RenderWare.h"
@@ -172,7 +173,7 @@ constexpr uint32 MAX_SHADOW_POLY_BUNCHES = 360;
 
 class CShadows {
 public:
-    static inline auto& ShadowsStoredToBeRendered = StaticRef<uint16>(0xC403DC);
+    static inline auto& ShadowsStoredToBeRendered = DatosExe::Bss::bC403DC;
     static inline auto& pEmptyBunchList = StaticRef<CPolyBunch*>(0xC403D8);
     static inline auto& aPolyBunches = StaticRef<std::array<CPolyBunch, MAX_SHADOW_POLY_BUNCHES>>(0xC40DF0);
     static inline auto& aStaticShadows = StaticRef<std::array<CStaticShadow, MAX_STATIC_SHADOWS>>(0xC4A030);

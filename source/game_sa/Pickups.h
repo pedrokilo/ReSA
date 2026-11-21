@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include <array>
@@ -31,10 +32,10 @@ public:
     static inline auto& StaticCamStartTime = StaticRef<int32>(0x978618);
     static inline CVector* StaticCamCoors = (CVector*)0x97D660;
     static inline auto& pPlayerVehicle = StaticRef<CVehicle*>(0x97861C);
-    static inline auto& bPickUpcamActivated = StaticRef<bool>(0x978620);
-    static inline auto& CollectedPickUpIndex = StaticRef<uint16>(0x978624);
+    static inline auto& bPickUpcamActivated = DatosExe::Bss::b978620;
+    static inline auto& CollectedPickUpIndex = DatosExe::Bss::b978624;
     static inline auto& aPickUpsCollected = StaticRef<std::array<int32, MAX_COLLECTED_PICKUPS>>(0x978628);
-    static inline auto& NumMessages = StaticRef<uint16>(0x978678);
+    static inline auto& NumMessages = DatosExe::Bss::b978678;
     static inline auto& aMessages = StaticRef<std::array<tPickupMessage, MAX_PICKUP_MESSAGES>>(0x978680);
     static inline auto& aPickUps = StaticRef<std::array<CPickup, MAX_NUM_PICKUPS>>(0x9788C0);
 

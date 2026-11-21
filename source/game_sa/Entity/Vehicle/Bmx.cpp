@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "CarCtrl.h"
 #include "Shadows.h"
@@ -24,7 +25,7 @@ END GENERATED HOOK STATUS */
 
 namespace {
 // Como el original: global sin nombre de 0xC1C83C (solo se lee en PreRender; el EXE nunca la escribe, vale 0)
-inline auto& BmxPreRenderFlag = StaticRef<bool>(0xC1C83C);
+inline auto& BmxPreRenderFlag = DatosExe::Bss::bC1C83C;
 // Como el original: BMX_PEDAL_LEANSTART (0xC1C820) es una global de .bss que ProcessControl lee cada vez
 inline auto& BmxPedalLeanStart = StaticRef<float>(0xC1C820);
 

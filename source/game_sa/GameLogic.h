@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -51,12 +52,12 @@ public:
     static inline auto& nPrintFocusHelpTimer = StaticRef<int32>(0x96A8B4);
     static inline auto& f2PlayerStartHeading = StaticRef<float>(0x96A840);
     static inline auto& vec2PlayerStartLocation = StaticRef<CVector>(0x96A9AC);
-    static inline auto& bPlayersCanBeInSeparateCars = StaticRef<bool>(0x96A8B3);
+    static inline auto& bPlayersCanBeInSeparateCars = DatosExe::Bss::b96A8B3;
     static inline auto& bPlayersCannotTargetEachOther = StaticRef<bool>(0x96A8B2);
 
     static inline auto& NumAfterDeathStartPoints = StaticRef<int32>(0x96A890);
 
-    static inline auto& SkipToBeFinishedByScript = StaticRef<bool>(0x96A894);
+    static inline auto& SkipToBeFinishedByScript = DatosExe::Bss::b96A894;
     static inline auto& SkipVehicle = StaticRef<CVehicle*>(0x96A898);
     static inline auto& SkipTimer = StaticRef<uint32>(0x96A89C);
     static inline auto& SkipState = StaticRef<eSkipState>(0x96A8A0);
@@ -64,7 +65,7 @@ public:
     static inline auto& bScriptCoopGameGoingOn = StaticRef<bool>(0x96A8A8);
     static inline auto& TimeOfLastEvent = StaticRef<int32>(0x96A8AC);
     static inline auto& GameState = StaticRef<eGameLogicState>(0x96A8B0);
-    static inline auto& ActivePlayers = StaticRef<uint8>(0x96A8B1); // Como el original: byte
+    static inline auto& ActivePlayers = DatosExe::Bss::b96A8B1; // Como el original: byte
 
     static inline auto& bPenaltyForDeathApplies = DatosExe::Data::v8A5E48;
     static inline auto& bPenaltyForArrestApplies = DatosExe::Data::v8A5E49;
