@@ -56,7 +56,7 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x004033BD,dirección en hueco o dato del .text,,1,1,pendiente,protector del EXE (V1: se retira con ExeProtectionStub.cpp),source/game_sa/ExeProtectionStub.cpp:119,B-R2
 0x004033CD,dirección en hueco o dato del .text,,1,1,pendiente,protector del EXE (V1: se retira con ExeProtectionStub.cpp),source/game_sa/ExeProtectionStub.cpp:118,B-R2
 0x004033DF,dirección en hueco o dato del .text,,1,1,pendiente,protector del EXE (V1: se retira con ExeProtectionStub.cpp),source/game_sa/ExeProtectionStub.cpp:117,B-R2
-0x00407180,entrada de función,reemplazada,2,0,retirada,,,B1
+0x00407180,entrada de función,reemplazada,2,1,parcial,"ABI propia del EXE (registros residuales, bits de float) o puntero de funcion cuyo valor compara el EXE: revisar caso a caso",source/game_sa/CarCtrl.cpp:384,B1
 0x00407820,entrada de función,reemplazada,1,0,retirada,,,B1
 0x004087E0,entrada de función,reemplazada,1,0,retirada,,,B1
 0x00408C70,entrada de función,reemplazada,1,0,retirada,,,B1
@@ -147,7 +147,7 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x0043A670,entrada de función,reemplazada,1,0,no es puente,"ABI propia del EXE (registros residuales, bits de float) o puntero de funcion cuyo valor compara el EXE: revisar caso a caso",,B4
 0x0043A680,entrada de función,reemplazada,1,0,no es puente,"ABI propia del EXE (registros residuales, bits de float) o puntero de funcion cuyo valor compara el EXE: revisar caso a caso",,B4
 0x0043E0C0,entrada de función,reemplazada,2,2,pendiente,"constructor, destructor o cuerpo de tarea con ABI propia (thiscall/fastcall con EDX, tamano de reserva) o clase sin constructor C++ completo",source/game_sa/Population.cpp:2003,B4
-0x00441390,entrada de función,reemplazada,1,0,retirada,,,B4
+0x00441390,entrada de función,reemplazada,1,1,pendiente,"ABI propia del EXE (registros residuales, bits de float) o puntero de funcion cuyo valor compara el EXE: revisar caso a caso",source/game_sa/Cam.cpp:3592,B4
 0x004442D0,entrada de función,reemplazada,1,0,retirada,,,B4
 0x0044DA30,entrada de función,reemplazada,1,0,retirada,,,B4
 0x0044DF60,entrada de función,reemplazada,1,0,retirada,,,B4
@@ -429,8 +429,8 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x00683340,entrada de función,reemplazada,1,0,retirada,,,B12
 0x006836F0,entrada de función,reemplazada,4,4,pendiente,"constructor, destructor o cuerpo de tarea con ABI propia (thiscall/fastcall con EDX, tamano de reserva) o clase sin constructor C++ completo",source/game_sa/Population.cpp:1948,B12
 0x006913A0,entrada de función,reemplazada,1,1,pendiente,"constructor, destructor o cuerpo de tarea con ABI propia (thiscall/fastcall con EDX, tamano de reserva) o clase sin constructor C++ completo",source/game_sa/Population.cpp:1978,B12
-0x0069F2B0,entrada de función,reemplazada,1,0,retirada,,,B12
-0x006A0050,entrada de función,reemplazada,1,0,retirada,,,B12
+0x0069F2B0,entrada de función,reemplazada,1,1,pendiente,"ABI propia del EXE (registros residuales, bits de float) o puntero de funcion cuyo valor compara el EXE: revisar caso a caso",source/game_sa/Cam.cpp:1195,B12
+0x006A0050,entrada de función,reemplazada,1,1,pendiente,"ABI propia del EXE (registros residuales, bits de float) o puntero de funcion cuyo valor compara el EXE: revisar caso a caso",source/game_sa/Cam.cpp:1195,B12
 0x006B0A90,entrada de función,reemplazada,2,0,retirada,,,B12
 0x006BF430,entrada de función,reemplazada,1,0,retirada,,,B12
 0x006BF820,entrada de función,reemplazada,1,0,retirada,,,B12
