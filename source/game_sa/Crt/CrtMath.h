@@ -10,6 +10,9 @@ namespace ExeCrt {
 double __cdecl Floor(double x); // 0x8219F0
 double __cdecl Ceil(double x);  // 0x823820
 
+// true si el EXE entra por la rama SSE2 (0xC9C400 != 0 y MXCSR/FPU con las excepciones enmascaradas): condicion comun de floor, ceil y pow (CrtPow)
+bool UseSse2MathPath();
+
 // Nucleos puros (solo la rama SSE2, sin comprobar el entorno ni llamar al manejador de NaN), para el banco: devuelven true si x es NaN
 bool FloorCore(double x, double& result);
 bool CeilCore(double x, double& result);

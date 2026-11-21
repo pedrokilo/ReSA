@@ -676,6 +676,7 @@
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
+#include "game_sa/Crt/CrtPow.h"
 
 // Hooks de biblioteca del grupo g25b (RenderWare SDK / controlador D3D9); el sufijo evita colisiones con otros registradores.
 void RwCoreInjectHooks25b();
@@ -1202,6 +1203,7 @@ void InjectHooksMain() {
     CrtHeapInjectHooks();    // lote CRT1A: malloc/free/realloc/calloc/operator new; SOLO con GTASA_CRT_HEAP_HOOKS (sin prueba dentro del juego)
     CrtStateInjectHooks();   // lote CRT2A: __getptd/rand/srand/strtok/isprint/bloqueos (estado del CRT del EXE, sin duplicar el generador)
     CrtMathInjectHooks();    // lote CRT2A: floor y ceil del CRT del EXE (rama SSE2)
+    CrtPowInjectHooks();     // lote CRT3A: pow del CRT del EXE (0x8220F0 y nucleo SSE2 0x829B99)
     CrtFileInjectHooks();    // lote CRT2A: envolturas de FILE (fread/fwrite/fseek/fclose/fflush/fgets/fputs/fopen), sprintf/vsprintf/fprintf/sscanf, getenv, __stbuf/__ftbuf, _CxxThrowException
     LibPngReadInjectHooks();
 

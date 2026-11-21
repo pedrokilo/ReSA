@@ -24,7 +24,13 @@ inline uint64_t Shl(uint64_t v, uint32_t n) { return n >= 64 ? 0 : (v << n); }
 inline double AddSd(double a, double b) { return _mm_cvtsd_f64(_mm_add_sd(_mm_set_sd(a), _mm_set_sd(b))); }
 inline double SubSd(double a, double b) { return _mm_cvtsd_f64(_mm_sub_sd(_mm_set_sd(a), _mm_set_sd(b))); }
 
-inline bool UseSse2Path() {
+inline void RaiseDomain(double& x, int code) {
+    reinterpret_cast<void(__cdecl*)(void*, void*, void*, int)>(0x82872C)(&x, &x, &x, code);
+}
+} // namespace
+
+// true si el EXE entra por la rama SSE2: 0xC9C400 != 0 y las excepciones de MXCSR y de la FPU enmascaradas (la misma condicion de floor, ceil y pow)
+bool UseSse2MathPath() {
     if (*reinterpret_cast<int*>(0xC9C400) == 0) {
         return false;
     }
@@ -36,11 +42,6 @@ inline bool UseSse2Path() {
     return (cw & (_EM_INVALID | _EM_DENORMAL | _EM_ZERODIVIDE | _EM_OVERFLOW | _EM_UNDERFLOW | _EM_INEXACT)) ==
            (_EM_INVALID | _EM_DENORMAL | _EM_ZERODIVIDE | _EM_OVERFLOW | _EM_UNDERFLOW | _EM_INEXACT);
 }
-
-inline void RaiseDomain(double& x, int code) {
-    reinterpret_cast<void(__cdecl*)(void*, void*, void*, int)>(0x82872C)(&x, &x, &x, code);
-}
-} // namespace
 
 bool FloorCore(double x, double& result) {
     const uint64_t bits = Bits(x);
@@ -90,7 +91,7 @@ bool CeilCore(double x, double& result) {
 
 // 0x8219F0
 double __cdecl Floor(double x) {
-    if (!UseSse2Path()) {
+    if (!UseSse2MathPath()) {
         return reinterpret_cast<double(__cdecl*)(double)>(0x828A60)(x);
     }
     double r;
@@ -103,7 +104,7 @@ double __cdecl Floor(double x) {
 
 // 0x823820
 double __cdecl Ceil(double x) {
-    if (!UseSse2Path()) {
+    if (!UseSse2MathPath()) {
         return reinterpret_cast<double(__cdecl*)(double)>(0x82BA31)(x);
     }
     double r;

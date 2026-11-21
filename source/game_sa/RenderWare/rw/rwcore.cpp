@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 
 #include "rwcore.h"
 #include "X87Math.h"
+#include "game_sa/Crt/CrtPow.h"
 #include <xmmintrin.h>
 #include <intrin.h>
 
@@ -1881,7 +1882,7 @@ const RwChar* RwImageSetPath(const RwChar* path) {
 RwBool RwImageSetGamma(RwReal gammaValue) {
     ImageModuleGlobalsR30A* const module = ImageModuleR30A();
     module->gamma = gammaValue;
-    ImageGammaTablesCpp(gammaValue, module->gammaTable, module->gammaInverse, reinterpret_cast<double(__cdecl*)(double, double)>(0x8220F0));
+    ImageGammaTablesCpp(gammaValue, module->gammaTable, module->gammaInverse, ExeCrt::Pow); // CRT3A: pow reconstruida (CrtPow)
     return TRUE;
 }
 

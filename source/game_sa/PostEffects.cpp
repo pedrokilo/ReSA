@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 #include "CustomBuildingDNPipeline.h"
 #include "Clouds.h"
 #include "X87Math.h"
+#include "game_sa/Crt/CrtPow.h"
 
 auto& cc_vertices = StaticRef<std::array<RwIm2DVertex, 4>>(0xC400D8);
 auto& cc_indices = StaticRef<std::array<RwImVertexIndex, 12>>(0x8D5174); // { 0, 1, 2, 0, 2, 3, 0, 1, 2, 0, 2, 3 };
@@ -48,8 +49,7 @@ int32 ExeLog2TruncKeepExtended(int32 value) {
 // Como el original: potencia de dos de la pantalla = pow(2.0, floor(log2(n)) + 1) con la pow del CRT del EXE (0x8220F0) y _ftol2 (0x821B40).
 // Para n potencia de dos el EXE da 2n (no n): no es std::bit_ceil.
 int32 ExePow2Above(int32 exponentPlusOne) {
-    using PowFn = double(__cdecl*)(double, double);
-    return static_cast<int32>(static_cast<int64>(reinterpret_cast<PowFn>(0x8220F0)(2.0, static_cast<double>(exponentPlusOne))));
+    return static_cast<int32>(static_cast<int64>(ExeCrt::Pow(2.0, static_cast<double>(exponentPlusOne))));
 }
 
 // Como el original: escala de pantalla del HeatHazeFXInit: (dimension * unidad_EXE) * k con las unidades 1/640 (0x859520) y 1/448 (0x859524) del EXE
