@@ -1,0 +1,1 @@
+unit: 500 escenarios, 43991 pasos comparados, 579481 bytes de PNG, 0 diferencias (0 fallos)

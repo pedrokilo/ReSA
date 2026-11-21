@@ -14,6 +14,9 @@ add_library(zlib113 STATIC
 # (sin tocar la fuente); las tablas cplens/cplext/cpdist/cpdext pasan a ser simbolos externos, sin colision.
 # (LIB2A) inflate_copyright pasa a ser externa con -Dlocal= y choca con la de la zlib 1.2 que lleva turbojpeg-static: se renombra con una definicion (sin tocar la fuente)
 set_source_files_properties(inftrees.c PROPERTIES COMPILE_DEFINITIONS "local=;inflate_copyright=zlib113_inflate_copyright")
+# (LIB4A) las funciones `local` de deflate.c y trees.c (fill_window, longest_match, deflate_fast/slow/stored, build_tree, compress_block, ...) son funciones propias del EXE
+# (0x7E03F0, 0x7E09B0, 0x7E0590, ...): para sustituirlas una a una se compilan SOLO estos dos archivos con -Dlocal= (sin tocar la fuente), como inftrees.c.
+set_source_files_properties(deflate.c trees.c PROPERTIES COMPILE_DEFINITIONS "local=")
 target_include_directories(zlib113 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 set_target_properties(zlib113 PROPERTIES C_STANDARD 90 C_EXTENSIONS ON)
 if (MSVC)

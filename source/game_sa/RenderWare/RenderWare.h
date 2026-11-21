@@ -89,4 +89,7 @@ void RtSlerpInjectHooks();       // lote R2A (sin validar): RtQuatSetupSlerpCach
 void RtQuatInjectHooks();        // lote R5A (sin validar): RtQuatConvertFromMatrix (y sus tres ramas), RtQuatRotate y RtQuatTransformVectors
 void ZlibInflateInjectHooks();   // lote R5A (sin validar): inflate de zlib 1.1.4 enlazado en el EXE (0x7E9430..0x7EB5B0)
 void LibPngReadInjectHooks();   // lote LIB2A: libpng de lectura de la biblioteca oficial (solo con GTASA_WITH_ZLIB_LIBPNG)
+void ZlibDeflateInjectHooks();  // lote LIB4A: deflate/trees/adler32/crc32 de zlib 1.1.3 de la biblioteca oficial (solo con GTASA_WITH_ZLIB_LIBPNG)
+void LibPngWriteInjectHooks();  // lote LIB4A: libpng de escritura (y png_error/png_warning) de la biblioteca oficial (solo con GTASA_WITH_ZLIB_LIBPNG)
+void RtPNGInjectHooks();        // lote LIB4A: RtPNGImageWrite/RtPNGImageRead y callbacks en C++ (solo con GTASA_WITH_ZLIB_LIBPNG)
 void D3DX9InjectHooks();         // lote R4A (sin validar): matematicas de D3DX9 (3DNow!/SSE) enlazadas en el EXE

@@ -1238,6 +1238,9 @@ void InjectHooksMain() {
     CrtInputInjectHooks();   // lote CRT4A: _input (motor de scanf), _ungetc_nolock, _getbuf
     CrtFloatInInjectHooks(); // lote CRT4A: texto -> coma flotante (_strgtold12, _ld12cvt, _atodbl, _atoflt, _fassign)
     LibPngReadInjectHooks();
+    ZlibDeflateInjectHooks();  // lote LIB4A: deflate de zlib 1.1.3 (deflate.c, trees.c), adler32 y crc32
+    LibPngWriteInjectHooks();  // lote LIB4A: escritura de libpng 1.0.12 y png_error/png_warning
+    RtPNGInjectHooks();        // lote LIB4A: RtPNGImageWrite/Read
 
     CIplStore::InjectHooks();
     cHandlingDataMgr::InjectHooks();

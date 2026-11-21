@@ -1,0 +1,13 @@
+0x007D1320 png_set_swap {'bench_png.exe': (0, 0)} identica no_ejercida
+0x007D1340 png_set_packing {'bench_png.exe': (0, 0)} identica no_ejercida
+0x007D13E0 png_set_filler {'bench_png.exe': (0, 0)} identica no_ejercida
+0x007D1460 png_set_invert_mono {'bench_png.exe': (0, 0)} identica no_ejercida
+0x007D1470 png_do_invert {'bench_png.exe': (0, 0)} identica no_ejercida
+0x007D14A0 png_do_swap {'bench_png.exe': (0, 0)} identica no_ejercida
+0x007D1520 png_do_strip_filler {'bench_png.exe': (0, 0)} identica no_ejercida
+0x007D1800 png_set_user_transform_info {'bench_png.exe': (0, 0)} identica no_ejercida
+0x007DA8F0 png_save_int_32 {'bench_png.exe': (0, 0)} identica no_ejercida
+0x007DA920 png_save_uint_16 {'bench_png.exe': (0, 0)} identica no_ejercida
+0x007DEED0 png_do_pack {'bench_png.exe': (0, 0)} identica no_ejercida
+0x007DF8B0 deflateReset {'bench_png.exe': (0, 1), 'bench_deflate.exe': (0, 1)} identica se_ejecuta
+0x007E10A0 crc32 {'bench_png.exe': (0, 1)} identica se_ejecuta
