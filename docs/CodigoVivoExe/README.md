@@ -4,6 +4,8 @@ Rama `codigo-vivo` (desde `origin/main` a23d661f77, 21/11/2026). Objetivo del pr
 
 Archivos: [plan-lotes.md](plan-lotes.md) · [plan.csv](plan.csv) · [funciones-vivas.csv](funciones-vivas.csv) (una fila por función no reemplazada, con grupo, decisión, llamadores, alcance y lote) · [grupos.csv](grupos.csv) · [subgrupos.csv](subgrupos.csv) · [destinos-sin-catalogo.csv](destinos-sin-catalogo.csv) (los 819) · [entradas-sin-catalogar.csv](entradas-sin-catalogar.csv) (las 9.223) · [motivos.csv](motivos.csv) · [referencias-cpp-por-direccion.csv](referencias-cpp-por-direccion.csv) · [huecos.csv](huecos.csv) y [huecos-resumen.csv](huecos-resumen.csv) · [resumen.json](resumen.json).
 
+**Estado de ejecución (rama `vivo-p2`):** P1 (V1–V3) verificada y P2 en curso; ver [ejecucion-p1-p2.md](ejecucion-p1-p2.md), [cierre.csv](cierre.csv), [cierre-p1.csv](cierre-p1.csv) y [cierre-p2.csv](cierre-p2.csv).
+
 ## 0. Resumen en diez líneas
 
 1. **Las «5.569 funciones vivas» son 5.569 trozos de 5.279 funciones.** `binary_function_ranges.csv` tiene 19.169 filas, pero son trozos de 17.765 funciones de Ghidra (1.404 funciones tienen cuerpo en varios trozos). Las cifras de aquí son por función única; 5.279 funciones = 535.410 bytes = 5.569 trozos.
