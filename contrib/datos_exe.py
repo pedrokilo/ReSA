@@ -168,6 +168,14 @@ def cargar_funciones():
             for r in csv.DictReader(s):
                 if r['estado'] == 'reemplazada':
                     reemplazadas.add(int(r['va'], 16))
+    # docs/CodigoVivoExe: las funciones con decision DESCARTAR (funclets de excepciones, D3DX9, protector, excluidas del juego, CRT sin
+    # alcance) y las CUBIERTA (ya enganchadas) no cuentan como vivas: no se ejecutaran en el EXE propio.
+    cv = base / 'CodigoVivoExe/funciones-vivas.csv'
+    if cv.exists():
+        with cv.open(encoding='utf-8-sig', newline='') as s:
+            for r in csv.DictReader(s):
+                if r['decision'] in ('DESCARTAR', 'CUBIERTA'):
+                    reemplazadas.add(int(r['va'], 16))
     rangos = []
     with (base / 'MemoryMap/binary_function_ranges.csv').open(encoding='utf-8-sig', newline='') as s:
         for r in csv.DictReader(s):

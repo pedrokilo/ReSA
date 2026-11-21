@@ -1,0 +1,13 @@
+seccion,origen,objetos_con_ref_dll,bytes_con_ref_dll,objetos_solo_exe,bytes_solo_exe
+.bss,crt,36,145,119,954
+.bss,juego,2367,66527,2738,26310
+.bss,renderware,434,3294,79,729
+.data,crt,59,729,107,1454
+.data,juego,541,5922,1235,8851
+.data,renderware,157,1332,552,10281
+.rdata,crt,70,1036,227,3826
+.rdata,crt+renderware,0,0,6,24
+.rdata,juego,572,22505,4404,43563
+.rdata,renderware,36,465,759,20150
+_TEXT_HA,juego,170,797,30,103
+_rwdseg,crt,0,0,2,8
