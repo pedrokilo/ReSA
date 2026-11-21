@@ -72,6 +72,19 @@ static void ApplyCommandLineHookSettings() {
     }
 }
 
+// FnD3DX9B: --hook=ruta[,ruta]: activa hooks que nacen desactivados. Va despues de --unhook*; sin el argumento no hace nada.
+static void ApplyCommandLineEnableSettings() {
+    using namespace ReversibleHooks;
+    for (const auto& item : CommandLine::s_HookSome) {
+        const auto res = SetCategoryOrItemStateByPath(item, true);
+        if (res == SetCatOrItemStateResult::Done) {
+            NOTSA_LOG_INFO("Hook activado '{}' por línea de comandos (--hook=).", item);
+        } else {
+            NOTSA_LOG_WARN("No se pudo activar '{}' por línea de comandos (--hook=): {}", item, res == SetCatOrItemStateResult::Locked ? "bloqueado" : "no encontrado");
+        }
+    }
+}
+
 // Resumen de arranque: cuántas funciones del juego corren ya como C++ y cuántas siguen con el código original del EXE.
 static void LogHookSummary() {
     using namespace ReversibleHooks;
@@ -177,6 +190,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 
         InjectHooksMain(hModule);
         ApplyCommandLineHookSettings();
+        ApplyCommandLineEnableSettings();
         ApplyHistoricalHookSettings();
         AutoSteal::InstallIdleDetourIfNeeded();
         LogHookSummary();

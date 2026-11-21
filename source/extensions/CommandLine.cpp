@@ -8,10 +8,13 @@
 #include <fstream>
 #include <list>
 
+namespace D3DX9System { extern bool s_LogCalls; }
+
 namespace CommandLine {
 bool                          s_UnhookAll{ false };
 std::vector<std::string_view> s_UnhookSome{};
 std::vector<std::string_view> s_UnhookExcept{};
+std::vector<std::string_view> s_HookSome{};
 
 /* Path to save the hooks dump file to */
 fs::path s_DumpHooksPath{};
@@ -55,6 +58,14 @@ void ProcessArgument(std::string_view arg) {
                 s_UnhookSome.emplace_back(std::move(hook));
             }
         }
+    } else if (arg.starts_with("--hook=")) {
+        // FnD3DX9B: activa por ruta (Categoría/Clase[/Función]) hooks que nacen desactivados ({.enabled = false}), p. ej. --hook=Plugins/D3DX9/D3DXAssembleShader.
+        // Se aplica DESPUÉS de --unhook*. Sin este argumento el comportamiento no cambia.
+        for (auto hook : SplitStringView(arg.substr(arg.find('=') + 1), ",")) {
+            s_HookSome.emplace_back(std::move(hook));
+        }
+    } else if (arg == "--d3dx9-log") {
+        D3DX9System::s_LogCalls = true; // FnD3DX9B: registra las llamadas a los envoltorios de shaders de D3DX9
     } else if (arg.starts_with("--dump-hooks-to=")) {
         if (const auto eqPos = arg.find('='); eqPos != std::string_view::npos) {
             s_DumpHooksPath = arg.substr(eqPos + 1);
