@@ -22,6 +22,8 @@ END GENERATED HOOK STATUS */
 
 auto& gCollisionPluginOffset = StaticRef<RwInt32>(0x9689DC);
 
+static RwStream* ClumpCollisionStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x41B1D0
+
 /**
  * Registra la integración de datos COL embebidos en RpClump.
  */
@@ -31,6 +33,7 @@ void CCollisionPlugin::InjectHooks() {
 
     RH_ScopedInstall(PluginAttach, 0x41B310);
     RH_ScopedInstall(SetModelInfo, 0x41B350);
+    RH_ScopedGlobalInstall(ClumpCollisionStreamRead, 0x41B1D0); // lote S2A (sin validar)
 }
 
 // internal
@@ -52,31 +55,31 @@ static void* ClumpCollisionCopyConstructor(void* dstObject, const void* srcObjec
 }
 
 // internal
-// 0x41B1D0
+// 0x41B1D0 (lote S2A, sin validar; cdecl, cinco argumentos de pila, 275 bytes con marco SEH que solo protege el `new`; el marco lo genera el compilador)
 /**
- * Callback de lectura del chunk de colisión de un clump.
- *
- * IMPORTANTE: la implementación efectiva continúa delegada al EXE mediante
- * plugin::CallAndReturn. El código situado después del return conserva el trabajo
- * incompleto de reversing y no se ejecuta en esta ruta.
+ * Callback de lectura del chunk de colision de un clump. LockScratchPad (0x72F4A0), lee `binaryLength` bytes del flujo en PC_Scratch (0xC8E0C8), reserva un CColModel (operator new de
+ * 0x30 bytes, 0x40FC30) y lo construye (0x40FB60; si no hay memoria el puntero queda a NULL y las llamadas siguientes lo usan igual, como el EXE). Segun la cabecera de 4 bytes:
+ * "COLL" -> LoadCollisionModel(&PC_Scratch[0x20], modelo); "COL2" -> LoadCollisionModelVer2(&PC_Scratch[0x20], PC_Scratch[4] - 0x18, modelo, NULL); "COL3" -> Ver3 igual;
+ * cualquier otra -> LoadCollisionModel(&PC_Scratch[0], modelo) (desde el principio del bloque). Despues MakeMultipleAlloc, SetColModel(modelo, true) sobre el modelo actual (0x9689E0),
+ * pone su indicador bDontWriteZBuffer (bit 3 del byte +0x13, releyendo el puntero), ReleaseScratchPad (0x72F4B0) y devuelve el flujo.
  */
 static RwStream* ClumpCollisionStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject) {
-    return plugin::CallAndReturn<RwStream*, 0x41B1D0, RwStream*, RwInt32, void*, RwInt32, RwInt32>(stream, binaryLength, object, offsetInObject, sizeInObject);
-
-    // incomplete
     CMemoryMgr::LockScratchPad();
-    RwStreamRead(stream, &PC_Scratch, binaryLength);
-    CColModel* model = new CColModel();
+    RwStreamRead(stream, &PC_Scratch, static_cast<RwUInt32>(binaryLength));
+    CColModel* const model = new CColModel();
 
-    switch (*(uint32*)PC_Scratch) {
+    switch (*reinterpret_cast<uint32*>(&PC_Scratch[0])) {
     case MakeFourCC("COLL"):
-        CFileLoader::LoadCollisionModel((uint8*)(&PC_Scratch[32]), *model);
+        CFileLoader::LoadCollisionModel(reinterpret_cast<uint8*>(&PC_Scratch[32]), *model);
         break;
     case MakeFourCC("COL2"):
-        CFileLoader::LoadCollisionModelVer2((uint8*)(&PC_Scratch[32]), (PC_Scratch[4] - 24), *model, nullptr);
+        CFileLoader::LoadCollisionModelVer2(reinterpret_cast<uint8*>(&PC_Scratch[32]), *reinterpret_cast<uint32*>(&PC_Scratch[4]) - 24u, *model, nullptr);
         break;
     case MakeFourCC("COL3"):
-        CFileLoader::LoadCollisionModelVer3((uint8*)(&PC_Scratch[32]), (PC_Scratch[4] - 24), *model, nullptr);
+        CFileLoader::LoadCollisionModelVer3(reinterpret_cast<uint8*>(&PC_Scratch[32]), *reinterpret_cast<uint32*>(&PC_Scratch[4]) - 24u, *model, nullptr);
+        break;
+    default:
+        CFileLoader::LoadCollisionModel(reinterpret_cast<uint8*>(&PC_Scratch[0]), *model);
         break;
     }
 

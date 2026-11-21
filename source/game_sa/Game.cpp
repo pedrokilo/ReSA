@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "DecisionMakers/DecisionMakerTypesFileLoader.h"
 #include "WaterCannons.h"
 #include "TheCarGenerators.h"
+#include "Mirrors.h"
 #include "Radar.h"
 #include "Credits.h"
 #include "Birds.h"
@@ -118,6 +119,7 @@ void CGame::InjectHooks() {
     RH_ScopedInstall(CanSeeWaterFromCurrArea, 0x53C4B0);
     RH_ScopedInstall(Init1, 0x5BF840);
     RH_ScopedInstall(Init2, 0x5BA1A0);
+    RH_ScopedInstall(D3DRestoreCallback, 0x5BA120); // lote S2A (sin validar)
     RH_ScopedInstall(Init3, 0x5BA400);
     RH_ScopedInstall(Initialise, 0x53BC80);
     RH_ScopedInstall(InitialiseCoreDataAfterRW, 0x5BFA90);
@@ -674,11 +676,23 @@ bool CGame::InitialiseRenderWare() {
     CGame::m_pWorkingMatrix1 = RwMatrixCreate();
     CGame::m_pWorkingMatrix2 = RwMatrixCreate();
 
-    // Como el original: guarda el callback de restauración anterior en 0xBD0114 e instala el del EXE (0x5BA120), que
+    // Como el original: guarda el callback de restauración anterior en 0xBD0114 e instala el propio (D3DRestoreCallback, 0x5BA120), que
     // lo llama y marca CRealTimeShadowManager (0xC40351) y CMirrors::d3dRestored (0xC7C729).
     StaticRef<rwD3D9DeviceRestoreCallBack>(0xBD0114) = _rwD3D9DeviceGetRestoreCallback();
-    _rwD3D9DeviceSetRestoreCallback(reinterpret_cast<rwD3D9DeviceRestoreCallBack>(0x5BA120));
+    _rwD3D9DeviceSetRestoreCallback(reinterpret_cast<rwD3D9DeviceRestoreCallBack>(&CGame::D3DRestoreCallback));
     return true;
+}
+
+// 0x5BA120 (lote S2A, sin validar; cdecl sin argumentos): si hay callback anterior (0xBD0114) lo llama; despues, si el gestor de sombras en tiempo real (0xC40350) esta inicializado
+// (byte +0) pone a 1 su byte +1 (m_bNeedsReinit); en todos los casos pone a 1 CMirrors::d3dRestored (0xC7C729).
+void CGame::D3DRestoreCallback() {
+    if (const auto previous = StaticRef<rwD3D9DeviceRestoreCallBack>(0xBD0114)) {
+        previous();
+    }
+    if (g_realTimeShadowMan.m_bInitialised) {
+        g_realTimeShadowMan.m_bNeedsReinit = 1;
+    }
+    CMirrors::d3dRestored = true;
 }
 
 // 0x53C680

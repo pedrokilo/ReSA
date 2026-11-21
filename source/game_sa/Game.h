@@ -40,6 +40,7 @@ public:
     static void InitialiseOnceBeforeRW();
     static bool InitialiseRenderWare();
     static void InitialiseWhenRestarting();
+    static void D3DRestoreCallback(); // 0x5BA120 (lote S2A, sin validar): callback de restauración del dispositivo D3D9 que instala Init2
     static void Process();
     static void ReInitGameObjectVariables();
     static void ReloadIPLs();

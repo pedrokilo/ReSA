@@ -53,16 +53,133 @@ RwImage* FailAfterRow(RwUInt8* rowBuffer, RwImage* image, RwStream* stream) {
 }
 } // namespace
 
+RwInt32 RtBMPImageWriteRow(RwStream* stream, RwImage* image, RwInt32 y, RwInt32 depth, RwUInt8* rowBuffer);
+
 void RtBMPInjectHooks() {
     RH_ScopedNamespaceName("RtBMP");
     RH_ScopedCategory("Plugins");
 
     RH_ScopedGlobalInstall(RtBMPImageRead, 0x7CDF60);
     RH_ScopedGlobalInstall(_rtBMPImageSetRow, 0x7CE5D0);
+    RH_ScopedGlobalInstall(RtBMPImageWriteRow, 0x7CEC40); // lote S5A (sin validar; auxiliar de RtBMPImageWrite)
+    RH_ScopedGlobalInstall(RtBMPImageWrite, 0x7CE990);    // lote S5A (sin validar)
 }
 
+// 0x7CEC40 (lote S5A, sin validar; funcion interna de RtBMPImageWrite, cdecl con cinco argumentos): convierte la fila `y` de la imagen a `rowBuffer` y la escribe en el flujo con RwStreamWrite,
+// seguida de relleno de ceros hasta multiplo de 4 bytes (se escriben de uno en uno). Devuelve el numero de bytes escritos (con relleno).
+//   depth == 4: n = width / 2 bytes; cada byte = (pixel[i] << 4) | pixel[i + 1] para i = 0, 2, 4... (do-while: lee un pixel de mas con ancho impar).
+//   depth == 8: n = width bytes copiados tal cual.
+//   otra: n = width * 3; cada pixel de 4 bytes RGBx se escribe como B, G, R.
+// El ancho de la imagen se relee del descriptor en cada vuelta (el EXE no lo guarda).
+RwInt32 RtBMPImageWriteRow(RwStream* stream, RwImage* image, RwInt32 y, RwInt32 depth, RwUInt8* rowBuffer) {
+    const RwUInt8* const row = image->cpPixels + image->stride * y;
+    RwInt32 count;
+    if (depth == 4) {
+        RwInt32 i = 0;
+        if (image->width > 0) {
+            do {
+                const RwUInt8 high = row[i];
+                const RwUInt8 low  = row[i + 1];
+                rowBuffer[i >> 1] = static_cast<RwUInt8>((high << 4) | low);
+                i += 2;
+            } while (i < image->width);
+        }
+        count = image->width >> 1;
+    } else if (depth == 8) {
+        memcpy(rowBuffer, row, static_cast<RwUInt32>(image->width));
+        count = image->width;
+    } else {
+        RwInt32 i = 0;
+        if (image->width > 0) {
+            const RwUInt8* in = row;
+            RwUInt8* out      = rowBuffer;
+            do {
+                out[2] = in[0];
+                out[1] = in[1];
+                out[0] = in[2];
+                ++i;
+                in += 4;
+                out += 3;
+            } while (i < image->width);
+        }
+        count = image->width * 3;
+    }
+    RwStreamWrite(stream, rowBuffer, static_cast<RwUInt32>(count));
+    while ((count & 3) != 0) {
+        const RwUInt8 pad = 0;
+        RwStreamWrite(stream, &pad, 1);
+        ++count;
+    }
+    return count;
+}
+
+// 0x7CE990 (lote S5A, sin validar): escribe un BMP (RwStreamOpen tipo 2 = nombre, acceso 2 = escritura; si no abre devuelve NULL). Profundidad = image->depth si la imagen tiene paleta, si no 24.
+// Cabecera: 'B', 'M', tamano total (((ancho * prof + 31) >> 3 & 0x1FFFFFFC) * alto + paleta + 0x36, con paleta = 4 << prof si prof <= 8 (sin signo) y 0 en otro caso), dos enteros de 16 bits a 0,
+// bfOffBits = 0x36 + paleta, biSize = 0x28, ancho, alto, planos = 1, bits = prof, cuatro dwords a 0 (compresion, tamano, ppm x e y) y biClrUsed = biClrImportant = 1 << prof (prof <= 8) o 0.
+// Con prof <= 8 escribe 1 << prof entradas de paleta como B, G, R, 0xFF. Despues reserva ancho * 3 bytes (pista 0x10000), escribe las filas de la ultima a la primera con RtBMPImageWriteRow,
+// libera el buffer, cierra el flujo con RwStreamClose(stream, 0) y devuelve la imagen. No comprueba ningun resultado de escritura.
 RwImage* RtBMPImageWrite(RwImage* image, const RwChar* imageName) {
-    return ((RwImage*(__cdecl *)(RwImage*, const RwChar*))0x7CE990)(image, imageName);
+    RwStream* const stream = RwStreamOpen(rwSTREAMFILENAME, rwSTREAMWRITE, imageName);
+    if (stream == nullptr) {
+        return nullptr;
+    }
+    const RwUInt32 depth = image->palette != nullptr ? static_cast<RwUInt32>(image->depth) : 24u;
+
+    RwUInt8 mark = 'B';
+    RwStreamWrite(stream, &mark, 1);
+    mark = 'M';
+    RwStreamWrite(stream, &mark, 1);
+
+    const RwUInt32 paletteBytes = depth <= 8 ? ((1u << depth) << 2) : 0u;
+    const RwInt32 fileSize = static_cast<RwInt32>(((((static_cast<RwUInt32>(image->width) * depth + 0x1Fu) >> 3) & 0x1FFFFFFCu) * static_cast<RwUInt32>(image->height)) + paletteBytes + 0x36u);
+    RwStreamWriteInt32(stream, &fileSize, 4);
+    RwInt16 half = 0;
+    RwStreamWriteInt16(stream, &half, 2);
+    half = 0;
+    RwStreamWriteInt16(stream, &half, 2);
+    RwInt32 value = static_cast<RwInt32>(paletteBytes + 0x36u);
+    RwStreamWriteInt32(stream, &value, 4);
+    value = 0x28;
+    RwStreamWriteInt32(stream, &value, 4);
+    value = image->width;
+    RwStreamWriteInt32(stream, &value, 4);
+    value = image->height;
+    RwStreamWriteInt32(stream, &value, 4);
+    half = 1;
+    RwStreamWriteInt16(stream, &half, 2);
+    half = static_cast<RwInt16>(depth);
+    RwStreamWriteInt16(stream, &half, 2);
+    for (int i = 0; i < 4; ++i) {
+        value = 0;
+        RwStreamWriteInt32(stream, &value, 4);
+    }
+
+    if (depth <= 8) {
+        const RwInt32 numColors = static_cast<RwInt32>(1u << depth);
+        value = numColors;
+        RwStreamWriteInt32(stream, &value, 4);
+        value = numColors;
+        RwStreamWriteInt32(stream, &value, 4);
+        const RwUInt8* entry = reinterpret_cast<const RwUInt8*>(image->palette);
+        for (RwInt32 i = 0; i < numColors; ++i) {
+            const RwUInt8 bgra[4] = {entry[2], entry[1], entry[0], 0xFF};
+            RwStreamWrite(stream, bgra, 4);
+            entry += 4;
+        }
+    } else {
+        value = 0;
+        RwStreamWriteInt32(stream, &value, 4);
+        value = 0;
+        RwStreamWriteInt32(stream, &value, 4);
+    }
+
+    auto* const rowBuffer = static_cast<RwUInt8*>(RwMalloc(static_cast<RwUInt32>(image->width * 3), kRtBMPRowHint));
+    for (RwInt32 y = image->height - 1; y >= 0; --y) {
+        RtBMPImageWriteRow(stream, image, y, static_cast<RwInt32>(depth), rowBuffer);
+    }
+    RwFree(rowBuffer);
+    RwStreamClose(stream, nullptr);
+    return image;
 }
 
 // 0x7CDF60: lee un BMP. Abre el fichero (RwStreamOpen tipo 2 = nombre de fichero, acceso 1 = lectura), lee 4 bytes ('BM' en los 2 primeros), 14 bytes (la cabecera del fichero menos

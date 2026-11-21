@@ -56,6 +56,12 @@ void RtDictInjectHooks() {
     RH_ScopedGlobalInstall(RtDictSchemaStreamReadDict, 0x7CF240); // lote R1A (sin validar)
     RH_ScopedGlobalInstall(RtDictStreamWrite, 0x7CF490); // lote R1A (sin validar)
     RH_ScopedGlobalInstall(RtDictSchemaForAllDictionaries, 0x7CF5B0); // lote R1A (sin validar)
+    RH_ScopedGlobalInstall(RtDictSchemaCreateDict, 0x7CED90);   // lote S5A (sin validar)
+    RH_ScopedGlobalInstall(RtDictSchemaAddDict, 0x7CEE50);      // lote S5A (sin validar)
+    RH_ScopedGlobalInstall(RtDictSchemaRemoveDict, 0x7CEE80);   // lote S5A (sin validar)
+    RH_ScopedGlobalInstall(_rtDictSchemaInitDict, 0x7CEF00);    // lote S5A (sin validar)
+    RH_ScopedGlobalInstall(RtDictAddEntry, 0x7CEFB0);           // lote S5A (sin validar)
+    RH_ScopedGlobalInstall(RtDictStreamGetSize, 0x7CF1F0);      // lote S5A (sin validar)
 }
 
 // 0x7CED40: crea la lista de diccionarios (4 bytes por entrada, pista dictChunkType | GLOBAL). Si falla devuelve NULL sin tocar mas; si no, current = NULL y devuelve el esquema.
@@ -139,16 +145,65 @@ RtDict* RtDictSchemaStreamReadDict(RtDictSchema* schema, RwStream* stream) {
     return dict;
 }
 
+// 0x7CED90 (lote S5A, sin validar): reserva el RtDict (8 bytes, pista dictChunkType | 0x30000); sin memoria: RWERROR(0x1BF, _rwerror(E_RW_NOMEM, 8)) y NULL. Crea la lista de entradas
+// (4 bytes por entrada; si falla libera el RtDict y devuelve NULL), pone schema y la anade a la lista de diccionarios del esquema (sin hueco: destruye la lista de entradas y libera el RtDict
+// y devuelve NULL). Si todo va bien devuelve el RtDict.
 RtDict* RtDictSchemaCreateDict(RtDictSchema* schema) {
-    return ((RtDict*(__cdecl *)(RtDictSchema*))0x7CED90)(schema);
+    const RwUInt32 hint = schema->dictChunkType | kHintEvent;
+    auto* const dict = static_cast<RtDict*>(RwMalloc(sizeof(RtDict), hint));
+    if (!dict) {
+        RwError error;
+        error.pluginID  = kDictErrorPluginID;
+        error.errorCode = _rwerror(kErrNoMem, static_cast<RwUInt32>(sizeof(RtDict)));
+        RwErrorSet(&error);
+        return nullptr;
+    }
+
+    dict->entries = _rwSListCreate(4, schema->dictChunkType | kHintEvent);
+    if (!dict->entries) {
+        RwFree(dict);
+        return nullptr;
+    }
+
+    dict->schema = schema;
+    auto* const slot = static_cast<RtDict**>(_rwSListGetNewEntry(schema->dictionaries, schema->dictChunkType | kHintEvent));
+    if (!slot) {
+        _rwSListDestroy(dict->entries);
+        RwFree(dict);
+        return nullptr;
+    }
+    *slot = dict;
+    return dict;
 }
 
+// 0x7CEE50 (lote S5A, sin validar): anade `dict` a la lista de diccionarios del esquema (_rwSListGetNewEntry con pista dictChunkType | 0x30000); sin hueco devuelve NULL; si no, devuelve el esquema.
 RtDictSchema* RtDictSchemaAddDict(RtDictSchema* schema, RtDict* dict) {
-    return ((RtDictSchema*(__cdecl *)(RtDictSchema*, RtDict*))0x7CEE50)(schema, dict);
+    auto* const slot = static_cast<RtDict**>(_rwSListGetNewEntry(schema->dictionaries, schema->dictChunkType | kHintEvent));
+    if (!slot) {
+        return nullptr;
+    }
+    *slot = dict;
+    return schema;
 }
 
+// 0x7CEE80 (lote S5A, sin validar): busca `dict` en la lista del esquema (begin se pide antes que end). Si no esta devuelve NULL. Si esta: la ranura se rellena con el CONTENIDO de la
+// ultima (_rwSListGetEntry(n - 1)), se descarta 1 entrada del final y devuelve el esquema.
 RtDictSchema* RtDictSchemaRemoveDict(RtDictSchema* schema, RtDict* dict) {
-    return ((RtDictSchema*(__cdecl *)(RtDictSchema*, RtDict*))0x7CEE80)(schema, dict);
+    auto** it        = static_cast<RtDict**>(_rwSListGetBegin(schema->dictionaries));
+    auto** const end = static_cast<RtDict**>(_rwSListGetEnd(schema->dictionaries));
+    if (it == end) {
+        return nullptr;
+    }
+    while (*it != dict) {
+        ++it;
+        if (it == end) {
+            return nullptr;
+        }
+    }
+    const RwInt32 last = _rwSListGetNumEntries(schema->dictionaries) - 1;
+    *it = *static_cast<RtDict**>(_rwSListGetEntry(schema->dictionaries, last));
+    _rwSListDestroyEndEntries(schema->dictionaries, 1);
+    return schema;
 }
 
 // 0x7CF5B0: aplica callback(dict, data) a cada diccionario del esquema (end antes que begin, como el EXE). Para en cuanto el callback devuelve NULL. Devuelve TRUE siempre: el EXE
@@ -210,8 +265,13 @@ RwBool RtDictDestroy(RtDict* dictionary) {
     return TRUE;
 }
 
+// 0x7CEFB0 (lote S5A, sin validar): pide una ranura en la lista de entradas (pista dictChunkType | 0x30000) y escribe `entry` SIN comprobar NULL (como el EXE); luego llama a
+// schema->addRefCB(entry) y devuelve el diccionario.
 RtDictEntryType RtDictAddEntry(RtDict* dictionary, RtDictEntryType entry) {
-    return ((RtDictEntryType(__cdecl *)(RtDict*, RtDictEntryType))0x7CEFB0)(dictionary, entry);
+    auto* const slot = static_cast<RtDictEntryType*>(_rwSListGetNewEntry(dictionary->entries, dictionary->schema->dictChunkType | kHintEvent));
+    *slot = entry;
+    dictionary->schema->addRefCB(entry);
+    return dictionary;
 }
 
 // 0x7CEFE0: lee getNameCB del esquema antes de recorrer (end antes que begin) y devuelve la primera entrada cuyo nombre coincide (rwstrcmp(getNameCB(entry), name) == 0), o NULL.
@@ -320,12 +380,36 @@ const RtDict* RtDictStreamWrite(const RtDict* dictionary, RwStream* stream) {
     return dictionary;
 }
 
+// 0x7CF1F0 (lote S5A, sin validar): 0x10 + suma de (0xC + streamGetSizeCB(entrada)) sobre las entradas (end se pide antes que begin).
 RwUInt32 RtDictStreamGetSize(const RtDict* dictionary) {
-    return ((RwUInt32(__cdecl *)(const RtDict*))0x7CF1F0)(dictionary);
+    RwUInt32 size = 0x10;
+    auto** const end = static_cast<RtDictEntryType*>(_rwSListGetEnd(dictionary->entries));
+    auto** it        = static_cast<RtDictEntryType*>(_rwSListGetBegin(dictionary->entries));
+    if (it != end) {
+        do {
+            const RwUInt32 entrySize = dictionary->schema->streamGetSizeCB(*it);
+            ++it;
+            size = size + entrySize + 0xC;
+        } while (it != end);
+    }
+    return size;
 }
 
+// 0x7CEF00 (lote S5A, sin validar): crea la lista de entradas de `dict` (pista dictChunkType | 0x30000) y la guarda aunque sea NULL (con NULL devuelve NULL); pone dict->schema = schema y lo
+// anade a la lista de diccionarios del esquema. Si no hay ranura destruye la lista de entradas (sin liberar el RtDict) y devuelve NULL; si no, devuelve `dict`.
 RtDict* _rtDictSchemaInitDict(RtDictSchema* schema, RtDict* dict) {
-    return ((RtDict*(__cdecl *)(RtDictSchema*, RtDict*))0x7CEF00)(schema, dict);
+    dict->entries = _rwSListCreate(4, schema->dictChunkType | kHintEvent);
+    if (!dict->entries) {
+        return nullptr;
+    }
+    dict->schema = schema;
+    auto* const slot = static_cast<RtDict**>(_rwSListGetNewEntry(schema->dictionaries, schema->dictChunkType | kHintEvent));
+    if (!slot) {
+        _rwSListDestroy(dict->entries);
+        return nullptr;
+    }
+    *slot = dict;
+    return dict;
 }
 
 // 0x7CEF60: llama a destroyCB por cada entrada (end antes que begin), destruye la lista de entradas con _rwSListDestroy y devuelve TRUE. No toca el esquema ni libera el RtDict.

@@ -50,6 +50,7 @@ void CSprite2d::InjectHooks() {
     RH_ScopedOverloadedInstall(Draw, "ffffffffCRGBA", 0x728520, void(CSprite2d::*)(float, float, float, float, float, float, float, float, const CRGBA&));
 
     RH_ScopedInstall(SetRecipNearClip, 0x727260);
+    RH_ScopedInstall(SetVerticesForSniper, 0x727FD0); // lote S2A (sin validar)
     RH_ScopedInstall(InitPerFrame, 0x727350);
     RH_ScopedInstall(IsVertexBufferEmpty, 0x727390);
     RH_ScopedInstall(IsVertexBufferFull, 0x7273A0);
@@ -470,9 +471,28 @@ void CSprite2d::DrawCircleAtNearClip(const CVector2D& posn, float size, const CR
 }
 
 // this makes some trick with sprite z position (z = NearScreenZ + 0.000001).
+// 0x727FD0 (lote S2A, sin validar; cdecl, cinco referencias, 370 bytes): rellena los cuatro primeros vertices de maVertices (0xC80468, 28 bytes cada uno) con el rectangulo: z = NearScreenZ + 0.000001
+// (fld + fadd + fstp con la x87 a 24 bits) y rhw = RecipNearClip en todos; V0 (left, bottom = +0xC) con color3, u 0, v 0; V1 (right, bottom) con color4, u 1, v 0; V2 (right, top = +4) con color2,
+// u 1, v 1; V3 (left, top) con color1, u 0, v 1 (CRect: left +0, top +4, right +8, bottom +0xC). El color se empaqueta como (a << 24) | (r << 16) | (g << 8) | b. Los vertices 4 a 7 no se tocan.
 void CSprite2d::SetVerticesForSniper(const CRect& posn, const CRGBA& color1, const CRGBA& color2, const CRGBA& color3, const CRGBA& color4)
 {
-    ((void(__cdecl*)(const CRect&, const CRGBA&, const CRGBA&, const CRGBA&, const CRGBA&))0x727FD0)(posn, color1, color2, color3, color4);
+    const float z = Veh83CAddStore(NearScreenZ, 9.99999997e-07f);
+    const auto pack = [](const CRGBA& c) {
+        return (uint32(c.a) << 24) | (uint32(c.r) << 16) | (uint32(c.g) << 8) | uint32(c.b);
+    };
+    const auto set = [&](RwIm2DVertex& vertex, float x, float y, const CRGBA& color, float u, float v) {
+        vertex.x             = x;
+        vertex.y             = y;
+        vertex.z             = z;
+        vertex.rhw           = RecipNearClip;
+        vertex.emissiveColor = pack(color);
+        vertex.u             = u;
+        vertex.v             = v;
+    };
+    set(maVertices[0], posn.left,  posn.bottom, color3, 0.0f, 0.0f);
+    set(maVertices[1], posn.right, posn.bottom, color4, 1.0f, 0.0f);
+    set(maVertices[2], posn.right, posn.top,    color2, 1.0f, 1.0f);
+    set(maVertices[3], posn.left,  posn.top,    color1, 0.0f, 1.0f);
 }
 
 // 0x728150

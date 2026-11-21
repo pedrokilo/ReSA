@@ -22,6 +22,9 @@ END GENERATED HOOK STATUS */
 
 #include "RwHelper.h"
 
+static RpAtomic* RpClumpBoundingSphereCenterCallback(RpAtomic* atomic, void* data); // 0x734970
+static RpAtomic* RpClumpBoundingSphereRadiusCallback(RpAtomic* atomic, void* data); // 0x734ED0
+
 // 0x734E90 (cdecl, tres argumentos de pila): salto a la funcion de dibujo de primitivas 2D del dispositivo abierto (RwEngineInstance + 0x30), con los mismos argumentos y su retorno en EAX.
 RwBool RwIm2DRenderPrimitiveThunk(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices) {
     return RwEngineInstance->dOpenDevice.fpIm2DRenderPrimitive(primType, vertices, numVertices);
@@ -50,6 +53,8 @@ void RwHelperInjectHooks() {
     RH_ScopedGlobalInstall(GetFirstAtomicCallback, 0x734810);
     RH_ScopedGlobalInstall(GetFirstAtomic, 0x734820);
     RH_ScopedGlobalInstall(Get2DEffectAtomicCallback, 0x734850); // lote S1A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpBoundingSphereCenterCallback, 0x734970); // lote S2A (sin validar)
+    RH_ScopedGlobalInstall(RpClumpBoundingSphereRadiusCallback, 0x734ED0); // lote S2A (sin validar)
     RH_ScopedGlobalInstall(Get2DEffectAtomic, 0x734880);
     RH_ScopedGlobalInstall(GetFirstObjectCallback, 0x7348B0);
     RH_ScopedGlobalInstall(GetFirstObject, 0x7348C0);
@@ -389,11 +394,67 @@ RwTexture* RwTexDictionaryFindHashNamedTexture(RwTexDictionary* dictionary, uint
     return nullptr;
 }
 
+namespace {
+// Transforma el centro de la esfera del atomo (+0x1C) a un RwV3d local, como el cuerpo comun de los dos callbacks del EXE: con el global 0x8D60BC distinto de 0 usa la LTM del marco del clump
+// (clump->parent, RwFrameGetLTM 0x7F0990), si no su matriz local (marco + 0x10). En ambas ramas, si el indicador 2 de interpolator.flags (+0x4C, releido) esta puesto, llama antes a
+// _rpAtomicResyncInterpolatedSphere (0x7491F0). El resultado se devuelve por la salida del RwV3dTransformPoints (0x7EDD90).
+RwV3d TransformAtomicSphereCenter(RpAtomic* atomic) {
+    RpClump* const clump = atomic->clump;
+    const bool useLtm = StaticRef<uint8>(0x8D60BC) != 0;
+    RwV3d point;
+    if (useLtm) {
+        if (atomic->interpolator.flags & 2) {
+            _rpAtomicResyncInterpolatedSphere(atomic);
+        }
+        RwFrame* const frame = reinterpret_cast<RwFrame*>(clump->object.parent);
+        RwV3dTransformPoints(&point, &atomic->boundingSphere.center, 1, RwFrameGetLTM(frame));
+    } else {
+        if (atomic->interpolator.flags & 2) {
+            _rpAtomicResyncInterpolatedSphere(atomic);
+        }
+        RwFrame* const frame = reinterpret_cast<RwFrame*>(clump->object.parent);
+        RwV3dTransformPoints(&point, &atomic->boundingSphere.center, 1, &frame->modelling);
+    }
+    return point;
+}
+} // namespace
+
+// 0x734970 (lote S2A, sin validar; cdecl, (atomo, RwV3d* suma), `ret`, 147 bytes): callback de RpClumpForAllAtomics de RpClumpGetBoundingSphere. Transforma el centro de la esfera del atomo
+// (ver TransformAtomicSphereCenter) y lo suma a `data` por componentes (x, y, z) con la x87 a 24 bits (local + suma, guardado como float). Devuelve el atomo.
+static RpAtomic* RpClumpBoundingSphereCenterCallback(RpAtomic* atomic, void* data) {
+    const RwV3d point = TransformAtomicSphereCenter(atomic);
+    auto* const sum = static_cast<RwV3d*>(data);
+    sum->x = Veh83CAddStore(point.x, sum->x);
+    sum->y = Veh83CAddStore(point.y, sum->y);
+    sum->z = Veh83CAddStore(point.z, sum->z);
+    return atomic;
+}
+
+// 0x734ED0 (lote S2A, sin validar; cdecl, (atomo, RwSphere* esfera), `ret`, 228 bytes): segundo callback. Antes de nada, si el indicador 2 de interpolator.flags esta puesto resincroniza la esfera
+// del atomo; luego transforma su centro (TransformAtomicSphereCenter, que puede resincronizar otra vez). distancia = sqrt((dz*dz + dy*dy) + dx*dx) con d = centro transformado - esfera.centro
+// (x87 a 24 bits, sin guardar); candidato = distancia + radio del atomo (+0x28) y, si candidato > esfera.radio (ordenado; con NaN no), esfera.radio = candidato. Devuelve el atomo.
+static RpAtomic* RpClumpBoundingSphereRadiusCallback(RpAtomic* atomic, void* data) {
+    if (atomic->interpolator.flags & 2) {
+        _rpAtomicResyncInterpolatedSphere(atomic);
+    }
+    const RwV3d point = TransformAtomicSphereCenter(atomic);
+    auto* const sphere = static_cast<RwSphere*>(data);
+    const double dx = Veh83DSub(point.x, sphere->center.x);
+    const double dy = Veh83DSub(point.y, sphere->center.y);
+    const double dz = Veh83DSub(point.z, sphere->center.z);
+    const double distance  = Veh83DSqrt(Veh83DAdd(Veh83DAdd(Veh83DMul(dz, dz), Veh83DMul(dy, dy)), Veh83DMul(dx, dx)));
+    const double candidate = Veh83DAdd(distance, atomic->boundingSphere.radius);
+    if (candidate > sphere->radius) {
+        sphere->radius = Veh83DStore(candidate);
+    }
+    return atomic;
+}
+
 // 0x734FC0 (cdecl, ret): esfera envolvente de un clump. Guarda el byte bajo de bUseLTM en el global 0x8D60BC (lo leen los dos callbacks); sin clump o sin esfera devuelve 0 sin tocar
 // nada mas. Pone la esfera a 0; con RpClumpGetNumAtomics < 1 devuelve 0 (la esfera ya a cero). Centro = suma de los centros de los atomos (callback 0x734970: centro de la esfera de cada
 // atomo transformado por la LTM del marco del atomo, o por su matriz local si el global es 0) dividida entre float(numero de atomos) (x87: 1/n a 24 bits y un producto por componente, en
 // el orden x, y, z); radio = maximo de |centro - centro del atomo| + radio del atomo (callback 0x734ED0, con el radio inicial a 0). Despues el centro se transforma con la inversa (0x7F2070,
-// RwMatrixInvert) de la LTM del marco del clump (global distinto de 0) o de su matriz local (marco + 0x10). Los dos callbacks siguen siendo codigo del EXE (se pasan por direccion).
+// RwMatrixInvert) de la LTM del marco del clump (global distinto de 0) o de su matriz local (marco + 0x10). Los dos callbacks son funciones propias (lote S2A).
 // Ningun llamador del EXE lee ECX/EDX; EAX es el clump (o 0).
 RpClump* RpClumpGetBoundingSphere(RpClump* clump, RwSphere* sphere, bool bUseLTM) {
     auto& useLtm = StaticRef<uint8>(0x8D60BC);
@@ -410,10 +471,10 @@ RpClump* RpClumpGetBoundingSphere(RpClump* clump, RwSphere* sphere, bool bUseLTM
         return nullptr;
     }
     RwV3d sum{};
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734970), &sum);
+    RpClumpForAllAtomics(clump, RpClumpBoundingSphereCenterCallback, &sum);
     Hp66ClumpScaleCenterCpp(&sum.x, numAtomics);
     RwSphere local{ sum, 0.0f };
-    RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x734ED0), &local);
+    RpClumpForAllAtomics(clump, RpClumpBoundingSphereRadiusCallback, &local);
     auto* const frame = reinterpret_cast<RwFrame*>(clump->object.parent);
     RwMatrix matrix;
     if (useLtm) {
