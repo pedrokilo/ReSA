@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include <bit>
@@ -157,7 +158,7 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
         }
         if (pedHandle != -1) {
             CPed* const ped = PedOf(pedHandle);
-            g_ikChainMan.LookAt(reinterpret_cast<const char*>(0x85A3F0), ped, nullptr, duration, BONE_UNKNOWN, &pos, false, 0.25f, 500, 6, true);
+            g_ikChainMan.LookAt(DatosExe::Rdata::kS85A3F0, ped, nullptr, duration, BONE_UNKNOWN, &pos, false, 0.25f, 500, 6, true);
         } else {
             auto* const task = new CTaskSimpleTriggerLookAt(nullptr, duration, static_cast<int32>(-1), pos, true, 0.25f, 1000, 3);
             CTaskSequences::GetActiveSequence().AddTask(task);

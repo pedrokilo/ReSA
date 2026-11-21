@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 
 #include "platform.h"
 #include "VideoMode.h"
@@ -242,7 +243,7 @@ void RsTerminate() {
 
 // 0x619600
 RwBool RsInitialize() {
-    RsGlobal.appName        = reinterpret_cast<const RwChar*>(0x86D388); // Como el original: la cadena "GTA: San Andreas" del EXE
+    RsGlobal.appName        = DatosExe::Rdata::kS86D388; // Como el original: la cadena "GTA: San Andreas" del EXE
     RsGlobal.maximumWidth   = 640;
     RsGlobal.maximumHeight  = 480; // Como el original: 480 (no DEFAULT_SCREEN_HEIGHT = 448)
     RsGlobal.frameLimit     = APP_MAX_FPS;

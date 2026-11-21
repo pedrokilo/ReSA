@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 #include "DatosExe/RdataAyudantes.h"
 
 #include "Radar.h"
@@ -2436,7 +2437,7 @@ void CRadar::SetupAirstripBlips() {
                 return;
 
             const auto pos = GetAirStripLocation(airstrip_location);
-            airstrip_blip = SetCoordBlip(BLIP_AIRSTRIP, pos, BLIP_COLOUR_RED, BLIP_DISPLAY_BLIPONLY, reinterpret_cast<const char*>(0x866B90)); // "CODEAIR"
+            airstrip_blip = SetCoordBlip(BLIP_AIRSTRIP, pos, BLIP_COLOUR_RED, BLIP_DISPLAY_BLIPONLY, DatosExe::Rdata::kS866B90); // "CODEAIR"
             return;
         }
 
@@ -2471,7 +2472,7 @@ void CRadar::SetupAirstripBlips() {
         }
 
         const auto pos = GetAirStripLocation(airstrip_location);
-        airstrip_blip = SetCoordBlip(BLIP_AIRSTRIP, pos, BLIP_COLOUR_RED, BLIP_DISPLAY_BLIPONLY, reinterpret_cast<const char*>(0x866B90));
+        airstrip_blip = SetCoordBlip(BLIP_AIRSTRIP, pos, BLIP_COLOUR_RED, BLIP_DISPLAY_BLIPONLY, DatosExe::Rdata::kS866B90);
         return;
     }
 

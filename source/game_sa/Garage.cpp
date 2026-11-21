@@ -35,6 +35,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 
 #include "Garage.h"
 #include "Garages.h"
@@ -478,7 +479,7 @@ template<class T> inline T& GaField(const void* base, uint32 offset) {
     return *reinterpret_cast<T*>(const_cast<uint8*>(reinterpret_cast<const uint8*>(base)) + offset);
 }
 
-inline const char* GaKey(uint32 address) { return reinterpret_cast<const char*>(address); }   // clave GXT del EXE
+inline const char* GaKey(const char* key) { return key; }   // clave GXT del EXE
 // Posicion de la entidad como el EXE: matriz + 0x30 si existe, si no m_placement (+4).
 inline const float* GaPos(CEntity* entity) {
     return entity->m_matrix ? &entity->m_matrix->GetPosition().x : &entity->m_placement.m_vPosn.x;
@@ -490,7 +491,7 @@ inline void  GaFindDoorsWithGarage(CGarage* g, CObject** first, CObject** second
 inline int32& GaMoney() { return *reinterpret_cast<int32*>(0xB7CE50 + static_cast<uint32>(CWorld::PlayerInFocus) * 0x190u); }   // CPlayerInfo::m_nMoney del jugador en foco
 inline CStoredCar* GaStoredCars(eGarageType type) { return reinterpret_cast<CStoredCar*>(0x96ABD8 + static_cast<uint32>(CGarages::FindSafeHouseIndexForGarageType(type)) * 0x100u); }
 inline void GaAudio(uint32 event) { AudioEngine.ReportFrontendAudioEvent(static_cast<eAudioEvents>(event), 0.0f, 1.0f); }
-inline void GaMessage(uint32 key) { CGarages::TriggerMessage(GaKey(key), -1, 0xFA0, -1); }
+inline void GaMessage(const char* key) { CGarages::TriggerMessage(GaKey(key), -1, 0xFA0, -1); }
 // CPad::GetPad(0) + 0x10E: bit 2 desactiva los controles del jugador.
 inline void GaPadControls(bool disable) {
     uint8& flags = GaField<uint8>(CPad::GetPad(0), 0x10E);
@@ -916,7 +917,7 @@ L_AC50:
         vehicle = GaFpv();
         if (CGarages::IsCarSprayable(vehicle)) {
             if (GaMoney() < 100 && !CGarages::RespraysAreFree) {
-                GaMessage(0x859A58);
+                GaMessage(DatosExe::Rdata::kS859A58);
                 m_nDoorState = static_cast<eGarageDoorState>(4);
                 GaAudio(0xE);
                 goto L_AD2D;
@@ -927,7 +928,7 @@ L_AC50:
             goto L_AD2D;
         }
         vehicle = GaFpv();
-        GaMessage(GaField<int32>(vehicle, 0x594) == 0xA ? 0x859A50u : 0x859A48u);
+        GaMessage(GaField<int32>(vehicle, 0x594) == 0xA ? DatosExe::Rdata::kS859A50 : DatosExe::Rdata::kS859A48);
         m_nDoorState = static_cast<eGarageDoorState>(4);
         GaAudio(0xF);
         goto L_AD2D;
@@ -1055,7 +1056,7 @@ L_B2DA:
     flag = hasWanted;
 L_B2DE:
     if (m_nFlags & 0x80) {
-        GaMessage(0x859A34);
+        GaMessage(DatosExe::Rdata::kS859A34);
         goto L_B38D;
     }
     if (fixedCar && !CGarages::RespraysAreFree) {
@@ -1066,11 +1067,11 @@ L_B2DE:
             GaMoney() = money;
         }
         CStats::IncrementStat(static_cast<eStats>(0x10), 100.0f);
-        GaMessage(hasWanted ? 0x859A2Cu : 0x859A24u);
+        GaMessage(hasWanted ? DatosExe::Rdata::kS859A2C : DatosExe::Rdata::kS859A24);
         goto L_B38D;
     }
     if (flag) {
-        GaMessage((plugin::CallAndReturn<int32, 0x821B1E>() & 1) ? 0x859A1Cu : 0x859A14u);
+        GaMessage((plugin::CallAndReturn<int32, 0x821B1E>() & 1) ? DatosExe::Rdata::kS859A1C : DatosExe::Rdata::kS859A14);
     }
 L_B38D:
     m_nFlags = static_cast<uint8>(m_nFlags | 4);
@@ -1118,13 +1119,13 @@ L_B42D:
     if (GaField<int32>(GaFpv(), 0x594) == 0xA)
         goto L_C7C4;
     if (GaField<uint8>(GaFpv(), 0x4A8) & 7) {
-        GaMessage(0x859A04);
+        GaMessage(DatosExe::Rdata::kS859A04);
         m_nDoorState = static_cast<eGarageDoorState>(4);
         GaAudio(0x11);
         goto L_C7C4;
     }
     if (!CGarages::BombsAreFree && GaMoney() < 500) {
-        GaMessage(0x859A0C);
+        GaMessage(DatosExe::Rdata::kS859A0C);
         m_nDoorState = static_cast<eGarageDoorState>(4);
         GaAudio(0xE);
         goto L_C7C4;
@@ -1186,17 +1187,17 @@ L_B5CA:   // estado 0
     }
     {
         const uint32 type = static_cast<uint8>(m_nType);
-        uint32       key;
+        const char*  key;
         if (type == 2 || type == 3) {
             const uint16 button = GaField<uint16>(CPad::GetPad(0), 0x10A);
             if (button <= 2)
-                key = type == 2 ? 0x8599DCu : 0x8599ECu;
+                key = type == 2 ? DatosExe::Rdata::kS8599DC : DatosExe::Rdata::kS8599EC;
             else if (button == 3)
-                key = type == 2 ? 0x8599E4u : 0x8599F4u;
+                key = type == 2 ? DatosExe::Rdata::kS8599E4 : DatosExe::Rdata::kS8599F4;
             else
                 goto L_C7C4;
         } else if (type == 4) {
-            key = 0x8599FC;
+            key = DatosExe::Rdata::kS8599FC;
         } else {
             goto L_C7C4;
         }
@@ -1507,7 +1508,7 @@ L_C13E:
         goto L_C7C4;
     if (GaFpv()->GetVehicleAppearance() == static_cast<eVehicleAppearance>(5))
         goto L_C7C4;
-    CHud::SetHelpMessage(TheText.Get(GaKey(0x8599C0)), false, false, true);
+    CHud::SetHelpMessage(TheText.Get(GaKey(DatosExe::Rdata::kS8599C0)), false, false, true);
     CGarages::LastTimeHelpMessage = CTimer::GetTimeInMS();
     goto L_C7C4;
 L_C1C3:

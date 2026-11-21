@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 
 #include "AEAudioChannel.h"
 
@@ -316,7 +317,7 @@ bool CAEAudioChannel::Lost() const {
 
 // GUID de propiedades EAX y tabla de entornos del EXE (la DLL no incluye las cabeceras EAX)
 static inline auto& s_EAXListenerPropertySet = StaticRef<GUID>(0x85EFDC);
-static inline auto& s_EAXBufferPropertySet   = StaticRef<GUID>(0x85EF9C);
+static inline auto& s_EAXBufferPropertySet   = DatosExe::Rdata::kG85EF9C;
 static inline auto& s_EAXEnvironments        = StaticRef<std::array<int32, 48>>(0x8AC198);
 
 // 0x4D7AA0

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 #include "LibJpegCallback.h"
 
 #include "LibJpegMemory.h"
@@ -444,10 +445,10 @@ void ExeJinitMemoryMgr(void* cinfo) {
     At<uint32>(mem, 0x4C) = 0x54;
     At<uint8*>(cinfo, 0x04) = mem;
 
-    const char* const env = reinterpret_cast<const char*(__cdecl*)(const char*)>(0x8240C7)(reinterpret_cast<const char*>(0x86B810)); // getenv("JPEGMEM")
+    const char* const env = reinterpret_cast<const char*(__cdecl*)(const char*)>(0x8240C7)(DatosExe::Rdata::kS86B810); // getenv("JPEGMEM")
     if (env != nullptr) {
         char ch = 'x';
-        const int32 matched = reinterpret_cast<int32(__cdecl*)(const char*, const char*, ...)>(0x8220AD)(env, reinterpret_cast<const char*>(0x86B808), &maxToUse, &ch); // sscanf(env, "%ld%c", &max_to_use, &ch)
+        const int32 matched = reinterpret_cast<int32(__cdecl*)(const char*, const char*, ...)>(0x8220AD)(env, DatosExe::Rdata::kS86B808, &maxToUse, &ch); // sscanf(env, "%ld%c", &max_to_use, &ch)
         if (matched > 0) {
             if (ch == 'm' || ch == 'M') {
                 At<int32>(mem, 0x2C) = maxToUse * 1000 * 1000;

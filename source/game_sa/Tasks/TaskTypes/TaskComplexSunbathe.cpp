@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 #include "TaskComplexSunbathe.h"
 #include "TaskSimplePause.h"
 #include "TaskSimpleRunAnim.h"
@@ -298,11 +299,11 @@ CTask* CTaskComplexSunbathe::CreateSubTask(eTaskType type, CPed* /*ped*/) {
         const auto animId = static_cast<AnimationId>(static_cast<int32>(m_SunbatherType) + 0xEF);
         void* const memory = CTask::operator new(sizeof(CTaskSimpleRunTimedAnim));
         return memory
-            ? static_cast<CTaskSimpleRunTimedAnim*>(memory)->Constructor(static_cast<AssocGroupId>(0x2F), animId, 4.0f, -4.0f, static_cast<uint32>(durationMs), static_cast<eTaskType>(0x1A2), reinterpret_cast<const char*>(0x86E098) /*"sunbathe"*/, true) // 0x61ABE0 (con hook): su EAX como resultado
+            ? static_cast<CTaskSimpleRunTimedAnim*>(memory)->Constructor(static_cast<AssocGroupId>(0x2F), animId, 4.0f, -4.0f, static_cast<uint32>(durationMs), static_cast<eTaskType>(0x1A2), DatosExe::Rdata::kS86E098 /*"sunbathe"*/, true) // 0x61ABE0 (con hook): su EAX como resultado
             : nullptr;
     }
     case 0x1AC: // empezar a tomar el sol
-        return RunAnim(static_cast<AnimationId>(static_cast<int32>(m_SunbatherType) + 0xF4), reinterpret_cast<const char*>(0x86E654) /*"start sunbathing"*/, true);
+        return RunAnim(static_cast<AnimationId>(static_cast<int32>(m_SunbatherType) + 0xF4), DatosExe::Rdata::kS86E654 /*"start sunbathing"*/, true);
     case 0x1AD: { // reposo: tipos 0 y 2 eligen una de tres animaciones al azar; los demas usan el propio valor del tipo de tarea (0x1AD) como animacion, como el EXE
         int32 animId;
         if (m_SunbatherType == SUNBATHER_MALE_1) {
@@ -312,10 +313,10 @@ CTask* CTaskComplexSunbathe::CreateSubTask(eTaskType type, CPed* /*ped*/) {
         } else {
             animId = static_cast<int32>(type);
         }
-        return RunAnim(static_cast<AnimationId>(animId), reinterpret_cast<const char*>(0x86E644) /*"idle sunbathing"*/, true);
+        return RunAnim(static_cast<AnimationId>(animId), DatosExe::Rdata::kS86E644 /*"idle sunbathing"*/, true);
     }
     case 0x1AE: // dejar de tomar el sol (sin mantener el ultimo fotograma)
-        return RunAnim(static_cast<AnimationId>(static_cast<int32>(m_SunbatherType) + 0xF9), reinterpret_cast<const char*>(0x86E634) /*"stop sunbathing"*/, false);
+        return RunAnim(static_cast<AnimationId>(static_cast<int32>(m_SunbatherType) + 0xF9), DatosExe::Rdata::kS86E634 /*"stop sunbathing"*/, false);
     default: // incluye 0x516
         return nullptr;
     }

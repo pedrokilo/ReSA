@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/RdataCadenas.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
@@ -939,7 +940,7 @@ void CHud::DrawHelpText() {
         std::sprintf(gString, format, int(m_nHelpMessageStatId));
         x = sx * 10.f + sx * 34.f + CFont::GetStringWidth(TheText.Get(gString), true, false);
         CFont::SetWrapx(sx * 75.f + x); CFont::PrintString(sx * 34.f, y, TheText.Get(gString));
-        AsciiToGxtChar(reinterpret_cast<const char*>(0x866C18), reinterpret_cast<GxtChar*>(0xC1B100));
+        AsciiToGxtChar(DatosExe::Rdata::kS866C18, reinterpret_cast<GxtChar*>(0xC1B100));
         const float value = m_nHelpMessageStatId == 336 ? float(FindPlayerPed(-1)->GetPlayerGroup().GetMembership().CountMembersExcludingLeader()) : CStats::GetStatValue(static_cast<eStats>(m_nHelpMessageStatId));
         const bool positive = m_pHelpMessageToPrint[0] == StaticRef<GxtChar>(0xC1B100);
         const auto progressColor = HudColour.GetRGBA(static_cast<eHudColours>(positive ? 1 : 0), uint8(int32(alpha)));
