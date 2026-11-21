@@ -1,0 +1,136 @@
+lote,grupo,propietario,objetos,bytes,seccion,va_min,va_max,estado
+DE01,G1,"Bike, Plane, Cam ...",154,632,.rdata,0x00858A28,0x00872C00,hecho
+DE02-1,G2,"Cam, Bike, Camera ...",40,157,.rdata,0x00858B10,0x00871358,pendiente
+DE02-2,G2,"Hud, Garage, EntitySeekPosCalculator ...",40,181,.rdata,0x0085862C,0x0085A968,pendiente
+DE02-3,G2,Hud,40,165,.rdata,0x00859A44,0x00866C80,pendiente
+DE02-4,G2,"ImportThunks, JPegCompress, Hud ...",40,127,.rdata,0x00858068,0x0086B818,pendiente
+DE02-5,G2,"Radar, Stats, Matrix ...",40,156,.rdata,0x00858970,0x00871A70,pendiente
+DE02-6,G2,"Vehicle, TaskComplexSunbathe, Weapon ...",24,75,.rdata,0x00858978,0x00872C6C,pendiente
+DE03-1,G3,"TaskComplexUseMobilePhone, AEAudioChannel, AEAudioHardware ...",36,1236,.rdata,0x00859A58,0x00887D5C,pendiente
+DE04-1,G4,"AEPedAudioEntity, AEAudioEnvironment, AECutsceneTrackManager ...",40,5632,.data,0x008ABC70,0x008D5E44,pendiente
+DE04-2,G4,"AEPedSpeechAudioEntity, AEPoliceScannerAudioEntity, AEPedAudioEntity ...",40,1179,.data,0x008AE6A0,0x008C8B88,pendiente
+DE04-3,G4,"AERadioTrackManager, AEVehicleAudioEntity, AESound ...",40,521,.data,0x008C8B8C,0x008CCF24,pendiente
+DE04-4,G4,"AEWeatherAudioEntity, Automobile, AEVehicleAudioEntity ...",40,297,.data,0x008AA5A8,0x008D3394,pendiente
+DE04-5,G4,"Bike, Buoyancy, Cam ...",40,315,.data,0x008A5B14,0x008D3964,pendiente
+DE04-6,G4,Cam,40,286,.data,0x008CC398,0x008CC7DC,pendiente
+DE04-7,G4,Cam,40,173,.data,0x008CC7E0,0x008CCCA0,pendiente
+DE04-8,G4,Cam,40,160,.data,0x008CCCA4,0x008CCD9C,pendiente
+DE04-9,G4,Cam,40,157,.data,0x008CCDA0,0x008CCEA0,pendiente
+DE04-10,G4,"Cam, Camera",40,165,.data,0x008CC380,0x008D610C,pendiente
+DE04-11,G4,Camera,40,341,.data,0x008CC824,0x008CCE14,pendiente
+DE04-12,G4,"Camera, CarCtrl, CdStreamInfo ...",40,299,.data,0x008A5AB4,0x008E3FFC,pendiente
+DE04-13,G4,"ClothesBuilder, Clouds, Collision ...",40,987,.data,0x008A5B16,0x008D5818,pendiente
+DE04-14,G4,"CustomCarEnvMapPipeline, EventScanner, GangWars ...",40,170,.data,0x008A5E48,0x008D5CD8,pendiente
+DE04-15,G4,"ModelIndices, IplStore, LoadingScreen ...",40,292,.data,0x008CD4F4,0x008E3FD0,pendiente
+DE04-16,G4,ModelIndices,40,80,.data,0x008CD544,0x008CD5E4,pendiente
+DE04-17,G4,ModelIndices,40,80,.data,0x008CD5E8,0x008CD698,pendiente
+DE04-18,G4,ModelIndices,40,86,.data,0x008CD69C,0x008CD74C,pendiente
+DE04-19,G4,"ModelIndices, Ped, Object ...",40,174,.data,0x008A6260,0x008D5D74,pendiente
+DE04-20,G4,"Physical, Plane, PedIntelligence ...",40,229,.data,0x008A5F48,0x008D6080,pendiente
+DE04-21,G4,"PostEffects, Plane, PlayerPed ...",40,203,.data,0x008CDF20,0x008D50E8,pendiente
+DE04-22,G4,"PostEffects, ProjectileInfo",40,222,.data,0x008CD75C,0x008D6104,pendiente
+DE04-23,G4,"Stats, Rope, Streaming ...",40,809,.data,0x008A5A80,0x008E2A14,pendiente
+DE04-24,G4,"TaskComplexFallToDeath, Streaming, TaskSimpleFightingControl ...",40,195,.data,0x008A5A9C,0x008D2FF4,pendiente
+DE04-25,G4,"Vehicle, TrafficLights, Train ...",40,388,.data,0x008A6214,0x008D48F8,pendiente
+DE04-26,G4,"WaterLevel, VehicleModelInfo, VideoMode ...",40,336,.data,0x008A7740,0x008D6248,pendiente
+DE04-27,G4,"WeaponEffects, Weather, app_light ...",25,721,.data,0x008CDEF0,0x008D6238,pendiente
+DE05-1,G5,"3dMarkers, AEGlobalWeaponAudioEntity, AEPedSpeechAudioEntity ...",40,264,.bss,0x00B5F898,0x00C80444,pendiente
+DE05-2,G5,"AEPedSpeechAudioEntity, AEPoliceScannerAudioEntity, AERadioTrackManager",40,214,.bss,0x00B613E6,0x00B62C5A,pendiente
+DE05-3,G5,"AERadioTrackManager, AESmoothFadeThread, AESoundManager ...",40,200,.bss,0x00B608D0,0x00BA67F8,pendiente
+DE05-4,G5,"AEVehicleAudioEntity, AEWeatherAudioEntity, AudioZones ...",40,463,.bss,0x00B4EA2C,0x00B9B7D0,pendiente
+DE05-5,G5,"Bike, Automobile, AudioZones ...",40,363,.bss,0x0096914C,0x00C81308,pendiente
+DE05-6,G5,"Cam, BulletInfo, C_PcSave ...",40,664,.bss,0x009655E5,0x00C888AC,pendiente
+DE05-7,G5,Cam,40,124,.bss,0x00B6EC77,0x00B6F960,pendiente
+DE05-8,G5,Cam,40,294,.bss,0x00B6F96C,0x00B6FFD8,pendiente
+DE05-9,G5,Cam,40,193,.bss,0x00B6FFDC,0x00B700C8,pendiente
+DE05-10,G5,"Cam, Camera",40,181,.bss,0x009655A0,0x00C8A860,pendiente
+DE05-11,G5,Camera,40,161,.bss,0x00B6EC65,0x00B6EEE0,pendiente
+DE05-12,G5,Camera,40,260,.bss,0x00B6EEE4,0x00B7002C,pendiente
+DE05-13,G5,"Camera, CarCtrl",40,163,.bss,0x008E4CD0,0x00C73C58,pendiente
+DE05-14,G5,"CarCtrl, CarEnterExit, CdStreamInfo ...",40,240,.bss,0x008E4000,0x00C2B974,pendiente
+DE05-15,G5,"Clock, Clouds, ClothesBuilder ...",40,2813,.bss,0x008E4090,0x00C7F158,pendiente
+DE05-16,G5,"Collision, ColAccel, Clouds ...",40,207,.bss,0x00965554,0x00C6E974,pendiente
+DE05-17,G5,"CullZones, Coronas, Conversations ...",40,395,.bss,0x009691C4,0x00C92144,pendiente
+DE05-18,G5,"CutsceneMgr, CustomCarEnvMapPipeline, CustomCarPlateMgr ...",40,3687,.bss,0x00AF00FF,0x00C8FF00,pendiente
+DE05-19,G5,"CutsceneMgr, Darkel, CutsceneObject ...",35,5374,.bss,0x00969A48,0x00BC4058,pendiente
+DE05-20,G5,"Darkel, EntryExitManager, Draw ...",40,3576,.bss,0x00969A50,0x00C3EFAA,pendiente
+DE05-21,G5,"Font, FileMgr, FileLoader ...",40,1974,.bss,0x0096913F,0x00C92368,pendiente
+DE05-22,G5,"Game, Font, GameLogic ...",40,516,.bss,0x0096A840,0x00C71AD8,pendiente
+DE05-23,G5,"GangWars, GameLogic, Gamma",40,561,.bss,0x0096A8A4,0x00C92134,pendiente
+DE05-24,G5,"Garages, GenericGameStorage, Garage ...",40,886,.bss,0x008E6940,0x00C16EBC,pendiente
+DE05-25,G5,"Glass, GenericGameStorage, Heli ...",40,811,.bss,0x008E72F0,0x00C72FB0,pendiente
+DE05-26,G5,Hud,40,134,.bss,0x00BA17C8,0x00BAA44C,pendiente
+DE05-27,G5,Hud,40,227,.bss,0x00BAA450,0x00BAB246,pendiente
+DE05-28,G5,"JPegCompress, LoadingScreen, Interior_c ...",40,434,.bss,0x0096F854,0x00C1B100,pendiente
+DE05-29,G5,"LoadingScreen, MemoryMgr, Localisation ...",27,1376,.bss,0x00B74238,0x00C87C18,pendiente
+DE05-30,G5,MemoryMgr,1,16384,.bss,0x00C8E0C8,0x00C8E0C8,pendiente
+DE05-31,G5,"MissionCleanup, Mirrors, MenuSystem ...",40,160,.bss,0x009654B0,0x00C803D8,pendiente
+DE05-32,G5,"MissionCleanup, ModelInfo, MotionBlurStreaks",40,237,.bss,0x00A44B64,0x00C7C70D,pendiente
+DE05-33,G5,"Pad, Occluder, Occlusion ...",40,558,.bss,0x00B6F19C,0x00C87C5C,pendiente
+DE05-34,G5,"PathFind, Pad, PedGroupDefaultTaskAllocators ...",40,1314,.bss,0x0096EA98,0x00C8CFB8,pendiente
+DE05-35,G5,"Pickups, PedToPlayerConversations, Physical ...",40,530,.bss,0x009691B0,0x00C1CADC,pendiente
+DE05-36,G5,"PlantMgr, PlayerPed, Plane ...",40,1093,.bss,0x0096917C,0x00C81320,pendiente
+DE05-37,G5,"Pools, PlayerPed, PopCycle ...",40,274,.bss,0x00B6F9AC,0x00C3F6E0,pendiente
+DE05-38,G5,"Population, PopCycle",40,850,.bss,0x00969159,0x00C0FCBC,pendiente
+DE05-39,G5,"PostEffects, Population",40,2257,.bss,0x00B6F1C4,0x00C4031C,pendiente
+DE05-40,G5,"Radar, PostEffects, ProjectileInfo ...",40,438,.bss,0x00B745BC,0x00C9ABDC,pendiente
+DE05-41,G5,"Renderer, Replay, RenderBuffer ...",40,1398,.bss,0x0097F66D,0x00C815B8,pendiente
+DE05-42,G5,Replay,40,135,.bss,0x0097FA80,0x0097FB60,pendiente
+DE05-43,G5,"Restart, Replay, RoadBlocks ...",40,656,.bss,0x0097FB64,0x00B781F8,pendiente
+DE05-44,G5,"Shadows, Securom, Scripted2dEffects ...",40,1011,.bss,0x00A957F8,0x00C8CE68,pendiente
+DE05-45,G5,"Shopping, Shadows, SpecialFX ...",40,763,.bss,0x00A97258,0x00C89690,pendiente
+DE05-46,G5,"Stats, Sprite2d, Sprite",40,2172,.bss,0x00969180,0x00C80468,pendiente
+DE05-47,G5,"Streaming, StencilShadows, Stats",40,399,.bss,0x008E48A0,0x00C6A899,pendiente
+DE05-48,G5,"Streaming, StuntJumpManager, TagManager ...",40,155,.bss,0x008E4C68,0x00C1A554,pendiente
+DE05-49,G5,"TempColModels, TaskSimpleFight, TheCarGenerators ...",40,770,.bss,0x00961ADC,0x00C27AD0,pendiente
+DE05-50,G5,TheScripts,40,427,.bss,0x00A43F50,0x00A476AC,pendiente
+DE05-51,G5,"TheScripts, TheZones, TimeCycle",40,711,.bss,0x00A476B0,0x00BA6724,pendiente
+DE05-52,G5,TimeCycle,40,2500,.bss,0x00B79F10,0x00B7BA70,pendiente
+DE05-53,G5,"TimeCycle, Timer, TrafficLights",40,1138,.bss,0x00A9AD94,0x00B7CB89,pendiente
+DE05-54,G5,"Vehicle, Train, TrafficLights ...",40,355,.bss,0x00A9ADB0,0x00C88018,pendiente
+DE05-55,G5,"VehicleModelInfo, VehicleRecording, Vehicle ...",40,641,.bss,0x0097D670,0x00C1CDC0,pendiente
+DE05-56,G5,"VisibilityPlugins, WaterLevel, VideoPlayer ...",40,299,.bss,0x00B7C514,0x00C92118,pendiente
+DE05-57,G5,WaterLevel,40,552,.bss,0x00C21170,0x00C4B954,pendiente
+DE05-58,G5,"Weather, WeaponEffects, Weapon ...",40,162,.bss,0x00B6F1A8,0x00C8AAB8,pendiente
+DE05-59,G5,"Weather, WinPlatform, WinPs ...",40,304,.bss,0x00C812EC,0x00C9BCE0,pendiente
+DE05-60,G5,"World, app_light, app ...",40,187,.bss,0x00B72C68,0x00C9246C,pendiente
+DE05-61,G5,"common, cTransmission, preset_view",11,828,.bss,0x00B71510,0x00C1CB54,pendiente
+DE06-1,G6,"VideoMode, DelayLoadThunks, Plane ...",20,202,.bss/.data,0x008D6220,0x00C97C34,pendiente
+DE07-1,G7,"D3D9RasterDriver, D3D9RasterFormat, D3DResourceSystem ...",40,263,.bss/.data/.rdata,0x00858B50,0x00C9C068,pendiente
+DE07-2,G7,"WindowedMode, rpmatfx, rphanim ...",40,292,.bss/.data/.rdata,0x008852F0,0x00C9BF00,pendiente
+DE07-3,G7,"rpmatfx, rpskin, rpuvanim",40,296,.bss/.data/.rdata,0x00882ED4,0x00C9ABC8,pendiente
+DE07-4,G7,"rpworld, rpuvanim",40,536,.bss/.data/.rdata,0x00874EF8,0x00C9B8D0,pendiente
+DE07-5,G7,rpworld,40,352,.bss,0x00C924B4,0x00C92648,pendiente
+DE07-6,G7,rpworld,40,160,.bss,0x00C9264C,0x00C926EC,pendiente
+DE07-7,G7,"rpworld, rpworld_s30a31a, rtanim",40,697,.bss/.data,0x008D624C,0x00C9BFFC,pendiente
+DE07-8,G7,"rwcore, rtquat",40,216,.data/.rdata,0x0085C675,0x008E2530,pendiente
+DE07-9,G7,rwcore,40,369,.bss/.data,0x008E2534,0x00C97904,pendiente
+DE07-10,G7,rwcore,40,348,.bss,0x00C9793C,0x00C980B0,pendiente
+DE07-11,G7,rwcore,40,212,.bss,0x00C980B4,0x00C99298,pendiente
+DE07-12,G7,rwcore,40,160,.bss,0x00C9929C,0x00C9A4D0,pendiente
+DE07-13,G7,rwcore,40,256,.bss,0x00C9A4D4,0x00C9A6B0,pendiente
+DE07-14,G7,"rwcore, rwplcore, rwcore_dds",40,287,.bss/.data/.rdata,0x00884F6A,0x00C9C07C,pendiente
+DE07-15,G7,"rwplcore, rwtexdict, zlibinflate",40,391,.bss/.data/.rdata,0x00884160,0x00C9BC5C,pendiente
+DE07-16,G7,zlibinflate,19,157,.data/.rdata,0x00884358,0x008E21B8,pendiente
+DE08-1,G8,"Cam, CrtException, CrtFile ...",40,449,.bss/.data/.rdata,0x00858B1C,0x00C9AC4C,pendiente
+DE08-2,G8,"CrtPow, CrtLowIo, CrtHeap ...",40,812,.bss/.data/.rdata,0x008884F0,0x00C9D42C,pendiente
+DE08-3,G8,"X87Math, CrtPow, CrtStdio ...",40,349,.bss/.data/.rdata,0x00858624,0x00C9D420,pendiente
+DE08-4,G8,X87Math,40,280,.bss/.data/.rdata,0x008631B8,0x00B6F8B0,pendiente
+DE08-5,G8,X87Math,5,20,.bss,0x00B6F8B4,0x00C9ABFC,pendiente
+DE09-1,G9,"AudioEngine, AEAudioChannel, AEDataStream ...",40,1516,.rdata,0x008585C8,0x00872A74,pendiente
+DE09-2,G9,"DummyObject, EmergencyPed, Entity ...",40,2164,.rdata,0x00858E68,0x0086FD18,pendiente
+DE09-3,G9,"EventHighAngerAtPlayer, EventHitByWaterCannon, EventInAir ...",40,2560,.rdata,0x00859540,0x008701A8,pendiente
+DE09-4,G9,"Task, EventVehicleCollision, EventVehicleDamage ...",40,1748,.rdata,0x0085A788,0x00871AE8,pendiente
+DE09-5,G9,"TaskComplexCarDriveMission, TaskAllocatorKillThreatsDriveby, TaskAllocatorPlayerCommandAttack ...",40,1852,.rdata,0x00859DCC,0x00870EA8,pendiente
+DE09-6,G9,"TaskComplexEvasiveDiveAndGetUp, TaskComplexEvasiveStep, TaskComplexExtinguishFireOnFoot ...",40,1800,.rdata,0x0086E040,0x00870DD0,pendiente
+DE09-7,G9,"TaskComplexPresentIDToCop, TaskComplexJump, TaskComplexKillAllThreats ...",40,1824,.rdata,0x00858EB0,0x00870D78,pendiente
+DE09-8,G9,"TaskComplexSeekEntityAnyMeansXYOffset, TaskComplexSeekEntityRadiusAngleOffset, TaskComplexSeekEntityStandard ...",40,1792,.rdata,0x00859DF8,0x00870DA4,pendiente
+DE09-9,G9,"TaskComplexWalkRoundObject, TaskComplexWander, TaskComplexWanderCop ...",40,1748,.rdata,0x00859C80,0x00870B08,pendiente
+DE09-10,G9,"TaskSimpleCarOpenLockedDoorFromOutside, TaskSimpleCarSetPedInAsDriver, TaskSimpleCarSetPedInAsPassenger ...",40,1464,.rdata,0x00859D20,0x00870BEC,pendiente
+DE09-11,G9,"TaskSimpleHitByGunFromFront, TaskSimpleHitByGunFromLeft, TaskSimpleHitByGunFromRear ...",40,1524,.rdata,0x00859CFC,0x00870B74,pendiente
+DE09-12,G9,"TaskSimpleSetStayInSamePlace, TaskSimpleShakeFist, TaskSimpleSitDown ...",29,1216,.rdata,0x00859580,0x00872370,pendiente
+DE10-1,G10,ExeProtectionStub,40,217,_TEXT_HA,0x00C9E068,0x00C9E573,pendiente
+DE10-2,G10,ExeProtectionStub,40,160,_TEXT_HA,0x00C9E577,0x00C9E744,pendiente
+DE10-3,G10,ExeProtectionStub,40,160,_TEXT_HA,0x00C9E752,0x00C9E8DA,pendiente
+DE10-4,G10,ExeProtectionStub,40,160,_TEXT_HA,0x00C9E8DE,0x00C9E986,pendiente
+DE10-5,G10,ExeProtectionStub,10,100,_TEXT_HA,0x00C9E98A,0x00C9E9CF,pendiente

@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include <bit>
 
@@ -238,7 +239,7 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
         const int32 pedHandle = P(0).iParam; // ebx
         const int32 time = P(1).iParam;      // edi
         // Con tiempo -1 el EXE usa el entero de 0x86DB28 (sin llamar con el del script).
-        const int32 duration = time == -1 ? StaticRef<int32>(0x86DB28) : time;
+        const int32 duration = time == -1 ? DatosExe::Rdata::k86DB28 : time;
         auto* const task = new CTaskComplexSitDownThenIdleThenStandUp(duration, false, false);
         GivePedScriptedTask(pedHandle, task, commandId);
         return OR_CONTINUE;
@@ -320,7 +321,7 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
         const int32 pedHandle = P(0).iParam;
         const CVector pos{ P(1).fParam, P(2).fParam, P(3).fParam };
         // 0x86FC7C y 0x86FC80: los dos floats por defecto del EXE (velocidad de giro y diferencia maxima).
-        auto* const task = new CTaskComplexTurnToFaceEntityOrCoord(pos, StaticRef<float>(0x86FC7C), StaticRef<float>(0x86FC80));
+        auto* const task = new CTaskComplexTurnToFaceEntityOrCoord(pos, DatosExe::Rdata::k86FC7C, DatosExe::Rdata::k86FC80);
         GivePedScriptedTask(pedHandle, task, commandId);
         return OR_CONTINUE;
     }
@@ -852,7 +853,7 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
         const float x = P(0).fParam;
         const float y = P(1).fParam;
         float z = P(2).fParam;
-        if (z <= StaticRef<float>(0x859014)) { // -100.0f
+        if (z <= DatosExe::Rdata::k859014) { // -100.0f
             z = CWorld::FindGroundZForCoord(x, y);
         }
         const int32 nth = P(3).iParam - 1;
@@ -992,7 +993,7 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
         float z = P(3).fParam;
         const float x = P(1).fParam;
         const float y = P(2).fParam;
-        if (z <= StaticRef<float>(0x859014)) { // -100.0f
+        if (z <= DatosExe::Rdata::k859014) { // -100.0f
             z = CWorld::FindGroundZForCoord(x, y);
         }
         const CVector dest{ x, y, vehicle->GetDistanceFromCentreOfMassToBaseOfModel() + z };

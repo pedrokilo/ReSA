@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "World.h"
 #include "Ragdoll/IKChainManager.h"
@@ -2206,7 +2207,7 @@ void CWorld::TriggerExplosionSectorList(PtrListType& ptrList, const CVector& poi
             entityRelDistToRadiusEnd_Doubled = doubled < 1.0f ? doubled : 1.0f;
         }
 
-        float impactVelocityFactor = entity->m_fMass * StaticRef<float>(0x864F98) * entityRelDistToRadiusEnd_Doubled * visibleDistance; // 0x864F98 = 1/1400
+        float impactVelocityFactor = entity->m_fMass * DatosExe::Rdata::k864F98 * entityRelDistToRadiusEnd_Doubled * visibleDistance; // 0x864F98 = 1/1400
 
         const float invDist = 1.0f / (entityToPointDist < 0.01f ? 0.01f : entityToPointDist);
         CVector impactVelocity{ dx * invDist, dy * invDist, dz * invDist };

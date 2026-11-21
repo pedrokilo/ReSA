@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/RdataConstantes.h"
 
 #include "Vector.h"
 
@@ -14,8 +15,8 @@ class CTask;
 
 class CCarEnterExit {
 public:
-    static inline auto& ms_fMaxSpeed_CanDragPedOut = StaticRef<float>(0x86F104); // 0.1
-    static inline auto& ms_fMaxSpeed_PlayerCanDragPedOut = StaticRef<float>(0x86F108); // 0.2
+    static inline auto& ms_fMaxSpeed_CanDragPedOut = DatosExe::Rdata::k86F104; // 0.1
+    static inline auto& ms_fMaxSpeed_PlayerCanDragPedOut = DatosExe::Rdata::k86F108; // 0.2
 
     static inline auto& ms_bPedOffsetsCalculated = StaticRef<bool>(0xC18C20);
     static inline auto& ms_vecPedGetUpAnimOffset = StaticRef<CVector>(0xC18C3C);

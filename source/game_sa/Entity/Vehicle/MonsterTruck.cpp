@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "MonsterTruck.h"
 
@@ -164,7 +165,7 @@ void CMonsterTruck::ProcessSuspension() {
         if (m_apWheelCollisionEntity[i]) {
             speeds[i] -= m_apWheelCollisionEntity[i]->GetSpeed(m_vWheelCollisionPos[i]);
         }
-        if (m_fWheelsSuspensionCompression[i] < StaticRef<float>(0x8717D4) && m_wheelColPoint[i].m_vecNormal.z > StaticRef<float>(0x858F9C)) {
+        if (m_fWheelsSuspensionCompression[i] < DatosExe::Rdata::k8717D4 && m_wheelColPoint[i].m_vecNormal.z > StaticRef<float>(0x858F9C)) {
             directions[i] = -m_wheelColPoint[i].m_vecNormal;
         }
     }

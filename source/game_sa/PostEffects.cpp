@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "PostEffects.h"
 #include "CustomBuildingDNPipeline.h"
@@ -38,12 +39,12 @@ static constexpr auto GRAIN_TEXTURE_DIM = 256u; // 256x256
 namespace {
 // Como el original: 0x7043D9..0x704465 (SetupBackBufferVertex). ln(2.0) se guarda como DOUBLE y el cociente se redondea a 24 bits (ver PostFxLog2TruncViaDoubleCpp en X87Math.cpp).
 int32 ExeLog2TruncViaDouble(int32 value) {
-    return PostFxLog2TruncViaDoubleCpp(value, StaticRef<double>(0x86F990));
+    return PostFxLog2TruncViaDoubleCpp(value, DatosExe::Rdata::k86F990);
 }
 
 // Como el original: 0x703EB5..0x703EDF (ImmediateModeFilterStuffInitialize). ln(2.0) se queda en ST(1) en precision extendida (ver PostFxLog2TruncKeepExtendedCpp).
 int32 ExeLog2TruncKeepExtended(int32 value) {
-    return PostFxLog2TruncKeepExtendedCpp(value, StaticRef<double>(0x86F990));
+    return PostFxLog2TruncKeepExtendedCpp(value, DatosExe::Rdata::k86F990);
 }
 
 // Como el original: potencia de dos de la pantalla = pow(2.0, floor(log2(n)) + 1) con la pow del CRT del EXE (0x8220F0) y _ftol2 (0x821B40).
@@ -602,7 +603,7 @@ void CPostEffects::HeatHazeFXInit() {
     // Como el original: 0x7016A0..0x701759. Cada valor es ftol((rand & 0xFFFF) * (1/32768) * rango) SIN sumar el minimo (solo la velocidad suma speedMin);
     // el orden de llamadas a rand es X, Y, velocidad.
     const auto RandomScaled = [](int32 range) {
-        return static_cast<int32>(static_cast<int64>(static_cast<float>(CGeneral::GetRandomNumber() & 0xFFFF) * StaticRef<float>(0x858B14) * static_cast<float>(range)));
+        return static_cast<int32>(static_cast<int64>(static_cast<float>(CGeneral::GetRandomNumber() & 0xFFFF) * DatosExe::Rdata::k858B14 * static_cast<float>(range)));
     };
     for (auto i = 0; i < 180; i++) {
         hpX[i] = RandomScaled(RwRasterGetWidth(pRasterFrontBuffer) - m_HeatHazeFXScanSizeX);
@@ -636,7 +637,7 @@ void CPostEffects::HeatHazeFX(float fIntensity, bool bAlphaMaskMode) {
         const auto scanX=StaticRef<int32>(0xC40304),scanY=StaticRef<int32>(0xC40308),renderX=StaticRef<int32>(0xC4030C),renderY=StaticRef<int32>(0xC40310);
         const auto halfX=(renderX-scanX)/2,halfY=(renderY-scanY)/2;const auto color=(uint32(alpha)<<24)|0xFFFFFFu;
         for(uint32 i=0;i<180;++i){int32 ux=hpX[i],uy=hpY[i],x=ux-halfX,y=uy-halfY;const auto shift=StaticRef<int32>(0xC402C0);
-            const auto randomScaled=[](int32 range){return int32((float(CGeneral::GetRandomNumber()&0xFFFF)*StaticRef<float>(0x858B14))*float(range));};
+            const auto randomScaled=[](int32 range){return int32((float(CGeneral::GetRandomNumber()&0xFFFF)*DatosExe::Rdata::k858B14)*float(range));};
             if(shift>0){x+=randomScaled(shift*2)-shift;y+=randomScaled(shift*2)-shift;}
             if(x<0){ux+=halfX;x=0;}if(x>pRasterFrontBuffer->width-renderX){ux-=halfX;x=pRasterFrontBuffer->width-renderX;}
             if(y<0){uy+=halfY;y=0;}if(y>pRasterFrontBuffer->height-renderY){uy-=halfY;y=pRasterFrontBuffer->height-renderY;}
@@ -841,8 +842,8 @@ void CPostEffects::Fog() {
     const float height        = static_cast<float>(RsGlobal.maximumHeight);
     const float halfWidth     = width  * StaticRef<float>(0x858B8C);
     const float halfHeight    = height * StaticRef<float>(0x858B8C);
-    const float twoThirdsW    = width  * StaticRef<float>(0x862D68);
-    const float twoThirdsH    = height * StaticRef<float>(0x862D68);
+    const float twoThirdsW    = width  * DatosExe::Rdata::k862D68;
+    const float twoThirdsH    = height * DatosExe::Rdata::k862D68;
     const float thirdW        = twoThirdsW * StaticRef<float>(0x858B8C);
     const float thirdH        = twoThirdsH * StaticRef<float>(0x858B8C);
     const float quarterW      = halfWidth  * StaticRef<float>(0x858B8C);
@@ -853,7 +854,7 @@ void CPostEffects::Fog() {
     // Como el original: 0x7041B1..0x704247. Modulo de la velocidad (fsqrt) frente a 0.06f (0x859934); fcomp ; test ah,41h ; jne -> con velocidad <= 0.06f o NaN se reduce el radio.
     const float speed = FindPlayerSpeed(-1).Magnitude();
     const float step  = CTimer::GetTimeStep() * StaticRef<float>(0x858C84);
-    if (!(speed > StaticRef<float>(0x859934))) {
+    if (!(speed > DatosExe::Rdata::k859934)) {
         s_FogRadius = s_FogRadius - step;
         if (s_FogRadius < 0.0f) {
             s_FogRadius = 0.0f;
@@ -868,7 +869,7 @@ void CPostEffects::Fog() {
     const auto skyBottom = CTimeCycle::GetCurrentSkyBottomColor();
     for (auto i = 0; i < 10; i++) {
         // Como el original: 0x704291 fild i ; fmul 36.0 (0x863204) ; fadd angulo ; fmul 0.01745329f (0x8595EC)
-        const float angle = (static_cast<float>(i) * StaticRef<float>(0x863204) + s_FogAngle) * StaticRef<float>(0x8595EC);
+        const float angle = (static_cast<float>(i) * DatosExe::Rdata::k863204 + s_FogAngle) * StaticRef<float>(0x8595EC);
         DrawQuad(
             FogCosCoord(angle, quarterW, s_FogRadius, halfWidth, thirdW),
             FogSinCoord(angle, quarterH, s_FogRadius, halfHeight, thirdH),
@@ -884,7 +885,7 @@ void CPostEffects::Fog() {
 
     for (auto i = 0; i < 10; i++) {
         // Como el original: 0x704330..0x704355 (el signo se invierte antes de multiplicar por 0.01745329f)
-        const float angle = -(static_cast<float>(i) * StaticRef<float>(0x863204) + s_FogAngle) * StaticRef<float>(0x8595EC);
+        const float angle = -(static_cast<float>(i) * DatosExe::Rdata::k863204 + s_FogAngle) * StaticRef<float>(0x8595EC);
         DrawQuad(
             FogCosCoord(angle, outerW, s_FogRadius, halfWidth, thirdW),
             FogSinCoord(angle, outerH, s_FogRadius, halfHeight, thirdH),
@@ -1001,9 +1002,9 @@ void CPostEffects::SpeedFX(float speed) {
     if(passes<=0)return;
     ImmediateModeRenderStatesStore();ImmediateModeRenderStatesSet();
     float jx=0.f,jy=0.f;
-    if(int32(jitter)>0){const auto jitterScale=float(jitter)*StaticRef<float>(0x859CE0);jx=ms_imf.fFrontBufferU2*jitterScale;jy=ms_imf.fFrontBufferV2*jitterScale;jx=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jx;jy=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jy;}
-    const auto dx=(ms_imf.fFrontBufferU2*float(int32(spread)))*StaticRef<float>(0x86C340);
-    const auto dy=(float(int32(spread))*ms_imf.fFrontBufferV2)*StaticRef<float>(0x86C340);
+    if(int32(jitter)>0){const auto jitterScale=float(jitter)*DatosExe::Rdata::k859CE0;jx=ms_imf.fFrontBufferU2*jitterScale;jy=ms_imf.fFrontBufferV2*jitterScale;jx=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jx;jy=(float(CGeneral::GetRandomNumber())*StaticRef<float>(0x858C7C))*jy;}
+    const auto dx=(ms_imf.fFrontBufferU2*float(int32(spread)))*DatosExe::Rdata::k86C340;
+    const auto dy=(float(int32(spread))*ms_imf.fFrontBufferV2)*DatosExe::Rdata::k86C340;
     float left=-dx,right=dx,top=-dy,bottom=dy;
     for(int32 i=0;i<passes;++i){
         float x1=right,x2=left,x3=right,x4=left,y1=bottom,y2=bottom,y3=top,y4=top,ax=jx,ay=jy,bx=jx,by=jy;
@@ -1228,7 +1229,7 @@ void CPostEffects::Render() {
     if (m_bRainEnable || s_CurrentStrength != 0) {
         // Como el original: 0x704FD2..0x705010. 'ecx' conserva la intensidad previa: si sube (inc + store 0x704FEE) se vuelve a comparar con la lluvia (el valor ya incrementado)
         // y, si pasa de la lluvia, se resta uno de ECX (0x705005 dec ecx) y es ese ECX (sin incremento) lo que se guarda al final (0x705010 mov [0xC40328],edx).
-        const auto rain = CWeather::Rain * StaticRef<float>(0x858BF4);
+        const auto rain = CWeather::Rain * DatosExe::Rdata::k858BF4;
         int32 strength = s_CurrentStrength;
         if (static_cast<float>(strength) < rain) {
             strength++;
@@ -1267,7 +1268,7 @@ void CPostEffects::Render() {
     if (m_waterEnable || CWeather::UnderWaterness >= m_fWaterFXStartUnderWaterness) {
         // Como el original: 0x705181..0x705247. El verde suma el entero ftol(verdeAgua + 184.0) (0x70519D call 0x821B40) y todos los canales se limitan a 255 en enteros
         CRGBA color{m_waterCol};
-        const auto waterGreenInt = static_cast<int32>(static_cast<int64>(s_WaterGreen + StaticRef<float>(0x872660)));
+        const auto waterGreenInt = static_cast<int32>(static_cast<int64>(s_WaterGreen + DatosExe::Rdata::k872660));
         const auto r = std::min<int32>(color.r + 0xB8, 0xFF);
         const auto g = std::min<int32>(color.g + waterGreenInt, 0xFF);
         const auto b = std::min<int32>(color.b + 0xB8, 0xFF);
@@ -1288,7 +1289,7 @@ void CPostEffects::Render() {
 
         // Como el original: 0x705247..0x705298. yoffset = (H * 1/448) * 24.0 ; xoffset = ((W * 1/640) * (verdeAgua * 1/24)) * 4.0 con las unidades del EXE (0x859520 / 0x859524 / 0x87265C)
         const auto yoffset = static_cast<float>(RsGlobal.maximumHeight) * StaticRef<float>(0x859524) * m_yoffset;
-        const auto xoffset = static_cast<float>(RsGlobal.maximumWidth) * StaticRef<float>(0x859520) * (s_WaterGreen * StaticRef<float>(0x87265C)) * m_xoffset;
+        const auto xoffset = static_cast<float>(RsGlobal.maximumWidth) * StaticRef<float>(0x859520) * (s_WaterGreen * DatosExe::Rdata::k87265C) * m_xoffset;
         UnderWaterRipple(
             color,
             xoffset,

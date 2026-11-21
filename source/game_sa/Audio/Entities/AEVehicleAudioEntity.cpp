@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "AEVehicleAudioEntity.h"
 #include "AEAudioHardware.h"
@@ -4249,7 +4250,7 @@ void CAEVehicleAudioEntity::ProcessGenericJet(bool bEngineOn, tVehicleParams& pa
     const auto target = (((bank * StaticRef<float>(0x858B1C) + tilt * StaticRef<float>(0x858FCC)) + pitch) + 1.f) * fStalledFrequency;
     auto& frequency = m_CurrentRotorFrequency;
     if (frequency < 0.f) frequency = target;
-    frequency = target < frequency ? std::max(target, frequency - StaticRef<float>(0x862D04)) : std::min(target, frequency + StaticRef<float>(0x862D04));
+    frequency = target < frequency ? std::max(target, frequency - DatosExe::Rdata::k862D04) : std::min(target, frequency + DatosExe::Rdata::k862D04);
     PlayAircraftSound(AE_SOUND_AIRCRAFT_FRONT, static_cast<eSoundBankSlot>(19), 10, frontVolume, frequency);
     PlayAircraftSound(AE_SOUND_AIRCRAFT_REAR, static_cast<eSoundBankSlot>(19), 11, rearVolume, frequency);
     PlayAircraftSound(AE_SOUND_AIRCRAFT_THRUST, static_cast<eSoundBankSlot>(19), 26, thrustVolume, 1.f);
@@ -4354,19 +4355,19 @@ void CAEVehicleAudioEntity::ProcessDummyHovercraft(tVehicleParams& params) {
     }
     auto* bytes = reinterpret_cast<uint8*>(params.Vehicle);
     if (!(bytes[0x428] & 0x10) || m_IsWreckedVehicle) { CancelAllVehicleEngineSounds(); return; }
-    const auto ratio = std::clamp(std::abs(*reinterpret_cast<float*>(bytes+0x988) * StaticRef<float>(0x862D68)), 0.f, 1.f);
+    const auto ratio = std::clamp(std::abs(*reinterpret_cast<float*>(bytes+0x988) * DatosExe::Rdata::k862D68), 0.f, 1.f);
     int16 accel = int16(std::bit_cast<uint32>(ratio)), brake = accel;
     if (!(bytes[0x36] & 0xF8)) {
         if (params.Speed < StaticRef<float>(0x858CDC)) { accel=pad->GetAccelerate(); accel=int16(accel-pad->GetBrake()); brake=0; }
         else { brake=pad->GetBrake(); accel=pad->GetAccelerate(); }
     }
     float offset = accel > 0 ? StaticRef<float>(0x858B1C) : ratio;
-    if (brake > 0) offset = StaticRef<float>(0x85901C);
-    const auto rev = std::clamp(*reinterpret_cast<float*>(bytes+0x9C4) * StaticRef<float>(0x862D18), 0.f, 1.f);
+    if (brake > 0) offset = DatosExe::Rdata::k85901C;
+    const auto rev = std::clamp(*reinterpret_cast<float*>(bytes+0x9C4) * DatosExe::Rdata::k862D18, 0.f, 1.f);
     const auto volume = StaticRef<float>(0xB6BA90) * rev + StaticRef<float>(0x8CBFAC);
     const auto target = ((StaticRef<float>(0xB6BA94) * rev + StaticRef<float>(0x8CBFBC) * ratio) + StaticRef<float>(0x8CBFB4)) + offset;
     if (m_CurrentRotorFrequency < 0.f) m_CurrentRotorFrequency = target;
-    m_CurrentRotorFrequency = target < m_CurrentRotorFrequency ? std::max(target, m_CurrentRotorFrequency-StaticRef<float>(0x862D04)) : std::min(target, m_CurrentRotorFrequency+StaticRef<float>(0x862D04));
+    m_CurrentRotorFrequency = target < m_CurrentRotorFrequency ? std::max(target, m_CurrentRotorFrequency-DatosExe::Rdata::k862D04) : std::min(target, m_CurrentRotorFrequency+DatosExe::Rdata::k862D04);
     UpdateGenericVehicleSound(1, m_DummySlot, m_DummyEngineBank, 0, m_CurrentRotorFrequency, volume, 3.5f);
 }
 

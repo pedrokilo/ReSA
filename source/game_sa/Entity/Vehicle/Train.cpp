@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "Train.h"
 
@@ -179,7 +180,7 @@ CTrain::CTrain(int32 modelIndex, eVehicleCreatedBy createdBy) : CVehicle(created
     m_fElasticity = .05f;
     m_fBuoyancyConstant = m_pHandlingData->m_fBuoyancyConstant;
     const auto drag = m_pHandlingData->m_fDragMult;
-    m_fAirResistance = drag > StaticRef<float>(0x858C58) ? (drag / StaticRef<float>(0x872364)) * StaticRef<float>(0x858B8C) : drag;
+    m_fAirResistance = drag > StaticRef<float>(0x858C58) ? (drag / DatosExe::Rdata::k872364) * StaticRef<float>(0x858B8C) : drag;
     physicalFlags.bCollidable = false;
     physicalFlags.bDisableCollisionForce = true;
     m_bTunnelTransition = true;
@@ -332,7 +333,7 @@ void CTrain::InitTrains() {
     for (int32 station = 0; station < 6; ++station) {
         int32 track;
         const auto index = FindClosestTrackNode(aStationCoors[station], &track);
-        StationDist[station] = float(nodes[index].m_nDistanceFromStart) * StaticRef<float>(0x859040);
+        StationDist[station] = float(nodes[index].m_nDistanceFromStart) * DatosExe::Rdata::k859040;
     }
 }
 
@@ -412,8 +413,8 @@ void CTrain::FindCoorsFromPositionOnTrack(float railDistance, int32 trackId, CVe
     const auto count = NumTrackNodes[trackId];
     for (int32 i = 0; i < count; ++i) {
         const auto next = (i + 1) % count;
-        const auto before = railDistance - float(nodes[i].m_nDistanceFromStart) * StaticRef<float>(0x859040);
-        const auto after = float(nodes[next].m_nDistanceFromStart) * StaticRef<float>(0x859040) - railDistance;
+        const auto before = railDistance - float(nodes[i].m_nDistanceFromStart) * DatosExe::Rdata::k859040;
+        const auto after = float(nodes[next].m_nDistanceFromStart) * DatosExe::Rdata::k859040 - railDistance;
         if (before >= 0.f && after >= 0.f) {
             const auto inverse = 1.f / (after + before);
             outCoors->x = (float(nodes[i].x) * .125f * after + float(nodes[next].x) * .125f * before) * inverse;
@@ -741,7 +742,7 @@ void CTrain::FindPositionOnTrackFromCoors() {
         const auto ny = float(nodes[next].y) * .125f;
         const auto& pos = GetPosition();
         const auto factor = TrainProjectionCpp(x, y, nx, ny, pos.x, pos.y);
-        if (!(factor > StaticRef<float>(0x858CDC) && factor < StaticRef<float>(0x872490))) continue;
+        if (!(factor > StaticRef<float>(0x858CDC) && factor < DatosExe::Rdata::k872490)) continue;
         const auto dx = nx - x;
         const auto dy = ny - y;
         const auto ax = dx * factor;
@@ -825,14 +826,14 @@ void CTrain::SkipToNextAllowedStation(CTrain* train) {
     CStreaming::LoadAllRequestedModels(false);
     const auto dx = aStationCoors[station].x - engine->GetPosition().x;
     const auto dy = aStationCoors[station].y - engine->GetPosition().y;
-    const auto minutes = std::sqrt(dx * dx + dy * dy) * StaticRef<float>(0x858C28) + StaticRef<float>(0x858F84);
+    const auto minutes = std::sqrt(dx * dx + dy * dy) * StaticRef<float>(0x858C28) + DatosExe::Rdata::k858F84;
     CGameLogic::PassTime(uint32(int64(minutes)));
 }
 
 // 0x6F7550
 void CTrain::CreateMissionTrain(CVector posn, bool clockwise, uint32 type, CTrain** first, CTrain** last, int32 nodeIndex, int32 track, bool mission) {
     if (nodeIndex < 0) nodeIndex = FindClosestTrackNode(posn, &track);
-    auto rail = float(pTrackNodes[track][nodeIndex].m_nDistanceFromStart) * StaticRef<float>(0x859040);
+    auto rail = float(pTrackNodes[track][nodeIndex].m_nDistanceFromStart) * DatosExe::Rdata::k859040;
     auto* models = reinterpret_cast<const int32*>(0x8D44F8 + type * 0x40);
     std::array<CTrain*,16> carriages;
     int32 count = 0;
@@ -1061,7 +1062,7 @@ void CTrain::AddNearbyPedAsRandomPassenger() {
     else relative += GetRight();
     // These existing task constructors and sequencing calls remain dependencies outside this scope.
     auto* seekStorage = CTask::operator new(0x58);
-    auto* seek = seekStorage ? reinterpret_cast<CTask*(__thiscall*)(void*,CEntity*,int32,int32,float,float,float,bool,bool)>(0x661DC0)(seekStorage, this, 50000, 1000, StaticRef<float>(0x86FC2C), StaticRef<float>(0x86FC28), StaticRef<float>(0x86FC30), true, true) : nullptr;
+    auto* seek = seekStorage ? reinterpret_cast<CTask*(__thiscall*)(void*,CEntity*,int32,int32,float,float,float,bool,bool)>(0x661DC0)(seekStorage, this, 50000, 1000, DatosExe::Rdata::k86FC2C, DatosExe::Rdata::k86FC28, DatosExe::Rdata::k86FC30, true, true) : nullptr;
     *reinterpret_cast<CVector*>(reinterpret_cast<uint8*>(seek) + 0x44) = relative;
     *reinterpret_cast<int32*>(reinterpret_cast<uint8*>(seek) + 0x50) = 7;
     auto* sequenceStorage = CTask::operator new(0x40);

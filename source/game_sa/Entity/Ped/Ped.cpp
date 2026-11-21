@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -2600,10 +2601,10 @@ void CPed::SetCharCreatedBy(ePedCreatedBy createdBy) {
  * @addr 0x5E4C50
  */
 void CPed::CalculateNewVelocity() {
-    const auto turnMinimum = StaticRef<float>(0x86C284);
-    const auto turnAcceleration = StaticRef<float>(0x86C288);
-    const auto slopeBlend = StaticRef<float>(0x86C278);
-    const auto slopeDecay = StaticRef<float>(0x86C280);
+    const auto turnMinimum = DatosExe::Rdata::k86C284;
+    const auto turnAcceleration = DatosExe::Rdata::k86C288;
+    const auto slopeBlend = DatosExe::Rdata::k86C278;
+    const auto slopeDecay = DatosExe::Rdata::k86C280;
     const auto step = CTimer::GetTimeStep();
     if (!bIsInTheAir && !bIsLanding && m_nPedState != PEDSTATE_DIE && m_nPedState != PEDSTATE_DEAD && m_nPedState != PEDSTATE_ARRESTED) {
         const float turnStep = m_fHeadingChangeRate * 0.01745329238474369f * step;
@@ -2771,8 +2772,8 @@ void CPed::DoFootLanded(bool leftFoot, uint8 arg1) {
     position += forward * 0.2f;
     if (bDoBloodyFootprints && CLocalisation::Blood()) {
         CShadows::AddPermanentShadow(SHADOW_DEFAULT, gpBloodPoolTex, &position,
-            forward.x * StaticRef<float>(0x86C338), forward.y * StaticRef<float>(0x86C338),
-            right.x * StaticRef<float>(0x86C33C), right.y * StaticRef<float>(0x86C33C),
+            forward.x * DatosExe::Rdata::k86C338, forward.y * DatosExe::Rdata::k86C338,
+            right.x * DatosExe::Rdata::k86C33C, right.y * DatosExe::Rdata::k86C33C,
             255, 200, 0, 0, 4.0f, 3000, 1.0f);
         if (uint32(m_nDeathTimeMS) > 20) m_nDeathTimeMS -= 20;
         else { m_nDeathTimeMS = 0; bDoBloodyFootprints = false; }
@@ -2780,7 +2781,7 @@ void CPed::DoFootLanded(bool leftFoot, uint8 arg1) {
     if (g_surfaceInfos.LeavesFootsteps(m_nContactSurface)
         && (CVector2D{TheCamera.GetPosition()} - CVector2D{GetPosition()}).Magnitude() < 10.0f) {
         CShadows::AddPermanentShadow(SHADOW_DEFAULT, gpShadowPedTex, &position,
-            forward.x * StaticRef<float>(0x86C334), forward.y * StaticRef<float>(0x86C334),
+            forward.x * DatosExe::Rdata::k86C334, forward.y * DatosExe::Rdata::k86C334,
             right.x * -0.1f, right.y * -0.1f, 120, 250, 250, 50, 4.0f, IsPlayer() ? 5000 : 2000, 1.0f);
     }
     if (CWeather::Rain > 0.1f && !CCullZones::CamNoRain() && !CCullZones::PlayerNoRain() && CGame::currArea == AREA_CODE_NORMAL_WORLD) {

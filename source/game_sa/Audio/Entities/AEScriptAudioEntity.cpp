@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "AEScriptAudioEntity.h"
 #include "AESoundManager.h"
@@ -921,7 +922,7 @@ void CAEScriptAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) {
             break;
         case 1086:
             if (now > m_nLastTimeHornPlayed + 4500u) {
-                if (sound->m_Volume > StaticRef<float>(0x85A708)) sound->m_Volume -= StaticRef<float>(0x858B1C);
+                if (sound->m_Volume > DatosExe::Rdata::k85A708) sound->m_Volume -= StaticRef<float>(0x858B1C);
                 else {
                     sound->StopSoundAndForget();
                     m_nLastTimeHornPlayed = 0;

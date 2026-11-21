@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "ProjectileInfo.h"
 #include "X87Math.h"
@@ -262,7 +263,7 @@ void AddProjectileSteering(CVector& velocity, const CVector& steering, float acc
     ProjInfoAddSteeringCpp(&velocity.x, &steering.x, acceleration, timestep, fast, speedMultiplier);
 }
 void LimitProjectileSpeed(CProjectile* projectile) {
-    ProjInfoLimitSpeedCpp(&projectile->m_vecMoveSpeed.x, StaticRef<float>(0x872C00));
+    ProjInfoLimitSpeedCpp(&projectile->m_vecMoveSpeed.x, DatosExe::Rdata::k872C00);
 }
 }
 // 0x738B20

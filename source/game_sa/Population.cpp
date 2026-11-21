@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -138,8 +139,8 @@ void CPopulation::InjectHooks() {
 // fild * 2^-15 (0x858B14), fimul (superior - inferior) y _ftol2 en X87Math.cpp (PopulationRandomRangeCpp); suma entera del limite inferior.
 // Unico llamador del EXE: CPopulation::AddToPopulation (0x614AC6), que solo guarda EAX (recarga ECX y EDX), asi que no hay residuo que reproducir.
 int32 CPopulation::RandomIntInLimitRange() {
-    const int32 upper = StaticRef<int32>(0x86C6C8);
-    const int32 lower = StaticRef<int32>(0x86C6C4);
+    const int32 upper = DatosExe::Rdata::k86C6C8;
+    const int32 lower = DatosExe::Rdata::k86C6C4;
     const uint32 random = CGeneral::GetRandomNumber() & 0xFFFFu;
     return static_cast<int32>(static_cast<uint32>(lower) + static_cast<uint32>(PopulationRandomRangeCpp(static_cast<int>(random), static_cast<int>(static_cast<uint32>(upper) - static_cast<uint32>(lower)))));
 }

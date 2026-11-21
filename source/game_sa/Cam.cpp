@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -813,13 +814,13 @@ static float CamVelocityInverseStep(float step) {
 }
 
 static float CamVehicleTargetSpeed(float forwardX,float forwardY,float velocityX,float velocityY) {
-    const float zero=0.f,one=1.f,half=.5f,positiveScale=StaticRef<float>(0x86325C),negativeScale=StaticRef<float>(0x863258);
+    const float zero=0.f,one=1.f,half=.5f,positiveScale=DatosExe::Rdata::k86325C,negativeScale=DatosExe::Rdata::k863258;
     float result;
     CamVehicleTargetSpeedCpp(&forwardY, &forwardX, zero, one, velocityX, velocityY, positiveScale, negativeScale, half, &result);
     return result;
 }
 static float CamVehicleSmoothedSpeed(float previous,float target) {
-    const float previousWeight=StaticRef<float>(0x863250),targetWeight=StaticRef<float>(0x863254);
+    const float previousWeight=DatosExe::Rdata::k863250,targetWeight=DatosExe::Rdata::k863254;
     float result;
     CamVehicleSmoothedSpeedCpp(target, targetWeight, previous, previousWeight, &result);
     return result;
@@ -1877,7 +1878,7 @@ void __fastcall TwoPlayerCameraGeometry(CCam* cam, void* /*edx*/, float beta, CV
     const auto first = StaticRef<CPed*>(0xB7CD98)->GetPosition();
     const auto second = StaticRef<CPed*>(0xB7CF28)->GetPosition();
     const auto difference = first - second;
-    const float distance = std::sqrt(difference.z * difference.z + difference.y * difference.y + difference.x * difference.x) * StaticRef<float>(0x8631C8) + StaticRef<float>(0x858F48);
+    const float distance = std::sqrt(difference.z * difference.z + difference.y * difference.y + difference.x * difference.x) * DatosExe::Rdata::k8631C8 + DatosExe::Rdata::k858F48;
     CVector separation{difference.x,difference.y,0.f}; separation.Normalise();
     const float weight = StaticRef<float>(0x858B8C) - (separation.y * flat.y + separation.x * flat.x + flat.z * separation.z) * StaticRef<float>(0x858C84);
     const float complement = 1.f - weight;
@@ -2054,8 +2055,8 @@ void CCam::Process_Cam_TwoPlayer_InCarAndShooting() {
     auto* aimTarget = CWeapon::FindNearestTargetEntityWithScreenCoors(m_fX_Targetting,m_fY_Targetting,info->m_fWeaponRange + info->m_fWeaponRange,shooter->GetPosition(),&targetX,&targetY);
     if (aimTarget && absHorizontal < 120.f && absVertical < 120.f) {
         const float limit = CTimer::GetTimeStep() * .01f;
-        m_fX_Targetting = std::clamp((targetX - m_fX_Targetting) * (1.f - CamPower(StaticRef<float>(0x862F90),CTimer::GetTimeStep())),-limit,limit) + m_fX_Targetting;
-        m_fY_Targetting = std::clamp((targetY - m_fY_Targetting) * (1.f - CamPower(StaticRef<float>(0x862F90),CTimer::GetTimeStep())),-limit,limit) + m_fY_Targetting;
+        m_fX_Targetting = std::clamp((targetX - m_fX_Targetting) * (1.f - CamPower(DatosExe::Rdata::k862F90,CTimer::GetTimeStep())),-limit,limit) + m_fX_Targetting;
+        m_fY_Targetting = std::clamp((targetY - m_fY_Targetting) * (1.f - CamPower(DatosExe::Rdata::k862F90,CTimer::GetTimeStep())),-limit,limit) + m_fY_Targetting;
     }
     float excessHorizontal = 0.f;
     if (m_fX_Targetting > .9f) { excessHorizontal = m_fX_Targetting - .9f; m_fX_Targetting = .9f; }
@@ -2122,7 +2123,7 @@ void CCam::Process_Cam_TwoPlayer_InCarAndShooting() {
         angle += StaticRef<float>(0x859AB0); if (angle < 0.f) angle += StaticRef<float>(0x858CBC);
         CTaskSimpleGangDriveBy task{nullptr,nullptr,100.f,100,eDrivebyStyle::AI_ALL_DIRN,shooter != vehicle->m_apPassengers[1]};
         task.m_pWeaponInfo = CWeaponInfo::GetWeaponInfo(weapon.m_Type,shooter->GetWeaponSkill());
-        task.m_nFakeShootDirn = int8(int32(angle * StaticRef<float>(0x858FB8)));
+        task.m_nFakeShootDirn = int8(int32(angle * DatosExe::Rdata::k858FB8));
         // Native51A3FD invokes the drive-by collaborator, not ProcessPed (62D3B0).
         task.FireGun(shooter); // 0x627CC0
         CamShakeNoPos(&TheCamera,StaticRef<float>(0x8CCD18));
@@ -2419,7 +2420,7 @@ static float HeliChaseInitialFov(float progress, float duration, float from, flo
 
 static float HeliChaseReturnFov355(int32 now, int32 start, int32 end, float from, float to) {
     const float zero = StaticRef<float>(0x858B50), one = StaticRef<float>(0x858624);
-    const float degrees = StaticRef<float>(0x85A994), phase = StaticRef<float>(0x859070);
+    const float degrees = StaticRef<float>(0x85A994), phase = DatosExe::Rdata::k859070;
     const float radians = StaticRef<float>(0x8595EC), half = StaticRef<float>(0x858B8C);
     float result;
     CamHeliReturnFovCpp(start, now, end, zero, one, degrees, phase, radians, half, to, from, &result);
@@ -2428,7 +2429,7 @@ static float HeliChaseReturnFov355(int32 now, int32 start, int32 end, float from
 
 static float HeliChaseDistanceFov355(const CVector& camera, const CVector& dest, float progress, float duration, float from, float to, bool initial, float nearDistance, float farDistance, float reduction) {
     const float zero=StaticRef<float>(0x858B50),one=StaticRef<float>(0x858624),half=StaticRef<float>(0x858B8C);
-    const float degrees=StaticRef<float>(0x85A994),phase=StaticRef<float>(0x859070),radians=StaticRef<float>(0x8595EC);
+    const float degrees=StaticRef<float>(0x85A994),phase=DatosExe::Rdata::k859070,radians=StaticRef<float>(0x8595EC);
     float distance,result;
     CamHeliDistanceFovCpp(to, initial, one, duration, progress, degrees, phase, radians, half, from, zero, CamAddr(&camera), CamAddr(&dest), &distance, nearDistance, farDistance, reduction, &result);
     return result;
@@ -2438,7 +2439,7 @@ static float HeliChaseDistanceFov355(const CVector& camera, const CVector& dest,
 bool CCam::Process_DW_HeliChaseCam(bool) {
     StaticRef<uint8>(0xB6F059) = 0;
     // The shipped selector multiplies by the mutable zero at 0x858B50.
-    const int32 selection = static_cast<int32>(static_cast<int64>(float(std::rand() & 0xFFFF) * StaticRef<float>(0x858B14) * StaticRef<float>(0x858B50)));
+    const int32 selection = static_cast<int32>(static_cast<int64>(float(std::rand() & 0xFFFF) * DatosExe::Rdata::k858B14 * StaticRef<float>(0x858B50)));
     const uintptr_t state = 0xB6FEC0 - uintptr_t(selection * 0x9C);
     const auto number = [state](size_t offset) -> float& { return StaticRef<float>(state + offset); };
     const auto integer = [state](size_t offset) -> int32& { return StaticRef<int32>(state + offset); };
@@ -3186,7 +3187,7 @@ static void CamMouseChanges355(float fov,float inputX,float inputY,bool sticks,f
     beta=betaResult;alpha=alphaResult;
 }
 static float CamMouseRepeatedRadius355(float fov,float nearPlane) {
-    const float radians=StaticRef<float>(0x8595EC),half=.5f,factor=StaticRef<float>(0x862F10),aspect=StaticRef<float>(0xC3EFA4);
+    const float radians=StaticRef<float>(0x8595EC),half=.5f,factor=DatosExe::Rdata::k862F10,aspect=StaticRef<float>(0xC3EFA4);
     float result;
     CamMouseRepeatedRadiusCpp(fov, radians, half, aspect, nearPlane, factor, &result);
     return result;
@@ -3222,7 +3223,7 @@ static void CamMousePullSource355(CVector& source,const CVector& target) {
 static float CamMouseRecenterDelta355(const CVector& direction,float orientation,float beta) {
     float result;
     const float x=direction.x,y=direction.y;
-    if(direction.z>=StaticRef<float>(0x858CAC)) {
+    if(direction.z>=DatosExe::Rdata::k858CAC) {
         result = Atan2MinusCpp(y, x, beta);
     } else {
         CamMouseRecenterDeltaCpp(orientation, beta, &result);
@@ -3995,7 +3996,7 @@ void CCam::Process_SpecialFixedForSyphon(const CVector& target, float, float, fl
 // the original spills only the lateral x/y and vertical y/z products.
 static CVector WheelCameraUp(const CVector& side, const CVector& vertical, uint32 time) {
     const int32 phase = static_cast<int32>(time & 0x1FFFF);
-    const float angleScale = StaticRef<float>(0x8631C4), amount = .4f;
+    const float angleScale = DatosExe::Rdata::k8631C4, amount = .4f;
     const float sx = side.x, sy = side.y, sz = side.z;
     const float ux = vertical.x, uy = vertical.y, uz = vertical.z;
     float lateralX, lateralY, verticalY, verticalZ, outputX, outputY, outputZ;

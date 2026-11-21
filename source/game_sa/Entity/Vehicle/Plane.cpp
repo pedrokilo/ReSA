@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "Plane.h"
 #include "CarCtrl.h"
@@ -365,8 +366,8 @@ void CPlane::VehicleDamage(float damageIntensity, eVehicleCollisionComponent com
     const float previousHealth = m_fHealth;
     float factor;
     if (FindPlayerVehicle(-1, false) == this) factor = bytes[0x429] & 0x80 ? StaticRef<float>(0x85F0A0) : .5f;
-    else if (bytes[0x429] & 0x80) factor = StaticRef<float>(0x85F0FC);
-    else if (m_pDamageEntity && m_pDamageEntity == FindPlayerVehicle(-1, false)) factor = StaticRef<float>(0x862D68);
+    else if (bytes[0x429] & 0x80) factor = DatosExe::Rdata::k85F0FC;
+    else if (m_pDamageEntity && m_pDamageEntity == FindPlayerVehicle(-1, false)) factor = DatosExe::Rdata::k862D68;
     else factor = StaticRef<float>(0x858C84);
     m_fHealth = PlaneHealthAfterDamageCpp(m_fHealth, healthDamage, factor); // 0x6CC642..0x6CC6CE: health - healthDamage * factor con un solo fstp
     if (m_fHealth <= 0.f && previousHealth > 0.f) m_fHealth = 1.f;
@@ -549,7 +550,7 @@ static void PlaneGenerationHeading355(CVehicle* vehicle, float heading) {
 // 0x6CD413..0x6CD45B (helicoptero) y 0x6CD722..0x6CD772 (avion): x = cos * speed, y = sin * speed (fsin/fcos sin redondear, un redondeo por fmul + fstp), z = 0; ambas ramas dan lo mismo.
 static CVector PlaneGenerationVelocity355(float heading, bool helicopter) {
     (void)helicopter;
-    const float speed = StaticRef<float>(0x862D68);
+    const float speed = DatosExe::Rdata::k862D68;
     return CVector{TrigSimpleCosMulCpp(heading, speed), TrigSimpleSinMulCpp(heading, speed), 0.f};
 }
 static void PlaneGenerationSelect355(int32 aircraftCount){
@@ -755,7 +756,7 @@ void CPlane::PreRender() {
             } else {
                 CVector original;
                 if (mi->GetOriginalCompPosition(original, component)) {
-                    original.y = PlaneFinOffsetCpp(finScale, *reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(colModel) + 0x10), original.y, StaticRef<float>(0x871928));
+                    original.y = PlaneFinOffsetCpp(finScale, *reinterpret_cast<const float*>(reinterpret_cast<const uint8*>(colModel) + 0x10), original.y, DatosExe::Rdata::k871928);
                     workMatrix.SetTranslateOnly(original);
                 }
             }
@@ -765,7 +766,7 @@ void CPlane::PreRender() {
         if (RwFrame* const rudder = nodes[16]) { // [esi+688h]
             attach(rudder);
             prepareAxis(structure->m_avDummyPos[11], true); // marca +0x84
-            rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x871914), StaticRef<float>(0x8595EC), m_fLeftRightSkid, 0.f, 0));
+            rotateNode(PlaneSurfaceAngleCpp(DatosExe::Rdata::k871914, StaticRef<float>(0x8595EC), m_fLeftRightSkid, 0.f, 0));
             if (model == 539) {
                 if (RwFrame* const second = nodes[24]) { // [esi+6A8h]
                     attach(second);
@@ -777,17 +778,17 @@ void CPlane::PreRender() {
         if (RwFrame* const aileron = nodes[20]) { // [esi+698h]
             const float gear = m_fLandingGearStatus;
             if (m_pFlyingHandlingData->m_fGearDownL > 1.f && std::fabs(gear) < 1.f && (nodes[21] || nodes[22])) {
-                PlaneGearFactorsCpp(gear, StaticRef<float>(0x871920), StaticRef<float>(0x871924), &finScale, &finOffset);
+                PlaneGearFactorsCpp(gear, DatosExe::Rdata::k871920, DatosExe::Rdata::k871924, &finScale, &finOffset);
             }
             attach(aileron);
             prepareAxis(structure->m_avDummyPos[9], false); // marca +0x6C
-            rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x87191C), StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 1));
+            rotateNode(PlaneSurfaceAngleCpp(DatosExe::Rdata::k87191C, StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 1));
             adjustFin(20, 1.f);
 
             if (RwFrame* const second = nodes[19]) { // [esi+694h]
                 attach(second);
                 axis.x = X87TimesFloatCpp(axis.x, -1.f); // fmul [0x858C1C] (no fchs)
-                rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x87191C), StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 2));
+                rotateNode(PlaneSurfaceAngleCpp(DatosExe::Rdata::k87191C, StaticRef<float>(0x8595EC), m_fSteeringLeftRight, finOffset, 2));
                 adjustFin(19, -1.f);
             }
         }
@@ -795,10 +796,10 @@ void CPlane::PreRender() {
         if (RwFrame* const elevator = nodes[18]) { // [esi+690h]
             attach(elevator);
             prepareAxis(structure->m_avDummyPos[10], false); // marca +0x78
-            rotateNode(PlaneSurfaceAngleCpp(StaticRef<float>(0x871918), StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 3));
+            rotateNode(PlaneSurfaceAngleCpp(DatosExe::Rdata::k871918, StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 3));
             if (RwFrame* const second = nodes[17]) { // [esi+68Ch]
                 attach(second);
-                const float angle = PlaneSurfaceAngleCpp(StaticRef<float>(0x871918), StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 0);
+                const float angle = PlaneSurfaceAngleCpp(DatosExe::Rdata::k871918, StaticRef<float>(0x8595EC), m_fSteeringUpDown, 0.f, 0);
                 axis.x = X87TimesFloatCpp(axis.x, -1.f);
                 rotateNode(angle);
             }
@@ -837,33 +838,33 @@ void CPlane::PreRender() {
             switch (PlanePreRenderGearSwitchMap[modelOffset]) {
             case 0: // Rustler
                 firstAxis = 1; secondAxis = -1;
-                firstValue = -StaticRef<float>(0x87192C); secondValue = StaticRef<float>(0x87192C);
+                firstValue = -DatosExe::Rdata::k87192C; secondValue = DatosExe::Rdata::k87192C;
                 break;
             case 1: // Shamal, AT400
                 firstAxis = 1; secondAxis = 0;
-                firstValue = -StaticRef<float>(0x87192C); secondValue = StaticRef<float>(0x87192C);
-                thirdValue = StaticRef<float>(0x871938);
+                firstValue = -DatosExe::Rdata::k87192C; secondValue = DatosExe::Rdata::k87192C;
+                thirdValue = DatosExe::Rdata::k871938;
                 break;
             case 2: // Hydra
                 firstAxis = 0; secondAxis = 0;
-                firstValue = StaticRef<float>(0x871930); secondValue = StaticRef<float>(0x871930);
-                thirdValue = StaticRef<float>(0x871934); fourthValue = StaticRef<float>(0x871938);
+                firstValue = DatosExe::Rdata::k871930; secondValue = DatosExe::Rdata::k871930;
+                thirdValue = DatosExe::Rdata::k871934; fourthValue = DatosExe::Rdata::k871938;
                 break;
             case 3: // Nevada
                 firstAxis = 0; secondAxis = -1;
-                firstValue = StaticRef<float>(0x871940); secondValue = StaticRef<float>(0x871940);
+                firstValue = DatosExe::Rdata::k871940; secondValue = DatosExe::Rdata::k871940;
                 break;
             default: // 4: Andromada
                 firstAxis = 0; secondAxis = 0;
-                firstValue = StaticRef<float>(0x87193C); secondValue = StaticRef<float>(0x87193C);
-                thirdValue = -StaticRef<float>(0x87193C);
+                firstValue = DatosExe::Rdata::k87193C; secondValue = DatosExe::Rdata::k87193C;
+                thirdValue = -DatosExe::Rdata::k87193C;
                 break;
             }
             SetComponentRotation(nodes[21], eRotationAxis(firstAxis), PlaneGearRotationCpp(m_fLandingGearStatus, firstValue), true);
             SetComponentRotation(nodes[22], eRotationAxis(firstAxis), PlaneGearRotationCpp(m_fLandingGearStatus, secondValue), true);
             if (secondAxis > -1) {
                 SetComponentRotation(nodes[23], eRotationAxis(secondAxis), PlaneGearRotationCpp(m_fLandingGearStatus, thirdValue), true);
-                if (double(fourthValue) > StaticRef<double>(0x859EF8)) {
+                if (double(fourthValue) > DatosExe::Rdata::k859EF8) {
                     SetComponentRotation(nodes[24], eRotationAxis(secondAxis), PlaneGearRotationCpp(m_fLandingGearStatus, fourthValue), true);
                 }
             }
@@ -962,7 +963,7 @@ void CPlane::PreRender() {
 
     // Estelas de las alas (0x6CA73F..0x6CA937)
     if (!vehicleFlags.bIsDrowning && model != 539 && model != 464) {
-        const unsigned int alphaBits = PlaneStreakAlphaCpp(&m_vecMoveSpeed.x, &m_matrix->GetUp().x, m_pFlyingHandlingData->m_fAttackLift, StaticRef<float>(0x859AEC), StaticRef<float>(0x85950C));
+        const unsigned int alphaBits = PlaneStreakAlphaCpp(&m_vecMoveSpeed.x, &m_matrix->GetUp().x, m_pFlyingHandlingData->m_fAttackLift, DatosExe::Rdata::k859AEC, StaticRef<float>(0x85950C));
         const CVector wingTip = mi->m_pVehicleStruct->m_avDummyPos[12]; // marca +0x90 (V)
         CVector start = wingTip;
         CVector end{RpNanSubCpp(wingTip.x, StaticRef<float>(0x858B1C)), wingTip.y, wingTip.z}; // W
@@ -1063,11 +1064,11 @@ void CPlane::ProcessControlInputs(uint8 playerNum){
  if(mouse){
   mode=2;
   if(!CPad::GetPad(playerNum)->NewState.m_bVehicleMouseLook){
-   (void)(void)CPad::GetPad(playerNum);m_fSteeringLeftRight=RpNanMulAddCpp(mouseX,StaticRef<float>(0x871908),m_fSteeringLeftRight);
-   (void)(void)CPad::GetPad(playerNum);m_fSteeringUpDown=RpNanMulAddCpp(mouseY,StaticRef<float>(0x871908),m_fSteeringUpDown);
+   (void)(void)CPad::GetPad(playerNum);m_fSteeringLeftRight=RpNanMulAddCpp(mouseX,DatosExe::Rdata::k871908,m_fSteeringLeftRight);
+   (void)(void)CPad::GetPad(playerNum);m_fSteeringUpDown=RpNanMulAddCpp(mouseY,DatosExe::Rdata::k871908,m_fSteeringUpDown);
   }
-  if(std::abs(m_fSteeringLeftRight)<StaticRef<float>(0x87190C))PowScaleFloatCpp(&m_fSteeringLeftRight,StaticRef<float>(0x871910),CTimer::GetTimeStep());
-  if(std::abs(m_fSteeringUpDown)<StaticRef<float>(0x87190C))PowScaleFloatCpp(&m_fSteeringUpDown,StaticRef<float>(0x871910),CTimer::GetTimeStep());
+  if(std::abs(m_fSteeringLeftRight)<DatosExe::Rdata::k87190C)PowScaleFloatCpp(&m_fSteeringLeftRight,DatosExe::Rdata::k871910,CTimer::GetTimeStep());
+  if(std::abs(m_fSteeringUpDown)<DatosExe::Rdata::k87190C)PowScaleFloatCpp(&m_fSteeringUpDown,DatosExe::Rdata::k871910,CTimer::GetTimeStep());
  }else if(keyboard){
   mode=0;float step=CTimer::GetTimeStep();const int32 lr=CPad::GetPad(playerNum)->GetSteeringLeftRight();
   m_fSteeringLeftRight=PlaneControlBlendCpp(m_fSteeringLeftRight,lr,StaticRef<float>(0x858B88),step,StaticRef<float>(0x858CC4));
@@ -1093,14 +1094,14 @@ void CPlane::ProcessControlInputs(uint8 playerNum){
  const bool toggle=*reinterpret_cast<int16*>(padBytes+0x26)!=0&&*reinterpret_cast<int16*>(padBytes+0x56)==0;
  const auto* flying=reinterpret_cast<const uint8*>(m_pFlyingHandlingData);
  if(toggle&&std::ranges::all_of(m_fWheelsSuspensionCompression,[](float v){return std::bit_cast<uint32>(v)==0x3F800000u;})&&*reinterpret_cast<const float*>(flying+0x30)<1.f&&m_nModelIndex!=464){
-  if(m_fLandingGearStatus==0.f){bytes[0x5A5]=bytes[0x5A6]=bytes[0x5A7]=bytes[0x5A8]=2;m_fLandingGearStatus=RpNanMulAddCpp(CTimer::GetTimeStep(),StaticRef<float>(0x871904),m_fLandingGearStatus);}
-  else if(std::bit_cast<uint32>(m_fLandingGearStatus)==0x3F800000u)m_fLandingGearStatus=RpNanMulAddCpp(CTimer::GetTimeStep(),StaticRef<float>(0x871904),-1.f);
+  if(m_fLandingGearStatus==0.f){bytes[0x5A5]=bytes[0x5A6]=bytes[0x5A7]=bytes[0x5A8]=2;m_fLandingGearStatus=RpNanMulAddCpp(CTimer::GetTimeStep(),DatosExe::Rdata::k871904,m_fLandingGearStatus);}
+  else if(std::bit_cast<uint32>(m_fLandingGearStatus)==0x3F800000u)m_fLandingGearStatus=RpNanMulAddCpp(CTimer::GetTimeStep(),DatosExe::Rdata::k871904,-1.f);
   else m_fLandingGearStatus=-m_fLandingGearStatus;
  }else if(m_fLandingGearStatus<0.f){
-  const bool complete=PlaneGearAdvanceCpp(&m_fLandingGearStatus,CTimer::GetTimeStep(),StaticRef<float>(0x871904),0.f);
-  if(complete){m_fLandingGearStatus=0.f;bytes[0x5A5]=bytes[0x5A6]=bytes[0x5A7]=bytes[0x5A8]=0;m_fAirResistance=PlaneGearResistanceCpp(m_pHandlingData->m_fDragMult,StaticRef<float>(0x871900),StaticRef<float>(0x858B8C));}
+  const bool complete=PlaneGearAdvanceCpp(&m_fLandingGearStatus,CTimer::GetTimeStep(),DatosExe::Rdata::k871904,0.f);
+  if(complete){m_fLandingGearStatus=0.f;bytes[0x5A5]=bytes[0x5A6]=bytes[0x5A7]=bytes[0x5A8]=0;m_fAirResistance=PlaneGearResistanceCpp(m_pHandlingData->m_fDragMult,DatosExe::Rdata::k871900,StaticRef<float>(0x858B8C));}
  }else if(m_fLandingGearStatus>0.f&&m_fLandingGearStatus<1.f){
-  if(PlaneGearAdvanceCpp(&m_fLandingGearStatus,CTimer::GetTimeStep(),StaticRef<float>(0x871904),1.f))SetGearUp();
+  if(PlaneGearAdvanceCpp(&m_fLandingGearStatus,CTimer::GetTimeStep(),DatosExe::Rdata::k871904,1.f))SetGearUp();
  }
  if(m_nModelIndex==520&&std::abs(CPad::GetPad(playerNum)->GetCarGunUpDown())>StaticRef<float>(0x85862C)){
   auto& nozzle=*reinterpret_cast<uint16*>(bytes+0x86C);*reinterpret_cast<uint16*>(bytes+0x86E)=nozzle;
@@ -1112,7 +1113,7 @@ void CPlane::ProcessControlInputs(uint8 playerNum){
  if(forwardSpeed>0.f&&CPad::GetPad(playerNum)->GetBrake()!=0){const int32 input=CPad::GetPad(playerNum)->GetBrake();m_BrakePedal=float(input)*StaticRef<float>(forwardSpeed>StaticRef<float>(0x858F9C)?0x871A70:0x859A3C);}
  else if(PlaneSpeedBelowCpp(&m_vecMoveSpeed.x,StaticRef<float>(0x858B1C))&&CPad::GetPad(playerNum)->GetBrake()<10&&CPad::GetPad(playerNum)->GetAccelerate()<10)m_BrakePedal=.5f;
  else m_BrakePedal=0.f;
- if(CPad::GetPad(playerNum)->DisablePlayerControls){bytes[0x428]|=0x20;m_BrakePedal=1.f;m_GasPedal=0.f;FindPlayerPed(-1)->KeepAreaAroundPlayerClear();PlaneSpeedCapCpp(&m_vecMoveSpeed.x,StaticRef<float>(0x871254));}
+ if(CPad::GetPad(playerNum)->DisablePlayerControls){bytes[0x428]|=0x20;m_BrakePedal=1.f;m_GasPedal=0.f;FindPlayerPed(-1)->KeepAreaAroundPlayerClear();PlaneSpeedCapCpp(&m_vecMoveSpeed.x,DatosExe::Rdata::k871254);}
 }
 
 // 0x6CB7C0
@@ -1126,7 +1127,7 @@ void CPlane::ProcessFlyingCarStuff() {
     m_planeDamageWave = std::bit_cast<int32>(uint32(m_planeDamageWave) + PlaneWaveAdvanceCpp(StaticRef<float>(0x8D33E0), CTimer::GetTimeStep(), waveRandom, StaticRef<float>(0x858C7C), StaticRef<float>(0x858B38), StaticRef<float>(0x858C4C)));
     const float speed = PlaneDamageSpeedCpp(&m_vecMoveSpeed.x);
     float skid = m_fLeftRightSkid, up = m_fSteeringUpDown, lateral = m_fSteeringLeftRight;
-    if (m_fHealth < StaticRef<float>(0x859F80) && status() == 0) {
+    if (m_fHealth < DatosExe::Rdata::k859F80 && status() == 0) {
         m_damageManager.SetAeroplaneCompStatus(12, 2);
         m_damageManager.SetAeroplaneCompStatus(13, 2);
         skid += .5f;
@@ -1177,16 +1178,16 @@ void CPlane::ProcessFlyingCarStuff() {
             if (strength > 0.f && !(bytes[0x42B] & 0x40) && (speed > StaticRef<float>(0x858C24) || (CGeneral::GetRandomNumber() & 7) == 0)) {
                 auto* cameraMatrix = StaticRef<CMatrix*>(0xB6F03C);
                 const CVector* cameraPosition = cameraMatrix ? &cameraMatrix->GetPosition() : &StaticRef<CVector>(0xB6F02C);
-                if ((PlaneDistanceBelowCpp(&GetPosition().x, &cameraPosition->x, StaticRef<float>(0x859AEC)) || status() == 0) && m_aCarNodes[node]) {
+                if ((PlaneDistanceBelowCpp(&GetPosition().x, &cameraPosition->x, DatosExe::Rdata::k859AEC) || status() == 0) && m_aCarNodes[node]) {
                     CVector point;
                     reinterpret_cast<CVector*(__cdecl*)(CVector*, const CMatrix*, const CVector*)>(0x59C890)(
                         &point, m_matrix, reinterpret_cast<const CVector*>(&m_aCarNodes[node]->modelling.pos));
                     FxPrtMult_c mults{0.f, 0.f, 0.f, .2f, 1.f, 1.f, strength};
                     CVector velocity;
-                    PlaneSmokeParticleVelocityCpp(&velocity.x, &m_vecMoveSpeed.x, StaticRef<float>(0x858C84), StaticRef<float>(0x858B40));
-                    velocity.x = PlaneVelocityNoiseCpp(velocity.x, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));
-                    velocity.y = PlaneVelocityNoiseCpp(velocity.y, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));
-                    velocity.z = PlaneVelocityNoiseCpp(velocity.z, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), StaticRef<float>(0x871A74), StaticRef<float>(0x858C20));
+                    PlaneSmokeParticleVelocityCpp(&velocity.x, &m_vecMoveSpeed.x, StaticRef<float>(0x858C84), DatosExe::Rdata::k858B40);
+                    velocity.x = PlaneVelocityNoiseCpp(velocity.x, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), DatosExe::Rdata::k871A74, StaticRef<float>(0x858C20));
+                    velocity.y = PlaneVelocityNoiseCpp(velocity.y, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), DatosExe::Rdata::k871A74, StaticRef<float>(0x858C20));
+                    velocity.z = PlaneVelocityNoiseCpp(velocity.z, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C), DatosExe::Rdata::k871A74, StaticRef<float>(0x858C20));
                     mults.m_fLife = IntTimesFloatCpp(CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C)); // EXE overwrites multiplier life at stack+0x98, 0x6CC003.
                     point.x = PlanePositionNoiseCpp(point.x, strength, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C));
                     point.y = PlanePositionNoiseCpp(point.y, strength, CGeneral::GetRandomNumber(), StaticRef<float>(0x858C7C));
@@ -1200,7 +1201,7 @@ void CPlane::ProcessFlyingCarStuff() {
     if (vehicleStatus != 0 && vehicleStatus != 8 && vehicleStatus != 3) {
         const float decrement = CTimer::GetTimeStep() * StaticRef<float>(0x858CDC);
         if (m_fPropSpeed > decrement) {
-            if (m_fPropSpeed > StaticRef<float>(0x8D33D0)) m_fPropSpeed = PlaneFlightProductAddCpp(m_fPropSpeed, CTimer::GetTimeStep(), StaticRef<float>(0x859CD8), true);
+            if (m_fPropSpeed > StaticRef<float>(0x8D33D0)) m_fPropSpeed = PlaneFlightProductAddCpp(m_fPropSpeed, CTimer::GetTimeStep(), DatosExe::Rdata::k859CD8, true);
             else m_fPropSpeed -= decrement;
             bytes[0xB8] = 0;
         } else { m_fPropSpeed = 0.f; bytes[0x428] &= 0xEF; }
@@ -1222,12 +1223,12 @@ void CPlane::ProcessFlyingCarStuff() {
         return;
     }
     if (!(bytes[0x428] & 0x10)) return;
-    if (!(m_fPropSpeed > StaticRef<float>(0x8D33CC)) && !PlaneSpeedSquaredAboveCpp(&m_vecMoveSpeed.x, StaticRef<double>(0x859068))) return;
+    if (!(m_fPropSpeed > StaticRef<float>(0x8D33CC)) && !PlaneSpeedSquaredAboveCpp(&m_vecMoveSpeed.x, DatosExe::Rdata::k859068)) return;
     if (m_nModelIndex == 520 && status() == 0 && int32(*reinterpret_cast<uint16*>(bytes + 0x86C)) >= int32(StaticRef<int16>(0x8D33C8))) {
         auto* old = m_pFlyingHandlingData;
         auto* modelInfo = StaticRef<uint8*>(0xA9B76C);
         m_pFlyingHandlingData = reinterpret_cast<tFlyingHandlingData*(__thiscall*)(void*, uint8)>(0x6F52D0)(reinterpret_cast<void*>(0xC2B9C8), modelInfo[0x4A]);
-        if (double(m_fAccelerationBreakStatus) > StaticRef<double>(0x859EF8) || (bytes[0x960] < 4 && !(*reinterpret_cast<uint32*>(bytes + 0x40) & 0x08000000)))
+        if (double(m_fAccelerationBreakStatus) > DatosExe::Rdata::k859EF8 || (bytes[0x960] < 4 && !(*reinterpret_cast<uint32*>(bytes + 0x40) & 0x08000000)))
             FlyingControl(eFlightModel(6), skid, up, -lateral, m_fAccelerationBreakStatus * StaticRef<float>(0x8D341C));
         m_pFlyingHandlingData = old;
         return;

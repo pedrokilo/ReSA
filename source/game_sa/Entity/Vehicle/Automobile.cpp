@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -2227,7 +2228,7 @@ void CAutomobile::ProcessControlCollisionCheck(bool applySpeed) {
 
 // Como el original: 0x6AD8D1..0x6AD8E8 fld 0.975f; fld timestep; call 0x822130 (pow del CRT del EXE, precision completa en ST0); fmul raw (se redondea al guardar)
 static float G3MouseSteerDecay(float raw, float timeStep) {
-    const float base = StaticRef<float>(0x871064);
+    const float base = DatosExe::Rdata::k871064;
     float result = raw;
     PowScaleFloatCpp(&result, base, timeStep); // result = float(pow(base, ts) * raw)
     return result;
@@ -7891,10 +7892,10 @@ void AutoPreRenderModelComponents(CAutomobile& car, CMatrix& frameMatrix, const 
         car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, misc * 0.0002f, true);
     } else if (model == 524) { // 0x20C
         if (car.GetStatus() != STATUS_WRECKED) {
-            car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, StaticRef<float>(0x871050), true);
+            car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, DatosExe::Rdata::k871050, true);
             car.m_fPropRotate = AutoPreMixerPropCpp(car.m_wMiscComponentAngle, StaticRef<int16>(0x8D314C), CTimer::GetTimeStep(), car.m_fPropRotate);
             car.SetComponentRotation(nodes[CAR_MISC_B], AXIS_Y, car.m_fPropRotate, true);
-            car.SetComponentRotation(nodes[CAR_MISC_B], AXIS_X, StaticRef<float>(0x871050), false);
+            car.SetComponentRotation(nodes[CAR_MISC_B], AXIS_X, DatosExe::Rdata::k871050, false);
         }
     } else if (model == 443) { // 0x1BB
         car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_X, misc * -0.0001f, true);

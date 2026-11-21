@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "Camera.h"
 #include "PlayerPedData.h"
@@ -355,10 +356,10 @@ void CCamera::Init() {
         camera.Init();
     }
 
-    m_aCams[0].m_fTargetCloseInDist = StaticRef<float>(0x86A46C) - StaticRef<float>(0x86A468);
+    m_aCams[0].m_fTargetCloseInDist = DatosExe::Rdata::k86A46C - DatosExe::Rdata::k86A468;
     m_aCams[0].m_nMode = MODE_FOLLOWPED;
     m_aCams[1].m_nMode = MODE_FOLLOWPED;
-    m_aCams[0].m_fMinRealGroundDist = StaticRef<float>(0x86A468);
+    m_aCams[0].m_fMinRealGroundDist = DatosExe::Rdata::k86A468;
     m_bEnable1rstPersonCamCntrlsScript = false;
     m_bAllow1rstPersonWeaponsCamera = false;
     m_bCooperativeCamMode = false;
@@ -2789,7 +2790,7 @@ void CCamera::Process() {
     m_mCameraMatrix.GetPosition().x += float(int32((random & 15) - 7)) * amount;
     m_mCameraMatrix.GetPosition().y += float(int32(((random >> 4) & 15) - 7)) * amount;
     m_mCameraMatrix.GetPosition().z += float(int32(((random >> 8) & 15) - 7)) * amount;
-    if (amount > 0.f && int(m_nBlurType) != 1) m_nMotionBlurAddAlpha = uint32(std::min(150, 25 - CameraProcessTruncateProduct(shake, StaticRef<float>(0x86327C))));
+    if (amount > 0.f && int(m_nBlurType) != 1) m_nMotionBlurAddAlpha = uint32(std::min(150, 25 - CameraProcessTruncateProduct(shake, DatosExe::Rdata::k86327C)));
     if (int(GetActiveCam().m_nMode) == 16 && FindPlayerVehicle(-1, false) && FindPlayerVehicle(-1, false)->GetMatrix().GetUp().z < .2f) {
         m_nBlurBlue = 255; m_nBlurGreen = 255; m_nBlurRed = 255; m_nBlurType = static_cast<eMotionBlurType>(1); m_nMotionBlur = 240;
         StaticRef<bool>(0xB70142) = true;
@@ -3616,7 +3617,7 @@ bool CameraControlApplyCinematic(CCamera& camera, bool& jump) {
 // The EXE steps toward the requested zoom on both sides, including equality.
 // Retain the comparison order rather than using a clamp with different NaN rules.
 void CameraControlStepZoom(float& value, float target) {
-    const auto step = StaticRef<float>(0xB7CB5C) * StaticRef<float>(0x85A6F0);
+    const auto step = StaticRef<float>(0xB7CB5C) * DatosExe::Rdata::k85A6F0;
     if (target <= value) {
         const auto next = value - step;
         value = next < target ? target : next;

@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -8231,7 +8232,7 @@ void CVehicle::UpdateTrailerLink(bool arg0, bool arg1) {
 
     // Como el original: diferencia entre las dos posiciones, distancia contra limite (0x871DF0) * max(paso, 0.7f) y, con los ejes delantero (< -0.3f) y superior (< 0) demasiado torcidos, se rompe el enlace
     float diff[3];
-    if (Veh81ATooFarCpp(&bar.x, &hitch.x, CTimer::ms_fTimeStep, StaticRef<float>(0x871DF0), diff)) {
+    if (Veh81ATooFarCpp(&bar.x, &hitch.x, CTimer::ms_fTimeStep, DatosExe::Rdata::k871DF0, diff)) {
         BreakTowLink();
         return;
     }
@@ -8266,7 +8267,7 @@ void CVehicle::UpdateTrailerLink(bool arg0, bool arg1) {
 
     // Como el original: solo con arg0 = false y arg1 = true la diferencia de posiciones, amortiguada por 0x871DF4 / max(1, paso), sustituye a la de velocidades
     if (!arg0 && arg1) {
-        Veh81ADampCpp(diff, CTimer::ms_fTimeStep, StaticRef<float>(0x871DF4), relative);
+        Veh81ADampCpp(diff, CTimer::ms_fTimeStep, DatosExe::Rdata::k871DF4, relative);
     }
     // Como el original: si this es un remolque (tipo 11) y 0x6D0AF0 (dword +0x9EC == -1000.0f) se cumple, se quita la componente a lo largo del eje superior
     if (m_nVehicleSubType == VEHICLE_TYPE_TRAILER && *reinterpret_cast<const uint32*>(reinterpret_cast<const uint8*>(this) + 0x9EC) == 0xC47A0000u) {

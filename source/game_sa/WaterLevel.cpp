@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 #include "WaterLevel.h"
 #include "PostEffects.h"
 #include "X87Math.h"
@@ -428,7 +429,7 @@ void CWaterLevel::RenderWakeSegment(
 ) {
     auto& nVtx = StaticRef<int32>(0xC4B950);
     auto& nIdx = StaticRef<int32>(0xC4B954);
-    const float angle = float(CTimer::GetTimeInMS() & 0xFFFu) * StaticRef<float>(0x872028);
+    const float angle = float(CTimer::GetTimeInMS() & 0xFFFu) * DatosExe::Rdata::k872028;
     const float* mults = &StaticRef<float>(0x8D390C); // 5 floats consecutivos (0x8D390C..0x8D391C)
     const float windRadius = CWeather::WindClipped * 0.4f + 0.2f; // 0x858EE8 / 0x858CC4
     const float uvShiftX = StaticRef<float>(0xC228D4), uvShiftY = StaticRef<float>(0xC228D8);

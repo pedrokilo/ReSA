@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -3695,12 +3696,12 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
         } else {
             range = Car81ScaleCpp(StaticRef<float>(0xB6F11C), StaticRef<float>(0x858F98)); // multiplicador de la camara * 170.0f, guardado como float
         }
-        if (Car81LessCpp(StaticRef<float>(0xB6F9B4), StaticRef<float>(0x858CAC))) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
+        if (Car81LessCpp(StaticRef<float>(0xB6F9B4), DatosExe::Rdata::k858CAC)) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
             range = 70.0f; // 0x428C0000
         }
 
         const int16 extendedRange = vehicle->m_nExtendedRemovalRange;
-        if (Car81FarCpp(extendedRange, range, StaticRef<float>(0x858F94), distance)) { // max(rango extendido, 170.0f) * rango * (1/170) < distancia
+        if (Car81FarCpp(extendedRange, range, DatosExe::Rdata::k858F94, distance)) { // max(rango extendido, 170.0f) * rango * (1/170) < distancia
             if (vehicle->m_autoPilot.m_nCarMission != MISSION_PLANE_ATTACK_PLAYER_POLICE) {
                 CVector point;
                 memcpy(&point, positionOf(vehicle), sizeof(point)); // copia de tres dwords (sin pasar por la x87)
@@ -3723,7 +3724,7 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
         const uint32 status = vehicle->GetStatus();
         if (status == STATUS_SIMPLE) {
             const CMatrixLink* const matrix = vehicle->m_matrix; // sin comprobar nulo, como el EXE
-            if (Car81FlatCpp(matrix->GetUp().z, StaticRef<float>(0x858B50), StaticRef<float>(0x858F90))) {
+            if (Car81FlatCpp(matrix->GetUp().z, StaticRef<float>(0x858B50), DatosExe::Rdata::k858F90)) {
                 remove(vehicle);
                 return;
             }
@@ -3768,7 +3769,7 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
                 const CMatrixLink* const matrix = vehicle->m_matrix; // se lee una vez y se reutiliza para las dos copias de la posicion
                 const CVector* const vehiclePos = matrix ? &matrix->GetPosition() : &vehicle->m_placement.m_vPosn;
                 const CVector difference = *vehiclePos - centre;
-                if (Car81SquaredMagnitudeAboveCpp(&difference.x, StaticRef<float>(0x858F88))) { // 0x406DA0
+                if (Car81SquaredMagnitudeAboveCpp(&difference.x, DatosExe::Rdata::k858F88)) { // 0x406DA0
                     CVector point;
                     memcpy(&point, vehiclePos, sizeof(point));
                     if (!CGarages::IsPointWithinHideOutGarage(point)) {

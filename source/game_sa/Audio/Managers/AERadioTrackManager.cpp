@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "AERadioTrackManager.h"
 #include "X87Math.h"
@@ -627,7 +628,7 @@ void CAERadioTrackManager::UpdateRadioVolumes() {
                 const auto first = CalculateRadioVolume355();
                 const auto attenuation = first < 0.f ? CalculateRadioVolume355() : 0.f;
                 m_f80 = attenuation;
-                m_f84 = StaticRef<float>(0x85904C) * attenuation;
+                m_f84 = DatosExe::Rdata::k85904C * attenuation;
                 volume = attenuation - 4.f;
             } else if (m_f80 < 0.f) {
                 const auto increased = m_f84 + m_f80;

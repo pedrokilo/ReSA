@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/RdataConstantes.h"
 
 #include "PlayerPed.h"
 #include "TagManager.h"
@@ -534,10 +535,10 @@ void CPlayerPed::ProcessAnimGroups() {
     bool lookAtCamera = false;
     {
         const float heading = m_pPlayerData->m_fFPSMoveHeading;
-        if (!(heading > StaticRef<float>(0x86D1D4))) {
+        if (!(heading > DatosExe::Rdata::k86D1D4)) {
             lookAtCamera = true;
         } else {
-            lookAtCamera = !(m_pPlayerData->m_fFPSMoveHeading < StaticRef<float>(0x86D1D0));
+            lookAtCamera = !(m_pPlayerData->m_fFPSMoveHeading < DatosExe::Rdata::k86D1D0);
         }
     }
     if (lookAtCamera) {
@@ -1617,7 +1618,7 @@ void CPlayerPed::KeepAreaAroundPlayerClear() {
         }
         CTaskComplexSmartFleeEntity* fleeTask = nullptr;
         if (void* const memory = CTask::operator new(sizeof(CTaskComplexSmartFleeEntity))) { // 0x61A5A0
-            fleeTask = ::new (memory) CTaskComplexSmartFleeEntity(this, false, 1000.0f, 100000, StaticRef<int32>(0x86F678), StaticRef<float>(0xC18CF0)); // 0x65C430
+            fleeTask = ::new (memory) CTaskComplexSmartFleeEntity(this, false, 1000.0f, 100000, DatosExe::Rdata::k86F678, StaticRef<float>(0xC18CF0)); // 0x65C430
         }
         fleeTask->m_moveState = PEDMOVE_WALK; // Como el original: [tarea + 0x30] = 4 (caminar; el constructor de la DLL deja SPRINT = 7) y sin comprobar el nulo de la reserva
         CEventScriptCommand scriptEvent{ 3, fleeTask, false }; // 0x4B0A00 (ranura primaria 3)
