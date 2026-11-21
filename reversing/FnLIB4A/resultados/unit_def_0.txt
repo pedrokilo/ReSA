@@ -1,0 +1,1 @@
+unit: 2000 escenarios, 100588 pasos comparados, 0 diferencias (0 fallos)

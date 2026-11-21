@@ -1250,6 +1250,9 @@ void InjectHooksMain() {
     CrtLowIoInjectHooks();   // lote CRT5A: capa baja de E/S del CRT (_open/_sopen/_close/_read/_write/_lseek/_commit/_chsize, __pioinfo y sus bloqueos)
     CrtStdioInjectHooks();   // lote CRT5A: nucleos de stdio (_filbuf/_flsbuf/_flush/_fread_nolock/_fwrite_nolock/_fseek_nolock/_ftell_nolock/_fclose_nolock/_fsopen/__getstream/__openfile)
     LibPngReadInjectHooks();
+    ZlibDeflateInjectHooks();  // lote LIB4A: deflate de zlib 1.1.3 (deflate.c, trees.c), adler32 y crc32
+    LibPngWriteInjectHooks();  // lote LIB4A: escritura de libpng 1.0.12 y png_error/png_warning
+    RtPNGInjectHooks();        // lote LIB4A: RtPNGImageWrite/Read
 
     CIplStore::InjectHooks();
     cHandlingDataMgr::InjectHooks();
