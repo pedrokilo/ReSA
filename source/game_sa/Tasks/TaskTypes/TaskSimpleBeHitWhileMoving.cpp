@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "TaskSimpleBeHitWhileMoving.h"
 #include "AnimBlendAssociation.h"
@@ -45,7 +48,7 @@ static_assert(TASK_SIMPLE_BE_HIT_WHILE_MOVING == 0x3F1); // 0x61FE60: `mov eax, 
 
 // rand() del CRT DEL EXE (0x821B1E): avanza la semilla del juego (la de la DLL no).
 int32 ExeRand() {
-    return reinterpret_cast<int32(__cdecl*)()>(0x821B1E)();
+    return ExeCrt::Rand();
 }
 
 // 0x61FE70 (lote 193A, sin validar): cuerpo del destructor de CTaskSimpleBeHitWhileMoving del EXE (thiscall, sin argumentos de pila, `ret`, con marco SEH que solo desenrolla y aqui se omite; ranura 0 de la vtable 0x86D7FC).

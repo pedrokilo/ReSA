@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "Hud.h"
 #include "Garages.h"
@@ -48,7 +51,7 @@ inline float StretchBaseY() { return (float)RsGlobal.maximumHeight * ExeFloat(0x
 // del CRT (0x8219F0, sin reconstruir, cdecl con un double) cuyo resultado queda en ST0 y se devuelve sin tocar (double: ni se redondea a float ni se pasa por SSE). Los
 // llamadores del EXE (0x4D8793, 0x570689.., 0x589BF5) solo leen ST0: la funcion no deja nada mas en EAX/ECX/EDX que dependa de ella.
 double FloorFloat(float value) {
-    return reinterpret_cast<double(__cdecl*)(double)>(0x8219F0)(static_cast<double>(value));
+    return ExeCrt::Floor(static_cast<double>(value));
 }
 }
 

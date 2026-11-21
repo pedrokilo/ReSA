@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include <bit>
 
@@ -101,7 +104,7 @@ void CDecision::Choices::Pick(int32 taskToSeek, int16* taskSlot, int32* index) {
     if (*taskSlot != 200) {
         return;
     }
-    const float roll = static_cast<float>(reinterpret_cast<int(__cdecl*)()>(0x821B1E)()) * std::bit_cast<float>(0x38000100u); // 0x858C7C
+    const float roll = static_cast<float>(ExeCrt::Rand()) * std::bit_cast<float>(0x38000100u); // 0x858C7C
     const int32 count = *reinterpret_cast<const int32*>(raw + 0x30);
     for (int32 i = 0; i < count; i++) {
         if (roll <= *reinterpret_cast<const float*>(raw + 0x18 + i * 4)) { // FCOMP + TEST AH,41h: falso con NaN

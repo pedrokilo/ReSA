@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "Cam.h"
 #include "TimeCycle.h"
@@ -217,7 +220,7 @@ static uint32 __declspec(safebuffers) __fastcall ResetDWHeliChaseParams(DWHeliCh
 // 0x50E090 (thiscall, ECX = params): scales five parameters by rand() / 32767 * k + offset, using the CRT rand of the EXE (0x821B1E: the one that advances the game's seed). x87 at 24 bits
 // gives the same float steps as the SSE ones; only the last product can leave the normal range, so it goes through the x87 helper (the game runs with MXCSR FTZ, the x87 keeps denormals).
 static void __fastcall RandomiseDWHeliChaseParams(DWHeliChaseParams* params, uint32 /*entryEdx*/) {
-    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     constexpr float kOneOver32767 = std::bit_cast<float>(0x38000100u); // 0x858C7C
     {
         float t = static_cast<float>(exeRand()) * kOneOver32767;
@@ -1078,7 +1081,7 @@ bool CCam::ProcessArrestCamCheese(CPed* from, bool initialise) {
     constexpr float kRandomScale = std::bit_cast<float>(0x38000100u);   // 0x858C7C
     constexpr float kMaxChance = std::bit_cast<float>(0x3F266666u);     // 0x858F50
     if (initialise) {
-        const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+        const auto exeRand = &ExeCrt::Rand;
         const double chance = Veh83DMul(double(exeRand()), double(kRandomScale));
         if (chance > double(kMaxChance)) {
             return false;

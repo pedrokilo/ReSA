@@ -26,6 +26,9 @@ END GENERATED HOOK STATUS */
 // Sin PCH (CMakeLists.txt): StdInc.h redefine NOMINMAX y el aviso C4005 es error; mismo recurso que Task.cpp.
 #pragma warning(push, 0)
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 #pragma warning(pop)
 
 #include "Fx.h"
@@ -197,7 +200,7 @@ static_assert(offsetof(Fx_c, m_Cardebris) == 0xC && offsetof(Fx_c, m_Sand) == 0x
 // NOTSA
 // rand del CRT del EXE (0x821B1E: avanza la semilla del juego).
 static int32 FxExeRand() {
-    return reinterpret_cast<int32(__cdecl*)()>(0x821B1E)();
+    return ExeCrt::Rand();
 }
 
 // NOTSA
@@ -522,7 +525,7 @@ void Fx_c::AddWood(const CVector& pos, const CVector& direction, int32 amount, f
         return;
     }
     // rand del CRT del EXE (0x821B1E: avanza la semilla del juego); el resto es con signo (cdq; idiv 10000).
-    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     CVector vel;
     for (int32 i = amount; i > 0; --i) {
         mult.m_Color.red   = Wood73ScaledCpp(exeRand() % 10000, std::bit_cast<float>(0x3DF5C290u), std::bit_cast<float>(0x3E051EB8u));

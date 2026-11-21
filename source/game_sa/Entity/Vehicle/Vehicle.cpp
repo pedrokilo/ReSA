@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include <optional>
 #include <functional>
@@ -3745,7 +3748,7 @@ void CVehicle::ProcessWheel(CVector& wheelFwd, CVector& wheelRight,
     constexpr float kLightFactor = std::bit_cast<float>(0x3DCCCCCDu);    // 0x858B1C
     constexpr float kBanditFactor = std::bit_cast<float>(0x3E4CCCCDu);   // 0x858CC4
     constexpr float kHalf = std::bit_cast<float>(0x3F000000u);           // 0x858B8C
-    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);  // rand() del CRT del EXE (la semilla del juego avanza con ella y no con la de la DLL)
+    const auto exeRand = &ExeCrt::Rand;  // rand() del CRT del EXE (la semilla del juego avanza con ella y no con la de la DLL)
     (void)wheelSpeed;
 
     const auto Abs = [](float v) { return std::bit_cast<float>(std::bit_cast<uint32>(v) & 0x7FFFFFFFu); };
@@ -3948,7 +3951,7 @@ void CVehicle::ProcessBikeWheel(CVector& wheelFwd, CVector& wheelRight, CVector&
     constexpr float kLightFactor = std::bit_cast<float>(0x3E4CCCCDu);    // 0x858CC4
     constexpr float kMassBias = std::bit_cast<float>(0x43480000u);       // 0x858A48
     constexpr float kTurnScale = std::bit_cast<float>(0x40000000u);      // 0x8D34D0
-    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);  // rand() del CRT del EXE (la semilla del juego avanza con ella y no con la de la DLL)
+    const auto exeRand = &ExeCrt::Rand;  // rand() del CRT del EXE (la semilla del juego avanza con ella y no con la de la DLL)
     (void)wheelSpeed;
 
     // (y * y + z * z) + x * x
@@ -4144,7 +4147,7 @@ auto CVehicle::FindTyreNearestPoint(CVector2D point) -> eNearestCarWheel {
 // 0x6D7C90
 void CVehicle::InflictDamage(CEntity* damager, eWeaponType weapon, float intensity, CVector coords) {
     // Como el original: rand() del CRT del EXE (0x821B1E), la semilla del juego avanza con ella y no con la de la DLL.
-    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     // Probabilidad (sobre 128) de reventar una rueda segun el arma (tabla 0x6D82D0 + saltos 0x6D82C0); indice = arma - 22
     static constexpr uint8 kTyreBurstChance[31]{5, 5, 64, 5, 0, 0, 5, 5, 10, 10, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5};
 
@@ -7798,7 +7801,7 @@ bool CVehicle::AddSingleWheelParticles(tWheelState wheelState, uint32 wheelStatu
     // estado de sangre y banderas (1 sangre, 2 barro, 4 sin derrape trasero). Las comparaciones de la x87 se conservan (los NaN salen como alli).
     static_assert(offsetof(CVehicle, m_nVehicleSubType) == 0x594 && offsetof(CVehicle, m_GasPedal) == 0x49C && offsetof(CPhysical, m_vecMoveSpeed) == 0x44 &&
                   offsetof(CPhysical, m_fContactSurfaceBrightness) == 0x12C && offsetof(CPlaceable, m_matrix) == 0x14);
-    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     (void)arg6;
 
     CVehicle* const playerVehicle = FindPlayerVehicle(-1, false); // 0x56E0D0

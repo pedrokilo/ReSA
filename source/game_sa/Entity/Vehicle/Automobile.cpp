@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include <bit> // popcnt
 
@@ -4453,7 +4456,7 @@ VALIDATE_OFFSET(CVehicleModelInfo, m_pVehicleStruct, 0x5C);
 static_assert(offsetof(CVehicleModelInfo::CVehicleStructure, m_nMaskComponentsDamagable) == 0x310);
 // 0x6A2530
 void CAutomobile::SetRandomDamage(bool bRemoveStuff) {
-    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     constexpr float kReciprocal = 3.0517578125e-05f; // 0x858B14 = 1/32768
     // (rand() & 0xFFFF) * (1/32768), guardado como float
     const auto Unit = [&]() -> float {

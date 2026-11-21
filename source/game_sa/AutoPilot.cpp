@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "AutoPilot.h"
 #include "Curves.h"
@@ -103,7 +106,7 @@ void CAutoPilot::InitialiseAsExe() {
     m_ucHeliTargetDist2 = 10;
     m_bPlaneDogfightSomething = false;
     m_nMovementFlags = static_cast<uint8>(m_nMovementFlags & 0xFC);
-    const auto exeRand = reinterpret_cast<int32(__cdecl*)()>(0x821B1E);
+    const auto exeRand = &ExeCrt::Rand;
     field_50 = static_cast<char>((exeRand() & 7) + 2);
     m_ObstructingEntity = nullptr;
     m_fMaxTrafficSpeed = 0.0F;

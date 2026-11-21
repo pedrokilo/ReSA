@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "AudioZones.h"
 
@@ -109,7 +112,7 @@ __declspec(noinline) void __fastcall BugstarWriteScreenShotEntry(void* self, voi
     const auto appendCoordinate = [&](float value, const char* key) {
         char formatted[0x44];
         // sprintf del CRT del EXE (0x821BB5), por direccion fija: el de la biblioteca de C de la DLL (UCRT) formatea distinto (NaN como "nan" y no "1.#QNAN0", cero negativo con signo, todos los digitos exactos en vez de 17 significativos y ceros)
-        reinterpret_cast<int(__cdecl*)(char*, const char*, ...)>(0x821BB5)(formatted, "%f", (double)value);
+        ExeCrt::Sprintf(formatted, "%f", (double)value);
         addTyped(key, "text");
         appendSized(formatted, (uint32)strlen(formatted));
         appendZero();

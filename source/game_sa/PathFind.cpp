@@ -41,6 +41,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "PathFind.h"
 #include "X87Math.h"
@@ -179,7 +182,7 @@ inline int32 RegionValueOf(float p) {
 
 // rand() del CRT del EXE (0x821B1E): mantiene su propia semilla (el rand de la DLL es otro generador)
 inline int32 ExeRand() {
-    return reinterpret_cast<int(__cdecl*)()>(0x821B1E)();
+    return ExeCrt::Rand();
 }
 }; // namespace detail
 

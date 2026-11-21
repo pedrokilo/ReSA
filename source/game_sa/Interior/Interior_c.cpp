@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 #include "Interior_c.h"
 #include "InteriorGroup_c.h"
 #include "Furniture_c.h"
@@ -58,7 +61,7 @@ float InteriorBitsFloat(uint32 bits) {
 }
 // rand() del CRT del EXE (0x821B1E): srand(0x821B11) se hace en Init con la semilla del interior, asi que no sirve el rand de la DLL.
 int32 InteriorRandCpp() {
-    return reinterpret_cast<int(__cdecl*)()>(0x821B1E)();
+    return ExeCrt::Rand();
 }
 }
 namespace {
@@ -3081,7 +3084,7 @@ void Interior_c::Shop_AddShelfInfo(int32 x, int32 y, int32 direction) {
     auto& counter = *reinterpret_cast<uint32*>(0x8D0948);
     if (int32(counter) > 1) {
         // This is the external CRT rand collaborator, not a game method body.
-        const uint32 draw = uint32(reinterpret_cast<int(__cdecl*)()>(0x821B1E)()) & 0xFFFF;
+        const uint32 draw = uint32(ExeCrt::Rand()) & 0xFFFF;
         const float chance = float(draw) * (1.0f / 32768.0f) * 100.0f;
         if (int32(chance) > 60) {
             AddInteriorInfo(8, float(x), float(y), direction, nullptr);

@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "game_sa/Crt/CrtState.h"
+#include "game_sa/Crt/CrtMath.h"
+#include "game_sa/Crt/CrtFile.h"
 
 #include "Object.h"
 #include "Radar.h"
@@ -84,7 +87,7 @@ int32 ObjFtol(float f) {
 // lo amplia a double (exacto, NaN silenciados) y llama al ceil del CRT (0x823820, sin reconstruir, cdecl con un double), cuyo resultado queda en ST0 y se devuelve sin tocar (double: ni se
 // redondea a float ni se pasa por SSE), como FloorFloat (0x406CE0) de CHud con floor. Su unico llamador es CObject::SpecialEntityCalcCollisionSteps (0x5A0463).
 double CeilFloat(float value) {
-    return reinterpret_cast<double(__cdecl*)(double)>(0x823820)(static_cast<double>(value));
+    return ExeCrt::Ceil(static_cast<double>(value));
 }
 
 // Como el original: ceil del CRT sobre el valor convertido a double y _ftol2 (0x823820/0x538AD0 + 0x821B40)
