@@ -1,0 +1,5 @@
+INICIO {"area": 3, "pos": [2495.9, -1707.45, 1014.742], "UnderWaterness": 0.0}
+FINAL {"area": 0, "pos": [2937.855, -1972.892, -2.463], "camPos": [2937.855, -1975.88, -1.412], "UnderWaterness": 1.0, "WaterDepth": 1.358, "rwCamNearFar": [0.3, 300.0]}
+CS {"AmbR": 0.165, "AmbG": 0.165, "AmbB": 0.165, "AmbObjR": 0.529, "AmbObjG": 0.678, "AmbObjB": 0.773, "DirR": 0.082, "DirG": 0.082, "DirB": 0.082, "SkyTopR": 10, "SkyTopG": 10, "SkyTopB": 10, "SkyBotR": 20, "SkyBotG": 20, "SkyBotB": 20, "SunCoreR": 0, "SunCoreG": 0, "SunCoreB": 0, "SunCorR": 0, "SunCorG": 0, "SunCorB": 0, "SunSize": 8.131, "SpriteSize": 10.0, "SpriteBright": 10.0, "Shadow": 199, "LightShadow": 99, "PoleShadow": 0, "FarClip": 300.0, "FogStart": 5.0, "LightsOnGround": 10.0, "LowClouds": [37, 21, 1], "Fluffy": [0, 0, 0], "Water": [59.0, 68.0, 77.0, 192.0], "PostFx1": [102.131, 136.934, 85.243, 254.0], "PostFx2": [19.515, 74.879, 16.748, 254.0], "CloudAlpha": 255.0, "HighLight": 0, "WaterFogAlpha": 0, "Illum": 1.0, "LodMult": 1.0}
+brillo medio 48.3 VEREDICTO BIEN
+exit=0

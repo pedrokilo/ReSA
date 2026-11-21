@@ -14,7 +14,7 @@ Vigente desde el 10/10/2026 por orden del propietario del proyecto. Resume las r
 4. **Resultados exactos del EXE, sin tolerancias añadidas.** No se mueve ensamblador a otro archivo de producción, no se esconden opcodes y no se delega el cuerpo al EXE para aparentar una conversión.
 5. **Las opciones de compilación son por archivo, nunca globales.** Un archivo de clase puede compilarse con `/O2 /Oi /arch:IA32 /fp:fast /Zi` sin PCH ni unity cuando la clase necesita x87 exacto; entonces se revalida toda la clase, no sólo la función convertida.
 6. **El 100 % del catálogo no es el 100 % en C++.** Catálogo, lenguaje e independencia del EXE se miden por separado. Nunca se declara «100 %» mezclándolos.
-7. **Excepción documentada (16/10/2026).** `source/app/platform/win/WindowedMode.cpp` conserva `__asm` en `HookDirect3DDeviceReplacerSA`: es una extensión NOTSA (modo ventana), no código reconstruido del EXE, y está fuera de `source/game_sa`. Decisión del propietario (opción A): no se convierte y no cuenta en [FILES.md](FILES.md). Cualquier otro `__asm` o `naked` en `source/game_sa` sigue prohibido.
+7. **Excepción documentada (16/10/2026).** `source/app/platform/win/WindowedMode.cpp` conservaba `__asm` en `HookDirect3DDeviceReplacerSA` (0x7F6781). **Retirada (21/11/2026):** la función contenedora, el despachador del sistema del dispositivo D3D9 en 0x7F5F70, está reconstruida en C++ (`_rwD3D9System`, rwcore.cpp) y la lógica del modo ventana entra por `notsa::WindowedMode::BeforeCreateDevice/AfterCreateDevice`; WindowedMode.cpp ya no tiene `__asm` ni `naked`. Informe: `reversing/FnD3D9Device/README.md`. Cualquier `__asm` o `naked` en `source/game_sa` sigue prohibido.
 
 ### Qué decían los documentos anteriores
 

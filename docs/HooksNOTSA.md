@@ -4,13 +4,12 @@
 
 # Extensiones y adaptaciones NOTSA fuera del progreso
 
-`hooks_notsa.csv` conserva cuatro registros separados del catálogo de reconstrucción: tres hooks de WindowedModeHooks y Win::NOTSA_WinMain. La auditoría de hooks contempla ambos CSV; la clasificación separada no retira sus hooks ni elimina sus direcciones del mapa.
+`hooks_notsa.csv` conserva tres registros separados del catálogo de reconstrucción: dos hooks de WindowedModeHooks y Win::NOTSA_WinMain. El tercer hook de WindowedModeHooks (`HookDirect3DDeviceReplacerSA`, 0x007F6781, `naked`) se retiró: ahora la función contenedora 0x7F5F70 está reconstruida en C++ (`_rwD3D9System`, grupo RwD3D9) y llama a `notsa::WindowedMode::BeforeCreateDevice/AfterCreateDevice`. La auditoría de hooks contempla ambos CSV; la clasificación separada no retira sus hooks ni elimina sus direcciones del mapa.
 
 | Grupo | Registro | Dirección | Clasificación |
 | --- | --- | --- | --- |
 | WindowedModeHooks | RenderWare::_rwD3D9CameraBeginUpdate | 0x007F8F20 | Adaptación de modo ventana |
 | WindowedModeHooks | RenderWare::_rwD3D9CameraClear | 0x007F7730 | Adaptación de modo ventana |
-| WindowedModeHooks | notsa::WindowedMode::HookDirect3DDeviceReplacerSA | 0x007F6781 | Extensión de modo ventana |
 | Win | NOTSA_WinMain | 0x00748710 | Punto de entrada con cuerpo adaptado NOTSA |
 
 Win::NOTSA_WinMain ocupa una dirección real del EXE, pero su cuerpo adaptado no se presenta como reconstrucción fiel validada. Por decisión explícita de alcance se excluye del denominador de progreso y conserva `validated=0`. Su hook permanece instalado según la fuente; no se elimina código ni se inventa una comparación aprobada.

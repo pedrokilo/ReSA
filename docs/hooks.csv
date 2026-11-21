@@ -12264,6 +12264,7 @@ RwPlCore,_rwSqrt,0x007EDB30,1,0,0,S
 RwPlCore,RwErrorSet,0x00808820,1,0,0,S
 RwPlCore,RwBBoxCalculate,0x00808F60,1,0,0,S
 RwD3D9,_rwD3D9SetPresentParameters,0x007F6CB0,1,0,0,S
+RwD3D9,_rwD3D9System,0x007F5F70,1,0,0,S
 RwD3D9,_rwD3D9DeviceSystemStop,0x007F7100,1,0,0,S
 RwD3D9,_rwD3D9DeviceSystemStandards,0x007F72E0,1,0,0,S
 RwD3D9,_rwD3D9EnumerateDisplayModes,0x007F7540,1,0,0,S

@@ -1,12 +1,200 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 21/11/2026 (Ciudad de México):** 1004 grupos / 13311 funciones reconstruidas; 11801 con evidencia histórica y 1510 pendientes de validación en 39 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Detalle de implementaciones
 
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-981"></a>
+
+## ExeCrt::ExitLock
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ExitLock() | [source/game_sa/Crt/CrtOnexit.cpp:19](../../source/game_sa/Crt/CrtOnexit.cpp#L19) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ~ExitLock() | [source/game_sa/Crt/CrtOnexit.cpp:20](../../source/game_sa/Crt/CrtOnexit.cpp#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-982"></a>
+
+## ExeCrt::FakeFile
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FakeFile(char* buffer, int count, int flags) | [source/game_sa/Crt/CrtFile.cpp:39](../../source/game_sa/Crt/CrtFile.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-983"></a>
+
+## ExeCrt::FhGuard
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FhGuard(int f) | [source/game_sa/Crt/CrtLowIo.cpp:41](../../source/game_sa/Crt/CrtLowIo.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ~FhGuard() | [source/game_sa/Crt/CrtLowIo.cpp:42](../../source/game_sa/Crt/CrtLowIo.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-984"></a>
+
+## ExeCrt::File2Guard
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| File2Guard(int i, File* file) | [source/game_sa/Crt/CrtStdio.cpp:41](../../source/game_sa/Crt/CrtStdio.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ~File2Guard() | [source/game_sa/Crt/CrtStdio.cpp:42](../../source/game_sa/Crt/CrtStdio.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-985"></a>
+
+## ExeCrt::FileGuard
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FileGuard(File* file) | [source/game_sa/Crt/CrtStdio.cpp:32](../../source/game_sa/Crt/CrtStdio.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ~FileGuard() | [source/game_sa/Crt/CrtStdio.cpp:33](../../source/game_sa/Crt/CrtStdio.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-986"></a>
+
+## ExeCrt::FileLock
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FileLock(File* file) | [source/game_sa/Crt/CrtFile.cpp:20](../../source/game_sa/Crt/CrtFile.cpp#L20) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ~FileLock() | [source/game_sa/Crt/CrtFile.cpp:21](../../source/game_sa/Crt/CrtFile.cpp#L21) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-987"></a>
+
+## ExeCrt::NumLock
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| NumLock(int num) | [source/game_sa/Crt/CrtFile.cpp:28](../../source/game_sa/Crt/CrtFile.cpp#L28) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ~NumLock() | [source/game_sa/Crt/CrtFile.cpp:29](../../source/game_sa/Crt/CrtFile.cpp#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-988"></a>
+
+## ExeCrt::TempStringGuard
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ~TempStringGuard() | [source/game_sa/Crt/CrtException.cpp:74](../../source/game_sa/Crt/CrtException.cpp#L74) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-989"></a>
+
+## ExeCrt::Unlocker
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ~Unlocker() | [source/game_sa/Crt/CrtStdio.cpp:608](../../source/game_sa/Crt/CrtStdio.cpp#L608) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-990"></a>
+
+## ExeLibJpeg
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ErrExit(T* cinfo, int32 code) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:579](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L579) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ErrExit1(T* cinfo, int32 code, int32 p1) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:583](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L583) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ErrExit2(T* cinfo, int32 code, int32 p1, int32 p2) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:588](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L588) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * ExeAllocQuantTable(CompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:596](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L596) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * ExeAllocHuffTable(CompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:597](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L597) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeInitMasterDecompress(DecompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:598](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L598) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeFwrite(const void* buf, uint32 size, uint32 count, void* file) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:599](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L599) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeFflush(void* file) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:600](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L600) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| jpeg_add_quant_table(CompressInfo* cinfo, int32 which_tbl, const uint32* basic_table, int32 scale_factor, uint8 force_baseline) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:605](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L605) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::jpeg_add_quant_table 0x005C6BF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| add_huff_table(CompressInfo* cinfo, HuffTbl** htblptr, const uint8* bits, const uint8* val) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:633](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L633) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| std_huff_tables(CompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:651](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L651) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| SetComp(CompressInfo* cinfo, int32 index, int32 id, int32 hsamp, int32 vsamp, int32 quant, int32 dctbl, int32 actbl) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:658](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L658) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| jpeg_set_colorspace(CompressInfo* cinfo, int32 colorspace) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:670](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L670) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::jpeg_set_colorspace 0x005C7130 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| jpeg_default_colorspace(CompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:731](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L731) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::jpeg_default_colorspace 0x005C7420 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| jpeg_set_defaults(CompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:746](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L746) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::jpeg_set_defaults 0x005C7590 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x0086B350, 0x0086B450 |
+| jinit_c_prep_controller(CompressInfo* cinfo, uint8 need_full_buffer) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:785](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L785) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::jinit_c_prep_controller 0x005C7920 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| expand_right_edge(uint8** image_data, int32 num_rows, int32 input_cols, int32 output_cols) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:806](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L806) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::expand_right_edge 0x005C79F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| jinit_downsampler(CompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:819](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L819) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::jinit_downsampler 0x005C7DF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| output_pass_setup(DecompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:847](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L847) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| jpeg_read_scanlines(DecompressInfo* cinfo, uint8** scanlines, uint32 max_lines) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:862](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L862) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::jpeg_read_scanlines 0x005C8690 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| jpeg_start_decompress(DecompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:885](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L885) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::jpeg_start_decompress 0x005C87E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| term_destination(CompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:908](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L908) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::term_destination 0x005C88F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| jinit_d_coef_controller(DecompressInfo* cinfo, uint8 need_full_buffer) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:925](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L925) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::jinit_d_coef_controller 0x005C8E20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| build_ycc_rgb_table(DecompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:945](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L945) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::build_ycc_rgb_table 0x005C8EE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| build_ycc_rgb_table_EaxEntry() | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:964](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L964) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::build_ycc_rgb_table 0x005C8EE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| null_convert(DecompressInfo* cinfo, uint8*** input_buf, uint32 input_row, uint8** output_buf, int32 num_rows) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:971](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L971) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::null_convert 0x005C90D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| jinit_color_deconverter(DecompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:991](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L991) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::jinit_color_deconverter 0x005C9350 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| jinit_inverse_dct(DecompressInfo* cinfo) | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:1071](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L1071) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeLibJpeg::jinit_inverse_dct 0x005C9710 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| InjectHooks232A() | [source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:1084](../../source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp#L1084) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-991"></a>
+
+## ExeProtectionStub
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| ExeProtectionStub::InjectHooks() | [source/game_sa/ExeProtectionStub.cpp:167](../../source/game_sa/ExeProtectionStub.cpp#L167) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeProtectionStub::MD5Init(ExeMD5Context* ctx) | [source/game_sa/ExeProtectionStub.cpp:184](../../source/game_sa/ExeProtectionStub.cpp#L184) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeProtectionStub::MD5Init 0x00401000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_State: source/game_sa/Conversations/PedToPlayerConversations.h:25 (0x00969A20) |
+| ExeProtectionStub::MD5Update(ExeMD5Context* ctx, const uint8* input, uint32 length) | [source/game_sa/ExeProtectionStub.cpp:195](../../source/game_sa/ExeProtectionStub.cpp#L195) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeProtectionStub::MD5Update 0x0040104A · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_State: source/game_sa/Conversations/PedToPlayerConversations.h:25 (0x00969A20) |
+| ExeProtectionStub::MD5Final(ExeMD5Context* ctx) | [source/game_sa/ExeProtectionStub.cpp:228](../../source/game_sa/ExeProtectionStub.cpp#L228) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeProtectionStub::MD5Final 0x0040118B · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo m_State: source/game_sa/Conversations/PedToPlayerConversations.h:25 (0x00969A20) |
+| ExeProtectionStub::MD5Transform(uint32* state, const uint32* x) | [source/game_sa/ExeProtectionStub.cpp:255](../../source/game_sa/ExeProtectionStub.cpp#L255) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeProtectionStub::MD5Transform 0x004012E9 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeProtectionStub::ResolveKernelImports() | [source/game_sa/ExeProtectionStub.cpp:322](../../source/game_sa/ExeProtectionStub.cpp#L322) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeProtectionStub::ResolveKernelImports 0x00401FBB · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeProtectionStub::ResolveLoaderImports() | [source/game_sa/ExeProtectionStub.cpp:332](../../source/game_sa/ExeProtectionStub.cpp#L332) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeProtectionStub::ResolveLoaderImports 0x00402370 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeProtectionStub::InitCallbackTable() | [source/game_sa/ExeProtectionStub.cpp:386](../../source/game_sa/ExeProtectionStub.cpp#L386) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeProtectionStub::InitCallbackTable 0x004024C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| ExeProtectionStub::CheckOsVersionSuite() | [source/game_sa/ExeProtectionStub.cpp:396](../../source/game_sa/ExeProtectionStub.cpp#L396) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: ExeProtectionStub::CheckOsVersionSuite 0x004028A2 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x00C9E1A8, 0x00C9E28F |
+
+<a id="grupo-992"></a>
+
+## FlcX87
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FlcX87::FlcX87() | [source/game_sa/X87Math.cpp:11962](../../source/game_sa/X87Math.cpp#L11962) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Push(const FlcExt& v) | [source/game_sa/X87Math.cpp:11966](../../source/game_sa/X87Math.cpp#L11966) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Write(int i, const FlcExt& v) | [source/game_sa/X87Math.cpp:11973](../../source/game_sa/X87Math.cpp#L11973) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::MemOperand(const float& m) | [source/game_sa/X87Math.cpp:11991](../../source/game_sa/X87Math.cpp#L11991) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::MemOperandD(const double& m) | [source/game_sa/X87Math.cpp:11992](../../source/game_sa/X87Math.cpp#L11992) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fld(const float& m) | [source/game_sa/X87Math.cpp:11994](../../source/game_sa/X87Math.cpp#L11994) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FldRet(const float& m) | [source/game_sa/X87Math.cpp:11995](../../source/game_sa/X87Math.cpp#L11995) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FldD(const double& m) | [source/game_sa/X87Math.cpp:11996](../../source/game_sa/X87Math.cpp#L11996) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FldI(int value) | [source/game_sa/X87Math.cpp:11997](../../source/game_sa/X87Math.cpp#L11997) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FldSt(int i) | [source/game_sa/X87Math.cpp:11998](../../source/game_sa/X87Math.cpp#L11998) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FldZero() | [source/game_sa/X87Math.cpp:11999](../../source/game_sa/X87Math.cpp#L11999) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FldExt(const FlcExt& v) | [source/game_sa/X87Math.cpp:12000](../../source/game_sa/X87Math.cpp#L12000) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fst(float& m) | [source/game_sa/X87Math.cpp:12001](../../source/game_sa/X87Math.cpp#L12001) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fstp(float& m) | [source/game_sa/X87Math.cpp:12008](../../source/game_sa/X87Math.cpp#L12008) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FstpSt(int i) | [source/game_sa/X87Math.cpp:12016](../../source/game_sa/X87Math.cpp#L12016) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FstSt(int i) | [source/game_sa/X87Math.cpp:12022](../../source/game_sa/X87Math.cpp#L12022) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Pop() | [source/game_sa/X87Math.cpp:12023](../../source/game_sa/X87Math.cpp#L12023) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fxch(int i) | [source/game_sa/X87Math.cpp:12024](../../source/game_sa/X87Math.cpp#L12024) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fchs() | [source/game_sa/X87Math.cpp:12025](../../source/game_sa/X87Math.cpp#L12025) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fabs() | [source/game_sa/X87Math.cpp:12026](../../source/game_sa/X87Math.cpp#L12026) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::ArithReg(char op, FlcExt a, FlcExt b, int dest, bool pop, bool) | [source/game_sa/X87Math.cpp:12034](../../source/game_sa/X87Math.cpp#L12034) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Arith(char op, int dest, int srcA, int srcB, bool pop) | [source/game_sa/X87Math.cpp:12053](../../source/game_sa/X87Math.cpp#L12053) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fadd(const float& m) | [source/game_sa/X87Math.cpp:12055](../../source/game_sa/X87Math.cpp#L12055) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fsub(const float& m) | [source/game_sa/X87Math.cpp:12056](../../source/game_sa/X87Math.cpp#L12056) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fsubr(const float& m) | [source/game_sa/X87Math.cpp:12057](../../source/game_sa/X87Math.cpp#L12057) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fmul(const float& m) | [source/game_sa/X87Math.cpp:12058](../../source/game_sa/X87Math.cpp#L12058) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fdiv(const float& m) | [source/game_sa/X87Math.cpp:12059](../../source/game_sa/X87Math.cpp#L12059) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fdivr(const float& m) | [source/game_sa/X87Math.cpp:12060](../../source/game_sa/X87Math.cpp#L12060) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FaddD(const double& m) | [source/game_sa/X87Math.cpp:12061](../../source/game_sa/X87Math.cpp#L12061) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FsubD(const double& m) | [source/game_sa/X87Math.cpp:12062](../../source/game_sa/X87Math.cpp#L12062) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FsubrD(const double& m) | [source/game_sa/X87Math.cpp:12063](../../source/game_sa/X87Math.cpp#L12063) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FmulD(const double& m) | [source/game_sa/X87Math.cpp:12064](../../source/game_sa/X87Math.cpp#L12064) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FdivD(const double& m) | [source/game_sa/X87Math.cpp:12065](../../source/game_sa/X87Math.cpp#L12065) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FdivrD(const double& m) | [source/game_sa/X87Math.cpp:12066](../../source/game_sa/X87Math.cpp#L12066) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FimulI(int v) | [source/game_sa/X87Math.cpp:12067](../../source/game_sa/X87Math.cpp#L12067) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FidivI(int v) | [source/game_sa/X87Math.cpp:12068](../../source/game_sa/X87Math.cpp#L12068) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FiaddI(int v) | [source/game_sa/X87Math.cpp:12069](../../source/game_sa/X87Math.cpp#L12069) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FcomMem(const float& m, bool pop) | [source/game_sa/X87Math.cpp:12071](../../source/game_sa/X87Math.cpp#L12071) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FcomSt(int i, bool pop) | [source/game_sa/X87Math.cpp:12081](../../source/game_sa/X87Math.cpp#L12081) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fcompp() | [source/game_sa/X87Math.cpp:12088](../../source/game_sa/X87Math.cpp#L12088) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fsqrt() | [source/game_sa/X87Math.cpp:12095](../../source/game_sa/X87Math.cpp#L12095) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Ah() const | [source/game_sa/X87Math.cpp:12102](../../source/game_sa/X87Math.cpp#L12102) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::StFloat(int i) | [source/game_sa/X87Math.cpp:12103](../../source/game_sa/X87Math.cpp#L12103) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FldOne() | [source/game_sa/X87Math.cpp:12119](../../source/game_sa/X87Math.cpp#L12119) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FldI64(long long v) | [source/game_sa/X87Math.cpp:12120](../../source/game_sa/X87Math.cpp#L12120) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FstD(double& m) | [source/game_sa/X87Math.cpp:12121](../../source/game_sa/X87Math.cpp#L12121) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::FstpD(double& m) | [source/game_sa/X87Math.cpp:12128](../../source/game_sa/X87Math.cpp#L12128) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fistp64(long long& m) | [source/game_sa/X87Math.cpp:12129](../../source/game_sa/X87Math.cpp#L12129) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fsin() | [source/game_sa/X87Math.cpp:12163](../../source/game_sa/X87Math.cpp#L12163) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fcos() | [source/game_sa/X87Math.cpp:12175](../../source/game_sa/X87Math.cpp#L12175) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Fpatan() | [source/game_sa/X87Math.cpp:12187](../../source/game_sa/X87Math.cpp#L12187) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FlcX87::Commit() | [source/game_sa/X87Math.cpp:12541](../../source/game_sa/X87Math.cpp#L12541) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración (helper/consumidores) · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & St(int i) const | [source/game_sa/X87Math.h:1445](../../source/game_sa/X87Math.h#L1445) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & Top() | [source/game_sa/X87Math.h:1452](../../source/game_sa/X87Math.h#L1452) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| & S(int i) | [source/game_sa/X87Math.h:1453](../../source/game_sa/X87Math.h#L1453) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-993"></a>
 
 ## FurnitureGroup_c
 
@@ -22,7 +210,7 @@
 | * FurnitureGroup_c::GetSubGroup(int32 subGroupId) | [source/game_sa/Interior/FurnitureGroup_c.cpp:108](../../source/game_sa/Interior/FurnitureGroup_c.cpp#L108) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Interior/FurnitureGroup_c.h:33](../../source/game_sa/Interior/FurnitureGroup_c.h#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FurnitureGroup_c::Constructor 0x00590DE0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-982"></a>
+<a id="grupo-994"></a>
 
 ## FurnitureManager_c
 
@@ -40,7 +228,7 @@
 | * FurnitureManager_c::GetFurniture(int32 groupId, int32 subGroupId, int16 id, uint8 wealth) | [source/game_sa/Interior/FurnitureManager_c.cpp:250](../../source/game_sa/Interior/FurnitureManager_c.cpp#L250) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FurnitureManager_c::GetFurniture 0x005911E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FurnitureManager_c::GetRandomId(int32 groupId, int32 subGroupId, uint8 wealth) | [source/game_sa/Interior/FurnitureManager_c.cpp:256](../../source/game_sa/Interior/FurnitureManager_c.cpp#L256) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FurnitureManager_c::GetRandomId 0x00591220 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-983"></a>
+<a id="grupo-995"></a>
 
 ## FurnitureSubGroup_c
 
@@ -54,7 +242,7 @@
 | * Constructor() | [source/game_sa/Interior/FurnitureSubGroup_c.h:35](../../source/game_sa/Interior/FurnitureSubGroup_c.h#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FurnitureSubGroup_c::Constructor 0x00590E20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Destructor() | [source/game_sa/Interior/FurnitureSubGroup_c.h:36](../../source/game_sa/Interior/FurnitureSubGroup_c.h#L36) | C++ · Cuerpo fuente con errores de análisis | Histórica del catálogo: FurnitureSubGroup_c::Destructor 0x00590E70 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-984"></a>
+<a id="grupo-996"></a>
 
 ## Furniture_c
 
@@ -63,16 +251,16 @@
 | Furniture_c::InjectHooks() | [source/game_sa/Interior/Furniture_c.cpp:22](../../source/game_sa/Interior/Furniture_c.cpp#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Interior/Furniture_c.h:25](../../source/game_sa/Interior/Furniture_c.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: Furniture_c::Constructor 0x00590EC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-985"></a>
+<a id="grupo-997"></a>
 
 ## Fx
 
 | Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
 | --- | --- | --- | --- | --- | --- |
 | DrawLight(CVector pos, CVector color) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:138](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| AddBigGunFlash(CVector origin, CVector target) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:143](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:38 (0x00A9AE00) |
+| AddBigGunFlash(CVector origin, CVector target) | [source/game_sa/Scripts/Commands/ObjectCommands.cpp:143](../../source/game_sa/Scripts/Commands/ObjectCommands.cpp#L143) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fx: source/game_sa/Fx/Fx.cpp:41 (0x00A9AE00) |
 
-<a id="grupo-986"></a>
+<a id="grupo-998"></a>
 
 ## FxBox_c
 
@@ -82,7 +270,7 @@
 | Reset() | [source/game_sa/Fx/FxBox.h:18](../../source/game_sa/Fx/FxBox.h#L18) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | & operator=(const RwMatrix& right) | [source/game_sa/Fx/FxBox.h:25](../../source/game_sa/Fx/FxBox.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-987"></a>
+<a id="grupo-999"></a>
 
 ## FxBufferedMatrix
 
@@ -92,7 +280,7 @@
 | CopyFromVectors(const CVector& r, const CVector& u, const CVector& a, const CVector& p) | [source/game_sa/Fx/FxPrimBP.h:40](../../source/game_sa/Fx/FxPrimBP.h#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | CopyToRwMatrix(RwMatrix& out) | [source/game_sa/Fx/FxPrimBP.h:44](../../source/game_sa/Fx/FxPrimBP.h#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-988"></a>
+<a id="grupo-1000"></a>
 
 ## FxEmitterBP_c
 
@@ -112,167 +300,3 @@
 | FxEmitterBP_c::FreePrtFromPrim(FxSystem_c* system) | [source/game_sa/Fx/FxEmitterBP.cpp:384](../../source/game_sa/Fx/FxEmitterBP.cpp#L384) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxEmitterBP_c::FreePrtFromPrim 0x00000000 | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
 | FxEmitterBP_c::IsFxInfoPresent(eFxInfoType type) const | [source/game_sa/Fx/FxEmitterBP.cpp:397](../../source/game_sa/Fx/FxEmitterBP.cpp#L397) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxEmitterBP_c::IsFxInfoPresent 0x004A24D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Fx/FxEmitterBP.h:29](../../source/game_sa/Fx/FxEmitterBP.h#L29) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxEmitterBP_c::Constructor 0x004A18D0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-989"></a>
-
-## FxEmitterPrt_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * FxEmitterPrt_c::operator new\[\](size_t size) | [source/game_sa/Fx/FxEmitterPrt.cpp:26](../../source/game_sa/Fx/FxEmitterPrt.cpp#L26) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxEmitterPrt_c::operator new\[\] 0x004A18B0 | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxEmitterPrt_c::InjectHooks() | [source/game_sa/Fx/FxEmitterPrt.cpp:33](../../source/game_sa/Fx/FxEmitterPrt.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor() | [source/game_sa/Fx/FxEmitterPrt.h:36](../../source/game_sa/Fx/FxEmitterPrt.h#L36) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxEmitterPrt_c::Constructor 0x004A94E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-990"></a>
-
-## FxEmitter_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| * __fastcall FxEmitterConstructorBody(FxEmitter_c* self, void* /*edx*/) | [source/game_sa/Fx/FxEmitter.cpp:34](../../source/game_sa/Fx/FxEmitter.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxEmitter_c::ConstructorBody 0x004A1920 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * __fastcall FxEmitterScalarDeletingDestructor(FxEmitter_c* self, void* /*edx*/, uint8 flags) | [source/game_sa/Fx/FxEmitter.cpp:43](../../source/game_sa/Fx/FxEmitter.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxEmitter_c::ScalarDeletingDestructor 0x004A2B90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxEmitter_c::InjectHooks() | [source/game_sa/Fx/FxEmitter.cpp:52](../../source/game_sa/Fx/FxEmitter.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxEmitter_c::Init(FxPrimBP_c* primBP, FxSystem_c* system) | [source/game_sa/Fx/FxEmitter.cpp:70](../../source/game_sa/Fx/FxEmitter.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxEmitter_c::Init 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxEmitter_c::Update(float currentTime, float deltaTime) | [source/game_sa/Fx/FxEmitter.cpp:79](../../source/game_sa/Fx/FxEmitter.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxEmitter_c::Update 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxEmitter_c::Reset() | [source/game_sa/Fx/FxEmitter.cpp:86](../../source/game_sa/Fx/FxEmitter.cpp#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxEmitter_c::Reset 0x00000000 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxEmitter_c::AddParticle(const CVector& pos, const CVector& vel, float timeSince, const FxPrtMult_c& fxMults, float rotZ, float brightness, bool createLocal) | [source/game_sa/Fx/FxEmitter.cpp:94](../../source/game_sa/Fx/FxEmitter.cpp#L94) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxEmitter_c::AddParticle-vector 0x00000000 | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxEmitter_c::AddParticle(const RwMatrix& mat, const CVector& vel, float timeSince, const FxPrtMult_c& fxMults, float rotZ, float brightness, bool createLocal) | [source/game_sa/Fx/FxEmitter.cpp:138](../../source/game_sa/Fx/FxEmitter.cpp#L138) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxEmitter_c::AddParticle-matrix 0x00000000 | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxEmitter_c::CreateParticles(float currentTime, float deltaTime) | [source/game_sa/Fx/FxEmitter.cpp:172](../../source/game_sa/Fx/FxEmitter.cpp#L172) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxEmitter_c::CreateParticles 0x004A41E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Posible dato fijo Rain: source/game_sa/Weather.h:46 (0x00C81324); Posible dato fijo Wind: source/game_sa/Weather.h:44 (0x00C812F0); Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| * FxEmitter_c::CreateParticle(const EmissionInfo_t& emissionInfo, RwMatrix& wldMat, const CVector* velOverride, float timeSince, const FxPrtMult_c& fxMults, float brightness, bool createLocal) | [source/game_sa/Fx/FxEmitter.cpp:215](../../source/game_sa/Fx/FxEmitter.cpp#L215) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxEmitter_c::CreateParticle 0x004A2580 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Conversión de dirección fija: 0x00BB3E00; Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80); Posible dato fijo m_Color: source/game_sa/Font.h:85 (0x00C71A60) |
-
-<a id="grupo-991"></a>
-
-## FxFrustumInfo_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxFrustumInfo_c::InjectHooks() | [source/game_sa/Fx/FxFrustumInfo.cpp:23](../../source/game_sa/Fx/FxFrustumInfo.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxFrustumInfo_c::Constructor() | [source/game_sa/Fx/FxFrustumInfo.cpp:32](../../source/game_sa/Fx/FxFrustumInfo.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxFrustumInfo_c::Constructor 0x004A9090 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxFrustumInfo_c::IsCollisionRegs(FxSphere_c& sphere) | [source/game_sa/Fx/FxFrustumInfo.cpp:43](../../source/game_sa/Fx/FxFrustumInfo.cpp#L43) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxFrustumInfo_c::IsCollision 0x004AA030 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| IsCollision(FxSphere_c& sphere) | [source/game_sa/Fx/FxFrustumInfo.h:25](../../source/game_sa/Fx/FxFrustumInfo.h#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxFrustumInfo_c::IsCollision 0x004AA030 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-992"></a>
-
-## FxInfoAnimTexture_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoAnimTexture_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp:25](../../source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAnimTexture_c::FxInfoAnimTexture_c() | [source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp:35](../../source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoAnimTexture_c::Constructor 0x004A6550 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoAnimTexture_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp:41](../../source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoAnimTexture_c::Constructor 0x004A6550 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAnimTexture_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp:47](../../source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoAnimTexture_c::Destructor 0x004A78F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoAnimTexture_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp:55](../../source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoAnimTexture_c::ScalarDeletingDestructor 0x004A78D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAnimTexture_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp:64](../../source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAnimTexture_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp:69](../../source/game_sa/Fx/Blueprints/FxInfoAnimTexture.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-993"></a>
-
-## FxInfoAttractLine_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoAttractLine_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp:23](../../source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAttractLine_c::FxInfoAttractLine_c() | [source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp:33](../../source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoAttractLine_c::Constructor 0x004A57C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAttractLine_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp:39](../../source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAttractLine_c::GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp:56](../../source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAttractLine_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp:86](../../source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp#L86) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoAttractLine_c::DestructorBody 0x004A7040 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoAttractLine_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp:94](../../source/game_sa/Fx/Blueprints/FxInfoAttractLine.cpp#L94) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoAttractLine_c::ScalarDeletingDestructor 0x004A7020 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoAttractLine.h:22](../../source/game_sa/Fx/Blueprints/FxInfoAttractLine.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoAttractLine_c::Constructor 0x004A57C0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-994"></a>
-
-## FxInfoAttractPt_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoAttractPt_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp:23](../../source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAttractPt_c::FxInfoAttractPt_c() | [source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp:33](../../source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoAttractPt_c::Constructor 0x004A5650 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAttractPt_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp:39](../../source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAttractPt_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp:44](../../source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoAttractPt_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoAttractPt_c::DestructorBody 0x004A6FD0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoAttractPt_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp:76](../../source/game_sa/Fx/Blueprints/FxInfoAttractPt.cpp#L76) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoAttractPt_c::ScalarDeletingDestructor 0x004A6FB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoAttractPt.h:22](../../source/game_sa/Fx/Blueprints/FxInfoAttractPt.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoAttractPt_c::Constructor 0x004A5650 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-995"></a>
-
-## FxInfoColourBright_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoColourBright_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColourBright_c::FxInfoColourBright_c() | [source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColourBright_c::Constructor 0x004A67D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoColourBright_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColourBright_c::Constructor 0x004A67D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColourBright_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp:46](../../source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColourBright_c::Destructor 0x004A7A40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoColourBright_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp:54](../../source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColourBright_c::ScalarDeletingDestructor 0x004A7A20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColourBright_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp:63](../../source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColourBright_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoColourBright.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-996"></a>
-
-## FxInfoColourRange_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoColourRange_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColourRange_c::FxInfoColourRange_c() | [source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColourRange_c::Constructor 0x004A6630 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoColourRange_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColourRange_c::Constructor 0x004A6630 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColourRange_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp:46](../../source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColourRange_c::Destructor 0x004A7960 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoColourRange_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp:54](../../source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColourRange_c::ScalarDeletingDestructor 0x004A7940 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColourRange_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp:63](../../source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColourRange_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoColourRange.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-997"></a>
-
-## FxInfoColour_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoColour_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoColour.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoColour.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColour_c::FxInfoColour_c() | [source/game_sa/Fx/Blueprints/FxInfoColour.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoColour.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColour_c::Constructor 0x004A5EA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoColour_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoColour.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoColour.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColour_c::Constructor 0x004A5EA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColour_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoColour.cpp:46](../../source/game_sa/Fx/Blueprints/FxInfoColour.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColour_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoColour.cpp:50](../../source/game_sa/Fx/Blueprints/FxInfoColour.cpp#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoColour_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoColour.cpp:65](../../source/game_sa/Fx/Blueprints/FxInfoColour.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColour_c::DestructorBody 0x004A75E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoColour_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoColour.cpp:73](../../source/game_sa/Fx/Blueprints/FxInfoColour.cpp#L73) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoColour_c::ScalarDeletingDestructor 0x004A75C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-998"></a>
-
-## FxInfoDir_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoDir_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoDir_c::FxInfoDir_c() | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoDir_c::Constructor 0x004A6440 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoDir_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoDir_c::Constructor 0x004A6440 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoDir_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:46](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoDir_c::Destructor 0x004A7880 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoDir_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:54](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoDir_c::ScalarDeletingDestructor 0x004A7860 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoDir_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:63](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoDir_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-999"></a>
-
-## FxInfoEmAngle_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoEmAngle_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoEmAngle_c::FxInfoEmAngle_c() | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmAngle_c::Constructor 0x004A4E90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoEmAngle_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmAngle_c::Destructor 0x004A6C50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoEmAngle_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:48](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmAngle_c::ScalarDeletingDestructor 0x004A6C30 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoEmAngle_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:57](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoEmAngle_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:62](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.h:23](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoEmAngle_c::Constructor 0x004A4E90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1000"></a>
-
-## FxInfoEmDir_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoEmDir_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoEmDir_c::FxInfoEmDir_c() | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmDir_c::Constructor 0x004A4DC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoEmDir_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmDir_c::Destructor 0x004A6BE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoEmDir_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:48](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmDir_c::ScalarDeletingDestructor 0x004A6BC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoEmDir_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:57](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoEmDir_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:62](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoEmDir.h:23](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoEmDir_c::Constructor 0x004A4DC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
