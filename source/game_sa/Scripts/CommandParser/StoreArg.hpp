@@ -44,8 +44,14 @@ inline void StoreArg(CRunningScript* S, const T& arg) { // Add requirements to f
     }();
     static_assert(sizeof(dst) <= sizeof(tScriptParam)); // Otherwise we'd be overwriting the script => bad
 
-    memset((void*)&dst, 0, sizeof(tScriptParam));  // Zero it all out
-    memcpy((void*)&dst, (void*)&arg, sizeof(arg)); // Now copy the value to it (Which might be less than 4 bytes)
+    if constexpr (std::is_integral_v<T> && std::is_signed_v<T> && sizeof(T) < sizeof(int32)) {
+        // Como el EXE (movsx): un entero con signo mas estrecho que 32 bits se guarda con extension de signo (int16 -1 -> 0xFFFFFFFF, no 0x0000FFFF).
+        const int32 wide = static_cast<int32>(arg);
+        memcpy((void*)&dst, (void*)&wide, sizeof(wide));
+    } else {
+        memset((void*)&dst, 0, sizeof(tScriptParam));  // Zero it all out
+        memcpy((void*)&dst, (void*)&arg, sizeof(arg)); // Now copy the value to it (Which might be less than 4 bytes)
+    }
 }
 
 // Vector overloads
