@@ -10,7 +10,12 @@ Metodo (estatico, capstone sobre el EXE canonico):
  3. Origen de cada entrada: funcion reemplazada o enlazada (muerta), funcion viva descartada (excepciones, D3DX9, protector, QuickTime: muerta),
     funcion viva del juego/CRT, otra pieza (se propaga), inicializador estatico (atexit), tabla de datos o puntero en .data/.rdata.
  4. Cruce con el C++: la pieza esta enganchada (literal en RH_Scoped*, docs/hooks.csv) o citada (literal hexadecimal en source/).
-Destinos: reconstruida, citada-en-cpp, muerta-por-reemplazo, destructor-atexit, sin-referencia-real, crt-enlazar, pendiente-dato.
+Destinos: reconstruida, viva-sin-hook, viva-enlazada, viva-protector, cerrada-comentario, muerta-por-reemplazo, destructor-atexit, sin-referencia-real,
+crt-enlazar, d3dx9-enlazar, pendiente-dato.
+Regla de raices por valor (contrib/raices_valor_p6.py, docs/CodigoVivoExe/reclasificacion-raices-valor.md): una direccion que el C++ escribe como
+VALOR en codigo (tabla, campo de callback, inicializador, llamada por direccion) o que el codigo compilado lleva como inmediato (fase8-experimento/
+dependencias_codigo.csv, confianza A/B) es una raiz viva sin hook; la antigua clase `citada-en-cpp` ya no existe: o es viva (valor), o enlazada (libjpeg),
+o del protector, o solo un comentario (cerrada-comentario).
 """
 import argparse
 import bisect
@@ -23,6 +28,9 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 import capstone
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import raices_valor_p6 as rv  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / 'docs'
@@ -188,6 +196,13 @@ def main():
                 else:
                     raw[v].append(sva + off)
 
+    # --- citas del C++ clasificadas (codigo / comentario / cadena) y evidencia del codigo compilado (inmediatos de los .obj)
+    citas = rv.escanear_citas()
+    obj_ev = {}
+    dep_csv = out / 'fase8-experimento' / 'dependencias_codigo.csv'
+    if dep_csv.exists():
+        for r in leer(dep_csv):
+            obj_ev[h(r['direccion'])] = (r['confianza'], r['formas'], r['ejemplo_archivo'], r['ejemplo_funcion'], r['ejemplo_instruccion'])
     # --- literales del C++
     hook_lits, all_lits = set(), set()
     pat = re.compile(r'0x(?:00)?([4-8][0-9A-Fa-f]{5})\b')
@@ -355,6 +370,12 @@ def main():
         ents = set(t for t, _, _ in o['ents']) | {o['s']}
         o['hooked'] = any(e in hook_lits for e in ents)
         o['cited'] = any(e in all_lits for e in ents)
+        # citas en cualquier direccion de la pieza (no solo en las entradas) y evidencia compilada
+        o['cs'] = rv.citas_en(citas, o['s'], o['e'])
+        o['ccl'] = rv.resumen_clase(o['cs'])
+        o['obj'] = sorted((a_, obj_ev[a_]) for a_ in obj_ev if o['s'] <= a_ <= o['e'])
+        o['obj_ab'] = [a_ for a_, ev in o['obj'] if ev[0] in ('A', 'B')]
+        o['obj_c_real'] = [a_ for a_, ev in o['obj'] if ev[0] == 'C' and any(a2 == a_ and k_ in (rv.K_VALOR, rv.K_LLAMADA, rv.K_LIBJPEG) for a2, _, _, k_, _ in o['cs'])]
         o['live'] = live.get(o['s'], 'muerto' if o['ents'] else 'sin-ref')
         s = o['s']
         o['region'] = 'crt' if s >= 0x820000 else 'renderware' if s >= 0x750000 else 'juego'
@@ -364,20 +385,51 @@ def main():
             d = 'crt-enlazar'
         elif o['live'] == 'init':
             d = 'destructor-atexit'
-        elif o['cited']:
-            d = 'citada-en-cpp'
+        elif o['ccl'] == 'libjpeg':
+            d = 'viva-enlazada'       # LIBJPEG_CB / JPegCompressPlugin: con GTASA_WITH_LIBJPEG es la de libs/libjpeg-6b (se enlaza, como libpng y zlib)
+        elif o['ccl'] == 'isla':
+            d = 'd3dx9-enlazar'       # cita de la isla del compilador de shaders de D3DX9 (se enlaza)
+        elif o['ccl'] == 'protector':
+            d = 'viva-protector'      # tabla de ExeProtectionStub.cpp: se retira con el archivo (V1)
+        elif (o['ccl'] == 'valor' or o['obj_ab'] or o['obj_c_real']) and rv.modulo_enlazado(s) == 'QuickTime':
+            d = 'viva-quicktime'      # puente de QuickTime citado por QTMLRuntime.cpp: QuickTime se retira
+        elif (o['ccl'] == 'valor' or o['obj_ab'] or o['obj_c_real']) and rv.modulo_enlazado(s):
+            d = 'viva-enlazada'       # D3DX9 / libpng+zlib / CRT de MSVC: se enlazan
+        elif o['ccl'] == 'valor' or o['obj_ab'] or o['obj_c_real']:
+            d = 'viva-sin-hook'       # el C++ la escribe como valor / el codigo compilado la lleva como inmediato: raiz viva
+        elif o['cited'] and o['live'] in ('muerto', 'sin-ref'):
+            d = 'cerrada-comentario'  # solo un comentario/constante: no es raiz
         elif o['live'] in ('datos', 'tabla', 'vivo'):
             d = 'pendiente-dato'
         elif o['live'] == 'muerto':
             d = 'muerta-por-reemplazo'
         else:
             d = 'sin-referencia-real'
-        if s in REVISION and d != 'reconstruida':
+        if s in REVISION and d != 'reconstruida' and not d.startswith('viva-'):
             d = REVISION[s][0]
+        # destino con el criterio anterior (antes de la regla de raices por valor): lo que decidia «citada-en-cpp» y «muerto» por falta de llamadores directos
+        if o['hooked']:
+            da = 'reconstruida'
+        elif o['live'] == 'vivo' and o['region'] == 'crt':
+            da = 'crt-enlazar'
+        elif o['live'] == 'init':
+            da = 'destructor-atexit'
+        elif o['cited']:
+            da = 'citada-en-cpp'
+        elif o['live'] in ('datos', 'tabla', 'vivo'):
+            da = 'pendiente-dato'
+        elif o['live'] == 'muerto':
+            da = 'muerta-por-reemplazo'
+        else:
+            da = 'sin-referencia-real'
+        if s in REVISION and da != 'reconstruida':
+            da = REVISION[s][0]
+        o['destino_antes'] = da
         o['destino'] = d
         o['nota'] = ''
         if o['s'] in MANUAL:
             o['destino'], o['nota'] = MANUAL[o['s']]
+            o['destino_antes'] = o['destino']
         if o['size'] <= 2 and o['last'] == 'ret':
             o['forma'] = 'ret-vacio'
         elif o['size'] <= 8 and o['last'] == 'jmp' and o['n'] <= 2:
@@ -396,10 +448,13 @@ def main():
 
     with open(out / 'huecos-p6.csv', 'w', encoding='utf-8', newline='') as s:
         w = csv.writer(s)
-        w.writerow(['va', 'fin', 'bytes', 'hueco', 'region', 'forma', 'destino', 'vida', 'enganchada', 'citada', 'entradas', 'origenes', 'nota'])
+        w.writerow(['va', 'fin', 'bytes', 'hueco', 'region', 'forma', 'destino', 'vida', 'enganchada', 'citada', 'entradas', 'origenes', 'nota', 'citas_codigo', 'citas_comentario', 'evidencia_obj', 'tabla_destino', 'destino_antes'])
         for o in pieces:
             w.writerow(['0x%08X' % o['s'], '0x%08X' % o['e'], o['size'], '0x%08X' % o['hole'], o['region'], o['forma'], o['destino'], o['live'],
-                        int(o['hooked']), int(o['cited']), len(set(t for t, _, _ in o['ents'])), srcdesc(o), o['nota']])
+                        int(o['hooked']), int(o['cited']), len(set(t for t, _, _ in o['ents'])), srcdesc(o), o['nota'],
+                        len({(f_, n_) for _, f_, n_, k_, _ in o['cs'] if k_ != rv.K_COMENTARIO and k_ != rv.K_ENGANCHE}),
+                        len({(f_, n_) for _, f_, n_, k_, _ in o['cs'] if k_ == rv.K_COMENTARIO}),
+                        ';'.join(f"0x{a_:08X}:{ev[0]}:{ev[1]}" for a_, ev in o['obj']), rv.tabla_destino(o['cs']), o['destino_antes']])
     por_hueco = defaultdict(list)
     for o in pieces:
         por_hueco[o['hole']].append(o)
@@ -409,7 +464,7 @@ def main():
         for o in pieces:
             if o['s'] in REVISION:
                 w.writerow(['0x%08X' % o['s'], '0x%08X' % o['e'], o['size'], o['destino'], REVISION[o['s']][1]])
-    orden = ['pendiente-dato', 'crt-enlazar', 'd3dx9-enlazar', 'reconstruida', 'citada-en-cpp', 'destructor-atexit', 'muerta-por-reemplazo', 'sin-referencia-real']
+    orden = ['viva-sin-hook', 'pendiente-dato', 'crt-enlazar', 'd3dx9-enlazar', 'viva-enlazada', 'viva-quicktime', 'viva-protector', 'reconstruida', 'cerrada-comentario', 'destructor-atexit', 'muerta-por-reemplazo', 'sin-referencia-real']
     hrows = []
     for a0, b0, cat, reg in sorted(holes):
         if not cat.startswith('código con ref'):
@@ -419,9 +474,9 @@ def main():
         pesos = Counter()
         for o in ps:
             pesos[o['destino']] += o['size']
-        pend = [o for o in ps if o['destino'] == 'pendiente-dato']
+        pend = [o for o in ps if o['destino'] in ('pendiente-dato', 'viva-sin-hook')]
         if pend:
-            clase = 'pendiente-dato'
+            clase = 'viva-sin-hook' if any(o['destino'] == 'viva-sin-hook' for o in pend) else 'pendiente-dato'
         elif pesos:
             clase = max(pesos, key=lambda k: (pesos[k], -orden.index(k)))
         else:

@@ -2,7 +2,7 @@
 
 [Auditoría y decisiones](README.md) · [Lotes (CSV)](plan.csv) · [Funciones vivas (CSV)](funciones-vivas.csv)
 
-Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 funciones; los descartes verificables se parten por rango solo para revisarlos. En los lotes de puentes (B) y de huecos (H) «funciones» cuenta direcciones.
+Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 funciones; los descartes verificables se parten por rango solo para revisarlos. En los lotes de puentes (B), de huecos (H) y de raíces por valor (R) «funciones» cuenta direcciones/objetos.
 
 | Parte | Descripción | Lotes | Funciones | Bytes |
 | --- | --- | ---: | ---: | ---: |
@@ -12,6 +12,7 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | P4 | Enlazar bibliotecas | 11 | 184 | 48,168 |
 | P5 | Fase 8: arranque y enlace | 4 | 81 | 4,077 |
 | P6 | Huecos del .text con código sin función | 6 | 270 | 128,357 |
+| P7 | Raíces por valor: viva sin hook (cola de reconstrucción) | 3 | 47 | 23,483 |
 
 ## Lotes
 
@@ -84,3 +85,6 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | H4 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 24,479 | 0x0072F505–0x00761C26 | medio |  | pendiente |
 | H5 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 34,977 | 0x00761DDE–0x007EF33E | medio |  | pendiente |
 | H6 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 18,311 | 0x007F12E3–0x008568AB | medio |  | pendiente |
+| R1 | P7 | raices por valor | Viva sin hook (arranque) | RECONSTRUIR | C++ propio con enganche | 18 | 4,664 | 0x004CA4E0–0x007FFF00 | medio |  | pendiente |
+| R2 | P7 | raices por valor | Viva sin hook (RenderWare) | RECONSTRUIR | C++ propio con enganche | 17 | 17,405 | 0x007507E0–0x007F53D0 | medio |  | pendiente |
+| R3 | P7 | raices por valor | Viva sin hook (juego) | RECONSTRUIR | C++ propio con enganche | 12 | 1,414 | 0x004CBEE0–0x00856BC0 | medio |  | pendiente |
