@@ -16,6 +16,7 @@ public:
     CTaskComplexEnterCarAsPassengerTimed(CVehicle* vehicle, uint32 targetSeat, uint32 time, bool bCarryOnAfterFallingOff);
     CTaskComplexEnterCarAsPassengerTimed(const CTaskComplexEnterCarAsPassengerTimed&);
     ~CTaskComplexEnterCarAsPassengerTimed() override = default;
+    void SetMoveState(eMoveState state) { m_MoveState = state; } // NOTSA: lo usa TASK_ENTER_CAR_AS_PASSENGER_TIMED (SCRB)
 
     void      StopTimer(const CEvent* event) override;
     // 0x63D7E0

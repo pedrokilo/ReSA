@@ -54,7 +54,7 @@ constexpr uint32 EXE_PHYS_FREEZE     = 0x2004;
 static_assert(offsetof(CPed, m_pLastEntityDamage) == 0x764 && offsetof(CPed, m_pVehicle) == 0x58C);
 static_assert(offsetof(CVehicle, m_pLastDamageEntity) == 0x50C && offsetof(CVehicle, m_nGunFiringTime) == 0x4D4);
 static_assert(offsetof(CVehicle, m_autoPilot) + offsetof(CAutoPilot, m_nCarMission) == 0x3BA);
-static_assert(offsetof(CPhysical, m_nPhysicalFlags) == 0x40 && offsetof(CPhysical, m_vecMoveSpeed) == 0x44 && offsetof(CPhysical, m_nNumEntitiesCollided) == 0xB8);
+static_assert(offsetof(CPhysical, m_nPhysicalFlags) == 0x40 && offsetof(CPhysical, m_vecMoveSpeed) == 0x44);
 static_assert(offsetof(CRunningScript, m_UsesMissionCleanup) == 0xC6);
 
 // 0x48CDD0
@@ -73,11 +73,11 @@ OpcodeResult CRunningScript::ProcessCommands1300To1399(int32 command) {
         ReadTextLabelFromScript(label, 8);
         (void)TheText.Get(label); // el resultado se descarta
         static_cast<void>(CPickups::GetActualPickupIndex(tPickupReference{ CollectNextParameterWithoutIncreasingPC() })); // 0x464250 + 0x4552A0 (el resultado no se usa)
-        P(0).iParam = CPickups::GenerateNewOne_ExeAbi(CVector{ x, y, z }, static_cast<uint32>(static_cast<uint16>(MI_PICKUP_PROPERTY)), PICKUP_PROPERTY_LOCKED, 0, 0, 0, label); // 0x456F20
+        P(0).iParam = CPickups::GenerateNewOne_ExeAbi(CVector{ x, y, z }, static_cast<uint32>(static_cast<uint16>(ModelIndices::MI_PICKUP_PROPERTY)), PICKUP_PROPERTY_LOCKED, 0, 0, 0, label); // 0x456F20
         StoreParameters(1);
         return OR_CONTINUE;
     }
-    // 0x48CEDB: CREATE_FORSALE_PROPERTY_PICKUP (4 parametros; modelo MI_PICKUP_PROPERTY_FORSALE 0x8CD5EC, tipo 0x12; la municion es el cuarto parametro)
+    // 0x48CEDB: CREATE_FORSALE_PROPERTY_PICKUP (4 parametros; modelo ModelIndices::MI_PICKUP_PROPERTY_FORSALE 0x8CD5EC, tipo 0x12; la municion es el cuarto parametro)
     case 1304: {
         CollectParameters(4);
         const float x = P(0).fParam;
@@ -90,7 +90,7 @@ OpcodeResult CRunningScript::ProcessCommands1300To1399(int32 command) {
         ReadTextLabelFromScript(label, 8);
         (void)TheText.Get(label); // el resultado se descarta
         static_cast<void>(CPickups::GetActualPickupIndex(tPickupReference{ CollectNextParameterWithoutIncreasingPC() }));
-        P(0).iParam = CPickups::GenerateNewOne_ExeAbi(CVector{ x, y, z }, static_cast<uint32>(static_cast<uint16>(MI_PICKUP_PROPERTY_FORSALE)), PICKUP_PROPERTY_FORSALE, P(3).uParam, 0, 0, label); // 0x456F20
+        P(0).iParam = CPickups::GenerateNewOne_ExeAbi(CVector{ x, y, z }, static_cast<uint32>(static_cast<uint16>(ModelIndices::MI_PICKUP_PROPERTY_FORSALE)), PICKUP_PROPERTY_FORSALE, P(3).uParam, 0, 0, label); // 0x456F20
         StoreParameters(1);
         return OR_CONTINUE;
     }
@@ -125,7 +125,7 @@ OpcodeResult CRunningScript::ProcessCommands1300To1399(int32 command) {
                         result = true;
                     }
                 } else {
-                    result = (dmg->m_nType == ENTITY_TYPE_PED); // byte +0x36 & 7 == 3
+                    result = (dmg->GetType() == ENTITY_TYPE_PED); // byte +0x36 & 7 == 3
                 }
             }
         }
@@ -144,7 +144,7 @@ OpcodeResult CRunningScript::ProcessCommands1300To1399(int32 command) {
                 if (veh2Id != -1) {
                     result = (dmg == veh2);
                 } else {
-                    result = (dmg->m_nType == ENTITY_TYPE_VEHICLE); // byte +0x36 & 7 == 2
+                    result = (dmg->GetType() == ENTITY_TYPE_VEHICLE); // byte +0x36 & 7 == 2
                 }
             }
         }
@@ -272,7 +272,7 @@ OpcodeResult CRunningScript::ProcessCommands1300To1399(int32 command) {
     case 1382: {
         CollectParameters(2);
         CObject* const obj = ObjectOf(P(0).iParam);
-        obj->m_nAreaCode = static_cast<eAreaCodes>(P(1).u8Param); // byte +0x2F
+        obj->SetAreaCode(static_cast<eAreaCodes>(P(1).u8Param)); // byte +0x2F
         return OR_CONTINUE;
     }
     // 0x48DA3C: WAS_CUTSCENE_SKIPPED (no lee parametros; byte 0xB5F854)
@@ -315,7 +315,7 @@ OpcodeResult CRunningScript::ProcessCommands1300To1399(int32 command) {
             }
         } else {
             veh->m_nPhysicalFlags &= ~EXE_PHYS_FREEZE;
-            veh->m_nNumEntitiesCollided = 0; // byte +0xB8
+            *(reinterpret_cast<uint8*>(veh) + 0xB8) = 0; // byte +0xB8
         }
         return OR_CONTINUE;
     }

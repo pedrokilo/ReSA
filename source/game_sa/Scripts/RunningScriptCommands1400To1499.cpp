@@ -156,7 +156,7 @@ OpcodeResult CRunningScript::ProcessCommands1400To1499(int32 command) {
         CollectParameters(2);
         const int32 alpha = P(1).iParam;
         CVehicle* const veh = VehicleOf(P(0).iParam);
-        CVisibilityPlugins::SetClumpAlpha(reinterpret_cast<RpClump*>(veh->m_pRwObject), alpha);
+        CVisibilityPlugins::SetClumpAlpha(reinterpret_cast<RpClump*>(veh->GetRwObject()), alpha);
         return OR_CONTINUE;
     }
     // 0x48EDEF: REGISTER_ODDJOB_MISSION_PASSED
@@ -502,7 +502,7 @@ OpcodeResult CRunningScript::ProcessCommands1400To1499(int32 command) {
         }
         CPed* const target = PedOf(targetHandle); // edi
         if (pedHandle != -1) {
-            g_ikChainMan.LookAt("COMMAND_TASK_LOOK_AT_CHAR", PedOf(pedHandle), target, time, static_cast<eBoneTag32>(5), nullptr, false, 0.25f, 500, 6, true);
+            g_ikChainMan.LookAt("COMMAND_TASK_LOOK_AT_CHAR", PedOf(pedHandle), target, time, eBoneTag32{ static_cast<eBoneTag>(5) }, nullptr, false, 0.25f, 500, 6, true);
             return OR_CONTINUE;
         }
         CVector offset{ 0.0f, 0.0f, 0.0f };
@@ -521,7 +521,7 @@ OpcodeResult CRunningScript::ProcessCommands1400To1499(int32 command) {
         }
         CVehicle* const target = VehicleOf(P(1).iParam); // edi
         if (pedHandle != -1) {
-            g_ikChainMan.LookAt("COMMAND_TASK_LOOK_AT_VEHICLE", PedOf(pedHandle), target, time, static_cast<eBoneTag32>(-1), nullptr, false, 0.25f, 500, 6, true);
+            g_ikChainMan.LookAt("COMMAND_TASK_LOOK_AT_VEHICLE", PedOf(pedHandle), target, time, eBoneTag32{ static_cast<eBoneTag>(-1) }, nullptr, false, 0.25f, 500, 6, true);
             return OR_CONTINUE;
         }
         CVector offset{ 0.0f, 0.0f, 0.0f };
@@ -635,7 +635,7 @@ OpcodeResult CRunningScript::ProcessCommands1400To1499(int32 command) {
         } else {
             task = new CTaskComplexEnterCarAsPassengerTimed(veh, door, time, true);
         }
-        task->m_MoveState = static_cast<eMoveState>(EnterCarMoveStateGlobal); // [+0x1C]
+        task->SetMoveState(static_cast<eMoveState>(EnterCarMoveStateGlobal)); // [+0x1C]
         EnterCarMoveStateGlobal = 6;
         GiveTask(pedHandle, task);
         return OR_CONTINUE;
