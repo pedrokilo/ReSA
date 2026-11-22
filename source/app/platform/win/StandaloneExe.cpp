@@ -28,7 +28,7 @@
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID reserved); // dllmain.cpp del proyecto
 INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdLine, INT nCmdShow); // WinMain.cpp
 extern "C" { extern uint32_t g_DbgCmdTrace[256][4]; extern uint32_t g_DbgCmdTraceIdx; extern uint32_t g_DbgMainTrace[32][4]; extern uint32_t g_DbgMainTraceIdx; } // anillo de los ultimos comandos de script (Scripts/RunningScript.cpp)
-namespace DatosExe { void RunStaticInitializers(); }                    // DatosExe/StaticInit.cpp
+namespace DatosExe { void RunStaticInitializers(); namespace Bss { extern uint32_t bA444C4; extern uint32_t bA444C0; } } // CTheScripts::MainScriptSize / LargestMissionScriptSize: objetos propios, NO residen en 0xA444C4/0xA444C0                    // DatosExe/StaticInit.cpp
 namespace ExeCrt { int __cdecl StandaloneStartup(); }                    // Crt/CrtStartup.cpp
 extern "C" PIMAGE_TLS_CALLBACK __dyn_tls_init_callback;
 extern "C" void WinMainCRTStartup();
@@ -381,7 +381,7 @@ void VolcarScripts() {
     char buf[1200];
     int n = wsprintfA(buf, "  ScriptSpace[0..16]:");
     if (Legible(0xA49960, 16)) for (int i = 0; i < 16; ++i) n += wsprintfA(buf + n, " %02X", *(uint8_t*)(0xA49960 + i));
-    n += wsprintfA(buf + n, "  MainScriptSize=%lu LargestMissionScriptSize=%lu\r\n", Legible(0xA444C4, 4) ? *(uint32_t*)0xA444C4 : 0, Legible(0xA444C0, 4) ? *(uint32_t*)0xA444C0 : 0);
+    n += wsprintfA(buf + n, "  MainScriptSize=%lu LargestMissionScriptSize=%lu (objetos propios DatosExe::Bss; la direccion del EXE 0xA444C4 vale %lu: copia de datos sin sincronizar, irrelevante mientras solo C++ las lea)\r\n", DatosExe::Bss::bA444C4, DatosExe::Bss::bA444C0, Legible(0xA444C4, 4) ? *(uint32_t*)0xA444C4 : 0);
     Escribir(g.log, buf, n);
     {
         const uint32_t idx = g_DbgCmdTraceIdx;
