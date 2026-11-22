@@ -144,7 +144,11 @@ void diMouseInit(bool exclusive) {
     WIN_FCHECK(PSGLOBAL(diInterface)->CreateDevice(GUID_SysMouse, &PSGLOBAL(diMouse), 0));
     WIN_FCHECK(PSGLOBAL(diMouse)->SetDataFormat(&c_dfDIMouse2));
     WIN_FCHECK(PSGLOBAL(diMouse)->SetCooperativeLevel(PSGLOBAL(window), DISCL_FOREGROUND | (exclusive ? DISCL_EXCLUSIVE : DISCL_NONEXCLUSIVE)));
-    WIN_FCHECK(PSGLOBAL(diMouse)->Acquire());
+    // Con DISCL_FOREGROUND, Acquire devuelve E_ACCESSDENIED (DIERR_OTHERAPPHASPRIO) mientras la ventana aun no es la activa (es lo normal al arrancar: el dispositivo se crea antes de mostrar
+    // la ventana). No es un fallo: CPad::GetMouseState vuelve a adquirir al primer fotograma con foco, asi que se deja sin registrar como error.
+    if (const HRESULT hr = PSGLOBAL(diMouse)->Acquire(); FAILED(hr) && hr != E_ACCESSDENIED) {
+        NOTSA_LOG_DEBUG("diMouseInit: Acquire fallo (hr=0x{:x})", (size_t)hr);
+    }
 }
 
 // 0x7477C0: enumera los mandos conectados (clase DI8DEVCLASS_GAMECTRL = 4, DIEDFL_ATTACHEDONLY = 1) con la funcion de retorno del EXE (0x747020, sin dato de usuario). Si EnumDevices

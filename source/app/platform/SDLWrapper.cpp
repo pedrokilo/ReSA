@@ -11,6 +11,7 @@ SDL_Window* window{};
 HWND nativeWindow{};
 WNDPROC originalProcedure{};
 bool pumping{};
+uint32 mouseMotionCount{};
 constexpr UINT_PTR EventTimer = 0x475441;
 
 LRESULT CALLBACK PlatformWindowProcedure(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam) {
@@ -82,6 +83,10 @@ void Terminate() {
     SDL_Quit();
 }
 
+uint32 MouseMotionCount() {
+    return mouseMotionCount;
+}
+
 void ProcessEvents() {
     if (!window || pumping) {
         return;
@@ -92,6 +97,7 @@ void ProcessEvents() {
             RsGlobal.quit = true;
         }
         if (event.type == SDL_EVENT_MOUSE_MOTION) {
+            ++mouseMotionCount;
             FrontEndMenuManager.m_nMousePosWinX = static_cast<int32>(event.motion.x);
             FrontEndMenuManager.m_nMousePosWinY = static_cast<int32>(event.motion.y);
         }
