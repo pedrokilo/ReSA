@@ -11785,6 +11785,14 @@ CRunningScript,ProcessCommands500To599,0x0047E090,1,0,0,S
 CRunningScript,ProcessCommands600To699,0x0047F370,1,0,0,S
 CRunningScript,ProcessCommands700To799,0x0047FA30,1,0,0,S
 CRunningScript,ProcessCommands900To999,0x00483BD0,1,0,0,S
+CRunningScript,ProcessCommands1600To1699,0x00493FE0,1,0,0,S
+CRunningScript,ProcessCommands1800To1899,0x0046D050,1,0,0,S
+CRunningScript,ProcessCommands2100To2199,0x00470A90,1,0,0,S
+CRunningScript,ProcessCommands2200To2299,0x00474900,1,0,0,S
+CRunningScript,ProcessCommands2300To2399,0x004762D0,1,0,0,S
+CRunningScript,ProcessCommands2400To2499,0x00478000,1,0,0,S
+CRunningScript,ProcessCommands2500To2599,0x0047A760,1,0,0,S
+CRunningScript,ProcessCommands2600To2699,0x00479DA0,1,0,0,S
 IKChainManager_c,Constructor,0x00617FC0,1,0,1,S
 IKChainManager_c,Destructor,0x00618030,1,0,1,S
 WaterCreatureManager_c,Constructor,0x006E3EB0,1,0,1,S

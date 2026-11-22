@@ -39,3 +39,6 @@ public:
 };
 
 VALIDATE_SIZE(CTaskComplexUseMobilePhone, 0x20);
+
+// 0x6348A0: cuerpo del constructor del EXE (la clase sigue abstracta); lo usa el despachador de comandos 1800..1899 (comando TASK_USE_MOBILE_PHONE).
+CTaskComplexUseMobilePhone* CTaskComplexUseMobilePhoneConstructorExe(CTaskComplexUseMobilePhone* self, int32 duration);

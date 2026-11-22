@@ -159,6 +159,14 @@ void CRunningScript::InjectHooks() {
     RH_ScopedInstall(ProcessCommands600To699, 0x47F370, { .stackArguments = 1 }); // vivo-scra (sin validar)
     RH_ScopedInstall(ProcessCommands700To799, 0x47FA30, { .stackArguments = 1 }); // vivo-scra (sin validar)
     RH_ScopedInstall(ProcessCommands900To999, 0x483BD0, { .stackArguments = 1 }); // vivo-scra (sin validar)
+    RH_ScopedInstall(ProcessCommands1600To1699, 0x493FE0, { .stackArguments = 1 }); // scrc (sin validar)
+    RH_ScopedInstall(ProcessCommands1800To1899, 0x46D050, { .stackArguments = 1 }); // scrc (sin validar)
+    RH_ScopedInstall(ProcessCommands2100To2199, 0x470A90, { .stackArguments = 1 }); // scrc (sin validar)
+    RH_ScopedInstall(ProcessCommands2200To2299, 0x474900, { .stackArguments = 1 }); // scrc (sin validar)
+    RH_ScopedInstall(ProcessCommands2300To2399, 0x4762D0, { .stackArguments = 1 }); // scrc (sin validar)
+    RH_ScopedInstall(ProcessCommands2400To2499, 0x478000, { .stackArguments = 1 }); // scrc (sin validar)
+    RH_ScopedInstall(ProcessCommands2500To2599, 0x47A760, { .stackArguments = 1 }); // scrc (sin validar)
+    RH_ScopedInstall(ProcessCommands2600To2699, 0x479DA0, { .stackArguments = 1 }); // scrc (sin validar)
     RH_ScopedOverloadedInstall(GivePedScriptedTask, "OG", 0x465C20, void(CRunningScript::*)(int32, CTask*, int32));
 }
 

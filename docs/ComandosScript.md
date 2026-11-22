@@ -1,7 +1,3 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 21/11/2026 (Ciudad de México):** 1004 grupos / 13311 funciones reconstruidas; 11801 con evidencia histórica y 1510 pendientes de validación en 39 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Comandos de script (opcodes)
 
 Inventario de los comandos de SCM del juego (`docs/ComandosScript.csv`, generado por `contrib/inventario_comandos_script.py`).
@@ -18,7 +14,7 @@ una funcion con direccion propia. Los contadores de `ReversedClasses.md` **no lo
 | original | 1163 | sin manejador propio: pasa por el despachador de su centena |
 | **Total** | **2826** | |
 
-De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 435; despachador del EXE = 543; sin despachador identificado = 185.
+De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 864; despachador del EXE = 114; sin despachador identificado = 185.
 
 ## Por categoria (archivo de `Scripts/Commands`)
 
@@ -54,14 +50,14 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 435; des
 | `0x00466DE0` | 14 | si | no |
 | `0x00469390` | 6 | si | no |
 | `0x0046B460` | 59 | si | si |
-| `0x0046D050` | 60 | no | no |
-| `0x00470A90` | 44 | no | no |
+| `0x0046D050` | 60 | si | no |
+| `0x00470A90` | 44 | si | no |
 | `0x00472310` | 55 | si | no |
-| `0x00474900` | 78 | no | no |
-| `0x004762D0` | 58 | no | no |
-| `0x00478000` | 79 | no | no |
-| `0x00479DA0` | 17 | no | no |
-| `0x0047A760` | 45 | no | no |
+| `0x00474900` | 78 | si | no |
+| `0x004762D0` | 58 | si | no |
+| `0x00478000` | 79 | si | no |
+| `0x00479DA0` | 17 | si | no |
+| `0x0047A760` | 45 | si | no |
 | `0x0047C100` | 27 | si | no |
 | `0x0047D210` | 22 | si | no |
 | `0x0047E090` | 23 | si | no |
@@ -75,7 +71,7 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 435; des
 | `0x0048CDD0` | 19 | no | no |
 | `0x0048EAA0` | 47 | no | no |
 | `0x00490DB0` | 38 | si | no |
-| `0x00493FE0` | 48 | no | no |
+| `0x00493FE0` | 48 | si | no |
 | `0x00496E00` | 69 | si | si |
 
 ## Comandos reescritos (sin validar por banco)
