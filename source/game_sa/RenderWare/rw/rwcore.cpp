@@ -6,19 +6,19 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: RwCore
- * Reconstrucción: COMPLETA — 211/211 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 339/339 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 36/211 entradas.
+ * Validación registrada: 36/339 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  *
  * ESTADO: RwD3D9
- * Reconstrucción: COMPLETA — 115/115 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 144/144 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/115 entradas.
+ * Validación registrada: 0/144 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 
 #include "rwcore.h"
 #include "RenderWare/D3D9RasterFormat.h"
+#include "RenderWare/RwMathX87.h"
 #include "X87Math.h"
 #include "WindowedMode.hpp"
 #include "game_sa/Crt/CrtPow.h"
@@ -6547,7 +6548,7 @@ uint32 D3D9FindDepth(uint32 format) {
 
 // Restaura la palabra de control x87 del EXE (0x85742B: fldcw [0xCAF004]).
 void D3D9RestoreFpuControlWord() {
-    ((void(__cdecl *)(void))0x85742B)();
+    RwMathX87::RestoreFpuControlWord();
 }
 
 // Comprobacion de un formato de profundidad: CheckDeviceFormat(usage 2 = DEPTHSTENCIL, tipo 1 = SURFACE) y CheckDepthStencilMatch con el formato del back buffer actual; ambas deben dar exactamente D3D_OK (0).
@@ -7485,14 +7486,13 @@ RwBool _rwD3D9System(RwInt32 request, void* out, void* inOut, RwInt32 in) {
         _rwD3D9FindMSLevels();
         return TRUE;
     case kRequestFinalizeStart: {
-        ((void(__cdecl*)(void))0x857404)();
+        RwMathX87::SetFpuControlWord();
         if (D3D9SysSSE != 0) {
             _mm_setcsr(_mm_getcsr() | 0x8000u);
         }
-        _rwMatrixSetMultFn(reinterpret_cast<rwMatrixMultFn>(0x8572A0));
+        _rwMatrixSetMultFn(&RwMathX87::MatrixMultiply);
         if (D3D9SysSSE == 0) {
-            _rwVectorSetMultFn(reinterpret_cast<rwVectorMultFn>(0x8570EF), reinterpret_cast<rwVectorsMultFn>(0x857000),
-                               reinterpret_cast<rwVectorMultFn>(0x857160), reinterpret_cast<rwVectorsMultFn>(0x85707F));
+            _rwVectorSetMultFn(&RwMathX87::TransformPoint, &RwMathX87::TransformPoints, &RwMathX87::TransformVector, &RwMathX87::TransformVectors);
         } else if (D3D9SysSSE2 != 0 && D3D9Sys3DNow == 0) {
             _rwVectorSetMultFn(reinterpret_cast<rwVectorMultFn>(0x80D570), reinterpret_cast<rwVectorsMultFn>(0x80D440),
                                reinterpret_cast<rwVectorMultFn>(0x80D600), reinterpret_cast<rwVectorsMultFn>(0x80D4E0));

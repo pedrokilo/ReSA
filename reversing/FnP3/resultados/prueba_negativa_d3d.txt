@@ -1,0 +1,61 @@
+== mutacion 1: 'format |= (static_cast<int8>(TextureCapsLowByte) < 0) ? 0x500u : 0x600u;' -> 'format |= (static_cast<int8>(TextureCapsLowByte) < 0) ? 0x600u : 0x500u;'
+DIFERENCIA caso=1000035 flags=02000: exe ret=1 (82 valores) ours ret=1 (82 valores)
+DIFERENCIA caso=1000091 flags=0b000: exe ret=1 (72 valores) ours ret=1 (72 valores)
+== mutacion 2: 'format |= 0x500u;
+                raster->depth = 0x20;' -> 'format |= 0x500u;
+                raster->depth = 0x10;'
+DIFERENCIA caso=1000023 flags=08000: exe ret=1 (59 valores) ours ret=1 (59 valores)
+DIFERENCIA caso=1000027 flags=01004: exe ret=1 (59 valores) ours ret=1 (59 valores)
+== mutacion 3: 'raster->originalWidth = raster->width;' -> 'raster->originalWidth = raster->height;'
+DIFERENCIA caso=1000043 flags=00002: exe ret=1 (62 valores) ours ret=1 (62 valores)
+DIFERENCIA caso=1000052 flags=09002: exe ret=1 (57 valores) ours ret=1 (57 valores)
+== mutacion 4: 'const uint32 levels = (~(format >> 15)) & 1u;
+    int32 hr;' -> 'const uint32 levels = (format >> 15) & 1u;
+    int32 hr;'
+DIFERENCIA caso=1000020 flags=00314: exe ret=1 (66 valores) ours ret=0 (66 valores)
+DIFERENCIA caso=1000023 flags=08000: exe ret=1 (59 valores) ours ret=1 (59 valores)
+== mutacion 5: 'pick(0x47, 0x4D)' -> 'pick(0x47, 0x4C)'
+DIFERENCIA caso=1000758 flags=0b001: exe ret=1 (91 valores) ours ret=1 (91 valores)
+DIFERENCIA caso=1001478 flags=0b011: exe ret=1 (83 valores) ours ret=1 (83 valores)
+== mutacion 6: 'static_cast<uint32>(ExtField<int32>(ext, 0x18)), 1u, static_cast<void*>(ext), static_cast<void*>(nullptr));' -> 'static_cast<uint32>(ExtField<int32>(ext, 0x18)), 0u, static_cast<void*>(ext), static_cast<void*>(nullptr));'
+DIFERENCIA ayudante 0x4CB7C0 textura caso=7777785 flags=00011: exe ret=0 ours ret=1
+DIFERENCIA ayudante 0x4CB7C0 textura caso=7777793 flags=04017: exe ret=0 ours ret=0
+== mutacion 7: 'hr = create(static_cast<uint32>(BackBufferFormat), mipUsage);' -> 'hr = create(static_cast<uint32>(BackBufferFormat), mipUsage | 1u);'
+DIFERENCIA caso=1000012 flags=09005: exe ret=1 (78 valores) ours ret=1 (78 valores)
+DIFERENCIA caso=1000098 flags=09905: exe ret=0 (97 valores) ours ret=0 (97 valores)
+== mutacion 8: 'if (!RasterCreateRenderTargetTexture(raster, ext)) {
+            return 0;
+        }
+        RasterListPush(raster);' -> 'if (!RasterCreateRenderTargetTexture(raster, ext)) {
+            return 0;
+        }'
+DIFERENCIA caso=1000011 flags=08005: exe ret=1 (71 valores) ours ret=1 (65 valores)
+DIFERENCIA caso=1000012 flags=09005: exe ret=1 (78 valores) ours ret=1 (72 valores)
+== mutacion 9: 'EngineCall<kEngineFreeListFree, void>(PaletteFreeList, ExtField<void*>(ext, 4));
+            ExtField<void*>(ext, 4) = nullptr;
+        }
+        return 0;' -> 'EngineCall<kEngineFreeListFree, void>(PaletteFreeList, ExtField<void*>(ext, 4));
+        }
+        return 0;'
+DIFERENCIA caso=1000101 flags=0e000: exe ret=0 (78 valores) ours ret=0 (79 valores)
+DIFERENCIA caso=1000117 flags=02004: exe ret=0 (78 valores) ours ret=0 (79 valores)
+== mutacion 10: 'format = 0x900;' -> 'format = 0x800;'
+DIFERENCIA caso=1000004 flags=09001: exe ret=1 (90 valores) ours ret=1 (90 valores)
+DIFERENCIA caso=1000064 flags=00081: exe ret=1 (42 valores) ours ret=1 (42 valores)
+== mutacion 11: 'mipFlags = static_cast<uint8>((mipFlags & 0xF1u) | 1u);' -> 'mipFlags = static_cast<uint8>((mipFlags & 0xF1u) | 2u);'
+DIFERENCIA caso=1000055 flags=09c00: exe ret=0 (66 valores) ours ret=0 (66 valores)
+DIFERENCIA caso=1000098 flags=09905: exe ret=0 (97 valores) ours ret=0 (97 valores)
+== mutacion 12: 'raster->cFormat = static_cast<uint8>(PixelFormatInfo(BackBufferFormat).rwFormat >> 8);' -> 'raster->cFormat = static_cast<uint8>(PixelFormatInfo(BackBufferFormat).rwFormat);'
+DIFERENCIA caso=1000012 flags=09005: exe ret=1 (78 valores) ours ret=1 (78 valores)
+DIFERENCIA caso=1000103 flags=09005: exe ret=1 (103 valores) ours ret=1 (103 valores)
+== mutacion 13: 'if (rect.right < raster->width || rect.bottom < raster->height) {' -> 'if (rect.right < raster->width || rect.bottom <= raster->height) {'
+DIFERENCIA caso=1000043 flags=00002: exe ret=1 (62 valores) ours ret=0 (56 valores)
+DIFERENCIA caso=1000052 flags=09002: exe ret=1 (57 valores) ours ret=0 (51 valores)
+== mutacion 14: 'if (rect.right == raster->width && rect.bottom == raster->height) {' -> 'if (rect.right == raster->width || rect.bottom == raster->height) {'
+DIFERENCIA caso=1000006 flags=00001: exe ret=1 (75 valores) ours ret=1 (64 valores)
+DIFERENCIA caso=1000029 flags=01701: exe ret=0 (75 valores) ours ret=1 (70 valores)
+== mutacion 15: 'const uint32 palettedFormat = format & 0xF00u;
+        if (palettedFormat != 0x600u && palettedFormat != 0x500u) {' -> 'const uint32 palettedFormat = format & 0xF00u;
+        if (palettedFormat != 0x600u) {'
+DIFERENCIA caso=1000035 flags=02000: exe ret=1 (82 valores) ours ret=0 (61 valores)
+DIFERENCIA caso=1000091 flags=0b000: exe ret=1 (72 valores) ours ret=0 (51 valores)

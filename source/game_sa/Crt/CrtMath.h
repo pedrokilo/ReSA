@@ -6,6 +6,8 @@
 // (floor 0x828A60, ceil 0x82BA31), que se invoca por su direccion. Con NaN el EXE llama a 0x82872C (manejador de error del CRT) y devuelve el argumento.
 // Sin __asm. Verificacion: banco fuera del juego (reversing/FnCRT2A).
 
+#include <cstdint>
+
 namespace ExeCrt {
 double __cdecl Floor(double x); // 0x8219F0
 double __cdecl Ceil(double x);  // 0x823820
@@ -16,6 +18,11 @@ bool UseSse2MathPath();
 // Nucleos puros (solo la rama SSE2, sin comprobar el entorno ni llamar al manejador de NaN), para el banco: devuelven true si x es NaN
 bool FloorCore(double x, double& result);
 bool CeilCore(double x, double& result);
+
+// Lote S4: manejador de errores matematicos 0x82872C (matherr + errno), matherr por defecto 0x833605 (solo por puntero) y equivalente de _ftol2 (0x821B40, argumento en ST0: sin enganche)
+void    __cdecl MathError(double* arg1, double* arg2, double* result, int code); // 0x82872C
+int     __cdecl DefaultMatherr(void* exception);                                  // 0x833605
+int64_t FloatToInt64(double x);                                                   // 0x821B40
 } // namespace ExeCrt
 
 void CrtMathInjectHooks();
