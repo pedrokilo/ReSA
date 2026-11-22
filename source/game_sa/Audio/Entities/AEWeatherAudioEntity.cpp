@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataInicializadaC.h"
@@ -51,7 +52,7 @@ auto& m_sRainSoundR = StaticRef<CAETwinLoopSoundEntity>(0xB6BBC0);
 namespace {
 // Como el original: volumen por defecto leido como entero con signo (movsx) para fild/fiadd.
 int32 DefaultVolumeInt(eAudioEvents event) {
-    return StaticRef<int8*>(0xBD00F8)[event];
+    return DatosExe::Bss::bBD00F8[event];
 }
 
 // Como el original (0x5067B0): baja el volumen con el paso global del viento (0x8CC2AC) o detiene el sonido.

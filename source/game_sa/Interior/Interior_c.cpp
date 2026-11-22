@@ -34,6 +34,7 @@ END GENERATED HOOK STATUS */
 #include "InteriorManager_c.h"
 #include "Building.h"
 #include "X87Math.h"
+#include "DatosExe/DataBssF.h"
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
@@ -181,7 +182,7 @@ int32 Interior_c::Init(const CVector& pos) {
     CMatrix snapshot(reinterpret_cast<RwMatrix*>(&entity->GetMatrix()), false);
     const auto* box = reinterpret_cast<const uint8*>(m_box);
     if (box[0] != 99) {
-        const auto* other = DatosExe::Bss::bBB3DAC;
+        const auto* other = StaticRef<const uint8*>(0xBB3DAC);
         uint32 seed;
         if (other) {
             const uint32 a = InteriorTruncate(*reinterpret_cast<const float*>(other + 0x18));
@@ -205,7 +206,7 @@ int32 Interior_c::Init(const CVector& pos) {
     }
     CalcExitPts();
     if (!g_interiorMan.HasInteriorHadStealDataSetup(this)) {
-        auto& count = DatosExe::Bss::bBB3914;
+        auto& count = StaticRef<int32>(0xBB3914);
         if (count < 64) { reinterpret_cast<int32*>(0xBB3918)[count] = m_interiorId; ++count; }
     }
     if (box[0] == 2 || box[0] == 3) AddPickups();
@@ -2384,7 +2385,7 @@ CObject* Interior_c::PlaceObject(uint8 isStealable, Furniture_c* furniture, floa
     const auto* box = reinterpret_cast<const uint8*>(m_box);
     const CVector position{float(-int32(box[2])) * 0.5f + offsetX, float(-int32(box[3])) * 0.5f + offsetY,
         InteriorObjectZExact(offsetZ, CModelInfo::GetModelInfo(uint16(furniture->m_nModelId))->GetColModel()->GetBoundingBox().m_vecMin.z, -int32(box[4]))};
-    auto& pool = StaticRef<TList_c<FurnitureEntity_c>>(0xBAD3EC);
+    auto& pool = DatosExe::Bss::bBAD3EC<TList_c<FurnitureEntity_c>>();
     if (int32(pool.GetNumItems()) < 1) return nullptr;
     CMatrix interior(&m_matrix, false), local, final;
     local.SetUnity(); local.RotateZ(rotationZ * 0.017453292f); local.GetPosition() += position;
@@ -2479,7 +2480,7 @@ void Interior_c::Unfurnish() {
         }
         item->m_entity = nullptr;
         m_list.RemoveItem(item);
-        StaticRef<TList_c<FurnitureEntity_c>>(0xBAD3EC).AddItem(item);
+        DatosExe::Bss::bBAD3EC<TList_c<FurnitureEntity_c>>().AddItem(item);
         item = next;
     }
 }
@@ -2736,7 +2737,7 @@ bool Interior_c::AddInteriorInfo(int32 actionType, float offsetX, float offsetY,
 
 // 0x591F90
 void Interior_c::AddPickups() {
-    if (uint32(CTimer::GetTimeInMS() - DatosExe::Bss::bBB3DC4) < 180000u) return;
+    if (uint32(CTimer::GetTimeInMS() - StaticRef<uint32>(0xBB3DC4)) < 180000u) return;
     const auto* box = reinterpret_cast<const uint8*>(m_box);
     for (int32 attempt = 0; attempt < 100; ++attempt) {
         const int32 x = InteriorRandomCoordinate(box[2] - 1);
@@ -2873,7 +2874,7 @@ bool Interior_c::IsVisible() {
 
 // 0x592AA0
 CEntity* Interior_c::PlaceFurniture(Furniture_c* furniture, int32 tileX, int32 tileY, float height, int32 placement, int32 direction, int32* width, int32* depth, uint8 unchecked) {
-    auto& pool = StaticRef<TList_c<FurnitureEntity_c>>(0xBAD3EC);
+    auto& pool = DatosExe::Bss::bBAD3EC<TList_c<FurnitureEntity_c>>();
     const auto fail = [&]() -> CEntity* { *width = *depth = 0; return nullptr; };
     if (int32(pool.GetNumItems()) < 1) return fail();
     const int32 fw = uint8(furniture->m_nWidthX), fd = uint8(furniture->m_nWidthY);

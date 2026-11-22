@@ -50,6 +50,7 @@
 #include "Tasks/TaskTypes/TaskComplexDrivePointRoute.h"
 #include "Tasks/TaskTypes/TaskComplexGoToPointAndStandStill.h"
 #include "Tasks/TaskTypes/TaskComplexFollowPatrolRoute.h"
+#include "DatosExe/DataBssF.h"
 
 // F4 de codigo vivo (sin validar): 0x472310 (8320 bytes), CRunningScript::ProcessCommands2000To2099, el despachador original de los comandos de script 2000..2099 (ranura 20 de la tabla 0x8A6168; la usa
 // ProcessOneCommand cuando el comando no tiene manejador propio). Thiscall con un argumento de pila (`ret 4`; resultado en AL). Prologo SEH (marco con manejador 0x83821C, 10 estados de desenrollado): solo
@@ -324,7 +325,7 @@ OpcodeResult CRunningScript::ProcessCommands2000To2099(int32 command) {
         const int32 drivingStyle = P(5).iParam;
         auto* const task         = new CTaskComplexDrivePointRoute(
             veh,
-            StaticRef<CPointRoute>(0xC18D50), // ruta global del EXE (CTheScripts)
+            DatosExe::Bss::bC18D50<CPointRoute>(), // ruta global del EXE (CTheScripts)
             cruiseSpeed,
             static_cast<uint32>(mode),
             static_cast<eModelID>(model),

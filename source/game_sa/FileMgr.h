@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG5.h"
 #include "DatosExe/DataBssE5.h"
 
 #include <cstdio>
@@ -17,7 +18,7 @@ static constexpr auto TopLineEmptyFile{ "THIS FILE IS NOT VALID YET" };
 
 class CFileMgr {
 public:
-    static inline auto& ms_dirName = StaticRef<char[128]>(0xb71a60);
+    static inline auto& ms_dirName = DatosExe::Bss::bB71A60;
     static inline auto& ms_rootDirName = DatosExe::Bss::bB71AE0;
 
     static void Initialise();

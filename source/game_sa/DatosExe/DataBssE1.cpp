@@ -4,8 +4,6 @@
 
 namespace DatosExe::Bss {
 bool b8E4A58{}; // 0x008E4A58
-uint8 b8E72F0{}; // 0x008E72F0
-uint8 b8E73A4{}; // 0x008E73A4
 bool b9654BC{}; // 0x009654BC
 bool b9654BD{}; // 0x009654BD
 bool b9654BE{}; // 0x009654BE
@@ -115,7 +113,6 @@ uint8 bB62C6E{}; // 0x00B62C6E
 uint8 bB62C6F{}; // 0x00B62C6F
 uint8 bB62C70{}; // 0x00B62C70
 uint8 bB62C71{}; // 0x00B62C71
-uint16 bB6B976{}; // 0x00B6B976
 bool bB6B994{}; // 0x00B6B994
 int16 bB6B998{}; // 0x00B6B998
 bool bB6EC20{}; // 0x00B6EC20
@@ -128,28 +125,8 @@ uint8 bB6EC71{}; // 0x00B6EC71
 uint8 bB6EC72{}; // 0x00B6EC72
 uint8 bB6EC73{}; // 0x00B6EC73
 uint8 bB6EC78{}; // 0x00B6EC78
-uint8 bB6F045{}; // 0x00B6F045
-bool bB6F04E{}; // 0x00B6F04E
-bool bB6F050{}; // 0x00B6F050
-bool bB6F052{}; // 0x00B6F052
-uint8 bB6F054{}; // 0x00B6F054
-uint8 bB6F055{}; // 0x00B6F055
-uint8 bB6F05B{}; // 0x00B6F05B
-uint8 bB6F05E{}; // 0x00B6F05E
-uint8 bB6F05F{}; // 0x00B6F05F
-bool bB6F062{}; // 0x00B6F062
-bool bB6F066{}; // 0x00B6F066
-bool bB6F077{}; // 0x00B6F077
-uint16 bB6F1A8{}; // 0x00B6F1A8
-uint16 bB6F858{}; // 0x00B6F858
-bool bB6F999{}; // 0x00B6F999
-uint16 bB6FC58{}; // 0x00B6FC58
-bool bB6FCB4{}; // 0x00B6FCB4
-bool bB6FCDD{}; // 0x00B6FCDD
-bool bB6FD14{}; // 0x00B6FD14
 bool bB6FFDC{}; // 0x00B6FFDC
 bool bB6FFF4{}; // 0x00B6FFF4
-bool bB70000{}; // 0x00B70000
 uint8 bB70020{}; // 0x00B70020
 bool bB70048{}; // 0x00B70048
 uint8 bB700A4{}; // 0x00B700A4
@@ -191,14 +168,11 @@ bool bB9B7EE{}; // 0x00B9B7EE
 bool bB9B8F0{}; // 0x00B9B8F0
 uint8 bB9B8F1{}; // 0x00B9B8F1
 uint8 bB9B8F2{}; // 0x00B9B8F2
-uint8 bBA18D8{}; // 0x00BA18D8
 int16 bBA1900{}; // 0x00BA1900
 int16 bBA1DE8{}; // 0x00BA1DE8
 int16 bBA3794{}; // 0x00BA3794
 bool bBA6728{}; // 0x00BA6728
 bool bBA6744{}; // 0x00BA6744
-uint8 bBA67A5{}; // 0x00BA67A5
-uint8 bBA67F8{}; // 0x00BA67F8
 uint16 bBA86B8{}; // 0x00BA86B8
 bool bBAA370{}; // 0x00BAA370
 int16 bBAA378{}; // 0x00BAA378
@@ -229,8 +203,6 @@ bool bBAB33C{}; // 0x00BAB33C
 bool bBAB33D{}; // 0x00BAB33D
 uint16 bBAB378{}; // 0x00BAB378
 uint16 bBAB37C{}; // 0x00BAB37C
-uint8 bBB3D9C{}; // 0x00BB3D9C
-bool bBB3DC2{}; // 0x00BB3DC2
 uint8 bBB3DC8{}; // 0x00BB3DC8
 uint16 bBB4A70{}; // 0x00BB4A70
 bool bBC1CF8{}; // 0x00BC1CF8
@@ -255,7 +227,6 @@ bool bC16EFC{}; // 0x00C16EFC
 bool bC16EFD{}; // 0x00C16EFD
 bool bC18C20{}; // 0x00C18C20
 bool bC1A554{}; // 0x00C1A554
-bool bC1BFD0{}; // 0x00C1BFD0
 bool bC1C83C{}; // 0x00C1C83C
 bool bC1CC19{}; // 0x00C1CC19
 bool bC1CDAC{}; // 0x00C1CDAC

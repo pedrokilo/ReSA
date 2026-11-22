@@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
 #include "Radar.h"
 #include "EntryExitManager.h"
 #include "X87Math.h"
+#include "DatosExe/DataBssF.h"
 
 namespace {
 // Constantes float leidas del EXE (algunas no son el float mas cercano al literal decimal).
@@ -293,7 +294,7 @@ void CRadar::DrawLegend(int32 x, int32 y, eRadarSprite blipType) {
         return;
     }
 
-    static auto& legendTraceHeight = StaticRef<eRadarTraceHeight>(0xBAA350); // = eRadarTraceHeight::RADAR_TRACE_LOW;
+    static auto& legendTraceHeight = DatosExe::Bss::bBAA350<eRadarTraceHeight>(); // = eRadarTraceHeight::RADAR_TRACE_LOW;
     static auto& legendTraceTimer  = DatosExe::Bss::bBAA354; // = CTimer::GetTimeInMS();
 
     // 0x582E62..0x582E78: el color de la flecha se lee antes de actualizar el temporizador

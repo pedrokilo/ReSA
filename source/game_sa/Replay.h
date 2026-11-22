@@ -1,4 +1,8 @@
 #pragma once
+#include "DatosExe/DataBssG4.h"
+#include "DatosExe/DataBssG3.h"
+#include "DatosExe/DataBssG2.h"
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
@@ -194,39 +198,39 @@ public:
     static inline auto& pPickups = DatosExe::Bss::b97FB08;
     static inline auto& pEmptyReferences = DatosExe::Bss::b97FB04;
     static inline auto& pWorld1 = DatosExe::Bss::b97FB00;
-    static inline auto& pStoredCam = StaticRef<CCamera*>(0x97FAF8);
+    static inline auto& pStoredCam = DatosExe::Bss::b97FAF8;
     static inline auto& pRadarBlips = DatosExe::Bss::b97FAF4;
 
-    static inline auto& Time1 = StaticRef<uint32>(0x97FB60);
-    static inline auto& Time2 = StaticRef<uint32>(0x97FB5C);
-    static inline auto& Time3 = StaticRef<uint32>(0x97FB58);
-    static inline auto& Time4 = StaticRef<uint32>(0x97FB54);
-    static inline auto& Time5 = StaticRef<uint32>(0x97FB50);
-    static inline auto& Time6 = StaticRef<uint32>(0x97FB4C);
-    static inline auto& Time7 = StaticRef<uint32>(0x97FB48);
-    static inline auto& Frame = StaticRef<uint32>(0x97FB44);
-    static inline auto& TimeStepNonClipped = StaticRef<float>(0x97FB34);
-    static inline auto& TimeStep = StaticRef<float>(0x97FB38);
-    static inline auto& TimeScale = StaticRef<float>(0x97FB3C);
+    static inline auto& Time1 = DatosExe::Bss::b97FB60;
+    static inline auto& Time2 = DatosExe::Bss::b97FB5C;
+    static inline auto& Time3 = DatosExe::Bss::b97FB58;
+    static inline auto& Time4 = DatosExe::Bss::b97FB54;
+    static inline auto& Time5 = DatosExe::Bss::b97FB50;
+    static inline auto& Time6 = DatosExe::Bss::b97FB4C;
+    static inline auto& Time7 = DatosExe::Bss::b97FB48;
+    static inline auto& Frame = DatosExe::Bss::b97FB44;
+    static inline auto& TimeStepNonClipped = DatosExe::Bss::b97FB34;
+    static inline auto& TimeStep = DatosExe::Bss::b97FB38;
+    static inline auto& TimeScale = DatosExe::Bss::b97FB3C;
 
     // Como el original: OldWeatherType es int16 (0x97FAEC), así que la hora y los minutos no se solapan
-    inline static auto& ClockHours = StaticRef<uint8>(0x97FAEF);
-    inline static auto& ClockMinutes = StaticRef<uint8>(0x97FAEE);
+    inline static auto& ClockHours = DatosExe::Bss::b97FAEF;
+    inline static auto& ClockMinutes = DatosExe::Bss::b97FAEE;
 
     static inline auto& OldWeatherType = StaticRef<eWeatherType>(0x97FAEC);
     static inline auto& NewWeatherType = StaticRef<eWeatherType>(0x97FAE8);
-    static inline auto& WeatherInterpolationValue = StaticRef<float>(0x97FAE4);
+    static inline auto& WeatherInterpolationValue = DatosExe::Bss::b97FAE4;
 
-    static inline auto& ms_nNumCivMale_Stored = StaticRef<uint32>(0x97FAB4);
-    static inline auto& ms_nNumCivFemale_Stored = StaticRef<uint32>(0x97FAB0);
-    static inline auto& ms_nNumCop_Stored = StaticRef<uint32>(0x97FAAC);
-    static inline auto& ms_nNumEmergency_Stored = StaticRef<uint32>(0x97FAA8);
+    static inline auto& ms_nNumCivMale_Stored = DatosExe::Bss::b97FAB4;
+    static inline auto& ms_nNumCivFemale_Stored = DatosExe::Bss::b97FAB0;
+    static inline auto& ms_nNumCop_Stored = DatosExe::Bss::b97FAAC;
+    static inline auto& ms_nNumEmergency_Stored = DatosExe::Bss::b97FAA8;
     static inline auto& ms_nNumDealers_Stored = DatosExe::Bss::b97FA7C;
-    static inline auto& ms_nTotalCarPassengerPeds_Stored = StaticRef<uint32>(0x97FA78);
-    static inline auto& ms_nTotalCivPeds_Stored = StaticRef<uint32>(0x97FA74);
-    static inline auto& ms_nTotalGangPeds_Stored = StaticRef<uint32>(0x97FA70);
-    static inline auto& ms_nTotalPeds_Stored = StaticRef<uint32>(0x97FA6C);
-    static inline auto& ms_nTotalMissionPeds_Stored = StaticRef<uint32>(0x97FA68);
+    static inline auto& ms_nTotalCarPassengerPeds_Stored = DatosExe::Bss::b97FA78;
+    static inline auto& ms_nTotalCivPeds_Stored = DatosExe::Bss::b97FA74;
+    static inline auto& ms_nTotalGangPeds_Stored = DatosExe::Bss::b97FA70;
+    static inline auto& ms_nTotalPeds_Stored = DatosExe::Bss::b97FA6C;
+    static inline auto& ms_nTotalMissionPeds_Stored = DatosExe::Bss::b97FA68;
     static inline auto& ms_nNumGang_Stored = StaticRef<std::array<uint32, TOTAL_GANGS>>(0x97FA80);
 
     static inline auto& PlayerInfo = StaticRef<CPlayerInfo>(0xA430B0);
@@ -240,7 +244,7 @@ public:
     static inline auto& CameraMode = StaticRef<eReplayCamMode>(0x97FB30);
     static inline auto& FramesActiveLookAroundCam = DatosExe::Bss::b97FAD0;
     static inline auto& OldRadioStation = DatosExe::Bss::b97FABC; // Como el original: dword (movsx al guardar)
-    static inline auto& CurrArea = StaticRef<int8>(0x97FAB8);
+    static inline auto& CurrArea = DatosExe::Bss::b97FAB8;
     static inline auto& BufferStatus = StaticRef<std::array<eReplayBufferStatus, NUM_REPLAY_BUFFERS>>(0x97FB7C);
 
     static inline auto& Buffers = StaticRef<std::array<tReplayBuffer, NUM_REPLAY_BUFFERS>>(0x97FB88);

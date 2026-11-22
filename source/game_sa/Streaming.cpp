@@ -26,6 +26,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -36,14 +37,15 @@ END GENERATED HOOK STATUS */
 #include "TheScripts.h"
 #include "LoadingScreen.h"
 #include "VehicleRecording.h"
+#include "DatosExe/DataBssF.h"
 
 static auto& CurrentGangMemberToLoad = DatosExe::Bss::b9654D4;
 
 // Como el original: InitImageList (0x408402 / 0x408499) guarda el indice de GTA3.IMG y de GTA_INT.IMG en estos dos globales
-static auto& gta3ImgSlot = StaticRef<int32>(0x8E48A8);
+static auto& gta3ImgSlot = DatosExe::Bss::b8E48A8;
 static auto& gtaIntImgSlot = DatosExe::Bss::b8E48A4;
 // Como el original: LoadCdDirectory() (0x5B82EB / 0x5B8329) guarda aqui el tamano de GTA3.IMG (GetFileSize, 0x406360) y lo desplaza 11 bits
-static auto& ms_imageSize = StaticRef<uint32>(0x8E4C68);
+static auto& ms_imageSize = DatosExe::Bss::b8E4C68;
 
 // Como el original (0x407A... / 0x408... / 0x409...): los sectores se calculan con `x * 0.02f + 60.0f` (constantes 0x858B38/0x858B34, redondeo a float
 // en cada operacion) y floor + _ftol2, no con `x / 50.0f` como CWorld::GetSectorX.
@@ -53,7 +55,7 @@ static int32 ExeLodSector(float v) { return static_cast<int32>(v * 0.00499999988
 // Como el original: los saltos `jl` tras cmp con ms_memoryUsedBytes comparan con signo
 static bool MemoryUsedBelow(size_t goal) { return static_cast<int32>(CStreaming::ms_memoryUsedBytes) < static_cast<int32>(goal); }
 
-auto& gRwStream = StaticRef<RwStream>(0x8E48AC);
+auto& gRwStream = DatosExe::Bss::b8E48AC<RwStream>();
 
 void CStreaming::InjectHooks() {
     RH_ScopedClass(CStreaming);

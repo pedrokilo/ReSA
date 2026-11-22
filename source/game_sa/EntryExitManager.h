@@ -5,6 +5,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG4.h"
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -34,8 +36,8 @@ public:
     static inline auto& ms_visibleEntityList = StaticRef<CEntity*[32]>(0x96A738);
     static inline auto& ms_entryExitStackPosn = StaticRef<uint32>(0x96A7C4); // No. of enex's on the stack
     static inline auto& ms_bDisabled = StaticRef<int8>(0x96A7C8);
-    static inline auto& ms_exitEnterState = StaticRef<int32>(0x96A7CC); // TODO: Some kind of enum, seems to have values [0, 4]
-    static inline auto& mp_Active = StaticRef<CEntryExit*>(0x96A7D4);
+    static inline auto& ms_exitEnterState = DatosExe::Bss::b96A7CC; // TODO: Some kind of enum, seems to have values [0, 4]
+    static inline auto& mp_Active = DatosExe::Bss::b96A7D4;
     static inline auto& ms_numVisibleEntities = DatosExe::Bss::b96A7DC;
 
 public:

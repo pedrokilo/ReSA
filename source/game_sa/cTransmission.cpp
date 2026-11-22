@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 
 #include "cTransmission.h"
 #include "CarCtrl.h"
+#include "DatosExe/DataBssF.h"
 
 // 0x6D0450 (lote 140A, banco Fn140A): constructor de cTransmission del EXE (thiscall, sin argumentos, `ret`, 3 bytes: `mov eax,ecx`): no escribe nada y devuelve this. Lo llaman el constructor de
 // tHandlingData (0x6F4FA0, para el miembro +0x2C) y el de cHandlingDataMgr (0x6F5330, para los 210 elementos).
@@ -73,8 +74,8 @@ void cTransmission::InitGearRatios()
     const float maxGearVelocity = m_MaxVelocity - averageHalfGearVelocity;
     for (uint8 i = 1; i <= m_nNumberOfGears; i++)
     {
-        static auto& gear = StaticRef<tTransmissionGear*>(0xC1CB34); // nullptr
-        static auto& previousGear = StaticRef<tTransmissionGear*>(0xC1CB30); // nullptr
+        static auto& gear = DatosExe::Bss::bC1CB34<tTransmissionGear*>(); // nullptr
+        static auto& previousGear = DatosExe::Bss::bC1CB30<tTransmissionGear*>(); // nullptr
         gear = &m_aGears.data()[i];
         previousGear = &m_aGears.data()[i - 1];
         gear->MaxVelocity = static_cast<float>(i) * maxGearVelocity * invNumGears + averageHalfGearVelocity;

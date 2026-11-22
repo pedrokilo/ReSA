@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 #include <Pipelines/PipelinesCommon.hpp>
 #include "CustomBuildingDNPipeline.h"
 #include "CustomCarEnvMapPipeline.h"
+#include "DatosExe/DataBssF.h"
 
 auto& s_Magic1 = DatosExe::Bss::bC02C14;
 auto& s_Magic2 = DatosExe::Bss::bC02C18;
@@ -307,7 +308,7 @@ RpMaterial* CCustomBuildingDNPipeline::CustomPipeMaterialSetup(RpMaterial* mater
 }
 
 // 0xC02C28 - matriz de textura del mapa de entorno de esta tubería (solo se escribe la diagonal; no es la 0xC02C70 de CCustomBuildingPipeline)
-static inline auto& DNEnvMapTexMatrix = StaticRef<D3DMATRIX>(0xC02C28);
+static inline auto& DNEnvMapTexMatrix = DatosExe::Bss::bC02C28<D3DMATRIX>();
 
 RwBool _rwD3D9RenderStateVertexAlphaEnable(RwBool enable); // rwcore.cpp: 0x7FE0A0
 

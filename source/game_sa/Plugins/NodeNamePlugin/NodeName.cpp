@@ -17,12 +17,13 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG2.h"
 
 #include "NodeName.h"
 
 #define NAME_LENGTH 23
 
-auto& gNodeNamePluginOffset = StaticRef<RwInt32>(0xC87C5C);
+auto& gNodeNamePluginOffset = DatosExe::Bss::bC87C5C;
 
 /**
  * NodeName plugin structure

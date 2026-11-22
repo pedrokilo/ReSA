@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaXB.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "TaskComplexSequence.h"

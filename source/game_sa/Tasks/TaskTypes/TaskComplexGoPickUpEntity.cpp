@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE3.h"
 
 #include "TaskComplexGoPickUpEntity.h"
@@ -245,7 +246,7 @@ CTask* CTaskComplexGoPickUpEntity::ControlSubTask(CPed* ped) {
     // Como el original: si el grupo de animaciones no esta referenciado se pide el bloque (indice = (bloque - 0xB5D4A0) >> 5, aritmetico) y,
     // si ya esta cargado (byte IsLoaded distinto de 0), se anade la referencia; si no, se solicita al streaming (IFP + 0x63E7, flags 8).
     if (m_nAnimGroupId && !reinterpret_cast<const uint8&>(m_bAnimBlockReferenced)) {
-        CAnimBlock* block = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34)[m_nAnimGroupId].m_AnimBlock; // grupos de 0x14 bytes, sin comprobar el indice
+        CAnimBlock* block = DatosExe::Bss::bB4EA34[m_nAnimGroupId].m_AnimBlock; // grupos de 0x14 bytes, sin comprobar el indice
         if (!block) {
             block = CAnimManager::GetAnimationBlock(CAnimManager::GetAnimBlockName(static_cast<AssocGroupId>(m_nAnimGroupId)));
         }
@@ -302,7 +303,7 @@ CTask* CTaskComplexGoPickUpEntity::ControlSubTask(CPed* ped) {
     const float targetHeading = PickUpEntityHeadingCpp(&goTo->m_vecTargetPoint.x, &pos.x); // las restas y el fpatan en x87 (X87Math.cpp)
 
     // Rumbo del stick relativo a la camara (0xB6F178), llevado al intervalo [rumbo - pi, rumbo + pi]
-    float stickHeading = CGeneral::GetRadianAngleBetweenPoints(0.0f, 0.0f, -walkLeftRight, walkUpDown) - DatosExe::Bss::bB6F178;
+    float stickHeading = CGeneral::GetRadianAngleBetweenPoints(0.0f, 0.0f, -walkLeftRight, walkUpDown) - StaticRef<float>(0xB6F178);
     if (targetHeading + 3.14159274f < stickHeading) {          // 0x858CB8 = pi
         stickHeading -= 6.28318548f;                           // 0x858CBC = 2 pi
     } else if (targetHeading - 3.14159274f > stickHeading) {

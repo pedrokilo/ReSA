@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG3.h"
 #include "DatosExe/DataBssE2.h"
 
 #include "Rect.h"
@@ -20,8 +21,8 @@ public:
 
     static inline auto& nextBufferIndex = DatosExe::Bss::bC80458;
     static inline auto& nextBufferVertex = DatosExe::Bss::bC8045C;
-    static inline auto& NearScreenZ = StaticRef<float>(0xC80460);
-    static inline auto& RecipNearClip = StaticRef<float>(0xC80464);
+    static inline auto& NearScreenZ = DatosExe::Bss::bC80460;
+    static inline auto& RecipNearClip = DatosExe::Bss::bC80464;
     static inline auto& maVertices = StaticRef<std::array<RwIm2DVertex, 8>>(0xC80468);
 
 public:

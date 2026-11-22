@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "eWeaponType.h"

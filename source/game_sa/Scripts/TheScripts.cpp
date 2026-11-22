@@ -37,12 +37,13 @@ END GENERATED HOOK STATUS */
 
 #include "extensions/File.hpp"
 #include "X87Math.h"
+#include "DatosExe/DataBssF.h"
 
-static inline auto& ScriptsArray = StaticRef<std::array<CRunningScript, MAX_NUM_SCRIPTS>>(0xA8B430);
+static inline auto& ScriptsArray = DatosExe::Bss::bA8B430<std::array<CRunningScript, MAX_NUM_SCRIPTS>>();
 
 // Como el original: la variable estatica local de ClearSpaceForMissionEntity (0x486B00) vive en el EXE:
 // 32 CColPoint (0x580 bytes) en 0xA951F8; su guarda de inicializacion es el byte 0xA95778.
-static inline auto& ClearSpaceColPoints = StaticRef<std::array<CColPoint, 32>>(0xA951F8);
+static inline auto& ClearSpaceColPoints = DatosExe::Bss::bA951F8<std::array<CColPoint, 32>>();
 
 namespace {
 //! Pone a nullptr una referencia sin llamar a CleanUpOldReference (el EXE hace `mov [ref], 0`)

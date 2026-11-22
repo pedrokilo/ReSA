@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
 #include "X87Math.h"
 
 #include <Pools/Pools.h>
@@ -88,15 +89,15 @@ auto& ms_pDummyPool             = StaticRef<CDummyPool*>(0xB744A0);
 auto& ms_pColModelPool          = StaticRef<CColModelPool*>(0xB744A4);
 auto& ms_pTaskPool              = StaticRef<CTaskPool*>(0xB744A8);
 auto& ms_pPedIntelligencePool   = StaticRef<CPedIntelligencePool*>(0xB744C0);
-auto& ms_pPtrNodeSingleLinkPool = StaticRef<CPtrNodeSingleLinkPool*>(0xB74484);
+auto& ms_pPtrNodeSingleLinkPool = DatosExe::Bss::bB74484;
 auto& ms_pPtrNodeDoubleLinkPool = StaticRef<CPtrNodeDoubleLinkPool*>(0xB74488);
 auto& ms_pEntryInfoNodePool     = StaticRef<CEntryInfoNodePool*>(0xB7448C);
 auto& ms_pPointRoutePool        = StaticRef<CPointRoutePool*>(0xB744B0);
-auto& ms_pPatrolRoutePool       = StaticRef<CPatrolRoutePool*>(0xB744B4);
+auto& ms_pPatrolRoutePool       = DatosExe::Bss::bB744B4;
 auto& ms_pEventPool             = StaticRef<CEventPool*>(0xB744AC);
-auto& ms_pNodeRoutePool         = StaticRef<CNodeRoutePool*>(0xB744B8);
-auto& ms_pTaskAllocatorPool     = StaticRef<CTaskAllocatorPool*>(0xB744BC);
-auto& ms_pPedAttractorPool      = StaticRef<CPedAttractorPool*>(0xB744C4);
+auto& ms_pNodeRoutePool         = DatosExe::Bss::bB744B8;
+auto& ms_pTaskAllocatorPool     = DatosExe::Bss::bB744BC;
+auto& ms_pPedAttractorPool      = DatosExe::Bss::bB744C4;
 
 namespace {
 void* __fastcall PtrNodeSingleLinkPoolConstructorExe(void* self, void* edx, int32 capacity, const char* name); // 0x550180 (lote 212A), definida mas abajo

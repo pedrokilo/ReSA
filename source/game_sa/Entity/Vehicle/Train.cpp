@@ -23,6 +23,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaXA.h"
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -769,10 +771,10 @@ void CTrain::FindPositionOnTrackFromCoors() {
             return;
         }
         const auto lighting = nodes[i].GetLightingFromCollision().value;
-        const auto day = StaticRef<float>(0x8D12C0);
+        const auto day = DatosExe::Data::v8D12C0;
         const auto previous = TrainNodeLightingCpp(lighting & 15, lighting >> 4, day);
         const auto nextLighting = nodes[next].GetLightingFromCollision().value;
-        const auto nextDay = StaticRef<float>(0x8D12C0);
+        const auto nextDay = DatosExe::Data::v8D12C0;
         m_fContactSurfaceBrightness = TrainLightingBlendCpp(nextLighting & 15, nextLighting >> 4, nextDay, previous, factor);
     }
 }
@@ -904,7 +906,7 @@ void CTrain::CreateMissionTrain(CVector posn, bool clockwise, uint32 type, CTrai
 void CTrain::DoTrainGenerationAndRemoval() {
     auto& nearStation = DatosExe::Bss::bC38068;
     const auto now = StaticRef<uint32>(0xB7CB84);
-    const auto previousTime = StaticRef<uint32>(0xB7CB78);
+    const auto previousTime = DatosExe::Bss::bB7CB78;
     if (now / 3000u != previousTime / 3000u) {
         nearStation = 0;
         for (const auto& station : aStationCoors) {
@@ -916,7 +918,7 @@ void CTrain::DoTrainGenerationAndRemoval() {
     }
     const auto period = nearStation ? 1u : 950u;
     const auto generationRadius = nearStation ? 100.f : 70.f;
-    if (StaticRef<uint32>(0xB7CB84) / period == StaticRef<uint32>(0xB7CB78) / period) return;
+    if (StaticRef<uint32>(0xB7CB84) / period == DatosExe::Bss::bB7CB78 / period) return;
     bool found = false;
     auto* pool = GetVehiclePool();
     for (int32 i = int32(pool->GetSize()) - 1; i >= 0; --i) {

@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
+#include "DatosExe/DataBssG2.h"
+#include "DatosExe/DataBssG1.h"
 
 #include "PhoneInfo.h"
 #include "AnimBlendAssociation.h"

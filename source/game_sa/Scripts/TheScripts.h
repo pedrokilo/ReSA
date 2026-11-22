@@ -5,6 +5,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG2.h"
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -407,7 +409,7 @@ public:
     static inline auto& ScriptSearchLightArray = StaticRef<std::array<tScriptSearchlight, MAX_NUM_SCRIPT_SEARCH_LIGHT>>(0xA94D68);
 
     static inline auto& ScriptSequenceTaskArray = StaticRef<std::array<tScriptSequence, MAX_NUM_SCRIPT_SEQUENCE_TASKS>>(0xA43F68);
-    static inline auto& NumberOfScriptSearchLights = StaticRef<uint16>(0xA90830);
+    static inline auto& NumberOfScriptSearchLights = DatosExe::Bss::bA90830;
 
     static inline auto& ScriptCheckpointArray = StaticRef<std::array<tScriptCheckpoint, MAX_NUM_SCRIPT_CHECKPOINTS>>(0xA44070);
     static inline auto& NumberOfScriptCheckpoints = DatosExe::Bss::bA44068;
@@ -459,7 +461,7 @@ public:
     static inline auto& bUseMessageFormatting = StaticRef<bool>(0xA44B66);
     static inline auto& LastRandomPedId = DatosExe::Bss::bA476A4;
     static inline auto& LastMissionPassedTime = StaticRef<uint32>(0xA476A8);
-    static inline auto& OnAMissionFlag = StaticRef<int32>(0xA476AC); // Refers to the offset of OM flag in script space.
+    static inline auto& OnAMissionFlag = DatosExe::Bss::bA476AC; // Refers to the offset of OM flag in script space.
     static inline auto& StreamedScripts = StaticRef<CStreamedScripts>(0xA47B60);
     static inline auto& ScriptResourceManager = StaticRef<CScriptResourceManager>(0xA485A8);
     static inline auto& UpsideDownCars = StaticRef<CUpsideDownCarCheck>(0xA4892C);

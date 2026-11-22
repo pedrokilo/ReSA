@@ -1,0 +1,14 @@
+va,tipo,bytes,refs,archivos,nombre
+0x008CCBCC,float,4,1,Cam.cpp,v8CCBCC
+0x008CCBF0,float,4,1,Cam.cpp,v8CCBF0
+0x008CCE18,float,4,1,Cam.cpp,v8CCE18
+0x008CCE24,float,4,1,Cam.cpp,v8CCE24
+0x008CCE30,float,4,1,Cam.cpp,v8CCE30
+0x008CCE3C,float,4,1,Cam.cpp,v8CCE3C
+0x008CD800,float,4,1,Renderer.h,v8CD800
+0x008CD804,float,4,1,Renderer.h,v8CD804
+0x008D12C0,float,4,4,CustomBuildingDNPipeline.h;Ped.cpp;Train.cpp,v8D12C0
+0x008D12D0,float,4,1,CarFXRenderer.h,v8D12D0
+0x008D34AC,float,4,2,Bike.cpp;Vehicle.h,v8D34AC
+0x008D34B0,float,4,1,Vehicle.h,v8D34B0
+0x008D5038,float,4,1,Draw.h,v8D5038

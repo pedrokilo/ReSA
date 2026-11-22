@@ -55,7 +55,6 @@ extern CVehicle* b96AB28; // 0x0096AB28
 extern CZone* b96AB88; // 0x0096AB88
 extern CZoneInfo* b96AB8C; // 0x0096AB8C
 extern CGarage* b96BFD8; // 0x0096BFD8
-extern uint8* b96F854; // 0x0096F854
 extern CVehicle* b97861C; // 0x0097861C
 extern void* b97FAF4; // 0x0097FAF4
 extern void* b97FB00; // 0x0097FB00
@@ -82,14 +81,6 @@ extern CPed* bB6B98C; // 0x00B6B98C
 extern CPed* bB6B990; // 0x00B6B990
 extern CEntity* bB6BC6C; // 0x00B6BC6C
 extern CEntity* bB6BC74; // 0x00B6BC74
-extern CGarage* bB6F844; // 0x00B6F844
-extern CGarage* bB6F848; // 0x00B6F848
-extern CEntity* bB6F984; // 0x00B6F984
-extern float* bB6F988; // 0x00B6F988
-extern float* bB6F98C; // 0x00B6F98C
-extern float* bB6F990; // 0x00B6F990
-extern float* bB6F994; // 0x00B6F994
-extern CEntity* bB6FC74; // 0x00B6FC74
 extern CVehicle* bB745D4; // 0x00B745D4
 extern CAccidentManager* bB9B7D0; // 0x00B9B7D0
 extern CReference* bBA1768; // 0x00BA1768
@@ -98,7 +89,6 @@ extern const GxtChar* bBAA454; // 0x00BAA454
 extern const GxtChar* bBAA458; // 0x00BAA458
 extern const GxtChar* bBAB1D0; // 0x00BAB1D0
 extern const GxtChar* bBAB1D8; // 0x00BAB1D8
-extern const uint8* bBB3DAC; // 0x00BB3DAC
 extern const CPedClothesDesc* bBC1288; // 0x00BC1288
 extern CRGBA* bBD0160; // 0x00BD0160
 extern RxPipeline* bC02C68; // 0x00C02C68

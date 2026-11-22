@@ -1858,7 +1858,7 @@ bool CWeapon::FireInstantHit(CEntity* firingEntity, CVector* origin, CVector* mu
         auto* playerData = InstantHitField<void*>(ped, 0x480);
         spread = factor * spread * InstantHitField<float>(playerData, 0x2C) * InstantHitConstant(0x8D6110);
         CVector first, second;
-        const auto cameraMode = DatosExe::Bss::bB6F1A8;
+        const auto cameraMode = StaticRef<uint16>(0xB6F1A8);
         if (cameraMode == 53 || cameraMode == 55 || (cameraRay && cameraMode == 49)) {
             if (cameraRay && cameraMode == 49) { CVector temporary; TheCamera.m_aCams[0].Get_TwoPlayer_AimVector(temporary); }
             const CVector up = StaticRef<CVector>(0xB6F350);

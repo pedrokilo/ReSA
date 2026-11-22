@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE4.h"
 
 #include <array>
@@ -23,7 +24,7 @@ public:
     static constexpr uint32 MAX_TAGS = 150;
 
     static inline auto& ms_tagDesc = StaticRef<std::array<tTagDesc, MAX_TAGS>>(0xA9A8C0);
-    static inline auto& ms_numTags = StaticRef<int32>(0xA9AD70);
+    static inline auto& ms_numTags = DatosExe::Bss::bA9AD70;
     static inline auto& ms_numTagged = StaticRef<int32>(0xA9AD74);
     static inline auto& ms_pPipeline = DatosExe::Bss::bA9AD78;
 

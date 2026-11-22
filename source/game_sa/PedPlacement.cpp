@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "PedPlacement.h"
+#include "DatosExe/DataBssF.h"
 
 void CPedPlacement::InjectHooks() {
     RH_ScopedClass(CPedPlacement);
@@ -137,7 +138,7 @@ CVehicle* CPedPlacement::IsPositionClearOfCars(const CPed* ped) {
     }
     // Como el original: puntos de colision en el array estatico 0xC102A0 y modelo de colision leido directamente
     // del model info (m_pColModel).
-    auto& colPoints = StaticRef<std::array<CColPoint, 32>>(0xC102A0);
+    auto& colPoints = DatosExe::Bss::bC102A0<std::array<CColPoint, 32>>();
     if (CCollision::ProcessColModels(
         *ped->m_matrix,
         *CModelInfo::GetModelInfo(ped->m_nModelIndex)->GetColModel(),

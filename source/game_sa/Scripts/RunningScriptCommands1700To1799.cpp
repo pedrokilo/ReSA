@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaXB.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataCadenas.h"
 #include "DatosExe/RdataConstantes.h"
@@ -50,6 +51,7 @@
 #include "Tasks/TaskTypes/TaskComplexGoToPointAiming.h"
 #include "Tasks/TaskComplexSequence.h"
 #include "Tasks/TaskTypes/SeekEntity/TaskComplexSeekEntityRadiusAngleOffset.h"
+#include "DatosExe/DataBssF.h"
 
 // Lote 238A (sin validar): 0x496E00 (8462 bytes), CRunningScript::ProcessCommands1700To1799 (thiscall, un argumento de pila, `ret 4`; resultado en AL).
 // El listado decia CTaskComplexSeekEntityRadiusAngleOffset: esta funcion es el despachador original de los comandos de script 1700..1799, ranura 17 de la tabla 0x8A6168
@@ -336,7 +338,7 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
             vehicle = VehicleOf(P(1).iParam);
         }
         const float cruiseSpeed = P(2).fParam;
-        auto* const task = new CTaskComplexDrivePointRoute(vehicle, StaticRef<CPointRoute>(0xC18D50), cruiseSpeed, 2, static_cast<eModelID>(-1), -1.0f, static_cast<eCarDrivingStyle>(0));
+        auto* const task = new CTaskComplexDrivePointRoute(vehicle, DatosExe::Bss::bC18D50<CPointRoute>(), cruiseSpeed, 2, static_cast<eModelID>(-1), -1.0f, static_cast<eCarDrivingStyle>(0));
         GivePedScriptedTask(pedHandle, task, commandId);
         return OR_CONTINUE;
     }

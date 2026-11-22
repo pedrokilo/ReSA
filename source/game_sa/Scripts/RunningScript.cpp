@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaXB.h"
+#include "DatosExe/DataBssG5.h"
+#include "DatosExe/DataBssG3.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "X87Math.h"
 #include "Tasks/TaskTypes/TaskSimpleFinishBrain.h"
@@ -2457,7 +2460,7 @@ OpcodeResult CRunningScript::ProcessCommands1900To1999(int32 command) {
     }
     case 1968: { // GET_LOADED_SHOP: copia 8 caracteres de la tienda cargada, los pasa a mayusculas y los copia a la variable global
         char name[16]{};
-        std::strncpy(name, StaticRef<char[24]>(0xA9A7D8), 8); // CShopping::ms_shopLoaded (privado)
+        std::strncpy(name, DatosExe::Bss::bA9A7D8, 8); // CShopping::ms_shopLoaded (privado)
         MakeUpperCase(name);
         std::strncpy(reinterpret_cast<char*>(GetPointerToScriptVariable(VAR_GLOBAL)), name, 8);
         return OR_CONTINUE;

@@ -61,6 +61,7 @@ END GENERATED HOOK STATUS */
 #include "Skidmarks.h"
 #include "PlayerPed.h"
 #include "WeaponInfo.h"
+#include "DatosExe/DataBssF.h"
 
 auto& planeRotorDmgTimeMS = DatosExe::Bss::bC1CC1C;
 
@@ -8975,7 +8976,7 @@ void CVehicle::FillVehicleWithPeds(bool setClothesToAfro) {
 bool CVehicle::DoBladeCollision(CVector pos, CMatrix& matrix, int16 rotorType, float radius, float damageMult) {
     static auto& s_TestBladeCol       = StaticRef<CColModel>(0xC1CD38);
     static auto& s_TestBladeColData   = StaticRef<CCollisionData>(0xC1CD68);
-    static auto& s_TestBladeColSphere = StaticRef<CColSphere>(0xC1CD98);
+    static auto& s_TestBladeColSphere = DatosExe::Bss::bC1CD98<CColSphere>();
 
     // Set-up collision model for the blade
     {

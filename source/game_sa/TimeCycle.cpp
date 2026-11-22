@@ -22,8 +22,9 @@ END GENERATED HOOK STATUS */
 #include "TimeCycle.h"
 #include "PostEffects.h"
 #include "Shadows.h"
+#include "DatosExe/DataInicializadaD.h"
 
-auto& TunnelWeather = StaticRef<int>(0x8CDEE0); // 9 = WEATHER_FOGGY_SF, unchanged
+auto& TunnelWeather = DatosExe::Data::v8CDEE0; // 9 = WEATHER_FOGGY_SF, unchanged
 
 void CTimeCycle::InjectHooks() {
     RH_ScopedClass(CTimeCycle);

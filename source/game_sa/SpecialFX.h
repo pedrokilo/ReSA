@@ -5,6 +5,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG2.h"
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -25,8 +27,8 @@ public:
 public:
     static inline auto& bVideoCam       = StaticRef<bool>(0xC7C70C);
     static inline auto& bLiftCam        = StaticRef<bool>(0xC7C70D);
-    static inline auto& bSnapShotActive = StaticRef<bool>(0xC7C714);
-    static inline auto& SnapShotFrames  = StaticRef<uint32>(0xC7C710);
+    static inline auto& bSnapShotActive = DatosExe::Bss::bC7C714;
+    static inline auto& SnapShotFrames  = DatosExe::Bss::bC7C710;
 
 private:
     friend void InjectHooksMain();

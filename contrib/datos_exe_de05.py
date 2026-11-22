@@ -36,7 +36,7 @@ HARNESS = [0x8D37D4, 0x8D37E0, 0x8D37E4, 0x8D514C, 0x8D621C, 0x8E4BA0, 0x8E4CB4,
            0xB7CB10, 0xB7CD74, 0xB7CD98, 0xC1703C, 0xC2116C, 0xC22884, 0xC22888, 0xC2288C, 0xC228E8, 0xC402D3, 0xC7DD58, 0xC8132C,
            0xC81330, 0xC81444, 0xC8D4C0]
 # rangos que las pruebas recorren con indices (jugadores 0xB7CD98 + i*0x190; juego de colores 0xB7C4A0 de 172 bytes)
-HARNESS_RANGOS = [(0xB7CD70, 0xB7D0B0), (0xB7C490, 0xB7C560)]
+HARNESS_RANGOS = [(0xB7CD70, 0xB7D0B0), (0xB7C490, 0xB7C560), (0xC7DD50, 0xC7DD58 + 32 * 0xA0 + 16)]   # el ultimo: C3dMarkers::m_aMarkerArray (prueba_marcadores.py y prueba_ropero.py)
 MARGEN = 16
 # Excluidas por biseccion (ropero MAL con la variable propia, causa sin explicar): CTheScripts::SwitchDefaultAddress.
 CULPABLES = {0xA43F54}
@@ -90,9 +90,11 @@ def clasificar(t):
 
 def main():
     grupo = sys.argv[1]
+    lote = sys.argv[sys.argv.index('--lote') + 1] if '--lote' in sys.argv else grupo   # nombre de archivos (G1..G5: pasada con huecos alcanzables)
     aplicar = '--aplicar' in sys.argv
     pe = PE(Path('D:/Grand Theft Auto San Andreas/gta-sa.exe'))
     refs = de.escanear_fuente('source')
+    cubre = de.cubierto_por_vecino(refs)   # campos de una estructura mayor que el C++ referencia suelta (TheCamera...): no son independientes
     reempl, rangos = de.cargar_funciones()
     cod = de.escanear_exe(pe, reempl, rangos)
     por = defaultdict(list)
@@ -104,6 +106,8 @@ def main():
         if not (LO <= va < HI):
             continue
         rs = por[va]
+        if cubre(va) is not None:
+            continue
         if va in CULPABLES:
             continue
         if any(any(x in r['archivo'] for x in EXCL) for r in rs):
@@ -141,19 +145,19 @@ def main():
     if '--solo' in sys.argv:   # lista de VA (una por linea) a la que se limita el lote: biseccion de fallos
         solo = {int(x.strip(), 16) for x in Path(sys.argv[sys.argv.index('--solo') + 1]).read_text().split() if x.strip()}
         sel = [s for s in sel if s[0] in solo]
-    print(f'DE05-{grupo}: {len(sel)} objetos, {sum(len(s[5]) for s in sel)} referencias, {sum(s[2] for s in sel)} bytes')
+    print(f'DE05-{lote}: {len(sel)} objetos, {sum(len(s[5]) for s in sel)} referencias, {sum(s[2] for s in sel)} bytes')
     out = RAIZ / 'docs/DatosExe/lotes'
     out.mkdir(parents=True, exist_ok=True)
-    with (out / f'DE05{grupo}.csv').open('w', encoding='utf-8', newline='') as s:
+    with (out / f'DE05{lote}.csv').open('w', encoding='utf-8', newline='') as s:
         w = csv.writer(s)
         w.writerow(['va', 'tipo', 'bytes', 'refs', 'archivos', 'nombre'])
         for va, kind, tam, t, base, rs in sel:
             w.writerow([f'0x{va:08X}', t, tam, len(rs), ';'.join(sorted({Path(r['archivo']).name for r in rs}))[:100], f'b{va:X}'])
     if not aplicar:
         return
-    nom = 'DataBss' + grupo
+    nom = 'DataBss' + lote
     fwd = sorted({s[4] for s in sel if s[4]})
-    cab = ['#pragma once', '', '/*', f' * Lote DE05-{grupo} (docs/DatosExe): variables de .bss del juego como definiciones propias (a cero, como el .bss',
+    cab = ['#pragma once', '', '/*', f' * Lote DE05-{lote} (docs/DatosExe): variables de .bss del juego como definiciones propias (a cero, como el .bss',
            f' * del EXE). Estado vivo: las lee y escribe solo C++. Generado por contrib/datos_exe_de05.py; definidas en {nom}.cpp.', ' */', '']
     for b in fwd:
         cab.append(declaracion(b) + ' ' + b + ';')
@@ -161,14 +165,17 @@ def main():
         cab += ['#include "GxtChar.h"', '']
     cab += ['', 'namespace DatosExe::Bss {']
     cpp = ['#include "StdInc.h"', '', f'#include "{nom}.h"', '', 'namespace DatosExe::Bss {']
+    ya = de.definidas_datosexe('DataBss' + lote)   # ya definidas en otro lote (consumidores que E dejo con StaticRef): solo se declara y se reapunta
     for va, kind, tam, t, base, rs in sel:
         arr = re.fullmatch(r'(\w+) ?\[(\d+)\]', t)
         if arr:
             cab.append(f'extern {arr.group(1)} b{va:X}[{arr.group(2)}]; // 0x{va:08X}')
-            cpp.append(f'{arr.group(1)} b{va:X}[{arr.group(2)}]{{}}; // 0x{va:08X}')
+            if va not in ya:
+                cpp.append(f'{arr.group(1)} b{va:X}[{arr.group(2)}]{{}}; // 0x{va:08X}')
         else:
             cab.append(f'extern {t} b{va:X}; // 0x{va:08X}')
-            cpp.append(f'{t} b{va:X}{{}}; // 0x{va:08X}')
+            if va not in ya:
+                cpp.append(f'{t} b{va:X}{{}}; // 0x{va:08X}')
     cab += ['', '} // namespace DatosExe::Bss', '']
     cpp += ['', '} // namespace DatosExe::Bss', '']
     d = RAIZ / 'source/game_sa/DatosExe'

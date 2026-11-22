@@ -22,8 +22,9 @@ END GENERATED HOOK STATUS */
 
 #include "AEAudioUtility.h"
 #include "X87Math.h"
+#include "DatosExe/DataBssF.h"
 
-auto& Frequency = StaticRef<LARGE_INTEGER>(0xB610F0);
+auto& Frequency = DatosExe::Bss::bB610F0<LARGE_INTEGER>();
 auto& startTimeMs = StaticRef<uint64>(0xb610f8);
 
 // NOTE: For me all values were 0... The below values should be the correct ones:

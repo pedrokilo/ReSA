@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG3.h"
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -446,7 +448,7 @@ void CCamera::Init() {
     m_fPlayerExhaustion = 1.0f;
     m_fPedOrientForBehindOrInFront = 0.0f;
     // 0xBA67A5 = CMenuManager::m_bStartGameLoading
-    if (!DatosExe::Bss::bBA67A5) {
+    if (!StaticRef<uint8>(0xBA67A5)) {
         m_bFading = false;
         CDraw::FadeValue = 0;
         m_fFadeAlpha = 0.0f;
@@ -455,7 +457,7 @@ void CCamera::Init() {
         m_fEffectsFaderScalingFactor = 0.0f;
         m_fMouseAccelVertical = std::bit_cast<float>(0x3AC49BA6u);
     }
-    if (DatosExe::Bss::bBA67A5 == 1) {
+    if (StaticRef<uint8>(0xBA67A5) == 1) {
         m_fTimeToFadeMusic = 0.0f;
     }
     m_bStartingSpline = false;
@@ -1680,7 +1682,7 @@ bool CCamera::IsExtraEntityToIgnore(CEntity* entity) {
 bool CCamera::IsSphereVisible(const CVector& origin, float radius, RwMatrix* transformMatrix) {
     CVector point = origin;
     RwV3dTransformPoints(&point, &point, 1, transformMatrix);
-    return CameraSphereInFrustumCpp(&point.x, radius, &m_avecFrustumNormals[0].x, StaticRef<float>(0xC3EFA0), StaticRef<float>(0xC3EF9C));
+    return CameraSphereInFrustumCpp(&point.x, radius, &m_avecFrustumNormals[0].x, DatosExe::Bss::bC3EFA0, DatosExe::Bss::bC3EF9C);
 }
 
 // 0x420D40 - Como el original: matriz de vista normal y, si hay espejo activo (byte +0x970), la del espejo; el resultado es el de la segunda llamada.
@@ -2803,13 +2805,13 @@ void CCamera::Process() {
     } else if (DatosExe::Bss::bB70142) DatosExe::Bss::bB70142 = false;
     CDraw::SetFOV(fov); CalculateDerivedValues(false, true); CopyCameraMatrixToRWCam(false);
     m_vecGameCamPos = m_mCameraMatrix.GetPosition(); UpdateSoundDistances();
-    m_fLODDistMultiplier = !StaticRef<bool>(0xB5F851) || StaticRef<bool>(0xB5F853) ? 70.f / CDraw::ms_fFOV : 1.f;
+    m_fLODDistMultiplier = !StaticRef<bool>(0xB5F851) || DatosExe::Bss::bB5F853 ? 70.f / CDraw::ms_fFOV : 1.f;
     m_fGenerationDistMultiplier = m_fLODDistMultiplier;
     m_fLODDistMultiplier *= CRenderer::ms_lodDistScale;
     const int32 farClip = CameraProcessTruncateProduct(StaticRef<float>(uintptr_t(Scene.m_pRwCamera) + 0x84), 100.f);
     RwCameraSetFarClipPlane(Scene.m_pRwCamera, float(farClip) * .01f);
-    StaticRef<float>(0xC3EFA0) = StaticRef<float>(uintptr_t(m_pRwCamera) + 0x80);
-    StaticRef<float>(0xC3EF9C) = StaticRef<float>(uintptr_t(m_pRwCamera) + 0x84);
+    DatosExe::Bss::bC3EFA0 = StaticRef<float>(uintptr_t(m_pRwCamera) + 0x80);
+    DatosExe::Bss::bC3EF9C = StaticRef<float>(uintptr_t(m_pRwCamera) + 0x84);
     if (m_bJustInitialized || m_bJust_Switched) { m_vecPreviousCameraPosition = m_mCameraMatrix.GetPosition(); m_bJustInitialized = false; }
     ++m_nNumFramesSoFar;
     const double accumulatedDistance = CameraProcessAccumulateDistance(m_mCameraMatrix.GetPosition(), m_vecPreviousCameraPosition, m_fCameraSpeedSoFar);
@@ -3044,7 +3046,7 @@ void CCamera::ImproveNearClip(CVehicle* vehicle, CPed* ped, CVector* source, CVe
             const bool parachute=ped->GetIntelligence()->GetUsingParachute();auto* swim=ped->GetIntelligence()->GetTaskSwim();
             if(swim){float water=0;const bool found=CWaterLevel::GetWaterLevel(source->x,source->y,source->z,water,0,nullptr);
                 if(found&&std::abs(water-source->z)<DatosExe::Data::v8CCCEC)RwCameraSetNearClipPlane(camera,DatosExe::Data::v8CCCE8);
-                else if(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(swim)+0xA)==4&&DatosExe::Bss::bB6F0F0==1)RwCameraSetNearClipPlane(camera,DatosExe::Data::v8CCCE4);
+                else if(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(swim)+0xA)==4&&StaticRef<int32>(0xB6F0F0)==1)RwCameraSetNearClipPlane(camera,DatosExe::Data::v8CCCE4);
             }else if(parachute||ped->GetIntelligence()->GetTaskJetPack()){
                 if(GetRoughDistanceToGround()>DatosExe::Data::v8CCCFC){
                     const float value=delta.Magnitude()*DatosExe::Data::v8CCCDC,limit=DatosExe::Data::v8CCCE0*gCurDistForCam;

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -41,13 +42,14 @@ END GENERATED HOOK STATUS */
 #include "MotionBlurStreaks.h"
 #include "BouncingPanel.h"
 #include "X87Math.h"
+#include "DatosExe/DataInicializadaD.h"
 
 auto& HARRIER_NOZZLE_ROTATERATE = DatosExe::Data::v8D33DC;       // 25.0f
 auto& PLANE_DAMAGE_WAVE_COUNTER_VAR = DatosExe::Data::v8D33E0;   // 0.75f
 auto& PLANE_DAMAGE_THRESHHOLD = DatosExe::Data::v8D33E4;         // 500.0f
 auto& PLANE_DAMAGE_SCALE_MASS = DatosExe::Data::v8D33E8;         // 10000.0f
 auto& PLANE_DAMAGE_DESTROY_THRESHHOLD = DatosExe::Data::v8D33EC; // 5000.0f
-auto& vecRCBaronGunPos = StaticRef<CVector>(0x8D33F0);            // <0.0f, 0.45f, 0.0f>
+auto& vecRCBaronGunPos = DatosExe::Data::v8D33F0;            // <0.0f, 0.45f, 0.0f>
 
 static void PlaneGenerationHeading355(CVehicle* vehicle, float heading); // definida mas abajo
 

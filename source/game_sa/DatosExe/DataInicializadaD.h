@@ -1,0 +1,127 @@
+#pragma once
+
+/*
+ * Lote DE04-D (docs/DatosExe): .data inicializado del juego con estructuras trivialmente copiables (CVector, CRGBA, CRect...,
+ * ModelIndex y arrays de ellos) como definiciones propias con los bytes iniciales del EXE. Generado por contrib/datos_exe_de04d.py;
+ * definidas en DataInicializadaD.cpp. Se incluye despues de los demas #include del consumidor (los tipos ya estan declarados).
+ */
+
+namespace DatosExe::Data {
+extern ModelIndex v8CD4F4; // 0x008CD4F4
+extern ModelIndex v8CD4F8; // 0x008CD4F8
+extern ModelIndex v8CD500; // 0x008CD500
+extern ModelIndex v8CD524; // 0x008CD524
+extern ModelIndex v8CD530; // 0x008CD530
+extern ModelIndex v8CD534; // 0x008CD534
+extern ModelIndex v8CD538; // 0x008CD538
+extern ModelIndex v8CD53C; // 0x008CD53C
+extern ModelIndex v8CD540; // 0x008CD540
+extern ModelIndex v8CD544; // 0x008CD544
+extern ModelIndex v8CD548; // 0x008CD548
+extern ModelIndex v8CD54C; // 0x008CD54C
+extern ModelIndex v8CD550; // 0x008CD550
+extern ModelIndex v8CD554; // 0x008CD554
+extern ModelIndex v8CD558; // 0x008CD558
+extern ModelIndex v8CD55C; // 0x008CD55C
+extern ModelIndex v8CD564; // 0x008CD564
+extern ModelIndex v8CD568; // 0x008CD568
+extern ModelIndex v8CD56C; // 0x008CD56C
+extern ModelIndex v8CD570; // 0x008CD570
+extern ModelIndex v8CD574; // 0x008CD574
+extern ModelIndex v8CD578; // 0x008CD578
+extern ModelIndex v8CD57C; // 0x008CD57C
+extern ModelIndex v8CD580; // 0x008CD580
+extern ModelIndex v8CD584; // 0x008CD584
+extern ModelIndex v8CD588; // 0x008CD588
+extern ModelIndex v8CD58C; // 0x008CD58C
+extern ModelIndex v8CD590; // 0x008CD590
+extern ModelIndex v8CD594; // 0x008CD594
+extern ModelIndex v8CD598; // 0x008CD598
+extern ModelIndex v8CD5A0; // 0x008CD5A0
+extern ModelIndex v8CD5A4; // 0x008CD5A4
+extern ModelIndex v8CD5A8; // 0x008CD5A8
+extern ModelIndex v8CD5AC; // 0x008CD5AC
+extern ModelIndex v8CD5B0; // 0x008CD5B0
+extern ModelIndex v8CD5B4; // 0x008CD5B4
+extern ModelIndex v8CD5B8; // 0x008CD5B8
+extern ModelIndex v8CD5BC; // 0x008CD5BC
+extern ModelIndex v8CD5C0; // 0x008CD5C0
+extern ModelIndex v8CD5C4; // 0x008CD5C4
+extern ModelIndex v8CD5C8; // 0x008CD5C8
+extern ModelIndex v8CD5CC; // 0x008CD5CC
+extern ModelIndex v8CD5D0; // 0x008CD5D0
+extern ModelIndex v8CD5D4; // 0x008CD5D4
+extern ModelIndex v8CD5DC; // 0x008CD5DC
+extern ModelIndex v8CD5E0; // 0x008CD5E0
+extern ModelIndex v8CD5E4; // 0x008CD5E4
+extern ModelIndex v8CD5E8; // 0x008CD5E8
+extern ModelIndex v8CD5EC; // 0x008CD5EC
+extern ModelIndex v8CD5F0; // 0x008CD5F0
+extern ModelIndex v8CD5F4; // 0x008CD5F4
+extern ModelIndex v8CD5F8; // 0x008CD5F8
+extern ModelIndex v8CD600; // 0x008CD600
+extern ModelIndex v8CD604; // 0x008CD604
+extern ModelIndex v8CD608; // 0x008CD608
+extern ModelIndex v8CD60C; // 0x008CD60C
+extern ModelIndex v8CD610; // 0x008CD610
+extern ModelIndex v8CD618; // 0x008CD618
+extern ModelIndex v8CD61C; // 0x008CD61C
+extern ModelIndex v8CD624; // 0x008CD624
+extern ModelIndex v8CD628; // 0x008CD628
+extern ModelIndex v8CD62C; // 0x008CD62C
+extern ModelIndex v8CD630; // 0x008CD630
+extern ModelIndex v8CD634; // 0x008CD634
+extern ModelIndex v8CD63C; // 0x008CD63C
+extern ModelIndex v8CD640; // 0x008CD640
+extern ModelIndex v8CD650; // 0x008CD650
+extern ModelIndex v8CD658; // 0x008CD658
+extern ModelIndex v8CD660; // 0x008CD660
+extern ModelIndex v8CD66C; // 0x008CD66C
+extern ModelIndex v8CD670; // 0x008CD670
+extern ModelIndex v8CD69C; // 0x008CD69C
+extern ModelIndex v8CD6A0; // 0x008CD6A0
+extern ModelIndex v8CD6A4; // 0x008CD6A4
+extern ModelIndex v8CD6A8; // 0x008CD6A8
+extern ModelIndex v8CD6AC; // 0x008CD6AC
+extern ModelIndex v8CD6B0; // 0x008CD6B0
+extern ModelIndex v8CD6B4; // 0x008CD6B4
+extern ModelIndex v8CD6B8; // 0x008CD6B8
+extern ModelIndex v8CD6BC; // 0x008CD6BC
+extern ModelIndex v8CD6C0; // 0x008CD6C0
+extern ModelIndex v8CD6C4; // 0x008CD6C4
+extern ModelIndex v8CD6E0; // 0x008CD6E0
+extern ModelIndex v8CD6E4; // 0x008CD6E4
+extern ModelIndex v8CD6E8; // 0x008CD6E8
+extern ModelIndex v8CD6EC; // 0x008CD6EC
+extern ModelIndex v8CD6F0; // 0x008CD6F0
+extern ModelIndex v8CD6F4; // 0x008CD6F4
+extern ModelIndex v8CD6F8; // 0x008CD6F8
+extern ModelIndex v8CD6FC; // 0x008CD6FC
+extern ModelIndex v8CD700; // 0x008CD700
+extern ModelIndex v8CD710; // 0x008CD710
+extern ModelIndex v8CD718; // 0x008CD718
+extern ModelIndex v8CD71C; // 0x008CD71C
+extern ModelIndex v8CD720; // 0x008CD720
+extern ModelIndex v8CD728; // 0x008CD728
+extern ModelIndex v8CD730; // 0x008CD730
+extern ModelIndex v8CD740; // 0x008CD740
+extern ModelIndex v8CD744; // 0x008CD744
+extern ModelIndex v8CD748; // 0x008CD748
+extern ModelIndex v8CD74C; // 0x008CD74C
+extern ModelIndex v8CD758; // 0x008CD758
+extern ModelIndex v8CD760; // 0x008CD760
+extern ModelIndex v8CD764; // 0x008CD764
+extern ModelIndex v8CD768; // 0x008CD768
+extern ModelIndex v8CD76C; // 0x008CD76C
+extern ModelIndex v8CD770; // 0x008CD770
+extern ModelIndex v8CD774; // 0x008CD774
+extern ModelIndex v8CD778; // 0x008CD778
+extern ModelIndex v8CD77C; // 0x008CD77C
+extern ModelIndex v8CD780; // 0x008CD780
+extern int v8CDEE0; // 0x008CDEE0
+extern RwRGBA v8D1328; // 0x008D1328
+extern CVector v8D33F0; // 0x008D33F0
+extern RwInt32 v8D6080; // 0x008D6080
+extern RwRGBAReal v8D60C0; // 0x008D60C0
+
+} // namespace DatosExe::Data

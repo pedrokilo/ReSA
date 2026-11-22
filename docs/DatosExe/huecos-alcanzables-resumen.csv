@@ -1,0 +1,9 @@
+kind,clase,huecos,bytes
+ref,ALCANZABLE-codigo,2,512
+ref,ALCANZABLE-interior,35,27513
+ref,INALCANZABLE-codigo-sin-entrada,123,30407
+ref,INALCANZABLE-dato,1,170
+sinref,ALCANZABLE-codigo,3,192
+sinref,ALCANZABLE-interior,88,118518
+sinref,INALCANZABLE-codigo-sin-entrada,1718,134964
+sinref,INALCANZABLE-dato,451,3876

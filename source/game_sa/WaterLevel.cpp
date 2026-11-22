@@ -366,7 +366,7 @@ WaterLayerParams GetWaterLayerParams(int32 layer) {
     if (layer == 0) {
         return { DatosExe::Rdata::k859018, DatosExe::Bss::bC21184, DatosExe::Bss::bC21180, StaticRef<uint8>(0x8D3808) };
     }
-    return { DatosExe::Rdata::k858CEC, StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), DatosExe::Data::v8D380C };
+    return { DatosExe::Rdata::k858CEC, StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), StaticRef<uint8>(0x8D380C) };
 }
 // Como el original: fild + fmul 0.577f (0x872004) + _ftol2, solo el byte bajo; alfa de la capa en el byte alto.
 uint32 WaterVertexColor(const CRGBA& c, uint8 alpha) {

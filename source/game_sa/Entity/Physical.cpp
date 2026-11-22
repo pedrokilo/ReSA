@@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleClimb.h"
 #include "RealTimeShadowManager.h"
 #include "X87Math.h"
+#include "DatosExe/DataBssF.h"
 
 namespace {
 // 0x544990 (lote 140A, banco Fn140A): destructor con borrado de CPhysical del EXE (ranura 0 de su vtable 0x863BA0; thiscall, un argumento de pila, `ret 4`, 27 bytes:
@@ -4807,7 +4808,7 @@ bool CPhysical::ProcessCollisionSectorList(int32 sectorX, int32 sectorY)
 // 0x54CFF0
 bool CPhysical::ProcessCollisionSectorList_SimpleCar(CRepeatSector* repeatSector)
 {
-    static auto& colPoints = StaticRef<std::array<CColPoint, 32>>(0xB73C98);
+    static auto& colPoints = DatosExe::Bss::bB73C98<std::array<CColPoint, 32>>();
     // Como el original: marca la guarda de inicialización del array estático de colpoints
     static auto& colPointsInitGuard = DatosExe::Bss::bB74218;
     if ((colPointsInitGuard & 1) == 0) {

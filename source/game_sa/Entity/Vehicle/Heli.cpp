@@ -815,10 +815,10 @@ void CHeli::UpdateHelis() {
     // 0xB7CB8C (CWanted::UseNewsHeliInAdditionToPolice) y la bandera: con ambas se mira el byte 0x8E72F0, si no la bandera se anula y se mira 0x8E73A4
     bool allowed;
     if (CWanted::UseNewsHeliInAdditionToPolice && newsAllowed) {
-        allowed = DatosExe::Bss::b8E72F0 == 1;
+        allowed = StaticRef<uint8>(0x8E72F0) == 1;
     } else {
         newsAllowed = false;
-        allowed = DatosExe::Bss::b8E73A4 == 1;
+        allowed = StaticRef<uint8>(0x8E73A4) == 1;
     }
 
     // Generacion: el temporizador (sin signo) se rearma aunque no falte ningun helicoptero

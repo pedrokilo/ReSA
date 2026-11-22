@@ -17,10 +17,11 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG2.h"
 #include "X87Math.h"
 #include "Sprite.h"
 
-static inline auto& nSpriteBufferIndex = StaticRef<int32>(0xC6A158);
+static inline auto& nSpriteBufferIndex = DatosExe::Bss::bC6A158;
 
 // NOTSA
 constexpr int32 TOTAL_BUFFERED_SPRITES = 384; // The game's sprite buffer fits exactly this many quads

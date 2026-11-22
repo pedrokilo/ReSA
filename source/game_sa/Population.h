@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -47,16 +48,16 @@ public:
     static inline auto& bZoneChangeHasHappened = DatosExe::Bss::bC0EC22;
     static inline auto& m_CountDownToPedsAtStart = DatosExe::Bss::bC0EC23;
     static inline auto& ms_nTotalMissionPeds = StaticRef<uint32>(0xC0EC24);
-    static inline auto& ms_nTotalPeds = StaticRef<uint32>(0xC0EC28);
-    static inline auto& ms_nTotalGangPeds = StaticRef<uint32>(0xC0EC2C);
-    static inline auto& ms_nTotalCivPeds = StaticRef<uint32>(0xC0EC30);
-    static inline auto& ms_nTotalCarPassengerPeds = StaticRef<uint32>(0xC0EC34);
+    static inline auto& ms_nTotalPeds = DatosExe::Bss::bC0EC28;
+    static inline auto& ms_nTotalGangPeds = DatosExe::Bss::bC0EC2C;
+    static inline auto& ms_nTotalCivPeds = DatosExe::Bss::bC0EC30;
+    static inline auto& ms_nTotalCarPassengerPeds = DatosExe::Bss::bC0EC34;
     static inline auto& ms_nNumDealers = DatosExe::Bss::bC0EC38;
     static inline auto& ms_nNumGang = StaticRef<std::array<uint32, TOTAL_GANGS>>(0xC0EC3C);
-    static inline auto& ms_nNumEmergency = StaticRef<uint32>(0xC0EC64);
-    static inline auto& ms_nNumCop = StaticRef<uint32>(0xC0EC68);
-    static inline auto& ms_nNumCivFemale = StaticRef<uint32>(0xC0EC6C);
-    static inline auto& ms_nNumCivMale = StaticRef<uint32>(0xC0EC70);
+    static inline auto& ms_nNumEmergency = DatosExe::Bss::bC0EC64;
+    static inline auto& ms_nNumCop = DatosExe::Bss::bC0EC68;
+    static inline auto& ms_nNumCivFemale = DatosExe::Bss::bC0EC6C;
+    static inline auto& ms_nNumCivMale = DatosExe::Bss::bC0EC70;
     static const uint16 m_DefaultModelIDForUnusedSlot = 2000; // means not loaded
     static inline auto& m_bDontCreateRandomGangMembers = StaticRef<bool>(0xC0FCB2);
     static inline auto& m_bOnlyCreateRandomGangMembers = StaticRef<bool>(0xC0FCB3);

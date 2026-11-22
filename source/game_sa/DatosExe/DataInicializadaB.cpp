@@ -7,8 +7,6 @@
 namespace DatosExe::Data {
 uint32 v8A5A84 = 0xC; // 0x008A5A84
 bool v8A5A88 = true; // 0x008A5A88
-int32 v8A5A9C = 523; // 0x008A5A9C
-int32 v8A5AB0 = 284; // 0x008A5AB0
 bool v8A5B16 = true; // 0x008A5B16
 int32 v8A5B1C = 30; // 0x008A5B1C
 uint32 v8A5B24 = 0xC; // 0x008A5B24
@@ -116,10 +114,7 @@ uint8 v8D33B0 = 1; // 0x008D33B0
 bool v8D33BC = true; // 0x008D33BC
 uint32 v8D3448 = 0x9C4; // 0x008D3448
 bool v8D3450 = true; // 0x008D3450
-bool v8D37D4 = true; // 0x008D37D4
-int32 v8D37E0 = 26; // 0x008D37E0
 bool v8D37F4 = true; // 0x008D37F4
-uint8 v8D380C = 0x5A; // 0x008D380C
 int32 v8D3810 = 255; // 0x008D3810
 uint32 v8D382C = 0x3F000000; // 0x008D382C
 uint32 v8D3930 = 1; // 0x008D3930

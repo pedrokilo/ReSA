@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -89,7 +90,7 @@ public:
 
     static inline auto& m_bDisableAllPostEffect = StaticRef<bool>(0xC402CF);
     static inline auto& m_bSavePhotoFromScript = StaticRef<bool>(0xC402D0);
-    static inline auto& m_bInCutscene = StaticRef<bool>(0xC402B7);
+    static inline auto& m_bInCutscene = DatosExe::Bss::bC402B7;
 
     static inline auto& m_xoffset = DatosExe::Data::v8D5130; // 4.0f
     static inline auto& m_yoffset = DatosExe::Data::v8D5134; // 24.0f
@@ -166,7 +167,7 @@ public:
 
     static inline auto& m_VisionFXDayNightBalance = DatosExe::Data::v8D50A4; // 1.0f
 
-    static inline auto& m_bInfraredVision = StaticRef<bool>(0xC402B9);
+    static inline auto& m_bInfraredVision = DatosExe::Bss::bC402B9;
     static inline auto& m_InfraredVisionGrainStrength = DatosExe::Data::v8D50B4; // 64
     static inline auto& m_fInfraredVisionFilterRadius = DatosExe::Data::v8D50B8; // 0.003f
     // float& m_fInfraredVisionSwitchOnFXCount;

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -22,7 +23,7 @@ static inline auto& GsubSysInfo = StaticRef<std::array<RwSubSystemInfo, MAX_SUBS
 static inline auto& GnumSubSystems = DatosExe::Bss::bC920F0;
 
 //! Currently selected subsystem
-static inline auto& GcurSelSS = StaticRef<RwInt32>(0xC920F4);
+static inline auto& GcurSelSS = DatosExe::Bss::bC920F4;
 
 //! Whenever there are multiple subsystems available
 static inline auto& MultipleSubSystems = DatosExe::Bss::bC92118;
@@ -35,7 +36,7 @@ static inline auto& MultipleSubSystems = DatosExe::Bss::bC92118;
 static inline auto& GcurSelVM = StaticRef<RwInt32>(0x8D6220); // VM = Video Mode
 
 //! Whenever to use the default videomode (Instead of the user selecting it)
-static inline auto& UseDefaultVM = StaticRef<RwBool>(0xC920FC);
+static inline auto& UseDefaultVM = DatosExe::Bss::bC920FC;
 
 //! Unused shit
 static inline auto& DefaultVM = StaticRef<RwBool>(0x8D2E34);

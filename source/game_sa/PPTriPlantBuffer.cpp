@@ -17,11 +17,12 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
 
 #include "PPTriPlantBuffer.h"
 #include "GrassRenderer.h"
 
-auto& RenderGrassTexture = StaticRef<RwTexture*>(0xC02DC0);
+auto& RenderGrassTexture = DatosExe::Bss::bC02DC0;
 
 void CPPTriPlantBuffer::InjectHooks() {
     RH_ScopedClass(CPPTriPlantBuffer);

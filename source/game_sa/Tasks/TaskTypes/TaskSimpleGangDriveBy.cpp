@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "game_sa/Crt/CrtState.h"
@@ -377,7 +378,7 @@ CCam& ActiveCam() {
 // (BlendAnimation con delta 4.0). Devuelve true si hay una animacion con peso de mezcla > 0.9 y delta >= 0.
 bool CTaskSimpleGangDriveBy::SetupAnim(CPed* ped) {
     // Bloque del grupo: ms_aAnimAssocGroups[grupo].m_AnimBlock sin comprobar el indice (grupos de 0x14 bytes); si falta se busca por el nombre del bloque del grupo.
-    CAnimBlock* block = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34)[m_nRequiredAnimGroup].m_AnimBlock;
+    CAnimBlock* block = DatosExe::Bss::bB4EA34[m_nRequiredAnimGroup].m_AnimBlock;
     if (!block) {
         block = CAnimManager::GetAnimationBlock(CAnimManager::GetAnimBlockName(m_nRequiredAnimGroup));
     }

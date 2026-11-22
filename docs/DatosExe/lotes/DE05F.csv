@@ -1,0 +1,33 @@
+va,tipo,hueco_max,refs,archivos,nombre
+0x008E4004,HANDLE,4,1,CdStreamInfo.cpp,b8E4004
+0x008E4008,HANDLE,8,1,CdStreamInfo.cpp,b8E4008
+0x008E48AC,RwStream,36,1,Streaming.cpp,b8E48AC
+0x00965560,CColPool*,8,1,ColStore.cpp,b965560
+0x0096A7D8,CEntryExitsPool*,4,1,EntryExitManager.cpp,b96A7D8
+0x0096EA98,"std::array<int32, NUM_PATH_INTERIOR_AREAS>",32,1,PathFind.cpp,b96EA98
+0x0096EF90,"std::array<bool, NUM_PATH_MAP_AREAS>",64,1,PathFind.cpp,b96EF90
+0x0096EFD0,"std::array<bool, NUM_PATH_MAP_AREAS>",64,1,PathFind.cpp,b96EFD0
+0x00A8B430,"std::array<CRunningScript, MAX_NUM_SCRIPTS>",21504,1,TheScripts.cpp,bA8B430
+0x00A951F8,"std::array<CColPoint, 32>",1408,1,TheScripts.cpp,bA951F8
+0x00B5F87C,AnimBlendFrameData*,4,1,RpAnimBlend.cpp,bB5F87C
+0x00B610F0,LARGE_INTEGER,8,1,AEAudioUtility.cpp,bB610F0
+0x00B6131C,eWeaponType,4,1,AEGlobalWeaponAudioEntity.cpp,bB6131C
+0x00B73C98,"std::array<CColPoint, 32>",1408,1,Physical.cpp,bB73C98
+0x00BA82D8,"std::array<CMenuSystem::Menu*, 2>",8,1,MenuSystem.cpp,bBA82D8
+0x00BAA350,eRadarTraceHeight,4,1,Radar.cpp,bBAA350
+0x00BAD3EC,TList_c<FurnitureEntity_c>,12,3,Interior_c.cpp,bBAD3EC
+0x00BBCDC8,CDirectory::DirectoryInfo,17600,1,ClothesBuilder.cpp,bBBCDC8
+0x00BD0B74,FILESTREAM,4,1,JPegCompress.cpp,bBD0B74
+0x00BD0B78,"std::array<uint8, 204'800>",204800,1,JPegCompress.cpp,bBD0B78
+0x00C02C28,D3DMATRIX,64,1,CustomBuildingDNPipeline.cpp,bC02C28
+0x00C102A0,"std::array<CColPoint, 32>",1408,1,PedPlacement.cpp,bC102A0
+0x00C18D50,CPointRoute,100,2,RunningScriptCommands1700To1799.cpp;RunningScriptCommands2000To2099.cpp,bC18D50
+0x00C1C26C,tWheelState,4,1,Bike.cpp,bC1C26C
+0x00C1C270,tWheelState,12,1,Bike.cpp,bC1C270
+0x00C1CB30,tTransmissionGear*,4,1,cTransmission.cpp,bC1CB30
+0x00C1CB34,tTransmissionGear*,4,1,cTransmission.cpp,bC1CB34
+0x00C1CD98,CColSphere,20,1,Vehicle.cpp,bC1CD98
+0x00C6A170,RxVertexIndex*,4,1,StencilShadows.cpp,bC6A170
+0x00C718B0,"std::array<tFontData, 2>",420,1,Font.cpp,bC718B0
+0x00C80434,RwRGBAReal,16,1,3dMarkers.cpp,bC80434
+0x00C80444,RwRGBAReal,20,1,3dMarkers.cpp,bC80444

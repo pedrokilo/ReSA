@@ -21,8 +21,9 @@ END GENERATED HOOK STATUS */
 #include "PipelinePlugin.h"
 
 #include <rpworld.h>
+#include "DatosExe/DataInicializadaD.h"
 
-auto& gPipelinePluginOffset = StaticRef<RwInt32>(0x8D6080);
+auto& gPipelinePluginOffset = DatosExe::Data::v8D6080;
 
 
 /**

@@ -5,6 +5,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG3.h"
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -32,7 +34,7 @@ public:
     static inline auto& m_CodePause = StaticRef<bool>(0xB7CB48);
     static inline auto& m_UserPause = StaticRef<bool>(0xB7CB49);
     static inline auto& m_FrameCounter = StaticRef<uint32>(0xB7CB4C);
-    static inline auto& ms_fTimeStepNonClipped = StaticRef<float>(0xB7CB58);
+    static inline auto& ms_fTimeStepNonClipped = DatosExe::Bss::bB7CB58;
     static inline auto& ms_fTimeStep = StaticRef<float>(0xB7CB5C);
     static inline auto& m_snTimerDivider = DatosExe::Bss::bB7CB2C;
 
@@ -40,9 +42,9 @@ public:
     static inline auto& ms_fSlowMotionScale = DatosExe::Bss::bB7CB60;
 
     // game speed
-    static inline auto& ms_fTimeScale = StaticRef<float>(0xB7CB64);
-    static inline auto& m_snTimeInMillisecondsPauseMode = StaticRef<uint32>(0xB7CB7C);
-    static inline auto& m_snTimeInMillisecondsNonClipped = StaticRef<uint32>(0xB7CB80);
+    static inline auto& ms_fTimeScale = DatosExe::Bss::bB7CB64;
+    static inline auto& m_snTimeInMillisecondsPauseMode = DatosExe::Bss::bB7CB7C;
+    static inline auto& m_snTimeInMillisecondsNonClipped = DatosExe::Bss::bB7CB80;
     static inline auto& m_snPreviousTimeInMillisecondsNonClipped = DatosExe::Bss::bB7CB68;
     static inline auto& m_snTimeInMilliseconds = StaticRef<uint32>(0xB7CB84);
     static inline auto& m_snRenderStartTime = StaticRef<uint64>(0xB7CB38);
@@ -50,10 +52,10 @@ public:
     static inline auto& m_snRenderTimerPauseCount = DatosExe::Bss::bB7CB44;
 
     // Freshly from R*:
-    static inline auto& m_snPPPPreviousTimeInMilliseconds = StaticRef<uint32>(0xB7CB6C);
-    static inline auto& m_snPPPreviousTimeInMilliseconds = StaticRef<uint32>(0xB7CB70);
-    static inline auto& m_snPPreviousTimeInMilliseconds = StaticRef<uint32>(0xB7CB74);
-    static inline auto& m_snPreviousTimeInMilliseconds = StaticRef<uint32>(0xB7CB78);
+    static inline auto& m_snPPPPreviousTimeInMilliseconds = DatosExe::Bss::bB7CB6C;
+    static inline auto& m_snPPPreviousTimeInMilliseconds = DatosExe::Bss::bB7CB70;
+    static inline auto& m_snPPreviousTimeInMilliseconds = DatosExe::Bss::bB7CB74;
+    static inline auto& m_snPreviousTimeInMilliseconds = DatosExe::Bss::bB7CB78;
 
 public:
     static void InjectHooks();

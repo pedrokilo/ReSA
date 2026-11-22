@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG2.h"
 
 #include "BaseModelInfo.h"
 #include "AtomicModelInfo.h"
@@ -28,7 +29,7 @@ public:
     // Tabla maestra model ID -> model info; las instancias reales pertenecen a stores tipados.
     static constexpr int32 NUM_MODEL_INFOS = 20000;
     static inline auto& ms_modelInfoPtrs = StaticRef<CBaseModelInfo*[NUM_MODEL_INFOS]>(0xA9B0C8);
-    static inline auto& ms_lastPositionSearched = StaticRef<int32>(0xAAE948);
+    static inline auto& ms_lastPositionSearched = DatosExe::Bss::bAAE948;
 
     static constexpr int32 NUM_ATOMIC_MODEL_INFOS = 14000;
     static CStore<CAtomicModelInfo, NUM_ATOMIC_MODEL_INFOS>& ms_atomicModelInfoStore;

@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -106,7 +107,7 @@ __declspec(noinline) void __fastcall PlayerPedDestructorBody(CPlayerPed* self, v
     const auto releaseBlock = [bytes](size_t fieldOffset) {
         const int32 group = *reinterpret_cast<int32*>(*reinterpret_cast<uint8**>(bytes + 0x480) + fieldOffset);
         if (group != 0) {
-            CAnimBlendAssocGroup* const groups = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34); // CAnimManager::ms_aAnimAssocGroups, releido
+            CAnimBlendAssocGroup* const groups = DatosExe::Bss::bB4EA34; // CAnimManager::ms_aAnimAssocGroups, releido
             const CAnimBlock* const block = groups[group].m_AnimBlock;
             CAnimManager::RemoveAnimBlockRef(static_cast<int32>(reinterpret_cast<uintptr_t>(block) - uintptr_t(0xB5D4A0)) >> 5);
             *reinterpret_cast<int32*>(*reinterpret_cast<uint8**>(bytes + 0x480) + fieldOffset) = 0;
@@ -520,7 +521,7 @@ void CPlayerPed::ProcessAnimGroups() {
     // Lote 80D. Como el original: los datos del jugador (+0x480) y los grupos de animación se releen tras cada llamada.
     // Como el original: índice de bloque = (puntero - ms_aAnimBlocks) >> 5 (sar), incluso con puntero nulo
     // Como el original: arreglo de grupos de animación (CAnimManager::ms_aAnimAssocGroups, 0xB4EA34), releído en cada uso
-    const auto AssocGroups = []() -> CAnimBlendAssocGroup* { return StaticRef<CAnimBlendAssocGroup*>(0xB4EA34); };
+    const auto AssocGroups = []() -> CAnimBlendAssocGroup* { return DatosExe::Bss::bB4EA34; };
     const auto BlockIndexOf = [](const CAnimBlock* block) -> int32 {
         return static_cast<int32>(reinterpret_cast<uintptr_t>(block) - uintptr_t(0xB5D4A0) /* CAnimManager::ms_aAnimBlocks */) >> 5;
     };
@@ -2216,7 +2217,7 @@ void CPlayerPed::ProcessWeaponSwitch(CPad* pad) {
     const auto activeSlot = [this] { return static_cast<int8>(m_nActiveWeaponSlot); };
     const auto chosenRef = [this]() -> uint8& { return m_pPlayerData->m_nChosenWeapon; };
     const auto chosen = [&] { return static_cast<int8>(chosenRef()); };
-    const auto cameraMode = [] { return DatosExe::Bss::bB6F858; };                                                // modo de la camara activa (word)
+    const auto cameraMode = [] { return StaticRef<uint16>(0xB6F858); };                                                // modo de la camara activa (word)
     const auto lastGunCommand = [](const CTaskSimpleUseGun* task) { return static_cast<int8>(task->m_LastCmd); };
 
     const bool skipToCheck = CDarkel::FrenzyOnGoing() || m_pAttachedTo || m_pIntelligence->GetTaskJetPack();
@@ -2389,7 +2390,7 @@ bool CPlayerPed::FindWeaponLockOnTarget() {
         const int32 upDown = pad->GetPedWalkUpDown();
         const int32 leftRight = pad->GetPedWalkLeftRight();
         const float stickAngle = CGeneral::GetRadianAngleBetweenPoints(0.0f, 0.0f, static_cast<float>(-leftRight), static_cast<float>(upDown)); // 0x53CBE0
-        const float adjusted = (stickAngle - DatosExe::Bss::bB6F178) + DatosExe::Rdata::k858FE4; // - orientacion de la camara + pi/2
+        const float adjusted = (stickAngle - StaticRef<float>(0xB6F178)) + DatosExe::Rdata::k858FE4; // - orientacion de la camara + pi/2
         heading = CGeneral::LimitRadianAngle(adjusted); // 0x53CB50
     }
 

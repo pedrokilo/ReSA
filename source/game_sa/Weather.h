@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG3.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -40,7 +41,7 @@ public:
     static inline auto& WaterFogFXControl = StaticRef<float>(0xC81338);
     static inline auto& HeatHazeFXControl = DatosExe::Bss::bC812D8;
     static inline auto& HeatHaze = DatosExe::Bss::bC812DC;
-    static inline auto& SunGlare = StaticRef<float>(0xC812E0);
+    static inline auto& SunGlare = DatosExe::Bss::bC812E0;
     static inline auto& Rainbow = DatosExe::Bss::bC812E4;
     static inline auto& Wavyness = DatosExe::Bss::bC812E8;
     static inline auto& WindClipped = DatosExe::Bss::bC812EC;
@@ -56,7 +57,7 @@ public:
     static inline auto& Foggyness = DatosExe::Bss::bC81300;
     static inline auto& CloudCoverage = DatosExe::Bss::bC81304;
     static inline auto& WetRoads = DatosExe::Bss::bC81308;
-    static inline auto& InterpolationValue = StaticRef<float>(0xC8130C);
+    static inline auto& InterpolationValue = DatosExe::Bss::bC8130C;
     static inline auto& WeatherTypeInList = DatosExe::Bss::bC81310;
     static inline auto& WeatherRegion = StaticRef<eWeatherRegion>(0xC81314);
     static inline auto& ForcedWeatherType = StaticRef<eWeatherType>(0xC81318);

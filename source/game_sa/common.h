@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG5.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE2.h"
 
@@ -62,7 +63,7 @@ constexpr auto BUILD_NAME_FULL = "TEST"; // NOTSA
 
 static inline int32 gDefaultTaskTime = 9'999'999; // or 0x98967F a.k.a (ten million - 1)
 
-static inline auto& gString = StaticRef<char[352]>(0xB71670);
+static inline auto& gString = DatosExe::Bss::bB71670;
 static inline auto& gString2 = DatosExe::Bss::bB71510;
 
 static inline auto& gGxtString = StaticRef<GxtChar[552]>(0xC1B100);

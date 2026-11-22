@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 
 #include "3dMarkers.h"
 #include "PostEffects.h"
+#include "DatosExe/DataBssF.h"
 
 // x87 como el original: fld ángulo; fmul k; fsin; fmul mult; fadd add (fsin con precisión interna completa)
 
@@ -183,8 +184,8 @@ void C3dMarkers::Shutdown() {
 void C3dMarkers::Render() {
     ZoneScoped;
 
-    static auto& ambient = StaticRef<RwRGBAReal>(0xC80444);
-    static auto& directional = StaticRef<RwRGBAReal>(0xC80434);
+    static auto& ambient = DatosExe::Bss::bC80444<RwRGBAReal>();
+    static auto& directional = DatosExe::Bss::bC80434<RwRGBAReal>();
 
     // Setup render states
     ActivateDirectional();

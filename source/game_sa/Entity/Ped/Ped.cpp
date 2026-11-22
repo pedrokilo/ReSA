@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaXA.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataConstantes.h"
@@ -5383,7 +5384,7 @@ int32 CPed::ProcessEntityCollision(CEntity* entity, CColPoint* colPoints)
                 {
                     // todo en la pila x87 (X87Math.cpp): 0x8D12C0 = mezcla dia/noche, 0x8D21E4 = factor de suavizado del jugador
                     const bool player = m_nPedType == PED_TYPE_PLAYER1 || m_nPedType == PED_TYPE_PLAYER2;
-                    m_fContactSurfaceBrightness = PecBrightnessCpp(lp0.m_nLightingB.value, StaticRef<float>(0x8D12C0), CTimer::ms_fTimeStep, DatosExe::Data::v8D21E4, m_fContactSurfaceBrightness, player);
+                    m_fContactSurfaceBrightness = PecBrightnessCpp(lp0.m_nLightingB.value, DatosExe::Data::v8D12C0, CTimer::ms_fTimeStep, DatosExe::Data::v8D21E4, m_fContactSurfaceBrightness, player);
                 }
 
                 // entidad de contacto (0x5E2A5B..0x5E2B4C)

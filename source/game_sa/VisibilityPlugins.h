@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG3.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 
@@ -97,7 +98,7 @@ private:
     static inline auto& ms_pCamera = DatosExe::Bss::bC8804C; // nullptr
     static inline auto& ms_pCameraPosn = DatosExe::Bss::bC88050; // nullptr
 
-    static inline auto& ms_vehicleLod0RenderMultiPassDist = StaticRef<float>(0xC88044);
+    static inline auto& ms_vehicleLod0RenderMultiPassDist = DatosExe::Bss::bC88044;
     static inline auto& ms_vehicleLod0Dist = DatosExe::Bss::bC88040;
     static inline auto& ms_vehicleLod1Dist = DatosExe::Bss::bC8803C;
     // static float ms_vehicleFadeDist; // unused
