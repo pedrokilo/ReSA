@@ -168,9 +168,8 @@ OpcodeResult CRunningScript::ProcessCommands1400To1499(int32 command) {
         CTheScripts::LastMissionPassedTime = CTimer::GetTimeInMS(); // [0xB7CB84]
         return OR_CONTINUE;
     }
-    // 0x48EE42: IS_AUSTRALIAN_GAME (lee un parametro y la bandera queda en falso)
+    // 0x48EE42: IS_AUSTRALIAN_GAME (el EXE NO lee parametros: push 0; UpdateCompareFlag; auditoria de parametros 22/11/2026)
     case 1434: {
-        CollectParameters(1);
         UpdateCompareFlag(false);
         return OR_CONTINUE;
     }

@@ -228,6 +228,8 @@ void CRunningScript::InjectCustomCommandHooks() {
     cleo::extensions::intoperations::RegisterHandlers();
 #endif
 
+    ::notsa::script::sig::DumpIfRequested(); // contrib/audit_script_params.py (solo con GTASA_DUMP_SIGS)
+
 #ifdef DUMP_CUSTOM_COMMAND_HANDLERS_TO_FILE
     auto reversed{0}, total{0};
     std::ofstream ofsrev{ "reversed_script_command_handlers.txt" }, ofsnotrev{ "NOT_reversed_script_command_handlers.txt" };
