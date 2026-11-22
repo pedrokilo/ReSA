@@ -49,7 +49,8 @@ Alcance y límites: cubre las clases que tienen al menos un `RH_ScopedVMTInstall
 
 ## 4. Verificación
 
-Ver sección 5 (se rellena con la última ejecución).
+* **Medido** (ejecuciones `mv1`-`mv5`, sin el arreglo de vtables salvo los ganchos manuales de prueba, luego descartados): sección 2. Control libre del jugador a los ~196 s de juego; con la tecla W CJ recorre ~17 m en 4 s.
+* **Pendiente de medir tras el arreglo definitivo** (`FillAbsentVirtualSlots`, commit de esta rama): la ejecución `mv6` (y las pruebas de humo del ASI: `prueba_ropero.py`, `prueba_agua.py`, `prueba_marcadores.py` con `AGUA_ASI=D:\Original\wv-movein\Debug\gta_reversed.asi`) no se pudo lanzar: `D:\Original\gta_lock\owner_bis1` (creado a las 10:03:56 por `FnBIS1\jugar_nueva.ps1`, variante X) seguía en pie sin ningún proceso de juego ni de `jugar*` vivo (lock huérfano) y bloqueaba a todos los lanzadores. Compilado: ASI (`_build_MOVE.sh`, `EXIT=0`, `bin\Debug\gta_reversed.asi`) y EXE independiente (`_cc_MOVE.sh`, `EXIT=0`). `python contrib/audit_hook_catalog.py --strict`: OK.
 
 ## 5. Cómo reproducir
 
