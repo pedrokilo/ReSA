@@ -327,7 +327,7 @@ def hooks_activos():
     return _HOOKS
 
 
-def escanear_exe(pe, reemplazadas, rangos):
+def escanear_exe(pe, reemplazadas, rangos, punteros=True):
     """va dato -> {funcs:{fva:(vivo)}, ancho:int, escribe:bool, direccion:bool}"""
     from capstone import Cs, CS_ARCH_X86, CS_MODE_32, CS_OP_MEM, CS_OP_IMM, CS_AC_WRITE
     from capstone.x86 import X86_REG_INVALID
@@ -364,7 +364,7 @@ def escanear_exe(pe, reemplazadas, rangos):
     # el rango de datos; clave = 0x100000000 + direccion de la palabra (no es una funcion).
     import struct as _st
     for s in pe.sections:
-        if s['name'] not in ('.rdata', '.data'):
+        if not punteros or s['name'] not in ('.rdata', '.data'):
             continue
         blob = pe.data[s['raw_offset']:s['raw_offset'] + s['raw_size'] // 4 * 4]
         for k, (v,) in enumerate(_st.iter_unpack('<I', blob)):
@@ -404,7 +404,7 @@ def main():
     pe = PE(Path(a.exe))
     refs = escanear_fuente(a.fuente)
     reemplazadas, rangos = cargar_funciones()
-    cod = escanear_exe(pe, reemplazadas, rangos)
+    cod = escanear_exe(pe, reemplazadas, rangos, punteros=False)   # la medicion cuenta solo codigo (comparable con las anteriores)
 
     # IAT
     d = pe.data

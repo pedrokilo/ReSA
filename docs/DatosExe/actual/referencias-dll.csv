@@ -2364,8 +2364,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x0085C668,.rdata,source/game_sa/Crt/CrtStaticInitTable.inc,339,literal,,,CrtStaticInitTable,crt
 0x0085C668,.rdata,source/game_sa/Crt/CrtStaticInitTable.inc,339,literal,,,CrtStaticInitTable,crt
 0x0085C668,.rdata,source/game_sa/Crt/CrtStaticInitTable.inc,341,literal,,,CrtStaticInitTable,crt
-0x0085C670,.rdata,source/game_sa/RenderWare/D3D9RasterDriver.cpp,428,reinterpret_cast,RwFormatEntry,,D3D9RasterDriver,renderware
-0x0085C670,.rdata,source/game_sa/RenderWare/D3D9RasterFormat.cpp,73,reinterpret_cast,RwFormatEntry,,D3D9RasterFormat,renderware
+0x0085C670,.rdata,source/game_sa/RenderWare/D3D9RasterDriver.cpp,428,reinterpret_cast,RwFormatEntry,8,D3D9RasterDriver,renderware
+0x0085C670,.rdata,source/game_sa/RenderWare/D3D9RasterFormat.cpp,73,reinterpret_cast,RwFormatEntry,8,D3D9RasterFormat,renderware
 0x0085C675,.rdata,source/game_sa/RenderWare/rw/rwcore.cpp,9064,reinterpret_cast,uint8,1,rwcore,renderware
 0x0085C6C8,.rdata,source/game_sa/Crt/CrtStaticInitTable.inc,342,literal,,,CrtStaticInitTable,crt
 0x0085C6CC,.rdata,source/game_sa/Animation/AnimBlendStaticAssociation.cpp,28,literal,,,AnimBlendStaticAssociation,juego
@@ -4350,7 +4350,9 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008A5A48,.data,source/game_sa/Crt/CrtStartup.cpp,472,literal,,,CrtStartup,crt
 0x008A5A80,.data,source/game_sa/Streaming.h,193,StaticRef,size_t,4,Streaming,juego
 0x008A5A8C,.data,source/game_sa/Streaming.h,199,StaticRef,"std::array<int32, 5>",20,Streaming,juego
+0x008A5A9C,.data,source/game_sa/Streaming.h,210,StaticRef,int32,4,Streaming,juego
 0x008A5AA0,.data,source/game_sa/Streaming.h,200,StaticRef,"std::array<int32, 5>",20,Streaming,juego
+0x008A5AB0,.data,source/game_sa/Streaming.h,211,StaticRef,int32,4,Streaming,juego
 0x008A5AB4,.data,source/game_sa/CarCtrl.cpp,2149,reinterpret_cast,uint32,4,CarCtrl,juego
 0x008A5AB4,.data,source/game_sa/Streaming.h,204,StaticRef,"std::array<int32, 4>",16,Streaming,juego
 0x008A5AC4,.data,source/game_sa/Streaming.h,205,StaticRef,"std::array<int32, 4>",16,Streaming,juego
@@ -4381,13 +4383,13 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008A5E50,.data,source/game_sa/Cam.cpp,1914,StaticRef,uint32,4,Cam,juego
 0x008A5E50,.data,source/game_sa/GameLogic.h,78,StaticRef,eFocusedPlayer,,GameLogic,juego
 0x008A5F40,.data,source/game_sa/GangWars.h,58,StaticRef,int32,4,GangWars,juego
-0x008A5F44,.data,source/game_sa/CarCtrl.cpp,2853,StaticRef,CNodeAddress,,CarCtrl,juego
-0x008A5F44,.data,source/game_sa/CarCtrl.cpp,2855,StaticRef,CNodeAddress,,CarCtrl,juego
-0x008A5F44,.data,source/game_sa/CarCtrl.cpp,3286,StaticRef,CNodeAddress,,CarCtrl,juego
-0x008A5F44,.data,source/game_sa/CarCtrl.cpp,3473,StaticRef,CNodeAddress,,CarCtrl,juego
-0x008A5F44,.data,source/game_sa/CarCtrl.cpp,5631,StaticRef,CNodeAddress,,CarCtrl,juego
-0x008A5F44,.data,source/game_sa/PathFind.cpp,1206,reinterpret_cast,CNodeAddress,,PathFind,juego
-0x008A5F44,.data,source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.cpp,82,StaticRef,CNodeAddress,,TaskComplexFollowNodeRoute,juego
+0x008A5F44,.data,source/game_sa/CarCtrl.cpp,2853,StaticRef,CNodeAddress,4,CarCtrl,juego
+0x008A5F44,.data,source/game_sa/CarCtrl.cpp,2855,StaticRef,CNodeAddress,4,CarCtrl,juego
+0x008A5F44,.data,source/game_sa/CarCtrl.cpp,3286,StaticRef,CNodeAddress,4,CarCtrl,juego
+0x008A5F44,.data,source/game_sa/CarCtrl.cpp,3473,StaticRef,CNodeAddress,4,CarCtrl,juego
+0x008A5F44,.data,source/game_sa/CarCtrl.cpp,5631,StaticRef,CNodeAddress,4,CarCtrl,juego
+0x008A5F44,.data,source/game_sa/PathFind.cpp,1206,reinterpret_cast,CNodeAddress,4,PathFind,juego
+0x008A5F44,.data,source/game_sa/Tasks/TaskTypes/TaskComplexFollowNodeRoute.cpp,82,StaticRef,CNodeAddress,4,TaskComplexFollowNodeRoute,juego
 0x008A5FB0,.data,source/game_sa/Pickups.cpp,389,reinterpret_cast,uint8,1,Pickups,juego
 0x008A6168,.data,source/game_sa/Scripts/RunningScript.h,257,StaticRef,CommandHandlerTable_t,,RunningScript,juego
 0x008A61D8,.data,source/game_sa/Shopping.h,74,StaticRef,"std::array<const char*, NUM_SECTION_NAMES>",,Shopping,juego
@@ -4404,10 +4406,10 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008A7770,.data,source/game_sa/Models/VehicleModelInfo.h,266,literal,,,VehicleModelInfo,juego
 0x008AA5A8,.data,source/game_sa/Animation/AnimManager.h,35,literal,,,AnimManager,juego
 0x008ABC70,.data,source/game_sa/Audio/AEAudioUtility.cpp,184,literal,,,AEAudioUtility,juego
-0x008AC15C,.data,source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp,27,StaticRef,CAEAmbienceTrackManager,,AEAmbienceTrackManager,juego
+0x008AC15C,.data,source/game_sa/Audio/Managers/AEAmbienceTrackManager.cpp,27,StaticRef,CAEAmbienceTrackManager,44,AEAmbienceTrackManager,juego
 0x008AD670,.data,source/game_sa/Audio/AEAudioEnvironment.cpp,24,literal,,,AEAudioEnvironment,juego
 0x008AD914,.data,source/game_sa/Audio/Entities/AEPedAudioEntity.cpp,34,reinterpret_cast,int32,4,AEPedAudioEntity,juego
-0x008AE554,.data,source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp,27,StaticRef,CAECutsceneTrackManager,,AECutsceneTrackManager,juego
+0x008AE554,.data,source/game_sa/Audio/Managers/AECutsceneTrackManager.cpp,27,StaticRef,CAECutsceneTrackManager,48,AECutsceneTrackManager,juego
 0x008AE5AC,.data,source/game_sa/Audio/Entities/AEGlobalWeaponAudioEntity.cpp,102,StaticRef,"std::array<float, 4>",16,AEGlobalWeaponAudioEntity,juego
 0x008AE5F0,.data,source/game_sa/Audio/Entities/AEPedAudioEntity.cpp,253,StaticRef,float,4,AEPedAudioEntity,juego
 0x008AE5F0,.data,source/game_sa/Crt/CrtStaticInitTable.inc,405,literal,,,CrtStaticInitTable,crt
@@ -4497,8 +4499,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008C8E90,.data,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,1122,literal,,,AERadioTrackManager,juego
 0x008C8F50,.data,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,1132,literal,,,AERadioTrackManager,juego
 0x008CAD50,.data,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,950,StaticRef,int32,4,AERadioTrackManager,juego
-0x008CB6F8,.data,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,37,StaticRef,CAERadioTrackManager,,AERadioTrackManager,juego
-0x008CBB28,.data,source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp,101,StaticRef,"std::array<tAudioExtensionType, 8>",,AEUserRadioTrackManager,juego
+0x008CB6F8,.data,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,37,StaticRef,CAERadioTrackManager,880,AERadioTrackManager,juego
+0x008CBB28,.data,source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp,101,StaticRef,"std::array<tAudioExtensionType, 8>",96,AEUserRadioTrackManager,juego
 0x008CBBF8,.data,source/game_sa/Crt/CrtStaticInitTable.inc,455,literal,,,CrtStaticInitTable,crt
 0x008CBBFC,.data,source/game_sa/Crt/CrtStaticInitTable.inc,455,literal,,,CrtStaticInitTable,crt
 0x008CBC00,.data,source/game_sa/Crt/CrtStaticInitTable.inc,456,literal,,,CrtStaticInitTable,crt
@@ -4822,6 +4824,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008CD528,.data,source/game_sa/ModelIndices.cpp,38,StaticRef,ModelIndex,,ModelIndices,juego
 0x008CD52C,.data,source/game_sa/Cam.cpp,4158,literal,,,Cam,juego
 0x008CD52C,.data,source/game_sa/ModelIndices.cpp,39,StaticRef,ModelIndex,,ModelIndices,juego
+0x008CD560,.data,source/game_sa/ModelIndices.cpp,52,StaticRef,ModelIndex,,ModelIndices,juego
 0x008CD59C,.data,source/game_sa/Interior/Interior_c.cpp,2751,StaticRef,uint16,2,Interior_c,juego
 0x008CD59C,.data,source/game_sa/ModelIndices.cpp,67,StaticRef,ModelIndex,,ModelIndices,juego
 0x008CD5D8,.data,source/game_sa/ModelIndices.cpp,82,StaticRef,ModelIndex,,ModelIndices,juego
@@ -4833,6 +4836,13 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008CD620,.data,source/game_sa/ModelIndices.cpp,100,StaticRef,ModelIndex,,ModelIndices,juego
 0x008CD638,.data,source/game_sa/ModelIndices.cpp,106,StaticRef,ModelIndex,,ModelIndices,juego
 0x008CD638,.data,source/game_sa/Population.cpp,2043,StaticRef,uint16,2,Population,juego
+0x008CD644,.data,source/game_sa/ModelIndices.cpp,109,StaticRef,ModelIndex,,ModelIndices,juego
+0x008CD648,.data,source/game_sa/ModelIndices.cpp,110,StaticRef,ModelIndex,,ModelIndices,juego
+0x008CD64C,.data,source/game_sa/ModelIndices.cpp,111,StaticRef,ModelIndex,,ModelIndices,juego
+0x008CD654,.data,source/game_sa/ModelIndices.cpp,113,StaticRef,ModelIndex,,ModelIndices,juego
+0x008CD65C,.data,source/game_sa/ModelIndices.cpp,115,StaticRef,ModelIndex,,ModelIndices,juego
+0x008CD664,.data,source/game_sa/ModelIndices.cpp,117,StaticRef,ModelIndex,,ModelIndices,juego
+0x008CD668,.data,source/game_sa/ModelIndices.cpp,118,StaticRef,ModelIndex,,ModelIndices,juego
 0x008CD674,.data,source/game_sa/Events/EventScanner.cpp,367,StaticRef,uint16,2,EventScanner,juego
 0x008CD674,.data,source/game_sa/ModelIndices.cpp,121,StaticRef,ModelIndex,,ModelIndices,juego
 0x008CD678,.data,source/game_sa/Events/EventScanner.cpp,367,StaticRef,uint16,2,EventScanner,juego
@@ -4997,9 +5007,11 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008D22B0,.data,source/game_sa/PedGeometryAnalyser.cpp,712,reinterpret_cast,float,4,PedGeometryAnalyser,juego
 0x008D22B0,.data,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundCar.cpp,179,StaticRef,float,4,TaskComplexWalkRoundCar,juego
 0x008D22B0,.data,source/game_sa/Tasks/TaskTypes/TaskComplexWalkRoundObject.cpp,307,StaticRef,uint32,4,TaskComplexWalkRoundObject,juego
-0x008D22E4,.data,source/game_sa/PedIK.h,59,StaticRef,LimbMovementInfo,,PedIK,juego
+0x008D22E4,.data,source/game_sa/PedIK.h,59,StaticRef,LimbMovementInfo,24,PedIK,juego
 0x008D232C,.data,source/game_sa/Entity/Vehicle/Bike.cpp,703,literal,,,Bike,juego
 0x008D2338,.data,source/game_sa/Entity/Vehicle/Bike.cpp,703,literal,,,Bike,juego
+0x008D237C,.data,source/game_sa/Scripts/RunningScript.cpp,2311,StaticRef,int32,4,RunningScript,juego
+0x008D237C,.data,source/game_sa/Scripts/RunningScriptCommands1700To1799.cpp,90,StaticRef,int32,4,RunningScriptCommands1700To1799,juego
 0x008D2530,.data,source/game_sa/MissionCleanup.cpp,139,literal,,,MissionCleanup,juego
 0x008D2530,.data,source/game_sa/Population.h,39,StaticRef,float,4,Population,juego
 0x008D2534,.data,source/game_sa/MissionCleanup.cpp,147,literal,,,MissionCleanup,juego
@@ -5014,6 +5026,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008D2E3C,.data,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,753,reinterpret_cast,uint32,4,TaskSimpleFight,juego
 0x008D2E3C,.data,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,939,literal,,,TaskSimpleFight,juego
 0x008D2E48,.data,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,1372,literal,,,TaskSimpleFight,juego
+0x008D2E98,.data,source/game_sa/Tasks/TaskSequences.h,11,StaticRef,int32,4,TaskSequences,juego
 0x008D313C,.data,source/game_sa/Entity/Vehicle/Automobile.cpp,7830,StaticRef,uint16,2,Automobile,juego
 0x008D313C,.data,source/game_sa/Entity/Vehicle/Automobile.cpp,7911,StaticRef,uint16,2,Automobile,juego
 0x008D313C,.data,source/game_sa/Entity/Vehicle/Vehicle.cpp,8256,StaticRef,uint16,2,Vehicle,juego
@@ -5046,6 +5059,9 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008D343C,.data,source/game_sa/Entity/Vehicle/Plane.cpp,1166,literal,,,Plane,juego
 0x008D3440,.data,source/game_sa/Entity/Vehicle/Plane.cpp,1165,literal,,,Plane,juego
 0x008D3458,.data,source/game_sa/Entity/Vehicle/QuadBike.cpp,30,StaticRef,CVector,12,QuadBike,juego
+0x008D34AC,.data,source/game_sa/Entity/Vehicle/Bike.cpp,1994,StaticRef,float,4,Bike,juego
+0x008D34AC,.data,source/game_sa/Entity/Vehicle/Vehicle.h,427,StaticRef,float,4,Vehicle,juego
+0x008D34B0,.data,source/game_sa/Entity/Vehicle/Vehicle.h,428,StaticRef,float,4,Vehicle,juego
 0x008D34D4,.data,source/game_sa/Entity/Vehicle/Vehicle.cpp,76,StaticRef,float,4,Vehicle,juego
 0x008D34D4,.data,source/game_sa/Entity/Vehicle/Vehicle.cpp,5782,literal,,,Vehicle,juego
 0x008D34D8,.data,source/game_sa/Entity/Vehicle/Vehicle.cpp,77,StaticRef,float,4,Vehicle,juego
@@ -5062,10 +5078,14 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008D35D4,.data,source/game_sa/Entity/Vehicle/Vehicle.cpp,90,StaticRef,"std::array<CVector, 14>",168,Vehicle,juego
 0x008D3670,.data,source/game_sa/Entity/Vehicle/Vehicle.cpp,5494,literal,,,Vehicle,juego
 0x008D3698,.data,source/game_sa/WaterCreatureManager_c.h,37,literal,,,WaterCreatureManager_c,juego
+0x008D37D4,.data,source/game_sa/WaterLevel.h,83,StaticRef,bool,1,WaterLevel,juego
+0x008D37E0,.data,source/game_sa/WaterLevel.h,85,StaticRef,int32,4,WaterLevel,juego
+0x008D37E4,.data,source/game_sa/WaterLevel.h,132,StaticRef,float,4,WaterLevel,juego
 0x008D37E8,.data,source/game_sa/WaterLevel.cpp,1136,StaticRef,CRGBA,4,WaterLevel,juego
 0x008D37EC,.data,source/game_sa/WaterLevel.cpp,1121,StaticRef,CRGBA,4,WaterLevel,juego
 0x008D3808,.data,source/game_sa/WaterLevel.cpp,367,StaticRef,uint8,1,WaterLevel,juego
 0x008D3808,.data,source/game_sa/WaterLevel.h,140,StaticRef,"std::array<uint32, 2>",8,WaterLevel,juego
+0x008D380C,.data,source/game_sa/WaterLevel.cpp,369,StaticRef,uint8,1,WaterLevel,juego
 0x008D3824,.data,source/game_sa/WaterLevel.cpp,1322,reinterpret_cast,float,4,WaterLevel,juego
 0x008D390C,.data,source/game_sa/WaterLevel.cpp,440,StaticRef,float,4,WaterLevel,juego
 0x008D390C,.data,source/game_sa/WaterLevel.h,89,StaticRef,"std::array<float, 4>",16,WaterLevel,juego
@@ -5074,8 +5094,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008D44F8,.data,source/game_sa/Entity/Vehicle/Train.cpp,849,reinterpret_cast,int32,4,Train,juego
 0x008D44F8,.data,source/game_sa/Entity/Vehicle/Train.cpp,941,reinterpret_cast,int32,4,Train,juego
 0x008D48F8,.data,source/game_sa/Entity/Vehicle/Train.h,89,StaticRef,CVector[6],72,Train,juego
-0x008D4B68,.data,source/game_sa/Coronas.cpp,164,StaticRef,CoronaFlareDefRaw[27],,Coronas,juego
-0x008D4D88,.data,source/game_sa/Coronas.cpp,165,StaticRef,CoronaFlareDefRaw[27],,Coronas,juego
+0x008D4B68,.data,source/game_sa/Coronas.cpp,164,StaticRef,CoronaFlareDefRaw[27],540,Coronas,juego
+0x008D4D88,.data,source/game_sa/Coronas.cpp,165,StaticRef,CoronaFlareDefRaw[27],540,Coronas,juego
 0x008D5028,.data,source/game_sa/Entity/Entity.cpp,1963,literal,,,Entity,juego
 0x008D5094,.data,source/game_sa/PostEffects.h,145,StaticRef,"std::array<char, 2>",2,PostEffects,juego
 0x008D50AC,.data,source/game_sa/PostEffects.h,109,StaticRef,CRGBA,4,PostEffects,juego
@@ -5130,7 +5150,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008D621C,.data,source/extensions/AutoSteal.cpp,396,cast,uint32,4,AutoSteal,juego
 0x008D6220,.data,source/app/platform/win/VideoMode.h,36,StaticRef,RwInt32,4,VideoMode,juego
 0x008D6220,.data,source/app/platform/win/VideoMode.h,52,StaticRef,int32,4,VideoMode,juego
-0x008D6228,.data,source/app/platform/platform.cpp,303,StaticRef,RwMemoryFunctions,,platform,juego
+0x008D6228,.data,source/app/platform/platform.cpp,303,StaticRef,RwMemoryFunctions,16,platform,juego
 0x008D6238,.data,source/app/platform/win/WinPs.cpp,46,StaticRef,"std::array<char, 13>",13,WinPs,juego
 0x008D624C,.data,source/game_sa/RenderWare/rw/rpworld.cpp,467,StaticRef,RwPluginRegistry,,rpworld,renderware
 0x008D624C,.data,source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp,77,reinterpret_cast,RwPluginRegistry,,rpworld_s30a31a,renderware
@@ -5194,8 +5214,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008DED48,.data,source/game_sa/RenderWare/rw/rpuvanim.cpp,281,reinterpret_cast,RwInt32,4,rpuvanim,renderware
 0x008DED4C,.data,source/game_sa/RenderWare/rw/rpuvanim.cpp,281,reinterpret_cast,RwInt32,4,rpuvanim,renderware
 0x008DED50,.data,source/game_sa/RenderWare/RenderWare.h,26,StaticRef,RtDictSchema,,RenderWare,renderware
-0x008DED84,.data,source/game_sa/RenderWare/rw/rpuvanim.cpp,106,reinterpret_cast,RtAnimInterpolatorInfo,,rpuvanim,renderware
-0x008DEDB4,.data,source/game_sa/RenderWare/rw/rpuvanim.cpp,107,reinterpret_cast,RtAnimInterpolatorInfo,,rpuvanim,renderware
+0x008DED84,.data,source/game_sa/RenderWare/rw/rpuvanim.cpp,106,reinterpret_cast,RtAnimInterpolatorInfo,48,rpuvanim,renderware
+0x008DEDB4,.data,source/game_sa/RenderWare/rw/rpuvanim.cpp,107,reinterpret_cast,RtAnimInterpolatorInfo,48,rpuvanim,renderware
 0x008DEDEC,.data,source/game_sa/RenderWare/rw/rtanim.cpp,50,reinterpret_cast,RwInt32,4,rtanim,renderware
 0x008DEDF0,.data,source/game_sa/RenderWare/rw/rtanim.cpp,51,reinterpret_cast,RwInt32,4,rtanim,renderware
 0x008E0F14,.data,source/game_sa/RenderWare/rw/zlibinflate.cpp,55,reinterpret_cast,char,1,zlibinflate,renderware
@@ -5206,8 +5226,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008E0FA4,.data,source/game_sa/RenderWare/rw/zlibinflate.cpp,56,reinterpret_cast,char,1,zlibinflate,renderware
 0x008E0FC0,.data,source/game_sa/RenderWare/rw/zlibinflate.cpp,863,reinterpret_cast,uint32,4,zlibinflate,renderware
 0x008E0FC4,.data,source/game_sa/RenderWare/rw/zlibinflate.cpp,864,reinterpret_cast,uint32,4,zlibinflate,renderware
-0x008E0FC8,.data,source/game_sa/RenderWare/rw/zlibinflate.cpp,865,reinterpret_cast,ZInflateHuft,,zlibinflate,renderware
-0x008E1FC8,.data,source/game_sa/RenderWare/rw/zlibinflate.cpp,866,reinterpret_cast,ZInflateHuft,,zlibinflate,renderware
+0x008E0FC8,.data,source/game_sa/RenderWare/rw/zlibinflate.cpp,865,reinterpret_cast,ZInflateHuft,8,zlibinflate,renderware
+0x008E1FC8,.data,source/game_sa/RenderWare/rw/zlibinflate.cpp,866,reinterpret_cast,ZInflateHuft,8,zlibinflate,renderware
 0x008E20C8,.data,source/game_sa/RenderWare/rw/zlibinflate.cpp,59,reinterpret_cast,char,1,zlibinflate,renderware
 0x008E20EC,.data,source/game_sa/RenderWare/rw/zlibinflate.cpp,58,reinterpret_cast,char,1,zlibinflate,renderware
 0x008E2114,.data,source/game_sa/RenderWare/rw/zlibinflate.cpp,61,reinterpret_cast,char,1,zlibinflate,renderware
@@ -5411,8 +5431,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008E2A14,.data,source/app/platform/win/QTMLRuntime.cpp,35,StaticRef,uintptr_t,,QTMLRuntime,juego
 0x008E2C30,.data,source/game_sa/Crt/CrtState.cpp,21,literal,,,CrtState,crt
 0x008E2C30,.data,source/game_sa/Crt/CrtStdio.cpp,633,literal,,,CrtStdio,crt
-0x008E2C30,.data,source/game_sa/Crt/CrtStdio.cpp,640,reinterpret_cast,File,,CrtStdio,crt
-0x008E2C30,.data,source/game_sa/Crt/CrtStdio.cpp,681,reinterpret_cast,File,,CrtStdio,crt
+0x008E2C30,.data,source/game_sa/Crt/CrtStdio.cpp,640,reinterpret_cast,File,32,CrtStdio,crt
+0x008E2C30,.data,source/game_sa/Crt/CrtStdio.cpp,681,reinterpret_cast,File,32,CrtStdio,crt
 0x008E2C50,.data,source/game_sa/Crt/CrtFile.cpp,131,literal,,,CrtFile,crt
 0x008E2C50,.data,source/game_sa/Crt/CrtStdio.cpp,22,literal,,,CrtStdio,crt
 0x008E2C50,.data,source/game_sa/VehicleRecording.cpp,383,reinterpret_cast,void,,VehicleRecording,juego
@@ -5469,13 +5489,13 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008E3FC8,.data,source/game_sa/Crt/CrtStaticInitTable.inc,14,literal,,,CrtStaticInitTable,crt
 0x008E3FCC,.data,source/game_sa/Crt/CrtStaticInitTable.inc,15,literal,,,CrtStaticInitTable,crt
 0x008E3FD0,.data,source/game_sa/IplStore.h,66,StaticRef,CVector,12,IplStore,juego
-0x008E3FEC,.data,source/game_sa/CdStreamInfo.cpp,34,StaticRef,Queue,,CdStreamInfo,juego
+0x008E3FEC,.data,source/game_sa/CdStreamInfo.cpp,34,StaticRef,Queue,16,CdStreamInfo,juego
 0x008E3FFC,.data,source/game_sa/CdStreamInfo.cpp,29,StaticRef,CdStream*,4,CdStreamInfo,juego
 0x008E4010,.bss,source/game_sa/CdStreamInfo.cpp,26,literal,,,CdStreamInfo,juego
 0x008E4098,.bss,source/game_sa/CdStreamInfo.cpp,27,literal,,,CdStreamInfo,juego
 0x008E48A0,.bss,source/game_sa/Streaming.h,262,StaticRef,CLink<CEntity*>*,4,Streaming,juego
 0x008E48D8,.bss,source/game_sa/Streaming.h,214,literal,,,Streaming,juego
-0x008E4A60,.bss,source/game_sa/Streaming.h,217,StaticRef,"std::array<tStreamingChannel, 2>",,Streaming,juego
+0x008E4A60,.bss,source/game_sa/Streaming.h,217,StaticRef,"std::array<tStreamingChannel, 2>",304,Streaming,juego
 0x008E4B90,.bss,source/game_sa/Streaming.h,218,StaticRef,int32,4,Streaming,juego
 0x008E4B94,.bss,source/game_sa/Streaming.h,267,StaticRef,int32,4,Streaming,juego
 0x008E4B98,.bss,source/game_sa/Streaming.h,266,StaticRef,int32,4,Streaming,juego
@@ -5487,14 +5507,14 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008E4BAC,.bss,source/game_sa/Streaming.h,226,StaticRef,uint16,2,Streaming,juego
 0x008E4BB0,.bss,source/game_sa/Streaming.h,232,StaticRef,uint32,4,Streaming,juego
 0x008E4C00,.bss,source/game_sa/Streaming.h,229,StaticRef,"std::array<eModelID, 8>",32,Streaming,juego
-0x008E4C24,.bss,source/game_sa/Streaming.h,240,StaticRef,CLoadedCarGroup,,Streaming,juego
+0x008E4C24,.bss,source/game_sa/Streaming.h,240,StaticRef,CLoadedCarGroup,46,Streaming,juego
 0x008E4C8C,.bss,source/game_sa/Streaming.h,247,StaticRef,"std::array<int32, 6>",24,Streaming,juego
 0x008E4CA4,.bss,source/game_sa/Streaming.h,249,StaticRef,bool,1,Streaming,juego
 0x008E4CA8,.bss,source/game_sa/Streaming.h,250,StaticRef,uint32,4,Streaming,juego
 0x008E4CAC,.bss,source/game_sa/Streaming.h,251,StaticRef,uint8*[2],8,Streaming,juego
 0x008E4CB4,.bss,source/game_sa/Streaming.h,252,StaticRef,uint32,4,Streaming,juego
 0x008E4CB8,.bss,source/game_sa/Streaming.h,253,StaticRef,int32,4,Streaming,juego
-0x008E4CC0,.bss,source/game_sa/Streaming.h,254,StaticRef,"std::array<CStreamingInfo, 26316>",,Streaming,juego
+0x008E4CC0,.bss,source/game_sa/Streaming.h,254,StaticRef,"std::array<CStreamingInfo, 26316>",526320,Streaming,juego
 0x008E4CD0,.bss,source/game_sa/CarCtrl.cpp,360,StaticRef,uint8,1,CarCtrl,juego
 0x008E4CD0,.bss,source/game_sa/CarCtrl.cpp,709,StaticRef,uint8,1,CarCtrl,juego
 0x008E4CD0,.bss,source/game_sa/Entity/Vehicle/Plane.cpp,615,StaticRef,uint8,1,Plane,juego
@@ -5503,6 +5523,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x008E4CD0,.bss,source/game_sa/GangWars.cpp,688,reinterpret_cast,uint8,1,GangWars,juego
 0x008E4CD0,.bss,source/game_sa/Garage.cpp,1972,reinterpret_cast,uint8,1,Garage,juego
 0x008E6940,.bss,source/game_sa/Garage.cpp,1158,reinterpret_cast,void,,Garage,juego
+0x008E72F0,.bss,source/game_sa/Entity/Vehicle/Heli.cpp,818,StaticRef,uint8,1,Heli,juego
+0x008E73A4,.bss,source/game_sa/Entity/Vehicle/Heli.cpp,821,StaticRef,uint8,1,Heli,juego
 0x00961ADC,.bss,source/game_sa/Tasks/TaskTypes/TaskComplexPlayHandSignalAnim.cpp,189,reinterpret_cast,uint8,1,TaskComplexPlayHandSignalAnim,juego
 0x009654B0,.bss,source/game_sa/MissionCleanup.cpp,201,literal,,,MissionCleanup,juego
 0x009654B0,.bss,source/game_sa/Streaming.h,255,StaticRef,bool,1,Streaming,juego
@@ -5551,19 +5573,19 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x009689F4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,44,literal,,,CrtStaticInitTable,crt
 0x009689F8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,45,literal,,,CrtStaticInitTable,crt
 0x009689FC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,46,literal,,,CrtStaticInitTable,crt
-0x00968A00,.bss,source/game_sa/Collision/TempColModels.h,16,StaticRef,CColModel,,TempColModels,juego
+0x00968A00,.bss,source/game_sa/Collision/TempColModels.h,16,StaticRef,CColModel,48,TempColModels,juego
 0x00968A30,.bss,source/game_sa/Collision/TempColModels.h,31,StaticRef,"std::array<CColModel, MAX_NUM_CUTSCENE_COLMODELS>",,TempColModels,juego
-0x00968DF0,.bss,source/game_sa/Collision/TempColModels.h,17,StaticRef,CColModel,,TempColModels,juego
-0x00968E20,.bss,source/game_sa/Collision/TempColModels.h,18,StaticRef,CColModel,,TempColModels,juego
-0x00968E50,.bss,source/game_sa/Collision/TempColModels.h,19,StaticRef,CColModel,,TempColModels,juego
-0x00968E80,.bss,source/game_sa/Collision/TempColModels.h,20,StaticRef,CColModel,,TempColModels,juego
-0x00968EB0,.bss,source/game_sa/Collision/TempColModels.h,21,StaticRef,CColModel,,TempColModels,juego
-0x00968EE0,.bss,source/game_sa/Collision/TempColModels.h,22,StaticRef,CColModel,,TempColModels,juego
-0x00968F10,.bss,source/game_sa/Collision/TempColModels.h,23,StaticRef,CColModel,,TempColModels,juego
-0x00968F40,.bss,source/game_sa/Collision/TempColModels.h,24,StaticRef,CColModel,,TempColModels,juego
-0x00968F70,.bss,source/game_sa/Collision/TempColModels.h,25,StaticRef,CColModel,,TempColModels,juego
-0x00968FA0,.bss,source/game_sa/Collision/TempColModels.h,26,StaticRef,CColModel,,TempColModels,juego
-0x00968FD0,.bss,source/game_sa/Collision/TempColModels.h,27,StaticRef,CColModel,,TempColModels,juego
+0x00968DF0,.bss,source/game_sa/Collision/TempColModels.h,17,StaticRef,CColModel,48,TempColModels,juego
+0x00968E20,.bss,source/game_sa/Collision/TempColModels.h,18,StaticRef,CColModel,48,TempColModels,juego
+0x00968E50,.bss,source/game_sa/Collision/TempColModels.h,19,StaticRef,CColModel,48,TempColModels,juego
+0x00968E80,.bss,source/game_sa/Collision/TempColModels.h,20,StaticRef,CColModel,48,TempColModels,juego
+0x00968EB0,.bss,source/game_sa/Collision/TempColModels.h,21,StaticRef,CColModel,48,TempColModels,juego
+0x00968EE0,.bss,source/game_sa/Collision/TempColModels.h,22,StaticRef,CColModel,48,TempColModels,juego
+0x00968F10,.bss,source/game_sa/Collision/TempColModels.h,23,StaticRef,CColModel,48,TempColModels,juego
+0x00968F40,.bss,source/game_sa/Collision/TempColModels.h,24,StaticRef,CColModel,48,TempColModels,juego
+0x00968F70,.bss,source/game_sa/Collision/TempColModels.h,25,StaticRef,CColModel,48,TempColModels,juego
+0x00968FA0,.bss,source/game_sa/Collision/TempColModels.h,26,StaticRef,CColModel,48,TempColModels,juego
+0x00968FD0,.bss,source/game_sa/Collision/TempColModels.h,27,StaticRef,CColModel,48,TempColModels,juego
 0x00969000,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,47,literal,,,CrtStaticInitTable,crt
 0x00969004,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,48,literal,,,CrtStaticInitTable,crt
 0x00969008,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,49,literal,,,CrtStaticInitTable,crt
@@ -5588,6 +5610,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00969084,.bss,source/game_sa/CarCtrl.cpp,92,StaticRef,CVehicle*[2],8,CarCtrl,juego
 0x00969084,.bss,source/game_sa/CarCtrl.cpp,453,literal,,,CarCtrl,juego
 0x00969088,.bss,source/game_sa/CarCtrl.cpp,454,literal,,,CarCtrl,juego
+0x00969094,.bss,source/game_sa/CarCtrl.h,37,StaticRef,int32,4,CarCtrl,juego
 0x009690D0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,65,literal,,,CrtStaticInitTable,crt
 0x009690D4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,66,literal,,,CrtStaticInitTable,crt
 0x009690D8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,67,literal,,,CrtStaticInitTable,crt
@@ -5708,7 +5731,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x0096ABB8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,106,literal,,,CrtStaticInitTable,crt
 0x0096ABBC,.bss,source/game_sa/GangWars.h,86,StaticRef,CVector,12,GangWars,juego
 0x0096ABC8,.bss,source/game_sa/GangWars.h,87,StaticRef,CVector,12,GangWars,juego
-0x0096ABD8,.bss,source/game_sa/Garage.cpp,493,reinterpret_cast,CStoredCar,,Garage,juego
+0x0096ABD8,.bss,source/game_sa/Garage.cpp,493,reinterpret_cast,CStoredCar,64,Garage,juego
 0x0096ABD8,.bss,source/game_sa/Garages.h,24,literal,,,Garages,juego
 0x0096BFEC,.bss,source/game_sa/Garages.h,31,literal,,,Garages,juego
 0x0096C008,.bss,source/game_sa/Garages.h,35,StaticRef,bool,1,Garages,juego
@@ -5739,9 +5762,9 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x0096F040,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,123,literal,,,CrtStaticInitTable,crt
 0x0096F044,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,123,literal,,,CrtStaticInitTable,crt
 0x0096F048,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,124,literal,,,CrtStaticInitTable,crt
-0x0096F050,.bss,source/game_sa/PathFind.h,661,StaticRef,CPathFind,,PathFind,juego
+0x0096F050,.bss,source/game_sa/PathFind.h,661,StaticRef,CPathFind,15488,PathFind,juego
 0x0096F854,.bss,source/game_sa/Interior/InteriorGroup_c.cpp,221,StaticRef,uint8*,4,InteriorGroup_c,juego
-0x00972CD0,.bss,source/game_sa/PathFind.cpp,173,StaticRef,"std::array<CNodeAddress, 5000>",,PathFind,juego
+0x00972CD0,.bss,source/game_sa/PathFind.cpp,173,StaticRef,"std::array<CNodeAddress, 5000>",20000,PathFind,juego
 0x00977B70,.bss,source/game_sa/PathFind.cpp,155,StaticRef,CVector,12,PathFind,juego
 0x00977B7C,.bss,source/game_sa/PathFind.cpp,171,StaticRef,"std::array<CNodeAddress, NUM_PATH_INTERIOR_AREAS>",,PathFind,juego
 0x00977BA0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,125,literal,,,CrtStaticInitTable,crt
@@ -5751,6 +5774,11 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00977BAC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,129,literal,,,CrtStaticInitTable,crt
 0x00977BB0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,129,literal,,,CrtStaticInitTable,crt
 0x00977BB4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,130,literal,,,CrtStaticInitTable,crt
+0x00977BB8,.bss,source/game_sa/PhoneInfo.cpp,73,StaticRef,CPed*,4,PhoneInfo,juego
+0x00977BBC,.bss,source/game_sa/PhoneInfo.cpp,74,StaticRef,uint8,1,PhoneInfo,juego
+0x00977BC0,.bss,source/game_sa/PhoneInfo.cpp,75,StaticRef,void*,4,PhoneInfo,juego
+0x00977BC4,.bss,source/game_sa/PhoneInfo.cpp,76,StaticRef,uint8,1,PhoneInfo,juego
+0x00977BC8,.bss,source/game_sa/PhoneInfo.cpp,77,StaticRef,uint32,4,PhoneInfo,juego
 0x00977BCC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,131,literal,,,CrtStaticInitTable,crt
 0x00977BD0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,132,literal,,,CrtStaticInitTable,crt
 0x00977BD4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,133,literal,,,CrtStaticInitTable,crt
@@ -5758,7 +5786,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00977BD8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,135,literal,,,CrtStaticInitTable,crt
 0x00977BDC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,135,literal,,,CrtStaticInitTable,crt
 0x00977BE0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,136,literal,,,CrtStaticInitTable,crt
-0x00977BE8,.bss,source/game_sa/PhoneInfo.h,34,StaticRef,CPhoneInfo,,PhoneInfo,juego
+0x00977BE8,.bss,source/game_sa/PhoneInfo.h,34,StaticRef,CPhoneInfo,2608,PhoneInfo,juego
 0x00978628,.bss,source/game_sa/Pickups.h,39,StaticRef,"std::array<int32, MAX_COLLECTED_PICKUPS>",,Pickups,juego
 0x00978680,.bss,source/game_sa/Pickups.h,41,StaticRef,"std::array<tPickupMessage, MAX_PICKUP_MESSAGES>",,Pickups,juego
 0x009788C0,.bss,source/game_sa/Pickups.h,42,StaticRef,"std::array<CPickup, MAX_NUM_PICKUPS>",,Pickups,juego
@@ -5825,7 +5853,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00A430A4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,159,literal,,,CrtStaticInitTable,crt
 0x00A430A8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,159,literal,,,CrtStaticInitTable,crt
 0x00A430AC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,160,literal,,,CrtStaticInitTable,crt
-0x00A430B0,.bss,source/game_sa/Replay.h,236,StaticRef,CPlayerInfo,,Replay,juego
+0x00A430B0,.bss,source/game_sa/Replay.h,236,StaticRef,CPlayerInfo,400,Replay,juego
 0x00A4324C,.bss,source/game_sa/Restart.h,38,StaticRef,float,4,Restart,juego
 0x00A43250,.bss,source/game_sa/Restart.h,37,StaticRef,float,4,Restart,juego
 0x00A43254,.bss,source/game_sa/Restart.h,33,StaticRef,float,4,Restart,juego
@@ -5851,14 +5879,18 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00A4359C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,167,literal,,,CrtStaticInitTable,crt
 0x00A435A0,.bss,source/game_sa/RoadBlocks.h,41,StaticRef,"std::array<CNodeAddress, MAX_ROADBLOCKS>",,RoadBlocks,juego
 0x00A43AB8,.bss,source/game_sa/RoadBlocks.h,42,StaticRef,"std::array<CScriptRoadBlock, MAX_SCRIPT_ROADBLOCKS>",,RoadBlocks,juego
-0x00A43C78,.bss,source/game_sa/Scripts/RunningScript.h,81,StaticRef,"std::array<tScriptParam, 32>",,RunningScript,juego
+0x00A43C78,.bss,source/game_sa/Scripts/RunningScript.h,81,StaticRef,"std::array<tScriptParam, 32>",128,RunningScript,juego
 0x00A43CF8,.bss,source/game_sa/Scripts/TheScripts.h,371,StaticRef,"std::array<tScriptSwitchCase, MAX_NUM_SwitchJumpTable>",,TheScripts,juego
 0x00A43F54,.bss,source/game_sa/Scripts/TheScripts.h,425,StaticRef,int32,4,TheScripts,juego
+0x00A43F58,.bss,source/game_sa/Scripts/TheScripts.h,426,StaticRef,bool,1,TheScripts,juego
+0x00A43F5C,.bss,source/game_sa/Scripts/TheScripts.h,427,StaticRef,int32,4,TheScripts,juego
+0x00A43F60,.bss,source/game_sa/Scripts/TheScripts.h,373,StaticRef,uint16,2,TheScripts,juego
 0x00A43F68,.bss,source/game_sa/MissionCleanup.cpp,351,literal,,,MissionCleanup,juego
 0x00A43F68,.bss,source/game_sa/Scripts/TheScripts.h,411,StaticRef,"std::array<tScriptSequence, MAX_NUM_SCRIPT_SEQUENCE_TASKS>",,TheScripts,juego
 0x00A44070,.bss,source/game_sa/Scripts/TheScripts.h,414,StaticRef,"std::array<tScriptCheckpoint, MAX_NUM_SCRIPT_CHECKPOINTS>",,TheScripts,juego
 0x00A44110,.bss,source/game_sa/Scripts/TheScripts.h,408,StaticRef,"std::array<tScriptEffectSystem, MAX_NUM_SCRIPT_EFFECT_SYSTEMS>",,TheScripts,juego
 0x00A44114,.bss,source/game_sa/MissionCleanup.cpp,319,literal,,,MissionCleanup,juego
+0x00A44210,.bss,source/game_sa/Scripts/TheScripts.h,428,StaticRef,int16,2,TheScripts,juego
 0x00A44218,.bss,source/game_sa/Scripts/TheScripts.h,375,StaticRef,"std::array<int16, MAX_NUM_CARDS>",,TheScripts,juego
 0x00A44488,.bss,source/game_sa/MissionCleanup.cpp,223,literal,,,MissionCleanup,juego
 0x00A44488,.bss,source/game_sa/Scripts/TheScripts.h,429,StaticRef,bool,1,TheScripts,juego
@@ -5867,6 +5899,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00A4448A,.bss,source/game_sa/MissionCleanup.cpp,126,literal,,,MissionCleanup,juego
 0x00A4448A,.bss,source/game_sa/MissionCleanup.cpp,128,literal,,,MissionCleanup,juego
 0x00A4448A,.bss,source/game_sa/Scripts/TheScripts.h,431,StaticRef,bool,1,TheScripts,juego
+0x00A4448B,.bss,source/game_sa/Scripts/TheScripts.h,432,StaticRef,bool,1,TheScripts,juego
 0x00A4448C,.bss,source/game_sa/CarCtrl.cpp,408,StaticRef,int32,4,CarCtrl,juego
 0x00A4448C,.bss,source/game_sa/MissionCleanup.cpp,200,literal,,,MissionCleanup,juego
 0x00A4448C,.bss,source/game_sa/Scripts/TheScripts.h,433,StaticRef,int32,4,TheScripts,juego
@@ -5907,10 +5940,13 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00A444A2,.bss,source/game_sa/Scripts/TheScripts.h,442,StaticRef,bool,1,TheScripts,juego
 0x00A444A3,.bss,source/game_sa/MissionCleanup.cpp,208,literal,,,MissionCleanup,juego
 0x00A444A3,.bss,source/game_sa/Scripts/TheScripts.h,443,StaticRef,uint8,1,TheScripts,juego
+0x00A444A4,.bss,source/game_sa/Scripts/TheScripts.h,444,StaticRef,bool,1,TheScripts,juego
 0x00A444A5,.bss,source/game_sa/MissionCleanup.cpp,267,literal,,,MissionCleanup,juego
 0x00A444A5,.bss,source/game_sa/Scripts/TheScripts.h,445,StaticRef,char,1,TheScripts,juego
+0x00A444A7,.bss,source/game_sa/Scripts/TheScripts.h,447,StaticRef,bool,1,TheScripts,juego
 0x00A444A8,.bss,source/game_sa/MissionCleanup.cpp,276,literal,,,MissionCleanup,juego
 0x00A444A8,.bss,source/game_sa/Scripts/TheScripts.h,448,StaticRef,bool,1,TheScripts,juego
+0x00A444B1,.bss,source/game_sa/Scripts/TheScripts.h,451,StaticRef,bool,1,TheScripts,juego
 0x00A444C8,.bss,source/game_sa/Scripts/TheScripts.h,376,StaticRef,"std::array<int32, MAX_NUM_MISSION_SCRIPTS>",,TheScripts,juego
 0x00A447EC,.bss,source/game_sa/MissionCleanup.cpp,269,literal,,,MissionCleanup,juego
 0x00A447EC,.bss,source/game_sa/Scripts/TheScripts.h,455,StaticRef,int32,4,TheScripts,juego
@@ -5930,13 +5966,15 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00A44B66,.bss,source/game_sa/MissionCleanup.cpp,219,literal,,,MissionCleanup,juego
 0x00A44B66,.bss,source/game_sa/Scripts/TheScripts.h,461,StaticRef,bool,1,TheScripts,juego
 0x00A44B67,.bss,source/game_sa/Scripts/TheScripts.h,423,StaticRef,eUseTextCommandState,,TheScripts,juego
+0x00A44B68,.bss,source/game_sa/Scripts/TheScripts.h,393,StaticRef,uint16,2,TheScripts,juego
 0x00A44B70,.bss,source/game_sa/Scripts/TheScripts.h,388,StaticRef,"std::array<tUsedObject, MAX_NUM_USED_OBJECTS>",,TheScripts,juego
+0x00A476A8,.bss,source/game_sa/Scripts/TheScripts.h,463,StaticRef,uint32,4,TheScripts,juego
 0x00A476B0,.bss,source/game_sa/Scripts/TheScripts.h,391,StaticRef,"std::array<tScriptBrainWaitEntity, MAX_NUM_ENTITIES_WAITING_FOR_SCRIPT_BRAIN>",,TheScripts,juego
-0x00A47B60,.bss,source/game_sa/Scripts/TheScripts.h,465,StaticRef,CStreamedScripts,,TheScripts,juego
-0x00A485A8,.bss,source/game_sa/Scripts/TheScripts.h,466,StaticRef,CScriptResourceManager,,TheScripts,juego
+0x00A47B60,.bss,source/game_sa/Scripts/TheScripts.h,465,StaticRef,CStreamedScripts,2632,TheScripts,juego
+0x00A485A8,.bss,source/game_sa/Scripts/TheScripts.h,466,StaticRef,CScriptResourceManager,900,TheScripts,juego
 0x00A4892C,.bss,source/game_sa/MissionCleanup.cpp,271,literal,,,MissionCleanup,juego
 0x00A4892C,.bss,source/game_sa/MissionCleanup.cpp,271,literal,,,MissionCleanup,juego
-0x00A4892C,.bss,source/game_sa/Scripts/TheScripts.h,467,StaticRef,CUpsideDownCarCheck,,TheScripts,juego
+0x00A4892C,.bss,source/game_sa/Scripts/TheScripts.h,467,StaticRef,CUpsideDownCarCheck,48,TheScripts,juego
 0x00A48960,.bss,source/game_sa/Scripts/TheScripts.h,383,StaticRef,"std::array<tScriptParam, MAX_NUM_LOCAL_VARIABLES_FOR_CURRENT_MISSION>",,TheScripts,juego
 0x00A49960,.bss,source/game_sa/Scripts/TheScripts.cpp,233,cast,void,,TheScripts,juego
 0x00A49960,.bss,source/game_sa/Scripts/TheScripts.h,363,StaticRef,"std::array<uint8, SCRIPT_SPACE_SIZE>",,TheScripts,juego
@@ -5950,8 +5988,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00A90840,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,172,literal,,,CrtStaticInitTable,crt
 0x00A90844,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,172,literal,,,CrtStaticInitTable,crt
 0x00A90848,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,173,literal,,,CrtStaticInitTable,crt
-0x00A90850,.bss,source/game_sa/Scripts/TheScripts.h,470,StaticRef,CMissionCleanup,,TheScripts,juego
-0x00A90AB0,.bss,source/game_sa/Scripts/TheScripts.h,471,StaticRef,CStuckCarCheck,,TheScripts,juego
+0x00A90850,.bss,source/game_sa/Scripts/TheScripts.h,470,StaticRef,CMissionCleanup,604,TheScripts,juego
+0x00A90AB0,.bss,source/game_sa/Scripts/TheScripts.h,471,StaticRef,CStuckCarCheck,576,TheScripts,juego
 0x00A90CF0,.bss,source/game_sa/Population.cpp,1970,reinterpret_cast,CScriptsForBrains,,Population,juego
 0x00A90CF0,.bss,source/game_sa/Scripts/TheScripts.h,472,StaticRef,CScriptsForBrains,,TheScripts,juego
 0x00A91268,.bss,source/game_sa/Scripts/TheScripts.h,407,StaticRef,"std::array<tScriptSphere, MAX_NUM_SCRIPT_SPHERES>",,TheScripts,juego
@@ -5980,6 +6018,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00A95184,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,190,literal,,,CrtStaticInitTable,crt
 0x00A95188,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,190,literal,,,CrtStaticInitTable,crt
 0x00A9518C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,191,literal,,,CrtStaticInitTable,crt
+0x00A95190,.bss,source/game_sa/Scripts/TheScripts.h,416,StaticRef,uint32,4,TheScripts,juego
 0x00A95194,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,192,literal,,,CrtStaticInitTable,crt
 0x00A95198,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,193,literal,,,CrtStaticInitTable,crt
 0x00A9519C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,194,literal,,,CrtStaticInitTable,crt
@@ -6069,7 +6108,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00A9A800,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,257,literal,,,CrtStaticInitTable,crt
 0x00A9A804,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,257,literal,,,CrtStaticInitTable,crt
 0x00A9A808,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,258,literal,,,CrtStaticInitTable,crt
-0x00A9A810,.bss,source/game_sa/Shopping.h,137,StaticRef,CPedClothesDesc,,Shopping,juego
+0x00A9A810,.bss,source/game_sa/Shopping.h,137,StaticRef,CPedClothesDesc,120,Shopping,juego
 0x00A9A888,.bss,source/game_sa/StuntJumpManager.h,33,StaticRef,CStuntJumpsPool*,4,StuntJumpManager,juego
 0x00A9A898,.bss,source/game_sa/StuntJumpManager.h,38,StaticRef,eJumpState,,StuntJumpManager,juego
 0x00A9A8A4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,259,literal,,,CrtStaticInitTable,crt
@@ -6108,13 +6147,13 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00A9ADF4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,282,literal,,,CrtStaticInitTable,crt
 0x00A9ADF8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,282,literal,,,CrtStaticInitTable,crt
 0x00A9ADFC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,283,literal,,,CrtStaticInitTable,crt
-0x00A9AE00,.bss,source/game_sa/Fx/Fx.cpp,42,StaticRef,Fx_c,,Fx,juego
+0x00A9AE00,.bss,source/game_sa/Fx/Fx.cpp,42,StaticRef,Fx_c,112,Fx,juego
 0x00A9AE20,.bss,source/game_sa/Garage.cpp,1048,StaticRef,FxSystem_c*,4,Garage,juego
 0x00A9AE20,.bss,source/game_sa/ProjectileInfo.cpp,305,StaticRef,FxSystem_c*,4,ProjectileInfo,juego
 0x00A9AE70,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,284,literal,,,CrtStaticInitTable,crt
 0x00A9AE74,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,285,literal,,,CrtStaticInitTable,crt
 0x00A9AE78,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,286,literal,,,CrtStaticInitTable,crt
-0x00A9AE80,.bss,source/game_sa/Fx/FxManager.cpp,37,StaticRef,FxManager_c,,FxManager,juego
+0x00A9AE80,.bss,source/game_sa/Fx/FxManager.cpp,37,StaticRef,FxManager_c,188,FxManager,juego
 0x00A9AF3C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,287,literal,,,CrtStaticInitTable,crt
 0x00A9AF40,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,288,literal,,,CrtStaticInitTable,crt
 0x00A9AF44,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,289,literal,,,CrtStaticInitTable,crt
@@ -6150,8 +6189,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00A9AFAC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,315,literal,,,CrtStaticInitTable,crt
 0x00A9AFB0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,315,literal,,,CrtStaticInitTable,crt
 0x00A9AFB4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,316,literal,,,CrtStaticInitTable,crt
-0x00A9AFB8,.bss,source/game_sa/InformFriendsEventQueue.h,15,StaticRef,"std::array<CInformFriendsEvent, 8>",,InformFriendsEventQueue,juego
-0x00A9B018,.bss,source/game_sa/InformGroupEventQueue.h,10,StaticRef,"std::array<CInformGroupEvent, 8>",,InformGroupEventQueue,juego
+0x00A9AFB8,.bss,source/game_sa/InformFriendsEventQueue.h,15,StaticRef,"std::array<CInformFriendsEvent, 8>",96,InformFriendsEventQueue,juego
+0x00A9B018,.bss,source/game_sa/InformGroupEventQueue.h,10,StaticRef,"std::array<CInformGroupEvent, 8>",128,InformGroupEventQueue,juego
 0x00A9B098,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,317,literal,,,CrtStaticInitTable,crt
 0x00A9B09C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,318,literal,,,CrtStaticInitTable,crt
 0x00A9B0A0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,319,literal,,,CrtStaticInitTable,crt
@@ -6211,11 +6250,11 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B4E760,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,340,literal,,,CrtStaticInitTable,crt
 0x00B4E764,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,340,literal,,,CrtStaticInitTable,crt
 0x00B4E768,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,341,literal,,,CrtStaticInitTable,crt
-0x00B4E7E0,.bss,source/game_sa/RenderWare/D3D9RasterDriver.cpp,429,reinterpret_cast,PixelFormatEntry,,D3D9RasterDriver,renderware
-0x00B4E7E0,.bss,source/game_sa/RenderWare/D3D9RasterFormat.cpp,70,reinterpret_cast,PixelFormatEntry,,D3D9RasterFormat,renderware
-0x00B4E7E0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,294,reinterpret_cast,D3D9FormatInfoLayout,,rwcore,renderware
+0x00B4E7E0,.bss,source/game_sa/RenderWare/D3D9RasterDriver.cpp,429,reinterpret_cast,PixelFormatEntry,4,D3D9RasterDriver,renderware
+0x00B4E7E0,.bss,source/game_sa/RenderWare/D3D9RasterFormat.cpp,70,reinterpret_cast,PixelFormatEntry,4,D3D9RasterFormat,renderware
+0x00B4E7E0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,294,reinterpret_cast,D3D9FormatInfoLayout,4,rwcore,renderware
 0x00B4E7E0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,5859,reinterpret_cast,uint8,1,rwcore,renderware
-0x00B4E7E0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,7196,reinterpret_cast,D3D9FormatInfoLayout,,rwcore,renderware
+0x00B4E7E0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,7196,reinterpret_cast,D3D9FormatInfoLayout,4,rwcore,renderware
 0x00B4E9E0,.bss,source/app/platform/win/WindowedMode.cpp,106,StaticRef,RwInt32,4,WindowedMode,juego
 0x00B4E9E0,.bss,source/game_sa/RenderWare/D3D9RasterDriver.cpp,44,StaticRef,int32,4,D3D9RasterDriver,renderware
 0x00B4E9E0,.bss,source/game_sa/RenderWare/D3D9RasterFormat.cpp,77,StaticRef,int32,4,D3D9RasterFormat,renderware
@@ -6233,6 +6272,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B4E9FC,.bss,source/game_sa/RenderWare/D3D9RasterFormat.cpp,369,StaticRef,RasterListNode*,4,D3D9RasterFormat,renderware
 0x00B4EA00,.bss,source/game_sa/RenderWare/D3D9RasterDriver.cpp,46,StaticRef,RwFreeList*,4,D3D9RasterDriver,renderware
 0x00B4EA04,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,342,literal,,,CrtStaticInitTable,crt
+0x00B4EA0C,.bss,source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp,699,StaticRef,CAnimBlendClumpData*,4,RpAnimBlend,juego
 0x00B4EA10,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,343,literal,,,CrtStaticInitTable,crt
 0x00B4EA14,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,344,literal,,,CrtStaticInitTable,crt
 0x00B4EA18,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,345,literal,,,CrtStaticInitTable,crt
@@ -6246,12 +6286,12 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B4EA28,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,480,StaticRef,uint32,4,TaskSimpleFight,juego
 0x00B4EA28,.bss,source/game_sa/WeaponInfo.cpp,211,StaticRef,int32,4,WeaponInfo,juego
 0x00B4EA38,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,349,literal,,,CrtStaticInitTable,crt
-0x00B4EA40,.bss,source/game_sa/Animation/AnimBlendAssocGroup.cpp,34,StaticRef,CAnimBlendHierarchy[2500],,AnimBlendAssocGroup,juego
-0x00B4EA40,.bss,source/game_sa/Animation/AnimManager.h,40,StaticRef,"std::array<CAnimBlendHierarchy, 2500>",,AnimManager,juego
+0x00B4EA40,.bss,source/game_sa/Animation/AnimBlendAssocGroup.cpp,34,StaticRef,CAnimBlendHierarchy[2500],60000,AnimBlendAssocGroup,juego
+0x00B4EA40,.bss,source/game_sa/Animation/AnimManager.h,40,StaticRef,"std::array<CAnimBlendHierarchy, 2500>",60000,AnimManager,juego
 0x00B5D4A0,.bss,source/game_sa/Animation/AnimManager.h,43,literal,,,AnimManager,juego
 0x00B5D4A0,.bss,source/game_sa/Entity/Ped/PlayerPed.cpp,112,literal,,,PlayerPed,juego
 0x00B5D4A0,.bss,source/game_sa/Entity/Ped/PlayerPed.cpp,526,literal,,,PlayerPed,juego
-0x00B5D4A0,.bss,source/game_sa/Models/ClumpModelInfo.cpp,192,reinterpret_cast,CAnimBlock,,ClumpModelInfo,juego
+0x00B5D4A0,.bss,source/game_sa/Models/ClumpModelInfo.cpp,192,reinterpret_cast,CAnimBlock,32,ClumpModelInfo,juego
 0x00B5D4A0,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,972,literal,,,TaskSimpleFight,juego
 0x00B5D4B0,.bss,source/game_sa/Interior/InteriorManager_c.cpp,330,reinterpret_cast,uint8,1,InteriorManager_c,juego
 0x00B5EB20,.bss,source/game_sa/Animation/AnimManager.h,47,StaticRef,CLinkList<CAnimBlendHierarchy*>,,AnimManager,juego
@@ -6284,8 +6324,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B5F8A8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,366,literal,,,CrtStaticInitTable,crt
 0x00B5F8AC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,366,literal,,,CrtStaticInitTable,crt
 0x00B5F8B0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,367,literal,,,CrtStaticInitTable,crt
-0x00B5F8B8,.bss,source/game_sa/Audio/Hardware/AEAudioHardware.cpp,31,StaticRef,CAEAudioHardware,,AEAudioHardware,juego
-0x00B608D0,.bss,source/game_sa/Audio/AESmoothFadeThread.cpp,26,StaticRef,CAESmoothFadeThread,,AESmoothFadeThread,juego
+0x00B5F8B8,.bss,source/game_sa/Audio/Hardware/AEAudioHardware.cpp,31,StaticRef,CAEAudioHardware,4116,AEAudioHardware,juego
+0x00B608D0,.bss,source/game_sa/Audio/AESmoothFadeThread.cpp,26,StaticRef,CAESmoothFadeThread,2076,AESmoothFadeThread,juego
 0x00B610F8,.bss,source/game_sa/Audio/AEAudioUtility.cpp,28,StaticRef,uint64,8,AEAudioUtility,juego
 0x00B61100,.bss,source/game_sa/Audio/AEAudioUtility.h,58,literal,,,AEAudioUtility,juego
 0x00B61290,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,368,literal,,,CrtStaticInitTable,crt
@@ -6358,7 +6398,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B61404,.bss,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,164,StaticRef,tPedSpeechSlotID,,AEPedSpeechAudioEntity,juego
 0x00B61408,.bss,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,162,StaticRef,tPedSpeechSlotID,,AEPedSpeechAudioEntity,juego
 0x00B61414,.bss,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,167,StaticRef,tPedSpeechSlotID,,AEPedSpeechAudioEntity,juego
-0x00B61418,.bss,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,170,StaticRef,"std::array<tPhraseMemory, 150>",,AEPedSpeechAudioEntity,juego
+0x00B61418,.bss,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,170,StaticRef,"std::array<tPhraseMemory, 150>",600,AEPedSpeechAudioEntity,juego
 0x00B61670,.bss,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.h,177,StaticRef,"std::array<uint32, CTX_GLOBAL_NUM>",,AEPedSpeechAudioEntity,juego
 0x00B61C10,.bss,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp,1151,reinterpret_cast,uint32,4,AEPedSpeechAudioEntity,juego
 0x00B61C14,.bss,source/game_sa/Audio/Entities/AEPedSpeechAudioEntity.cpp,268,literal,,,AEPedSpeechAudioEntity,juego
@@ -6420,9 +6460,10 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B62C9C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,445,literal,,,CrtStaticInitTable,crt
 0x00B62CA0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,446,literal,,,CrtStaticInitTable,crt
 0x00B62CA8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,447,literal,,,CrtStaticInitTable,crt
-0x00B62CB0,.bss,source/game_sa/Audio/Managers/AESoundManager.cpp,29,StaticRef,CAESoundManager,,AESoundManager,juego
+0x00B62CB0,.bss,source/game_sa/Audio/Managers/AESoundManager.cpp,29,StaticRef,CAESoundManager,36028,AESoundManager,juego
 0x00B6B96C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,448,literal,,,CrtStaticInitTable,crt
-0x00B6B970,.bss,source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp,83,StaticRef,CAEUserRadioTrackManager,,AEUserRadioTrackManager,juego
+0x00B6B970,.bss,source/game_sa/Audio/Managers/AEUserRadioTrackManager.cpp,83,StaticRef,CAEUserRadioTrackManager,28,AEUserRadioTrackManager,juego
+0x00B6B976,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,552,StaticRef,uint16,2,AERadioTrackManager,juego
 0x00B6B99C,.bss,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,608,StaticRef,tVehicleAudioSettings*,4,AEVehicleAudioEntity,juego
 0x00B6B9A0,.bss,source/game_sa/Audio/Entities/AEVehicleAudioEntity.h,609,StaticRef,"std::array<tDummyEngineSlot, SND_BANK_SLOT_DUMMY_END - SND_BANK_SLOT_DUMMY_FIRST>",,AEVehicleAudioEntity,juego
 0x00B6B9CC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,456,literal,,,CrtStaticInitTable,crt
@@ -6501,8 +6542,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6BB0C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,503,literal,,,CrtStaticInitTable,crt
 0x00B6BB10,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,503,literal,,,CrtStaticInitTable,crt
 0x00B6BB14,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,504,literal,,,CrtStaticInitTable,crt
-0x00B6BB18,.bss,source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,49,StaticRef,CAETwinLoopSoundEntity,,AEWeatherAudioEntity,juego
-0x00B6BBC0,.bss,source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,50,StaticRef,CAETwinLoopSoundEntity,,AEWeatherAudioEntity,juego
+0x00B6BB18,.bss,source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,49,StaticRef,CAETwinLoopSoundEntity,168,AEWeatherAudioEntity,juego
+0x00B6BBC0,.bss,source/game_sa/Audio/Entities/AEWeatherAudioEntity.cpp,50,StaticRef,CAETwinLoopSoundEntity,168,AEWeatherAudioEntity,juego
 0x00B6BC78,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,505,literal,,,CrtStaticInitTable,crt
 0x00B6BC7C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,506,literal,,,CrtStaticInitTable,crt
 0x00B6BC80,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,507,literal,,,CrtStaticInitTable,crt
@@ -6510,11 +6551,11 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6BC84,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,509,literal,,,CrtStaticInitTable,crt
 0x00B6BC88,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,509,literal,,,CrtStaticInitTable,crt
 0x00B6BC8C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,510,literal,,,CrtStaticInitTable,crt
-0x00B6BC90,.bss,source/game_sa/Audio/AudioEngine.cpp,31,StaticRef,CAudioEngine,,AudioEngine,juego
+0x00B6BC90,.bss,source/game_sa/Audio/AudioEngine.cpp,31,StaticRef,CAudioEngine,8152,AudioEngine,juego
 0x00B6DCD0,.bss,source/game_sa/Audio/AudioZones.h,51,StaticRef,"std::array<tAudioZoneBox, NUM_AUDIO_BOXES>",,AudioZones,juego
 0x00B6EBA0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,511,literal,,,CrtStaticInitTable,crt
 0x00B6EBA8,.bss,source/game_sa/Audio/AudioZones.h,54,StaticRef,"std::array<tAudioZoneSphere, NUM_AUDIO_SPHERES>",,AudioZones,juego
-0x00B6EBFC,.bss,source/game_sa/Audio/AudioZones.cpp,318,StaticRef,CVector,12,AudioZones,juego
+0x00B6EBFC,.bss,source/game_sa/Audio/AudioZones.cpp,329,StaticRef,CVector,12,AudioZones,juego
 0x00B6EC10,.bss,source/game_sa/Camera.h,335,StaticRef,float,4,Camera,juego
 0x00B6EC10,.bss,source/game_sa/X87Math.cpp,5688,ayudante,,,X87Math,crt
 0x00B6EC14,.bss,source/game_sa/Camera.h,336,StaticRef,float,4,Camera,juego
@@ -6559,6 +6600,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6EC5C,.bss,source/game_sa/Cam.cpp,61,StaticRef,"std::array<bool, 9>",9,Cam,juego
 0x00B6EC5C,.bss,source/game_sa/Cam.cpp,595,StaticRef,uint8,1,Cam,juego
 0x00B6EC5C,.bss,source/game_sa/Cam.cpp,1188,StaticRef,CEntity*,4,Cam,juego
+0x00B6EC60,.bss,source/game_sa/Cam.cpp,1105,StaticRef,float,4,Cam,juego
+0x00B6EC60,.bss,source/game_sa/Cam.cpp,1209,StaticRef,float,4,Cam,juego
 0x00B6EC76,.bss,source/game_sa/Cam.cpp,2567,literal,,,Cam,juego
 0x00B6EC77,.bss,source/game_sa/Cam.cpp,2567,literal,,,Cam,juego
 0x00B6EC7C,.bss,source/game_sa/Cam.cpp,882,StaticRef,CVector,12,Cam,juego
@@ -6639,8 +6682,9 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6F014,.bss,source/game_sa/Camera.cpp,2601,literal,,,Camera,juego
 0x00B6F018,.bss,source/game_sa/Cam.cpp,656,StaticRef,CVector,12,Cam,juego
 0x00B6F018,.bss,source/game_sa/Cam.cpp,3174,StaticRef,CVector,12,Cam,juego
-0x00B6F028,.bss,source/game_sa/Camera.cpp,50,StaticRef,CCamera,,Camera,juego
+0x00B6F028,.bss,source/game_sa/Camera.cpp,50,StaticRef,CCamera,3448,Camera,juego
 0x00B6F02C,.bss,source/game_sa/Entity/Vehicle/Plane.cpp,1187,StaticRef,CVector,12,Plane,juego
+0x00B6F03C,.bss,source/game_sa/Entity/Vehicle/Plane.cpp,1186,StaticRef,CMatrix*,4,Plane,juego
 0x00B6F042,.bss,source/game_sa/Cam.cpp,762,StaticRef,uint8,1,Cam,juego
 0x00B6F042,.bss,source/game_sa/Cam.cpp,763,StaticRef,uint8,1,Cam,juego
 0x00B6F042,.bss,source/game_sa/Cam.cpp,777,StaticRef,uint8,1,Cam,juego
@@ -6669,6 +6713,20 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6F043,.bss,source/game_sa/Cam.cpp,3471,StaticRef,bool,1,Cam,juego
 0x00B6F043,.bss,source/game_sa/Cam.cpp,3583,StaticRef,bool,1,Cam,juego
 0x00B6F043,.bss,source/game_sa/Cam.cpp,3598,StaticRef,bool,1,Cam,juego
+0x00B6F045,.bss,source/game_sa/Cam.cpp,2890,StaticRef,uint8,1,Cam,juego
+0x00B6F04E,.bss,source/game_sa/Cam.cpp,941,StaticRef,bool,1,Cam,juego
+0x00B6F050,.bss,source/game_sa/Cam.cpp,941,StaticRef,bool,1,Cam,juego
+0x00B6F050,.bss,source/game_sa/Cam.cpp,3047,StaticRef,bool,1,Cam,juego
+0x00B6F050,.bss,source/game_sa/Cam.cpp,3055,StaticRef,bool,1,Cam,juego
+0x00B6F050,.bss,source/game_sa/Cam.cpp,3143,StaticRef,bool,1,Cam,juego
+0x00B6F050,.bss,source/game_sa/Cam.cpp,3468,StaticRef,bool,1,Cam,juego
+0x00B6F052,.bss,source/game_sa/Cam.cpp,627,StaticRef,bool,1,Cam,juego
+0x00B6F052,.bss,source/game_sa/Cam.cpp,911,StaticRef,bool,1,Cam,juego
+0x00B6F052,.bss,source/game_sa/Cam.cpp,919,StaticRef,bool,1,Cam,juego
+0x00B6F052,.bss,source/game_sa/Cam.cpp,923,StaticRef,bool,1,Cam,juego
+0x00B6F052,.bss,source/game_sa/Cam.cpp,928,StaticRef,bool,1,Cam,juego
+0x00B6F054,.bss,source/game_sa/Cam.cpp,1838,StaticRef,uint8,1,Cam,juego
+0x00B6F055,.bss,source/game_sa/Cam.cpp,1294,StaticRef,uint8,1,Cam,juego
 0x00B6F059,.bss,source/game_sa/Cam.cpp,958,StaticRef,bool,1,Cam,juego
 0x00B6F059,.bss,source/game_sa/Cam.cpp,2284,StaticRef,uint8,1,Cam,juego
 0x00B6F059,.bss,source/game_sa/Cam.cpp,2380,StaticRef,uint8,1,Cam,juego
@@ -6678,13 +6736,23 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6F059,.bss,source/game_sa/Cam.cpp,2666,StaticRef,uint8,1,Cam,juego
 0x00B6F059,.bss,source/game_sa/Camera.cpp,2267,StaticRef,uint8,1,Camera,juego
 0x00B6F059,.bss,source/game_sa/Camera.cpp,3202,StaticRef,uint8,1,Camera,juego
+0x00B6F05B,.bss,source/game_sa/Cam.cpp,2894,StaticRef,uint8,1,Cam,juego
+0x00B6F05B,.bss,source/game_sa/Cam.cpp,2896,StaticRef,uint8,1,Cam,juego
+0x00B6F05E,.bss,source/game_sa/Cam.cpp,2866,StaticRef,uint8,1,Cam,juego
+0x00B6F05F,.bss,source/game_sa/Cam.cpp,763,StaticRef,uint8,1,Cam,juego
+0x00B6F05F,.bss,source/game_sa/Cam.cpp,3278,StaticRef,uint8,1,Cam,juego
+0x00B6F062,.bss,source/game_sa/Cam.cpp,910,StaticRef,bool,1,Cam,juego
+0x00B6F062,.bss,source/game_sa/Cam.cpp,918,StaticRef,bool,1,Cam,juego
 0x00B6F065,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,619,StaticRef,uint8,1,AERadioTrackManager,juego
 0x00B6F065,.bss,source/game_sa/Stats.cpp,640,literal,,,Stats,juego
+0x00B6F066,.bss,source/game_sa/Cam.cpp,1302,StaticRef,bool,1,Cam,juego
 0x00B6F06D,.bss,source/game_sa/MissionCleanup.cpp,173,literal,,,MissionCleanup,juego
 0x00B6F06E,.bss,source/game_sa/MissionCleanup.cpp,169,literal,,,MissionCleanup,juego
 0x00B6F070,.bss,source/game_sa/MissionCleanup.cpp,170,literal,,,MissionCleanup,juego
 0x00B6F072,.bss,source/game_sa/MissionCleanup.cpp,171,literal,,,MissionCleanup,juego
 0x00B6F074,.bss,source/game_sa/MissionCleanup.cpp,172,literal,,,MissionCleanup,juego
+0x00B6F077,.bss,source/game_sa/Cam.cpp,910,StaticRef,bool,1,Cam,juego
+0x00B6F077,.bss,source/game_sa/Cam.cpp,918,StaticRef,bool,1,Cam,juego
 0x00B6F079,.bss,source/game_sa/Cam.cpp,3270,StaticRef,uint8,1,Cam,juego
 0x00B6F079,.bss,source/game_sa/Cam.cpp,3572,StaticRef,bool,1,Cam,juego
 0x00B6F080,.bss,source/game_sa/Cam.cpp,761,StaticRef,uint8,1,Cam,juego
@@ -6695,9 +6763,13 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6F080,.bss,source/game_sa/Cam.cpp,1640,StaticRef,bool,1,Cam,juego
 0x00B6F080,.bss,source/game_sa/Cam.cpp,1668,StaticRef,bool,1,Cam,juego
 0x00B6F080,.bss,source/game_sa/Cam.cpp,3442,StaticRef,bool,1,Cam,juego
+0x00B6F081,.bss,source/game_sa/Cam.cpp,765,StaticRef,uint8,1,Cam,juego
+0x00B6F081,.bss,source/game_sa/Cam.cpp,849,StaticRef,uint8,1,Cam,juego
 0x00B6F081,.bss,source/game_sa/Camera.cpp,3058,StaticRef,uint8,1,Camera,juego
 0x00B6F081,.bss,source/game_sa/CarCtrl.cpp,3687,StaticRef,uint8,1,CarCtrl,juego
 0x00B6F081,.bss,source/game_sa/PostEffects.cpp,1004,StaticRef,uint8,1,PostEffects,juego
+0x00B6F094,.bss,source/game_sa/Cam.cpp,1271,StaticRef,uint32,4,Cam,juego
+0x00B6F094,.bss,source/game_sa/Cam.cpp,1279,StaticRef,uint32,4,Cam,juego
 0x00B6F0AC,.bss,source/game_sa/Cam.cpp,1397,StaticRef,uint32,4,Cam,juego
 0x00B6F0AC,.bss,source/game_sa/Cam.cpp,1844,StaticRef,int32,4,Cam,juego
 0x00B6F0AC,.bss,source/game_sa/Cam.cpp,2838,StaticRef,int32,4,Cam,juego
@@ -6723,7 +6795,16 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6F0C8,.bss,source/game_sa/Cam.cpp,2839,StaticRef,int32,4,Cam,juego
 0x00B6F0C8,.bss,source/game_sa/Cam.cpp,3698,StaticRef,uint32,4,Cam,juego
 0x00B6F0C8,.bss,source/game_sa/Cam.cpp,4118,StaticRef,uint32,4,Cam,juego
+0x00B6F0D8,.bss,source/game_sa/Cam.cpp,3599,StaticRef,int32,4,Cam,juego
+0x00B6F0D8,.bss,source/game_sa/Tasks/TaskTypes/TaskComplexProstituteSolicit.cpp,323,StaticRef,int32,4,TaskComplexProstituteSolicit,juego
+0x00B6F0DC,.bss,source/game_sa/Cam.cpp,2998,StaticRef,int32,4,Cam,juego
 0x00B6F0E8,.bss,source/game_sa/Cam.cpp,2993,ayudante,,,Cam,juego
+0x00B6F0F0,.bss,source/game_sa/Cam.cpp,684,StaticRef,int32,4,Cam,juego
+0x00B6F0F0,.bss,source/game_sa/Cam.cpp,694,StaticRef,int32,4,Cam,juego
+0x00B6F0F0,.bss,source/game_sa/Cam.cpp,3423,StaticRef,int32,4,Cam,juego
+0x00B6F0F0,.bss,source/game_sa/Cam.cpp,3429,StaticRef,int32,4,Cam,juego
+0x00B6F0F0,.bss,source/game_sa/Cam.cpp,3593,StaticRef,int32,4,Cam,juego
+0x00B6F0F0,.bss,source/game_sa/Camera.cpp,3049,StaticRef,int32,4,Camera,juego
 0x00B6F0F4,.bss,source/game_sa/Cam.cpp,3474,ayudante,,,Cam,juego
 0x00B6F0F8,.bss,source/game_sa/Cam.cpp,3474,ayudante,,,Cam,juego
 0x00B6F0F8,.bss,source/game_sa/Cam.cpp,3474,ayudante,,,Cam,juego
@@ -6731,20 +6812,44 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6F0FC,.bss,source/game_sa/Cam.cpp,3425,ayudante,,,Cam,juego
 0x00B6F0FC,.bss,source/game_sa/Cam.cpp,3474,StaticRef,float,4,Cam,juego
 0x00B6F0FC,.bss,source/game_sa/Camera.cpp,4038,StaticRef,float,4,Camera,juego
+0x00B6F118,.bss,source/game_sa/Entity/Vehicle/Automobile.cpp,7548,StaticRef,float,4,Automobile,juego
+0x00B6F118,.bss,source/game_sa/Entity/Vehicle/Automobile.cpp,7570,StaticRef,float,4,Automobile,juego
+0x00B6F118,.bss,source/game_sa/Entity/Vehicle/Automobile.cpp,7660,StaticRef,float,4,Automobile,juego
+0x00B6F11C,.bss,source/game_sa/CarCtrl.cpp,3701,StaticRef,float,4,CarCtrl,juego
+0x00B6F148,.bss,source/game_sa/Cam.cpp,3279,StaticRef,float,4,Cam,juego
+0x00B6F148,.bss,source/game_sa/Cam.cpp,3280,StaticRef,float,4,Cam,juego
+0x00B6F14C,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,562,StaticRef,float,4,AERadioTrackManager,juego
+0x00B6F158,.bss,source/game_sa/Cam.cpp,2867,StaticRef,float,4,Cam,juego
+0x00B6F168,.bss,source/game_sa/Cam.cpp,2902,StaticRef,float,4,Cam,juego
+0x00B6F168,.bss,source/game_sa/Cam.cpp,2911,StaticRef,float,4,Cam,juego
+0x00B6F174,.bss,source/game_sa/Cam.cpp,1381,StaticRef,float,4,Cam,juego
+0x00B6F178,.bss,source/game_sa/CarEnterExit.cpp,674,StaticRef,float,4,CarEnterExit,juego
+0x00B6F178,.bss,source/game_sa/Entity/Ped/PlayerPed.cpp,2393,StaticRef,float,4,PlayerPed,juego
+0x00B6F178,.bss,source/game_sa/Tasks/TaskTypes/TaskComplexGoPickUpEntity.cpp,306,StaticRef,float,4,TaskComplexGoPickUpEntity,juego
+0x00B6F178,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleJetPack.cpp,447,StaticRef,float,4,TaskSimpleJetPack,juego
+0x00B6F178,.bss,source/game_sa/Weather.cpp,65,StaticRef,float,4,Weather,juego
 0x00B6F19C,.bss,source/game_sa/Cam.cpp,849,literal,,,Cam,juego
-0x00B6F19C,.bss,source/game_sa/Camera.cpp,3062,StaticRef,CCam,,Camera,juego
+0x00B6F19C,.bss,source/game_sa/Camera.cpp,3062,StaticRef,CCam,568,Camera,juego
 0x00B6F19C,.bss,source/game_sa/CarCtrl.cpp,3687,StaticRef,uint8,1,CarCtrl,juego
-0x00B6F19C,.bss,source/game_sa/Pad.cpp,1644,StaticRef,CCam,,Pad,juego
-0x00B6F19C,.bss,source/game_sa/Pad.cpp,1661,StaticRef,CCam,,Pad,juego
+0x00B6F19C,.bss,source/game_sa/Pad.cpp,1644,StaticRef,CCam,568,Pad,juego
+0x00B6F19C,.bss,source/game_sa/Pad.cpp,1661,StaticRef,CCam,568,Pad,juego
+0x00B6F1A8,.bss,source/game_sa/Weapon.cpp,1861,StaticRef,uint16,2,Weapon,juego
 0x00B6F1C4,.bss,source/game_sa/PostEffects.cpp,1004,StaticRef,int32,4,PostEffects,juego
 0x00B6F250,.bss,source/game_sa/Camera.cpp,3058,StaticRef,float,4,Camera,juego
 0x00B6F32C,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,818,StaticRef,CVector,12,TaskSimpleFight,juego
 0x00B6F32C,.bss,source/game_sa/Weapon.cpp,1865,StaticRef,CVector,12,Weapon,juego
 0x00B6F32C,.bss,source/game_sa/Weapon.cpp,1866,StaticRef,CVector,12,Weapon,juego
 0x00B6F350,.bss,source/game_sa/Weapon.cpp,1864,StaticRef,CVector,12,Weapon,juego
+0x00B6F844,.bss,source/game_sa/Garage.cpp,849,StaticRef,CGarage*,4,Garage,juego
+0x00B6F844,.bss,source/game_sa/Garage.cpp,859,StaticRef,CGarage*,4,Garage,juego
+0x00B6F848,.bss,source/game_sa/Garage.cpp,853,StaticRef,CGarage*,4,Garage,juego
+0x00B6F858,.bss,source/game_sa/Entity/Ped/PlayerPed.cpp,2220,StaticRef,uint16,2,PlayerPed,juego
 0x00B6F8AC,.bss,source/game_sa/X87Math.cpp,8548,ayudante,,,X87Math,crt
 0x00B6F8B0,.bss,source/game_sa/X87Math.cpp,8551,ayudante,,,X87Math,crt
 0x00B6F8B4,.bss,source/game_sa/X87Math.cpp,8554,ayudante,,,X87Math,crt
+0x00B6F960,.bss,source/game_sa/Cam.cpp,1837,StaticRef,CVector,12,Cam,juego
+0x00B6F96C,.bss,source/game_sa/Cam.cpp,1839,StaticRef,CVector,12,Cam,juego
+0x00B6F978,.bss,source/game_sa/Cam.cpp,1835,StaticRef,float,4,Cam,juego
 0x00B6F980,.bss,source/game_sa/Cam.cpp,852,StaticRef,CEntity*,4,Cam,juego
 0x00B6F980,.bss,source/game_sa/Cam.cpp,1101,StaticRef,CEntity*,4,Cam,juego
 0x00B6F980,.bss,source/game_sa/Cam.cpp,1182,StaticRef,CEntity*,4,Cam,juego
@@ -6756,7 +6861,14 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6F980,.bss,source/game_sa/Cam.cpp,3333,StaticRef,CPed*,4,Cam,juego
 0x00B6F980,.bss,source/game_sa/Cam.cpp,3803,StaticRef,CPed*,4,Cam,juego
 0x00B6F980,.bss,source/game_sa/Cam.cpp,3883,StaticRef,CPed*,4,Cam,juego
+0x00B6F984,.bss,source/game_sa/Cam.cpp,1836,StaticRef,CEntity*,4,Cam,juego
+0x00B6F988,.bss,source/game_sa/Cam.cpp,2892,StaticRef,float*,4,Cam,juego
+0x00B6F98C,.bss,source/game_sa/Cam.cpp,2892,StaticRef,float*,4,Cam,juego
+0x00B6F990,.bss,source/game_sa/Cam.cpp,2892,StaticRef,float*,4,Cam,juego
+0x00B6F994,.bss,source/game_sa/Cam.cpp,2892,StaticRef,float*,4,Cam,juego
 0x00B6F998,.bss,source/game_sa/Pickups.cpp,808,reinterpret_cast,uint8,1,Pickups,juego
+0x00B6F999,.bss,source/game_sa/Cam.cpp,928,StaticRef,bool,1,Cam,juego
+0x00B6F999,.bss,source/game_sa/Cam.cpp,3046,StaticRef,bool,1,Cam,juego
 0x00B6F99C,.bss,source/game_sa/BulletTraces.cpp,63,StaticRef,CMatrix,72,BulletTraces,juego
 0x00B6F9AC,.bss,source/game_sa/Clouds.cpp,1227,StaticRef,CVector,12,Clouds,juego
 0x00B6F9AC,.bss,source/game_sa/Entity/Ped/PlayerPed.cpp,1719,StaticRef,CVector,12,PlayerPed,juego
@@ -6767,23 +6879,36 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6F9AC,.bss,source/game_sa/Weather.cpp,66,StaticRef,CVector,12,Weather,juego
 0x00B6F9B0,.bss,source/game_sa/Entity/Ped/PlayerPed.cpp,2583,StaticRef,float,4,PlayerPed,juego
 0x00B6F9B0,.bss,source/game_sa/Entity/Vehicle/Boat.cpp,534,reinterpret_cast,float,4,Boat,juego
+0x00B6F9B4,.bss,source/game_sa/CarCtrl.cpp,3703,StaticRef,float,4,CarCtrl,juego
 0x00B6FA14,.bss,source/game_sa/Fx/FxEmitterBP.cpp,145,reinterpret_cast,CVector,12,FxEmitterBP,juego
 0x00B6FA74,.bss,source/game_sa/Pickups.cpp,807,reinterpret_cast,RwMatrix,64,Pickups,juego
 0x00B6FABC,.bss,source/game_sa/Pickups.cpp,809,reinterpret_cast,RwMatrix,64,Pickups,juego
+0x00B6FC48,.bss,source/game_sa/Cam.cpp,1329,StaticRef,float,4,Cam,juego
+0x00B6FC58,.bss,source/game_sa/Cam.cpp,3270,StaticRef,uint16,2,Cam,juego
 0x00B6FC70,.bss,source/game_sa/Cam.cpp,660,StaticRef,int32,4,Cam,juego
 0x00B6FC70,.bss,source/game_sa/Cam.cpp,690,StaticRef,int32,4,Cam,juego
 0x00B6FC70,.bss,source/game_sa/Cam.cpp,691,StaticRef,int32,4,Cam,juego
 0x00B6FC70,.bss,source/game_sa/Cam.cpp,735,StaticRef,int32,4,Cam,juego
 0x00B6FC70,.bss,source/game_sa/Cam.cpp,3166,StaticRef,bool,1,Cam,juego
+0x00B6FC74,.bss,source/game_sa/Cam.cpp,691,StaticRef,CEntity*,4,Cam,juego
 0x00B6FCA8,.bss,source/game_sa/Cam.cpp,979,StaticRef,CVector,12,Cam,juego
+0x00B6FCB4,.bss,source/game_sa/Cam.cpp,979,StaticRef,bool,1,Cam,juego
+0x00B6FCB4,.bss,source/game_sa/Cam.cpp,979,StaticRef,bool,1,Cam,juego
+0x00B6FCB4,.bss,source/game_sa/Cam.cpp,3599,StaticRef,bool,1,Cam,juego
+0x00B6FCDD,.bss,source/game_sa/Cam.cpp,977,StaticRef,bool,1,Cam,juego
+0x00B6FCDD,.bss,source/game_sa/Cam.cpp,977,StaticRef,bool,1,Cam,juego
+0x00B6FCDD,.bss,source/game_sa/Cam.cpp,3599,StaticRef,bool,1,Cam,juego
 0x00B6FCE0,.bss,source/game_sa/Cam.cpp,977,ayudante,,,Cam,juego
 0x00B6FD08,.bss,source/game_sa/Cam.cpp,978,StaticRef,CVector,12,Cam,juego
+0x00B6FD14,.bss,source/game_sa/Cam.cpp,978,StaticRef,bool,1,Cam,juego
+0x00B6FD14,.bss,source/game_sa/Cam.cpp,978,StaticRef,bool,1,Cam,juego
+0x00B6FD14,.bss,source/game_sa/Cam.cpp,3599,StaticRef,bool,1,Cam,juego
 0x00B6FD18,.bss,source/game_sa/MissionCleanup.cpp,174,literal,,,MissionCleanup,juego
 0x00B6FD70,.bss,source/game_sa/Cam.cpp,3025,ayudante,,,Cam,juego
 0x00B6FD70,.bss,source/game_sa/Cam.cpp,3026,ayudante,,,Cam,juego
 0x00B6FD74,.bss,source/game_sa/Cam.cpp,3032,ayudante,,,Cam,juego
 0x00B6FD78,.bss,source/game_sa/Cam.cpp,3032,ayudante,,,Cam,juego
-0x00B6FDA0,.bss,source/game_sa/IdleCam.cpp,27,StaticRef,CIdleCam,,IdleCam,juego
+0x00B6FDA0,.bss,source/game_sa/IdleCam.cpp,27,StaticRef,CIdleCam,156,IdleCam,juego
 0x00B6FDC8,.bss,source/game_sa/Cam.cpp,850,ayudante,,,Cam,juego
 0x00B6FE34,.bss,source/game_sa/Cam.cpp,850,StaticRef,int32,4,Cam,juego
 0x00B6FE34,.bss,source/game_sa/Cam.cpp,851,StaticRef,int32,4,Cam,juego
@@ -6804,8 +6929,11 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B6FFB4,.bss,source/game_sa/Camera.cpp,835,StaticRef,CVector,12,Camera,juego
 0x00B6FFB4,.bss,source/game_sa/Camera.cpp,843,StaticRef,CVector,12,Camera,juego
 0x00B6FFC4,.bss,source/game_sa/Cam.cpp,1312,StaticRef,CVector,12,Cam,juego
+0x00B70000,.bss,source/game_sa/Cam.cpp,3811,StaticRef,bool,1,Cam,juego
 0x00B70004,.bss,source/game_sa/Cam.cpp,1138,StaticRef,float,4,Cam,juego
 0x00B70004,.bss,source/game_sa/Cam.cpp,1156,StaticRef,CVector,12,Cam,juego
+0x00B70008,.bss,source/game_sa/Cam.cpp,1139,StaticRef,float,4,Cam,juego
+0x00B7000C,.bss,source/game_sa/Cam.cpp,1140,StaticRef,float,4,Cam,juego
 0x00B70034,.bss,source/game_sa/Camera.cpp,2934,StaticRef,CVector,12,Camera,juego
 0x00B70058,.bss,source/game_sa/Cam.cpp,2520,StaticRef,CVector,12,Cam,juego
 0x00B70058,.bss,source/game_sa/Cam.cpp,2523,StaticRef,CVector,12,Cam,juego
@@ -6814,6 +6942,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B70080,.bss,source/game_sa/Cam.cpp,2292,StaticRef,CVector,12,Cam,juego
 0x00B7008C,.bss,source/game_sa/Cam.cpp,2293,StaticRef,CVector,12,Cam,juego
 0x00B700A8,.bss,source/game_sa/Cam.cpp,2670,StaticRef,CVector,12,Cam,juego
+0x00B700B4,.bss,source/game_sa/Cam.cpp,2669,StaticRef,uint32,4,Cam,juego
 0x00B700B8,.bss,source/game_sa/Cam.cpp,2591,literal,,,Cam,juego
 0x00B700BC,.bss,source/game_sa/Cam.cpp,2591,literal,,,Cam,juego
 0x00B700C0,.bss,source/game_sa/Cam.cpp,2575,literal,,,Cam,juego
@@ -6847,6 +6976,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B70134,.bss,source/game_sa/Camera.cpp,3502,StaticRef,uint16,2,Camera,juego
 0x00B70150,.bss,source/game_sa/Clock.h,22,StaticRef,uint16,2,Clock,juego
 0x00B70150,.bss,source/game_sa/Weather.cpp,63,StaticRef,uint8,1,Weather,juego
+0x00B70152,.bss,source/game_sa/Clock.h,23,StaticRef,uint8,1,Clock,juego
+0x00B70152,.bss,source/game_sa/Hud.cpp,1778,StaticRef,uint8,1,Hud,juego
 0x00B70153,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,773,StaticRef,uint8,1,AERadioTrackManager,juego
 0x00B70153,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,934,StaticRef,uint8,1,AERadioTrackManager,juego
 0x00B70153,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,995,StaticRef,uint8,1,AERadioTrackManager,juego
@@ -6855,6 +6986,12 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B70153,.bss,source/game_sa/Hud.cpp,1778,StaticRef,uint8,1,Hud,juego
 0x00B70153,.bss,source/game_sa/Pickups.cpp,341,reinterpret_cast,uint8,1,Pickups,juego
 0x00B70153,.bss,source/game_sa/Tasks/TaskTypes/TaskComplexSunbathe.cpp,29,reinterpret_cast,uint8,1,TaskComplexSunbathe,juego
+0x00B70154,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,767,StaticRef,uint8,1,AERadioTrackManager,juego
+0x00B70154,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,933,StaticRef,uint8,1,AERadioTrackManager,juego
+0x00B70154,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,994,StaticRef,uint8,1,AERadioTrackManager,juego
+0x00B70154,.bss,source/game_sa/Clock.h,25,StaticRef,uint8,1,Clock,juego
+0x00B70155,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,769,StaticRef,uint8,1,AERadioTrackManager,juego
+0x00B70155,.bss,source/game_sa/Clock.h,26,StaticRef,uint8,1,Clock,juego
 0x00B70160,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,518,literal,,,CrtStaticInitTable,crt
 0x00B70164,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,519,literal,,,CrtStaticInitTable,crt
 0x00B70168,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,520,literal,,,CrtStaticInitTable,crt
@@ -6869,7 +7006,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B70188,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,528,literal,,,CrtStaticInitTable,crt
 0x00B7018C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,528,literal,,,CrtStaticInitTable,crt
 0x00B70190,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,529,literal,,,CrtStaticInitTable,crt
-0x00B70198,.bss,source/game_sa/ControllerConfigManager.cpp,29,StaticRef,CControllerConfigManager,,ControllerConfigManager,juego
+0x00B70198,.bss,source/game_sa/ControllerConfigManager.cpp,29,StaticRef,CControllerConfigManager,4836,ControllerConfigManager,juego
 0x00B714BC,.bss,source/game_sa/ControllerConfigManager.cpp,1224,StaticRef,GxtChar[50],,ControllerConfigManager,juego
 0x00B714F0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,530,literal,,,CrtStaticInitTable,crt
 0x00B714F4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,531,literal,,,CrtStaticInitTable,crt
@@ -6921,7 +7058,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B71F74,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,570,literal,,,CrtStaticInitTable,crt
 0x00B71F78,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,570,literal,,,CrtStaticInitTable,crt
 0x00B71F7C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,571,literal,,,CrtStaticInitTable,crt
-0x00B71F80,.bss,source/game_sa/FireManager.h,81,StaticRef,CFireManager,,FireManager,juego
+0x00B71F80,.bss,source/game_sa/FireManager.h,81,StaticRef,CFireManager,2404,FireManager,juego
 0x00B728E0,.bss,source/game_sa/MissionCleanup.cpp,194,literal,,,MissionCleanup,juego
 0x00B728EC,.bss,source/game_sa/Game.h,20,StaticRef,char[32],32,Game,juego
 0x00B7290C,.bss,source/game_sa/Game.h,21,StaticRef,int32,4,Game,juego
@@ -6950,7 +7087,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B7296C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,582,literal,,,CrtStaticInitTable,crt
 0x00B72970,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,582,literal,,,CrtStaticInitTable,crt
 0x00B72974,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,583,literal,,,CrtStaticInitTable,crt
-0x00B72978,.bss,source/game_sa/LoadMonitor.cpp,21,StaticRef,CLoadMonitor,,LoadMonitor,juego
+0x00B72978,.bss,source/game_sa/LoadMonitor.cpp,21,StaticRef,CLoadMonitor,688,LoadMonitor,juego
+0x00B7298C,.bss,source/game_sa/Tasks/TaskTypes/TaskComplexKillPedOnFootArmed.cpp,101,StaticRef,int32,4,TaskComplexKillPedOnFootArmed,juego
 0x00B72994,.bss,source/game_sa/MissionCleanup.cpp,160,literal,,,MissionCleanup,juego
 0x00B72994,.bss,source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp,437,StaticRef,bool,1,TaskComplexKillCriminal,juego
 0x00B72994,.bss,source/game_sa/Tasks/TaskTypes/TaskComplexKillCriminal.cpp,569,StaticRef,bool,1,TaskComplexKillCriminal,juego
@@ -6962,19 +7100,19 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B72C98,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,588,literal,,,CrtStaticInitTable,crt
 0x00B72C9C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,589,literal,,,CrtStaticInitTable,crt
 0x00B72CAC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,590,literal,,,CrtStaticInitTable,crt
-0x00B72CB0,.bss,source/game_sa/Pad.h,109,StaticRef,CKeyboardState,,Pad,juego
-0x00B72F20,.bss,source/game_sa/Pad.h,110,StaticRef,CKeyboardState,,Pad,juego
+0x00B72CB0,.bss,source/game_sa/Pad.h,109,StaticRef,CKeyboardState,624,Pad,juego
+0x00B72F20,.bss,source/game_sa/Pad.h,110,StaticRef,CKeyboardState,624,Pad,juego
 0x00B73176,.bss,source/app/securom/Securom.cpp,51,reinterpret_cast,uint16,2,Securom,juego
 0x00B73186,.bss,source/app/securom/Securom.cpp,42,literal,,,Securom,juego
 0x00B73188,.bss,source/app/securom/Securom.cpp,43,literal,,,Securom,juego
-0x00B73190,.bss,source/game_sa/Pad.h,111,StaticRef,CKeyboardState,,Pad,juego
+0x00B73190,.bss,source/game_sa/Pad.h,111,StaticRef,CKeyboardState,624,Pad,juego
 0x00B733E6,.bss,source/app/securom/Securom.cpp,51,reinterpret_cast,uint16,2,Securom,juego
 0x00B733F6,.bss,source/app/securom/Securom.cpp,42,literal,,,Securom,juego
 0x00B733F8,.bss,source/app/securom/Securom.cpp,43,literal,,,Securom,juego
 0x00B73402,.bss,source/game_sa/Pad.h,115,StaticRef,bool,1,Pad,juego
 0x00B73402,.bss,source/game_sa/PlayerInfo.cpp,368,StaticRef,uint8,1,PlayerInfo,juego
-0x00B73404,.bss,source/game_sa/Pad.h,105,StaticRef,CMouseControllerState,,Pad,juego
-0x00B73418,.bss,source/game_sa/Pad.h,106,StaticRef,CMouseControllerState,,Pad,juego
+0x00B73404,.bss,source/game_sa/Pad.h,105,StaticRef,CMouseControllerState,20,Pad,juego
+0x00B73418,.bss,source/game_sa/Pad.h,106,StaticRef,CMouseControllerState,20,Pad,juego
 0x00B73420,.bss,source/game_sa/Cam.cpp,3674,ayudante,,,Cam,juego
 0x00B73424,.bss,source/game_sa/Cam.cpp,1336,StaticRef,float,4,Cam,juego
 0x00B73424,.bss,source/game_sa/Cam.cpp,1724,ayudante,,,Cam,juego
@@ -6997,7 +7135,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B73428,.bss,source/game_sa/Entity/Vehicle/Bike.cpp,794,StaticRef,float,4,Bike,juego
 0x00B73428,.bss,source/game_sa/Entity/Vehicle/Plane.cpp,1057,StaticRef,float,4,Plane,juego
 0x00B73428,.bss,source/game_sa/X87Math.cpp,5864,ayudante,,,X87Math,crt
-0x00B7342C,.bss,source/game_sa/Pad.h,107,StaticRef,CMouseControllerState,,Pad,juego
+0x00B7342C,.bss,source/game_sa/Pad.h,107,StaticRef,CMouseControllerState,20,Pad,juego
 0x00B73440,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,591,literal,,,CrtStaticInitTable,crt
 0x00B73444,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,592,literal,,,CrtStaticInitTable,crt
 0x00B73448,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,593,literal,,,CrtStaticInitTable,crt
@@ -7006,7 +7144,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B73450,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,595,literal,,,CrtStaticInitTable,crt
 0x00B73454,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,596,literal,,,CrtStaticInitTable,crt
 0x00B73458,.bss,source/game_sa/Pad.h,113,literal,,,Pad,juego
-0x00B73710,.bss,source/game_sa/Entity/Physical.cpp,4272,StaticRef,"std::array<CColPoint, 32>",,Physical,juego
+0x00B73710,.bss,source/game_sa/Entity/Physical.cpp,4272,StaticRef,"std::array<CColPoint, 32>",1408,Physical,juego
+0x00B73720,.bss,source/game_sa/Entity/Physical.h,161,StaticRef,CVector,12,Physical,juego
 0x00B7421C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,597,literal,,,CrtStaticInitTable,crt
 0x00B74220,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,598,literal,,,CrtStaticInitTable,crt
 0x00B74224,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,599,literal,,,CrtStaticInitTable,crt
@@ -7015,7 +7154,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B7422C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,601,literal,,,CrtStaticInitTable,crt
 0x00B74230,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,602,literal,,,CrtStaticInitTable,crt
 0x00B74240,.bss,source/game_sa/Core/Matrix.cpp,35,StaticRef,CMatrix,72,Matrix,juego
-0x00B74288,.bss,source/game_sa/Core/MatrixLinkList.cpp,24,StaticRef,CMatrixLinkList,,MatrixLinkList,juego
+0x00B74288,.bss,source/game_sa/Core/MatrixLinkList.cpp,24,StaticRef,CMatrixLinkList,508,MatrixLinkList,juego
 0x00B74488,.bss,source/game_sa/Pools.cpp,93,StaticRef,CPtrNodeDoubleLinkPool*,4,Pools,juego
 0x00B7448C,.bss,source/game_sa/Pools.cpp,94,StaticRef,CEntryInfoNodePool*,4,Pools,juego
 0x00B74490,.bss,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,98,literal,,,DecisionMakerTypes,juego
@@ -7099,7 +7238,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B768AC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,625,literal,,,CrtStaticInitTable,crt
 0x00B768B0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,626,literal,,,CrtStaticInitTable,crt
 0x00B768B8,.bss,source/game_sa/Ropes.h,25,StaticRef,"std::array<CRope, MAX_NUM_ROPES>",,Ropes,juego
-0x00B78200,.bss,source/game_sa/Stats.h,46,StaticRef,"std::array<tStatMessage, 128>",,Stats,juego
+0x00B78200,.bss,source/game_sa/Stats.h,46,StaticRef,"std::array<tStatMessage, 128>",2048,Stats,juego
 0x00B78A00,.bss,source/game_sa/Stats.h,48,StaticRef,char[8],8,Stats,juego
 0x00B78CC8,.bss,source/game_sa/Stats.h,49,StaticRef,"std::array<int32, 100>",400,Stats,juego
 0x00B78E20,.bss,source/game_sa/Stats.cpp,2410,reinterpret_cast,int32,4,Stats,juego
@@ -7109,8 +7248,13 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B78F10,.bss,source/game_sa/Stats.h,52,StaticRef,"std::array<float, 59>",236,Stats,juego
 0x00B78F40,.bss,source/game_sa/Hud.cpp,1646,reinterpret_cast,float,4,Hud,juego
 0x00B79000,.bss,source/game_sa/Stats.h,53,StaticRef,"std::array<int32, 223>",892,Stats,juego
+0x00B790C4,.bss,source/game_sa/Stats.cpp,1374,StaticRef,int32,4,Stats,juego
+0x00B790C4,.bss,source/game_sa/Stats.cpp,1533,StaticRef,int32,4,Stats,juego
+0x00B790D4,.bss,source/game_sa/Stats.cpp,1540,StaticRef,int32,4,Stats,juego
 0x00B79380,.bss,source/game_sa/Stats.h,54,StaticRef,"std::array<float, 82>",328,Stats,juego
 0x00B793E4,.bss,source/game_sa/X87Math.cpp,9622,reinterpret_cast,float,4,X87Math,crt
+0x00B7940C,.bss,source/game_sa/Stats.cpp,1465,StaticRef,float,4,Stats,juego
+0x00B79414,.bss,source/game_sa/Stats.cpp,1465,StaticRef,float,4,Stats,juego
 0x00B794CC,.bss,source/game_sa/Frontend/MenuManager_Pages.cpp,429,StaticRef,eStats,,MenuManager_Pages,juego
 0x00B794CC,.bss,source/game_sa/MenuManager.cpp,956,StaticRef,uint16,2,MenuManager,juego
 0x00B794CC,.bss,source/game_sa/Stats.h,55,StaticRef,int16,2,Stats,juego
@@ -7123,7 +7267,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B7952C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,632,literal,,,CrtStaticInitTable,crt
 0x00B79530,.bss,source/game_sa/Stats.cpp,1813,literal,,,Stats,juego
 0x00B79534,.bss,source/game_sa/Stats.cpp,1956,reinterpret_cast,uint8,1,Stats,juego
-0x00B79538,.bss,source/game_sa/SurfaceInfos_c.h,79,StaticRef,SurfaceInfos_c,,SurfaceInfos_c,juego
+0x00B79538,.bss,source/game_sa/SurfaceInfos_c.h,79,StaticRef,SurfaceInfos_c,2292,SurfaceInfos_c,juego
 0x00B79E30,.bss,source/game_sa/TimeCycle.h,136,StaticRef,float,4,TimeCycle,juego
 0x00B79E34,.bss,source/game_sa/TimeCycle.h,135,StaticRef,float,4,TimeCycle,juego
 0x00B79E38,.bss,source/game_sa/TimeCycle.h,134,StaticRef,float,4,TimeCycle,juego
@@ -7190,7 +7334,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B7C494,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,637,literal,,,CrtStaticInitTable,crt
 0x00B7C498,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,637,literal,,,CrtStaticInitTable,crt
 0x00B7C49C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,638,literal,,,CrtStaticInitTable,crt
-0x00B7C4A0,.bss,source/game_sa/TimeCycle.h,109,StaticRef,CColourSet,,TimeCycle,juego
+0x00B7C4A0,.bss,source/game_sa/TimeCycle.h,109,StaticRef,CColourSet,172,TimeCycle,juego
 0x00B7C4E4,.bss,source/game_sa/Entity/Vehicle/Automobile.cpp,7545,StaticRef,float,4,Automobile,juego
 0x00B7C4E4,.bss,source/game_sa/Entity/Vehicle/Automobile.cpp,7630,StaticRef,float,4,Automobile,juego
 0x00B7C4E4,.bss,source/game_sa/Entity/Vehicle/Bike.cpp,2251,StaticRef,float,4,Bike,juego
@@ -7207,7 +7351,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B7C514,.bss,source/game_sa/WaterLevel.cpp,1470,StaticRef,float,4,WaterLevel,juego
 0x00B7C514,.bss,source/game_sa/WaterLevel.cpp,1493,StaticRef,float,4,WaterLevel,juego
 0x00B7C540,.bss,source/game_sa/Weather.cpp,64,StaticRef,uint16,2,Weather,juego
-0x00B7C550,.bss,source/game_sa/TimeCycle.h,111,StaticRef,"std::array<CTimeCycleBox, 20>",,TimeCycle,juego
+0x00B7C550,.bss,source/game_sa/TimeCycle.h,111,StaticRef,"std::array<CTimeCycleBox, 20>",800,TimeCycle,juego
 0x00B7CA50,.bss,source/game_sa/TimeCycle.h,115,StaticRef,"std::array<CVector, 16>",192,TimeCycle,juego
 0x00B7CB10,.bss,source/game_sa/TimeCycle.h,132,StaticRef,RwRGBA,4,TimeCycle,juego
 0x00B7CB14,.bss,source/game_sa/TimeCycle.h,138,StaticRef,CVector,12,TimeCycle,juego
@@ -7230,6 +7374,9 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B7CB49,.bss,source/game_sa/Timer.h,35,StaticRef,bool,1,Timer,juego
 0x00B7CB4C,.bss,source/app/platform/win/StandaloneExe.cpp,38,literal,,,StandaloneExe,juego
 0x00B7CB4C,.bss,source/game_sa/Timer.h,36,StaticRef,uint32,4,Timer,juego
+0x00B7CB54,.bss,source/game_sa/Scripts/RunningScript.cpp,404,StaticRef,float,4,RunningScript,juego
+0x00B7CB54,.bss,source/game_sa/Scripts/RunningScript.cpp,404,StaticRef,float,4,RunningScript,juego
+0x00B7CB54,.bss,source/game_sa/Timer.h,41,StaticRef,float,4,Timer,juego
 0x00B7CB5C,.bss,source/game_sa/Cam.cpp,1975,StaticRef,float,4,Cam,juego
 0x00B7CB5C,.bss,source/game_sa/Camera.cpp,3628,StaticRef,float,4,Camera,juego
 0x00B7CB5C,.bss,source/game_sa/Entity/Vehicle/Vehicle.cpp,4787,literal,,,Vehicle,juego
@@ -7351,11 +7498,11 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00B99EB8,.bss,source/game_sa/World.h,80,literal,,,World,juego
 0x00B9ACC8,.bss,source/game_sa/World.h,81,StaticRef,CPtrListDoubleLink<CPhysical*>,,World,juego
 0x00B9ACCC,.bss,source/game_sa/World.h,82,StaticRef,CPtrListDoubleLink<CObject*>,,World,juego
-0x00B9ACD0,.bss,source/game_sa/Weapon.cpp,2024,StaticRef,"std::array<CColPoint,32>",,Weapon,juego
-0x00B9ACD0,.bss,source/game_sa/World.h,85,StaticRef,"std::array<CColPoint, 32>",,World,juego
+0x00B9ACD0,.bss,source/game_sa/Weapon.cpp,2024,StaticRef,"std::array<CColPoint,32>",1408,Weapon,juego
+0x00B9ACD0,.bss,source/game_sa/World.h,85,StaticRef,"std::array<CColPoint, 32>",1408,World,juego
 0x00B9B250,.bss,source/game_sa/Cam.cpp,3207,StaticRef,CVector,12,Cam,juego
 0x00B9B250,.bss,source/game_sa/Camera.cpp,2390,StaticRef,CVector,12,Camera,juego
-0x00B9B250,.bss,source/game_sa/World.cpp,49,StaticRef,"std::array<CColPoint, 32>",,World,juego
+0x00B9B250,.bss,source/game_sa/World.cpp,49,StaticRef,"std::array<CColPoint, 32>",1408,World,juego
 0x00B9B260,.bss,source/game_sa/Camera.cpp,2391,StaticRef,CVector,12,Camera,juego
 0x00B9B7D4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,651,literal,,,CrtStaticInitTable,crt
 0x00B9B7D8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,652,literal,,,CrtStaticInitTable,crt
@@ -7385,9 +7532,10 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BA177C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,667,literal,,,CrtStaticInitTable,crt
 0x00BA1780,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,668,literal,,,CrtStaticInitTable,crt
 0x00BA1788,.bss,source/game_sa/Hud.cpp,976,reinterpret_cast,uint8,1,Hud,juego
-0x00BA1788,.bss,source/game_sa/UserDisplay.h,16,StaticRef,COnscreenTimer,,UserDisplay,juego
+0x00BA1788,.bss,source/game_sa/UserDisplay.h,16,StaticRef,COnscreenTimer,340,UserDisplay,juego
 0x00BA17C8,.bss,source/game_sa/Hud.cpp,999,reinterpret_cast,uint8,1,Hud,juego
 0x00BA1806,.bss,source/game_sa/Hud.cpp,979,reinterpret_cast,uint8,1,Hud,juego
+0x00BA18D8,.bss,source/game_sa/Hud.cpp,980,StaticRef,uint8,1,Hud,juego
 0x00BA18D9,.bss,source/game_sa/MissionCleanup.cpp,218,literal,,,MissionCleanup,juego
 0x00BA18DC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,669,literal,,,CrtStaticInitTable,crt
 0x00BA18E0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,670,literal,,,CrtStaticInitTable,crt
@@ -7396,12 +7544,12 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BA18E8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,673,literal,,,CrtStaticInitTable,crt
 0x00BA18EC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,673,literal,,,CrtStaticInitTable,crt
 0x00BA18F0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,674,literal,,,CrtStaticInitTable,crt
-0x00BA18F4,.bss,source/game_sa/UserDisplay.h,15,StaticRef,CPlaceName,,UserDisplay,juego
+0x00BA18F4,.bss,source/game_sa/UserDisplay.h,15,StaticRef,CPlaceName,8,UserDisplay,juego
 0x00BA18FC,.bss,source/game_sa/UserDisplay.h,17,StaticRef,CCurrentVehicle,,UserDisplay,juego
-0x00BA1908,.bss,source/game_sa/TheZones.h,25,StaticRef,"std::array<CZone, 39>",,TheZones,juego
-0x00BA1DF0,.bss,source/game_sa/TheZones.h,28,StaticRef,"std::array<CZoneInfo, 380>",,TheZones,juego
+0x00BA1908,.bss,source/game_sa/TheZones.h,25,StaticRef,"std::array<CZone, 39>",1248,TheZones,juego
+0x00BA1DF0,.bss,source/game_sa/TheZones.h,28,StaticRef,"std::array<CZoneInfo, 380>",6460,TheZones,juego
 0x00BA3730,.bss,source/game_sa/TheZones.h,18,StaticRef,"notsa::mdarray<bool, 10, 10>",,TheZones,juego
-0x00BA3798,.bss,source/game_sa/TheZones.h,23,StaticRef,"std::array<CZone, 380>",,TheZones,juego
+0x00BA3798,.bss,source/game_sa/TheZones.h,23,StaticRef,"std::array<CZone, 380>",12160,TheZones,juego
 0x00BA6718,.bss,source/game_sa/CarCtrl.cpp,2126,StaticRef,uint32,4,CarCtrl,juego
 0x00BA6718,.bss,source/game_sa/Streaming.cpp,2929,StaticRef,int32,4,Streaming,juego
 0x00BA6718,.bss,source/game_sa/Streaming.cpp,2936,StaticRef,int32,4,Streaming,juego
@@ -7415,8 +7563,15 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BA6738,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,680,literal,,,CrtStaticInitTable,crt
 0x00BA673C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,680,literal,,,CrtStaticInitTable,crt
 0x00BA6740,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,681,literal,,,CrtStaticInitTable,crt
-0x00BA6748,.bss,source/game_sa/MenuManager.cpp,42,StaticRef,CMenuManager,,MenuManager,juego
+0x00BA6745,.bss,source/game_sa/MenuManager.h,297,StaticRef,bool,1,MenuManager,juego
+0x00BA6748,.bss,source/game_sa/MenuManager.cpp,42,StaticRef,CMenuManager,7032,MenuManager,juego
 0x00BA677C,.bss,source/game_sa/MissionCleanup.cpp,207,literal,,,MissionCleanup,juego
+0x00BA678C,.bss,source/game_sa/Hud.cpp,1445,StaticRef,bool,1,Hud,juego
+0x00BA6793,.bss,source/game_sa/Hud.cpp,941,StaticRef,bool,1,Hud,juego
+0x00BA67A5,.bss,source/game_sa/Camera.cpp,451,StaticRef,uint8,1,Camera,juego
+0x00BA67A5,.bss,source/game_sa/Camera.cpp,460,StaticRef,uint8,1,Camera,juego
+0x00BA67F8,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,491,StaticRef,uint8,1,AERadioTrackManager,juego
+0x00BA67F8,.bss,source/game_sa/Audio/Managers/AERadioTrackManager.cpp,839,StaticRef,uint8,1,AERadioTrackManager,juego
 0x00BA82C0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,682,literal,,,CrtStaticInitTable,crt
 0x00BA82C4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,683,literal,,,CrtStaticInitTable,crt
 0x00BA82C8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,684,literal,,,CrtStaticInitTable,crt
@@ -7457,6 +7612,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BAA38C,.bss,source/game_sa/Hud.h,104,StaticRef,"std::array<int16, 4>",8,Hud,juego
 0x00BAA394,.bss,source/game_sa/Hud.cpp,977,reinterpret_cast,uint8,1,Hud,juego
 0x00BAA394,.bss,source/game_sa/Hud.h,105,StaticRef,"std::array<int16, 4>",8,Hud,juego
+0x00BAA398,.bss,source/game_sa/Hud.h,107,StaticRef,float,4,Hud,juego
 0x00BAA3A4,.bss,source/game_sa/Hud.h,96,literal,,,Hud,juego
 0x00BAA3C0,.bss,source/game_sa/Hud.h,97,literal,,,Hud,juego
 0x00BAA3DC,.bss,source/game_sa/Hud.h,98,literal,,,Hud,juego
@@ -7478,6 +7634,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BAA434,.bss,source/game_sa/Hud.cpp,1802,literal,,,Hud,juego
 0x00BAA434,.bss,source/game_sa/Hud.h,88,StaticRef,uint32,4,Hud,juego
 0x00BAA448,.bss,source/game_sa/Hud.h,38,StaticRef,eNameState,,Hud,juego
+0x00BAA480,.bss,source/game_sa/Hud.h,57,StaticRef,GxtChar[400],,Hud,juego
 0x00BAA930,.bss,source/game_sa/Hud.h,61,StaticRef,eNameState,,Hud,juego
 0x00BAA940,.bss,source/game_sa/Hud.h,95,literal,,,Hud,juego
 0x00BAACC0,.bss,source/game_sa/Hud.h,94,literal,,,Hud,juego
@@ -7490,8 +7647,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BAB1F0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,704,literal,,,CrtStaticInitTable,crt
 0x00BAB1F4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,704,literal,,,CrtStaticInitTable,crt
 0x00BAB1F8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,705,literal,,,CrtStaticInitTable,crt
-0x00BAB1FC,.bss,source/game_sa/Hud.h,100,StaticRef,"std::array<CSprite2d, 6>",,Hud,juego
-0x00BAB22C,.bss,source/game_sa/HudColours.cpp,23,StaticRef,CHudColours,,HudColours,juego
+0x00BAB1FC,.bss,source/game_sa/Hud.h,100,StaticRef,"std::array<CSprite2d, 6>",24,Hud,juego
+0x00BAB22C,.bss,source/game_sa/HudColours.cpp,23,StaticRef,CHudColours,60,HudColours,juego
 0x00BAB244,.bss,source/game_sa/Hud.cpp,1989,reinterpret_cast,uint8,1,Hud,juego
 0x00BAB245,.bss,source/game_sa/Hud.cpp,1989,reinterpret_cast,uint8,1,Hud,juego
 0x00BAB246,.bss,source/game_sa/Hud.cpp,1989,reinterpret_cast,uint8,1,Hud,juego
@@ -7503,10 +7660,10 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BAB354,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,710,literal,,,CrtStaticInitTable,crt
 0x00BAB358,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,711,literal,,,CrtStaticInitTable,crt
 0x00BAB35C,.bss,source/game_sa/LoadingScreen.h,41,StaticRef,"std::array<CSprite2d, +eDisplayedSplash::COUNT>",,LoadingScreen,juego
-0x00BAB380,.bss,source/game_sa/Interior/FurnitureManager_c.h,50,StaticRef,FurnitureManager_c,,FurnitureManager_c,juego
-0x00BAD3F8,.bss,source/game_sa/Interior/FurnitureGroup_c.cpp,64,StaticRef,"std::array<FurnitureSubGroup_c, 128>",,FurnitureGroup_c,juego
-0x00BAD3F8,.bss,source/game_sa/Interior/FurnitureManager_c.h,22,StaticRef,"std::array<FurnitureSubGroup_c, 128>",,FurnitureManager_c,juego
-0x00BAE1F8,.bss,source/game_sa/Interior/FurnitureSubGroup_c.cpp,82,StaticRef,Furniture_c[256],,FurnitureSubGroup_c,juego
+0x00BAB380,.bss,source/game_sa/Interior/FurnitureManager_c.h,50,StaticRef,FurnitureManager_c,8312,FurnitureManager_c,juego
+0x00BAD3F8,.bss,source/game_sa/Interior/FurnitureGroup_c.cpp,64,StaticRef,"std::array<FurnitureSubGroup_c, 128>",3584,FurnitureGroup_c,juego
+0x00BAD3F8,.bss,source/game_sa/Interior/FurnitureManager_c.h,22,StaticRef,"std::array<FurnitureSubGroup_c, 128>",3584,FurnitureManager_c,juego
+0x00BAE1F8,.bss,source/game_sa/Interior/FurnitureSubGroup_c.cpp,82,StaticRef,Furniture_c[256],5120,FurnitureSubGroup_c,juego
 0x00BAF5F8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,712,literal,,,CrtStaticInitTable,crt
 0x00BAF5FC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,713,literal,,,CrtStaticInitTable,crt
 0x00BAF600,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,714,literal,,,CrtStaticInitTable,crt
@@ -7542,11 +7699,16 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BAF664,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,740,literal,,,CrtStaticInitTable,crt
 0x00BAF668,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,740,literal,,,CrtStaticInitTable,crt
 0x00BAF66C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,741,literal,,,CrtStaticInitTable,crt
-0x00BAF670,.bss,source/game_sa/Interior/InteriorManager_c.h,102,StaticRef,InteriorManager_c,,InteriorManager_c,juego
+0x00BAF670,.bss,source/game_sa/Interior/InteriorManager_c.h,102,StaticRef,InteriorManager_c,18264,InteriorManager_c,juego
+0x00BB3914,.bss,source/game_sa/Interior/Interior_c.cpp,209,StaticRef,int32,4,Interior_c,juego
 0x00BB3918,.bss,source/game_sa/Interior/Interior_c.cpp,210,reinterpret_cast,int32,4,Interior_c,juego
 0x00BB3D9C,.bss,source/game_sa/Interior/InteriorGroup_c.cpp,162,StaticRef,uint8,1,InteriorGroup_c,juego
 0x00BB3D9C,.bss,source/game_sa/Interior/InteriorGroup_c.cpp,291,StaticRef,uint8,1,InteriorGroup_c,juego
 0x00BB3D9C,.bss,source/game_sa/Interior/InteriorGroup_c.cpp,294,StaticRef,uint8,1,InteriorGroup_c,juego
+0x00BB3DAC,.bss,source/game_sa/Interior/Interior_c.cpp,185,StaticRef,const uint8*,4,Interior_c,juego
+0x00BB3DC2,.bss,source/game_sa/Interior/InteriorGroup_c.cpp,108,StaticRef,bool,1,InteriorGroup_c,juego
+0x00BB3DC2,.bss,source/game_sa/Interior/InteriorGroup_c.cpp,120,StaticRef,bool,1,InteriorGroup_c,juego
+0x00BB3DC4,.bss,source/game_sa/Interior/Interior_c.cpp,2740,StaticRef,uint32,4,Interior_c,juego
 0x00BB3DCC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,742,literal,,,CrtStaticInitTable,crt
 0x00BB3DD0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,743,literal,,,CrtStaticInitTable,crt
 0x00BB3DD4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,744,literal,,,CrtStaticInitTable,crt
@@ -7581,7 +7743,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BB422C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,764,literal,,,CrtStaticInitTable,crt
 0x00BB4230,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,765,literal,,,CrtStaticInitTable,crt
 0x00BB423C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,766,literal,,,CrtStaticInitTable,crt
-0x00BB4240,.bss,source/game_sa/BreakManager_c.cpp,23,StaticRef,BreakManager_c,,BreakManager_c,juego
+0x00BB4240,.bss,source/game_sa/BreakManager_c.cpp,23,StaticRef,BreakManager_c,2048,BreakManager_c,juego
 0x00BB4A40,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,767,literal,,,CrtStaticInitTable,crt
 0x00BB4A44,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,768,literal,,,CrtStaticInitTable,crt
 0x00BB4A48,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,769,literal,,,CrtStaticInitTable,crt
@@ -7615,14 +7777,16 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BB7CA4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,790,literal,,,CrtStaticInitTable,crt
 0x00BB7CA8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,790,literal,,,CrtStaticInitTable,crt
 0x00BB7CAC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,791,literal,,,CrtStaticInitTable,crt
-0x00BB7CB0,.bss,source/game_sa/Plant/ProcObjectMan.h,61,StaticRef,ProcObjectMan_c,,ProcObjectMan,juego
+0x00BB7CB0,.bss,source/game_sa/Plant/ProcObjectMan.h,61,StaticRef,ProcObjectMan_c,19476,ProcObjectMan,juego
 0x00BBC8C4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,792,literal,,,CrtStaticInitTable,crt
 0x00BBC8C8,.bss,source/game_sa/ClothesBuilder.cpp,33,StaticRef,"notsa::mdarray<int16, 10, 64>",,ClothesBuilder,juego
 0x00BBC8C8,.bss,source/game_sa/ClothesBuilder.cpp,250,reinterpret_cast,int16,2,ClothesBuilder,juego
 0x00BC128C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,793,literal,,,CrtStaticInitTable,crt
-0x00BC1290,.bss,source/game_sa/Core/OctTreeBase.cpp,23,StaticRef,COctTreeBase,,OctTreeBase,juego
-0x00BC12C0,.bss,source/game_sa/ClothesBuilder.cpp,30,StaticRef,CDirectory,,ClothesBuilder,juego
+0x00BC1290,.bss,source/game_sa/Core/OctTreeBase.cpp,23,StaticRef,COctTreeBase,48,OctTreeBase,juego
+0x00BC12C0,.bss,source/game_sa/ClothesBuilder.cpp,30,StaticRef,CDirectory,16,ClothesBuilder,juego
 0x00BC12D8,.bss,source/game_sa/Core/OctTree.cpp,23,StaticRef,COctTree*,4,OctTree,juego
+0x00BC12DC,.bss,source/game_sa/Core/OctTree.h,26,StaticRef,bool,1,OctTree,juego
+0x00BC12E0,.bss,source/game_sa/Core/OctTree.h,27,StaticRef,uint32,4,OctTree,juego
 0x00BC12E4,.bss,source/game_sa/Core/OctTree.h,28,StaticRef,COctTreePool,,OctTree,juego
 0x00BC1300,.bss,source/game_sa/Clothes.h,21,StaticRef,"std::array<uint32, 600>",2400,Clothes,juego
 0x00BC1C60,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,794,literal,,,CrtStaticInitTable,crt
@@ -7632,9 +7796,9 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BC1C6C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,798,literal,,,CrtStaticInitTable,crt
 0x00BC1C70,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,798,literal,,,CrtStaticInitTable,crt
 0x00BC1C74,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,799,literal,,,CrtStaticInitTable,crt
-0x00BC1C78,.bss,source/game_sa/Clothes.cpp,35,StaticRef,CPedClothesDesc,,Clothes,juego
+0x00BC1C78,.bss,source/game_sa/Clothes.cpp,35,StaticRef,CPedClothesDesc,120,Clothes,juego
 0x00BC1CF0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,800,literal,,,CrtStaticInitTable,crt
-0x00BC1D70,.bss,source/game_sa/CutsceneMgr.h,98,StaticRef,"std::array<tCutsceneParticleEffect, 8>",,CutsceneMgr,juego
+0x00BC1D70,.bss,source/game_sa/CutsceneMgr.h,98,StaticRef,"std::array<tCutsceneParticleEffect, 8>",864,CutsceneMgr,juego
 0x00BC20D0,.bss,source/game_sa/CutsceneMgr.h,99,StaticRef,"std::array<tCutsceneRemoval, 50>",,CutsceneMgr,juego
 0x00BC2968,.bss,source/game_sa/CutsceneMgr.h,100,StaticRef,"std::array<CEntity*, 50>",200,CutsceneMgr,juego
 0x00BC2A68,.bss,source/game_sa/CutsceneMgr.h,103,StaticRef,"std::array<tCutsceneAttachment, 50>",,CutsceneMgr,juego
@@ -7652,7 +7816,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00BC4014,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,805,literal,,,CrtStaticInitTable,crt
 0x00BC4018,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,805,literal,,,CrtStaticInitTable,crt
 0x00BC401C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,806,literal,,,CrtStaticInitTable,crt
-0x00BC4020,.bss,source/game_sa/CutsceneMgr.h,133,StaticRef,CAnimBlendAssocGroup,,CutsceneMgr,juego
+0x00BC4020,.bss,source/game_sa/CutsceneMgr.h,133,StaticRef,CAnimBlendAssocGroup,20,CutsceneMgr,juego
 0x00BC4034,.bss,source/game_sa/CutsceneMgr.h,134,StaticRef,CVector,12,CutsceneMgr,juego
 0x00BC4040,.bss,source/game_sa/Entity/Object/CutsceneObject.cpp,227,literal,,,CutsceneObject,juego
 0x00BC405C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,807,literal,,,CrtStaticInitTable,crt
@@ -7736,7 +7900,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C02C24,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,866,literal,,,CrtStaticInitTable,crt
 0x00C02C70,.bss,source/game_sa/Pipelines/CustomBuilding/CustomBuildingPipeline.cpp,29,StaticRef,D3DMATRIX,,CustomBuildingPipeline,juego
 0x00C02CB0,.bss,source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h,157,StaticRef,D3DLIGHT9,,CustomCarEnvMapPipeline,juego
-0x00C02D18,.bss,source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h,152,StaticRef,CustomEnvMapPipeMaterialData,,CustomCarEnvMapPipeline,juego
+0x00C02D18,.bss,source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h,152,StaticRef,CustomEnvMapPipeMaterialData,12,CustomCarEnvMapPipeline,juego
 0x00C02D28,.bss,source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h,153,StaticRef,CustomEnvMapPipeMaterialDataPool*,4,CustomCarEnvMapPipeline,juego
 0x00C02D2C,.bss,source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h,154,StaticRef,CustomEnvMapPipeAtomicDataPool*,4,CustomCarEnvMapPipeline,juego
 0x00C02D30,.bss,source/game_sa/Pipelines/CustomCarEnvMap/CustomCarEnvMapPipeline.h,155,StaticRef,CustomSpecMapPipeMaterialDataPool*,4,CustomCarEnvMapPipeline,juego
@@ -7795,7 +7959,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C091D4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,898,literal,,,CrtStaticInitTable,crt
 0x00C091D8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,899,literal,,,CrtStaticInitTable,crt
 0x00C091EC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,900,literal,,,CrtStaticInitTable,crt
-0x00C091F0,.bss,source/game_sa/Gangs.h,21,StaticRef,"std::array<CGangInfo, 10>",,Gangs,juego
+0x00C091F0,.bss,source/game_sa/Gangs.h,21,StaticRef,"std::array<CGangInfo, 10>",160,Gangs,juego
 0x00C09290,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,901,literal,,,CrtStaticInitTable,crt
 0x00C09294,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,902,literal,,,CrtStaticInitTable,crt
 0x00C09298,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,903,literal,,,CrtStaticInitTable,crt
@@ -7862,7 +8026,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C09918,.bss,source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocators.h,39,StaticRef,CPedGroupDefaultTaskAllocatorRandom,,PedGroupDefaultTaskAllocators,juego
 0x00C0991C,.bss,source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocators.cpp,19,reinterpret_cast,CPedGroupDefaultTaskAllocator,,PedGroupDefaultTaskAllocators,juego
 0x00C0991C,.bss,source/game_sa/Tasks/Allocators/PedGroup/PedGroupDefaultTaskAllocators.h,38,StaticRef,CPedGroupDefaultTaskAllocatorSitInLeaderCar,,PedGroupDefaultTaskAllocators,juego
-0x00C09920,.bss,source/game_sa/PedGroups.h,23,StaticRef,"std::array<CPedGroup, 8>",,PedGroups,juego
+0x00C09920,.bss,source/game_sa/PedGroups.h,23,StaticRef,"std::array<CPedGroup, 8>",5792,PedGroups,juego
 0x00C0994C,.bss,source/game_sa/MissionCleanup.cpp,229,literal,,,MissionCleanup,juego
 0x00C09950,.bss,source/game_sa/DecisionMakers/DecisionMakerTypes.cpp,100,literal,,,DecisionMakerTypes,juego
 0x00C09950,.bss,source/game_sa/MissionCleanup.cpp,226,literal,,,MissionCleanup,juego
@@ -7886,7 +8050,6 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C0B04C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,953,literal,,,CrtStaticInitTable,crt
 0x00C0B050,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,954,literal,,,CrtStaticInitTable,crt
 0x00C0B058,.bss,source/game_sa/InterestingEvents.cpp,24,StaticRef,CInterestingEvents,,InterestingEvents,juego
-0x00C0B184,.bss,source/game_sa/Cam.cpp,851,StaticRef,uint8,1,Cam,juego
 0x00C0B1B8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,955,literal,,,CrtStaticInitTable,crt
 0x00C0B1BC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,956,literal,,,CrtStaticInitTable,crt
 0x00C0B1C0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,957,literal,,,CrtStaticInitTable,crt
@@ -7931,10 +8094,10 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C0E988,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,983,literal,,,CrtStaticInitTable,crt
 0x00C0E98C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,983,literal,,,CrtStaticInitTable,crt
 0x00C0E990,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,984,literal,,,CrtStaticInitTable,crt
-0x00C0E998,.bss,source/game_sa/Population.h,44,StaticRef,CLoadedCarGroup,,Population,juego
-0x00C0E9C8,.bss,source/game_sa/Population.h,45,StaticRef,CLoadedCarGroup,,Population,juego
-0x00C0E9F8,.bss,source/game_sa/Population.h,46,StaticRef,CLoadedCarGroup,,Population,juego
-0x00C0EA28,.bss,source/game_sa/Population.h,47,StaticRef,"std::array<CLoadedCarGroup, 10>",,Population,juego
+0x00C0E998,.bss,source/game_sa/Population.h,44,StaticRef,CLoadedCarGroup,46,Population,juego
+0x00C0E9C8,.bss,source/game_sa/Population.h,45,StaticRef,CLoadedCarGroup,46,Population,juego
+0x00C0E9F8,.bss,source/game_sa/Population.h,46,StaticRef,CLoadedCarGroup,46,Population,juego
+0x00C0EA28,.bss,source/game_sa/Population.h,47,StaticRef,"std::array<CLoadedCarGroup, 10>",460,Population,juego
 0x00C0EC24,.bss,source/game_sa/Population.h,50,StaticRef,uint32,4,Population,juego
 0x00C0EC3C,.bss,source/game_sa/Population.h,56,StaticRef,"std::array<uint32, TOTAL_GANGS>",,Population,juego
 0x00C0EC78,.bss,source/game_sa/Population.h,71,literal,,,Population,juego
@@ -7971,7 +8134,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C10294,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,995,literal,,,CrtStaticInitTable,crt
 0x00C10298,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,995,literal,,,CrtStaticInitTable,crt
 0x00C1029C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,996,literal,,,CrtStaticInitTable,crt
-0x00C10820,.bss,source/game_sa/Ragdoll/BoneNodeManager.h,63,StaticRef,BoneNodeManager_c,,BoneNodeManager,juego
+0x00C10820,.bss,source/game_sa/Ragdoll/BoneNodeManager.h,63,StaticRef,BoneNodeManager_c,19468,BoneNodeManager,juego
 0x00C15430,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,997,literal,,,CrtStaticInitTable,crt
 0x00C15434,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,998,literal,,,CrtStaticInitTable,crt
 0x00C15438,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,999,literal,,,CrtStaticInitTable,crt
@@ -7979,7 +8142,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C1543C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1001,literal,,,CrtStaticInitTable,crt
 0x00C15440,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1001,literal,,,CrtStaticInitTable,crt
 0x00C15444,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1002,literal,,,CrtStaticInitTable,crt
-0x00C15448,.bss,source/game_sa/Ragdoll/IKChainManager.cpp,31,StaticRef,IKChainManager_c,,IKChainManager,juego
+0x00C15448,.bss,source/game_sa/Ragdoll/IKChainManager.cpp,31,StaticRef,IKChainManager_c,2840,IKChainManager,juego
 0x00C16030,.bss,source/game_sa/GenericGameStorage.h,64,literal,,,GenericGameStorage,juego
 0x00C16138,.bss,source/game_sa/GenericGameStorage.h,77,StaticRef,"std::array<tSlotSaveDate, MAX_SAVEGAME_SLOTS>",,GenericGameStorage,juego
 0x00C16368,.bss,source/game_sa/GenericGameStorage.h,78,StaticRef,"std::array<tSlotFileName, MAX_SAVEGAME_SLOTS>",,GenericGameStorage,juego
@@ -8002,7 +8165,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C1702C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1013,literal,,,CrtStaticInitTable,crt
 0x00C17030,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1014,literal,,,CrtStaticInitTable,crt
 0x00C17034,.bss,source/game_sa/C_PcSave.h,42,StaticRef,C_PcSave,,C_PcSave,juego
-0x00C17038,.bss,source/game_sa/Scene.cpp,3,StaticRef,CScene,,Scene,juego
+0x00C17038,.bss,source/game_sa/Scene.cpp,3,StaticRef,CScene,8,Scene,juego
 0x00C1703C,.bss,source/app/platform/win/StandaloneExe.cpp,239,literal,,,StandaloneExe,juego
 0x00C1703C,.bss,source/app/platform/win/StandaloneExe.cpp,239,cast,DWORD,4,StandaloneExe,juego
 0x00C1703C,.bss,source/dllmain.cpp,176,literal,,,dllmain,juego
@@ -8041,7 +8204,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C170C8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1031,literal,,,CrtStaticInitTable,crt
 0x00C170CC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1032,literal,,,CrtStaticInitTable,crt
 0x00C170D0,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,263,literal,,,TaskSimpleFight,juego
-0x00C170D0,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h,60,StaticRef,"std::array<CMeleeInfo, 12>",,TaskSimpleFight,juego
+0x00C170D0,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.h,60,StaticRef,"std::array<CMeleeInfo, 12>",1632,TaskSimpleFight,juego
 0x00C177B8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1033,literal,,,CrtStaticInitTable,crt
 0x00C177BC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1034,literal,,,CrtStaticInitTable,crt
 0x00C177BC,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,422,literal,,,TaskSimpleFight,juego
@@ -8053,8 +8216,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C177D0,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,355,literal,,,TaskSimpleFight,juego
 0x00C177D0,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleUseGun.cpp,623,StaticRef,CVector[12],144,TaskSimpleUseGun,juego
 0x00C177EC,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,1496,literal,,,TaskSimpleFight,juego
-0x00C17824,.bss,source/game_sa/Game.h,64,StaticRef,"std::array<CColModel, 2>",,Game,juego
-0x00C17824,.bss,source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp,245,reinterpret_cast,CColModel,,TaskGangHassleVehicle,juego
+0x00C17824,.bss,source/game_sa/Game.h,64,StaticRef,"std::array<CColModel, 2>",96,Game,juego
+0x00C17824,.bss,source/game_sa/Tasks/TaskTypes/TaskGangHassleVehicle.cpp,245,reinterpret_cast,CColModel,48,TaskGangHassleVehicle,juego
 0x00C17824,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,260,literal,,,TaskSimpleFight,juego
 0x00C17854,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,261,literal,,,TaskSimpleFight,juego
 0x00C17884,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleFight.cpp,262,literal,,,TaskSimpleFight,juego
@@ -8146,7 +8309,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C18D44,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1098,literal,,,CrtStaticInitTable,crt
 0x00C18D48,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleGoTo.h,22,StaticRef,float,4,TaskSimpleGoTo,juego
 0x00C18DB4,.bss,source/game_sa/Scripts/RunningScriptCommands1500To1599.cpp,85,StaticRef,float,4,RunningScriptCommands1500To1599,juego
-0x00C18DB8,.bss,source/game_sa/Scripts/RunningScriptCommands2000To2099.cpp,802,reinterpret_cast,CPatrolRoute,,RunningScriptCommands2000To2099,juego
+0x00C18DB8,.bss,source/game_sa/Scripts/RunningScriptCommands2000To2099.cpp,802,reinterpret_cast,CPatrolRoute,420,RunningScriptCommands2000To2099,juego
 0x00C18F5C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1099,literal,,,CrtStaticInitTable,crt
 0x00C18F60,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1100,literal,,,CrtStaticInitTable,crt
 0x00C18F64,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1101,literal,,,CrtStaticInitTable,crt
@@ -8161,11 +8324,11 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C18F8C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1109,literal,,,CrtStaticInitTable,crt
 0x00C18F90,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1109,literal,,,CrtStaticInitTable,crt
 0x00C18F94,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1110,literal,,,CrtStaticInitTable,crt
-0x00C18F98,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.h,32,StaticRef,"std::array<CColPoint, 32>",,TaskSimpleGetUp,juego
-0x00C19518,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,33,StaticRef,CColModel,,TaskSimpleClimb,juego
-0x00C19548,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,34,StaticRef,CColModel,,TaskSimpleClimb,juego
-0x00C19578,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,35,StaticRef,CColModel,,TaskSimpleClimb,juego
-0x00C195A8,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,36,StaticRef,CColModel,,TaskSimpleClimb,juego
+0x00C18F98,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleGetUp.h,32,StaticRef,"std::array<CColPoint, 32>",1408,TaskSimpleGetUp,juego
+0x00C19518,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,33,StaticRef,CColModel,48,TaskSimpleClimb,juego
+0x00C19548,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,34,StaticRef,CColModel,48,TaskSimpleClimb,juego
+0x00C19578,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,35,StaticRef,CColModel,48,TaskSimpleClimb,juego
+0x00C195A8,.bss,source/game_sa/Tasks/TaskTypes/TaskSimpleClimb.cpp,36,StaticRef,CColModel,48,TaskSimpleClimb,juego
 0x00C19634,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1111,literal,,,CrtStaticInitTable,crt
 0x00C19638,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1112,literal,,,CrtStaticInitTable,crt
 0x00C1963C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1113,literal,,,CrtStaticInitTable,crt
@@ -8230,7 +8393,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C197BC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1163,literal,,,CrtStaticInitTable,crt
 0x00C197C0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1163,literal,,,CrtStaticInitTable,crt
 0x00C197C4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1164,literal,,,CrtStaticInitTable,crt
-0x00C197C8,.bss,source/game_sa/Cover.h,22,StaticRef,"std::array<CCoverPoint, 100>",,Cover,juego
+0x00C197C8,.bss,source/game_sa/Cover.h,22,StaticRef,"std::array<CCoverPoint, 100>",2800,Cover,juego
 0x00C1A2B8,.bss,source/game_sa/Cover.h,23,StaticRef,CPtrListDoubleLink<CBuilding*>,,Cover,juego
 0x00C1A2C0,.bss,source/game_sa/Formation.h,21,StaticRef,"std::array<int32, TOTAL_PED_GROUP_MEMBERS>",,Formation,juego
 0x00C1A300,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1165,literal,,,CrtStaticInitTable,crt
@@ -8240,9 +8403,9 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C1A30C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1169,literal,,,CrtStaticInitTable,crt
 0x00C1A310,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1169,literal,,,CrtStaticInitTable,crt
 0x00C1A314,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1170,literal,,,CrtStaticInitTable,crt
-0x00C1A318,.bss,source/game_sa/Formation.h,22,StaticRef,CPointList,,Formation,juego
-0x00C1A458,.bss,source/game_sa/Formation.h,23,StaticRef,CPedList,,Formation,juego
-0x00C1A4D8,.bss,source/game_sa/Formation.h,24,StaticRef,CPedList,,Formation,juego
+0x00C1A318,.bss,source/game_sa/Formation.h,22,StaticRef,CPointList,316,Formation,juego
+0x00C1A458,.bss,source/game_sa/Formation.h,23,StaticRef,CPedList,124,Formation,juego
+0x00C1A4D8,.bss,source/game_sa/Formation.h,24,StaticRef,CPedList,124,Formation,juego
 0x00C1A558,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1171,literal,,,CrtStaticInitTable,crt
 0x00C1A55C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1172,literal,,,CrtStaticInitTable,crt
 0x00C1A560,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1173,literal,,,CrtStaticInitTable,crt
@@ -8265,8 +8428,9 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C1B334,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1183,literal,,,CrtStaticInitTable,crt
 0x00C1B338,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1183,literal,,,CrtStaticInitTable,crt
 0x00C1B33C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1184,literal,,,CrtStaticInitTable,crt
-0x00C1B340,.bss,source/game_sa/Text/Text.h,88,StaticRef,CText,,Text,juego
+0x00C1B340,.bss,source/game_sa/Text/Text.h,88,StaticRef,CText,2704,Text,juego
 0x00C1BED0,.bss,source/game_sa/C_PcSave.cpp,58,StaticRef,char[257],257,C_PcSave,juego
+0x00C1BFD0,.bss,source/game_sa/Entity/Vehicle/Automobile.h,136,StaticRef,bool,1,Automobile,juego
 0x00C1BFD8,.bss,source/game_sa/Entity/Vehicle/Automobile.cpp,4601,literal,,,Automobile,juego
 0x00C1BFDC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1185,literal,,,CrtStaticInitTable,crt
 0x00C1BFE0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1186,literal,,,CrtStaticInitTable,crt
@@ -8303,7 +8467,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C1C84C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1207,literal,,,CrtStaticInitTable,crt
 0x00C1C850,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1207,literal,,,CrtStaticInitTable,crt
 0x00C1C854,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1208,literal,,,CrtStaticInitTable,crt
-0x00C1C858,.bss,source/game_sa/Buoyancy.h,61,StaticRef,CBuoyancyCalcStruct,,Buoyancy,juego
+0x00C1C858,.bss,source/game_sa/Buoyancy.h,61,StaticRef,CBuoyancyCalcStruct,28,Buoyancy,juego
 0x00C1C878,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1209,literal,,,CrtStaticInitTable,crt
 0x00C1C87C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1210,literal,,,CrtStaticInitTable,crt
 0x00C1C880,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1211,literal,,,CrtStaticInitTable,crt
@@ -8311,7 +8475,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C1C884,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1213,literal,,,CrtStaticInitTable,crt
 0x00C1C888,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1213,literal,,,CrtStaticInitTable,crt
 0x00C1C88C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1214,literal,,,CrtStaticInitTable,crt
-0x00C1C890,.bss,source/game_sa/Buoyancy.cpp,24,StaticRef,cBuoyancy,,Buoyancy,juego
+0x00C1C890,.bss,source/game_sa/Buoyancy.cpp,24,StaticRef,cBuoyancy,208,Buoyancy,juego
 0x00C1C964,.bss,source/game_sa/Entity/Vehicle/Heli.h,102,StaticRef,"std::array<CHeli*, 2>",8,Heli,juego
 0x00C1C970,.bss,source/game_sa/Entity/Vehicle/Heli.h,104,StaticRef,bool,1,Heli,juego
 0x00C1C970,.bss,source/game_sa/Entity/Vehicle/Vehicle.cpp,6407,literal,,,Vehicle,juego
@@ -8322,7 +8486,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C1C980,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1219,literal,,,CrtStaticInitTable,crt
 0x00C1C984,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1219,literal,,,CrtStaticInitTable,crt
 0x00C1C988,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1220,literal,,,CrtStaticInitTable,crt
-0x00C1C990,.bss,source/game_sa/Entity/Vehicle/Heli.h,105,StaticRef,"std::array<tHeliLight, 4>",,Heli,juego
+0x00C1C990,.bss,source/game_sa/Entity/Vehicle/Heli.h,105,StaticRef,"std::array<tHeliLight, 4>",304,Heli,juego
 0x00C1CAC0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1221,literal,,,CrtStaticInitTable,crt
 0x00C1CAC4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1222,literal,,,CrtStaticInitTable,crt
 0x00C1CAC8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1223,literal,,,CrtStaticInitTable,crt
@@ -8359,7 +8523,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C1CB50,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1248,literal,,,CrtStaticInitTable,crt
 0x00C1CB54,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1249,literal,,,CrtStaticInitTable,crt
 0x00C1CB54,.bss,source/game_sa/cTransmission.cpp,54,StaticRef,float,4,cTransmission,juego
-0x00C1CB60,.bss,source/game_sa/Entity/Vehicle/Vehicle.h,438,StaticRef,"std::array<tHydraulicData, 4>",,Vehicle,juego
+0x00C1CB60,.bss,source/game_sa/Entity/Vehicle/Vehicle.h,438,StaticRef,"std::array<tHydraulicData, 4>",160,Vehicle,juego
 0x00C1CC00,.bss,source/game_sa/Entity/Vehicle/Vehicle.cpp,9176,StaticRef,uint8,1,Vehicle,juego
 0x00C1CC00,.bss,source/game_sa/Entity/Vehicle/Vehicle.h,429,StaticRef,bool,1,Vehicle,juego
 0x00C1CC00,.bss,source/game_sa/MissionCleanup.cpp,255,literal,,,MissionCleanup,juego
@@ -8386,9 +8550,9 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C1CC68,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1254,literal,,,CrtStaticInitTable,crt
 0x00C1CC6C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1254,literal,,,CrtStaticInitTable,crt
 0x00C1CC70,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1255,literal,,,CrtStaticInitTable,crt
-0x00C1CC78,.bss,source/game_sa/Entity/Vehicle/Vehicle.h,435,StaticRef,"std::array<CColModel, 4>",,Vehicle,juego
-0x00C1CD38,.bss,source/game_sa/Entity/Vehicle/Vehicle.cpp,8977,StaticRef,CColModel,,Vehicle,juego
-0x00C1CD68,.bss,source/game_sa/Entity/Vehicle/Vehicle.cpp,8978,StaticRef,CCollisionData,,Vehicle,juego
+0x00C1CC78,.bss,source/game_sa/Entity/Vehicle/Vehicle.h,435,StaticRef,"std::array<CColModel, 4>",192,Vehicle,juego
+0x00C1CD38,.bss,source/game_sa/Entity/Vehicle/Vehicle.cpp,8977,StaticRef,CColModel,48,Vehicle,juego
+0x00C1CD68,.bss,source/game_sa/Entity/Vehicle/Vehicle.cpp,8978,StaticRef,CCollisionData,48,Vehicle,juego
 0x00C1CDC0,.bss,source/game_sa/VehicleAnimGroupData.h,146,literal,,,VehicleAnimGroupData,juego
 0x00C1DF18,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1256,literal,,,CrtStaticInitTable,crt
 0x00C1DF1C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1257,literal,,,CrtStaticInitTable,crt
@@ -8414,8 +8578,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C21188,.bss,source/game_sa/WaterLevel.h,130,StaticRef,WaterFog,,WaterLevel,juego
 0x00C215F8,.bss,source/game_sa/WaterLevel.h,188,StaticRef,"std::array<PolyInfo, 700>",,WaterLevel,juego
 0x00C21B70,.bss,source/game_sa/WaterLevel.h,178,StaticRef,"notsa::mdarray<PolyInfo, NUM_WATER_BLOCKS_ROWCOL, NUM_WATER_BLOCKS_ROWCOL>",,WaterLevel,juego
-0x00C21C90,.bss,source/game_sa/WaterLevel.h,184,StaticRef,"std::array<CWaterQuad, 301>",,WaterLevel,juego
-0x00C22854,.bss,source/game_sa/WaterLevel.h,181,StaticRef,"std::array<CWaterTriangle, 6>",,WaterLevel,juego
+0x00C21C90,.bss,source/game_sa/WaterLevel.h,184,StaticRef,"std::array<CWaterQuad, 301>",3010,WaterLevel,juego
+0x00C22854,.bss,source/game_sa/WaterLevel.h,181,StaticRef,"std::array<CWaterTriangle, 6>",48,WaterLevel,juego
 0x00C22884,.bss,source/game_sa/WaterLevel.h,100,StaticRef,uint32,4,WaterLevel,juego
 0x00C22888,.bss,source/game_sa/WaterLevel.h,101,StaticRef,uint32,4,WaterLevel,juego
 0x00C2288C,.bss,source/game_sa/WaterLevel.h,102,StaticRef,uint32,4,WaterLevel,juego
@@ -8448,7 +8612,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C279C8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1273,literal,,,CrtStaticInitTable,crt
 0x00C279CC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1274,literal,,,CrtStaticInitTable,crt
 0x00C279CC,.bss,source/game_sa/Entity/Vehicle/Boat.cpp,46,StaticRef,float,4,Boat,juego
-0x00C279D8,.bss,source/game_sa/TheCarGenerators.h,21,StaticRef,CSpecialPlateHandler,,TheCarGenerators,juego
+0x00C279D8,.bss,source/game_sa/TheCarGenerators.h,21,StaticRef,CSpecialPlateHandler,244,TheCarGenerators,juego
 0x00C27AD0,.bss,source/game_sa/TheCarGenerators.h,22,literal,,,TheCarGenerators,juego
 0x00C2B950,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1275,literal,,,CrtStaticInitTable,crt
 0x00C2B954,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1276,literal,,,CrtStaticInitTable,crt
@@ -8481,7 +8645,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C2B9BC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1297,literal,,,CrtStaticInitTable,crt
 0x00C2B9BC,.bss,source/game_sa/cHandlingDataMgr.cpp,431,StaticRef,float,4,cHandlingDataMgr,juego
 0x00C2B9C0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1298,literal,,,CrtStaticInitTable,crt
-0x00C2B9C8,.bss,source/game_sa/cHandlingDataMgr.h,274,StaticRef,cHandlingDataMgr,,cHandlingDataMgr,juego
+0x00C2B9C8,.bss,source/game_sa/cHandlingDataMgr.h,274,StaticRef,cHandlingDataMgr,50724,cHandlingDataMgr,juego
 0x00C37FEC,.bss,source/game_sa/Entity/Vehicle/Train.cpp,51,StaticRef,"std::array<float, 4>",16,Train,juego
 0x00C38014,.bss,source/game_sa/Entity/Vehicle/Train.cpp,50,StaticRef,"std::array<int32, 4>",16,Train,juego
 0x00C38024,.bss,source/game_sa/Entity/Vehicle/Train.cpp,49,StaticRef,CTrainNode*[4],16,Train,juego
@@ -8536,8 +8700,10 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C3F0D8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1321,literal,,,CrtStaticInitTable,crt
 0x00C3F0E0,.bss,source/game_sa/PointLights.h,45,literal,,,PointLights,juego
 0x00C3F6E0,.bss,source/game_sa/PointLights.h,49,literal,,,PointLights,juego
+0x00C3FE08,.bss,source/game_sa/PostEffects.cpp,37,StaticRef,"std::array<int32, 180>",720,PostEffects,juego
 0x00C400D8,.bss,source/game_sa/PostEffects.cpp,34,StaticRef,"std::array<RwIm2DVertex, 4>",,PostEffects,juego
-0x00C40150,.bss,source/game_sa/PostEffects.h,218,StaticRef,imf,,PostEffects,juego
+0x00C40150,.bss,source/game_sa/PostEffects.h,218,StaticRef,imf,344,PostEffects,juego
+0x00C402B8,.bss,source/game_sa/PostEffects.h,105,StaticRef,bool,1,PostEffects,juego
 0x00C402C0,.bss,source/game_sa/PostEffects.cpp,645,StaticRef,int32,4,PostEffects,juego
 0x00C402C0,.bss,source/game_sa/PostEffects.h,126,StaticRef,int32,4,PostEffects,juego
 0x00C402C4,.bss,source/game_sa/PostEffects.h,111,StaticRef,bool,1,PostEffects,juego
@@ -8584,7 +8750,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C40344,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1332,literal,,,CrtStaticInitTable,crt
 0x00C40348,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1332,literal,,,CrtStaticInitTable,crt
 0x00C4034C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1333,literal,,,CrtStaticInitTable,crt
-0x00C40350,.bss,source/game_sa/RealTimeShadowManager.cpp,24,StaticRef,CRealTimeShadowManager,,RealTimeShadowManager,juego
+0x00C40350,.bss,source/game_sa/RealTimeShadowManager.cpp,24,StaticRef,CRealTimeShadowManager,84,RealTimeShadowManager,juego
 0x00C403A8,.bss,source/game_sa/Shadows.cpp,877,reinterpret_cast,void,,Shadows,juego
 0x00C403A8,.bss,source/game_sa/Shadows.h,264,StaticRef,"std::array<RwImVertexIndex, 24>",,Shadows,juego
 0x00C40418,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1334,literal,,,CrtStaticInitTable,crt
@@ -8656,9 +8822,9 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C6A188,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1346,literal,,,CrtStaticInitTable,crt
 0x00C6A18C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1346,literal,,,CrtStaticInitTable,crt
 0x00C6A190,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1347,literal,,,CrtStaticInitTable,crt
-0x00C6A198,.bss,source/game_sa/StencilShadows.h,8,StaticRef,"std::array<CStencilShadowObject, 64>",,StencilShadows,juego
+0x00C6A198,.bss,source/game_sa/StencilShadows.h,8,StaticRef,"std::array<CStencilShadowObject, 64>",1792,StencilShadows,juego
 0x00C6A8A8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1348,literal,,,CrtStaticInitTable,crt
-0x00C6A8B0,.bss,source/game_sa/Birds.h,77,StaticRef,"std::array<CBird, 6>",,Birds,juego
+0x00C6A8B0,.bss,source/game_sa/Birds.h,77,StaticRef,"std::array<CBird, 6>",408,Birds,juego
 0x00C6AA48,.bss,source/game_sa/Birds.h,78,StaticRef,CVector,12,Birds,juego
 0x00C6AA84,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1349,literal,,,CrtStaticInitTable,crt
 0x00C6AA88,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1350,literal,,,CrtStaticInitTable,crt
@@ -8681,8 +8847,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C6E9A0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1359,literal,,,CrtStaticInitTable,crt
 0x00C6E9A4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1360,literal,,,CrtStaticInitTable,crt
 0x00C6E9A8,.bss,source/game_sa/Escalators.h,20,StaticRef,"std::array<CEscalator, NUM_ESCALATORS>",,Escalators,juego
-0x00C713A8,.bss,source/game_sa/PlaneTrails.h,13,StaticRef,"std::array<CPlaneTrail, 3>",,PlaneTrails,juego
-0x00C716B0,.bss,source/game_sa/Font.cpp,43,StaticRef,"std::array<CFontChar, 9>",,Font,juego
+0x00C713A8,.bss,source/game_sa/PlaneTrails.h,13,StaticRef,"std::array<CPlaneTrail, 3>",768,PlaneTrails,juego
+0x00C716B0,.bss,source/game_sa/Font.cpp,43,StaticRef,"std::array<CFontChar, 9>",432,Font,juego
 0x00C7187C,.bss,source/game_sa/Font.cpp,796,literal,,,Font,juego
 0x00C71A54,.bss,source/game_sa/Font.h,85,StaticRef,eExtraFontSymbol,,Font,juego
 0x00C71A58,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1361,literal,,,CrtStaticInitTable,crt
@@ -8691,7 +8857,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C71A70,.bss,source/game_sa/Font.h,90,StaticRef,CVector2D,8,Font,juego
 0x00C71A84,.bss,source/game_sa/Font.h,99,StaticRef,CRGBA,4,Font,juego
 0x00C71A97,.bss,source/game_sa/Font.h,106,StaticRef,CRGBA,4,Font,juego
-0x00C71AA0,.bss,source/game_sa/Font.h,80,StaticRef,CFontChar,,Font,juego
+0x00C71AA0,.bss,source/game_sa/Font.h,80,StaticRef,CFontChar,48,Font,juego
 0x00C71AD0,.bss,source/game_sa/Font.h,82,literal,,,Font,juego
 0x00C71AD8,.bss,source/game_sa/Font.h,84,literal,,,Font,juego
 0x00C71B30,.bss,source/game_sa/Glass.h,30,StaticRef,"std::array<CVector2D, 5>",40,Glass,juego
@@ -8703,7 +8869,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C71BE8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1366,literal,,,CrtStaticInitTable,crt
 0x00C71BEC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1366,literal,,,CrtStaticInitTable,crt
 0x00C71BF0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1367,literal,,,CrtStaticInitTable,crt
-0x00C71BF8,.bss,source/game_sa/Glass.h,33,StaticRef,"std::array<CFallingGlassPane, 45>",,Glass,juego
+0x00C71BF8,.bss,source/game_sa/Glass.h,33,StaticRef,"std::array<CFallingGlassPane, 45>",5040,Glass,juego
 0x00C72FB0,.bss,source/game_sa/GridRef.cpp,24,literal,,,GridRef,juego
 0x00C73C34,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1368,literal,,,CrtStaticInitTable,crt
 0x00C73C38,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1369,literal,,,CrtStaticInitTable,crt
@@ -8762,16 +8928,18 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C7C738,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1398,literal,,,CrtStaticInitTable,crt
 0x00C7C73C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1398,literal,,,CrtStaticInitTable,crt
 0x00C7C740,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1399,literal,,,CrtStaticInitTable,crt
-0x00C7C748,.bss,source/game_sa/BulletTraces.h,13,StaticRef,"std::array<CBulletTrace, 16>",,BulletTraces,juego
+0x00C7C748,.bss,source/game_sa/BulletTraces.h,13,StaticRef,"std::array<CBulletTrace, 16>",704,BulletTraces,juego
 0x00C7CA08,.bss,source/game_sa/MotionBlurStreaks.h,14,literal,,,MotionBlurStreaks,juego
 0x00C7CB58,.bss,source/game_sa/BrightLights.h,42,literal,,,BrightLights,juego
-0x00C7D258,.bss,source/game_sa/ShinyTexts.h,38,StaticRef,"std::array<CRegisteredShinyText, 32>",,ShinyTexts,juego
-0x00C7DD58,.bss,source/game_sa/3dMarkers.h,64,StaticRef,"std::array<C3dMarker, 32>",,3dMarkers,juego
-0x00C7F158,.bss,source/game_sa/Checkpoints.h,13,StaticRef,"std::array<CCheckpoint, 32>",,Checkpoints,juego
-0x00C80258,.bss,source/game_sa/3dMarkers.h,63,StaticRef,"std::array<tUser3dMarker, 5>",,3dMarkers,juego
-0x00C802E8,.bss,source/game_sa/3dMarkers.h,62,StaticRef,"std::array<tDirectionArrow, 5>",,3dMarkers,juego
+0x00C7D258,.bss,source/game_sa/ShinyTexts.h,38,StaticRef,"std::array<CRegisteredShinyText, 32>",2816,ShinyTexts,juego
+0x00C7DD58,.bss,source/game_sa/3dMarkers.h,64,StaticRef,"std::array<C3dMarker, 32>",5120,3dMarkers,juego
+0x00C7F158,.bss,source/game_sa/Checkpoints.h,13,StaticRef,"std::array<CCheckpoint, 32>",1792,Checkpoints,juego
+0x00C80258,.bss,source/game_sa/3dMarkers.h,63,StaticRef,"std::array<tUser3dMarker, 5>",140,3dMarkers,juego
+0x00C802E8,.bss,source/game_sa/3dMarkers.h,62,StaticRef,"std::array<tDirectionArrow, 5>",240,3dMarkers,juego
 0x00C803D8,.bss,source/game_sa/Mirrors.h,33,StaticRef,CVector,12,Mirrors,juego
 0x00C803E8,.bss,source/game_sa/SpecialFX.cpp,114,StaticRef,CMatrix,72,SpecialFX,juego
+0x00C80428,.bss,source/game_sa/SpecialFX.cpp,117,StaticRef,uint32,4,SpecialFX,juego
+0x00C8042C,.bss,source/game_sa/SpecialFX.cpp,118,StaticRef,uint32,4,SpecialFX,juego
 0x00C80468,.bss,source/game_sa/Sprite2d.h,26,StaticRef,"std::array<RwIm2DVertex, 8>",,Sprite2d,juego
 0x00C80548,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1400,literal,,,CrtStaticInitTable,crt
 0x00C80550,.bss,source/game_sa/WaterCannon.cpp,193,StaticRef,"std::array<RxObjSpace3DVertex, 12>",,WaterCannon,juego
@@ -8783,7 +8951,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C80730,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1405,literal,,,CrtStaticInitTable,crt
 0x00C80734,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1405,literal,,,CrtStaticInitTable,crt
 0x00C80738,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1406,literal,,,CrtStaticInitTable,crt
-0x00C80740,.bss,source/game_sa/WaterCannons.h,10,StaticRef,"std::array<CWaterCannon, 3>",,WaterCannons,juego
+0x00C80740,.bss,source/game_sa/WaterCannons.h,10,StaticRef,"std::array<CWaterCannon, 3>",2916,WaterCannons,juego
 0x00C81314,.bss,source/game_sa/CarCtrl.cpp,3254,reinterpret_cast,int16,2,CarCtrl,juego
 0x00C81314,.bss,source/game_sa/Entity/Vehicle/Plane.cpp,586,StaticRef,int16,2,Plane,juego
 0x00C81314,.bss,source/game_sa/Entity/Vehicle/Plane.cpp,586,StaticRef,int16,2,Plane,juego
@@ -8816,7 +8984,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C81350,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1411,literal,,,CrtStaticInitTable,crt
 0x00C81354,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1411,literal,,,CrtStaticInitTable,crt
 0x00C81358,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1412,literal,,,CrtStaticInitTable,crt
-0x00C81360,.bss,source/game_sa/Weather.h,66,StaticRef,CAEWeatherAudioEntity,,Weather,juego
+0x00C81360,.bss,source/game_sa/Weather.h,66,StaticRef,CAEWeatherAudioEntity,128,Weather,juego
 0x00C813E0,.bss,source/game_sa/Weather.h,48,StaticRef,CVector,12,Weather,juego
 0x00C81424,.bss,source/game_sa/Weather.cpp,68,StaticRef,CVector,12,Weather,juego
 0x00C81430,.bss,source/game_sa/Weather.cpp,67,StaticRef,CVector,12,Weather,juego
@@ -8831,8 +8999,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C815A8,.bss,source/game_sa/Renderer.cpp,136,reinterpret_cast,int32,4,Renderer,juego
 0x00C815B8,.bss,source/game_sa/Renderer.cpp,137,reinterpret_cast,int32,4,Renderer,juego
 0x00C815BC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1414,literal,,,CrtStaticInitTable,crt
-0x00C815C0,.bss,source/game_sa/CullZones.h,151,StaticRef,"std::array<CMirrorAttributeZone, 72>",,CullZones,juego
-0x00C81C80,.bss,source/game_sa/CullZones.h,150,StaticRef,"std::array<CAttributeZone, 40>",,CullZones,juego
+0x00C815C0,.bss,source/game_sa/CullZones.h,151,StaticRef,"std::array<CMirrorAttributeZone, 72>",1728,CullZones,juego
+0x00C81C80,.bss,source/game_sa/CullZones.h,150,StaticRef,"std::array<CAttributeZone, 40>",720,CullZones,juego
 0x00C81F50,.bss,source/game_sa/CullZones.h,149,literal,,,CullZones,juego
 0x00C87ACD,.bss,source/game_sa/CullZones.h,147,StaticRef,bool,1,CullZones,juego
 0x00C87ACD,.bss,source/game_sa/MissionCleanup.cpp,155,literal,,,MissionCleanup,juego
@@ -8843,7 +9011,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C87ADC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1419,literal,,,CrtStaticInitTable,crt
 0x00C87AE0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1419,literal,,,CrtStaticInitTable,crt
 0x00C87AE4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1420,literal,,,CrtStaticInitTable,crt
-0x00C87AE8,.bss,source/game_sa/RenderWare/rw/rwtexdict.cpp,232,StaticRef,GtaClumpHeader,,rwtexdict,renderware
+0x00C87AE8,.bss,source/game_sa/RenderWare/rw/rwtexdict.cpp,232,StaticRef,GtaClumpHeader,12,rwtexdict,renderware
 0x00C87AF4,.bss,source/game_sa/RenderWare/rw/rwtexdict.cpp,233,StaticRef,rwFrameList,,rwtexdict,renderware
 0x00C87AFC,.bss,source/game_sa/RenderWare/rw/rwtexdict.cpp,234,StaticRef,int32,4,rwtexdict,renderware
 0x00C87B00,.bss,source/game_sa/RenderWare/rw/rwtexdict.cpp,235,StaticRef,GtaGeometryList,,rwtexdict,renderware
@@ -8852,10 +9020,10 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C87B40,.bss,source/game_sa/MemoryMgr.h,68,StaticRef,"std::array<CMemoryHeap, 3>",,MemoryMgr,juego
 0x00C87C18,.bss,source/game_sa/MemoryMgr.h,104,StaticRef,"CStack<int32, 16>",,MemoryMgr,juego
 0x00C87C60,.bss,source/game_sa/RenderWare/D3DResourceSystem.cpp,38,reinterpret_cast,uint32,4,D3DResourceSystem,renderware
-0x00C87C68,.bss,source/game_sa/RenderWare/D3DResourceSystem.cpp,39,reinterpret_cast,D3DTextureBuffer,,D3DResourceSystem,renderware
+0x00C87C68,.bss,source/game_sa/RenderWare/D3DResourceSystem.cpp,39,reinterpret_cast,D3DTextureBuffer,28,D3DResourceSystem,renderware
 0x00C87C68,.bss,source/game_sa/RenderWare/D3DResourceSystem.cpp,40,literal,,,D3DResourceSystem,renderware
 0x00C87E48,.bss,source/game_sa/RenderWare/D3DResourceSystem.cpp,41,literal,,,D3DResourceSystem,renderware
-0x00C87FC8,.bss,source/game_sa/RenderWare/D3DResourceSystem.cpp,42,reinterpret_cast,D3DIndexDataBuffer,,D3DResourceSystem,renderware
+0x00C87FC8,.bss,source/game_sa/RenderWare/D3DResourceSystem.cpp,42,reinterpret_cast,D3DIndexDataBuffer,24,D3DResourceSystem,renderware
 0x00C87FE0,.bss,source/game_sa/RenderWare/D3DResourceSystem.cpp,43,reinterpret_cast,uint32,4,D3DResourceSystem,renderware
 0x00C87FE4,.bss,source/game_sa/RenderWare/D3DResourceSystem.cpp,44,reinterpret_cast,uint32,4,D3DResourceSystem,renderware
 0x00C87FE8,.bss,source/game_sa/RenderWare/rw/rwtexdict.cpp,132,StaticRef,int32,4,rwtexdict,renderware
@@ -8906,7 +9074,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C88734,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1441,literal,,,CrtStaticInitTable,crt
 0x00C88738,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1441,literal,,,CrtStaticInitTable,crt
 0x00C8873C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1442,literal,,,CrtStaticInitTable,crt
-0x00C88740,.bss,source/game_sa/BulletInfo.h,28,StaticRef,"std::array<CBulletInfo, 8>",,BulletInfo,juego
+0x00C88740,.bss,source/game_sa/BulletInfo.h,28,StaticRef,"std::array<CBulletInfo, 8>",352,BulletInfo,juego
 0x00C888A0,.bss,source/game_sa/BulletInfo.h,29,StaticRef,CVector,12,BulletInfo,juego
 0x00C888AC,.bss,source/game_sa/BulletInfo.h,30,StaticRef,CVector,12,BulletInfo,juego
 0x00C888B8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1443,literal,,,CrtStaticInitTable,crt
@@ -8916,8 +9084,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C888C4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1447,literal,,,CrtStaticInitTable,crt
 0x00C888C8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1447,literal,,,CrtStaticInitTable,crt
 0x00C888CC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1448,literal,,,CrtStaticInitTable,crt
-0x00C888D0,.bss,source/game_sa/Explosion.h,56,StaticRef,CAEExplosionAudioEntity,,Explosion,juego
-0x00C88950,.bss,source/game_sa/Explosion.h,57,StaticRef,"std::array<CExplosion, 16>",,Explosion,juego
+0x00C888D0,.bss,source/game_sa/Explosion.h,56,StaticRef,CAEExplosionAudioEntity,128,Explosion,juego
+0x00C88950,.bss,source/game_sa/Explosion.h,57,StaticRef,"std::array<CExplosion, 16>",1984,Explosion,juego
 0x00C89110,.bss,source/game_sa/ProjectileInfo.h,29,StaticRef,"std::array<CProjectile*, MAX_PROJECTILES>",,ProjectileInfo,juego
 0x00C89190,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1449,literal,,,CrtStaticInitTable,crt
 0x00C89194,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1450,literal,,,CrtStaticInitTable,crt
@@ -8936,6 +9104,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C89688,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1459,literal,,,CrtStaticInitTable,crt
 0x00C8968C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1460,literal,,,CrtStaticInitTable,crt
 0x00C89690,.bss,source/game_sa/ShotInfo.cpp,25,StaticRef,"std::array<CShotInfo, MAX_SHOT_INFOS>",,ShotInfo,juego
+0x00C8A7C1,.bss,source/game_sa/Weapon.h,55,StaticRef,bool,1,Weapon,juego
 0x00C8A7C4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1461,literal,,,CrtStaticInitTable,crt
 0x00C8A7C8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1462,literal,,,CrtStaticInitTable,crt
 0x00C8A7CC,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1463,literal,,,CrtStaticInitTable,crt
@@ -8943,7 +9112,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C8A7D0,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1465,literal,,,CrtStaticInitTable,crt
 0x00C8A7D4,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1465,literal,,,CrtStaticInitTable,crt
 0x00C8A7D8,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1466,literal,,,CrtStaticInitTable,crt
-0x00C8A7DC,.bss,source/game_sa/Weapon.h,56,StaticRef,CColModel,,Weapon,juego
+0x00C8A7DC,.bss,source/game_sa/Weapon.h,56,StaticRef,CColModel,48,Weapon,juego
 0x00C8A810,.bss,source/game_sa/WeaponEffects.h,57,StaticRef,RwTexture*[2],8,WeaponEffects,juego
 0x00C8A81C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1467,literal,,,CrtStaticInitTable,crt
 0x00C8A820,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1468,literal,,,CrtStaticInitTable,crt
@@ -8973,7 +9142,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C8CE68,.bss,source/app/securom/Securom.cpp,25,StaticRef,"std::array<int32, 32>",128,Securom,juego
 0x00C8CF68,.bss,source/app/platform/win/WinPlatform.h,26,StaticRef,WinVer,,WinPlatform,juego
 0x00C8CF68,.bss,source/app/platform/win/WinPlatform.h,42,StaticRef,OSStatus,,WinPlatform,juego
-0x00C8CF88,.bss,source/app/platform/win/WinPs.cpp,48,StaticRef,psGlobalType,,WinPs,juego
+0x00C8CF88,.bss,source/app/platform/win/WinPs.cpp,48,StaticRef,psGlobalType,40,WinPs,juego
 0x00C8CFB0,.bss,source/game_sa/Pad.cpp,401,StaticRef,RwV2d,8,Pad,juego
 0x00C8CFB8,.bss,source/game_sa/Pad.cpp,400,StaticRef,RwV2d,8,Pad,juego
 0x00C8CFC0,.bss,source/app/platform/win/VideoMode.h,20,StaticRef,"std::array<RwSubSystemInfo, MAX_SUBSYSTEMS>",,VideoMode,juego
@@ -9001,8 +9170,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C92128,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1489,literal,,,CrtStaticInitTable,crt
 0x00C9212C,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1489,literal,,,CrtStaticInitTable,crt
 0x00C92130,.bss,source/game_sa/Crt/CrtStaticInitTable.inc,1490,literal,,,CrtStaticInitTable,crt
-0x00C92134,.bss,source/game_sa/Gamma.h,26,StaticRef,CGamma,,Gamma,juego
-0x00C92144,.bss,source/game_sa/ControllerConfigManager.h,170,StaticRef,CJoySticks,,ControllerConfigManager,juego
+0x00C92134,.bss,source/game_sa/Gamma.h,26,StaticRef,CGamma,16,Gamma,juego
+0x00C92144,.bss,source/game_sa/ControllerConfigManager.h,170,StaticRef,CJoySticks,32,ControllerConfigManager,juego
 0x00C92168,.bss,source/game_sa/FileMgr.cpp,34,StaticRef,char[256],256,FileMgr,juego
 0x00C92368,.bss,source/game_sa/FileMgr.cpp,36,StaticRef,char[256],256,FileMgr,juego
 0x00C92474,.bss,source/game_sa/RenderWare/rw/rpanisot.cpp,26,StaticRef,RwInt32,4,rpanisot,renderware
@@ -9010,7 +9179,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C9247C,.bss,source/game_sa/RenderWare/rw/rpanisot.cpp,25,StaticRef,RwInt32,4,rpanisot,renderware
 0x00C92480,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,2332,StaticRef,RwInt32,4,rpworld,renderware
 0x00C92480,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,2596,StaticRef,RwUInt32,4,rpworld,renderware
-0x00C92484,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8122,reinterpret_cast,RwFreeList,,rpworld,renderware
+0x00C92484,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8122,reinterpret_cast,RwFreeList,36,rpworld,renderware
 0x00C924A8,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,2331,StaticRef,RwInt32,4,rpworld,renderware
 0x00C924A8,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,2595,StaticRef,RwUInt32,4,rpworld,renderware
 0x00C924AC,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,2328,StaticRef,RwInt32,4,rpworld,renderware
@@ -9019,7 +9188,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C924B0,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8128,StaticRef,RwInt32,4,rpworld,renderware
 0x00C924B0,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8146,StaticRef,RwInt32,4,rpworld,renderware
 0x00C924B0,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8146,StaticRef,RwInt32,4,rpworld,renderware
-0x00C924B4,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8126,reinterpret_cast,RwFreeList,,rpworld,renderware
+0x00C924B4,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8126,reinterpret_cast,RwFreeList,36,rpworld,renderware
 0x00C924D8,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,2329,StaticRef,RwInt32,4,rpworld,renderware
 0x00C924D8,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,2593,StaticRef,RwInt32,4,rpworld,renderware
 0x00C924D8,.bss,source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp,1006,literal,,,rpworld_s30a31a,renderware
@@ -9035,7 +9204,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C924E4,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8194,StaticRef,RwInt32,4,rpworld,renderware
 0x00C924E4,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8194,StaticRef,RwInt32,4,rpworld,renderware
 0x00C924E8,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,116,StaticRef,RwInt32,4,rpworld,renderware
-0x00C924EC,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8213,reinterpret_cast,RwFreeList,,rpworld,renderware
+0x00C924EC,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8213,reinterpret_cast,RwFreeList,36,rpworld,renderware
 0x00C92510,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,115,StaticRef,RwInt32,4,rpworld,renderware
 0x00C92514,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,114,StaticRef,RwInt32,4,rpworld,renderware
 0x00C92518,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8217,StaticRef,RwInt32,4,rpworld,renderware
@@ -9045,7 +9214,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C9251C,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,5173,StaticRef,rwD3D9DeviceRestoreCallBack,,rpworld,renderware
 0x00C92520,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,5171,StaticRef,void*,4,rpworld,renderware
 0x00C92524,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,5172,StaticRef,RwFreeList*,4,rpworld,renderware
-0x00C92528,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8241,reinterpret_cast,RwFreeList,,rpworld,renderware
+0x00C92528,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8241,reinterpret_cast,RwFreeList,36,rpworld,renderware
 0x00C9254C,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,5174,StaticRef,RwInt32,4,rpworld,renderware
 0x00C9254C,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8237,StaticRef,RwInt32,4,rpworld,renderware
 0x00C9254C,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8241,StaticRef,RwInt32,4,rpworld,renderware
@@ -9059,8 +9228,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C92550,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8248,StaticRef,RwInt32,4,rpworld,renderware
 0x00C92550,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8260,StaticRef,RwInt32,4,rpworld,renderware
 0x00C92550,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8260,StaticRef,RwInt32,4,rpworld,renderware
-0x00C92554,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8274,reinterpret_cast,RwFreeList,,rpworld,renderware
-0x00C92578,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8270,reinterpret_cast,RwFreeList,,rpworld,renderware
+0x00C92554,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8274,reinterpret_cast,RwFreeList,36,rpworld,renderware
+0x00C92578,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8270,reinterpret_cast,RwFreeList,36,rpworld,renderware
 0x00C9259C,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,483,StaticRef,RwInt32,4,rpworld,renderware
 0x00C9259C,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8269,StaticRef,RwInt32,4,rpworld,renderware
 0x00C9259C,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8270,StaticRef,RwInt32,4,rpworld,renderware
@@ -9097,7 +9266,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C925AC,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,476,StaticRef,RwInt32,4,rpworld,renderware
 0x00C925AC,.bss,source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp,48,StaticRef,RwInt32,4,rpworld_s30a31a,renderware
 0x00C925B0,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,477,StaticRef,RwInt32,4,rpworld,renderware
-0x00C925B4,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8763,reinterpret_cast,RwFreeList,,rpworld,renderware
+0x00C925B4,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8763,reinterpret_cast,RwFreeList,36,rpworld,renderware
 0x00C925D8,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,478,StaticRef,RwInt32,4,rpworld,renderware
 0x00C925DC,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8747,StaticRef,RwInt32,4,rpworld,renderware
 0x00C925DC,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,8747,StaticRef,RwInt32,4,rpworld,renderware
@@ -9171,7 +9340,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C926E8,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,471,StaticRef,RwInt32,4,rpworld,renderware
 0x00C926EC,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,472,StaticRef,RwInt32,4,rpworld,renderware
 0x00C926F0,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,643,StaticRef,RwFreeList*,4,rpworld,renderware
-0x00C926F8,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,6663,reinterpret_cast,D3D9VertexShaderCacheEntry,,rpworld,renderware
+0x00C926F8,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,6663,reinterpret_cast,D3D9VertexShaderCacheEntry,20,rpworld,renderware
 0x00C94AF8,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,6667,StaticRef,RwUInt32[64],256,rpworld,renderware
 0x00C94BF8,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,6665,StaticRef,RwInt32,4,rpworld,renderware
 0x00C94BFC,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,6666,StaticRef,D3D9VertexShaderCacheEntry*,4,rpworld,renderware
@@ -9202,8 +9371,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C94C78,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,7445,literal,,,rpworld,renderware
 0x00C94C7C,.bss,source/game_sa/RenderWare/rw/rpworld.cpp,7446,literal,,,rpworld,renderware
 0x00C96438,.bss,source/game_sa/RenderWare/rw/D3dxShaderAssembler.cpp,47,literal,,,D3dxShaderAssembler,renderware
-0x00C97054,.bss,source/game_sa/RenderWare/rw/rphanim.cpp,591,reinterpret_cast,RwFreeList,,rphanim,renderware
-0x00C97078,.bss,source/game_sa/RenderWare/rw/rpskin.cpp,217,reinterpret_cast,RwFreeList,,rpskin,renderware
+0x00C97054,.bss,source/game_sa/RenderWare/rw/rphanim.cpp,591,reinterpret_cast,RwFreeList,36,rphanim,renderware
+0x00C97078,.bss,source/game_sa/RenderWare/rw/rpskin.cpp,217,reinterpret_cast,RwFreeList,36,rpskin,renderware
 0x00C978A0,.bss,source/game_sa/RenderWare/rw/rpskin.cpp,53,reinterpret_cast,RwInt32,4,rpskin,renderware
 0x00C978A4,.bss,source/game_sa/RenderWare/rw/rpskin.cpp,54,reinterpret_cast,RwInt32,4,rpskin,renderware
 0x00C978A8,.bss,source/game_sa/RenderWare/rw/rpskin.cpp,55,reinterpret_cast,RwInt32,4,rpskin,renderware
@@ -9226,7 +9395,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C978FC,.bss,source/game_sa/RenderWare/rw/rpuvanim.cpp,294,reinterpret_cast,RwInt32,4,rpuvanim,renderware
 0x00C97900,.bss,source/game_sa/RenderWare/rw/rtanim.cpp,35,reinterpret_cast,RwInt32,4,rtanim,renderware
 0x00C97904,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,5304,literal,,,rwcore,renderware
-0x00C97908,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3448,reinterpret_cast,RwFreeList,,rwplcore,renderware
+0x00C97908,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3448,reinterpret_cast,RwFreeList,36,rwplcore,renderware
 0x00C9792C,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,551,StaticRef,int32,4,rwplcore,renderware
 0x00C9792C,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3447,StaticRef,RwInt32,4,rwplcore,renderware
 0x00C9792C,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3449,literal,,,rwplcore,renderware
@@ -9242,7 +9411,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C97938,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3834,StaticRef,RwInt32,4,rwplcore,renderware
 0x00C97938,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3850,StaticRef,RwInt32,4,rwplcore,renderware
 0x00C97938,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3850,StaticRef,RwInt32,4,rwplcore,renderware
-0x00C9793C,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13743,reinterpret_cast,RwFreeList,,rwcore,renderware
+0x00C9793C,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13743,reinterpret_cast,RwFreeList,36,rwcore,renderware
 0x00C97960,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,5172,StaticRef,RwInt32,4,rwcore,renderware
 0x00C97960,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,5181,StaticRef,RwInt32,4,rwcore,renderware
 0x00C97960,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13742,StaticRef,RwInt32,4,rwcore,renderware
@@ -9265,8 +9434,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C97970,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13800,StaticRef,RwInt32,4,rwcore,renderware
 0x00C97970,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13811,StaticRef,RwInt32,4,rwcore,renderware
 0x00C97970,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13811,StaticRef,RwInt32,4,rwcore,renderware
-0x00C97974,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13792,reinterpret_cast,RwFreeList,,rwcore,renderware
-0x00C97998,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3503,reinterpret_cast,RwFreeList,,rwplcore,renderware
+0x00C97974,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13792,reinterpret_cast,RwFreeList,36,rwcore,renderware
+0x00C97998,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3503,reinterpret_cast,RwFreeList,36,rwplcore,renderware
 0x00C979BC,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,1349,StaticRef,int32,4,rwplcore,renderware
 0x00C979BC,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3484,literal,,,rwplcore,renderware
 0x00C979BC,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3487,literal,,,rwplcore,renderware
@@ -9331,7 +9500,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C97B24,.bss,source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp,4527,cast,uint32_t,4,rpworld_s30a31a,renderware
 0x00C97B24,.bss,source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp,4534,cast,uint32_t,4,rpworld_s30a31a,renderware
 0x00C97B24,.bss,source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp,4538,cast,uint32_t,4,rpworld_s30a31a,renderware
-0x00C97B28,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13827,reinterpret_cast,RwFreeList,,rwcore,renderware
+0x00C97B28,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13827,reinterpret_cast,RwFreeList,36,rwcore,renderware
 0x00C97B4C,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,71,StaticRef,RwInt32,4,rwcore,renderware
 0x00C97B4C,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13821,StaticRef,RwInt32,4,rwcore,renderware
 0x00C97B4C,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13823,literal,,,rwcore,renderware
@@ -9360,7 +9529,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C97B50,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13839,StaticRef,RwInt32,4,rwcore,renderware
 0x00C97B50,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,14074,StaticRef,RwInt32,4,rwcore,renderware
 0x00C97B50,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,14074,StaticRef,RwInt32,4,rwcore,renderware
-0x00C97B54,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13822,reinterpret_cast,RwFreeList,,rwcore,renderware
+0x00C97B54,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13822,reinterpret_cast,RwFreeList,36,rwcore,renderware
 0x00C97B78,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13841,StaticRef,RwTexDictionary*,4,rwcore,renderware
 0x00C97B78,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,14029,StaticRef,RwTexDictionary*,4,rwcore,renderware
 0x00C97B78,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,14061,StaticRef,RwTexDictionary*,4,rwcore,renderware
@@ -9458,7 +9627,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C980B0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,2952,StaticRef,rwD3D9DeviceRestoreCallBack,,rwcore,renderware
 0x00C980B0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,6543,literal,,,rwcore,renderware
 0x00C980B0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,8028,StaticRef,rwD3D9DeviceRestoreCallBack,,rwcore,renderware
-0x00C980B4,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13872,reinterpret_cast,RwFreeList,,rwcore,renderware
+0x00C980B4,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13872,reinterpret_cast,RwFreeList,36,rwcore,renderware
 0x00C980D8,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,72,StaticRef,RwInt32,4,rwcore,renderware
 0x00C980D8,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13866,StaticRef,RwInt32,4,rwcore,renderware
 0x00C980D8,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13873,literal,,,rwcore,renderware
@@ -9517,7 +9686,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C98E88,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,2567,reinterpret_cast,RwUInt32,4,rwcore,renderware
 0x00C98E88,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,7924,reinterpret_cast,uint32,4,rwcore,renderware
 0x00C991D0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,2566,reinterpret_cast,RwUInt32,4,rwcore,renderware
-0x00C991D0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,7923,reinterpret_cast,D3D9RenderStateSlot,,rwcore,renderware
+0x00C991D0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,7923,reinterpret_cast,D3D9RenderStateSlot,8,rwcore,renderware
 0x00C99208,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,3350,StaticRef,uint32,4,rwcore,renderware
 0x00C99208,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,3361,StaticRef,uint32,4,rwcore,renderware
 0x00C99208,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,3380,StaticRef,uint32,4,rwcore,renderware
@@ -9773,7 +9942,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C9A60C,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,85,literal,,,rwplcore,renderware
 0x00C9A630,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,82,StaticRef,RwInt32,4,rwplcore,renderware
 0x00C9A634,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,83,StaticRef,RwFreeList*,4,rwplcore,renderware
-0x00C9A638,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13936,reinterpret_cast,RwFreeList,,rwcore,renderware
+0x00C9A638,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13936,reinterpret_cast,RwFreeList,36,rwcore,renderware
 0x00C9A65C,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,1500,StaticRef,RwInt32,4,rwcore,renderware
 0x00C9A65C,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,1533,StaticRef,RwInt32,4,rwcore,renderware
 0x00C9A65C,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13928,StaticRef,RwInt32,4,rwcore,renderware
@@ -9781,8 +9950,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C9A660,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13955,StaticRef,RwInt32,4,rwcore,renderware
 0x00C9A660,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,14010,StaticRef,RwInt32,4,rwcore,renderware
 0x00C9A660,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,14010,StaticRef,RwInt32,4,rwcore,renderware
-0x00C9A664,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13930,reinterpret_cast,RwFreeList,,rwcore,renderware
-0x00C9A688,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,9280,reinterpret_cast,RwFreeList,,rwcore,renderware
+0x00C9A664,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,13930,reinterpret_cast,RwFreeList,36,rwcore,renderware
+0x00C9A688,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,9280,reinterpret_cast,RwFreeList,36,rwcore,renderware
 0x00C9A6AC,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,740,StaticRef,RwInt32,4,rwcore,renderware
 0x00C9A6AC,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,747,StaticRef,RwInt32,4,rwcore,renderware
 0x00C9A6AC,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,9272,StaticRef,RwInt32,4,rwcore,renderware
@@ -9812,7 +9981,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C9A6B8,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,9894,StaticRef,RwUInt32,4,rwcore,renderware
 0x00C9A6B8,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,9972,StaticRef,RwUInt32,4,rwcore,renderware
 0x00C9A6B8,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,9976,StaticRef,RwUInt32,4,rwcore,renderware
-0x00C9A6C0,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,1852,reinterpret_cast,RwFreeList,,rwplcore,renderware
+0x00C9A6C0,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,1852,reinterpret_cast,RwFreeList,36,rwplcore,renderware
 0x00C9A6E4,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,1034,StaticRef,RwFreeList*,4,rwplcore,renderware
 0x00C9A6E4,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,1853,StaticRef,RwFreeList*,4,rwplcore,renderware
 0x00C9A6E4,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,1866,StaticRef,RwFreeList*,4,rwplcore,renderware
@@ -9839,7 +10008,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C9A6FC,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3945,StaticRef,RwInt32,4,rwplcore,renderware
 0x00C9A6FC,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3956,StaticRef,RwInt32,4,rwplcore,renderware
 0x00C9A6FC,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3956,StaticRef,RwInt32,4,rwplcore,renderware
-0x00C9A700,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3940,reinterpret_cast,RwFreeList,,rwplcore,renderware
+0x00C9A700,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3940,reinterpret_cast,RwFreeList,36,rwplcore,renderware
 0x00C9A728,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3963,StaticRef,RwInt32,4,rwplcore,renderware
 0x00C9A728,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3963,StaticRef,RwInt32,4,rwplcore,renderware
 0x00C9A728,.bss,source/game_sa/RenderWare/rw/rwplcore.cpp,3970,StaticRef,RwInt32,4,rwplcore,renderware
@@ -9876,7 +10045,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C9AB4C,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,11839,StaticRef,void*,4,rwcore,renderware
 0x00C9AB4C,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,11840,StaticRef,void*,4,rwcore,renderware
 0x00C9AB4C,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,11841,StaticRef,void*,4,rwcore,renderware
-0x00C9AB50,.bss,source/game_sa/RenderWare/rw/rpmatfx.cpp,2242,reinterpret_cast,RwFreeList,,rpmatfx,renderware
+0x00C9AB50,.bss,source/game_sa/RenderWare/rw/rpmatfx.cpp,2242,reinterpret_cast,RwFreeList,36,rpmatfx,renderware
 0x00C9AB74,.bss,source/game_sa/RenderWare/rw/rpmatfx.h,19,StaticRef,RwInt32,4,rpmatfx,renderware
 0x00C9AB7C,.bss,source/game_sa/RenderWare/rw/rpmatfx.cpp,2227,StaticRef,RwInt32,4,rpmatfx,renderware
 0x00C9AB7C,.bss,source/game_sa/RenderWare/rw/rpmatfx.cpp,2228,StaticRef,RwInt32,4,rpmatfx,renderware
@@ -9947,8 +10116,8 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C9B8C8,.bss,source/game_sa/RenderWare/rw/rphanim.cpp,43,reinterpret_cast,RpHAnimAtomicGlobalVars,,rphanim,renderware
 0x00C9B8C8,.bss,source/game_sa/RenderWare/rw/rphanim.cpp,402,StaticRef,uint32,4,rphanim,renderware
 0x00C9B8D0,.bss,source/game_sa/RenderWare/rw/rpuvanim.cpp,105,reinterpret_cast,RwInt32,4,rpuvanim,renderware
-0x00C9B8E0,.bss,source/game_sa/RenderWare/rw/rtanim.cpp,70,reinterpret_cast,RwFreeList,,rtanim,renderware
-0x00C9B920,.bss,source/game_sa/RenderWare/rw/rtanim.cpp,34,reinterpret_cast,RtAnimInterpolatorInfo,,rtanim,renderware
+0x00C9B8E0,.bss,source/game_sa/RenderWare/rw/rtanim.cpp,70,reinterpret_cast,RwFreeList,36,rtanim,renderware
+0x00C9B920,.bss,source/game_sa/RenderWare/rw/rtanim.cpp,34,reinterpret_cast,RtAnimInterpolatorInfo,48,rtanim,renderware
 0x00C9BC20,.bss,source/game_sa/RenderWare/rw/rtanim.cpp,52,literal,,,rtanim,renderware
 0x00C9BC40,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,784,StaticRef,RxPipeline*,4,rwcore,renderware
 0x00C9BC40,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,818,StaticRef,RxPipeline*,4,rwcore,renderware
@@ -9987,7 +10156,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C9BCE0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,7320,reinterpret_cast,RwChar,,rwcore,renderware
 0x00C9BEE0,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,6548,StaticRef,int32,4,rwcore,renderware
 0x00C9BEE4,.bss,source/game_sa/RenderWare/D3D9RasterFormat.cpp,448,StaticRef,uint32,4,D3D9RasterFormat,renderware
-0x00C9BEE4,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,6560,reinterpret_cast,D3D9DisplayModeLayout,,rwcore,renderware
+0x00C9BEE4,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,6560,reinterpret_cast,D3D9DisplayModeLayout,16,rwcore,renderware
 0x00C9BEE8,.bss,source/game_sa/RenderWare/D3D9RasterFormat.cpp,455,StaticRef,uint32,4,D3D9RasterFormat,renderware
 0x00C9BEF0,.bss,source/game_sa/RenderWare/D3D9RasterDriver.cpp,56,StaticRef,uint32,4,D3D9RasterDriver,renderware
 0x00C9BEF0,.bss,source/game_sa/RenderWare/D3D9RasterFormat.cpp,108,StaticRef,int32,4,D3D9RasterFormat,renderware
@@ -10034,7 +10203,7 @@ va,seccion,archivo,linea,forma,tipo,tam,propietario,origen
 0x00C9C040,.bss,source/app/platform/win/WindowedMode.cpp,111,StaticRef,D3DPRESENT_PARAMETERS,,WindowedMode,juego
 0x00C9C040,.bss,source/game_sa/RenderWare/D3D9RasterFormat.cpp,433,StaticRef,D3DPRESENT_PARAMETERS,,D3D9RasterFormat,renderware
 0x00C9C040,.bss,source/game_sa/RenderWare/D3D9RasterFormat.cpp,450,StaticRef,uint32,4,D3D9RasterFormat,renderware
-0x00C9C040,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,6539,StaticRef,D3D9PresentLayout,,rwcore,renderware
+0x00C9C040,.bss,source/game_sa/RenderWare/rw/rwcore.cpp,6539,StaticRef,D3D9PresentLayout,56,rwcore,renderware
 0x00C9C044,.bss,source/game_sa/RenderWare/D3D9RasterFormat.cpp,457,StaticRef,uint32,4,D3D9RasterFormat,renderware
 0x00C9C048,.bss,source/game_sa/RenderWare/D3D9RasterDriver.cpp,401,StaticRef,int32,4,D3D9RasterDriver,renderware
 0x00C9C048,.bss,source/game_sa/RenderWare/D3D9RasterFormat.cpp,87,StaticRef,int32,4,D3D9RasterFormat,renderware

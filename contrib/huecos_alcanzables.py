@@ -35,6 +35,8 @@ from capstone.x86 import X86_REG_INVALID  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
 TXT_LO, TXT_HI = 0x401000, 0x750000
+# huecos de los despachadores originales de comandos de script (CRunningScript::ProcessCommands<N>To<N+99> que siguen siendo del EXE)
+DESPACHADORES = {0x48EA95, 0x470A8C, 0x4748F5, 0x47E08E, 0x465E56, 0x479D6E, 0x493FD2, 0x483BCC, 0x477F89}
 EXE = Path('D:/Grand Theft Auto San Andreas/gta-sa.exe')
 
 
@@ -423,6 +425,8 @@ def main():
             e['destino'] = 'libjpeg (enlazada)'
         elif a_ >= 0x74A000 or 'RenderWare' in e['cita_cpp']:
             e['destino'] = 'RenderWare (agente de RW/D3D9)'
+        elif int(e['hueco'], 16) in DESPACHADORES or (e['vtable'] and 0x8A6168 <= int(e['vtable'], 16) < 0x8A61F0):
+            e['destino'] = 'despachador de comandos de script del EXE (tabla 0x8A6168; sin reconstruir)'
         elif e['vtable']:
             e['destino'] = 'vtable de clase C++ (DE09: la genera el compilador)' if e['cita_cpp'] else 'vtable sin constructor C++ conocido (revisar)'
         elif e['cita_cpp']:

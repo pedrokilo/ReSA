@@ -177,10 +177,11 @@ Los CSV de la raíz de esta carpeta (`objetos.csv`, `referencias-dll.csv`, `por-
 
 ## 8. Siguiente
 
-La ronda B (rama `datos-exe2`) está en [ejecucion-datos-b.md](ejecucion-datos-b.md): alcanzabilidad del código escondido (`huecos-alcanzables*.csv`), lotes DE05-G/F y DE04-X/D, inicializadores estáticos (`inicializadores*.csv`, `source/game_sa/DatosExe/StaticInit.cpp`) y las tres correcciones del escáner (ganchos inactivos, punteros guardados en datos, huecos muertos). Queda:
+La ronda B (rama `datos-exe2`) está en [ejecucion-datos-b.md](ejecucion-datos-b.md): alcanzabilidad del código escondido (`huecos-alcanzables*.csv`), lotes DE05-G/F y DE04-X/D, inicializadores estáticos (`inicializadores*.csv`, `source/game_sa/DatosExe/StaticInit.cpp`) y las correcciones del escáner (huecos muertos, ganchos inactivos, punteros guardados en datos, tablas que el C++ lee por valor, campos de estructuras mayores). Queda:
 
 * DE05: objetos de `.bss` con la referencia en una **cabecera** (se necesita un `extern` sin tipo, como el de DE05-F, pero la inclusión no puede ir al final del bloque de includes) y con formas distintas de `StaticRef` (`reinterpret_cast`, ayudantes, literales en ganchos): reescritura archivo a archivo.
 * DE04-D con estructuras que `.data` compartía con cabeceras (`CRGBA`, `CVector`): mismo caso.
 * Constructores estáticos pendientes (54 filas de `inicializadores-estado.csv`): dependen de reconstruir antes 28 constructores del EXE (0x441E00, 0x4470E0, 0x463750, 0x4C5CB0…).
-* DE09 (vtables): al generarlas el compilador desaparecen las ~120 ranuras triviales de `CEvent*`/`CTask*` que siguen ejecutándose desde el EXE.
+* Despachadores originales de comandos de script (9 huecos, ~100 KB, tabla `0x8A6168`): siguen ejecutándose desde el EXE y bloquean datos; reescribirlos libera decenas de objetos.
+* DE09 (vtables): al generarlas el compilador desaparecen las ~140 ranuras triviales de `CEvent*`/`CTask*` que siguen ejecutándose desde el EXE.
 * Criterio de seguridad: siguen siendo invisibles los accesos con registro base dentro de funciones vivas; el humo (ropero, agua, marcadores) y la bisección son la red de seguridad. Los accesos desde datos y los ganchos inactivos ya se ven (ver ejecucion-datos-b.md §1).
