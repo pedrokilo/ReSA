@@ -1,0 +1,151 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo censo
+codigo original 0x00401000-0x00858000: NO copiado, relleno con INT3 (4550656 bytes)
+seccion .text    VA 0x00401000 virtual  4546560: codigo, omitida
+seccion _rwcseg  VA 0x00857000 virtual     4096: codigo, omitida
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+datos copiados desde el original: 641024 bytes
+imports de la IAT original: 214, sin resolver: 0
+tabla de ret n cargada: 9101312 bytes
+[    31 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+[    31 ms] StandaloneStartup correcto (+ExtraTablaC); iniciando el CRT propio
+[    31 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)
+[    31 ms] DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)
+[   281 ms] latido: frame=0 codigo-original-distinto=0 hits=0 excepciones=0
+[   281 ms]   ventana 0x00350412 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 922x517
+[   891 ms] DllMain devolvio 1
+[   891 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[   891 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[   891 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[   891 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[   891 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[   891 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[   891 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   891 ms] llamando a NOTSA_WinMain (WinMain reconstruido)
+[  1750 ms] CODIGO ORIGINAL #1: 0x004CD820 llamado desde 0x01EFABF3 [propio] ecx=07F30D94 args=07F30D94 001AF2C0
+[  1813 ms] CODIGO ORIGINAL #2: 0x00750430 llamado desde 0x01EB9D23 [propio] ecx=00750430 args=09052784 001AF838
+[  2297 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[  4313 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[  6313 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[  8313 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 10313 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 10313 ms]   ventana 0x00380FBA clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 10313 ms]   ventana 0x00650EE2 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 10313 ms]   ventana 0x0013102E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 1048x832
+[ 10313 ms]   ventana 0x00350412 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 1614x904
+[ 10313 ms]   ventana 0x00071066 clase=IME titulo="Default IME" visible=0 0x0
+[ 10313 ms]   ventana 0x003E0EF8 clase=IME titulo="Default IME" visible=0 0x0
+[ 10313 ms]   ventana 0x00280FF0 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 10313 ms]   ventana 0x00340F4A clase=IME titulo="Default IME" visible=0 0x0
+[ 12328 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 14328 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 16328 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 18344 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 20344 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 20344 ms]   ventana 0x00660EE2 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 20344 ms]   ventana 0x00380FBA clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 20344 ms]   ventana 0x0013102E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 1048x832
+[ 20344 ms]   ventana 0x00350412 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 1614x904
+[ 20344 ms]   ventana 0x003F0EF8 clase=IME titulo="Default IME" visible=0 0x0
+[ 20344 ms]   ventana 0x00071066 clase=IME titulo="Default IME" visible=0 0x0
+[ 20344 ms]   ventana 0x00280FF0 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 20344 ms]   ventana 0x00340F4A clase=IME titulo="Default IME" visible=0 0x0
+[ 22344 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 24359 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 26359 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 28359 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 30375 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 30375 ms]   ventana 0x00660EE2 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 30375 ms]   ventana 0x00380FBA clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 30375 ms]   ventana 0x0013102E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 1048x832
+[ 30375 ms]   ventana 0x00350412 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 1614x904
+[ 30375 ms]   ventana 0x003F0EF8 clase=IME titulo="Default IME" visible=0 0x0
+[ 30375 ms]   ventana 0x00071066 clase=IME titulo="Default IME" visible=0 0x0
+[ 30375 ms]   ventana 0x00280FF0 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 30375 ms]   ventana 0x00340F4A clase=IME titulo="Default IME" visible=0 0x0
+[ 32375 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 34375 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 36391 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 38391 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 40391 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 40391 ms]   ventana 0x00660EE2 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 40391 ms]   ventana 0x00380FBA clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 40391 ms]   ventana 0x0013102E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 1048x832
+[ 40391 ms]   ventana 0x00350412 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 1614x904
+[ 40391 ms]   ventana 0x003F0EF8 clase=IME titulo="Default IME" visible=0 0x0
+[ 40391 ms]   ventana 0x00071066 clase=IME titulo="Default IME" visible=0 0x0
+[ 40391 ms]   ventana 0x00280FF0 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 40391 ms]   ventana 0x00340F4A clase=IME titulo="Default IME" visible=0 0x0
+[ 42406 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 44406 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 46406 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 48422 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 50422 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 50422 ms]   ventana 0x00660EE2 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 50422 ms]   ventana 0x00380FBA clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 50422 ms]   ventana 0x0013102E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 1048x832
+[ 50422 ms]   ventana 0x00350412 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 1614x904
+[ 50422 ms]   ventana 0x003F0EF8 clase=IME titulo="Default IME" visible=0 0x0
+[ 50422 ms]   ventana 0x00071066 clase=IME titulo="Default IME" visible=0 0x0
+[ 50422 ms]   ventana 0x00280FF0 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 50422 ms]   ventana 0x00340F4A clase=IME titulo="Default IME" visible=0 0x0
+[ 52422 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 54438 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 56438 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 58438 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 60438 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 60438 ms]   ventana 0x00660EE2 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 60438 ms]   ventana 0x00380FBA clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 60438 ms]   ventana 0x0013102E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 1048x832
+[ 60438 ms]   ventana 0x00350412 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 1614x904
+[ 60438 ms]   ventana 0x003F0EF8 clase=IME titulo="Default IME" visible=0 0x0
+[ 60453 ms]   ventana 0x00071066 clase=IME titulo="Default IME" visible=0 0x0
+[ 60453 ms]   ventana 0x00280FF0 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 60453 ms]   ventana 0x00340F4A clase=IME titulo="Default IME" visible=0 0x0
+[ 62453 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 64453 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 66453 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 68469 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 70469 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 70469 ms]   ventana 0x00660EE2 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 70469 ms]   ventana 0x00380FBA clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 70469 ms]   ventana 0x0013102E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 1048x832
+[ 70469 ms]   ventana 0x00350412 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 1614x904
+[ 70469 ms]   ventana 0x003F0EF8 clase=IME titulo="Default IME" visible=0 0x0
+[ 70469 ms]   ventana 0x00071066 clase=IME titulo="Default IME" visible=0 0x0
+[ 70469 ms]   ventana 0x00280FF0 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 70469 ms]   ventana 0x00340F4A clase=IME titulo="Default IME" visible=0 0x0
+[ 72469 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 74484 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 76484 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 78484 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 80500 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 80500 ms]   ventana 0x00660EE2 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 80500 ms]   ventana 0x00380FBA clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 80500 ms]   ventana 0x0013102E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 1048x832
+[ 80500 ms]   ventana 0x00350412 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 1614x904
+[ 80500 ms]   ventana 0x003F0EF8 clase=IME titulo="Default IME" visible=0 0x0
+[ 80500 ms]   ventana 0x00071066 clase=IME titulo="Default IME" visible=0 0x0
+[ 80500 ms]   ventana 0x00280FF0 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 80500 ms]   ventana 0x00340F4A clase=IME titulo="Default IME" visible=0 0x0
+[ 82500 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 84500 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 86516 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 88516 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 90516 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 90516 ms]   ventana 0x00660EE2 clase=FilterGraphWindow titulo="ActiveMovie Window" visible=0 320x240
+[ 90516 ms]   ventana 0x00380FBA clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 90516 ms]   ventana 0x0013102E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 1048x832
+[ 90516 ms]   ventana 0x00350412 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 1614x904
+[ 90516 ms]   ventana 0x003F0EF8 clase=IME titulo="Default IME" visible=0 0x0
+[ 90516 ms]   ventana 0x00071066 clase=IME titulo="Default IME" visible=0 0x0
+[ 90516 ms]   ventana 0x00280FF0 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 90516 ms]   ventana 0x00340F4A clase=IME titulo="Default IME" visible=0 0x0
+[ 92531 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 94531 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 96531 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[ 98547 ms] latido: frame=0 codigo-original-distinto=2 hits=607 excepciones=0
+[100047 ms] GUARDIA: limite de tiempo (100 s); se mata el proceso

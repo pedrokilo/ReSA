@@ -75,7 +75,7 @@
 /DGTASA_WITH_LIBJPEG=1
 /DGTASA_CRT_HEAP_HOOKS=1
 /D_CRT_SECURE_NO_WARNINGS
-
+/DNOMINMAX
 /DUSE_GTASA_ALLOCATOR
 /DEXTRA_DEBUG_FEATURES
 /DFIX_BUGS
@@ -97,4 +97,12 @@
 /D_MBCS
 /DCMAKE_INTDIR=\"Debug\"
 /Dgta_reversed_EXPORTS
-/external:I "D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/nlohmd014ef7748f4b/p/include" /external:I "D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/ogg21219f4658423/p/include" /external:I "D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/spdlo8029646db848c/p/include" /external:I "D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/tracy2fefc9668738f/p/include" /external:I "D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/vorbi9990e9d508d57/p/include" /external:I "D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/imgui5396f0f7f8179/p/include" /external:I "D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/libjpbe5e6c22fbdf6/p/include" /external:I "D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/sdlc3cf2c66533bd/p/include" /bigobj /utf-8
+/I"D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/nlohmd014ef7748f4b/p/include"
+/I"D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/ogg21219f4658423/p/include"
+/I"D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/spdlo8029646db848c/p/include"
+/I"D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/tracy2fefc9668738f/p/include"
+/I"D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/vorbi9990e9d508d57/p/include"
+/I"D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/imgui5396f0f7f8179/p/include"
+/I"D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/libjpbe5e6c22fbdf6/p/include"
+/I"D:/Original/wv-fase8/build/generators/../../reversing/CVehicle/conan-cache/p/b/sdlc3cf2c66533bd/p/include"
+/bigobj /utf-8

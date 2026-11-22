@@ -38,8 +38,8 @@ constexpr uint32_t kTamArchivoEsperado = 5189632;
 constexpr uint32_t kFrameCounter = 0xB7CB4C; // CTimer::m_FrameCounter (latido)
 
 struct Estado {
-    char ruta[MAX_PATH], salida[MAX_PATH], dirJuego[MAX_PATH], tablaRet[MAX_PATH];
-    bool censo, cargado;
+    char ruta[MAX_PATH], salida[MAX_PATH], dirJuego[MAX_PATH], tablaRet[MAX_PATH], stubs[MAX_PATH];
+    bool censo, cargado, shims;
     DWORD limite, maxCenso;
     HANDLE log;
     DWORD t0;
@@ -115,10 +115,12 @@ void LeerArgumentos() {
         if (Iguales(a, "--ruta-original") && i + 1 < argc) lstrcpynA(g.ruta, argv[++i], MAX_PATH);
         else if (Iguales(a, "--directorio-juego") && i + 1 < argc) lstrcpynA(g.dirJuego, argv[++i], MAX_PATH);
         else if (Iguales(a, "--salida") && i + 1 < argc) lstrcpynA(g.salida, argv[++i], MAX_PATH);
+        else if (Iguales(a, "--stubs") && i + 1 < argc) lstrcpynA(g.stubs, argv[++i], MAX_PATH);
         else if (Iguales(a, "--tabla-ret") && i + 1 < argc) lstrcpynA(g.tablaRet, argv[++i], MAX_PATH);
         else if (Iguales(a, "--limite") && i + 1 < argc) { g.limite = 0; for (const char* d = argv[++i]; *d >= '0' && *d <= '9'; ++d) g.limite = g.limite * 10 + (*d - '0'); }
         else if (Iguales(a, "--max-censo") && i + 1 < argc) { g.maxCenso = 0; for (const char* d = argv[++i]; *d >= '0' && *d <= '9'; ++d) g.maxCenso = g.maxCenso * 10 + (*d - '0'); }
         else if (Iguales(a, "--censo")) g.censo = true;
+        else if (Iguales(a, "--shims")) g.shims = true;
     }
     if (!g.ruta[0]) GetEnvironmentVariableA("GTASA_ORIGINAL_EXE", g.ruta, MAX_PATH);
 }
@@ -197,6 +199,11 @@ int ResolverImports() {
 volatile LONG g_terminando, g_enVeh, g_nHits, g_nDistintas, g_nExc;
 uint16_t* g_tablaRet; // por direccion (uint16 por byte de .text): 0xFFFF = desconocido; otro = bytes que saca `ret n`. 0 si no hay tabla
 uint8_t*  g_visto;    // bitmap sobre el rango de codigo
+uint16_t* g_cuenta;   // aciertos por direccion de entrada (guardia de bucle del censo)
+constexpr DWORD kMaxAciertos = 400;
+struct Stub { uint32_t dir, eax, pop; bool pop_dado; };
+Stub g_stubs[256];
+int g_nStubs;
 HANDLE    g_csv;
 
 const char* Clase(uint32_t a) {
@@ -205,6 +212,7 @@ const char* Clase(uint32_t a) {
     if (a >= kReservaFin && a < 0x4000000) return "propio";
     return "otro";
 }
+BOOL CALLBACK EnumVentanas(HWND h, LPARAM);
 void InformeFallo(EXCEPTION_POINTERS* ep, const char* origen, bool terminal) {
     if (terminal && InterlockedExchange(&g_terminando, 1)) return;
     char ruta[MAX_PATH], buf[400];
@@ -227,6 +235,10 @@ void InformeFallo(EXCEPTION_POINTERS* ep, const char* origen, bool terminal) {
     }
 #undef EMIT
     if (h && h != INVALID_HANDLE_VALUE) CloseHandle(h);
+    if (terminal) { // estado del juego en el momento de la ruptura
+        LogT("estado: dispositivo D3D9 [0xC97C28]=0x%08lX, RwCamera [0xC1703C]=0x%08lX, contador de fotogramas=%lu, ventanas del proceso:", *(volatile DWORD*)0xC97C28, *(volatile DWORD*)0xC1703C, *(volatile DWORD*)kFrameCounter);
+        EnumWindows(EnumVentanas, 0);
+    }
 }
 LONG CALLBACK Filtro(EXCEPTION_POINTERS* ep) {
     InformeFallo(ep, "no manejada", true);
@@ -251,14 +263,21 @@ LONG AtenderCodigoOriginal(EXCEPTION_POINTERS* ep, uint32_t a) {
         LogT("CODIGO ORIGINAL #%ld: 0x%08lX llamado desde 0x%08lX [%s] ecx=%08lX args=%08lX %08lX", nd, a, ret, Clase(ret), c->Ecx,
              Legible(c->Esp + 4, 4) ? *(uint32_t*)(c->Esp + 4) : 0, Legible(c->Esp + 8, 4) ? *(uint32_t*)(c->Esp + 8) : 0);
     }
+    if (g_cuenta && g_cuenta[idx] < 0xFFFF) ++g_cuenta[idx];
+    if (g_cuenta && g_cuenta[idx] > kMaxAciertos) {
+        LogT("BUCLE: 0x%08lX llamado mas de %lu veces (el retorno simulado no basta)", a, kMaxAciertos);
+        InformeFallo(ep, "bucle en el censo", true);
+        Salir(0xDEAD0004);
+    }
     if (!g.censo || (DWORD)g_nDistintas > g.maxCenso || !Legible(c->Esp, 4)) {
         InformeFallo(ep, "llamada a codigo original sin reemplazo", true);
         Salir(0xDEAD0003);
     }
     // Censo: se simula el retorno (eax = 0, edx = 0) sacando los argumentos de `ret n` si la tabla lo conoce (si no, 0 bytes: cdecl).
-    uint32_t pop = 0;
+    uint32_t pop = 0, eax = 0;
     if (g_tablaRet && g_tablaRet[idx] != 0xFFFF) pop = g_tablaRet[idx];
-    c->Eax = 0; c->Edx = 0;
+    for (int i = 0; i < g_nStubs; ++i) if (g_stubs[i].dir == a) { eax = g_stubs[i].eax; if (g_stubs[i].pop_dado) pop = g_stubs[i].pop; }
+    c->Eax = eax; c->Edx = 0;
     c->Eip = ret;
     c->Esp += 4 + pop;
     return EXCEPTION_CONTINUE_EXECUTION;
@@ -342,6 +361,41 @@ void RestaurarDynTls() {
     VirtualProtect(g_ranuraDyn, 4, PAGE_READONLY, &v);
 }
 
+// Archivo de stubs explicitos del censo: lineas `0xDIR EAX [POP]` (hex); comentarios con #. Son DATOS DE PRUEBA, no reconstrucciones.
+uint32_t Hex(const char*& p) {
+    uint32_t v = 0;
+    while (*p == ' ' || *p == '	') ++p;
+    if (p[0] == '0' && (p[1] == 'x' || p[1] == 'X')) p += 2;
+    for (;; ++p) {
+        const char c = *p;
+        if (c >= '0' && c <= '9') v = v * 16 + (c - '0'); else if (c >= 'a' && c <= 'f') v = v * 16 + (c - 'a' + 10); else if (c >= 'A' && c <= 'F') v = v * 16 + (c - 'A' + 10); else break;
+    }
+    return v;
+}
+void CargarStubs() {
+    if (!g.stubs[0]) return;
+    HANDLE h = CreateFileA(g.stubs, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
+    if (h == INVALID_HANDLE_VALUE) { Log("AVISO: sin archivo de stubs (%s)", g.stubs); return; }
+    static char b[16384];
+    DWORD n = 0;
+    ReadFile(h, b, sizeof b - 1, &n, nullptr);
+    CloseHandle(h);
+    b[n] = 0;
+    for (const char* p = b; *p;) {
+        while (*p == ' ' || *p == '	') ++p;
+        if (*p == '0' && g_nStubs < 256) {
+            Stub& st = g_stubs[g_nStubs];
+            st.dir = Hex(p); st.eax = Hex(p);
+            while (*p == ' ') ++p;
+            st.pop_dado = (*p >= '0' && *p <= '9') || (*p >= 'a' && *p <= 'f');
+            st.pop = st.pop_dado ? Hex(p) : 0;
+            ++g_nStubs;
+        }
+        while (*p && *p != 10) ++p;
+        if (*p) ++p;
+    }
+    Log("stubs explicitos cargados: %d", g_nStubs);
+}
 void CargarTablaRet() {
     if (!g.tablaRet[0]) return;
     HANDLE h = CreateFileA(g.tablaRet, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
@@ -364,6 +418,41 @@ void ExtraTablaC() {
     const bool sse2 = ((r[3] >> 26) & 1) != 0 && IsProcessorFeaturePresent(PF_XMMI64_INSTRUCTIONS_AVAILABLE);
     *(volatile int*)0xC9C404 = sse2 ? 1 : 0;
     *(volatile int*)0xC9C400 = sse2 ? 1 : 0;
+}
+
+// ---------------- Reconstrucciones minimas del propio experimento ("shims"; NO estan en el catalogo de ganchos) ----------------
+// Envolturas del plugin 0x509 de RwCamera (RpWorld): 0x750430 (begin update), 0x750460 (end update) y 0x750480 (+0x10 de la camara: sincroniza el mundo).
+// Las dos primeras son exactas (cuerpo de 25 y 27 bytes con un `jmp` final a la funcion guardada del plugin). La tercera (0x750480, 0x28A bytes: recorrido del BSP
+// del mundo con las 6 caras del frustum, x87) NO se reconstruye: este shim solo hace la primera llamada (la funcion guardada) y devuelve la camara si fue bien,
+// sin recolectar sectores (el mundo no se dibujara). Sirve para ver la siguiente ruptura, no para jugar.
+int __cdecl ShimCamBegin(uint8_t* camera) { // 0x750430
+    auto* d = reinterpret_cast<uint32_t*>(camera + *reinterpret_cast<int*>(0xC925A4));
+    auto* g = *reinterpret_cast<uint8_t**>(0xC97B24);
+    *reinterpret_cast<uint32_t*>(g + 4) = d[3];
+    ++*reinterpret_cast<uint16_t*>(g + 8);
+    return reinterpret_cast<int(__cdecl*)(void*)>(d[4])(camera);
+}
+int __cdecl ShimCamEnd(uint8_t* camera) { // 0x750460
+    auto* d = reinterpret_cast<uint32_t*>(camera + *reinterpret_cast<int*>(0xC925A4));
+    auto* g = *reinterpret_cast<uint8_t**>(0xC97B24);
+    *reinterpret_cast<uint32_t*>(g + 4) = 0;
+    return reinterpret_cast<int(__cdecl*)(void*)>(d[5])(camera);
+}
+int __cdecl ShimCamSync(uint8_t* camera) { // 0x750480 (parcial)
+    auto* d = reinterpret_cast<uint32_t*>(camera + *reinterpret_cast<int*>(0xC925A4));
+    if (!reinterpret_cast<int(__cdecl*)(void*)>(d[6])(camera)) return 0;
+    return reinterpret_cast<int>(camera);
+}
+void EscribirJmp(uint32_t desde, void* hacia) {
+    DWORD v;
+    VirtualProtect((void*)desde, 5, PAGE_EXECUTE_READWRITE, &v);
+    *(uint8_t*)desde = 0xE9;
+    *(int32_t*)(desde + 1) = (int32_t)((uint32_t)(uintptr_t)hacia - (desde + 5));
+}
+void InstalarShims() {
+    EscribirJmp(0x750430, (void*)&ShimCamBegin);
+    EscribirJmp(0x750460, (void*)&ShimCamEnd);
+    EscribirJmp(0x750480, (void*)&ShimCamSync);
 }
 
 void DirectorioDeLaRuta() {
@@ -400,6 +489,8 @@ static void FaseCargar() {
     if (!MapearDatos()) Salir(4);
     ResolverImports();
     CargarTablaRet();
+    CargarStubs();
+    g_cuenta = (uint16_t*)VirtualAlloc(nullptr, (kCodigoFin - kCodigoIni) * 2, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
     g.cargado = true;
 }
 static void NTAPI FaseTls(PVOID, DWORD motivo, PVOID) {
@@ -437,6 +528,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR cmd, int show) {
     LogT("DllMain devolvio %d", ok);
     RemoveVectoredExceptionHandler(g_vehHandle);
     g_vehHandle = AddVectoredExceptionHandler(1, Vectorizado);
+    if (g.shims) { InstalarShims(); LogT("shims del experimento instalados (0x750430, 0x750460, 0x750480 parcial)"); }
     {
         auto* nt = (const IMAGE_NT_HEADERS32*)(g.archivo + ((const IMAGE_DOS_HEADER*)g.archivo)->e_lfanew);
         auto* sec = IMAGE_FIRST_SECTION(nt);

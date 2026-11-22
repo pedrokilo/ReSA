@@ -17,6 +17,9 @@ for i in incs:
     lines.append('/I"%s"' % i)
 for d in defs:
     lines.append('/D' + d.replace('"', '\\"'))
+for m2 in re.finditer(r'/external:I "([^"]+)"', opts):
+    lines.append('/I"%s"' % m2.group(1))
+opts = re.sub(r'/external:I "[^"]+"', '', opts).strip()
 if opts:
     lines.append(opts)
 s = '\n'.join(lines)

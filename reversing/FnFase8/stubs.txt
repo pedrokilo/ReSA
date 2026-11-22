@@ -1,0 +1,1 @@
+# addr eax [pop]  -- stubs explicitos del censo (datos de prueba, no reconstrucciones)

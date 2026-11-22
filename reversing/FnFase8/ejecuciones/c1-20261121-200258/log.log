@@ -1,0 +1,25 @@
+[info][20:00:32.287][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13534 en 1015 clases/grupos (11366 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13529. Desactivadas: 5.
+[info][20:00:32.289][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][20:00:32.289][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][20:00:32.292][CdStreamInfo.cpp:68]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][20:00:32.294][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][20:00:32.705][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][20:00:33.541][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[info][20:02:30.421][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13534 en 1015 clases/grupos (11366 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13529. Desactivadas: 5.
+[info][20:02:30.422][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][20:02:30.423][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][20:02:30.426][CdStreamInfo.cpp:68]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][20:02:30.430][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][20:02:30.815][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][20:02:31.155][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[info][20:03:01.072][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13534 en 1015 clases/grupos (11366 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13529. Desactivadas: 5.
+[info][20:03:01.073][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][20:03:01.073][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][20:03:01.076][CdStreamInfo.cpp:68]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][20:03:01.079][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][20:03:01.466][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][20:03:01.846][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][20:03:01.942][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
