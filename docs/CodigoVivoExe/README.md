@@ -6,6 +6,8 @@ Archivos: [plan-lotes.md](plan-lotes.md) · [plan.csv](plan.csv) · [funciones-v
 
 **Estado de ejecución (rama `vivo-p2`):** P1 (V1–V3) verificada y P2 en curso; **P4 libpng/zlib y D3DX9 (E1, E3): ver [ejecucion-p4.md](ejecucion-p4.md)**; ver [ejecucion-p1-p2.md](ejecucion-p1-p2.md), [cierre.csv](cierre.csv), [cierre-p1.csv](cierre-p1.csv) y [cierre-p2.csv](cierre-p2.csv).
 
+**Cierre V4–V8 (rama `vivo-v48`):** búsqueda por registro de las 114 llamadas indirectas de las funciones vivas conservadas y punto fijo de alcance; D3DX9 (V4), QuickTime (V6) y libpng (V8) cerrados, V5 y V7 parciales (25 abiertas con motivo exacto); ver [ejecucion-v48.md](ejecucion-v48.md) y [busqueda-registro-v48.csv](busqueda-registro-v48.csv).
+
 **P3 (rama `vivo-p3`):** S1–S4 sustituidos por C++ propio (18 de las 19 del plan más `0x85742B`; `___updatetlocinfo` queda en la rama del locale), con bancos fuera del juego; ver [ejecucion-p3.md](ejecucion-p3.md) y [cierre-p3.csv](cierre-p3.csv).
 
 **Partes P4 (lotes E2-*, CRT de MSVC sin locale) y P5 (F1–F4, arranque, inicializadores, importaciones) (rama `vivo-p5`):** diseño, cifras y pasos para el ejecutable propio en [fase8-arranque.md](fase8-arranque.md); resultado por función en [fase8-arranque-lotes.csv](fase8-arranque-lotes.csv), [fase8-inicializadores.csv](fase8-inicializadores.csv) y [fase8-funclets-f4.csv](fase8-funclets-f4.csv).

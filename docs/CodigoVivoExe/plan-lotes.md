@@ -26,16 +26,16 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | V3-4 | P1 | verificar y retirar | Excepciones (Unwind/Catch) | DESCARTAR | huérfano de excepciones | 600 | 6,024 | 0x0083FF7C–0x008434A6 | bajo |  | cerrado |
 | V3-5 | P1 | verificar y retirar | Excepciones (Unwind/Catch) | DESCARTAR | huérfano de excepciones | 600 | 6,234 | 0x008434B1–0x00846770 | bajo |  | cerrado |
 | V3-6 | P1 | verificar y retirar | Excepciones (Unwind/Catch) | DESCARTAR | huérfano de excepciones | 504 | 5,164 | 0x00846790–0x00848EFE | bajo |  | cerrado |
-| V4-1 | P1 | verificar y retirar | D3DX9 | DESCARTAR | biblioteca embebida sin raíces vivas | 250 | 75,966 | 0x00765570–0x00776904 | bajo | E3 | verificado sin cerrar |
-| V4-2 | P1 | verificar y retirar | D3DX9 | DESCARTAR | biblioteca embebida sin raíces vivas | 250 | 53,995 | 0x0077BE0F–0x0078A7CA | bajo | E3 | verificado sin cerrar |
-| V4-3 | P1 | verificar y retirar | D3DX9 | DESCARTAR | biblioteca embebida sin raíces vivas | 250 | 137,259 | 0x0078B343–0x007B00BE | bajo | E3 | verificado sin cerrar |
-| V4-4 | P1 | verificar y retirar | D3DX9 | DESCARTAR | biblioteca embebida sin raíces vivas | 182 | 63,375 | 0x007B00FC–0x007C4220 | bajo | E3 | verificado sin cerrar |
-| V5-1 | P1 | verificar y retirar | CRT y arranque | DESCARTAR | sin alcance (posible muerto) | 70 | 8,204 | 0x00746480–0x00825E4C | medio |  | verificado sin cerrar |
-| V5-2 | P1 | verificar y retirar | CRT y arranque | DESCARTAR | sin alcance (posible muerto) | 70 | 12,920 | 0x00825F61–0x0082F880 | medio |  | verificado sin cerrar |
-| V5-3 | P1 | verificar y retirar | CRT y arranque | DESCARTAR | sin alcance (posible muerto) | 63 | 10,599 | 0x0082FE09–0x008370D0 | medio |  | verificado sin cerrar |
-| V6-1 | P1 | verificar y retirar | QuickTime/QTML | DESCARTAR | sin alcance (posible muerto) | 31 | 1,237 | 0x004E7990–0x0081DAA0 | medio |  | verificado sin cerrar |
-| V7-1 | P1 | verificar y retirar | RenderWare no reconstruible | DESCARTAR | sin alcance (posible muerto) | 17 | 5,656 | 0x004CA5A0–0x00857432 | medio |  | verificado sin cerrar |
-| V8-1 | P1 | verificar y retirar | libpng y zlib | DESCARTAR | sin alcance (posible muerto) | 14 | 10,924 | 0x007D7470–0x007E18D0 | medio |  | verificado sin cerrar |
+| V4-1 | P1 | verificar y retirar | D3DX9 | DESCARTAR | biblioteca embebida sin raíces vivas | 250 | 75,966 | 0x00765570–0x00776904 | bajo | E3 | cerrado |
+| V4-2 | P1 | verificar y retirar | D3DX9 | DESCARTAR | biblioteca embebida sin raíces vivas | 250 | 53,995 | 0x0077BE0F–0x0078A7CA | bajo | E3 | cerrado |
+| V4-3 | P1 | verificar y retirar | D3DX9 | DESCARTAR | biblioteca embebida sin raíces vivas | 250 | 137,259 | 0x0078B343–0x007B00BE | bajo | E3 | cerrado |
+| V4-4 | P1 | verificar y retirar | D3DX9 | DESCARTAR | biblioteca embebida sin raíces vivas | 182 | 63,375 | 0x007B00FC–0x007C4220 | bajo | E3 | cerrado |
+| V5-1 | P1 | verificar y retirar | CRT y arranque | DESCARTAR | sin alcance (posible muerto) | 70 | 8,204 | 0x00746480–0x00825E4C | medio |  | parcial |
+| V5-2 | P1 | verificar y retirar | CRT y arranque | DESCARTAR | sin alcance (posible muerto) | 70 | 12,920 | 0x00825F61–0x0082F880 | medio |  | parcial |
+| V5-3 | P1 | verificar y retirar | CRT y arranque | DESCARTAR | sin alcance (posible muerto) | 63 | 10,599 | 0x0082FE09–0x008370D0 | medio |  | parcial |
+| V6-1 | P1 | verificar y retirar | QuickTime/QTML | DESCARTAR | sin alcance (posible muerto) | 31 | 1,237 | 0x004E7990–0x0081DAA0 | medio |  | cerrado |
+| V7-1 | P1 | verificar y retirar | RenderWare no reconstruible | DESCARTAR | sin alcance (posible muerto) | 17 | 5,656 | 0x004CA5A0–0x00857432 | medio |  | parcial |
+| V8-1 | P1 | verificar y retirar | libpng y zlib | DESCARTAR | sin alcance (posible muerto) | 14 | 10,924 | 0x007D7470–0x007E18D0 | medio |  | cerrado |
 | B1 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x004032A4–0x00432B10 | bajo |  | parcial |
 | B2 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x004385B0–0x004394B0 | bajo |  | pendiente |
 | B3 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x004394E0–0x0043A4B0 | bajo |  | pendiente |
