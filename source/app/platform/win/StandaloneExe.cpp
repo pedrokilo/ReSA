@@ -584,9 +584,11 @@ int __cdecl ShimDevuelveUno() { return 1; }
 struct ShimDef { uint32_t va; void* destino; const char* nota; };
 void InstalarShims() {
     const ShimDef lista[] = {
-        {0x80E270, (void*)ShimDevuelveUno, "nodeBody nodeD3D9SubmitNoLight.csl (1.380 B, Im3D sin luz): no dibuja nada"},
+        // Sin shims: SubmitNoLight (0x80E270) y Skin (0x7C7B90) ya son C++.
+        {0, nullptr, nullptr},
     };
     for (const ShimDef& d : lista) {
+        if (!d.va) continue;
         DWORD viejo = 0;
         if (!VirtualProtect((void*)d.va, 8, PAGE_EXECUTE_READWRITE, &viejo)) { LogT("shim 0x%08X: VirtualProtect fallo", d.va); continue; }
         uint8_t* p = (uint8_t*)d.va;
