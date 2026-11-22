@@ -47,7 +47,7 @@ ASI Debug con todos los ganchos activos (incluido `_rpD3D9VertexShaderCreate`), 
 
 | Prueba | Resultado |
 | --- | --- |
-| `prueba_ropero.py` | `BIEN` (puerta y marcador; captura `D:\Original\sim_outopero_vs1.png`: CJ entero, de espaldas, con gorra verde, cadena y tatuaje, sin deformaciones) |
+| `prueba_ropero.py` | `BIEN` (puerta y marcador; captura `D:\Original\sim_out\ropero_vs1.png`: CJ entero, de espaldas, con gorra verde, cadena y tatuaje, sin deformaciones) |
 | `prueba_agua.py` | `BIEN` (brillo medio 48,0; `UnderWaterness = 1.0`) |
 | `prueba_marcadores.py` | `BIEN` (12 marcadores en memoria, 12 cambian en 1 s) |
 
