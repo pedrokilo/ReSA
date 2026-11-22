@@ -6,82 +6,65 @@
 
 // Lote LIB4A: RtPNGImageWrite (0x7CF600, 821 bytes) y RtPNGImageRead (0x7CF9B0, 1039 bytes) de RtPNG (Criterion/RenderWare) y sus cinco callbacks de libpng
 // (0x7CF940, 0x7CF960, 0x7CF980, 0x7CF9A0, 0x7CFDE0), reconstruidos en C++ desde el desensamblado. Sin validar: usan el sistema de archivos y la memoria de RenderWare y no se
-// pueden ejecutar fuera del juego (ver reversing/FnLIB4A/README.md). Llaman a libpng 1.0.12 por direccion: las funciones de escritura y png_error/png_warning estan enganchadas a la
-// biblioteca oficial por libpngwrite.cpp; las de lectura que quedan (png_read_info, png_read_image, ...) siguen siendo del EXE hasta su lote.
+// pueden ejecutar fuera del juego (ver reversing/FnLIB4A/README.md). Desde el lote E1 (P4) llaman DIRECTAMENTE a libpng 1.0.12 enlazada (libs/), sin direcciones del EXE: las 48 funciones de libpng/zlib del EXE que quedaban vivas (0x7D26E0-0x7E77E0) ya no tienen llamador.
 //
 // setjmp: el EXE original llamaba a _setjmp3 de su CRT (0x825F7C) sobre png_ptr->jmpbuf (primer campo de png_struct, 64 bytes) y libpng hacia longjmp con el CRT del EXE. Con
 // png_error enganchado a la biblioteca el longjmp lo hace el CRT de la DLL, asi que el setjmp tiene que ser tambien el de la DLL. Por eso este codigo solo se activa junto con
 // GTASA_WITH_ZLIB_LIBPNG; sin la opcion las dos funciones siguen llamando al EXE. Las variables que se leen tras el longjmp son `volatile` (el EXE las guardaba en la pila).
 
 #ifdef GTASA_WITH_ZLIB_LIBPNG
+// Lote E1 (P4): RtPNG llama a libpng 1.0.12 ENLAZADA (libs/libpng-1.0.12 + zlib-1.1.3, GTASA_WITH_ZLIB_LIBPNG), ya no a las direcciones de la libpng del EXE. Los prototipos son
+// los de png.h con punteros opacos (el mismo recurso que libpngread.cpp/libpngwrite.cpp: no se incluye png.h para no chocar con los nombres de este archivo).
+extern "C" {
+    void* png_create_write_struct_2(const char* ver, void* errorPtr, void* errorFn, void* warnFn, void* memPtr, void* mallocFn, void* freeFn);
+    void* png_create_read_struct_2(const char* ver, void* errorPtr, void* errorFn, void* warnFn, void* memPtr, void* mallocFn, void* freeFn);
+    void* png_create_info_struct(void* png);
+    void png_set_write_fn(void* png, void* ioPtr, void* writeFn, void* flushFn);
+    void png_set_read_fn(void* png, void* ioPtr, void* readFn);
+    void* png_get_io_ptr(void* png);
+    void png_set_IHDR(void* png, void* info, uint32 width, uint32 height, int32 bitDepth, int32 colorType, int32 interlace, int32 compression, int32 filter);
+    void png_set_PLTE(void* png, void* info, void* palette, int32 numPalette);
+    void png_set_tRNS(void* png, void* info, void* trans, int32 numTrans, void* transValues);
+    void png_write_info(void* png, void* info);
+    void png_set_packing(void* png);
+    void png_write_image(void* png, void* rows);
+    void png_write_end(void* png, void* info);
+    void png_destroy_write_struct(void** png, void** info);
+    void png_destroy_read_struct(void** png, void** info, void** endInfo);
+    void png_error(void* png, const char* message);
+    void png_read_info(void* png, void* info);
+    uint32 png_get_IHDR(void* png, void* info, uint32* width, uint32* height, int32* bitDepth, int32* colorType, int32* interlace, int32* compression, int32* filter);
+    void png_set_strip_16(void* png);
+    void png_set_gray_1_2_4_to_8(void* png);
+    void png_set_gray_to_rgb(void* png);
+    void png_set_filler(void* png, uint32 filler, int32 loc);
+    uint32 png_get_valid(void* png, void* info, uint32 flag);
+    uint32 png_get_PLTE(void* png, void* info, uint8** palette, int32* numPalette);
+    uint32 png_get_tRNS(void* png, void* info, uint8** trans, int32* numTrans, void** transValues);
+    void png_read_image(void* png, void* rows);
+    void png_read_end(void* png, void* info);
+}
+
 namespace {
 using Png = void*;
-
-// Funciones de libpng 1.0.12 del EXE (direccion fija, cdecl)
-using png_create_struct_2_t = Png (__cdecl*)(const char* ver, void* errorPtr, void* errorFn, void* warnFn, void* memPtr, void* mallocFn, void* freeFn);
-using png_create_info_struct_t = void* (__cdecl*)(Png);
-using png_set_write_fn_t = void (__cdecl*)(Png, void* ioPtr, void* writeFn, void* flushFn);
-using png_set_read_fn_t = void (__cdecl*)(Png, void* ioPtr, void* readFn);
-using png_set_IHDR_t = void (__cdecl*)(Png, void* info, uint32 width, uint32 height, int32 bitDepth, int32 colorType, int32 interlace, int32 compression, int32 filter);
-using png_set_PLTE_t = void (__cdecl*)(Png, void* info, void* palette, int32 numPalette);
-using png_set_tRNS_t = void (__cdecl*)(Png, void* info, void* trans, int32 numTrans, void* transValues);
-using png_info_fn_t = void (__cdecl*)(Png, void* info);
-using png_fn_t = void (__cdecl*)(Png);
-using png_rows_fn_t = void (__cdecl*)(Png, void* rows);
-using png_destroy_write_struct_t = void (__cdecl*)(Png* png, void** info);
-using png_destroy_read_struct_t = void (__cdecl*)(Png* png, void** info, void** endInfo);
-using png_error_t = void (__cdecl*)(Png, const char* message);
-using png_get_IHDR_t = uint32 (__cdecl*)(Png, void* info, uint32* width, uint32* height, int32* bitDepth, int32* colorType, int32* interlace, int32* compression, int32* filter);
-using png_set_filler_t = void (__cdecl*)(Png, uint32 filler, int32 loc);
-using png_get_valid_t = uint32 (__cdecl*)(Png, void* info, uint32 flag);
-using png_get_PLTE_t = uint32 (__cdecl*)(Png, void* info, uint8** palette, int32* numPalette);
-using png_get_tRNS_t = uint32 (__cdecl*)(Png, void* info, uint8** trans, int32* numTrans, void** transValues);
-
-const auto png_create_write_struct_2 = reinterpret_cast<png_create_struct_2_t>(0x7D03B0);
-const auto png_create_read_struct_2  = reinterpret_cast<png_create_struct_2_t>(0x7D36D0);
-const auto png_create_info_struct    = reinterpret_cast<png_create_info_struct_t>(0x7D2E80);
-const auto png_set_write_fn          = reinterpret_cast<png_set_write_fn_t>(0x7D2C20);
-const auto png_set_read_fn           = reinterpret_cast<png_set_read_fn_t>(0x7DA870);
-const auto png_set_IHDR              = reinterpret_cast<png_set_IHDR_t>(0x7D1D60);
-const auto png_set_PLTE              = reinterpret_cast<png_set_PLTE_t>(0x7D2130);
-const auto png_set_tRNS              = reinterpret_cast<png_set_tRNS_t>(0x7D2630);
-const auto png_write_info            = reinterpret_cast<png_info_fn_t>(0x7CFFA0);
-const auto png_set_packing           = reinterpret_cast<png_fn_t>(0x7D1340);
-const auto png_write_image           = reinterpret_cast<png_rows_fn_t>(0x7D06C0);
-const auto png_write_end             = reinterpret_cast<png_info_fn_t>(0x7D0250);
-const auto png_destroy_write_struct  = reinterpret_cast<png_destroy_write_struct_t>(0x7D0A40);
-const auto png_destroy_read_struct   = reinterpret_cast<png_destroy_read_struct_t>(0x7D4660);
-const auto png_error                 = reinterpret_cast<png_error_t>(0x7D34F0);
-const auto png_read_info             = reinterpret_cast<png_info_fn_t>(0x7D3AB0);
-const auto png_get_IHDR              = reinterpret_cast<png_get_IHDR_t>(0x7D5190);
-const auto png_set_strip_16          = reinterpret_cast<png_fn_t>(0x7D5790);  // transformations |= 0x400 (PNG_16_TO_8)
-const auto png_set_gray_1_2_4_to_8   = reinterpret_cast<png_fn_t>(0x7D6000);  // transformations |= 0x1000 (PNG_EXPAND)
-const auto png_set_gray_to_rgb       = reinterpret_cast<png_fn_t>(0x7D6020);  // transformations |= 0x4000 (PNG_GRAY_TO_RGB)
-const auto png_set_filler            = reinterpret_cast<png_set_filler_t>(0x7D13E0);
-const auto png_get_valid             = reinterpret_cast<png_get_valid_t>(0x7D4B80);
-const auto png_get_PLTE              = reinterpret_cast<png_get_PLTE_t>(0x7D5440);
-const auto png_get_tRNS              = reinterpret_cast<png_get_tRNS_t>(0x7D5530);
-const auto png_read_image            = reinterpret_cast<png_rows_fn_t>(0x7D4380);
-const auto png_read_end              = reinterpret_cast<png_info_fn_t>(0x7D43E0);
 
 constexpr const char* kPngVersion = "1.0.12";  // el EXE pasa 0x8DEDF4 (la cadena "1.0.12")
 constexpr RwUInt32 kPngHint = 0x3010D;         // pista de memoria que pasa el EXE a RwMalloc
 constexpr RwInt32 kRtPNGPluginID = 0x10D;      // RWERROR de RtPNGImageRead
 constexpr uint32 PNG_INFO_PLTE = 0x08;
 constexpr uint32 PNG_INFO_tRNS = 0x10;
-constexpr uint32 kIoPtrOffset = 0x54;          // png_struct::io_ptr
 
 // Callbacks de libpng (el EXE los pasa como punteros; sus direcciones originales tambien estan enganchadas a estos cuerpos)
 void* __cdecl RtPngMalloc(Png /*png*/, uint32 size) { return RwMalloc(size, kPngHint); }                // 0x7CF940
 void __cdecl RtPngFree(Png /*png*/, void* ptr) { RwFree(ptr); }                                         // 0x7CF960
 void __cdecl RtPngWriteData(Png png, void* data, uint32 length) {                                       // 0x7CF980
-    auto* const stream = *reinterpret_cast<RwStream**>(reinterpret_cast<uint8*>(png) + kIoPtrOffset);
+    auto* const stream = static_cast<RwStream*>(png_get_io_ptr(png));
     if (stream) RwStreamWrite(stream, data, length);
     else png_error(png, nullptr);
 }
 void __cdecl RtPngFlush(Png /*png*/) {}                                                                 // 0x7CF9A0
 void __cdecl RtPngReadData(Png png, void* data, uint32 length) {                                        // 0x7CFDE0
-    auto* const stream = *reinterpret_cast<RwStream**>(reinterpret_cast<uint8*>(png) + kIoPtrOffset);
+    auto* const stream = static_cast<RwStream*>(png_get_io_ptr(png));
     if (stream) RwStreamRead(stream, data, length);
     else png_error(png, nullptr);
 }

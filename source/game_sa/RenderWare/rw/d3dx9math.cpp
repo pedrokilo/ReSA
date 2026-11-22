@@ -72,13 +72,13 @@ void D3DX9InjectHooks() {
     RH_ScopedGlobalInstall(D3DXMatrixTranspose, 0x7675EE);
     RH_ScopedGlobalInstall(D3DXMatrixMultiplyTranspose, 0x7676C7);
 
-    // lote R21A (sin validar): ensamblador y compilador de shaders. DESACTIVADOS por defecto (20/11/2026): con el ensamblador de d3dx9_43.dll (lote EXT1A) los modelos con
-    // esqueleto (CJ y los peatones) salian cortados o invisibles (el juego ensambla sus shaders de vertices de piel al arrancar); con ellos apagados se ve bien. Se sigue
-    // usando el ensamblador/compilador propio del EXE (13 rutinas internas sin sustituir). Para reactivarlos: --unhook-except o SetState en codigo.
-    RH_ScopedGlobalInstall(D3DXAssembleShader, 0x7652AE, {.enabled = false});
-    RH_ScopedGlobalInstall(D3DXCompileShaderFromFileA, 0x76534D, {.enabled = false});
-    RH_ScopedGlobalInstall(D3DXCompileShaderFromFileW, 0x765402, {.enabled = false});
-    RH_ScopedGlobalInstall(D3DXCompileShaderFromResourceA, 0x7654B8, {.enabled = false});
+    // lote R21A / E3 (P4): ensamblador y compilador de shaders sustituidos por d3dx9_43.dll. Nacieron desactivados (20/11/2026) porque la DLL rechazaba Flags = 4
+    // (SKIPOPTIMIZATION) con D3DERR_INVALIDCALL y los modelos con esqueleto salian invisibles; FnD3DX9B enmascaro las banderas y el estado x87/SSE se restaura al cargar la DLL.
+    // Reactivados en el lote E3 (P4): ver docs/CodigoVivoExe/ejecucion-p4.md.
+    RH_ScopedGlobalInstall(D3DXAssembleShader, 0x7652AE);
+    RH_ScopedGlobalInstall(D3DXCompileShaderFromFileA, 0x76534D);
+    RH_ScopedGlobalInstall(D3DXCompileShaderFromFileW, 0x765402);
+    RH_ScopedGlobalInstall(D3DXCompileShaderFromResourceA, 0x7654B8);
 }
 
 // 0x7C1D80: medios flotantes -> floats con MMX/3DNow! (`femms` al entrar y salir, __stdcall: `ret 0Ch`). Con count < 4 llama al conversor escalar 0x76626B
