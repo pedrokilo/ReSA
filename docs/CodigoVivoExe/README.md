@@ -6,6 +6,8 @@ Archivos: [plan-lotes.md](plan-lotes.md) · [plan.csv](plan.csv) · [funciones-v
 
 **Estado de ejecución (rama `vivo-p2`):** P1 (V1–V3) verificada y P2 en curso; ver [ejecucion-p1-p2.md](ejecucion-p1-p2.md), [cierre.csv](cierre.csv), [cierre-p1.csv](cierre-p1.csv) y [cierre-p2.csv](cierre-p2.csv).
 
+**Partes P4 (lotes E2-*, CRT de MSVC sin locale) y P5 (F1–F4, arranque, inicializadores, importaciones) (rama `vivo-p5`):** diseño, cifras y pasos para el ejecutable propio en [fase8-arranque.md](fase8-arranque.md); resultado por función en [fase8-arranque-lotes.csv](fase8-arranque-lotes.csv), [fase8-inicializadores.csv](fase8-inicializadores.csv) y [fase8-funclets-f4.csv](fase8-funclets-f4.csv).
+
 ## 0. Resumen en diez líneas
 
 1. **Las «5.569 funciones vivas» son 5.569 trozos de 5.279 funciones.** `binary_function_ranges.csv` tiene 19.169 filas, pero son trozos de 17.765 funciones de Ghidra (1.404 funciones tienen cuerpo en varios trozos). Las cifras de aquí son por función única; 5.279 funciones = 535.410 bytes = 5.569 trozos.

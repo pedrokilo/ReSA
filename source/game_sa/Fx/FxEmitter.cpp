@@ -46,7 +46,7 @@ __declspec(noinline) FxEmitter_c* __fastcall FxEmitterConstructorBody(FxEmitter_
 __declspec(noinline) FxEmitter_c* __fastcall FxEmitterScalarDeletingDestructor(FxEmitter_c* self, void* /*edx*/, uint8 flags) {
     reinterpret_cast<void(__thiscall*)(void*)>(0x4A2BB0)(self);
     if (flags & 1) {
-        reinterpret_cast<void(__cdecl*)(void*)>(0x8214BD)(self);
+        ::operator delete(self);
     }
     return self;
 }

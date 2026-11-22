@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include "D3dxShaderSource.h"
 #include "Crt/CrtHeap.h"
+#include "Crt/CrtMem.h"
 
 // Objeto fuente del ensamblador de shaders de D3DX9 del EXE (lote NEWDEL). Ver D3dxShaderSource.h y reversing/FnNEWDEL/README.md.
 // Colaboradores sin reconstruir (por direccion): 0x76E390/0x76E3FD/0x76E41D/0x76E396 (cadena de bloques y registro de errores), 0x76B87F/0x76B4FD/0x76B5EF
@@ -31,10 +32,9 @@ constexpr uint32 HR_NO_MEMORY_CODE = 0x8007000Eu;
 constexpr int    LC_NUMERIC_ID    = 4;
 
 using SetLocaleFn  = char*(__cdecl*)(int category, const char* locale);
-using StrdupFn     = char*(__cdecl*)(const char* text);
 using ControlFpFn  = uint32(__cdecl*)(uint32 value, uint32 mask);
 inline char*  ExeSetLocale(int category, const char* locale) { return reinterpret_cast<SetLocaleFn>(0x825A79)(category, locale); }
-inline char*  ExeStrdup(const char* text)                     { return reinterpret_cast<StrdupFn>(0x82514C)(text); }
+inline char*  ExeStrdup(const char* text)                     { return ExeCrt::Strdup(text); } // 0x82514C (CrtMem)
 inline uint32 ExeControlFp(uint32 value, uint32 mask)         { return reinterpret_cast<ControlFpFn>(0x825136)(value, mask); }
 
 // `repe cmpsb` de 2 bytes contra "C\0" (0x877778): la configuracion regional guardada es exactamente "C"

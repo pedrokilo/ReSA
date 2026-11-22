@@ -85,7 +85,7 @@ namespace {
 void __fastcall ReleaseBlockA(void* self, void* /*edx*/) {
     auto* const raw = static_cast<uint8*>(self);
     if (void* const block = *reinterpret_cast<void**>(raw + 4)) {
-        plugin::Call<0x8214BD, void*>(block);
+        ::operator delete(block);
     }
     *reinterpret_cast<uint32*>(raw + 4)   = 0;
     *reinterpret_cast<uint32*>(raw + 8)   = 0;
@@ -95,7 +95,7 @@ void __fastcall ReleaseBlockA(void* self, void* /*edx*/) {
 void __fastcall ReleaseBlockB(void* self, void* /*edx*/) {
     auto* const raw = static_cast<uint8*>(self);
     if (void* const block = *reinterpret_cast<void**>(raw + 4)) {
-        plugin::Call<0x8214BD, void*>(block);
+        ::operator delete(block);
     }
     *reinterpret_cast<uint32*>(raw + 4)   = 0;
     *reinterpret_cast<uint32*>(raw + 8)   = 0;

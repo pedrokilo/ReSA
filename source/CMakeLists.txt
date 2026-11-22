@@ -443,6 +443,15 @@ endif()
 # Lote CRT1A: ganchos del montón del CRT del EXE (malloc/free/realloc/calloc/operator new). Solo se instalan en ejecucion si el CRT del EXE usa HeapAlloc directo.
 # Encendidos por defecto desde el 20/11/2026 (todos los hooks activos; ver reversing/FnCRT1A/DISENO.md).
 #--------------------------------------------------------------------
+#--------------------------------------------------------------------
+# Fase 8 (parte P5 del plan de codigo vivo): arranque propio del estado del CRT del EXE en el ejecutable independiente (CrtStartup.cpp: StandaloneStartup).
+# APAGADA por defecto: con la DLL sobre el EXE el CRT del EXE ya arranco antes de cargar la DLL. Pasos y razones: docs/CodigoVivoExe/fase8-arranque.md.
+#--------------------------------------------------------------------
+option(${RE_PROJECT}_STANDALONE_STARTUP "Ejecutable independiente: WinMain crea el estado del CRT del EXE (ExeCrt::StandaloneStartup)" OFF)
+if (${RE_PROJECT}_STANDALONE_STARTUP)
+    target_compile_definitions(${RE_PROJECT_LIB_NAME} PRIVATE GTASA_STANDALONE_STARTUP=1)
+endif()
+
 option(${RE_PROJECT}_CRT_HEAP_HOOKS "Instala los ganchos del monton del CRT del EXE (CrtHeap.cpp)" ON)
 if (${RE_PROJECT}_CRT_HEAP_HOOKS)
     target_compile_definitions(${RE_PROJECT_LIB_NAME} PRIVATE GTASA_CRT_HEAP_HOOKS=1)

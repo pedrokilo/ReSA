@@ -436,9 +436,9 @@ void CAEUserRadioTrackManager::WriteUserTracksThread_Unicode() {
             m_nUserTracksScanState = USER_TRACK_SCAN_ERROR;
         }
         for (auto** entry = offsets.first; entry != offsets.last; ++entry) {
-            plugin::Call<0x8214BD>(*entry);
+            ::operator delete(*entry);
         }
-        plugin::Call<0x8214BD>(offsets.first);
+        ::operator delete(offsets.first);
     } else {
         m_nUserTracksScanState = USER_TRACK_SCAN_ERROR;
     }
@@ -561,18 +561,18 @@ int32 CAEUserRadioTrackManager::WriteUserTracksFile_Unicode(const char* dir, Use
         if (offsets.last == offsets.end) {
             const auto size = offsets.first ? offsets.last - offsets.first : 0;
             const auto capacity = std::max<ptrdiff_t>(1, size * 2);
-            auto** storage = plugin::CallAndReturn<tUserTracksInfo**, 0x821195>(size_t(capacity) * sizeof(tUserTracksInfo*));
+            auto** storage = static_cast<tUserTracksInfo**>(::operator new[](size_t(capacity) * sizeof(tUserTracksInfo*)));
             if (size) {
                 std::copy_n(offsets.first, size, storage);
             }
-            plugin::Call<0x8214BD>(offsets.first);
+            ::operator delete(offsets.first);
             offsets.first = storage;
             offsets.last = storage + size;
             offsets.end = storage + capacity;
         }
         // The native worker deletes both these records and the vector storage
         // with the executable's CRT; allocate them from that same CRT.
-        auto* record = plugin::CallAndReturn<tUserTracksInfo*, 0x821195>(sizeof(tUserTracksInfo));
+        auto* record = static_cast<tUserTracksInfo*>(::operator new[](sizeof(tUserTracksInfo)));
         *record = track;
         *offsets.last++ = record;
     }
@@ -670,7 +670,7 @@ char* CAEUserRadioTrackManager::ResolveShortcut(const char* path) {
 // NOTSA: variante UTF-8 de 0x4F30F0 (bugfix CAEUserRadioTrackManager_UnicodeUserTracks).
 char* CAEUserRadioTrackManager::ResolveShortcut_Unicode(const char* path) {
     std::string str = UnicodeToUTF8(ResolveShortcut(UTF8ToUnicode(path)));
-    char*       result = plugin::CallAndReturn<char*, 0x821195>(str.length() + 1);
+    char*       result = static_cast<char*>(::operator new[](str.length() + 1));
 
     memcpy(result, str.c_str(), str.length() + 1);
     return result;
@@ -1084,7 +1084,7 @@ void UserTracksLegacyString::Reallocate(uint32 newSize, uint32 oldLength) {
             newPtr = ((char*(__cdecl*)(uint32))0x82119A)(newCapacity + 1);
         } catch (...) {
             if (capacity >= 0x10) {
-                ((void(__cdecl*)(void*))0x8214BD)(ptr);
+                ::operator delete(ptr);
             }
             capacity = 0xF;
             size     = 0;
@@ -1098,7 +1098,7 @@ void UserTracksLegacyString::Reallocate(uint32 newSize, uint32 oldLength) {
         std::memcpy(newPtr, source, oldLength);
     }
     if (capacity >= 0x10) {
-        ((void(__cdecl*)(void*))0x8214BD)(ptr);
+        ::operator delete(ptr);
     }
     buf[0]   = 0;
     ptr      = newPtr;

@@ -25,6 +25,7 @@ void* __cdecl OperatorNew(unsigned int size);                   // 0x82119A (rei
 void* __cdecl OperatorNewArray(unsigned int size);              // 0x821195 (jmp a 0x82119A)
 void  __cdecl OperatorDelete(void* block);                      // 0x8214BD (jmp a free 0x82413F)
 void  __cdecl OperatorDeleteArray(void* block);                 // 0x8213AE (jmp a 0x8214BD)
+unsigned int __cdecl Msize(void* block);                        // 0x828C4A _msize: HeapSize(_crtheap, 0, bloque) (-1 si falla); solo con __active_heap == 1
 int   __cdecl CallNewHandler(unsigned int size);                // 0x826A57 _callnewh: 1 si hay manejador y pide reintentar, 0 si no
 NewHandlerFn  __cdecl SetNewHandler(NewHandlerFn handler);      // 0x826A2D _set_new_handler: bajo el cerrojo 4 cambia 0xC9AC68 y devuelve el anterior
 NewHandlerFn  __cdecl QueryNewHandler();                        // 0x826A51 _query_new_handler
