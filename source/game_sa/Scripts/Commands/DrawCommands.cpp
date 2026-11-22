@@ -123,6 +123,5 @@ void notsa::script::commands::draw::RegisterHandlers() {
     REGISTER_COMMAND_HANDLER(COMMAND_SET_SPRITES_DRAW_BEFORE_FADE, SetSpritesDrawBeforeFade);
     REGISTER_COMMAND_HANDLER(COMMAND_DRAW_WINDOW, DrawWindow);
 
-    REGISTER_COMMAND_UNIMPLEMENTED(COMMAND_SET_TEXT_BACKGROUND_COLOUR);
-    REGISTER_COMMAND_UNIMPLEMENTED(COMMAND_SET_TEXT_BACKGROUND_ONLY_TEXT);
+    // SET_TEXT_BACKGROUND_COLOUR / SET_TEXT_BACKGROUND_ONLY_TEXT ya se registran como no implementados en TextCommands.cpp (duplicarlos aborta: 'Command already handled!')
 }

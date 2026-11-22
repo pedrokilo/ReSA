@@ -319,6 +319,8 @@ OpcodeResult CRunningScript::ProcessCommands1300To1399(int32 command) {
         }
         return OR_CONTINUE;
     }
+    case COMMAND_IS_CHAR_DROWNING_IN_WATER: // 1313: el EXE (0x48DD27: xor al,al) no lee parametros y devuelve OR_CONTINUE
+        return OR_CONTINUE;
     default:
         return OR_INTERRUPT;
     }

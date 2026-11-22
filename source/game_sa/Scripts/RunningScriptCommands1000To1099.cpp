@@ -281,6 +281,8 @@ OpcodeResult CRunningScript::ProcessCommands1000To1099(int32 command) {
         StoreParameters(1);
         return OR_CONTINUE;
     }
+    case COMMAND_SET_GENERATE_CARS_AROUND_CAMERA: // 1002: el EXE (0x48A1E2: xor al,al) no lee parametros y devuelve OR_CONTINUE
+        return OR_CONTINUE;
     default:
         return OR_INTERRUPT;
     }

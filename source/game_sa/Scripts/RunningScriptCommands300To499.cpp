@@ -391,7 +391,7 @@ OpcodeResult CRunningScript::ProcessCommands400To499(int32 command) {
             door = CCarEnterExit::ComputeTargetDoorToEnterAsPassenger(vehicle, P(3).iParam);
         }
         {
-            CTaskSimpleCarSetPedInAsPassenger task{ vehicle, static_cast<eTargetDoor>(door), false };
+            CTaskSimpleCarSetPedInAsPassenger task{ vehicle, static_cast<eTargetDoor>(door), true }; // el EXE (0x47D98A) pone m_bWarpingInToCar (+0x1C)=1 tras construir: sin utilidad (nula) ProcessPed no debe llamar a CTaskUtilityLineUpPedWithCar::ProcessPed
             task.ProcessPed(ped);
         }
         CWorld::Add(ped);

@@ -193,6 +193,7 @@ void CRunningScript::InjectCustomCommandHooks() {
     c::math::RegisterHandlers();
     c::mission::RegisterHandlers();
     c::object::RegisterHandlers();
+    c::draw::RegisterHandlers(); // vivo-scrfix: faltaba (DRAW_SPRITE/DRAW_RECT/LOAD_SPRITE/LOAD_TEXTURE_DICTIONARY/REMOVE_TEXTURE_DICTIONARY/SET_SPRITES_DRAW_BEFORE_FADE no tenian caso ni manejador: desalineaban la IP)
     c::path::RegisterHandlers(); // tercera ronda de la fase 8: faltaba. SWITCH_ROADS_ON/OFF (0x01E7/0x01E8) sin manejador no leian sus 6 parametros y desalineaban la IP del script main (Unknown param type: 64)
     c::pad::RegisterHandlers();
     c::ped::RegisterHandlers();

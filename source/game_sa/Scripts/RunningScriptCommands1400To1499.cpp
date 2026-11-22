@@ -807,6 +807,8 @@ OpcodeResult CRunningScript::ProcessCommands1400To1499(int32 command) {
         GiveTask(pedHandle, new CTaskComplexFleeEntity(target, true, safeDistance, time, EXE_FLEE_POS_PERIOD, EXE_FLEE_POS_TOLERANCE));
         return OR_CONTINUE;
     }
+    case COMMAND_SET_CHAR_IN_DISGUISE: // 1493: el EXE (0x490C0B: xor al,al) no lee parametros y devuelve OR_CONTINUE
+        return OR_CONTINUE;
     default:
         return OR_INTERRUPT; // 0x490C0F: or al, 0xFF
     }
