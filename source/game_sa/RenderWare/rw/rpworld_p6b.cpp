@@ -587,13 +587,16 @@ RwBool D3D9AtomicAllInOneNode(RxPipelineNode* self, const RxPipelineNodeParam* p
     return TRUE;
 }
 
-// 0x757890 (lote P6B, sin validar; nombre inferido: pipelineNodeInit del nodo AllInOne de atomos; cdecl, (nodo), 40 bytes): rellena los datos privados: instanciado 0x7578C0 (D3D9AtomicDefaultInstanceCallback),
-// reinstanciado 0x758270 e iluminacion 0x757400. No toca el callback de render (+0xC) ni devuelve nada util.
-void D3D9AtomicAllInOneNodeInit(RxPipelineNode* node) {
+// 0x757890 (lote P6B; nombre inferido: pipelineNodeInit del nodo AllInOne de atomos; cdecl, (nodo), 40 bytes): rellena los datos privados: instanciado 0x7578C0 (D3D9AtomicDefaultInstanceCallback),
+// reinstanciado 0x758270, iluminacion 0x757400 y render +0xC = 0x756DF0 (D3D9DefaultRenderCallBack); devuelve TRUE. (Antes omitia el render y no devolvia nada: la tuberia de atomos por defecto
+// no dibujaba, p. ej. los marcadores 3D; arreglo del 22/11/2026 comparando los bytes de 0x757890: mov [eax],0x7578C0 / [eax+4],0x758270 / [eax+8],0x757400 / [eax+0xC],0x756DF0 / mov eax,1.)
+RwBool D3D9AtomicAllInOneNodeInit(RxPipelineNode* node) {
     AllInOneNodeData* const data = NodeData(node);
     data->instance = D3D9AtomicDefaultInstanceCallback;
     data->reinstance = D3D9AtomicDefaultReinstanceCallback;
     data->lighting = D3D9AtomicDefaultLightingCallBack;
+    data->render = D3D9DefaultRenderCallBack;
+    return TRUE;
 }
 
 // 0x758270 (lote P6B, sin validar; nombre inferido: callback de reinstanciado por defecto del nodo AllInOne de atomos; cdecl, (atomo, entrada de recursos, callback de instanciado), 107 bytes; la apunta 0x757890; el
@@ -668,12 +671,15 @@ RwBool D3D9WorldSectorAllInOneNode(RxPipelineNode* self, const RxPipelineNodePar
     return TRUE;
 }
 
-// 0x75E540 (lote P6B, sin validar; nombre inferido: pipelineNodeInit del nodo AllInOne de sectores; cdecl, (nodo), 40 bytes): datos privados: instanciado 0x75E5E0, reinstanciado NULL, iluminacion 0x75E570.
-void D3D9WorldSectorAllInOneNodeInit(RxPipelineNode* node) {
+// 0x75E540 (lote P6B; nombre inferido: pipelineNodeInit del nodo AllInOne de sectores; cdecl, (nodo), 40 bytes): datos privados: instanciado 0x75E5E0, reinstanciado NULL, iluminacion 0x75E570,
+// render +0xC = 0x756DF0 (bytes 0x75E540: mov [eax+0xC],0x756DF0) y devuelve TRUE (arreglo del 22/11/2026: antes omitia el render).
+RwBool D3D9WorldSectorAllInOneNodeInit(RxPipelineNode* node) {
     AllInOneNodeData* const data = NodeData(node);
     data->instance = D3D9WorldSectorDefaultInstanceCallback;
     data->reinstance = nullptr;
     data->lighting = D3D9WorldSectorDefaultLightingCallBack;
+    data->render = D3D9DefaultRenderCallBack;
+    return TRUE;
 }
 
 // 0x75E570 (lote P6B, sin validar; nombre inferido: _rwD3D9WorldSectorDefaultLightingCallback del SDK; cdecl, (sector), 109 bytes): sin la bandera 0x20 del mundo actual (iluminado): _rwD3D9LightsEnable(0, -1). Si no:
