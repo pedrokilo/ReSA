@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: RpSkin
- * Reconstrucción: COMPLETA — 59/59 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 76/76 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 1/59 entradas.
+ * Validación registrada: 1/76 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -43,6 +43,24 @@ static RwStream* RpSkinAtomicStreamRead(RwStream* stream, RwInt32 binaryLength, 
 static RwStream* RpSkinAtomicStreamWrite(RwStream* stream, RwInt32 binaryLength, const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);   // 0x7C7500
 static RwInt32   RpSkinAtomicStreamGetSize(const void* object, RwInt32 offsetInObject, RwInt32 sizeInObject);                        // 0x7C7510
 static int __cdecl RpSkinUsedBoneCompare(const void* a, const void* b);                                                              // 0x7C8720
+
+// Lote SKIN1: nodo AllInOne de skin D3D9 y ayudantes (definidos al final del archivo).
+void D3D9FindMinVertAndNumVerticesCpp(const RwUInt16* indices, RwUInt32 numIndices, RwUInt32* numVertices, RwUInt32* minVert); // 0x756710 (rpworld.cpp)
+void D3D9SortTrianglesCpp(RwUInt16* indices, RwUInt32 numIndices);                                                                // 0x756770 (rpworld.cpp)
+void RxD3D9ResEntryHeaderDestroyCpp(RwResEntry* entry);                                                                           // 0x4C9990 (rwcore.cpp)
+RwBool _rwD3D9RenderStateVertexAlphaEnable(RwBool enable);                                                                        // 0x7FE0A0 (rwcore.cpp)
+static void RpSkinInjectHooksNode();
+static RwBool    _rxD3D9SkinAtomicAllInOneNode(RxPipelineNode* self, const RxPipelineNodeParam* params);                          // 0x7C7B90
+static void      _rpSkinD3D9UpdateBoneConstants(float* out, RpAtomic* atomic, RpSkin* skin);                                      // 0x7C78A0
+static RwResEntry* _rpSkinD3D9InstanceAtomic(RpAtomic* atomic, void* owner, RwResEntry** ownerRef, RpMeshHeader* meshHeader);    // 0x7C8D60
+static RwUInt8*  _rpSkinX87GetBoneMatrices(RpAtomic* atomic, RpSkin* skin, RpHAnimHierarchy* hierarchy);                          // 0x7CA850
+static RwMatrix* _rpSkinSSEGetBoneMatrices(RpAtomic* atomic, RpSkin* skin, RpHAnimHierarchy* hierarchy);                          // 0x7CAA30
+static RwMatrix* _rpSkinGetBoneMatrices(RpAtomic* atomic, RpSkin* skin, RpHAnimHierarchy* hierarchy);                             // 0x7CB390
+static void      _rpSkinX87MatrixMultiplyTransposed(float* dst, const float* A, const float* B);                                  // 0x7CA6C0
+static void      _rpSkinX87TransformPoints(RwUInt32 numVertices, const RwMatrix* matrix, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride); // 0x7CA330
+static void      _rpSkinX87TransformPointsIndexed(RwUInt32 numVertices, const RwUInt32* matrixIndices, const RwMatrix* matrices, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride); // 0x7CA240
+static void      _rpSkinX87MatrixBlend4(RwInt32 numVertices, const RwUInt8* weights, const RwUInt32* indices, const RwMatrix* matrices, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride); // 0x7C9DA0
+static void      _rpSkinX87MatrixBlend2(RwInt32 numVertices, const RwUInt8* weights, const RwUInt32* indices, const RwMatrix* matrices, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride); // 0x7CA410
 
 namespace {
 // Plugin RpSkin: id 0x116; las reservas de skin usan la pista 0x30116 (0x116 | rwMEMHINTDUR_EVENT).
@@ -152,6 +170,7 @@ void RpSkinInjectHooks() {
     RH_ScopedGlobalInstall(_rpSkinGetMeshBoneRLECount, 0x7C8A50);
     RH_ScopedGlobalInstall(_rpSkinGetMeshBoneRLE, 0x7C8A60);
     RH_ScopedGlobalInstall(RxNodeDefinitionGetD3D9SkinAtomicAllInOne, 0x7CB2A0);
+    RpSkinInjectHooksNode(); // Lote SKIN1 (definida al final del archivo)
 }
 
 // 0x7C67F0 (lote S12A, sin validar; 20 bytes): guarda el tamano de bloque de la lista libre de skins en 0x8DECE0 y el numero de bloques a reservar en 0x8DECE4.
@@ -1809,4 +1828,809 @@ RwBool _rpSkinD3D9AtomicAllInOneNodeInit(RxPipelineNode* node) {
         data->endCallBack = nullptr;
     }
     return TRUE;
+}
+
+// ============================================================================================================================================================
+// Lote SKIN1 (codigo vivo; validado por humo, sin banco por funcion): nodo AllInOne de skin D3D9 (nodeD3D9SkinAtomicAllInOne.csl, definicion 0x8DED08) y sus ayudantes.
+// Antes el nodeBody 0x7C7B90 y sus subrutinas eran codigo del EXE (huecos de Ghidra: 0x7C78A0, 0x7C7B90 -con 0x7C8060 y 0x7C85B0 dentro de su rango-, 0x7C8D60, 0x7C9DA0,
+// 0x7CA240, 0x7CA330, 0x7CA410, 0x7CA6C0, 0x7CA850, 0x7CAA30 y 0x7CB390). Todas llevan gancho y el C++ se llama a si mismo por nombre. 0x807DE0 (RwResourcesFreeResEntry) ya estaba en rwplcore.cpp.
+// Muertas en el EXE (sin llamadores ni referencias): 0x7CA800 (copia transpuesta 3x4) y 0x7CB540 (variante de 0x7CB390 sin inversa): no se reconstruyen.
+// Aritmetica x87 del EXE (precision de 24 bits): cada operacion redondeada a float, con el orden y la asociacion del EXE (suma y producto son conmutativos bit a bit, la asociacion no).
+// Los productos y sumas son temporales float; el bloque va con float_control(precise) para que /fp:fast no reasocie.
+// ============================================================================================================================================================
+namespace {
+struct SkinVsCallbacks {
+    _rxD3D9VertexShaderBeginCallBack             begin;               // +0x00 (nodo +0x08)
+    _rxD3D9VertexShaderLightingCallBack          lighting;            // +0x04 (nodo +0x0C)
+    _rxD3D9VertexShaderGetMaterialShaderCallBack getMaterialShader;   // +0x08 (nodo +0x10)
+    _rxD3D9VertexShaderMeshRenderCallBack        meshRender;          // +0x0C (nodo +0x14)
+    _rxD3D9VertexShaderEndCallBack               end;                 // +0x10 (nodo +0x18)
+};
+// Datos privados del nodo (RxPipelineNode::privateData; los rellena _rpSkinD3D9AtomicAllInOneNodeInit).
+struct SkinNodeData {
+    RxD3D9AllInOneRenderCallBack   render;    // +0x00 (0x756DF0)
+    RxD3D9AllInOneLightingCallBack lighting;  // +0x04 (0x757400)
+    SkinVsCallbacks                vs;        // +0x08
+};
+static_assert(sizeof(SkinNodeData) == 0x1C);
+
+inline IDirect3DDevice9* SkinDevice() { return StaticRef<IDirect3DDevice9*>(0xC97C28); }
+inline RwUInt8*& SkinMatrixBuffer() { return StaticRef<RwUInt8*>(0xC978AC); }            // matrices de hueso alineadas a 16 (reservadas por el constructor de motor del plugin)
+inline RpHAnimHierarchy*& SkinCacheHierarchy() { return StaticRef<RpHAnimHierarchy*>(0xC978D4); }
+inline RwUInt32& SkinCacheStamp() { return StaticRef<RwUInt32>(0xC978D8); }
+inline void*& SkinCacheFrame() { return StaticRef<void*>(0xC978DC); }
+inline RwUInt32 SkinEngineStamp() { return *reinterpret_cast<const RwUInt16*>(reinterpret_cast<const RwUInt8*>(RwEngineInstance) + 8); } // word en motor+8
+inline RwUInt32 SkinMaxConstants() { return StaticRef<RwUInt32>(0xC978EC); }
+inline RpHAnimHierarchy* AtomicHierarchy(const RpAtomic* atomic) {
+    return *reinterpret_cast<RpHAnimHierarchy* const*>(reinterpret_cast<const RwUInt8*>(atomic) + SkinAtomicOffset());
+}
+inline void* AtomicFrame(const RpAtomic* atomic) { return atomic->object.object.parent; }
+inline RwUInt32 SkinBits(float value) { RwUInt32 bits; std::memcpy(&bits, &value, sizeof(bits)); return bits; }
+
+// RwResourcesUseResEntry del SDK (expandido en el EXE): si ya esta enlazada pasa al principio de la lista de usadas.
+inline void SkinUseResEntry(RwResEntry* entry) {
+    if (entry->link.next == nullptr) {
+        return;
+    }
+    rwLinkListRemoveLLLink(&entry->link);
+    rwResources* const res = reinterpret_cast<rwResources*>(reinterpret_cast<RwUInt8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC9BC58));
+    rwLinkListAddLLLink(res->usedEntries, &entry->link);
+}
+
+// Escribe el producto (matriz de RW) en el formato transpuesto 3x4 del vertex shader: 12 floats por hueso.
+inline void SkinStoreTransposed(float* out, const RwMatrix& m) {
+    const RwUInt32* const f = reinterpret_cast<const RwUInt32*>(&m);
+    static constexpr int kSource[12] = { 0, 4, 8, 12, 1, 5, 9, 13, 2, 6, 10, 14 };
+    RwUInt32* const o = reinterpret_cast<RwUInt32*>(out);
+    for (int i = 0; i < 12; ++i) {
+        o[i] = f[kSource[i]];
+    }
+}
+} // namespace
+
+#pragma float_control(precise, on, push)
+
+// 0x7CA6C0 (SKIN1; cdecl, (destino, A, B), 314 bytes): destino[3x4 transpuesto, 12 floats] = A * B (RwMatrix de 16 floats cada una) con la secuencia x87 del EXE.
+static void _rpSkinX87MatrixMultiplyTransposed(float* dst, const float* A, const float* B) {
+    dst[0]  = ((A[0] * B[0]) + (A[2] * B[8])) + (B[4] * A[1]);
+    dst[4]  = ((B[9] * A[2]) + (B[5] * A[1])) + (A[0] * B[1]);
+    dst[8]  = ((A[2] * B[10]) + (B[6] * A[1])) + (B[2] * A[0]);
+    dst[1]  = ((A[6] * B[8]) + (A[4] * B[0])) + (B[4] * A[5]);
+    dst[5]  = ((B[5] * A[5]) + (A[4] * B[1])) + (A[6] * B[9]);
+    dst[9]  = ((A[6] * B[10]) + (B[2] * A[4])) + (B[6] * A[5]);
+    dst[2]  = ((A[10] * B[8]) + (A[8] * B[0])) + (A[9] * B[4]);
+    dst[6]  = ((A[9] * B[5]) + (A[8] * B[1])) + (A[10] * B[9]);
+    dst[10] = ((A[10] * B[10]) + (A[9] * B[6])) + (B[2] * A[8]);
+    dst[3]  = (((A[14] * B[8]) + (B[0] * A[12])) + (A[13] * B[4])) + B[12];
+    dst[7]  = (((A[14] * B[9]) + (A[13] * B[5])) + (A[12] * B[1])) + B[13];
+    dst[11] = (((B[2] * A[12]) + (A[14] * B[10])) + (A[13] * B[6])) + B[14];
+}
+
+// 0x7CB390 (SKIN1; cdecl, (atomo, skin, jerarquia), 432 bytes; la llama 0x7CAA30): matrices de hueso en formato RwMatrix en el bufer 0xC978AC. Sin jerarquia devuelve NULL. Tres casos
+// segun la jerarquia: sin matrices propias (bandera 2): skinToBone[i] * LTM(frame del nodo) * inversa(LTM del atomo); matrices en espacio local (0x4000): skinToBone[i] * matriz[i];
+// si no: skinToBone[i] * matriz[i] * inversa(LTM del atomo). Devuelve el bufer.
+static RwMatrix* _rpSkinGetBoneMatrices(RpAtomic* atomic, RpSkin* skin, RpHAnimHierarchy* hierarchy) {
+    if (hierarchy == nullptr) {
+        return nullptr;
+    }
+    RwMatrix* const buffer = reinterpret_cast<RwMatrix*>(SkinMatrixBuffer());
+    const RwMatrix* const skinToBone = RpSkinGetSkinToBoneMatrices(skin);
+    if ((hierarchy->flags & rpHANIMHIERARCHYNOMATRICES) != 0) {
+        RwMatrix inverse;
+        RwMatrixInvert(&inverse, RwFrameGetLTM(static_cast<RwFrame*>(AtomicFrame(atomic))));
+        RwMatrix product;
+        for (RwInt32 i = 0; i < hierarchy->numNodes; ++i) {
+            RwMatrixMultiply(&product, &skinToBone[i], RwFrameGetLTM(hierarchy->pNodeInfo[i].pFrame));
+            RwMatrixMultiply(&buffer[i], &product, &inverse);
+        }
+        return buffer;
+    }
+    if ((hierarchy->flags & rpHANIMHIERARCHYLOCALSPACEMATRICES) != 0) {
+        for (RwInt32 i = 0; i < hierarchy->numNodes; ++i) {
+            RwMatrixMultiply(&buffer[i], &skinToBone[i], &hierarchy->pMatrixArray[i]);
+        }
+        return buffer;
+    }
+    RwMatrix inverse;
+    RwMatrixInvert(&inverse, RwFrameGetLTM(static_cast<RwFrame*>(AtomicFrame(atomic))));
+    RwMatrix product;
+    for (RwInt32 i = 0; i < hierarchy->numNodes; ++i) {
+        RwMatrixMultiply(&product, &skinToBone[i], &hierarchy->pMatrixArray[i]);
+        RwMatrixMultiply(&buffer[i], &product, &inverse);
+    }
+    return buffer;
+}
+
+// 0x7CAA30 (SKIN1; cdecl, (atomo, skin, jerarquia), 152 bytes): matrices de hueso para los mezcladores SSE. Con la cache valida (jerarquia, sello del motor y frame del atomo iguales a 0xC978D4/D8/DC)
+// devuelve el bufer 0xC978AC; si no llama a 0x7CB390, pone a cero la cuarta columna (+0xC, +0x1C, +0x2C, +0x3C) de cada matriz, actualiza la cache y devuelve el bufer.
+static RwMatrix* _rpSkinSSEGetBoneMatrices(RpAtomic* atomic, RpSkin* skin, RpHAnimHierarchy* hierarchy) {
+    if (SkinCacheHierarchy() != hierarchy || SkinCacheStamp() != SkinEngineStamp() || SkinCacheFrame() != AtomicFrame(atomic)) {
+        _rpSkinGetBoneMatrices(atomic, skin, hierarchy);
+        RwUInt8* const buffer = SkinMatrixBuffer();
+        for (RwInt32 i = 0; i < hierarchy->numNodes; ++i) {
+            RwUInt32* const m = reinterpret_cast<RwUInt32*>(buffer + i * 0x40);
+            m[3] = 0;
+            m[7] = 0;
+            m[11] = 0;
+            m[15] = 0;
+        }
+        SkinCacheHierarchy() = hierarchy;
+        SkinCacheStamp() = SkinEngineStamp();
+        SkinCacheFrame() = AtomicFrame(atomic);
+    }
+    return reinterpret_cast<RwMatrix*>(SkinMatrixBuffer());
+}
+
+// 0x7CA850 (SKIN1; cdecl, (atomo, skin, jerarquia), 468 bytes; la llama el nodo si no hay SSE): igual que 0x7CB390 pero el resultado se guarda en el formato transpuesto 3x4 con 0x7CA6C0 (una matriz
+// cada 0x40 bytes en el bufer 0xC978AC) y con la cache de 0xC978D4/D8/DC. Devuelve el bufer.
+static RwUInt8* _rpSkinX87GetBoneMatrices(RpAtomic* atomic, RpSkin* skin, RpHAnimHierarchy* hierarchy) {
+    if (SkinCacheHierarchy() == hierarchy && SkinCacheStamp() == SkinEngineStamp() && SkinCacheFrame() == AtomicFrame(atomic)) {
+        return SkinMatrixBuffer();
+    }
+    RwUInt8* const buffer = SkinMatrixBuffer();
+    if (hierarchy != nullptr) {
+        const RwMatrix* const skinToBone = RpSkinGetSkinToBoneMatrices(skin);
+        if ((hierarchy->flags & rpHANIMHIERARCHYNOMATRICES) != 0) {
+            RwMatrix inverse;
+            RwMatrixInvert(&inverse, RwFrameGetLTM(static_cast<RwFrame*>(AtomicFrame(atomic))));
+            RwMatrix product;
+            for (RwInt32 i = 0; i < hierarchy->numNodes; ++i) {
+                RwMatrixMultiply(&product, &skinToBone[i], RwFrameGetLTM(hierarchy->pNodeInfo[i].pFrame));
+                _rpSkinX87MatrixMultiplyTransposed(reinterpret_cast<float*>(buffer + i * 0x40), reinterpret_cast<const float*>(&product), reinterpret_cast<const float*>(&inverse));
+            }
+        } else if ((hierarchy->flags & rpHANIMHIERARCHYLOCALSPACEMATRICES) != 0) {
+            for (RwInt32 i = 0; i < hierarchy->numNodes; ++i) {
+                _rpSkinX87MatrixMultiplyTransposed(reinterpret_cast<float*>(buffer + i * 0x40), reinterpret_cast<const float*>(&skinToBone[i]), reinterpret_cast<const float*>(&hierarchy->pMatrixArray[i]));
+            }
+        } else {
+            RwMatrix inverse;
+            RwMatrixInvert(&inverse, RwFrameGetLTM(static_cast<RwFrame*>(AtomicFrame(atomic))));
+            RwMatrix product;
+            for (RwInt32 i = 0; i < hierarchy->numNodes; ++i) {
+                RwMatrixMultiply(&product, &skinToBone[i], &hierarchy->pMatrixArray[i]);
+                _rpSkinX87MatrixMultiplyTransposed(reinterpret_cast<float*>(buffer + i * 0x40), reinterpret_cast<const float*>(&product), reinterpret_cast<const float*>(&inverse));
+            }
+        }
+    }
+    SkinCacheHierarchy() = hierarchy;
+    SkinCacheStamp() = SkinEngineStamp();
+    SkinCacheFrame() = AtomicFrame(atomic);
+    return buffer;
+}
+
+// 0x7C78A0 (SKIN1; cdecl, (salida, atomo, skin), 743 bytes): constantes de matrices de hueso del vertex shader: por hueso 12 floats (3 filas de 4, transpuestas del producto) con stride 0x30.
+// Cache propia en 0xC978D4/D8/DC pero con el sello negado (~sello) para no mezclarse con la de 0x7CA850/0x7CAA30. Mismos tres casos que 0x7CB390 (la inversa sale de _rwD3D9VSGetInverseWorldMatrix).
+static void _rpSkinD3D9UpdateBoneConstants(float* out, RpAtomic* atomic, RpSkin* skin) {
+    RpHAnimHierarchy* const hierarchy = AtomicHierarchy(atomic);
+    if (hierarchy == nullptr) {
+        return;
+    }
+    if (SkinCacheHierarchy() == hierarchy && SkinCacheStamp() == ~SkinEngineStamp() && SkinCacheFrame() == AtomicFrame(atomic)) {
+        return;
+    }
+    SkinCacheHierarchy() = hierarchy;
+    SkinCacheStamp() = ~SkinEngineStamp();
+    SkinCacheFrame() = AtomicFrame(atomic);
+    const RwMatrix* const skinToBone = RpSkinGetSkinToBoneMatrices(skin);
+    if ((hierarchy->flags & rpHANIMHIERARCHYNOMATRICES) != 0) {
+        RwMatrix inverse;
+        _rwD3D9VSGetInverseWorldMatrix(&inverse);
+        RwMatrix first;
+        std::memset(&first, 0, sizeof(first));
+        RwMatrix result;
+        for (RwInt32 i = 0; i < hierarchy->numNodes; ++i) {
+            RwMatrixMultiply(&first, &skinToBone[i], RwFrameGetLTM(hierarchy->pNodeInfo[i].pFrame));
+            RwMatrixMultiply(&result, &first, &inverse);
+            SkinStoreTransposed(out + i * 12, result);
+        }
+    } else if ((hierarchy->flags & rpHANIMHIERARCHYLOCALSPACEMATRICES) != 0) {
+        RwMatrix result;
+        for (RwInt32 i = 0; i < hierarchy->numNodes; ++i) {
+            RwMatrixMultiply(&result, &skinToBone[i], &hierarchy->pMatrixArray[i]);
+            SkinStoreTransposed(out + i * 12, result);
+        }
+    } else {
+        RwMatrix inverse;
+        _rwD3D9VSGetInverseWorldMatrix(&inverse);
+        RwMatrix first;
+        RwMatrix result;
+        for (RwInt32 i = 0; i < hierarchy->numNodes; ++i) {
+            RwMatrixMultiply(&first, &skinToBone[i], &hierarchy->pMatrixArray[i]);
+            RwMatrixMultiply(&result, &first, &inverse);
+            SkinStoreTransposed(out + i * 12, result);
+        }
+    }
+}
+
+namespace {
+// Formas de la x87 del EXE. M apunta a una matriz de hueso transpuesta (12 floats: filas de 4 con la traslacion en la cuarta), P/N a un vertice o normal de 3 floats.
+// El nombre indica la asociacion de sumas de cada subrutina (ver comentarios de cada funcion).
+struct SkinV3 { float x, y, z; };
+inline SkinV3 SkinPosA(const float* M, const float* P) {
+    return { (((M[0] * P[0]) + (P[2] * M[2])) + (P[1] * M[1])) + M[3],
+             (((M[4] * P[0]) + (P[2] * M[6])) + (P[1] * M[5])) + M[7],
+             (((M[9] * P[1]) + (P[0] * M[8])) + (P[2] * M[10])) + M[11] };
+}
+inline SkinV3 SkinPosB(const float* M, const float* P) {
+    return { (((P[2] * M[2]) + (P[1] * M[1])) + (P[0] * M[0])) + M[3],
+             (((P[1] * M[5]) + (P[0] * M[4])) + (P[2] * M[6])) + M[7],
+             (((P[2] * M[10]) + (M[9] * P[1])) + (P[0] * M[8])) + M[11] };
+}
+inline SkinV3 SkinPosD(const float* M, const float* P) {
+    return { (((M[1] * P[1]) + (M[0] * P[0])) + (M[2] * P[2])) + M[3],
+             (((M[5] * P[1]) + (M[6] * P[2])) + (P[0] * M[4])) + M[7],
+             (((M[8] * P[0]) + (P[2] * M[10])) + (P[1] * M[9])) + M[11] };
+}
+inline SkinV3 SkinNrmA(const float* M, const float* N) {
+    return { ((N[1] * M[1]) + (M[0] * N[0])) + (N[2] * M[2]),
+             ((N[2] * M[6]) + (N[1] * M[5])) + (M[4] * N[0]),
+             ((N[1] * M[9]) + (N[0] * M[8])) + (N[2] * M[10]) };
+}
+inline SkinV3 SkinNrmB(const float* M, const float* N) {
+    return { ((N[1] * M[1]) + (M[0] * N[0])) + (M[2] * N[2]),
+             ((N[1] * M[5]) + (N[0] * M[4])) + (N[2] * M[6]),
+             ((M[8] * N[0]) + (M[10] * N[2])) + (M[9] * N[1]) };
+}
+inline SkinV3 SkinNrmC(const float* M, const float* N) {
+    return { ((M[2] * N[2]) + (M[0] * N[0])) + (N[1] * M[1]),
+             ((N[2] * M[6]) + (M[4] * N[0])) + (N[1] * M[5]),
+             ((M[10] * N[2]) + (M[9] * N[1])) + (N[0] * M[8]) };
+}
+inline SkinV3 SkinNrmD(const float* M, const float* N) {
+    return { ((M[1] * N[1]) + (M[0] * N[0])) + (M[2] * N[2]),
+             ((M[5] * N[1]) + (M[4] * N[0])) + (M[6] * N[2]),
+             ((N[2] * M[10]) + (M[8] * N[0])) + (N[1] * M[9]) };
+}
+inline SkinV3 SkinScale(const SkinV3& v, float w) { return { v.x * w, v.y * w, v.z * w }; }
+inline SkinV3 SkinAdd(const SkinV3& a, const SkinV3& b) { return { a.x + b.x, a.y + b.y, a.z + b.z }; }
+inline void SkinStoreV3(RwUInt8* destination, const SkinV3& v) {
+    float* const out = reinterpret_cast<float*>(destination);
+    out[0] = v.x;
+    out[1] = v.y;
+    out[2] = v.z;
+}
+inline const float* SkinBoneMatrix(const RwMatrix* matrices, RwUInt32 index) {
+    return reinterpret_cast<const float*>(reinterpret_cast<const RwUInt8*>(matrices) + (static_cast<size_t>(index) << 6));
+}
+} // namespace
+
+// 0x7CA330 (SKIN1; cdecl, 7 argumentos como _rpSkinSSETransformPoints: numVertices, matriz, posiciones de salida, de entrada, normales de salida, de entrada, paso; 209 bytes): una matriz para todos los
+// vertices con la x87 del EXE. Do/while con contador sin signo; las normales solo si hay puntero de salida.
+static void _rpSkinX87TransformPoints(RwUInt32 numVertices, const RwMatrix* matrix, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride) {
+    const float* const M = reinterpret_cast<const float*>(matrix);
+    do {
+        SkinStoreV3(outVertices, SkinPosA(M, reinterpret_cast<const float*>(inVertices)));
+        inVertices += 0xC;
+        outVertices += outStride;
+        if (outNormals != nullptr) {
+            SkinStoreV3(outNormals, SkinNrmA(M, reinterpret_cast<const float*>(inNormals)));
+            outNormals += outStride;
+            inNormals += 0xC;
+        }
+    } while (--numVertices != 0);
+}
+
+// 0x7CA240 (SKIN1; cdecl, 8 argumentos como _rpSkinSSETransformPointsIndexed: numVertices, indices, matrices, salida, entrada, normales de salida, de entrada, paso; 233 bytes): la matriz de cada vertice es el byte
+// bajo de su indice. Do/while con contador sin signo.
+static void _rpSkinX87TransformPointsIndexed(RwUInt32 numVertices, const RwUInt32* matrixIndices, const RwMatrix* matrices, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride) {
+    do {
+        const float* const M = SkinBoneMatrix(matrices, *matrixIndices & 0xFF);
+        ++matrixIndices;
+        SkinStoreV3(outVertices, SkinPosB(M, reinterpret_cast<const float*>(inVertices)));
+        inVertices += 0xC;
+        outVertices += outStride;
+        if (inNormals != nullptr) {
+            SkinStoreV3(outNormals, SkinNrmB(M, reinterpret_cast<const float*>(inNormals)));
+            outNormals += outStride;
+            inNormals += 0xC;
+        }
+    } while (--numVertices != 0);
+}
+
+// 0x7C9DA0 (SKIN1; cdecl, 9 argumentos como _rpSkinSSEMatrixBlend4, 1.172 bytes): mezcla de hasta cuatro huesos con la x87. Bucle for con contador con signo (numVertices <= 0: nada). El primer peso, como entero con signo,
+// >= 0x3F800000 (1.0f) usa solo la primera matriz; si no, acumula termino * peso por hueso (peso 2 y 3 solo si su palabra, con signo, es > 0). Las normales se calculan si hay normales de entrada y se
+// escriben si hay puntero de salida.
+static void _rpSkinX87MatrixBlend4(RwInt32 numVertices, const RwUInt8* weights, const RwUInt32* indices, const RwMatrix* matrices, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride) {
+    if (numVertices <= 0) {
+        return;
+    }
+    for (RwInt32 v = 0; v < numVertices; ++v, weights += 0x10) {
+        const float* const w = reinterpret_cast<const float*>(weights);
+        const RwUInt32 index = indices[v];
+        const float* const P = reinterpret_cast<const float*>(inVertices);
+        const float* const N = reinterpret_cast<const float*>(inNormals);
+        const float* const M0 = SkinBoneMatrix(matrices, index & 0xFF);
+        SkinV3 accumulatedPosition;
+        SkinV3 accumulatedNormal = { 0.0f, 0.0f, 0.0f };
+        if (static_cast<RwInt32>(SkinBits(w[0])) >= 0x3F800000) {
+            accumulatedPosition = SkinPosA(M0, P);
+            if (inNormals != nullptr) {
+                accumulatedNormal = SkinNrmA(M0, N);
+            }
+        } else {
+            accumulatedPosition = SkinScale(SkinPosA(M0, P), w[0]);
+            if (inNormals != nullptr) {
+                accumulatedNormal = SkinScale(SkinNrmA(M0, N), w[0]);
+            }
+            const float* const M1 = SkinBoneMatrix(matrices, (index >> 8) & 0xFF);
+            accumulatedPosition = SkinAdd(SkinScale(SkinPosA(M1, P), w[1]), accumulatedPosition);
+            if (inNormals != nullptr) {
+                accumulatedNormal = SkinAdd(SkinScale(SkinNrmA(M1, N), w[1]), accumulatedNormal);
+            }
+            if (static_cast<RwInt32>(SkinBits(w[2])) > 0) {
+                const float* const M2 = SkinBoneMatrix(matrices, (index >> 16) & 0xFF);
+                accumulatedPosition = SkinAdd(SkinScale(SkinPosA(M2, P), w[2]), accumulatedPosition);
+                if (inNormals != nullptr) {
+                    accumulatedNormal = SkinAdd(SkinScale(SkinNrmA(M2, N), w[2]), accumulatedNormal);
+                }
+                if (static_cast<RwInt32>(SkinBits(w[3])) > 0) {
+                    const float* const M3 = SkinBoneMatrix(matrices, index >> 24);
+                    accumulatedPosition = SkinAdd(SkinScale(SkinPosA(M3, P), w[3]), accumulatedPosition);
+                    if (inNormals != nullptr) {
+                        accumulatedNormal = SkinAdd(SkinScale(SkinNrmA(M3, N), w[3]), accumulatedNormal);
+                    }
+                }
+            }
+        }
+        SkinStoreV3(outVertices, accumulatedPosition);
+        outVertices += outStride;
+        inVertices += 0xC;
+        if (outNormals != nullptr) {
+            SkinStoreV3(outNormals, accumulatedNormal);
+            outNormals += outStride;
+            inNormals += 0xC;
+        }
+    }
+}
+
+// 0x7CA410 (SKIN1; cdecl, 9 argumentos como _rpSkinSSEMatrixBlend2, 673 bytes): mezcla de dos huesos con la x87. Mismo esquema que 0x7C9DA0 pero con otra asociacion de sumas por rama. Con el primer peso >= 1.0f
+// (entero con signo) solo la primera matriz, y sus normales se escriben si hay puntero de salida; en la mezcla las normales dependen de que haya normales de entrada.
+static void _rpSkinX87MatrixBlend2(RwInt32 numVertices, const RwUInt8* weights, const RwUInt32* indices, const RwMatrix* matrices, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride) {
+    if (numVertices <= 0) {
+        return;
+    }
+    for (RwInt32 v = 0; v < numVertices; ++v, weights += 0x10) {
+        const float* const w = reinterpret_cast<const float*>(weights);
+        const RwUInt32 index = indices[v];
+        const float* const P = reinterpret_cast<const float*>(inVertices);
+        const float* const N = reinterpret_cast<const float*>(inNormals);
+        const float* const M0 = SkinBoneMatrix(matrices, index & 0xFF);
+        inVertices += 0xC;
+        if (static_cast<RwInt32>(SkinBits(w[0])) >= 0x3F800000) {
+            SkinStoreV3(outVertices, SkinPosA(M0, P));
+            outVertices += outStride;
+            if (outNormals != nullptr) {
+                SkinStoreV3(outNormals, SkinNrmC(M0, N));
+                outNormals += outStride;
+                inNormals += 0xC;
+            }
+        } else {
+            const float* const M1 = SkinBoneMatrix(matrices, (index >> 8) & 0xFF);
+            const SkinV3 position = SkinAdd(SkinScale(SkinPosD(M1, P), w[1]), SkinScale(SkinPosA(M0, P), w[0]));
+            SkinStoreV3(outVertices, position);
+            outVertices += outStride;
+            if (inNormals != nullptr) {
+                const SkinV3 normal = SkinAdd(SkinScale(SkinNrmD(M1, N), w[1]), SkinScale(SkinNrmC(M0, N), w[0]));
+                SkinStoreV3(outNormals, normal);
+                outNormals += outStride;
+                inNormals += 0xC;
+            }
+        }
+    }
+}
+
+#pragma float_control(pop)
+
+// 0x7C8D60 (SKIN1; cdecl, (atomo, propietario, &entrada, cabecera de mallas), 857 bytes; la llama el nodo): instanciado de un atomo con skin. Version de 0x756960 (D3D9InstanceObject) solo para atomos indexados
+// y sin conversion de tiras: crea la entrada de recursos (RwResourcesAllocateResEntry, cabecera de 0x40 bytes + 0x24 por malla, notificacion 0x4C9990), copia serie y numero de mallas, suma los indices de todas las mallas, crea
+// y bloquea el bufer de indices (RwD3D9IndexBufferCreate), tipo primitivo por la tabla 0x882D74 y, por malla, minimo de vertice/numero de vertices, material, indices (menos el minimo de 16 bits si no es 0), ordenados por
+// triangulos si el tipo es lista de triangulos, y numero de primitivas. Luego, con skin: field1C = boneLimit (con datos divididos) o numUsedBones, field20 = limite de huesos si hay jerarquia (si no 0); totalNumVertex;
+// _rpSkinD3D9CreateVertexBuffer (reinstanciar = hay jerarquia) y _rpSkinD3D9InstanceVertexData con las banderas de datos (0xFFF si el shader maneja los huesos).
+static RwResEntry* _rpSkinD3D9InstanceAtomic(RpAtomic* atomic, void* owner, RwResEntry** ownerRef, RpMeshHeader* meshHeader) {
+    static constexpr RwUInt32 kPrimitiveTypes[8] = { 0, 2, 3, 4, 5, 6, 1, 0x3F800000 };
+    const RwUInt32 numMeshes = meshHeader->numMeshes;
+    const RwUInt32 entrySize = numMeshes * sizeof(RxD3D9InstanceData) + sizeof(RxD3D9ResEntryHeader);
+    RwResEntry* const resEntry = RwResourcesAllocateResEntry(owner, ownerRef, static_cast<RwInt32>(entrySize), RxD3D9ResEntryHeaderDestroyCpp);
+    RxD3D9ResEntryHeader* const header = reinterpret_cast<RxD3D9ResEntryHeader*>(resEntry + 1);
+    std::memset(header, 0, entrySize);
+    header->serialNumber = meshHeader->serialNum;
+    header->numMeshes = numMeshes;
+    const RpMesh* const meshes = reinterpret_cast<const RpMesh*>(meshHeader + 1);
+    for (RwUInt32 i = 0; i < numMeshes; ++i) {
+        header->totalNumIndex += meshes[i].numIndices;
+    }
+    RwUInt16* indexLock = nullptr;
+    if (header->totalNumIndex != 0 && RwD3D9IndexBufferCreate(header->totalNumIndex, reinterpret_cast<void**>(&header->indexBuffer))) {
+        header->indexBuffer->Lock(0, 0, reinterpret_cast<void**>(&indexLock), 0);
+    }
+    const RwUInt8 primitiveKind = *(reinterpret_cast<const RwUInt8*>(RwEngineInstance) + StaticRef<RwUInt32>(0xC9B8C0) + 8 + (meshHeader->flags & 0xFFu));
+    header->primType = static_cast<D3DPRIMITIVETYPE>(primitiveKind < 8 ? kPrimitiveTypes[primitiveKind] : 0);
+
+    RxD3D9InstanceData* instance = reinterpret_cast<RxD3D9InstanceData*>(header + 1);
+    RwUInt32 nextIndex = 0;
+    for (RwUInt32 m = 0; m < numMeshes; ++m, ++instance) {
+        const RpMesh& mesh = meshes[m];
+        const RwUInt32 count = mesh.numIndices;
+        D3D9FindMinVertAndNumVerticesCpp(mesh.indices, count, &instance->numVertices, &instance->minVert);
+        switch (header->primType) {
+        case D3DPT_LINELIST: instance->numPrimitives = count >> 1; break;
+        case D3DPT_LINESTRIP: instance->numPrimitives = count - 1; break;
+        case D3DPT_TRIANGLELIST: instance->numPrimitives = count / 3; break;
+        case D3DPT_TRIANGLESTRIP:
+        case D3DPT_TRIANGLEFAN: instance->numPrimitives = count - 2; break;
+        default: instance->numPrimitives = 0; break;
+        }
+        instance->material = mesh.material;
+        instance->vertexShader = nullptr;
+        instance->baseIndex = 0;
+        instance->vertexAlpha = 0;
+        if (indexLock != nullptr) {
+            instance->numIndex = count;
+            instance->startIndex = nextIndex;
+            if (instance->minVert != 0) {
+                for (RwUInt32 i = 0; i < count; ++i) {
+                    indexLock[i] = static_cast<RwUInt16>(mesh.indices[i] - static_cast<RwUInt16>(instance->minVert));
+                }
+            } else {
+                std::memcpy(indexLock, mesh.indices, count * sizeof(RwUInt16));
+            }
+            if (header->primType == D3DPT_TRIANGLELIST) {
+                D3D9SortTrianglesCpp(indexLock, count);
+            }
+            indexLock += count;
+            nextIndex += count;
+        } else {
+            instance->numIndex = 0;
+            instance->startIndex = 0;
+        }
+    }
+    if (indexLock != nullptr) {
+        header->indexBuffer->Unlock();
+    }
+
+    RpGeometry* const geometry = atomic->geometry;
+    RpSkin* const skin = GeometrySkin(geometry);
+    RpHAnimHierarchy* const hierarchy = AtomicHierarchy(atomic);
+    if (skin != nullptr) {
+        skin->field1C = (skin->meshBoneRLECount != nullptr) ? skin->boneLimit : skin->numUsedBones;
+        skin->field20 = (hierarchy != nullptr) ? static_cast<RwUInt32>(_rpSkinD3D9AtomicLimitCheck(atomic)) : 0;
+    }
+    header->totalNumVertex = static_cast<RwUInt32>(geometry->numVertices);
+    _rpSkinD3D9CreateVertexBuffer(atomic, header, hierarchy != nullptr ? TRUE : FALSE);
+    RwUInt32 dataFlags;
+    if (skin == nullptr || skin->field20 == 0) {
+        dataFlags = 2;
+        if ((geometry->flags & 0x10) != 0) {
+            dataFlags = 6;
+        }
+        if ((geometry->flags & 8) != 0) {
+            dataFlags |= 8;
+        }
+        for (RwInt32 t = 0; t < geometry->numTexCoordSets; ++t) {
+            dataFlags |= 0x10u << t;
+        }
+        if (header->vertexStream[0].managed == 0) {
+            dataFlags &= ~static_cast<RwUInt32>(header->vertexStream[0].geometryFlags);
+        }
+    } else {
+        dataFlags = 0xFFF;
+    }
+    _rpSkinD3D9InstanceVertexData(atomic, header, hierarchy, dataFlags);
+    return resEntry;
+}
+
+// 0x7C85B0 (SKIN1; cdecl, (datos del nodo, entrada, atomo, banderas), 317 bytes; la llama el nodo cuando el skin no usa el vertex shader): callback de iluminacion (+4), matriz mundo = LTM del atomo, normalizar
+// normales segun la escala de la LTM (estado 0x89 = iluminacion activa; con 0xC978E0 siempre; sin banderas 0x20001 solo si el cuadrado de la longitud de alguna fila sale de [0.9, 1.1], comparado como entero con signo),
+// estado 0x8F y callback de render (+0) con (entrada, atomo, 1, banderas).
+static void _rpSkinD3D9DefaultRender(SkinNodeData* nodeData, RwResEntry* entry, RpAtomic* atomic, RwUInt32 flags) {
+    if (nodeData->lighting != nullptr) {
+        nodeData->lighting(atomic);
+    }
+    RwMatrix* const ltm = RwFrameGetLTM(static_cast<RwFrame*>(AtomicFrame(atomic)));
+    RwD3D9SetTransformWorld(ltm);
+    RwUInt32 lighting = 0;
+    RwD3D9GetRenderState(0x89, &lighting);
+    RwUInt32 normalize = 0;
+    if (lighting != 0) {
+        if (SkinFlagE0() != 0) {
+            normalize = 1;
+        } else if ((ltm->flags & 0x20001) == 0) {
+            const float* const m = reinterpret_cast<const float*>(ltm);
+            for (int row = 0; row < 3; ++row) {
+                const float x = m[row * 4 + 0];
+                const float y = m[row * 4 + 1];
+                const float z = m[row * 4 + 2];
+                const float lengthSquared = (x * x + y * y) + z * z;
+                const RwInt32 bits = static_cast<RwInt32>(SkinBits(lengthSquared));
+                if (bits > 0x3F8CCCCD || bits < 0x3F666666) {
+                    normalize = 1;
+                    break;
+                }
+            }
+        }
+    }
+    RwD3D9SetRenderState(0x8F, normalize);
+    if (nodeData->render != nullptr) {
+        nodeData->render(entry, atomic, 1, flags);
+    }
+}
+
+// 0x7C8060 (SKIN1; cdecl, (callbacks del vertex shader, atomo, geometria, skin, jerarquia), 1.353 bytes; la llama el nodo cuando field20 != 0): dibujo del skin por vertex shader. Flujo: inicio (descriptor con
+// numWeights = maxNumWeightsPerVertex), estado 0x88 = 1, matriz mundo y transformada compuesta (constantes 0xC970A0), iluminacion (0xC970E0) y subida de constantes, matrices de hueso (0x7C78A0), indices, flujos y
+// declaracion si cambian. Por malla: alfa de vertice, shader/despacho del material, recorte del descriptor (spot, point, direccional y niebla) hasta que caben las constantes, colores de luces/material/niebla si
+// cambian, subida de las matrices de hueso (por rachas RLE si hay datos divididos; si no, todas o solo las usadas) y callback de dibujo de la malla. Al final el callback de fin.
+static void _rpSkinD3D9VertexShaderRender(const SkinVsCallbacks* callbacks, RpAtomic* atomic, RpGeometry* geometry, RpSkin* skin, RpHAnimHierarchy* hierarchy) {
+    IDirect3DDevice9* const device = SkinDevice();
+    _rpD3D9VertexShaderDescriptor descriptor;
+    RwUInt8* const desc = reinterpret_cast<RwUInt8*>(&descriptor);
+    _rpD3D9VertexShaderDispatchDescriptor dispatch;
+    std::memset(&dispatch, 0, sizeof(dispatch));
+    std::memset(&descriptor, 0, sizeof(descriptor));
+    RwUInt8 cachedMaterialColorOffset = 0xFF;
+    RwUInt8 cachedFogOffset = 0xFF;
+    RwUInt8 cachedBoneOffset = 0xFF;
+    float cachedAmbient = 1.0f;
+    float cachedDiffuse = 1.0f;
+
+    callbacks->begin(atomic, 1, &descriptor);
+    desc[2] = static_cast<RwUInt8>((desc[2] & ~0x0Eu) | ((skin->maxNumWeightsPerVertex * 2u) & 0x0Eu));
+    RwD3D9SetRenderState(0x88, 1);
+    RwMatrix* const ltm = RwFrameGetLTM(static_cast<RwFrame*>(AtomicFrame(atomic)));
+    _rwD3D9VSSetActiveWorldMatrix(ltm);
+    RwV4d* const transformConstants = reinterpret_cast<RwV4d*>(0xC970A0);
+    _rwD3D9VSGetComposedTransformMatrix(transformConstants);
+    RwV4d* const lightConstants = reinterpret_cast<RwV4d*>(0xC970E0);
+    RwV4d* const constantsEnd = callbacks->lighting(atomic, 1, lightConstants, &descriptor);
+    device->SetVertexShaderConstantF(0, reinterpret_cast<const float*>(transformConstants), static_cast<UINT>(constantsEnd - transformConstants));
+    _rpSkinD3D9UpdateBoneConstants(reinterpret_cast<float*>(SkinMatrixBuffer()), atomic, skin);
+
+    RwResEntry* const entry = (geometry->numMorphTargets == 1) ? geometry->repEntry : atomic->repEntry;
+    RxD3D9ResEntryHeader* const header = reinterpret_cast<RxD3D9ResEntryHeader*>(entry + 1);
+    auto& lastIndexBuffer = StaticRef<void*>(0x8E2450);
+    auto& lastVertexDeclaration = StaticRef<void*>(0x8E2444);
+    auto& lastFvf = StaticRef<RwUInt32>(0x8E2440);
+    if (header->indexBuffer != nullptr && lastIndexBuffer != header->indexBuffer) {
+        lastIndexBuffer = header->indexBuffer;
+        device->SetIndices(header->indexBuffer);
+    }
+    _rwD3D9SetStreams(header->vertexStream, header->useOffsets);
+    if (lastVertexDeclaration != header->vertexDeclaration) {
+        lastVertexDeclaration = header->vertexDeclaration;
+        lastFvf = 0xFFFFFFFFu;
+        device->SetVertexDeclaration(header->vertexDeclaration);
+    }
+
+    const RwUInt8* const runsBase = skin->meshBoneRLE;
+    const RwUInt8* runCursor = skin->meshBoneRLECount;
+    RxD3D9InstanceData* instance = reinterpret_cast<RxD3D9InstanceData*>(header + 1);
+    RwUInt32 cachedColor = header->numMeshes != 0 ? *reinterpret_cast<const RwUInt32*>(&instance->material->color) : 0;
+    RwUInt8* const boneBuffer = SkinMatrixBuffer();
+    for (RwUInt32 remaining = header->numMeshes; remaining != 0; --remaining, ++instance) {
+        RpMaterial* const material = instance->material;
+        const RwUInt8 alpha = reinterpret_cast<const RwUInt8*>(material)[7];
+        _rwD3D9RenderStateVertexAlphaEnable((alpha == 0xFF && instance->vertexAlpha == 0) ? FALSE : TRUE);
+        instance->vertexShader = static_cast<IDirect3DVertexShader9*>(callbacks->getMaterialShader(material, &descriptor, &dispatch));
+        RwUInt32 needed = _rpD3D9GetNumConstantsUsed(&descriptor) + skin->field1C * 3;
+        if (needed > SkinMaxConstants()) {
+            do {
+                if ((desc[1] & 0x0F) != 0) {
+                    desc[1] = static_cast<RwUInt8>(desc[1] - 1);
+                } else if ((desc[0] & 0xF0) != 0) {
+                    desc[0] = static_cast<RwUInt8>(desc[0] - 0x10);
+                } else if ((desc[0] & 0x0F) != 0) {
+                    desc[0] = static_cast<RwUInt8>(desc[0] - 1);
+                } else if ((desc[3] & 3) != 0) {
+                    desc[3] = static_cast<RwUInt8>(desc[3] & 0xFC);
+                } else {
+                    break;
+                }
+                needed = _rpD3D9GetNumConstantsUsed(&descriptor) + skin->field1C * 3;
+            } while (needed > SkinMaxConstants());
+            instance->vertexShader = static_cast<IDirect3DVertexShader9*>(callbacks->getMaterialShader(material, &descriptor, &dispatch));
+            cachedAmbient = 1.0f - material->surfaceProps.ambient;
+        }
+        if (!(cachedAmbient == material->surfaceProps.ambient) || !(cachedDiffuse == material->surfaceProps.diffuse)) {
+            const float diffuseCoef = material->surfaceProps.diffuse / cachedDiffuse;
+            const float ambientCoef = material->surfaceProps.ambient / cachedAmbient;
+            _rpD3D9VertexShaderUpdateLightsColors(lightConstants, &descriptor, ambientCoef, diffuseCoef);
+            cachedAmbient = material->surfaceProps.ambient;
+            cachedDiffuse = material->surfaceProps.diffuse;
+        }
+        const RwUInt32 color = *reinterpret_cast<const RwUInt32*>(&material->color);
+        if (cachedMaterialColorOffset != dispatch.offsetMaterialColor || cachedColor != color) {
+            cachedMaterialColorOffset = dispatch.offsetMaterialColor;
+            cachedColor = color;
+            _rpD3D9VertexShaderUpdateMaterialColor(&material->color, &dispatch);
+        }
+        if (cachedFogOffset != dispatch.offsetFogRange) {
+            cachedFogOffset = dispatch.offsetFogRange;
+            _rpD3D9VertexShaderUpdateFogData(&descriptor, &dispatch);
+        }
+        const RwUInt32 boneRegister = dispatch.offsetBoneMatrices;
+        if (runCursor != nullptr) {
+            const RwUInt32 firstRun = runCursor[0];
+            const RwUInt32 numRuns = runCursor[1];
+            runCursor += 2;
+            cachedBoneOffset = dispatch.offsetBoneMatrices;
+            const RwUInt8* run = runsBase + firstRun * 2;
+            for (RwUInt32 r = 0; r < numRuns; ++r, run += 2) {
+                const RwUInt32 first = run[0];
+                const RwUInt32 count = run[1];
+                for (RwUInt32 k = 0; k < count; ++k) {
+                    const RwUInt32 bone = first + k;
+                    device->SetVertexShaderConstantF(boneRegister + 3u * skin->meshBoneRemapIndices[bone], reinterpret_cast<const float*>(boneBuffer + bone * 0x30), 3);
+                }
+            }
+        } else if (cachedBoneOffset != dispatch.offsetBoneMatrices) {
+            cachedBoneOffset = dispatch.offsetBoneMatrices;
+            const RwUInt32 numNodes = static_cast<RwUInt32>(hierarchy->numNodes);
+            const RwUInt32 numUsed = skin->numUsedBones;
+            if (numNodes <= SkinLimitE8() && numUsed >= numNodes) {
+                device->SetVertexShaderConstantF(boneRegister, reinterpret_cast<const float*>(boneBuffer), numNodes * 3);
+            } else {
+                const RwUInt8* const used = skin->usedBonesArray;
+                const bool packed = numNodes > SkinLimitE8(); // fuera del limite los huesos usados se empaquetan en registros consecutivos
+                RwUInt32 end = 0;
+                do {
+                    const RwUInt32 start = end;
+                    while (end < numUsed - 1 && static_cast<RwUInt32>(used[end]) + 1 == used[end + 1]) {
+                        ++end;
+                    }
+                    ++end;
+                    const RwUInt32 bone = used[start];
+                    const RwUInt32 registerIndex = packed ? start : bone;
+                    device->SetVertexShaderConstantF(boneRegister + 3u * registerIndex, reinterpret_cast<const float*>(boneBuffer + bone * 0x30), (end - start) * 3);
+                } while (end < numUsed);
+            }
+        }
+        callbacks->meshRender(header, instance, &descriptor, &dispatch);
+        instance->vertexShader = nullptr;
+    }
+    callbacks->end(atomic, 1, &descriptor);
+}
+
+// 0x7C7B90 (SKIN1; cdecl, (nodo, parametros); nombre del SDK: nodeD3D9SkinAtomicAllInOne body; es el nodeBody de la definicion 0x8DED08; 0x7C8060 y 0x7C85B0 son contiguas): atomo = primer dato de
+// los parametros. Sin vertices o sin mallas termina con TRUE. Entrada de recursos: con un solo morph target la de la geometria, si no la del atomo; un numero de serie distinto la libera; sin entrada se instancia con
+// 0x7C8D60 (fallo: FALSE) y lockedSinceLastInst = 0; con entrada pasa al principio de la lista de usadas. Si el skin existe, no usa el vertex shader (field20 == 0) y hay jerarquia: mezcla por CPU a un bufer de vertices
+// (bloqueado, o dinamico si es gestionado/esta en uso) con los mezcladores SSE (0xC980A4 != 0) o x87 segun maxNumWeightsPerVertex (>2, 2, un hueso usado, indexado). Luego, con datos bloqueados, reinstancia los datos
+// de vertices (0x7C90D0). Al final: con vertex shader (field20 != 0 y jerarquia) 0x7C8060; si no 0x7C85B0. Devuelve TRUE.
+static RwBool _rxD3D9SkinAtomicAllInOneNode(RxPipelineNode* self, const RxPipelineNodeParam* params) {
+    RpAtomic* const atomic = static_cast<RpAtomic*>(params->dataParam);
+    SkinNodeData* const nodeData = static_cast<SkinNodeData*>(self->privateData);
+    RpGeometry* const geometry = atomic->geometry;
+    if (static_cast<RwInt32>(geometry->numVertices) <= 0) {
+        return TRUE;
+    }
+    RpMeshHeader* const meshHeader = geometry->mesh;
+    if (meshHeader->numMeshes == 0) {
+        return TRUE;
+    }
+    const bool singleMorph = geometry->numMorphTargets == 1;
+    RwResEntry* entry = singleMorph ? geometry->repEntry : atomic->repEntry;
+    if (entry != nullptr && reinterpret_cast<const RxD3D9ResEntryHeader*>(entry + 1)->serialNumber != meshHeader->serialNum) {
+        RwResourcesFreeResEntry(entry);
+        entry = nullptr;
+    }
+    const RwUInt32 geometryFlags = geometry->flags;
+    if (entry == nullptr) {
+        void* const owner = singleMorph ? static_cast<void*>(geometry) : static_cast<void*>(atomic);
+        RwResEntry** const ownerRef = singleMorph ? &geometry->repEntry : &atomic->repEntry;
+        entry = _rpSkinD3D9InstanceAtomic(atomic, owner, ownerRef, meshHeader);
+        if (entry == nullptr) {
+            return FALSE;
+        }
+        geometry->lockedSinceLastInst = 0;
+    } else {
+        SkinUseResEntry(entry);
+    }
+
+    RpSkin* const skin = GeometrySkin(geometry);
+    RpHAnimHierarchy* const hierarchy = AtomicHierarchy(atomic);
+    if (skin != nullptr && skin->field20 == 0 && hierarchy != nullptr) {
+        RxD3D9ResEntryHeader* const header = reinterpret_cast<RxD3D9ResEntryHeader*>(((geometry->numMorphTargets == 1) ? geometry->repEntry : atomic->repEntry) + 1);
+        RpMorphTarget* const morphTarget = geometry->morphTarget;
+        const RwUInt8* const inVertices = reinterpret_cast<const RwUInt8*>(morphTarget->verts);
+        const RwUInt8* const inNormals = (geometry->flags & 0x10) != 0 ? reinterpret_cast<const RwUInt8*>(morphTarget->normals) : nullptr;
+        RxD3D9VertexStream& stream = header->vertexStream[0];
+        RwUInt8* locked = nullptr;
+        void* vertexBuffer = nullptr;
+        const RwInt32 numVertices = geometry->numVertices;
+        if (_rpSkinD3D9AtomicLimitCheckOrOff(atomic) != 0) {
+            if (stream.managed == 0) {
+                _rpSkinD3D9CreateVertexBuffer(atomic, header, TRUE);
+                geometry->lockedSinceLastInst = 0xFFF;
+            }
+            vertexBuffer = stream.vertexBuffer;
+            static_cast<IDirect3DVertexBuffer9*>(vertexBuffer)->Lock(stream.offset, static_cast<UINT>(numVertices) * stream.stride, reinterpret_cast<void**>(&locked), 0x800);
+        } else {
+            if (stream.managed != 0) {
+                _rpSkinD3D9CreateVertexBuffer(atomic, header, TRUE);
+                geometry->lockedSinceLastInst = 0xFFF;
+            }
+            vertexBuffer = stream.vertexBuffer;
+            const RwUInt32 stride = stream.stride;
+            if (vertexBuffer != nullptr && stream.offset == 0 && stream.dynamicLock == 0) {
+                static_cast<IDirect3DVertexBuffer9*>(vertexBuffer)->Lock(0, 0, reinterpret_cast<void**>(&locked), 0x2800);
+            } else {
+                void* dynamicBuffer = nullptr;
+                void* dynamicData = nullptr;
+                RwUInt32 baseVertex = 0;
+                RwD3D9DynamicVertexBufferLock(stride, static_cast<RwUInt32>(numVertices), &dynamicBuffer, &dynamicData, &baseVertex);
+                locked = static_cast<RwUInt8*>(dynamicData);
+                vertexBuffer = dynamicBuffer;
+                stream.vertexBuffer = dynamicBuffer;
+                stream.offset = baseVertex * stride;
+                if (header->useOffsets == 0) {
+                    const RwUInt32 baseIndex = stream.offset / stride;
+                    RxD3D9InstanceData* instance = reinterpret_cast<RxD3D9InstanceData*>(header + 1);
+                    for (RwUInt32 i = header->numMeshes; i != 0; --i, ++instance) {
+                        instance->baseIndex = instance->minVert + baseIndex;
+                    }
+                }
+            }
+            geometry->lockedSinceLastInst = static_cast<RwUInt16>(geometry->lockedSinceLastInst | stream.geometryFlags);
+        }
+        if (locked != nullptr) {
+            RwUInt8* const outNormals = inNormals != nullptr ? locked + 0xC : nullptr;
+            const RwInt32 outStride = static_cast<RwInt32>(stream.stride);
+            const RwUInt8* const weights = reinterpret_cast<const RwUInt8*>(skin->vertexBoneWeights);
+            const RwUInt32* const indices = skin->vertexBoneIndices;
+            if (StaticRef<RwUInt32>(0xC980A4) != 0) {
+                const RwMatrix* const matrices = _rpSkinSSEGetBoneMatrices(atomic, skin, hierarchy);
+                if (skin->maxNumWeightsPerVertex > 2) {
+                    _rpSkinSSEMatrixBlend4(numVertices, weights, indices, matrices, locked, inVertices, outNormals, inNormals, outStride);
+                } else if (skin->maxNumWeightsPerVertex > 1) {
+                    _rpSkinSSEMatrixBlend2(numVertices, weights, indices, matrices, locked, inVertices, outNormals, inNormals, outStride);
+                } else if (skin->numUsedBones == 1) {
+                    _rpSkinSSETransformPoints(numVertices, reinterpret_cast<const RwMatrix*>(SkinBoneMatrix(matrices, skin->usedBonesArray[0])), locked, inVertices, outNormals, inNormals, outStride);
+                } else {
+                    _rpSkinSSETransformPointsIndexed(numVertices, indices, matrices, locked, inVertices, outNormals, inNormals, outStride);
+                }
+            } else {
+                const RwMatrix* const matrices = reinterpret_cast<const RwMatrix*>(_rpSkinX87GetBoneMatrices(atomic, skin, hierarchy));
+                if (skin->maxNumWeightsPerVertex > 2) {
+                    _rpSkinX87MatrixBlend4(numVertices, weights, indices, matrices, locked, inVertices, outNormals, inNormals, outStride);
+                } else if (skin->maxNumWeightsPerVertex > 1) {
+                    _rpSkinX87MatrixBlend2(numVertices, weights, indices, matrices, locked, inVertices, outNormals, inNormals, outStride);
+                } else if (skin->numUsedBones == 1) {
+                    _rpSkinX87TransformPoints(numVertices, reinterpret_cast<const RwMatrix*>(SkinBoneMatrix(matrices, skin->usedBonesArray[0])), locked, inVertices, outNormals, inNormals, outStride);
+                } else {
+                    _rpSkinX87TransformPointsIndexed(numVertices, indices, matrices, locked, inVertices, outNormals, inNormals, outStride);
+                }
+            }
+            static_cast<IDirect3DVertexBuffer9*>(vertexBuffer)->Unlock();
+        }
+        *reinterpret_cast<RwUInt8*>(&geometry->lockedSinceLastInst) &= 0xF9;
+    }
+    if (geometry->lockedSinceLastInst != 0) {
+        _rpSkinD3D9InstanceVertexData(atomic, reinterpret_cast<RxD3D9ResEntryHeader*>(entry + 1), hierarchy, geometry->lockedSinceLastInst);
+        geometry->lockedSinceLastInst = 0;
+    }
+    *reinterpret_cast<RwUInt32*>(&atomic->interpolator) &= ~1u;
+    if (skin != nullptr && skin->field20 != 0 && hierarchy != nullptr) {
+        _rpSkinD3D9VertexShaderRender(&nodeData->vs, atomic, geometry, skin, hierarchy);
+        return TRUE;
+    }
+    _rpSkinD3D9DefaultRender(nodeData, entry, atomic, geometryFlags);
+    return TRUE;
+}
+
+// Ganchos del lote SKIN1 (en el mismo espacio de nombres/categoria que RpSkinInjectHooks).
+static void RpSkinInjectHooksNode() {
+    RH_ScopedNamespaceName("RpSkin");
+    RH_ScopedCategory("Plugins");
+    // Lote SKIN1: nodo de skin D3D9 y ayudantes
+    RH_ScopedGlobalInstall(_rxD3D9SkinAtomicAllInOneNode, 0x7C7B90);
+    RH_ScopedGlobalInstall(_rpSkinD3D9UpdateBoneConstants, 0x7C78A0);
+    RH_ScopedGlobalInstall(_rpSkinD3D9InstanceAtomic, 0x7C8D60);
+    RH_ScopedGlobalInstall(_rpSkinX87MatrixBlend4, 0x7C9DA0);
+    RH_ScopedGlobalInstall(_rpSkinX87TransformPointsIndexed, 0x7CA240);
+    RH_ScopedGlobalInstall(_rpSkinX87TransformPoints, 0x7CA330);
+    RH_ScopedGlobalInstall(_rpSkinX87MatrixBlend2, 0x7CA410);
+    RH_ScopedGlobalInstall(_rpSkinX87MatrixMultiplyTransposed, 0x7CA6C0);
+    RH_ScopedGlobalInstall(_rpSkinX87GetBoneMatrices, 0x7CA850);
+    RH_ScopedGlobalInstall(_rpSkinSSEGetBoneMatrices, 0x7CAA30);
+    RH_ScopedGlobalInstall(_rpSkinGetBoneMatrices, 0x7CB390);
+    RH_ScopedGlobalInstall(_rpSkinD3D9VertexShaderRender, 0x7C8060);
+    RH_ScopedGlobalInstall(_rpSkinD3D9DefaultRender, 0x7C85B0);
 }

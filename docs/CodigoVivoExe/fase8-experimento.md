@@ -240,3 +240,7 @@ bash /d/Original/_run_f8c.sh h16 80 70 4 "--shims"                         # par
 bash /d/Original/_run_f8c.sh h13 60 45 4                                   # sin shims: primer INT3 = 0x80E270 / 0x7C7B90
 python -I reversing/FnFase8/gen_init_estaticos.py                          # regenera StandaloneInit.inc (solo las filas pendientes de DatosExe)
 ```
+
+## 9. Skin sin shim (22/11/2026, rama `skin-nodo`)
+
+El nodo `nodeD3D9SkinAtomicAllInOne.csl` (`0x7C7B90` y 12 ayudantes) ya es C++ (`rpskin.cpp`, lote SKIN1; ver `ejecucion-skin.md`) y el shim de `0x7C7B90` se quitó de `StandaloneExe.cpp`. Con el ASI, ropero/agua/marcadores dan `BIEN` y CJ sale bien deformado. En el standalone el siguiente fallo es `0x75F0B0` (generador de vertex shaders, 7.153 B, llamado desde `_rpD3D9GetVertexShader`) a los 9,7 s: **sigue sin verse CJ ni los peatones** hasta reconstruir esa función. `0x80E270` (SubmitNoLight) sigue con shim (otro agente).

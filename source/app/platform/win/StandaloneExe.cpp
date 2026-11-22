@@ -578,13 +578,13 @@ void EjecutarInicializadoresEstaticos() {
 // ---------------- Reconstrucciones minimas del propio experimento ("shims") ----------------
 // Retirados (codigo vivo CAM): 0x750430, 0x750460 y 0x750480 (envolturas del plugin 0x509 de RwCamera), 0x750AC0, 0x7F98D0, 0x7F99B0 y 0x7FFF00 ya son funciones C++ con gancho
 // (rpworld.cpp y rwcore.cpp); instalar aqui un salto propio sobre esas direcciones pisaria el gancho real. `--shims` queda aceptado y no hace nada.
+// Retirado el shim del nodo de skin (0x7C7B90): ahora es C++ (_rxD3D9SkinAtomicAllInOneNode en rpskin.cpp, lote SKIN1). Solo queda 0x80E270 (SubmitNoLight).
 // Tercera ronda: shims del experimento (NO son reconstrucciones; se activan con --shims y se documentan en fase8-experimento.md). Escriben un JMP en la reserva de INT3.
 int __cdecl ShimDevuelveUno() { return 1; }
 struct ShimDef { uint32_t va; void* destino; const char* nota; };
 void InstalarShims() {
     const ShimDef lista[] = {
         {0x80E270, (void*)ShimDevuelveUno, "nodeBody nodeD3D9SubmitNoLight.csl (1.380 B, Im3D sin luz): no dibuja nada"},
-        {0x7C7B90, (void*)ShimDevuelveUno, "nodeBody nodeD3D9SkinAtomicAllInOne.csl (skin D3D9, varios KB): los atomics con skin no se dibujan"},
     };
     for (const ShimDef& d : lista) {
         DWORD viejo = 0;
