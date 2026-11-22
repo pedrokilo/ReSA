@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
@@ -34,7 +35,7 @@ END GENERATED HOOK STATUS */
 auto& cc_vertices = StaticRef<std::array<RwIm2DVertex, 4>>(0xC400D8);
 auto& cc_indices = StaticRef<std::array<RwImVertexIndex, 12>>(0x8D5174); // { 0, 1, 2, 0, 2, 3, 0, 1, 2, 0, 2, 3 };
 
-auto& hpX = StaticRef<std::array<int32, 180>>(0xC3FE08);
+auto& hpX = DatosExe::R5::vC3FE08;
 auto& hpY = DatosExe::Bss::bC3FB38;
 auto& hpS = DatosExe::Bss::bC3F868; // speed
 
@@ -1111,7 +1112,7 @@ void CPostEffects::Render() {
     RwRasterPopContext();
     RsCameraBeginUpdate(Scene.m_pRwCamera);
 
-    auto& s_ExtraMult = ScopedStaticRef<float>(0xC4032C, 0xC40330, 1, 0.35f);
+    auto& s_ExtraMult = ScopedStaticRef<float>(reinterpret_cast<uintptr_t>(&DatosExe::R5::vC4032C), 0xC40330, 1, 0.35f);
 
     if (m_bFog) {
         Fog();

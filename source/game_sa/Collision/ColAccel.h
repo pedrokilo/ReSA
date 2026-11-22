@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE2.h"
 
@@ -63,7 +64,7 @@ VALIDATE_SIZE(PackedModelStartEnd, 0x4);
 class CColAccel {
 public:
     static inline auto& m_colBounds = DatosExe::Bss::bBC4090;
-    static inline auto& m_iplDefs = StaticRef<IplDef*>(0xBC4094);
+    static inline auto& m_iplDefs = reinterpret_cast<std::add_lvalue_reference_t<IplDef*>>(DatosExe::R5::rBC4094);
     static inline auto& m_iSectionSize = DatosExe::Bss::bBC4098;
     static inline auto& m_iCachingColSize = DatosExe::Bss::bBC409C;
     static inline auto& m_iCacheState = StaticRef<eColAccelState>(0xBC40A0);

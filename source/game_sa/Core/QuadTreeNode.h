@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataR5C.h"
 
 #include "Rect.h"
 #include "PtrListSingleLink.h"
@@ -60,7 +61,7 @@ public:
 
 protected:
     using CQuadTreeNodePool = CPool<CQuadTreeNode<void*>>;
-    static inline auto& ms_pQuadTreeNodePool = StaticRef<CQuadTreeNodePool*>(0xB745BC);
+    static inline auto& ms_pQuadTreeNodePool = reinterpret_cast<std::add_lvalue_reference_t<CQuadTreeNodePool*>>(DatosExe::R5::rB745BC);
 
 public:
     // Como el original (0x552B50 / 0x552C90): política original del pool (ver CQuadTreeNodeLegacyPool).

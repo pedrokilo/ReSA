@@ -1,0 +1,2 @@
+va,seccion,tipo,bytes,refs,archivos
+0x008D2534,.data,int32,4,2,MissionCleanup.cpp;Population.h

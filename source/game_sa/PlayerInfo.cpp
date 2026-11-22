@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -365,7 +366,7 @@ void CPlayerInfo::ProcessCrosshair(uint32 playerIndex, CPad* pad) {
         Cross74StepCpp(&target[0], steer, timeStep, false);
     }
     {
-        const bool inverted = StaticRef<uint8>(0xB73402) != 0; // CPad::bInvertLook4Pad (cualquier byte distinto de 0)
+        const bool inverted = reinterpret_cast<std::add_lvalue_reference_t<uint8>>(DatosExe::R5::vB73402) != 0; // CPad::bInvertLook4Pad (cualquier byte distinto de 0)
         const uint32 timeStep = std::bit_cast<uint32>(CTimer::ms_fTimeStep);
         const int32 steer = pad->GetSteeringUpDown();
         Cross74StepCpp(&target[1], steer, timeStep, !inverted);

@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "TaskComplexWanderCriminal.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
@@ -2083,7 +2084,7 @@ CObject* CPopulation::CreateSunbatheObject(const CVector* position, int32 type) 
 // 0x614720
 bool CPopulation::AddToPopulation(float minDist, float maxDist, float minDistClose, float maxDistClose) {
     ZoneScoped;
-    if(CGangWars::DontCreateCivilians() || *reinterpret_cast<bool*>(0x96917A)) return false;
+    if(CGangWars::DontCreateCivilians() || *reinterpret_cast<bool*>(&DatosExe::R5::v96917A)) return false;
     const uint8 playerId=CWorld::PlayerInFocus;
     const CVector playerPosition=FindPlayerCentreOfWorld(playerId);
     auto* info=reinterpret_cast<uint8*>(0xB7CD98)+uint32(playerId)*400;

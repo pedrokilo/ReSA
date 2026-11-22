@@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include <imgui.h>
 #include "Shadows.h"
 #include "X87Math.h"
@@ -824,7 +825,7 @@ static int ShadowXYClip(CVector* positions,CVector* uv,int count,CVector* outPos
 }
 // 0x7086B0
 void CShadows::CastShadowEntityXY(CEntity* entity, float conrerAX, float cornerAY, float cornerBX, float cornerBY, CVector* posn, float frontX, float frontY, float sideX, float sideY, int16 intensity, uint8 red, uint8 green, uint8 blue, float zDistance, float scale, CPolyBunch** ppPolyBunch, uint8* pDayNightIntensity, int32 shadowType) {
-    *reinterpret_cast<uint32*>(0xC4B8C8)|=7;
+    *reinterpret_cast<uint32*>(&DatosExe::R5::vC4B8C8)|=7;
     auto* model=entity->GetColModel();auto* data=model->m_pColData;
     if(!data||!data->m_nNumTriangles)return;
     CCollision::CalculateTrianglePlanes(model);

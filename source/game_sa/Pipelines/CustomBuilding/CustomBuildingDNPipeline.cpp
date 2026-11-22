@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -225,7 +226,7 @@ RxPipeline* CCustomBuildingDNPipeline::CreateCustomObjPipe() {
     }
 
     auto node = RxPipelineFindNodeByName(pipeline, nodeDef->name, nullptr, nullptr);
-    if (*reinterpret_cast<int32*>(0xC02C20)) { // read only (0 by default)
+    if (*reinterpret_cast<int32*>(&DatosExe::R5::vC02C20)) { // read only (0 by default)
         RxD3D9AllInOneSetInstanceCallBack(node, RxD3D9AllInOneGetInstanceCallBack(node));
         RxD3D9AllInOneSetReinstanceCallBack(node, CustomPipeInstanceCB);
     } else {

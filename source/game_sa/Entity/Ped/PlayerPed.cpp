@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
@@ -1781,7 +1782,7 @@ void CPlayerPed::ForceGroupToNeverFollow(bool enable) {
 namespace {
 // 0x609380 (cdecl, sin argumentos; devuelve AL): (byte 0x96917C | byte 0x96917D | byte 0x96917E) != 0.
 bool JoinGroupFlags() {
-    return *reinterpret_cast<const uint8*>(0x96917C) || *reinterpret_cast<const uint8*>(0x96917D) || *reinterpret_cast<const uint8*>(0x96917E);
+    return *reinterpret_cast<const uint8*>(&DatosExe::R5::v96917C) || *reinterpret_cast<const uint8*>(&DatosExe::R5::v96917D) || *reinterpret_cast<const uint8*>(&DatosExe::R5::v96917E);
 }
 } // namespace
 
@@ -1800,7 +1801,7 @@ void CPlayerPed::MakeThisPedJoinOurGroup(CPed* ped) {
     }
     // El EXE relee los datos del jugador (+0x480) y el indice de grupo (+0x38) en cada uso: la membresia del grupo es la de la ranura 0xC09928 + indice * 0x2D4
     const auto group = [this]() -> CPedGroup& { return CPedGroups::ms_groups.data()[GetPlayerData()->m_nPlayerGroup]; };
-    if (static_cast<int32>(ped->m_nPedType) != 8 && !StaticRef<uint8>(0x96917C) && !StaticRef<uint8>(0x96917D) && !StaticRef<uint8>(0x96917E)) {
+    if (static_cast<int32>(ped->m_nPedType) != 8 && !DatosExe::R5::v96917C && !DatosExe::R5::v96917D && !DatosExe::R5::v96917E) {
         return;
     }
     if (group().GetMembership().IsMember(ped)) { // 0x5F6A10

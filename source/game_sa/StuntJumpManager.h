@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE4.h"
@@ -30,7 +31,7 @@ typedef CPool<CStuntJump> CStuntJumpsPool;
 
 class CStuntJumpManager {
 public:
-    static inline auto& mp_poolStuntJumps = StaticRef<CStuntJumpsPool*>(0xA9A888);
+    static inline auto& mp_poolStuntJumps = reinterpret_cast<std::add_lvalue_reference_t<CStuntJumpsPool*>>(DatosExe::R5::rA9A888);
     static inline auto& mp_Active = DatosExe::Bss::bA9A88C; // nullptr
     static inline auto& m_bActive = DatosExe::Bss::bA9A890;
     static inline auto& m_bHitReward = DatosExe::Bss::bA9A891;

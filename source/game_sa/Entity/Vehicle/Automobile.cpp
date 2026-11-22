@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG3.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
@@ -4598,7 +4599,7 @@ void CAutomobile::ReduceHornCounter() {
     }
 }
 
-static RwTexture*& renderLicensePlateTexture{ *(RwTexture**)0xC1BFD8 };
+static RwTexture*& renderLicensePlateTexture{ *(RwTexture**)(&DatosExe::R5::vC1BFD8) };
 
 // 0x6A2F00
 void CAutomobile::CustomCarPlate_BeforeRenderingStart(const CVehicleModelInfo& mi)

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataInicializadaXB.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -150,9 +151,9 @@ public:
     static inline auto& ObjPipeline = DatosExe::Bss::bC02D24;
 
     static inline auto& fakeEnvMapPipeMatData = StaticRef<CustomEnvMapPipeMaterialData>(0xC02D18);
-    static inline auto& m_gEnvMapPipeMatDataPool = StaticRef<CustomEnvMapPipeMaterialDataPool*>(0xC02D28);
-    static inline auto& m_gEnvMapPipeAtmDataPool = StaticRef<CustomEnvMapPipeAtomicDataPool*>(0xC02D2C);
-    static inline auto& m_gSpecMapPipeMatDataPool = StaticRef<CustomSpecMapPipeMaterialDataPool*>(0xC02D30);
+    static inline auto& m_gEnvMapPipeMatDataPool = reinterpret_cast<std::add_lvalue_reference_t<CustomEnvMapPipeMaterialDataPool*>>(DatosExe::R5::rC02D28);
+    static inline auto& m_gEnvMapPipeAtmDataPool = reinterpret_cast<std::add_lvalue_reference_t<CustomEnvMapPipeAtomicDataPool*>>(DatosExe::R5::rC02D2C);
+    static inline auto& m_gSpecMapPipeMatDataPool = reinterpret_cast<std::add_lvalue_reference_t<CustomSpecMapPipeMaterialDataPool*>>(DatosExe::R5::rC02D30);
 
     static inline auto& g_GameLight = StaticRef<D3DLIGHT9>(0xC02CB0);
 

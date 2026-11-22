@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssE2.h"
 
 #include <RenderWare.h>
@@ -332,9 +333,9 @@ public:
     int32           field_D70{};
     int32           field_D74{};
 
-    static inline auto& m_f3rdPersonCHairMultY = StaticRef<float>(0xB6EC10);
-    static inline auto& m_f3rdPersonCHairMultX = StaticRef<float>(0xB6EC14);
-    static inline auto& m_fMouseAccelVertical = StaticRef<float>(0xB6EC18);
+    static inline auto& m_f3rdPersonCHairMultY = DatosExe::R5::vB6EC10;
+    static inline auto& m_f3rdPersonCHairMultX = DatosExe::R5::vB6EC14;
+    static inline auto& m_fMouseAccelVertical = DatosExe::R5::vB6EC18;
     static inline auto& m_fMouseAccelHorzntl = StaticRef<float>(0xB6EC1C);
     static inline auto& m_bUseMouse3rdPerson = StaticRef<bool>(0xB6EC2E);
     static inline auto& bDidWeProcessAnyCinemaCam = StaticRef<bool>(0xB6EC2D);

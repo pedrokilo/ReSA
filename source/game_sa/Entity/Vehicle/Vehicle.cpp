@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
@@ -3291,7 +3292,7 @@ CVector CVehicle::GetPlaneOrdnancePosition(eOrdnanceType type) {
 
     // Como el original: se leen las globales (a cero)
     const CVector SEASPAR_ORDNANCE_POS = StaticRef<CVector>(0xC1CC38);
-    const CVector RCBARON_ORDNANCE_POS = StaticRef<CVector>(0xC1CC50);
+    const CVector RCBARON_ORDNANCE_POS = reinterpret_cast<std::add_lvalue_reference_t<CVector>>(DatosExe::R5::rC1CC50);
     const CVector TORNADO_ORDNANCE_POS = StaticRef<CVector>(0xC1CC44);
 
     switch (m_nModelIndex) {

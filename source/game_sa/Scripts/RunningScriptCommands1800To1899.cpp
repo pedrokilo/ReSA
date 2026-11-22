@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "DatosExe/DataR5A.h"
 
 #include <bit>
 #include <cstring>
@@ -74,7 +75,7 @@ constexpr float EXE_FAR_DISTANCE = std::bit_cast<float>(0x461C3F9Au);
 constexpr float EXE_GLASS_BREAK_INTENSITY = std::bit_cast<float>(0x47C34FF3u);
 // 0x871640: float de .data (150.0 de serie) que usan DAMAGE_CAR_PANEL / DAMAGE_CAR_DOOR como intensidad
 inline float& ExePanelDamageIntensity() {
-    return StaticRef<float>(0x871640);
+    return DatosExe::R5::v871640;
 }
 // 0xC18DB8: ruta de patrulla global del EXE (CTheScripts)
 inline CPatrolRoute* ExePatrolRoute() {
