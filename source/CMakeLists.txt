@@ -614,3 +614,17 @@ option(${RE_PROJECT}_EXE_PROTOTIPO "Crea el objetivo gta_reversed_exe: enlaza lo
 if (${RE_PROJECT}_EXE_PROTOTIPO AND WIN32 AND NOT ${RE_PROJECT}_STANDALONE)
     add_subdirectory(${PROJECT_SOURCE_DIR}/reversing/FnIND0A/prototipo ${CMAKE_BINARY_DIR}/ind0a_prototipo)
 endif()
+
+#--------------------------------------------------------------------
+# Fase 8: ejecutable independiente de EXPERIMENTO (docs/CodigoVivoExe/fase8-experimento.md). No cambia el objetivo ASI: enlaza los .obj ya compilados de gta_reversed
+# (mas StandaloneExe.cpp, compilado con GTASA_STANDALONE_EXE) como EXE de base 0x400000 que carga del gta_sa.exe original SOLO los datos y deja su codigo como INT3.
+# Uso: cmake -DGTASA_STANDALONE_EXE=ON ... ; cmake --build . --target gta_sa_standalone ; ver reversing/FnFase8/ejecutar.sh
+#--------------------------------------------------------------------
+option(${RE_PROJECT}_STANDALONE_EXE "Crea el objetivo gta_sa_standalone: EXE propio que usa el gta_sa.exe original solo como fuente de datos (experimento fase 8)" OFF)
+if (${RE_PROJECT}_STANDALONE_EXE AND WIN32 AND NOT ${RE_PROJECT}_STANDALONE)
+    add_custom_target(gta_sa_standalone
+        COMMAND cmd /c "${PROJECT_SOURCE_DIR}/reversing/FnFase8/enlazar.cmd" "${PROJECT_SOURCE_DIR}" "${CMAKE_BINARY_DIR}/gta_sa_standalone" "${CMAKE_BINARY_DIR}/source/gta_reversed.dir/$<CONFIG>"
+        DEPENDS ${RE_PROJECT_LIB_NAME}
+        COMMENT "Fase 8: enlazando gta_sa_standalone.exe (EXE propio; el gta_sa.exe original solo como fuente de datos)"
+        VERBATIM)
+endif()

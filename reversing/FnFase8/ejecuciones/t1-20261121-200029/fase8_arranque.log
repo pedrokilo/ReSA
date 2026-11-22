@@ -1,0 +1,61 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo estricto
+codigo original 0x00401000-0x00858000: NO copiado, relleno con INT3 (4550656 bytes)
+seccion .text    VA 0x00401000 virtual  4546560: codigo, omitida
+seccion _rwcseg  VA 0x00857000 virtual     4096: codigo, omitida
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+datos copiados desde el original: 641024 bytes
+imports de la IAT original: 214, sin resolver: 0
+[    94 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+[   187 ms] StandaloneStartup correcto; iniciando el CRT propio
+[   203 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)
+[   203 ms] DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)
+[   453 ms] latido: frame=0 codigo-original-distinto=0 hits=0 excepciones=0
+[   453 ms]   ventana 0x0019111C clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 922x517
+[  1062 ms] DllMain devolvio 1
+[  1062 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[  1062 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[  1062 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[  1062 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[  1062 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[  1062 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[  1062 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[  1062 ms] llamando a NOTSA_WinMain (WinMain reconstruido)
+[  2469 ms] latido: frame=0 codigo-original-distinto=0 hits=0 excepciones=0
+[  2641 ms] CODIGO ORIGINAL #1: 0x00822184 llamado desde 0x0148C9CA [propio] ecx=00000000 args=20000000 3F701010
+FALLO (llamada a codigo original sin reemplazo) codigo 0x80000003 en EIP=0x00822184 [original(codigo)] t=2641 ms
+  EAX=00822184 EBX=06DA3D28 ECX=00000000 EDX=06DA3D1C ESI=001AF3E0 EDI=001AF4AC EBP=001AF4AC ESP=001AF3CC
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x0] 0x0148C9CA propio
+    [esp+0x30] 0x0147B178 propio
+    [esp+0x40] 0x0147B178 propio
+    [esp+0x48] 0x01E7EE21 propio
+    [esp+0xE4] 0x0257749F propio
+    [esp+0x110] 0x01EC1328 propio
+    [esp+0x120] 0x0148C960 propio
+    [esp+0x178] 0x02B58D70 propio
+    [esp+0x18C] 0x02B58D70 propio
+    [esp+0x1C0] 0x02B46B5E propio
+    [esp+0x1C4] 0x007F007F original(codigo)
+    [esp+0x1C8] 0x02B25F90 propio
+    [esp+0x1D0] 0x01EF42D7 propio
+    [esp+0x1D8] 0x01EF42D7 propio
+    [esp+0x1E0] 0x01EB1ED2 propio
+    [esp+0x1E4] 0x01EF42D7 propio
+    [esp+0x1EC] 0x01EB2F5C propio
+    [esp+0x200] 0x01EB30C7 propio
+    [esp+0x2F0] 0x01EF7D8E propio
+    [esp+0x30C] 0x01EB2E50 propio
+    [esp+0x3EC] 0x01EF3F86 propio
+    [esp+0x4D4] 0x01C41BCF propio
+    [esp+0x548] 0x013FEF54 propio
+    [esp+0x550] 0x0140690D propio
+    [esp+0x574] 0x019D45A7 propio
+    [esp+0x5CC] 0x0105E9F4 propio
+    [esp+0x644] 0x0140693E propio
+    [esp+0x64C] 0x013FF64F propio
+    [esp+0x668] 0x013FFC47 propio
+    [esp+0x6A8] 0x01041F41 propio

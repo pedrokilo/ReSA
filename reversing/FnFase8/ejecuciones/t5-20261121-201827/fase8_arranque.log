@@ -1,0 +1,66 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo estricto
+codigo original 0x00401000-0x00858000: NO copiado, relleno con INT3 (4550656 bytes)
+seccion .text    VA 0x00401000 virtual  4546560: codigo, omitida
+seccion _rwcseg  VA 0x00857000 virtual     4096: codigo, omitida
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+datos copiados desde el original: 641024 bytes
+imports de la IAT original: 214, sin resolver: 0
+[    16 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+[    16 ms] StandaloneStartup correcto (+ExtraTablaC); iniciando el CRT propio
+[    32 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)
+[    32 ms] DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)
+[   282 ms] latido: frame=0 codigo-original-distinto=0 hits=0 excepciones=0
+[   282 ms]   ventana 0x00260F78 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 922x517
+[   985 ms] DllMain devolvio 1
+[   985 ms] shims del experimento instalados (0x750430, 0x750460, 0x750480 parcial)
+[   985 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[   985 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[   985 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[   985 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[   985 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[   985 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[   985 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   985 ms] llamando a NOTSA_WinMain (WinMain reconstruido)
+[  1844 ms] CODIGO ORIGINAL #1: 0x00750AC0 llamado desde 0x01EC0D94 [propio] ecx=0908AF68 args=0908AF68 00750AC0
+FALLO (llamada a codigo original sin reemplazo) codigo 0x80000003 en EIP=0x00750AC0 [original(codigo)] t=1844 ms
+  EAX=0908AF68 EBX=001AFE98 ECX=0908AF68 EDX=00750AC0 ESI=001AFC54 EDI=001AF838 EBP=001AF6FC ESP=001AF6E4
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x0] 0x01EC0D94 propio
+    [esp+0x8] 0x00750AC0 original(codigo)
+    [esp+0x1C] 0x01E92F95 propio
+    [esp+0x48] 0x01E9E015 propio
+    [esp+0x54] 0x00EEB5D9 propio
+    [esp+0x5C] 0x01E9E000 propio
+    [esp+0x6C] 0x01E945F4 propio
+    [esp+0x74] 0x00750430 original(codigo)
+    [esp+0x7C] 0x01921F09 propio
+    [esp+0xA8] 0x01924088 propio
+    [esp+0xBC] 0x01924097 propio
+    [esp+0x158] 0x019221CC propio
+    [esp+0x178] 0x01CCCCCC propio
+    [esp+0x188] 0x00786165 original(codigo)
+    [esp+0x1D8] 0x0205090B propio
+    [esp+0x238] 0x02534200 propio
+    [esp+0x258] 0x017F98F5 propio
+    [esp+0x27C] 0x01422787 propio
+    [esp+0x318] 0x02535776 propio
+    [esp+0x3E4] 0x00FFFFFF propio
+    [esp+0x3E8] 0x00FFFFFF propio
+    [esp+0x480] 0x02534E39 propio
+    [esp+0x55C] 0x01CCCCCC propio
+    [esp+0x568] 0x02535508 propio
+    [esp+0x574] 0x00EEB960 propio
+    [esp+0x578] 0x00EEB960 propio
+    [esp+0x57C] 0x00670F2A original(codigo)
+    [esp+0x7A4] 0x02C99C8D propio
+    [esp+0x7B0] 0x00EE95F2 propio
+    [esp+0x7B8] 0x00EE95F2 propio
+[  1860 ms] estado: dispositivo D3D9 [0xC97C28]=0x0F362BE0, RwCamera [0xC1703C]=0x07FAC86C, contador de fotogramas=0, ventanas del proceso:
+[  1860 ms]   ventana 0x00670F2A clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 1048x832
+[  1860 ms]   ventana 0x00260F78 clase=ConsoleWindowClass titulo="E:\JUEGOS\GTA San Andreas - CVehicle Test - FASE8\gta_sa_standalone.exe" visible=1 1614x904
+[  1860 ms]   ventana 0x00620D6C clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[  1860 ms]   ventana 0x000E112A clase=IME titulo="Default IME" visible=0 0x0
