@@ -58,6 +58,11 @@ void LodTimeModelInfoConstructExe(void* element) {
     LodTimeModelInfoConstructorBody(static_cast<CLodTimeModelInfo*>(element), nullptr);
 }
 
+// Destructor de elemento (cuerpo del destructor del EXE que el iterador de vectores del almacen pasa por direccion) para el atexit del ejecutable independiente (DatosExe/StaticInit.cpp).
+void LodTimeModelInfoDestructExe(void* element) {
+    LodTimeModelInfoDestructorBody(static_cast<CLodTimeModelInfo*>(element), nullptr);
+}
+
 void CLodTimeModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CLodTimeModelInfo, 0x85BCF0, 16);

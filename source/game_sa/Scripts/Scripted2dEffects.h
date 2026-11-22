@@ -31,6 +31,10 @@ public:
 
     //! 0x6F9EB0 (thiscall, sin argumentos, `ret`): deja los cuatro pares vacios y NumPairs a 0, sin tocar el PartnerTask del segundo efecto ni el relleno
     void Reset();
+
+    //! 0x6FA790 (thiscall, sin argumentos, `ret`; constructor de elemento del inicializador estatico 0x8545E0 de `ms_effectPairs`, 64 elementos): construye los cuatro pares (0x6FA770, que escribe lo mismo que
+    //! Reset salvo NumPairs) y despues llama a Reset. Devuelve this. Solo lo ejecuta el inicializador estatico del EXE (antes de la DLL) o el ejecutable independiente.
+    CScriptedEffectPairs* Constructor();
 };
 VALIDATE_SIZE(CScriptedEffectPairs, 148);
 
@@ -52,6 +56,10 @@ struct tUserList {
     //! 0x492CB0 (lote 152A, banco Fn152A; thiscall, un argumento de pila, `ret 4`; el listado lo atribuia a CTaskSimpleHandsUp): pone el byte +0x20 (m_bUseList) a 1 y ocupa la PRIMERA de las cuatro entradas libres
     //! (m_UserTypes == -1) con el marcador -2 y el tipo de peaton en m_UserTypesByPedType. Si no hay ninguna libre solo queda la bandera. No devuelve nada (el EXE deja AL = 1 si ocupo una; el llamador no lo lee).
     void AddPedType(int32 pedType);
+
+    //! 0x6FA6D0 (thiscall, sin argumentos, `ret`; constructor de elemento del inicializador estatico 0x8545B0 de `ms_userLists`, 64 elementos): las cuatro entradas de cada lista a -1 (m_UserTypes en +0 y
+    //! m_UserTypesByPedType en +0x10) y m_bUseList (+0x20) a 0. Devuelve this. No toca el resto (relleno).
+    tUserList* Constructor();
 };
 VALIDATE_SIZE(tUserList, 0x24);
 

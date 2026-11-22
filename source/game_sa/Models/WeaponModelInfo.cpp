@@ -58,6 +58,11 @@ void WeaponModelInfoConstructExe(void* element) {
     WeaponModelInfoConstructorBody(static_cast<CWeaponModelInfo*>(element), nullptr);
 }
 
+// Destructor de elemento (cuerpo del destructor del EXE que el iterador de vectores del almacen pasa por direccion) para el atexit del ejecutable independiente (DatosExe/StaticInit.cpp).
+void WeaponModelInfoDestructExe(void* element) {
+    WeaponModelInfoDestructorBody(static_cast<CWeaponModelInfo*>(element), nullptr);
+}
+
 void CWeaponModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CWeaponModelInfo, 0x85BD78, 17);

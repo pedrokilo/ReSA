@@ -5,6 +5,19 @@
 // el atexit del CRT propio y escribe los valores iniciales, en el orden de la tabla del EXE. Solo para el ejecutable independiente:
 // con la DLL sobre el EXE original el _initterm del EXE ya los ejecuto y esta funcion no se llama.
 
+#include <cstddef>
+#include <cstdint>
+
 namespace DatosExe {
 void RunStaticInitializers();
+
+// Resultado de VerifyStaticInitializers (ver el .cpp): compara, fila a fila, lo que construiria el C++ propio con lo que dejo el _initterm del EXE.
+struct StaticInitReport {
+    int      rows           = 0; // filas con tamano comprobable
+    int      equal          = 0; // iguales (salvo palabras de vtable del EXE, contadas aparte)
+    int      different      = 0; // con alguna diferencia que no es una vtable
+    int      vtableWords    = 0; // palabras que son vtable del EXE (.rdata) en el EXE y otra cosa en el C++ propio
+    uint32_t firstDifferent = 0; // indice C++ de la primera fila distinta (0 si no hay)
+};
+StaticInitReport VerifyStaticInitializers();
 } // namespace DatosExe

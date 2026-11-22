@@ -87,10 +87,9 @@ public:
         }
     };
 
-private:
+public: // DatosExe/StaticInit.cpp lo llama en el ejecutable independiente
     CPedGroupDefaultTaskAllocatorChat* Constructor(); // 0x5F64E0
 
-public:
     static inline void InjectHooks() {
         RH_ScopedVirtualClass(CPedGroupDefaultTaskAllocatorChat, 0x86C774, 2);
         RH_ScopedCategory("Tasks/Allocators/PedGroup");

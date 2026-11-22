@@ -60,6 +60,11 @@ void DamageAtomicModelInfoConstructExe(void* element) {
     DamageAtomicModelInfoConstructorBody(static_cast<CDamageAtomicModelInfo*>(element), nullptr);
 }
 
+// Destructor de elemento (cuerpo del destructor del EXE que el iterador de vectores del almacen pasa por direccion) para el atexit del ejecutable independiente (DatosExe/StaticInit.cpp).
+void DamageAtomicModelInfoDestructExe(void* element) {
+    DamageAtomicModelInfoDestructorBody(static_cast<CDamageAtomicModelInfo*>(element), nullptr);
+}
+
 void CDamageAtomicModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CDamageAtomicModelInfo, 0x85BC30, 16);

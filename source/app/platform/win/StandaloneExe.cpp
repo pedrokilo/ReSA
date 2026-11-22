@@ -541,40 +541,6 @@ void CargarTablaRet() {
     Log("tabla de ret n cargada: %lu bytes", n);
 }
 
-// ---------------- Inicializadores estaticos pendientes de DatosExe (segunda ronda) ----------------
-// El EXE original construye sus objetos globales (vtables, valores iniciales) con la tabla _initterm; el EXE propio no ejecuta esa tabla, asi que
-// objetos como AudioEngine.m_FrontendAEAudioEntity quedan con la vtable a cero (primer fallo real tras el menu). Mientras DatosExe no los define en C++,
-// este puente ejecuta, con el C++ ya enganchado, lo que haria cada rutina (StandaloneInit.inc, generado de fase8-inicializadores.csv; sin atexit).
-enum TipoInit : uint32_t { kCtor0, kCtor1, kCtor4, kVec, kFill16, kCopy32, kCopy16, kIndex24, kFdivr16, kWrite8, kWrite16, kWrite32 };
-struct FilaInit { uint32_t va, tipo, a, b, c, d, e, f; };
-const FilaInit kInit[] = {
-#include "StandaloneInit.inc"
-};
-void EjecutarInicializadoresEstaticos() {
-    using Ctor0 = void(__thiscall*)(void*);
-    using Ctor1 = void(__thiscall*)(void*, uint32_t);
-    using Ctor4 = void(__thiscall*)(void*, uint32_t, uint32_t, uint32_t, uint32_t);
-    int n = 0;
-    for (const FilaInit& f : kInit) {
-        switch (f.tipo) {
-        case kCtor0: ((Ctor0)f.b)((void*)f.a); break;
-        case kCtor1: ((Ctor1)f.b)((void*)f.a, f.c); break;
-        case kCtor4: ((Ctor4)f.b)((void*)f.a, f.c, f.d, f.e, f.f); break;
-        case kVec:   for (uint32_t i = 0; i < f.c; ++i) ((Ctor0)f.d)((void*)(f.a + i * f.b)); break;
-        case kFill16: for (uint32_t i = 0; i < f.b; ++i) *(volatile uint16_t*)(f.a + 4 * i) = (uint16_t)f.c; break;
-        case kCopy32: *(volatile uint32_t*)f.a = *(volatile uint32_t*)f.b; break;
-        case kCopy16: *(volatile uint16_t*)f.a = *(volatile uint16_t*)f.b; break;
-        case kIndex24: *(volatile uint32_t*)f.a = f.c + 24u * *(volatile uint8_t*)f.b; break;
-        case kWrite8:  *(volatile uint8_t*)f.a = (uint8_t)f.b; break;
-        case kWrite16: *(volatile uint16_t*)f.a = (uint16_t)f.b; break;
-        case kWrite32: *(volatile uint32_t*)f.a = f.b; break;
-        case kFdivr16: *(volatile float*)f.a = *(volatile float*)f.c / (float)(int)*(volatile int16_t*)f.b; break;
-        }
-        ++n;
-    }
-    LogT("inicializadores estaticos pendientes ejecutados: %d filas (StandaloneInit.inc)", n);
-}
-
 // ---------------- Reconstrucciones minimas del propio experimento ("shims") ----------------
 // Retirados (codigo vivo CAM): 0x750430, 0x750460 y 0x750480 (envolturas del plugin 0x509 de RwCamera), 0x750AC0, 0x7F98D0, 0x7F99B0 y 0x7FFF00 ya son funciones C++ con gancho
 // (rpworld.cpp y rwcore.cpp); instalar aqui un salto propio sobre esas direcciones pisaria el gancho real. `--shims` queda aceptado y no hace nada.
@@ -681,11 +647,11 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR cmd, int show) {
             LogT("proteccion %-8.8s 0x%08X +0x%lX -> 0x%lX %s", (const char*)sec[i].Name, va, vs, prot, r ? "ok" : "FALLO");
         }
     }
-    // Tercera ronda: primero lo que define DatosExe (93 de las 175 filas no-CRT: constructores con su C++, valores iniciales), despues el puente solo de lo que falta.
+    // Inicializadores estaticos del EXE original (tabla _initterm), todos en C++ propio: DatosExe::RunStaticInitializers (docs/CodigoVivoExe/ejecucion-init-estatica.md). Antes habia aqui un puente
+    // temporal (StandaloneInit.inc: 4.216 filas emuladas de 55 rutinas) que ya no existe.
     // No puede ir en ExeCrt::Cinit (tras RunX87StaticInitializers): ahi todavia no han corrido los inicializadores dinamicos del C++ propio y las referencias
     // `static inline auto& X = StaticRef<...>(dir)` (CStats::StatTypesFloat...) son nulas (fallo real: CPlayerPedData::SetInitialState -> CStats::GetFatAndMuscleModifier lee 0xA0).
     if (!g.sinInit) { DatosExe::RunStaticInitializers(); LogT("DatosExe::RunStaticInitializers ejecutado"); }
-    if (!g.sinInit) EjecutarInicializadoresEstaticos();
     LogT("llamando a NOTSA_WinMain (WinMain reconstruido)");
     const int r = NOTSA_WinMain(hInst, hPrev, cmd, show);
     LogT("NOTSA_WinMain devolvio %d", r);

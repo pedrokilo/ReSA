@@ -42,12 +42,14 @@ void CScripted2dEffects::InjectHooks() {
 
     // lote 132A (banco Fn132A)
     RH_ScopedNamedGlobalInstall(CScriptedEffectPairs::Reset, "ResetEffectPairs", 0x6F9EB0);
+    RH_ScopedNamedGlobalInstall(CScriptedEffectPairs::Constructor, "EffectPairsConstructor", 0x6FA790); // inicializadores estaticos (fase 8, sin validar)
 
     {
         RH_ScopedClass(tUserList);
         RH_ScopedCategory("Scripts");
         RH_ScopedInstall(IsPedTypeAllowed, 0x5FE960); // lote 148A (banco Fn148A)
         RH_ScopedInstall(AddPedType, 0x492CB0); // lote 152A (banco Fn152A)
+        RH_ScopedInstall(Constructor, 0x6FA6D0); // inicializadores estaticos (fase 8, sin validar)
     }
 }
 
@@ -75,6 +77,41 @@ void tUserList::AddPedType(int32 pedType) {
             break;
         }
     }
+}
+
+// 0x6FA6D0 (thiscall, sin argumentos, `ret`, 25 bytes: `mov eax,ecx; xor edx,edx; or ecx,-1; bucle i<4 { [eax+i*4] = -1; [eax+i*4+0x10] = -1 }; mov byte [eax+0x20],0; ret`): es el constructor de elemento
+// del inicializador estatico 0x8545B0 (`eh vector constructor iterator` de 64 listas de `ms_userLists`, 0xC3A200). Escribe exactamente estos campos y nada mas (el relleno de +0x21..0x23 queda como estaba).
+tUserList* tUserList::Constructor() {
+    for (int32 i = 0; i < 4; ++i) {
+        m_UserTypes[i]          = -1;
+        m_UserTypesByPedType[i] = -1;
+    }
+    m_bUseList = false;
+    return this;
+}
+
+// 0x6FA770 (thiscall, sin argumentos, `ret`; constructor de CScriptedEffectPair, `eh vector constructor iterator` de cuatro pares dentro del 0x6FA790): Effect (+0), WaitingTask (+4), PartnerUseMode (+0xC),
+// Effect del segundo (+0x10), PartnerTask del primero (+8), WaitingTask del segundo (+0x14) y PartnerUseMode del segundo (+0x1C) a -1 y UsePartnerImmediately (+0x20) a 0. NO escribe el PartnerTask del
+// segundo efecto (+0x18). Funcion propia sin gancho (sin llamadores en el EXE fuera del 0x6FA790).
+static void ConstructEffectPairExe(CScriptedEffectPair& pair) {
+    pair.Effects[0].Effect         = -1;
+    pair.Effects[0].WaitingTask    = -1;
+    pair.Effects[0].PartnerUseMode = CScriptedEffectPair::eMode::NONE;
+    pair.Effects[1].Effect         = -1;
+    pair.Effects[0].PartnerTask    = -1;
+    pair.Effects[1].WaitingTask    = -1;
+    pair.Effects[1].PartnerUseMode = CScriptedEffectPair::eMode::NONE;
+    pair.UsePartnerImmediately     = false;
+}
+
+// 0x6FA790 (thiscall, sin argumentos, `ret`, 37 bytes): constructor de elemento del inicializador estatico 0x8545E0 (64 elementos de `ms_effectPairs`, 0xC3BB00): construye los cuatro pares con 0x6FA770 y
+// despues llama a Reset (0x6F9EB0); devuelve this. El resultado coincide con Reset salvo que Reset ya cubria los mismos campos; se conserva la secuencia del EXE.
+CScriptedEffectPairs* CScriptedEffectPairs::Constructor() {
+    for (auto& pair : Pairs) {
+        ConstructEffectPairExe(pair);
+    }
+    Reset();
+    return this;
 }
 
 // 0x6F9EB0 (lote 132A, banco Fn132A): en cada uno de los cuatro pares, Effect, WaitingTask y PartnerUseMode de los dos efectos a -1, el PartnerTask del PRIMER efecto a -1 (el del segundo no se

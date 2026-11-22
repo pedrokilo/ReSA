@@ -86,6 +86,57 @@ NOTSA_MODEL_INFO_STORE_CONSTRUCTOR(PedModelInfoStoreConstructor, CPedModelInfo, 
 
 #undef NOTSA_MODEL_INFO_STORE_CONSTRUCTOR
 
+// Inicializadores estaticos del EXE de los nueve almacenes (0x84BBF0..0x84BCF0 de la tabla _initterm; ejecutable independiente, DatosExe/StaticInit.cpp): cada uno llamaba al constructor del almacen
+// (0x4C5CB0..0x4C67D0) y registraba con atexit un destructor (0x4C5840..0x4C6390) que es el iterador de vectores del CRT sobre el destructor de elemento (0x4C5590...), en orden inverso. `which` sigue el orden de
+// la tabla: 0 atomicos, 1 atomicos con dano, 2 atomicos LOD, 3 con horario, 4 LOD con horario, 5 armas, 6 clumps, 7 vehiculos, 8 peatones.
+void AtomicModelInfoDestructExe(void* element);       // AtomicModelInfo.cpp
+void DamageAtomicModelInfoDestructExe(void* element); // DamageAtomicModelInfo.cpp
+void LodAtomicModelInfoDestructExe(void* element);    // LodAtomicModelInfo.cpp
+void TimeModelInfoDestructExe(void* element);         // TimeModelInfo.cpp
+void LodTimeModelInfoDestructExe(void* element);      // LodTimeModelInfo.cpp
+void WeaponModelInfoDestructExe(void* element);       // WeaponModelInfo.cpp
+void ClumpModelInfoDestructExe(void* element);        // ClumpModelInfo.cpp
+void VehicleModelInfoDestructExe(void* element);      // VehicleModelInfo.cpp
+void PedModelInfoDestructExe(void* element);          // PedModelInfo.cpp
+
+template<typename T, size_t Capacity>
+static void DestructModelInfoStore(CStore<T, Capacity>& store, void (*elementDestructor)(void*)) {
+    auto* const elements = reinterpret_cast<uint8*>(&store.m_aObjects);
+    for (size_t i = Capacity; i-- > 0;) {
+        elementDestructor(elements + i * sizeof(T));
+    }
+}
+
+void ModelInfoStoreConstructStatic(uint32 which) {
+    switch (which) {
+    case 0: AtomicModelInfoStoreConstructor(&CModelInfo::ms_atomicModelInfoStore, nullptr); break;
+    case 1: DamageAtomicModelInfoStoreConstructor(&CModelInfo::ms_damageAtomicModelInfoStore, nullptr); break;
+    case 2: LodAtomicModelInfoStoreConstructor(&CModelInfo::ms_lodAtomicModelInfoStore, nullptr); break;
+    case 3: TimeModelInfoStoreConstructor(&CModelInfo::ms_timeModelInfoStore, nullptr); break;
+    case 4: LodTimeModelInfoStoreConstructor(&CModelInfo::ms_lodTimeModelInfoStore, nullptr); break;
+    case 5: WeaponModelInfoStoreConstructor(&CModelInfo::ms_weaponModelInfoStore, nullptr); break;
+    case 6: ClumpModelInfoStoreConstructor(&CModelInfo::ms_clumpModelInfoStore, nullptr); break;
+    case 7: VehicleModelInfoStoreConstructor(&CModelInfo::ms_vehicleModelInfoStore, nullptr); break;
+    case 8: PedModelInfoStoreConstructor(&CModelInfo::ms_pedModelInfoStore, nullptr); break;
+    default: NOTSA_UNREACHABLE();
+    }
+}
+
+void ModelInfoStoreDestructStatic(uint32 which) {
+    switch (which) {
+    case 0: DestructModelInfoStore(CModelInfo::ms_atomicModelInfoStore, AtomicModelInfoDestructExe); break;
+    case 1: DestructModelInfoStore(CModelInfo::ms_damageAtomicModelInfoStore, DamageAtomicModelInfoDestructExe); break;
+    case 2: DestructModelInfoStore(CModelInfo::ms_lodAtomicModelInfoStore, LodAtomicModelInfoDestructExe); break;
+    case 3: DestructModelInfoStore(CModelInfo::ms_timeModelInfoStore, TimeModelInfoDestructExe); break;
+    case 4: DestructModelInfoStore(CModelInfo::ms_lodTimeModelInfoStore, LodTimeModelInfoDestructExe); break;
+    case 5: DestructModelInfoStore(CModelInfo::ms_weaponModelInfoStore, WeaponModelInfoDestructExe); break;
+    case 6: DestructModelInfoStore(CModelInfo::ms_clumpModelInfoStore, ClumpModelInfoDestructExe); break;
+    case 7: DestructModelInfoStore(CModelInfo::ms_vehicleModelInfoStore, VehicleModelInfoDestructExe); break;
+    case 8: DestructModelInfoStore(CModelInfo::ms_pedModelInfoStore, PedModelInfoDestructExe); break;
+    default: NOTSA_UNREACHABLE();
+    }
+}
+
 // Tamanos de elemento que usa el iterador del EXE
 static_assert(sizeof(CAtomicModelInfo) == 0x20 && sizeof(CDamageAtomicModelInfo) == 0x24 && sizeof(CLodAtomicModelInfo) == 0x24 && sizeof(CTimeModelInfo) == 0x24);
 static_assert(sizeof(CLodTimeModelInfo) == 0x28 && sizeof(CWeaponModelInfo) == 0x28 && sizeof(CClumpModelInfo) == 0x24 && sizeof(CVehicleModelInfo) == 0x308 && sizeof(CPedModelInfo) == 0x44);
