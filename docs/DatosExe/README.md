@@ -123,34 +123,61 @@ Variables propias en `DataInicializadaA/B/C.h/.cpp` (namespace `DatosExe::Data`,
 
 Quedan fuera de DE04 (por criterio): 313 objetos con formas distintas de `StaticRef`, 147 de tamaño desconocido, 125 con lector vivo, 27 de tipos mixtos y los de tipo estructura (`CRGBA`, `CVector`, `RwRGBA`): necesitan inicialización de agregados por tipo.
 
+### DE05 · `.bss` del juego (hecho en cinco lotes, más una retirada)
+
+Variables propias en `DataBssE1..E5.h/.cpp` (namespace `DatosExe::Bss`, `b<DIR>`, a cero como el `.bss`). Script: `contrib/datos_exe_de05.py <E1..E5>` (mismo criterio que DE04; tipos permitidos: primitivos y alias `Rw*`, punteros a clase declarada en `source/` o primitivo, arrays de primitivos, `CVector`, `CVector2D`, `CRGBA`, `RwRGBA`; se excluyen enumerados, clases con constructor y alias de plantilla).
+
+| Lote | Contenido | Objetos | Estado |
+| --- | --- | ---: | --- |
+| E1 | enteros pequeños y bool | 350 → 308 | 42 retirados (DE05-R) |
+| E2 | enteros de 32/64 bits | 346 | hecho |
+| E3 | float y double | 174 | hecho |
+| E4 | punteros | 114 | hecho |
+| E5 | arrays y estructuras triviales | 66 | hecho |
+
+Se excluyen las direcciones que usan las pruebas de humo y un margen alrededor (jugador 0xB7CD74/0xB7CD98, estado de juego 0xC8D4C0, área 0xB72914, colores 0xB7C4A0, UnderWaterness 0xC8132C, ForegroundApp 0x8D621C, pools 0xB74498…, 39 direcciones y 2 rangos; lista en el script).
+
+### Hallazgo: código del EXE que la medición no veía (DE04-R y DE05-R)
+
+Un primer E2 hizo fallar el ropero (posición NaN, sin entidades). La bisección automática (`D:\Original\_biseccion.py`, 13 compilaciones) lo aisló en `CTheScripts::SwitchDefaultAddress` (0xA43F54). La causa: el manejador SWITCH del EXE (0x4717AE) la lee desde **un hueco de 15 KB del `.text` «sin referencia directa»** que Ghidra no tiene como función y que el escáner por función no recorría. `docs/CodigoVivoExe/huecos.csv` lista 15.636 huecos, 2.260 solo en el juego, con 257 KB «sin referencia directa» además de 58 KB de «código con referencia sin función».
+
+Corrección: `datos_exe.py` ahora (a) no cuenta como vivas las funciones DESCARTAR y CUBIERTA de `docs/CodigoVivoExe/funciones-vivas.csv` (como pidió el coordinador) y (b) desensambla también los huecos con código (con referencia, sin referencia directa e inicializadores estáticos) y los trata como código vivo, de forma conservadora (los bytes de datos mal decodificados dan falsos positivos, que solo excluyen objetos de más). Con el escáner corregido se detectaron **35 objetos de `.data` (DE04 A y B) y 42 de `.bss` (E1)** ya convertidos que ese código toca; se devolvieron a `StaticRef` (`lotes/DE04R.csv`, `lotes/DE05R.csv`) y se comprobó con compilación y humo. DE04 y DE05-E1 de `origin/main` incluyen esos 77 objetos: conviene integrar los commits DE04-R/DE05-R.
+
+### Prueba de humo de marcadores
+
+Aviso del coordinador (marcadores 3D que no aparecían con mi ASI) comprobado: falsa alarma. Nuevo `reversing/FnBIS1/prueba_marcadores.py` (en wv-8; no modifica los existentes): reutiliza el circuito del ropero y exige marcadores C3dMarkers en memoria, uno junto al marcador del ropero y que al menos uno cambie entre dos lecturas separadas 1 s (se dibuja cada frame). Resultado con mi ASI de DE05-E3 (sha 4be00ef78e6a): 12 marcadores, 12 cambian en 1 s, BIEN. Los píxeles rojos no sirven de criterio: con la cámara del ropero el marcador queda fuera de plano también con la DLL de main (rojo = 0 en ambas). Forma parte de `_humo_datos.sh` desde DE05-E4.
+
 ## 6. Cifras antes y después
 
-| Medida | Antes (origin/main 4d39c9866b) | Después (DE01–DE04) | Diferencia |
+| Medida | Antes (origin/main 4d39c9866b) | Después (DE01–DE05) | Diferencia |
 | --- | ---: | ---: | ---: |
-| Referencias de la DLL a datos del EXE | 8.767 | 6.983 | −1.784 |
-| Direcciones distintas | 5.276 | 4.434 | −842 |
+| Referencias de la DLL a datos del EXE | 8.767 | 5.930 | −2.837 |
+| Direcciones distintas | 5.276 | 3.477 | −1.799 |
 | `.rdata`: objetos con ref. de la DLL | 989 | 678 | −311 |
-| `.data`: objetos con ref. de la DLL | 1.287 | 756 | −531 |
-| `.bss`: objetos con ref. de la DLL | 2.830 | 2.830 | 0 |
-| Formas: `StaticRef` / ayudante / literal | 5.071 / 625 / 2.172 | 3.884 / 394 / 1.824 | |
+| `.data`: objetos con ref. de la DLL | 1.287 | 792 | −495 |
+| `.bss`: objetos con ref. de la DLL | 2.830 | 1.837 | −993 |
+| Funciones vivas (trozos) según el escáner | 5.569 | 3.708 | −1.861 (DESCARTAR/CUBIERTA fuera; los huecos entran como vivos) |
+| Objetos con ref. de la DLL y lector vivo (compartidos) | `.rdata` 82, `.data` 27, `.bss` 74 | `.rdata` 86, `.data` 165, `.bss` 773 | sube porque el escáner nuevo es más estricto |
 
-Todas las compilaciones completas fueron correctas (`_build_DATOS1..4C.sh` con el candado) y cada lote pasó `prueba_ropero.py` y `prueba_agua.py` en BIEN con la DLL de la rama (brillo medio del agua entre 44,9 y 50,1).
+Los datos de `docs/DatosExe/actual/` son la medición del árbol actual con el escáner corregido.
 
 ## 7. Reproducir
 
 ```
-python -X utf8 contrib/datos_exe.py                       # medición completa → docs/DatosExe/*.csv, resumen.json
+python -X utf8 contrib/datos_exe.py [--salida carpeta]    # medición completa
 python -X utf8 contrib/datos_exe_plan.py                  # plan-lotes.md/.csv, plan-objetos.csv
 python -X utf8 contrib/datos_exe_lote.py DE01 [--aplicar] # lote DE01
 python -X utf8 contrib/datos_exe_de02.py [--aplicar]      # lote DE02
 python -X utf8 contrib/datos_exe_de03.py [--aplicar]      # lote DE03
-python -X utf8 contrib/datos_exe_de04.py A|B|C [--aplicar]# lote DE04
+python -X utf8 contrib/datos_exe_de04.py A|B|C [--aplicar]# lote DE04 (ya con el escáner corregido no repetir A/B sin revisar DE04R)
+python -X utf8 contrib/datos_exe_de05.py E1..E5 [--aplicar] [--solo lista.txt]
 ```
 
-La medición guardada en esta carpeta (`objetos.csv`, `referencias-dll.csv`, `por-*.csv`, `resumen.json`) es la **anterior** a los lotes, para que el plan conserve los lotes hechos; para ver el estado actual ejecutar `datos_exe.py` con `--salida` a otra carpeta. Lo aplicado está en [lotes/](lotes/). Los scripts DE02 a DE04 re-escanean la fuente actual, así que no dependen de esa medición.
+Los CSV de la raíz de esta carpeta (`objetos.csv`, `referencias-dll.csv`, `por-*.csv`, `resumen.json`) son la medición **anterior** a los lotes (con el escáner antiguo); `actual/` es la posterior. Lo aplicado está en [lotes/](lotes/).
 
 ## 8. Siguiente
 
-* DE05: `.bss` del juego sin lector vivo (2.354 objetos). Mismo criterio que DE04, pero hay que tener en cuenta que las pruebas de humo leen y escriben direcciones `.bss` del proceso (0xB7CD74 jugador, 0xC8D4C0 estado de juego, 0xB72914 área, 0xB7C4A0 colores…): esas se excluyen o se adapta la prueba.
-* DE04-D: estructuras (`CRGBA`, `CVector`) y las formas no `StaticRef` de `.data`.
+* DE04-D (estructuras `CRGBA`/`CVector` de `.data` y formas no `StaticRef`): **no hecho**. Las formas no `StaticRef` exigen reescribir ayudantes y casts a mano y las estructuras necesitan inicialización de agregados por tipo.
+* DE05 restante: 599 objetos `.bss` con formas distintas de `StaticRef`, los tipos con constructor (`CColModel`, `CLinkList`…), enumerados y los 330 de tamaño desconocido.
 * DE09 ampliado: vtables escritas por constructores de la DLL.
+* Criterio de seguridad pendiente: accesos con registro base (como el de SWITCH, que solo se pudo ver al recorrer los huecos) siguen siendo invisibles si el código está dentro de una función con base en registro; la bisección y el humo son la red de seguridad.
