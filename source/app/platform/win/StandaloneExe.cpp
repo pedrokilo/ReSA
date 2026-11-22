@@ -27,6 +27,7 @@
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID reserved); // dllmain.cpp del proyecto
 INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdLine, INT nCmdShow); // WinMain.cpp
+extern "C" { extern uint32_t g_DbgCmdTrace[256][4]; extern uint32_t g_DbgCmdTraceIdx; extern uint32_t g_DbgMainTrace[32][4]; extern uint32_t g_DbgMainTraceIdx; } // anillo de los ultimos comandos de script (Scripts/RunningScript.cpp)
 namespace DatosExe { void RunStaticInitializers(); }                    // DatosExe/StaticInit.cpp
 namespace ExeCrt { int __cdecl StandaloneStartup(); }                    // Crt/CrtStartup.cpp
 extern "C" PIMAGE_TLS_CALLBACK __dyn_tls_init_callback;
@@ -347,6 +348,45 @@ void InstalarContadoresD3D() {
     LogT("contadores de D3D9 instalados en el vtable del dispositivo 0x%08lX", (DWORD)(uintptr_t)dev);
 }
 HANDLE g_hiloPrincipal; // duplicado del hilo que ejecuta NOTSA_WinMain (para volcar su pila cuando la guardia lo mata)
+// Tercera ronda: vuelca los scripts activos (CTheScripts::pActiveScripts 0xA8B42C): nombre, base e IP (relativa a ScriptSpace 0xA49960) y los bytes alrededor de la IP,
+// para los fallos del motor de scripts ("Unknown param type"), que son de datos o de lectura de argumentos.
+void VolcarScripts() {
+    char buf[1200];
+    int n = wsprintfA(buf, "  ScriptSpace[0..16]:");
+    if (Legible(0xA49960, 16)) for (int i = 0; i < 16; ++i) n += wsprintfA(buf + n, " %02X", *(uint8_t*)(0xA49960 + i));
+    n += wsprintfA(buf + n, "  MainScriptSize=%lu LargestMissionScriptSize=%lu\r\n", Legible(0xA444C4, 4) ? *(uint32_t*)0xA444C4 : 0, Legible(0xA444C0, 4) ? *(uint32_t*)0xA444C0 : 0);
+    Escribir(g.log, buf, n);
+    {
+        const uint32_t idx = g_DbgCmdTraceIdx;
+        n = wsprintfA(buf, "  ultimos comandos (de %lu): IP-ScriptSpace:comando(hex)\r\n   ", idx);
+        Escribir(g.log, buf, n);
+        for (uint32_t i = idx > 256 ? idx - 256 : 0; i < idx; ++i) {
+            const uint32_t* e = g_DbgCmdTrace[i & 255];
+            if (idx - i > 40 && e[2] != 0x6E69616D) continue; // los 40 ultimos y, de los anteriores, solo los del script main
+            n = wsprintfA(buf, " %lX:%04lX", e[0] - 0xA49960, e[1] & 0x7FFF);
+            Escribir(g.log, buf, n);
+        }
+        Escribir(g.log, "\r\n", 2);
+        n = wsprintfA(buf, "  ultimos 32 del script main (IP:comando:n):");
+        for (uint32_t i = g_DbgMainTraceIdx > 32 ? g_DbgMainTraceIdx - 32 : 0; i < g_DbgMainTraceIdx; ++i) {
+            const uint32_t* e = g_DbgMainTrace[i & 31];
+            n += wsprintfA(buf + n, " %lX:%04lX:%lu", e[0] - 0xA49960, e[1] & 0x7FFF, e[3]);
+        }
+        n += wsprintfA(buf + n, "\r\n");
+        Escribir(g.log, buf, n);
+    }
+    uint32_t sc = Legible(0xA8B42C, 4) ? *(uint32_t*)0xA8B42C : 0;
+    for (int k = 0; sc && k < 16 && Legible(sc, 0x28); ++k) {
+        const uint32_t base = *(uint32_t*)(sc + 0x10), ip = *(uint32_t*)(sc + 0x14);
+        char nombre[9] = {};
+        for (int i = 0; i < 8; ++i) nombre[i] = *(char*)(sc + 8 + i) >= 32 ? *(char*)(sc + 8 + i) : '.';
+        n = wsprintfA(buf, "  script %s @0x%08lX base=0x%08lX ip=0x%08lX (offset %ld) bytes[-8..+24]:", nombre, sc, base, ip, (long)(ip - 0xA49960));
+        if (Legible(ip - 8, 32)) for (int i = -8; i < 24; ++i) n += wsprintfA(buf + n, " %02X", *(uint8_t*)(ip + i));
+        n += wsprintfA(buf + n, "\r\n");
+        Escribir(g.log, buf, n);
+        sc = *(uint32_t*)sc;
+    }
+}
 // Segunda ronda: antes de matar el proceso por falta de latido o por tiempo, se suspende el hilo principal y se vuelca donde esta (EIP, registros,
 // cadena de EBP y palabras de la pila que apuntan a codigo propio u original), para saber en que funcion esta colgado.
 void VolcarHiloPrincipal(const char* motivo) {
@@ -371,6 +411,7 @@ void VolcarHiloPrincipal(const char* motivo) {
         }
         n += wsprintfA(buf + n, "\r\n");
         Escribir(g.log, buf, n);
+        VolcarScripts();
     }
     ResumeThread(g_hiloPrincipal);
 }

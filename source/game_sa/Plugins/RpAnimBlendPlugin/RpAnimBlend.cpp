@@ -724,6 +724,9 @@ float CalculateTotalBlendOfPartial(AnimBlendUpdateData* c, AnimBlendFrameData* f
 }
 
 #define USE_COPY_PASTE_FRAME_UPDATE 0
+// EXE independiente (fase 8): el .text original no existe (esta relleno de INT3) y ForAllFrames recibe las direcciones 0x4D2B90/0x4D2E10/0x4D2E40/0x4D30A0/0x4D32D0 como callbacks, asi que sus
+// reconstrucciones tienen que estar enganchadas. Con la DLL sobre el EXE original siguen desactivadas (se ejecuta el codigo original).
+static bool ExeCodeAbsent(uint32 address) { return *reinterpret_cast<const uint8*>(address) == 0xCC; }
 #ifdef USE_COPY_PASTE_FRAME_UPDATE
     #define DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS 1
 #endif
@@ -1366,15 +1369,15 @@ void RpAnimBlendPlugin::InjectHooks() {
 #ifdef USE_COPY_PASTE_FRAME_UPDATE
     // Most of these functions aren't hookable (without effort) they take args in <eax> and whatnot, they aren't regular `__cdecl` calls
     //RH_ScopedGlobalInstall(FrameUpdateCallBackWithVelocityExtractionCompressedSkinned, 0x4D1DB0);
-    RH_ScopedGlobalInstall(FrameUpdateCallBackCompressedSkinned, 0x4D2E40, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS});
+    RH_ScopedGlobalInstall(FrameUpdateCallBackCompressedSkinned, 0x4D2E40, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS || ExeCodeAbsent(0x4D2E40)});
     //RH_ScopedGlobalInstall(FrameUpdateCallBackWithVelocityExtractionCompressedNonSkinned, 0x4D27F0);
-    RH_ScopedGlobalInstall(FrameUpdateCallBackCompressedNonSkinned, 0x4D32D0, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS});
+    RH_ScopedGlobalInstall(FrameUpdateCallBackCompressedNonSkinned, 0x4D32D0, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS || ExeCodeAbsent(0x4D32D0)});
     //RH_ScopedGlobalInstall(FrameUpdateCallBackSkinnedWith3dVelocityExtraction, 0x4D1A50);
     //RH_ScopedGlobalInstall(FrameUpdateCallBackSkinnedWithVelocityExtraction, 0x4D1680);
-    RH_ScopedGlobalInstall(FrameUpdateCallBackSkinned, 0x4D2B90, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS});
+    RH_ScopedGlobalInstall(FrameUpdateCallBackSkinned, 0x4D2B90, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS || ExeCodeAbsent(0x4D2B90)});
     //RH_ScopedGlobalInstall(FrameUpdateCallBackNonSkinnedWith3dVelocityExtraction, 0x4D2450);
     //RH_ScopedGlobalInstall(FrameUpdateCallBackNonSkinnedWithVelocityExtraction, 0x4D2100);
-    RH_ScopedGlobalInstall(FrameUpdateCallBackNonSkinned, 0x4D30A0, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS});
-    RH_ScopedGlobalInstall(FrameUpdateCallBackOffscreen, 0x4D2E10, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS});
+    RH_ScopedGlobalInstall(FrameUpdateCallBackNonSkinned, 0x4D30A0, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS || ExeCodeAbsent(0x4D30A0)});
+    RH_ScopedGlobalInstall(FrameUpdateCallBackOffscreen, 0x4D2E10, {.enabled = !DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS || ExeCodeAbsent(0x4D2E10)});
 #endif
 }

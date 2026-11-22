@@ -193,6 +193,7 @@ void CRunningScript::InjectCustomCommandHooks() {
     c::math::RegisterHandlers();
     c::mission::RegisterHandlers();
     c::object::RegisterHandlers();
+    c::path::RegisterHandlers(); // tercera ronda de la fase 8: faltaba. SWITCH_ROADS_ON/OFF (0x01E7/0x01E8) sin manejador no leian sus 6 parametros y desalineaban la IP del script main (Unknown param type: 64)
     c::pad::RegisterHandlers();
     c::ped::RegisterHandlers();
     c::player::RegisterHandlers();
@@ -1236,9 +1237,20 @@ void CRunningScript::UpdatePC(int32 newIP) {
 }
 
 // 0x469EB0, inlined
+// Anillo de depuracion de los ultimos 256 comandos ejecutados (comando, IP antes de leerlo, nombre de script); lo vuelca el EXE independiente (StandaloneExe.cpp, VolcarScripts) cuando el hilo principal falla o se cuelga.
+extern "C" { uint32 g_DbgCmdTrace[256][4]{}; uint32 g_DbgCmdTraceIdx{}; uint32 g_DbgMainTrace[32][4]{}; uint32 g_DbgMainTraceIdx{}; }
+
 OpcodeResult CRunningScript::ProcessOneCommand() {
     ++CTheScripts::CommandsExecuted;
 
+    {
+        auto& e = g_DbgCmdTrace[g_DbgCmdTraceIdx++ & 255u];
+        e[0] = static_cast<uint32>(reinterpret_cast<uintptr_t>(m_IP));
+        e[1] = *reinterpret_cast<const uint16*>(m_IP);
+        e[2] = *reinterpret_cast<const uint32*>(m_szName);
+        e[3] = static_cast<uint32>(CTheScripts::CommandsExecuted);
+        if (e[2] == 0x6E69616Du) { auto& m = g_DbgMainTrace[g_DbgMainTraceIdx++ & 31u]; m[0] = e[0]; m[1] = e[1]; m[2] = e[2]; m[3] = e[3]; }
+    }
     const auto op = GetAtIPAs<scm::Instruction>();
 
     // Check if IP is valid pre-return
