@@ -76,7 +76,45 @@ void OnInjectionBegin(HMODULE hThisDLL) {
 #endif
 }
 
+// Ejecutable independiente (gta_sa_standalone): la vtable del EXE (pGTAVTbl) de cada clase virtual con algun gancho VMT sigue apuntando, en las ranuras que ningun gancho
+// reemplaza (virtuales en linea de las cabeceras, thunks `jmp`, constantes de las clases de eventos...), a codigo original que alli es INT3. Al terminar la instalacion se
+// copia a esas ranuras la entrada de la vtable propia (la que el compilador genera para la clase). Solo toca ranuras cuyo destino empieza por INT3 (0xCC): con el EXE real
+// presente ninguna funcion empieza asi, de modo que con el ASI no hace nada.
+static std::vector<std::tuple<void**, void**, size_t>> s_VirtualClasses{};
+
+static void FillAbsentVirtualSlots() {
+    if (s_VirtualClasses.empty()) {
+        return;
+    }
+    size_t filled = 0, classes = 0;
+    for (const auto& [vtblGTA, vtblOur, n] : s_VirtualClasses) {
+        bool any = false;
+        for (size_t i = 0; i < n; i++) {
+            const auto target = reinterpret_cast<uintptr_t>(vtblGTA[i]);
+            const auto ours   = reinterpret_cast<uintptr_t>(vtblOur[i]);
+            if (target < 0x401000 || target >= 0x857000 || *reinterpret_cast<const uint8*>(target) != 0xCC) {
+                continue; // ranura ya enganchada (JMP o vtable propia) o fuera del .text original
+            }
+            if (!ours || (ours >= 0x401000 && ours < 0x857000)) {
+                continue;
+            }
+            detail::VirtualCopy(&vtblGTA[i], &vtblOur[i], sizeof(void*));
+            filled++;
+            any = true;
+        }
+        classes += any;
+    }
+    s_VirtualClasses.clear();
+    char buf[160];
+    wsprintfA(buf, "[VTBL] standalone: %u ranuras de %u vtables del EXE completadas con las de las clases propias\n", (unsigned)filled, (unsigned)classes);
+    OutputDebugStringA(buf);
+    if (filled) {
+        NOTSA_LOG_DEBUG("{}", buf);
+    }
+}
+
 void OnInjectionEnd() {
+    FillAbsentVirtualSlots();
 #ifndef NDEBUG
     // Hopefully these deallocates all memory
     s_HookedAddresses.clear();
@@ -91,6 +129,9 @@ void OnInjectionEnd() {
 }
 
 void InstallVirtual(std::string_view category, std::string fnName, void** vtblGTA, void** vtblOur, void* fnGTAAddr, void* fnOurAddr, size_t nVirtFns, const HookInstallOptions& opt) {
+    if (rng::none_of(s_VirtualClasses, [&](const auto& e) { return std::get<0>(e) == vtblGTA; })) {
+        s_VirtualClasses.emplace_back(vtblGTA, vtblOur, nVirtFns);
+    }
 #ifdef NOTSA_STANDALONE
     const auto fnVTblIdx = -1;
 #else
