@@ -71,7 +71,7 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | E2-montón-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 21 | 1,731 | 0x00821195–0x00830141 | medio |  | parcial |
 | E2-locale-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 20 | 5,316 | 0x00822070–0x00834B8A | alto |  | pendiente |
 | E2-E/S-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 15 | 853 | 0x008232CE–0x00835177 | medio |  | cerrado |
-| E2-cadenas-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 12 | 2,507 | 0x008213D0–0x00836697 | medio |  | parcial |
+| E2-cadenas-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 12 | 2,507 | 0x008213D0–0x00836697 | medio |  | cerrado |
 | E2-estado-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 15 | 481 | 0x008216FF–0x00834379 | medio |  | parcial |
 | E2-sin-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 1 | 13 | 0x00822E45–0x00822E45 | medio |  | cerrado |
 | E3 | P4 | enlazar | D3DX9 | ENLAZAR | D3DX9 real (d3dx9_43.dll) | 1 | 0 | 0x007652AE–0x007652AE | bajo |  | cerrado |

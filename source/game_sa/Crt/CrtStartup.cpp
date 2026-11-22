@@ -2,8 +2,14 @@
 #include "StdInc.h"
 #endif
 #include <windows.h>
+#include <intrin.h>
+#include <float.h>
+#include <emmintrin.h>
 #include <cstdint>
+#include <exception>
 #include "CrtStartup.h"
+#include "CrtMbcs.h"
+#include "CrtOnexit.h"
 #include "CrtHeap.h"
 #include "CrtState.h"
 #include "CrtLowIo.h"
@@ -344,9 +350,10 @@ char* __cdecl CrtGetEnvironmentStrings() {
 }
 
 // 0x82DB26 (__setargv): nombre del ejecutable en _pgmptr y linea de comandos (o ese nombre si esta vacia) partida en __argv/__argc. 0 = bien, -1 = sin memoria.
-// El EXE llama antes a __initmbctable 0x833494 (_setmbcp(-3): tabla _mbctype segun la pagina de codigos ANSI) si todavia no se hizo; ese bloque del locale multibyte no esta reconstruido
-// (lo lleva la rama del locale): IsLeadByte lee la tabla como este, sin bytes iniciales mientras nadie la inicialice.
+// Igual que el EXE, llama antes a __initmbctable 0x833494 (_setmbcp(-3): tabla _mbctype segun la pagina de codigos ANSI, CrtMbcs.cpp) si todavia no se hizo, asi IsLeadByte ya ve los
+// bytes iniciales de doble byte de la pagina del sistema.
 int __cdecl Setargv() {
+    InitMbcTable(); // 0x82DB30: __initmbctable si todavia no se hizo (_setmbcp(-3)); la bandera 0xC9D430 evita repetirla
     ProgramPathEnd() = 0;
     GetModuleFileNameA(nullptr, ProgramPathBuf(), 0x104);
     ProgramPath() = ProgramPathBuf();
@@ -492,6 +499,177 @@ int __cdecl StartupEarly() {
     return 0;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// __cinit 0x823B76 (sin gancho) y las entradas de su tabla C 0x8A5A14..0x8A5A30, en el orden del EXE. Sustituyen a la antigua `ExtraTablaC` del experimento de la fase 8.
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+inline int&      Sse2FlagA()        { return *reinterpret_cast<int*>(0xC9C400); } // elegida por pow/floor/ceil: != 0 = nucleo SSE2
+inline int&      Sse2FlagB()        { return *reinterpret_cast<int*>(0xC9C404); }
+inline uint32_t& PrevXcptFilter()   { return *reinterpret_cast<uint32_t*>(0xC9AC74); }
+inline uint32_t& SecurityCookie()   { return *reinterpret_cast<uint32_t*>(0x8E31BC); }
+constexpr uint32_t DEFAULT_SECURITY_COOKIE = 0xBB40E64E;
+
+// 0x8289C0: prueba una instruccion SSE2 bajo SEH (el EXE ejecuta un movapd): 1 si no hay excepcion
+int __cdecl Sse2ExecutionProbe() {
+    __try {
+        volatile __m128d probe = _mm_setzero_pd();
+        (void)probe;
+    } __except (EXCEPTION_EXECUTE_HANDLER) {
+        return 0;
+    }
+    return 1;
+}
+
+// 0x832ECF: 1 si el puntero a codigo es valido (IsBadCodePtr == 0)
+int __cdecl IsValidCodePointer(uint32_t pointer) {
+    return IsBadCodePtr(reinterpret_cast<FARPROC>(pointer)) ? 0 : 1;
+}
+
+} // namespace
+
+// 0x826A72: ocho bytes a 0xFF en 0x8E37B4 (tabla de banderas del locale "C" del CRT)
+int __cdecl TableC826A72() {
+    for (int i = 0; i < 8; ++i) {
+        *reinterpret_cast<volatile uint8_t*>(0x8E37B4 + i) = 0xFF;
+    }
+    return 0;
+}
+
+// 0x8289F5 (__sse2_available_init): CPUID funcion 1, EDX bit 26 (SSE2) y la prueba de ejecucion; sin CPUID (el bit ID de EFLAGS no se puede cambiar) EDX = 0. Deja 1 en 0xC9C400 y 0xC9C404 o 0.
+int __cdecl TableCSseAvailableInit() {
+    const unsigned int flags = __readeflags();
+    __writeeflags(flags ^ 0x200000u);
+    unsigned int edx = __readeflags() - flags;
+    if (edx != 0) {
+        __writeeflags(flags);
+        int regs[4];
+        __cpuid(regs, 1);
+        edx = static_cast<unsigned int>(regs[3]);
+    }
+    Sse2FlagB() = 0;
+    Sse2FlagA() = 0;
+    if ((edx & (1u << 26)) && Sse2ExecutionProbe()) {
+        Sse2FlagB() = 1;
+        Sse2FlagA() = 1;
+    }
+    return 0;
+}
+
+// 0x82AC0E (filtro de excepciones no manejadas del CRT, stdcall con EXCEPTION_POINTERS*): una excepcion de C++ (0xE06D7363, 3 parametros, version 0x19930520) que nadie capturo llama a terminate
+// (0x827A92 en el EXE). Aqui se llama al terminate del CRT de MSVC enlazado: el EXE propio usa el manejo de excepciones enlazado, no el del EXE (decision en ejecucion-crt-fase8b.md).
+// Despues encadena con el filtro anterior si es un puntero de codigo valido; si no, EXCEPTION_CONTINUE_SEARCH (0).
+long __stdcall CrtUnhandledExceptionFilter(void* exceptionPointers) {
+    EXCEPTION_POINTERS* const info = static_cast<EXCEPTION_POINTERS*>(exceptionPointers);
+    const EXCEPTION_RECORD* const record = info->ExceptionRecord;
+    if (record->ExceptionCode == 0xE06D7363u && record->NumberParameters == 3 && record->ExceptionInformation[0] == 0x19930520u) {
+        std::terminate();
+    }
+    if (PrevXcptFilter() && IsValidCodePointer(PrevXcptFilter())) {
+        return reinterpret_cast<LPTOP_LEVEL_EXCEPTION_FILTER>(PrevXcptFilter())(info);
+    }
+    return 0;
+}
+
+// 0x82AC54: instala el filtro y guarda el anterior en 0xC9AC74
+int __cdecl TableCUnhandledFilterInit() {
+    PrevXcptFilter() = reinterpret_cast<uint32_t>(SetUnhandledExceptionFilter(reinterpret_cast<LPTOP_LEVEL_EXCEPTION_FILTER>(&CrtUnhandledExceptionFilter)));
+    return 0;
+}
+
+namespace {
+using InitFn = int(__cdecl*)();
+// Orden de la tabla C del EXE: 0x8A5A14 (nulo), 0x826A72, __onexitinit 0x821CBE, __initstdio 0x823EE5, 0x8289F5, __initmbctable 0x833494, 0x82AC54
+const InitFn kTableC[] = { nullptr, &TableC826A72, &Onexitinit, &Initstdio, &TableCSseAvailableInit, &InitMbcTable, &TableCUnhandledFilterInit };
+} // namespace
+
+// 0x82BF1E (terminacion de RTC registrada con atexit por __cinit): recorre el rango 0x88E248..0x88E248 de punteros a funcion, vacio en el EXE de este juego (no hay comprobaciones /RTC)
+void __cdecl RtcTerminate() {
+    for (auto* fn = reinterpret_cast<void(__cdecl**)()>(0x88E248); reinterpret_cast<uintptr_t>(fn) < 0x88E248; ++fn) {
+        if (*fn) {
+            (*fn)();
+        }
+    }
+}
+
+// 0x8339CA (__security_init_cookie, primer inicializador de C++ del EXE): mezcla hora, identificadores y contadores; si sale 0 deja 0xBB40E64E. Escribe en 0x8E31BC.
+void __cdecl InitSecurityCookie() {
+    FILETIME fileTime;
+    GetSystemTimeAsFileTime(&fileTime);
+    uint32_t value = fileTime.dwHighDateTime ^ fileTime.dwLowDateTime;
+    value ^= GetCurrentProcessId();
+    value ^= GetCurrentThreadId();
+    value ^= GetTickCount();
+    LARGE_INTEGER counter;
+    QueryPerformanceCounter(&counter);
+    value ^= static_cast<uint32_t>(counter.HighPart) ^ counter.LowPart;
+    SecurityCookie() = value ? value : DEFAULT_SECURITY_COOKIE;
+}
+
+// 0x82134F: seis punteros de la tabla de despacho de funciones intrinsecas (0x8E30F0..0x8E3104) a rutinas del EXE; solo las leen las rutinas matematicas del EXE (nada del C++ propio)
+void __cdecl FpInitDispatch() {
+    auto* const table = reinterpret_cast<volatile uint32_t*>(0x8E30F0);
+    table[0] = 0x826E61;
+    table[1] = 0x826ADB;
+    table[2] = 0x826B40;
+    table[3] = 0x826A9F;
+    table[4] = 0x826B26;
+    table[5] = 0x826E61;
+}
+
+// 0x826EC4: comprobacion de la division del Pentium (FDIV) con las constantes del EXE (0x8882B0, 0x8882A8; limite 0x85A310). 1 si el residuo supera el limite (division defectuosa).
+int __cdecl FdivBugCheck() {
+    volatile double divisor  = *reinterpret_cast<const double*>(0x8882B0);
+    volatile double dividend = *reinterpret_cast<const double*>(0x8882A8);
+    volatile double quotient = dividend / divisor;
+    volatile double product  = quotient * divisor;
+    volatile double residue  = dividend - product;
+    return residue > *reinterpret_cast<const double*>(0x85A310) ? 1 : 0;
+}
+
+// 0x826F04: IsProcessorFeaturePresent(PF_FLOATING_POINT_PRECISION_ERRATA) buscada en KERNEL32 por nombre (el EXE no la importa para funcionar en sistemas viejos); sin ella, la prueba FDIV
+int __cdecl DetectFdivBug() {
+    if (const HMODULE kernel = GetModuleHandleA("KERNEL32")) {
+        if (const auto present = reinterpret_cast<BOOL(WINAPI*)(DWORD)>(GetProcAddress(kernel, "IsProcessorFeaturePresent"))) {
+            return present(0);
+        }
+    }
+    return FdivBugCheck();
+}
+
+// 0x821397 (__fpmath, apuntada por _FPinit 0x8E2B74 y llamada por __cinit antes de la tabla C): tabla de despacho, _adjust_fdiv (0xC9AC00), precision de 53 bits (_controlfp(_PC_53, _MCW_PC),
+// que en el EXE pasa por 0x825136 con la mascara sin el bit 0x80000) y limpieza de las excepciones pendientes (fnclex; aqui _clearfp, que ademas limpia las banderas de MXCSR)
+void __cdecl FpMath() {
+    FpInitDispatch();
+    *reinterpret_cast<volatile int*>(0xC9AC00) = DetectFdivBug();
+    _controlfp(0x10000, 0x30000);
+    _clearfp();
+}
+
+// 0x823B76 (__cinit): _FPinit (puntero 0x8E2B74 = __fpmath 0x821397), tabla C (se detiene en la primera que devuelve distinto de cero y devuelve ese valor), atexit(0x82BF1E) e inicializadores de C++.
+// De los 1.668 inicializadores de C++ se ejecutan aqui los del CRT (cookie de seguridad) y las 1.489 constantes x87; el resto (140 constructores con atexit, 34 asignaciones de datos del juego, 1 llamada)
+// escribe en objetos de DatosExe (ver docs/CodigoVivoExe/fase8-inicializadores.csv).
+int __cdecl Cinit() {
+    if (const uint32_t preHook = *reinterpret_cast<uint32_t*>(0x8E2B74)) { // _FPinit
+        if (preHook == 0x821397) {
+            FpMath(); // el unico valor que lleva este EXE: __fpmath, reconstruida
+        } else {
+            reinterpret_cast<void(__cdecl*)()>(preHook)();
+        }
+    }
+    for (const InitFn fn : kTableC) {
+        if (!fn) {
+            continue;
+        }
+        if (const int code = fn()) {
+            return code;
+        }
+    }
+    Onexit(reinterpret_cast<void*>(&RtcTerminate));
+    InitSecurityCookie();
+    RunX87StaticInitializers();
+    return 0;
+}
+
 int __cdecl StandaloneStartup() {
     if (const int code = StartupEarly()) {
         return code;
@@ -499,11 +677,6 @@ int __cdecl StandaloneStartup() {
     if (const int code = StartupArguments()) {
         return code;
     }
-    if (const int code = Onexitinit()) {
-        return code;
-    }
-    Initstdio();
-    RunX87StaticInitializers();
-    return 0;
+    return Cinit();
 }
 } // namespace ExeCrt

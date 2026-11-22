@@ -48,6 +48,8 @@ Resumen de lo que dicen estas 5 rupturas sobre el **plan** (esto es lo más impo
 * El orden real de ruptura lo marcan las **tablas de punteros a código** del motor (3.769 ranuras `.rdata` y 95 `.data` sin gancho según IND0A, 52 en vtables), no las llamadas directas.
 * Coincide con lo que ya vio `datos-exe` (DE04-R: «35 objetos de `.data` que toca código del EXE no catalogado (huecos sin función)»).
 
+> **Actualización 21/11/2026 (rama `vivo-crtb`, [ejecucion-crt-fase8b.md](ejecucion-crt-fase8b.md)):** la ruptura 1 (SSE2/`pow`) y `__initmbctable` quedan resueltas dentro de `ExeCrt` (`ExtraTablaC` desaparece de `StandaloneExe.cpp`; `StandaloneStartup` ejecuta `__cinit` entero: `__fpmath`, tabla C, cookie y constantes x87). Con el ejecutable independiente reconstruido el primer INT3 sigue siendo de RpWorld (0x750430) y el censo no registra ninguna llamada a código original del CRT.
+
 ## 4. (c) Qué falta, por categoría (cifras reales)
 
 Medido de nuevo con los `.obj` actuales (`contrib`/IND0A `scan_obj.py` + `analizar.py`; `docs/CodigoVivoExe/fase8-experimento/resumen.json`):

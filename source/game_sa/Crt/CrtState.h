@@ -19,7 +19,8 @@ struct ThreadData {
     char*        token;           // +0x18 siguiente posicion de strtok
     unsigned char pad1C[0x38];    // +0x1C
     void*        xcptActTab;      // +0x54 (apunta a 0x8E3510 al crearlo)
-    unsigned char pad58[0x0C];    // +0x58
+    unsigned char pad58[0x08];    // +0x58
+    void*        mbcInfo;         // +0x60 pthreadmbcinfo (tabla _mbctype del hilo; lo rellena __updatetmbcinfo 0x83312F)
     void*        locInfo;         // +0x64 pthreadlocinfo
     unsigned char pad68[0x20];    // +0x68 .. +0x88
 };

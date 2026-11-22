@@ -81,6 +81,30 @@ def literales_cpp():
     return out
 
 
+# Inicializadores del CRT que reconstruye source/game_sa/Crt (ExeCrt, sin gancho: corren antes de que exista la DLL). Parte CRT-B de la fase 8 (ejecucion-crt-fase8b.md).
+INICIALIZADOR_CRT_HECHO = {
+    0x826A72: 'ExeCrt::TableC826A72', 0x821CBE: 'ExeCrt::Onexitinit', 0x823EE5: 'ExeCrt::Initstdio', 0x8289F5: 'ExeCrt::TableCSseAvailableInit',
+    0x833494: 'ExeCrt::InitMbcTable', 0x82AC54: 'ExeCrt::TableCUnhandledFilterInit', 0x8339CA: 'ExeCrt::InitSecurityCookie',
+}
+
+
+def estado_inicializador(fila, va):
+    """(estado, nota) de un inicializador tras la parte CRT-B: hecho en ExeCrt::Cinit, constante x87 hecha, o pendiente de DatosExe (objetos del juego)."""
+    if va in INICIALIZADOR_CRT_HECHO:
+        return 'hecho', INICIALIZADOR_CRT_HECHO[va] + ' (ExeCrt::Cinit, en el orden del EXE)'
+    clase = fila['clase']
+    if clase.startswith('constante x87'):
+        return 'hecho', 'constante x87 plegada en CrtStaticInitTable.inc (ExeCrt::RunX87StaticInitializers)'
+    if clase.startswith('constructor'):
+        return 'pendiente-DatosExe', 'constructor de un objeto estatico del juego (memoria .bss/.data de DatosExe) y destructor registrado con atexit: lo ejecutara DatosExe al definir el objeto'
+    if clase.startswith('llamada'):
+        return 'pendiente-DatosExe', 'llamada que rellena datos .bss/.data del juego (DatosExe)'
+    cita = fila['destino_citado_en_cpp']
+    if cita in ('si', 'parcial'):
+        return 'pendiente-DatosExe', 'valor inicial de un global del juego que el C++ ya declara en ' + (fila['archivo_cpp'] or 'otro archivo') + ': lo define DatosExe'
+    return 'pendiente-DatosExe', 'valor inicial de un global del juego (.bss/.data) sin declaracion en C++ todavia: lo define DatosExe'
+
+
 def inicializadores(img, cpp):
     md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
     md.detail = True
@@ -121,6 +145,7 @@ def inicializadores(img, cpp):
                 'destino_citado_en_cpp': 'si' if destinos and all(d in cpp for d in set(destinos)) else ('parcial' if cubiertos else 'no'),
                 'archivo_cpp': cubiertos[0] if cubiertos else '',
             })
+            filas[-1]['estado'], filas[-1]['nota'] = estado_inicializador(filas[-1], p)
     return filas
 
 
@@ -214,6 +239,17 @@ ENGANCHADAS_P4 = {
     0x822F40: 'destructor con borrado escalar (CrtExceptionDtor)', 0x822F5C: 'destructor con borrado escalar (CrtExceptionDtor)', 0x822F78: 'destructor con borrado escalar (CrtExceptionDtor)',
     0x822FBD: 'destructor con borrado escalar (CrtExceptionDtor)', 0x822E45: 'std::exception::what (CrtExceptionDtor)',
 }
+ARRANQUE_CRTB = {
+    0x823B76: '__cinit (CrtStartup::Cinit)', 0x821397: '__fpmath / _FPinit (CrtStartup::FpMath)', 0x833494: '__initmbctable (CrtMbcs::InitMbcTable)', 0x826A72: 'tabla C 0x826A72 (CrtStartup::TableC826A72)',
+    0x8289F5: '__sse2_available_init (CrtStartup::TableCSseAvailableInit)', 0x8289C0: 'prueba SSE2 bajo SEH (CrtStartup::Sse2ExecutionProbe)', 0x82AC54: 'tabla C 0x82AC54 (CrtStartup::TableCUnhandledFilterInit)',
+    0x82AC0E: 'filtro de excepciones no manejadas (CrtStartup::CrtUnhandledExceptionFilter; terminate del CRT enlazado)', 0x832ECF: '_ValidateExecute (CrtStartup::IsValidCodePointer)',
+    0x8339CA: '__security_init_cookie (CrtStartup::InitSecurityCookie)', 0x82BF1E: 'terminacion de RTC (CrtStartup::RtcTerminate)',
+    0x834B6E: '_strncnt (CrtMbcs::Strncnt; usercall: reconstruida sin gancho)', 0x832F45: '__getmbcp lcid (absorbida en CrtMbcs::MbcpToLcid; usercall)',
+}
+ENGANCHADAS_CRTB = {
+    0x833344: '_setmbcp (CrtMbcs::Setmbcp)', 0x83319E: 'setmbcp_nolock (CrtMbcs::SetmbcpCore)', 0x832F74: 'setSBCS (CrtMbcs::SetSbcs)', 0x832F9D: 'setSBUpLow (CrtMbcs::SetSbUpLow)',
+    0x83312F: '__updatetmbcinfo (CrtMbcs::UpdateTMbcInfo)', 0x836697: '_mbschr (CrtMbcs::Mbschr)',
+}
 ARRANQUE_RECONSTRUIDO = {
     0x82C457: '__heap_select (CrtStartup::HeapSelect)', 0x82C471: '__heap_init (CrtStartup::HeapInit)', 0x82AC74: '__mtinitlocks (CrtStartup::Mtinitlocks)',
     0x82ACBD: '__mtdeletelocks (CrtStartup::Mtdeletelocks)', 0x827D25: '__mtinit (CrtStartup::Mtinit)', 0x827B0C: '__mtterm (CrtStartup::Mtterm)',
@@ -231,8 +267,12 @@ def resultado_lote(fila):
     lote, sub = fila['lote'], fila['subgrupo']
     if va in ENGANCHADAS_P4:
         return 'enganchada', ENGANCHADAS_P4[va]
+    if va in ENGANCHADAS_CRTB:
+        return 'enganchada', ENGANCHADAS_CRTB[va]
     if va in ARRANQUE_RECONSTRUIDO:
         return 'reconstruida-sin-gancho', ARRANQUE_RECONSTRUIDO[va]
+    if va in ARRANQUE_CRTB:
+        return 'reconstruida-sin-gancho', ARRANQUE_CRTB[va]
     if lote == 'F3':
         return 'enlazador', 'thunk de carga retardada / importacion: lo genera el enlazador (DelayLoadThunks.cpp ya reconstruye los envoltorios stdcall; los ayudantes jmp eax no se escriben en C++)'
     if lote == 'F4':

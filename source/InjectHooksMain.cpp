@@ -690,6 +690,7 @@
 #include "game_sa/Crt/CrtFormat.h"
 #include "game_sa/Crt/CrtCtype.h"
 #include "game_sa/Crt/CrtLocale.h"
+#include "game_sa/Crt/CrtMbcs.h"
 #include "game_sa/Crt/CrtInput.h"
 #include "game_sa/Crt/CrtLowIo.h"
 #include "game_sa/Crt/CrtStdio.h"
@@ -1267,6 +1268,7 @@ void InjectHooksMain() {
     CrtFormatInjectHooks();  // lote CRT4A: _output (motor de printf)
     CrtCtypeInjectHooks();   // lote CRT4A: _tolower/isdigit/isspace/isxdigit del locale del hilo (+ CRT4A-locale: toupper, isalpha..., atol, stricmp, strlwr...)
     CrtLocaleInjectHooks();  // lote CRT4A-locale: __updatetlocinfo, _isctype, _tolower_lk/_toupper_lk, __crtLCMapStringA, __crtGetStringTypeA, _wctomb, _mbtowc
+    CrtMbcsInjectHooks();    // lote CRT-B (fase 8): _setmbcp y su nucleo, setSBCS/setSBUpLow, __updatetmbcinfo, __mbschr (__initmbctable queda sin gancho: arranque)
     CrtInputInjectHooks();   // lote CRT4A: _input (motor de scanf), _ungetc_nolock, _getbuf
     CrtFloatInInjectHooks(); // lote CRT4A: texto -> coma flotante (_strgtold12, _ld12cvt, _atodbl, _atoflt, _fassign)
     CrtMemInjectHooks();     // lote P4 E2-cadenas: memcpy/memmove/memset/strchr/_strdup del CRT del EXE enlazados al CRT de MSVC

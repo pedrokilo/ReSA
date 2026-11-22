@@ -1,0 +1,71 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo censo
+codigo original 0x00401000-0x00858000: NO copiado, relleno con INT3 (4550656 bytes)
+seccion .text    VA 0x00401000 virtual  4546560: codigo, omitida
+seccion _rwcseg  VA 0x00857000 virtual     4096: codigo, omitida
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+datos copiados desde el original: 641024 bytes
+imports de la IAT original: 214, sin resolver: 0
+tabla de ret n cargada: 9101312 bytes
+stubs explicitos cargados: 0
+[    16 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+[    16 ms] StandaloneStartup correcto (tabla C de __cinit completa); iniciando el CRT propio
+[    16 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)
+[    16 ms] DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)
+[   282 ms] latido: frame=0 codigo-original-distinto=0 hits=0 excepciones=0
+[   282 ms]   ventana 0x003811D4 clase=ConsoleWindowClass titulo="D:\Original\_crtb_run\gta_sa_standalone.exe" visible=1 922x517
+[  1016 ms] DllMain devolvio 1
+[  1016 ms] shims del experimento instalados (0x750430, 0x750460, 0x750480 parcial)
+[  1016 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[  1016 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[  1016 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[  1016 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[  1016 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[  1016 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[  1016 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[  1016 ms] llamando a NOTSA_WinMain (WinMain reconstruido)
+[  1860 ms] CODIGO ORIGINAL #1: 0x00750AC0 llamado desde 0x01DF9361 [propio] ecx=00750AC0 args=08789FC0 001AF590
+[  1860 ms] CODIGO ORIGINAL #2: 0x007F98D0 llamado desde 0x01E22494 [propio] ecx=007F98D0 args=00000000 075223BC
+[  1860 ms] CODIGO ORIGINAL #3: 0x007F99B0 llamado desde 0x01E3D764 [propio] ecx=00000001 args=08775940 001B106C
+[  1875 ms] BUCLE: 0x007F98D0 llamado mas de 400 veces (el retorno simulado no basta)
+FALLO (bucle en el censo) codigo 0x80000003 en EIP=0x007F98D0 [original(codigo)] t=1875 ms
+  EAX=00000028 EBX=001AFE98 ECX=007F98D0 EDX=075223BC ESI=001AF580 EDI=001AF650 EBP=001AF650 ESP=001AF570
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x0] 0x01E22494 propio
+    [esp+0x1C] 0x007F98D0 original(codigo)
+    [esp+0xC4] 0x018763EE propio
+    [esp+0xCC] 0x007FE420 original(codigo)
+    [esp+0xE4] 0x00E29B6D propio
+    [esp+0xEC] 0x01E22450 propio
+    [esp+0xFC] 0x01E34A33 propio
+    [esp+0x110] 0x00750460 original(codigo)
+    [esp+0x1D8] 0x01873AC6 propio
+    [esp+0x1EC] 0x007FE420 original(codigo)
+    [esp+0x1F0] 0x01873AD7 propio
+    [esp+0x204] 0x007FE420 original(codigo)
+    [esp+0x21C] 0x01875BC8 propio
+    [esp+0x230] 0x01875BD7 propio
+    [esp+0x28C] 0x01876568 propio
+    [esp+0x294] 0x01876568 propio
+    [esp+0x2B4] 0x01873D9B propio
+    [esp+0x2C4] 0x01873AEA propio
+    [esp+0x2CC] 0x01873D1C propio
+    [esp+0x2EC] 0x01CCCCCC propio
+    [esp+0x350] 0x0109080B propio
+    [esp+0x3AC] 0x0249B5A6 propio
+    [esp+0x3CC] 0x0173D595 propio
+    [esp+0x3F0] 0x0135F847 propio
+    [esp+0x48C] 0x0249CB2C propio
+    [esp+0x558] 0x00FFFFFF propio
+    [esp+0x55C] 0x00FFFFFF propio
+    [esp+0x5F4] 0x0249C1D9 propio
+    [esp+0x6D0] 0x01CCCCCC propio
+    [esp+0x6DC] 0x0249C8A8 propio
+[  1875 ms] estado: dispositivo D3D9 [0xC97C28]=0x13391C80, RwCamera [0xC1703C]=0x075223BC, contador de fotogramas=0, ventanas del proceso:
+[  1875 ms]   ventana 0x001B106C clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 3464x1504
+[  1875 ms]   ventana 0x003811D4 clase=ConsoleWindowClass titulo="D:\Original\_crtb_run\gta_sa_standalone.exe" visible=1 1614x904
+[  1875 ms]   ventana 0x000911E2 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[  1875 ms]   ventana 0x008804A8 clase=IME titulo="Default IME" visible=0 0x0

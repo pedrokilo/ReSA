@@ -1,0 +1,23 @@
+va,bytes,lote,funcion,sustituto,enganche,verificacion,nota
+0x00833494,30,F2,__initmbctable,CrtMbcs.cpp: InitMbcTable,no (arranque),banco FnCRTB8A (0 diferencias),_setmbcp(-3) la primera vez; la llaman __setargv y la tabla C de __cinit
+0x00833344,324,E2-locale-1,_setmbcp,CrtMbcs.cpp: Setmbcp,si,banco FnCRTB8A (0 diferencias),bajo el cerrojo 0xD; reutiliza o reserva el bloque de 0x220 bytes; -2/-3/-4
+0x0083319E,406,E2-locale-1,_setmbcp (nucleo),CrtMbcs.cpp: SetmbcpCore,si,banco FnCRTB8A (0 diferencias),"paginas conocidas (tabla 0x8E39F0, 5 entradas), GetCPInfo para las demas, un byte para 0"
+0x00832F74,41,E2-locale-1,setSBCS,CrtMbcs.cpp: SetSbcs,si,banco FnCRTB8A (0 diferencias),tablas a cero
+0x00832F9D,402,E2-locale-1,setSBUpLow,CrtMbcs.cpp: SetSbUpLow,si,banco FnCRTB8A (0 diferencias),mapa de caja con GetStringTypeA y LCMapStringA (los ayudantes ya eran C++)
+0x00832F45,47,E2-locale-1,LCID de la pagina multibyte,CrtMbcs.cpp: MbcpToLcid (ayudante),no (usercall),banco FnCRTB8A (dentro de _setmbcp),"932->0x411, 936->0x804, 949->0x412, 950->0x404; 0 para el resto"
+0x0083312F,98,E2-locale-1,__updatetmbcinfo,CrtMbcs.cpp: UpdateTMbcInfo,si,banco FnCRTB8A (0 diferencias),el hilo toma el bloque global; libera el que deja si nadie mas lo usa
+0x00836697,123,E2-cadenas-1,__mbschr,CrtMbcs.cpp: Mbschr,si,banco FnCRTB8A (0 diferencias),sin pagina multibyte llama a strchr
+0x00834B6E,28,E2-cadenas-1,_strncnt,CrtMbcs.cpp: Strncnt,no (usercall),"banco FnCRTB8A (0 diferencias, con adaptador)",longitud acotada
+0x00826A72,45,F2,tabla C 0x826A72,CrtStartup.cpp: TableC826A72,no (arranque),banco FnCRTB8A (0 diferencias),ocho bytes a 0xFF en 0x8E37B4
+0x008289F5,87,F2,__sse2_available_init,CrtStartup.cpp: TableCSseAvailableInit,no (arranque),banco FnCRTB8A (0 diferencias),CPUID + prueba SSE2 -> 0xC9C400/0xC9C404 (elige el nucleo de pow/floor/ceil; la rama x87 de pow 0x822184 ya no se alcanza con las excepciones enmascaradas)
+0x008289C0,46,E2-excepciones-2,prueba de SSE2 bajo SEH,CrtStartup.cpp: Sse2ExecutionProbe,no (arranque),banco FnCRTB8A (dentro de 0x8289F5),una instruccion SSE2 bajo __try/__except
+0x0082AC54,19,F2,tabla C 0x82AC54,CrtStartup.cpp: TableCUnhandledFilterInit,no (arranque),banco FnCRTB8A (0 diferencias),SetUnhandledExceptionFilter; el anterior en 0xC9AC74
+0x0082AC0E,70,E2-excepciones-2,filtro de excepciones no manejadas,CrtStartup.cpp: CrtUnhandledExceptionFilter,no (arranque),banco FnCRTB8A (0 diferencias salvo la rama de terminate),terminate del CRT enlazado; encadena con el filtro anterior si es un puntero de codigo valido
+0x00832ECF,24,E2-excepciones-2,_ValidateExecute,CrtStartup.cpp: IsValidCodePointer,no (arranque),banco FnCRTB8A (dentro de 0x82AC0E),IsBadCodePtr
+0x008339CA,86,F2,__security_init_cookie,CrtStartup.cpp: InitSecurityCookie,no (arranque),"banco FnCRTB8A (0 diferencias, llamadas del sistema fijadas)",primer inicializador de C++; 0xBB40E64E si la mezcla da 0
+0x0082BF1E,68,F1,terminacion de RTC,CrtStartup.cpp: RtcTerminate,no (arranque),por inspeccion (rango vacio),registrada con atexit por __cinit
+0x00823B76,101,F1,__cinit,CrtStartup.cpp: Cinit,no (arranque),"ejecutable independiente (docs/CodigoVivoExe/ejecucion-crt-fase8b.md, seccion 5)","gancho previo, tabla C, atexit(RTC), cookie y constantes x87"
+0x00821397,23,F1,__fpmath (_FPinit),CrtStartup.cpp: FpMath,no (arranque),banco FnCRTB8A (0 diferencias); ejecutable independiente,"la llama Cinit por 0x8E2B74: despacho, _adjust_fdiv, _controlfp(_PC_53), fnclex; era el primer INT3 de Cinit en el ejecutable independiente"
+0x0082134F,56,V5-1,despacho de intrinsecas,CrtStartup.cpp: FpInitDispatch,no (arranque),banco FnCRTB8A (dentro de 0x821397),seis punteros a rutinas del EXE en 0x8E30F0
+0x00826F04,41,V5-2,__ms_p5_mp_test_fdiv,CrtStartup.cpp: DetectFdivBug,no (arranque),banco FnCRTB8A (dentro de 0x821397),"IsProcessorFeaturePresent(0) por nombre en KERNEL32; si no existe, FdivBugCheck"
+0x00826EC4,64,V5-2,__ms_p5_test_fdiv,CrtStartup.cpp: FdivBugCheck,no (arranque),"banco FnCRTB8A (dentro de 0x821397, rama sin la API)",prueba de la division del Pentium con las constantes del EXE

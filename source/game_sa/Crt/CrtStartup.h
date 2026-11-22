@@ -37,7 +37,19 @@ void  __cdecl DoExit(int code, int quick, int retcaller);    // 0x823BDB _doexit
 // Parte de `entry` que reconstruyen las funciones de arriba mas __ioinit: devuelve 0 si todo fue bien o el codigo de _amsg_exit (0x1C monton, 0x10 hilos, 0x1B E/S).
 int  __cdecl StartupEarly();
 
-// Arranque completo del estado del CRT del EXE para el ejecutable independiente (GTASA_STANDALONE_STARTUP): StartupEarly + __onexitinit + __initstdio + las constantes x87 de CrtStaticInit.
-// Devuelve 0 o el codigo de _amsg_exit. Los 140 constructores estaticos con atexit y las 38 asignaciones de datos de _initterm los aporta DatosExe (ver docs/CodigoVivoExe/fase8-arranque.md).
+// __cinit 0x823B76 (sin gancho): _FPinit = __fpmath 0x821397, tabla C completa en el orden del EXE (0x826A72, __onexitinit, __initstdio, 0x8289F5 deteccion SSE2, __initmbctable, 0x82AC54 filtro de
+// excepciones), atexit(0x82BF1E = RtcTerminate), cookie de seguridad (0x8339CA, primer inicializador de C++) y las constantes x87. Devuelve 0 o el primer codigo distinto de cero de la tabla.
+// Entradas de la tabla C de __cinit (todas devuelven 0; las ejecuta Cinit en este orden; publicas para el banco fuera del juego, reversing/FnCRTB8A):
+int  __cdecl TableC826A72();                 // 0x826A72: ocho bytes a 0xFF en 0x8E37B4
+int  __cdecl TableCSseAvailableInit();       // 0x8289F5: CPUID + prueba SSE2 -> 0xC9C400/0xC9C404 (con 0x8289C0 dentro)
+int  __cdecl TableCUnhandledFilterInit();    // 0x82AC54: SetUnhandledExceptionFilter(0x82AC0E) y el filtro anterior en 0xC9AC74
+long __stdcall CrtUnhandledExceptionFilter(void* exceptionPointers); // 0x82AC0E: terminate para excepciones de C++ sin capturar; si no, encadena con el filtro anterior (0xC9AC74)
+void __cdecl FpMath();           // 0x821397 __fpmath (_FPinit): dispatch de intrinsecas, _adjust_fdiv, precision de 53 bits, fnclex
+int  __cdecl Cinit();
+void __cdecl RtcTerminate();       // 0x82BF1E
+void __cdecl InitSecurityCookie(); // 0x8339CA
+
+// Arranque completo del estado del CRT del EXE para el ejecutable independiente (GTASA_STANDALONE_STARTUP): StartupEarly + StartupArguments (con __initmbctable) + Cinit.
+// Devuelve 0 o el codigo de _amsg_exit. Los 140 constructores estaticos con atexit y las asignaciones de datos del juego de _initterm los aporta DatosExe (ver docs/CodigoVivoExe/fase8-inicializadores.csv).
 int  __cdecl StandaloneStartup();
 } // namespace ExeCrt

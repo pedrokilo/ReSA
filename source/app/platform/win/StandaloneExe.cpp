@@ -408,18 +408,6 @@ void CargarTablaRet() {
     Log("tabla de ret n cargada: %lu bytes", n);
 }
 
-// Entradas de la tabla C de __cinit (0x8A5A14..0x8A5A30) que ExeCrt::StandaloneStartup aun no reconstruye (fase8-experimento.md, seccion de hallazgos):
-//   0x826A72: 8 bytes a 0xFF en 0x8E37B4;  0x8289F5: deteccion de SSE2 -> [0xC9C400] y [0xC9C404] (pow, etc. eligen su nucleo con ella);
-//   0x82AC54 (SetUnhandledExceptionFilter con el filtro 0x82AC0E) la hace el CRT propio; 0x833494 (_setmbcp(-3), tablas MBCS en 0xC9AF8C.. y 0xC9C1A4..) sigue PENDIENTE.
-void ExtraTablaC() {
-    for (int i = 0; i < 8; ++i) *(volatile uint8_t*)(0x8E37B4 + i) = 0xFF;
-    int r[4];
-    __cpuid(r, 1);
-    const bool sse2 = ((r[3] >> 26) & 1) != 0 && IsProcessorFeaturePresent(PF_XMMI64_INSTRUCTIONS_AVAILABLE);
-    *(volatile int*)0xC9C404 = sse2 ? 1 : 0;
-    *(volatile int*)0xC9C400 = sse2 ? 1 : 0;
-}
-
 // ---------------- Reconstrucciones minimas del propio experimento ("shims"; NO estan en el catalogo de ganchos) ----------------
 // Envolturas del plugin 0x509 de RwCamera (RpWorld): 0x750430 (begin update), 0x750460 (end update) y 0x750480 (+0x10 de la camara: sincroniza el mundo).
 // Las dos primeras son exactas (cuerpo de 25 y 27 bytes con un `jmp` final a la funcion guardada del plugin). La tercera (0x750480, 0x28A bytes: recorrido del BSP
@@ -513,8 +501,7 @@ extern "C" void __cdecl FaseEntrada() {
         LogT("ERROR: StandaloneStartup devolvio 0x%X", codigo);
         Salir((UINT)codigo);
     }
-    ExtraTablaC();
-    LogT("StandaloneStartup correcto (+ExtraTablaC); iniciando el CRT propio");
+    LogT("StandaloneStartup correcto (tabla C de __cinit completa); iniciando el CRT propio");
     RestaurarDynTls();
     WinMainCRTStartup();
     TerminateProcess(GetCurrentProcess(), 0);

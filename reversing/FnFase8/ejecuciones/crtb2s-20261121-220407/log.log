@@ -1,0 +1,17 @@
+[info][22:03:44.619][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13562 en 1016 clases/grupos (11394 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13557. Desactivadas: 5.
+[info][22:03:44.620][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][22:03:44.620][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][22:03:44.623][CdStreamInfo.cpp:69]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][22:03:44.643][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][22:03:44.981][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][22:03:45.275][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[info][22:04:09.541][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13562 en 1016 clases/grupos (11394 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13557. Desactivadas: 5.
+[info][22:04:09.542][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][22:04:09.542][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][22:04:09.545][CdStreamInfo.cpp:69]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][22:04:09.546][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][22:04:09.886][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][22:04:10.202][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][22:04:10.265][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7

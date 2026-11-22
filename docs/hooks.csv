@@ -13438,3 +13438,9 @@ ExeCrt,DtorBody822EBF,0x00822EBF,1,0,0,S
 ExeCrt,DtorBody822EFA,0x00822EFA,1,0,0,S
 ExeCrt,DtorBody822F94,0x00822F94,1,0,0,S
 ExeCrt,StdExceptionWhat,0x00822E45,1,0,0,S
+ExeCrt,Setmbcp,0x00833344,1,0,0,S
+ExeCrt,SetmbcpCore,0x0083319E,1,0,0,S
+ExeCrt,SetSbcs,0x00832F74,1,0,0,S
+ExeCrt,SetSbUpLow,0x00832F9D,1,0,0,S
+ExeCrt,UpdateTMbcInfo,0x0083312F,1,0,0,S
+ExeCrt,Mbschr,0x00836697,1,0,0,S
