@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataR5C.h"
 #include "eRadioID.h"
 #include <General.h>
 
@@ -55,7 +56,7 @@ public:
     }
 
 private:
-    static inline auto& m_sfLogLookup = StaticRef<float[50][2]>(0xb61100);
+    static inline auto& m_sfLogLookup = reinterpret_cast<std::add_lvalue_reference_t<float[50][2]>>(DatosExe::R5::vB61100);
 
 private:
     friend void InjectHooksMain();

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE4.h"
 
@@ -256,7 +257,7 @@ public:
     // color of currently rendered car
     // static uint8 ms_currentCol[4];
     static constexpr int32 NUM_CURRENT_COLORS = 4;
-    static inline auto& ms_currentCol = StaticRef<uint8[NUM_CURRENT_COLORS]>(0xB4E3F0);
+    static inline auto& ms_currentCol = reinterpret_cast<std::add_lvalue_reference_t<uint8[NUM_CURRENT_COLORS]>>(DatosExe::R5::vB4E3F0);
 
     // number of wheel upgrades available
     // static int16 ms_numWheelUpgrades[4];
@@ -271,7 +272,7 @@ public:
 
     // Light states for currently rendered car
     static constexpr int32 NUM_LIGHTS = 4;
-    static inline auto& ms_lightsOn = StaticRef<uint8[NUM_LIGHTS]>(0xB4E3E8);
+    static inline auto& ms_lightsOn = reinterpret_cast<std::add_lvalue_reference_t<uint8[NUM_LIGHTS]>>(DatosExe::R5::vB4E3E8);
 
     // extras ids for next-spawned car
     // static char ms_compsUsed[2];

@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -397,8 +398,8 @@ float NormalizePadAxis(LONG value) {
 void CPad::ProcessPad(ePadID padID) {
     LPDIRECTINPUTDEVICE8* pDiDevice = nullptr;
     DIJOYSTATE2 joyState;
-    auto& leftStickPos = StaticRef<RwV2d>(0xC8CFB8);
-    auto& rightStickPos = StaticRef<RwV2d>(0xC8CFB0);
+    auto& leftStickPos = reinterpret_cast<std::add_lvalue_reference_t<RwV2d>>(DatosExe::R5::rC8CFB8);
+    auto& rightStickPos = reinterpret_cast<std::add_lvalue_reference_t<RwV2d>>(DatosExe::R5::rC8CFB0);
 
     if (padID == PAD1) {
         pDiDevice = &PSGLOBAL(diDevice1);

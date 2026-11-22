@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
@@ -975,15 +976,15 @@ void CHud::DrawMissionTimers() {
     CFont::SetWrapx(sx * DatosExe::Rdata::k85951C); CFont::SetEdge(2); CFont::SetDropColor(CRGBA(0, 0, 0, 255));
     auto* clock = reinterpret_cast<const uint8*>(0xBA1788);
     auto* flags = reinterpret_cast<uint8*>(0xBAA394);
-    if (coop && !clock[0x38]) StaticRef<uint8>(0xBAA38A) = 0;
+    if (coop && !clock[0x38]) DatosExe::R5::vBAA38A = 0;
     for (int i = 0; i < 4; ++i) if (!*reinterpret_cast<const uint8*>(0xBA1806 + 0x44 * i)) flags[i] = 0;
     if (StaticRef<uint8>(0xBA18D8) != 1) return;
     GxtChar text[200];
     const float textX = float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C;
     if (clock[0x38] == 1) {
         auto& blink = DatosExe::Bss::bBAA388;
-        if (!StaticRef<uint8>(0xBAA38A)) blink = 1;
-        StaticRef<uint8>(0xBAA38A) = 1;
+        if (!DatosExe::R5::vBAA38A) blink = 1;
+        DatosExe::R5::vBAA38A = 1;
         if (blink && ++blink > 50) blink = 0;
         CFont::SetColor(HudColour.GetRGB(static_cast<eHudColours>(4)));
         if ((CTimer::GetFrameCounter() & 4) || !blink) {

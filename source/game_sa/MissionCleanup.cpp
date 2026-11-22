@@ -23,6 +23,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
+#include "DatosExe/DataR5B.h"
 
 #include "MissionCleanup.h"
 
@@ -144,7 +146,7 @@ void CMissionCleanup::Process() {
         CTheZones::FillZonesWithGangColours(disable);
     }
     // 0x4685F1..0x468664
-    Raw<int32>(0x8D2534) = -1;
+    Raw<int32>(reinterpret_cast<uintptr_t>(&DatosExe::R5::v8D2534)) = -1;
     Raw<uint8>(0x96AB93) = 0;
     CGangWars::ClearSpecificZonesToTriggerGangWar();
     Raw<uint8>(0xC0FCB2) = 0;
@@ -253,7 +255,7 @@ void CMissionCleanup::Process() {
     }
     // 0x468966..0x4689B6
     Raw<uint8>(0xC1CC00) = 0;
-    Raw<uint8>(0xC1CC01) = 0;
+    Raw<uint8>(reinterpret_cast<uintptr_t>(&DatosExe::R5::vC1CC01)) = 0;
     CGameLogic::ClearSkip(true);
     {
         const uint8 mode = Raw<uint8>(0x96A8B0);

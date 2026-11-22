@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE5.h"
@@ -1351,7 +1352,7 @@ void CCam::Process_1rstPersonPedOnPC(const CVector&, float orientation, float, f
         } else {
             const float vertical = mouseY * DatosExe::Rdata::k858B90, scale = m_fFOV * DatosExe::Rdata::k85A5C4;
             betaDelta = (scale * StaticRef<float>(0xB6EC1C)) * (mouseX * DatosExe::Rdata::k859024);
-            alphaDelta = (scale * StaticRef<float>(0xB6EC18)) * vertical;
+            alphaDelta = (scale * DatosExe::R5::vB6EC18) * vertical;
             orientation = vertical;
         }
         m_fHorizontalAngle = betaDelta + m_fHorizontalAngle; m_fVerticalAngle = alphaDelta + m_fVerticalAngle;
@@ -3192,7 +3193,7 @@ static void CamMouseFinalDistance355(CCam* cam, const CVector& target) {
 }
 static void CamMouseChanges355(float fov,float inputX,float inputY,bool sticks,float& beta,float& alpha) {
     const float scaleFactor=DatosExe::Rdata::k85A5C4, mouseBeta=-2.5f,mouseAlpha=4.f;
-    const float betaSensitivity=StaticRef<float>(0xB6EC1C),alphaSensitivity=StaticRef<float>(0xB6EC18);
+    const float betaSensitivity=StaticRef<float>(0xB6EC1C),alphaSensitivity=DatosExe::R5::vB6EC18;
     const float stickBeta=DatosExe::Rdata::k859B50,stickAlpha=DatosExe::Rdata::k8631AC,step=CTimer::GetTimeStep(),stickScale=DatosExe::Data::v8CC7CC;
     float betaResult,alphaResult;
     if(sticks){

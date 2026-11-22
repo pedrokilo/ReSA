@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -112,7 +113,7 @@ public:
 
     static inline auto& Pads = StaticRef<CPad[MAX_PADS]>(0xB73458);
 
-    static inline auto& bInvertLook4Pad = StaticRef<bool>(0xB73402);
+    static inline auto& bInvertLook4Pad = DatosExe::R5::vB73402;
     static inline auto& padNumber = DatosExe::Bss::bB73400;
 
 public:

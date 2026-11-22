@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
@@ -349,7 +350,7 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
     if (total <= 0) {
         return -1;
     }
-    if (StaticRef<uint8>(0x96917A)) {
+    if (DatosExe::R5::v96917A) {
         if (Cc63eRollFailsCpp(exeRand())) {
             return -1;
         }

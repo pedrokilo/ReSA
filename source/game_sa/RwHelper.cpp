@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataInicializadaXB.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -505,7 +506,7 @@ void SkinGetBonePositions(RpClump* clump) {
     struct BoneEntry { int32 parent; RwV3d position; };
     static_assert(sizeof(BoneEntry) == 0x10);
     auto& table      = *reinterpret_cast<BoneEntry(*)[64]>(0xC88258);
-    auto& calculated = *reinterpret_cast<uint8*>(0xC88658);
+    auto& calculated = *reinterpret_cast<uint8*>(&DatosExe::R5::vC88658);
     if (calculated) {
         return;
     }

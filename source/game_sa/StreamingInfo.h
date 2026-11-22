@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataR5C.h"
 
 #include <Base.h>
 #include <CdStreamInfo.h>
@@ -47,7 +48,7 @@ constexpr auto STREAMING_SECTOR_SIZE = 2048u; // OR `<< 11`
 
 class CStreamingInfo {
 public:
-    static inline auto& ms_pArrayBase = StaticRef<CStreamingInfo*>(0x9654B4); // Just a pointer to `CStreaming::ms_aInfoForModel`
+    static inline auto& ms_pArrayBase = reinterpret_cast<std::add_lvalue_reference_t<CStreamingInfo*>>(DatosExe::R5::r9654B4); // Just a pointer to `CStreaming::ms_aInfoForModel`
 
 public:
     static void InjectHooks();

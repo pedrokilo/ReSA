@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataR5A.h"
 #include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE2.h"
@@ -421,7 +422,7 @@ public:
         ENABLED_BY_SCRIPT
     };
     static inline auto& UseTextCommands = StaticRef<eUseTextCommandState>(0xA44B67);
-    static inline auto& DbgFlag = StaticRef<bool>(0x859CF8);
+    static inline auto& DbgFlag = DatosExe::R5::v859CF8;
     static inline auto& SwitchDefaultAddress = StaticRef<int32>(0xA43F54);
     static inline auto& SwitchDefaultExists = StaticRef<bool>(0xA43F58);
     static inline auto& ValueToCheckInSwitchStatement = StaticRef<int32>(0xA43F5C);

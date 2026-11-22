@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataR5B.h"
 #include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -37,7 +38,7 @@ VALIDATE_SIZE(tPedGroupTranslationData, 0xC);
 class CPopulation {
 public:
     static inline auto& PedDensityMultiplier = StaticRef<float>(0x8D2530);
-    static inline auto& m_AllRandomPedsThisType = StaticRef<int32>(0x8D2534);
+    static inline auto& m_AllRandomPedsThisType = DatosExe::R5::v8D2534;
     static inline auto& MaxNumberOfPedsInUse = DatosExe::Data::v8D2538;
     static inline auto& NumberOfPedsInUseInterior = DatosExe::Data::v8D253C;
     static inline auto& m_TranslationArray = StaticRef<tPedGroupTranslationData[POPCYCLE_TOTAL_GROUPS]>(0x8D2540);

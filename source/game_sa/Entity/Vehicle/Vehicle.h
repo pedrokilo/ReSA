@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataInicializadaXA.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -427,7 +428,7 @@ public:
     static inline auto& ms_fRailTrackResistance = StaticRef<float>(0x8D34AC);
     static inline auto& ms_fRailTrackResistanceDefault = StaticRef<float>(0x8D34B0);
     static inline auto& bDisableRemoteDetonation = StaticRef<bool>(0xC1CC00);
-    static inline auto& bDisableRemoteDetonationOnContact = StaticRef<bool>(0xC1CC01);
+    static inline auto& bDisableRemoteDetonationOnContact = DatosExe::R5::vC1CC01;
     static inline auto& m_bEnableMouseSteering = StaticRef<bool>(0xC1CC02);
     static inline auto& m_bEnableMouseFlying = StaticRef<bool>(0xC1CC03);
     static inline auto& m_nLastControlInput = StaticRef<eControllerType>(0xC1CC04);

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -605,7 +606,7 @@ public:
     static inline auto& s_HelicoptorsDisabled           = DatosExe::Bss::bB6B994;
     static inline auto& s_NextDummyEngineSlot           = DatosExe::Bss::bB6B998;
     // Como el original: el EXE guarda el puntero a los ajustes de radio en 0xB6B99C (4F5B35 mov [B6B99C],edx; 4F4ED0 mov eax,[B6B99C]); 0xB6B98C es s_pPlayerAttachedForRadio.
-    static inline auto& s_pVehicleAudioSettingsForRadio = StaticRef<tVehicleAudioSettings*>(0xB6B99C);
+    static inline auto& s_pVehicleAudioSettingsForRadio = reinterpret_cast<std::add_lvalue_reference_t<tVehicleAudioSettings*>>(DatosExe::R5::rB6B99C);
     static inline auto& s_DummyEngineSlots              = StaticRef<std::array<tDummyEngineSlot, SND_BANK_SLOT_DUMMY_END - SND_BANK_SLOT_DUMMY_FIRST>>(0xB6B9A0);
 
 public:
