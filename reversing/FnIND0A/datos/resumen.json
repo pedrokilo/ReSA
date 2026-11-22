@@ -1,94 +1,86 @@
 {
- "referencias_totales": 70825,
- "destinos_distintos": 18285,
- "objs": 1046,
- "hooks_direcciones": 12445,
+ "referencias_totales": 47861,
+ "destinos_distintos": 16933,
+ "objs": 1100,
+ "hooks_direcciones": 14118,
  "codigo": {
-  "destinos_texto": 13334,
-  "con_hook": 12444,
-  "sin_hook": 890,
+  "destinos_texto": 13744,
+  "con_hook": 13621,
+  "sin_hook": 123,
   "sin_hook_por_confianza": {
-   "C": 111,
-   "A": 517,
-   "B": 262
+   "C": 108,
+   "A": 12,
+   "B": 3
   },
   "por_categoria": {
-   "crt_o_biblioteca|A": 51,
-   "crt_o_biblioteca|B": 4,
-   "juego_sin_hook|A": 93,
-   "juego_sin_hook|B": 93,
-   "otro|A": 1,
-   "ruido_probable|C": 111,
-   "rw_enlazada_biblioteca|A": 21,
-   "rw_no_reconstruible|A": 31,
-   "rw_sin_hook|A": 320,
-   "rw_sin_hook|B": 165
+   "crt_o_biblioteca|A": 4,
+   "juego_sin_hook|A": 2,
+   "ruido_probable|C": 108,
+   "rw_sin_hook|A": 6,
+   "rw_sin_hook|B": 3
   },
-  "dentro_401000_81FFFF_AB": 723,
-  "fuera_AB": 56,
+  "dentro_401000_81FFFF_AB": 11,
+  "fuera_AB": 4,
   "cierre_por_llamadas": {
-   "funciones": 1569,
-   "bytes": 576738,
+   "funciones": 13,
+   "bytes": 9188,
    "por_region": {
-    "renderware": 1044,
-    "juego": 211,
-    "crt": 313,
-    "otro": 1
+    "crt": 1,
+    "renderware": 10,
+    "juego": 2
    },
    "bytes_por_region": {
-    "renderware": 309516,
-    "juego": 37142,
-    "crt": 230080,
-    "otro": 0
+    "crt": 626,
+    "renderware": 7941,
+    "juego": 621
    },
-   "llamadas_indirectas_sin_resolver": 1003,
-   "funciones_de_la_iat": 58
+   "llamadas_indirectas_sin_resolver": 50,
+   "funciones_de_la_iat": 0
   },
   "cierre_con_vtables": {
-   "funciones": 1572,
-   "bytes": 576757,
+   "funciones": 16,
+   "bytes": 9207,
    "por_region": {
-    "renderware": 1044,
-    "juego": 213,
-    "crt": 314,
-    "otro": 1
+    "crt": 2,
+    "renderware": 10,
+    "juego": 4
    },
    "bytes_por_region": {
-    "renderware": 309516,
-    "juego": 37152,
-    "crt": 230089,
-    "otro": 0
+    "crt": 635,
+    "renderware": 7941,
+    "juego": 631
    },
    "ranuras_sin_hook": 3,
-   "llamadas_indirectas_sin_resolver": 1003,
-   "funciones_de_la_iat": 58
+   "llamadas_indirectas_sin_resolver": 50,
+   "funciones_de_la_iat": 0
   },
-  "raices_funcion": 779
+  "raices_funcion": 15
  },
  "datos": {
-  "destinos_datos": 4949,
+  "destinos_datos": 3187,
   "por_seccion_tipo": {
-   ".data|variable_bss": 2773,
-   ".data|variable_data_inicializada": 1169,
-   ".rdata|cadena": 36,
-   ".rdata|constante_rdata": 458,
+   ".data|variable_bss": 1842,
+   ".data|variable_data_inicializada": 621,
+   ".rdata|cadena": 9,
+   ".rdata|constante_rdata": 200,
    ".rdata|vtable": 475,
-   "_TEXT_HA|variable__TEXT_HA": 38
+   "_TEXT_HA|variable__TEXT_HA": 38,
+   "_rwdseg|constante_rdata": 2
   },
-  "referencias_datos": 54225,
-  "con_tamano_conocido": 2892,
-  "bytes_conocidos": 39915,
-  "en_fuente": 4234,
-  "con_nombre_cpp": 2756,
+  "referencias_datos": 31111,
+  "con_tamano_conocido": 1284,
+  "bytes_conocidos": 31980,
+  "en_fuente": 2455,
+  "con_nombre_cpp": 1359,
   "direcciones_datos_usadas_por_todo_el_codigo_original": 20265,
-  "de_ellas_usadas_tambien_por_codigo_propio": 4917,
-  "usadas_solo_por_codigo_propio": 32
+  "de_ellas_usadas_tambien_por_codigo_propio": 3162,
+  "usadas_solo_por_codigo_propio": 25
  },
  "tablas_punteros": {
-  ".data|otra_tabla|enganchado": 140,
-  ".data|otra_tabla|sin_hook": 97,
-  ".rdata|otra_tabla|enganchado": 584,
-  ".rdata|otra_tabla|sin_hook": 3784,
+  ".data|otra_tabla|enganchado": 142,
+  ".data|otra_tabla|sin_hook": 95,
+  ".rdata|otra_tabla|enganchado": 599,
+  ".rdata|otra_tabla|sin_hook": 3769,
   ".rdata|vtable|enganchado": 5434,
   ".rdata|vtable|sin_hook": 52
  },
@@ -105,24 +97,28 @@
   "bytes": 248
  },
  "excluidas": {
-  "total": 118,
-  "enganchadas": 0,
+  "total": 155,
+  "enganchadas": 11,
   "referenciadas_por_codigo_propio": 2,
   "por_categoria": {
    "proteccion-descartada": 18,
-   "usercall-cubierta": 51,
+   "usercall-cubierta": 52,
    "no-es-funcion": 11,
    "salto-puro": 20,
    "sustituida-por-crt": 1,
-   "usercall-renderware": 17
+   "usercall-renderware": 17,
+   "retirada-quicktime": 2,
+   "sin-equivalente-cpp": 1,
+   "arranque-sin-gancho": 32,
+   "sin-espacio-para-gancho": 1
   }
  },
  "audit819": {
   "total": 819,
-  "hoy_enganchadas": 796,
-  "hoy_referenciadas": 819,
+  "hoy_enganchadas": 800,
+  "hoy_referenciadas": 800,
   "hoy_ref_confianza": {
-   "A": 819
+   "A": 800
   }
  }
 }

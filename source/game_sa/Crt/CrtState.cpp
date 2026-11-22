@@ -5,14 +5,15 @@
 #include "CrtState.h"
 #include "CrtHeap.h"
 #include "CrtLocale.h"
+#include "CrtStartup.h"
 #include <cstring>
+#include <string>
 
 // Reconstruccion de las funciones con estado del CRT del EXE (lote CRT2A). Ver CrtState.h y reversing/FnCRT2A/README.md.
 
 namespace ExeCrt {
 namespace {
 // Funciones del EXE de las que dependen (no reconstruidas en este lote: se llaman por su direccion)
-inline void  CallAmsgExit(int code) { reinterpret_cast<void(__cdecl*)(int)>(0x8244D1)(code); }          // _amsg_exit
 inline int   CallMtInitLockNum(int n) { return reinterpret_cast<int(__cdecl*)(int)>(0x82AD3F)(n); }      // _mtinitlocknum
 inline void* CallCalloc(unsigned int n, unsigned int s) { return reinterpret_cast<void*(__cdecl*)(unsigned int, unsigned int)>(0x824416)(n, s); }
 
@@ -20,7 +21,73 @@ inline DWORD&         TlsIndex()   { return *reinterpret_cast<DWORD*>(0x8E3110);
 inline CRITICAL_SECTION*& LockSlot(int n) { return *reinterpret_cast<CRITICAL_SECTION**>(0x8E31C0 + n * 8); }
 constexpr unsigned int FIRST_STD_FILE = 0x8E2C30;
 constexpr unsigned int LAST_STD_FILE  = 0x8E2E90;
+inline int&   ErrorMode()  { return *reinterpret_cast<int*>(0xC9AC58); }   // __error_mode (0 predeterminado, 1 stderr, 2 MessageBox)
+inline int&   AppType()    { return *reinterpret_cast<int*>(0x8E2EB4); }   // __app_type (1 consola, 2 grafica)
+inline void (__cdecl*& BannerHook())() { return *reinterpret_cast<void(__cdecl**)()>(0xC9ADD0); } // _pFFMSGBANNER del EXE (nula si no hay)
+struct RtErrEntry { int number; const char* text; };                        // tabla rterrs (0x8E3480, 18 entradas de 8 bytes)
+constexpr int RT_ERR_COUNT = 18;
 } // namespace
+
+// 0x82D520 _NMSG_WRITE(numero): busca el mensaje en la tabla rterrs; si el modo de error es stderr (o es el predeterminado en una aplicacion de consola) lo escribe con WriteFile en
+// GetStdHandle(STD_ERROR_HANDLE); si no (y el numero no es 0xFC, la cabecera de "run-time error") abre un MessageBox "Runtime Error! Program: <ruta recortada a 59 caracteres> <mensaje>".
+// El EXE pasa por __crtMessageBoxA (0x835177: carga user32 por nombre y elige ventana de escritorio/servicio); aqui es MessageBoxA con las mismas banderas (0x12010).
+void __cdecl NmsgWrite(int number) {
+    const RtErrEntry* const table = reinterpret_cast<const RtErrEntry*>(0x8E3480);
+    int index = 0;
+    while (index < RT_ERR_COUNT && table[index].number != number) {
+        ++index;
+    }
+    if (index >= RT_ERR_COUNT) {
+        return;
+    }
+    const char* const message = table[index].text;
+    const int mode = ErrorMode();
+    if (mode == 1 || (mode == 0 && AppType() == 1)) {
+        DWORD written = 0;
+        WriteFile(GetStdHandle(STD_ERROR_HANDLE), message, static_cast<DWORD>(std::strlen(message)), &written, nullptr);
+        return;
+    }
+    if (number == 0xFC) {
+        return;
+    }
+    char program[0x104 + 1];
+    program[0] = '\0';
+    if (GetModuleFileNameA(nullptr, program, 0x104) == 0) {
+        std::strcpy(program, "<program name unknown>");
+    }
+    char* shown = program;
+    if (std::strlen(program) + 1 > 0x3C) {
+        shown = program + std::strlen(program) - 0x3B;
+        std::strncpy(shown, "...", 3);
+    }
+    std::string text = "Runtime Error!\n\nProgram: ";
+    text += shown;
+    text += "\n\n";
+    text += message;
+    MessageBoxA(nullptr, text.c_str(), "Microsoft Visual C++ Runtime Library", 0x12010); // MB_ICONHAND | MB_SETFOREGROUND | MB_TASKMODAL
+}
+
+// 0x82D6C1 _FF_MSGBANNER: si los errores van a stderr (o es el modo predeterminado en consola) escribe la cabecera 0xFC, llama al gancho de usuario (0xC9ADD0) si existe y escribe 0xFF
+void __cdecl FfMsgBanner() {
+    const int mode = ErrorMode();
+    if (mode == 1 || (mode == 0 && AppType() == 1)) {
+        NmsgWrite(0xFC);
+        if (const auto hook = BannerHook()) {
+            hook();
+        }
+        NmsgWrite(0xFF);
+    }
+}
+
+// 0x8244D1 _amsg_exit(numero): cabecera si el modo es stderr, mensaje y _exit(255) (el EXE llama por el puntero 0x8E2EB0, que vale 0x823CBF = _doexit(255, 1, 0)). No vuelve.
+void __cdecl AmsgExit(int number) {
+    if (ErrorMode() == 1) {
+        FfMsgBanner();
+    }
+    NmsgWrite(number);
+    DoExit(0xFF, 1, 0);
+    ExitProcess(0xFF); // inalcanzable: DoExit no vuelve
+}
 
 // 0x827B3D: bloque del hilo actual; lo crea (calloc 0x88, TlsSetValue) si no existe. Conserva el ultimo error del hilo (GetLastError/SetLastError).
 ThreadData* __cdecl Getptd() {
@@ -35,7 +102,7 @@ ThreadData* __cdecl Getptd() {
             ptd->threadHandle = 0xFFFFFFFFu;
             ptd->threadId = tid;
         } else {
-            CallAmsgExit(0x10); // no vuelve
+            AmsgExit(0x10); // no vuelve
         }
     }
     SetLastError(lastError);
@@ -100,7 +167,7 @@ int __cdecl Isprint(int c) {
 // 0x82ADBE
 void __cdecl Lock(int lockNumber) {
     if (LockSlot(lockNumber) == nullptr && CallMtInitLockNum(lockNumber) == 0) {
-        CallAmsgExit(0x11);
+        AmsgExit(0x11);
     }
     EnterCriticalSection(LockSlot(lockNumber));
 }
@@ -141,6 +208,9 @@ void CrtStateInjectHooks() {
     RH_ScopedNamespaceName("ExeCrt");
     RH_ScopedCategory("Crt");
 
+    RH_ScopedGlobalInstall(ExeCrt::AmsgExit, 0x8244D1);
+    RH_ScopedGlobalInstall(ExeCrt::FfMsgBanner, 0x82D6C1);
+    RH_ScopedGlobalInstall(ExeCrt::NmsgWrite, 0x82D520);
     RH_ScopedGlobalInstall(ExeCrt::Getptd, 0x827B3D);
     RH_ScopedGlobalInstall(ExeCrt::Srand, 0x821B11);
     RH_ScopedGlobalInstall(ExeCrt::Rand, 0x821B1E);

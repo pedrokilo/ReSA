@@ -29,6 +29,7 @@ int          __cdecl Vsnprintf(char* dst, unsigned int n, const char* fmt, va_li
 int          __cdecl Scprintf(const char* fmt, ...);                                           // 0x821C0D (_scprintf, lote CRT5A)
 int          __cdecl Vscprintf(const char* fmt, va_list args);                                 // 0x82310F (_vscprintf, lote CRT5A)
 int          __cdecl Sscanf(const char* src, const char* fmt, ...);                            // 0x8220AD
+char*        __cdecl GetenvHelperNolock(const char* name);                                     // 0x824046
 char*        __cdecl Getenv(const char* name);                                                 // 0x8240C7
 int          __cdecl Stbuf(File* f);                                                           // 0x827DEC (__stbuf)
 void         __cdecl Ftbuf(int flag, File* f);                                                 // 0x827E74 (__ftbuf)

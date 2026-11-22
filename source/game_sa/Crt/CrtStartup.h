@@ -52,4 +52,6 @@ void __cdecl InitSecurityCookie(); // 0x8339CA
 // Arranque completo del estado del CRT del EXE para el ejecutable independiente (GTASA_STANDALONE_STARTUP): StartupEarly + StartupArguments (con __initmbctable) + Cinit.
 // Devuelve 0 o el codigo de _amsg_exit. Los 140 constructores estaticos con atexit y las asignaciones de datos del juego de _initterm los aporta DatosExe (ver docs/CodigoVivoExe/fase8-inicializadores.csv).
 int  __cdecl StandaloneStartup();
+bool __cdecl StandaloneStartupRan();   // true si ya corrio StandaloneStartup (ejecutable independiente: el codigo original no esta); en el ASI sobre el EXE es siempre false
+int  __cdecl FpIntrinsicNonNegative(const double* value); // 0x826B26 (entrada 4 de la tabla de intrinsecas 0x8E30F0)
 } // namespace ExeCrt

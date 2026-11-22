@@ -605,6 +605,12 @@ void __cdecl InitSecurityCookie() {
     SecurityCookie() = value ? value : DEFAULT_SECURITY_COOKIE;
 }
 
+// 0x826B26: rutina de la tabla de despacho de intrinsecas (entrada 4, cdecl, un puntero a double): 1 si *valor >= 0.0 (fcomp con la constante 0.0 de 0x859EF8; con NaN la comparacion
+// queda "no ordenada" y devuelve 0). Solo la llaman las rutinas matematicas del EXE por la tabla; el C++ propio pone su direccion en lugar de la del EXE (lote LNK5A).
+int __cdecl FpIntrinsicNonNegative(const double* value) {
+    return *value >= 0.0 ? 1 : 0;
+}
+
 // 0x82134F: seis punteros de la tabla de despacho de funciones intrinsecas (0x8E30F0..0x8E3104) a rutinas del EXE; solo las leen las rutinas matematicas del EXE (nada del C++ propio)
 void __cdecl FpInitDispatch() {
     auto* const table = reinterpret_cast<volatile uint32_t*>(0x8E30F0);
@@ -612,7 +618,7 @@ void __cdecl FpInitDispatch() {
     table[1] = 0x826ADB;
     table[2] = 0x826B40;
     table[3] = 0x826A9F;
-    table[4] = 0x826B26;
+    table[4] = static_cast<uint32_t>(reinterpret_cast<uintptr_t>(&FpIntrinsicNonNegative));
     table[5] = 0x826E61;
 }
 
@@ -650,11 +656,8 @@ void __cdecl FpMath() {
 // escribe en objetos de DatosExe (ver docs/CodigoVivoExe/fase8-inicializadores.csv).
 int __cdecl Cinit() {
     if (const uint32_t preHook = *reinterpret_cast<uint32_t*>(0x8E2B74)) { // _FPinit
-        if (preHook == 0x821397) {
-            FpMath(); // el unico valor que lleva este EXE: __fpmath, reconstruida
-        } else {
-            reinterpret_cast<void(__cdecl*)()>(preHook)();
-        }
+        (void)preHook;
+        FpMath(); // el unico valor que lleva este EXE en _FPinit es __fpmath (0x821397), reconstruida: se llama directo, sin comparar con la direccion del EXE (lote LNK5A)
     }
     for (const InitFn fn : kTableC) {
         if (!fn) {
@@ -670,7 +673,11 @@ int __cdecl Cinit() {
     return 0;
 }
 
+namespace { bool g_standaloneStartupRan = false; }
+bool __cdecl StandaloneStartupRan() { return g_standaloneStartupRan; }
+
 int __cdecl StandaloneStartup() {
+    g_standaloneStartupRan = true;
     if (const int code = StartupEarly()) {
         return code;
     }

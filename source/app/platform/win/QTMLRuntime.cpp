@@ -36,28 +36,10 @@ auto& QtmlCallComponentStorage = StaticRef<uintptr_t>(0x8E2A14);
 
 // 0x8194D0 (`mov ax, 0F7D1h; ret`) esta reconstruida como QtmlUnavailableStub (mas abajo, enganchada): los tres punteros de arriba se restauran a la funcion propia
 inline uintptr_t QtmlUnavailableStubAddress() { return reinterpret_cast<uintptr_t>(&QtmlUnavailableStub); }
-constexpr uintptr_t kQtmlLazyInitHook     = 0x819700; // gancho posterior a un fallo (resuelve los tres punteros en cada puente)
 constexpr int16 kErrQuickTimeUnavailable = static_cast<int16>(0xF7D1); // -2095: el valor con que responde 0x8194D0 (`mov ax, 0F7D1h; ret`) cuando QuickTime no esta disponible
 
 constexpr int32 kErrNoModule  = static_cast<int32>(0xFFFFF7D3); // -2093: no se pudo cargar QuickTime.qts
 constexpr int32 kErrNoEntries = static_cast<int32>(0xFFFFF7D2); // -2094: faltan puntos de entrada
-
-// Nombre del mutex de InitializeQTML y TerminateQTML ("QTMLInitTermMutex%lx" con el identificador del proceso) y toma del mutex.
-HANDLE AcquireInitTermMutex() {
-    char name[256];
-    wsprintfA(name, "QTMLInitTermMutex%lx", GetCurrentProcessId());
-    HANDLE const mutex = CreateMutexA(nullptr, FALSE, name);
-    if (mutex != nullptr) {
-        WaitForSingleObject(mutex, INFINITE);
-    }
-    return mutex;
-}
-void ReleaseInitTermMutex(HANDLE mutex) {
-    if (mutex != nullptr) {
-        ReleaseMutex(mutex);
-        CloseHandle(mutex);
-    }
-}
 } // namespace
 
 // 0x81DAE0 (lote R10A, sin validar; cdecl, 1 argumento (nombre de la DLL, "QuickTime.qts"), `ret`, 911 bytes; llamadores: 0x819531 y 0x819619): busca y carga la biblioteca por nombre. Devuelve su HMODULE o NULL. Orden: (1) si ya hay un modulo con ese nombre
@@ -194,81 +176,8 @@ void __cdecl QtmlResolveEntryPoints() {
     }
 }
 
-// 0x8195C0 (lote R10A, sin validar; sustituye la envoltura de CAEMFDecoder::InitLibrary; cdecl, 1 argumento (banderas de InitializeQTML), `ret`, 319 bytes; llamadores: 0x4E796B y 0x4E7C7B): InitializeQTML con cuenta de referencias protegida por un mutex del proceso
-// ("QTMLInitTermMutex%lx" con GetCurrentProcessId; CreateMutexA(NULL, FALSE, nombre), WaitForSingleObject INFINITE). Con la cuenta (0xC9ABD8) positiva solo la incrementa y devuelve 0. Si no: carga QuickTime.qts (0x81DAE0; si falla, GetLastError y error -2093 (0xFFFFF7D3)),
-// resuelve los tres puntos de entrada (si falta alguno, -2094 (0xFFFFF7D2)), pone el gancho 0x8E2A08 a 0 y llama a InitializeQTML(flags) (0x8194B0); con resultado de 16 bits 0 incrementa la cuenta. Con cualquier error libera la biblioteca (FreeLibrary y 0xC9ABDC = 0) y
-// restaura los punteros 0x8E2A10, 0x8E2A14 y 0x8E2A0C a 0x8194D0 y el gancho a 0x819700. Libera el mutex (ReleaseMutex y CloseHandle) y devuelve el OSErr de 16 bits (AX = SI).
-int16 __cdecl QtmlInitialize(int32 flags) {
-    int32 result = 0;
-    HANDLE const mutex = AcquireInitTermMutex();
-    if (QtmlInitCount > 0) {
-        QtmlInitCount = QtmlInitCount + 1;
-    } else {
-        const HMODULE module = QtmlLoadLibrary("QuickTime.qts");
-        QtmlModule = module;
-        bool ok = false;
-        if (module == nullptr) {
-            GetLastError();
-            result = kErrNoModule;
-        } else {
-            QtmlCallComponentStorage = reinterpret_cast<uintptr_t>(GetProcAddress(module, "_CallComponentFunctionWithStorage"));
-            if (QtmlCallComponentStorage != 0) {
-                QtmlCallComponent = reinterpret_cast<uintptr_t>(GetProcAddress(QtmlModule, "_CallComponent"));
-                if (QtmlCallComponent != 0) {
-                    QtmlDispatcher = reinterpret_cast<uintptr_t>(GetProcAddress(QtmlModule, "theQuickTimeDispatcher"));
-                    if (QtmlDispatcher != 0) {
-                        QtmlInitHook = 0;
-                        result = QtmlInitializeThunk(flags);
-                        if (static_cast<int16>(result) == 0) {
-                            QtmlInitCount = QtmlInitCount + 1;
-                            ok = true;
-                        }
-                    } else {
-                        result = kErrNoEntries;
-                    }
-                } else {
-                    result = kErrNoEntries;
-                }
-            } else {
-                result = kErrNoEntries;
-            }
-        }
-        if (!ok) {
-            if (QtmlModule != nullptr) {
-                FreeLibrary(QtmlModule);
-                QtmlModule = nullptr;
-            }
-            QtmlInitHook = kQtmlLazyInitHook;
-            QtmlCallComponent = QtmlUnavailableStubAddress();
-            QtmlCallComponentStorage = QtmlUnavailableStubAddress();
-            QtmlDispatcher = QtmlUnavailableStubAddress();
-        }
-    }
-    ReleaseInitTermMutex(mutex);
-    return static_cast<int16>(result);
-}
-
-// 0x819770 (lote R10A, sin validar; sustituye la envoltura de CAEMFDecoder::Shutdown; cdecl sin argumentos, `ret`, 168 bytes; llamador: 0x4E7855, un salto): TerminateQTML con el mismo mutex. Con la cuenta (0xC9ABD8) <= 0 la pone a 0; si no, la decrementa y, si queda <= 0,
-// llama a TerminateQTML (0x8194C0), restaura los punteros (0x8E2A08 = 0x819700 y 0x8E2A10, 0x8E2A14, 0x8E2A0C = 0x8194D0) y llama a FreeLibrary con el HMODULE (0xC9ABDC, que NO se pone a 0). Libera el mutex.
-void __cdecl QtmlTerminate() {
-    HANDLE const mutex = AcquireInitTermMutex();
-    if (QtmlInitCount > 0) {
-        const RwInt32 remaining = QtmlInitCount - 1;
-        QtmlInitCount = remaining;
-        if (remaining <= 0) {
-            QtmlTerminateThunk();
-            const HMODULE module = QtmlModule;
-            QtmlInitHook = kQtmlLazyInitHook;
-            QtmlCallComponent = QtmlUnavailableStubAddress();
-            QtmlCallComponentStorage = QtmlUnavailableStubAddress();
-            QtmlDispatcher = QtmlUnavailableStubAddress();
-            FreeLibrary(module);
-        }
-    } else {
-        QtmlInitCount = 0;
-    }
-    ReleaseInitTermMutex(mutex);
-}
+// Lote LNK5A: QtmlInitialize (0x8195C0) y QtmlTerminate (0x819770) retiradas. Nada del juego las llama desde el lote EXT1A (CAEMFDecoder::InitLibrary devuelve false) y escribian la direccion
+// del gancho 0x819700 en 0x8E2A08, que dejaba una dependencia viva del codigo original. Sus funciones en el EXE quedan sin gancho y sin llamadores.
 
 void QTMLRuntimeInjectHooks() {
     RH_ScopedCategory("App");
@@ -278,8 +187,6 @@ void QTMLRuntimeInjectHooks() {
     RH_ScopedGlobalInstall(QtmlUnavailableStub, 0x8194D0);
     RH_ScopedGlobalInstall(QtmlTerminateThunk, 0x8194C0);
     RH_ScopedGlobalInstall(QtmlResolveEntryPoints, 0x819520);
-    RH_ScopedGlobalInstall(QtmlInitialize, 0x8195C0);
-    RH_ScopedGlobalInstall(QtmlTerminate, 0x819770);
     RH_ScopedGlobalInstall(QtmlLoadLibrary, 0x81DAE0);
     RH_ScopedGlobalInstall(QtmlInitializeBridge, 0x818650);   // lote S1
     RH_ScopedGlobalInstall(QtmlTerminateBridge, 0x818670);    // lote S1

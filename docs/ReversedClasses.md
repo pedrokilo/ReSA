@@ -1,12 +1,8 @@
-<!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 21/11/2026 (Ciudad de México):** 1004 grupos / 13311 funciones reconstruidas; 11801 con evidencia histórica y 1510 pendientes de validación en 39 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
-<!-- RESA-CURRENT-STATUS:END -->
-
 # Progreso del reversing
 
 [Inicio](../README.md) · [Prioridades técnicas](ReversingPriorities.md) · [Pruebas y evidencia](../reversing/README.md) · [Registro de validaciones](../reversing/ValidationRegistry/README.md)
 
-> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** 2026-11-21 13:41 (hora de Ciudad de México)
+> **Fuente:** [hooks.csv](hooks.csv) y el análisis estático del EXE · **Generado:** 2026-11-22 13:22 (hora de Ciudad de México)
 
 **Índice:** [1. Dónde estamos](#donde-estamos) · [2. Código del juego](#juego) · [3. RenderWare](#renderware) · [4. Qué falta por validar](#por-validar) · [5. Clases del juego sin validar](#clases) · [6. Cómo leer y regenerar](#metodo)
 
@@ -22,25 +18,25 @@ Tres conceptos distintos, que no se mezclan en ninguna cifra:
 
 Y dos zonas del EXE que se miden por separado: el **código del juego** (0x401000–0x74FFFF, el trabajo propio del proyecto) y **RenderWare y D3D** (0x750000–0x81FFFF, el SDK enlazado dentro del EXE).
 
-Cifras al 21/11/2026.
+Cifras al 22/11/2026.
 
 | Zona | Funciones a reconstruir | Reconstruidas | Entradas del catálogo | Validadas | Sin validar |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| **Código del juego** | 11.684 | 11.684 (100,00%) | 11.657 | 11.627 | 30 |
-| **RenderWare y D3D** | 724 | 796 (109,94%) | 1.508 | 168 | 1.340 |
+| **Código del juego** | 11.684 | 11.684 (100,00%) | 11.703 | 11.624 | 79 |
+| **RenderWare y D3D** | 802 | 803 (100,12%) | 1.580 | 162 | 1.418 |
 
-**Cómo leer la tabla:** «Funciones a reconstruir» y «Reconstruidas» se cuentan en funciones del EXE; «Validadas» y «Sin validar» se cuentan en entradas del catálogo (`hooks.csv`), y suman las «Entradas del catálogo». No coinciden con las funciones porque una función puede tener varias entradas (cuerpo, destructor con borrado, ranura virtual, envoltura). En el código del juego se descartan 123 funciones excluidas (no reconstruibles en C++ puro); en RenderWare, 1.111 funciones de libpng, zlib y D3DX9 (se enlaza la original) y 54 no reconstruibles.
+**Cómo leer la tabla:** «Funciones a reconstruir» y «Reconstruidas» se cuentan en funciones del EXE; «Validadas» y «Sin validar» se cuentan en entradas del catálogo (`hooks.csv`), y suman las «Entradas del catálogo». No coinciden con las funciones porque una función puede tener varias entradas (cuerpo, destructor con borrado, ranura virtual, envoltura). En el código del juego se descartan 150 funciones excluidas (no reconstruibles en C++ puro); en RenderWare, 1.033 funciones de libpng, zlib y D3DX9 (se enlaza la original) y 54 no reconstruibles.
 
-En total hay **13.311 entradas reconstruidas, 11.801 validadas y 1.510 sin validar** en el catálogo (11.801 con evidencia registrada). Quedan además 146 entradas fuera de ambas zonas (CRT y utilidades).
+En total hay **13.497 entradas reconstruidas, 11.792 validadas y 1.705 sin validar** en el catálogo (11.801 con evidencia registrada). Quedan además 214 entradas fuera de ambas zonas (CRT y utilidades).
 
 ### Fase del proceso
 
 | Fase | Estado |
 | --- | --- |
-| Reconstruir el código del juego en C++ puro | **Hecha**: 100,00% de las funciones y 100,00% de los bytes; faltan 0 y hay 123 excluidas por no ser reconstruibles |
-| Reconstruir el SDK de RenderWare | **Hecha**: 796 de 724 funciones reconstruibles (109,94%); aparte, 1.111 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
-| **Validar el código del juego** | **En curso**: 11.627 de 11.657 reconstruidas (99,74%); el resto va por oleadas de lotes (detalle en el [informe](ReversedClasses.md#por-validar)) |
-| Validar RenderWare | **Apenas empezada**: 168 de 1.508 (11,14%); plan de bancos escrito ([plan de validación](RenderWareExe/plan-validacion.md)); empieza al cerrar las oleadas del juego, con funciones puras, después flujos y memoria falsos y al final el dispositivo D3D falso |
+| Reconstruir el código del juego en C++ puro | **Hecha**: 100,00% de las funciones y 100,00% de los bytes; faltan 0 y hay 150 excluidas por no ser reconstruibles |
+| Reconstruir el SDK de RenderWare | **Hecha**: 803 de 802 funciones reconstruibles (100,12%); aparte, 1.033 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
+| **Validar el código del juego** | **En curso**: 11.624 de 11.703 reconstruidas (99,32%); el resto va por oleadas de lotes (detalle en el [informe](ReversedClasses.md#por-validar)) |
+| Validar RenderWare | **Apenas empezada**: 162 de 1.580 (10,25%); plan de bancos escrito ([plan de validación](RenderWareExe/plan-validacion.md)); empieza al cerrar las oleadas del juego, con funciones puras, después flujos y memoria falsos y al final el dispositivo D3D falso |
 | Pase final de bancos viejos | Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió |
 | Ejecutable propio | Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](ProjectRoadmap.md)) |
 
@@ -52,10 +48,10 @@ En total hay **13.311 entradas reconstruidas, 11.801 validadas y 1.510 sin valid
 | --- | --- | --- |
 | Funciones reconstruidas | 11.684 / 11.684 · 100,00% | `████████████████████` |
 | Bytes de código reconstruidos | 2.978.807 / 2.978.807 · 100,00% | `████████████████████` |
-| Entradas validadas (de las reconstruidas) | 11.627 / 11.657 · 99,74% | `████████████████████` |
-| Entradas reconstruidas sin validar | 30 |  |
+| Entradas validadas (de las reconstruidas) | 11.624 / 11.703 · 99,32% | `████████████████████` |
+| Entradas reconstruidas sin validar | 79 |  |
 
-**Faltan 0 funciones (0 bytes)**, listadas en [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md), y **123 excluidas** y documentadas en [excluidas.csv](JuegoExe/excluidas.csv) porque no se pueden reconstruir en C++ puro (cada una cerrada con categoría y evidencia en [reversing/FnG2A](../reversing/FnG2A/README.md)): 52 __usercall cubiertas por llamadoras validadas; 20 saltos puros a una función ya reconstruida; 18 bloques de la protección del EXE (descartados); 17 __usercall de RenderWare (plan de validación de RenderWare); 11 bloques que no son funciones (funclets de catch y fragmentos internos); 3 arranque-sin-gancho; 2 retirada-quicktime; 1 separador de la línea de comandos que sustituye el CRT (lote G3A); 1 sin-equivalente-cpp.
+**Faltan 0 funciones (0 bytes)**, listadas en [pendientes-por-clase.md](JuegoExe/pendientes-por-clase.md), y **150 excluidas** y documentadas en [excluidas.csv](JuegoExe/excluidas.csv) porque no se pueden reconstruir en C++ puro (cada una cerrada con categoría y evidencia en [reversing/FnG2A](../reversing/FnG2A/README.md)): 52 __usercall cubiertas por llamadoras validadas; 32 arranque-sin-gancho; 20 saltos puros a una función ya reconstruida; 18 bloques de la protección del EXE (descartados); 17 __usercall de RenderWare (plan de validación de RenderWare); 11 bloques que no son funciones (funclets de catch y fragmentos internos); 2 retirada-quicktime; 1 separador de la línea de comandos que sustituye el CRT (lote G3A); 1 sin-equivalente-cpp; 1 sin-espacio-para-gancho.
 
 Todo lo reconstruido está en C++: en `source/game_sa` no queda ningún `__asm` ni función `naked` ([estado de la migración](../reversing/CppOnlyMigration/README.md)). Cada validada tiene su banco `FnNNNA` y su evidencia en `reversing/CppTwelveLevel6Final/runs`.
 
@@ -67,16 +63,16 @@ Detalle del mapa del EXE (estados A–D por función): [JuegoExe/README.md](Jueg
 
 ## 3. RenderWare y D3D (0x750000–0x81FFFF)
 
-Región de 1.889 funciones y 600.971 bytes: el SDK de RenderWare 3.7, el controlador D3D9, D3DX9 (compilador de shaders), libpng, zlib y libjpeg, enlazados dentro del EXE.
+Región de 1.889 funciones y 600.967 bytes: el SDK de RenderWare 3.7, el controlador D3D9, D3DX9 (compilador de shaders), libpng, zlib y libjpeg, enlazados dentro del EXE.
 
 | Medida | Funciones |
 | --- | ---: |
-| Funciones que se reconstruyen (sin las enlazadas ni las no reconstruibles) | 724 |
-| **Reconstruidas en C++** (hook en la DLL) | **796** (109,94%) |
-| Entradas del catálogo de esas funciones (una función puede tener varias) | 1.508 |
-| Entradas validadas | 168 |
-| Entradas sin validar | 1.340 |
-| Enlazadas (libpng, zlib y D3DX9: se enlaza la original, no se reconstruyen) | 1.111 |
+| Funciones que se reconstruyen (sin las enlazadas ni las no reconstruibles) | 802 |
+| **Reconstruidas en C++** (hook en la DLL) | **803** (100,12%) |
+| Entradas del catálogo de esas funciones (una función puede tener varias) | 1.580 |
+| Entradas validadas | 162 |
+| Entradas sin validar | 1.418 |
+| Enlazadas (libpng, zlib y D3DX9: se enlaza la original, no se reconstruyen) | 1.033 |
 | No reconstruibles en C++ puro (puentes de QuickTime, carga retardada, 3DNow!, ya enganchadas por el modo ventana) | 54 |
 | **Pendientes de reconstruir** | **0** |
 
@@ -84,21 +80,22 @@ Región de 1.889 funciones y 600.971 bytes: el SDK de RenderWare 3.7, el control
 
 | Módulo | Reconstruidas | Validadas | Sin validar |
 | --- | ---: | ---: | ---: |
+| RpWorld | 447 | 103 | 344 |
 | RwCore | 339 | 36 | 303 |
-| RpWorld | 404 | 103 | 301 |
 | RwPlCore | 191 | 14 | 177 |
-| RwD3D9 | 143 | 0 | 143 |
+| RwD3D9 | 147 | 0 | 147 |
 | LibPngWrite | 78 | 0 | 78 |
+| RpSkin | 76 | 1 | 75 |
 | RpMatFX | 73 | 0 | 73 |
-| RpSkin | 59 | 1 | 58 |
 | RpUVAnim | 42 | 2 | 40 |
 | RpHAnim | 35 | 1 | 34 |
 | RtAnim | 30 | 3 | 27 |
 | ZlibDeflate | 25 | 0 | 25 |
+| D3DX9 | 17 | 0 | 17 |
 | ImportThunks | 17 | 0 | 17 |
 | RtDict | 18 | 2 | 16 |
 | ZlibInflate | 14 | 0 | 14 |
-| D3DX9 | 17 | 6 | 11 |
+| QTMLRuntime | 8 | 0 | 8 |
 | RtQuat | 8 | 0 | 8 |
 | RtPNG | 7 | 0 | 7 |
 | RtBMP | 4 | 0 | 4 |
@@ -132,11 +129,16 @@ Solo se listan las clases del código del juego que todavía tienen alguna funci
 
 | Clase | Reconstruidas | Validadas | Sin validar |
 | --- | ---: | ---: | ---: |
+| CRunningScript | 66 | 43 | 23 |
+| D3D9RasterStandards | 12 | 0 | 12 |
 | CAEMFDecoder | 13 | 8 | 5 |
-| CAudioZones | 13 | 9 | 4 |
+| CAudioZones | 14 | 9 | 5 |
 | CPhysical | 65 | 62 | 3 |
 | Input | 14 | 11 | 3 |
 | RwHelper | 49 | 46 | 3 |
+| FxManager_c | 25 | 23 | 2 |
+| RwD3D9RasterDriver | 16 | 14 | 2 |
+| CBaseModelInfo | 38 | 37 | 1 |
 | CCamera | 127 | 126 | 1 |
 | CCollisionPlugin | 3 | 2 | 1 |
 | CGame | 26 | 25 | 1 |
@@ -144,13 +146,21 @@ Solo se listan las clases del código del juego que todavía tienen alguna funci
 | CLines | 1 | 0 | 1 |
 | CPad | 103 | 102 | 1 |
 | CPed | 157 | 156 | 1 |
+| CPhoneInfo | 3 | 2 | 1 |
 | CQuaternion | 13 | 12 | 1 |
+| CScripted2dEffects | 7 | 6 | 1 |
+| CSpecialFX | 8 | 7 | 1 |
 | CSprite2d | 36 | 35 | 1 |
+| CTaskSimpleAnim | 5 | 4 | 1 |
+| CTaskSimpleArrestPed | 9 | 8 | 1 |
+| CTaskSimpleTurn180 | 8 | 7 | 1 |
 | CVehicle | 204 | 203 | 1 |
 | FxInfoAttractLine_c | 4 | 3 | 1 |
 | FxInterpInfoFloat_c | 5 | 4 | 1 |
+| LibJpegMemory | 22 | 21 | 1 |
+| tUserList | 3 | 2 | 1 |
 
-Clases del juego completas y validadas: **964** de 981.
+Clases del juego completas y validadas: **952** de 982.
 
 <a id="metodo"></a>
 

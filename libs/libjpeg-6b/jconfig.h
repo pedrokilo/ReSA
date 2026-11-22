@@ -12,7 +12,8 @@
 #undef NEED_BSD_STRINGS
 #undef NEED_SYS_TYPES_H
 #undef NEED_FAR_POINTERS	/* we presume a 32-bit flat memory model */
-#undef NEED_SHORT_EXTERNAL_NAMES
+/* LNK5A: nombres externos cortos de la IJG (jCreaCompress, ...): la DLL tambien enlaza libjpeg-turbo y sus jpeg_* chocaban con los de esta biblioteca (el enlazador tomaba los de 6b y la captura JPEG fallaba con "Wrong JPEG library version: library is 62, caller expects 80") */
+#define NEED_SHORT_EXTERNAL_NAMES
 #undef INCOMPLETE_TYPES_BROKEN
 
 /* Define "boolean" as unsigned char, not int, per Windows custom */
