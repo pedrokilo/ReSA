@@ -14,12 +14,16 @@
 void _rwD3D9SetClippingForObject(void* object, RwInt32 type);   // 0x756D90 (rpworld.cpp)
 RwBool _rwD3D9RenderStateVertexAlphaEnable(RwBool enable);      // 0x7FE0A0 (rwcore.cpp)
 RwInt32 _rwD3D9RenderStateGetVertexAlphaEnable();               // 0x7FE190 (rwcore.cpp)
+void RxD3D9ResEntryHeaderDestroyCpp(RwResEntry* entry);         // 0x4C9990 (rwcore.cpp)
+void D3D9FindMinVertAndNumVerticesCpp(const RwUInt16* indices, RwUInt32 numIndices, RwUInt32* numVertices, RwUInt32* minVert); // 0x756710 (rpworld.cpp)
+void D3D9SortTrianglesCpp(RwUInt16* indices, RwUInt32 numIndices);                                                                // 0x756770 (rpworld.cpp)
+RwUInt32 D3D9TriStripToTriListCpp(RwUInt16* dst, const RwUInt16* src, RwUInt32 numIndices, RwUInt32 offset);                      // 0x756830 (rpworld.cpp)
+RwResEntry* D3D9InstanceObject(void* object, void* owner, RwUInt8 type, RwResEntry** ownerRef, RpMeshHeader* meshHeader, RxD3D9AllInOneInstanceCallBack instanceCallback, RwUInt32 nativeInstance); // 0x756960
 
 namespace {
-using ExeInstanceFn = RwResEntry*(__cdecl*)(void* object, void* owner, RwUInt8 type, RwResEntry** ownerRef, RpMeshHeader* meshHeader, RxD3D9AllInOneInstanceCallBack instanceCallback, RwUInt32 nativeInstance);
-// 0x756960 (1080 bytes, hueco 0x756958: instanciado generico de un objeto con callback de instanciado); no es raiz del plan de este lote, se conserva por direccion.
+// 0x756960 (instanciado generico de un objeto con callback de instanciado): ahora C++ (D3D9InstanceObject, mas abajo).
 inline RwResEntry* InstanceObject(void* object, void* owner, RwUInt8 type, RwResEntry** ownerRef, RpMeshHeader* meshHeader, RxD3D9AllInOneInstanceCallBack cb, RwUInt32 nativeInstance) {
-    return reinterpret_cast<ExeInstanceFn>(0x756960)(object, owner, type, ownerRef, meshHeader, cb, nativeInstance);
+    return D3D9InstanceObject(object, owner, type, ownerRef, meshHeader, cb, nativeInstance);
 }
 using ExeTextureHasAlphaFn = RwInt32(__cdecl*)(RwTexture*);
 inline RwInt32 TextureHasAlpha(RwTexture* texture) { return reinterpret_cast<ExeTextureHasAlphaFn>(0x4C9EA0)(texture); }
@@ -112,6 +116,147 @@ static_assert(offsetof(RpTie, worldSector) == 0x14 && offsetof(RpTie, lWorldSect
 static_assert(offsetof(RwResEntry, link) == 0 && sizeof(RwResEntry) == 0x18);
 static_assert(offsetof(RxD3D9ResEntryHeader, indexBuffer) == 0x08 && offsetof(RxD3D9ResEntryHeader, primType) == 0x0C && offsetof(RxD3D9ResEntryHeader, vertexStream) == 0x10 && offsetof(RxD3D9ResEntryHeader, useOffsets) == 0x30);
 static_assert(sizeof(RxD3D9InstanceData) == 0x24 && offsetof(RxD3D9InstanceData, vertexShader) == 0x10 && offsetof(RxD3D9InstanceData, baseIndex) == 0x14 && offsetof(RxD3D9InstanceData, numPrimitives) == 0x20);
+
+// 0x756960 (codigo vivo D3DSTD, sin validar; hueco 0x756958; 1.080 bytes; cdecl, 7 argumentos (objeto, propietario, tipo, &entrada, cabecera de mallas, callback de instanciado, instancia nativa); nombre inferido: el instanciado
+// generico de los nodos AllInOne de D3D9). Crea la entrada de recursos (RwResEntry + RxD3D9ResEntryHeader de 0x40 bytes + un RxD3D9InstanceData de 0x24 por malla): con `instancia nativa` por RwMalloc (pista 0x3050D; *entrada
+// = ella; notificacion de destruccion 0x4C9990), si no por RwResourcesAllocateResEntry. La pone a cero, copia serie y numero de mallas y, si la cabecera es indexada (flags & 0x100 = 0), suma los indices de todas las mallas:
+// en tira de triangulos (byte de la tabla del plugin 0xC9B8C0 + 8 + tipo = 4) con mas indices que 3 veces los triangulos del objeto (sector 0xFF: numTriangles de +0x84; atomo 1: los de su geometria) los recorta a ese
+// maximo y pasa a lista de triangulos (primType = 4 y las tiras se convierten con D3D9TriStripToTriListCpp); crea el bufer de indices (RwD3D9IndexBufferCreate) y lo bloquea (Lock(0, 0, &puntero, 0)); sin recorte
+// el tipo primitivo sale de la tabla 0x874FEC (1 -> LINELIST ... 6 -> POINTLIST). Por malla: minimo de vertice y numero de vertices (rango de indices; sin indices, un bloque correlativo), material, indices copiados
+// (restando el minimo de 16 bits, o tal cual con minimo 0; ordenados por triangulos si el tipo es lista de triangulos), startIndex/numIndex y numPrimitives segun el tipo (/2, -1, /3, -2). Desbloquea, llama al callback
+// (objeto, cabecera, FALSE) y si falla libera la entrada (RwFree o RwResourcesFreeResEntry) y devuelve NULL; si no, la entrada.
+RwResEntry* D3D9InstanceObject(void* object, void* owner, RwUInt8 type, RwResEntry** ownerRef, RpMeshHeader* meshHeader, RxD3D9AllInOneInstanceCallBack instanceCallback, RwUInt32 nativeInstance) {
+    constexpr RwUInt32 kResEntryHint = 0x3050D;
+    constexpr size_t kSlotIndexBufferLock = 11;   // IDirect3DIndexBuffer9::Lock (+0x2C)
+    constexpr size_t kSlotIndexBufferUnlock = 12; // IDirect3DIndexBuffer9::Unlock (+0x30)
+    // Tabla 0x874FEC: tipo de primitiva de RW (3 = lista de triangulos...) a D3DPRIMITIVETYPE.
+    static constexpr RwUInt32 kD3DPrimitiveTypes[8] = { 0, 2, 3, 4, 5, 6, 1, 0x40404040 };
+
+    const RwUInt32 numMeshes = meshHeader->numMeshes;
+    const RwUInt32 entrySize = numMeshes * sizeof(RxD3D9InstanceData) + sizeof(RxD3D9ResEntryHeader);
+    bool useTriangleList = false;
+    RwResEntry* resEntry;
+    if (nativeInstance != 0) {
+        resEntry = static_cast<RwResEntry*>(RwMalloc(entrySize + sizeof(RwResEntry), kResEntryHint));
+        *ownerRef = resEntry;
+        resEntry->link.next = nullptr;
+        resEntry->link.prev = nullptr;
+        resEntry->size = static_cast<RwInt32>(entrySize);
+        resEntry->owner = nullptr;
+        resEntry->ownerRef = nullptr;
+        resEntry->destroyNotify = RxD3D9ResEntryHeaderDestroyCpp;
+    } else {
+        resEntry = RwResourcesAllocateResEntry(owner, ownerRef, static_cast<RwInt32>(entrySize), RxD3D9ResEntryHeaderDestroyCpp);
+    }
+    RxD3D9ResEntryHeader* const header = reinterpret_cast<RxD3D9ResEntryHeader*>(resEntry + 1);
+    std::memset(header, 0, entrySize);
+    header->serialNumber = meshHeader->serialNum;
+    header->numMeshes = numMeshes;
+    RwUInt16* indexLock = nullptr;
+    const RpMesh* const meshes = reinterpret_cast<const RpMesh*>(meshHeader + 1);
+    const RwUInt8 primitiveKind = *(reinterpret_cast<const RwUInt8*>(RwEngineInstance) + StaticRef<RwUInt32>(0xC9B8C0) + 8 + (meshHeader->flags & 0xFFu));
+    bool keepPrimType = false;
+    if (!(meshHeader->flags & 0x100)) {
+        for (RwUInt32 i = 0; i < numMeshes; ++i) {
+            header->totalNumIndex += meshes[i].numIndices;
+        }
+        if (header->totalNumIndex != 0) {
+            if (primitiveKind == 4) {
+                RwUInt32 maxTriangles = 0x55555555;
+                if (type == 0xFF) {
+                    maxTriangles = static_cast<RpWorldSector*>(object)->numTriangles;
+                } else if (type == 1) {
+                    maxTriangles = static_cast<RwUInt32>(static_cast<RpAtomic*>(object)->geometry->numTriangles);
+                }
+                maxTriangles *= 3;
+                if (header->totalNumIndex > maxTriangles) {
+                    useTriangleList = true;
+                    header->totalNumIndex = maxTriangles;
+                }
+            }
+            if (RwD3D9IndexBufferCreate(header->totalNumIndex, reinterpret_cast<void**>(&header->indexBuffer))) {
+                ComCall<kSlotIndexBufferLock, int32>(header->indexBuffer, 0u, 0u, reinterpret_cast<void**>(&indexLock), 0u);
+            }
+            if (useTriangleList) {
+                header->primType = D3DPT_TRIANGLELIST;
+                keepPrimType = true;
+            }
+        }
+    }
+    if (!keepPrimType) {
+        header->primType = static_cast<D3DPRIMITIVETYPE>(primitiveKind < 8 ? kD3DPrimitiveTypes[primitiveKind] : 0);
+    }
+
+    RxD3D9InstanceData* instance = reinterpret_cast<RxD3D9InstanceData*>(header + 1);
+    const RpMesh* mesh = meshes;
+    RwUInt32 nextVertex = 0;
+    RwUInt32 nextIndex = 0;
+    for (RwUInt32 remaining = numMeshes; remaining != 0; --remaining, ++instance, ++mesh) {
+        RwUInt32 count = mesh->numIndices;
+        if (meshHeader->flags & 0x100) {
+            instance->numVertices = count;
+            instance->minVert = nextVertex;
+            nextVertex += count;
+        } else {
+            D3D9FindMinVertAndNumVerticesCpp(mesh->indices, count, &instance->numVertices, &instance->minVert);
+        }
+        instance->material = mesh->material;
+        instance->vertexShader = nullptr;
+        instance->vertexAlpha = 0;
+        if (indexLock == nullptr) {
+            instance->startIndex = 0;
+            instance->numIndex = 0;
+        } else {
+            instance->startIndex = nextIndex;
+            if (useTriangleList) {
+                count = D3D9TriStripToTriListCpp(indexLock, mesh->indices, count, instance->minVert);
+            } else if (instance->minVert != 0) {
+                for (RwUInt32 i = 0; i < count; ++i) {
+                    indexLock[i] = static_cast<RwUInt16>(mesh->indices[i] - static_cast<RwUInt16>(instance->minVert));
+                }
+            } else {
+                std::memcpy(indexLock, mesh->indices, count * sizeof(RwUInt16));
+            }
+            instance->numIndex = count;
+            if (header->primType == D3DPT_TRIANGLELIST) {
+                D3D9SortTrianglesCpp(indexLock, count);
+            }
+            indexLock += count;
+            nextIndex += count;
+        }
+        switch (header->primType) {
+        case D3DPT_LINELIST:
+            instance->numPrimitives = count >> 1;
+            break;
+        case D3DPT_LINESTRIP:
+            instance->numPrimitives = count - 1;
+            break;
+        case D3DPT_TRIANGLELIST:
+            instance->numPrimitives = count / 3;
+            break;
+        case D3DPT_TRIANGLESTRIP:
+        case D3DPT_TRIANGLEFAN:
+            instance->numPrimitives = count - 2;
+            break;
+        default:
+            instance->numPrimitives = 0;
+            break;
+        }
+        instance->baseIndex = 0;
+    }
+    if (indexLock != nullptr) {
+        ComCall<kSlotIndexBufferUnlock, int32>(header->indexBuffer);
+    }
+    if (instanceCallback != nullptr && !instanceCallback(object, header, FALSE)) {
+        if (nativeInstance != 0) {
+            RwFree(resEntry);
+        } else {
+            RwResourcesFreeResEntry(resEntry);
+        }
+        return nullptr;
+    }
+    return resEntry;
+}
 
 // 0x756DF0 (lote P6B, sin validar; nombre inferido: _rxD3D9DefaultRenderCallBack del SDK; cdecl, 4 argumentos (entrada de recursos, objeto, tipo, banderas), 1414 bytes; apuntada desde los datos del nodo de skin
 // por 0x7CB249): callback de render por defecto de los pipelines AllInOne de D3D9. Cabecera = entrada + 0x18, mallas = cabecera + 0x40.
@@ -696,6 +841,7 @@ void RpWorldInjectHooksP6B() {
     RH_ScopedCategory("Plugins");
     RH_ScopedNamespaceName("RpWorld");
 
+    RH_ScopedGlobalInstall(D3D9InstanceObject, 0x756960);                         // codigo vivo D3DSTD (sin validar)
     RH_ScopedGlobalInstall(D3D9DefaultRenderCallBack, 0x756DF0);                  // lote P6B (sin validar)
     RH_ScopedGlobalInstall(D3D9AtomicDefaultLightingCallBack, 0x757400);          // lote P6B (sin validar)
     RH_ScopedGlobalInstall(D3D9AtomicAllInOneNode, 0x7575F0);                     // lote P6B (sin validar)

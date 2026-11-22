@@ -250,6 +250,7 @@
 #include "Attractors/PedStepAttractor.h"
 #include "ExeProtectionStub.h"
 #include "RenderWare/D3D9RasterFormat.h"
+#include "RenderWare/D3D9RasterStandards.h"
 #include "Plugins/JPegCompressPlugin/LibJpegCompressEncode.h"
 #include "IdleCam.h"
 #include "Tasks/TaskTypes/TaskComplexChat.h"
@@ -847,6 +848,7 @@ void InjectHooksMain() {
     CPedATMAttractor::InjectHooks();
     CProtectionStub::InjectHooks();
     RwD3D9RasterDriver::InjectHooks();     // lote 224A (sin validar)
+    D3D9RasterStandards::InjectHooks();    // codigo vivo D3DSTD: manejadores de raster de la tabla estandar (sin validar)
     RwMathX87InjectHooks();                // lote S3: callbacks x87 de _rwcseg (matrices, vectores, palabra de control)
     LibJpegCompressEncode::InjectHooks();  // lote 230A (sin validar)
     LibJpegDecompress::InjectHooks();      // lote 233A (sin validar)

@@ -4725,6 +4725,12 @@ RwUInt32 _rpD3D9TriStripToTriList(RwUInt16* dst, const RwUInt16* src, RwUInt32 n
 }
 
 } // namespace (S15A: la funcion se usa desde rpmatfx.cpp)
+
+// Entradas publicas para rpworld_p6b.cpp (D3D9InstanceObject, 0x756960), que llamaba a estas tres por la direccion del EXE: mismos cuerpos, fuera del espacio de nombres anonimo.
+void D3D9FindMinVertAndNumVerticesCpp(const RwUInt16* indices, RwUInt32 numIndices, RwUInt32* numVertices, RwUInt32* minVert) { _rpD3D9FindMinVertAndNumVertices(indices, numIndices, numVertices, minVert); } // 0x756710
+void D3D9SortTrianglesCpp(RwUInt16* indices, RwUInt32 numIndices) { _rpD3D9SortTriangles(indices, numIndices); }                                                                                      // 0x756770
+RwUInt32 D3D9TriStripToTriListCpp(RwUInt16* dst, const RwUInt16* src, RwUInt32 numIndices, RwUInt32 offset) { return _rpD3D9TriStripToTriList(dst, src, numIndices, offset); }                       // 0x756830
+
 // 0x756D90 (lote R17A, sin validar; nombre inferido; cdecl, 2 argumentos (objeto, tipo), 81 bytes; llamadores 0x5D6495, 0x5D77E5, 0x5D993F, 0x815C32): activa o desactiva el recorte de D3D9 (estado 0x88 = D3DRS_CLIPPING) segun si el objeto cae por completo
 // dentro de la piramide de la camara actual (primer dword de RwEngineInstance). Con tipo 1 el objeto es un atomo: RwD3D9CameraIsSphereFullyInsideFrustum (0x7FAD30) con su esfera de mundo (RpAtomicGetWorldBoundingSphere 0x749330); con cualquier otro tipo es un sector
 // y se usa la caja +0x60 con RwD3D9CameraIsBBoxFullyInsideFrustum (0x7FAD90). Despues RwD3D9SetRenderState(0x88, resultado == 0) como salto final (cola); no devuelve nada util.

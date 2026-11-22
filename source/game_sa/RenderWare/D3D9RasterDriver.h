@@ -19,4 +19,5 @@ public:
     static int32 CheckDepthStencilTextureFormatCpp(uint32 format);                // 0x4CBE80
     static int32 CheckRenderTargetCubeFormatCpp(uint32 format);                   // 0x4CBF20
     static int32 CheckTextureFormatUsage400Cpp(uint32 format);                    // 0x4CBF80
+    static int32 CheckCubeFormatUsage400Cpp(uint32 format);                       // 0x4CC020
 };

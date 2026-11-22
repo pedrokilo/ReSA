@@ -35,6 +35,7 @@ END GENERATED HOOK STATUS */
 #include "game_sa/Crt/CrtPow.h"
 #include "RenderWare/D3DResourceSystem.h"
 #include "RenderWare/D3D9RasterDriver.h"
+#include "RenderWare/D3D9RasterStandards.h"
 #include <xmmintrin.h>
 #include <intrin.h>
 
@@ -663,6 +664,11 @@ __declspec(noinline) RwBool __cdecl D3D9RasterPaletteUnlockExe(void* /*unused*/,
     return 1;
 }
 } // namespace
+
+// Entradas publicas para D3D9RasterStandards.cpp (que llamaba a estas dos por la direccion del EXE): mismos cuerpos, fuera del espacio de nombres anonimo.
+RwBool D3D9RasterLockCpp(RwUInt8** pixelsOut, RwRaster* raster, RwInt32 lockMode) { return D3D9RasterLockExe(pixelsOut, raster, lockMode); }  // 0x4C9F90
+RwBool D3D9RasterUnlockCpp(void* unused, RwRaster* raster) { return D3D9RasterUnlockExe(unused, raster); }                                    // 0x4CA290
+void RxD3D9ResEntryHeaderDestroyCpp(RwResEntry* entry) { RxD3D9ResEntryHeaderDestroyExe(reinterpret_cast<uint8*>(entry)); }                         // 0x4C9990 (notificacion de destruccion de la entrada de recursos)
 
 // Biblioteca RenderWare / controlador D3D9 (reconstruidas en C++, banco Dependencies25D); registro propio para no compartir lista con otros grupos.
 void RwCoreInjectHooks25d() {
@@ -6866,16 +6872,16 @@ static RwInt32 _rwD3D9DeviceStandardNull();
 
 // 0x7F72E0 (lote R26A, sin validar; 579 bytes; cdecl, (salida, inOut sin uso, numero de funciones); `D3D9DeviceSystemStandards` del SDK; nombre inferido): rellena la tabla de funciones estandar del dispositivo. Con numero > 0
 // pone en las `numero` primeras entradas la funcion nula 0x7F7530 (xor eax, eax; ret) y, con numero > 1, escribe despues (del ultimo par al primero) tabla[indice] = funcion para 27 pares fijos, sin comprobar el limite. Las
-// direcciones son del EXE (incluye 0x7F8F20 y 0x7F7730, enganchadas por WindowedMode.cpp, y 0x4Cxxxx del controlador de rasters). Devuelve TRUE.
+// direcciones son las de las funciones C++ del controlador de rasters (D3D9RasterStandards.cpp, D3D9RasterDriver.cpp, D3D9RasterFormat.cpp y las de este archivo; los 12 manejadores 0x4CA4E0..0x4CD820 que eran direcciones del EXE sin funcion de Ghidra ni enganche pasaron a C++ en el lote D3DSTD) y, de las del EXE, solo 0x7F98D0, 0x7F99B0 y 0x7FFF00 (ya enganchadas o fuera de este lote). Devuelve TRUE.
 RwBool _rwD3D9DeviceSystemStandards(void* out, void* /*inOut*/, RwInt32 numStandards) {
     struct StandardEntry { uint32 index; uint32 function; };
     // Direcciones de las funciones estandar: las que ya estan en C++ se registran con su direccion propia (sin pasar por el EXE); el resto, del EXE.
     const auto Fn = [](auto function) { return static_cast<uint32>(reinterpret_cast<uintptr_t>(function)); };
     const StandardEntry kStandards[27] = {
         { 0x01, Fn(&RenderWare::_rwD3D9CameraBeginUpdate) }, { 0x0A, 0x7F98D0 }, { 0x15, Fn(&RenderWare::_rwD3D9CameraClear) }, { 0x14, 0x7F99B0 }, { 0x02, Fn(&_rwD3D9RGBToPixel) }, { 0x03, Fn(&_rwD3D9PixelToRGB) }, { 0x07, Fn(&_rwD3D9RasterSetFromImage) },
-        { 0x06, Fn(&_rwD3D9RasterToImage) }, { 0x05, Fn(&RwD3D9RasterDriver::RasterDestroyCpp) }, { 0x04, Fn(&RwD3D9RasterDriver::RasterCreateCpp) }, { 0x09, 0x7FFF00 }, { 0x08, 0x4CBD40 }, { 0x0F, Fn(&D3D9RasterLockExe) }, { 0x10, Fn(&D3D9RasterUnlockExe) },
-        { 0x17, 0x4CA4E0 }, { 0x18, Fn(&D3D9RasterPaletteUnlockExe) }, { 0x0E, 0x4CB4E0 }, { 0x0D, 0x4CB4C0 }, { 0x11, 0x4CAE40 }, { 0x12, 0x4CAE80 }, { 0x13, 0x4CAE60 },
-        { 0x0B, 0x4CB520 }, { 0x0C, 0x4CBD50 }, { 0x19, Fn(&D3D9RasterFormat::GetRasterMemorySize) }, { 0x1B, 0x4CD4D0 }, { 0x1A, 0x4CD820 }, { 0x1C, 0x4CBCB0 },
+        { 0x06, Fn(&_rwD3D9RasterToImage) }, { 0x05, Fn(&RwD3D9RasterDriver::RasterDestroyCpp) }, { 0x04, Fn(&RwD3D9RasterDriver::RasterCreateCpp) }, { 0x09, 0x7FFF00 }, { 0x08, Fn(&D3D9RasterStandards::SetTextureRaster) }, { 0x0F, Fn(&D3D9RasterLockExe) }, { 0x10, Fn(&D3D9RasterUnlockExe) },
+        { 0x17, Fn(&D3D9RasterStandards::RasterLockPalette) }, { 0x18, Fn(&D3D9RasterPaletteUnlockExe) }, { 0x0E, Fn(&D3D9RasterStandards::RasterClear) }, { 0x0D, Fn(&D3D9RasterStandards::RasterClearRect) }, { 0x11, Fn(&D3D9RasterStandards::RasterRender) }, { 0x12, Fn(&D3D9RasterStandards::RasterRenderScaled) }, { 0x13, Fn(&D3D9RasterStandards::RasterRenderFast) },
+        { 0x0B, Fn(&D3D9RasterStandards::SetRasterContext) }, { 0x0C, Fn(&D3D9RasterStandards::RasterSubRaster) }, { 0x19, Fn(&D3D9RasterFormat::GetRasterMemorySize) }, { 0x1B, Fn(&D3D9RasterStandards::NativeTextureWrite) }, { 0x1A, Fn(&D3D9RasterStandards::NativeTextureRead) }, { 0x1C, Fn(&D3D9RasterStandards::RasterGetMipLevels) },
     };    uint32* const standards = static_cast<uint32*>(out);
     if (numStandards > 0) {
         for (RwInt32 i = 0; i < numStandards; ++i) {
