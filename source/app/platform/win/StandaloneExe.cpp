@@ -27,6 +27,7 @@
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID reserved); // dllmain.cpp del proyecto
 INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdLine, INT nCmdShow); // WinMain.cpp
+namespace DatosExe { void RunStaticInitializers(); }                    // DatosExe/StaticInit.cpp
 namespace ExeCrt { int __cdecl StandaloneStartup(); }                    // Crt/CrtStartup.cpp
 extern "C" PIMAGE_TLS_CALLBACK __dyn_tls_init_callback;
 extern "C" void WinMainCRTStartup();
@@ -594,6 +595,10 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR cmd, int show) {
             LogT("proteccion %-8.8s 0x%08X +0x%lX -> 0x%lX %s", (const char*)sec[i].Name, va, vs, prot, r ? "ok" : "FALLO");
         }
     }
+    // Tercera ronda: primero lo que define DatosExe (93 de las 175 filas no-CRT: constructores con su C++, valores iniciales), despues el puente solo de lo que falta.
+    // No puede ir en ExeCrt::Cinit (tras RunX87StaticInitializers): ahi todavia no han corrido los inicializadores dinamicos del C++ propio y las referencias
+    // `static inline auto& X = StaticRef<...>(dir)` (CStats::StatTypesFloat...) son nulas (fallo real: CPlayerPedData::SetInitialState -> CStats::GetFatAndMuscleModifier lee 0xA0).
+    if (!g.sinInit) { DatosExe::RunStaticInitializers(); LogT("DatosExe::RunStaticInitializers ejecutado"); }
     if (!g.sinInit) EjecutarInicializadoresEstaticos();
     LogT("llamando a NOTSA_WinMain (WinMain reconstruido)");
     const int r = NOTSA_WinMain(hInst, hPrev, cmd, show);

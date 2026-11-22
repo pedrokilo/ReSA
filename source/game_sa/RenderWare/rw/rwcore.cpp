@@ -4091,12 +4091,68 @@ RwBool _rwD3D9Im2DRenderPrimitive(RwInt32 primType, void* vertices, RwInt32 numV
     return result >= 0;
 }
 
+// 0x7FB650 (fase 8 tercera ronda, sin validar; 432 bytes, hasta 0x7FB801; `RwIm2DRenderLine` del controlador D3D9; cdecl, (RwIm2DVertex* vertices, RwInt32 numVertices, RwInt32 vert1, RwInt32 vert2) -> RwBool, `ret`; puntero de la tabla
+// estandar del dispositivo; lo llama RwIm2DRenderLine, aqui CShadowCamera::MakeGradientRaster, primera ruptura de la carga de la partida nueva del EXE independiente tras DatosExe::RunStaticInitializers): igual que 0x7FBB00 con
+// dos vertices fijos: copia vertices[vert1] y vertices[vert2] (0x1C bytes) al bufer dinamico de Im2D (mismo bloqueo: 0xC980E0 / 0xC980E8 / 0xC980E4; posicion + 2 > 0x2492 -> descarte 0x2800 desde 0, si no NOOVERWRITE 0x1800),
+// sumando (nOffsetX, nOffsetY) del raster del marco de la camara (0xC9BCC0 + 0x60) a x e y de AMBOS vertices (aunque sea 0: orden x87 fild/fadd/fstp), desbloquea, 0x7FB810, DrawPrimitive(D3DPT_LINELIST = 2, posicion, 1) y posicion += 2.
+// Sin datos devuelve 0; si no, TRUE cuando el HRESULT no es negativo. numVertices no se usa.
+RwBool _rwD3D9Im2DRenderLine(void* vertices, RwInt32 /*numVertices*/, RwInt32 vert1, RwInt32 vert2) {
+    constexpr size_t kSlotDeviceDrawPrimitive = 81; // IDirect3DDevice9::DrawPrimitive (+0x144)
+    auto& bufferInUse  = StaticRef<uint32>(0xC980E0);
+    auto& position     = StaticRef<uint32>(0xC980E4);
+    auto& vertexBuffer = StaticRef<void*>(0xC980E8);
+    const uint8* const camera = StaticRef<const uint8*>(0xC9BCC0);
+    const RwRaster* const frameBuffer = *reinterpret_cast<RwRaster* const*>(camera + 0x60);
+    uint8* data = nullptr;
+    if (bufferInUse != 0) {
+        const uint32 start = position;
+        if (start + 2u > 0x2492u) {
+            position = 0;
+            ComCall<kSlotVertexBufferLock, int32>(vertexBuffer, 0u, 0x38u, static_cast<void*>(&data), 0x2800u);
+        } else {
+            ComCall<kSlotVertexBufferLock, int32>(vertexBuffer, start * 28u, 0x38u, static_cast<void*>(&data), 0x1800u);
+        }
+    } else {
+        RwD3D9DynamicVertexBufferLock(0x1C, 2u, &vertexBuffer, reinterpret_cast<void**>(&data), &position);
+    }
+    if (data == nullptr) {
+        return FALSE;
+    }
+    const float shiftX = static_cast<float>(static_cast<int32>(frameBuffer->nOffsetX));
+    const float shiftY = static_cast<float>(static_cast<int32>(frameBuffer->nOffsetY));
+    const uint32* const source[2] = {
+        static_cast<const uint32*>(vertices) + 7 * static_cast<size_t>(vert1),
+        static_cast<const uint32*>(vertices) + 7 * static_cast<size_t>(vert2),
+    };
+    uint32* destination = reinterpret_cast<uint32*>(data);
+    for (int i = 0; i < 2; ++i, destination += 7) {
+        float x, y;
+        memcpy(&x, source[i], sizeof(float));
+        memcpy(&y, source[i] + 1, sizeof(float));
+        x = shiftX + x;
+        y = shiftY + y;
+        memcpy(destination, &x, sizeof(float));
+        memcpy(destination + 1, &y, sizeof(float));
+        destination[2] = source[i][2];
+        destination[3] = source[i][3];
+        destination[4] = source[i][4];
+        destination[5] = source[i][5];
+        destination[6] = source[i][6];
+    }
+    ComCall<kSlotVertexBufferUnlock, int32>(vertexBuffer);
+    _rwD3D9Im2DRenderBegin(); // 0x7FB810
+    const int32 result = ComCall<kSlotDeviceDrawPrimitive, int32>(D3D9Device, 2u, static_cast<uint32>(position), 1u);
+    position += 2u;
+    return result >= 0;
+}
+
 // Lote R11A (sin validar; segundo encargo con ese nombre): controlador D3D9 de RenderWare (RwD3D9).
 void RwD3D9InjectHooksR11A2() {
     RH_ScopedCategory("Renderware");
     RH_ScopedNamespaceName("RwD3D9");
 
     RH_ScopedGlobalInstall(_rwD3D9Im2DRenderPrimitive, 0x7FBB00);
+    RH_ScopedGlobalInstall(_rwD3D9Im2DRenderLine, 0x7FB650);
     RH_ScopedGlobalInstall(_rwD3D9RenderStateVertexAlphaEnable, 0x7FE0A0);
     RH_ScopedGlobalInstall(_rwD3D9RenderStateGetVertexAlphaEnable, 0x7FE190);
     RH_ScopedGlobalInstall(_rwD3D9RenderStateStencilEnable, 0x7FE1A0);

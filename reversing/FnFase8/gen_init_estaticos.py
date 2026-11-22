@@ -1,4 +1,7 @@
-import csv,struct,sys,collections,re
+import csv,struct,sys,collections,re,os
+REPO=os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..'))
+# tercera ronda: solo se puentean las filas que DatosExe::RunStaticInitializers (StaticInit.cpp) NO genera (estado 'pendiente' en docs/DatosExe/inicializadores-estado.csv)
+PEND_DE=set(int(re.search(r'\((0x[0-9A-Fa-f]+)\)',x['inicializador']).group(1),16) for x in csv.DictReader(open(os.path.join(REPO,'docs','DatosExe','inicializadores-estado.csv'),encoding='utf-8')) if x['estado']=='pendiente')
 from capstone import Cs, CS_ARCH_X86, CS_MODE_32
 d=open(r'D:\Grand Theft Auto San Andreas\gta-sa.exe','rb').read()
 pe=struct.unpack_from('<I',d,60)[0]
@@ -13,7 +16,7 @@ def rd(a,n):
         if va<=a<va+sz: return d[rp+a-va:rp+a-va+n]
     return b''
 md=Cs(CS_ARCH_X86,CS_MODE_32)
-r=list(csv.DictReader(open(r'D:\Original\wv-fase8b\docs\CodigoVivoExe\fase8-inicializadores.csv',encoding='utf-8')))
+r=list(csv.DictReader(open(os.path.join(REPO,'docs','CodigoVivoExe','fase8-inicializadores.csv'),encoding='utf-8')))
 pend=[x for x in r if x['estado']=='pendiente-DatosExe' or (x['clase'].startswith('llamada') )]
 pat=collections.OrderedDict()
 for x in pend:
@@ -28,7 +31,7 @@ print("=======")
 import re
 out=[]; unh=[]
 for x in r:
-    if x['estado']!='pendiente-DatosExe': continue
+    if x['estado']!='pendiente-DatosExe' or int(x['va'],16) not in PEND_DE: continue
     a=int(x['va'],16); n=int(x['bytes'])
     ins=[(i.address,i.mnemonic,i.op_str) for i in md.disasm(rd(a,n),a)]
     ms=tuple(m for _,m,_ in ins)
@@ -49,7 +52,7 @@ for x in r:
 print(len(out),len(unh))
 for u in unh: print(hex(u[0]),u[1:] )
 import json
-json.dump(out,open(r'C:\Users\pedro\AppData\Local\Temp\ini.json','w'))
+json.dump(out,open(os.path.join(os.environ.get('TEMP','.'),'ini.json'),'w'))
 print("=======GEN")
 from unicorn import *
 from unicorn.x86_const import *
@@ -97,7 +100,7 @@ def emular(this,ctor,args):
 rows=[]
 def H(v): return '0x%X'%v
 for x in r:
-    if x['estado']!='pendiente-DatosExe': continue
+    if x['estado']!='pendiente-DatosExe' or int(x['va'],16) not in PEND_DE: continue
     a=int(x['va'],16); n=int(x['bytes'])
     ins=[(i.address,i.mnemonic,i.op_str) for i in md.disasm(rd(a,n),a)]
     ms=tuple(m for _,m,_ in ins)
@@ -128,7 +131,7 @@ for x in r:
     elif a==0x8543d0: rows.append((a,'kVec',0xc2ba08,0xe0,0xd2,0x6d0450,0,0))
     else: pass # ceros (bss ya a cero), atexit sin objeto, asignaciones dependientes de datos de ejecucion
 rows.sort()
-HK=set(int(x['address'],16) for x in csv.DictReader(open(r'D:\Original\wv-fase8b\docs\hooks.csv',encoding='utf-8')))
+HK=set(int(x['address'],16) for x in csv.DictReader(open(os.path.join(REPO,'docs','hooks.csv'),encoding='utf-8')))
 nuevo=[]
 for row in rows:
     va,k,a,b,c,dd,e,f=row
@@ -152,7 +155,7 @@ for row in rows:
     nuevo.append(row)
 rows=nuevo
 print(len(rows))
-with open(r'D:\Original\wv-fase8b\source\app\platform\win\StandaloneInit.inc','w',encoding='utf-8',newline='\n') as f:
+with open(os.path.join(REPO,'source','app','platform','win','StandaloneInit.inc'),'w',encoding='utf-8',newline='\n') as f:
     f.write('// GENERADO (fase 8, segunda ronda; reversing/FnFase8/gen_init_estaticos.py): inicializadores estaticos del EXE original que DatosExe todavia no define (fase8-inicializadores.csv, estado pendiente-DatosExe).\n')
     f.write('// Cada fila = una rutina de la tabla _initterm del original (va), decodificada del archivo: constructores de objetos globales (se llama al C++ con gancho), arrays de relleno 0xFFFF, copias de valores iniciales.\n')
     f.write('// Se omiten las que solo registran el destructor (atexit), las que ponen a cero memoria de .bss y las que dependen de datos de ejecucion. {va, tipo, a, b, c, d, e, f}\n')
