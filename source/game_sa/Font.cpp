@@ -700,7 +700,7 @@ void CFont::RenderFontBuffer() {
         } else {
             const uint8 index = letter == '?' ? 0 : letter;
             auto* const data = gFontData.data() + static_cast<int16>(RenderState.m_wFontTexture);
-            const auto width = RenderState.m_bPropOn == 1 ? data->m_propValues[index] : data->m_unpropValue;
+            const auto width = RenderState.m_bPropOn == 1 ? data->m_propValues.data()[index] : data->m_unpropValue;
             x = (float(outline) + float(width)) * RenderState.m_fWidth + x;
         }
         if (letter == 0) x = RenderState.m_fWrap + x;
