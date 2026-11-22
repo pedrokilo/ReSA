@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: QTMLRuntime
- * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 10/10 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/9 entradas.
+ * Validación registrada: 0/10 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -33,7 +33,8 @@ auto& QtmlDispatcher           = StaticRef<uintptr_t>(0x8E2A0C);
 auto& QtmlCallComponent        = StaticRef<uintptr_t>(0x8E2A10);
 auto& QtmlCallComponentStorage = StaticRef<uintptr_t>(0x8E2A14);
 
-constexpr uintptr_t kQtmlUnavailableStub  = 0x8194D0; // mov ax, 0F7D1h; ret
+// 0x8194D0 (`mov ax, 0F7D1h; ret`) esta reconstruida como QtmlUnavailableStub (mas abajo, enganchada): los tres punteros de arriba se restauran a la funcion propia
+inline uintptr_t QtmlUnavailableStubAddress() { return reinterpret_cast<uintptr_t>(&QtmlUnavailableStub); }
 constexpr uintptr_t kQtmlLazyInitHook     = 0x819700; // gancho posterior a un fallo (resuelve los tres punteros en cada puente)
 constexpr int16 kErrQuickTimeUnavailable = static_cast<int16>(0xF7D1); // -2095: el valor con que responde 0x8194D0 (`mov ax, 0F7D1h; ret`) cuando QuickTime no esta disponible
 
@@ -134,6 +135,11 @@ HMODULE __cdecl QtmlLoadLibrary(const char* name) {
 // implementacion nula segura: responden como el EXE sin QuickTime (0x8194D0, `mov ax, 0F7D1h; ret`: OSErr -2095, "QuickTime no disponible"), sin cargar QuickTime.qts ni llamar a nada. Lo unico que se pierde frente al EXE es el camino con QuickTime instalado, que ya estaba retirado.
 // Uso real que tenian: radio personal (pistas de usuario ".aac", ".m4a" y ".mov" de CAEMFDecoder: InitializeQTML/TerminateQTML y la conversion de audio SoundConverterFillBuffer, 0x81A3C0). No se usa Media Foundation: esos formatos siguen sin cargarse (los ".mp3" van por el decoder WMA).
 
+// 0x8194D0 (ver QTMLRuntime.h)
+int16 __cdecl QtmlUnavailableStub() {
+    return kErrQuickTimeUnavailable;
+}
+
 // 0x818650 (cdecl, un argumento (banderas de InitializeQTML); devuelve el OSErr de 16 bits en AX): InitializeQTML nulo.
 int16 __cdecl QtmlInitializeBridge(int32 /*flags*/) {
     return kErrQuickTimeUnavailable;
@@ -232,9 +238,9 @@ int16 __cdecl QtmlInitialize(int32 flags) {
                 QtmlModule = nullptr;
             }
             QtmlInitHook = kQtmlLazyInitHook;
-            QtmlCallComponent = kQtmlUnavailableStub;
-            QtmlCallComponentStorage = kQtmlUnavailableStub;
-            QtmlDispatcher = kQtmlUnavailableStub;
+            QtmlCallComponent = QtmlUnavailableStubAddress();
+            QtmlCallComponentStorage = QtmlUnavailableStubAddress();
+            QtmlDispatcher = QtmlUnavailableStubAddress();
         }
     }
     ReleaseInitTermMutex(mutex);
@@ -252,9 +258,9 @@ void __cdecl QtmlTerminate() {
             QtmlTerminateThunk();
             const HMODULE module = QtmlModule;
             QtmlInitHook = kQtmlLazyInitHook;
-            QtmlCallComponent = kQtmlUnavailableStub;
-            QtmlCallComponentStorage = kQtmlUnavailableStub;
-            QtmlDispatcher = kQtmlUnavailableStub;
+            QtmlCallComponent = QtmlUnavailableStubAddress();
+            QtmlCallComponentStorage = QtmlUnavailableStubAddress();
+            QtmlDispatcher = QtmlUnavailableStubAddress();
             FreeLibrary(module);
         }
     } else {
@@ -268,6 +274,7 @@ void QTMLRuntimeInjectHooks() {
     RH_ScopedNamespaceName("QTMLRuntime");
 
     RH_ScopedGlobalInstall(QtmlInitializeThunk, 0x8194B0);
+    RH_ScopedGlobalInstall(QtmlUnavailableStub, 0x8194D0);
     RH_ScopedGlobalInstall(QtmlTerminateThunk, 0x8194C0);
     RH_ScopedGlobalInstall(QtmlResolveEntryPoints, 0x819520);
     RH_ScopedGlobalInstall(QtmlInitialize, 0x8195C0);

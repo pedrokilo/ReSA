@@ -54,7 +54,7 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x00453E30,0x00453E39,10,0x00452F90,juego,trivial (<16 B),sin-referencia-real,sin-ref,0,0,0,
 0x00453E40,0x00453F31,242,0x00452F90,juego,funcion,pendiente-dato,tabla,0,0,3,datos=2 muerto=1 tabla=2
 0x00453FA0,0x00453FA2,3,0x00453F91,juego,trivial (<16 B),citada-en-cpp,muerto,0,1,1,muerto=2
-0x00453FB0,0x00453FB0,1,0x00453F91,juego,ret-vacio,citada-en-cpp,tabla,0,1,1,espurio=1 muerto=2 tabla=1
+0x00453FB0,0x00453FB0,1,0x00453F91,juego,ret-vacio,muerta-por-reemplazo,tabla,0,1,1,espurio=1 muerto=2 tabla=1
 0x00453FC0,0x00453FCD,14,0x00453F91,juego,trivial (<16 B),sin-referencia-real,sin-ref,0,0,0,
 0x00453FD0,0x0045400E,63,0x00453F91,juego,funcion,muerta-por-reemplazo,muerto,0,0,1,espurio=1
 0x00454010,0x004540C4,181,0x00453F91,juego,funcion,pendiente-dato,datos,0,0,2,datos=1 espurio=2
@@ -371,7 +371,7 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x00608A90,0x00608ADC,77,0x00608A61,juego,funcion,sin-referencia-real,sin-ref,0,0,0,
 0x00608AE0,0x00608AF4,21,0x00608A61,juego,funcion,citada-en-cpp,muerto,0,1,2,muerto=3
 0x00617860,0x00617864,5,0x0061785C,juego,thunk,citada-en-cpp,muerto,0,1,1,muerto=8
-0x0061A8A0,0x0061A8AF,16,0x0061A896,juego,funcion,citada-en-cpp,datos,0,1,1,datos=1 muerto=14 pieza=2
+0x0061A8A0,0x0061A8AF,16,0x0061A896,juego,funcion,reconstruida,datos,1,1,1,datos=1 muerto=14 pieza=2
 0x0061AAA0,0x0061AAFA,91,0x0061AA96,juego,funcion,citada-en-cpp,muerto,0,1,1,muerto=2
 0x0061DAE0,0x0061DB2E,79,0x0061DAD1,juego,funcion,reconstruida,datos,1,1,1,datos=1 muerto=10
 0x0061FD10,0x0061FD1F,16,0x0061FD0C,juego,funcion,reconstruida,datos,1,1,1,datos=1 muerto=2
@@ -381,7 +381,7 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x0062EC50,0x0062EC50,1,0x0062EC50,juego,ret-vacio,destructor-atexit,init,0,0,1,init=2 pieza=2
 0x00631D60,0x00631D6F,16,0x00631D5D,juego,funcion,reconstruida,datos,1,1,1,datos=1 espurio=1 muerto=3
 0x00675DD0,0x00675E10,65,0x00675DC3,juego,funcion,reconstruida,muerto,1,1,1,muerto=10
-0x0068B7D0,0x0068B7DF,16,0x0068B7C8,juego,funcion,citada-en-cpp,datos,0,1,1,datos=1 muerto=2
+0x0068B7D0,0x0068B7DF,16,0x0068B7C8,juego,funcion,reconstruida,datos,1,1,1,datos=1 muerto=2
 0x006A0710,0x006A0714,5,0x006A0704,juego,trivial (<16 B),sin-referencia-real,sin-ref,0,0,0,
 0x006A0720,0x006A0739,26,0x006A0704,juego,funcion,sin-referencia-real,sin-ref,0,0,0,
 0x006A0740,0x006A0743,4,0x006A0704,juego,trivial (<16 B),sin-referencia-real,sin-ref,0,0,0,
@@ -717,14 +717,14 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x007F3E60,0x007F3E73,20,0x007F3CF3,renderware,funcion,sin-referencia-real,sin-ref,0,0,0,
 0x007F3E80,0x007F3E93,20,0x007F3CF3,renderware,funcion,reconstruida,sin-ref,1,1,0,
 0x007F3EA0,0x007F4076,471,0x007F3CF3,renderware,funcion,reconstruida,datos,1,1,3,datos=2 muerto=2
-0x007F40F0,0x007F44B5,966,0x007F40F0,renderware,funcion,citada-en-cpp,datos,0,1,1,pieza=2
-0x007F5140,0x007F53CB,652,0x007F513F,renderware,funcion,citada-en-cpp,datos,0,1,1,pieza=2
-0x007F53D0,0x007F54F3,292,0x007F513F,renderware,funcion,citada-en-cpp,datos,0,1,1,pieza=2
+0x007F40F0,0x007F44B5,966,0x007F40F0,renderware,funcion,pendiente-dato,datos,0,1,1,pieza=2
+0x007F5140,0x007F53CB,652,0x007F513F,renderware,funcion,pendiente-dato,datos,0,1,1,pieza=2
+0x007F53D0,0x007F54F3,292,0x007F513F,renderware,funcion,pendiente-dato,datos,0,1,1,pieza=2
 0x007F7530,0x007F7532,3,0x007F7523,renderware,trivial (<16 B),reconstruida,muerto,1,1,1,muerto=2
 0x007FB310,0x007FB34E,63,0x007FB306,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2
 0x007FB350,0x007FB363,20,0x007FB306,renderware,funcion,reconstruida,sin-ref,1,1,0,
 0x007FB370,0x007FB47F,272,0x007FB306,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2
-0x007FFF00,0x007FFFCF,208,0x007FFEF8,renderware,funcion,citada-en-cpp,vivo,0,1,17,datos=1 espurio=26 muerto=36 vivo=5
+0x007FFF00,0x007FFFCF,208,0x007FFEF8,renderware,funcion,pendiente-dato,vivo,0,1,17,datos=1 espurio=26 muerto=36 vivo=5
 0x00801C10,0x00801C1E,15,0x00801C08,renderware,trivial (<16 B),reconstruida,sin-ref,1,1,0,
 0x00801C20,0x00801C27,8,0x00801C08,renderware,trivial (<16 B),reconstruida,sin-ref,1,1,0,
 0x00801C30,0x00801D4D,286,0x00801C08,renderware,funcion,reconstruida,muerto,1,1,6,muerto=9
@@ -804,7 +804,7 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x00815C20,0x00815E56,567,0x00815C1A,renderware,funcion,reconstruida,muerto,1,1,2,muerto=5
 0x008160A0,0x00816113,116,0x00816096,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2
 0x00816120,0x00816184,101,0x00816096,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2
-0x008194D0,0x008194D4,5,0x008194C5,renderware,trivial (<16 B),citada-en-cpp,datos,0,1,1,datos=3 muerto=4
+0x008194D0,0x008194D4,5,0x008194C5,renderware,trivial (<16 B),reconstruida,datos,1,1,1,datos=3 muerto=4
 0x008194E0,0x008194F4,21,0x008194C5,renderware,funcion,sin-referencia-real,sin-ref,0,0,0,
 0x00819500,0x00819514,21,0x008194C5,renderware,funcion,sin-referencia-real,sin-ref,0,0,0,
 0x00819700,0x0081976B,108,0x008196FF,renderware,funcion,citada-en-cpp,muerto,0,1,1,muerto=4
@@ -815,8 +815,8 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x008262A2,0x0082631E,125,0x008262A2,crt,funcion,reconstruida,muerto,1,1,2,muerto=4
 0x00826450,0x00826584,309,0x00826448,crt,funcion,reconstruida,muerto,1,1,1,muerto=2
 0x00826ADB,0x00826B3F,101,0x00826ADB,crt,funcion,reconstruida,muerto,1,1,2,muerto=4
-0x0082BF1E,0x0082BF61,68,0x0082BF1E,crt,funcion,crt-enlazar,vivo,0,0,3,datos=2 vivo=2
-0x0082E924,0x0082E9B2,143,0x0082E924,crt,funcion,pendiente-dato,tabla,0,0,6,datos=1 muerto=5 tabla=2
+0x0082BF1E,0x0082BF61,68,0x0082BF1E,crt,funcion,crt-enlazar,vivo,0,1,1,vivo=2
+0x0082E924,0x0082E9B2,143,0x0082E924,crt,funcion,muerta-por-reemplazo,muerto,0,0,5,muerto=7
 0x0083DB48,0x0083DB51,10,0x0083DB48,crt,trivial (<16 B),muerta-por-reemplazo,muerto,0,0,1,muerto=2
 0x0083DB60,0x0083DB69,10,0x0083DB48,crt,trivial (<16 B),muerta-por-reemplazo,muerto,0,0,1,muerto=2
 0x0083DB70,0x0083DB79,10,0x0083DB48,crt,trivial (<16 B),muerta-por-reemplazo,muerto,0,0,1,muerto=2

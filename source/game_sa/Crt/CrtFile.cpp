@@ -9,6 +9,7 @@
 #include "CrtInput.h"
 #include "CrtLowIo.h"
 #include "CrtStdio.h"
+#include "CrtStartup.h"
 
 // Reconstruccion de las envolturas de E/S y formato del CRT del EXE (lote CRT2A). Ver CrtFile.h y reversing/FnCRT2A/README.md.
 
@@ -279,9 +280,10 @@ int __cdecl LockedCall8260FF(File* f) {
     return static_cast<int>(FtellNolock(f));
 }
 
-// 0x823CAE
+// 0x823CAE: exit(code) = _doexit(code, 0, 0) (0x823BDB, reconstruida en CrtStartup.cpp como DoExit; ya no se llama por direccion). No vuelve: sale por ExitProcess
 int __cdecl Call823BDB(int a) {
-    return Exe<int(__cdecl*)(int, int, int)>(0x823BDB)(a, 0, 0);
+    DoExit(a, 0, 0);
+    return 0;
 }
 
 // 0x822D5D: copia la plantilla de 32 bytes de 0x887E5C (codigo, banderas, ..., nº de parametros) y lanza con RaiseException

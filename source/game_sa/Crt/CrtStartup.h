@@ -26,6 +26,14 @@ int  __cdecl Mtinit();           // 0x827D25: 1 = bien, 0 = fallo
 void __cdecl Mtterm();           // 0x827B0C
 int  __cdecl Onexitinit();       // 0x821CBE: 0 = bien, 0x18 si no hay memoria
 
+// Linea de comandos, entorno y cierre (sin gancho; el arranque corre antes de la DLL y _doexit lo usa el cierre propio):
+char* __cdecl CrtGetEnvironmentStrings();                    // 0x82DBC8 __crtGetEnvironmentStringsA: copia ANSI (malloc) del bloque de entorno, null si falla
+int   __cdecl Setargv();                                     // 0x82DB26: _pgmptr, __argc, __argv (0 = bien, -1 = sin memoria)
+int   __cdecl Setenvp();                                     // 0x82D8F3: _environ desde _aenvptr (0 = bien, -1 = sin memoria)
+int   __cdecl StartupArguments();                            // GetCommandLineA + entorno + Setargv + Setenvp: 0, 8 (argumentos) o 9 (entorno)
+void  __cdecl CrtExitProcess(int code);                      // 0x823AFE __crtExitProcess: CorExitProcess si hay mscoree.dll y ExitProcess; no vuelve
+void  __cdecl DoExit(int code, int quick, int retcaller);    // 0x823BDB _doexit: atexit/_onexit en orden inverso, terminadores y salida (exit = DoExit(code, 0, 0))
+
 // Parte de `entry` que reconstruyen las funciones de arriba mas __ioinit: devuelve 0 si todo fue bien o el codigo de _amsg_exit (0x1C monton, 0x10 hilos, 0x1B E/S).
 int  __cdecl StartupEarly();
 

@@ -18,7 +18,7 @@ H1,0x00441DC6,0x00441E0F,74,juego,sin-referencia-real,2,0,1,destructor-atexit:14
 H1,0x00446FB6,0x00446FFF,74,juego,sin-referencia-real,3,0,1,citada-en-cpp:10 sin-referencia-real:34
 H1,0x0044705E,0x0044711F,194,juego,sin-referencia-real,8,0,1,destructor-atexit:48 sin-referencia-real:73
 H1,0x00452F90,0x00453F3F,4016,juego,pendiente-dato,15,4,0,pendiente-dato:2970 muerta-por-reemplazo:799 sin-referencia-real:135
-H1,0x00453F91,0x004541DF,591,juego,pendiente-dato,9,1,0,pendiente-dato:181 citada-en-cpp:4 muerta-por-reemplazo:146 sin-referencia-real:165
+H1,0x00453F91,0x004541DF,591,juego,pendiente-dato,9,1,0,pendiente-dato:181 citada-en-cpp:3 muerta-por-reemplazo:147 sin-referencia-real:165
 H1,0x0045B063,0x0045B14F,237,juego,sin-referencia-real,12,0,1,destructor-atexit:8 sin-referencia-real:97
 H1,0x00463339,0x0046336F,55,juego,sin-referencia-real,2,0,1,destructor-atexit:3 sin-referencia-real:23
 H1,0x004634A5,0x004634CF,43,juego,sin-referencia-real,2,0,1,muerta-por-reemplazo:1 sin-referencia-real:10
@@ -111,7 +111,7 @@ H3,0x006082DC,0x0060832F,84,juego,sin-referencia-real,4,0,1,destructor-atexit:1 
 H3,0x00608778,0x0060878F,24,juego,citada-en-cpp,1,0,1,citada-en-cpp:1
 H3,0x00608A61,0x00608AFF,159,juego,sin-referencia-real,3,0,1,citada-en-cpp:21 sin-referencia-real:108
 H3,0x0061785C,0x0061786F,20,juego,citada-en-cpp,1,0,1,citada-en-cpp:5
-H3,0x0061A896,0x0061A8AF,26,juego,citada-en-cpp,1,0,1,citada-en-cpp:16
+H3,0x0061A896,0x0061A8AF,26,juego,reconstruida,1,0,1,reconstruida:16
 H3,0x0061AA96,0x0061AAFF,106,juego,citada-en-cpp,1,0,1,citada-en-cpp:91
 H3,0x0061DAD1,0x0061DB2F,95,juego,reconstruida,1,0,1,reconstruida:79
 H3,0x0061FD0C,0x0061FD1F,20,juego,reconstruida,1,0,1,reconstruida:16
@@ -121,7 +121,7 @@ H3,0x00621BD9,0x00621BFF,39,juego,reconstruida,1,0,1,reconstruida:21
 H3,0x0062EC50,0x0062EC5F,16,juego,destructor-atexit,1,0,1,destructor-atexit:1
 H3,0x00631D5D,0x00631D6F,19,juego,reconstruida,1,0,1,reconstruida:16
 H3,0x00675DC3,0x00675E1F,93,juego,reconstruida,1,0,1,reconstruida:65
-H3,0x0068B7C8,0x0068B7DF,24,juego,citada-en-cpp,1,0,1,citada-en-cpp:16
+H3,0x0068B7C8,0x0068B7DF,24,juego,reconstruida,1,0,1,reconstruida:16
 H3,0x006A0704,0x006A076F,108,juego,sin-referencia-real,4,0,1,citada-en-cpp:17 sin-referencia-real:35
 H3,0x006D294C,0x006D295F,20,juego,reconstruida,1,0,1,reconstruida:12
 H3,0x006E3E43,0x006E3E5F,29,juego,citada-en-cpp,1,0,1,citada-en-cpp:5
@@ -228,11 +228,11 @@ H6,0x007F12E3,0x007F144F,365,renderware,reconstruida,2,0,1,reconstruida:314 sin-
 H6,0x007F1658,0x007F17DF,392,renderware,reconstruida,5,0,1,reconstruida:354
 H6,0x007F3484,0x007F34CF,76,renderware,reconstruida,2,0,1,reconstruida:46
 H6,0x007F3CF3,0x007F407F,909,renderware,reconstruida,4,0,1,reconstruida:831 sin-referencia-real:20
-H6,0x007F40F0,0x007F44BF,976,renderware,citada-en-cpp,1,0,1,citada-en-cpp:966
-H6,0x007F513F,0x007F54FF,961,renderware,citada-en-cpp,2,0,1,citada-en-cpp:944
+H6,0x007F40F0,0x007F44BF,976,renderware,pendiente-dato,1,1,0,pendiente-dato:966
+H6,0x007F513F,0x007F54FF,961,renderware,pendiente-dato,2,2,0,pendiente-dato:944
 H6,0x007F7523,0x007F753F,29,renderware,reconstruida,1,0,1,reconstruida:3
 H6,0x007FB306,0x007FB47F,378,renderware,reconstruida,3,0,1,reconstruida:355
-H6,0x007FFEF8,0x007FFFEF,248,renderware,citada-en-cpp,1,0,1,citada-en-cpp:208
+H6,0x007FFEF8,0x007FFFEF,248,renderware,pendiente-dato,1,1,0,pendiente-dato:208
 H6,0x00801C08,0x00801D4F,328,renderware,reconstruida,3,0,1,reconstruida:309
 H6,0x00802097,0x008020EF,89,renderware,reconstruida,3,0,1,reconstruida:52
 H6,0x00802228,0x008026DF,1208,renderware,reconstruida,6,0,1,reconstruida:932 sin-referencia-real:209
@@ -255,7 +255,7 @@ H6,0x00811AE0,0x00811B8F,176,renderware,reconstruida,5,0,1,reconstruida:124
 H6,0x00811BE0,0x00811C2F,80,renderware,reconstruida,2,0,1,reconstruida:69
 H6,0x00815C1A,0x00815E5F,582,renderware,reconstruida,1,0,1,reconstruida:567
 H6,0x00816096,0x0081618F,250,renderware,reconstruida,2,0,1,reconstruida:217
-H6,0x008194C5,0x0081951F,91,renderware,sin-referencia-real,3,0,1,citada-en-cpp:5 sin-referencia-real:42
+H6,0x008194C5,0x0081951F,91,renderware,sin-referencia-real,3,0,1,reconstruida:5 sin-referencia-real:42
 H6,0x008196FF,0x0081976F,113,renderware,citada-en-cpp,1,0,1,citada-en-cpp:108
 H6,0x008215D6,0x00821613,62,crt,crt-enlazar,1,0,1,crt-enlazar:62
 H6,0x008218B4,0x008218D5,34,crt,crt-enlazar,1,0,1,crt-enlazar:34
@@ -265,7 +265,7 @@ H6,0x008262A2,0x0082631E,125,crt,reconstruida,1,0,1,reconstruida:125
 H6,0x00826448,0x0082658F,328,crt,reconstruida,1,0,1,reconstruida:309
 H6,0x00826ADB,0x00826B3F,101,crt,reconstruida,1,0,1,reconstruida:101
 H6,0x0082BF1E,0x0082BF61,68,crt,crt-enlazar,1,0,1,crt-enlazar:68
-H6,0x0082E924,0x0082E9B2,143,crt,pendiente-dato,1,1,0,pendiente-dato:143
+H6,0x0082E924,0x0082E9B2,143,crt,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:143
 H6,0x0083DB48,0x0083DBAF,104,crt,muerta-por-reemplazo,6,0,1,muerta-por-reemplazo:60
 H6,0x00856431,0x0085687F,1103,crt,destructor-atexit,43,0,1,destructor-atexit:693
 H6,0x008568AB,0x00856DFF,1365,crt,destructor-atexit,47,0,1,crt-enlazar:368 citada-en-cpp:10 destructor-atexit:518 muerta-por-reemplazo:20

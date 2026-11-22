@@ -11,3 +11,6 @@ void __cdecl QtmlTerminate();
 
 // Lote S1 (codigo vivo): sustituyen los puentes de QuickTime 0x818650, 0x818670 y 0x81A3C0 (implementacion nula: OSErr -2095, QuickTime no disponible).
 int16 __cdecl QtmlConverterFillBridge(void* media, void* handler, int32 sourceSize, uint32* out, int32 position, int32* c, int32* a, int32 z1, int32 z2, int32 z3, int32* b, int32 z4); // 0x81A3C0
+
+// 0x8194D0 (`mov ax, 0F7D1h; ret`, sin argumentos propios; cdecl llamador-limpia): respuesta de los tres puntos de entrada de QuickTime (0x8E2A0C, 0x8E2A10, 0x8E2A14) cuando QuickTime no esta disponible: OSErr -2095.
+int16 __cdecl QtmlUnavailableStub();
