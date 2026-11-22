@@ -18,7 +18,7 @@ una funcion con direccion propia. Los contadores de `ReversedClasses.md` **no lo
 | original | 1163 | sin manejador propio: pasa por el despachador de su centena |
 | **Total** | **2826** | |
 
-De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 184; despachador del EXE = 794; sin despachador identificado = 185.
+De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 277; despachador del EXE = 701; sin despachador identificado = 185.
 
 ## Por categoria (archivo de `Scripts/Commands`)
 
@@ -56,7 +56,7 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 184; des
 | `0x0046B460` | 59 | si | si |
 | `0x0046D050` | 60 | no | no |
 | `0x00470A90` | 44 | no | no |
-| `0x00472310` | 55 | no | no |
+| `0x00472310` | 55 | si | no |
 | `0x00474900` | 78 | no | no |
 | `0x004762D0` | 58 | no | no |
 | `0x00478000` | 79 | no | no |
@@ -74,7 +74,7 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 184; des
 | `0x0048B590` | 38 | si | si |
 | `0x0048CDD0` | 19 | no | no |
 | `0x0048EAA0` | 47 | no | no |
-| `0x00490DB0` | 38 | no | no |
+| `0x00490DB0` | 38 | si | no |
 | `0x00493FE0` | 48 | no | no |
 | `0x00496E00` | 69 | si | si |
 

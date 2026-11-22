@@ -42,7 +42,6 @@ namespace CTaskSimpleBody {
 void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A390
 }
 
-namespace {
 // 0x674930 (lote 175A, banco Fn175A; el listado lo atribuia a CTaskComplexWanderProstitute): constructor de CTaskComplexFollowPatrolRoute del EXE (thiscall, CINCO argumentos de pila, `ret 14h`, 182 bytes, marco SEH que
 // solo desenrolla). Argumentos: a (16 bits bajos), ruta origen, b (16 bits bajos), c y d (32 bits). Como el original, en este orden: base CTaskComplex (0x61A3B0, con hook); +0x10 = a; vtable de la clase del EXE (0x870114);
 // +0xC = b; +0x20 con el bit 1 a cero (el resto no se toca); reserva una ruta de patrulla con CPatrolRoute::operator new (0x41B810, con hook; el EXE le pasa 0x1A4) y, SOLO si hay memoria, la construye con 0x66D440; guarda
@@ -65,7 +64,6 @@ __declspec(noinline) CTaskComplexFollowPatrolRoute* __fastcall CTaskComplexFollo
     self->m_nRoutePasses = 0;
     return self;
 }
-} // namespace
 
 namespace {
 // Lote 209A (sin validar): la clase sigue sin campos declarados, asi que se leen en bruto los que muestran los desensamblados (ver el Clone de abajo): +0x08 subtarea (CTaskComplex::m_pSubTask), +0x1C CPatrolRoute*, +0x20 banderas (bit 0 y bit 1) y

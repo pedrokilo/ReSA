@@ -267,6 +267,17 @@ inline int CallCpp(CommandHandlerFunction h, CRunningScript* s) {
     __try { r = (int)h(s); } __except (Filter(GetExceptionInformation())) { r = -88; }
     return r;
 }
+// F4 (codigo vivo): con CMDBENCH_VIA_DISPATCHER=1 el lado C++ de los comandos 1500..1599 y 2000..2099 llama al despachador C++ (ProcessCommands1500To1599 / ProcessCommands2000To2099)
+// en lugar de al manejador propio del comando: compara el despachador reescrito contra el original del EXE (con los enganches de esos dos despachadores apagados mas abajo).
+inline bool ViaDispatcher(int cmd) {
+    static const bool enabled = [] { char* env = nullptr; size_t len = 0; bool on = false; if (_dupenv_s(&env, &len, "CMDBENCH_VIA_DISPATCHER") == 0 && env) { on = env[0] == '1'; free(env); } return on; }();
+    return enabled && ((cmd >= 1500 && cmd <= 1599) || (cmd >= 2000 && cmd <= 2099));
+}
+inline int CallCppDispatcher(CRunningScript* s, int cmd) {
+    int r = -77;
+    __try { r = (int)(cmd < 2000 ? s->ProcessCommands1500To1599((int32)cmd) : s->ProcessCommands2000To2099((int32)cmd)); } __except (Filter(GetExceptionInformation())) { r = -88; }
+    return r;
+}
 inline int CallExe(CRunningScript* s, int cmd) {
     int r = -77;
     __try { r = (int)(s->*CRunningScript::s_OriginalCommandHandlerTable[(size_t)cmd / 100])((int32)cmd); } __except (Filter(GetExceptionInformation())) { r = -88; }
@@ -305,7 +316,7 @@ inline void RunSide(int side, int cmd, const Case& c, const std::vector<std::vec
     gAssertHit = false;
     GameRandSeed() = gSeed0;
     const auto h = CRunningScript::CustomCommandHandlerOf((eScriptCommands)cmd);
-    if (side == 0) out.ret = CallCpp(h, s); else out.ret = CallExe(s, cmd);
+    if (side == 0) out.ret = ViaDispatcher(cmd) ? CallCppDispatcher(s, cmd) : CallCpp(h, s); else out.ret = CallExe(s, cmd);
     out.exc = (out.ret == -88);
     if (out.exc) { out.excCode = gExcCode; out.excEip = gExcEip; }
     if (gAssertHit) out.assertMsg = gAssertMsg;
@@ -486,7 +497,7 @@ inline void Run() {
         if (category.Name() == "CRunningScript")
             for (auto& hook : category.Items()) {
                 const std::string nm = hook->Name();
-                if (nm == "ProcessCommands800To899" || nm == "ProcessCommands1200To1299" || nm == "ProcessCommands1900To1999") {
+                if (nm == "ProcessCommands800To899" || nm == "ProcessCommands1200To1299" || nm == "ProcessCommands1900To1999" || nm == "ProcessCommands1500To1599" || nm == "ProcessCommands2000To2099") {
                     hookInfo.push_back({ { "name", nm }, { "hooked_before", hook->Hooked() } });
                     hook->LockState(false); hook->State(false);
                 }

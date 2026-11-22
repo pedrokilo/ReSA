@@ -329,6 +329,8 @@ public:
     OpcodeResult ProcessCommands1200To1299(int32 command); // 0x48B590
     OpcodeResult ProcessCommands1900To1999(int32 command); // 0x46B460
     OpcodeResult ProcessCommands800To899(int32 commandId); // 0x481300 (lote 239A, sin validar)
+    OpcodeResult ProcessCommands1500To1599(int32 command); // 0x490DB0 (F4 de codigo vivo, sin validar)
+    OpcodeResult ProcessCommands2000To2099(int32 command); // 0x472310 (F4 de codigo vivo, sin validar)
 
     void SetName(const char* name)      { strcpy_s(m_szName, name); }
     void SetName(std::string_view name) { assert(name.size() < sizeof(m_szName)); strncpy_s(m_szName, name.data(), name.size()); }
