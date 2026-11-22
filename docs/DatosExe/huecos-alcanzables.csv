@@ -10,7 +10,7 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x00403602,0x00403637,54,sinref,INALCANZABLE-codigo-sin-entrada,1,25,52,0,0.04,0,0,0,0,0,0,0,0,
 0x00403D90,0x00403DFF,112,sinref,INALCANZABLE-codigo-sin-entrada,1,72,112,0,0.04,0,0,0,0,0,0,0,0,
 0x00403F20,0x00403F9F,128,sinref,INALCANZABLE-codigo-sin-entrada,1,59,128,0,0.04,0,0,0,0,0,0,0,0,
-0x00404007,0x0040408F,137,sinref,INALCANZABLE-codigo-sin-entrada,1,71,137,0,0.02,0,0,0,0,0,0,0,6,
+0x00404007,0x0040408F,137,sinref,ALCANZABLE-interior,1,71,137,0,0.02,0,0,2,0,0,0,0,4,dato:.data:0x8a69d4->0x404052; dato:.data:0x8a69ec->0x404032
 0x004041B2,0x004041FF,78,sinref,INALCANZABLE-codigo-sin-entrada,1,37,78,0,0.05,0,0,0,0,0,0,0,0,
 0x0040431F,0x0040432F,17,sinref,INALCANZABLE-codigo-sin-entrada,1,13,17,0,0.18,0,0,0,0,0,0,0,0,
 0x00404353,0x004043DF,141,sinref,INALCANZABLE-codigo-sin-entrada,1,104,141,0,0.01,0,0,0,0,0,0,0,0,
@@ -360,10 +360,10 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x0045214E,0x0045215F,18,sinref,INALCANZABLE-codigo-sin-entrada,1,12,18,0,0.00,0,0,0,0,0,0,0,0,
 0x00452689,0x0045268F,7,sinref,INALCANZABLE-dato,0,1,7,0,0.57,0,0,0,0,0,0,0,0,
 0x00452876,0x0045287F,10,sinref,INALCANZABLE-dato,0,2,10,0,0.50,0,0,0,0,0,0,0,0,
-0x00452F90,0x00453F3F,4016,ref,INALCANZABLE-codigo-sin-entrada,1,1278,4016,0,0.10,0,0,0,0,0,0,0,0,
-0x00453F91,0x004541DF,591,ref,INALCANZABLE-codigo-sin-entrada,1,267,591,0,0.08,0,0,0,0,0,0,0,0,
-0x004541FE,0x0045491F,1826,sinref,INALCANZABLE-codigo-sin-entrada,1,614,1822,0,0.10,0,0,0,0,0,0,0,14,
-0x0045493C,0x0045495F,36,sinref,INALCANZABLE-codigo-sin-entrada,1,18,36,0,0.11,0,0,0,0,0,0,0,2,
+0x00452F90,0x00453F3F,4016,ref,ALCANZABLE-interior,1,1278,4016,0,0.10,0,0,0,0,0,0,0,0,
+0x00453F91,0x004541DF,591,ref,ALCANZABLE-interior,1,267,591,0,0.08,0,0,0,0,1,0,0,0,hueco:hueco 0x4541fe->0x453fb0
+0x004541FE,0x0045491F,1826,sinref,ALCANZABLE-interior,1,614,1822,0,0.10,0,0,12,0,0,0,0,2,dato:.data:0x8a6100->0x454545; dato:.data:0x8a6108->0x454545; dato:.data:0x8a6110->0x454545
+0x0045493C,0x0045495F,36,sinref,ALCANZABLE-interior,1,18,36,0,0.11,0,0,0,0,1,0,0,2,hueco:hueco 0x4541fe->0x45493e
 0x004549E7,0x00454A6F,137,sinref,INALCANZABLE-codigo-sin-entrada,1,83,137,0,0.07,0,0,0,0,0,0,0,0,
 0x00454B7D,0x00454B7F,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.33,0,0,0,0,0,0,0,0,
 0x004551F7,0x004551FF,9,sinref,INALCANZABLE-codigo-sin-entrada,1,9,9,0,0.00,0,0,0,0,0,0,0,0,
@@ -423,11 +423,11 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x0046528F,0x004652CF,65,sinref,INALCANZABLE-dato,0,0,0,0,0.08,0,0,0,0,0,0,0,0,
 0x004654A0,0x004654AF,16,sinref,INALCANZABLE-codigo-sin-entrada,1,10,16,0,0.00,0,0,0,0,0,0,0,0,
 0x00465592,0x004655DF,78,sinref,INALCANZABLE-codigo-sin-entrada,1,40,78,0,0.04,0,0,0,0,0,0,0,0,
-0x00465E56,0x004684EF,9882,sinref,INALCANZABLE-codigo-sin-entrada,1,3221,9882,0,0.12,0,0,0,0,0,0,0,2,
+0x00465E56,0x004684EF,9882,sinref,ALCANZABLE-interior,1,3221,9882,0,0.12,0,0,2,0,0,0,0,0,dato:.data:0x8a6168->0x465e60; dato:.data:0x8a616c->0x466de0
 0x00468719,0x0046871F,7,sinref,INALCANZABLE-dato,0,1,7,0,0.57,0,0,0,0,0,0,0,0,
 0x00468CED,0x00468CEF,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.33,0,0,0,0,0,0,0,0,
 0x00468DD7,0x00468DDF,9,sinref,INALCANZABLE-dato,0,2,9,0,0.44,0,0,0,0,0,0,0,0,
-0x0046938B,0x00469EAF,2853,sinref,INALCANZABLE-codigo-sin-entrada,1,817,2848,0,0.15,0,0,0,0,0,0,0,1,
+0x0046938B,0x00469EAF,2853,sinref,ALCANZABLE-interior,1,817,2848,0,0.15,0,0,1,0,0,0,0,0,dato:.data:0x8a6170->0x469390
 0x0046A097,0x0046A09F,9,sinref,INALCANZABLE-dato,0,2,9,0,0.44,0,0,0,0,0,0,0,0,
 0x0046A283,0x0046A2CF,77,sinref,INALCANZABLE-codigo-sin-entrada,1,51,77,0,0.01,0,0,0,0,0,0,0,0,
 0x0046A302,0x0046A33F,62,sinref,INALCANZABLE-codigo-sin-entrada,1,37,62,0,0.11,0,0,0,0,0,0,0,0,
@@ -447,7 +447,7 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x0046B209,0x0046B20F,7,sinref,INALCANZABLE-dato,0,1,7,0,0.57,0,0,0,0,0,0,0,0,
 0x0046FFE9,0x0046FFFF,23,sinref,INALCANZABLE-codigo-sin-entrada,1,13,23,0,0.04,0,0,0,0,0,0,0,1,
 0x0047000E,0x0047006F,98,sinref,INALCANZABLE-codigo-sin-entrada,1,64,98,0,0.02,0,0,0,0,0,0,0,1,
-0x00470090,0x004700DF,80,sinref,INALCANZABLE-codigo-sin-entrada,1,45,80,0,0.17,0,0,0,0,0,0,0,1,
+0x00470090,0x004700DF,80,sinref,ALCANZABLE-interior,1,45,80,0,0.17,0,0,1,0,0,0,0,0,dato:.data:0x8d92d8->0x4700b5
 0x00470130,0x0047014F,32,sinref,INALCANZABLE-codigo-sin-entrada,1,15,32,0,0.03,0,0,0,0,0,0,0,0,
 0x0047047C,0x0047047F,4,sinref,INALCANZABLE-dato,0,0,0,0,0.00,0,0,0,0,0,0,0,0,
 0x004704A0,0x004704AF,16,sinref,INALCANZABLE-codigo-sin-entrada,1,9,16,0,0.00,0,0,0,0,0,0,0,0,
@@ -456,24 +456,24 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x004708F3,0x004708FF,13,sinref,INALCANZABLE-codigo-sin-entrada,1,4,13,1,0.38,0,0,0,0,0,0,0,0,
 0x0047097B,0x0047097F,5,sinref,INALCANZABLE-codigo-sin-entrada,1,5,5,0,0.00,0,0,0,0,0,0,0,0,
 0x00470A1C,0x00470A1F,4,sinref,INALCANZABLE-dato,0,0,0,0,0.00,0,0,0,0,0,0,0,0,
-0x00470A8C,0x0047461F,15252,sinref,INALCANZABLE-dato,0,1721,6160,0,0.14,0,0,0,0,0,0,0,3,
+0x00470A8C,0x0047461F,15252,sinref,ALCANZABLE-interior,0,1721,6160,0,0.14,0,0,2,0,0,0,0,0,dato:.data:0x8a61bc->0x470a90; dato:.data:0x8ae880->0x474359
 0x004746B5,0x0047470F,91,sinref,INALCANZABLE-codigo-sin-entrada,1,66,91,0,0.08,0,0,0,0,0,0,0,0,
 0x0047474C,0x0047474F,4,sinref,INALCANZABLE-codigo-sin-entrada,1,3,4,0,0.00,0,0,0,0,0,0,0,0,
 0x004747FB,0x004747FF,5,sinref,INALCANZABLE-codigo-sin-entrada,1,1,5,1,0.00,0,0,0,0,0,0,0,0,
 0x00474843,0x0047486F,45,sinref,INALCANZABLE-codigo-sin-entrada,1,35,45,0,0.02,0,0,0,0,0,0,0,0,
-0x004748F5,0x00477D9F,13483,sinref,INALCANZABLE-codigo-sin-entrada,1,4045,13483,0,0.15,0,0,0,0,0,0,0,18,
-0x00477DD8,0x00477DDF,8,sinref,INALCANZABLE-dato,0,2,8,0,0.50,0,0,0,0,0,0,0,0,
-0x00477F89,0x00479D0F,7559,sinref,INALCANZABLE-codigo-sin-entrada,1,2217,7559,0,0.13,0,0,0,0,0,0,0,1,
+0x004748F5,0x00477D9F,13483,sinref,ALCANZABLE-interior,1,4045,13483,0,0.15,0,0,10,0,0,0,0,8,dato:.data:0x8a61c0->0x474900; dato:.data:0x8a61c4->0x4762d0; dato:.data:0x8af3ac->0x474a59
+0x00477DD8,0x00477DDF,8,sinref,ALCANZABLE-interior,0,2,8,0,0.50,0,0,0,0,1,0,0,0,hueco:hueco 0x4748f5->0x477dde
+0x00477F89,0x00479D0F,7559,sinref,ALCANZABLE-interior,1,2217,7559,0,0.13,0,0,1,0,0,0,0,0,dato:.data:0x8a61c8->0x478000
 0x00479D1E,0x00479D5F,66,sinref,INALCANZABLE-codigo-sin-entrada,1,42,66,0,0.05,0,0,0,0,0,0,0,0,
-0x00479D6E,0x0047C0DF,9074,sinref,INALCANZABLE-codigo-sin-entrada,1,2617,9069,0,0.14,0,0,0,0,0,0,0,2,
-0x0047C0F5,0x0047E04F,8027,ref,INALCANZABLE-codigo-sin-entrada,1,2554,8027,0,0.12,0,0,0,0,0,0,0,2,
+0x00479D6E,0x0047C0DF,9074,sinref,ALCANZABLE-interior,1,2617,9069,0,0.14,0,0,2,0,0,0,0,0,dato:.data:0x8a61cc->0x47a760; dato:.data:0x8a61d0->0x479da0
+0x0047C0F5,0x0047E04F,8027,ref,INALCANZABLE-codigo-sin-entrada,1,2554,8027,0,0.12,0,0,0,0,0,0,0,0,
 0x0047E054,0x0047E06F,28,sinref,INALCANZABLE-codigo-sin-entrada,1,24,28,0,0.04,0,0,0,0,0,0,0,0,
-0x0047E08E,0x0048108F,12290,sinref,INALCANZABLE-dato,0,1416,4703,0,0.14,0,0,0,0,0,0,0,5,
+0x0047E08E,0x0048108F,12290,sinref,ALCANZABLE-interior,0,1416,4703,0,0.14,0,0,4,0,0,0,0,1,dato:.data:0x8a617c->0x47e090; dato:.data:0x8a6180->0x47f370; dato:.data:0x8a6184->0x47fa30
 0x004810B0,0x004810BF,16,sinref,INALCANZABLE-codigo-sin-entrada,1,10,16,0,0.06,0,0,0,0,0,0,0,0,
 0x004811F6,0x004811FF,10,sinref,INALCANZABLE-codigo-sin-entrada,1,5,10,0,0.00,0,0,0,0,0,0,0,0,
 0x0048153D,0x0048153F,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.33,0,0,0,0,0,0,0,0,
 0x00483B9F,0x00483B9F,1,sinref,INALCANZABLE-dato,0,0,0,0,0.00,0,0,0,0,0,0,0,0,
-0x00483BCC,0x004859CF,7684,sinref,INALCANZABLE-codigo-sin-entrada,1,2429,7684,0,0.14,0,0,0,0,0,0,0,10,
+0x00483BCC,0x004859CF,7684,sinref,ALCANZABLE-interior,1,2429,7684,0,0.14,0,0,3,0,0,0,0,7,dato:.data:0x8a618c->0x483bd0; dato:.data:0x8af564->0x484359; dato:.data:0x8be4d4->0x485455
 0x00485DE1,0x00485DFF,31,sinref,INALCANZABLE-codigo-sin-entrada,1,31,31,0,0.00,0,0,0,0,0,0,0,0,
 0x00486770,0x0048677F,16,sinref,INALCANZABLE-codigo-sin-entrada,1,16,16,0,0.00,0,0,0,0,0,0,0,0,
 0x00486AE1,0x00486AFF,31,sinref,INALCANZABLE-codigo-sin-entrada,1,31,31,0,0.00,0,0,0,0,0,0,0,0,
@@ -486,7 +486,7 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x0048E346,0x0048E35F,26,sinref,INALCANZABLE-codigo-sin-entrada,1,16,26,0,0.12,0,0,0,0,0,0,0,0,
 0x0048E72B,0x0048E74F,37,sinref,INALCANZABLE-codigo-sin-entrada,1,25,37,0,0.05,0,0,0,0,0,0,0,0,
 0x0048E8AB,0x0048E8DF,53,sinref,INALCANZABLE-codigo-sin-entrada,1,35,53,0,0.04,0,0,0,0,0,0,0,0,
-0x0048EA95,0x00492CAF,16923,sinref,INALCANZABLE-dato,0,2322,8619,0,0.15,0,0,0,0,0,0,0,5,
+0x0048EA95,0x00492CAF,16923,sinref,ALCANZABLE-interior,0,2322,8619,0,0.15,0,0,1,0,0,0,0,3,dato:.data:0x8a61a0->0x48eaa0
 0x00492CE0,0x00492D0F,48,sinref,INALCANZABLE-codigo-sin-entrada,1,31,48,0,0.10,0,0,0,0,0,0,0,0,
 0x00492E0E,0x00492E1F,18,sinref,INALCANZABLE-codigo-sin-entrada,1,6,18,0,0.17,0,0,0,0,0,0,0,0,
 0x00492F1B,0x00492F5F,69,sinref,INALCANZABLE-codigo-sin-entrada,1,40,69,0,0.07,0,0,0,0,0,0,0,0,
@@ -494,7 +494,7 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x00492FCF,0x00492FCF,1,sinref,INALCANZABLE-codigo-sin-entrada,1,1,1,0,0.00,0,0,0,0,0,0,0,0,
 0x0049370B,0x0049372F,37,sinref,INALCANZABLE-codigo-sin-entrada,1,27,37,0,0.05,0,0,0,0,0,0,0,0,
 0x00493E48,0x00493E4F,8,sinref,INALCANZABLE-dato,0,2,8,0,0.50,0,0,0,0,0,0,0,0,
-0x00493FD2,0x00495FAF,8158,sinref,INALCANZABLE-codigo-sin-entrada,1,2393,8158,0,0.13,0,0,0,0,0,0,0,27,
+0x00493FD2,0x00495FAF,8158,sinref,ALCANZABLE-interior,1,2393,8158,0,0.13,0,0,20,0,0,0,0,9,dato:.data:0x8a61a8->0x493fe0; dato:.data:0x8ae6dc->0x49524f; dato:.data:0x8ae754->0x495259
 0x00496052,0x0049607F,46,sinref,INALCANZABLE-codigo-sin-entrada,1,33,46,0,0.02,0,0,0,0,0,0,0,0,
 0x0049AA67,0x0049AACF,105,sinref,INALCANZABLE-codigo-sin-entrada,1,64,105,0,0.07,0,0,0,0,0,0,0,0,
 0x0049AADA,0x0049AADF,6,sinref,INALCANZABLE-dato,0,1,6,0,0.67,0,0,0,0,0,0,0,0,
@@ -659,7 +659,7 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x004AFC41,0x004AFC6F,47,sinref,ALCANZABLE-interior,1,35,47,0,0.04,0,0,1,0,0,0,0,0,dato:.rdata:0x85b2ac->0x4afc50
 0x004B0766,0x004B07AF,74,sinref,ALCANZABLE-interior,1,63,74,0,0.08,0,0,4,0,0,0,0,0,dato:.rdata:0x85b334->0x4b0770; dato:.rdata:0x85b338->0x4b07a0; dato:.rdata:0x85b33c->0x4b0780
 0x004B089A,0x004B09FF,358,sinref,ALCANZABLE-interior,1,129,358,0,0.15,0,0,2,0,0,0,0,0,dato:.rdata:0x85b34c->0x4b09c0; dato:.rdata:0x85b350->0x4b09e0
-0x004B0E60,0x004B0EDF,128,sinref,ALCANZABLE-codigo,1,80,128,0,0.06,0,0,4,0,0,0,1,0,dato:.rdata:0x86cbb4(tabla de hueco 0x5c9cdf)->0x4b0e60; dato:.rdata:0x86cbfc(tabla de hueco 0x5c9cdf)->0x4b0e80; dato:.rdata:0x86cc44(tabla de hueco 0x5c9cdf)->0x4b0ea0
+0x004B0E60,0x004B0EDF,128,sinref,ALCANZABLE-codigo,1,80,128,0,0.06,0,0,4,0,0,0,1,0,dato:.rdata:0x86cbb4->0x4b0e60; dato:.rdata:0x86cbfc->0x4b0e80; dato:.rdata:0x86cc44->0x4b0ea0
 0x004B11C1,0x004B128F,207,sinref,INALCANZABLE-codigo-sin-entrada,1,81,207,0,0.16,0,0,0,0,0,0,0,0,
 0x004B138A,0x004B13BF,54,sinref,ALCANZABLE-interior,1,45,54,0,0.11,0,0,3,0,0,0,0,0,dato:.rdata:0x85b4cc->0x4b1390; dato:.rdata:0x85b4d0->0x4b13b0; dato:.rdata:0x85b4d4->0x4b13a0
 0x004B1AD9,0x004B1B4F,119,sinref,INALCANZABLE-codigo-sin-entrada,1,83,119,0,0.08,0,0,0,0,0,0,0,0,
@@ -845,7 +845,7 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x004DFD3D,0x004DFD3F,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.33,0,0,0,0,0,0,0,0,
 0x004DFDC8,0x004DFDDF,24,sinref,INALCANZABLE-codigo-sin-entrada,1,10,24,0,0.29,0,0,0,0,0,0,0,0,
 0x004DFF0A,0x004DFF4F,70,sinref,INALCANZABLE-codigo-sin-entrada,1,18,70,1,0.19,0,0,0,0,0,0,0,0,
-0x004DFFF6,0x004E001A,37,sinref,INALCANZABLE-codigo-sin-entrada,1,10,37,1,0.11,0,0,0,0,0,0,0,5,
+0x004DFFF6,0x004E001A,37,sinref,ALCANZABLE-interior,1,10,37,1,0.11,0,0,3,0,0,0,0,2,dato:.data:0x8d7aa4->0x4e0000; dato:.data:0x8d7d8c->0x4dffff; dato:.data:0x8d9f1c->0x4e0007
 0x004E00BF,0x004E010E,80,sinref,INALCANZABLE-codigo-sin-entrada,1,26,80,1,0.14,0,0,0,0,0,0,0,1,
 0x004E0478,0x004E047F,8,sinref,INALCANZABLE-dato,0,2,8,0,0.50,0,0,0,0,0,0,0,0,
 0x004E061A,0x004E0629,16,sinref,INALCANZABLE-codigo-sin-entrada,1,8,16,1,0.25,0,0,0,0,0,0,0,0,
@@ -927,7 +927,7 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x004F448C,0x004F448E,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.00,0,0,0,0,0,0,0,0,
 0x004F44BC,0x004F44C7,12,sinref,INALCANZABLE-codigo-sin-entrada,1,4,12,0,0.25,0,0,0,0,0,0,0,1,
 0x004F45BD,0x004F461F,99,sinref,INALCANZABLE-codigo-sin-entrada,1,49,99,0,0.01,0,0,0,0,0,0,0,0,
-0x004F4705,0x004F4A1F,795,sinref,INALCANZABLE-codigo-sin-entrada,1,251,795,0,0.12,0,0,0,0,0,0,0,2,
+0x004F4705,0x004F4A1F,795,sinref,ALCANZABLE-interior,1,251,795,0,0.12,0,0,2,0,0,0,0,0,dato:.data:0x8d3d24->0x4f4752; dato:.data:0x8d4334->0x4f4952
 0x004F4ADD,0x004F4B75,153,sinref,INALCANZABLE-codigo-sin-entrada,1,49,153,0,0.12,0,0,0,0,0,0,0,0,
 0x004F4B7E,0x004F4B80,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.00,0,0,0,0,0,0,0,0,
 0x004F4CAC,0x004F4CDF,52,sinref,INALCANZABLE-codigo-sin-entrada,1,37,52,0,0.12,0,0,0,0,0,0,0,0,
@@ -963,11 +963,11 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x00507D9E,0x00507DBF,34,sinref,INALCANZABLE-codigo-sin-entrada,1,15,34,0,0.21,0,0,0,0,0,0,0,0,
 0x00508046,0x0050819F,346,sinref,INALCANZABLE-codigo-sin-entrada,1,165,346,0,0.11,0,0,0,0,0,0,0,0,
 0x00508912,0x0050892F,30,sinref,INALCANZABLE-codigo-sin-entrada,1,18,30,1,0.30,0,0,0,0,0,0,0,0,
-0x00508996,0x00508A0F,122,sinref,INALCANZABLE-codigo-sin-entrada,1,59,122,0,0.03,0,0,0,0,0,0,0,0,
+0x00508996,0x00508A0F,122,sinref,ALCANZABLE-interior,1,59,122,0,0.03,0,0,0,0,0,0,0,0,
 0x00508A1F,0x00508A2E,16,sinref,INALCANZABLE-dato,0,3,16,0,0.50,0,0,0,0,0,0,0,0,
-0x00508A31,0x0050913F,1807,sinref,INALCANZABLE-codigo-sin-entrada,1,814,1807,0,0.08,0,0,0,0,0,0,0,3,
+0x00508A31,0x0050913F,1807,sinref,ALCANZABLE-interior,1,814,1807,0,0.08,0,0,3,0,0,0,0,0,dato:.rdata:0x862e74->0x508e90; dato:.rdata:0x862e78->0x508ea0; dato:.rdata:0x862e80->0x508f90
 0x0050914F,0x0050915E,16,sinref,INALCANZABLE-dato,0,3,16,0,0.50,0,0,0,0,0,0,0,0,
-0x00509161,0x0050922F,207,sinref,INALCANZABLE-codigo-sin-entrada,1,92,207,0,0.09,0,0,0,0,0,0,0,1,
+0x00509161,0x0050922F,207,sinref,ALCANZABLE-interior,1,92,207,0,0.09,0,0,1,0,0,0,0,0,dato:.rdata:0x862e70->0x509170
 0x0050926D,0x0050926F,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.33,0,0,0,0,0,0,0,0,
 0x005092BE,0x0050975F,1186,sinref,INALCANZABLE-codigo-sin-entrada,1,453,1186,0,0.07,0,0,0,0,0,0,0,0,
 0x005097A8,0x0050983F,152,ref,INALCANZABLE-codigo-sin-entrada,1,115,152,0,0.11,0,0,0,0,0,0,0,0,
@@ -1068,7 +1068,7 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x00541F7C,0x0054207F,260,sinref,INALCANZABLE-codigo-sin-entrada,1,139,260,0,0.05,0,0,0,0,0,0,0,0,
 0x00542085,0x0054225F,475,sinref,INALCANZABLE-codigo-sin-entrada,1,281,475,0,0.11,0,0,0,0,0,0,0,0,
 0x005430FA,0x0054321F,294,sinref,INALCANZABLE-codigo-sin-entrada,1,94,294,0,0.13,0,0,0,0,0,0,0,0,
-0x005440FD,0x0054427F,387,sinref,INALCANZABLE-codigo-sin-entrada,1,136,387,1,0.06,0,0,0,0,0,0,0,2,
+0x005440FD,0x0054427F,387,sinref,ALCANZABLE-interior,1,136,387,1,0.06,0,0,2,0,0,0,0,0,dato:.data:0x8d4130->0x54414f; dato:.data:0x8d438c->0x54414f
 0x005449A5,0x005449A7,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.00,0,0,0,0,0,0,0,0,
 0x00544B17,0x00544B1F,9,sinref,INALCANZABLE-dato,0,2,9,0,0.44,0,0,0,0,0,0,0,0,
 0x00544B3A,0x00544B3F,6,sinref,INALCANZABLE-dato,0,1,6,0,0.67,0,0,0,0,0,0,0,0,
@@ -1357,8 +1357,8 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x0059C529,0x0059C5FF,215,sinref,INALCANZABLE-codigo-sin-entrada,1,81,215,0,0.03,0,0,0,0,0,0,0,0,
 0x0059C62E,0x0059C66F,66,sinref,INALCANZABLE-codigo-sin-entrada,1,31,66,0,0.02,0,0,0,0,0,0,0,0,
 0x0059C9CF,0x0059CA0F,65,sinref,INALCANZABLE-codigo-sin-entrada,1,40,65,0,0.03,0,0,0,0,0,0,0,0,
-0x0059CB43,0x0059CB9F,93,sinref,INALCANZABLE-codigo-sin-entrada,1,56,93,0,0.09,0,0,0,0,0,0,0,1,
-0x0059CBA7,0x0059CD4F,425,sinref,INALCANZABLE-codigo-sin-entrada,1,213,425,0,0.09,0,0,0,0,0,0,0,4,
+0x0059CB43,0x0059CB9F,93,sinref,ALCANZABLE-interior,1,56,93,0,0.09,0,0,1,0,0,0,0,0,dato:.rdata:0x866db0->0x59cb70
+0x0059CBA7,0x0059CD4F,425,sinref,ALCANZABLE-interior,1,213,425,0,0.09,0,0,4,0,0,0,0,0,dato:.rdata:0x866dc8->0x59cc70; dato:.rdata:0x866dcc->0x59ccc0; dato:.rdata:0x866dd0->0x59cce0
 0x0059CD65,0x0059CD67,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.00,0,0,0,0,0,0,0,0,
 0x0059CDD2,0x0059CDD5,4,sinref,INALCANZABLE-codigo-sin-entrada,1,2,4,0,0.00,0,0,0,0,0,0,0,0,
 0x0059D09A,0x0059D09F,6,sinref,INALCANZABLE-dato,0,1,6,0,0.67,0,0,0,0,0,0,0,0,
@@ -1395,16 +1395,16 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x005A6557,0x005A655F,9,sinref,INALCANZABLE-dato,0,2,9,0,0.44,0,0,0,0,0,0,0,0,
 0x005A686B,0x005A69CF,357,sinref,INALCANZABLE-codigo-sin-entrada,1,135,357,0,0.14,0,0,0,0,0,0,0,0,
 0x005A6CE6,0x005A6DAF,202,sinref,INALCANZABLE-codigo-sin-entrada,1,81,202,0,0.11,1,0,0,0,0,0,0,0,
-0x005A6DD9,0x005A6E5F,135,sinref,INALCANZABLE-codigo-sin-entrada,1,73,135,0,0.09,0,0,0,0,0,0,0,0,
+0x005A6DD9,0x005A6E5F,135,sinref,ALCANZABLE-interior,1,73,135,0,0.09,0,0,0,0,1,0,0,0,hueco:hueco 0x5a7703->0x5a6de0
 0x005A6E79,0x005A6E84,12,sinref,INALCANZABLE-codigo-sin-entrada,1,4,12,0,0.08,0,0,0,0,0,0,0,0,
 0x005A6EA2,0x005A6FBF,286,sinref,INALCANZABLE-codigo-sin-entrada,1,127,286,0,0.07,0,0,0,0,0,0,0,0,
-0x005A703A,0x005A72AF,630,sinref,INALCANZABLE-codigo-sin-entrada,1,226,630,0,0.09,0,0,0,0,0,0,0,2,
+0x005A703A,0x005A72AF,630,sinref,ALCANZABLE-interior,1,226,630,0,0.09,0,0,2,0,3,0,0,0,dato:.rdata:0x867174->0x5a70f0; dato:.rdata:0x86717c->0x5a7280; hueco:hueco 0x5a7703->0x5a7040
 0x005A72C9,0x005A72D4,12,sinref,INALCANZABLE-codigo-sin-entrada,1,4,12,0,0.08,0,0,0,0,0,0,0,0,
 0x005A72F2,0x005A734F,94,sinref,INALCANZABLE-codigo-sin-entrada,1,49,94,0,0.01,0,0,0,0,0,0,0,0,
 0x005A73F1,0x005A748F,159,sinref,INALCANZABLE-codigo-sin-entrada,1,74,159,0,0.05,0,0,0,0,0,0,0,0,
 0x005A74FD,0x005A74FF,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.33,0,0,0,0,0,0,0,0,
 0x005A7599,0x005A75AF,23,sinref,INALCANZABLE-codigo-sin-entrada,1,16,23,0,0.00,0,0,0,0,0,0,0,0,
-0x005A7703,0x005A78EF,493,sinref,INALCANZABLE-codigo-sin-entrada,1,208,493,0,0.09,0,0,0,0,0,0,0,1,
+0x005A7703,0x005A78EF,493,sinref,ALCANZABLE-interior,1,208,493,0,0.09,0,0,1,0,0,0,0,0,dato:.rdata:0x867178->0x5a7710
 0x005A83EC,0x005A865F,628,sinref,INALCANZABLE-codigo-sin-entrada,1,230,628,0,0.11,0,0,0,0,0,0,0,0,
 0x005AF8FF,0x005AFA4F,337,sinref,INALCANZABLE-codigo-sin-entrada,1,178,337,0,0.10,0,0,0,0,0,0,0,0,
 0x005AFA8C,0x005AFACF,68,sinref,INALCANZABLE-codigo-sin-entrada,1,34,68,0,0.01,0,0,0,0,0,0,0,0,
@@ -1694,15 +1694,15 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x005EDCED,0x005EDD8F,163,sinref,INALCANZABLE-codigo-sin-entrada,1,81,163,0,0.01,0,0,0,0,0,0,0,0,
 0x005EDDFF,0x005EDE4F,81,sinref,INALCANZABLE-codigo-sin-entrada,1,39,81,0,0.01,0,0,0,0,0,0,0,0,
 0x005EDEBD,0x005EDF0F,83,sinref,INALCANZABLE-codigo-sin-entrada,1,41,83,0,0.01,0,0,0,0,0,0,0,0,
-0x005EE4C5,0x005EE4DF,27,sinref,ALCANZABLE-interior,1,26,27,0,0.00,0,0,1,0,0,0,0,0,dato:.rdata:0x86c550(tabla de hueco 0x5c9cdf)->0x5ee4d0
-0x005EE595,0x005EE5AF,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c568(tabla de hueco 0x5c9cdf)->0x5ee5a0
-0x005EE665,0x005EE67F,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c580(tabla de hueco 0x5c9cdf)->0x5ee670
-0x005EE735,0x005EE75F,43,sinref,ALCANZABLE-interior,1,34,43,0,0.09,0,0,2,0,0,0,0,0,dato:.rdata:0x86c598(tabla de hueco 0x5c9cdf)->0x5ee740; dato:.rdata:0x86c5b0(tabla de hueco 0x5c9cdf)->0x5ee750
-0x005EE8E5,0x005EE8FF,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c5cc(tabla de hueco 0x5c9cdf)->0x5ee8f0
-0x005EE9B5,0x005EE9CF,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c5e4(tabla de hueco 0x5c9cdf)->0x5ee9c0
-0x005EEA85,0x005EEA9F,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c5fc(tabla de hueco 0x5c9cdf)->0x5eea90
-0x005EEB55,0x005EEB6F,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c614(tabla de hueco 0x5c9cdf)->0x5eeb60
-0x005EEC25,0x005EEC3F,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c62c(tabla de hueco 0x5c9cdf)->0x5eec30
+0x005EE4C5,0x005EE4DF,27,sinref,ALCANZABLE-interior,1,26,27,0,0.00,0,0,1,0,0,0,0,0,dato:.rdata:0x86c550->0x5ee4d0
+0x005EE595,0x005EE5AF,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c568->0x5ee5a0
+0x005EE665,0x005EE67F,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c580->0x5ee670
+0x005EE735,0x005EE75F,43,sinref,ALCANZABLE-interior,1,34,43,0,0.09,0,0,2,0,0,0,0,0,dato:.rdata:0x86c598->0x5ee740; dato:.rdata:0x86c5b0->0x5ee750
+0x005EE8E5,0x005EE8FF,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c5cc->0x5ee8f0
+0x005EE9B5,0x005EE9CF,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c5e4->0x5ee9c0
+0x005EEA85,0x005EEA9F,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c5fc->0x5eea90
+0x005EEB55,0x005EEB6F,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c614->0x5eeb60
+0x005EEC25,0x005EEC3F,27,sinref,ALCANZABLE-interior,1,23,27,0,0.11,0,0,1,0,0,0,0,0,dato:.rdata:0x86c62c->0x5eec30
 0x005EEFAA,0x005EEFAF,6,sinref,INALCANZABLE-dato,0,1,6,0,0.67,0,0,0,0,0,0,0,0,
 0x005EF45D,0x005EF45F,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.33,0,0,0,0,0,0,0,0,
 0x005EF5FD,0x005EF5FF,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.33,0,0,0,0,0,0,0,0,
@@ -1724,10 +1724,10 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x005F3BE3,0x005F3C1F,61,sinref,INALCANZABLE-codigo-sin-entrada,1,32,61,1,0.00,0,0,0,0,0,0,0,0,
 0x005F59DD,0x005F59DF,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.33,0,0,0,0,0,0,0,0,
 0x005F6142,0x005F618F,78,sinref,INALCANZABLE-codigo-sin-entrada,1,59,78,0,0.00,0,0,0,0,0,0,0,0,
-0x005F625A,0x005F627F,38,sinref,ALCANZABLE-interior,1,33,38,0,0.08,0,0,2,0,0,0,0,0,dato:.rdata:0x86c6d4(tabla de hueco 0x5c9cdf)->0x5f6260; dato:.rdata:0x86c6dc(tabla de hueco 0x5c9cdf)->0x5f6270
-0x005F62EE,0x005F62FF,18,sinref,ALCANZABLE-interior,1,15,18,0,0.06,0,0,1,0,0,0,0,0,dato:.rdata:0x86c6e4(tabla de hueco 0x5c9cdf)->0x5f62f0
+0x005F625A,0x005F627F,38,sinref,ALCANZABLE-interior,1,33,38,0,0.08,0,0,2,0,0,0,0,0,dato:.rdata:0x86c6d4->0x5f6260; dato:.rdata:0x86c6dc->0x5f6270
+0x005F62EE,0x005F62FF,18,sinref,ALCANZABLE-interior,1,15,18,0,0.06,0,0,1,0,0,0,0,0,dato:.rdata:0x86c6e4->0x5f62f0
 0x005F631E,0x005F633F,34,sinref,INALCANZABLE-codigo-sin-entrada,1,30,34,0,0.00,0,0,0,0,0,0,0,0,
-0x005F6406,0x005F644F,74,sinref,ALCANZABLE-interior,1,53,74,0,0.09,0,0,1,0,0,0,0,0,dato:.rdata:0x86c6d8(tabla de hueco 0x5c9cdf)->0x5f6410
+0x005F6406,0x005F644F,74,sinref,ALCANZABLE-interior,1,53,74,0,0.09,0,0,1,0,0,0,0,0,dato:.rdata:0x86c6d8->0x5f6410
 0x005F6459,0x005F646F,23,sinref,INALCANZABLE-codigo-sin-entrada,1,18,23,0,0.04,0,0,0,0,0,0,0,0,
 0x005F6489,0x005F649F,23,sinref,INALCANZABLE-codigo-sin-entrada,1,18,23,0,0.04,0,0,0,0,0,0,0,0,
 0x005F64B9,0x005F64CF,23,sinref,INALCANZABLE-codigo-sin-entrada,1,18,23,0,0.04,0,0,0,0,0,0,0,0,
@@ -1759,17 +1759,17 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x005FE991,0x005FE9BF,47,sinref,INALCANZABLE-codigo-sin-entrada,1,33,47,0,0.02,0,0,0,0,0,0,0,0,
 0x005FE9D7,0x005FED3F,873,sinref,INALCANZABLE-codigo-sin-entrada,1,629,873,0,0.03,0,0,0,0,0,0,0,0,
 0x005FF00E,0x005FF02F,34,sinref,INALCANZABLE-codigo-sin-entrada,1,18,34,0,0.06,0,0,0,0,0,0,0,0,
-0x005FF03B,0x005FF04F,21,sinref,ALCANZABLE-interior,1,17,21,0,0.14,0,0,1,0,0,0,0,0,dato:.rdata:0x86ca3c(tabla de hueco 0x5c9cdf)->0x5ff040
+0x005FF03B,0x005FF04F,21,sinref,ALCANZABLE-interior,1,17,21,0,0.14,0,0,1,0,0,0,0,0,dato:.rdata:0x86ca3c->0x5ff040
 0x005FF0CE,0x005FF0EF,34,sinref,INALCANZABLE-codigo-sin-entrada,1,18,34,0,0.06,0,0,0,0,0,0,0,0,
-0x005FF0FB,0x005FF10F,21,sinref,ALCANZABLE-interior,1,17,21,0,0.14,0,0,1,0,0,0,0,0,dato:.rdata:0x86ca84(tabla de hueco 0x5c9cdf)->0x5ff100
+0x005FF0FB,0x005FF10F,21,sinref,ALCANZABLE-interior,1,17,21,0,0.14,0,0,1,0,0,0,0,0,dato:.rdata:0x86ca84->0x5ff100
 0x005FF18E,0x005FF1AF,34,sinref,INALCANZABLE-codigo-sin-entrada,1,18,34,0,0.06,0,0,0,0,0,0,0,0,
-0x005FF1BB,0x005FF1CF,21,sinref,ALCANZABLE-interior,1,17,21,0,0.14,0,0,1,0,0,0,0,0,dato:.rdata:0x86cacc(tabla de hueco 0x5c9cdf)->0x5ff1c0
-0x005FF46B,0x005FF48F,37,sinref,ALCANZABLE-interior,1,32,37,0,0.08,0,0,2,0,0,0,0,0,dato:.rdata:0x86cba4(tabla de hueco 0x5c9cdf)->0x5ff470; dato:.rdata:0x86cbac(tabla de hueco 0x5c9cdf)->0x5ff480
-0x005FF52B,0x005FF54F,37,sinref,ALCANZABLE-interior,1,32,37,0,0.08,0,0,2,0,0,0,0,0,dato:.rdata:0x86cbec(tabla de hueco 0x5c9cdf)->0x5ff530; dato:.rdata:0x86cbf4(tabla de hueco 0x5c9cdf)->0x5ff540
-0x005FF5EB,0x005FF60F,37,sinref,ALCANZABLE-interior,1,32,37,0,0.08,0,0,2,0,0,0,0,0,dato:.rdata:0x86cc34(tabla de hueco 0x5c9cdf)->0x5ff5f0; dato:.rdata:0x86cc3c(tabla de hueco 0x5c9cdf)->0x5ff600
-0x005FF6AB,0x005FF6CF,37,sinref,ALCANZABLE-interior,1,32,37,0,0.08,0,0,2,0,0,0,0,0,dato:.rdata:0x86cc7c(tabla de hueco 0x5c9cdf)->0x5ff6b0; dato:.rdata:0x86cc84(tabla de hueco 0x5c9cdf)->0x5ff6c0
+0x005FF1BB,0x005FF1CF,21,sinref,ALCANZABLE-interior,1,17,21,0,0.14,0,0,1,0,0,0,0,0,dato:.rdata:0x86cacc->0x5ff1c0
+0x005FF46B,0x005FF48F,37,sinref,ALCANZABLE-interior,1,32,37,0,0.08,0,0,2,0,0,0,0,0,dato:.rdata:0x86cba4->0x5ff470; dato:.rdata:0x86cbac->0x5ff480
+0x005FF52B,0x005FF54F,37,sinref,ALCANZABLE-interior,1,32,37,0,0.08,0,0,2,0,0,0,0,0,dato:.rdata:0x86cbec->0x5ff530; dato:.rdata:0x86cbf4->0x5ff540
+0x005FF5EB,0x005FF60F,37,sinref,ALCANZABLE-interior,1,32,37,0,0.08,0,0,2,0,0,0,0,0,dato:.rdata:0x86cc34->0x5ff5f0; dato:.rdata:0x86cc3c->0x5ff600
+0x005FF6AB,0x005FF6CF,37,sinref,ALCANZABLE-interior,1,32,37,0,0.08,0,0,2,0,0,0,0,0,dato:.rdata:0x86cc7c->0x5ff6b0; dato:.rdata:0x86cc84->0x5ff6c0
 0x005FF80E,0x005FF81F,18,sinref,INALCANZABLE-codigo-sin-entrada,1,16,18,0,0.00,0,0,0,0,0,0,0,0,
-0x005FF8A6,0x005FF93F,154,sinref,ALCANZABLE-interior,1,117,154,0,0.16,0,0,7,0,0,0,0,0,dato:.rdata:0x86ca40(tabla de hueco 0x5c9cdf)->0x5ff8b0; dato:.rdata:0x86ca88(tabla de hueco 0x5c9cdf)->0x5ff8c0; dato:.rdata:0x86cad0(tabla de hueco 0x5c9cdf)->0x5ff8d0
+0x005FF8A6,0x005FF93F,154,sinref,ALCANZABLE-interior,1,117,154,0,0.16,0,0,7,0,0,0,0,0,dato:.rdata:0x86ca40->0x5ff8b0; dato:.rdata:0x86ca88->0x5ff8c0; dato:.rdata:0x86cad0->0x5ff8d0
 0x005FF972,0x005FF98F,30,sinref,INALCANZABLE-codigo-sin-entrada,1,22,30,0,0.00,0,0,0,0,0,0,0,0,
 0x005FFCC9,0x005FFCCF,7,sinref,INALCANZABLE-dato,0,1,7,0,0.57,0,0,0,0,0,0,0,0,
 0x005FFEE4,0x005FFF1F,60,sinref,INALCANZABLE-codigo-sin-entrada,1,41,60,0,0.02,0,0,0,0,0,0,0,0,
@@ -1858,12 +1858,12 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x0061A320,0x0061A34F,48,sinref,INALCANZABLE-codigo-sin-entrada,1,25,48,1,0.17,0,0,0,0,0,0,0,0,
 0x0061A458,0x0061A4AF,88,sinref,INALCANZABLE-codigo-sin-entrada,1,56,88,0,0.05,0,0,0,0,0,0,0,0,
 0x0061A567,0x0061A59F,57,sinref,INALCANZABLE-codigo-sin-entrada,1,36,57,0,0.02,0,0,0,0,0,0,0,0,
-0x0061A5D9,0x0061A61F,71,sinref,ALCANZABLE-interior,1,37,71,0,0.03,0,0,1,0,0,0,0,0,dato:.rdata:0x86d4a8(tabla de hueco 0x5c9cdf)->0x61a5e0
+0x0061A5D9,0x0061A61F,71,sinref,ALCANZABLE-interior,1,37,71,0,0.03,0,0,1,0,0,0,0,0,dato:.rdata:0x86d4a8->0x61a5e0
 0x0061A698,0x0061A6BF,40,sinref,INALCANZABLE-codigo-sin-entrada,1,32,40,0,0.00,0,0,0,0,0,0,0,0,
 0x0061A896,0x0061A8AF,26,ref,INALCANZABLE-codigo-sin-entrada,1,14,26,1,0.15,0,0,0,0,0,0,0,0,
 0x0061AA4D,0x0061AA4F,3,sinref,INALCANZABLE-codigo-sin-entrada,1,1,3,0,0.33,0,0,0,0,0,0,0,0,
 0x0061AA96,0x0061AAFF,106,ref,INALCANZABLE-codigo-sin-entrada,1,49,106,0,0.07,0,0,0,0,0,0,0,0,
-0x0061AD00,0x0061AD0F,16,sinref,ALCANZABLE-codigo,1,13,16,0,0.00,0,0,1,0,0,0,1,0,dato:.rdata:0x86d5a4(tabla de hueco 0x5c9cdf)->0x61ad00
+0x0061AD00,0x0061AD0F,16,sinref,ALCANZABLE-codigo,1,13,16,0,0.00,0,0,1,0,0,0,1,0,dato:.rdata:0x86d5a4->0x61ad00
 0x0061B4B3,0x0061B4EF,61,sinref,INALCANZABLE-codigo-sin-entrada,1,40,61,0,0.03,0,0,0,0,0,0,0,0,
 0x0061C0EE,0x0061C14F,98,sinref,INALCANZABLE-codigo-sin-entrada,1,66,98,0,0.01,0,0,0,0,0,0,0,0,
 0x0061C164,0x0061C2DF,380,sinref,INALCANZABLE-codigo-sin-entrada,1,238,380,0,0.05,0,0,0,0,0,0,0,0,
@@ -1930,7 +1930,7 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x00655E05,0x00655E2F,43,sinref,INALCANZABLE-codigo-sin-entrada,1,32,43,0,0.02,0,0,0,0,0,0,0,0,
 0x00655E4E,0x00655E7F,50,sinref,INALCANZABLE-codigo-sin-entrada,1,19,50,1,0.12,0,0,0,0,0,0,0,0,
 0x0065867F,0x0065869F,33,sinref,INALCANZABLE-codigo-sin-entrada,1,16,33,0,0.03,0,0,0,0,0,0,0,0,
-0x00658736,0x0065876F,58,sinref,ALCANZABLE-interior,1,46,58,0,0.03,0,0,1,0,0,0,0,0,dato:.rdata:0x86f480(tabla de hueco 0x5c9cdf)->0x658740
+0x00658736,0x0065876F,58,sinref,ALCANZABLE-interior,1,46,58,0,0.03,0,0,1,0,0,0,0,0,dato:.rdata:0x86f480->0x658740
 0x00658CE4,0x00658D1F,60,sinref,INALCANZABLE-codigo-sin-entrada,1,33,60,0,0.08,0,0,0,0,0,0,0,0,
 0x0065983A,0x0065986F,54,sinref,INALCANZABLE-codigo-sin-entrada,1,23,54,0,0.11,0,0,0,0,0,0,0,0,
 0x00659E2E,0x00659E6F,66,sinref,INALCANZABLE-codigo-sin-entrada,1,32,66,0,0.09,0,0,0,0,0,0,0,0,
@@ -2301,7 +2301,7 @@ va,fin,bytes,kind,clase,decodifica,instrucciones,bytes_decod,termina_ret_jmp,cer
 0x0072FF2F,0x0072FF38,10,sinref,INALCANZABLE-dato,0,2,10,0,0.40,0,0,0,0,0,0,0,0,
 0x0072FF3C,0x0072FF5F,36,sinref,INALCANZABLE-codigo-sin-entrada,1,21,36,0,0.00,0,0,0,0,0,0,0,0,
 0x0073008E,0x00730097,10,sinref,INALCANZABLE-codigo-sin-entrada,1,4,10,0,0.00,0,0,0,0,0,0,0,0,
-0x0073009D,0x007301CF,307,sinref,INALCANZABLE-codigo-sin-entrada,1,132,307,0,0.05,0,0,0,0,0,0,0,2,
+0x0073009D,0x007301CF,307,sinref,ALCANZABLE-interior,1,132,307,0,0.05,0,0,1,0,0,0,0,1,dato:.data:0x8d9160->0x730164
 0x0073023F,0x00730248,10,sinref,INALCANZABLE-dato,0,2,10,0,0.40,0,0,0,0,0,0,0,0,
 0x0073024C,0x0073026F,36,sinref,INALCANZABLE-codigo-sin-entrada,1,21,36,0,0.00,0,0,0,0,0,0,0,0,
 0x007302F4,0x0073032F,60,sinref,INALCANZABLE-codigo-sin-entrada,1,35,60,0,0.03,0,0,0,0,0,0,0,0,

@@ -8,8 +8,6 @@ CClumpModelInfo* b9689E0{}; // 0x009689E0
 CObject* b96A7BC{}; // 0x0096A7BC
 CEntryExit* b96A7C0{}; // 0x0096A7C0
 CEntryExit* b96A7D4{}; // 0x0096A7D4
-CPed* b977BB8{}; // 0x00977BB8
-void* b977BC0{}; // 0x00977BC0
 CCamera* b97FAF8{}; // 0x0097FAF8
 RwTexture* bB4E47C{}; // 0x00B4E47C
 CAnimBlendAssocGroup* bB4EA34{}; // 0x00B4EA34

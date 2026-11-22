@@ -262,7 +262,9 @@ def main():
                         cond[k].append((w, v, j, sec))
                 else:
                     muertos[j] += 1     # nadie (vivo) cita la vtable/tabla: ningun constructor vivo la escribe
-        elif prop[key]['vivo']:
+        elif prop[key]['vivo'] or key in vivo_dat or any(x in vivo_dat for x in range(key, w + 4, 4)):
+            # la usa codigo vivo (jmp [t+reg*4] de una funcion no reemplazada) o la cita el C++ como valor (p. ej.
+            # s_OriginalCommandHandlerTable = StaticRef<...>(0x8A6168): el C++ llama a los despachadores del EXE por esa tabla)
             marca(j, 'dato', v, f'{sec}:{w:#x}')
         elif prop[key]['huecos']:
             for k in prop[key]['huecos']:

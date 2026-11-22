@@ -401,7 +401,7 @@ void CRunningScript::LocateCarCommand(int32 commandId) {
     auto* vehicle = GetVehiclePool()->GetAtRef(ScriptParams[0].iParam);
     bool forceFalse = false;
     if (commandId == 0x1AE || commandId == 0x1B0) {
-        const auto timestep = CTimer::GetTimeStep() < DatosExe::Bss::bB7CB54 ? CTimer::GetTimeStep() : DatosExe::Bss::bB7CB54;
+        const auto timestep = CTimer::GetTimeStep() < StaticRef<float>(0xB7CB54) ? CTimer::GetTimeStep() : StaticRef<float>(0xB7CB54);
         forceFalse = !(vehicle->m_fMovingSpeed <= timestep * 0.01f);
     }
     LocateScriptEntity(this, vehicle->GetPosition(), threeD, false, forceFalse);
@@ -2308,7 +2308,7 @@ OpcodeResult CRunningScript::ProcessCommands1900To1999(int32 command) {
     }
     case 1953: // SET_NEXT_DESIRED_MOVE_STATE
         CollectParameters(1);
-        DatosExe::Data::v8D237C = sp[0].iParam;
+        StaticRef<int32>(0x8D237C) = sp[0].iParam;
         return OR_CONTINUE;
     case 1955: { // TASK_GOTO_CHAR_AIMING
         CollectParameters(4);

@@ -37,8 +37,6 @@ extern CClumpModelInfo* b9689E0; // 0x009689E0
 extern CObject* b96A7BC; // 0x0096A7BC
 extern CEntryExit* b96A7C0; // 0x0096A7C0
 extern CEntryExit* b96A7D4; // 0x0096A7D4
-extern CPed* b977BB8; // 0x00977BB8
-extern void* b977BC0; // 0x00977BC0
 extern CCamera* b97FAF8; // 0x0097FAF8
 extern RwTexture* bB4E47C; // 0x00B4E47C
 extern CAnimBlendAssocGroup* bB4EA34; // 0x00B4EA34

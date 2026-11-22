@@ -102,7 +102,7 @@ public:
     static inline auto& m_colourTopVOffset = DatosExe::Data::v8D5158; // 8
     static inline auto& m_colourBottomVOffset = DatosExe::Data::v8D515C; // 8
 
-    static inline auto& m_bNightVision = DatosExe::Bss::bC402B8;
+    static inline auto& m_bNightVision = StaticRef<bool>(0xC402B8);
     static inline auto& m_fNightVisionSwitchOnFXCount = StaticRef<float>(0xC40300); // = CPostEffects::m_fNightVisionSwitchOnFXTime
     static inline auto& m_fNightVisionSwitchOnFXTime = StaticRef<float>(0x8D50B0); // 50.0f
     static inline auto& m_NightVisionGrainStrength = DatosExe::Data::v8D50A8; // 48

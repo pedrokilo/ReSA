@@ -1991,7 +1991,7 @@ void CBike::DoSoftGroundResistance(uint32& arg0) {
         if (m_aWheelRatios[i] < 1.f && m_aWheelColPoints[i].m_nSurfaceTypeB == 178) {
             const auto& up = GetUp();
             const auto vertical = (m_vecMoveSpeed.x * up.x + m_vecMoveSpeed.y * up.y) + m_vecMoveSpeed.z * up.z;
-            const auto factor = -(CTimer::GetTimeStep() * m_fMass * DatosExe::Data::v8D34AC);
+            const auto factor = -(CTimer::GetTimeStep() * m_fMass * StaticRef<float>(0x8D34AC));
             ApplyMoveForce(CVector{(m_vecMoveSpeed.x - vertical * up.x) * factor, (m_vecMoveSpeed.y - vertical * up.y) * factor, (m_vecMoveSpeed.z - vertical * up.z) * factor});
             return;
         }

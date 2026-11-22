@@ -14,7 +14,6 @@ extern char bB71670[352]; // 0x00B71670
 extern char bB71A60[128]; // 0x00B71A60
 extern RwRGBA bB72CA0; // 0x00B72CA0
 extern RwRGBA bB72CA4; // 0x00B72CA4
-extern GxtChar bBAA480[400]; // 0x00BAA480
 
 
 } // namespace DatosExe::Bss

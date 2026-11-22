@@ -1775,7 +1775,7 @@ void CHud::DrawPlayerInfo() {
     };
     if (StaticRef<uint32>(0xBAA400) == 1) {
         typography(); CFont::SetDropColor(CRGBA(0, 0, 0, 255));
-        std::sprintf(ascii, "%02d:%02d", int(StaticRef<uint8>(0xB70153)), int(DatosExe::Bss::bB70152)); AsciiToGxtChar(ascii, text);
+        std::sprintf(ascii, "%02d:%02d", int(StaticRef<uint8>(0xB70153)), int(StaticRef<uint8>(0xB70152))); AsciiToGxtChar(ascii, text);
         CFont::SetColor(HudColour.GetRGB(static_cast<eHudColours>(4))); CFont::PrintString(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C, sy * DatosExe::Rdata::k858F8C, text); CFont::SetEdge(0);
     }
     const auto fadeElement = [&](uintptr_t address, int current) {

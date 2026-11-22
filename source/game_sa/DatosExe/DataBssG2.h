@@ -12,9 +12,7 @@ extern int32 b8E48A8; // 0x008E48A8
 extern int32 b8E4C64; // 0x008E4C64
 extern uint32 b8E4C68; // 0x008E4C68
 extern int32 b9654B8; // 0x009654B8
-extern int32 b969094; // 0x00969094
 extern int32 b96A7CC; // 0x0096A7CC
-extern uint32 b977BC8; // 0x00977BC8
 extern uint32 b97FA68; // 0x0097FA68
 extern uint32 b97FA6C; // 0x0097FA6C
 extern uint32 b97FA70; // 0x0097FA70
@@ -32,10 +30,7 @@ extern uint32 b97FB54; // 0x0097FB54
 extern uint32 b97FB58; // 0x0097FB58
 extern uint32 b97FB5C; // 0x0097FB5C
 extern uint32 b97FB60; // 0x0097FB60
-extern int32 bA43F5C; // 0x00A43F5C
-extern uint32 bA476A8; // 0x00A476A8
 extern int32 bA476AC; // 0x00A476AC
-extern uint32 bA95190; // 0x00A95190
 extern int32 bA9A89C; // 0x00A9A89C
 extern int32 bA9AD70; // 0x00A9AD70
 extern int32 bAAE948; // 0x00AAE948
@@ -47,7 +42,6 @@ extern uint32 bB7CB74; // 0x00B7CB74
 extern uint32 bB7CB78; // 0x00B7CB78
 extern uint32 bB7CB7C; // 0x00B7CB7C
 extern uint32 bB7CB80; // 0x00B7CB80
-extern uint32 bBC12E0; // 0x00BC12E0
 extern int32 bBC3FE8; // 0x00BC3FE8
 extern size_t bBD0B70; // 0x00BD0B70
 extern size_t bC02B7C; // 0x00C02B7C

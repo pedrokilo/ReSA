@@ -34,7 +34,7 @@ public:
     static inline auto& NumFireTrucksOnDuty = DatosExe::Bss::b9690AC;
     static inline auto& MaxNumberOfCarsInUse = DatosExe::Data::v8A5B24;
     static inline auto& CarDensityMultiplier = StaticRef<float>(0x8A5B20);
-    static inline auto& NumRandomCars = DatosExe::Bss::b969094;
+    static inline auto& NumRandomCars = StaticRef<int32>(0x969094);
     static inline auto& NumMissionCars = DatosExe::Bss::b96909C;
     static inline auto& NumPermanentVehicles = DatosExe::Bss::b9690A4;
     static inline auto& LastTimeAmbulanceCreated = DatosExe::Bss::b9690B0;

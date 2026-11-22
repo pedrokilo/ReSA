@@ -12,7 +12,6 @@ extern float b97FB34; // 0x0097FB34
 extern float b97FB38; // 0x0097FB38
 extern float b97FB3C; // 0x0097FB3C
 extern float bB72C6C; // 0x00B72C6C
-extern float bB7CB54; // 0x00B7CB54
 extern float bB7CB58; // 0x00B7CB58
 extern float bB7CB64; // 0x00B7CB64
 extern float bC0E978; // 0x00C0E978

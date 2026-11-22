@@ -38,7 +38,7 @@ public:
     static inline auto& ms_fTimeStep = StaticRef<float>(0xB7CB5C);
     static inline auto& m_snTimerDivider = DatosExe::Bss::bB7CB2C;
 
-    static inline auto& ms_fOldTimeStep = DatosExe::Bss::bB7CB54;
+    static inline auto& ms_fOldTimeStep = StaticRef<float>(0xB7CB54);
     static inline auto& ms_fSlowMotionScale = DatosExe::Bss::bB7CB60;
 
     // game speed

@@ -8,6 +8,5 @@ char bB71670[352]{}; // 0x00B71670
 char bB71A60[128]{}; // 0x00B71A60
 RwRGBA bB72CA0{}; // 0x00B72CA0
 RwRGBA bB72CA4{}; // 0x00B72CA4
-GxtChar bBAA480[400]{}; // 0x00BAA480
 
 } // namespace DatosExe::Bss

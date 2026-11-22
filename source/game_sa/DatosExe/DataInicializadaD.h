@@ -23,7 +23,6 @@ extern ModelIndex v8CD550; // 0x008CD550
 extern ModelIndex v8CD554; // 0x008CD554
 extern ModelIndex v8CD558; // 0x008CD558
 extern ModelIndex v8CD55C; // 0x008CD55C
-extern ModelIndex v8CD560; // 0x008CD560
 extern ModelIndex v8CD564; // 0x008CD564
 extern ModelIndex v8CD568; // 0x008CD568
 extern ModelIndex v8CD56C; // 0x008CD56C

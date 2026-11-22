@@ -764,9 +764,9 @@ void CAERadioTrackManager::StartRadio(eRadioID id, eBassSetting bassSetting, flo
 bool CAERadioTrackManager::TrackRadioStation(eRadioID id, bool skipTrack) {
     auto& state = m_aRadioState[size_t(int8(id))];
     if (state.m_nGameClockHours >= 0 && state.m_nGameClockDays >= 0) {
-        auto days = int32(DatosExe::Bss::bB70154) - state.m_nGameClockDays;
+        auto days = int32(StaticRef<uint8>(0xB70154)) - state.m_nGameClockDays;
         if (days < 0) {
-            const auto month = int8(DatosExe::Bss::bB70155);
+            const auto month = int8(StaticRef<uint8>(0xB70155));
             const auto previousMonth = int8(month - 1) < 0 ? int8(month + 11) : int8(month - 1);
             days += StaticRef<uint8>(0x8CCF24 + previousMonth);
         }
@@ -930,7 +930,7 @@ void CAERadioTrackManager::StopRadio(tVehicleAudioSettings* options, bool during
             state.m_aTrackTypes[i] = TYPE_NONE;
         }
         state.m_iTimeInMs = int32(StaticRef<uint32>(0xB7CB84));
-        state.m_nGameClockDays = int8(DatosExe::Bss::bB70154);
+        state.m_nGameClockDays = int8(StaticRef<uint8>(0xB70154));
         state.m_nGameClockHours = int8(StaticRef<uint8>(0xB70153));
         if (state.m_iTimeInPauseModeInMs >= 0 && int8(settings.StationID) != 0 && int8(settings.StationID) != 13) {
             auto& listened = m_aListenTimes[size_t(int8(settings.StationID))];
@@ -991,7 +991,7 @@ void CAERadioTrackManager::StopRadio(tVehicleAudioSettings* options, bool during
     options->BassSetting = settings.BassSetting;
     if (m_nMode != eRadioTrackMode::RADIO_STOPPED || m_bInitialised || m_nStationsListed != 0 || m_nStationsListDown != 0) {
         m_nSavedTimeMs = StaticRef<uint32>(0xB7CB84);
-        m_nSavedGameClockDays = DatosExe::Bss::bB70154;
+        m_nSavedGameClockDays = StaticRef<uint8>(0xB70154);
         m_nSavedGameClockHours = StaticRef<uint8>(0xB70153);
         m_nSavedRadioStationId = int8(settings.StationID);
     }

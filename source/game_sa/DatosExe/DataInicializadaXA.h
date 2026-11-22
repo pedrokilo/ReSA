@@ -11,8 +11,6 @@ extern float v8CD800; // 0x008CD800
 extern float v8CD804; // 0x008CD804
 extern float v8D12C0; // 0x008D12C0
 extern float v8D12D0; // 0x008D12D0
-extern float v8D34AC; // 0x008D34AC
-extern float v8D34B0; // 0x008D34B0
 extern float v8D5038; // 0x008D5038
 
 

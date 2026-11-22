@@ -87,7 +87,7 @@ inline void CopyTextLabel16(char* dest, const char* src) {
     }
 }
 // 0x8D237C: movimiento por defecto de CTaskComplexSeekEntity (vale 6); el EXE lo copia al task y lo vuelve a escribir con 6.
-inline auto& SeekMoveStateGlobal = DatosExe::Data::v8D237C;
+inline auto& SeekMoveStateGlobal = StaticRef<int32>(0x8D237C);
 } // namespace
 
 static_assert(offsetof(CVehicle, m_autoPilot) + offsetof(CAutoPilot, m_nCarMission) == 0x3BA);

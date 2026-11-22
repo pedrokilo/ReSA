@@ -8,7 +8,6 @@ float b97FB34{}; // 0x0097FB34
 float b97FB38{}; // 0x0097FB38
 float b97FB3C{}; // 0x0097FB3C
 float bB72C6C{}; // 0x00B72C6C
-float bB7CB54{}; // 0x00B7CB54
 float bB7CB58{}; // 0x00B7CB58
 float bB7CB64{}; // 0x00B7CB64
 float bC0E978{}; // 0x00C0E978

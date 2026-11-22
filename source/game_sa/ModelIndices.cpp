@@ -49,7 +49,7 @@ namespace ModelIndices {
     auto& MI_HOTELFAN_NIGHT = DatosExe::Data::v8CD554;
     auto& MI_HOTELFAN_DAY = DatosExe::Data::v8CD558;
     auto& MI_HOTROOMFAN = DatosExe::Data::v8CD55C;
-    auto& MI_PHONEBOOTH1 = DatosExe::Data::v8CD560;
+    auto& MI_PHONEBOOTH1 = StaticRef<ModelIndex>(0x8CD560);
     auto& MI_WASTEBIN = DatosExe::Data::v8CD564;
     auto& MI_BIN = DatosExe::Data::v8CD568;
     auto& MI_POSTBOX1 = DatosExe::Data::v8CD56C;

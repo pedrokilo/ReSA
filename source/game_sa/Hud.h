@@ -54,7 +54,7 @@ public:
     static inline auto& m_nHelpMessageState = DatosExe::Bss::bBAA474;
     static inline auto& m_nHelpMessageFadeTimer = DatosExe::Bss::bBAA478;
     static inline auto& m_nHelpMessageTimer = DatosExe::Bss::bBAA47C;
-    static inline auto& m_pHelpMessageToPrint = DatosExe::Bss::bBAA480;
+    static inline auto& m_pHelpMessageToPrint = StaticRef<GxtChar[400]>(0xBAA480);
     static inline auto& m_pLastHelpMessage = DatosExe::Bss::bBAA610;
     static inline auto& m_pHelpMessage = DatosExe::Bss::bBAA7A0;
 
