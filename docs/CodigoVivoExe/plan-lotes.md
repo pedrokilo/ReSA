@@ -34,7 +34,7 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | V5-2 | P1 | verificar y retirar | CRT y arranque | DESCARTAR | sin alcance (posible muerto) | 70 | 12,920 | 0x00825F61–0x0082F880 | medio |  | parcial |
 | V5-3 | P1 | verificar y retirar | CRT y arranque | DESCARTAR | sin alcance (posible muerto) | 63 | 10,599 | 0x0082FE09–0x008370D0 | medio |  | parcial |
 | V6-1 | P1 | verificar y retirar | QuickTime/QTML | DESCARTAR | sin alcance (posible muerto) | 31 | 1,237 | 0x004E7990–0x0081DAA0 | medio |  | cerrado |
-| V7-1 | P1 | verificar y retirar | RenderWare no reconstruible | DESCARTAR | sin alcance (posible muerto) | 17 | 5,656 | 0x004CA5A0–0x00857432 | medio |  | parcial |
+| V7-1 | P1 | verificar y retirar | RenderWare no reconstruible | DESCARTAR | sin alcance (posible muerto) | 17 | 5,656 | 0x004CA5A0–0x00857432 | medio |  | cerrado |
 | V8-1 | P1 | verificar y retirar | libpng y zlib | DESCARTAR | sin alcance (posible muerto) | 14 | 10,924 | 0x007D7470–0x007E18D0 | medio |  | cerrado |
 | B1 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x004032A4–0x00432B10 | bajo |  | parcial |
 | B2 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x004385B0–0x004394B0 | bajo |  | pendiente |
