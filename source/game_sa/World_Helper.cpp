@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
 
 #include "World.h"
 #include "EntryExitManager.h"
@@ -103,7 +104,7 @@ const CVector& FindPlayerCentreOfWorld_NoSniperShift(int32 playerId) {
     if (const auto* const player = rawInfo->m_pPed) {
         return player->GetPosition();
     }
-    return StaticRef<CVector>(0xB9B970); // vector global a cero del EXE
+    return DatosExe::Bss::bB9B970; // vector global a cero del EXE
 }
 
 // Returns player coords with skipping interior shift

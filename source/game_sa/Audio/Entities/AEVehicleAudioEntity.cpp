@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -817,7 +818,7 @@ void CAEVehicleAudioEntity::AddAudioEvent(eAudioEvents event, float p1) {
             .SoundID     = SND_GENRL_COLLISIONS_SPLASH_END,
             .AudioEntity = this,
             .Pos         = GetVehicle()->GetPosition(),
-            .Volume      = (AudioLog10ScaledExe(vol, 20.0f) + StaticRef<float>(0xB6B9C8)) + defVol,
+            .Volume      = (AudioLog10ScaledExe(vol, 20.0f) + DatosExe::Bss::bB6B9C8) + defVol,
         });
         m_TimeSplashLastTriggered = CTimer::GetTimeInMS(); // 0x4F67F1
         break;
@@ -909,7 +910,7 @@ void CAEVehicleAudioEntity::AddAudioEvent(eAudioEvents event, float p1) {
         break;
     }
     case AE_SUSPENSION_TRIGGER: { // 0x4F6F6E
-        const float vol = GetDefaultVolume(AE_SUSPENSION_TRIGGER) + StaticRef<float>(0xB6BAC4);
+        const float vol = GetDefaultVolume(AE_SUSPENSION_TRIGGER) + DatosExe::Bss::bB6BAC4;
         if (AESoundManager.AreSoundsOfThisEventPlayingForThisEntity(AE_SUSPENSION_TRIGGER, this)) { // 0x4F6F92
             break;
         }
@@ -928,7 +929,7 @@ void CAEVehicleAudioEntity::AddAudioEvent(eAudioEvents event, float p1) {
         break;
     }
     case AE_SUSPENSION_ON: { // 0x4F701B
-        const float vol = GetDefaultVolume(AE_SUSPENSION_ON) + StaticRef<float>(0xB6BAC0);
+        const float vol = GetDefaultVolume(AE_SUSPENSION_ON) + DatosExe::Bss::bB6BAC0;
         if (AESoundManager.AreSoundsOfThisEventPlayingForThisEntity(AE_SUSPENSION_ON, this)) { // 0x4F703F
             break;
         }
@@ -4226,10 +4227,10 @@ void CAEVehicleAudioEntity::ProcessGenericJet(bool bEngineOn, tVehicleParams& pa
     if (!AEAudioHardware.IsSoundBankLoaded(static_cast<eSoundBank>(138), static_cast<eSoundBankSlot>(19))) return;
     float front, rear, thrust, distant;
     switch (params.Vehicle->GetModelId()) {
-    case 519: front=DatosExe::Data::v8CBE68; rear=DatosExe::Data::v8CBE6C; thrust=StaticRef<float>(0xB6B9F4); distant=DatosExe::Data::v8CBE78; break;
-    case 520: front=DatosExe::Data::v8CBE7C; rear=DatosExe::Data::v8CBE80; thrust=StaticRef<float>(0xB6B9F8); distant=DatosExe::Data::v8CBE8C; break;
+    case 519: front=DatosExe::Data::v8CBE68; rear=DatosExe::Data::v8CBE6C; thrust=DatosExe::Bss::bB6B9F4; distant=DatosExe::Data::v8CBE78; break;
+    case 520: front=DatosExe::Data::v8CBE7C; rear=DatosExe::Data::v8CBE80; thrust=DatosExe::Bss::bB6B9F8; distant=DatosExe::Data::v8CBE8C; break;
     case 577: front=DatosExe::Data::v8CBE90; rear=DatosExe::Data::v8CBE94; thrust=DatosExe::Data::v8CBE98; distant=DatosExe::Data::v8CBEA4; break;
-    case 592: front=DatosExe::Data::v8CBEA8; rear=DatosExe::Data::v8CBEAC; thrust=StaticRef<float>(0xB6B9FC); distant=DatosExe::Data::v8CBEB8; break;
+    case 592: front=DatosExe::Data::v8CBEA8; rear=DatosExe::Data::v8CBEAC; thrust=DatosExe::Bss::bB6B9FC; distant=DatosExe::Data::v8CBEB8; break;
     default: CancelAllVehicleEngineSounds(); return;
     }
     if (!bEngineOn) { CancelAllVehicleEngineSounds(); return; }
@@ -4366,8 +4367,8 @@ void CAEVehicleAudioEntity::ProcessDummyHovercraft(tVehicleParams& params) {
     float offset = accel > 0 ? DatosExe::Rdata::k858B1C : ratio;
     if (brake > 0) offset = DatosExe::Rdata::k85901C;
     const auto rev = std::clamp(*reinterpret_cast<float*>(bytes+0x9C4) * DatosExe::Rdata::k862D18, 0.f, 1.f);
-    const auto volume = StaticRef<float>(0xB6BA90) * rev + DatosExe::Data::v8CBFAC;
-    const auto target = ((StaticRef<float>(0xB6BA94) * rev + DatosExe::Data::v8CBFBC * ratio) + DatosExe::Data::v8CBFB4) + offset;
+    const auto volume = StaticRef<float>(0xB6BA90) * rev + StaticRef<float>(0x8CBFAC);
+    const auto target = ((StaticRef<float>(0xB6BA94) * rev + DatosExe::Data::v8CBFBC * ratio) + StaticRef<float>(0x8CBFB4)) + offset;
     if (m_CurrentRotorFrequency < 0.f) m_CurrentRotorFrequency = target;
     m_CurrentRotorFrequency = target < m_CurrentRotorFrequency ? std::max(target, m_CurrentRotorFrequency-DatosExe::Rdata::k862D04) : std::min(target, m_CurrentRotorFrequency+DatosExe::Rdata::k862D04);
     UpdateGenericVehicleSound(1, m_DummySlot, m_DummyEngineBank, 0, m_CurrentRotorFrequency, volume, 3.5f);
@@ -5026,28 +5027,28 @@ void ProcessBicycleAudio(CAEVehicleAudioEntity& self, CAEVehicleAudioEntity::tVe
     if (player && !AEAudioHardware.IsSoundBankLoaded(bank, slot)) return;
     auto* vehicle = reinterpret_cast<uint8*>(params.Vehicle);
     if (player) {
-        if (*reinterpret_cast<float*>(vehicle+0x818) > 5.f && StaticRef<float>(0xB6BAD0) * *reinterpret_cast<float*>(vehicle+0x820) < 0.f && StaticRef<float>(0xB6BACC) == 0.f) StaticRef<float>(0xB6BACC)=6.f;
-        StaticRef<float>(0xB6BACC) -= DatosExe::Rdata::k858CB0;
-        if (StaticRef<float>(0xB6BACC)<0.f) StaticRef<float>(0xB6BACC)=0.f;
+        if (*reinterpret_cast<float*>(vehicle+0x818) > 5.f && DatosExe::Bss::bB6BAD0 * *reinterpret_cast<float*>(vehicle+0x820) < 0.f && DatosExe::Bss::bB6BACC == 0.f) DatosExe::Bss::bB6BACC=6.f;
+        DatosExe::Bss::bB6BACC -= DatosExe::Rdata::k858CB0;
+        if (DatosExe::Bss::bB6BACC<0.f) DatosExe::Bss::bB6BACC=0.f;
     }
     // 0x4FFE75..0x4FFED9 / 0x5000EE..0x50014F: |v / vmax| limitado a 1 con NaN -> 1.0 (el EXE no usa clamp: fcomp + test ah,5 / jp), y un resultado <= 0 se guarda como +0
     const auto ratio = VehAudioBicycleRatioCpp(params.Speed, *reinterpret_cast<float*>(reinterpret_cast<uint8*>(params.Transmission)+0x58));
     const auto wheel = float(vehicle[0x804]);
     const auto volume = (AudioLog10ScaledExe(wheel * .25f * ratio, 20.0f) + self.m_EventVolume) + DatosExe::Data::v8CBEBC;
-    const auto frequencyBase = ((wheel * StaticRef<float>(0xB6BA6C)) * .125f + StaticRef<float>(0xB6BA6C) * ratio) + DatosExe::Data::v8CBD5C;
+    const auto frequencyBase = ((wheel * StaticRef<float>(0xB6BA6C)) * .125f + StaticRef<float>(0xB6BA6C) * ratio) + StaticRef<float>(0x8CBD5C);
     // 0x4FFF39..0x4FFF66 / 0x5001AF..0x5001DC: fsin sin redondear; fchs solo si sin < 0; fmul 0x8CBD60; fadd 1.0f; fmul frequencyBase; un solo fstp
     const float angle = *reinterpret_cast<float*>(vehicle+0x648);
     const float frequency = VehAudioBicycleFrequencyCpp(angle, DatosExe::Data::v8CBD60, frequencyBase);
     const bool pedaling = vehicle[0x834] != 0;
     const auto tyre = pedaling ? self.GetBaseVolumeForBicycleTyre(ratio) : 0.f;
     const auto sprocketVolume = (AudioLog10ScaledExe(tyre, 20.0f) + self.m_EventVolume) + DatosExe::Data::v8CBEC0;
-    const auto sprocketFrequency = StaticRef<float>(0xB6BA70) * ratio + DatosExe::Data::v8CBD64;
+    const auto sprocketFrequency = StaticRef<float>(0xB6BA70) * ratio + StaticRef<float>(0x8CBD64);
     self.PlayBicycleSound(CAEVehicleAudioEntity::AE_SOUND_BICYCLE_TYRE, slot, 0, volume, frequency);
     self.PlayBicycleSound(CAEVehicleAudioEntity::AE_SOUND_BICYCLE_SPROCKET_1, slot, 1, sprocketVolume, sprocketFrequency);
     auto& wasPedaling = StaticRef<uint8>(player ? 0xB6BAC9 : 0xB6BAC8);
     if (!pedaling && wasPedaling) self.PlayBicycleSound(CAEVehicleAudioEntity::AE_SOUND_BICYCLE_CHAIN_CLANG, slot, 1, volume, 1.f);
     wasPedaling=pedaling;
-    if (player) StaticRef<float>(0xB6BAD0)=*reinterpret_cast<float*>(vehicle+0x820);
+    if (player) DatosExe::Bss::bB6BAD0=*reinterpret_cast<float*>(vehicle+0x820);
 }
 }
 

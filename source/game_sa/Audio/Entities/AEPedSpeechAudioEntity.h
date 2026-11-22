@@ -5,6 +5,9 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 
 #include <Base.h>
 #include <Audio/entities/AEAudioEntity.h>
@@ -116,16 +119,16 @@ VALIDATE_SIZE(tSpecificSpeechContextInfo, sizeof(int16) * 2);
 class NOTSA_EXPORT_VTABLE CAEPedSpeechAudioEntity : public CAEAudioEntity {
 public:
     //!< Until when the override is active in [TimeMS]
-    static inline auto& s_nCJMoodOverrideTime = StaticRef<uint32>(0xB613E0);
+    static inline auto& s_nCJMoodOverrideTime = DatosExe::Bss::bB613E0;
 
     //!< Override as CJ being well dressed (-1 => ignore, 0/1 => false/true) [Used for mood calculation]
-    static inline auto& s_nCJWellDressed = StaticRef<int16>(0xB613D0);
+    static inline auto& s_nCJWellDressed = DatosExe::Bss::bB613D0;
 
     //!< Override as CJ being fat (-1 => ignore, 0/1 => false/true) [Used for mood calculation]
-    static inline auto& s_nCJFat = StaticRef<int16>(0xB613D4);
+    static inline auto& s_nCJFat = DatosExe::Bss::bB613D4;
 
     //!< Override as CJ being with his group (gang) (-1 => ignore, 0/1 => false/true) [Used for mood calculation]
-    static inline auto& s_nCJGangBanging = StaticRef<int16>(0xB613D8);
+    static inline auto& s_nCJGangBanging = DatosExe::Bss::bB613D8;
 
     //!< Override the basic mood that is used to calculate the current mood (-1 => ignore, 0/1 => false/true) [Used for mood calculation]
     static inline auto& s_nCJBasicMood = StaticRef<eCJMood>(0xB613DC);
@@ -134,30 +137,30 @@ public:
     static inline auto& s_bForceAudible = StaticRef<bool>(0xB613E4);
 
     //!< No speeches should be played
-    static inline auto& s_bAllSpeechDisabled = StaticRef<bool>(0xB613E6);
+    static inline auto& s_bAllSpeechDisabled = DatosExe::Bss::bB613E6;
 
     //!< Is the player speaking
-    static inline auto& s_bAPlayerSpeaking = StaticRef<bool>(0xB613E5);
+    static inline auto& s_bAPlayerSpeaking = DatosExe::Bss::bB613E5;
 
     //!< Current conversation length (Not array size!)
-    static inline auto& s_ConversationLength = StaticRef<int16>(0xB613E8);
+    static inline auto& s_ConversationLength = DatosExe::Bss::bB613E8;
 
     //!< Current conversation contexts
     static inline auto& s_Conversation = StaticRef<std::array<eGlobalSpeechContextS16, 8>>(0xB613EC);
 
     //!< Is the player having a conversation with another ped? (With `s_pPlayerConversationPed`)
-    static inline auto& s_bPlayerConversationHappening = StaticRef<bool>(0xB613FC);
+    static inline auto& s_bPlayerConversationHappening = DatosExe::Bss::bB613FC;
 
     //!< The ped the player is having a conversation with (If any)
-    static inline auto& s_pPlayerConversationPed = StaticRef<CPed*>(0xB61400);
+    static inline auto& s_pPlayerConversationPed = DatosExe::Bss::bB61400;
 
     //!< Are 2 peds having a conversation (`s_pConversationPed1` and `s_pConversationPed2`)
-    static inline auto& s_bPedConversationHappening = StaticRef<bool>(0xB613FD);
+    static inline auto& s_bPedConversationHappening = DatosExe::Bss::bB613FD;
 
     //!< Conversation peds/slots (Valid if `s_bPedConversationHappening`)
-    static inline auto& s_pConversationPed1     = StaticRef<CPed*>(0xB61410);
+    static inline auto& s_pConversationPed1     = DatosExe::Bss::bB61410;
     static inline auto& s_pConversationPedSlot1 = StaticRef<tPedSpeechSlotID>(0xB61408);
-    static inline auto& s_pConversationPed2     = StaticRef<CPed*>(0xB6140C);
+    static inline auto& s_pConversationPed2     = DatosExe::Bss::bB6140C;
     static inline auto& s_pConversationPedSlot2 = StaticRef<tPedSpeechSlotID>(0xB61404);
 
     //!< Next speech-slot to use. This is merrily a hint, rather than an obligation

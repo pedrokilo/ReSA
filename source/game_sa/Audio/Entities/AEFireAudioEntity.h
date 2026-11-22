@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "AEAudioEntity.h"
 
@@ -22,7 +23,7 @@ public:
     CAESound*   m_SoundRight;
     FxSystem_c* m_FxSystem; //!< Sistema visual seguido por las voces; no owned.
 
-    static inline auto& m_snLastFireFrequencyIndex = StaticRef<uint8>(0xB612EC);
+    static inline auto& m_snLastFireFrequencyIndex = DatosExe::Bss::bB612EC;
 
 public:
     static void InjectHooks();

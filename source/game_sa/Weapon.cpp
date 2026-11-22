@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataAyudantes.h"
 
@@ -1857,7 +1858,7 @@ bool CWeapon::FireInstantHit(CEntity* firingEntity, CVector* origin, CVector* mu
         auto* playerData = InstantHitField<void*>(ped, 0x480);
         spread = factor * spread * InstantHitField<float>(playerData, 0x2C) * InstantHitConstant(0x8D6110);
         CVector first, second;
-        const auto cameraMode = StaticRef<uint16>(0xB6F1A8);
+        const auto cameraMode = DatosExe::Bss::bB6F1A8;
         if (cameraMode == 53 || cameraMode == 55 || (cameraRay && cameraMode == 49)) {
             if (cameraRay && cameraMode == 49) { CVector temporary; TheCamera.m_aCams[0].Get_TwoPlayer_AimVector(temporary); }
             const CVector up = StaticRef<CVector>(0xB6F350);
@@ -1979,7 +1980,7 @@ bool CWeapon::FireInstantHit(CEntity* firingEntity, CVector* origin, CVector* mu
         case 25: case 26: case 27: flashLength = .3f; shellSize = .45f; break;
         case 28: case 29: case 32: flashLength = .2f; shellSize = .3f; break;
         case 30: case 31: case 38:
-            if (InstantHitAnimationDuration(wi) <= 49 && (++StaticRef<uint8>(0xC8A80C) & 1)) break;
+            if (InstantHitAnimationDuration(wi) <= 49 && (++DatosExe::Bss::bC8A80C & 1)) break;
             flashLength = .65f; shellSize = .25f; break;
         }
         if (flashLength != 0.f) {

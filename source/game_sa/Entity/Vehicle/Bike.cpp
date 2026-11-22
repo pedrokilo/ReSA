@@ -23,6 +23,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -819,7 +821,7 @@ void CBike::ProcessControlInputs(uint8 playerNum) {
         m_GasPedal = pedal < 0.f ? pedal : 0.f;
         m_BrakePedal = pedal < 0.f ? 0.f : pedal;
     }
-    auto& steer = StaticRef<float>(0xC1C804);
+    auto& steer = DatosExe::Bss::bC1C804;
     steer = m_fRawSteerAngle * m_fRawSteerAngle;
     if (m_fRawSteerAngle < 0.f) steer = -steer;
     const auto controller = int8(bytes[0x424]);
@@ -1384,7 +1386,7 @@ void CBike::ProcessControl() {
         float forwardSpeed = (m_vecMoveSpeed.z * m_matrix->GetForward().z + m_vecMoveSpeed.y * m_matrix->GetForward().y)
                            + m_vecMoveSpeed.x * m_matrix->GetForward().x;             // [esp+80h]; la transmision lo recibe por referencia
         float driveAccel = m_pHandlingData->GetTransmission().CalculateDriveAcceleration(
-            m_GasPedal, m_nCurrentGear, m_fGearChangeCount, forwardSpeed, nullptr, nullptr, m_NumDriveWheelsOnGround, StaticRef<uint8>(0x96914C));   // 0x6BA63D
+            m_GasPedal, m_nCurrentGear, m_fGearChangeCount, forwardSpeed, nullptr, nullptr, m_NumDriveWheelsOnGround, DatosExe::Bss::b96914C);   // 0x6BA63D
         driveAccel = driveAccel / m_fVelocityFrequency;                               // [esp+84h]
         float brakeForce = (m_pHandlingData->m_fBrakeDeceleration * m_BrakePedal) * CTimer::GetTimeStep();   // [esp+48h]; 0x6BB2FD puede ponerla a cero
         float frontBias, rearBias, tractionBias, tractionBiasInv;                     // [esp+10h], [esp+64h], [esp+34h], [esp+8Ch]
@@ -1500,7 +1502,7 @@ void CBike::ProcessControl() {
         const bool procRearFirst = m_pHandlingData->m_bProcRearwheelFirst;          // bit 23 de los flags de handling -> [esp+8Bh]
         tWheelState& frontState = StaticRef<tWheelState>(0xC1C26C);
         tWheelState& rearState = StaticRef<tWheelState>(0xC1C270);
-        float& wheelThrust = StaticRef<float>(0xC1C27C);
+        float& wheelThrust = DatosExe::Bss::bC1C27C;
 
         // 0x6BADC3 / 0x6BB34F: el deslizamiento por frenada depende del tipo de superficie
         const auto brakingSlideScale = [&](uint32 surface) {
@@ -1986,7 +1988,7 @@ void CBike::DoSoftGroundResistance(uint32& arg0) {
         if (m_aWheelRatios[i] < 1.f && m_aWheelColPoints[i].m_nSurfaceTypeB == 178) {
             const auto& up = GetUp();
             const auto vertical = (m_vecMoveSpeed.x * up.x + m_vecMoveSpeed.y * up.y) + m_vecMoveSpeed.z * up.z;
-            const auto factor = -(CTimer::GetTimeStep() * m_fMass * DatosExe::Data::v8D34AC);
+            const auto factor = -(CTimer::GetTimeStep() * m_fMass * StaticRef<float>(0x8D34AC));
             ApplyMoveForce(CVector{(m_vecMoveSpeed.x - vertical * up.x) * factor, (m_vecMoveSpeed.y - vertical * up.y) * factor, (m_vecMoveSpeed.z - vertical * up.z) * factor});
             return;
         }
@@ -2586,7 +2588,7 @@ void CBike::DoBurstAndSoftGroundRatios() {
         if (!applySoft[i] || !(m_aWheelRatios[i] < 1.f) || g_surfaceInfos.GetAdhesionGroup(m_aWheelColPoints[i].m_nSurfaceTypeB) != ADHESION_GROUP_SAND || m_nModelIndex == 432) continue;
         const auto flags = uint32(m_nHandlingFlagsIntValue);
         const auto multiplier = flags & 0x200000u ? DatosExe::Rdata::k87131C : flags & 0x100000u ? DatosExe::Rdata::k871318 : DatosExe::Rdata::k871314;
-        auto factor = (1.f - speed / DatosExe::Rdata::k871320 * DatosExe::Rdata::k858CB0) - StaticRef<float>(0xC81308) * DatosExe::Rdata::k858CB0;
+        auto factor = (1.f - speed / DatosExe::Rdata::k871320 * DatosExe::Rdata::k858CB0) - DatosExe::Bss::bC81308 * DatosExe::Rdata::k858CB0;
         if (DatosExe::Rdata::k858EE8 > factor) factor = DatosExe::Rdata::k858EE8;
         const auto amount = (m_fLineLength[i] - m_fSuspensionLength[i]) / m_fLineLength[i] * factor * multiplier;
         const auto ratio = amount + m_aWheelRatios[i];

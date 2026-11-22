@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -22,8 +23,8 @@ class  CColBox;
 class CCollision {
 public:
     static inline auto& ms_colModelCache = StaticRef<CLinkList<CCollisionData*>>(0x96592C);
-    static inline auto& ms_iProcessLineNumCrossings = StaticRef<uint32>(0x9655D0);
-    static inline auto& ms_collisionInMemory = StaticRef<uint32>(0x9655D4);
+    static inline auto& ms_iProcessLineNumCrossings = DatosExe::Bss::b9655D0;
+    static inline auto& ms_collisionInMemory = DatosExe::Bss::b9655D4;
 
     static inline auto& bCamCollideWithVehicles = StaticRef<bool>(0x8A5B14);         // = true
     static inline auto& bCamCollideWithObjects = StaticRef<bool>(0x8A5B15);          // = true

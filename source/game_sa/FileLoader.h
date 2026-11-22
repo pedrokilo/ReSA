@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
 
 #include "RenderWare.h"
 
@@ -65,7 +66,7 @@ enum eIPL : uint8 {
 
 class CFileLoader {
 public:
-    static inline auto& ms_line = StaticRef<char[512]>(0xB71848);
+    static inline auto& ms_line = DatosExe::Bss::bB71848;
 
 public:
     static void InjectHooks();

@@ -1,8 +1,9 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 
 class CCustomBuildingPipeline {
 public:
-    static inline auto& ObjPipeline = StaticRef<RxPipeline*>(0xC02C68);
+    static inline auto& ObjPipeline = DatosExe::Bss::bC02C68;
 
 public:
     static void InjectHooks();

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "StencilShadowObject.h"
 
 #include "World.h"
@@ -30,8 +31,8 @@ static inline auto& s_TransformedShadowTrianglePoints = StaticRef<CVector*>(0xC6
 static inline auto& s_SunPosNrm                       = StaticRef<CVector>(0x8D5244); // CVector(1.0, 1.0, -2.0)
 
 // Como el original: los dos contadores de Process son globales del EXE (0xC6A899 / 0xC6A898), no estaticos locales
-static inline auto& s_RegisterShadowCounter = StaticRef<uint8>(0xC6A899);
-static inline auto& s_RenderForObjCounter   = StaticRef<uint8>(0xC6A898);
+static inline auto& s_RegisterShadowCounter = DatosExe::Bss::bC6A899;
+static inline auto& s_RenderForObjCounter   = DatosExe::Bss::bC6A898;
 
 namespace {
 // Como el original: nodo crudo de las listas de punteros (item +0, siguiente +4); se leen sin validar contra los pools

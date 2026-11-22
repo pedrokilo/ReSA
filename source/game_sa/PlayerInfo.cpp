@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "X87Math.h"
 
@@ -332,7 +334,7 @@ void CPlayerInfo::Process(uint32 playerIndex) {
     const auto wanted = uint32(m_pPed->GetWanted()->GetWantedLevel());
     if (wanted && !CTheScripts::IsPlayerOnAMission()) {
         auto& lastPosition = StaticRef<CVector>(0xB9B994);
-        auto& initialized = StaticRef<uint32>(0xB9B9A0);
+        auto& initialized = DatosExe::Bss::bB9B9A0;
         auto& nearRoad = DatosExe::Data::v8CDF20;
         auto& moved = DatosExe::Data::v8CDF21;
         initialized |= 1;
@@ -670,10 +672,10 @@ void CPlayerInfo::PlayerFailedCriticalMission() {
 // 0x56E610
 void CPlayerInfo::WorkOutEnergyFromHunger() {
     // Como el original: la guarda del static es el bit 0 del dword 0xB9B8F4 y el último estado de hambre es un byte sin signo
-    static auto& s_lastTimeHungryStateProcessedGuard = StaticRef<uint32>(0xB9B8F4);
-    static auto& s_lastTimeHungryStateProcessed = StaticRef<uint8>(0xB9B8F2);
-    static auto& s_LastHungryState = StaticRef<uint8>(0xB9B8F1);
-    static auto& s_bHungryMessageShown = StaticRef<bool>(0xB9B8F0);
+    static auto& s_lastTimeHungryStateProcessedGuard = DatosExe::Bss::bB9B8F4;
+    static auto& s_lastTimeHungryStateProcessed = DatosExe::Bss::bB9B8F2;
+    static auto& s_LastHungryState = DatosExe::Bss::bB9B8F1;
+    static auto& s_bHungryMessageShown = DatosExe::Bss::bB9B8F0;
 
     if (CCheat::IsActive(CHEAT_NEVER_GET_HUNGRY)) {
         return;

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "AnimationStyleDescriptor.h"
 #include "AnimBlendAssocGroup.h"
@@ -36,11 +37,11 @@ private:
     static inline auto& ms_aAnimAssocGroups = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34);
 
     static inline auto& ms_aAnimations = StaticRef<std::array<CAnimBlendHierarchy, 2500>>(0xB4EA40);
-    static inline auto& ms_numAnimations = StaticRef<int32>(0xB4EA2C);
+    static inline auto& ms_numAnimations = DatosExe::Bss::bB4EA2C;
 
     static constexpr uintptr_t kAnimBlocksAddress = 0xB5D4A0; // direccion de ms_aAnimBlocks en el EXE (RemoveAnimBlockRef la usa como inmediato: sin cargar el puntero de la referencia)
     static inline auto& ms_aAnimBlocks = StaticRef<std::array<CAnimBlock, NUM_ANIM_BLOCKS>>(kAnimBlocksAddress);
-    static inline auto& ms_numAnimBlocks = StaticRef<uint32>(0xB4EA30);
+    static inline auto& ms_numAnimBlocks = DatosExe::Bss::bB4EA30;
 
     static inline auto& ms_AnimCache = StaticRef<CLinkList<CAnimBlendHierarchy*>>(0xB5EB20);
 

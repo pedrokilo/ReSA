@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include <extensions/ci_string.hpp>
@@ -119,7 +121,7 @@ int32 CClothesBuilder::RequestTexture(uint32 txdNameKey) {
         return -1;
     }
 
-    auto& defaultTxdIdx = StaticRef<uint32>(0xBC12D0);
+    auto& defaultTxdIdx = DatosExe::Bss::bBC12D0;
     const auto defaultTxd = CTxdStore::defaultTxds[defaultTxdIdx];
     defaultTxdIdx = (defaultTxdIdx + 1) % 4;
 
@@ -845,7 +847,7 @@ RpClump* CClothesBuilder::CreateSkinnedClump(RpClump* bones, RwTexDictionary* di
         }
     }
 
-    StaticRef<const CPedClothesDesc*>(0xBC1288) = odscr; // Como el original (0x5A6A85 mov [0BC1288h],edx)
+    DatosExe::Bss::bBC1288 = odscr; // Como el original (0x5A6A85 mov [0BC1288h],edx)
     if (odscr) {
         // Como el original (0x5A6B84-0x5A6C2E)
         ms_geometryHasChanged = false;

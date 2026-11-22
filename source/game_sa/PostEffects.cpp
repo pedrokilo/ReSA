@@ -17,6 +17,10 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -30,11 +34,11 @@ END GENERATED HOOK STATUS */
 auto& cc_vertices = StaticRef<std::array<RwIm2DVertex, 4>>(0xC400D8);
 auto& cc_indices = StaticRef<std::array<RwImVertexIndex, 12>>(0x8D5174); // { 0, 1, 2, 0, 2, 3, 0, 1, 2, 0, 2, 3 };
 
-auto& hpX = StaticRef<std::array<int32, 180>>(0xC3FE08);
-auto& hpY = StaticRef<std::array<int32, 180>>(0xC3FB38);
-auto& hpS = StaticRef<std::array<int32, 180>>(0xC3F868); // speed
+auto& hpX = DatosExe::Bss::bC3FE08;
+auto& hpY = DatosExe::Bss::bC3FB38;
+auto& hpS = DatosExe::Bss::bC3F868; // speed
 
-static inline auto& s_DayNightBalanceParamOld = StaticRef<float>(0xC3F860);
+static inline auto& s_DayNightBalanceParamOld = DatosExe::Bss::bC3F860;
 
 static constexpr auto GRAIN_TEXTURE_DIM = 256u; // 256x256
 
@@ -618,7 +622,7 @@ void CPostEffects::HeatHazeFXInit() {
 void CPostEffects::HeatHazeFX(float fIntensity, bool bAlphaMaskMode) {
     auto state=[](int32 id,uintptr_t value){RwRenderStateSet(static_cast<RwRenderState>(id),reinterpret_cast<void*>(value));};
     const bool alphaTest = Scene.m_pRwCamera->frameBuffer->depth != 16;
-    if(!bAlphaMaskMode)StaticRef<uint8>(0xC402BB)=0;
+    if(!bAlphaMaskMode)DatosExe::Bss::bC402BB=0;
     else {
         RwRGBA clear{0,0,0,0};RwCameraClear(Scene.m_pRwCamera,&clear,rwCAMERACLEARZ);
         ImmediateModeRenderStatesStore();ImmediateModeRenderStatesSet();state(10,5);state(11,2);
@@ -635,7 +639,7 @@ void CPostEffects::HeatHazeFX(float fIntensity, bool bAlphaMaskMode) {
     state(6,0);state(8,0);state(1,reinterpret_cast<uintptr_t>(pRasterFrontBuffer));state(9,2);state(10,5);state(11,6);
     auto* vertices=reinterpret_cast<uint32*>(0xC5F958);auto* indices=reinterpret_cast<int16*>(0xC4B958);
     const auto put=[&](int32 index,float x,float y,float u,float v,uint32 color,bool setUV=true,bool setRecip=true){auto* p=vertices+index*7;p[0]=std::bit_cast<uint32>(x);p[1]=std::bit_cast<uint32>(y);p[2]=StaticRef<uint32>(StaticRef<uintptr_t>(0xC97B24)+0x18);if(setRecip)p[3]=std::bit_cast<uint32>(1.f/Scene.m_pRwCamera->nearPlane);p[4]=color;if(setUV){p[5]=std::bit_cast<uint32>(u);p[6]=std::bit_cast<uint32>(v);}};
-    if(!StaticRef<uint8>(0xC402BB)){
+    if(!DatosExe::Bss::bC402BB){
         const auto scanX=StaticRef<int32>(0xC40304),scanY=StaticRef<int32>(0xC40308),renderX=StaticRef<int32>(0xC4030C),renderY=StaticRef<int32>(0xC40310);
         const auto halfX=(renderX-scanX)/2,halfY=(renderY-scanY)/2;const auto color=(uint32(alpha)<<24)|0xFFFFFFu;
         for(uint32 i=0;i<180;++i){int32 ux=hpX[i],uy=hpY[i],x=ux-halfX,y=uy-halfY;const auto shift=StaticRef<int32>(0xC402C0);
@@ -830,7 +834,7 @@ void CPostEffects::InfraredVisionRestoreLightsForHeatObjects() {
 
 // 0x704150
 void CPostEffects::Fog() {
-    static auto& s_FogRadius = StaticRef<float>(0xC402E4);
+    static auto& s_FogRadius = DatosExe::Bss::bC402E4;
     static auto& s_FogAngle  = StaticRef<float>(0xC402DC);
 
     // Como el original: 0x704153 lee la trama de nubes una sola vez (mov eax,[0xC6BFC8] ; mov ecx,[eax]) antes de guardar los estados
@@ -948,7 +952,7 @@ void CPostEffects::CCTV() {
 
 // 0x7037C0
 void CPostEffects::Grain(int32 strengthMask, bool update) {
-    static auto& s_NumberOfReseeds = StaticRef<uint32>(0xC4031C);
+    static auto& s_NumberOfReseeds = DatosExe::Bss::bC4031C;
     if (update) {
         auto* pixels = RwRasterLock(m_pGrainRaster, 0, rwRASTERLOCKWRITE);
 
@@ -1091,10 +1095,10 @@ void CPostEffects::SetSpeedFXManualSpeedCurrentFrame(float value) {
 void CPostEffects::Render() {
     ZoneScoped;
 
-    static auto& s_CurrentStrength    = StaticRef<int32>(0xC40328);
-    static auto& s_WaterGreen         = StaticRef<float>(0xC40324);
-    static auto& s_WaitForOneFrame    = StaticRef<bool>(0xC40321);
-    static auto& s_SavePhotoToGallery = StaticRef<bool>(0xC40320);
+    static auto& s_CurrentStrength    = DatosExe::Bss::bC40328;
+    static auto& s_WaterGreen         = DatosExe::Bss::bC40324;
+    static auto& s_WaitForOneFrame    = DatosExe::Bss::bC40321;
+    static auto& s_SavePhotoToGallery = DatosExe::Bss::bC40320;
 
     if (m_bDisableAllPostEffect) {
         return;

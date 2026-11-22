@@ -1,4 +1,6 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
 #include <PlantColEntEntry.h>
@@ -21,10 +23,10 @@ public:
     static inline auto& PC_PlantModelsTab = StaticRef<RpAtomic*[4][4]>(0xC039F0);
 
     static inline auto& m_scanCode = StaticRef<int16>(0xC03980);
-    static inline auto& m_UnusedLocTriListHead = StaticRef<CPlantLocTri*>(0xC03984);
+    static inline auto& m_UnusedLocTriListHead = DatosExe::Bss::bC03984;
     static inline auto& m_CloseLocTriListHead = StaticRef<CPlantLocTri*[4]>(0xC03988);
-    static inline auto& m_UnusedColEntListHead = StaticRef<CPlantColEntEntry*>(0xC03998);
-    static inline auto& m_CloseColEntListHead = StaticRef<CPlantColEntEntry*>(0xC0399C);
+    static inline auto& m_UnusedColEntListHead = DatosExe::Bss::bC03998;
+    static inline auto& m_CloseColEntListHead = DatosExe::Bss::bC0399C;
     static inline auto& m_AmbientColor = StaticRef<CRGBA>(0xC03A44);
     static inline auto& m_LocTrisTab = StaticRef<CPlantLocTri[MAX_NUM_PLANT_TRIANGLES]>(0xC03A48);
     static inline auto& m_ColEntCacheTab = StaticRef<CPlantColEntEntry[MAX_NUM_PROC_OBJECTS]>(0xC08E48);

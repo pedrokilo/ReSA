@@ -5,6 +5,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 
 #include <rwplcore.h>
 
@@ -70,8 +72,8 @@ VALIDATE_SIZE(CBird, 0x44);
 
 class CBirds {
 public:
-    static inline auto& bHasBirdBeenShot = StaticRef<bool>(0xC6A8A0);
-    static inline auto& uiNumberOfBirds = StaticRef<uint32>(0xC6A8A4);
+    static inline auto& bHasBirdBeenShot = DatosExe::Bss::bC6A8A0;
+    static inline auto& uiNumberOfBirds = DatosExe::Bss::bC6A8A4;
     static inline auto& aBirds = StaticRef<std::array<CBird, 6>>(0xC6A8B0);
     static inline auto& vecBirdShotAt = StaticRef<CVector>(0xC6AA48);
 

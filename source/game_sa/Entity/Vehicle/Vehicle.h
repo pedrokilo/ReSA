@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include <optional>
@@ -422,8 +423,8 @@ public:
     static inline auto& WHEELSPIN_RISE_RATE = DatosExe::Data::v8D34A0;
     static inline auto& WHEELSPIN_FALL_RATE = DatosExe::Data::v8D34A4;
     static inline auto& m_fAirResistanceMult = DatosExe::Data::v8D34A8;
-    static inline auto& ms_fRailTrackResistance = DatosExe::Data::v8D34AC;
-    static inline auto& ms_fRailTrackResistanceDefault = DatosExe::Data::v8D34B0;
+    static inline auto& ms_fRailTrackResistance = StaticRef<float>(0x8D34AC);
+    static inline auto& ms_fRailTrackResistanceDefault = StaticRef<float>(0x8D34B0);
     static inline auto& bDisableRemoteDetonation = StaticRef<bool>(0xC1CC00);
     static inline auto& bDisableRemoteDetonationOnContact = StaticRef<bool>(0xC1CC01);
     static inline auto& m_bEnableMouseSteering = StaticRef<bool>(0xC1CC02);
@@ -432,7 +433,7 @@ public:
     static inline auto& m_aSpecialColVehicle = StaticRef<std::array<CVehicle*, 4>>(0xC1CC08);
     static inline auto& m_aSpecialColModel = StaticRef<std::array<CColModel, 4>>(0xC1CC78);
     static inline auto& ms_forceVehicleLightsOff = StaticRef<bool>(0xC1CC18);
-    static inline auto& s_bPlaneGunsEjectShellCasings = StaticRef<bool>(0xC1CC19);
+    static inline auto& s_bPlaneGunsEjectShellCasings = DatosExe::Bss::bC1CC19;
     static inline auto& m_aSpecialHydraulicData = StaticRef<std::array<tHydraulicData, 4>>(0xC1CB60);
 
     static constexpr auto Type = VEHICLE_TYPE_IGNORE;

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 class CGamma {
 public:
@@ -21,5 +22,5 @@ public:
 
 VALIDATE_SIZE(CGamma, 0x10);
 
-inline static auto& gbGammaChanged = StaticRef<bool>(0xC920C8);
+inline static auto& gbGammaChanged = DatosExe::Bss::bC920C8;
 inline static auto& gamma          = StaticRef<CGamma>(0xC92134);

@@ -1,4 +1,6 @@
 #pragma once
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -21,14 +23,14 @@ class CTrafficLights {
 private:
     static inline auto& aTrafficLightColoursR = DatosExe::Data::v8A6214;
     static inline auto& aTrafficLightColoursG = DatosExe::Data::v8A6218;
-    static inline auto& aTrafficLightColoursB = StaticRef<std::array<uint8, 3>>(0xA9AD94);
+    static inline auto& aTrafficLightColoursB = DatosExe::Bss::bA9AD94;
     static inline auto& fLightMult = DatosExe::Data::v8A621C;
 
     static inline auto& vecTrafficLights5_1 = StaticRef<CVector>(0xA9ADD4);
     static inline auto& vecTrafficLights5_2 = StaticRef<CVector>(0xA9ADC8);
     static inline auto& vecTrafficLights_1 = StaticRef<CVector>(0xA9ADBC);
     static inline auto& vecTrafficLights_2 = StaticRef<CVector>(0xA9ADB0);
-    static inline auto& uiPedLightFlags = StaticRef<uint32>(0xA9ADE0);
+    static inline auto& uiPedLightFlags = DatosExe::Bss::bA9ADE0;
 
 public:
     static void InjectHooks();

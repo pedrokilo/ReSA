@@ -1,4 +1,7 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "TheZones.h"
 
@@ -73,12 +76,12 @@ class CShopping {
     static inline auto& ms_statModifiers = StaticRef<std::array<StatModifiers, NUM_ITEMS>>(0xA974D0);
     static inline auto& ms_priceModifiers = StaticRef<std::array<PriceModifier, MAX_PRICE_MODIFIERS>>(0xA98650);
     static inline auto& ms_prices = StaticRef<std::array<ItemPrice, NUM_BUYABLE_ITEMS>>(0xA986F0);
-    static inline auto& ms_numBuyableItems = StaticRef<uint32>(0xA9A310);
+    static inline auto& ms_numBuyableItems = DatosExe::Bss::bA9A310;
     static inline auto& ms_keys = StaticRef<std::array<uint32, NUM_ITEMS>>(0xA97D90);
     static inline auto& ms_shopContents = StaticRef<std::array<uint32, NUM_BUYABLE_ITEMS>>(0xA9A318);
     static inline auto& ms_priceSectionLoaded = StaticRef<ePriceSection>(0xA9A7C8);
-    static inline auto& ms_numPrices = StaticRef<int32>(0xA9A7CC);
-    static inline auto& ms_numPriceModifiers = StaticRef<int32>(0xA9A7D0);
+    static inline auto& ms_numPrices = DatosExe::Bss::bA9A7CC;
+    static inline auto& ms_numPriceModifiers = DatosExe::Bss::bA9A7D0;
     static inline auto& ms_shopLoaded = StaticRef<char[24]>(0xA9A7D8);
     static inline auto& ms_numItemsInShop = StaticRef<int32>(0xA9A7F0);
 
@@ -129,8 +132,8 @@ public:
 
 static constexpr auto NUM_COMPONENTS = 20u; // ?
 
-static inline auto& gClothesHaveBeenStored = StaticRef<char>(0xA97298);
+static inline auto& gClothesHaveBeenStored = DatosExe::Bss::bA97298;
 static inline auto& gStoredClothesState = StaticRef<CPedClothesDesc>(0xA9A810);
 static inline auto& gComponentDamageState = StaticRef<std::array<eDamageState, 25u>>(0xA97258); // Como el original: 25 bytes (uno por nodo del coche)
 static inline auto& gStoredVehicleMods = StaticRef<std::array<int16, 15u>>(0xA97274);
-static inline auto& gpCurrentProperty = StaticRef<CMultiBuilding*>(0xA97294); // Como el original: la global del EXE (antes era un puntero propio de la DLL)
+static inline auto& gpCurrentProperty = DatosExe::Bss::bA97294; // Como el original: la global del EXE (antes era un puntero propio de la DLL)

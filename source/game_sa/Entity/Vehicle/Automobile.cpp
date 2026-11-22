@@ -23,6 +23,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -2176,7 +2178,7 @@ int32 CAutomobile::ProcessEntityCollision(CEntity* entity, CColPoint* outColPoin
             // Como el original (0x6AD589..0x6AD630): (delta - [0xC1C214]) acotado a 0.2, |velocidad . forward| acotado a 0.3
             // y |normal . up| con el orden (z, x) + y; todo multiplicado por 3.3333333 (0x859F60) y por HighSpdComDamp
             float comprDelta = (compressionNow - m_fWheelsSuspensionCompression[i]) * m_aSuspensionLineLength[i];
-            comprDelta = comprDelta - StaticRef<float>(0xC1C214);
+            comprDelta = comprDelta - DatosExe::Bss::bC1C214;
             const float limitedDelta = (0.2f < comprDelta) ? 0.2f : comprDelta; // 0x8D31FC
             const float forwardSpeedAbs = std::fabs(DotProduct(GetMoveSpeed(), GetForward()));
             const float limitedSpeed = (0.3f < forwardSpeedAbs) ? 0.3f : forwardSpeedAbs;
@@ -2242,7 +2244,7 @@ void CAutomobile::ProcessControlInputs(uint8 playerNum) {
     // Como el original: reconstruido desde 0x6AD690..0x6ADEE1 (las constantes y el orden de las operaciones en coma flotante son los del EXE)
     constexpr float kInv255 = std::bit_cast<float>(0x3B808081u); // [0x859A3C]
     constexpr float kInv128 = 0.0078125f;                         // [0x858B88]
-    static auto& s_signedSquareScratch = StaticRef<float>(0xC1C218); // 0x6ADD00 fstp [0xC1C218]
+    static auto& s_signedSquareScratch = DatosExe::Bss::bC1C218; // 0x6ADD00 fstp [0xC1C218]
 
     const auto plyrpad = CPad::GetPad((int32)playerNum);
     const auto plyrdriver = m_pDriver; // I guess in case of the RC Bandit for example the player isn't sitting in the plyrveh, but can control it, so this might be null!
@@ -7944,7 +7946,7 @@ void AutoPreRenderHydraulics(CAutomobile& car, CVehicleModelInfo& modelInfo) {
 // 0x6AAB50
 void CAutomobile::PreRender() {
     CVehicle::PreRender(); // 0x6D6480
-    if (StaticRef<bool>(0x969152)) { // CCheat::m_aCheatsActive[CHEAT_CARS_ON_WATER]
+    if (DatosExe::Bss::b969152) { // CCheat::m_aCheatsActive[CHEAT_CARS_ON_WATER]
         DoHoverSuspensionRatios();   // virtual +0x114
     }
     const CCollisionData* const colData = GetColModel()->m_pColData; // 0x535300; ColData en +0x2C (se guarda en [esp+70h])

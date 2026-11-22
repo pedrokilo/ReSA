@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "Clouds.h"
@@ -44,9 +47,9 @@ END GENERATED HOOK STATUS */
 
 auto& CurrentFogIntensity = DatosExe::Data::v8D5798;
 
-auto& gpMoonMask = StaticRef<RwTexture*>(0xC6AA74);
-auto& gpCloudTex = StaticRef<RwTexture*>(0xC6AA78);
-auto& gpCloudMaskTex = StaticRef<RwTexture*>(0xC6AA7C);
+auto& gpMoonMask = DatosExe::Bss::bC6AA74;
+auto& gpCloudTex = DatosExe::Bss::bC6AA78;
+auto& gpCloudMaskTex = DatosExe::Bss::bC6AA7C;
 
 namespace {
 // Como el original: _ftol2 (0x821B40) trunca a 64 bits y se usa la parte baja.
@@ -828,7 +831,7 @@ void CClouds::RenderBottomFromHeight() {
         low = 160.f + rise;
         high = 190.f + rise;
     }
-    auto& windShift = StaticRef<float>(0xC6E954);
+    auto& windShift = DatosExe::Bss::bC6E954;
     windShift = CTimer::GetTimeStep() * CWeather::Wind * 0.25f + windShift;
 
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(FALSE));
@@ -1161,10 +1164,10 @@ void CClouds::VolumetricCloudsRender() {
     const CVector camPos = TheCamera.GetPosition();
 
     // Como el original: banderas de inicialización de las estáticas locales (bits 0 y 1 de 0xC6E974).
-    auto& staticGuards = StaticRef<uint32>(0xC6E974);
+    auto& staticGuards = DatosExe::Bss::bC6E974;
     staticGuards |= 1;
 
-    auto& gfVolumetricCloudFader = StaticRef<float>(0xC6E970);
+    auto& gfVolumetricCloudFader = DatosExe::Bss::bC6E970;
     if (m_bVolumetricCloudHeightSwitch) {
         const auto delta = CTimer::GetTimeStep() * 4.f;
         if (camPos.z < 220.f) {

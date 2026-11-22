@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "extensions/AutoSteal.h"
 
 #include <Tracy.hpp>
@@ -89,7 +91,7 @@ static float ExeViewWindow() {
 void InitialiseGame() {
     ZoneScoped;
 
-    static auto& version_number = StaticRef<int16>(0xB72C68);
+    static auto& version_number = DatosExe::Bss::bB72C68;
     version_number = 78;
 
     CGame::Initialise(GAME_LEVEL_FILE);
@@ -324,7 +326,7 @@ void Idle(void* param) {
 
     // Como el original: limitador de fotogramas por espera activa (como mínimo 14 ms entre fotogramas) con
     // división y resta sin signo; las dos primeras lecturas del temporizador se descartan.
-    static auto& LastTickTime = StaticRef<uint32>(0xB72CA8);
+    static auto& LastTickTime = DatosExe::Bss::bB72CA8;
     CTimer::GetCurrentTimeInCycles();
     CTimer::GetCyclesPerMillisecond();
     uint32 timeInMs;

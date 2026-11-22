@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -484,7 +486,7 @@ void CAERadioTrackManager::CheckForTrackConcatenation() {
     if (settings.TrackQueue[1] == -1) {
         const auto station = settings.StationID;
         if (station == static_cast<eRadioID>(12)) {
-            if (!StaticRef<uint8>(0xBA67F8) && CAEAudioUtility::ResolveProbability(std::bit_cast<float>(0x3E2E147Bu))) {
+            if (!DatosExe::Bss::bBA67F8 && CAEAudioUtility::ResolveProbability(std::bit_cast<float>(0x3E2E147Bu))) {
                 settings.TrackQueue[size_t(userIndex)] = ChooseAdvertIndex(station);
                 settings.TrackTypes[size_t(userIndex)] = TYPE_ADVERT;
                 ++userIndex;
@@ -545,7 +547,7 @@ void CAERadioTrackManager::CheckForStationRetune() {
     auto station = int8(uint8(int8(m_RequestedSettings.StationID)) + uint8(m_nStationsListed));
     if (station < 1) station = int8(station + 13);
     else if (station > 13) station = int8(station - 13);
-    if (station == 13 || (station == 12 && StaticRef<uint16>(0xB6B976) == 0)) {
+    if (station == 13 || (station == 12 && DatosExe::Bss::bB6B976 == 0)) {
         StopRadio(nullptr, false);
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_CLICK_OFF, 0.f, 1.f);
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_RETUNE_STOP, 0.f, 1.f);
@@ -555,7 +557,7 @@ void CAERadioTrackManager::CheckForStationRetune() {
             m_ActiveSettings.StationID = static_cast<eRadioID>(-1);
         } else StopRadio(nullptr, false);
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_RADIO_RETUNE_START, 0.f, 1.f);
-        const auto delay = !(StaticRef<float>(0xB6F14C) > DatosExe::Rdata::k858C20) ? 2000u : 4000u;
+        const auto delay = !(DatosExe::Bss::bB6F14C > DatosExe::Rdata::k858C20) ? 2000u : 4000u;
         if (StaticRef<uint32>(0xB7CB84) <= m_nTimeRadioStationRetuned + 1500u) return;
         if (StaticRef<uint32>(0xB7CB84) <= field_60 + delay) return;
     }
@@ -832,7 +834,7 @@ bool CAERadioTrackManager::TrackRadioStation(eRadioID id, bool skipTrack) {
     if (int32(uint32(total) + 160000u) < elapsed) return false;
     if (id == static_cast<eRadioID>(12)) {
         QueueUpTracksForStation(id, &count, 4, settings);
-        if (!StaticRef<uint8>(0xBA67F8) && CAEAudioUtility::ResolveProbability(std::bit_cast<float>(0x3E2E147Bu))) QueueUpTracksForStation(id, &count, 1, settings);
+        if (!DatosExe::Bss::bBA67F8 && CAEAudioUtility::ResolveProbability(std::bit_cast<float>(0x3E2E147Bu))) QueueUpTracksForStation(id, &count, 1, settings);
     } else {
         QueueUpTracksForStation(id, &count, 5, settings);
         AddMusicTrackIndexToHistory(id, settings.TrackIndices[size_t(count - 1)]);
@@ -1484,7 +1486,7 @@ LAB_004e9481:
       return local_20[iVar1];
     }
     iVar3 = 0;
-    while (local_20[iVar1] != (&StaticRef<int8>(0xB62C1C))[iVar3]) {
+    while (local_20[iVar1] != (&DatosExe::Bss::bB62C1C)[iVar3]) {
       cVar4 = cVar4 + '\x01';
       iVar3 = (int)cVar4;
       if (iVar2 <= iVar3) {

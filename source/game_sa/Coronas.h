@@ -5,6 +5,9 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -23,17 +26,17 @@ struct CFlareDefinition {
 class CCoronas {
 public:
     static inline auto& LightsMult = DatosExe::Data::v8D4B5C; // 1.0f
-    static inline auto& SunScreenX = StaticRef<float>(0xC3E028);
-    static inline auto& SunScreenY = StaticRef<float>(0xC3E02C);
+    static inline auto& SunScreenX = DatosExe::Bss::bC3E028;
+    static inline auto& SunScreenY = DatosExe::Bss::bC3E02C;
     // are there any obstacles between sun and camera
-    static inline auto& SunBlockedByClouds = StaticRef<bool>(0xC3E030);
+    static inline auto& SunBlockedByClouds = DatosExe::Bss::bC3E030;
     // frame counter for immediate corona brightness updates after camera turn (3-frame duration).
-    static inline auto& bChangeBrightnessImmediately = StaticRef<int32>(0xC3E034);
+    static inline auto& bChangeBrightnessImmediately = DatosExe::Bss::bC3E034;
     // coronas intensity multiplier
     // this is used to control moon size when you shooting it with sniper
     static inline auto& MoonSize = DatosExe::Data::v8D4B60; // 3
     // num of registered coronas in frame
-    static inline auto& NumCoronas = StaticRef<uint32>(0xC3E038);
+    static inline auto& NumCoronas = DatosExe::Bss::bC3E038;
 
     static inline auto& aCoronas = StaticRef<std::array<CRegisteredCorona, MAX_NUM_CORONAS>>(0xC3E058);
    

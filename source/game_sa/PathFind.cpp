@@ -41,6 +41,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -149,25 +152,25 @@ __declspec(safebuffers) float CPathFind::CalcRoadDensity(float x, float y) {
 
 // TODO: Move into the class itself
 auto& s_pathsNeededPosn = StaticRef<CVector>(0x977B70);
-auto& s_bLoadPathsNeeded = StaticRef<bool>(0x96F030);
+auto& s_bLoadPathsNeeded = DatosExe::Bss::b96F030;
 
 // Como el original (0x44D080..): ToBeStreamed y ToBeStreamedForScript son dos globales de 64 bytes que se indexan por columnas
 // ([x * 8 + y]); el id del area (nodes%d.dat) es x + y * 8.
 auto& ToBeStreamed = StaticRef<std::array<bool, NUM_PATH_MAP_AREAS>>(0x96EFD0);
 auto& ToBeStreamedForScript = StaticRef<std::array<bool, NUM_PATH_MAP_AREAS>>(0x96EF90);
-auto& NumTempExternalNodes = StaticRef<int32>(0x96F02C); // Unused, pero Init la pone a cero
+auto& NumTempExternalNodes = DatosExe::Bss::b96F02C; // Unused, pero Init la pone a cero
 
-auto& XCoorGiven = StaticRef<std::array<float, 64>>(0x96EE80);
-auto& YCoorGiven = StaticRef<std::array<float, 64>>(0x96ED80);
-auto& ZCoorGiven = StaticRef<std::array<float, 64>>(0x96EC80);
+auto& XCoorGiven = DatosExe::Bss::b96EE80;
+auto& YCoorGiven = DatosExe::Bss::b96ED80;
+auto& ZCoorGiven = DatosExe::Bss::b96EC80;
 auto& ConnectsToGiven = StaticRef<std::array<std::array<int8, 6>, 64>>(0x96EAC0); // Filas de 6 bytes (0x450E90: ecx * 6)
-auto& DontWanderGiven = StaticRef<std::array<uint8, 64>>(0x96EC40);                // 0x450E90: mov [ecx+0096EC40h], bDontWander
+auto& DontWanderGiven = DatosExe::Bss::b96EC40;                // 0x450E90: mov [ecx+0096EC40h], bDontWander
 
 auto& aInteriorNodeLinkedToExterior = StaticRef<std::array<int32, NUM_PATH_INTERIOR_AREAS>>(0x96EA98);
 auto& aExteriorNodeLinkedTo = StaticRef<std::array<CNodeAddress, NUM_PATH_INTERIOR_AREAS>>(0x977B7C);
 
 auto& aNodesToBeCleared = StaticRef<std::array<CNodeAddress, 5000>>(0x972CD0);
-auto& s_parkingNodeCursor = StaticRef<int32>(0x977B9C); // 0x4513F0: indice del nodo de aparcamiento que se devuelve
+auto& s_parkingNodeCursor = DatosExe::Bss::b977B9C; // 0x4513F0: indice del nodo de aparcamiento que se devuelve
 
 namespace detail {
 /*!

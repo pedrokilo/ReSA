@@ -1,4 +1,7 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "ConversationForPed.h"
 #include "PedToPlayerConversations.h"
@@ -61,12 +64,12 @@ public:
     };
 
     static inline auto& m_AwkwardSayStatus              = StaticRef<eAwkwardSayStatus>(0x9691C4); //!< Estado de reproducción del audio iniciado por AwkwardSay().
-    static inline auto& m_SettingUpConversation         = StaticRef<bool>(0x9691D0);              //!< true mientras las llamadas de script están construyendo una conversación.
+    static inline auto& m_SettingUpConversation         = DatosExe::Bss::b9691D0;              //!< true mientras las llamadas de script están construyendo una conversación.
     static inline auto& m_Conversations                 = StaticRef<std::array<CConversationForPed, MAX_NUM_CONVERSATIONS>>(0x9691D8); //!< Pool fijo de conversaciones asociadas a peatones.
     static inline auto& m_Nodes                         = StaticRef<std::array<CConversationNode, MAX_NUM_CONVERSATION_NODES>>(0x969570); //!< Pool compartido de nodos permanentes.
     static inline auto& m_aTempNodes                    = StaticRef<std::array<CTempConversationNode, MAX_NUM_TEMP_CONVERSATION_NODES>>(0x969360); //!< Nodos temporales utilizados durante la configuración.
-    static inline auto& m_SettingUpConversationNumNodes = StaticRef<int32>(0x9691C8);             //!< Número de entradas válidas actualmente dentro de m_aTempNodes.
-    static inline auto& m_SettingUpConversationPed      = StaticRef<CPed*>(0x9691CC);             //!< Peatón para el que se está construyendo la conversación actual.
+    static inline auto& m_SettingUpConversationNumNodes = DatosExe::Bss::b9691C8;             //!< Número de entradas válidas actualmente dentro de m_aTempNodes.
+    static inline auto& m_SettingUpConversationPed      = DatosExe::Bss::b9691CC;             //!< Peatón para el que se está construyendo la conversación actual.
 
     /** Registra los hooks de las funciones del gestor de conversaciones. */
     static void InjectHooks();

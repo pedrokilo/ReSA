@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -44,7 +47,7 @@ END GENERATED HOOK STATUS */
 auto& pTrackNodes = StaticRef<CTrainNode*[4]>(0xC38024);
 auto& NumTrackNodes = StaticRef<std::array<int32, 4>>(0xC38014);
 auto& arrTotalTrackLength = StaticRef<std::array<float, 4>>(0xC37FEC);
-auto& StationDist = StaticRef<std::array<float, 6>>(0xC38034);
+auto& StationDist = DatosExe::Bss::bC38034;
 
 namespace {
 // 0x6E2B40 (con hook, CVehicle::Destructor): llamada no virtual al cuerpo de ~CVehicle desde el cuerpo del destructor de CTrain, en una funcion propia sin expansion en linea para que el banco Fn174A pueda sustituirla.
@@ -766,10 +769,10 @@ void CTrain::FindPositionOnTrackFromCoors() {
             return;
         }
         const auto lighting = nodes[i].GetLightingFromCollision().value;
-        const auto day = DatosExe::Data::v8D12C0;
+        const auto day = StaticRef<float>(0x8D12C0);
         const auto previous = TrainNodeLightingCpp(lighting & 15, lighting >> 4, day);
         const auto nextLighting = nodes[next].GetLightingFromCollision().value;
-        const auto nextDay = DatosExe::Data::v8D12C0;
+        const auto nextDay = StaticRef<float>(0x8D12C0);
         m_fContactSurfaceBrightness = TrainLightingBlendCpp(nextLighting & 15, nextLighting >> 4, nextDay, previous, factor);
     }
 }
@@ -899,7 +902,7 @@ void CTrain::CreateMissionTrain(CVector posn, bool clockwise, uint32 type, CTrai
 
 // 0x6F7900
 void CTrain::DoTrainGenerationAndRemoval() {
-    auto& nearStation = StaticRef<uint8>(0xC38068);
+    auto& nearStation = DatosExe::Bss::bC38068;
     const auto now = StaticRef<uint32>(0xB7CB84);
     const auto previousTime = StaticRef<uint32>(0xB7CB78);
     if (now / 3000u != previousTime / 3000u) {
@@ -995,7 +998,7 @@ void CTrain::DoTrainGenerationAndRemoval() {
             else {auto index = int32(GenTrain_GenerationNode) - 1;if(index < 0) index += NumTrackNodes[GenTrain_Track];GenTrain_GenerationNode = uint32(index);}
             dist = distance();
         }
-        auto& lastType = StaticRef<int32>(0xC38064);
+        auto& lastType = DatosExe::Bss::bC38064;
         GenTrain_TrainConfig = uint32(int32(uint32(lastType) + 1u) % 8);
         GenTrain_Status = 1;
         lastType = int32(GenTrain_TrainConfig);

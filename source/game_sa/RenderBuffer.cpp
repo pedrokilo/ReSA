@@ -17,11 +17,12 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "RenderBuffer.hpp"
 
 namespace RenderBuffer {
-auto& s_IndicesToBeStored{ StaticRef<int32>(0xC40410) };
-auto& s_VerticesToBeStored{ StaticRef<int32>(0xC40414) };
+auto& s_IndicesToBeStored{ DatosExe::Bss::bC40410 };
+auto& s_VerticesToBeStored{ DatosExe::Bss::bC40414 };
 
 // Como el original: los contadores del búfer temporal (0xC4B950/0xC4B954) son dwords con signo
 // (common.h los declara uint16; aquí se leen y escriben enteros).

@@ -1,4 +1,6 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
 #include "NodeAddress.h"
@@ -38,6 +40,6 @@ private:
     static inline auto& InOrOut                   = StaticRef<std::array<bool, MAX_ROADBLOCKS>>(0xA43438);
     static inline auto& RoadBlockNodes            = StaticRef<std::array<CNodeAddress, MAX_ROADBLOCKS>>(0xA435A0);
     static inline auto& aScriptRoadBlocks         = StaticRef<std::array<CScriptRoadBlock, MAX_SCRIPT_ROADBLOCKS>>(0xA43AB8);
-    static inline auto& GenerateDynamicRoadBlocks = StaticRef<bool>(0xA43584);
-    static inline auto& NumRoadBlocks             = StaticRef<int32>(0xA43580);
+    static inline auto& GenerateDynamicRoadBlocks = DatosExe::Bss::bA43584;
+    static inline auto& NumRoadBlocks             = DatosExe::Bss::bA43580;
 };

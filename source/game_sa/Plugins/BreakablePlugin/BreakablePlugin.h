@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 /**
  * Breakable plugin unique rwID
@@ -8,7 +9,7 @@
 /*
  * Breakable plugin static offset
  */
-static inline auto& g_BreakablePlugin = StaticRef<int32>(0xBB4238);
+static inline auto& g_BreakablePlugin = DatosExe::Bss::bBB4238;
 
 enum eBreakablePluginPositionRule : uint32 {
     OBJECT_ORIGIN    = 0,

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -35,7 +36,7 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 
 auto& gLastRandomNumberForIdleAnimationID = DatosExe::Data::v8D2FEC;
-auto& gLastTouchTimeDelta = StaticRef<uint32>(0xC19664);
+auto& gLastTouchTimeDelta = DatosExe::Bss::bC19664;
 auto& gDuckAnimBlendData = DatosExe::Data::v8D2FF0; // 4.0f
 auto& gbUnknown_8D2FE8 = DatosExe::Data::v8D2FE8;     // default value true; also always true
 

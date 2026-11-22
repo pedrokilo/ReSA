@@ -5,6 +5,9 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "eWeaponType.h"
 
@@ -21,21 +24,21 @@ enum class eDarkelStatus : uint16 {
 class CDarkel {
 public:
     static inline auto& RegisteredKills = StaticRef<std::array<int16[2], 800>>(0x969A50);
-    static inline auto& pStartMessage = StaticRef<const GxtChar*>(0x96A6D0);
-    static inline auto& AmmoInterruptedWeapon = StaticRef<uint32>(0x96A6D4);
+    static inline auto& pStartMessage = DatosExe::Bss::b96A6D0;
+    static inline auto& AmmoInterruptedWeapon = DatosExe::Bss::b96A6D4;
     static inline auto& InterruptedWeaponType = StaticRef<eWeaponType>(0x96A6D8);
     static inline auto& InterruptedWeaponTypeSelected = StaticRef<eWeaponType>(0x96A6DC);
-    static inline auto& TimeOfFrenzyStart = StaticRef<uint32>(0x96A6E0);
-    static inline auto& PreviousTime = StaticRef<int32>(0x96A6E4);
-    static inline auto& TimeLimit = StaticRef<int32>(0x96A6E8);
-    static inline auto& KillsNeeded = StaticRef<int32>(0x96A6EC);
+    static inline auto& TimeOfFrenzyStart = DatosExe::Bss::b96A6E0;
+    static inline auto& PreviousTime = DatosExe::Bss::b96A6E4;
+    static inline auto& TimeLimit = DatosExe::Bss::b96A6E8;
+    static inline auto& KillsNeeded = DatosExe::Bss::b96A6EC;
     static inline auto& ModelToKill = StaticRef<std::array<int32, 4>>(0x96A6F0);
     static inline auto& WeaponType = StaticRef<eWeaponType>(0x96A700);
     static inline auto& Status = StaticRef<eDarkelStatus>(0x96A704);
 
-    static inline auto& bHeadShotRequired = StaticRef<bool>(0x969A49);
-    static inline auto& bStandardSoundAndMessages = StaticRef<bool>(0x969A4A);
-    static inline auto& bProperKillFrenzy = StaticRef<bool>(0x969A48);
+    static inline auto& bHeadShotRequired = DatosExe::Bss::b969A49;
+    static inline auto& bStandardSoundAndMessages = DatosExe::Bss::b969A4A;
+    static inline auto& bProperKillFrenzy = DatosExe::Bss::b969A48;
 
 public:
     static void InjectHooks();

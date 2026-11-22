@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "TheScripts.h"
 #include "UpsideDownCarCheck.h"
@@ -1044,7 +1045,7 @@ void CTheScripts::RemoveFromSuppressedCarModels(eModelID carModelId) {
 
 // 0x486B00
 void CTheScripts::ClearSpaceForMissionEntity(const CVector& pos, CEntity* ourEntity) {
-    StaticRef<uint8>(0xA95778) |= 1; // Como el original (0x486B0C): guarda de inicializacion de la variable estatica local
+    DatosExe::Bss::bA95778 |= 1; // Como el original (0x486B0C): guarda de inicializacion de la variable estatica local
     std::array<CEntity*, 16> colEntities{};
     int16                    numColliding{};
 

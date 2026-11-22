@@ -168,10 +168,27 @@ def cargar_funciones():
             for r in csv.DictReader(s):
                 if r['estado'] == 'reemplazada':
                     reemplazadas.add(int(r['va'], 16))
+    # docs/CodigoVivoExe: las funciones con decision DESCARTAR (funclets de excepciones, D3DX9, protector, excluidas del juego, CRT sin
+    # alcance) y las CUBIERTA (ya enganchadas) no cuentan como vivas: no se ejecutaran en el EXE propio.
+    cv = base / 'CodigoVivoExe/funciones-vivas.csv'
+    if cv.exists():
+        with cv.open(encoding='utf-8-sig', newline='') as s:
+            for r in csv.DictReader(s):
+                if r['decision'] in ('DESCARTAR', 'CUBIERTA'):
+                    reemplazadas.add(int(r['va'], 16))
     rangos = []
     with (base / 'MemoryMap/binary_function_ranges.csv').open(encoding='utf-8-sig', newline='') as s:
         for r in csv.DictReader(s):
             rangos.append((int(r['function_va'], 16), int(r['start_va'], 16), int(r['end_va'], 16)))
+    # Codigo sin funcion de Ghidra pero con referencia (docs/CodigoVivoExe/huecos.csv): bloques sueltos (cuerpos de switch, restos de
+    # funciones partidas) que el escaneo por funcion no veia. Se tratan como vivos (no reemplazados) para ser conservadores: los datos
+    # que tocan no se dan por libres. La biseccion de DE05 lo descubrio (SwitchDefaultAddress, 0xA43F54).
+    hz = base / 'CodigoVivoExe/huecos.csv'
+    if hz.exists():
+        with hz.open(encoding='utf-8-sig', newline='') as s:
+            for r in csv.DictReader(s):
+                if r['categoria'].startswith(('código con referencia', 'sin referencia directa', 'inicializador estático')):
+                    rangos.append((int(r['va'], 16), int(r['va'], 16), int(r['fin'], 16) + 1))
     return reemplazadas, rangos
 
 

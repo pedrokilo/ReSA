@@ -17,11 +17,12 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "X87Math.h"
 
 #include "Garages.h"
 
-static auto& LastUpdatedGarageId = StaticRef<uint32>(0x96EA78);
+static auto& LastUpdatedGarageId = DatosExe::Bss::b96EA78;
 
 void CGarages::InjectHooks() {
     RH_ScopedClass(CGarages);

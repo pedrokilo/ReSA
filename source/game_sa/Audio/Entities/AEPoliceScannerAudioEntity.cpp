@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -224,7 +225,7 @@ void CAEPoliceScannerAudioEntity::PlayLoadedDialogue() {
 
     if (i >= NUM_POLICE_SCANNER_SLOTS) {
     LABEL_9:
-        auto volumeChange = StaticRef<float>(0xB61D54) + s_fVolumeOffset;
+        auto volumeChange = DatosExe::Bss::bB61D54 + s_fVolumeOffset;
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SCANNER_CLICK, volumeChange);
         AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_SCANNER_NOISE_STOP);
         if (s_nSectionPlaying) {
@@ -345,7 +346,7 @@ void CAEPoliceScannerAudioEntity::UpdateParameters(CAESound* sound, int16 curPla
 void CAEPoliceScannerAudioEntity::Service() {
     const auto startDelay = DatosExe::Data::v8C8154;
     const auto noiseVolume = DatosExe::Data::v8C8158;
-    const auto clickVolume = StaticRef<float>(0xB61D54);
+    const auto clickVolume = DatosExe::Bss::bB61D54;
 
     bool finishPlaying;
     if (TheCamera.m_bWideScreenOn && s_nScannerPlaybackState != STATE_INITIAL) {

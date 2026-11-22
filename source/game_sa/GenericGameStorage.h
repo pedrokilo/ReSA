@@ -1,4 +1,7 @@
 #pragma once
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 static constexpr auto MAX_SAVEGAME_SLOTS{ 8u };
@@ -58,17 +61,17 @@ class CGenericGameStorage {
 public:
     static inline auto& ms_WorkBufferSize = DatosExe::Data::v8D2BE0;
     static inline auto& ms_SaveFileNameJustSaved = StaticRef<char[MAX_PATH]>(0xC16030);
-    static inline auto& ms_SaveFileName = StaticRef<char[256]>(0xC16DB8);
-    static inline auto& ms_LoadFileName = StaticRef<char[104]>(0xC15FC8);
-    static inline auto& ms_LoadFileNameWithPath = StaticRef<char[104]>(0xC15F60);
-    static inline auto& ms_CheckSum = StaticRef<uint32>(0xC16134);
+    static inline auto& ms_SaveFileName = DatosExe::Bss::bC16DB8;
+    static inline auto& ms_LoadFileName = DatosExe::Bss::bC15FC8;
+    static inline auto& ms_LoadFileNameWithPath = DatosExe::Bss::bC15F60;
+    static inline auto& ms_CheckSum = DatosExe::Bss::bC16134;
     static inline auto& ms_WorkBuffer = StaticRef<uint8*>(0xC16EE8);
-    static inline auto& ms_WorkBufferPos = StaticRef<int32>(0xC16EEC);
+    static inline auto& ms_WorkBufferPos = DatosExe::Bss::bC16EEC;
     static inline auto& ms_FileHandle = StaticRef<FILE*>(0xC16EF0);
-    static inline auto& ms_FilePos = StaticRef<uint32>(0xC16EF4);
-    static inline auto& ms_FileSize = StaticRef<uint32>(0xC16EF8);
-    static inline auto& ms_bFailed = StaticRef<bool>(0xC16EFC);
-    static inline auto& ms_bLoading = StaticRef<bool>(0xC16EFD);
+    static inline auto& ms_FilePos = DatosExe::Bss::bC16EF4;
+    static inline auto& ms_FileSize = DatosExe::Bss::bC16EF8;
+    static inline auto& ms_bFailed = DatosExe::Bss::bC16EFC;
+    static inline auto& ms_bLoading = DatosExe::Bss::bC16EFD;
     static inline const char ms_BlockTagName[] = "BLOCK";
     static inline auto& ms_SlotSaveDate = StaticRef<std::array<tSlotSaveDate, MAX_SAVEGAME_SLOTS>>(0xC16138);
     static inline auto& ms_SlotFileName = StaticRef<std::array<tSlotFileName, MAX_SAVEGAME_SLOTS>>(0xC16368);

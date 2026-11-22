@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include <extensions/utility.hpp>
 #include "PtrListDoubleLink.h"
@@ -66,7 +67,7 @@ public:
     // entity to ignore
     inline static auto& pIgnoreEntity = StaticRef<CEntity*>(0xB7CD68);
     inline static auto& fWeaponSpreadRate = StaticRef<float>(0xB7CD64);
-    inline static auto& ms_iProcessLineNumCrossings = StaticRef<int32>(0xB7CD60);
+    inline static auto& ms_iProcessLineNumCrossings = DatosExe::Bss::bB7CD60;
 
     inline static auto& SnookerTableMax = StaticRef<CVector>(0x8CDEF4);
     inline static auto& SnookerTableMin = StaticRef<CVector>(0x8CDF00);

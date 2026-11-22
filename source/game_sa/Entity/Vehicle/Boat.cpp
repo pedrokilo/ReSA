@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "game_sa/Crt/CrtFile.h"
 
@@ -45,8 +46,8 @@ auto& fRangeMult = DatosExe::Data::v8D394C; // 0.6f
 auto& fTimeMult = StaticRef<float>(0xC279CC); // 1.2f / CBoat::WAKE_LIFETIME
 
 // Como el original: los contadores son las globales del EXE (no copias de la DLL)
-auto& nWakeSkipCounters = StaticRef<int16[4]>(0xC279A4);
-auto& nWakeSkipCounterVertex = StaticRef<int16[4]>(0xC279AC);
+auto& nWakeSkipCounters = DatosExe::Bss::bC279A4;
+auto& nWakeSkipCounterVertex = DatosExe::Bss::bC279AC;
 
 namespace {
 // Constantes del EXE que no son el float más cercano al literal o que la DLL tenía imprecisas

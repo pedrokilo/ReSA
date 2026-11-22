@@ -42,13 +42,14 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "X87Math.h"
 
 #include "VisibilityPlugins.h"
 
 // Como el original: estas dos variables viven en el EXE (0xC88024 / 0xC88020) y el resto del codigo del EXE las lee directamente.
-static auto& gVehicleDistanceFromCamera = StaticRef<float>(0xC88024);
-static auto& gAngleWithHorizontal = StaticRef<float>(0xC88020);
+static auto& gVehicleDistanceFromCamera = DatosExe::Bss::bC88024;
+static auto& gAngleWithHorizontal = DatosExe::Bss::bC88020;
 
 bool preAlloc; // 0xC8801C
 

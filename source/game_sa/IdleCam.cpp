@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include "IdleCam.h"
 #include "InterestingEvents.h"
@@ -24,7 +25,7 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 
 auto& gIdleCam = StaticRef<CIdleCam>(0xB6FDA0);
-auto& gbCineyCamProcessedOnFrame = StaticRef<uint32>(0xB6EC40);
+auto& gbCineyCamProcessedOnFrame = DatosExe::Bss::bB6EC40;
 
 namespace {
 // Como el original (0x59C810): vector por matriz (producto escalar con las filas), sin posicion y con el orden de sumas del EXE

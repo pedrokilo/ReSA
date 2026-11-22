@@ -1,4 +1,8 @@
 #pragma once
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -73,46 +77,46 @@ class CWaterLevel {
     m_nNumOfWaterTriangles
     */
     static inline auto& m_nWaterConfiguration = StaticRef<uint32>(0xC228A0);
-    static inline auto& m_nWaterTimeOffset = StaticRef<uint32>(0xC228A4);
+    static inline auto& m_nWaterTimeOffset = DatosExe::Bss::bC228A4;
     static inline auto& m_bWaterFog = DatosExe::Data::v8D37D4;
-    static inline auto& m_bWaterFogScript = DatosExe::Data::v8D37D5;
+    static inline auto& m_bWaterFogScript = StaticRef<bool>(0x8D37D5);
     static inline auto& m_WaterFogDensity = DatosExe::Data::v8D37E0;
 
     static inline auto& faWaveMultipliersX = DatosExe::Data::v8D38C8;
     static inline auto& faWaveMultipliersY = DatosExe::Data::v8D38E8;
     static inline auto& ms_WakePointAlphaMults = StaticRef<std::array<float, 4>>(0x8D390C);
 
-    static inline auto& waterclear256Raster = StaticRef<RwRaster*>(0xC228A8);
-    static inline auto& texWaterclear256 = StaticRef<RwTexture*>(0xC228AC);
+    static inline auto& waterclear256Raster = DatosExe::Bss::bC228A8;
+    static inline auto& texWaterclear256 = DatosExe::Bss::bC228AC;
 
-    static inline auto& seabd32Raster = StaticRef<RwRaster*>(0xC228B0);
-    static inline auto& texSeabd32 = StaticRef<RwTexture*>(0xC228B4);
+    static inline auto& seabd32Raster = DatosExe::Bss::bC228B0;
+    static inline auto& texSeabd32 = DatosExe::Bss::bC228B4;
 
-    static inline auto& waterwakeRaster = StaticRef<RwRaster*>(0xC228B8);
-    static inline auto& texWaterwake = StaticRef<RwTexture*>(0xC228BC);
+    static inline auto& waterwakeRaster = DatosExe::Bss::bC228B8;
+    static inline auto& texWaterwake = DatosExe::Bss::bC228BC;
 
     static inline auto& NumWaterTriangles = StaticRef<uint32>(0xC22884);
     static inline auto& NumWaterQuads = StaticRef<uint32>(0xC22888);
     static inline auto& NumWaterVertices = StaticRef<uint32>(0xC2288C);
-    static inline auto& NumWaterZonePolys = StaticRef<uint32>(0xC215F0);
+    static inline auto& NumWaterZonePolys = DatosExe::Bss::bC215F0;
 
     static inline auto& m_aVertices = StaticRef<std::array<CWaterVertex, 1021>>(0xC22910);
 
-    static inline auto& CameraRangeMaxY = StaticRef<int32>(0xC1F950);
-    static inline auto& CameraRangeMinY = StaticRef<int32>(0xC1F954);
+    static inline auto& CameraRangeMaxY = DatosExe::Bss::bC1F950;
+    static inline auto& CameraRangeMinY = DatosExe::Bss::bC1F954;
 
-    static inline auto& CameraRangeMaxX = StaticRef<int32>(0xC1F958);
-    static inline auto& CameraRangeMinX = StaticRef<int32>(0xC1F95C);
+    static inline auto& CameraRangeMaxX = DatosExe::Bss::bC1F958;
+    static inline auto& CameraRangeMinX = DatosExe::Bss::bC1F95C;
 
-    static inline auto& DETAILEDWATERDIST = DatosExe::Data::v8D37D0; // Default: 48
+    static inline auto& DETAILEDWATERDIST = StaticRef<int32>(0x8D37D0); // Default: 48
     static inline auto& bSplitBigPolys = DatosExe::Data::v8D37F4;     // Default: true
     static inline auto  BigPolySize = 168; // NOTSA variable, but value is OG.
 
     static inline auto& TextureShiftFirstV = StaticRef<float>(0xC21178);
     static inline auto& TextureShiftFirstU = StaticRef<float>(0xC2117C);
 
-    static inline auto& TextureShiftSecondV = StaticRef<float>(0xC21180);
-    static inline auto& TextureShiftSecondU = StaticRef<float>(0xC21184);
+    static inline auto& TextureShiftSecondV = DatosExe::Bss::bC21180;
+    static inline auto& TextureShiftSecondU = DatosExe::Bss::bC21184;
 
     struct WaterFog {
         std::array<int16, 70> minX;
@@ -139,9 +143,9 @@ class CWaterLevel {
     static constexpr int32 WATER_BLOCK_SIZE                       = 500;
     static constexpr int32 NUM_WATER_BLOCKS_ROWCOL                = 6000 / WATER_BLOCK_SIZE; // 6000 => map size
     static inline    int32  m_MaxNumBlocksOutsideWorldToBeRendered = 70; // NOTSA: We just want a variable for the debug tool. Value may never be higher than the below array's size.
-    static inline    auto& m_NumBlocksOutsideWorldToBeRendered = StaticRef<uint32>(0xC215EC);
-    static inline    auto& m_BlocksToBeRenderedOutsideWorldX = StaticRef<std::array<int16, 70>>(0xC21560);
-    static inline    auto& m_BlocksToBeRenderedOutsideWorldY = StaticRef<std::array<int16, 70>>(0xC214D0);
+    static inline    auto& m_NumBlocksOutsideWorldToBeRendered = DatosExe::Bss::bC215EC;
+    static inline    auto& m_BlocksToBeRenderedOutsideWorldX = DatosExe::Bss::bC21560;
+    static inline    auto& m_BlocksToBeRenderedOutsideWorldY = DatosExe::Bss::bC214D0;
 
     // NOTSA: Color of wake segment parts (So we can make rainbows)
     static inline struct {

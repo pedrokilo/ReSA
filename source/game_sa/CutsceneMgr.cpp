@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include <platform/win/WinPlatform.h>
 #include <extensions/ci_string.hpp>
 
@@ -40,7 +41,7 @@ uint32 MAX_NUM_CUTSCENE_ITEMS_TO_HIDE = 50;
 uint32 MAX_NUM_CUTSCENE_ATTACHMENTS = 50;
 
 //! Is the cutscene close to finishing (If this is set the camera is already fading in)
-static inline auto& g_bCutSceneFinishing = StaticRef<bool>(0xBC1CF8);
+static inline auto& g_bCutSceneFinishing = DatosExe::Bss::bBC1CF8;
 
 // 0x5B0380
 int32 CCutsceneMgr::AddCutsceneHead(CObject* object, int32 arg1) {

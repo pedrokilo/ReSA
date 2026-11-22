@@ -1,4 +1,6 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
 
@@ -135,12 +137,12 @@ VALIDATE_SIZE(CAttributeZone, 0x12);
 // when the player is within the zone.
 class CCullZones {
 public:
-    static inline auto& NumAttributeZones = StaticRef<int32>(0xC87AC8);
-    static inline auto& NumMirrorAttributeZones = StaticRef<int32>(0xC87AC4);
-    static inline auto& NumTunnelAttributeZones = StaticRef<int32>(0xC87AC0);
+    static inline auto& NumAttributeZones = DatosExe::Bss::bC87AC8;
+    static inline auto& NumMirrorAttributeZones = DatosExe::Bss::bC87AC4;
+    static inline auto& NumTunnelAttributeZones = DatosExe::Bss::bC87AC0;
 
-    static inline auto& CurrentFlags_Camera = StaticRef<int32>(0xC87ABC);
-    static inline auto& CurrentFlags_Player = StaticRef<int32>(0xC87AB8);
+    static inline auto& CurrentFlags_Camera = DatosExe::Bss::bC87ABC;
+    static inline auto& CurrentFlags_Player = DatosExe::Bss::bC87AB8;
 
     static inline auto& bMilitaryZonesDisabled = StaticRef<bool>(0xC87ACD);
 
@@ -148,7 +150,7 @@ public:
     static inline auto& aTunnelAttributeZones = StaticRef<std::array<CAttributeZone, 40>>(0xC81C80);
     static inline auto& aMirrorAttributeZones = StaticRef<std::array<CMirrorAttributeZone, 72>>(0xC815C0);
 
-    static inline auto& bRenderCullzones = StaticRef<bool>(0xC87ACC); // unused
+    static inline auto& bRenderCullzones = DatosExe::Bss::bC87ACC; // unused
 
 public:
     static void InjectHooks();

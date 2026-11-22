@@ -1,4 +1,7 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -100,7 +103,7 @@ public:
 
     static inline auto& m_bNightVision = StaticRef<bool>(0xC402B8);
     static inline auto& m_fNightVisionSwitchOnFXCount = StaticRef<float>(0xC40300); // = CPostEffects::m_fNightVisionSwitchOnFXTime
-    static inline auto& m_fNightVisionSwitchOnFXTime = DatosExe::Data::v8D50B0; // 50.0f
+    static inline auto& m_fNightVisionSwitchOnFXTime = StaticRef<float>(0x8D50B0); // 50.0f
     static inline auto& m_NightVisionGrainStrength = DatosExe::Data::v8D50A8; // 48
     static inline auto& m_NightVisionMainCol = StaticRef<CRGBA>(0x8D50AC); // { 255, 0, 130, 0};
 
@@ -109,15 +112,15 @@ public:
     static inline auto& m_DarknessFilterAlphaDefault = DatosExe::Data::v8D50F4; // 170
     static inline auto& m_DarknessFilterRadiosityIntensityLimit = DatosExe::Data::v8D50F8; // 45
 
-    static inline auto& m_fWaterFXStartUnderWaterness = DatosExe::Data::v8D514C; // 0.535f;
+    static inline auto& m_fWaterFXStartUnderWaterness = StaticRef<float>(0x8D514C); // 0.535f;
     static inline auto& m_fWaterFullDarknessDepth = DatosExe::Data::v8D5148; // 90.0f
     static inline auto& m_bWaterDepthDarkness = DatosExe::Data::v8D5144;  // true;
 
-    static inline auto& m_bHeatHazeFX = StaticRef<bool>(0xC402BA);
+    static inline auto& m_bHeatHazeFX = DatosExe::Bss::bC402BA;
     static inline auto& m_HeatHazeFXSpeedMin = DatosExe::Data::v8D50EC; // 6
     static inline auto& m_HeatHazeFXSpeedMax = DatosExe::Data::v8D50F0; // 10
     static inline auto& m_HeatHazeFXIntensity = DatosExe::Data::v8D50E8; // 150
-    static inline auto& m_HeatHazeFXType = StaticRef<int32>(0xC402BC); // 0
+    static inline auto& m_HeatHazeFXType = DatosExe::Bss::bC402BC; // 0
     static inline auto& m_HeatHazeFXTypeLast = DatosExe::Data::v8D50E4; // -1
     static inline auto& m_HeatHazeFXRandomShift = StaticRef<int32>(0xC402C0);
     static inline auto& m_HeatHazeFXScanSizeX = StaticRef<int32>(0xC40304); // int32(SCREEN_WIDTH_UNIT  * 24.0f);
@@ -136,8 +139,8 @@ public:
 
     static inline auto& pRasterFrontBuffer = StaticRef<RwRaster*>(0xC402D8);
 
-    static inline auto& m_bGrainEnable = StaticRef<bool>(0xC402B4);
-    static inline auto& m_pGrainRaster = StaticRef<RwRaster*>(0xC402B0);
+    static inline auto& m_bGrainEnable = DatosExe::Bss::bC402B4;
+    static inline auto& m_pGrainRaster = DatosExe::Bss::bC402B0;
     static inline auto& m_grainStrength = StaticRef<std::array<char, 2>>(0x8D5094);
 
     static inline auto& m_bCCTV = StaticRef<bool>(0xC402C5);

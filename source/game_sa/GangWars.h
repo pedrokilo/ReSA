@@ -5,6 +5,11 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "CarCtrl.h"
@@ -50,38 +55,38 @@ constexpr union {
 
 class CGangWars {
 public:
-    static inline auto& ZoneInfoForTraining = DatosExe::Data::v8A5F40; // -1
-    static inline auto& pDriveByCar = StaticRef<CVehicle*>(0x96AB28);
+    static inline auto& ZoneInfoForTraining = StaticRef<int32>(0x8A5F40); // -1
+    static inline auto& pDriveByCar = DatosExe::Bss::b96AB28;
     static inline auto& GangRatingStrength = StaticRef<std::array<int32, 3>>(0x96AB2C);
     static inline auto& GangRatings = StaticRef<std::array<int32, 3>>(0x96AB38);
-    static inline auto& FightTimer = StaticRef<uint32>(0x96AB44);
-    static inline auto& TimeTillNextAttack = StaticRef<float>(0x96AB48);
-    static inline auto& Gang2 = StaticRef<int32>(0x96AB50);
-    static inline auto& LastTimeInArea = StaticRef<uint32>(0x96AB54);
-    static inline auto& WarFerocity = StaticRef<int32>(0x96AB58);
-    static inline auto& Provocation = StaticRef<float>(0x96AB5C);
-    static inline auto& TimeStarted = StaticRef<uint32>(0x96AB60);
+    static inline auto& FightTimer = DatosExe::Bss::b96AB44;
+    static inline auto& TimeTillNextAttack = DatosExe::Bss::b96AB48;
+    static inline auto& Gang2 = DatosExe::Bss::b96AB50;
+    static inline auto& LastTimeInArea = DatosExe::Bss::b96AB54;
+    static inline auto& WarFerocity = DatosExe::Bss::b96AB58;
+    static inline auto& Provocation = DatosExe::Bss::b96AB5C;
+    static inline auto& TimeStarted = DatosExe::Bss::b96AB60;
     // State of defending gang war (i.e. fighting for enemy zone)
     static inline auto& State = StaticRef<eGangWarState>(0x96AB64);
     // State of attacking gang war (i.e. fighting for own zone)
     static inline auto& State2 = StaticRef<eGangAttackState>(0x96AB4C);
-    static inline auto& aSpecificZones = StaticRef<std::array<int32, 6>>(0x96AB68);
-    static inline auto& Difficulty = StaticRef<float>(0x96AB80);
+    static inline auto& aSpecificZones = DatosExe::Bss::b96AB68;
+    static inline auto& Difficulty = DatosExe::Bss::b96AB80;
     static inline auto& Gang1 = StaticRef<eGangID>(0x96AB84);
-    static inline auto& pZoneToFightOver = StaticRef<CZone*>(0x96AB88);
-    static inline auto& pZoneInfoToFightOver = StaticRef<CZoneInfo*>(0x96AB8C);
+    static inline auto& pZoneToFightOver = DatosExe::Bss::b96AB88;
+    static inline auto& pZoneInfoToFightOver = DatosExe::Bss::b96AB8C;
     static inline auto& bGangWarsActive = StaticRef<bool>(0x96AB90);
     static inline auto& bTrainingMission = StaticRef<bool>(0x96AB91);
-    static inline auto& bPlayerIsCloseby = StaticRef<bool>(0x96AB92);
+    static inline auto& bPlayerIsCloseby = DatosExe::Bss::b96AB92;
     static inline auto& bCanTriggerGangWarWhenOnAMission = StaticRef<bool>(0x96AB93);
-    static inline auto& NumSpecificZones = StaticRef<int32>(0x96AB94);
-    static inline auto& RadarBlip = StaticRef<int32>(0x96AB98);
+    static inline auto& NumSpecificZones = DatosExe::Bss::b96AB94;
+    static inline auto& RadarBlip = DatosExe::Bss::b96AB98;
     static inline auto& TerritoryUnderControlPercentage = StaticRef<float>(0x96AB9C);
-    static inline auto& bIsPlayerOnAMission = StaticRef<bool>(0x96ABA0);
+    static inline auto& bIsPlayerOnAMission = DatosExe::Bss::b96ABA0;
     static inline auto& CoorsOfPlayerAtStartOfWar = StaticRef<CVector>(0x96ABBC);
     static inline auto& PointOfAttack = StaticRef<CVector>(0x96ABC8);
     // Cursor de PickStreamedInPedForThisGang (0x443A44/0x443A63/0x443A96); no tiene nombre en el EXE
-    static inline auto& PedPickCursor = StaticRef<int32>(0x96ABD4);
+    static inline auto& PedPickCursor = DatosExe::Bss::b96ABD4;
 
 public:
     static void InjectHooks();

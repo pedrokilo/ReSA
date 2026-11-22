@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 enum {
     TYPE_INDENT      = 0,
@@ -170,32 +171,32 @@ public:
     static inline auto& m_nIdentIndexHistory = StaticRef<IdentIndexHistory[RADIO_COUNT]>(0xB62980);          // 112
     static inline auto& m_nMusicTrackIndexHistory = StaticRef<MusicTrackHistory[RADIO_COUNT]>(0xB62B40);   // 280
 
-    static inline auto& m_nStatsLastHitTimeOutHours = StaticRef<uint8>(0xB62C58); // = -1;
-    static inline auto& m_nStatsLastHitGameClockHours = StaticRef<uint8>(0xB62C59); // = -1;
-    static inline auto& m_nStatsLastHitGameClockDays = StaticRef<uint8>(0xB62C5A); // = -1;
-    static inline auto& m_nStatsStartedCrash1 = StaticRef<uint8>(0xB62C5B); // = 0;
-    static inline auto& m_nStatsStartedCat2 = StaticRef<uint8>(0xB62C5C); // = 0;
-    static inline auto& m_nStatsStartedBadlands = StaticRef<uint8>(0xB62C5D); // = 0;
-    static inline auto& m_nStatsPassedVCrash2 = StaticRef<uint8>(0xB62C5E); // = 0;
-    static inline auto& m_nStatsPassedTruth2 = StaticRef<uint8>(0xB62C5F); // = 0;
-    static inline auto& m_nStatsPassedSweet2 = StaticRef<uint8>(0xB62C60); // = 0;
-    static inline auto& m_nStatsPassedStrap4 = StaticRef<uint8>(0xB62C61); // = 0;
-    static inline auto& m_nStatsPassedSCrash1 = StaticRef<uint8>(0xB62C62); // = 0;
-    static inline auto& m_nStatsPassedRiot1 = StaticRef<uint8>(0xB62C63); // = 0;
-    static inline auto& m_nStatsPassedRyder2 = StaticRef<uint8>(0xB62C64); // = 0;
-    static inline auto& m_nStatsPassedMansion2 = StaticRef<uint8>(0xB62C65); // = 0;
-    static inline auto& m_nStatsPassedLAFin2 = StaticRef<uint8>(0xB62C66); // = 0;
-    static inline auto& m_nStatsPassedFarlie3 = StaticRef<uint8>(0xB62C67); // = 0;
-    static inline auto& m_nStatsPassedDesert10 = StaticRef<uint8>(0xB62C68); // = 0;
-    static inline auto& m_nStatsPassedDesert8 = StaticRef<uint8>(0xB62C69); // = 0;
-    static inline auto& m_nStatsPassedDesert5 = StaticRef<uint8>(0xB62C6A); // = 0;
-    static inline auto& m_nStatsPassedDesert3 = StaticRef<uint8>(0xB62C6B); // = 0;
-    static inline auto& m_nStatsPassedDesert1 = StaticRef<uint8>(0xB62C6C); // = 0;
-    static inline auto& m_nStatsPassedCat1 = StaticRef<uint8>(0xB62C6D); // = 0;
-    static inline auto& m_nStatsPassedCasino10 = StaticRef<uint8>(0xB62C6E); // = 0;
-    static inline auto& m_nStatsPassedCasino6 = StaticRef<uint8>(0xB62C6F); // = 0;
-    static inline auto& m_nStatsPassedCasino3 = StaticRef<uint8>(0xB62C70); // = 0;
-    static inline auto& m_nStatsCitiesPassed = StaticRef<uint8>(0xB62C71); // = 0;
+    static inline auto& m_nStatsLastHitTimeOutHours = DatosExe::Bss::bB62C58; // = -1;
+    static inline auto& m_nStatsLastHitGameClockHours = DatosExe::Bss::bB62C59; // = -1;
+    static inline auto& m_nStatsLastHitGameClockDays = DatosExe::Bss::bB62C5A; // = -1;
+    static inline auto& m_nStatsStartedCrash1 = DatosExe::Bss::bB62C5B; // = 0;
+    static inline auto& m_nStatsStartedCat2 = DatosExe::Bss::bB62C5C; // = 0;
+    static inline auto& m_nStatsStartedBadlands = DatosExe::Bss::bB62C5D; // = 0;
+    static inline auto& m_nStatsPassedVCrash2 = DatosExe::Bss::bB62C5E; // = 0;
+    static inline auto& m_nStatsPassedTruth2 = DatosExe::Bss::bB62C5F; // = 0;
+    static inline auto& m_nStatsPassedSweet2 = DatosExe::Bss::bB62C60; // = 0;
+    static inline auto& m_nStatsPassedStrap4 = DatosExe::Bss::bB62C61; // = 0;
+    static inline auto& m_nStatsPassedSCrash1 = DatosExe::Bss::bB62C62; // = 0;
+    static inline auto& m_nStatsPassedRiot1 = DatosExe::Bss::bB62C63; // = 0;
+    static inline auto& m_nStatsPassedRyder2 = DatosExe::Bss::bB62C64; // = 0;
+    static inline auto& m_nStatsPassedMansion2 = DatosExe::Bss::bB62C65; // = 0;
+    static inline auto& m_nStatsPassedLAFin2 = DatosExe::Bss::bB62C66; // = 0;
+    static inline auto& m_nStatsPassedFarlie3 = DatosExe::Bss::bB62C67; // = 0;
+    static inline auto& m_nStatsPassedDesert10 = DatosExe::Bss::bB62C68; // = 0;
+    static inline auto& m_nStatsPassedDesert8 = DatosExe::Bss::bB62C69; // = 0;
+    static inline auto& m_nStatsPassedDesert5 = DatosExe::Bss::bB62C6A; // = 0;
+    static inline auto& m_nStatsPassedDesert3 = DatosExe::Bss::bB62C6B; // = 0;
+    static inline auto& m_nStatsPassedDesert1 = DatosExe::Bss::bB62C6C; // = 0;
+    static inline auto& m_nStatsPassedCat1 = DatosExe::Bss::bB62C6D; // = 0;
+    static inline auto& m_nStatsPassedCasino10 = DatosExe::Bss::bB62C6E; // = 0;
+    static inline auto& m_nStatsPassedCasino6 = DatosExe::Bss::bB62C6F; // = 0;
+    static inline auto& m_nStatsPassedCasino3 = DatosExe::Bss::bB62C70; // = 0;
+    static inline auto& m_nStatsCitiesPassed = DatosExe::Bss::bB62C71; // = 0;
     static inline auto& m_nSpecialDJBanterIndex = StaticRef<uint8>(0xB62C72); // = -1;
     static inline auto& m_nSpecialDJBanterPending = StaticRef<uint8>(0xB62C73); // = 3; // ?
 

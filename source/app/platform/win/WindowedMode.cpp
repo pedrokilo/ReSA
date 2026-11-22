@@ -1,6 +1,7 @@
 // NOTSA: hooks del modo ventana (sin equivalente en el EXE), catalogados en docs/hooks_notsa.csv y fuera de la cuenta de progreso.
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #ifdef NOTSA_WINDOWED_MODE
 
 #include "WindowedMode.hpp"
@@ -124,7 +125,7 @@ auto& dgGGlobals                         = StaticRef<RwRwDeviceGlobals>(0xC9BCC0
 auto& _RwD3D9D3D9ViewTransform           = StaticRef<D3DMATRIX>(0xC9BC80);
 auto& _RwD3D9D3D9ProjTransform           = StaticRef<D3DMATRIX>(0x8E2458);
 auto& _RwD3D9ActiveViewProjTransform     = StaticRef<D3DMATRIX*>(0xC97C64);
-auto& NeedToCopyFromBackBuffer           = StaticRef<RwBool>(0xC97C34);
+auto& NeedToCopyFromBackBuffer           = DatosExe::Bss::bC97C34;
 auto& InsideScene                        = StaticRef<RwBool>(0xC97C54);
 auto& LightsCache                        = StaticRef<RxD3D9Light*>(0xC98088);
 auto& MaxNumLights                       = StaticRef<RwInt32>(0xC98084);

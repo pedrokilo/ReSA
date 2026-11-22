@@ -1,4 +1,8 @@
 #pragma once
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "Bmx.h"
@@ -181,17 +185,17 @@ public:
 
     static inline auto& Mode = StaticRef<eReplayMode>(0xA43088);
     static inline auto& bReplayEnabled = DatosExe::Data::v8A6160;
-    static inline auto& bPlayingBackFromFile = StaticRef<bool>(0x97FAE1);
-    static inline auto& bAllowLookAroundCam = StaticRef<bool>(0x97FAE0);
-    static inline auto& bDoLoadSceneWhenDone = StaticRef<bool>(0x97FACC);
-    static inline auto& bIsUsingRemoteCar = StaticRef<bool>(0x97F66D);
+    static inline auto& bPlayingBackFromFile = DatosExe::Bss::b97FAE1;
+    static inline auto& bAllowLookAroundCam = DatosExe::Bss::b97FAE0;
+    static inline auto& bDoLoadSceneWhenDone = DatosExe::Bss::b97FACC;
+    static inline auto& bIsUsingRemoteCar = DatosExe::Bss::b97F66D;
 
-    static inline auto& pReferences = StaticRef<void*>(0x97FB0C);
-    static inline auto& pPickups = StaticRef<void*>(0x97FB08);
-    static inline auto& pEmptyReferences = StaticRef<void*>(0x97FB04);
-    static inline auto& pWorld1 = StaticRef<void*>(0x97FB00);
+    static inline auto& pReferences = DatosExe::Bss::b97FB0C;
+    static inline auto& pPickups = DatosExe::Bss::b97FB08;
+    static inline auto& pEmptyReferences = DatosExe::Bss::b97FB04;
+    static inline auto& pWorld1 = DatosExe::Bss::b97FB00;
     static inline auto& pStoredCam = StaticRef<CCamera*>(0x97FAF8);
-    static inline auto& pRadarBlips = StaticRef<void*>(0x97FAF4);
+    static inline auto& pRadarBlips = DatosExe::Bss::b97FAF4;
 
     static inline auto& Time1 = StaticRef<uint32>(0x97FB60);
     static inline auto& Time2 = StaticRef<uint32>(0x97FB5C);
@@ -217,7 +221,7 @@ public:
     static inline auto& ms_nNumCivFemale_Stored = StaticRef<uint32>(0x97FAB0);
     static inline auto& ms_nNumCop_Stored = StaticRef<uint32>(0x97FAAC);
     static inline auto& ms_nNumEmergency_Stored = StaticRef<uint32>(0x97FAA8);
-    static inline auto& ms_nNumDealers_Stored = StaticRef<uint32>(0x97FA7C);
+    static inline auto& ms_nNumDealers_Stored = DatosExe::Bss::b97FA7C;
     static inline auto& ms_nTotalCarPassengerPeds_Stored = StaticRef<uint32>(0x97FA78);
     static inline auto& ms_nTotalCivPeds_Stored = StaticRef<uint32>(0x97FA74);
     static inline auto& ms_nTotalGangPeds_Stored = StaticRef<uint32>(0x97FA70);
@@ -227,15 +231,15 @@ public:
 
     static inline auto& PlayerInfo = StaticRef<CPlayerInfo>(0xA430B0);
 
-    static inline auto& m_PedPoolConversion = StaticRef<std::array<int32, 140>>(0x97F838);
-    static inline auto& m_VehiclePoolConversion = StaticRef<std::array<int32, 110>>(0x97F680);
+    static inline auto& m_PedPoolConversion = DatosExe::Bss::b97F838;
+    static inline auto& m_VehiclePoolConversion = DatosExe::Bss::b97F680;
 
     static inline auto& CameraFocus = StaticRef<CVector_Reversed>(0x97F670);
     static inline auto& CameraFixed = StaticRef<CVector_Reversed>(0x97FB24);
     static inline auto& LoadScene = StaticRef<CVector_Reversed>(0x97FAC0);
     static inline auto& CameraMode = StaticRef<eReplayCamMode>(0x97FB30);
-    static inline auto& FramesActiveLookAroundCam = StaticRef<int32>(0x97FAD0);
-    static inline auto& OldRadioStation = StaticRef<int32>(0x97FABC); // Como el original: dword (movsx al guardar)
+    static inline auto& FramesActiveLookAroundCam = DatosExe::Bss::b97FAD0;
+    static inline auto& OldRadioStation = DatosExe::Bss::b97FABC; // Como el original: dword (movsx al guardar)
     static inline auto& CurrArea = StaticRef<int8>(0x97FAB8);
     static inline auto& BufferStatus = StaticRef<std::array<eReplayBufferStatus, NUM_REPLAY_BUFFERS>>(0x97FB7C);
 

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "Mirrors.h"
 
@@ -28,7 +29,7 @@ END GENERATED HOOK STATUS */
 #include "Shadows.h"
 #include "CarFXRenderer.h"
 
-auto& bFudgeNow = StaticRef<bool>(0xC7C72A);
+auto& bFudgeNow = DatosExe::Bss::bC7C72A;
 
 /*!
  * Screen positions in Los Santos stadium. Odd job called as "8-Track"

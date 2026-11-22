@@ -17,10 +17,11 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include "CollisionPlugin.h"
 
-auto& gCollisionPluginOffset = StaticRef<RwInt32>(0x9689DC);
+auto& gCollisionPluginOffset = DatosExe::Bss::b9689DC;
 
 static RwStream* ClumpCollisionStreamRead(RwStream* stream, RwInt32 binaryLength, void* object, RwInt32 offsetInObject, RwInt32 sizeInObject); // 0x41B1D0
 

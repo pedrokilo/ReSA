@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "FurnitureSubGroup_c.h"
 #include "Furniture_c.h"
 
@@ -77,7 +78,7 @@ Furniture_c* SelectFurnitureByWealth(TList_c<Furniture_c>& list, uint8 wealth) {
  */
 bool FurnitureSubGroup_c::AddFurniture(uint16 modelId, int16 id, uint8 wealthMin, uint8 wealthMax, uint8 maxAng) {
         // Esta función sólo lee/escribe la palabra baja del contador global original.
-    auto& next = StaticRef<uint16>(0xBAB378);
+    auto& next = DatosExe::Bss::bBAB378;
     auto& store = StaticRef<Furniture_c[256]>(0xBAE1F8);
     if (next >= std::size(store)) return false;
     auto& f = store[next++];

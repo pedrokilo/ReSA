@@ -5,6 +5,9 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE1.h"
 
 #include <Base.h>
 #include "ZoneInfo.h"
@@ -193,21 +196,21 @@ class CPopCycle {
 public:
     
 public:
-    static inline auto& m_NumOther_Cars = StaticRef<float>(0xC0BC30);
-    static inline auto& m_NumCops_Cars = StaticRef<float>(0xC0BC34);
-    static inline auto& m_NumGangs_Cars = StaticRef<float>(0xC0BC38);
-    static inline auto& m_NumDealers_Cars = StaticRef<float>(0xC0BC3C);
-    static inline auto& m_NumOther_Peds = StaticRef<float>(0xC0BC40);
-    static inline auto& m_NumCops_Peds = StaticRef<float>(0xC0BC44);
-    static inline auto& m_NumGangs_Peds = StaticRef<float>(0xC0BC48);
-    static inline auto& m_fPercOther = StaticRef<float>(0xC0BC4C);
-    static inline auto& m_fPercCops = StaticRef<float>(0xC0BC50);
-    static inline auto& m_fPercGangs = StaticRef<float>(0xC0BC54);
-    static inline auto& m_fPercDealers = StaticRef<float>(0xC0BC58);
-    static inline auto& m_bCurrentZoneIsGangArea = StaticRef<bool>(0xC0BC5C);
-    static inline auto& m_fCurrentZoneDodgyness = StaticRef<float>(0xC0BC60);
-    static inline auto& m_pCurrZone = StaticRef<CZone*>(0xC0BC64);
-    static inline auto& m_pCurrZoneInfo = StaticRef<CZoneInfo*>(0xC0BC68);
+    static inline auto& m_NumOther_Cars = DatosExe::Bss::bC0BC30;
+    static inline auto& m_NumCops_Cars = DatosExe::Bss::bC0BC34;
+    static inline auto& m_NumGangs_Cars = DatosExe::Bss::bC0BC38;
+    static inline auto& m_NumDealers_Cars = DatosExe::Bss::bC0BC3C;
+    static inline auto& m_NumOther_Peds = DatosExe::Bss::bC0BC40;
+    static inline auto& m_NumCops_Peds = DatosExe::Bss::bC0BC44;
+    static inline auto& m_NumGangs_Peds = DatosExe::Bss::bC0BC48;
+    static inline auto& m_fPercOther = DatosExe::Bss::bC0BC4C;
+    static inline auto& m_fPercCops = DatosExe::Bss::bC0BC50;
+    static inline auto& m_fPercGangs = DatosExe::Bss::bC0BC54;
+    static inline auto& m_fPercDealers = DatosExe::Bss::bC0BC58;
+    static inline auto& m_bCurrentZoneIsGangArea = DatosExe::Bss::bC0BC5C;
+    static inline auto& m_fCurrentZoneDodgyness = DatosExe::Bss::bC0BC60;
+    static inline auto& m_pCurrZone = DatosExe::Bss::bC0BC64;
+    static inline auto& m_pCurrZoneInfo = DatosExe::Bss::bC0BC68;
 
     //! Same as `m_pCurrZoneInfo->zonePopulationType`
     static inline auto& m_nCurrentZoneType = StaticRef<int32>(0xC0BC6C);

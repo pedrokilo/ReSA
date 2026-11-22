@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include <reversiblebugfixes/Bugs.hpp>
 #include "Coronas.h"
 #include "X87Math.h"
@@ -149,7 +150,7 @@ auto& s_CoronaTempIndicesStored  = StaticRef<uint32>(0xC4B954);
 auto& s_CoronaTempVerticesStored = StaticRef<uint32>(0xC4B950);
 
 // Como el original: LastCamLook es un global del EXE (0xC3EF58), no un estatico local
-auto& s_CoronaLastCamLook = StaticRef<int32>(0xC3EF58);
+auto& s_CoronaLastCamLook = DatosExe::Bss::bC3EF58;
 
 // Como el original: el render lee las tablas de destellos del EXE (color y multiplicador de intensidad crudos)
 struct CoronaFlareDefRaw {

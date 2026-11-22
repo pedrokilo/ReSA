@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include <intrin.h>
 
@@ -592,8 +593,8 @@ void CTheZones::SetZoneRadarColours(int16 index, char radarMode, uint8 red, uint
 void CTheZones::Update() {
     ZoneScoped;
 
-    auto& guard        = StaticRef<uint32>(0xBA6724);
-    auto& countSeconds = StaticRef<uint32>(0xBA6720);
+    auto& guard        = DatosExe::Bss::bBA6724;
+    auto& countSeconds = DatosExe::Bss::bBA6720;
     const uint32 now   = CTimer::GetTimeInMS();
     if (!(guard & 1)) {
         guard |= 1;

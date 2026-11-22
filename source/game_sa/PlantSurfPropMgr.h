@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 constexpr auto MAX_SURFACE_PTR_PROPERTIES = 178u;
 constexpr auto MAX_SURFACE_PROPERTIES = 57u;
@@ -50,7 +51,7 @@ struct CPlantSurfProp {
 class CPlantSurfPropMgr {
 public:
     static inline auto& m_SurfPropPtrTab = StaticRef<std::array<CPlantSurfProp*, 178>>(0xC38070);
-    static inline auto& m_countSurfPropsAllocated = StaticRef<uint32>(0xC39ED4);
+    static inline auto& m_countSurfPropsAllocated = DatosExe::Bss::bC39ED4;
     static inline auto& m_SurfPropTab = StaticRef<CPlantSurfProp[MAX_SURFACE_PROPERTIES]>(0xC38338);
 
 public:

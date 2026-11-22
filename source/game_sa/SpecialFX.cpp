@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "MotionBlurStreaks.h"
 #include "Checkpoints.h"
 #include "SpecialFX.h"
@@ -109,12 +110,12 @@ static CVector MultiplyPointLikeExe(const CMatrix& m, const CVector& v) {
 // 0x7233F0
 void CSpecialFX::AddWeaponStreak(eWeaponType weaponType) {
     // Como el original: la matriz es la estática del EXE (0xC803E8) con su guarda de inicialización
-    auto& guard     = StaticRef<uint32>(0xC80430);
+    auto& guard     = DatosExe::Bss::bC80430;
     auto& attachMat = StaticRef<CMatrix>(0xC803E8);
     if (!(guard & 1)) {
         guard |= 1;
-        StaticRef<uint32>(0xC80428) = 0; // m_pAttachMatrix
-        StaticRef<uint32>(0xC8042C) = 0; // m_bOwnsAttachedMatrix
+        DatosExe::Bss::bC80428 = 0; // m_pAttachMatrix
+        DatosExe::Bss::bC8042C = 0; // m_bOwnsAttachedMatrix
         reinterpret_cast<int32(__cdecl*)(void(__cdecl*)())>(0x821D1E)(reinterpret_cast<void(__cdecl*)()>(0x856BC0)); // atexit(~attachMat)
     }
 

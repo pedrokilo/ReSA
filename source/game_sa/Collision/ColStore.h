@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "Rect.h"
 #include "Vector.h"
@@ -28,7 +29,7 @@ using CColPool = CPool<ColDef>;
 class CColStore {
 public:
     static inline auto& ms_vecCollisionNeeded = StaticRef<CVector>(0x965580);
-    static inline auto& ms_bCollisionNeeded = StaticRef<bool>(0x965558);
+    static inline auto& ms_bCollisionNeeded = DatosExe::Bss::b965558;
     static inline auto& ms_EntityAreaCode = StaticRef<eAreaCodesS32>(0x965554);
 
 public:

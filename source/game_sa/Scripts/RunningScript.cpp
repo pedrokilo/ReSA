@@ -2305,7 +2305,7 @@ OpcodeResult CRunningScript::ProcessCommands1900To1999(int32 command) {
     }
     case 1953: // SET_NEXT_DESIRED_MOVE_STATE
         CollectParameters(1);
-        DatosExe::Data::v8D237C = sp[0].iParam;
+        StaticRef<int32>(0x8D237C) = sp[0].iParam;
         return OR_CONTINUE;
     case 1955: { // TASK_GOTO_CHAR_AIMING
         CollectParameters(4);

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "CrimeBeingQd.h"
@@ -63,7 +64,7 @@ private:
 public:
     static inline auto& MaximumWantedLevel = StaticRef<eWantedLevel>(0x8CDEE4); // 6
     static inline auto& MaximumChaosLevel = DatosExe::Data::v8CDEE8; // 9200; nMaximumWantedLevel
-    static inline auto& UseNewsHeliInAdditionToPolice = StaticRef<bool>(0xB7CB8C);
+    static inline auto& UseNewsHeliInAdditionToPolice = DatosExe::Bss::bB7CB8C;
 
 public:
     void Initialise();

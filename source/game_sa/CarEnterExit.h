@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "Vector.h"
@@ -18,7 +19,7 @@ public:
     static inline auto& ms_fMaxSpeed_CanDragPedOut = DatosExe::Rdata::k86F104; // 0.1
     static inline auto& ms_fMaxSpeed_PlayerCanDragPedOut = DatosExe::Rdata::k86F108; // 0.2
 
-    static inline auto& ms_bPedOffsetsCalculated = StaticRef<bool>(0xC18C20);
+    static inline auto& ms_bPedOffsetsCalculated = DatosExe::Bss::bC18C20;
     static inline auto& ms_vecPedGetUpAnimOffset = StaticRef<CVector>(0xC18C3C);
     static inline auto& ms_vecPedBedLAnimOffset = StaticRef<CVector>(0xC18C54);
     static inline auto& ms_vecPedBedRAnimOffset = StaticRef<CVector>(0xC18C60);

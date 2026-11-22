@@ -1,0 +1,7 @@
+seccion,va_ini,tam_seccion,objetos,bytes_objetos,objetos_con_ref_dll,bytes_con_ref_dll,objetos_solo_exe,bytes_solo_exe,objetos_compartidos,bytes_compartidos,bytes_tam_fiable_dll,con_valor_inicial
+.rdata,0x00858000,311296,7048,95958,678,23502,6370,72456,86,1167,690,True
+.data,0x008A4000,262144,3011,34725,792,7936,2219,26789,165,1046,2815,True
+.bss,0x008E4000,3907584,7341,98611,1837,58688,5504,39923,773,26021,43002,False
+_TEXT_HA,0x00C9E000,69632,261,1144,170,797,91,347,25,100,669,False
+_rwdseg,0x00CAF000,4096,2,8,0,0,2,8,0,0,0,False
+.rsrc,0x00CB0000,4096,0,0,0,0,0,0,0,0,0,False

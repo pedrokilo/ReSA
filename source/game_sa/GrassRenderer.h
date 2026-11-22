@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "PPTriPlantBuffer.h"
@@ -7,8 +8,8 @@ class CVector;
 
 class CGrassRenderer {
 public:
-    static inline auto& m_windBending = StaticRef<float>(0xC02DB8);
-    static inline auto& m_closeDist = StaticRef<float>(0xC02DBC);
+    static inline auto& m_windBending = DatosExe::Bss::bC02DB8;
+    static inline auto& m_closeDist = DatosExe::Bss::bC02DBC;
     static inline auto& m_vecCameraPos = StaticRef<CVector>(0xC02DDC);
     static inline auto& m_farDist = DatosExe::Data::v8D132C; // 10.0f
 

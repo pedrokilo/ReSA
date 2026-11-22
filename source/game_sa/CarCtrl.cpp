@@ -29,6 +29,9 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
@@ -87,7 +90,7 @@ bool __cdecl Cc63fCrossZNegativeCpp(const float* node3, const float* point, cons
 bool __cdecl Cc63fRightDotNegativeCpp(const float* right, const float* node3, const float* point);  // DotProduct(derecha, nodo3 - punto) < 0 (0x40FDB0: suma en el orden z, y, x)
 
 auto& apCarsToKeep = StaticRef<CVehicle*[2]>(0x969084);
-auto& aCarsToKeepTime = StaticRef<std::array<uint32, 2>>(0x96907C);
+auto& aCarsToKeepTime = DatosExe::Bss::b96907C;
 
 // Lote 63 (aire): colaboradores del EXE sin reconstruir que se llaman por direccion (los bancos los sustituyen por falsos identicos).
 // CVector::Normalise (0x59C910, thiscall, in situ; deja la x87 vacia) y rand() del CRT del EXE (0x821B1E: avanza la semilla del juego, la rand() de la DLL no).
@@ -352,12 +355,12 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
         }
     }
     volatile float roll = Cc63eRatioCpp(exeRand());
-    const uint8 flag = StaticRef<uint8>(0x96915B);
+    const uint8 flag = DatosExe::Bss::b96915B;
     volatile float totalFloat = static_cast<float>(total);
     const auto loaded = [](int32 model) { return StaticRef<uint8>(0x8E4CD0 + static_cast<uintptr_t>(model) * 20) == 1; };
     if (Cc63eTierExceedsCpp(CPopCycle::m_NumDealers_Cars, 0.0f, 0.0f, 1, totalFloat, roll) && !flag) {
         *arg1 = 0x19;
-        const int32 model = StaticRef<uint16>(0xC0F240);
+        const int32 model = DatosExe::Bss::bC0F240;
         return loaded(model) ? model : -1;
     }
     if (Cc63eTierExceedsCpp(CPopCycle::m_NumGangs_Cars, CPopCycle::m_NumDealers_Cars, 0.0f, 2, totalFloat, roll) || flag) {
@@ -380,7 +383,7 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
                 ++gang;
             } while (current < pick);
         }
-        if (StaticRef<uint8>(0x96915B)) {
+        if (DatosExe::Bss::b96915B) {
             gang = reinterpret_cast<int32(__cdecl*)(int32, int32)>(0x407180)(0, 9);
         }
         *arg1 = gang + 14;
@@ -694,7 +697,7 @@ bool CCarCtrl::CreateConvoy(CVehicle* vehicle, int32 pedType) {
 // 0x800 sin comprobar el nulo) y el coche nuevo tambien (AddPoliceCarOccupants lo crea).
 bool CCarCtrl::CreatePoliceChase(CVehicle* vehicle, int32 pedType, CNodeAddress nodeAddress) {
     // Como el original: con coches de bandas (0xC0BC38 != 0, un NaN cuenta) y un tipo de ped fuera de 14..23 se sortea con rand() del EXE (ftol2(fild(r & 0xFFFF) * 2^-15 * 4.0f) != 0 <=> r >= 8192) y se sale
-    if (!(StaticRef<float>(0xC0BC38) == 0.0f) && (pedType < 14 || pedType > 23)) {
+    if (!(DatosExe::Bss::bC0BC38 == 0.0f) && (pedType < 14 || pedType > 23)) {
         if ((CarCtrlAirExeRand() & 0xFFFF) >= 0x2000) {
             return false;
         }
@@ -3695,9 +3698,9 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
         if (nearRange) {
             range = 45.0f; // 0x42340000
         } else {
-            range = Car81ScaleCpp(StaticRef<float>(0xB6F11C), DatosExe::Rdata::k858F98); // multiplicador de la camara * 170.0f, guardado como float
+            range = Car81ScaleCpp(DatosExe::Bss::bB6F11C, DatosExe::Rdata::k858F98); // multiplicador de la camara * 170.0f, guardado como float
         }
-        if (Car81LessCpp(StaticRef<float>(0xB6F9B4), DatosExe::Rdata::k858CAC)) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
+        if (Car81LessCpp(DatosExe::Bss::bB6F9B4, DatosExe::Rdata::k858CAC)) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
             range = 70.0f; // 0x428C0000
         }
 

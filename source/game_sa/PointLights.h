@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include <Base.h>
 #include "Vector.h"
@@ -43,7 +44,7 @@ public:
     static inline auto& aLights = StaticRef<CPointLight[MAX_POINT_LIGHTS]>(0xC3F0E0);
 
     static inline auto& aCachedMapReadResults = StaticRef<float[MAX_POINT_LIGHTS]>(0xC3F050);
-    static inline auto& NextCachedValue = StaticRef<int32>(0xC3F0D4);
+    static inline auto& NextCachedValue = DatosExe::Bss::bC3F0D4;
     static inline auto& aCachedMapReads = StaticRef<CVector[MAX_POINT_LIGHTS]>(0xC3F6E0);
 
 public:

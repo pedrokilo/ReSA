@@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 
 #include "Font.h"
 #include "X87Math.h"
@@ -39,7 +40,7 @@ END GENERATED HOOK STATUS */
 #include "eLanguage.h"
 
 auto& FontRenderStateBuf = StaticRef<std::array<CFontChar, 9>>(0xC716B0);
-auto& pEmptyChar = StaticRef<CFontChar*>(0xC716A8);
+auto& pEmptyChar = DatosExe::Bss::bC716A8;
 
 auto& gFontData = StaticRef<std::array<tFontData, 2>>(0xC718B0);
 

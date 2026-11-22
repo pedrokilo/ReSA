@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
 
@@ -24,8 +25,8 @@ END GENERATED HOOK STATUS */
 #include "CustomBuildingDNPipeline.h"
 #include "CustomCarEnvMapPipeline.h"
 
-auto& s_Magic1 = StaticRef<uint32>(0xC02C14);
-auto& s_Magic2 = StaticRef<uint32>(0xC02C18);
+auto& s_Magic1 = DatosExe::Bss::bC02C14;
+auto& s_Magic2 = DatosExe::Bss::bC02C18;
 
 // 0x5D72E0
 bool CCustomBuildingDNPipeline::ExtraVertColourPluginAttach() {

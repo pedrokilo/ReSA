@@ -1,11 +1,12 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 
 #include "ePedType.h"
 #include "Acquaintance.h"
 
 class CPedType {
 public:
-    static inline auto& ms_apPedTypes = StaticRef<CAcquaintance*>(0xC0BBE8);
+    static inline auto& ms_apPedTypes = DatosExe::Bss::bC0BBE8;
     static CAcquaintance*  ms_apPedTypesOld;
 
 public:

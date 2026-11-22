@@ -5,6 +5,9 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
 #include "RGBA.h"
@@ -203,15 +206,15 @@ public:
     static constexpr uint32 MAX_RADAR_SPRITES = 64;
     static constexpr uint32 MAX_RADAR_TRACES = 175;
 
-    static inline auto& m_fRadarOrientation = StaticRef<float>(0xBA8310);
-    static inline auto& cachedCos = StaticRef<float>(0xBA8308);
-    static inline auto& cachedSin = StaticRef<float>(0xBA830C);
+    static inline auto& m_fRadarOrientation = DatosExe::Bss::bBA8310;
+    static inline auto& cachedCos = DatosExe::Bss::bBA8308;
+    static inline auto& cachedSin = DatosExe::Bss::bBA830C;
 
     static SpriteFileName RadarBlipFileNames[];
 
-    static inline auto& m_radarRange = StaticRef<float>(0xBA8314); // 2990.0 by default
+    static inline auto& m_radarRange = DatosExe::Bss::bBA8314; // 2990.0 by default
     static inline auto& MapLegendList = StaticRef<std::array<int16, MAX_RADAR_TRACES>>(0xBA8318); // do not convert int16 to eRadarSprite, they have different sizes.
-    static inline auto& MapLegendCounter = StaticRef<uint16>(0xBA86B8); // num icons in legend
+    static inline auto& MapLegendCounter = DatosExe::Bss::bBA86B8; // num icons in legend
     static inline auto& ArrowBlipColour = StaticRef<std::array<CRGBA, 6>>(0xBA86D4);
     static inline auto& ms_RadarTrace = StaticRef<std::array<tRadarTrace, MAX_RADAR_TRACES>>(0xBA86F0);
     static inline auto& vec2DRadarOrigin = StaticRef<CVector2D>(0xBAA248);
@@ -219,7 +222,7 @@ public:
     static inline auto& m_radarRect = StaticRef<CRect>(0x8D0920); // { 1000000.0f, -1000000.0f, -1000000.0f, 1000000.0f }
 
     static inline auto& airstrip_location = StaticRef<eAirstripLocation>(0xBA8300); // current airstrip index in airstrip_table
-    static inline auto& airstrip_blip = StaticRef<int32>(0xBA8304);     // blip handle
+    static inline auto& airstrip_blip = DatosExe::Bss::bBA8304;     // blip handle
 
 public:
     static void InjectHooks();

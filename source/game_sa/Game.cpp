@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
 
 #include "UIRenderer.h"
 
@@ -176,7 +177,7 @@ void ValidateVersion() {
         NOTSA_UNREACHABLE("Invalid version\npeds.col version text does not start with 'grandtheftauto3'.");
     }
 
-    static auto& version_name = StaticRef<char[64]>(0xB72C28);
+    static auto& version_name = DatosExe::Bss::bB72C28;
 
     strncpy(version_name, &buf[15], 64u); // Como el original: strncpy (0x821F40); strncpy_s rellenaba con 0xFE en Debug
     CFileMgr::CloseFile(file);

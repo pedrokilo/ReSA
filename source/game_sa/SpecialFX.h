@@ -5,10 +5,12 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "eWeaponType.h"
 
-static inline auto& gpFinishFlagTex = StaticRef<RwTexture*>(0xC7C718);
+static inline auto& gpFinishFlagTex = DatosExe::Bss::bC7C718;
 
 class CSpecialFX {
 public:

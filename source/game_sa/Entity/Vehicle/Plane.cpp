@@ -17,6 +17,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -588,12 +590,12 @@ static void PlaneGenerationSelect355(int32 aircraftCount){
   }
   if(state)return;
  }
- if(StaticRef<bool>(0xC0BC5C)){
+ if(DatosExe::Bss::bC0BC5C){
   if(!CTheScripts::IsPlayerOnAMission()&&uint32(previous+350000u)<CTimer::GetTimeInMS()){model=497;state=1;return;}
   if(state)return;
  }
  if(CGameLogic::LaRiotsActiveHere()){state=1;model=497;return;}
- if(!state&&StaticRef<int16>(0xC81314)!=0&&StaticRef<int16>(0xC81314)!=4&&!StaticRef<bool>(0xC0BC5C)&&StaticRef<int16>(0xC81320)!=19&&StaticRef<int16>(0xC8131C)!=19&&uint32(previous+200000u)<CTimer::GetTimeInMS()&&!CPlane::AreWeInNoBigPlaneZone()){
+ if(!state&&StaticRef<int16>(0xC81314)!=0&&StaticRef<int16>(0xC81314)!=4&&!DatosExe::Bss::bC0BC5C&&StaticRef<int16>(0xC81320)!=19&&StaticRef<int16>(0xC8131C)!=19&&uint32(previous+200000u)<CTimer::GetTimeInMS()&&!CPlane::AreWeInNoBigPlaneZone()){
   bool allowed=FindPlayerVehicle(-1,false)==nullptr;
   if(!allowed){allowed=int32(appearance())!=3;if(allowed)allowed=int32(appearance())!=5;}
   if(allowed){model=(CGeneral::GetRandomNumber()&1)?592:577;state=1;}
@@ -1229,7 +1231,7 @@ void CPlane::ProcessFlyingCarStuff() {
     if (!(m_fPropSpeed > DatosExe::Data::v8D33CC) && !PlaneSpeedSquaredAboveCpp(&m_vecMoveSpeed.x, DatosExe::Rdata::k859068)) return;
     if (m_nModelIndex == 520 && status() == 0 && int32(*reinterpret_cast<uint16*>(bytes + 0x86C)) >= int32(StaticRef<int16>(0x8D33C8))) {
         auto* old = m_pFlyingHandlingData;
-        auto* modelInfo = StaticRef<uint8*>(0xA9B76C);
+        auto* modelInfo = DatosExe::Bss::bA9B76C;
         m_pFlyingHandlingData = gHandlingDataMgr.GetFlyingPointer(modelInfo[0x4A]);
         if (double(m_fAccelerationBreakStatus) > DatosExe::Rdata::k859EF8 || (bytes[0x960] < 4 && !(*reinterpret_cast<uint32*>(bytes + 0x40) & 0x08000000)))
             FlyingControl(eFlightModel(6), skid, up, -lateral, m_fAccelerationBreakStatus * DatosExe::Data::v8D341C);

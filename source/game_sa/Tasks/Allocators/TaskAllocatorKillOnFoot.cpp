@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "TaskAllocatorKillOnFoot.h"
 #include "TaskComplexLeaveCar.h"
@@ -91,7 +92,7 @@ void CTaskAllocatorKillOnFoot::AllocateTasks(CPedGroupIntelligence* intel) {
 
     // 0x69BD31
     // Como el original: el global 0xC1A554 fuerza la rama de armas de fuego (sin comprobar el objetivo)
-    if (StaticRef<bool>(0xC1A554) || (m_Target && !m_Target->GetActiveWeapon().IsTypeMelee())) {
+    if (DatosExe::Bss::bC1A554 || (m_Target && !m_Target->GetActiveWeapon().IsTypeMelee())) {
         CPedList membersWithGuns{};
         membersWithGuns.ExtractPedsWithGuns(members);
 

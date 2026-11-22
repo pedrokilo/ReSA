@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "Vector.h"
 #include "PtrListDoubleLink.h"
@@ -17,7 +18,7 @@ class CPed;
 
 class CCover {
 public:
-    static inline auto& m_NumPoints = StaticRef<uint32>(0xC197A4);
+    static inline auto& m_NumPoints = DatosExe::Bss::bC197A4;
     static inline auto& m_Points = StaticRef<std::array<CCoverPoint, 100>>(0xC197C8);
     inline static auto&                          m_ListOfProcessedBuildings = StaticRef<CPtrListDoubleLink<CBuilding*>>(0xC1A2B8);
 

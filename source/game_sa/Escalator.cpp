@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "Escalator.h"
 
@@ -35,7 +36,7 @@ void CEscalator::InjectHooks() {
 // 0x717860
 void CEscalator::SwitchOff() {
     // Como el original: bandera de depuración del EXE alrededor de cada borrado.
-    auto& deletingEscalator = StaticRef<bool>(0xC6E98C);
+    auto& deletingEscalator = DatosExe::Bss::bC6E98C;
 
     if (!m_StepObjectsCreated) {
         return;

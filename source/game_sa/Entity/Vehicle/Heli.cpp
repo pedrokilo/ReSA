@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
@@ -814,10 +815,10 @@ void CHeli::UpdateHelis() {
     // 0xB7CB8C (CWanted::UseNewsHeliInAdditionToPolice) y la bandera: con ambas se mira el byte 0x8E72F0, si no la bandera se anula y se mira 0x8E73A4
     bool allowed;
     if (CWanted::UseNewsHeliInAdditionToPolice && newsAllowed) {
-        allowed = StaticRef<uint8>(0x8E72F0) == 1;
+        allowed = DatosExe::Bss::b8E72F0 == 1;
     } else {
         newsAllowed = false;
-        allowed = StaticRef<uint8>(0x8E73A4) == 1;
+        allowed = DatosExe::Bss::b8E73A4 == 1;
     }
 
     // Generacion: el temporizador (sin signo) se rearma aunque no falte ningun helicoptero
@@ -1596,7 +1597,7 @@ void CHeli::ProcessControl() {
     UpdateWinch();    // 0x6D3B80
     ProcessWeapons(); // 0x6E3950
 
-    if (StaticRef<uint8>(0xC0B184) & 1) {
+    if (DatosExe::Bss::bC0B184 & 1) {
         float limit = Store(Mul(Mul(CTimer::GetTimeStep(), kJitter), kEventScale));
         if (playerChase) {
             limit = Store(Add(limit, limit));

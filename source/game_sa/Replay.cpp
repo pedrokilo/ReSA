@@ -26,6 +26,8 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE2.h"
 
 #include "Camera.h"
 #include "ControllerConfigManager.h"
@@ -406,7 +408,7 @@ void CReplay::Update() {
     if (CTimer::GetIsCodePaused() || CTimer::GetIsUserPaused())
         return;
 
-    static auto& s_FrameRecordCounter = StaticRef<uint32>(0x97FB40);
+    static auto& s_FrameRecordCounter = DatosExe::Bss::b97FB40;
     switch (Mode) {
     case MODE_RECORD:
         if (CTimer::GetTimeInMS() - s_FrameRecordCounter > 26) {
@@ -621,7 +623,7 @@ void CReplay::Display() {
         return;
 
     // Como el original: contador de frames de 16 bits; el texto parpadea con el bit 5.
-    static auto& s_ReplayTextCounter = StaticRef<uint32>(0xA43240);
+    static auto& s_ReplayTextCounter = DatosExe::Bss::bA43240;
     s_ReplayTextCounter = (s_ReplayTextCounter + 1) & 0xFFFF;
     if (!(s_ReplayTextCounter & 0x20))
         return;
@@ -1005,9 +1007,9 @@ void CReplay::ProcessReplayCamera() {
 // 0x45D760
 void CReplay::ProcessLookAroundCam() {
     if (bAllowLookAroundCam) {
-        static auto& playerCameraDistance = StaticRef<float>(0x97FAD4);
-        static auto& viewAngle            = StaticRef<float>(0x97FAD8);
-        static auto& playerCameraDirAngle = StaticRef<float>(0x97FADC);
+        static auto& playerCameraDistance = DatosExe::Bss::b97FAD4;
+        static auto& viewAngle            = DatosExe::Bss::b97FAD8;
+        static auto& playerCameraDirAngle = DatosExe::Bss::b97FADC;
 
         // Como el original: el ratón se escala multiplicando por 0,005 y basta con que |x| o |y| supere 0,01.
         const float mouseX = CPad::NewMouseControllerState.m_AmountMoved.x * 0.005f;

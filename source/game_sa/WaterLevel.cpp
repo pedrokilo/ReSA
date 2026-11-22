@@ -17,6 +17,10 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -360,7 +364,7 @@ struct WaterLayerParams { float scale, shiftU, shiftV; uint8 alpha; };
 // Como el original (0x6E8F00..0x6E8FF3 / 0x6E9974..): constantes float 0.08f/0.04f (multiplicacion, no division) y alfa de capa.
 WaterLayerParams GetWaterLayerParams(int32 layer) {
     if (layer == 0) {
-        return { DatosExe::Rdata::k859018, StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };
+        return { DatosExe::Rdata::k859018, DatosExe::Bss::bC21184, DatosExe::Bss::bC21180, StaticRef<uint8>(0x8D3808) };
     }
     return { DatosExe::Rdata::k858CEC, StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), DatosExe::Data::v8D380C };
 }
@@ -435,7 +439,7 @@ void CWaterLevel::RenderWakeSegment(
     const float angle = float(CTimer::GetTimeInMS() & 0xFFFu) * DatosExe::Rdata::k872028;
     const float* mults = &StaticRef<float>(0x8D390C); // 5 floats consecutivos (0x8D390C..0x8D391C)
     const float windRadius = CWeather::WindClipped * 0.4f + 0.2f; // 0x858EE8 / 0x858CC4
-    const float uvShiftX = StaticRef<float>(0xC228D4), uvShiftY = StaticRef<float>(0xC228D8);
+    const float uvShiftX = DatosExe::Bss::bC228D4, uvShiftY = StaticRef<float>(0xC228D8);
 
     for (int32 part = 0; part < 4; ++part) {
         if (nIdx >= 0xFFA || nVtx >= 0x7FC) {
@@ -1671,7 +1675,7 @@ uint16& WaterIndexWord(int32 i) { return *reinterpret_cast<uint16*>(0xC4B958u + 
 
 // 0x6E91D0 (cdecl). El EXE hace x87 de 24 bits: cada tramo esta en X87Math (Wl91*). La division entera (idiv) lanza la excepcion de division con halfX o halfY iguales a cero, como el EXE.
 void CWaterLevel::RenderHighDetailWaterRectangle_OneLayer(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4, int32 WaterLayer, int32 /*twiceArea*/, int32 /*triangular*/, int32 halfX, int32 halfY) {
-    auto& colorIndex = StaticRef<int32>(0xC1F960);
+    auto& colorIndex = DatosExe::Bss::bC1F960;
     auto& nVtx = StaticRef<int32>(0xC4B950);
     auto& nIdx = StaticRef<int32>(0xC4B954);
     // Como el original (0x6E91DA..0x6E91E4): contador de colores a cero y vaciado del bufer (0x6E7680).
@@ -1761,7 +1765,7 @@ void CWaterLevel::RenderHighDetailWaterRectangle_OneLayer(int32 minX, int32 maxX
                     float bigAmp, smallAmp;
                     Wl91Amps(fade, big, smallV, &bigAmp, &smallAmp);
                     float outWave = z, colorMult{}, glare{};
-                    CalculateWavesOnlyForCoordinate(x, y, bigAmp, smallAmp, outWave, colorMult, glare, StaticRef<CVector>(0xC278D4));
+                    CalculateWavesOnlyForCoordinate(x, y, bigAmp, smallAmp, outWave, colorMult, glare, DatosExe::Bss::bC278D4);
                     vtx = nVtx;
                     auto& vertex = WaterBufferVertex(vtx);
                     vertex.u = Wl91Affine(xOffset, 0.08f, shiftU);
@@ -1792,7 +1796,7 @@ void CWaterLevel::RenderHighDetailWaterRectangle_OneLayer(int32 minX, int32 maxX
                     colorIndex = ci;
                 }
                 // Como el original (0x6E9859..0x6E98C0): con el byte 0xC278E0 distinto de cero no se avanza ni el vertice ni los indices; si no, dos triangulos (salvo en la primera fila y columna).
-                if (StaticRef<uint8>(0xC278E0) == 0) {
+                if (DatosExe::Bss::bC278E0 == 0) {
                     if (jY != 0 && i != 0) {
                         const int32 base = vtx - halfX;
                         WaterIndexWord(idx + 0) = uint16(base - 2);
@@ -1824,7 +1828,7 @@ void CWaterLevel::RenderHighDetailWaterRectangle_OneLayer(int32 minX, int32 maxX
 // 0x6E8780 (cdecl). Triangulo de (halfW + 1) filas; ver RenderHighDetailWaterRectangle_OneLayer. Base = esquina 1 si X1 == X3, si no la 2 (con las diferencias invertidas). La capa 2 (nunca la usa el EXE)
 // es una transcripcion: el EXE multiplica por una ranura de pila sin inicializar en ese camino, aqui 0.0f.
 void CWaterLevel::RenderHighDetailWaterTriangle_OneLayer(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3, int32 WaterLayer, int32 /*halfSquared*/, int32 /*triangular*/, int32 halfW) {
-    auto& colorIndex = StaticRef<int32>(0xC1F960);
+    auto& colorIndex = DatosExe::Bss::bC1F960;
     auto& nVtx = StaticRef<int32>(0xC4B950);
     auto& nIdx = StaticRef<int32>(0xC4B954);
     colorIndex = 0;
@@ -1905,7 +1909,7 @@ void CWaterLevel::RenderHighDetailWaterTriangle_OneLayer(int32 X1, int32 Y1, CRe
                     float bigAmp, smallAmp;
                     Wl91Amps(fade, double(big), smallV, &bigAmp, &smallAmp);
                     float outWave = z, colorMult{}, glare{};
-                    CalculateWavesOnlyForCoordinate(curX, curY, bigAmp, smallAmp, outWave, colorMult, glare, StaticRef<CVector>(0xC278D4));
+                    CalculateWavesOnlyForCoordinate(curX, curY, bigAmp, smallAmp, outWave, colorMult, glare, DatosExe::Bss::bC278D4);
                     vtx = nVtx;
                     auto& vertex = WaterBufferVertex(vtx);
                     vertex.u = Wl91Affine(xOffset, 0.08f, shiftU);

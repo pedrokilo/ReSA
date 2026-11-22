@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 
 #include "PedAttractorManager.h"
 #include <TaskTypes/TaskComplexUseAttractor.h>
@@ -297,7 +298,7 @@ void CPedAttractorManager::InjectHooks() {
 // 0x5EE190
 CPedAttractorManager* GetPedAttractorManager() {
     // Como el original: se crea con operator new la primera vez y se guarda en 0xC09840 (nunca se libera)
-    auto& manager = StaticRef<CPedAttractorManager*>(0xC09840);
+    auto& manager = DatosExe::Bss::bC09840;
     if (!manager) {
         void* const mem = ::operator new(sizeof(CPedAttractorManager));
         manager = mem ? new (mem) CPedAttractorManager : nullptr;

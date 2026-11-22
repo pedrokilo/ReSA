@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
@@ -2754,7 +2755,7 @@ __declspec(noinline) static void EmitFootDustParticles(CPed* ped, CVector* posit
         velocity.x = (static_cast<float>(CGeneral::GetRandomNumber()) * kFootRandScale) * 0.3F - 0.15F;
         velocity.y = (static_cast<float>(CGeneral::GetRandomNumber()) * kFootRandScale) * 0.3F - 0.15F;
         velocity.z = 0.0F;
-        if (!StaticRef<uint8>(0xB72C70)) { // el EXE solo emite si este byte es 0
+        if (!DatosExe::Bss::bB72C70) { // el EXE solo emite si este byte es 0
             g_fx.m_SmokeII3expand->AddParticle(point, velocity, 0.0F, mult, -1.0F, 1.2F, 0.6F, false);
         }
     }
@@ -5382,7 +5383,7 @@ int32 CPed::ProcessEntityCollision(CEntity* entity, CColPoint* colPoints)
                 {
                     // todo en la pila x87 (X87Math.cpp): 0x8D12C0 = mezcla dia/noche, 0x8D21E4 = factor de suavizado del jugador
                     const bool player = m_nPedType == PED_TYPE_PLAYER1 || m_nPedType == PED_TYPE_PLAYER2;
-                    m_fContactSurfaceBrightness = PecBrightnessCpp(lp0.m_nLightingB.value, DatosExe::Data::v8D12C0, CTimer::ms_fTimeStep, DatosExe::Data::v8D21E4, m_fContactSurfaceBrightness, player);
+                    m_fContactSurfaceBrightness = PecBrightnessCpp(lp0.m_nLightingB.value, StaticRef<float>(0x8D12C0), CTimer::ms_fTimeStep, DatosExe::Data::v8D21E4, m_fContactSurfaceBrightness, player);
                 }
 
                 // entidad de contacto (0x5E2A5B..0x5E2B4C)

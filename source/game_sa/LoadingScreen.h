@@ -5,6 +5,9 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE3.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 
@@ -31,38 +34,38 @@ class CSprite2d;
 
 class CLoadingScreen {
 private:
-    static inline auto& m_bActive = StaticRef<bool>(0xBAB318);
-    static inline auto& m_bWantToPause = StaticRef<bool>(0xBAB319); // unused
-    static inline auto& m_bPaused = StaticRef<bool>(0xBAB31A); // unused
+    static inline auto& m_bActive = DatosExe::Bss::bBAB318;
+    static inline auto& m_bWantToPause = DatosExe::Bss::bBAB319; // unused
+    static inline auto& m_bPaused = DatosExe::Bss::bBAB31A; // unused
     static bool m_bForceShutdown; // unknown, unused
     static inline auto& m_aSplashes = StaticRef<std::array<CSprite2d, +eDisplayedSplash::COUNT>>(0xBAB35C);
     static inline auto& m_currDisplayedSplash = StaticRef<eDisplayedSplash>(0x8D093C);
 
-    static inline auto& m_bFading = StaticRef<bool>(0xBAB31C);
-    static inline auto& m_bLegalScreen = StaticRef<bool>(0xBAB31D);
-    static inline auto& m_bFadeInNextSplashFromBlack = StaticRef<bool>(0xBAB31E);
-    static inline auto& m_bFadeOutCurrSplashToBlack = StaticRef<bool>(0xBAB31F);
-    static inline auto& m_FadeAlpha = StaticRef<uint8>(0xBAB320);
-    static inline auto& m_StartFadeTime = StaticRef<float>(0xBAB324);
-    static inline auto& m_ClockTimeOnPause = StaticRef<float>(0xBAB328); // unused
-    static inline auto& m_PauseTime = StaticRef<float>(0xBAB32C); // second
+    static inline auto& m_bFading = DatosExe::Bss::bBAB31C;
+    static inline auto& m_bLegalScreen = DatosExe::Bss::bBAB31D;
+    static inline auto& m_bFadeInNextSplashFromBlack = DatosExe::Bss::bBAB31E;
+    static inline auto& m_bFadeOutCurrSplashToBlack = DatosExe::Bss::bBAB31F;
+    static inline auto& m_FadeAlpha = DatosExe::Bss::bBAB320;
+    static inline auto& m_StartFadeTime = DatosExe::Bss::bBAB324;
+    static inline auto& m_ClockTimeOnPause = DatosExe::Bss::bBAB328; // unused
+    static inline auto& m_PauseTime = DatosExe::Bss::bBAB32C; // second
 
-    static inline auto& m_PercentLoaded = StaticRef<float>(0xBAB330);
-    static inline auto& m_TimeStartedLoading = StaticRef<float>(0xBAB334); // unused
-    static inline auto& m_TimeBarAppeared = StaticRef<float>(0xBAB338);
+    static inline auto& m_PercentLoaded = DatosExe::Bss::bBAB330;
+    static inline auto& m_TimeStartedLoading = DatosExe::Bss::bBAB334; // unused
+    static inline auto& m_TimeBarAppeared = DatosExe::Bss::bBAB338;
 
-    static inline auto& m_LoadingGxtMsg1 = StaticRef<GxtChar[80]>(0xBAB2C8);
-    static inline auto& m_LoadingGxtMsg2 = StaticRef<GxtChar[80]>(0xBAB278);
+    static inline auto& m_LoadingGxtMsg1 = DatosExe::Bss::bBAB2C8;
+    static inline auto& m_LoadingGxtMsg2 = DatosExe::Bss::bBAB278;
 
-    static inline auto& m_PopUpMessage = StaticRef<char[16]>(0xBAB268);
+    static inline auto& m_PopUpMessage = DatosExe::Bss::bBAB268;
 
-    static inline auto& m_bSignalDelete = StaticRef<bool>(0xBAB33C); // unused
-    static inline auto& m_bReadyToDelete = StaticRef<bool>(0xBAB33D);
+    static inline auto& m_bSignalDelete = DatosExe::Bss::bBAB33C; // unused
+    static inline auto& m_bReadyToDelete = DatosExe::Bss::bBAB33D;
 
     static inline auto& m_numChunksLoaded = DatosExe::Data::v8D0940; // -1
     // static int32 m_nChunksToLoad; // Added in Mobile
     static inline auto& m_chunkBarAppeared = DatosExe::Data::v8D0944; // -1
-    static inline auto& m_timeSinceLastScreen = StaticRef<float>(0xBAB340);
+    static inline auto& m_timeSinceLastScreen = DatosExe::Bss::bBAB340;
 
 public:
     static void LoadSplashes(bool useSplashId, eLoadingLogo id);

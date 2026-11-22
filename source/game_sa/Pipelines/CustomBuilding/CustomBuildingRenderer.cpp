@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include "CustomBuildingRenderer.h"
 
@@ -104,7 +105,7 @@ void CCustomBuildingRenderer::UpdateDayNightBalanceParam() {
 void CCustomBuildingRenderer::Update() {
     ZoneScoped;
     UpdateDayNightBalanceParam();
-    auto& workingIndex = StaticRef<uint32>(0xC02C14);
+    auto& workingIndex = DatosExe::Bss::bC02C14;
     workingIndex = (workingIndex + 1u) & 15u;
-    StaticRef<uint32>(0xC02C18) = 0;
+    DatosExe::Bss::bC02C18 = 0;
 }

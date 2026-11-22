@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include "winincl.h"
 #include <rwplcore.h>
@@ -41,7 +42,7 @@ END GENERATED HOOK STATUS */
 static auto& RwInitializedDword        = StaticRef<uint32>(0xC920E8);
 static auto& ForegroundAppDword        = StaticRef<uint32>(0x8D621C);
 static auto& WindowedDword             = StaticRef<uint32>(0xC920CC);
-static auto& CameraResizeRejectedDword = StaticRef<uint32>(0xC9246C); // 1 si RsEventHandler(rsCAMERASIZE) no pudo fijar el tamaño pedido (solo la escribe este procedimiento)
+static auto& CameraResizeRejectedDword = DatosExe::Bss::bC9246C; // 1 si RsEventHandler(rsCAMERASIZE) no pudo fijar el tamaño pedido (solo la escribe este procedimiento)
 
 // 0x747EB0 (WNDPROC __stdcall, ret 0x10)
 // Reconstrucción exacta del EXE: mismos mensajes, mismo orden de llamadas y mismos retornos. Los llamadores son user32 (la única referencia de código es Win32_InitApplication),

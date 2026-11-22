@@ -23,8 +23,8 @@ VALIDATE_SIZE(ExtraVertColour, 12); // 24 on Android
 
 class CCustomBuildingDNPipeline {
 public:
-    static inline auto& m_fDNBalanceParam = DatosExe::Data::v8D12C0; // 1.0f
-    static inline auto& ms_extraVertColourPluginOffset = DatosExe::Data::v8D12BC; // -1
+    static inline auto& m_fDNBalanceParam = StaticRef<float>(0x8D12C0); // 1.0f
+    static inline auto& ms_extraVertColourPluginOffset = StaticRef<uint32>(0x8D12BC); // -1
     static inline auto& ObjPipeline = StaticRef<RxPipeline*>(0xC02C1C);
     static bool& m_bCameraChange;
     static uint32& m_AtmDNWorkingIndex;

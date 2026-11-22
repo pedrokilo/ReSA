@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #define APP_CLASS "Grand theft auto San Andreas"
 

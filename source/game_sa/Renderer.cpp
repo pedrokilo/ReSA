@@ -32,6 +32,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "X87Math.h"
 
 #include "Renderer.h"
@@ -42,7 +44,7 @@ END GENERATED HOOK STATUS */
 #include "CarFXRenderer.h"
 
 #include "toolsmenu/UIRenderer.h"
-auto& gnRendererModelRequestFlags = StaticRef<uint32>(0xB745C4);
+auto& gnRendererModelRequestFlags = DatosExe::Bss::bB745C4;
 auto& gpOutEntitiesForGetObjectsInFrustum = StaticRef<CEntity**>(0xB76854);
 
 namespace {
@@ -1361,7 +1363,7 @@ void CRenderer::ScanSectorList_RequestModels(int32 sectorX, int32 sectorY) {
 // 0x554FE0
 void CRenderer::ScanWorld() {
     // Como el original: marca como construidas las dos variables estáticas locales (guarda 0xB76894, bits 0 y 1)
-    StaticRef<uint32>(0xB76894) |= 3u;
+    DatosExe::Bss::bB76894 |= 3u;
 
     const float& farPlane = TheCamera.m_pRwCamera->farPlane;
     const float& width  = TheCamera.m_pRwCamera->viewWindow.x;
@@ -1392,7 +1394,7 @@ void CRenderer::ScanWorld() {
 
     static auto& lastCameraPosition = StaticRef<CVector>(0xB76888);
     static auto& lastCameraForward = StaticRef<CVector>(0xB7687C);
-    static auto& bCameraHasNotMoved = StaticRef<bool>(0xB745C8); // sin uso en el EXE
+    static auto& bCameraHasNotMoved = DatosExe::Bss::bB745C8; // sin uso en el EXE
 
     // Como el original: la cámara "no se ha movido" si |pos - última|² < 16 (sumando z, x, y) y
     // forward · último forward > 0,98 (sumando z, x, y)

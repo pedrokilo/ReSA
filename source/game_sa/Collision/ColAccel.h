@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "IplDef.h"
 
@@ -63,14 +64,14 @@ public:
     static inline auto& m_colBounds = StaticRef<CColAccelColBound*>(0xBC4090);
     static inline auto& m_iplDefs = StaticRef<IplDef*>(0xBC4094);
     static inline auto& m_iSectionSize = StaticRef<int32*>(0xBC4098);
-    static inline auto& m_iCachingColSize = StaticRef<int32>(0xBC409C);
+    static inline auto& m_iCachingColSize = DatosExe::Bss::bBC409C;
     static inline auto& m_iCacheState = StaticRef<eColAccelState>(0xBC40A0);
     static inline auto& mp_caccColItems = StaticRef<CColAccelColEntry*>(0xBC40A4);
-    static inline auto& m_iNumColItems = StaticRef<int32>(0xBC40A8);
+    static inline auto& m_iNumColItems = DatosExe::Bss::bBC40A8;
     static inline auto& mp_caccIPLItems = StaticRef<CColAccelIPLEntry*>(0xBC40AC);
-    static inline auto& m_iNumIPLItems = StaticRef<int32>(0xBC40B0);
-    static inline auto& m_iNumSections = StaticRef<int32>(0xBC40B4);
-    static inline auto& m_iNumColBounds = StaticRef<int32>(0xBC40B8);
+    static inline auto& m_iNumIPLItems = DatosExe::Bss::bBC40B0;
+    static inline auto& m_iNumSections = DatosExe::Bss::bBC40B4;
+    static inline auto& m_iNumColBounds = DatosExe::Bss::bBC40B8;
     static const char*         mp_cCacheName;
 
 public:

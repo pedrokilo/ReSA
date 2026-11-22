@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "Pad.h"
@@ -42,7 +43,7 @@ END GENERATED HOOK STATUS */
 
 // mouse states 
 
-static auto& byte_B73403 = StaticRef<bool>(0xB73403); // TODO: Find out what modifies this, as it has no value by default..
+static auto& byte_B73403 = DatosExe::Bss::bB73403; // TODO: Find out what modifies this, as it has no value by default..
 static auto& byte_8CD782 = DatosExe::Data::v8CD782; // true by default, left here for documentation purposes, as it's used in multiple CPad functions
 static auto& byte_B73401 = StaticRef<char>(0xB73401); // unused, unknown
 
@@ -1430,7 +1431,7 @@ bool CPad::sub_540A10() {
 
 // 0x540950
 bool CPad::GetAnaloguePadUp() {
-    static auto& oldfStickY = StaticRef<int16>(0xB736F0); // 0
+    static auto& oldfStickY = DatosExe::Bss::bB736F0; // 0
     auto leftStickY = GetPad()->GetLeftStickY();
 
     if (leftStickY < -15 && oldfStickY >= -5) {
@@ -1444,7 +1445,7 @@ bool CPad::GetAnaloguePadUp() {
 
 // 0x5409B0
 bool CPad::GetAnaloguePadLeft() {
-    static auto& oldfStickX = StaticRef<int16>(0xB736F8); // 0
+    static auto& oldfStickX = DatosExe::Bss::bB736F8; // 0
     auto leftStickX = GetPad()->GetLeftStickX();
 
     if (leftStickX < -15 && oldfStickX >= -5) {
@@ -1458,7 +1459,7 @@ bool CPad::GetAnaloguePadLeft() {
 
 // 0x5409E0
 bool CPad::GetAnaloguePadRight() {
-    static auto& oldfStickX = StaticRef<int16>(0xB736FC); // 0
+    static auto& oldfStickX = DatosExe::Bss::bB736FC; // 0
     auto leftStickX = GetPad()->GetLeftStickX();
 
     if (leftStickX > 15 && oldfStickX <= 5) {
@@ -1472,7 +1473,7 @@ bool CPad::GetAnaloguePadRight() {
 
 // 0x540980
 bool CPad::GetAnaloguePadDown() {
-    static auto& oldfStickY = StaticRef<int16>(0xB736F4); // 0
+    static auto& oldfStickY = DatosExe::Bss::bB736F4; // 0
     auto leftStickY = GetPad()->GetLeftStickY();
 
     if (leftStickY > 15 && oldfStickY <= 5) {

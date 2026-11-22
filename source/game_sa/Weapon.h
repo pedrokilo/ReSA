@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 #include "eWeaponType.h"
 #include "Vector2D.h"
@@ -49,7 +50,7 @@ class CWeaponInfo;
 class CWeapon {
 public:
     static inline auto& ms_fExtinguisherAimAngle = StaticRef<float>(0x8D610C); // default -0.34907 rad. (-pi/8)
-    static inline auto& bPhotographHasBeenTaken  = StaticRef<bool>(0xC8A7C0);
+    static inline auto& bPhotographHasBeenTaken  = DatosExe::Bss::bC8A7C0;
     static inline auto& ms_bTakePhoto            = StaticRef<bool>(0xC8A7C1);
     static inline auto& ms_PelletTestCol         = StaticRef<CColModel>(0xC8A7DC);
 

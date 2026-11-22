@@ -5,6 +5,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "Text/Text.h"
 #include "Ped.h"
@@ -365,7 +367,7 @@ public:
     static inline std::span<uint8, MISSION_SCRIPT_SIZE> MissionBlock{ ScriptSpace.data() + MainSCMBlock.size(), MISSION_SCRIPT_SIZE };
 
     static inline auto& SwitchJumpTable = StaticRef<std::array<tScriptSwitchCase, MAX_NUM_SwitchJumpTable>>(0xA43CF8);
-    static inline auto& NumberOfEntriesInSwitchTable = StaticRef<uint16>(0xA43F50);
+    static inline auto& NumberOfEntriesInSwitchTable = DatosExe::Bss::bA43F50;
     static inline auto& NumberOfEntriesStillToReadForSwitch = StaticRef<uint16>(0xA43F60);
 
     static inline auto& CardStack = StaticRef<std::array<int16, MAX_NUM_CARDS>>(0xA44218);
@@ -377,12 +379,12 @@ public:
     static inline auto& InvisibilitySettingArray = StaticRef<std::array<CEntity*, MAX_NUM_INVISIBILITY_SETTINGS>>(0xA449E0);
 
     static inline auto& LocalVariablesForCurrentMission = StaticRef<std::array<tScriptParam, MAX_NUM_LOCAL_VARIABLES_FOR_CURRENT_MISSION>>(0xA48960);
-    static inline auto& LargestNumberOfMissionScriptLocalVariables = StaticRef<uint32>(0xA444B4);
+    static inline auto& LargestNumberOfMissionScriptLocalVariables = DatosExe::Bss::bA444B4;
 
     static inline auto& BuildingSwapArray = StaticRef<std::array<tBuildingSwap, MAX_NUM_BUILDING_SWAPS>>(0xA44A30);
 
     static inline auto& UsedObjectArray = StaticRef<std::array<tUsedObject, MAX_NUM_USED_OBJECTS>>(0xA44B70);
-    static inline auto& NumberOfUsedObjects = StaticRef<uint16>(0xA44B6C);
+    static inline auto& NumberOfUsedObjects = DatosExe::Bss::bA44B6C;
 
     static inline auto& EntitiesWaitingForScriptBrain = StaticRef<std::array<tScriptBrainWaitEntity, MAX_NUM_ENTITIES_WAITING_FOR_SCRIPT_BRAIN>>(0xA476B0);
     static inline auto& IntroTextLines = StaticRef<std::array<tScriptText, MAX_NUM_INTRO_TEXT_LINES>>(0xA913E8);
@@ -393,8 +395,8 @@ public:
 
     static inline auto& ScriptSprites = StaticRef<std::array<CSprite2d, MAX_NUM_SCRIPT_SPRITES>>(0xA94B68);
 
-    static inline auto& NumberOfExclusiveMissionScripts = StaticRef<uint16>(0xA444B8);
-    static inline auto& NumberOfMissionScripts = StaticRef<uint16>(0xA444BC);
+    static inline auto& NumberOfExclusiveMissionScripts = DatosExe::Bss::bA444B8;
+    static inline auto& NumberOfMissionScripts = DatosExe::Bss::bA444BC;
 
     //
     // Script things
@@ -408,7 +410,7 @@ public:
     static inline auto& NumberOfScriptSearchLights = StaticRef<uint16>(0xA90830);
 
     static inline auto& ScriptCheckpointArray = StaticRef<std::array<tScriptCheckpoint, MAX_NUM_SCRIPT_CHECKPOINTS>>(0xA44070);
-    static inline auto& NumberOfScriptCheckpoints = StaticRef<uint16>(0xA44068);
+    static inline auto& NumberOfScriptCheckpoints = DatosExe::Bss::bA44068;
     static inline auto&   UnknownDebugStuff         = StaticRef<uint32>(0xA95190); // used in DO_DEBUG_STUFF command
 
     enum class eUseTextCommandState : uint8 {
@@ -439,23 +441,23 @@ public:
     static inline auto& RadarZoomValue = StaticRef<uint8>(0xA444A3);
     static inline auto& bPlayerIsOffTheMap = StaticRef<bool>(0xA444A4);
     static inline auto& RiotIntensity = StaticRef<char>(0xA444A5);
-    static inline auto& bPlayerHasMetDebbieHarry = StaticRef<bool>(0xA444A6);
+    static inline auto& bPlayerHasMetDebbieHarry = DatosExe::Bss::bA444A6;
     static inline auto& bDisplayNonMiniGameHelpMessages = StaticRef<bool>(0xA444A7);
     static inline auto& bMiniGameInProgress = StaticRef<bool>(0xA444A8);
-    static inline auto& ScriptPickupCycleIndex = StaticRef<int32>(0xA444AC);
-    static inline auto& FailCurrentMission = StaticRef<int8>(0xA444B0);
+    static inline auto& ScriptPickupCycleIndex = DatosExe::Bss::bA444AC;
+    static inline auto& FailCurrentMission = DatosExe::Bss::bA444B0;
     static inline auto& bAlreadyRunningAMissionScript = StaticRef<bool>(0xA444B1);
-    static inline auto& LargestMissionScriptSize = StaticRef<uint32>(0xA444C0);
-    static inline auto& MainScriptSize = StaticRef<uint32>(0xA444C4);
-    static inline auto& bUsingAMultiScriptFile = StaticRef<bool>(0xA447E8);
+    static inline auto& LargestMissionScriptSize = DatosExe::Bss::bA444C0;
+    static inline auto& MainScriptSize = DatosExe::Bss::bA444C4;
+    static inline auto& bUsingAMultiScriptFile = DatosExe::Bss::bA447E8;
     static inline auto& StoreVehicleIndex = StaticRef<int32>(0xA447EC);
     static inline auto& StoreVehicleWasRandom = StaticRef<bool>(0xA447F0);
-    static inline auto& CommandsExecuted = StaticRef<uint16>(0xA447F4);
-    static inline auto& ScriptsUpdated = StaticRef<uint16>(0xA447F8);
+    static inline auto& CommandsExecuted = DatosExe::Bss::bA447F4;
+    static inline auto& ScriptsUpdated = DatosExe::Bss::bA447F8;
     static inline auto& MessageWidth = StaticRef<uint16>(0xA44B60);
     static inline auto& MessageCentre = StaticRef<uint16>(0xA44B64);
     static inline auto& bUseMessageFormatting = StaticRef<bool>(0xA44B66);
-    static inline auto& LastRandomPedId = StaticRef<int32>(0xA476A4);
+    static inline auto& LastRandomPedId = DatosExe::Bss::bA476A4;
     static inline auto& LastMissionPassedTime = StaticRef<uint32>(0xA476A8);
     static inline auto& OnAMissionFlag = StaticRef<int32>(0xA476AC); // Refers to the offset of OM flag in script space.
     static inline auto& StreamedScripts = StaticRef<CStreamedScripts>(0xA47B60);

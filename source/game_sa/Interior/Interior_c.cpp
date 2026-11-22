@@ -20,6 +20,9 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE2.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/RdataConstantes.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
@@ -178,7 +181,7 @@ int32 Interior_c::Init(const CVector& pos) {
     CMatrix snapshot(reinterpret_cast<RwMatrix*>(&entity->GetMatrix()), false);
     const auto* box = reinterpret_cast<const uint8*>(m_box);
     if (box[0] != 99) {
-        const auto* other = StaticRef<const uint8*>(0xBB3DAC);
+        const auto* other = DatosExe::Bss::bBB3DAC;
         uint32 seed;
         if (other) {
             const uint32 a = InteriorTruncate(*reinterpret_cast<const float*>(other + 0x18));
@@ -202,7 +205,7 @@ int32 Interior_c::Init(const CVector& pos) {
     }
     CalcExitPts();
     if (!g_interiorMan.HasInteriorHadStealDataSetup(this)) {
-        auto& count = StaticRef<int32>(0xBB3914);
+        auto& count = DatosExe::Bss::bBB3914;
         if (count < 64) { reinterpret_cast<int32*>(0xBB3918)[count] = m_interiorId; ++count; }
     }
     if (box[0] == 2 || box[0] == 3) AddPickups();
@@ -1462,7 +1465,7 @@ int32 Interior_c::Office_PlaceEdgeFillers(int32 arg0, int32 a2, int32 a3, int32 
         return n15;
     }
     n17 = n4;
-    if ((n17 <= 90) || (StaticRef<uint8>(0xBB3DC8) != 0)) {
+    if ((n17 <= 90) || (DatosExe::Bss::bBB3DC8 != 0)) {
         if (n17 <= 75) {
             if (n17 <= 25) {
                 return 1;
@@ -1491,7 +1494,7 @@ int32 Interior_c::Office_PlaceEdgeFillers(int32 arg0, int32 a2, int32 a3, int32 
         if (furniture14 != nullptr) {
             AddInteriorInfo(7, float(n7), float(n8), ((n3 - 2) & 3), nullptr);
         }
-        StaticRef<uint8>(0xBB3DC8) = uint8(1);
+        DatosExe::Bss::bBB3DC8 = uint8(1);
         PlaceFurniture(furniture14, a2, a3, 0.0f, 1, n3, &n15, &n16, 0);
         return n15;
     }
@@ -1975,7 +1978,7 @@ int32 Interior_c::Shop_PlaceEdgeUnits(int32 a2, int32 a3, int32 a4, int32 a5) {
             Shop_Place3PieceUnit(a2, a3, a4, a5, n10);
             return n6;
         }
-        n11 = StaticRef<int32>(0xBB3DE4);
+        n11 = DatosExe::Bss::bBB3DE4;
         if (n11 <= 50) {
             if (n11 <= 25) {
                 if (n11 <= 10) {
@@ -2466,7 +2469,7 @@ void Interior_c::Unfurnish() {
         auto* entity = item->m_entity;
         if (held && held == entity && held->GetType() == ENTITY_TYPE_OBJECT
             && (*reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(held) + 0x140) & 0x2000)) {
-            ++StaticRef<uint16>(0xBB4A70);
+            ++DatosExe::Bss::bBB4A70;
             auto* bytes = reinterpret_cast<uint8*>(held);
             bytes[0x13C] = 3;
             *reinterpret_cast<uint32*>(bytes + 0x150) = CTimer::GetTimeInMS() + 99999999u;
@@ -2733,7 +2736,7 @@ bool Interior_c::AddInteriorInfo(int32 actionType, float offsetX, float offsetY,
 
 // 0x591F90
 void Interior_c::AddPickups() {
-    if (uint32(CTimer::GetTimeInMS() - StaticRef<uint32>(0xBB3DC4)) < 180000u) return;
+    if (uint32(CTimer::GetTimeInMS() - DatosExe::Bss::bBB3DC4) < 180000u) return;
     const auto* box = reinterpret_cast<const uint8*>(m_box);
     for (int32 attempt = 0; attempt < 100; ++attempt) {
         const int32 x = InteriorRandomCoordinate(box[2] - 1);

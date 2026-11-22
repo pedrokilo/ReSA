@@ -19,21 +19,13 @@ extern float v8AC260; // 0x008AC260
 extern float v8AC264; // 0x008AC264
 extern float v8AC268; // 0x008AC268
 extern float v8AC26C; // 0x008AC26C
-extern float v8AE5F0; // 0x008AE5F0
-extern float v8AE5F8; // 0x008AE5F8
-extern float v8AE600; // 0x008AE600
-extern float v8AE608; // 0x008AE608
-extern float v8AE610; // 0x008AE610
-extern float v8AE618; // 0x008AE618
 extern float v8AE620; // 0x008AE620
 extern float v8C8150; // 0x008C8150
 extern float v8C8158; // 0x008C8158
 extern float v8C815C; // 0x008C815C
 extern float v8CBA6C; // 0x008CBA6C
 extern float v8CBD10; // 0x008CBD10
-extern float v8CBD5C; // 0x008CBD5C
 extern float v8CBD60; // 0x008CBD60
-extern float v8CBD64; // 0x008CBD64
 extern float v8CBD98; // 0x008CBD98
 extern float v8CBE68; // 0x008CBE68
 extern float v8CBE6C; // 0x008CBE6C
@@ -50,8 +42,6 @@ extern float v8CBEAC; // 0x008CBEAC
 extern float v8CBEB8; // 0x008CBEB8
 extern float v8CBEBC; // 0x008CBEBC
 extern float v8CBEC0; // 0x008CBEC0
-extern float v8CBFAC; // 0x008CBFAC
-extern float v8CBFB4; // 0x008CBFB4
 extern float v8CBFBC; // 0x008CBFBC
 extern float v8CC2A4; // 0x008CC2A4
 extern float v8CC2A8; // 0x008CC2A8
@@ -175,8 +165,6 @@ extern float v8CD7CC; // 0x008CD7CC
 extern float v8CD7EC; // 0x008CD7EC
 extern float v8CD7F0; // 0x008CD7F0
 extern float v8CD7F4; // 0x008CD7F4
-extern float v8CD800; // 0x008CD800
-extern float v8CD804; // 0x008CD804
 extern float v8CD898; // 0x008CD898
 extern float v8CD89C; // 0x008CD89C
 extern float v8CDEC4; // 0x008CDEC4
@@ -196,8 +184,6 @@ extern float v8D0A28; // 0x008D0A28
 extern float v8D0A2C; // 0x008D0A2C
 extern float v8D0A30; // 0x008D0A30
 extern float v8D0A34; // 0x008D0A34
-extern float v8D12C0; // 0x008D12C0
-extern float v8D12D0; // 0x008D12D0
 extern float v8D132C; // 0x008D132C
 extern float v8D21E4; // 0x008D21E4
 extern float v8D21E8; // 0x008D21E8
@@ -279,8 +265,6 @@ extern float v8D349C; // 0x008D349C
 extern float v8D34A0; // 0x008D34A0
 extern float v8D34A4; // 0x008D34A4
 extern float v8D34A8; // 0x008D34A8
-extern float v8D34AC; // 0x008D34AC
-extern float v8D34B0; // 0x008D34B0
 extern float v8D34B4; // 0x008D34B4
 extern float v8D34B8; // 0x008D34B8
 extern float v8D34BC; // 0x008D34BC
@@ -311,10 +295,8 @@ extern float v8D395C; // 0x008D395C
 extern float v8D3960; // 0x008D3960
 extern float v8D3964; // 0x008D3964
 extern float v8D4B5C; // 0x008D4B5C
-extern float v8D5038; // 0x008D5038
 extern float v8D5068; // 0x008D5068
 extern float v8D50A4; // 0x008D50A4
-extern float v8D50B0; // 0x008D50B0
 extern float v8D50B8; // 0x008D50B8
 extern float v8D50DC; // 0x008D50DC
 extern float v8D50E0; // 0x008D50E0
@@ -324,7 +306,6 @@ extern float v8D5134; // 0x008D5134
 extern float v8D5138; // 0x008D5138
 extern float v8D513C; // 0x008D513C
 extern float v8D5148; // 0x008D5148
-extern float v8D514C; // 0x008D514C
 extern float v8D5150; // 0x008D5150
 extern float v8D5154; // 0x008D5154
 extern float v8D5158; // 0x008D5158

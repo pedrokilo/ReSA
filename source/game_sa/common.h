@@ -5,6 +5,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
+#include "DatosExe/DataBssE2.h"
 
 #include <Base.h>
 #include <string>
@@ -61,13 +63,13 @@ constexpr auto BUILD_NAME_FULL = "TEST"; // NOTSA
 static inline int32 gDefaultTaskTime = 9'999'999; // or 0x98967F a.k.a (ten million - 1)
 
 static inline auto& gString = StaticRef<char[352]>(0xB71670);
-static inline auto& gString2 = StaticRef<char[352]>(0xB71510);
+static inline auto& gString2 = DatosExe::Bss::bB71510;
 
 static inline auto& gGxtString = StaticRef<GxtChar[552]>(0xC1B100);
-static inline auto& gGxtString2 = StaticRef<GxtChar[552]>(0xC1AED8);
-static inline auto& GxtErrorString = StaticRef<GxtChar[32]>(0xC1AEB8);
+static inline auto& gGxtString2 = DatosExe::Bss::bC1AED8;
+static inline auto& GxtErrorString = DatosExe::Bss::bC1AEB8;
 
-static inline auto& g_nNumIm3dDrawCalls = StaticRef<int32>(0xB73708);
+static inline auto& g_nNumIm3dDrawCalls = DatosExe::Bss::bB73708;
 
 static inline auto& PC_Scratch = StaticRef<char[16384]>(0xC8E0C8);
 

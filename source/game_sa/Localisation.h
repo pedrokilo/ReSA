@@ -5,12 +5,13 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE1.h"
 
 class CLocalisation {
 public:
-    static inline auto& nastyGame = StaticRef<bool>(0xB9B7EC);
-    static inline auto& germanGame = StaticRef<bool>(0xB9B7ED);
-    static inline auto& frenchGame = StaticRef<bool>(0xB9B7EE);
+    static inline auto& nastyGame = DatosExe::Bss::bB9B7EC;
+    static inline auto& germanGame = DatosExe::Bss::bB9B7ED;
+    static inline auto& frenchGame = DatosExe::Bss::bB9B7EE;
 
 public:
     static void InjectHooks();

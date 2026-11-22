@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE1.h"
 
 #include "Debug.h"
 
@@ -35,7 +36,7 @@ void CDebug::InjectHooks()
 // Como el original (lote 122A, banco Fn122A): `mov word ptr ds:[0B71508h], 0 ; ret` (10 bytes). Pone a 0 la palabra de 16 bits del buffer de textos de depuracion del EXE (0xB71508);
 // no toca nada mas. Lo llama CGame::Init1. La reserva de 500 textos de la version anterior era solo una optimizacion NOTSA (el vector crece solo en DebugAddText).
 void CDebug::DebugInitTextBuffer() {
-    StaticRef<uint16>(0xB71508) = 0;
+    DatosExe::Bss::bB71508 = 0;
 }
 
 void CDebug::DebugAddText(const char* str)

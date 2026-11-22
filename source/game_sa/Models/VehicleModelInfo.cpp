@@ -41,6 +41,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
+#include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "X87Math.h"
 
@@ -50,11 +52,11 @@ END GENERATED HOOK STATUS */
 #include "LoadingScreen.h"
 #include "CarFXRenderer.h"
 
-auto& vehicleTxd = StaticRef<RwTexDictionary*>(0xB4E688);
-auto& carFrame = StaticRef<RwFrame*>(0xB4E6B8);
+auto& vehicleTxd = DatosExe::Bss::bB4E688;
+auto& carFrame = DatosExe::Bss::bB4E6B8;
 auto& gLightSurfProps = StaticRef<RwSurfaceProperties>(0x8A645C);
 auto& gRestoreEntries = StaticRef<tRestoreEntry[NUM_RESTORE_ENTRIES]>(0xB4DBE8);
-auto& gpWhiteTexture = StaticRef<RwTexture*>(0xB4E3EC);
+auto& gpWhiteTexture = DatosExe::Bss::bB4E3EC;
 auto& fEnvMapDefaultCoeff = DatosExe::Data::v8A7780;
 auto& fRearDoubleWheelOffsetFactor = DatosExe::Data::v8A7784;
 
@@ -1354,7 +1356,7 @@ void CVehicleModelInfo::SetDirtTextures(CVehicleModelInfo* info, int32 dirtLevel
 void CVehicleModelInfo::ShutdownEnvironmentMaps()
 {
     // Como el original (0x4C87D9): mov byte ptr ds:[0B4E6BCh], 0 (bandera global del EXE; antes era una estática local de la DLL)
-    StaticRef<bool>(0xB4E6BC) = false;
+    DatosExe::Bss::bB4E6BC = false;
     RwTextureDestroy(gpWhiteTexture);
     gpWhiteTexture = nullptr;
 
