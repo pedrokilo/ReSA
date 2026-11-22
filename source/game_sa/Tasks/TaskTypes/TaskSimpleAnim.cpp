@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleAnim
- * Reconstrucción: COMPLETA — 4/4 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 5/5 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 4/4 entradas.
+ * Validación registrada: 4/5 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -80,6 +80,7 @@ void CTaskSimpleAnim::InjectHooks() {
     RH_ScopedNamedGlobalInstall(CTaskSimpleAnimDestructorBody, "DestructorBody", 0x61A6F0);                     // lote 169A (banco Fn169A)
     RH_ScopedNamedGlobalInstall(SimpleAnimConstructorBody, "Constructor", 0x61A6C0);
     RH_ScopedVMTInstall(MakeAbortable, 0x61A790);
+    RH_ScopedInstall(FinishRunAnimCB, 0x61A8A0);
 }
 
 // 0x61A6C0

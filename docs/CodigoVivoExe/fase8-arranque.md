@@ -19,7 +19,7 @@ Rama `vivo-p5` (desde `origin/main` 410d9f2d84, 21/11/2026). Cubre los lotes `E2
 | `_onexit` 0x821CE6 y su núcleo | `CrtOnexit.cpp` | enganchada (la tabla la crea 0x821CBE, ver abajo) |
 | `malloc/free/realloc/calloc/new/delete`, `_set_new_handler` | `CrtHeap.cpp` | enganchadas (activas si `__active_heap == 1`) |
 | `__getptd`, `rand/srand`, `strtok`, bloqueos `_lock/_unlock` | `CrtState.cpp` | enganchadas (leen el TLS del EXE) |
-| `_cinit` 0x823B76, `__heap_init`, `__mtinit`, `_setargv/_setenvp`, `_doexit` 0x823BDB | — | **no** estaban (esta parte reconstruye heap/mt) |
+| `_cinit` 0x823B76, `__heap_init`, `__mtinit`, `_setargv/_setenvp`, `_doexit` 0x823BDB | — | **no** estaban (esta parte reconstruye heap/mt). Actualización 21/11/2026 (rama `vivo-crtf8`, [ejecucion-crt-fase8.md](ejecucion-crt-fase8.md)): `__setargv` 0x82DB26 (con `parse_cmdline` 0x82D9BA), `__setenvp` 0x82D8F3, `__crtGetEnvironmentStringsA` 0x82DBC8, `__crtExitProcess` 0x823AFE y `_doexit` 0x823BDB ya están reconstruidas sin gancho en `CrtStartup.cpp` (banco FnCRTF8A) y `StandaloneStartup` las encadena |
 | thunks `DelayLoad_*` | `source/app/platform/win/DelayLoadThunks.cpp` | envoltorios stdcall enganchados; los ayudantes con `jmp eax` no se pueden escribir en C++ (R8A) |
 | protector `ExeProtectionStub` (MD5 + resolución de API 0x401000–0x4033E6) | `ExeProtectionStub.cpp` | engancha solo rutinas sueltas; lo que ejecuta el protector corre antes de la DLL; se retira con el protector (lote V1) |
 | `DllMain` (`source/dllmain.cpp`) | — | lee INI y línea de comandos y llama a `InjectHooksMain`; no toca el CRT |
@@ -33,7 +33,7 @@ Rama `vivo-p5` (desde `origin/main` 410d9f2d84, 21/11/2026). Cubre los lotes `E2
 | 3 | `__mtinit` (fallo: 0x10): `__mtinitlocks` 0x82AC74, `TlsAlloc` → [0x8E3110], bloque `_tiddata` de 0x88 bytes | 0x827D25 | `ExeCrt::Mtinit`, `Mtinitlocks`, `Mtterm` 0x827B0C, `Mtdeletelocks` 0x82ACBD |
 | 4 | `__RTC_Initialize` (rango vacío 0x88E240..0x88E240) | 0x82BEDA | no hace nada |
 | 5 | `__ioinit` (fallo: 0x1B) | 0x82C0B9 | ya reconstruida (CRT5A) |
-| 6 | `GetCommandLineA`, `__crtGetEnvironmentStringsA` 0x82DBC8, `__setargv` 0x82DB26 (fallo 8), `__setenvp` 0x82D8F3 (fallo 9) | — | los hace el `mainCRTStartup` del enlazador (`__argc/__argv/environ` de la DLL/EXE propio); `getenv` del EXE (0x8240C7, enganchada) lee `_environ` del EXE: ver pendientes |
+| 6 | `GetCommandLineA`, `__crtGetEnvironmentStringsA` 0x82DBC8, `__setargv` 0x82DB26 (fallo 8), `__setenvp` 0x82D8F3 (fallo 9) | — | `ExeCrt::StartupArguments` (`CrtStartup.cpp`): rellena `_acmdln`, `_aenvptr`, `__argc/__argv`, `_environ` en las direcciones del EXE (ya no lo deja al enlazador); `getenv` del EXE (0x8240C7, enganchada) lee ese `_environ` |
 | 7 | `__cinit` 0x823B76: [0x8E2B74] (`_FPinit`), **tabla C** 0x8A5A14..0x8A5A30, `atexit(0x82BF1E)`, **tabla C++** 0x8A4000..0x8A5A10 | 0x823B76 | secciones 5 y 6 |
 | 8 | `GetStartupInfoA`, `__wincmdln` 0x82D88A, `WinMain` 0x748710, `exit` (0x823CAE → `_doexit` 0x823BDB) | — | `WinMain` propio; el cierre usa `exit` del CRT enlazado |
 
@@ -87,8 +87,8 @@ Precisión: la x87 del CRT arranca en 53 bits (`_fpinit`), igual que `double` en
 ## 8. Pendiente y pasos exactos para el ejecutable propio
 
 1. **Constructores estáticos y asignaciones de `_initterm` (175 filas):** convertirlas en globales C++ de `DatosExe` (cada fila de [fase8-inicializadores.csv](fase8-inicializadores.csv) trae destino, constructor y destructor). Hasta entonces `StandaloneStartup` deja esos objetos sin construir.
-2. **`__setargv/__setenvp/_wincmdln`:** el `mainCRTStartup` del enlazador provee `__argc/__argv/_environ` propios; `getenv` (0x8240C7) y `_environ` del EXE (0xC9AC.. según `__setenvp`) deben leer los del CRT enlazado o reconstruirse (`__setenvp` 0x82D8F3, 105 bytes de lógica de copia).
-3. **`exit/_doexit` 0x823BDB** (llamada hoy por `CrtFile.cpp` 0x823CAE): ejecuta la tabla de `atexit` ([0xC9D42C]..[0xC9D428]), las tablas de terminadores 0x8A5A34/0x8A5A40 y `ExitProcess`; en el ejecutable propio usar `exit` del CRT enlazado y migrar `Call823BDB` a él.
+2. **`__setargv/__setenvp` (hecho, ver ejecucion-crt-fase8.md)** y `_wincmdln` 0x82D88A (pendiente, 105 bytes: cola de la línea de comandos para `WinMain`). Falta `__initmbctable` 0x833494 (mbcs), que `Setargv` supone ya ejecutada.
+3. **`exit/_doexit` 0x823BDB (hecho):** `ExeCrt::DoExit` (`CrtStartup.cpp`) ejecuta la tabla de `atexit` ([0xC9D42C]..[0xC9D428]), las tablas de terminadores 0x8A5A34/0x8A5A40 y sale por `CrtExitProcess`; `Call823BDB` (0x823CAE) la llama directamente.
 4. **Activar el arranque propio:** `cmake -D<proyecto>_STANDALONE_STARTUP=ON`; `WinMain` (bloque `NOTSA_STANDALONE`) llama a `ExeCrt::StandaloneStartup()` antes de cualquier función `ExeCrt` y devuelve su código si falla. Comprobar con la traza de las constantes x87 (debe dar «N de N iguales» con la DLL sobre el EXE) y arrancar sin el EXE original.
 5. **Quitar `RH_ScopedGlobalInstall` de las rutinas enlazadas** (`CrtMem`, `CrtStrtod`, montón) cuando el EXE original deje de estar en el proceso; los llamadores propios ya usan `::operator new/delete` o `ExeCrt::*`.
 6. **`__active_heap == 3`:** no se reproduce el montón de bloques pequeños (0x82C556 y 0x82C59E); sin uso desde Windows 2000.

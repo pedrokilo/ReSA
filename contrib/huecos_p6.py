@@ -28,6 +28,21 @@ ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / 'docs'
 
 
+# Revision de las piezas "citada-en-cpp" que podian ser funciones vivas sin enganche (parte CRT de la fase 8, rama vivo-crtf8): destino que sustituye al de «citada-en-cpp» y motivo.
+# Una pieza enganchada (hooks.csv o RH_Scoped*) sigue saliendo como `reconstruida` (0x61A8A0, 0x68B7D0 y 0x8194D0 se enganchan en esa rama).
+REVISION = {
+    0x453FB0: ('muerta-por-reemplazo', 'accion=documentar; destructor `ret` de los elementos de CPhoneInfo (eh vector); solo lo cita un comentario de PhoneInfo.cpp y el constructor 0x4541E0 ya es C++ (no llama al iterador): muerta'),
+    0x5C91E0: ('citada-en-cpp', 'accion=documentar; ycck_cmyk_convert de libjpeg (jdcolor.c), instalada por JPegCompress.cpp con LIBJPEG_CB: con GTASA_WITH_LIBJPEG es la de libs/libjpeg-6b (enlazada, como libpng/zlib); sin la opcion sigue la del EXE'),
+    0x61A8A0: ('reconstruida', 'accion=enganchar; CTaskSimpleAnim::FinishRunAnimCB ya era C++ (TaskSimpleAnim.cpp) pero sin RH_ScopedInstall; viva (la registran tareas del EXE): enganchada'),
+    0x68B7D0: ('reconstruida', 'accion=enganchar; CTaskSimpleArrestPed::FinishAnimArrestPedCB ya era C++ sin enganche; viva: enganchada'),
+    0x7F40F0: ('pendiente-dato', 'accion=reconstruir; callback de lectura por defecto del modulo de texturas de RenderWare (+0x14 de 0xC97B4C, lo guarda _rwTextureModuleOpen): viva sin enganche; 966 bytes; lote V7/rwcore'),
+    0x7F5140: ('pendiente-dato', 'accion=reconstruir; generacion de mipmaps por defecto del modulo de texturas (+0x2C): viva sin enganche; 652 bytes; lote V7/rwcore'),
+    0x7F53D0: ('pendiente-dato', 'accion=reconstruir; busqueda de texturas por nombre por defecto del modulo de texturas (+0x18): viva sin enganche; 292 bytes; lote V7/rwcore'),
+    0x7FFF00: ('pendiente-dato', 'accion=reconstruir; funcion estandar 0x09 (RwImageFindRasterFormat) del controlador D3D9, guardada en _rwD3D9DeviceSystemStandards: viva sin enganche; 208 bytes; controlador D3D9 (otro agente)'),
+    0x8194D0: ('reconstruida', 'accion=enganchar; `mov ax, 0F7D1h; ret` (OSErr -2095), valor de los tres punteros de QuickTime (0x8E2A0C/10/14): QtmlUnavailableStub la reconstruye y la engancha'),
+}
+
+
 def h(x):
     return int(x, 16)
 
@@ -134,11 +149,23 @@ def main():
             return hrng[i]
         return None
 
+    def region_de(x):
+        f = func_of(x)
+        if f is not None:
+            return ('f', f)
+        hh = hole_at(x)
+        return ('h', hh[0]) if hh else None
+
     # --- referencias (llamadas, saltos, inmediatos del .text y dwords de todo el EXE)
     refs = defaultdict(list)
+    seh_tablas = []   # (tabla de ambitos SEH, direccion del `push` en el prologo): `push tabla; call __SEH_prolog (0x8286E0)`
     for x, y in sorted(funcs + [(p, q) for p, q, _, _ in holes]):
+        prev = None
         for ins in cs.disasm(ex.rd(x, y - x + 1), x):
             m = ins.mnemonic
+            if m == 'call' and prev is not None and prev.mnemonic == 'push' and ins.operands and ins.operands[0].type == X86_IMM and ins.operands[0].imm == 0x8286E0                     and prev.operands[0].type == X86_IMM and prev.operands[0].imm >= ex.t1:
+                seh_tablas.append((prev.operands[0].imm, prev.address))
+            prev = ins
             if m == 'call' or m.startswith('j'):
                 if ins.operands and ins.operands[0].type == X86_IMM:
                     refs[ins.operands[0].imm].append((ins.address, m))
@@ -146,13 +173,20 @@ def main():
                 for op in ins.operands:
                     if op.type == X86_IMM and ex.t0 <= op.imm < ex.t1:
                         refs[op.imm].append((ins.address, 'imm'))
+    seh_idx = {tb: pa for tb, pa in seh_tablas}
     raw = defaultdict(list)
     for nm, sva, vsz, rp, rsz in ex.secs:
         blob = ex.data[rp:rp + rsz]
         for off in range(0, len(blob) - 3):
             v = struct.unpack_from('<I', blob, off)[0]
             if ex.t0 <= v < ex.t1:
-                raw[v].append(sva + off)
+                # un puntero de la tabla de ambitos SEH de una funcion (manejador/funclet de desenrollado) solo vive si vive esa funcion: se atribuye al `push` de su prologo
+                # (antes contaba como puntero de datos vivo y mantenia abiertas funclets de funciones muertas, p. ej. 0x82E924 `ctrlevent` de `signal`)
+                dueno = next((seh_idx[a_] for a_ in range(sva + off, sva + off - 0x30, -1) if a_ in seh_idx and region_de(seh_idx[a_]) is not None and region_de(seh_idx[a_]) == region_de(v)), None)
+                if dueno is not None:
+                    refs[v].append((dueno, 'imm'))
+                else:
+                    raw[v].append(sva + off)
 
     # --- literales del C++
     hook_lits, all_lits = set(), set()
@@ -338,6 +372,8 @@ def main():
             d = 'muerta-por-reemplazo'
         else:
             d = 'sin-referencia-real'
+        if s in REVISION and d != 'reconstruida':
+            d = REVISION[s][0]
         o['destino'] = d
         o['nota'] = ''
         if o['s'] in MANUAL:
@@ -367,6 +403,12 @@ def main():
     por_hueco = defaultdict(list)
     for o in pieces:
         por_hueco[o['hole']].append(o)
+    with open(out / 'revision-citadas-p6.csv', 'w', encoding='utf-8', newline='') as s:
+        w = csv.writer(s)
+        w.writerow(['va', 'fin', 'bytes', 'destino', 'accion_y_motivo'])
+        for o in pieces:
+            if o['s'] in REVISION:
+                w.writerow(['0x%08X' % o['s'], '0x%08X' % o['e'], o['size'], o['destino'], REVISION[o['s']][1]])
     orden = ['pendiente-dato', 'crt-enlazar', 'd3dx9-enlazar', 'reconstruida', 'citada-en-cpp', 'destructor-atexit', 'muerta-por-reemplazo', 'sin-referencia-real']
     hrows = []
     for a0, b0, cat, reg in sorted(holes):

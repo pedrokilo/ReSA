@@ -5684,8 +5684,10 @@ CTaskSimpleArrestPed,Constructor,0x0068B620,1,0,1,S
 CTaskSimpleArrestPed,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleArrestPed,ProcessPed,0x00000000,1,0,1,V
 CTaskSimpleArrestPed,StartAnim,0x0068B7E0,1,0,1,S
+CTaskSimpleArrestPed,FinishAnimArrestPedCB,0x0068B7D0,1,0,0,S
 CTaskSimpleAnim,Constructor,0x0061A6C0,1,0,1,S
 CTaskSimpleAnim,MakeAbortable,0x00000000,1,0,1,V
+CTaskSimpleAnim,FinishRunAnimCB,0x0061A8A0,1,0,0,S
 CTaskSimpleAffectSecondaryBehaviour,Clone,0x00000000,1,0,1,V
 CTaskSimpleAffectSecondaryBehaviour,Constructor,0x00691270,1,0,1,S
 CTaskSimpleAffectSecondaryBehaviour,GetTaskType,0x00000000,1,0,1,V
@@ -11964,6 +11966,7 @@ ImportThunks,GetModuleHandleAThunk,0x0081E406,1,0,0,S
 ImportThunks,GetProcAddressThunk,0x0081E40C,1,0,0,S
 ImportThunks,LoadLibraryAThunk,0x0081E412,1,0,0,S
 QTMLRuntime,QtmlInitializeThunk,0x008194B0,1,0,0,S
+QTMLRuntime,QtmlUnavailableStub,0x008194D0,1,0,0,S
 QTMLRuntime,QtmlTerminateThunk,0x008194C0,1,0,0,S
 QTMLRuntime,QtmlResolveEntryPoints,0x00819520,1,0,0,S
 QTMLRuntime,QtmlInitialize,0x008195C0,1,0,0,S
@@ -13417,4 +13420,8 @@ ExeCrt,DeletingDtor822F40,0x00822F40,1,0,0,S
 ExeCrt,DeletingDtor822F5C,0x00822F5C,1,0,0,S
 ExeCrt,DeletingDtor822F78,0x00822F78,1,0,0,S
 ExeCrt,DeletingDtor822FBD,0x00822FBD,1,0,0,S
+ExeCrt,DtorBody822E83,0x00822E83,1,0,0,S
+ExeCrt,DtorBody822EBF,0x00822EBF,1,0,0,S
+ExeCrt,DtorBody822EFA,0x00822EFA,1,0,0,S
+ExeCrt,DtorBody822F94,0x00822F94,1,0,0,S
 ExeCrt,StdExceptionWhat,0x00822E45,1,0,0,S

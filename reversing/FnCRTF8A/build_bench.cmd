@@ -1,0 +1,12 @@
+@echo off
+rem Compila el banco CRTF8A (bench_crtf8a.exe de 32 bits, base 0x400000 con la reserva del espacio del EXE original). reserva_imagen.asm es copia de FnCRT1A.
+rem Uso: build_bench.cmd <directorio de salida> [directorio con las fuentes mutadas (prueba negativa)]
+call "C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvars32.bat" >nul 2>nul
+set OUT=%1
+set SRC=%2
+if "%SRC%"=="" set SRC=%~dp0..\..\source\game_sa\Crt
+mkdir %OUT% 2>nul
+ml /nologo /c /Fo%OUT%\reserva.obj %~dp0reserva_imagen.asm || exit /b 1
+cl /nologo /O2 /GS- /Oy- /arch:IA32 /MT /EHsc /std:c++17 /Zi /W3 /D_CRT_SECURE_NO_WARNINGS /I"%SRC%" /Fd%OUT%\vc_bench.pdb /Fo%OUT%\bench_crtf8a.obj /c %~dp0bench_crtf8a.cpp || exit /b 1
+cl /nologo /O2 /GS- /Oy- /arch:IA32 /MT /EHsc /std:c++17 /Zi /W3 /D_CRT_SECURE_NO_WARNINGS /DCRT_BENCH /I"%SRC%" /Fd%OUT%\vc_bench.pdb /Fo%OUT%\bench_startup.obj /c "%SRC%\CrtStartup.cpp" || exit /b 1
+link /nologo /DEBUG /OUT:%OUT%\bench_crtf8a.exe /BASE:0x400000 /DYNAMICBASE:NO /FIXED /LARGEADDRESSAWARE:NO /INCREMENTAL:NO %OUT%\reserva.obj %OUT%\bench_crtf8a.obj %OUT%\bench_startup.obj libcmt.lib kernel32.lib user32.lib

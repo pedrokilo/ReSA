@@ -74,7 +74,7 @@ El resto de funciones reales de los huecos **ya estaba reconstruido** por otros 
 | 0x452F90–0x453F3F y 0x453F91 (juego) | 0x453000, 0x453060, 0x453280, 0x453690, 0x453A00, 0x453AE0, 0x453E40, 0x454010 | rutina de unos 4 KB con tabla de saltos y ayudantes (0x453000 mueve un nodo entre listas de 16 bytes), apuntada desde dwords de `.data`/`.bss` | sin clase identificada; hace falta leer el contexto antes de escribir C++ |
 | 0x47C0F5 (juego) | 0x47C100, 0x47D520 | despachadores originales de comandos de script de las ranuras 3 y 4 de `0x8A6168` (`s_OriginalCommandHandlerTable`); el C++ los usa para los comandos sin manejador propio | cerrarlos pide implementar los comandos de esas centenas que faltan (plan de scripts, ComandosScript.csv) |
 | 0x756DE1, 0x7573EF, 0x75E3E6, 0x770FD3, 0x7C073F, 0x7CAC5C, 0x80FFA4 (RenderWare) | 0x756DF0…0x75E9E6, 0x770FD3, 0x7C073F, 0x7CAC60/0x7CAF50/0x7CB190/0x7CB240, 0x80FFB0 | callbacks y métodos de objetos de RenderWare apuntados desde tablas de `.data` (0x8D63xx, 0xCAxxxx) | pertenecen al plan de RenderWare (lotes 240A–389A y librw); no se reconstruyen aquí |
-| 0x82E924 (CRT) | 0x82E924 | código del CRT apuntado desde una tabla | se cierra al enlazar el CRT (parte 4) |
+| 0x82E924 (CRT) | 0x82E924 | `ctrlevent` de `signal` (nadie llama a `signal`), antes contada viva por su propia tabla SEH | **cerrado** (muerta) en la rama vivo-crtf8, ver [ejecucion-crt-fase8.md](ejecucion-crt-fase8.md) sección 4 |
 
 Los cuatro destructores vacíos de un byte (0x43CE70, 0x4411A0, 0x4EF070, 0x56CDF0) no se pueden enganchar (un salto necesita 5 bytes) y tampoco hacen falta: solo los citan registros de `atexit`/`__vec_dtor` de funciones reemplazadas.
 

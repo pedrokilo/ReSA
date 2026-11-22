@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleArrestPed
- * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 8/8 entradas.
+ * Validación registrada: 8/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -81,6 +81,7 @@ void CTaskSimpleArrestPed__InjectHooks() {
     RH_ScopedVMTInstall(MakeAbortable, 0x68B740);
     RH_ScopedVMTInstall(ProcessPed, 0x68B8A0);
     RH_ScopedInstall(StartAnim, 0x68B7E0);
+    RH_ScopedInstall(FinishAnimArrestPedCB, 0x68B7D0);
 }
 
 // 0x68B620
