@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/RdataCadenas.h"
 
@@ -26,7 +27,7 @@ END GENERATED HOOK STATUS */
 #include "AESmoothFadeThread.h"
 #include <AEAudioHardware.h>
 
-auto& g_numSoundChannelsUsed = StaticRef<uint32>(0xB5F898);
+auto& g_numSoundChannelsUsed = DatosExe::Bss::bB5F898;
 
 #if 0 // No EAX
 static std::array<uint32, 48> s_EAXEnvironments = {

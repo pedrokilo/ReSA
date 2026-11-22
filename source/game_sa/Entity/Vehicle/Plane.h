@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -73,9 +74,9 @@ public:
     static constexpr auto Type = VEHICLE_TYPE_PLANE;
 
 public:
-    static inline auto& GenPlane_ModelIndex = StaticRef<int32>(0xC1CAD8);
-    static inline auto& GenPlane_Status = StaticRef<uint32>(0xC1CADC);
-    static inline auto& GenPlane_LastTimeGenerated = StaticRef<uint32>(0xC1CAE0);
+    static inline auto& GenPlane_ModelIndex = DatosExe::Bss::bC1CAD8;
+    static inline auto& GenPlane_Status = DatosExe::Bss::bC1CADC;
+    static inline auto& GenPlane_LastTimeGenerated = DatosExe::Bss::bC1CAE0;
 
     static inline auto& GenPlane_Active = DatosExe::Data::v8D33BC;
     static inline auto& ANDROM_COL_ANGLE_MULT = DatosExe::Data::v8D33C0;

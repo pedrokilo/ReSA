@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "RenderWare.h"
 
@@ -33,7 +34,7 @@ VALIDATE_SIZE(CRegisteredShinyText, 0x58);
 
 class CShinyTexts {
 public:
-    static inline auto& NumShinyTexts = StaticRef<uint32>(0xC7C6F8);
+    static inline auto& NumShinyTexts = DatosExe::Bss::bC7C6F8;
     static inline auto& aShinyTexts = StaticRef<std::array<CRegisteredShinyText, 32>>(0xC7D258);
 
 public:

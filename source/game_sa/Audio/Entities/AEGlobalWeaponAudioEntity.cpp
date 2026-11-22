@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "X87Math.h"
 
 #include "AEAudioUtility.h"
@@ -173,9 +174,9 @@ void CAEGlobalWeaponAudioEntity::ServiceAmbientGunFire() {
     };
     static auto& s_State = StaticRef<eState>(0xB61324);
 
-    static auto& s_GunShots   = StaticRef<int32>(0xB61318);
+    static auto& s_GunShots   = DatosExe::Bss::bB61318;
     static auto& s_WeaponType = StaticRef<eWeaponType>(0xB6131C);
-    static auto& s_Delay      = StaticRef<uint32>(0xB61320);
+    static auto& s_Delay      = DatosExe::Bss::bB61320;
     // Como el original: la guarda del static se comprueba en cada llamada
     auto& s_LastTime = ScopedStaticRef<uint32>(0xB61364, 0xB61368, 0x1, CTimer::GetTimeInMS());
 

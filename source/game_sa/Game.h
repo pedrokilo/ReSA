@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "RenderWare.h"
@@ -57,7 +58,7 @@ public:
     static eAreaCodes GetPlayerOrCurrentAreaCode();
 };
 
-static inline auto& gameTxdSlot = StaticRef<int32>(0xB728E8);
+static inline auto& gameTxdSlot = DatosExe::Bss::bB728E8;
 static inline auto& gbLARiots = DatosExe::Bss::bB72958;
 static inline auto& gbLARiots_NoPoliceCars = DatosExe::Bss::bB72959;
 static inline auto& col1 = StaticRef<std::array<CColModel, 2>>(0xC17824);

@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataCadenas.h"
@@ -646,7 +647,7 @@ void CHud::DrawBustedWastedMessage() {
     // Como el original: 'posY' es una variable estatica local del EXE (0xBAB220) con su bandera de inicializacion
     // (bit 0 de 0xBAB224, "test byte ptr [0BAB224h],1" en 0x58CA5E).
     static auto& posY  = StaticRef<float>(0xBAB220);
-    static auto& guard = StaticRef<uint32>(0xBAB224);
+    static auto& guard = DatosExe::Bss::bBAB224;
 
     if (!message[0]) {
         messageX = 0.0f;
@@ -935,7 +936,7 @@ void CHud::DrawHelpText() {
     const float offset = DatosExe::Data::v8D0938;
     float x = sx * 34.f, y = sy * 28.f + ((150.f - offset) * .6f) * sy;
     if (!m_nHelpMessageStatId) {
-        const int shift = TheCamera.m_bWideScreenOn && !DatosExe::Bss::bBA6793 ? 56 : 0;
+        const int shift = TheCamera.m_bWideScreenOn && !StaticRef<bool>(0xBA6793) ? 56 : 0;
         y = sy * 28.f + ((float(150 + shift) - offset) * .6f) * sy;
     } else {
         const char* format = m_nHelpMessageStatId < 10 ? "STAT00%d" : m_nHelpMessageStatId < 100 ? "STAT0%d" : "STAT%d";
@@ -1439,7 +1440,7 @@ void CHud::DrawSubtitles() {
         }
     } else {
         wasWidescreen = true;
-        if (!DatosExe::Bss::bBA678C && CCutsceneMgr::ms_running) {
+        if (!StaticRef<bool>(0xBA678C) && CCutsceneMgr::ms_running) {
             CFont::SetDropShadowPosition(0);
             return;
         }
@@ -1454,7 +1455,7 @@ void CHud::DrawSubtitles() {
 
 // 0x58C6A0
 void CHud::DrawSuccessFailedMessage() {
-    auto& initialized = StaticRef<uint32>(0xBAB21C);
+    auto& initialized = DatosExe::Bss::bBAB21C;
     auto& baseline = StaticRef<float>(0xBAB218);
     const auto constant = [](uintptr_t address) { return *reinterpret_cast<const float*>(address); };
     const float sy = float(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524;
@@ -1772,7 +1773,7 @@ void CHud::DrawPlayerInfo() {
     };
     if (StaticRef<uint32>(0xBAA400) == 1) {
         typography(); CFont::SetDropColor(CRGBA(0, 0, 0, 255));
-        std::sprintf(ascii, "%02d:%02d", int(StaticRef<uint8>(0xB70153)), int(DatosExe::Bss::bB70152)); AsciiToGxtChar(ascii, text);
+        std::sprintf(ascii, "%02d:%02d", int(StaticRef<uint8>(0xB70153)), int(StaticRef<uint8>(0xB70152))); AsciiToGxtChar(ascii, text);
         CFont::SetColor(HudColour.GetRGB(static_cast<eHudColours>(4))); CFont::PrintString(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C, sy * DatosExe::Rdata::k858F8C, text); CFont::SetEdge(0);
     }
     const auto fadeElement = [&](uintptr_t address, int current) {

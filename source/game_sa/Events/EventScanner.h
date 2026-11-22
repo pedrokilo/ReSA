@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "TaskTimer.h"
 #include "AttractorScanner.h"
@@ -88,7 +89,7 @@ public:
     CSexyPedScanner                   m_sexyPedScanner;
     CNearbyFireScanner                m_nearbyFireScanner;
 
-    static inline auto& m_sDeadPedWalkingTimer = StaticRef<uint32>(0xC0B038);
+    static inline auto& m_sDeadPedWalkingTimer = DatosExe::Bss::bC0B038;
 
 public:
     static void InjectHooks();

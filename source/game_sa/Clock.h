@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 class CClock {
@@ -18,12 +19,12 @@ public:
     static inline auto& ms_Stored_nGameClockMonths = DatosExe::Bss::bB7014D;
     static inline auto& CurrentDay = DatosExe::Bss::bB7014E;
     static inline auto& ms_nGameClockSeconds = StaticRef<uint16>(0xB70150);
-    static inline auto& ms_nGameClockMinutes = DatosExe::Bss::bB70152;
+    static inline auto& ms_nGameClockMinutes = StaticRef<uint8>(0xB70152);
     static inline auto& ms_nGameClockHours = StaticRef<uint8>(0xB70153);
-    static inline auto& ms_nGameClockDays = DatosExe::Bss::bB70154;
-    static inline auto& ms_nGameClockMonth = DatosExe::Bss::bB70155;
-    static inline auto& ms_nLastClockTick = StaticRef<uint32>(0xB70158);
-    static inline auto& ms_nMillisecondsPerGameMinute = StaticRef<uint32>(0xB7015C);
+    static inline auto& ms_nGameClockDays = StaticRef<uint8>(0xB70154);
+    static inline auto& ms_nGameClockMonth = StaticRef<uint8>(0xB70155);
+    static inline auto& ms_nLastClockTick = DatosExe::Bss::bB70158;
+    static inline auto& ms_nMillisecondsPerGameMinute = DatosExe::Bss::bB7015C;
 
     static inline bool gbFreezeTime;
 

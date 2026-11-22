@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "Checkpoint.h"
 
@@ -8,7 +9,7 @@ constexpr auto MAX_NUM_CHECKPOINTS{ 32u };
 
 class CCheckpoints {
 public:
-    static inline auto& NumActiveCPts = StaticRef<uint32>(0xC7C6D4); // not used, only initialised (0)
+    static inline auto& NumActiveCPts = DatosExe::Bss::bC7C6D4; // not used, only initialised (0)
     static inline auto& m_aCheckPtArray = StaticRef<std::array<CCheckpoint, 32>>(0xC7F158);
 
 public:

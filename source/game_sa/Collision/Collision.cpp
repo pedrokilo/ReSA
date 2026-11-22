@@ -34,6 +34,7 @@ END GENERATED HOOK STATUS */
 
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "X87Math.h"
@@ -3473,7 +3474,7 @@ using ColCache = std::array<CColCacheEntry, COL_CACHE_SIZE>;
 static inline auto& gpColCache = StaticRef<ColCache*>(0x9655CC);
 
 //! Entries in the cache that is used currently
-static inline auto& gColCacheNumEntries = StaticRef<uint32>(0x9655D8);
+static inline auto& gColCacheNumEntries = DatosExe::Bss::b9655D8;
 
 //! Unused
 static inline auto& gpColCache2 = StaticRef<ColCache*>(0x9655C8);
@@ -3825,7 +3826,7 @@ bool CCollision::CheckCameraCollisionVehicles(
     ZoneScoped;
 
     static auto& gpLastSittingOnEntity   = StaticRef<CEntity*>(0x9689D8);
-    static auto& gFramesSittingOnTimeOut = StaticRef<int32>(0x9689D4);
+    static auto& gFramesSittingOnTimeOut = DatosExe::Bss::b9689D4;
     static auto& gFramesToConsiderSittingOnStillTrue = DatosExe::Data::v8A5B1C; // 30
 
     bool anyCollided = false;
@@ -3914,10 +3915,10 @@ bool CCollision::CheckCameraCollisionObjects(
 }
 
 // Ah, yes, the ultimate solution, just use static variables!
-static inline auto& gnBottom = StaticRef<int32>(0x965598);
-static inline auto& gnTop = StaticRef<int32>(0x965590);
-static inline auto& gnRight = StaticRef<int32>(0x965594);
-static inline auto& gnLeft = StaticRef<int32>(0x96559C);
+static inline auto& gnBottom = DatosExe::Bss::b965598;
+static inline auto& gnTop = DatosExe::Bss::b965590;
+static inline auto& gnRight = DatosExe::Bss::b965594;
+static inline auto& gnLeft = DatosExe::Bss::b96559C;
 
 // 0x4154A0
 bool CCollision::CheckPeds(

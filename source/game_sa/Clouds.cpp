@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "Clouds.h"
@@ -1161,7 +1162,7 @@ void CClouds::VolumetricCloudsRender() {
     const CVector camPos = TheCamera.GetPosition();
 
     // Como el original: banderas de inicialización de las estáticas locales (bits 0 y 1 de 0xC6E974).
-    auto& staticGuards = StaticRef<uint32>(0xC6E974);
+    auto& staticGuards = DatosExe::Bss::bC6E974;
     staticGuards |= 1;
 
     auto& gfVolumetricCloudFader = StaticRef<float>(0xC6E970);

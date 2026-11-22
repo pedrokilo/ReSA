@@ -24,13 +24,14 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include "Matrix.h"
 #include "X87Math.h"
 
 uint8* CMatrix::EulerIndices1 = (uint8*)0x866D9C;
 uint8* CMatrix::EulerIndices2 = (uint8*)0x866D94;
-auto& numMatrices = StaticRef<int32>(0xB74238);
+auto& numMatrices = DatosExe::Bss::bB74238;
 auto& gDummyMatrix = StaticRef<CMatrix>(0xB74240);
 
 

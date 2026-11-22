@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
@@ -25,13 +26,13 @@ public:
     static inline auto& TrafficLightsBrightness = StaticRef<float>(0xC812A8);
     static inline auto& bScriptsForceRain = DatosExe::Bss::bC812AC;
     static inline auto& Earthquake = StaticRef<float>(0xC81340);
-    static inline auto& CurrentRainParticleStrength = StaticRef<uint32>(0xC812B0);
-    static inline auto& LightningStartY = StaticRef<uint32>(0xC812B4); // only initialized (0), not used
-    static inline auto& LightningStartX = StaticRef<uint32>(0xC812B8); // only initialized (0), not used
-    static inline auto& LightningFlashLastChange = StaticRef<int32>(0xC812BC);
-    static inline auto& WhenToPlayLightningSound = StaticRef<int32>(0xC812C0);
-    static inline auto& LightningDuration = StaticRef<uint32>(0xC812C4);
-    static inline auto& LightningStart = StaticRef<uint32>(0xC812C8); // frame number
+    static inline auto& CurrentRainParticleStrength = DatosExe::Bss::bC812B0;
+    static inline auto& LightningStartY = DatosExe::Bss::bC812B4; // only initialized (0), not used
+    static inline auto& LightningStartX = DatosExe::Bss::bC812B8; // only initialized (0), not used
+    static inline auto& LightningFlashLastChange = DatosExe::Bss::bC812BC;
+    static inline auto& WhenToPlayLightningSound = DatosExe::Bss::bC812C0;
+    static inline auto& LightningDuration = DatosExe::Bss::bC812C4;
+    static inline auto& LightningStart = DatosExe::Bss::bC812C8; // frame number
     static inline auto& LightningFlash = DatosExe::Bss::bC812CC;
     static inline auto& LightningBurst = DatosExe::Bss::bC812CD;
     static inline auto& HeadLightsSpectrum = StaticRef<float>(0xC812D0);
@@ -55,7 +56,7 @@ public:
     static inline auto& CloudCoverage = StaticRef<float>(0xC81304);
     static inline auto& WetRoads = StaticRef<float>(0xC81308);
     static inline auto& InterpolationValue = StaticRef<float>(0xC8130C);
-    static inline auto& WeatherTypeInList = StaticRef<uint32>(0xC81310);
+    static inline auto& WeatherTypeInList = DatosExe::Bss::bC81310;
     static inline auto& WeatherRegion = StaticRef<eWeatherRegion>(0xC81314);
     static inline auto& ForcedWeatherType = StaticRef<eWeatherType>(0xC81318);
     static inline auto& NewWeatherType = StaticRef<eWeatherType>(0xC8131C);

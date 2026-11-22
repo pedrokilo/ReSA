@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -28,7 +29,7 @@ private:
     static inline auto& vecTrafficLights5_2 = StaticRef<CVector>(0xA9ADC8);
     static inline auto& vecTrafficLights_1 = StaticRef<CVector>(0xA9ADBC);
     static inline auto& vecTrafficLights_2 = StaticRef<CVector>(0xA9ADB0);
-    static inline auto& uiPedLightFlags = StaticRef<uint32>(0xA9ADE0);
+    static inline auto& uiPedLightFlags = DatosExe::Bss::bA9ADE0;
 
 public:
     static void InjectHooks();

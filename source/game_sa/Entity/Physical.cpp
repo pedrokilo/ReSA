@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaA.h"
 
 #include "Physical.h"
@@ -4269,7 +4270,7 @@ bool CPhysical::ProcessCollisionSectorList(int32 sectorX, int32 sectorY)
 {
     static auto& colPoints = StaticRef<std::array<CColPoint, 32>>(0xB73710);
     // Como el original: marca la guarda de inicialización del array estático de colpoints
-    static auto& colPointsInitGuard = StaticRef<uint32>(0xB73C90);
+    static auto& colPointsInitGuard = DatosExe::Bss::bB73C90;
     if ((colPointsInitGuard & 1) == 0) {
         colPointsInitGuard |= 1;
     }
@@ -4808,7 +4809,7 @@ bool CPhysical::ProcessCollisionSectorList_SimpleCar(CRepeatSector* repeatSector
 {
     static auto& colPoints = StaticRef<std::array<CColPoint, 32>>(0xB73C98);
     // Como el original: marca la guarda de inicialización del array estático de colpoints
-    static auto& colPointsInitGuard = StaticRef<uint32>(0xB74218);
+    static auto& colPointsInitGuard = DatosExe::Bss::bB74218;
     if ((colPointsInitGuard & 1) == 0) {
         colPointsInitGuard |= 1;
     }

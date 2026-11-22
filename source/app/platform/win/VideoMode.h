@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "Platform.h"
@@ -17,13 +18,13 @@ constexpr auto MAX_SUBSYSTEMS = 16;
 static inline auto& GsubSysInfo = StaticRef<std::array<RwSubSystemInfo, MAX_SUBSYSTEMS>>(0xC8CFC0);
 
 //! Number of subsystems
-static inline auto& GnumSubSystems = StaticRef<RwInt32>(0xC920F0);
+static inline auto& GnumSubSystems = DatosExe::Bss::bC920F0;
 
 //! Currently selected subsystem
 static inline auto& GcurSelSS = StaticRef<RwInt32>(0xC920F4);
 
 //! Whenever there are multiple subsystems available
-static inline auto& MultipleSubSystems = StaticRef<RwBool>(0xC92118);
+static inline auto& MultipleSubSystems = DatosExe::Bss::bC92118;
 
 //
 // Video Mode

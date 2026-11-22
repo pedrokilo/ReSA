@@ -6,6 +6,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
@@ -194,7 +195,7 @@ public:
     static inline auto& ms_aDefaultCopCarModel = StaticRef<std::array<int32, 5>>(0x8A5A8C); // Last one is bike cop, not matching any level name
     static inline auto& ms_aDefaultCopModel = StaticRef<std::array<int32, 5>>(0x8A5AA0); // Last one is bike cop, not matching any level name
 
-    static inline auto& ms_nTimePassedSinceLastCopBikeStreamedIn = StaticRef<uint32>(0x9654C0);
+    static inline auto& ms_nTimePassedSinceLastCopBikeStreamedIn = DatosExe::Bss::b9654C0;
 
     static inline auto& ms_aDefaultAmbulanceModel = StaticRef<std::array<int32, 4>>(0x8A5AB4);
     static inline auto& ms_aDefaultMedicModel = StaticRef<std::array<int32, 4>>(0x8A5AC4);
@@ -231,7 +232,7 @@ public:
     //! And the modelId to load can be accessed by `CPopulation::GetPedGroupModelId` for a given 
     static inline auto& ms_NextPedToLoadFromGroup = StaticRef<std::array<int32, 18>>(0x8E4BB8);
 
-    static inline auto& ms_currentZoneType = StaticRef<int32>(0x8E4C20);
+    static inline auto& ms_currentZoneType = DatosExe::Bss::b8E4C20;
     static inline auto& ms_vehiclesLoaded = StaticRef<CLoadedCarGroup>(0x8E4C24);
     static inline auto& ms_pEndRequestedList = StaticRef<CStreamingInfo*>(0x8E4C54);
     static inline auto& ms_pStartRequestedList = StaticRef<CStreamingInfo*>(0x8E4C58);

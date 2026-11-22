@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 #include <Base.h>
@@ -233,11 +234,11 @@ public:
     float                  m_loadAreaRequestMaxY;
 
 public:
-    static inline auto& InteriorIDBeingBuilt = StaticRef<int32>(0x96EF88);
+    static inline auto& InteriorIDBeingBuilt = DatosExe::Bss::b96EF88;
     static inline auto& bInteriorBeingBuilt = DatosExe::Bss::b96F031;
-    static inline auto& NumNodesGiven = StaticRef<uint32>(0x96EF80);
-    static inline auto& NumLinksToExteriorNodes = StaticRef<int32>(0x96EAB8);
-    static inline auto& NewInteriorSlot = StaticRef<int32>(0x96EF84);
+    static inline auto& NumNodesGiven = DatosExe::Bss::b96EF80;
+    static inline auto& NumLinksToExteriorNodes = DatosExe::Bss::b96EAB8;
+    static inline auto& NewInteriorSlot = DatosExe::Bss::b96EF84;
 
 public:
     static void InjectHooks();

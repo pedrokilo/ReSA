@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
@@ -17,7 +18,7 @@ public:
     static inline auto&       ZonesVisited = StaticRef<notsa::mdarray<bool, 10, 10>>(0xBA3730); // Explored territories. Count: 100
 
     static inline auto& m_CurrLevel = StaticRef<eLevelName>(0xBA6718);
-    static inline auto& ZonesRevealed = StaticRef<int32>(0xBA372C); // Number of explored territories
+    static inline auto& ZonesRevealed = DatosExe::Bss::bBA372C; // Number of explored territories
     static inline auto& TotalNumberOfNavigationZones = DatosExe::Bss::bBA3794; // Info zones
     static inline auto& NavigationZoneArray = StaticRef<std::array<CZone, 380>>(0xBA3798);
     static inline auto& TotalNumberOfMapZones = DatosExe::Bss::bBA1900; // Map zones

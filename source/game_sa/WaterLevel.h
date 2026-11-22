@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -73,7 +74,7 @@ class CWaterLevel {
     m_nNumOfWaterTriangles
     */
     static inline auto& m_nWaterConfiguration = StaticRef<uint32>(0xC228A0);
-    static inline auto& m_nWaterTimeOffset = StaticRef<uint32>(0xC228A4);
+    static inline auto& m_nWaterTimeOffset = DatosExe::Bss::bC228A4;
     static inline auto& m_bWaterFog = DatosExe::Data::v8D37D4;
     static inline auto& m_bWaterFogScript = StaticRef<bool>(0x8D37D5);
     static inline auto& m_WaterFogDensity = DatosExe::Data::v8D37E0;
@@ -94,15 +95,15 @@ class CWaterLevel {
     static inline auto& NumWaterTriangles = StaticRef<uint32>(0xC22884);
     static inline auto& NumWaterQuads = StaticRef<uint32>(0xC22888);
     static inline auto& NumWaterVertices = StaticRef<uint32>(0xC2288C);
-    static inline auto& NumWaterZonePolys = StaticRef<uint32>(0xC215F0);
+    static inline auto& NumWaterZonePolys = DatosExe::Bss::bC215F0;
 
     static inline auto& m_aVertices = StaticRef<std::array<CWaterVertex, 1021>>(0xC22910);
 
-    static inline auto& CameraRangeMaxY = StaticRef<int32>(0xC1F950);
-    static inline auto& CameraRangeMinY = StaticRef<int32>(0xC1F954);
+    static inline auto& CameraRangeMaxY = DatosExe::Bss::bC1F950;
+    static inline auto& CameraRangeMinY = DatosExe::Bss::bC1F954;
 
-    static inline auto& CameraRangeMaxX = StaticRef<int32>(0xC1F958);
-    static inline auto& CameraRangeMinX = StaticRef<int32>(0xC1F95C);
+    static inline auto& CameraRangeMaxX = DatosExe::Bss::bC1F958;
+    static inline auto& CameraRangeMinX = DatosExe::Bss::bC1F95C;
 
     static inline auto& DETAILEDWATERDIST = StaticRef<int32>(0x8D37D0); // Default: 48
     static inline auto& bSplitBigPolys = DatosExe::Data::v8D37F4;     // Default: true
@@ -139,7 +140,7 @@ class CWaterLevel {
     static constexpr int32 WATER_BLOCK_SIZE                       = 500;
     static constexpr int32 NUM_WATER_BLOCKS_ROWCOL                = 6000 / WATER_BLOCK_SIZE; // 6000 => map size
     static inline    int32  m_MaxNumBlocksOutsideWorldToBeRendered = 70; // NOTSA: We just want a variable for the debug tool. Value may never be higher than the below array's size.
-    static inline    auto& m_NumBlocksOutsideWorldToBeRendered = StaticRef<uint32>(0xC215EC);
+    static inline    auto& m_NumBlocksOutsideWorldToBeRendered = DatosExe::Bss::bC215EC;
     static inline    auto& m_BlocksToBeRenderedOutsideWorldX = StaticRef<std::array<int16, 70>>(0xC21560);
     static inline    auto& m_BlocksToBeRenderedOutsideWorldY = StaticRef<std::array<int16, 70>>(0xC214D0);
 

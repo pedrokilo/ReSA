@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
@@ -28,8 +29,8 @@ constexpr uint16 AmmoForWeapon_OnStreet[NUM_WEAPONS]{ 0u, 1u, 1u, 1u, 1u, 1u, 1u
 class CPickups {
 public:
     static inline auto& DisplayHelpMessage = DatosExe::Data::v8A5F48;
-    static inline auto& PlayerOnWeaponPickup = StaticRef<int32>(0x97D640);
-    static inline auto& StaticCamStartTime = StaticRef<int32>(0x978618);
+    static inline auto& PlayerOnWeaponPickup = DatosExe::Bss::b97D640;
+    static inline auto& StaticCamStartTime = DatosExe::Bss::b978618;
     static inline CVector* StaticCamCoors = (CVector*)0x97D660;
     static inline auto& pPlayerVehicle = StaticRef<CVehicle*>(0x97861C);
     static inline auto& bPickUpcamActivated = DatosExe::Bss::b978620;
@@ -140,6 +141,6 @@ struct tPickupReference {
 };
 VALIDATE_SIZE(tPickupReference, 0x4);
 
-static inline auto& CollectPickupBuffer = StaticRef<int32>(0x97D644);
+static inline auto& CollectPickupBuffer = DatosExe::Bss::b97D644;
 
 void ModifyStringLabelForControlSetting(char* stringLabel);

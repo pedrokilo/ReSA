@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -87,7 +88,7 @@ public:
 
     static inline auto& m_bDisableAllPostEffect = StaticRef<bool>(0xC402CF);
     static inline auto& m_bSavePhotoFromScript = StaticRef<bool>(0xC402D0);
-    static inline auto& m_bInCutscene = DatosExe::Bss::bC402B7;
+    static inline auto& m_bInCutscene = StaticRef<bool>(0xC402B7);
 
     static inline auto& m_xoffset = DatosExe::Data::v8D5130; // 4.0f
     static inline auto& m_yoffset = DatosExe::Data::v8D5134; // 24.0f
@@ -99,7 +100,7 @@ public:
     static inline auto& m_colourTopVOffset = DatosExe::Data::v8D5158; // 8
     static inline auto& m_colourBottomVOffset = DatosExe::Data::v8D515C; // 8
 
-    static inline auto& m_bNightVision = DatosExe::Bss::bC402B8;
+    static inline auto& m_bNightVision = StaticRef<bool>(0xC402B8);
     static inline auto& m_fNightVisionSwitchOnFXCount = StaticRef<float>(0xC40300); // = CPostEffects::m_fNightVisionSwitchOnFXTime
     static inline auto& m_fNightVisionSwitchOnFXTime = StaticRef<float>(0x8D50B0); // 50.0f
     static inline auto& m_NightVisionGrainStrength = DatosExe::Data::v8D50A8; // 48
@@ -118,7 +119,7 @@ public:
     static inline auto& m_HeatHazeFXSpeedMin = DatosExe::Data::v8D50EC; // 6
     static inline auto& m_HeatHazeFXSpeedMax = DatosExe::Data::v8D50F0; // 10
     static inline auto& m_HeatHazeFXIntensity = DatosExe::Data::v8D50E8; // 150
-    static inline auto& m_HeatHazeFXType = StaticRef<int32>(0xC402BC); // 0
+    static inline auto& m_HeatHazeFXType = DatosExe::Bss::bC402BC; // 0
     static inline auto& m_HeatHazeFXTypeLast = DatosExe::Data::v8D50E4; // -1
     static inline auto& m_HeatHazeFXRandomShift = StaticRef<int32>(0xC402C0);
     static inline auto& m_HeatHazeFXScanSizeX = StaticRef<int32>(0xC40304); // int32(SCREEN_WIDTH_UNIT  * 24.0f);
@@ -164,7 +165,7 @@ public:
 
     static inline auto& m_VisionFXDayNightBalance = DatosExe::Data::v8D50A4; // 1.0f
 
-    static inline auto& m_bInfraredVision = DatosExe::Bss::bC402B9;
+    static inline auto& m_bInfraredVision = StaticRef<bool>(0xC402B9);
     static inline auto& m_InfraredVisionGrainStrength = DatosExe::Data::v8D50B4; // 64
     static inline auto& m_fInfraredVisionFilterRadius = DatosExe::Data::v8D50B8; // 0.003f
     // float& m_fInfraredVisionSwitchOnFXCount;

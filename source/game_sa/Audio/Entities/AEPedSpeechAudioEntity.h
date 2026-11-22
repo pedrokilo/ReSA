@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 #include <Base.h>
@@ -117,7 +118,7 @@ VALIDATE_SIZE(tSpecificSpeechContextInfo, sizeof(int16) * 2);
 class NOTSA_EXPORT_VTABLE CAEPedSpeechAudioEntity : public CAEAudioEntity {
 public:
     //!< Until when the override is active in [TimeMS]
-    static inline auto& s_nCJMoodOverrideTime = StaticRef<uint32>(0xB613E0);
+    static inline auto& s_nCJMoodOverrideTime = DatosExe::Bss::bB613E0;
 
     //!< Override as CJ being well dressed (-1 => ignore, 0/1 => false/true) [Used for mood calculation]
     static inline auto& s_nCJWellDressed = DatosExe::Bss::bB613D0;

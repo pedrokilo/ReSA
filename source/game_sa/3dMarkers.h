@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
@@ -55,7 +56,7 @@ public:
     static inline auto& m_user3dMarkerColor = StaticRef<CRGBA>(0xC7C620);
     static inline auto& IgnoreRenderLimit = DatosExe::Bss::bC7C704;
     static inline auto& m_angleDiamondDeg = StaticRef<float>(0xC7C700);
-    static inline auto& NumActiveMarkers = StaticRef<uint32>(0xC7C6D8);
+    static inline auto& NumActiveMarkers = DatosExe::Bss::bC7C6D8;
     static inline auto& m_pRpClumpArray = StaticRef<std::array<RpClump*, 7>>(0xC7C6DC);
     static inline auto& ms_directionArrows = StaticRef<std::array<tDirectionArrow, 5>>(0xC802E8);
     static inline auto& ms_user3dMarkers = StaticRef<std::array<tUser3dMarker, 5>>(0xC80258);

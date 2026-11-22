@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 
 #pragma warning(push, 0)
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -1368,7 +1369,7 @@ StatLineResult StatLineEntry(const uint8* entry, int32& count, const int32 wante
             return StatLineResult::Skip;
         }
         case 10: {   // 330: ranking de piloto (horas : minutos de vuelo y 19 clasificaciones)
-            const int32 total = Stw60ScaledFtolCpp(StaticRef<int32>(0xB790C4), std::bit_cast<float>(0x378BCF65u));
+            const int32 total = Stw60ScaledFtolCpp(DatosExe::Bss::bB790C4, std::bit_cast<float>(0x378BCF65u));
             const int32 hours = total / 60;
             const int32 minutes = total % 60;
             if (hours > 0 || minutes >= 5) {
@@ -1527,14 +1528,14 @@ StatLineResult StatLineEntry(const uint8* entry, int32& count, const int32 wante
         return StatLineInt("%d", StatsFtol(*reinterpret_cast<const float*>(player + 0x548)));
     }
     case 5: {    // 0x55AD5F: horas : minutos de [0xB790C4]
-        const int32 total = Stw60ScaledFtolCpp(StaticRef<int32>(0xB790C4), std::bit_cast<float>(0x378BCF65u));
+        const int32 total = Stw60ScaledFtolCpp(DatosExe::Bss::bB790C4, std::bit_cast<float>(0x378BCF65u));
         if (!here()) {
             return StatLineResult::Next;
         }
         return StatLineClock(total / 60, total % 60);
     }
     case 6: {    // 0x55ADAD: horas : minutos de [0xB790D4] (solo si alguno es positivo)
-        const int32 total = Stw60ScaledFtolCpp(StaticRef<int32>(0xB790D4), std::bit_cast<float>(0x378BCF65u));
+        const int32 total = Stw60ScaledFtolCpp(DatosExe::Bss::bB790D4, std::bit_cast<float>(0x378BCF65u));
         const int32 hours = total / 60;
         const int32 minutes = total % 60;
         if (!(hours > 0 || minutes > 0)) {

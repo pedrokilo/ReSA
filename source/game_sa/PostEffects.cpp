@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -949,7 +950,7 @@ void CPostEffects::CCTV() {
 
 // 0x7037C0
 void CPostEffects::Grain(int32 strengthMask, bool update) {
-    static auto& s_NumberOfReseeds = StaticRef<uint32>(0xC4031C);
+    static auto& s_NumberOfReseeds = DatosExe::Bss::bC4031C;
     if (update) {
         auto* pixels = RwRasterLock(m_pGrainRaster, 0, rwRASTERLOCKWRITE);
 
@@ -1092,7 +1093,7 @@ void CPostEffects::SetSpeedFXManualSpeedCurrentFrame(float value) {
 void CPostEffects::Render() {
     ZoneScoped;
 
-    static auto& s_CurrentStrength    = StaticRef<int32>(0xC40328);
+    static auto& s_CurrentStrength    = DatosExe::Bss::bC40328;
     static auto& s_WaterGreen         = StaticRef<float>(0xC40324);
     static auto& s_WaitForOneFrame    = DatosExe::Bss::bC40321;
     static auto& s_SavePhotoToGallery = DatosExe::Bss::bC40320;

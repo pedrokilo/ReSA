@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
@@ -66,7 +67,7 @@ public:
 
 public:
     static inline auto& ms_useCutsceneShadows = DatosExe::Data::v8AC158;
-    static inline auto& numPlayerWeaponsToRestore = StaticRef<int32>(0xB5EB58);
+    static inline auto& numPlayerWeaponsToRestore = DatosExe::Bss::bB5EB58;
 
     static inline auto& playerWeaponsToRestore_Ammo = StaticRef<std::array<int32, 13>>(0xB5EB5C); // TODO: Where does the 13 number come from? 
     static inline auto& playerWeaponsToRestore_Type = StaticRef<std::array<int32, 13>>(0xB5EB90); // TODO: Where does the 13 number come from?
@@ -78,13 +79,13 @@ public:
     static inline auto& ms_cutsceneLoadStatus = StaticRef<LoadStatus>(0xB5F84C);
     static inline auto& ms_running = StaticRef<int8>(0xB5F851);
     static inline auto& ms_cutsceneProcessing = StaticRef<bool>(0xB5F852);
-    static inline auto& ms_useLodMultiplier = DatosExe::Bss::bB5F853;
+    static inline auto& ms_useLodMultiplier = StaticRef<bool>(0xB5F853);
     static inline auto& ms_wasCutsceneSkipped = DatosExe::Bss::bB5F854;
     static inline auto& ms_hasFileInfo = DatosExe::Bss::bB5F855;
     static inline auto& ms_numAppendObjectNames = StaticRef<int32>(0xB5F858);
     static inline auto& restoreEverythingAfterCutscene = DatosExe::Bss::bB5F85C;
     //! Armas del jugador guardadas para restaurarlas al borrar la cinemática con `m_bDontClearZone` (ver 0x5AFFE5)
-    static inline auto& numPlayerWeaponsToRestoreInZone = StaticRef<int32>(0xBC1CFC);
+    static inline auto& numPlayerWeaponsToRestoreInZone = DatosExe::Bss::bBC1CFC;
     static inline auto& playerWeaponsToRestoreInZone_Ammo = StaticRef<std::array<int32, 13>>(0xBC1D00);
     static inline auto& playerWeaponsToRestoreInZone_Type = StaticRef<std::array<int32, 13>>(0xBC1D34);
     static inline auto& m_fPrevCarDensity = StaticRef<float>(0xBC1D68);
@@ -92,7 +93,7 @@ public:
     static inline auto& ms_pParticleEffects = StaticRef<std::array<tCutsceneParticleEffect, 8>>(0xBC1D70);
     static inline auto& ms_crToHideItems = StaticRef<std::array<tCutsceneRemoval, 50>>(0xBC20D0);
     static inline auto& ms_pHiddenEntities = StaticRef<std::array<CEntity*, 50>>(0xBC2968);
-    static inline auto& ms_numAttachObjectToBones = StaticRef<int32>(0xBC2A30);
+    static inline auto& ms_numAttachObjectToBones = DatosExe::Bss::bBC2A30;
     static inline auto& ms_bRepeatObject = StaticRef<std::array<char, 50>>(0xBC2A34);
     static inline auto& ms_iAttachObjectToBone = StaticRef<std::array<tCutsceneAttachment, 50>>(0xBC2A68);
     static inline auto& ms_aUncompressedCutsceneAnims = StaticRef<std::array<char[32], 8>>(0xBC2CC0); 
@@ -106,14 +107,14 @@ public:
     static inline auto& ms_cutsceneName = StaticRef<char[8]>(0xBC3F0C);
     static inline auto& ms_pCutsceneObjects = StaticRef<std::array<CCutsceneObject*, 50>>(0xBC3F18);
     static inline auto& ms_cutscenePlayStatus = StaticRef<PlayStatus>(0xBC3FE0);
-    static inline auto& ms_numCutsceneObjs = StaticRef<int32>(0xBC3FE4);
+    static inline auto& ms_numCutsceneObjs = DatosExe::Bss::bBC3FE4;
     static inline auto& ms_numLoadObjectNames = StaticRef<int32>(0xBC3FE8);
-    static inline auto& ms_numTextOutput = StaticRef<int32>(0xBC3FEC);
-    static inline auto& ms_currTextOutput = StaticRef<int32>(0xBC3FF0);
-    static inline auto& ms_numUncompressedCutsceneAnims = StaticRef<uint32>(0xBC3FF4);
-    static inline auto& ms_iNumHiddenEntities = StaticRef<uint32>(0xBC3FF8);
-    static inline auto& ms_iNumParticleEffects = StaticRef<uint32>(0xBC3FFC);
-    static inline auto& m_PrevExtraColour = StaticRef<int32>(0xBC4000);
+    static inline auto& ms_numTextOutput = DatosExe::Bss::bBC3FEC;
+    static inline auto& ms_currTextOutput = DatosExe::Bss::bBC3FF0;
+    static inline auto& ms_numUncompressedCutsceneAnims = DatosExe::Bss::bBC3FF4;
+    static inline auto& ms_iNumHiddenEntities = DatosExe::Bss::bBC3FF8;
+    static inline auto& ms_iNumParticleEffects = DatosExe::Bss::bBC3FFC;
+    static inline auto& m_PrevExtraColour = DatosExe::Bss::bBC4000;
     static inline auto& m_PrevExtraColourOn = DatosExe::Bss::bBC4004;
     static inline auto& m_bDontClearZone = DatosExe::Bss::bBC4005;
 

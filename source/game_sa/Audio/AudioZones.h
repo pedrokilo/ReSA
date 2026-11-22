@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "CompressedBox.h"
 #include <span>
@@ -40,10 +41,10 @@ public:
     // Índices hacia m_aSpheres de las zonas que contienen la posición actual.
     static inline auto& m_aActiveSpheres = StaticRef<std::array<int32, 10>>(0xB6DC94);
 
-    static inline auto& m_NumActiveBoxes = StaticRef<uint32>(0xB6DCBC);
-    static inline auto& m_NumActiveSpheres = StaticRef<uint32>(0xB6DCC0);
-    static inline auto& m_NumBoxes = StaticRef<uint32>(0xB6DCC4);
-    static inline auto& m_NumSpheres = StaticRef<uint32>(0xB6DCC8);
+    static inline auto& m_NumActiveBoxes = DatosExe::Bss::bB6DCBC;
+    static inline auto& m_NumActiveSpheres = DatosExe::Bss::bB6DCC0;
+    static inline auto& m_NumBoxes = DatosExe::Bss::bB6DCC4;
+    static inline auto& m_NumSpheres = DatosExe::Bss::bB6DCC8;
 
     static constexpr int32 NUM_AUDIO_BOXES = 158;
     static inline auto& m_aBoxes = StaticRef<std::array<tAudioZoneBox, NUM_AUDIO_BOXES>>(0xB6DCD0);

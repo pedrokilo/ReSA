@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataConstantes.h"
@@ -59,7 +60,7 @@ END GENERATED HOOK STATUS */
 #include "PlayerPed.h"
 #include "WeaponInfo.h"
 
-auto& planeRotorDmgTimeMS = StaticRef<uint32>(0xC1CC1C);
+auto& planeRotorDmgTimeMS = DatosExe::Bss::bC1CC1C;
 
 auto& fBurstTyreMod = DatosExe::Data::v8D34B4;                // 0.13f
 auto& fBurstSpeedMax = DatosExe::Data::v8D34B8;               // 0.3f
@@ -7856,7 +7857,7 @@ void CVehicle::AddExhaustParticles() {
         vecParticleVelocity.y = m_vecMoveSpeed.y * 30.0f;
     } else {
         // Como el original: estatica local del EXE (valor 0xC1CDB4, guarda 0xC1CDB8 bit 0), se inicializa una sola vez
-        auto& randomFactorInit = StaticRef<uint32>(0xC1CDB8);
+        auto& randomFactorInit = DatosExe::Bss::bC1CDB8;
         auto& randomFactor     = StaticRef<float>(0xC1CDB4);
         if (!(randomFactorInit & 1)) {
             randomFactorInit |= 1;

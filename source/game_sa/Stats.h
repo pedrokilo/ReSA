@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "eStats.h"
@@ -43,7 +44,7 @@ public:
     static constexpr size_t FIRST_UNUSED_STAT = 82;
 
     static inline auto& StatMessage = StaticRef<std::array<tStatMessage, 128>>(0xB78200);
-    static inline auto& TotalNumStatMessages = StaticRef<uint32>(0xB794D0);
+    static inline auto& TotalNumStatMessages = DatosExe::Bss::bB794D0;
     static inline auto& LastMissionPassedName = StaticRef<char[8]>(0xB78A00);
     static inline auto& TimesMissionAttempted = StaticRef<std::array<int32, 100>>(0xB78CC8);
     static inline auto& FavoriteRadioStationList = StaticRef<std::array<int32, 14>>(0xB78E58);
@@ -53,22 +54,22 @@ public:
     static inline auto& StatTypesFloat = StaticRef<std::array<float, 82>>(0xB79380);
     static inline auto& m_ThisStatIsABarChart = StaticRef<int16>(0xB794CC);
     static inline auto& bStatUpdateMessageDisplayed = DatosExe::Bss::bB794D4;
-    static inline auto& m_SprintStaminaCounter = StaticRef<uint32>(0xB794D8);
-    static inline auto& m_CycleStaminaCounter = StaticRef<uint32>(0xB794DC);
-    static inline auto& m_CycleSkillCounter = StaticRef<uint32>(0xB794E0);
-    static inline auto& m_SwimStaminaCounter = StaticRef<uint32>(0xB794E4);
-    static inline auto& m_SwimUnderWaterCounter = StaticRef<uint32>(0xB794E8);
-    static inline auto& m_DrivingCounter = StaticRef<uint32>(0xB794EC);
-    static inline auto& m_FlyingCounter = StaticRef<uint32>(0xB794F0);
-    static inline auto& m_BoatCounter = StaticRef<uint32>(0xB794F4);
-    static inline auto& m_BikeCounter = StaticRef<uint32>(0xB794F8);
-    static inline auto& m_FatCounter = StaticRef<uint32>(0xB794FC);
-    static inline auto& m_RunningCounter = StaticRef<uint32>(0xB79500);
-    static inline auto& m_WeaponCounter = StaticRef<uint32>(0xB79504);
-    static inline auto& m_DeathCounter = StaticRef<uint32>(0xB79508);
-    static inline auto& m_MaxHealthCounter = StaticRef<uint32>(0xB7950C);
-    static inline auto& m_AddToHealthCounter = StaticRef<uint32>(0xB79510);
-    static inline auto& m_LastWeaponTypeFired = StaticRef<uint32>(0xB79514);
+    static inline auto& m_SprintStaminaCounter = DatosExe::Bss::bB794D8;
+    static inline auto& m_CycleStaminaCounter = DatosExe::Bss::bB794DC;
+    static inline auto& m_CycleSkillCounter = DatosExe::Bss::bB794E0;
+    static inline auto& m_SwimStaminaCounter = DatosExe::Bss::bB794E4;
+    static inline auto& m_SwimUnderWaterCounter = DatosExe::Bss::bB794E8;
+    static inline auto& m_DrivingCounter = DatosExe::Bss::bB794EC;
+    static inline auto& m_FlyingCounter = DatosExe::Bss::bB794F0;
+    static inline auto& m_BoatCounter = DatosExe::Bss::bB794F4;
+    static inline auto& m_BikeCounter = DatosExe::Bss::bB794F8;
+    static inline auto& m_FatCounter = DatosExe::Bss::bB794FC;
+    static inline auto& m_RunningCounter = DatosExe::Bss::bB79500;
+    static inline auto& m_WeaponCounter = DatosExe::Bss::bB79504;
+    static inline auto& m_DeathCounter = DatosExe::Bss::bB79508;
+    static inline auto& m_MaxHealthCounter = DatosExe::Bss::bB7950C;
+    static inline auto& m_AddToHealthCounter = DatosExe::Bss::bB79510;
+    static inline auto& m_LastWeaponTypeFired = DatosExe::Bss::bB79514;
     static inline auto& bShowUpdateStats = StaticRef<bool>(0x8CDE56);
 
     static void InjectHooks();

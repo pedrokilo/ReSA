@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include "QTMLRuntime.h"
 
@@ -26,7 +27,7 @@ END GENERATED HOOK STATUS */
 // 0x8E2A08 gancho que ejecutan los puentes antes de saltar al despachador (0 = ya inicializado; si no, 0x819520 antes del primer uso o 0x819700 tras un error), 0x8E2A0C theQuickTimeDispatcher,
 // 0x8E2A10 _CallComponent, 0x8E2A14 _CallComponentFunctionWithStorage (los tres quedan en 0x8194D0 = `mov ax, 0F7D1h; ret` (error -2095) cuando QuickTime no esta disponible).
 namespace {
-auto& QtmlInitCount            = StaticRef<RwInt32>(0xC9ABD8);
+auto& QtmlInitCount            = DatosExe::Bss::bC9ABD8;
 auto& QtmlModule               = StaticRef<HMODULE>(0xC9ABDC);
 auto& QtmlInitHook             = StaticRef<uintptr_t>(0x8E2A08);
 auto& QtmlDispatcher           = StaticRef<uintptr_t>(0x8E2A0C);

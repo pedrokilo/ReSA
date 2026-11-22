@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -48,8 +49,8 @@ auto& gbModelViewer = DatosExe::Bss::bBA6728;
 auto& gbCineyCamMessageDisplayed = DatosExe::Data::v8CC381; // 2
 auto& gCameraDirection = DatosExe::Data::v8CC384;         // 3
 auto& gCameraMode = StaticRef<eCamMode>(0x8CC388);        // -1
-auto& gLastTime2PlayerCameraWasOK = StaticRef<uint32>(0xB6EC24);    // 0
-auto& gLastTime2PlayerCameraCollided = StaticRef<uint32>(0xB6EC28); // 0
+auto& gLastTime2PlayerCameraWasOK = DatosExe::Bss::bB6EC24;    // 0
+auto& gLastTime2PlayerCameraCollided = DatosExe::Bss::bB6EC28; // 0
 auto& gPlayerPedVisible = DatosExe::Data::v8CC380; // true
 auto& gCurCamColVars = StaticRef<uint8>(0x8CCB80);
 auto& gCurDistForCam = StaticRef<float>(0x8CCB84);
@@ -824,7 +825,7 @@ void CCamera::CopyCameraMatrixToRWCam(bool bUpdateMatrix) {
     matrix->at=m_mCameraMatrix.GetForward();
     matrix->up=m_mCameraMatrix.GetUp();
     matrix->right=m_mCameraMatrix.GetRight();
-    auto& flags=StaticRef<uint32>(0xB6FFC0);
+    auto& flags=DatosExe::Bss::bB6FFC0;
     for(uint32 bit=0;bit<4;++bit){
         if(!(flags&(1u<<bit))){
             flags|=1u<<bit;
@@ -2801,7 +2802,7 @@ void CCamera::Process() {
     } else if (DatosExe::Bss::bB70142) DatosExe::Bss::bB70142 = false;
     CDraw::SetFOV(fov); CalculateDerivedValues(false, true); CopyCameraMatrixToRWCam(false);
     m_vecGameCamPos = m_mCameraMatrix.GetPosition(); UpdateSoundDistances();
-    m_fLODDistMultiplier = !StaticRef<bool>(0xB5F851) || DatosExe::Bss::bB5F853 ? 70.f / CDraw::ms_fFOV : 1.f;
+    m_fLODDistMultiplier = !StaticRef<bool>(0xB5F851) || StaticRef<bool>(0xB5F853) ? 70.f / CDraw::ms_fFOV : 1.f;
     m_fGenerationDistMultiplier = m_fLODDistMultiplier;
     m_fLODDistMultiplier *= CRenderer::ms_lodDistScale;
     const int32 farClip = CameraProcessTruncateProduct(StaticRef<float>(uintptr_t(Scene.m_pRwCamera) + 0x84), 100.f);
@@ -2933,7 +2934,7 @@ float CCamera::CalculateGroundHeight(eGroundHeightType type) {
     static auto& bbBottomZ         = StaticRef<float>(0xB70028);
 
     // Como el original (0x514B80): bandera de inicializacion de las estaticas (bit 0 de 0xB70040)
-    auto& initFlags = StaticRef<uint32>(0xB70040);
+    auto& initFlags = DatosExe::Bss::bB70040;
     if (!(initFlags & 1)) {
         initFlags |= 1;
         lastCalcCamPos = CVector{ 0.0f, 0.0f, 0.0f };
@@ -3042,7 +3043,7 @@ void CCamera::ImproveNearClip(CVehicle* vehicle, CPed* ped, CVector* source, CVe
             const bool parachute=ped->GetIntelligence()->GetUsingParachute();auto* swim=ped->GetIntelligence()->GetTaskSwim();
             if(swim){float water=0;const bool found=CWaterLevel::GetWaterLevel(source->x,source->y,source->z,water,0,nullptr);
                 if(found&&std::abs(water-source->z)<DatosExe::Data::v8CCCEC)RwCameraSetNearClipPlane(camera,DatosExe::Data::v8CCCE8);
-                else if(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(swim)+0xA)==4&&StaticRef<int32>(0xB6F0F0)==1)RwCameraSetNearClipPlane(camera,DatosExe::Data::v8CCCE4);
+                else if(*reinterpret_cast<const int16*>(reinterpret_cast<const uint8*>(swim)+0xA)==4&&DatosExe::Bss::bB6F0F0==1)RwCameraSetNearClipPlane(camera,DatosExe::Data::v8CCCE4);
             }else if(parachute||ped->GetIntelligence()->GetTaskJetPack()){
                 if(GetRoughDistanceToGround()>DatosExe::Data::v8CCCFC){
                     const float value=delta.Magnitude()*DatosExe::Data::v8CCCDC,limit=DatosExe::Data::v8CCCE0*gCurDistForCam;
@@ -3280,7 +3281,7 @@ bool CCamera::CameraColDetAndReact(CVector* source, CVector* target) {
         float limit;
         if(ignored->GetType()==ENTITY_TYPE_VEHICLE&&reinterpret_cast<CVehicle*>(ignored)->m_nVehicleSubType==VEHICLE_TYPE_AUTOMOBILE){
             const int32 model=int16(ignored->GetModelIndex());
-            auto& cachedModel=StaticRef<int32>(0xB700F0);
+            auto& cachedModel=DatosExe::Bss::bB700F0;
             auto& lowest=StaticRef<float>(0xB700EC);
             if(model!=cachedModel){
                 auto* data=ignored->GetColModel()->m_pColData;
@@ -3314,7 +3315,7 @@ bool CCamera::CameraColDetAndReact(CVector* source, CVector* target) {
     const bool collided=TheCamera.ConeCastCollisionResolve(*source,*target,resolved,radius,minDistance,fraction);
     if(collided&&fraction<=gpCamColVars[3])RwCameraSetNearClipPlane(Scene.m_pRwCamera,gpCamColVars[4]);
     if(!(fraction<gCurDistForCam)){
-        auto& flags=StaticRef<uint32>(0xB700E8);
+        auto& flags=DatosExe::Bss::bB700E8;
         auto& previous=StaticRef<CVector>(0xB700DC);
         if(!(flags&1)){flags|=1;previous=CVector{0,0,0};}
         const auto moved=*source-previous;
@@ -3485,7 +3486,7 @@ bool CameraControlApplyPlayerOverrides(CCamera& camera) {
     } else if (arrestLatch != 0) {
         arrestLatch = 0;
     }
-    auto& previousPedState = StaticRef<int32>(0xB70138);
+    auto& previousPedState = DatosExe::Bss::bB70138;
     const bool enteredArrested = previousPedState != PEDSTATE_ARRESTED
         && player->m_nPedState == PEDSTATE_ARRESTED
         && (camera.m_nCarZoom != 0 || !camera.m_pTargetEntity->GetIsTypeVehicle());

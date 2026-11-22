@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 // Sin PCH (CMakeLists.txt): StdInc.h redefine NOMINMAX y el aviso C4005 es error; mismo recurso que Task.cpp.
 #pragma warning(push, 0)
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -652,7 +653,7 @@ void Fx_c::AddDebris(const CVector& pos, const RwRGBA& color, float scale, int32
         return;
     }
     // Como el original: el contador del EXE (0xA9ADE4) elige que primitiva del sistema de escombros se activa; el sistema se relee de g_fx en cada llamada.
-    auto& primCounter = StaticRef<uint32>(0xA9ADE4);
+    auto& primCounter = DatosExe::Bss::bA9ADE4;
     for (int32 i = amount; i > 0; --i) {
         const CVector vel = FxDebrisVelocity();
         g_fx.m_Cardebris->EnablePrim(0, false);

@@ -41,6 +41,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
@@ -156,7 +157,7 @@ auto& s_bLoadPathsNeeded = DatosExe::Bss::b96F030;
 // ([x * 8 + y]); el id del area (nodes%d.dat) es x + y * 8.
 auto& ToBeStreamed = StaticRef<std::array<bool, NUM_PATH_MAP_AREAS>>(0x96EFD0);
 auto& ToBeStreamedForScript = StaticRef<std::array<bool, NUM_PATH_MAP_AREAS>>(0x96EF90);
-auto& NumTempExternalNodes = StaticRef<int32>(0x96F02C); // Unused, pero Init la pone a cero
+auto& NumTempExternalNodes = DatosExe::Bss::b96F02C; // Unused, pero Init la pone a cero
 
 auto& XCoorGiven = StaticRef<std::array<float, 64>>(0x96EE80);
 auto& YCoorGiven = StaticRef<std::array<float, 64>>(0x96ED80);
@@ -168,7 +169,7 @@ auto& aInteriorNodeLinkedToExterior = StaticRef<std::array<int32, NUM_PATH_INTER
 auto& aExteriorNodeLinkedTo = StaticRef<std::array<CNodeAddress, NUM_PATH_INTERIOR_AREAS>>(0x977B7C);
 
 auto& aNodesToBeCleared = StaticRef<std::array<CNodeAddress, 5000>>(0x972CD0);
-auto& s_parkingNodeCursor = StaticRef<int32>(0x977B9C); // 0x4513F0: indice del nodo de aparcamiento que se devuelve
+auto& s_parkingNodeCursor = DatosExe::Bss::b977B9C; // 0x4513F0: indice del nodo de aparcamiento que se devuelve
 
 namespace detail {
 /*!

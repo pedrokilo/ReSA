@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -991,7 +992,7 @@ void CTrain::DoTrainGenerationAndRemoval() {
             else {auto index = int32(GenTrain_GenerationNode) - 1;if(index < 0) index += NumTrackNodes[GenTrain_Track];GenTrain_GenerationNode = uint32(index);}
             dist = distance();
         }
-        auto& lastType = StaticRef<int32>(0xC38064);
+        auto& lastType = DatosExe::Bss::bC38064;
         GenTrain_TrainConfig = uint32(int32(uint32(lastType) + 1u) % 8);
         GenTrain_Status = 1;
         lastType = int32(GenTrain_TrainConfig);

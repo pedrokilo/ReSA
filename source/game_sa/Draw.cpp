@@ -17,11 +17,12 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "Draw.h"
 
-auto& FadeTimer = StaticRef<uint32>(0xC16EE0);
+auto& FadeTimer = DatosExe::Bss::bC16EE0;
 auto& FadeOutTime = DatosExe::Data::v8D2BD4;
 
 void CDraw::InjectHooks() {

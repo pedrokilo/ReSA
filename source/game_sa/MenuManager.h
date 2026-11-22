@@ -293,7 +293,7 @@ public:
     static int32& nLastMenuPage;
 
     static inline auto& bInvertMouseX = DatosExe::Bss::bBA6744;
-    static inline auto& bInvertMouseY = DatosExe::Bss::bBA6745;
+    static inline auto& bInvertMouseY = StaticRef<bool>(0xBA6745);
 
     // notsa colors
 

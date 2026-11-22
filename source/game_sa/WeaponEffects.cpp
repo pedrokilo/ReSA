@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -139,7 +140,7 @@ void CWeaponEffects::Render() {
     auto& flightX = StaticRef<float>(0xC8A89C);
     auto& flightY = StaticRef<float>(0xC8A898);
     auto& previousTarget = StaticRef<CEntity*>(0xC8A894);
-    auto& targetSince = StaticRef<uint32>(0xC8A890);
+    auto& targetSince = DatosExe::Bss::bC8A890;
     const auto now = CTimer::GetTimeInMS();
     const float spin = float(now & 1023) * 0.006135923322290182f;
     const auto state = [](RwRenderState key, uint32 value) {

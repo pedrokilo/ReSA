@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include "CollisionEventScanner.h"
 
@@ -57,8 +58,8 @@ void CCollisionEventScanner::InjectHooks() {
 
 namespace {
 // Tiempos de la ultima senal de ruido (estaticos del original: 0xC0B1B0 y 0xC0B1B4)
-auto& s_lastNoiseTimeA = StaticRef<uint32>(0xC0B1B0);
-auto& s_lastNoiseTimeB = StaticRef<uint32>(0xC0B1B4);
+auto& s_lastNoiseTimeA = DatosExe::Bss::bC0B1B0;
+auto& s_lastNoiseTimeB = DatosExe::Bss::bC0B1B4;
 
 // 0x40FDB0 (producto escalar en el orden del EXE: (a.z*b.z + a.y*b.y) + a.x*b.x; cada operacion se redondea a float)
 float Dot(const CVector& a, const CVector& b) {

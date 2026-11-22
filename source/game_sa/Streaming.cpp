@@ -26,6 +26,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "Streaming.h"
@@ -36,11 +37,11 @@ END GENERATED HOOK STATUS */
 #include "LoadingScreen.h"
 #include "VehicleRecording.h"
 
-static auto& CurrentGangMemberToLoad = StaticRef<int32>(0x9654D4);
+static auto& CurrentGangMemberToLoad = DatosExe::Bss::b9654D4;
 
 // Como el original: InitImageList (0x408402 / 0x408499) guarda el indice de GTA3.IMG y de GTA_INT.IMG en estos dos globales
 static auto& gta3ImgSlot = StaticRef<int32>(0x8E48A8);
-static auto& gtaIntImgSlot = StaticRef<int32>(0x8E48A4);
+static auto& gtaIntImgSlot = DatosExe::Bss::b8E48A4;
 // Como el original: LoadCdDirectory() (0x5B82EB / 0x5B8329) guarda aqui el tamano de GTA3.IMG (GetFileSize, 0x406360) y lo desplaza 11 bits
 static auto& ms_imageSize = StaticRef<uint32>(0x8E4C68);
 
@@ -2759,7 +2760,7 @@ void CStreaming::RetryLoadFile(int32 chIdx) {
 
 // 0x40E3A0
 void CStreaming::LoadRequestedModels() {
-    static auto& currentChannel = StaticRef<int32>(0x965534); // 0
+    static auto& currentChannel = DatosExe::Bss::b965534; // 0
     if (ms_bLoadingBigModel)
         currentChannel = 0;
 
@@ -2797,7 +2798,7 @@ void CStreaming::FlushRequestList() {
 void CStreaming::ForceLayerToRead(int32 arg1) {
     // Como el original (0x407A10): primero el BYTE de 0x9654C4 y despues el DWORD de 0x9654C8 (sin uso)
     ms_bReadLayerForceFully = true;
-    static auto& s_ForcedLayer = StaticRef<int32>(0x9654C8);
+    static auto& s_ForcedLayer = DatosExe::Bss::b9654C8;
     s_ForcedLayer = arg1;
 }
 
@@ -2857,7 +2858,7 @@ int32 CStreaming::GetDefaultCabDriverModel() {
     });
 
     // Last index into the above array used to choose model for cab driver
-    static auto& s_LastRandomIndex = StaticRef<int32>(0x965524); // Default: 0
+    static auto& s_LastRandomIndex = DatosExe::Bss::b965524; // Default: 0
 
     // If previously choosen model is still loaded, then use that
     if (const auto model = s_DefaultCabDriverModels[s_LastRandomIndex]; GetInfo(model).m_LoadState != eStreamingLoadState::LOADSTATE_NOT_LOADED) {
@@ -3398,7 +3399,7 @@ void CStreaming::StreamOneNewCar() {
     if (!GetInfo(MODEL_TAXI).IsLoaded() &&
         !GetInfo(MODEL_CABBIE).IsLoaded()
     ) {
-        static auto& lastCarModelStreamedIn = StaticRef<int32>(0x965528); // 0
+        static auto& lastCarModelStreamedIn = DatosExe::Bss::b965528; // 0
         if (lastCarModelStreamedIn == MODEL_TAXI) {
             // Como el original (0x40B5BC..0x40B61F): si se streameo el taxi la ultima vez, primero se mira el cabbie (si hace falta se usa) y despues el taxi
             if (IsCarModelNeededInCurrentZone(MODEL_CABBIE)) {
@@ -3593,7 +3594,7 @@ void CStreaming::StreamVehiclesAndPeds() {
         dealerGroupId = CPopulation::GetPedGroupId(POPCYCLE_GROUP_DEALERS, 0);
     }
 
-    static auto& framesBeforeStreamingNextNewCar = StaticRef<int32>(0x965530); // 0
+    static auto& framesBeforeStreamingNextNewCar = DatosExe::Bss::b965530; // 0
     if (framesBeforeStreamingNextNewCar >= 0) {
         --framesBeforeStreamingNextNewCar;
     }
@@ -3642,7 +3643,7 @@ void CStreaming::StreamVehiclesAndPeds_Always(const CVector& unused) {
     StreamZoneModels_Gangs(unused);
 
     if (CPopCycle::m_pCurrZoneInfo) {
-        static auto& lastZonePopulationType = StaticRef<int32>(0x96552C); // 0
+        static auto& lastZonePopulationType = DatosExe::Bss::b96552C; // 0
         if (CPopCycle::m_pCurrZoneInfo->PopType != lastZonePopulationType) {
             ReclassifyLoadedCars();
             lastZonePopulationType = CPopCycle::m_pCurrZoneInfo->PopType;
@@ -3655,7 +3656,7 @@ void CStreaming::StreamZoneModels(const CVector& unused) {
     if (!CPopCycle::m_pCurrZoneInfo || CCheat::IsZoneStreamingAllowed())
         return;
 
-    static auto& timeBeforeNextLoad = StaticRef<int32>(0x9654CC); // 0
+    static auto& timeBeforeNextLoad = DatosExe::Bss::b9654CC; // 0
     if (CPopCycle::m_pCurrZoneInfo->PopType == ms_currentZoneType) {
         if (timeBeforeNextLoad >= 0) {
             timeBeforeNextLoad--;
@@ -3714,7 +3715,7 @@ void CStreaming::StreamZoneModels(const CVector& unused) {
         timeBeforeNextLoad = 299; // Como el original (0x40A655..0x40A65B): `mov eax,12Ch` y el `dec eax` compartido con la rama de cuenta atras -> 299
     }
 
-    static auto& timeBeforeNextGangLoad = StaticRef<int32>(0x9654D0); // 0
+    static auto& timeBeforeNextGangLoad = DatosExe::Bss::b9654D0; // 0
     if (timeBeforeNextGangLoad >= 0) {
         timeBeforeNextGangLoad--;
     } else /*if (timeBeforeNextGangLoad < 0) - unnecessary*/ {

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include <functional>
 #include <span>
@@ -59,7 +60,7 @@ struct RwStream;
 
 class CVehicleRecording {
 public:
-    static inline auto& NumPlayBackFiles = StaticRef<int32>(0x97F630);
+    static inline auto& NumPlayBackFiles = DatosExe::Bss::b97F630;
     static inline auto& StreamingArray = StaticRef<std::array<CPath, TOTAL_RRR_MODEL_IDS>>(0x97D880);
     static inline auto& pVehicleForPlayback = StaticRef<std::array<CVehicle*, TOTAL_VEHICLE_RECORDS>>(0x97D840);
     static inline auto& pPlaybackBuffer = StaticRef<std::array<CVehicleStateEachFrame*, TOTAL_VEHICLE_RECORDS>>(0x97D800);

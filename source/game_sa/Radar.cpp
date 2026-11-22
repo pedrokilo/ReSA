@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataCadenas.h"
@@ -293,7 +294,7 @@ void CRadar::DrawLegend(int32 x, int32 y, eRadarSprite blipType) {
     }
 
     static auto& legendTraceHeight = StaticRef<eRadarTraceHeight>(0xBAA350); // = eRadarTraceHeight::RADAR_TRACE_LOW;
-    static auto& legendTraceTimer  = StaticRef<uint32>(0xBAA354); // = CTimer::GetTimeInMS();
+    static auto& legendTraceTimer  = DatosExe::Bss::bBAA354; // = CTimer::GetTimeInMS();
 
     // 0x582E62..0x582E78: el color de la flecha se lee antes de actualizar el temporizador
     const CRGBA arrowColor = ArrowBlipColour.data()[-blipType];
@@ -1096,7 +1097,7 @@ void CRadar::DrawRotatingRadarSprite(CSprite2d& sprite, float x, float y, float 
 
 // 0x584960
 void CRadar::DrawYouAreHereSprite(float x, float y) {
-    static auto& mapYouAreHereTimer = StaticRef<uint32>(0xBAA358);
+    static auto& mapYouAreHereTimer = DatosExe::Bss::bBAA358;
     static auto& mapYouAreHereDisplay = DatosExe::Data::v8D0930;
 
     // Como el original (0x584960..0x5849AA): visible -> se apaga cuando pasan mas de 500 ms; apagado -> se enciende cuando pasan mas de 200 ms
@@ -1800,7 +1801,7 @@ static float RadarGangPulse(float angle, int32 alphaInt) {
 
 // 0x586650
 void CRadar::DrawRadarGangOverlay(bool inMenu) {
-    static auto& g_RadarGangResetOverlay = StaticRef<uint32>(0xBAA36C); // bool?
+    static auto& g_RadarGangResetOverlay = DatosExe::Bss::bBAA36C; // bool?
     static auto& g_RadarGangOverlay = StaticRef<CRect>(0xBAA35C);
 
     if ((g_RadarGangResetOverlay & 1) == 0) {
@@ -2065,10 +2066,10 @@ void CRadar::DrawCoordBlip(int32 blipIndex, bool isSprite) {
 
 // Estaticas locales de DrawEntityBlip en el EXE (0xBAA370..0xBAA380): el destello de la pista de aterrizaje y sus banderas de inicializacion (bit 0: BAA37C, bit 1: BAA378).
 static auto& airstripFlashDone  = DatosExe::Bss::bBAA370;
-static auto& airstripFlashTime  = StaticRef<uint32>(0xBAA374);
+static auto& airstripFlashTime  = DatosExe::Bss::bBAA374;
 static auto& airstripFlashEnd   = DatosExe::Bss::bBAA378;
 static auto& airstripFlashStep  = DatosExe::Bss::bBAA37C;
-static auto& airstripFlashGuard = StaticRef<uint32>(0xBAA380);
+static auto& airstripFlashGuard = DatosExe::Bss::bBAA380;
 
 /*
  * @brief Draw a blip of an entity (vehicle, ped, object, pickup), script spotlight or airstrip by its index in `ms_RadarTrace`

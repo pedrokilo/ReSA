@@ -5,12 +5,13 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 class CCredits {
 public:
-    static inline auto& CreditsStartTime = StaticRef<uint32>(0xC6E978);
-    static inline auto& bCreditsGoing = DatosExe::Bss::bC6E97C;
+    static inline auto& CreditsStartTime = DatosExe::Bss::bC6E978;
+    static inline auto& bCreditsGoing = StaticRef<bool>(0xC6E97C);
 
 public:
     static void InjectHooks();

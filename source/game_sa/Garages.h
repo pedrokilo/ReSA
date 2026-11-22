@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "Garage.h"
@@ -22,23 +23,23 @@ public:
     static inline auto& aCarsInSafeHouse = StaticRef<CStoredCar[MAX_NUM_SAFEHOUSES][MAX_CARS_IN_SAFEHOUSE]>(0x96ABD8);
     static inline auto& aGarages = StaticRef<CGarage[MAX_NUM_GARAGES]>(0x96C048);
     static inline auto& MessageIDString = StaticRef<char[8]>(0x96C014);
-    static inline auto& LastGaragePlayerWasIn = StaticRef<int32>(0x96BFDC);
-    static inline auto& LastTimeHelpMessage = StaticRef<int32>(0x96BFE0);
+    static inline auto& LastGaragePlayerWasIn = DatosExe::Bss::b96BFDC;
+    static inline auto& LastTimeHelpMessage = DatosExe::Bss::b96BFE0;
     static inline auto& bCamShouldBeOutside = DatosExe::Bss::b96BFE4;
-    static inline auto& CrushedCarId = StaticRef<int32>(0x96BFE8);
+    static inline auto& CrushedCarId = DatosExe::Bss::b96BFE8;
     static inline auto& CarTypesCollected = StaticRef<int32[MAX_CARS_IN_SAFEHOUSE]>(0x96BFEC);
-    static inline auto& PoliceCarsCollected = StaticRef<int32>(0x96BFFC);
-    static inline auto& BankVansCollected = StaticRef<int32>(0x96C000);
-    static inline auto& CarsCollected = StaticRef<int32>(0x96C004);
+    static inline auto& PoliceCarsCollected = DatosExe::Bss::b96BFFC;
+    static inline auto& BankVansCollected = DatosExe::Bss::b96C000;
+    static inline auto& CarsCollected = DatosExe::Bss::b96C004;
     static inline auto& NoResprays = StaticRef<bool>(0x96C008);
     static inline auto& RespraysAreFree = DatosExe::Bss::b96C009;
     static inline auto& BombsAreFree = DatosExe::Bss::b96C00A;
     static inline auto& PlayerInGarage = DatosExe::Bss::b96C00B;
-    static inline auto& MessageNumberInString = StaticRef<int32>(0x96C00C);
-    static inline auto& MessageNumberInString2 = StaticRef<int32>(0x96C010);
-    static inline auto& MessageEndTime = StaticRef<uint32>(0x96C01C);
-    static inline auto& MessageStartTime = StaticRef<uint32>(0x96C020);
-    static inline auto& NumGarages = StaticRef<int32>(0x96C024);
+    static inline auto& MessageNumberInString = DatosExe::Bss::b96C00C;
+    static inline auto& MessageNumberInString2 = DatosExe::Bss::b96C010;
+    static inline auto& MessageEndTime = DatosExe::Bss::b96C01C;
+    static inline auto& MessageStartTime = DatosExe::Bss::b96C020;
+    static inline auto& NumGarages = DatosExe::Bss::b96C024;
     static inline auto& pOldToGarageWeAreIn = StaticRef<CGarage*>(0x96BFD8);
 
 public:

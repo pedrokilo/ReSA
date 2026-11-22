@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -107,7 +108,7 @@ public:
     static inline auto& m_CurrentColours = StaticRef<CColourSet>(0xB7C4A0);
 
     static inline auto& m_aBoxes = StaticRef<std::array<CTimeCycleBox, 20>>(0xB7C550);
-    static inline auto& m_NumBoxes = StaticRef<uint32>(0xB7C480);
+    static inline auto& m_NumBoxes = DatosExe::Bss::bB7C480;
 
     static inline auto& m_CurrentStoredValue = StaticRef<uint32>(0xB79FD0);
     static inline auto& m_VectorToSun = StaticRef<std::array<CVector, 16>>(0xB7CA50);
@@ -124,7 +125,7 @@ public:
 
     static inline auto& m_ExtraColour = StaticRef<int32>(0xB79E44);
     static inline auto& m_ExtraColourWeatherType = StaticRef<int32>(0xB79E40);
-    static inline auto& m_bExtraColourOn = StaticRef<uint32>(0xB7C484);
+    static inline auto& m_bExtraColourOn = DatosExe::Bss::bB7C484;
     static inline auto& m_ExtraColourInter = StaticRef<float>(0xB79E3C);
 
     static inline auto& m_BelowHorizonGrey = StaticRef<RwRGBA>(0xB7CB10);
@@ -137,7 +138,7 @@ public:
 
     // Como el original: CalcColoursForPoint guarda aquí (words) los tipos de clima viejo y nuevo que usa
     static inline auto& m_nCurrentOldWeatherType = StaticRef<int16>(0xB7CB20);
-    static inline auto& m_nCurrentNewWeatherType = DatosExe::Bss::bB7CB24;
+    static inline auto& m_nCurrentNewWeatherType = StaticRef<int16>(0xB7CB24);
 
 public:
     static void InjectHooks();

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
@@ -50,7 +51,7 @@ public:
     static inline auto& ms_nTotalGangPeds = StaticRef<uint32>(0xC0EC2C);
     static inline auto& ms_nTotalCivPeds = StaticRef<uint32>(0xC0EC30);
     static inline auto& ms_nTotalCarPassengerPeds = StaticRef<uint32>(0xC0EC34);
-    static inline auto& ms_nNumDealers = StaticRef<uint32>(0xC0EC38);
+    static inline auto& ms_nNumDealers = DatosExe::Bss::bC0EC38;
     static inline auto& ms_nNumGang = StaticRef<std::array<uint32, TOTAL_GANGS>>(0xC0EC3C);
     static inline auto& ms_nNumEmergency = StaticRef<uint32>(0xC0EC64);
     static inline auto& ms_nNumCop = StaticRef<uint32>(0xC0EC68);
@@ -62,8 +63,8 @@ public:
     static inline auto& m_bDontCreateRandomCops = StaticRef<bool>(0xC0FCB4);
     static inline auto& m_bMoreCarsAndFewerPeds = StaticRef<bool>(0xC0FCB5);
     static inline auto& bInPoliceStation = DatosExe::Bss::bC0FCB6;
-    static inline auto& NumMiamiViceCops = StaticRef<uint32>(0xC0FCB8);
-    static inline auto& CurrentWorldZone = StaticRef<uint32>(0xC0FCBC);
+    static inline auto& NumMiamiViceCops = DatosExe::Bss::bC0FCB8;
+    static inline auto& CurrentWorldZone = DatosExe::Bss::bC0FCBC;
 
     //! Number of model IDs in each corresponding car group
     static inline auto& m_nNumCarsInGroup = StaticRef<std::array<uint16, (size_t)(POPCYCLE_TOTAL_CARGROUPS)>>(0xC0EC78);

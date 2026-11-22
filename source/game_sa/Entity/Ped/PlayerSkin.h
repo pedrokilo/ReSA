@@ -1,10 +1,11 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "RenderWare.h"
 
 class CPlayerSkin {
 public:
-    static inline auto& m_txdSlot = StaticRef<int32>(0xC3F03C);
+    static inline auto& m_txdSlot = DatosExe::Bss::bC3F03C;
 
 public:
     static void InjectHooks();

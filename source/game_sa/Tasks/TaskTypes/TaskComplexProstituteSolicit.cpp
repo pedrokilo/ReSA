@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include "TaskComplexProstituteSolicit.h"
 #include "Ragdoll/IKChainManager.h"
@@ -319,7 +320,7 @@ CTask* CTaskComplexProstituteSolicit::ControlSubTask(CPed* ped) {
     }
     if (m_pSubTask->GetTaskType() != TASK_COMPLEX_CAR_DRIVE) return m_pSubTask;
     const auto now = CTimer::GetTimeInMS();
-    if (StaticRef<int32>(0xB6F0D8) == 1) {
+    if (DatosExe::Bss::bB6F0D8 == 1) {
         m_nLastSavedTime = int32(now);
         m_nCurrentTimer = 8000;
         bMoveCameraDown = false;

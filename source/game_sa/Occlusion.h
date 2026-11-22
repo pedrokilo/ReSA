@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include <span>
@@ -18,9 +19,9 @@ public:
     static inline auto&    Occluders                         = StaticRef<std::array<COccluder, MAX_MAP_OCCLUDERS>>(0xC73FA0);
     static inline auto&    ActiveOccluders                   = StaticRef<std::array<CActiveOccluder, MAX_ACTIVE_OCCLUDERS>>(0xC78610);
 
-    static inline auto&    NumInteriorOccludersOnMap         = StaticRef<size_t>(0xC73CC4);
-    static inline auto&    NumOccludersOnMap                 = StaticRef<size_t>(0xC73F98);
-    static inline auto&    NumActiveOccluders                = StaticRef<size_t>(0xC73CC0);
+    static inline auto&    NumInteriorOccludersOnMap         = DatosExe::Bss::bC73CC4;
+    static inline auto&    NumOccludersOnMap                 = DatosExe::Bss::bC73F98;
+    static inline auto&    NumActiveOccluders                = DatosExe::Bss::bC73CC0;
 
     static inline auto&    NearbyList                        = DatosExe::Data::v8D5D6C;
 

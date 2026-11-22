@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
@@ -220,7 +221,7 @@ public:
     static inline auto& m_radarRect = StaticRef<CRect>(0x8D0920); // { 1000000.0f, -1000000.0f, -1000000.0f, 1000000.0f }
 
     static inline auto& airstrip_location = StaticRef<eAirstripLocation>(0xBA8300); // current airstrip index in airstrip_table
-    static inline auto& airstrip_blip = StaticRef<int32>(0xBA8304);     // blip handle
+    static inline auto& airstrip_blip = DatosExe::Bss::bBA8304;     // blip handle
 
 public:
     static void InjectHooks();

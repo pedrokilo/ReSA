@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -1672,7 +1673,7 @@ uint16& WaterIndexWord(int32 i) { return *reinterpret_cast<uint16*>(0xC4B958u + 
 
 // 0x6E91D0 (cdecl). El EXE hace x87 de 24 bits: cada tramo esta en X87Math (Wl91*). La division entera (idiv) lanza la excepcion de division con halfX o halfY iguales a cero, como el EXE.
 void CWaterLevel::RenderHighDetailWaterRectangle_OneLayer(int32 minX, int32 maxX, int32 Y1, int32 Y2, CRenPar P1, CRenPar P2, CRenPar P3, CRenPar P4, int32 WaterLayer, int32 /*twiceArea*/, int32 /*triangular*/, int32 halfX, int32 halfY) {
-    auto& colorIndex = StaticRef<int32>(0xC1F960);
+    auto& colorIndex = DatosExe::Bss::bC1F960;
     auto& nVtx = StaticRef<int32>(0xC4B950);
     auto& nIdx = StaticRef<int32>(0xC4B954);
     // Como el original (0x6E91DA..0x6E91E4): contador de colores a cero y vaciado del bufer (0x6E7680).
@@ -1825,7 +1826,7 @@ void CWaterLevel::RenderHighDetailWaterRectangle_OneLayer(int32 minX, int32 maxX
 // 0x6E8780 (cdecl). Triangulo de (halfW + 1) filas; ver RenderHighDetailWaterRectangle_OneLayer. Base = esquina 1 si X1 == X3, si no la 2 (con las diferencias invertidas). La capa 2 (nunca la usa el EXE)
 // es una transcripcion: el EXE multiplica por una ranura de pila sin inicializar en ese camino, aqui 0.0f.
 void CWaterLevel::RenderHighDetailWaterTriangle_OneLayer(int32 X1, int32 Y1, CRenPar P1, int32 X2, int32 Y2, CRenPar P2, int32 X3, int32 Y3, CRenPar P3, int32 WaterLayer, int32 /*halfSquared*/, int32 /*triangular*/, int32 halfW) {
-    auto& colorIndex = StaticRef<int32>(0xC1F960);
+    auto& colorIndex = DatosExe::Bss::bC1F960;
     auto& nVtx = StaticRef<int32>(0xC4B950);
     auto& nIdx = StaticRef<int32>(0xC4B954);
     colorIndex = 0;

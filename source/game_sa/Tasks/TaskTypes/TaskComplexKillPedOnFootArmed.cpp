@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/RdataConstantes.h"
 
 #include "TaskComplexKillPedOnFootArmed.h"
@@ -97,7 +98,7 @@ bool CTaskComplexKillPedOnFootArmed::LineOfSightClearForAttack(CPed* ped) { // p
         || (m_target && m_target->IsPlayer() && ((int32)CGame::currArea != 0 /* 0x621558 [0xB72914] */ || ped->IsCreatedByMission() /* 0x621561 [ped+484h] == 2 */))
     ) {
         reqTimeDelta = 5000; // 0x621569 mov ebp,1388h
-        if (StaticRef<int32>(0xB7298C) < 2) { // CLoadMonitor::m_eProcLevel (HIGH = 2), 0x62156F cmp/jge
+        if (DatosExe::Bss::bB7298C < 2) { // CLoadMonitor::m_eProcLevel (HIGH = 2), 0x62156F cmp/jge
             reqDistDeltaSq = 4.f;             // 0x40800000
         }
     }

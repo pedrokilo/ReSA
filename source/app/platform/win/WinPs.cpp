@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include <platform/win/WinPlatform.h>
 #include <platform/platform.h>
@@ -47,8 +48,8 @@ static auto& gCpuVendor = StaticRef<std::array<char, 13>>(0x8D6238);
 static auto& PsGlobal = StaticRef<psGlobalType>(0xC8CF88);
 
 // Como el original: psSelectDevice guarda aquí el contador de ciclos (rdtsc); nadie lo lee.
-static auto& s_SelectDeviceTscHigh = StaticRef<uint32>(0xC92104);
-static auto& s_SelectDeviceTscLow  = StaticRef<uint32>(0xC92108);
+static auto& s_SelectDeviceTscHigh = DatosExe::Bss::bC92104;
+static auto& s_SelectDeviceTscLow  = DatosExe::Bss::bC92108;
 
 // 0x7455E0 - Get available videomem
 static HRESULT GetVideoMemInfo(LPDWORD total, LPDWORD available) {

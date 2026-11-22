@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "Vehicle.h"
@@ -79,11 +80,11 @@ public:
     std::array<CDoor, 6>             m_aDoors;
     std::array<RwFrame*, TRAIN_NUM_NODES> m_aTrainNodes;
 
-    static inline auto& GenTrain_Track = StaticRef<uint32>(0xC37FFC);
-    static inline auto& GenTrain_TrainConfig = StaticRef<uint32>(0xC38000);
+    static inline auto& GenTrain_Track = DatosExe::Bss::bC37FFC;
+    static inline auto& GenTrain_TrainConfig = DatosExe::Bss::bC38000;
     static inline auto& GenTrain_Direction = DatosExe::Bss::bC38004;
-    static inline auto& GenTrain_GenerationNode = StaticRef<uint32>(0xC38008);
-    static inline auto& GenTrain_Status = StaticRef<uint32>(0xC3800C);
+    static inline auto& GenTrain_GenerationNode = DatosExe::Bss::bC38008;
+    static inline auto& GenTrain_Status = DatosExe::Bss::bC3800C;
     static inline auto& bDisableRandomTrains = DatosExe::Bss::bC38010;
     static inline auto& aStationCoors = StaticRef<CVector[6]>(0x8D48F8);
 

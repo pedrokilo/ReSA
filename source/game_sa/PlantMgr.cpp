@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 #include "X87Math.h"
 
 #include "PlantMgr.h"
@@ -423,8 +424,8 @@ void CPlantMgr::UpdateAmbientColor() {
 
 // 0x5DB3D0
 float CPlantMgr::CalculateWindBending() {
-    static auto& calculateTimer = StaticRef<uint32>(0xC0916C);
-    static auto& RandomSeed = StaticRef<uint32>(0xC09168); // Como el original: se escribe y se lee como dword
+    static auto& calculateTimer = DatosExe::Bss::bC0916C;
+    static auto& RandomSeed = DatosExe::Bss::bC09168; // Como el original: se escribe y se lee como dword
 
     if ((calculateTimer & 1) == 0) {
         calculateTimer |= 1;

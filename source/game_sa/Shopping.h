@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "TheZones.h"
@@ -74,12 +75,12 @@ class CShopping {
     static inline auto& ms_statModifiers = StaticRef<std::array<StatModifiers, NUM_ITEMS>>(0xA974D0);
     static inline auto& ms_priceModifiers = StaticRef<std::array<PriceModifier, MAX_PRICE_MODIFIERS>>(0xA98650);
     static inline auto& ms_prices = StaticRef<std::array<ItemPrice, NUM_BUYABLE_ITEMS>>(0xA986F0);
-    static inline auto& ms_numBuyableItems = StaticRef<uint32>(0xA9A310);
+    static inline auto& ms_numBuyableItems = DatosExe::Bss::bA9A310;
     static inline auto& ms_keys = StaticRef<std::array<uint32, NUM_ITEMS>>(0xA97D90);
     static inline auto& ms_shopContents = StaticRef<std::array<uint32, NUM_BUYABLE_ITEMS>>(0xA9A318);
     static inline auto& ms_priceSectionLoaded = StaticRef<ePriceSection>(0xA9A7C8);
-    static inline auto& ms_numPrices = StaticRef<int32>(0xA9A7CC);
-    static inline auto& ms_numPriceModifiers = StaticRef<int32>(0xA9A7D0);
+    static inline auto& ms_numPrices = DatosExe::Bss::bA9A7CC;
+    static inline auto& ms_numPriceModifiers = DatosExe::Bss::bA9A7D0;
     static inline auto& ms_shopLoaded = StaticRef<char[24]>(0xA9A7D8);
     static inline auto& ms_numItemsInShop = StaticRef<int32>(0xA9A7F0);
 

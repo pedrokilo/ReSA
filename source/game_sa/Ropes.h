@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "Rope.h"
 
@@ -23,7 +24,7 @@ public:
 
     static inline auto& aRopes = StaticRef<std::array<CRope, MAX_NUM_ROPES>>(0xB768B8); // Access using CRopes::GetRope()
     static inline auto& PlayerControlsCrane = StaticRef<eControlledCrane>(0xB76898);
-    static inline auto& m_nRopeIdCreationCounter = StaticRef<uint32>(0xB781F8);
+    static inline auto& m_nRopeIdCreationCounter = DatosExe::Bss::bB781F8;
 
 public:
     static void InjectHooks();

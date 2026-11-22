@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "Automobile.h"
@@ -96,7 +97,7 @@ public:
     float        field_A14;
 
     static inline auto& bPoliceHelisAllowed = DatosExe::Data::v8D338C; // 1
-    static inline auto& TestForNewRandomHelisTimer = StaticRef<uint32>(0xC1C960);
+    static inline auto& TestForNewRandomHelisTimer = DatosExe::Bss::bC1C960;
     static inline auto& pHelis = StaticRef<std::array<CHeli*, 2>>(0xC1C964);
     static inline auto& NumberOfSearchLights = StaticRef<uint32>(0xC1C96C);
     static inline auto& bHeliControlsCheat = StaticRef<bool>(0xC1C970);

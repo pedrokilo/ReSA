@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
@@ -25,25 +26,25 @@ constexpr auto TIME_COPS_WAIT_TO_EXIT_AFTER_STOPPING = 2500;
 class CCarCtrl {
 public:
     static inline auto& bCarIsBeingCreated = DatosExe::Bss::b9690CC;
-    static inline auto& NumLawEnforcerCars = StaticRef<uint32>(0x969098);
-    static inline auto& NumParkedCars = StaticRef<uint32>(0x9690A0);
-    static inline auto& NumAmbulancesOnDuty = StaticRef<uint32>(0x9690A8);
-    static inline auto& NumFireTrucksOnDuty = StaticRef<uint32>(0x9690AC);
+    static inline auto& NumLawEnforcerCars = DatosExe::Bss::b969098;
+    static inline auto& NumParkedCars = DatosExe::Bss::b9690A0;
+    static inline auto& NumAmbulancesOnDuty = DatosExe::Bss::b9690A8;
+    static inline auto& NumFireTrucksOnDuty = DatosExe::Bss::b9690AC;
     static inline auto& MaxNumberOfCarsInUse = DatosExe::Data::v8A5B24;
     static inline auto& CarDensityMultiplier = StaticRef<float>(0x8A5B20);
     static inline auto& NumRandomCars = StaticRef<int32>(0x969094);
-    static inline auto& NumMissionCars = StaticRef<int32>(0x96909C);
-    static inline auto& NumPermanentVehicles = StaticRef<int32>(0x9690A4);
-    static inline auto& LastTimeAmbulanceCreated = StaticRef<int32>(0x9690B0);
-    static inline auto& LastTimeFireTruckCreated = StaticRef<int32>(0x9690B4);
+    static inline auto& NumMissionCars = DatosExe::Bss::b96909C;
+    static inline auto& NumPermanentVehicles = DatosExe::Bss::b9690A4;
+    static inline auto& LastTimeAmbulanceCreated = DatosExe::Bss::b9690B0;
+    static inline auto& LastTimeFireTruckCreated = DatosExe::Bss::b9690B4;
     static inline auto& bAllowEmergencyServicesToBeCreated = DatosExe::Data::v8A5B28;
     static inline auto& bCarsGeneratedAroundCamera = DatosExe::Bss::b9690C1;
     static inline auto& CountDownToCarsAtStart = DatosExe::Bss::b9690C0;
     static inline auto& TimeNextMadDriverChaseCreated = StaticRef<float>(0x9690BC);
-    static inline auto& SequenceElements = StaticRef<int32>(0x969078);
-    static inline auto& SequenceRandomOffset = StaticRef<int32>(0x969074);
+    static inline auto& SequenceElements = DatosExe::Bss::b969078;
+    static inline auto& SequenceRandomOffset = DatosExe::Bss::b969074;
     static inline auto& bSequenceOtherWay = DatosExe::Bss::b969070;
-    static inline auto& LastTimeLawEnforcerCreated = StaticRef<int32>(0x9690B8);
+    static inline auto& LastTimeLawEnforcerCreated = DatosExe::Bss::b9690B8;
 
 public:
     static void InjectHooks();

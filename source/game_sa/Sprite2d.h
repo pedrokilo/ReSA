@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "Rect.h"
 #include "RGBA.h"
@@ -17,8 +18,8 @@ class CSprite2d {
 public:
     RwTexture* m_pTexture;
 
-    static inline auto& nextBufferIndex = StaticRef<int32>(0xC80458);
-    static inline auto& nextBufferVertex = StaticRef<int32>(0xC8045C);
+    static inline auto& nextBufferIndex = DatosExe::Bss::bC80458;
+    static inline auto& nextBufferVertex = DatosExe::Bss::bC8045C;
     static inline auto& NearScreenZ = StaticRef<float>(0xC80460);
     static inline auto& RecipNearClip = StaticRef<float>(0xC80464);
     static inline auto& maVertices = StaticRef<std::array<RwIm2DVertex, 8>>(0xC80468);

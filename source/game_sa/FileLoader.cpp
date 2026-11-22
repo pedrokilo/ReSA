@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include "CarGenerator.h"
 #include "TheCarGenerators.h"
@@ -46,7 +47,7 @@ END GENERATED HOOK STATUS */
             NOTSA_LOG_WARN("Línea: {:?}", _l); \
         } \
     } while (0)
-auto& gAtomicModelId = StaticRef<uint32>(0xB71840);
+auto& gAtomicModelId = DatosExe::Bss::bB71840;
 
 void LinkLods(int32 a1);
 

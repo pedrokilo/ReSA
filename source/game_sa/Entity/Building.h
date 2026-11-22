@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "Entity.h"
 
@@ -31,5 +32,5 @@ VALIDATE_SIZE(CBuilding, 0x38);
 bool IsBuildingPointerValid(CBuilding* building);
 
 // in entity.cpp
-static auto& gBuildings = StaticRef<int32>(0xB71804);
+static auto& gBuildings = DatosExe::Bss::bB71804;
 

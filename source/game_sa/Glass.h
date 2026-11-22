@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include <rwcore.h>
 #include <FallingGlassPane.h>
@@ -18,19 +19,19 @@ enum class ePaneType : uint32 {
 class CGlass {
 public:
     static inline auto& PanePolyPositions = StaticRef<CVector2D[5][3]>(0x8D5CD8); // Como el original: 5 piezas (0x8D5CD8..0x8D5D50)
-    static inline auto& ReflectionPolyVertexBaseIdx = StaticRef<int32>(0xC71B18);
-    static inline auto& ReflectionPolyIndexBaseIdx = StaticRef<int32>(0xC71B1C);
+    static inline auto& ReflectionPolyVertexBaseIdx = DatosExe::Bss::bC71B18;
+    static inline auto& ReflectionPolyIndexBaseIdx = DatosExe::Bss::bC71B1C;
     static inline auto& ReflectionPolyVertexBuffer = StaticRef<std::array<RxObjSpace3DLitVertex, 1706>>(0xC5B158);
     static inline auto& ShatteredPolyVertexBuffer = StaticRef<std::array<RxObjSpace3DLitVertex, 512>>(0xC56958);
-    static inline auto& ShatteredVerticesBaseIdx = StaticRef<int32>(0xC71B20);
-    static inline auto& ShatteredIndicesBaseIdx = StaticRef<int32>(0xC71B24);
-    static inline auto& H1iLightPolyVerticesIdx = StaticRef<uint32>(0xC71B28);
-    static inline auto& HiLightPolyIndicesIdx = StaticRef<int32>(0xC71B2C);
+    static inline auto& ShatteredVerticesBaseIdx = DatosExe::Bss::bC71B20;
+    static inline auto& ShatteredIndicesBaseIdx = DatosExe::Bss::bC71B24;
+    static inline auto& H1iLightPolyVerticesIdx = DatosExe::Bss::bC71B28;
+    static inline auto& HiLightPolyIndicesIdx = DatosExe::Bss::bC71B2C;
     static inline auto& PanePolyCenterPositions = StaticRef<std::array<CVector2D, 5>>(0xC71B30);
     static inline auto& apEntitiesToBeRendered = StaticRef<CEntity*[32]>(0xC71B58);
-    static inline auto& NumGlassEntities = StaticRef<uint32>(0xC71BD8);
+    static inline auto& NumGlassEntities = DatosExe::Bss::bC71BD8;
     static inline auto& aGlassPanes = StaticRef<std::array<CFallingGlassPane, 45>>(0xC71BF8); // Como el original: 45 paneles (hasta 0xC72FA8)
-    static inline auto& LastColCheckMS = StaticRef<uint32>(0xC72FA8);
+    static inline auto& LastColCheckMS = DatosExe::Bss::bC72FA8;
 
 public:
     static void InjectHooks();

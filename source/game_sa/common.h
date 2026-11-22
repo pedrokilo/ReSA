@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include <Base.h>
 #include <string>
@@ -67,7 +68,7 @@ static inline auto& gGxtString = StaticRef<GxtChar[552]>(0xC1B100);
 static inline auto& gGxtString2 = StaticRef<GxtChar[552]>(0xC1AED8);
 static inline auto& GxtErrorString = StaticRef<GxtChar[32]>(0xC1AEB8);
 
-static inline auto& g_nNumIm3dDrawCalls = StaticRef<int32>(0xB73708);
+static inline auto& g_nNumIm3dDrawCalls = DatosExe::Bss::bB73708;
 
 static inline auto& PC_Scratch = StaticRef<char[16384]>(0xC8E0C8);
 

@@ -40,7 +40,7 @@ public:
     VALIDATE_SIZE(tQTSoundFormatInfo, 0x44);
 
 private:
-    static inline auto& quickTimeInitialized = DatosExe::Bss::bB61D70;
+    static inline auto& quickTimeInitialized = StaticRef<bool>(0xB61D70);
 
     char*                 m_pFilename;            // 0x08
     bool                  m_bInitialized;         // 0x0C

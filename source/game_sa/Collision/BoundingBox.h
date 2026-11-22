@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "Box.h"
 
@@ -25,4 +26,4 @@ public:
 VALIDATE_SIZE(CBoundingBox, 0x18);
 
 // in entity.cpp
-static auto& numBBFailed = StaticRef<int32>(0xB71808); // 0xB71808
+static auto& numBBFailed = DatosExe::Bss::bB71808; // 0xB71808

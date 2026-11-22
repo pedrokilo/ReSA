@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE2.h"
 
 #include "AnimationEnums.h"
 #include "eClothesModelPart.h"
@@ -15,8 +16,8 @@ class CPlayerPed;
 
 class CClothes {
 public:
-    static inline auto& ms_clothesImageId = StaticRef<int32>(0xBC12F8);
-    static inline auto& ms_numRuleTags = StaticRef<uint32>(0xBC12FC);
+    static inline auto& ms_clothesImageId = DatosExe::Bss::bBC12F8;
+    static inline auto& ms_numRuleTags = DatosExe::Bss::bBC12FC;
     static inline auto& ms_clothesRules = StaticRef<std::array<uint32, 600>>(0xBC1300);
 
 public:

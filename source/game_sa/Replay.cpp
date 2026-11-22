@@ -26,6 +26,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE2.h"
 
 #include "Camera.h"
 #include "ControllerConfigManager.h"
@@ -406,7 +407,7 @@ void CReplay::Update() {
     if (CTimer::GetIsCodePaused() || CTimer::GetIsUserPaused())
         return;
 
-    static auto& s_FrameRecordCounter = StaticRef<uint32>(0x97FB40);
+    static auto& s_FrameRecordCounter = DatosExe::Bss::b97FB40;
     switch (Mode) {
     case MODE_RECORD:
         if (CTimer::GetTimeInMS() - s_FrameRecordCounter > 26) {
@@ -621,7 +622,7 @@ void CReplay::Display() {
         return;
 
     // Como el original: contador de frames de 16 bits; el texto parpadea con el bit 5.
-    static auto& s_ReplayTextCounter = StaticRef<uint32>(0xA43240);
+    static auto& s_ReplayTextCounter = DatosExe::Bss::bA43240;
     s_ReplayTextCounter = (s_ReplayTextCounter + 1) & 0xFFFF;
     if (!(s_ReplayTextCounter & 0x20))
         return;
