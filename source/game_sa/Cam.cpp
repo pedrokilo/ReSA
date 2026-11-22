@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
@@ -1831,9 +1832,9 @@ void CCam::Process_AimWeapon(const CVector& targetPosition, float, float, float)
 void CCam::Process_AttachedCam() {
     m_fFOV=70.0f;const float angle=DatosExe::Bss::bB6F978*std::bit_cast<float>(0x3C8EFA35u);
     auto* attached=DatosExe::Bss::bB6F984;const auto& matrix=attached->GetMatrix();
-    m_vecSource=matrix.TransformVector(StaticRef<CVector>(0xB6F960));m_vecSource+=attached->GetPosition();
+    m_vecSource=matrix.TransformVector(DatosExe::Bss::bB6F960);m_vecSource+=attached->GetPosition();
     if(!DatosExe::Bss::bB6F054)m_vecFront=StaticRef<CEntity*>(0xB6F980)->GetPosition()-m_vecSource;
-    else {m_vecFront=matrix.TransformVector(StaticRef<CVector>(0xB6F96C));m_vecFront+=attached->GetPosition();m_vecFront-=m_vecSource;}
+    else {m_vecFront=matrix.TransformVector(DatosExe::Bss::bB6F96C);m_vecFront+=attached->GetPosition();m_vecFront-=m_vecSource;}
     m_vecFront.Normalise();auto side=CrossProduct(m_vecFront,CVector{0,0,1});side.Normalise();auto vertical=CrossProduct(side,m_vecFront);vertical.Normalise();
     float water=0;
     if(CWaterLevel::GetWaterLevel(m_vecSource.x,m_vecSource.y,m_vecSource.z,water,1,nullptr)&&m_vecSource.z<water-0.3f){

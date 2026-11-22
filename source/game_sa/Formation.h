@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
 
 #include <Vector.h>
 
@@ -16,7 +17,7 @@ class CMatrix;
 
 class CFormation {
 public:
-    static inline auto& m_aFinalPedLinkToDestinations = StaticRef<std::array<int32, 7>>(0xC1A2E0);
+    static inline auto& m_aFinalPedLinkToDestinations = DatosExe::Bss::bC1A2E0;
     static inline auto& m_aPedLinkToDestinations      = StaticRef<std::array<int32, TOTAL_PED_GROUP_MEMBERS>>(0xC1A2C0);
     static inline auto& m_Destinations                = StaticRef<CPointList>(0xC1A318);
     static inline auto& m_DestinationPeds             = StaticRef<CPedList>(0xC1A458);

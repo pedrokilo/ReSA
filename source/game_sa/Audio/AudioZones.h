@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE2.h"
 
 #include "CompressedBox.h"
@@ -37,9 +38,9 @@ VALIDATE_SIZE(tAudioZoneBox, 0x18);
 class CAudioZones {
 public:
     // Índices hacia m_aBoxes de las zonas que contienen la posición actual.
-    static inline auto& m_aActiveBoxes = StaticRef<std::array<int32, 10>>(0xB6DC6C);
+    static inline auto& m_aActiveBoxes = DatosExe::Bss::bB6DC6C;
     // Índices hacia m_aSpheres de las zonas que contienen la posición actual.
-    static inline auto& m_aActiveSpheres = StaticRef<std::array<int32, 10>>(0xB6DC94);
+    static inline auto& m_aActiveSpheres = DatosExe::Bss::bB6DC94;
 
     static inline auto& m_NumActiveBoxes = DatosExe::Bss::bB6DCBC;
     static inline auto& m_NumActiveSpheres = DatosExe::Bss::bB6DCC0;

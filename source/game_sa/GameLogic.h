@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
@@ -45,7 +46,7 @@ class CGameLogic {
 public:
     static inline auto& SavedWeapons = StaticRef<std::array<CWeapon, NUM_WEAPON_SLOTS>>(0x96A9B8);
 
-    static inline auto& AfterDeathStartPointOrientations = StaticRef<std::array<float, 16>>(0x96A850);
+    static inline auto& AfterDeathStartPointOrientations = DatosExe::Bss::b96A850;
     static inline auto& AfterDeathStartPoints = StaticRef<std::array<CVector, 16>>(0x96A8E0);
 
     static inline auto& SkipPosition = StaticRef<CVector>(0x96A8D4);

@@ -6,6 +6,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -231,7 +232,7 @@ public:
     //! Contains the next slot, that is, index at which the next model to load of a group is.
     //! This is used by `PickPedMIToStreamInForCurrentZone`
     //! And the modelId to load can be accessed by `CPopulation::GetPedGroupModelId` for a given 
-    static inline auto& ms_NextPedToLoadFromGroup = StaticRef<std::array<int32, 18>>(0x8E4BB8);
+    static inline auto& ms_NextPedToLoadFromGroup = DatosExe::Bss::b8E4BB8;
 
     static inline auto& ms_currentZoneType = DatosExe::Bss::b8E4C20;
     static inline auto& ms_vehiclesLoaded = StaticRef<CLoadedCarGroup>(0x8E4C24);

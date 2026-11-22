@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -89,7 +90,7 @@ bool __cdecl Cc63fCrossZNegativeCpp(const float* node3, const float* point, cons
 bool __cdecl Cc63fRightDotNegativeCpp(const float* right, const float* node3, const float* point);  // DotProduct(derecha, nodo3 - punto) < 0 (0x40FDB0: suma en el orden z, y, x)
 
 auto& apCarsToKeep = StaticRef<CVehicle*[2]>(0x969084);
-auto& aCarsToKeepTime = StaticRef<std::array<uint32, 2>>(0x96907C);
+auto& aCarsToKeepTime = DatosExe::Bss::b96907C;
 
 // Lote 63 (aire): colaboradores del EXE sin reconstruir que se llaman por direccion (los bancos los sustituyen por falsos identicos).
 // CVector::Normalise (0x59C910, thiscall, in situ; deja la x87 vacia) y rand() del CRT del EXE (0x821B1E: avanza la semilla del juego, la rand() de la DLL no).

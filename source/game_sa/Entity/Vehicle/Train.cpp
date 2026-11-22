@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -40,7 +41,7 @@ END GENERATED HOOK STATUS */
 auto& pTrackNodes = StaticRef<CTrainNode*[4]>(0xC38024);
 auto& NumTrackNodes = StaticRef<std::array<int32, 4>>(0xC38014);
 auto& arrTotalTrackLength = StaticRef<std::array<float, 4>>(0xC37FEC);
-auto& StationDist = StaticRef<std::array<float, 6>>(0xC38034);
+auto& StationDist = DatosExe::Bss::bC38034;
 
 namespace {
 // 0x6E2B40 (con hook, CVehicle::Destructor): llamada no virtual al cuerpo de ~CVehicle desde el cuerpo del destructor de CTrain, en una funcion propia sin expansion en linea para que el banco Fn174A pueda sustituirla.

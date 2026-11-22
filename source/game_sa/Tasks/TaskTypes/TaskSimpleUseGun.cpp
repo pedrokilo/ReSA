@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -616,9 +617,9 @@ bool CTaskSimpleUseGun::ProcessPed(CPed* ped) {
         if (anim->GetAnimId() != ANIM_ID_RELOAD && anim->GetAnimId() != ANIM_ID_CROUCHRELOAD && anim->m_BlendDelta >= 0.f) anim->m_BlendDelta = -4.f;
     } else if (m_LastCmd == Cmd::PISTOLWHIP) {
         const auto crouched = size_t(ped->bIsDucking);
-        const auto hitTime = StaticRef<std::array<float, 2>>(0xC17738)[crouched];
+        const auto hitTime = DatosExe::Bss::bC17738[crouched];
         if (anim->m_BlendAmount > 0.9f && anim->m_BlendDelta >= 0.f && anim->m_CurrentTime > hitTime && anim->m_CurrentTime - anim->m_TimeStep <= hitTime) {
-            const auto offsetId = StaticRef<std::array<uint8, 2>>(0xC17780)[crouched];
+            const auto offsetId = DatosExe::Bss::bC17780[crouched];
             CVector strike = ped->GetMatrix().TransformPoint(StaticRef<CVector[12]>(0xC177D0)[offsetId]);
             CTaskSimpleFight fight{m_TargetEntity, 11, 20000};
             fight.m_nComboSet = 16;

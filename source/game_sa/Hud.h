@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
@@ -52,8 +53,8 @@ public:
     static inline auto& m_nHelpMessageFadeTimer = DatosExe::Bss::bBAA478;
     static inline auto& m_nHelpMessageTimer = DatosExe::Bss::bBAA47C;
     static inline auto& m_pHelpMessageToPrint = StaticRef<GxtChar[400]>(0xBAA480);
-    static inline auto& m_pLastHelpMessage = StaticRef<GxtChar[400]>(0xBAA610);
-    static inline auto& m_pHelpMessage = StaticRef<GxtChar[400]>(0xBAA7A0);
+    static inline auto& m_pLastHelpMessage = DatosExe::Bss::bBAA610;
+    static inline auto& m_pHelpMessage = DatosExe::Bss::bBAA7A0;
 
     static inline auto& m_ZoneState = StaticRef<eNameState>(0xBAA930);
     static inline auto& m_ZoneFadeTimer = DatosExe::Bss::bBAA934;
@@ -87,7 +88,7 @@ public:
     static inline auto& m_EnergyLostTimer = DatosExe::Bss::bBAA43C;
     static inline auto& m_LastTimeEnergyLost = DatosExe::Bss::bBAA440;
 
-    static inline auto& m_Message = StaticRef<GxtChar[400]>(0xBAB040);
+    static inline auto& m_Message = DatosExe::Bss::bBAB040;
     static inline auto& m_BigMessage = StaticRef<GxtChar[NUM_MESSAGE_STYLES][BIG_MESSAGE_SIZE]>(0xBAACC0);
     static inline auto& LastBigMessage = StaticRef<GxtChar[NUM_MESSAGE_STYLES][BIG_MESSAGE_SIZE]>(0xBAA940);
     static inline auto& BigMessageAlpha = StaticRef<float[NUM_MESSAGE_STYLES]>(0xBAA3A4);

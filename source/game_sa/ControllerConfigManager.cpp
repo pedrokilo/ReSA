@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
 #include "WinInput.h"
 
 #include "ControllerConfigManager.h"
@@ -1092,7 +1093,7 @@ const GxtChar* CControllerConfigManager::GetControllerSettingTextMouse(eControll
 
 // 0x52F450
 const GxtChar* CControllerConfigManager::GetControllerSettingTextJoystick(eControllerAction action) {
-    auto& NewStringWithNumber = StaticRef<GxtChar[32]>(0xB7147C);
+    auto& NewStringWithNumber = DatosExe::Bss::bB7147C;
 
     const auto key = GetControllerKeyAssociatedWithAction(action, eControllerType::JOY_STICK);
     if (!GetIsKeyBlank(key, eControllerType::JOY_STICK)) {
@@ -1221,7 +1222,7 @@ static GxtChar KeyCharToGxtChar(uint8 ch) {
 // 0x52FE10
 const GxtChar* CControllerConfigManager::GetControllerSettingTextKeyBoard(eControllerAction action, eControllerType type) {
     auto& s_KeyName = StaticRef<GxtChar[50]>(0xB714BC); // temp value
-    auto& s_KeyNameWithNumber = StaticRef<GxtChar[32]>(0xB7149C);
+    auto& s_KeyNameWithNumber = DatosExe::Bss::bB7149C;
     rng::fill(s_KeyName, 0);
 
     const auto key = GetControllerKeyAssociatedWithAction(action, type);

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -15,7 +16,7 @@ class CPed;
 
 class CPedGroups {
 public:
-    static inline auto& ScriptReferenceIndex = StaticRef<std::array<uint16, 8>>(0xC098D0);
+    static inline auto& ScriptReferenceIndex = DatosExe::Bss::bC098D0;
     static inline auto& ms_activeGroups = StaticRef<std::array<char, 8>>(0xC098E0);
     static inline auto& ms_bIsPlayerOnAMission = DatosExe::Bss::bC098E8;
     static inline auto& ms_iNoOfPlayerKills = DatosExe::Bss::bC098EC;

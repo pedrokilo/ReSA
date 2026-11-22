@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -123,7 +124,7 @@ public:
 
 VALIDATE_SIZE(CPlayerPed, 0x7A4);
 
-static inline auto& abTempNeverLeavesGroup = StaticRef<std::array<bool, 7>>(0xC0BC08);
+static inline auto& abTempNeverLeavesGroup = DatosExe::Bss::bC0BC08;
 static inline auto& gPlayIdlesAnimBlockIndex = DatosExe::Bss::bC0BC10;
 
 bool LOSBlockedBetweenPeds(CEntity* entity1, CEntity* entity2);

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -115,10 +116,10 @@ public:
 
     // TODO: CVector2D?
     static inline auto& m_fShadowFrontX = StaticRef<std::array<float, 16>>(0xB79F90);
-    static inline auto& m_fShadowFrontY = StaticRef<std::array<float, 16>>(0xB79F50);
-    static inline auto& m_fShadowSideX = StaticRef<std::array<float, 16>>(0xB79F10);
-    static inline auto& m_fShadowSideY = StaticRef<std::array<float, 16>>(0xB79ED0);
-    static inline auto& m_fShadowDisplacementX = StaticRef<std::array<float, 16>>(0xB79E90);
+    static inline auto& m_fShadowFrontY = DatosExe::Bss::bB79F50;
+    static inline auto& m_fShadowSideX = DatosExe::Bss::bB79F10;
+    static inline auto& m_fShadowSideY = DatosExe::Bss::bB79ED0;
+    static inline auto& m_fShadowDisplacementX = DatosExe::Bss::bB79E90;
     static inline auto& m_fShadowDisplacementY = StaticRef<std::array<float, 16>>(0xB79E50);
 
     static inline auto& m_FogReduction = StaticRef<int32>(0xB79E48);

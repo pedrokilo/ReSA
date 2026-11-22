@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 
@@ -49,7 +50,7 @@ public:
     static inline auto& ms_lastSlotFound = DatosExe::Bss::bC88014;
     // variables list is not finished. Need to make CPools before.
 
-    static inline auto& defaultTxds = StaticRef<std::array<int16, 4>>(0xC88004);
+    static inline auto& defaultTxds = DatosExe::Bss::bC88004;
 
 public:
     static void InjectHooks();

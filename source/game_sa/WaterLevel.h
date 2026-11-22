@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
@@ -143,8 +144,8 @@ class CWaterLevel {
     static constexpr int32 NUM_WATER_BLOCKS_ROWCOL                = 6000 / WATER_BLOCK_SIZE; // 6000 => map size
     static inline    int32  m_MaxNumBlocksOutsideWorldToBeRendered = 70; // NOTSA: We just want a variable for the debug tool. Value may never be higher than the below array's size.
     static inline    auto& m_NumBlocksOutsideWorldToBeRendered = DatosExe::Bss::bC215EC;
-    static inline    auto& m_BlocksToBeRenderedOutsideWorldX = StaticRef<std::array<int16, 70>>(0xC21560);
-    static inline    auto& m_BlocksToBeRenderedOutsideWorldY = StaticRef<std::array<int16, 70>>(0xC214D0);
+    static inline    auto& m_BlocksToBeRenderedOutsideWorldX = DatosExe::Bss::bC21560;
+    static inline    auto& m_BlocksToBeRenderedOutsideWorldY = DatosExe::Bss::bC214D0;
 
     // NOTSA: Color of wake segment parts (So we can make rainbows)
     static inline struct {

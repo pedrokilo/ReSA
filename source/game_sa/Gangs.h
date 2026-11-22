@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
 
 #include <Base.h>
 #include <Enums/ePedType.h>
@@ -16,7 +17,7 @@ class CGangInfo;
 
 class CGangs {
 public:
-    static inline auto& GangAttackWithCops = StaticRef<std::array<bool, 10>>(0xC091E0);
+    static inline auto& GangAttackWithCops = DatosExe::Bss::bC091E0;
     static inline auto& Gang               = StaticRef<std::array<CGangInfo, 10>>(0xC091F0);
 
 public:

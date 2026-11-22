@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
@@ -71,8 +72,8 @@ public:
     static inline auto& ms_useCutsceneShadows = DatosExe::Data::v8AC158;
     static inline auto& numPlayerWeaponsToRestore = DatosExe::Bss::bB5EB58;
 
-    static inline auto& playerWeaponsToRestore_Ammo = StaticRef<std::array<int32, 13>>(0xB5EB5C); // TODO: Where does the 13 number come from? 
-    static inline auto& playerWeaponsToRestore_Type = StaticRef<std::array<int32, 13>>(0xB5EB90); // TODO: Where does the 13 number come from?
+    static inline auto& playerWeaponsToRestore_Ammo = DatosExe::Bss::bB5EB5C; // TODO: Where does the 13 number come from? 
+    static inline auto& playerWeaponsToRestore_Type = DatosExe::Bss::bB5EB90; // TODO: Where does the 13 number come from?
 
     static inline auto& ms_cAppendAnimName = StaticRef<std::array<char[32], 50>>(0xB5EBC8);
     static inline auto& ms_cAppendObjectName = StaticRef<std::array<char[32], 50>>(0xB5F208);
@@ -88,25 +89,25 @@ public:
     static inline auto& restoreEverythingAfterCutscene = DatosExe::Bss::bB5F85C;
     //! Armas del jugador guardadas para restaurarlas al borrar la cinemática con `m_bDontClearZone` (ver 0x5AFFE5)
     static inline auto& numPlayerWeaponsToRestoreInZone = DatosExe::Bss::bBC1CFC;
-    static inline auto& playerWeaponsToRestoreInZone_Ammo = StaticRef<std::array<int32, 13>>(0xBC1D00);
-    static inline auto& playerWeaponsToRestoreInZone_Type = StaticRef<std::array<int32, 13>>(0xBC1D34);
+    static inline auto& playerWeaponsToRestoreInZone_Ammo = DatosExe::Bss::bBC1D00;
+    static inline auto& playerWeaponsToRestoreInZone_Type = DatosExe::Bss::bBC1D34;
     static inline auto& m_fPrevCarDensity = DatosExe::Bss::bBC1D68;
     static inline auto& m_fPrevPedDensity = DatosExe::Bss::bBC1D6C;
     static inline auto& ms_pParticleEffects = StaticRef<std::array<tCutsceneParticleEffect, 8>>(0xBC1D70);
     static inline auto& ms_crToHideItems = StaticRef<std::array<tCutsceneRemoval, 50>>(0xBC20D0);
     static inline auto& ms_pHiddenEntities = StaticRef<std::array<CEntity*, 50>>(0xBC2968);
     static inline auto& ms_numAttachObjectToBones = DatosExe::Bss::bBC2A30;
-    static inline auto& ms_bRepeatObject = StaticRef<std::array<char, 50>>(0xBC2A34);
+    static inline auto& ms_bRepeatObject = DatosExe::Bss::bBC2A34;
     static inline auto& ms_iAttachObjectToBone = StaticRef<std::array<tCutsceneAttachment, 50>>(0xBC2A68);
     static inline auto& ms_aUncompressedCutsceneAnims = StaticRef<std::array<char[32], 8>>(0xBC2CC0); 
-    static inline auto& ms_iTextDuration = StaticRef<std::array<int32, 64>>(0xBC2DC0);
-    static inline auto& ms_iTextStartTime = StaticRef<std::array<int32, 64>>(0xBC2EC0);
+    static inline auto& ms_iTextDuration = DatosExe::Bss::bBC2DC0;
+    static inline auto& ms_iTextStartTime = DatosExe::Bss::bBC2EC0;
     static inline auto& ms_cTextOutput = StaticRef<std::array<char[8], 64>>(0xBC2FC0);
     static inline auto& ms_iModelIndex = StaticRef<std::array<eModelID, 50>>(0xBC31C0);
     static inline auto& ms_cLoadAnimName = StaticRef<std::array<char[32], 50>>(0xBC3288);
     static inline auto& ms_cLoadObjectName = StaticRef<std::array<char[32], 50>>(0xBC38C8);
     static inline auto& ms_cutsceneTimerS = DatosExe::Bss::bBC3F08; // In seconds
-    static inline auto& ms_cutsceneName = StaticRef<char[8]>(0xBC3F0C);
+    static inline auto& ms_cutsceneName = DatosExe::Bss::bBC3F0C;
     static inline auto& ms_pCutsceneObjects = StaticRef<std::array<CCutsceneObject*, 50>>(0xBC3F18);
     static inline auto& ms_cutscenePlayStatus = StaticRef<PlayStatus>(0xBC3FE0);
     static inline auto& ms_numCutsceneObjs = DatosExe::Bss::bBC3FE4;

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -1764,7 +1765,7 @@ void CWaterLevel::RenderHighDetailWaterRectangle_OneLayer(int32 minX, int32 maxX
                     float bigAmp, smallAmp;
                     Wl91Amps(fade, big, smallV, &bigAmp, &smallAmp);
                     float outWave = z, colorMult{}, glare{};
-                    CalculateWavesOnlyForCoordinate(x, y, bigAmp, smallAmp, outWave, colorMult, glare, StaticRef<CVector>(0xC278D4));
+                    CalculateWavesOnlyForCoordinate(x, y, bigAmp, smallAmp, outWave, colorMult, glare, DatosExe::Bss::bC278D4);
                     vtx = nVtx;
                     auto& vertex = WaterBufferVertex(vtx);
                     vertex.u = Wl91Affine(xOffset, 0.08f, shiftU);
@@ -1908,7 +1909,7 @@ void CWaterLevel::RenderHighDetailWaterTriangle_OneLayer(int32 X1, int32 Y1, CRe
                     float bigAmp, smallAmp;
                     Wl91Amps(fade, double(big), smallV, &bigAmp, &smallAmp);
                     float outWave = z, colorMult{}, glare{};
-                    CalculateWavesOnlyForCoordinate(curX, curY, bigAmp, smallAmp, outWave, colorMult, glare, StaticRef<CVector>(0xC278D4));
+                    CalculateWavesOnlyForCoordinate(curX, curY, bigAmp, smallAmp, outWave, colorMult, glare, DatosExe::Bss::bC278D4);
                     vtx = nVtx;
                     auto& vertex = WaterBufferVertex(vtx);
                     vertex.u = Wl91Affine(xOffset, 0.08f, shiftU);

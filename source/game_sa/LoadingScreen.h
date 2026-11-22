@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -53,10 +54,10 @@ private:
     static inline auto& m_TimeStartedLoading = DatosExe::Bss::bBAB334; // unused
     static inline auto& m_TimeBarAppeared = DatosExe::Bss::bBAB338;
 
-    static inline auto& m_LoadingGxtMsg1 = StaticRef<GxtChar[80]>(0xBAB2C8);
-    static inline auto& m_LoadingGxtMsg2 = StaticRef<GxtChar[80]>(0xBAB278);
+    static inline auto& m_LoadingGxtMsg1 = DatosExe::Bss::bBAB2C8;
+    static inline auto& m_LoadingGxtMsg2 = DatosExe::Bss::bBAB278;
 
-    static inline auto& m_PopUpMessage = StaticRef<char[16]>(0xBAB268);
+    static inline auto& m_PopUpMessage = DatosExe::Bss::bBAB268;
 
     static inline auto& m_bSignalDelete = DatosExe::Bss::bBAB33C; // unused
     static inline auto& m_bReadyToDelete = DatosExe::Bss::bBAB33D;

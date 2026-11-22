@@ -1,4 +1,5 @@
 #include "StdInc.h"
+#include "DatosExe/DataBssE5.h"
 
 #include "GxtChar.h"
 
@@ -13,7 +14,7 @@ void AsciiToGxtChar(const char* src, GxtChar* dst) {
 // 0x69F7E0 (cdecl): convierte al buffer estático del EXE (0xC1BDD0) con la tabla de acentos de un byte; los códigos >= 0xD0 (salvo 0xCF) pasan a '#'. Como máximo 255 caracteres.
 // Como el original: `start` es el byte bajo del segundo argumento (desplazamiento sobre `src`); con `src` nulo y `start` 0 solo escribe el terminador. Devuelve la dirección del buffer.
 const char* GxtCharToAscii(const GxtChar* src, uint8 start) {
-    auto& buffer = StaticRef<char[256]>(0xC1BDD0);
+    auto& buffer = DatosExe::Bss::bC1BDD0;
     auto* str = reinterpret_cast<const uint8*>(src);
     if (start) {
         str += start;

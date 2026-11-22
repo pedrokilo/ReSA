@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE3.h"
 
 #include "common.h"
@@ -14,7 +15,7 @@ public:
     static inline auto& MaxXInOccluder        = DatosExe::Bss::bC73CA8;
     static inline auto& MinXInOccluder        = DatosExe::Bss::bC73CAC;
 
-    static inline auto& OccluderCoorsValid    = StaticRef<std::array<bool, 8>>(0xC73CB0);
+    static inline auto& OccluderCoorsValid    = DatosExe::Bss::bC73CB0;
     static inline auto& OccluderCoors         = StaticRef<std::array<CVector, 8>>(0xC798E0);
     static inline auto& OccluderCoorsOnScreen = StaticRef<std::array<CVector, 8>>(0xC79950);
     static inline auto& CenterOnScreen        = StaticRef<CVector>(0xC79940);

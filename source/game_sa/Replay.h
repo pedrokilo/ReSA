@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -230,8 +231,8 @@ public:
 
     static inline auto& PlayerInfo = StaticRef<CPlayerInfo>(0xA430B0);
 
-    static inline auto& m_PedPoolConversion = StaticRef<std::array<int32, 140>>(0x97F838);
-    static inline auto& m_VehiclePoolConversion = StaticRef<std::array<int32, 110>>(0x97F680);
+    static inline auto& m_PedPoolConversion = DatosExe::Bss::b97F838;
+    static inline auto& m_VehiclePoolConversion = DatosExe::Bss::b97F680;
 
     static inline auto& CameraFocus = StaticRef<CVector_Reversed>(0x97F670);
     static inline auto& CameraFixed = StaticRef<CVector_Reversed>(0x97FB24);
