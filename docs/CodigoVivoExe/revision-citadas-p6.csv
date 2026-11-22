@@ -6,5 +6,5 @@ va,fin,bytes,destino,accion_y_motivo
 0x007F40F0,0x007F44B5,966,viva-sin-hook,"accion=reconstruir; callback de lectura por defecto del modulo de texturas de RenderWare (+0x14 de 0xC97B4C, lo guarda _rwTextureModuleOpen): viva sin enganche; 966 bytes; lote V7/rwcore"
 0x007F5140,0x007F53CB,652,viva-sin-hook,accion=reconstruir; generacion de mipmaps por defecto del modulo de texturas (+0x2C): viva sin enganche; 652 bytes; lote V7/rwcore
 0x007F53D0,0x007F54F3,292,viva-sin-hook,accion=reconstruir; busqueda de texturas por nombre por defecto del modulo de texturas (+0x18): viva sin enganche; 292 bytes; lote V7/rwcore
-0x007FFF00,0x007FFFCF,208,viva-sin-hook,"accion=reconstruir; funcion estandar 0x09 (RwImageFindRasterFormat) del controlador D3D9, guardada en _rwD3D9DeviceSystemStandards: viva sin enganche; 208 bytes; controlador D3D9 (otro agente)"
+0x007FFF00,0x007FFFCF,208,reconstruida,"accion=reconstruir; funcion estandar 0x09 (RwImageFindRasterFormat) del controlador D3D9, guardada en _rwD3D9DeviceSystemStandards: viva sin enganche; 208 bytes; controlador D3D9 (otro agente)"
 0x008194D0,0x008194D4,5,reconstruida,"accion=enganchar; `mov ax, 0F7D1h; ret` (OSErr -2095), valor de los tres punteros de QuickTime (0x8E2A0C/10/14): QtmlUnavailableStub la reconstruye y la engancha"
