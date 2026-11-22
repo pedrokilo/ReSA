@@ -1,0 +1,34 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo censo
+codigo original 0x00401000-0x00858000: NO copiado, relleno con INT3 (4550656 bytes)
+seccion .text    VA 0x00401000 virtual  4546560: codigo, omitida
+seccion _rwcseg  VA 0x00857000 virtual     4096: codigo, omitida
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+datos copiados desde el original: 641024 bytes
+imports de la IAT original: 214, sin resolver: 0
+tabla de ret n cargada: 9101312 bytes
+stubs explicitos cargados: 0
+[    31 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+[    31 ms] StandaloneStartup correcto (tabla C de __cinit completa); iniciando el CRT propio
+[    31 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)
+[    46 ms] DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)
+[   296 ms] latido: frame=0 estado-juego=0 Present=0 EndScene=0 Clear=0 Draw*=0 codigo-original-distinto=0 hits=0 excepciones=0
+[   296 ms]   ventana 0x002D1114 clase=ConsoleWindowClass titulo="D:\Original\_fase8b_run\gta_sa_standalone.exe" visible=1 922x517
+[   843 ms] DllMain devolvio 1
+[   843 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[   843 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[   843 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[   843 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[   843 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[   843 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[   843 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   843 ms] inicializadores estaticos pendientes ejecutados: 4299 filas (StandaloneInit.inc)
+[   843 ms] llamando a NOTSA_WinMain (WinMain reconstruido)
+[  2312 ms] contadores de D3D9 instalados en el vtable del dispositivo 0x0FCF7240
+[  2312 ms] latido: frame=2 estado-juego=8 Present=0 EndScene=0 Clear=0 Draw*=0 codigo-original-distinto=0 hits=0 excepciones=0
+[  4312 ms] latido: frame=2 estado-juego=8 Present=52 EndScene=52 Clear=0 Draw*=52 codigo-original-distinto=0 hits=0 excepciones=0
+[  6312 ms] latido: frame=2 estado-juego=8 Present=109 EndScene=109 Clear=0 Draw*=109 codigo-original-distinto=0 hits=0 excepciones=0
+[  6968 ms] CODIGO ORIGINAL #1: 0x00489500 llamado desde 0x01DC97C6 [propio] ecx=00A90750 args=0000042C 001AF59C

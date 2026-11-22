@@ -1,0 +1,72 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo estricto
+codigo original 0x00401000-0x00858000: NO copiado, relleno con INT3 (4550656 bytes)
+seccion .text    VA 0x00401000 virtual  4546560: codigo, omitida
+seccion _rwcseg  VA 0x00857000 virtual     4096: codigo, omitida
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+datos copiados desde el original: 641024 bytes
+imports de la IAT original: 214, sin resolver: 0
+[    31 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+[    31 ms] StandaloneStartup correcto (tabla C de __cinit completa); iniciando el CRT propio
+[    31 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)
+[    31 ms] DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)
+[   297 ms] latido: frame=0 estado-juego=0 Present=0 EndScene=0 Clear=0 Draw*=0 codigo-original-distinto=0 hits=0 excepciones=0
+[   297 ms]   ventana 0x002C1114 clase=ConsoleWindowClass titulo="D:\Original\_fase8b_run\gta_sa_standalone.exe" visible=1 922x517
+[   844 ms] DllMain devolvio 1
+[   844 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[   844 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[   844 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[   844 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[   844 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[   844 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[   844 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   844 ms] inicializadores estaticos pendientes ejecutados: 4299 filas (StandaloneInit.inc)
+[   844 ms] llamando a NOTSA_WinMain (WinMain reconstruido)
+[  2312 ms] contadores de D3D9 instalados en el vtable del dispositivo 0x1343EF20
+[  2312 ms] latido: frame=2 estado-juego=8 Present=0 EndScene=0 Clear=0 Draw*=0 codigo-original-distinto=0 hits=0 excepciones=0
+[  4312 ms] latido: frame=2 estado-juego=8 Present=53 EndScene=53 Clear=0 Draw*=53 codigo-original-distinto=0 hits=0 excepciones=0
+[  6312 ms] latido: frame=2 estado-juego=8 Present=109 EndScene=109 Clear=0 Draw*=109 codigo-original-distinto=0 hits=0 excepciones=0
+[  7047 ms] CODIGO ORIGINAL #1: 0x00489500 llamado desde 0x01DC97C6 [propio] ecx=00A90750 args=0000042C 001AF59C
+FALLO (llamada a codigo original sin reemplazo) codigo 0x80000003 en EIP=0x00489500 [original(codigo)] t=7047 ms
+  EAX=00489500 EBX=001AFE8C ECX=00A90750 EDX=0000042C ESI=001AF350 EDI=001AF424 EBP=001AF424 ESP=001AF348
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x0] 0x01DC97C6 propio
+    [esp+0x14] 0x00489500 original(codigo)
+    [esp+0x48] 0x02A27BB0 propio
+    [esp+0x58] 0x02AB2679 propio
+    [esp+0x84] 0x02C0B500 propio
+    [esp+0x90] 0x02AB2EE0 propio
+    [esp+0xB0] 0x02AB2E03 propio
+    [esp+0xE0] 0x01DDC062 propio
+    [esp+0x124] 0x024D3CB0 propio
+    [esp+0x160] 0x01D4E91A propio
+    [esp+0x168] 0x01DFA664 propio
+    [esp+0x170] 0x01BB89A3 propio
+    [esp+0x178] 0x0187BE37 propio
+    [esp+0x18C] 0x007FE420 original(codigo)
+    [esp+0x1B4] 0x022D2835 propio
+    [esp+0x228] 0x00CCCCCC propio
+    [esp+0x258] 0x02BA7309 propio
+    [esp+0x264] 0x01DD2370 propio
+    [esp+0x350] 0x022D2394 propio
+    [esp+0x374] 0x0187E2EB propio
+    [esp+0x37C] 0x0187E140 propio
+    [esp+0x398] 0x01F99FFB propio
+    [esp+0x3E4] 0x016E8C65 propio
+    [esp+0x3F0] 0x016E8C65 propio
+    [esp+0x40C] 0x02B79E00 propio
+    [esp+0x410] 0x018D0418 propio
+    [esp+0x41C] 0x022D5007 propio
+    [esp+0x4FC] 0x016E8E59 propio
+    [esp+0x518] 0x026DDC4C propio
+    [esp+0x520] 0x026D9FA0 propio
+[  7062 ms] estado: dispositivo D3D9 [0xC97C28]=0x1343EF20, RwCamera [0xC1703C]=0x07E65CA4, contador de fotogramas=2, ventanas del proceso:
+[  7062 ms]   ventana 0x0028117C clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[  7062 ms]   ventana 0x000B1254 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 3464x1504
+[  7062 ms]   ventana 0x002C1114 clase=ConsoleWindowClass titulo="D:\Original\_fase8b_run\gta_sa_standalone.exe" visible=1 1614x904
+[  7062 ms]   ventana 0x000A1278 clase=IME titulo="Default IME" visible=0 0x0
+[  7062 ms]   ventana 0x000E123E clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[  7062 ms]   ventana 0x00081272 clase=IME titulo="Default IME" visible=0 0x0

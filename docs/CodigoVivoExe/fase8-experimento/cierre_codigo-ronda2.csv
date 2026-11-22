@@ -1,0 +1,653 @@
+funcion,region,nombre,bytes,via,modulo,estado_mapa
+0x004AFB40,juego,thunk_FUN_004afa30,5,solo_vtable,,
+0x005C31E0,juego,,215,raiz,,
+0x005C32C0,juego,,278,raiz,,
+0x005C33E0,juego,,168,raiz,,
+0x005C3490,juego,,346,raiz,,
+0x005C3660,juego,,140,raiz,,
+0x005C36F0,juego,,1,raiz,,
+0x005C3940,juego,,557,raiz,,
+0x005C3B70,juego,,2055,raiz,,
+0x005C5090,juego,,372,raiz,,
+0x005C53D0,juego,,75,raiz,,
+0x005C54F0,juego,FUN_005c54f0,104,llamadas,,
+0x005C5560,juego,FUN_005c5560,102,llamadas,,
+0x005C6030,juego,,61,raiz,,
+0x005C6070,juego,,60,raiz,,
+0x005C62F0,juego,,220,raiz,,
+0x005C6A10,juego,,116,raiz,,
+0x005C76A0,juego,,53,raiz,,
+0x005C7710,juego,,521,raiz,,
+0x005C79E0,juego,,1,raiz,,
+0x005C7A50,juego,,143,raiz,,
+0x005C7AE0,juego,,300,raiz,,
+0x005C7C10,juego,,70,raiz,,
+0x005C7C60,juego,,170,raiz,,
+0x005C7D10,juego,,211,raiz,,
+0x005C8B40,juego,,99,raiz,,
+0x005C8B60,juego,,15,raiz,,
+0x005C8B70,juego,,659,raiz,,
+0x005C8E10,juego,,3,raiz,,
+0x005C8FB0,juego,,288,raiz,,
+0x005C9150,juego,,41,raiz,,
+0x005C9180,juego,,94,raiz,,
+0x005C91E0,juego,,344,raiz,,
+0x005C9340,juego,,1,raiz,,
+0x005C9510,juego,,498,raiz,,
+0x005C9C60,juego,FUN_005c9c60,127,llamadas,,
+0x005C9CE0,juego,,1067,raiz,,
+0x005CA110,juego,,333,raiz,,
+0x005CA820,juego,,17,raiz,,
+0x005CADC0,juego,,103,raiz,,
+0x005CAF00,juego,FUN_005caf00,164,llamadas,,
+0x005CAFB0,juego,FUN_005cafb0,777,llamadas,,
+0x005CB2C0,juego,FUN_005cb2c0,751,llamadas,,
+0x005CB8C0,juego,FUN_005cb8c0,599,llamadas,,
+0x005CBC00,juego,FUN_005cbc00,587,llamadas,,
+0x005CBE50,juego,FUN_005cbe50,169,llamadas,,
+0x005CBF00,juego,,326,raiz,,
+0x005CC290,juego,,563,raiz,,
+0x005CC7A0,juego,,43,raiz,,
+0x005CCC90,juego,,36,raiz,,
+0x005CCD70,juego,,119,raiz,,
+0x005CCE60,juego,,26,raiz,,
+0x005CCF60,juego,,11,raiz,,
+0x005CCF70,juego,,11,raiz,,
+0x005CCF80,juego,,246,raiz,,
+0x005CD080,juego,,92,raiz,,
+0x005CD0E0,juego,,115,raiz,,
+0x005CD160,juego,,182,raiz,,
+0x005CD220,juego,,296,raiz,,
+0x005CD700,juego,,54,raiz,,
+0x005CD740,juego,,167,raiz,,
+0x005CD7F0,juego,,17,raiz,,
+0x005CD860,juego,,548,raiz,,
+0x005CF1B0,juego,FUN_005cf1b0,148,llamadas,,
+0x005CF250,juego,FUN_005cf250,151,llamadas,,
+0x005CF2F0,juego,,319,raiz,,
+0x005CF430,juego,,333,raiz,,
+0x005CF690,juego,,60,raiz,,
+0x006F55C0,juego,thunk_FUN_006d0e60,5,solo_vtable,,
+0x0074A770,juego,,224,raiz,,
+0x0074A880,juego,,397,raiz,,
+0x0075A960,renderware,,2933,raiz,,
+0x0075F0B0,renderware,,7153,raiz,,
+0x007624A0,renderware,,672,raiz,,
+0x00762740,renderware,,533,raiz,,
+0x00762F30,renderware,,980,raiz,,
+0x00763310,renderware,,663,raiz,,
+0x007656E0,renderware,FUN_007656e0,229,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00765F56,renderware,FUN_00765f56,155,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00766088,renderware,FUN_00766088,156,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076B4C9,renderware,FUN_0076b4c9,52,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076B4FD,renderware,FUN_0076b4fd,28,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076B519,renderware,FUN_0076b519,26,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076B533,renderware,FUN_0076b533,24,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076B54B,renderware,FUN_0076b54b,28,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076B567,renderware,FUN_0076b567,51,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076B59A,renderware,FUN_0076b59a,85,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076B5EF,renderware,FUN_0076b5ef,28,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076B60B,renderware,FUN_0076b60b,423,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076B7B2,renderware,FUN_0076b7b2,102,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076B818,renderware,FUN_0076b818,57,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076B867,renderware,FUN_0076b867,24,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076B87F,renderware,FUN_0076b87f,28,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076B9E0,renderware,FUN_0076b9e0,68,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076BA24,renderware,,37,raiz,,
+0x0076BA49,renderware,,57,raiz,,
+0x0076BA82,renderware,FUN_0076ba82,818,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076BDB4,renderware,FUN_0076bdb4,172,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076BE60,renderware,FUN_0076be60,41,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076BE89,renderware,FUN_0076be89,456,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076C051,renderware,FUN_0076c051,214,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076C127,renderware,FUN_0076c127,88,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076C17F,renderware,FUN_0076c17f,115,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076C1F2,renderware,FUN_0076c1f2,98,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076C254,renderware,FUN_0076c254,80,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076C756,renderware,FUN_0076c756,21,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076C76B,renderware,FUN_0076c76b,125,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076C7E8,renderware,FUN_0076c7e8,113,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076C859,renderware,FUN_0076c859,101,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076C8BE,renderware,FUN_0076c8be,51,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076C8F1,renderware,FUN_0076c8f1,622,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076CB5F,renderware,FUN_0076cb5f,110,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076CBCD,renderware,FUN_0076cbcd,2467,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076CC47,renderware,FUN_0076cc47,102,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076CCAD,renderware,FUN_0076ccad,1745,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076D37E,renderware,FUN_0076d37e,551,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076D5A5,renderware,FUN_0076d5a5,911,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076D9F0,renderware,FUN_0076d9f0,1111,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076E033,renderware,FUN_0076e033,771,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076E336,renderware,FUN_0076e336,90,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076E390,renderware,FUN_0076e390,6,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076E396,renderware,FUN_0076e396,29,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076E3B3,renderware,FUN_0076e3b3,34,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076E3FD,renderware,FUN_0076e3fd,32,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076E41D,renderware,FUN_0076e41d,47,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076E464,renderware,FUN_0076e464,321,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076E5A5,renderware,FUN_0076e5a5,86,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076E66C,renderware,FUN_0076e66c,26,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076E686,renderware,FUN_0076e686,1,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076E687,renderware,FUN_0076e687,104,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076E6EF,renderware,FUN_0076e6ef,89,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076E748,renderware,FUN_0076e748,380,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076E8C4,renderware,FUN_0076e8c4,127,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076E943,renderware,FUN_0076e943,268,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076EA4F,renderware,FUN_0076ea4f,70,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076EA95,renderware,FUN_0076ea95,135,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076EB1C,renderware,FUN_0076eb1c,104,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076EB84,renderware,FUN_0076eb84,201,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076EC4D,renderware,FUN_0076ec4d,353,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076EDAE,renderware,FUN_0076edae,267,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076EEF1,renderware,FUN_0076eef1,304,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076F021,renderware,FUN_0076f021,165,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076F0C6,renderware,FUN_0076f0c6,124,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076F142,renderware,FUN_0076f142,161,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076F1E3,renderware,FUN_0076f1e3,406,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076F379,renderware,FUN_0076f379,259,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076F47C,renderware,FUN_0076f47c,63,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076F4BB,renderware,FUN_0076f4bb,227,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076F59E,renderware,FUN_0076f59e,364,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076F70A,renderware,FUN_0076f70a,667,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076FA58,renderware,FUN_0076fa58,60,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076FA94,renderware,FUN_0076fa94,50,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076FAC6,renderware,FUN_0076fac6,37,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076FB07,renderware,FUN_0076fb07,190,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076FBC5,renderware,FUN_0076fbc5,108,raiz,D3DX9 (compilador de shaders),enlazada
+0x0076FC31,renderware,FUN_0076fc31,53,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0076FC66,renderware,FUN_0076fc66,2452,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007705FA,renderware,FUN_007705fa,179,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007706AD,renderware,FUN_007706ad,186,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00770767,renderware,FUN_00770767,80,raiz,D3DX9 (compilador de shaders),enlazada
+0x007707B7,renderware,FUN_007707b7,126,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00770835,renderware,,36,raiz,,
+0x00770859,renderware,FUN_00770859,1914,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077107F,renderware,FUN_0077107f,544,raiz,D3DX9 (compilador de shaders),enlazada
+0x0077129F,renderware,FUN_0077129f,741,raiz,D3DX9 (compilador de shaders),enlazada
+0x007715A8,renderware,FUN_007715a8,28,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007715D4,renderware,FUN_007715d4,29,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007715F1,renderware,FUN_007715f1,87,raiz,D3DX9 (compilador de shaders),enlazada
+0x00771648,renderware,FUN_00771648,149,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007716DD,renderware,,44,raiz,,
+0x00771709,renderware,FUN_00771709,336,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00771724,renderware,FUN_00771724,555,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077194F,renderware,FUN_0077194f,28,raiz,D3DX9 (compilador de shaders),enlazada
+0x0077196B,renderware,FUN_0077196b,220,raiz,D3DX9 (compilador de shaders),enlazada
+0x00771A47,renderware,FUN_00771a47,1281,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00771F48,renderware,FUN_00771f48,27,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00771F9D,renderware,FUN_00771f9d,1430,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007725E3,renderware,,1238,raiz,,
+0x00773063,renderware,FUN_00773063,24,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077307B,renderware,FUN_0077307b,331,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007731C6,renderware,FUN_007731c6,231,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007732AD,renderware,FUN_007732ad,1426,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077383F,renderware,FUN_0077383f,56,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00773877,renderware,FUN_00773877,232,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077395F,renderware,FUN_0077395f,238,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00773A4D,renderware,FUN_00773a4d,276,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00773B61,renderware,FUN_00773b61,282,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00773C7B,renderware,FUN_00773c7b,118,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00773CF1,renderware,FUN_00773cf1,94,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00773DAE,renderware,FUN_00773dae,141,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00773E3B,renderware,FUN_00773e3b,1124,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077429F,renderware,FUN_0077429f,295,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007743FA,renderware,FUN_007743fa,520,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00774678,renderware,FUN_00774678,1467,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00774C33,renderware,FUN_00774c33,1308,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077514F,renderware,FUN_0077514f,2099,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00775982,renderware,FUN_00775982,918,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00775D18,renderware,FUN_00775d18,106,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00775D82,renderware,FUN_00775d82,323,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00775EC5,renderware,FUN_00775ec5,1512,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007764AD,renderware,FUN_007764ad,122,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00776527,renderware,FUN_00776527,211,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007765FA,renderware,FUN_007765fa,778,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00776904,renderware,FUN_00776904,21427,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077BE0F,renderware,FUN_0077be0f,2505,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077C7D8,renderware,FUN_0077c7d8,250,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077C8D2,renderware,FUN_0077c8d2,7979,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077E869,renderware,FUN_0077e869,488,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077EA51,renderware,FUN_0077ea51,235,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077EB3C,renderware,FUN_0077eb3c,827,raiz,D3DX9 (compilador de shaders),enlazada
+0x0077F0F9,renderware,FUN_0077f0f9,55,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0077F149,renderware,FUN_0077f149,28,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00780B21,renderware,FUN_00780b21,38,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00780B47,renderware,FUN_00780b47,100,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00780E74,renderware,FUN_00780e74,24,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00780E8C,renderware,FUN_00780e8c,94,raiz,D3DX9 (compilador de shaders),enlazada
+0x00781B83,renderware,FUN_00781b83,13,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00781B90,renderware,FUN_00781b90,14,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00781B9E,renderware,FUN_00781b9e,31,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00781BBD,renderware,FUN_00781bbd,142,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00781C4B,renderware,FUN_00781c4b,18,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00781C5D,renderware,FUN_00781c5d,289,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00781E97,renderware,FUN_00781e97,76,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00781EB6,renderware,FUN_00781eb6,26,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00781F36,renderware,FUN_00781f36,31,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00781F55,renderware,FUN_00781f55,20,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00781F69,renderware,FUN_00781f69,39,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00781FAB,renderware,FUN_00781fab,39,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0078219E,renderware,FUN_0078219e,42,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782249,renderware,FUN_00782249,54,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782357,renderware,FUN_00782357,54,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0078249A,renderware,FUN_0078249a,67,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782633,renderware,FUN_00782633,47,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782662,renderware,FUN_00782662,1981,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782733,renderware,FUN_00782733,30,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782751,renderware,FUN_00782751,40,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782811,renderware,FUN_00782811,43,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0078283C,renderware,FUN_0078283c,60,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782878,renderware,FUN_00782878,2483,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007828C3,renderware,FUN_007828c3,64,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782904,renderware,FUN_00782904,60,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782B9F,renderware,FUN_00782b9f,57,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782C32,renderware,FUN_00782c32,3517,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00782E1D,renderware,FUN_00782e1d,42,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00783021,renderware,FUN_00783021,81,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007831F3,renderware,FUN_007831f3,99,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00783256,renderware,FUN_00783256,56,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0078328E,renderware,FUN_0078328e,56,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007832C6,renderware,FUN_007832c6,56,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007832FE,renderware,FUN_007832fe,70,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00783344,renderware,FUN_00783344,63,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007834A5,renderware,FUN_007834a5,47,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007835DE,renderware,FUN_007835de,63,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007836DF,renderware,FUN_007836df,40,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007839B5,renderware,FUN_007839b5,24,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007839CD,renderware,FUN_007839cd,54,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00783A03,renderware,FUN_00783a03,311,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00783B3A,renderware,FUN_00783b3a,12,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00783B46,renderware,FUN_00783b46,235,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00783C31,renderware,FUN_00783c31,18,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00783C43,renderware,FUN_00783c43,181,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00783CF8,renderware,FUN_00783cf8,249,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00783DF1,renderware,FUN_00783df1,190,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00783EAF,renderware,FUN_00783eaf,737,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007848DE,renderware,FUN_007848de,80,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784A6D,renderware,FUN_00784a6d,70,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784B73,renderware,FUN_00784b73,38,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784B99,renderware,FUN_00784b99,28,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784BB5,renderware,FUN_00784bb5,28,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784BD1,renderware,FUN_00784bd1,28,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784BF1,renderware,FUN_00784bf1,4,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784BF9,renderware,FUN_00784bf9,184,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784CB1,renderware,FUN_00784cb1,358,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784E17,renderware,FUN_00784e17,184,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784ECF,renderware,FUN_00784ecf,87,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784F26,renderware,FUN_00784f26,92,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784F82,renderware,FUN_00784f82,85,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00784FD7,renderware,FUN_00784fd7,75,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007850B8,renderware,FUN_007850b8,22,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007850CE,renderware,FUN_007850ce,22,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007850E4,renderware,FUN_007850e4,22,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007851AB,renderware,FUN_007851ab,47,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007851DA,renderware,FUN_007851da,40,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00785202,renderware,FUN_00785202,571,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007854FE,renderware,FUN_007854fe,58,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00785545,renderware,FUN_00785545,18,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007855B1,renderware,FUN_007855b1,18,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007855C3,renderware,FUN_007855c3,18,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007855D5,renderware,FUN_007855d5,18,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007855F9,renderware,FUN_007855f9,16,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0078565D,renderware,FUN_0078565d,112,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007856CD,renderware,FUN_007856cd,3,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007856D0,renderware,FUN_007856d0,1,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007856D1,renderware,FUN_007856d1,91,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0078572C,renderware,FUN_0078572c,153,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007857C5,renderware,FUN_007857c5,56,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007858E9,renderware,FUN_007858e9,277,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007859FE,renderware,FUN_007859fe,65,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00785A61,renderware,FUN_00785a61,92,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00789A92,renderware,FUN_00789a92,279,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00792071,renderware,,17,llamadas,,
+0x00792082,renderware,FUN_00792082,44,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007920AE,renderware,FUN_007920ae,302,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007921DC,renderware,FUN_007921dc,84,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00792230,renderware,FUN_00792230,75,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079227B,renderware,FUN_0079227b,86,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007922D1,renderware,FUN_007922d1,49,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00792302,renderware,FUN_00792302,96,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00792362,renderware,FUN_00792362,128,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007923E2,renderware,FUN_007923e2,487,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007925C9,renderware,FUN_007925c9,28,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007925E5,renderware,FUN_007925e5,12,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007925F1,renderware,FUN_007925f1,147,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00792684,renderware,FUN_00792684,139,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079270F,renderware,FUN_0079270f,110,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079277D,renderware,FUN_0079277d,31,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079279C,renderware,FUN_0079279c,114,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079280E,renderware,FUN_0079280e,137,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00792897,renderware,FUN_00792897,174,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00792945,renderware,FUN_00792945,591,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00792C08,renderware,FUN_00792c08,200,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00792CD0,renderware,FUN_00792cd0,437,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00792E85,renderware,FUN_00792e85,64,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00792EC5,renderware,FUN_00792ec5,267,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00793005,renderware,FUN_00793005,92,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00793067,renderware,FUN_00793067,119,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007930DE,renderware,FUN_007930de,278,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007931F4,renderware,FUN_007931f4,67,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00793237,renderware,FUN_00793237,103,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079329E,renderware,FUN_0079329e,240,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079338E,renderware,FUN_0079338e,25,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007933A7,renderware,FUN_007933a7,161,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00793448,renderware,FUN_00793448,245,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079353D,renderware,FUN_0079353d,42,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00793567,renderware,FUN_00793567,1658,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00793BE1,renderware,FUN_00793be1,269,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00793CEE,renderware,FUN_00793cee,277,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00793E03,renderware,FUN_00793e03,175,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00793EB2,renderware,FUN_00793eb2,814,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007941E0,renderware,FUN_007941e0,167,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00794287,renderware,FUN_00794287,258,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00794389,renderware,FUN_00794389,292,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007944AD,renderware,FUN_007944ad,127,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079452C,renderware,FUN_0079452c,332,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00794678,renderware,FUN_00794678,247,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079476F,renderware,FUN_0079476f,1185,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00794C10,renderware,FUN_00794c10,312,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00794D48,renderware,FUN_00794d48,226,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00794E2A,renderware,FUN_00794e2a,293,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00794F4F,renderware,FUN_00794f4f,93,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00794FAC,renderware,FUN_00794fac,107,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00795017,renderware,FUN_00795017,461,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007951E4,renderware,FUN_007951e4,131,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00795267,renderware,FUN_00795267,4782,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079665B,renderware,FUN_0079665b,1951,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00796DFA,renderware,FUN_00796dfa,288,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00796F1A,renderware,FUN_00796f1a,590,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00797168,renderware,FUN_00797168,980,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079753C,renderware,FUN_0079753c,2026,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00797D66,renderware,FUN_00797d66,297,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00797E8F,renderware,,2652,llamadas,,
+0x0079897F,renderware,FUN_0079897f,944,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00798D2F,renderware,FUN_00798d2f,305,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00798E60,renderware,FUN_00798e60,103,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00798EC7,renderware,FUN_00798ec7,446,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00799085,renderware,FUN_00799085,81,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007990D6,renderware,FUN_007990d6,133,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079915B,renderware,FUN_0079915b,168,llamadas,D3DX9 (compilador de shaders),enlazada
+0x00799203,renderware,FUN_00799203,120,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079927B,renderware,FUN_0079927b,555,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007994A6,renderware,FUN_007994a6,1158,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079992C,renderware,FUN_0079992c,198,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007999F2,renderware,FUN_007999f2,2510,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079A3C0,renderware,FUN_0079a3c0,1227,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079A88B,renderware,FUN_0079a88b,484,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079AA6F,renderware,FUN_0079aa6f,4017,llamadas,D3DX9 (compilador de shaders),enlazada
+0x0079BEB0,renderware,,3569,llamadas,,
+0x0079D121,renderware,,196,llamadas,,
+0x0079D1E5,renderware,FUN_0079d1e5,45,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007A5E4F,renderware,FUN_007a5e4f,25,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007AAF82,renderware,FUN_007aaf82,70,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007ABA41,renderware,FUN_007aba41,25,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007AD0AF,renderware,FUN_007ad0af,124,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007AF471,renderware,FUN_007af471,94,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007AF4CF,renderware,FUN_007af4cf,606,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007B4D5C,renderware,FUN_007b4d5c,3,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007B4D5F,renderware,FUN_007b4d5f,1,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007B4D60,renderware,FUN_007b4d60,70,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007B4DA6,renderware,FUN_007b4da6,96,llamadas,D3DX9 (compilador de shaders),enlazada
+0x007D1830,renderware,FUN_007d1830,53,raiz,libpng + zlib,enlazada
+0x007D1870,renderware,FUN_007d1870,619,raiz,libpng + zlib,enlazada
+0x007D1AE0,renderware,FUN_007d1ae0,242,raiz,libpng + zlib,enlazada
+0x007D1BE0,renderware,FUN_007d1be0,132,raiz,libpng + zlib,enlazada
+0x007D1C70,renderware,FUN_007d1c70,69,raiz,libpng + zlib,enlazada
+0x007D1CC0,renderware,FUN_007d1cc0,159,raiz,libpng + zlib,enlazada
+0x007D1D60,renderware,FUN_007d1d60,464,raiz,libpng + zlib,enlazada
+0x007D1F30,renderware,FUN_007d1f30,47,raiz,libpng + zlib,enlazada
+0x007D1F60,renderware,FUN_007d1f60,326,raiz,libpng + zlib,enlazada
+0x007D20B0,renderware,FUN_007d20b0,76,raiz,libpng + zlib,enlazada
+0x007D2100,renderware,FUN_007d2100,47,raiz,libpng + zlib,enlazada
+0x007D2130,renderware,FUN_007d2130,131,raiz,libpng + zlib,enlazada
+0x007D21C0,renderware,FUN_007d21c0,45,raiz,libpng + zlib,enlazada
+0x007D21F0,renderware,,33,raiz,,
+0x007D2220,renderware,FUN_007d2220,258,raiz,libpng + zlib,enlazada
+0x007D2330,renderware,FUN_007d2330,213,raiz,libpng + zlib,enlazada
+0x007D2410,renderware,FUN_007d2410,478,raiz,libpng + zlib,enlazada
+0x007D25F0,renderware,FUN_007d25f0,54,raiz,libpng + zlib,enlazada
+0x007D2630,renderware,FUN_007d2630,162,raiz,libpng + zlib,enlazada
+0x007D2830,renderware,FUN_007d2830,311,raiz,libpng + zlib,enlazada
+0x007D2970,renderware,,50,raiz,,
+0x007D29E0,renderware,,283,raiz,,
+0x007D2B00,renderware,,25,raiz,,
+0x007D2B20,renderware,,72,raiz,,
+0x007D2B70,renderware,,71,raiz,,
+0x007D2BC0,renderware,,31,raiz,,
+0x007D2C70,renderware,,47,raiz,,
+0x007D2CA0,renderware,FUN_007d2ca0,128,raiz,libpng + zlib,enlazada
+0x007D2DA0,renderware,FUN_007d2da0,96,raiz,libpng + zlib,enlazada
+0x007D2E00,renderware,thunk_FUN_007dec70,5,raiz,libpng + zlib,enlazada
+0x007D2E10,renderware,FUN_007d2e10,25,raiz,libpng + zlib,enlazada
+0x007D2E30,renderware,FUN_007d2e30,69,raiz,libpng + zlib,enlazada
+0x007D2E80,renderware,FUN_007d2e80,55,raiz,libpng + zlib,enlazada
+0x007D2EC0,renderware,,126,raiz,,
+0x007D3010,renderware,FUN_007d3010,946,raiz,libpng + zlib,enlazada
+0x007D33D0,renderware,FUN_007d33d0,85,raiz,libpng + zlib,enlazada
+0x007D3430,renderware,,8,raiz,,
+0x007D3440,renderware,,6,raiz,,
+0x007D3450,renderware,,6,raiz,,
+0x007D3470,renderware,,6,raiz,,
+0x007D3480,renderware,FUN_007d3480,70,raiz,libpng + zlib,enlazada
+0x007D34D0,renderware,,16,raiz,,
+0x007D3550,renderware,FUN_007d3550,207,llamadas,libpng + zlib,enlazada
+0x007D3590,renderware,FUN_007d3590,143,llamadas,libpng + zlib,enlazada
+0x007D3620,renderware,FUN_007d3620,80,llamadas,libpng + zlib,enlazada
+0x007D4980,renderware,,15,raiz,,
+0x007D4B80,renderware,FUN_007d4b80,29,raiz,libpng + zlib,enlazada
+0x007D4BA0,renderware,,23,raiz,,
+0x007D4BC0,renderware,,26,raiz,,
+0x007D4BE0,renderware,,22,raiz,,
+0x007D4C00,renderware,,23,raiz,,
+0x007D4C20,renderware,,23,raiz,,
+0x007D4C40,renderware,,23,raiz,,
+0x007D4C60,renderware,,23,raiz,,
+0x007D4C80,renderware,,23,raiz,,
+0x007D4CA0,renderware,,23,raiz,,
+0x007D4CC0,renderware,,36,raiz,,
+0x007D4CF0,renderware,,36,raiz,,
+0x007D4D20,renderware,,42,raiz,,
+0x007D4DA0,renderware,,37,raiz,,
+0x007D4DD0,renderware,,37,raiz,,
+0x007D4E00,renderware,,38,raiz,,
+0x007D4E30,renderware,,38,raiz,,
+0x007D4E60,renderware,,23,raiz,,
+0x007D4E80,renderware,,23,raiz,,
+0x007D4EA0,renderware,,44,raiz,,
+0x007D4ED0,renderware,,171,raiz,,
+0x007D4F80,renderware,,171,raiz,,
+0x007D5030,renderware,,44,raiz,,
+0x007D5060,renderware,,47,raiz,,
+0x007D5090,renderware,,48,raiz,,
+0x007D5130,renderware,,39,raiz,,
+0x007D5160,renderware,,44,raiz,,
+0x007D5190,renderware,FUN_007d5190,229,raiz,libpng + zlib,enlazada
+0x007D5280,renderware,,79,raiz,,
+0x007D52D0,renderware,,185,raiz,,
+0x007D5390,renderware,,89,raiz,,
+0x007D53F0,renderware,,78,raiz,,
+0x007D5440,renderware,FUN_007d5440,56,raiz,libpng + zlib,enlazada
+0x007D5480,renderware,,44,raiz,,
+0x007D54B0,renderware,,70,raiz,,
+0x007D5500,renderware,,46,raiz,,
+0x007D5530,renderware,FUN_007d5530,116,raiz,libpng + zlib,enlazada
+0x007D55B0,renderware,,39,raiz,,
+0x007D5620,renderware,,18,raiz,,
+0x007D5640,renderware,,138,raiz,,
+0x007D5FE0,renderware,,14,raiz,,
+0x007D5FF0,renderware,,14,raiz,,
+0x007D6000,renderware,FUN_007d6000,14,raiz,libpng + zlib,enlazada
+0x007D60C0,renderware,,191,raiz,,
+0x007D6180,renderware,,24,raiz,,
+0x007D6FF0,renderware,FUN_007d6ff0,1137,raiz,libpng + zlib,enlazada
+0x007D7470,renderware,FUN_007d7470,298,llamadas,libpng + zlib,enlazada
+0x007D75A0,renderware,FUN_007d75a0,418,llamadas,libpng + zlib,enlazada
+0x007D77C0,renderware,FUN_007d77c0,248,llamadas,libpng + zlib,enlazada
+0x007D78C0,renderware,FUN_007d78c0,196,llamadas,libpng + zlib,enlazada
+0x007D7990,renderware,FUN_007d7990,618,llamadas,libpng + zlib,enlazada
+0x007D7C00,renderware,FUN_007d7c00,319,raiz,libpng + zlib,enlazada
+0x007D7D40,renderware,FUN_007d7d40,1858,llamadas,libpng + zlib,enlazada
+0x007D8520,renderware,FUN_007d8520,4162,llamadas,libpng + zlib,enlazada
+0x007D95B0,renderware,FUN_007d95b0,975,llamadas,libpng + zlib,enlazada
+0x007D99A0,renderware,FUN_007d99a0,555,llamadas,libpng + zlib,enlazada
+0x007D9BD0,renderware,FUN_007d9bd0,912,llamadas,libpng + zlib,enlazada
+0x007D9F60,renderware,FUN_007d9f60,274,llamadas,libpng + zlib,enlazada
+0x007DA850,renderware,FUN_007da850,32,raiz,libpng + zlib,enlazada
+0x007DA870,renderware,FUN_007da870,70,raiz,libpng + zlib,enlazada
+0x007DEAD0,renderware,FUN_007dead0,139,raiz,libpng + zlib,enlazada
+0x007DEB80,renderware,FUN_007deb80,72,raiz,libpng + zlib,enlazada
+0x007DEBD0,renderware,FUN_007debd0,98,raiz,libpng + zlib,enlazada
+0x007DEC70,renderware,FUN_007dec70,44,raiz,libpng + zlib,enlazada
+0x007DECC0,renderware,FUN_007decc0,35,raiz,libpng + zlib,enlazada
+0x007DECF0,renderware,FUN_007decf0,49,raiz,libpng + zlib,enlazada
+0x007E11E0,renderware,FUN_007e11e0,66,llamadas,libpng + zlib,enlazada
+0x007E1410,renderware,FUN_007e1410,1005,llamadas,libpng + zlib,enlazada
+0x007E1A70,renderware,FUN_007e1a70,38,raiz,libpng + zlib,enlazada
+0x007E1AA0,renderware,FUN_007e1aa0,324,raiz,libpng + zlib,enlazada
+0x007E1BF0,renderware,FUN_007e1bf0,147,raiz,libpng + zlib,enlazada
+0x007E6810,renderware,,93,raiz,,
+0x007E6FC0,renderware,FUN_007e6fc0,449,raiz,libpng + zlib,enlazada
+0x007E71A0,renderware,FUN_007e71a0,912,raiz,libpng + zlib,enlazada
+0x007F2930,renderware,,234,raiz,,
+0x007F40F0,renderware,,966,raiz,,
+0x007F5140,renderware,,652,raiz,,
+0x007F53D0,renderware,,292,raiz,,
+0x00802F60,renderware,,16,llamadas,,
+0x00819700,renderware,,108,raiz,,
+0x00820A10,crt,,626,raiz,,
+0x00821195,crt,operator_new,41,raiz,,
+0x0082119A,crt,operator_new,36,raiz,,
+0x008212ED,crt,FUN_008212ed,98,raiz,,
+0x0082134F,crt,FUN_0082134f,56,llamadas,,
+0x00821397,crt,FUN_00821397,23,raiz,,
+0x008213AE,crt,_free,276,raiz,,
+0x008214BD,crt,_free,5,raiz,,
+0x00821894,crt,__global_unwind2,32,llamadas,,
+0x008218D6,crt,__local_unwind2,104,llamadas,,
+0x0082196A,crt,FUN_0082196a,24,llamadas,,
+0x00821B40,crt,FUN_00821b40,117,llamadas,,
+0x00821E70,crt,FUN_00821e70,20,llamadas,,
+0x00821E8D,crt,FUN_00821e8d,28942,llamadas,,
+0x00822070,crt,__chkstk,61,llamadas,,
+0x00822130,crt,FUN_00822130,84,llamadas,,
+0x0082218D,crt,FUN_0082218d,28174,llamadas,,
+0x00822352,crt,FUN_00822352,40,llamadas,,
+0x00822380,crt,FUN_00822380,20,llamadas,,
+0x0082239D,crt,FUN_0082239d,27646,llamadas,,
+0x0082258E,crt,_atol,5,llamadas,,
+0x0082263A,crt,FUN_0082263a,9,solo_vtable,,
+0x00822DA8,crt,exception::exception,61,llamadas,,
+0x00823AFE,crt,___crtExitProcess,57,llamadas,,
+0x00823BDB,crt,FUN_00823bdb,211,llamadas,,
+0x00823CBF,crt,__exit,17,llamadas,,
+0x00823CEE,crt,_atof,56,llamadas,,
+0x00824046,crt,__getenv_lk,129,raiz,,
+0x0082413F,crt,_free,113,raiz,,
+0x00824192,crt,FUN_00824192,9,llamadas,,
+0x008241B0,crt,__heap_alloc,111,llamadas,,
+0x00824222,crt,FUN_00824222,9,llamadas,,
+0x0082422B,crt,__nh_malloc,44,raiz,,
+0x00824269,crt,FUN_00824269,429,raiz,,
+0x008243D1,crt,FUN_008243d1,9,llamadas,,
+0x00824416,crt,_calloc,187,raiz,,
+0x008244C0,crt,FUN_008244c0,9,llamadas,,
+0x008244D1,crt,__amsg_exit,37,raiz,,
+0x00824E54,crt,FUN_00824e54,21,llamadas,,
+0x00824E69,crt,__isnan,46,llamadas,,
+0x00824E97,crt,FUN_00824e97,154,llamadas,,
+0x00824F34,crt,__ftol,39,llamadas,,
+0x00824F86,crt,__abstract_cw,146,llamadas,,
+0x00825018,crt,__hw_cw,142,llamadas,,
+0x00825104,crt,__control87,50,llamadas,,
+0x00825136,crt,__controlfp,22,raiz,,
+0x00825312,crt,__strcats,36,llamadas,,
+0x00825336,crt,FUN_00825336,210,llamadas,,
+0x00825408,crt,___lc_lctostr,78,llamadas,,
+0x00825491,crt,FUN_00825491,191,llamadas,,
+0x00825550,crt,FUN_00825550,300,llamadas,,
+0x0082567C,crt,FUN_0082567c,542,llamadas,,
+0x0082589A,crt,FUN_0082589a,479,llamadas,,
+0x00825A79,crt,FUN_00825a79,346,raiz,,
+0x00825BC2,crt,FUN_00825bc2,9,llamadas,,
+0x00825DB8,crt,FUN_00825db8,10,llamadas,,
+0x00825DC2,crt,FUN_00825dc2,12,llamadas,,
+0x00825DC9,crt,FUN_00825dc9,19,llamadas,,
+0x00825DDA,crt,FUN_00825dda,10,llamadas,,
+0x00825E4C,crt,FUN_00825e4c,79,llamadas,,
+0x00825FF8,crt,_longjmp,120,llamadas,,
+0x00826A2D,crt,,36,raiz,,
+0x00826A51,crt,,6,raiz,,
+0x00826A57,crt,__callnewh,27,raiz,,
+0x00826B26,crt,,26,raiz,,
+0x00826EB2,crt,FUN_00826eb2,18,llamadas,,
+0x00826F04,crt,__ms_p5_mp_test_fdiv,105,llamadas,,
+0x008286E0,crt,__SEH_prolog,59,llamadas,,
+0x0082871B,crt,__SEH_epilog,17,llamadas,,
+0x00828C4A,crt,__msize,106,raiz,,
+0x00828CB7,crt,FUN_00828cb7,9,llamadas,,
+0x00828CC0,crt,__trandisp1,103,llamadas,,
+0x00828D27,crt,__trandisp2,140,llamadas,,
+0x00828E90,crt,FUN_00828e90,83,llamadas,,
+0x00828EA7,crt,__startOneArgErrorHandling,60,llamadas,,
+0x00828EF0,crt,FUN_00828ef0,21,llamadas,,
+0x00828F05,crt,FUN_00828f05,23,llamadas,,
+0x00828F1C,crt,FUN_00828f1c,25,llamadas,,
+0x00828F35,crt,__fload_withFB,67,llamadas,,
+0x00828F78,crt,FUN_00828f78,22,llamadas,,
+0x00828F8E,crt,FUN_00828f8e,13,llamadas,,
+0x00828F9B,crt,__math_exit,42,llamadas,,
+0x00828FD9,crt,FUN_00828fd9,163,llamadas,,
+0x00829B80,crt,FUN_00829b80,25,llamadas,,
+0x0082A8D7,crt,FUN_0082a8d7,106,llamadas,,
+0x0082A941,crt,__powhlp,354,llamadas,,
+0x0082AAD4,crt,__security_check_cookie,63,llamadas,,
+0x0082C39E,crt,__mbsnbicoll,78,llamadas,,
+0x0082C3EC,crt,FUN_0082c3ec,107,llamadas,,
+0x0082C59E,crt,___sbh_find_block,43,llamadas,,
+0x0082C5C9,crt,___sbh_free_block,792,llamadas,,
+0x0082C8E1,crt,___sbh_alloc_new_region,183,llamadas,,
+0x0082C998,crt,___sbh_alloc_new_group,262,llamadas,,
+0x0082CA9E,crt,___sbh_resize_block,735,llamadas,,
+0x0082D1C2,crt,___sbh_alloc_block,764,llamadas,,
+0x0082D520,crt,FUN_0082d520,375,llamadas,,
+0x0082D6C1,crt,__FF_MSGBANNER,57,llamadas,,
+0x0082DED0,crt,__set_exp,42,llamadas,,
+0x0082DF5E,crt,__sptype,91,llamadas,,
+0x0082DFB9,crt,FUN_0082dfb9,186,llamadas,,
+0x0082E073,crt,__raise_exc,677,llamadas,,
+0x0082E318,crt,FUN_0082e318,546,llamadas,,
+0x0082E53A,crt,FID_conflict:__set_errno_from_matherr,40,llamadas,,
+0x0082E88C,crt,FUN_0082e88c,13,llamadas,,
+0x0082E899,crt,FUN_0082e899,14,llamadas,,
+0x0082E8A7,crt,__ctrlfp,36,llamadas,,
+0x0082E8CB,crt,FUN_0082e8cb,89,llamadas,,
+0x008305A0,crt,_strcspn,70,llamadas,,
+0x008305E6,crt,_TranslateName,96,llamadas,,
+0x00830646,crt,_GetLcidFromDefault,26,llamadas,,
+0x00830660,crt,FUN_00830660,124,llamadas,,
+0x00830812,crt,_GetPrimaryLen,29,llamadas,,
+0x00830C31,crt,_GetLcidFromCountry,55,llamadas,,
+0x00830C68,crt,_GetLcidFromLangCountry,134,llamadas,,
+0x00830CEE,crt,_GetLcidFromLanguage,85,llamadas,,
+0x00830D43,crt,___get_qualified_locale,437,llamadas,,
+0x00830F00,crt,_memcmp,184,llamadas,,
+0x00831180,crt,_strpbrk,64,llamadas,,
+0x008312C0,crt,__cintrindisp2,62,llamadas,,
+0x008312FE,crt,__cintrindisp1,61,llamadas,,
+0x0083138A,crt,FUN_0083138a,327,llamadas,,
+0x008322D0,crt,FUN_008322d0,24,llamadas,,
+0x008322EE,crt,FUN_008322ee,671,llamadas,,
+0x00832590,crt,__rt_probe_read4@4,66,llamadas,,
+0x00833605,crt,FUN_00833605,3,raiz,,
+0x00833608,crt,FUN_00833608,19,llamadas,,
+0x0083365F,crt,FUN_0083365f,254,llamadas,,
+0x00833A20,crt,FUN_00833a20,346,llamadas,,
+0x00834B6E,crt,_strncnt,28,llamadas,,
+0x00834B8A,crt,FUN_00834b8a,906,llamadas,,
+0x00834F14,crt,findenv,77,llamadas,,
+0x00834F61,crt,copy_environ,97,llamadas,,
+0x00834FC2,crt,FUN_00834fc2,437,llamadas,,
+0x00835177,crt,___crtMessageBoxA,249,llamadas,,
+0x00835B46,crt,FUN_00835b46,62,llamadas,,
+0x00835B84,crt,__itoa,42,llamadas,,
+0x00836AFC,crt,KERNEL32.DLL::RtlUnwind,6,llamadas,,

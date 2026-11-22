@@ -97,3 +97,63 @@ python -I reversing/FnFase8/dis.py "<gta_sa.exe>" 0x750430 100                  
 `ejecutar.sh` toma `D:\Original\gta_lock` y espera a que no haya `gta_sa.exe` ni otros ejecutables de prueba; solo mata su propio proceso. Resultado de cada intento en `reversing/FnFase8/ejecuciones/<etiqueta>-<hora>/` (`fase8_arranque.log`, `fase8_fallo.txt`, `fase8_codigo_original.csv`, `log.log` del proyecto).
 
 Intentos conservados: `t1` (ruptura 1), `t2` (ruptura 2, `main` limpio), `t3` (superposición de `vivo-d3dstd`: ruptura 3), `t4`/`t5` (con `--shims`: ruptura 4 y estado del juego), `c1`–`c3` (censo). Las superposiciones (`reversing/FnFase8/over_src`, ignorada por git) son copias de trabajo de otra rama y **no** forman parte de este commit.
+
+## 7. Segunda ronda (21/11/2026, rama `fase8-exp2`, base `origin/main` 59b1028202)
+
+Mismo método (datos del `gta_sa.exe` original solo como archivo, `.text` relleno de INT3, modo estricto), con el código de `main` actual: arranque del CRT propio completo, 26 rutinas de cámara/D3D9/RpWorld, manejadores `rwSTANDARD`, datos DE04/DE05. Los `.obj` son los de `wv-int` (mismo commit); `_build_FASE8B.sh` enlaza en 25 s (`reversing/FnFase8/salida`), carpeta de pruebas propia `D:\Original\_fase8b_run` (junctions de solo lectura a los datos de `D:\Grand Theft Auto San Andreas`; fuente de datos `gta-sa.exe`). Registros de cada intento en `reversing/FnFase8/ejecuciones/` (`r1`-`r9`, `g1`, `c4`).
+
+### 7.1 Qué funciona (medido)
+
+* Enlace sin símbolos sin resolver; carga de datos (7 secciones, IAT 214/214); CRT propio; 13.589 ganchos instalados; `NOTSA_WinMain`; dispositivo D3D9 y `RwCamera` creados; ventana viva.
+* **Menú principal**: con `FastLoader` (sin logo ni títulos) el juego llega a `gGameState = 7` (FRONTEND_IDLE) y **se queda dibujando el menú a 30 fps sin una sola instrucción original ejecutada** (`codigo-original-distinto=0 hits=0`). Contadores del vtable del dispositivo (envolturas propias en `StandaloneExe.cpp`): en 30 s, 787 `Present`, 787 `EndScene`, 1.574 `Clear` y 7.083 llamadas de dibujo (9 por marco). Captura de pantalla de la ventana: `ejecuciones/r9-captura.png` (título «Menú principal», texto de `SPANISH.GXT`, fondo del cartel de Vinewood). `CTimer::m_FrameCounter` sube de 13 a 859.
+* **Nueva partida**: arranca la carga (`gGameState = 8`, abre CARREC.IMG, SCRIPT.IMG, CUTSCENE.IMG, PLAYER.IMG; 52 `Present` por 2 s durante la carga) y se rompe a los 7 s en el motor de scripts (ruptura 5).
+
+### 7.2 Qué se rompe, en orden (cada fila es una ejecución real)
+
+| # | Intento | Dirección / lugar | Quién la llama | Qué es | Estado |
+| ---: | --- | --- | --- | --- | --- |
+| 0 | `r1` (sin FastLoader) | **ningún INT3.** A los 23 s, `0xC0000005` en `DDRAW` dentro de un hilo de `quartz` | reproductor DirectShow de `Logo.mpg` | el vídeo del logo (dos esperas de 10 s en la pantalla `loadscs`, luego fallo de DirectShow/DDraw) | **Sin resolver; no es código original.** Se evita con `NoLogo`/`NoTitleOrIntro`. Pendiente: reproductor de vídeo en este EXE |
+| 1 | `r2` | `0x7FBD30` (1.202 B) | `CSprite2d::RenderVertexBuffer` | `RwIm2DRenderIndexedPrimitive` del controlador D3D9 (puntero de la tabla estándar del dispositivo; hueco de Ghidra) | **Arreglado** (`_rwD3D9Im2DRenderIndexedPrimitive`, `rwcore.cpp`, con gancho): desindexa a un búfer dinámico o usa el búfer de índices. Sin validar contra el original: solo desensamblado completo y humo |
+| 2 | `r3`-`r5` | acceso a 0 en `CAESound::UpdateParameters` (`+0xA8`) | `CAESoundManager::Service` | la entidad de audio estática (`AudioEngine`, `0xB6BD44`) tiene la vtable a cero: el EXE propio **no ejecuta la tabla `_initterm`** (140 constructores con `atexit`, 32 asignaciones, 5 llamadas «pendiente-DatosExe») | **Puenteado** en `StandaloneExe.cpp` (7.3) hasta que `DatosExe` defina esos objetos |
+| 3 | `r6`, `r7` | `0x441E00` (13 B) y `0x563190` (constructores sin gancho llamados desde el puente) | puente de inicializadores | constructores triviales de objetos globales | Resuelto: los constructores sin gancho se **emulan fuera de línea** (unicorn) y entran como escrituras de datos |
+| 4 | `r8`, `r9` | - | - | **menú principal estable** (7.1) | - |
+| 5 | `g1`, `c4` | `0x489500` (unos 3,5 KB + tabla de salto) | `RunningScript` (`std::invoke` de un despachador) | `CRunningScript::ProcessCommands1000To1099` (opcodes 1000-1099) | **Cola** (grande, mucho más de 300 B). Solo 8 despachadores de 100 opcodes están reconstruidos (300, 400, 800, 1200, 1500, 1700, 1900, 2000); los demás romperán uno a uno al avanzar el script de arranque |
+
+### 7.3 Herramientas nuevas
+
+* `StandaloneExe.cpp`: volcado del hilo principal (EIP, registros, cadena de EBP, pila) antes de que la guardia mate el proceso; contadores D3D9 (Present/EndScene/Clear/Draw) y `gGameState` en el latido; opción `--sin-init`; puente `EjecutarInicializadoresEstaticos()` que lee `StandaloneInit.inc`.
+* `reversing/FnFase8/gen_init_estaticos.py` genera `StandaloneInit.inc` (4.299 filas) desde `fase8-inicializadores.csv` y el archivo original: constructores con gancho (se llama al C++), rellenos `0xFFFF`, copias de valores iniciales y las escrituras de los constructores **sin** gancho obtenidas por emulación. Se omiten `atexit`, puestas a cero de `.bss` y las 4 conversiones `fild`/`_ftol` que dependen de datos de ejecución. Es un **puente temporal** del experimento: cuando `DatosExe` defina los objetos y sus inicializadores hay que retirarlo (no se tocó `DatosExe`).
+* `compilar_over.cmd` y `_cc_FASE8B.sh` (recompilan un `.cpp` con las opciones del ASI y reenlazan, unos 35 s), `ejecutar_f8b.ps1`/`correr_f8b.ps1` (esperan el candado, limpian `logs`, captura de pantalla con `captura_f8b.ps1`), `dis_rango.py`.
+
+### 7.4 Censo del código original alcanzable (cierre estático, recalculado con `FnIND0A`)
+
+| | Primer experimento | Segunda ronda |
+| --- | ---: | ---: |
+| Funciones del cierre | 691 | **649** |
+| Bytes | 309.142 | **297.819** |
+| RenderWare | 459 / 181.547 B | **444 / 177.391 B** |
+| CRT | 138 / 102.946 B | **136 / 102.869 B** |
+| Juego | 94 / 24.649 B | **69 / 17.559 B** |
+| Llamadas indirectas sin resolver / funciones de la IAT | 668 / 39 | 597 / 39 |
+| Direcciones de código citadas sin gancho (A / B / ruido C) | 379 (119 / 147 / 113) | 338 (107 / 121 / 110) |
+| Referencias a direcciones fijas / destinos distintos | 66.277 / 18.087 | 50.196 / 17.199 |
+
+Datos: `fase8-experimento/resumen-ronda2.json`, `cierre_codigo-ronda2.csv`, `dependencias_codigo-ronda2.csv`. Los `.obj` usados no incluyen `_rwD3D9Im2DRenderIndexedPrimitive` (1.202 B más de código propio). El cierre estático **no** ve el despachador `0x489500` (se llama por tabla de punteros de script) ni los demás `ProcessCommands` sin reconstruir: el censo dinámico es la fuente fiable de lo que falta. Dinámico: **0 funciones originales ejecutadas hasta el menú**; 1 al cargar la partida nueva (ruptura 5). El modo `--censo` no sirve para avanzar: al simular el retorno de `0x489500` (EAX=0) la pila se corrompe (`0xC0000409`).
+
+### 7.5 Siguiente paso (ordenado)
+
+1. **Script**: reconstruir los despachadores `ProcessCommands` que faltan (3-5 KB cada uno, unos 100 opcodes; los comandos individuales ya son en gran parte C++), empezando por `1000To1099` (`0x489500`), y repetir `g1` para ver el siguiente.
+2. **`DatosExe`**: definir los 140 constructores estáticos, 32 asignaciones y 5 llamadas pendientes y retirar `StandaloneInit.inc`.
+3. **Vídeo del logo/intro** (DirectShow + DDraw): fallo en un hilo de `quartz`; o se reconstruye el reproductor o se mantiene `NoLogo`.
+4. Validar `_rwD3D9Im2DRenderIndexedPrimitive` con un banco (no hecho; el menú dibuja con él).
+5. Tras cada ola repetir `r9` (menú, 30 s) y `g1` (partida nueva): el primer INT3 sigue siendo la lista de pendientes real.
+
+### 7.6 Cómo reproducir la segunda ronda
+
+```
+bash /d/Original/_build_FASE8B.sh                                        # enlaza con los .obj de wv-int
+bash /d/Original/_cc_FASE8B.sh source/game_sa/RenderWare/rw/rwcore.cpp   # recompila un .cpp a reversing/FnFase8/over y reenlaza
+pwsh -File reversing/FnFase8/correr_f8b.ps1 -Et r9 -Lim 30 -Cap 15       # menu: ini con FastLoader (NoLogo, NoTitleOrIntro, SaveGameToLoad=-2)
+pwsh -File reversing/FnFase8/correr_f8b.ps1 -Et g1 -Lim 60 -Cap 45       # partida nueva: SaveGameToLoad=0
+python -I reversing/FnFase8/gen_init_estaticos.py                         # regenera StandaloneInit.inc (unicorn y capstone)
+```

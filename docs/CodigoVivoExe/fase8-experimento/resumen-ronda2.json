@@ -1,0 +1,127 @@
+{
+ "referencias_totales": 50196,
+ "destinos_distintos": 17199,
+ "objs": 1083,
+ "hooks_direcciones": 13474,
+ "codigo": {
+  "destinos_texto": 13811,
+  "con_hook": 13473,
+  "sin_hook": 338,
+  "sin_hook_por_confianza": {
+   "C": 110,
+   "B": 121,
+   "A": 107
+  },
+  "por_categoria": {
+   "crt_o_biblioteca|A": 21,
+   "crt_o_biblioteca|B": 3,
+   "juego_sin_hook|A": 2,
+   "juego_sin_hook|B": 56,
+   "ruido_probable|C": 110,
+   "rw_enlazada_biblioteca|A": 74,
+   "rw_sin_hook|A": 10,
+   "rw_sin_hook|B": 62
+  },
+  "dentro_401000_81FFFF_AB": 204,
+  "fuera_AB": 24,
+  "cierre_por_llamadas": {
+   "funciones": 649,
+   "bytes": 297819,
+   "por_region": {
+    "renderware": 444,
+    "crt": 136,
+    "juego": 69
+   },
+   "bytes_por_region": {
+    "renderware": 177391,
+    "crt": 102869,
+    "juego": 17559
+   },
+   "llamadas_indirectas_sin_resolver": 597,
+   "funciones_de_la_iat": 39
+  },
+  "cierre_con_vtables": {
+   "funciones": 652,
+   "bytes": 297838,
+   "por_region": {
+    "renderware": 444,
+    "crt": 137,
+    "juego": 71
+   },
+   "bytes_por_region": {
+    "renderware": 177391,
+    "crt": 102878,
+    "juego": 17569
+   },
+   "ranuras_sin_hook": 3,
+   "llamadas_indirectas_sin_resolver": 597,
+   "funciones_de_la_iat": 39
+  },
+  "raices_funcion": 228
+ },
+ "datos": {
+  "destinos_datos": 3386,
+  "por_seccion_tipo": {
+   ".data|variable_bss": 1926,
+   ".data|variable_data_inicializada": 732,
+   ".rdata|cadena": 15,
+   ".rdata|constante_rdata": 198,
+   ".rdata|vtable": 475,
+   "_TEXT_HA|variable__TEXT_HA": 38,
+   "_rwdseg|constante_rdata": 2
+  },
+  "referencias_datos": 33433,
+  "con_tamano_conocido": 1354,
+  "bytes_conocidos": 32764,
+  "en_fuente": 2657,
+  "con_nombre_cpp": 1641,
+  "direcciones_datos_usadas_por_todo_el_codigo_original": 20265,
+  "de_ellas_usadas_tambien_por_codigo_propio": 3360,
+  "usadas_solo_por_codigo_propio": 26
+ },
+ "tablas_punteros": {
+  ".data|otra_tabla|enganchado": 142,
+  ".data|otra_tabla|sin_hook": 95,
+  ".rdata|otra_tabla|enganchado": 599,
+  ".rdata|otra_tabla|sin_hook": 3769,
+  ".rdata|vtable|enganchado": 5434,
+  ".rdata|vtable|sin_hook": 52
+ },
+ "initterm": {
+  "entradas": 1673,
+  "por_tabla": {
+   "C (XIA..XIZ)": 6,
+   "C++ (XCA..XCZ)": 1667
+  },
+  "enganchadas": 0,
+  "por_region": {
+   "crt": 1673
+  },
+  "bytes": 248
+ },
+ "excluidas": {
+  "total": 155,
+  "enganchadas": 2,
+  "referenciadas_por_codigo_propio": 3,
+  "por_categoria": {
+   "proteccion-descartada": 18,
+   "usercall-cubierta": 52,
+   "no-es-funcion": 11,
+   "salto-puro": 20,
+   "sustituida-por-crt": 1,
+   "usercall-renderware": 17,
+   "retirada-quicktime": 2,
+   "sin-equivalente-cpp": 1,
+   "arranque-sin-gancho": 32,
+   "sin-espacio-para-gancho": 1
+  }
+ },
+ "audit819": {
+  "total": 819,
+  "hoy_enganchadas": 798,
+  "hoy_referenciadas": 802,
+  "hoy_ref_confianza": {
+   "A": 802
+  }
+ }
+}
