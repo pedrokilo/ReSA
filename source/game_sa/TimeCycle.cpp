@@ -175,12 +175,15 @@ void CTimeCycle::Initialise(bool padFile) {
                 &postFx2A, &postFx2R, &postFx2G, &postFx2B,
                 &cloudAlpha, &highLightMinIntensity, &waterFogAlpha, &dirMult
             );
-            if (n < 52) {
+            // El formato tiene 52 conversiones (como el del EXE, 0x5BBAC0) pero el timecyc.dat de la 1.0 solo trae 51 columnas:
+            // la última (multiplicador direccional) nunca se lee y sscanf devuelve 51 en cada línea buena (medido: 184 de 184
+            // líneas dan 51 con el sscanf del CRT propio y con el de MSVC). Solo se avisa si falta algo más.
+            if (n < 51) {
                 // TODO:
                 // R* made a mistake in line 320:
                 // instead of the first 3 RGB values, only 255 is specified,
                 // which causes the entire line to shift and be read incorrectly
-                NOTSA_LOG_WARN("Línea de timecyc incorrecta: '{}'", line);
+                NOTSA_LOG_WARN("Línea de timecyc incorrecta ({} de 51 campos): '{}'", n, line);
             }
 
             m_nAmbientRed[h][w]   = ambR;
