@@ -72,6 +72,11 @@ void PedModelInfoConstructExe(void* element) {
     PedModelInfoConstructorBody(static_cast<CPedModelInfo*>(element), nullptr);
 }
 
+// Destructor de elemento (cuerpo del destructor del EXE que el iterador de vectores del almacen pasa por direccion) para el atexit del ejecutable independiente (DatosExe/StaticInit.cpp).
+void PedModelInfoDestructExe(void* element) {
+    PedModelInfoDestructorBody(static_cast<CPedModelInfo*>(element), nullptr);
+}
+
 void CPedModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CPedModelInfo, 0x85BDC0, 17);
     RH_ScopedCategory("Models");

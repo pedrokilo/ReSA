@@ -9,6 +9,9 @@ DataBssF.cpp). Salida:
     las dos constantes x87 raras). Con la DLL sobre el EXE original NO se llama: el EXE ya ejecuto sus inicializadores.
   * docs/DatosExe/inicializadores-estado.csv: por fila, que se genero y que queda pendiente con su motivo.
 
+Las 56 filas que el generador no sabia construir (constructores de elemento, almacenes de ModelInfo, listas, destructores, x87) salen de
+contrib/datos_exe_staticinit_nuevas.py (tabla escrita a mano); se emiten como `RunRow(indice)` y tambien alimentan DatosExe::VerifyStaticInitializers.
+
 Uso: python -X utf8 contrib/datos_exe_staticinit.py [--excluir lista.txt]   (lista de indices C++ a omitir, p. ej. por error de compilacion)
 """
 import csv
@@ -18,6 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from datos_exe_de05f import nombres_declarados  # noqa: E402
+from datos_exe_staticinit_nuevas import N as NUEVAS, ESTADO_CRT  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
 NL = chr(10)
@@ -40,6 +44,89 @@ def cabeceras_de_clases():
     return out
 
 
+EXTERNOS = [
+    'void DWHeliChaseParamsConstructExe(void* element);                                                           // Cam.cpp',
+    'void ModelInfoStoreConstructStatic(uint32 which);                                                            // Models/ModelInfo.cpp',
+    'void ModelInfoStoreDestructStatic(uint32 which);                                                             // Models/ModelInfo.cpp',
+    'void __fastcall SectorDestructorExe(CSector* self, void* edx);                                               // Sector.cpp (0x563130)',
+    'COctTreeBase* __fastcall OctTreeBaseConstructorExe(COctTreeBase* self, void* edx);                           // Core/OctTreeBase.cpp (0x5A7570)',
+    'CAEWeatherAudioEntity* __fastcall WeatherAudioEntityConstructorBody(CAEWeatherAudioEntity* self, void* edx); // Audio/Entities/AEWeatherAudioEntity.cpp (0x72A620)',
+    'namespace CInformFriendsEventBody { void __fastcall Destructor(CInformFriendsEvent* self, void* edx); }      // InformFriendsEventQueue.cpp (0x4B2950)',
+]
+
+PLANTILLAS = [
+    '// Filas escritas a mano (contrib/datos_exe_staticinit_nuevas.py). El destructor se llama SIN despacho virtual (`T::~T()`): los objetos pueden llevar la vtable del EXE.',
+    'template <class T, uintptr_t VA, size_t N> void ConstructArrayOnly() {',
+    '    for (size_t i = 0; i < N; ++i) {', '        std::construct_at(&StaticRef<T>(VA) + i);', '    }', '}',
+    'template <class T, uintptr_t VA, size_t N> void __cdecl DestroyArrayNV() {',
+    '    for (size_t i = N; i-- > 0;) {', '        (&StaticRef<T>(VA) + i)->T::~T();', '    }', '}',
+    'template <class T, uintptr_t VA, size_t N> void OnexitArrayNV() {',
+    '    if constexpr (!std::is_trivially_destructible_v<T>) {', '        ExeCrt::Onexit(reinterpret_cast<void*>(&DestroyArrayNV<T, VA, N>));', '    }', '}',
+    'template <class T, uintptr_t VA> void __cdecl DestroyNV() { (&StaticRef<T>(VA))->T::~T(); }',
+    'template <class T, uintptr_t VA> void OnexitNV() {',
+    '    if constexpr (!std::is_trivially_destructible_v<T>) {', '        ExeCrt::Onexit(reinterpret_cast<void*>(&DestroyNV<T, VA>));', '    }', '}',
+    'void OnexitFn(void(__cdecl* fn)()) { ExeCrt::Onexit(reinterpret_cast<void*>(fn)); }',
+    'using Thunk = void (*)();',
+    'struct Row {', '    int       index;     // indice C++ de la tabla _initterm (docs/DatosExe/inicializadores.csv)',
+    '    uintptr_t va;        // direccion del objeto (primer elemento)', '    size_t    size;      // bytes que ocupa lo que escribe la rutina',
+    '    Thunk     construct; // el constructor; nullptr si solo escribe ceros sobre .bss', '    Thunk     onexit;    // registra el destructor con el atexit; nullptr si no hay efecto',
+    '};',
+]
+
+
+def tabla_filas(filas):
+    out = ['const Row kRows[] = {']
+    for f in sorted(filas, key=lambda x: int(x['idx'])):
+        ctor = f"[] {{ {f['ctor']} }}" if f['ctor'] else 'nullptr'
+        dtor = f"[] {{ {f['dtor']} }}" if f['dtor'] else 'nullptr'
+        out.append(f"    {{ {f['idx']}, 0x{f['va']:X}, {f['size']}, {ctor}, {dtor} }},")
+    out += ['};', '', 'void RunRow(int index) {', '    for (const Row& r : kRows) {', '        if (r.index != index) {', '            continue;', '        }',
+            '        if (r.construct) {', '            r.construct();', '        }', '        if (r.onexit) {', '            r.onexit();', '        }', '        return;', '    }', '}']
+    return out
+
+
+VERIFICAR = [
+    '// Prueba de que cada fila reproduce lo que hizo la rutina del EXE. Solo con la DLL sobre el EXE original (el _initterm del EXE ya dejo los objetos en su estado inicial y el juego aun no',
+    '// los ha tocado: se llama al instalar los ganchos). Por fila: guarda los bytes del EXE, pone la zona a cero (el estado del .bss del ejecutable independiente), ejecuta el constructor del C++',
+    '// propio, compara y restaura los bytes del EXE. Una fila sin constructor se da por buena si la zona que dejo el EXE es toda ceros (la rutina solo escribia ceros). Las palabras que en el EXE',
+    '// son una vtable del EXE (.rdata) no se comparan (el C++ propio puede dejar la suya) y se cuentan aparte. No registra destructores ni toca nada fuera de la zona de la fila.',
+    'StaticInitReport& LastReport() {', '    static StaticInitReport report;', '    return report;', '}', '',
+    'StaticInitReport VerifyStaticInitializers() {',
+    '    StaticInitReport rep;',
+    '    for (const Row& r : kRows) {',
+    '        if (!r.size) {', '            continue;', '        }',
+    '        ++rep.rows;',
+    '        auto* const mem = reinterpret_cast<uint8_t*>(r.va);',
+    '        const std::vector<uint8_t> exe(mem, mem + r.size);',
+    '        std::memset(mem, 0, r.size);',
+    '        if (r.construct) {', '            r.construct();', '        }',
+    '        const std::vector<uint8_t> mine(mem, mem + r.size);',
+    '        std::memcpy(mem, exe.data(), r.size);',
+    '        int shown = 0;',
+    '        bool different = false;',
+    '        for (size_t i = 0; i < r.size; ++i) {',
+    '            if (mine[i] == exe[i]) {', '                continue;', '            }',
+    '            const size_t w = i & ~size_t{ 3 };',
+    '            if (w + 4 <= r.size) {',
+    '                uint32_t exeWord;', '                std::memcpy(&exeWord, &exe[w], 4);',
+    '                if (exeWord >= 0x858000 && exeWord < 0x8A4000) {', '                    ++rep.vtableWords;', '                    i = w + 3;', '                    continue;', '                }',
+    '            }',
+    '            different = true;',
+    '            if (shown++ < 6) {',
+    '                rep.detail += std::format("fila {} (0x{:X}) +0x{:X}: EXE 0x{:02X}, C++ 0x{:02X}; ", r.index, r.va, i, exe[i], mine[i]);',
+    '            }',
+    '        }',
+    '        if (different) {', '            ++rep.different;', '            if (!rep.firstDifferent) {', '                rep.firstDifferent = static_cast<uint32_t>(r.index);', '            }',
+    '        } else {', '            ++rep.equal;', '        }',
+    '    }',
+    '    LastReport() = rep;',
+    '    return rep;',
+    '}',
+    '',
+    'const StaticInitReport& LastStaticInitReport() { return LastReport(); }',
+]
+
+
 def main():
     hdr = cabeceras_de_clases()
     decl = set(hdr)      # solo clases DEFINIDAS (no basta una declaracion adelantada)
@@ -57,6 +144,7 @@ def main():
         for r in csv.DictReader(f_csv.open(encoding='utf-8')):
             dueno.add(int(r['va'], 16))
     cuerpo, estado = [], []
+    filas_nuevas = []
     for r in filas:
         clave = (r['tabla'], r['indice'])
         etq = f"{r['tabla']} {r['indice']} ({r['va']})"
@@ -65,6 +153,16 @@ def main():
             continue
         if r['indice'] in excl and r['tabla'] == 'C++':
             estado.append((etq, r['tipo'], 'omitida', 'excluida por la lista (error de compilacion)'))
+            continue
+        if r['tabla'] == 'C++' and r['indice'] in ESTADO_CRT:
+            estado.append((etq, r['tipo'], 'CRT (StandaloneStartup / CrtStartup.cpp)', ESTADO_CRT[r['indice']]))
+            continue
+        if r['tabla'] == 'C++' and r['indice'] in NUEVAS:
+            f = NUEVAS[r['indice']]
+            filas_nuevas.append(f)
+            cuerpo.append(f"    // {etq}: {f['nota']}")
+            cuerpo.append(f"    RunRow({f['idx']});")
+            estado.append((etq, r['tipo'], 'generada', f['nota']))
             continue
         obj = int(r['objeto'], 16) if r['objeto'] else None
         if obj in dueno:
@@ -152,13 +250,25 @@ def main():
         if m:
             usadas.add(m.group(1))
     incs = sorted({os.path.relpath(hdr[c], RAIZ / 'source/game_sa/DatosExe').replace(chr(92), '/') for c in usadas if c in hdr})
+    incs = sorted(set(incs) | {i for f in filas_nuevas for i in f['incs']})
     cab = ['#pragma once', '', '// Inicializadores estaticos de _initterm que dependen de DatosExe (generado por contrib/datos_exe_staticinit.py).',
            '// RunStaticInitializers() construye los objetos con constructor (std::construct_at sobre su direccion), registra sus destructores con',
            '// el atexit del CRT propio y escribe los valores iniciales, en el orden de la tabla del EXE. Solo para el ejecutable independiente:',
            '// con la DLL sobre el EXE original el _initterm del EXE ya los ejecuto y esta funcion no se llama.', '',
-           'namespace DatosExe {', 'void RunStaticInitializers();', '} // namespace DatosExe', '']
+           '#include <cstddef>', '#include <cstdint>', '#include <string>', '',
+           'namespace DatosExe {', 'void RunStaticInitializers();', '',
+           '// Resultado de VerifyStaticInitializers (ver el .cpp): compara, fila a fila, lo que construiria el C++ propio con lo que dejo el _initterm del EXE.',
+           'struct StaticInitReport {', '    int      rows           = 0; // filas con tamano comprobable',
+           '    int      equal          = 0; // iguales (salvo palabras de vtable del EXE, contadas aparte)',
+           '    int      different      = 0; // con alguna diferencia que no es una vtable',
+           '    int      vtableWords    = 0; // palabras que son vtable del EXE (.rdata) en el EXE y otra cosa en el C++ propio',
+           '    uint32_t firstDifferent = 0; // indice C++ de la primera fila distinta (0 si no hay)',
+           '    std::string detail;          // primeras diferencias (fila, direccion, byte del EXE, byte del C++); vacio si no hay',
+           '};', 'StaticInitReport VerifyStaticInitializers();',
+           'const StaticInitReport& LastStaticInitReport(); // resultado de la ultima llamada', '} // namespace DatosExe', '']
     cpp = ['#include "StdInc.h"'] + [f'#include "{i}"' for i in incs] + ['', '#include "StaticInit.h"', '#include "Crt/CrtOnexit.h"', '',
-           '// Generado por contrib/datos_exe_staticinit.py; no editar a mano (ver docs/DatosExe/inicializadores-estado.csv).', '',
+           '#include <cstring>', '#include <format>', '#include <memory>', '#include <vector>', '',
+           '// Generado por contrib/datos_exe_staticinit.py; no editar a mano (ver docs/DatosExe/inicializadores-estado.csv).', ''] + EXTERNOS + ['',
            'namespace DatosExe {', 'namespace {',
            'template <class T, uintptr_t VA> void __cdecl DestroyAt() { std::destroy_at(&StaticRef<T>(VA)); }',
            'template <class T, uintptr_t VA, size_t N> void __cdecl DestroyArrayAt() {',
@@ -173,8 +283,8 @@ def main():
            '    if (withDtor && !std::is_trivially_destructible_v<T>) {', '        ExeCrt::Onexit(reinterpret_cast<void*>(&DestroyArrayAt<T, VA, N>));', '    }', '}',
            'template <class V> void StoreRun(uintptr_t addr, size_t count, size_t stride, V value) {',
            '    for (size_t i = 0; i < count; ++i) {', '        StaticRef<V>(addr + i * stride) = value;', '    }', '}',
-           'template <class V> void CopyValue(uintptr_t dst, uintptr_t src) { StaticRef<V>(dst) = StaticRef<V>(src); }',
-           '}  // namespace', '', 'void RunStaticInitializers() {'] + cuerpo + ['}', '', '} // namespace DatosExe', '']
+           'template <class V> void CopyValue(uintptr_t dst, uintptr_t src) { StaticRef<V>(dst) = StaticRef<V>(src); }'] + PLANTILLAS + [
+           '}  // namespace', ''] + tabla_filas(filas_nuevas) + ['', 'void RunStaticInitializers() {'] + cuerpo + ['}', ''] + VERIFICAR + ['', '} // namespace DatosExe', '']
     d = RAIZ / 'source/game_sa/DatosExe'
     (d / 'StaticInit.h').write_text(NL.join(cab), encoding='utf-8', newline=NL)
     (d / 'StaticInit.cpp').write_text(NL.join(cpp), encoding='utf-8', newline=NL)

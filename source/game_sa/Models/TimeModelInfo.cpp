@@ -61,6 +61,11 @@ void TimeModelInfoConstructExe(void* element) {
     TimeModelInfoConstructorBody(static_cast<CTimeModelInfo*>(element), nullptr);
 }
 
+// Destructor de elemento (cuerpo del destructor del EXE que el iterador de vectores del almacen pasa por direccion) para el atexit del ejecutable independiente (DatosExe/StaticInit.cpp).
+void TimeModelInfoDestructExe(void* element) {
+    TimeModelInfoDestructorBody(static_cast<CTimeModelInfo*>(element), nullptr);
+}
+
 void CTimeModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CTimeModelInfo, 0x85BCB0, 16);
     RH_ScopedCategory("Models");

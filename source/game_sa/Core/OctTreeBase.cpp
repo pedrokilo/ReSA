@@ -22,16 +22,15 @@ END GENERATED HOOK STATUS */
 
 auto& gOctTreeBase = StaticRef<COctTreeBase>(0xBC1290);
 
-namespace {
 // 0x5A7570 (lote 203A, sin validar; thiscall, sin argumentos de pila, `ret`, 41 bytes, sin llamadores directos salvo el inicializador de CRT 0x84FE25 del objeto global gOctTreeBase): constructor por defecto de COctTreeBase del EXE.
 // Es el cuerpo de COctTree::COctTree en linea (nivel +4 y las tres sumas +0x1C, +0x20 y +0x24 a cero, los ocho hijos a -1 y el BYTE +8 a cero) pero con la vtable de COctTreeBase 0x867178; NO toca +0x28 (m_nNumBranches) ni +0x2C
 // (m_bHasTransparentPixels). Devuelve `this`. Inicializacion por defecto (sin poner a cero los miembros propios) y despues la vtable del EXE.
+// (sin namespace anonimo: tambien lo llama DatosExe/StaticInit.cpp en el ejecutable independiente)
 COctTreeBase* __fastcall OctTreeBaseConstructorExe(COctTreeBase* self, void* /*edx*/) {
     ::new (static_cast<void*>(self)) COctTreeBase;
     *reinterpret_cast<uint32*>(self) = 0x867178;
     return self;
 }
-} // namespace
 
 void COctTreeBase::InjectHooks() {
     RH_ScopedClass(COctTreeBase);

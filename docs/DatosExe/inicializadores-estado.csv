@@ -5,7 +5,7 @@ C 3 (0x00823EE5),otro,CRT (StandaloneStartup / CrtStartup.cpp),
 C 4 (0x008289F5),otro,CRT (StandaloneStartup / CrtStartup.cpp),
 C 5 (0x00833494),otro,CRT (StandaloneStartup / CrtStartup.cpp),
 C 6 (0x0082AC54),otro,CRT (StandaloneStartup / CrtStartup.cpp),
-C++ 1 (0x008339CA),otro,pendiente,el emulador no la entiende: call indirecto 
+C++ 1 (0x008339CA),otro,CRT (StandaloneStartup / CrtStartup.cpp),"CRT: ExeCrt::InitSecurityCookie (CrtStartup.cpp, 0x8339CA, la hace StandaloneStartup)"
 C++ 45 (0x00849470),ctor,generada,CColModel; destructor 0x0040F700 registrado
 C++ 46 (0x00849490),ctor-vec,generada,CColModel x 20
 C++ 47 (0x008494C0),ctor,generada,CColModel; destructor 0x0040F700 registrado
@@ -19,8 +19,8 @@ C++ 54 (0x008495A0),ctor,generada,CColModel; destructor 0x0040F700 registrado
 C++ 55 (0x008495C0),ctor,generada,CColModel; destructor 0x0040F700 registrado
 C++ 56 (0x008495E0),ctor,generada,CColModel; destructor 0x0040F700 registrado
 C++ 57 (0x00849600),ctor,generada,CColModel; destructor 0x0040F700 registrado
-C++ 112 (0x00849CE0),ctor-vec,pendiente,constructor de elemento 0x00441E00 aun del EXE
-C++ 125 (0x00849E90),ctor-vec,pendiente,constructor de elemento 0x004470E0 aun del EXE
+C++ 112 (0x00849CE0),ctor-vec,generada,"CWeapon x 13 (GameLogic::SavedWeapons): ctor 0x441E00 solo escribe ceros (+0x14, +0x15, +0x18); dtor 0x4411A0 es un `ret`"
+C++ 125 (0x00849E90),ctor-vec,generada,CGarage x 50 (CGarages::aGarages): ctor 0x4470E0 (vtable de CAEDoorAudioEntity en +0x50 y ceros) = el constructor por defecto de la clase; dtor 0x447110 = ~CGarage
 C++ 138 (0x0084A040),escrituras,generada,1 escrituras
 C++ 139 (0x0084A060),escrituras,generada,1 escrituras
 C++ 140 (0x0084A080),escrituras,generada,1 escrituras
@@ -29,68 +29,68 @@ C++ 178 (0x0084A540),ctor,generada,CPlayerInfo; destructor 0x0045B110  no es el 
 C++ 186 (0x0084A640),escrituras,generada,1 escrituras
 C++ 193 (0x0084A720),escrituras,nada que hacer,0 escrituras; 150 de cero omitidas (el .bss arranca en cero)
 C++ 194 (0x0084A740),ctor,generada,CScriptsForBrains; sin destructor (el funclet no hace nada)
-C++ 195 (0x0084A750),ctor-vec,pendiente,constructor de elemento 0x00463750 aun del EXE
-C++ 196 (0x0084A780),ctor-vec,pendiente,constructor de elemento 0x00463770 aun del EXE
+C++ 195 (0x0084A750),ctor-vec,generada,"tScriptText x 96 (IntroTextLines): ctor 0x463750 es `mov eax,ecx; ret` (el C++ propio SI inicializa miembros, el EXE no); dtor 0x463760 `ret`"
+C++ 196 (0x0084A780),ctor-vec,generada,"tScriptRectangle x 128 (IntroRectangles): ctor 0x463770 es `mov eax,ecx; ret`; dtor 0x463780 `ret`"
 C++ 197 (0x0084A7B0),ctor-vec,generada,CSprite2d x 128
 C++ 277 (0x0084B1C0),escrituras,nada que hacer,0 escrituras; 420 de cero omitidas (el .bss arranca en cero)
 C++ 284 (0x0084B2A0),ctor,generada,CPedClothesDesc; sin destructor (el funclet no hace nada)
 C++ 310 (0x0084B5D0),ctor,generada,Fx_c; destructor 0x0049E630  no es el de la clase; destructor pendiente
 C++ 314 (0x0084B650),ctor,generada,FxManager_c; destructor 0x004A90A0 registrado
-C++ 345 (0x0084BA30),ctor-vec,pendiente,constructor de elemento 0x004AC0D0 aun del EXE
+C++ 345 (0x0084BA30),ctor-vec,generada,"CInformFriendsEvent x 8: ctor 0x4AC0D0 (ped 0, evento 0, instante -1) = los inicializadores de miembro de la estructura; dtor 0x4B2950 (CInformFriendsEventBody::Destructor) en orden inverso"
 C++ 346 (0x0084BA60),ctor-vec,generada,CInformGroupEvent x 8
-C++ 358 (0x0084BBF0),ctor,pendiente,constructor 0x004C5CB0 aun del EXE (CModelInfo::AtomicModelInfoStoreConstructor)
-C++ 359 (0x0084BC10),ctor,pendiente,constructor 0x004C5D10 aun del EXE (CModelInfo::DamageAtomicModelInfoStoreConstructor)
-C++ 360 (0x0084BC30),ctor,pendiente,constructor 0x004C5D70 aun del EXE (CModelInfo::LodAtomicModelInfoStoreConstructor)
-C++ 361 (0x0084BC50),ctor,pendiente,constructor 0x004C5DD0 aun del EXE (CModelInfo::TimeModelInfoStoreConstructor)
-C++ 362 (0x0084BC70),ctor,pendiente,constructor 0x004C5E30 aun del EXE (CModelInfo::LodTimeModelInfoStoreConstructor)
-C++ 363 (0x0084BC90),ctor,pendiente,constructor 0x004C5E90 aun del EXE (CModelInfo::WeaponModelInfoStoreConstructor)
-C++ 364 (0x0084BCB0),ctor,pendiente,constructor 0x004C5EF0 aun del EXE (CModelInfo::ClumpModelInfoStoreConstructor)
-C++ 365 (0x0084BCD0),ctor,pendiente,constructor 0x004C5F50 aun del EXE (CModelInfo::VehicleModelInfoStoreConstructor)
-C++ 366 (0x0084BCF0),ctor,pendiente,constructor 0x004C67D0 aun del EXE (CModelInfo::PedModelInfoStoreConstructor)
+C++ 358 (0x0084BBF0),ctor,generada,CModelInfo::ms_atomicModelInfoStore: constructor 0x4C5CB0 (ModelInfoStoreConstructStatic: constructor de elemento del EXE sobre cada elemento y contador a 0); destructor 0x4C5840 (ModelInfoStoreDestructStatic: destructor de elemento en orden inverso)
+C++ 359 (0x0084BC10),ctor,generada,CModelInfo::ms_damageAtomicModelInfoStore: constructor 0x4C5D10 (ModelInfoStoreConstructStatic: constructor de elemento del EXE sobre cada elemento y contador a 0); destructor 0x4C5860 (ModelInfoStoreDestructStatic: destructor de elemento en orden inverso)
+C++ 360 (0x0084BC30),ctor,generada,CModelInfo::ms_lodAtomicModelInfoStore: constructor 0x4C5D70 (ModelInfoStoreConstructStatic: constructor de elemento del EXE sobre cada elemento y contador a 0); destructor 0x4C5880 (ModelInfoStoreDestructStatic: destructor de elemento en orden inverso)
+C++ 361 (0x0084BC50),ctor,generada,CModelInfo::ms_timeModelInfoStore: constructor 0x4C5DD0 (ModelInfoStoreConstructStatic: constructor de elemento del EXE sobre cada elemento y contador a 0); destructor 0x4C58A0 (ModelInfoStoreDestructStatic: destructor de elemento en orden inverso)
+C++ 362 (0x0084BC70),ctor,generada,CModelInfo::ms_lodTimeModelInfoStore: constructor 0x4C5E30 (ModelInfoStoreConstructStatic: constructor de elemento del EXE sobre cada elemento y contador a 0); destructor 0x4C58C0 (ModelInfoStoreDestructStatic: destructor de elemento en orden inverso)
+C++ 363 (0x0084BC90),ctor,generada,CModelInfo::ms_weaponModelInfoStore: constructor 0x4C5E90 (ModelInfoStoreConstructStatic: constructor de elemento del EXE sobre cada elemento y contador a 0); destructor 0x4C58E0 (ModelInfoStoreDestructStatic: destructor de elemento en orden inverso)
+C++ 364 (0x0084BCB0),ctor,generada,CModelInfo::ms_clumpModelInfoStore: constructor 0x4C5EF0 (ModelInfoStoreConstructStatic: constructor de elemento del EXE sobre cada elemento y contador a 0); destructor 0x4C5900 (ModelInfoStoreDestructStatic: destructor de elemento en orden inverso)
+C++ 365 (0x0084BCD0),ctor,generada,CModelInfo::ms_vehicleModelInfoStore: constructor 0x4C5F50 (ModelInfoStoreConstructStatic: constructor de elemento del EXE sobre cada elemento y contador a 0); destructor 0x4C6370 (ModelInfoStoreDestructStatic: destructor de elemento en orden inverso)
+C++ 366 (0x0084BCF0),ctor,generada,CModelInfo::ms_pedModelInfoStore: constructor 0x4C67D0 (ModelInfoStoreConstructStatic: constructor de elemento del EXE sobre cada elemento y contador a 0); destructor 0x4C6390 (ModelInfoStoreDestructStatic: destructor de elemento en orden inverso)
 C++ 389 (0x0084BFD0),ctor-vec,generada,CAnimBlendHierarchy x 2500
 C++ 390 (0x0084C000),escrituras,nada que hacer,0 escrituras; 360 de cero omitidas (el .bss arranca en cero)
 C++ 403 (0x0084C1A0),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
 C++ 410 (0x0084C270),ctor,generada,CAEAudioHardware; destructor 0x004D83A0 registrado
 C++ 411 (0x0084C290),ctor,generada,CAESmoothFadeThread; destructor 0x004EE9E0  no es el de la clase; destructor pendiente
 C++ 430 (0x0084C4F0),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
-C++ 431 (0x0084C500),ctor,pendiente,constructor 0x004F1750 aun del EXE (CAEStreamTransformer::Initialise)
-C++ 468 (0x0084C9A0),ctor-vec,pendiente,constructor de elemento 0x004E3330 aun del EXE
+C++ 431 (0x0084C500),ctor,generada,CAEStreamTransformer: 0x4F1750 (Initialise: clave fija de 16 bytes); sin destructor
+C++ 468 (0x0084C9A0),ctor-vec,generada,"CAEPedSpeechSlot x 6: ctor 0x4E3330 es `mov eax,ecx; ret` (el C++ propio SI inicializa miembros, el EXE no); dtor 0x4E3340 `ret`"
 C++ 488 (0x0084CC30),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
 C++ 496 (0x0084CD20),ctor,generada,CAESoundManager; destructor 0x004EFD60  no es el de la clase; destructor pendiente
 C++ 498 (0x0084CD60),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
 C++ 512 (0x0084CF10),escrituras,generada,1 escrituras
-C++ 518 (0x0084CFC0),otro,pendiente,el emulador no la entiende: x87 
+C++ 518 (0x0084CFC0),otro,generada,"float en 0xB6BA54 = [0xB6BA4C] / (float)(int16)[0x8CBC8C] (movsx; fild; fdivr; fstp dword); depende de la constante x87 0xB6BA4C (tabla C++ 0x84CF80, ya escrita por RunX87StaticInitializers)"
 C++ 519 (0x0084CFE0),escrituras,generada,1 escrituras
 C++ 533 (0x0084D190),escrituras,generada,2 escrituras
-C++ 559 (0x0084D4D0),ctor,pendiente,constructor 0x004F63B0 aun del EXE (CAETwinLoopSoundEntity::DefaultConstructorExe)
-C++ 560 (0x0084D4F0),ctor,pendiente,constructor 0x004F63B0 aun del EXE (CAETwinLoopSoundEntity::DefaultConstructorExe)
+C++ 559 (0x0084D4D0),ctor,generada,CAEWeatherAudioEntity::m_sRainSoundL: constructor por defecto 0x4F63B0 (DefaultConstructorExe); dtor 0x4F2B80 = ~CAETwinLoopSoundEntity
+C++ 560 (0x0084D4F0),ctor,generada,CAEWeatherAudioEntity::m_sRainSoundR: constructor por defecto 0x4F63B0 (DefaultConstructorExe); dtor 0x4F2B80 = ~CAETwinLoopSoundEntity
 C++ 567 (0x0084D5D0),ctor,generada,CAudioEngine; destructor 0x00506CD0 registrado
 C++ 575 (0x0084D6D0),ctor-vec,generada,CHandShaker x 6; destructor pendiente
 C++ 576 (0x0084D700),ctor,generada,CCamera; destructor 0x0050A870 CCamera::DestructorBody no es el de la clase; destructor pendiente
-C++ 577 (0x0084D720),ctor,pendiente,constructor 0x0050E6D0 aun del EXE (CIdleCam::Init)
+C++ 577 (0x0084D720),ctor,generada,gIdleCam: 0x50E6D0 (CIdleCam::Init); sin destructor
 C++ 578 (0x0084D740),dtor-solo,generada,CMatrix
 C++ 579 (0x0084D750),escrituras,generada,1 escrituras
-C++ 580 (0x0084D770),ctor-vec,pendiente,constructor de elemento 0x005173F0 aun del EXE
+C++ 580 (0x0084D770),ctor-vec,generada,parametros de la camara de helicoptero DW (1 x 0x9C): ctor de elemento 0x5173F0 (salta a 0x50E180: valores por defecto); dtor 0x50E080 `ret`
 C++ 593 (0x0084D920),ctor,generada,CControllerConfigManager; sin destructor (el funclet no hace nada)
 C++ 636 (0x0084DE70),ctor,generada,CFireManager; destructor 0x00538BB0 registrado
 C++ 649 (0x0084E010),ctor,generada,CLoadMonitor; sin destructor (el funclet no hace nada)
 C++ 656 (0x0084E0F0),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
 C++ 657 (0x0084E100),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
-C++ 665 (0x0084E1F0),ctor-vec,pendiente,constructor de elemento 0x00541D80 aun del EXE
-C++ 672 (0x0084E2E0),ctor,pendiente,constructor 0x0059AED0 aun del EXE (CMatrix::SetScale-f)
+C++ 665 (0x0084E1F0),ctor-vec,generada,"CPad x 2 (CPad::Pads): ctor 0x541D80 = CPad::Clear(true, true), que solo deja ceros; dtor 0x53ED60 `ret`"
+C++ 672 (0x0084E2E0),ctor,generada,gDummyMatrix: ctor 0x59AED0 (CMatrix::SetScale(1.0f)); dtor 0x59ACD0 = ~CMatrix
 C++ 673 (0x0084E300),ctor,generada,CMatrixLinkList; destructor 0x0054EB70 registrado
 C++ 704 (0x0084E6E0),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
 C++ 711 (0x0084E7B0),ctor,generada,CRGBA; sin destructor (el funclet no hace nada)
 C++ 712 (0x0084E7E0),escrituras,generada,1 escrituras
 C++ 713 (0x0084E7F0),escrituras,generada,1 escrituras
 C++ 726 (0x0084E980),ctor-vec,generada,CPlayerInfo x 2; destructor pendiente
-C++ 727 (0x0084E9B0),ctor-vec,pendiente,constructor de elemento 0x00564040 aun del EXE
-C++ 728 (0x0084E9E0),ctor-vec,pendiente,constructor de elemento 0x00563190 aun del EXE
-C++ 729 (0x0084EA10),ctor-vec,pendiente,constructor de elemento 0x0043E3F0 aun del EXE
-C++ 730 (0x0084EA40),dtor-solo,pendiente,destructor 0x00552470 CPtrNodeDoubleLinkPool::Flush no es de una clase C++
-C++ 731 (0x0084EA50),dtor-solo,pendiente,destructor 0x00552470 CPtrNodeDoubleLinkPool::Flush no es de una clase C++
+C++ 727 (0x0084E9B0),ctor-vec,generada,CSector x 14400 (CWorld::ms_aSectors): ctor de elemento 0x564040 solo escribe ceros; dtor 0x563130 (SectorDestructorExe: Flush de dummies y de edificios) en orden inverso
+C++ 728 (0x0084E9E0),ctor-vec,generada,"CRepeatSector x 256 (CWorld::ms_aRepeatSectors): ctor de elemento 0x563190 (tres listas, ctor 0x563180 pone ceros); dtor 0x5631B0 (tres Flush 0x5630F0 -> 0x552470) en orden inverso"
+C++ 729 (0x0084EA10),ctor-vec,generada,CPtrListSingleLink x 900 (CWorld::ms_aLodPtrLists): ctor de elemento 0x43E3F0 pone el puntero a cero; dtor 0x43E1A0 (salto al Flush 0x552400) en orden inverso
+C++ 730 (0x0084EA40),dtor-solo,generada,CWorld::ms_listMovingEntityPtrs: solo destructor (Flush 0x552470); no hay constructor
+C++ 731 (0x0084EA50),dtor-solo,generada,CWorld::ms_listObjectsWithControlCode: solo destructor (Flush 0x552470); no hay constructor
 C++ 763 (0x0084EE40),ctor,generada,CMenuManager; destructor 0x00579440 registrado
-C++ 782 (0x0084F0A0),ctor-vec,pendiente,constructor de elemento 0x00463360 aun del EXE
+C++ 782 (0x0084F0A0),ctor-vec,generada,"CRGBA x 6 (CRadar::ArrowBlipColour): ctor 0x463360 es `mov eax,ecx; ret`; dtor 0x43CE70 `ret`"
 C++ 783 (0x0084F0D0),ctor-vec,generada,CSprite2d x 64
 C++ 790 (0x0084F1C0),ctor-vec,generada,CSprite2d x 6
 C++ 791 (0x0084F1F0),ctor,generada,CHudColours; destructor 0x0058FD90  no es el de la clase; destructor pendiente
@@ -101,24 +101,24 @@ C++ 801 (0x0084F350),ctor-vec,generada,Furniture_c x 256; destructor pendiente
 C++ 832 (0x0084F740),ctor,generada,InteriorManager_c; destructor 0x00598580 registrado
 C++ 858 (0x0084FA80),ctor,generada,BreakManager_c; destructor 0x0059E640  no es el de la clase; destructor pendiente
 C++ 884 (0x0084FDC0),ctor,generada,ProcObjectMan_c; destructor 0x005A3090 registrado
-C++ 887 (0x0084FE20),ctor,pendiente,constructor 0x005A7570 aun del EXE (COctTreeBase::Constructor)
-C++ 888 (0x0084FE40),ctor,pendiente,constructor 0x00532290 aun del EXE (CDirectory::Constructor-Empty)
+C++ 887 (0x0084FE20),ctor,generada,gOctTreeBase: ctor 0x5A7570 (OctTreeBaseConstructorExe); dtor 0x5A4140 = ~COctTreeBase
+C++ 888 (0x0084FE40),ctor,generada,ClothesBuilder::playerImg: ctor vacio 0x532290 = CDirectory() (no escribe m_bOwnsEntries); dtor 0x5322D0 = ~CDirectory
 C++ 889 (0x0084FE60),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
 C++ 896 (0x0084FF30),escrituras,nada que hacer,0 escrituras; 1 de cero omitidas (el .bss arranca en cero)
 C++ 904 (0x00850040),ctor,generada,CAnimBlendAssocGroup; destructor 0x004CE1D0 registrado
 C++ 972 (0x008508C0),escrituras+dtor,nada que hacer,0 escrituras; 1 de cero omitidas (el .bss arranca en cero); destructor registrado por el EXE es un `ret`
 C++ 974 (0x00850910),ctor,generada,CRGBA; sin destructor (el funclet no hace nada)
-C++ 975 (0x00850940),ctor-vec,pendiente,constructor de elemento 0x005DB2B0 aun del EXE
-C++ 976 (0x00850970),ctor-vec,pendiente,constructor de elemento 0x005DB290 aun del EXE
-C++ 1003 (0x00850CE0),ctor-vec,pendiente,constructor de elemento 0x005DE520 aun del EXE
+C++ 975 (0x00850940),ctor-vec,generada,"CPlantLocTri x 256: ctor 0x5DB2B0 es `mov eax,ecx; ret`; dtor 0x5DB2C0 `ret`"
+C++ 976 (0x00850970),ctor-vec,generada,"CPlantColEntEntry x 40: ctor 0x5DB290 es `mov eax,ecx; ret`; dtor 0x5DB2A0 `ret`"
+C++ 1003 (0x00850CE0),ctor-vec,generada,"CGangInfo x 10 (CGangs::Gang): ctor 0x5DE520 (byte +0 = 0xFF, resto a cero) = los inicializadores de miembro de la clase; dtor 0x5DE540 `ret`"
 C++ 1022 (0x00850F50),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
 C++ 1023 (0x00850F60),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
-C++ 1048 (0x00851270),ctor,pendiente,constructor 0x005F6450 aun del EXE (CPedGroupDefaultTaskAllocatorFollowAnyMeans::Constructor)
-C++ 1049 (0x00851290),ctor,pendiente,constructor 0x005F6480 aun del EXE (CPedGroupDefaultTaskAllocatorFollowLimited::Constructor)
-C++ 1050 (0x008512B0),ctor,pendiente,constructor 0x005F64B0 aun del EXE (CPedGroupDefaultTaskAllocatorStandStill::Constructor)
-C++ 1051 (0x008512D0),ctor,pendiente,constructor 0x005F64E0 aun del EXE (CPedGroupDefaultTaskAllocatorChat::Constructor)
-C++ 1052 (0x008512F0),ctor,pendiente,constructor 0x005F6510 aun del EXE (CPedGroupDefaultTaskAllocatorRandom::Constructor)
-C++ 1053 (0x00851310),ctor,pendiente,constructor 0x005F6540 aun del EXE (CPedGroupDefaultTaskAllocatorSitInLeaderCar::Constructor)
+C++ 1048 (0x00851270),ctor,generada,CPedGroupDefaultTaskAllocatorFollowAnyMeans: ctor 0x5F6450 (solo la vtable de la clase del EXE); dtor 0x5F6460 solo devuelve la vtable a la base (sin efecto observable)
+C++ 1049 (0x00851290),ctor,generada,CPedGroupDefaultTaskAllocatorFollowLimited: ctor 0x5F6480 (solo la vtable de la clase del EXE); dtor 0x5F6490 solo devuelve la vtable a la base (sin efecto observable)
+C++ 1050 (0x008512B0),ctor,generada,CPedGroupDefaultTaskAllocatorStandStill: ctor 0x5F64B0 (solo la vtable de la clase del EXE); dtor 0x5F64C0 solo devuelve la vtable a la base (sin efecto observable)
+C++ 1051 (0x008512D0),ctor,generada,CPedGroupDefaultTaskAllocatorChat: ctor 0x5F64E0 (solo la vtable de la clase del EXE); dtor 0x5F64F0 solo devuelve la vtable a la base (sin efecto observable)
+C++ 1052 (0x008512F0),ctor,generada,CPedGroupDefaultTaskAllocatorRandom: ctor 0x5F6510 (solo la vtable de la clase del EXE); dtor 0x5F6520 solo devuelve la vtable a la base (sin efecto observable)
+C++ 1053 (0x00851310),ctor,generada,CPedGroupDefaultTaskAllocatorSitInLeaderCar: ctor 0x5F6540 (solo la vtable de la clase del EXE); dtor 0x5F6550 solo devuelve la vtable a la base (sin efecto observable)
 C++ 1054 (0x00851330),ctor-vec,generada,CPedGroup x 8
 C++ 1067 (0x008514E0),ctor,generada,CInterestingEvents; sin destructor (el funclet no hace nada)
 C++ 1080 (0x00851680),ctor-vec,generada,CPedScriptedTaskRecordData x 128; destructor pendiente
@@ -126,7 +126,7 @@ C++ 1111 (0x00851A70),ctor,generada,BoneNodeManager_c; destructor 0x00617390 reg
 C++ 1118 (0x00851B50),ctor,generada,IKChainManager_c; destructor 0x00618030 registrado
 C++ 1155 (0x00851FF0),ctor,generada,CColModel; destructor 0x0040F700 registrado
 C++ 1156 (0x00852010),ctor,generada,CCollisionData; sin destructor (el funclet no hace nada)
-C++ 1163 (0x008520E0),ctor-vec,pendiente,constructor de elemento 0x00632BD0 aun del EXE
+C++ 1163 (0x008520E0),ctor-vec,generada,CTaskComplexSequence x 64 (ms_taskSequence): ctor de elemento 0x632BD0 = el constructor por defecto de la clase; dtor 0x6389F0 = ~CTaskComplexSequence
 C++ 1164 (0x00852110),ctor-vec,generada,CScriptedBrainTaskEntry x 48; destructor pendiente
 C++ 1207 (0x00852680),escrituras,generada,1 escrituras
 C++ 1208 (0x00852690),escrituras,generada,1 escrituras
@@ -140,8 +140,8 @@ C++ 1239 (0x00852A10),ctor,generada,CColModel; destructor 0x0040F700 registrado
 C++ 1240 (0x00852A30),ctor,generada,CColModel; destructor 0x0040F700 registrado
 C++ 1241 (0x00852A50),ctor,generada,CColModel; destructor 0x0040F700 registrado
 C++ 1242 (0x00852A70),ctor,generada,CColModel; destructor 0x0040F700 registrado
-C++ 1279 (0x00852F10),ctor,pendiente,constructor 0x00694850 aun del EXE (CTaskComplexFollowLeaderInFormation::Offsets::Constructor)
-C++ 1298 (0x00853170),dtor-solo,pendiente,destructor 0x00552470 CPtrNodeDoubleLinkPool::Flush no es de una clase C++
+C++ 1279 (0x00852F10),ctor,generada,CTaskComplexFollowLeaderInFormation::ms_offsets: 0x694850 (Offsets::Constructor: tablas de formacion y escala 1.0); sin destructor
+C++ 1298 (0x00853170),dtor-solo,generada,CCover::m_ListOfProcessedBuildings: solo destructor (Flush 0x552470); no hay constructor
 C++ 1305 (0x00853240),escrituras+dtor,nada que hacer,0 escrituras; 1 de cero omitidas (el .bss arranca en cero); destructor registrado por el EXE es un `ret`
 C++ 1306 (0x00853260),escrituras+dtor,nada que hacer,0 escrituras; 1 de cero omitidas (el .bss arranca en cero); destructor registrado por el EXE es un `ret`
 C++ 1307 (0x00853280),escrituras+dtor,nada que hacer,0 escrituras; 1 de cero omitidas (el .bss arranca en cero); destructor registrado por el EXE es un `ret`
@@ -153,8 +153,8 @@ C++ 1398 (0x00853E10),ctor,generada,CCollisionData; sin destructor (el funclet n
 C++ 1399 (0x00853E20),ctor-vec,generada,CVehicleAnimGroup x 30; destructor pendiente
 C++ 1406 (0x00853F10),ctor,generada,WaterCreatureManager_c; destructor 0x006E3F20 registrado
 C++ 1444 (0x008543D0),otro,CRT (StandaloneStartup / CrtStartup.cpp),
-C++ 1458 (0x008545B0),ctor-vec,pendiente,constructor de elemento 0x006FA6D0 aun del EXE
-C++ 1459 (0x008545E0),ctor-vec,pendiente,constructor de elemento 0x006FA790 aun del EXE
+C++ 1458 (0x008545B0),ctor-vec,generada,tUserList x 64 (CScripted2dEffects::ms_userLists): ctor de elemento 0x6FA6D0 (tUserList::Constructor: -1 en las 8 entradas y bUseList = 0); dtor 0x6F9E00 `ret`
+C++ 1459 (0x008545E0),ctor-vec,generada,CScriptedEffectPairs x 64 (CScripted2dEffects::ms_effectPairs): ctor de elemento 0x6FA790 (CScriptedEffectPairs::Constructor: cuatro pares y Reset); dtor 0x6F9E60 solo recorre destructores vacios
 C++ 1476 (0x00854810),escrituras,generada,1 escrituras
 C++ 1477 (0x00854820),otro,CRT (StandaloneStartup / CrtStartup.cpp),
 C++ 1478 (0x00854840),otro,CRT (StandaloneStartup / CrtStartup.cpp),
@@ -171,16 +171,16 @@ C++ 1522 (0x00854DA0),dtor-solo,nada que hacer,el destructor registrado es un `r
 C++ 1523 (0x00854DB0),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
 C++ 1524 (0x00854DC0),ctor-vec,generada,CSprite2d x 2
 C++ 1525 (0x00854DF0),ctor-vec,generada,CSprite2d x 15
-C++ 1532 (0x00854EE0),ctor-vec,pendiente,constructor de elemento 0x0071A8B0 aun del EXE
-C++ 1565 (0x00855310),ctor-vec,pendiente,constructor de elemento 0x00720F60 aun del EXE
-C++ 1573 (0x00855420),ctor-vec,pendiente,constructor de elemento 0x00728B10 aun del EXE
-C++ 1580 (0x00855510),ctor,pendiente,constructor 0x0072A620 aun del EXE (CAEWeatherAudioEntity::Constructor)
-C++ 1591 (0x00855670),ctor,pendiente,constructor 0x0072E860 aun del EXE
-C++ 1592 (0x00855680),ctor,pendiente,constructor 0x0072E860 aun del EXE
-C++ 1593 (0x00855690),ctor,pendiente,constructor 0x0072E860 aun del EXE
-C++ 1620 (0x008559E0),ctor,pendiente,constructor 0x005074B0 aun del EXE (CAEExplosionAudioEntity::Constructor)
+C++ 1532 (0x00854EE0),ctor-vec,generada,"CFallingGlassPane x 45 (CGlass::aGlassPanes): ctor de elemento 0x71A8B0 solo escribe ceros (+0x40, +0x44 de la CMatrix); dtor 0x71A8C0 = ~CMatrix sobre una matriz sin RenderWare asociado (sin efecto)"
+C++ 1565 (0x00855310),ctor-vec,generada,"C3dMarker x 32 (C3dMarkers::m_aMarkerArray): ctor de elemento 0x720F60 solo escribe ceros (el C++ propio SI inicializa miembros, el EXE no); dtor 0x720F70 = ~CMatrix sobre una matriz sin RenderWare asociado"
+C++ 1573 (0x00855420),ctor-vec,generada,CWaterCannon x 3 (CWaterCannons::aCannons): ctor de elemento 0x728B10 (vtable de CAEWaterCannonAudioEntity en +0x32c y ceros) = constructor por defecto; dtor 0x728B30 = ~CWaterCannon
+C++ 1580 (0x00855510),ctor,generada,CWeather::m_WeatherAudioEntity: ctor 0x72A620 (WeatherAudioEntityConstructorBody); dtor 0x72A400 = ~CAEWeatherAudioEntity
+C++ 1591 (0x00855670),ctor,generada,g_Heaps[0] (CMemoryHeap): ctor 0x72E860 solo pone m_FirstBlock a cero; sin destructor
+C++ 1592 (0x00855680),ctor,generada,g_Heaps[1] (CMemoryHeap): ctor 0x72E860 solo pone m_FirstBlock a cero; sin destructor
+C++ 1593 (0x00855690),ctor,generada,g_Heaps[2] (CMemoryHeap): ctor 0x72E860 solo pone m_FirstBlock a cero; sin destructor
+C++ 1620 (0x008559E0),ctor,generada,CExplosion::m_ExplosionAudioEntity: ctor 0x5074B0 (CAEExplosionAudioEntity::Constructor); dtor 0x506B90 = ~CAEExplosionAudioEntity
 C++ 1639 (0x00855C40),ctor,generada,CColModel; destructor 0x0040F700 registrado
-C++ 1646 (0x00855D20),ctor-vec,pendiente,constructor de elemento 0x00742A90 aun del EXE
-C++ 1653 (0x00855E10),ctor-vec,pendiente,constructor de elemento 0x00743C30 aun del EXE
+C++ 1646 (0x00855D20),ctor-vec,generada,"CWeaponEffects x 2 (gCrossHair): ctor 0x742A90 es `mov eax,ecx; ret`; dtor 0x742AA0 `ret`"
+C++ 1653 (0x00855E10),ctor-vec,generada,"CWeaponInfo x 80 (CWeaponInfo::aWeaponInfo): ctor 0x743C30 es `mov eax,ecx; ret`; dtor 0x743C40 `ret`"
 C++ 1666 (0x00855FC0),dtor-solo,nada que hacer,el destructor registrado es un `ret` (objeto trivial)
 C++ 1667 (0x00855FD0),escrituras,nada que hacer,0 escrituras; 4 de cero omitidas (el .bss arranca en cero)

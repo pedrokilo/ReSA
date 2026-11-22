@@ -185,3 +185,7 @@ La ronda B (rama `datos-exe2`) está en [ejecucion-datos-b.md](ejecucion-datos-b
 * Despachadores originales de comandos de script (9 huecos, ~100 KB, tabla `0x8A6168`): siguen ejecutándose desde el EXE y bloquean datos; reescribirlos libera decenas de objetos.
 * DE09 (vtables): al generarlas el compilador desaparecen las ~140 ranuras triviales de `CEvent*`/`CTask*` que siguen ejecutándose desde el EXE.
 * Criterio de seguridad: siguen siendo invisibles los accesos con registro base dentro de funciones vivas; el humo (ropero, agua, marcadores) y la bisección son la red de seguridad. Los accesos desde datos y los ganchos inactivos ya se ven (ver ejecucion-datos-b.md §1).
+
+## Inicializadores estáticos (22/11/2026)
+
+Los 175 inicializadores no-CRT de `_initterm` están ya en `DatosExe::RunStaticInitializers` (`StaticInit.cpp`, generado por `contrib/datos_exe_staticinit.py` con la tabla manual `contrib/datos_exe_staticinit_nuevas.py`); `inicializadores-estado.csv` no tiene filas `pendiente` y el puente `StandaloneInit.inc` se retiró. `DatosExe::VerifyStaticInitializers` (al empezar `NOTSA_WinMain`, solo con el EXE original) compara cada fila con lo que dejó el EXE. Detalle en [../CodigoVivoExe/ejecucion-init-estatica.md](../CodigoVivoExe/ejecucion-init-estatica.md).

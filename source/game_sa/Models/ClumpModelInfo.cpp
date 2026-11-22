@@ -80,6 +80,11 @@ void ClumpModelInfoConstructExe(void* element) {
     ClumpModelInfoConstructorBody(static_cast<CClumpModelInfo*>(element), nullptr);
 }
 
+// Destructor de elemento (cuerpo del destructor del EXE que el iterador de vectores del almacen pasa por direccion) para el atexit del ejecutable independiente (DatosExe/StaticInit.cpp).
+void ClumpModelInfoDestructExe(void* element) {
+    ClumpModelInfoDestructorBody(static_cast<CClumpModelInfo*>(element), nullptr);
+}
+
 void CClumpModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CClumpModelInfo, 0x85BD30, 17);

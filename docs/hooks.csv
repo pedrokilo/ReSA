@@ -9582,6 +9582,7 @@ CTheScripts,IsPointInAngledArea,0x00477DA0,1,0,1,S
 CPatrolRoutePool,New,0x0041B660,1,0,1,S
 CTaskComplexFollowLeaderInFormation,GetFormationOffset,0x00611F20,1,0,1,S
 CScripted2dEffects,ResetEffectPairs,0x006F9EB0,1,0,1,S
+CScripted2dEffects,EffectPairsConstructor,0x006FA790,1,0,0,S
 JPegPlugin,JPegScanlineToRaster,0x005D0570,1,0,1,S
 CCoronas,SunReflectionDistanceFactor,0x006FBA20,1,0,1,S
 CDecision,Pick,0x006007A0,1,0,1,S
@@ -9822,6 +9823,7 @@ CTaskComplexInAirAndLand,Destructor,0x00678CC0,1,0,1,S
 CTaskSimpleInAir,ScalarDeletingDestructor,0x0067D340,1,0,1,S
 CTaskSimpleLand,ScalarDeletingDestructor,0x0067D360,1,0,1,S
 tUserList,AddPedType,0x00492CB0,1,0,1,S
+tUserList,Constructor,0x006FA6D0,1,0,0,S
 CTaskSimpleInAir,GetTaskType,0x00000000,1,0,1,V
 CTaskSimpleInAir,DestructorBody,0x00678D50,1,0,1,S
 ModelIndices,TestModelIndices,0x0053ED30,1,0,1,S

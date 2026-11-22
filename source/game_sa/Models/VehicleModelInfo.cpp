@@ -140,6 +140,11 @@ void VehicleModelInfoConstructExe(void* element) {
     VehicleModelInfoConstructorExe(static_cast<CVehicleModelInfo*>(element), nullptr);
 }
 
+// Destructor de elemento (cuerpo del destructor del EXE que el iterador de vectores del almacen pasa por direccion) para el atexit del ejecutable independiente (DatosExe/StaticInit.cpp).
+void VehicleModelInfoDestructExe(void* element) {
+    VehicleModelInfoDestructorBody(static_cast<CVehicleModelInfo*>(element), nullptr);
+}
+
 void CVehicleModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CVehicleModelInfo, 0x85C5C8, 17);

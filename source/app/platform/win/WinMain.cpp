@@ -35,6 +35,7 @@ END GENERATED HOOK STATUS */
 #include "VideoMode.h"
 #include "WinInput.h"
 #include "WinPlatform.h"
+#include "game_sa/DatosExe/StaticInit.h"
 #include "WndProc.h"
 #include "WindowedMode.hpp"
 
@@ -412,6 +413,15 @@ INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdL
             notsa::Logging::GetSingleton().Shutdown();
         }
     }};
+    // Inicializadores estaticos de DatosExe (docs/CodigoVivoExe/ejecucion-init-estatica.md): con el EXE original, el _initterm de `entry` ya corrio y el juego aun no ha tocado los objetos; se compara lo que
+    // construiria el C++ propio con lo que dejo el EXE. En el ejecutable independiente el .text es INT3 y RunStaticInitializers ya corrio: no se llama (pondria a cero objetos vivos).
+    if (*reinterpret_cast<const uint8*>(0x824570) != 0xCC) {
+        const auto init = DatosExe::VerifyStaticInitializers();
+        NOTSA_LOG_INFO("Inicializadores estáticos de DatosExe: {} filas, {} iguales a las del EXE, {} distintas (primera = índice C++ {}), {} palabras de vtable del EXE sin comparar.", init.rows, init.equal, init.different, init.firstDifferent, init.vtableWords);
+        if (!init.detail.empty()) {
+            NOTSA_LOG_WARN("Inicializadores estáticos distintos: {}", init.detail);
+        }
+    }
     SystemParametersInfo(SPI_SETFOREGROUNDLOCKTIMEOUT, 0u, nullptr, 2);
     if (IsAlreadyRunning()) {
         return false;

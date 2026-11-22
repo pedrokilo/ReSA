@@ -228,6 +228,12 @@ static uint32 __declspec(safebuffers) __fastcall ResetDWHeliChaseParams(DWHeliCh
 }
 #pragma runtime_checks("", restore)
 
+// 0x5173F0 (constructor de elemento del inicializador estatico 0x84D770 de la tabla _initterm: un solo conjunto de parametros en 0xB6FEC0): el EXE salta a 0x50E180 y devuelve ECX. Para el ejecutable
+// independiente (DatosExe/StaticInit.cpp) se llama sin pasar por la direccion del EXE.
+void DWHeliChaseParamsConstructExe(void* element) {
+    ResetDWHeliChaseParams(static_cast<DWHeliChaseParams*>(element), 0u);
+}
+
 // 0x50E090 (thiscall, ECX = params): scales five parameters by rand() / 32767 * k + offset, using the CRT rand of the EXE (0x821B1E: the one that advances the game's seed). x87 at 24 bits
 // gives the same float steps as the SSE ones; only the last product can leave the normal range, so it goes through the x87 helper (the game runs with MXCSR FTZ, the x87 keeps denormals).
 static void __fastcall RandomiseDWHeliChaseParams(DWHeliChaseParams* params, uint32 /*entryEdx*/) {
