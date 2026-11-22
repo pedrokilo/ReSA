@@ -50,7 +50,9 @@ Alcance y límites: cubre las clases que tienen al menos un `RH_ScopedVMTInstall
 ## 4. Verificación
 
 * **Medido** (ejecuciones `mv1`-`mv5`, sin el arreglo de vtables salvo los ganchos manuales de prueba, luego descartados): sección 2. Control libre del jugador a los ~196 s de juego; con la tecla W CJ recorre ~17 m en 4 s.
-* **Pendiente de medir tras el arreglo definitivo** (`FillAbsentVirtualSlots`, commit de esta rama): la ejecución `mv6` (y las pruebas de humo del ASI: `prueba_ropero.py`, `prueba_agua.py`, `prueba_marcadores.py` con `AGUA_ASI=D:\Original\wv-movein\Debug\gta_reversed.asi`) no se pudo lanzar: `D:\Original\gta_lock\owner_bis1` (creado a las 10:03:56 por `FnBIS1\jugar_nueva.ps1`, variante X) seguía en pie sin ningún proceso de juego ni de `jugar*` vivo (lock huérfano) y bloqueaba a todos los lanzadores. Compilado: ASI (`_build_MOVE.sh`, `EXIT=0`, `bin\Debug\gta_reversed.asi`) y EXE independiente (`_cc_MOVE.sh`, `EXIT=0`). `python contrib/audit_hook_catalog.py --strict`: OK.
+* **Con el arreglo definitivo** (`FillAbsentVirtualSlots`, ejecucion `mv6`, partida nueva con `--shims`): el log trae `[VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias`; sin ningun FALLO ni codigo original ejecutado pasados los 220 s (las caidas de 114-316 s de `mv2`-`mv5` ya no ocurren); control libre a 196 s de juego y, con la tecla W real, CJ pasa de (2239.3, -1261.9) a (2261.3, -1260.7) en 4 s (~22 m), `sticks = (0, -128, 0, 0)`.
+* **ASI** (`bin\Debug\gta_reversed.asi` de esta rama, `AGUA_ASI`, `cal_mal.args`): `prueba_agua.py` BIEN, `prueba_marcadores.py` BIEN (12 marcadores en memoria, los 12 cambian en 1 s), `prueba_ropero.py` BIEN (puerta y marcador). Dos intentos del ropero salieron con `el juego se cerro` a los 5 s por chocar con otra instancia de `gta_sa.exe` de otro lanzador; el tercero, en solitario, dio BIEN.
+* Compilado: ASI (`_build_MOVE.sh`, `EXIT=0`) y EXE independiente (`_cc_MOVE.sh`, `EXIT=0`). `python contrib/audit_hook_catalog.py --strict`: OK.
 
 ## 5. Cómo reproducir
 
