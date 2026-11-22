@@ -355,6 +355,32 @@ HRESULT CPad::GetMouseState(DIMOUSESTATE2 *dm) {
     return PSGLOBAL(diMouse)->GetDeviceState(sizeof(DIMOUSESTATE2), dm);
 }
 
+#ifdef NOTSA_USE_SDL3
+namespace {
+// NOTSA: DirectInput 8 recibe el raton por la entrada en bruto (raw input), que Windows registra una sola vez por proceso y tipo de dispositivo: al crear la ventana, SDL3 registra la suya
+// y la de DirectInput (hecha en Acquire) deja de recibir. GetDeviceState sigue devolviendo S_OK, pero siempre a cero (el raton "no funciona"; lo comprobo reversing/FnFase8/diprueba).
+// Unacquire + Acquire vuelve a registrar la de DirectInput. Sintoma que se vigila: SDL ve movimiento (WM_MOUSEMOVE) y DirectInput nada durante 30 eventos; como mucho una vez cada 2 s.
+void RecoverMouseFromRawInputSteal(const DIMOUSESTATE2& s) {
+    static uint32 sdlAtLastDirectInputActivity{};
+    static DWORD  lastRecovery{};
+    const auto sdlCount = notsa::SDLWrapper::MouseMotionCount();
+    if (s.lX || s.lY || s.lZ || s.rgbButtons[0] || s.rgbButtons[1] || s.rgbButtons[2]) {
+        sdlAtLastDirectInputActivity = sdlCount;
+        return;
+    }
+    const auto now = GetTickCount();
+    if (sdlCount - sdlAtLastDirectInputActivity < 30 || now - lastRecovery < 2000) {
+        return;
+    }
+    lastRecovery = now;
+    sdlAtLastDirectInputActivity = sdlCount;
+    NOTSA_LOG_DEBUG("Raton: DirectInput no entrega datos pero SDL si; se vuelve a adquirir el dispositivo (registro de raw input perdido)");
+    PSGLOBAL(diMouse)->Unacquire();
+    PSGLOBAL(diMouse)->Acquire();
+}
+}
+#endif
+
 // 0x53F3C0
 void CPad::UpdateMouse() {
     if (!IsForegroundApp()) {
@@ -367,6 +393,9 @@ void CPad::UpdateMouse() {
     if (!PSGLOBAL(diMouse) || FAILED(GetMouseState(&state))) {
         return;
     }
+#ifdef NOTSA_USE_SDL3
+    RecoverMouseFromRawInputSteal(state);
+#endif
     const auto invertX = !FrontEndMenuManager.m_bMenuActive && FrontEndMenuManager.bInvertMouseX ? -1 : 1;
     const auto invertY = !FrontEndMenuManager.m_bMenuActive && FrontEndMenuManager.bInvertMouseY ? -1 : 1;
     TempMouseControllerState.m_AmountMoved = {float(invertX * state.lX), float(invertY * state.lY)};
