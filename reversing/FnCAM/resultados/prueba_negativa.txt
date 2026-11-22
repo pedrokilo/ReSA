@@ -1,0 +1,32 @@
+ 1 DETECTADA     camara: invierte la comprobacion de la sincronizacion original
+ 2 DETECTADA     camara: BACK2FRONT pasa a ser 1
+ 3 DETECTADA     camara: fuera del plano con >= 0
+ 4 DETECTADA     camara: esquina X con closestY
+ 5 DETECTADA     camara: orden de visita invertido
+ 6 DETECTADA     camara: posicion >= valor del plano
+ 7 DETECTADA     camara: && en lugar de || en el margen
+ 8 DETECTADA     camara: hijo equivocado con margen izquierdo >= 0
+ 9 DETECTADA     camara: crecimiento 49
+10 DETECTADA     camara: tamano de la reserva 0xC0
+11 DETECTADA     camara: argumento del error
+12 DETECTADA     camara: hint de orden con 2
+13 DETECTADA     camara: pila apila el hijo izquierdo
+14 DETECTADA     camara: count >= capacidad pasa a >
+15 DETECTADA     camara: cantidad guardada +1
+16 DETECTADA     camara: begin no cuenta el marco
+17 DETECTADA     camara: begin no fija el mundo
+18 DETECTADA     camara: end deja el mundo
+19 DETECTADA     luz: codigo de error 0x80000015
+20 DETECTADA     luz: subTipo <= 0x80
+21 DETECTADA     luz: inferior <= leftValue
+22 DETECTADA     luz: superior >= rightValue (rama izquierda)
+23 DETECTADA     luz: caja inferior en Y con +
+24 DETECTADA     luz: el RpLightTie no guarda el sector
+25 DETECTADA     luz: enlace en la lista equivocada del sector
+26 DETECTADA     luz: no desata los RpLightTie
+27 DETECTADA     atomo: esfera inferior en Y con +
+28 DETECTADA     atomo: no desata los RpTie
+29 DETECTADA     atomo: el RpTie no guarda el atomo
+30 DETECTADA     atomo: enlace a la lista de sectores del atomo omitido
+31 DETECTADA     atomo: sin mundo devuelve NULL
+mutaciones detectadas: 31 de 31

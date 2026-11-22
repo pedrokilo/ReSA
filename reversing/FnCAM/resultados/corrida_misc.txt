@@ -1,0 +1,5 @@
+0x74CE60 estructura de geometria   100000 casos (resultado != 0: 100000), 0 diferencias
+0x762440 datos de sector hoja      100000 casos (resultado != 0: 100000), 0 diferencias
+0x762040 subarbol de sectores      100000 casos (resultado != 0: 100000), 0 diferencias
+0x75C290 siguiente arista de tira  100000 casos (resultado != 0: 61350), 0 diferencias
+RESULTADO: SIN DIFERENCIAS (0 diferencias)

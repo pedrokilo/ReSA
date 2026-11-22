@@ -1,0 +1,26 @@
+ 1 DETECTADA     show: invierte la comprobacion de escena abierta
+ 2 DETECTADA     show: no hace EndScene
+ 3 DETECTADA     show: intervalo ONE por IMMEDIATE
+ 4 DETECTADA     show: con vsync mira ONE en lugar de IMMEDIATE
+ 5 DETECTADA     show: sin vsync mira IMMEDIATE en lugar de ONE
+ 6 DETECTADA     show: sin vsync pone ONE
+ 7 DETECTADA     show: perdida = DEVICENOTRESET
+ 8 DETECTADA     show: reinicio con DEVICELOST
+ 9 DETECTADA     show: devuelve > 0
+10 DETECTADA     show: Present de la cadena con bandera 1
+11 DETECTADA     show: el reinicio no restaura
+12 DETECTADA     show: no descarta los buferes
+13 DETECTADA     end: tipo de raster 4
+14 DETECTADA     end: con cadena de intercambio
+15 DETECTADA     end: mascara del filtro
+16 DETECTADA     end: rectangulo con desplazamiento Y en el ancho
+17 DETECTADA     end: no borra la copia pendiente
+18 DETECTADA     end: no borra la camara actual
+19 DETECTADA     find: profundidad 1
+20 DETECTADA     find: mascara del formato 0xFFFF6FF0
+21 DETECTADA     find: mascara 0x1000 en tipos 4 y 5
+22 DETECTADA     find: tipo 2 con banderas | 1
+23 DETECTADA     find: codigo de error 0x8000000E
+24 DETECTADA     find: ancho copiado del alto
+25 DETECTADA     restauracion: || en lugar de &&
+mutaciones detectadas: 25 de 25

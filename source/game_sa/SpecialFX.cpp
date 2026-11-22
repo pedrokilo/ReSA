@@ -22,6 +22,8 @@ END GENERATED HOOK STATUS */
 #include "Checkpoints.h"
 #include "SpecialFX.h"
 
+static void __cdecl WeaponStreakAttachMatrixAtExit(); // 0x856BC0 (mas abajo)
+
 void CSpecialFX::InjectHooks() {
     RH_ScopedClass(CSpecialFX);
     RH_ScopedCategoryGlobal();
@@ -33,6 +35,7 @@ void CSpecialFX::InjectHooks() {
     RH_ScopedInstall(Render, 0x726AD0);
     RH_ScopedInstall(Render2DFXs, 0x721660);
     RH_ScopedInstall(ReplayStarted, 0x721D30);
+    RH_ScopedNamedGlobalInstall(WeaponStreakAttachMatrixAtExit, "WeaponStreakAttachMatrixAtExit", 0x856BC0); // codigo vivo CAM (sin validar)
 }
 
 // 0x7268F0
@@ -106,6 +109,11 @@ static CVector MultiplyPointLikeExe(const CMatrix& m, const CVector& v) {
     };
 }
 
+// 0x856BC0 (codigo vivo CAM, sin validar; 10 bytes: `mov ecx, 0xC803E8; jmp 0x59ACD0`; cdecl sin argumentos): destructor que AddWeaponStreak registra con atexit para su matriz estatica (0xC803E8): llama a CMatrix::Destructor.
+static void __cdecl WeaponStreakAttachMatrixAtExit() {
+    StaticRef<CMatrix>(0xC803E8).Destructor();
+}
+
 // unused function
 // 0x7233F0
 void CSpecialFX::AddWeaponStreak(eWeaponType weaponType) {
@@ -116,7 +124,7 @@ void CSpecialFX::AddWeaponStreak(eWeaponType weaponType) {
         guard |= 1;
         DatosExe::Bss::bC80428 = 0; // m_pAttachMatrix
         DatosExe::Bss::bC8042C = 0; // m_bOwnsAttachedMatrix
-        reinterpret_cast<int32(__cdecl*)(void(__cdecl*)())>(0x821D1E)(reinterpret_cast<void(__cdecl*)()>(0x856BC0)); // atexit(~attachMat)
+        reinterpret_cast<int32(__cdecl*)(void(__cdecl*)())>(0x821D1E)(&WeaponStreakAttachMatrixAtExit); // atexit(~attachMat)
     }
 
     if (!FindPlayerPed() || !FindPlayerPed()->m_pWeaponObject) {

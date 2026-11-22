@@ -16,6 +16,12 @@
 #define UNUSED(x) (void)(x)
 #endif
 
+// Codigo vivo CAM: funciones de rpworld.cpp que este archivo usaba por direccion del EXE.
+const RpLight* RpLightStreamWrite(const RpLight* light, RwStream* stream);                // 0x751E30
+RwInt32 RpGeometryStreamStructSize(const RpGeometry* geometry);                           // 0x74CE60
+RwUInt32 RpWorldSectorStreamDataSize(void* sector, RpWorld* world, RwUInt32 flags);       // 0x762440
+RwUInt32 RpWorldPlaneStreamSize(void* sector, RpWorld* world, RwUInt32 flags);            // 0x762040
+
 namespace {
 // Valor float a partir de sus bits (las constantes del .rdata del EXE); memcpy para no pasar por la x87.
 inline float F32(uint32 bits) {
@@ -122,10 +128,33 @@ const RpMaterialList* _rpMaterialListStreamWrite(const RpMaterialList* matList, 
     return matList;
 }
 
+
+
+// 0x74F590 (codigo vivo CAM, sin validar; 118 bytes; cdecl, (sector, dato sin uso)): callback de RpWorldRender. Renderiza el sector con RpWorldSectorRender (0x761C50; su resultado no cambia lo que sigue) y recorre los
+// atomos de colision del sector (lista +0x38; el atomo esta en +8 del enlace; el siguiente enlace se lee tras el callback): a cada atomo con la bandera de render (flags & 4) que aun no se dibujo en este marco
+// (renderFrame +0x60 distinto del del motor, +8) le pasa RwCameraFrustumTestSphere(camara actual, esfera de mundo) y, si es distinto de cero, llama a su renderCallBack (+0x48); despues le anota el marco actual.
+// Devuelve el sector.
+static RpWorldSector* WorldSectorRenderCallBack(RpWorldSector* sector, void* /*data*/) {
+    if (RpWorldSectorRender(sector) == nullptr) {
+        return sector;
+    }
+    RwLLLink* const end = &sector->collAtomicsInWorldSector.link;
+    for (RwLLLink* link = end->next; link != end; link = link->next) {
+        RpAtomic* const atomic = *reinterpret_cast<RpAtomic**>(reinterpret_cast<RwUInt8*>(link) + 8);
+        if ((atomic->object.object.flags & 4) != 0 && atomic->renderFrame != Globals()->renderFrame) {
+            if (RwCameraFrustumTestSphere(static_cast<const RwCamera*>(Globals()->curCamera), RpAtomicGetWorldBoundingSphere(atomic)) != 0) {
+                atomic->renderCallBack(atomic);
+            }
+            atomic->renderFrame = Globals()->renderFrame;
+        }
+    }
+    return sector;
+}
+
 // 0x74F570 (lote S30A, sin validar; 31 bytes; cdecl, (mundo)): recorre los sectores en el frustum de la camara actual (RwCameraForAllSectorsInFrustum, 0x751660; lote de otro agente, se llama por su funcion) con el callback
-// 0x74F590 del EXE (renderiza el sector y sus atomos; NO es raiz del plan, se conserva por direccion) y el mundo como datos. Devuelve el mundo.
+// WorldSectorRenderCallBack (0x74F590, renderiza el sector y sus atomos; codigo vivo CAM) y el mundo como datos. Devuelve el mundo.
 RpWorld* RpWorldRender(RpWorld* world) {
-    RwCameraForAllSectorsInFrustum(static_cast<RwCamera*>(Globals()->curCamera), reinterpret_cast<RpWorldSectorCallBack>(0x74F590), world);
+    RwCameraForAllSectorsInFrustum(static_cast<RwCamera*>(Globals()->curCamera), WorldSectorRenderCallBack, world);
     return world;
 }
 
@@ -1025,9 +1054,67 @@ RpAtomic* RpAtomicStreamWrite(RpAtomic* atomic, RwStream* stream) {
     return reinterpret_cast<ClumpAtomicWriteFn>(0x74A880)(atomic, &context);
 }
 
-// 0x74AA10 (lote S31A, sin validar; 1059 bytes; cdecl, (clump, flujo)): escribe el clump: cabecera de clump (tipo 0x10) con su tamano (calculado como RpClumpStreamGetSize pero con los callbacks 0x74B000, 0x74AFA0 y 0x74AFD0 del EXE; si
+// --- Codigo vivo CAM (sin validar): callbacks de RpClumpStreamWrite ---
+// 0x74AE40 (14 bytes; cdecl, (luz, contador)): suma uno al contador (dword apuntado por el dato) y devuelve la luz.
+static RpLight* ClumpLightCountCallBack(RpLight* light, void* data) {
+    ++*static_cast<RwUInt32*>(data);
+    return light;
+}
+
+// 0x74B000 (45 bytes; cdecl, (atomo, total)): suma al total 0x28 y despues el tamano de los plugins del atomo (_rwPluginRegistryGetSize, registro 0x8D624C) + 0xC. Devuelve el atomo.
+static RpAtomic* ClumpAtomicStreamSizeCallBack(RpAtomic* atomic, void* data) {
+    RwUInt32& total = *static_cast<RwUInt32*>(data);
+    total += 0x28;
+    total += static_cast<RwUInt32>(_rwPluginRegistryGetSize(reinterpret_cast<const RwPluginRegistry*>(kAtomicPluginRegistry), atomic)) + 0xC;
+    return atomic;
+}
+
+// 0x74AFA0 (40 bytes; cdecl, (luz, total)): suma al total 0x10 y despues RpLightStreamGetSize(luz) + 0xC. Devuelve la luz.
+static RpLight* ClumpLightStreamSizeCallBack(RpLight* light, void* data) {
+    RwUInt32& total = *static_cast<RwUInt32*>(data);
+    total += 0x10;
+    total += RpLightStreamGetSize(light) + 0xC;
+    return light;
+}
+
+// 0x74AFD0 (40 bytes; cdecl, (camara, total)): suma al total 0x10 y despues RwCameraStreamGetSize(camara) + 0xC. Devuelve la camara.
+static RwCamera* ClumpCameraStreamSizeCallBack(RwCamera* camera, void* data) {
+    RwUInt32& total = *static_cast<RwUInt32*>(data);
+    total += 0x10;
+    total += RwCameraStreamGetSize(camera) + 0xC;
+    return camera;
+}
+
+// 0x74AEA0 (119 bytes; cdecl, (luz, contexto de escritura)): busca el marco de la luz (+4) en la lista de marcos del contexto (_rwFrameListFindFrame); con indice: cabecera de estructura de 4 bytes (version 0x36003, build
+// 0xFFFF), el indice (RwStreamWriteInt32, 4 bytes) y RpLightStreamWrite. Si algo falla pone el campo `ok` del contexto (+0x14) a cero y devuelve NULL; si no, la luz.
+static RpLight* ClumpLightWriteCallBack(RpLight* light, ClumpWriteContext* context) {
+    RwInt32 index;
+    if (_rwFrameListFindFrame(&context->frameList, static_cast<RwFrame*>(light->object.object.parent), &index)
+        && WriteChunkHeader(context->stream, 1, 4)
+        && RwStreamWriteInt32(context->stream, &index, 4)
+        && RpLightStreamWrite(light, context->stream)) {
+        return light;
+    }
+    context->ok = 0;
+    return nullptr;
+}
+
+// 0x74AF20 (119 bytes; cdecl, (camara, contexto de escritura)): igual para una camara (marco en +4) con RwCameraStreamWrite.
+static RwCamera* ClumpCameraWriteCallBack(RwCamera* camera, ClumpWriteContext* context) {
+    RwInt32 index;
+    if (_rwFrameListFindFrame(&context->frameList, static_cast<RwFrame*>(camera->object.object.parent), &index)
+        && WriteChunkHeader(context->stream, 1, 4)
+        && RwStreamWriteInt32(context->stream, &index, 4)
+        && RwCameraStreamWrite(camera, context->stream)) {
+        return camera;
+    }
+    context->ok = 0;
+    return nullptr;
+}
+
+// 0x74AA10 (lote S31A, sin validar; 1059 bytes; cdecl, (clump, flujo)): escribe el clump: cabecera de clump (tipo 0x10) con su tamano (calculado como RpClumpStreamGetSize pero con los callbacks 0x74B000, 0x74AFA0 y 0x74AFD0 (C++ de codigo vivo CAM); si
 // falla la preparacion de listas el EXE escribe tamano 0 y sigue), cabecera de estructura (12 bytes: numero de atomos, luces y camaras), lista de marcos, lista de geometrias (cabecera 0x1A, estructura con el numero y cada RpGeometryStreamWrite),
-// los atomos (0x74A880), las luces (0x74AEA0) y las camaras (0x74AF20) del EXE y los plugins del clump. Si algo falla devuelve NULL (sin liberar la lista de marcos si falla despues, igual que el EXE); si va bien, el clump.
+// los atomos (0x74A880 del EXE), las luces (0x74AEA0) y las camaras (0x74AF20) y los plugins del clump. Si algo falla devuelve NULL (sin liberar la lista de marcos si falla despues, igual que el EXE); si va bien, el clump.
 RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream) {
     RwUInt32 size = 0;
     {
@@ -1044,9 +1131,9 @@ RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream) {
                 }
                 total = total + geometriesSize + 0xC;
                 _rpGeometryListDeinitialize(&geomList);
-                RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x74B000), &total);
-                RpClumpForAllLights(clump, reinterpret_cast<RpLightCallBack>(0x74AFA0), &total);
-                RpClumpForAllCameras(clump, reinterpret_cast<RwCameraCallBack>(0x74AFD0), &total);
+                RpClumpForAllAtomics(clump, ClumpAtomicStreamSizeCallBack, &total);
+                RpClumpForAllLights(clump, ClumpLightStreamSizeCallBack, &total);
+                RpClumpForAllCameras(clump, ClumpCameraStreamSizeCallBack, &total);
                 total = total + _rwPluginRegistryGetSize(reinterpret_cast<const RwPluginRegistry*>(kClumpPluginRegistry), clump) + 0xC;
                 size = total;
             }
@@ -1069,7 +1156,7 @@ RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream) {
         }
     }
     RwUInt32 lightCount = 0;
-    RpClumpForAllLights(clump, reinterpret_cast<RpLightCallBack>(0x74AE40), &lightCount);
+    RpClumpForAllLights(clump, ClumpLightCountCallBack, &lightCount);
     counts[1] = lightCount;
     {
         RwLLLink* const sentinel = &clump->cameraList.link;
@@ -1139,7 +1226,7 @@ RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream) {
         RwLLLink* const sentinel = &clump->lightList.link;
         for (RwLLLink* node = sentinel->next; node != sentinel;) {
             RwLLLink* const next = node->next;
-            if (!reinterpret_cast<ClumpLightWriteFn>(0x74AEA0)(ClumpListObject<RpLight>(node, 0xC924DC), &context)) {
+            if (!ClumpLightWriteCallBack(ClumpListObject<RpLight>(node, 0xC924DC), &context)) {
                 break;
             }
             node = next;
@@ -1149,7 +1236,7 @@ RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream) {
         RwLLLink* const sentinel = &clump->cameraList.link;
         for (RwLLLink* node = sentinel->next; node != sentinel;) {
             RwLLLink* const next = node->next;
-            if (!reinterpret_cast<ClumpCameraWriteFn>(0x74AF20)(ClumpListObject<RwCamera>(node, 0xC924D8), &context)) {
+            if (!ClumpCameraWriteCallBack(ClumpListObject<RwCamera>(node, 0xC924D8), &context)) {
                 break;
             }
             node = next;
@@ -1191,15 +1278,13 @@ RpGeometry* RpGeometryTransform(RpGeometry* geometry, const RwMatrix* matrix) {
 // 16 bytes {texCoords << 16 | banderas, triangulos, vertices, morph targets}; sin la bandera nativa y con vertices: colores previos (banderas & 8), cada juego de coordenadas de textura, y los triangulos como 2 dwords
 // {v0 << 16 | v1, v2 << 16 | material}; despues, por cada morph target 24 bytes {esfera, hayVertices, hayNormales} y sus vertices y normales; la lista de materiales y los plugins. Si algo falla devuelve NULL; si no, la geometria.
 const RpGeometry* RpGeometryStreamWrite(const RpGeometry* geometry, RwStream* stream) {
-    using StructSizeFn = RwUInt32(__cdecl*)(const RpGeometry*);
-    const StructSizeFn structSize = reinterpret_cast<StructSizeFn>(0x74CE60);
-    RwUInt32 total = structSize(geometry) + 0xC;
+    RwUInt32 total = static_cast<RwUInt32>(RpGeometryStreamStructSize(geometry)) + 0xC;
     total = total + _rpMaterialListStreamGetSize(&geometry->matList) + 0xC;
     total = total + _rwPluginRegistryGetSize(reinterpret_cast<const RwPluginRegistry*>(kGeometryPluginRegistry), geometry) + 0xC;
     if (!WriteChunkHeader(stream, 0xF, total)) {
         return nullptr;
     }
-    if (!WriteChunkHeader(stream, 1, structSize(geometry))) {
+    if (!WriteChunkHeader(stream, 1, static_cast<RwUInt32>(RpGeometryStreamStructSize(geometry)))) {
         return nullptr;
     }
     RwUInt32 header[4];
@@ -1623,7 +1708,7 @@ RwV4d* _rxD3D9VertexShaderDefaultLightingCallBack(void* object, RwUInt32 type, R
 
 namespace {
 // Funciones del EXE de lectura/escritura de sectores (no son raices del plan; se conservan por direccion).
-using SectorSizeFn  = RwUInt32(__cdecl*)(void* sector, RpWorld* world, RwUInt32 flags);                 // 0x762440 (sector atomico) y 0x762040 (sector plano): tamano en flujo
+using SectorSizeFn  = RwUInt32(__cdecl*)(void* sector, RpWorld* world, RwUInt32 flags);                 // RpWorldSectorStreamDataSize (rpworld.cpp) 0x762440 (sector atomico) y 0x762040 (sector plano): tamano en flujo
 using SectorWriteFn = RwBool(__cdecl*)(void* sector, RwStream* stream, RpWorld* world, RwUInt32 flags); // 0x7624A0 (atomico) y 0x762740 (plano)
 using SectorReadFn  = RpSector*(__cdecl*)(RwStream* stream, void** memoryCursor, RpWorld* world, RwUInt32 flags); // 0x762F30 (atomico) y 0x763310 (plano)
 
@@ -1667,8 +1752,8 @@ const RpWorld* RpWorldStreamWrite(const RpWorld* world, RwStream* stream) {
     RpWorld* const mutableWorld = const_cast<RpWorld*>(world);
     const RwUInt32 flags = world->flags;
     const RwPluginRegistry* const sectorRegistry = reinterpret_cast<const RwPluginRegistry*>(kSectorPluginRegistry);
-    const SectorSizeFn atomicSectorSize = reinterpret_cast<SectorSizeFn>(0x762440);
-    const SectorSizeFn planeSectorSize = reinterpret_cast<SectorSizeFn>(0x762040);
+    const SectorSizeFn atomicSectorSize = &RpWorldSectorStreamDataSize;
+    const SectorSizeFn planeSectorSize = &RpWorldPlaneStreamSize;
     const RwUInt32 materialsSize = _rpMaterialListStreamGetSize(&world->matList) + 0x58;
     RpSector* const root = world->rootSector;
     RwUInt32 size;
@@ -4588,6 +4673,13 @@ void RpWorldInjectHooksS30A31A() {
     RH_ScopedGlobalInstall(_rpD3D9VertexShaderUpdateMorphingCoef, 0x761950);                   // lote S30A (sin validar)
     RH_ScopedGlobalInstall(_rpD3DVertexShaderSetUVAnimMatrix, 0x7619A0);                       // lote S30A (sin validar)
     RH_ScopedGlobalInstall(RpWorldSectorRender, 0x761C50);                                     // lote S30A (sin validar)
+    RH_ScopedGlobalInstall(WorldSectorRenderCallBack, 0x74F590); // codigo vivo CAM (sin validar)
+    RH_ScopedGlobalInstall(ClumpLightCountCallBack, 0x74AE40); // codigo vivo CAM (sin validar)
+    RH_ScopedGlobalInstall(ClumpAtomicStreamSizeCallBack, 0x74B000); // codigo vivo CAM (sin validar)
+    RH_ScopedGlobalInstall(ClumpLightStreamSizeCallBack, 0x74AFA0); // codigo vivo CAM (sin validar)
+    RH_ScopedGlobalInstall(ClumpCameraStreamSizeCallBack, 0x74AFD0); // codigo vivo CAM (sin validar)
+    RH_ScopedGlobalInstall(ClumpLightWriteCallBack, 0x74AEA0); // codigo vivo CAM (sin validar)
+    RH_ScopedGlobalInstall(ClumpCameraWriteCallBack, 0x74AF20); // codigo vivo CAM (sin validar)
     RH_ScopedGlobalInstall(RpWorldStreamWrite, 0x762150);                                      // lote S31A (sin validar)
     RH_ScopedGlobalInstall(RpWorldStreamRead, 0x762960);                                       // lote S31A (sin validar)
     RH_ScopedGlobalInstall(_rwD3D9VSGetProjectionTransposedMatrix, 0x764D20);                  // lote S31A (sin validar)

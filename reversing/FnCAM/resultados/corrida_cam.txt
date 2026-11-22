@@ -1,0 +1,7 @@
+0x750430 begin             100000 casos (devuelven != 0: 100000), 0 diferencias
+0x750460 end               100000 casos (devuelven != 0: 66327), 0 diferencias
+0x750480 sync de camara    100000 casos (devuelven != 0: 85728), 0 diferencias
+0x750AC0 sync de luz       100000 casos (devuelven != 0: 100000), 0 diferencias
+0x7507E0 sync de atomo     100000 casos (devuelven != 0: 83040), 0 diferencias
+cobertura de marcas: e01=8254 e07=4076 e10=18700 e30=106466 e31=77519 e40=75030 e50=100000 e53=100000 e54=100000
+RESULTADO: SIN DIFERENCIAS (0 diferencias)
