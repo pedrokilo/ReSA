@@ -329,6 +329,9 @@ public:
     OpcodeResult ProcessCommands1200To1299(int32 command); // 0x48B590
     OpcodeResult ProcessCommands1900To1999(int32 command); // 0x46B460
     OpcodeResult ProcessCommands800To899(int32 commandId); // 0x481300 (lote 239A, sin validar)
+    // Lote P6B (sin validar): despachadores originales de las ranuras 3 y 4 de la tabla 0x8A6168 (RunningScriptCommands300To499.cpp)
+    OpcodeResult ProcessCommands300To399(int32 command); // 0x47C100
+    OpcodeResult ProcessCommands400To499(int32 command); // 0x47D210
 
     void SetName(const char* name)      { strcpy_s(m_szName, name); }
     void SetName(std::string_view name) { assert(name.size() < sizeof(m_szName)); strncpy_s(m_szName, name.data(), name.size()); }

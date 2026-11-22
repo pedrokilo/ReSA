@@ -230,6 +230,19 @@ extern void
 _rpSkinGenericMatrixBlend(RwInt32 numVertices, const RwMatrixWeights *matrixWeights, const RwUInt32 *matrixIndices, const RwMatrix *matrixArray,
                           RwUInt8 *outVertices, const RwUInt8 *inVertices, RwUInt8 *outNormals, const RwUInt8 *inNormals, RwInt32 outStride);
 
+/* Lote P6B (sin validar): mezcladores SSE de 4 y 2 huesos, inicio del vertex shader de skin y datos privados del nodo (ver rpskin.cpp). */
+extern void
+_rpSkinSSEMatrixBlend4(RwUInt32 numVertices, const RwUInt8 *weights, const RwUInt32 *indices, const RwMatrix *matrices, RwUInt8 *outVertices, const RwUInt8 *inVertices, RwUInt8 *outNormals, const RwUInt8 *inNormals, RwInt32 outStride); /* 0x7CAC60 */
+
+extern void
+_rpSkinSSEMatrixBlend2(RwUInt32 numVertices, const RwUInt8 *weights, const RwUInt32 *indices, const RwMatrix *matrices, RwUInt8 *outVertices, const RwUInt8 *inVertices, RwUInt8 *outNormals, const RwUInt8 *inNormals, RwInt32 outStride); /* 0x7CAF50 */
+
+extern void
+_rxD3D9SkinVertexShaderBeginCallBack(void *object, RwUInt32 type, _rpD3D9VertexShaderDescriptor *desc); /* 0x7CB190 */
+
+extern RwBool
+_rpSkinD3D9AtomicAllInOneNodeInit(RxPipelineNode *node); /* 0x7CB240 */
+
 /* Lote R7A (sin validar): datos divididos en el flujo, instanciado D3D9 de skin, ayudantes SSE y pipeline generico (ver rpskin.cpp). */
 extern RwStream *
 _rpSkinSplitDataStreamWrite(RwStream *stream, const RpSkin *skin);

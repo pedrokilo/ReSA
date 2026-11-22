@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include <emmintrin.h>
 #include <xmmintrin.h>
+#include <cstring>
 
 #include "rpskin.h"
 #include "X87Math.h"
@@ -119,6 +120,11 @@ void RpSkinInjectHooks() {
     RH_ScopedGlobalInstall(_rpSkinD3D9InstanceVertexData, 0x7C90D0); // lote R7A (sin validar)
     RH_ScopedGlobalInstall(_rpSkinSSETransformPoints, 0x7CAAD0); // lote R7A (sin validar)
     RH_ScopedGlobalInstall(_rpSkinSSETransformPointsIndexed, 0x7CAB80); // lote R7A (sin validar)
+    // Lote P6B (sin validar): mezcladores SSE de 4 y de 2 huesos, callback de inicio del vertex shader de skin y datos privados del nodo
+    RH_ScopedGlobalInstall(_rpSkinSSEMatrixBlend4, 0x7CAC60);
+    RH_ScopedGlobalInstall(_rpSkinSSEMatrixBlend2, 0x7CAF50);
+    RH_ScopedGlobalInstall(_rxD3D9SkinVertexShaderBeginCallBack, 0x7CB190);
+    RH_ScopedGlobalInstall(_rpSkinD3D9AtomicAllInOneNodeInit, 0x7CB240);
     RH_ScopedGlobalInstall(_rpSkinD3D9CreateGenericPipeline, 0x7CB2B0); // lote R7A (sin validar)
     // Lote S12A (sin validar)
     RH_ScopedGlobalInstall(RpSkinSetFreeListCreateParams, 0x7C67F0);
@@ -1656,4 +1662,151 @@ RxPipeline* _rpSkinD3D9CreateGenericPipeline() {
 // 0x7CB2A0 (lote S12A, sin validar; `mov eax, 0x8DED08; ret`): definicion del nodo de skin D3D9 (datos del EXE, no se copian).
 RxNodeDefinition* RxNodeDefinitionGetD3D9SkinAtomicAllInOne() {
     return reinterpret_cast<RxNodeDefinition*>(0x8DED08);
+}
+
+namespace {
+// Mezcla de los pesos de hasta cuatro huesos: acumula fila a fila peso * matriz (movaps de las cuatro filas, mulps/addps de precision simple).
+struct SkinBlendRows {
+    __m128 r0, r1, r2, r3;
+};
+inline SkinBlendRows SkinScaledMatrix(const RwMatrix* matrices, RwUInt32 boneIndex, float weight) {
+    const float* const m = reinterpret_cast<const float*>(reinterpret_cast<const RwUInt8*>(matrices) + (static_cast<size_t>(boneIndex) << 6));
+    const __m128 w = _mm_set1_ps(weight);
+    return SkinBlendRows{ _mm_mul_ps(_mm_load_ps(m), w), _mm_mul_ps(_mm_load_ps(m + 4), w), _mm_mul_ps(_mm_load_ps(m + 8), w), _mm_mul_ps(_mm_load_ps(m + 12), w) };
+}
+inline SkinBlendRows SkinAccumulate(const SkinBlendRows& a, const SkinBlendRows& b) {
+    return SkinBlendRows{ _mm_add_ps(a.r0, b.r0), _mm_add_ps(a.r1, b.r1), _mm_add_ps(a.r2, b.r2), _mm_add_ps(a.r3, b.r3) };
+}
+// Un vertice y su normal por las filas ya mezcladas (como _rpSkinSSETransformPoints).
+inline void SkinBlendTransform(const SkinBlendRows& rows, const RwUInt8*& inVertices, RwUInt8*& outVertices, const RwUInt8*& inNormals, RwUInt8*& outNormals, RwInt32 outStride) {
+    SkinStoreVec3(outVertices, SkinTransformPoint(inVertices, rows.r0, rows.r1, rows.r2, &rows.r3));
+    inVertices += 0xC;
+    outVertices += outStride;
+    if (inNormals != nullptr) {
+        SkinStoreVec3(outNormals, SkinTransformPoint(inNormals, rows.r0, rows.r1, rows.r2, nullptr));
+        inNormals += 0xC;
+        outNormals += outStride;
+    }
+}
+inline RwUInt32 SkinFloatBits(float value) {
+    RwUInt32 bits;
+    std::memcpy(&bits, &value, sizeof(bits));
+    return bits;
+}
+inline SkinBlendRows SkinLoadMatrix(const RwMatrix* matrices, RwUInt32 boneIndex) {
+    const float* const m = reinterpret_cast<const float*>(reinterpret_cast<const RwUInt8*>(matrices) + (static_cast<size_t>(boneIndex) << 6));
+    return SkinBlendRows{ _mm_load_ps(m), _mm_load_ps(m + 4), _mm_load_ps(m + 8), _mm_load_ps(m + 12) };
+}
+} // namespace
+
+// 0x7CAC60 (lote P6B, sin validar; hueco 0x7CAC5C; nombre inferido: mezclador SSE de matrices de hasta 4 huesos; cdecl con marco alineado a 16 (push ebx; mov ebx,esp; and esp,-16), 9 argumentos de pila: numVertices,
+// pesos (16 bytes por vertice), indices (4 bytes: un hueso por byte), matrices (64 bytes cada una, alineadas), posiciones de salida, de entrada, normales de salida, de entrada (NULL = sin normales), paso de salida): lo llama
+// 0x7C7E7D (mas de dos pesos por vertice). Por vertice (do/while, contador sin signo): si los bits del primer peso (comparados como enteros sin signo) son >= 1.0f (0x3F800000, 0x882DE4) basta la matriz del primer hueso
+// (indice & 0xFF, * 64) sin escalar; si no se acumulan peso0 * M0 + peso1 * M1 (indice >> 8 & 0xFF) y, mientras el peso sea > 0.0f (0x882DE8; comparacion ordenada, NaN corta), peso2 * M2 y peso3 * M3. Posicion =
+// (z * fila2 + fila3) + (y * fila1 + x * fila0) y normal = (z * fila2) + (y * fila1 + x * fila0), mulps/addps de precision simple como el EXE.
+void _rpSkinSSEMatrixBlend4(RwUInt32 numVertices, const RwUInt8* weights, const RwUInt32* indices, const RwMatrix* matrices, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride) {
+    do {
+        const float* const w = reinterpret_cast<const float*>(weights);
+        const RwUInt32 index = *indices;
+        if (SkinFloatBits(w[0]) >= 0x3F800000u) {
+            SkinBlendTransform(SkinLoadMatrix(matrices, index & 0xFF), inVertices, outVertices, inNormals, outNormals, outStride);
+        } else {
+            const SkinBlendRows acc0 = SkinScaledMatrix(matrices, index & 0xFF, w[0]);
+            const SkinBlendRows acc1 = SkinScaledMatrix(matrices, (index >> 8) & 0xFF, w[1]);
+            SkinBlendRows acc = SkinAccumulate(acc1, acc0);
+            if (w[2] > 0.0f) {
+                acc = SkinAccumulate(acc, SkinScaledMatrix(matrices, (index >> 16) & 0xFF, w[2]));
+                if (w[3] > 0.0f) {
+                    acc = SkinAccumulate(acc, SkinScaledMatrix(matrices, (index >> 24) & 0xFF, w[3]));
+                }
+            }
+            SkinBlendTransform(acc, inVertices, outVertices, inNormals, outNormals, outStride);
+        }
+        weights += 0x10;
+        indices += 1;
+    } while (--numVertices != 0);
+}
+
+// 0x7CAF50 (lote P6B, sin validar; hueco 0x7CAC5C; nombre inferido: mezclador SSE de matrices de 2 huesos; mismos argumentos y marco que 0x7CAC60; lo llama 0x7C7EAC cuando hay mas de un peso): igual que el de
+// cuatro huesos pero sin los pesos 2 y 3: bits del primer peso >= 1.0f -> matriz del primer hueso; si no peso0 * M0 + peso1 * M1.
+void _rpSkinSSEMatrixBlend2(RwUInt32 numVertices, const RwUInt8* weights, const RwUInt32* indices, const RwMatrix* matrices, RwUInt8* outVertices, const RwUInt8* inVertices, RwUInt8* outNormals, const RwUInt8* inNormals, RwInt32 outStride) {
+    do {
+        const float* const w = reinterpret_cast<const float*>(weights);
+        const RwUInt32 index = *indices;
+        if (SkinFloatBits(w[0]) >= 0x3F800000u) {
+            SkinBlendTransform(SkinLoadMatrix(matrices, index & 0xFF), inVertices, outVertices, inNormals, outNormals, outStride);
+        } else {
+            const SkinBlendRows acc0 = SkinScaledMatrix(matrices, index & 0xFF, w[0]);
+            const SkinBlendRows acc1 = SkinScaledMatrix(matrices, (index >> 8) & 0xFF, w[1]);
+            SkinBlendTransform(SkinAccumulate(acc1, acc0), inVertices, outVertices, inNormals, outNormals, outStride);
+        }
+        weights += 0x10;
+        indices += 1;
+    } while (--numVertices != 0);
+}
+
+// 0x7CB190 (lote P6B, sin validar; nombre inferido: callback de inicio del vertex shader de skin; cdecl, (atomo, tipo, descriptor), 163 bytes; la apunta 0x7CB25E): pone a cero el primer dword del descriptor
+// (_rpD3D9VertexShaderDescriptor) y rellena numTexCoords (nibble alto del byte 1) con el numero de juegos de texcoords de la geometria, prelit (bit 4 del byte 2) con la bandera 8, normales y normalizar (0x60) con 0x10
+// y modular material (0x80) con 0x40; con la niebla activa (RwRenderStateGet 14) segun el tipo de niebla (estado 16): 1 -> fogMode 1, 2 -> 2, 3 -> 3 (bits bajos del byte 3), otro valor no cambia nada.
+void _rxD3D9SkinVertexShaderBeginCallBack(void* object, RwUInt32 type, _rpD3D9VertexShaderDescriptor* desc) {
+    RpAtomic* const atomic = static_cast<RpAtomic*>(object);
+    RwUInt8* const bytes = reinterpret_cast<RwUInt8*>(desc);
+    *reinterpret_cast<RwUInt32*>(desc) = 0;
+    RpGeometry* const geometry = atomic->geometry;
+    const RwUInt32 flags = geometry->flags;
+    const RwUInt8 shifted = static_cast<RwUInt8>(static_cast<RwUInt32>(geometry->numTexCoordSets) << 4);
+    bytes[1] = static_cast<RwUInt8>((bytes[1] & 0x0F) | (shifted & 0xF0));
+    if ((flags & 8) != 0) {
+        bytes[2] |= 0x10;
+    }
+    if ((flags & 0x10) != 0) {
+        bytes[2] |= 0x60;
+    }
+    if ((flags & 0x40) != 0) {
+        bytes[2] |= 0x80;
+    }
+    RwUInt32 fogEnabled = 0;
+    RwRenderStateGet(rwRENDERSTATEFOGENABLE, &fogEnabled);
+    if (fogEnabled != 0) {
+        RwUInt32 fogType = 0;
+        RwRenderStateGet(rwRENDERSTATEFOGTYPE, &fogType);
+        switch (fogType) {
+        case 1: bytes[3] = static_cast<RwUInt8>((bytes[3] & 0xFD) | 1); break;
+        case 2: bytes[3] = static_cast<RwUInt8>((bytes[3] & 0xFE) | 2); break;
+        case 3: bytes[3] |= 3; break;
+        default: break;
+        }
+    }
+}
+
+// 0x7CB240 (lote P6B, sin validar; nombre inferido: pipelineNodeInit del nodo AllInOne de skin; cdecl, (nodo), 92 bytes; la apunta el pipelineNodeInit de la definicion 0x8DED08): datos privados del nodo: +0 callback
+// de render por defecto 0x756DF0, +4 iluminacion de atomos 0x757400; con el vertex shader de skin activo (0xC978E4 != 0): +8 inicio 0x7CB190, +0xC iluminacion 0x761170, +0x10 material 0x761010, +0x14 malla
+// 0x761030, +0x18 fin 0x761000; sin el: esos cinco a cero. Devuelve TRUE.
+RwBool _rpSkinD3D9AtomicAllInOneNodeInit(RxPipelineNode* node) {
+    struct SkinNodeData {
+        void* render;
+        void* lighting;
+        void* beginCallBack;
+        void* vertexShaderLighting;
+        void* getMaterialShader;
+        void* meshRender;
+        void* endCallBack;
+    };
+    SkinNodeData* const data = static_cast<SkinNodeData*>(node->privateData);
+    data->render = reinterpret_cast<void*>(D3D9DefaultRenderCallBack);
+    data->lighting = reinterpret_cast<void*>(D3D9AtomicDefaultLightingCallBack);
+    if (SkinFlagE4() != 0) {
+        data->beginCallBack = reinterpret_cast<void*>(_rxD3D9SkinVertexShaderBeginCallBack);
+        data->vertexShaderLighting = reinterpret_cast<void*>(_rxD3D9VertexShaderDefaultLightingCallBack);
+        data->getMaterialShader = reinterpret_cast<void*>(_rxD3D9VertexShaderDefaultGetMaterialShaderCallBack);
+        data->meshRender = reinterpret_cast<void*>(_rxD3D9VertexShaderDefaultMeshRenderCallBack);
+        data->endCallBack = reinterpret_cast<void*>(_rxD3D9VertexShaderDefaultEndCallBack);
+    } else {
+        data->beginCallBack = nullptr;
+        data->vertexShaderLighting = nullptr;
+        data->getMaterialShader = nullptr;
+        data->meshRender = nullptr;
+        data->endCallBack = nullptr;
+    }
+    return TRUE;
 }

@@ -2380,6 +2380,16 @@ void _rpD3D9VertexShaderSetEnvMatrix(RwFrame* frame, const _rpD3D9VertexShaderDe
 void _rpD3D9VertexShaderSetBumpMatrix(RwFrame* frame, RwReal factor, const _rpD3D9VertexShaderDispatchDescriptor* dispatch); // 0x761B70
 RxNodeDefinition* RxNodeDefinitionGetD3D9WorldSectorAllInOne(); // 0x75E9F0
 RxNodeDefinition* RxNodeDefinitionGetD3D9AtomicAllInOne(); // 0x7582E0
+// Lote P6B (sin validar): callbacks de los nodos AllInOne de D3D9 (rpworld_p6b.cpp)
+void D3D9DefaultRenderCallBack(RwResEntry* repEntry, void* object, RwUInt8 type, RwUInt32 flags); // 0x756DF0
+void D3D9AtomicDefaultLightingCallBack(void* object); // 0x757400
+RwBool D3D9AtomicAllInOneNode(RxPipelineNode* self, const RxPipelineNodeParam* params); // 0x7575F0
+void D3D9AtomicAllInOneNodeInit(RxPipelineNode* node); // 0x757890
+RwBool D3D9AtomicDefaultReinstanceCallback(void* object, RwResEntry* repEntry, RxD3D9AllInOneInstanceCallBack instanceCallback); // 0x758270
+RwBool D3D9WorldSectorAllInOneNode(RxPipelineNode* self, const RxPipelineNodeParam* params); // 0x75E3F0
+void D3D9WorldSectorAllInOneNodeInit(RxPipelineNode* node); // 0x75E540
+void D3D9WorldSectorDefaultLightingCallBack(void* object); // 0x75E570
+RwBool D3D9WorldSectorDefaultInstanceCallback(void* object, RxD3D9ResEntryHeader* header, RwBool reinstance); // 0x75E5E0
 void RpMaterialSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPrealloc); // 0x74D8C0
 RpMaterial* RpMaterialCreate(); // 0x74D990
 RwBool RpMaterialDestroy(RpMaterial* material); // 0x74DA20
