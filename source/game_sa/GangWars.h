@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -57,18 +58,18 @@ public:
     static inline auto& GangRatingStrength = StaticRef<std::array<int32, 3>>(0x96AB2C);
     static inline auto& GangRatings = StaticRef<std::array<int32, 3>>(0x96AB38);
     static inline auto& FightTimer = DatosExe::Bss::b96AB44;
-    static inline auto& TimeTillNextAttack = StaticRef<float>(0x96AB48);
+    static inline auto& TimeTillNextAttack = DatosExe::Bss::b96AB48;
     static inline auto& Gang2 = DatosExe::Bss::b96AB50;
     static inline auto& LastTimeInArea = DatosExe::Bss::b96AB54;
     static inline auto& WarFerocity = DatosExe::Bss::b96AB58;
-    static inline auto& Provocation = StaticRef<float>(0x96AB5C);
+    static inline auto& Provocation = DatosExe::Bss::b96AB5C;
     static inline auto& TimeStarted = DatosExe::Bss::b96AB60;
     // State of defending gang war (i.e. fighting for enemy zone)
     static inline auto& State = StaticRef<eGangWarState>(0x96AB64);
     // State of attacking gang war (i.e. fighting for own zone)
     static inline auto& State2 = StaticRef<eGangAttackState>(0x96AB4C);
     static inline auto& aSpecificZones = StaticRef<std::array<int32, 6>>(0x96AB68);
-    static inline auto& Difficulty = StaticRef<float>(0x96AB80);
+    static inline auto& Difficulty = DatosExe::Bss::b96AB80;
     static inline auto& Gang1 = StaticRef<eGangID>(0x96AB84);
     static inline auto& pZoneToFightOver = StaticRef<CZone*>(0x96AB88);
     static inline auto& pZoneInfoToFightOver = StaticRef<CZoneInfo*>(0x96AB8C);

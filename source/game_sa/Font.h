@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "RGBA.h"
@@ -85,7 +86,7 @@ public:
     static inline auto& m_bNewLine = DatosExe::Bss::bC71A55;
     static inline auto& m_Color = StaticRef<CRGBA>(0xC71A60);
     static inline auto& m_Scale = StaticRef<CVector2D>(0xC71A64);
-    static inline auto& m_fSlant = StaticRef<float>(0xC71A6C);
+    static inline auto& m_fSlant = DatosExe::Bss::bC71A6C;
     static inline auto& m_fSlantRefPoint = StaticRef<CVector2D>(0xC71A70);
     static inline auto& m_bFontJustify = DatosExe::Bss::bC71A78;
     static inline auto& m_bFontCentreAlign = DatosExe::Bss::bC71A79;
@@ -94,11 +95,11 @@ public:
     static inline auto& m_bEnlargeBackgroundBox = DatosExe::Bss::bC71A7C;
     static inline auto& m_bFontPropOn = DatosExe::Bss::bC71A7D;
     static inline auto& m_bFontIsBlip = DatosExe::Bss::bC71A7E;
-    static inline auto& m_fFontAlpha = StaticRef<float>(0xC71A80);
+    static inline auto& m_fFontAlpha = DatosExe::Bss::bC71A80;
     static inline auto& m_FontBackgroundColor = StaticRef<CRGBA>(0xC71A84);
-    static inline auto& m_fWrapx = StaticRef<float>(0xC71A88);
-    static inline auto& m_fFontCentreSize = StaticRef<float>(0xC71A8C);
-    static inline auto& m_fRightJustifyWrap = StaticRef<float>(0xC71A90);
+    static inline auto& m_fWrapx = DatosExe::Bss::bC71A88;
+    static inline auto& m_fFontCentreSize = DatosExe::Bss::bC71A8C;
+    static inline auto& m_fRightJustifyWrap = DatosExe::Bss::bC71A90;
     static inline auto& m_FontTextureId = DatosExe::Bss::bC71A94;
     static inline auto& m_FontStyle = DatosExe::Bss::bC71A95;
     static inline auto& m_nFontShadow = DatosExe::Bss::bC71A96;

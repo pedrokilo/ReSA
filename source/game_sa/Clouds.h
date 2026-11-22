@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -61,11 +62,11 @@ public:
     static inline auto& m_fVolumetricCloudDensity = DatosExe::Data::v8D5388;
     static inline auto& m_bVolumetricCloudHeightSwitch = DatosExe::Data::v8D538C;
     static inline auto& m_fVolumetricCloudWindMoveFactor = DatosExe::Data::v8D5390;
-    static inline auto& m_fVolumetricCloudMaxDistance = StaticRef<float>(0xC6AA58);
+    static inline auto& m_fVolumetricCloudMaxDistance = DatosExe::Bss::bC6AA58;
     static inline auto& m_VolumetricCloudsUsedNum = DatosExe::Bss::bC6AA5C; // Como el original: dword con signo (jle/jl)
-    static inline auto& ms_cameraRoll = StaticRef<float>(0xC6AA64);
+    static inline auto& ms_cameraRoll = DatosExe::Bss::bC6AA64;
     static inline auto& IndividualRotation = DatosExe::Bss::bC6AA6C;
-    static inline auto& CloudRotation = StaticRef<float>(0xC6AA70);
+    static inline auto& CloudRotation = DatosExe::Bss::bC6AA70;
     static inline auto& ms_vc = StaticRef<tVolumetricClouds>(0xC6AAB0);
     static inline auto& ms_mf = StaticRef<tMovingFog>(0xC6C158);
     static inline auto& PlayerCoords = StaticRef<CVector>(0xC6E958); // gVecPlayerCoors

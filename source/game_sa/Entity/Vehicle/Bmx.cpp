@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "CarCtrl.h"
@@ -27,7 +28,7 @@ namespace {
 // Como el original: global sin nombre de 0xC1C83C (solo se lee en PreRender; el EXE nunca la escribe, vale 0)
 inline auto& BmxPreRenderFlag = DatosExe::Bss::bC1C83C;
 // Como el original: BMX_PEDAL_LEANSTART (0xC1C820) es una global de .bss que ProcessControl lee cada vez
-inline auto& BmxPedalLeanStart = StaticRef<float>(0xC1C820);
+inline auto& BmxPedalLeanStart = DatosExe::Bss::bC1C820;
 
 // Como el original: constantes del .rdata (no son las de common.h: TWO_PI = 6.2831855, FRAC_PI_2 = 1.5707964)
 constexpr float kBmxTwoPi        = std::bit_cast<float>(0x40C90FDBu); // 0x858CBC

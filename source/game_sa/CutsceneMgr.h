@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -88,8 +89,8 @@ public:
     static inline auto& numPlayerWeaponsToRestoreInZone = DatosExe::Bss::bBC1CFC;
     static inline auto& playerWeaponsToRestoreInZone_Ammo = StaticRef<std::array<int32, 13>>(0xBC1D00);
     static inline auto& playerWeaponsToRestoreInZone_Type = StaticRef<std::array<int32, 13>>(0xBC1D34);
-    static inline auto& m_fPrevCarDensity = StaticRef<float>(0xBC1D68);
-    static inline auto& m_fPrevPedDensity = StaticRef<float>(0xBC1D6C);
+    static inline auto& m_fPrevCarDensity = DatosExe::Bss::bBC1D68;
+    static inline auto& m_fPrevPedDensity = DatosExe::Bss::bBC1D6C;
     static inline auto& ms_pParticleEffects = StaticRef<std::array<tCutsceneParticleEffect, 8>>(0xBC1D70);
     static inline auto& ms_crToHideItems = StaticRef<std::array<tCutsceneRemoval, 50>>(0xBC20D0);
     static inline auto& ms_pHiddenEntities = StaticRef<std::array<CEntity*, 50>>(0xBC2968);
@@ -103,7 +104,7 @@ public:
     static inline auto& ms_iModelIndex = StaticRef<std::array<eModelID, 50>>(0xBC31C0);
     static inline auto& ms_cLoadAnimName = StaticRef<std::array<char[32], 50>>(0xBC3288);
     static inline auto& ms_cLoadObjectName = StaticRef<std::array<char[32], 50>>(0xBC38C8);
-    static inline auto& ms_cutsceneTimerS = StaticRef<float>(0xBC3F08); // In seconds
+    static inline auto& ms_cutsceneTimerS = DatosExe::Bss::bBC3F08; // In seconds
     static inline auto& ms_cutsceneName = StaticRef<char[8]>(0xBC3F0C);
     static inline auto& ms_pCutsceneObjects = StaticRef<std::array<CCutsceneObject*, 50>>(0xBC3F18);
     static inline auto& ms_cutscenePlayStatus = StaticRef<PlayStatus>(0xBC3FE0);

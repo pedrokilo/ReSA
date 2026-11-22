@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE3.h"
 
 #include "common.h"
 #include "Vector2D.h"
@@ -8,10 +9,10 @@ class CActiveOccluder;
 
 class COccluder {
 public:
-    static inline auto& MaxYInOccluder        = StaticRef<float>(0xC73CA0);
-    static inline auto& MinYInOccluder        = StaticRef<float>(0xC73CA4);
-    static inline auto& MaxXInOccluder        = StaticRef<float>(0xC73CA8);
-    static inline auto& MinXInOccluder        = StaticRef<float>(0xC73CAC);
+    static inline auto& MaxYInOccluder        = DatosExe::Bss::bC73CA0;
+    static inline auto& MinYInOccluder        = DatosExe::Bss::bC73CA4;
+    static inline auto& MaxXInOccluder        = DatosExe::Bss::bC73CA8;
+    static inline auto& MinXInOccluder        = DatosExe::Bss::bC73CAC;
 
     static inline auto& OccluderCoorsValid    = StaticRef<std::array<bool, 8>>(0xC73CB0);
     static inline auto& OccluderCoors         = StaticRef<std::array<CVector, 8>>(0xC798E0);

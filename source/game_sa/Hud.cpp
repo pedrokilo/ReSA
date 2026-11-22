@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -646,7 +647,7 @@ void CHud::DrawBustedWastedMessage() {
 
     // Como el original: 'posY' es una variable estatica local del EXE (0xBAB220) con su bandera de inicializacion
     // (bit 0 de 0xBAB224, "test byte ptr [0BAB224h],1" en 0x58CA5E).
-    static auto& posY  = StaticRef<float>(0xBAB220);
+    static auto& posY  = DatosExe::Bss::bBAB220;
     static auto& guard = DatosExe::Bss::bBAB224;
 
     if (!message[0]) {
@@ -1456,7 +1457,7 @@ void CHud::DrawSubtitles() {
 // 0x58C6A0
 void CHud::DrawSuccessFailedMessage() {
     auto& initialized = DatosExe::Bss::bBAB21C;
-    auto& baseline = StaticRef<float>(0xBAB218);
+    auto& baseline = DatosExe::Bss::bBAB218;
     const auto constant = [](uintptr_t address) { return *reinterpret_cast<const float*>(address); };
     const float sy = float(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524;
     const float middle = float(RsGlobal.maximumHeight / 2) - sy * DatosExe::Rdata::k85862C;

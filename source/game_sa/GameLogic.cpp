@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "MBlur.h"
 #include "EntryExitManager.h"
 #include "Garages.h"
@@ -715,7 +716,7 @@ void CGameLogic::Update() {
     if (!CWorld::Players[PED_TYPE_PLAYER1].m_pPed || !CWorld::Players[PED_TYPE_PLAYER2].m_pPed) {
         UpdateSkip();
     } else {
-        static float& lastPlayerDistance = StaticRef<float>(0x96AB24);
+        static float& lastPlayerDistance = DatosExe::Bss::b96AB24;
         const auto& pos1 = CWorld::Players[PED_TYPE_PLAYER1].m_pPed->GetPosition();
         const auto& pos2 = CWorld::Players[PED_TYPE_PLAYER2].m_pPed->GetPosition();
         const float dx   = pos1.x - pos2.x;

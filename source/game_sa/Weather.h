@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -23,7 +24,7 @@ enum eWeatherRegion : int16 {
 
 class CWeather {
 public:
-    static inline auto& TrafficLightsBrightness = StaticRef<float>(0xC812A8);
+    static inline auto& TrafficLightsBrightness = DatosExe::Bss::bC812A8;
     static inline auto& bScriptsForceRain = DatosExe::Bss::bC812AC;
     static inline auto& Earthquake = StaticRef<float>(0xC81340);
     static inline auto& CurrentRainParticleStrength = DatosExe::Bss::bC812B0;
@@ -35,26 +36,26 @@ public:
     static inline auto& LightningStart = DatosExe::Bss::bC812C8; // frame number
     static inline auto& LightningFlash = DatosExe::Bss::bC812CC;
     static inline auto& LightningBurst = DatosExe::Bss::bC812CD;
-    static inline auto& HeadLightsSpectrum = StaticRef<float>(0xC812D0);
+    static inline auto& HeadLightsSpectrum = DatosExe::Bss::bC812D0;
     static inline auto& WaterFogFXControl = StaticRef<float>(0xC81338);
-    static inline auto& HeatHazeFXControl = StaticRef<float>(0xC812D8);
-    static inline auto& HeatHaze = StaticRef<float>(0xC812DC);
+    static inline auto& HeatHazeFXControl = DatosExe::Bss::bC812D8;
+    static inline auto& HeatHaze = DatosExe::Bss::bC812DC;
     static inline auto& SunGlare = StaticRef<float>(0xC812E0);
-    static inline auto& Rainbow = StaticRef<float>(0xC812E4);
-    static inline auto& Wavyness = StaticRef<float>(0xC812E8);
-    static inline auto& WindClipped = StaticRef<float>(0xC812EC);
+    static inline auto& Rainbow = DatosExe::Bss::bC812E4;
+    static inline auto& Wavyness = DatosExe::Bss::bC812E8;
+    static inline auto& WindClipped = DatosExe::Bss::bC812EC;
     static inline auto& WindDir = StaticRef<CVector>(0xC813E0);
-    static inline auto& Wind = StaticRef<float>(0xC812F0);
-    static inline auto& Sandstorm = StaticRef<float>(0xC812F4);
+    static inline auto& Wind = DatosExe::Bss::bC812F0;
+    static inline auto& Sandstorm = DatosExe::Bss::bC812F4;
     static inline auto& Rain = StaticRef<float>(0xC81324);
     static inline auto& InTunnelness = StaticRef<float>(0xC81334);
     static inline auto& WaterDepth = StaticRef<float>(0xC81330);
     static inline auto& UnderWaterness = StaticRef<float>(0xC8132C);
-    static inline auto& ExtraSunnyness = StaticRef<float>(0xC812F8);
-    static inline auto& Foggyness_SF = StaticRef<float>(0xC812FC);
-    static inline auto& Foggyness = StaticRef<float>(0xC81300);
-    static inline auto& CloudCoverage = StaticRef<float>(0xC81304);
-    static inline auto& WetRoads = StaticRef<float>(0xC81308);
+    static inline auto& ExtraSunnyness = DatosExe::Bss::bC812F8;
+    static inline auto& Foggyness_SF = DatosExe::Bss::bC812FC;
+    static inline auto& Foggyness = DatosExe::Bss::bC81300;
+    static inline auto& CloudCoverage = DatosExe::Bss::bC81304;
+    static inline auto& WetRoads = DatosExe::Bss::bC81308;
     static inline auto& InterpolationValue = StaticRef<float>(0xC8130C);
     static inline auto& WeatherTypeInList = DatosExe::Bss::bC81310;
     static inline auto& WeatherRegion = StaticRef<eWeatherRegion>(0xC81314);
@@ -64,7 +65,7 @@ public:
     static inline auto& m_WeatherAudioEntity = StaticRef<CAEWeatherAudioEntity>(0xC81360);
     static inline auto& StreamAfterRainTimer = DatosExe::Data::v8D5EAC;
     static inline auto& StreamAfterRainFlag = StaticRef<int32>(0xC81328); // != 0 mientras ha llovido hace poco
-    static inline auto& RainFXAlpha = StaticRef<float>(0xC81410);        // alfa del efecto de particulas de lluvia
+    static inline auto& RainFXAlpha = DatosExe::Bss::bC81410;        // alfa del efecto de particulas de lluvia
 
     // in entity.cpp:
 

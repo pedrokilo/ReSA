@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -2388,7 +2389,7 @@ bool CPlayerPed::FindWeaponLockOnTarget() {
         const int32 upDown = pad->GetPedWalkUpDown();
         const int32 leftRight = pad->GetPedWalkLeftRight();
         const float stickAngle = CGeneral::GetRadianAngleBetweenPoints(0.0f, 0.0f, static_cast<float>(-leftRight), static_cast<float>(upDown)); // 0x53CBE0
-        const float adjusted = (stickAngle - StaticRef<float>(0xB6F178)) + DatosExe::Rdata::k858FE4; // - orientacion de la camara + pi/2
+        const float adjusted = (stickAngle - DatosExe::Bss::bB6F178) + DatosExe::Rdata::k858FE4; // - orientacion de la camara + pi/2
         heading = CGeneral::LimitRadianAngle(adjusted); // 0x53CB50
     }
 

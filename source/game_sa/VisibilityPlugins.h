@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 
 #include "RenderWare.h"
 #include "LinkList.h"
@@ -96,15 +97,15 @@ private:
     static inline auto& ms_pCameraPosn = StaticRef<RwV3d*>(0xC88050); // nullptr
 
     static inline auto& ms_vehicleLod0RenderMultiPassDist = StaticRef<float>(0xC88044);
-    static inline auto& ms_vehicleLod0Dist = StaticRef<float>(0xC88040);
-    static inline auto& ms_vehicleLod1Dist = StaticRef<float>(0xC8803C);
+    static inline auto& ms_vehicleLod0Dist = DatosExe::Bss::bC88040;
+    static inline auto& ms_vehicleLod1Dist = DatosExe::Bss::bC8803C;
     // static float ms_vehicleFadeDist; // unused
-    static inline auto& ms_bigVehicleLod0Dist = StaticRef<float>(0xC88038);
+    static inline auto& ms_bigVehicleLod0Dist = DatosExe::Bss::bC88038;
     // static float ms_bigVehicleLod1Dist; // unused
-    static inline auto& ms_pedLodDist = StaticRef<float>(0xC88034);
-    static inline auto& ms_pedFadeDist = StaticRef<float>(0xC88030);
-    static inline auto& ms_cullCompsDist = StaticRef<float>(0xC8802C);
-    static inline auto& ms_cullBigCompsDist = StaticRef<float>(0xC88028);
+    static inline auto& ms_pedLodDist = DatosExe::Bss::bC88034;
+    static inline auto& ms_pedFadeDist = DatosExe::Bss::bC88030;
+    static inline auto& ms_cullCompsDist = DatosExe::Bss::bC8802C;
+    static inline auto& ms_cullBigCompsDist = DatosExe::Bss::bC88028;
 
     static inline auto& m_alphaList = StaticRef<CLinkList<AlphaObjectInfo>>(0xC88070);
     static inline auto& m_alphaEntityList = StaticRef<CLinkList<AlphaObjectInfo>>(0xC88120);

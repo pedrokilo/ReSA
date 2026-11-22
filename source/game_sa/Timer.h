@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -26,7 +27,7 @@ public:
     static inline auto& m_sbEnableTimeDebug = DatosExe::Bss::bB7CB40;
     static inline auto& bSkipProcessThisFrame = DatosExe::Bss::bB7CB89;
     static inline auto& bSlowMotionActive = DatosExe::Bss::bB7CB88;
-    static inline auto& game_FPS = StaticRef<float>(0xB7CB50);
+    static inline auto& game_FPS = DatosExe::Bss::bB7CB50;
 
     static inline auto& m_CodePause = StaticRef<bool>(0xB7CB48);
     static inline auto& m_UserPause = StaticRef<bool>(0xB7CB49);
@@ -36,7 +37,7 @@ public:
     static inline auto& m_snTimerDivider = DatosExe::Bss::bB7CB2C;
 
     static inline auto& ms_fOldTimeStep = StaticRef<float>(0xB7CB54);
-    static inline auto& ms_fSlowMotionScale = StaticRef<float>(0xB7CB60);
+    static inline auto& ms_fSlowMotionScale = DatosExe::Bss::bB7CB60;
 
     // game speed
     static inline auto& ms_fTimeScale = StaticRef<float>(0xB7CB64);

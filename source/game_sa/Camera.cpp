@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -1556,7 +1557,7 @@ void CCamera::UpdateSoundDistances() {
 // unused
 // 0x50CB90
 void CCamera::SetNearClipBasedOnPedCollision(float arg2) {
-    const float base=gpCamColVars[4],denominator=StaticRef<float>(0xB6EC68),factor=DatosExe::Data::v8CCC84,maximum=DatosExe::Rdata::k858C24;
+    const float base=gpCamColVars[4],denominator=DatosExe::Bss::bB6EC68,factor=DatosExe::Data::v8CCC84,maximum=DatosExe::Rdata::k858C24;
     const float clip = CameraNearClipPedCpp(arg2, base, denominator, factor, maximum);
     RwCameraSetNearClipPlane(Scene.m_pRwCamera,clip);
 }
@@ -2455,8 +2456,8 @@ void CCamera::AvoidTheGeometry(const CVector& source, const CVector& target, CVe
 
     const double decay = ExeCompatiblePowCpp(double(0.9f), double(CTimer::GetTimeStep())); // 0x8CC81C, _CIpow (0x822130)
     m_fAvoidTheGeometryProbsTimer = Fn85GStore(Veh83DMul(decay, m_fAvoidTheGeometryProbsTimer));
-    WellBufferMe(sphereHit ? 1.0f : 0.0f, StaticRef<float>(0xB6EC38), StaticRef<float>(0xB6EC3C), 0.2f, 0.05f, false);
-    const float factor = StaticRef<float>(0xB6EC38);
+    WellBufferMe(sphereHit ? 1.0f : 0.0f, DatosExe::Bss::bB6EC38, DatosExe::Bss::bB6EC3C, 0.2f, 0.05f, false);
+    const float factor = DatosExe::Bss::bB6EC38;
     m_vecClearGeometryVec.x = Fn85GStore(Veh83DMul(factor, m_vecClearGeometryVec.x));
     m_vecClearGeometryVec.y = Fn85GStore(Veh83DMul(factor, m_vecClearGeometryVec.y));
     m_vecClearGeometryVec.z = Fn85GStore(Veh83DMul(factor, m_vecClearGeometryVec.z));
@@ -2776,15 +2777,15 @@ void CCamera::Process() {
             source = collision.m_vecPoint; RwCameraSetNearClipPlane(Scene.m_pRwCamera, .05f);
         }
     }
-    const float drunk = StaticRef<float>(0xC73C58);
+    const float drunk = DatosExe::Bss::bC73C58;
     if (drunk > 0.f) {
-        const float angle = StaticRef<float>(0xB6EC30) * DatosExe::Rdata::k8595EC;
+        const float angle = DatosExe::Bss::bB6EC30 * DatosExe::Rdata::k8595EC;
         const float cosine = std::cos(angle), sine = std::sin(angle);
         source.x += cosine * drunk * -.02f; source.z += sine * drunk * -.02f;
         up.Normalise(); up.x += cosine * drunk * .05f; up.y += sine * drunk * .05f;
         up.Normalise(); front.Normalise(); front.x += cosine * drunk * -.1f; front.y += sine * drunk * -.1f;
         front.Normalise(); CVector side = CrossProduct(front, up); side.Normalise(); up = CrossProduct(side, front); up.Normalise();
-        StaticRef<float>(0xB6EC30) += 5.f;
+        DatosExe::Bss::bB6EC30 += 5.f;
     }
     m_mCameraMatrix.GetRight() = CrossProduct(up, front);
     m_mCameraMatrix.GetUp() = up; m_mCameraMatrix.GetForward() = front; m_mCameraMatrix.GetPosition() = source;
@@ -2929,9 +2930,9 @@ void CCamera::Find3rdPersonCamTargetVector(float range, CVector gunMuzzle, CVect
 // 0x514B80
 float CCamera::CalculateGroundHeight(eGroundHeightType type) {
     static auto& lastCalcCamPos    = StaticRef<CVector>(0xB70034);
-    static auto& exactGroundHeight = StaticRef<float>(0xB70030);
-    static auto& bbTopZ            = StaticRef<float>(0xB7002C);
-    static auto& bbBottomZ         = StaticRef<float>(0xB70028);
+    static auto& exactGroundHeight = DatosExe::Bss::bB70030;
+    static auto& bbTopZ            = DatosExe::Bss::bB7002C;
+    static auto& bbBottomZ         = DatosExe::Bss::bB70028;
 
     // Como el original (0x514B80): bandera de inicializacion de las estaticas (bit 0 de 0xB70040)
     auto& initFlags = DatosExe::Bss::bB70040;
@@ -3053,7 +3054,7 @@ void CCamera::ImproveNearClip(CVehicle* vehicle, CPed* ped, CVector* source, CVe
         }else{
             auto* model=static_cast<CPedModelInfo*>(CModelInfo::GetModelInfo(int16(ped->GetModelIndex())));
             const float fov=StaticRef<float>(0xB6F250+uint32(StaticRef<uint8>(0xB6F081))*sizeof(CCam));
-            const float angle=(90.0f-fov*.5f)*std::bit_cast<float>(0x3C8EFA35u),radius=StaticRef<float>(0xB6EC6C);
+            const float angle=(90.0f-fov*.5f)*std::bit_cast<float>(0x3C8EFA35u),radius=DatosExe::Bss::bB6EC6C;
             const float limit=TrigSimpleSinMulCpp(angle,radius);
             model->AnimatePedColModelSkinnedWorld(ped->GetRpClump());
             const auto& cam=StaticRef<CCam>(0xB6F19C+uint32(active)*sizeof(CCam));
@@ -3282,7 +3283,7 @@ bool CCamera::CameraColDetAndReact(CVector* source, CVector* target) {
         if(ignored->GetType()==ENTITY_TYPE_VEHICLE&&reinterpret_cast<CVehicle*>(ignored)->m_nVehicleSubType==VEHICLE_TYPE_AUTOMOBILE){
             const int32 model=int16(ignored->GetModelIndex());
             auto& cachedModel=DatosExe::Bss::bB700F0;
-            auto& lowest=StaticRef<float>(0xB700EC);
+            auto& lowest=DatosExe::Bss::bB700EC;
             if(model!=cachedModel){
                 auto* data=ignored->GetColModel()->m_pColData;
                 lowest=100.0f;
@@ -3309,7 +3310,7 @@ bool CCamera::CameraColDetAndReact(CVector* source, CVector* target) {
     if(gCurCamColVars<10)minDistance=StaticRef<float>(gCurCamColVars<4?0x8CCE10:0x8CCE14)/length;
     const bool bike=gCurCamColVars>=10&&ignored&&ignored->GetType()==ENTITY_TYPE_VEHICLE&&reinterpret_cast<CVehicle*>(ignored)->m_nVehicleType==VEHICLE_TYPE_BIKE;
     if(bike)minDistance=DatosExe::Data::v8CCE0C;
-    StaticRef<float>(0xB6EC6C)=radius;
+    DatosExe::Bss::bB6EC6C=radius;
     CVector resolved;
     float fraction;
     const bool collided=TheCamera.ConeCastCollisionResolve(*source,*target,resolved,radius,minDistance,fraction);
@@ -4680,7 +4681,7 @@ void CCamera::StartTransition(eCamMode newCamMode) {
                 }
                 break;
             case MODE_AIMWEAPON:
-                m_fFractionInterToStopMoving  = StaticRef<float>(0xB70044); // 0x5157B4: dword_B70044 (estatico del EXE)
+                m_fFractionInterToStopMoving  = DatosExe::Bss::bB70044; // 0x5157B4: dword_B70044 (estatico del EXE)
                 m_fFractionInterToStopCatchUp = 1.0f; // *&dword_8CCCC0
                 m_nTransitionDuration         = 400;  // dword_8CCCBC
                 targetCoorsDuration           = 350;

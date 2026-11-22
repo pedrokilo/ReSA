@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 
 #include "TaskComplexGoPickUpEntity.h"
 
@@ -301,7 +302,7 @@ CTask* CTaskComplexGoPickUpEntity::ControlSubTask(CPed* ped) {
     const float targetHeading = PickUpEntityHeadingCpp(&goTo->m_vecTargetPoint.x, &pos.x); // las restas y el fpatan en x87 (X87Math.cpp)
 
     // Rumbo del stick relativo a la camara (0xB6F178), llevado al intervalo [rumbo - pi, rumbo + pi]
-    float stickHeading = CGeneral::GetRadianAngleBetweenPoints(0.0f, 0.0f, -walkLeftRight, walkUpDown) - StaticRef<float>(0xB6F178);
+    float stickHeading = CGeneral::GetRadianAngleBetweenPoints(0.0f, 0.0f, -walkLeftRight, walkUpDown) - DatosExe::Bss::bB6F178;
     if (targetHeading + 3.14159274f < stickHeading) {          // 0x858CB8 = pi
         stickHeading -= 6.28318548f;                           // 0x858CBC = 2 pi
     } else if (targetHeading - 3.14159274f > stickHeading) {

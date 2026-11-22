@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -47,11 +48,11 @@ public:
     static inline auto& AfterDeathStartPoints = StaticRef<std::array<CVector, 16>>(0x96A8E0);
 
     static inline auto& SkipPosition = StaticRef<CVector>(0x96A8D4);
-    static inline auto& SkipHeading = StaticRef<float>(0x96A8A4);
+    static inline auto& SkipHeading = DatosExe::Bss::b96A8A4;
 
     static inline auto& nPrintFocusHelpCounter = StaticRef<int32>(0x96A8B8);
     static inline auto& nPrintFocusHelpTimer = StaticRef<int32>(0x96A8B4);
-    static inline auto& f2PlayerStartHeading = StaticRef<float>(0x96A840);
+    static inline auto& f2PlayerStartHeading = DatosExe::Bss::b96A840;
     static inline auto& vec2PlayerStartLocation = StaticRef<CVector>(0x96A9AC);
     static inline auto& bPlayersCanBeInSeparateCars = DatosExe::Bss::b96A8B3;
     static inline auto& bPlayersCannotTargetEachOther = StaticRef<bool>(0x96A8B2);

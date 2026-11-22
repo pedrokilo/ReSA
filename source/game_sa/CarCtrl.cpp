@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "DatosExe/RdataConstantes.h"
@@ -695,7 +696,7 @@ bool CCarCtrl::CreateConvoy(CVehicle* vehicle, int32 pedType) {
 // 0x800 sin comprobar el nulo) y el coche nuevo tambien (AddPoliceCarOccupants lo crea).
 bool CCarCtrl::CreatePoliceChase(CVehicle* vehicle, int32 pedType, CNodeAddress nodeAddress) {
     // Como el original: con coches de bandas (0xC0BC38 != 0, un NaN cuenta) y un tipo de ped fuera de 14..23 se sortea con rand() del EXE (ftol2(fild(r & 0xFFFF) * 2^-15 * 4.0f) != 0 <=> r >= 8192) y se sale
-    if (!(StaticRef<float>(0xC0BC38) == 0.0f) && (pedType < 14 || pedType > 23)) {
+    if (!(DatosExe::Bss::bC0BC38 == 0.0f) && (pedType < 14 || pedType > 23)) {
         if ((CarCtrlAirExeRand() & 0xFFFF) >= 0x2000) {
             return false;
         }
@@ -3696,9 +3697,9 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
         if (nearRange) {
             range = 45.0f; // 0x42340000
         } else {
-            range = Car81ScaleCpp(StaticRef<float>(0xB6F11C), DatosExe::Rdata::k858F98); // multiplicador de la camara * 170.0f, guardado como float
+            range = Car81ScaleCpp(DatosExe::Bss::bB6F11C, DatosExe::Rdata::k858F98); // multiplicador de la camara * 170.0f, guardado como float
         }
-        if (Car81LessCpp(StaticRef<float>(0xB6F9B4), DatosExe::Rdata::k858CAC)) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
+        if (Car81LessCpp(DatosExe::Bss::bB6F9B4, DatosExe::Rdata::k858CAC)) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
             range = 70.0f; // 0x428C0000
         }
 

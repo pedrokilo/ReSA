@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -40,7 +41,7 @@ public:
     static inline auto& bAllowEmergencyServicesToBeCreated = DatosExe::Data::v8A5B28;
     static inline auto& bCarsGeneratedAroundCamera = DatosExe::Bss::b9690C1;
     static inline auto& CountDownToCarsAtStart = DatosExe::Bss::b9690C0;
-    static inline auto& TimeNextMadDriverChaseCreated = StaticRef<float>(0x9690BC);
+    static inline auto& TimeNextMadDriverChaseCreated = DatosExe::Bss::b9690BC;
     static inline auto& SequenceElements = DatosExe::Bss::b969078;
     static inline auto& SequenceRandomOffset = DatosExe::Bss::b969074;
     static inline auto& bSequenceOtherWay = DatosExe::Bss::b969070;

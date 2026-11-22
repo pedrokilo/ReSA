@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE3.h"
 
 #include "rwcore.h"
 
@@ -9,7 +10,7 @@ public:
     static bool ms_bJustInitialised;
     static bool ms_bScaledBlur;
     static bool BlurOn;
-    static inline auto& Drunkness = StaticRef<float>(0xC73C58);
+    static inline auto& Drunkness = DatosExe::Bss::bC73C58;
 
     static int32 pBufVertCount;
 

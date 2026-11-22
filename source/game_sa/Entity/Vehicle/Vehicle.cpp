@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -7858,7 +7859,7 @@ void CVehicle::AddExhaustParticles() {
     } else {
         // Como el original: estatica local del EXE (valor 0xC1CDB4, guarda 0xC1CDB8 bit 0), se inicializa una sola vez
         auto& randomFactorInit = DatosExe::Bss::bC1CDB8;
-        auto& randomFactor     = StaticRef<float>(0xC1CDB4);
+        auto& randomFactor     = DatosExe::Bss::bC1CDB4;
         if (!(randomFactorInit & 1)) {
             randomFactorInit |= 1;
             randomFactor = CGeneral::GetRandomNumberInRange(-1.8f, -0.9f);

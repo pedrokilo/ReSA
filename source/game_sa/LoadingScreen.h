@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
@@ -44,13 +45,13 @@ private:
     static inline auto& m_bFadeInNextSplashFromBlack = DatosExe::Bss::bBAB31E;
     static inline auto& m_bFadeOutCurrSplashToBlack = DatosExe::Bss::bBAB31F;
     static inline auto& m_FadeAlpha = DatosExe::Bss::bBAB320;
-    static inline auto& m_StartFadeTime = StaticRef<float>(0xBAB324);
-    static inline auto& m_ClockTimeOnPause = StaticRef<float>(0xBAB328); // unused
-    static inline auto& m_PauseTime = StaticRef<float>(0xBAB32C); // second
+    static inline auto& m_StartFadeTime = DatosExe::Bss::bBAB324;
+    static inline auto& m_ClockTimeOnPause = DatosExe::Bss::bBAB328; // unused
+    static inline auto& m_PauseTime = DatosExe::Bss::bBAB32C; // second
 
-    static inline auto& m_PercentLoaded = StaticRef<float>(0xBAB330);
-    static inline auto& m_TimeStartedLoading = StaticRef<float>(0xBAB334); // unused
-    static inline auto& m_TimeBarAppeared = StaticRef<float>(0xBAB338);
+    static inline auto& m_PercentLoaded = DatosExe::Bss::bBAB330;
+    static inline auto& m_TimeStartedLoading = DatosExe::Bss::bBAB334; // unused
+    static inline auto& m_TimeBarAppeared = DatosExe::Bss::bBAB338;
 
     static inline auto& m_LoadingGxtMsg1 = StaticRef<GxtChar[80]>(0xBAB2C8);
     static inline auto& m_LoadingGxtMsg2 = StaticRef<GxtChar[80]>(0xBAB278);
@@ -63,7 +64,7 @@ private:
     static inline auto& m_numChunksLoaded = DatosExe::Data::v8D0940; // -1
     // static int32 m_nChunksToLoad; // Added in Mobile
     static inline auto& m_chunkBarAppeared = DatosExe::Data::v8D0944; // -1
-    static inline auto& m_timeSinceLastScreen = StaticRef<float>(0xBAB340);
+    static inline auto& m_timeSinceLastScreen = DatosExe::Bss::bBAB340;
 
 public:
     static void LoadSplashes(bool useSplashId, eLoadingLogo id);

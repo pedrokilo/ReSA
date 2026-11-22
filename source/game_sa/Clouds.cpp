@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -829,7 +830,7 @@ void CClouds::RenderBottomFromHeight() {
         low = 160.f + rise;
         high = 190.f + rise;
     }
-    auto& windShift = StaticRef<float>(0xC6E954);
+    auto& windShift = DatosExe::Bss::bC6E954;
     windShift = CTimer::GetTimeStep() * CWeather::Wind * 0.25f + windShift;
 
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(FALSE));
@@ -1165,7 +1166,7 @@ void CClouds::VolumetricCloudsRender() {
     auto& staticGuards = DatosExe::Bss::bC6E974;
     staticGuards |= 1;
 
-    auto& gfVolumetricCloudFader = StaticRef<float>(0xC6E970);
+    auto& gfVolumetricCloudFader = DatosExe::Bss::bC6E970;
     if (m_bVolumetricCloudHeightSwitch) {
         const auto delta = CTimer::GetTimeStep() * 4.f;
         if (camPos.z < 220.f) {

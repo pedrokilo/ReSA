@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
 
@@ -317,7 +318,7 @@ void CAEPedAudioEntity::UpdateJetPack(float thrustFwd, float thrustAngle) {
 
     // Como el original (0x4E1068..0x4E1081): fsin x87 de precision completa; ST0 conserva el seno sin redondear
     // para la velocidad del sonido 0 y el float guardado (fst [esp+4]) para la del sonido 2.
-    const float zero = StaticRef<float>(0xB61384); // 0x4E10A4: global sin inicializar del EXE (0.0)
+    const float zero = DatosExe::Bss::bB61384; // 0x4E10A4: global sin inicializar del EXE (0.0)
     const float k    = StaticRef<float>(0xB613B0); // 0.93f - 1.0f, calculado por el inicializador 0x84C7E0
     // 0x4E1068..0x4E10A2: el seno de fsin queda sin redondear en ST0 para |sin|·k + 1.0 (velocidad del sonido 0); el float guardado (fst) es sinF.
     float sinF{};

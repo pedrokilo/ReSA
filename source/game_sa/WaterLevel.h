@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -112,8 +113,8 @@ class CWaterLevel {
     static inline auto& TextureShiftFirstV = StaticRef<float>(0xC21178);
     static inline auto& TextureShiftFirstU = StaticRef<float>(0xC2117C);
 
-    static inline auto& TextureShiftSecondV = StaticRef<float>(0xC21180);
-    static inline auto& TextureShiftSecondU = StaticRef<float>(0xC21184);
+    static inline auto& TextureShiftSecondV = DatosExe::Bss::bC21180;
+    static inline auto& TextureShiftSecondU = DatosExe::Bss::bC21184;
 
     struct WaterFog {
         std::array<int16, 70> minX;

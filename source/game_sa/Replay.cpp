@@ -26,6 +26,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 
 #include "Camera.h"
@@ -1006,9 +1007,9 @@ void CReplay::ProcessReplayCamera() {
 // 0x45D760
 void CReplay::ProcessLookAroundCam() {
     if (bAllowLookAroundCam) {
-        static auto& playerCameraDistance = StaticRef<float>(0x97FAD4);
-        static auto& viewAngle            = StaticRef<float>(0x97FAD8);
-        static auto& playerCameraDirAngle = StaticRef<float>(0x97FADC);
+        static auto& playerCameraDistance = DatosExe::Bss::b97FAD4;
+        static auto& viewAngle            = DatosExe::Bss::b97FAD8;
+        static auto& playerCameraDirAngle = DatosExe::Bss::b97FADC;
 
         // Como el original: el ratón se escala multiplicando por 0,005 y basta con que |x| o |y| supere 0,01.
         const float mouseX = CPad::NewMouseControllerState.m_AmountMoved.x * 0.005f;

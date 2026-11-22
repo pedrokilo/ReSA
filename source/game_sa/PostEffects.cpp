@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -36,7 +37,7 @@ auto& hpX = StaticRef<std::array<int32, 180>>(0xC3FE08);
 auto& hpY = StaticRef<std::array<int32, 180>>(0xC3FB38);
 auto& hpS = StaticRef<std::array<int32, 180>>(0xC3F868); // speed
 
-static inline auto& s_DayNightBalanceParamOld = StaticRef<float>(0xC3F860);
+static inline auto& s_DayNightBalanceParamOld = DatosExe::Bss::bC3F860;
 
 static constexpr auto GRAIN_TEXTURE_DIM = 256u; // 256x256
 
@@ -832,7 +833,7 @@ void CPostEffects::InfraredVisionRestoreLightsForHeatObjects() {
 
 // 0x704150
 void CPostEffects::Fog() {
-    static auto& s_FogRadius = StaticRef<float>(0xC402E4);
+    static auto& s_FogRadius = DatosExe::Bss::bC402E4;
     static auto& s_FogAngle  = StaticRef<float>(0xC402DC);
 
     // Como el original: 0x704153 lee la trama de nubes una sola vez (mov eax,[0xC6BFC8] ; mov ecx,[eax]) antes de guardar los estados
@@ -1094,7 +1095,7 @@ void CPostEffects::Render() {
     ZoneScoped;
 
     static auto& s_CurrentStrength    = DatosExe::Bss::bC40328;
-    static auto& s_WaterGreen         = StaticRef<float>(0xC40324);
+    static auto& s_WaterGreen         = DatosExe::Bss::bC40324;
     static auto& s_WaitForOneFrame    = DatosExe::Bss::bC40321;
     static auto& s_SavePhotoToGallery = DatosExe::Bss::bC40320;
 

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -39,10 +40,10 @@ public:
     static inline auto& m_bDraw3dMarkers = DatosExe::Bss::bBAA45C;
     static inline auto& m_Wants_To_Draw_Hud = DatosExe::Bss::bBAA45D;
 
-    static inline auto& m_fHelpMessageTime = StaticRef<float>(0xBAA460); // in seconds
+    static inline auto& m_fHelpMessageTime = DatosExe::Bss::bBAA460; // in seconds
     static inline auto& m_fHelpMessageBoxWidth = StaticRef<float>(0x8D0934); // default 200.0
     static inline auto& m_bHelpMessagePermanent = DatosExe::Bss::bBAA464;
-    static inline auto& m_fHelpMessageStatUpdateValue = StaticRef<float>(0xBAA468);
+    static inline auto& m_fHelpMessageStatUpdateValue = DatosExe::Bss::bBAA468;
     static inline auto& m_nHelpMessageMaxStatValue = DatosExe::Bss::bBAA46C;
     static inline auto& m_nHelpMessageStatId = DatosExe::Bss::bBAA470;
     static inline auto& m_bHelpMessageQuick = DatosExe::Bss::bBAA472;
@@ -99,8 +100,8 @@ public:
     static inline auto& TimerCounterHideState = StaticRef<std::array<int16, 4>>(0xBAA38C);
     static inline auto& TimerCounterWasDisplayed = StaticRef<std::array<int16, 4>>(0xBAA394);
 
-    static inline auto& OddJob2OffTimer = StaticRef<float>(0xBAA398);
-    static inline auto& OddJob2XOffset = StaticRef<float>(0xBAA39C);
+    static inline auto& OddJob2OffTimer = DatosExe::Bss::bBAA398;
+    static inline auto& OddJob2XOffset = DatosExe::Bss::bBAA39C;
     static inline auto& OddJob2Timer = DatosExe::Bss::bBAA3A0;
     static inline auto& OddJob2On = DatosExe::Bss::bBAB1E0;
 

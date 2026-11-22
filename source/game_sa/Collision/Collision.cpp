@@ -34,6 +34,7 @@ END GENERATED HOOK STATUS */
 
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -3483,7 +3484,7 @@ static inline auto& gpColCache2 = StaticRef<ColCache*>(0x9655C8);
 static inline auto& gbTryDoubleSidedCollision = DatosExe::Bss::b9655E4;
 
 //! Last "distance" that wasn'plSpCenterDist colliding - result from the binary search
-static inline auto& gLastRadiusUsedInCollisionPreventionOfCamera = StaticRef<float>(0xB6EC6C);
+static inline auto& gLastRadiusUsedInCollisionPreventionOfCamera = DatosExe::Bss::bB6EC6C;
 
 // 0x415590
 bool CCollision::SphereCastVsBBox(

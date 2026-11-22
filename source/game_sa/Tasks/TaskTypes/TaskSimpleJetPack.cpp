@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "X87Math.h"
 
 #include "TaskSimpleJetPack.h"
@@ -443,7 +444,7 @@ void CTaskSimpleJetPack::ProcessControlInput(CPlayerPed* player) {
     } else { // 0x67EB22
         if (padMoveMag > 0.f) {
             // Como el original: ángulo entre (0, 0) y (-lr, ud) menos la orientación de la cámara (0xB6F178), limitado
-            const float angle = CGeneral::GetRadianAngleBetweenPoints(0.f, 0.f, -walkLeftRight, walkUpDown) - StaticRef<float>(0xB6F178);
+            const float angle = CGeneral::GetRadianAngleBetweenPoints(0.f, 0.f, -walkLeftRight, walkUpDown) - DatosExe::Bss::bB6F178;
             player->m_fAimingRotation = CGeneral::LimitRadianAngle(angle);
             m_ThrustAngle = THRUST_MAX_ANGLE * padMoveMag * -0.3515625f;
         } else {

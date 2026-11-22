@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -60,7 +61,7 @@ auto& HeatHazeInsideFadeSpeed = DatosExe::Data::v8D50E0;   // 0.5
 auto& RainSplashScale         = DatosExe::Data::v8D5FF0;   // 1.0
 auto& ClockSecondsByte        = StaticRef<uint8>(0xB70150);   // el EXE lee solo el byte bajo de los segundos
 auto& WaterFogSourceWord      = StaticRef<uint16>(0xB7C540);  // origen (palabra) del efecto de niebla de agua
-auto& CameraOrientation       = StaticRef<float>(0xB6F178);
+auto& CameraOrientation       = DatosExe::Bss::bB6F178;
 auto& CameraForward984        = StaticRef<CVector>(0xB6F9AC); // vector hacia delante de TheCamera.m_mCameraMatrix
 auto& TunnelPoint1            = StaticRef<CVector>(0xC81430);
 auto& TunnelPoint2            = StaticRef<CVector>(0xC81424);

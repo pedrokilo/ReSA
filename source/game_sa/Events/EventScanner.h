@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 
 #include "TaskTimer.h"
@@ -14,7 +15,7 @@ class CPed;
 
 class CPedAcquaintanceScanner {
 public:
-    static inline auto& ms_fThresholdDotProduct = StaticRef<float>(0xC0B034);
+    static inline auto& ms_fThresholdDotProduct = DatosExe::Bss::bC0B034;
 
     CTaskTimer m_timer;
     bool m_bScanAllowedScriptPed;

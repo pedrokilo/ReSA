@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 
 #pragma warning(push, 0)
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -1460,7 +1461,7 @@ StatLineResult StatLineEntry(const uint8* entry, int32& count, const int32 wante
             return StatLineResult::Next;
         }
         case 14: {   // 334: dinero perdido en el juego (0xB7940C - 0xB79414, minimo 0)
-            const double lost = Stw60SubClampCpp(StaticRef<float>(0xB7940C), StaticRef<float>(0xB79414));
+            const double lost = Stw60SubClampCpp(DatosExe::Bss::bB7940C, DatosExe::Bss::bB79414);
             if (!here()) {
                 return StatLineResult::Next;
             }

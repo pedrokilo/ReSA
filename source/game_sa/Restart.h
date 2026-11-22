@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "Vector.h"
@@ -9,7 +10,7 @@ public:
 
     static inline auto& bOverrideRespawnBasePointForMission = DatosExe::Bss::bA43248;
     static inline auto& OverrideRespawnBasePointForMission = StaticRef<CVector>(0xA4342C);
-    static inline auto& OverrideHeading = StaticRef<float>(0xA43260);
+    static inline auto& OverrideHeading = DatosExe::Bss::bA43260;
     static inline auto& bOverrideRestart = DatosExe::Bss::bA43264;
     static inline auto& OverridePosition = StaticRef<CVector>(0xA43408);
 

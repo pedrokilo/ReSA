@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 
 #include "cTransmission.h"
 #include "CarCtrl.h"
@@ -117,9 +118,9 @@ void cTransmission::CalculateGearForSimpleCar(float speed, uint8& currentGear)
 // Como el original: las comparaciones siguen las del EXE (con NaN cada condición cae del mismo lado).
 float cTransmission::CalculateDriveAcceleration(const float& gasPedal, uint8& currentGear, float& gearChangeCount, float& velocity, float* a6, float* a7, uint8 allWheelsOnGround, uint8 handlingCheat)
 {
-    static auto& cheatMultiplier = StaticRef<float>(0xC1CB3C); // 0.0f
-    static auto& driveAcceleration = StaticRef<float>(0xC1CB38); // 0.0f
-    static auto& currentVelocity = StaticRef<float>(0xC1CB40); // 0.0f
+    static auto& cheatMultiplier = DatosExe::Bss::bC1CB3C; // 0.0f
+    static auto& driveAcceleration = DatosExe::Bss::bC1CB38; // 0.0f
+    static auto& currentVelocity = DatosExe::Bss::bC1CB40; // 0.0f
     currentVelocity = velocity;
     if (currentVelocity < m_MaxReverseVelocity)
         return 0.0f;

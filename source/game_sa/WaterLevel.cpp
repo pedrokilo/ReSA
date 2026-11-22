@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -362,7 +363,7 @@ struct WaterLayerParams { float scale, shiftU, shiftV; uint8 alpha; };
 // Como el original (0x6E8F00..0x6E8FF3 / 0x6E9974..): constantes float 0.08f/0.04f (multiplicacion, no division) y alfa de capa.
 WaterLayerParams GetWaterLayerParams(int32 layer) {
     if (layer == 0) {
-        return { DatosExe::Rdata::k859018, StaticRef<float>(0xC21184), StaticRef<float>(0xC21180), StaticRef<uint8>(0x8D3808) };
+        return { DatosExe::Rdata::k859018, DatosExe::Bss::bC21184, DatosExe::Bss::bC21180, StaticRef<uint8>(0x8D3808) };
     }
     return { DatosExe::Rdata::k858CEC, StaticRef<float>(0xC2117C), StaticRef<float>(0xC21178), DatosExe::Data::v8D380C };
 }
@@ -437,7 +438,7 @@ void CWaterLevel::RenderWakeSegment(
     const float angle = float(CTimer::GetTimeInMS() & 0xFFFu) * DatosExe::Rdata::k872028;
     const float* mults = &StaticRef<float>(0x8D390C); // 5 floats consecutivos (0x8D390C..0x8D391C)
     const float windRadius = CWeather::WindClipped * 0.4f + 0.2f; // 0x858EE8 / 0x858CC4
-    const float uvShiftX = StaticRef<float>(0xC228D4), uvShiftY = StaticRef<float>(0xC228D8);
+    const float uvShiftX = DatosExe::Bss::bC228D4, uvShiftY = StaticRef<float>(0xC228D8);
 
     for (int32 part = 0; part < 4; ++part) {
         if (nIdx >= 0xFFA || nVtx >= 0x7FC) {

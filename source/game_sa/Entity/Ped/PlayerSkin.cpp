@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 
 auto& gpPlayerClump = StaticRef<RpClump*>(0xC3F040);
@@ -48,7 +49,7 @@ void CPlayerSkin::Shutdown() {
 void CPlayerSkin::RenderFrontendSkinEdit() {
     // Como el original: las variables estáticas son las del EXE.
     static auto& s_LastFlash = DatosExe::Bss::bC3F04C;
-    static auto& s_Angle     = StaticRef<float>(0xC3F048);
+    static auto& s_Angle     = DatosExe::Bss::bC3F048;
 
     // Como el original: luz ambiente gris 0.65 (0x3F266666), no 255.
     RwRGBAReal color{ 0.65f, 0.65f, 0.65f, 1.0f };

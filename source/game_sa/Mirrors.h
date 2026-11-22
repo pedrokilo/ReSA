@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -26,7 +27,7 @@ public:
     static inline auto& d3dRestored = StaticRef<bool>(0xC7C729);
     static inline auto& TypeOfMirror = StaticRef<eMirrorType>(0xC7C724);
     static inline auto& MirrorFlags = DatosExe::Bss::bC7C618; // int32 con signo en el original (movsx de los flags de la zona)
-    static inline auto& MirrorV = StaticRef<float>(0xC7C61C);
+    static inline auto& MirrorV = DatosExe::Bss::bC7C61C;
     static inline auto& MirrorNormal = StaticRef<CVector>(0xC803D8);
 
 public:
