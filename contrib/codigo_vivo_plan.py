@@ -34,7 +34,7 @@ def main():
 
     def add(lote, parte, tipo, grupo, decision, destino, items, riesgo, depende, nota, bytes_=None):
         vas = [x['va'] for x in items]
-        if tipo not in ('puente a C++', 'revisar direcciones', 'verificar huecos'):
+        if tipo not in ('puente a C++', 'revisar direcciones', 'verificar huecos', 'raices por valor'):
             for v in vas:
                 asign[v] = lote
         b = bytes_ if bytes_ is not None else sum(int(x['bytes']) for x in items)
@@ -132,6 +132,20 @@ def main():
             [dict(va=h['va'], bytes=h['bytes']) for h in c], 'medio', '',
             'bytes ejecutables con llamador o referencia pero sin función en Ghidra; decidir si son funciones, envolturas o datos')
 
+    # ------------------------------------------------ parte 7: raices por valor (viva sin hook; contrib/raices_valor_p6.py, reclasificacion-raices-valor.md)
+    cola_csv = out / 'cola-raices-valor-p6.csv'
+    if cola_csv.exists():
+        cola = leer(cola_csv)
+        temas = [('arranque', 'arranque del EXE propio: medidas en la fase 8 y su tabla de registro (rasters D3D9, plugins de RwCamera/RpWorld)', lambda x: x['ejecucion'] != 'sin medir'),
+                 ('RenderWare', 'rutinas de RpWorld y RenderWare citadas como valor o por direccion y sin medir', lambda x: x['ejecucion'] == 'sin medir' and x['region'] == 'renderware'),
+                 ('juego', 'rutinas del juego/CRT citadas como valor o por direccion y sin medir', lambda x: x['ejecucion'] == 'sin medir' and x['region'] != 'renderware')]
+        k_ = 0
+        for tema, desc, f_ in temas:
+            for c in trozos([x for x in cola if f_(x)], 25):
+                k_ += 1
+                add(f'R{k_}', 'P7', 'raices por valor', f'Viva sin hook ({tema})', 'RECONSTRUIR', 'C++ propio con enganche', [dict(va=x['va'], bytes=int(x['bytes'])) for x in c],
+                    'medio', '', desc + '; cola ordenada en cola-raices-valor-p6.csv')
+
     # ------------------------------------------------ estado de cierre (lo escriben codigo_vivo_cierre.py y los cierres de P2)
     cierre_csv = out / 'cierre.csv'
     if cierre_csv.exists():
@@ -163,11 +177,11 @@ def main():
         w.writerows(filas)
     partes = {'P1': 'Descartes verificables (sin escribir código)', 'P2': 'Retirar los puentes del C++ por dirección',
               'P3': 'Sustituir por C++ propio', 'P4': 'Enlazar bibliotecas', 'P5': 'Fase 8: arranque y enlace',
-              'P6': 'Huecos del .text con código sin función'}
+              'P6': 'Huecos del .text con código sin función', 'P7': 'Raíces por valor: viva sin hook (cola de reconstrucción)'}
     md = ['# Plan de retirada del código vivo del EXE por partes y lotes', '',
           '[Auditoría y decisiones](README.md) · [Lotes (CSV)](plan.csv) · [Funciones vivas (CSV)](funciones-vivas.csv)', '',
           'Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 funciones; los descartes verificables se parten por rango solo para revisarlos. '
-          'En los lotes de puentes (B) y de huecos (H) «funciones» cuenta direcciones.', '',
+          'En los lotes de puentes (B), de huecos (H) y de raíces por valor (R) «funciones» cuenta direcciones/objetos.', '',
           '| Parte | Descripción | Lotes | Funciones | Bytes |', '| --- | --- | ---: | ---: | ---: |']
     for p, d in partes.items():
         ls = [l for l in lotes if l['parte'] == p]

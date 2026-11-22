@@ -1,10 +1,10 @@
 va,fin,bytes,destino,accion_y_motivo
 0x00453FB0,0x00453FB0,1,muerta-por-reemplazo,accion=documentar; destructor `ret` de los elementos de CPhoneInfo (eh vector); solo lo cita un comentario de PhoneInfo.cpp y el constructor 0x4541E0 ya es C++ (no llama al iterador): muerta
-0x005C91E0,0x005C9337,344,citada-en-cpp,"accion=documentar; ycck_cmyk_convert de libjpeg (jdcolor.c), instalada por JPegCompress.cpp con LIBJPEG_CB: con GTASA_WITH_LIBJPEG es la de libs/libjpeg-6b (enlazada, como libpng/zlib); sin la opcion sigue la del EXE"
+0x005C91E0,0x005C9337,344,viva-enlazada,"accion=documentar; ycck_cmyk_convert de libjpeg (jdcolor.c), instalada por JPegCompress.cpp con LIBJPEG_CB: con GTASA_WITH_LIBJPEG es la de libs/libjpeg-6b (enlazada, como libpng/zlib); sin la opcion sigue la del EXE"
 0x0061A8A0,0x0061A8AF,16,reconstruida,accion=enganchar; CTaskSimpleAnim::FinishRunAnimCB ya era C++ (TaskSimpleAnim.cpp) pero sin RH_ScopedInstall; viva (la registran tareas del EXE): enganchada
 0x0068B7D0,0x0068B7DF,16,reconstruida,accion=enganchar; CTaskSimpleArrestPed::FinishAnimArrestPedCB ya era C++ sin enganche; viva: enganchada
-0x007F40F0,0x007F44B5,966,pendiente-dato,"accion=reconstruir; callback de lectura por defecto del modulo de texturas de RenderWare (+0x14 de 0xC97B4C, lo guarda _rwTextureModuleOpen): viva sin enganche; 966 bytes; lote V7/rwcore"
-0x007F5140,0x007F53CB,652,pendiente-dato,accion=reconstruir; generacion de mipmaps por defecto del modulo de texturas (+0x2C): viva sin enganche; 652 bytes; lote V7/rwcore
-0x007F53D0,0x007F54F3,292,pendiente-dato,accion=reconstruir; busqueda de texturas por nombre por defecto del modulo de texturas (+0x18): viva sin enganche; 292 bytes; lote V7/rwcore
-0x007FFF00,0x007FFFCF,208,pendiente-dato,"accion=reconstruir; funcion estandar 0x09 (RwImageFindRasterFormat) del controlador D3D9, guardada en _rwD3D9DeviceSystemStandards: viva sin enganche; 208 bytes; controlador D3D9 (otro agente)"
+0x007F40F0,0x007F44B5,966,viva-sin-hook,"accion=reconstruir; callback de lectura por defecto del modulo de texturas de RenderWare (+0x14 de 0xC97B4C, lo guarda _rwTextureModuleOpen): viva sin enganche; 966 bytes; lote V7/rwcore"
+0x007F5140,0x007F53CB,652,viva-sin-hook,accion=reconstruir; generacion de mipmaps por defecto del modulo de texturas (+0x2C): viva sin enganche; 652 bytes; lote V7/rwcore
+0x007F53D0,0x007F54F3,292,viva-sin-hook,accion=reconstruir; busqueda de texturas por nombre por defecto del modulo de texturas (+0x18): viva sin enganche; 292 bytes; lote V7/rwcore
+0x007FFF00,0x007FFFCF,208,viva-sin-hook,"accion=reconstruir; funcion estandar 0x09 (RwImageFindRasterFormat) del controlador D3D9, guardada en _rwD3D9DeviceSystemStandards: viva sin enganche; 208 bytes; controlador D3D9 (otro agente)"
 0x008194D0,0x008194D4,5,reconstruida,"accion=enganchar; `mov ax, 0F7D1h; ret` (OSErr -2095), valor de los tres punteros de QuickTime (0x8E2A0C/10/14): QtmlUnavailableStub la reconstruye y la engancha"

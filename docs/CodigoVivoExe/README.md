@@ -8,6 +8,8 @@ Archivos: [plan-lotes.md](plan-lotes.md) · [plan.csv](plan.csv) · [funciones-v
 
 **Cierre V4–V8 (rama `vivo-v48`):** búsqueda por registro de las 114 llamadas indirectas de las funciones vivas conservadas y punto fijo de alcance; D3DX9 (V4), QuickTime (V6) y libpng (V8) cerrados, V5 y V7 parciales (25 abiertas con motivo exacto); ver [ejecucion-v48.md](ejecucion-v48.md) y [busqueda-registro-v48.csv](busqueda-registro-v48.csv).
 
+**Raíces por valor (rama `vivo-raices`):** el experimento de la fase 8 ([fase8-experimento.md](fase8-experimento.md)) demostró que «muerto» no valía para direcciones que el C++ escribe como valor en tablas o callbacks; reclasificación de huecos y de las 379 direcciones citadas sin gancho, cola ordenada de «viva sin hook» ([cola-raices-valor-p6.csv](cola-raices-valor-p6.csv), lotes R1–R3 de la parte P7) y resolución de las 40 condicionadas a P6: ver [reclasificacion-raices-valor.md](reclasificacion-raices-valor.md).
+
 **P3 (rama `vivo-p3`):** S1–S4 sustituidos por C++ propio (18 de las 19 del plan más `0x85742B`; `___updatetlocinfo` queda en la rama del locale), con bancos fuera del juego; ver [ejecucion-p3.md](ejecucion-p3.md) y [cierre-p3.csv](cierre-p3.csv).
 
 **Partes P4 (lotes E2-*, CRT de MSVC sin locale) y P5 (F1–F4, arranque, inicializadores, importaciones) (rama `vivo-p5`):** diseño, cifras y pasos para el ejecutable propio en [fase8-arranque.md](fase8-arranque.md); resultado por función en [fase8-arranque-lotes.csv](fase8-arranque-lotes.csv), [fase8-inicializadores.csv](fase8-inicializadores.csv) y [fase8-funclets-f4.csv](fase8-funclets-f4.csv). **F4 (despachadores de comandos de script 1500–1599 y 2000–2099 reescritos en C++, 44 funclets descartados): ver [ejecucion-f4.md](ejecucion-f4.md).**

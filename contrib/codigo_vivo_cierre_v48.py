@@ -338,6 +338,10 @@ def alcance(pe, hechos, aristas, vivas):
         rs = [t for t in rs if t[0] not in ISLAS]
         if any(f != 'enganche' for _, _, f in rs):
             marcar(cont(va), f'C++ {rs[0][0]}:{rs[0][1]}')
+    # raices por VALOR (parte 6, reclasificacion): direcciones que el C++ escribe en tablas/campos de callback y el motor llama luego; las fija
+    # contrib/raices_valor_p6.py. Casi todas ya estan en refs_src (literal de codigo); se anaden explicitas para que ningun cierre dependa de la clase «muerto» de P6
+    for r_ in leer(OUT / 'cola-raices-valor-p6.csv') if (OUT / 'cola-raices-valor-p6.csv').exists() else ():
+        marcar(cont(int(r_['va'], 16)), 'raiz por valor P6 (cola-raices-valor-p6.csv)')
     marcar(cont(cv.ENTRADA), 'entrada del CRT')
     for va in ex['tablas']:
         marcar(cont(va), 'inicializador')
@@ -491,7 +495,7 @@ def aplicar(vivas, vivos, cadena, hooks):
                 r['cierre'] = 'cerrada'
             elif r['cierre'] == 'abierta':
                 h = hooks.get(va)
-                r['motivo_v48'] = ('cerrada: la bloqueaban llamadores del EXE que hoy estan enganchados o muertos; ' +
+                r['motivo_v48'] = ('cerrada: la bloqueaban llamadores del EXE que hoy estan enganchados o sin raiz viva (ni citados como valor por el C++ ni alcanzados por la cola de raices por valor, reclasificacion-raices-valor.md); ' +
                                    (f'esta funcion esta enganchada en {h[0]} (su cuerpo ya no se ejecuta)' if h else 'ya no la alcanza nada'))
                 r['cierre'] = 'cerrada'
                 r['bloqueos'] = '0'
