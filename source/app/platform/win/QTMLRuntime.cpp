@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: QTMLRuntime
- * Reconstrucción: COMPLETA — 6/6 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 9/9 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 0/6 entradas.
+ * Validación registrada: 0/9 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -35,8 +35,7 @@ auto& QtmlCallComponentStorage = StaticRef<uintptr_t>(0x8E2A14);
 
 constexpr uintptr_t kQtmlUnavailableStub  = 0x8194D0; // mov ax, 0F7D1h; ret
 constexpr uintptr_t kQtmlLazyInitHook     = 0x819700; // gancho posterior a un fallo (resuelve los tres punteros en cada puente)
-constexpr uintptr_t kQtmlInitializeBridge = 0x818650; // puente de QuickTime (identificador en EAX, un argumento): InitializeQTML(long flags)
-constexpr uintptr_t kQtmlTerminateBridge  = 0x818670; // puente de QuickTime (identificador en EAX, sin argumentos): TerminateQTML()
+constexpr int16 kErrQuickTimeUnavailable = static_cast<int16>(0xF7D1); // -2095: el valor con que responde 0x8194D0 (`mov ax, 0F7D1h; ret`) cuando QuickTime no esta disponible
 
 constexpr int32 kErrNoModule  = static_cast<int32>(0xFFFFF7D3); // -2093: no se pudo cargar QuickTime.qts
 constexpr int32 kErrNoEntries = static_cast<int32>(0xFFFFF7D2); // -2094: faltan puntos de entrada
@@ -130,15 +129,32 @@ HMODULE __cdecl QtmlLoadLibrary(const char* name) {
     return nullptr;
 }
 
-// 0x8194B0 (lote R10A, sin validar; cdecl, 1 argumento, 5 bytes: `jmp 0x818650`, llamador 0x81968D): InitializeQTML(flags) por el puente 0x818650 de QuickTime (el puente pone el identificador de funcion en EAX y salta al despachador; aqui se llama al puente por su
-// direccion con el mismo argumento en la pila). Devuelve el OSErr de 16 bits en AX.
+// Lote S1 (codigo vivo, parte P3): los tres puentes de QuickTime que aun citaba este archivo. Cada puente del EXE (`mov eax, identificador; jmp` al despachador de QuickTime por 0x8E2A0C, precedido del gancho 0x8E2A08) no se puede escribir en C++ (el identificador viaja en EAX)
+// y nada en el juego puede llegar a ellos: QuickTime se retiro en el lote EXT1A (CAEMFDecoder::InitLibrary devuelve siempre false, no hay codigo propio que llame a QtmlInitialize/QtmlTerminate y FillCallback solo la invoca el SoundConverter de QuickTime). Se sustituyen por la
+// implementacion nula segura: responden como el EXE sin QuickTime (0x8194D0, `mov ax, 0F7D1h; ret`: OSErr -2095, "QuickTime no disponible"), sin cargar QuickTime.qts ni llamar a nada. Lo unico que se pierde frente al EXE es el camino con QuickTime instalado, que ya estaba retirado.
+// Uso real que tenian: radio personal (pistas de usuario ".aac", ".m4a" y ".mov" de CAEMFDecoder: InitializeQTML/TerminateQTML y la conversion de audio SoundConverterFillBuffer, 0x81A3C0). No se usa Media Foundation: esos formatos siguen sin cargarse (los ".mp3" van por el decoder WMA).
+
+// 0x818650 (cdecl, un argumento (banderas de InitializeQTML); devuelve el OSErr de 16 bits en AX): InitializeQTML nulo.
+int16 __cdecl QtmlInitializeBridge(int32 /*flags*/) {
+    return kErrQuickTimeUnavailable;
+}
+
+// 0x818670 (cdecl sin argumentos): TerminateQTML nulo (no hay nada que cerrar).
+void __cdecl QtmlTerminateBridge() {}
+
+// 0x81A3C0 (cdecl, 12 argumentos: media, manejador origen, tamano del origen, &salida, posicion, &C, &A, 0, 0, 0, &B, 0; devuelve el OSErr en AX): paso de datos del conversor de sonido; nulo, con el error de QuickTime no disponible y sin escribir ninguna salida.
+int16 __cdecl QtmlConverterFillBridge(void* /*media*/, void* /*handler*/, int32 /*sourceSize*/, uint32* /*out*/, int32 /*position*/, int32* /*c*/, int32* /*a*/, int32 /*z1*/, int32 /*z2*/, int32 /*z3*/, int32* /*b*/, int32 /*z4*/) {
+    return kErrQuickTimeUnavailable;
+}
+
+// 0x8194B0 (lote R10A, sin validar; cdecl, 1 argumento, 5 bytes: `jmp 0x818650`, llamador 0x81968D): InitializeQTML(flags) por el puente 0x818650 de QuickTime. Devuelve el OSErr de 16 bits en AX.
 int16 __cdecl QtmlInitializeThunk(int32 flags) {
-    return reinterpret_cast<int16(__cdecl *)(int32)>(kQtmlInitializeBridge)(flags);
+    return QtmlInitializeBridge(flags);
 }
 
 // 0x8194C0 (lote R10A, sin validar; cdecl sin argumentos, 5 bytes: `jmp 0x818670`, llamador 0x8197CE): TerminateQTML() por el puente 0x818670 de QuickTime.
 void __cdecl QtmlTerminateThunk() {
-    reinterpret_cast<void(__cdecl *)()>(kQtmlTerminateBridge)();
+    QtmlTerminateBridge();
 }
 
 // 0x819520 (lote R10A, sin validar; cdecl sin argumentos, `ret`, 148 bytes; solo se llama por el puntero 0x8E2A08, que los puentes de QuickTime ejecutan antes de saltar al despachador; el dato inicial de 0x8E2A08 es esta direccion): resuelve los tres puntos de entrada
@@ -257,4 +273,7 @@ void QTMLRuntimeInjectHooks() {
     RH_ScopedGlobalInstall(QtmlInitialize, 0x8195C0);
     RH_ScopedGlobalInstall(QtmlTerminate, 0x819770);
     RH_ScopedGlobalInstall(QtmlLoadLibrary, 0x81DAE0);
+    RH_ScopedGlobalInstall(QtmlInitializeBridge, 0x818650);   // lote S1
+    RH_ScopedGlobalInstall(QtmlTerminateBridge, 0x818670);    // lote S1
+    RH_ScopedGlobalInstall(QtmlConverterFillBridge, 0x81A3C0); // lote S1
 }

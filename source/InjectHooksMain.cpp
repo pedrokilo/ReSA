@@ -680,6 +680,7 @@
 #include "game_sa/Crt/CrtHeap.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
+#include "game_sa/RenderWare/RwMathX87.h"
 #include "game_sa/Crt/CrtFile.h"
 #include "game_sa/Crt/CrtPow.h"
 #include "game_sa/Crt/CrtException.h"
@@ -687,6 +688,7 @@
 #include "game_sa/Crt/CrtFloat.h"
 #include "game_sa/Crt/CrtFormat.h"
 #include "game_sa/Crt/CrtCtype.h"
+#include "game_sa/Crt/CrtLocale.h"
 #include "game_sa/Crt/CrtInput.h"
 #include "game_sa/Crt/CrtLowIo.h"
 #include "game_sa/Crt/CrtStdio.h"
@@ -840,6 +842,7 @@ void InjectHooksMain() {
     CPedATMAttractor::InjectHooks();
     CProtectionStub::InjectHooks();
     RwD3D9RasterDriver::InjectHooks();     // lote 224A (sin validar)
+    RwMathX87InjectHooks();                // lote S3: callbacks x87 de _rwcseg (matrices, vectores, palabra de control)
     LibJpegCompressEncode::InjectHooks();  // lote 230A (sin validar)
     LibJpegDecompress::InjectHooks();      // lote 233A (sin validar)
     LibJpegMemory::InjectHooks();                 // lote 235A (sin validar)
@@ -1254,7 +1257,8 @@ void InjectHooksMain() {
     CrtFileInjectHooks();    // lote CRT2A: envolturas de FILE (fread/fwrite/fseek/fclose/fflush/fgets/fputs/fopen), sprintf/vsprintf/fprintf/sscanf, getenv, __stbuf/__ftbuf, _CxxThrowException
     CrtFloatInjectHooks();   // lote CRT4A: conversion de coma flotante a texto (_cfltcvt, _fltout2, $I10_OUTPUT, ...), aritmetica entera
     CrtFormatInjectHooks();  // lote CRT4A: _output (motor de printf)
-    CrtCtypeInjectHooks();   // lote CRT4A: _tolower/isdigit/isspace/isxdigit del locale del hilo
+    CrtCtypeInjectHooks();   // lote CRT4A: _tolower/isdigit/isspace/isxdigit del locale del hilo (+ CRT4A-locale: toupper, isalpha..., atol, stricmp, strlwr...)
+    CrtLocaleInjectHooks();  // lote CRT4A-locale: __updatetlocinfo, _isctype, _tolower_lk/_toupper_lk, __crtLCMapStringA, __crtGetStringTypeA, _wctomb, _mbtowc
     CrtInputInjectHooks();   // lote CRT4A: _input (motor de scanf), _ungetc_nolock, _getbuf
     CrtFloatInInjectHooks(); // lote CRT4A: texto -> coma flotante (_strgtold12, _ld12cvt, _atodbl, _atoflt, _fassign)
     CrtLowIoInjectHooks();   // lote CRT5A: capa baja de E/S del CRT (_open/_sopen/_close/_read/_write/_lseek/_commit/_chsize, __pioinfo y sus bloqueos)

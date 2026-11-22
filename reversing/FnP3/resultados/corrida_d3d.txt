@@ -1,0 +1,8 @@
+rasters: 400000 casos (devuelven 1: 152485); por tipo: 0=85626 1=57522 2=57181 3=28489 4=57615 5=57016 6=28234 7=28317
+casos con llamadas (marca 0xD23 CreateTexture, 0xD25 cubo, 0xD29 superficie de profundidad, 0xD05 Evict, 0xC1 GetClientRect, 0xE4 FreeListAlloc, 0xE1 malloc, 0xE3 realloc, 0xD10 CheckDeviceFormat, 0xF1 RwFreeListCreate): c1=42653 e1=1465 e2=20 e3=20 e4=69172 e5=5985 f1=400000 d05=30326 d10=197751 d12=52978 d23=79488 d29=12884
+ayudante 0x4CB7C0 textura: 100000 casos (devuelven != 0: 49907), 0 diferencias
+ayudante 0x4CB9C0 destino de render: 100000 casos (devuelven != 0: 48896), 0 diferencias
+ayudante 0x4CC5C0 formato: 100000 casos (devuelven != 0: 51843), 0 diferencias
+ayudante 0x4CCD70 profundidad: 100000 casos (devuelven != 0: 70669), 0 diferencias
+  cobertura (ayudante * 0x1000 + marca; marcas 0xD23 CreateTexture, 0xD25 cubo, 0xD29 profundidad, 0xD05 Evict, 0xE1 malloc, 0xE3 realloc, 0xE4 FreeListAlloc): e1=5371 e3=6 e4=54208 d23=41381 d25=42102 10e1=5 10e3=7 10e4=5 1d05=62583 1d23=31393 1d25=31190 30e1=29 30e3=29 30e4=35 3d05=73389 3d29=73389
+RESULTADO: SIN DIFERENCIAS (0 diferencias)

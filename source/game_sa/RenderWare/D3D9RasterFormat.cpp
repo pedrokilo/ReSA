@@ -614,7 +614,7 @@ void D3D9RasterFormat::ConvertRasterToDisplayFormat(RwRaster* raster) {
 
 L_Rebuild:
     RwD3D9RasterDriver::RasterDestroyCpp(nullptr, raster, 0);
-    plugin::CallAndReturn<int32, 0x4CCE60, int32, RwRaster*, uint32>(0, raster, (raster->cType & 7u) | newFormat | 0x9000u);
+    RwD3D9RasterDriver::RasterCreateCpp(nullptr, raster, (raster->cType & 7u) | newFormat | 0x9000u);
     _rwD3D9RasterSetFromImage(raster, image, 0); // 0x8001E0
     RwImageDestroy(image);
 }

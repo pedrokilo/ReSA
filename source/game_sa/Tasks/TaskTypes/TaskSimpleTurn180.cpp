@@ -6,10 +6,10 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CTaskSimpleTurn180
- * Reconstrucción: COMPLETA — 7/7 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 8/8 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 7/7 entradas.
+ * Validación registrada: 7/8 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
@@ -44,6 +44,7 @@ void CTaskSimpleTurn180::InjectHooks() {
 
     RH_ScopedInstall(Constructor, 0x631CC0);
     RH_ScopedInstall(Destructor, 0x631D00);
+    RH_ScopedInstall(FinishAnimTurn180CB, 0x631D60); // P6/H1 (sin validar): callback de fin de animacion; el EXE lo sigue citando desde la tabla de callbacks 0x8D0954 y desde una copia sin enganchar (0x637FE0)
 
     RH_ScopedVMTInstall(Clone, 0x636570);
     RH_ScopedVMTInstall(GetTaskType, 0x631CE0);
@@ -64,6 +65,7 @@ CTaskSimpleTurn180::~CTaskSimpleTurn180() {
     }
 }
 
+// 0x631D60 (cdecl (asociacion, tarea), `ret`, 16 bytes: no lee la asociacion; pone el BYTE +8 a 1 y el puntero de la animacion (+0xC) a nulo)
 void CTaskSimpleTurn180::FinishAnimTurn180CB(CAnimBlendAssociation* anim, void* data) {
     const auto self = static_cast<CTaskSimpleTurn180*>(data);
     self->m_animHasFinished = true;

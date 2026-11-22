@@ -4,7 +4,9 @@ Rama `codigo-vivo` (desde `origin/main` a23d661f77, 21/11/2026). Objetivo del pr
 
 Archivos: [plan-lotes.md](plan-lotes.md) · [plan.csv](plan.csv) · [funciones-vivas.csv](funciones-vivas.csv) (una fila por función no reemplazada, con grupo, decisión, llamadores, alcance y lote) · [grupos.csv](grupos.csv) · [subgrupos.csv](subgrupos.csv) · [destinos-sin-catalogo.csv](destinos-sin-catalogo.csv) (los 819) · [entradas-sin-catalogar.csv](entradas-sin-catalogar.csv) (las 9.223) · [motivos.csv](motivos.csv) · [referencias-cpp-por-direccion.csv](referencias-cpp-por-direccion.csv) · [huecos.csv](huecos.csv) y [huecos-resumen.csv](huecos-resumen.csv) · [resumen.json](resumen.json).
 
-**Estado de ejecución (rama `vivo-p2`):** P1 (V1–V3) verificada y P2 en curso; ver [ejecucion-p1-p2.md](ejecucion-p1-p2.md), [cierre.csv](cierre.csv), [cierre-p1.csv](cierre-p1.csv) y [cierre-p2.csv](cierre-p2.csv).
+**Estado de ejecución (rama `vivo-p2`):** P1 (V1–V3) verificada y P2 en curso; **P4 libpng/zlib y D3DX9 (E1, E3): ver [ejecucion-p4.md](ejecucion-p4.md)**; ver [ejecucion-p1-p2.md](ejecucion-p1-p2.md), [cierre.csv](cierre.csv), [cierre-p1.csv](cierre-p1.csv) y [cierre-p2.csv](cierre-p2.csv).
+
+**P3 (rama `vivo-p3`):** S1–S4 sustituidos por C++ propio (18 de las 19 del plan más `0x85742B`; `___updatetlocinfo` queda en la rama del locale), con bancos fuera del juego; ver [ejecucion-p3.md](ejecucion-p3.md) y [cierre-p3.csv](cierre-p3.csv).
 
 ## 0. Resumen en diez líneas
 

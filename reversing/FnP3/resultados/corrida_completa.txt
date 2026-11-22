@@ -1,0 +1,6 @@
+vectores: puntos 400000 (dif 0), vectores 400000 (dif 0), punto 400000 (dif 0), vector 400000 (dif 0)
+matrices: 400000 casos, 0 diferencias
+palabra de control x87: 8312 casos, 0 diferencias
+_ftol2 (0x821B40): 400000 casos, 0 diferencias
+0x82872C + matherr: 400001 casos, 0 diferencias
+RESULTADO: SIN DIFERENCIAS

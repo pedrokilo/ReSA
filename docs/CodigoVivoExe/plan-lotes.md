@@ -59,12 +59,12 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | B-R3 | P2 | revisar direcciones | No son entrada de función | REVISAR | revisar | 40 | 0 | 0x005C53D0–0x005CD160 | bajo |  | clasificado |
 | B-R4 | P2 | revisar direcciones | No son entrada de función | REVISAR | revisar | 40 | 0 | 0x005CD220–0x00763310 | bajo |  | clasificado |
 | B-R5 | P2 | revisar direcciones | No son entrada de función | REVISAR | revisar | 23 | 0 | 0x007F12F0–0x00856BC0 | bajo |  | clasificado |
-| S1 | P3 | sustituir | QuickTime/QTML | SUSTITUIR | Media Foundation / sin QuickTime | 3 | 78 | 0x00818650–0x0081A3C0 | medio |  | pendiente |
-| S2 | P3 | sustituir | RenderWare no reconstruible | SUSTITUIR | C++ propio (RenderWare D3D9) | 6 | 2,563 | 0x004CB730–0x004CCE60 | alto |  | pendiente |
-| S3 | P3 | sustituir | RenderWare no reconstruible | SUSTITUIR | C++ propio (vectores) | 6 | 844 | 0x00857000–0x00857404 | medio |  | pendiente |
-| S4 | P3 | sustituir | CRT y arranque | SUSTITUIR | C++ propio (ExeCrt) | 4 | 830 | 0x00821B40–0x00833605 | alto |  | pendiente |
-| E1-1 | P4 | enlazar | libpng y zlib | ENLAZAR | libpng 1.0.12 + zlib 1.1.3 (libs/) | 25 | 13,694 | 0x007D26E0–0x007E21F0 | medio |  | pendiente |
-| E1-2 | P4 | enlazar | libpng y zlib | ENLAZAR | libpng 1.0.12 + zlib 1.1.3 (libs/) | 23 | 19,230 | 0x007E2600–0x007E77E0 | medio |  | pendiente |
+| S1 | P3 | sustituir | QuickTime/QTML | SUSTITUIR | Media Foundation / sin QuickTime | 3 | 78 | 0x00818650–0x0081A3C0 | medio |  | sustituido |
+| S2 | P3 | sustituir | RenderWare no reconstruible | SUSTITUIR | C++ propio (RenderWare D3D9) | 6 | 2,563 | 0x004CB730–0x004CCE60 | alto |  | sustituido y verificado con banco |
+| S3 | P3 | sustituir | RenderWare no reconstruible | SUSTITUIR | C++ propio (vectores) | 6 | 844 | 0x00857000–0x00857404 | medio |  | sustituido y verificado con banco |
+| S4 | P3 | sustituir | CRT y arranque | SUSTITUIR | C++ propio (ExeCrt) | 4 | 830 | 0x00821B40–0x00833605 | alto |  | parcial: 3 de 4 sustituidas y verificadas con banco |
+| E1-1 | P4 | enlazar | libpng y zlib | ENLAZAR | libpng 1.0.12 + zlib 1.1.3 (libs/) | 25 | 13,694 | 0x007D26E0–0x007E21F0 | medio |  | enlazado (parcial) |
+| E1-2 | P4 | enlazar | libpng y zlib | ENLAZAR | libpng 1.0.12 + zlib 1.1.3 (libs/) | 23 | 19,230 | 0x007E2600–0x007E77E0 | medio |  | enlazado (parcial) |
 | E2-excepciones-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 40 | 3,583 | 0x008212ED–0x0082871B | medio |  | pendiente |
 | E2-excepciones-2 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 11 | 760 | 0x008289C0–0x00836ECE | medio |  | pendiente |
 | E2-montón-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 21 | 1,731 | 0x00821195–0x00830141 | medio |  | pendiente |
@@ -73,14 +73,14 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | E2-cadenas-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 12 | 2,507 | 0x008213D0–0x00836697 | medio |  | pendiente |
 | E2-estado-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 15 | 481 | 0x008216FF–0x00834379 | medio |  | pendiente |
 | E2-sin-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 1 | 13 | 0x00822E45–0x00822E45 | medio |  | pendiente |
-| E3 | P4 | enlazar | D3DX9 | ENLAZAR | D3DX9 real (d3dx9_43.dll) | 1 | 0 | 0x007652AE–0x007652AE | bajo |  | pendiente |
+| E3 | P4 | enlazar | D3DX9 | ENLAZAR | D3DX9 real (d3dx9_43.dll) | 1 | 0 | 0x007652AE–0x007652AE | bajo |  | cerrado |
 | F1 | P5 | fase 8 | CRT y arranque | FASE8 | arranque del CRT enlazado | 27 | 3,117 | 0x00821397–0x00835335 | alto | E2-excepciones-1 | pendiente |
 | F2 | P5 | fase 8 | CRT y arranque | FASE8 | inicializadores estáticos | 4 | 248 | 0x00826A72–0x008339CA | alto | F1 | pendiente |
 | F3 | P5 | fase 8 | Importaciones y carga retardada | FASE8 | enlace (delay-load) | 6 | 120 | 0x00807C10–0x00836AFC | bajo |  | pendiente |
 | F4 | P5 | revisar | Excepciones (Unwind/Catch) | REVISAR | dueño no resuelto | 44 | 592 | 0x00838190–0x00838A46 | bajo |  | pendiente |
-| H1 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 21,802 | 0x00402705–0x0050E462 | medio |  | pendiente |
-| H2 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 15,986 | 0x005173F0–0x005CC289 | medio |  | pendiente |
-| H3 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 12,802 | 0x005CC698–0x00728B06 | medio |  | pendiente |
-| H4 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 24,479 | 0x0072F505–0x00761C26 | medio |  | pendiente |
-| H5 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 34,977 | 0x00761DDE–0x007EF33E | medio |  | pendiente |
-| H6 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 18,311 | 0x007F12E3–0x008568AB | medio |  | pendiente |
+| H1 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 21,802 | 0x00402705–0x0050E462 | medio |  | clasificado: 42 de 45 huecos cerrados |
+| H2 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 15,986 | 0x005173F0–0x005CC289 | medio |  | clasificado: 45 de 45 huecos cerrados |
+| H3 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 12,802 | 0x005CC698–0x00728B06 | medio |  | clasificado: 45 de 45 huecos cerrados |
+| H4 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 24,479 | 0x0072F505–0x00761C26 | medio |  | clasificado: 42 de 45 huecos cerrados |
+| H5 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 34,977 | 0x00761DDE–0x007EF33E | medio |  | clasificado: 42 de 45 huecos cerrados |
+| H6 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 18,311 | 0x007F12E3–0x008568AB | medio |  | clasificado: 43 de 45 huecos cerrados |
