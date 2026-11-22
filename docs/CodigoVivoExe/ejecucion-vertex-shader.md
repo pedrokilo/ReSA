@@ -42,7 +42,16 @@ eversing\FnBIS1` con `AGUA_ASI` = el ASI construido: ver sec. 5.
 
 ## 5. Resultado del humo
 
-(rellenado al terminar las pruebas; ver el informe de la rama)
+ASI Debug con todos los ganchos activos (incluido `_rpD3D9VertexShaderCreate`), `AGUA_ASI` = el ASI construido, archivo de argumentos sin opciones (`" 
+"`: un archivo totalmente vacío rompe `jugar.ps1`, que hace `.Trim()` sobre `$null`):
+
+| Prueba | Resultado |
+| --- | --- |
+| `prueba_ropero.py` | `BIEN` (puerta y marcador; captura `D:\Original\sim_outopero_vs1.png`: CJ entero, de espaldas, con gorra verde, cadena y tatuaje, sin deformaciones) |
+| `prueba_agua.py` | `BIEN` (brillo medio 48,0; `UnderWaterness = 1.0`) |
+| `prueba_marcadores.py` | `BIEN` (12 marcadores en memoria, 12 cambian en 1 s) |
+
+Nota: con el ASI el vertex shader solo se crea si el juego pide un descriptor no cacheado; el humo confirma que el camino de CJ (`0x7C8060`) sigue bien con la función ahora en C++.
 
 ## 6. Riesgos
 
