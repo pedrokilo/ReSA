@@ -21,7 +21,7 @@ END GENERATED HOOK STATUS */
 
 auto& gStreamFileHandles = StaticRef<HANDLE[MAX_CD_STREAM_HANDLES]>(0x8E4010);
 auto& gCdImageNames = StaticRef<char[MAX_CD_STREAM_HANDLES][MAX_CD_STREAM_IMAGE_NAME_SIZE]>(0x8E4098);
-auto& gStreamFileCreateFlags = DatosExe::Data::v8E3FE0;
+auto& gStreamFileCreateFlags = StaticRef<uint32>(0x8E3FE0);
 auto& gCdStreams = StaticRef<CdStream*>(0x8E3FFC);
 auto& gStreamCount = StaticRef<int32>(0x8E4090);
 auto& gOpenStreamCount = StaticRef<int32>(0x8E4094);

@@ -38,6 +38,8 @@ HARNESS = [0x8D37D4, 0x8D37E0, 0x8D37E4, 0x8D514C, 0x8D621C, 0x8E4BA0, 0x8E4CB4,
 # rangos que las pruebas recorren con indices (jugadores 0xB7CD98 + i*0x190; juego de colores 0xB7C4A0 de 172 bytes)
 HARNESS_RANGOS = [(0xB7CD70, 0xB7D0B0), (0xB7C490, 0xB7C560)]
 MARGEN = 16
+# Excluidas por biseccion (ropero MAL con la variable propia, causa sin explicar): CTheScripts::SwitchDefaultAddress.
+CULPABLES = {0xA43F54}
 EXCL = ('/RenderWare/', '/Crt', '/crt', 'ExeProtectionStub', 'DatosExe/')
 CLASES_PTR = re.compile(r'^(C[A-Z]\w+|Rw\w+|Rp\w+|Rx\w+|Rt\w+)$')
 
@@ -79,6 +81,8 @@ def main():
         if not (LO <= va < HI):
             continue
         rs = por[va]
+        if va in CULPABLES:
+            continue
         if any(any(x in r['archivo'] for x in EXCL) for r in rs):
             continue
         if {r['forma'] for r in rs} != {'StaticRef'}:
@@ -111,6 +115,9 @@ def main():
         sel.append((va,) + cand[va])
     if grupo != 'T':
         sel = [s for s in sel if s[1] == grupo]
+    if '--solo' in sys.argv:   # lista de VA (una por linea) a la que se limita el lote: biseccion de fallos
+        solo = {int(x.strip(), 16) for x in Path(sys.argv[sys.argv.index('--solo') + 1]).read_text().split() if x.strip()}
+        sel = [s for s in sel if s[0] in solo]
     print(f'DE05-{grupo}: {len(sel)} objetos, {sum(len(s[5]) for s in sel)} referencias, {sum(s[2] for s in sel)} bytes')
     out = RAIZ / 'docs/DatosExe/lotes'
     out.mkdir(parents=True, exist_ok=True)

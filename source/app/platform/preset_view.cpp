@@ -26,7 +26,7 @@ constexpr auto ViewsFileName = "./views.txt"; // 0x8D2E24;
 
 auto& PresetViews = StaticRef<PresetView*>(0xC1707C);
 auto& NumPresetViews = StaticRef<int32>(0xC17080);
-auto& CurrentPresetView = DatosExe::Data::v8D2E30; // -1
+auto& CurrentPresetView = StaticRef<int32>(0x8D2E30); // -1
 
 // Como el original (`fld [nodo+0Ch]; fchs; fstp [esp]`): la x87 silencia un NaN senalizante al cargarlo (bit 22) y FCHS cambia el signo; el resto de valores solo cambia de signo.
 static float NegateThroughX87(float value) {

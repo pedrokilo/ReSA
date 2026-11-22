@@ -58,7 +58,7 @@ public:
 };
 
 static inline auto& ppCurrIplInstance = StaticRef<CEntity**>(0x8E3EFC);
-static inline auto& NumIplEntityIndexArrays = DatosExe::Data::v8E3F00;
+static inline auto& NumIplEntityIndexArrays = StaticRef<int32>(0x8E3F00);
 static inline auto& IplEntityIndexArrays = StaticRef<std::array<CEntity**, 40>>(0x8E3F08); // Array of CEntity* array pointers
 static inline auto& gbIplsNeededAtPosn = DatosExe::Data::v8E3FA8;
 static inline auto& gvecIplsNeededAtPosn = StaticRef<CVector>(0x8E3FD0);

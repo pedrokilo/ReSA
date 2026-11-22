@@ -1860,7 +1860,7 @@ int16 MouseCameraStick(const CPad* pad, bool vertical) {
 bool __stdcall TwoPlayerCameraVisible(CVector source) {
     CColPoint point;
     CEntity* entity{};
-    DatosExe::Data::v8CCB80 = 5;
+    StaticRef<uint8>(0x8CCB80) = 5;
     if (CWorld::ProcessLineOfSight(source, StaticRef<CPed*>(0xB7CD98)->GetPosition(), point, entity, true, false, false, false, false, true, true, false)) return false;
     return !CWorld::ProcessLineOfSight(source, StaticRef<CPed*>(0xB7CF28)->GetPosition(), point, entity, true, false, false, false, false, true, true, false);
 }
@@ -1988,7 +1988,7 @@ void CCam::Process_Cam_TwoPlayer() {
     m_fHorizontalAngle = m_fBetaSpeed * CTimer::GetTimeStep() + m_fHorizontalAngle;
     TwoPlayerCameraGeometry(this, nullptr, m_fHorizontalAngle, &m_vecSource, &m_vecFront, &m_vecTargetCoorsForFudgeInter);
     if (attempt == 21 && now - StaticRef<uint32>(0xB6EC24) > 500) {
-        CColPoint point; CEntity* entity{}; DatosExe::Data::v8CCB80 = 5;
+        CColPoint point; CEntity* entity{}; StaticRef<uint8>(0x8CCB80) = 5;
         if (CWorld::ProcessLineOfSight(m_vecTargetCoorsForFudgeInter,m_vecSource,point,entity,true,false,false,false,false,true,true,false)) m_vecSource = point.m_vecPoint;
         if (StaticRef<uint32>(0x96A8B4) < now && StaticRef<uint32>(0x96A8B8) < 6) {
             CHud::SetHelpMessage(TheText.Get("WRN2_2P"),false,false,false);

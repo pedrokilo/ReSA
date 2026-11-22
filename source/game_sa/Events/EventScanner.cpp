@@ -624,7 +624,7 @@ void CObjectPotentialCollisionScanner::ScanForObjectPotentialCollisionEvents(CPe
 void CPedAcquaintanceScanner::ScanForPedAcquaintances(CPed& ped, CEntity** entities, int32 count) {
     // Como el original: CTaskTimer en linea con el intervalo de la tabla del EXE (0x8D2358, 500). Si no estaba arrancado se arranca (y se sigue);
     // si estaba detenido se reinicia el inicio; si ya vencio (unsigned: hora >= inicio + intervalo) se rearranca y se escanea. Los booleanos se leen como bytes (!= 0).
-    const auto& interval = DatosExe::Data::v8D2358;
+    const auto& interval = StaticRef<int32>(0x8D2358);
     uint32 now = CTimer::GetTimeInMS();
     if (!m_timer.m_bStarted) {
         m_timer.m_nInterval  = interval;

@@ -101,7 +101,7 @@ public:
 
     static inline auto& m_bNightVision = DatosExe::Bss::bC402B8;
     static inline auto& m_fNightVisionSwitchOnFXCount = StaticRef<float>(0xC40300); // = CPostEffects::m_fNightVisionSwitchOnFXTime
-    static inline auto& m_fNightVisionSwitchOnFXTime = DatosExe::Data::v8D50B0; // 50.0f
+    static inline auto& m_fNightVisionSwitchOnFXTime = StaticRef<float>(0x8D50B0); // 50.0f
     static inline auto& m_NightVisionGrainStrength = DatosExe::Data::v8D50A8; // 48
     static inline auto& m_NightVisionMainCol = StaticRef<CRGBA>(0x8D50AC); // { 255, 0, 130, 0};
 
@@ -110,7 +110,7 @@ public:
     static inline auto& m_DarknessFilterAlphaDefault = DatosExe::Data::v8D50F4; // 170
     static inline auto& m_DarknessFilterRadiosityIntensityLimit = DatosExe::Data::v8D50F8; // 45
 
-    static inline auto& m_fWaterFXStartUnderWaterness = DatosExe::Data::v8D514C; // 0.535f;
+    static inline auto& m_fWaterFXStartUnderWaterness = StaticRef<float>(0x8D514C); // 0.535f;
     static inline auto& m_fWaterFullDarknessDepth = DatosExe::Data::v8D5148; // 90.0f
     static inline auto& m_bWaterDepthDarkness = DatosExe::Data::v8D5144;  // true;
 

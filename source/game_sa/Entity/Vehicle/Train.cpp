@@ -762,10 +762,10 @@ void CTrain::FindPositionOnTrackFromCoors() {
             return;
         }
         const auto lighting = reinterpret_cast<uint8(__thiscall*)(CTrainNode*)>(0x6F5F80)(&nodes[i]);
-        const auto day = DatosExe::Data::v8D12C0;
+        const auto day = StaticRef<float>(0x8D12C0);
         const auto previous = TrainNodeLightingCpp(lighting & 15, lighting >> 4, day);
         const auto nextLighting = reinterpret_cast<uint8(__thiscall*)(CTrainNode*)>(0x6F5F80)(&nodes[next]);
-        const auto nextDay = DatosExe::Data::v8D12C0;
+        const auto nextDay = StaticRef<float>(0x8D12C0);
         m_fContactSurfaceBrightness = TrainLightingBlendCpp(nextLighting & 15, nextLighting >> 4, nextDay, previous, factor);
     }
 }

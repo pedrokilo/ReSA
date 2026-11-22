@@ -4366,8 +4366,8 @@ void CAEVehicleAudioEntity::ProcessDummyHovercraft(tVehicleParams& params) {
     float offset = accel > 0 ? DatosExe::Rdata::k858B1C : ratio;
     if (brake > 0) offset = DatosExe::Rdata::k85901C;
     const auto rev = std::clamp(*reinterpret_cast<float*>(bytes+0x9C4) * DatosExe::Rdata::k862D18, 0.f, 1.f);
-    const auto volume = StaticRef<float>(0xB6BA90) * rev + DatosExe::Data::v8CBFAC;
-    const auto target = ((StaticRef<float>(0xB6BA94) * rev + DatosExe::Data::v8CBFBC * ratio) + DatosExe::Data::v8CBFB4) + offset;
+    const auto volume = StaticRef<float>(0xB6BA90) * rev + StaticRef<float>(0x8CBFAC);
+    const auto target = ((StaticRef<float>(0xB6BA94) * rev + DatosExe::Data::v8CBFBC * ratio) + StaticRef<float>(0x8CBFB4)) + offset;
     if (m_CurrentRotorFrequency < 0.f) m_CurrentRotorFrequency = target;
     m_CurrentRotorFrequency = target < m_CurrentRotorFrequency ? std::max(target, m_CurrentRotorFrequency-DatosExe::Rdata::k862D04) : std::min(target, m_CurrentRotorFrequency+DatosExe::Rdata::k862D04);
     UpdateGenericVehicleSound(1, m_DummySlot, m_DummyEngineBank, 0, m_CurrentRotorFrequency, volume, 3.5f);
@@ -5034,14 +5034,14 @@ void ProcessBicycleAudio(CAEVehicleAudioEntity& self, CAEVehicleAudioEntity::tVe
     const auto ratio = VehAudioBicycleRatioCpp(params.Speed, *reinterpret_cast<float*>(reinterpret_cast<uint8*>(params.Transmission)+0x58));
     const auto wheel = float(vehicle[0x804]);
     const auto volume = (AudioLog10ScaledExe(wheel * .25f * ratio, 20.0f) + self.m_EventVolume) + DatosExe::Data::v8CBEBC;
-    const auto frequencyBase = ((wheel * StaticRef<float>(0xB6BA6C)) * .125f + StaticRef<float>(0xB6BA6C) * ratio) + DatosExe::Data::v8CBD5C;
+    const auto frequencyBase = ((wheel * StaticRef<float>(0xB6BA6C)) * .125f + StaticRef<float>(0xB6BA6C) * ratio) + StaticRef<float>(0x8CBD5C);
     // 0x4FFF39..0x4FFF66 / 0x5001AF..0x5001DC: fsin sin redondear; fchs solo si sin < 0; fmul 0x8CBD60; fadd 1.0f; fmul frequencyBase; un solo fstp
     const float angle = *reinterpret_cast<float*>(vehicle+0x648);
     const float frequency = VehAudioBicycleFrequencyCpp(angle, DatosExe::Data::v8CBD60, frequencyBase);
     const bool pedaling = vehicle[0x834] != 0;
     const auto tyre = pedaling ? self.GetBaseVolumeForBicycleTyre(ratio) : 0.f;
     const auto sprocketVolume = (AudioLog10ScaledExe(tyre, 20.0f) + self.m_EventVolume) + DatosExe::Data::v8CBEC0;
-    const auto sprocketFrequency = StaticRef<float>(0xB6BA70) * ratio + DatosExe::Data::v8CBD64;
+    const auto sprocketFrequency = StaticRef<float>(0xB6BA70) * ratio + StaticRef<float>(0x8CBD64);
     self.PlayBicycleSound(CAEVehicleAudioEntity::AE_SOUND_BICYCLE_TYRE, slot, 0, volume, frequency);
     self.PlayBicycleSound(CAEVehicleAudioEntity::AE_SOUND_BICYCLE_SPROCKET_1, slot, 1, sprocketVolume, sprocketFrequency);
     auto& wasPedaling = StaticRef<uint8>(player ? 0xB6BAC9 : 0xB6BAC8);

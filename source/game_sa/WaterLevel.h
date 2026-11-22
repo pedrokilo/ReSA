@@ -75,7 +75,7 @@ class CWaterLevel {
     static inline auto& m_nWaterConfiguration = StaticRef<uint32>(0xC228A0);
     static inline auto& m_nWaterTimeOffset = StaticRef<uint32>(0xC228A4);
     static inline auto& m_bWaterFog = DatosExe::Data::v8D37D4;
-    static inline auto& m_bWaterFogScript = DatosExe::Data::v8D37D5;
+    static inline auto& m_bWaterFogScript = StaticRef<bool>(0x8D37D5);
     static inline auto& m_WaterFogDensity = DatosExe::Data::v8D37E0;
 
     static inline auto& faWaveMultipliersX = DatosExe::Data::v8D38C8;
@@ -104,7 +104,7 @@ class CWaterLevel {
     static inline auto& CameraRangeMaxX = StaticRef<int32>(0xC1F958);
     static inline auto& CameraRangeMinX = StaticRef<int32>(0xC1F95C);
 
-    static inline auto& DETAILEDWATERDIST = DatosExe::Data::v8D37D0; // Default: 48
+    static inline auto& DETAILEDWATERDIST = StaticRef<int32>(0x8D37D0); // Default: 48
     static inline auto& bSplitBigPolys = DatosExe::Data::v8D37F4;     // Default: true
     static inline auto  BigPolySize = 168; // NOTSA variable, but value is OG.
 
