@@ -1,0 +1,34 @@
+{
+ "referencias_totales": 49736,
+ "destinos_distintos": 17010,
+ "objs": 1103,
+ "hooks_direcciones": 13493,
+ "codigo": {
+  "destinos_texto": 13832,
+  "con_hook": 13492,
+  "sin_hook": 340,
+  "sin_hook_por_confianza": {
+   "C": 109,
+   "B": 124,
+   "A": 107
+  },
+  "cierre_por_llamadas": {
+   "funciones": 652,
+   "bytes": 299480,
+   "por_region": {
+    "renderware": 447,
+    "crt": 136,
+    "juego": 69
+   },
+   "bytes_por_region": {
+    "renderware": 179052,
+    "crt": 102869,
+    "juego": 17559
+   },
+   "llamadas_indirectas_sin_resolver": 612,
+   "funciones_de_la_iat": 39
+  },
+  "raices_funcion": 231
+ },
+ "nota": "Tercera ronda (22/11/2026): scan_obj + analizar de FnIND0A sobre los .obj de wv-int + over (rwcore, RunningScript, RpAnimBlend); docs/hooks.csv sin los ganchos nuevos."
+}

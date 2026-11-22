@@ -348,6 +348,33 @@ void InstalarContadoresD3D() {
     LogT("contadores de D3D9 instalados en el vtable del dispositivo 0x%08lX", (DWORD)(uintptr_t)dev);
 }
 HANDLE g_hiloPrincipal; // duplicado del hilo que ejecuta NOTSA_WinMain (para volcar su pila cuando la guardia lo mata)
+// Tercera ronda: prueba por memoria del estado del mundo (solo lecturas protegidas): jugador (CWorld::Players[PlayerInFocus].m_pPed, posicion del CMatrix), area (CGame::currArea),
+// contadores de tiempo y ocupacion de los pools de peds y vehiculos.
+int ContarPool(uint32_t pool, int* tam) {
+    if (!Legible(pool, 4)) return -1;
+    const uint32_t p = *(uint32_t*)pool;
+    if (!p || !Legible(p, 0x10)) return -1;
+    const uint32_t mapa = *(uint32_t*)(p + 4); const int n = *(int*)(p + 8);
+    if (n <= 0 || n > 100000 || !Legible(mapa, n)) return -1;
+    int vivos = 0;
+    for (int i = 0; i < n; ++i) if (!(((uint8_t*)mapa)[i] & 0x80)) ++vivos;
+    *tam = n;
+    return vivos;
+}
+void LogMundo() {
+    int tp = 0, tv = 0;
+    const int peds = ContarPool(0xB74490, &tp), veh = ContarPool(0xB74494, &tv);
+    const int foco = Legible(0xB7CD74, 4) ? *(int*)0xB7CD74 : -1;
+    uint32_t ped = 0; float x = 0, y = 0, z = 0; bool tienePos = false;
+    if (foco >= 0 && foco < 2 && Legible(0xB7CD98 + foco * 0x190, 4)) ped = *(uint32_t*)(0xB7CD98 + foco * 0x190);
+    if (ped && Legible(ped + 0x14, 4)) {
+        const uint32_t m = *(uint32_t*)(ped + 0x14);
+        if (m && Legible(m + 0x30, 12)) { x = *(float*)(m + 0x30); y = *(float*)(m + 0x34); z = *(float*)(m + 0x38); tienePos = true; }
+    }
+    const int area = Legible(0xB72914, 4) ? *(int*)0xB72914 : -1;
+    const uint32_t ms = Legible(0xB7CB84, 4) ? *(uint32_t*)0xB7CB84 : 0;
+    LogT("mundo: jugador=0x%08lX pos=%s(%d, %d, %d) area=%d tiempo-juego=%lu ms peds=%d/%d vehiculos=%d/%d", ped, tienePos ? "" : "?", (int)x, (int)y, (int)z, area, ms, peds, tp, veh, tv);
+}
 // Tercera ronda: vuelca los scripts activos (CTheScripts::pActiveScripts 0xA8B42C): nombre, base e IP (relativa a ScriptSpace 0xA49960) y los bytes alrededor de la IP,
 // para los fallos del motor de scripts ("Unknown param type"), que son de datos o de lectura de argumentos.
 void VolcarScripts() {
@@ -430,6 +457,7 @@ DWORD WINAPI Guardia(LPVOID) {
             InstalarContadoresD3D();
             LogT("latido: frame=%lu estado-juego=%ld Present=%ld EndScene=%ld Clear=%ld Draw*=%ld codigo-original-distinto=%ld hits=%ld excepciones=%ld", frame, Legible(0xC8D4C0, 4) ? *(volatile LONG*)0xC8D4C0 : -1L, g_cPresent, g_cEndScene, g_cClear, g_cDraw, g_nDistintas, g_nHits, g_nExc);
             if (++nLat % 5 == 1) EnumWindows(EnumVentanas, 0);
+            if (nLat % 2 == 0) LogMundo();
         }
         const bool sinLatido = g.limite && hubo && ahora - ultimoCambio > 20000;
         if ((g.limite && t > g.limite * 1000) || sinLatido) {
@@ -550,7 +578,24 @@ void EjecutarInicializadoresEstaticos() {
 // ---------------- Reconstrucciones minimas del propio experimento ("shims") ----------------
 // Retirados (codigo vivo CAM): 0x750430, 0x750460 y 0x750480 (envolturas del plugin 0x509 de RwCamera), 0x750AC0, 0x7F98D0, 0x7F99B0 y 0x7FFF00 ya son funciones C++ con gancho
 // (rpworld.cpp y rwcore.cpp); instalar aqui un salto propio sobre esas direcciones pisaria el gancho real. `--shims` queda aceptado y no hace nada.
-void InstalarShims() {}
+// Tercera ronda: shims del experimento (NO son reconstrucciones; se activan con --shims y se documentan en fase8-experimento.md). Escriben un JMP en la reserva de INT3.
+int __cdecl ShimDevuelveUno() { return 1; }
+struct ShimDef { uint32_t va; void* destino; const char* nota; };
+void InstalarShims() {
+    const ShimDef lista[] = {
+        {0x80E270, (void*)ShimDevuelveUno, "nodeBody nodeD3D9SubmitNoLight.csl (1.380 B, Im3D sin luz): no dibuja nada"},
+        {0x7C7B90, (void*)ShimDevuelveUno, "nodeBody nodeD3D9SkinAtomicAllInOne.csl (skin D3D9, varios KB): los atomics con skin no se dibujan"},
+    };
+    for (const ShimDef& d : lista) {
+        DWORD viejo = 0;
+        if (!VirtualProtect((void*)d.va, 8, PAGE_EXECUTE_READWRITE, &viejo)) { LogT("shim 0x%08X: VirtualProtect fallo", d.va); continue; }
+        uint8_t* p = (uint8_t*)d.va;
+        p[0] = 0xE9;
+        *(int32_t*)(p + 1) = (int32_t)((uint32_t)d.destino - (d.va + 5));
+        VirtualProtect((void*)d.va, 8, viejo, &viejo);
+        LogT("shim 0x%08X: %s", d.va, d.nota);
+    }
+}
 
 void DirectorioDeLaRuta() {
     if (g.dirJuego[0]) return;
@@ -625,7 +670,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR cmd, int show) {
     LogT("DllMain devolvio %d", ok);
     RemoveVectoredExceptionHandler(g_vehHandle);
     g_vehHandle = AddVectoredExceptionHandler(1, Vectorizado);
-    if (g.shims) { InstalarShims(); LogT("--shims: sin efecto (las funciones de camara y D3D9 ya estan reconstruidas con gancho)"); }
+    if (g.shims) { InstalarShims(); LogT("--shims: instalados"); }
     {
         auto* nt = (const IMAGE_NT_HEADERS32*)(g.archivo + ((const IMAGE_DOS_HEADER*)g.archivo)->e_lfanew);
         auto* sec = IMAGE_FIRST_SECTION(nt);

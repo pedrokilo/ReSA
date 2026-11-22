@@ -1,0 +1,33 @@
+FALLO (llamada a codigo original sin reemplazo) codigo 0x80000003 en EIP=0x007FB650 [original(codigo)] t=12125 ms
+  EAX=001AF558 EBX=001AFE8C ECX=07575B68 EDX=007FB650 ESI=001AF484 EDI=001AF628 EBP=001AF628 ESP=001AF470
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x0] 0x01F2FAE5 propio
+    [esp+0x20] 0x007FB650 original(codigo)
+    [esp+0xA8] 0x01E52BD7 propio
+    [esp+0xB0] 0x01F2D268 propio
+    [esp+0xDC] 0x01C9AF2F propio
+    [esp+0x1BC] 0x01C9D47F propio
+    [esp+0x1DC] 0x01C6CD2C propio
+    [esp+0x1FC] 0x0247592E propio
+    [esp+0x204] 0x02475DFC propio
+    [esp+0x2EC] 0x02BBDF07 propio
+    [esp+0x2F8] 0x016D429C propio
+    [esp+0x37C] 0x00CCCCCC propio
+    [esp+0x3D0] 0x016D43CF propio
+    [esp+0x3D4] 0x02CB0434 propio
+    [esp+0x3F0] 0x0270381C propio
+    [esp+0x3F8] 0x026FFB70 propio
+    [esp+0x404] 0x026FFB7A propio
+    [esp+0x418] 0x01EF0F59 propio
+    [esp+0x42C] 0x01EF0F68 propio
+    [esp+0x488] 0x00F9A784 propio
+    [esp+0x4A8] 0x00FB4A8F propio
+    [esp+0x4AC] 0x02CB0434 propio
+    [esp+0x4BC] 0x01730E55 propio
+    [esp+0x4D4] 0x018BA0D8 propio
+    [esp+0x4DC] 0x018BA0D8 propio
+    [esp+0x574] 0x02B3F731 propio
+    [esp+0x578] 0x00F9A842 propio
+    [esp+0x580] 0x024C23E7 propio
+    [esp+0x648] 0x00FFFFFF propio
+    [esp+0x64C] 0x00FFFFFF propio

@@ -1,0 +1,81 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo estricto
+codigo original 0x00401000-0x00858000: NO copiado, relleno con INT3 (4550656 bytes)
+seccion .text    VA 0x00401000 virtual  4546560: codigo, omitida
+seccion _rwcseg  VA 0x00857000 virtual     4096: codigo, omitida
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+datos copiados desde el original: 641024 bytes
+imports de la IAT original: 214, sin resolver: 0
+[    78 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+FALLO (primera oportunidad) codigo 0xC0000005 en EIP=0x01FBA684 [propio] t=172 ms
+  acceso lectura a 0x000000A0
+  EAX=000000A0 EBX=002EE000 ECX=000000A0 EDX=00000000 ESI=00E1D350 EDI=001AFAE8 EBP=001AF9DC ESP=001AF9B8
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x0] 0x00E1D350 propio
+    [esp+0x20] 0x01C29B84 propio
+    [esp+0x28] 0x01C29CA2 propio
+    [esp+0x34] 0x00E1D350 propio
+    [esp+0x3C] 0x013F5D75 propio
+    [esp+0x4C] 0x013F59F0 propio
+    [esp+0xA4] 0x01334318 propio
+    [esp+0xEC] 0x013D8C14 propio
+    [esp+0xF8] 0x013EB066 propio
+    [esp+0x134] 0x01C28B6F propio
+    [esp+0x13C] 0x00E1D350 propio
+    [esp+0x148] 0x00E1D350 propio
+    [esp+0x1B0] 0x013D8C14 propio
+    [esp+0x1BC] 0x013EB066 propio
+    [esp+0x1C4] 0x00E1D350 propio
+    [esp+0x1F0] 0x00E1D350 propio
+    [esp+0x1FC] 0x013EAF2F propio
+    [esp+0x200] 0x01FB1540 propio
+    [esp+0x214] 0x01C0C38B propio
+    [esp+0x21C] 0x00E1D350 propio
+    [esp+0x228] 0x00E1D350 propio
+    [esp+0x248] 0x00E1D350 propio
+    [esp+0x254] 0x013F5FFE propio
+    [esp+0x264] 0x00E1D350 propio
+    [esp+0x27C] 0x01000100 propio
+    [esp+0x2B4] 0x00E1D350 propio
+    [esp+0x2C0] 0x013EAF2F propio
+    [esp+0x2C4] 0x01FB05E0 propio
+    [esp+0x2D4] 0x00E1D350 propio
+    [esp+0x2F4] 0x01FB30FD propio
+FALLO (no manejada) codigo 0xC0000005 en EIP=0x01FBA684 [propio] t=172 ms
+  acceso lectura a 0x000000A0
+  EAX=000000A0 EBX=002EE000 ECX=000000A0 EDX=00000000 ESI=00E1D350 EDI=001AFAE8 EBP=001AF9DC ESP=001AF9B8
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x0] 0x00E1D350 propio
+    [esp+0x20] 0x01C29B84 propio
+    [esp+0x28] 0x01C29CA2 propio
+    [esp+0x34] 0x00E1D350 propio
+    [esp+0x3C] 0x013F5D75 propio
+    [esp+0x4C] 0x013F59F0 propio
+    [esp+0xA4] 0x01334318 propio
+    [esp+0xEC] 0x013D8C14 propio
+    [esp+0xF8] 0x013EB066 propio
+    [esp+0x134] 0x01C28B6F propio
+    [esp+0x13C] 0x00E1D350 propio
+    [esp+0x148] 0x00E1D350 propio
+    [esp+0x1B0] 0x013D8C14 propio
+    [esp+0x1BC] 0x013EB066 propio
+    [esp+0x1C4] 0x00E1D350 propio
+    [esp+0x1F0] 0x00E1D350 propio
+    [esp+0x1FC] 0x013EAF2F propio
+    [esp+0x200] 0x01FB1540 propio
+    [esp+0x214] 0x01C0C38B propio
+    [esp+0x21C] 0x00E1D350 propio
+    [esp+0x228] 0x00E1D350 propio
+    [esp+0x248] 0x00E1D350 propio
+    [esp+0x254] 0x013F5FFE propio
+    [esp+0x264] 0x00E1D350 propio
+    [esp+0x27C] 0x01000100 propio
+    [esp+0x2B4] 0x00E1D350 propio
+    [esp+0x2C0] 0x013EAF2F propio
+    [esp+0x2C4] 0x01FB05E0 propio
+    [esp+0x2D4] 0x00E1D350 propio
+    [esp+0x2F4] 0x01FB30FD propio
+[   172 ms] estado: dispositivo D3D9 [0xC97C28]=0x00000000, RwCamera [0xC1703C]=0x00000000, contador de fotogramas=0, ventanas del proceso:

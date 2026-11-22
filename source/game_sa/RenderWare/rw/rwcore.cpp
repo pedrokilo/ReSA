@@ -12142,6 +12142,13 @@ RxNodeDefinition* _rwD3D9RxNodeDefinitionGetImmInstance() {
     return reinterpret_cast<RxNodeDefinition*>(0x8E2918);
 }
 
+// 0x80E970 (fase 8 tercera ronda, sin validar; 18 bytes; nodeBody del nodo de Rx "ImmInstance.csl" (definicion 0x8E2918, tabla de nodeMethods +4); lo llama RxPipelineExecute en la tuberia de transformacion de Im3D; primera ruptura tras llegar al mundo del
+// EXE independiente; cdecl, (RxPipelineNode* nodo, RxPipelineNodeParam* parametros) -> RwBool, `ret`): guarda el primer dword del parametro (puntero a los datos de Im3D) en 0xC9AB30 y devuelve TRUE.
+RwBool _rxD3D9ImmInstanceNodeBody(void* /*node*/, const uint32* params) {
+    StaticRef<uint32>(0xC9AB30) = params[0];
+    return TRUE;
+}
+
 // 0x80E9A0 (lote R34A, sin validar; 6 bytes; era llamada por direccion fija desde 0x80A1C9; cdecl sin argumentos; nombre inferido): `mov eax, 0x8E2978; ret`: definicion del nodo de Rx "nodeD3D9SubmitNoLight.csl"
 // (nodeBody 0x80E270) de Im3D de D3D9. Es una variable del EXE: se devuelve su direccion.
 RxNodeDefinition* _rwD3D9RxNodeDefinitionGetSubmitNoLight() {
@@ -12528,6 +12535,7 @@ void RwD3D9InjectHooksR34A() {
     RH_ScopedGlobalInstall(_rwD3D9Im3DRenderClose, 0x80DFB0);
     RH_ScopedGlobalInstall(_rwD3D9Im3DRenderOpen, 0x80E020);
     RH_ScopedGlobalInstall(_rwD3D9RxNodeDefinitionGetImmInstance, 0x80E990);
+    RH_ScopedGlobalInstall(_rxD3D9ImmInstanceNodeBody, 0x80E970);
     RH_ScopedGlobalInstall(_rwD3D9RxNodeDefinitionGetSubmitNoLight, 0x80E9A0);
 }
 

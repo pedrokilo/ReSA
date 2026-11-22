@@ -157,3 +157,86 @@ pwsh -File reversing/FnFase8/correr_f8b.ps1 -Et r9 -Lim 30 -Cap 15       # menu:
 pwsh -File reversing/FnFase8/correr_f8b.ps1 -Et g1 -Lim 60 -Cap 45       # partida nueva: SaveGameToLoad=0
 python -I reversing/FnFase8/gen_init_estaticos.py                         # regenera StandaloneInit.inc (unicorn y capstone)
 ```
+
+## 8. Tercera ronda (22/11/2026, rama `fase8-exp3`, base `origin/main` 72437c24e9)
+
+Mismo método (datos del `gta_sa.exe` original solo como archivo, `.text` relleno de INT3, modo estricto). Los `.obj` son los de `wv-int` (mismo commit) con `over\` para lo recompilado en esta rama (`rwcore`, `RunningScript`, `RpAnimBlend`). `_build_FASE8C.sh` enlaza en 30 s, `_cc_FASE8C.sh <archivo.cpp>` recompila uno y reenlaza, `_run_f8c.sh <etiqueta> <límite> <captura_s> <líneas> [--shims]` ejecuta (carpeta propia `D:\Original\_fase8b_run`, candado `gta_lock`). Registros de cada intento en `reversing/FnFase8/ejecuciones/` (`h1`, `h2`, `h4`, `h6`, `h11`, `h13`, `h16`; capturas `h4-captura.png` y `h16-captura.png`).
+
+### 8.1 DatosExe y el puente `StandaloneInit.inc`
+
+* `DatosExe::RunStaticInitializers()` (93 de los 175 inicializadores no-CRT) **se llama desde `StandaloneExe.cpp`, justo antes del puente y de `NOTSA_WinMain`, no desde `ExeCrt::Cinit`** como proponía `ejecucion-datos-b.md`. Motivo medido (`h1`): en `Cinit` aún no han corrido los inicializadores dinámicos del C++ propio y las referencias `static inline auto& X = StaticRef<...>(dir)` (por ejemplo `CStats::StatTypesFloat`) son nulas: `CPlayerPedData::SetInitialState` -> `CStats::GetFatAndMuscleModifier` leyó `0xA0` a los 172 ms. `CrtStartup.cpp` queda sin cambios (es del agente del CRT).
+* `reversing/FnFase8/gen_init_estaticos.py` ya no tiene rutas absolutas y **solo puentea las filas con estado `pendiente` en `docs/DatosExe/inicializadores-estado.csv`**: `StandaloneInit.inc` pasa de 4.299 a **4.216 filas** (55 rutinas pendientes: constructores y constructores de elemento del EXE sin gancho, 3 destructores no de clase y 1 `fild/fdivr` x87, `0x84CFC0`, que no se puentea). Casi todas las filas salen de dos rutinas: `0x8545E0` (3.584 escrituras emuladas) y `0x8545B0` (512), constructores de elemento `0x6FA790` y `0x6FA6D0` sin gancho. `--sin-init` apaga las dos cosas. Para retirar el `.inc` del todo hay que reconstruir esos constructores (lista con el motivo por fila en `inicializadores-estado.csv`: `0x441E00`, `0x4470E0`, `0x463750`, `0x463770`, `0x4AC0D0`, los nueve `*ModelInfoStoreConstructor` `0x4C5CB0..0x4C67D0`, `0x4F1750`, `0x4E3330`, `0x4F63B0`, `0x50E6D0`, `0x5173F0`, `0x541D80`, `0x59AED0`, `0x564040`, `0x563190`, `0x43E3F0`, `0x463360`, `0x5A7570`, `0x532290`, `0x5DB2B0`, `0x5DB290`, `0x5DE520`, `0x5F6450..0x5F6540`, `0x632BD0`, `0x694850`, `0x6FA6D0`, `0x6FA790`, `0x71A8B0`, `0x720F60`, `0x728B10`, `0x72A620`, `0x72E860`, `0x5074B0`, `0x742A90`, `0x743C30`).
+
+### 8.2 Qué se rompe, en orden (cada fila es una ejecución real, partida nueva)
+
+| # | Intento | Dirección / lugar | Causa | Estado |
+| ---: | --- | --- | --- | --- |
+| 1 | `h1` | acceso a `0xA0` en `CStats::GetFatAndMuscleModifier` a los 172 ms | `RunStaticInitializers` llamada desde `Cinit` (referencias `StaticRef` aún nulas) | **Arreglado** (se llama desde `StandaloneExe.cpp`) |
+| 2 | `h2` | `0x7FB650` (432 B) desde `CShadowCamera::MakeGradientRaster` (a los 12 s) | `RwIm2DRenderLine` del controlador D3D9 (hueco de Ghidra; puntero de la tabla estándar) | **Arreglado**: `_rwD3D9Im2DRenderLine` (`rwcore.cpp`, con gancho; desensamblado completo, sin banco) |
+| 3 | `h3` | `0x4D2E10` (33 B) desde `CAnimBlendClumpData::ForAllFrames` | callback de frames fuera de pantalla. Las cinco rutinas de callback (`0x4D2B90`, `0x4D2E10`, `0x4D2E40`, `0x4D30A0`, `0x4D32D0`) estaban reconstruidas pero **con el gancho desactivado** (`DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS`): con la DLL se ejecutaba el original | **Arreglado**: se activan solo si el `.text` original no existe (`ExeCodeAbsent`: primer byte `0xCC`); con la DLL no cambia nada |
+| 4 | `h4` | **`Unknown param type: 64`** (ventana modal, el juego se cuelga) en el script `main` | ver 8.3 | **Arreglado** (`c::path::RegisterHandlers()` no se llamaba) |
+| 5 | `h11` | `0x80E970` (18 B) desde `_RxPipelineExecute` | nodeBody del nodo Rx `ImmInstance.csl` (definición `0x8E2918`) | **Arreglado**: `_rxD3D9ImmInstanceNodeBody` (guarda `params[0]` en `0xC9AB30`) |
+| 6 | `h13` (sin shim) | `0x80E270` (unos 1.380 B) desde `_RxPipelineExecute` | nodeBody de `nodeD3D9SubmitNoLight.csl` (definición `0x8E2978`): dibujo de Im3D indexado sin luz (x87 y estados D3D) | **Cola** (grande). **Shim** del experimento (`--shims`): devuelve 1 y no dibuja |
+| 7 | `h13` | `0x7C7B90` (varios KB; llama a `0x807DE0` y `0x7C8D60`) desde `_RxPipelineExecute` | nodeBody de `nodeD3D9SkinAtomicAllInOne.csl` (definición `0x8DED08`): instancia y dibujo de los atomics con skin (CJ y los peatones) | **Cola** (grande). **Shim**: devuelve 1; los atomics con skin no se dibujan |
+| 8 | `h16` | **ninguna** | con los dos shims el juego corre 80 s sin ruptura ni excepción | ver 8.4 |
+
+De las cinco definiciones de nodos Rx con `.csl` del EXE (`0x8D6338` AtomicAllInOne, `0x8D63B8` WorldSectorAllInOne, `0x8DED08` Skin, `0x8E2918` ImmInstance, `0x8E2978` SubmitNoLight) tienen gancho las dos primeras y ImmInstance; **Skin y SubmitNoLight quedan pendientes**. Lo que dice sobre el plan: otra vez el primer INT3 no figura en ningún CSV del plan; son huecos de Ghidra alcanzables por punteros de tablas (aquí, de `RxNodeDefinition`).
+
+### 8.3 `Unknown param type: 64`: causa y arreglo
+
+El popup `Unreachable code reached! ReadArg.hpp notsa::script::Read:215` era del propio código del juego, no del EXE independiente. Se añadió al EXE propio un volcado (`VolcarScripts` en `StandaloneExe.cpp`, con dos anillos de depuración en `ProcessOneCommand`: `g_DbgCmdTrace` y `g_DbgMainTrace`) con los últimos comandos y el IP de cada script. En `h6`: el script `main` ejecutó el comando n.º 3069 en `E259` (**`0x01E8` `SWITCH_ROADS_OFF`**) y el siguiente se leyó en `E25B` (solo avanzó los 2 bytes del opcode, sin sus 6 flotantes): al reanudarse leyó a mitad de un flotante (`0x40`).
+
+Causa: `ProcessOneCommand` busca primero un manejador propio en C++ (`CustomCommandHandlerOf`); si no lo hay, llama al despachador por centenas. `SWITCH_ROADS_ON/OFF` (`0x01E7/0x01E8`) tienen manejador en `Commands/PathCommands.cpp`, pero **`c::path::RegisterHandlers()` no se llamaba nunca** desde `InjectCustomCommandHooks`, y el despachador reconstruido `ProcessCommands400To499` (`0x47D210`) no tiene caso para 487/488 (el EXE sí: tabla de bytes `0x47DFE0`, destino `0x47DC4B`, `CollectParameters(6)`), así que cae en `default -> OR_INTERRUPT` sin leer parámetros. Se registra `path`. Comprobación estática: de los 14 comandos de `400..499` que el EXE atiende y el C++ no tiene como caso, 12 tienen manejador registrado en otros archivos y los otros 2 eran estos; de los espacios de nombres declarados en `Commands.hpp` solo faltaba `draw`, que no se puede registrar sin más (duplica `SET_TEXT_BACKGROUND_COLOUR`, también en `TextCommands.cpp`; sus comandos ya están como casos numéricos en los despachadores). Ningún otro comando de `0..2698` queda sin mención en C++.
+
+**Modo DLL:** no se reprodujo con el ASI (no se tomó el candado del juego compartido); el defecto es de `main`, no del EXE independiente: con el ASI `ProcessCommands400To499` también está enganchado y también devuelve `OR_INTERRUPT` para `0x01E7/0x01E8`. Pendiente confirmarlo con una partida nueva del ASI.
+
+### 8.4 Estado alcanzado (con los dos shims) y comprobaciones
+
+* **El juego llega a CJ en el mundo y corre**: `gGameState = 9` (jugando), `CTimer::m_FrameCounter` sube sin parar (1.353 fotogramas a los 58 s), 251.403 llamadas de dibujo, **0 funciones originales ejecutadas** (`codigo-original-distinto=0`, `hits=0`, `excepciones=0`), sin guardia ni popup en 80 s (`h16`).
+* **Prueba por memoria** (`LogMundo`, cada 4 s): jugador `0x09308198`, posición **(2488, -1666, 13)** (Grove Street), área 14 -> 0 (secuencia de apertura), tiempo de juego +74 s, pool de peds 1 -> 5 -> 1 de 140 y **vehículos 0 de 110**.
+* **Captura de pantalla** (`h16-captura.png`, revisada con la herramienta de imagen; `h4-captura.png` es anterior al arreglo): se ve Grove Street, una patrulla en primer plano, palmeras y casas. **No es una verificación limpia**: el cielo sale blanco, el taxi del fondo tiene polígonos negros/blancos y los atomics con skin no se dibujan (shim): no se ve a CJ ni a los peatones. En otra captura intermedia la cámara estaba sobre un taxi mirando hacia abajo. Por tanto «CJ en el mundo» está confirmado por memoria (posición, estado, tiempo) y solo a medias por pantalla.
+* **Sin resolver, con causa probable**: (a) cielo blanco: el log trae **184 avisos «Línea de timecyc incorrecta»** (`TimeCycle.cpp:183`, `sscanf` devuelve menos de 52 campos; el código lo atribuye a una línea 320 de R*, pero son 184: probable diferencia del `sscanf` del CRT propio, a medir frente al ASI); (b) el jugador no se mueve y no hay vehículos: coherente con que el script de apertura no avanza o con los atomics sin dibujar; aún sin pruebas de entrada.
+* **Cola por tamaño** (lo que hay que reconstruir para quitar los shims): `0x80E270` (unos 1.380 B) y `0x7C7B90` más sus ayudantes (varios KB).
+
+### 8.5 Cifras (cierre estático recalculado con `FnIND0A`, `.obj` de `wv-int` + `over\`)
+
+| | Primer experimento | Segunda ronda | Tercera ronda |
+| --- | ---: | ---: | ---: |
+| Funciones del cierre | 691 | 649 | **652** |
+| Bytes | 309.142 | 297.819 | **299.480** |
+| RenderWare | 459 / 181.547 B | 444 / 177.391 B | **447 / 179.052 B** |
+| CRT | 138 / 102.946 B | 136 / 102.869 B | **136 / 102.869 B** |
+| Juego | 94 / 24.649 B | 69 / 17.559 B | **69 / 17.559 B** |
+| Llamadas indirectas sin resolver | 668 | 597 | 612 |
+| Direcciones de código citadas sin gancho (A / B / ruido C) | 379 (119 / 147 / 113) | 338 (107 / 121 / 110) | **340 (107 / 124 / 109)** |
+| Referencias a direcciones fijas / destinos distintos | 66.277 / 18.087 | 50.196 / 17.199 | **49.736 / 17.010** |
+
+El cierre **sube 3 funciones** (+1.661 B) respecto a la segunda ronda: `docs/hooks.csv` de esta rama no incluye los ganchos nuevos (`_rwD3D9Im2DRenderLine`, `_rxD3D9ImmInstanceNodeBody`; los cinco callbacks de animación entran con el gancho dependiente del `.text`) y los `.obj` de `main` incorporan despachadores que llaman a más RenderWare. El cierre estático no ve los nodos Rx que se llaman por tabla (`0x80E270`, `0x7C7B90`): el censo dinámico es la fuente fiable (**dinámico**: 0 funciones originales hasta el menú; 1 en la carga; en juego 2 con el estado actual de `main`, los dos nodos, y 0 con los shims). Datos: `fase8-experimento/resumen-ronda3.json`.
+
+### 8.6 Vídeo del logo (`Logo.mpg`)
+
+Sin cambios: el reproductor DirectShow cae en un hilo de `quartz`/DDRAW; se evita con `NoLogo`/`NoTitleOrIntro` en `gta-reversed.ini`. No se probó de nuevo esta ronda.
+
+### 8.7 Lo que falló por datos
+
+* **Orden de inicialización**: ver 8.1. Las variables `static inline auto& X = StaticRef<...>(dir)` de las clases son globales C++ con inicialización dinámica: nada que dependa de ellas puede ejecutarse antes de que el CRT propio corra sus inicializadores (por eso `Cinit` no vale para `RunStaticInitializers`).
+* **Copias desincronizadas**: `CTheScripts::MainScriptSize` y `LargestMissionScriptSize` (`DatosExe::Bss::bA444C4` y `bA444C0`, objetos propios del exe, no residen en `0xA444C4`/`0xA444C0`) valen 0 si se leen por la dirección fija del EXE (el volcado de scripts mostró `MainScriptSize=0`). No falla mientras solo C++ los use; cualquier código original o sonda que lea esas direcciones verá cero.
+* Ninguna variable sin definir en `DatosExe` produjo ruptura en esta ronda.
+
+### 8.8 Siguiente paso (ordenado)
+
+1. Reconstruir `nodeD3D9SkinAtomicAllInOne.csl` (`0x7C7B90` y ayudantes `0x7C8D60`, `0x807DE0`...) y `nodeD3D9SubmitNoLight.csl` (`0x80E270`); quitar `--shims` y volver a mirar CJ y los peatones.
+2. Reconstruir los constructores de elemento restantes y retirar `StandaloneInit.inc`.
+3. Medir el cielo blanco / timecyc frente al ASI (`sscanf` del CRT propio) y por qué el jugador no se mueve en la apertura.
+4. Confirmar con el ASI el defecto de `SWITCH_ROADS_*` (partida nueva sin FastLoader).
+5. Repetir `h16` tras cada ola (80 s) y la captura.
+
+### 8.9 Cómo reproducir la tercera ronda
+
+```
+bash /d/Original/_build_FASE8C.sh                                          # enlaza con los .obj de wv-int
+bash /d/Original/_cc_FASE8C.sh source/game_sa/RenderWare/rw/rwcore.cpp     # recompila un .cpp a over\ y reenlaza
+bash /d/Original/_run_f8c.sh h16 80 70 4 "--shims"                         # partida nueva con los dos shims; captura a los 70 s
+bash /d/Original/_run_f8c.sh h13 60 45 4                                   # sin shims: primer INT3 = 0x80E270 / 0x7C7B90
+python -I reversing/FnFase8/gen_init_estaticos.py                          # regenera StandaloneInit.inc (solo las filas pendientes de DatosExe)
+```
