@@ -110,6 +110,10 @@ def main():
                         if v in sin_func:
                             forma = 'enganche' if re.search(r'RH_Scoped\w*\s*\(', linea) else 'literal'
                             por_va_extra[v].append((rel, ln, forma))
+    # motivos concretos por direccion (p2b): sustituyen al motivo generico de `motivo()`
+    over = {}
+    if (OUT / 'motivos-p2b.csv').exists():
+        over = {int(x['va'], 16): x['motivo'] for x in leer(OUT / 'motivos-p2b.csv')}
     filas = []
     for x in base:
         va = int(x['va'], 16)
@@ -129,7 +133,7 @@ def main():
         es_fn = x['tipo'].startswith('entrada')
         filas.append(dict(va=x['va'], tipo=x['tipo'], estado_funcion=x['estado'], referencias_antes=antes,
                           referencias_ahora=len(actuales), cierre=est,
-                          motivo='' if est == 'retirada' else motivo(va, actuales, es_fn),
+                          motivo='' if est == 'retirada' else over.get(va) or motivo(va, actuales, es_fn),
                           primera_ahora=(f'{actuales[0][0]}:{actuales[0][1]}' if actuales else ''),
                           lote=''))
     # lotes (misma asignacion que codigo_vivo_plan.py)

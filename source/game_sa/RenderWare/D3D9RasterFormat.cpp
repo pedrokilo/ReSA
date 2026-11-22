@@ -23,6 +23,9 @@ END GENERATED HOOK STATUS */
 
 // Lote 225A (sin validar): reconstruccion en C++ puro de funciones del controlador D3D9 de rasters de RenderWare. Revisado contra el desensamblado instruccion por instruccion; no hay banco.
 // El listado atribuia estas direcciones a CWeaponModelInfo y a "Win"; la clase real sale del desensamblado (acceden a la extension D3D9 del raster en raster + 0xB4E9E0 y a los globales _RwD3D*).
+RwBool _rwD3D9RasterToImage(RwImage* image, RwRaster* raster);                 // rwcore.cpp: 0x7FF270
+RwBool _rwD3D9RasterSetFromImage(RwRaster* raster, RwImage* image, RwInt32 unused); // rwcore.cpp: 0x8001E0
+
 namespace {
 // Extension D3D9 del raster (_rwD3D9RasterExt), en raster + _RwD3D9RasterExtOffset (0xB4E9E0).
 struct RasterExt {
@@ -592,7 +595,7 @@ void D3D9RasterFormat::ConvertRasterToDisplayFormat(RwRaster* raster) {
     RasterExt* const ext = ExtOf(raster);
 
     RwImageAllocatePixels(image);
-    plugin::CallAndReturn<RwImage*, 0x7FF270, RwImage*, RwRaster*, int32>(image, raster->parent, 0);
+    _rwD3D9RasterToImage(image, raster->parent); // 0x7FF270
 
     uint32 newFormat;
     if (ext->alpha != 0) {
@@ -612,7 +615,7 @@ void D3D9RasterFormat::ConvertRasterToDisplayFormat(RwRaster* raster) {
 L_Rebuild:
     RwD3D9RasterDriver::RasterDestroyCpp(nullptr, raster, 0);
     plugin::CallAndReturn<int32, 0x4CCE60, int32, RwRaster*, uint32>(0, raster, (raster->cType & 7u) | newFormat | 0x9000u);
-    plugin::CallAndReturn<RwRaster*, 0x8001E0, RwRaster*, RwImage*, int32>(raster, image, 0);
+    _rwD3D9RasterSetFromImage(raster, image, 0); // 0x8001E0
     RwImageDestroy(image);
 }
 

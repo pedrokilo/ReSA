@@ -308,10 +308,12 @@ RpMaterial* CCustomBuildingDNPipeline::CustomPipeMaterialSetup(RpMaterial* mater
 // 0xC02C28 - matriz de textura del mapa de entorno de esta tubería (solo se escribe la diagonal; no es la 0xC02C70 de CCustomBuildingPipeline)
 static inline auto& DNEnvMapTexMatrix = StaticRef<D3DMATRIX>(0xC02C28);
 
-// Colaboradores sin versión en C++ equivalente: por dirección del EXE, como el original (el banco los sustituye por falsos trazados).
-static void DNSetIndices(void* indexBuffer) { ((void(__cdecl*)(void*))0x7FA1C0)(indexBuffer); }
-static void DNSetVertexDeclaration(void* declaration) { ((void(__cdecl*)(void*))0x7F9F70)(declaration); }
-static void DNVertexAlphaEnable(RwBool enable) { ((void(__cdecl*)(RwBool))0x7FE0A0)(enable); }
+RwBool _rwD3D9RenderStateVertexAlphaEnable(RwBool enable); // rwcore.cpp: 0x7FE0A0
+
+// Colaboradores: _rwD3D9SetIndices (0x7FA1C0) y _rwD3D9SetVertexDeclaration (0x7F9F70) estan en C++ (rwcore.cpp); 0x7FE0A0 se llama por direccion del EXE.
+static void DNSetIndices(void* indexBuffer) { _rwD3D9SetIndices(indexBuffer); }
+static void DNSetVertexDeclaration(void* declaration) { _rwD3D9SetVertexDeclaration(declaration); }
+static void DNVertexAlphaEnable(RwBool enable) { _rwD3D9RenderStateVertexAlphaEnable(enable); } // 0x7FE0A0 (rwcore.cpp)
 
 // 0x5D6480
 // Callback de dibujo de la tubería (cdecl, void; sus llamadores no leen EAX/ECX/EDX). Estructura como la de CCustomBuildingPipeline::CustomPipeRenderCB, con estas diferencias:

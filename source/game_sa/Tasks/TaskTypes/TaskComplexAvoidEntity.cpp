@@ -84,8 +84,7 @@ void __fastcall AvoidEntityDestructorBody(CTaskComplex* self, void* /*edx*/) {
 // call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`): destructor con borrado. Como el original: destruye con el cuerpo de la clase (0x66AAE0), libera `this` con CTask::operator delete (0x61A5B0, con hook; marca el hueco del pool de tareas) solo si
 // el bit 0 del BYTE de banderas esta puesto y devuelve `this`. Se engancha como S (clase sin reconstruir: RH_ScopedVMTInstall no es aplicable).
 __declspec(noinline) CTaskComplex* __fastcall AvoidEntityScalarDeletingDestructor(CTaskComplex* self, void* /*edx*/, uint8 flags) {
-    // Cuerpo 0x66AAE0 (lote 203A, sin hook en esta base): se llama por su direccion del EXE.
-    reinterpret_cast<void(__fastcall*)(CTaskComplex*, void*)>(0x66AAE0)(self, nullptr);
+    AvoidEntityDestructorBody(self, nullptr); // cuerpo 0x66AAE0
     if (flags & 1) {
         CTask::operator delete(self);
     }
@@ -262,7 +261,7 @@ CTask* CTaskComplexAvoidEntity::Clone() const {
     if (!memory) {
         return nullptr;
     }
-    return plugin::CallMethodAndReturn<CTask*, 0x66AA20, CTask*, eMoveState, CEntity*, const CVector*>(static_cast<CTask*>(memory), m_MoveState, m_Entity, &m_TargetPt);
+    return AvoidEntityConstructor(static_cast<CTaskComplex*>(memory), nullptr, static_cast<uint32>(m_MoveState), m_Entity, &m_TargetPt); // 0x66AA20
 }
 
 // 0x66AD40 (lote 204A, sin validar; el listado decia CTaskComplexAvoidOtherPedWhileWandering; ranura 6; thiscall, tres argumentos de pila, `ret 0Ch`, 48 bytes). Como el original: QuitIK (el cuerpo en linea de 0x66AD10 con el peaton)
@@ -283,7 +282,7 @@ CTask* CTaskComplexAvoidEntity::CreateNextSubTask(CPed* ped) {
 // CTask::operator new (0x61A5A0) con 0x30 bytes (sin memoria devuelve nulo) y construye CTaskSimpleGoToPoint (0x667CD0, con hook) con (estado de movimiento +0x10, punto +0x2C, 0.5 (0x86FC78), false, false).
 CTask* CTaskComplexAvoidEntity::CreateFirstSubTask(CPed* ped) {
     m_PedPos = ped->GetPosition();
-    if (!plugin::CallMethodAndReturn<bool, 0x66FD30, CTaskComplexAvoidEntity*, CPed*>(this, ped)) {
+    if (!AvoidEntityComputeRouteRoundSphere(this, nullptr, ped) /* 0x66FD30 */) {
         QuitIK(ped);
         return nullptr;
     }

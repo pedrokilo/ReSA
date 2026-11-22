@@ -64,12 +64,12 @@ END GENERATED HOOK STATUS */
 
 // 0x61C470
 CTaskSimpleFight::CTaskSimpleFight(CEntity* entity, int32 nCommand, uint32 nIdlePeriod) : CTaskSimple() {
-    plugin::CallMethod<0x61C470, CTaskSimpleFight*, CEntity*, int32, uint32>(this, entity, nCommand, nIdlePeriod);
+    Constructor(entity, nCommand, nIdlePeriod); // 0x61C470 (cuerpo mas abajo)
 }
 
 // 0x61C530
 CTaskSimpleFight::~CTaskSimpleFight() {
-    plugin::CallMethod<0x61C530, CTaskSimpleFight*>(this);
+    Destructor(); // 0x61C530 (cuerpo mas abajo)
 }
 
 namespace {

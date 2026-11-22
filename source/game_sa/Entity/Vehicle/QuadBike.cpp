@@ -60,7 +60,7 @@ namespace {
 // ScalarDeletingDestructor como el `call 0x6CDC30` del EXE.
 __declspec(noinline) void __fastcall QuadBikeDestructorBody(CQuadBike* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x871AE8;
-    reinterpret_cast<void(__thiscall*)(CRideAnimData*)>(0x6D0B30)(&self->m_sRideAnimData);
+    // 0x6D0B30 (destructor de CRideAnimData del EXE): es un `ret` vacio, no hace nada.
     static_cast<CAutomobile*>(self)->Destructor();
 }
 } // namespace

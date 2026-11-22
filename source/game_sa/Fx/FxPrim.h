@@ -26,6 +26,8 @@ public:
     static void InjectHooks();
 
 private: // Envoltorios para los hooks
+    friend void FxPrimConstructExe(FxPrim_c* self); // FxPrim.cpp: los usa FxEmitter.cpp sin pasar por la direccion del EXE
+    friend void FxPrimDestructExe(FxPrim_c* self);
     // 0x4A9F20 (lote 148A, banco Fn148A): constructor del EXE (vtable de la clase del EXE, 0x85A9E0; la de la DLL no vale)
     FxPrim_c* Constructor();
     // 0x4A9F40 (lote 148A, banco Fn148A): cuerpo no virtual del destructor del EXE (vtable 0x85A9E0 y punteros a cero)

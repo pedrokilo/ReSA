@@ -51,6 +51,10 @@ void StdException::Destruct() {
 }
 } // namespace notsa
 
+void ExeStdStringFromChars(void* string, const char* text);                    // Audio/Managers/AEUserRadioTrackManager.cpp
+void ExeStdRuntimeErrorFromString(void* error, const void* string);           // idem
+void ExeStdStringTidy(void* string);                                           // idem
+
 namespace ExeCrt {
 namespace {
 // std::string de MSVC 7.1 (0x1C bytes) y std::runtime_error (0x28: std::exception + std::string en +0xC): opacos, los construyen las funciones del EXE (0x4F4170, 0x4F4090)
@@ -64,9 +68,10 @@ struct ExeRuntimeError {
 static_assert(sizeof(ExeRuntimeError) == 0x28);
 
 // thiscall con un argumento de pila y `ret 4`: se invoca como __fastcall con un EDX de relleno (misma disposicion de registros y de pila)
-inline void StringFromChars(ExeString* s, const char* text) { reinterpret_cast<ExeString*(__fastcall*)(void*, void*, const char*)>(0x4F4170)(s, nullptr, text); }
-inline void RuntimeErrorFromString(ExeRuntimeError* e, const ExeString* s) { reinterpret_cast<ExeRuntimeError*(__fastcall*)(void*, void*, const ExeString*)>(0x4F4090)(e, nullptr, s); }
-inline void StringTidy(ExeString* s) { reinterpret_cast<void(__fastcall*)(void*, void*)>(0x4F3BA0)(s, nullptr); }
+// Las tres funciones viven en C++ en Audio/Managers/AEUserRadioTrackManager.cpp (cuerpos de 0x4F4170, 0x4F4090 y 0x4F3BA0).
+inline void StringFromChars(ExeString* s, const char* text) { ::ExeStdStringFromChars(s, text); }
+inline void RuntimeErrorFromString(ExeRuntimeError* e, const ExeString* s) { ::ExeStdRuntimeErrorFromString(e, s); }
+inline void StringTidy(ExeString* s) { ::ExeStdStringTidy(s); }
 
 // Unico estado de la tabla de desenrollado del EXE (0x8A1E64 / 0x8A1E88): destruir el std::string temporal con _Tidy si la excepcion atraviesa este marco
 struct TempStringGuard {

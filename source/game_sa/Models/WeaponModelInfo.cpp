@@ -53,6 +53,11 @@ static CWeaponModelInfo* __fastcall WeaponModelInfoScalarDeletingDestructor(CWea
 /**
  * Registra la inicialización y configuración RenderWare de modelos de armas.
  */
+// Constructor de elemento (cuerpo de WeaponModelInfoConstructorBody) para el almacen de ModelInfo.cpp: se llama sin pasar por la direccion del EXE.
+void WeaponModelInfoConstructExe(void* element) {
+    WeaponModelInfoConstructorBody(static_cast<CWeaponModelInfo*>(element), nullptr);
+}
+
 void CWeaponModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CWeaponModelInfo, 0x85BD78, 17);

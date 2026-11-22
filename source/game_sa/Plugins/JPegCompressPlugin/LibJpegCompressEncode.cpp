@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegExports.h"
 
 #include "LibJpegCompressEncode.h"
 #include "LibJpegCallback.h"
@@ -55,7 +56,7 @@ inline void* AllocLarge(void* cinfo, int32 pool, uint32 size) {
 }
 
 inline long JRoundUp(long a, long b) { // jround_up (0x5CF8A0)
-    return reinterpret_cast<long(__cdecl*)(long, long)>(0x5CF8A0)(a, b);
+    return LibJpegExportJroundUp(static_cast<int32>(a), static_cast<int32>(b)); // 0x5CF8A0
 }
 
 constexpr int32 JERR_ARITH_NOTIMPL = 1;
@@ -179,7 +180,7 @@ void ExeJinitColorConverter(void* cinfo) {
         switch (At<int32>(cinfo, 0x28)) {
         case 1:
         case 3:
-            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(0x5C35F0, "jccolor", "grayscale_convert");
+            At<uint32>(cconvert, 0x04) = LIBJPEG_CB(LibJpegFnAddress(&ExeGrayscaleConvert), "jccolor", "grayscale_convert") /* 0x5C35F0 */;
             return;
         case 2:
             At<uint32>(cconvert, 0x00) = LIBJPEG_CB(0x5C31E0, "jccolor", "rgb_ycc_start");
@@ -276,11 +277,11 @@ void ExeJinitHuffEncoder(void* cinfo) {
 // (+0xD4, byte) ERREXIT(JERR_NOT_COMPILED) o jinit_huff_encoder; need_full = num_scans (+0xA8, con signo) > 1 || optimize_coding (+0xB2, byte); jinit_c_coef_controller(cinfo, need_full);
 // jinit_c_main_controller(cinfo, 0); jinit_marker_writer (0x5C63D0); mem->realize_virt_arrays(cinfo) (mem+0x18) y marker->write_file_header(cinfo) (+0x14C, ranura 0).
 void ExeJinitCompressMaster(void* cinfo) {
-    reinterpret_cast<void(__cdecl*)(void*, int32)>(0x5C6A90)(cinfo, 0);
+    LibJpegCompress::JinitCMasterControl(static_cast<ExeJpegCompress*>(cinfo), false); // 0x5C6A90
     if (!At<uint8>(cinfo, 0xB0)) {
         ExeJinitColorConverter(cinfo);
-        reinterpret_cast<void(__cdecl*)(void*)>(0x5C7DF0)(cinfo);
-        reinterpret_cast<void(__cdecl*)(void*, int32)>(0x5C7920)(cinfo, 0);
+        LibJpegExportJinitDownsampler(cinfo); // 0x5C7DF0
+        LibJpegExportJinitCPrepController(cinfo, 0); // 0x5C7920
     }
     ExeJinitForwardDct(cinfo);
     if (At<uint8>(cinfo, 0xB1)) {
@@ -293,7 +294,7 @@ void ExeJinitCompressMaster(void* cinfo) {
     const int32 needFull = (At<int32>(cinfo, 0xA8) > 1 || At<uint8>(cinfo, 0xB2)) ? 1 : 0;
     ExeJinitCoefController(cinfo, needFull);
     ExeJinitMainController(cinfo, 0);
-    reinterpret_cast<void(__cdecl*)(void*)>(0x5C63D0)(cinfo);
+    LibJpegCompress::JinitMarkerWriter(static_cast<ExeJpegCompress*>(cinfo)); // 0x5C63D0
     At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x04), 0x18)(cinfo);
     At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x14C), 0x00)(cinfo);
 }
@@ -306,7 +307,7 @@ void ExeJpegStartCompress(void* cinfo, int32 writeAllTables) {
         ErrExit1(cinfo, JERR_BAD_STATE, At<int32>(cinfo, 0x14));
     }
     if (static_cast<uint8>(writeAllTables)) {
-        reinterpret_cast<void(__cdecl*)(void*, int32)>(0x5CFA50)(cinfo, 0);
+        LibJpegExportJpegSuppressTables(cinfo, 0); // jpeg_suppress_tables (0x5CFA50)
     }
     At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x00), 0x10)(cinfo);
     At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x18), 0x08)(cinfo);

@@ -75,6 +75,11 @@ static CClumpModelInfo* __fastcall ClumpModelInfoScalarDeletingDestructor(CClump
     return self;
 }
 
+// Constructor de elemento (cuerpo de ClumpModelInfoConstructorBody) para el almacen de ModelInfo.cpp: se llama sin pasar por la direccion del EXE.
+void ClumpModelInfoConstructExe(void* element) {
+    ClumpModelInfoConstructorBody(static_cast<CClumpModelInfo*>(element), nullptr);
+}
+
 void CClumpModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CClumpModelInfo, 0x85BD30, 17);

@@ -33,6 +33,8 @@ END GENERATED HOOK STATUS */
 #include "Particle.h"
 #include "FxTools.h"
 
+void FxPrimBPDestroyBody(FxPrimBP_c* self); // FxPrimBP.cpp: cuerpo de 0x4A9D20
+
 namespace {
 // 0x4A1900 (lote 230A, sin validar; cdecl, un argumento de pila, `ret`, 18 bytes: `mov eax,[esp+4]; push 4; push eax; mov ecx,0A9AF2Ch; call 4A9CA0; ret`; el listado decia FxEmitterBP_c): operator new de
 // FxEmitterBP_c. Reserva `size` bytes con alineacion 4 en la arena FX (FxMemoryPool_c::GetMem, 0x4A9CA0, con hook) del FxManager_c del EXE (0xA9AE80; la arena esta en +0xAC = 0xA9AF2C) y devuelve el puntero.
@@ -48,7 +50,7 @@ __declspec(noinline) void* __cdecl FxEmitterBPOperatorNew(int32 size) {
 // (FxPrimBP_c::DestructorBody no devuelve nada util y ningun llamador lee EAX).
 __declspec(noinline) void __fastcall FxEmitterBPDestructorBody(FxEmitterBP_c* self, void* /*edx*/) {
     *reinterpret_cast<uint32*>(self) = 0x85A788;
-    reinterpret_cast<void(__thiscall*)(void*)>(0x4A9D20)(self);
+    FxPrimBPDestroyBody(self); // 0x4A9D20
 }
 
 // 0x4A2B20 (lote 230A, sin validar; destructor con borrado de FxEmitterBP_c del EXE, ranura 0 de su vtable 0x85A788; thiscall, un argumento de pila, `ret 4`, 27 bytes: `push esi; mov esi,ecx; call 4A18F0;

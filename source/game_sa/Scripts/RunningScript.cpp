@@ -3232,7 +3232,7 @@ OpcodeResult CRunningScript::ProcessCommands800To899(int32 commandId) {
         CollectParameters(1);
         CObject* const obj    = GetObjectPool()->GetAtRef(ScriptParams[0].iParam);
         bool           result = false;
-        if (plugin::CallMethodAndReturn<bool, 0x46A2F0>(obj)) { // CEntity::IsInvisibleOrRenderDamaged (bandera de dano o invisible)
+        if ((obj->m_bRenderDamaged || !obj->m_bIsVisible)) { // CEntity::IsInvisibleOrRenderDamaged (bandera de dano o invisible)
             result = true;
         }
         UpdateCompareFlag(result);

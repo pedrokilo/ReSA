@@ -44,6 +44,9 @@ END GENERATED HOOK STATUS */
 #include <TaskTypes/TaskComplexBeInCouple.h>
 #include <TaskTypes/TaskComplexFollowLeaderInFormation.h>
 #include <TaskTypes/TaskSimpleHoldEntity.h>
+#include <TaskTypes/TaskComplexSunbathe.h>
+
+int32 CanSunbathe(); // 0x632140, TaskComplexSunbathe.cpp
 
 #include <Events/EventSexyPed.h>
 #include "Events/EventAcquaintancePedHate.h"
@@ -1912,10 +1915,11 @@ void CPopulation::ConvertToDummyObject(CObject* object) {
 
 // 0x614720
 namespace {
-template<uintptr_t Address, typename... Args>
-CTask* PopulationTask(size_t size, Args... args) {
-    auto* memory = static_cast<CTask*>(CTask::operator new(size));
-    return memory ? plugin::CallMethodAndReturn<CTask*, Address>(memory, args...) : nullptr;
+// Reserva la tarea en el pool de tareas (CTask::operator new, nulo si esta lleno) y la construye con el constructor C++ de la clase.
+template<typename T, typename... Args>
+T* PopulationTask(Args&&... args) {
+    void* const memory = T::operator new(sizeof(T));
+    return memory ? ::new(memory) T(std::forward<Args>(args)...) : nullptr;
 }
 float PopulationModelRadius(eModelID model) {
     return CModelInfo::GetModelInfo(model)->GetColModel()->m_boundSphere.m_fRadius;
@@ -1945,11 +1949,11 @@ void PopulationCouple(eModelID maleModel, eModelID femaleModel, CVector position
     const float femaleSpeed=female->GetWalkAnimSpeed(),maleSpeed=male->GetWalkAnimSpeed();
     if (femaleSpeed < .75f || maleSpeed < .75f || std::abs(femaleSpeed-maleSpeed)>.45f) return;
     if (femaleSpeed>maleSpeed) {
-        male->GetTaskManager().SetTask(PopulationTask<0x6836F0>(0x20,female,false,true,true,10.0f),TASK_PRIMARY_PRIMARY,false);
-        female->GetTaskManager().SetTask(PopulationTask<0x6836F0>(0x20,male,true,true,true,10.0f),TASK_PRIMARY_PRIMARY,false);
+        male->GetTaskManager().SetTask(PopulationTask<CTaskComplexBeInCouple>(female,false,true,true,10.0f),TASK_PRIMARY_PRIMARY,false);
+        female->GetTaskManager().SetTask(PopulationTask<CTaskComplexBeInCouple>(male,true,true,true,10.0f),TASK_PRIMARY_PRIMARY,false);
     } else {
-        female->GetTaskManager().SetTask(PopulationTask<0x6836F0>(0x20,male,false,true,true,10.0f),TASK_PRIMARY_PRIMARY,false);
-        male->GetTaskManager().SetTask(PopulationTask<0x6836F0>(0x20,female,true,true,true,10.0f),TASK_PRIMARY_PRIMARY,false);
+        female->GetTaskManager().SetTask(PopulationTask<CTaskComplexBeInCouple>(male,false,true,true,10.0f),TASK_PRIMARY_PRIMARY,false);
+        male->GetTaskManager().SetTask(PopulationTask<CTaskComplexBeInCouple>(female,true,true,true,10.0f),TASK_PRIMARY_PRIMARY,false);
     }
     auto malePosition=female->GetPosition()+CVector{CTaskComplexFollowLeaderInFormation::ms_offsets.Offsets[4]};
     const float maleGround=CWorld::FindGroundZFor3DCoord({malePosition.x,malePosition.y,malePosition.z+1.0f},&groundFound,nullptr)+1.0f;
@@ -1975,7 +1979,7 @@ void PopulationDefaultTask(CPed* ped,ePedType type) {
         CWorld::Add(object);
         ped->GetTaskManager().SetTask(CTaskComplexWander::GetWanderTaskByPedType(ped),TASK_PRIMARY_DEFAULT,false);
         CVector offset{0.0f,.45f,.35f};
-        auto* task=PopulationTask<0x6913A0>(0x3C,object,&offset,uint8(1),uint8(1),0x13E,0x51,false);
+        auto* task=PopulationTask<CTaskSimpleHoldEntity>(static_cast<CEntity*>(object),&offset,uint8(1),uint8(1),static_cast<AnimationId>(0x13E),static_cast<AssocGroupId>(0x51),false);
         ped->GetTaskManager().SetTaskSecondary(task,static_cast<eSecondaryTask>(4));
     }
 }
@@ -1985,7 +1989,7 @@ bool PopulationSunbathe(CPed* ped,const CVector& position) {
     CWorld::ProcessVerticalLine(position+CVector{0,0,2.0f},position.z-2.0f,hit,entity,true,false,false,false,false,false,nullptr);
     const uint8 surface=static_cast<uint8>(hit.m_nSurfaceTypeB);
     const bool force=*reinterpret_cast<bool*>(0x969159);
-    if(!entity || ((!g_surfaceInfos.IsBeach(surface)&&surface!=0x22&&surface!=0xA0&&!force)) || (!plugin::CallAndReturn<bool,0x632140>()&&!force)) return false;
+    if(!entity || ((!g_surfaceInfos.IsBeach(surface)&&surface!=0x22&&surface!=0xA0&&!force)) || (!CanSunbathe()&&!force)) return false;
     bool clear=true;
     std::array<CEntity*,2> nearby{};
     if(CPedPlacement::IsPositionClearForPed(position,3.0f,2,nearby.data(),true,true,true)) {
@@ -2000,13 +2004,13 @@ bool PopulationSunbathe(CPed* ped,const CVector& position) {
        (ground.m_vecNormal.x+ground.m_vecNormal.y)*0.0f+ground.m_vecNormal.z>.95f) {
         const float angle=CGeneral::GetRandomNumberInRange(0.0f,1.0f)*std::bit_cast<float>(0x40C90FDBu);
         ped->m_fAimingRotation=ped->m_fCurrentRotation=angle;
-        plugin::CallMethod<0x43E0C0>(&ped->GetMatrix(),angle);
+        ped->SetHeading(angle);
         CObject* towel=nullptr;
         if(towelRequired) {
             at.z=hit.m_vecPoint.z+.04f;
             towel=CPopulation::CreateSunbatheObject(&at,0xB);
             if(towel) {
-                plugin::CallMethod<0x43E0C0>(&towel->GetMatrix(),angle);
+                towel->SetHeading(angle);
                 auto& matrix=towel->GetMatrix();
                 matrix.GetUp()=ground.m_vecNormal;
                 matrix.GetRight()=CrossProduct(matrix.GetUp(),matrix.GetForward());
@@ -2023,7 +2027,7 @@ bool PopulationSunbathe(CPed* ped,const CVector& position) {
             }
         }
         const bool standing=(CGeneral::GetRandomNumber()&3)==0;
-        ped->GetTaskManager().SetTask(PopulationTask<0x631F80>(0x38,towel,standing),TASK_PRIMARY_PRIMARY,false);
+        ped->GetTaskManager().SetTask(PopulationTask<CTaskComplexSunbathe>(towel,standing),TASK_PRIMARY_PRIMARY,false);
     }
     return true;
 }

@@ -133,6 +133,11 @@ CVehicleStructure* __fastcall VehicleStructureScalarDeletingDestructorExe(CVehic
 /**
  * Registra las operaciones de configuración, extras, materiales y upgrades de vehículos.
  */
+// Constructor de elemento (cuerpo de VehicleModelInfoConstructorExe) para el almacen de ModelInfo.cpp: se llama sin pasar por la direccion del EXE.
+void VehicleModelInfoConstructExe(void* element) {
+    VehicleModelInfoConstructorExe(static_cast<CVehicleModelInfo*>(element), nullptr);
+}
+
 void CVehicleModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CVehicleModelInfo, 0x85C5C8, 17);

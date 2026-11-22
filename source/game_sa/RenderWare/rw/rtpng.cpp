@@ -90,7 +90,7 @@ void __cdecl RtPngReadData(Png png, void* data, uint32 length) {                
 void RaiseRtPNGError(RwInt32 code) {
     RwError error;
     error.pluginID  = kRtPNGPluginID;
-    error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(code);
+    error.errorCode = _rwerror(code); // 0x8088D0
     RwErrorSet(&error);
 }
 

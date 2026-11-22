@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegExports.h"
 #include "LibJpegCallback.h"
 
 #include "LibJpegError.h"
@@ -31,7 +32,7 @@ using namespace LibJpegExe;
 // en LibJpegCompress) y exit(1) del EXE (0x823CAE), que no vuelve.
 void ExeErrorExit(void* cinfo) {
     At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x00), 0x08)(cinfo);
-    reinterpret_cast<void(__cdecl*)(void*)>(0x5C6B90)(cinfo);
+    LibJpegCompress::JpegDestroy(static_cast<ExeJpegCompress*>(cinfo)); // 0x5C6B90
     reinterpret_cast<void(__cdecl*)(int32)>(0x823CAE)(1);
 }
 
@@ -47,7 +48,7 @@ void ExeOutputMessage(void* cinfo) {
 // trace_level = 0, num_warnings = 0, msg_code = 0, jpeg_message_table = 0x86B7C8, last_jpeg_message = 1 (valor del EXE), addon_message_table = first_addon_message = last_addon_message = 0.
 // Devuelve err.
 void* ExeJpegStdError(void* err) {
-    At<uint32>(err, 0x00) = 0x5CD6B0;
+    At<uint32>(err, 0x00) = LibJpegFnAddress(&ExeErrorExit); // 0x5CD6B0
     At<uint32>(err, 0x04) = LIBJPEG_CB(0x5CD700, "jerror", "emit_message");
     At<uint32>(err, 0x08) = 0x5CD6D0;
     At<uint32>(err, 0x0C) = LIBJPEG_CB(0x5CD740, "jerror", "format_message");

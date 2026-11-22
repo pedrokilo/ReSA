@@ -171,6 +171,8 @@ public:
 
 private:
     friend void InjectHooksMain();
+    friend class CCutsceneObject; // usan ConstructorDefault (0x5A1D10) sin pasar por la direccion del EXE
+    friend class CHandObject;
     static void InjectHooks();
 
     // Envoltura del hook del constructor CObject(int32, bool) (0x5A1D70, thiscall, ret 8): devuelve this en EAX como el EXE.

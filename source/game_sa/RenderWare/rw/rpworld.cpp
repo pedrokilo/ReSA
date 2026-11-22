@@ -92,6 +92,8 @@ static void       D3D9RestoreCallBack();                                        
 #include "X87Math.h"
 
 // Direcciones del EXE usadas por las funciones de este archivo.
+void RxD3D9ResEntryHeaderDestroyNotify(RwResEntry* entry); // rwcore.cpp: 0x4C9990 (RxD3D9ResEntryHeaderDestroy)
+
 namespace {
 constexpr uintptr_t kWorldSectorPluginRegistry   = 0x8D736C; // RpWorldSector: lista de plugins
 constexpr uintptr_t kD3D9AtomicAllInOneNode      = 0x8D6338; // RxNodeDefinition estatica de D3D9AtomicAllInOne
@@ -3675,7 +3677,7 @@ RwBool RpWorldPluginAttach() {
 // 0x74F730 (lote S24A, sin validar; 21 bytes; cdecl, (mundo, callback)): callback de render de sectores del mundo (+0x68) = el dado o, si es nulo, el por defecto 0x74EEC0 del EXE. Devuelve el mundo.
 RpWorld* RpWorldSetSectorRenderCallBack(RpWorld* world, RpWorldSectorCallBackRender fpCallBack) {
     static_assert(offsetof(RpWorld, renderCallBack) == 0x68);
-    world->renderCallBack = fpCallBack != nullptr ? fpCallBack : reinterpret_cast<RpWorldSectorCallBackRender>(0x74EEC0);
+    world->renderCallBack = fpCallBack != nullptr ? fpCallBack : _rpSectorDefaultRenderCallBack; // 0x74EEC0
     return world;
 }
 
@@ -5147,6 +5149,9 @@ void RpWorldInjectHooks227A() {
     RH_ScopedGlobalInstall(RpClumpRegisterPluginStream, 0x74BE70);
 }
 
+static RwBool _rpLightTieDestroy(RpLightTie* tie); // 0x74FFA0 (mas abajo en este archivo)
+static RwBool _rpTieDestroy(RpTie* tie);           // 0x74FFF0 (mas abajo en este archivo)
+
 // ---------------------------------------------------------------------------------------------------------------------
 // Lote 229A (sin validar): lista de materiales (bamatlst), geometrias dinamicas de D3D9, tuberias por defecto del modulo de
 // mundos, sectores de BSP (liberacion, desinstanciado, render por defecto) y el objeto RpWorld (crear, destruir, desbloquear,
@@ -5169,7 +5174,6 @@ constexpr RwUInt32 kMatListIndexHint = 0x10501;
 constexpr RwUInt32 kWorldAllocHint = 0x3000B;
 constexpr RwUInt32 kWorldListEntryHint = 0x40507;
 constexpr RwUInt32 kDynamicGeometryHint = 0x3050D;
-constexpr uintptr_t kSectorDefaultRenderCallBackAddress = 0x74EEC0; // el EXE guarda ESTA direccion en RpWorld::renderCallBack
 
 // Posiciones dentro de las globales del modulo de tuberias (RwEngineInstance + [0xC9BC60] + desplazamiento).
 constexpr uint32 kPipelineSlotDefaultSector = 0x40;
@@ -5227,9 +5231,9 @@ inline RxPipeline*& PipelineModuleSlot(uint32 offset) {
 }
 
 // Funciones del EXE llamadas por direccion fija (no se reconstruyen en este lote).
-inline RwInt32 TieDestroyExe(RwLLLink* link)      { return reinterpret_cast<RwInt32(__cdecl*)(RwLLLink*)>(static_cast<uintptr_t>(0x74FFF0))(link); } // ata de atomo de un sector
-inline RwInt32 LightTieDestroyExe(RwLLLink* link) { return reinterpret_cast<RwInt32(__cdecl*)(RwLLLink*)>(static_cast<uintptr_t>(0x74FFA0))(link); } // ata de luz de un sector
-inline void    D3D9VertexShaderOpenExe()          { reinterpret_cast<void(__cdecl*)()>(static_cast<uintptr_t>(0x760CF0))(); }          // inicializa la cache de shaders de vertices
+inline RwInt32 TieDestroyExe(RwLLLink* link)      { return _rpTieDestroy(reinterpret_cast<RpTie*>(link)); }           // ata de atomo de un sector
+inline RwInt32 LightTieDestroyExe(RwLLLink* link) { return _rpLightTieDestroy(reinterpret_cast<RpLightTie*>(link)); } // ata de luz de un sector
+inline void    D3D9VertexShaderOpenExe()          { _rpD3D9VertexShaderCacheOpen(); }                                  // inicializa la cache de shaders de vertices (0x760CF0)
 
 // Libera los recursos de instancia, las ataduras (atomos y luces) y los plugins de un sector con atomos (parte comun de 0x74ECA0 y 0x74ED50).
 void WorldSectorReleaseInstance(RpWorldSector* worldSector) {
@@ -5960,7 +5964,7 @@ RpWorld* RpWorldCreate(RwBBox* boundingBox) {
     RwLLLink* const directionalHead = &world->directionalLightList.link;
     directionalHead->next = directionalHead;
     directionalHead->prev = directionalHead;
-    world->renderCallBack = reinterpret_cast<RpWorldSectorCallBackRender>(kSectorDefaultRenderCallBackAddress);
+    world->renderCallBack = _rpSectorDefaultRenderCallBack; // 0x74EEC0: el EXE solo la llama (no la compara)
     world->pipeline = nullptr;
 
     // _rpWorldRegisterWorld(world, tamano del registro) en linea.
@@ -6175,13 +6179,13 @@ static RwBool _rpTieMeshPluginAttach() {
     status |= RpWorldSectorRegisterPluginStream(0x510, SectorNativeStreamRead, SectorNativeStreamWrite, SectorNativeStreamGetSize);
 
     status |= RpAtomicRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
-    status |= RpAtomicRegisterPluginStream(0x1F, readCB(0x749120), writeCB(0x749160), AtomicRightsStreamGetSize);
+    status |= RpAtomicRegisterPluginStream(0x1F, AtomicRightsStreamRead, AtomicRightsStreamWrite, AtomicRightsStreamGetSize);
     status |= RpWorldRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
     status |= RpWorldRegisterPluginStream(0x1F, _rpWorldRightsStreamRead, _rpWorldRightsStreamWrite, WorldRightsStreamGetSize);
     status |= RpWorldSectorRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
     status |= RpWorldSectorRegisterPluginStream(0x1F, _rpWorldSectorRightsStreamRead, _rpWorldSectorRightsStreamWrite, SectorRightsStreamGetSize);
     status |= RpMaterialRegisterPlugin(0, 0x1F, nullptr, nullptr, nullptr);
-    status |= RpMaterialRegisterPluginStream(0x1F, readCB(0x74D7D0), writeCB(0x74D810), MaterialRightsStreamGetSize);
+    status |= RpMaterialRegisterPluginStream(0x1F, _rpMaterialRightsStreamRead, _rpMaterialRightsStreamWrite, MaterialRightsStreamGetSize);
 
     if (status < 0) {
         return FALSE;
@@ -6675,7 +6679,6 @@ constexpr RwUInt32  kNativeGeometryFlag    = 0x1000000;             // rpGEOMETR
 constexpr RwUInt32  kNativeGeometryPlatform = 9;                    // rwID_PLATFORM_D3D9
 constexpr uintptr_t kNativePlatformIdAddress = 0x8D7384;            // dword 9 en .data (el EXE escribe sus 4 bytes)
 constexpr RwUInt32  kNativeGeometryResHint = 0x3050D;
-constexpr uintptr_t kResEntryHeaderDestroyAddress = 0x4C9990;       // RxD3D9ResEntryHeaderDestroy (recibe la RwResEntry)
 constexpr RwUInt32  kMaxNativeDeclElements = 65;                    // D3D9 admite hasta 64 elementos mas el final
 
 inline void SetVertexShaderConstantsExe(RwUInt32 reg, const void* data, RwUInt32 count) {
@@ -6687,7 +6690,7 @@ inline RwFrame* CurrentCameraFrame() {
 }
 
 inline void DestroyResEntryExe(RwResEntry* entry) {
-    reinterpret_cast<void(__cdecl*)(RwResEntry*)>(kResEntryHeaderDestroyAddress)(entry);
+    RxD3D9ResEntryHeaderDestroyNotify(entry); // 0x4C9990 (rwcore.cpp)
 }
 
 // Cabecera de recursos D3D9 que cuelga de una RwResEntry (+0x18) y sus instancias de malla (+0x40 de la cabecera, 0x24 bytes cada una).
@@ -7257,7 +7260,7 @@ RpGeometry* _rpD3D9GeometryNativeRead(RwStream* stream, RpGeometry* geometry) {
     entry->owner     = geometry;
     entry->size      = static_cast<RwInt32>(entrySize);
     entry->ownerRef  = &geometry->repEntry;
-    entry->destroyNotify = reinterpret_cast<RwResEntryDestroyNotify>(kResEntryHeaderDestroyAddress);
+    entry->destroyNotify = &RxD3D9ResEntryHeaderDestroyNotify; // 0x4C9990
     RxD3D9ResEntryHeader* const header = ResEntryHeader(entry);
     RxD3D9InstanceData* const instances = ResEntryInstances(header);
     if (RwStreamRead(stream, header, entrySize) != entrySize) {
@@ -7939,7 +7942,7 @@ RpWorldSector* _rpD3D9WorldSectorNativeRead(RwStream* stream, RpWorldSector* sec
     entry->owner     = sector;
     entry->size      = static_cast<RwInt32>(entrySize);
     entry->ownerRef  = &sector->repEntry;
-    entry->destroyNotify = reinterpret_cast<RwResEntryDestroyNotify>(kResEntryHeaderDestroyAddress);
+    entry->destroyNotify = &RxD3D9ResEntryHeaderDestroyNotify; // 0x4C9990
     RxD3D9ResEntryHeader* const header = ResEntryHeader(entry);
     RxD3D9InstanceData* const instances = ResEntryInstances(header);
     if (RwStreamRead(stream, header, entrySize) != entrySize) {

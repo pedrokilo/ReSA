@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegExports.h"
 #include "LibJpegCallback.h"
 
 #include "LibJpegDecompress.h"
@@ -67,7 +68,7 @@ inline void* AllocSmall(void* cinfo, int32 pool, uint32 size) {
 }
 
 inline long JDivRoundUp(long a, long b) { // jdiv_round_up (0x5CF890)
-    return reinterpret_cast<long(__cdecl*)(long, long)>(0x5CF890)(a, b);
+    return LibJpegExportJdivRoundUp(static_cast<int32>(a), static_cast<int32>(b)); // 0x5CF890
 }
 
 constexpr int32 JERR_BAD_BUFFER_MODE = 4;
@@ -510,7 +511,7 @@ int32 ExeConsumeMarkers(void* cinfo) {
 // eoi_reached (+0x11) = 0, inheaders (+0x14) = 1; luego err->reset_error_mgr (+0x10), marker->reset_marker_reader (cinfo+0x194, ranura 0) y coef_bits (+0x8C) = 0.
 void ExeResetInputController(void* cinfo) {
     uint8* const inputctl = At<uint8*>(cinfo, 0x190);
-    At<uint32>(inputctl, 0x00) = 0x5CA720;
+    At<uint32>(inputctl, 0x00) = LibJpegFnAddress(&ExeConsumeMarkers); // 0x5CA720
     At<uint8>(inputctl, 0x10) = 0;
     At<uint8>(inputctl, 0x11) = 0;
     At<uint8>(inputctl, 0x14) = 1;
@@ -524,9 +525,9 @@ void ExeResetInputController(void* cinfo) {
 void ExeJinitInputController(void* cinfo) {
     uint8* const inputctl = static_cast<uint8*>(AllocSmall(cinfo, 0, 0x18));
     At<void*>(cinfo, 0x190) = inputctl;
-    At<uint32>(inputctl, 0x00) = 0x5CA720;
-    At<uint32>(inputctl, 0x04) = 0x5CA7E0;
-    At<uint32>(inputctl, 0x08) = 0x5CA6E0;
+    At<uint32>(inputctl, 0x00) = LibJpegFnAddress(&ExeConsumeMarkers); // 0x5CA720
+    At<uint32>(inputctl, 0x04) = LibJpegFnAddress(&ExeResetInputController); // 0x5CA7E0
+    At<uint32>(inputctl, 0x08) = LibJpegFnAddress(&ExeStartInputPass); // 0x5CA6E0
     At<uint32>(inputctl, 0x0C) = LIBJPEG_CB(0x5CA820, "jdinput", "finish_input_pass");
     At<uint8>(inputctl, 0x10) = 0;
     At<uint8>(inputctl, 0x11) = 0;
@@ -764,7 +765,7 @@ bool ExeGetDht(void* cinfo) {
             ErrExit1(cinfo, JERR_DHT_INDEX, tbl);
         }
         if (*slot == nullptr) {
-            *slot = reinterpret_cast<uint8*(__cdecl*)(void*)>(0x5C6BD0)(cinfo); // jpeg_alloc_huff_table
+            *slot = reinterpret_cast<uint8*>(LibJpegCompress::JpegAllocHuffTable(static_cast<ExeJpegCompress*>(cinfo))); // jpeg_alloc_huff_table (0x5C6BD0)
         }
         uint8* const htbl = *slot;
         std::memcpy(htbl, bits, 17);
@@ -900,11 +901,11 @@ void ExeJinitMarkerReader(void* cinfo) {
     At<void*>(cinfo, 0x194) = marker;
     At<uint32>(marker, 0x00) = LIBJPEG_CB(0x5CC7A0, "jdmarker", "reset_marker_reader");
     At<uint32>(marker, 0x04) = LIBJPEG_CB(0x5CC290, "jdmarker", "read_markers");
-    At<uint32>(marker, 0x08) = 0x5CC610;
-    At<uint32>(marker, 0x18) = LIBJPEG_CB(0x5CC050, "jdmarker", "skip_variable");
+    At<uint32>(marker, 0x08) = LibJpegFnAddress(&ExeReadRestartMarker); // 0x5CC610
+    At<uint32>(marker, 0x18) = LIBJPEG_CB(LibJpegFnAddress(&ExeSkipVariable), "jdmarker", "skip_variable") /* 0x5CC050 */;
     At<uint32>(marker, 0x5C) = 0;
     for (uint32 i = 0; i < 16; ++i) {
-        At<uint32>(marker, 0x1C + 4 * i) = LIBJPEG_CB(0x5CC050, "jdmarker", "skip_variable");
+        At<uint32>(marker, 0x1C + 4 * i) = LIBJPEG_CB(LibJpegFnAddress(&ExeSkipVariable), "jdmarker", "skip_variable") /* 0x5CC050 */;
         At<uint32>(marker, 0x60 + 4 * i) = 0;
     }
     At<uint32>(marker, 0x1C) = LIBJPEG_CB(0x5CBF00, "jdmarker", "get_interesting_appn");
@@ -1019,12 +1020,12 @@ void MasterSelection(void* cinfo) {
         if (At<uint8>(master, 0x10)) {
             ErrExit(cinfo, JERR_NOT_COMPILED);
         } else {
-            reinterpret_cast<void(__cdecl*)(void*)>(0x5C9350)(cinfo); // jinit_color_deconverter
-            reinterpret_cast<void(__cdecl*)(void*)>(0x5CD350)(cinfo); // jinit_upsampler
+            LibJpegExportJinitColorDeconverter(cinfo); // jinit_color_deconverter (0x5C9350)
+            LibJpegExportJinitUpsampler(cinfo);        // jinit_upsampler (0x5CD350)
         }
-        reinterpret_cast<void(__cdecl*)(void*, uint32)>(0x5CCDF0)(cinfo, At<uint8>(cinfo, 0x5A)); // jinit_d_post_controller
+        LibJpegExportJinitPostController(cinfo, At<uint8>(cinfo, 0x5A)); // jinit_d_post_controller (0x5CCDF0)
     }
-    reinterpret_cast<void(__cdecl*)(void*)>(0x5C9710)(cinfo); // jinit_inverse_dct
+    LibJpegExportJinitInverseDct(cinfo); // jinit_inverse_dct (0x5C9710)
     if (At<uint8>(cinfo, 0xC9)) {
         ErrExit(cinfo, JERR_ARITH_NOTIMPL);
     } else if (At<uint8>(cinfo, 0xC8)) {
@@ -1033,7 +1034,7 @@ void MasterSelection(void* cinfo) {
         ExeJinitHuffDecoder(cinfo);
     }
     const uint8 useCBuffer = (At<uint8>(At<void*>(cinfo, 0x190), 0x10) || At<uint8>(cinfo, 0x40)) ? 1 : 0;
-    reinterpret_cast<void(__cdecl*)(void*, uint32)>(0x5C8E20)(cinfo, useCBuffer); // jinit_d_coef_controller
+    LibJpegExportJinitDCoefController(cinfo, useCBuffer); // jinit_d_coef_controller (0x5C8E20)
     if (!At<uint8>(cinfo, 0x41)) {
         ExeJinitDMainController(cinfo, 0);
     }
@@ -1090,7 +1091,7 @@ void ExePrepareForOutputPass(void* cinfo) {
 void ExeJinitMasterDecompress(void* cinfo) {
     uint8* const master = static_cast<uint8*>(AllocSmall(cinfo, 1, 0x1C));
     At<void*>(cinfo, 0x180) = master;
-    At<uint32>(master, 0x00) = 0x5CCB50;
+    At<uint32>(master, 0x00) = LibJpegFnAddress(&ExePrepareForOutputPass); // 0x5CCB50
     At<uint32>(master, 0x04) = LIBJPEG_CB(0x5CCC90, "jdmaster", "finish_output_pass");
     At<uint8>(master, 0x08) = 0;
     MasterSelection(cinfo);
@@ -1127,3 +1128,8 @@ void LibJpegDecompress::InjectHooks() {
     RH_ScopedNamedGlobalInstall(ExePrepareForOutputPass, "prepare_for_output_pass", 0x5CCB50);        // lote 234A (sin validar)
     RH_ScopedNamedGlobalInstall(ExeJinitMasterDecompress, "jinit_master_decompress", 0x5CCCC0);       // lote 234A (sin validar)
 }
+
+// Entradas publicas para LibJpegDecompressApi.cpp y JPegCompress.cpp (ver LibJpegExports.h).
+void LibJpegExportJinitInputController(void* cinfo) { ExeJinitInputController(cinfo); }       // 0x5CA840
+void LibJpegExportJinitMarkerReader(void* cinfo) { ExeJinitMarkerReader(cinfo); }              // 0x5CC7D0
+void LibJpegExportJinitMasterDecompress(void* cinfo) { ExeJinitMasterDecompress(cinfo); }      // 0x5CCCC0

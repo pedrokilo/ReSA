@@ -30,12 +30,15 @@ END GENERATED HOOK STATUS */
 #include "Weather.h"
 #include "X87Math.h"
 
+void FxPrimConstructExe(FxPrim_c* self); // FxPrim.cpp: 0x4A9F20
+void FxPrimDestructExe(FxPrim_c* self);  // FxPrim.cpp: 0x4A9F40
+
 namespace {
 // 0x4A1920 (lote 230A, sin validar; thiscall, sin argumentos de pila, `ret`, 18 bytes: `push esi; mov esi,ecx; call 4A9F20; mov [esi],85A7A4h; mov eax,esi; pop esi; ret`; el listado decia FxEmitterBP_c):
 // cuerpo del constructor de FxEmitter_c del EXE. Llama al constructor de FxPrim_c (0x4A9F20, con hook), deja la vtable de la clase del EXE (0x85A7A4; el constructor generado dejaria la de la DLL) y devuelve this.
 // No escribe m_fEmissionIntensity (+0x10).
 __declspec(noinline) FxEmitter_c* __fastcall FxEmitterConstructorBody(FxEmitter_c* self, void* /*edx*/) {
-    reinterpret_cast<void*(__thiscall*)(void*)>(0x4A9F20)(self);
+    FxPrimConstructExe(self); // 0x4A9F20 (FxPrim.cpp)
     *reinterpret_cast<uint32*>(self) = 0x85A7A4;
     return self;
 }
@@ -44,7 +47,7 @@ __declspec(noinline) FxEmitter_c* __fastcall FxEmitterConstructorBody(FxEmitter_
 // test byte [esp+8],1; je ..; push esi; call 8214BD; add esp,4; mov eax,esi; pop esi; ret 4`). Como el original: llama a 0x4A2BB0 (un `jmp 4A9F40`, el cuerpo del destructor de FxPrim_c; no se engancha: salto
 // puro, se llama por su direccion), libera `this` con el operator delete del EXE (0x8214BD, CRT, cdecl) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
 __declspec(noinline) FxEmitter_c* __fastcall FxEmitterScalarDeletingDestructor(FxEmitter_c* self, void* /*edx*/, uint8 flags) {
-    reinterpret_cast<void(__thiscall*)(void*)>(0x4A2BB0)(self);
+    FxPrimDestructExe(self); // 0x4A2BB0 salta a 0x4A9F40 (FxPrim.cpp)
     if (flags & 1) {
         reinterpret_cast<void(__cdecl*)(void*)>(0x8214BD)(self);
     }

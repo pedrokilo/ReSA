@@ -26,6 +26,8 @@ END GENERATED HOOK STATUS */
 
 using namespace notsa::envmap;
 
+RwBool _rwD3D9RenderStateVertexAlphaEnable(RwBool enable); // rwcore.cpp: 0x7FE0A0
+
 namespace {
 // Como el original: matrices de textura globales (solo se escriben la diagonal y la fila de traslación)
 auto& EnvCamTexMatrix  = StaticRef<D3DMATRIX>(0xC02D78);
@@ -716,7 +718,7 @@ void CCustomCarEnvMapPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* ob
         }
 
         // 0x5D9E0D - Como el original: llama directamente a la función interna del driver (0x7FE0A0)
-        ((void(__cdecl*)(RwBool))0x7FE0A0)(mesh->vertexAlpha || mesh->material->color.alpha != 0xFF);
+        _rwD3D9RenderStateVertexAlphaEnable(mesh->vertexAlpha || mesh->material->color.alpha != 0xFF);
 
         if (geoHasNoLighting) { // 0x5D9EF5 - Render without lighting
             RxD3D9InstanceDataRender(header, mesh);

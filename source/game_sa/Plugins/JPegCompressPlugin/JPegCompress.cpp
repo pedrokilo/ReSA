@@ -26,6 +26,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegExports.h"
 #include "jpeglib.h"
 #include "LibJpegCallback.h"
 
@@ -593,9 +594,9 @@ template <class T> inline void ErrExit2(T* cinfo, int32 code, int32 p1, int32 p2
 }
 
 // Funciones del EXE llamadas por direccion fija (no se reconstruyen en este lote).
-inline QuantTbl* ExeAllocQuantTable(CompressInfo* cinfo) { return reinterpret_cast<QuantTbl*(__cdecl*)(void*)>(uintptr_t{0x5C6BB0})(cinfo); } // jpeg_alloc_quant_table
-inline HuffTbl*  ExeAllocHuffTable(CompressInfo* cinfo)  { return reinterpret_cast<HuffTbl*(__cdecl*)(void*)>(uintptr_t{0x5C6BD0})(cinfo); }  // jpeg_alloc_huff_table
-inline void      ExeInitMasterDecompress(DecompressInfo* cinfo) { reinterpret_cast<void(__cdecl*)(void*)>(uintptr_t{0x5CCCC0})(cinfo); }    // jinit_master_decompress
+inline QuantTbl* ExeAllocQuantTable(CompressInfo* cinfo) { return reinterpret_cast<QuantTbl*>(LibJpegCompress::JpegAllocQuantTable(reinterpret_cast<ExeJpegCompress*>(cinfo))); } // jpeg_alloc_quant_table
+inline HuffTbl*  ExeAllocHuffTable(CompressInfo* cinfo)  { return reinterpret_cast<HuffTbl*>(LibJpegCompress::JpegAllocHuffTable(reinterpret_cast<ExeJpegCompress*>(cinfo))); }  // jpeg_alloc_huff_table
+inline void      ExeInitMasterDecompress(DecompressInfo* cinfo) { LibJpegExportJinitMasterDecompress(cinfo); }    // jinit_master_decompress
 inline uint32    ExeFwrite(const void* buf, uint32 size, uint32 count, void* file) { return reinterpret_cast<uint32(__cdecl*)(const void*, uint32, uint32, void*)>(uintptr_t{0x823674})(buf, size, count, file); } // fwrite del CRT del EXE
 inline int32     ExeFflush(void* file) { return reinterpret_cast<int32(__cdecl*)(void*)>(uintptr_t{0x823E86})(file); } // fflush del CRT del EXE
 
@@ -1045,7 +1046,7 @@ static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
             cconvert->color_convert = LIBJPEG_CB(0x5C91E0, "jdcolor", "ycck_cmyk_convert");
             build_ycc_rgb_table(cinfo);
         } else if (cinfo->jpeg_color_space == kCsCMYK) {
-            cconvert->color_convert = LIBJPEG_CB(0x5C90D0, "jdcolor", "null_convert");
+            cconvert->color_convert = LIBJPEG_CB(static_cast<uintptr_t>(reinterpret_cast<uintptr_t>(&null_convert)), "jdcolor", "null_convert") /* 0x5C90D0 */;
         } else {
             ErrExit(cinfo, msg::CONVERSION_NOTIMPL);
         }
@@ -1053,7 +1054,7 @@ static void __cdecl jinit_color_deconverter(DecompressInfo* cinfo) {
     default:
         if (cinfo->out_color_space == cinfo->jpeg_color_space) {
             cinfo->out_color_components = cinfo->num_components;
-            cconvert->color_convert = LIBJPEG_CB(0x5C90D0, "jdcolor", "null_convert");
+            cconvert->color_convert = LIBJPEG_CB(static_cast<uintptr_t>(reinterpret_cast<uintptr_t>(&null_convert)), "jdcolor", "null_convert") /* 0x5C90D0 */;
         } else {
             ErrExit(cinfo, msg::CONVERSION_NOTIMPL);
         }
@@ -1102,6 +1103,13 @@ static void InjectHooks232A() {
     RH_ScopedGlobalInstall(jinit_inverse_dct, 0x5C9710);
 }
 
+// Entradas publicas para LibJpegCompressEncode.cpp y LibJpegDecompress.cpp (ver LibJpegExports.h): las implementaciones de este archivo son `static`.
+void ExportJinitCPrepController(void* cinfo, uint32 needFull) { jinit_c_prep_controller(static_cast<CompressInfo*>(cinfo), static_cast<uint8>(needFull)); }          // 0x5C7920
+void ExportJinitDownsampler(void* cinfo) { jinit_downsampler(static_cast<CompressInfo*>(cinfo)); }                                                                  // 0x5C7DF0
+void ExportJinitDCoefController(void* cinfo, uint32 needFull) { jinit_d_coef_controller(static_cast<DecompressInfo*>(cinfo), static_cast<uint8>(needFull)); }        // 0x5C8E20
+void ExportJinitColorDeconverter(void* cinfo) { jinit_color_deconverter(static_cast<DecompressInfo*>(cinfo)); }                                                    // 0x5C9350
+void ExportJinitInverseDct(void* cinfo) { jinit_inverse_dct(static_cast<DecompressInfo*>(cinfo)); }                                                                // 0x5C9710
+
 } // namespace ExeLibJpeg
 
 using ExeLibJpeg::InjectHooks232A;
@@ -1109,3 +1117,10 @@ using ExeLibJpeg::InjectHooks232A;
 void ExeLibJpegInjectHooks232A() {
     InjectHooks232A();
 }
+
+// Entradas publicas para LibJpegCompressEncode.cpp y LibJpegDecompress.cpp (ver LibJpegExports.h).
+void LibJpegExportJinitCPrepController(void* cinfo, uint32 needFull) { ExeLibJpeg::ExportJinitCPrepController(cinfo, needFull); }
+void LibJpegExportJinitDownsampler(void* cinfo) { ExeLibJpeg::ExportJinitDownsampler(cinfo); }
+void LibJpegExportJinitDCoefController(void* cinfo, uint32 needFull) { ExeLibJpeg::ExportJinitDCoefController(cinfo, needFull); }
+void LibJpegExportJinitColorDeconverter(void* cinfo) { ExeLibJpeg::ExportJinitColorDeconverter(cinfo); }
+void LibJpegExportJinitInverseDct(void* cinfo) { ExeLibJpeg::ExportJinitInverseDct(cinfo); }

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegExports.h"
 
 #include "LibJpegDecompressApi.h"
 
@@ -182,7 +183,7 @@ void ExeJpegCreateDecompress(void* cinfo, int32 version, int32 structSize) {
     At<void*>(cinfo, 0x00) = err;
     At<uint32>(cinfo, 0x0C) = clientData;
     At<uint8>(cinfo, 0x10) = 1;
-    CallCinfo(0x5CF6D0, cinfo);
+    LibJpegExportJinitMemoryMgr(cinfo); // jinit_memory_mgr (0x5CF6D0)
     At<uint32>(cinfo, 0x08) = 0;
     At<uint32>(cinfo, 0x18) = 0;
     for (uint32 i = 0; i < 4; ++i) {
@@ -193,8 +194,8 @@ void ExeJpegCreateDecompress(void* cinfo, int32 version, int32 structSize) {
         At<uint32>(cinfo, 0xB0 + 4 * i) = 0;
     }
     At<uint32>(cinfo, 0x10C) = 0;
-    CallCinfo(0x5CC7D0, cinfo);
-    CallCinfo(0x5CA840, cinfo);
+    LibJpegExportJinitMarkerReader(cinfo);     // jinit_marker_reader (0x5CC7D0)
+    LibJpegExportJinitInputController(cinfo);  // jinit_input_controller (0x5CA840)
     At<int32>(cinfo, 0x14) = DSTATE_START;
 }
 
@@ -250,7 +251,7 @@ uint8 ExeJpegFinishDecompress(void* cinfo) {
         }
     }
     At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x18), 0x18)(cinfo);
-    CallCinfo(0x5C6B50, cinfo);
+    LibJpegCompress::JpegAbort(static_cast<ExeJpegCompress*>(cinfo)); // jpeg_abort (0x5C6B50)
     return 1;
 }
 
@@ -272,7 +273,7 @@ int32 ExeJpegReadHeader(void* cinfo, uint8 requireImage) {
     if (requireImage) {
         ErrExit(cinfo, JERR_NO_IMAGE);
     }
-    CallCinfo(0x5C6B50, cinfo);
+    LibJpegCompress::JpegAbort(static_cast<ExeJpegCompress*>(cinfo)); // jpeg_abort (0x5C6B50)
     return 2;
 }
 } // namespace

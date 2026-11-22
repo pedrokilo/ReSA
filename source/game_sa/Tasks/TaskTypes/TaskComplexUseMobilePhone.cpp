@@ -205,7 +205,7 @@ static_assert(TASK_SIMPLE_PHONE_IN == 0x642 && TASK_SIMPLE_PHONE_OUT == 0x643);
 // 0x61A3D0) no esta reconstruido: se llama por direccion fija. Como el original: libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
 // Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura 0).
 CTaskComplexUseMobilePhone* __fastcall UseMobilePhoneScalarDeletingDestructor(CTaskComplexUseMobilePhone* self, void* /*edx*/, uint8 flags) {
-    reinterpret_cast<void(__fastcall*)(CTaskComplexUseMobilePhone*, void*)>(0x6348E0)(self, nullptr);
+    UseMobilePhoneDestructorBody(self, nullptr); // 0x6348E0
     if (flags & 1) {
         CTask::operator delete(self);
     }
@@ -333,7 +333,7 @@ CTask* CTaskComplexUseMobilePhone::ControlSubTask(CPed* ped) {
             if (static_cast<double>(phoneOut->m_CurrentTime) >= 1.566) { // doble 0x86E4A0; igual que arriba, un NaN salta
                 const float elapsed = phoneOut->m_CurrentTime - phoneOut->m_TimeStep;
                 if (static_cast<double>(elapsed) < 1.566) {
-                    reinterpret_cast<void(__thiscall*)(CTaskComplexUseMobilePhone*, CPed*)>(0x6348F0)(this, ped);
+                    UseMobilePhonePutAway(this, nullptr, ped); // 0x6348F0
                 }
             }
         } else if (m_timer.IsOutOfTime()) {

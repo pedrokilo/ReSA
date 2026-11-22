@@ -40,18 +40,18 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | B2 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x004385B0–0x004394B0 | bajo |  | pendiente |
 | B3 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x004394E0–0x0043A4B0 | bajo |  | pendiente |
 | B4 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x0043A4C0–0x00493360 | bajo |  | parcial |
-| B5 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x00493420–0x004CB530 | bajo |  | parcial |
-| B6 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x004CB640–0x004F3BA0 | bajo |  | parcial |
+| B5 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x00493420–0x004CB530 | bajo |  | cerrado |
+| B6 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x004CB640–0x004F3BA0 | bajo |  | cerrado |
 | B7 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x004F3CE0–0x005C6850 | bajo |  | parcial |
-| B8 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x005C69E0–0x005CD6B0 | bajo |  | pendiente |
-| B9 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x005CEBC0–0x005EAE70 | bajo |  | parcial |
-| B10 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x005EAEA0–0x005ECB30 | bajo |  | pendiente |
-| B11 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x005ECBB0–0x006348F0 | bajo |  | parcial |
+| B8 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x005C69E0–0x005CD6B0 | bajo |  | cerrado |
+| B9 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x005CEBC0–0x005EAE70 | bajo |  | cerrado |
+| B10 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x005EAEA0–0x005ECB30 | bajo |  | cerrado |
+| B11 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x005ECBB0–0x006348F0 | bajo |  | cerrado |
 | B12 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x0063BDD0–0x006CE370 | bajo |  | parcial |
 | B13 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x006D03A0–0x00749120 | bajo |  | parcial |
 | B14 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x00749160–0x007D2630 | bajo |  | parcial |
 | B15 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x007D2C20–0x007FAC10 | bajo |  | parcial |
-| B16 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x007FB480–0x0080D570 | bajo |  | parcial |
+| B16 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x007FB480–0x0080D570 | bajo |  | cerrado |
 | B17 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x0080D600–0x00824257 | bajo |  | parcial |
 | B18 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 9 | 0 | 0x00824269–0x00833B96 | bajo |  | pendiente |
 | B-R1 | P2 | revisar direcciones | No son entrada de función | REVISAR | revisar | 40 | 0 | 0x00402705–0x004032B3 | bajo |  | clasificado |

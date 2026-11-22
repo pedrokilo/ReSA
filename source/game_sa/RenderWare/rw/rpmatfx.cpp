@@ -32,6 +32,13 @@ END GENERATED HOOK STATUS */
 //   0xC9ABAC dos o mas texturas simultaneas  0xC9ABB0 TextureOpCaps & MULTIPLYADD  0xC9ABB4 TextureOpCaps & MODULATE2X  0xC9ABBC MaxTextureBlendStages
 //   0xC9ABC0 pixel shaders >= 1.1  0xC9AB94..0xC9ABA8 seis pixel shaders   0x8E244C ultimo pixel shader   0x8E2448 ultimo vertex shader   0x8E2440 ultimo FVF (0x252 = XYZ|NORMAL|DIFFUSE|TEX2)
 // ---------------------------------------------------------------------------------------------------------------------------------------------
+#include "RenderWare/D3D9RasterFormat.h"
+
+RwInt32 RwD3D9TextureHasAlphaExport(const RwTexture* texture);  // rwcore.cpp: _rwD3D9TextureHasAlpha (0x4C9EA0)
+RwInt32 RwD3D9RasterIsCubeExport(const RwRaster* raster);       // rwcore.cpp: _rwD3D9RasterIsCubeRaster (0x4C9F70)
+RwBool _rwD3D9RenderStateVertexAlphaEnable(RwBool enable);      // rwcore.cpp: 0x7FE0A0
+RwInt32 _rwD3D9RenderStateGetVertexAlphaEnable();               // rwcore.cpp: 0x7FE190
+
 namespace {
 constexpr RwUInt32 kMatFXPluginID        = 0x120;
 constexpr RwUInt32 kMatFXMaterialMemHint = 0x30120;
@@ -104,8 +111,6 @@ constexpr size_t kSlotSetPixelShader       = 107; // IDirect3DDevice9::SetPixelS
 
 void* Device() { return *reinterpret_cast<void**>(0xC97C28); } // _RwD3DDevice
 
-constexpr uintptr_t kRasterIsCube          = 0x4C9F70; // _rwD3D9RasterIsCubeRaster(RwRaster*)
-constexpr uintptr_t kD3D9FlushRenderStates = 0x7FC200; // vacia los estados de render pendientes antes de dibujar
 constexpr uintptr_t kEnvMapHalfMatrix      = 0x885608; // RwMatrix constante (0.5, -0.5, 1, traslacion 0.5/0.5): de [-1,1] a [0,1]
 
 // Lote R10A (sin validar): ayudantes de los callbacks de render de MatFX (0x812AC0, 0x812D40, 0x813A10, 0x814460).
@@ -114,10 +119,6 @@ constexpr size_t kSlotSetVertexDeclaration   = 87;  // IDirect3DDevice9::SetVert
 constexpr size_t kSlotSetFVF                 = 89;  // IDirect3DDevice9::SetFVF (+0x164)
 constexpr size_t kSlotSetPixelShaderConstantF = 109; // IDirect3DDevice9::SetPixelShaderConstantF (+0x1B4)
 
-constexpr uintptr_t kTextureHasAlpha         = 0x4C9EA0; // _rwD3D9TextureHasAlpha(RwTexture*)
-constexpr uintptr_t kConvertRasterToDisplay  = 0x4CD250; // D3D9RasterFormat::ConvertRasterToDisplayFormat(RwRaster*)
-constexpr uintptr_t kVertexAlphaGet          = 0x7FE190; // estado actual del alfa por vertice del controlador D3D9 (devuelve un entero)
-constexpr uintptr_t kVertexAlphaSet          = 0x7FE0A0; // activa o desactiva el alfa por vertice del controlador D3D9
 constexpr uintptr_t kUvScratchMatrix         = 0x8E29C8; // matriz D3D de trabajo (16 dwords) de las matrices UV
 constexpr uintptr_t kEnvPixelShaders         = 0xC9AB94; // seis pixel shaders consecutivos 0xC9AB94..0xC9ABA8 (ver _rpMatFXPipelinesCreate)
 auto& D3D9LastFVF                = StaticRef<RwUInt32>(0x8E2440);  // ultimo FVF (0xFFFFFFFF = declaracion de vertices activa)
@@ -129,16 +130,16 @@ auto& MatFXFreeListNumPrealloc   = StaticRef<RwInt32>(0x8E29BC);
 void*& MatFXPixelShader(size_t index) { return reinterpret_cast<void**>(kEnvPixelShaders)[index]; }
 
 RwInt32 TextureHasAlpha(RwTexture* texture) {
-    return reinterpret_cast<RwInt32(__cdecl *)(RwTexture*)>(kTextureHasAlpha)(texture);
+    return RwD3D9TextureHasAlphaExport(texture); // _rwD3D9TextureHasAlpha (0x4C9EA0)
 }
 void ConvertRasterToDisplayFormatExe(RwRaster* raster) {
-    reinterpret_cast<void(__cdecl *)(RwRaster*)>(kConvertRasterToDisplay)(raster);
+    D3D9RasterFormat::ConvertRasterToDisplayFormat(raster); // 0x4CD250
 }
 RwInt32 VertexAlphaEnabled() {
-    return reinterpret_cast<RwInt32(__cdecl *)()>(kVertexAlphaGet)();
+    return _rwD3D9RenderStateGetVertexAlphaEnable(); // 0x7FE190
 }
 void VertexAlphaEnable(RwBool enable) {
-    reinterpret_cast<void(__cdecl *)(RwBool)>(kVertexAlphaSet)(enable);
+    _rwD3D9RenderStateVertexAlphaEnable(enable); // 0x7FE0A0
 }
 
 // fistp con el redondeo vigente (al mas cercano) del float guardado: cvtss2si; fuera de rango o NaN dan 0x80000000 como la x87.
@@ -188,7 +189,7 @@ void SelectVertexShader(const RxD3D9InstanceData* instance) {
 // Vacia los estados pendientes (0x7FC200) y dibuja la malla: con bufer de indices DrawIndexedPrimitive(tipo, baseIndex, 0, numVertices, startIndex, numPrimitives; +0x148), si no DrawPrimitive(tipo, baseIndex, numPrimitives; +0x144).
 void DrawBatch(const RxD3D9ResEntryHeader* header, const RxD3D9InstanceData* instance, RwUInt32 baseIndex) {
     const bool indexed = header->indexBuffer != nullptr;
-    reinterpret_cast<void(__cdecl *)()>(kD3D9FlushRenderStates)();
+    _rwD3D9RenderStateFlushCache(); // 0x7FC200
     if (indexed) {
         ComCall<kSlotDrawIndexedPrimitive, long>(Device(), static_cast<RwUInt32>(header->primType), baseIndex, 0u, instance->numVertices, instance->startIndex, instance->numPrimitives);
     } else {
@@ -862,10 +863,10 @@ void _rpMatFXD3D9DrawMesh(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* inst
         ComCall<kSlotSetVertexShader, long>(Device(), static_cast<void*>(instance->vertexShader));
     }
     if (header->indexBuffer != nullptr) {
-        ((void(__cdecl *)())kD3D9FlushRenderStates)();
+        _rwD3D9RenderStateFlushCache(); // 0x7FC200
         ComCall<kSlotDrawIndexedPrimitive, long>(Device(), static_cast<RwUInt32>(header->primType), instance->baseIndex, 0, instance->numVertices, instance->startIndex, instance->numPrimitives);
     } else {
-        ((void(__cdecl *)())kD3D9FlushRenderStates)();
+        _rwD3D9RenderStateFlushCache(); // 0x7FC200
         ComCall<kSlotDrawPrimitive, long>(Device(), static_cast<RwUInt32>(header->primType), instance->baseIndex, instance->numPrimitives);
     }
 }
@@ -876,7 +877,7 @@ void _rpMatFXD3D9DrawMesh(RxD3D9ResEntryHeader* header, RxD3D9InstanceData* inst
 // por la LTM de la camara, con la fila derecha negada y pos/pad a cero, por la matriz constante 0x885608, al estado 0x10 + etapa; sin marco: la constante directamente. Devuelve TRUE.
 RwBool _rpMatFXD3D9SetEnvMapTexture(RwTexture* texture, RwUInt32 stage, RwFrame* frame) {
     RwD3D9SetTexture(texture, stage);
-    if (reinterpret_cast<RwInt32(__cdecl *)(RwRaster*)>(kRasterIsCube)(texture->raster) != 0) {
+    if (RwD3D9RasterIsCubeExport(texture->raster) /* _rwD3D9RasterIsCubeRaster, 0x4C9F70 */ != 0) {
         RwD3D9SetTextureStageState(stage, 0x18, 3);
         RwD3D9SetTextureStageState(stage, 0xB, 0x30000);
         RwFrame* const cameraFrame = static_cast<RwFrame*>(reinterpret_cast<RwObject*>(RwEngineInstance->curCamera)->parent);
@@ -1709,7 +1710,7 @@ void _rpMatFXD3D9RenderDualTexture(RxD3D9ResEntryHeader* header, RxD3D9InstanceD
                 secondPass = 0;
             } else {
                 RwUInt32 numPasses = 0;
-                reinterpret_cast<void(__cdecl *)()>(kD3D9FlushRenderStates)();
+                _rwD3D9RenderStateFlushCache(); // 0x7FC200
                 const long hr = ComCall<kSlotValidateDevice, long>(Device(), &numPasses);
                 if (hr >= 0 && numPasses == 1) {
                     secondPass = 0;
@@ -2006,7 +2007,7 @@ void _rpMatFXD3D9RenderEnvMapPass(RxD3D9ResEntryHeader* header, RxD3D9InstanceDa
                 Tss(1, 3, 1);
                 if (MatFXUnknown29C4 != 0) {
                     RwUInt32 numPasses = 0;
-                    reinterpret_cast<void(__cdecl *)()>(kD3D9FlushRenderStates)();
+                    _rwD3D9RenderStateFlushCache(); // 0x7FC200
                     const long hr = ComCall<kSlotValidateDevice, long>(Device(), &numPasses);
                     if (hr >= 0 && numPasses == 1) {
                         MatFXUnknownB8 = 1;
@@ -2099,7 +2100,7 @@ void _rpMatFXD3D9RenderBumpMap(RxD3D9ResEntryHeader* header, RxD3D9InstanceData*
     void* vertexBuffer = nullptr;
     void* vertexData   = nullptr;
     RwUInt32 baseIndex = 0;
-    if (reinterpret_cast<RwBool(__cdecl *)(RwUInt32, RwUInt32, void**, void**, RwUInt32*)>(0x7F5B10)(0x2C, instance->numVertices, &vertexBuffer, &vertexData, &baseIndex) == 0) {
+    if (RwD3D9DynamicVertexBufferLock(0x2C, instance->numVertices, &vertexBuffer, &vertexData, &baseIndex) == 0) {
         return;
     }
     _rpMatFXD3D9BumpMapInstance(header, instance, vertexData);

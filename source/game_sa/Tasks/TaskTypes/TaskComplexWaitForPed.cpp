@@ -92,7 +92,7 @@ struct WaitForPedFrame {
 
 EXCEPTION_DISPOSITION __cdecl WaitForPedUnwind(EXCEPTION_RECORD* record, void* frame, CONTEXT*, void*) {
     if (record->ExceptionFlags & (EXCEPTION_UNWINDING | EXCEPTION_EXIT_UNWIND)) {
-        reinterpret_cast<void(__thiscall*)(void*)>(0x61A3D0)(static_cast<WaitForPedFrame*>(frame)->self);
+        CTaskComplexBody::Destructor(static_cast<CTask*>(static_cast<WaitForPedFrame*>(frame)->self), nullptr); // 0x61A3D0
     }
     return ExceptionContinueSearch;
 }

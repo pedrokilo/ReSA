@@ -53,6 +53,11 @@ static CLodTimeModelInfo* __fastcall LodTimeModelInfoScalarDeletingDestructor(CL
     return self;
 }
 
+// Constructor de elemento (cuerpo de LodTimeModelInfoConstructorBody) para el almacen de ModelInfo.cpp: se llama sin pasar por la direccion del EXE.
+void LodTimeModelInfoConstructExe(void* element) {
+    LodTimeModelInfoConstructorBody(static_cast<CLodTimeModelInfo*>(element), nullptr);
+}
+
 void CLodTimeModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CLodTimeModelInfo, 0x85BCF0, 16);

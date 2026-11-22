@@ -221,11 +221,9 @@ __declspec(noinline) void __cdecl RasterListReleaseResources() {
 // Con la bandera 0x80 de cFlags no libera nada. Devuelve 1 salvo en los tipos 3 y > 5.
 __declspec(noinline) int32 __cdecl RasterDestroy(void* /*device*/, RwRaster* raster, int32 /*flags*/) {
     uint8* const ext = RasterExt(raster, RasterExtOffset);
-    using GetStageFn = RwRaster*(__cdecl*)(uint32);
-    using SetStageFn = void(__cdecl*)(RwRaster*, uint32);
     for (uint32 stage = 0; stage < 8; ++stage) {
-        if (reinterpret_cast<GetStageFn>(0x7FDE50)(stage) == raster) {
-            reinterpret_cast<SetStageFn>(0x7FDCD0)(nullptr, stage);
+        if (_rwD3D9RWGetRasterStage(stage) == raster) {
+            _rwD3D9RWSetRasterStage(nullptr, stage);
         }
     }
     if (raster->parent != raster) {
@@ -390,6 +388,11 @@ __declspec(noinline) void __cdecl RasterListShutdown() {
     }
 }
 } // namespace
+
+// Entradas publicas de la lista de rasters para rwcore.cpp (que las llamaba por la direccion del EXE).
+void D3D9RasterListInitExe() { RasterListInit(); }                           // 0x4CC150
+void D3D9RasterListShutdownExe() { RasterListShutdown(); }                   // 0x4CC170
+void D3D9RasterListReleaseResourcesExe() { RasterListReleaseResources(); }   // 0x4CB640
 
 void  RwD3D9RasterDriver::RasterListPushCpp(RwRaster* raster) { ::RasterListPush(raster); }
 int32 RwD3D9RasterDriver::RasterDestroyCpp(void* device, RwRaster* raster, int32 flags) { return ::RasterDestroy(device, raster, flags); }

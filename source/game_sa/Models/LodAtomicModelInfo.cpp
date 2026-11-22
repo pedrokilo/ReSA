@@ -50,6 +50,11 @@ static CLodAtomicModelInfo* __fastcall LodAtomicModelInfoScalarDeletingDestructo
 /**
  * Registra las operaciones del model info especializado para LODs.
  */
+// Constructor de elemento (cuerpo de LodAtomicModelInfoConstructorBody) para el almacen de ModelInfo.cpp: se llama sin pasar por la direccion del EXE.
+void LodAtomicModelInfoConstructExe(void* element) {
+    LodAtomicModelInfoConstructorBody(static_cast<CLodAtomicModelInfo*>(element), nullptr);
+}
+
 void CLodAtomicModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CLodAtomicModelInfo, 0x85BC70, 16);

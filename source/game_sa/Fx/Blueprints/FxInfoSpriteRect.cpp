@@ -77,7 +77,7 @@ void FxInfoSpriteRect_c::GetValue(float currentTime, float mult, float totalTime
 // push esi; call 0x8214BD (operator delete); add esp,4; mov eax,esi; pop esi; ret 4`: destruye con el cuerpo, libera `this` solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
 // Se engancha como S (RH_ScopedVMTInstall no puede nombrar la ranura del destructor virtual).
 FxInfoSpriteRect_c* FxInfoSpriteRect_c::ScalarDeletingDestructor(uint8 flags) {
-    reinterpret_cast<void(__thiscall*)(void*)>(0x4A76C0)(this); // cuerpo del destructor del EXE (0x4A76C0, fuera de este lote: llamada al EXE por direccion fija)
+    Destructor(); // cuerpo del destructor del EXE (0x4A76C0)
     if (flags & 1) {
         ::operator delete(this);
     }

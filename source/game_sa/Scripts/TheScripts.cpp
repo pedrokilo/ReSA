@@ -213,6 +213,17 @@ __declspec(noinline) void __cdecl ScriptDebugBoxStubExe(uint32 /*x1*/, uint32 /*
 }
 } // namespace
 
+// Las tres funciones de foco de script se llaman desde los comandos de script con los argumentos float (los Exe reciben los mismos bits como uint32).
+void CTheScripts::MoveSearchLightBetweenTwoPoints(int32 index, float x1, float y1, float z1, float x2, float y2, float z2, float pathSpeed) {
+    MoveSearchLightBetweenTwoPointsExe(index, std::bit_cast<uint32>(x1), std::bit_cast<uint32>(y1), std::bit_cast<uint32>(z1), std::bit_cast<uint32>(x2), std::bit_cast<uint32>(y2), std::bit_cast<uint32>(z2), std::bit_cast<uint32>(pathSpeed));
+}
+void CTheScripts::MoveSearchLightToEntity(int32 index, CEntity* entity, float pathSpeed) {
+    MoveSearchLightToEntityExe(index, entity, std::bit_cast<uint32>(pathSpeed));
+}
+void CTheScripts::MoveSearchLightToPointAndStop(int32 index, float x, float y, float z, float pathSpeed) {
+    MoveSearchLightToPointAndStopExe(index, std::bit_cast<uint32>(x), std::bit_cast<uint32>(y), std::bit_cast<uint32>(z), std::bit_cast<uint32>(pathSpeed));
+}
+
 void CTheScripts::InjectHooks() {
 #ifndef NOTSA_STANDALONE
     // Has to have these, because there seems to be something going on with the variable init order

@@ -27,6 +27,8 @@ END GENERATED HOOK STATUS */
 #include "TaskSimpleNone.h"
 #include "Pad.h"
 
+void __fastcall Vector2DNormaliseExe(CVector2D* self, void* edx); // Vector.cpp: 0x44E480
+
 namespace CTaskComplexBody {
 void __fastcall Destructor(CTask* self, void* edx); // Task.cpp: 0x61A3D0
 void* __fastcall Constructor(void* self, void* edx); // Task.cpp: 0x61A3B0
@@ -120,14 +122,16 @@ CTask* __fastcall ReactToAttackControlSubTask(CTaskComplexReactToAttack* self, v
 // 0x623300 (lote 199A, sin validar; el listado decia CTaskSimpleBeHit; ranura 1 (Clone) de la vtable 0x86D868; thiscall, sin argumentos, `ret`, 112 bytes con marco SEH que solo libera la memoria si el constructor lanza (se omite)).
 // Como el original: CTask::operator new (0x61A5A0, con hook) con 0x24 bytes; sin memoria devuelve nulo sin leer campos; si no, el constructor 0x620B00 (ReactToAttackConstructor) con cinco argumentos de pila tomados de +0x10, +0x14, +0x18, +0x1C y +0x20
 // (en ese orden: tipo de arma, agresor, tercer, cuarto y quinto argumentos) y devuelve la tarea nueva.
+CTaskComplexReactToAttack* __fastcall ReactToAttackConstructor(CTaskComplexReactToAttack* self, void* edx, int32 weaponType, CEntity* attacker, int32 arg3, int32 arg4, int32 arg5);
+
 CTask* __fastcall ReactToAttackClone(CTaskComplexReactToAttack* self, void* /*edx*/) {
     void* const memory = CTask::operator new(0x24);
     if (!memory) {
         return nullptr;
     }
-    // 0x620B00 (lote 198A, sin validar; sin hook en esta rama): constructor del EXE, llamado por su direccion como hacia el EXE
-    return plugin::CallMethodAndReturn<CTaskComplexReactToAttack*, 0x620B00, CTaskComplexReactToAttack*, int32, CEntity*, int32, int32, int32>(
-        static_cast<CTaskComplexReactToAttack*>(memory), FieldAt<int32>(self, 0x10), FieldAt<CEntity*>(self, 0x14), FieldAt<int32>(self, 0x18), FieldAt<int32>(self, 0x1C), FieldAt<int32>(self, 0x20));
+    // 0x620B00: constructor del EXE (ReactToAttackConstructor, mas abajo en este archivo)
+    return ReactToAttackConstructor(
+        static_cast<CTaskComplexReactToAttack*>(memory), nullptr, FieldAt<int32>(self, 0x10), FieldAt<CEntity*>(self, 0x14), FieldAt<int32>(self, 0x18), FieldAt<int32>(self, 0x1C), FieldAt<int32>(self, 0x20));
 
 }
 
@@ -217,7 +221,7 @@ CTask* __fastcall ReactToAttackCreateFirstSubTask(CTaskComplexReactToAttack* sel
             CVector2D direction;
             direction.x = attacker->GetPosition().x - ped->GetPosition().x;
             direction.y = attacker->GetPosition().y - ped->GetPosition().y;
-            plugin::CallMethod<0x44E480, CVector2D*>(&direction); // CVector2D::Normalise del EXE
+            Vector2DNormaliseExe(&direction, nullptr); // CVector2D::Normalise del EXE (0x44E480), definida en Vector.cpp
             const uint32 clearedFlags = FieldAt<uint32>(ped, 0x46C) & 0xFFFFFFFEu;
             const float forceX = direction.x * -5.0f;
             const float forceY = direction.y * -5.0f;

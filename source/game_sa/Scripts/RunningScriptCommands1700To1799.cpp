@@ -287,13 +287,13 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
     // 0x497598
     case COMMAND_MOVE_SEARCHLIGHT_BETWEEN_COORDS: {
         CollectParameters(8);
-        reinterpret_cast<void(__cdecl*)(int32, uint32, uint32, uint32, uint32, uint32, uint32, uint32)>(0x493360)(P(0).iParam, P(1).uParam, P(2).uParam, P(3).uParam, P(4).uParam, P(5).uParam, P(6).uParam, P(7).uParam); // CTheScripts::MoveSearchLightBetweenTwoPoints (lote 223A)
+        CTheScripts::MoveSearchLightBetweenTwoPoints(P(0).iParam, P(1).fParam, P(2).fParam, P(3).fParam, P(4).fParam, P(5).fParam, P(6).fParam, P(7).fParam); // CTheScripts::MoveSearchLightBetweenTwoPoints (lote 223A)
         return OR_CONTINUE;
     }
     // 0x4975E5
     case COMMAND_POINT_SEARCHLIGHT_AT_COORD: {
         CollectParameters(5);
-        reinterpret_cast<void(__cdecl*)(int32, uint32, uint32, uint32, uint32)>(0x493480)(P(0).iParam, P(1).uParam, P(2).uParam, P(3).uParam, P(4).uParam); // CTheScripts::MoveSearchLightToPointAndStop (lote 223A)
+        CTheScripts::MoveSearchLightToPointAndStop(P(0).iParam, P(1).fParam, P(2).fParam, P(3).fParam, P(4).fParam); // CTheScripts::MoveSearchLightToPointAndStop (lote 223A)
         return OR_CONTINUE;
     }
     // 0x49761E
@@ -301,7 +301,7 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
         CollectParameters(3);
         const float pathSpeed = P(2).fParam;
         CPed* const ped = PedOf(P(1).iParam);
-        reinterpret_cast<void(__cdecl*)(int32, CEntity*, uint32)>(0x493420)(P(0).iParam, ped, std::bit_cast<uint32>(pathSpeed)); // CTheScripts::MoveSearchLightToEntity (lote 223A)
+        CTheScripts::MoveSearchLightToEntity(P(0).iParam, ped, pathSpeed); // CTheScripts::MoveSearchLightToEntity (lote 223A)
         return OR_CONTINUE;
     }
     // 0x497656
@@ -380,7 +380,7 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
         CollectParameters(3);
         const float pathSpeed = P(2).fParam;
         CVehicle* const vehicle = VehicleOf(P(1).iParam);
-        reinterpret_cast<void(__cdecl*)(int32, CEntity*, uint32)>(0x493420)(P(0).iParam, vehicle, std::bit_cast<uint32>(pathSpeed)); // CTheScripts::MoveSearchLightToEntity (lote 223A)
+        CTheScripts::MoveSearchLightToEntity(P(0).iParam, vehicle, pathSpeed); // CTheScripts::MoveSearchLightToEntity (lote 223A)
         return OR_CONTINUE;
     }
     // 0x497978
@@ -1006,7 +1006,7 @@ OpcodeResult CRunningScript::ProcessCommands1700To1799(int32 commandId) {
             mission = joined ? static_cast<eCarMission>(9) : static_cast<eCarMission>(0x21);
         }
         vehicle->SetStatus(STATUS_PHYSICS);
-        reinterpret_cast<void(__thiscall*)(CVehicle*, uint8)>(0x41BDD0)(vehicle, 1); // CVehicle::SetEngineOn(true)
+        vehicle->vehicleFlags.bEngineOn = !vehicle->vehicleFlags.bEngineBroken; // CVehicle::SetEngineOn(true) (0x41BDD0): con el motor roto lo apaga
         vehicle->m_autoPilot.m_nCruiseSpeed = std::max<uint8>(vehicle->m_autoPilot.m_nCruiseSpeed, 1);
         vehicle->m_autoPilot.m_nTimeToStartMission = CTimer::GetTimeInMS();
         return OR_CONTINUE;

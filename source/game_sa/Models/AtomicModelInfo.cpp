@@ -63,6 +63,11 @@ static CAtomicModelInfo* __fastcall AtomicModelInfoScalarDeletingDestructor(CAto
 /**
  * Registra las operaciones específicas de model infos basados en un único RpAtomic.
  */
+// Constructor de elemento (cuerpo de AtomicModelInfoConstructorBody) para el almacen de ModelInfo.cpp: se llama sin pasar por la direccion del EXE.
+void AtomicModelInfoConstructExe(void* element) {
+    AtomicModelInfoConstructorBody(static_cast<CAtomicModelInfo*>(element), nullptr);
+}
+
 void CAtomicModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CAtomicModelInfo, 0x85BBF0, 16);
