@@ -182,35 +182,35 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x004C9F70,entrada de función,reemplazada,1,0,retirada,,,B5
 0x004C9F90,entrada de función,reemplazada,1,0,retirada,,,B5
 0x004CA290,entrada de función,reemplazada,1,0,retirada,,,B5
-0x004CA4E0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6876,B-R2
+0x004CA4E0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6877,B-R2
 0x004CA540,entrada de función,reemplazada,1,0,retirada,,,B5
-0x004CAE40,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6876,B-R2
-0x004CAE60,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6876,B-R2
-0x004CAE80,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6876,B-R2
-0x004CB4C0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6876,B-R2
-0x004CB4E0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6876,B-R2
-0x004CB520,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6877,B-R2
+0x004CAE40,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6877,B-R2
+0x004CAE60,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6877,B-R2
+0x004CAE80,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6877,B-R2
+0x004CB4C0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6877,B-R2
+0x004CB4E0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6877,B-R2
+0x004CB520,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6878,B-R2
 0x004CB530,entrada de función,reemplazada,1,0,retirada,,,B5
 0x004CB640,entrada de función,reemplazada,1,0,retirada,,,B6
 0x004CBB00,entrada de función,reemplazada,2,0,retirada,,,B6
-0x004CBCB0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6877,B-R2
-0x004CBD40,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6875,B-R2
-0x004CBD50,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6877,B-R2
+0x004CBCB0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6878,B-R2
+0x004CBD40,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6876,B-R2
+0x004CBD50,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6878,B-R2
 0x004CBD80,entrada de función,reemplazada,1,0,retirada,,,B6
 0x004CBDE0,entrada de función,reemplazada,3,0,retirada,,,B6
 0x004CBE20,entrada de función,reemplazada,1,0,retirada,,,B6
 0x004CBE80,entrada de función,reemplazada,1,0,retirada,,,B6
-0x004CBEE0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore_dds.cpp:116,B-R2
+0x004CBEE0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore_dds.cpp:98,B-R2
 0x004CBF20,entrada de función,reemplazada,1,0,retirada,,,B6
 0x004CBF80,entrada de función,reemplazada,1,0,retirada,,,B6
 0x004CC150,entrada de función,reemplazada,1,0,retirada,,,B6
 0x004CC170,entrada de función,reemplazada,1,0,retirada,,,B6
 0x004CC970,entrada de función,reemplazada,1,0,retirada,,,B6
-0x004CCE60,entrada de función,viva,2,2,pendiente,"funcion del EXE sin version C++ (crear raster D3D9, ranura 4 de la tabla de funciones estandar del dispositivo; la llama D3D9RasterFormat.cpp y la lista la tabla de rwcore.cpp): no hay API C++ que sustituya; se reconstruye en la parte de rasters D3D9 (S2)",source/game_sa/RenderWare/D3D9RasterFormat.cpp:617,
+0x004CCE60,entrada de función,viva,2,0,retirada,,,
 0x004CD250,entrada de función,reemplazada,2,0,retirada,,,B6
 0x004CD360,entrada de función,reemplazada,1,0,retirada,,,B6
-0x004CD4D0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6877,B-R2
-0x004CD820,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6877,B-R2
+0x004CD4D0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6878,B-R2
+0x004CD820,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6878,B-R2
 0x004D2E10,dirección en hueco o dato del .text,,1,1,pendiente,direccion interior o dato del .text: revisar caso a caso (P6),source/game_sa/Plugins/RpAnimBlendPlugin/RpAnimBlend.cpp:1235,B-R2
 0x004D8870,entrada de función,reemplazada,2,0,retirada,,,B6
 0x004D8960,entrada de función,reemplazada,3,0,retirada,,,B6
@@ -240,7 +240,7 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x00526E20,entrada de función,reemplazada,1,0,retirada,,,B7
 0x0053CBE0,entrada de función,reemplazada,1,0,retirada,,,B7
 0x0053E920,entrada de función,reemplazada,1,1,pendiente,"no es un puente: AutoSteal.cpp parchea los 5 primeros bytes de CGame::Idle del EXE (salto a su detour); la direccion es el destino del parche y es una extension de la DLL, no una dependencia del juego",source/extensions/AutoSteal.cpp:362,B7
-0x00541DD0,entrada de función,reemplazada,1,1,pendiente,no es un puente: InjectHooksMain.cpp instala el enganche (HookInstall) de CPad::UpdatePads en esa direccion; la direccion es el destino del enganche,source/InjectHooksMain.cpp:784,B7
+0x00541DD0,entrada de función,reemplazada,1,1,pendiente,no es un puente: InjectHooksMain.cpp instala el enganche (HookInstall) de CPad::UpdatePads en esa direccion; la direccion es el destino del enganche,source/InjectHooksMain.cpp:786,B7
 0x0054ECE0,entrada de función,reemplazada,1,0,retirada,,,B7
 0x0059C790,entrada de función,reemplazada,1,0,retirada,,,B7
 0x0059C890,entrada de función,reemplazada,15,0,retirada,,,B7
@@ -467,14 +467,14 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x00749160,entrada de función,reemplazada,1,0,retirada,,,B14
 0x007491C0,entrada de función,reemplazada,3,3,pendiente,"ShadowCamera.cpp: AtomicDefaultRenderCallBack se guarda en atomo->renderCallBack y el EXE compara esa direccion (0x4C919D, 0x7328A9, 0x7328BB, 0x749CAD y las de ShadowCamera): el valor tiene que ser el del EXE; se retira con el EXE",source/game_sa/ShadowCamera.cpp:233,B14
 0x0074A260,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld.cpp:3302,B-R4
-0x0074A770,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:902,B-R4
-0x0074A880,dirección en hueco o dato del .text,,2,2,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1043,B-R4
-0x0074AE40,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1090,B-R4
-0x0074AEA0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1160,B-R4
-0x0074AF20,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1170,B-R4
-0x0074AFA0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1066,B-R4
-0x0074AFD0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1067,B-R4
-0x0074B000,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1065,B-R4
+0x0074A770,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:884,B-R4
+0x0074A880,dirección en hueco o dato del .text,,2,2,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1025,B-R4
+0x0074AE40,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1072,B-R4
+0x0074AEA0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1142,B-R4
+0x0074AF20,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1152,B-R4
+0x0074AFA0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1048,B-R4
+0x0074AFD0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1049,B-R4
+0x0074B000,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1047,B-R4
 0x0074CCB0,entrada de función,reemplazada,1,0,retirada,,,B14
 0x0074CE60,dirección en hueco o dato del .text,,2,2,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld.cpp:1929,B-R4
 0x0074D7D0,entrada de función,reemplazada,1,0,retirada,,,B14
@@ -482,7 +482,7 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x0074E9E0,entrada de función,reemplazada,2,0,retirada,,,B14
 0x0074EA40,entrada de función,reemplazada,1,0,retirada,,,B14
 0x0074EEC0,entrada de función,reemplazada,2,0,retirada,,,B14
-0x0074F590,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:146,B-R4
+0x0074F590,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:128,B-R4
 0x0074FFA0,entrada de función,reemplazada,1,0,retirada,,,B14
 0x0074FFF0,entrada de función,reemplazada,1,0,retirada,,,B14
 0x00750430,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld.cpp:8308,B-R4
@@ -494,45 +494,45 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x007515A0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld.cpp:8682,B-R4
 0x00751630,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld.cpp:8683,B-R4
 0x0075A660,entrada de función,reemplazada,1,0,retirada,,,B14
-0x0075A960,dirección en hueco o dato del .text,,2,2,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:551,B-R4
+0x0075A960,dirección en hueco o dato del .text,,2,2,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:533,B-R4
 0x0075C290,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld.cpp:8536,B-R4
 0x0075E3E0,entrada de función,reemplazada,1,0,retirada,,,B14
 0x0075F0B0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld.cpp:9601,B-R4
 0x00760CF0,entrada de función,reemplazada,1,0,retirada,,,B14
 0x00762040,dirección en hueco o dato del .text,,3,3,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld.cpp:9742,B-R4
-0x00762440,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1688,B-R4
-0x007624A0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1777,B-R4
-0x00762740,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1781,B-R4
-0x00762F30,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1894,B-R4
-0x00763310,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1903,B-R4
-0x007CF600,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:363); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:381,B14
-0x007CF9B0,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:367); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:385,B14
-0x007CFFA0,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:48); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:66,B14
-0x007D0250,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:51); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:69,B14
-0x007D03B0,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:40); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:58,B14
-0x007D06C0,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:50); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:68,B14
-0x007D0A40,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:52); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:70,B14
-0x007D1340,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:49); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:67,B14
-0x007D13E0,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:60); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:78,B14
-0x007D1D60,entrada de función,enganchada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:45); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:63,B14
-0x007D2130,entrada de función,enganchada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:46); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:64,B14
-0x007D2630,entrada de función,enganchada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:47); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:65,B14
-0x007D2C20,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:43); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:61,B15
-0x007D2E80,entrada de función,enganchada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:42); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:60,B15
-0x007D34F0,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:54); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:72,B15
-0x007D36D0,entrada de función,viva,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:41); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:59,
-0x007D3AB0,entrada de función,viva,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:55); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:73,
-0x007D4380,entrada de función,viva,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:64); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:82,
-0x007D43E0,entrada de función,viva,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:65); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:83,
-0x007D4660,entrada de función,viva,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:53); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:71,
-0x007D4B80,entrada de función,enganchada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:61); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:79,B15
-0x007D5190,entrada de función,enganchada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:56); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:74,B15
-0x007D5440,entrada de función,enganchada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:62); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:80,B15
-0x007D5530,entrada de función,enganchada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:63); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:81,B15
-0x007D5790,entrada de función,viva,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:57); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:75,
-0x007D6000,entrada de función,enganchada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:58); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:76,B15
-0x007D6020,entrada de función,viva,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:59); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:77,
-0x007DA870,entrada de función,enganchada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:44); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:62,B15
+0x00762440,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1670,B-R4
+0x007624A0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1759,B-R4
+0x00762740,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1763,B-R4
+0x00762F30,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1876,B-R4
+0x00763310,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rpworld_s30a31a.cpp:1885,B-R4
+0x007CF600,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:363); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:346,B14
+0x007CF9B0,entrada de función,reemplazada,1,1,pendiente,"libpng: tabla de punteros a funciones de libpng del EXE (rtpng.cpp:367); decision vigente: libpng + zlib se ENLAZAN, no se reconstruyen; el puntero desaparece al enlazar",source/game_sa/RenderWare/rw/rtpng.cpp:350,B14
+0x007CFFA0,entrada de función,reemplazada,1,0,retirada,,,B14
+0x007D0250,entrada de función,reemplazada,1,0,retirada,,,B14
+0x007D03B0,entrada de función,reemplazada,1,0,retirada,,,B14
+0x007D06C0,entrada de función,reemplazada,1,0,retirada,,,B14
+0x007D0A40,entrada de función,reemplazada,1,0,retirada,,,B14
+0x007D1340,entrada de función,reemplazada,1,0,retirada,,,B14
+0x007D13E0,entrada de función,reemplazada,1,0,retirada,,,B14
+0x007D1D60,entrada de función,enganchada,1,0,retirada,,,B14
+0x007D2130,entrada de función,enganchada,1,0,retirada,,,B14
+0x007D2630,entrada de función,enganchada,1,0,retirada,,,B14
+0x007D2C20,entrada de función,reemplazada,1,0,retirada,,,B15
+0x007D2E80,entrada de función,enganchada,1,0,retirada,,,B15
+0x007D34F0,entrada de función,reemplazada,1,0,retirada,,,B15
+0x007D36D0,entrada de función,viva,1,0,retirada,,,
+0x007D3AB0,entrada de función,viva,1,0,retirada,,,
+0x007D4380,entrada de función,viva,1,0,retirada,,,
+0x007D43E0,entrada de función,viva,1,0,retirada,,,
+0x007D4660,entrada de función,viva,1,0,retirada,,,
+0x007D4B80,entrada de función,enganchada,1,0,retirada,,,B15
+0x007D5190,entrada de función,enganchada,1,0,retirada,,,B15
+0x007D5440,entrada de función,enganchada,1,0,retirada,,,B15
+0x007D5530,entrada de función,enganchada,1,0,retirada,,,B15
+0x007D5790,entrada de función,viva,1,0,retirada,,,
+0x007D6000,entrada de función,enganchada,1,0,retirada,,,B15
+0x007D6020,entrada de función,viva,1,0,retirada,,,
+0x007DA870,entrada de función,enganchada,1,0,retirada,,,B15
 0x007ED730,entrada de función,reemplazada,1,0,retirada,,,B15
 0x007ED880,entrada de función,reemplazada,1,0,retirada,,,B15
 0x007EDB30,entrada de función,reemplazada,4,0,retirada,,,B15
@@ -550,8 +550,8 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x007F5F60,entrada de función,reemplazada,1,0,retirada,,,B15
 0x007F7730,entrada de función,enganchada,1,0,retirada,,,B15
 0x007F8F20,entrada de función,enganchada,1,0,retirada,,,B15
-0x007F98D0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6874,B-R5
-0x007F99B0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6874,B-R5
+0x007F98D0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6875,B-R5
+0x007F99B0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6875,B-R5
 0x007F9F70,entrada de función,reemplazada,1,0,retirada,,,B15
 0x007FA1C0,entrada de función,reemplazada,1,0,retirada,,,B15
 0x007FAA30,entrada de función,reemplazada,1,0,retirada,,,B15
@@ -569,14 +569,14 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x007FEE20,entrada de función,reemplazada,1,0,retirada,,,B16
 0x007FF070,entrada de función,reemplazada,1,0,retirada,,,B16
 0x007FF270,entrada de función,reemplazada,2,0,retirada,,,B16
-0x007FFF00,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6875,B-R5
+0x007FFF00,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:6876,B-R5
 0x007FFFFF,mitad de función 0x007FFFF0,reemplazada,3,3,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/X87Math.cpp:11666,B-R5
 0x00800000,mitad de función 0x007FFFF0,reemplazada,7,7,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/Garage.cpp:1937,B-R5
 0x008001E0,entrada de función,reemplazada,2,0,retirada,,,B16
 0x00801C30,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwplcore.cpp:86,B-R5
 0x00801D50,entrada de función,reemplazada,1,0,retirada,,,B16
-0x008032D0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:1530,B-R5
-0x00803340,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:1531,B-R5
+0x008032D0,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:1531,B-R5
+0x00803340,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:1532,B-R5
 0x008088D0,entrada de función,reemplazada,11,0,retirada,,,B16
 0x0080A240,entrada de función,reemplazada,1,0,retirada,,,B16
 0x0080A350,entrada de función,reemplazada,1,0,retirada,,,B16
@@ -589,12 +589,12 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x0080D570,entrada de función,reemplazada,1,0,retirada,,,B16
 0x0080D600,entrada de función,reemplazada,1,0,retirada,,,B17
 0x0080E020,entrada de función,reemplazada,1,0,retirada,,,B17
-0x00818650,entrada de función,viva,1,1,pendiente,QTMLRuntime.cpp:38: puente de QuickTime del EXE (InitializeQTML) sin C++; es la dependencia que se sustituye al cargar QuickTime directamente (lote V6/E),source/app/platform/win/QTMLRuntime.cpp:38,
-0x00818670,entrada de función,viva,1,1,pendiente,QTMLRuntime.cpp:39: puente de QuickTime del EXE (TerminateQTML) sin C++; mismo motivo que 0x818650,source/app/platform/win/QTMLRuntime.cpp:39,
+0x00818650,entrada de función,viva,1,0,retirada,,,
+0x00818670,entrada de función,viva,1,0,retirada,,,
 0x008194D0,dirección en hueco o dato del .text,,1,1,pendiente,direccion interior o dato del .text: revisar caso a caso (P6),source/app/platform/win/QTMLRuntime.cpp:36,B-R5
 0x00819700,dirección en hueco o dato del .text,,1,1,pendiente,direccion interior o dato del .text: revisar caso a caso (P6),source/app/platform/win/QTMLRuntime.cpp:37,B-R5
-0x0081A3C0,entrada de función,viva,1,1,pendiente,AEMFDecoder.cpp:89: funcion del decodificador de medios del EXE (QuickTime/MFD) sin version C++; depende de QuickTime (V6),source/game_sa/Audio/Loaders/AEMFDecoder.cpp:89,
-0x00820A10,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:2516,B-R5
+0x0081A3C0,entrada de función,viva,1,0,retirada,,,
+0x00820A10,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwcore.cpp:2517,B-R5
 0x00821195,entrada de función,viva,5,5,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/MemoryMgr.cpp:572,
 0x0082119A,entrada de función,enganchada,7,7,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/MemoryMgr.cpp:565,B17
 0x008212ED,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtHeap.cpp:123,
@@ -615,43 +615,43 @@ va,tipo,estado_funcion,referencias_antes,referencias_ahora,cierre,motivo,primera
 0x0082374F,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/RenderWare/rw/rwplcore.cpp:1918,B17
 0x00823798,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/RenderWare/rw/rwplcore.cpp:1915,B17
 0x00823A30,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp:44,B17
-0x00823BDB,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtFile.cpp:302,
+0x00823BDB,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtFile.cpp:284,
 0x00823CAE,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Plugins/JPegCompressPlugin/LibJpegError.cpp:36,B17
 0x00823E86,entrada de función,enganchada,2,2,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Plugins/JPegCompressPlugin/JPegCompress.cpp:601,B17
 0x00823FD1,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/VehicleRecording.cpp:384,B17
 0x00824023,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/VehicleRecording.cpp:394,B17
-0x00824046,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtFile.cpp:291,
+0x00824046,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtFile.cpp:273,
 0x008240C7,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Plugins/JPegCompressPlugin/LibJpegMemory.cpp:449,B17
-0x0082413F,entrada de función,enganchada,5,5,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/MemoryMgr.cpp:344,B17
+0x0082413F,entrada de función,enganchada,5,7,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/MemoryMgr.cpp:344,B17
 0x0082422B,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/VehicleRecording.cpp:420,B17
-0x00824257,entrada de función,enganchada,5,5,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/MemoryMgr.cpp:325,B17
+0x00824257,entrada de función,enganchada,5,7,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/MemoryMgr.cpp:325,B17
 0x00824269,entrada de función,enganchada,2,2,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/MemoryMgr.cpp:387,B18
-0x00824416,entrada de función,enganchada,3,3,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/MemoryMgr.cpp:397,B18
-0x008244D1,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtState.cpp:31,
+0x00824416,entrada de función,enganchada,3,4,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/MemoryMgr.cpp:397,B18
+0x008244D1,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtState.cpp:15,
 0x008247E0,entrada de función,enganchada,4,4,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/RenderWare/rw/rpworld.cpp:1329,B18
-0x00825456,entrada de función,viva,2,2,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtCtype.cpp:33,
-0x00825C88,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtCtype.cpp:55,
+0x00825456,entrada de función,viva,2,0,retirada,,,
+0x00825C88,entrada de función,viva,1,0,retirada,,,
 0x00826261,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwplcore.cpp:1920,B-R5
 0x008262A2,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwplcore.cpp:1917,B-R5
 0x008262B8,dirección en hueco o dato del .text,,1,1,pendiente,"RenderWare: direccion interior de funcion o dato del .text (callbacks, tablas); se revisa con S2/P6",source/game_sa/RenderWare/rw/rwplcore.cpp:1916,B-R5
 0x00827DEC,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/VehicleRecording.cpp:387,B18
 0x00827E74,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/VehicleRecording.cpp:392,B18
 0x00827F4B,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/VehicleRecording.cpp:390,B18
-0x0082872C,entrada de función,viva,2,2,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtMath.cpp:46,
-0x00828A60,mitad de función 0x008219F0,enganchada,1,1,pendiente,direccion interior o dato del .text: revisar caso a caso (P6),source/game_sa/Crt/CrtMath.cpp:113,B-R5
-0x00828C4A,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtOnexit.cpp:34,
-0x0082AAE2,entrada de función,viva,2,2,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtCtype.cpp:42,
-0x0082AD3F,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtState.cpp:32,B18
+0x0082872C,entrada de función,viva,2,0,retirada,,,
+0x00828A60,mitad de función 0x008219F0,enganchada,1,1,pendiente,direccion interior o dato del .text: revisar caso a caso (P6),source/game_sa/Crt/CrtMath.cpp:116,B-R5
+0x00828C4A,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtOnexit.cpp:16,
+0x0082AAE2,entrada de función,viva,2,0,retirada,,,
+0x0082AD3F,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtState.cpp:16,B18
 0x0082B181,entrada de función,enganchada,2,2,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/X87Math.cpp:333,B18
-0x0082BA31,mitad de función 0x00823820,enganchada,1,1,pendiente,direccion interior o dato del .text: revisar caso a caso (P6),source/game_sa/Crt/CrtMath.cpp:126,B-R5
-0x0083353C,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtFormat.cpp:43,
-0x008338CE,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtInput.cpp:36,
-0x00833B96,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtLowIo.cpp:119,B18
+0x0082BA31,mitad de función 0x00823820,enganchada,1,1,pendiente,direccion interior o dato del .text: revisar caso a caso (P6),source/game_sa/Crt/CrtMath.cpp:129,B-R5
+0x0083353C,entrada de función,viva,1,0,retirada,,,
+0x008338CE,entrada de función,viva,1,0,retirada,,,
+0x00833B96,entrada de función,enganchada,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/Crt/CrtLowIo.cpp:101,B18
 0x00856BC0,dirección en hueco o dato del .text,,1,1,pendiente,direccion interior o dato del .text: revisar caso a caso (P6),source/game_sa/SpecialFX.cpp:118,B-R5
-0x00857000,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/RenderWare/rw/rwcore.cpp:7516,
-0x0085707F,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/RenderWare/rw/rwcore.cpp:7517,
-0x008570EF,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/RenderWare/rw/rwcore.cpp:7516,
-0x00857160,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/RenderWare/rw/rwcore.cpp:7517,
-0x008572A0,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/RenderWare/rw/rwcore.cpp:7514,
-0x00857404,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/RenderWare/rw/rwcore.cpp:7510,
-0x0085742B,entrada de función,viva,1,1,pendiente,CRT y arranque (ramas crt4a-locale / new-delete-d3dx9; lote E2 o F),source/game_sa/RenderWare/rw/rwcore.cpp:6571,
+0x00857000,entrada de función,viva,1,0,retirada,,,
+0x0085707F,entrada de función,viva,1,0,retirada,,,
+0x008570EF,entrada de función,viva,1,0,retirada,,,
+0x00857160,entrada de función,viva,1,0,retirada,,,
+0x008572A0,entrada de función,viva,1,0,retirada,,,
+0x00857404,entrada de función,viva,1,0,retirada,,,
+0x0085742B,entrada de función,viva,1,0,retirada,,,

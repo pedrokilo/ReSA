@@ -84,14 +84,15 @@ Rama `vivo-p2b` (desde `origin/main` 410d9f2d84, 21/11/2026). No cambia ninguna 
 | …pendientes o parciales | 277 | 69 (32 del CRT y arranque, que llevan otras ramas) |
 | …que no eran puentes (tabla de `Cheat.cpp`) | 65 | 65 |
 | Referencias que no son enganche (B1–B18) | 373 | **116** |
+| *Tras fusionar `origin/main` a23f30550d (vivo-p3, que retira otras 19 por su lado, entre ellas 0x4CCE60 con `RasterCreateCpp` y los puentes de QuickTime):* sustituidas / pendientes o parciales / referencias | | 319 / 50 / 102 |
 
-De las 316 entradas de función pendientes al empezar (los 271 puentes de B1–B18 más las entradas «vivas» del EXE que el C++ cita) se sustituyeron **209**; de las 256 que no eran del CRT ni del protector quedan 47, que se explican una a una abajo.
+Todas las cifras de esta sección son de la rama sola, salvo la fila marcada. De las 316 entradas de función pendientes al empezar (los 271 puentes de B1–B18 más las entradas «vivas» del EXE que el C++ cita) se sustituyeron **209**; de las 256 que no eran del CRT ni del protector quedan 47, que se explican una a una abajo.
 
 | Grupo (motivo de P2 original) | Direcciones | Sustituidas | Quedan |
 | --- | ---: | ---: | ---: |
 | Constructores/destructores de tarea con ABI propia | 18 | 18 | 0 |
 | Plantillas del vector de la STL en `PedAttractor` y `AEUserRadioTrackManager` | 55 | 55 | 0 |
-| RenderWare / D3D9 (punteros guardados o funciones internas) | 88 | 59 | 29 (28 de libpng, 1 sin C++) |
+| RenderWare / D3D9 (punteros guardados o funciones internas) | 88 | 59 (60 con `RasterCreateCpp` de vivo-p3) | 29 (28 de libpng; tras vivo-p3 solo 2) |
 | ABI propia del EXE | 46 | 31 | 15 |
 | libjpeg | 45 | 43 | 2 (heap del CRT) |
 | Audio con dwords exactos | 4 | 3 | 1 (sin C++) |
@@ -116,9 +117,9 @@ De las 316 entradas de función pendientes al empezar (los 271 puentes de B1–B
 | 0x747EB0 | `WinMain.cpp`: solo con `NOTSA_USE_SDL3` se registra como `lpfnWndProc` la dirección del EXE (sin SDL3 ya se usa `__MainWndProc`) |
 | 0x72F420, 0x72F430, 0x72F440, 0x72F4C0, 0x72F4F0 | envolturas del heap del CRT (`MemoryMgr.cpp`, `free` de libjpeg): dependen del CRT propio y las tocan las ramas del CRT |
 | 0x53E920, 0x541DD0 | no son puentes: `AutoSteal.cpp` parchea 5 bytes de `CGame::Idle` e `InjectHooksMain.cpp` instala el enganche de `CPad::UpdatePads`; la dirección es el destino del enganche |
-| 0x4CCE60 | función del EXE sin versión C++ (crear raster D3D9, ranura 4 de la tabla estándar): no hay API que la sustituya (parte de rasters D3D9, S2) |
-| 0x818650, 0x818670, 0x81A3C0 | puentes de QuickTime y decodificador de medios del EXE sin C++ (lote V6/E) |
-| 28 direcciones 0x7CF600…0x7DA870 | tabla de funciones de libpng de `rtpng.cpp`; decisión vigente: libpng + zlib se enlazan; el puntero desaparece al enlazar (rama `enl-png`) |
+| 0x4CCE60 | en la rama sola no tenía versión C++ (crear raster D3D9); `vivo-p3` la aporta (`RasterCreateCpp`) y tras la fusión `D3D9RasterFormat.cpp` y la tabla estándar de `rwcore.cpp` la llaman por nombre |
+| 0x818650, 0x818670, 0x81A3C0 | en la rama sola: puentes de QuickTime y decodificador de medios del EXE sin C++ (lote V6/E); `vivo-p3` (QuickTime nulo) los retira al fusionar |
+| 28 direcciones 0x7CF600…0x7DA870 (tras vivo-p3 quedan 0x7CF600 y 0x7CF9B0) | tabla de funciones de libpng de `rtpng.cpp`; decisión vigente: libpng + zlib se enlazan; el puntero desaparece al enlazar (rama `enl-png`) |
 
 ## 3. Comprobaciones tras la parte
 
@@ -127,7 +128,7 @@ De las 316 entradas de función pendientes al empezar (los 271 puentes de B1–B
 * Humo con la DLL propia (`AGUA_ASI`, `cal_mal.args`: todos los enganches activos): `prueba_ropero.py` → **BIEN** (puerta 2877 y marcador presentes); `prueba_agua.py` → **BIEN** (brillo medio 48,6, bajo el agua).
 * Sin banco por función dentro del juego (decisión del usuario): la equivalencia de cada sustitución es la del enganche que ya redirigía esa dirección a la misma función C++.
 
-Tras P2b (rama `vivo-p2b`): compilación completa de la DLL con el candado `compile_lock` (`_build_VIVOP2B.sh`), `EXIT=0` y sin advertencias nuevas; `audit_hook_catalog.py --strict` OK y 0 archivos con ensamblador; humo con la DLL de la rama (`cal_mal.args`): `prueba_ropero.py` **BIEN** (puerta y marcador presentes) y `prueba_agua.py` **BIEN** (brillo medio 48,5, bajo el agua). Sin banco por función (decisión del usuario). `contrib/sync_docs.py` no se pudo ejecutar en este árbol (la validación de `hooks.csv` exige antes `sync_validated_flags.py`, ajeno a esta parte); como no se añade ni se mueve ningún enganche, `hooks.csv` no cambia.
+Tras P2b (rama `vivo-p2b`): compilación completa de la DLL con el candado `compile_lock` (`_build_VIVOP2B.sh`), `EXIT=0` y sin advertencias nuevas; `audit_hook_catalog.py --strict` OK y 0 archivos con ensamblador; humo con la DLL de la rama (`cal_mal.args`): `prueba_ropero.py` **BIEN** (puerta y marcador presentes) y `prueba_agua.py` **BIEN** (brillo medio 48,5, bajo el agua). Después de fusionar `origin/main` a23f30550d (vivo-p3; un conflicto en `D3D9RasterFormat.cpp` resuelto a favor de `RasterCreateCpp` más `_rwD3D9RasterSetFromImage`, y la tabla estándar de `rwcore.cpp` pasa a `RasterCreateCpp`) se volvió a compilar (`EXIT=0`) y los dos humos dieron **BIEN** (ropero: puerta y marcador; agua: brillo medio 48,0). Sin banco por función (decisión del usuario). `contrib/sync_docs.py` no se pudo ejecutar en este árbol (la validación de `hooks.csv` exige antes `sync_validated_flags.py`, ajeno a esta parte); como no se añade ni se mueve ningún enganche, `hooks.csv` no cambia.
 
 ## 4. Reproducir
 

@@ -6873,7 +6873,7 @@ RwBool _rwD3D9DeviceSystemStandards(void* out, void* /*inOut*/, RwInt32 numStand
     const auto Fn = [](auto function) { return static_cast<uint32>(reinterpret_cast<uintptr_t>(function)); };
     const StandardEntry kStandards[27] = {
         { 0x01, Fn(&RenderWare::_rwD3D9CameraBeginUpdate) }, { 0x0A, 0x7F98D0 }, { 0x15, Fn(&RenderWare::_rwD3D9CameraClear) }, { 0x14, 0x7F99B0 }, { 0x02, Fn(&_rwD3D9RGBToPixel) }, { 0x03, Fn(&_rwD3D9PixelToRGB) }, { 0x07, Fn(&_rwD3D9RasterSetFromImage) },
-        { 0x06, Fn(&_rwD3D9RasterToImage) }, { 0x05, Fn(&RwD3D9RasterDriver::RasterDestroyCpp) }, { 0x04, 0x4CCE60 }, { 0x09, 0x7FFF00 }, { 0x08, 0x4CBD40 }, { 0x0F, Fn(&D3D9RasterLockExe) }, { 0x10, Fn(&D3D9RasterUnlockExe) },
+        { 0x06, Fn(&_rwD3D9RasterToImage) }, { 0x05, Fn(&RwD3D9RasterDriver::RasterDestroyCpp) }, { 0x04, Fn(&RwD3D9RasterDriver::RasterCreateCpp) }, { 0x09, 0x7FFF00 }, { 0x08, 0x4CBD40 }, { 0x0F, Fn(&D3D9RasterLockExe) }, { 0x10, Fn(&D3D9RasterUnlockExe) },
         { 0x17, 0x4CA4E0 }, { 0x18, Fn(&D3D9RasterPaletteUnlockExe) }, { 0x0E, 0x4CB4E0 }, { 0x0D, 0x4CB4C0 }, { 0x11, 0x4CAE40 }, { 0x12, 0x4CAE80 }, { 0x13, 0x4CAE60 },
         { 0x0B, 0x4CB520 }, { 0x0C, 0x4CBD50 }, { 0x19, Fn(&D3D9RasterFormat::GetRasterMemorySize) }, { 0x1B, 0x4CD4D0 }, { 0x1A, 0x4CD820 }, { 0x1C, 0x4CBCB0 },
     };    uint32* const standards = static_cast<uint32*>(out);

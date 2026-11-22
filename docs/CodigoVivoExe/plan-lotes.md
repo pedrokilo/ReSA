@@ -50,7 +50,7 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | B12 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x0063BDD0–0x006CE370 | bajo |  | parcial |
 | B13 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x006D03A0–0x00749120 | bajo |  | parcial |
 | B14 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x00749160–0x007D2630 | bajo |  | parcial |
-| B15 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x007D2C20–0x007FAC10 | bajo |  | parcial |
+| B15 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x007D2C20–0x007FAC10 | bajo |  | cerrado |
 | B16 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x007FB480–0x0080D570 | bajo |  | cerrado |
 | B17 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 25 | 0 | 0x0080D600–0x00824257 | bajo |  | parcial |
 | B18 | P2 | puente a C++ | Reemplazada | REEMPLAZAR_LLAMADA | llamar a la función C++ | 9 | 0 | 0x00824269–0x00833B96 | bajo |  | pendiente |
@@ -78,9 +78,9 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | F2 | P5 | fase 8 | CRT y arranque | FASE8 | inicializadores estáticos | 4 | 248 | 0x00826A72–0x008339CA | alto | F1 | pendiente |
 | F3 | P5 | fase 8 | Importaciones y carga retardada | FASE8 | enlace (delay-load) | 6 | 120 | 0x00807C10–0x00836AFC | bajo |  | pendiente |
 | F4 | P5 | revisar | Excepciones (Unwind/Catch) | REVISAR | dueño no resuelto | 44 | 592 | 0x00838190–0x00838A46 | bajo |  | pendiente |
-| H1 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 21,802 | 0x00402705–0x0050E462 | medio |  | clasificado: 42 de 45 huecos cerrados |
-| H2 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 15,986 | 0x005173F0–0x005CC289 | medio |  | clasificado: 45 de 45 huecos cerrados |
-| H3 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 12,802 | 0x005CC698–0x00728B06 | medio |  | clasificado: 45 de 45 huecos cerrados |
-| H4 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 24,479 | 0x0072F505–0x00761C26 | medio |  | clasificado: 42 de 45 huecos cerrados |
-| H5 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 34,977 | 0x00761DDE–0x007EF33E | medio |  | clasificado: 42 de 45 huecos cerrados |
-| H6 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 18,311 | 0x007F12E3–0x008568AB | medio |  | clasificado: 43 de 45 huecos cerrados |
+| H1 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 21,802 | 0x00402705–0x0050E462 | medio |  | pendiente |
+| H2 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 15,986 | 0x005173F0–0x005CC289 | medio |  | pendiente |
+| H3 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 12,802 | 0x005CC698–0x00728B06 | medio |  | pendiente |
+| H4 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 24,479 | 0x0072F505–0x00761C26 | medio |  | pendiente |
+| H5 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 34,977 | 0x00761DDE–0x007EF33E | medio |  | pendiente |
+| H6 | P6 | verificar huecos | Huecos del .text | REVISAR | código sin función de Ghidra | 45 | 18,311 | 0x007F12E3–0x008568AB | medio |  | pendiente |
