@@ -152,6 +152,13 @@ void CRunningScript::InjectHooks() {
     RH_ScopedInstall(ProcessCommands400To499, 0x47D210, { .stackArguments = 1 }); // lote P6B (sin validar)
     RH_ScopedInstall(ProcessCommands1500To1599, 0x490DB0, { .stackArguments = 1 }); // F4 de codigo vivo (sin validar)
     RH_ScopedInstall(ProcessCommands2000To2099, 0x472310, { .stackArguments = 1 }); // F4 de codigo vivo (sin validar)
+    RH_ScopedInstall(ProcessCommands0To99, 0x465E60, { .stackArguments = 1 }); // vivo-scra (sin validar)
+    RH_ScopedInstall(ProcessCommands100To199, 0x466DE0, { .stackArguments = 1 }); // vivo-scra (sin validar)
+    RH_ScopedInstall(ProcessCommands200To299, 0x469390, { .stackArguments = 1 }); // vivo-scra (sin validar)
+    RH_ScopedInstall(ProcessCommands500To599, 0x47E090, { .stackArguments = 1 }); // vivo-scra (sin validar)
+    RH_ScopedInstall(ProcessCommands600To699, 0x47F370, { .stackArguments = 1 }); // vivo-scra (sin validar)
+    RH_ScopedInstall(ProcessCommands700To799, 0x47FA30, { .stackArguments = 1 }); // vivo-scra (sin validar)
+    RH_ScopedInstall(ProcessCommands900To999, 0x483BD0, { .stackArguments = 1 }); // vivo-scra (sin validar)
     RH_ScopedOverloadedInstall(GivePedScriptedTask, "OG", 0x465C20, void(CRunningScript::*)(int32, CTask*, int32));
 }
 
@@ -1307,6 +1314,17 @@ void CRunningScript::HighlightImportantAngledArea(uint32 id, CVector2D a, CVecto
 
 notsa::script::CommandHandlerFunction& CRunningScript::CustomCommandHandlerOf(eScriptCommands command) {
     return s_CustomCommandHandlerTable[(size_t)(command)];
+}
+
+// Comandos sin caso propio en un despachador por centenas (vivo-scra): si tienen manejador propio en C++ se llama a ese (mismo comportamiento y mismo OpcodeResult que ProcessOneCommand);
+// si no, el destino por defecto del EXE (`or al, 0xFF`) = OR_INTERRUPT.
+OpcodeResult CRunningScript::ProcessHandledCommand(int32 command) {
+    if ((size_t)command < s_CustomCommandHandlerTable.size()) {
+        if (const auto handler = s_CustomCommandHandlerTable[(size_t)command]) {
+            return std::invoke(handler, this);
+        }
+    }
+    return OR_INTERRUPT;
 }
 
 void CRunningScript::ResetIP() {

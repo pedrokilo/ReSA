@@ -497,7 +497,7 @@ inline void Run() {
         if (category.Name() == "CRunningScript")
             for (auto& hook : category.Items()) {
                 const std::string nm = hook->Name();
-                if (nm == "ProcessCommands800To899" || nm == "ProcessCommands1200To1299" || nm == "ProcessCommands1900To1999" || nm == "ProcessCommands1500To1599" || nm == "ProcessCommands2000To2099") {
+                if (nm == "ProcessCommands800To899" || nm == "ProcessCommands1200To1299" || nm == "ProcessCommands1900To1999" || nm == "ProcessCommands1500To1599" || nm == "ProcessCommands2000To2099" || nm == "ProcessCommands0To99" || nm == "ProcessCommands100To199" || nm == "ProcessCommands200To299" || nm == "ProcessCommands500To599" || nm == "ProcessCommands600To699" || nm == "ProcessCommands700To799" || nm == "ProcessCommands900To999") {
                     hookInfo.push_back({ { "name", nm }, { "hooked_before", hook->Hooked() } });
                     hook->LockState(false); hook->State(false);
                 }

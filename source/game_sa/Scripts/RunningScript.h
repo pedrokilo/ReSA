@@ -334,6 +334,16 @@ public:
     OpcodeResult ProcessCommands400To499(int32 command); // 0x47D210
     OpcodeResult ProcessCommands1500To1599(int32 command); // 0x490DB0 (F4 de codigo vivo, sin validar)
     OpcodeResult ProcessCommands2000To2099(int32 command); // 0x472310 (F4 de codigo vivo, sin validar)
+    // Rama vivo-scra (sin validar): despachadores originales de las ranuras 0, 1, 2, 5, 6, 7 y 9 de la tabla 0x8A6168 (RunningScriptCommands<N>.cpp). Solo llevan caso los comandos sin manejador propio;
+    // el resto cae en ProcessHandledCommand (manejador propio si existe, si no OR_INTERRUPT como el destino por defecto del EXE).
+    OpcodeResult ProcessCommands0To99(int32 command);     // 0x465E60
+    OpcodeResult ProcessCommands100To199(int32 command);  // 0x466DE0
+    OpcodeResult ProcessCommands200To299(int32 command);  // 0x469390
+    OpcodeResult ProcessCommands500To599(int32 command);  // 0x47E090
+    OpcodeResult ProcessCommands600To699(int32 command);  // 0x47F370
+    OpcodeResult ProcessCommands700To799(int32 command);  // 0x47FA30
+    OpcodeResult ProcessCommands900To999(int32 command);  // 0x483BD0
+    OpcodeResult ProcessHandledCommand(int32 command);
 
     void SetName(const char* name)      { strcpy_s(m_szName, name); }
     void SetName(std::string_view name) { assert(name.size() < sizeof(m_szName)); strncpy_s(m_szName, name.data(), name.size()); }
