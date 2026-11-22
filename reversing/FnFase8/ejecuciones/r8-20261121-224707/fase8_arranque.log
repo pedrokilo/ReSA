@@ -1,0 +1,99 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo estricto
+codigo original 0x00401000-0x00858000: NO copiado, relleno con INT3 (4550656 bytes)
+seccion .text    VA 0x00401000 virtual  4546560: codigo, omitida
+seccion _rwcseg  VA 0x00857000 virtual     4096: codigo, omitida
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+datos copiados desde el original: 641024 bytes
+imports de la IAT original: 214, sin resolver: 0
+[    16 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+[    16 ms] StandaloneStartup correcto (tabla C de __cinit completa); iniciando el CRT propio
+[    32 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)
+[    32 ms] DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)
+[   282 ms] latido: frame=0 codigo-original-distinto=0 hits=0 excepciones=0
+[   282 ms]   ventana 0x00451028 clase=ConsoleWindowClass titulo="D:\Original\_fase8b_run\gta_sa_standalone.exe" visible=1 922x517
+[   891 ms] DllMain devolvio 1
+[   891 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[   891 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[   891 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[   891 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[   891 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[   891 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[   891 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   891 ms] inicializadores estaticos pendientes ejecutados: 4299 filas (StandaloneInit.inc)
+[   891 ms] llamando a NOTSA_WinMain (WinMain reconstruido)
+[  2297 ms] latido: frame=13 codigo-original-distinto=0 hits=0 excepciones=0
+[  4297 ms] latido: frame=73 codigo-original-distinto=0 hits=0 excepciones=0
+[  6313 ms] latido: frame=133 codigo-original-distinto=0 hits=0 excepciones=0
+[  8313 ms] latido: frame=193 codigo-original-distinto=0 hits=0 excepciones=0
+[ 10313 ms] latido: frame=253 codigo-original-distinto=0 hits=0 excepciones=0
+[ 10313 ms]   ventana 0x001B1186 clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 10313 ms]   ventana 0x0011124E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 3464x1504
+[ 10313 ms]   ventana 0x00451028 clase=ConsoleWindowClass titulo="D:\Original\_fase8b_run\gta_sa_standalone.exe" visible=1 1614x904
+[ 10313 ms]   ventana 0x001A1168 clase=IME titulo="Default IME" visible=0 0x0
+[ 10344 ms]   ventana 0x001B1042 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 10391 ms]   ventana 0x000E1224 clase=IME titulo="Default IME" visible=0 0x0
+[ 12391 ms] latido: frame=316 codigo-original-distinto=0 hits=0 excepciones=0
+[ 14391 ms] latido: frame=376 codigo-original-distinto=0 hits=0 excepciones=0
+[ 16407 ms] latido: frame=436 codigo-original-distinto=0 hits=0 excepciones=0
+[ 18407 ms] latido: frame=496 codigo-original-distinto=0 hits=0 excepciones=0
+[ 20407 ms] latido: frame=556 codigo-original-distinto=0 hits=0 excepciones=0
+[ 20407 ms]   ventana 0x001B1186 clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 20422 ms]   ventana 0x0011124E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 3464x1504
+[ 20422 ms]   ventana 0x00451028 clase=ConsoleWindowClass titulo="D:\Original\_fase8b_run\gta_sa_standalone.exe" visible=1 1614x904
+[ 20422 ms]   ventana 0x001A1168 clase=IME titulo="Default IME" visible=0 0x0
+[ 20454 ms]   ventana 0x001B1042 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 20485 ms]   ventana 0x000E1224 clase=IME titulo="Default IME" visible=0 0x0
+[ 22485 ms] latido: frame=619 codigo-original-distinto=0 hits=0 excepciones=0
+[ 24500 ms] latido: frame=679 codigo-original-distinto=0 hits=0 excepciones=0
+[ 26500 ms] latido: frame=739 codigo-original-distinto=0 hits=0 excepciones=0
+[ 28500 ms] latido: frame=799 codigo-original-distinto=0 hits=0 excepciones=0
+[ 30516 ms] latido: frame=859 codigo-original-distinto=0 hits=0 excepciones=0
+[ 30516 ms]   ventana 0x001B1186 clase=DIEmWin titulo="DIEmWin" visible=0 232x64
+[ 30516 ms]   ventana 0x0011124E clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 3464x1504
+[ 30516 ms]   ventana 0x00451028 clase=ConsoleWindowClass titulo="D:\Original\_fase8b_run\gta_sa_standalone.exe" visible=1 1614x904
+[ 30516 ms]   ventana 0x001A1168 clase=IME titulo="Default IME" visible=0 0x0
+[ 30547 ms]   ventana 0x001B1042 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 30579 ms]   ventana 0x000E1224 clase=IME titulo="Default IME" visible=0 0x0
+[ 32594 ms] latido: frame=922 codigo-original-distinto=0 hits=0 excepciones=0
+[ 34594 ms] latido: frame=982 codigo-original-distinto=0 hits=0 excepciones=0
+[ 36594 ms] latido: frame=1042 codigo-original-distinto=0 hits=0 excepciones=0
+[ 38610 ms] latido: frame=1102 codigo-original-distinto=0 hits=0 excepciones=0
+[ 40110 ms] GUARDIA: limite de tiempo (40 s); se mata el proceso
+FALLO (hilo principal en la guardia: limite de tiempo) codigo 0xDEAD0002 en EIP=0x77BF869C [otro] t=40110 ms
+  EAX=00000001 EBX=001AF010 ECX=00000000 EDX=00000000 ESI=00290000 EDI=001AF010 EBP=001AEFCC ESP=001AEFAC
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0xC8] 0x01F026D8 propio
+    [esp+0x104] 0x01000121 propio
+    [esp+0x130] 0x01F026D8 propio
+    [esp+0x210] 0x01CCCCCC propio
+    [esp+0x3AC] 0x01E58A61 propio
+    [esp+0x3C4] 0x018FBCDC propio
+    [esp+0x42C] 0x00D70000 propio
+    [esp+0x47C] 0x01E58A80 propio
+    [esp+0x484] 0x01E71EE0 propio
+    [esp+0x534] 0x01E41536 propio
+    [esp+0x558] 0x01E17BA8 propio
+    [esp+0x588] 0x01DF19E6 propio
+    [esp+0x598] 0x01E17AE0 propio
+    [esp+0x59C] 0x01E17AE0 propio
+    [esp+0x5A8] 0x01DFA348 propio
+    [esp+0x5C0] 0x024A1D8C propio
+    [esp+0x634] 0x01E17ABE propio
+    [esp+0x638] 0x01E17AD6 propio
+    [esp+0x678] 0x01E03C95 propio
+    [esp+0x688] 0x01E17970 propio
+    [esp+0x690] 0x01D4E570 propio
+    [esp+0x694] 0x01D4E57A propio
+    [esp+0x6B0] 0x01BB8600 propio
+    [esp+0x770] 0x01D4E58A propio
+    [esp+0x778] 0x01DFA2D4 propio
+    [esp+0x780] 0x01D4E520 propio
+    [esp+0x788] 0x00FD00EC propio
+    [esp+0x7B8] 0x026DED41 propio
+    [esp+0x7D0] 0x026DD8A2 propio
+    [esp+0x7DC] 0x026DD8AF propio
+  cadena EBP: 7614BB50 7614BAEF 656ABC5F 656AB67F 656ADDE4 6567DC86 6568930A 7359C9CF 7359C3C7 73594DF7 7363044B 736302EB 01E41536 01E17BA8 01DF19E6 01DFA348 024A1D8C 01BB8600 00FD00EC 00FB4877 01BB86D8 0249C42D 0249B759 0249BE28

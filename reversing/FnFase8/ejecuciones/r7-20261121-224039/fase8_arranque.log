@@ -1,0 +1,61 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo estricto
+codigo original 0x00401000-0x00858000: NO copiado, relleno con INT3 (4550656 bytes)
+seccion .text    VA 0x00401000 virtual  4546560: codigo, omitida
+seccion _rwcseg  VA 0x00857000 virtual     4096: codigo, omitida
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+datos copiados desde el original: 641024 bytes
+imports de la IAT original: 214, sin resolver: 0
+[    15 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+[    15 ms] StandaloneStartup correcto (tabla C de __cinit completa); iniciando el CRT propio
+[    31 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)
+[    31 ms] DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)
+[   281 ms] latido: frame=0 codigo-original-distinto=0 hits=0 excepciones=0
+[   281 ms]   ventana 0x00121230 clase=ConsoleWindowClass titulo="D:\Original\_fase8b_run\gta_sa_standalone.exe" visible=1 922x517
+[   859 ms] DllMain devolvio 1
+[   859 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[   859 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[   859 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[   859 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[   859 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[   859 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[   859 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   859 ms] CODIGO ORIGINAL #1: 0x00563190 llamado desde 0x00E315D4 [propio] ecx=00B992B8 args=00563190 007170C0
+FALLO (llamada a codigo original sin reemplazo) codigo 0x80000003 en EIP=0x00563190 [original(codigo)] t=859 ms
+  EAX=02C174C0 EBX=0027A000 ECX=00B992B8 EDX=02C174C0 ESI=00E31990 EDI=00E31990 EBP=001AFE9C ESP=001AFE68
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x0] 0x00E315D4 propio
+    [esp+0x4] 0x00563190 original(codigo)
+    [esp+0x8] 0x007170C0 original(codigo)
+    [esp+0xC] 0x0059AED0 original(codigo)
+    [esp+0x10] 0x0054F440 original(codigo)
+    [esp+0x14] 0x02C1BD20 propio
+    [esp+0x1C] 0x02C16380 propio
+    [esp+0x2C] 0x02C174C0 propio
+    [esp+0x30] 0x02C174C0 propio
+    [esp+0x38] 0x00E2F418 propio
+    [esp+0x54] 0x02AADF90 propio
+    [esp+0x64] 0x02C1C0A8 propio
+    [esp+0x78] 0x0299884D propio
+    [esp+0x98] 0x0299872A propio
+    [esp+0xA0] 0x00E31990 propio
+    [esp+0xA4] 0x00E31990 propio
+    [esp+0xB4] 0x029988C0 propio
+    [esp+0xC8] 0x029988C0 propio
+    [esp+0xDC] 0x02C15000 propio
+    [esp+0xE4] 0x02A27820 propio
+    [esp+0xF4] 0x029985CD propio
+    [esp+0xFC] 0x029988B8 propio
+    [esp+0x104] 0x00E31A1B propio
+    [esp+0x18C] 0x00E31990 propio
+    [esp+0x37C] 0x0057005C original(codigo)
+    [esp+0x380] 0x004E0049 original(codigo)
+    [esp+0x384] 0x004F0044 original(codigo)
+    [esp+0x388] 0x00530057 original(codigo)
+    [esp+0x38C] 0x0057005C original(codigo)
+    [esp+0x390] 0x006E0069 original(codigo)
+[   875 ms] estado: dispositivo D3D9 [0xC97C28]=0x00000000, RwCamera [0xC1703C]=0x00000000, contador de fotogramas=0, ventanas del proceso:
+[   875 ms]   ventana 0x00121230 clase=ConsoleWindowClass titulo="D:\Original\_fase8b_run\gta_sa_standalone.exe" visible=1 922x517

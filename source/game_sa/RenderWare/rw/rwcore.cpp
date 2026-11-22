@@ -8821,6 +8821,120 @@ void _rwD3D9Im2DRenderBegin() {
     _rwD3D9RenderStateFlushCache();
 }
 
+// 0x7FBD30 (fase 8 segunda ronda, sin validar; 1202 bytes, hasta 0x7FC1E2; `RwIm2DRenderIndexedPrimitive` del controlador D3D9; cdecl, (RwPrimitiveType tipo, RwIm2DVertex* vertices, RwInt32 numVertices, RwImVertexIndex* indices, RwInt32 numIndices);
+// puntero de la tabla estandar del dispositivo, lo llama RwIm2DRenderIndexedPrimitive; primera ruptura del EXE independiente tras el arranque (CSprite2d::RenderVertexBuffer). Primitivas segun numIndices: tipo 1 / 2, 2 -1, 3 / 3, 4 y 5 -2, otro 0.
+// Si numIndices <= numVertices "desindexa": reserva numIndices vertices en el bufer dinamico de Im2D (igual que 0x7FBB00), copia vertices[indices[i]] (sumando el desplazamiento del raster del marco de la camara a x e y si no es (0,0)), desbloquea,
+// 0x7FB810 y DrawPrimitive(tipo D3D, inicio 0xC980E4, primitivas); 0xC980E4 += numIndices. Si no, copia los numVertices vertices, desbloquea y usa el bufer de indices 0xC980F0 (NULL o numIndices > 0x2710: devuelve 0 sin avanzar;
+// posicion 0xC980EC; si 0xC980EC + numIndices > 0x2710 la pone a 0 y bloquea con descarte 0x2800, si no NOOVERWRITE 0x1800): copia los indices, desbloquea, 0x7FB810, _rwD3D9SetIndices y DrawIndexedPrimitive(tipo, 0xC980E4, 0, numVertices,
+// 0xC980EC, primitivas) por la ranura 0x148; 0xC980EC += numIndices; 0xC980E4 += numVertices (tambien si el bloqueo de indices falla, que devuelve 0). TRUE si el HRESULT no es negativo. Sin datos de vertices devuelve 0.
+RwBool _rwD3D9Im2DRenderIndexedPrimitive(RwInt32 primType, void* vertices, RwInt32 numVertices, const RwImVertexIndex* indices, RwInt32 numIndices) {
+    auto& bufferInUse   = StaticRef<uint32>(0xC980E0);
+    auto& position      = StaticRef<uint32>(0xC980E4);
+    auto& vertexBuffer  = StaticRef<void*>(0xC980E8);
+    auto& indexPosition = StaticRef<uint32>(0xC980EC);
+    auto& indexBuffer   = StaticRef<void*>(0xC980F0);
+    const uint8* const camera = StaticRef<const uint8*>(0xC9BCC0);
+    const RwRaster* const frameBuffer = *reinterpret_cast<RwRaster* const*>(camera + 0x60);
+    RwInt32 primitives;
+    switch (primType) {
+    case 1: primitives = numIndices / 2; break;
+    case 2: primitives = numIndices - 1; break;
+    case 3: primitives = numIndices / 3; break;
+    case 4:
+    case 5: primitives = numIndices - 2; break;
+    default: primitives = 0; break;
+    }
+    // Reserva `count` vertices en el bufer dinamico de Im2D; devuelve los datos bloqueados (NULL si falla).
+    const auto lockVertices = [&](RwInt32 count) -> uint8* {
+        uint8* data = nullptr;
+        const uint32 byteCount = static_cast<uint32>(count) * 28u;
+        if (bufferInUse != 0) {
+            const uint32 start = position;
+            if (start + static_cast<uint32>(count) > 0x2492u) {
+                position = 0;
+                ComCall<kSlotVertexBufferLock, int32>(vertexBuffer, 0u, byteCount, static_cast<void*>(&data), 0x2800u);
+            } else {
+                ComCall<kSlotVertexBufferLock, int32>(vertexBuffer, start * 28u, byteCount, static_cast<void*>(&data), 0x1800u);
+            }
+        } else {
+            RwD3D9DynamicVertexBufferLock(0x1C, static_cast<RwUInt32>(count), &vertexBuffer, reinterpret_cast<void**>(&data), &position);
+        }
+        return data;
+    };
+    const int16 offsetX = frameBuffer->nOffsetX;
+    const int16 offsetY = frameBuffer->nOffsetY;
+    const float shiftX = static_cast<float>(static_cast<int32>(offsetX));
+    const float shiftY = static_cast<float>(static_cast<int32>(offsetY));
+    const uint32* const sourceVertices = static_cast<const uint32*>(vertices);
+    // Copia un vertice de 7 palabras sumando el desplazamiento a x e y (si lo hay).
+    const auto copyVertex = [&](uint32* destination, const uint32* source) {
+        if (offsetX == 0 && offsetY == 0) {
+            memcpy(destination, source, 28);
+            return;
+        }
+        float x, y;
+        memcpy(&x, source, sizeof(float));
+        memcpy(&y, source + 1, sizeof(float));
+        x = shiftX + x;
+        y = shiftY + y;
+        memcpy(destination, &x, sizeof(float));
+        memcpy(destination + 1, &y, sizeof(float));
+        for (int k = 2; k < 7; ++k) {
+            destination[k] = source[k];
+        }
+    };
+
+    if (numIndices <= numVertices) {
+        uint8* const data = lockVertices(numIndices);
+        if (data == nullptr) {
+            return FALSE;
+        }
+        uint32* destination = reinterpret_cast<uint32*>(data);
+        for (RwInt32 i = 0; i < numIndices; ++i, destination += 7) {
+            copyVertex(destination, sourceVertices + static_cast<size_t>(indices[i]) * 7);
+        }
+        ComCall<kSlotVertexBufferUnlock, int32>(vertexBuffer);
+        _rwD3D9Im2DRenderBegin(); // 0x7FB810
+        const uint32 d3dPrimitive = reinterpret_cast<const uint32*>(0x884888)[primType];
+        const int32 result = ComCall<kSlotDeviceDrawPrimitiveR27A, int32>(D3D9Device, d3dPrimitive, static_cast<uint32>(position), static_cast<uint32>(primitives));
+        position += static_cast<uint32>(numIndices);
+        return result >= 0;
+    }
+
+    uint8* const data = lockVertices(numVertices);
+    if (data == nullptr) {
+        return FALSE;
+    }
+    uint32* destination = reinterpret_cast<uint32*>(data);
+    for (RwInt32 i = 0; i < numVertices; ++i, destination += 7) {
+        copyVertex(destination, sourceVertices + static_cast<size_t>(i) * 7);
+    }
+    ComCall<kSlotVertexBufferUnlock, int32>(vertexBuffer);
+    if (indexBuffer == nullptr || numIndices > 0x2710) {
+        return FALSE;
+    }
+    uint8* indexData = nullptr;
+    const uint32 indexBytes = static_cast<uint32>(numIndices) * 2u;
+    int32 result;
+    if (indexPosition + static_cast<uint32>(numIndices) > 0x2710u) {
+        indexPosition = 0;
+        result = ComCall<kSlotVertexBufferLock, int32>(indexBuffer, 0u, indexBytes, static_cast<void*>(&indexData), 0x2800u);
+    } else {
+        result = ComCall<kSlotVertexBufferLock, int32>(indexBuffer, indexPosition * 2u, indexBytes, static_cast<void*>(&indexData), 0x1800u);
+    }
+    if (result >= 0) {
+        memcpy(indexData, indices, indexBytes);
+        ComCall<kSlotVertexBufferUnlock, int32>(indexBuffer);
+        _rwD3D9Im2DRenderBegin(); // 0x7FB810
+        _rwD3D9SetIndices(indexBuffer);
+        const uint32 d3dPrimitive = reinterpret_cast<const uint32*>(0x884888)[primType];
+        result = ComCall<kSlotDeviceDrawIndexedPrimitiveR27A, int32>(D3D9Device, d3dPrimitive, static_cast<uint32>(position), 0u, static_cast<uint32>(numVertices), indexPosition, static_cast<uint32>(primitives));
+        indexPosition += static_cast<uint32>(numIndices);
+    }
+    position += static_cast<uint32>(numVertices);
+    return result >= 0;
+}
+
 // 0x7FFEE0 (lote R28A, sin validar; 24 bytes; era un puntero de funcion de la tabla de _rwD3D9RasterToImageGeneric (D3DFMT_L16 = 0x51); nombre inferido; cdecl, (destino, valor)): destino[0..2] = (valor >> 8) & 0xFF (gris de 16
 // bits: el byte alto) y destino[3] = 0xFF. Sin x87.
 void _rwD3D9PixelConvertL16(RwUInt32* destination, RwUInt32 value) {
@@ -8924,6 +9038,7 @@ void RwD3D9InjectHooksR28A() {
     RH_ScopedGlobalInstall(_rwD3D9Im2DRenderOpen, 0x7FB480);
     RH_ScopedGlobalInstall(_rwD3D9Im2DRenderClose, 0x7FB5F0);
     RH_ScopedGlobalInstall(_rwD3D9Im2DRenderBegin, 0x7FB810);
+    RH_ScopedGlobalInstall(_rwD3D9Im2DRenderIndexedPrimitive, 0x7FBD30);
     RH_ScopedGlobalInstall(RwD3D9SetRenderState, 0x7FC2D0);
     RH_ScopedGlobalInstall(RwD3D9GetRenderState, 0x7FC320);
     RH_ScopedGlobalInstall(RwD3D9SetTextureStageState, 0x7FC340);

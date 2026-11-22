@@ -1,0 +1,62 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo estricto
+codigo original 0x00401000-0x00858000: NO copiado, relleno con INT3 (4550656 bytes)
+seccion .text    VA 0x00401000 virtual  4546560: codigo, omitida
+seccion _rwcseg  VA 0x00857000 virtual     4096: codigo, omitida
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+datos copiados desde el original: 641024 bytes
+imports de la IAT original: 214, sin resolver: 0
+[    15 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+[    15 ms] StandaloneStartup correcto (tabla C de __cinit completa); iniciando el CRT propio
+[    31 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)
+[    31 ms] DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)
+[   281 ms] latido: frame=0 codigo-original-distinto=0 hits=0 excepciones=0
+[   281 ms]   ventana 0x001D11F8 clase=ConsoleWindowClass titulo="D:\Original\_fase8b_run\gta_sa_standalone.exe" visible=1 922x517
+[   765 ms] DllMain devolvio 1
+[   765 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[   765 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[   765 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[   765 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[   765 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[   765 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[   765 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   765 ms] llamando a NOTSA_WinMain (WinMain reconstruido)
+FALLO (primera oportunidad) codigo 0xC0000005 en EIP=0x00F0A978 [propio] t=1781 ms
+  acceso lectura a 0x00000000
+  EAX=00B6BD44 EBX=001AFE98 ECX=00000000 EDX=00B62D9C ESI=001AFA04 EDI=001AEEAC EBP=001AEEAC ESP=001AEDCC
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x14] 0x011AFE98 propio
+    [esp+0x60] 0x02B10840 propio
+    [esp+0x64] 0x00F0ACD6 propio
+    [esp+0x6C] 0x00F0C625 propio
+    [esp+0xE4] 0x00F0F6CF propio
+    [esp+0x118] 0x02B0D540 propio
+    [esp+0x11C] 0x00EBC48D propio
+    [esp+0x124] 0x00F082D3 propio
+    [esp+0x150] 0x00F0D13E propio
+    [esp+0x19C] 0x02B0D560 propio
+    [esp+0x1AC] 0x00E890FF propio
+    [esp+0x1B4] 0x00E8FCE0 propio
+    [esp+0x20C] 0x00EA962F propio
+    [esp+0x220] 0x018EA5B7 propio
+    [esp+0x2A0] 0x00F0ED56 propio
+    [esp+0x2FC] 0x018E73B0 propio
+    [esp+0x314] 0x018E7E80 propio
+    [esp+0x32C] 0x0167A66E propio
+    [esp+0x88C] 0x00FF2E27 propio
+    [esp+0x97C] 0x00FCFB6E propio
+    [esp+0x98C] 0x026DE8CF propio
+    [esp+0x9A8] 0x026DE8F1 propio
+    [esp+0x9C0] 0x026DD452 propio
+    [esp+0x9CC] 0x026DD45F propio
+    [esp+0xA5C] 0x00FB4427 propio
+    [esp+0xA90] 0x01CCCCCC propio
+    [esp+0xAA4] 0x026DD46C propio
+    [esp+0xAAC] 0x026D97C0 propio
+    [esp+0xAB8] 0x026D97CA propio
+    [esp+0xACC] 0x01ED20E9 propio
+[ 26578 ms] latido: frame=4 codigo-original-distinto=0 hits=0 excepciones=1
+[ 26578 ms] GUARDIA: sin latido durante 20 s; se mata el proceso

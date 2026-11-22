@@ -39,7 +39,7 @@ constexpr uint32_t kFrameCounter = 0xB7CB4C; // CTimer::m_FrameCounter (latido)
 
 struct Estado {
     char ruta[MAX_PATH], salida[MAX_PATH], dirJuego[MAX_PATH], tablaRet[MAX_PATH], stubs[MAX_PATH];
-    bool censo, cargado, shims;
+    bool censo, cargado, shims, sinInit;
     DWORD limite, maxCenso;
     HANDLE log;
     DWORD t0;
@@ -121,6 +121,7 @@ void LeerArgumentos() {
         else if (Iguales(a, "--max-censo") && i + 1 < argc) { g.maxCenso = 0; for (const char* d = argv[++i]; *d >= '0' && *d <= '9'; ++d) g.maxCenso = g.maxCenso * 10 + (*d - '0'); }
         else if (Iguales(a, "--censo")) g.censo = true;
         else if (Iguales(a, "--shims")) g.shims = true;
+        else if (Iguales(a, "--sin-init")) g.sinInit = true;
     }
     if (!g.ruta[0]) GetEnvironmentVariableA("GTASA_ORIGINAL_EXE", g.ruta, MAX_PATH);
 }
@@ -312,6 +313,66 @@ BOOL CALLBACK EnumVentanas(HWND h, LPARAM) {
     LogT("  ventana 0x%08lX clase=%s titulo=\"%s\" visible=%d %ldx%ld", (DWORD)(uintptr_t)h, c, t, (int)IsWindowVisible(h), r.right - r.left, r.bottom - r.top);
     return TRUE;
 }
+// Contadores de la API de D3D9 (segunda ronda): se parchean las ranuras del vtable del dispositivo (Present 17, EndScene 42, Clear 43, DrawPrimitive 81,
+// DrawIndexedPrimitive 82, DrawPrimitiveUP 83, DrawIndexedPrimitiveUP 84) con envolturas que cuentan y reenvian; prueba por memoria de que el juego dibuja.
+volatile LONG g_cPresent, g_cEndScene, g_cClear, g_cDraw;
+typedef long(__stdcall* FnPresent)(void*, const void*, const void*, void*, const void*);
+typedef long(__stdcall* FnVoid)(void*);
+typedef long(__stdcall* FnClear)(void*, unsigned long, const void*, unsigned long, unsigned long, float, unsigned long);
+typedef long(__stdcall* FnDraw3)(void*, unsigned long, unsigned long, unsigned long);
+typedef long(__stdcall* FnDraw6)(void*, unsigned long, long, unsigned long, unsigned long, unsigned long, unsigned long);
+typedef long(__stdcall* FnDrawUP)(void*, unsigned long, unsigned long, const void*, unsigned long);
+typedef long(__stdcall* FnDrawIUP)(void*, unsigned long, unsigned long, unsigned long, unsigned long, const void*, unsigned long, const void*, unsigned long);
+void *o17, *o42, *o43, *o81, *o82, *o83, *o84;
+long __stdcall W17(void* d, const void* a, const void* b, void* c, const void* e) { InterlockedIncrement(&g_cPresent); return ((FnPresent)o17)(d, a, b, c, e); }
+long __stdcall W42(void* d) { InterlockedIncrement(&g_cEndScene); return ((FnVoid)o42)(d); }
+long __stdcall W43(void* d, unsigned long a, const void* b, unsigned long c, unsigned long e, float f, unsigned long g2) { InterlockedIncrement(&g_cClear); return ((FnClear)o43)(d, a, b, c, e, f, g2); }
+long __stdcall W81(void* d, unsigned long a, unsigned long b, unsigned long c) { InterlockedIncrement(&g_cDraw); return ((FnDraw3)o81)(d, a, b, c); }
+long __stdcall W82(void* d, unsigned long a, long b, unsigned long c, unsigned long e, unsigned long f, unsigned long g2) { InterlockedIncrement(&g_cDraw); return ((FnDraw6)o82)(d, a, b, c, e, f, g2); }
+long __stdcall W83(void* d, unsigned long a, unsigned long b, const void* c, unsigned long e) { InterlockedIncrement(&g_cDraw); return ((FnDrawUP)o83)(d, a, b, c, e); }
+long __stdcall W84(void* d, unsigned long a, unsigned long b, unsigned long c, unsigned long e, const void* f, unsigned long g2, const void* h, unsigned long i) { InterlockedIncrement(&g_cDraw); return ((FnDrawIUP)o84)(d, a, b, c, e, f, g2, h, i); }
+bool g_contadoresD3D;
+void InstalarContadoresD3D() {
+    if (g_contadoresD3D || !Legible(0xC97C28, 4)) return;
+    void* const dev = *(void* volatile*)0xC97C28;
+    if (!dev || !Legible((uint32_t)dev, 4)) return;
+    void** vt = *(void***)dev;
+    struct { int slot; void** orig; void* nuevo; } t[] = {{17, &o17, (void*)W17}, {42, &o42, (void*)W42}, {43, &o43, (void*)W43}, {81, &o81, (void*)W81}, {82, &o82, (void*)W82}, {83, &o83, (void*)W83}, {84, &o84, (void*)W84}};
+    DWORD viejo = 0;
+    if (!VirtualProtect(vt, 100 * sizeof(void*), PAGE_READWRITE, &viejo)) return;
+    for (auto& e : t) { *e.orig = vt[e.slot]; vt[e.slot] = e.nuevo; }
+    VirtualProtect(vt, 100 * sizeof(void*), viejo, &viejo);
+    g_contadoresD3D = true;
+    LogT("contadores de D3D9 instalados en el vtable del dispositivo 0x%08lX", (DWORD)(uintptr_t)dev);
+}
+HANDLE g_hiloPrincipal; // duplicado del hilo que ejecuta NOTSA_WinMain (para volcar su pila cuando la guardia lo mata)
+// Segunda ronda: antes de matar el proceso por falta de latido o por tiempo, se suspende el hilo principal y se vuelca donde esta (EIP, registros,
+// cadena de EBP y palabras de la pila que apuntan a codigo propio u original), para saber en que funcion esta colgado.
+void VolcarHiloPrincipal(const char* motivo) {
+    if (!g_hiloPrincipal || SuspendThread(g_hiloPrincipal) == (DWORD)-1) return;
+    CONTEXT c = {};
+    c.ContextFlags = CONTEXT_CONTROL | CONTEXT_INTEGER;
+    if (GetThreadContext(g_hiloPrincipal, &c)) {
+        EXCEPTION_RECORD er = {};
+        er.ExceptionCode = 0xDEAD0002;
+        EXCEPTION_POINTERS ep = {&er, &c};
+        char motivoBuf[96];
+        wsprintfA(motivoBuf, "hilo principal en la guardia: %s", motivo);
+        InformeFallo(&ep, motivoBuf, false);
+        char buf[200];
+        int n = wsprintfA(buf, "  cadena EBP:");
+        uint32_t ebp = c.Ebp;
+        for (int i = 0; i < 24 && Legible(ebp, 8); ++i) {
+            n += wsprintfA(buf + n, " %08lX", *(uint32_t*)(ebp + 4));
+            const uint32_t sig = *(uint32_t*)ebp;
+            if (sig <= ebp) break;
+            ebp = sig;
+        }
+        n += wsprintfA(buf + n, "\r\n");
+        Escribir(g.log, buf, n);
+    }
+    ResumeThread(g_hiloPrincipal);
+}
 DWORD WINAPI Guardia(LPVOID) {
     uint32_t ultimoFrame = 0;
     DWORD ultimoCambio = GetTickCount(), ultimoLog = 0;
@@ -324,12 +385,14 @@ DWORD WINAPI Guardia(LPVOID) {
         if (frame != ultimoFrame) { ultimoFrame = frame; ultimoCambio = ahora; hubo = true; }
         if (ahora - ultimoLog >= 2000) {
             ultimoLog = ahora;
-            LogT("latido: frame=%lu codigo-original-distinto=%ld hits=%ld excepciones=%ld", frame, g_nDistintas, g_nHits, g_nExc);
+            InstalarContadoresD3D();
+            LogT("latido: frame=%lu estado-juego=%ld Present=%ld EndScene=%ld Clear=%ld Draw*=%ld codigo-original-distinto=%ld hits=%ld excepciones=%ld", frame, Legible(0xC8D4C0, 4) ? *(volatile LONG*)0xC8D4C0 : -1L, g_cPresent, g_cEndScene, g_cClear, g_cDraw, g_nDistintas, g_nHits, g_nExc);
             if (++nLat % 5 == 1) EnumWindows(EnumVentanas, 0);
         }
         const bool sinLatido = g.limite && hubo && ahora - ultimoCambio > 20000;
         if ((g.limite && t > g.limite * 1000) || sinLatido) {
             if (sinLatido) LogT("GUARDIA: sin latido durante 20 s; se mata el proceso"); else LogT("GUARDIA: limite de tiempo (%lu s); se mata el proceso", g.limite);
+            VolcarHiloPrincipal(sinLatido ? "sin latido" : "limite de tiempo");
             if (g.log) FlushFileBuffers(g.log);
             TerminateProcess(GetCurrentProcess(), 0xDEAD0002);
         }
@@ -408,6 +471,40 @@ void CargarTablaRet() {
     Log("tabla de ret n cargada: %lu bytes", n);
 }
 
+// ---------------- Inicializadores estaticos pendientes de DatosExe (segunda ronda) ----------------
+// El EXE original construye sus objetos globales (vtables, valores iniciales) con la tabla _initterm; el EXE propio no ejecuta esa tabla, asi que
+// objetos como AudioEngine.m_FrontendAEAudioEntity quedan con la vtable a cero (primer fallo real tras el menu). Mientras DatosExe no los define en C++,
+// este puente ejecuta, con el C++ ya enganchado, lo que haria cada rutina (StandaloneInit.inc, generado de fase8-inicializadores.csv; sin atexit).
+enum TipoInit : uint32_t { kCtor0, kCtor1, kCtor4, kVec, kFill16, kCopy32, kCopy16, kIndex24, kFdivr16, kWrite8, kWrite16, kWrite32 };
+struct FilaInit { uint32_t va, tipo, a, b, c, d, e, f; };
+const FilaInit kInit[] = {
+#include "StandaloneInit.inc"
+};
+void EjecutarInicializadoresEstaticos() {
+    using Ctor0 = void(__thiscall*)(void*);
+    using Ctor1 = void(__thiscall*)(void*, uint32_t);
+    using Ctor4 = void(__thiscall*)(void*, uint32_t, uint32_t, uint32_t, uint32_t);
+    int n = 0;
+    for (const FilaInit& f : kInit) {
+        switch (f.tipo) {
+        case kCtor0: ((Ctor0)f.b)((void*)f.a); break;
+        case kCtor1: ((Ctor1)f.b)((void*)f.a, f.c); break;
+        case kCtor4: ((Ctor4)f.b)((void*)f.a, f.c, f.d, f.e, f.f); break;
+        case kVec:   for (uint32_t i = 0; i < f.c; ++i) ((Ctor0)f.d)((void*)(f.a + i * f.b)); break;
+        case kFill16: for (uint32_t i = 0; i < f.b; ++i) *(volatile uint16_t*)(f.a + 4 * i) = (uint16_t)f.c; break;
+        case kCopy32: *(volatile uint32_t*)f.a = *(volatile uint32_t*)f.b; break;
+        case kCopy16: *(volatile uint16_t*)f.a = *(volatile uint16_t*)f.b; break;
+        case kIndex24: *(volatile uint32_t*)f.a = f.c + 24u * *(volatile uint8_t*)f.b; break;
+        case kWrite8:  *(volatile uint8_t*)f.a = (uint8_t)f.b; break;
+        case kWrite16: *(volatile uint16_t*)f.a = (uint16_t)f.b; break;
+        case kWrite32: *(volatile uint32_t*)f.a = f.b; break;
+        case kFdivr16: *(volatile float*)f.a = *(volatile float*)f.c / (float)(int)*(volatile int16_t*)f.b; break;
+        }
+        ++n;
+    }
+    LogT("inicializadores estaticos pendientes ejecutados: %d filas (StandaloneInit.inc)", n);
+}
+
 // ---------------- Reconstrucciones minimas del propio experimento ("shims") ----------------
 // Retirados (codigo vivo CAM): 0x750430, 0x750460 y 0x750480 (envolturas del plugin 0x509 de RwCamera), 0x750AC0, 0x7F98D0, 0x7F99B0 y 0x7FFF00 ya son funciones C++ con gancho
 // (rpworld.cpp y rwcore.cpp); instalar aqui un salto propio sobre esas direcciones pisaria el gancho real. `--shims` queda aceptado y no hace nada.
@@ -479,6 +576,7 @@ extern "C" void __cdecl FaseEntrada() {
 
 int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR cmd, int show) {
     LogT("WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)");
+    DuplicateHandle(GetCurrentProcess(), GetCurrentThread(), GetCurrentProcess(), &g_hiloPrincipal, 0, FALSE, DUPLICATE_SAME_ACCESS);
     CreateThread(nullptr, 0, Guardia, nullptr, 0, nullptr);
     LogT("DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)");
     const BOOL ok = DllMain(GetModuleHandleW(nullptr), DLL_PROCESS_ATTACH, nullptr);
@@ -496,6 +594,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR cmd, int show) {
             LogT("proteccion %-8.8s 0x%08X +0x%lX -> 0x%lX %s", (const char*)sec[i].Name, va, vs, prot, r ? "ok" : "FALLO");
         }
     }
+    if (!g.sinInit) EjecutarInicializadoresEstaticos();
     LogT("llamando a NOTSA_WinMain (WinMain reconstruido)");
     const int r = NOTSA_WinMain(hInst, hPrev, cmd, show);
     LogT("NOTSA_WinMain devolvio %d", r);
