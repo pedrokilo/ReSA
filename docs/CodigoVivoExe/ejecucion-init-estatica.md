@@ -18,7 +18,16 @@ Rama `vivo-init` (desde `origin/main` 1ec835719c, 22/11/2026). Objetivo: que las
 
 Se llama al instalar los ganchos solo si el `.text` es código (con el ejecutable propio es INT3). Por fila: guarda los bytes que dejó el `_initterm` del EXE, pone la zona a cero (estado del `.bss` del standalone), ejecuta el constructor C++, compara y restaura. Las filas sin constructor se aceptan si la zona del EXE es toda ceros (prueba directa de que la rutina solo escribía ceros). Las palabras que en el EXE son vtable (`.rdata`) no se comparan y se cuentan aparte. Traza: `Inicializadores estáticos de DatosExe: N filas, M iguales…`.
 
-RESULTADOS_PENDIENTES
+### Resultado (DLL sobre el EXE, `prueba_*` de `wv-8eversing\FnBIS1` con la DLL de esta rama)
+
+`Inicializadores estáticos de DatosExe: 55 filas, 53 iguales a las del EXE, 2 distintas, 53 palabras de vtable del EXE sin comparar` (la fila 1 no tiene tamaño que comprobar). Se llama al principio de `NOTSA_WinMain` (la DLL se carga **antes** del `_initterm` del EXE: en `InjectHooksMain` la zona aún estaba a cero y la prueba no valía; en `WinMain` el `_initterm` ya corrió y el juego no ha tocado nada). Esto incluye la prueba directa de que las 20 filas "sin efecto" solo dejan ceros, y de que los nueve almacenes de `CModelInfo`, las constantes de cámara, `tUserList`/`CScriptedEffectPairs` (64 elementos cada uno), `Offsets`, `CMatrix`, `COctTreeBase`, `CDirectory`, `CGangInfo`, `CTaskComplexSequence` x64, la división x87 de la fila 518 y los audios dejan **exactamente** los bytes del EXE.
+
+Las 2 distintas son esperadas y benignas: `CGarage` x50 (+0x64..+0x6B) y `CWaterCannon` x3 (+0x340..+0x347). La rutina del EXE solo escribe la vtable y ceros en su `CAEAudioEntity` miembro; el constructor C++ de la clase deja además los valores por defecto de `m_tempSound` (-1 y -1.0f). Esos campos se reinicializan antes de usarse (`CAEAudioEntity::Initialise`/`CGarage::Init`); se prefirió el constructor de la clase a escribir la vtable a mano.
+
+Humo (DLL de la rama sobre el EXE, copia de pruebas): `prueba_ropero.py cal_mal.args` BIEN (15 entidades, 12 marcadores), `prueba_agua.py` BIEN (UnderWaterness 1,0, brillo medio 49,4), `prueba_marcadores.py` BIEN (12 marcadores cambian en 1 s), `prueba_partida_nueva.py` BIEN (gGameState 9, sin errores en el log). `audit_hook_catalog.py --strict`: OK. Compilación completa `_build_INIT.sh`/`_build_INIT2.sh`: `EXIT=0`.
+
+Standalone sin el puente (`ejecuciones/init1`, `init2`, `init3`): arranca, llega a `estado-juego=9` (partida nueva, `SaveGameToLoad=0`), jugador creado en (2488, -1666, 13) y 1.300 fotogramas sin ninguna llamada a código original en `--shims` (60 s, `init2`). Sin `--shims` cae a los 9 s en `0x80E270` (nodo `SubmitNoLight`, trabajo ajeno ya conocido, `init1`), después de 129 fotogramas y con el mismo estado; el cierre (`doexit`) no se ha ejercitado: el proceso lo mata la guardia por límite de tiempo.
+
 
 ## 3. Riesgos
 

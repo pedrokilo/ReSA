@@ -7,6 +7,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <string>
 
 namespace DatosExe {
 void RunStaticInitializers();
@@ -18,6 +19,8 @@ struct StaticInitReport {
     int      different      = 0; // con alguna diferencia que no es una vtable
     int      vtableWords    = 0; // palabras que son vtable del EXE (.rdata) en el EXE y otra cosa en el C++ propio
     uint32_t firstDifferent = 0; // indice C++ de la primera fila distinta (0 si no hay)
+    std::string detail;          // primeras diferencias (fila, direccion, byte del EXE, byte del C++); vacio si no hay
 };
 StaticInitReport VerifyStaticInitializers();
+const StaticInitReport& LastStaticInitReport(); // resultado de la ultima llamada
 } // namespace DatosExe

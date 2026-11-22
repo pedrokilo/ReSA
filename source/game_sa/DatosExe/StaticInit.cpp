@@ -70,6 +70,7 @@
 #include "Crt/CrtOnexit.h"
 
 #include <cstring>
+#include <format>
 #include <memory>
 #include <vector>
 
@@ -530,6 +531,11 @@ void RunStaticInitializers() {
 // los ha tocado: se llama al instalar los ganchos). Por fila: guarda los bytes del EXE, pone la zona a cero (el estado del .bss del ejecutable independiente), ejecuta el constructor del C++
 // propio, compara y restaura los bytes del EXE. Una fila sin constructor se da por buena si la zona que dejo el EXE es toda ceros (la rutina solo escribia ceros). Las palabras que en el EXE
 // son una vtable del EXE (.rdata) no se comparan (el C++ propio puede dejar la suya) y se cuentan aparte. No registra destructores ni toca nada fuera de la zona de la fila.
+StaticInitReport& LastReport() {
+    static StaticInitReport report;
+    return report;
+}
+
 StaticInitReport VerifyStaticInitializers() {
     StaticInitReport rep;
     for (const Row& r : kRows) {
@@ -563,7 +569,7 @@ StaticInitReport VerifyStaticInitializers() {
             }
             different = true;
             if (shown++ < 6) {
-                NOTSA_LOG_WARN("StaticInit fila {} (0x{:X}) +0x{:X}: EXE 0x{:02X}, C++ 0x{:02X}", r.index, r.va, i, exe[i], mine[i]);
+                rep.detail += std::format("fila {} (0x{:X}) +0x{:X}: EXE 0x{:02X}, C++ 0x{:02X}; ", r.index, r.va, i, exe[i], mine[i]);
             }
         }
         if (different) {
@@ -575,7 +581,10 @@ StaticInitReport VerifyStaticInitializers() {
             ++rep.equal;
         }
     }
+    LastReport() = rep;
     return rep;
 }
+
+const StaticInitReport& LastStaticInitReport() { return LastReport(); }
 
 } // namespace DatosExe

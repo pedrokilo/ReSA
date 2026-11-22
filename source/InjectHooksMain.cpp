@@ -699,7 +699,6 @@
 #include "game_sa/Crt/CrtExceptionDtor.h"
 #include "game_sa/Crt/CrtStrtod.h"
 #include "game_sa/Crt/CrtStaticInit.h"
-#include "game_sa/DatosExe/StaticInit.h"
 
 // Hooks de biblioteca del grupo g25b (RenderWare SDK / controlador D3D9); el sufijo evita colisiones con otros registradores.
 void RwCoreInjectHooks25b();
@@ -1278,12 +1277,6 @@ void InjectHooksMain() {
     {   // lote P5 F2: prueba de que el C++ calcula las constantes x87 del arranque igual que el EXE (solo compara, no escribe)
         const auto report = ExeCrt::VerifyX87StaticInitializers();
         NOTSA_LOG_INFO("Constantes x87 de los inicializadores del CRT: {} de {} iguales a las del EXE ({} distintas, primera en 0x{:X}).", report.matched, report.total, report.mismatched, report.firstMismatch);
-    }
-    // Inicializadores estaticos de DatosExe que sustituyen al puente StandaloneInit.inc (docs/CodigoVivoExe/ejecucion-init-estatica.md): comparan lo que construiria el C++ propio con lo que dejo el _initterm del EXE.
-    // Solo con el EXE original (su .text es codigo; en el ejecutable independiente es INT3 y aun no corrio RunStaticInitializers).
-    if (*reinterpret_cast<const uint8*>(0x824570) != 0xCC) {
-        const auto report = DatosExe::VerifyStaticInitializers();
-        NOTSA_LOG_INFO("Inicializadores estaticos de DatosExe: {} filas, {} iguales a las del EXE ({} distintas, primera = indice C++ {}; {} palabras de vtable del EXE sin comparar).", report.rows, report.equal, report.different, report.firstDifferent, report.vtableWords);
     }
     CrtLowIoInjectHooks();   // lote CRT5A: capa baja de E/S del CRT (_open/_sopen/_close/_read/_write/_lseek/_commit/_chsize, __pioinfo y sus bloqueos)
     CrtStdioInjectHooks();   // lote CRT5A: nucleos de stdio (_filbuf/_flsbuf/_flush/_fread_nolock/_fwrite_nolock/_fseek_nolock/_ftell_nolock/_fclose_nolock/_fsopen/__getstream/__openfile)
