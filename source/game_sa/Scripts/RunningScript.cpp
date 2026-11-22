@@ -167,6 +167,10 @@ void CRunningScript::InjectHooks() {
     RH_ScopedInstall(ProcessCommands2400To2499, 0x478000, { .stackArguments = 1 }); // scrc (sin validar)
     RH_ScopedInstall(ProcessCommands2500To2599, 0x47A760, { .stackArguments = 1 }); // scrc (sin validar)
     RH_ScopedInstall(ProcessCommands2600To2699, 0x479DA0, { .stackArguments = 1 }); // scrc (sin validar)
+    RH_ScopedInstall(ProcessCommands1000To1099, 0x489500, { .stackArguments = 1 }); // lote SCRB (sin validar)
+    RH_ScopedInstall(ProcessCommands1100To1199, 0x48A320, { .stackArguments = 1 }); // lote SCRB (sin validar)
+    RH_ScopedInstall(ProcessCommands1300To1399, 0x48CDD0, { .stackArguments = 1 }); // lote SCRB (sin validar)
+    RH_ScopedInstall(ProcessCommands1400To1499, 0x48EAA0, { .stackArguments = 1 }); // lote SCRB (sin validar)
     RH_ScopedOverloadedInstall(GivePedScriptedTask, "OG", 0x465C20, void(CRunningScript::*)(int32, CTask*, int32));
 }
 

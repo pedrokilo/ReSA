@@ -352,6 +352,11 @@ public:
     OpcodeResult ProcessCommands2400To2499(int32 command); // 0x478000 (despachadores scrc, sin validar)
     OpcodeResult ProcessCommands2500To2599(int32 command); // 0x47A760 (despachadores scrc, sin validar)
     OpcodeResult ProcessCommands2600To2699(int32 command); // 0x479DA0 (despachadores scrc, sin validar)
+    // Lote SCRB de codigo vivo (sin validar): despachadores originales de las ranuras 10, 11, 13 y 14 de la tabla 0x8A6168
+    OpcodeResult ProcessCommands1000To1099(int32 command); // 0x489500
+    OpcodeResult ProcessCommands1100To1199(int32 command); // 0x48A320
+    OpcodeResult ProcessCommands1300To1399(int32 command); // 0x48CDD0
+    OpcodeResult ProcessCommands1400To1499(int32 command); // 0x48EAA0
 
     void SetName(const char* name)      { strcpy_s(m_szName, name); }
     void SetName(std::string_view name) { assert(name.size() < sizeof(m_szName)); strncpy_s(m_szName, name.data(), name.size()); }

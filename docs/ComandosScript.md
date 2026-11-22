@@ -1,6 +1,9 @@
 # Comandos de script (opcodes)
 
 Inventario de los comandos de SCM del juego (`docs/ComandosScript.csv`, generado por `contrib/inventario_comandos_script.py`).
+# Comandos de script (opcodes)
+
+Inventario de los comandos de SCM del juego (`docs/ComandosScript.csv`, generado por `contrib/inventario_comandos_script.py`).
 No forman parte de `hooks.csv`: el EXE los atiende dentro de despachadores por centenas (`ProcessCommandsNNNtoMMM`) y no tienen
 una funcion con direccion propia. Los contadores de `ReversedClasses.md` **no los incluyen**.
 
@@ -14,7 +17,7 @@ una funcion con direccion propia. Los contadores de `ReversedClasses.md` **no lo
 | original | 1163 | sin manejador propio: pasa por el despachador de su centena |
 | **Total** | **2826** | |
 
-De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 864; despachador del EXE = 114; sin despachador identificado = 185.
+De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; despachador del EXE = 0; sin despachador identificado = 185.
 
 ## Por categoria (archivo de `Scripts/Commands`)
 
@@ -65,11 +68,11 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 864; des
 | `0x0047FA30` | 24 | si | no |
 | `0x00481300` | 18 | si | si |
 | `0x00483BD0` | 32 | si | no |
-| `0x00489500` | 27 | no | no |
-| `0x0048A320` | 21 | no | no |
+| `0x00489500` | 27 | si | no |
+| `0x0048A320` | 21 | si | no |
 | `0x0048B590` | 38 | si | si |
-| `0x0048CDD0` | 19 | no | no |
-| `0x0048EAA0` | 47 | no | no |
+| `0x0048CDD0` | 19 | si | no |
+| `0x0048EAA0` | 47 | si | no |
 | `0x00490DB0` | 38 | si | no |
 | `0x00493FE0` | 48 | si | no |
 | `0x00496E00` | 69 | si | si |
