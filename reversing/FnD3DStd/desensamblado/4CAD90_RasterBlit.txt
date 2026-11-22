@@ -1,0 +1,37 @@
+004cad90  test       eax, eax
+004cad92  push       ebx
+004cad93  mov        ebx, ecx
+004cad95  je         0x4caddb
+004cad97  mov        ecx, dword ptr [0xb4e9e4]
+004cad9d  movzx      ecx, byte ptr [ecx + 0x20]
+004cada1  cmp        ecx, 5
+004cada4  ja         0x4caddb
+004cada6  jmp        dword ptr [ecx*4 + 0x4cadf8]
+004cadad  movzx      ecx, byte ptr [eax + 0x20]
+004cadb1  cmp        ecx, 5
+004cadb4  ja         0x4cadf1
+004cadb6  jmp        dword ptr [ecx*4 + 0x4cae10]
+004cadbd  movzx      ecx, byte ptr [eax + 0x20]
+004cadc1  cmp        ecx, 5
+004cadc4  ja         0x4cadf1
+004cadc6  jmp        dword ptr [ecx*4 + 0x4cae28]
+004cadcd  push       ebx
+004cadce  push       edx
+004cadcf  call       0x4caae0
+004cadd4  add        esp, 8
+004cadd7  test       eax, eax
+004cadd9  jne        0x4cadf1
+004caddb  xor        eax, eax
+004caddd  pop        ebx
+004cadde  ret        
+004caddf  mov        ecx, dword ptr [esp + 8]
+004cade3  push       esi
+004cade4  push       ecx
+004cade5  push       edx
+004cade6  mov        esi, eax
+004cade8  call       0x4ca5a0
+004caded  add        esp, 8
+004cadf0  pop        esi
+004cadf1  mov        eax, 1
+004cadf6  pop        ebx
+004cadf7  ret        
