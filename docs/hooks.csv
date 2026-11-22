@@ -5081,6 +5081,7 @@ CTaskSimpleUninterruptable,Constructor,0x0043E2E0,1,0,1,S
 CTaskSimpleTurn180,Clone,0x00000000,1,0,1,V
 CTaskSimpleTurn180,Constructor,0x00631CC0,1,0,1,S
 CTaskSimpleTurn180,Destructor,0x00631D00,1,0,1,S
+CTaskSimpleTurn180,FinishAnimTurn180CB,0x00631D60,1,0,0,S
 CTaskSimpleTurn180,GetTaskType,0x00000000,1,0,1,V
 CTaskSimpleTurn180,MakeAbortable,0x00000000,1,0,1,V
 CTaskSimpleTurn180,ProcessPed,0x00000000,1,0,1,V

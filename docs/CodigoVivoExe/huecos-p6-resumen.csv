@@ -1,0 +1,17 @@
+clase_hueco,region,huecos,bytes,cerrados
+citada-en-cpp,juego,61,18127,61
+citada-en-cpp,renderware,5,2460,5
+crt-enlazar,crt,4,362,4
+destructor-atexit,crt,2,2468,2
+destructor-atexit,juego,16,642,16
+muerta-por-reemplazo,crt,1,104,1
+muerta-por-reemplazo,juego,22,13135,22
+muerta-por-reemplazo,renderware,21,13740,21
+pendiente-dato,crt,1,143,0
+pendiente-dato,juego,3,12634,0
+pendiente-dato,renderware,7,7086,0
+reconstruida,crt,4,609,4
+reconstruida,juego,31,6676,31
+reconstruida,renderware,60,40689,60
+sin-referencia-real,juego,28,7388,28
+sin-referencia-real,renderware,4,2094,4

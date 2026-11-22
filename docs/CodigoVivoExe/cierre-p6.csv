@@ -1,0 +1,271 @@
+lote,va,fin,bytes,region,clase,piezas,pendientes,cerrado,bytes_por_destino
+H1,0x00402705,0x004027CC,200,juego,citada-en-cpp,1,0,1,citada-en-cpp:200
+H1,0x00402807,0x004028A1,155,juego,citada-en-cpp,1,0,1,citada-en-cpp:155
+H1,0x00402B09,0x00402DC4,700,juego,citada-en-cpp,1,0,1,citada-en-cpp:700
+H1,0x00402DCE,0x004032A3,1238,juego,citada-en-cpp,1,0,1,citada-en-cpp:1238
+H1,0x004032B3,0x004032C4,18,juego,citada-en-cpp,1,0,1,citada-en-cpp:18
+H1,0x004032D7,0x0040335E,136,juego,citada-en-cpp,1,0,1,citada-en-cpp:136
+H1,0x00403396,0x004033B1,28,juego,citada-en-cpp,1,0,1,citada-en-cpp:28
+H1,0x004033BD,0x004033F4,56,juego,citada-en-cpp,1,0,1,citada-en-cpp:56
+H1,0x0041B17B,0x0041B30F,405,juego,reconstruida,7,0,1,reconstruida:275 citada-en-cpp:24 sin-referencia-real:22
+H1,0x004217A9,0x004217BF,23,juego,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:3
+H1,0x00424188,0x004241BF,56,juego,muerta-por-reemplazo,2,0,1,muerta-por-reemplazo:32
+H1,0x0043CE5B,0x0043CEAF,85,juego,sin-referencia-real,4,0,1,destructor-atexit:1 sin-referencia-real:25
+H1,0x0043E0D8,0x0043E10F,56,juego,muerta-por-reemplazo,2,0,1,muerta-por-reemplazo:31
+H1,0x0043E3DB,0x0043E3FF,37,juego,sin-referencia-real,2,0,1,destructor-atexit:9 sin-referencia-real:10
+H1,0x00441166,0x0044120F,170,juego,sin-referencia-real,0,0,1,
+H1,0x00441DC6,0x00441E0F,74,juego,sin-referencia-real,2,0,1,destructor-atexit:14 sin-referencia-real:37
+H1,0x00446FB6,0x00446FFF,74,juego,sin-referencia-real,3,0,1,citada-en-cpp:10 sin-referencia-real:34
+H1,0x0044705E,0x0044711F,194,juego,sin-referencia-real,8,0,1,destructor-atexit:48 sin-referencia-real:73
+H1,0x00452F90,0x00453F3F,4016,juego,pendiente-dato,15,4,0,pendiente-dato:2970 muerta-por-reemplazo:799 sin-referencia-real:135
+H1,0x00453F91,0x004541DF,591,juego,pendiente-dato,9,1,0,pendiente-dato:181 citada-en-cpp:4 muerta-por-reemplazo:146 sin-referencia-real:165
+H1,0x0045B063,0x0045B14F,237,juego,sin-referencia-real,12,0,1,destructor-atexit:8 sin-referencia-real:97
+H1,0x00463339,0x0046336F,55,juego,sin-referencia-real,2,0,1,destructor-atexit:3 sin-referencia-real:23
+H1,0x004634A5,0x004634CF,43,juego,sin-referencia-real,2,0,1,muerta-por-reemplazo:1 sin-referencia-real:10
+H1,0x004636EB,0x004637DF,245,juego,sin-referencia-real,14,0,1,reconstruida:22 citada-en-cpp:15 destructor-atexit:8 sin-referencia-real:47
+H1,0x0046A371,0x0046A46F,255,juego,sin-referencia-real,10,0,1,citada-en-cpp:1 sin-referencia-real:143
+H1,0x0046AE21,0x0046AE7F,95,juego,sin-referencia-real,3,0,1,citada-en-cpp:10 sin-referencia-real:49
+H1,0x0047C0F5,0x0047E04F,8027,juego,pendiente-dato,2,2,0,pendiente-dato:8008
+H1,0x004A94EC,0x004A94FF,20,juego,citada-en-cpp,1,0,1,citada-en-cpp:5
+H1,0x004AC0C1,0x004AC0EF,47,juego,destructor-atexit,1,0,1,destructor-atexit:23
+H1,0x004C6C7A,0x004C6D3F,198,juego,sin-referencia-real,3,0,1,sin-referencia-real:169
+H1,0x004C73C5,0x004C740F,75,juego,sin-referencia-real,4,0,1,citada-en-cpp:4 sin-referencia-real:11
+H1,0x004C9A5A,0x004C9AAF,86,juego,reconstruida,2,0,1,reconstruida:57
+H1,0x004CD4CF,0x004CDE6F,2465,juego,citada-en-cpp,12,0,1,citada-en-cpp:1939 muerta-por-reemplazo:354 sin-referencia-real:79
+H1,0x004D12AF,0x004D139F,241,juego,citada-en-cpp,9,0,1,reconstruida:1 citada-en-cpp:84 sin-referencia-real:61
+H1,0x004D2E0A,0x004D2E3F,54,juego,reconstruida,1,0,1,reconstruida:34
+H1,0x004D63DA,0x004D63FF,38,juego,citada-en-cpp,1,0,1,citada-en-cpp:19
+H1,0x004D64F6,0x004D650F,26,juego,citada-en-cpp,1,0,1,citada-en-cpp:8
+H1,0x004D6610,0x004D669F,144,juego,citada-en-cpp,3,0,1,citada-en-cpp:115
+H1,0x004E332A,0x004E334F,38,juego,destructor-atexit,2,0,1,destructor-atexit:4
+H1,0x004E7B75,0x004E7C4F,219,juego,reconstruida,1,0,1,reconstruida:204
+H1,0x004EEF1A,0x004EF19F,646,juego,sin-referencia-real,25,0,1,muerta-por-reemplazo:1 sin-referencia-real:401
+H1,0x004F3A35,0x004F3A3D,9,juego,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:9
+H1,0x005097A8,0x0050983F,152,juego,sin-referencia-real,8,0,1,citada-en-cpp:12 destructor-atexit:8 sin-referencia-real:37
+H1,0x0050E073,0x0050E08F,29,juego,destructor-atexit,1,0,1,destructor-atexit:1
+H1,0x0050E462,0x0050E48F,46,juego,citada-en-cpp,1,0,1,citada-en-cpp:27
+H2,0x005173F0,0x005173FF,16,juego,destructor-atexit,1,0,1,destructor-atexit:8
+H2,0x00538B93,0x00538BAF,29,juego,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:1
+H2,0x0053ED31,0x0053EDBF,143,juego,citada-en-cpp,7,0,1,citada-en-cpp:42 destructor-atexit:1 sin-referencia-real:17
+H2,0x00541D71,0x00541D8F,31,juego,destructor-atexit,1,0,1,destructor-atexit:16
+H2,0x0054F044,0x0054F0CF,140,juego,sin-referencia-real,4,0,1,citada-en-cpp:11 sin-referencia-real:89
+H2,0x005630E6,0x0056312F,74,juego,sin-referencia-real,4,0,1,destructor-atexit:5 sin-referencia-real:26
+H2,0x0056317C,0x005631BF,68,juego,destructor-atexit,3,0,1,destructor-atexit:52
+H2,0x00564031,0x0056404F,31,juego,destructor-atexit,1,0,1,destructor-atexit:16
+H2,0x0056CDD7,0x0056CE2F,89,juego,citada-en-cpp,3,0,1,citada-en-cpp:50 muerta-por-reemplazo:1
+H2,0x00590DEC,0x00590DFF,20,juego,citada-en-cpp,1,0,1,citada-en-cpp:5
+H2,0x00590E0C,0x00590E1F,20,juego,citada-en-cpp,1,0,1,citada-en-cpp:5
+H2,0x00590ECC,0x00590EDF,20,juego,destructor-atexit,1,0,1,destructor-atexit:5
+H2,0x00597FEC,0x0059800F,36,juego,reconstruida,2,0,1,reconstruida:5 sin-referencia-real:3
+H2,0x0059D168,0x0059D18F,40,juego,citada-en-cpp,2,0,1,citada-en-cpp:14
+H2,0x005A2E9F,0x005A2EAF,17,juego,citada-en-cpp,1,0,1,citada-en-cpp:8
+H2,0x005A307C,0x005A308F,20,juego,citada-en-cpp,1,0,1,citada-en-cpp:5
+H2,0x005A437B,0x005A449F,293,juego,reconstruida,2,0,1,reconstruida:260
+H2,0x005B38B2,0x005B390F,94,juego,citada-en-cpp,1,0,1,citada-en-cpp:71
+H2,0x005B932A,0x005B933F,22,juego,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:3
+H2,0x005B9E28,0x005B9E3F,24,juego,destructor-atexit,1,0,1,destructor-atexit:1
+H2,0x005BA112,0x005BA15F,78,juego,reconstruida,2,0,1,reconstruida:41 sin-referencia-real:3
+H2,0x005C27F2,0x005C30CF,2270,juego,muerta-por-reemplazo,8,0,1,citada-en-cpp:336 muerta-por-reemplazo:1630 sin-referencia-real:266
+H2,0x005C31D3,0x005C35EF,1053,juego,citada-en-cpp,6,0,1,citada-en-cpp:720 muerta-por-reemplazo:285
+H2,0x005C3651,0x005C36FF,175,juego,citada-en-cpp,2,0,1,citada-en-cpp:141
+H2,0x005C49B8,0x005C4B8F,472,juego,muerta-por-reemplazo,2,0,1,muerta-por-reemplazo:439
+H2,0x005C4C73,0x005C4D4F,221,juego,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:204
+H2,0x005C4F99,0x005C520F,631,juego,citada-en-cpp,2,0,1,citada-en-cpp:372 muerta-por-reemplazo:236
+H2,0x005C531C,0x005C541F,260,juego,muerta-por-reemplazo,2,0,1,citada-en-cpp:75 muerta-por-reemplazo:161
+H2,0x005C602A,0x005C60AF,134,juego,citada-en-cpp,2,0,1,citada-en-cpp:121
+H2,0x005C61E0,0x005C62CF,240,juego,citada-en-cpp,1,0,1,citada-en-cpp:230
+H2,0x005C62E4,0x005C63CF,236,juego,citada-en-cpp,1,0,1,citada-en-cpp:220
+H2,0x005C6A08,0x005C6A8F,136,juego,citada-en-cpp,1,0,1,citada-en-cpp:116
+H2,0x005C7698,0x005C791F,648,juego,citada-en-cpp,4,0,1,citada-en-cpp:452 muerta-por-reemplazo:121 sin-referencia-real:43
+H2,0x005C79D9,0x005C79EF,23,juego,citada-en-cpp,1,0,1,citada-en-cpp:1
+H2,0x005C7A48,0x005C7DEF,936,juego,citada-en-cpp,7,0,1,citada-en-cpp:646 muerta-por-reemplazo:246
+H2,0x005C7EF3,0x005C861F,1837,juego,muerta-por-reemplazo,6,0,1,muerta-por-reemplazo:1623 sin-referencia-real:163
+H2,0x005C886F,0x005C88EF,129,juego,muerta-por-reemplazo,2,0,1,muerta-por-reemplazo:111
+H2,0x005C8959,0x005C8E1F,1223,juego,muerta-por-reemplazo,12,0,1,citada-en-cpp:116 muerta-por-reemplazo:846 sin-referencia-real:169
+H2,0x005C8FA3,0x005C90CF,301,juego,citada-en-cpp,1,0,1,citada-en-cpp:288
+H2,0x005C9148,0x005C934F,520,juego,citada-en-cpp,4,0,1,citada-en-cpp:480
+H2,0x005C9CDF,0x005CA25F,1409,juego,citada-en-cpp,3,0,1,citada-en-cpp:796 muerta-por-reemplazo:603
+H2,0x005CA81B,0x005CA83F,37,juego,citada-en-cpp,1,0,1,citada-en-cpp:17
+H2,0x005CAC10,0x005CAE2F,544,juego,muerta-por-reemplazo,3,0,1,citada-en-cpp:103 muerta-por-reemplazo:422
+H2,0x005CBEF9,0x005CC04F,343,juego,citada-en-cpp,1,0,1,citada-en-cpp:326
+H2,0x005CC289,0x005CC60F,903,juego,citada-en-cpp,2,0,1,citada-en-cpp:563 muerta-por-reemplazo:65
+H3,0x005CC698,0x005CC7CF,312,juego,muerta-por-reemplazo,2,0,1,citada-en-cpp:43 muerta-por-reemplazo:252
+H3,0x005CCC8E,0x005CCCBF,50,juego,citada-en-cpp,1,0,1,citada-en-cpp:36
+H3,0x005CCCF0,0x005CCDEF,256,juego,muerta-por-reemplazo,2,0,1,citada-en-cpp:119 muerta-por-reemplazo:123
+H3,0x005CCE5E,0x005CCE7F,34,juego,citada-en-cpp,1,0,1,citada-en-cpp:26
+H3,0x005CCF5E,0x005CD34F,1010,juego,citada-en-cpp,7,0,1,citada-en-cpp:953
+H3,0x005CD700,0x005CD80F,272,juego,citada-en-cpp,3,0,1,citada-en-cpp:238
+H3,0x005CD85C,0x005CEBBF,4964,juego,muerta-por-reemplazo,4,0,1,citada-en-cpp:15 muerta-por-reemplazo:4364 sin-referencia-real:558
+H3,0x005CF2E7,0x005CF57F,665,juego,citada-en-cpp,2,0,1,citada-en-cpp:652
+H3,0x005CF68A,0x005CF6CF,70,juego,citada-en-cpp,1,0,1,citada-en-cpp:60
+H3,0x005D0240,0x005D046F,560,juego,citada-en-cpp,11,0,1,reconstruida:66 citada-en-cpp:296 muerta-por-reemplazo:2 sin-referencia-real:76
+H3,0x005D5B25,0x005D5B3F,27,juego,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:14
+H3,0x005D5D4F,0x005D5DAF,97,juego,muerta-por-reemplazo,2,0,1,muerta-por-reemplazo:63 sin-referencia-real:31
+H3,0x005D5FBD,0x005D674F,1939,juego,sin-referencia-real,5,0,1,reconstruida:716 citada-en-cpp:62 sin-referencia-real:1121
+H3,0x005D729B,0x005D72BF,37,juego,citada-en-cpp,1,0,1,citada-en-cpp:25
+H3,0x005DB25A,0x005DB30F,182,juego,sin-referencia-real,10,0,1,citada-en-cpp:8 destructor-atexit:8 sin-referencia-real:45
+H3,0x005DD039,0x005DD0FF,199,juego,sin-referencia-real,4,0,1,muerta-por-reemplazo:34 sin-referencia-real:109
+H3,0x005DE518,0x005DE54F,56,juego,destructor-atexit,2,0,1,destructor-atexit:18
+H3,0x005F0071,0x005F013F,207,juego,muerta-por-reemplazo,3,0,1,muerta-por-reemplazo:95 sin-referencia-real:68
+H3,0x006082DC,0x0060832F,84,juego,sin-referencia-real,4,0,1,destructor-atexit:1 sin-referencia-real:46
+H3,0x00608778,0x0060878F,24,juego,citada-en-cpp,1,0,1,citada-en-cpp:1
+H3,0x00608A61,0x00608AFF,159,juego,sin-referencia-real,3,0,1,citada-en-cpp:21 sin-referencia-real:108
+H3,0x0061785C,0x0061786F,20,juego,citada-en-cpp,1,0,1,citada-en-cpp:5
+H3,0x0061A896,0x0061A8AF,26,juego,citada-en-cpp,1,0,1,citada-en-cpp:16
+H3,0x0061AA96,0x0061AAFF,106,juego,citada-en-cpp,1,0,1,citada-en-cpp:91
+H3,0x0061DAD1,0x0061DB2F,95,juego,reconstruida,1,0,1,reconstruida:79
+H3,0x0061FD0C,0x0061FD1F,20,juego,reconstruida,1,0,1,reconstruida:16
+H3,0x0061FF2C,0x0061FF3F,20,juego,reconstruida,1,0,1,reconstruida:16
+H3,0x00620478,0x0062048F,24,juego,citada-en-cpp,1,0,1,citada-en-cpp:16
+H3,0x00621BD9,0x00621BFF,39,juego,reconstruida,1,0,1,reconstruida:21
+H3,0x0062EC50,0x0062EC5F,16,juego,destructor-atexit,1,0,1,destructor-atexit:1
+H3,0x00631D5D,0x00631D6F,19,juego,reconstruida,1,0,1,reconstruida:16
+H3,0x00675DC3,0x00675E1F,93,juego,reconstruida,1,0,1,reconstruida:65
+H3,0x0068B7C8,0x0068B7DF,24,juego,citada-en-cpp,1,0,1,citada-en-cpp:16
+H3,0x006A0704,0x006A076F,108,juego,sin-referencia-real,4,0,1,citada-en-cpp:17 sin-referencia-real:35
+H3,0x006D294C,0x006D295F,20,juego,reconstruida,1,0,1,reconstruida:12
+H3,0x006E3E43,0x006E3E5F,29,juego,citada-en-cpp,1,0,1,citada-en-cpp:5
+H3,0x006F5325,0x006F543F,283,juego,citada-en-cpp,8,0,1,citada-en-cpp:195
+H3,0x006F9DF9,0x006F9E7F,135,juego,sin-referencia-real,5,0,1,destructor-atexit:21 sin-referencia-real:51
+H3,0x006FA6C8,0x006FA6EF,40,juego,destructor-atexit,1,0,1,destructor-atexit:25
+H3,0x006FA76A,0x006FA7BF,86,juego,destructor-atexit,2,0,1,destructor-atexit:67
+H3,0x006FE1DE,0x006FE23F,98,juego,muerta-por-reemplazo,4,0,1,muerta-por-reemplazo:50 sin-referencia-real:4
+H3,0x0071A8AF,0x0071A8CF,33,juego,destructor-atexit,2,0,1,destructor-atexit:16
+H3,0x00720EF9,0x00720FAF,183,juego,sin-referencia-real,10,0,1,destructor-atexit:16 sin-referencia-real:51
+H3,0x00722219,0x0072222F,23,juego,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:11
+H3,0x00728B06,0x00728B3F,58,juego,destructor-atexit,2,0,1,destructor-atexit:38
+H4,0x0072F505,0x0072FAAF,1451,juego,sin-referencia-real,28,0,1,citada-en-cpp:504 muerta-por-reemplazo:78 sin-referencia-real:606
+H4,0x0072FB43,0x0072FBCF,141,juego,citada-en-cpp,4,0,1,citada-en-cpp:85
+H4,0x00730E37,0x00730E5F,41,juego,reconstruida,2,0,1,reconstruida:16 sin-referencia-real:6
+H4,0x007315F7,0x0073164F,89,juego,citada-en-cpp,3,0,1,citada-en-cpp:44
+H4,0x0073210D,0x0073216F,99,juego,sin-referencia-real,4,0,1,citada-en-cpp:30 sin-referencia-real:48
+H4,0x00732B2F,0x00732B3F,17,juego,citada-en-cpp,1,0,1,citada-en-cpp:12
+H4,0x00734845,0x0073487F,59,juego,reconstruida,1,0,1,reconstruida:34
+H4,0x00734925,0x0073493F,27,juego,reconstruida,1,0,1,reconstruida:13
+H4,0x00734965,0x00734A1F,187,juego,reconstruida,2,0,1,reconstruida:147 sin-referencia-real:5
+H4,0x00734EC9,0x00734FBF,247,juego,reconstruida,1,0,1,reconstruida:228
+H4,0x00743C1F,0x00743C4F,49,juego,destructor-atexit,3,0,1,destructor-atexit:4 sin-referencia-real:1
+H4,0x00745E42,0x00745F8F,334,juego,citada-en-cpp,1,0,1,citada-en-cpp:318
+H4,0x00748FF6,0x0074911F,298,juego,reconstruida,6,0,1,reconstruida:233
+H4,0x0074919E,0x007491BF,34,juego,reconstruida,1,0,1,reconstruida:27
+H4,0x00749477,0x0074951F,169,juego,reconstruida,1,0,1,reconstruida:152
+H4,0x0074971A,0x0074982F,278,juego,reconstruida,3,0,1,reconstruida:245
+H4,0x0074987B,0x007498DF,101,juego,reconstruida,4,0,1,reconstruida:56
+H4,0x0074A1F4,0x0074A28F,156,juego,reconstruida,4,0,1,reconstruida:102
+H4,0x0074A54C,0x0074AE4F,2308,juego,reconstruida,7,0,1,reconstruida:1579 citada-en-cpp:683
+H4,0x0074AE96,0x0074B05F,458,juego,citada-en-cpp,6,0,1,reconstruida:37 citada-en-cpp:363
+H4,0x0074BF3F,0x0074C1FF,705,juego,reconstruida,5,0,1,reconstruida:670
+H4,0x0074D84E,0x0074D86F,34,juego,reconstruida,1,0,1,reconstruida:27
+H4,0x0074D8B1,0x0074D98F,223,juego,reconstruida,3,0,1,reconstruida:181
+H4,0x0074EA77,0x0074EAAF,57,juego,reconstruida,1,0,1,reconstruida:39
+H4,0x0074F561,0x0074F60F,175,juego,citada-en-cpp,2,0,1,reconstruida:31 citada-en-cpp:118
+H4,0x0074FE8D,0x0074FF9F,275,juego,reconstruida,4,0,1,reconstruida:227
+H4,0x00750275,0x00750D2F,2747,renderware,reconstruida,13,0,1,reconstruida:1889 citada-en-cpp:724
+H4,0x00750D89,0x00750DAF,39,renderware,reconstruida,1,0,1,reconstruida:27
+H4,0x00750DD4,0x00750E9F,204,renderware,reconstruida,7,0,1,reconstruida:138
+H4,0x0075138F,0x0075190F,1409,renderware,reconstruida,10,0,1,reconstruida:1155 citada-en-cpp:177
+H4,0x007521A0,0x0075220F,112,renderware,reconstruida,2,0,1,reconstruida:89
+H4,0x00752241,0x007522DF,159,renderware,reconstruida,2,0,1,reconstruida:120
+H4,0x00755BBD,0x00755D7F,451,renderware,reconstruida,4,0,1,reconstruida:399
+H4,0x00756791,0x0075682F,159,renderware,reconstruida,1,0,1,reconstruida:137
+H4,0x00756DE1,0x0075737F,1439,renderware,pendiente-dato,1,1,0,pendiente-dato:1414
+H4,0x007573EF,0x007578BF,1233,renderware,pendiente-dato,4,3,0,pendiente-dato:1194 reconstruida:11
+H4,0x0075823E,0x007582DF,162,renderware,citada-en-cpp,2,0,1,reconstruida:39 citada-en-cpp:107
+H4,0x00758847,0x007588AF,105,renderware,reconstruida,2,0,1,reconstruida:83
+H4,0x0075893A,0x00758A8F,342,renderware,reconstruida,2,0,1,reconstruida:328
+H4,0x0075963E,0x0075978F,338,renderware,reconstruida,1,0,1,reconstruida:334
+H4,0x0075D721,0x0075D96F,591,renderware,reconstruida,1,0,1,reconstruida:567
+H4,0x0075D9CD,0x0075E26F,2211,renderware,reconstruida,3,0,1,reconstruida:2179
+H4,0x0075E3E6,0x0075E9EF,1546,renderware,pendiente-dato,4,4,0,pendiente-dato:1512
+H4,0x00760DE6,0x00761A0F,3114,renderware,reconstruida,10,0,1,reconstruida:3017
+H4,0x00761C26,0x00761C8F,106,renderware,reconstruida,2,0,1,reconstruida:86
+H5,0x00761DDE,0x00761DFF,34,renderware,reconstruida,1,0,1,reconstruida:27
+H5,0x00761E7E,0x007637EF,6514,renderware,reconstruida,13,0,1,reconstruida:3206 citada-en-cpp:3191
+H5,0x00770FD3,0x0077107E,172,renderware,pendiente-dato,1,1,0,pendiente-dato:172
+H5,0x00781A16,0x00781A1A,5,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:5
+H5,0x0078589B,0x007858E8,78,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:78
+H5,0x007ACAB8,0x007ACD1D,614,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:614
+H5,0x007ACF9E,0x007ACFD3,54,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:54
+H5,0x007B686E,0x007B6939,204,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:204
+H5,0x007B6A06,0x007B6B39,308,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:308
+H5,0x007B7437,0x007B752E,248,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:248
+H5,0x007B92C6,0x007B93F9,308,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:308
+H5,0x007BAA95,0x007BB13F,1707,renderware,muerta-por-reemplazo,2,0,1,muerta-por-reemplazo:1653
+H5,0x007BB1C9,0x007BB871,1705,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:1705
+H5,0x007BB8B6,0x007BBDAB,1270,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:1270
+H5,0x007BC06E,0x007BC0D1,100,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:100
+H5,0x007BC179,0x007BC2BF,327,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:327
+H5,0x007BCCF9,0x007BD3E0,1768,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:1768
+H5,0x007BD41A,0x007BD5A0,391,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:391
+H5,0x007BE8DE,0x007BEE11,1332,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:1332
+H5,0x007C073F,0x007C0B36,1016,renderware,pendiente-dato,1,1,0,pendiente-dato:1016
+H5,0x007C0E6B,0x007C0E86,28,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:28
+H5,0x007C0FBE,0x007C11EC,559,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:559
+H5,0x007C1EAA,0x007C203A,401,renderware,muerta-por-reemplazo,2,0,1,muerta-por-reemplazo:379 sin-referencia-real:21
+H5,0x007C212D,0x007C290A,2014,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:2014
+H5,0x007C296F,0x007C2AAD,319,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:319
+H5,0x007C466F,0x007C4C2F,1473,renderware,reconstruida,8,0,1,reconstruida:1404
+H5,0x007C4D27,0x007C511F,1017,renderware,reconstruida,8,0,1,reconstruida:940
+H5,0x007C5B73,0x007C64BF,2381,renderware,reconstruida,3,0,1,reconstruida:2348
+H5,0x007C6534,0x007C681F,748,renderware,reconstruida,6,0,1,reconstruida:675 sin-referencia-real:6
+H5,0x007C68D7,0x007C6B6F,665,renderware,reconstruida,8,0,1,reconstruida:586
+H5,0x007C6BD2,0x007C70BF,1262,renderware,reconstruida,2,0,1,reconstruida:1241
+H5,0x007C729D,0x007C751F,643,renderware,reconstruida,3,0,1,reconstruida:601
+H5,0x007C871D,0x007C873F,35,renderware,reconstruida,1,0,1,reconstruida:19
+H5,0x007CAC5C,0x007CB2AF,1620,renderware,pendiente-dato,5,4,0,pendiente-dato:1564 reconstruida:6
+H5,0x007CB9AF,0x007CBB6F,449,renderware,reconstruida,6,0,1,reconstruida:382 sin-referencia-real:20
+H5,0x007CBC1A,0x007CBD7F,358,renderware,reconstruida,1,0,1,reconstruida:339
+H5,0x007CBF1D,0x007CBF6F,83,renderware,reconstruida,1,0,1,reconstruida:65
+H5,0x007CCCC3,0x007CCD3F,125,renderware,reconstruida,2,0,1,reconstruida:93
+H5,0x007CF935,0x007CF9AF,123,renderware,reconstruida,3,0,1,reconstruida:78
+H5,0x007EC5D5,0x007EC80F,571,renderware,sin-referencia-real,3,0,1,reconstruida:159 sin-referencia-real:372
+H5,0x007ED66A,0x007ED72F,198,renderware,reconstruida,1,0,1,reconstruida:183
+H5,0x007ED7C6,0x007ED87F,186,renderware,reconstruida,1,0,1,reconstruida:163
+H5,0x007EDE1B,0x007EE17F,869,renderware,reconstruida,5,0,1,reconstruida:834
+H5,0x007EE59B,0x007EE73F,421,renderware,reconstruida,1,0,1,reconstruida:401
+H5,0x007EF33E,0x007EF44F,274,renderware,reconstruida,3,0,1,reconstruida:261
+H6,0x007F12E3,0x007F144F,365,renderware,reconstruida,2,0,1,reconstruida:314 sin-referencia-real:26
+H6,0x007F1658,0x007F17DF,392,renderware,reconstruida,5,0,1,reconstruida:354
+H6,0x007F3484,0x007F34CF,76,renderware,reconstruida,2,0,1,reconstruida:46
+H6,0x007F3CF3,0x007F407F,909,renderware,reconstruida,4,0,1,reconstruida:831 sin-referencia-real:20
+H6,0x007F40F0,0x007F44BF,976,renderware,citada-en-cpp,1,0,1,citada-en-cpp:966
+H6,0x007F513F,0x007F54FF,961,renderware,citada-en-cpp,2,0,1,citada-en-cpp:944
+H6,0x007F7523,0x007F753F,29,renderware,reconstruida,1,0,1,reconstruida:3
+H6,0x007FB306,0x007FB47F,378,renderware,reconstruida,3,0,1,reconstruida:355
+H6,0x007FFEF8,0x007FFFEF,248,renderware,citada-en-cpp,1,0,1,citada-en-cpp:208
+H6,0x00801C08,0x00801D4F,328,renderware,reconstruida,3,0,1,reconstruida:309
+H6,0x00802097,0x008020EF,89,renderware,reconstruida,3,0,1,reconstruida:52
+H6,0x00802228,0x008026DF,1208,renderware,reconstruida,6,0,1,reconstruida:932 sin-referencia-real:209
+H6,0x008032C3,0x0080330F,77,renderware,reconstruida,1,0,1,reconstruida:51
+H6,0x00803337,0x008035BF,649,renderware,sin-referencia-real,3,0,1,reconstruida:158 sin-referencia-real:461
+H6,0x008041F2,0x0080423F,78,renderware,reconstruida,1,0,1,reconstruida:58
+H6,0x008048DF,0x00804EEF,1553,renderware,reconstruida,10,0,1,reconstruida:1436
+H6,0x00807C31,0x00807C6F,63,renderware,reconstruida,2,0,1,reconstruida:35
+H6,0x00807C81,0x00807DDF,351,renderware,reconstruida,1,0,1,reconstruida:326
+H6,0x00807EC6,0x008081EF,810,renderware,reconstruida,4,0,1,reconstruida:776
+H6,0x008083E5,0x0080846F,139,renderware,reconstruida,2,0,1,reconstruida:114
+H6,0x008086A3,0x008086DF,61,renderware,reconstruida,3,0,1,reconstruida:15
+H6,0x008087A4,0x0080881F,124,renderware,reconstruida,3,0,1,reconstruida:95
+H6,0x0080A398,0x0080A43F,168,renderware,reconstruida,4,0,1,reconstruida:136
+H6,0x0080A771,0x0080AA7F,783,renderware,sin-referencia-real,12,0,1,reconstruida:186 sin-referencia-real:483
+H6,0x0080FFA4,0x0080FFDF,60,renderware,pendiente-dato,1,1,0,pendiente-dato:34
+H6,0x00810BAA,0x00810C9F,246,renderware,reconstruida,3,0,1,reconstruida:213
+H6,0x008111EC,0x00811A8F,2212,renderware,reconstruida,7,0,1,reconstruida:2139
+H6,0x00811AE0,0x00811B8F,176,renderware,reconstruida,5,0,1,reconstruida:124
+H6,0x00811BE0,0x00811C2F,80,renderware,reconstruida,2,0,1,reconstruida:69
+H6,0x00815C1A,0x00815E5F,582,renderware,reconstruida,1,0,1,reconstruida:567
+H6,0x00816096,0x0081618F,250,renderware,reconstruida,2,0,1,reconstruida:217
+H6,0x008194C5,0x0081951F,91,renderware,sin-referencia-real,3,0,1,citada-en-cpp:5 sin-referencia-real:42
+H6,0x008196FF,0x0081976F,113,renderware,citada-en-cpp,1,0,1,citada-en-cpp:108
+H6,0x008215D6,0x00821613,62,crt,crt-enlazar,1,0,1,crt-enlazar:62
+H6,0x008218B4,0x008218D5,34,crt,crt-enlazar,1,0,1,crt-enlazar:34
+H6,0x00825E9B,0x00825F60,198,crt,crt-enlazar,1,0,1,crt-enlazar:197
+H6,0x00826261,0x00826297,55,crt,reconstruida,1,0,1,reconstruida:55
+H6,0x008262A2,0x0082631E,125,crt,reconstruida,1,0,1,reconstruida:125
+H6,0x00826448,0x0082658F,328,crt,reconstruida,1,0,1,reconstruida:309
+H6,0x00826ADB,0x00826B3F,101,crt,reconstruida,1,0,1,reconstruida:101
+H6,0x0082BF1E,0x0082BF61,68,crt,crt-enlazar,1,0,1,crt-enlazar:68
+H6,0x0082E924,0x0082E9B2,143,crt,pendiente-dato,1,1,0,pendiente-dato:143
+H6,0x0083DB48,0x0083DBAF,104,crt,muerta-por-reemplazo,6,0,1,muerta-por-reemplazo:60
+H6,0x00856431,0x0085687F,1103,crt,destructor-atexit,43,0,1,destructor-atexit:693
+H6,0x008568AB,0x00856DFF,1365,crt,destructor-atexit,47,0,1,crt-enlazar:368 citada-en-cpp:10 destructor-atexit:518 muerta-por-reemplazo:20
