@@ -583,7 +583,6 @@ int __cdecl ShimDevuelveUno() { return 1; }
 struct ShimDef { uint32_t va; void* destino; const char* nota; };
 void InstalarShims() {
     const ShimDef lista[] = {
-        {0x80E270, (void*)ShimDevuelveUno, "nodeBody nodeD3D9SubmitNoLight.csl (1.380 B, Im3D sin luz): no dibuja nada"},
         {0x7C7B90, (void*)ShimDevuelveUno, "nodeBody nodeD3D9SkinAtomicAllInOne.csl (skin D3D9, varios KB): los atomics con skin no se dibujan"},
     };
     for (const ShimDef& d : lista) {
