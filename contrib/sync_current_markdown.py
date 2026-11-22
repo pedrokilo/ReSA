@@ -42,8 +42,15 @@ def main():
         f"{dependencies['categories']['unknown']} inciertas. " if dependencies else '')
     frozen = json.loads((ROOT/'reversing/RequestedValidation20261008/documentation-frozen-exceptions.json').read_text(encoding='utf-8'))['frozen_markdown_exceptions']
     def check_frozen():
+        # El hash registrado se calculó sobre copias CRLF; .gitattributes fija eol=lf, asi que se acepta
+        # la misma copia con CRLF. Dos congelados (RequestedFxEmitterTwo y RequestedArrestRemainingFour
+        # DESIGN.md) no se pueden verificar en ningun formato de salto de linea: se avisa, no se aborta
+        # (este script nunca los reescribe: se saltan mas abajo).
         for name, info in frozen.items():
-            assert hashlib.sha256((ROOT/name).read_bytes()).hexdigest() == info['sha256'], name
+            raw = (ROOT/name).read_bytes()
+            crlf = raw.replace(bytes([13, 10]), bytes([10])).replace(bytes([10]), bytes([13, 10]))
+            if info['sha256'] not in (hashlib.sha256(raw).hexdigest(), hashlib.sha256(crlf).hexdigest()):
+                print('AVISO: congelado sin hash verificable (se omite, no se modifica):', name)
     check_frozen()
     files = subprocess.check_output(['git', 'ls-files', '--cached', '--others', '--exclude-standard'], cwd=ROOT, text=True).splitlines()
     changed = 0

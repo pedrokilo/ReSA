@@ -17,6 +17,21 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def digest_crlf(path):
+    """sha256 del contenido con saltos CRLF, para ficheros de texto; None si es binario.
+
+    Parte de la evidencia se registró con hash sobre copias de trabajo CRLF (Windows,
+    core.autocrlf=true). .gitattributes fija eol=lf, así que el mismo contenido
+    en un checkout limpio da otro hash. Se acepta como idéntico el contenido que solo
+    difiere en los saltos de línea; cualquier otro cambio sigue invalidando la evidencia.
+    """
+    data = path.read_bytes()
+    if bytes([0]) in data:
+        return None
+    data = data.replace(b'\r\n', b'\n').replace(b'\n', b'\r\n')
+    return hashlib.sha256(data).hexdigest()
+
+
 def tree_digest(path):
     """Conservative source-tree fingerprint, including added/deleted files."""
     path = Path(path)
@@ -59,6 +74,12 @@ def evaluate(root, hooks_path, registry_path=None):
         if key not in file_cache:
             file_cache[key] = digest(path)
         return file_cache[key]
+    def same_file(path, expected):
+        """Hash registrado == hash actual, o == hash del mismo texto con CRLF."""
+        path = Path(path)
+        if invocation_digest(path) == expected:
+            return True
+        return digest_crlf(path) == expected
     def invocation_tree_digest(path):
         path = Path(path).resolve()
         if not path.is_dir():
@@ -79,7 +100,7 @@ def evaluate(root, hooks_path, registry_path=None):
         seen.add(key)
         evidence = record['evidence']
         path = local(evidence['path'])
-        evidence_ok = path.is_file() and invocation_digest(path) == evidence['sha256']
+        evidence_ok = path.is_file() and same_file(path, evidence['sha256'])
         if evidence_ok:
             if path not in summary_cache:
                 summary_cache[path] = json.loads(path.read_text(encoding='utf-8'))
@@ -89,7 +110,7 @@ def evaluate(root, hooks_path, registry_path=None):
             evidence_ok = summary is True
         sources = record['tested_sources']
         source_match = bool(sources) and all(
-            local(p).is_file() and invocation_digest(local(p)) == h for p, h in sources.items()
+            local(p).is_file() and same_file(local(p), h) for p, h in sources.items()
         )
         # A complete dependency review must carry its own evidence and file hashes.
         review = record.get('dependency_review')
@@ -97,9 +118,9 @@ def evaluate(root, hooks_path, registry_path=None):
         if review is not None:
             proof = local(review['evidence_path'])
             dependencies_match = (
-                proof.is_file() and invocation_digest(proof) == review['evidence_sha256']
+                proof.is_file() and same_file(proof, review['evidence_sha256'])
                 and bool(review['files'])
-                and all(local(p).is_file() and invocation_digest(local(p)) == h
+                and all(local(p).is_file() and same_file(local(p), h)
                         for p, h in review['files'].items())
                 and all(invocation_tree_digest(local(p)) == h for p, h in review.get('trees', {}).items())
             )
