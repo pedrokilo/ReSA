@@ -6,6 +6,8 @@
 // Debe seguir exactamente las ramas de ReadArg.hpp / StoreArg.hpp.
 
 #include <array>
+#include <cstdio>
+#include <cstdlib>
 #include <cstdint>
 #include <type_traits>
 #include <tuple>
@@ -181,6 +183,29 @@ inline void Record() {
     s = CmdSig{};
     s.registered = true;
     detail::FromFn(s, CommandFn);
+}
+
+//! Herramienta contrib/audit_script_params.py: si existe la variable de entorno GTASA_DUMP_SIGS=<archivo>, vuelca la firma de cada manejador
+//! registrado (id,conocida,retorno,nIn,nOut,kinds_in;kinds_out) para compararla con los parametros que lee el EXE. Sin la variable no hace nada.
+inline void DumpIfRequested() {
+    char* env = nullptr; size_t len = 0;
+    if (_dupenv_s(&env, &len, "GTASA_DUMP_SIGS") != 0 || !env) { return; }
+    FILE* f = nullptr;
+    const auto err = fopen_s(&f, env, "w");
+    free(env);
+    if (err != 0 || !f) { return; }
+    std::fprintf(f, "id,conocida,retorno,nIn,nOut,in,out\n");
+    const auto& t = Table();
+    for (size_t i = 0; i < t.size(); i++) {
+        const auto& s = t[i];
+        if (!s.registered) { continue; }
+        std::fprintf(f, "%zu,%d,%d,%d,%d,", i, s.known ? 1 : 0, (int)s.ret, (int)s.nIn, (int)s.nOut);
+        for (int k = 0; k < s.nIn; k++) { std::fprintf(f, "%s%d", k ? ";" : "", (int)s.in[k]); }
+        std::fprintf(f, ",");
+        for (int k = 0; k < s.nOut; k++) { std::fprintf(f, "%s%d", k ? ";" : "", (int)s.out[k]); }
+        std::fprintf(f, "\n");
+    }
+    std::fclose(f);
 }
 } // namespace sig
 } // namespace script
