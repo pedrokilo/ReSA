@@ -5,6 +5,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG2.h"
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
@@ -82,10 +84,10 @@ public:
     static inline auto& ms_cutsceneLoadStatus = StaticRef<LoadStatus>(0xB5F84C);
     static inline auto& ms_running = StaticRef<int8>(0xB5F851);
     static inline auto& ms_cutsceneProcessing = StaticRef<bool>(0xB5F852);
-    static inline auto& ms_useLodMultiplier = StaticRef<bool>(0xB5F853);
+    static inline auto& ms_useLodMultiplier = DatosExe::Bss::bB5F853;
     static inline auto& ms_wasCutsceneSkipped = DatosExe::Bss::bB5F854;
     static inline auto& ms_hasFileInfo = DatosExe::Bss::bB5F855;
-    static inline auto& ms_numAppendObjectNames = StaticRef<int32>(0xB5F858);
+    static inline auto& ms_numAppendObjectNames = DatosExe::Bss::bB5F858;
     static inline auto& restoreEverythingAfterCutscene = DatosExe::Bss::bB5F85C;
     //! Armas del jugador guardadas para restaurarlas al borrar la cinemática con `m_bDontClearZone` (ver 0x5AFFE5)
     static inline auto& numPlayerWeaponsToRestoreInZone = DatosExe::Bss::bBC1CFC;
@@ -111,7 +113,7 @@ public:
     static inline auto& ms_pCutsceneObjects = StaticRef<std::array<CCutsceneObject*, 50>>(0xBC3F18);
     static inline auto& ms_cutscenePlayStatus = StaticRef<PlayStatus>(0xBC3FE0);
     static inline auto& ms_numCutsceneObjs = DatosExe::Bss::bBC3FE4;
-    static inline auto& ms_numLoadObjectNames = StaticRef<int32>(0xBC3FE8);
+    static inline auto& ms_numLoadObjectNames = DatosExe::Bss::bBC3FE8;
     static inline auto& ms_numTextOutput = DatosExe::Bss::bBC3FEC;
     static inline auto& ms_currTextOutput = DatosExe::Bss::bBC3FF0;
     static inline auto& ms_numUncompressedCutsceneAnims = DatosExe::Bss::bBC3FF4;

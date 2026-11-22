@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 
 #pragma warning(push, 0)
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
 #pragma warning(pop)
 
 #include "Clothes.h"
@@ -306,7 +307,7 @@ AssocGroupId CClothes::GetDefaultPlayerMotionGroup() {
         return ANIM_GROUP_PLAYER;
 
     // Como el original: CAnimManager::ms_aAnimAssocGroups (0xB4EA34) indexado sin comprobar el rango.
-    CAnimBlock* animBlock = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34)[group].m_AnimBlock;
+    CAnimBlock* animBlock = DatosExe::Bss::bB4EA34[group].m_AnimBlock;
     if (!animBlock || !animBlock->IsLoaded)
         return ANIM_GROUP_PLAYER;
 

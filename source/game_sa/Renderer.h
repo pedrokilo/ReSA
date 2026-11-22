@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataInicializadaXA.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -89,8 +90,8 @@ public:
     static inline auto& m_loadingPriority = StaticRef<bool>(0xB76850);
     static inline auto& ms_bInTheSky = StaticRef<bool>(0xB76851);
     static inline auto& ms_vecCameraPosition = StaticRef<CVector>(0xB76870);
-    static inline auto& ms_lodDistScale = StaticRef<float>(0x8CD800); // default 1.2
-    static inline auto& ms_lowLodDistScale = StaticRef<float>(0x8CD804); // default 1.0
+    static inline auto& ms_lodDistScale = DatosExe::Data::v8CD800; // default 1.2
+    static inline auto& ms_lowLodDistScale = DatosExe::Data::v8CD804; // default 1.0
 
 public:
     static void InjectHooks();

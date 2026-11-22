@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaXB.h"
+#include "DatosExe/DataBssG5.h"
+#include "DatosExe/DataBssG3.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "X87Math.h"
 #include "Tasks/TaskTypes/TaskSimpleFinishBrain.h"
@@ -398,7 +401,7 @@ void CRunningScript::LocateCarCommand(int32 commandId) {
     auto* vehicle = GetVehiclePool()->GetAtRef(ScriptParams[0].iParam);
     bool forceFalse = false;
     if (commandId == 0x1AE || commandId == 0x1B0) {
-        const auto timestep = CTimer::GetTimeStep() < StaticRef<float>(0xB7CB54) ? CTimer::GetTimeStep() : StaticRef<float>(0xB7CB54);
+        const auto timestep = CTimer::GetTimeStep() < DatosExe::Bss::bB7CB54 ? CTimer::GetTimeStep() : DatosExe::Bss::bB7CB54;
         forceFalse = !(vehicle->m_fMovingSpeed <= timestep * 0.01f);
     }
     LocateScriptEntity(this, vehicle->GetPosition(), threeD, false, forceFalse);
@@ -2305,7 +2308,7 @@ OpcodeResult CRunningScript::ProcessCommands1900To1999(int32 command) {
     }
     case 1953: // SET_NEXT_DESIRED_MOVE_STATE
         CollectParameters(1);
-        StaticRef<int32>(0x8D237C) = sp[0].iParam;
+        DatosExe::Data::v8D237C = sp[0].iParam;
         return OR_CONTINUE;
     case 1955: { // TASK_GOTO_CHAR_AIMING
         CollectParameters(4);
@@ -2427,7 +2430,7 @@ OpcodeResult CRunningScript::ProcessCommands1900To1999(int32 command) {
     }
     case 1968: { // GET_LOADED_SHOP: copia 8 caracteres de la tienda cargada, los pasa a mayusculas y los copia a la variable global
         char name[16]{};
-        std::strncpy(name, StaticRef<char[24]>(0xA9A7D8), 8); // CShopping::ms_shopLoaded (privado)
+        std::strncpy(name, DatosExe::Bss::bA9A7D8, 8); // CShopping::ms_shopLoaded (privado)
         MakeUpperCase(name);
         std::strncpy(reinterpret_cast<char*>(GetPointerToScriptVariable(VAR_GLOBAL)), name, 8);
         return OR_CONTINUE;

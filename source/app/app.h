@@ -1,4 +1,6 @@
 #pragma once
+#include "DatosExe/DataBssG5.h"
+#include "DatosExe/DataBssG3.h"
 
 #include "Game.h"
 #include "Enums/eGameState.h"
@@ -23,9 +25,9 @@ void ChangeGameStateTo(eGameState newgs);
 
 static inline auto& ForegroundApp = StaticRef<bool>(0x8D621C);
 
-static inline auto& gColourTop = StaticRef<RwRGBA>(0xB72CA0);
-static inline auto& gColourBottom = StaticRef<RwRGBA>(0xB72CA4);
-static inline auto& gHorZ = StaticRef<float>(0xB72C6C);
+static inline auto& gColourTop = DatosExe::Bss::bB72CA0;
+static inline auto& gColourBottom = DatosExe::Bss::bB72CA4;
+static inline auto& gHorZ = DatosExe::Bss::bB72C6C;
 
 extern RsEventStatus AppEventHandler(RsEvent event, void* param);
 bool ShouldPauseOriginalIdleInBackground();

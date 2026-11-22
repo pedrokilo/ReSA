@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE2.h"
 
 #include "IplDef.h"
@@ -61,14 +62,14 @@ VALIDATE_SIZE(PackedModelStartEnd, 0x4);
 // los límites de modelos, los slots de colisión y los datos de entidades IPL.
 class CColAccel {
 public:
-    static inline auto& m_colBounds = StaticRef<CColAccelColBound*>(0xBC4090);
+    static inline auto& m_colBounds = DatosExe::Bss::bBC4090;
     static inline auto& m_iplDefs = StaticRef<IplDef*>(0xBC4094);
-    static inline auto& m_iSectionSize = StaticRef<int32*>(0xBC4098);
+    static inline auto& m_iSectionSize = DatosExe::Bss::bBC4098;
     static inline auto& m_iCachingColSize = DatosExe::Bss::bBC409C;
     static inline auto& m_iCacheState = StaticRef<eColAccelState>(0xBC40A0);
-    static inline auto& mp_caccColItems = StaticRef<CColAccelColEntry*>(0xBC40A4);
+    static inline auto& mp_caccColItems = DatosExe::Bss::bBC40A4;
     static inline auto& m_iNumColItems = DatosExe::Bss::bBC40A8;
-    static inline auto& mp_caccIPLItems = StaticRef<CColAccelIPLEntry*>(0xBC40AC);
+    static inline auto& mp_caccIPLItems = DatosExe::Bss::bBC40AC;
     static inline auto& m_iNumIPLItems = DatosExe::Bss::bBC40B0;
     static inline auto& m_iNumSections = DatosExe::Bss::bBC40B4;
     static inline auto& m_iNumColBounds = DatosExe::Bss::bBC40B8;

@@ -114,8 +114,8 @@ void CSpecialFX::AddWeaponStreak(eWeaponType weaponType) {
     auto& attachMat = StaticRef<CMatrix>(0xC803E8);
     if (!(guard & 1)) {
         guard |= 1;
-        DatosExe::Bss::bC80428 = 0; // m_pAttachMatrix
-        DatosExe::Bss::bC8042C = 0; // m_bOwnsAttachedMatrix
+        StaticRef<uint32>(0xC80428) = 0; // m_pAttachMatrix
+        StaticRef<uint32>(0xC8042C) = 0; // m_bOwnsAttachedMatrix
         reinterpret_cast<int32(__cdecl*)(void(__cdecl*)())>(0x821D1E)(reinterpret_cast<void(__cdecl*)()>(0x856BC0)); // atexit(~attachMat)
     }
 

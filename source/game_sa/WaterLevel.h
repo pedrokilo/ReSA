@@ -1,4 +1,6 @@
 #pragma once
+#include "DatosExe/DataInicializadaXB.h"
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
@@ -76,11 +78,11 @@ class CWaterLevel {
     m_nNumOfWaterQuads
     m_nNumOfWaterTriangles
     */
-    static inline auto& m_nWaterConfiguration = StaticRef<uint32>(0xC228A0);
+    static inline auto& m_nWaterConfiguration = DatosExe::Bss::bC228A0;
     static inline auto& m_nWaterTimeOffset = DatosExe::Bss::bC228A4;
-    static inline auto& m_bWaterFog = DatosExe::Data::v8D37D4;
-    static inline auto& m_bWaterFogScript = StaticRef<bool>(0x8D37D5);
-    static inline auto& m_WaterFogDensity = DatosExe::Data::v8D37E0;
+    static inline auto& m_bWaterFog = StaticRef<bool>(0x8D37D4);
+    static inline auto& m_bWaterFogScript = DatosExe::Data::v8D37D5;
+    static inline auto& m_WaterFogDensity = StaticRef<int32>(0x8D37E0);
 
     static inline auto& faWaveMultipliersX = DatosExe::Data::v8D38C8;
     static inline auto& faWaveMultipliersY = DatosExe::Data::v8D38E8;
@@ -108,7 +110,7 @@ class CWaterLevel {
     static inline auto& CameraRangeMaxX = DatosExe::Bss::bC1F958;
     static inline auto& CameraRangeMinX = DatosExe::Bss::bC1F95C;
 
-    static inline auto& DETAILEDWATERDIST = StaticRef<int32>(0x8D37D0); // Default: 48
+    static inline auto& DETAILEDWATERDIST = DatosExe::Data::v8D37D0; // Default: 48
     static inline auto& bSplitBigPolys = DatosExe::Data::v8D37F4;     // Default: true
     static inline auto  BigPolySize = 168; // NOTSA variable, but value is OG.
 
@@ -127,7 +129,7 @@ class CWaterLevel {
     };
     static inline auto& ms_WaterFog = StaticRef<WaterFog>(0xC21188);
     static inline auto& gWaterFogIndex = StaticRef<uint32>(0xC228E4);
-    static inline auto& m_fWaterFogHeight = DatosExe::Data::v8D37E4;
+    static inline auto& m_fWaterFogHeight = StaticRef<float>(0x8D37E4);
     static inline auto& gbPlayerIsInsideWaterFog = StaticRef<bool>(0xC228E8);
 
 

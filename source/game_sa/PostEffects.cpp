@@ -34,7 +34,7 @@ END GENERATED HOOK STATUS */
 auto& cc_vertices = StaticRef<std::array<RwIm2DVertex, 4>>(0xC400D8);
 auto& cc_indices = StaticRef<std::array<RwImVertexIndex, 12>>(0x8D5174); // { 0, 1, 2, 0, 2, 3, 0, 1, 2, 0, 2, 3 };
 
-auto& hpX = DatosExe::Bss::bC3FE08;
+auto& hpX = StaticRef<std::array<int32, 180>>(0xC3FE08);
 auto& hpY = DatosExe::Bss::bC3FB38;
 auto& hpS = DatosExe::Bss::bC3F868; // speed
 

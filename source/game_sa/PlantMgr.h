@@ -1,4 +1,6 @@
 #pragma once
+#include "DatosExe/DataBssG4.h"
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -22,7 +24,7 @@ public:
     static inline auto& PC_PlantTextureTab = StaticRef<RwTexture*[4][4]>(0xC039A0);
     static inline auto& PC_PlantModelsTab = StaticRef<RpAtomic*[4][4]>(0xC039F0);
 
-    static inline auto& m_scanCode = StaticRef<int16>(0xC03980);
+    static inline auto& m_scanCode = DatosExe::Bss::bC03980;
     static inline auto& m_UnusedLocTriListHead = DatosExe::Bss::bC03984;
     static inline auto& m_CloseLocTriListHead = StaticRef<CPlantLocTri*[4]>(0xC03988);
     static inline auto& m_UnusedColEntListHead = DatosExe::Bss::bC03998;
@@ -74,4 +76,4 @@ private:
 
 static inline auto& grassTexturesPtr = StaticRef<RwTexture**[4]>(0xC039E0);
 static inline auto& grassModelsPtr = StaticRef<RpAtomic**[4]>(0xC03A30); // Como el original: punteros a filas de PC_PlantModelsTab
-static inline auto& tex_gras07Si = StaticRef<RwTexture*>(0xC09174);
+static inline auto& tex_gras07Si = DatosExe::Bss::bC09174;

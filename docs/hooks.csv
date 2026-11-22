@@ -12618,6 +12618,7 @@ CAudioZones,TextBufferAppendTagged,0x005089B0,1,0,0,S
 CAudioZones,TextBufferAddInt,0x00508B80,1,0,0,S
 CAudioZones,TextBufferAddTyped,0x00508D30,1,0,0,S
 CAudioZones,BugstarFlushReport,0x00509190,1,0,0,S
+CAudioZones,BugstarWriteBlock,0x00508EB0,1,0,0,S
 RpUVAnim,RpUVAnimEngineConstructor,0x007CB9B0,1,0,0,S
 RpUVAnim,RpUVAnimEngineDestructor,0x007CBA20,1,0,0,S
 RpUVAnim,RpUVAnimMaterialConstructor,0x007CBA80,1,0,0,S

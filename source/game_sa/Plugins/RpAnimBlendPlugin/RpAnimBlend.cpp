@@ -17,15 +17,18 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
+#include "DatosExe/DataBssG2.h"
 
 #include "RpAnimBlend.h"
 #include "X87Math.h"
+#include "DatosExe/DataBssF.h"
 
 // 0x4D56F0 (definida al final del archivo): version con la ABI del EXE (tag de 32 bits sin truncar) que usan los callbacks de busqueda por hueso
 static const char* __cdecl ConvertBoneTag2BoneNameExe(int32 boneTag);
 
 // Offset del payload CAnimBlendClumpData* registrado dentro de cada RpClump.
-static auto& ClumpOffset = StaticRef<uint32>(0xB5F878);
+static auto& ClumpOffset = DatosExe::Bss::bB5F878;
 
 // Devuelve una referencia al puntero almacenado en el payload para permitir inicializarlo o limpiarlo.
 CAnimBlendClumpData*& RpAnimBlendClumpGetData(RpClump* clump) {
@@ -373,7 +376,7 @@ void RpAnimBlendClumpFillFrameArray(RpClump* clump, AnimBlendFrameData** outFram
 }
 
 // Como el original: resultado de las búsquedas de frames en un global del EXE (gpAnimBlendFrame)
-static auto& gpAnimBlendFrameData = StaticRef<AnimBlendFrameData*>(0xB5F87C);
+static auto& gpAnimBlendFrameData = DatosExe::Bss::bB5F87C<AnimBlendFrameData*>();
 
 // 0x4D63E0
 static void FrameFindByBoneTagCB(AnimBlendFrameData* fd, void* data) {

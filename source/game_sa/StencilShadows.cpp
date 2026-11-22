@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE1.h"
 #include "StencilShadowObject.h"
 
@@ -24,10 +25,11 @@ END GENERATED HOOK STATUS */
 #include "Pools/Pools.h"
 #include "Pools/VehiclePool.h"
 #include "Entity/Vehicle/Bike.h"
+#include "DatosExe/DataBssF.h"
 
-static inline auto& s_ShadowTrianglePointsUnk         = StaticRef<RxVertexIndex*>(0xC6A170);
-static inline auto& s_ShadowTrianglePoints            = StaticRef<CVector*>(0xC6A174);
-static inline auto& s_TransformedShadowTrianglePoints = StaticRef<CVector*>(0xC6A178);
+static inline auto& s_ShadowTrianglePointsUnk         = DatosExe::Bss::bC6A170<RxVertexIndex*>();
+static inline auto& s_ShadowTrianglePoints            = DatosExe::Bss::bC6A174;
+static inline auto& s_TransformedShadowTrianglePoints = DatosExe::Bss::bC6A178;
 static inline auto& s_SunPosNrm                       = StaticRef<CVector>(0x8D5244); // CVector(1.0, 1.0, -2.0)
 
 // Como el original: los dos contadores de Process son globales del EXE (0xC6A899 / 0xC6A898), no estaticos locales

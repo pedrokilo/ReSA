@@ -17,6 +17,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
+#include "DatosExe/DataBssG2.h"
+#include "DatosExe/DataBssG1.h"
 
 #include "PhoneInfo.h"
 #include "AnimBlendAssociation.h"
@@ -67,11 +70,11 @@ void CPhoneInfo::PhoneAnimFinishCallback(CAnimBlendAssociation* assoc, void* dat
 
 namespace {
 // Estado de la llamada de telefono del EXE (.data): 0x977BB8 peaton que llama, 0x977BBC y 0x977BC4 banderas, 0x977BC0 cabina en uso y 0x977BC8 instante en que acaban los mensajes.
-auto& s_phoneCallingPed   = StaticRef<CPed*>(0x977BB8);
-auto& s_phoneFlagBC       = StaticRef<uint8>(0x977BBC);
-auto& s_phoneActivePhone  = StaticRef<void*>(0x977BC0);
-auto& s_phoneFlagC4       = StaticRef<uint8>(0x977BC4);
-auto& s_phoneMessagesEnd  = StaticRef<uint32>(0x977BC8);
+auto& s_phoneCallingPed   = DatosExe::Bss::b977BB8;
+auto& s_phoneFlagBC       = DatosExe::Bss::b977BBC;
+auto& s_phoneActivePhone  = DatosExe::Bss::b977BC0;
+auto& s_phoneFlagC4       = DatosExe::Bss::b977BC4;
+auto& s_phoneMessagesEnd  = DatosExe::Bss::b977BC8;
 // Campos de CPhone usados por el callback: seis punteros a texto en +0x0C, instante en +0x24 y estado en +0x2C.
 auto& PhoneMessage(void* phone, size_t index) { return reinterpret_cast<const GxtChar**>(static_cast<uint8*>(phone) + 0x0C)[index]; }
 auto& PhoneTime(void* phone) { return *reinterpret_cast<uint32*>(static_cast<uint8*>(phone) + 0x24); }

@@ -105,7 +105,7 @@ int32 InteriorGroup_c::AddInterior(Interior_c* interior) {
 
 // 0x596890
 void InteriorGroup_c::SetupPeds() {
-    if (m_EnEx && DatosExe::Bss::bBB3DC2) {
+    if (m_EnEx && StaticRef<bool>(0xBB3DC2)) {
         switch (m_groupType) {
         case 0: SetupHousePeds(); break;
         case 1: SetupShopPeds(); break;
@@ -117,7 +117,7 @@ void InteriorGroup_c::SetupPeds() {
 
 // 0x596830
 void InteriorGroup_c::UpdatePeds() {
-    if (m_EnEx && DatosExe::Bss::bBB3DC2) {
+    if (m_EnEx && StaticRef<bool>(0xBB3DC2)) {
         for (auto& ped : m_pedsToRemove) {
             if (ped) {
                 if (ped->IsPointerValid()) RemovePed(ped);

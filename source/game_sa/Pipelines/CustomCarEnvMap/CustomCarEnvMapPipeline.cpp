@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "CustomCarEnvMapPipeline.h"
 #include "app_light.h"
 #include "CarFXRenderer.h"
+#include "DatosExe/DataInicializadaD.h"
 
 using namespace notsa::envmap;
 
@@ -38,7 +39,7 @@ auto& gEnvMapD3DMaterial = StaticRef<D3DMATERIAL9>(0x8D12D8);
 
 // Como el original: propiedades de superficie y color por defecto que se restauran al final (0x8D131C, 0x8D1328)
 auto& gDefaultSurfaceProps = StaticRef<RwSurfaceProperties>(0x8D131C);
-auto& gDefaultColor        = StaticRef<RwRGBA>(0x8D1328);
+auto& gDefaultColor        = DatosExe::Data::v8D1328;
 
 // Como el original: _ftol2 (0x821B40) trunca a 64 bits y el código usa la palabra baja
 int32 Ftol(float x) {

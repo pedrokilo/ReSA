@@ -124,9 +124,19 @@ struct BugstarReportRaw {
 };
 static_assert(offsetof(BugstarReportRaw, io) == 4 && offsetof(BugstarReportRaw, handle) == 0xC && offsetof(BugstarReportRaw, name) == 0x9A);
 
+// 0x508EB0 (hueco del .text que Ghidra no separaba como funcion; descubierto por la ronda DatosExe-B; thiscall, dos argumentos de pila (bloque, longitud), `ret 8`, 77 bytes): escribe en el informe, con la ranura de
+// escritura de su objeto de E/S (el objeto y el manejador se leen de nuevo en cada llamada, como el original), la longitud (4 bytes), el bloque (longitud bytes) y un cuatro bytes a cero final. Lo llama BugstarFlushReport
+// (0x509190) despues de la cabecera {4, primer valor, 0}.
+__declspec(noinline) void __fastcall BugstarWriteBlock(BugstarReportRaw* self, void* /*edx*/, const char* data, uint32 length) {
+    self->io->vtable->write(self->io, self->handle, &length, 4);
+    self->io->vtable->write(self->io, self->handle, data, static_cast<int32>(length));
+    int32 zero = 0;
+    self->io->vtable->write(self->io, self->handle, &zero, 4);
+}
+
 // 0x509190 (lote S2A, sin validar; thiscall, tres argumentos de pila (entero, bloque, longitud), `ret 0Ch`, 152 bytes): abre el informe con io->abrir(+8 del informe, nombre en +0x9A) y guarda el
 // manejador en +0xC; si es 0 devuelve 0 sin mas. Si no escribe tres dwords con io->escribir(manejador, buffer, 4): el valor 4, el primer argumento de pila (con tamano igual al valor local, que sigue
-// siendo 4) y 0; despues llama a 0x508EB0 (thiscall con el informe: bloque y longitud, `ret 8`, sin reconstruir), cierra con io->cerrar(manejador), pone +0xC a 0 y devuelve 0.
+// siendo 4) y 0; despues llama a 0x508EB0 (BugstarWriteBlock: bloque y longitud, `ret 8`), cierra con io->cerrar(manejador), pone +0xC a 0 y devuelve 0.
 __declspec(noinline) int32 __fastcall BugstarFlushReport(BugstarReportRaw* self, void* /*edx*/, int32 firstValue, const char* data, uint32 length) {
     self->handle = self->io->vtable->open(self->io, self->openArgument, self->name);
     if (self->handle == 0) {
@@ -137,7 +147,7 @@ __declspec(noinline) int32 __fastcall BugstarFlushReport(BugstarReportRaw* self,
     self->io->vtable->write(self->io, self->handle, &firstValue, four);
     int32 zero = 0;
     self->io->vtable->write(self->io, self->handle, &zero, 4);
-    plugin::CallMethod<0x508EB0, BugstarReportRaw*, const char*, uint32>(self, data, length);
+    BugstarWriteBlock(self, nullptr, data, length); // 0x508EB0
     self->io->vtable->close(self->io, self->handle);
     self->handle = 0;
     return 0;
@@ -239,6 +249,7 @@ void CAudioZones::InjectHooks() {
     RH_ScopedNamedGlobalInstall(AudioZonesTextBufferAddInt, "TextBufferAddInt", 0x508B80);            // lote S2A (sin validar)
     RH_ScopedNamedGlobalInstall(AudioZonesTextBufferAddTyped, "TextBufferAddTyped", 0x508D30);        // lote S2A (sin validar)
     RH_ScopedNamedGlobalInstall(BugstarFlushReport, "BugstarFlushReport", 0x509190);                  // lote S2A (sin validar)
+    RH_ScopedNamedGlobalInstall(BugstarWriteBlock, "BugstarWriteBlock", 0x508EB0);                    // ronda DatosExe-B: antes un hueco del .text llamado por direccion (sin validar)
     RH_ScopedNamedGlobalInstall(BugstarWriteScreenShotEntry, "BugstarWriteScreenShotEntry", 0x509230); // lote F1A (sin validar)
 }
 

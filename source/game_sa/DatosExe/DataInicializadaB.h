@@ -9,8 +9,6 @@
 namespace DatosExe::Data {
 extern uint32 v8A5A84; // 0x008A5A84
 extern bool v8A5A88; // 0x008A5A88
-extern int32 v8A5A9C; // 0x008A5A9C
-extern int32 v8A5AB0; // 0x008A5AB0
 extern bool v8A5B16; // 0x008A5B16
 extern int32 v8A5B1C; // 0x008A5B1C
 extern uint32 v8A5B24; // 0x008A5B24
@@ -118,10 +116,7 @@ extern uint8 v8D33B0; // 0x008D33B0
 extern bool v8D33BC; // 0x008D33BC
 extern uint32 v8D3448; // 0x008D3448
 extern bool v8D3450; // 0x008D3450
-extern bool v8D37D4; // 0x008D37D4
-extern int32 v8D37E0; // 0x008D37E0
 extern bool v8D37F4; // 0x008D37F4
-extern uint8 v8D380C; // 0x008D380C
 extern int32 v8D3810; // 0x008D3810
 extern uint32 v8D382C; // 0x008D382C
 extern uint32 v8D3930; // 0x008D3930

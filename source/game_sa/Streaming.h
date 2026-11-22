@@ -6,6 +6,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG4.h"
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
@@ -205,10 +207,10 @@ public:
     static inline auto& ms_aDefaultFiremanModel = StaticRef<std::array<int32, 4>>(0x8A5AE4);
 
     // Default models for current level
-    static inline auto& ms_DefaultCopBikeModel = DatosExe::Data::v8A5A9C;
-    static inline auto& ms_DefaultCopBikerModel = DatosExe::Data::v8A5AB0;
+    static inline auto& ms_DefaultCopBikeModel = StaticRef<int32>(0x8A5A9C);
+    static inline auto& ms_DefaultCopBikerModel = StaticRef<int32>(0x8A5AB0);
 
-    static inline auto& ms_pExtraObjectsDir = StaticRef<CDirectory*>(0x8E48D0);
+    static inline auto& ms_pExtraObjectsDir = DatosExe::Bss::b8E48D0;
     static inline auto& ms_files = StaticRef<tStreamingFileDesc[TOTAL_IMG_ARCHIVES]>(0x8E48D8);
     static inline auto& ms_bLoadingBigModel = DatosExe::Bss::b8E4A58;
     // There are only two channels within CStreaming::ms_channel
@@ -241,7 +243,7 @@ public:
     static inline auto& ms_pEndLoadedList = DatosExe::Bss::b8E4C5C;
     static inline auto& ms_startLoadedList = DatosExe::Bss::b8E4C60;
 
-    static inline auto& ms_lastImageRead = StaticRef<int32>(0x8E4C64); // initialized but not used?
+    static inline auto& ms_lastImageRead = DatosExe::Bss::b8E4C64; // initialized but not used?
     static inline auto& ms_imageOffsets = StaticRef<std::array<int32, 6>>(0x8E4C8C); // initialized but never used?
 
     static inline auto& ms_bEnableRequestListPurge = StaticRef<bool>(0x8E4CA4);
@@ -251,7 +253,7 @@ public:
     static inline auto& ms_numModelsRequested = StaticRef<int32>(0x8E4CB8);
     static inline auto& ms_aInfoForModel = StaticRef<std::array<CStreamingInfo, 26316>>(0x8E4CC0);
     static inline auto& ms_disableStreaming = StaticRef<bool>(0x9654B0);
-    static inline auto& ms_bIsInitialised = StaticRef<int32>(0x9654B8);
+    static inline auto& ms_bIsInitialised = DatosExe::Bss::b9654B8;
     static inline auto& m_bBoatsNeeded = DatosExe::Bss::b9654BC;
     static inline auto& ms_bLoadingScene = DatosExe::Bss::b9654BD;
     static inline auto& m_bCopBikeLoaded = DatosExe::Bss::b9654BE;

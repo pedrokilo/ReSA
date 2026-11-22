@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -65,7 +66,7 @@ public:
     static inline auto& ms_LoadFileName = DatosExe::Bss::bC15FC8;
     static inline auto& ms_LoadFileNameWithPath = DatosExe::Bss::bC15F60;
     static inline auto& ms_CheckSum = DatosExe::Bss::bC16134;
-    static inline auto& ms_WorkBuffer = StaticRef<uint8*>(0xC16EE8);
+    static inline auto& ms_WorkBuffer = DatosExe::Bss::bC16EE8;
     static inline auto& ms_WorkBufferPos = DatosExe::Bss::bC16EEC;
     static inline auto& ms_FileHandle = StaticRef<FILE*>(0xC16EF0);
     static inline auto& ms_FilePos = DatosExe::Bss::bC16EF4;

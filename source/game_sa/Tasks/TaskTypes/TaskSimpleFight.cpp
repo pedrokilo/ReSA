@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
@@ -961,7 +962,7 @@ uint32 FightHitPedTableAt(int32 move) {
 int8 CTaskSimpleFight::GetAvailableComboSet(CPed* ped, int32 commandArg) {
     const int8 command = static_cast<int8>(commandArg); // el EXE solo lee el byte bajo (mov bl, [esp+0Ch]) y lo trata con signo
     const auto BlockOf = [](int32 group) {
-        CAnimBlock* block = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34)[group].m_AnimBlock;
+        CAnimBlock* block = DatosExe::Bss::bB4EA34[group].m_AnimBlock;
         if (!block) {
             block = CAnimManager::GetAnimationBlock(CAnimManager::GetAnimBlockName(static_cast<AssocGroupId>(group))); // 0x4D3A30 y 0x4D3940
         }
@@ -1014,7 +1015,7 @@ int8 CTaskSimpleFight::GetAvailableComboSet(CPed* ped, int32 commandArg) {
         }
     } else {
         if (referenced) {
-            CAnimManager::RemoveAnimBlockRef(BlockIndexOf(StaticRef<CAnimBlendAssocGroup*>(0xB4EA34)[static_cast<int32>(m_nRequiredAnimGroup)].m_AnimBlock)); // 0x4D3FD0
+            CAnimManager::RemoveAnimBlockRef(BlockIndexOf(DatosExe::Bss::bB4EA34[static_cast<int32>(m_nRequiredAnimGroup)].m_AnimBlock)); // 0x4D3FD0
             referenced = 0;
         }
         m_nRequiredAnimGroup = static_cast<AssocGroupId>(*reinterpret_cast<const int32*>(row));

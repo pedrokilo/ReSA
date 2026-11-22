@@ -3698,9 +3698,9 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
         if (nearRange) {
             range = 45.0f; // 0x42340000
         } else {
-            range = Car81ScaleCpp(DatosExe::Bss::bB6F11C, DatosExe::Rdata::k858F98); // multiplicador de la camara * 170.0f, guardado como float
+            range = Car81ScaleCpp(StaticRef<float>(0xB6F11C), DatosExe::Rdata::k858F98); // multiplicador de la camara * 170.0f, guardado como float
         }
-        if (Car81LessCpp(DatosExe::Bss::bB6F9B4, DatosExe::Rdata::k858CAC)) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
+        if (Car81LessCpp(StaticRef<float>(0xB6F9B4), DatosExe::Rdata::k858CAC)) { // 0xB6F9B4 < -0.9f (comparacion ordenada)
             range = 70.0f; // 0x428C0000
         }
 

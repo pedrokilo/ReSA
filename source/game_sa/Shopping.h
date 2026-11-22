@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssG5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -82,7 +83,7 @@ class CShopping {
     static inline auto& ms_priceSectionLoaded = StaticRef<ePriceSection>(0xA9A7C8);
     static inline auto& ms_numPrices = DatosExe::Bss::bA9A7CC;
     static inline auto& ms_numPriceModifiers = DatosExe::Bss::bA9A7D0;
-    static inline auto& ms_shopLoaded = StaticRef<char[24]>(0xA9A7D8);
+    static inline auto& ms_shopLoaded = DatosExe::Bss::bA9A7D8;
     static inline auto& ms_numItemsInShop = StaticRef<int32>(0xA9A7F0);
 
 public:

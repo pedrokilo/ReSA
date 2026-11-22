@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssG4.h"
 
 #include "ePedStats.h"
 
@@ -22,7 +23,7 @@ VALIDATE_SIZE(CPedStat, 0x34);
 
 class CPedStats {
 public:
-    static inline auto& ms_apPedStats = StaticRef<CPedStat*>(0xC0BBEC);
+    static inline auto& ms_apPedStats = DatosExe::Bss::bC0BBEC;
 
 public:
     static void InjectHooks();

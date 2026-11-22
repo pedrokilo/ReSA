@@ -280,7 +280,6 @@ extern float v8D35B8; // 0x008D35B8
 extern float v8D35BC; // 0x008D35BC
 extern float v8D35C0; // 0x008D35C0
 extern float v8D35C4; // 0x008D35C4
-extern float v8D37E4; // 0x008D37E4
 extern float v8D37F0; // 0x008D37F0
 extern float v8D3834; // 0x008D3834
 extern float v8D3920; // 0x008D3920

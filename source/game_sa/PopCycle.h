@@ -5,6 +5,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG3.h"
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
@@ -215,9 +217,9 @@ public:
     //! Same as `m_pCurrZoneInfo->zonePopulationType`
     static inline auto& m_nCurrentZoneType = StaticRef<int32>(0xC0BC6C);
 
-    static inline auto& m_nCurrentTimeOfWeek = StaticRef<int32>(0xC0BC70);
-    static inline auto& m_nCurrentTimeIndex = StaticRef<int32>(0xC0BC74);
-    static inline auto& m_NumDealers_Peds = StaticRef<float>(0xC0E978);
+    static inline auto& m_nCurrentTimeOfWeek = DatosExe::Bss::bC0BC70;
+    static inline auto& m_nCurrentTimeIndex = DatosExe::Bss::bC0BC74;
+    static inline auto& m_NumDealers_Peds = DatosExe::Bss::bC0E978;
 
     static constexpr auto PERC_DATA_TIME_RESOLUTION_HR = 2;
 

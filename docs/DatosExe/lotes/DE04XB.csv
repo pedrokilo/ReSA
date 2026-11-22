@@ -1,0 +1,15 @@
+va,tipo,bytes,refs,archivos,nombre
+0x008CAD50,int32,4,1,AERadioTrackManager.cpp,v8CAD50
+0x008CCF24,uint8,1,3,AERadioTrackManager.cpp,v8CCF24
+0x008D12BC,uint32,4,1,CustomBuildingDNPipeline.h,v8D12BC
+0x008D12C4,int32,4,1,CustomCarEnvMapPipeline.h,v8D12C4
+0x008D12CC,int32,4,1,CustomCarEnvMapPipeline.h,v8D12CC
+0x008D2358,int32,4,1,EventScanner.cpp,v8D2358
+0x008D237C,int32,4,2,RunningScript.cpp;RunningScriptCommands1700To1799.cpp,v8D237C
+0x008D2E30,int32,4,1,preset_view.cpp,v8D2E30
+0x008D2E98,int32,4,1,TaskSequences.h,v8D2E98
+0x008D37D0,int32,4,1,WaterLevel.h,v8D37D0
+0x008D37D5,bool,1,1,WaterLevel.h,v8D37D5
+0x008D60BC,uint8,1,2,RwHelper.cpp,v8D60BC
+0x008E3F00,int32,4,1,IplStore.h,v8E3F00
+0x008E3FE0,uint32,4,1,CdStreamInfo.cpp,v8E3FE0

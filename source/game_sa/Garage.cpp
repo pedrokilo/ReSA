@@ -846,17 +846,17 @@ void CGarage::Update(int32 garageId) {
     }
     if (IsEntityEntirelyInside3D(subject, 0.25f)) {
         CGarages::bCamShouldBeOutside = true;
-        DatosExe::Bss::bB6F844 = this;
+        StaticRef<CGarage*>(0xB6F844) = this;
     }
     if (vehicle) {
         if (!IsEntityEntirelyOutside(vehicle, 0.0f))
-            DatosExe::Bss::bB6F848 = this;
+            StaticRef<CGarage*>(0xB6F848) = this;
         if (GaField<uint16>(vehicle, 0x22) == 0x1A7) {
             const float* const p = GaPos(vehicle);
             const float         pos[3]{ p[0], p[1], p[2] };
             if (Garage63InsideRectStrictCpp(reinterpret_cast<const float*>(this), 0.5f, pos)) {
                 CGarages::bCamShouldBeOutside = true;
-                DatosExe::Bss::bB6F844 = this;
+                StaticRef<CGarage*>(0xB6F844) = this;
             }
         }
     }

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataInicializadaXB.h"
 #include "DatosExe/DataInicializadaB.h"
 
 #include "TaskComplexSequence.h"
@@ -7,7 +8,7 @@ class CTaskSequences {
 public:
     static constexpr auto NUM_SEQUENCES = 64;
 
-    static inline auto& ms_iActiveSequence = StaticRef<int32>(0x8D2E98);
+    static inline auto& ms_iActiveSequence = DatosExe::Data::v8D2E98;
     static inline auto& ms_taskSequence = StaticRef<CTaskComplexSequence[NUM_SEQUENCES]>(0xC178F0);
     static inline auto& ms_bIsOpened = StaticRef<bool[NUM_SEQUENCES]>(0xC17898);
 

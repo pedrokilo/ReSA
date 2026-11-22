@@ -25,9 +25,10 @@ END GENERATED HOOK STATUS */
 
 #include "ClothesBuilder.h"
 #include "PedClothesDesc.h"
+#include "DatosExe/DataBssF.h"
 
 auto& playerImg = StaticRef<CDirectory>(0xBC12C0);
-auto& playerImgEntries = StaticRef<CDirectory::DirectoryInfo>(0xBBCDC8);
+auto& playerImgEntries = DatosExe::Bss::bBBCDC8<CDirectory::DirectoryInfo>();
 
 auto& gBoneIndices = StaticRef<notsa::mdarray<int16, 10, 64>>(0xBBC8C8);
 

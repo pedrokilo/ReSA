@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
@@ -22,7 +23,7 @@ struct _TxdParent {
  */
 #define rwID_TXDPARENTPLUGIN  MAKECHUNKID(rwVENDORID_DEVELOPER, 0xF5)
 
-static inline auto& ms_txdPluginOffset = StaticRef<int32>(0xC88018);
+static inline auto& ms_txdPluginOffset = DatosExe::Bss::bC88018;
 
 typedef CPool<TxdDef> CTxdPool;
 

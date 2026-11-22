@@ -8,8 +8,6 @@
 
 namespace DatosExe::Bss {
 extern bool b8E4A58; // 0x008E4A58
-extern uint8 b8E72F0; // 0x008E72F0
-extern uint8 b8E73A4; // 0x008E73A4
 extern bool b9654BC; // 0x009654BC
 extern bool b9654BD; // 0x009654BD
 extern bool b9654BE; // 0x009654BE
@@ -119,7 +117,6 @@ extern uint8 bB62C6E; // 0x00B62C6E
 extern uint8 bB62C6F; // 0x00B62C6F
 extern uint8 bB62C70; // 0x00B62C70
 extern uint8 bB62C71; // 0x00B62C71
-extern uint16 bB6B976; // 0x00B6B976
 extern bool bB6B994; // 0x00B6B994
 extern int16 bB6B998; // 0x00B6B998
 extern bool bB6EC20; // 0x00B6EC20
@@ -132,28 +129,8 @@ extern uint8 bB6EC71; // 0x00B6EC71
 extern uint8 bB6EC72; // 0x00B6EC72
 extern uint8 bB6EC73; // 0x00B6EC73
 extern uint8 bB6EC78; // 0x00B6EC78
-extern uint8 bB6F045; // 0x00B6F045
-extern bool bB6F04E; // 0x00B6F04E
-extern bool bB6F050; // 0x00B6F050
-extern bool bB6F052; // 0x00B6F052
-extern uint8 bB6F054; // 0x00B6F054
-extern uint8 bB6F055; // 0x00B6F055
-extern uint8 bB6F05B; // 0x00B6F05B
-extern uint8 bB6F05E; // 0x00B6F05E
-extern uint8 bB6F05F; // 0x00B6F05F
-extern bool bB6F062; // 0x00B6F062
-extern bool bB6F066; // 0x00B6F066
-extern bool bB6F077; // 0x00B6F077
-extern uint16 bB6F1A8; // 0x00B6F1A8
-extern uint16 bB6F858; // 0x00B6F858
-extern bool bB6F999; // 0x00B6F999
-extern uint16 bB6FC58; // 0x00B6FC58
-extern bool bB6FCB4; // 0x00B6FCB4
-extern bool bB6FCDD; // 0x00B6FCDD
-extern bool bB6FD14; // 0x00B6FD14
 extern bool bB6FFDC; // 0x00B6FFDC
 extern bool bB6FFF4; // 0x00B6FFF4
-extern bool bB70000; // 0x00B70000
 extern uint8 bB70020; // 0x00B70020
 extern bool bB70048; // 0x00B70048
 extern uint8 bB700A4; // 0x00B700A4
@@ -195,14 +172,11 @@ extern bool bB9B7EE; // 0x00B9B7EE
 extern bool bB9B8F0; // 0x00B9B8F0
 extern uint8 bB9B8F1; // 0x00B9B8F1
 extern uint8 bB9B8F2; // 0x00B9B8F2
-extern uint8 bBA18D8; // 0x00BA18D8
 extern int16 bBA1900; // 0x00BA1900
 extern int16 bBA1DE8; // 0x00BA1DE8
 extern int16 bBA3794; // 0x00BA3794
 extern bool bBA6728; // 0x00BA6728
 extern bool bBA6744; // 0x00BA6744
-extern uint8 bBA67A5; // 0x00BA67A5
-extern uint8 bBA67F8; // 0x00BA67F8
 extern uint16 bBA86B8; // 0x00BA86B8
 extern bool bBAA370; // 0x00BAA370
 extern int16 bBAA378; // 0x00BAA378
@@ -233,8 +207,6 @@ extern bool bBAB33C; // 0x00BAB33C
 extern bool bBAB33D; // 0x00BAB33D
 extern uint16 bBAB378; // 0x00BAB378
 extern uint16 bBAB37C; // 0x00BAB37C
-extern uint8 bBB3D9C; // 0x00BB3D9C
-extern bool bBB3DC2; // 0x00BB3DC2
 extern uint8 bBB3DC8; // 0x00BB3DC8
 extern uint16 bBB4A70; // 0x00BB4A70
 extern bool bBC1CF8; // 0x00BC1CF8
@@ -259,7 +231,6 @@ extern bool bC16EFC; // 0x00C16EFC
 extern bool bC16EFD; // 0x00C16EFD
 extern bool bC18C20; // 0x00C18C20
 extern bool bC1A554; // 0x00C1A554
-extern bool bC1BFD0; // 0x00C1BFD0
 extern bool bC1C83C; // 0x00C1C83C
 extern bool bC1CC19; // 0x00C1CC19
 extern bool bC1CDAC; // 0x00C1CDAC

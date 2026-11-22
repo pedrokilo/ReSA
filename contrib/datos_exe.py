@@ -41,6 +41,20 @@ PRIM = {'uint8': 1, 'int8': 1, 'bool': 1, 'char': 1, 'uchar': 1, 'uint8_t': 1, '
 HELPERS = ('LoadWord', 'StoreWord', 'f(', 'constant(', 'CAM_LF', 'name(', 'GaMessage', 'LoadFloat', 'LoadDword')
 
 
+def definidas_datosexe(excluir_prefijo=None):
+    """Direcciones que ya define algun .cpp de source/game_sa/DatosExe (DataBss*/DataInicializada*), salvo el lote que se esta generando."""
+    out = set()
+    d = Path(__file__).resolve().parent.parent / 'source/game_sa/DatosExe'
+    for p in d.glob('*.cpp'):
+        if not p.name.startswith(('DataBss', 'DataInicializada')) or (excluir_prefijo and p.name.startswith(excluir_prefijo)):
+            continue
+        for ln in p.read_text(encoding='utf-8', errors='replace').split(chr(10)):
+            m = re.search(r'// 0x([0-9A-F]{8})\s*$', ln)
+            if m and not ln.startswith(('extern', 'static_assert', '#', 'template', 'using')):
+                out.add(int(m.group(1), 16))
+    return out
+
+
 def seccion(va):
     for n, a, b in SEC:
         if a <= va < b:
@@ -68,7 +82,53 @@ def tam_tipo(t):
         b = tam_tipo(m.group(1))
         return b * int(m.group(2)) if b else None
     t = t.replace('uintchar', 'uint8').replace('uintshort', 'uint16').replace('uintint', 'uint32')
-    return PRIM.get(t) or None
+    return PRIM.get(t) or tam_clase(t)
+
+
+_CLASES = None
+
+
+def tam_clase(nombre):
+    """Tamano de una clase/estructura del proyecto segun VALIDATE_SIZE(Clase, N) o static_assert(sizeof(Clase) == N) en source/."""
+    global _CLASES
+    if _CLASES is None:
+        _CLASES = {}
+        pats = (re.compile(r'VALIDATE_SIZE\(\s*([\w:]+)\s*,\s*(0[xX][0-9A-Fa-f]+|\d+)\s*\)'),
+                re.compile(r'static_assert\(\s*sizeof\(\s*([\w:]+)\s*\)\s*==\s*(0[xX][0-9A-Fa-f]+|\d+)'))
+        for p in (Path(__file__).resolve().parent.parent / 'source').rglob('*'):
+            if p.suffix not in ('.h', '.hpp', '.cpp'):
+                continue
+            txt = p.read_text(encoding='utf-8', errors='replace')
+            if 'VALIDATE_SIZE' not in txt and 'sizeof(' not in txt:
+                continue
+            for pt in pats:
+                for m in pt.finditer(txt):
+                    _CLASES.setdefault(m.group(1), int(m.group(2), 0))
+    return _CLASES.get(nombre.strip())
+
+
+def cubierto_por_vecino(refs):
+    """Devuelve f(va) -> direccion del objeto referenciado (de tamano conocido) cuya extension cubre `va` sin empezar en `va`, o None.
+    Detecta los campos de una estructura grande (p. ej. TheCamera 0xB6F028, 0xD78 bytes) que el C++ tambien referencia suelta."""
+    import bisect
+    ext = {}
+    for r in refs:
+        n = r.get('tam')
+        if n is None and r.get('tipo'):
+            n = tam_tipo(r['tipo'])
+        if n:
+            ext[r['va']] = max(ext.get(r['va'], 0), n)
+    claves = sorted(ext)
+
+    def f(va):
+        i = bisect.bisect_left(claves, va) - 1
+        while i >= 0 and va - claves[i] < 0x20000:
+            a = claves[i]
+            if a + ext[a] > va:
+                return a
+            i -= 1
+        return None
+    return f
 
 
 def quitar_comentarios(texto):
@@ -127,6 +187,8 @@ def escanear_fuente(raiz):
                 continue
             p = os.path.join(dp, f)
             rel = p.replace('\\', '/')
+            if '/game_sa/DatosExe/' in rel:
+                continue      # las definiciones propias de DatosExe no son una dependencia del EXE (sus direcciones solo estan en comentarios y mensajes)
             try:
                 txt = quitar_comentarios(open(p, encoding='utf-8', errors='replace').read())
             except OSError:
@@ -183,13 +245,86 @@ def cargar_funciones():
     # Codigo sin funcion de Ghidra pero con referencia (docs/CodigoVivoExe/huecos.csv): bloques sueltos (cuerpos de switch, restos de
     # funciones partidas) que el escaneo por funcion no veia. Se tratan como vivos (no reemplazados) para ser conservadores: los datos
     # que tocan no se dan por libres. La biseccion de DE05 lo descubrio (SwitchDefaultAddress, 0xA43F54).
+    rangos_funcion = len(rangos)
     hz = base / 'CodigoVivoExe/huecos.csv'
+    # Con DATOSEXE_HUECOS=alcanzables solo cuentan los huecos que contrib/huecos_alcanzables.py da por ALCANZABLES (los de codigo
+    # sin entrada, tablas de switches muertos y vtables sin constructor vivo no se ejecutan); por defecto, todos (conservador).
+    muertos_h = set()
+    if os.environ.get('DATOSEXE_HUECOS') == 'alcanzables':
+        ha = base / 'DatosExe/huecos-alcanzables.csv'
+        if ha.exists():
+            with ha.open(encoding='utf-8', newline='') as s:
+                muertos_h = {int(r['va'], 16) for r in csv.DictReader(s) if r['clase'].startswith('INALCANZABLE')}
     if hz.exists():
         with hz.open(encoding='utf-8-sig', newline='') as s:
             for r in csv.DictReader(s):
                 if r['categoria'].startswith(('código con referencia', 'sin referencia directa', 'inicializador estático')):
+                    if int(r['va'], 16) in muertos_h:
+                        continue
                     rangos.append((int(r['va'], 16), int(r['va'], 16), int(r['fin'], 16) + 1))
+    revivir_ganchos_inactivos(reemplazadas, rangos[:rangos_funcion])
     return reemplazadas, rangos
+
+
+def revivir_ganchos_inactivos(reemplazadas, rangos):
+    """Una funcion con RH_Scoped*Install(..., {.enabled = <no `true`>}) NO esta reemplazada por defecto: su cuerpo original se ejecuta
+    (p. ej. las llamadas de RpAnimBlend 0x4D2B90/0x4D2E40/0x4D30A0/0x4D32D0/0x4D2E10 con DISABLE_CUSTOM_FRAME_UPDATE_FUNCTIONS). Se
+    devuelven al codigo vivo, y con ellas las funciones que llaman y que solo estaban marcadas DESCARTAR/CUBIERTA (usercall como
+    0x4D1680 o 0x4D1A50), hasta punto fijo. Lo descubrio el humo de la ronda DatosExe-B: gpAnimBlendClump (0xB4EA0C) en la DLL hacia
+    caer 0x4D2B90 con ECX = 0."""
+    raiz = Path(__file__).resolve().parent.parent / 'source'
+    pat = re.compile(r'RH_Scoped\w*Install\s*\([^;]*?0[xX]([0-9A-Fa-f]{6,8})[^;]*?\{[^}]*\.enabled\s*=\s*([^}]*)\}', re.S)
+    vivas = set()
+    for p in raiz.rglob('*.cpp'):
+        txt = quitar_comentarios(p.read_text(encoding='utf-8', errors='replace'))
+        for m in pat.finditer(txt):
+            if m.group(2).strip() != 'true':
+                vivas.add(int(m.group(1), 16))
+    if not vivas:
+        return
+    from capstone import Cs, CS_ARCH_X86, CS_MODE_32, CS_OP_IMM
+    md = Cs(CS_ARCH_X86, CS_MODE_32)
+    md.detail = True
+    pe = PE(Path('D:/Grand Theft Auto San Andreas/gta-sa.exe'))
+    por_fn = defaultdict(list)
+    for f, a, b in rangos:
+        por_fn[f].append((a, b))
+    cola = [f for f in vivas if f in reemplazadas or f in por_fn]
+    for f in vivas:
+        reemplazadas.discard(f)
+    vistos = set(vivas)
+    while cola:
+        f = cola.pop()
+        for a, b in por_fn.get(f, []):
+            off = pe.offset(a, 1)
+            if off is None or b <= a:
+                continue
+            for ins in md.disasm(pe.data[off:off + (b - a)], a):
+                if ins.mnemonic in ('call', 'jmp') and ins.operands and ins.operands[0].type == CS_OP_IMM:
+                    d = ins.operands[0].imm & 0xFFFFFFFF
+                    if d in por_fn and d not in vistos:
+                        vistos.add(d)
+                        if d in reemplazadas and d not in hooks_activos():
+                            reemplazadas.discard(d)
+                            cola.append(d)
+    print(f'ganchos inactivos devueltos al codigo vivo: {len(vistos)} funciones ({", ".join(f"0x{x:X}" for x in sorted(vistos)[:12])}...)', file=sys.stderr)
+
+
+_HOOKS = None
+
+
+def hooks_activos():
+    """Direcciones con gancho RH_Scoped* activo en el catalogo (docs/hooks.csv): una llamada a ellas va al C++."""
+    global _HOOKS
+    if _HOOKS is None:
+        _HOOKS = set()
+        with (Path(__file__).resolve().parent.parent / 'docs/hooks.csv').open(encoding='utf-8-sig', newline='') as s:
+            for r in csv.DictReader(s):
+                try:
+                    _HOOKS.add(int(r['address'], 16))
+                except ValueError:
+                    pass
+    return _HOOKS
 
 
 def escanear_exe(pe, reemplazadas, rangos):
@@ -224,6 +359,19 @@ def escanear_exe(pe, reemplazadas, rangos):
                             e = datos[d]
                             e['funcs'][fva] = vivo
                             e['direccion'] = True
+    # Punteros a datos guardados en otras tablas de datos (p. ej. WaterCreatureManager_c::ms_creatureInfo apunta a las ranuras de
+    # ModelIndices): quien los desreferencia lee la copia del EXE. Palabras alineadas de .rdata/.data (parte inicializada) con valor en
+    # el rango de datos; clave = 0x100000000 + direccion de la palabra (no es una funcion).
+    import struct as _st
+    for s in pe.sections:
+        if s['name'] not in ('.rdata', '.data'):
+            continue
+        blob = pe.data[s['raw_offset']:s['raw_offset'] + s['raw_size'] // 4 * 4]
+        for k, (v,) in enumerate(_st.iter_unpack('<I', blob)):
+            if LO <= v < HI and not (0x3F000000 <= v):     # los valores >= 0x3F000000 son floats o enteros grandes, no direcciones
+                e = datos[v]
+                e['funcs'][0x100000000 + s['va'] + k * 4] = True
+                e['direccion'] = True
     return datos
 
 

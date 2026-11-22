@@ -12585,6 +12585,7 @@ CAudioZones,TextBufferAppendTagged,0x005089B0,normal,,,,reconstruida,source/game
 CAudioZones,TextBufferAddInt,0x00508B80,normal,,,,reconstruida,source/game_sa/Audio/AudioZones.cpp:85,source/game_sa/Audio/AudioZones.cpp:239
 CAudioZones,TextBufferAddTyped,0x00508D30,normal,,,,reconstruida,source/game_sa/Audio/AudioZones.cpp:93,source/game_sa/Audio/AudioZones.cpp:240
 CAudioZones,BugstarFlushReport,0x00509190,normal,,,,reconstruida,source/game_sa/Audio/AudioZones.cpp:130,source/game_sa/Audio/AudioZones.cpp:241
+CAudioZones,BugstarWriteBlock,0x00508EB0,normal,,,,reconstruida,source/game_sa/Audio/AudioZones.cpp:130,source/game_sa/Audio/AudioZones.cpp:252
 RpUVAnim,RpUVAnimEngineConstructor,0x007CB9B0,normal,,,,reconstruida,source/game_sa/RenderWare/rw/rpuvanim.cpp:279,source/game_sa/RenderWare/rw/rpuvanim.cpp:60
 RpUVAnim,RpUVAnimEngineDestructor,0x007CBA20,normal,,,,reconstruida,source/game_sa/RenderWare/rw/rpuvanim.cpp:292,source/game_sa/RenderWare/rw/rpuvanim.cpp:61
 RpUVAnim,RpUVAnimMaterialConstructor,0x007CBA80,normal,,,,reconstruida,source/game_sa/RenderWare/rw/rpuvanim.cpp:304,source/game_sa/RenderWare/rw/rpuvanim.cpp:62

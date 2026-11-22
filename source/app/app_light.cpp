@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 
 #include "app.h"
 #include "PostEffects.h"
+#include "DatosExe/DataInicializadaD.h"
 
 void AppLightInjectHooks() {
     RH_ScopedCategory("App");
@@ -361,7 +362,7 @@ void SetAmbientColoursToIndicateRoadGroup(int32 idx) {
 // unused
 // 0x735D10
 void SetFullAmbient() {
-    static auto& FullLight = StaticRef<RwRGBAReal>(0x8D60C0); // { 1.0f, 1.0f, 1.0f, 1.0f }
+    static auto& FullLight = DatosExe::Data::v8D60C0; // { 1.0f, 1.0f, 1.0f, 1.0f }
     RpLightSetColor(pAmbient, &FullLight);
 }
 

@@ -24,11 +24,12 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
 #include "AEAudioEntity.h"
 
 constexpr auto EVENT_VOLUMES_BUFFER_SIZE = 45401;
 
-auto& m_pAudioEventVolumes = StaticRef<int8*>(0xBD00F8); // Use `GetDefaultVolume` to access!
+auto& m_pAudioEventVolumes = DatosExe::Bss::bBD00F8; // Use `GetDefaultVolume` to access!
 
 void CAEAudioEntity::InjectHooks() {
     // Vtable propia de la clase base: una sola entrada (UpdateParameters, 0x4D7E30,

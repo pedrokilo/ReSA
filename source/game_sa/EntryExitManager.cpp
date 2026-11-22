@@ -20,11 +20,12 @@ END GENERATED HOOK STATUS */
 
 #include "EntryExitManager.h"
 #include "X87Math.h"
+#include "DatosExe/DataBssF.h"
 
 using EntryExitTreeNode = CQuadTreeNode<CEntryExit*>;
 auto& mp_QuadTree       = StaticRef<EntryExitTreeNode*>(0x96A7D0);
 
-auto& mp_poolEntryExits = StaticRef<CEntryExitsPool*>(0x96A7D8);
+auto& mp_poolEntryExits = DatosExe::Bss::b96A7D8<CEntryExitsPool*>();
 
 // Como el original: el pool tiene 400 entradas (0x43F927) y Save recorre 400 slots fijos (0x5D5A5F).
 // Con el EXE solo el pool llega a 400 de 400 en los primeros minutos de partida (medido): crear una entrada con el

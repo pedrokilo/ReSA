@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -976,7 +977,7 @@ void CHud::DrawMissionTimers() {
     auto* flags = reinterpret_cast<uint8*>(0xBAA394);
     if (coop && !clock[0x38]) StaticRef<uint8>(0xBAA38A) = 0;
     for (int i = 0; i < 4; ++i) if (!*reinterpret_cast<const uint8*>(0xBA1806 + 0x44 * i)) flags[i] = 0;
-    if (DatosExe::Bss::bBA18D8 != 1) return;
+    if (StaticRef<uint8>(0xBA18D8) != 1) return;
     GxtChar text[200];
     const float textX = float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C;
     if (clock[0x38] == 1) {
@@ -1774,7 +1775,7 @@ void CHud::DrawPlayerInfo() {
     };
     if (StaticRef<uint32>(0xBAA400) == 1) {
         typography(); CFont::SetDropColor(CRGBA(0, 0, 0, 255));
-        std::sprintf(ascii, "%02d:%02d", int(StaticRef<uint8>(0xB70153)), int(StaticRef<uint8>(0xB70152))); AsciiToGxtChar(ascii, text);
+        std::sprintf(ascii, "%02d:%02d", int(StaticRef<uint8>(0xB70153)), int(DatosExe::Bss::bB70152)); AsciiToGxtChar(ascii, text);
         CFont::SetColor(HudColour.GetRGB(static_cast<eHudColours>(4))); CFont::PrintString(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C, sy * DatosExe::Rdata::k858F8C, text); CFont::SetEdge(0);
     }
     const auto fadeElement = [&](uintptr_t address, int current) {

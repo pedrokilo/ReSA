@@ -158,7 +158,7 @@ public:
     static inline auto& SOFTCOL_CARLINE_SPEED_MULT = DatosExe::Data::v8CD79C;
     static inline auto& TEST_ADD_AMBIENT_LIGHT_FRAC = DatosExe::Data::v8CD7B8;
     static inline auto& HIGHSPEED_ELASTICITY_MULT_COPCAR = DatosExe::Data::v8CD784;
-    static inline auto& fxDirection = DatosExe::Bss::bB73720;
+    static inline auto& fxDirection = StaticRef<CVector>(0xB73720);
 
 public:
     CPhysical();

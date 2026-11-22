@@ -1,0 +1,186 @@
+tabla,indice,va,bytes,clase_fase8,emulacion,tipo,objeto,ctor,ctor_cpp,elem_ctor,elem_dtor,cantidad,tam_elem,dtor_funclet,dtor,dtor_cpp,dtor_args,escrituras,llamadas_otras
+C,1,0x00826A72,45,asignacion de datos,ok,escrituras,,,,,,,,,,,,8,
+C,2,0x00821CBE,24,llamada a constructor/funcion,instruccion test,otro,,,,,,,,,,,,0,0x824257
+C,3,0x00823EE5,80,llamada a constructor/funcion,instruccion test,otro,,,,,,,,,,,,0,
+C,4,0x008289F5,87,llamada a constructor/funcion,instruccion pushfd,otro,,,,,,,,,,,,0,
+C,5,0x00833494,30,llamada a constructor/funcion,cmp con valor desconocido,otro,,,,,,,,,,,,0,
+C,6,0x0082AC54,19,asignacion de datos,call indirecto,otro,,,,,,,,,,,,0,
+C++,1,0x008339CA,86,asignacion de datos,call indirecto,otro,,,,,,,,,,,,0,
+C++,45,0x00849470,22,constructor + atexit (destructor estatico),ok,ctor,0x00968A00,0x0040FB60,CColModel::Constructor,,,,,0x00856030,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,46,0x00849490,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00968A30,,CColModel::Constructor,0x0040FB60,0x0040F700,20,48,0x00856040,0x00821E02,CColModel::Destructor,0x968A30 0x30 0x14 0x40F700,0,0x821D30
+C++,47,0x008494C0,22,constructor + atexit (destructor estatico),ok,ctor,0x00968DF0,0x0040FB60,CColModel::Constructor,,,,,0x00856060,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,48,0x008494E0,22,constructor + atexit (destructor estatico),ok,ctor,0x00968E20,0x0040FB60,CColModel::Constructor,,,,,0x00856070,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,49,0x00849500,22,constructor + atexit (destructor estatico),ok,ctor,0x00968E50,0x0040FB60,CColModel::Constructor,,,,,0x00856080,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,50,0x00849520,22,constructor + atexit (destructor estatico),ok,ctor,0x00968E80,0x0040FB60,CColModel::Constructor,,,,,0x00856090,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,51,0x00849540,22,constructor + atexit (destructor estatico),ok,ctor,0x00968EB0,0x0040FB60,CColModel::Constructor,,,,,0x008560A0,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,52,0x00849560,22,constructor + atexit (destructor estatico),ok,ctor,0x00968EE0,0x0040FB60,CColModel::Constructor,,,,,0x008560B0,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,53,0x00849580,22,constructor + atexit (destructor estatico),ok,ctor,0x00968F10,0x0040FB60,CColModel::Constructor,,,,,0x008560C0,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,54,0x008495A0,22,constructor + atexit (destructor estatico),ok,ctor,0x00968F40,0x0040FB60,CColModel::Constructor,,,,,0x008560D0,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,55,0x008495C0,22,constructor + atexit (destructor estatico),ok,ctor,0x00968F70,0x0040FB60,CColModel::Constructor,,,,,0x008560E0,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,56,0x008495E0,22,constructor + atexit (destructor estatico),ok,ctor,0x00968FA0,0x0040FB60,CColModel::Constructor,,,,,0x008560F0,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,57,0x00849600,22,constructor + atexit (destructor estatico),ok,ctor,0x00968FD0,0x0040FB60,CColModel::Constructor,,,,,0x00856100,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,112,0x00849CE0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x0096A9B8,,,0x00441E00,0x004411A0,13,28,0x00856110,0x00821E02,,0x96A9B8 0x1C 0xD 0x4411A0,0,0x821D30
+C++,125,0x00849E90,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x0096C048,,,0x004470E0,0x00447110,50,216,0x00856130,0x00821E02,,0x96C048 0xD8 0x32 0x447110,0,0x821D30
+C++,138,0x0084A040,28,asignacion de datos,ok,escrituras,,,,,,,,,,,,5000,
+C++,139,0x0084A060,28,asignacion de datos,ok,escrituras,,,,,,,,,,,,32,
+C++,140,0x0084A080,28,asignacion de datos,ok,escrituras,,,,,,,,,,,,8,
+C++,153,0x0084A220,22,constructor + atexit (destructor estatico),ok,ctor,0x00977BE8,0x004541E0,CPhoneInfo::Constructor,,,,,0x00856150,0x00454200,,,0,0x4541E0
+C++,178,0x0084A540,22,constructor + atexit (destructor estatico),ok,ctor,0x00A430B0,0x00571920,CPlayerInfo::Constructor,,,,,0x00856160,0x0045B110,,,0,0x571920
+C++,186,0x0084A640,28,asignacion de datos,ok,escrituras,,,,,,,,,,,,325,
+C++,193,0x0084A720,28,asignacion de datos,ok,escrituras,,,,,,,,,,,,150,
+C++,194,0x0084A740,10,asignacion de datos,ok,ctor,0x00A90CF0,0x0046B260,CScriptsForBrains::Constructor,,,,,,,,,0,0x46B260
+C++,195,0x0084A750,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00A913E8,,,0x00463750,0x00463760,96,68,0x00856190,0x00821E02,,0xA913E8 0x44 0x60 0x463760,0,0x821D30
+C++,196,0x0084A780,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00A92D68,,,0x00463770,0x00463780,128,60,0x008561B0,0x00821E02,,0xA92D68 0x3C 0x80 0x463780,0,0x821D30
+C++,197,0x0084A7B0,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00A94B68,,CSprite2d::Constructor,0x00727230,0x007281E0,128,4,0x00856170,0x00821E02,CSprite2d::Destructor,0xA94B68 0x4 0x80 0x7281E0,0,0x821D30
+C++,277,0x0084B1C0,28,asignacion de datos,ok,escrituras,,,,,,,,,,,,420,
+C++,284,0x0084B2A0,10,asignacion de datos,ok,ctor,0x00A9A810,0x005A8020,CPedClothesDesc::Constructor,,,,,,,,,0,0x5A8020
+C++,310,0x0084B5D0,22,constructor + atexit (destructor estatico),ok,ctor,0x00A9AE00,0x0049E620,Fx_c::Constructor,,,,,0x008561D0,0x0049E630,,,0,0x49E620
+C++,314,0x0084B650,22,constructor + atexit (destructor estatico),ok,ctor,0x00A9AE80,0x004A9470,FxManager_c::Constructor,,,,,0x008561E0,0x004A90A0,FxManager_c::Destructor,,0,0x4A9470
+C++,345,0x0084BA30,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00A9AFB8,,,0x004AC0D0,0x004B2950,8,12,0x008561F0,0x00821E02,CInformFriendsEvent::Destructor,0xA9AFB8 0xC 0x8 0x4B2950,0,0x821D30
+C++,346,0x0084BA60,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00A9B018,,CInformGroupEvent::Constructor,0x004AC350,0x004B29A0,8,16,0x00856210,0x00821E02,CInformGroupEvent::Destructor,0xA9B018 0x10 0x8 0x4B29A0,0,0x821D30
+C++,358,0x0084BBF0,22,constructor + atexit (destructor estatico),ok,ctor,0x00AAE950,0x004C5CB0,CModelInfo::AtomicModelInfoStoreConstructor,,,,,0x00856230,0x004C5840,,,0,0x4C5CB0
+C++,359,0x0084BC10,22,constructor + atexit (destructor estatico),ok,ctor,0x00B1BF58,0x004C5D10,CModelInfo::DamageAtomicModelInfoStoreConstructor,,,,,0x00856240,0x004C5860,,,0,0x4C5D10
+C++,360,0x0084BC30,22,constructor + atexit (destructor estatico),ok,ctor,0x00B1C934,0x004C5D70,CModelInfo::LodAtomicModelInfoStoreConstructor,,,,,0x00856250,0x004C5880,,,0,0x4C5D70
+C++,361,0x0084BC50,22,constructor + atexit (destructor estatico),ok,ctor,0x00B1C960,0x004C5DD0,CModelInfo::TimeModelInfoStoreConstructor,,,,,0x00856260,0x004C58A0,,,0,0x4C5DD0
+C++,362,0x0084BC70,22,constructor + atexit (destructor estatico),ok,ctor,0x00B1E128,0x004C5E30,CModelInfo::LodTimeModelInfoStoreConstructor,,,,,0x00856270,0x004C58C0,,,0,0x4C5E30
+C++,363,0x0084BC90,22,constructor + atexit (destructor estatico),ok,ctor,0x00B1E158,0x004C5E90,CModelInfo::WeaponModelInfoStoreConstructor,,,,,0x00856280,0x004C58E0,,,0,0x4C5E90
+C++,364,0x0084BCB0,22,constructor + atexit (destructor estatico),ok,ctor,0x00B1E958,0x004C5EF0,CModelInfo::ClumpModelInfoStoreConstructor,,,,,0x00856290,0x004C5900,,,0,0x4C5EF0
+C++,365,0x0084BCD0,22,constructor + atexit (destructor estatico),ok,ctor,0x00B1F650,0x004C5F50,CModelInfo::VehicleModelInfoStoreConstructor,,,,,0x008562A0,0x004C6370,,,0,0x4C5F50
+C++,366,0x0084BCF0,22,constructor + atexit (destructor estatico),ok,ctor,0x00B478F8,0x004C67D0,CModelInfo::PedModelInfoStoreConstructor,,,,,0x008562B0,0x004C6390,,,0,0x4C67D0
+C++,389,0x0084BFD0,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00B4EA40,,CAnimBlendHierarchy::Constructor,0x004CF270,0x004CF970,2500,24,0x008562C0,0x00821E02,CAnimBlendHierarchy::Destructor,0xB4EA40 0x18 0x9C4 0x4CF970,0,0x821D30
+C++,390,0x0084C000,29,asignacion de datos,ok,escrituras,,,,,,,,,,,,360,
+C++,403,0x0084C1A0,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x008562E0,,,,0,
+C++,410,0x0084C270,22,constructor + atexit (destructor estatico),ok,ctor,0x00B5F8B8,0x004D83E0,CAEAudioHardware::Constructor,,,,,0x008562F0,0x004D83A0,CAEAudioHardware::Destructor,,0,0x4D83E0
+C++,411,0x0084C290,22,constructor + atexit (destructor estatico),ok,ctor,0x00B608D0,0x004EE9A0,CAESmoothFadeThread::Constructor,,,,,0x00856300,0x004EE9E0,,,0,0x4EE9A0
+C++,430,0x0084C4F0,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856310,,,,0,
+C++,431,0x0084C500,22,constructor + atexit (destructor estatico),ok,ctor,0x00B612D8,0x004F1750,CAEStreamTransformer::Initialise,,,,,0x00856320,,,,0,0x4F1750
+C++,468,0x0084C9A0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00B61C38,,,0x004E3330,0x004E3340,6,28,0x00856330,0x00821E02,,0xB61C38 0x1C 0x6 0x4E3340,0,0x821D30
+C++,488,0x0084CC30,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856350,,,,0,
+C++,496,0x0084CD20,22,constructor + atexit (destructor estatico),ok,ctor,0x00B62CB0,0x004EFD30,CAESoundManager::Constructor,,,,,0x00856360,0x004EFD60,,,0,0x4EFD30
+C++,498,0x0084CD60,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856370,,,,0,
+C++,512,0x0084CF10,11,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,518,0x0084CFC0,30,asignacion de datos,x87,otro,,,,,,,,,,,,1,
+C++,519,0x0084CFE0,11,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,533,0x0084D190,23,asignacion de datos,ok,escrituras,,,,,,,,,,,,2,
+C++,559,0x0084D4D0,22,constructor + atexit (destructor estatico),ok,ctor,0x00B6BB18,0x004F63B0,CAETwinLoopSoundEntity::DefaultConstructorExe,,,,,0x00856380,0x004F2B80,CAETwinLoopSoundEntity::Destructor,,0,0x4F63B0
+C++,560,0x0084D4F0,22,constructor + atexit (destructor estatico),ok,ctor,0x00B6BBC0,0x004F63B0,CAETwinLoopSoundEntity::DefaultConstructorExe,,,,,0x00856390,0x004F2B80,CAETwinLoopSoundEntity::Destructor,,0,0x4F63B0
+C++,567,0x0084D5D0,22,constructor + atexit (destructor estatico),ok,ctor,0x00B6BC90,0x00507670,CAudioEngine::Constructor,,,,,0x008563A0,0x00506CD0,CAudioEngine::Destructor,,0,0x507670
+C++,575,0x0084D6D0,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00B6ECA0,,CHandShaker::Constructor,0x00517740,0x00509810,6,148,0x008563B0,0x00821E02,,0xB6ECA0 0x94 0x6 0x509810,0,0x821D30
+C++,576,0x0084D700,22,constructor + atexit (destructor estatico),ok,ctor,0x00B6F028,0x0051A450,CCamera::Constructor,,,,,0x00856410,0x0050A870,CCamera::DestructorBody,,0,0x51A450
+C++,577,0x0084D720,22,constructor + atexit (destructor estatico),ok,ctor,0x00B6FDA0,0x0050E6D0,CIdleCam::Init,,,,,0x008563D0,,,,0,0x50E6D0
+C++,578,0x0084D740,12,constructor + atexit (destructor estatico),ok,dtor-solo,0x00B6FE40,,,,,,,0x008563E0,0x0059ACD0,CMatrix::Destructor,,0,
+C++,579,0x0084D750,24,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,580,0x0084D770,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00B6FEC0,,,0x005173F0,0x0050E080,1,156,0x008563F0,0x00821E02,,0xB6FEC0 0x9C 0x1 0x50E080,0,0x821D30
+C++,593,0x0084D920,10,asignacion de datos,ok,ctor,0x00B70198,0x00531EE0,CControllerConfigManager::Constructor,,,,,,,,,0,0x531EE0
+C++,636,0x0084DE70,22,constructor + atexit (destructor estatico),ok,ctor,0x00B71F80,0x00539DA0,CFireManager::Constructor,,,,,0x00856420,0x00538BB0,CFireManager::Destructor,,0,0x539DA0
+C++,649,0x0084E010,22,constructor + atexit (destructor estatico),ok,ctor,0x00B72978,0x0053CFA0,CLoadMonitor::Constructor,,,,,0x00856430,,,,0,0x53CFA0
+C++,656,0x0084E0F0,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856440,,,,0,
+C++,657,0x0084E100,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856450,,,,0,
+C++,665,0x0084E1F0,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00B73458,,,0x00541D80,0x0053ED60,2,308,0x00856460,0x00821E02,,0xB73458 0x134 0x2 0x53ED60,0,0x821D30
+C++,672,0x0084E2E0,27,constructor + atexit (destructor estatico),ok,ctor,0x00B74240,0x0059AED0,CMatrix::SetScale-f,,,,,0x00856480,0x0059ACD0,CMatrix::Destructor,,0,0x59AED0
+C++,673,0x0084E300,22,constructor + atexit (destructor estatico),ok,ctor,0x00B74288,0x0054F440,CMatrixLinkList::Constructor,,,,,0x00856490,0x0054EB70,CMatrixLinkList::Destructor,,0,0x54F440
+C++,704,0x0084E6E0,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x008564A0,,,,0,
+C++,711,0x0084E7B0,33,constructor + atexit (destructor estatico),ok,ctor,0x00B7CB10,0x007170C0,CRGBA::Constructor,,,,,0x008564B0,,,,0,0x7170C0
+C++,712,0x0084E7E0,13,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,713,0x0084E7F0,13,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,726,0x0084E980,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00B7CD98,,CPlayerInfo::Constructor,0x00571920,0x0045B110,2,400,0x00856500,0x00821E02,,0xB7CD98 0x190 0x2 0x45B110,0,0x821D30
+C++,727,0x0084E9B0,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00B7D0B8,,,0x00564040,0x00563130,14400,8,0x00856520,0x00821E02,CSector::Destructor,0xB7D0B8 0x8 0x3840 0x563130,0,0x821D30
+C++,728,0x0084E9E0,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00B992B8,,,0x00563190,0x005631B0,256,12,0x00856540,0x00821E02,,0xB992B8 0xC 0x100 0x5631B0,0,0x821D30
+C++,729,0x0084EA10,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00B99EB8,,,0x0043E3F0,0x0043E1A0,900,4,0x008564C0,0x00821E02,CPtrNodeSingleLinkPool::FlushJump,0xB99EB8 0x4 0x384 0x43E1A0,0,0x821D30
+C++,730,0x0084EA40,12,constructor + atexit (destructor estatico),ok,dtor-solo,0x00B9ACC8,,,,,,,0x008564E0,0x00552470,CPtrNodeDoubleLinkPool::Flush,,0,
+C++,731,0x0084EA50,12,constructor + atexit (destructor estatico),ok,dtor-solo,0x00B9ACCC,,,,,,,0x008564F0,0x00552470,CPtrNodeDoubleLinkPool::Flush,,0,
+C++,763,0x0084EE40,22,constructor + atexit (destructor estatico),ok,ctor,0x00BA6748,0x00574350,CMenuManager::Constructor,,,,,0x00856560,0x00579440,CMenuManager::Destructor,,0,0x574350
+C++,782,0x0084F0A0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00BA86D4,,,0x00463360,0x0043CE70,6,4,0x00856570,0x00821E02,,0xBA86D4 0x4 0x6 0x43CE70,0,0x821D30
+C++,783,0x0084F0D0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00BAA250,,CSprite2d::Constructor,0x00727230,0x007281E0,64,4,0x00856590,0x00821E02,CSprite2d::Destructor,0xBAA250 0x4 0x40 0x7281E0,0,0x821D30
+C++,790,0x0084F1C0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00BAB1FC,,CSprite2d::Constructor,0x00727230,0x007281E0,6,4,0x008565B0,0x00821E02,CSprite2d::Destructor,0xBAB1FC 0x4 0x6 0x7281E0,0,0x821D30
+C++,791,0x0084F1F0,22,constructor + atexit (destructor estatico),ok,ctor,0x00BAB22C,0x0058FDA0,CHudColours::Constructor,,,,,0x008565D0,0x0058FD90,,,0,0x58FDA0
+C++,798,0x0084F2D0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00BAB35C,,CSprite2d::Constructor,0x00727230,0x007281E0,7,4,0x008565E0,0x00821E02,CSprite2d::Destructor,0xBAB35C 0x4 0x7 0x7281E0,0,0x821D30
+C++,799,0x0084F300,22,constructor + atexit (destructor estatico),ok,ctor,0x00BAB380,0x00591260,FurnitureManager_c::Constructor,,,,,0x00856640,0x005912E0,FurnitureManager_c::Destructor,,0,0x591260
+C++,800,0x0084F320,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00BAD3F8,,FurnitureSubGroup_c::Constructor,0x00590E20,0x00590E70,128,28,0x00856600,0x00821E02,FurnitureSubGroup_c::Destructor,0xBAD3F8 0x1C 0x80 0x590E70,0,0x821D30
+C++,801,0x0084F350,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00BAE1F8,,Furniture_c::Constructor,0x00590EC0,0x00590ED0,256,20,0x00856620,0x00821E02,,0xBAE1F8 0x14 0x100 0x590ED0,0,0x821D30
+C++,832,0x0084F740,22,constructor + atexit (destructor estatico),ok,ctor,0x00BAF670,0x005984C0,InteriorManager_c::Constructor,,,,,0x00856650,0x00598580,InteriorManager_c::Destructor,,0,0x5984C0
+C++,858,0x0084FA80,22,constructor + atexit (destructor estatico),ok,ctor,0x00BB4240,0x0059E620,BreakManager_c::Constructor,,,,,0x00856660,0x0059E640,,,0,0x59E620
+C++,884,0x0084FDC0,22,constructor + atexit (destructor estatico),ok,ctor,0x00BB7CB0,0x005A3E20,ProcObjectMan_c::Constructor,,,,,0x00856670,0x005A3090,ProcObjectMan_c::Destructor,,0,0x5A3E20
+C++,887,0x0084FE20,22,constructor + atexit (destructor estatico),ok,ctor,0x00BC1290,0x005A7570,COctTreeBase::Constructor,,,,,0x00856690,0x005A4140,,,0,0x5A7570
+C++,888,0x0084FE40,22,constructor + atexit (destructor estatico),ok,ctor,0x00BC12C0,0x00532290,CDirectory::Constructor-Empty,,,,,0x00856680,0x005322D0,CDirectory::Destructor,,0,0x532290
+C++,889,0x0084FE60,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x008566A0,,,,0,
+C++,896,0x0084FF30,39,asignacion de datos,ok,escrituras,,,,,,,,,,,,30,
+C++,904,0x00850040,22,constructor + atexit (destructor estatico),ok,ctor,0x00BC4020,0x004CDE70,CAnimBlendAssocGroup::Constructor,,,,,0x008566F0,0x004CE1D0,CAnimBlendAssocGroup::Destructor,,0,0x4CDE70
+C++,972,0x008508C0,34,constructor + atexit (destructor estatico),ok,escrituras+dtor,,,,,,,,0x00856700,,,,4,
+C++,974,0x00850910,42,constructor + atexit (destructor estatico),ok,ctor,0x00C03A44,0x007170C0,CRGBA::Constructor,,,,,0x00856710,,,,0,0x7170C0
+C++,975,0x00850940,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C03A48,,,0x005DB2B0,0x005DB2C0,256,84,0x00856720,0x00821E02,,0xC03A48 0x54 0x100 0x5DB2C0,0,0x821D30
+C++,976,0x00850970,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C08E48,,,0x005DB290,0x005DB2A0,40,20,0x00856740,0x00821E02,,0xC08E48 0x14 0x28 0x5DB2A0,0,0x821D30
+C++,1003,0x00850CE0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C091F0,,,0x005DE520,0x005DE540,10,16,0x00856760,0x00821E02,,0xC091F0 0x10 0xA 0x5DE540,0,0x821D30
+C++,1022,0x00850F50,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856780,,,,0,
+C++,1023,0x00850F60,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x008567C0,,,,0,
+C++,1048,0x00851270,22,constructor + atexit (destructor estatico),ok,ctor,0x00C09908,0x005F6450,CPedGroupDefaultTaskAllocatorFollowAnyMeans::Constructor,,,,,0x00856800,0x005F6460,,,0,0x5F6450
+C++,1049,0x00851290,22,constructor + atexit (destructor estatico),ok,ctor,0x00C0990C,0x005F6480,CPedGroupDefaultTaskAllocatorFollowLimited::Constructor,,,,,0x00856810,0x005F6490,,,0,0x5F6480
+C++,1050,0x008512B0,22,constructor + atexit (destructor estatico),ok,ctor,0x00C09910,0x005F64B0,CPedGroupDefaultTaskAllocatorStandStill::Constructor,,,,,0x00856820,0x005F64C0,,,0,0x5F64B0
+C++,1051,0x008512D0,22,constructor + atexit (destructor estatico),ok,ctor,0x00C09914,0x005F64E0,CPedGroupDefaultTaskAllocatorChat::Constructor,,,,,0x00856830,0x005F64F0,,,0,0x5F64E0
+C++,1052,0x008512F0,22,constructor + atexit (destructor estatico),ok,ctor,0x00C09918,0x005F6510,CPedGroupDefaultTaskAllocatorRandom::Constructor,,,,,0x00856840,0x005F6520,,,0,0x5F6510
+C++,1053,0x00851310,22,constructor + atexit (destructor estatico),ok,ctor,0x00C0991C,0x005F6540,CPedGroupDefaultTaskAllocatorSitInLeaderCar::Constructor,,,,,0x00856850,0x005F6550,,,0,0x5F6540
+C++,1054,0x00851330,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C09920,,CPedGroup::Constructor,0x005FC150,0x005FC190,8,724,0x00856860,0x00821E02,CPedGroup::Destructor,0xC09920 0x2D4 0x8 0x5FC190,0,0x821D30
+C++,1067,0x008514E0,22,constructor + atexit (destructor estatico),ok,ctor,0x00C0B058,0x006023A0,CInterestingEvents::Constructor,,,,,0x00856880,,,,0,0x6023A0
+C++,1080,0x00851680,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C0B1E8,,CPedScriptedTaskRecordData::Constructor,0x00608330,0x006082E0,128,20,0x008568B0,0x00821E02,,0xC0B1E8 0x14 0x80 0x6082E0,0,0x821D30
+C++,1111,0x00851A70,22,constructor + atexit (destructor estatico),ok,ctor,0x00C10820,0x00617330,BoneNodeManager_c::Constructor,,,,,0x008568D0,0x00617390,BoneNodeManager_c::Destructor,,0,0x617330
+C++,1118,0x00851B50,22,constructor + atexit (destructor estatico),ok,ctor,0x00C15448,0x00617FC0,IKChainManager_c::Constructor,,,,,0x008568E0,0x00618030,IKChainManager_c::Destructor,,0,0x617FC0
+C++,1155,0x00851FF0,22,constructor + atexit (destructor estatico),ok,ctor,0x00C17824,0x0040FB60,CColModel::Constructor,,,,,0x008568F0,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,1156,0x00852010,10,asignacion de datos,ok,ctor,0x00C17854,0x0040F030,CCollisionData::Constructor,,,,,,,,,0,0x40F030
+C++,1163,0x008520E0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C178F0,,CTaskComplexSequence::Constructor,0x00632BD0,0x006389F0,64,64,0x00856920,0x00821E02,CTaskComplexSequence::Destructor,0xC178F0 0x40 0x40 0x6389F0,0,0x821D30
+C++,1164,0x00852110,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C188F0,,CScriptedBrainTaskEntry::Constructor,0x0062EC40,0x0062EC50,48,16,0x00856900,0x00821E02,,0xC188F0 0x10 0x30 0x62EC50,0,0x821D30
+C++,1207,0x00852680,11,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,1208,0x00852690,11,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,1209,0x008526A0,11,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,1210,0x008526B0,11,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,1223,0x00852840,15,constante x87 (se pliega en C++),x87,otro,,,,,,,,,,,,0,
+C++,1224,0x00852850,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856940,,,,0,
+C++,1225,0x00852860,11,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,1226,0x00852870,22,constructor + atexit (destructor estatico),ok,ctor,0x00C18DB8,0x0066D440,CPatrolRoute::Constructor,,,,,0x00856950,0x006677A0,CPatrolRoute::Destructor,,0,0x66D440
+C++,1239,0x00852A10,22,constructor + atexit (destructor estatico),ok,ctor,0x00C19518,0x0040FB60,CColModel::Constructor,,,,,0x00856960,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,1240,0x00852A30,22,constructor + atexit (destructor estatico),ok,ctor,0x00C19548,0x0040FB60,CColModel::Constructor,,,,,0x00856970,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,1241,0x00852A50,22,constructor + atexit (destructor estatico),ok,ctor,0x00C19578,0x0040FB60,CColModel::Constructor,,,,,0x00856980,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,1242,0x00852A70,22,constructor + atexit (destructor estatico),ok,ctor,0x00C195A8,0x0040FB60,CColModel::Constructor,,,,,0x00856990,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,1279,0x00852F10,22,constructor + atexit (destructor estatico),ok,ctor,0x00C196E8,0x00694850,CTaskComplexFollowLeaderInFormation::Offsets::Constructor,,,,,0x008569B0,,,,0,0x694850
+C++,1298,0x00853170,12,constructor + atexit (destructor estatico),ok,dtor-solo,0x00C1A2B8,,,,,,,0x008569C0,0x00552470,CPtrNodeDoubleLinkPool::Flush,,0,
+C++,1305,0x00853240,30,constructor + atexit (destructor estatico),ok,escrituras+dtor,,,,,,,,0x008569D0,,,,6,
+C++,1306,0x00853260,30,constructor + atexit (destructor estatico),ok,escrituras+dtor,,,,,,,,0x008569E0,,,,30,
+C++,1307,0x00853280,30,constructor + atexit (destructor estatico),ok,escrituras+dtor,,,,,,,,0x008569F0,,,,30,
+C++,1322,0x00853460,22,constructor + atexit (destructor estatico),ok,ctor,0x00C1B340,0x006A00F0,CText::Constructor,,,,,0x00856A00,0x006A0140,CText::Destructor,,0,0x6A00F0
+C++,1354,0x00853880,22,constructor + atexit (destructor estatico),ok,ctor,0x00C1C890,0x006C2740,cBuoyancy::Constructor,,,,,0x00856A20,0x006C2B80,,,0,0x6C2740
+C++,1396,0x00853DC0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C1CC78,,CColModel::Constructor,0x0040FB60,0x0040F700,4,48,0x00856A30,0x00821E02,CColModel::Destructor,0xC1CC78 0x30 0x4 0x40F700,0,0x821D30
+C++,1397,0x00853DF0,22,constructor + atexit (destructor estatico),ok,ctor,0x00C1CD38,0x0040FB60,CColModel::Constructor,,,,,0x00856A50,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,1398,0x00853E10,10,asignacion de datos,ok,ctor,0x00C1CD68,0x0040F030,CCollisionData::Constructor,,,,,,,,,0,0x40F030
+C++,1399,0x00853E20,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C1CDC0,,CVehicleAnimGroup::Constructor,0x005BD420,0x005B9E30,30,148,0x00856A60,0x00821E02,,0xC1CDC0 0x94 0x1E 0x5B9E30,0,0x821D30
+C++,1406,0x00853F10,22,constructor + atexit (destructor estatico),ok,ctor,0x00C1DF30,0x006E3EB0,WaterCreatureManager_c::Constructor,,,,,0x00856A80,0x006E3F20,WaterCreatureManager_c::Destructor,,0,0x6E3EB0
+C++,1444,0x008543D0,49,llamada a constructor/funcion,ok,otro,,,,,,,,,,,,12681,0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450 0x6D0450
+C++,1458,0x008545B0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C3A200,,,0x006FA6D0,0x006F9E00,64,36,0x00856A90,0x00821E02,,0xC3A200 0x24 0x40 0x6F9E00,0,0x821D30
+C++,1459,0x008545E0,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C3BB00,,,0x006FA790,0x006F9E60,64,148,0x00856AB0,0x00821E02,,0xC3BB00 0x94 0x40 0x6F9E60,0,0x821D30
+C++,1476,0x00854810,11,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,1477,0x00854820,29,llamada a constructor/funcion,x87,otro,,,,,,,,,,,,0,
+C++,1478,0x00854840,29,llamada a constructor/funcion,x87,otro,,,,,,,,,,,,0,
+C++,1479,0x00854860,29,llamada a constructor/funcion,x87,otro,,,,,,,,,,,,0,
+C++,1480,0x00854880,29,llamada a constructor/funcion,x87,otro,,,,,,,,,,,,0,
+C++,1481,0x008548A0,11,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,1482,0x008548B0,11,asignacion de datos,ok,escrituras,,,,,,,,,,,,1,
+C++,1489,0x00854980,22,constructor + atexit (destructor estatico),ok,ctor,0x00C40350,0x00706770,CRealTimeShadowManager::Constructor,,,,,0x00856AD0,0x007067A0,CRealTimeShadowManager::Destructor,,0,0x706770
+C++,1504,0x00854B60,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C6A198,,CStencilShadowObject::Constructor,0x0070F8D0,0x0070F8E0,64,28,0x00856AE0,0x00821E02,CStencilShadowObject::Destructor,0xC6A198 0x1C 0x40 0x70F8E0,0,0x821D30
+C++,1512,0x00854C70,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856B00,,,,0,
+C++,1513,0x00854C80,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856B10,,,,0,
+C++,1520,0x00854D50,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C6E9A8,,CEscalator::Constructor,0x00717110,0x00717130,32,336,0x00856B20,0x00821E02,CEscalator::Destructor,0xC6E9A8 0x150 0x20 0x717130,0,0x821D30
+C++,1522,0x00854DA0,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856B80,,,,0,
+C++,1523,0x00854DB0,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856B90,,,,0,
+C++,1524,0x00854DC0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C71AD0,,CSprite2d::Constructor,0x00727230,0x007281E0,2,4,0x00856B40,0x00821E02,CSprite2d::Destructor,0xC71AD0 0x4 0x2 0x7281E0,0,0x821D30
+C++,1525,0x00854DF0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C71AD8,,CSprite2d::Constructor,0x00727230,0x007281E0,15,4,0x00856B60,0x00821E02,CSprite2d::Destructor,0xC71AD8 0x4 0xF 0x7281E0,0,0x821D30
+C++,1532,0x00854EE0,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C71BF8,,,0x0071A8B0,0x0071A8C0,45,112,0x00856BA0,0x00821E02,,0xC71BF8 0x70 0x2D 0x71A8C0,0,0x821D30
+C++,1565,0x00855310,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C7DD58,,,0x00720F60,0x00720F70,32,160,0x00856BD0,0x00821E02,,0xC7DD58 0xA0 0x20 0x720F70,0,0x821D30
+C++,1573,0x00855420,39,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C80740,,,0x00728B10,0x00728B30,3,972,0x00856BF0,0x00821E02,,0xC80740 0x3CC 0x3 0x728B30,0,0x821D30
+C++,1580,0x00855510,22,constructor + atexit (destructor estatico),ok,ctor,0x00C81360,0x0072A620,CAEWeatherAudioEntity::Constructor,,,,,0x00856C10,0x0072A400,,,0,0x72A620
+C++,1591,0x00855670,10,asignacion de datos,ok,ctor,0x00C87B40,0x0072E860,,,,,,,,,,0,0x72E860
+C++,1592,0x00855680,10,asignacion de datos,ok,ctor,0x00C87B88,0x0072E860,,,,,,,,,,0,0x72E860
+C++,1593,0x00855690,10,asignacion de datos,ok,ctor,0x00C87BD0,0x0072E860,,,,,,,,,,0,0x72E860
+C++,1620,0x008559E0,22,constructor + atexit (destructor estatico),ok,ctor,0x00C888D0,0x005074B0,CAEExplosionAudioEntity::Constructor,,,,,0x00856C20,0x00506B90,,,0,0x5074B0
+C++,1639,0x00855C40,22,constructor + atexit (destructor estatico),ok,ctor,0x00C8A7DC,0x0040FB60,CColModel::Constructor,,,,,0x00856C30,0x0040F700,CColModel::Destructor,,0,0x40FB60
+C++,1646,0x00855D20,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C8A838,,,0x00742A90,0x00742AA0,2,44,0x00856C40,0x00821E02,,0xC8A838 0x2C 0x2 0x742AA0,0,0x821D30
+C++,1653,0x00855E10,36,constructor + atexit (destructor estatico),ok,ctor-vec,0x00C8AAB8,,,0x00743C30,0x00743C40,80,112,0x00856C60,0x00821E02,,0xC8AAB8 0x70 0x50 0x743C40,0,0x821D30
+C++,1666,0x00855FC0,12,constructor + atexit (destructor estatico),ok,dtor-solo,,,,,,,,0x00856C80,,,,0,
+C++,1667,0x00855FD0,29,asignacion de datos,ok,escrituras,,,,,,,,,,,,8,

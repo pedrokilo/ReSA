@@ -1,15 +1,16 @@
 #pragma once
+#include "DatosExe/DataBssG4.h"
 
 #include "RenderWare.h"
 
 extern void AppLightInjectHooks();
 
-static inline auto& pAmbient = StaticRef<RpLight*>(0xC886E8);
+static inline auto& pAmbient = DatosExe::Bss::bC886E8;
 static inline auto& AmbientLightColour = StaticRef<RwRGBAReal>(0xC886A4);
 static inline auto& AmbientLightColourForFrame = StaticRef<RwRGBAReal>(0xC886D4);
 static inline auto& AmbientLightColourForFrame_PedsCarsAndObjects = StaticRef<RwRGBAReal>(0xC886C4);
 
-static inline auto& pDirect = StaticRef<RpLight*>(0xC886EC);
+static inline auto& pDirect = DatosExe::Bss::bC886EC;
 static inline auto& DirectionalLightColour = StaticRef<RwRGBAReal>(0xC88694);
 static inline auto& DirectionalLightColourForFrame = StaticRef<RwRGBAReal>(0xC886B4);
 static inline auto& DirectAmbientLight = StaticRef<std::array<RwRGBAReal, 2>>(0xC8865C); // Direct, Ambient Light

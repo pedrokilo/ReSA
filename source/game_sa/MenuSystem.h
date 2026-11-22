@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE1.h"
 
 #ifdef InsertMenu
@@ -57,7 +58,7 @@ public:
     };
 
     static inline auto& MenuInUse = StaticRef<std::array<bool, CMenuSystem::MENU_COUNT>>(0xBA82E0);
-    static inline auto& CurrentMenuInUse = StaticRef<int8>(0xBA82E2);
+    static inline auto& CurrentMenuInUse = DatosExe::Bss::bBA82E2;
     static inline auto& num_menus_in_use = StaticRef<uint8>(0xBA82E3); // OG name
 
 public:

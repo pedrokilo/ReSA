@@ -1,4 +1,6 @@
 #pragma once
+#include "DatosExe/DataBssG4.h"
+#include "DatosExe/DataBssG2.h"
 
 #include <cstddef>
 #include "MemoryHeap.h"
@@ -95,12 +97,12 @@ public:
 class CMemoryMgr {
 public:
     static int8         m_idCapture;
-    static inline auto& m_pBlockArray   = StaticRef<int32*>(0xC87B14);
-    static inline auto& m_blocksUsed    = StaticRef<int32>(0xC87B30);
-    static inline auto& m_pMemUsedArray = StaticRef<int32*>(0xC87B18);
-    static inline auto& m_id            = StaticRef<int32>(0xC87B1C);
+    static inline auto& m_pBlockArray   = DatosExe::Bss::bC87B14;
+    static inline auto& m_blocksUsed    = DatosExe::Bss::bC87B30;
+    static inline auto& m_pMemUsedArray = DatosExe::Bss::bC87B18;
+    static inline auto& m_id            = DatosExe::Bss::bC87B1C;
     static inline auto& m_idStack       = StaticRef<CStack<int32, 16>>(0xC87C18);
-    static inline auto& m_memUsed       = StaticRef<int32>(0xC87B34);
+    static inline auto& m_memUsed       = DatosExe::Bss::bC87B34;
     static int8         m_largeAllocation;
     static int8         m_minLargeAllocation;
     static bool         m_bMallocHintDebugging;

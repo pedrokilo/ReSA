@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE2.h"
 
 #include "AnimationStyleDescriptor.h"
@@ -34,7 +35,7 @@ private:
     static inline auto& ms_aAnimAssocDefinitions = StaticRef<AnimAssocDefinition[NUM_ANIM_ASSOC_GROUPS]>(0x8AA5A8); // std::array - see SurfaceInfos_c
     static inline auto& ms_numAnimAssocDefinitions = StaticRef<uint32>(0xB4EA28);
 
-    static inline auto& ms_aAnimAssocGroups = StaticRef<CAnimBlendAssocGroup*>(0xB4EA34);
+    static inline auto& ms_aAnimAssocGroups = DatosExe::Bss::bB4EA34;
 
     static inline auto& ms_aAnimations = StaticRef<std::array<CAnimBlendHierarchy, 2500>>(0xB4EA40);
     static inline auto& ms_numAnimations = DatosExe::Bss::bB4EA2C;

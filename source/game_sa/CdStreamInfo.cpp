@@ -17,20 +17,23 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaXB.h"
+#include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
+#include "DatosExe/DataBssF.h"
 
 auto& gStreamFileHandles = StaticRef<HANDLE[MAX_CD_STREAM_HANDLES]>(0x8E4010);
 auto& gCdImageNames = StaticRef<char[MAX_CD_STREAM_HANDLES][MAX_CD_STREAM_IMAGE_NAME_SIZE]>(0x8E4098);
-auto& gStreamFileCreateFlags = StaticRef<uint32>(0x8E3FE0);
+auto& gStreamFileCreateFlags = DatosExe::Data::v8E3FE0;
 auto& gCdStreams = StaticRef<CdStream*>(0x8E3FFC);
 auto& gStreamCount = DatosExe::Bss::b8E4090;
-auto& gOpenStreamCount = StaticRef<int32>(0x8E4094);
+auto& gOpenStreamCount = DatosExe::Bss::b8E4094;
 auto& gStreamingInitialized = DatosExe::Data::v8E3FE4;
 auto& gOverlappedIO = DatosExe::Data::v8E3FE8;
 auto& gStreamQueue = StaticRef<Queue>(0x8E3FEC);
-auto& gStreamSemaphore = StaticRef<HANDLE>(0x8E4004);
-auto& gStreamingThread = StaticRef<HANDLE>(0x8E4008);
+auto& gStreamSemaphore = DatosExe::Bss::b8E4004<HANDLE>();
+auto& gStreamingThread = DatosExe::Bss::b8E4008<HANDLE>();
 auto& gStreamingThreadId = DatosExe::Bss::b8E4000;
 auto& gLastCdStreamPosn = DatosExe::Bss::b8E4898;
 

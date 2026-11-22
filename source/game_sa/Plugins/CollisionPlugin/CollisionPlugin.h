@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssG4.h"
 
 #include <rwplcore.h>
 
@@ -22,7 +23,7 @@ extern RwInt32& gCollisionPluginOffset;
  */
 class CCollisionPlugin {
 public:
-    static inline auto& ms_currentModel = StaticRef<CClumpModelInfo*>(0x9689E0);
+    static inline auto& ms_currentModel = DatosExe::Bss::b9689E0;
 
 public:
     static void InjectHooks();

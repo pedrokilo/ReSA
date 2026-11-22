@@ -20,8 +20,9 @@ END GENERATED HOOK STATUS */
 
 #include "ColStore.h"
 #include "TheScripts.h"
+#include "DatosExe/DataBssF.h"
 
-auto& ms_pColPool = StaticRef<CColPool*>(0x965560);
+auto& ms_pColPool = DatosExe::Bss::b965560<CColPool*>();
 
 using ColTreeNode  = CQuadTreeNode<ColDef*>;
 auto& ms_pQuadTree = StaticRef<ColTreeNode*>(0x96555C);

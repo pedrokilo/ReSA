@@ -5,6 +5,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG2.h"
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "Pool.h"
@@ -21,8 +23,8 @@ public:
     uint32 m_nBlueComponent;
 
 public:
-    static inline auto& ms_bFailed = StaticRef<bool>(0xBC12DC);
-    static inline auto& ms_level = StaticRef<uint32>(0xBC12E0);
+    static inline auto& ms_bFailed = DatosExe::Bss::bBC12DC;
+    static inline auto& ms_level = DatosExe::Bss::bBC12E0;
     static inline auto& ms_octTreePool = StaticRef<COctTreePool>(0xBC12E4);
 
 public:

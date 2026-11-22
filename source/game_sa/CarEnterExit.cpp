@@ -671,7 +671,7 @@ bool CCarEnterExit::IsPlayerToQuitCarEnter(const CPed* ped, const CVehicle* vehi
     // Como el original (0x64F467..0x64F502): GetRadianAngleBetweenPoints(0, 0, -leftRight, upDown) devuelve en ST0 un valor ya redondeado a
     // 24 bits (todas sus ramas terminan en fadd/fsub), asi que el flujo x87 equivale a aritmetica float: - orientacion de camara, envuelto
     // a [heading - pi, heading + pi] (las comparaciones con NaN dejan el angulo igual, como los jp del EXE) y |angulo - heading| > pi/4.
-    float angle=CGeneral::GetRadianAngleBetweenPoints(0.0f,0.0f,-leftRight,upDown)-DatosExe::Bss::bB6F178;
+    float angle=CGeneral::GetRadianAngleBetweenPoints(0.0f,0.0f,-leftRight,upDown)-StaticRef<float>(0xB6F178);
     if(angle>upper)angle-=twoPi;else if(angle<lower)angle+=twoPi;
     const bool quit=std::abs(angle-heading)>threshold;
     return magnitude>0.75f&&quit;

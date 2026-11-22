@@ -1,7 +1,8 @@
 #pragma once
+#include "DatosExe/DataInicializadaXA.h"
 #include "DatosExe/DataInicializadaA.h"
 
-static inline auto& gSpecIntensity = StaticRef<float>(0x8D12D0); // 1.0f
+static inline auto& gSpecIntensity = DatosExe::Data::v8D12D0; // 1.0f
 
 class CCarFXRenderer {
 public:

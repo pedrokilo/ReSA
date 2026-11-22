@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 
@@ -45,7 +46,7 @@ END GENERATED HOOK STATUS */
 
 static auto& byte_B73403 = DatosExe::Bss::bB73403; // TODO: Find out what modifies this, as it has no value by default..
 static auto& byte_8CD782 = DatosExe::Data::v8CD782; // true by default, left here for documentation purposes, as it's used in multiple CPad functions
-static auto& byte_B73401 = StaticRef<char>(0xB73401); // unused, unknown
+static auto& byte_B73401 = DatosExe::Bss::bB73401; // unused, unknown
 
 namespace {
 // Lote 152A (banco Fn152A): cinco copias de "boton pulsado en este fotograma y no en el anterior" que el EXE tiene como funciones propias (thiscall, sin pila, `ret`): comparan la palabra de NewState
@@ -1403,7 +1404,7 @@ int32 CPad::sub_541290() {
 
 // 0x540A40
 bool CPad::sub_540A40() {
-    static auto& oldfStickX = StaticRef<int16>(0xB73704); // 0
+    static auto& oldfStickX = DatosExe::Bss::bB73704; // 0
     auto leftStickX = GetPad()->GetLeftStickX();
 
     if (!leftStickX && oldfStickX > leftStickX) {
@@ -1417,7 +1418,7 @@ bool CPad::sub_540A40() {
 
 // 0x540A10
 bool CPad::sub_540A10() {
-    static auto& oldfStickX = StaticRef<int16>(0xB73700); // 0
+    static auto& oldfStickX = DatosExe::Bss::bB73700; // 0
     auto leftStickX = GetPad()->GetLeftStickX();
 
     if (!leftStickX && oldfStickX < leftStickX) {

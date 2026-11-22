@@ -56,9 +56,11 @@ def literal_elem(t, v):
 def main():
     import struct as st
     grupo = sys.argv[1]
+    lote = sys.argv[sys.argv.index('--lote') + 1] if '--lote' in sys.argv else grupo   # G..: pasada con huecos alcanzables
     aplicar = '--aplicar' in sys.argv
     pe = PE(Path('D:/Grand Theft Auto San Andreas/gta-sa.exe'))
     refs = de.escanear_fuente('source')
+    cubre = de.cubierto_por_vecino(refs)   # campos de una estructura mayor que el C++ referencia suelta (TheCamera...): no son independientes
     reempl, rangos = de.cargar_funciones()
     cod = de.escanear_exe(pe, reempl, rangos)
     por_va = defaultdict(list)
@@ -70,6 +72,8 @@ def main():
         if not (0x8A4000 <= va < 0x8E4000):
             continue
         rs = por_va[va]
+        if cubre(va) is not None:
+            continue
         if va in HARNESS:
             continue
         if any(any(x in r['archivo'] for x in EXCL) for r in rs):
@@ -115,21 +119,22 @@ def main():
     elif grupo == 'C':
         sel = [s for s in sel if s[2] is not None]
     nref = sum(len(s[4]) for s in sel)
-    print(f'DE04-{grupo}: {len(sel)} objetos, {nref} referencias, {sum(PRIMS[s[1]] * (s[2] or 1) for s in sel)} bytes')
+    print(f'DE04-{lote}: {len(sel)} objetos, {nref} referencias, {sum(PRIMS[s[1]] * (s[2] or 1) for s in sel)} bytes')
     out = RAIZ / 'docs/DatosExe/lotes'
     out.mkdir(parents=True, exist_ok=True)
-    with (out / f'DE04{grupo}.csv').open('w', encoding='utf-8', newline='') as s:
+    with (out / f'DE04{lote}.csv').open('w', encoding='utf-8', newline='') as s:
         w = csv.writer(s)
         w.writerow(['va', 'tipo', 'bytes', 'refs', 'archivos', 'nombre'])
         for va, el, n, t, rs in sel:
             w.writerow([f'0x{va:08X}', t, PRIMS[el] * (n or 1), len(rs), ';'.join(sorted({Path(r['archivo']).name for r in rs}))[:100], f'v{va:X}'])
     if not aplicar:
         return
-    nom = 'DataInicializada' + grupo
-    cab = ['#pragma once', '', '/*', f' * Lote DE04-{grupo} (docs/DatosExe): variables de .data inicializado del juego como definiciones propias con el',
+    nom = 'DataInicializada' + lote
+    cab = ['#pragma once', '', '/*', f' * Lote DE04-{lote} (docs/DatosExe): variables de .data inicializado del juego como definiciones propias con el',
            ' * valor inicial del EXE canonico (gta-sa.exe 1.0 US). Estado vivo: las lee y escribe solo C++.',
            f' * Generado por contrib/datos_exe_de04.py; definidas en {nom}.cpp.', ' */', '', 'namespace DatosExe::Data {']
     cpp = ['#include "StdInc.h"', '', f'#include "{nom}.h"', '', '#include <bit>', '', 'namespace DatosExe::Data {']
+    ya = de.definidas_datosexe('DataInicializada' + lote)   # ya definidas en otro lote: solo se declara y se reapunta
     for va, el, n, t, rs in sel:
         off = pe.offset(va, PRIMS[el] * (n or 1))
         raw = pe.data[off:off + PRIMS[el] * (n or 1)]
@@ -138,13 +143,16 @@ def main():
         arr = re.fullmatch(r'(\w+)\[(\d+)\]', tt.replace(' ', ''))
         if n is None:
             cab.append(f'extern {el if el != "int8" else "int8"} v{va:X}; // 0x{va:08X}')
-            cpp.append(f'{el} v{va:X} = {literal_elem(el, vals[0])}; // 0x{va:08X}')
+            if va not in ya:
+                cpp.append(f'{el} v{va:X} = {literal_elem(el, vals[0])}; // 0x{va:08X}')
         elif arr:
             cab.append(f'extern {el} v{va:X}[{n}]; // 0x{va:08X}')
-            cpp.append(f'{el} v{va:X}[{n}] = {{{", ".join(literal_elem(el, v) for v in vals)}}}; // 0x{va:08X}')
+            if va not in ya:
+                cpp.append(f'{el} v{va:X}[{n}] = {{{", ".join(literal_elem(el, v) for v in vals)}}}; // 0x{va:08X}')
         else:
             cab.append(f'extern std::array<{el}, {n}> v{va:X}; // 0x{va:08X}')
-            cpp.append(f'std::array<{el}, {n}> v{va:X} = {{{{{", ".join(literal_elem(el, v) for v in vals)}}}}}; // 0x{va:08X}')
+            if va not in ya:
+                cpp.append(f'std::array<{el}, {n}> v{va:X} = {{{{{", ".join(literal_elem(el, v) for v in vals)}}}}}; // 0x{va:08X}')
     cab += ['', '} // namespace DatosExe::Data', '']
     cpp += ['', '} // namespace DatosExe::Data', '']
     d = RAIZ / 'source/game_sa/DatosExe'

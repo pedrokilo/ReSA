@@ -26,12 +26,15 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssG4.h"
+#include "DatosExe/DataBssG2.h"
 #include "LibJpegExports.h"
 #include "DatosExe/DataBssE4.h"
 #include "jpeglib.h"
 #include "LibJpegCallback.h"
+#include "DatosExe/DataBssF.h"
 
-static auto& g_ScreenshotFileBuf    = StaticRef<std::array<uint8, 204'800>>(0xBD0B78);
+static auto& g_ScreenshotFileBuf    = DatosExe::Bss::bBD0B78<std::array<uint8, 204'800>>();
 static auto& g_JpegDecodingToRaster = DatosExe::Bss::bBD0160;
 
 // NOTSA. Convierte los fallos de libjpeg en un error visible de depuración en lugar
@@ -111,7 +114,7 @@ void JPegCompressScreen(RwCamera* camera, jpeg_destination_mgr& dst) {
  */
 void JPegCompressScreenToFile(RwCamera* camera, const char* path) {
     // Como el original: el handle vive en 0xBD0B74 y se acepta solo si es positivo (jle).
-    static auto& g_ScreenshotFileHandle = StaticRef<FILESTREAM>(0xBD0B74);
+    static auto& g_ScreenshotFileHandle = DatosExe::Bss::bBD0B74<FILESTREAM>();
 
     g_ScreenshotFileHandle = CFileMgr::OpenFile(path, "wb");
     if ((int32)(intptr_t)g_ScreenshotFileHandle > 0) {
@@ -147,9 +150,9 @@ void JPegCompressScreenToFile(RwCamera* camera, const char* path) {
 
 // 0x5D0740 -- unused
 void JPegCompressScreenToBuffer(RwCamera* cam, uint8** buffer, size_t& bufferSizeInOut) {
-    static auto& Buffer         = StaticRef<uint8**>(0xC02B78);
-    static auto& BufferSize     = StaticRef<size_t>(0xC02B7C);
-    static auto& TotalProcessed = StaticRef<size_t>(0xC02B80);
+    static auto& Buffer         = DatosExe::Bss::bC02B78;
+    static auto& BufferSize     = DatosExe::Bss::bC02B7C;
+    static auto& TotalProcessed = DatosExe::Bss::bC02B80;
 
     Buffer         = buffer;
     BufferSize     = bufferSizeInOut;
@@ -265,7 +268,7 @@ bool JPegDecompressToRaster(RwRaster* raster, jpeg_source_mgr& src) {
 // Adapta el buffer de galería del frontend como jpeg_source_mgr y reutiliza el
 // decodificador común hacia RwRaster.
 bool JPegDecompressToVramFromBuffer(RwRaster* raster, bool enable) {
-    static auto& g_ScreenshotFilePointer = StaticRef<size_t>(0xBD0B70);
+    static auto& g_ScreenshotFilePointer = DatosExe::Bss::bBD0B70;
 
     if (!enable) {
         return false;

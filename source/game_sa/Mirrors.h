@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
@@ -24,8 +25,8 @@ class CMirrors {
 public:
     static inline auto& pBuffer = DatosExe::Bss::bC7C71C;
     static inline auto& pZBuffer = DatosExe::Bss::bC7C720;
-    static inline auto& bRenderingReflection = StaticRef<bool>(0xC7C728);
-    static inline auto& d3dRestored = StaticRef<bool>(0xC7C729);
+    static inline auto& bRenderingReflection = DatosExe::Bss::bC7C728;
+    static inline auto& d3dRestored = DatosExe::Bss::bC7C729;
     static inline auto& TypeOfMirror = StaticRef<eMirrorType>(0xC7C724);
     static inline auto& MirrorFlags = DatosExe::Bss::bC7C618; // int32 con signo en el original (movsx de los flags de la zona)
     static inline auto& MirrorV = DatosExe::Bss::bC7C61C;

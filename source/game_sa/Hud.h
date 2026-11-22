@@ -5,6 +5,8 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG5.h"
+#include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
@@ -52,7 +54,7 @@ public:
     static inline auto& m_nHelpMessageState = DatosExe::Bss::bBAA474;
     static inline auto& m_nHelpMessageFadeTimer = DatosExe::Bss::bBAA478;
     static inline auto& m_nHelpMessageTimer = DatosExe::Bss::bBAA47C;
-    static inline auto& m_pHelpMessageToPrint = StaticRef<GxtChar[400]>(0xBAA480);
+    static inline auto& m_pHelpMessageToPrint = DatosExe::Bss::bBAA480;
     static inline auto& m_pLastHelpMessage = DatosExe::Bss::bBAA610;
     static inline auto& m_pHelpMessage = DatosExe::Bss::bBAA7A0;
 
@@ -60,7 +62,7 @@ public:
     static inline auto& m_ZoneFadeTimer = DatosExe::Bss::bBAA934;
     static inline auto& m_ZoneNameTimer = DatosExe::Bss::bBAA938;
     static inline auto& m_ZoneToPrint = DatosExe::Bss::bBAB1D0;
-    static inline auto& m_pLastZoneName = StaticRef<const GxtChar*>(0xBAB1D4);
+    static inline auto& m_pLastZoneName = DatosExe::Bss::bBAB1D4;
     static inline auto& m_pZoneName = DatosExe::Bss::bBAB1D8;
 
     static inline auto& m_ItemToFlash = StaticRef<eHudItem>(0xBAB1DC);
@@ -102,7 +104,7 @@ public:
     static inline auto& TimerCounterHideState = StaticRef<std::array<int16, 4>>(0xBAA38C);
     static inline auto& TimerCounterWasDisplayed = StaticRef<std::array<int16, 4>>(0xBAA394);
 
-    static inline auto& OddJob2OffTimer = DatosExe::Bss::bBAA398;
+    static inline auto& OddJob2OffTimer = StaticRef<float>(0xBAA398);
     static inline auto& OddJob2XOffset = DatosExe::Bss::bBAA39C;
     static inline auto& OddJob2Timer = DatosExe::Bss::bBAA3A0;
     static inline auto& OddJob2On = DatosExe::Bss::bBAB1E0;

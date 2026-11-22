@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE4.h"
 
 #include "ClumpModelInfo.h"
@@ -246,7 +247,7 @@ public:
     static inline auto& ms_vehicleDescs = StaticRef<RwObjectNameIdAssocation*[NUM_VEHICLE_MODEL_DESCS]>(0x8A7740); // use eVehicleType to access
 
     // remap texture
-    static inline auto& ms_pRemapTexture = StaticRef<RwTexture*>(0xB4E47C);
+    static inline auto& ms_pRemapTexture = DatosExe::Bss::bB4E47C;
     // vehiclelights128 texture
     static inline auto& ms_pLightsTexture = DatosExe::Bss::bB4E68C;
     // vehiclelightson128 texture

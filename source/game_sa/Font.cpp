@@ -38,11 +38,12 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 
 #include "eLanguage.h"
+#include "DatosExe/DataBssF.h"
 
 auto& FontRenderStateBuf = StaticRef<std::array<CFontChar, 9>>(0xC716B0);
 auto& pEmptyChar = DatosExe::Bss::bC716A8;
 
-auto& gFontData = StaticRef<std::array<tFontData, 2>>(0xC718B0);
+auto& gFontData = DatosExe::Bss::bC718B0<std::array<tFontData, 2>>();
 
 void CFont::InjectHooks() {
     RH_ScopedClass(CFont);

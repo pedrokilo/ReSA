@@ -128,10 +128,6 @@ extern uint32 bB6EC40; // 0x00B6EC40
 extern int32 bB6EC48; // 0x00B6EC48
 extern uint32 bB6EC4C; // 0x00B6EC4C
 extern int32 bB6EC58; // 0x00B6EC58
-extern uint32 bB6F094; // 0x00B6F094
-extern int32 bB6F0D8; // 0x00B6F0D8
-extern int32 bB6F0F0; // 0x00B6F0F0
-extern int32 bB6F1C4; // 0x00B6F1C4
 extern uint32 bB6FF8C; // 0x00B6FF8C
 extern uint32 bB6FFC0; // 0x00B6FFC0
 extern uint32 bB6FFE0; // 0x00B6FFE0
@@ -148,7 +144,6 @@ extern uint32 bB70078; // 0x00B70078
 extern int32 bB7007C; // 0x00B7007C
 extern uint32 bB70098; // 0x00B70098
 extern int32 bB7009C; // 0x00B7009C
-extern uint32 bB700B4; // 0x00B700B4
 extern int32 bB700D4; // 0x00B700D4
 extern uint32 bB700D8; // 0x00B700D8
 extern uint32 bB700E8; // 0x00B700E8
@@ -161,7 +156,6 @@ extern int32 bB71804; // 0x00B71804
 extern int32 bB71808; // 0x00B71808
 extern uint32 bB71840; // 0x00B71840
 extern int32 bB728E8; // 0x00B728E8
-extern int32 bB7298C; // 0x00B7298C
 extern uint32 bB72CA8; // 0x00B72CA8
 extern int32 bB73708; // 0x00B73708
 extern uint32 bB73C90; // 0x00B73C90
@@ -170,8 +164,6 @@ extern int32 bB74238; // 0x00B74238
 extern uint32 bB745C4; // 0x00B745C4
 extern uint32 bB76894; // 0x00B76894
 extern uint32 bB781F8; // 0x00B781F8
-extern int32 bB790C4; // 0x00B790C4
-extern int32 bB790D4; // 0x00B790D4
 extern uint32 bB794D0; // 0x00B794D0
 extern uint32 bB794D8; // 0x00B794D8
 extern uint32 bB794DC; // 0x00B794DC
@@ -229,8 +221,6 @@ extern int32 bBAA934; // 0x00BAA934
 extern uint32 bBAA938; // 0x00BAA938
 extern uint32 bBAB21C; // 0x00BAB21C
 extern uint32 bBAB224; // 0x00BAB224
-extern int32 bBB3914; // 0x00BB3914
-extern uint32 bBB3DC4; // 0x00BB3DC4
 extern int32 bBB3DE4; // 0x00BB3DE4
 extern int32 bBB4238; // 0x00BB4238
 extern uint32 bBC12D0; // 0x00BC12D0
@@ -326,8 +316,6 @@ extern int32 bC7C618; // 0x00C7C618
 extern uint32 bC7C6D4; // 0x00C7C6D4
 extern uint32 bC7C6D8; // 0x00C7C6D8
 extern uint32 bC7C6F8; // 0x00C7C6F8
-extern uint32 bC80428; // 0x00C80428
-extern uint32 bC8042C; // 0x00C8042C
 extern uint32 bC80430; // 0x00C80430
 extern int32 bC80458; // 0x00C80458
 extern int32 bC8045C; // 0x00C8045C

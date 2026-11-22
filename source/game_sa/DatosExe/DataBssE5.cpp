@@ -18,15 +18,12 @@ std::array<int32, 13> bB5EB5C{}; // 0x00B5EB5C
 std::array<int32, 13> bB5EB90{}; // 0x00B5EB90
 std::array<int32, 10> bB6DC6C{}; // 0x00B6DC6C
 std::array<int32, 10> bB6DC94{}; // 0x00B6DC94
-CVector bB6F960{}; // 0x00B6F960
-CVector bB6F96C{}; // 0x00B6F96C
 GxtChar bB7147C[32]{}; // 0x00B7147C
 GxtChar bB7149C[32]{}; // 0x00B7149C
 char bB71510[352]{}; // 0x00B71510
 char bB71848[512]{}; // 0x00B71848
 char bB71AE0[128]{}; // 0x00B71AE0
 char bB72C28[64]{}; // 0x00B72C28
-CVector bB73720{}; // 0x00B73720
 std::array<float, 16> bB79E90{}; // 0x00B79E90
 std::array<float, 16> bB79ED0{}; // 0x00B79ED0
 std::array<float, 16> bB79F10{}; // 0x00B79F10
@@ -64,7 +61,6 @@ int16 bC279AC[4]{}; // 0x00C279AC
 std::array<float, 6> bC38034{}; // 0x00C38034
 std::array<int32, 180> bC3F868{}; // 0x00C3F868
 std::array<int32, 180> bC3FB38{}; // 0x00C3FB38
-std::array<int32, 180> bC3FE08{}; // 0x00C3FE08
 std::array<bool, 8> bC73CB0{}; // 0x00C73CB0
 std::array<int16, 4> bC88004{}; // 0x00C88004
 std::array<float, 2> bC8A8A0{}; // 0x00C8A8A0

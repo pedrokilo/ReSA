@@ -19,8 +19,9 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "MenuSystem.h"
+#include "DatosExe/DataBssF.h"
 
-auto& MenuNumber = StaticRef<std::array<CMenuSystem::Menu*, 2>>(0xBA82D8);
+auto& MenuNumber = DatosExe::Bss::bBA82D8<std::array<CMenuSystem::Menu*, 2>>();
 
 void CMenuSystem::InjectHooks() {
     RH_ScopedClass(CMenuSystem);

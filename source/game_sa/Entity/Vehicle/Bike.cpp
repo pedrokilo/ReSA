@@ -23,6 +23,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataInicializadaXA.h"
+#include "DatosExe/DataBssG3.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -49,6 +51,7 @@ END GENERATED HOOK STATUS */
 #include "Animation/AnimBlendHierarchy.h"
 #include "Animation/AnimBlendAssociation.h"
 #include "Animation/AnimBlendFrameData.h"
+#include "DatosExe/DataBssF.h"
 
 
 
@@ -640,7 +643,7 @@ void CBike::ProcessRiderAnims(CPed* rider, CVehicle* vehicle, CRideAnimData* rid
             } else knockOff();
         }
     } else if (faded(idle)) idle=blend(195,2.f);
-    const float nonClippedStep=StaticRef<float>(0xB7CB58)*.02f;
+    const float nonClippedStep=DatosExe::Bss::bB7CB58*.02f;
     float available=1.f;
     if (idle) available=1.f-std::min(nonClippedStep*idle->m_BlendDelta+idle->m_BlendAmount,1.f);
     if (special) available-=std::min(nonClippedStep*special->m_BlendDelta+special->m_BlendAmount,available);
@@ -1500,8 +1503,8 @@ void CBike::ProcessControl() {
         // ---- 0x6BAC22: ruedas ----
         const CVector moveSnapshot = m_vecMoveSpeed;                                // [esp+50h]
         const bool procRearFirst = m_pHandlingData->m_bProcRearwheelFirst;          // bit 23 de los flags de handling -> [esp+8Bh]
-        tWheelState& frontState = StaticRef<tWheelState>(0xC1C26C);
-        tWheelState& rearState = StaticRef<tWheelState>(0xC1C270);
+        tWheelState& frontState = DatosExe::Bss::bC1C26C<tWheelState>();
+        tWheelState& rearState = DatosExe::Bss::bC1C270<tWheelState>();
         float& wheelThrust = DatosExe::Bss::bC1C27C;
 
         // 0x6BADC3 / 0x6BB34F: el deslizamiento por frenada depende del tipo de superficie
@@ -1988,7 +1991,7 @@ void CBike::DoSoftGroundResistance(uint32& arg0) {
         if (m_aWheelRatios[i] < 1.f && m_aWheelColPoints[i].m_nSurfaceTypeB == 178) {
             const auto& up = GetUp();
             const auto vertical = (m_vecMoveSpeed.x * up.x + m_vecMoveSpeed.y * up.y) + m_vecMoveSpeed.z * up.z;
-            const auto factor = -(CTimer::GetTimeStep() * m_fMass * StaticRef<float>(0x8D34AC));
+            const auto factor = -(CTimer::GetTimeStep() * m_fMass * DatosExe::Data::v8D34AC);
             ApplyMoveForce(CVector{(m_vecMoveSpeed.x - vertical * up.x) * factor, (m_vecMoveSpeed.y - vertical * up.y) * factor, (m_vecMoveSpeed.z - vertical * up.z) * factor});
             return;
         }

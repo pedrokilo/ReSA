@@ -53,6 +53,7 @@ END GENERATED HOOK STATUS */
 #include "Collision/Collision.h"
 
 #include <reversiblebugfixes/Bugs.hpp>
+#include "DatosExe/DataBssF.h"
 
 // Ayudantes x87 del lote 93A (definidos al final de X87Math.cpp; declarados aqui para no recompilar todo el proyecto al tocar X87Math.h).
 bool __cdecl PathFind93BadStartDotNegativeCpp(const float* node0, const float* node1, const float* pos);                                // RemoveBadStartNode: producto escalar < 0
@@ -156,8 +157,8 @@ auto& s_bLoadPathsNeeded = DatosExe::Bss::b96F030;
 
 // Como el original (0x44D080..): ToBeStreamed y ToBeStreamedForScript son dos globales de 64 bytes que se indexan por columnas
 // ([x * 8 + y]); el id del area (nodes%d.dat) es x + y * 8.
-auto& ToBeStreamed = StaticRef<std::array<bool, NUM_PATH_MAP_AREAS>>(0x96EFD0);
-auto& ToBeStreamedForScript = StaticRef<std::array<bool, NUM_PATH_MAP_AREAS>>(0x96EF90);
+auto& ToBeStreamed = DatosExe::Bss::b96EFD0<std::array<bool, NUM_PATH_MAP_AREAS>>();
+auto& ToBeStreamedForScript = DatosExe::Bss::b96EF90<std::array<bool, NUM_PATH_MAP_AREAS>>();
 auto& NumTempExternalNodes = DatosExe::Bss::b96F02C; // Unused, pero Init la pone a cero
 
 auto& XCoorGiven = DatosExe::Bss::b96EE80;
@@ -166,7 +167,7 @@ auto& ZCoorGiven = DatosExe::Bss::b96EC80;
 auto& ConnectsToGiven = StaticRef<std::array<std::array<int8, 6>, 64>>(0x96EAC0); // Filas de 6 bytes (0x450E90: ecx * 6)
 auto& DontWanderGiven = DatosExe::Bss::b96EC40;                // 0x450E90: mov [ecx+0096EC40h], bDontWander
 
-auto& aInteriorNodeLinkedToExterior = StaticRef<std::array<int32, NUM_PATH_INTERIOR_AREAS>>(0x96EA98);
+auto& aInteriorNodeLinkedToExterior = DatosExe::Bss::b96EA98<std::array<int32, NUM_PATH_INTERIOR_AREAS>>();
 auto& aExteriorNodeLinkedTo = StaticRef<std::array<CNodeAddress, NUM_PATH_INTERIOR_AREAS>>(0x977B7C);
 
 auto& aNodesToBeCleared = StaticRef<std::array<CNodeAddress, 5000>>(0x972CD0);

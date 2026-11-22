@@ -278,7 +278,6 @@ float v8D35B8 = std::bit_cast<float>(0x3D4CCCCDu); // 0x008D35B8
 float v8D35BC = std::bit_cast<float>(0x3D4CCCCDu); // 0x008D35BC
 float v8D35C0 = std::bit_cast<float>(0x3DCCCCCDu); // 0x008D35C0
 float v8D35C4 = std::bit_cast<float>(0x40000000u); // 0x008D35C4
-float v8D37E4 = std::bit_cast<float>(0x41400000u); // 0x008D37E4
 float v8D37F0 = std::bit_cast<float>(0x3D23D70Au); // 0x008D37F0
 float v8D3834 = std::bit_cast<float>(0x3DCCCCCDu); // 0x008D3834
 float v8D3920 = std::bit_cast<float>(0x3E8A3D71u); // 0x008D3920
