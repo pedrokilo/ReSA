@@ -33,8 +33,29 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 #include "WindowedMode.hpp"
 #include "game_sa/Crt/CrtPow.h"
+#include "RenderWare/D3DResourceSystem.h"
+#include "RenderWare/D3D9RasterDriver.h"
 #include <xmmintrin.h>
 #include <intrin.h>
+
+// Funciones de otros archivos / de este mas abajo que se llaman sin pasar por la direccion del EXE.
+void D3D9RasterListInitExe();             // D3D9RasterDriver.cpp: 0x4CC150
+void D3D9RasterListShutdownExe();         // D3D9RasterDriver.cpp: 0x4CC170
+void D3D9RasterListReleaseResourcesExe(); // D3D9RasterDriver.cpp: 0x4CB640
+void _rwD3D9Im2DRenderBegin();            // mas abajo en este archivo: 0x7FB810
+RwV3d* _rwIntelSSEV3dTransformPoints(RwV3d* pointsOut, const RwV3d* pointsIn, RwInt32 numPoints, const RwMatrix* matrix);        // rwplcore.cpp: 0x80D070
+RwV3d* _rwIntelSSEV3dTransformVectors(RwV3d* vectorsOut, const RwV3d* vectorsIn, RwInt32 numVectors, const RwMatrix* matrix);    // rwplcore.cpp: 0x80D180
+RwV3d* _rwIntelSSEV3dTransformPoint(RwV3d* pointOut, const RwV3d* pointIn, const RwMatrix* matrix);                              // rwplcore.cpp: 0x80D280
+RwV3d* _rwIntelSSEV3dTransformVector(RwV3d* vectorOut, const RwV3d* vectorIn, const RwMatrix* matrix);                           // rwplcore.cpp: 0x80D370
+RwV3d* _rwIntelSSE2V3dTransformPoints(RwV3d* pointsOut, const RwV3d* pointsIn, RwInt32 numPoints, const RwMatrix* matrix);       // rwplcore.cpp: 0x80D440
+RwV3d* _rwIntelSSE2V3dTransformVectors(RwV3d* vectorsOut, const RwV3d* vectorsIn, RwInt32 numVectors, const RwMatrix* matrix);   // rwplcore.cpp: 0x80D4E0
+RwV3d* _rwIntelSSE2V3dTransformPoint(RwV3d* pointOut, const RwV3d* pointIn, const RwMatrix* matrix);                             // rwplcore.cpp: 0x80D570
+RwV3d* _rwIntelSSE2V3dTransformVector(RwV3d* vectorOut, const RwV3d* vectorIn, const RwMatrix* matrix);                          // rwplcore.cpp: 0x80D600
+RwBool _rwD3D9RasterSetFromImage(RwRaster* raster, RwImage* image, RwInt32 unused); // mas abajo en este archivo: 0x8001E0
+namespace RenderWare {
+RwBool _rwD3D9CameraClear(void* camera, void* color, RwInt32 clearFlags);          // WindowedMode.cpp: 0x7F7730
+RwBool _rwD3D9CameraBeginUpdate(void* out, void* camera, RwInt32 unused);          // WindowedMode.cpp: 0x7F8F20
+}
 
 // Estado global del motor que leen o escriben las funciones reconstruidas del grupo g25d en este archivo (direcciones del EXE):
 //   RwEngineInstance (0xC97B24, ver RenderWare.h)       puntero a RwGlobals; los modulos cuelgan de el con su `globalsOffset`
@@ -215,9 +236,9 @@ __declspec(noinline) void __cdecl RxD3D9ResEntryHeaderDestroyExe(uint8* header) 
             for (uint32 i = 0; i < 2; ++i) {
                 if (header[0x36 + 0x10 * i] == 0) {
                     if (ownerType == 8) {
-                        reinterpret_cast<void(__cdecl*)(void*)>(0x74E9E0)(owner);
+                        _rpD3D9RemoveDynamicGeometry(reinterpret_cast<RpGeometry*>(owner)); // 0x74E9E0
                     } else if (ownerType == 1) {
-                        reinterpret_cast<void(__cdecl*)(void*)>(0x74E9E0)(*reinterpret_cast<void**>(owner + 0x18));
+                        _rpD3D9RemoveDynamicGeometry(*reinterpret_cast<RpGeometry**>(owner + 0x18)); // 0x74E9E0
                     }
                     break;
                 }
@@ -225,11 +246,11 @@ __declspec(noinline) void __cdecl RxD3D9ResEntryHeaderDestroyExe(uint8* header) 
         }
     }
     if (void* const indexBuffer = *reinterpret_cast<void**>(header + 0x20)) {
-        reinterpret_cast<void(__cdecl*)(void*)>(0x730D30)(indexBuffer);
+        D3DResourceSystem::DestroyIndexBuffer(indexBuffer); // 0x730D30
         *reinterpret_cast<void**>(header + 0x20) = nullptr;
     }
     if (void* const declaration = *reinterpret_cast<void**>(header + 0x4C)) {
-        reinterpret_cast<void(__cdecl*)(void*)>(0x7FAC10)(declaration);
+        RwD3D9DeleteVertexDeclaration(declaration); // 0x7FAC10
         *reinterpret_cast<void**>(header + 0x4C) = nullptr;
     }
     for (uint32 i = 0; i < 2; ++i) {
@@ -238,9 +259,9 @@ __declspec(noinline) void __cdecl RxD3D9ResEntryHeaderDestroyExe(uint8* header) 
             if (stream[0x0E] != 0) {
                 const uint32 offset = *reinterpret_cast<uint32*>(stream + 4);
                 const uint32 stride = *reinterpret_cast<uint32*>(stream + 8);
-                reinterpret_cast<void(__cdecl*)(uint32, uint32, void*, uint32)>(0x7F56A0)(stride, *reinterpret_cast<uint32*>(header + 0x54) * stride, vertexBuffer, offset);
+                RwD3D9DestroyVertexBuffer(stride, *reinterpret_cast<uint32*>(header + 0x54) * stride, vertexBuffer, offset);
             } else if (*reinterpret_cast<uint32*>(stream + 4) == 0 && stream[0x0F] == 0) {
-                reinterpret_cast<void(__cdecl*)(void*)>(0x7F5AE0)(vertexBuffer);
+                RwD3D9DynamicVertexBufferDestroy(vertexBuffer); // 0x7F5AE0
             }
             *reinterpret_cast<void**>(stream) = nullptr;
         }
@@ -2915,7 +2936,7 @@ void _rwD3D9RasterConvertToNonPalettized(RwRaster* raster) {
 
 // 0x7F5F60: salto directo a 0x4C9AB0 (registro del plugin de raster D3D9, sin reconstruir; cuerpo del EXE)
 RwBool _rwDeviceRegisterPlugin() {
-    return ((RwBool(__cdecl *)(void))0x4C9AB0)();
+    return D3D9RasterPluginAttachExe(); // 0x4C9AB0
 }
 
 // 0x7FAE20 (_rwD3D9DeviceSetRestoreCallback): reconstruida al final del archivo (lote R28A, RwD3D9InjectHooksR28A).
@@ -4057,7 +4078,7 @@ RwBool _rwD3D9Im2DRenderPrimitive(RwInt32 primType, void* vertices, RwInt32 numV
         }
     }
     ComCall<kSlotVertexBufferUnlock, int32>(vertexBuffer);
-    reinterpret_cast<void(__cdecl*)()>(0x7FB810)();
+    _rwD3D9Im2DRenderBegin(); // 0x7FB810
     const uint32 d3dPrimitive = reinterpret_cast<const uint32*>(0x884888)[primType];
     const int32 result = ComCall<kSlotDeviceDrawPrimitive, int32>(D3D9Device, d3dPrimitive, static_cast<uint32>(position), static_cast<uint32>(primitives));
     position += static_cast<uint32>(numVertices);
@@ -5268,7 +5289,7 @@ void CopyStringChecked(char* destination, const char* source, uint32 size) {
     if (static_cast<uint32>(rwstrlen(source)) >= size) {
         RwError error;
         error.pluginID  = 1;
-        error.errorCode = reinterpret_cast<RwInt32(__cdecl*)(RwInt32, ...)>(0x8088D0)(static_cast<RwInt32>(0x8000001E), source, static_cast<RwInt32>(size), static_cast<RwInt32>(size - 1), static_cast<RwInt32>(static_cast<signed char>(source[size - 1])));
+        error.errorCode = _rwerror(static_cast<RwInt32>(0x8000001E), source, static_cast<RwInt32>(size), static_cast<RwInt32>(size - 1), static_cast<RwInt32>(static_cast<signed char>(source[size - 1])));
         RwErrorSet(&error);
         destination[size - 1] = 0;
     }
@@ -6312,11 +6333,11 @@ RwInt32 _rwIm3DDefaultPipelinesCreate(RxPipeline** pipelines) {
             pipelines[2] = unlocked;
             pipelines[3] = unlocked;
             pipelines[4] = unlocked;
-            reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 3);
-            reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 5);
-            reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 4);
-            reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 1);
-            reinterpret_cast<void(__cdecl*)(RxPipeline*, RwInt32)>(0x7EFB10)(unlocked, 2);
+            RwIm3DSetRenderPipeline(unlocked, static_cast<RwPrimitiveType>(3)); // 0x7EFB10
+            RwIm3DSetRenderPipeline(unlocked, static_cast<RwPrimitiveType>(5)); // 0x7EFB10
+            RwIm3DSetRenderPipeline(unlocked, static_cast<RwPrimitiveType>(4)); // 0x7EFB10
+            RwIm3DSetRenderPipeline(unlocked, static_cast<RwPrimitiveType>(1)); // 0x7EFB10
+            RwIm3DSetRenderPipeline(unlocked, static_cast<RwPrimitiveType>(2)); // 0x7EFB10
             return _rwD3D9Im3DRenderOpen();
         }
         toDestroy = unlocked;
@@ -6832,7 +6853,7 @@ RwBool _rwD3D9DeviceSystemStop(void* /*out*/, void* /*inOut*/, RwInt32 /*in*/) {
     }
     D3D9ExtraRecordCount = 0;
     D3D9ExtraRecordUnused = 0;
-    ((void(__cdecl *)(void))0x4CC170)();
+    D3D9RasterListShutdownExe(); // 0x4CC170 (D3D9RasterDriver.cpp)
     _rwD3D9VertexBufferManagerClose();
     _rwD3D9Im2DRenderClose();
     ComCall<kSlotRelease, ULONG>(D3D9Device);
@@ -6848,13 +6869,14 @@ static RwInt32 _rwD3D9DeviceStandardNull();
 // direcciones son del EXE (incluye 0x7F8F20 y 0x7F7730, enganchadas por WindowedMode.cpp, y 0x4Cxxxx del controlador de rasters). Devuelve TRUE.
 RwBool _rwD3D9DeviceSystemStandards(void* out, void* /*inOut*/, RwInt32 numStandards) {
     struct StandardEntry { uint32 index; uint32 function; };
-    static constexpr StandardEntry kStandards[27] = {
-        { 0x01, 0x7F8F20 }, { 0x0A, 0x7F98D0 }, { 0x15, 0x7F7730 }, { 0x14, 0x7F99B0 }, { 0x02, 0x7FEE20 }, { 0x03, 0x7FF070 }, { 0x07, 0x8001E0 },
-        { 0x06, 0x7FF270 }, { 0x05, 0x4CBB00 }, { 0x04, 0x4CCE60 }, { 0x09, 0x7FFF00 }, { 0x08, 0x4CBD40 }, { 0x0F, 0x4C9F90 }, { 0x10, 0x4CA290 },
-        { 0x17, 0x4CA4E0 }, { 0x18, 0x4CA540 }, { 0x0E, 0x4CB4E0 }, { 0x0D, 0x4CB4C0 }, { 0x11, 0x4CAE40 }, { 0x12, 0x4CAE80 }, { 0x13, 0x4CAE60 },
-        { 0x0B, 0x4CB520 }, { 0x0C, 0x4CBD50 }, { 0x19, 0x4CD360 }, { 0x1B, 0x4CD4D0 }, { 0x1A, 0x4CD820 }, { 0x1C, 0x4CBCB0 },
-    };
-    uint32* const standards = static_cast<uint32*>(out);
+    // Direcciones de las funciones estandar: las que ya estan en C++ se registran con su direccion propia (sin pasar por el EXE); el resto, del EXE.
+    const auto Fn = [](auto function) { return static_cast<uint32>(reinterpret_cast<uintptr_t>(function)); };
+    const StandardEntry kStandards[27] = {
+        { 0x01, Fn(&RenderWare::_rwD3D9CameraBeginUpdate) }, { 0x0A, 0x7F98D0 }, { 0x15, Fn(&RenderWare::_rwD3D9CameraClear) }, { 0x14, 0x7F99B0 }, { 0x02, Fn(&_rwD3D9RGBToPixel) }, { 0x03, Fn(&_rwD3D9PixelToRGB) }, { 0x07, Fn(&_rwD3D9RasterSetFromImage) },
+        { 0x06, Fn(&_rwD3D9RasterToImage) }, { 0x05, Fn(&RwD3D9RasterDriver::RasterDestroyCpp) }, { 0x04, Fn(&RwD3D9RasterDriver::RasterCreateCpp) }, { 0x09, 0x7FFF00 }, { 0x08, 0x4CBD40 }, { 0x0F, Fn(&D3D9RasterLockExe) }, { 0x10, Fn(&D3D9RasterUnlockExe) },
+        { 0x17, 0x4CA4E0 }, { 0x18, Fn(&D3D9RasterPaletteUnlockExe) }, { 0x0E, 0x4CB4E0 }, { 0x0D, 0x4CB4C0 }, { 0x11, 0x4CAE40 }, { 0x12, 0x4CAE80 }, { 0x13, 0x4CAE60 },
+        { 0x0B, 0x4CB520 }, { 0x0C, 0x4CBD50 }, { 0x19, Fn(&D3D9RasterFormat::GetRasterMemorySize) }, { 0x1B, 0x4CD4D0 }, { 0x1A, 0x4CD820 }, { 0x1C, 0x4CBCB0 },
+    };    uint32* const standards = static_cast<uint32*>(out);
     if (numStandards > 0) {
         for (RwInt32 i = 0; i < numStandards; ++i) {
             standards[i] = static_cast<uint32>(reinterpret_cast<uintptr_t>(&_rwD3D9DeviceStandardNull));
@@ -6967,7 +6989,7 @@ RwBool _rwD3D9DeviceReleaseVideoMemory() {
     _rwD3D9Im2DRenderClose();
     _rwD3D9Im3DRenderClose();
     _rwD3D9DynamicVertexBufferRelease();
-    ((void(__cdecl *)(void))0x4CB640)();
+    D3D9RasterListReleaseResourcesExe(); // 0x4CB640 (D3D9RasterDriver.cpp)
     RwFreeListPurgeAllFreeLists();
     return TRUE;
 }
@@ -7396,7 +7418,7 @@ RwBool _rwD3D9System(RwInt32 request, void* out, void* inOut, RwInt32 in) {
             RwFree(lights);
             D3D9LightCache = nullptr;
         }
-        ((void(__cdecl*)(void))0x4CC150)();
+        D3D9RasterListInitExe(); // 0x4CC150 (D3D9RasterDriver.cpp)
         _rwD3D9Im2DRenderOpen();
         _rwD3D9RenderStateOpen();
         _rwD3D9VertexBufferManagerOpen();
@@ -7494,11 +7516,11 @@ RwBool _rwD3D9System(RwInt32 request, void* out, void* inOut, RwInt32 in) {
         if (D3D9SysSSE == 0) {
             _rwVectorSetMultFn(&RwMathX87::TransformPoint, &RwMathX87::TransformPoints, &RwMathX87::TransformVector, &RwMathX87::TransformVectors);
         } else if (D3D9SysSSE2 != 0 && D3D9Sys3DNow == 0) {
-            _rwVectorSetMultFn(reinterpret_cast<rwVectorMultFn>(0x80D570), reinterpret_cast<rwVectorsMultFn>(0x80D440),
-                               reinterpret_cast<rwVectorMultFn>(0x80D600), reinterpret_cast<rwVectorsMultFn>(0x80D4E0));
+            _rwVectorSetMultFn(_rwIntelSSE2V3dTransformPoint, _rwIntelSSE2V3dTransformPoints,
+                               _rwIntelSSE2V3dTransformVector, _rwIntelSSE2V3dTransformVectors); // 0x80D570, 0x80D440, 0x80D600, 0x80D4E0
         } else {
-            _rwVectorSetMultFn(reinterpret_cast<rwVectorMultFn>(0x80D280), reinterpret_cast<rwVectorsMultFn>(0x80D070),
-                               reinterpret_cast<rwVectorMultFn>(0x80D370), reinterpret_cast<rwVectorsMultFn>(0x80D180));
+            _rwVectorSetMultFn(_rwIntelSSEV3dTransformPoint, _rwIntelSSEV3dTransformPoints,
+                               _rwIntelSSEV3dTransformVector, _rwIntelSSEV3dTransformVectors); // 0x80D280, 0x80D070, 0x80D370, 0x80D180
         }
         return TRUE;
     }
@@ -7921,7 +7943,7 @@ RwFreeList*& RasterFreeListR28A() { // RwRasterGlobals + 0x60
 }
 
 int32 D3D9CheckTextureFormatByAddress(int32 format) { // 0x4CBDE0 (cdecl, formato): 0/1
-    return reinterpret_cast<int32(__cdecl*)(int32)>(0x4CBDE0)(format);
+    return RwD3D9RasterDriver::CheckTextureFormatCpp(static_cast<uint32>(format));
 }
 } // namespace
 
@@ -14362,3 +14384,15 @@ void RwD3D9InjectHooksS32A33A() {
     RH_ScopedGlobalInstall(_rwD3D9PixelConvertA4L4, 0x7FFE90);
     RH_ScopedGlobalInstall(_rwD3D9PixelConvertA8L8, 0x7FFEC0);
 }
+
+// Destructor de la cabecera de instancia (0x4C9990) como callback de destruccion de RwResEntry, para rpworld.cpp.
+void RxD3D9ResEntryHeaderDestroyNotify(RwResEntry* entry) {
+    RxD3D9ResEntryHeaderDestroyExe(reinterpret_cast<uint8*>(entry));
+}
+
+// _rwD3D9TextureHasAlpha (0x4C9EA0) y _rwD3D9RasterIsCubeRaster (0x4C9F70) para rpmatfx.cpp, sin pasar por las direcciones del EXE.
+RwInt32 RwD3D9TextureHasAlphaExport(const RwTexture* texture) { return D3D9TextureHasAlphaExe(texture); }
+RwInt32 RwD3D9RasterIsCubeExport(const RwRaster* raster) { return D3D9RasterIsCubeRasterExe(raster); }
+
+// RwCameraSetNearClipPlane (0x7EE1D0) para X87Math.cpp, sin pasar por la direccion del EXE.
+void* RwCameraSetNearClipPlaneExport(void* camera, float nearClip) { return RwCameraSetNearClipPlane(static_cast<RwCamera*>(camera), nearClip); }

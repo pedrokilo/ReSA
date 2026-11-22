@@ -34,6 +34,8 @@ END GENERATED HOOK STATUS */
 #include "PedParkAttractor.h"
 #include "PedStepAttractor.h"
 
+void PedAttractorListPushBack(void* list, CPedAttractor* const* item); // PedAttractor.cpp: push_back de 0x5EE400
+
 namespace {
 // Lote 205A (sin validar): las tres instancias de plantilla del EXE sobre el vector de punteros a atractor (CPedAttractor*) que no se expanden en linea; las llaman las funciones de la clase (0x5EBA30, 0x5EBCB0 y 0x5EBD70, ya reconstruidas, con
 // su propia version de plantilla en la cabecera) una vez por cada una de las diez listas del gestor. Son metodos del gestor que NO leen `this` (ECX llega sin usar); el resto de argumentos va en la pila y los limpia el propio metodo
@@ -238,8 +240,8 @@ CPedAttractor* __stdcall RegisterPedList(CPed* ped, C2dEffectPedAttractor* fx, C
         case PED_ATTRACTOR_STEP:           result = Create.template operator()<CPedStepAttractor>(); break;
         default:                           return nullptr; // Como el original: tipo fuera de 0..9, sin anadir a la lista ni registrar
         }
-        // Como el EXE: vector::push_back de punteros (instancia C, 0x5EE400, con hook) con la direccion de un local que guarda el atractor (nulo si el pool esta lleno); se llama por su direccion fija.
-        plugin::CallMethod<0x5EE400, AttractorList*, CPedAttractor**>(&attractors, &result);
+        // Como el EXE: vector::push_back de punteros (instancia C, 0x5EE400, con hook) con la direccion de un local que guarda el atractor (nulo si el pool esta lleno).
+        PedAttractorListPushBack(&attractors, &result);
     }
 
     if (result) {

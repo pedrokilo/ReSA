@@ -68,6 +68,7 @@ __declspec(noinline) CTaskComplexFollowPatrolRoute* __fastcall CTaskComplexFollo
 } // namespace
 
 namespace {
+void __fastcall FollowPatrolRouteDestructorBody(CTaskComplex* self, void* edx); // 0x6709F0, mas abajo
 // Lote 209A (sin validar): la clase sigue sin campos declarados, asi que se leen en bruto los que muestran los desensamblados (ver el Clone de abajo): +0x08 subtarea (CTaskComplex::m_pSubTask), +0x1C CPatrolRoute*, +0x20 banderas (bit 0 y bit 1) y
 // +0x24 un CVector (copia de la posicion del peaton), +0x12 un word.
 template<typename T>
@@ -85,7 +86,7 @@ eTaskType __fastcall FollowPatrolRouteGetTaskType(CTaskComplexFollowPatrolRoute*
 // `push esi; mov esi,ecx; call 0x6709F0; test byte [esp+8],1; je ..; push esi; call 0x61A5B0; add esp,4; mov eax,esi; pop esi; ret 4`). El cuerpo del destructor (0x6709F0: vtable, borrado de la ruta y ~CTaskComplex) aun
 // no esta reconstruido y se llama POR DIRECCION. Libera `this` con CTask::operator delete (0x61A5B0, con hook) solo si el bit 0 del BYTE de banderas esta puesto y devuelve `this`.
 CTaskComplexFollowPatrolRoute* __fastcall FollowPatrolRouteScalarDeletingDestructor(CTaskComplexFollowPatrolRoute* self, void* /*edx*/, uint8 flags) {
-    plugin::CallMethod<0x6709F0, CTaskComplexFollowPatrolRoute*>(self);
+    FollowPatrolRouteDestructorBody(self, nullptr); // 0x6709F0
     if (flags & 1) {
         CTask::operator delete(self);
     }
@@ -108,7 +109,7 @@ CTask* __fastcall CTaskComplexFollowPatrolRouteCloneExe(const CTaskComplexFollow
     const int32  field0C = *reinterpret_cast<const int16*>(source + 0x0C);
     const uint32 field14 = *reinterpret_cast<const uint32*>(source + 0x14);
     const uint32 field18 = *reinterpret_cast<const uint32*>(source + 0x18);
-    return plugin::CallMethodAndReturn<CTask*, 0x674930, CTask*, int32, void*, int32, uint32, uint32>(static_cast<CTask*>(memory), field10, route, field0C, field14, field18);
+    return CTaskComplexFollowPatrolRouteConstructorExe(static_cast<CTaskComplexFollowPatrolRoute*>(memory), nullptr, field10, static_cast<const CPatrolRoute*>(route), field0C, field14, field18); // 0x674930
 }
 
 // 0x66BA90 (lote 209A, sin validar; el listado decia CTaskComplexTurnToFaceEntityOrCoord; ranura 6 de la vtable 0x870114, MakeAbortable; thiscall con (ped, prioridad, evento), `ret 0Ch`, 104 bytes): si la prioridad es 0 pone a cero el primer

@@ -94,7 +94,7 @@ RwBool RpAnisotPluginAttach() {
     if (s_anisotStreamResult < 0) {
         return FALSE;
     }
-    reinterpret_cast<void(__cdecl*)(RwInt32)>(0x7FDE60)(s_anisotTextureOffset);
+    _rwD3D9SetAnisotropyTextureOffset(s_anisotTextureOffset); // 0x7FDE60
     return TRUE;
 }
 

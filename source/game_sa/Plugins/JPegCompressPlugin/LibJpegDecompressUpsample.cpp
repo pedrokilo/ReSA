@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegExports.h"
 
 #include "LibJpegDecompressUpsample.h"
 #include "LibJpegCallback.h"
@@ -114,7 +115,7 @@ void ExeJinitUpsampler(void* cinfo) {
     uint8* const up = static_cast<uint8*>(AllocSmallViaMem(cinfo, 1, 0x4C));
     At<uint8*>(cinfo, 0x1A0) = up;
     At<uint32>(up, 0x00) = LIBJPEG_CB(0x5CCE60, "jdsample", "start_pass_upsample");
-    At<uint32>(up, 0x04) = 0x5CCE80;
+    At<uint32>(up, 0x04) = LibJpegFnAddress(&ExeSepUpsample); // 0x5CCE80
     At<uint8>(up, 0x08) = 0;
     if (At<uint8>(cinfo, 0x10A) != 0) {
         ErrExit(cinfo, JERR_CCIR601_NOTIMPL);
@@ -175,7 +176,7 @@ void ExeJinitUpsampler(void* cinfo) {
             // jround_up sobre max_v no debe verse en la llamada a alloc_sarray (defecto hallado por el banco Fn235A: la version anterior lo releia despues).
             void* const mem = At<void*>(cinfo, 0x04);
             const int32 maxVForAlloc = At<int32>(cinfo, 0x114);
-            const int32 width = reinterpret_cast<int32(__cdecl*)(int32, int32)>(0x5CF8A0)(At<int32>(cinfo, 0x5C), At<int32>(cinfo, 0x110)); // jround_up
+            const int32 width = LibJpegExportJroundUp(At<int32>(cinfo, 0x5C), At<int32>(cinfo, 0x110)); // jround_up (0x5CF8A0)
             At<void**>(up, 0x0C + 4 * idx) = AllocSarrayViaMem(cinfo, mem, 1, static_cast<uint32>(width), static_cast<uint32>(maxVForAlloc));
         }
         ++ci;
@@ -195,3 +196,7 @@ void LibJpegDecompressUpsample::InjectHooks() {
     RH_ScopedNamedGlobalInstall(ExeSepUpsample, "sep_upsample", 0x5CCE80);                  // lote 235A (sin validar)
     RH_ScopedNamedGlobalInstall(ExeJinitUpsampler, "jinit_upsampler", 0x5CD350);            // lote 235A (sin validar)
 }
+
+// Entradas publicas para LibJpegDecompress.cpp (ver LibJpegExports.h).
+void LibJpegExportJinitPostController(void* cinfo, int32 needFull) { ExeJinitPostController(cinfo, needFull); } // 0x5CCDF0
+void LibJpegExportJinitUpsampler(void* cinfo) { ExeJinitUpsampler(cinfo); }                                     // 0x5CD350

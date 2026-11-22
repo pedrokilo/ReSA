@@ -67,6 +67,11 @@ static CPedModelInfo* __fastcall PedModelInfoScalarDeletingDestructor(CPedModelI
 /**
  * Registra las operaciones específicas de modelos de peatón.
  */
+// Constructor de elemento (cuerpo de PedModelInfoConstructorBody) para el almacen de ModelInfo.cpp: se llama sin pasar por la direccion del EXE.
+void PedModelInfoConstructExe(void* element) {
+    PedModelInfoConstructorBody(static_cast<CPedModelInfo*>(element), nullptr);
+}
+
 void CPedModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CPedModelInfo, 0x85BDC0, 17);
     RH_ScopedCategory("Models");

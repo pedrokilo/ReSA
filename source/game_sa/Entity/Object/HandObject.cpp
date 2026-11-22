@@ -50,7 +50,7 @@ CHandObject::CHandObject(int32 handModelIndex, CPed* ped, bool bLeftHand) : CObj
 // (0x61B044 y siguientes).
 CHandObject* CHandObject::Constructor(int32 handModelIndex, CPed* ped, bool bLeftHand)
 {
-    plugin::CallMethod<0x5A1D10, CObject*>(static_cast<CObject*>(this));
+    static_cast<CObject*>(this)->ConstructorDefault(); // 0x5A1D10
     *reinterpret_cast<uint32*>(this) = 0x866EE0;
     InitFromPed(handModelIndex, ped, bLeftHand);
     return this;

@@ -1133,7 +1133,7 @@ RwBool _rpSkinD3D9CreateVertexBuffer(RpAtomic* atomic, RxD3D9ResEntryHeader* hea
         }
     }
     elements[n] = { 0xFF, 0, 0x11, 0, 0, 0 };
-    ((RwBool(__cdecl *)(const void*, void*))0x7FAA30)(elements, &header->vertexDeclaration);
+    RwD3D9CreateVertexDeclaration(elements, reinterpret_cast<void**>(&header->vertexDeclaration)); // 0x7FAA30
 
     // 5. buffers de vertices.
     RwUInt32 usedStreams = numStreams;

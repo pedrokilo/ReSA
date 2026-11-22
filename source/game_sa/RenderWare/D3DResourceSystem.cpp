@@ -101,7 +101,7 @@ __declspec(noinline) void __fastcall GrowableArrayPushBack(void* self, void* /*e
     volatile int32* const capacity = reinterpret_cast<volatile int32*>(raw);
     volatile int32* const count    = reinterpret_cast<volatile int32*>(raw + 4);
     while (*count >= *capacity) {
-        reinterpret_cast<void(__thiscall*)(void*, uint32)>(0x7304B0)(self, static_cast<uint32>(*capacity) << 1);
+        GrowableArrayResize(self, nullptr, static_cast<uint32>(*capacity) << 1); // 0x7304B0
     }
     const uint32 data = *reinterpret_cast<volatile uint32*>(raw + 8);
     *reinterpret_cast<volatile uint32*>(static_cast<uintptr_t>(data + static_cast<uint32>(*count) * 4u)) = value;

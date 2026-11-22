@@ -74,12 +74,61 @@ Criterio común: **un puntero a función cuyo valor se guarda o se compara** (`r
 
 Clasificadas, no cerradas: 50 son literales del protector (`ExeProtectionStub.cpp`), 59 de libjpeg y 58 de RenderWare son direcciones interiores o callbacks guardados, 6 son comentarios con la dirección que el escáner no reconoce (la línea lleva un separador de dígitos `10'000` o un literal de carácter), 1 es una constante numérica y 9 quedan para la parte 6. Ninguna es una llamada que haya que sustituir.
 
+## 2b. P2b: segunda pasada sobre los puentes por dirección que quedaban
+
+Rama `vivo-p2b` (desde `origin/main` 410d9f2d84, 21/11/2026). No cambia ninguna dirección de enganche: en cada caso la llamada por dirección se sustituye por la llamada a la función C++ que ya estaba enganchada en esa dirección (o por su puntero, cuando la dirección se guardaba en una estructura). `contrib/codigo_vivo_cierre_p2.py` lee ahora `motivos-p2b.csv`, que da el motivo concreto por dirección de lo que no se tocó.
+
+| | Antes de P2b | Después de P2b |
+| --- | ---: | ---: |
+| Entradas de función B1–B18 sin llamada por dirección (sustituidas) | 92 | **300** |
+| …pendientes o parciales | 277 | 69 (32 del CRT y arranque, que llevan otras ramas) |
+| …que no eran puentes (tabla de `Cheat.cpp`) | 65 | 65 |
+| Referencias que no son enganche (B1–B18) | 373 | **116** |
+| *Tras fusionar `origin/main` a23f30550d (vivo-p3, que retira otras 19 por su lado, entre ellas 0x4CCE60 con `RasterCreateCpp` y los puentes de QuickTime):* sustituidas / pendientes o parciales / referencias | | 319 / 50 / 102 |
+
+Todas las cifras de esta sección son de la rama sola, salvo la fila marcada. De las 316 entradas de función pendientes al empezar (los 271 puentes de B1–B18 más las entradas «vivas» del EXE que el C++ cita) se sustituyeron **209**; de las 256 que no eran del CRT ni del protector quedan 47, que se explican una a una abajo.
+
+| Grupo (motivo de P2 original) | Direcciones | Sustituidas | Quedan |
+| --- | ---: | ---: | ---: |
+| Constructores/destructores de tarea con ABI propia | 18 | 18 | 0 |
+| Plantillas del vector de la STL en `PedAttractor` y `AEUserRadioTrackManager` | 55 | 55 | 0 |
+| RenderWare / D3D9 (punteros guardados o funciones internas) | 88 | 59 (60 con `RasterCreateCpp` de vivo-p3) | 29 (28 de libpng; tras vivo-p3 solo 2) |
+| ABI propia del EXE | 46 | 31 | 15 |
+| libjpeg | 45 | 43 | 2 (heap del CRT) |
+| Audio con dwords exactos | 4 | 3 | 1 (sin C++) |
+| CRT y arranque / protector | 60 | 0 | 60 (no son de esta parte) |
+
+### Qué se sustituyó
+
+* **Tareas (18).** `CTaskSimpleFight` (constructor y destructor llaman a `Constructor()`/`Destructor()`), `CTaskComplexReactToAttack` (constructor 0x620B00 en `Clone`; `CVector2D::Normalise` 0x44E480 expuesta desde `Vector.cpp`), `CTaskComplexWaitForPed` (0x61A3D0), `CTaskComplexUseMobilePhone` (0x6348E0, 0x6348F0), `CTaskComplexAvoidEntity` (0x66AA20, 0x66AAE0, 0x66FD30), `CTaskComplexFollowPatrolRoute` (0x6709F0, 0x674930), `CTaskInteriorSitInChair` (0x675C30; el primer argumento del EXE es la duración; ya no se llama al constructor sin memoria) y `Population.cpp`: la plantilla `PopulationTask` reserva con `CTask::operator new` y construye con el constructor C++ de `CTaskComplexBeInCouple` (0x6836F0), `CTaskSimpleHoldEntity` (0x6913A0) y `CTaskComplexSunbathe` (0x631F80), y llama a `CanSunbathe` (0x632140). Corrección de un fallo latente: `PopulationSunbathe` llamaba a `SetHeading` (0x43E0C0) con la dirección de la **matriz** en lugar del peatón o la toalla; ahora usa `ped->SetHeading` y `towel->SetHeading`, como el EXE (0x6155C1, 0x615601).
+* **Vector de la STL (55).** Los 47 ayudantes de `PedAttractor.cpp` (copias, rellenos, `uninitialized_copy`, `copy_backward`, `_Insert_n`, `insert`, `push_back`, `size`) se llaman entre sí por su nombre, sin direcciones; `vector::_Xlen` lo lanza `ExeVectorXlen` (cuerpo en `AEUserRadioTrackManager.cpp`). `UserTracksLegacyVector::Insert` (0x4F4320) reutiliza `SArrayInsertN4` (mismo cuerpo de plantilla) y los 8 ayudantes 0x4F39xx–0x4F3Dxx dejan de llamarse por dirección. `CPedAttractorManager` empuja con `PedAttractorListPushBack` (0x5EE400).
+* **Con ABI propia (31).** `CTheScripts::MoveSearchLight*` (0x493360, 0x493420, 0x493480; las tres definiciones nuevas reenvían a las funciones con los mismos bits), `SetEngineOn` (0x41BDD0, en línea: con el motor roto lo apaga), `IsInvisibleOrRenderDamaged` (0x46A2F0), `DecisionMakerTypes` (0x4650F0), Fx (0x4A9F20 y 0x4A9F40 por `FxPrimConstructExe`/`FxPrimDestructExe`, 0x4A9D20 por `FxPrimBPDestroyBody`, 0x4A76C0), los 9 constructores de almacén de `ModelInfo.cpp` (0x4C5540…0x4C75E0, por la función `…ConstructExe` de cada clase), `CEventSource` (0x601C30, 0x601BC0, 0x5DF8F0: llamadas directas a `IsThreatenedBy`, `IsFriendlyWith` e `IsPlayer`), `CCutsceneObject`/`CHandObject` (0x5A1D10), `QuadBike` (0x6D0B30, destructor vacío), `X87Math` (0x7EE1D0 y 0x7EDB30 por `RwCameraSetNearClipPlaneExport`/`RwSqrtExport`), `CustomBuilding*` y `CustomCarEnvMap` (0x7F9F70, 0x7FA1C0, 0x7FE0A0) y los tres lanzadores `std::string`/`runtime_error` de `CrtException.cpp` (0x4F4170, 0x4F4090, 0x4F3BA0, por las funciones `ExeStd*` de `AEUserRadioTrackManager.cpp`).
+* **RenderWare/D3D9 (59).** `rwcore.cpp`: destructor de la cabecera de instancia (0x74E9E0, 0x730D30, 0x7FAC10, 0x7F56A0, 0x7F5AE0), `RwIm3DSetRenderPipeline` (0x7EFB10 ×5), lista de rasters (0x4CB640, 0x4CC150, 0x4CC170 por `D3D9RasterList…Exe`), tabla de funciones estándar del dispositivo (ahora con las direcciones C++ de 0x7F8F20, 0x7F7730, 0x7FEE20, 0x7FF070, 0x8001E0, 0x7FF270, 0x4CBB00, 0x4C9F90, 0x4CA290, 0x4CA540 y 0x4CD360), `_rwerror` (0x8088D0), tablas de multiplicación de vectores SSE/SSE2 (0x80D070…0x80D600); `rwplcore.cpp` (0x7ED730, 0x7ED880, 0x80A240, 0x80A350, 0x7F5F60, 0x801D50); `rpworld.cpp` (callbacks de derechos 0x749120, 0x749160, 0x74D7D0, 0x74D810; atadores 0x74FFA0, 0x74FFF0; 0x760CF0; 0x74EEC0, que el EXE solo llama y no compara; 0x4C9990 como `destroyNotify`); `rpmatfx.cpp` (0x4C9EA0, 0x4C9F70, 0x4CD250, 0x7FC200, 0x7FE190, 0x7F5B10), `rpskin.cpp` (0x7FAA30), `rpanisot.cpp` (0x7FDE60), `D3D9RasterDriver.cpp` (0x7FDCD0, 0x7FDE50), `D3D9RasterFormat.cpp` (0x7FF270, 0x8001E0) y `D3DResourceSystem.cpp` (0x7304B0).
+* **libjpeg (43).** Las llamadas entre archivos del módulo van por `LibJpegExports.h` (nuevo: funciones `LibJpegExport…` y `LibJpegFnAddress`) o por los miembros de `LibJpegCompress`; los 23 punteros a función guardados en las estructuras de libjpeg (`marker`, `master`, `inputctl`, `mem`, `err`, `up`, `cconvert`) llevan ahora la dirección de la función C++. Es viable porque esos valores solo aparecen en el EXE dentro de las rutinas de inicialización (0x5C35xx…0x5CF7xx), que ya están reemplazadas y no se ejecutan, y el EXE no los compara; las 27 funciones de libjpeg que el EXE conserva sin C++ están todas descartadas o condicionadas. Se mantiene el mecanismo `LIBJPEG_CB` (opción `GTASA_WITH_LIBJPEG`).
+* **Audio (3).** `StartTrackPlayback` y `CheckForPause` (ambientación) y `StartTrackPlayback` y la pausa (cutscene) llaman a `SetChannelVolume`, `SetChannelFlags` y `SetChannelFrequencyScalingFactor` con el canal como `int16`: las tres funciones del EXE leen solo la palabra del canal (`mov ax, word [esp+4]`, `movsx`), así que extender a cero o con signo es indiferente; el volumen y el factor viajan con los mismos bits.
+
+### Qué NO se sustituyó, y por qué ([motivos-p2b.csv](motivos-p2b.csv))
+
+| Direcciones | Motivo concreto |
+| --- | --- |
+| 0x407180, 0x441390, 0x69F2B0, 0x6A0050 | las tres líneas de `CarCtrl.cpp`/`Cam.cpp` que también cambia la rama `datos-exe` (`StaticRef`): `origin/main` todavía no la contiene; se hacen al fusionar `datos-exe` para no provocar conflicto |
+| 0x705620, 0x7491C0 | `ShadowCamera.cpp` pasa/guarda esas direcciones del EXE y el EXE compara `renderCallBack` con 0x7491C0 (0x705626…0x705655, 0x705CD2, 0x705CF5, 0x4C919D, 0x7328A9, 0x7328BB, 0x749CAD) |
+| 0x732B40 | `Renderer.cpp` compara con la dirección de `RenderEntity` que el EXE guarda en las listas (0x5539A6, 0x733DB1, 0x733E71, 0x73458E) |
+| 0x747EB0 | `WinMain.cpp`: solo con `NOTSA_USE_SDL3` se registra como `lpfnWndProc` la dirección del EXE (sin SDL3 ya se usa `__MainWndProc`) |
+| 0x72F420, 0x72F430, 0x72F440, 0x72F4C0, 0x72F4F0 | envolturas del heap del CRT (`MemoryMgr.cpp`, `free` de libjpeg): dependen del CRT propio y las tocan las ramas del CRT |
+| 0x53E920, 0x541DD0 | no son puentes: `AutoSteal.cpp` parchea 5 bytes de `CGame::Idle` e `InjectHooksMain.cpp` instala el enganche de `CPad::UpdatePads`; la dirección es el destino del enganche |
+| 0x4CCE60 | en la rama sola no tenía versión C++ (crear raster D3D9); `vivo-p3` la aporta (`RasterCreateCpp`) y tras la fusión `D3D9RasterFormat.cpp` y la tabla estándar de `rwcore.cpp` la llaman por nombre |
+| 0x818650, 0x818670, 0x81A3C0 | en la rama sola: puentes de QuickTime y decodificador de medios del EXE sin C++ (lote V6/E); `vivo-p3` (QuickTime nulo) los retira al fusionar |
+| 28 direcciones 0x7CF600…0x7DA870 (tras vivo-p3 quedan 0x7CF600 y 0x7CF9B0) | tabla de funciones de libpng de `rtpng.cpp`; decisión vigente: libpng + zlib se enlazan; el puntero desaparece al enlazar (rama `enl-png`) |
+
 ## 3. Comprobaciones tras la parte
 
 * Compilación completa de la DLL (`reversing/CVehicle/build-project.ps1` con el candado `compile_lock`): sin errores ni advertencias nuevas.
 * `contrib/audit_hook_catalog.py --strict`: OK. `contrib/audit_cpp_assembly.py`: 0 archivos con ensamblador o `naked`.
 * Humo con la DLL propia (`AGUA_ASI`, `cal_mal.args`: todos los enganches activos): `prueba_ropero.py` → **BIEN** (puerta 2877 y marcador presentes); `prueba_agua.py` → **BIEN** (brillo medio 48,6, bajo el agua).
 * Sin banco por función dentro del juego (decisión del usuario): la equivalencia de cada sustitución es la del enganche que ya redirigía esa dirección a la misma función C++.
+
+Tras P2b (rama `vivo-p2b`): compilación completa de la DLL con el candado `compile_lock` (`_build_VIVOP2B.sh`), `EXIT=0` y sin advertencias nuevas; `audit_hook_catalog.py --strict` OK y 0 archivos con ensamblador; humo con la DLL de la rama (`cal_mal.args`): `prueba_ropero.py` **BIEN** (puerta y marcador presentes) y `prueba_agua.py` **BIEN** (brillo medio 48,5, bajo el agua). Después de fusionar `origin/main` a23f30550d (vivo-p3; un conflicto en `D3D9RasterFormat.cpp` resuelto a favor de `RasterCreateCpp` más `_rwD3D9RasterSetFromImage`, y la tabla estándar de `rwcore.cpp` pasa a `RasterCreateCpp`) se volvió a compilar (`EXIT=0`) y los dos humos dieron **BIEN** (ropero: puerta y marcador; agua: brillo medio 48,0). Sin banco por función (decisión del usuario). `contrib/sync_docs.py` no se pudo ejecutar en este árbol (la validación de `hooks.csv` exige antes `sync_validated_flags.py`, ajeno a esta parte); como no se añade ni se mueve ningún enganche, `hooks.csv` no cambia.
 
 ## 4. Reproducir
 
@@ -89,3 +138,5 @@ python -X utf8 contrib/codigo_vivo_cierre.py --lotes V1,...,V8-1 --escribir-lote
 python -X utf8 contrib/codigo_vivo_cierre_p2.py --aplicar
 python -X utf8 contrib/codigo_vivo_plan.py        # vuelca cierre.csv en plan.csv y plan-lotes.md
 ```
+
+P2b usa además `docs/CodigoVivoExe/motivos-p2b.csv` (motivo concreto por dirección que no se sustituyó), que `codigo_vivo_cierre_p2.py` lee antes de caer en el motivo genérico.

@@ -27,9 +27,16 @@ END GENERATED HOOK STATUS */
 #include "Tasks/TaskTypes/TaskSimpleStandStill.h"
 #include "Pools/PoolRawDelete.h"
 
+// std::vector<T>::_Xlen del EXE sin pasar por su direccion: el cuerpo vive en AEUserRadioTrackManager.cpp (lanza el length_error del original).
+[[noreturn]] void ExeVectorXlen();
+
 namespace {
 struct SArrayElem20 { uint32 w[5]; };
 struct SArrayElem12 { uint32 w[3]; };
+
+// Declaraciones adelantadas: las envolturas de copy_backward llaman directamente a las funciones C++ (definidas mas abajo), sin pasar por la direccion del EXE.
+SArrayElem20** __cdecl SArrayCopyBackwardStride20(SArrayElem20** out, SArrayElem20* first, SArrayElem20* last, SArrayElem20* destEnd);
+SArrayElem12** __cdecl SArrayCopyBackwardStride12(SArrayElem12** out, SArrayElem12* first, SArrayElem12* last, SArrayElem12* destEnd);
 
 // 0x4F3B00
 // Lote 205A (sin validar): 15 funciones mas del mismo bloque de plantillas de la STL de MSVC 6 (0x5EB140..0x5EB3B2, cdecl, sin llamadores fuera de las instancias de SArray; son plantillas de la STL, no metodos de CPedAttractor).
@@ -53,14 +60,12 @@ uint32** __cdecl SArrayCopyBackwardStride4(uint32** out, uint32* first, uint32* 
 // Envoltorios de copy_backward (0x5EB170 de 20 bytes y 0x5EB220 de 12 bytes, 50 bytes cada uno): reenvian (out, first, last, destEnd) y repiten destEnd como quinto argumento (el EXE empuja cinco) a la funcion de arriba
 // (0x5EAC50 / 0x5EACC0, con hook) y devuelven out (en ESI). El quinto argumento no lo lee la funcion, asi que aqui se omite.
 SArrayElem20** __cdecl SArrayCopyBackwardStride20Wrapper(SArrayElem20** out, SArrayElem20* first, SArrayElem20* last, SArrayElem20* destEnd) {
-    // Colaborador del lote 189A (sin hook en esta base): se llama por su direccion del EXE.
-    reinterpret_cast<SArrayElem20** (__cdecl*)(SArrayElem20**, SArrayElem20*, SArrayElem20*, SArrayElem20*)>(0x5EAC50)(out, first, last, destEnd);
+    SArrayCopyBackwardStride20(out, first, last, destEnd);
     return out;
 }
 // 0x5EB220
 SArrayElem12** __cdecl SArrayCopyBackwardStride12Wrapper(SArrayElem12** out, SArrayElem12* first, SArrayElem12* last, SArrayElem12* destEnd) {
-    // Colaborador del lote 189A (sin hook en esta base): se llama por su direccion del EXE.
-    reinterpret_cast<SArrayElem12** (__cdecl*)(SArrayElem12**, SArrayElem12*, SArrayElem12*, SArrayElem12*)>(0x5EACC0)(out, first, last, destEnd);
+    SArrayCopyBackwardStride12(out, first, last, destEnd);
     return out;
 }
 
@@ -247,6 +252,15 @@ struct SArrayRaw {
     T*    end;
 };
 
+// size() de los vectores de 20 y de 12 bytes (cuerpo de 0x5E9800 / 0x5E9850): sin inicio devuelve 0; si no, diferencia de bytes de 32 bits con signo entre fin e inicio dividida (truncando) por el tamano del elemento.
+int32 SArrayRawSize(const void* self, int32 stride) {
+    const uint32* const words = static_cast<const uint32*>(self);
+    if (words[1] == 0) {
+        return 0;
+    }
+    return static_cast<int32>(words[2] - words[1]) / stride;
+}
+
 // 0x5EC0E0 (42 bytes) y 0x5EC140 (42 bytes), thiscall con ECX sin leer, tres argumentos de pila, `ret 0Ch`: igual que 0x5EC070 pero con elementos de 20 y de 12 bytes. Llaman a uninitialized_fill_n (0x5EB2E0 / 0x5EB340) y
 // devuelven destino + cantidad * tamano (EAX = EDI + (ESI * 5) * 4, o EDI + (ESI * 3) * 4), con la cantidad SIN signo y la aritmetica de punteros del EXE (envuelve a 32 bits).
 // Lote 219A: una instancia propia por direccion de hook (0x5EC070, 0x5EC110 y 0x5EC1B0; 0x4F3D80 conserva la funcion base): RH no admite dos hooks hacia la misma funcion de la DLL (ver SArrayTidyStride4Inst).
@@ -285,24 +299,8 @@ uint32** __fastcall SArrayEraseStride4(SArrayRaw<uint32>* self, void* /*edx*/, u
 
 // Direcciones de los colaboradores de cada instancia de insert(posicion, n, valor) de elementos de 4 bytes (todas son plantillas de la STL ya reconstruidas arriba, con hook; se llaman por direccion fija igual que en el EXE
 // para que el registro de llamadas de los bancos las vea). A: 0x5ECF10; B: 0x5ED4B0 (y la de CAEUserRadioTrackManager, 0x4F4320, tiene el mismo cuerpo con otros colaboradores).
-struct SArrayInsertInstanceA {
-    static constexpr unsigned kUninitCopy = 0x5EAE10; // uninitialized_copy (cdecl: origen, fin, destino)
-    static constexpr unsigned kFillN      = 0x5EB2A0; // uninitialized_fill_n (cdecl: destino, n, &valor)
-    static constexpr unsigned kCopyWrap   = 0x5EB930; // envoltorio stdcall de uninitialized_copy
-    static constexpr unsigned kFillNEnd   = 0x5EC070; // fill_n que devuelve el final (stdcall)
-    static constexpr unsigned kCopyBack   = 0x5EB140; // copy_backward (cdecl: salida, inicio, fin, finDestino)
-    static constexpr unsigned kFill       = 0x5EAAA0; // fill (cdecl: inicio, fin, &valor)
-    static constexpr unsigned kXlen       = 0x5ECAB0; // vector::_Xlen
-};
-struct SArrayInsertInstanceB {
-    static constexpr unsigned kUninitCopy = 0x5EAE70;
-    static constexpr unsigned kFillN      = 0x5EB310;
-    static constexpr unsigned kCopyWrap   = 0x5EB990;
-    static constexpr unsigned kFillNEnd   = 0x5EC110;
-    static constexpr unsigned kCopyBack   = 0x5EB1B0;
-    static constexpr unsigned kFill       = 0x5EAAF0;
-    static constexpr unsigned kXlen       = 0x5ECBB0;
-};
+struct SArrayInsertInstanceA {}; // solo distingue la instancia de la plantilla (un hook por direccion)
+struct SArrayInsertInstanceB {}; // solo distingue la instancia de la plantilla (un hook por direccion)
 
 // 0x5EDA50
 // 0x5ECF10 y 0x5ED4B0 (lote 219A, sin validar; 645 bytes cada una con marco SEH que solo libera el bloque nuevo si una copia lanzara: omitido; thiscall con (posicion, cantidad, const T&), `ret 0Ch`): std::vector<T*>::insert(pos, n, valor)
@@ -330,7 +328,7 @@ void __fastcall SArrayInsertNStride4(SArrayRaw<uint32>* self, void* /*edx*/, uin
     }
     uint32 size = self->first ? ElementsBetween(self->last, self->first) : 0;
     if (0x3FFFFFFFu - size < count) {
-        plugin::CallMethod<Inst::kXlen, Self>(self);
+        ExeVectorXlen();
         return;
     }
     size = self->first ? ElementsBetween(self->last, self->first) : 0;
@@ -343,9 +341,9 @@ void __fastcall SArrayInsertNStride4(SArrayRaw<uint32>* self, void* /*edx*/, uin
         }
         const uint32 bytes = newCapacity << 2;
         uint32* const block = static_cast<uint32*>(::operator new(bytes));
-        uint32* const afterPrefix = plugin::CallAndReturn<uint32*, Inst::kUninitCopy, uint32*, uint32*, uint32*>(self->first, pos, block);
-        plugin::Call<Inst::kFillN, uint32*, uint32, const uint32*>(afterPrefix, count, &valueSlot);
-        plugin::CallAndReturn<uint32*, Inst::kUninitCopy, uint32*, uint32*, uint32*>(pos, self->last, Advance(afterPrefix, count));
+        uint32* const afterPrefix = SArrayUninitCopyStride4<0>(self->first, pos, block);
+        SArrayFillNStride4<0>(afterPrefix, count, &valueSlot);
+        SArrayUninitCopyStride4<0>(pos, self->last, Advance(afterPrefix, count));
         const uint32 newSize = count + (self->first ? ElementsBetween(self->last, self->first) : 0);
         if (self->first) {
             ::operator delete(self->first);
@@ -361,17 +359,17 @@ void __fastcall SArrayInsertNStride4(SArrayRaw<uint32>* self, void* /*edx*/, uin
     uint32* const oldLast = self->last;
     const uint32 bytes = count << 2;
     if (ElementsBetween(oldLast, pos) < count) {
-        plugin::CallMethodAndReturn<uint32*, Inst::kCopyWrap, Self, uint32*, uint32*, uint32*>(self, pos, oldLast, Advance(pos, count));
+        SArrayUninitCopyStride4<0>(pos, oldLast, Advance(pos, count));
         const uint32 tail = ElementsBetween(self->last, pos);
-        plugin::CallMethodAndReturn<uint32*, Inst::kFillNEnd, Self, uint32*, uint32, const uint32*>(self, self->last, count - tail, &valueSlot);
+        SArrayFillNReturnEndStride4(self->last, count - tail, &valueSlot);
         self->last = reinterpret_cast<uint32*>(reinterpret_cast<uint32>(self->last) + bytes);
-        plugin::Call<Inst::kFill, uint32*, uint32*, const uint32*>(pos, oldLast, &valueSlot);
+        SArrayFillStride4<0>(pos, oldLast, &valueSlot);
     } else {
         uint32* const lastN = reinterpret_cast<uint32*>(reinterpret_cast<uint32>(oldLast) - bytes);
-        self->last = plugin::CallMethodAndReturn<uint32*, Inst::kCopyWrap, Self, uint32*, uint32*, uint32*>(self, lastN, oldLast, oldLast);
+        self->last = SArrayUninitCopyStride4<0>(lastN, oldLast, oldLast);
         uint32* scratch;
-        plugin::Call<Inst::kCopyBack, uint32**, uint32*, uint32*, uint32*>(&scratch, pos, lastN, oldLast);
-        plugin::Call<Inst::kFill, uint32*, uint32*, const uint32*>(pos, Advance(pos, count), &valueSlot);
+        SArrayCopyBackwardStride4<0>(&scratch, pos, lastN, oldLast);
+        SArrayFillStride4<0>(pos, Advance(pos, count), &valueSlot);
     }
 }
 
@@ -398,7 +396,7 @@ void __fastcall SArrayInsertNStride20(SArrayRaw<SArrayElem20>* self, void* /*edx
     }
     uint32 size = self->first ? ElementsBetween(self->last, self->first) : 0;
     if (0xCCCCCCCu - size < count) {
-        plugin::CallMethod<0x5ECB30, Self>(self);
+        ExeVectorXlen();
         return;
     }
     size = self->first ? ElementsBetween(self->last, self->first) : 0;
@@ -407,13 +405,13 @@ void __fastcall SArrayInsertNStride20(SArrayRaw<SArrayElem20>* self, void* /*edx
         uint32 newCapacity = (0xCCCCCCCu - half < capacity) ? 0 : capacity + half;
         const uint32 needed = (self->first ? ElementsBetween(self->last, self->first) : 0) + count;
         if (newCapacity < needed) {
-            newCapacity = static_cast<uint32>(plugin::CallMethodAndReturn<int32, 0x5E9800, Self>(self)) + count;
+            newCapacity = static_cast<uint32>(SArrayRawSize(self, 20)) + count;
         }
         const uint32 bytes = newCapacity * 20;
         Elem* const block = static_cast<Elem*>(::operator new(bytes));
-        Elem* const afterPrefix = plugin::CallAndReturn<Elem*, 0x5EAE40, Elem*, Elem*, Elem*>(self->first, pos, block);
-        plugin::Call<0x5EB2E0, Elem*, uint32, const Elem*>(afterPrefix, count, &valueLocal);
-        plugin::CallAndReturn<Elem*, 0x5EAE40, Elem*, Elem*, Elem*>(pos, self->last, Advance(afterPrefix, count));
+        Elem* const afterPrefix = SArrayUninitCopyStride20(self->first, pos, block);
+        SArrayFillNStride20(afterPrefix, count, &valueLocal);
+        SArrayUninitCopyStride20(pos, self->last, Advance(afterPrefix, count));
         const uint32 newSize = count + (self->first ? ElementsBetween(self->last, self->first) : 0);
         if (self->first) {
             ::operator delete(self->first);
@@ -429,17 +427,17 @@ void __fastcall SArrayInsertNStride20(SArrayRaw<SArrayElem20>* self, void* /*edx
     Elem* const oldLast = self->last;
     const uint32 bytes = count * 20;
     if (ElementsBetween(oldLast, pos) < count) {
-        plugin::CallMethodAndReturn<Elem*, 0x5EB960, Self, Elem*, Elem*, Elem*>(self, pos, oldLast, Advance(pos, count));
+        SArrayUninitCopyStride20(pos, oldLast, Advance(pos, count));
         const uint32 tail = ElementsBetween(self->last, pos);
-        plugin::CallMethodAndReturn<Elem*, 0x5EC0E0, Self, Elem*, uint32, const Elem*>(self, self->last, count - tail, &valueLocal);
+        SArrayFillNReturnEndStride20(self->last, count - tail, &valueLocal);
         self->last = reinterpret_cast<Elem*>(reinterpret_cast<uint32>(self->last) + bytes);
-        plugin::Call<0x5EAAC0, Elem*, Elem*, const Elem*>(pos, reinterpret_cast<Elem*>(reinterpret_cast<uint32>(self->last) - bytes), &valueLocal);
+        SArrayFillStride20(pos, reinterpret_cast<Elem*>(reinterpret_cast<uint32>(self->last) - bytes), &valueLocal);
     } else {
         Elem* const lastN = reinterpret_cast<Elem*>(reinterpret_cast<uint32>(oldLast) - bytes);
-        self->last = plugin::CallMethodAndReturn<Elem*, 0x5EB960, Self, Elem*, Elem*, Elem*>(self, lastN, oldLast, oldLast);
+        self->last = SArrayUninitCopyStride20(lastN, oldLast, oldLast);
         Elem* scratch = lastN; // el EXE usa como salida la variable donde dejo lastN (la funcion la sobrescribe y nadie la lee)
-        plugin::Call<0x5EB170, Elem**, Elem*, Elem*, Elem*>(&scratch, pos, lastN, oldLast);
-        plugin::Call<0x5EAAC0, Elem*, Elem*, const Elem*>(pos, Advance(pos, count), &valueLocal);
+        SArrayCopyBackwardStride20(&scratch, pos, lastN, oldLast);
+        SArrayFillStride20(pos, Advance(pos, count), &valueLocal);
     }
 }
 
@@ -507,15 +505,7 @@ CPedAttractor* __fastcall PedAttractorScalarDeletingDestructor(CPedAttractor* se
 // directas en lugar de las envolturas que usa el EXE en las ramas sin realocacion.
 
 // Instancia C de insert(posicion, n, valor) de elementos de 4 bytes (0x5EDA50): mismo cuerpo que A (0x5ECF10) y B (0x5ED4B0) de 219A con sus propios colaboradores.
-struct SArrayInsertInstanceC {
-    static constexpr unsigned kUninitCopy = 0x5EAEE0; // uninitialized_copy (cdecl: origen, fin, destino)
-    static constexpr unsigned kFillN      = 0x5EB390; // uninitialized_fill_n (cdecl: destino, n, &valor)
-    static constexpr unsigned kCopyWrap   = 0x5EBA00; // envoltorio stdcall de uninitialized_copy
-    static constexpr unsigned kFillNEnd   = 0x5EC1B0; // fill_n que devuelve el final (stdcall)
-    static constexpr unsigned kCopyBack   = 0x5EB260; // copy_backward (cdecl: salida, inicio, fin, finDestino)
-    static constexpr unsigned kFill       = 0x5EAB10; // fill (cdecl: inicio, fin, &valor)
-    static constexpr unsigned kXlen       = 0x5ECCB0; // vector::_Xlen
-};
+struct SArrayInsertInstanceC {}; // solo distingue la instancia de la plantilla (un hook por direccion)
 
 // 0x5ED750 (739 bytes con marco SEH que solo libera el bloque nuevo si una copia lanzara: omitido; `ret 0Ch`; el listado la atribuia a CPedAttractorManager): vector::_Insert_n de elementos de 12 bytes (CVector del vector de
 // desplazamientos de CPedShelterAttractor), thiscall (posicion, n, const T&). Mismo esquema que el de 20 bytes de 219A (0x5ED1B0), con estas constantes del EXE:
@@ -538,7 +528,7 @@ void __fastcall SArrayInsertNStride12(SArrayRaw<SArrayElem12>* self, void* /*edx
     }
     uint32 size = self->first ? ElementsBetween(self->last, self->first) : 0;
     if (0x15555555u - size < count) {
-        plugin::CallMethod<0x5ECC30, Self>(self);
+        ExeVectorXlen();
         return;
     }
     size = self->first ? ElementsBetween(self->last, self->first) : 0;
@@ -547,13 +537,13 @@ void __fastcall SArrayInsertNStride12(SArrayRaw<SArrayElem12>* self, void* /*edx
         uint32 newCapacity = (0x15555555u - half < capacity) ? 0 : capacity + half;
         const uint32 needed = (self->first ? ElementsBetween(self->last, self->first) : 0) + count;
         if (newCapacity < needed) {
-            newCapacity = static_cast<uint32>(plugin::CallMethodAndReturn<int32, 0x5E9850, Self>(self)) + count;
+            newCapacity = static_cast<uint32>(SArrayRawSize(self, 12)) + count;
         }
         const uint32 bytes = newCapacity * 12;
         Elem* const block = static_cast<Elem*>(::operator new(bytes));
-        Elem* const afterPrefix = plugin::CallAndReturn<Elem*, 0x5EAEA0, Elem*, Elem*, Elem*>(self->first, pos, block);
-        plugin::Call<0x5EB340, Elem*, uint32, const Elem*>(afterPrefix, count, &valueLocal);
-        plugin::CallAndReturn<Elem*, 0x5EAEA0, Elem*, Elem*, Elem*>(pos, self->last, Advance(afterPrefix, count));
+        Elem* const afterPrefix = SArrayUninitCopyStride12(self->first, pos, block);
+        SArrayFillNStride12(afterPrefix, count, &valueLocal);
+        SArrayUninitCopyStride12(pos, self->last, Advance(afterPrefix, count));
         const uint32 newSize = count + (self->first ? ElementsBetween(self->last, self->first) : 0);
         if (self->first) {
             ::operator delete(self->first);
@@ -569,17 +559,17 @@ void __fastcall SArrayInsertNStride12(SArrayRaw<SArrayElem12>* self, void* /*edx
     Elem* const oldLast = self->last;
     const uint32 bytes = count * 12;
     if (ElementsBetween(oldLast, pos) < count) {
-        plugin::CallMethodAndReturn<Elem*, 0x5EB9D0, Self, Elem*, Elem*, Elem*>(self, pos, oldLast, Advance(pos, count));
+        SArrayUninitCopyStride12(pos, oldLast, Advance(pos, count));
         const uint32 tail = ElementsBetween(self->last, pos);
-        plugin::CallMethodAndReturn<Elem*, 0x5EC140, Self, Elem*, uint32, const Elem*>(self, self->last, count - tail, &valueLocal);
+        SArrayFillNReturnEndStride12(self->last, count - tail, &valueLocal);
         self->last = reinterpret_cast<Elem*>(reinterpret_cast<uint32>(self->last) + bytes);
-        plugin::Call<0x5EB1E0, Elem*, Elem*, const Elem*>(pos, reinterpret_cast<Elem*>(reinterpret_cast<uint32>(self->last) - bytes), &valueLocal);
+        SArrayFillStride12(pos, reinterpret_cast<Elem*>(reinterpret_cast<uint32>(self->last) - bytes), &valueLocal);
     } else {
         Elem* const lastN = reinterpret_cast<Elem*>(reinterpret_cast<uint32>(oldLast) - bytes);
-        self->last = plugin::CallMethodAndReturn<Elem*, 0x5EB9D0, Self, Elem*, Elem*, Elem*>(self, lastN, oldLast, oldLast);
+        self->last = SArrayUninitCopyStride12(lastN, oldLast, oldLast);
         Elem* scratch = lastN; // el EXE usa como salida la variable donde dejo lastN (la funcion la sobrescribe y nadie la lee)
-        plugin::Call<0x5EB220, Elem**, Elem*, Elem*, Elem*>(&scratch, pos, lastN, oldLast);
-        plugin::Call<0x5EB1E0, Elem*, Elem*, const Elem*>(pos, Advance(pos, count), &valueLocal);
+        SArrayCopyBackwardStride12(&scratch, pos, lastN, oldLast);
+        SArrayFillStride12(pos, Advance(pos, count), &valueLocal);
     }
 }
 
@@ -594,7 +584,7 @@ SArrayElem12** __fastcall SArrayInsertStride12(SArrayRaw<SArrayElem12>* self, vo
             index = static_cast<int32>(reinterpret_cast<uint32>(pos) - reinterpret_cast<uint32>(first)) / 12;
         }
     }
-    plugin::CallMethod<0x5ED750, SArrayRaw<SArrayElem12>*, SArrayElem12*, uint32, const SArrayElem12*>(self, pos, 1u, x);
+    SArrayInsertNStride12(self, nullptr, pos, 1u, x);
     *out = reinterpret_cast<SArrayElem12*>(reinterpret_cast<uint32>(self->first) + static_cast<uint32>(index) * 12u);
     return out;
 }
@@ -610,39 +600,39 @@ SArrayElem20** __fastcall SArrayInsertStride20(SArrayRaw<SArrayElem20>* self, vo
             index = static_cast<int32>(reinterpret_cast<uint32>(pos) - reinterpret_cast<uint32>(first)) / 20;
         }
     }
-    plugin::CallMethod<0x5ED1B0, SArrayRaw<SArrayElem20>*, SArrayElem20*, uint32, const SArrayElem20*>(self, pos, 1u, x);
+    SArrayInsertNStride20(self, nullptr, pos, 1u, x);
     *out = reinterpret_cast<SArrayElem20*>(reinterpret_cast<uint32>(self->first) + static_cast<uint32>(index) * 20u);
     return out;
 }
 
 // vector::push_back(&x) de elementos de 4 bytes (`ret 4`): si hay inicio y tamano < capacidad (SIN signo, cocientes con signo) construye el elemento en el fin con el relleno de n = 1 (FillN, por direccion) y avanza el fin 4 bytes;
 // si no llama a _Insert_n (thiscall (fin, 1, &x), por direccion) de su instancia.
-template<unsigned FillN, unsigned InsertAddr>
+template<typename Inst>
 void SArrayPushBack4(SArrayRaw<uint32>* self, const uint32* x) {
     uint32* const first = self->first;
     const uint32 size = first ? static_cast<uint32>(static_cast<int32>(reinterpret_cast<uint32>(self->last) - reinterpret_cast<uint32>(first)) >> 2) : 0;
     if (first && size < static_cast<uint32>(static_cast<int32>(reinterpret_cast<uint32>(self->end) - reinterpret_cast<uint32>(first)) >> 2)) {
         uint32* const last = self->last;
-        plugin::Call<FillN, uint32*, uint32, const uint32*>(last, 1u, x);
+        SArrayFillNStride4<0>(last, 1u, x);
         self->last = last + 1;
         return;
     }
-    plugin::CallMethod<InsertAddr, SArrayRaw<uint32>*, uint32*, uint32, const uint32*>(self, self->last, 1u, x);
+    SArrayInsertNStride4<Inst>(self, nullptr, self->last, 1u, x);
 }
 
 // 0x5EE200 (102 bytes, listado: CPedAttractorManager): push_back de punteros de 4 bytes, primera instancia: relleno 0x5EB2A0, camino lento _Insert_n 0x5ECF10 (lote 219A).
 void __fastcall SArrayPushBackStride4A(SArrayRaw<uint32>* self, void* /*edx*/, const uint32* x) {
-    SArrayPushBack4<0x5EB2A0, 0x5ECF10>(self, x);
+    SArrayPushBack4<SArrayInsertInstanceA>(self, x);
 }
 
 // 0x5EE300 (102 bytes): push_back de 4 bytes, segunda instancia: relleno 0x5EB310, camino lento 0x5ED4B0 (lote 219A).
 void __fastcall SArrayPushBackStride4B(SArrayRaw<uint32>* self, void* /*edx*/, const uint32* x) {
-    SArrayPushBack4<0x5EB310, 0x5ED4B0>(self, x);
+    SArrayPushBack4<SArrayInsertInstanceB>(self, x);
 }
 
 // 0x5EE400 (102 bytes): push_back de 4 bytes, tercera instancia: relleno 0x5EB390, camino lento _Insert_n 0x5EDA50 (arriba).
 void __fastcall SArrayPushBackStride4C(SArrayRaw<uint32>* self, void* /*edx*/, const uint32* x) {
-    SArrayPushBack4<0x5EB390, 0x5EDA50>(self, x);
+    SArrayPushBack4<SArrayInsertInstanceC>(self, x);
 }
 
 // 0x5EE370 (136 bytes): push_back de 12 bytes (`ret 4`); rapido: relleno de n = 1 0x5EB340 y fin += 12; lento: vector::insert de 12 bytes (0x5EDE50, por direccion) con (salida, fin, &x): la salida es un hueco de pila que nadie lee.
@@ -651,12 +641,12 @@ void __fastcall SArrayPushBackStride12(SArrayRaw<SArrayElem12>* self, void* /*ed
     const uint32 size = first ? static_cast<uint32>(static_cast<int32>(reinterpret_cast<uint32>(self->last) - reinterpret_cast<uint32>(first)) / 12) : 0;
     if (first && size < static_cast<uint32>(static_cast<int32>(reinterpret_cast<uint32>(self->end) - reinterpret_cast<uint32>(first)) / 12)) {
         SArrayElem12* const last = self->last;
-        plugin::Call<0x5EB340, SArrayElem12*, uint32, const SArrayElem12*>(last, 1u, x);
+        SArrayFillNStride12(last, 1u, x);
         self->last = last + 1;
         return;
     }
     SArrayElem12* result;
-    plugin::CallMethod<0x5EDE50, SArrayRaw<SArrayElem12>*, SArrayElem12**, SArrayElem12*, const SArrayElem12*>(self, &result, self->last, x);
+    SArrayInsertStride12(self, nullptr, &result, self->last, x);
 }
 
 // 0x5EE270 (138 bytes): push_back de 20 bytes (el relleno de n = 1 es 0x5EB2E0); camino lento vector::insert de 20 bytes (0x5EDD90, por direccion).
@@ -665,14 +655,24 @@ void __fastcall SArrayPushBackStride20(SArrayRaw<SArrayElem20>* self, void* /*ed
     const uint32 size = first ? static_cast<uint32>(static_cast<int32>(reinterpret_cast<uint32>(self->last) - reinterpret_cast<uint32>(first)) / 20) : 0;
     if (first && size < static_cast<uint32>(static_cast<int32>(reinterpret_cast<uint32>(self->end) - reinterpret_cast<uint32>(first)) / 20)) {
         SArrayElem20* const last = self->last;
-        plugin::Call<0x5EB2E0, SArrayElem20*, uint32, const SArrayElem20*>(last, 1u, x);
+        SArrayFillNStride20(last, 1u, x);
         self->last = last + 1;
         return;
     }
     SArrayElem20* result;
-    plugin::CallMethod<0x5EDD90, SArrayRaw<SArrayElem20>*, SArrayElem20**, SArrayElem20*, const SArrayElem20*>(self, &result, self->last, x);
+    SArrayInsertStride20(self, nullptr, &result, self->last, x);
 }
 } // namespace
+
+// insert(pos, n, valor) de un vector de punteros (cuerpo de 0x5ECF10); lo reutiliza UserTracksLegacyVector::Insert (0x4F4320, mismo cuerpo de la plantilla).
+void SArrayInsertN4(void* vector, uint32* pos, uint32 count, const uint32* value) {
+    SArrayInsertNStride4<SArrayInsertInstanceA>(static_cast<SArrayRaw<uint32>*>(vector), nullptr, pos, count, value);
+}
+
+// push_back (instancia C de 0x5EE400) del vector de punteros de CPedAttractorManager; lo usa CPedAttractorManager.cpp sin pasar por la direccion del EXE.
+void PedAttractorListPushBack(void* list, CPedAttractor* const* item) {
+    SArrayPushBackStride4C(static_cast<SArrayRaw<uint32>*>(list), nullptr, reinterpret_cast<const uint32*>(item));
+}
 
 void CPedAttractor::InjectHooks() {
     RH_ScopedVirtualClass(CPedAttractor, 0x86C538, 6);

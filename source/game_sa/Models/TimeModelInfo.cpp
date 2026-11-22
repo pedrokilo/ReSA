@@ -56,6 +56,11 @@ static CTimeModelInfo* __fastcall TimeModelInfoScalarDeletingDestructor(CTimeMod
     return self;
 }
 
+// Constructor de elemento (cuerpo de TimeModelInfoConstructorBody) para el almacen de ModelInfo.cpp: se llama sin pasar por la direccion del EXE.
+void TimeModelInfoConstructExe(void* element) {
+    TimeModelInfoConstructorBody(static_cast<CTimeModelInfo*>(element), nullptr);
+}
+
 void CTimeModelInfo::InjectHooks() {
     RH_ScopedVirtualClass(CTimeModelInfo, 0x85BCB0, 16);
     RH_ScopedCategory("Models");

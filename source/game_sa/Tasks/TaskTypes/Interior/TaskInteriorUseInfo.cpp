@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "TaskInteriorLieInBed.h"
 #include "TaskInteriorSitAtDesk.h"
 #include "TaskInteriorShopKeeper.h"
+#include "TaskInteriorSitInChair.h"
 #include "TaskSimpleStandStill.h"
 #include "TaskSimpleRunAnim.h"
 #include "TaskSimpleRunTimedAnim.h"
@@ -91,9 +92,14 @@ CTask* CTaskInteriorUseInfo::CreateNextSubTask(CPed* ped) {
         case eInteriorInfoType::UNK_4:
             return new CTaskInteriorLieInBed{ m_Dur, m_IntInfo, true, m_bDoInstantly };
         case eInteriorInfoType::UNK_1: {
-            // CTaskInteriorSitInChair is not reversed yet; construct it through the original constructor.
-            auto* const task = static_cast<CTask*>(CTask::operator new(0x2C));
-            return plugin::CallMethodAndReturn<CTask*, 0x675C30, CTask*, int32, InteriorInfo_t*, bool>(task, m_Dur, m_IntInfo, m_bDoInstantly);
+            // CTaskInteriorSitInChair aun no tiene campos propios: se construye con su Constructor (0x675C30). El primer argumento del EXE
+            // (+0x14 de esta tarea, la duracion) va a +8 y el segundo (+0xC, la informacion) a +0xC; el EXE no llama al constructor sin memoria.
+            auto* const task = static_cast<CTaskInteriorSitInChair*>(CTask::operator new(sizeof(CTaskInteriorSitInChair)));
+            if (!task) {
+                return nullptr;
+            }
+            task->Constructor(reinterpret_cast<void*>(static_cast<uintptr_t>(static_cast<uint32>(m_Dur))), static_cast<uint32>(reinterpret_cast<uintptr_t>(m_IntInfo)), m_bDoInstantly);
+            return task;
         }
         case eInteriorInfoType::UNK_2:
             return new CTaskSimpleStandStill{ 9'999'999, false, false, 8.f };

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegExports.h"
 
 #include "LibJpegCompressApi.h"
 #include "LibJpegExe.h"
@@ -56,7 +57,7 @@ void ExeJpegCreateCompress(void* cinfo, int32 version, int32 structSize) {
     At<void*>(cinfo, 0x00) = err;
     At<void*>(cinfo, 0x0C) = clientData;
     At<uint8>(cinfo, 0x10) = 0;
-    reinterpret_cast<void(__cdecl*)(void*)>(0x5CF6D0)(cinfo); // jinit_memory_mgr
+    LibJpegExportJinitMemoryMgr(cinfo); // jinit_memory_mgr (0x5CF6D0)
     At<uint32>(cinfo, 0x08) = 0;
     At<uint32>(cinfo, 0x18) = 0;
     At<uint32>(cinfo, 0x44) = 0;
@@ -136,7 +137,7 @@ void ExeJpegFinishCompress(void* cinfo) {
     }
     At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x14C), 0x0C)(cinfo);
     At<void(__cdecl*)(void*)>(At<void*>(cinfo, 0x18), 0x10)(cinfo);
-    reinterpret_cast<void(__cdecl*)(void*)>(0x5C6B50)(cinfo); // jpeg_abort
+    LibJpegCompress::JpegAbort(static_cast<ExeJpegCompress*>(cinfo)); // jpeg_abort (0x5C6B50)
 }
 } // namespace
 
@@ -151,3 +152,6 @@ void LibJpegCompressApi::InjectHooks() {
     RH_ScopedNamedGlobalInstall(ExeJpegSuppressTables, "jpeg_suppress_tables", 0x5CFA50);    // lote 235A (sin validar)
     RH_ScopedNamedGlobalInstall(ExeJpegFinishCompress, "jpeg_finish_compress", 0x5CFAC0);    // lote 235A (sin validar)
 }
+
+// Entrada publica para LibJpegCompressEncode.cpp (ver LibJpegExports.h).
+void LibJpegExportJpegSuppressTables(void* cinfo, int32 suppress) { ExeJpegSuppressTables(cinfo, suppress); } // 0x5CFA50

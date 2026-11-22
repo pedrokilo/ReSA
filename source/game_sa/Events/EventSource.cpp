@@ -36,9 +36,6 @@ END GENERATED HOOK STATUS */
 // IsThreatenedBy (0x601C30): thiscall(intelligence, source) pero el EXE entra con EDX = victim; IsFriendlyWith (0x601BC0) e IsPlayer
 // (0x5DF8F0) son thiscall que no leen EDX. Los tres se llaman como __fastcall con ese EDX explicito (mismos `ret 4`/`ret`).
 using ExeGetSourceEntity = uint64(__fastcall*)(const CEvent* event, uint32 edx);                                          // vtable[10] (thiscall)
-using ExeIsThreatenedBy  = uint64(__fastcall*)(const CPedIntelligence*, const CPed* edxVictim, const CPed* source);       // 0x601C30
-using ExeIsFriendlyWith  = uint64(__fastcall*)(const CPedIntelligence*, uint32 edx, const CPed* source);                 // 0x601BC0
-using ExeIsPlayer        = uint64(__fastcall*)(const CPed*, uint32 edx);                                                 // 0x5DF8F0
 
 // 0x4ABAC0
 #pragma runtime_checks("", off) // /RTC1 añade __RTC_CheckEsp tras las llamadas y cambia ECX/EDX
@@ -63,20 +60,14 @@ int32 CEventSource::ComputeEventSourceType(const CEvent& event, const CPed& ped)
     const auto* const sourcePed    = reinterpret_cast<const CPed*>(source);
     const auto* const intelligence = ped.GetIntelligence();
 
-    const uint64 threatened = reinterpret_cast<ExeIsThreatenedBy>(0x601C30)(intelligence, &ped, sourcePed);
-    if ((uint32(threatened) & 0xFFu) != 0) {
+    // Las tres comprobaciones ya estan en C++ (0x601C30, 0x601BC0 y 0x5DF8F0): se llaman directamente.
+    if (intelligence->IsThreatenedBy(*sourcePed)) {
         return 3;
     }
-    const uint32 edxAfterThreat = uint32(threatened >> 32);
-
-    const uint64 friendly = reinterpret_cast<ExeIsFriendlyWith>(0x601BC0)(intelligence, edxAfterThreat, sourcePed);
-    if ((uint32(friendly) & 0xFFu) != 0) {
+    if (intelligence->IsFriendlyWith(*sourcePed)) {
         return 2;
     }
-    const uint32 edxAfterFriendly = uint32(friendly >> 32);
-
-    const uint64 player = reinterpret_cast<ExeIsPlayer>(0x5DF8F0)(sourcePed, edxAfterFriendly);
-    if ((uint32(player) & 0xFFu) != 0) {
+    if (sourcePed->IsPlayer()) {
         return 1;
     }
     return 0;

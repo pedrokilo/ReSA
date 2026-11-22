@@ -53,6 +53,9 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h" // TODO: Remove
+
+// Definida en Attractors/PedAttractor.cpp (insert(pos, n, valor) de un vector de elementos de 4 bytes de MSVC 6).
+void SArrayInsertN4(void* vector, uint32* pos, uint32 count, const uint32* value);
 #include "DatosExe/RdataCadenas.h"
 
 #include <cstdio>
@@ -750,7 +753,7 @@ void CopyBytesLikeExe(char* dst, const char* src, uint32 n) {
 
 // 0x4F39C0 (no listada; la contienen 0x4F3A3E y 0x4F3AAD, trozos con el marco EBP de esa funcion y su manejador de excepciones): std::string::_Copy(nuevaCapacidad, longitudAnterior), thiscall, `ret 8`.
 void StringCopyGrow(LegacyString* self, uint32 newSize, uint32 oldLength) {
-    plugin::CallMethod<0x4F39C0, LegacyString*, uint32, uint32>(self, newSize, oldLength);
+    reinterpret_cast<UserTracksLegacyString*>(self)->Reallocate(newSize, oldLength); // mismo tipo de 0x1C bytes (std::string de MSVC 2010)
 }
 
 // 0x4F3BA0 (lote 209A, sin validar; 35 bytes, thiscall sin argumentos, `ret`): std::string::_Tidy(): con capacidad >= 16 libera el buffer con operator delete (0x8214BD); despues capacidad = 0xF, longitud = 0 y primer byte del buffer
@@ -955,6 +958,22 @@ template<int Id>
 }
 } // namespace
 
+// std::string / std::runtime_error del EXE para Crt/CrtException.cpp (lanzadores _Xran y _Xlen): construyen y destruyen con los cuerpos C++ de arriba, sin pasar por las direcciones del EXE.
+void ExeStdStringFromChars(void* string, const char* text) {
+    StringFromChars(static_cast<LegacyString*>(string), nullptr, text); // 0x4F4170
+}
+void ExeStdRuntimeErrorFromString(void* error, const void* string) {
+    RuntimeErrorFromString(static_cast<LegacyRuntimeError*>(error), nullptr, static_cast<const LegacyString*>(string)); // 0x4F4090
+}
+void ExeStdStringTidy(void* string) {
+    StringTidy(static_cast<LegacyString*>(string), nullptr); // 0x4F3BA0
+}
+
+// std::vector<T>::_Xlen del EXE para PedAttractor.cpp (sus instancias de la STL de MSVC 6 lo lanzan sin pasar por la direccion del EXE); lanza el length_error del original.
+[[noreturn]] void ExeVectorXlen() {
+    VectorXlenImpl(nullptr);
+}
+
 // 0x4F4320 (lote 209A, sin validar; 645 bytes con marco SEH que solo libera el bloque nuevo si una copia lanzara: omitido; thiscall con (posicion, cantidad, const T&), `ret 0Ch`): std::vector<T*>::insert(pos, n, valor) de VC9 (vector de
 // punteros de 4 bytes; disposicion +4 inicio, +8 fin, +0xC limite). Como el original:
 //  - El valor se copia a una variable local al entrar (su direccion es el argumento de relleno de todas las llamadas). capacidad = inicio ? (limite - inicio) >> 2 : 0 (desplazamiento con signo). Con n == 0 no hace nada.
@@ -964,63 +983,8 @@ template<int Id>
 //  - Con capacidad: si hay menos de n elementos tras pos, copia la cola a pos + n (0x4F3CE0), rellena n - cola desde fin (0x4F3D80), fin += n y rellena [pos, fin anterior) (0x4F3AE0); si no, copia los ultimos n a fin (0x4F3CE0),
 //    fin = su retorno, copia hacia atras [pos, fin anterior - n) hasta fin anterior (0x4F3B00) y rellena [pos, pos + n) (0x4F3AE0).
 void UserTracksLegacyVector::Insert(tUserTracksInfo** pos, uint32 count, tUserTracksInfo* const& value) {
-    using Slot = tUserTracksInfo*;
-    const auto ElementsBetween = [](const Slot* upper, const Slot* lower) -> uint32 {
-        return static_cast<uint32>(static_cast<int32>(reinterpret_cast<uint32>(upper) - reinterpret_cast<uint32>(lower)) >> 2);
-    };
-    const auto Advance = [](Slot* base, uint32 elements) -> Slot* { // aritmetica de punteros de 32 bits del EXE (elementos * 4, con envoltura)
-        return reinterpret_cast<Slot*>(reinterpret_cast<uint32>(base) + elements * 4);
-    };
-
-    uint32 valueSlot = reinterpret_cast<const uint32&>(value);
-    const uint32 capacity = first ? ElementsBetween(end, first) : 0;
-    if (count == 0) {
-        return;
-    }
-    uint32 size = first ? ElementsBetween(last, first) : 0;
-    if (0x3FFFFFFFu - size < count) {
-        VectorXlen(this, nullptr);
-    }
-    size = first ? ElementsBetween(last, first) : 0;
-    if (capacity < size + count) {
-        const uint32 half = capacity >> 1;
-        uint32 newCapacity = (0x3FFFFFFFu - half < capacity) ? 0 : capacity + half;
-        const uint32 needed = (first ? ElementsBetween(last, first) : 0) + count;
-        if (newCapacity < needed) {
-            newCapacity = needed;
-        }
-        const uint32 bytes = newCapacity << 2;
-        Slot* const block = static_cast<Slot*>(::operator new(bytes));
-        Slot* const afterPrefix = plugin::CallAndReturn<Slot*, 0x4F3940, Slot*, Slot*, Slot*>(first, pos, block);
-        plugin::Call<0x4F3B30, Slot*, uint32, const uint32*>(afterPrefix, count, &valueSlot);
-        plugin::CallAndReturn<Slot*, 0x4F3940, Slot*, Slot*, Slot*>(pos, last, Advance(afterPrefix, count));
-        const uint32 newSize = count + (first ? ElementsBetween(last, first) : 0);
-        if (first) {
-            ::operator delete(first);
-        }
-        const uint32 newEnd = bytes + reinterpret_cast<uint32>(block);
-        Slot* const newLast = Advance(block, newSize);
-        end   = reinterpret_cast<Slot*>(newEnd);
-        last  = newLast;
-        first = block;
-        return;
-    }
-
-    Slot* const oldLast = last;
-    const uint32 bytes = count << 2;
-    if (ElementsBetween(oldLast, pos) < count) {
-        plugin::CallMethodAndReturn<Slot*, 0x4F3CE0, UserTracksLegacyVector*, Slot*, Slot*, Slot*>(this, pos, oldLast, reinterpret_cast<Slot*>(reinterpret_cast<uint32>(pos) + bytes));
-        const uint32 tail = ElementsBetween(last, pos);
-        plugin::CallMethodAndReturn<Slot*, 0x4F3D80, UserTracksLegacyVector*, Slot*, uint32, const uint32*>(this, last, count - tail, &valueSlot);
-        last = reinterpret_cast<Slot*>(reinterpret_cast<uint32>(last) + bytes);
-        plugin::Call<0x4F3AE0, Slot*, Slot*, const uint32*>(pos, oldLast, &valueSlot);
-    } else {
-        Slot* const lastN = reinterpret_cast<Slot*>(reinterpret_cast<uint32>(oldLast) - bytes);
-        last = plugin::CallMethodAndReturn<Slot*, 0x4F3CE0, UserTracksLegacyVector*, Slot*, Slot*, Slot*>(this, lastN, oldLast, oldLast);
-        Slot* scratch;
-        plugin::Call<0x4F3B00, Slot**, Slot*, Slot*, Slot*>(&scratch, pos, lastN, oldLast);
-        plugin::Call<0x4F3AE0, Slot*, Slot*, const uint32*>(pos, Advance(pos, count), &valueSlot);
-    }
+    // El cuerpo es el de la instancia de PedAttractor.cpp (misma plantilla de MSVC con elementos de 4 bytes): se reutiliza sin pasar por las direcciones del EXE.
+    SArrayInsertN4(this, reinterpret_cast<uint32*>(pos), count, reinterpret_cast<const uint32*>(&value));
 }
 
 // 0x4F4620: push_back del vector VC6 de elementos de 4 bytes (thiscall, ECX = vector, un argumento en pila: referencia al valor, ret 4). Con el almacenamiento reservado y
@@ -1037,12 +1001,12 @@ void UserTracksLegacyVector::PushBack(tUserTracksInfo* const& value) {
         const int32 capacity = static_cast<int32>(reinterpret_cast<uint32>(end) - reinterpret_cast<uint32>(begin)) >> 2;
         if (static_cast<uint32>(size) < static_cast<uint32>(capacity)) {
             tUserTracksInfo** const slot = last;
-            plugin::Call<0x4F3B30, tUserTracksInfo**, uint32, tUserTracksInfo* const*, UserTracksLegacyVector*, tUserTracksInfo* const*>(slot, 1, &value, this, &value);
+            *slot = value; // construye el elemento en el fin (el destino no es nulo)
             last = slot + 1;
             return;
         }
     }
-    plugin::CallMethod<0x4F4320, UserTracksLegacyVector*, tUserTracksInfo**, uint32, tUserTracksInfo* const*>(this, last, 1, &value);
+    Insert(last, 1, value);
 }
 
 // 0x4F3940 (lote 208A, sin validar; cdecl, tres argumentos (origen, fin, destino) mas argumentos de relleno de la plantilla que no lee, `ret`, 37 bytes): std::uninitialized_copy de punteros de 4 bytes de

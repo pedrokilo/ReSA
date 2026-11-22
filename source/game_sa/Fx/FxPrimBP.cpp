@@ -54,6 +54,11 @@ __declspec(noinline) void __fastcall FxPrimBPDestructorBody(FxPrimBP_c* self, vo
 }
 } // namespace
 
+// Cuerpo de 0x4A9D20 para FxEmitterBP.cpp (el destructor de FxEmitterBP_c lo alcanza con un salto), sin pasar por la direccion del EXE.
+void FxPrimBPDestroyBody(FxPrimBP_c* self) {
+    FxPrimBPDestructorBody(self, nullptr);
+}
+
 /**
  * Registra la carga común y recuperación de matriz de los blueprints de primitivas FX.
  */

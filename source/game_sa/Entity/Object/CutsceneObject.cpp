@@ -51,7 +51,7 @@ void CCutsceneObject::InjectHooks() {
 // +0x12C = 0.5f. Devuelve `this`.
 CCutsceneObject* CCutsceneObject::Constructor() {
     uint8* const b = reinterpret_cast<uint8*>(this);
-    plugin::CallMethod<0x5A1D10, CObject*>(static_cast<CObject*>(this));
+    static_cast<CObject*>(this)->ConstructorDefault(); // 0x5A1D10
     *reinterpret_cast<uint32*>(b) = 0x868A60;
     for (const size_t off : { size_t(0x184), size_t(0x188), size_t(0x18C), size_t(0x190), size_t(0x194), size_t(0x198) }) {
         *reinterpret_cast<uint32*>(b + off) = 0;

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegExports.h"
 #include "DatosExe/RdataCadenas.h"
 #include "LibJpegCallback.h"
 
@@ -422,16 +423,16 @@ void ExeJinitMemoryMgr(void* cinfo) {
         ExeJpegMemTerm(cinfo);
         ErrExit1(cinfo, JERR_OUT_OF_MEMORY, 0);
     }
-    At<uint32>(mem, 0x00) = 0x5CEBC0;
-    At<uint32>(mem, 0x04) = 0x5CED10;
-    At<uint32>(mem, 0x08) = 0x5CEDD0;
-    At<uint32>(mem, 0x0C) = 0x5CEE80;
-    At<uint32>(mem, 0x10) = 0x5CEF30;
-    At<uint32>(mem, 0x14) = 0x5CEFA0;
-    At<uint32>(mem, 0x18) = 0x5CF010;
+    At<uint32>(mem, 0x00) = LibJpegFnAddress(&ExeAllocSmall); // 0x5CEBC0
+    At<uint32>(mem, 0x04) = LibJpegFnAddress(&ExeAllocLarge); // 0x5CED10
+    At<uint32>(mem, 0x08) = LibJpegFnAddress(&ExeAllocSarray); // 0x5CEDD0
+    At<uint32>(mem, 0x0C) = LibJpegFnAddress(&ExeAllocBarray); // 0x5CEE80
+    At<uint32>(mem, 0x10) = LibJpegFnAddress(&ExeRequestVirtSarray); // 0x5CEF30
+    At<uint32>(mem, 0x14) = LibJpegFnAddress(&ExeRequestVirtBarray); // 0x5CEFA0
+    At<uint32>(mem, 0x18) = LibJpegFnAddress(&ExeRealizeVirtArrays); // 0x5CF010
     At<uint32>(mem, 0x1C) = LIBJPEG_CB(0x5CF2F0, "jmemmgr", "access_virt_sarray");
     At<uint32>(mem, 0x20) = LIBJPEG_CB(0x5CF430, "jmemmgr", "access_virt_barray");
-    At<uint32>(mem, 0x24) = 0x5CF580;
+    At<uint32>(mem, 0x24) = LibJpegFnAddress(&ExeFreePool); // 0x5CF580
     At<uint32>(mem, 0x28) = 0x5CF690;
     At<uint32>(mem, 0x30) = EXE_MAX_ALLOC_CHUNK;
     At<int32>(mem, 0x2C) = maxToUse;
@@ -537,3 +538,8 @@ void LibJpegMemory::InjectHooks() {
     RH_ScopedNamedGlobalInstall(ExeJcopySampleRows, "jcopy_sample_rows", 0x5CF8C0);            // lote 235A (sin validar)
     RH_ScopedNamedGlobalInstall(ExeJzeroFar, "jzero_far", 0x5CF940);                           // lote 235A (sin validar)
 }
+
+// Entradas publicas para los demas archivos del modulo (ver LibJpegExports.h).
+void LibJpegExportJinitMemoryMgr(void* cinfo) { ExeJinitMemoryMgr(cinfo); }       // 0x5CF6D0
+int32 LibJpegExportJdivRoundUp(int32 a, int32 b) { return ExeJdivRoundUp(a, b); } // 0x5CF890
+int32 LibJpegExportJroundUp(int32 a, int32 b) { return ExeJroundUp(a, b); }       // 0x5CF8A0

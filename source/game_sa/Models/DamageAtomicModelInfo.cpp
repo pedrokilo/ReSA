@@ -55,6 +55,11 @@ static CDamageAtomicModelInfo* __fastcall DamageAtomicModelInfoScalarDeletingDes
 /**
  * Registra las operaciones del model info con variante dañada de RpAtomic.
  */
+// Constructor de elemento (cuerpo de DamageAtomicModelInfoConstructorBody) para el almacen de ModelInfo.cpp: se llama sin pasar por la direccion del EXE.
+void DamageAtomicModelInfoConstructExe(void* element) {
+    DamageAtomicModelInfoConstructorBody(static_cast<CDamageAtomicModelInfo*>(element), nullptr);
+}
+
 void CDamageAtomicModelInfo::InjectHooks()
 {
     RH_ScopedVirtualClass(CDamageAtomicModelInfo, 0x85BC30, 16);

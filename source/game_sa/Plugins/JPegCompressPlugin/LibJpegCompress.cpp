@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "LibJpegExports.h"
 #include "LibJpegCallback.h"
 
 #include <intrin.h>
@@ -94,7 +95,7 @@ void Emit2Bytes(ExeJpegCompress* cinfo, int32 value) {
 
 // 0x5CF890 (cdecl, a y b en pila): (a + b - 1) / b con idiv con signo. No esta reconstruida: se llama por direccion fija.
 int32 JdivRoundUp(int32 a, int32 b) {
-    return plugin::CallAndReturn<int32, 0x5CF890, int32, int32>(a, b);
+    return LibJpegExportJdivRoundUp(a, b); // 0x5CF890
 }
 } // namespace
 
@@ -400,10 +401,10 @@ void LibJpegCompress::WriteFileTrailer(ExeJpegCompress* cinfo) {
 void LibJpegCompress::JinitMarkerWriter(ExeJpegCompress* cinfo) {
     auto* marker = static_cast<ExeJpegMarkerWriter*>(cinfo->mem->alloc_small(cinfo, 1, sizeof(ExeJpegMarkerWriter))); // JPOOL_IMAGE, 0x20
     cinfo->marker = marker;
-    marker->write_file_header = reinterpret_cast<void*>(0x5C60B0);
-    marker->write_frame_header = reinterpret_cast<void*>(0x5C6100);
+    marker->write_file_header = reinterpret_cast<void*>(&LibJpegCompress::WriteFileHeader); // 0x5C60B0
+    marker->write_frame_header = reinterpret_cast<void*>(&LibJpegCompress::WriteFrameHeader); // 0x5C6100
     marker->write_scan_header = reinterpret_cast<void*>(LIBJPEG_CB(0x5C61E0, "jcmarker", "write_scan_header"));
-    marker->write_file_trailer = reinterpret_cast<void*>(0x5C62D0);
+    marker->write_file_trailer = reinterpret_cast<void*>(&LibJpegCompress::WriteFileTrailer); // 0x5C62D0
     marker->write_tables_only = reinterpret_cast<void*>(LIBJPEG_CB(0x5C62F0, "jcmarker", "write_tables_only"));
     marker->write_marker_header = reinterpret_cast<void*>(LIBJPEG_CB(0x5C6030, "jcmarker", "write_marker_header"));
     marker->write_marker_byte = reinterpret_cast<void*>(LIBJPEG_CB(0x5C6070, "jcmarker", "emit_byte"));
@@ -609,8 +610,8 @@ void LibJpegCompress::PassStartup(ExeJpegCompress* cinfo) {
 void LibJpegCompress::JinitCMasterControl(ExeJpegCompress* cinfo, bool transcodeOnly) {
     auto* master = static_cast<ExeJpegMaster*>(cinfo->mem->alloc_small(cinfo, 1, sizeof(ExeJpegMaster))); // JPOOL_IMAGE, 0x20
     cinfo->master = master;
-    master->prepare_for_pass = reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(0x5C6850);
-    master->pass_startup = reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(0x5C69E0);
+    master->prepare_for_pass = &LibJpegCompress::PrepareForPass; // 0x5C6850
+    master->pass_startup = &LibJpegCompress::PassStartup; // 0x5C69E0
     master->finish_pass = reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(LIBJPEG_CB(0x5C6A10, "jcmaster", "finish_pass_master"));
     master->is_last_pass = 0;
 

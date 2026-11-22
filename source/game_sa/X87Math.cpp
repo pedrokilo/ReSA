@@ -18,6 +18,9 @@ extern "C" double __cdecl tan(double);
 #include "X87Math.h"
 #include "game_sa/Crt/CrtPow.h"
 
+void* RwCameraSetNearClipPlaneExport(void* camera, float nearClip); // rwcore.cpp: RwCameraSetNearClipPlane (0x7EE1D0)
+float RwSqrtExport(float num);                                      // rwplcore.cpp: _rwSqrt (0x7EDB30)
+
 // --- Palabra de control como la del CRT del EXE (_CIasin/_CIacos, 0x821E70/0x822380): (anterior & 0x300) | 0x7F, solo la x87 ---
 // _control87 del CRT de la DLL modifica ademas MXCSR (redondeo y mascaras) y, al restaurar con el valor leido de la x87, lo dejaria igualado a ella si antes diferian.
 // __control87_2 con puntero SSE nulo toca unicamente la x87, como el EXE. Devuelve la palabra x87 previa (formato _MCW_*).
@@ -7280,14 +7283,12 @@ cam_mouse_final_0051049C:;
     if (!(((fa & fb) & 0xFFu) == 0)) goto cam_mouse_final_005104DA;
     CAM_SF((unsigned)(esi+0x10), s0);
     edx = (unsigned)(CAM_LU((unsigned)(esi+0x10)));
-    eax = (unsigned)(0x7EE1D0u);
-    ((void(__cdecl*)(void*, unsigned))(uintptr_t)0x7EE1D0)((void*)(uintptr_t)(ecx), (unsigned)(edx));
+    eax = (unsigned)(uintptr_t)RwCameraSetNearClipPlaneExport((void*)(uintptr_t)(ecx), std::bit_cast<float>((unsigned)(edx))); // 0x7EE1D0 (C++ en rwcore.cpp); devuelve la camara en EAX
     goto cam_mouse_final_end;
 cam_mouse_final_005104DA:;
     CAM_SU((unsigned)(esi+0x10), 0x3DCCCCCDu);
     edx = (unsigned)(CAM_LU((unsigned)(esi+0x10)));
-    eax = (unsigned)(0x7EE1D0u);
-    ((void(__cdecl*)(void*, unsigned))(uintptr_t)0x7EE1D0)((void*)(uintptr_t)(ecx), (unsigned)(edx));
+    eax = (unsigned)(uintptr_t)RwCameraSetNearClipPlaneExport((void*)(uintptr_t)(ecx), std::bit_cast<float>((unsigned)(edx))); // 0x7EE1D0 (C++ en rwcore.cpp); devuelve la camara en EAX
     goto cam_mouse_final_end;
 cam_mouse_final_005104F4:;
 cam_mouse_final_end:;
@@ -19381,7 +19382,7 @@ __declspec(noinline) void __cdecl RtSlerpSetupCacheCpp(const float* from, const 
     if (magnitude >= 0x3F800000) {
         cacheBits[8] = (bits > 0) ? 0u : 0x40490FDBu;
     } else if (magnitude >= 0x3F000000) {
-        auto* const rwSqrt = reinterpret_cast<float(__cdecl*)(float)>(0x7EDB30);
+        auto* const rwSqrt = &RwSqrtExport; // _rwSqrt (0x7EDB30)
         if (bits >= 0) {
             // z = (1 - c) * 0.5; s = RwSqrt(z); df = s con los 12 bits bajos a 0; w = r*s + (z - df*df)/(df + s); omega = 2*(df + w)
             volatile float zStored = float((kRtOne - double(c)) * kRtHalf);
@@ -19495,7 +19496,7 @@ __declspec(noinline) bool __cdecl RtQuatMatrixTraceCpp(const float* m, float* tr
 
 // 0x7EB5C0 (segunda mitad, traza positiva): RwSqrt(arg) deja s en ST0; real = 0.5 * s (fstp [q+0Ch]); inv = 0.5 / s (fdivr); x = (m[18h] - m[24h]) * inv; y = (m[20h] - m[8]) * inv; z = (m[4] - m[10h]) * inv.
 __declspec(noinline) void __cdecl RtQuatMatrixTraceFinishCpp(float* quat, const float* m, float arg) {
-    auto* const rwSqrt = reinterpret_cast<float(__cdecl*)(float)>(0x7EDB30);
+    auto* const rwSqrt = &RwSqrtExport; // _rwSqrt (0x7EDB30)
     const double s = double(rwSqrt(arg));
     quat[3] = float(kRtQuatHalf * s);
     const double inv = kRtQuatHalf / s;
@@ -19526,7 +19527,7 @@ __declspec(noinline) float __cdecl RtQuatMatrixAxisArgCpp(const float* m, int ax
 //   eje 1 (0x7EB700): y = 0.5 s;  w = (m[20h] - m[8]) * inv;    z = (m[24h] + m[18h]) * inv; x = (m[10h] + m[4]) * inv
 //   eje 2 (0x7EB760): z = 0.5 s;  w = (m[4] - m[10h]) * inv;    x = (m[20h] + m[8]) * inv;   y = (m[24h] + m[18h]) * inv
 __declspec(noinline) void __cdecl RtQuatMatrixAxisFinishCpp(float* quat, const float* m, int axis, float arg) {
-    auto* const rwSqrt = reinterpret_cast<float(__cdecl*)(float)>(0x7EDB30);
+    auto* const rwSqrt = &RwSqrtExport; // _rwSqrt (0x7EDB30)
     const double s = double(rwSqrt(arg));
     if (axis == 0) {
         quat[0] = float(kRtQuatHalf * s);

@@ -483,9 +483,10 @@ void CAEAmbienceTrackManager::StartTrackPlayback() const {
     AEAudioHardware.DisableBassEq();
     const uint32 volume = std::bit_cast<uint32>(m_Volume);
     const uint32 channelForVolume = *reinterpret_cast<const volatile uint16*>(reinterpret_cast<const uint8*>(this) + 4);
-    plugin::CallMethod<0x4D8870, CAEAudioHardware*, uint32, uint32, uint32, uint32>(&AEAudioHardware, channelForVolume, 0, volume, 0);
+    // 0x4D8870 / 0x4D9500: el EXE solo lee la PALABRA del canal, asi que int16 es identico al dword exacto que se empujaba antes.
+    AEAudioHardware.SetChannelVolume(static_cast<int16>(channelForVolume), 0, std::bit_cast<float>(volume), 0);
     const uint32 channelForFlags = *reinterpret_cast<const volatile uint16*>(reinterpret_cast<const uint8*>(this) + 4);
-    plugin::CallMethod<0x4D9500, CAEAudioHardware*, uint32, uint32, uint32>(&AEAudioHardware, channelForFlags, 0, 0x21);
+    AEAudioHardware.SetChannelFlags(static_cast<int16>(channelForFlags), 0, 0x21);
     AEAudioHardware.StartTrackPlayback();
 }
 
@@ -495,9 +496,9 @@ void CAEAmbienceTrackManager::StartTrackPlayback() const {
 void CAEAmbienceTrackManager::CheckForPause() const {
     const uint32 factor = CTimer::GetIsPaused() || FrontEndMenuManager.m_bMainMenuSwitch ? 0u : std::bit_cast<uint32>(m_FreqFactor);
     const uint32 firstChannel = *reinterpret_cast<const volatile uint16*>(reinterpret_cast<const uint8*>(this) + 4);
-    plugin::CallMethod<0x4D8960, CAEAudioHardware*, uint32, uint32, uint32>(&AEAudioHardware, firstChannel, 0, factor);
+    AEAudioHardware.SetChannelFrequencyScalingFactor(static_cast<int16>(firstChannel), 0, std::bit_cast<float>(factor)); // 0x4D8960 (el EXE solo lee la palabra del canal)
     const uint32 secondChannel = *reinterpret_cast<const volatile uint16*>(reinterpret_cast<const uint8*>(this) + 4);
-    plugin::CallMethod<0x4D8960, CAEAudioHardware*, uint32, uint32, uint32>(&AEAudioHardware, secondChannel, 0, factor);
+    AEAudioHardware.SetChannelFrequencyScalingFactor(static_cast<int16>(secondChannel), 0, std::bit_cast<float>(factor));
 }
 
 // NOTSA

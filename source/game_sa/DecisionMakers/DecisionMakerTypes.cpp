@@ -77,12 +77,10 @@ namespace {
 // Colaboradores del EXE sin reconstruir. Todos son thiscall/stdcall con parametros en pila (callee limpia), por eso se declaran __fastcall con un EDX explicito.
 constexpr uintptr_t kExeOperatorNew  = 0x82119A; // cdecl(size_t)
 constexpr uintptr_t kExeOperatorDel  = 0x8214BD; // cdecl(void*)
-constexpr uintptr_t kExeConstruct    = 0x4650F0; // thiscall(CDecisionMakerTypes*), ret; EAX = this. Reconstruido (CDecisionMakerTypes::Constructor, con hook): GetInstance lo alcanza por su direccion
 // "PedEvent.txt": cadena propia DatosExe::Rdata::kS86CD44 (antes la del EXE en 0x86CD44)
 
 using ExeOperatorNew  = uint64(__cdecl*)(uint32 size);
 using ExeOperatorDel  = void(__cdecl*)(void* block);
-using ExeConstruct    = uint64(__fastcall*)(void* self, uint32 edx);
 
 // Colaboradores ya reconstruidos: se llaman en C++ (cuerpo de la DLL) recogiendo EDX:EAX de salida.
 using DecisionFromFn          = uint64(__fastcall*)(CDecision* self, uint32 edx, const CDecision* rhs);
@@ -264,9 +262,9 @@ __declspec(safebuffers) CDecisionMakerTypes* CDecisionMakerTypes::GetInstance() 
     uint32 edx              = static_cast<uint32>(allocation >> 32);
     uint32 eax              = 0;
     if (memory) {
-        const uint64 constructed = reinterpret_cast<ExeConstruct>(kExeConstruct)(memory, edx);
-        eax = static_cast<uint32>(constructed);
-        edx = static_cast<uint32>(constructed >> 32);
+        // Constructor (0x4650F0) en C++; su salida deja EDX = 0 (ResidueRegsCpp(head, 0, this)).
+        eax = AsU32(static_cast<CDecisionMakerTypes*>(memory)->Constructor());
+        edx = 0u;
     }
     instance = reinterpret_cast<CDecisionMakerTypes*>(static_cast<uintptr_t>(eax));
     __writefsdword(0, previousHead);

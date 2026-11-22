@@ -174,8 +174,9 @@ void CAECutsceneTrackManager::Service(int32 trackPlayTime) {
 void CAECutsceneTrackManager::StartTrackPlayback() const {
     AEAudioHardware.DisableBassEq();
     const uint32 channel = *reinterpret_cast<const uint16*>(reinterpret_cast<const uint8*>(this) + 4);
-    plugin::CallMethod<0x4D9500, CAEAudioHardware*, uint32, uint32, uint32>(&AEAudioHardware, channel, 0, 39);
-    plugin::CallMethod<0x4D8870, CAEAudioHardware*, uint32, uint32, float, uint32>(&AEAudioHardware, channel, 0, -3.0f, 0);
+    // El EXE (0x4D9500, 0x4D8870) solo lee la PALABRA del canal: int16 es identico al dword exacto que se empujaba antes.
+    AEAudioHardware.SetChannelFlags(static_cast<int16>(channel), 0, 39);
+    AEAudioHardware.SetChannelVolume(static_cast<int16>(channel), 0, -3.0f, 0);
     AEAudioHardware.StartTrackPlayback();
 }
 
@@ -211,5 +212,5 @@ void CAECutsceneTrackManager::CheckForPause() const {
     // llamada lleva el dword exacto por la direccion del EXE (el cuerpo con hook recorta a int16).
     const int32 channel = int16(*reinterpret_cast<const uint16*>(reinterpret_cast<const uint8*>(this) + 4));
     const float factor = (CTimer::GetIsPaused() || m_bPaused) ? 0.0f : 1.0f;
-    plugin::CallMethod<0x4D8960, CAEAudioHardware*, int32, uint32, float>(&AEAudioHardware, channel, 0, factor);
+    AEAudioHardware.SetChannelFrequencyScalingFactor(static_cast<int16>(channel), 0, factor); // 0x4D8960
 }

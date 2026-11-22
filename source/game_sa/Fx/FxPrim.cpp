@@ -66,3 +66,7 @@ FxPrim_c::~FxPrim_c() {
 void FxPrim_c::Enable(bool enabled) {
     m_bEnabled = enabled;
 }
+
+// Constructor y destructor (0x4A9F20, 0x4A9F40) para FxEmitter.cpp, sin pasar por las direcciones del EXE.
+void FxPrimConstructExe(FxPrim_c* self) { self->Constructor(); }
+void FxPrimDestructExe(FxPrim_c* self) { self->Destructor(); }

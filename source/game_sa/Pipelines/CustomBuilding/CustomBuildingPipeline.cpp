@@ -28,10 +28,8 @@ constexpr auto PLUGIN_ID = 0x53F2009C;
 // 0xC02C70 - matriz de textura del mapa de entorno (solo se escriben la diagonal)
 static inline auto& EnvMapTexMatrix = StaticRef<D3DMATRIX>(0xC02C70);
 
-// 0x7FE0A0 - función interna del driver D3D9 que activa/desactiva el alfa por vértice
-static void _rwD3D9RenderStateVertexAlphaEnable(RwBool enable) {
-    ((void(__cdecl*)(RwBool))0x7FE0A0)(enable);
-}
+// 0x7FE0A0 - función interna del driver D3D9 que activa/desactiva el alfa por vértice (C++ en rwcore.cpp)
+RwBool _rwD3D9RenderStateVertexAlphaEnable(RwBool enable);
 
 void CCustomBuildingPipeline::InjectHooks() {
     RH_ScopedClass(CCustomBuildingPipeline);

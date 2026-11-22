@@ -840,6 +840,7 @@ RwStream* RwStreamReadChunkHeaderInfo(RwStream* stream, RwChunkHeaderInfo* chunk
 // Lote R15A (sin validar). 0x80A240 (272 bytes; era una envoltura): rellena las 17 funciones de cadena del motor (RwEngineInstance + 0xF0..0x130) con direcciones fijas del EXE, en orden:
 // sprintf 0x821BB5, vsprintf 0x8230B8, strcpy 0x826590, strncpy 0x821F40, strcat 0x8265A0, strncat 0x826450, strrchr 0x80A420, strchr 0x80A400, strstr 0x822650, strcmp 0x8263C0,
 // strncmp 0x8214D0, stricmp 0x80A350, strlen 0x826330, strupr 0x80A3A0, strlwr 0x80A3D0, strtok 0x82244B y sscanf 0x8220AD. Devuelve 1.
+int _rwStringStricmp(const RwChar* string1, const RwChar* string2); // 0x80A350, mas abajo
 RwBool _rwStringOpen() {
     RwStringFunctions& funcs = RwEngineInstance->stringFuncs;
     funcs.vecSprintf = reinterpret_cast<vecSprintfFunc>(&ExeCrt::Sprintf);
@@ -853,7 +854,7 @@ RwBool _rwStringOpen() {
     funcs.vecStrstr = reinterpret_cast<vecStrstrFunc>(&ExeCrt::Strstr);
     funcs.vecStrcmp = reinterpret_cast<vecStrcmpFunc>(&ExeCrt::Strcmp);
     funcs.vecStrncmp = reinterpret_cast<vecStrncmpFunc>(&ExeCrt::Strncmp);
-    funcs.vecStricmp = reinterpret_cast<vecStricmpFunc>(0x80A350);
+    funcs.vecStricmp = reinterpret_cast<vecStricmpFunc>(_rwStringStricmp); // 0x80A350
     funcs.vecStrlen = reinterpret_cast<vecStrlenFunc>(&ExeCrt::Strlen);
     funcs.vecStrupr = reinterpret_cast<vecStruprFunc>(_rwStringStrupr);
     funcs.vecStrlwr = reinterpret_cast<vecStrlwrFunc>(_rwStringStrlwr);
@@ -1349,12 +1350,15 @@ R12AMatrixModuleData& R12AMatrixModule() {
 }
 }
 
+RwV3d* _rwV3dTransformPointDefault(RwV3d* pointOut, const RwV3d* pointIn, const RwMatrix* matrix);    // 0x7ED730, mas abajo
+RwV3d* _rwV3dTransformVectorDefault(RwV3d* vectorOut, const RwV3d* vectorIn, const RwMatrix* matrix);  // 0x7ED880, mas abajo
+
 // 0x7ED5F0 (lote R12A, sin validar; 122 bytes; cdecl, 4 argumentos): _rwVectorSetMultFn. Guarda los cuatro callbacks (punto, puntos, vector, vectores) en +8, +0xC, +0x10 y +0x14 del modulo de vectores; los nulos se sustituyen por
 // 0x7ED730, 0x7ED670, 0x7ED880 y 0x7ED7D0. Devuelve TRUE.
 RwBool _rwVectorSetMultFn(rwVectorMultFn multPoint, rwVectorsMultFn multPoints, rwVectorMultFn multVector, rwVectorsMultFn multVectors) {
-    R12AVectorModule().multPoint = multPoint ? multPoint : reinterpret_cast<rwVectorMultFn>(0x7ED730);
+    R12AVectorModule().multPoint = multPoint ? multPoint : _rwV3dTransformPointDefault; // 0x7ED730
     R12AVectorModule().multPoints = multPoints ? multPoints : _rwV3dTransformPointsDefault;
-    R12AVectorModule().multVector = multVector ? multVector : reinterpret_cast<rwVectorMultFn>(0x7ED880);
+    R12AVectorModule().multVector = multVector ? multVector : _rwV3dTransformVectorDefault; // 0x7ED880
     R12AVectorModule().multVectors = multVectors ? multVectors : _rwV3dTransformVectorsDefault;
     return TRUE;
 }
@@ -2915,7 +2919,7 @@ RwBool RwEngineInit(const RwMemoryFunctions* memFuncs, RwUInt32 initFlags, RwUIn
         arenaMode = 0;
     } else {
         EngineStaticGlobals().memoryAlloc = reinterpret_cast<RwMemoryAllocFn>(_rwFreeListAllocDefault);
-        EngineStaticGlobals().memoryFree = reinterpret_cast<RwMemoryFreeFn>(0x801D50);
+        EngineStaticGlobals().memoryFree = reinterpret_cast<RwMemoryFreeFn>(_rwFreeListFreeDefault); // 0x801D50
         arenaMode = 1;
     }
     _rwFreeListSetPreallocationMode(arenaMode);
@@ -2923,7 +2927,7 @@ RwBool RwEngineInit(const RwMemoryFunctions* memFuncs, RwUInt32 initFlags, RwUIn
     if (RwEngineInstance->engineStatus != rwENGINESTATUSIDLE) {
         return 0;
     }
-    RwInt32 status = ExeCall0(0x80A240);
+    RwInt32 status = _rwStringOpen(); // 0x80A240
     if (status == 0) {
         return 0;
     }
@@ -2968,7 +2972,7 @@ RwBool RwEngineInit(const RwMemoryFunctions* memFuncs, RwUInt32 initFlags, RwUIn
         _rwStringClose();
         return 0;
     }
-    status = ExeCall0(0x7F5F60);
+    status = _rwDeviceRegisterPlugin(); // 0x7F5F60
     if (status == 0) {
         _rwPluginRegistryClose();
         _rwFileSystemClose();
@@ -4018,3 +4022,6 @@ void RwPlCoreInjectHooksS21A22A() {
     RH_ScopedGlobalInstall(_rwFreeListFreeEntryCallback, 0x8083F0);        // lote S22A (sin validar)
     RH_ScopedGlobalInstall(_rwStringDestroy, 0x80A450);                    // lote S22A (sin validar)
 }
+
+// _rwSqrt (0x7EDB30) para X87Math.cpp, sin pasar por la direccion del EXE.
+float RwSqrtExport(float num) { return _rwSqrt(num); }
