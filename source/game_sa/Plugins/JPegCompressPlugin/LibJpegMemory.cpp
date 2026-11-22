@@ -411,6 +411,18 @@ void ExeFreePool(void* cinfo, int32 poolId) {
     }
 }
 
+// 0x5CF690 (60 B): self_destruct(cinfo) de jmemmgr (lote LNK5A: ya no se cita la direccion del EXE; no sirve la de la libjpeg 6b enlazada porque libera el objeto con free() del CRT de la DLL y este
+// codigo lo reservo con el malloc del EXE). free_pool(1), free_pool(0), jpeg_free_small(mem, 0x54), cinfo->mem = 0 y jpeg_mem_term.
+void ExeSelfDestruct(void* cinfo) {
+    for (int32 pool = 1; pool >= 0; --pool) {
+        ExeFreePool(cinfo, pool);
+    }
+    void* const mem = At<void*>(cinfo, 0x04);
+    ExeJpegFreeSmall(cinfo, mem, 0x54);
+    At<uint32>(cinfo, 0x04) = 0;
+    ExeJpegMemTerm(cinfo);
+}
+
 // 0x5CF6D0 (297 B): jinit_memory_mgr(cinfo) de jmemmgr. cinfo->mem = 0; jpeg_mem_init; jpeg_get_small(0x54): nulo -> jpeg_mem_term, ERREXIT1(0x36, 0) y SIGUE (escribe sobre nulo,
 // como el EXE). Rellena la tabla de metodos con las direcciones del EXE (alloc_small..free_pool, access_virt_sarray 0x5CF2F0, access_virt_barray 0x5CF430, self_destruct 0x5CF690),
 // max_alloc_chunk = 1000000000, max_memory_to_use = jpeg_mem_init() (0), listas a 0, total_space_allocated = 0x54 y cinfo->mem = mem. Luego JPEGMEM: getenv (0x8240C7, cadena 0x86B810) y
@@ -433,7 +445,7 @@ void ExeJinitMemoryMgr(void* cinfo) {
     At<uint32>(mem, 0x1C) = LIBJPEG_CB(0x5CF2F0, "jmemmgr", "access_virt_sarray");
     At<uint32>(mem, 0x20) = LIBJPEG_CB(0x5CF430, "jmemmgr", "access_virt_barray");
     At<uint32>(mem, 0x24) = LibJpegFnAddress(&ExeFreePool); // 0x5CF580
-    At<uint32>(mem, 0x28) = 0x5CF690;
+    At<uint32>(mem, 0x28) = LibJpegFnAddress(&ExeSelfDestruct); // 0x5CF690
     At<uint32>(mem, 0x30) = EXE_MAX_ALLOC_CHUNK;
     At<int32>(mem, 0x2C) = maxToUse;
     // Dos vueltas del EXE: (0x38, 0x40) y (0x34, 0x3C).
@@ -524,6 +536,7 @@ void LibJpegMemory::InjectHooks() {
     RH_ScopedNamedGlobalInstall(ExeRequestVirtBarray, "request_virt_barray", 0x5CEFA0);        // lote 235A (sin validar)
     RH_ScopedNamedGlobalInstall(ExeRealizeVirtArrays, "realize_virt_arrays", 0x5CF010);        // lote 235A (sin validar)
     RH_ScopedNamedGlobalInstall(ExeFreePool, "free_pool", 0x5CF580);                           // lote 235A (sin validar)
+    RH_ScopedNamedGlobalInstall(ExeSelfDestruct, "self_destruct", 0x5CF690);                   // lote LNK5A
     RH_ScopedNamedGlobalInstall(ExeJinitMemoryMgr, "jinit_memory_mgr", 0x5CF6D0);              // lote 235A (sin validar)
     RH_ScopedNamedGlobalInstall(ExeJpegGetSmall, "jpeg_get_small", 0x5CF800);                  // lote 235A (sin validar)
     RH_ScopedNamedGlobalInstall(ExeJpegFreeSmall, "jpeg_free_small", 0x5CF810);                // lote 235A (sin validar)

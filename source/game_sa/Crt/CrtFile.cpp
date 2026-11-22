@@ -268,10 +268,34 @@ int __cdecl Sscanf(const char* src, const char* fmt, ...) {
     return result;
 }
 
+// 0x824046: _getenv_helper_nolock(name). Variables del EXE: 0xC9D424 (entorno inicializado), 0xC9AC28 (_environ, char**) y 0xC9AC30 (_wenviron). Busca "NOMBRE=" sin distinguir mayusculas
+// (_strnicmp, 0x82C39E) y devuelve el puntero al valor. Si _environ es nulo y existe _wenviron, el EXE llama a _wsetenvp (0x82C3EC) para construirlo; aqui no se reconstruye (el arranque propio
+// ya rellena _environ y nunca queda solo la ancha), asi que se devuelve NULL, el resultado del EXE cuando esa construccion falla.
+char* __cdecl GetenvHelperNolock(const char* name) {
+    if (*reinterpret_cast<const int*>(0xC9D424) == 0) {
+        return nullptr;
+    }
+    char** env = *reinterpret_cast<char***>(0xC9AC28);
+    if (env == nullptr) {
+        return nullptr;
+    }
+    if (name == nullptr) {
+        return nullptr;
+    }
+    const size_t length = std::strlen(name);
+    for (; *env != nullptr; ++env) {
+        const char* const entry = *env;
+        if (std::strlen(entry) > length && entry[length] == '=' && _strnicmp(entry, name, length) == 0) {
+            return const_cast<char*>(entry) + length + 1;
+        }
+    }
+    return nullptr;
+}
+
 // 0x8240C7: bloqueo 7 (entorno) y _getenv_helper_nolock 0x824046
 char* __cdecl Getenv(const char* name) {
     NumLock lock(7);
-    return Exe<char*(__cdecl*)(const char*)>(0x824046)(name);
+    return GetenvHelperNolock(name);
 }
 
 // 0x826261
@@ -318,6 +342,7 @@ void CrtFileInjectHooks() {
     RH_ScopedGlobalInstall(ExeCrt::Scprintf, 0x821C0D);
     RH_ScopedGlobalInstall(ExeCrt::Vscprintf, 0x82310F);
     RH_ScopedGlobalInstall(ExeCrt::Sscanf, 0x8220AD);
+    RH_ScopedGlobalInstall(ExeCrt::GetenvHelperNolock, 0x824046);
     RH_ScopedGlobalInstall(ExeCrt::Getenv, 0x8240C7);
     RH_ScopedGlobalInstall(ExeCrt::Stbuf, 0x827DEC);
     RH_ScopedGlobalInstall(ExeCrt::Ftbuf, 0x827E74);

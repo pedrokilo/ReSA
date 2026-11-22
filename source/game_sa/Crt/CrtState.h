@@ -39,6 +39,9 @@ struct File {
 };
 static_assert(sizeof(File) == 0x20);
 
+[[noreturn]] void __cdecl AmsgExit(int number);   // 0x8244D1 _amsg_exit (lote LNK5A)
+void         __cdecl FfMsgBanner();            // 0x82D6C1 _FF_MSGBANNER
+void         __cdecl NmsgWrite(int number);    // 0x82D520 _NMSG_WRITE
 ThreadData*  __cdecl Getptd();                 // 0x827B3D
 void         __cdecl Srand(unsigned int seed); // 0x821B11
 int          __cdecl Rand();                   // 0x821B1E (0..32767)

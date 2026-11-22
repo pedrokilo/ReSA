@@ -279,7 +279,7 @@ void CrtMathInjectHooks() {
 
     // 0x833605 (matherr por defecto, 3 bytes pegados a la funcion siguiente: no admite salto): se sustituye el puntero que la usa (0x8E3128) si nadie lo ha cambiado.
     auto& userMatherr = *reinterpret_cast<uintptr_t*>(0x8E3128);
-    if (userMatherr == 0x833605) {
+    if (userMatherr != 0) { // el EXE solo trae esta rutina (no hay _matherr de usuario): se sustituye sin comparar con la direccion del EXE (lote LNK5A)
         userMatherr = reinterpret_cast<uintptr_t>(&ExeCrt::DefaultMatherr);
     }
 }

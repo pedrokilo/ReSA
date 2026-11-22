@@ -20,9 +20,9 @@ va,bytes,modulo,categoria,enganchada,referencias_codigo_propio,llamadoras_en_exe
 0x006935E0,5,CTaskSimpleHoldEntity,salto-puro,0,0,1
 0x00745CC0,252,VideoMode,usercall-cubierta,0,0,0
 0x00745DC0,130,VideoMode,usercall-cubierta,0,0,0
-0x005DBE40,104,CPlantMgr,usercall-cubierta,0,0,1
+0x005DBE40,104,CPlantMgr,usercall-cubierta,1,0,1
 0x005DD1E0,57,CPlantMgr,usercall-cubierta,0,0,1
-0x005DD220,323,CPlantMgr,usercall-cubierta,0,0,1
+0x005DD220,323,CPlantMgr,usercall-cubierta,1,0,1
 0x004B5C2A,197,CPedDamageResponseCalculator,no-es-funcion,0,0,0
 0x0070FA70,107,CStencilShadows,usercall-cubierta,0,0,2
 0x00711160,136,CStencilShadows,usercall-cubierta,0,0,1
@@ -33,7 +33,7 @@ va,bytes,modulo,categoria,enganchada,referencias_codigo_propio,llamadoras_en_exe
 0x00746480,300,WinMain,sustituida-por-crt,0,0,1
 0x005E3630,400,CPed,usercall-cubierta,0,0,1
 0x005E37C0,404,CPed,usercall-cubierta,0,0,1
-0x005A42B0,203,CClothesBuilder,usercall-cubierta,0,0,1
+0x005A42B0,203,CClothesBuilder,usercall-cubierta,1,0,1
 0x0072E080,180,RenderWare (rwtexdict),usercall-renderware,0,0,1
 0x0072E140,217,RenderWare (rwtexdict),usercall-renderware,0,0,1
 0x0072E220,79,RenderWare (rwtexdict),usercall-renderware,0,0,1
@@ -46,12 +46,12 @@ va,bytes,modulo,categoria,enganchada,referencias_codigo_propio,llamadoras_en_exe
 0x005D84C0,207,CustomBuildingPipeline,usercall-cubierta,0,0,1
 0x005D8590,723,CustomBuildingPipeline,usercall-cubierta,0,0,1
 0x0048DE60,5,CTaskSimpleAnim,salto-puro,0,0,1
-0x004D1680,971,RpAnimBlend,usercall-cubierta,0,0,1
-0x004D1A50,850,RpAnimBlend,usercall-cubierta,0,0,1
-0x004D1DB0,843,RpAnimBlend,usercall-cubierta,0,0,1
-0x004D2100,845,RpAnimBlend,usercall-cubierta,0,0,1
-0x004D2450,910,RpAnimBlend,usercall-cubierta,0,0,1
-0x004D27F0,910,RpAnimBlend,usercall-cubierta,0,0,1
+0x004D1680,971,RpAnimBlend,usercall-cubierta,1,0,1
+0x004D1A50,850,RpAnimBlend,usercall-cubierta,1,0,1
+0x004D1DB0,843,RpAnimBlend,usercall-cubierta,1,0,1
+0x004D2100,845,RpAnimBlend,usercall-cubierta,1,0,1
+0x004D2450,910,RpAnimBlend,usercall-cubierta,1,0,1
+0x004D27F0,910,RpAnimBlend,usercall-cubierta,1,0,1
 0x004D6450,73,RpAnimBlend,usercall-cubierta,0,0,1
 0x004D6510,256,RpAnimBlend,usercall-cubierta,0,0,1
 0x004D66A0,118,RpAnimBlend,usercall-cubierta,0,0,1
@@ -83,8 +83,8 @@ va,bytes,modulo,categoria,enganchada,referencias_codigo_propio,llamadoras_en_exe
 0x004CC0C0,129,RenderWare (D3D9 raster),usercall-renderware,0,0,1
 0x004CC5C0,907,RenderWare (D3D9 raster),usercall-renderware,0,0,1
 0x004CCD70,236,RenderWare (D3D9 raster),usercall-renderware,0,0,1
-0x004CCE60,457,RenderWare (D3D9 raster),usercall-renderware,0,1,1
-0x004A2BB0,5,FxEmitter_c,salto-puro,0,1,1
+0x004CCE60,457,RenderWare (D3D9 raster),usercall-renderware,1,1,1
+0x004A2BB0,5,FxEmitter_c,salto-puro,0,0,1
 0x005C4640,226,libjpeg (jchuff/jcmarker),usercall-cubierta,0,0,2
 0x005C4760,387,libjpeg (jchuff/jcmarker),usercall-cubierta,0,0,0
 0x005C48F0,200,libjpeg (jchuff/jcmarker),usercall-cubierta,0,0,0
@@ -117,3 +117,40 @@ va,bytes,modulo,categoria,enganchada,referencias_codigo_propio,llamadoras_en_exe
 0x00403C70,24,ExeProtectionStub,proteccion-descartada,0,0,1
 0x00403C88,127,ExeProtectionStub,proteccion-descartada,0,0,1
 0x00403D07,88,ExeProtectionStub,proteccion-descartada,0,0,0
+0x004E7990,238,CAEMFDecoder,retirada-quicktime,0,0,1
+0x004E7A80,245,CAEMFDecoder,retirada-quicktime,0,0,1
+0x0085742B,7,CRT (D3D9RestoreFpuControlWord),sin-equivalente-cpp,1,1,1
+0x00833FF8,743,CRT (_sopen_helper),usercall-cubierta,0,0,1
+0x0082C0B9,510,CRT (_ioinit),arranque-sin-gancho,0,0,1
+0x0082C2B7,76,CRT (_ioterm),arranque-sin-gancho,0,0,0
+0x00823EE5,169,CRT (__initstdio),arranque-sin-gancho,0,0,0
+0x0076E664,4,D3DX9 (compilador de shaders),sin-espacio-para-gancho,0,0,6
+0x0082C457,26,CRT (__heap_select),arranque-sin-gancho,0,0,1
+0x0082C471,81,CRT (__heap_init),arranque-sin-gancho,0,0,1
+0x0082AC74,73,CRT (__mtinitlocks),arranque-sin-gancho,0,0,1
+0x0082ACBD,81,CRT (__mtdeletelocks),arranque-sin-gancho,0,0,1
+0x00827D25,111,CRT (__mtinit),arranque-sin-gancho,0,0,1
+0x00827B0C,30,CRT (__mtterm),arranque-sin-gancho,0,0,1
+0x00821CBE,24,CRT (__onexitinit),arranque-sin-gancho,0,0,0
+0x0082DB26,162,CRT (__setargv),arranque-sin-gancho,0,0,1
+0x0082D9BA,364,CRT (parse_cmdline de __setargv),arranque-sin-gancho,0,0,1
+0x0082D8F3,166,CRT (__setenvp),arranque-sin-gancho,0,0,1
+0x0082DBC8,285,CRT (__crtGetEnvironmentStringsA),arranque-sin-gancho,0,0,1
+0x00823BDB,211,CRT (_doexit),arranque-sin-gancho,0,0,3
+0x00823AFE,47,CRT (__crtExitProcess),arranque-sin-gancho,0,0,2
+0x00833494,30,CRT (__initmbctable),arranque-sin-gancho,0,0,3
+0x00826A72,45,CRT (tabla C de __cinit),arranque-sin-gancho,0,0,1
+0x008289F5,87,CRT (__sse2_available_init),arranque-sin-gancho,0,0,0
+0x008289C0,46,CRT (prueba de SSE2),arranque-sin-gancho,0,0,1
+0x0082AC54,19,CRT (tabla C de __cinit),arranque-sin-gancho,0,0,0
+0x0082AC0E,70,CRT (filtro de excepciones no manejadas),arranque-sin-gancho,0,0,0
+0x00832ECF,24,CRT (_ValidateExecute),arranque-sin-gancho,0,0,2
+0x008339CA,86,CRT (__security_init_cookie),arranque-sin-gancho,0,0,1
+0x0082BF1E,68,CRT (terminacion de RTC),arranque-sin-gancho,0,0,0
+0x00823B76,101,CRT (__cinit),arranque-sin-gancho,0,0,1
+0x00834B6E,28,CRT (_strncnt),arranque-sin-gancho,0,0,1
+0x00832F45,47,CRT (LCID de la pagina multibyte),arranque-sin-gancho,0,0,1
+0x00821397,23,"CRT (__fpmath, _FPinit)",arranque-sin-gancho,0,0,1
+0x0082134F,56,CRT (despacho de intrinsecas),arranque-sin-gancho,0,0,1
+0x00826F04,41,CRT (__ms_p5_mp_test_fdiv),arranque-sin-gancho,0,0,1
+0x00826EC4,64,CRT (__ms_p5_test_fdiv),arranque-sin-gancho,0,0,1

@@ -21,7 +21,7 @@ rem .obj de reemplazo (archivos del proyecto recompilados con GTASA_STANDALONE_E
 set OBJDIR=%~3
 if "%OBJDIR%"=="" set OBJDIR=%FN%\obj
 rem libs propias del ASI (zlib, libpng, libjpeg 6b): si hay build/ se refrescan desde alli
-for %%p in (libjpeg-6b\Debug\libjpeg6b libpng-1.0.12\Debug\libpng1012 zlib-1.1.3\Debug\zlib113) do if exist "%REPO%uild\libs\%%p.lib" copy /y "%REPO%uild\libs\%%p.lib" "%FN%\lib\" >nul
+for %%p in (libjpeg-6b\Debug\libjpeg6b libpng-1.0.12\Debug\libpng1012 zlib-1.1.3\Debug\zlib113) do if exist "%REPO%\build\libs\%%p.lib" copy /y "%REPO%\build\libs\%%p.lib" "%FN%\lib\" >nul
 dir /b "%OBJDIR%\*.obj" > "%OUT%\objs.txt"
 del "%OUT%\link.rsp" 2>nul
 echo "%OUT%\reserva_imagen.obj" >> "%OUT%\link.rsp"

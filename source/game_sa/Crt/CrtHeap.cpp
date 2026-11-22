@@ -3,6 +3,7 @@
 #endif
 #include "CrtHeap.h"
 #include "CrtState.h"
+#include <new>
 
 // Reconstruccion de malloc/free/realloc/calloc/operator new del CRT del EXE para __active_heap == 1 (lote CRT1A). Ver CrtHeap.h y reversing/FnCRT1A/DISENO.md.
 // Las ramas del EXE para el montón de bloques pequeños (__active_heap == 3) no se reproducen: no se alcanzan en Windows 2000 o posterior (__heap_select, 0x82C457).
@@ -118,14 +119,20 @@ unsigned int __cdecl Msize(void* block) {
     return static_cast<unsigned int>(HeapSize(CrtHeap(), 0, block));
 }
 
-// 0x82119A: malloc(size); si falla, el manejador de new decide reintentar; sin manejador llama a 0x8212ED (lanza std::bad_alloc), como el EXE
+// 0x8212ED: lanza std::bad_alloc ("bad allocation"). El EXE construye un objeto estatico (vtable 0x887DA8, texto 0x887DB0), lo copia y llama a _CxxThrowException con el ThrowInfo 0x8A1ED4;
+// aqui lo hace el compilador con el std::bad_alloc del CRT enlazado (mismo nombre decorado `.?AVbad_alloc@std@@`, asi que un catch del EXE sigue atrapandolo).
+[[noreturn]] void __cdecl ThrowBadAlloc() {
+    throw std::bad_alloc();
+}
+
+// 0x82119A: malloc(size); si falla, el manejador de new decide reintentar; sin manejador lanza std::bad_alloc (0x8212ED), como el EXE
 void* __cdecl OperatorNew(unsigned int size) {
     for (;;) {
         if (void* const block = Malloc(size)) {
             return block;
         }
         if (CallNewHandler(size) == 0) {
-            reinterpret_cast<void(__cdecl*)()>(0x8212ED)();
+            ThrowBadAlloc();
         }
     }
 }
@@ -163,6 +170,7 @@ void CrtHeapInjectHooks() {
     RH_ScopedGlobalInstall(ExeCrt::Realloc, 0x824269);
     RH_ScopedGlobalInstall(ExeCrt::Calloc, 0x824416);
     RH_ScopedGlobalInstall(ExeCrt::Msize, 0x828C4A); // lote P4 E2-monton
+    RH_ScopedGlobalInstall(ExeCrt::ThrowBadAlloc, 0x8212ED);
     RH_ScopedGlobalInstall(ExeCrt::OperatorNew, 0x82119A);
     // Lote NEWDEL: new[]/delete/delete[] (tres `jmp` de 5 bytes del EXE) y el manejador de new.
     RH_ScopedGlobalInstall(ExeCrt::OperatorNewArray, 0x821195);
