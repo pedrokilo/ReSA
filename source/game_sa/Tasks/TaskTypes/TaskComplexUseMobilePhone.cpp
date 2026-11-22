@@ -354,3 +354,7 @@ CTask* CTaskComplexUseMobilePhone::ControlSubTask(CPed* ped) {
     }
     return result;
 }
+
+CTaskComplexUseMobilePhone* CTaskComplexUseMobilePhoneConstructorExe(CTaskComplexUseMobilePhone* self, int32 duration) {
+    return UseMobilePhoneConstructor(self, nullptr, duration);
+}

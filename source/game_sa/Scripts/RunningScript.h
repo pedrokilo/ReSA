@@ -334,6 +334,14 @@ public:
     OpcodeResult ProcessCommands400To499(int32 command); // 0x47D210
     OpcodeResult ProcessCommands1500To1599(int32 command); // 0x490DB0 (F4 de codigo vivo, sin validar)
     OpcodeResult ProcessCommands2000To2099(int32 command); // 0x472310 (F4 de codigo vivo, sin validar)
+    OpcodeResult ProcessCommands1600To1699(int32 command); // 0x493FE0 (despachadores scrc, sin validar)
+    OpcodeResult ProcessCommands1800To1899(int32 command); // 0x46D050 (despachadores scrc, sin validar)
+    OpcodeResult ProcessCommands2100To2199(int32 command); // 0x470A90 (despachadores scrc, sin validar)
+    OpcodeResult ProcessCommands2200To2299(int32 command); // 0x474900 (despachadores scrc, sin validar)
+    OpcodeResult ProcessCommands2300To2399(int32 command); // 0x4762D0 (despachadores scrc, sin validar)
+    OpcodeResult ProcessCommands2400To2499(int32 command); // 0x478000 (despachadores scrc, sin validar)
+    OpcodeResult ProcessCommands2500To2599(int32 command); // 0x47A760 (despachadores scrc, sin validar)
+    OpcodeResult ProcessCommands2600To2699(int32 command); // 0x479DA0 (despachadores scrc, sin validar)
 
     void SetName(const char* name)      { strcpy_s(m_szName, name); }
     void SetName(std::string_view name) { assert(name.size() < sizeof(m_szName)); strncpy_s(m_szName, name.data(), name.size()); }
