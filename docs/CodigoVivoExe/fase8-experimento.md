@@ -244,3 +244,7 @@ python -I reversing/FnFase8/gen_init_estaticos.py                          # reg
 ## 9. Skin sin shim (22/11/2026, rama `skin-nodo`)
 
 El nodo `nodeD3D9SkinAtomicAllInOne.csl` (`0x7C7B90` y 12 ayudantes) ya es C++ (`rpskin.cpp`, lote SKIN1; ver `ejecucion-skin.md`) y el shim de `0x7C7B90` se quitó de `StandaloneExe.cpp`. Con el ASI, ropero/agua/marcadores dan `BIEN` y CJ sale bien deformado. En el standalone el siguiente fallo es `0x75F0B0` (generador de vertex shaders, 7.153 B, llamado desde `_rpD3D9GetVertexShader`) a los 9,7 s: **sigue sin verse CJ ni los peatones** hasta reconstruir esa función. `0x80E270` (SubmitNoLight) sigue con shim (otro agente).
+
+## 10. Generador de vertex shaders en C++ (22/11/2026, rama `vertex-shader`)
+
+`0x75F0B0` (`_rpD3D9VertexShaderCreate`, 7.153 B) ya es C++ (`rpworld.cpp`; ver `ejecucion-vertex-shader.md`): texto de ensamblador idéntico al del EXE en 51.049 ejecuciones comparadas (original emulado en Unicorn frente al C++). Con `--shims` y partida nueva el standalone ya no se detiene (80-100 s, 1.850-2.100 fotogramas, 0 llamadas a código original) y **se ven CJ y los peatones** con skin correcto. Pendiente fuera de este lote: cielo, limpieza de fotogramas, escena inicial inmóvil, shim de `0x80E270`.

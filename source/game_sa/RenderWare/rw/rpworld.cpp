@@ -9616,9 +9616,637 @@ RwUInt32 _rpD3D9GetNumConstantsUsed(const _rpD3D9VertexShaderDescriptor* desc) {
     return total;
 }
 
+// Generador del texto de los vertex shaders por defecto (parte de 0x75F0B0).
+// Bytes de la tabla del .rdata 0x87522C: "xyzw" y a continuacion los punteros de la tabla de prefijos (se leen como caracteres con signo
+// con indices >= 4 solo si numWeights > 4, que RenderWare no usa; se conservan para no divergir).
+static const signed char kVsXyzw[20] = {'x', 'y', 'z', 'w', 0x18, 0x64, static_cast<signed char>(0x8D), 0x00, 0x14, 0x64, static_cast<signed char>(0x8D), 0x00, 0x10, 0x64, static_cast<signed char>(0x8D), 0x00, 0x08, 0x64, static_cast<signed char>(0x8D), 0x00};
+// 0x87522C + 4 * n (n = 1..7): prefijo de mascara con n componentes ("x", "xy", "xyz", "xyzw") y despues las repeticiones "xxx", "yyy", "zzz".
+static const char* const kVsPrefix[8] = {nullptr, "x", "xy", "xyz", "xyzw", "xxx", "yyy", "zzz"};
+// 0x875240 + 4 * n: repeticion de una componente en las tres primeras ("xxx", "yyy", "zzz", "www").
+static const char* const kVsRepeat[4] = {"xxx", "yyy", "zzz", "www"};
+
+using VsSprintf = int (*)(char*, const char*, ...);
+
+// Genera el texto de ensamblador del vertex shader del descriptor `d` (4 bytes) y rellena el despacho `out` (8 bytes) como 0x75F0B0.
+// Devuelve la longitud del texto (escrito en `buf`) o -1 si la version del dispositivo (`versionParam`, 0xC94C00) no es 0xA, 0x14 ni 0x19.
+static int BuildVertexShaderSource(const RwUInt8* d, RwUInt8* out, char* buf, RwUInt32 versionParam, RwUInt32 maxConsts, const RwUInt32* constTable, VsSprintf sprintfFn) {
+    const RwUInt32 numDir = d[0] & 0xF;
+    const RwUInt32 numPoint = d[0] >> 4;
+    const RwUInt32 numSpot = d[1] & 0xF;
+    const RwUInt32 numTex = d[1] >> 4;
+    const bool morph = (d[2] & 1) != 0;
+    const RwUInt32 weights = (d[2] >> 1) & 7;
+    const bool prelit = (d[2] & 0x10) != 0;
+    const bool normalize = ((d[2] >> 6) & 1) != 0;
+    const bool modulate = (d[2] >> 7) != 0;
+    const RwInt32 fog = d[3] & 3;
+    const RwUInt32 effect = d[3] >> 2;
+
+    bool hasNormals = false;
+    bool tangent = false;
+    if (d[0] != 0 || (d[1] & 0xF) != 0 || effect == 1 || effect == 2 || effect == 3 || effect == 8 || effect == 9 || effect == 10 || effect == 11) {
+        if ((d[2] & 0x20) != 0) {
+            hasNormals = true;
+            if (effect == 8 || effect == 9) {
+                tangent = true;
+            }
+        }
+    }
+
+    // Despacho: desplazamientos de constantes (0xFF = no usado).
+    std::memset(out, 0xFF, 8);
+    RwInt32 reg = 5;
+    RwInt32 pointBase = -1;
+    RwInt32 spotBase = -1;
+    if (numDir != 0) {
+        reg = static_cast<RwInt32>(numDir * 2 + 5);
+    }
+    if (numPoint != 0) {
+        pointBase = reg;
+        reg = reg + static_cast<RwInt32>((numPoint + 3) >> 2) + static_cast<RwInt32>(numPoint * 2);
+    }
+    if (numSpot != 0) {
+        spotBase = reg;
+        reg = reg + static_cast<RwInt32>((numSpot + 3) >> 2) + static_cast<RwInt32>(numSpot * 4);
+    }
+    if (modulate) {
+        out[0] = static_cast<RwUInt8>(reg);
+        ++reg;
+    }
+    if (fog > 0) {
+        out[1] = static_cast<RwUInt8>(reg);
+        ++reg;
+    }
+    if (morph) {
+        out[3] = static_cast<RwUInt8>(reg);
+        ++reg;
+    }
+    if (weights > 0) {
+        out[4] = static_cast<RwUInt8>(reg);
+    }
+    if (effect != 0) {
+        const RwUInt32 count = constTable[effect];
+        if (count != 0) {
+            if (weights > 0) {
+                out[2] = static_cast<RwUInt8>(maxConsts - count);
+            } else {
+                out[2] = static_cast<RwUInt8>(reg);
+                reg += static_cast<RwInt32>(count);
+            }
+        }
+    }
+
+    char* p = buf;
+    const auto E = [&p, sprintfFn](const char* fmt, auto... args) { p += sprintfFn(p, fmt, args...); };
+
+    if (versionParam == 0xA) {
+        E("vs_1_1\n");
+    } else if (versionParam == 0x14) {
+        E("vs_2_0\n");
+    } else if (versionParam == 0x19) {
+        E("vs_2_x\n");
+    } else {
+        return -1;
+    }
+
+    // Declaraciones de entrada.
+    E("dcl_position0 v0\n");
+    if (weights > 0) {
+        if (weights > 1) {
+            E("dcl_blendweight0 v1\n");
+        }
+        E("dcl_blendindices0 v2\n");
+    }
+    if (prelit) {
+        E("dcl_color0 v4\n");
+    }
+    if (hasNormals) {
+        E("dcl_normal0 v3\n");
+    }
+    if (tangent) {
+        E("dcl_tangent0 v13\n");
+    }
+    switch (effect) {
+    case 1: case 2: case 3: case 5: case 6: case 10: case 11:
+        if (numTex > 0) {
+            E("dcl_texcoord0 v5\n");
+        }
+        break;
+    case 4: case 7:
+        if ((d[1] & 0xF0) > 0x10) {
+            E("dcl_texcoord1 v6\n");
+        }
+        break;
+    default:
+        for (RwUInt32 i = 0; i < static_cast<RwUInt32>(d[1] >> 4); ++i) {
+            E("dcl_texcoord%u v%u\n", i, i + 5);
+        }
+        break;
+    }
+    if (morph) {
+        E("dcl_position1 v14\n");
+        if (hasNormals) {
+            E("dcl_normal1 v15\n");
+        }
+    }
+
+    const char* posIn = "v0";
+    const char* nrmIn = hasNormals ? "v3" : nullptr;
+
+    // Posicion (morphing / huesos) y salida de posicion.
+    if (!morph && weights == 0) {
+        E("m4x4 oPos.xyzw, v0, c[0]\n");
+    } else {
+        const RwInt32 morphOffset = out[3];
+        if (morph) {
+            if (weights == 0) {
+                E("mul r3, v0, c[%d].x\n", morphOffset);
+                E("mad r3, v14, c[%d].y, r3\n", morphOffset);
+                posIn = "r3";
+                if (hasNormals) {
+                    E("mul r5, v3, c[%d].x\n", morphOffset);
+                    E("mad r5, v15, c[%d].y, r5\n", morphOffset);
+                    nrmIn = "r5";
+                }
+            } else {
+                E("mul r2, v0, c[%d].x\n", morphOffset);
+                E("mad r2, v14, c[%d].y, r2\n", morphOffset);
+                posIn = "r2";
+                if (hasNormals) {
+                    E("mul r4, v3, c[%d].x\n", morphOffset);
+                    E("mad r4, v15, c[%d].y, r4\n", morphOffset);
+                    nrmIn = "r4";
+                }
+            }
+        }
+        if (weights > 0) {
+            if (weights == 1) {
+                if (versionParam == 0xA) {
+                    E("mov a0.x, v2.x\n");
+                } else {
+                    E("mova a0.x, v2.x\n");
+                }
+                E("m4x3 r3.xyz, %s, c[a0.x + %d]\n", posIn, reg);
+                if (hasNormals) {
+                    E("m3x3 r5.xyz, %s, c[a0.x + %d]\n", nrmIn, reg);
+                }
+            } else if (hasNormals) {
+                if (versionParam >= 0x14) {
+                    E("mova a0.%s, v2\n", kVsPrefix[weights]);
+                    for (RwUInt32 i = 0; i < weights; ++i) {
+                        const int c = kVsXyzw[i];
+                        if (i != 0) {
+                            E("mad r8, v1.%c, c[a0.%c + %d], r8\n", c, c, reg);
+                            E("mad r9, v1.%c, c[a0.%c + %d], r9\n", c, c, reg + 1);
+                            E("mad r10, v1.%c, c[a0.%c + %d], r10\n", c, c, reg + 2);
+                        } else {
+                            E("mul r8, v1.%c, c[a0.%c + %d]\n", 'x', 'x', reg);
+                            E("mul r9, v1.%c, c[a0.%c + %d]\n", 'x', 'x', reg + 1);
+                            E("mul r10, v1.%c, c[a0.%c + %d]\n", 'x', 'x', reg + 2);
+                        }
+                    }
+                } else {
+                    for (RwUInt32 i = 0; i < weights; ++i) {
+                        const int c = kVsXyzw[i];
+                        E("mov a0.x, v2.%c\n", c);
+                        if (i != 0) {
+                            E("mad r8, v1.%c, c[a0.x + %d], r8\n", c, reg);
+                            E("mad r9, v1.%c, c[a0.x + %d], r9\n", c, reg + 1);
+                            E("mad r10, v1.%c, c[a0.x + %d], r10\n", c, reg + 2);
+                        } else {
+                            E("mul r8, v1.%c, c[a0.x + %d]\n", 'x', reg);
+                            E("mul r9, v1.%c, c[a0.x + %d]\n", 'x', reg + 1);
+                            E("mul r10, v1.%c, c[a0.x + %d]\n", 'x', reg + 2);
+                        }
+                    }
+                }
+                E("m4x3 r3.xyz, %s, r8\n", posIn);
+                E("m3x3 r5.xyz, %s, r8\n", nrmIn);
+            } else if (versionParam >= 0x14) {
+                E("mova a0.%s, v2\n", kVsPrefix[weights]);
+                for (RwUInt32 i = 0; i < weights; ++i) {
+                    const int c = kVsXyzw[i];
+                    E("m4x3 r5.xyz, %s, c[a0.%c + %d]\n", posIn, c, reg);
+                    if (i == 0) {
+                        E("mul r3.xyz, v1.%c, r5.xyz\n", 'x');
+                    } else {
+                        E("mad r3.xyz, v1.%c, r5.xyz, r3.xyz\n", c);
+                    }
+                }
+            } else {
+                for (RwUInt32 i = 0; i < weights; ++i) {
+                    const int c = kVsXyzw[i];
+                    E("mov a0.x, v2.%c\n", c);
+                    E("m4x3 r5.xyz, %s, c[a0.x + %d]\n", posIn, reg);
+                    if (i == 0) {
+                        E("mul r3.xyz, v1.%c, r5.xyz\n", 'x');
+                    } else {
+                        E("mad r3.xyz, v1.%c, r5.xyz, r3.xyz\n", c);
+                    }
+                }
+            }
+            posIn = "r3";
+            if (hasNormals) {
+                nrmIn = "r5";
+            }
+        }
+        E("mov r3.w, v0.w\n");
+        E("m4x4 oPos.xyzw, r3, c[0]\n");
+    }
+
+    // Niebla.
+    if (fog > 0) {
+        const RwInt32 fogOffset = out[1];
+        E("dp4 r0.w, %s, c[3]\n", posIn);
+        if (fog == 1) {
+            E("mad oFog, r0.w, c[%d].x, c[%d].y\n", fogOffset, fogOffset);
+        } else if (fog == 2) {
+            E("mul r0.w, r0.w, c[%d].x\n", fogOffset);
+            E("expp r0.w, r0.w\n");
+            E("rcp oFog, r0.w\n");
+        } else if (fog == 3) {
+            E("mul r0.w, r0.w, c[%d].x\n", fogOffset);
+            E("mul r0.w, r0.w, r0.w\n");
+            E("expp r0.w, r0.w\n");
+            E("rcp oFog, r0.w\n");
+        }
+    }
+
+    // Normalizacion de la normal.
+    if (hasNormals && normalize) {
+        E("dp3 r5.w, %s, %s\n", nrmIn, nrmIn);
+        E("rsq r5.w, r5.w\n");
+        E("mul r5.xyz, %s, r5.w\n", nrmIn);
+        nrmIn = "r5";
+    }
+
+    // Efectos con tangente (8 y 9), o iluminacion normal.
+    if (tangent) {
+        if (weights > 0) {
+            if (weights == 1) {
+                E("m3x3 r4.xyz, v13, c[a0.x + %d]\n", reg);
+            } else {
+                E("m3x3 r4.xyz, v13, r8\n");
+            }
+            if (normalize) {
+                E("dp3 r4.w, r4, r4\n");
+                E("rsq r4.w, r4.w\n");
+                E("mul r4.xyz, r4, r4.w\n");
+            }
+            E("slt r4.w, v13.w, v13.w\n");
+        } else {
+            E("mov r4, v13\n");
+        }
+        if (morph || weights > 0) {
+            E("mov %s.w, v3.w\n", nrmIn);
+        }
+        E("mul r2, r4.zxyw, %s.yzxw\n", nrmIn);
+        E("mad r2, r4.yzxw, %s.zxyw, -r2\n", nrmIn);
+        if (normalize) {
+            E("dp3 r2.w, r2, r2\n");
+            E("rsq r2.w, r2.w\n");
+            E("mul r2.xyz, r2, r2.w\n");
+        }
+        if (prelit) {
+            E("mov oD0, v4\n");
+        }
+        bool bumpOut = true;
+        if (numDir != 0) {
+            E("dp3 r1.x, c[5], r4\n");
+            E("dp3 r1.y, c[5], r2\n");
+            E("dp3 r1.z, c[5], %s\n", nrmIn);
+            E("dp3 r1.w, r1, r1\n");
+            E("rsq r1.w, r1.w\n");
+            E("mul r1.xyz, r1, r1.w\n");
+            if (effect != 9) {
+                E("mad oT2.xyz, r1, c[5].w, c[5].w\n");
+                bumpOut = false;
+            } else if (prelit) {
+                E("mad oD1.xyz, r1, c[5].w, c[5].w\n");
+            } else {
+                E("mad oD0.xyz, r1, c[5].w, c[5].w\n");
+            }
+        } else if (numPoint != 0) {
+            E("add r7.xyz, -c[1 + 5].xyz, %s.xyz\n", posIn);
+            E("dp3 r7.w, r7, r7\n");
+            E("rsq r7.w, r7.w\n");
+            E("mul r7.xyz, r7, r7.w\n");
+            E("rcp r7.w, r7.w\n");
+            E("mad r7.w, r7.w, c[5].x, c[5].y\n");
+            E("max r7.w, r7.w, c[5].w\n");
+            E("dp3 r1.x, r7, r4\n");
+            E("dp3 r1.y, r7, r2\n");
+            E("dp3 r1.z, r7, %s\n", nrmIn);
+            E("dp3 r1.w, r1, r1\n");
+            E("rsq r1.w, r1.w\n");
+            E("mul r1.xyz, r1, r1.w\n");
+            E("mul r1.xyz, r1, r7.w\n");
+            if (effect != 9) {
+                E("mad oT2.xyz, r1, c[5].z, c[5].z\n");
+                bumpOut = false;
+            } else if (prelit) {
+                E("mad oD1.xyz, r1, c[5].z, c[5].z\n");
+            } else {
+                E("mad oD0.xyz, r1, c[5].z, c[5].z\n");
+            }
+        } else if (numSpot != 0) {
+            E("add r7.xyz, -c[1 + 5].xyz, %s.xyz\n", posIn);
+            E("dp3 r7.w, r7, r7\n");
+            E("rsq r7.w, r7.w\n");
+            E("mul r7.xyz, r7, r7.w\n");
+            E("dp3 r9.w, r7, c[2 + 5]\n");
+            E("mad r9.w, r9.w, c[3 + 5].x, c[3 + 5].y\n");
+            E("rcp r7.w, r7.w\n");
+            E("mad r7.w, r7.w, c[5].x, c[5].y\n");
+            E("max r7.w, r7.w, c[5].w\n");
+            E("max r9.w, r9.w, c[5].w\n");
+            E("dp3 r1.x, r7, r4\n");
+            E("dp3 r1.y, r7, r2\n");
+            E("dp3 r1.z, r7, %s\n", nrmIn);
+            E("dp3 r1.w, r1, r1\n");
+            E("rsq r1.w, r1.w\n");
+            E("mul r1.xyz, r1, r1.w\n");
+            E("mul r1.xyz, r1, r7.w\n");
+            E("mul r1.xyz, r1, r9.w\n");
+            if (effect != 9) {
+                E("mad oT2.xyz, r1, c[5].z, c[5].z\n");
+                bumpOut = false;
+            } else if (prelit) {
+                E("mad oD1.xyz, r1, c[5].z, c[5].z\n");
+            } else {
+                E("mad oD0.xyz, r1, c[5].z, c[5].z\n");
+            }
+        } else if (effect != 9) {
+            bumpOut = false;
+        }
+        if (bumpOut) {
+            // Efecto 9: coordenadas de la base tangente.
+            RwInt32 eo = out[2];
+            E("dp3 oT2.x, c[%d], r4\n", eo);
+            E("dp3 oT2.y, c[%d], r2\n", eo);
+            E("dp3 oT2.z, c[%d], %s\n", eo, nrmIn);
+            ++eo;
+            E("dp3 oT3.x, c[%d], r4\n", eo);
+            E("dp3 oT3.y, c[%d], r2\n", eo);
+            E("dp3 oT3.z, c[%d], %s\n", eo, nrmIn);
+        }
+        E("mov oT0.xy, v%d\n", static_cast<RwInt32>(numTex + 4));
+        E("mov oT1.xy, v5\n");
+    } else {
+        RwInt32 remaining = static_cast<RwInt32>(numPoint + numDir + numSpot);
+        if (hasNormals && remaining > 0) {
+            if (prelit) {
+                E("add r11, v4, c[4]\n");
+            } else {
+                E("mov r11, c[4]\n");
+            }
+            // Luces direccionales, en grupos de 4.
+            if (numDir != 0) {
+                RwUInt32 done = 0;
+                RwInt32 lightReg = 6;
+                do {
+                    RwUInt32 n = numDir - done;
+                    if (n >= 4) {
+                        n = 4;
+                    }
+                    RwInt32 idx = lightReg - 1;
+                    for (RwUInt32 i = 0; i < n; ++i) {
+                        E("dp3 r6.%c, c[%d], %s\n", static_cast<int>(kVsXyzw[i]), idx, nrmIn);
+                        idx += 2;
+                    }
+                    E("max r6.%s, c[5].w, -r6.%s\n", kVsPrefix[n], kVsPrefix[n]);
+                    idx = lightReg;
+                    for (RwUInt32 i = 0; i < n; ++i) {
+                        if (remaining <= 1 && !modulate) {
+                            E("mad oD0, c[%d], r6.%c, r11\n", idx, static_cast<int>(kVsXyzw[i]));
+                        } else {
+                            E("mad r11.xyz, c[%d].xyz, r6.%s, r11.xyz\n", idx, kVsRepeat[i]);
+                        }
+                        --remaining;
+                        idx += 2;
+                    }
+                    done += 4;
+                    lightReg += 8;
+                } while (done < numDir);
+            }
+            // Luces puntuales.
+            if (numPoint != 0) {
+                RwUInt32 done = 0;
+                do {
+                    RwUInt32 n = numPoint - done;
+                    if (n >= 4) {
+                        n = 4;
+                    }
+                    RwInt32 idx = pointBase + 1;
+                    for (RwUInt32 i = 0; i < n; ++i) {
+                        const int c = kVsXyzw[i];
+                        E("add r7.xyz, -c[%d].xyz, %s.xyz\n", idx, posIn);
+                        E("dp3 r1.%c, r7, r7\n", c);
+                        E("rsq r1.%c, r1.%c\n", c, c);
+                        E("dp3 r6.%c, %s, r7\n", c, nrmIn);
+                        idx += 2;
+                    }
+                    const char* pre = kVsPrefix[n];
+                    E("max r8.%s, c[%d].%s, r1.%s\n", pre, pointBase, pre, pre);
+                    E("max r6.%s, c[%d].wwww, -r6.%s\n", pre, pointBase + 1, pre);
+                    E("add r8.%s, -c[%d].%s, r8.%s\n", pre, pointBase, pre, pre);
+                    E("mul r6.%s, r6.%s, r8.%s\n", pre, pre, pre);
+                    idx = pointBase + 2;
+                    for (RwUInt32 i = 0; i < n; ++i) {
+                        if (remaining <= 1 && !modulate) {
+                            E("mad oD0, c[%d], r6.%c, r11\n", idx, static_cast<int>(kVsXyzw[i]));
+                        } else {
+                            E("mad r11.xyz, c[%d].xyz, r6.%s, r11.xyz\n", idx, kVsRepeat[i]);
+                        }
+                        --remaining;
+                        idx += 2;
+                    }
+                    pointBase = pointBase + static_cast<RwInt32>(n) * 2 + 1;
+                    done += 4;
+                } while (done < numPoint);
+            }
+            // Luces focales.
+            if (numSpot != 0) {
+                RwUInt32 done = 0;
+                do {
+                    RwUInt32 n = numSpot - done;
+                    if (n >= 4) {
+                        n = 4;
+                    }
+                    RwInt32 idx = spotBase + 3;
+                    for (RwUInt32 i = 0; i < n; ++i) {
+                        const int c = kVsXyzw[i];
+                        E("add r7.xyz, -c[%d].xyz, %s.xyz\n", idx - 2, posIn);
+                        E("dp3 r1.%c, r7, r7\n", c);
+                        E("rsq r1.%c, r1.%c\n", c, c);
+                        E("dp3 r6.%c, %s, r7\n", c, nrmIn);
+                        E("mul r7.xyz, r7.xyz, r1.%c\n", c);
+                        E("dp3 r7.w, r7, c[%d]\n", idx - 1);
+                        E("mad r9.%c, r7.w, c[%d].x, c[%d].y\n", c, idx, idx);
+                        idx += 4;
+                    }
+                    const char* pre = kVsPrefix[n];
+                    E("max r8.%s, c[%d].%s, r1.%s\n", pre, spotBase, pre, pre);
+                    E("max r9.%s, c[%d].wwww, r9.%s\n", pre, spotBase + 1, pre);
+                    E("max r6.%s, c[%d].wwww, -r6.%s\n", pre, spotBase + 1, pre);
+                    E("add r8.%s, -c[%d].%s, r8.%s\n", pre, spotBase, pre, pre);
+                    E("mul r6.%s, r6.%s, r8.%s\n", pre, pre, pre);
+                    E("mul r6.%s, r6.%s, r9.%s\n", pre, pre, pre);
+                    idx = spotBase + 4;
+                    for (RwUInt32 i = 0; i < n; ++i) {
+                        if (remaining <= 1 && !modulate) {
+                            E("mad oD0, c[%d], r6.%c, r11\n", idx, static_cast<int>(kVsXyzw[i]));
+                        } else {
+                            E("mad r11.xyz, c[%d].xyz, r6.%s, r11.xyz\n", idx, kVsRepeat[i]);
+                        }
+                        --remaining;
+                        idx += 4;
+                    }
+                    spotBase = spotBase + static_cast<RwInt32>(n) * 4 + 1;
+                    done += 4;
+                } while (done < numSpot);
+            }
+            if (modulate) {
+                E("mul oD0, r11, c[%d]\n", static_cast<RwInt32>(out[0]));
+            }
+        } else if (modulate) {
+            if (prelit) {
+                E("add r11, v4, c[4]\n");
+            } else {
+                E("mov r11, c[4]\n");
+            }
+            E("mul oD0, r11, c[%d]\n", static_cast<RwInt32>(out[0]));
+        } else if (prelit) {
+            E("add oD0, v4, c[4]\n");
+        } else {
+            E("mov oD0, c[4]\n");
+        }
+    }
+
+    // Coordenadas de textura del efecto.
+    RwInt32 eo = out[2];
+    switch (effect) {
+    case 1:
+        E("dp3 r9.x, %s, c[%d]\n", nrmIn, eo);
+        ++eo;
+        E("dp3 r9.y, %s, c[%d]\n", nrmIn, eo);
+        E("mov oT0.xy, v5\n");
+        E("add oT1.xy, r9.xy, v5.xy\n");
+        break;
+    case 2:
+        if ((d[1] & 0xF0) != 0) {
+            E("mov oT0.xy, v5\n");
+            E("dp4 oT1.x, %s, c[%d]\n", nrmIn, eo);
+            ++eo;
+            E("dp4 oT1.y, %s, c[%d]\n", nrmIn, eo);
+        } else {
+            E("dp4 oT0.x, %s, c[%d]\n", nrmIn, eo);
+            ++eo;
+            E("dp4 oT0.y, %s, c[%d]\n", nrmIn, eo);
+        }
+        break;
+    case 3:
+        E("dp4 oT2.x, %s, c[%d]\n", nrmIn, eo + 2);
+        E("dp4 oT2.y, %s, c[%d]\n", nrmIn, eo + 3);
+        E("dp3 r9.x, %s, c[%d]\n", nrmIn, eo);
+        ++eo;
+        E("dp3 r9.y, %s, c[%d]\n", nrmIn, eo);
+        E("mov oT0.xy, v5\n");
+        E("add oT1.xy, r9.xy, v5.xy\n");
+        break;
+    case 4:
+        E("mov oT0.xy, v6\n");
+        break;
+    case 5:
+        E("mov oT0.xy, v5\n");
+        E("mov oT1.xy, v5\n");
+        break;
+    case 6:
+        E("dp4 oT0.x, v5, c[%d]\n", eo);
+        ++eo;
+        E("dp4 oT0.y, v5, c[%d]\n", eo);
+        break;
+    case 7:
+        E("dp4 oT0.x, v6, c[%d]\n", eo);
+        ++eo;
+        E("dp4 oT0.y, v6, c[%d]\n", eo);
+        break;
+    case 8:
+    case 9:
+        break;
+    case 10:
+        E("add r7.xyz, c[%d].xyz, -%s.xyz\n", eo, posIn);
+        E("dp3 r7.w, r7, r7\n");
+        E("rsq r7.w, r7.w\n");
+        E("mul r7.xyz, r7, r7.w\n");
+        E("dp3 r7.w, r7, %s\n", nrmIn);
+        E("add r7.w, r7.w, r7.w\n");
+        E("mad r7, r7.w, %s, -r7\n", nrmIn);
+        if ((d[1] & 0xF0) != 0) {
+            E("mov oT0.xy, v5\n");
+            E("dp3 oT1.x, r7, c[%d]\n", eo + 1);
+            E("dp3 oT1.y, r7, c[%d]\n", eo + 2);
+            E("dp3 oT1.z, r7, c[%d]\n", eo + 3);
+        } else {
+            E("dp3 oT0.x, r7, c[%d]\n", eo + 1);
+            E("dp3 oT0.y, r7, c[%d]\n", eo + 2);
+            E("dp3 oT0.z, r7, c[%d]\n", eo + 3);
+        }
+        break;
+    case 11:
+        E("dp3 r9.x, %s, c[%d]\n", nrmIn, eo);
+        E("dp3 r9.y, %s, c[%d]\n", nrmIn, eo + 1);
+        E("mov oT0.xy, v5\n");
+        E("add oT1.xy, r9.xy, v5.xy\n");
+        E("add r7.xyz, c[%d].xyz, -%s.xyz\n", eo + 2, posIn);
+        E("dp3 r7.w, r7, r7\n");
+        E("rsq r7.w, r7.w\n");
+        E("mul r7.xyz, r7, r7.w\n");
+        E("dp3 r7.w, r7, %s\n", nrmIn);
+        E("add r7.w, r7.w, r7.w\n");
+        E("mad r7, r7.w, %s, -r7\n", nrmIn);
+        E("dp3 oT2.x, r7, c[%d]\n", eo + 3);
+        E("dp3 oT2.y, r7, c[%d]\n", eo + 4);
+        E("dp3 oT2.z, r7, c[%d]\n", eo + 5);
+        break;
+    default:
+        for (RwUInt32 i = 0; i < static_cast<RwUInt32>(d[1] >> 4); ++i) {
+            E("mov oT%u.xy, v%u\n", i, i + 5);
+        }
+        break;
+    }
+    return static_cast<int>(p - buf);
+}
+
+// 0x75F0B0 (lote VS1, sin validar; 7.153 bytes; cdecl, (descriptor, despacho)): `_rpD3D9VertexShaderCreate` del SDK. Genera con el sprintf del motor (stringFuncs.vecSprintf, +0xF0) el texto de
+// ensamblador del vertex shader del descriptor en el buffer de 4 KB de 0xC93AF8 (BuildVertexShaderSource, mismo texto que el EXE), rellena el despacho y lo ensambla con D3DXAssembleShader
+// (0x7652AE, banderas 4 = sin validacion) para crear el shader con RwD3D9CreateVertexShader (0x7FAC60). Versiones del dispositivo (0xC94C00) distintas de 0xA/0x14/0x19: devuelve NULL (el despacho
+// ya esta escrito). Si el ensamblado falla devuelve NULL. Libera el ID3DXBuffer del bytecode (Release, ranura 2 de la tabla virtual).
+void* _rpD3D9VertexShaderCreate(const _rpD3D9VertexShaderDescriptor* desc, _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
+    char* const buffer = StaticRef<char[0x1000]>(0xC93AF8);
+    const int length = BuildVertexShaderSource(reinterpret_cast<const RwUInt8*>(desc), reinterpret_cast<RwUInt8*>(dispatch), buffer, s_vsParamA, s_vsParamB, s_vsConstantTable, static_cast<RwGlobals*>(RwEngineInstance)->stringFuncs.vecSprintf);
+    if (length < 0) {
+        return nullptr;
+    }
+    void* code = nullptr;
+    void* shader = nullptr;
+    if (D3DXAssembleShader(buffer, static_cast<uint32>(length), nullptr, nullptr, 4, &code, nullptr) >= 0) {
+        void** const vtable = *static_cast<void***>(code);
+        using GetBufferPointer = void*(__stdcall*)(void*);
+        void* const bytecode = reinterpret_cast<GetBufferPointer>(vtable[3])(code);
+        RwD3D9CreateVertexShader(static_cast<const RwUInt32*>(bytecode), &shader);
+    }
+    if (code != nullptr) {
+        void** const vtable = *static_cast<void***>(code);
+        using Release = RwUInt32(__stdcall*)(void*);
+        reinterpret_cast<Release>(vtable[2])(code);
+    }
+    return shader;
+}
+
 // 0x75EED0 (lote S28A, sin validar; 467 bytes; cdecl, (descriptor, despacho)): cache de vertex shaders de D3D9 (256 entradas de 0x14 bytes en 0xC926F8 ordenadas por clave, recuento 0xC94BF8, ultima
 // usada 0xC94BFC). La clave es el dword del descriptor. Si es la de la ultima usada, o la encuentra con busqueda binaria, actualiza el sello de la entrada (word +8 del motor) y devuelve su shader
-// copiando su despacho (2 dwords) al argumento. Si no la encuentra crea el shader con 0x75F0B0 (por direccion, no es de estos lotes). Con la cache llena (>= 0x100) reutiliza la entrada de menor
+// copiando su despacho (2 dwords) al argumento. Si no la encuentra crea el shader con _rpD3D9VertexShaderCreate (0x75F0B0). Con la cache llena (>= 0x100) reutiliza la entrada de menor
 // sello (la primera en empate; sin recolocarla, igual que el EXE) liberando su shader con RwD3D9DeleteVertexShader; si no, hace hueco en el punto de insercion (memmove) y la inserta. En ambos casos
 // guarda clave, sello, shader y despacho, la deja como ultima usada y devuelve el shader.
 void* _rpD3D9GetVertexShader(const _rpD3D9VertexShaderDescriptor* desc, _rpD3D9VertexShaderDispatchDescriptor* dispatch) {
@@ -9687,8 +10315,7 @@ void* _rpD3D9GetVertexShader(const _rpD3D9VertexShaderDescriptor* desc, _rpD3D9V
         return useEntry(&entries[result]);
     }
 
-    using CreateVertexShader = void*(__cdecl*)(const _rpD3D9VertexShaderDescriptor*, _rpD3D9VertexShaderDispatchDescriptor*);
-    void* const shader = reinterpret_cast<CreateVertexShader>(0x75F0B0)(desc, dispatch);
+    void* const shader = _rpD3D9VertexShaderCreate(desc, dispatch);
     const RwUInt32* const dispatchWords = reinterpret_cast<const RwUInt32*>(dispatch);
     const RwInt32 count = s_vsCacheCount;
     if (count >= static_cast<RwInt32>(kVertexShaderCacheMax)) {
@@ -10757,6 +11384,7 @@ void RpWorldInjectHooksS26A29A() {
     RH_ScopedGlobalInstall(RpMaterialSetDefaultPipeline, 0x75E2D0); // lote S28A (sin validar)
     RH_ScopedGlobalInstall(_rpD3D9GetNumConstantsUsed, 0x75EDD0); // lote S28A (sin validar)
     RH_ScopedGlobalInstall(_rpD3D9GetVertexShader, 0x75EED0); // lote S28A (sin validar)
+    RH_ScopedGlobalInstall(_rpD3D9VertexShaderCreate, 0x75F0B0); // lote VS1 (sin validar)
     RH_ScopedGlobalInstall(_rxD3D9VertexShaderDefaultEndCallBack, 0x761000); // lote S28A (sin validar)
     RH_ScopedGlobalInstall(SectorModuleConstruct, 0x761C30); // lote S28A (sin validar)
     RH_ScopedGlobalInstall(SectorModuleDestruct, 0x761C40); // lote S28A (sin validar)

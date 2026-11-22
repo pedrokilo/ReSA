@@ -13197,6 +13197,7 @@ RpWorld,RpMeshGetTriStripMethod,0x0075D500,1,0,0,S
 RpWorld,RpMaterialSetDefaultPipeline,0x0075E2D0,1,0,0,S
 RpWorld,_rpD3D9GetNumConstantsUsed,0x0075EDD0,1,0,0,S
 RpWorld,_rpD3D9GetVertexShader,0x0075EED0,1,0,0,S
+RpWorld,_rpD3D9VertexShaderCreate,0x0075F0B0,1,0,0,S
 RpWorld,_rxD3D9VertexShaderDefaultEndCallBack,0x00761000,1,0,0,S
 RpWorld,SectorModuleConstruct,0x00761C30,1,0,0,S
 RpWorld,SectorModuleDestruct,0x00761C40,1,0,0,S
