@@ -59,10 +59,10 @@ Generado por `contrib/codigo_vivo_plan.py`. Los lotes de código tienen 25–45 
 | B-R3 | P2 | revisar direcciones | No son entrada de función | REVISAR | revisar | 40 | 0 | 0x005C53D0–0x005CD160 | bajo |  | clasificado |
 | B-R4 | P2 | revisar direcciones | No son entrada de función | REVISAR | revisar | 40 | 0 | 0x005CD220–0x00763310 | bajo |  | clasificado |
 | B-R5 | P2 | revisar direcciones | No son entrada de función | REVISAR | revisar | 23 | 0 | 0x007F12F0–0x00856BC0 | bajo |  | clasificado |
-| S1 | P3 | sustituir | QuickTime/QTML | SUSTITUIR | Media Foundation / sin QuickTime | 3 | 78 | 0x00818650–0x0081A3C0 | medio |  | pendiente |
-| S2 | P3 | sustituir | RenderWare no reconstruible | SUSTITUIR | C++ propio (RenderWare D3D9) | 6 | 2,563 | 0x004CB730–0x004CCE60 | alto |  | pendiente |
-| S3 | P3 | sustituir | RenderWare no reconstruible | SUSTITUIR | C++ propio (vectores) | 6 | 844 | 0x00857000–0x00857404 | medio |  | pendiente |
-| S4 | P3 | sustituir | CRT y arranque | SUSTITUIR | C++ propio (ExeCrt) | 4 | 830 | 0x00821B40–0x00833605 | alto |  | pendiente |
+| S1 | P3 | sustituir | QuickTime/QTML | SUSTITUIR | Media Foundation / sin QuickTime | 3 | 78 | 0x00818650–0x0081A3C0 | medio |  | sustituido |
+| S2 | P3 | sustituir | RenderWare no reconstruible | SUSTITUIR | C++ propio (RenderWare D3D9) | 6 | 2,563 | 0x004CB730–0x004CCE60 | alto |  | sustituido y verificado con banco |
+| S3 | P3 | sustituir | RenderWare no reconstruible | SUSTITUIR | C++ propio (vectores) | 6 | 844 | 0x00857000–0x00857404 | medio |  | sustituido y verificado con banco |
+| S4 | P3 | sustituir | CRT y arranque | SUSTITUIR | C++ propio (ExeCrt) | 4 | 830 | 0x00821B40–0x00833605 | alto |  | parcial: 3 de 4 sustituidas y verificadas con banco |
 | E1-1 | P4 | enlazar | libpng y zlib | ENLAZAR | libpng 1.0.12 + zlib 1.1.3 (libs/) | 25 | 13,694 | 0x007D26E0–0x007E21F0 | medio |  | pendiente |
 | E1-2 | P4 | enlazar | libpng y zlib | ENLAZAR | libpng 1.0.12 + zlib 1.1.3 (libs/) | 23 | 19,230 | 0x007E2600–0x007E77E0 | medio |  | pendiente |
 | E2-excepciones-1 | P4 | enlazar | CRT y arranque | ENLAZAR | CRT de MSVC | 40 | 3,583 | 0x008212ED–0x0082871B | medio |  | pendiente |

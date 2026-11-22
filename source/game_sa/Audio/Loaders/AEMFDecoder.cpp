@@ -30,6 +30,7 @@ END GENERATED HOOK STATUS */
 
 #include "AEMFDecoder.h"
 #include "X87Math.h"
+#include "platform/win/QTMLRuntime.h"
 
 // 0x4e7770
 // Como el original: sólo escribe el nombre, el flag, la película, la media y la pista; el resto del objeto queda
@@ -86,8 +87,7 @@ uint8 CAEMFDecoder::FillCallback(void** outData, void* refCon) {
     }
     int32  a = 0, b = 0, c = 0;
     uint32 out = static_cast<uint32>(reinterpret_cast<uintptr_t>(refCon));
-    const auto result = reinterpret_cast<int16(__cdecl*)(void*, void*, int32, uint32*, int32, int32*, int32*, int32, int32, int32, int32*, int32)>(0x81A3C0)(
-        self->m_sourceMedia, self->m_sourceBuffer, self->m_sourceBufferSize, &out, position, &c, &a, 0, 0, 0, &b, 0);
+    const auto result = QtmlConverterFillBridge(self->m_sourceMedia, self->m_sourceBuffer, self->m_sourceBufferSize, &out, position, &c, &a, 0, 0, 0, &b, 0);
     if (result != 0 || out == 0) {
         Clear();
     }

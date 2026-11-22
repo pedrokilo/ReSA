@@ -6,6 +6,8 @@ Archivos: [plan-lotes.md](plan-lotes.md) · [plan.csv](plan.csv) · [funciones-v
 
 **Estado de ejecución (rama `vivo-p2`):** P1 (V1–V3) verificada y P2 en curso; ver [ejecucion-p1-p2.md](ejecucion-p1-p2.md), [cierre.csv](cierre.csv), [cierre-p1.csv](cierre-p1.csv) y [cierre-p2.csv](cierre-p2.csv).
 
+**P3 (rama `vivo-p3`):** S1–S4 sustituidos por C++ propio (18 de las 19 del plan más `0x85742B`; `___updatetlocinfo` queda en la rama del locale), con bancos fuera del juego; ver [ejecucion-p3.md](ejecucion-p3.md) y [cierre-p3.csv](cierre-p3.csv).
+
 ## 0. Resumen en diez líneas
 
 1. **Las «5.569 funciones vivas» son 5.569 trozos de 5.279 funciones.** `binary_function_ranges.csv` tiene 19.169 filas, pero son trozos de 17.765 funciones de Ghidra (1.404 funciones tienen cuerpo en varios trozos). Las cifras de aquí son por función única; 5.279 funciones = 535.410 bytes = 5.569 trozos.

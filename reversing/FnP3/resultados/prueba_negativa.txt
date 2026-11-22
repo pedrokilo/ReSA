@@ -1,0 +1,47 @@
+== mutacion 1: RwMathX87.cpp: 'float v = Add(Add(Mul(m[j], x), Mul(m[4 + j], y)), Mul(m[8 + j], z));
+        if (translate)' -> 'float v = Add(Mul(m[j], x), Add(Mul(m[4 + j], y), Mul(m[8 + j], z)));
+        if (translate)'
+DIFERENCIA vectores (n=3, enplace=0) ret exe=00F73640 ours=00F73640
+DIFERENCIA vector (enplace=0)
+== mutacion 2: RwMathX87.cpp: 'v = Add(v, m[12 + j]);
+        }
+        r[j] = v;' -> 'v = Add(v, m[12 + j] + 0.0f * 0);
+        }
+        r[j] = v * 1.0000001f;'
+DIFERENCIA puntos (n=3, enplace=0) ret exe=00FA3640 ours=00FA3640
+DIFERENCIA punto (enplace=0)
+== mutacion 3: RwMathX87.cpp: 'if (row == 3) {' -> 'if (row == 2) {'
+DIFERENCIA matriz
+DIFERENCIA matriz
+== mutacion 4: RwMathX87.cpp: 'return const_cast<RwV3d*>(pointIn);' -> 'return pointOut;'
+DIFERENCIA punto (enplace=0)
+DIFERENCIA punto (enplace=0)
+== mutacion 5: RwMathX87.cpp: 'uint32_t remaining = static_cast<uint32_t>(count);' -> 'uint32_t remaining = static_cast<uint32_t>(count) - 1 + (count == 1);'
+DIFERENCIA puntos (n=3, enplace=0) ret exe=01093640 ours=01093640
+DIFERENCIA vectores (n=3, enplace=0) ret exe=01093640 ours=01093640
+== mutacion 6: RwMathX87.cpp: 'value = (value & 0xFFFFFCFFu) | 0x3Fu;' -> 'value = (value & 0xFFFFFDFFu) | 0x3Fu;'
+DIFERENCIA palabra de control inicio=00000: exe cw=a001f new=0000007f old=00000342 rest=9021f | ours cw=8001f new=0000017f old=00000342 rest=9021f
+DIFERENCIA palabra de control inicio=00000: exe cw=a001f new=1234007f old=12340342 rest=9021f | ours cw=8001f new=1234017f old=12340342 rest=9021f
+== mutacion 7: RwMathX87.cpp: 'value = (value & 0xFFFFFCFFu) | 0x3Fu;' -> 'value = (value & 0xFFFFFCFFu) | 0x3Eu;'
+DIFERENCIA palabra de control inicio=20000: exe cw=a001f new=0000007f old=00000042 rest=9021f | ours cw=a000f new=0000007e old=00000042 rest=9021f
+DIFERENCIA palabra de control inicio=20000: exe cw=a001f new=1234007f old=12340042 rest=9021f | ours cw=a000f new=1234007e old=12340042 rest=9021f
+== mutacion 8: RwMathX87.cpp: 'SavedControlWordSlot() = value;' -> 'SavedControlWordSlot() = value | 1;'
+DIFERENCIA palabra de control inicio=20000: exe cw=a001f new=0000007f old=00000042 rest=9021f | ours cw=a001f new=0000007f old=00000043 rest=9021f
+DIFERENCIA palabra de control inicio=20000: exe cw=a001f new=1234007f old=12340042 rest=9021f | ours cw=a001f new=1234007f old=12340043 rest=9021f
+== mutacion 9: CrtMath.cpp: '*ErrnoPtr() = 0x22;' -> '*ErrnoPtr() = 0x21;'
+DIFERENCIA err codigo=2 variante=1 modo=2: exe calls=1 tipo=2 'log' errno=34 res=41366db120000000 | ours calls=1 tipo=2 'log' errno=33 res=41366db120000000
+DIFERENCIA err codigo=18 variante=2 modo=2: exe calls=1 tipo=3 'pow' errno=34 res=0000000000000000 | ours calls=1 tipo=3 'pow' errno=33 res=0000000000000000
+== mutacion 10: CrtMath.cpp: 'case 0x0A6: return { MathPath::Generic, 3, "exp10" };' -> 'case 0x0A6: return { MathPath::Generic, 2, "exp10" };'
+DIFERENCIA err codigo=a6 variante=1 modo=2: exe calls=1 tipo=3 'exp10' errno=34 res=fff0000000000000 | ours calls=1 tipo=2 'exp10' errno=34 res=fff0000000000000
+DIFERENCIA err codigo=a6 variante=2 modo=2: exe calls=1 tipo=3 'exp10' errno=34 res=7ff8000000000000 | ours calls=1 tipo=2 'exp10' errno=34 res=7ff8000000000000
+== mutacion 11: CrtMath.cpp: 'case 0x3EF: return { MathPath::DomainCopy, 1, "modf" };' -> 'case 0x3EF: return { MathPath::Domain, 1, "modf" };'
+DIFERENCIA err codigo=3ef variante=0 modo=1: exe calls=1 tipo=1 'modf' errno=0 res=405ee00000000000 | ours calls=1 tipo=1 'modf' errno=0 res=405ee00000000000
+DIFERENCIA err codigo=3ef variante=0 modo=2: exe calls=1 tipo=1 'modf' errno=33 res=c12ce5a5a0000000 | ours calls=1 tipo=1 'modf' errno=33 res=7ff8000000000000
+== mutacion 12: CrtMath.cpp: 'const uint64_t sum = static_cast<uint64_t>(fractionBits ^ 0x80000000u) + 0x7FFFFFFFull;' -> 'const uint64_t sum = static_cast<uint64_t>(fractionBits) + 0x7FFFFFFFull;'
+DIFERENCIA ftol x=c056e2e9ea000ed5 (-91.5455) exe=ffffffffffffffa5 ours=ffffffffffffffa4
+DIFERENCIA ftol x=c113739960000000 (-318694) exe=fffffffffffb231a ours=fffffffffffb231b
+== mutacion 13: CrtMath.cpp: 'if (low == 0 && (high & 0x7FFFFFFFu) == 0) {' -> 'if (low == 0 && high == 0) {'
+DIFERENCIA ftol x=5ddf00595b22782e (1.51216e+144) exe=8000000000000000 ours=8000000000000001
+DIFERENCIA ftol x=7d9f334f9b8b3b3f (1.27531e+297) exe=8000000000000000 ours=8000000000000001
+== mutacion 14: CrtMath.cpp: 'r = static_cast<int64_t>(std::nearbyint(x));' -> 'r = static_cast<int64_t>(std::floor(x));'
+RESULTADO: SIN DIFERENCIAS

@@ -680,6 +680,7 @@
 #include "game_sa/Crt/CrtHeap.h"
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
+#include "game_sa/RenderWare/RwMathX87.h"
 #include "game_sa/Crt/CrtFile.h"
 #include "game_sa/Crt/CrtPow.h"
 #include "game_sa/Crt/CrtException.h"
@@ -840,6 +841,7 @@ void InjectHooksMain() {
     CPedATMAttractor::InjectHooks();
     CProtectionStub::InjectHooks();
     RwD3D9RasterDriver::InjectHooks();     // lote 224A (sin validar)
+    RwMathX87InjectHooks();                // lote S3: callbacks x87 de _rwcseg (matrices, vectores, palabra de control)
     LibJpegCompressEncode::InjectHooks();  // lote 230A (sin validar)
     LibJpegDecompress::InjectHooks();      // lote 233A (sin validar)
     LibJpegMemory::InjectHooks();                 // lote 235A (sin validar)

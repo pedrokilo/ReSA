@@ -11543,6 +11543,7 @@ RwD3D9RasterDriver,CheckTextureFormatUsage401,0x004CBFD0,1,0,1,S
 RwD3D9RasterDriver,CheckCubeFormatUsage400,0x004CC020,1,0,1,S
 RwD3D9RasterDriver,RasterListInit,0x004CC150,1,0,1,S
 RwD3D9RasterDriver,RasterListShutdown,0x004CC170,1,0,1,S
+RwD3D9RasterDriver,RasterCreate,0x004CCE60,1,0,0,S
 D3D9RasterFormat,FindCorrectRasterFormat,0x004CC1D0,1,0,1,S
 D3D9RasterFormat,SetRasterFormat,0x004CC580,1,0,1,S
 D3D9RasterFormat,VideoMemoryRasterListRestore,0x004CC970,1,0,1,S
@@ -11962,6 +11963,9 @@ QTMLRuntime,QtmlResolveEntryPoints,0x00819520,1,0,0,S
 QTMLRuntime,QtmlInitialize,0x008195C0,1,0,0,S
 QTMLRuntime,QtmlTerminate,0x00819770,1,0,0,S
 QTMLRuntime,QtmlLoadLibrary,0x0081DAE0,1,0,0,S
+QTMLRuntime,QtmlInitializeBridge,0x00818650,1,0,0,S
+QTMLRuntime,QtmlTerminateBridge,0x00818670,1,0,0,S
+QTMLRuntime,QtmlConverterFillBridge,0x0081A3C0,1,0,0,S
 RwCore,RwD3D9DynamicVertexBufferLock,0x007F5B10,1,0,0,S
 RwD3D9,_rwD3D9Im2DRenderPrimitive,0x007FBB00,1,0,0,S
 RwD3D9,_rwD3D9RenderStateVertexAlphaEnable,0x007FE0A0,1,0,0,S
@@ -12734,6 +12738,7 @@ ExeCrt,Snprintf,0x00825C29,1,0,0,S
 ExeCrt,Vsnprintf,0x00825BD3,1,0,0,S
 ExeCrt,Scprintf,0x00821C0D,1,0,0,S
 ExeCrt,Vscprintf,0x0082310F,1,0,0,S
+ExeCrt,MathError,0x0082872C,1,0,0,S
 CPad,UpdatePads,0x00541DD0,1,0,0,S
 Input,diMouseInit,0x007469A0,1,1,0,S
 CPhysical,ApplyFrictionTurnForce,0x00543100,1,0,0,S
@@ -13341,3 +13346,10 @@ D3dxShaderAssembler,Destructor,0x00771F63,1,0,0,S
 D3dxShaderAssembler,Assemble,0x00772BB1,1,0,0,S
 D3dxHlslCompiler,Constructor,0x00773022,1,0,0,S
 D3dxHlslCompiler,Destructor,0x0077303B,1,0,0,S
+RwMathX87,TransformPoints,0x00857000,1,0,0,S
+RwMathX87,TransformVectors,0x0085707F,1,0,0,S
+RwMathX87,TransformPoint,0x008570EF,1,0,0,S
+RwMathX87,TransformVector,0x00857160,1,0,0,S
+RwMathX87,MatrixMultiply,0x008572A0,1,0,0,S
+RwMathX87,SetFpuControlWord,0x00857404,1,0,0,S
+RwMathX87,RestoreFpuControlWord,0x0085742B,1,0,0,S

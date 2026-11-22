@@ -1,0 +1,20 @@
+va,bytes,lote,funcion,sustituto,enganche,verificacion,nota
+0x00818650,26,S1,puente QuickTime InitializeQTML,QTMLRuntime.cpp: QtmlInitializeBridge,si,razonada (sin banco),nula segura: OSErr -2095 como 0x8194D0; nada del juego llega a ella (QuickTime retirado en EXT1A)
+0x00818670,26,S1,puente QuickTime TerminateQTML,QTMLRuntime.cpp: QtmlTerminateBridge,si,razonada (sin banco),nula segura: no hay nada que cerrar
+0x0081A3C0,26,S1,puente QuickTime SoundConverterFillBuffer,QTMLRuntime.cpp: QtmlConverterFillBridge,si,razonada (sin banco),nula segura: OSErr -2095; AEMFDecoder.cpp la llama ya sin direccion
+0x004CB730,100,S2,PushFreePaletteIndex (ESI = indice),D3D9RasterDriver.cpp (ya existia),no (usercall),banco FnP3 (via RasterCreate),"pierde sus llamadores del EXE (0x4CB956 ya es C++ y 0x4CBB6B/0x4CBBDD estan en RasterDestroy, C++); funcion local"
+0x004CB7C0,512,S2,creacion de textura (EDI = extension),D3D9RasterDriver.cpp: RasterCreateTexture,no (usercall),"banco FnP3 (25.000+ casos por helper, 0 diferencias)",unico llamador 0x4CCE60
+0x004CB9C0,310,S2,creacion de textura de destino de render (ESI = extension),D3D9RasterDriver.cpp: RasterCreateRenderTargetTexture,no (usercall),banco FnP3 (0 diferencias),unico llamador 0x4CCE60
+0x004CC5C0,907,S2,"comprobacion de formato de raster (EAX = banderas, EDI = raster)",D3D9RasterDriver.cpp: RasterCheckFormat,no (usercall),banco FnP3 (0 diferencias),unico llamador 0x4CCE60
+0x004CCD70,236,S2,"superficie de profundidad (ESI = extension, EDI = raster)",D3D9RasterDriver.cpp: RasterCreateDepthSurface,no (usercall),banco FnP3 (0 diferencias),unico llamador 0x4CCE60
+0x004CCE60,457,S2,rasterCreate de la tabla de dispositivo (cdecl),D3D9RasterDriver.cpp: RasterCreate,si,"banco FnP3 (400.000 casos, 0 diferencias)",D3D9RasterFormat.cpp la llama ya sin direccion; la tabla de _rwD3D9DeviceSystemStandards sigue con la direccion 0x4CCE60 (salta al enganche)
+0x00857000,127,S3,transformar puntos (x87),RwMathX87.cpp: TransformPoints,si,"banco FnP3 (400.000 casos, 0 diferencias)",solo se usa sin SSE
+0x0085707F,112,S3,transformar vectores (x87),RwMathX87.cpp: TransformVectors,si,banco FnP3 (0 diferencias),solo se usa sin SSE
+0x008570EF,113,S3,transformar un punto (x87),RwMathX87.cpp: TransformPoint,si,banco FnP3 (0 diferencias),solo se usa sin SSE
+0x00857160,98,S3,transformar un vector (x87),RwMathX87.cpp: TransformVector,si,banco FnP3 (0 diferencias),solo se usa sin SSE
+0x008572A0,355,S3,multiplicar matrices (x87),RwMathX87.cpp: MatrixMultiply,si,"banco FnP3 (400.000 casos, 0 diferencias)",se instala siempre (FINALIZESTART)
+0x00857404,39,S3,palabra de control x87 a 24 bits,RwMathX87.cpp: SetFpuControlWord,si,"banco FnP3 (8.312 casos, 0 diferencias)",guarda la anterior en 0xCAF004
+0x0085742B,7,S3,restaura la palabra de control x87 (fldcw [0xCAF004]),RwMathX87.cpp: RestoreFpuControlWord,si,banco FnP3 (0 diferencias),"no estaba en el plan S3 (lote V2, abierta por la cita de rwcore.cpp); se sustituye junto con 0x857404"
+0x00821B40,117,S4,"_ftol2 (argumento en ST0, resultado en EDX:EAX)",CrtMath.cpp: ExeCrt::FloatToInt64,no (ST0),"banco FnP3 (400.000 casos, 0 diferencias)",sin llamadores vivos: los 633 del EXE estan en funciones reemplazadas; el C++ propio ya lo expresa en linea
+0x0082872C,660,S4,manejador de errores matematicos (matherr + errno),CrtMath.cpp: ExeCrt::MathError,si,"banco FnP3 (400.001 casos, 0 diferencias)",CrtMath.cpp y CrtPow.cpp la llaman ya sin direccion
+0x00833605,3,S4,"matherr por defecto (xor eax, eax; ret)",CrtMath.cpp: ExeCrt::DefaultMatherr,puntero 0x8E3128,banco FnP3,pegada a la funcion siguiente (no admite salto): CrtMathInjectHooks sustituye el puntero 0x8E3128 si sigue valiendo 0x833605
