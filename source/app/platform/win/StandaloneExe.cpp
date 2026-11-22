@@ -408,40 +408,10 @@ void CargarTablaRet() {
     Log("tabla de ret n cargada: %lu bytes", n);
 }
 
-// ---------------- Reconstrucciones minimas del propio experimento ("shims"; NO estan en el catalogo de ganchos) ----------------
-// Envolturas del plugin 0x509 de RwCamera (RpWorld): 0x750430 (begin update), 0x750460 (end update) y 0x750480 (+0x10 de la camara: sincroniza el mundo).
-// Las dos primeras son exactas (cuerpo de 25 y 27 bytes con un `jmp` final a la funcion guardada del plugin). La tercera (0x750480, 0x28A bytes: recorrido del BSP
-// del mundo con las 6 caras del frustum, x87) NO se reconstruye: este shim solo hace la primera llamada (la funcion guardada) y devuelve la camara si fue bien,
-// sin recolectar sectores (el mundo no se dibujara). Sirve para ver la siguiente ruptura, no para jugar.
-int __cdecl ShimCamBegin(uint8_t* camera) { // 0x750430
-    auto* d = reinterpret_cast<uint32_t*>(camera + *reinterpret_cast<int*>(0xC925A4));
-    auto* g = *reinterpret_cast<uint8_t**>(0xC97B24);
-    *reinterpret_cast<uint32_t*>(g + 4) = d[3];
-    ++*reinterpret_cast<uint16_t*>(g + 8);
-    return reinterpret_cast<int(__cdecl*)(void*)>(d[4])(camera);
-}
-int __cdecl ShimCamEnd(uint8_t* camera) { // 0x750460
-    auto* d = reinterpret_cast<uint32_t*>(camera + *reinterpret_cast<int*>(0xC925A4));
-    auto* g = *reinterpret_cast<uint8_t**>(0xC97B24);
-    *reinterpret_cast<uint32_t*>(g + 4) = 0;
-    return reinterpret_cast<int(__cdecl*)(void*)>(d[5])(camera);
-}
-int __cdecl ShimCamSync(uint8_t* camera) { // 0x750480 (parcial)
-    auto* d = reinterpret_cast<uint32_t*>(camera + *reinterpret_cast<int*>(0xC925A4));
-    if (!reinterpret_cast<int(__cdecl*)(void*)>(d[6])(camera)) return 0;
-    return reinterpret_cast<int>(camera);
-}
-void EscribirJmp(uint32_t desde, void* hacia) {
-    DWORD v;
-    VirtualProtect((void*)desde, 5, PAGE_EXECUTE_READWRITE, &v);
-    *(uint8_t*)desde = 0xE9;
-    *(int32_t*)(desde + 1) = (int32_t)((uint32_t)(uintptr_t)hacia - (desde + 5));
-}
-void InstalarShims() {
-    EscribirJmp(0x750430, (void*)&ShimCamBegin);
-    EscribirJmp(0x750460, (void*)&ShimCamEnd);
-    EscribirJmp(0x750480, (void*)&ShimCamSync);
-}
+// ---------------- Reconstrucciones minimas del propio experimento ("shims") ----------------
+// Retirados (codigo vivo CAM): 0x750430, 0x750460 y 0x750480 (envolturas del plugin 0x509 de RwCamera), 0x750AC0, 0x7F98D0, 0x7F99B0 y 0x7FFF00 ya son funciones C++ con gancho
+// (rpworld.cpp y rwcore.cpp); instalar aqui un salto propio sobre esas direcciones pisaria el gancho real. `--shims` queda aceptado y no hace nada.
+void InstalarShims() {}
 
 void DirectorioDeLaRuta() {
     if (g.dirJuego[0]) return;
@@ -515,7 +485,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR cmd, int show) {
     LogT("DllMain devolvio %d", ok);
     RemoveVectoredExceptionHandler(g_vehHandle);
     g_vehHandle = AddVectoredExceptionHandler(1, Vectorizado);
-    if (g.shims) { InstalarShims(); LogT("shims del experimento instalados (0x750430, 0x750460, 0x750480 parcial)"); }
+    if (g.shims) { InstalarShims(); LogT("--shims: sin efecto (las funciones de camara y D3D9 ya estan reconstruidas con gancho)"); }
     {
         auto* nt = (const IMAGE_NT_HEADERS32*)(g.archivo + ((const IMAGE_DOS_HEADER*)g.archivo)->e_lfanew);
         auto* sec = IMAGE_FIRST_SECTION(nt);

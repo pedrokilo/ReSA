@@ -1,0 +1,19 @@
+ 1 DETECTADA     estructura: colores previos 8 bytes por vertice
+ 2 DETECTADA     estructura: tamano nativo 0x2C
+ 3 DETECTADA     estructura: morph target 0x1C
+ 4 DETECTADA     estructura: verts sin vertices
+ 5 DETECTADA     estructura: normales ignoradas
+ 6 DETECTADA     estructura: juegos de coordenadas ignorados
+ 7 DETECTADA     datos: nativo 0x28
+ 8 DETECTADA     datos: normales con 8
+ 9 DETECTADA     datos: triangulos por 4
+10 DETECTADA     subarbol: hoja izquierda +0x4C
+11 DETECTADA     subarbol: hoja derecha +0x28
+12 DETECTADA     subarbol: plano izquierdo +0x2C
+13 DETECTADA     subarbol: plano derecho +0x10
+14 DETECTADA     tira: omite la arista actual al reves
+15 DETECTADA     tira: vertices con y en lugar de o
+16 DETECTADA     tira: marco de prueba igual
+17 DETECTADA     tira: enlace libre nulo
+18 DETECTADA     tira: una sola pasada
+mutaciones detectadas: 18 de 18

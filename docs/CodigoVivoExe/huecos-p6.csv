@@ -118,9 +118,9 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x004C7400,0x004C7400,1,0x004C73C5,juego,ret-vacio,cerrada-comentario,muerto,0,1,1,muerto=4,,0,1,,,citada-en-cpp
 0x004C9A60,0x004C9A72,19,0x004C9A5A,juego,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,5,,,reconstruida
 0x004C9A80,0x004C9AA5,38,0x004C9A5A,juego,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
-0x004CD4D0,0x004CD6AE,479,0x004CD4CF,juego,funcion,viva-sin-hook,muerto,0,1,2,muerto=2 pieza=4,,1,0,0x004CD4D0:B:imm=1,"rwcore.cpp:6878 `{ 0x0B, 0x4CB520 }, { 0x0C, 0x4CBD50 }, { 0x19, Fn(&D3D9RasterFormat::GetRasterMemorySize)`",citada-en-cpp
+0x004CD4D0,0x004CD6AE,479,0x004CD4CF,juego,funcion,reconstruida,muerto,1,1,2,muerto=2 pieza=4,,0,3,0x004CD4D0:B:imm=1,,reconstruida
 0x004CD6B0,0x004CD811,354,0x004CD4CF,juego,funcion,muerta-por-reemplazo,muerto,0,0,1,pieza=1,,0,0,,,muerta-por-reemplazo
-0x004CD820,0x004CDDD3,1460,0x004CD4CF,juego,funcion,viva-sin-hook,muerto,0,1,3,muerto=4,,1,0,0x004CD820:B:imm=1,"rwcore.cpp:6878 `{ 0x0B, 0x4CB520 }, { 0x0C, 0x4CBD50 }, { 0x19, Fn(&D3D9RasterFormat::GetRasterMemorySize)`",citada-en-cpp
+0x004CD820,0x004CDDD3,1460,0x004CD4CF,juego,funcion,reconstruida,muerto,1,1,3,muerto=4,,0,5,0x004CD820:B:imm=1,,reconstruida
 0x004CDDE0,0x004CDDE2,3,0x004CD4CF,juego,trivial (<16 B),sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
 0x004CDDF0,0x004CDDF3,4,0x004CD4CF,juego,trivial (<16 B),sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
 0x004CDE00,0x004CDE05,6,0x004CD4CF,juego,trivial (<16 B),sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
@@ -253,18 +253,18 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x005C61E0,0x005C62C5,230,0x005C61E0,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,4,0x005C61E0:C:push=1,"LibJpegCompress.cpp:406 `marker->write_scan_header = reinterpret_cast<void*>(LIBJPEG_CB(0x5C61E0, ""jcmarker"", ""writ`",citada-en-cpp
 0x005C62F0,0x005C63CB,220,0x005C62E4,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,2,0x005C62F0:B:push=1,"LibJpegCompress.cpp:408 `marker->write_tables_only = reinterpret_cast<void*>(LIBJPEG_CB(0x5C62F0, ""jcmarker"", ""writ`",citada-en-cpp
 0x005C6A10,0x005C6A83,116,0x005C6A08,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C6A10:B:push=1,LibJpegCompress.cpp:615 `master->finish_pass = reinterpret_cast<void(__cdecl*)(ExeJpegCompress*)>(LIBJPEG_CB(0x5C6A`,citada-en-cpp
-0x005C76A0,0x005C76D4,53,0x005C7698,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C76A0:B:push=1,"JPegCompress.cpp:792 `prep->start_pass = LIBJPEG_CB(0x5C76A0, ""jcprepct"", ""start_pass_prep"");`",citada-en-cpp
+0x005C76A0,0x005C76D4,53,0x005C7698,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C76A0:B:push=1,"JPegCompress.cpp:793 `prep->start_pass = LIBJPEG_CB(0x5C76A0, ""jcprepct"", ""start_pass_prep"");`",citada-en-cpp
 0x005C76E0,0x005C770A,43,0x005C7698,juego,funcion,sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
-0x005C7710,0x005C789E,399,0x005C7698,juego,funcion,viva-enlazada,muerto,0,1,2,muerto=5,,1,1,0x005C7710:B:push=1,"JPegCompress.cpp:797 `prep->pre_process_data = LIBJPEG_CB(0x5C7710, ""jcprepct"", ""pre_process_data"");`",citada-en-cpp
+0x005C7710,0x005C789E,399,0x005C7698,juego,funcion,viva-enlazada,muerto,0,1,2,muerto=5,,1,1,0x005C7710:B:push=1,"JPegCompress.cpp:798 `prep->pre_process_data = LIBJPEG_CB(0x5C7710, ""jcprepct"", ""pre_process_data"");`",citada-en-cpp
 0x005C78A0,0x005C7918,121,0x005C7698,juego,funcion,muerta-por-reemplazo,muerto,0,0,4,muerto=1 pieza=3,,0,0,,,muerta-por-reemplazo
-0x005C79E0,0x005C79E0,1,0x005C79D9,juego,ret-vacio,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C79E0:B:push=1,"JPegCompress.cpp:823 `downsample->start_pass = LIBJPEG_CB(0x5C79E0, ""jcsample"", ""start_pass_downsample"");`",citada-en-cpp
-0x005C7A50,0x005C7ADE,143,0x005C7A48,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C7A50:B:push=1,"JPegCompress.cpp:824 `downsample->downsample = LIBJPEG_CB(0x5C7A50, ""jcsample"", ""sep_downsample"");`",citada-en-cpp
-0x005C7AE0,0x005C7B5E,127,0x005C7A48,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C7AE0:B:push=1,"JPegCompress.cpp:840 `downsample->methods[ci] = LIBJPEG_CB(0x5C7AE0, ""jcsample"", ""int_downsample"");`",citada-en-cpp
+0x005C79E0,0x005C79E0,1,0x005C79D9,juego,ret-vacio,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C79E0:B:push=1,"JPegCompress.cpp:824 `downsample->start_pass = LIBJPEG_CB(0x5C79E0, ""jcsample"", ""start_pass_downsample"");`",citada-en-cpp
+0x005C7A50,0x005C7ADE,143,0x005C7A48,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C7A50:B:push=1,"JPegCompress.cpp:825 `downsample->downsample = LIBJPEG_CB(0x5C7A50, ""jcsample"", ""sep_downsample"");`",citada-en-cpp
+0x005C7AE0,0x005C7B5E,127,0x005C7A48,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C7AE0:B:push=1,"JPegCompress.cpp:841 `downsample->methods[ci] = LIBJPEG_CB(0x5C7AE0, ""jcsample"", ""int_downsample"");`",citada-en-cpp
 0x005C7B60,0x005C7C0B,172,0x005C7A48,juego,funcion,muerta-por-reemplazo,muerto,0,0,2,pieza=2,,0,0,,,muerta-por-reemplazo
-0x005C7C10,0x005C7C55,70,0x005C7A48,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C7C10:B:push=1,"JPegCompress.cpp:834 `downsample->methods[ci] = LIBJPEG_CB(0x5C7C10, ""jcsample"", ""fullsize_downsample"");`",citada-en-cpp
-0x005C7C60,0x005C7CBE,95,0x005C7A48,juego,funcion,viva-enlazada,muerto,0,1,2,muerto=2 pieza=1,,1,1,0x005C7C60:B:push=1,"JPegCompress.cpp:836 `downsample->methods[ci] = LIBJPEG_CB(0x5C7C60, ""jcsample"", ""h2v1_downsample"");`",citada-en-cpp
+0x005C7C10,0x005C7C55,70,0x005C7A48,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C7C10:B:push=1,"JPegCompress.cpp:835 `downsample->methods[ci] = LIBJPEG_CB(0x5C7C10, ""jcsample"", ""fullsize_downsample"");`",citada-en-cpp
+0x005C7C60,0x005C7CBE,95,0x005C7A48,juego,funcion,viva-enlazada,muerto,0,1,2,muerto=2 pieza=1,,1,1,0x005C7C60:B:push=1,"JPegCompress.cpp:837 `downsample->methods[ci] = LIBJPEG_CB(0x5C7C60, ""jcsample"", ""h2v1_downsample"");`",citada-en-cpp
 0x005C7CC0,0x005C7D09,74,0x005C7A48,juego,funcion,muerta-por-reemplazo,muerto,0,0,2,pieza=2,,0,0,,,muerta-por-reemplazo
-0x005C7D10,0x005C7DE2,211,0x005C7A48,juego,funcion,viva-enlazada,muerto,0,1,2,muerto=16,,1,1,0x005C7D10:B:push=1,"JPegCompress.cpp:838 `downsample->methods[ci] = LIBJPEG_CB(0x5C7D10, ""jcsample"", ""h2v2_downsample"");`",citada-en-cpp
+0x005C7D10,0x005C7DE2,211,0x005C7A48,juego,funcion,viva-enlazada,muerto,0,1,2,muerto=16,,1,1,0x005C7D10:B:push=1,"JPegCompress.cpp:839 `downsample->methods[ci] = LIBJPEG_CB(0x5C7D10, ""jcsample"", ""h2v2_downsample"");`",citada-en-cpp
 0x005C7F00,0x005C8143,580,0x005C7EF3,juego,funcion,muerta-por-reemplazo,muerto,0,0,1,muerto=1,,0,0,,,muerta-por-reemplazo
 0x005C8150,0x005C8199,74,0x005C7EF3,juego,funcion,sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
 0x005C81A0,0x005C849E,767,0x005C7EF3,juego,funcion,muerta-por-reemplazo,muerto,0,0,2,pieza=4,,0,0,,,muerta-por-reemplazo
@@ -280,16 +280,16 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x005C8A70,0x005C8A70,1,0x005C8959,juego,ret-vacio,muerta-por-reemplazo,muerto,0,0,1,pieza=2,,0,0,,,muerta-por-reemplazo
 0x005C8A80,0x005C8AEB,108,0x005C8959,juego,funcion,sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
 0x005C8AF0,0x005C8B3C,77,0x005C8959,juego,funcion,muerta-por-reemplazo,muerto,0,0,1,pieza=1,,0,0,,,muerta-por-reemplazo
-0x005C8B40,0x005C8B52,19,0x005C8959,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C8B40:B:push=1,"JPegCompress.cpp:929 `coef->start_input_pass = LIBJPEG_CB(0x5C8B40, ""jdcoefct"", ""start_input_pass"");`",citada-en-cpp
-0x005C8B60,0x005C8B6E,15,0x005C8959,juego,trivial (<16 B),viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C8B60:B:push=1,"JPegCompress.cpp:930 `coef->start_output_pass = LIBJPEG_CB(0x5C8B60, ""jdcoefct"", ""start_output_pass"");`",citada-en-cpp
-0x005C8B70,0x005C8BBE,79,0x005C8959,juego,funcion,viva-enlazada,muerto,0,1,2,muerto=2 pieza=1,,1,1,0x005C8B70:B:push=1,"JPegCompress.cpp:940 `coef->decompress_data = LIBJPEG_CB(0x5C8B70, ""jdcoefct"", ""decompress_onepass"");`",citada-en-cpp
+0x005C8B40,0x005C8B52,19,0x005C8959,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C8B40:B:push=1,"JPegCompress.cpp:930 `coef->start_input_pass = LIBJPEG_CB(0x5C8B40, ""jdcoefct"", ""start_input_pass"");`",citada-en-cpp
+0x005C8B60,0x005C8B6E,15,0x005C8959,juego,trivial (<16 B),viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C8B60:B:push=1,"JPegCompress.cpp:931 `coef->start_output_pass = LIBJPEG_CB(0x5C8B60, ""jdcoefct"", ""start_output_pass"");`",citada-en-cpp
+0x005C8B70,0x005C8BBE,79,0x005C8959,juego,funcion,viva-enlazada,muerto,0,1,2,muerto=2 pieza=1,,1,1,0x005C8B70:B:push=1,"JPegCompress.cpp:941 `coef->decompress_data = LIBJPEG_CB(0x5C8B70, ""jdcoefct"", ""decompress_onepass"");`",citada-en-cpp
 0x005C8BC0,0x005C8E02,579,0x005C8959,juego,funcion,muerta-por-reemplazo,muerto,0,0,2,pieza=2,,0,0,,,muerta-por-reemplazo
-0x005C8E10,0x005C8E12,3,0x005C8959,juego,trivial (<16 B),viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C8E10:B:push=1,"JPegCompress.cpp:939 `coef->consume_data = LIBJPEG_CB(0x5C8E10, ""jdcoefct"", ""dummy_consume_data"");`",citada-en-cpp
-0x005C8FB0,0x005C90CF,288,0x005C8FA3,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C8FB0:B:push=1,"JPegCompress.cpp:1035 `cconvert->color_convert = LIBJPEG_CB(0x5C8FB0, ""jdcolor"", ""ycc_rgb_convert"");`",citada-en-cpp
-0x005C9150,0x005C9178,41,0x005C9148,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C9150:B:push=1,"JPegCompress.cpp:1024 `cconvert->color_convert = LIBJPEG_CB(0x5C9150, ""jdcolor"", ""grayscale_convert"");`",citada-en-cpp
-0x005C9180,0x005C91DD,94,0x005C9148,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C9180:B:push=1,"JPegCompress.cpp:1038 `cconvert->color_convert = LIBJPEG_CB(0x5C9180, ""jdcolor"", ""gray_rgb_convert"");`",citada-en-cpp
-0x005C91E0,0x005C9337,344,0x005C9148,juego,funcion,viva-enlazada,tabla,0,1,2,muerto=3 tabla=1,,1,1,0x005C91E0:B:push=1,"JPegCompress.cpp:1046 `cconvert->color_convert = LIBJPEG_CB(0x5C91E0, ""jdcolor"", ""ycck_cmyk_convert"");`",citada-en-cpp
-0x005C9340,0x005C9340,1,0x005C9148,juego,ret-vacio,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C9340:B:push=1,"JPegCompress.cpp:995 `cconvert->start_pass = LIBJPEG_CB(0x5C9340, ""jdcolor"", ""start_pass_dcolor"");`",citada-en-cpp
+0x005C8E10,0x005C8E12,3,0x005C8959,juego,trivial (<16 B),viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C8E10:B:push=1,"JPegCompress.cpp:940 `coef->consume_data = LIBJPEG_CB(0x5C8E10, ""jdcoefct"", ""dummy_consume_data"");`",citada-en-cpp
+0x005C8FB0,0x005C90CF,288,0x005C8FA3,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C8FB0:B:push=1,"JPegCompress.cpp:1036 `cconvert->color_convert = LIBJPEG_CB(0x5C8FB0, ""jdcolor"", ""ycc_rgb_convert"");`",citada-en-cpp
+0x005C9150,0x005C9178,41,0x005C9148,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C9150:B:push=1,"JPegCompress.cpp:1025 `cconvert->color_convert = LIBJPEG_CB(0x5C9150, ""jdcolor"", ""grayscale_convert"");`",citada-en-cpp
+0x005C9180,0x005C91DD,94,0x005C9148,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C9180:B:push=1,"JPegCompress.cpp:1039 `cconvert->color_convert = LIBJPEG_CB(0x5C9180, ""jdcolor"", ""gray_rgb_convert"");`",citada-en-cpp
+0x005C91E0,0x005C9337,344,0x005C9148,juego,funcion,viva-enlazada,tabla,0,1,2,muerto=3 tabla=1,,1,1,0x005C91E0:B:push=1,"JPegCompress.cpp:1047 `cconvert->color_convert = LIBJPEG_CB(0x5C91E0, ""jdcolor"", ""ycck_cmyk_convert"");`",citada-en-cpp
+0x005C9340,0x005C9340,1,0x005C9148,juego,ret-vacio,viva-enlazada,muerto,0,1,1,muerto=2,,1,1,0x005C9340:B:push=1,"JPegCompress.cpp:996 `cconvert->start_pass = LIBJPEG_CB(0x5C9340, ""jdcolor"", ""start_pass_dcolor"");`",citada-en-cpp
 0x005C9CE0,0x005C9EAE,463,0x005C9CDF,juego,funcion,viva-enlazada,muerto,0,1,2,muerto=2 pieza=1,,1,2,0x005C9CE0:B:push=1,"LibJpegDecompress.cpp:457 `At<uint32>(entropy, 0x04) = LIBJPEG_CB(0x5C9CE0, ""jdhuff"", ""decode_mcu"");`",citada-en-cpp
 0x005C9EB0,0x005CA10A,603,0x005C9CDF,juego,funcion,muerta-por-reemplazo,muerto,0,0,4,pieza=6,,0,0,,,muerta-por-reemplazo
 0x005CA110,0x005CA25C,333,0x005C9CDF,juego,funcion,viva-enlazada,muerto,0,1,1,muerto=2,,1,2,0x005CA110:B:push=1,"LibJpegDecompress.cpp:456 `At<uint32>(entropy, 0x00) = LIBJPEG_CB(0x5CA110, ""jdhuff"", ""start_pass_huff_decoder"");`",citada-en-cpp
@@ -491,20 +491,20 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x007498D0,0x007498D4,5,0x0074987B,juego,trivial (<16 B),reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x0074A200,0x0074A233,52,0x0074A1F4,juego,funcion,reconstruida,muerto,1,1,1,muerto=10,,0,5,,,reconstruida
 0x0074A240,0x0074A257,24,0x0074A1F4,juego,funcion,reconstruida,sin-ref,1,1,0,,,0,2,,,reconstruida
-0x0074A260,0x0074A264,5,0x0074A1F4,juego,trivial (<16 B),reconstruida,muerto,1,1,1,muerto=2 pieza=3,,1,6,,rpworld.cpp:3302 `if (callback == DefaultClumpCallBack() || reinterpret_cast<uintptr_t>(callback) == 0x74A26`,reconstruida
+0x0074A260,0x0074A264,5,0x0074A1F4,juego,trivial (<16 B),reconstruida,muerto,1,1,1,muerto=2 pieza=3,,1,6,,rpworld.cpp:3367 `if (callback == DefaultClumpCallBack() || reinterpret_cast<uintptr_t>(callback) == 0x74A26`,reconstruida
 0x0074A270,0x0074A284,21,0x0074A1F4,juego,funcion,reconstruida,sin-ref,1,1,0,,,0,2,,,reconstruida
 0x0074A550,0x0074A57C,45,0x0074A54C,juego,funcion,reconstruida,sin-ref,1,1,0,,,0,2,,,reconstruida
 0x0074A580,0x0074A5AB,44,0x0074A54C,juego,funcion,reconstruida,sin-ref,1,1,0,,,0,2,,,reconstruida
 0x0074A5B0,0x0074A5D8,41,0x0074A54C,juego,funcion,reconstruida,sin-ref,1,1,0,,,0,3,,,reconstruida
 0x0074A5E0,0x0074A765,390,0x0074A54C,juego,funcion,reconstruida,muerto,1,1,1,muerto=1,,0,3,,,reconstruida
-0x0074A770,0x0074AA0C,669,0x0074A54C,juego,funcion,viva-sin-hook,muerto,0,1,3,muerto=1 pieza=4,,3,7,0x0074A770:A:mov_call=1;0x0074A880:A:mov_call=2,"rpworld_s30a31a.cpp:884 `inline RwBool BuildGeometryList(RpGeometryList* list, RpClump* clump) { return reinterpret`",citada-en-cpp
+0x0074A770,0x0074AA0C,669,0x0074A54C,juego,funcion,viva-sin-hook,muerto,0,1,3,muerto=1 pieza=4,,3,7,0x0074A770:A:mov_call=1;0x0074A880:A:mov_call=2,"rpworld_s30a31a.cpp:913 `inline RwBool BuildGeometryList(RpGeometryList* list, RpClump* clump) { return reinterpret`",citada-en-cpp
 0x0074AA10,0x0074AE32,1059,0x0074A54C,juego,funcion,reconstruida,muerto,1,1,1,pieza=1,,0,3,,,reconstruida
-0x0074AE40,0x0074AE4D,14,0x0074A54C,juego,trivial (<16 B),viva-sin-hook,muerto,0,1,1,pieza=2,,1,0,0x0074AE40:B:push=1,"rpworld_s30a31a.cpp:1072 `RpClumpForAllLights(clump, reinterpret_cast<RpLightCallBack>(0x74AE40), &lightCount);`",citada-en-cpp
-0x0074AEA0,0x0074AF16,119,0x0074AE96,juego,funcion,viva-sin-hook,muerto,0,1,1,pieza=1,,1,2,0x0074AEA0:A:mov_call=1,"rpworld_s30a31a.cpp:1142 `if (!reinterpret_cast<ClumpLightWriteFn>(0x74AEA0)(ClumpListObject<RpLight>(node, 0xC924DC`",citada-en-cpp
-0x0074AF20,0x0074AF96,119,0x0074AE96,juego,funcion,viva-sin-hook,muerto,0,1,1,pieza=1,,1,2,0x0074AF20:A:mov_call=1,"rpworld_s30a31a.cpp:1152 `if (!reinterpret_cast<ClumpCameraWriteFn>(0x74AF20)(ClumpListObject<RwCamera>(node, 0xC924`",citada-en-cpp
-0x0074AFA0,0x0074AFC7,40,0x0074AE96,juego,funcion,viva-sin-hook,muerto,0,1,1,pieza=2,,1,1,0x0074AFA0:B:push=1,"rpworld_s30a31a.cpp:1048 `RpClumpForAllLights(clump, reinterpret_cast<RpLightCallBack>(0x74AFA0), &total);`",citada-en-cpp
-0x0074AFD0,0x0074AFF7,40,0x0074AE96,juego,funcion,viva-sin-hook,muerto,0,1,1,pieza=2,,1,1,0x0074AFD0:B:push=1,"rpworld_s30a31a.cpp:1049 `RpClumpForAllCameras(clump, reinterpret_cast<RwCameraCallBack>(0x74AFD0), &total);`",citada-en-cpp
-0x0074B000,0x0074B02C,45,0x0074AE96,juego,funcion,viva-sin-hook,muerto,0,1,1,pieza=2,,1,1,0x0074B000:B:push=1,"rpworld_s30a31a.cpp:1047 `RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(0x74B000), &total);`",citada-en-cpp
+0x0074AE40,0x0074AE4D,14,0x0074A54C,juego,trivial (<16 B),reconstruida,muerto,1,1,1,pieza=2,,0,1,0x0074AE40:B:push=1,,reconstruida
+0x0074AEA0,0x0074AF16,119,0x0074AE96,juego,funcion,reconstruida,muerto,1,1,1,pieza=1,,0,3,0x0074AEA0:A:mov_call=1,,reconstruida
+0x0074AF20,0x0074AF96,119,0x0074AE96,juego,funcion,reconstruida,muerto,1,1,1,pieza=1,,0,3,0x0074AF20:A:mov_call=1,,reconstruida
+0x0074AFA0,0x0074AFC7,40,0x0074AE96,juego,funcion,reconstruida,muerto,1,1,1,pieza=2,,0,2,0x0074AFA0:B:push=1,,reconstruida
+0x0074AFD0,0x0074AFF7,40,0x0074AE96,juego,funcion,reconstruida,muerto,1,1,1,pieza=2,,0,2,0x0074AFD0:B:push=1,,reconstruida
+0x0074B000,0x0074B02C,45,0x0074AE96,juego,funcion,reconstruida,muerto,1,1,1,pieza=2,,0,2,0x0074B000:B:push=1,,reconstruida
 0x0074B030,0x0074B054,37,0x0074AE96,juego,funcion,reconstruida,sin-ref,1,1,0,,,0,2,,,reconstruida
 0x0074BF40,0x0074BF97,88,0x0074BF3F,juego,funcion,reconstruida,muerto,1,1,1,pieza=1,,0,2,,,reconstruida
 0x0074BFA0,0x0074BFB8,25,0x0074BF3F,juego,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
@@ -517,7 +517,7 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x0074D950,0x0074D98C,61,0x0074D8B1,juego,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x0074EA80,0x0074EAA6,39,0x0074EA77,juego,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,4,,,reconstruida
 0x0074F570,0x0074F58E,31,0x0074F561,juego,funcion,reconstruida,sin-ref,1,1,0,,,0,3,,,reconstruida
-0x0074F590,0x0074F605,118,0x0074F561,juego,funcion,viva-sin-hook,muerto,0,1,2,muerto=1 pieza=2,,1,1,0x0074F590:B:push=1,"rpworld_s30a31a.cpp:128 `RwCameraForAllSectorsInFrustum(static_cast<RwCamera*>(Globals()->curCamera), reinterpret_c`",citada-en-cpp
+0x0074F590,0x0074F605,118,0x0074F561,juego,funcion,reconstruida,muerto,1,1,2,muerto=1 pieza=2,,0,2,0x0074F590:B:push=1,,reconstruida
 0x0074FE90,0x0074FED1,66,0x0074FE8D,juego,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x0074FEE0,0x0074FF58,121,0x0074FE8D,juego,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x0074FF60,0x0074FF73,20,0x0074FE8D,juego,funcion,reconstruida,sin-ref,1,1,0,,,0,2,,,reconstruida
@@ -525,15 +525,15 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x00750280,0x00750360,225,0x00750275,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,4,,,reconstruida
 0x00750370,0x007503DC,109,0x00750275,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x007503E0,0x00750422,67,0x00750275,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
-0x00750430,0x00750459,42,0x00750275,renderware,funcion,viva-sin-hook,muerto,0,1,1,pieza=2,,1,1,0x00750430:B:imm=1,rpworld.cpp:8308 `*reinterpret_cast<RwUInt32*>(camera + 0x18) = 0x750430;`,citada-en-cpp
-0x00750460,0x00750709,682,0x00750275,renderware,funcion,viva-sin-hook,muerto,0,1,2,pieza=4,,2,1,0x00750460:B:imm=1;0x00750480:C:imm=1,rpworld.cpp:8309 `*reinterpret_cast<RwUInt32*>(camera + 0x1C) = 0x750460;`,citada-en-cpp
+0x00750430,0x00750459,42,0x00750275,renderware,funcion,reconstruida,muerto,1,1,1,pieza=2,,0,4,0x00750430:B:imm=1,,reconstruida
+0x00750460,0x00750709,682,0x00750275,renderware,funcion,reconstruida,muerto,1,1,2,pieza=4,,0,6,0x00750460:B:imm=1;0x00750480:C:imm=1,,reconstruida
 0x00750710,0x00750757,72,0x00750275,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
-0x00750760,0x007509A4,581,0x00750275,renderware,funcion,reconstruida,datos,1,1,7,datos=1 espurio=3 muerto=7,,1,8,0x007507E0:B:imm=1,rpworld.cpp:8346 `*reinterpret_cast<RwUInt32*>(atomic + 0x10) = 0x7507E0;`,reconstruida
+0x00750760,0x007509A4,581,0x00750275,renderware,funcion,reconstruida,datos,1,1,7,datos=1 espurio=3 muerto=7,,0,10,0x007507E0:B:imm=1,,reconstruida
 0x007509B0,0x00750A26,119,0x00750275,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,4,,,reconstruida
 0x00750A30,0x00750A57,40,0x00750275,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x00750A60,0x00750A88,41,0x00750275,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x00750A90,0x00750A94,5,0x00750275,renderware,trivial (<16 B),reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
-0x00750AA0,0x00750CC0,545,0x00750275,renderware,funcion,reconstruida,muerto,1,1,2,espurio=1 muerto=2,,1,3,0x00750AC0:B:imm=1,rpworld.cpp:8391 `*reinterpret_cast<RwUInt32*>(light + 0x10) = 0x750AC0;`,reconstruida
+0x00750AA0,0x00750CC0,545,0x00750275,renderware,funcion,reconstruida,muerto,1,1,2,espurio=1 muerto=2,,0,6,0x00750AC0:B:imm=1,,reconstruida
 0x00750CD0,0x00750D24,85,0x00750275,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x00750D90,0x00750DAA,27,0x00750D89,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x00750DE0,0x00750DF1,18,0x00750DD4,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
@@ -546,9 +546,9 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x00751390,0x007513C3,52,0x0075138F,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x007513D0,0x00751416,71,0x0075138F,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x00751420,0x00751455,54,0x0075138F,renderware,funcion,reconstruida,muerto,1,1,2,muerto=3,,0,3,,,reconstruida
-0x00751460,0x0075159A,315,0x0075138F,renderware,funcion,reconstruida,sin-ref,1,1,0,,,1,4,0x00751500:B:push=1,"rpworld.cpp:8681 `RpClumpForAllAtomics(clump, reinterpret_cast<RpAtomicCallBack>(static_cast<uintptr_t>(0x75`",reconstruida
-0x007515A0,0x00751623,132,0x0075138F,renderware,funcion,viva-sin-hook,muerto,0,1,1,pieza=2,,1,2,0x007515A0:B:push=1,"rpworld.cpp:8682 `RpClumpForAllLights(clump, reinterpret_cast<RpLightCallBack>(static_cast<uintptr_t>(0x7515`",citada-en-cpp
-0x00751630,0x0075165C,45,0x0075138F,renderware,funcion,viva-sin-hook,muerto,0,1,1,pieza=2,,1,2,0x00751630:B:push=1,"rpworld.cpp:8683 `RpClumpForAllCameras(clump, reinterpret_cast<RwCameraCallBack>(static_cast<uintptr_t>(0x75`",citada-en-cpp
+0x00751460,0x0075159A,315,0x0075138F,renderware,funcion,reconstruida,sin-ref,1,1,0,,,0,6,0x00751500:B:push=1,,reconstruida
+0x007515A0,0x00751623,132,0x0075138F,renderware,funcion,reconstruida,muerto,1,1,1,pieza=2,,0,4,0x007515A0:B:push=1,,reconstruida
+0x00751630,0x0075165C,45,0x0075138F,renderware,funcion,reconstruida,muerto,1,1,1,pieza=2,,0,4,0x00751630:B:push=1,,reconstruida
 0x00751660,0x007516A6,71,0x0075138F,renderware,funcion,reconstruida,muerto,1,1,1,pieza=1,,0,3,,,reconstruida
 0x007516B0,0x007516BD,14,0x0075138F,renderware,trivial (<16 B),reconstruida,sin-ref,1,1,0,,,0,2,,,reconstruida
 0x007516C0,0x007517EA,299,0x0075138F,renderware,funcion,reconstruida,muerto,1,1,1,espurio=1,,0,3,,,reconstruida
@@ -592,18 +592,18 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x007618B0,0x0076194B,156,0x00760DE6,renderware,funcion,reconstruida,tabla,1,1,1,muerto=1 tabla=2,,0,3,,,reconstruida
 0x00761950,0x0076199D,78,0x00760DE6,renderware,funcion,reconstruida,tabla,1,1,1,tabla=1,,0,3,,,reconstruida
 0x007619A0,0x00761A02,99,0x00760DE6,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
-0x00761C30,0x00761C5A,43,0x00761C26,renderware,funcion,reconstruida,muerto,1,1,3,muerto=5 pieza=1,,0,8,,,reconstruida
+0x00761C30,0x00761C5A,43,0x00761C26,renderware,funcion,reconstruida,muerto,1,1,3,muerto=5 pieza=1,,0,9,,,reconstruida
 0x00761C60,0x00761C8A,43,0x00761C26,renderware,funcion,reconstruida,sin-ref,1,1,0,,,0,2,,,reconstruida
 0x00761DE0,0x00761DFA,27,0x00761DDE,renderware,funcion,reconstruida,muerto,1,1,2,espurio=1 muerto=2,,0,3,,,reconstruida
 0x00761E80,0x00761E9A,27,0x00761E7E,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x00761EA0,0x0076203B,412,0x00761E7E,renderware,funcion,reconstruida,sin-ref,1,1,0,,,0,3,,,reconstruida
-0x00762040,0x00762140,257,0x00761E7E,renderware,funcion,viva-sin-hook,muerto,0,1,2,espurio=1 pieza=6,,3,4,0x00762040:A:imm=1;mov_call=2,"rpworld.cpp:9742 `children = reinterpret_cast<SubtreeSize>(0x762040)(plane->leftSubTree, world, flags) + 0x3`",citada-en-cpp
+0x00762040,0x00762140,257,0x00761E7E,renderware,funcion,reconstruida,muerto,1,1,2,espurio=1 pieza=6,,0,7,0x00762040:A:imm=1;mov_call=2,,reconstruida
 0x00762150,0x0076243A,747,0x00761E7E,renderware,funcion,reconstruida,sin-ref,1,1,0,,,0,3,,,reconstruida
-0x00762440,0x00762495,86,0x00761E7E,renderware,funcion,viva-sin-hook,muerto,0,1,1,pieza=2,,1,2,0x00762440:B:imm=1,rpworld_s30a31a.cpp:1670 `const SectorSizeFn atomicSectorSize = reinterpret_cast<SectorSizeFn>(0x762440);`,citada-en-cpp
-0x007624A0,0x00762954,1205,0x00761E7E,renderware,funcion,viva-sin-hook,muerto,0,1,2,pieza=2,,2,2,0x007624A0:A:mov_call=1;0x00762740:A:mov_call=1,"rpworld_s30a31a.cpp:1759 `if (!reinterpret_cast<SectorWriteFn>(0x7624A0)(world->rootSector, stream, mutableWorld, fl`",citada-en-cpp
+0x00762440,0x00762495,86,0x00761E7E,renderware,funcion,reconstruida,muerto,1,1,1,pieza=2,,0,6,0x00762440:B:imm=1,,reconstruida
+0x007624A0,0x00762954,1205,0x00761E7E,renderware,funcion,viva-sin-hook,muerto,0,1,2,pieza=2,,2,2,0x007624A0:A:mov_call=1;0x00762740:A:mov_call=1,"rpworld_s30a31a.cpp:1844 `if (!reinterpret_cast<SectorWriteFn>(0x7624A0)(world->rootSector, stream, mutableWorld, fl`",citada-en-cpp
 0x00762960,0x00762F23,1476,0x00761E7E,renderware,funcion,reconstruida,sin-ref,1,1,0,,,0,3,,,reconstruida
-0x00762F30,0x00763303,980,0x00761E7E,renderware,funcion,viva-sin-hook,muerto,0,1,2,muerto=2 pieza=3,,1,2,0x00762F30:A:mov_call=1,"rpworld_s30a31a.cpp:1876 `world->rootSector = reinterpret_cast<SectorReadFn>(0x762F30)(stream, &memoryCursor, world,`",citada-en-cpp
-0x00763310,0x007635A6,663,0x00761E7E,renderware,funcion,viva-sin-hook,muerto,0,1,1,pieza=1,,1,2,0x00763310:A:mov_call=1,"rpworld_s30a31a.cpp:1885 `world->rootSector = reinterpret_cast<SectorReadFn>(0x763310)(stream, &memoryCursor, world,`",citada-en-cpp
+0x00762F30,0x00763303,980,0x00761E7E,renderware,funcion,viva-sin-hook,muerto,0,1,2,muerto=2 pieza=3,,1,2,0x00762F30:A:mov_call=1,"rpworld_s30a31a.cpp:1961 `world->rootSector = reinterpret_cast<SectorReadFn>(0x762F30)(stream, &memoryCursor, world,`",citada-en-cpp
+0x00763310,0x007635A6,663,0x00761E7E,renderware,funcion,viva-sin-hook,muerto,0,1,1,pieza=1,,1,2,0x00763310:A:mov_call=1,"rpworld_s30a31a.cpp:1970 `world->rootSector = reinterpret_cast<SectorReadFn>(0x763310)(stream, &memoryCursor, world,`",citada-en-cpp
 0x007635B0,0x00763614,101,0x00761E7E,renderware,funcion,reconstruida,sin-ref,1,1,0,,,0,2,,,reconstruida
 0x00763620,0x00763684,101,0x00761E7E,renderware,funcion,reconstruida,sin-ref,1,1,0,,,0,2,,,reconstruida
 0x00763690,0x007637C5,310,0x00761E7E,renderware,funcion,reconstruida,sin-ref,1,1,0,,,0,2,,,reconstruida
@@ -717,14 +717,14 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x007F3E60,0x007F3E73,20,0x007F3CF3,renderware,funcion,sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
 0x007F3E80,0x007F3E93,20,0x007F3CF3,renderware,funcion,reconstruida,sin-ref,1,1,0,,,0,1,,,reconstruida
 0x007F3EA0,0x007F4076,471,0x007F3CF3,renderware,funcion,reconstruida,datos,1,1,3,datos=2 muerto=2,,0,1,,,reconstruida
-0x007F40F0,0x007F44B5,966,0x007F40F0,renderware,funcion,viva-sin-hook,datos,0,1,1,pieza=2,,1,2,0x007F40F0:B:imm=1,"rwcore.cpp:13847 `S20ModuleField<void*>(0xC97B4C, 0x14) = reinterpret_cast<void*>(0x7F40F0);`",pendiente-dato
-0x007F5140,0x007F53CB,652,0x007F513F,renderware,funcion,viva-sin-hook,datos,0,1,1,pieza=2,,1,1,0x007F5140:B:imm=1,"rwcore.cpp:13848 `S20ModuleField<void*>(0xC97B4C, 0x2C) = reinterpret_cast<void*>(0x7F5140);`",pendiente-dato
-0x007F53D0,0x007F54F3,292,0x007F513F,renderware,funcion,viva-sin-hook,datos,0,1,1,pieza=2,,1,1,0x007F53D0:B:imm=1,"rwcore.cpp:13846 `S20ModuleField<void*>(0xC97B4C, 0x18) = reinterpret_cast<void*>(0x7F53D0);`",pendiente-dato
+0x007F40F0,0x007F44B5,966,0x007F40F0,renderware,funcion,viva-sin-hook,datos,0,1,1,pieza=2,,1,2,0x007F40F0:B:imm=1,"rwcore.cpp:13967 `S20ModuleField<void*>(0xC97B4C, 0x14) = reinterpret_cast<void*>(0x7F40F0);`",pendiente-dato
+0x007F5140,0x007F53CB,652,0x007F513F,renderware,funcion,viva-sin-hook,datos,0,1,1,pieza=2,,1,1,0x007F5140:B:imm=1,"rwcore.cpp:13968 `S20ModuleField<void*>(0xC97B4C, 0x2C) = reinterpret_cast<void*>(0x7F5140);`",pendiente-dato
+0x007F53D0,0x007F54F3,292,0x007F513F,renderware,funcion,viva-sin-hook,datos,0,1,1,pieza=2,,1,1,0x007F53D0:B:imm=1,"rwcore.cpp:13966 `S20ModuleField<void*>(0xC97B4C, 0x18) = reinterpret_cast<void*>(0x7F53D0);`",pendiente-dato
 0x007F7530,0x007F7532,3,0x007F7523,renderware,trivial (<16 B),reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
 0x007FB310,0x007FB34E,63,0x007FB306,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,1,,,reconstruida
 0x007FB350,0x007FB363,20,0x007FB306,renderware,funcion,reconstruida,sin-ref,1,1,0,,,0,1,,,reconstruida
 0x007FB370,0x007FB47F,272,0x007FB306,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,1,,,reconstruida
-0x007FFF00,0x007FFFCF,208,0x007FFEF8,renderware,funcion,viva-sin-hook,vivo,0,1,17,datos=1 espurio=26 muerto=36 vivo=5,,1,1,0x007FFF00:B:imm=1,"rwcore.cpp:6876 `{ 0x06, Fn(&_rwD3D9RasterToImage) }, { 0x05, Fn(&RwD3D9RasterDriver::RasterDestroyCpp) }, `",pendiente-dato
+0x007FFF00,0x007FFFCF,208,0x007FFEF8,renderware,funcion,reconstruida,vivo,1,1,17,datos=1 espurio=26 muerto=36 vivo=5,,0,5,0x007FFF00:B:imm=1,,reconstruida
 0x00801C10,0x00801C1E,15,0x00801C08,renderware,trivial (<16 B),reconstruida,sin-ref,1,1,0,,,0,1,,,reconstruida
 0x00801C20,0x00801C27,8,0x00801C08,renderware,trivial (<16 B),reconstruida,sin-ref,1,1,0,,,0,1,,,reconstruida
 0x00801C30,0x00801D4D,286,0x00801C08,renderware,funcion,reconstruida,muerto,1,1,6,muerto=9,,1,6,,rwplcore.cpp:86 `constexpr uintptr_t kDefaultFreeListAlloc = 0x801C30; // direccion del EXE de RwFreeListAl`,reconstruida
@@ -737,8 +737,8 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x00802280,0x00802618,921,0x00802228,renderware,funcion,reconstruida,vivo,1,1,17,espurio=24 muerto=715 pieza=7 tabla=5 vivo=9,,0,3,,,reconstruida
 0x00802620,0x00802675,86,0x00802228,renderware,funcion,sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
 0x00802680,0x008026D2,83,0x00802228,renderware,funcion,sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
-0x008032D0,0x00803302,51,0x008032C3,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,1,4,,"rwcore.cpp:1531 `constexpr uint32 kImageOpenCallbackAddress = 0x8032D0; // abre el archivo: (ruta, {lectura`",reconstruida
-0x00803340,0x008033DD,158,0x00803337,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,1,4,,rwcore.cpp:1532 `constexpr uint32 kImageExtensionCallbackAddress = 0x803340; // prueba cada extension regis`,reconstruida
+0x008032D0,0x00803302,51,0x008032C3,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,1,4,,"rwcore.cpp:1537 `constexpr uint32 kImageOpenCallbackAddress = 0x8032D0; // abre el archivo: (ruta, {lectura`",reconstruida
+0x00803340,0x008033DD,158,0x00803337,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,1,4,,rwcore.cpp:1538 `constexpr uint32 kImageExtensionCallbackAddress = 0x803340; // prueba cada extension regis`,reconstruida
 0x008033E0,0x00803527,328,0x00803337,renderware,funcion,sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
 0x00803530,0x008035B4,133,0x00803337,renderware,funcion,sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
 0x00804200,0x00804239,58,0x008041F2,renderware,funcion,reconstruida,muerto,1,1,1,muerto=2,,0,3,,,reconstruida
@@ -807,7 +807,7 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x008194D0,0x008194D4,5,0x008194C5,renderware,trivial (<16 B),reconstruida,datos,1,1,1,datos=3 muerto=4,,0,9,0x008194D0:C:imm=6,,reconstruida
 0x008194E0,0x008194F4,21,0x008194C5,renderware,funcion,sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
 0x00819500,0x00819514,21,0x008194C5,renderware,funcion,sin-referencia-real,sin-ref,0,0,0,,,0,0,,,sin-referencia-real
-0x00819700,0x0081976B,108,0x008196FF,renderware,funcion,viva-quicktime,muerto,0,1,1,muerto=4,,1,4,0x00819700:B:imm=2,QTMLRuntime.cpp:38 `constexpr uintptr_t kQtmlLazyInitHook = 0x819700; // gancho posterior a un fallo (resuelve`,citada-en-cpp
+0x00819700,0x0081976B,108,0x008196FF,renderware,funcion,viva-quicktime,muerto,0,1,1,muerto=4,,1,4,0x00819700:B:imm=2,QTMLRuntime.cpp:39 `constexpr uintptr_t kQtmlLazyInitHook = 0x819700; // gancho posterior a un fallo (resuelve`,citada-en-cpp
 0x008215D6,0x00821613,62,0x008215D6,crt,funcion,crt-enlazar,vivo,0,0,2,muerto=1 vivo=2,,0,0,,,crt-enlazar
 0x008218B4,0x008218D5,34,0x008218B4,crt,funcion,crt-enlazar,vivo,0,0,1,vivo=3,,0,0,,,crt-enlazar
 0x00825E9C,0x00825F60,197,0x00825E9B,crt,funcion,crt-enlazar,vivo,0,0,1,muerto=6 vivo=2,,0,0,,,crt-enlazar
@@ -903,7 +903,7 @@ va,fin,bytes,hueco,region,forma,destino,vida,enganchada,citada,entradas,origenes
 0x00856B80,0x00856B80,1,0x008568AB,crt,ret-vacio,destructor-atexit,init,0,0,1,init=2,,0,0,,,destructor-atexit
 0x00856B90,0x00856B90,1,0x008568AB,crt,ret-vacio,destructor-atexit,init,0,0,1,init=2,,0,0,,,destructor-atexit
 0x00856BA0,0x00856BB3,20,0x008568AB,crt,funcion,destructor-atexit,init,0,0,1,init=2,,0,0,,,destructor-atexit
-0x00856BC0,0x00856BC9,10,0x008568AB,crt,trivial (<16 B),viva-sin-hook,muerto,0,1,1,muerto=2,,1,0,0x00856BC0:C:push=1,SpecialFX.cpp:118 `reinterpret_cast<int32(__cdecl*)(void(__cdecl*)())>(0x821D1E)(reinterpret_cast<void(__cdec`,citada-en-cpp
+0x00856BC0,0x00856BC9,10,0x008568AB,crt,trivial (<16 B),reconstruida,muerto,1,1,1,muerto=2,,0,2,0x00856BC0:C:push=1,,reconstruida
 0x00856BD0,0x00856BE6,23,0x008568AB,crt,funcion,destructor-atexit,init,0,0,1,init=2,,0,0,,,destructor-atexit
 0x00856BF0,0x00856C06,23,0x008568AB,crt,funcion,destructor-atexit,init,0,0,1,init=2,,0,0,,,destructor-atexit
 0x00856C10,0x00856C19,10,0x008568AB,crt,trivial (<16 B),destructor-atexit,init,0,0,1,init=2,,0,0,,,destructor-atexit

@@ -908,6 +908,7 @@ CSpecialFX,Init,0x007268F0,1,0,1,S
 CSpecialFX,Render,0x00726AD0,1,0,1,S
 CSpecialFX,Render2DFXs,0x00721660,1,0,1,S
 CSpecialFX,ReplayStarted,0x00721D30,1,0,1,S
+CSpecialFX,WeaponStreakAttachMatrixAtExit,0x00856BC0,1,0,0,S
 CSpecialFX,Shutdown,0x00723390,1,0,1,S
 CSpecialFX,Update,0x00726AA0,1,0,1,S
 CSkidmarks,Clear,0x00720590,1,0,1,S
@@ -11540,6 +11541,7 @@ RwD3D9RasterDriver,RasterDestroy,0x004CBB00,1,0,1,S
 RwD3D9RasterDriver,CheckDepthStencilSurfaceFormat,0x004CBD80,1,0,1,S
 RwD3D9RasterDriver,CheckTextureFormat,0x004CBDE0,1,0,1,S
 RwD3D9RasterDriver,CheckRenderTargetTextureFormat,0x004CBE20,1,0,1,S
+RwD3D9RasterDriver,CheckCubeTextureFormat,0x004CBEE0,1,0,0,S
 RwD3D9RasterDriver,CheckDepthStencilTextureFormat,0x004CBE80,1,0,1,S
 RwD3D9RasterDriver,CheckRenderTargetCubeFormat,0x004CBF20,1,0,1,S
 RwD3D9RasterDriver,CheckTextureFormatUsage400,0x004CBF80,1,0,1,S
@@ -12300,6 +12302,9 @@ RwD3D9,RwD3D9EngineGetMaxMultiSamplingLevels,0x007F84E0,1,0,0,S
 RwD3D9,RwD3D9EngineSetMultiSamplingLevels,0x007F84F0,1,0,0,S
 RwD3D9,RwD3D9EngineSetRefreshRate,0x007F8580,1,0,0,S
 RwD3D9,RwD3D9ChangeVideoMode,0x007F8640,1,0,0,S
+RwD3D9,_rwD3D9CameraEndUpdate,0x007F98D0,1,0,0,S
+RwD3D9,_rwD3D9RasterShowRaster,0x007F99B0,1,0,0,S
+RwD3D9,_rwD3D9StandardImageFindRasterFormat,0x007FFF00,1,0,0,S
 RwD3D9,RwD3D9ChangeMultiSamplingLevels,0x007F8A90,1,0,0,S
 RwD3D9,RwD3D9CameraAttachWindow,0x007F8D70,1,0,0,S
 RwD3D9,RwD3D9DeviceSupportsDXTTexture,0x007F9C30,1,0,0,S
@@ -12618,6 +12623,7 @@ CAudioZones,TextBufferAppendTagged,0x005089B0,1,0,0,S
 CAudioZones,TextBufferAddInt,0x00508B80,1,0,0,S
 CAudioZones,TextBufferAddTyped,0x00508D30,1,0,0,S
 CAudioZones,BugstarFlushReport,0x00509190,1,0,0,S
+CAudioZones,BugstarWriteBlock,0x00508EB0,1,0,0,S
 RpUVAnim,RpUVAnimEngineConstructor,0x007CB9B0,1,0,0,S
 RpUVAnim,RpUVAnimEngineDestructor,0x007CBA20,1,0,0,S
 RpUVAnim,RpUVAnimMaterialConstructor,0x007CBA80,1,0,0,S
@@ -13199,6 +13205,10 @@ RpWorld,RpWorldSectorForAllAtomics,0x007510A0,1,0,0,S
 RpWorld,RpWorldSectorForAllCollisionAtomics,0x00751140,1,0,0,S
 RpWorld,RpWorldSectorForAllLights,0x007511E0,1,0,0,S
 RpWorld,RwCameraForAllSectorsInFrustum,0x00751660,1,0,0,S
+RpWorld,CameraWorldPluginBeginUpdate,0x00750430,1,0,0,S
+RpWorld,CameraWorldPluginEndUpdate,0x00750460,1,0,0,S
+RpWorld,CameraWorldPluginSync,0x00750480,1,0,0,S
+RpWorld,LightWorldPluginSync,0x00750AC0,1,0,0,S
 RpWorld,_rwD3D9VSGetWorldMultiplyMatrix,0x00764920,1,0,0,S
 RpWorld,RpClumpCreateSpace,0x00749970,1,0,0,S
 RpWorld,RpAtomicStreamGetSize,0x0074A5B0,1,0,0,S
@@ -13210,6 +13220,22 @@ RpWorld,RpGeometryStreamWrite,0x0074CED0,1,0,0,S
 RpWorld,_rpMaterialListStreamWrite,0x0074E4B0,1,0,0,S
 RpWorld,_rpWorldFindBBox,0x0074EFA0,1,0,0,S
 RpWorld,RpWorldRender,0x0074F570,1,0,0,S
+RpWorld,WorldSectorRenderCallBack,0x0074F590,1,0,0,S
+RpWorld,ClumpLightCountCallBack,0x0074AE40,1,0,0,S
+RpWorld,ClumpAtomicStreamSizeCallBack,0x0074B000,1,0,0,S
+RpWorld,ClumpLightStreamSizeCallBack,0x0074AFA0,1,0,0,S
+RpWorld,ClumpCameraStreamSizeCallBack,0x0074AFD0,1,0,0,S
+RpWorld,ClumpLightWriteCallBack,0x0074AEA0,1,0,0,S
+RpWorld,ClumpCameraWriteCallBack,0x0074AF20,1,0,0,S
+RpWorld,AtomicWorldPluginSync,0x007507E0,1,0,0,S
+RpWorld,AtomicWorldRemoveCallBack,0x00751500,1,0,0,S
+RpWorld,LightWorldRemoveCallBack,0x007515A0,1,0,0,S
+RpWorld,CameraWorldRemoveCallBack,0x00751630,1,0,0,S
+RpWorld,StripNextEdge,0x0075C290,1,0,0,S
+RpWorld,RpGeometryStreamStructSize,0x0074CE60,1,0,0,S
+RpWorld,RpWorldSectorStreamDataSize,0x00762440,1,0,0,S
+RpWorld,RpWorldPlaneStreamSize,0x00762040,1,0,0,S
+RpWorld,RpLightStreamWrite,0x00751E30,1,0,0,S
 RpWorld,RwCameraForAllClumpsInFrustum,0x007516C0,1,0,0,S
 RpWorld,RwCameraForAllAtomicsInFrustum,0x007517F0,1,0,0,S
 RpWorld,RpLightGetConeAngle,0x00751AE0,1,0,0,S

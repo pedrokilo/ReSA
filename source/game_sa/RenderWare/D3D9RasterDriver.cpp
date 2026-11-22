@@ -323,6 +323,11 @@ __declspec(noinline) int32 __cdecl CheckTextureFormat(uint32 format) {
     return CheckDeviceFormat(AdapterFormat, 0, 3, format) >= 0;
 }
 
+// 0x4CBEE0 (codigo vivo CAM, cdecl, formato): textura de cubo (tipo 5) con uso 0: IDirect3D9::CheckDeviceFormat con el formato del adaptador; 1 si el resultado no es negativo.
+__declspec(noinline) int32 __cdecl CheckCubeTextureFormat(uint32 format) {
+    return CheckDeviceFormat(AdapterFormat, 0, 5, format) >= 0;
+}
+
 // 0x4CBE20 (cdecl, formato): textura como destino de render (uso 1) y su pareja con el formato de profundidad 0xC9C068.
 __declspec(noinline) int32 __cdecl CheckRenderTargetTextureFormat(uint32 format) {
     const uint32 adapterFormat = AdapterFormat;
@@ -794,6 +799,7 @@ int32 RwD3D9RasterDriver::CheckTextureFormatCpp(uint32 format) { return ::CheckT
 int32 RwD3D9RasterDriver::CheckRenderTargetTextureFormatCpp(uint32 format) { return ::CheckRenderTargetTextureFormat(format); }
 int32 RwD3D9RasterDriver::CheckDepthStencilTextureFormatCpp(uint32 format) { return ::CheckDepthStencilTextureFormat(format); }
 int32 RwD3D9RasterDriver::CheckRenderTargetCubeFormatCpp(uint32 format) { return ::CheckRenderTargetCubeFormat(format); }
+int32 RwD3D9RasterDriver::CheckCubeTextureFormatCpp(uint32 format) { return ::CheckCubeTextureFormat(format); }
 int32 RwD3D9RasterDriver::CheckTextureFormatUsage400Cpp(uint32 format) { return ::CheckTextureFormatUsage400(format); }
 int32 RwD3D9RasterDriver::CheckCubeFormatUsage400Cpp(uint32 format) { return ::CheckCubeFormatUsage400(format); }
 
@@ -811,6 +817,7 @@ void RwD3D9RasterDriver::InjectHooks() {
     RH_ScopedNamedGlobalInstall(RasterDestroy, "RasterDestroy", 0x4CBB00);                                             // lote 224A (sin validar)
     RH_ScopedNamedGlobalInstall(CheckDepthStencilSurfaceFormat, "CheckDepthStencilSurfaceFormat", 0x4CBD80);           // lote 224A (sin validar)
     RH_ScopedNamedGlobalInstall(CheckTextureFormat, "CheckTextureFormat", 0x4CBDE0);                                   // lote 224A (sin validar)
+    RH_ScopedNamedGlobalInstall(CheckCubeTextureFormat, "CheckCubeTextureFormat", 0x4CBEE0);                           // codigo vivo CAM (sin validar)
     RH_ScopedNamedGlobalInstall(CheckRenderTargetTextureFormat, "CheckRenderTargetTextureFormat", 0x4CBE20);           // lote 224A (sin validar)
     RH_ScopedNamedGlobalInstall(CheckDepthStencilTextureFormat, "CheckDepthStencilTextureFormat", 0x4CBE80);           // lote 224A (sin validar)
     RH_ScopedNamedGlobalInstall(CheckRenderTargetCubeFormat, "CheckRenderTargetCubeFormat", 0x4CBF20);                 // lote 224A (sin validar)

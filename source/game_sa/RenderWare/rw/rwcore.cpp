@@ -6869,17 +6869,22 @@ RwBool _rwD3D9DeviceSystemStop(void* /*out*/, void* /*inOut*/, RwInt32 /*in*/) {
 
 // 0x7F7530 (lote S32A): funcion estandar nula (cuerpo al final del archivo).
 static RwInt32 _rwD3D9DeviceStandardNull();
+// Funciones estandar CAMERAENDUPDATE, RASTERSHOWRASTER e IMAGEFINDRASTERFORMAT (codigo vivo CAM; cuerpos mas abajo, junto al cambio de modo de video).
+RwBool _rwD3D9CameraEndUpdate(void* out, void* camera, RwInt32 unused);                         // 0x7F98D0
+RwBool _rwD3D9RasterShowRaster(RwRaster* raster, void* device, RwInt32 flags);                  // 0x7F99B0
+RwBool _rwD3D9StandardImageFindRasterFormat(RwRaster* raster, const RwImage* image, RwInt32 flags); // 0x7FFF00
+RwInt32 _rwD3D9ImageFindRasterFormat(const RwImage* image);                                     // 0x7FFFF0
 
 // 0x7F72E0 (lote R26A, sin validar; 579 bytes; cdecl, (salida, inOut sin uso, numero de funciones); `D3D9DeviceSystemStandards` del SDK; nombre inferido): rellena la tabla de funciones estandar del dispositivo. Con numero > 0
 // pone en las `numero` primeras entradas la funcion nula 0x7F7530 (xor eax, eax; ret) y, con numero > 1, escribe despues (del ultimo par al primero) tabla[indice] = funcion para 27 pares fijos, sin comprobar el limite. Las
-// direcciones son las de las funciones C++ del controlador de rasters (D3D9RasterStandards.cpp, D3D9RasterDriver.cpp, D3D9RasterFormat.cpp y las de este archivo; los 12 manejadores 0x4CA4E0..0x4CD820 que eran direcciones del EXE sin funcion de Ghidra ni enganche pasaron a C++ en el lote D3DSTD) y, de las del EXE, solo 0x7F98D0, 0x7F99B0 y 0x7FFF00 (ya enganchadas o fuera de este lote). Devuelve TRUE.
+// direcciones son las de las funciones C++ del controlador de rasters (D3D9RasterStandards.cpp, D3D9RasterDriver.cpp, D3D9RasterFormat.cpp y las de este archivo; los 12 manejadores 0x4CA4E0..0x4CD820 que eran direcciones del EXE sin funcion de Ghidra ni enganche pasaron a C++ en el lote D3DSTD) y las tres funciones estandar de codigo vivo CAM (0x7F98D0, 0x7F99B0 y 0x7FFF00; ya no queda ninguna direccion del EXE en la tabla). Devuelve TRUE.
 RwBool _rwD3D9DeviceSystemStandards(void* out, void* /*inOut*/, RwInt32 numStandards) {
     struct StandardEntry { uint32 index; uint32 function; };
     // Direcciones de las funciones estandar: las que ya estan en C++ se registran con su direccion propia (sin pasar por el EXE); el resto, del EXE.
     const auto Fn = [](auto function) { return static_cast<uint32>(reinterpret_cast<uintptr_t>(function)); };
     const StandardEntry kStandards[27] = {
-        { 0x01, Fn(&RenderWare::_rwD3D9CameraBeginUpdate) }, { 0x0A, 0x7F98D0 }, { 0x15, Fn(&RenderWare::_rwD3D9CameraClear) }, { 0x14, 0x7F99B0 }, { 0x02, Fn(&_rwD3D9RGBToPixel) }, { 0x03, Fn(&_rwD3D9PixelToRGB) }, { 0x07, Fn(&_rwD3D9RasterSetFromImage) },
-        { 0x06, Fn(&_rwD3D9RasterToImage) }, { 0x05, Fn(&RwD3D9RasterDriver::RasterDestroyCpp) }, { 0x04, Fn(&RwD3D9RasterDriver::RasterCreateCpp) }, { 0x09, 0x7FFF00 }, { 0x08, Fn(&D3D9RasterStandards::SetTextureRaster) }, { 0x0F, Fn(&D3D9RasterLockExe) }, { 0x10, Fn(&D3D9RasterUnlockExe) },
+        { 0x01, Fn(&RenderWare::_rwD3D9CameraBeginUpdate) }, { 0x0A, Fn(&_rwD3D9CameraEndUpdate) }, { 0x15, Fn(&RenderWare::_rwD3D9CameraClear) }, { 0x14, Fn(&_rwD3D9RasterShowRaster) }, { 0x02, Fn(&_rwD3D9RGBToPixel) }, { 0x03, Fn(&_rwD3D9PixelToRGB) }, { 0x07, Fn(&_rwD3D9RasterSetFromImage) },
+        { 0x06, Fn(&_rwD3D9RasterToImage) }, { 0x05, Fn(&RwD3D9RasterDriver::RasterDestroyCpp) }, { 0x04, Fn(&RwD3D9RasterDriver::RasterCreateCpp) }, { 0x09, Fn(&_rwD3D9StandardImageFindRasterFormat) }, { 0x08, Fn(&D3D9RasterStandards::SetTextureRaster) }, { 0x0F, Fn(&D3D9RasterLockExe) }, { 0x10, Fn(&D3D9RasterUnlockExe) },
         { 0x17, Fn(&D3D9RasterStandards::RasterLockPalette) }, { 0x18, Fn(&D3D9RasterPaletteUnlockExe) }, { 0x0E, Fn(&D3D9RasterStandards::RasterClear) }, { 0x0D, Fn(&D3D9RasterStandards::RasterClearRect) }, { 0x11, Fn(&D3D9RasterStandards::RasterRender) }, { 0x12, Fn(&D3D9RasterStandards::RasterRenderScaled) }, { 0x13, Fn(&D3D9RasterStandards::RasterRenderFast) },
         { 0x0B, Fn(&D3D9RasterStandards::SetRasterContext) }, { 0x0C, Fn(&D3D9RasterStandards::RasterSubRaster) }, { 0x19, Fn(&D3D9RasterFormat::GetRasterMemorySize) }, { 0x1B, Fn(&D3D9RasterStandards::NativeTextureWrite) }, { 0x1A, Fn(&D3D9RasterStandards::NativeTextureRead) }, { 0x1C, Fn(&D3D9RasterStandards::RasterGetMipLevels) },
     };    uint32* const standards = static_cast<uint32*>(out);
@@ -7103,6 +7108,112 @@ RwBool RwD3D9ChangeVideoMode(RwInt32 modeIndex) {
     }
     D3D9RestoreAfterReset();
     return TRUE;
+}
+
+// --- Codigo vivo CAM (sin validar): funciones estandar CAMERAENDUPDATE, RASTERSHOWRASTER e IMAGEFINDRASTERFORMAT del dispositivo D3D9 ---
+namespace {
+constexpr size_t kSlotSwapChainPresent       = 3;   // IDirect3DSwapChain9::Present (+0x0C)
+constexpr size_t kSlotDevicePresentCam       = 17;  // IDirect3DDevice9::Present (+0x44)
+constexpr size_t kSlotDeviceEndSceneCam      = 42;  // IDirect3DDevice9::EndScene (+0xA8)
+constexpr size_t kSlotDeviceStretchRectCam   = 34;  // IDirect3DDevice9::StretchRect (+0x88)
+constexpr int32  kD3DErrDeviceLost           = static_cast<int32>(0x88760868);
+constexpr int32  kD3DErrDeviceNotReset       = static_cast<int32>(0x88760869);
+constexpr uint32 kPresentIntervalImmediate   = 0x80000000;
+constexpr uint32 kPresentIntervalOne         = 1;
+}
+
+// 0x7F98D0 (lote CAM, sin validar; 223 bytes; cdecl sin argumentos que lea; funcion estandar rwSTANDARDCAMERAENDUPDATE, `_rwD3D9CameraEndUpdate` del SDK; nombre inferido): sobre la camara actual (0xC9BCC0) toma su raster
+// de imagen (+0x60) y el raster superior (parent). Si el superior no tiene cadena de intercambio (+0x1C de la extension), es de tipo 5 (textura de camara) y hay copia pendiente (0xC97C34 != 0): toma la superficie
+// nivel 0 de su textura (GetSurfaceLevel, o GetCubeMapSurface con la cara del nibble alto del byte +9 si el bajo no es cero) y copia la superficie de color actual (0xC97C30) a ella con StretchRect sobre el rectangulo
+// del raster de imagen ((desplazamiento X, Y), tamano sumado; filtro POINT (1) si 0xC9BFF4 & 0x1000100, si no NONE), suelta la superficie y borra 0xC97C34. Siempre deja la camara actual a NULL y devuelve TRUE.
+RwBool _rwD3D9CameraEndUpdate(void* /*out*/, void* /*camera*/, RwInt32 /*unused*/) {
+    RwCamera* const camera = StaticRef<RwCamera*>(0xC9BCC0);
+    const RwRaster* const raster = camera->frameBuffer;
+    const RwRaster* const top = raster->parent;
+    const D3D9RasterExtLayout& ext = D3D9RasterExt(top);
+    if (ext.swapChain == nullptr && top->cType == 5 && StaticRef<RwBool>(0xC97C34) != 0) {
+        void* surface = nullptr;
+        D3D9GetTextureSurface(ext.texture, ext.cubeFace, 0u, &surface);
+        const int32 left = raster->nOffsetX;
+        const int32 topEdge = raster->nOffsetY;
+        const D3D9Rect rect = { left, topEdge, raster->width + left, raster->height + topEdge };
+        const uint32 filter = (StaticRef<uint32>(0xC9BFF4) & 0x1000100u) != 0 ? 1u : 0u;
+        ComCall<kSlotDeviceStretchRectCam, HRESULT>(D3D9Device, D3D9RenderSurface, &rect, surface, &rect, filter);
+        ComCall<kSlotRelease, ULONG>(surface);
+        StaticRef<RwBool>(0xC97C34) = 0;
+    }
+    StaticRef<RwCamera*>(0xC9BCC0) = nullptr;
+    return TRUE;
+}
+
+// 0x7F99B0 (lote CAM, sin validar; 621 bytes; cdecl, (raster, dispositivo sin uso, banderas); funcion estandar rwSTANDARDRASTERSHOWRASTER, `_rwD3D9RasterShowRaster` del SDK; nombre inferido): muestra el raster de camara.
+// 1) Si hay escena abierta (0xC97C54) hace EndScene y la cierra. 2) Sincronizacion vertical segun el bit 0 de las banderas: con el bit y el intervalo de presentacion (D3DPRESENT_PARAMETERS +0x34, 0xC9C074) en
+// IMMEDIATE (0x80000000) lo pone a ONE (1); sin el bit y en ONE lo pone a IMMEDIATE; cualquiera de los dos cambios reinicia el dispositivo: libera la memoria de video (0x7F7F70), Reset(&0xC9C040) (resultado ignorado)
+// y la cadena de recuperacion comun (D3D9RestoreAfterReset: superficies actuales, lista de rasters, buferes dinamicos, estados, luces, Im2D/Im3D y callback de restauracion; resultado ignorado). 3) Presenta: Present de
+// la cadena de intercambio del raster superior (+0x1C de la extension) con cinco ceros o, sin ella, Present del dispositivo con cuatro ceros. 4) Con DEVICELOST (0x88760868) mira TestCooperativeLevel y, con DEVICENOTRESET
+// (0x88760869), hace el mismo reinicio (liberar memoria de video, Reset y recuperacion). Al final llama siempre a 0x7F5800 (_rwD3D9DynamicVertexBufferManagerForceDiscard) y devuelve TRUE si el ultimo HRESULT
+// (el de Present, o el de TestCooperativeLevel si hubo perdida) no es negativo; tras una perdida el valor es FALSE.
+RwBool _rwD3D9RasterShowRaster(RwRaster* raster, void* /*device*/, RwInt32 flags) {
+    if (D3D9InsideScene != 0) {
+        ComCall<kSlotDeviceEndSceneCam, HRESULT>(D3D9Device);
+        D3D9InsideScene = 0;
+    }
+    const auto resetDevice = []() {
+        _rwD3D9DeviceReleaseVideoMemory();
+        ComCall<kSlotDeviceReset, HRESULT>(D3D9Device, &D3D9Present);
+        D3D9RestoreAfterReset();
+    };
+    const uint32 interval = D3D9Present.presentationInterval;
+    if ((flags & 1) != 0) {
+        if (interval == kPresentIntervalImmediate) {
+            D3D9Present.presentationInterval = kPresentIntervalOne;
+            resetDevice();
+        }
+    } else if (interval == kPresentIntervalOne) {
+        D3D9Present.presentationInterval = kPresentIntervalImmediate;
+        resetDevice();
+    }
+    void* const swapChain = D3D9RasterExt(raster->parent).swapChain;
+    HRESULT result;
+    if (swapChain != nullptr) {
+        result = ComCall<kSlotSwapChainPresent, HRESULT>(swapChain, static_cast<void*>(nullptr), static_cast<void*>(nullptr), static_cast<void*>(nullptr), static_cast<void*>(nullptr), 0u);
+    } else {
+        result = ComCall<kSlotDevicePresentCam, HRESULT>(D3D9Device, static_cast<void*>(nullptr), static_cast<void*>(nullptr), static_cast<void*>(nullptr), static_cast<void*>(nullptr));
+    }
+    if (result == kD3DErrDeviceLost) {
+        result = ComCall<kSlotDeviceTestCooperativeLevel, HRESULT>(D3D9Device);
+        if (result == kD3DErrDeviceNotReset) {
+            resetDevice();
+        }
+    }
+    _rwD3D9DynamicVertexBufferManagerForceDiscard();
+    return result >= 0 ? TRUE : FALSE;
+}
+
+// 0x7FFF00 (lote CAM, sin validar; 208 bytes; cdecl, (raster, imagen, banderas); funcion estandar rwSTANDARDIMAGEFINDRASTERFORMAT, `RwImageFindRasterFormat` del controlador): copia ancho y alto de la imagen (+4, +8) al
+// raster (+0xC, +0x10) y pone su profundidad (+0x14) a 0. Segun banderas & 7: 0 -> ajusta ancho y alto a tamano valido de textura (0x7FED70, con las banderas), formato = _rwD3D9ImageFindRasterFormat(imagen) | (banderas &
+// 0xFFFF6FFF) y SetRasterFormat (0x4CC580); 1 y 2 -> SetRasterFormat(raster, banderas); 4 y 5 -> como 0 pero formato | (banderas & 0x9000) | (banderas & 7); 3 y mayores que 5 -> error 0x8000000D (plugin 1) y FALSE.
+// Devuelve el resultado de SetRasterFormat.
+RwBool _rwD3D9StandardImageFindRasterFormat(RwRaster* raster, const RwImage* image, RwInt32 flags) {
+    raster->width = image->width;
+    raster->height = image->height;
+    raster->depth = 0;
+    const uint32 value = static_cast<uint32>(flags);
+    switch (value & 7u) {
+    case 0:
+        _rwD3D9CheckValidTextureSize(&raster->width, &raster->height, value);
+        return D3D9RasterFormat::SetRasterFormat(raster, static_cast<uint32>(_rwD3D9ImageFindRasterFormat(image)) | (value & 0xFFFF6FFFu));
+    case 1:
+    case 2:
+        return D3D9RasterFormat::SetRasterFormat(raster, value);
+    case 4:
+    case 5:
+        _rwD3D9CheckValidTextureSize(&raster->width, &raster->height, value);
+        return D3D9RasterFormat::SetRasterFormat(raster, (value & 7u) | static_cast<uint32>(_rwD3D9ImageFindRasterFormat(image)) | (value & 0x9000u));
+    default:
+        D3D9RaiseError(static_cast<RwInt32>(0x8000000D));
+        return FALSE;
+    }
 }
 
 // 0x7F8A90 (lote R26A, sin validar; 731 bytes; era una envoltura; cdecl, (niveles); `RwD3D9ChangeMultiSamplingLevels` del SDK): TRUE sin hacer nada si 0xC97C38 es 0 o el nivel pedido ya es el elegido (0x8E2430). Si no: guarda
@@ -7561,6 +7672,9 @@ void RwD3D9InjectHooksR26A() {
     RH_ScopedGlobalInstall(RwD3D9EngineSetMultiSamplingLevels, 0x7F84F0);
     RH_ScopedGlobalInstall(RwD3D9EngineSetRefreshRate, 0x7F8580);
     RH_ScopedGlobalInstall(RwD3D9ChangeVideoMode, 0x7F8640);
+    RH_ScopedGlobalInstall(_rwD3D9CameraEndUpdate, 0x7F98D0); // codigo vivo CAM (sin validar)
+    RH_ScopedGlobalInstall(_rwD3D9RasterShowRaster, 0x7F99B0); // codigo vivo CAM (sin validar)
+    RH_ScopedGlobalInstall(_rwD3D9StandardImageFindRasterFormat, 0x7FFF00); // codigo vivo CAM (sin validar)
     RH_ScopedGlobalInstall(RwD3D9ChangeMultiSamplingLevels, 0x7F8A90);
     RH_ScopedGlobalInstall(RwD3D9CameraAttachWindow, 0x7F8D70);
 }

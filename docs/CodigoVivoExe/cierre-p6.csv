@@ -31,7 +31,7 @@ H1,0x004AC0C1,0x004AC0EF,47,juego,destructor-atexit,1,0,1,destructor-atexit:23
 H1,0x004C6C7A,0x004C6D3F,198,juego,sin-referencia-real,3,0,1,sin-referencia-real:169
 H1,0x004C73C5,0x004C740F,75,juego,sin-referencia-real,4,0,1,cerrada-comentario:4 sin-referencia-real:11
 H1,0x004C9A5A,0x004C9AAF,86,juego,reconstruida,2,0,1,reconstruida:57
-H1,0x004CD4CF,0x004CDE6F,2465,juego,viva-sin-hook,12,2,0,viva-sin-hook:1939 muerta-por-reemplazo:354 sin-referencia-real:79
+H1,0x004CD4CF,0x004CDE6F,2465,juego,reconstruida,12,0,1,reconstruida:1939 muerta-por-reemplazo:354 sin-referencia-real:79
 H1,0x004D12AF,0x004D139F,241,juego,cerrada-comentario,9,0,1,reconstruida:1 cerrada-comentario:84 sin-referencia-real:61
 H1,0x004D2E0A,0x004D2E3F,54,juego,reconstruida,1,0,1,reconstruida:34
 H1,0x004D63DA,0x004D63FF,38,juego,cerrada-comentario,1,0,1,cerrada-comentario:19
@@ -152,18 +152,18 @@ H4,0x00749477,0x0074951F,169,juego,reconstruida,1,0,1,reconstruida:152
 H4,0x0074971A,0x0074982F,278,juego,reconstruida,3,0,1,reconstruida:245
 H4,0x0074987B,0x007498DF,101,juego,reconstruida,4,0,1,reconstruida:56
 H4,0x0074A1F4,0x0074A28F,156,juego,reconstruida,4,0,1,reconstruida:102
-H4,0x0074A54C,0x0074AE4F,2308,juego,viva-sin-hook,7,2,0,viva-sin-hook:683 reconstruida:1579
-H4,0x0074AE96,0x0074B05F,458,juego,viva-sin-hook,6,5,0,viva-sin-hook:363 reconstruida:37
+H4,0x0074A54C,0x0074AE4F,2308,juego,viva-sin-hook,7,1,0,viva-sin-hook:669 reconstruida:1593
+H4,0x0074AE96,0x0074B05F,458,juego,reconstruida,6,0,1,reconstruida:400
 H4,0x0074BF3F,0x0074C1FF,705,juego,reconstruida,5,0,1,reconstruida:670
 H4,0x0074D84E,0x0074D86F,34,juego,reconstruida,1,0,1,reconstruida:27
 H4,0x0074D8B1,0x0074D98F,223,juego,reconstruida,3,0,1,reconstruida:181
 H4,0x0074EA77,0x0074EAAF,57,juego,reconstruida,1,0,1,reconstruida:39
-H4,0x0074F561,0x0074F60F,175,juego,viva-sin-hook,2,1,0,viva-sin-hook:118 reconstruida:31
+H4,0x0074F561,0x0074F60F,175,juego,reconstruida,2,0,1,reconstruida:149
 H4,0x0074FE8D,0x0074FF9F,275,juego,reconstruida,4,0,1,reconstruida:227
-H4,0x00750275,0x00750D2F,2747,renderware,viva-sin-hook,13,2,0,viva-sin-hook:724 reconstruida:1889
+H4,0x00750275,0x00750D2F,2747,renderware,reconstruida,13,0,1,reconstruida:2613
 H4,0x00750D89,0x00750DAF,39,renderware,reconstruida,1,0,1,reconstruida:27
 H4,0x00750DD4,0x00750E9F,204,renderware,reconstruida,7,0,1,reconstruida:138
-H4,0x0075138F,0x0075190F,1409,renderware,viva-sin-hook,10,2,0,viva-sin-hook:177 reconstruida:1155
+H4,0x0075138F,0x0075190F,1409,renderware,reconstruida,10,0,1,reconstruida:1332
 H4,0x007521A0,0x0075220F,112,renderware,reconstruida,2,0,1,reconstruida:89
 H4,0x00752241,0x007522DF,159,renderware,reconstruida,2,0,1,reconstruida:120
 H4,0x00755BBD,0x00755D7F,451,renderware,reconstruida,4,0,1,reconstruida:399
@@ -180,7 +180,7 @@ H4,0x0075E3E6,0x0075E9EF,1546,renderware,reconstruida,4,0,1,reconstruida:1512
 H4,0x00760DE6,0x00761A0F,3114,renderware,reconstruida,10,0,1,reconstruida:3017
 H4,0x00761C26,0x00761C8F,106,renderware,reconstruida,2,0,1,reconstruida:86
 H5,0x00761DDE,0x00761DFF,34,renderware,reconstruida,1,0,1,reconstruida:27
-H5,0x00761E7E,0x007637EF,6514,renderware,viva-sin-hook,13,5,0,viva-sin-hook:3191 reconstruida:3206
+H5,0x00761E7E,0x007637EF,6514,renderware,viva-sin-hook,13,3,0,viva-sin-hook:2848 reconstruida:3549
 H5,0x00770FD3,0x0077107E,172,renderware,d3dx9-enlazar,1,0,1,d3dx9-enlazar:172
 H5,0x00781A16,0x00781A1A,5,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:5
 H5,0x0078589B,0x007858E8,78,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:78
@@ -232,7 +232,7 @@ H6,0x007F40F0,0x007F44BF,976,renderware,viva-sin-hook,1,1,0,viva-sin-hook:966
 H6,0x007F513F,0x007F54FF,961,renderware,viva-sin-hook,2,2,0,viva-sin-hook:944
 H6,0x007F7523,0x007F753F,29,renderware,reconstruida,1,0,1,reconstruida:3
 H6,0x007FB306,0x007FB47F,378,renderware,reconstruida,3,0,1,reconstruida:355
-H6,0x007FFEF8,0x007FFFEF,248,renderware,viva-sin-hook,1,1,0,viva-sin-hook:208
+H6,0x007FFEF8,0x007FFFEF,248,renderware,reconstruida,1,0,1,reconstruida:208
 H6,0x00801C08,0x00801D4F,328,renderware,reconstruida,3,0,1,reconstruida:309
 H6,0x00802097,0x008020EF,89,renderware,reconstruida,3,0,1,reconstruida:52
 H6,0x00802228,0x008026DF,1208,renderware,reconstruida,6,0,1,reconstruida:932 sin-referencia-real:209
@@ -268,4 +268,4 @@ H6,0x0082BF1E,0x0082BF61,68,crt,crt-enlazar,1,0,1,crt-enlazar:68
 H6,0x0082E924,0x0082E9B2,143,crt,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:143
 H6,0x0083DB48,0x0083DBAF,104,crt,muerta-por-reemplazo,6,0,1,muerta-por-reemplazo:60
 H6,0x00856431,0x0085687F,1103,crt,destructor-atexit,43,0,1,destructor-atexit:693
-H6,0x008568AB,0x00856DFF,1365,crt,viva-sin-hook,47,1,0,viva-sin-hook:10 crt-enlazar:368 destructor-atexit:518 muerta-por-reemplazo:20
+H6,0x008568AB,0x00856DFF,1365,crt,destructor-atexit,47,0,1,crt-enlazar:368 reconstruida:10 destructor-atexit:518 muerta-por-reemplazo:20
