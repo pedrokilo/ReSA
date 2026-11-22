@@ -13,7 +13,6 @@ namespace ExeCrt {
 namespace {
 inline uint32_t& TableBegin() { return *reinterpret_cast<uint32_t*>(0xC9D42C); }
 inline uint32_t& TableEnd() { return *reinterpret_cast<uint32_t*>(0xC9D428); }
-inline unsigned int Msize(void* block) { return reinterpret_cast<unsigned int(__cdecl*)(void*)>(0x828C4A)(block); } // _msize
 
 struct ExitLock {
     ExitLock() { Lock(8); }

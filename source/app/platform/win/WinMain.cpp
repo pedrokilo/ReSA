@@ -528,7 +528,16 @@ INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdL
 }
 
 #ifdef NOTSA_STANDALONE
+#ifdef GTASA_STANDALONE_STARTUP
+#include "game_sa/Crt/CrtStartup.h"
+#endif
 INT WINAPI WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdLine, INT nCmdShow) {
+#ifdef GTASA_STANDALONE_STARTUP
+    // Fase 8 (docs/CodigoVivoExe/fase8-arranque.md): el estado del CRT del EXE (montón, hilos, E/S, atexit, constantes x87) se crea aqui, antes de usar cualquier funcion ExeCrt.
+    if (const int startupCode = ExeCrt::StandaloneStartup()) {
+        return startupCode;
+    }
+#endif
     notsa::debug::DisplayConsole();
     CommandLine::Load(__argc, __argv);
     if (CommandLine::s_WaitForDebugger) {

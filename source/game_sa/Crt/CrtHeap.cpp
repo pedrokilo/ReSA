@@ -113,6 +113,11 @@ void* __cdecl Calloc(unsigned int count, unsigned int size) {
     }
 }
 
+// 0x828C4A (el EXE lo protege con un try/finally que solo toma el bloqueo 4 en el camino del monton de bloques pequenos, __active_heap == 3: no se reproduce)
+unsigned int __cdecl Msize(void* block) {
+    return static_cast<unsigned int>(HeapSize(CrtHeap(), 0, block));
+}
+
 // 0x82119A: malloc(size); si falla, el manejador de new decide reintentar; sin manejador llama a 0x8212ED (lanza std::bad_alloc), como el EXE
 void* __cdecl OperatorNew(unsigned int size) {
     for (;;) {
@@ -157,6 +162,7 @@ void CrtHeapInjectHooks() {
     RH_ScopedGlobalInstall(ExeCrt::Free, 0x82413F);
     RH_ScopedGlobalInstall(ExeCrt::Realloc, 0x824269);
     RH_ScopedGlobalInstall(ExeCrt::Calloc, 0x824416);
+    RH_ScopedGlobalInstall(ExeCrt::Msize, 0x828C4A); // lote P4 E2-monton
     RH_ScopedGlobalInstall(ExeCrt::OperatorNew, 0x82119A);
     // Lote NEWDEL: new[]/delete/delete[] (tres `jmp` de 5 bytes del EXE) y el manejador de new.
     RH_ScopedGlobalInstall(ExeCrt::OperatorNewArray, 0x821195);

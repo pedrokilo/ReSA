@@ -71,7 +71,7 @@ __declspec(noinline) void __fastcall PlaneDestructorBodyExe(CPlane* self, void* 
                 g_fxMan.DestroyFxSystem(self->m_pGunParticles[i]); // la ranura se relee tras Kill, como en el EXE
             }
         }
-        reinterpret_cast<void(__cdecl*)(void*)>(0x8213AE)(self->m_pGunParticles); // operator delete[] del CRT del EXE: la tabla la reserva el EXE
+        ::operator delete[](self->m_pGunParticles); // operator delete[] del CRT del EXE: la tabla la reserva el EXE
         self->m_pGunParticles = nullptr;
     }
     for (auto& particle : self->m_apJettrusParticles) {

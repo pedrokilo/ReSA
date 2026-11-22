@@ -33,7 +33,7 @@ __declspec(noinline) void __fastcall WinsockLinkBaseDestructorBody(void* self, v
 __declspec(noinline) void* __fastcall WinsockLinkScalarDeletingDestructor(void* self, void* /*edx*/, uint8 flags) {
     WinsockLinkBaseDestructorBody(self, nullptr);
     if (flags & 1) {
-        reinterpret_cast<void(__cdecl*)(void*)>(0x8214BD)(self);
+        ::operator delete(self);
     }
     return self;
 }

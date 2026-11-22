@@ -90,7 +90,7 @@ void HeliReleaseGunflashFx(CHeli* heli) {
                 g_fxMan.DestroyFxSystem(heli->m_ppGunflashFx[i]); // la ranura se relee tras Kill, como en el EXE
             }
         }
-        reinterpret_cast<void(__cdecl*)(void*)>(0x8213AE)(heli->m_ppGunflashFx); // operator delete[] del CRT del EXE: la tabla la reserva el EXE
+        ::operator delete[](heli->m_ppGunflashFx); // operator delete[] del CRT del EXE: la tabla la reserva el EXE
         heli->m_ppGunflashFx = nullptr;
     }
 }

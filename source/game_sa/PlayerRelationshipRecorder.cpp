@@ -133,7 +133,7 @@ CPlayerRelationshipRecorder& GetPlayerRelationshipRecorder() {
     static auto& g_sPlayerRelationshipRecorder = StaticRef<CPlayerRelationshipRecorder*>(0xC17084);
 
     if (!g_sPlayerRelationshipRecorder) {
-        void* const memory = reinterpret_cast<void*(__cdecl*)(size_t)>(0x82119A)(sizeof(CPlayerRelationshipRecorder));
+        void* const memory = ::operator new(sizeof(CPlayerRelationshipRecorder));
         auto* const recorder = static_cast<CPlayerRelationshipRecorder*>(memory);
         if (recorder) {
             for (size_t i = 0; i < 16; ++i) {

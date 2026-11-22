@@ -77,7 +77,7 @@ inline void* D3DDevice() {
 }
 // free() de la CRT del EXE (0x8214BD), con el que se liberan las pilas de los buffers.
 inline void ExeFree(void* memory) {
-    plugin::Call<0x8214BD, void*>(memory);
+    ::operator delete(memory);
 }
 // Buffer i-esimo con la aritmetica de 32 bits del EXE (`imul eax,edx,0x1C`; `lea eax,[edx+edx*2]` y `*8`): sin comprobar el rango, como el original.
 inline D3DTextureBuffer* TextureBufferAt(int32 index) {

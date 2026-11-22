@@ -693,6 +693,10 @@
 #include "game_sa/Crt/CrtLowIo.h"
 #include "game_sa/Crt/CrtStdio.h"
 #include "game_sa/Crt/CrtFloatIn.h"
+#include "game_sa/Crt/CrtMem.h"
+#include "game_sa/Crt/CrtExceptionDtor.h"
+#include "game_sa/Crt/CrtStrtod.h"
+#include "game_sa/Crt/CrtStaticInit.h"
 
 // Hooks de biblioteca del grupo g25b (RenderWare SDK / controlador D3D9); el sufijo evita colisiones con otros registradores.
 void RwCoreInjectHooks25b();
@@ -1261,6 +1265,13 @@ void InjectHooksMain() {
     CrtLocaleInjectHooks();  // lote CRT4A-locale: __updatetlocinfo, _isctype, _tolower_lk/_toupper_lk, __crtLCMapStringA, __crtGetStringTypeA, _wctomb, _mbtowc
     CrtInputInjectHooks();   // lote CRT4A: _input (motor de scanf), _ungetc_nolock, _getbuf
     CrtFloatInInjectHooks(); // lote CRT4A: texto -> coma flotante (_strgtold12, _ld12cvt, _atodbl, _atoflt, _fassign)
+    CrtMemInjectHooks();     // lote P4 E2-cadenas: memcpy/memmove/memset/strchr/_strdup del CRT del EXE enlazados al CRT de MSVC
+    CrtStrtodInjectHooks();  // lote P4 E2-cadenas: strtod y _fltin2 del CRT del EXE
+    CrtExceptionDtorInjectHooks(); // lote P4 E2-montón/E2-sin: destructores con borrado escalar de std::exception y std::exception::what
+    {   // lote P5 F2: prueba de que el C++ calcula las constantes x87 del arranque igual que el EXE (solo compara, no escribe)
+        const auto report = ExeCrt::VerifyX87StaticInitializers();
+        NOTSA_LOG_INFO("Constantes x87 de los inicializadores del CRT: {} de {} iguales a las del EXE ({} distintas, primera en 0x{:X}).", report.matched, report.total, report.mismatched, report.firstMismatch);
+    }
     CrtLowIoInjectHooks();   // lote CRT5A: capa baja de E/S del CRT (_open/_sopen/_close/_read/_write/_lseek/_commit/_chsize, __pioinfo y sus bloqueos)
     CrtStdioInjectHooks();   // lote CRT5A: nucleos de stdio (_filbuf/_flsbuf/_flush/_fread_nolock/_fwrite_nolock/_fseek_nolock/_ftell_nolock/_fclose_nolock/_fsopen/__getstream/__openfile)
     LibPngReadInjectHooks();
