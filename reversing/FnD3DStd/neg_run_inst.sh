@@ -6,7 +6,7 @@ ROOT=$(cd "$(dirname "$0")/../.." && pwd)
 SRC=$ROOT/source/game_sa/RenderWare/rw/rpworld_p6b.cpp
 n=0
 run() { # original, reemplazo
-  n=$((n+1)); T=/d/Original/_d3dstd_negi$n; rm -rf $T; mkdir -p $T/src
+  n=$((n+1)); if [ -n "$ONLY" ]; then case " $ONLY " in *" $n "*) ;; *) return;; esac; fi; T=/d/Original/_d3dstd_negi$n; rm -rf $T; mkdir -p $T/src
   python - "$SRC" "$T/src/rpworld_p6b.cpp" "$1" "$2" <<'PY'
 import sys
 src,dst,a,b=sys.argv[1:5]; s=open(src,encoding='utf-8').read()
@@ -30,8 +30,8 @@ run "{ 0, 2, 3, 4, 5, 6, 1, 0x40404040 }" "{ 0, 2, 3, 4, 5, 1, 6, 0x40404040 }"
 run "instance->minVert = nextVertex;" "instance->minVert = 0;"
 run "mesh->indices[i] - static_cast<RwUInt16>(instance->minVert)" "mesh->indices[i] + static_cast<RwUInt16>(instance->minVert)"
 run "if (header->primType == D3DPT_TRIANGLELIST) {
-                _rpD3D9SortTriangles" "if (header->primType == D3DPT_TRIANGLESTRIP) {
-                _rpD3D9SortTriangles"
+                D3D9SortTrianglesCpp" "if (header->primType == D3DPT_TRIANGLESTRIP) {
+                D3D9SortTrianglesCpp"
 run "instance->numPrimitives = count - 1;" "instance->numPrimitives = count - 2;"
 run "instance->numPrimitives = count / 3;" "instance->numPrimitives = count / 2;"
 run "instance->startIndex = nextIndex;" "instance->startIndex = 0;"

@@ -28,7 +28,7 @@ cabeceras, datos de instancia), el bufer de pixeles y el de la paleta, el flujo 
 ## Prueba negativa
 `neg_run.sh` (bench_std: 43 mutaciones de una linea en `D3D9RasterStandards.cpp`) y `neg_run_inst.sh` (bench_inst: 21 mutaciones en `D3D9InstanceObject`). Salidas en `resultados/prueba_negativa.txt` y `resultados/prueba_negativa_inst.txt`. `ONLY="11 33" sh neg_run.sh` repite solo las mutaciones indicadas.
 La primera pasada del bench_std dejo 4 sin detectar: una por un texto mal copiado (11, no se aplicaba) y tres porque el generador no producia el caso (33: version exacta 0x36003; 34: la mutacion apuntaba al texto equivocado; 35: capacidades de cubo con solo 0x20000); se corrigieron los generadores (versiones en los bordes, las cuatro combinaciones de capacidades)
-y las mutaciones y ahora se detectan todas.
+y las mutaciones y ahora se detectan todas: bench_std 43 de 43 y bench_inst 21 de 21 (la 10 de bench_inst se repitio al corregir el nombre de la funcion; la 9 cuelga una excepcion capturada como deteccion).
 
 ## Lo que se asume
 * Los ayudantes usercall se banquean a traves de sus manejadores cdecl (el unico acceso desde el EXE son los manejadores); no hay plantillas de registro.
