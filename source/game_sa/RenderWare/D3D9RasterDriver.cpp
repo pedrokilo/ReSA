@@ -795,6 +795,7 @@ int32 RwD3D9RasterDriver::CheckRenderTargetTextureFormatCpp(uint32 format) { ret
 int32 RwD3D9RasterDriver::CheckDepthStencilTextureFormatCpp(uint32 format) { return ::CheckDepthStencilTextureFormat(format); }
 int32 RwD3D9RasterDriver::CheckRenderTargetCubeFormatCpp(uint32 format) { return ::CheckRenderTargetCubeFormat(format); }
 int32 RwD3D9RasterDriver::CheckTextureFormatUsage400Cpp(uint32 format) { return ::CheckTextureFormatUsage400(format); }
+int32 RwD3D9RasterDriver::CheckCubeFormatUsage400Cpp(uint32 format) { return ::CheckCubeFormatUsage400(format); }
 
 /**
  * Registra las rutinas del controlador de rasters D3D9 (lote 224A, sin validar).

@@ -1,0 +1,75 @@
+== mutacion 1: 'numMeshes * sizeof(RxD3D9InstanceData) + sizeof(RxD3D9ResEntryHeader);' -> 'numMeshes * sizeof(RxD3D9InstanceData) + sizeof(RxD3D9ResEntryHeader) + 4;'
+DIFERENCIA caso=1000003: exe ret=00d55320 (611 valores) ours ret=00d55320 (611 valores)
+DIFERENCIA caso=1000004: exe ret=00000000 (518 valores) ours ret=00000000 (518 valores)
+== mutacion 2: 'kResEntryHint = 0x3050D;' -> 'kResEntryHint = 0x3050E;'
+DIFERENCIA caso=1000007: exe ret=00d552c0 (563 valores) ours ret=00d552c0 (563 valores)
+DIFERENCIA caso=1000009: exe ret=00d552c0 (551 valores) ours ret=00d552c0 (551 valores)
+== mutacion 3: 'if (primitiveKind == 4) {' -> 'if (primitiveKind == 5) {'
+DIFERENCIA caso=1000007: exe ret=00d552c0 (563 valores) ours ret=00d552c0 (563 valores)
+DIFERENCIA caso=1000011: exe ret=00d55270 (527 valores) ours ret=00d55270 (530 valores)
+== mutacion 4: 'maxTriangles *= 3;' -> 'maxTriangles *= 2;'
+DIFERENCIA caso=1000007: exe ret=00d552c0 (563 valores) ours ret=00d552c0 (563 valores)
+DIFERENCIA caso=1000012: exe ret=00d552a0 (545 valores) ours ret=00d552a0 (545 valores)
+== mutacion 5: 'if (header->totalNumIndex > maxTriangles) {' -> 'if (header->totalNumIndex >= maxTriangles) {'
+DIFERENCIA caso=1000815: exe ret=00d552b0 (543 valores) ours ret=00d552b0 (549 valores)
+DIFERENCIA caso=1001341: exe ret=00d552b0 (563 valores) ours ret=00d552b0 (572 valores)
+== mutacion 6: 'header->primType = D3DPT_TRIANGLELIST;
+                keepPrimType = true;' -> 'header->primType = D3DPT_TRIANGLESTRIP;
+                keepPrimType = true;'
+DIFERENCIA caso=1000007: exe ret=00d552c0 (563 valores) ours ret=00d552c0 (563 valores)
+DIFERENCIA caso=1000024: exe ret=00d55300 (595 valores) ours ret=00d55300 (583 valores)
+== mutacion 7: '{ 0, 2, 3, 4, 5, 6, 1, 0x40404040 }' -> '{ 0, 2, 3, 4, 5, 1, 6, 0x40404040 }'
+DIFERENCIA caso=1000006: exe ret=00d55250 (517 valores) ours ret=00d55250 (517 valores)
+DIFERENCIA caso=1000011: exe ret=00d55270 (527 valores) ours ret=00d55270 (527 valores)
+== mutacion 8: 'instance->minVert = nextVertex;' -> 'instance->minVert = 0;'
+DIFERENCIA caso=1000022: exe ret=00000000 (578 valores) ours ret=00000000 (578 valores)
+DIFERENCIA caso=1000040: exe ret=00d552f0 (568 valores) ours ret=00d552f0 (568 valores)
+== mutacion 9: 'mesh->indices[i] - static_cast<RwUInt16>(instance->minVert)' -> 'mesh->indices[i] + static_cast<RwUInt16>(instance->minVert)'
+DIFERENCIA caso=1000003: exe ret=00d55320 (611 valores) ours ret=00d55320 (611 valores)
+DIFERENCIA caso=1000005: exe ret=00d552c0 (576 valores) ours ret=00d552c0 (576 valores)
+== mutacion 10: 'if (header->primType == D3DPT_TRIANGLELIST) {
+                _rpD3D9SortTriangles' -> 'if (header->primType == D3DPT_TRIANGLESTRIP) {
+                _rpD3D9SortTriangles'
+== mutacion 11: 'instance->numPrimitives = count - 1;' -> 'instance->numPrimitives = count - 2;'
+DIFERENCIA caso=1000030: exe ret=00d55300 (573 valores) ours ret=00d55300 (573 valores)
+DIFERENCIA caso=1000032: exe ret=00d55280 (537 valores) ours ret=00d55280 (537 valores)
+== mutacion 12: 'instance->numPrimitives = count / 3;' -> 'instance->numPrimitives = count / 2;'
+DIFERENCIA caso=1000003: exe ret=00d55320 (611 valores) ours ret=00d55320 (611 valores)
+DIFERENCIA caso=1000004: exe ret=00000000 (518 valores) ours ret=00000000 (518 valores)
+== mutacion 13: 'instance->startIndex = nextIndex;' -> 'instance->startIndex = 0;'
+DIFERENCIA caso=1000003: exe ret=00d55320 (611 valores) ours ret=00d55320 (611 valores)
+DIFERENCIA caso=1000005: exe ret=00d552c0 (576 valores) ours ret=00d552c0 (576 valores)
+== mutacion 14: 'if (indexLock != nullptr) {
+        ComCall<kSlotIndexBufferUnlock' -> 'if (indexLock == nullptr) {
+        ComCall<kSlotIndexBufferUnlock'
+DIFERENCIA caso=1000003: exe ret=00d55320 (611 valores) ours ret=00d55320 (609 valores)
+EXCEPCION c0000005 en 00CB3B88 (acceso 00000000)
+== mutacion 15: 'instanceCallback(object, header, FALSE)' -> 'instanceCallback(object, header, TRUE)'
+DIFERENCIA caso=1000003: exe ret=00d55320 (611 valores) ours ret=00d55320 (611 valores)
+DIFERENCIA caso=1000004: exe ret=00000000 (518 valores) ours ret=00000000 (518 valores)
+== mutacion 16: 'if (nativeInstance != 0) {
+            RwFree(resEntry);' -> 'if (nativeInstance == 0) {
+            RwFree(resEntry);'
+DIFERENCIA caso=1000004: exe ret=00000000 (518 valores) ours ret=00000000 (518 valores)
+DIFERENCIA caso=1000013: exe ret=00000000 (527 valores) ours ret=00000000 (527 valores)
+== mutacion 17: 'maxTriangles = static_cast<RpWorldSector*>(object)->numTriangles;' -> 'maxTriangles = static_cast<RpWorldSector*>(object)->numTriangles + 1;'
+DIFERENCIA caso=1000024: exe ret=00d55300 (595 valores) ours ret=00d55300 (575 valores)
+DIFERENCIA caso=1000061: exe ret=00d55300 (581 valores) ours ret=00d55300 (581 valores)
+== mutacion 18: 'resEntry->size = static_cast<RwInt32>(entrySize);' -> 'resEntry->size = static_cast<RwInt32>(entrySize) + 1;'
+DIFERENCIA caso=1000007: exe ret=00d552c0 (563 valores) ours ret=00d552c0 (563 valores)
+DIFERENCIA caso=1000009: exe ret=00d552c0 (551 valores) ours ret=00d552c0 (551 valores)
+== mutacion 19: '} else if (type == 1) {' -> '} else if (type == 2) {'
+DIFERENCIA caso=1000007: exe ret=00d552c0 (563 valores) ours ret=00d552c0 (563 valores)
+DIFERENCIA caso=1000046: exe ret=00d55270 (528 valores) ours ret=00d55270 (525 valores)
+== mutacion 20: 'header->serialNumber = meshHeader->serialNum;' -> 'header->serialNumber = meshHeader->numMeshes;'
+DIFERENCIA caso=1000003: exe ret=00d55320 (611 valores) ours ret=00d55320 (611 valores)
+DIFERENCIA caso=1000004: exe ret=00000000 (518 valores) ours ret=00000000 (518 valores)
+== mutacion 21: 'instance->numPrimitives = count >> 1;' -> 'instance->numPrimitives = count >> 2;'
+DIFERENCIA caso=1000008: exe ret=00d55300 (591 valores) ours ret=00d55300 (591 valores)
+DIFERENCIA caso=1000013: exe ret=00000000 (527 valores) ours ret=00000000 (527 valores)
+-- repeticion de la mutacion 10 (el texto del primer intento era el nombre antiguo de la funcion):
+== mutacion 10: 'if (header->primType == D3DPT_TRIANGLELIST) {
+                D3D9SortTrianglesCpp' -> 'if (header->primType == D3DPT_TRIANGLESTRIP) {
+                D3D9SortTrianglesCpp'
+DIFERENCIA caso=1000003: exe ret=00d55320 (611 valores) ours ret=00d55320 (599 valores)
+DIFERENCIA caso=1000005: exe ret=00d552c0 (576 valores) ours ret=00d552c0 (567 valores)

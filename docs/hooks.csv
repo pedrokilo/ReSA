@@ -11962,6 +11962,18 @@ D3D9RasterFormat,DecompressDxt1,0x0081E720,1,0,1,S
 D3D9RasterFormat,DecompressDxt3,0x0081EA70,1,0,1,S
 D3D9RasterFormat,DecompressDxt5,0x0081EDC0,1,0,1,S
 D3D9RasterFormat,DecodeDxt5AlphaBlock,0x0081F0C0,1,0,1,S
+D3D9RasterStandards,SetTextureRaster,0x004CBD40,1,0,0,S
+D3D9RasterStandards,SetRasterContext,0x004CB520,1,0,0,S
+D3D9RasterStandards,RasterSubRaster,0x004CBD50,1,0,0,S
+D3D9RasterStandards,RasterClearRect,0x004CB4C0,1,0,0,S
+D3D9RasterStandards,RasterClear,0x004CB4E0,1,0,0,S
+D3D9RasterStandards,RasterRender,0x004CAE40,1,0,0,S
+D3D9RasterStandards,RasterRenderScaled,0x004CAE80,1,0,0,S
+D3D9RasterStandards,RasterRenderFast,0x004CAE60,1,0,0,S
+D3D9RasterStandards,RasterLockPalette,0x004CA4E0,1,0,0,S
+D3D9RasterStandards,NativeTextureRead,0x004CD820,1,0,0,S
+D3D9RasterStandards,NativeTextureWrite,0x004CD4D0,1,0,0,S
+D3D9RasterStandards,RasterGetMipLevels,0x004CBCB0,1,0,0,S
 ImportThunks,GetModuleHandleAThunk,0x0081E406,1,0,0,S
 ImportThunks,GetProcAddressThunk,0x0081E40C,1,0,0,S
 ImportThunks,LoadLibraryAThunk,0x0081E412,1,0,0,S
@@ -13386,6 +13398,7 @@ RpWorld,D3D9WorldSectorAllInOneNode,0x0075E3F0,1,0,0,S
 RpWorld,D3D9WorldSectorAllInOneNodeInit,0x0075E540,1,0,0,S
 RpWorld,D3D9WorldSectorDefaultLightingCallBack,0x0075E570,1,0,0,S
 RpWorld,D3D9WorldSectorDefaultInstanceCallback,0x0075E5E0,1,0,0,S
+RpWorld,D3D9InstanceObject,0x00756960,1,0,0,S
 D3dxErrorLog,ToBuffer,0x0076E5FB,1,0,0,S
 D3dxShaderSource,Constructor,0x0076B89B,1,0,0,S
 D3dxShaderSource,Destructor,0x0076B940,1,0,0,S
