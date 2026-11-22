@@ -79,7 +79,7 @@ Al arreglo de la captura JPEG (sec. 7) le sigue una segunda compilación complet
 
 `JPegCompressScreenToFile` (`JPegCompress.cpp`) usa la API de libjpeg-turbo de la DLL (`jpeg_CreateCompress(..., JPEG_LIB_VERSION = 80, ...)`). La libjpeg 6b de `libs/libjpeg-6b` exporta los mismos nombres globales `jpeg_*` (por sus envoltorios) y el enlazador los resolvía contra la 6b (`_jpeg_CreateCompress` en `libjpeg6b:w_jcapimin.obj` en el `.map`): «Wrong JPEG library version: library is 62, caller expects 80», archivo de 0 B. Arreglo: `libs/libjpeg-6b/jconfig.h` define `NEED_SHORT_EXTERNAL_NAMES` (mecanismo estándar de la IJG: `jCreaCompress`, ...), de modo que los símbolos de la 6b ya no chocan con los de turbo (en el `.map` ahora `_jpeg_CreateCompress` viene de `jpeg-static:jcapimin.obj`). Las funciones de la 6b se siguen alcanzando por `jpeg6b_find` (por nombre de cadena).
 
-Además `reversing/FnFase8/enlazar.cmd` tenía un carácter de retroceso (0x08) en lugar de `` en la ruta `%REPO%uild\libs`, así que nunca refrescaba `lib\*.lib` desde la compilación (el independiente se enlazaba con copias viejas): corregido.
+Además `reversing/FnFase8/enlazar.cmd` tenía un carácter de retroceso (0x08) en lugar de la barra invertida en la ruta `%REPO%\build\libs`, así que nunca refrescaba `lib\*.lib` desde la compilación (el independiente se enlazaba con copias viejas): corregido.
 
 Pendiente análogo: zlib 1.1.3/libpng 1.0.12 (LIB1A/LIB4A) exportan `inflate`, `png_*`, etc.; si otra biblioteca del proyecto trae las suyas puede ocurrir lo mismo (no se comprobó).
 
