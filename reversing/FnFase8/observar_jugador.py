@@ -8,10 +8,10 @@ sys.path.insert(0, aqui)
 k = ctypes.WinDLL('kernel32', use_last_error=True); k.OpenProcess.restype = wintypes.HANDLE
 OUT = 'D:/Original/sim_out'
 def pid():
-    # solo el proceso lanzado por ESTE arbol (la linea de comandos lleva --salida ...\wv-move\...); no toca el de otros agentes
+    # solo el proceso lanzado por ESTE arbol (la linea de comandos lleva --salida ...\wv-move\...; otro arbol: variable de entorno OBS_FILTRO, p. ej. wv-r4); no toca el de otros agentes
     o = subprocess.run(['powershell', '-NoProfile', '-Command', "Get-CimInstance Win32_Process -Filter \"Name='gta_sa_standalone.exe'\" | ForEach-Object { \"$($_.ProcessId)|$($_.CommandLine)\" }"], capture_output=True, text=True).stdout
     for l in o.splitlines():
-        if 'wv-move' in l: return int(l.split('|')[0])
+        if os.environ.get('OBS_FILTRO', 'wv-move') in l: return int(l.split('|')[0])
 class M:
     def __init__(s, p): s.p = p; s.h = k.OpenProcess(0x38 | 0x400, False, p)
     def rd(s, a, n):

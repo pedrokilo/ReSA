@@ -94,6 +94,9 @@ def main():
     H = {int(r['direccion'], 16) for r in direcciones}
     H |= {int(r['address'], 16) for r in rc(R / 'hooks.csv')}
     H |= {int(r['address'], 16) for r in rc(R / 'hooks_notsa.csv')}
+    gf = R / 'CodigoVivoExe/fase8-experimento/ganchos-fuente.csv'   # ronda 4: ganchos segun el codigo fuente (reversing/FnFase8/ganchos_fuente.py)
+    if gf.exists():
+        H |= {int(r['address'], 16) for r in rc(gf)}
     G = {int(r['va'], 16): r for r in rc(R / 'JuegoExe/funciones.csv')}
     W = {int(r['va'], 16): r for r in rc(R / 'RenderWareExe/funciones.csv')}
     BF = {int(r['va'], 16): r for r in rc(R / 'MemoryMap/binary_functions.csv')}

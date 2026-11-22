@@ -1,0 +1,38 @@
+[depuración][11:45:03.996][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][11:45:04.006][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13627 en 1016 clases/grupos (11459 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13627. Desactivadas: 0.
+[info][11:45:04.007][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][11:45:04.007][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][11:45:04.010][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][11:45:04.018][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][11:45:04.291][WinInput.cpp:147]: FALLÓ (hr=0x80070005, acceso denegado) en PSGLOBAL(diMouse)->Acquire()
+
+[depuración][11:45:04.503][SDLWrapper.cpp:64]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][11:45:04.553][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][11:45:04.612][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][11:45:04.662][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][11:45:04.672][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][11:45:04.674][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][11:45:04.675][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][11:45:04.676][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][11:45:04.677][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][11:45:04.677][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][11:45:04.678][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][11:45:04.678][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][11:45:04.679][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][11:45:04.679][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[info][11:45:05.171][AEMFDecoder.cpp:148]: User tracks: QuickTime retirado; los .mp3 usan el decoder WMA y los formatos que solo abria QuickTime no estan disponibles
+[depuración][11:45:05.209][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][11:45:05.213][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][11:45:05.214][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][11:45:05.280][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][11:45:05.281][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][11:45:05.282][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[depuración][11:45:06.724][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[error][11:47:06.154][Pool.h:207]: Falló la reserva para el tipo "class CEntryExit"
+[depuración][11:48:08.776][TextCommands.cpp:54]: PrintNow("VO_AA")
+[depuración][11:48:11.829][TextCommands.cpp:54]: PrintNow("A")
+[depuración][11:48:13.275][TextCommands.cpp:54]: PrintNow("VO_AB")
+[depuración][11:48:15.719][TextCommands.cpp:54]: PrintNow("B")
+[depuración][11:48:18.290][TextCommands.cpp:54]: PrintNow("VO_AC")
+[depuración][11:48:30.709][TextCommands.cpp:54]: PrintNow("INTROB")
