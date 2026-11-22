@@ -760,6 +760,7 @@ void RwD3D9InjectHooksDDS();  // lecturas de rasters DDS (rwcore_dds.cpp)
 void RwD3D9InjectHooksS32A33A();  // lotes S32A y S33A: estado del dispositivo D3D9, dibujo con datos de usuario y conversores de pixel (rwcore.cpp)
 void RwCoreInjectHooksS22A();  // lote S22A: modulo de imagenes y destructor del modulo de texturas (rwcore.cpp)
 void RpWorldInjectHooksS30A31A();  // lotes S30A y S31A: raices de RpWorld (flujos, luces, camara, mallas y vertex shaders D3D9) (rpworld_s30a31a.cpp)
+void RpWorldInjectHooksP6B();       // lote P6B (cierre de huecos de la parte 6): callbacks de los nodos AllInOne de D3D9 (rpworld_p6b.cpp)
 void RpWorldInjectHooksS23A25A();  // lotes S23A, S24A y S25A: callbacks de plugin y de flujo de RpWorld (rpworld.cpp)
 void RpWorldInjectHooksS26A29A();  // lotes S26A, S27A, S28A y S29A: plugins, tiras de triangulos, luces, sectores y listas de RpWorld (rpworld.cpp)
 void RwPlCoreInjectHooksS21A22A();  // lotes S21A y S22A: callbacks por defecto y de modulos de RwPlCore (rwplcore.cpp)
@@ -1224,6 +1225,7 @@ void InjectHooksMain() {
     RpWorldInjectHooksS23A25A();
     RpWorldInjectHooksS26A29A();
     RpWorldInjectHooksS30A31A();
+    RpWorldInjectHooksP6B();
     RwD3D9InjectHooksR34A();
     RwCoreInjectHooksR34A();
     RwCoreInjectHooksS15A16A();

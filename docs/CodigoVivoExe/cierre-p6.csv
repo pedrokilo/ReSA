@@ -17,15 +17,15 @@ H1,0x00441166,0x0044120F,170,juego,sin-referencia-real,0,0,1,
 H1,0x00441DC6,0x00441E0F,74,juego,sin-referencia-real,2,0,1,destructor-atexit:14 sin-referencia-real:37
 H1,0x00446FB6,0x00446FFF,74,juego,sin-referencia-real,3,0,1,citada-en-cpp:10 sin-referencia-real:34
 H1,0x0044705E,0x0044711F,194,juego,sin-referencia-real,8,0,1,destructor-atexit:48 sin-referencia-real:73
-H1,0x00452F90,0x00453F3F,4016,juego,pendiente-dato,15,4,0,pendiente-dato:2970 muerta-por-reemplazo:799 sin-referencia-real:135
-H1,0x00453F91,0x004541DF,591,juego,pendiente-dato,9,1,0,pendiente-dato:181 citada-en-cpp:4 muerta-por-reemplazo:146 sin-referencia-real:165
+H1,0x00452F90,0x00453F3F,4016,juego,sin-referencia-real,15,0,1,reconstruida:242 citada-en-cpp:1 muerta-por-reemplazo:799 sin-referencia-real:2862
+H1,0x00453F91,0x004541DF,591,juego,sin-referencia-real,9,0,1,citada-en-cpp:4 muerta-por-reemplazo:146 sin-referencia-real:346
 H1,0x0045B063,0x0045B14F,237,juego,sin-referencia-real,12,0,1,destructor-atexit:8 sin-referencia-real:97
 H1,0x00463339,0x0046336F,55,juego,sin-referencia-real,2,0,1,destructor-atexit:3 sin-referencia-real:23
 H1,0x004634A5,0x004634CF,43,juego,sin-referencia-real,2,0,1,muerta-por-reemplazo:1 sin-referencia-real:10
 H1,0x004636EB,0x004637DF,245,juego,sin-referencia-real,14,0,1,reconstruida:22 citada-en-cpp:15 destructor-atexit:8 sin-referencia-real:47
 H1,0x0046A371,0x0046A46F,255,juego,sin-referencia-real,10,0,1,citada-en-cpp:1 sin-referencia-real:143
 H1,0x0046AE21,0x0046AE7F,95,juego,sin-referencia-real,3,0,1,citada-en-cpp:10 sin-referencia-real:49
-H1,0x0047C0F5,0x0047E04F,8027,juego,pendiente-dato,2,2,0,pendiente-dato:8008
+H1,0x0047C0F5,0x0047E04F,8027,juego,reconstruida,2,0,1,reconstruida:8008
 H1,0x004A94EC,0x004A94FF,20,juego,citada-en-cpp,1,0,1,citada-en-cpp:5
 H1,0x004AC0C1,0x004AC0EF,47,juego,destructor-atexit,1,0,1,destructor-atexit:23
 H1,0x004C6C7A,0x004C6D3F,198,juego,sin-referencia-real,3,0,1,sin-referencia-real:169
@@ -168,20 +168,20 @@ H4,0x007521A0,0x0075220F,112,renderware,reconstruida,2,0,1,reconstruida:89
 H4,0x00752241,0x007522DF,159,renderware,reconstruida,2,0,1,reconstruida:120
 H4,0x00755BBD,0x00755D7F,451,renderware,reconstruida,4,0,1,reconstruida:399
 H4,0x00756791,0x0075682F,159,renderware,reconstruida,1,0,1,reconstruida:137
-H4,0x00756DE1,0x0075737F,1439,renderware,pendiente-dato,1,1,0,pendiente-dato:1414
-H4,0x007573EF,0x007578BF,1233,renderware,pendiente-dato,4,3,0,pendiente-dato:1194 reconstruida:11
-H4,0x0075823E,0x007582DF,162,renderware,citada-en-cpp,2,0,1,reconstruida:39 citada-en-cpp:107
+H4,0x00756DE1,0x0075737F,1439,renderware,reconstruida,1,0,1,reconstruida:1414
+H4,0x007573EF,0x007578BF,1233,renderware,reconstruida,4,0,1,reconstruida:1205
+H4,0x0075823E,0x007582DF,162,renderware,reconstruida,2,0,1,reconstruida:146
 H4,0x00758847,0x007588AF,105,renderware,reconstruida,2,0,1,reconstruida:83
 H4,0x0075893A,0x00758A8F,342,renderware,reconstruida,2,0,1,reconstruida:328
 H4,0x0075963E,0x0075978F,338,renderware,reconstruida,1,0,1,reconstruida:334
 H4,0x0075D721,0x0075D96F,591,renderware,reconstruida,1,0,1,reconstruida:567
 H4,0x0075D9CD,0x0075E26F,2211,renderware,reconstruida,3,0,1,reconstruida:2179
-H4,0x0075E3E6,0x0075E9EF,1546,renderware,pendiente-dato,4,4,0,pendiente-dato:1512
+H4,0x0075E3E6,0x0075E9EF,1546,renderware,reconstruida,4,0,1,reconstruida:1512
 H4,0x00760DE6,0x00761A0F,3114,renderware,reconstruida,10,0,1,reconstruida:3017
 H4,0x00761C26,0x00761C8F,106,renderware,reconstruida,2,0,1,reconstruida:86
 H5,0x00761DDE,0x00761DFF,34,renderware,reconstruida,1,0,1,reconstruida:27
 H5,0x00761E7E,0x007637EF,6514,renderware,reconstruida,13,0,1,reconstruida:3206 citada-en-cpp:3191
-H5,0x00770FD3,0x0077107E,172,renderware,pendiente-dato,1,1,0,pendiente-dato:172
+H5,0x00770FD3,0x0077107E,172,renderware,d3dx9-enlazar,1,0,1,d3dx9-enlazar:172
 H5,0x00781A16,0x00781A1A,5,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:5
 H5,0x0078589B,0x007858E8,78,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:78
 H5,0x007ACAB8,0x007ACD1D,614,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:614
@@ -198,7 +198,7 @@ H5,0x007BC179,0x007BC2BF,327,renderware,muerta-por-reemplazo,1,0,1,muerta-por-re
 H5,0x007BCCF9,0x007BD3E0,1768,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:1768
 H5,0x007BD41A,0x007BD5A0,391,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:391
 H5,0x007BE8DE,0x007BEE11,1332,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:1332
-H5,0x007C073F,0x007C0B36,1016,renderware,pendiente-dato,1,1,0,pendiente-dato:1016
+H5,0x007C073F,0x007C0B36,1016,renderware,d3dx9-enlazar,1,0,1,d3dx9-enlazar:1016
 H5,0x007C0E6B,0x007C0E86,28,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:28
 H5,0x007C0FBE,0x007C11EC,559,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:559
 H5,0x007C1EAA,0x007C203A,401,renderware,muerta-por-reemplazo,2,0,1,muerta-por-reemplazo:379 sin-referencia-real:21
@@ -212,7 +212,7 @@ H5,0x007C68D7,0x007C6B6F,665,renderware,reconstruida,8,0,1,reconstruida:586
 H5,0x007C6BD2,0x007C70BF,1262,renderware,reconstruida,2,0,1,reconstruida:1241
 H5,0x007C729D,0x007C751F,643,renderware,reconstruida,3,0,1,reconstruida:601
 H5,0x007C871D,0x007C873F,35,renderware,reconstruida,1,0,1,reconstruida:19
-H5,0x007CAC5C,0x007CB2AF,1620,renderware,pendiente-dato,5,4,0,pendiente-dato:1564 reconstruida:6
+H5,0x007CAC5C,0x007CB2AF,1620,renderware,reconstruida,5,0,1,reconstruida:1570
 H5,0x007CB9AF,0x007CBB6F,449,renderware,reconstruida,6,0,1,reconstruida:382 sin-referencia-real:20
 H5,0x007CBC1A,0x007CBD7F,358,renderware,reconstruida,1,0,1,reconstruida:339
 H5,0x007CBF1D,0x007CBF6F,83,renderware,reconstruida,1,0,1,reconstruida:65
@@ -248,7 +248,7 @@ H6,0x008086A3,0x008086DF,61,renderware,reconstruida,3,0,1,reconstruida:15
 H6,0x008087A4,0x0080881F,124,renderware,reconstruida,3,0,1,reconstruida:95
 H6,0x0080A398,0x0080A43F,168,renderware,reconstruida,4,0,1,reconstruida:136
 H6,0x0080A771,0x0080AA7F,783,renderware,sin-referencia-real,12,0,1,reconstruida:186 sin-referencia-real:483
-H6,0x0080FFA4,0x0080FFDF,60,renderware,pendiente-dato,1,1,0,pendiente-dato:34
+H6,0x0080FFA4,0x0080FFDF,60,renderware,muerta-por-reemplazo,1,0,1,muerta-por-reemplazo:34
 H6,0x00810BAA,0x00810C9F,246,renderware,reconstruida,3,0,1,reconstruida:213
 H6,0x008111EC,0x00811A8F,2212,renderware,reconstruida,7,0,1,reconstruida:2139
 H6,0x00811AE0,0x00811B8F,176,renderware,reconstruida,5,0,1,reconstruida:124

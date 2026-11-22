@@ -62,6 +62,42 @@ class Exe:
         return b''
 
 
+# Cierres de la rama vivo-p6b (cierre de los 11 huecos pendientes). El analisis automatico solo ve como entradas los call/jmp/push/mov inmediato y los dwords de datos; no ve los
+# `mov [reg+x], imm32` con los que los nodos de RenderWare guardan sus callbacks ni las funciones pegadas a otra, y por eso estas piezas salian como pendiente-dato. Cada entrada es
+# va de la pieza -> (destino, nota).
+MANUAL = {
+    # Hueco 0x452F90 / 0x453F91 (CPhoneInfo y busqueda de ruta sobre rejilla)
+    0x00453E40: ('reconstruida', 'CPhoneInfo::PhoneAnimAnswerCallback (lote P6B), enganchada en PhoneInfo.cpp'),
+    0x00453000: ('sin-referencia-real', 'ayudante de la busqueda de ruta 0x453690: nadie llama a la rutina (solo dwords espurios)'),
+    0x00453060: ('sin-referencia-real', 'ayudante de la busqueda de ruta 0x453690: nadie llama a la rutina (solo dwords espurios)'),
+    0x00453280: ('sin-referencia-real', 'cuerpo de 0x453060 (mismo codigo): sin llamadores'),
+    0x00453690: ('sin-referencia-real', 'busqueda de ruta sobre rejilla 40x40 de sectores repetidos: sin llamadores, codigo muerto'),
+    0x00453A00: ('sin-referencia-real', 'bucle interno de 0x453690'),
+    0x00453AE0: ('sin-referencia-real', 'bucle interno de 0x453690'),
+    0x00454010: ('sin-referencia-real', 'metodo de CPhoneInfo (+4 cabinas de 0x34 bytes) sin llamadores'),
+    # Hueco 0x47C0F5: despachadores originales de las ranuras 3 y 4 de 0x8A6168
+    0x0047C100: ('reconstruida', 'CRunningScript::ProcessCommands300To399 (lote P6B) y ProcessCommands400To499 (0x47D210, dentro de la misma pieza)'),
+    0x0047D520: ('reconstruida', 'cola de ProcessCommands400To499 (0x47D210), enganchada en RunningScriptCommands300To499.cpp'),
+    # Huecos de RenderWare: callbacks de los nodos AllInOne de D3D9
+    0x00756DF0: ('reconstruida', 'D3D9DefaultRenderCallBack (lote P6B)'),
+    0x00757400: ('reconstruida', 'D3D9AtomicDefaultLightingCallBack (lote P6B)'),
+    0x007575F0: ('reconstruida', 'D3D9AtomicAllInOneNode (lote P6B)'),
+    0x00757890: ('reconstruida', 'D3D9AtomicAllInOneNodeInit (lote P6B)'),
+    0x00758270: ('reconstruida', 'D3D9AtomicDefaultReinstanceCallback (lote P6B); antes citada-en-cpp solo en un comentario'),
+    0x0075E3F0: ('reconstruida', 'D3D9WorldSectorAllInOneNode (lote P6B)'),
+    0x0075E540: ('reconstruida', 'D3D9WorldSectorAllInOneNodeInit (lote P6B)'),
+    0x0075E570: ('reconstruida', 'D3D9WorldSectorDefaultLightingCallBack (lote P6B)'),
+    0x0075E5E0: ('reconstruida', 'D3D9WorldSectorDefaultInstanceCallback (lote P6B)'),
+    0x007CAC60: ('reconstruida', '_rpSkinSSEMatrixBlend4 (lote P6B)'),
+    0x007CAF50: ('reconstruida', '_rpSkinSSEMatrixBlend2 (lote P6B)'),
+    0x007CB190: ('reconstruida', '_rxD3D9SkinVertexShaderBeginCallBack (lote P6B)'),
+    0x007CB240: ('reconstruida', '_rpSkinD3D9AtomicAllInOneNodeInit (lote P6B)'),
+    0x00770FD3: ('d3dx9-enlazar', 'comparador de qsort del compilador de shaders de D3DX9 (se enlaza D3DX9)'),
+    0x007C073F: ('d3dx9-enlazar', 'cuerpo del compilador de shaders de D3DX9 (se enlaza D3DX9)'),
+    0x0080FFB0: ('muerta-por-reemplazo', 'cola de la funcion reemplazada 0x80FC30 (la apunta un `mov eax, imm` de ella)'),
+}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--exe', default=r'D:\Original\_crt1a_work\gta_sa.exe')
@@ -303,6 +339,9 @@ def main():
         else:
             d = 'sin-referencia-real'
         o['destino'] = d
+        o['nota'] = ''
+        if o['s'] in MANUAL:
+            o['destino'], o['nota'] = MANUAL[o['s']]
         if o['size'] <= 2 and o['last'] == 'ret':
             o['forma'] = 'ret-vacio'
         elif o['size'] <= 8 and o['last'] == 'jmp' and o['n'] <= 2:
@@ -321,14 +360,14 @@ def main():
 
     with open(out / 'huecos-p6.csv', 'w', encoding='utf-8', newline='') as s:
         w = csv.writer(s)
-        w.writerow(['va', 'fin', 'bytes', 'hueco', 'region', 'forma', 'destino', 'vida', 'enganchada', 'citada', 'entradas', 'origenes'])
+        w.writerow(['va', 'fin', 'bytes', 'hueco', 'region', 'forma', 'destino', 'vida', 'enganchada', 'citada', 'entradas', 'origenes', 'nota'])
         for o in pieces:
             w.writerow(['0x%08X' % o['s'], '0x%08X' % o['e'], o['size'], '0x%08X' % o['hole'], o['region'], o['forma'], o['destino'], o['live'],
-                        int(o['hooked']), int(o['cited']), len(set(t for t, _, _ in o['ents'])), srcdesc(o)])
+                        int(o['hooked']), int(o['cited']), len(set(t for t, _, _ in o['ents'])), srcdesc(o), o['nota']])
     por_hueco = defaultdict(list)
     for o in pieces:
         por_hueco[o['hole']].append(o)
-    orden = ['pendiente-dato', 'crt-enlazar', 'reconstruida', 'citada-en-cpp', 'destructor-atexit', 'muerta-por-reemplazo', 'sin-referencia-real']
+    orden = ['pendiente-dato', 'crt-enlazar', 'd3dx9-enlazar', 'reconstruida', 'citada-en-cpp', 'destructor-atexit', 'muerta-por-reemplazo', 'sin-referencia-real']
     hrows = []
     for a0, b0, cat, reg in sorted(holes):
         if not cat.startswith('código con ref'):

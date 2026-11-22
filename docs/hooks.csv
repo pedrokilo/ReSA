@@ -11157,6 +11157,7 @@ CPathFind,FindNodePairClosestToCoors,0x0044FEE0,1,0,1,S
 CPathFind,Find2NodesForCarCreation,0x00452090,1,0,1,S
 CPhoneInfo,Constructor,0x004541E0,1,0,1,S
 CPhoneInfo,PhoneAnimFinishCallback,0x00453F40,1,0,1,S
+CPhoneInfo,PhoneAnimAnswerCallback,0x00453E40,1,0,0,S
 CPickup,IsWeaponSlotExchangeable,0x00454920,1,0,1,S
 SurfaceInfos_c,LoadSurfaceInfos,0x0055EB90,1,0,1,S
 SurfaceInfos_c,LoadSurfaceAudioInfos,0x0055F2B0,1,0,1,S
@@ -11768,6 +11769,8 @@ LibJpegDecompressApi,jpeg_read_header,0x005D01D0,1,0,1,S
 CRunningScript,ProcessCommands1200To1299,0x0048B590,1,0,1,S
 CRunningScript,ProcessCommands1900To1999,0x0046B460,1,0,1,S
 CRunningScript,ProcessCommands800To899,0x00481300,1,0,1,S
+CRunningScript,ProcessCommands300To399,0x0047C100,1,0,0,S
+CRunningScript,ProcessCommands400To499,0x0047D210,1,0,0,S
 IKChainManager_c,Constructor,0x00617FC0,1,0,1,S
 IKChainManager_c,Destructor,0x00618030,1,0,1,S
 WaterCreatureManager_c,Constructor,0x006E3EB0,1,0,1,S
@@ -12673,6 +12676,10 @@ RpSkin,_rpSkinGetMeshBoneRemapIndices,0x007C8A40,1,0,0,S
 RpSkin,_rpSkinGetMeshBoneRLECount,0x007C8A50,1,0,0,S
 RpSkin,_rpSkinGetMeshBoneRLE,0x007C8A60,1,0,0,S
 RpSkin,RxNodeDefinitionGetD3D9SkinAtomicAllInOne,0x007CB2A0,1,0,0,S
+RpSkin,_rpSkinSSEMatrixBlend4,0x007CAC60,1,0,0,S
+RpSkin,_rpSkinSSEMatrixBlend2,0x007CAF50,1,0,0,S
+RpSkin,_rxD3D9SkinVertexShaderBeginCallBack,0x007CB190,1,0,0,S
+RpSkin,_rpSkinD3D9AtomicAllInOneNodeInit,0x007CB240,1,0,0,S
 ExeCrt,Pow,0x008220F0,1,0,0,S
 ExeCrt,PowSse2,0x00829B99,1,0,0,S
 StdException,Construct,0x00822D97,1,0,0,S
@@ -13360,6 +13367,15 @@ RpWorld,RpBuildMeshGenerateTriStrip,0x0075C380,1,0,0,S
 RpWorld,GeometrySortCompare,0x0075E230,1,0,0,S
 RpWorld,RpGeometrySortByMaterial,0x0075DAE0,1,0,0,S
 RpWorld,_rpGeometryPluginFirstEntry,0x0074BFD0,1,0,0,S
+RpWorld,D3D9DefaultRenderCallBack,0x00756DF0,1,0,0,S
+RpWorld,D3D9AtomicDefaultLightingCallBack,0x00757400,1,0,0,S
+RpWorld,D3D9AtomicAllInOneNode,0x007575F0,1,0,0,S
+RpWorld,D3D9AtomicAllInOneNodeInit,0x00757890,1,0,0,S
+RpWorld,D3D9AtomicDefaultReinstanceCallback,0x00758270,1,0,0,S
+RpWorld,D3D9WorldSectorAllInOneNode,0x0075E3F0,1,0,0,S
+RpWorld,D3D9WorldSectorAllInOneNodeInit,0x0075E540,1,0,0,S
+RpWorld,D3D9WorldSectorDefaultLightingCallBack,0x0075E570,1,0,0,S
+RpWorld,D3D9WorldSectorDefaultInstanceCallback,0x0075E5E0,1,0,0,S
 D3dxErrorLog,ToBuffer,0x0076E5FB,1,0,0,S
 D3dxShaderSource,Constructor,0x0076B89B,1,0,0,S
 D3dxShaderSource,Destructor,0x0076B940,1,0,0,S

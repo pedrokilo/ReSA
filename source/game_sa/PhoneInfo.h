@@ -25,6 +25,9 @@ public:
 
     // 0x453F40 (lote 208A, sin validar): callback de fin de la animacion de telefono (el listado lo atribuia a CPathFind)
     static void PhoneAnimFinishCallback(CAnimBlendAssociation* assoc, void* ped);
+
+    // 0x453E40 (lote P6B, sin validar): callback de fin de la animacion de descolgar (asociacion, cabina)
+    static void PhoneAnimAnswerCallback(CAnimBlendAssociation* assoc, void* phone);
 };
 VALIDATE_SIZE(CPhoneInfo, 0xA30);
 
