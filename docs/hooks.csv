@@ -12297,6 +12297,9 @@ RwCore,RwTexDictionarySetCurrent,0x007F3A70,1,0,0,S
 RwCore,RwTexDictionaryGetCurrent,0x007F3A90,1,0,0,S
 RwCore,RwTextureRead,0x007F3AC0,1,0,0,S
 RwCore,_rwTextureDefaultMipmapNameCallBack,0x007F4080,1,0,0,S
+RwCore,_rwTextureDefaultRead,0x007F40F0,1,0,0,S
+RwCore,_rwTextureDefaultMipmapGeneration,0x007F5140,1,0,0,S
+RwCore,_rwTextureDefaultFindName,0x007F53D0,1,0,0,S
 RwCore,_rwTextureMakePalette,0x007F44C0,1,0,0,S
 RwCore,_rwTextureReadImage,0x007F4690,1,0,0,S
 RwCore,_rwObjectHasFrameSetFrame,0x00804EF0,1,0,0,S
@@ -13056,6 +13059,7 @@ RwPlCore,_rwVectorModuleDestruct,0x007EDE20,1,0,0,S
 RwPlCore,_rwVectorModuleConstruct,0x007EDE90,1,0,0,S
 RwPlCore,_rwMatrixMultiplyDefault,0x007F12F0,1,0,0,S
 RwPlCore,RwMatrixQueryRotate,0x007F2720,1,0,0,S
+RwPlCore,_rwMatrixQueryRotateHalfTurnAxis,0x007F2930,1,0,0,S
 RwPlCore,_rwMemoryStaticAlloc,0x007F3490,1,0,0,S
 RwPlCore,_rwMemoryStaticFree,0x007F34B0,1,0,0,S
 RwPlCore,_rwFreeListAllocDefault,0x00801C30,1,0,0,S
@@ -13298,6 +13302,13 @@ RpWorld,_rpD3D9VertexShaderUpdateMorphingCoef,0x00761950,1,0,0,S
 RpWorld,_rpD3DVertexShaderSetUVAnimMatrix,0x007619A0,1,0,0,S
 RpWorld,RpWorldSectorRender,0x00761C50,1,0,0,S
 RpWorld,RpWorldStreamWrite,0x00762150,1,0,0,S
+RpWorld,_rpClumpBuildGeometryList,0x0074A770,1,0,0,S
+RpWorld,_rpClumpAtomicStreamWrite,0x0074A880,1,0,0,S
+RpWorld,_rpBuildMeshGenerateExhaustiveTriStrip,0x0075A960,1,0,0,S
+RpWorld,_rpWorldAtomicSectorStreamWrite,0x007624A0,1,0,0,S
+RpWorld,_rpWorldPlaneSectorStreamWrite,0x00762740,1,0,0,S
+RpWorld,_rpWorldAtomicSectorStreamRead,0x00762F30,1,0,0,S
+RpWorld,_rpWorldPlaneSectorStreamRead,0x00763310,1,0,0,S
 RpWorld,RpWorldStreamRead,0x00762960,1,0,0,S
 RpWorld,_rwD3D9VSGetProjectionTransposedMatrix,0x00764D20,1,0,0,S
 RwD3D9,RwD3D9RasterStreamReadDDS,0x0081F360,1,0,0,S

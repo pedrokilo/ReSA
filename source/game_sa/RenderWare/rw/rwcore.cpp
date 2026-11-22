@@ -5677,6 +5677,202 @@ RwTexture* _rwTextureReadMipmapped(const RwChar* name, const RwChar* maskName) {
     return texture;
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote RW5 (humo; el EXE las llamaba por la tabla del modulo de texturas, +0x14, +0x18 y +0x2C de 0xC97B4C): lectura por defecto de texturas, busqueda por nombre y generacion de mipmaps.
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+// 0x7F40F0 (lote RW5, 966 bytes; cdecl, (nombre, mascara); devuelve RwTexture* o NULL): lectura por defecto de una textura (RwTextureCallBackRead). Con mipmapping (textureGlobals+0x1C) delega en
+// _rwTextureReadMipmapped (0x7F4AE0). Si no: copia nombre (y mascara, si existe y no esta vacia) a dos buferes de 256 bytes (CopyStringChecked), llama a la devolucion de nombres de mipmap (+0x30) con
+// (nombre, mascara, 0, 4), lee la imagen con _rwTextureReadImage(.., formato 4, ..) (NULL -> NULL) y crea el raster (RwRasterCreate; ancho y alto empiezan en 0). Si el raster es paletizado (cFormat & 0x60)
+// construye la paleta en un bufer local de 1 KB con _rwTextureMakePalette(paleta, NULL, &imagen, 1, 4 si cFormat & 0x40 o 8) y deja imagen->palette = ese bufer (el resultado se ignora). Despues
+// RwImageGammaCorrect y RwRasterSetFromImage; un fallo destruye raster e imagen y devuelve NULL; si no se destruye la imagen. Reserva la textura (lista +8, pista 0x30006; NULL destruye el raster), la
+// deja con raster, dict NULL, filtro 1 / direccionamiento 0x11, refCount 1, inicializa plugins, copia el nombre (32 bytes) y la mascara (si maskName no es NULL; si es NULL RwTextureSetMaskName(textura, 0xC97904)).
+RwTexture* _rwTextureDefaultRead(const RwChar* name, const RwChar* maskName) {
+    TextureGlobalsLayout& globals = TextureGlobals();
+    if (globals.mipmapping != 0) {
+        return _rwTextureReadMipmapped(name, maskName);
+    }
+    char nameBuffer[256];
+    char maskBuffer[256];
+    CopyStringChecked(nameBuffer, name, 0x100);
+    maskBuffer[0] = 0;
+    if (maskName != nullptr && maskName[0] != 0) {
+        CopyStringChecked(maskBuffer, maskName, 0x100);
+    }
+    if (globals.mipmapNameCallBack != nullptr) {
+        globals.mipmapNameCallBack(nameBuffer, maskBuffer, 0, 4);
+    }
+    RwInt32 width = 0;
+    RwInt32 height = 0;
+    RwInt32 depth = 0;
+    RwInt32 rasterFlags = 0;
+    RwImage* image = _rwTextureReadImage(nameBuffer, maskBuffer, 4, &width, &height, &depth, &rasterFlags);
+    if (image == nullptr) {
+        return nullptr;
+    }
+    RwRaster* const raster = RwRasterCreate(width, height, depth, rasterFlags);
+    if (raster == nullptr) {
+        RwImageDestroy(image);
+        return nullptr;
+    }
+    RwUInt8 palette[0x400];
+    if ((raster->cFormat & 0x60) != 0) {
+        _rwTextureMakePalette(palette, nullptr, &image, 1, (raster->cFormat & 0x40) != 0 ? 4 : 8);
+        image->palette = reinterpret_cast<RwRGBA*>(palette);
+    }
+    RwImageGammaCorrect(image);
+    if (RwRasterSetFromImage(raster, image) == nullptr) {
+        RwRasterDestroy(raster);
+        RwImageDestroy(image);
+        return nullptr;
+    }
+    RwImageDestroy(image);
+    RwTexture* const texture = static_cast<RwTexture*>(RwFreeListAlloc(globals.textureFreeList, 0x30006));
+    if (texture == nullptr) {
+        RwRasterDestroy(raster);
+        return nullptr;
+    }
+    texture->raster = raster;
+    texture->dict = nullptr;
+    texture->name[0] = 0;
+    texture->mask[0] = 0;
+    reinterpret_cast<RwUInt8*>(texture)[0x51] = 0x11;
+    reinterpret_cast<RwUInt8*>(texture)[0x50] = 1;
+    texture->refCount = 1;
+    _rwPluginRegistryInitObject(&TextureTKList, texture);
+    CopyStringChecked(texture->name, name, 0x20);
+    if (maskName != nullptr) {
+        CopyStringChecked(texture->mask, maskName, 0x20);
+    } else {
+        RwTextureSetMaskName(texture, reinterpret_cast<const RwChar*>(kTextureReadDefaultMaskSource));
+    }
+    return texture;
+}
+
+// Comparacion de nombres de textura de 0x7F53D0: letras a-z pasan a mayusculas (restando 0x20 a los bytes con signo entre 0x61 y 0x7A); iguales si terminan a la vez con todos los bytes iguales.
+static bool TextureNamesEqualNoCase(const char* textureName, const char* wanted) {
+    auto fold = [](char c) -> char { return (c >= 0x61 && c <= 0x7A) ? static_cast<char>(c - 0x20) : c; };
+    while (*textureName != 0 && *wanted != 0) {
+        if (fold(*textureName) != fold(*wanted)) {
+            return false;
+        }
+        ++textureName;
+        ++wanted;
+    }
+    return *textureName == *wanted;
+}
+
+// 0x7F53D0 (lote RW5, 292 bytes; cdecl, (nombre); devuelve RwTexture* o NULL): busqueda por nombre por defecto (RwTextureCallBackFind), sin distinguir mayusculas. Con diccionario actual (modulo +0x10)
+// recorre solo sus texturas (lista en dict+8, enlace de textura +8, nombre +0x10); si no hay, recorre todos los diccionarios del modulo (lista circular en +0, enlace lInInstance = dict+0x10) y las
+// texturas de cada uno. Devuelve la primera coincidencia.
+RwTexture* _rwTextureDefaultFindName(const RwChar* name) {
+    uint8* const module = reinterpret_cast<uint8*>(RwEngineInstance) + StaticRef<RwInt32>(0xC97B4C);
+    RwTexDictionary* const current = *reinterpret_cast<RwTexDictionary**>(module + 0x10);
+    auto searchDict = [name](RwTexDictionary* dict) -> RwTexture* {
+        RwLLLink* const head = &dict->texturesInDict.link;
+        for (RwLLLink* link = head->next; link != head; link = link->next) {
+            RwTexture* const texture = reinterpret_cast<RwTexture*>(reinterpret_cast<uint8*>(link) - offsetof(RwTexture, lInDictionary));
+            if (TextureNamesEqualNoCase(texture->name, name)) {
+                return texture;
+            }
+        }
+        return nullptr;
+    };
+    if (current != nullptr) {
+        return searchDict(current);
+    }
+    RwLLLink* const listHead = reinterpret_cast<RwLLLink*>(module);
+    for (RwLLLink* link = listHead->next; link != listHead; link = link->next) {
+        RwTexDictionary* const dict = reinterpret_cast<RwTexDictionary*>(reinterpret_cast<uint8*>(link) - offsetof(RwTexDictionary, lInInstance));
+        if (RwTexture* const found = searchDict(dict)) {
+            return found;
+        }
+    }
+    return nullptr;
+}
+
+// 0x7F5140 (lote RW5, 652 bytes; cdecl, (raster, imagen o NULL); devuelve el raster o NULL): generacion de mipmaps por defecto (RwTextureCallBackMipmapGeneration). Imagen origen: sin imagen, una nueva de
+// 32 bits del tamano del raster rellenada con RwImageSetFromRaster (fallos -> NULL, sin liberar); con imagen de profundidad distinta de 32, una nueva de 32 bits con RwImageCopy; con 32, la propia.
+// Quita el bit 0x10 de cFormat durante la generacion (se restaura en TODAS las salidas). Por cada nivel 1..n-1: imagen[i] = NULL; RwRasterLock(raster, i, 2) y, si da algo, RwImageCreateResample(imagen[i-1],
+// ancho, alto del raster bloqueado) y RwRasterUnlock; imagen[i] NULL -> destruye imagen[i-1]..imagen[0] (salvo la original) y NULL. Con paleta (cFormat & 0x60): _rwTextureMakePalette(bufer de 1 KB,
+// original, imagenes, n, 4 o 8); si falla y n > 0 solo destruye imagen[0] (salvo la original) y NULL; si no corrige el gamma solo de imagen[0]. Sin paleta corrige el de todas. Despues, por nivel:
+// RwRasterLock(raster, i, 5) y si da algo RwRasterSetFromImage (resultado ignorado) y RwRasterUnlock; destruye la imagen salvo la original. Devuelve el raster.
+RwRaster* _rwTextureDefaultMipmapGeneration(RwRaster* raster, RwImage* image) {
+    const RwInt32 rasterWidth = raster->width;
+    const RwInt32 rasterHeight = raster->height;
+    RwImage* base = image;
+    if (image == nullptr) {
+        base = RwImageCreate(rasterWidth, rasterHeight, 32);
+        if (base == nullptr) {
+            return nullptr;
+        }
+        if (RwImageAllocatePixels(base) == nullptr) {
+            return nullptr;
+        }
+        RwImageSetFromRaster(base, raster);
+    } else if (image->depth != 32) {
+        base = RwImageCreate(rasterWidth, rasterHeight, 32);
+        if (base == nullptr) {
+            return nullptr;
+        }
+        if (RwImageAllocatePixels(base) == nullptr) {
+            return nullptr;
+        }
+        RwImageCopy(base, image);
+    }
+    if (base == nullptr) {
+        return nullptr;
+    }
+    const RwUInt8 autoBit = raster->cFormat & 0x10;
+    raster->cFormat = static_cast<RwUInt8>(raster->cFormat & ~autoBit);
+    const RwInt32 numLevels = RwRasterGetNumLevels(raster);
+    RwImage* images[12] = {};
+    images[0] = base;
+    for (RwInt32 i = 1; i < numLevels; ++i) {
+        images[i] = nullptr;
+        if (RwRasterLock(raster, static_cast<RwUInt8>(i), 2) != nullptr) {
+            images[i] = RwImageCreateResample(images[i - 1], raster->width, raster->height);
+            RwRasterUnlock(raster);
+        }
+        if (images[i] == nullptr) {
+            for (RwInt32 j = i - 1; j >= 0; --j) {
+                if (images[j] != image) {
+                    RwImageDestroy(images[j]);
+                }
+            }
+            raster->cFormat |= autoBit;
+            return nullptr;
+        }
+    }
+    if ((raster->cFormat & 0x60) != 0) {
+        RwUInt8 palette[0x400];
+        const RwBool made = _rwTextureMakePalette(palette, image, images, numLevels, (raster->cFormat & 0x40) != 0 ? 4 : 8);
+        if (made == 0 && numLevels > 0) {
+            if (images[0] != image) {
+                RwImageDestroy(images[0]);
+            }
+            raster->cFormat |= autoBit;
+            return nullptr;
+        }
+        RwImageGammaCorrect(images[0]);
+    } else {
+        for (RwInt32 i = 0; i < numLevels; ++i) {
+            RwImageGammaCorrect(images[i]);
+        }
+    }
+    for (RwInt32 i = 0; i < numLevels; ++i) {
+        if (RwRasterLock(raster, static_cast<RwUInt8>(i), 5) != nullptr) {
+            RwRasterSetFromImage(raster, images[i]);
+            RwRasterUnlock(raster);
+        }
+        if (images[i] != image) {
+            RwImageDestroy(images[i]);
+        }
+    }
+    raster->cFormat |= autoBit;
+    return raster;
+}
+
 // 0x7F0360 (lote R11A, sin validar; 167 bytes; el listado no le daba clase fiable): inicializacion de los campos de un RwFrame (la llaman RwFrameCreate 0x7F0410 y _rwFrameInit 0x7F0450). object.type/subType/
 // flags/privateFlags = 0 y parent = NULL; las dos matrices (modelling +0x10 y ltm +0x50) a la identidad con las banderas 0x20003 (ORTHONORMAL | INTERNALIDENTITY; los paddings no se tocan); objectList (+0x90)
 // vacia (next = prev = su propia direccion), child = next = NULL y root = el propio marco; por ultimo _rwPluginRegistryInitObject(registro de plugins de RwFrame 0x8E2270, frame). inDirtyListLink (+8) no se toca.
@@ -5741,6 +5937,9 @@ void RwCoreInjectHooksR7A() {
     RH_ScopedNamespaceName("RwCore");
 
     RH_ScopedGlobalInstall(_rwTextureReadMipmapped, 0x7F4AE0);
+    RH_ScopedGlobalInstall(_rwTextureDefaultRead, 0x7F40F0);                // lote RW5
+    RH_ScopedGlobalInstall(_rwTextureDefaultFindName, 0x7F53D0);            // lote RW5
+    RH_ScopedGlobalInstall(_rwTextureDefaultMipmapGeneration, 0x7F5140);    // lote RW5
     RH_ScopedGlobalInstall(RwD3D9CreateVertexBuffer, 0x7F5500);
     RH_ScopedGlobalInstall(RwD3D9DestroyVertexBuffer, 0x7F56A0);
     RH_ScopedGlobalInstall(_rwD3D9DynamicVertexBufferManagerForceDiscard, 0x7F5800);
@@ -14142,9 +14341,9 @@ void* _rwTextureModuleOpen(void* object, RwInt32 offset, RwInt32 /*size*/) {
     }
     S20ModuleField<RwInt32>(0xC97B4C, 0x1C) = 0;
     S20ModuleField<RwInt32>(0xC97B4C, 0x20) = 0;
-    S20ModuleField<void*>(0xC97B4C, 0x18) = reinterpret_cast<void*>(0x7F53D0);
-    S20ModuleField<void*>(0xC97B4C, 0x14) = reinterpret_cast<void*>(0x7F40F0);
-    S20ModuleField<void*>(0xC97B4C, 0x2C) = reinterpret_cast<void*>(0x7F5140);
+    S20ModuleField<void*>(0xC97B4C, 0x18) = reinterpret_cast<void*>(&_rwTextureDefaultFindName);
+    S20ModuleField<void*>(0xC97B4C, 0x14) = reinterpret_cast<void*>(&_rwTextureDefaultRead);
+    S20ModuleField<void*>(0xC97B4C, 0x2C) = reinterpret_cast<void*>(&_rwTextureDefaultMipmapGeneration);
     S20ModuleField<void*>(0xC97B4C, 0x30) = reinterpret_cast<void*>(&_rwTextureDefaultMipmapNameCallBack);
     S20ModuleField<RwInt32>(0xC97B4C, 0x24) = 0;
     S20ModuleField<RwUInt16>(0xC97B4C, 0x28) = 0;

@@ -1443,6 +1443,39 @@ RwMatrix* RwMatrixOrthoNormalize(RwMatrix* matrixOut, const RwMatrix* matrixIn) 
     return RwMatrixOrthoNormalizeImpl(matrixOut, matrixIn);
 }
 
+// 0x7F2930 (lote RW5, 234 bytes; cdecl, (matriz, eje); devuelve la matriz): eje de un giro de 180 grados (RwMatrixQueryRotate cuando sin(angulo) ~ 0 y cos <= 0). Escoge la mayor diagonal con comparaciones
+// ESTRICTAS ordenadas (m0 > m5 y m0 > m10 -> x; si no m5 > m10 -> y; si no z; un NaN cae en el caso siguiente). Caso x: v = ((m0 + 1) * 2, m4 + m1, m8 + m2); caso y: v = (m4 + m1, (m5 + 1) * 2, m9 + m6);
+// caso z: v = (m8 + m2, m9 + m6, (m10 + 1) * 2). Cada valor se guarda como float (x87 con precision de 24 bits, igual que float en SSE). r = _rwInvSqrt((y*y + x*x) + z*z) y eje = (x * r, y * r, r * z).
+static const RwMatrix* _rwMatrixQueryRotateHalfTurnAxis(const RwMatrix* matrix, RwV3d* unitAxis) {
+    const float* const m = reinterpret_cast<const float*>(matrix);
+    float x, y, z;
+    int mode; // 0 = x, 1 = y, 2 = z
+    if (m[0] > m[5]) {
+        mode = (m[0] > m[10]) ? 0 : 2;
+    } else {
+        mode = (m[5] > m[10]) ? 1 : 2;
+    }
+    if (mode == 0) {
+        x = (m[0] + 1.0f) * 2.0f;
+        y = m[4] + m[1];
+        z = m[8] + m[2];
+    } else if (mode == 1) {
+        y = (m[5] + 1.0f) * 2.0f;
+        z = m[9] + m[6];
+        x = m[4] + m[1];
+    } else {
+        z = (m[10] + 1.0f) * 2.0f;
+        x = m[8] + m[2];
+        y = m[9] + m[6];
+    }
+    const float sum = (y * y + x * x) + z * z;
+    const float r = _rwInvSqrt(sum);
+    unitAxis->x = x * r;
+    unitAxis->y = y * r;
+    unitAxis->z = r * z;
+    return matrix;
+}
+
 // 0x7F2720 (lote S22A, sin validar; 525 bytes; cdecl, (matriz, eje, angulo, centro); devuelve la matriz; `RwMatrixQueryRotate` del SDK). c = float(((m0 + m5) + m10) - 1) y v = (m6 - m9, m8 - m2, m1 - m4), todo guardado como
 // float; len = RwV3dLength(v) (0x7EDAC0). Con len > 0 (ordenado: NaN no) eje = v * (1 / len) (x, y y z guardados como float; z se multiplica como r * v.z); si no eje = (0, 0, 0). *angulo = float(atan2(len, c) * 57.29578f) siempre.
 // Con len <= 0.01f y c <= 0.0f (los dos ordenados) llama a 0x7F2930 (matriz, eje) del EXE (caso de giro cercano a 180 grados; sin reconstruir) que recalcula el eje. Despues: T.right = (1 - m0, -m1, -m2),
@@ -1463,7 +1496,7 @@ const RwMatrix* RwMatrixQueryRotate(const RwMatrix* matrix, RwV3d* unitAxis, RwR
     }
     *angle = MatrixQueryRotateAngleCpp(len, cosTerm);
     if (len <= 0.01f && cosTerm <= 0.0f) {
-        reinterpret_cast<void(__cdecl*)(const RwMatrix*, RwV3d*)>(0x7F2930)(matrix, unitAxis);
+        _rwMatrixQueryRotateHalfTurnAxis(matrix, unitAxis);
     }
     RwMatrix temp{};
     RwMatrix inverse{};
@@ -4009,6 +4042,7 @@ void RwPlCoreInjectHooksS21A22A() {
     RH_ScopedGlobalInstall(_rwVectorModuleConstruct, 0x7EDE90);            // lote S22A (sin validar)
     RH_ScopedGlobalInstall(_rwMatrixMultiplyDefault, 0x7F12F0);            // lote S22A (sin validar)
     RH_ScopedGlobalInstall(RwMatrixQueryRotate, 0x7F2720);                 // lote S22A (sin validar)
+    RH_ScopedGlobalInstall(_rwMatrixQueryRotateHalfTurnAxis, 0x7F2930); // lote RW5 (validado por pares con Unicorn)
     RH_ScopedGlobalInstall(_rwMemoryStaticAlloc, 0x7F3490);                // lote S22A (sin validar)
     RH_ScopedGlobalInstall(_rwMemoryStaticFree, 0x7F34B0);                 // lote S22A (sin validar)
     RH_ScopedGlobalInstall(_rwFreeListAllocDefault, 0x801C30);             // lote S22A (sin validar)

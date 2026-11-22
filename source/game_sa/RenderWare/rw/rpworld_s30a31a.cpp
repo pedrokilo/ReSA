@@ -559,7 +559,7 @@ void _rpMeshHeaderDestroy(RpMeshHeader* meshHeader) {
 
 // 0x75A940 (lote S30A, sin validar; 21 bytes; cdecl, (RpBuildMesh, datos)): genera la cabecera de mallas con el generador exhaustivo del EXE 0x75A960 con el tercer argumento a 1 (NO es raiz del plan: se conserva por direccion). 0x75B4E0 (lote S31A) es igual con otro valor.
 RpMeshHeader* RpBuildMeshGenerateExhaustiveTriStrip(RpBuildMesh* buildmesh, void* data) {
-    return reinterpret_cast<RpMeshHeader*(__cdecl*)(RpBuildMesh*, void*, RwInt32)>(0x75A960)(buildmesh, data, 1);
+    return _rpBuildMeshGenerateExhaustiveTriStrip(buildmesh, data, 1);
 }
 
 // 0x75D730 (lote S30A, sin validar; 567 bytes; cdecl, (malla, cabecera de mallas, datos); RpMeshCallBack que usa _rpTriListMeshGenerate; devuelve la malla): reordena los triangulos de la malla en pasadas: en cada pasada recorre los triangulos
@@ -906,11 +906,9 @@ struct ClumpWriteContext {
 static_assert(sizeof(ClumpWriteContext) == 0x18);
 
 // Funciones del EXE que no son raices del plan y se conservan por direccion.
-using BuildGeometryListFn = RwBool(__cdecl*)(RpGeometryList*, RpClump*);                    // 0x74A770: reune las geometrias distintas de los atomos del clump
-using ClumpAtomicWriteFn  = RpAtomic*(__cdecl*)(RpAtomic*, ClumpWriteContext*);             // 0x74A880: escribe un atomo (y sus datos) del clump
 using ClumpLightWriteFn   = RpLight*(__cdecl*)(RpLight*, ClumpWriteContext*);               // 0x74AEA0
 using ClumpCameraWriteFn  = RwCamera*(__cdecl*)(RwCamera*, ClumpWriteContext*);             // 0x74AF20
-inline RwBool BuildGeometryList(RpGeometryList* list, RpClump* clump) { return reinterpret_cast<BuildGeometryListFn>(0x74A770)(list, clump); }
+RpGeometryList* _rpClumpBuildGeometryList(RpGeometryList* list, RpClump* clump);   // 0x74A770 (lote RW5; definida mas abajo)
 
 constexpr uintptr_t kAtomicPluginRegistry   = 0x8D624C;
 constexpr uintptr_t kClumpPluginRegistry    = 0x8D6264;
@@ -927,6 +925,103 @@ template<typename T> inline T* ClumpListObject(RwLLLink* node, uintptr_t offsetA
     return reinterpret_cast<T*>(reinterpret_cast<RwUInt8*>(node) - static_cast<uintptr_t>(StaticRef<RwInt32>(offsetAddress)) - 4);
 }
 inline RpAtomic* ClumpAtomicOfLink(RwLLLink* node) { return reinterpret_cast<RpAtomic*>(reinterpret_cast<RwUInt8*>(node) - 0x40); }
+} // namespace
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote RW5 (validado por pares con Unicorn, reversing/FnRW5): lista de geometrias de un clump y escritura de un atomo del clump (antes por direccion, 0x74A770 y 0x74A880).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+void RaiseWorldError(RwInt32 code, RwUInt32 argument);   // definida mas abajo
+// 0x74A770 (lote RW5, 224 bytes; cdecl, (lista, clump); devuelve la lista o NULL): reune las geometrias DISTINTAS de los atomos del clump (en orden de la lista de atomos; atomo = enlace - 0x40, geometria en atomo + 0x18).
+// Cuenta los atomos; con alguno reserva geometrias[cuenta] (RwMalloc(4 * cuenta, 0x3000F); sin memoria: error 0x80000013 con el tamano y NULL), sin ninguno deja geometrias = NULL. numGeoms = 0 y por cada atomo busca su
+// geometria en las ya reunidas; si no esta, RpGeometryAddRef y la anade.
+RpGeometryList* _rpClumpBuildGeometryList(RpGeometryList* list, RpClump* clump) {
+    RwLLLink* const sentinel = &clump->atomicList.link;
+    RwInt32 count = 0;
+    for (RwLLLink* node = sentinel->next; node != sentinel; node = node->next) {
+        ++count;
+        if (ClumpAtomicOfLink(node) == nullptr) {
+            break;
+        }
+    }
+    if (count > 0) {
+        const RwUInt32 bytes = static_cast<RwUInt32>(count) * 4;
+        list->geometries = static_cast<RpGeometry**>(RwMalloc(bytes, 0x3000F));
+        if (list->geometries == nullptr) {
+            RaiseWorldError(static_cast<RwInt32>(0x80000013), bytes);
+            return nullptr;
+        }
+    } else {
+        list->geometries = nullptr;
+    }
+    list->numGeoms = 0;
+    for (RwLLLink* node = sentinel->next; node != sentinel; node = node->next) {
+        RpGeometry* const geometry = ClumpAtomicOfLink(node)->geometry;
+        bool found = false;
+        for (RwInt32 i = 0; i < list->numGeoms; ++i) {
+            if (list->geometries[i] == geometry) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            RpGeometryAddRef(geometry);
+            list->geometries[list->numGeoms] = geometry;
+            ++list->numGeoms;
+        }
+    }
+    return list;
+}
+
+// 0x74A880 (lote RW5, 397 bytes; cdecl, (atomo, contexto de escritura); devuelve el atomo o NULL): escribe un atomo de un clump (o suelto, sin lista de geometrias). Cabecera 0x14 con tamano = plugins del atomo (registro 0x8D624C)
+// + 0x28, y ademas (sin lista de geometrias) tamano de la geometria + 0xC; cabecera de estructura (1, 0x10) y 16 bytes {indice del marco, indice de la geometria, flags (byte +2 del atomo), 0}. Con marcos en el contexto el
+// indice sale de _rwFrameListFindFrame (no hallado = fallo); con lista de geometrias, de buscar la geometria del atomo (no hallada = fallo); si no, el EXE deja esos dwords sin escribir (basura de pila; aqui 0) y escribe la
+// geometria con RpGeometryStreamWrite. Despues _rwPluginRegistryWriteDataChunks. Cualquier fallo devuelve NULL y pone context->ok = 0, salvo el de la cabecera de estructura (bloque 1), que lo deja como esta.
+RpAtomic* _rpClumpAtomicStreamWrite(RpAtomic* atomic, ClumpWriteContext* context) {
+    const auto* const registry = reinterpret_cast<const RwPluginRegistry*>(kAtomicPluginRegistry);
+    auto fail = [&]() -> RpAtomic* {
+        context->ok = 0;
+        return nullptr;
+    };
+    RwUInt32 size;
+    if (context->geomList.numGeoms == 0) {
+        size = RpGeometryStreamGetSize(atomic->geometry) + 0x28 + static_cast<RwUInt32>(_rwPluginRegistryGetSize(registry, atomic)) + 0xC;
+    } else {
+        size = static_cast<RwUInt32>(_rwPluginRegistryGetSize(registry, atomic)) + 0x28;
+    }
+    if (!_rwStreamWriteVersionedChunkHeader(context->stream, 0x14, size, 0x36003, 0xFFFF)) {
+        return fail();
+    }
+    if (!_rwStreamWriteVersionedChunkHeader(context->stream, 1, 0x10, 0x36003, 0xFFFF)) {
+        return nullptr;   // el EXE aqui NO pone context->ok a 0
+    }
+    RwInt32 data[4] = { 0, 0, static_cast<RwInt32>(atomic->object.object.flags), 0 };
+    if (context->frameList.numFrames != 0) {
+        if (!_rwFrameListFindFrame(&context->frameList, reinterpret_cast<RwFrame*>(atomic->object.object.parent), &data[0])) {
+            return fail();
+        }
+    }
+    if (context->geomList.numGeoms != 0) {
+        RwInt32 index = 0;
+        while (index < context->geomList.numGeoms && context->geomList.geometries[index] != atomic->geometry) {
+            ++index;
+        }
+        if (index >= context->geomList.numGeoms) {
+            return fail();
+        }
+        data[1] = index;
+    }
+    if (!RwStreamWrite(context->stream, data, 0x10)) {
+        return fail();
+    }
+    if (context->geomList.numGeoms == 0 && !RpGeometryStreamWrite(atomic->geometry, context->stream)) {
+        return fail();
+    }
+    if (!_rwPluginRegistryWriteDataChunks(registry, context->stream, atomic)) {
+        return fail();
+    }
+    return atomic;
+}
 } // namespace
 
 // 0x749970 (lote S31A, sin validar; 432 bytes; cdecl, (posicion*, radio)): crea un clump con un unico atomo y una geometria de espacio (RpGeometryCreateSpace), sin pintar: marco nuevo con la posicion, atomo con ese marco y la
@@ -992,7 +1087,7 @@ RwUInt32 RpClumpStreamGetSize(RpClump* clump) {
     _rwFrameListDeinitialize(&frameList);
     RpGeometryList geomList{};
     geomList.numGeoms = 0;
-    if (!BuildGeometryList(&geomList, clump)) {
+    if (!_rpClumpBuildGeometryList(&geomList, clump)) {
         return 0;
     }
     RwUInt32 geometriesSize = 0x10;
@@ -1051,7 +1146,7 @@ RpAtomic* RpAtomicStreamWrite(RpAtomic* atomic, RwStream* stream) {
     context.frameList.numFrames = 0;
     context.geomList.numGeoms = 0;
     context.ok = 1;
-    return reinterpret_cast<ClumpAtomicWriteFn>(0x74A880)(atomic, &context);
+    return _rpClumpAtomicStreamWrite(atomic, &context);
 }
 
 // --- Codigo vivo CAM (sin validar): callbacks de RpClumpStreamWrite ---
@@ -1124,7 +1219,7 @@ RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream) {
             _rwFrameListDeinitialize(&frameList);
             RpGeometryList geomList{};
             geomList.numGeoms = 0;
-            if (BuildGeometryList(&geomList, clump)) {
+            if (_rpClumpBuildGeometryList(&geomList, clump)) {
                 RwUInt32 geometriesSize = 0x10;
                 for (RwInt32 i = 0; i < geomList.numGeoms; ++i) {
                     geometriesSize += RpGeometryStreamGetSize(geomList.geometries[i]) + 0xC;
@@ -1179,7 +1274,7 @@ RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream) {
         return nullptr;
     }
     context.geomList.numGeoms = 0;
-    if (!BuildGeometryList(&context.geomList, clump)) {
+    if (!_rpClumpBuildGeometryList(&context.geomList, clump)) {
         return nullptr;
     }
     const auto abortWithGeometries = [&]() -> RpClump* {
@@ -1216,7 +1311,7 @@ RpClump* RpClumpStreamWrite(RpClump* clump, RwStream* stream) {
         RwLLLink* const sentinel = &clump->atomicList.link;
         for (RwLLLink* node = sentinel->next; node != sentinel;) {
             RwLLLink* const next = node->next;
-            if (!reinterpret_cast<ClumpAtomicWriteFn>(0x74A880)(ClumpAtomicOfLink(node), &context)) {
+            if (!_rpClumpAtomicStreamWrite(ClumpAtomicOfLink(node), &context)) {
                 break;
             }
             node = next;
@@ -1499,7 +1594,7 @@ RwBool _rwD3D9LightLocalEnable(RpLight* light) {
 
 // 0x75B4E0 (lote S31A, sin validar; 21 bytes; cdecl, (RpBuildMesh, datos)): como RpBuildMeshGenerateExhaustiveTriStrip (0x75A940) pero con el tercer argumento 0 del generador 0x75A960 del EXE (no es raiz del plan).
 RpMeshHeader* RpBuildMeshGenerateExhaustiveIgnoreWindingTriStrip(RpBuildMesh* buildmesh, void* data) {
-    return reinterpret_cast<RpMeshHeader*(__cdecl*)(RpBuildMesh*, void*, RwInt32)>(0x75A960)(buildmesh, data, 0);
+    return _rpBuildMeshGenerateExhaustiveTriStrip(buildmesh, data, 0);
 }
 
 // 0x761010 (lote S31A, sin validar; 19 bytes; cdecl, (material, descriptor*, despacho*)): el vertex shader por defecto de un material es _rpD3D9GetVertexShader(descriptor, despacho) (el material no se usa). Devuelve su resultado.
@@ -1709,8 +1804,6 @@ RwV4d* _rxD3D9VertexShaderDefaultLightingCallBack(void* object, RwUInt32 type, R
 namespace {
 // Funciones del EXE de lectura/escritura de sectores (no son raices del plan; se conservan por direccion).
 using SectorSizeFn  = RwUInt32(__cdecl*)(void* sector, RpWorld* world, RwUInt32 flags);                 // RpWorldSectorStreamDataSize (rpworld.cpp) 0x762440 (sector atomico) y 0x762040 (sector plano): tamano en flujo
-using SectorWriteFn = RwBool(__cdecl*)(void* sector, RwStream* stream, RpWorld* world, RwUInt32 flags); // 0x7624A0 (atomico) y 0x762740 (plano)
-using SectorReadFn  = RpSector*(__cdecl*)(RwStream* stream, void** memoryCursor, RpWorld* world, RwUInt32 flags); // 0x762F30 (atomico) y 0x763310 (plano)
 
 // RWERROR((codigo [, argumento])) del SDK: error de plugin 2 con el codigo que devuelve _rwerror (0x8088D0).
 void RaiseWorldError(RwInt32 code) {
@@ -1744,6 +1837,345 @@ struct WorldChunkInfo {
 };
 static_assert(sizeof(WorldChunkInfo) == 0x40);
 } // namespace
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// Lote RW5 (validado por pares con Unicorn, reversing/FnRW5): lectura y escritura de sectores de RpWorld (antes por direccion desde RpWorldStreamRead/Write, 0x762960 y 0x762150).
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+namespace {
+// Cabecera de datos de un sector hoja en el flujo (0x2C bytes; RpWorldSectorChunkInfo del SDK). El EXE deja `collSectorPresent` (+0x24) sin escribir (basura de pila); aqui sale 0.
+struct SectorLeafChunkInfo {
+    RwInt32 matListWindowBase;
+    RwInt32 numTriangles;
+    RwInt32 numVertices;
+    RwV3d   inf;
+    RwV3d   sup;
+    RwInt32 collSectorPresent;
+    RwInt32 unused;
+};
+static_assert(sizeof(SectorLeafChunkInfo) == 0x2C);
+// RpPlaneSectorChunkInfo del SDK (0x18 bytes).
+struct SectorPlaneChunkInfo {
+    RwInt32 type;
+    RwReal  value;
+    RwInt32 leftIsWorldSector;
+    RwInt32 rightIsWorldSector;
+    RwReal  leftValue;
+    RwReal  rightValue;
+};
+static_assert(sizeof(SectorPlaneChunkInfo) == 0x18);
+static_assert(offsetof(RpWorldSector, boundingBox) == 0x48 && offsetof(RpWorldSector, tightBoundingBox) == 0x60 && offsetof(RpWorldSector, matListWindowBase) == 0x80);
+}
+
+static void* _rpWorldAtomicSectorStreamWrite(void* sectorPointer, RwStream* stream, RpWorld* world, RwUInt32 flags);
+static void* _rpWorldPlaneSectorStreamWrite(void* sectorPointer, RwStream* stream, RpWorld* world, RwUInt32 flags);
+static RpSector* _rpWorldAtomicSectorStreamRead(RwStream* stream, void** memoryCursor, RpWorld* world, RwUInt32 flags);
+static RpSector* _rpWorldPlaneSectorStreamRead(RwStream* stream, void** memoryCursor, RpWorld* world, RwUInt32 flags);
+
+// 0x7624A0 (lote RW5, 672 bytes; cdecl, (sector hoja, flujo, mundo, flags); devuelve el sector o NULL): escribe un sector hoja. Tamano de datos = 0x2C si el mundo es nativo (world->flags & 0x1000000); si no
+// 12 * vertices + 0x2C, + 4 * vertices con (flags & 0x10, normales), + 4 * vertices con (flags & 8, pre-iluminacion), + 8 * (juegos de coordenadas * vertices + triangulos). Cabecera de bloque 9 (tamano = datos + plugins del sector (registro 0x8D736C) + 0x18),
+// cabecera de estructura (bloque 1) con el tamano de datos y la cabecera de 0x2C bytes {ventana de materiales, triangulos, vertices, inf (tightBoundingBox +0x6C), sup (+0x60), x, 0}. Si no es nativo: vertices (RwStreamWriteReal, vertices * 12),
+// normales (flags & 0x10; RwStreamWrite, vertices * 4), pre-iluminacion (flags & 8; vertices * 4) y por juego de coordenadas (vertices * 8) solo con vertices != 0; los triangulos (RwStreamWriteInt16, triangulos * 8) aunque no haya
+// vertices. Un fallo de escritura devuelve NULL. Al final _rwPluginRegistryWriteDataChunks: NULL si falla, el sector si va bien.
+static void* _rpWorldAtomicSectorStreamWrite(void* sectorPointer, RwStream* stream, RpWorld* world, RwUInt32 flags) {
+    RpWorldSector* const sector = static_cast<RpWorldSector*>(sectorPointer);
+    const auto* const registry = reinterpret_cast<const RwPluginRegistry*>(kSectorPluginRegistry);
+    const bool native = (world->flags & 0x1000000) != 0;
+    const RwUInt32 numVertices = sector->numVertices;
+    RwUInt32 dataSize = 0x2C;
+    if (!native) {
+        dataSize = numVertices * 12 + 0x2C;
+        if (flags & 0x10) {
+            dataSize += numVertices * 4;
+        }
+        if (flags & 8) {
+            dataSize += numVertices * 4;
+        }
+        dataSize += (static_cast<RwUInt32>(world->numTexCoordSets) * numVertices + sector->numTriangles) * 8;
+    }
+    const RwUInt32 pluginsSize = static_cast<RwUInt32>(_rwPluginRegistryGetSize(registry, sector));
+    if (!_rwStreamWriteVersionedChunkHeader(stream, 9, pluginsSize + dataSize + 0x18, 0x36003, 0xFFFF)) {
+        return nullptr;
+    }
+    if (!_rwStreamWriteVersionedChunkHeader(stream, 1, dataSize, 0x36003, 0xFFFF)) {
+        return nullptr;
+    }
+    SectorLeafChunkInfo info{};
+    info.matListWindowBase = sector->matListWindowBase;
+    info.numTriangles = sector->numTriangles;
+    info.numVertices = sector->numVertices;
+    info.inf = sector->tightBoundingBox.inf;
+    info.sup = sector->tightBoundingBox.sup;
+    if (!RwStreamWrite(stream, &info, 0x2C)) {
+        return nullptr;
+    }
+    if (!native) {
+        if (sector->numVertices != 0) {
+            if (!RwStreamWriteReal(stream, reinterpret_cast<const RwReal*>(sector->vertices), numVertices * 12)) {
+                return nullptr;
+            }
+            if ((flags & 0x10) && !RwStreamWrite(stream, sector->normals, numVertices * 4)) {
+                return nullptr;
+            }
+            if ((flags & 8) && !RwStreamWrite(stream, sector->preLitLum, numVertices * 4)) {
+                return nullptr;
+            }
+            for (RwInt32 i = 0; i < world->numTexCoordSets; ++i) {
+                if (!RwStreamWriteReal(stream, reinterpret_cast<const RwReal*>(sector->texCoords[i]), numVertices * 8)) {
+                    return nullptr;
+                }
+            }
+        }
+        if (sector->numTriangles != 0) {
+            if (!RwStreamWriteInt16(stream, reinterpret_cast<const RwInt16*>(sector->triangles), static_cast<RwUInt32>(sector->numTriangles) * 8)) {
+                return nullptr;
+            }
+        }
+    }
+    return _rwPluginRegistryWriteDataChunks(registry, stream, sector) != nullptr ? sector : nullptr;
+}
+
+// 0x762740 (lote RW5, 533 bytes; cdecl, (sector de plano, flujo, mundo, flags); devuelve el plano o NULL): escribe un plano y sus dos subarboles. Tamano del bloque 0xA = hijo izquierdo (hoja: datos (RpWorldSectorStreamDataSize)
+// + plugins + 0x48; plano: RpWorldPlaneStreamSize + 0x30) + derecho (hoja: datos + plugins + 0x24; plano: tamano + 0xC). Cabecera 0xA, cabecera de estructura (bloque 1, 0x18) y 0x18 bytes {tipo, valor, izquierdo es hoja (type < 0),
+// derecho es hoja, valor izquierdo, valor derecho}; despues el subarbol izquierdo y el derecho (hoja -> 0x7624A0, plano -> 0x762740); cualquier fallo devuelve NULL.
+static void* _rpWorldPlaneSectorStreamWrite(void* sectorPointer, RwStream* stream, RpWorld* world, RwUInt32 flags) {
+    RpPlaneSector* const plane = static_cast<RpPlaneSector*>(sectorPointer);
+    const auto* const registry = reinterpret_cast<const RwPluginRegistry*>(kSectorPluginRegistry);
+    RwUInt32 total;
+    if (plane->leftSubTree->type < 0) {
+        total = RpWorldSectorStreamDataSize(plane->leftSubTree, world, flags) + static_cast<RwUInt32>(_rwPluginRegistryGetSize(registry, plane->leftSubTree)) + 0x48;
+    } else {
+        total = RpWorldPlaneStreamSize(plane->leftSubTree, world, flags) + 0x30;
+    }
+    if (plane->rightSubTree->type < 0) {
+        total += RpWorldSectorStreamDataSize(plane->rightSubTree, world, flags) + static_cast<RwUInt32>(_rwPluginRegistryGetSize(registry, plane->rightSubTree)) + 0x24;
+    } else {
+        total += RpWorldPlaneStreamSize(plane->rightSubTree, world, flags) + 0xC;
+    }
+    if (!_rwStreamWriteVersionedChunkHeader(stream, 0xA, total, 0x36003, 0xFFFF)) {
+        return nullptr;
+    }
+    if (!_rwStreamWriteVersionedChunkHeader(stream, 1, 0x18, 0x36003, 0xFFFF)) {
+        return nullptr;
+    }
+    SectorPlaneChunkInfo info;
+    info.type = plane->type;
+    info.value = plane->value;
+    info.leftIsWorldSector = plane->leftSubTree->type < 0 ? 1 : 0;
+    info.rightIsWorldSector = plane->rightSubTree->type < 0 ? 1 : 0;
+    info.leftValue = plane->leftValue;
+    info.rightValue = plane->rightValue;
+    if (!RwStreamWrite(stream, &info, 0x18)) {
+        return nullptr;
+    }
+    RpSector* const children[2] = { plane->leftSubTree, plane->rightSubTree };
+    for (RpSector* const child : children) {
+        void* const result = child->type < 0 ? _rpWorldAtomicSectorStreamWrite(child, stream, world, flags) : _rpWorldPlaneSectorStreamWrite(child, stream, world, flags);
+        if (result == nullptr) {
+            return nullptr;
+        }
+    }
+    return plane;
+}
+
+// 0x762F30 (lote RW5, 980 bytes; cdecl, (flujo, cursor de memoria, mundo, flags); devuelve el sector o NULL): lee un sector hoja. Busca el bloque de estructura (1; sin version, o fuera de 0x34000..0x36003: error 0x80000004 y NULL),
+// lee 0x2C bytes de cabecera (otra cantidad: NULL), toma el sector de *cursor y avanza el cursor el tamano del registro de plugins de sector (0x8D736C; sin memoria: error 0x80000013 con ese tamano y NULL). Lo deja con type = -1, caja
+// ajustada (tightBoundingBox: inf, sup), ventana de materiales, triangulos y vertices (16 bits), punteros a cero, textureCoords a cero, listas de atomos y luces vacias, malla y tuberia NULL. Si el mundo no es nativo (world->flags & 0x1000000), reserva en el
+// cursor (sin memoria: error 0x80000013 sin argumento y limpieza) y lee: vertices (RwStreamReadReal, 12 * v; solo con v != 0), normales (flags & 0x10; RwStreamRead de 4 * v: debe devolver todo), pre-iluminacion (flags & 8: basta que
+// devuelva distinto de cero), coordenadas por juego (8 * v, RwStreamReadReal) y triangulos (RwStreamReadInt16, 8 * t; con version < 0x36002 rota cada triangulo de {a,b,c,m} a {b,c,m,a} en palabras de 16 bits). Despues
+// _rwPluginRegistryInitObject, pone a cero 0xC94C1C y 0xC94C10, _rwPluginRegistryReadDataChunks (fallo: limpieza) y, si 0xC94C1C != 0, _rwPluginRegistryInvokeRights. Limpieza: con world->object.privateFlags & 1 (byte +3 del mundo) _rpWorldSectorDeinstanceAll(sector), si no
+// _rpWorldSectorDestroyRecurse(sector); devuelve NULL.
+static RpSector* _rpWorldAtomicSectorStreamRead(RwStream* stream, void** memoryCursor, RpWorld* world, RwUInt32 flags) {
+    const auto* const registry = reinterpret_cast<const RwPluginRegistry*>(kSectorPluginRegistry);
+    RwUInt32 version = 0;
+    if (!RwStreamFindChunk(stream, 1, nullptr, &version)) {
+        return nullptr;
+    }
+    if (version < 0x34000 || version > 0x36003) {
+        RaiseWorldError(static_cast<RwInt32>(0x80000004));
+        return nullptr;
+    }
+    SectorLeafChunkInfo info;
+    if (RwStreamRead(stream, &info, 0x2C) != 0x2C) {
+        return nullptr;
+    }
+    uint8* const base = static_cast<uint8*>(*memoryCursor);
+    RpWorldSector* const sector = reinterpret_cast<RpWorldSector*>(base);
+    *memoryCursor = base + registry->sizeOfStruct;
+    if (sector == nullptr) {
+        RaiseWorldError(static_cast<RwInt32>(0x80000013), static_cast<RwUInt32>(registry->sizeOfStruct));
+        return nullptr;
+    }
+    sector->type = -1;
+    sector->tightBoundingBox.inf = info.inf;
+    sector->tightBoundingBox.sup = info.sup;
+    sector->matListWindowBase = static_cast<RwUInt16>(info.matListWindowBase);
+    sector->numTriangles = static_cast<RwUInt16>(info.numTriangles);
+    sector->numVertices = static_cast<RwUInt16>(info.numVertices);
+    sector->triangles = nullptr;
+    sector->vertices = nullptr;
+    sector->normals = nullptr;
+    sector->preLitLum = nullptr;
+    for (auto& texCoords : sector->texCoords) {
+        texCoords = nullptr;
+    }
+    sector->repEntry = nullptr;
+    sector->collAtomicsInWorldSector.link.next = &sector->collAtomicsInWorldSector.link;
+    sector->collAtomicsInWorldSector.link.prev = &sector->collAtomicsInWorldSector.link;
+    sector->lightsInWorldSector.link.next = &sector->lightsInWorldSector.link;
+    sector->lightsInWorldSector.link.prev = &sector->lightsInWorldSector.link;
+    sector->mesh = nullptr;
+    sector->pipeline = nullptr;
+
+    auto fail = [&]() -> RpSector* {
+        if (world->object.privateFlags & 1) {
+            _rpWorldSectorDeinstanceAll(reinterpret_cast<RpSector*>(sector));
+        } else {
+            _rpWorldSectorDestroyRecurse(reinterpret_cast<RpSector*>(sector));
+        }
+        return nullptr;
+    };
+    // Reserva `bytes` en el cursor; sin memoria: error 0x80000013 (sin argumento).
+    auto take = [&](RwUInt32 bytes, void** field) -> bool {
+        uint8* const p = static_cast<uint8*>(*memoryCursor);
+        *memoryCursor = p + bytes;
+        *field = p;
+        if (p == nullptr) {
+            RaiseWorldError(static_cast<RwInt32>(0x80000013));
+            return false;
+        }
+        return true;
+    };
+    if ((world->flags & 0x1000000) == 0) {
+        const RwUInt32 numVertices = static_cast<RwUInt32>(info.numVertices);
+        if (info.numVertices != 0) {
+            if (!take(numVertices * 12, reinterpret_cast<void**>(&sector->vertices))) {
+                return fail();
+            }
+            if (!RwStreamReadReal(stream, reinterpret_cast<RwReal*>(sector->vertices), numVertices * 12)) {
+                return fail();
+            }
+            if (flags & 0x10) {
+                if (!take(numVertices * 4, reinterpret_cast<void**>(&sector->normals))) {
+                    return fail();
+                }
+                if (RwStreamRead(stream, sector->normals, numVertices * 4) != numVertices * 4) {
+                    return fail();
+                }
+            }
+            if (flags & 8) {
+                if (!take(numVertices * 4, reinterpret_cast<void**>(&sector->preLitLum))) {
+                    return fail();
+                }
+                if (RwStreamRead(stream, sector->preLitLum, numVertices * 4) == 0) {
+                    return fail();
+                }
+            }
+            for (RwInt32 i = 0; i < world->numTexCoordSets; ++i) {
+                const RwUInt32 texBytes = static_cast<RwUInt32>(static_cast<RwUInt16>(info.numVertices)) * 8;   // el EXE lo toma del campo de 16 bits del sector
+                if (!take(texBytes, reinterpret_cast<void**>(&sector->texCoords[i]))) {
+                    return fail();
+                }
+                if (!RwStreamReadReal(stream, reinterpret_cast<RwReal*>(sector->texCoords[i]), texBytes)) {
+                    return fail();
+                }
+            }
+        }
+        if (info.numTriangles != 0) {
+            if (!take(static_cast<RwUInt32>(info.numTriangles) * 8, reinterpret_cast<void**>(&sector->triangles))) {
+                return fail();
+            }
+            if (!RwStreamReadInt16(stream, reinterpret_cast<RwInt16*>(sector->triangles), static_cast<RwUInt32>(info.numTriangles) * 8)) {
+                return fail();
+            }
+            if (version < 0x36002) {
+                for (RwInt32 i = 0; i < info.numTriangles; ++i) {
+                    RwUInt16* const w = reinterpret_cast<RwUInt16*>(&sector->triangles[i]);
+                    const RwUInt16 first = w[0];
+                    w[0] = w[1];
+                    w[1] = w[2];
+                    w[2] = w[3];
+                    w[3] = first;
+                }
+            }
+        }
+    }
+    _rwPluginRegistryInitObject(registry, sector);
+    StaticRef<RwUInt32>(0xC94C1C) = 0;
+    StaticRef<RwUInt32>(0xC94C10) = 0;
+    if (!_rwPluginRegistryReadDataChunks(registry, stream, sector)) {
+        return fail();
+    }
+    if (StaticRef<RwUInt32>(0xC94C1C) != 0) {
+        _rwPluginRegistryInvokeRights(registry, StaticRef<RwUInt32>(0xC94C1C), sector, StaticRef<RwUInt32>(0xC94C10));
+    }
+    return reinterpret_cast<RpSector*>(sector);
+}
+
+// 0x763310 (lote RW5, 663 bytes; cdecl, (flujo, cursor de memoria, mundo, flags); devuelve el plano o NULL): lee un plano y sus dos subarboles. Busca el bloque de estructura (1; version fuera de rango: error 0x80000004 y NULL),
+// pone a cero 0x18 bytes y lee `longitud` bytes (distinto: NULL; el EXE no acota la longitud y aqui mayor que 0x18 tambien da NULL). Toma 0x18 bytes del cursor (sin memoria: error 0x80000013 con 0x18 y NULL). tipo y valor
+// de la cabecera; con (flags & 0x40000000) los valores izquierdo/derecho vienen de ella, si no los dos son el valor. Izquierdo: si es hoja, bloque 9 y 0x762F30; si no bloque 0xA y recursion; cada FindChunk/version/lectura fallida limpia el
+// izquierdo (si existe: _rpWorldSectorDeinstanceAll con world->object.privateFlags & 1, si no _rpWorldSectorDestroyRecurse; deja izquierdo = NULL) y devuelve NULL. Igual con el derecho (la limpieza solo libera el izquierdo).
+static RpSector* _rpWorldPlaneSectorStreamRead(RwStream* stream, void** memoryCursor, RpWorld* world, RwUInt32 flags) {
+    RwUInt32 length = 0;
+    RwUInt32 version = 0;
+    if (!RwStreamFindChunk(stream, 1, &length, &version)) {
+        return nullptr;
+    }
+    if (version < 0x34000 || version > 0x36003) {
+        RaiseWorldError(static_cast<RwInt32>(0x80000004));
+        return nullptr;
+    }
+    SectorPlaneChunkInfo info{};
+    if (length > sizeof(info) || RwStreamRead(stream, &info, length) != length) {   // el EXE no acota la longitud (desbordaria la pila)
+        return nullptr;
+    }
+    uint8* const base = static_cast<uint8*>(*memoryCursor);
+    RpPlaneSector* const plane = reinterpret_cast<RpPlaneSector*>(base);
+    *memoryCursor = base + 0x18;
+    if (plane == nullptr) {
+        RaiseWorldError(static_cast<RwInt32>(0x80000013), 0x18);
+        return nullptr;
+    }
+    plane->type = info.type;
+    plane->value = info.value;
+    if (flags & 0x40000000) {
+        plane->leftValue = info.leftValue;
+        plane->rightValue = info.rightValue;
+    } else {
+        plane->leftValue = info.value;
+        plane->rightValue = info.value;
+    }
+    auto cleanup = [&]() -> RpSector* {
+        if (plane->leftSubTree == nullptr) {
+            return nullptr;
+        }
+        if (world->object.privateFlags & 1) {
+            _rpWorldSectorDeinstanceAll(plane->leftSubTree);
+        } else {
+            _rpWorldSectorDestroyRecurse(plane->leftSubTree);
+        }
+        plane->leftSubTree = nullptr;
+        return nullptr;
+    };
+    auto readChild = [&](bool isLeaf, RpSector*& slot) -> bool {
+        if (!RwStreamFindChunk(stream, isLeaf ? 9 : 0xA, nullptr, &version)) {
+            return false;
+        }
+        if (version < 0x34000 || version > 0x36003) {
+            RaiseWorldError(static_cast<RwInt32>(0x80000004));
+            return false;
+        }
+        slot = isLeaf ? _rpWorldAtomicSectorStreamRead(stream, memoryCursor, world, flags) : _rpWorldPlaneSectorStreamRead(stream, memoryCursor, world, flags);
+        return slot != nullptr;
+    };
+    if (!readChild(info.leftIsWorldSector != 0, plane->leftSubTree)) {
+        return cleanup();
+    }
+    if (!readChild(info.rightIsWorldSector != 0, plane->rightSubTree)) {
+        return cleanup();
+    }
+    return reinterpret_cast<RpSector*>(plane);
+}
 
 // 0x762150 (lote S31A, sin validar; 747 bytes; cdecl, (mundo, flujo)): escribe el mundo: cabecera 0xB con el tamano total (lista de materiales + 0x58, el sector raiz o los dos subarboles con las funciones de tamano del EXE 0x762440 y 0x762040 mas
 // los plugins de sector, y los plugins del mundo), cabecera de estructura con 64 bytes {raiz es sector, origen invertido, triangulos, vertices, planos y sectores totales (recorrido del arbol con pila de 64 entradas), 0, formato | (texCoords | 0x4000) << 16, caja},
@@ -1841,11 +2273,11 @@ const RpWorld* RpWorldStreamWrite(const RpWorld* world, RwStream* stream) {
         return nullptr;
     }
     if (*reinterpret_cast<RwInt32*>(world->rootSector) < 0) {
-        if (!reinterpret_cast<SectorWriteFn>(0x7624A0)(world->rootSector, stream, mutableWorld, flags)) {
+        if (!_rpWorldAtomicSectorStreamWrite(world->rootSector, stream, mutableWorld, flags)) {
             return nullptr;
         }
     } else {
-        if (!reinterpret_cast<SectorWriteFn>(0x762740)(world->rootSector, stream, mutableWorld, flags)) {
+        if (!_rpWorldPlaneSectorStreamWrite(world->rootSector, stream, mutableWorld, flags)) {
             return nullptr;
         }
     }
@@ -1958,7 +2390,7 @@ RpWorld* RpWorldStreamRead(RwStream* stream) {
             RaiseWorldError(static_cast<RwInt32>(0x80000004));
             return destroyAndFail();
         }
-        world->rootSector = reinterpret_cast<SectorReadFn>(0x762F30)(stream, &memoryCursor, world, format);
+        world->rootSector = _rpWorldAtomicSectorStreamRead(stream, &memoryCursor, world, format);
     } else {
         if (!RwStreamFindChunk(stream, 0xA, nullptr, &chunkVersion)) {
             return destroyAndFail();
@@ -1967,7 +2399,7 @@ RpWorld* RpWorldStreamRead(RwStream* stream) {
             RaiseWorldError(static_cast<RwInt32>(0x80000004));
             return destroyAndFail();
         }
-        world->rootSector = reinterpret_cast<SectorReadFn>(0x763310)(stream, &memoryCursor, world, format);
+        world->rootSector = _rpWorldPlaneSectorStreamRead(stream, &memoryCursor, world, format);
     }
     if (world->rootSector == nullptr) {
         return destroyAndFail();
@@ -4641,6 +5073,8 @@ void RpWorldInjectHooksS30A31A() {
     RH_ScopedGlobalInstall(RpAtomicStreamGetSize, 0x74A5B0);                                   // lote S30A (sin validar)
     RH_ScopedGlobalInstall(RpClumpStreamGetSize, 0x74A5E0);                                    // lote S31A (sin validar)
     RH_ScopedGlobalInstall(RpAtomicStreamWrite, 0x74A850);                                     // lote S31A (sin validar)
+    RH_ScopedGlobalInstall(_rpClumpBuildGeometryList, 0x74A770);                 // lote RW5 (validado por pares)
+    RH_ScopedGlobalInstall(_rpClumpAtomicStreamWrite, 0x74A880);            // lote RW5 (validado por pares)
     RH_ScopedGlobalInstall(RpClumpStreamWrite, 0x74AA10);                                      // lote S31A (sin validar)
     RH_ScopedGlobalInstall(RpGeometryTransform, 0x74BFE0);                                     // lote S31A (sin validar)
     RH_ScopedGlobalInstall(RpGeometryStreamWrite, 0x74CED0);                                   // lote S31A (sin validar)
@@ -4682,6 +5116,10 @@ void RpWorldInjectHooksS30A31A() {
     RH_ScopedGlobalInstall(ClumpCameraWriteCallBack, 0x74AF20); // codigo vivo CAM (sin validar)
     RH_ScopedGlobalInstall(RpWorldStreamWrite, 0x762150);                                      // lote S31A (sin validar)
     RH_ScopedGlobalInstall(RpWorldStreamRead, 0x762960);                                       // lote S31A (sin validar)
+    RH_ScopedGlobalInstall(_rpWorldAtomicSectorStreamWrite, 0x7624A0); // lote RW5 (validado por pares)
+    RH_ScopedGlobalInstall(_rpWorldPlaneSectorStreamWrite, 0x762740);   // lote RW5 (validado por pares)
+    RH_ScopedGlobalInstall(_rpWorldAtomicSectorStreamRead, 0x762F30);   // lote RW5 (validado por pares)
+    RH_ScopedGlobalInstall(_rpWorldPlaneSectorStreamRead, 0x763310);     // lote RW5 (validado por pares)
     RH_ScopedGlobalInstall(_rwD3D9VSGetProjectionTransposedMatrix, 0x764D20);                  // lote S31A (sin validar)
     RH_ScopedGlobalInstall(_rpTriStripTunnelToggle, 0x75BB20);                                 // lote S31A, cierre (sin validar)
     RH_ScopedGlobalInstall(_rpTriStripPolygonCountStripEdges, 0x75BB50);                       // lote S31A, cierre (sin validar)

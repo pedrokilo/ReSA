@@ -2627,6 +2627,7 @@ struct RpBuildStripList {
     RpBuildStripList*  next;               // +0x0C
 };
 RpMeshHeader* _rpBuildMeshGenerateTriStrip(RpBuildMesh* buildMesh, RwInt32 tryRotations, RwInt32 joinMode); // 0x7591D0 (R19A, nombre inferido)
+RpMeshHeader* _rpBuildMeshGenerateExhaustiveTriStrip(RpBuildMesh* buildMesh, void* data, RwInt32 joinMode); // 0x75A960 (RW5, nombre inferido)
 RwBool _rpBuildStripListGenerate(RpBuildMeshTriangle* triangles, RwUInt32 numTriangles, RpBuildStripList** outList, RwInt32 tryRotations); // 0x759790 (R19A, nombre inferido)
 RpBuildStripNode** _rpBuildStripNodesCreate(RwUInt32 numTriangles, RwFreeList** freeLists, RpBuildStripEdge** edgeHead, RpBuildMeshTriangle* triangles); // 0x75A090 (R19A, nombre inferido)
 RpBuildStripEdge* _rpBuildStripEdgeFind(RwFreeList* edgeFreeList, RpBuildStripEdge** edgeHead, RwUInt16 from, RwUInt16 to, RwUInt32 nodeIndex, RpBuildStripNode** nodes); // 0x75A1B0 (R19A, nombre inferido)
