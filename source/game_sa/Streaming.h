@@ -6,6 +6,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -234,10 +235,10 @@ public:
 
     static inline auto& ms_currentZoneType = DatosExe::Bss::b8E4C20;
     static inline auto& ms_vehiclesLoaded = StaticRef<CLoadedCarGroup>(0x8E4C24);
-    static inline auto& ms_pEndRequestedList = StaticRef<CStreamingInfo*>(0x8E4C54);
-    static inline auto& ms_pStartRequestedList = StaticRef<CStreamingInfo*>(0x8E4C58);
-    static inline auto& ms_pEndLoadedList = StaticRef<CStreamingInfo*>(0x8E4C5C);
-    static inline auto& ms_startLoadedList = StaticRef<CStreamingInfo*>(0x8E4C60);
+    static inline auto& ms_pEndRequestedList = DatosExe::Bss::b8E4C54;
+    static inline auto& ms_pStartRequestedList = DatosExe::Bss::b8E4C58;
+    static inline auto& ms_pEndLoadedList = DatosExe::Bss::b8E4C5C;
+    static inline auto& ms_startLoadedList = DatosExe::Bss::b8E4C60;
 
     static inline auto& ms_lastImageRead = StaticRef<int32>(0x8E4C64); // initialized but not used?
     static inline auto& ms_imageOffsets = StaticRef<std::array<int32, 6>>(0x8E4C8C); // initialized but never used?

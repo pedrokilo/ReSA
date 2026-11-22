@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -135,4 +136,4 @@ static inline auto& gClothesHaveBeenStored = DatosExe::Bss::bA97298;
 static inline auto& gStoredClothesState = StaticRef<CPedClothesDesc>(0xA9A810);
 static inline auto& gComponentDamageState = StaticRef<std::array<eDamageState, 25u>>(0xA97258); // Como el original: 25 bytes (uno por nodo del coche)
 static inline auto& gStoredVehicleMods = StaticRef<std::array<int16, 15u>>(0xA97274);
-static inline auto& gpCurrentProperty = StaticRef<CMultiBuilding*>(0xA97294); // Como el original: la global del EXE (antes era un puntero propio de la DLL)
+static inline auto& gpCurrentProperty = DatosExe::Bss::bA97294; // Como el original: la global del EXE (antes era un puntero propio de la DLL)

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaB.h"
 
@@ -45,7 +46,7 @@ static inline auto& IsVMNotSelected = StaticRef<RwBool>(0x8D6218);
 /*
 * Dynamic array of video modes with format "width x height x depth"
 */
-static inline auto& gVideoModes = StaticRef<char**>(0xC920D0);
+static inline auto& gVideoModes = DatosExe::Bss::bC920D0;
 static inline auto& gCurrentGpu = DatosExe::Data::v8D6248;
 static inline auto& gCurrentVideoMode = StaticRef<int32>(0x8D6220);
 

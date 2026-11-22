@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -30,12 +31,12 @@ public:
 
     static inline auto& bDrawClock = StaticRef<bool>(0xBAA400);
 
-    static inline auto& m_pVehicleNameToPrint = StaticRef<const GxtChar*>(0xBAA444);
+    static inline auto& m_pVehicleNameToPrint = DatosExe::Bss::bBAA444;
     static inline auto& m_VehicleState = StaticRef<eNameState>(0xBAA448);
     static inline auto& m_VehicleFadeTimer = DatosExe::Bss::bBAA44C;
     static inline auto& m_VehicleNameTimer = DatosExe::Bss::bBAA450;
-    static inline auto& m_pLastVehicleName = StaticRef<const GxtChar*>(0xBAA454);
-    static inline auto& m_pVehicleName = StaticRef<const GxtChar*>(0xBAA458);
+    static inline auto& m_pLastVehicleName = DatosExe::Bss::bBAA454;
+    static inline auto& m_pVehicleName = DatosExe::Bss::bBAA458;
 
     static inline auto& m_bDraw3dMarkers = DatosExe::Bss::bBAA45C;
     static inline auto& m_Wants_To_Draw_Hud = DatosExe::Bss::bBAA45D;
@@ -57,9 +58,9 @@ public:
     static inline auto& m_ZoneState = StaticRef<eNameState>(0xBAA930);
     static inline auto& m_ZoneFadeTimer = DatosExe::Bss::bBAA934;
     static inline auto& m_ZoneNameTimer = DatosExe::Bss::bBAA938;
-    static inline auto& m_ZoneToPrint = StaticRef<const GxtChar*>(0xBAB1D0);
+    static inline auto& m_ZoneToPrint = DatosExe::Bss::bBAB1D0;
     static inline auto& m_pLastZoneName = StaticRef<const GxtChar*>(0xBAB1D4);
-    static inline auto& m_pZoneName = StaticRef<const GxtChar*>(0xBAB1D8);
+    static inline auto& m_pZoneName = DatosExe::Bss::bBAB1D8;
 
     static inline auto& m_ItemToFlash = StaticRef<eHudItem>(0xBAB1DC);
     static inline auto& bDrawingVitalStats = DatosExe::Bss::bBAB1DE;

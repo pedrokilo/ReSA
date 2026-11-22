@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
@@ -46,9 +47,9 @@ END GENERATED HOOK STATUS */
 
 auto& CurrentFogIntensity = DatosExe::Data::v8D5798;
 
-auto& gpMoonMask = StaticRef<RwTexture*>(0xC6AA74);
-auto& gpCloudTex = StaticRef<RwTexture*>(0xC6AA78);
-auto& gpCloudMaskTex = StaticRef<RwTexture*>(0xC6AA7C);
+auto& gpMoonMask = DatosExe::Bss::bC6AA74;
+auto& gpCloudTex = DatosExe::Bss::bC6AA78;
+auto& gpCloudMaskTex = DatosExe::Bss::bC6AA7C;
 
 namespace {
 // Como el original: _ftol2 (0x821B40) trunca a 64 bits y se usa la parte baja.

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -60,7 +61,7 @@ public:
     static inline auto& NumAfterDeathStartPoints = DatosExe::Bss::b96A890;
 
     static inline auto& SkipToBeFinishedByScript = DatosExe::Bss::b96A894;
-    static inline auto& SkipVehicle = StaticRef<CVehicle*>(0x96A898);
+    static inline auto& SkipVehicle = DatosExe::Bss::b96A898;
     static inline auto& SkipTimer = DatosExe::Bss::b96A89C;
     static inline auto& SkipState = StaticRef<eSkipState>(0x96A8A0);
 

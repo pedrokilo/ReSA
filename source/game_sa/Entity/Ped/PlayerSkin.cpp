@@ -17,10 +17,11 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 
-auto& gpPlayerClump = StaticRef<RpClump*>(0xC3F040);
+auto& gpPlayerClump = DatosExe::Bss::bC3F040;
 
 void CPlayerSkin::InjectHooks() {
     RH_ScopedClass(CPlayerSkin);

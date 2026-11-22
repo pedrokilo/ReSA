@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -54,7 +55,7 @@ constexpr union {
 class CGangWars {
 public:
     static inline auto& ZoneInfoForTraining = StaticRef<int32>(0x8A5F40); // -1
-    static inline auto& pDriveByCar = StaticRef<CVehicle*>(0x96AB28);
+    static inline auto& pDriveByCar = DatosExe::Bss::b96AB28;
     static inline auto& GangRatingStrength = StaticRef<std::array<int32, 3>>(0x96AB2C);
     static inline auto& GangRatings = StaticRef<std::array<int32, 3>>(0x96AB38);
     static inline auto& FightTimer = DatosExe::Bss::b96AB44;
@@ -71,8 +72,8 @@ public:
     static inline auto& aSpecificZones = StaticRef<std::array<int32, 6>>(0x96AB68);
     static inline auto& Difficulty = DatosExe::Bss::b96AB80;
     static inline auto& Gang1 = StaticRef<eGangID>(0x96AB84);
-    static inline auto& pZoneToFightOver = StaticRef<CZone*>(0x96AB88);
-    static inline auto& pZoneInfoToFightOver = StaticRef<CZoneInfo*>(0x96AB8C);
+    static inline auto& pZoneToFightOver = DatosExe::Bss::b96AB88;
+    static inline auto& pZoneInfoToFightOver = DatosExe::Bss::b96AB8C;
     static inline auto& bGangWarsActive = StaticRef<bool>(0x96AB90);
     static inline auto& bTrainingMission = StaticRef<bool>(0x96AB91);
     static inline auto& bPlayerIsCloseby = DatosExe::Bss::b96AB92;

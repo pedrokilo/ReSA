@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -40,7 +41,7 @@ public:
     static inline auto& MessageEndTime = DatosExe::Bss::b96C01C;
     static inline auto& MessageStartTime = DatosExe::Bss::b96C020;
     static inline auto& NumGarages = DatosExe::Bss::b96C024;
-    static inline auto& pOldToGarageWeAreIn = StaticRef<CGarage*>(0x96BFD8);
+    static inline auto& pOldToGarageWeAreIn = DatosExe::Bss::b96BFD8;
 
 public:
     static void InjectHooks();

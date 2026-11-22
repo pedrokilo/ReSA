@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 
 #include "RenderWare.h"
@@ -44,7 +45,7 @@ public:
     };
 public:
     static inline auto& ms_pTxdPool = StaticRef<CTxdPool*>(0xC8800C);
-    static inline auto& ms_pStoredTxd = StaticRef<RwTexDictionary*>(0xC88010);
+    static inline auto& ms_pStoredTxd = DatosExe::Bss::bC88010;
     static inline auto& ms_lastSlotFound = DatosExe::Bss::bC88014;
     // variables list is not finished. Need to make CPools before.
 

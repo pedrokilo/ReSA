@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -25,14 +26,14 @@ public:
 
     // Estas referencias apuntan directamente a las variables globales del juego original.
     static inline auto& m_State                        = StaticRef<eP2pState>(0x969A20); //!< Estado actual de la máquina de estados.
-    static inline auto& m_pPed                         = StaticRef<CPed*>(0x9691C0);     //!< Peatón implicado actualmente en el intercambio.
+    static inline auto& m_pPed                         = DatosExe::Bss::b9691C0;     //!< Peatón implicado actualmente en el intercambio.
     static inline auto& m_Topic                        = DatosExe::Bss::b9691BC;     //!< Selector de tema/voz utilizado por el Update() original.
     static inline auto& m_TimeOfLastPlayerConversation = DatosExe::Bss::b9691B4;  //!< Marca temporal usada para limitar/registrar conversaciones recientes.
     static inline auto& m_StartTime                    = DatosExe::Bss::b9691B8;   //!< Marca temporal en la que comenzó el intercambio actual.
     static inline auto& m_bPositiveReply               = DatosExe::Bss::b9691B0;     //!< Existe en memoria original; actualmente no se usa en el código reconstruido.
     static inline auto& m_bPositiveOpening             = DatosExe::Bss::b9691B1;     //!< Indica si la apertura seleccionada por la rutina original es positiva.
     static inline auto& m_PedPoolIndex                 = DatosExe::Bss::b969A3C;    //!< Exploración circular: hasta ocho slots por actualización.
-    static inline auto& m_LastPlayerVehicle            = StaticRef<CVehicle*>(0x969A40); //!< Último vehículo del jugador, registrado como referencia de entidad.
+    static inline auto& m_LastPlayerVehicle            = DatosExe::Bss::b969A40; //!< Último vehículo del jugador, registrado como referencia de entidad.
 
     /** Registra los hooks del subsistema de conversación peatón-jugador. */
     static void InjectHooks();

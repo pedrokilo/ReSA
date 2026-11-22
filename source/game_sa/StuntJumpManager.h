@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -28,7 +29,7 @@ typedef CPool<CStuntJump> CStuntJumpsPool;
 class CStuntJumpManager {
 public:
     static inline auto& mp_poolStuntJumps = StaticRef<CStuntJumpsPool*>(0xA9A888);
-    static inline auto& mp_Active = StaticRef<CStuntJump*>(0xA9A88C); // nullptr
+    static inline auto& mp_Active = DatosExe::Bss::bA9A88C; // nullptr
     static inline auto& m_bActive = StaticRef<bool>(0xA9A890);
     static inline auto& m_bHitReward = DatosExe::Bss::bA9A891;
     static inline auto& m_iTimer = DatosExe::Bss::bA9A894;

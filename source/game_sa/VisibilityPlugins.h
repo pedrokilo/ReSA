@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 
 #include "RenderWare.h"
@@ -93,8 +94,8 @@ private:
     static inline auto& ms_framePluginOffset = StaticRef<RwInt32>(0x8D6090); // -1
     static inline auto& ms_clumpPluginOffset = StaticRef<RwInt32>(0x8D6094); // -1
     static inline auto& ms_defaultRenderer = StaticRef<RpAtomicCallBackRender>(0xC88048); // nullptr, unused
-    static inline auto& ms_pCamera = StaticRef<RwCamera*>(0xC8804C); // nullptr
-    static inline auto& ms_pCameraPosn = StaticRef<RwV3d*>(0xC88050); // nullptr
+    static inline auto& ms_pCamera = DatosExe::Bss::bC8804C; // nullptr
+    static inline auto& ms_pCameraPosn = DatosExe::Bss::bC88050; // nullptr
 
     static inline auto& ms_vehicleLod0RenderMultiPassDist = StaticRef<float>(0xC88044);
     static inline auto& ms_vehicleLod0Dist = DatosExe::Bss::bC88040;

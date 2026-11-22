@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "X87Math.h"
 
@@ -25,7 +26,7 @@ END GENERATED HOOK STATUS */
 #include "AEAudioHardware.h"
 
 auto& pWaterfall = StaticRef<CAESound*[3]>(0xB612F0);
-auto& pFogHorn = StaticRef<CAESound*>(0xB612FC);
+auto& pFogHorn = DatosExe::Bss::bB612FC;
 
 namespace {
 // Como el original: v += fcos(a) * r con fcos a precisión interna completa (producto y suma redondeados por la FPU)

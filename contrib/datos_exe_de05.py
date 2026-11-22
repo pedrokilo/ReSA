@@ -44,6 +44,29 @@ EXCL = ('/RenderWare/', '/Crt', '/crt', 'ExeProtectionStub', 'DatosExe/')
 CLASES_PTR = re.compile(r'^(C[A-Z]\w+|Rw\w+|Rp\w+|Rx\w+|Rt\w+)$')
 
 
+_DECL = None
+
+
+def declaracion(base):
+    """'class' o 'struct' segun la declaracion real en source/, o None si es un alias (using/typedef) o no se encuentra."""
+    global _DECL
+    if _DECL is None:
+        _DECL = {}
+        alias = set()
+        for p in (RAIZ / 'source').rglob('*'):
+            if p.suffix not in ('.h', '.hpp'):
+                continue
+            t = p.read_bytes().decode('utf-8', errors='replace')
+            for m in re.finditer(r'(?m)^\s*(?:typedef\s+)?(class|struct)\s+(\w+)\s*(?:final\s*)?[{:;]', t):
+                _DECL.setdefault(m.group(2), set()).add(m.group(1))
+            for m in re.finditer(r'(?m)^\s*using\s+(\w+)\s*=', t):
+                alias.add(m.group(1))
+        for a in alias:
+            _DECL[a] = {'alias'}
+    k = _DECL.get(base)
+    return next(iter(k)) if k and len(k) == 1 and 'alias' not in k else None
+
+
 def clasificar(t):
     """(clase, tam, nombre_base_ptr) o None. clase: E1..E5."""
     t = re.sub(r'\s+', ' ', t.strip())
@@ -56,7 +79,7 @@ def clasificar(t):
         base = m.group(1)
         if base in SC or base in ('void',):
             return 'E4', 4, None
-        if CLASES_PTR.match(base):
+        if CLASES_PTR.match(base) and declaracion(base):
             return 'E4', 4, base
         return None
     m = re.fullmatch(r'std::array<\s*(\w+)\s*,\s*(\d+)\s*>', t) or re.fullmatch(r'(\w+) ?\[(\d+)\]', t)
@@ -133,7 +156,9 @@ def main():
     cab = ['#pragma once', '', '/*', f' * Lote DE05-{grupo} (docs/DatosExe): variables de .bss del juego como definiciones propias (a cero, como el .bss',
            f' * del EXE). Estado vivo: las lee y escribe solo C++. Generado por contrib/datos_exe_de05.py; definidas en {nom}.cpp.', ' */', '']
     for b in fwd:
-        cab.append(('class ' if b.startswith('C') else 'struct ') + b + ';')
+        cab.append(declaracion(b) + ' ' + b + ';')
+    if any('GxtChar' in s[3] for s in sel):
+        cab += ['#include "GxtChar.h"', '']
     cab += ['', 'namespace DatosExe::Bss {']
     cpp = ['#include "StdInc.h"', '', f'#include "{nom}.h"', '', 'namespace DatosExe::Bss {']
     for va, kind, tam, t, base, rs in sel:

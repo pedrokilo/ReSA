@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "RenderWare.h"
@@ -28,12 +29,12 @@ private:
     static constexpr uint32 CHARSET_COL_WIDTH{ 4 * CHARSET_CHAR_WIDTH }; // 4x chars / row
     static constexpr uint32 CHARSET_ROW_HEIGHT{ 16u };
     
-    static inline auto& pCharsetTex = StaticRef<RwTexture*>(0xC3EF5C);
-    static inline auto& CurrentLicensePlateMaterial = StaticRef<RpMaterial*>(0xC3EF7C);
+    static inline auto& pCharsetTex = DatosExe::Bss::bC3EF5C;
+    static inline auto& CurrentLicensePlateMaterial = DatosExe::Bss::bC3EF7C;
     static inline auto& CurrentLicensePlateType = DatosExe::Bss::bC3EF80;
     static inline auto& pPlatebackTexTab = StaticRef<RwTexture*[3]>(0xC3EF60);
     static inline auto& pPalette1555Tab = StaticRef<void*[3]>(0xC3EF6C);
-    static inline auto& pCharsetLockedData = StaticRef<RwUInt8*>(0xC3EF78); 
+    static inline auto& pCharsetLockedData = DatosExe::Bss::bC3EF78; 
 public:
     static void InjectHooks();
 

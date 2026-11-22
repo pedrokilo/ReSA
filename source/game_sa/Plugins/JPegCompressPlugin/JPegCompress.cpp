@@ -26,11 +26,12 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 #include "jpeglib.h"
 #include "LibJpegCallback.h"
 
 static auto& g_ScreenshotFileBuf    = StaticRef<std::array<uint8, 204'800>>(0xBD0B78);
-static auto& g_JpegDecodingToRaster = StaticRef<CRGBA*>(0xBD0160);
+static auto& g_JpegDecodingToRaster = DatosExe::Bss::bBD0160;
 
 // NOTSA. Convierte los fallos de libjpeg en un error visible de depuración en lugar
 // de permitir que el juego termine sin contexto.

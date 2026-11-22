@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -151,15 +152,15 @@ public:
     static inline auto& s_bPlayerConversationHappening = DatosExe::Bss::bB613FC;
 
     //!< The ped the player is having a conversation with (If any)
-    static inline auto& s_pPlayerConversationPed = StaticRef<CPed*>(0xB61400);
+    static inline auto& s_pPlayerConversationPed = DatosExe::Bss::bB61400;
 
     //!< Are 2 peds having a conversation (`s_pConversationPed1` and `s_pConversationPed2`)
     static inline auto& s_bPedConversationHappening = DatosExe::Bss::bB613FD;
 
     //!< Conversation peds/slots (Valid if `s_bPedConversationHappening`)
-    static inline auto& s_pConversationPed1     = StaticRef<CPed*>(0xB61410);
+    static inline auto& s_pConversationPed1     = DatosExe::Bss::bB61410;
     static inline auto& s_pConversationPedSlot1 = StaticRef<tPedSpeechSlotID>(0xB61408);
-    static inline auto& s_pConversationPed2     = StaticRef<CPed*>(0xB6140C);
+    static inline auto& s_pConversationPed2     = DatosExe::Bss::bB6140C;
     static inline auto& s_pConversationPedSlot2 = StaticRef<tPedSpeechSlotID>(0xB61404);
 
     //!< Next speech-slot to use. This is merrily a hint, rather than an obligation

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 
 #include "Vector.h"
 
@@ -8,8 +9,8 @@
 
 class CCustomRoadsignMgr {
 public:
-    static inline auto& pCharsetTex = StaticRef<RwTexture*>(0xC3EF84);
-    static inline auto& pCharsetLockedRaster = StaticRef<RwUInt8*>(0xC3EF88);
+    static inline auto& pCharsetTex = DatosExe::Bss::bC3EF84;
+    static inline auto& pCharsetLockedRaster = DatosExe::Bss::bC3EF88;
     static inline auto& pCharsetLockedPallete = StaticRef<RwUInt8*>(0xC3EF8C); // unused, never really locked
 public:
     static void InjectHooks();

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -32,7 +33,7 @@ public:
     static inline auto& PlayerOnWeaponPickup = DatosExe::Bss::b97D640;
     static inline auto& StaticCamStartTime = DatosExe::Bss::b978618;
     static inline CVector* StaticCamCoors = (CVector*)0x97D660;
-    static inline auto& pPlayerVehicle = StaticRef<CVehicle*>(0x97861C);
+    static inline auto& pPlayerVehicle = DatosExe::Bss::b97861C;
     static inline auto& bPickUpcamActivated = DatosExe::Bss::b978620;
     static inline auto& CollectedPickUpIndex = DatosExe::Bss::b978624;
     static inline auto& aPickUpsCollected = StaticRef<std::array<int32, MAX_COLLECTED_PICKUPS>>(0x978628);

@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -188,12 +189,12 @@ public:
     static inline auto& bDoLoadSceneWhenDone = DatosExe::Bss::b97FACC;
     static inline auto& bIsUsingRemoteCar = DatosExe::Bss::b97F66D;
 
-    static inline auto& pReferences = StaticRef<void*>(0x97FB0C);
-    static inline auto& pPickups = StaticRef<void*>(0x97FB08);
-    static inline auto& pEmptyReferences = StaticRef<void*>(0x97FB04);
-    static inline auto& pWorld1 = StaticRef<void*>(0x97FB00);
+    static inline auto& pReferences = DatosExe::Bss::b97FB0C;
+    static inline auto& pPickups = DatosExe::Bss::b97FB08;
+    static inline auto& pEmptyReferences = DatosExe::Bss::b97FB04;
+    static inline auto& pWorld1 = DatosExe::Bss::b97FB00;
     static inline auto& pStoredCam = StaticRef<CCamera*>(0x97FAF8);
-    static inline auto& pRadarBlips = StaticRef<void*>(0x97FAF4);
+    static inline auto& pRadarBlips = DatosExe::Bss::b97FAF4;
 
     static inline auto& Time1 = StaticRef<uint32>(0x97FB60);
     static inline auto& Time2 = StaticRef<uint32>(0x97FB5C);

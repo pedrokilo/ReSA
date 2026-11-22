@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataInicializadaC.h"
@@ -84,14 +85,14 @@ class CWaterLevel {
     static inline auto& faWaveMultipliersY = DatosExe::Data::v8D38E8;
     static inline auto& ms_WakePointAlphaMults = StaticRef<std::array<float, 4>>(0x8D390C);
 
-    static inline auto& waterclear256Raster = StaticRef<RwRaster*>(0xC228A8);
-    static inline auto& texWaterclear256 = StaticRef<RwTexture*>(0xC228AC);
+    static inline auto& waterclear256Raster = DatosExe::Bss::bC228A8;
+    static inline auto& texWaterclear256 = DatosExe::Bss::bC228AC;
 
-    static inline auto& seabd32Raster = StaticRef<RwRaster*>(0xC228B0);
-    static inline auto& texSeabd32 = StaticRef<RwTexture*>(0xC228B4);
+    static inline auto& seabd32Raster = DatosExe::Bss::bC228B0;
+    static inline auto& texSeabd32 = DatosExe::Bss::bC228B4;
 
-    static inline auto& waterwakeRaster = StaticRef<RwRaster*>(0xC228B8);
-    static inline auto& texWaterwake = StaticRef<RwTexture*>(0xC228BC);
+    static inline auto& waterwakeRaster = DatosExe::Bss::bC228B8;
+    static inline auto& texWaterwake = DatosExe::Bss::bC228BC;
 
     static inline auto& NumWaterTriangles = StaticRef<uint32>(0xC22884);
     static inline auto& NumWaterQuads = StaticRef<uint32>(0xC22888);

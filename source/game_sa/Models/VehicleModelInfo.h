@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 
 #include "ClumpModelInfo.h"
 #include "RenderWare.h"
@@ -247,9 +248,9 @@ public:
     // remap texture
     static inline auto& ms_pRemapTexture = StaticRef<RwTexture*>(0xB4E47C);
     // vehiclelights128 texture
-    static inline auto& ms_pLightsTexture = StaticRef<RwTexture*>(0xB4E68C);
+    static inline auto& ms_pLightsTexture = DatosExe::Bss::bB4E68C;
     // vehiclelightson128 texture
-    static inline auto& ms_pLightsOnTexture = StaticRef<RwTexture*>(0xB4E690);
+    static inline auto& ms_pLightsOnTexture = DatosExe::Bss::bB4E690;
 
     // color of currently rendered car
     // static uint8 ms_currentCol[4];

@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -76,7 +77,7 @@ public:
     static inline auto& ms_cAppendAnimName = StaticRef<std::array<char[32], 50>>(0xB5EBC8);
     static inline auto& ms_cAppendObjectName = StaticRef<std::array<char[32], 50>>(0xB5F208);
 
-    static inline auto& ms_pCutsceneDir = StaticRef<CDirectory*>(0xB5F848);
+    static inline auto& ms_pCutsceneDir = DatosExe::Bss::bB5F848;
     static inline auto& ms_cutsceneLoadStatus = StaticRef<LoadStatus>(0xB5F84C);
     static inline auto& ms_running = StaticRef<int8>(0xB5F851);
     static inline auto& ms_cutsceneProcessing = StaticRef<bool>(0xB5F852);

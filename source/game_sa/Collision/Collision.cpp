@@ -34,6 +34,7 @@ END GENERATED HOOK STATUS */
 
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -3826,7 +3827,7 @@ bool CCollision::CheckCameraCollisionVehicles(
 ) {
     ZoneScoped;
 
-    static auto& gpLastSittingOnEntity   = StaticRef<CEntity*>(0x9689D8);
+    static auto& gpLastSittingOnEntity   = DatosExe::Bss::b9689D8;
     static auto& gFramesSittingOnTimeOut = DatosExe::Bss::b9689D4;
     static auto& gFramesToConsiderSittingOnStillTrue = DatosExe::Data::v8A5B1C; // 30
 

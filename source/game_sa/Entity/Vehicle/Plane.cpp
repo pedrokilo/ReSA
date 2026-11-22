@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -1230,7 +1231,7 @@ void CPlane::ProcessFlyingCarStuff() {
     if (!(m_fPropSpeed > DatosExe::Data::v8D33CC) && !PlaneSpeedSquaredAboveCpp(&m_vecMoveSpeed.x, DatosExe::Rdata::k859068)) return;
     if (m_nModelIndex == 520 && status() == 0 && int32(*reinterpret_cast<uint16*>(bytes + 0x86C)) >= int32(StaticRef<int16>(0x8D33C8))) {
         auto* old = m_pFlyingHandlingData;
-        auto* modelInfo = StaticRef<uint8*>(0xA9B76C);
+        auto* modelInfo = DatosExe::Bss::bA9B76C;
         m_pFlyingHandlingData = reinterpret_cast<tFlyingHandlingData*(__thiscall*)(void*, uint8)>(0x6F52D0)(reinterpret_cast<void*>(0xC2B9C8), modelInfo[0x4A]);
         if (double(m_fAccelerationBreakStatus) > DatosExe::Rdata::k859EF8 || (bytes[0x960] < 4 && !(*reinterpret_cast<uint32*>(bytes + 0x40) & 0x08000000)))
             FlyingControl(eFlightModel(6), skid, up, -lateral, m_fAccelerationBreakStatus * DatosExe::Data::v8D341C);

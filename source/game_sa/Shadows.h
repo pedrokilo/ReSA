@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE1.h"
 
 
@@ -174,7 +175,7 @@ constexpr uint32 MAX_SHADOW_POLY_BUNCHES = 360;
 class CShadows {
 public:
     static inline auto& ShadowsStoredToBeRendered = DatosExe::Bss::bC403DC;
-    static inline auto& pEmptyBunchList = StaticRef<CPolyBunch*>(0xC403D8);
+    static inline auto& pEmptyBunchList = DatosExe::Bss::bC403D8;
     static inline auto& aPolyBunches = StaticRef<std::array<CPolyBunch, MAX_SHADOW_POLY_BUNCHES>>(0xC40DF0);
     static inline auto& aStaticShadows = StaticRef<std::array<CStaticShadow, MAX_STATIC_SHADOWS>>(0xC4A030);
     static inline auto& aPermanentShadows = StaticRef<std::array<CPermanentShadow, MAX_PERMANENT_SHADOWS>>(0xC4AC30);
@@ -247,17 +248,17 @@ CVector* ShadowRenderTriangleCB(CVector* normal, CVector* trianglePos, _Projecti
 constexpr float MAX_DISTANCE_PED_SHADOWS = 15.0f; // 0x8D5240 - TODO: Rename to `MAX_DISTANCE_SHADOWS`
 constexpr float MAX_DISTANCE_PED_SHADOWS_SQR = MAX_DISTANCE_PED_SHADOWS * MAX_DISTANCE_PED_SHADOWS; // 0xC4B6B0 - TODO: Rename to `MAX_DISTANCE_PED_SHADOWS_SQ`
 
-static inline auto& gpShadowCarTex = StaticRef<RwTexture*>(0xC403E0);
-static inline auto& gpShadowPedTex = StaticRef<RwTexture*>(0xC403E4);
-static inline auto& gpShadowHeliTex = StaticRef<RwTexture*>(0xC403E8);
-static inline auto& gpShadowBikeTex = StaticRef<RwTexture*>(0xC403EC);
-static inline auto& gpShadowBaronTex = StaticRef<RwTexture*>(0xC403F0);
-static inline auto& gpShadowExplosionTex = StaticRef<RwTexture*>(0xC403F4);
-static inline auto& gpShadowHeadLightsTex = StaticRef<RwTexture*>(0xC403F8);
-static inline auto& gpShadowHeadLightsTex2 = StaticRef<RwTexture*>(0xC403FC);
-static inline auto& gpBloodPoolTex = StaticRef<RwTexture*>(0xC40400);
-static inline auto& gpHandManTex = StaticRef<RwTexture*>(0xC40404);
-static inline auto& gpCrackedGlassTex = StaticRef<RwTexture*>(0xC40408);
-static inline auto& gpPostShadowTex = StaticRef<RwTexture*>(0xC4040C);
+static inline auto& gpShadowCarTex = DatosExe::Bss::bC403E0;
+static inline auto& gpShadowPedTex = DatosExe::Bss::bC403E4;
+static inline auto& gpShadowHeliTex = DatosExe::Bss::bC403E8;
+static inline auto& gpShadowBikeTex = DatosExe::Bss::bC403EC;
+static inline auto& gpShadowBaronTex = DatosExe::Bss::bC403F0;
+static inline auto& gpShadowExplosionTex = DatosExe::Bss::bC403F4;
+static inline auto& gpShadowHeadLightsTex = DatosExe::Bss::bC403F8;
+static inline auto& gpShadowHeadLightsTex2 = DatosExe::Bss::bC403FC;
+static inline auto& gpBloodPoolTex = DatosExe::Bss::bC40400;
+static inline auto& gpHandManTex = DatosExe::Bss::bC40404;
+static inline auto& gpCrackedGlassTex = DatosExe::Bss::bC40408;
+static inline auto& gpPostShadowTex = DatosExe::Bss::bC4040C;
 
 static inline auto& g_ShadowVertices = StaticRef<std::array<RwImVertexIndex, 24>>(0xC403A8);

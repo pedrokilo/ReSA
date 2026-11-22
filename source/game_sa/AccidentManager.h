@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 
 #include "Base.h"
 
@@ -10,7 +11,7 @@ class CAccidentManager {
 public:
     std::array<CAccident, NUM_ACCIDENTS> m_Accidents;
 
-    static inline auto& gAccidentManager = StaticRef<CAccidentManager*>(0xB9B7D0);
+    static inline auto& gAccidentManager = DatosExe::Bss::bB9B7D0;
 
 public:
     static void InjectHooks();

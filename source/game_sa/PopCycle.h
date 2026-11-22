@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -208,8 +209,8 @@ public:
     static inline auto& m_fPercDealers = DatosExe::Bss::bC0BC58;
     static inline auto& m_bCurrentZoneIsGangArea = DatosExe::Bss::bC0BC5C;
     static inline auto& m_fCurrentZoneDodgyness = DatosExe::Bss::bC0BC60;
-    static inline auto& m_pCurrZone = StaticRef<CZone*>(0xC0BC64);
-    static inline auto& m_pCurrZoneInfo = StaticRef<CZoneInfo*>(0xC0BC68);
+    static inline auto& m_pCurrZone = DatosExe::Bss::bC0BC64;
+    static inline auto& m_pCurrZoneInfo = DatosExe::Bss::bC0BC68;
 
     //! Same as `m_pCurrZoneInfo->zonePopulationType`
     static inline auto& m_nCurrentZoneType = StaticRef<int32>(0xC0BC6C);

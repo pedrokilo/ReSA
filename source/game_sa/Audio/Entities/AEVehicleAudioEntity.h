@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE1.h"
 
 #include <bit>
@@ -599,8 +600,8 @@ public: // Structs:
     VALIDATE_SIZE(tVehicleParams, 0x4C);
 
 public:
-    static inline auto& s_pPlayerAttachedForRadio       = StaticRef<CPed*>(0xB6B98C);
-    static inline auto& s_pPlayerDriver                 = StaticRef<CPed*>(0xB6B990);
+    static inline auto& s_pPlayerAttachedForRadio       = DatosExe::Bss::bB6B98C;
+    static inline auto& s_pPlayerDriver                 = DatosExe::Bss::bB6B990;
     static inline auto& s_HelicoptorsDisabled           = DatosExe::Bss::bB6B994;
     static inline auto& s_NextDummyEngineSlot           = DatosExe::Bss::bB6B998;
     // Como el original: el EXE guarda el puntero a los ajustes de radio en 0xB6B99C (4F5B35 mov [B6B99C],edx; 4F4ED0 mov eax,[B6B99C]); 0xB6B98C es s_pPlayerAttachedForRadio.

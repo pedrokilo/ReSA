@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -68,7 +69,7 @@ public:
     static inline auto& m_Nodes                         = StaticRef<std::array<CConversationNode, MAX_NUM_CONVERSATION_NODES>>(0x969570); //!< Pool compartido de nodos permanentes.
     static inline auto& m_aTempNodes                    = StaticRef<std::array<CTempConversationNode, MAX_NUM_TEMP_CONVERSATION_NODES>>(0x969360); //!< Nodos temporales utilizados durante la configuración.
     static inline auto& m_SettingUpConversationNumNodes = DatosExe::Bss::b9691C8;             //!< Número de entradas válidas actualmente dentro de m_aTempNodes.
-    static inline auto& m_SettingUpConversationPed      = StaticRef<CPed*>(0x9691CC);             //!< Peatón para el que se está construyendo la conversación actual.
+    static inline auto& m_SettingUpConversationPed      = DatosExe::Bss::b9691CC;             //!< Peatón para el que se está construyendo la conversación actual.
 
     /** Registra los hooks de las funciones del gestor de conversaciones. */
     static void InjectHooks();

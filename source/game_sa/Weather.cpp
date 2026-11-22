@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -48,10 +49,10 @@ std::array<float, 32> CWeather::saBannerWindOffsets = { 0.0f, 0.3f, 0.6f, 0.85f,
 
 namespace {
 // Como el original: variables estaticas del EXE que CWeather usa sin nombre en el resto del codigo.
-auto& RainStreakPosX          = StaticRef<int32*>(0xC81420);
-auto& RainStreakPosY          = StaticRef<int32*>(0xC8141C);
-auto& RainStreakPosZ          = StaticRef<int32*>(0xC81418);
-auto& RainStreakStrength      = StaticRef<uint8*>(0xC81414);
+auto& RainStreakPosX          = DatosExe::Bss::bC81420;
+auto& RainStreakPosY          = DatosExe::Bss::bC8141C;
+auto& RainStreakPosZ          = DatosExe::Bss::bC81418;
+auto& RainStreakStrength      = DatosExe::Bss::bC81414;
 auto& WaterFogFXValue         = StaticRef<float>(0xC81444);   // valor suavizado del efecto de niebla de agua
 auto& WaterFogFXHolding       = StaticRef<uint8>(0xC81440);   // 1 mientras el valor baja
 auto& HeatHazeFXLevel         = StaticRef<float>(0xC81448);   // nivel acumulado de la calima

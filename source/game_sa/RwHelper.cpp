@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataInicializadaB.h"
 #include <intrin.h>
 #include "X87Math.h"
@@ -99,7 +100,7 @@ void RwHelperInjectHooks() {
 
 // 0x4ABA50
 CEventGlobalGroup* GetEventGlobalGroup() {
-    static auto& globalEvents = StaticRef<CEventGlobalGroup*>(0xA9AF6C);
+    static auto& globalEvents = DatosExe::Bss::bA9AF6C;
 
     if (globalEvents)
         return globalEvents;

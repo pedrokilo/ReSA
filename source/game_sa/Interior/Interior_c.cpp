@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #pragma warning(push, 0)
 #endif
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/RdataConstantes.h"
@@ -180,7 +181,7 @@ int32 Interior_c::Init(const CVector& pos) {
     CMatrix snapshot(reinterpret_cast<RwMatrix*>(&entity->GetMatrix()), false);
     const auto* box = reinterpret_cast<const uint8*>(m_box);
     if (box[0] != 99) {
-        const auto* other = StaticRef<const uint8*>(0xBB3DAC);
+        const auto* other = DatosExe::Bss::bBB3DAC;
         uint32 seed;
         if (other) {
             const uint32 a = InteriorTruncate(*reinterpret_cast<const float*>(other + 0x18));

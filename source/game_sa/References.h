@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 
 class CReference;
 
@@ -13,7 +14,7 @@ class CReference;
 class CReferences {
 public:
     static inline auto& aRefs = StaticRef<CReference[MAX_NUM_REFERENCES]>(0xB9B9A8);
-    static inline auto& pEmptyList = StaticRef<CReference*>(0xBA1768);
+    static inline auto& pEmptyList = DatosExe::Bss::bBA1768;
 
 public:
     static void InjectHooks();

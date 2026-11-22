@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -139,7 +140,7 @@ public:
     static inline auto& pRasterFrontBuffer = StaticRef<RwRaster*>(0xC402D8);
 
     static inline auto& m_bGrainEnable = DatosExe::Bss::bC402B4;
-    static inline auto& m_pGrainRaster = StaticRef<RwRaster*>(0xC402B0);
+    static inline auto& m_pGrainRaster = DatosExe::Bss::bC402B0;
     static inline auto& m_grainStrength = StaticRef<std::array<char, 2>>(0x8D5094);
 
     static inline auto& m_bCCTV = StaticRef<bool>(0xC402C5);

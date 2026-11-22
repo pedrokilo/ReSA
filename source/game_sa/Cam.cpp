@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -684,7 +685,7 @@ bool CCam::LookBehind() {
         }
         m_vecSource.z=sourceZ+m_vecSource.z;dest.z+=targetZ;
         TheCamera.HandleCameraMotionForDucking(ped,&m_vecSource,&dest,false);StaticRef<int32>(0xB6FC70)=0;
-        if(m_pCamTargetEntity){if(auto* task=ped->GetIntelligence()->GetTaskHold(false)){if(auto* held=*reinterpret_cast<CEntity**>(reinterpret_cast<uint8*>(task)+8)){StaticRef<CEntity*>(0xB6FC74)=held;++StaticRef<int32>(0xB6FC70);}}}
+        if(m_pCamTargetEntity){if(auto* task=ped->GetIntelligence()->GetTaskHold(false)){if(auto* held=*reinterpret_cast<CEntity**>(reinterpret_cast<uint8*>(task)+8)){DatosExe::Bss::bB6FC74=held;++StaticRef<int32>(0xB6FC70);}}}
         StaticRef<uint8>(0x8A5B14)=1;StaticRef<uint8>(0x8A5B15)=1;StaticRef<uint8>(0x8A5B17)=1;
         TheCamera.CameraColDetAndReact(&m_vecSource,&dest);m_vecFront=dest-m_vecSource;GetVectorsReadyForRW();TheCamera.ImproveNearClip(nullptr,ped,&m_vecSource,&dest);
         if(DatosExe::Bss::bB6F0F0==1&&StaticRef<RwCamera*>(0xC1703C)->nearPlane>.05f)RwCameraSetNearClipPlane(StaticRef<RwCamera*>(0xC1703C),.05f);
@@ -1829,7 +1830,7 @@ void CCam::Process_AimWeapon(const CVector& targetPosition, float, float, float)
 // 0x512B10
 void CCam::Process_AttachedCam() {
     m_fFOV=70.0f;const float angle=DatosExe::Bss::bB6F978*std::bit_cast<float>(0x3C8EFA35u);
-    auto* attached=StaticRef<CEntity*>(0xB6F984);const auto& matrix=attached->GetMatrix();
+    auto* attached=DatosExe::Bss::bB6F984;const auto& matrix=attached->GetMatrix();
     m_vecSource=matrix.TransformVector(StaticRef<CVector>(0xB6F960));m_vecSource+=attached->GetPosition();
     if(!DatosExe::Bss::bB6F054)m_vecFront=StaticRef<CEntity*>(0xB6F980)->GetPosition()-m_vecSource;
     else {m_vecFront=matrix.TransformVector(StaticRef<CVector>(0xB6F96C));m_vecFront+=attached->GetPosition();m_vecFront-=m_vecSource;}
@@ -2885,7 +2886,7 @@ void CCam::Process_Fixed(const CVector& target, float orientation, float speedVa
 void CCam::Process_FlyBy(const CVector&, float, float, float) {
     if(DatosExe::Bss::bB6F045)return;
     m_vecUp=CVector{0,0,1};
-    auto* fovPath=StaticRef<float*>(0xB6F988);auto* rollPath=StaticRef<float*>(0xB6F98C);auto* sourcePath=StaticRef<float*>(0xB6F990);auto* targetPath=StaticRef<float*>(0xB6F994);
+    auto* fovPath=DatosExe::Bss::bB6F988;auto* rollPath=DatosExe::Bss::bB6F98C;auto* sourcePath=DatosExe::Bss::bB6F990;auto* targetPath=DatosExe::Bss::bB6F994;
     auto& fovIndex=DatosExe::Bss::bBC4084;auto& rollIndex=DatosExe::Bss::bBC4088;auto& sourceIndex=DatosExe::Bss::bBC4080;auto& targetIndex=DatosExe::Bss::bBC407C;
     if(!DatosExe::Bss::bB6F05B){
         m_fTimeElapsedFloat=0;const int32 count=int32(sourcePath[0]);m_nFinishTime=uint32(int32(sourcePath[count*10-9]*1000.0f));

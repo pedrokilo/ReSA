@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 
@@ -23,7 +24,7 @@ enum class eDarkelStatus : uint16 {
 class CDarkel {
 public:
     static inline auto& RegisteredKills = StaticRef<std::array<int16[2], 800>>(0x969A50);
-    static inline auto& pStartMessage = StaticRef<const GxtChar*>(0x96A6D0);
+    static inline auto& pStartMessage = DatosExe::Bss::b96A6D0;
     static inline auto& AmmoInterruptedWeapon = DatosExe::Bss::b96A6D4;
     static inline auto& InterruptedWeaponType = StaticRef<eWeaponType>(0x96A6D8);
     static inline auto& InterruptedWeaponTypeSelected = StaticRef<eWeaponType>(0x96A6DC);

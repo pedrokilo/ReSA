@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 
 #include "PlayerRelationshipRecorder.h"
 #include "TaskCategories.h"
@@ -130,7 +131,7 @@ void CPlayerRelationshipRecorder::ClearRelationshipWithPlayer(const CPed* ped) {
 // direccion: es `operator new`, que el EXE llama directamente) y, si devuelve algo, pone a cero las 16 entradas con SOLO un dword (el peaton) y el byte bajo de la relacion (los tres bytes altos de cada entrada
 // quedan como los dejo la reserva: la imagen del constructor C++, que ponia a cero la relacion entera, no es la del EXE) y guarda el puntero; si no devuelve nada, guarda nulo (y devuelve nulo).
 CPlayerRelationshipRecorder& GetPlayerRelationshipRecorder() {
-    static auto& g_sPlayerRelationshipRecorder = StaticRef<CPlayerRelationshipRecorder*>(0xC17084);
+    static auto& g_sPlayerRelationshipRecorder = DatosExe::Bss::bC17084;
 
     if (!g_sPlayerRelationshipRecorder) {
         void* const memory = reinterpret_cast<void*(__cdecl*)(size_t)>(0x82119A)(sizeof(CPlayerRelationshipRecorder));

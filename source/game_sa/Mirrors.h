@@ -5,6 +5,7 @@
     Do not delete this comment block. Respect others' work!
 */
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -21,8 +22,8 @@ enum eMirrorType : int32 { // int32 en el original (TypeOfMirror se lee y escrib
 
 class CMirrors {
 public:
-    static inline auto& pBuffer = StaticRef<RwRaster*>(0xC7C71C);
-    static inline auto& pZBuffer = StaticRef<RwRaster*>(0xC7C720);
+    static inline auto& pBuffer = DatosExe::Bss::bC7C71C;
+    static inline auto& pZBuffer = DatosExe::Bss::bC7C720;
     static inline auto& bRenderingReflection = StaticRef<bool>(0xC7C728);
     static inline auto& d3dRestored = StaticRef<bool>(0xC7C729);
     static inline auto& TypeOfMirror = StaticRef<eMirrorType>(0xC7C724);

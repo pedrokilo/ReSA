@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaB.h"
@@ -181,7 +182,7 @@ void CAEWeatherAudioEntity::UpdateParameters(CAESound* sound, int16 curPlayPos) 
             origin = CVector{ right.x * -1.f + pov.x, right.y * -1.f + pov.y, right.z * -1.f + pov.z };
             target = CVector{ right4.x * -1.f + pov.x, right4.y * -1.f + pov.y, right4.z * -1.f + pov.z };
         }
-        auto& lastEntity = isLeftUp ? StaticRef<CEntity*>(0xB6BC74) : StaticRef<CEntity*>(0xB6BC6C);
+        auto& lastEntity = isLeftUp ? DatosExe::Bss::bB6BC74 : DatosExe::Bss::bB6BC6C;
         auto& residue    = isLeftUp ? DatosExe::Bss::bB6BC70 : DatosExe::Bss::bB6BC68;
 
         CEntity*  hitEntity = nullptr;

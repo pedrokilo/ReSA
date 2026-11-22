@@ -1,4 +1,5 @@
 #pragma once
+#include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -33,7 +34,7 @@ public:
 
     static inline auto& s_fVolumeOffset = DatosExe::Bss::bB61CF8;
     static inline auto& s_bStoppingScanner = DatosExe::Bss::bB61CFC;
-    static inline auto& s_pSound = StaticRef<CAESound*>(0xB61D00);
+    static inline auto& s_pSound = DatosExe::Bss::bB61D00;
     static inline auto& s_nAbortPlaybackTime = DatosExe::Bss::bB61D08;
     static inline auto& s_nPlaybackStartTime = DatosExe::Bss::bB61D0C;
     static inline auto& s_nSectionPlaying = DatosExe::Bss::bB61D04;
