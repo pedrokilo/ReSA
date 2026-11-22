@@ -236,7 +236,7 @@ def resultado_lote(fila):
     if lote == 'F3':
         return 'enlazador', 'thunk de carga retardada / importacion: lo genera el enlazador (DelayLoadThunks.cpp ya reconstruye los envoltorios stdcall; los ayudantes jmp eax no se escriben en C++)'
     if lote == 'F4':
-        return 'dueno-resuelto', 'funclet Unwind@ de un despachador de comandos de script del EXE (fase8-funclets-f4.csv): muere al reescribir el despachador'
+        return 'descartada-despachador-reescrito', 'funclet Unwind@ de un despachador de comandos de script del EXE (fase8-funclets-f4.csv): el despachador ya es C++ (RunningScriptCommands1500To1599.cpp / 2000To2099.cpp) y el funclet no se ejecuta'
     if lote == 'F2':
         return 'inicializador', 'inicializador de la tabla C de _initterm (0x8A5A14): ver fase8-inicializadores.csv'
     if lote == 'F1':

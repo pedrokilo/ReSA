@@ -41,3 +41,6 @@ public:
     CTask* CreateFirstSubTaskBody(CPed* ped);
 };
 VALIDATE_SIZE(CTaskComplexFollowPatrolRoute, 0x30);
+
+//! 0x674930 (F4 de codigo vivo): constructor del EXE de la tarea (thiscall como fastcall; reserva en `self` memoria de CTask::operator new(0x30)); lo usa el comando TASK_FOLLOW_PATROL_ROUTE (2071).
+CTaskComplexFollowPatrolRoute* __fastcall CTaskComplexFollowPatrolRouteConstructorExe(CTaskComplexFollowPatrolRoute* self, void* edx, int32 a, const CPatrolRoute* route, int32 b, uint32 c, uint32 d);

@@ -11772,6 +11772,8 @@ CRunningScript,ProcessCommands1900To1999,0x0046B460,1,0,1,S
 CRunningScript,ProcessCommands800To899,0x00481300,1,0,1,S
 CRunningScript,ProcessCommands300To399,0x0047C100,1,0,0,S
 CRunningScript,ProcessCommands400To499,0x0047D210,1,0,0,S
+CRunningScript,ProcessCommands1500To1599,0x00490DB0,1,0,0,S
+CRunningScript,ProcessCommands2000To2099,0x00472310,1,0,0,S
 IKChainManager_c,Constructor,0x00617FC0,1,0,1,S
 IKChainManager_c,Destructor,0x00618030,1,0,1,S
 WaterCreatureManager_c,Constructor,0x006E3EB0,1,0,1,S

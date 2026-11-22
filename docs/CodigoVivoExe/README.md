@@ -10,7 +10,7 @@ Archivos: [plan-lotes.md](plan-lotes.md) · [plan.csv](plan.csv) · [funciones-v
 
 **P3 (rama `vivo-p3`):** S1–S4 sustituidos por C++ propio (18 de las 19 del plan más `0x85742B`; `___updatetlocinfo` queda en la rama del locale), con bancos fuera del juego; ver [ejecucion-p3.md](ejecucion-p3.md) y [cierre-p3.csv](cierre-p3.csv).
 
-**Partes P4 (lotes E2-*, CRT de MSVC sin locale) y P5 (F1–F4, arranque, inicializadores, importaciones) (rama `vivo-p5`):** diseño, cifras y pasos para el ejecutable propio en [fase8-arranque.md](fase8-arranque.md); resultado por función en [fase8-arranque-lotes.csv](fase8-arranque-lotes.csv), [fase8-inicializadores.csv](fase8-inicializadores.csv) y [fase8-funclets-f4.csv](fase8-funclets-f4.csv).
+**Partes P4 (lotes E2-*, CRT de MSVC sin locale) y P5 (F1–F4, arranque, inicializadores, importaciones) (rama `vivo-p5`):** diseño, cifras y pasos para el ejecutable propio en [fase8-arranque.md](fase8-arranque.md); resultado por función en [fase8-arranque-lotes.csv](fase8-arranque-lotes.csv), [fase8-inicializadores.csv](fase8-inicializadores.csv) y [fase8-funclets-f4.csv](fase8-funclets-f4.csv). **F4 (despachadores de comandos de script 1500–1599 y 2000–2099 reescritos en C++, 44 funclets descartados): ver [ejecucion-f4.md](ejecucion-f4.md).**
 
 ## 0. Resumen en diez líneas
 

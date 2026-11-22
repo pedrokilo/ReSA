@@ -332,6 +332,8 @@ public:
     // Lote P6B (sin validar): despachadores originales de las ranuras 3 y 4 de la tabla 0x8A6168 (RunningScriptCommands300To499.cpp)
     OpcodeResult ProcessCommands300To399(int32 command); // 0x47C100
     OpcodeResult ProcessCommands400To499(int32 command); // 0x47D210
+    OpcodeResult ProcessCommands1500To1599(int32 command); // 0x490DB0 (F4 de codigo vivo, sin validar)
+    OpcodeResult ProcessCommands2000To2099(int32 command); // 0x472310 (F4 de codigo vivo, sin validar)
 
     void SetName(const char* name)      { strcpy_s(m_szName, name); }
     void SetName(std::string_view name) { assert(name.size() < sizeof(m_szName)); strncpy_s(m_szName, name.data(), name.size()); }
