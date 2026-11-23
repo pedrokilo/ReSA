@@ -54,6 +54,8 @@ file(
     "${CMAKE_CURRENT_SOURCE_DIR}/*.h*"
     "${CMAKE_CURRENT_SOURCE_DIR}/*.c*"
 )
+# La imagen de datos del exe original (DatosExe/Imagen, ~2 MB de fuente) es solo del ejecutable independiente (reversing/FnFase8/enlazar.cmd): el ASI no la incluye.
+list(FILTER SOURCE_FILES_WITHOUT_MODULES_LIST EXCLUDE REGEX "^game_sa/DatosExe/Imagen/")
 list(APPEND SOURCE_FILES_WITHOUT_MODULES_LIST StdInc.cpp)
 if(MSVC)
     # D3DResourceSystem::SetUseD3DResourceBuffering (0x730AC0): the whole class file is compiled so its body matches the EXE.

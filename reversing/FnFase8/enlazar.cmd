@@ -1,6 +1,7 @@
 @echo off
 rem FASE 8: compila StandaloneExe.cpp con GTASA_STANDALONE_EXE y enlaza el ejecutable independiente gta_sa_standalone.exe
 rem con los .obj ya compilados del ASI Debug (copiados a reversing\FnFase8\obj). No ejecuta nada del juego.
+rem Con la imagen incrustada el exe no necesita gta-sa.exe ni para enlazar (docs/CodigoVivoExe/ejecucion-imagen-datos.md).
 rem Uso: enlazar.cmd <raiz del repo> <carpeta de salida> [carpeta de los .obj del ASI Debug; por defecto reversing\FnFase8\obj]
 setlocal EnableDelayedExpansion
 set REPO=%~1
@@ -14,6 +15,9 @@ set CONAN=%REPO%\reversing\CVehicle\conan-cache\p\b
 ml /nologo /c /Fo"%OUT%\reserva_imagen.obj" "%FN%\reserva_imagen.asm" || exit /b 5
 rem codigo propio del exe: se compila con GTASA_STANDALONE_EXE (el ASI lo compila vacio); /GS- /RTC off para el callback TLS (sin CRT)
 cl @"%FN%\cl.rsp" /DGTASA_STANDALONE_EXE /GS- /Fo"%OUT%\StandaloneExe.obj" "%REPO%\source\app\platform\win\StandaloneExe.cpp" || exit /b 4
+rem imagen de datos del exe original (arreglos C++ versionados en source\game_sa\DatosExe\Imagen, generados por gen_imagen.py): solo el independiente; el ASI no los compila
+if not exist "%OUT%\imagen" mkdir "%OUT%\imagen"
+for %%f in ("%REPO%\source\game_sa\DatosExe\Imagen\*.cpp") do if not exist "%OUT%\imagen\%%~nf.obj" cl @"%FN%\cl.rsp" /DGTASA_STANDALONE_EXE /GS- /Fo"%OUT%\imagen\%%~nf.obj" "%%f" || exit /b 7
 rem overlay: archivos de over_src\*.cpp (copias de trabajo en curso de otras ramas, p. ej. vivo-d3dstd) se compilan con las mismas opciones (sin PCH) solo si falta over\<n>.obj
 if not exist "%FN%\over" mkdir "%FN%\over"
 for %%f in ("%FN%\over_src\*.cpp") do if not exist "%FN%\over\%%~nf.obj" cl @"%FN%\cl.rsp" /MP1 /I"%FN%\over_src" /Fo"%FN%\over\%%~nf.obj" "%%f" || exit /b 6
@@ -26,6 +30,7 @@ dir /b "%OBJDIR%\*.obj" > "%OUT%\objs.txt"
 del "%OUT%\link.rsp" 2>nul
 echo "%OUT%\reserva_imagen.obj" >> "%OUT%\link.rsp"
 echo "%OUT%\StandaloneExe.obj" >> "%OUT%\link.rsp"
+for %%f in ("%OUT%\imagen\*.obj") do echo "%%f" >> "%OUT%\link.rsp"
 for /f %%f in (%OUT%\objs.txt) do (
   if exist "%FN%\over\%%f" ( echo "%FN%\over\%%f" >> "%OUT%\link.rsp" ) else ( echo "%OBJDIR%\%%f" >> "%OUT%\link.rsp" )
 )
