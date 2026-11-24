@@ -423,6 +423,96 @@ float NormalizePadAxis(LONG value) {
 }
 }
 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// XInput (Xbox 360 / Xbox One y compatibles). ANADIDO (no existe en el EXE; pedido por el usuario, 23/11/2026): el juego solo lee mandos por DirectInput, que da a los mandos de Xbox los
+// dos gatillos en un solo eje (Z) y el stick derecho en RX/RY (el juego espera Z/RZ), asi que el stick derecho y los gatillos no servian. Si hay un mando XInput conectado se fabrica el
+// DIJOYSTATE2 que el juego lee de un mando de PS2 (los numeros de boton son los del juego, GetControllerStateJoyStick: 1 circulo, 2 cruz, 3 cuadrado, 4 triangulo, 5 L2, 6 R2, 7 L1, 8 R1,
+// 9 select, 10 L3, 11 R3, 12 start). Sin mando XInput el camino es exactamente el de DirectInput del original. xinput se carga en tiempo de ejecucion (sin biblioteca de importacion).
+namespace XInputPad {
+struct Gamepad { WORD wButtons; BYTE bLeftTrigger, bRightTrigger; SHORT sThumbLX, sThumbLY, sThumbRX, sThumbRY; };
+struct State { DWORD dwPacketNumber; Gamepad Gamepad; };
+using GetStateFn = DWORD(WINAPI*)(DWORD, State*);
+
+constexpr WORD DPAD_UP = 0x0001, DPAD_DOWN = 0x0002, DPAD_LEFT = 0x0004, DPAD_RIGHT = 0x0008, START = 0x0010, BACK = 0x0020, LTHUMB = 0x0040, RTHUMB = 0x0080,
+               LSHOULDER = 0x0100, RSHOULDER = 0x0200, BTN_A = 0x1000, BTN_B = 0x2000, BTN_X = 0x4000, BTN_Y = 0x8000;
+
+GetStateFn Load() {
+    static GetStateFn fn = []() -> GetStateFn {
+        for (const char* dll : { "xinput1_4.dll", "xinput1_3.dll", "xinput9_1_0.dll" }) {
+            if (const HMODULE m = LoadLibraryA(dll)) {
+                if (const auto f = reinterpret_cast<GetStateFn>(GetProcAddress(m, "XInputGetState"))) {
+                    return f;
+                }
+            }
+        }
+        return nullptr;
+    }();
+    return fn;
+}
+
+// Rango del eje de DirectInput que fija el juego (diPadSetRanges): +-2000 (NormalizePadAxis multiplica por 0.0005).
+LONG Axis(SHORT v, bool invert) {
+    const LONG r = static_cast<LONG>(std::lround(static_cast<double>(v) * 2000.0 / 32767.0));
+    return std::clamp<LONG>(invert ? -r : r, -2000, 2000);
+}
+
+// Devuelve true y rellena el estado si el mando `index` esta conectado. Un mando desconectado solo se vuelve a consultar cada segundo (XInputGetState tarda en ese caso).
+bool Read(uint32 index, DIJOYSTATE2& out) {
+    static ULONGLONG nextTry[2]{};
+    static bool      connected[2]{};
+    if (index >= 2) {
+        return false;
+    }
+    const auto fn = Load();
+    if (!fn) {
+        return false;
+    }
+    const ULONGLONG now = GetTickCount64();
+    if (!connected[index] && now < nextTry[index]) {
+        return false;
+    }
+    State st{};
+    if (fn(index, &st) != ERROR_SUCCESS) {
+        connected[index] = false;
+        nextTry[index]   = now + 1000;
+        return false;
+    }
+    connected[index] = true;
+
+    const Gamepad& g = st.Gamepad;
+    memset(&out, 0, sizeof(out));
+    out.lX  = Axis(g.sThumbLX, false);
+    out.lY  = Axis(g.sThumbLY, true);
+    out.lZ  = Axis(g.sThumbRX, false);
+    out.lRz = Axis(g.sThumbRY, true);
+    for (auto& pov : out.rgdwPOV) {
+        pov = 0xFFFFFFFF;
+    }
+    const bool up = g.wButtons & DPAD_UP, dn = g.wButtons & DPAD_DOWN, lf = g.wButtons & DPAD_LEFT, rt = g.wButtons & DPAD_RIGHT;
+    if (up || dn || lf || rt) {
+        // Angulo en centesimas de grado, 0 = arriba, horario (como el POV de DirectInput). Indices [y+1][x+1] con y = arriba-abajo, x = derecha-izquierda.
+        const int x = (rt ? 1 : 0) - (lf ? 1 : 0), y = (up ? 1 : 0) - (dn ? 1 : 0);
+        static constexpr DWORD table[3][3] = { { 22500, 18000, 13500 }, { 27000, 0xFFFFFFFF, 9000 }, { 31500, 0, 4500 } };
+        out.rgdwPOV[0] = table[y + 1][x + 1];
+    }
+    const auto Btn = [&](int slot, bool down) { if (down) out.rgbButtons[slot - 1] = 0x80; };
+    constexpr BYTE kTrigger = 30;
+    Btn(1,  g.wButtons & BTN_B);
+    Btn(2,  g.wButtons & BTN_A);
+    Btn(3,  g.wButtons & BTN_X);
+    Btn(4,  g.wButtons & BTN_Y);
+    Btn(5,  g.bLeftTrigger  > kTrigger);
+    Btn(6,  g.bRightTrigger > kTrigger);
+    Btn(7,  g.wButtons & LSHOULDER);
+    Btn(8,  g.wButtons & RSHOULDER);
+    Btn(9,  g.wButtons & BACK);
+    Btn(10, g.wButtons & LTHUMB);
+    Btn(11, g.wButtons & RTHUMB);
+    Btn(12, g.wButtons & START);
+    return true;
+}
+} // namespace XInputPad
+
 // 0x746A10
 void CPad::ProcessPad(ePadID padID) {
     LPDIRECTINPUTDEVICE8* pDiDevice = nullptr;
@@ -438,6 +528,24 @@ void CPad::ProcessPad(ePadID padID) {
         return;
     }
     
+    // Mando XInput (Xbox 360/One): sustituye al de DirectInput mientras este conectado (ver XInputPad)
+    const bool usingXInput = XInputPad::Read(padID == PAD1 ? 0u : 1u, joyState);
+    if (usingXInput) {
+        auto& joy = AllValidWinJoys.JoyStickNum[padID];
+        joy.bZAxisPresent = true; // el stick derecho se lee de Z/RZ
+        joy.bZRotPresent  = true;
+        if (!joy.bJoyAttachedToPort) {
+            // Sin mando de DirectInput (el dispositivo XInput no siempre aparece): se marca como conectado y se dan los botones por defecto una sola vez
+            joy.bJoyAttachedToPort = true;
+            joy.wVendorID  = 0x045E; // Microsoft
+            joy.wProductID = 0x028E; // Xbox 360 Controller
+            if (padID == PAD1) {
+                ControlsManager.InitDefaultControlConfigJoyPad(16);
+            }
+        }
+    }
+
+    if (!usingXInput) {
     if (!pDiDevice || !*pDiDevice) {
         return;
     }
@@ -463,6 +571,7 @@ void CPad::ProcessPad(ePadID padID) {
 
     // Get the device state
     WIN_FCHECK((*pDiDevice)->GetDeviceState(sizeof(joyState), &joyState));
+    }
 
     // Update NewJoyState with the current joyState and get the previous value
     DIJOYSTATE2 previousNewJoyState = std::exchange(ControlsManager.m_NewJoyState, joyState);
@@ -476,7 +585,7 @@ void CPad::ProcessPad(ePadID padID) {
 
     RsPadEventHandler(RsEvent::rsPADBUTTONUP, &padID);
 
-    if (*pDiDevice) {
+    if (usingXInput || *pDiDevice) {
         // Calculate left stick position
         leftStickPos.x = NormalizePadAxis(joyState.lX);
         leftStickPos.y = NormalizePadAxis(joyState.lY);
