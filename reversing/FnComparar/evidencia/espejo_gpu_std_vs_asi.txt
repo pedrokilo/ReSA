@@ -1,0 +1,8 @@
+== e_s28
+ADAPTER Intel(R) Iris(R) Xe Graphics | igd10iumd32.dll | vendor=0x8086 device=0x46A6 driver=31 ver=31.0.101.5081
+PP static: bb=800x600 fmt=22 cnt=1 ms=4 q=0 swap=1 win=1 autoDS=1 dsfmt=75 flags=0x0 hz=0 interval=0x0 | live: bb=800x600 ms=4 q=0 swap=1 autoDS=1 dsfmt=75 flags=0x0 | create: beh=0x50 type=1 adapter=0 | caps zcmp=0xFF raster=0xF732191 devcaps=0x1BAFF0
+DEV tras-Begin RT 1024x512 fmt=22 ms=0 q=0 | DS 1024x512 fmt=75 ms=4 q=0 | MSAAstate=1
+== a_s20
+ADAPTER NVIDIA GeForce RTX 3050 Laptop GPU | nvldumd.dll | vendor=0x10DE device=0x25A2 driver=32 ver=32.0.16.1062
+PP static: bb=800x600 fmt=22 cnt=1 ms=4 q=0 swap=1 win=1 autoDS=1 dsfmt=75 flags=0x0 hz=0 interval=0x0 | live: bb=800x600 ms=4 q=0 swap=1 autoDS=1 dsfmt=75 flags=0x0 | create: beh=0x50 type=1 adapter=0 | caps zcmp=0xFF raster=0x7732191 devcaps=0x1BBEF0
+DEV tras-Begin RT 1024x512 fmt=22 ms=0 q=0 | DS 1024x512 fmt=75 ms=4 q=0 | MSAAstate=1
