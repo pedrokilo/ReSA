@@ -1,0 +1,2 @@
+pid 7148  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-juego\reversing\FnJuego\ejecuciones\C2-20261124-010020" --limite 500 --shims  escenario=interiores xinput=False
+exit=0xC0000005

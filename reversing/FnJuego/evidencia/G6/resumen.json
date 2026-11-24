@@ -1,0 +1,209 @@
+{
+ "cambio_arma": true,
+ "armas": {
+  "pistola": {
+   "tipo": 22,
+   "raton": {
+    "municion_antes": 100,
+    "despues": 100,
+    "cargador_antes": 34,
+    "cargador_despues": 18,
+    "camara_modo": 53,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 32,
+     "veh": 16,
+     "edif": 10113,
+     "obj": 98,
+     "dummy": 728
+    }
+   },
+   "teclado": {
+    "municion_antes": 100,
+    "despues": 100,
+    "cargador_antes": 18,
+    "cargador_despues": 18,
+    "camara_modo": 4,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 30,
+     "veh": 15,
+     "edif": 10113,
+     "obj": 99,
+     "dummy": 728
+    }
+   },
+   "mando": {
+    "municion_antes": 100,
+    "despues": 100,
+    "cargador_antes": 18,
+    "cargador_despues": 0,
+    "camara_modo": 53,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 31,
+     "veh": 13,
+     "edif": 10113,
+     "obj": 98,
+     "dummy": 728
+    }
+   }
+  },
+  "escopeta": {
+   "tipo": 25,
+   "raton": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 1,
+    "cargador_despues": 1,
+    "camara_modo": 53,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 34,
+     "veh": 16,
+     "edif": 10113,
+     "obj": 97,
+     "dummy": 728
+    }
+   },
+   "teclado": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 1,
+    "cargador_despues": 1,
+    "camara_modo": 4,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 34,
+     "veh": 16,
+     "edif": 10113,
+     "obj": 96,
+     "dummy": 728
+    }
+   },
+   "mando": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 1,
+    "cargador_despues": 1,
+    "camara_modo": 53,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 31,
+     "veh": 15,
+     "edif": 10113,
+     "obj": 96,
+     "dummy": 728
+    }
+   }
+  },
+  "uzi": {
+   "tipo": 28,
+   "raton": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 100,
+    "cargador_despues": 62,
+    "camara_modo": 53,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 33,
+     "veh": 16,
+     "edif": 10113,
+     "obj": 95,
+     "dummy": 728
+    }
+   },
+   "teclado": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 62,
+    "cargador_despues": 62,
+    "camara_modo": 4,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 30,
+     "veh": 13,
+     "edif": 10113,
+     "obj": 96,
+     "dummy": 728
+    }
+   },
+   "mando": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 62,
+    "cargador_despues": 24,
+    "camara_modo": 53,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 30,
+     "veh": 14,
+     "edif": 10113,
+     "obj": 95,
+     "dummy": 728
+    }
+   }
+  },
+  "ak47": {
+   "tipo": 30,
+   "raton": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 30,
+    "cargador_despues": 11,
+    "camara_modo": 53,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 32,
+     "veh": 18,
+     "edif": 10113,
+     "obj": 98,
+     "dummy": 728
+    }
+   },
+   "teclado": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 11,
+    "cargador_despues": 11,
+    "camara_modo": 4,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 28,
+     "veh": 16,
+     "edif": 10113,
+     "obj": 98,
+     "dummy": 728
+    }
+   },
+   "mando": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 11,
+    "cargador_despues": 30,
+    "camara_modo": 53,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 25,
+     "veh": 16,
+     "edif": 10113,
+     "obj": 96,
+     "dummy": 728
+    }
+   }
+  }
+ }
+}

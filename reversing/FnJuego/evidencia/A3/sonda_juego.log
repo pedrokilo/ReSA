@@ -1,0 +1,33 @@
+[    0.2] pid 18192
+[    3.7] juego en marcha tras 4 s; gGameState=9
+[    4.4] salida de la casa: area=0 tras 1 s
+[    5.4] ventana: cliente 640x480
+[    5.4] === ESCENARIO xinput_coche
+[   14.8] truco spawn RZHSUEW vehiculos nuevos: [('0x8f4cc68', 457)]
+[   25.2] Y (Triangulo) para entrar: en_coche=False estado=1 veh=0x0 modelo=0 t=8.3s
+[   25.6] captura xi_en_coche {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [136.3, 142.1, 123.4], "max": 255} CJ dentro del coche tras Y
+[   25.7] === ESCENARIO conduccion
+[   34.9] truco spawn RZHSUEW vehiculos nuevos: [('0x8f57800', 457)]
+[   63.4] entrar con F: en_coche=False modelo=0
+[   63.4] NO se pudo entrar al coche
+[   63.5] === ESCENARIO camara
+[   72.7] truco spawn RZHSUEW vehiculos nuevos: [('0x8f56de8', 457), ('0x8f5a060', 492), ('0x8f5b490', 547)]
+[   83.6] entrar con F: en_coche=True modelo=457
+[   83.6] camara inicial {'activa': 0, 'modo': 1025711360, 'quien': 48402392} cinema flag 0
+[   85.3] tras V #1: modo=0 cinema=0 procesada=0
+[   87.1] tras V #2: modo=0 cinema=0 procesada=0
+[   88.9] tras V #3: modo=0 cinema=0 procesada=1
+[   90.7] tras V #4: modo=0 cinema=0 procesada=0
+[   91.1] captura cam_v4 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [94.1, 101.6, 91.9], "max": 255} camara tras 4 pulsaciones de V
+[   92.9] tras V #5: modo=0 cinema=0 procesada=0
+[   94.7] tras V #6: modo=0 cinema=0 procesada=0
+[   94.7] mantener V 4 s
+[   94.9]   t=0.1 modo=0 cinema=0 procesada=0
+[   99.3] captura cam_cine {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [101.1, 109.8, 100.3], "max": 255} camara tras mantener V
+[   99.3] Insert
+[  112.1] captura cam_ins {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [116.0, 125.3, 124.5], "max": 255} camara 12 s tras Insert
+[  112.1] modos vistos tras Insert: [0]
+[  112.3] vivo al final: True
+[  112.3] LOG [error][01:06:24.143][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  112.3] LOG [error][01:06:24.144][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  112.3] fin

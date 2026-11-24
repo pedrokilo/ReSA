@@ -1,0 +1,166 @@
+[depuración][01:00:24.523][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][01:00:24.531][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13630 en 1011 clases/grupos (11462 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13630. Desactivadas: 0.
+[info][01:00:24.532][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][01:00:24.532][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][01:00:24.534][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][01:00:24.540][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][01:00:24.898][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][01:00:24.936][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][01:00:24.963][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][01:00:25.001][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][01:00:25.008][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][01:00:25.009][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][01:00:25.010][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][01:00:25.010][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][01:00:25.010][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][01:00:25.012][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][01:00:25.012][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][01:00:25.012][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][01:00:25.013][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][01:00:25.013][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[info][01:00:25.324][AEMFDecoder.cpp:148]: User tracks: QuickTime retirado; los .mp3 usan el decoder WMA y los formatos que solo abria QuickTime no estan disponibles
+[depuración][01:00:25.364][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][01:00:25.369][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][01:00:25.369][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][01:00:25.432][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][01:00:25.433][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][01:00:25.433][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[depuración][01:00:26.800][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[depuración][01:00:27.436][Pools.cpp:502]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[aviso][01:00:27.459][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][01:00:27.465][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][01:00:27.489][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][01:00:27.490][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][01:00:27.490][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][01:00:27.509][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][01:00:27.510][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[error][01:01:07.483][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ptr` en D:\Original\wv-int\source\game_sa\Scripts\CommandParser\ReadArg.hpp:120
+[error][01:01:07.926][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ped` en D:\Original\wv-int\source\game_sa\Scripts\RunningScript.cpp:339
+[info][01:01:07.942][:]: ****************** Backtrace Start ******************
+[traza][01:00:27.446][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1228)
+[traza][01:00:27.446][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1233)
+[traza][01:00:27.446][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1192)
+[traza][01:00:27.446][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1263)
+[traza][01:00:27.446][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2792)
+[traza][01:00:27.446][TxdStore.cpp:395]: CTxdStore::RemoveTxd(833)
+[traza][01:00:27.446][TxdStore.cpp:395]: CTxdStore::RemoveTxd(841)
+[traza][01:00:27.446][TxdStore.cpp:395]: CTxdStore::RemoveTxd(878)
+[traza][01:00:27.447][TxdStore.cpp:395]: CTxdStore::RemoveTxd(879)
+[traza][01:00:27.447][TxdStore.cpp:395]: CTxdStore::RemoveTxd(910)
+[traza][01:00:27.447][TxdStore.cpp:395]: CTxdStore::RemoveTxd(943)
+[traza][01:00:27.448][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2177)
+[traza][01:00:27.448][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2111)
+[traza][01:00:27.448][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1184)
+[traza][01:00:27.448][TxdStore.cpp:395]: CTxdStore::RemoveTxd(969)
+[traza][01:00:27.448][TxdStore.cpp:395]: CTxdStore::RemoveTxd(998)
+[traza][01:00:27.448][TxdStore.cpp:395]: CTxdStore::RemoveTxd(959)
+[traza][01:00:27.449][TxdStore.cpp:395]: CTxdStore::RemoveTxd(965)
+[traza][01:00:27.449][TxdStore.cpp:395]: CTxdStore::RemoveTxd(992)
+[traza][01:00:27.449][TxdStore.cpp:395]: CTxdStore::RemoveTxd(963)
+[traza][01:00:27.449][TxdStore.cpp:395]: CTxdStore::RemoveTxd(968)
+[traza][01:00:27.450][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3061)
+[traza][01:00:27.450][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3074)
+[traza][01:00:27.450][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3087)
+[traza][01:00:27.450][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3062)
+[traza][01:00:27.450][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3075)
+[traza][01:00:27.450][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3089)
+[traza][01:00:27.450][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3063)
+[traza][01:00:27.450][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3076)
+[traza][01:00:27.450][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3090)
+[aviso][01:00:27.459][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][01:00:27.465][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][01:00:27.489][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][01:00:27.490][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][01:00:27.490][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][01:00:27.509][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][01:00:27.510][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[traza][01:00:27.559][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][01:00:27.560][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][01:00:27.561][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][01:00:27.561][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][01:00:27.562][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][01:00:27.563][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][01:00:27.564][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][01:00:27.565][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][01:00:27.566][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][01:00:27.576][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][01:00:27.579][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][01:00:27.580][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][01:00:27.580][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][01:00:27.580][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][01:00:27.580][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][01:00:27.581][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][01:00:27.581][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][01:00:27.581][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][01:01:00.511][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3061)
+[traza][01:01:00.511][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3074)
+[traza][01:01:00.511][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3087)
+[traza][01:01:07.380][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3061)
+[traza][01:01:07.380][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3074)
+[traza][01:01:07.380][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3087)
+[traza][01:01:07.380][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3062)
+[traza][01:01:07.380][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3075)
+[traza][01:01:07.380][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3089)
+[traza][01:01:07.380][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3063)
+[traza][01:01:07.380][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3076)
+[traza][01:01:07.380][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3090)
+[error][01:01:07.483][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ptr` en D:\Original\wv-int\source\game_sa\Scripts\CommandParser\ReadArg.hpp:120
+[error][01:01:07.926][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ped` en D:\Original\wv-int\source\game_sa\Scripts\RunningScript.cpp:339
+[info][01:01:07.963][:]: ****************** Backtrace End ********************
+[info][01:01:07.963][app_debug.cpp:105]: *********UNHANDLED EXCEPTION**********
+[info][01:01:07.963][app_debug.cpp:110]: Código de excepción: 0xc0000005
+[info][01:01:07.963][app_debug.cpp:111]: Indicadores de excepción: 0x00000000
+[info][01:01:07.963][app_debug.cpp:112]: Dirección de excepción: 0x01de197f
+[info][01:01:07.964][app_debug.cpp:105]: *********PARAMETERS**********
+[info][01:01:07.964][app_debug.cpp:117]: Parámetros[2]:
+[info][01:01:07.964][app_debug.cpp:119]:        0: 0x00000000
+[info][01:01:07.964][app_debug.cpp:119]:        1: 0x00000476
+[info][01:01:07.964][app_debug.cpp:105]: *********REGISTERS**********
+[info][01:01:07.964][app_debug.cpp:129]: 	EAX: 0x00000000
+[info][01:01:07.964][app_debug.cpp:129]: 	EBX: 0x001afe8c
+[info][01:01:07.964][app_debug.cpp:129]: 	ECX: 0xffffffff
+[info][01:01:07.964][app_debug.cpp:129]: 	EDX: 0x036d0650
+[info][01:01:07.965][app_debug.cpp:129]: 	ESI: 0x001ae3a8
+[info][01:01:07.965][app_debug.cpp:129]: 	EDI: 0x001ae184
+[info][01:01:07.965][app_debug.cpp:129]: 	EBP: 0x001ae190
+[info][01:01:07.965][app_debug.cpp:129]: 	ESP: 0x001adffc
+[info][01:01:07.965][app_debug.cpp:129]: 	EIP: 0x01de197f
+[info][01:01:07.965][app_debug.cpp:129]: 	EFLAGS: 0x00210286
+[info][01:01:07.965][app_debug.cpp:105]: *********CALL STACK**********
+[info][01:01:07.995][app_debug.cpp:212]: 	0x01de197f: gta_sa_standalone!CRunningScript::GivePedScriptedTask:348
+[info][01:01:07.996][app_debug.cpp:212]: 	0x01de1c5b: gta_sa_standalone!CRunningScript::GivePedScriptedTask:372
+[info][01:01:07.996][app_debug.cpp:212]: 	0x012ab360: gta_sa_standalone!`anonymous namespace'::TaskKillCharOnFoot:2784
+[info][01:01:07.996][app_debug.cpp:212]: 	0x01264b81: gta_sa_standalone!std::invoke<void (__cdecl*&)(CRunningScript &,enum eScriptCommands,CPed &,CPed &),CRunningScript &,enum eScriptCommands &,CPed &,CPed &>:1811
+[info][01:01:07.997][app_debug.cpp:212]: 	0x0126fc57: gta_sa_standalone!`notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &,CPed &>'::`3'::<lambda_1>::operator():22
+[info][01:01:07.997][app_debug.cpp:212]: 	0x0123d800: gta_sa_standalone!notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &,CPed &>:26
+[info][01:01:07.997][app_debug.cpp:212]: 	0x01219bd9: gta_sa_standalone!`notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &>'::`3'::<lambda_1>::operator()<CPed &>:40
+[info][01:01:07.998][app_debug.cpp:212]: 	0x0123d771: gta_sa_standalone!notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &>:65
+[info][01:01:07.998][app_debug.cpp:212]: 	0x01219b62: gta_sa_standalone!`notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>'::`3'::<lambda_1>::operator()<CPed &>:40
+[info][01:01:07.998][app_debug.cpp:212]: 	0x0123d6cd: gta_sa_standalone!notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>:65
+[info][01:01:07.999][app_debug.cpp:212]: 	0x0121b4db: gta_sa_standalone!`notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>'::`3'::<lambda_1>::operator()<enum eScriptCommands &>:40
+[info][01:01:07.999][app_debug.cpp:212]: 	0x0123d630: gta_sa_standalone!notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>:65
+[info][01:01:07.999][app_debug.cpp:212]: 	0x0121aa94: gta_sa_standalone!`notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>'::`3'::<lambda_1>::operator()<CRunningScript &>:40
+[info][01:01:07.999][app_debug.cpp:212]: 	0x0123d5a5: gta_sa_standalone!notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>:65
+[info][01:01:08.000][app_debug.cpp:212]: 	0x01246541: gta_sa_standalone!notsa::script::detail::CommandParser<1506,&`anonymous namespace'::TaskKillCharOnFoot>:78
+[info][01:01:08.000][app_debug.cpp:212]: 	0x01ddea54: gta_sa_standalone!std::invoke<enum OpcodeResult (__cdecl*const &)(CRunningScript *),CRunningScript *>:1811
+[info][01:01:08.000][app_debug.cpp:212]: 	0x01df2e49: gta_sa_standalone!CRunningScript::ProcessOneCommand:1295
+[info][01:01:08.001][app_debug.cpp:212]: 	0x01de8fe0: gta_sa_standalone!CRunningScript::Process:1322
+[info][01:01:08.001][app_debug.cpp:212]: 	0x0232dbd4: gta_sa_standalone!CTheScripts::Process:1889
+[info][01:01:08.001][app_debug.cpp:212]: 	0x016f288a: gta_sa_standalone!CGame::Process:791
+[info][01:01:08.001][app_debug.cpp:212]: 	0x00fd0f95: gta_sa_standalone!Idle:346
+[info][01:01:08.002][app_debug.cpp:212]: 	0x00fb550d: gta_sa_standalone!AppEventHandler:169
+[info][01:01:08.002][app_debug.cpp:212]: 	0x01bbd428: gta_sa_standalone!RsEventHandler:349
+[info][01:01:08.002][app_debug.cpp:212]: 	0x024fa4be: gta_sa_standalone!ProcessGameLogic:345
+[info][01:01:08.002][app_debug.cpp:212]: 	0x024f9419: gta_sa_standalone!MainLoop:371
+[info][01:01:08.003][app_debug.cpp:212]: 	0x024f9d2e: gta_sa_standalone!NOTSA_WinMain:510
+[info][01:01:08.003][app_debug.cpp:212]: 	0x00e2f65b: gta_sa_standalone!WinMain:693
+[info][01:01:08.003][app_debug.cpp:212]: 	0x02a83e1d: gta_sa_standalone!invoke_main:107
+[info][01:01:08.003][app_debug.cpp:212]: 	0x02a83cfa: gta_sa_standalone!__scrt_common_main_seh:288
+[info][01:01:08.004][app_debug.cpp:212]: 	0x02a83b9d: gta_sa_standalone!__scrt_common_main:331
+[info][01:01:08.004][app_debug.cpp:212]: 	0x02a83e88: gta_sa_standalone!WinMainCRTStartup:17
+[info][01:01:08.004][app_debug.cpp:212]: 	0x00e3286b: gta_sa_standalone!FaseEntrada:664
+[info][01:01:08.004][app_debug.cpp:212]: 	0x75495d49: KERNEL32!BaseThreadInitThunk:0
+[info][01:01:08.004][app_debug.cpp:212]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[info][01:01:08.005][app_debug.cpp:212]: 	0x76fac811: ntdll!RtlGetAppContainerNamedObjectPath:0
+[info][01:01:08.020][app_debug.cpp:105]: *********END OF UNHANDLED EXCEPTION**********

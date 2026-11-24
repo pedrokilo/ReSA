@@ -1,0 +1,4 @@
+[depuración][02:02:03.901][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][02:02:04.499][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[error][02:02:06.568][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][02:02:06.568][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar

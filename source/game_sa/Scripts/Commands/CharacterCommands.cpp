@@ -2780,9 +2780,11 @@ auto SetLoadCollisionForCharFlag(CRunningScript& S, CPed& ped, bool loadCol) {
  * @param {Char} killer
  * @param {Char} target
  */
-auto TaskKillCharOnFoot(CRunningScript& S, eScriptCommands opcode, CPed& ped, CPed& target) {
+auto TaskKillCharOnFoot(CRunningScript& S, eScriptCommands opcode, int32 pedHandle, CPed& target) {
+    // `pedHandle` es un manejador y no `CPed&`: el script lo usa con -1 para anadir la tarea a la secuencia abierta (OPEN_SEQUENCE_TASK), como hace
+    // `GivePedScriptedTask(int32, ...)`. Con `CPed&` el -1 daba un puntero nulo (aserto en ReadArg.hpp y caida en GivePedScriptedTask al entrar al gimnasio, script `gymls`).
     S.GivePedScriptedTask(
-        &ped,
+        pedHandle,
         new CTaskComplexKillPedOnFoot{ &target, -1, 0, 0, 0, true },
         (int32)(opcode)
     );
@@ -3003,9 +3005,9 @@ auto GetCharAnimTotalTime(CPed& ped, const char* animName) {
  * @param {int} actionDelay
  * @param {int} actionChance
  */
-auto TaskKillCharOnFootWhileDucking(eScriptCommands command, CRunningScript& S, CPed& ped, CPed& target, int32 flags, int32 actionDelay, int32 actionChance) {
+auto TaskKillCharOnFootWhileDucking(eScriptCommands command, CRunningScript& S, int32 pedHandle, CPed& target, int32 flags, int32 actionDelay, int32 actionChance) {
     S.GivePedScriptedTask(
-        &ped,
+        pedHandle, // manejador (admite -1 = secuencia abierta), igual que TaskKillCharOnFoot y TaskTurnCharToFaceChar
         new CTaskComplexKillPedOnFoot{
             &target,
             -1,

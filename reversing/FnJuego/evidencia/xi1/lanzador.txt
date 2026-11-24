@@ -1,0 +1,2 @@
+pid 22236  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-juego\reversing\FnJuego\ejecuciones\xi1-20261124-003654" --limite 420 --shims  escenario=xinput,xinput_coche xinput=True
+exit=0xFFFFFFFF

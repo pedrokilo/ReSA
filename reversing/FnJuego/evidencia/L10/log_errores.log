@@ -1,0 +1,6 @@
+[depuración][01:45:57.847][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][01:45:58.454][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[error][01:46:00.513][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][01:46:00.514][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[error][01:46:09.695][CharacterCommands.cpp:2795]: [SCRIPT] TASK_KILL_CHAR_ON_FOOT con peaton invalido: script 'gymls' atacante=0x0 objetivo=0x8f57a64 bytes=05 04 FF 03 23 00 manejadores=(-999, 1282) pedPool=3/140
+[error][01:46:09.697][CharacterCommands.cpp:2795]: [SCRIPT] TASK_KILL_CHAR_ON_FOOT con peaton invalido: script 'gymls' atacante=0x0 objetivo=0x8f572a0 bytes=05 04 FF 03 22 00 manejadores=(-999, 1027) pedPool=3/140

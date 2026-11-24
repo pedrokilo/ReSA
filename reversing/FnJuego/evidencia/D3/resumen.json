@@ -1,0 +1,65 @@
+{
+ "cambio_arma": true,
+ "armas": {
+  "pistola": {
+   "tipo": 22,
+   "municion_antes": 100,
+   "despues": 100,
+   "camara_apuntando": 0,
+   "nan": 0,
+   "vivo": true,
+   "pools": {
+    "peds": 33,
+    "veh": 16,
+    "edif": 10113,
+    "obj": 100,
+    "dummy": 728
+   }
+  },
+  "escopeta": {
+   "tipo": 25,
+   "municion_antes": 99999,
+   "despues": 99999,
+   "camara_apuntando": 0,
+   "nan": 0,
+   "vivo": true,
+   "pools": {
+    "peds": 34,
+    "veh": 16,
+    "edif": 10113,
+    "obj": 100,
+    "dummy": 728
+   }
+  },
+  "uzi": {
+   "tipo": 28,
+   "municion_antes": 99999,
+   "despues": 99999,
+   "camara_apuntando": 0,
+   "nan": 0,
+   "vivo": true,
+   "pools": {
+    "peds": 33,
+    "veh": 16,
+    "edif": 10113,
+    "obj": 98,
+    "dummy": 728
+   }
+  },
+  "ak47": {
+   "tipo": 30,
+   "municion_antes": 99999,
+   "despues": 99999,
+   "camara_apuntando": 0,
+   "nan": 0,
+   "vivo": true,
+   "pools": {
+    "peds": 32,
+    "veh": 16,
+    "edif": 10113,
+    "obj": 98,
+    "dummy": 728
+   }
+  }
+ }
+}

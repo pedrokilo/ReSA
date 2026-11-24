@@ -1,0 +1,126 @@
+{
+ "conduccion": {
+  "reposo": {
+   "v_ini": 0.0,
+   "v_max": 0,
+   "v_fin": 0.0,
+   "avance": 0.0,
+   "dyaw_grados": 0.0,
+   "avance_sobre_frente": 0.0,
+   "nan": false
+  },
+  "W": {
+   "v_ini": 0.123,
+   "v_max": 0.174,
+   "v_fin": 0.145,
+   "avance": 15.36,
+   "dyaw_grados": 7.2,
+   "avance_sobre_frente": 15.27,
+   "nan": false
+  },
+  "W+A": {
+   "v_ini": 0.027,
+   "v_max": 0.077,
+   "v_fin": 0.016,
+   "avance": 2.25,
+   "dyaw_grados": -48.6,
+   "avance_sobre_frente": 2.17,
+   "nan": false
+  },
+  "W+D": {
+   "v_ini": 0.013,
+   "v_max": 0.143,
+   "v_fin": 0.084,
+   "avance": 12.71,
+   "dyaw_grados": 72.4,
+   "avance_sobre_frente": 1.74,
+   "nan": false
+  },
+  "S_frenar": {
+   "v_ini": 0.062,
+   "v_max": 0.204,
+   "v_fin": 0.203,
+   "avance": 20.09,
+   "dyaw_grados": 6.0,
+   "avance_sobre_frente": -20.09,
+   "nan": false
+  },
+  "reposo2": {
+   "v_ini": 0.203,
+   "v_max": 0.195,
+   "v_fin": 0.02,
+   "avance": 11.3,
+   "dyaw_grados": 0.1,
+   "avance_sobre_frente": -11.3,
+   "nan": false
+  },
+  "S_marcha_atras": {
+   "v_ini": 0.02,
+   "v_max": 0.203,
+   "v_fin": 0.155,
+   "avance": 20.18,
+   "dyaw_grados": 32.5,
+   "avance_sobre_frente": -18.38,
+   "nan": false
+  },
+  "freno_mano": {
+   "v_ini": 0.145,
+   "v_max": 0.111,
+   "v_fin": 0.0,
+   "avance": 2.68,
+   "dyaw_grados": 2.7,
+   "avance_sobre_frente": 2.65,
+   "nan": false
+  },
+  "W+Space": {
+   "v_ini": 0.0,
+   "v_max": 0.008,
+   "v_fin": 0.007,
+   "avance": 0.7,
+   "dyaw_grados": -1.4,
+   "avance_sobre_frente": 0.69,
+   "nan": false
+  }
+ },
+ "camara": {
+  "seq_V": [
+   [
+    18,
+    0,
+    0
+   ],
+   [
+    16,
+    0,
+    0
+   ],
+   [
+    56,
+    0,
+    1
+   ],
+   [
+    18,
+    0,
+    0
+   ],
+   [
+    18,
+    0,
+    0
+   ],
+   [
+    18,
+    0,
+    0
+   ]
+  ],
+  "forzada": {
+   "56": 49,
+   "15": 66
+  },
+  "tras_soltar": {
+   "16": 30
+  }
+ }
+}

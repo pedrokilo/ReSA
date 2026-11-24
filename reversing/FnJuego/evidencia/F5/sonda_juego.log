@@ -1,0 +1,72 @@
+[    0.1] pid 5980
+[    4.8] juego en marcha tras 5 s; gGameState=9
+[    5.5] salida de la casa: area=0 tras 1 s
+[    6.5] ventana: cliente 640x480
+[    6.5] === ESCENARIO xinput_coche
+[   15.9] truco spawn RZHSUEW vehiculos nuevos: [('0x8f357c8', 457)]
+[   20.1]   intento 1 (mando): en_coche=True estado=50
+[   20.1] entrar con mando: en_coche=True modelo=457
+[   20.6] captura xi_en_coche {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [50.6, 44.6, 30.6], "max": 255} CJ dentro del coche
+[   24.4] COCHE_FASE A_acelera {"avance": 0.01, "dyaw": -0.1, "vmax": 0.013, "vfin": 0.0, "pad": {"Cross": 255}}
+[   27.8] COCHE_FASE A+stick_der {"avance": 0.29, "dyaw": 0.6, "vmax": 0.005, "vfin": 0.005, "pad": {"LSX": 128, "Cross": 255}}
+[   31.2] COCHE_FASE A+stick_izq {"avance": 0.29, "dyaw": -0.6, "vmax": 0.007, "vfin": 0.005, "pad": {"LSX": -128, "Cross": 255}}
+[   31.5] captura xi_conduciendo {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [52.7, 41.1, 27.9], "max": 255} conduciendo con A y el stick
+[   34.9] COCHE_FASE X_freno {"avance": 1.34, "dyaw": 6.9, "vmax": 0.068, "vfin": 0.001, "pad": {"Square": 255}}
+[   37.2] COCHE_FASE RB_freno_de_mano {"avance": 0.0, "dyaw": -0.0, "vmax": 0, "vfin": 0.0, "pad": {"R1": 255}}
+[   38.9] COCHE_FASE RT {"avance": 0.0, "dyaw": 0.0, "vmax": 0, "vfin": 0.0, "pad": {"R2": 255}}
+[   40.8] COCHE_FASE LT {"avance": 0.0, "dyaw": 0.0, "vmax": 0, "vfin": 0.0, "pad": {"L2": 255}}
+[   41.3] Y para salir: en_coche=False estado=0
+[   46.9] captura xi_start {"ancho": 640, "alto": 480, "rojo": 2, "muestras": 34270, "media_rgb": [44.3, 36.2, 25.5], "max": 254} pantalla tras pulsar Start (esperado: menu de pausa)
+[   46.9] Start: reloj antes (1 s) avanza 1200 ms; tras Start avanza 1663 ms en 1.5 s => sin pausa
+[   50.3] Start otra vez: reloj avanza 1200 ms en 1 s => reanuda
+[   50.4] === ESCENARIO conduccion
+[   59.8] truco spawn RZHSUEW vehiculos nuevos: [('0x8f38028', 457)]
+[   64.4]   intento 1 (teclado): en_coche=True estado=50
+[   64.4] entrar con teclado: en_coche=True modelo=457
+[   64.8] captura cond_dentro {"ancho": 640, "alto": 480, "rojo": 1114, "muestras": 34270, "media_rgb": [64.1, 40.6, 16.5], "max": 255} CJ dentro del coche (tecla F)
+[   66.5] PRUEBA reposo {"v_ini": 0.0, "v_max": 0, "v_fin": 0.0, "avance": 0.0, "dyaw_grados": 0.0, "avance_sobre_frente": 0.0, "nan": false}
+[   69.6] PRUEBA W acelerar 3 s {"v_ini": 0.0, "v_max": 0.053, "v_fin": 0.027, "avance": 3.15, "dyaw_grados": -32.4, "avance_sobre_frente": -0.19, "nan": false}
+[   72.6] PRUEBA W+A (giro izq) {"v_ini": 0.027, "v_max": 0.077, "v_fin": 0.016, "avance": 2.25, "dyaw_grados": -48.6, "avance_sobre_frente": 2.17, "nan": false}
+[   73.0] captura cond_giro_izq {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [33.4, 26.1, 21.4], "max": 236} coche girando con W+A
+[   76.2] PRUEBA W+D (giro der) {"v_ini": 0.013, "v_max": 0.143, "v_fin": 0.084, "avance": 12.71, "dyaw_grados": 72.4, "avance_sobre_frente": 1.74, "nan": false}
+[   76.7] captura cond_giro_der {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [52.1, 39.8, 31.4], "max": 255} coche girando con W+D
+[   79.8] PRUEBA W otra vez (coger velocidad) {"v_ini": 0.133, "v_max": 0.15, "v_fin": 0.062, "avance": 7.92, "dyaw_grados": 38.6, "avance_sobre_frente": -6.04, "nan": false}
+[   83.0] PRUEBA S frenar (desde velocidad) {"v_ini": 0.062, "v_max": 0.204, "v_fin": 0.203, "avance": 20.09, "dyaw_grados": 6.0, "avance_sobre_frente": -20.09, "nan": false}
+[   85.0] PRUEBA soltar todo 2 s {"v_ini": 0.203, "v_max": 0.195, "v_fin": 0.02, "avance": 11.3, "dyaw_grados": 0.1, "avance_sobre_frente": -11.3, "nan": false}
+[   88.2] PRUEBA S desde parado (marcha atras) {"v_ini": 0.02, "v_max": 0.203, "v_fin": 0.155, "avance": 20.18, "dyaw_grados": 32.5, "avance_sobre_frente": -18.38, "nan": false}
+[   88.6] captura cond_atras {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [132.7, 126.6, 94.3], "max": 255} coche en marcha atras
+[   91.8] PRUEBA W para tener velocidad {"v_ini": 0.123, "v_max": 0.174, "v_fin": 0.145, "avance": 15.36, "dyaw_grados": 7.2, "avance_sobre_frente": 15.27, "nan": false}
+[   95.0] PRUEBA Espacio (freno de mano) a velocidad {"v_ini": 0.145, "v_max": 0.111, "v_fin": 0.0, "avance": 2.68, "dyaw_grados": 2.7, "avance_sobre_frente": 2.65, "nan": false}
+[   97.0] PRUEBA W+Espacio (derrape) {"v_ini": 0.0, "v_max": 0.008, "v_fin": 0.007, "avance": 0.7, "dyaw_grados": -1.4, "avance_sobre_frente": 0.69, "nan": false}
+[   97.1] === ESCENARIO camara
+[  106.5] truco spawn RZHSUEW vehiculos nuevos: [('0x8f36bf8', 457)]
+[  115.2]   intento 1 (teclado): en_coche=False estado=1
+[  117.9]   intento 2 (teclado): en_coche=True estado=50
+[  117.9] entrar con teclado: en_coche=True modelo=457
+[  117.9] camara inicial {'activa': 0, 'modo': 18, 'cinema': 0}
+[  119.7] tras V #1: modo=18 cinema=0 procesada=0
+[  121.6] tras V #2: modo=16 cinema=0 procesada=0
+[  123.5] tras V #3: modo=56 cinema=0 procesada=1
+[  125.3] tras V #4: modo=18 cinema=0 procesada=0
+[  125.8] captura cam_v4 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [74.3, 75.6, 65.8], "max": 255} camara tras 4 pulsaciones de V
+[  127.6] tras V #5: modo=18 cinema=0 procesada=0
+[  129.5] tras V #6: modo=18 cinema=0 procesada=0
+[  129.5] mantener V 4 s
+[  129.6]   t=0.1 modo=16 cinema=0 procesada=0
+[  133.9] captura cam_cine {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [97.1, 84.7, 38.9], "max": 236} camara tras mantener V
+[  133.9] Insert
+[  146.7] captura cam_ins {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [113.4, 112.2, 72.5], "max": 236} camara 12 s tras Insert
+[  146.7] modos vistos tras Insert: [16]
+[  146.7] forzando m_bCinemaCamera=1 durante 40 s dentro del coche (parado y en marcha)
+[  146.8]   t=0.1 modo=56 cinema=1 procesada=1 vel=0.016
+[  155.3] captura cam_forzada_8 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [110.2, 99.3, 79.9], "max": 255} camara cinematografica forzada, modo 56
+[  163.8]   t=17.1 modo=15 cinema=1 procesada=1 vel=0.005
+[  167.2] captura cam_forzada_20 {"ancho": 640, "alto": 480, "rojo": 6, "muestras": 34270, "media_rgb": [101.5, 90.1, 68.8], "max": 255} camara cinematografica forzada, modo 15
+[  179.2] captura cam_forzada_32 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [112.8, 138.0, 121.1], "max": 255} camara cinematografica forzada, modo 15
+[  186.9] modos vistos con la camara cinematografica forzada (modo: muestras): {56: 49, 15: 66}
+[  197.1] modos 10 s despues de soltarla: {16: 30} estado final (16, 0, 0)
+[  197.5] captura cam_tras_soltar {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [108.4, 104.1, 82.2], "max": 255} camara tras soltar el modo cinematografico
+[  197.8] vivo al final: True
+[  197.8] LOG [error][01:10:02.668][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  197.8] LOG [error][01:10:02.668][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  197.8] fin

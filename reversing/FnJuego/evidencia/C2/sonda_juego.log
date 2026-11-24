@@ -1,0 +1,152 @@
+[    0.1] pid 7148
+[    3.6] juego en marcha tras 4 s; gGameState=9
+[    4.3] salida de la casa: area=0 tras 1 s
+[    5.3] ventana: cliente 640x480
+[    5.3] === ESCENARIO interiores
+[   36.5] captura int_CARLS {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [109.5, 112.4, 96.5], "max": 255} interior CARLS (casa de CJ): CJ en (2495.330078125, -1690.75, 14.765625), area 0
+[   36.5] INTERIOR {"nombre": "CARLS (casa de CJ)", "entro": false, "area": 0, "pos": [2495.330078125, -1690.75, 14.765625], "tiempo_entrar_s": 24.5, "pools_antes": {"peds": 14, "veh": 7, "edif": 10329, "obj": 157, "dummy": 963}, "pools_dentro": {"peds": 10, "veh": 3, "edif": 10329, "obj": 158, "dummy": 963}}
+[   50.3] captura int_GYM1 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [0.0, 0.0, 0.0], "max": 0} interior GYM1 (gimnasio Ganton): CJ en (772.1119995117188, -3.8986499309539795, 1000.7288208007812), area 5
+[   50.3] EXCEPCION en el escenario interiores TypeError("'NoneType' object is not subscriptable") Traceback (most recent call last):
+  File "D:\Original\wv-juego\reversing\FnJuego\sonda_juego.py", line 542, in main
+    try: ESCENARIOS[e](j)
+         ~~~~~~~~~~~~~^^^
+  File "D:\Original\wv-juego\reversing\FnJuego\sonda_juego.py", line 468, in esc_interiores
+    z0 = j.pos()[2]; r['z_dentro'] = z0
+         ~~~~~~~^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[   50.4] EL PROCESO TERMINO durante interiores
+[   50.6] vivo al final: False
+[   50.6] LOG [error][01:00:27.489][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   50.6] LOG [error][01:00:27.490][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   50.6] LOG [error][01:01:07.483][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ptr` en D:\Original\wv-int\source\game_sa\Scripts\CommandParser\ReadArg.hpp:120
+[   50.6] LOG [error][01:01:07.861][app_debug.cpp:246]: 	0x01162d01: notsa::script::Read<CPed &>:120
+[   50.6] LOG [error][01:01:07.872][app_debug.cpp:246]: 	0x0123d6c1: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>:52
+[   50.6] LOG [error][01:01:07.879][app_debug.cpp:246]: 	0x0121b4db: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>'::`3'::<lambda_1>::operator()<enum eScriptCommands &>:40
+[   50.6] LOG [error][01:01:07.881][app_debug.cpp:246]: 	0x0123d630: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>:65
+[   50.6] LOG [error][01:01:07.885][app_debug.cpp:246]: 	0x0121aa94: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>'::`3'::<lambda_1>::operator()<CRunningScript &>:40
+[   50.6] LOG [error][01:01:07.887][app_debug.cpp:246]: 	0x0123d5a5: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>:65
+[   50.6] LOG [error][01:01:07.889][app_debug.cpp:246]: 	0x01246541: notsa::script::detail::CommandParser<1506,&`anonymous namespace'::TaskKillCharOnFoot>:78
+[   50.6] LOG [error][01:01:07.893][app_debug.cpp:246]: 	0x01ddea54: std::invoke<enum OpcodeResult (__cdecl*const &)(CRunningScript *),CRunningScript *>:1811
+[   50.6] LOG [error][01:01:07.896][app_debug.cpp:246]: 	0x01df2e49: CRunningScript::ProcessOneCommand:1295
+[   50.6] LOG [error][01:01:07.899][app_debug.cpp:246]: 	0x01de8fe0: CRunningScript::Process:1322
+[   50.6] LOG [error][01:01:07.903][app_debug.cpp:246]: 	0x0232dbd4: CTheScripts::Process:1889
+[   50.6] LOG [error][01:01:07.907][app_debug.cpp:246]: 	0x016f288a: CGame::Process:791
+[   50.6] LOG [error][01:01:07.909][app_debug.cpp:246]: 	0x00fd0f95: Idle:346
+[   50.6] LOG [error][01:01:07.912][app_debug.cpp:246]: 	0x00fb550d: AppEventHandler:169
+[   50.6] LOG [error][01:01:07.915][app_debug.cpp:246]: 	0x01bbd428: RsEventHandler:349
+[   50.6] LOG [error][01:01:07.917][app_debug.cpp:246]: 	0x024fa4be: ProcessGameLogic:345
+[   50.6] LOG [error][01:01:07.918][app_debug.cpp:246]: 	0x024f9419: MainLoop:371
+[   50.6] LOG [error][01:01:07.919][app_debug.cpp:246]: 	0x024f9d2e: NOTSA_WinMain:510
+[   50.6] LOG [error][01:01:07.920][app_debug.cpp:246]: 	0x00e2f65b: WinMain:693
+[   50.6] LOG [error][01:01:07.922][app_debug.cpp:246]: 	0x02a83e1d: invoke_main:107
+[   50.6] LOG [error][01:01:07.923][app_debug.cpp:246]: 	0x02a83cfa: __scrt_common_main_seh:288
+[   50.6] LOG [error][01:01:07.923][app_debug.cpp:246]: 	0x02a83b9d: __scrt_common_main:331
+[   50.6] LOG [error][01:01:07.924][app_debug.cpp:246]: 	0x02a83e88: WinMainCRTStartup:17
+[   50.6] LOG [error][01:01:07.925][app_debug.cpp:246]: 	0x00e3286b: FaseEntrada:664
+[   50.6] LOG [error][01:01:07.925][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[   50.6] LOG [error][01:01:07.925][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[   50.6] LOG [error][01:01:07.926][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[   50.6] LOG [error][01:01:07.926][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ped` en D:\Original\wv-int\source\game_sa\Scripts\RunningScript.cpp:339
+[   50.6] LOG [error][01:01:07.926][app_debug.cpp:246]: 	0x01de18f0: CRunningScript::GivePedScriptedTask:339
+[   50.6] LOG [error][01:01:07.927][app_debug.cpp:246]: 	0x01de1c5b: CRunningScript::GivePedScriptedTask:372
+[   50.6] LOG [error][01:01:07.928][app_debug.cpp:246]: 	0x012ab360: `anonymous namespace'::TaskKillCharOnFoot:2784
+[   50.6] LOG [error][01:01:07.930][app_debug.cpp:246]: 	0x01264b81: std::invoke<void (__cdecl*&)(CRunningScript &,enum eScriptCommands,CPed &,CPed &),CRunningScript &,enum eScriptCommands &,CPed &,CPed &>:1811
+[   50.6] LOG [error][01:01:07.932][app_debug.cpp:246]: 	0x0126fc57: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &,CPed &>'::`3'::<lambda_1>::operator():
+[   50.6] LOG [error][01:01:07.933][app_debug.cpp:246]: 	0x0123d800: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &,CPed &>:26
+[   50.6] LOG [error][01:01:07.934][app_debug.cpp:246]: 	0x01219bd9: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &>'::`3'::<lambda_1>::operator()<CPed &>
+[   50.6] LOG [error][01:01:07.934][app_debug.cpp:246]: 	0x0123d771: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &>:65
+[   50.6] LOG [error][01:01:07.935][app_debug.cpp:246]: 	0x01219b62: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>'::`3'::<lambda_1>::operator()<CPed &>:40
+[   50.6] LOG [error][01:01:07.936][app_debug.cpp:246]: 	0x0123d6cd: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>:65
+[   50.6] LOG [error][01:01:07.936][app_debug.cpp:246]: 	0x0121b4db: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>'::`3'::<lambda_1>::operator()<enum eScriptCommands &>:40
+[   50.6] LOG [error][01:01:07.936][app_debug.cpp:246]: 	0x0123d630: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>:65
+[   50.6] LOG [error][01:01:07.936][app_debug.cpp:246]: 	0x0121aa94: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>'::`3'::<lambda_1>::operator()<CRunningScript &>:40
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x0123d5a5: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>:65
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x01246541: notsa::script::detail::CommandParser<1506,&`anonymous namespace'::TaskKillCharOnFoot>:78
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x01ddea54: std::invoke<enum OpcodeResult (__cdecl*const &)(CRunningScript *),CRunningScript *>:1811
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x01df2e49: CRunningScript::ProcessOneCommand:1295
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x01de8fe0: CRunningScript::Process:1322
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x0232dbd4: CTheScripts::Process:1889
+[   50.6] LOG [error][01:01:07.938][app_debug.cpp:246]: 	0x016f288a: CGame::Process:791
+[   50.6] LOG [error][01:01:07.938][app_debug.cpp:246]: 	0x00fd0f95: Idle:346
+[   50.6] LOG [error][01:01:07.938][app_debug.cpp:246]: 	0x00fb550d: AppEventHandler:169
+[   50.6] LOG [error][01:01:07.938][app_debug.cpp:246]: 	0x01bbd428: RsEventHandler:349
+[   50.6] LOG [error][01:01:07.939][app_debug.cpp:246]: 	0x024fa4be: ProcessGameLogic:345
+[   50.6] LOG [error][01:01:07.939][app_debug.cpp:246]: 	0x024f9419: MainLoop:371
+[   50.6] LOG [error][01:01:07.939][app_debug.cpp:246]: 	0x024f9d2e: NOTSA_WinMain:510
+[   50.6] LOG [error][01:01:07.940][app_debug.cpp:246]: 	0x00e2f65b: WinMain:693
+[   50.6] LOG [error][01:01:07.940][app_debug.cpp:246]: 	0x02a83e1d: invoke_main:107
+[   50.6] LOG [error][01:01:07.940][app_debug.cpp:246]: 	0x02a83cfa: __scrt_common_main_seh:288
+[   50.6] LOG [error][01:01:07.941][app_debug.cpp:246]: 	0x02a83b9d: __scrt_common_main:331
+[   50.6] LOG [error][01:01:07.941][app_debug.cpp:246]: 	0x02a83e88: WinMainCRTStartup:17
+[   50.6] LOG [error][01:01:07.941][app_debug.cpp:246]: 	0x00e3286b: FaseEntrada:664
+[   50.6] LOG [error][01:00:27.489][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   50.6] LOG [error][01:00:27.490][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   50.6] LOG [error][01:01:07.483][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ptr` en D:\Original\wv-int\source\game_sa\Scripts\CommandParser\ReadArg.hpp:120
+[   50.6] LOG [error][01:01:07.861][app_debug.cpp:246]: 	0x01162d01: notsa::script::Read<CPed &>:120
+[   50.6] LOG [error][01:01:07.872][app_debug.cpp:246]: 	0x0123d6c1: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>:52
+[   50.6] LOG [error][01:01:07.879][app_debug.cpp:246]: 	0x0121b4db: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>'::`3'::<lambda_1>::operator()<enum eScriptCommands &>:40
+[   50.6] LOG [error][01:01:07.881][app_debug.cpp:246]: 	0x0123d630: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>:65
+[   50.6] LOG [error][01:01:07.885][app_debug.cpp:246]: 	0x0121aa94: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>'::`3'::<lambda_1>::operator()<CRunningScript &>:40
+[   50.6] LOG [error][01:01:07.887][app_debug.cpp:246]: 	0x0123d5a5: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>:65
+[   50.6] LOG [error][01:01:07.889][app_debug.cpp:246]: 	0x01246541: notsa::script::detail::CommandParser<1506,&`anonymous namespace'::TaskKillCharOnFoot>:78
+[   50.6] LOG [error][01:01:07.893][app_debug.cpp:246]: 	0x01ddea54: std::invoke<enum OpcodeResult (__cdecl*const &)(CRunningScript *),CRunningScript *>:1811
+[   50.6] LOG [error][01:01:07.896][app_debug.cpp:246]: 	0x01df2e49: CRunningScript::ProcessOneCommand:1295
+[   50.6] LOG [error][01:01:07.899][app_debug.cpp:246]: 	0x01de8fe0: CRunningScript::Process:1322
+[   50.6] LOG [error][01:01:07.903][app_debug.cpp:246]: 	0x0232dbd4: CTheScripts::Process:1889
+[   50.6] LOG [error][01:01:07.907][app_debug.cpp:246]: 	0x016f288a: CGame::Process:791
+[   50.6] LOG [error][01:01:07.909][app_debug.cpp:246]: 	0x00fd0f95: Idle:346
+[   50.6] LOG [error][01:01:07.912][app_debug.cpp:246]: 	0x00fb550d: AppEventHandler:169
+[   50.6] LOG [error][01:01:07.915][app_debug.cpp:246]: 	0x01bbd428: RsEventHandler:349
+[   50.6] LOG [error][01:01:07.917][app_debug.cpp:246]: 	0x024fa4be: ProcessGameLogic:345
+[   50.6] LOG [error][01:01:07.918][app_debug.cpp:246]: 	0x024f9419: MainLoop:371
+[   50.6] LOG [error][01:01:07.919][app_debug.cpp:246]: 	0x024f9d2e: NOTSA_WinMain:510
+[   50.6] LOG [error][01:01:07.920][app_debug.cpp:246]: 	0x00e2f65b: WinMain:693
+[   50.6] LOG [error][01:01:07.922][app_debug.cpp:246]: 	0x02a83e1d: invoke_main:107
+[   50.6] LOG [error][01:01:07.923][app_debug.cpp:246]: 	0x02a83cfa: __scrt_common_main_seh:288
+[   50.6] LOG [error][01:01:07.923][app_debug.cpp:246]: 	0x02a83b9d: __scrt_common_main:331
+[   50.6] LOG [error][01:01:07.924][app_debug.cpp:246]: 	0x02a83e88: WinMainCRTStartup:17
+[   50.6] LOG [error][01:01:07.925][app_debug.cpp:246]: 	0x00e3286b: FaseEntrada:664
+[   50.6] LOG [error][01:01:07.925][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[   50.6] LOG [error][01:01:07.925][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[   50.6] LOG [error][01:01:07.926][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[   50.6] LOG [error][01:01:07.926][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ped` en D:\Original\wv-int\source\game_sa\Scripts\RunningScript.cpp:339
+[   50.6] LOG [error][01:01:07.926][app_debug.cpp:246]: 	0x01de18f0: CRunningScript::GivePedScriptedTask:339
+[   50.6] LOG [error][01:01:07.927][app_debug.cpp:246]: 	0x01de1c5b: CRunningScript::GivePedScriptedTask:372
+[   50.6] LOG [error][01:01:07.928][app_debug.cpp:246]: 	0x012ab360: `anonymous namespace'::TaskKillCharOnFoot:2784
+[   50.6] LOG [error][01:01:07.930][app_debug.cpp:246]: 	0x01264b81: std::invoke<void (__cdecl*&)(CRunningScript &,enum eScriptCommands,CPed &,CPed &),CRunningScript &,enum eScriptCommands &,CPed &,CPed &>:1811
+[   50.6] LOG [error][01:01:07.932][app_debug.cpp:246]: 	0x0126fc57: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &,CPed &>'::`3'::<lambda_1>::operator():
+[   50.6] LOG [error][01:01:07.933][app_debug.cpp:246]: 	0x0123d800: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &,CPed &>:26
+[   50.6] LOG [error][01:01:07.934][app_debug.cpp:246]: 	0x01219bd9: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &>'::`3'::<lambda_1>::operator()<CPed &>
+[   50.6] LOG [error][01:01:07.934][app_debug.cpp:246]: 	0x0123d771: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &>:65
+[   50.6] LOG [error][01:01:07.935][app_debug.cpp:246]: 	0x01219b62: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>'::`3'::<lambda_1>::operator()<CPed &>:40
+[   50.6] LOG [error][01:01:07.936][app_debug.cpp:246]: 	0x0123d6cd: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>:65
+[   50.6] LOG [error][01:01:07.936][app_debug.cpp:246]: 	0x0121b4db: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>'::`3'::<lambda_1>::operator()<enum eScriptCommands &>:40
+[   50.6] LOG [error][01:01:07.936][app_debug.cpp:246]: 	0x0123d630: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>:65
+[   50.6] LOG [error][01:01:07.936][app_debug.cpp:246]: 	0x0121aa94: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>'::`3'::<lambda_1>::operator()<CRunningScript &>:40
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x0123d5a5: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>:65
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x01246541: notsa::script::detail::CommandParser<1506,&`anonymous namespace'::TaskKillCharOnFoot>:78
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x01ddea54: std::invoke<enum OpcodeResult (__cdecl*const &)(CRunningScript *),CRunningScript *>:1811
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x01df2e49: CRunningScript::ProcessOneCommand:1295
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x01de8fe0: CRunningScript::Process:1322
+[   50.6] LOG [error][01:01:07.937][app_debug.cpp:246]: 	0x0232dbd4: CTheScripts::Process:1889
+[   50.6] LOG [error][01:01:07.938][app_debug.cpp:246]: 	0x016f288a: CGame::Process:791
+[   50.6] LOG [error][01:01:07.938][app_debug.cpp:246]: 	0x00fd0f95: Idle:346
+[   50.6] LOG [error][01:01:07.938][app_debug.cpp:246]: 	0x00fb550d: AppEventHandler:169
+[   50.6] LOG [error][01:01:07.938][app_debug.cpp:246]: 	0x01bbd428: RsEventHandler:349
+[   50.6] LOG [error][01:01:07.939][app_debug.cpp:246]: 	0x024fa4be: ProcessGameLogic:345
+[   50.6] LOG [error][01:01:07.939][app_debug.cpp:246]: 	0x024f9419: MainLoop:371
+[   50.6] LOG [error][01:01:07.939][app_debug.cpp:246]: 	0x024f9d2e: NOTSA_WinMain:510
+[   50.6] LOG [error][01:01:07.940][app_debug.cpp:246]: 	0x00e2f65b: WinMain:693
+[   50.6] LOG [error][01:01:07.940][app_debug.cpp:246]: 	0x02a83e1d: invoke_main:107
+[   50.6] LOG [error][01:01:07.940][app_debug.cpp:246]: 	0x02a83cfa: __scrt_common_main_seh:288
+[   50.6] LOG [error][01:01:07.941][app_debug.cpp:246]: 	0x02a83b9d: __scrt_common_main:331
+[   50.6] LOG [error][01:01:07.941][app_debug.cpp:246]: 	0x02a83e88: WinMainCRTStartup:17
+[   50.6] LOG [error][01:01:07.941][app_debug.cpp:246]: 	0x00e3286b: FaseEntrada:664
+[   50.6] LOG [info][01:01:07.963][app_debug.cpp:105]: *********UNHANDLED EXCEPTION**********
+[   50.6] LOG [info][01:01:07.963][app_debug.cpp:110]: Código de excepción: 0xc0000005
+[   50.6] LOG [info][01:01:07.963][app_debug.cpp:111]: Indicadores de excepción: 0x00000000
+[   50.6] LOG [info][01:01:07.963][app_debug.cpp:112]: Dirección de excepción: 0x01de197f
+[   50.6] LOG [info][01:01:08.004][app_debug.cpp:212]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   50.6] LOG [info][01:01:08.020][app_debug.cpp:105]: *********END OF UNHANDLED EXCEPTION**********
+[   50.6] fin
