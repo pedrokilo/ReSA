@@ -7,8 +7,9 @@ aqui = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, aqui)
 import png_util as P
 
 W, H = 800, 600
-def zona(x, y):          # cielo: franja superior (y<300), sin el HUD de arriba a la derecha (reloj, dinero, salud, aire) ni el texto del borde
-    return y < 300 and not (x >= 540 and y < 150)
+ALTO = os.environ.get("CIELO_ALTO") == "1"
+def zona(x, y):          # cielo despejado entre la palmera (izq.), CJ y la valla (der.): rectangulo fijo del cielo sobre CJ
+    return (180 <= x < 470 and y < 230) if not ALTO else y < 300
 def mascara():
     return [zona(x, y) for y in range(H) for x in range(W)]
 MASK = mascara()
@@ -47,8 +48,8 @@ def metricas(a, b):
 def rugosidad(im):
     """media del |gradiente| horizontal+vertical de la luminancia en el cielo (mide si hay formas/barras o un degradado liso)"""
     w, h, rgb = im; tot = 0; n = 0
-    for y in range(0, 300, 2):
-        for x in range(0, 540, 2):
+    for y in range(0, 230, 2):
+        for x in range(180, 470, 2):
             i = y * w + x
             l0 = rgb[3 * i] + rgb[3 * i + 1] + rgb[3 * i + 2]
             l1 = rgb[3 * (i + 1)] + rgb[3 * (i + 1) + 1] + rgb[3 * (i + 1) + 2]
