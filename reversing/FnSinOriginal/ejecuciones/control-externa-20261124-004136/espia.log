@@ -1,0 +1,14 @@
+#ESPIA parcheado NtCreateFile
+#ESPIA parcheado NtOpenFile
+#ESPIA parcheado NtQueryAttributesFile
+#ESPIA parcheado NtQueryFullAttributesFile
+0	23512	NtQueryAttributesFile	\??\D:\Original\_sin_original_run\UMPDC.dll
+0	23512	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\UMPDC.dll
+0	23512	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\UMPDC.dll
+0	23512	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\UMPDC.dll
+0	23512	NtCreateFile	\Device\DeviceApi\CMApi
+0	23512	NtCreateFile	\??\D:\Original\_sin_original_run\gta_sa_standalone.exe
+15	23512	NtCreateFile	\??\C:\WINDOWS\Globalization\Sorting\sortdefault.nls
+15	23512	NtCreateFile	\??\D:\Original\wv-limpio\reversing\FnSinOriginal\ejecuciones\control-externa-20261124-004136\fase8_arranque.log
+15	23512	NtCreateFile	\??\D:\Original\wv-limpio\reversing\FnSinOriginal\ejecuciones\control-externa-20261124-004136\fase8_codigo_original.csv
+15	23512	NtCreateFile	\??\D:\Original\_sin_original_decoy\gta-sa.exe

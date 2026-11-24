@@ -1,0 +1,2 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo estricto, imagen del original EXTERNA (--imagen-externa, lectura de la ruta)
+ERROR: tamano 31 distinto de 5189632 (no es el gta_sa.exe 1.0 US)

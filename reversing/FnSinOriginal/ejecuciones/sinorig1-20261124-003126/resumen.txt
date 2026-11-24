@@ -1,0 +1,9 @@
+exe en la carpeta de juego: ['gta_sa_standalone.exe']
+pid=21180 lanzado con espia (inyeccion antes del TLS) tras 3.58 s
+t=20 vivo {'ancho': 800, 'alto': 600, 'rojo': 226, 'muestras': 53568, 'media_rgb': [112.6, 103.7, 90.1], 'max': 237}
+t=60 vivo {'ancho': 800, 'alto': 600, 'rojo': 0, 'muestras': 53568, 'media_rgb': [57.6, 63.6, 59.0], 'max': 255}
+t=120 vivo {'ancho': 800, 'alto': 600, 'rojo': 0, 'muestras': 53568, 'media_rgb': [71.7, 61.2, 47.8], 'max': 255}
+t=180 vivo {'ancho': 800, 'alto': 600, 'rojo': 8, 'muestras': 53568, 'media_rgb': [57.6, 51.4, 41.1], 'max': 255}
+t=240 vivo {'ancho': 800, 'alto': 600, 'rojo': 0, 'muestras': 53568, 'media_rgb': [83.4, 77.9, 61.1], 'max': 255}
+t=300 vivo {'ancho': 800, 'alto': 600, 'rojo': 0, 'muestras': 53568, 'media_rgb': [87.6, 82.2, 60.4], 'max': 255}
+exit=0xDEAD0002 duracion=334.0 s

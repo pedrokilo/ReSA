@@ -1,0 +1,4 @@
+exe en la carpeta de juego: ['gta_sa_standalone.exe']
+pid=17868 lanzado con espia (inyeccion antes del TLS) tras 0.06 s
+proceso terminado antes de t=5: 0x00000004
+exit=0x00000004 duracion=0.1 s

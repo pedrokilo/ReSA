@@ -1,0 +1,317 @@
+#ESPIA parcheado NtCreateFile
+#ESPIA parcheado NtOpenFile
+#ESPIA parcheado NtQueryAttributesFile
+#ESPIA parcheado NtQueryFullAttributesFile
+0	16516	NtQueryAttributesFile	\??\C:\WINDOWS\system32\oleaut32.dll
+0	16516	NtOpenFile	\??\C:\WINDOWS\system32\oleaut32.dll
+0	16516	NtCreateFile	\??\C:\WINDOWS\Globalization\Sorting\sortdefault.nls
+0	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\FnFase8\salida\cl.rsp
+0	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\CRYPTSP.dll
+0	16516	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\CRYPTSP.dll
+0	16516	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\CRYPTSP.dll
+0	16516	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\CRYPTSP.dll
+0	16516	NtQueryAttributesFile	\??\C:\WINDOWS\system32\rsaenh.dll
+0	16516	NtOpenFile	\??\C:\WINDOWS\system32\rsaenh.dll
+0	16516	NtOpenFile	\??\C:\WINDOWS\system32\rsaenh.dll
+0	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\CRYPTBASE.dll
+0	16516	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\CRYPTBASE.dll
+0	16516	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\CRYPTBASE.dll
+0	16516	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\CRYPTBASE.dll
+0	16516	NtOpenFile	\Device\KsecDD
+0	16516	NtOpenFile	\??\C:\WINDOWS\System32\bcryptPrimitives.dll
+0	16516	NtOpenFile	\Device\CNG
+0	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\FnFase8\salida\cl.rsp
+0	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\FnFase8\salida\cl.rsp
+0	16516	NtQueryFullAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\cl.exe
+0	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\VERSION.dll
+0	16516	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\VERSION.dll
+0	16516	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\VERSION.dll
+0	16516	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\VERSION.dll
+0	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\cl.exe
+0	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\cl.exe
+16	16516	NtOpenFile	\??\C:\
+16	16516	NtQueryFullAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c1xx.dll
+16	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\{37C011B8-6444-40DF-801D-C05AC861CE0B}
+16	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c1xx.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c1xx.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c1xx.dll
+16	16516	NtOpenFile	\??\C:\WINDOWS\System32\SHLWAPI.dll
+16	16516	NtOpenFile	\??\C:\WINDOWS\System32\PSAPI.DLL
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c1xx.dll
+16	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\mspdbcore.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\mspdbcore.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\mspdbcore.dll
+16	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_ATOMIC_WAIT.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_ATOMIC_WAIT.dll
+16	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_1.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_1.dll
+16	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\tbbmalloc.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\tbbmalloc.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\tbbmalloc.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_ATOMIC_WAIT.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_1.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\tbbmalloc.dll
+16	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\mspdbcore.dll
+16	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3ex
+16	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3sy
+16	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3gl
+16	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3in
+16	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3db
+16	16516	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\tzres.dll
+16	16516	NtCreateFile	\??\C:\WINDOWS\SYSTEM32\tzres.dll
+16	16516	NtOpenFile	\??\C:\Program Files\WindowsApps\Microsoft.LanguageExperiencePackes-MX_26100.132.257.0_neutral__8wekyb3d8bbwe\Windows\SYSTEM32\es-MX\c3930aa42b1db7e48c4c407c1029b4f1\tzres.dll.mui
+16	16516	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\tzres.dll
+16	16516	NtCreateFile	\??\C:\WINDOWS\SYSTEM32\tzres.dll
+16	16516	NtOpenFile	\??\C:\Program Files\WindowsApps\Microsoft.LanguageExperiencePackes-MX_26100.132.257.0_neutral__8wekyb3d8bbwe\Windows\SYSTEM32\es-MX\c3930aa42b1db7e48c4c407c1029b4f1\tzres.dll.mui
+16	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\app\platform\win\
+16	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\app\platform\win\StandaloneExe.cpp
+16	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\bcrypt.dll
+16	16516	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\bcrypt.dll
+16	16516	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\bcrypt.dll
+16	16516	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\bcrypt.dll
+16	16516	NtOpenFile	\Device\KsecDD
+16	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\2058\clui.dll
+16	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\2058\clui.dll.DLL
+16	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\10\clui.dll
+16	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\10\clui.dll.DLL
+16	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\3082\clui.dll
+16	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\3082\clui.dll
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\toolsmenu\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Debug\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Animation\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Attractors\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Config\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Entities\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Hardware\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Loaders\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Managers\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Utility\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Collision\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Conversations\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Core\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Entity\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Entity\Dummy\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Entity\Object\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Entity\Ped\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Entity\Vehicle\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Enums\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Events\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Frontend\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Fx\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Fx\Blueprints\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Fx\Blueprints\Interp\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Interior\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Memory\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Models\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Plant\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Plugins\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Pipelines\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Pipelines\CustomBuilding\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Pipelines\CustomCarEnvMap\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\RenderWare\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\RenderWare\rw\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Scripts\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Tasks\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Tasks\TaskTypes\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Tasks\TaskTypes\SeekEntity\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\app\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\app\imgui\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\app\platform\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\app\platform\android\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\app\platform\win\VideoPlayer\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\app\platform\linux\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\app\securom\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\oswrapper\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\source\libs\imgui\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\libs\zlib-1.1.3\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\libs\libpng-1.0.12\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\nlohmd014ef7748f4b\p\include\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\ogg21219f4658423\p\include\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\spdlo8029646db848c\p\include\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\tracy2fefc9668738f\p\include\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\vorbi9990e9d508d57\p\include\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\imgui5396f0f7f8179\p\include\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\libjpbe5e6c22fbdf6\p\include\
+31	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\sdlc3cf2c66533bd\p\include\
+31	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\
+31	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\VS\include\
+31	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\
+31	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\
+31	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\windows.h
+31	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\
+31	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\winapifamily.h
+31	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\winpackagefamily.h
+31	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\sdkddkver.h
+31	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\excpt.h
+31	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\vcruntime.h
+31	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\sal.h
+31	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\concurrencysal.h
+31	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\vadefs.h
+31	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\stdarg.h
+31	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\windef.h
+31	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\minwindef.h
+31	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\specstrings.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\specstrings_strict.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\specstrings_undef.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\driverspecs.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\sdv_driverspecs.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\winnt.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\ctype.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wctype.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\kernelspecs.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\basetsd.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\guiddef.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\string.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_memory.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_memcpy_s.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\errno.h
+47	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\vcruntime_string.h
+47	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstring.h
+63	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack4.h
+63	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+63	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack4.h
+63	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+63	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack4.h
+63	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack4.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack2.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack2.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack2.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack8.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack1.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack1.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\apiset.h
+78	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\ktmtypes.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\winbase.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\apisetcconv.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\minwinbase.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\apiquery2.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\processenv.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\fileapifromapp.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\fileapi.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\debugapi.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\utilapiset.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\handleapi.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\errhandlingapi.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\fibersapi.h
+94	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\namedpipeapi.h
+110	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\profileapi.h
+110	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\heapapi.h
+110	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\ioapiset.h
+110	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\synchapi.h
+110	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\interlockedapi.h
+110	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\processthreadsapi.h
+110	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\sysinfoapi.h
+110	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\memoryapi.h
+110	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\enclaveapi.h
+110	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\threadpoollegacyapiset.h
+110	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\threadpoolapiset.h
+125	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\jobapi.h
+125	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\jobapi2.h
+125	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\wow64apiset.h
+125	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\libloaderapi.h
+125	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\securitybaseapi.h
+125	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\namespaceapi.h
+125	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\systemtopologyapi.h
+125	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\processtopologyapi.h
+125	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\securityappcontainer.h
+125	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\realtimeapiset.h
+141	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\winerror.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\timezoneapi.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\wingdi.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack1.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack2.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack2.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack4.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack4.h
+156	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+172	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\winuser.h
+188	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\pshpack2.h
+188	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\poppack.h
+203	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\tvout.h
+203	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\winnls.h
+203	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\datetimeapi.h
+203	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\stringapiset.h
+203	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\winnls.h
+203	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\wincon.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\wincontypes.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\consoleapi.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\consoleapi2.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\consoleapi3.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\winver.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\verrsrc.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\winreg.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\reason.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\winnetwk.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\wnnc.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\stralign.h
+219	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\winsvc.h
+235	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\mcx.h
+235	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\imm.h
+235	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\ime_cmodes.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\cstdarg
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\yvals_core.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xkeycheck.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\cstdint
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\stdint.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\intrin.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\intrin0.inl.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\setjmp.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\immintrin.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\wmmintrin.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\nmmintrin.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\smmintrin.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\tmmintrin.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\pmmintrin.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\emmintrin.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xmmintrin.h
+235	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\mmintrin.h
+235	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\malloc.h
+235	16516	NtCreateFile	\??\C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_malloc.h
+250	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\zmmintrin.h
+281	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\ammintrin.h
+281	16516	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\mm3dnow.h
+297	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\{37C011B8-6444-40DF-801D-C05AC861CE0B}
+297	16516	NtCreateFile	\??\pipe\VCTIP_14.51.36257.0_PIPE
+313	16516	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\{37C011B8-6444-40DF-801D-C05AC861CE0B}
+313	16516	NtQueryFullAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c2.dll
+313	16516	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c2.dll
+313	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c2.dll
+313	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c2.dll
+313	16516	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c2.dll
+313	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3gl
+313	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3in
+313	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3ex
+313	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3sy
+313	16516	NtCreateFile	\??\D:\Original\wv-limpio\reversing\FnSinOriginal\ejecuciones\traza-enlace\StandaloneExe.obj
+313	16516	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3db
+313	16624	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+313	16624	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+313	16624	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+313	16516	NtCreateFile	\??\pipe\VCTIP_14.51.36257.0_PIPE
+313	16516	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3ex
+313	16516	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3sy
+313	16516	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3gl
+313	16516	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3in
+313	16516	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3db
+313	16516	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3md
+313	16516	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3.ifc
+313	16516	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3.ifcast
+313	16516	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_ddf2ded6a03d8fec33519420774534e3.ruleset
+313	16516	NtCreateFile	\??\pipe\VCTIP_14.51.36257.0_PIPE
+313	16516	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_2180b9adfc850432111fd8ff6d9dc701lk

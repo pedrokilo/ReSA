@@ -1,0 +1,177 @@
+#ESPIA parcheado NtCreateFile
+#ESPIA parcheado NtOpenFile
+#ESPIA parcheado NtQueryAttributesFile
+#ESPIA parcheado NtQueryFullAttributesFile
+0	3248	NtQueryAttributesFile	\??\C:\WINDOWS\system32\oleaut32.dll
+0	3248	NtOpenFile	\??\C:\WINDOWS\system32\oleaut32.dll
+0	3248	NtCreateFile	\??\C:\WINDOWS\Globalization\Sorting\sortdefault.nls
+0	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\FnFase8\salida\cl.rsp
+0	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\CRYPTSP.dll
+0	3248	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\CRYPTSP.dll
+0	3248	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\CRYPTSP.dll
+0	3248	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\CRYPTSP.dll
+0	3248	NtQueryAttributesFile	\??\C:\WINDOWS\system32\rsaenh.dll
+0	3248	NtOpenFile	\??\C:\WINDOWS\system32\rsaenh.dll
+0	3248	NtOpenFile	\??\C:\WINDOWS\system32\rsaenh.dll
+0	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\CRYPTBASE.dll
+0	3248	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\CRYPTBASE.dll
+0	3248	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\CRYPTBASE.dll
+0	3248	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\CRYPTBASE.dll
+0	3248	NtOpenFile	\Device\KsecDD
+0	3248	NtOpenFile	\??\C:\WINDOWS\System32\bcryptPrimitives.dll
+0	3248	NtOpenFile	\Device\CNG
+0	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\FnFase8\salida\cl.rsp
+0	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\FnFase8\salida\cl.rsp
+16	3248	NtQueryFullAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\cl.exe
+16	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\VERSION.dll
+16	3248	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\VERSION.dll
+16	3248	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\VERSION.dll
+16	3248	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\VERSION.dll
+16	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\cl.exe
+16	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\cl.exe
+16	3248	NtOpenFile	\??\C:\
+16	3248	NtQueryFullAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c1xx.dll
+16	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\{EF25D908-536F-4736-891E-8E3A5572353B}
+16	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c1xx.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c1xx.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c1xx.dll
+16	3248	NtOpenFile	\??\C:\WINDOWS\System32\SHLWAPI.dll
+16	3248	NtOpenFile	\??\C:\WINDOWS\System32\PSAPI.DLL
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c1xx.dll
+16	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\mspdbcore.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\mspdbcore.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\mspdbcore.dll
+16	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_ATOMIC_WAIT.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_ATOMIC_WAIT.dll
+16	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_1.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_1.dll
+16	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\tbbmalloc.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\tbbmalloc.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\tbbmalloc.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_ATOMIC_WAIT.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\MSVCP140_1.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\tbbmalloc.dll
+16	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\mspdbcore.dll
+16	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15aex
+16	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15asy
+16	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15agl
+32	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15ain
+32	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15adb
+32	3248	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\tzres.dll
+32	3248	NtCreateFile	\??\C:\WINDOWS\SYSTEM32\tzres.dll
+32	3248	NtOpenFile	\??\C:\Program Files\WindowsApps\Microsoft.LanguageExperiencePackes-MX_26100.132.257.0_neutral__8wekyb3d8bbwe\Windows\SYSTEM32\es-MX\c3930aa42b1db7e48c4c407c1029b4f1\tzres.dll.mui
+32	3248	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\tzres.dll
+32	3248	NtCreateFile	\??\C:\WINDOWS\SYSTEM32\tzres.dll
+32	3248	NtOpenFile	\??\C:\Program Files\WindowsApps\Microsoft.LanguageExperiencePackes-MX_26100.132.257.0_neutral__8wekyb3d8bbwe\Windows\SYSTEM32\es-MX\c3930aa42b1db7e48c4c407c1029b4f1\tzres.dll.mui
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\DatosExe\Imagen\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\DatosExe\Imagen\ImagenDatos03.cpp
+32	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\bcrypt.dll
+32	3248	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\bcrypt.dll
+32	3248	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\bcrypt.dll
+32	3248	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\bcrypt.dll
+32	3248	NtOpenFile	\Device\KsecDD
+32	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\2058\clui.dll
+32	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\2058\clui.dll.DLL
+32	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\10\clui.dll
+32	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\10\clui.dll.DLL
+32	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\3082\clui.dll
+32	3248	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\3082\clui.dll
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\toolsmenu\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Debug\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Animation\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Attractors\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Config\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Entities\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Hardware\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Loaders\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Managers\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Audio\Utility\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Collision\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Conversations\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Core\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Entity\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Entity\Dummy\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Entity\Object\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Entity\Ped\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Entity\Vehicle\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Enums\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Events\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Frontend\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Fx\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Fx\Blueprints\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Fx\Blueprints\Interp\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Interior\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Memory\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Models\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Plant\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Plugins\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Pipelines\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Pipelines\CustomBuilding\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Pipelines\CustomCarEnvMap\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\RenderWare\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\RenderWare\rw\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Scripts\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Tasks\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Tasks\TaskTypes\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\game_sa\Tasks\TaskTypes\SeekEntity\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\app\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\app\imgui\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\app\platform\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\app\platform\android\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\app\platform\win\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\app\platform\win\VideoPlayer\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\app\platform\linux\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\app\securom\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\oswrapper\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\source\libs\imgui\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\libs\zlib-1.1.3\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\libs\libpng-1.0.12\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\nlohmd014ef7748f4b\p\include\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\ogg21219f4658423\p\include\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\spdlo8029646db848c\p\include\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\tracy2fefc9668738f\p\include\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\vorbi9990e9d508d57\p\include\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\imgui5396f0f7f8179\p\include\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\libjpbe5e6c22fbdf6\p\include\
+32	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\CVehicle\conan-cache\p\b\sdlc3cf2c66533bd\p\include\
+32	3248	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\
+32	3248	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\cstdint
+32	3248	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\yvals_core.h
+32	3248	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\vcruntime.h
+32	3248	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\sal.h
+32	3248	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\concurrencysal.h
+32	3248	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\vadefs.h
+32	3248	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xkeycheck.h
+32	3248	NtCreateFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\stdint.h
+63	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\{EF25D908-536F-4736-891E-8E3A5572353B}
+63	3248	NtCreateFile	\??\pipe\VCTIP_14.51.36257.0_PIPE
+63	3248	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\{EF25D908-536F-4736-891E-8E3A5572353B}
+63	3248	NtQueryFullAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c2.dll
+63	3248	NtQueryAttributesFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c2.dll
+63	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c2.dll
+63	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c2.dll
+63	3248	NtOpenFile	\??\C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\bin\Hostx86\x86\c2.dll
+63	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15agl
+63	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15ain
+63	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15aex
+63	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15asy
+63	3248	NtCreateFile	\??\D:\Original\wv-limpio\reversing\FnSinOriginal\ejecuciones\traza-enlace\ImagenDatos03.obj
+63	3248	NtCreateFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15adb
+63	3248	NtCreateFile	\??\pipe\VCTIP_14.51.36257.0_PIPE
+63	3248	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15aex
+63	3248	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15asy
+63	3248	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15agl
+63	3248	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15ain
+63	3248	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15adb
+63	3248	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15amd
+63	3248	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15a.ifc
+63	3248	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15a.ifcast
+63	3248	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_b78197028e765b9c8261ef500a82a15a.ruleset
+63	3248	NtCreateFile	\??\pipe\VCTIP_14.51.36257.0_PIPE
+63	3248	NtOpenFile	\??\C:\Users\pedro\AppData\Local\Temp\_CL_af627341fb55ceb731933995837558a0lk
+79	3248	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+79	3248	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+79	3248	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\kernel.appcore.dll

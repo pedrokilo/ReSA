@@ -1,0 +1,8 @@
+espia_archivos.dll
+espia_archivos.obj
+espia_archivos.lib
+espia_archivos.exp
+control_tmp/
+*.out
+*.done
+__pycache__/

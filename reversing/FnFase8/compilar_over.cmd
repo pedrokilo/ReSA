@@ -7,5 +7,6 @@ set P=%~2
 set P=!P:/=\!
 for %%f in ("!P!") do set N=%%~nf
 if not exist "%FN%\over" mkdir "%FN%\over"
-cl @"%FN%\cl.rsp" /MP1 /Fo"%FN%\over\!N!.obj" "%~1\!P!"
+powershell -NoProfile -ExecutionPolicy Bypass -File "%FN%\expandir_rsp.ps1" "%~1" "%FN%\cl.rsp" "%FN%\over\cl.efectivo.rsp" || exit /b 8
+cl @"%FN%\over\cl.efectivo.rsp" /MP1 /Fo"%FN%\over\!N!.obj" "%~1\!P!"
 exit /b %ERRORLEVEL%
