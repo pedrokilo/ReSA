@@ -311,7 +311,7 @@ OpcodeResult CRunningScript::ProcessCommands1100To1199(int32 command) {
             z = CWorld::FindGroundZForCoord(x, y) + EXE_HALF;
         }
         (void)CPickups::GetActualPickupIndex(CollectNextParameterWithoutIncreasingPC());
-        const auto model = StaticRef<uint16>(0x8CD5E0);
+        const auto model = static_cast<uint16>(ModelIndices::MI_PICKUP_REVENUE);
         P(0).iParam = CPickups::GenerateNewOne_ExeAbi(CVector{ x, y, z }, model, static_cast<ePickupType>(0x10), P(3).uParam, P(4).uParam, 0, nullptr);
         StoreParameters(1);
         return OR_CONTINUE;

@@ -1597,7 +1597,7 @@ void CHeli::ProcessControl() {
     UpdateWinch();    // 0x6D3B80
     ProcessWeapons(); // 0x6E3950
 
-    if (DatosExe::Bss::bC0B184 & 1) {
+    if (StaticRef<uint8>(0xC0B184) & 1) { // CInterestingEvents::m_nFlags (instancia en 0xC0B058)
         float limit = Store(Mul(Mul(CTimer::GetTimeStep(), kJitter), kEventScale));
         if (playerChase) {
             limit = Store(Add(limit, limit));

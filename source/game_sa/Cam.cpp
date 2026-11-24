@@ -597,9 +597,22 @@ CEntity* CCam::Get_TwoPlayer_AimVector(CVector& out) {
     return nearestTargetEntityInScreen;
 }
 
+// Banderas de fallo de los modos cinematograficos: el EXE las indexa como 0xB6EC5C + camId, pero los modos 20-23 y 28 las escriben en objetos
+// propios de DatosExe (bB6EC70..73, bB6EC78); los modos 26 y 27 las usan por direccion. Hay que leer el mismo objeto que escribe cada modo.
+static uint8& DWCineyFailedFlag(int32 camId) {
+    switch (camId) {
+    case 20: return DatosExe::Bss::bB6EC70;
+    case 21: return DatosExe::Bss::bB6EC71;
+    case 22: return DatosExe::Bss::bB6EC72;
+    case 23: return DatosExe::Bss::bB6EC73;
+    case 28: return DatosExe::Bss::bB6EC78;
+    default: return StaticRef<uint8>(0xB6EC5C + camId);
+    }
+}
+
 // 0x517400
 bool CCam::IsTimeToExitThisDWCineyCamMode(int32 camId, const CVector& src, const CVector& dst, float t, bool lineOfSightCheck) {
-    if (StaticRef<uint8>(0xB6EC5C + camId)) return true;
+    if (DWCineyFailedFlag(camId)) return true;
     const auto delta = dst - src;
     const auto distance = std::sqrt((delta.z * delta.z + delta.x * delta.x) + delta.y * delta.y);
     const auto withinDistance = distance >= StaticRef<float>(0x8CCBCC + (camId - 20) * 4) && distance <= StaticRef<float>(0x8CCBF0 + (camId - 20) * 4);
@@ -854,10 +867,10 @@ float CamPowerComplement(float base,float step) {
 void CCam::Process() {
     const auto f=[](uintptr_t address){return StaticRef<float>(address);};
     const uintptr_t activeAddress=0xB6F19C+uintptr_t(StaticRef<uint8>(0xB6F081))*sizeof(CCam);
-    if (!(float(StaticRef<int32>(0xB6FE34)) > f(0xB6FDC8))) DatosExe::Bss::bC0B184&=0xFE; // NaN como el EXE (0x526fd5): fcom + test ah + jcc
-    if (StaticRef<int16>(activeAddress+0xC)!=4) { DatosExe::Bss::bC0B184&=0xFE;StaticRef<int32>(0xB6FE34)=0; }
+    if (!(float(StaticRef<int32>(0xB6FE34)) > f(0xB6FDC8))) StaticRef<uint8>(0xC0B184)&=0xFE; /* CInterestingEvents::m_nFlags */ // NaN como el EXE (0x526fd5): fcom + test ah + jcc
+    if (StaticRef<int16>(activeAddress+0xC)!=4) { StaticRef<uint8>(0xC0B184)&=0xFE;StaticRef<int32>(0xB6FE34)=0; }
     if (!m_pCamTargetEntity) { m_pCamTargetEntity=StaticRef<CEntity*>(0xB6F980);m_pCamTargetEntity->RegisterReference(&m_pCamTargetEntity); }
-    if (DatosExe::Bss::bC8A860==1) {
+    if (gCrossHair[0].m_bClearImmediately==1) { // +0x28 del primer CWeaponEffects (0xC8A838): la misma memoria que escribe CWeaponEffects
         auto* player=FindPlayerPed(-1);
         if (!player || !player->m_pVehicle || player->m_pVehicle->GetModelIndex()!=520) CWeaponEffects::ClearCrossHairImmediately(0);
     }
@@ -1206,7 +1219,7 @@ bool CCam::ProcessArrestCamOne() {
         }else if(target->GetType()==ENTITY_TYPE_VEHICLE){auto* driver=static_cast<CVehicle*>(target)->m_pDriver;if(driver&&driver->IsPlayer()){actor=driver;actor->GetBonePosition(&dest,static_cast<eBoneTag>(3),true);}else dest=target->GetPosition();
             cop=playerCop();if(cop&&float(std::rand())*std::bit_cast<float>(0x38000100u)>.65f)sequence={2,8,3,2,-1,-1};else sequence={8,3,2,-1,-1,-1};
         }else return false;
-        if(!DatosExe::Bss::bBAADC0){const auto text=plugin::CallMethodAndReturn<const GxtChar*,0x6A0050>(&TheText,"BUSTED");plugin::Call<0x69F2B0>(text,uint32(5000),int32(2));}
+        if(!CHud::m_BigMessage[2][0]){ /* 0xBAADC0 = m_BigMessage + 2 * 128 */const auto text=plugin::CallMethodAndReturn<const GxtChar*,0x6A0050>(&TheText,"BUSTED");plugin::Call<0x69F2B0>(text,uint32(5000),int32(2));}
         bool eligible=false;
         for(int32 index=0;;++index){
             if(mode||index>=6||sequence[index]<1){geometry(source);axes();if(mode)m_bResetStatics=false;return true;}

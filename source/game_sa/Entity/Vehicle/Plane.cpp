@@ -1233,7 +1233,8 @@ void CPlane::ProcessFlyingCarStuff() {
     if (!(m_fPropSpeed > DatosExe::Data::v8D33CC) && !PlaneSpeedSquaredAboveCpp(&m_vecMoveSpeed.x, DatosExe::Rdata::k859068)) return;
     if (m_nModelIndex == 520 && status() == 0 && int32(*reinterpret_cast<uint16*>(bytes + 0x86C)) >= int32(StaticRef<int16>(0x8D33C8))) {
         auto* old = m_pFlyingHandlingData;
-        auto* modelInfo = DatosExe::Bss::bA9B76C;
+        static_assert(MODEL_HUNTER == (0xA9B76C - 0xA9B0C8) / 4);
+        auto* modelInfo = reinterpret_cast<uint8*>(CModelInfo::ms_modelInfoPtrs[MODEL_HUNTER]); // 0xA9B76C = ms_modelInfoPtrs[425]
         m_pFlyingHandlingData = gHandlingDataMgr.GetFlyingPointer(modelInfo[0x4A]);
         if (double(m_fAccelerationBreakStatus) > DatosExe::Rdata::k859EF8 || (bytes[0x960] < 4 && !(*reinterpret_cast<uint32*>(bytes + 0x40) & 0x08000000)))
             FlyingControl(eFlightModel(6), skid, up, -lateral, m_fAccelerationBreakStatus * DatosExe::Data::v8D341C);

@@ -1848,7 +1848,7 @@ __declspec(safebuffers) uint32 StatsSexAppealBody() {
         }
     }
     // 0x55C04C: x0.5f + mitad de la apariencia, limites [0, 1000], cheat (byte 0x969180 = CHEAT_MAX_SEX_APPEAL) -> 1000; fstp [0xB793E4] (STAT_SEX_APPEAL)
-    SexAppealFinishCpp(vehiclePart, halfBits, ExeByte(reinterpret_cast<uintptr_t>(&DatosExe::R5::v969180)) != 0 ? 1u : 0u);
+    SexAppealFinishCpp(vehiclePart, halfBits, CCheat::m_aCheatsActive[CHEAT_MAX_SEX_APPEAL] ? 1u : 0u);
 
     // 0x55C09C: jmp 0x559760
     if constexpr (kExe) {
