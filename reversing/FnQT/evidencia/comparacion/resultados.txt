@@ -1,0 +1,21 @@
+== 01-sin nombre.mp3 (94891 B, 5,5 s)
+ExtractionBegin=0
+SetProperty(asbd)=0
+bytes=976672 frames=244168 crc32=02FD7414 pico=18725
+duracion_frames=243071 duracion_ms=5511
+bytes=970176 frames=242544 crc32=A687D795 pico=18725
+fotogramas ref=244168 cand=242544
+mejor desfase (ref[i+lag] = cand[i]): -1  |dif| medio en la ventana: 0.485
+tramo: 240543 fotogramas; |dif| medio=0.497 maximo=1; muestras iguales=50.33%; RMS dif=0.705; RMS senal=2612.4; SNR=71.4 dB
+
+== cat3d.mp3 (15,5 s: tres pistas CBR sin cabecera Xing ni etiquetas, unidas)
+NewMovieFromFile=0 movie=03ABB3CC
+duracion_movie=9325 timescale=600 ms=15541
+ExtractionBegin=0
+SetProperty(asbd)=0
+bytes=2741552 frames=685388 crc32=E8B8AC94 pico=32767
+duracion_frames=675097 duracion_ms=15308
+bytes=2739648 frames=684912 crc32=1F8297B1 pico=32767
+fotogramas ref=685388 cand=684912
+mejor desfase (ref[i+lag] = cand[i]): -1  |dif| medio en la ventana: 0.485
+tramo: 682911 fotogramas; |dif| medio=0.500 maximo=1; muestras iguales=50.05%; RMS dif=0.707; RMS senal=7135.7; SNR=80.1 dB

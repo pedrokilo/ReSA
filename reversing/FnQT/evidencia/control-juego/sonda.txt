@@ -1,0 +1,52 @@
+pid 33120
+juego en marcha tras 5 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 640x480
+=== ESCENARIO usertrack
+truco spawn RZHSUEW vehiculos nuevos: [('0x8f491f0', 492), ('0x8f4c468', 457)]
+  intento 1 (teclado): en_coche=False estado=1
+  intento 2 (teclado): en_coche=False estado=1
+  intento 3 (teclado): en_coche=True estado=50
+entrar con teclado: en_coche=True modelo=492
+radio antes: emisora 4294967295 modo 2 peticion script 4294967295
+volcado radio antes: ['0x0', '0x1000001', '0x0', '0x10000', '0x0', '0xffff0000', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x1613d856', '0x0', '0x0', '0x1613cf32', '0x0', '0x2', '0x0', '0x0', '0xffffffff', '0xffffffff', '0xffffffff', '0x0', '0x0', '0x491', '0x497', '0xffffffff', '0xffffffff', '0xffffffff', '0xffffffff', '0xffffffff', '0x3de21', '0x0', '0x602', '0x3f59999a', '0x6060504', '0x9060606', '0xffffff09', '0xffff', '0x491', '0x497', '0xffffffff', '0xffffffff', '0xffffffff', '0x491', '0xffffffff', '0x980b', '0x34dbb', '0x602', '0x3f59999a', '0x6060504', '0x9060406', '0xffffff09', '0xff09']
+gestor de pistas de usuario 0xB6B970: ['0x795de60', '0x10101', '0x1010100', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+modulos antes de pedir la emisora: ['wmvcore.dll']
+  t=0 radio emisora=-1 modo=7 peticion=-1
+  t=2 radio emisora=-1 modo=2 peticion=-1
+  t=4 radio emisora=-1 modo=2 peticion=-1
+  t=6 radio emisora=-1 modo=2 peticion=-1
+  t=8 radio emisora=-1 modo=2 peticion=-1
+  t=10 radio emisora=-1 modo=2 peticion=-1
+  t=12 radio emisora=-1 modo=2 peticion=-1
+  t=14 radio emisora=-1 modo=2 peticion=-1
+  t=17 radio emisora=-1 modo=2 peticion=-1
+  t=19 radio emisora=-1 modo=2 peticion=-1
+  t=21 radio emisora=-1 modo=2 peticion=-1
+  t=23 radio emisora=-1 modo=2 peticion=-1
+  t=25 radio emisora=-1 modo=2 peticion=-1
+  t=27 radio emisora=-1 modo=2 peticion=-1
+  t=29 radio emisora=-1 modo=2 peticion=-1
+  t=31 radio emisora=-1 modo=2 peticion=-1
+  t=33 radio emisora=-1 modo=2 peticion=-1
+  t=35 radio emisora=-1 modo=2 peticion=-1
+  t=37 radio emisora=-1 modo=2 peticion=-1
+  t=39 radio emisora=-1 modo=2 peticion=-1
+  t=41 radio emisora=-1 modo=2 peticion=-1
+  t=43 radio emisora=-1 modo=2 peticion=-1
+  t=45 radio emisora=-1 modo=2 peticion=-1
+  t=47 radio emisora=-1 modo=2 peticion=-1
+  t=49 radio emisora=-1 modo=2 peticion=-1
+  t=51 radio emisora=-1 modo=2 peticion=-1
+  t=53 radio emisora=-1 modo=2 peticion=-1
+  t=55 radio emisora=-1 modo=2 peticion=-1
+  t=57 radio emisora=-1 modo=2 peticion=-1
+  t=59 radio emisora=-1 modo=2 peticion=-1
+modulos de Media Foundation / decodificadores cargados: ['wmvcore.dll']
+volcado radio despues: ['0x0', '0x1000001', '0x0', '0x10000', '0x0', '0xffff0000', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x7ff', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x1613d731', '0x1613e6e5', '0x0', '0x0', '0x16148724', '0x0', '0x2', '0x0', '0x0', '0xffffffff', '0xffffffff', '0xffffffff', '0x0', '0x0', '0x0', '0x0', '0xffffffff', '0xffffffff', '0xffffffff', '0xffffffff', '0xffffffff', '0x35195', '0x0', '0xc02', '0x3f59999a', '0x6060707', '0x60606', '0xffffff00', '0xffff', '0x72', '0x0', '0xffffffff', '0xffffffff', '0xffffffff', '0x72', '0xffffffff', '0x39e7', '0xbb80', '0xc02', '0x3f59999a', '0x6060701', '0x60106', '0xffffff00', '0xff00']
+gestor de pistas de usuario despues: ['0x795de60', '0x10101', '0x1010100', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0', '0x0']
+captura usertrack {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [90.9, 80.0, 58.8], "max": 255} CJ en coche con la emisora de pistas de usuario pedida
+vivo al final: True
+LOG [error][17:33:49.597][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][17:33:49.598][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+fin

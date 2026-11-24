@@ -23,7 +23,7 @@ try {
     Remove-Item (Join-Path $dest 'xinput1_4.dll') -Force -ErrorAction SilentlyContinue
     Copy-Item (Join-Path $dest 'userfiles\GTASAsf2.b.orig') (Join-Path $dest 'userfiles\GTASAsf2.b') -Force   # partida limpia en cada ejecucion (copia)
     if ($XInput) { Copy-Item (Join-Path $aqui 'xinput1_4.dll') (Join-Path $dest 'xinput1_4.dll') -Force }
-    if (-not $Exe) { $Exe = 'D:\Original\wv-int\reversing\FnFase8\salida\gta_sa_standalone.exe' }
+    if (-not $Exe) { $Exe = 'D:\Original\wv-qt\reversing\FnFase8\salida\gta_sa_standalone.exe' }
     Copy-Item $Exe (Join-Path $dest 'gta_sa_standalone.exe') -Force
     $args_ = "--ruta-original `"D:\Grand Theft Auto San Andreas\gta-sa.exe`" --directorio-juego `"$dest`" --salida `"$sal`" --limite $Limite $Extra"
     $pr = Start-Process -FilePath (Join-Path $dest 'gta_sa_standalone.exe') -ArgumentList $args_ -WorkingDirectory $dest -PassThru
