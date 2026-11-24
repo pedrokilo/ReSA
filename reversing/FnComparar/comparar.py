@@ -404,6 +404,57 @@ def carga():
         R(d); P('carga', json.dumps({x: d[x] for x in ('t', 'loadstate_hist', 'cargados_por_rango', 'memUsada', 'numRequested')}))
         time.sleep(max(0, 5.0 - (time.time() - t0 - t))) 
 
+
+# --- fase cielo: camara mirando al cielo (pitch = frente.z pedido, positivo = hacia arriba), varias horas/climas/puntos, repeticiones; lee variables de CClouds y CWeather
+# (en el standalone por el mapa de enlace). Mismas condiciones en original y standalone. Uso: --fase cielo --puntos 0,1 --horas 12 --climas 0,4 --pitchs 0.8,-0.05 --reps 3
+CVARS = {'VolMaxDist': (0xC6AA58, 'f'), 'VolUsedNum': (0xC6AA5C, 'i'), 'CamRoll': (0xC6AA64, 'f'), 'IndivRot': (0xC6AA6C, 'f'), 'CloudRot': (0xC6AA70, 'f'),
+         'VolFader': (0xC6E970, 'f'), 'VolDensity': (0x8D5388, 'f'), 'VolHeightSwitch': (0x8D538C, 'i'), 'VolWindMove': (0x8D5390, 'f'), 'CurFogIntensity': (0x8D5798, 'f')}
+def leer_nubes():
+    d = {}
+    for k, (a, t) in CVARS.items():
+        q = dir_(a)
+        try: d[k] = round(m.f32(q), 4) if t == 'f' else m.i32(q)
+        except Exception: d[k] = None
+    try:
+        raw = m.rd(0xC6AAB0, 64) or b''
+        d['vc_usados'] = sum(1 for b in raw[:64] if b)   # bUsed[0..63] (si MAX_VOLUMETRIC_CLOUDS < 64 incluye bJustCreated)
+    except Exception: pass
+    return d
+def orientar_libre(yaw, pitch, dur=2.5):
+    ORI['a'] = math.radians(yaw) + math.pi; ORI['b'] = -math.asin(max(-0.99, min(0.99, pitch))); ORI['on'] = True
+    t0 = time.time()
+    while vivo() and time.time() - t0 < dur: mantener(); time.sleep(0.05)
+    f = frente(); return f
+def cielo():
+    salir_de_casa(); sujetar_juego(6); foco()
+    PITCHS = [float(x) for x in arg('--pitchs', '0.8,-0.05').split(',')]; REPS = int(arg('--reps', '1')); GAP = float(arg('--gap', '1.5'))
+    YAWS = [float(x) for x in arg('--yaws', str(YAW_OBJ)).split(',')]
+    for k in PUNTOS_SEL:
+        q = PUNTOS[k]; P('PUNTO %d %s' % (k + 2, q)); t1 = time.time()
+        while time.time() - t1 < ESPERA_PUNTO and vivo():
+            mantener(); m.wr(0xB70153, bytes([HORAS[0]])); m.wr(0xB70152, bytes([0])); m.wr(0xC81318, struct.pack('<i', CLIMAS[0]))
+            if time.time() - t1 < 4: tp(q)
+            time.sleep(0.4)
+        for clima in CLIMAS:
+            for hora in HORAS:
+                t0 = time.time()
+                while time.time() - t0 < ASENTAR and vivo():
+                    mantener(); m.wr(0xB70153, bytes([hora])); m.wr(0xB70152, bytes([0])); m.wr(0xC81318, struct.pack('<i', clima)); time.sleep(0.2)
+                for yaw in YAWS:
+                  for pitch in PITCHS:
+                    f = orientar_libre(yaw, pitch)
+                    for rep in range(REPS):
+                        t0 = time.time()
+                        while time.time() - t0 < GAP and vivo(): mantener(); m.wr(0xB70152, bytes([0])); m.wr(0xC81318, struct.pack('<i', clima)); time.sleep(0.1)
+                        nom = 'c_p%d_h%02d_c%02d_y%03d_pi%+.2f_r%d' % (k + 2, hora, clima, yaw, pitch, rep)
+                        fr = frente(); r = capturar(nom); pj = pos()
+                        d = {'tipo': 'cielo', 'escena': nom, 'punto': k + 2, 'hora': hora, 'clima': clima, 'pitch_pedido': pitch, 'yaw_pedido': yaw, 'rep': rep, 'cap': r, 'frente': [round(x, 3) for x in fr],
+                             'pos': [round(x, 2) for x in pj] if pj else None, 'cam_z': round(m.f32(0xB6F028 + 0x30 * 0 + 0x0), 3) if False else None, 'hora_reloj': m.u8(0xB70153),
+                             'clima_mem': leer_clima(), 'nubes': leer_nubes(), 'area': m.i32(0xB72914), 't': round(desde_inicio(), 1)}
+                        R(d); P(nom, 'media', r and r.get('media_rgb'), 'valida', r and r.get('valida'), 'frente', d['frente'], 'cov', d['clima_mem'].get('CloudCoverage'), json.dumps(d['nubes']))
+                ORI['on'] = False
+    m.wr(0xC81318, struct.pack('<i', -1))
+
 def main():
     P('modo', MODO, 'fase', FASE, 'pid', p, 'horas', HORAS, 'climas', CLIMAS, 'puntos', PUNTOS_SEL)
     if not arrancar(): P('no se llego a gGameState=9'); return
@@ -413,6 +464,7 @@ def main():
     if FASE in ('interior', 'todo'): interior()
     if FASE in ('exterior', 'todo'): exterior()
     if FASE == 'lluvia': lluvia()
+    if FASE == 'cielo': cielo()
     if FASE == 'carga': carga()
     P('fin')
     h = ctypes.windll.kernel32.OpenProcess(1, False, p)   # el juego es el proceso propio de este lanzamiento
