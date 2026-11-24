@@ -1,0 +1,6 @@
+t=20 {'ancho': 1024, 'alto': 768, 'rojo': 0, 'muestras': 87822, 'media_rgb': [1.7, 1.7, 1.7], 'max': 173}
+t=60 {'ancho': 1024, 'alto': 768, 'rojo': 0, 'muestras': 87822, 'media_rgb': [68.3, 51.7, 28.1], 'max': 255}
+t=120 {'ancho': 1024, 'alto': 768, 'rojo': 6, 'muestras': 87822, 'media_rgb': [106.7, 115.2, 107.4], 'max': 255}
+t=180 {'ancho': 1024, 'alto': 768, 'rojo': 4, 'muestras': 87822, 'media_rgb': [54.8, 40.9, 27.8], 'max': 255}
+t=240 {'ancho': 1024, 'alto': 768, 'rojo': 0, 'muestras': 87822, 'media_rgb': [81.9, 76.2, 59.8], 'max': 255}
+exit=0xDEAD0002

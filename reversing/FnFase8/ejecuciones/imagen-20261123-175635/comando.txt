@@ -1,0 +1,1 @@
+D:\Original\_fase8b_run_imagen\gta_sa_standalone.exe --salida D:\Original\wv-imagen\reversing\FnFase8\ejecuciones\imagen-20261123-175635 --limite 255 --directorio-juego D:\Original\_fase8b_run_imagen
