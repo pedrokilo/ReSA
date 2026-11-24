@@ -204,3 +204,7 @@ python -X utf8 contrib/codigo_vivo_plan.py                                      
 ```
 
 `codigo_vivo.py --cache` solo guarda los hechos (22 s; sin caché el informe tarda unos 30 s). Las dos salidas son deterministas: se comprobó que una segunda ejecución sin caché da el mismo `resumen.json` y el mismo `funciones-vivas.csv`.
+
+## 9. Imagen de datos incrustada (23/11/2026)
+
+El independiente ya no lee el `gta-sa.exe` en ejecución: los 640.512 B de `.rdata`/`.data`/`_TEXT_HA`/`.rsrc` van como arreglos C++ versionados en `source/game_sa/DatosExe/Imagen/` (generador `reversing/FnFase8/gen_imagen.py`). Ver `ejecucion-imagen-datos.md`.

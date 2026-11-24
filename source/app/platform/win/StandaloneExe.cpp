@@ -3,9 +3,11 @@
 // Este archivo SOLO existe con GTASA_STANDALONE_EXE (objetivo gta_sa_standalone; el ASI no lo compila: queda vacio). Convierte el codigo del proyecto en un
 // EXE de base fija 0x400000 que NO ejecuta ninguna instruccion del gta_sa.exe original:
 //
-//   1. Callback TLS del exe (antes de todo, sin CRT): lee el gta_sa.exe del usuario SOLO COMO FUENTE DE DATOS y copia a sus direcciones fijas las secciones de
-//      datos (.rdata, .data, _TEXT_HA, _rwdseg, .rsrc). El codigo original (.text 0x401000-0x857000 y _rwcseg 0x857000-0x858000) NO se copia: la reserva se
-//      rellena con INT3 (0xCC). Resuelve la IAT original (el codigo propio lee ranuras de la IAT por direccion).
+//   1. Callback TLS del exe (antes de todo, sin CRT): copia a sus direcciones fijas las secciones de datos del gta_sa.exe original (.rdata, .data, _TEXT_HA,
+//      _rwdseg, .rsrc) desde arreglos C++ INCRUSTADOS en este exe (source/game_sa/DatosExe/Imagen/*.cpp, generados una vez por reversing/FnFase8/gen_imagen.py
+//      y versionados: docs/CodigoVivoExe/ejecucion-imagen-datos.md). El proceso NO abre el gta_sa.exe. El codigo original (.text 0x401000-0x857000 y _rwcseg
+//      0x857000-0x858000) no esta en la imagen: la reserva se rellena con INT3 (0xCC). Resuelve la IAT original (el codigo propio lee ranuras de la IAT por direccion).
+//      Modo de reserva: --imagen-externa --ruta-original <gta_sa.exe> (o GTASA_ORIGINAL_EXE) lee el original en lugar de la imagen incrustada (comprobacion).
 //   2. Entrada del exe (FaseEntrada): ExeCrt::StandaloneStartup() (montón, hilos, E/S, atexit, constantes x87 en las direcciones del EXE) y despues el
 //      arranque del CRT propio (WinMainCRTStartup: inicializadores estaticos propios, que ya pueden usar el operator new del EXE reconstruido).
 //   3. WinMain propio: DllMain del proyecto (instala los ganchos: escriben su JMP en la reserva de INT3) y NOTSA_WinMain (el WinMain reconstruido).
@@ -13,7 +15,7 @@
 // Cualquier llamada del codigo propio a una direccion del EXE que no tenga reemplazo cae en un INT3: el manejador vectorizado lo registra (direccion, quien
 // llama, registros, pila) y, segun el modo, termina (estricto) o devuelve 0 simulando el retorno (--censo, con la tabla de `ret n` de reversing/FnFase8).
 //
-// Opciones de linea de comandos propias (se leen sin CRT): --ruta-original <gta_sa.exe> (o la variable GTASA_ORIGINAL_EXE), --directorio-juego <dir>,
+// Opciones de linea de comandos propias (se leen sin CRT): --directorio-juego <dir> (por defecto, la carpeta del exe), --imagen-externa, --ruta-original <gta_sa.exe> (o la variable GTASA_ORIGINAL_EXE; solo con --imagen-externa),
 // --salida <dir>, --limite <s> (0 = sin limite), --censo, --tabla-ret <retn.bin>, --max-censo <n>.
 #ifdef GTASA_STANDALONE_EXE
 #define WIN32_LEAN_AND_MEAN
@@ -30,6 +32,8 @@ INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdL
 extern "C" { extern uint32_t g_DbgCmdTrace[256][4]; extern uint32_t g_DbgCmdTraceIdx; extern uint32_t g_DbgMainTrace[32][4]; extern uint32_t g_DbgMainTraceIdx; } // anillo de los ultimos comandos de script (Scripts/RunningScript.cpp)
 namespace DatosExe { void RunStaticInitializers(); namespace Bss { extern uint32_t bA444C4; extern uint32_t bA444C0; } } // CTheScripts::MainScriptSize / LargestMissionScriptSize: objetos propios, NO residen en 0xA444C4/0xA444C0                    // DatosExe/StaticInit.cpp
 namespace ExeCrt { int __cdecl StandaloneStartup(); }                    // Crt/CrtStartup.cpp
+extern "C" const uint8_t g_CabeceraOriginal[]; // cabeceras PE (DOS + NT + tabla de secciones) del gta_sa.exe original (Imagen/ImagenTabla.cpp)
+namespace ImagenExe { struct Trozo { uint32_t va, tam; const uint8_t* datos; }; extern const Trozo kTrozos[]; extern const uint32_t kNTrozos; } // Imagen/ImagenTabla.cpp
 extern "C" PIMAGE_TLS_CALLBACK __dyn_tls_init_callback;
 extern "C" void WinMainCRTStartup();
 
@@ -41,7 +45,7 @@ constexpr uint32_t kFrameCounter = 0xB7CB4C; // CTimer::m_FrameCounter (latido)
 
 struct Estado {
     char ruta[MAX_PATH], salida[MAX_PATH], dirJuego[MAX_PATH], tablaRet[MAX_PATH], stubs[MAX_PATH];
-    bool censo, cargado, shims, sinInit;
+    bool censo, cargado, shims, sinInit, externa;
     DWORD limite, maxCenso;
     HANDLE log;
     DWORD t0;
@@ -124,8 +128,12 @@ void LeerArgumentos() {
         else if (Iguales(a, "--censo")) g.censo = true;
         else if (Iguales(a, "--shims")) g.shims = true;
         else if (Iguales(a, "--sin-init")) g.sinInit = true;
+        else if (Iguales(a, "--imagen-externa")) g.externa = true;
     }
-    if (!g.ruta[0]) GetEnvironmentVariableA("GTASA_ORIGINAL_EXE", g.ruta, MAX_PATH);
+    if (g.externa && !g.ruta[0]) GetEnvironmentVariableA("GTASA_ORIGINAL_EXE", g.ruta, MAX_PATH);
+}
+const IMAGE_NT_HEADERS32* NtOriginal() {
+    return (const IMAGE_NT_HEADERS32*)(g_CabeceraOriginal + ((const IMAGE_DOS_HEADER*)g_CabeceraOriginal)->e_lfanew);
 }
 
 bool LeerArchivo() {
@@ -147,18 +155,40 @@ DWORD ProteccionDe(DWORD car) {
     return w ? PAGE_READWRITE : PAGE_READONLY;
 }
 
-// Copia solo las secciones de DATOS; el rango de codigo original se rellena con INT3.
+// Comprueba la cabecera PE incrustada y la reserva, y la deja en RWX (copia, ganchos, IAT y datos escribibles).
+bool PrepararReserva() {
+    auto* dos = (const IMAGE_DOS_HEADER*)g_CabeceraOriginal;
+    auto* nt = NtOriginal();
+    if (dos->e_magic != IMAGE_DOS_SIGNATURE || nt->Signature != IMAGE_NT_SIGNATURE || nt->OptionalHeader.ImageBase != kBase) { Log("ERROR: cabecera PE incrustada inesperada"); return false; }
+    MEMORY_BASIC_INFORMATION mbi;
+    VirtualQuery((void*)kReservaIni, &mbi, sizeof mbi);
+    if (mbi.State != MEM_COMMIT || mbi.Type != MEM_IMAGE) { Log("ERROR: 0x401000 no esta mapeado como imagen del exe propio (falta la reserva)"); return false; }
+    DWORD viejo = 0;
+    if (!VirtualProtect((void*)kReservaIni, kReservaFin - kReservaIni, PAGE_EXECUTE_READWRITE, &viejo)) { Log("ERROR: VirtualProtect de la reserva (%lu)", GetLastError()); return false; }
+    return true;
+}
+
+// Imagen incrustada: INT3 en el codigo original y los trozos de datos (arreglos C++) en sus direcciones; lo que no esta en un trozo es cero (secciones sin datos, .bss).
+bool CopiarImagenIncrustada() {
+    for (uint32_t a = kCodigoIni; a < kCodigoFin; ++a) *(uint8_t*)a = 0xCC;
+    uint32_t copiados = 0;
+    for (uint32_t i = 0; i < ImagenExe::kNTrozos; ++i) {
+        const ImagenExe::Trozo& t = ImagenExe::kTrozos[i];
+        if (t.va < kCodigoFin || t.va + t.tam > kReservaFin) { Log("ERROR: trozo %lu de la imagen fuera de los datos (0x%08X)", i, t.va); return false; }
+        for (uint32_t k = 0; k < t.tam; ++k) ((uint8_t*)t.va)[k] = t.datos[k];
+        copiados += t.tam;
+    }
+    Log("codigo original 0x%08X-0x%08X: INT3 (%lu bytes); imagen incrustada: %lu trozos, %lu bytes de datos copiados a sus direcciones", kCodigoIni, kCodigoFin, kCodigoFin - kCodigoIni, ImagenExe::kNTrozos, copiados);
+    return true;
+}
+
+// Modo de reserva (--imagen-externa): copia desde el gta_sa.exe leido las secciones de DATOS; el rango de codigo original se rellena con INT3.
 bool MapearDatos() {
     const uint8_t* f = g.archivo;
     if (g.tamArchivo != kTamArchivoEsperado) { Log("ERROR: tamano %lu distinto de %lu (no es el gta_sa.exe 1.0 US)", g.tamArchivo, kTamArchivoEsperado); return false; }
     auto* dos = (const IMAGE_DOS_HEADER*)f;
     auto* nt = (const IMAGE_NT_HEADERS32*)(f + dos->e_lfanew);
     if (dos->e_magic != IMAGE_DOS_SIGNATURE || nt->Signature != IMAGE_NT_SIGNATURE || nt->OptionalHeader.ImageBase != kBase) { Log("ERROR: cabecera PE inesperada"); return false; }
-    MEMORY_BASIC_INFORMATION mbi;
-    VirtualQuery((void*)kReservaIni, &mbi, sizeof mbi);
-    if (mbi.State != MEM_COMMIT || mbi.Type != MEM_IMAGE) { Log("ERROR: 0x401000 no esta mapeado como imagen del exe propio (falta la reserva)"); return false; }
-    DWORD viejo = 0;
-    if (!VirtualProtect((void*)kReservaIni, kReservaFin - kReservaIni, PAGE_EXECUTE_READWRITE, &viejo)) { Log("ERROR: VirtualProtect de la reserva (%lu)", GetLastError()); return false; }
     for (uint32_t a = kCodigoIni; a < kCodigoFin; ++a) *(uint8_t*)a = 0xCC;
     Log("codigo original 0x%08X-0x%08X: NO copiado, relleno con INT3 (%lu bytes)", kCodigoIni, kCodigoFin, kCodigoFin - kCodigoIni);
     auto* sec = IMAGE_FIRST_SECTION(nt);
@@ -179,7 +209,7 @@ bool MapearDatos() {
 int g_importsTotal, g_importsFaltan;
 int ResolverImports() {
     SetDllDirectoryA(g.dirJuego);
-    auto* nt = (const IMAGE_NT_HEADERS32*)(g.archivo + ((const IMAGE_DOS_HEADER*)g.archivo)->e_lfanew);
+    auto* nt = NtOriginal();
     const auto& dd = nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT];
     for (auto* d = (const IMAGE_IMPORT_DESCRIPTOR*)(kBase + dd.VirtualAddress); d->Name; ++d) {
         const char* dll = (const char*)(kBase + d->Name);
@@ -567,7 +597,7 @@ void InstalarShims() {
 
 void DirectorioDeLaRuta() {
     if (g.dirJuego[0]) return;
-    lstrcpyA(g.dirJuego, g.ruta);
+    if (g.externa && g.ruta[0]) lstrcpyA(g.dirJuego, g.ruta); else GetModuleFileNameA(nullptr, g.dirJuego, MAX_PATH); // por defecto, la carpeta del exe
     int l = lstrlenA(g.dirJuego);
     while (l > 0 && g.dirJuego[l - 1] != '\\' && g.dirJuego[l - 1] != '/') --l;
     if (l > 0) --l;
@@ -581,11 +611,11 @@ static void FaseCargar() {
     char cwd[MAX_PATH];
     GetCurrentDirectoryA(MAX_PATH, cwd);
     if (!g.salida[0]) lstrcpyA(g.salida, cwd);
-    if (!g.ruta[0]) return;
+    if (g.externa && !g.ruta[0]) return; // el modo de reserva exige --ruta-original (FaseEntrada avisa)
     char rutaLog[MAX_PATH];
     Ruta(rutaLog, g.salida, "fase8_arranque.log");
     g.log = CreateFileA(rutaLog, GENERIC_WRITE, FILE_SHARE_READ, nullptr, CREATE_ALWAYS, 0, nullptr);
-    LogT("FaseCargar (callback TLS, antes del CRT propio): modo %s", g.censo ? "censo" : "estricto");
+    LogT("FaseCargar (callback TLS, antes del CRT propio): modo %s, imagen del original %s", g.censo ? "censo" : "estricto", g.externa ? "EXTERNA (--imagen-externa, lectura de la ruta)" : "INCRUSTADA en el exe (arreglos C++; no se abre gta_sa.exe)");
     DirectorioDeLaRuta();
     char rutaCsv[MAX_PATH];
     Ruta(rutaCsv, g.salida, "fase8_codigo_original.csv");
@@ -595,8 +625,13 @@ static void FaseCargar() {
     SetUnhandledExceptionFilter(Filtro);
     g_vehHandle = AddVectoredExceptionHandler(1, Vectorizado);
     SuspenderDynTls();
-    if (!LeerArchivo()) Salir(3);
-    if (!MapearDatos()) Salir(4);
+    if (!PrepararReserva()) Salir(4);
+    if (g.externa) {
+        if (!LeerArchivo()) Salir(3);
+        if (!MapearDatos()) Salir(4);
+    } else {
+        if (!CopiarImagenIncrustada()) Salir(4);
+    }
     ResolverImports();
     CargarTablaRet();
     CargarStubs();
@@ -614,7 +649,7 @@ extern "C" __declspec(allocate(".CRT$XLB")) PIMAGE_TLS_CALLBACK g_FaseTls = Fase
 // Punto de entrada del exe (/ENTRY:FaseEntrada).
 extern "C" void __cdecl FaseEntrada() {
     if (!g.cargado) {
-        MessageBoxA(nullptr, "gta_sa_standalone: falta --ruta-original <gta_sa.exe> (o la variable GTASA_ORIGINAL_EXE); se usa solo como fuente de datos", "gta_sa_standalone", MB_ICONERROR);
+        MessageBoxA(nullptr, "gta_sa_standalone: con --imagen-externa falta --ruta-original <gta_sa.exe> (o la variable GTASA_ORIGINAL_EXE)", "gta_sa_standalone", MB_ICONERROR);
         TerminateProcess(GetCurrentProcess(), 2);
     }
     SetCurrentDirectoryA(g.dirJuego);
@@ -640,7 +675,7 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR cmd, int show) {
     g_vehHandle = AddVectoredExceptionHandler(1, Vectorizado);
     if (g.shims) { InstalarShims(); LogT("--shims: instalados"); }
     {
-        auto* nt = (const IMAGE_NT_HEADERS32*)(g.archivo + ((const IMAGE_DOS_HEADER*)g.archivo)->e_lfanew);
+        auto* nt = NtOriginal();
         auto* sec = IMAGE_FIRST_SECTION(nt);
         for (int i = 0; i < nt->FileHeader.NumberOfSections; ++i) {
             const uint32_t va = kBase + sec[i].VirtualAddress, vs = (sec[i].Misc.VirtualSize + 0xFFF) & ~0xFFFu;

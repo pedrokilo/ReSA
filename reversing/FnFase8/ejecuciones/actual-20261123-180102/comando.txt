@@ -1,0 +1,1 @@
+D:\Original\_fase8b_run\gta_sa_standalone.exe --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --salida D:\Original\wv-imagen\reversing\FnFase8\ejecuciones\actual-20261123-180102 --limite 255 --directorio-juego D:\Original\_fase8b_run

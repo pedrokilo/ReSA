@@ -33,3 +33,7 @@ Bytes copiados del EXE por el cargador: **641.024 B, sin cambio** (`.rdata` 308.
 * Humo con la DLL final (sin agua, por indicacion del coordinador): `prueba_ropero.py` BIEN (15 entidades, 12 marcadores, puerta y marcador; captura revisada: CJ de espaldas en el cuarto, espejo, puerta y tabla de surf correctos) y `prueba_marcadores.py` BIEN (12 marcadores, 12 cambian en 1 s). Una primera pasada coincidio con otro juego en marcha y dio «el juego se cerro»; repetida sola, BIEN.
 * Standalone enlazado con los `.obj` nuevos: `gGameState=9` a los ~6 s, 40 s de ejecucion, `excepciones=0`, `codigo-original-distinto=0`, `fase8_codigo_original.csv` vacio (`reversing/FnFase8/ejecuciones/dat5r5f-*`).
 * `contrib/audit_hook_catalog.py --strict`: ver commit.
+
+## 5. Actualización 23/11/2026
+
+Los bytes que copiaba el cargador desde el `gta-sa.exe` (sec. 3) ahora salen de arreglos C++ incrustados en el exe independiente (`docs/CodigoVivoExe/ejecucion-imagen-datos.md`); `--ruta-original` solo se usa con `--imagen-externa`.
