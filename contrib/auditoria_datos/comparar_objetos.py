@@ -9,6 +9,7 @@ Uso: python -I comparar_objetos.py --map <exe.map> --repo <raiz> --pid <pid> --s
 (solo toca el pid dado; solo lee memoria).  Salida: instantaneas JSON y diferencias.csv.
 """
 import argparse, csv, ctypes, json, os, re, struct, sys, time
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ctypes import wintypes
 
 PRIM = {'bool': 1, 'char': 1, 'int8': 1, 'uint8': 1, 'int8_t': 1, 'uint8_t': 1, 'unsigned char': 1, 'signed char': 1,
@@ -81,17 +82,20 @@ class Mem:
     def __init__(s, pid):
         s.k = ctypes.WinDLL('kernel32', use_last_error=True)
         s.k.OpenProcess.restype = wintypes.HANDLE
+        s.k.ReadProcessMemory.argtypes = [wintypes.HANDLE, ctypes.c_void_p, ctypes.c_void_p, ctypes.c_size_t, ctypes.POINTER(ctypes.c_size_t)]
         s.h = s.k.OpenProcess(0x10 | 0x400, False, pid)   # solo lectura
         if not s.h:
             raise SystemExit('no se pudo abrir el pid %d' % pid)
 
     def base_modulo(s, nombre):
         ps = ctypes.WinDLL('psapi.dll', use_last_error=True)
-        mods = (wintypes.HMODULE * 1024)()
+        ps.EnumProcessModulesEx.argtypes = [wintypes.HANDLE, ctypes.c_void_p, wintypes.DWORD, ctypes.POINTER(wintypes.DWORD), wintypes.DWORD]
+        ps.GetModuleBaseNameW.argtypes = [wintypes.HANDLE, ctypes.c_void_p, ctypes.c_wchar_p, wintypes.DWORD]
+        mods = (ctypes.c_void_p * 1024)()
         need = wintypes.DWORD()
         ps.EnumProcessModulesEx(s.h, mods, ctypes.sizeof(mods), ctypes.byref(need), 3)
         buf = ctypes.create_unicode_buffer(260)
-        for i in range(need.value // ctypes.sizeof(wintypes.HMODULE)):
+        for i in range(need.value // ctypes.sizeof(ctypes.c_void_p)):
             ps.GetModuleBaseNameW(s.h, mods[i], buf, 260)
             if buf.value.lower() == nombre.lower():
                 return mods[i]
