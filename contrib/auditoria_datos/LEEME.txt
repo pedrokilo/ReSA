@@ -1,0 +1,6 @@
+Auditoria de objetos propios de DatosExe frente a accesos por direccion fija (23/11/2026, rama auditoria-datos).
+Orden: gen_sz.py (tamano de cada objeto DatosExe con sizeof) -> collect.py (citas 0x858000-0xCB0FFF en source/) ->
+parcheo temporal de StaticRef en Base.h con -DAUDIT_PROBE (volatile audit_sz = sizeof(T)) y compilacion con /FAs de
+StdInc.h y de los .cpp con StaticRef (cc2.cmd, cc3.cmd) -> parse_asm.py (direccion + tamano de cada llamada a StaticRef)
+-> index.py + live.py (quien referencia cada objeto por nombre/alias) -> classify.py (solapes literal/objeto con extension real).
+Las rutas D:\Original\... estan fijas; los resultados (rows.json) no se versionan. Ver docs/CodigoVivoExe/auditoria-datos.md.
