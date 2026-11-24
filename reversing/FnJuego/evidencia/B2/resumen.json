@@ -1,0 +1,503 @@
+{
+ "armas": {},
+ "trucos": {
+  "reducido": {
+   "indice": 74,
+   "nombre": "CHEAT_REDUCED_TRAFFIC",
+   "trafico": {
+    "NumRandomCars": 5,
+    "MaxCarsInUse": 12,
+    "peds": 19,
+    "veh": 9,
+    "edif": 10113,
+    "obj": 96,
+    "dummy": 728
+   },
+   "REDUCED_TRAFFIC_flag": 1
+  },
+  "LLQPFBN": {
+   "indice": 32,
+   "nombre": "CHEAT_PINK_TRAFFIC",
+   "activo": 1,
+   "trafico": {
+    "NumRandomCars": 12,
+    "MaxCarsInUse": 12,
+    "peds": 34,
+    "veh": 16,
+    "edif": 10113,
+    "obj": 96,
+    "dummy": 728
+   },
+   "pos": [
+    2652.483154296875,
+    -1720.2296142578125,
+    10.90625
+   ],
+   "vivo": true,
+   "colores_vehiculos": [
+    [
+     520,
+     0,
+     0
+    ],
+    [
+     542,
+     31,
+     93
+    ],
+    [
+     492,
+     59,
+     34
+    ],
+    [
+     556,
+     1,
+     1
+    ],
+    [
+     494,
+     36,
+     13
+    ],
+    [
+     542,
+     113,
+     92
+    ],
+    [
+     567,
+     93,
+     64
+    ],
+    [
+     492,
+     126,
+     126
+    ],
+    [
+     492,
+     126,
+     126
+    ],
+    [
+     438,
+     126,
+     126
+    ],
+    [
+     554,
+     53,
+     32
+    ],
+    [
+     536,
+     9,
+     1
+    ],
+    [
+     404,
+     126,
+     126
+    ],
+    [
+     424,
+     126,
+     126
+    ],
+    [
+     420,
+     126,
+     126
+    ],
+    [
+     547,
+     126,
+     126
+    ]
+   ]
+  },
+  "IOWDLAC": {
+   "indice": 33,
+   "nombre": "CHEAT_BLACK_TRAFFIC",
+   "activo": 1,
+   "trafico": {
+    "NumRandomCars": 12,
+    "MaxCarsInUse": 12,
+    "peds": 33,
+    "veh": 16,
+    "edif": 10113,
+    "obj": 95,
+    "dummy": 728
+   },
+   "pos": [
+    2652.448974609375,
+    -1720.1748046875,
+    10.90625
+   ],
+   "vivo": true,
+   "colores_vehiculos": [
+    [
+     520,
+     0,
+     0
+    ],
+    [
+     492,
+     59,
+     34
+    ],
+    [
+     556,
+     1,
+     1
+    ],
+    [
+     494,
+     36,
+     13
+    ],
+    [
+     567,
+     0,
+     0
+    ],
+    [
+     422,
+     0,
+     0
+    ],
+    [
+     492,
+     0,
+     0
+    ],
+    [
+     567,
+     93,
+     64
+    ],
+    [
+     492,
+     126,
+     126
+    ],
+    [
+     404,
+     126,
+     126
+    ],
+    [
+     424,
+     126,
+     126
+    ],
+    [
+     420,
+     126,
+     126
+    ],
+    [
+     510,
+     0,
+     0
+    ],
+    [
+     466,
+     0,
+     0
+    ],
+    [
+     438,
+     0,
+     0
+    ],
+    [
+     424,
+     0,
+     0
+    ]
+   ]
+  },
+  "YLTEICZ": {
+   "indice": 31,
+   "nombre": "CHEAT_AGGRESSIVE_DRIVERS",
+   "activo": 1,
+   "trafico": {
+    "NumRandomCars": 12,
+    "MaxCarsInUse": 12,
+    "peds": 38,
+    "veh": 16,
+    "edif": 10113,
+    "obj": 98,
+    "dummy": 728
+   },
+   "pos": [
+    2652.480712890625,
+    -1719.634765625,
+    10.90625
+   ],
+   "vivo": true
+  },
+  "OUIQDMW": {
+   "indice": 73,
+   "nombre": "CHEAT_WEAPON_AIMING_WHILE_DRIVING",
+   "activo": 1,
+   "trafico": {
+    "NumRandomCars": 11,
+    "MaxCarsInUse": 12,
+    "peds": 34,
+    "veh": 15,
+    "edif": 10113,
+    "obj": 99,
+    "dummy": 728
+   },
+   "pos": [
+    2652.482177734375,
+    -1719.79541015625,
+    10.90625
+   ],
+   "vivo": true
+  },
+  "BGLUAWML": {
+   "indice": 40,
+   "nombre": "CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS",
+   "activo": 1,
+   "trafico": {
+    "NumRandomCars": 7,
+    "MaxCarsInUse": 12,
+    "peds": 22,
+    "veh": 11,
+    "edif": 10113,
+    "obj": 99,
+    "dummy": 728
+   },
+   "pos": [
+    2652.214599609375,
+    -1719.2100830078125,
+    10.90625
+   ],
+   "vivo": true
+  },
+  "MROEMZH": {
+   "indice": 42,
+   "nombre": "CHEAT_GANGMEMBERS_EVERYWHERE",
+   "activo": 1,
+   "trafico": {
+    "NumRandomCars": 6,
+    "MaxCarsInUse": 12,
+    "peds": 21,
+    "veh": 10,
+    "edif": 10113,
+    "obj": 100,
+    "dummy": 728
+   },
+   "pos": [
+    2651.93115234375,
+    -1718.9012451171875,
+    10.90625
+   ],
+   "vivo": true
+  },
+  "BAGOWPG": {
+   "indice": 15,
+   "nombre": "CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD",
+   "activo": 1,
+   "trafico": {
+    "NumRandomCars": 6,
+    "MaxCarsInUse": 12,
+    "peds": 19,
+    "veh": 10,
+    "edif": 10113,
+    "obj": 94,
+    "dummy": 728
+   },
+   "pos": [
+    2651.32470703125,
+    -1724.284912109375,
+    10.90625
+   ],
+   "vivo": true
+  },
+  "PRIEBJ": {
+   "indice": 70,
+   "nombre": "CHEAT_FUNHOUSE_THEME",
+   "activo": 1,
+   "trafico": {
+    "NumRandomCars": 6,
+    "MaxCarsInUse": 12,
+    "peds": 20,
+    "veh": 10,
+    "edif": 10113,
+    "obj": 93,
+    "dummy": 728
+   },
+   "pos": [
+    2651.5224609375,
+    -1727.8433837890625,
+    10.90625
+   ],
+   "vivo": true
+  },
+  "CPKTNWT": {
+   "indice": 26,
+   "nombre": "CHEAT_BLOW_UP_ALL_CARS",
+   "activo": 0,
+   "trafico": {
+    "NumRandomCars": 6,
+    "MaxCarsInUse": 12,
+    "peds": 21,
+    "veh": 10,
+    "edif": 10113,
+    "obj": 103,
+    "dummy": 728
+   },
+   "pos": [
+    2651.30419921875,
+    -1731.809814453125,
+    10.90625
+   ],
+   "vivo": true
+  },
+  "BTCDBCB": {
+   "indice": 36,
+   "nombre": "CHEAT_FAT_PLAYER",
+   "activo": 0,
+   "trafico": {
+    "NumRandomCars": 11,
+    "MaxCarsInUse": 12,
+    "peds": 30,
+    "veh": 15,
+    "edif": 10113,
+    "obj": 98,
+    "dummy": 728
+   },
+   "pos": [
+    2651.306884765625,
+    -1735.0687255859375,
+    10.90625
+   ],
+   "vivo": true
+  },
+  "KVGYZQK": {
+   "indice": 38,
+   "nombre": "CHEAT_SKINNY_PLAYER",
+   "activo": 0,
+   "trafico": {
+    "NumRandomCars": 12,
+    "MaxCarsInUse": 12,
+    "peds": 32,
+    "veh": 16,
+    "edif": 10113,
+    "obj": 100,
+    "dummy": 728
+   },
+   "pos": [
+    2651.325927734375,
+    -1736.8184814453125,
+    10.90625
+   ],
+   "vivo": true
+  },
+  "JYSDSOD": {
+   "indice": 37,
+   "nombre": "CHEAT_MAX_MUSCLE",
+   "activo": 0,
+   "trafico": {
+    "NumRandomCars": 12,
+    "MaxCarsInUse": 12,
+    "peds": 32,
+    "veh": 16,
+    "edif": 10113,
+    "obj": 98,
+    "dummy": 728
+   },
+   "pos": [
+    2651.61181640625,
+    -1736.9281005859375,
+    10.90625
+   ],
+   "vivo": true
+  },
+  "ASNAEB": {
+   "indice": 5,
+   "nombre": "CHEAT_CLEAR_WANTED_LEVEL",
+   "activo": 0,
+   "trafico": {
+    "NumRandomCars": 12,
+    "MaxCarsInUse": 12,
+    "peds": 33,
+    "veh": 16,
+    "edif": 10113,
+    "obj": 97,
+    "dummy": 728
+   },
+   "pos": [
+    2652.242431640625,
+    -1737.9185791015625,
+    11.155292510986328
+   ],
+   "vivo": true
+  },
+  "OSRBLHH": {
+   "indice": 4,
+   "nombre": "CHEAT_WANTED_LEVEL_2STARS",
+   "activo": 0,
+   "trafico": {
+    "NumRandomCars": 9,
+    "MaxCarsInUse": 12,
+    "peds": 20,
+    "veh": 10,
+    "edif": 10113,
+    "obj": 96,
+    "dummy": 728
+   },
+   "pos": [
+    2652.43505859375,
+    -1738.3453369140625,
+    10.90625
+   ],
+   "vivo": true
+  },
+  "AIYPWZQP": {
+   "indice": 63,
+   "nombre": "CHEAT_GET_PARACHUTE",
+   "activo": 0,
+   "trafico": {
+    "NumRandomCars": 1,
+    "MaxCarsInUse": 12,
+    "peds": 9,
+    "veh": 5,
+    "edif": 10443,
+    "obj": 96,
+    "dummy": 1202
+   },
+   "pos": [
+    2027.8056640625,
+    -1420.9833984375,
+    16.9921875
+   ],
+   "vivo": true
+  },
+  "LXGIWYL": {
+   "indice": 0,
+   "nombre": "CHEAT_WEAPON_SET1",
+   "activo": 0,
+   "trafico": {
+    "NumRandomCars": 3,
+    "MaxCarsInUse": 12,
+    "peds": 18,
+    "veh": 7,
+    "edif": 10443,
+    "obj": 95,
+    "dummy": 1202
+   },
+   "pos": [
+    2027.667724609375,
+    -1421.6884765625,
+    16.9921875
+   ],
+   "vivo": true
+  }
+ }
+}

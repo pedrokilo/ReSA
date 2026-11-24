@@ -1,0 +1,31 @@
+[    0.1] pid 5216
+[    4.8] juego en marcha tras 5 s; gGameState=9
+[    5.5] salida de la casa: area=0 tras 1 s
+[    6.5] ventana: cliente 640x480
+[    6.5] === ESCENARIO armas
+[   12.7] armas antes 0 [(0, 1, 0, 0, 1), (1, 8, 0, 0, 1), (2, 24, 0, 7, 99999), (3, 27, 0, 7, 99999), (4, 28, 0, 100, 99999), (5, 31, 0, 50, 99999), (6, 34, 0, 1, 99999), (7, 38, 0, 500, 99999), (8, 39, 0, 1, 99999), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   15.9] armas tras LXGIWYL (set 1): slot activo 0 [(0, 1, 0, 0, 2), (1, 5, 0, 0, 1), (2, 22, 0, 34, 100), (3, 25, 0, 1, 99999), (4, 28, 0, 100, 99999), (5, 30, 0, 30, 99999), (6, 33, 0, 1, 25), (7, 35, 0, 1, 200), (8, 18, 0, 1, 10), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   18.5] captura armas_ini {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [126.8, 134.2, 130.9], "max": 255} CJ con armas del truco 1
+[   24.3] cambio de arma por rueda : slots activos tras 8 pasos: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+[   31.8] cambio de arma por teclas : slots activos tras 8 pasos: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+[   39.4] cambio de arma por mando : slots activos tras 8 pasos: [1, 1, 2, 3, 4, 5, 6, 7, 8]
+[   49.5] arma activa pistola tipo 22
+[   51.0] captura armas_apuntar_pistola {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [67.9, 112.8, 105.6], "max": 255} CJ apuntando con pistola
+[   54.6] captura armas_disparo_pistola {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [74.4, 98.0, 106.4], "max": 255} CJ disparando con pistola
+[   55.5] DISPARO pistola {"tipo": 22, "municion_antes": 100, "despues": 100, "camara_apuntando": 0, "nan": 0, "vivo": true, "pools": {"peds": 33, "veh": 16, "edif": 10113, "obj": 100, "dummy": 728}}
+[   57.1] arma activa escopeta tipo 25
+[   58.7] captura armas_apuntar_escopeta {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [107.4, 117.0, 106.1], "max": 255} CJ apuntando con escopeta
+[   62.1] captura armas_disparo_escopeta {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [107.8, 117.4, 106.3], "max": 255} CJ disparando con escopeta
+[   63.0] DISPARO escopeta {"tipo": 25, "municion_antes": 99999, "despues": 99999, "camara_apuntando": 0, "nan": 0, "vivo": true, "pools": {"peds": 34, "veh": 16, "edif": 10113, "obj": 100, "dummy": 728}}
+[   64.6] arma activa uzi tipo 28
+[   66.2] captura armas_apuntar_uzi {"ancho": 640, "alto": 480, "rojo": 6, "muestras": 34270, "media_rgb": [108.4, 117.4, 106.8], "max": 255} CJ apuntando con uzi
+[   69.6] captura armas_disparo_uzi {"ancho": 640, "alto": 480, "rojo": 2, "muestras": 34270, "media_rgb": [104.8, 114.2, 105.6], "max": 255} CJ disparando con uzi
+[   70.5] DISPARO uzi {"tipo": 28, "municion_antes": 99999, "despues": 99999, "camara_apuntando": 0, "nan": 0, "vivo": true, "pools": {"peds": 33, "veh": 16, "edif": 10113, "obj": 98, "dummy": 728}}
+[   72.1] arma activa ak47 tipo 30
+[   73.7] captura armas_apuntar_ak47 {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [79.5, 103.4, 108.3], "max": 255} CJ apuntando con ak47
+[   77.1] captura armas_disparo_ak47 {"ancho": 640, "alto": 480, "rojo": 2, "muestras": 34270, "media_rgb": [76.6, 100.8, 107.6], "max": 255} CJ disparando con ak47
+[   78.0] DISPARO ak47 {"tipo": 30, "municion_antes": 99999, "despues": 99999, "camara_apuntando": 0, "nan": 0, "vivo": true, "pools": {"peds": 32, "veh": 16, "edif": 10113, "obj": 98, "dummy": 728}}
+[   78.4] vivo al final: True
+[   78.4] LOG [error][01:08:29.440][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   78.4] LOG [error][01:08:29.441][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   78.4] fin

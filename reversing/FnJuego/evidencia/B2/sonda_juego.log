@@ -1,0 +1,93 @@
+[    0.1] pid 17324
+[    3.7] juego en marcha tras 4 s; gGameState=9
+[    4.8] salida de la casa: area=0 tras 1 s
+[    5.8] ventana: cliente 640x480
+[    5.8] === ESCENARIO armas
+[   12.0] armas antes 0 [(0, 1, 0, 0, 1), (1, 8, 0, 0, 1), (2, 24, 0, 7, 99999), (3, 27, 0, 7, 99999), (4, 28, 0, 100, 99999), (5, 31, 0, 50, 99999), (6, 34, 0, 1, 99999), (7, 38, 0, 500, 99999), (8, 39, 0, 1, 99999), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   15.1] armas tras LXGIWYL (set 1): slot activo 0 [(0, 1, 0, 0, 2), (1, 5, 0, 0, 1), (2, 22, 0, 34, 100), (3, 25, 0, 1, 99999), (4, 28, 0, 100, 99999), (5, 30, 0, 30, 99999), (6, 33, 0, 1, 25), (7, 35, 0, 1, 200), (8, 18, 0, 1, 10), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   17.7] captura armas_ini {"ancho": 640, "alto": 480, "rojo": 3, "muestras": 34270, "media_rgb": [74.1, 96.3, 103.0], "max": 255} CJ con armas del truco 1
+[   23.2] slots activos tras 8 pasos de rueda arriba: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+[   26.5] slots activos tras 5 pasos de rueda abajo: [1, 1, 1, 1, 1, 1]
+[   36.1] arma pistola no encontrada
+[   45.6] arma escopeta no encontrada
+[   55.2] arma uzi no encontrada
+[   64.7] arma ak47 no encontrada
+[   64.8] === ESCENARIO audio
+[   71.0] lineas de log hasta ahora: 37 con audio: 9
+[   71.0] (solo trazas; sin forma de oir)
+[   71.1] === ESCENARIO trucos
+[   77.3] mapa codigo -> indice (tabla en memoria): {'HESOYAM': 3, 'LXGIWYL': 0, 'KJKSZPJ': 1, 'UZUMYMW': 2, 'AIWPRTON': 17, 'JUMPJET': 50, 'OHDUDE': 84, 'RZHSUEW': 25, 'UBHYZHQ': 24, 'NATURALTALENT': 83, 'FOURWHEELFUN': 85, 'FLYINGFISH': 35, 'GHOSTTOWN': 74, 'IOWDLAC': 33, 'LLQPFBN': 32, 'BTCDBCB': 36, 'KVGYZQK': 38, 'YLTEICZ': 31, 'BAGOWPG': 15, 'JHJOECW': 49, 'OUIQDMW': 73, 'CIKGCGX': 41, 'ASNAEB': 5, 'OSRBLHH': 4, 'ICIKPYH': 7, 'CVWKXAM': 62, 'LJSPQK': 66, 'PRIEBJ': 70, 'OGXSDAG': 79, 'IAVENJQ': 67, 'CPKTNWT': 26, 'BGLUAWML': 40, 'MROEMZH': 42, 'GUSNHDE': 47, 'PPGWJHT': 12, 'LIYOAAY': 13, 'SZCMAWO': 29, 'BRINGITON': 66, 'AMOMHRER': 86, 'SJMAHPE': 76, 'YSOHNUL': 11, 'ROCKETMAN': 64, 'AFPHULTL': 44, 'BMTPWHR': 77, 'ZSOXFSQ': 78, 'XICWMD': 27, 'ZEIIVG': 30, 'AFSNMSMW': 35, 'EHIBXQS': 80, 'MUNASEF': 71, 'AIYPWZQP': 63, 'BIFBUZZ': 43, 'JYSDSOD': 37, 'OFVIAC': 56, 'AJLOJYQY': 14, 'AGBDLCID': 89, 'JQNTDMH': 19, 'THGLOJ': 74, 'URKQSRK': 88, 'EEGCYXT': 87, 'AKJJYGLC': 85, 'WHERESTHEFUNERAL': 22, 'BSXSGGC': 54, 'FVTMNBZ': 75, 'KGGGDKP': 51, 'LFGMHAL': 60, 'FOOOXFT': 16, 'CRAZYTOWN': 70}
+[   82.5] base {'NumRandomCars': 12, 'MaxCarsInUse': 12, 'peds': 34, 'veh': 16, 'edif': 10113, 'obj': 97, 'dummy': 728}
+[   85.0] TRUCO GHOSTTOWN indice 74 CHEAT_REDUCED_TRAFFIC antes 0 despues 1
+[   85.0] GHOSTTOWN activo; esperando 25 s a que baje el trafico
+[  110.0] trafico con GHOSTTOWN {'NumRandomCars': 5, 'MaxCarsInUse': 12, 'peds': 19, 'veh': 9, 'edif': 10113, 'obj': 96, 'dummy': 728}
+[  110.4] captura truc_reducido {"ancho": 640, "alto": 480, "rojo": 5, "muestras": 34270, "media_rgb": [79.8, 102.9, 108.5], "max": 255} trafico reducido
+[  113.0] TRUCO GHOSTTOWN indice 74 CHEAT_REDUCED_TRAFFIC antes 1 despues 0
+[  115.3] TRUCO LLQPFBN indice 32 CHEAT_PINK_TRAFFIC antes 0 despues 1
+[  140.5] EFECTO LLQPFBN {"indice": 32, "nombre": "CHEAT_PINK_TRAFFIC", "activo": 1, "trafico": {"NumRandomCars": 12, "MaxCarsInUse": 12, "peds": 34, "veh": 16, "edif": 10113, "obj": 96, "dummy": 728}, "pos": [2652.483154296875, -1720.2296142578125, 10.90625], "vivo": true}
+[  141.0] captura truc_LLQPFBN {"ancho": 640, "alto": 480, "rojo": 4, "muestras": 34270, "media_rgb": [77.2, 101.1, 107.1], "max": 255} truco LLQPFBN (CHEAT_PINK_TRAFFIC)
+[  141.0]   colores (modelo, prim, sec): [(520, 0, 0), (542, 31, 93), (492, 59, 34), (556, 1, 1), (494, 36, 13), (542, 113, 92), (567, 93, 64), (492, 126, 126), (492, 126, 126), (438, 126, 126), (554, 53, 32), (536, 9, 1), (404, 126, 126), (424, 126, 126), (420, 126, 126), (547, 126, 126)]
+[  142.8] TRUCO LLQPFBN indice 32 CHEAT_PINK_TRAFFIC antes 1 despues 0
+[  145.1] TRUCO IOWDLAC indice 33 CHEAT_BLACK_TRAFFIC antes 0 despues 1
+[  170.4] EFECTO IOWDLAC {"indice": 33, "nombre": "CHEAT_BLACK_TRAFFIC", "activo": 1, "trafico": {"NumRandomCars": 12, "MaxCarsInUse": 12, "peds": 33, "veh": 16, "edif": 10113, "obj": 95, "dummy": 728}, "pos": [2652.448974609375, -1720.1748046875, 10.90625], "vivo": true}
+[  170.8] captura truc_IOWDLAC {"ancho": 640, "alto": 480, "rojo": 3, "muestras": 34270, "media_rgb": [104.9, 114.1, 103.5], "max": 255} truco IOWDLAC (CHEAT_BLACK_TRAFFIC)
+[  170.8]   colores (modelo, prim, sec): [(520, 0, 0), (492, 59, 34), (556, 1, 1), (494, 36, 13), (567, 0, 0), (422, 0, 0), (492, 0, 0), (567, 93, 64), (492, 126, 126), (404, 126, 126), (424, 126, 126), (420, 126, 126), (510, 0, 0), (466, 0, 0), (438, 0, 0), (424, 0, 0)]
+[  172.6] TRUCO IOWDLAC indice 33 CHEAT_BLACK_TRAFFIC antes 1 despues 0
+[  174.9] TRUCO YLTEICZ indice 31 CHEAT_AGGRESSIVE_DRIVERS antes 0 despues 1
+[  200.2] EFECTO YLTEICZ {"indice": 31, "nombre": "CHEAT_AGGRESSIVE_DRIVERS", "activo": 1, "trafico": {"NumRandomCars": 12, "MaxCarsInUse": 12, "peds": 38, "veh": 16, "edif": 10113, "obj": 98, "dummy": 728}, "pos": [2652.480712890625, -1719.634765625, 10.90625], "vivo": true}
+[  200.6] captura truc_YLTEICZ {"ancho": 640, "alto": 480, "rojo": 3, "muestras": 34270, "media_rgb": [104.0, 114.0, 103.7], "max": 255} truco YLTEICZ (CHEAT_AGGRESSIVE_DRIVERS)
+[  202.4] TRUCO YLTEICZ indice 31 CHEAT_AGGRESSIVE_DRIVERS antes 1 despues 0
+[  204.7] TRUCO OUIQDMW indice 73 CHEAT_WEAPON_AIMING_WHILE_DRIVING antes 0 despues 1
+[  225.0] EFECTO OUIQDMW {"indice": 73, "nombre": "CHEAT_WEAPON_AIMING_WHILE_DRIVING", "activo": 1, "trafico": {"NumRandomCars": 11, "MaxCarsInUse": 12, "peds": 34, "veh": 15, "edif": 10113, "obj": 99, "dummy": 728}, "pos": [2652.482177734375, -1719.79541015625, 10.90625], "vivo": true}
+[  225.4] captura truc_OUIQDMW {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [109.1, 118.3, 106.7], "max": 255} truco OUIQDMW (CHEAT_WEAPON_AIMING_WHILE_DRIVING)
+[  227.2] TRUCO OUIQDMW indice 73 CHEAT_WEAPON_AIMING_WHILE_DRIVING antes 1 despues 0
+[  229.7] TRUCO BGLUAWML indice 40 CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS antes 0 despues 1
+[  244.8] EFECTO BGLUAWML {"indice": 40, "nombre": "CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS", "activo": 1, "trafico": {"NumRandomCars": 7, "MaxCarsInUse": 12, "peds": 22, "veh": 11, "edif": 10113, "obj": 99, "dummy": 728}, "pos": [2652.214599609375, -1719.2100830078125, 10.90625], "vivo": true}
+[  245.3] captura truc_BGLUAWML {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [82.1, 80.8, 77.6], "max": 255} truco BGLUAWML (CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS)
+[  247.2] TRUCO BGLUAWML indice 40 CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS antes 1 despues 0
+[  249.5] TRUCO MROEMZH indice 42 CHEAT_GANGMEMBERS_EVERYWHERE antes 0 despues 1
+[  264.7] EFECTO MROEMZH {"indice": 42, "nombre": "CHEAT_GANGMEMBERS_EVERYWHERE", "activo": 1, "trafico": {"NumRandomCars": 6, "MaxCarsInUse": 12, "peds": 21, "veh": 10, "edif": 10113, "obj": 100, "dummy": 728}, "pos": [2651.93115234375, -1718.9012451171875, 10.90625], "vivo": true}
+[  265.1] captura truc_MROEMZH {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [111.2, 120.2, 108.3], "max": 255} truco MROEMZH (CHEAT_GANGMEMBERS_EVERYWHERE)
+[  266.8] TRUCO MROEMZH indice 42 CHEAT_GANGMEMBERS_EVERYWHERE antes 1 despues 0
+[  269.2] TRUCO BAGOWPG indice 15 CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD antes 0 despues 1
+[  281.4] EFECTO BAGOWPG {"indice": 15, "nombre": "CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD", "activo": 1, "trafico": {"NumRandomCars": 6, "MaxCarsInUse": 12, "peds": 19, "veh": 10, "edif": 10113, "obj": 94, "dummy": 728}, "pos": [2651.32470703125, -1724.284912109375, 10.90625], "vivo": true}
+[  281.8] captura truc_BAGOWPG {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [113.1, 120.8, 107.2], "max": 255} truco BAGOWPG (CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD)
+[  283.5] TRUCO BAGOWPG indice 15 CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD antes 1 despues 0
+[  285.7] TRUCO PRIEBJ indice 70 CHEAT_FUNHOUSE_THEME antes 0 despues 1
+[  289.0] EFECTO PRIEBJ {"indice": 70, "nombre": "CHEAT_FUNHOUSE_THEME", "activo": 1, "trafico": {"NumRandomCars": 6, "MaxCarsInUse": 12, "peds": 20, "veh": 10, "edif": 10113, "obj": 93, "dummy": 728}, "pos": [2651.5224609375, -1727.8433837890625, 10.90625], "vivo": true}
+[  289.4] captura truc_PRIEBJ {"ancho": 640, "alto": 480, "rojo": 3, "muestras": 34270, "media_rgb": [75.6, 104.4, 109.7], "max": 255} truco PRIEBJ (CHEAT_FUNHOUSE_THEME)
+[  291.0] TRUCO PRIEBJ indice 70 CHEAT_FUNHOUSE_THEME antes 1 despues 0
+[  293.3] TRUCO CPKTNWT indice 26 CHEAT_BLOW_UP_ALL_CARS antes 0 despues 0
+[  296.4] EFECTO CPKTNWT {"indice": 26, "nombre": "CHEAT_BLOW_UP_ALL_CARS", "activo": 0, "trafico": {"NumRandomCars": 6, "MaxCarsInUse": 12, "peds": 21, "veh": 10, "edif": 10113, "obj": 103, "dummy": 728}, "pos": [2651.30419921875, -1731.809814453125, 10.90625], "vivo": true}
+[  296.7] captura truc_CPKTNWT {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [74.1, 102.3, 110.3], "max": 255} truco CPKTNWT (CHEAT_BLOW_UP_ALL_CARS)
+[  298.5] TRUCO CPKTNWT indice 26 CHEAT_BLOW_UP_ALL_CARS antes 0 despues 0
+[  300.8] TRUCO BTCDBCB indice 36 CHEAT_FAT_PLAYER antes 0 despues 0
+[  304.2] EFECTO BTCDBCB {"indice": 36, "nombre": "CHEAT_FAT_PLAYER", "activo": 0, "trafico": {"NumRandomCars": 11, "MaxCarsInUse": 12, "peds": 30, "veh": 15, "edif": 10113, "obj": 98, "dummy": 728}, "pos": [2651.306884765625, -1735.0687255859375, 10.90625], "vivo": true}
+[  304.6] captura truc_BTCDBCB {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [74.0, 100.3, 107.7], "max": 255} truco BTCDBCB (CHEAT_FAT_PLAYER)
+[  306.3] TRUCO BTCDBCB indice 36 CHEAT_FAT_PLAYER antes 0 despues 0
+[  308.7] TRUCO KVGYZQK indice 38 CHEAT_SKINNY_PLAYER antes 0 despues 0
+[  312.0] EFECTO KVGYZQK {"indice": 38, "nombre": "CHEAT_SKINNY_PLAYER", "activo": 0, "trafico": {"NumRandomCars": 12, "MaxCarsInUse": 12, "peds": 32, "veh": 16, "edif": 10113, "obj": 100, "dummy": 728}, "pos": [2651.325927734375, -1736.8184814453125, 10.90625], "vivo": true}
+[  312.4] captura truc_KVGYZQK {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [71.6, 97.6, 105.5], "max": 255} truco KVGYZQK (CHEAT_SKINNY_PLAYER)
+[  314.1] TRUCO KVGYZQK indice 38 CHEAT_SKINNY_PLAYER antes 0 despues 0
+[  316.5] TRUCO JYSDSOD indice 37 CHEAT_MAX_MUSCLE antes 0 despues 0
+[  319.8] EFECTO JYSDSOD {"indice": 37, "nombre": "CHEAT_MAX_MUSCLE", "activo": 0, "trafico": {"NumRandomCars": 12, "MaxCarsInUse": 12, "peds": 32, "veh": 16, "edif": 10113, "obj": 98, "dummy": 728}, "pos": [2651.61181640625, -1736.9281005859375, 10.90625], "vivo": true}
+[  320.2] captura truc_JYSDSOD {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [76.5, 103.6, 111.6], "max": 255} truco JYSDSOD (CHEAT_MAX_MUSCLE)
+[  321.9] TRUCO JYSDSOD indice 37 CHEAT_MAX_MUSCLE antes 0 despues 0
+[  324.1] TRUCO ASNAEB indice 5 CHEAT_CLEAR_WANTED_LEVEL antes 0 despues 0
+[  326.3] EFECTO ASNAEB {"indice": 5, "nombre": "CHEAT_CLEAR_WANTED_LEVEL", "activo": 0, "trafico": {"NumRandomCars": 12, "MaxCarsInUse": 12, "peds": 33, "veh": 16, "edif": 10113, "obj": 97, "dummy": 728}, "pos": [2652.242431640625, -1737.9185791015625, 11.155292510986328], "vivo": true}
+[  326.7] captura truc_ASNAEB {"ancho": 640, "alto": 480, "rojo": 9, "muestras": 34270, "media_rgb": [70.8, 95.3, 102.6], "max": 255} truco ASNAEB (CHEAT_CLEAR_WANTED_LEVEL)
+[  328.3] TRUCO ASNAEB indice 5 CHEAT_CLEAR_WANTED_LEVEL antes 0 despues 0
+[  330.6] TRUCO OSRBLHH indice 4 CHEAT_WANTED_LEVEL_2STARS antes 0 despues 0
+[  332.8] EFECTO OSRBLHH {"indice": 4, "nombre": "CHEAT_WANTED_LEVEL_2STARS", "activo": 0, "trafico": {"NumRandomCars": 9, "MaxCarsInUse": 12, "peds": 20, "veh": 10, "edif": 10113, "obj": 96, "dummy": 728}, "pos": [2652.43505859375, -1738.3453369140625, 10.90625], "vivo": true}
+[  333.2] captura truc_OSRBLHH {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [14.8, 10.5, 8.6], "max": 85} truco OSRBLHH (CHEAT_WANTED_LEVEL_2STARS)
+[  334.9] TRUCO OSRBLHH indice 4 CHEAT_WANTED_LEVEL_2STARS antes 0 despues 0
+[  337.4] TRUCO AIYPWZQP indice 63 CHEAT_GET_PARACHUTE antes 0 despues 0
+[  339.6] EFECTO AIYPWZQP {"indice": 63, "nombre": "CHEAT_GET_PARACHUTE", "activo": 0, "trafico": {"NumRandomCars": 1, "MaxCarsInUse": 12, "peds": 9, "veh": 5, "edif": 10443, "obj": 96, "dummy": 1202}, "pos": [2027.8056640625, -1420.9833984375, 16.9921875], "vivo": true}
+[  340.0] captura truc_AIYPWZQP {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [75.1, 89.7, 83.6], "max": 255} truco AIYPWZQP (CHEAT_GET_PARACHUTE)
+[  341.9] TRUCO AIYPWZQP indice 63 CHEAT_GET_PARACHUTE antes 0 despues 0
+[  344.2] TRUCO LXGIWYL indice 0 CHEAT_WEAPON_SET1 antes 0 despues 0
+[  346.4] EFECTO LXGIWYL {"indice": 0, "nombre": "CHEAT_WEAPON_SET1", "activo": 0, "trafico": {"NumRandomCars": 3, "MaxCarsInUse": 12, "peds": 18, "veh": 7, "edif": 10443, "obj": 95, "dummy": 1202}, "pos": [2027.667724609375, -1421.6884765625, 16.9921875], "vivo": true}
+[  346.8] captura truc_LXGIWYL {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [75.2, 89.2, 82.1], "max": 255} truco LXGIWYL (CHEAT_WEAPON_SET1)
+[  348.5] TRUCO LXGIWYL indice 0 CHEAT_WEAPON_SET1 antes 0 despues 0
+[  348.8] vivo al final: True
+[  348.8] fin

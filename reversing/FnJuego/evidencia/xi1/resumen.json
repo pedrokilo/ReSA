@@ -1,0 +1,327 @@
+{
+ "xinput": {
+  "reposo_conectado": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.013,
+   "dt_juego_ms": 2033,
+   "pad_max": {},
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "stick_izq_arriba": {
+   "avance_m": 12.42,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.108,
+   "dt_juego_ms": 2607,
+   "pad_max": {
+    "LSY": -128
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "stick_izq_abajo": {
+   "avance_m": 8.94,
+   "dz_max": 0.01,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.11,
+   "dt_juego_ms": 1647,
+   "pad_max": {
+    "LSY": 128
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "stick_izq_derecha+arriba": {
+   "avance_m": 3.93,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.043,
+   "dt_juego_ms": 2080,
+   "pad_max": {
+    "LSX": 128,
+    "LSY": -128
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "stick_izq_izquierda+arriba": {
+   "avance_m": 11.29,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.108,
+   "dt_juego_ms": 2080,
+   "pad_max": {
+    "LSX": -128,
+    "LSY": -128
+   },
+   "ped_estado": 1,
+   "cam": 3096576000,
+   "veh": "0x0"
+  },
+  "stick_izq_medio(camina)": {
+   "avance_m": 4.66,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.049,
+   "dt_juego_ms": 2593,
+   "pad_max": {
+    "LSY": -54
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "stick_der_derecha": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.0,
+   "dt_juego_ms": 2047,
+   "pad_max": {
+    "RSX": 128
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "stick_der_izquierda": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.019,
+   "dt_juego_ms": 2000,
+   "pad_max": {
+    "RSX": -128
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "stick_der_arriba": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.0,
+   "dt_juego_ms": 1680,
+   "pad_max": {
+    "RSY": -128
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "stick_der_abajo": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.0,
+   "dt_juego_ms": 1680,
+   "pad_max": {
+    "RSY": 128
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "dpad_arriba": {
+   "avance_m": 5.89,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.11,
+   "dt_juego_ms": 1120,
+   "pad_max": {
+    "LSY": -128
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "dpad_derecha": {
+   "avance_m": 0.17,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.109,
+   "dt_juego_ms": 1087,
+   "pad_max": {
+    "LSX": 128
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "A_mantenido+stick": {
+   "avance_m": 23.81,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.193,
+   "dt_juego_ms": 2673,
+   "pad_max": {
+    "LSY": -128,
+    "Cross": 255
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "X": {
+   "avance_m": 2.03,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.133,
+   "dt_juego_ms": 1600,
+   "pad_max": {
+    "Square": 255
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "B": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.004,
+   "dt_juego_ms": 1120,
+   "pad_max": {
+    "Circle": 255
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "Y_sin_coche": {
+   "avance_m": 0.05,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.004,
+   "dt_juego_ms": 1073,
+   "pad_max": {
+    "Triangle": 255
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "LB": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.0,
+   "dt_juego_ms": 1120,
+   "pad_max": {
+    "L1": 255
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "RB": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.0,
+   "dt_juego_ms": 1073,
+   "pad_max": {
+    "R1": 255
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "LT": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.0,
+   "dt_juego_ms": 1120,
+   "pad_max": {
+    "L2": 255
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "RT": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.0,
+   "dt_juego_ms": 1040,
+   "pad_max": {
+    "R2": 255
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "L3": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.0,
+   "dt_juego_ms": 913,
+   "pad_max": {
+    "ShockL": 255
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "R3": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.0,
+   "dt_juego_ms": 927,
+   "pad_max": {
+    "ShockR": 255
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  },
+  "Back": {
+   "avance_m": 0.0,
+   "dz_max": 0.0,
+   "dyaw_ped": 0.0,
+   "dyaw_cam": 0.0,
+   "vmax": 0.013,
+   "dt_juego_ms": 880,
+   "pad_max": {
+    "Select": 255
+   },
+   "ped_estado": 1,
+   "cam": 0,
+   "veh": "0x0"
+  }
+ }
+}

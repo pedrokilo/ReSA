@@ -1,0 +1,87 @@
+[    0.1] pid 27576
+[    4.9] juego en marcha tras 5 s; gGameState=9
+[    5.5] salida de la casa: area=0 tras 1 s
+[    6.6] ventana: cliente 640x480
+[    6.6] === ESCENARIO spawn
+[   17.4] captura spawn_RZHSUEW {"ancho": 640, "alto": 480, "rojo": 5, "muestras": 34270, "media_rgb": [130.0, 138.2, 134.6], "max": 255} tras teclear RZHSUEW
+[   17.4]  veh 0x8f616f8  modelo 492 matriz 0x909f740 pos (2508.12255859375, -1666.3817138671875, 13.169840812683105) conductor 0x0 creado_por 255
+[   17.4]  veh 0x8f63390  modelo 16222 matriz 0x3f051eb8 pos (nan, nan, nan) conductor 0x0 creado_por 0
+[   17.4]  veh 0x8f66338  modelo 16241 matriz 0x0 pos None conductor 0x0 creado_por 0
+[   17.4]  veh 0x8f66cc0 NUEVO modelo 17699 matriz 0x45248d40 pos (nan, nan, nan) conductor 0x0 creado_por 118
+[   17.4]  veh 0x8f67648  modelo 0 matriz 0xff189a0 pos (2.310334727930991e-29, 3.03057137321371e-39, 3.2765748117159118e-37) conductor 0x3da4054a creado_por 0
+[   17.4]  veh 0x8f67fd0  modelo 65535 matriz 0xffffffff pos (nan, nan, nan) conductor 0x0 creado_por 152
+[   17.4]  veh 0x8f68958 NUEVO modelo 16256 matriz 0xbf800000 pos (nan, nan, nan) conductor 0x0 creado_por 255
+[   17.4]  veh 0x8f692e0  modelo 0 matriz 0x0 pos None conductor 0xc4d6cceb creado_por 16
+[   17.4]  veh 0x8f69c68  modelo 0 matriz 0x6 pos (nan, nan, nan) conductor 0x199e31e0 creado_por 0
+[   17.4]  veh 0x8f6a5f0  modelo 0 matriz 0x5e pos (nan, nan, nan) conductor 0x20014 creado_por 0
+[   17.4]  veh 0x8f6b900 NUEVO modelo 0 matriz 0x3d4ccccd pos (nan, nan, nan) conductor 0x41401f98 creado_por 0
+[   17.4]  veh 0x8f6d598  modelo 0 matriz 0x0 pos None conductor 0x0 creado_por 10
+[   17.4]  veh 0x8f6df20  modelo 16140 matriz 0x0 pos None conductor 0x0 creado_por 1
+[   17.4]  veh 0x8f6e8a8  modelo 16256 matriz 0x3f800000 pos (nan, nan, nan) conductor 0xb creado_por 255
+[   17.4]  veh 0x8f70540 NUEVO modelo 0 matriz 0x0 pos None conductor 0x0 creado_por 0
+[   17.4] pos CJ (2652.483154296875, -1719.4781494140625, 10.90625) ult cheat str b'\x00EUSHZR\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+[   21.8] captura spawn_UBHYZHQ {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [60.6, 106.4, 100.2], "max": 255} tras teclear UBHYZHQ
+[   21.8]  veh 0x8f616f8  modelo 492 matriz 0x909f740 pos (2508.12255859375, -1666.3817138671875, 13.169840812683105) conductor 0x0 creado_por 255
+[   21.8]  veh 0x8f63390  modelo 16222 matriz 0x3f051eb8 pos (nan, nan, nan) conductor 0x0 creado_por 0
+[   21.8]  veh 0x8f66cc0  modelo 17698 matriz 0x45231b20 pos (nan, nan, nan) conductor 0x0 creado_por 118
+[   21.8]  veh 0x8f67648  modelo 0 matriz 0xff18b60 pos (2.3090876882920002e-29, 3.03057137321371e-39, 3.2765748117159118e-37) conductor 0x3da4054a creado_por 0
+[   21.8]  veh 0x8f67fd0  modelo 65535 matriz 0xffffffff pos (nan, nan, nan) conductor 0x0 creado_por 152
+[   21.8]  veh 0x8f68958  modelo 16256 matriz 0xbf800000 pos (nan, nan, nan) conductor 0x0 creado_por 255
+[   21.8]  veh 0x8f692e0  modelo 0 matriz 0x0 pos None conductor 0xc4cfcc61 creado_por 16
+[   21.8]  veh 0x8f69c68  modelo 0 matriz 0x6 pos (nan, nan, nan) conductor 0x199e31e0 creado_por 0
+[   21.8]  veh 0x8f6af78 NUEVO modelo 733 matriz 0x3f800000 pos (nan, nan, nan) conductor 0x0 creado_por 0
+[   21.8]  veh 0x8f6b900  modelo 0 matriz 0x3d4ccccd pos (nan, nan, nan) conductor 0x411bb622 creado_por 0
+[   21.8]  veh 0x8f6d598  modelo 0 matriz 0x0 pos None conductor 0x0 creado_por 10
+[   21.8]  veh 0x8f6df20  modelo 16140 matriz 0x0 pos None conductor 0x0 creado_por 1
+[   21.8]  veh 0x8f6e8a8  modelo 16256 matriz 0x3f800000 pos (nan, nan, nan) conductor 0xb creado_por 255
+[   21.8]  veh 0x8f70540  modelo 0 matriz 0x0 pos None conductor 0x0 creado_por 0
+[   21.8]  veh 0x8f721d8 NUEVO modelo 0 matriz 0x0 pos None conductor 0x3c46ae60 creado_por 0
+[   21.8]  veh 0x8f72b60 NUEVO modelo 65535 matriz 0x0 pos None conductor 0xbedd1745 creado_por 0
+[   21.8] pos CJ (2652.483154296875, -1719.4781494140625, 10.90625) ult cheat str b'\x00HZYHBU\x00EUSHZR\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+[   22.0] === ESCENARIO xinput
+[   28.2] P0 llamadas a XInputGetState (indices 0..3): [21, 0, 0, 0]
+[   30.4] P0 teclado W 2 s: avance 6.06 m, pad.LSY=-128 (DirectInput/teclado sigue vivo con el mando falso desconectado)
+[   31.7] P0 llamadas despues: [21, 0, 0, 0] (sube => CPad::ProcessPad llama a la capa XInput)
+[   34.4] FASE reposo_conectado {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.019, "dt_juego_ms": 2160, "pad_max": {}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   37.4] FASE stick_izq_arriba {"avance_m": 0.05, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.001, "dt_juego_ms": 2527, "pad_max": {"LSY": -128}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   39.5] FASE stick_izq_abajo {"avance_m": 8.2, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.108, "dt_juego_ms": 1633, "pad_max": {"LSY": 128}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   42.2] FASE stick_izq_derecha+arriba {"avance_m": 5.13, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.077, "dt_juego_ms": 2113, "pad_max": {"LSX": 128, "LSY": -128}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   44.9] FASE stick_izq_izquierda+arriba {"avance_m": 9.77, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.11, "dt_juego_ms": 2207, "pad_max": {"LSX": -128, "LSY": -128}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   48.0] FASE stick_izq_medio(camina) {"avance_m": 4.74, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.04, "dt_juego_ms": 2651, "pad_max": {"LSY": -54}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   48.7] captura xi_mover {"ancho": 640, "alto": 480, "rojo": 17, "muestras": 34270, "media_rgb": [141.3, 151.4, 146.1], "max": 255} CJ moviendose con el stick izquierdo
+[   48.7] m_bUseMouse3rdPerson puesto a 0 (la camara de tercera persona deja de ignorar el stick derecho, como al elegir mando en el menu)
+[   51.3] FASE stick_der_derecha {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": -48.2, "vmax": 0.0, "dt_juego_ms": 2160, "pad_max": {"RSX": 128}, "ped_estado": 1, "cam": 3182121408, "veh": "0x0"}
+[   54.0] FASE stick_der_izquierda {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 59.8, "vmax": 0.0, "dt_juego_ms": 2080, "pad_max": {"RSX": -128}, "ped_estado": 1, "cam": 1034642240, "veh": "0x0"}
+[   56.1] FASE stick_der_arriba {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.0, "dt_juego_ms": 1553, "pad_max": {"RSY": -128}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   58.2] FASE stick_der_abajo {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.0, "dt_juego_ms": 1600, "pad_max": {"RSY": 128}, "ped_estado": 1, "cam": 3080454144, "veh": "0x0"}
+[   58.6] captura xi_camara {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [136.4, 194.0, 195.7], "max": 255} camara tras mover el stick derecho
+[   60.2] FASE dpad_arriba {"avance_m": 5.42, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": -0.0, "vmax": 0.108, "dt_juego_ms": 1007, "pad_max": {"LSY": -128}, "ped_estado": 1, "cam": 3098214400, "veh": "0x0"}
+[   61.8] FASE dpad_derecha {"avance_m": 4.72, "dz_max": 0.01, "dyaw_ped": -146.7, "dyaw_cam": 145.0, "vmax": 0.108, "dt_juego_ms": 1153, "pad_max": {"LSX": 128}, "ped_estado": 1, "cam": 3180656496, "veh": "0x0"}
+[   64.9] FASE A_mantenido+stick {"avance_m": 20.56, "dz_max": 0.38, "dyaw_ped": -12.5, "dyaw_cam": 11.2, "vmax": 0.22, "dt_juego_ms": 2513, "pad_max": {"LSY": -128, "Cross": 255}, "ped_estado": 1, "cam": 1019558688, "veh": "0x0"}
+[   68.5] FASE A_pulsada_a_ritmo avance=28.33 m vmax=0.219 estado=1
+[   70.6] FASE X {"avance_m": 0.39, "dz_max": 0.39, "dyaw_ped": 0.0, "dyaw_cam": 0.1, "vmax": 0.023, "dt_juego_ms": 1567, "pad_max": {"Square": 255}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   72.3] FASE B {"avance_m": 0.02, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.005, "dt_juego_ms": 1153, "pad_max": {"Circle": 255}, "ped_estado": 1, "cam": 959897600, "veh": "0x0"}
+[   73.9] FASE Y_sin_coche {"avance_m": 0.05, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.003, "dt_juego_ms": 1153, "pad_max": {"Triangle": 255}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   75.6] FASE LB {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": -0.2, "vmax": 0.0, "dt_juego_ms": 1200, "pad_max": {"L1": 255}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   77.3] FASE RB {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.0, "dt_juego_ms": 1200, "pad_max": {"R1": 255}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   79.0] FASE LT {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.0, "dt_juego_ms": 1167, "pad_max": {"L2": 255}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   80.5] FASE RT {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.0, "dt_juego_ms": 1007, "pad_max": {"R2": 255}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   81.9] FASE L3 {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.0, "dt_juego_ms": 960, "pad_max": {"ShockL": 255}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   83.4] FASE R3 {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": 0.0, "vmax": 0.0, "dt_juego_ms": 960, "pad_max": {"ShockR": 255}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   84.9] FASE Back {"avance_m": 0.0, "dz_max": 0.0, "dyaw_ped": 0.0, "dyaw_cam": -0.0, "vmax": 0.0, "dt_juego_ms": 1007, "pad_max": {"Select": 255}, "ped_estado": 1, "cam": 0, "veh": "0x0"}
+[   85.0] === ESCENARIO xinput_coche
+[   94.4] truco spawn RZHSUEW vehiculos nuevos: [('0x8f69c68', 0), ('0x8f6df20', 16179)]
+[  105.0] Y (Triangulo) para entrar: en_coche=False estado=1 veh=0x0 modelo=0 t=8.3s
+[  105.3] captura xi_en_coche {"ancho": 640, "alto": 480, "rojo": 606, "muestras": 34270, "media_rgb": [246.9, 242.2, 235.9], "max": 255} CJ dentro del coche tras Y
+[  105.5] === ESCENARIO conduccion
+[  115.0] truco spawn RZHSUEW vehiculos nuevos: [('0x8f6a5f0', 0)]
+[  142.8] entrar con F: en_coche=False modelo=0
+[  142.8] NO se pudo entrar al coche
+[  143.0] === ESCENARIO camara
+[  152.3] truco spawn RZHSUEW vehiculos nuevos: [('0x8f6af78', 733)]
+[  180.5] entrar con F: en_coche=False modelo=0
+[  180.5] NO se pudo entrar al coche
+[  180.8] vivo al final: True
+[  180.8] LOG [error][00:49:35.920][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  180.8] LOG [error][00:49:35.920][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  180.8] fin

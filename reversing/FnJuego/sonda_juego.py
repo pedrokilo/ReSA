@@ -227,10 +227,10 @@ def esc_xinput(j):
     return res
 
 def esc_xinput_coche(j):
-    j.xi(); veh = entrar_coche(j, via='mando')
+    j.xi(); veh = entrar_coche(j, 'FOURWHEELFUN', via='mando', modelo=471)
     if not veh:
         j.P('Y (Triangulo) NO hizo entrar; se prueba F de teclado como comparacion')
-        veh = entrar_coche(j, via='teclado')
+        veh = entrar_coche(j, 'FOURWHEELFUN', via='teclado', modelo=471)
         if not veh: return
     j.foto('xi_en_coche', 'CJ dentro del coche')
     def pasada(n, dur=3.0, **kw):
@@ -300,12 +300,15 @@ def nombres_cheats():
             NOM[m.group(1)] = i; i += 1
     return NOM
 
-def spawn_coche(j, codigo='RZHSUEW'):
+def spawn_coche(j, codigo='RZHSUEW', modelo=None):
     """crea un coche con un truco real de spawn (por teclado): devuelve el puntero al coche nuevo mas cercano"""
     antes = set(vehiculos(j))
     j.al_frente(); j.escribir_truco(codigo); j.dormir(2.0)
     nuevos = [v for v in vehiculos(j) if v not in antes and 400 <= j.modelo(v) <= 611 and not j.nan(j.vpos(v))]
     j.P('truco spawn', codigo, 'vehiculos nuevos:', [(hex(v), j.modelo(v)) for v in nuevos])
+    if modelo:
+        nm = [v for v in nuevos if j.modelo(v) == modelo]
+        if nm: return nm[0]
     return nuevos[0] if nuevos else None
 def vehiculos(j):
     pv = j.m.u32(0xB74494); objs = j.m.u32(pv); fl = j.m.rd(j.m.u32(pv + 4), j.m.i32(pv + 8)) or b''; r = []
@@ -317,9 +320,9 @@ def vehiculos(j):
 def junto_puerta(j, v):
     mt = j.m.u32(v + 0x14); rx, ry = j.m.f32(mt), j.m.f32(mt + 4); vp = j.vpos(v)
     j.tp(vp[0] - rx * 1.6, vp[1] - ry * 1.6, vp[2] + 0.6)
-def entrar_coche(j, codigo='RZHSUEW', via='teclado'):
+def entrar_coche(j, codigo='RZHSUEW', via='teclado', modelo=None):
     suelo_libre(j)
-    v = spawn_coche(j, codigo)
+    v = spawn_coche(j, codigo, modelo)
     if not v: return 0
     j.dormir(1.0)
     for n in range(4):
@@ -334,7 +337,7 @@ def entrar_coche(j, codigo='RZHSUEW', via='teclado'):
     return j.veh() if j.en_coche() else 0
 
 def esc_conduccion(j):
-    veh = entrar_coche(j)
+    veh = entrar_coche(j, 'FOURWHEELFUN', modelo=471)
     if not veh: j.P('NO se pudo entrar al coche'); return
     j.foto('cond_dentro', 'CJ dentro del coche (tecla F)')
     def prueba(n, teclas, dur=3.0):
@@ -508,6 +511,8 @@ def esc_interiores(j):
         # marcadores de salida: teleport al marcador de salida (rect de entrada de la enex del interior) y esperar a volver al exterior
         if entro:
             j.dormir(3.0); r['z_dentro'] = (j.pos() or [0, 0, None])[2]; j.foto('int_%s_dentro2' % nombre.split()[0], 'interior %s 3 s despues' % nombre)
+            pp = j.pos(); dx, dy = pp[0] - interior[0], pp[1] - interior[1]; nn = math.hypot(dx, dy) or 1.0
+            j.tp(interior[0] + dx / nn * 5.0, interior[1] + dy / nn * 5.0, interior[2]); j.dormir(2.0)   # salir del rectangulo del marcador antes de volver a pisarlo
             j.tp(interior[0], interior[1], interior[2]); j.al_frente()
             t = time.time(); salio = False
             while time.time() - t < 20 and j.alive():
@@ -573,10 +578,10 @@ def esc_spawn(j):
             mt = j.m.u32(v + 0x14); j.P(' veh', hex(v), 'NUEVO' if v not in antes else '', 'modelo', j.modelo(v), 'matriz', hex(mt), 'pos', j.vpos(v), 'conductor', hex(j.m.u32(v + 0x460)), 'creado_por', j.m.u8(v + 0x394))
         j.P('pos CJ', j.pos(), 'ult cheat str', j.m.rd(0x969110, 30))
 def esc_camara_aire(j):
-    for codigo, nombre in (('OHDUDE', 'Hunter'), ('JHJOECW', 'Hydra')):
+    for codigo, nombre, mod in (('OHDUDE', 'Hunter', 425), ('JHJOECW', 'Hydra', 520)):
         if not j.alive(): break
         j.P('--- aeronave', nombre, codigo)
-        veh = entrar_coche(j, codigo)
+        veh = entrar_coche(j, codigo, modelo=mod)
         if not veh: j.P('no se pudo entrar a', nombre); continue
         mod = j.modelo(veh); j.P('dentro de modelo', mod)
         modos = {}; ult = None; t = time.time(); j.m.wr(0xB6F028 + 0xCF0, bytes([1]))
@@ -593,7 +598,20 @@ def esc_camara_aire(j):
         j.res['camara_aire_' + nombre] = {'forzada': modos, 'tras': fin}
         # salir y quitar la aeronave del camino: teleport de CJ lejos
         pulsar('f', 0.15); j.dormir(3)
-ESCENARIOS = {'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
+def esc_gimnasio(j):
+    suelo_libre(j)
+    j.tp(2229.63, -1721.63, 13.65); j.al_frente(); t = time.time()
+    while time.time() - t < 25 and j.alive() and j.area() != 5: j.tick(); time.sleep(0.25)
+    j.P('entrada al gimnasio: area', j.area(), 'tras %.1f s' % (time.time() - t))
+    ult = 0; t0 = time.time()
+    while time.time() - t0 < 40 and j.alive():
+        j.tick()
+        if time.time() - ult > 3: ult = time.time(); j.P('  t=%.0f area=%d pos=%s pools=%s' % (time.time() - t0, j.area(), j.pos(), j.pools()))
+        if int(time.time() - t0) in (5, 15, 30) and not getattr(j, '_gy%d' % int(time.time() - t0), 0):
+            setattr(j, '_gy%d' % int(time.time() - t0), 1); j.foto('gym_%d' % int(time.time() - t0), 'dentro del gimnasio a los %d s' % int(time.time() - t0))
+        time.sleep(0.2)
+    j.P('vivo al final del gimnasio:', j.alive())
+ESCENARIOS = {'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
 
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')

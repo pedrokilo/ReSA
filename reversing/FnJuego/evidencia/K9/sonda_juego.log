@@ -1,0 +1,63 @@
+[    0.1] pid 22688
+[    4.8] juego en marcha tras 5 s; gGameState=9
+[    5.5] salida de la casa: area=0 tras 1 s
+[    6.5] ventana: cliente 640x480
+[    6.5] === ESCENARIO camara_aire
+[    6.6] --- aeronave Hunter OHDUDE
+[   15.7] truco spawn OHDUDE vehiculos nuevos: [('0x8fb8a40', 492), ('0x8fbc6d0', 425)]
+[   24.3]   intento 1 (teclado): en_coche=False estado=1
+[   31.8]   intento 2 (teclado): en_coche=False estado=1
+[   39.5]   intento 3 (teclado): en_coche=False estado=1
+[   45.9]   intento 4 (teclado): en_coche=True estado=50
+[   45.9] entrar con teclado: en_coche=True modelo=403
+[   45.9] dentro de modelo 403
+[   46.0]   t=0.1 modo=56 cinema=1 procesada=1
+[   56.5] captura camaire_Hunter_10 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [100.2, 85.9, 64.5], "max": 255} Hunter camara cinematografica forzada modo 56
+[   66.1]   t=20.3 modo=15 cinema=1 procesada=1
+[   71.4] captura camaire_Hunter_25 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [105.8, 100.4, 80.2], "max": 255} Hunter camara cinematografica forzada modo 15
+[   81.4]   t=35.5 modo=57 cinema=1 procesada=1
+[   84.1]   t=38.2 modo=15 cinema=1 procesada=1
+[   86.5] captura camaire_Hunter_40 {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [94.3, 156.0, 148.8], "max": 255} Hunter camara cinematografica forzada modo 15
+[   91.0] modos vistos Hunter {56: 59, 15: 64, 57: 8}
+[  101.2] tras soltar Hunter {18: 30} vivo True pos (134.87303161621094, -94.22744750976562, 2.381054401397705)
+[  104.6] --- aeronave Hydra JHJOECW
+[  113.9] truco spawn JHJOECW vehiculos nuevos: [('0x8fb57c8', 461), ('0x8fb61e0', 466), ('0x8fb6bf8', 420), ('0x8fb8028', 492), ('0x8fbb2a0', 489), ('0x8fbdb00', 466)]
+[  122.5]   intento 1 (teclado): en_coche=False estado=1
+[  130.2]   intento 2 (teclado): en_coche=False estado=1
+[  137.8]   intento 3 (teclado): en_coche=False estado=1
+[  145.6]   intento 4 (teclado): en_coche=False estado=1
+[  145.6] entrar con teclado: en_coche=False modelo=489
+[  145.6] no se pudo entrar a Hydra
+[  145.7] === ESCENARIO camara
+[  155.0] truco spawn RZHSUEW vehiculos nuevos: [('0x8fd4660', 420), ('0x8fd82f0', 457), ('0x8fda138', 481), ('0x8fdd3b0', 492), ('0x8fdf1f8', 420)]
+[  163.2]   intento 1 (teclado): en_coche=True estado=50
+[  163.2] entrar con teclado: en_coche=True modelo=420
+[  163.2] camara inicial {'activa': 0, 'modo': 18, 'cinema': 0}
+[  165.0] tras V #1: modo=18 cinema=0 procesada=0
+[  166.8] tras V #2: modo=16 cinema=0 procesada=0
+[  168.7] tras V #3: modo=57 cinema=0 procesada=1
+[  170.5] tras V #4: modo=18 cinema=0 procesada=0
+[  170.9] captura cam_v4 {"ancho": 640, "alto": 480, "rojo": 20, "muestras": 34270, "media_rgb": [116.3, 123.1, 107.9], "max": 255} camara tras 4 pulsaciones de V
+[  172.7] tras V #5: modo=18 cinema=0 procesada=0
+[  174.6] tras V #6: modo=18 cinema=0 procesada=0
+[  174.6] mantener V 4 s
+[  174.7]   t=0.1 modo=16 cinema=0 procesada=0
+[  179.0] captura cam_cine {"ancho": 640, "alto": 480, "rojo": 6, "muestras": 34270, "media_rgb": [75.8, 129.1, 117.6], "max": 255} camara tras mantener V
+[  179.0] Insert
+[  192.0] captura cam_ins {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [121.5, 131.5, 117.8], "max": 255} camara 12 s tras Insert
+[  192.0] modos vistos tras Insert: [16]
+[  192.0] forzando m_bCinemaCamera=1 durante 40 s dentro del coche (parado y en marcha)
+[  192.2]   t=0.1 modo=56 cinema=1 procesada=1 vel=0.019
+[  200.5] captura cam_forzada_8 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [109.4, 94.5, 65.3], "max": 255} camara cinematografica forzada, modo 56
+[  205.2]   t=13.1 modo=58 cinema=1 procesada=1 vel=0.010
+[  212.6] captura cam_forzada_20 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [82.4, 68.3, 51.7], "max": 255} camara cinematografica forzada, modo 58
+[  216.9]   t=24.9 modo=16 cinema=1 procesada=1 vel=0.003
+[  220.2]   t=28.2 modo=58 cinema=1 procesada=1 vel=0.001
+[  224.6] captura cam_forzada_32 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [156.7, 162.7, 140.1], "max": 255} camara cinematografica forzada, modo 58
+[  232.2] modos vistos con la camara cinematografica forzada (modo: muestras): {56: 38, 58: 69, 16: 10}
+[  242.4] modos 10 s despues de soltarla: {16: 31} estado final (16, 0, 0)
+[  242.8] captura cam_tras_soltar {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [111.2, 98.1, 63.2], "max": 236} camara tras soltar el modo cinematografico
+[  243.0] vivo al final: True
+[  243.0] LOG [error][01:41:44.030][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  243.0] LOG [error][01:41:44.030][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  243.0] fin

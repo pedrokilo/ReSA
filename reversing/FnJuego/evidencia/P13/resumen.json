@@ -1,0 +1,199 @@
+{
+ "interiores": [
+  {
+   "nombre": "CARLS (casa de CJ)",
+   "intento_entrada": [
+    0,
+    null
+   ],
+   "entro": true,
+   "area": 3,
+   "pos": [
+    2496.050048828125,
+    -1692.9300537109375,
+    1014.7421875
+   ],
+   "vivo": true,
+   "tiempo_entrar_s": 5.0,
+   "pools_antes": {
+    "peds": 40,
+    "veh": 15,
+    "edif": 10113,
+    "obj": 100,
+    "dummy": 728
+   },
+   "pools_dentro": {
+    "peds": 1,
+    "veh": 3,
+    "edif": 9426,
+    "obj": 97,
+    "dummy": 112
+   },
+   "z_dentro": 1014.7421875,
+   "salio": true,
+   "area_final": 0,
+   "pos_final": [
+    2495.330078125,
+    -1690.25,
+    14.765625
+   ],
+   "nan": false
+  },
+  {
+   "nombre": "GYM1 (gimnasio Ganton)",
+   "intento_entrada": [
+    3,
+    "a"
+   ],
+   "entro": true,
+   "area": 5,
+   "pos": [
+    772.1119995117188,
+    -3.8986499309539795,
+    1000.7288208007812
+   ],
+   "vivo": true,
+   "tiempo_entrar_s": 23.4,
+   "pools_antes": {
+    "peds": 13,
+    "veh": 6,
+    "edif": 10329,
+    "obj": 160,
+    "dummy": 963
+   },
+   "pools_dentro": {
+    "peds": 5,
+    "veh": 0,
+    "edif": 10607,
+    "obj": 91,
+    "dummy": 516
+   },
+   "z_dentro": 1000.7288208007812,
+   "salio": true,
+   "area_final": 0,
+   "pos_final": [
+    2229.1298828125,
+    -1722.1300048828125,
+    13.5625
+   ],
+   "nan": false
+  },
+  {
+   "nombre": "CLOTHGP (tienda de ropa)",
+   "intento_entrada": [
+    2,
+    "s"
+   ],
+   "entro": true,
+   "area": 18,
+   "pos": [
+    161.39100646972656,
+    -95.28559875488281,
+    1001.8046875
+   ],
+   "vivo": true,
+   "tiempo_entrar_s": 17.4,
+   "pools_antes": {
+    "peds": 17,
+    "veh": 7,
+    "edif": 10206,
+    "obj": 136,
+    "dummy": 962
+   },
+   "pools_dentro": {
+    "peds": 8,
+    "veh": 0,
+    "edif": 10512,
+    "obj": 82,
+    "dummy": 149
+   },
+   "z_dentro": 1001.8046875,
+   "salio": true,
+   "area_final": 0,
+   "pos_final": [
+    1458.77001953125,
+    -1140.02001953125,
+    24.069162368774414
+   ],
+   "nan": false
+  },
+  {
+   "nombre": "AMMUN1 (Ammu-Nation)",
+   "intento_entrada": [
+    3,
+    "a"
+   ],
+   "entro": true,
+   "area": 1,
+   "pos": [
+    286.14898681640625,
+    -40.64440155029297,
+    1001.515625
+   ],
+   "vivo": true,
+   "tiempo_entrar_s": 23.8,
+   "pools_antes": {
+    "peds": 26,
+    "veh": 7,
+    "edif": 10387,
+    "obj": 123,
+    "dummy": 1220
+   },
+   "pools_dentro": {
+    "peds": 5,
+    "veh": 0,
+    "edif": 11105,
+    "obj": 104,
+    "dummy": 786
+   },
+   "z_dentro": 1001.515625,
+   "salio": true,
+   "area_final": 0,
+   "pos_final": [
+    1365.3499755859375,
+    -1279.06005859375,
+    13.546875
+   ],
+   "nan": false
+  },
+  {
+   "nombre": "BARBERS (peluqueria Idlewood)",
+   "intento_entrada": [
+    0,
+    null
+   ],
+   "entro": true,
+   "area": 2,
+   "pos": [
+    411.6260070800781,
+    -21.433300018310547,
+    1001.8046875
+   ],
+   "vivo": true,
+   "tiempo_entrar_s": 5.1,
+   "pools_antes": {
+    "peds": 16,
+    "veh": 7,
+    "edif": 10405,
+    "obj": 131,
+    "dummy": 1340
+   },
+   "pools_dentro": {
+    "peds": 2,
+    "veh": 0,
+    "edif": 10641,
+    "obj": 80,
+    "dummy": 300
+   },
+   "z_dentro": 1001.8046875,
+   "salio": true,
+   "area_final": 0,
+   "pos_final": [
+    2073.978271484375,
+    -1793.93994140625,
+    13.546875
+   ],
+   "nan": false
+  }
+ ]
+}

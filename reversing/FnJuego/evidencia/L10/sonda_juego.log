@@ -1,0 +1,29 @@
+[    0.1] pid 6688
+[    3.7] juego en marcha tras 4 s; gGameState=9
+[    4.9] salida de la casa: area=0 tras 1 s
+[    5.9] ventana: cliente 640x480
+[    5.9] === ESCENARIO gimnasio
+[   13.0] entrada al gimnasio: area 5 tras 0.9 s
+[   13.1]   t=0 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10355, 'obj': 91, 'dummy': 406}
+[   16.3]   t=3 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   18.7] captura gym_5 {"ancho": 640, "alto": 480, "rojo": 469, "muestras": 34270, "media_rgb": [88.5, 58.2, 37.6], "max": 255} dentro del gimnasio a los 5 s
+[   19.4]   t=6 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   22.5]   t=10 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   25.6]   t=13 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   28.4] captura gym_15 {"ancho": 640, "alto": 480, "rojo": 413, "muestras": 34270, "media_rgb": [88.3, 58.1, 37.7], "max": 255} dentro del gimnasio a los 15 s
+[   28.8]   t=16 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   31.9]   t=19 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   34.9]   t=22 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   38.0]   t=25 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   41.1]   t=28 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   43.6] captura gym_30 {"ancho": 640, "alto": 480, "rojo": 471, "muestras": 34270, "media_rgb": [88.6, 58.2, 37.6], "max": 255} dentro del gimnasio a los 30 s
+[   44.2]   t=31 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   47.3]   t=34 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   50.4]   t=37 area=5 pos=(772.1119995117188, -3.8986499309539795, 1000.7288208007812) pools={'peds': 5, 'veh': 0, 'edif': 10607, 'obj': 91, 'dummy': 516}
+[   53.2] vivo al final del gimnasio: True
+[   53.5] vivo al final: True
+[   53.5] LOG [error][01:46:00.513][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   53.5] LOG [error][01:46:00.514][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   53.5] LOG [error][01:46:09.695][CharacterCommands.cpp:2795]: [SCRIPT] TASK_KILL_CHAR_ON_FOOT con peaton invalido: script 'gymls' atacante=0x0 objetivo=0x8f57a64 bytes=05 04 FF 03 23 00 manejadores=(-999, 1282) pedPool=3/140
+[   53.5] LOG [error][01:46:09.697][CharacterCommands.cpp:2795]: [SCRIPT] TASK_KILL_CHAR_ON_FOOT con peaton invalido: script 'gymls' atacante=0x0 objetivo=0x8f572a0 bytes=05 04 FF 03 22 00 manejadores=(-999, 1027) pedPool=3/140
+[   53.5] fin

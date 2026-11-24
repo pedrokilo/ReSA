@@ -1,0 +1,48 @@
+[    0.2] pid 16124
+[    3.7] juego en marcha tras 4 s; gGameState=9
+[    4.4] salida de la casa: area=0 tras 1 s
+[    5.4] ventana: cliente 640x480
+[    5.4] === ESCENARIO gimnasio
+[   36.9] entrada al gimnasio: area 0 tras 25.3 s
+[   37.1]   t=0 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 19, 'veh': 10, 'edif': 10206, 'obj': 140, 'dummy': 962}
+[   40.3]   t=3 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 19, 'veh': 10, 'edif': 10206, 'obj': 142, 'dummy': 962}
+[   42.5] captura gym_5 {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [122.1, 116.7, 105.0], "max": 255} dentro del gimnasio a los 5 s
+[   43.5]   t=7 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 19, 'veh': 10, 'edif': 10206, 'obj': 142, 'dummy': 962}
+[   46.7]   t=10 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 19, 'veh': 10, 'edif': 10206, 'obj': 142, 'dummy': 962}
+[   50.0]   t=13 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 19, 'veh': 10, 'edif': 10206, 'obj': 142, 'dummy': 962}
+[   52.5] captura gym_15 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [123.4, 117.1, 105.3], "max": 255} dentro del gimnasio a los 15 s
+[   53.2]   t=16 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 19, 'veh': 10, 'edif': 10206, 'obj': 141, 'dummy': 962}
+[   56.4]   t=19 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 19, 'veh': 10, 'edif': 10206, 'obj': 141, 'dummy': 962}
+[   59.6]   t=23 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 16, 'veh': 9, 'edif': 10206, 'obj': 140, 'dummy': 962}
+[   62.8]   t=26 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 18, 'veh': 10, 'edif': 10206, 'obj': 141, 'dummy': 962}
+[   65.9]   t=29 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 18, 'veh': 10, 'edif': 10206, 'obj': 141, 'dummy': 962}
+[   67.4] captura gym_30 {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [143.2, 132.9, 109.4], "max": 255} dentro del gimnasio a los 30 s
+[   69.2]   t=32 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 18, 'veh': 10, 'edif': 10206, 'obj': 141, 'dummy': 962}
+[   72.4]   t=35 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 18, 'veh': 10, 'edif': 10206, 'obj': 141, 'dummy': 962}
+[   75.6]   t=39 area=0 pos=(2229.6298828125, -1721.6300048828125, 13.564826965332031) pools={'peds': 19, 'veh': 10, 'edif': 10206, 'obj': 142, 'dummy': 962}
+[   77.4] vivo al final del gimnasio: True
+[   77.6] === ESCENARIO interiores
+[   89.1] captura int_CARLS {"ancho": 640, "alto": 480, "rojo": 5, "muestras": 34270, "media_rgb": [53.0, 45.6, 40.0], "max": 255} interior CARLS (casa de CJ): CJ en (2496.050048828125, -1692.9300537109375, 1014.7421875), area 3
+[   92.9] captura int_CARLS_dentro2 {"ancho": 640, "alto": 480, "rojo": 5, "muestras": 34270, "media_rgb": [53.0, 45.5, 39.8], "max": 255} interior CARLS (casa de CJ) 3 s despues
+[  100.0] captura int_CARLS_fuera {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [120.7, 129.1, 113.4], "max": 255} tras salir de CARLS (casa de CJ): area 0 pos (2495.330078125, -1690.25, 14.765625)
+[  100.0] INTERIOR {"nombre": "CARLS (casa de CJ)", "intento_entrada": [0, null], "entro": true, "area": 3, "pos": [2496.050048828125, -1692.9300537109375, 1014.7421875], "vivo": true, "tiempo_entrar_s": 5.0, "pools_antes": {"peds": 40, "veh": 15, "edif": 10113, "obj": 100, "dummy": 728}, "pools_dentro": {"peds": 1, "veh": 3, "edif": 9426, "obj": 97, "dummy": 112}, "z_dentro": 1014.7421875, "salio": true, "area_final": 0, "pos_final": [2495.330078125, -1690.25, 14.765625], "nan": false}
+[  124.0] captura int_GYM1 {"ancho": 640, "alto": 480, "rojo": 470, "muestras": 34270, "media_rgb": [88.5, 58.2, 37.6], "max": 255} interior GYM1 (gimnasio Ganton): CJ en (772.1119995117188, -3.8986499309539795, 1000.7288208007812), area 5
+[  127.8] captura int_GYM1_dentro2 {"ancho": 640, "alto": 480, "rojo": 473, "muestras": 34270, "media_rgb": [88.6, 58.3, 37.7], "max": 255} interior GYM1 (gimnasio Ganton) 3 s despues
+[  135.0] captura int_GYM1_fuera {"ancho": 640, "alto": 480, "rojo": 3, "muestras": 34270, "media_rgb": [99.5, 155.1, 142.6], "max": 255} tras salir de GYM1 (gimnasio Ganton): area 0 pos (2229.1298828125, -1722.1300048828125, 13.5625)
+[  135.0] INTERIOR {"nombre": "GYM1 (gimnasio Ganton)", "intento_entrada": [3, "a"], "entro": true, "area": 5, "pos": [772.1119995117188, -3.8986499309539795, 1000.7288208007812], "vivo": true, "tiempo_entrar_s": 23.4, "pools_antes": {"peds": 13, "veh": 6, "edif": 10329, "obj": 160, "dummy": 963}, "pools_dentro": {"peds": 5, "veh": 0, "edif": 10607, "obj": 91, "dummy": 516}, "z_dentro": 1000.7288208007812, "salio": true, "area_final": 0, "pos_final": [2229.1298828125, -1722.1300048828125, 13.5625], "nan": false}
+[  152.9] captura int_CLOTHGP {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [155.1, 143.4, 127.8], "max": 255} interior CLOTHGP (tienda de ropa): CJ en (161.39100646972656, -95.28559875488281, 1001.8046875), area 18
+[  156.6] captura int_CLOTHGP_dentro2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [155.1, 143.4, 127.9], "max": 255} interior CLOTHGP (tienda de ropa) 3 s despues
+[  163.8] captura int_CLOTHGP_fuera {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [68.3, 57.2, 44.8], "max": 255} tras salir de CLOTHGP (tienda de ropa): area 0 pos (1458.77001953125, -1140.02001953125, 24.069162368774414)
+[  163.8] INTERIOR {"nombre": "CLOTHGP (tienda de ropa)", "intento_entrada": [2, "s"], "entro": true, "area": 18, "pos": [161.39100646972656, -95.28559875488281, 1001.8046875], "vivo": true, "tiempo_entrar_s": 17.4, "pools_antes": {"peds": 17, "veh": 7, "edif": 10206, "obj": 136, "dummy": 962}, "pools_dentro": {"peds": 8, "veh": 0, "edif": 10512, "obj": 82, "dummy": 149}, "z_dentro": 1001.8046875, "salio": true, "area_final": 0, "pos_final": [1458.77001953125, -1140.02001953125, 24.069162368774414], "nan": false}
+[  188.1] captura int_AMMUN1 {"ancho": 640, "alto": 480, "rojo": 461, "muestras": 34270, "media_rgb": [122.5, 102.0, 86.1], "max": 255} interior AMMUN1 (Ammu-Nation): CJ en (286.14898681640625, -40.64440155029297, 1001.515625), area 1
+[  191.7] captura int_AMMUN1_dentro2 {"ancho": 640, "alto": 480, "rojo": 464, "muestras": 34270, "media_rgb": [120.4, 100.3, 84.8], "max": 255} interior AMMUN1 (Ammu-Nation) 3 s despues
+[  198.8] captura int_AMMUN1_fuera {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [116.1, 113.4, 93.1], "max": 255} tras salir de AMMUN1 (Ammu-Nation): area 0 pos (1365.3499755859375, -1279.06005859375, 13.546875)
+[  198.8] INTERIOR {"nombre": "AMMUN1 (Ammu-Nation)", "intento_entrada": [3, "a"], "entro": true, "area": 1, "pos": [286.14898681640625, -40.64440155029297, 1001.515625], "vivo": true, "tiempo_entrar_s": 23.8, "pools_antes": {"peds": 26, "veh": 7, "edif": 10387, "obj": 123, "dummy": 1220}, "pools_dentro": {"peds": 5, "veh": 0, "edif": 11105, "obj": 104, "dummy": 786}, "z_dentro": 1001.515625, "salio": true, "area_final": 0, "pos_final": [1365.3499755859375, -1279.06005859375, 13.546875], "nan": false}
+[  204.5] captura int_BARBERS {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [147.7, 129.8, 92.3], "max": 255} interior BARBERS (peluqueria Idlewood): CJ en (411.6260070800781, -21.433300018310547, 1001.8046875), area 2
+[  208.1] captura int_BARBERS_dentro2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [147.2, 129.5, 92.1], "max": 255} interior BARBERS (peluqueria Idlewood) 3 s despues
+[  215.3] captura int_BARBERS_fuera {"ancho": 640, "alto": 480, "rojo": 22, "muestras": 34270, "media_rgb": [146.2, 150.8, 130.9], "max": 255} tras salir de BARBERS (peluqueria Idlewood): area 0 pos (2073.978271484375, -1793.93994140625, 13.546875)
+[  215.3] INTERIOR {"nombre": "BARBERS (peluqueria Idlewood)", "intento_entrada": [0, null], "entro": true, "area": 2, "pos": [411.6260070800781, -21.433300018310547, 1001.8046875], "vivo": true, "tiempo_entrar_s": 5.1, "pools_antes": {"peds": 16, "veh": 7, "edif": 10405, "obj": 131, "dummy": 1340}, "pools_dentro": {"peds": 2, "veh": 0, "edif": 10641, "obj": 80, "dummy": 300}, "z_dentro": 1001.8046875, "salio": true, "area_final": 0, "pos_final": [2073.978271484375, -1793.93994140625, 13.546875], "nan": false}
+[  215.6] vivo al final: True
+[  215.6] LOG [error][02:02:06.568][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  215.6] LOG [error][02:02:06.568][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  215.6] fin

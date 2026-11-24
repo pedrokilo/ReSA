@@ -1,0 +1,49 @@
+[    0.2] pid 26932
+[    4.9] juego en marcha tras 5 s; gGameState=9
+[    5.6] salida de la casa: area=0 tras 1 s
+[    6.6] ventana: cliente 640x480
+[    6.6] === ESCENARIO xinput_coche
+[   15.9] truco spawn RZHSUEW vehiculos nuevos: [('0x8f62550', 457)]
+[   20.2]   intento 1 (mando): en_coche=True estado=50
+[   20.2] entrar con mando: en_coche=True modelo=457
+[   20.6] captura xi_en_coche {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [49.6, 44.0, 30.8], "max": 255} CJ dentro del coche
+[   26.0] COCHE_FASE A_acelera {"avance": 0.01, "dyaw": -0.1, "vmax": 0.008, "vfin": 0.001, "pad": {"Cross": 255}, "tele(v_frente,gas,freno,volante)": [[-0.001, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [-0.0, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [0.005, 1.0, 0.0, 0.0], [-0.0, 1.0, 0.0, 0.0], [-0.0, 1.0, 0.0, 0.0], [-0.0, 1.0, 0.0, 0.0]]}
+[   28.3] COCHE_FASE reposo {"avance": 0.0, "dyaw": -0.0, "vmax": 0, "vfin": 0.0, "pad": {}, "tele(v_frente,gas,freno,volante)": [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[   32.8] COCHE_FASE teclado_W_comparacion {"avance": 0.0, "dyaw": 0.1, "vmax": 0.005, "vfin": 0.001, "pad": {"Cross": 255}, "tele(v_frente,gas,freno,volante)": [[0.004, 1.0, 0.0, 0.0], [0.005, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [0.005, 1.0, 0.0, 0.0]]}
+[   35.1] COCHE_FASE reposo {"avance": 0.0, "dyaw": -0.0, "vmax": 0, "vfin": 0.0, "pad": {}, "tele(v_frente,gas,freno,volante)": [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[   40.4] COCHE_FASE A_acelera_2 {"avance": 0.0, "dyaw": 0.0, "vmax": 0.006, "vfin": 0.0, "pad": {"Cross": 255}, "tele(v_frente,gas,freno,volante)": [[0.004, 1.0, 0.0, 0.0], [0.005, 1.0, 0.0, 0.0], [-0.0, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [-0.001, 1.0, 0.0, 0.0], [0.005, 1.0, 0.0, 0.0], [-0.0, 1.0, 0.0, 0.0]]}
+[   43.7] COCHE_FASE A+stick_der {"avance": 0.28, "dyaw": 0.6, "vmax": 0.005, "vfin": 0.002, "pad": {"LSX": 128, "Cross": 255}, "tele(v_frente,gas,freno,volante)": [[-0.001, 1.0, 0.0, -0.518], [-0.001, 1.0, 0.0, -0.524], [-0.001, 1.0, 0.0, -0.524], [0.004, 1.0, 0.0, -0.524], [0.004, 1.0, 0.0, -0.524], [-0.001, 1.0, 0.0, -0.524]]}
+[   47.0] COCHE_FASE A+stick_izq {"avance": 0.27, "dyaw": -1.0, "vmax": 0.005, "vfin": 0.003, "pad": {"LSX": -128, "Cross": 255}, "tele(v_frente,gas,freno,volante)": [[-0.001, 1.0, 0.0, 0.506], [-0.0, 1.0, 0.0, 0.524], [-0.001, 1.0, 0.0, 0.524], [-0.001, 1.0, 0.0, 0.524], [-0.001, 1.0, 0.0, 0.524], [0.004, 1.0, 0.0, 0.524]]}
+[   47.4] captura xi_conduciendo {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [66.9, 63.0, 60.2], "max": 255} conduciendo con A y el stick
+[   50.6] COCHE_FASE X_freno {"avance": 1.24, "dyaw": 4.8, "vmax": 0.074, "vfin": 0.002, "pad": {"Square": 255}, "tele(v_frente,gas,freno,volante)": [[-0.048, -1.0, 0.0, 0.0], [-0.001, -1.0, 0.0, 0.0], [-0.008, -1.0, 0.0, 0.0], [-0.009, -1.0, 0.0, 0.0], [-0.001, -1.0, 0.0, 0.0], [-0.0, -1.0, 0.0, 0.0]]}
+[   53.0] COCHE_FASE RB_freno_de_mano {"avance": 0.06, "dyaw": -0.0, "vmax": 0.009, "vfin": 0.0, "pad": {"R1": 255}, "tele(v_frente,gas,freno,volante)": [[0.008, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[   54.7] COCHE_FASE RT {"avance": 0.0, "dyaw": 0.0, "vmax": 0, "vfin": 0.0, "pad": {"R2": 255}, "tele(v_frente,gas,freno,volante)": [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[   56.5] COCHE_FASE LT {"avance": 0.0, "dyaw": 0.0, "vmax": 0, "vfin": 0.0, "pad": {"L2": 255}, "tele(v_frente,gas,freno,volante)": [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[   57.0] Y para salir: en_coche=False estado=0
+[   62.6] captura xi_start {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [45.7, 38.6, 23.2], "max": 255} pantalla tras pulsar Start (esperado: menu de pausa)
+[   62.6] Start: reloj antes (1 s) avanza 1200 ms; tras Start avanza 1680 ms en 1.5 s => sin pausa
+[   66.0] Start otra vez: reloj avanza 1200 ms en 1 s => reanuda
+[   66.2] === ESCENARIO conduccion
+[   75.4] truco spawn RZHSUEW vehiculos nuevos: [('0x8f661e0', 420), ('0x8f68028', 457), ('0x8f68a40', 492)]
+[   84.2]   intento 1 (teclado): en_coche=False estado=1
+[   91.7]   intento 2 (teclado): en_coche=False estado=1
+[   96.2]   intento 3 (teclado): en_coche=True estado=50
+[   96.2] entrar con teclado: en_coche=True modelo=420
+[   96.6] captura cond_dentro {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [35.2, 28.7, 18.1], "max": 255} CJ dentro del coche (tecla F)
+[   98.7] PRUEBA reposo {"v_ini": 0.0, "v_max": 0, "v_fin": 0.0, "avance": 0.0, "dyaw_grados": 0.0, "avance_sobre_frente": 0.0, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[  102.8] PRUEBA W acelerar 4 s {"v_ini": 0.0, "v_max": 0.191, "v_fin": 0.091, "avance": 21.71, "dyaw_grados": 7.7, "avance_sobre_frente": 21.71, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.019, 1.0, 0.0, 0.0], [0.112, 1.0, 0.0, 0.0], [0.191, 1.0, 0.0, 0.0], [0.11, 1.0, 0.0, 0.0], [0.172, 1.0, 0.0, 0.0], [0.063, 1.0, 0.0, 0.0], [0.074, 1.0, 0.0, 0.0], [0.093, 1.0, 0.0, 0.0]]}
+[  105.3] PRUEBA S frenar desde velocidad hacia delante {"v_ini": 0.091, "v_max": 0.21, "v_fin": 0.145, "avance": 16.5, "dyaw_grados": -6.9, "avance_sobre_frente": -16.46, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.048, 0.0, 1.0, 0.0], [-0.076, -1.0, 0.0, 0.0], [-0.18, -1.0, 0.0, 0.0], [-0.202, -1.0, 0.0, 0.0], [-0.122, -1.0, 0.0, 0.0]]}
+[  108.0] PRUEBA soltar todo {"v_ini": 0.145, "v_max": 0.139, "v_fin": 0.0, "avance": 4.44, "dyaw_grados": -15.0, "avance_sobre_frente": -4.43, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.138, 0.0, 0.0, 0.0], [-0.058, 0.0, 0.0, 0.0], [-0.008, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[  111.5] PRUEBA S desde parado (marcha atras) {"v_ini": 0.0, "v_max": 0.211, "v_fin": 0.209, "avance": 31.48, "dyaw_grados": 13.2, "avance_sobre_frente": -31.26, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.021, -1.0, 0.0, 0.0], [-0.147, -1.0, 0.0, 0.0], [-0.206, -1.0, 0.0, 0.0], [-0.203, -1.0, 0.0, 0.0], [-0.207, -1.0, 0.0, 0.0], [-0.208, -1.0, 0.0, 0.0], [-0.201, -1.0, 0.0, 0.0]]}
+[  114.7] PRUEBA soltar todo {"v_ini": 0.209, "v_max": 0.202, "v_fin": 0.0, "avance": 16.6, "dyaw_grados": -0.0, "avance_sobre_frente": -16.6, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.202, 0.0, 0.0, 0.0], [-0.161, 0.0, 0.0, 0.0], [-0.123, 0.0, 0.0, 0.0], [-0.088, 0.0, 0.0, 0.0], [-0.053, 0.0, 0.0, 0.0], [-0.018, 0.0, 0.0, 0.0]]}
+[  118.3] PRUEBA W+A (giro izquierda) {"v_ini": 0.0, "v_max": 0.298, "v_fin": 0.043, "avance": 10.91, "dyaw_grados": 97.6, "avance_sobre_frente": -0.16, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.018, 1.0, 0.0, 0.255], [0.099, 1.0, 0.0, 0.611], [0.153, 1.0, 0.0, 0.611], [0.205, 1.0, 0.0, 0.611], [0.254, 1.0, 0.0, 0.611], [0.287, 1.0, 0.0, 0.611], [0.033, 1.0, 0.0, 0.611]]}
+[  118.7] captura cond_giro_izq {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [68.9, 80.3, 80.6], "max": 255} coche girando con W+A
+[  122.2] PRUEBA W+D (giro derecha) {"v_ini": 0.03, "v_max": 0.275, "v_fin": 0.137, "avance": 12.58, "dyaw_grados": -112.5, "avance_sobre_frente": 0.97, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.002, 1.0, 0.0, -0.356], [0.048, 1.0, 0.0, -0.611], [0.126, 1.0, 0.0, -0.611], [0.182, 1.0, 0.0, -0.611], [0.22, 1.0, 0.0, -0.611], [0.26, 1.0, 0.0, -0.611], [0.137, 1.0, 0.0, -0.611]]}
+[  122.7] captura cond_giro_der {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [131.5, 143.6, 125.1], "max": 255} coche girando con W+D
+[  125.9] PRUEBA W (rumbo recto) {"v_ini": 0.111, "v_max": 0.348, "v_fin": 0.355, "avance": 30.74, "dyaw_grados": -10.0, "avance_sobre_frente": 30.73, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.121, 1.0, 0.0, -0.0], [0.086, 1.0, 0.0, -0.0], [0.14, 1.0, 0.0, -0.0], [0.211, 1.0, 0.0, -0.0], [0.27, 1.0, 0.0, -0.0], [0.335, 1.0, 0.0, -0.0]]}
+[  129.0] PRUEBA Espacio (freno de mano) a velocidad {"v_ini": 0.355, "v_max": 0.33, "v_fin": 0.0, "avance": 13.99, "dyaw_grados": 5.1, "avance_sobre_frente": 13.94, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.33, 0.0, 0.0, -0.0], [0.207, 0.0, 0.0, -0.0], [0.082, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0]]}
+[  131.2] PRUEBA W+Espacio {"v_ini": 0.0, "v_max": 0.024, "v_fin": 0.024, "avance": 2.29, "dyaw_grados": 1.3, "avance_sobre_frente": 2.29, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.008, 1.0, 0.0, -0.0], [0.021, 1.0, 0.0, -0.0], [0.022, 1.0, 0.0, -0.0], [0.024, 1.0, 0.0, -0.0]]}
+[  131.5] vivo al final: True
+[  131.5] LOG [error][01:39:23.450][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  131.5] LOG [error][01:39:23.450][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  131.5] fin

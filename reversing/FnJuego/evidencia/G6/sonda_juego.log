@@ -1,0 +1,43 @@
+[    0.2] pid 17352
+[    4.9] juego en marcha tras 5 s; gGameState=9
+[    6.1] salida de la casa: area=0 tras 1 s
+[    7.1] ventana: cliente 640x480
+[    7.1] === ESCENARIO armas
+[   13.3] armas antes 0 [(0, 1, 0, 0, 1), (1, 8, 0, 0, 1), (2, 24, 0, 7, 99999), (3, 27, 0, 7, 99999), (4, 28, 0, 100, 99999), (5, 31, 0, 50, 99999), (6, 34, 0, 1, 99999), (7, 38, 0, 500, 99999), (8, 39, 0, 1, 99999), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   16.5] armas tras LXGIWYL (set 1): slot activo 0 [(0, 1, 0, 0, 2), (1, 5, 0, 0, 1), (2, 22, 0, 34, 100), (3, 25, 0, 1, 99999), (4, 28, 0, 100, 99999), (5, 30, 0, 30, 99999), (6, 33, 0, 1, 25), (7, 35, 0, 1, 200), (8, 18, 0, 1, 10), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   19.2] captura armas_ini {"ancho": 640, "alto": 480, "rojo": 2, "muestras": 34270, "media_rgb": [75.1, 97.4, 103.9], "max": 255} CJ con armas del truco 1
+[   25.0] cambio de arma por rueda : slots activos tras 8 pasos: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+[   32.5] cambio de arma por teclas : slots activos tras 8 pasos: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+[   40.2] cambio de arma por mando : slots activos tras 8 pasos: [1, 1, 2, 3, 4, 5, 6, 7, 8]
+[   50.4] arma activa pistola tipo 22
+[   55.0] captura armas_disparo_pistola_raton {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [99.3, 108.9, 100.9], "max": 255} CJ disparando con pistola (raton)
+[   55.9] DISPARO pistola raton {"municion_antes": 100, "despues": 100, "cargador_antes": 34, "cargador_despues": 18, "camara_modo": 53, "nan": 0, "vivo": true, "pools": {"peds": 32, "veh": 16, "edif": 10113, "obj": 98, "dummy": 728}}
+[   59.9] captura armas_disparo_pistola_teclado {"ancho": 640, "alto": 480, "rojo": 15, "muestras": 34270, "media_rgb": [54.1, 50.6, 37.5], "max": 255} CJ disparando con pistola (teclado)
+[   60.8] DISPARO pistola teclado {"municion_antes": 100, "despues": 100, "cargador_antes": 18, "cargador_despues": 18, "camara_modo": 4, "nan": 0, "vivo": true, "pools": {"peds": 30, "veh": 15, "edif": 10113, "obj": 99, "dummy": 728}}
+[   65.6] captura armas_disparo_pistola_mando {"ancho": 640, "alto": 480, "rojo": 3, "muestras": 34270, "media_rgb": [37.1, 30.2, 23.3], "max": 255} CJ disparando con pistola (mando)
+[   66.5] DISPARO pistola mando {"municion_antes": 100, "despues": 100, "cargador_antes": 18, "cargador_despues": 0, "camara_modo": 53, "nan": 0, "vivo": true, "pools": {"peds": 31, "veh": 13, "edif": 10113, "obj": 98, "dummy": 728}}
+[   68.2] arma activa escopeta tipo 25
+[   72.8] captura armas_disparo_escopeta_raton {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [63.4, 85.9, 91.4], "max": 255} CJ disparando con escopeta (raton)
+[   73.7] DISPARO escopeta raton {"municion_antes": 99999, "despues": 99999, "cargador_antes": 1, "cargador_despues": 1, "camara_modo": 53, "nan": 0, "vivo": true, "pools": {"peds": 34, "veh": 16, "edif": 10113, "obj": 97, "dummy": 728}}
+[   77.7] captura armas_disparo_escopeta_teclado {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [99.2, 108.5, 94.1], "max": 255} CJ disparando con escopeta (teclado)
+[   78.6] DISPARO escopeta teclado {"municion_antes": 99999, "despues": 99999, "cargador_antes": 1, "cargador_despues": 1, "camara_modo": 4, "nan": 0, "vivo": true, "pools": {"peds": 34, "veh": 16, "edif": 10113, "obj": 96, "dummy": 728}}
+[   83.3] captura armas_disparo_escopeta_mando {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [75.1, 103.9, 113.5], "max": 255} CJ disparando con escopeta (mando)
+[   84.2] DISPARO escopeta mando {"municion_antes": 99999, "despues": 99999, "cargador_antes": 1, "cargador_despues": 1, "camara_modo": 53, "nan": 0, "vivo": true, "pools": {"peds": 31, "veh": 15, "edif": 10113, "obj": 96, "dummy": 728}}
+[   86.0] arma activa uzi tipo 28
+[   90.6] captura armas_disparo_uzi_raton {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [106.5, 116.3, 105.6], "max": 255} CJ disparando con uzi (raton)
+[   91.5] DISPARO uzi raton {"municion_antes": 99999, "despues": 99999, "cargador_antes": 100, "cargador_despues": 62, "camara_modo": 53, "nan": 0, "vivo": true, "pools": {"peds": 33, "veh": 16, "edif": 10113, "obj": 95, "dummy": 728}}
+[   95.5] captura armas_disparo_uzi_teclado {"ancho": 640, "alto": 480, "rojo": 16, "muestras": 34270, "media_rgb": [57.7, 55.0, 42.3], "max": 255} CJ disparando con uzi (teclado)
+[   96.4] DISPARO uzi teclado {"municion_antes": 99999, "despues": 99999, "cargador_antes": 62, "cargador_despues": 62, "camara_modo": 4, "nan": 0, "vivo": true, "pools": {"peds": 30, "veh": 13, "edif": 10113, "obj": 96, "dummy": 728}}
+[  101.2] captura armas_disparo_uzi_mando {"ancho": 640, "alto": 480, "rojo": 9, "muestras": 34270, "media_rgb": [45.1, 38.7, 25.5], "max": 255} CJ disparando con uzi (mando)
+[  102.0] DISPARO uzi mando {"municion_antes": 99999, "despues": 99999, "cargador_antes": 62, "cargador_despues": 24, "camara_modo": 53, "nan": 0, "vivo": true, "pools": {"peds": 30, "veh": 14, "edif": 10113, "obj": 95, "dummy": 728}}
+[  103.8] arma activa ak47 tipo 30
+[  108.4] captura armas_disparo_ak47_raton {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [99.3, 98.7, 83.7], "max": 255} CJ disparando con ak47 (raton)
+[  109.3] DISPARO ak47 raton {"municion_antes": 99999, "despues": 99999, "cargador_antes": 30, "cargador_despues": 11, "camara_modo": 53, "nan": 0, "vivo": true, "pools": {"peds": 32, "veh": 18, "edif": 10113, "obj": 98, "dummy": 728}}
+[  113.2] captura armas_disparo_ak47_teclado {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [122.2, 132.2, 126.8], "max": 255} CJ disparando con ak47 (teclado)
+[  114.1] DISPARO ak47 teclado {"municion_antes": 99999, "despues": 99999, "cargador_antes": 11, "cargador_despues": 11, "camara_modo": 4, "nan": 0, "vivo": true, "pools": {"peds": 28, "veh": 16, "edif": 10113, "obj": 98, "dummy": 728}}
+[  119.1] captura armas_disparo_ak47_mando {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [72.5, 100.6, 104.6], "max": 255} CJ disparando con ak47 (mando)
+[  120.0] DISPARO ak47 mando {"municion_antes": 99999, "despues": 99999, "cargador_antes": 11, "cargador_despues": 30, "camara_modo": 53, "nan": 0, "vivo": true, "pools": {"peds": 25, "veh": 16, "edif": 10113, "obj": 96, "dummy": 728}}
+[  120.5] vivo al final: True
+[  120.5] LOG [error][01:13:33.845][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  120.5] LOG [error][01:13:33.845][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  120.5] fin
