@@ -1,0 +1,770 @@
+[
+{
+"escena": "c_p4_h12_c00_y090_pi+0.70_r0",
+"media_o": [
+130.0,
+199.0,
+242.6
+],
+"media_s": [
+131.7,
+199.6,
+242.3
+],
+"dif_medias_s_menos_o": [
+1.65,
+0.65,
+-0.28
+],
+"ruido_media_oo": 0.16,
+"ruido_media_ss": 2.13,
+"absdif_oo": [
+0.23
+],
+"absdif_ss": [
+1.38
+],
+"absdif_os": [
+2.74,
+2.24,
+2.82,
+2.14
+]
+},
+{
+"escena": "c_p4_h12_c00_y090_pi+0.70_r1",
+"media_o": [
+131.6,
+201.1,
+243.4
+],
+"media_s": [
+131.6,
+199.6,
+242.2
+],
+"dif_medias_s_menos_o": [
+0.01,
+-1.47,
+-1.14
+],
+"ruido_media_oo": 1.72,
+"ruido_media_ss": 1.31,
+"absdif_oo": [
+2.69
+],
+"absdif_ss": [
+1.39
+],
+"absdif_os": [
+3.5,
+3.56,
+2.35,
+1.84
+]
+},
+{
+"escena": "c_p4_h12_c00_y090_pi-0.05_r0",
+"media_o": [
+116.5,
+113.9,
+105.6
+],
+"media_s": [
+116.4,
+114.1,
+105.4
+],
+"dif_medias_s_menos_o": [
+-0.13,
+0.26,
+-0.13
+],
+"ruido_media_oo": 0.65,
+"ruido_media_ss": 0.96,
+"absdif_oo": [
+8.57
+],
+"absdif_ss": [
+16.65
+],
+"absdif_os": [
+7.15,
+16.68,
+9.65,
+14.21
+]
+},
+{
+"escena": "c_p4_h12_c00_y090_pi-0.05_r1",
+"media_o": [
+116.7,
+114.3,
+105.6
+],
+"media_s": [
+116.5,
+113.9,
+105.4
+],
+"dif_medias_s_menos_o": [
+-0.17,
+-0.36,
+-0.13
+],
+"ruido_media_oo": 0.56,
+"ruido_media_ss": 1.09,
+"absdif_oo": [
+8.59
+],
+"absdif_ss": [
+16.72
+],
+"absdif_os": [
+7.02,
+16.95,
+9.56,
+14.19
+]
+},
+{
+"escena": "c_p4_h12_c04_y090_pi+0.70_r0",
+"media_o": [
+199.5,
+232.7,
+240.3
+],
+"media_s": [
+201.9,
+236.1,
+242.5
+],
+"dif_medias_s_menos_o": [
+2.4,
+3.42,
+2.22
+],
+"ruido_media_oo": 0.37,
+"ruido_media_ss": 2.37,
+"absdif_oo": [
+3.36
+],
+"absdif_ss": [
+1.94
+],
+"absdif_os": [
+6.89,
+6.65,
+7.28,
+6.81
+]
+},
+{
+"escena": "c_p4_h12_c04_y090_pi+0.70_r1",
+"media_o": [
+193.1,
+228.6,
+237.2
+],
+"media_s": [
+199.6,
+234.0,
+241.0
+],
+"dif_medias_s_menos_o": [
+6.57,
+5.4,
+3.83
+],
+"ruido_media_oo": 2.66,
+"ruido_media_ss": 0.55,
+"absdif_oo": [
+5.11
+],
+"absdif_ss": [
+1.92
+],
+"absdif_os": [
+9.95,
+10.2,
+11.07,
+11.0
+]
+},
+{
+"escena": "c_p4_h12_c04_y090_pi-0.05_r0",
+"media_o": [
+154.7,
+153.5,
+145.7
+],
+"media_s": [
+154.9,
+154.0,
+146.1
+],
+"dif_medias_s_menos_o": [
+0.26,
+0.48,
+0.37
+],
+"ruido_media_oo": 2.04,
+"ruido_media_ss": 0.76,
+"absdif_oo": [
+15.41
+],
+"absdif_ss": [
+21.65
+],
+"absdif_os": [
+16.7,
+20.65,
+9.19,
+19.58
+]
+},
+{
+"escena": "c_p4_h12_c04_y090_pi-0.05_r1",
+"media_o": [
+154.7,
+153.6,
+145.7
+],
+"media_s": [
+155.0,
+154.0,
+146.1
+],
+"dif_medias_s_menos_o": [
+0.37,
+0.38,
+0.37
+],
+"ruido_media_oo": 2.13,
+"ruido_media_ss": 0.68,
+"absdif_oo": [
+15.3
+],
+"absdif_ss": [
+21.6
+],
+"absdif_os": [
+16.62,
+20.6,
+9.26,
+19.47
+]
+},
+{
+"escena": "c_p4_h12_c07_y090_pi+0.70_r0",
+"media_o": [
+186.5,
+218.6,
+228.1
+],
+"media_s": [
+183.2,
+216.1,
+225.8
+],
+"dif_medias_s_menos_o": [
+-3.36,
+-2.5,
+-2.26
+],
+"ruido_media_oo": 1.56,
+"ruido_media_ss": 1.67,
+"absdif_oo": [
+6.23
+],
+"absdif_ss": [
+1.29
+],
+"absdif_os": [
+8.27,
+8.44,
+8.56,
+8.79
+]
+},
+{
+"escena": "c_p4_h12_c07_y090_pi+0.70_r1",
+"media_o": [
+184.9,
+217.2,
+226.4
+],
+"media_s": [
+185.9,
+218.0,
+227.5
+],
+"dif_medias_s_menos_o": [
+0.91,
+0.89,
+1.1
+],
+"ruido_media_oo": 1.08,
+"ruido_media_ss": 0.13,
+"absdif_oo": [
+5.31
+],
+"absdif_ss": [
+1.08
+],
+"absdif_os": [
+9.07,
+9.16,
+7.88,
+7.76
+]
+},
+{
+"escena": "c_p4_h12_c07_y090_pi-0.05_r0",
+"media_o": [
+125.3,
+123.8,
+122.3
+],
+"media_s": [
+124.7,
+123.2,
+121.8
+],
+"dif_medias_s_menos_o": [
+-0.66,
+-0.51,
+-0.52
+],
+"ruido_media_oo": 0.68,
+"ruido_media_ss": 1.2,
+"absdif_oo": [
+11.49
+],
+"absdif_ss": [
+21.62
+],
+"absdif_os": [
+5.52,
+21.01,
+14.08,
+17.18
+]
+},
+{
+"escena": "c_p4_h12_c07_y090_pi-0.05_r1",
+"media_o": [
+125.2,
+123.7,
+122.2
+],
+"media_s": [
+124.6,
+123.0,
+121.5
+],
+"dif_medias_s_menos_o": [
+-0.64,
+-0.69,
+-0.7
+],
+"ruido_media_oo": 0.56,
+"ruido_media_ss": 0.4,
+"absdif_oo": [
+11.61
+],
+"absdif_ss": [
+21.76
+],
+"absdif_os": [
+6.18,
+21.02,
+14.3,
+17.07
+]
+},
+{
+"escena": "c_p4_h18_c00_y090_pi+0.70_r0",
+"media_o": [
+129.6,
+189.2,
+242.8
+],
+"media_s": [
+129.4,
+188.7,
+242.2
+],
+"dif_medias_s_menos_o": [
+-0.24,
+-0.5,
+-0.59
+],
+"ruido_media_oo": 1.88,
+"ruido_media_ss": 1.63,
+"absdif_oo": [
+1.14
+],
+"absdif_ss": [
+1.51
+],
+"absdif_os": [
+2.15,
+1.82,
+1.73,
+2.43
+]
+},
+{
+"escena": "c_p4_h18_c00_y090_pi+0.70_r1",
+"media_o": [
+129.4,
+189.1,
+242.7
+],
+"media_s": [
+128.5,
+189.6,
+242.1
+],
+"dif_medias_s_menos_o": [
+-0.93,
+0.51,
+-0.59
+],
+"ruido_media_oo": 2.02,
+"ruido_media_ss": 1.78,
+"absdif_oo": [
+1.37
+],
+"absdif_ss": [
+2.01
+],
+"absdif_os": [
+2.18,
+2.21,
+2.69,
+2.8
+]
+},
+{
+"escena": "c_p4_h18_c00_y090_pi-0.05_r0",
+"media_o": [
+109.8,
+111.5,
+108.4
+],
+"media_s": [
+109.2,
+110.5,
+107.2
+],
+"dif_medias_s_menos_o": [
+-0.6,
+-0.95,
+-1.17
+],
+"ruido_media_oo": 0.28,
+"ruido_media_ss": 1.3,
+"absdif_oo": [
+7.79
+],
+"absdif_ss": [
+18.24
+],
+"absdif_os": [
+14.33,
+17.29,
+13.35,
+14.61
+]
+},
+{
+"escena": "c_p4_h18_c00_y090_pi-0.05_r1",
+"media_o": [
+109.7,
+111.4,
+108.3
+],
+"media_s": [
+109.3,
+110.6,
+107.3
+],
+"dif_medias_s_menos_o": [
+-0.39,
+-0.77,
+-1.0
+],
+"ruido_media_oo": 0.16,
+"ruido_media_ss": 1.34,
+"absdif_oo": [
+7.45
+],
+"absdif_ss": [
+18.0
+],
+"absdif_os": [
+14.14,
+16.86,
+13.14,
+14.33
+]
+},
+{
+"escena": "c_p4_h18_c04_y090_pi+0.70_r0",
+"media_o": [
+187.6,
+219.4,
+228.5
+],
+"media_s": [
+186.7,
+219.0,
+227.9
+],
+"dif_medias_s_menos_o": [
+-0.9,
+-0.4,
+-0.59
+],
+"ruido_media_oo": 1.88,
+"ruido_media_ss": 0.47,
+"absdif_oo": [
+6.84
+],
+"absdif_ss": [
+1.53
+],
+"absdif_os": [
+7.9,
+8.01,
+7.15,
+7.09
+]
+},
+{
+"escena": "c_p4_h18_c04_y090_pi+0.70_r1",
+"media_o": [
+187.7,
+220.1,
+229.3
+],
+"media_s": [
+193.6,
+225.1,
+234.2
+],
+"dif_medias_s_menos_o": [
+5.92,
+4.98,
+4.89
+],
+"ruido_media_oo": 1.72,
+"ruido_media_ss": 0.67,
+"absdif_oo": [
+5.66
+],
+"absdif_ss": [
+1.19
+],
+"absdif_os": [
+9.94,
+10.27,
+9.41,
+9.16
+]
+},
+{
+"escena": "c_p4_h18_c04_y090_pi-0.05_r0",
+"media_o": [
+145.8,
+145.1,
+139.0
+],
+"media_s": [
+144.7,
+143.7,
+137.7
+],
+"dif_medias_s_menos_o": [
+-1.01,
+-1.44,
+-1.29
+],
+"ruido_media_oo": 0.7,
+"ruido_media_ss": 0.71,
+"absdif_oo": [
+7.77
+],
+"absdif_ss": [
+20.22
+],
+"absdif_os": [
+14.45,
+22.51,
+14.27,
+20.91
+]
+},
+{
+"escena": "c_p4_h18_c04_y090_pi-0.05_r1",
+"media_o": [
+145.7,
+145.1,
+139.0
+],
+"media_s": [
+144.2,
+143.2,
+137.1
+],
+"dif_medias_s_menos_o": [
+-1.53,
+-1.84,
+-1.84
+],
+"ruido_media_oo": 0.91,
+"ruido_media_ss": 1.53,
+"absdif_oo": [
+7.93
+],
+"absdif_ss": [
+20.5
+],
+"absdif_os": [
+14.65,
+22.76,
+14.4,
+20.95
+]
+},
+{
+"escena": "c_p4_h18_c07_y090_pi+0.70_r0",
+"media_o": [
+107.2,
+126.0,
+130.1
+],
+"media_s": [
+106.3,
+124.9,
+129.2
+],
+"dif_medias_s_menos_o": [
+-0.95,
+-1.09,
+-0.9
+],
+"ruido_media_oo": 1.09,
+"ruido_media_ss": 0.02,
+"absdif_oo": [
+2.87
+],
+"absdif_ss": [
+0.76
+],
+"absdif_os": [
+4.83,
+4.81,
+4.71,
+4.6
+]
+},
+{
+"escena": "c_p4_h18_c07_y090_pi+0.70_r1",
+"media_o": [
+106.7,
+125.6,
+129.7
+],
+"media_s": [
+106.7,
+125.0,
+129.4
+],
+"dif_medias_s_menos_o": [
+0.05,
+-0.57,
+-0.28
+],
+"ruido_media_oo": 0.25,
+"ruido_media_ss": 0.69,
+"absdif_oo": [
+2.88
+],
+"absdif_ss": [
+0.88
+],
+"absdif_os": [
+5.0,
+5.23,
+5.06,
+5.07
+]
+},
+{
+"escena": "c_p4_h18_c07_y090_pi-0.05_r0",
+"media_o": [
+116.5,
+125.0,
+117.3
+],
+"media_s": [
+116.5,
+124.7,
+117.0
+],
+"dif_medias_s_menos_o": [
+-0.06,
+-0.34,
+-0.33
+],
+"ruido_media_oo": 0.98,
+"ruido_media_ss": 1.38,
+"absdif_oo": [
+10.75
+],
+"absdif_ss": [
+22.69
+],
+"absdif_os": [
+12.68,
+20.14,
+17.55,
+17.95
+]
+},
+{
+"escena": "c_p4_h18_c07_y090_pi-0.05_r1",
+"media_o": [
+116.4,
+125.1,
+117.1
+],
+"media_s": [
+116.5,
+124.6,
+116.9
+],
+"dif_medias_s_menos_o": [
+0.09,
+-0.42,
+-0.21
+],
+"ruido_media_oo": 0.55,
+"ruido_media_ss": 1.14,
+"absdif_oo": [
+10.72
+],
+"absdif_ss": [
+22.72
+],
+"absdif_os": [
+12.8,
+20.06,
+17.71,
+17.91
+]
+}
+]

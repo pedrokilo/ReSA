@@ -29,7 +29,7 @@ def volcado():
     # CTimeCycle::m_CurrentColours (0xB7C4A0), gamma (0xC92134), CMenuManager (0xBA6748): bytes crudos para comparar original y standalone
     return {'timecycle': (m.rd(0xB7C4A0, 0x100) or b'').hex(), 'gamma': (m.rd(0xC92134, 0x20) or b'').hex(), 'menu': (m.rd(0xBA6748, 0x180) or b'').hex()}
 def R(d):
-    if d.get('tipo') in ('interior', 'exterior'): d['mem'] = volcado()
+    if d.get('tipo') in ('interior', 'exterior', 'cielo'): d['mem'] = volcado()
     RES.write(json.dumps(d) + chr(10)); RES.flush()
 
 p = S.FORZAR_PID
@@ -177,7 +177,7 @@ def cam_activa():
     return 0xB6F028 + 0x1B4 + (m.u8(0xB6F028 + 0x59) % 3) * 0x238
 def frente_cam():
     c = cam_activa(); return [m.f32(c + 0x190 + 4 * j) for j in range(3)]
-ORI = {'on': False, 'a': 0.0, 'b': 0.0}
+ORI = {'on': False, 'a': 0.0, 'b': 0.0, 'solo_h': False}
 def _escritor():
     while True:
         time.sleep(0.02)
@@ -185,7 +185,8 @@ def _escritor():
         try:
             for k in range(3):
                 c = 0xB6F028 + 0x1B4 + k * 0x238
-                m.wr(c + 0xBC, struct.pack('<f', ORI['a'])); m.wr(c + 0xAC, struct.pack('<f', ORI['b'])); m.wr(c + 0x8C, struct.pack('<f', ORI['b'])); m.wr(c + 0xA4, struct.pack('<f', ORI['a'])); m.wr(c + 0xA0, struct.pack('<f', ORI['b']))
+                m.wr(c + 0xBC, struct.pack('<f', ORI['a'])); m.wr(c + 0xA4, struct.pack('<f', ORI['a']))
+                if not ORI['solo_h']: m.wr(c + 0xAC, struct.pack('<f', ORI['b'])); m.wr(c + 0x8C, struct.pack('<f', ORI['b'])); m.wr(c + 0xA0, struct.pack('<f', ORI['b']))
         except Exception: pass
 import threading
 threading.Thread(target=_escritor, daemon=True).start()
@@ -404,6 +405,160 @@ def carga():
         R(d); P('carga', json.dumps({x: d[x] for x in ('t', 'loadstate_hist', 'cargados_por_rango', 'memUsada', 'numRequested')}))
         time.sleep(max(0, 5.0 - (time.time() - t0 - t))) 
 
+
+# --- fase cielo: camara mirando al cielo (pitch = frente.z pedido, positivo = hacia arriba), varias horas/climas/puntos, repeticiones; lee variables de CClouds y CWeather
+# (en el standalone por el mapa de enlace). Mismas condiciones en original y standalone. Uso: --fase cielo --puntos 0,1 --horas 12 --climas 0,4 --pitchs 0.8,-0.05 --reps 3
+CVARS = {'VolMaxDist': (0xC6AA58, 'f'), 'VolUsedNum': (0xC6AA5C, 'i'), 'CamRoll': (0xC6AA64, 'f'), 'IndivRot': (0xC6AA6C, 'i'), 'CloudRot': (0xC6AA70, 'f'),
+         'VolFader': (0xC6E970, 'f'), 'VolDensity': (0x8D5388, 'f'), 'VolHeightSwitch': (0x8D538C, 'i'), 'VolWindMove': (0x8D5390, 'f'), 'CurFogIntensity': (0x8D5798, 'f')}
+def leer_nubes():
+    d = {}
+    for k, (a, t) in CVARS.items():
+        q = dir_(a)
+        try: d[k] = round(m.f32(q), 4) if t == 'f' else m.i32(q)
+        except Exception: d[k] = None
+    try:
+        raw = m.rd(0xC6AAB0, 64) or b''
+        d['vc_usados'] = sum(1 for b in raw[:64] if b)   # bUsed[0..63] (si MAX_VOLUMETRIC_CLOUDS < 64 incluye bJustCreated)
+    except Exception: pass
+    return d
+def _raton(dy):
+    class MI(ctypes.Structure): _fields_ = [('dx', wintypes.LONG), ('dy', wintypes.LONG), ('d', wintypes.DWORD), ('fl', wintypes.DWORD), ('t', wintypes.DWORD), ('x', ctypes.c_void_p)]
+    class IN(ctypes.Structure):
+        class U(ctypes.Union): _fields_ = [('mi', MI)]
+        _anonymous_ = ('u',); _fields_ = [('type', wintypes.DWORD), ('u', U)]
+    i = IN(); i.type = 0; i.mi = MI(0, dy, 0, 1, 0, None); u.SendInput(1, ctypes.byref(i), ctypes.sizeof(IN))
+SIGNO = {'v': None, 'x': None}
+MOUSEY = {'v': 0.0, 'x': 0.0}
+def _escritor_raton():
+    # escribe CMouseControllerState::m_AmountMoved (x 0xB73424, y 0xB73428) cada ~1 ms: la camara de CJ lo lee despues de que CPad lo ponga a cero al inicio del fotograma.
+    # Mismo mecanismo en los dos modos (no depende de SendInput/DirectInput, que se comportan distinto con la calza de ventana del original).
+    while True:
+        time.sleep(0.001)
+        try:
+            if MOUSEY['v'] != 0.0: m.wr(0xB73428, struct.pack('<f', MOUSEY['v']))
+            if MOUSEY['x'] != 0.0: m.wr(0xB73424, struct.pack('<f', MOUSEY['x']))
+        except Exception: pass
+threading.Thread(target=_escritor_raton, daemon=True).start()
+TOCAR = {'on': False}
+FIJAR = {'q': None}
+def _fijar():
+    # mantiene al jugador en el aire (--alt): teletransporte y velocidad nula a 20 Hz
+    while True:
+        time.sleep(0.05)
+        q = FIJAR['q']
+        if not q: continue
+        try:
+            ped, mat = ped_mat()
+            if mat:
+                for i, v in enumerate(q): m.wr(mat + 0x30 + 4 * i, struct.pack('<f', v))
+                m.wr(ped + 0x44, struct.pack('<3f', 0, 0, 0))
+        except Exception: pass
+threading.Thread(target=_fijar, daemon=True).start()
+def _tocar_pad():
+    # CPad::LastTimeTouched (CPad[0] 0xB73458 + 0x120) = tiempo de juego (0xB7CB84): evita la camara ociosa (CIdleCam), que gira la camara tras un rato sin tocar el mando
+    while True:
+        time.sleep(0.05)
+        if TOCAR['on']:
+            try: m.wr(0xB73458 + 0x120, struct.pack('<I', m.u32(0xB7CB84)))
+            except Exception: pass
+threading.Thread(target=_tocar_pad, daemon=True).start()
+def _yaw(): f = frente(); return math.degrees(math.atan2(f[1], f[0]))
+def _dyaw(a, b): return (a - b + 180) % 360 - 180
+def orientar_libre(yaw, pitch, dur=2.0, maximo=25.0):
+    """Orienta con CMouseControllerState (x e y) en bucle cerrado sobre el frente leido (0xB6F9AC); no escribe los angulos de la CCam. Signos calibrados en cada ejecucion
+    (SIGNO) y anotados. Devuelve (frente, ok): ok = yaw a menos de 3 grados y z a menos de 0.04 del pedido, sostenido 25 lecturas."""
+    ORI['on'] = False; foco(); t0 = time.time()
+    if SIGNO['v'] is None or SIGNO['x'] is None:
+        z0 = frente()[2]; y0 = _yaw(); MOUSEY['v'] = 3.0; MOUSEY['x'] = 3.0; t1 = time.time()
+        while time.time() - t1 < 0.4: mantener(); time.sleep(0.03)
+        MOUSEY['v'] = 0.0; MOUSEY['x'] = 0.0; time.sleep(0.4); z1 = frente()[2]; y1 = _yaw()
+        SIGNO['v'] = 1 if z1 > z0 + 0.02 else (-1 if z1 < z0 - 0.02 else None); dd = _dyaw(y1, y0); SIGNO['x'] = 1 if dd > 3 else (-1 if dd < -3 else None)
+        P('calibracion: mouse +3 durante 0.4 s: z %.3f -> %.3f (signo y = %s), yaw %.1f -> %.1f (signo x = %s)' % (z0, z1, SIGNO['v'], y0, y1, SIGNO['x']))
+    sy = SIGNO['v'] or 1; sx = SIGNO['x'] or 1; ult = 0
+    while vivo() and time.time() - t0 < maximo:
+        mantener(); f = frente(); ez = pitch - f[2]; ey = _dyaw(yaw, _yaw())
+        okz = abs(ez) < 0.04; oky = abs(ey) < 3.0
+        MOUSEY['v'] = 0.0 if okz else sy * max(-3.0, min(3.0, ez * 4.0 if abs(ez * 4.0) >= 0.3 else (0.3 if ez > 0 else -0.3)))
+        MOUSEY['x'] = 0.0 if oky else sx * max(-3.0, min(3.0, ey / 20.0 if abs(ey / 20.0) >= 0.3 else (0.3 if ey > 0 else -0.3)))
+        if okz and oky:
+            ult += 1
+            if ult > 25 and time.time() - t0 > dur: break
+        else: ult = 0
+        time.sleep(0.03)
+    MOUSEY['v'] = 0.0; MOUSEY['x'] = 0.0; time.sleep(0.3)
+    f = frente(); return f, (abs(pitch - f[2]) < 0.06 and abs(_dyaw(yaw, _yaw())) < 4.0)
+def cielo():
+    TOCAR['on'] = True
+    salir_de_casa(); sujetar_juego(6); foco()
+    PITCHS = [float(x) for x in arg('--pitchs', '0.8,-0.05').split(',')]; REPS = int(arg('--reps', '1')); GAP = float(arg('--gap', '0.3'))
+    YAWS = [float(x) for x in arg('--yaws', str(YAW_OBJ)).split(',')]
+    for k in PUNTOS_SEL:
+        q = PUNTOS[k]; ALT = arg('--alt')
+        if ALT: q = (q[0], q[1], float(ALT)); FIJAR['q'] = q
+        P('PUNTO %d %s' % (k + 2, q)); t1 = time.time()
+        while time.time() - t1 < ESPERA_PUNTO and vivo():
+            mantener(); m.wr(0xB70153, bytes([HORAS[0]])); m.wr(0xB70152, bytes([0])); m.wr(0xC81318, struct.pack('<i', CLIMAS[0]))
+            if time.time() - t1 < 4: tp(q)
+            time.sleep(0.4)
+        for clima in CLIMAS:
+            for hora in HORAS:
+                t0 = time.time()
+                while time.time() - t0 < ASENTAR and vivo():
+                    mantener(); m.wr(0xB70153, bytes([hora])); m.wr(0xB70152, bytes([0])); m.wr(0xC81318, struct.pack('<i', clima)); time.sleep(0.2)
+                for yaw in YAWS:
+                  for pitch in PITCHS:
+                    f, ok_or = orientar_libre(yaw, pitch)
+                    for rep in range(REPS):
+                        if rep: f, ok_or = orientar_libre(yaw, pitch, 1.0)
+                        t0 = time.time()
+                        while time.time() - t0 < GAP and vivo(): mantener(); m.wr(0xB70152, bytes([0])); m.wr(0xC81318, struct.pack('<i', clima)); time.sleep(0.1)
+                        nom = 'c_p%d_h%02d_c%02d_y%03d_pi%+.2f_r%d' % (k + 2, hora, clima, yaw, pitch, rep)
+                        fr = frente(); r = capturar(nom); pj = pos()
+                        d = {'tipo': 'cielo', 'escena': nom, 'punto': k + 2, 'hora': hora, 'clima': clima, 'pitch_pedido': pitch, 'yaw_pedido': yaw, 'rep': rep, 'orient_ok': ok_or, 'cap': r, 'frente': [round(x, 3) for x in fr],
+                             'pos': [round(x, 2) for x in pj] if pj else None, 'cam_z': round(m.f32(0xB6F028 + 0x30 * 0 + 0x0), 3) if False else None, 'hora_reloj': m.u8(0xB70153),
+                             'clima_mem': leer_clima(), 'nubes': leer_nubes(), 'signo_raton': SIGNO['v'], 'area': m.i32(0xB72914), 't': round(desde_inicio(), 1)}
+                        R(d); P(nom, 'media', r and r.get('media_rgb'), 'valida', r and r.get('valida'), 'ok', ok_or, 'frente', d['frente'], 'cov', d['clima_mem'].get('CloudCoverage'), json.dumps(d['nubes']))
+                ORI['on'] = False
+    m.wr(0xC81318, struct.pack('<i', -1))
+
+def mtest():
+    salir_de_casa(); sujetar_juego(6); foco(); tp(PUNTOS[0]); sujetar_juego(8)
+    ORI['a'] = math.radians(YAW_OBJ) + math.pi; ORI['solo_h'] = True; ORI['on'] = True
+    for dy in (-2, -2, -2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 5, 5, 5, 0, 0, -5, -5, -5, 0, 0):
+        _raton(dy); time.sleep(0.12); mantener()
+        P('dy', dy, 'z', round(frente()[2], 3), 'fade', m.u8(dir_(0xC3EFAB)), 'ctl', m.u8(0xB6F079), 'st', m.u16(0xB6FC58) if hasattr(m, 'u16') else struct.unpack('<H', m.rd(0xB6FC58, 2))[0],
+          'mouse', round(m.f32(0xB73424), 3), round(m.f32(0xB73428), 3), 'D4', round(m.f32(dir_(0x8CC7D4)), 3), 'D8', round(m.f32(dir_(0x8CC7D8)), 3), 'mode', m.u8(0xB6F028 + 0x59) if False else struct.unpack('<H', m.rd(cam_activa() + 0xC, 2))[0])
+
+def ctest():
+    salir_de_casa(); sujetar_juego(6); foco(); tp(PUNTOS[0]); sujetar_juego(8)
+    base = 0xB6F028
+    P('TheCamera+0x59..', [m.u8(base + o) for o in (0x58, 0x59, 0x5A)])
+    for k in range(3):
+        c = base + 0x1B4 + k * 0x238
+        r = struct.unpack('<%df' % (0x238 // 4), m.rd(c, 0x238)); P('cam', k, hex(c), 'AC', round(r[0xAC // 4], 3), 'BC', round(r[0xBC // 4], 3), 'front', [round(x, 3) for x in r[0x190 // 4:0x190 // 4 + 3]], 'src', [round(x, 1) for x in r[0x19C // 4:0x19C // 4 + 3]])
+    time.sleep(1.0)
+    P('TheCamera front 0xB6F9AC', [round(m.f32(0xB6F9AC + 4 * j), 3) for j in range(3)])
+    # buscar en toda la region TheCamera (0xB6F028, 0xA00 bytes) un float igual al angulo vertical esperado: front z = -sin(alpha)
+    fz = m.f32(0xB6F9AC + 8); al = -math.asin(max(-1, min(1, fz)))
+    r = m.rd(base, 0xA00); fl = struct.unpack('<%df' % (0xA00 // 4), r)
+    P('candidatos alpha=%.3f' % al, [(hex(base + 4 * i), round(v, 3)) for i, v in enumerate(fl) if abs(v - al) < 0.002 and v != 0][:20])
+    P('candidatos beta 4.712/-1.571', [(hex(base + 4 * i), round(v, 3)) for i, v in enumerate(fl) if abs(abs(v) - 4.712) < 0.01 or abs(abs(v) - 1.5708) < 0.01][:20])
+    P('candidatos beta (BC~)', [(hex(base + 4 * i), round(v, 3)) for i, v in enumerate(fl) if abs(v - m.f32(base + 0x1B4 + 0xBC)) < 0.002][:10])
+
+def nrot():
+    """CloudRotation en el tiempo: muestrea cada 0.5 s (t, CloudRot, contador de fotogramas, TheCamera.m_fOrientation 0xB6F178, Wind, IndivRot) con la camara quieta, clima --climas[0]"""
+    TOCAR['on'] = True; salir_de_casa(); sujetar_juego(6); foco(); tp(PUNTOS[0]); clima = CLIMAS[0]; hora = HORAS[0]
+    t0 = time.time()
+    while time.time() - t0 < 8 and vivo(): mantener(); m.wr(0xB70153, bytes([hora])); m.wr(0xB70152, bytes([0])); m.wr(0xC81318, struct.pack('<i', clima)); time.sleep(0.2)
+    f, ok = orientar_libre(YAW_OBJ, -0.05); P('orient', f, ok)
+    t0 = time.time(); fr0 = m.u32(0xB7CB4C); r0 = m.f32(dir_(0xC6AA70)); filas = []
+    while time.time() - t0 < float(arg('--dur', '20')) and vivo():
+        mantener(); m.wr(0xB70152, bytes([0])); m.wr(0xC81318, struct.pack('<i', clima))
+        filas.append((round(time.time() - t0, 2), round(m.f32(dir_(0xC6AA70)), 5), m.u32(0xB7CB4C) - fr0, round(m.f32(0xB6F178), 4), round(m.f32(dir_(0xC812F0)), 3), m.i32(dir_(0xC6AA6C)), round(m.f32(0xB7CB5C), 3)))
+        time.sleep(0.5)
+    for r in filas: P('rot', *r)
+    P('tasa CloudRot/s', (filas[-1][1] - filas[0][1]) / (filas[-1][0] - filas[0][0]), 'fotogramas/s', (filas[-1][2] - filas[0][2]) / (filas[-1][0] - filas[0][0]))
+
 def main():
     P('modo', MODO, 'fase', FASE, 'pid', p, 'horas', HORAS, 'climas', CLIMAS, 'puntos', PUNTOS_SEL)
     if not arrancar(): P('no se llego a gGameState=9'); return
@@ -413,6 +568,10 @@ def main():
     if FASE in ('interior', 'todo'): interior()
     if FASE in ('exterior', 'todo'): exterior()
     if FASE == 'lluvia': lluvia()
+    if FASE == 'cielo': cielo()
+    if FASE == 'mtest': mtest()
+    if FASE == 'nrot': nrot()
+    if FASE == 'ctest': ctest()
     if FASE == 'carga': carga()
     P('fin')
     h = ctypes.windll.kernel32.OpenProcess(1, False, p)   # el juego es el proceso propio de este lanzamiento
