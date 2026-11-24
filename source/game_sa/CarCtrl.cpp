@@ -361,7 +361,7 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
     const auto loaded = [](int32 model) { return StaticRef<uint8>(0x8E4CD0 + static_cast<uintptr_t>(model) * 20) == 1; };
     if (Cc63eTierExceedsCpp(CPopCycle::m_NumDealers_Cars, 0.0f, 0.0f, 1, totalFloat, roll) && !flag) {
         *arg1 = 0x19;
-        const int32 model = DatosExe::Bss::bC0F240;
+        const int32 model = StaticRef<uint16>(0xC0F240); // elemento 0 del grupo 28 de m_CarGroups (0xC0ED38 + 28 * 0x2E): la memoria es la del arreglo; el objeto propio DatosExe::Bss::bC0F240 nunca se escribe (valia 0 y generaba un vehiculo con el modelo 0, el de CJ)
         return loaded(model) ? model : -1;
     }
     if (Cc63eTierExceedsCpp(CPopCycle::m_NumGangs_Cars, CPopCycle::m_NumDealers_Cars, 0.0f, 2, totalFloat, roll) || flag) {

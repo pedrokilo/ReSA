@@ -57,19 +57,19 @@
     // 004300B7: mov dword ptr [esp+000000B8h],edx
     St<uint32>((F+612),(uint32)(edx));
     // 004300BE: mov edx,dword ptr ds:[009690ACh]
-    edx=(uint32)(Ld<uint32>((uintptr_t)(uint32)(0x9690ACu)));
+    edx=(uint32)((uint32)DatosExe::Bss::b9690AC);
     // 004300C4: mov dword ptr [esp+000000B4h],ecx
     St<uint32>((F+608),(uint32)(ecx));
     // 004300CB: mov ecx,dword ptr ds:[009690A8h]
-    ecx=(uint32)(Ld<uint32>((uintptr_t)(uint32)(0x9690A8u)));
+    ecx=(uint32)((uint32)DatosExe::Bss::b9690A8);
     // 004300D1: add edx,ecx
     {const uint32 a_=(edx)&4294967295,b_=(ecx)&4294967295,r_=(a_+b_)&4294967295;zf=r_==0;sf=(r_>>31)&1;cf=r_<a_;of=((~(a_^b_)&(a_^r_))>>31)&1;pf=Parity(r_);edx=(uint32)(r_);}
     // 004300D3: mov ecx,dword ptr ds:[0096909Ch]
-    ecx=(uint32)(Ld<uint32>((uintptr_t)(uint32)(0x96909Cu)));
+    ecx=(uint32)((uint32)DatosExe::Bss::b96909C);
     // 004300D9: mov dword ptr [esp+000000BCh],eax
     St<uint32>((F+616),(uint32)(eax));
     // 004300E0: mov eax,dword ptr ds:[00969098h]
-    eax=(uint32)(Ld<uint32>((uintptr_t)(uint32)(0x969098u)));
+    eax=(uint32)((uint32)DatosExe::Bss::b969098);
     // 004300E5: add edx,ecx
     {const uint32 a_=(edx)&4294967295,b_=(ecx)&4294967295,r_=(a_+b_)&4294967295;zf=r_==0;sf=(r_>>31)&1;cf=r_<a_;of=((~(a_^b_)&(a_^r_))>>31)&1;pf=Parity(r_);edx=(uint32)(r_);}
     // 004300E7: add edx,eax
@@ -103,7 +103,7 @@ L_00430112:;
     // 0043011A: call 00611B60
     x0=(double)((float(__cdecl*)(void))0x611B60)();
     // 0043011F: fimul dword ptr ds:[008A5B24h]
-    x0=Veh83DMul(x0,(double)Ld<int32>((uintptr_t)(uint32)(0x8A5B24u)));
+    x0=Veh83DMul(x0,(double)(int32)DatosExe::Data::v8A5B24);
     // 00430125: fmul dword ptr [esp+14h]
     x0=Veh83DMul(x0,(double)Ld<float>((F+456)));
     // 00430129: fcomp dword ptr [esp+54h]
@@ -117,13 +117,13 @@ L_00430112:;
     // 00430138: call 00611B60
     x0=(double)((float(__cdecl*)(void))0x611B60)();
     // 0043013D: fld dword ptr ds:[00C0BC30h]
-    x1=(double)Ld<float>((uintptr_t)(uint32)(0xC0BC30u));
+    x1=(double)DatosExe::Bss::bC0BC30;
     // 00430143: fadd dword ptr ds:[00C0BC34h]
-    x1=Veh83DAdd(x1,(double)Ld<float>((uintptr_t)(uint32)(0xC0BC34u)));
+    x1=Veh83DAdd(x1,(double)DatosExe::Bss::bC0BC34);
     // 00430149: fadd dword ptr ds:[00C0BC38h]
-    x1=Veh83DAdd(x1,(double)Ld<float>((uintptr_t)(uint32)(0xC0BC38u)));
+    x1=Veh83DAdd(x1,(double)DatosExe::Bss::bC0BC38);
     // 0043014F: fadd dword ptr ds:[00C0BC3Ch]
-    x1=Veh83DAdd(x1,(double)Ld<float>((uintptr_t)(uint32)(0xC0BC3Cu)));
+    x1=Veh83DAdd(x1,(double)DatosExe::Bss::bC0BC3C);
     // 00430155: fmulp st(1),st
     x0=Veh83DMul(x0,x1);
     // 00430157: fmul dword ptr [esp+14h]
@@ -154,7 +154,7 @@ L_00430112:;
     // 00430187: movzx ecx,byte ptr [eax+1Ah]
     ecx=(uint32)(Ld<uint8>((uintptr_t)(uint32)(eax+0x1Au)));
     // 0043018B: mov eax,dword ptr ds:[00969098h]
-    eax=(uint32)(Ld<uint32>((uintptr_t)(uint32)(0x969098u)));
+    eax=(uint32)((uint32)DatosExe::Bss::b969098);
     // 00430190: add esp,4
     // 00430193: cmp eax,ecx
     {const uint32 a_=(eax)&4294967295,b_=(ecx)&4294967295,r_=(a_-b_)&4294967295;zf=r_==0;sf=(r_>>31)&1;cf=a_<b_;of=(((a_^b_)&(a_^r_))>>31)&1;pf=Parity(r_);}
@@ -209,7 +209,7 @@ L_00430112:;
     // 004301E3: mov ecx,dword ptr [eax+2Ch]
     ecx=(uint32)(Ld<uint32>((uintptr_t)(uint32)(eax+0x2Cu)));
     // 004301E6: mov eax,dword ptr ds:[009690B8h]
-    eax=(uint32)(Ld<uint32>((uintptr_t)(uint32)(0x9690B8u)));
+    eax=(uint32)((uint32)DatosExe::Bss::b9690B8);
     // 004301EB: add esp,4
     // 004301EE: cmp ecx,2
     {const uint32 a_=(ecx)&4294967295,b_=(0x2u)&4294967295,r_=(a_-b_)&4294967295;zf=r_==0;sf=(r_>>31)&1;cf=a_<b_;of=(((a_^b_)&(a_^r_))>>31)&1;pf=Parity(r_);}
@@ -288,7 +288,7 @@ L_00430263:;
     // 0043026A: je 00430298
     if(zf) goto L_00430298;
     // 0043026C: mov al,byte ptr ds:[00B72959h]
-    eax=(eax&0xFFFFFF00u)|((uint32)(Ld<uint8>((uintptr_t)(uint32)(0xB72959u)))&0xFFu);
+    eax=(eax&0xFFFFFF00u)|((uint32)((uint8)DatosExe::Bss::bB72959)&0xFFu);
     // 00430271: test al,al
     {const uint32 r_=(((eax&0xFFu))&((eax&0xFFu)))&255;zf=r_==0;sf=(r_>>7)&1;cf=0;of=0;pf=Parity(r_);}
     // 00430273: jne 00430298
@@ -870,7 +870,7 @@ L_00430652:;
     // 0043065B: je 00431AAD
     if(zf) goto L_00431AAD;
     // 00430661: mov eax,dword ptr ds:[00C0BC64h]
-    eax=(uint32)(Ld<uint32>((uintptr_t)(uint32)(0xC0BC64u)));
+    eax=(uint32)((uint32)(uintptr_t)DatosExe::Bss::bC0BC64);
     // 00430666: test eax,eax
     {const uint32 r_=((eax)&(eax))&4294967295;zf=r_==0;sf=(r_>>31)&1;cf=0;of=0;pf=Parity(r_);}
     // 00430668: je 0043069E
@@ -3905,7 +3905,7 @@ L_00431C46:;
     // 00431C4B: mov edx,dword ptr ds:[00B7CB84h]
     edx=(uint32)(Ld<uint32>((uintptr_t)(uint32)(0xB7CB84u)));
     // 00431C51: mov dword ptr ds:[009690B8h],edx
-    St<uint32>((uintptr_t)(uint32)(0x9690B8u),(uint32)(edx));
+    DatosExe::Bss::b9690B8 = (decltype(DatosExe::Bss::b9690B8))(uint32)(edx);
 L_00431C57:;
     // 00431C57: cmp word ptr [esi+22h],1C9h
     {const uint32 a_=(Ld<uint16>((uintptr_t)(uint32)(esi+0x22u)))&65535,b_=(0x1C9u)&65535,r_=(a_-b_)&65535;zf=r_==0;sf=(r_>>15)&1;cf=a_<b_;of=(((a_^b_)&(a_^r_))>>15)&1;pf=Parity(r_);}
@@ -4027,7 +4027,7 @@ L_00431CDF:;
     // 00431D10: jne 00431D25
     if(!zf) goto L_00431D25;
     // 00431D12: fld dword ptr ds:[009690BCh]
-    x0=(double)Ld<float>((uintptr_t)(uint32)(0x9690BCu));
+    x0=(double)DatosExe::Bss::b9690BC;
     // 00431D18: fcomp dword ptr ds:[00858B50h]
     fcc=X87Compare(x0,(double)F32(0x0u));
     // 00431D1E: fnstsw ax
@@ -4071,7 +4071,7 @@ L_00431D25:;
     // 00431D53: call 0041BD90
     x0=(double)((float(__cdecl*)(uint32,uint32))0x41BD90)(Ld<uint32>(F+428),Ld<uint32>(F+432));
     // 00431D58: fstp dword ptr ds:[009690BCh]
-    St<float>((uintptr_t)(uint32)(0x9690BCu),Veh83DStore(x0));
+    DatosExe::Bss::b9690BC = Veh83DStore(x0);
     // 00431D5E: jmp 00431EEA
     goto L_00431EEA;
 L_00431D63:;
@@ -4082,7 +4082,7 @@ L_00431D63:;
     // 00431D6D: call 0041BD90
     x0=(double)((float(__cdecl*)(uint32,uint32))0x41BD90)(Ld<uint32>(F+428),Ld<uint32>(F+432));
     // 00431D72: fstp dword ptr ds:[009690BCh]
-    St<float>((uintptr_t)(uint32)(0x9690BCu),Veh83DStore(x0));
+    DatosExe::Bss::b9690BC = Veh83DStore(x0);
     // 00431D78: jmp 00431EEA
     goto L_00431EEA;
 L_00431D7D:;
@@ -4120,7 +4120,7 @@ L_00431D7D:;
     if(!zf) goto L_00431DEF;
 L_00431DB1:;
     // 00431DB1: mov al,byte ptr ds:[00B72958h]
-    eax=(eax&0xFFFFFF00u)|((uint32)(Ld<uint8>((uintptr_t)(uint32)(0xB72958u)))&0xFFu);
+    eax=(eax&0xFFFFFF00u)|((uint32)((uint8)DatosExe::Bss::bB72958)&0xFFu);
     // 00431DB6: test al,al
     {const uint32 r_=(((eax&0xFFu))&((eax&0xFFu)))&255;zf=r_==0;sf=(r_>>7)&1;cf=0;of=0;pf=Parity(r_);}
     // 00431DB8: jne 00431DEF
@@ -4300,12 +4300,12 @@ L_00431EB6:;
     // 00431EC9: push esi
     St<uint32>(F+412,esi);
     // 00431ECA: mov byte ptr ds:[009690CCh],1
-    St<uint8>((uintptr_t)(uint32)(0x9690CCu),(uint8)(0x1u));
+    DatosExe::Bss::b9690CC = true;
     // 00431ED1: call 004217C0
     ((void(__cdecl*)(uint32,uint32,uint32,uint32,uint32,uint32))0x4217C0)(Ld<uint32>(F+412),Ld<uint32>(F+416),Ld<uint32>(F+420),Ld<uint32>(F+424),Ld<uint32>(F+428),Ld<uint32>(F+432));
     // 00431ED6: add esp,18h
     // 00431ED9: mov byte ptr ds:[009690CCh],0
-    St<uint8>((uintptr_t)(uint32)(0x9690CCu),(uint8)(0x0u));
+    DatosExe::Bss::b9690CC = false;
     // 00431EE0: jmp 00431EED
     goto L_00431EED;
 L_00431EE2:;
