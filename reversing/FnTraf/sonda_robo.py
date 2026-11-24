@@ -75,7 +75,7 @@ def main():
         pv = m.u32(0xB74494); objs = m.u32(pv); fl = m.rd(m.u32(pv + 4), m.i32(pv + 8)) or b''; cerca = 0; tot = 0; px = S.jugador(m)[1]
         for i in range(len(fl)):
             if fl[i] & 0x80: continue
-            ve = objs + i * 0x988; mt = m.u32(ve + 0x14)
+            ve = objs + i * 0xA18; mt = m.u32(ve + 0x14)
             if not mt: continue
             tot += 1; x, y = m.f32(mt + 0x30), m.f32(mt + 0x34)
             if px and math.hypot(x - px[0], y - px[1]) < 80: cerca += 1
