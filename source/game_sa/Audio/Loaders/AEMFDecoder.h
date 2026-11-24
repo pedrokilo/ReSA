@@ -4,11 +4,13 @@
 
 #include "AEStreamingDecoder.h"
 
+class CMfPcmReader;
+
 /**
- * Decoder de streaming de user tracks que en gta-sa.exe 1.0 US usaba QuickTime.
+ * Decoder de streaming de user tracks (".mp3", ".aac", ".m4a", ".mov"). gta-sa.exe 1.0 US usaba QuickTime; aqui lo hace Media Foundation (CMfPcmReader).
  *
- * Lote EXT1A: QuickTime se retiró (ni QTML, ni los 31 puentes 0x818xxx-0x81Dxxx, ni los ayudantes 0x4E7990/0x4E7A80/0x4E7B80).
- * InitLibrary devuelve siempre false y el gestor de user tracks pasa los MP3 al decoder WMA. La clase conserva su disposición (0xC4 bytes) y su vtable.
+ * Salida: PCM estereo de 16 bits a 44100 Hz. Conserva la disposicion del objeto (0xC4 bytes) y la vtable del original; los campos de QuickTime
+ * (m_movie, m_media, m_inputFormat, m_outputFormat, m_fill*, m_source*) ya no se usan y quedan solo como relleno de la disposicion.
  */
 class NOTSA_EXPORT_VTABLE CAEMFDecoder : public CAEStreamingDecoder {
 public:
@@ -47,7 +49,7 @@ private:
     bool                  m_bInitialized;         // 0x0C
     void*                 m_movie;                // 0x10
     void*                 m_media;                // 0x14
-    void*                 m_soundConverter;       // 0x18
+    CMfPcmReader*         m_reader;               // 0x18 (en el original: SoundConverter de QuickTime)
     tQTSoundComponentData m_inputFormat;          // 0x1C
     tQTSoundComponentData m_outputFormat;         // 0x38
     // 0x54..0xAD: bloque que recibe 0x4E7B80 (callback de SoundConverterFillBuffer) como refCon.
@@ -83,7 +85,6 @@ public:
 
     static bool InitLibrary();
     static void Shutdown();
-    static uint8 FillCallback(void** outData, void* refCon); // 0x4E7B80 (lote S1A): callback de SoundConverterFillBuffer; refCon = &m_fillData
 
 private:
     friend void InjectHooksMain();

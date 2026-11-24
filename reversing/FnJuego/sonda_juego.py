@@ -611,7 +611,25 @@ def esc_gimnasio(j):
             setattr(j, '_gy%d' % int(time.time() - t0), 1); j.foto('gym_%d' % int(time.time() - t0), 'dentro del gimnasio a los %d s' % int(time.time() - t0))
         time.sleep(0.2)
     j.P('vivo al final del gimnasio:', j.alive())
-ESCENARIOS = {'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
+def esc_usertrack(j):
+    # Radio de pistas de usuario (CAEMFDecoder / Media Foundation): CJ en un coche y se pide la emisora RADIO_USER_TRACKS (12) por la peticion de script
+    # de CAERadioTrackManager (0x8CB6F8 + 0x7C = m_iRadioStationScriptRequest, la misma variable que escribe RetuneRadio). Registra emisora (+0x74) y modo (+0x68) cada 2 s.
+    veh = entrar_coche(j, 'FOURWHEELFUN', modelo=471)
+    if not veh: j.P('NO se pudo entrar al coche'); return
+    j.dormir(2.0)
+    base = 0x8CB6F8
+    j.P('radio antes: emisora', j.m.u32(base + 0x74), 'modo', j.m.u32(base + 0x68), 'peticion script', j.m.u32(base + 0x7C))
+    j.m.wr(base + 0x7C, struct.pack('<i', 12))
+    t0 = time.time(); ult = 0; hist = []
+    while time.time() - t0 < 60 and j.alive():
+        j.tick()
+        if time.time() - ult > 2:
+            ult = time.time(); e = (j.m.u32(base + 0x74), j.m.u32(base + 0x68), j.m.u32(base + 0x7C)); hist.append(e)
+            j.P('  t=%.0f radio emisora=%d modo=%d peticion=%d' % (time.time() - t0, *[x - (1 << 32) if x >> 31 else x for x in e]))
+        time.sleep(0.2)
+    j.res['usertrack'] = hist
+    j.foto('usertrack', 'CJ en coche con la emisora de pistas de usuario pedida')
+ESCENARIOS = {'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
 
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')

@@ -660,7 +660,6 @@
 #include "platform/win/WinPlatform.h"
 #include "platform/win/DelayLoadThunks.h"
 #include "platform/win/ImportThunks.h"
-#include "platform/win/QTMLRuntime.h"
 
 #include "app/app.h"
 #include <RealTimeShadowManager.h>
@@ -1244,7 +1243,6 @@ void InjectHooksMain() {
     RpMatFXInjectHooks();
     DelayLoadThunksInjectHooks();
     ImportThunksInjectHooks();
-    QTMLRuntimeInjectHooks();
     RtSlerpInjectHooks();
     D3DX9InjectHooks();
     // lote LNK5A: D3dxErrorLog/D3dxShaderSource/D3dxShaderAssembler/D3dxHlslCompiler (rutinas internas del D3DX9 estatico del EXE) retiradas: D3DXAssembleShader y D3DXCompileShader* llaman a d3dx9_43.dll
