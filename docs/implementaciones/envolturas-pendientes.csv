@@ -5,7 +5,3 @@ class,function,address,source,origins
 (biblioteca) CRT / runtime estático,operator new,0x0082119A,source/game_sa/MemoryMgr.cpp:556,envoltura en el código fuente
 (biblioteca) CRT / runtime estático,operator new[],0x00821195,source/game_sa/MemoryMgr.cpp:560,envoltura en el código fuente
 (biblioteca) CRT / runtime estático,Realloc,0x00824269,source/game_sa/MemoryMgr.cpp:355,cohorte nuevo 2026-10-17 (biblioteca)
-(biblioteca) QuickTime/QTML,QuickTime dispatch thunk,0x00819840,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:212,cohorte nuevo 2026-10-17 (biblioteca)
-(biblioteca) QuickTime/QTML,QuickTime runtime shutdown helper,0x00819770,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:213,cohorte nuevo 2026-10-17 (biblioteca)
-(helpers y globales sin clase),CAEMFDecoder helper abrir movie/media sonido,0x004E7990,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:58,cohorte 499
-(helpers y globales sin clase),CAEMFDecoder helper obtener formato media,0x004E7A80,source/game_sa/Audio/Loaders/AEMFDecoder.cpp:61,cohorte 499

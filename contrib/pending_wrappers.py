@@ -27,6 +27,10 @@ HELPERS = '(helpers y globales sin clase)'
 GAME_START, GAME_END, RW_END = 0x401000, 0x750000, 0x820000
 LIB_RENDERWARE = '(biblioteca) RenderWare SDK'
 LIB_CRT = '(biblioteca) CRT / runtime estático'
+# Funciones del EXE que el código fuente ya no llama (retiradas, no reconstruidas): un cohorte histórico las sigue listando como envolturas.
+# QuickTime/QTML se sustituyó por Media Foundation (rama sustituir-quicktime, docs/QuickTime/sustitucion-quicktime.md): 0x819840 y 0x819770 (despachador y
+# cierre de QuickTime que llamaba CAEMFDecoder::Shutdown), 0x4E7990 y 0x4E7A80 (abrir la película y leer el formato de la media en CAEMFDecoder::Initialise).
+RETIRED_ADDRESSES = {'0x00819840', '0x00819770', '0x004E7990', '0x004E7A80'}
 CALL_ADDRESS = re.compile(r'direcci\w*n\s+(0x[0-9A-Fa-f]{6,8})')
 
 
@@ -76,6 +80,7 @@ def main():
             original = norm_addr(entry.get('evidence', {}).get('original_address', ''))
             if original and (hook['class'], hook['fn_name']) in reversed_rows and not int(hook['address'], 16):
                 done.add(original)
+    done |= RETIRED_ADDRESSES
     found = {}
     names = {}
 

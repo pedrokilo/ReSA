@@ -6,100 +6,85 @@
  * Pendientes y bloqueadas pueden coincidir; no se suman.
  *
  * ESTADO: CAEMFDecoder
- * Reconstrucción: COMPLETA — 13/13 funciones reconstruidas.
+ * Reconstrucción: COMPLETA — 12/12 funciones reconstruidas.
  * Pendientes de reconstruir: 0.
  * Funciones bloqueadas: 0.
- * Validación registrada: 8/13 entradas.
+ * Validación registrada: 7/12 entradas.
  * Validación: consultar vigencia en docs/ValidationInventory.md y
  *   reversing/ValidationRegistry/README.md. Sin evidencia vinculada
  *   no significa nunca probada ni fallida. Reconstruida no implica validada.
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
-/* Decoder de user tracks que en el juego original usaba QuickTime (QTML).
- *
- * Lote EXT1A: QuickTime se retira. Ya no hay llamadas a los 31 puentes QTML del EXE (0x818430..0x81DAA0), ni al gancho 0x819700, ni al stub 0x8194D0, ni a los ayudantes
- * 0x4E7990 / 0x4E7A80 / 0x4E7B80 (abrir la pelicula, leer el formato de la media y callback de SoundConverterFillBuffer), y se elimina QTMLRuntime.cpp (InitializeQTML, TerminateQTML, carga de
- * QuickTime.qts). InitLibrary devuelve siempre false: el gestor de user tracks (CAEUserRadioTrackManager::Initialise) deja entonces CAEMFDecoder como no soportado y pasa los ".mp3"
- * al decoder WMA, que es el mismo camino que seguia el juego original en un equipo sin QuickTime. Los demas tipos (Vorbis, WAV, WMA) no se tocan.
- * Se pierde: la decodificacion por QuickTime de los tipos que solo QuickTime abria (".aac", ".m4a" y ".mov" en audioExtensionTypes de 0x8CBB28; el ".mp3" pasa a WMA);
- * esas pistas no se cargan. La clase conserva la disposicion del objeto (0xC4 bytes) y su vtable para no cambiar el resto del EXE.
+/* Decoder de user tracks (".mp3", ".aac", ".m4a", ".mov"). El juego original lo hacia con QuickTime (QTML): abria la pelicula, pedia al SoundConverter PCM 'NONE' / estereo / 16 bits / 44100 Hz
+ * y lo leia por trozos con SoundConverterFillBuffer. Desde la rama sustituir-quicktime lo hace Media Foundation (IMFSourceReader, ver MfPcmReader.h): misma salida (PCM estereo de 16 bits a 44100 Hz),
+ * misma duracion en unidades de 1/44100 s, mismos limites (se descartan las pistas de menos de 7 s) y misma lectura por trozos. Los 31 puentes QTML del EXE (0x818430..0x81DAA0), el gancho 0x819700, los
+ * ayudantes 0x4E7990 / 0x4E7A80 / 0x4E7B80 y QTMLRuntime ya no existen. Mapeo de cada llamada en docs/QuickTime/sustitucion-quicktime.md.
+ * Si Media Foundation no esta disponible, InitLibrary devuelve false y el gestor de user tracks pasa los ".mp3" al decoder WMA (como el original sin QuickTime).
+ * La clase conserva la disposicion del objeto (0xC4 bytes) y su vtable para no cambiar el resto del EXE.
  */
 
 #include "StdInc.h" // TODO: Remove
 
 #include "AEMFDecoder.h"
 #include "X87Math.h"
-#include "platform/win/QTMLRuntime.h"
+#include "MfPcmReader.h"
 
 // 0x4e7770
 // Como el original: sólo escribe el nombre, el flag, la película, la media y la pista; el resto del objeto queda
 // sin escribir.
 CAEMFDecoder::CAEMFDecoder(char* filename, int32 trackID)
-    : CAEStreamingDecoder(nullptr), m_pFilename(filename), m_bInitialized(false), m_movie(nullptr), m_media(nullptr), m_nTrackID(trackID) {}
+    : CAEStreamingDecoder(nullptr), m_pFilename(filename), m_bInitialized(false), m_movie(nullptr), m_media(nullptr), m_reader(nullptr), m_nTrackID(trackID) {}
 
 // 0x4e77c0
-// Como el original: borra el nombre (operator delete escalar, sin anular el puntero). Sin QuickTime nunca llega a inicializarse, asi que no hay pelicula, buffer ni conversor que liberar.
+// Como el original: borra el nombre (operator delete escalar, sin anular el puntero) y libera el lector de PCM (el original liberaba pelicula, buffer de origen y conversor de QuickTime).
 CAEMFDecoder::~CAEMFDecoder() {
     if (m_pFilename) {
         operator delete(m_pFilename);
     }
+    delete m_reader;
+    m_reader = nullptr;
 }
 
 // 0x4e7cb0
-// Sin QuickTime (lote EXT1A) no se puede abrir ninguna pista: devuelve false, como cuando el original no lograba abrir la pelicula.
+// Como el original: abre la pista (antes 0x4E7990/0x4E7A80/0x818430..), fija la salida en PCM estereo de 16 bits a 44100 Hz, toma la duracion (en unidades de 1/44100 s) y descarta las pistas de menos de 7 s.
 bool CAEMFDecoder::Initialise() {
     m_bInitialized = false;
-    return false;
+    delete m_reader;
+    m_reader = nullptr;
+
+    auto* reader = new CMfPcmReader();
+    if (m_pFilename == nullptr || !reader->Open(m_pFilename, 44100, 2)) {
+        delete reader;
+        return false;
+    }
+    m_reader       = reader;
+    m_nPlayTime    = 0;
+    m_nLength      = static_cast<long>(reader->DurationFrames());
+    m_nSampleRate  = 44100;
+    m_fTimeDivider = std::bit_cast<float>(0x42306666u); // 44.1
+
+    // Como el original: fild · (1000/44100, float 0x85F390) con un solo redondeo a float (x87 a 24 bits), truncado con _ftol2.
+    static const float kMediaUnitsToMs = std::bit_cast<float>(0x3CB9C278u);
+    m_nLengthMs = static_cast<long>(static_cast<int64>(IntTimesFloatCpp(m_nLength, kMediaUnitsToMs)));
+
+    // Como el original: la duracion se consulta por la vtable y las pistas de menos de 7 s se descartan.
+    m_bInitialized = true;
+    if (GetStreamLengthMs() < 7000) {
+        m_bInitialized = false;
+    }
+    return m_bInitialized;
 }
 
 // 0x4e7860
-// Como el original: sin inicializar devuelve -1 (con QuickTime retirado nunca esta inicializado).
-size_t CAEMFDecoder::FillBuffer(void* /*dest*/, size_t /*size*/) {
-    return (size_t)-1;
-}
+// Como el original: sin inicializar devuelve -1; si no, devuelve los bytes de PCM escritos (0 al terminar la pista). El tiempo de reproduccion avanza una unidad por fotograma entregado (4 bytes).
+size_t CAEMFDecoder::FillBuffer(void* dest, size_t size) {
+    if (!m_bInitialized || m_reader == nullptr)
+        return (size_t)-1;
 
-// 0x4E7B80 (lote S1A, sin validar; cdecl (SoundComponentData** salida, refCon), `ret`, 204 bytes; devuelve un Boolean en AL): callback de SoundConverterFillBuffer. refCon es el bloque +0x54 del decoder (m_fillData;
-// campos relativos: +0x10 cuenta de muestras, +0x14 buffer, +0x24 tamano, +0x30 palabra en m_fillUnk7C+8, +0x44 manejador origen, +0x48 media, +0x4C posicion, +0x50 longitud, +0x54 tamano del origen, +0x58 quedan datos,
-// +0x59 compresion variable). Como el original y en este orden: con posicion >= longitud (con signo) borra "quedan datos" y los cuatro campos de salida (+0x10, +0x14, +0x24, +0x30); sin datos escribe refCon en *salida y devuelve 0.
-// Con datos llama a 0x81A3C0 (puente QuickTime, 12 argumentos cdecl: media, manejador, tamano del origen, &salida (arranca valiendo refCon), posicion, &C, &A, 0, 0, 0, &B, 0; devuelve el OSErr en AX; A, B y C arrancan
-// en 0 aqui, basura en el EXE); con error o salida cero hace el mismo borrado y SIGUE. Despues, siempre: +0x10 = A*B (32 bits), posicion = C + A*B, +0x24 = salida y, con compresion variable, +0x30 = salida / B (idiv con
-// signo, como el EXE: B = 0 provoca la excepcion); escribe refCon en *salida y devuelve el byte "quedan datos".
-uint8 CAEMFDecoder::FillCallback(void** outData, void* refCon) {
-    static_assert(offsetof(CAEMFDecoder, m_fillData) == 0x54);
-    auto* const self = reinterpret_cast<CAEMFDecoder*>(static_cast<uint8*>(refCon) - 0x54);
-    uint8& dataLeft = *reinterpret_cast<uint8*>(&self->m_bSourceDataLeft);               // el EXE trabaja con el byte crudo
-    int32& extraWord = *reinterpret_cast<int32*>(self->m_fillUnk7C + 8);
-    const auto Clear = [&] {
-        dataLeft                  = 0;
-        self->m_fillData.buffer   = nullptr;
-        self->m_fillData.sampleCount = 0;
-        self->m_fillBufferSize    = 0;
-        extraWord                 = 0;
-    };
-    const int32 position = self->m_nPlayTime;
-    if (position >= self->m_nLength) {
-        Clear();
-    }
-    if (dataLeft == 0) {
-        *outData = refCon;
-        return dataLeft;
-    }
-    int32  a = 0, b = 0, c = 0;
-    uint32 out = static_cast<uint32>(reinterpret_cast<uintptr_t>(refCon));
-    const auto result = QtmlConverterFillBridge(self->m_sourceMedia, self->m_sourceBuffer, self->m_sourceBufferSize, &out, position, &c, &a, 0, 0, 0, &b, 0);
-    if (result != 0 || out == 0) {
-        Clear();
-    }
-    const int32 product = a * b;
-    self->m_fillData.sampleCount = product;
-    self->m_nPlayTime            = c + product;
-    self->m_fillBufferSize       = static_cast<int32>(out);
-    if (*reinterpret_cast<const uint8*>(&self->m_bVariableCompression) != 0) { // se relee tras la llamada, como el EXE
-        extraWord = static_cast<int32>(out) / b;
-    }
-    *outData = refCon;
-    return dataLeft;
+    const size_t written = m_reader->Read(dest, size);
+    m_nPlayTime += static_cast<long>(written / 4);
+    return written;
 }
 
 // 0x4e7920
@@ -127,6 +112,9 @@ void CAEMFDecoder::SetCursor(unsigned long pos) {
         return;
 
     m_nPlayTime = MfDecoderCursorToPlayTimeCpp(pos, m_fTimeDivider);
+    if (m_reader) {
+        m_reader->Seek(m_nPlayTime); // la posicion se cuenta en fotogramas a 44100 Hz
+    }
 }
 
 // 0x4e78c0
@@ -143,15 +131,20 @@ int32 CAEMFDecoder::GetStreamID() {
 }
 
 // 0x4e7c70
-// Lote EXT1A: QuickTime retirado. Devuelve false sin cargar ninguna biblioteca (el original llamaba a InitializeQTML(0) y EnterMovies); el gestor de user tracks reencamina los ".mp3" al decoder WMA.
+// Antes InitializeQTML(0) + EnterMovies; ahora MFStartup (con CoInitializeEx). Devuelve false si Media Foundation no esta (el gestor reencamina entonces los ".mp3" al decoder WMA).
 bool CAEMFDecoder::InitLibrary() {
-    NOTSA_LOG_INFO("User tracks: QuickTime retirado; los .mp3 usan el decoder WMA y los formatos que solo abria QuickTime no estan disponibles");
-    return false;
+    const bool ok = CMfPcmReader::Startup();
+    if (!ok) {
+        NOTSA_LOG_INFO("User tracks: Media Foundation no disponible; los .mp3 usan el decoder WMA y .aac/.m4a/.mov no se cargan");
+    }
+    return ok;
 }
 
 // 0x4e7850
-// Lote EXT1A: no hay QuickTime que cerrar (el original llamaba a ExitMovies y TerminateQTML).
-void CAEMFDecoder::Shutdown() {}
+// Antes ExitMovies + TerminateQTML; ahora MFShutdown.
+void CAEMFDecoder::Shutdown() {
+    CMfPcmReader::Shutdown();
+}
 
 namespace {
 // 0x4E77C0 (lote 146A, banco Fn146A): cuerpo del destructor de CAEMFDecoder que usa el destructor con borrado del EXE (thiscall, sin argumentos de pila; el hook Destructor de la clase). Funcion propia sin
@@ -173,7 +166,7 @@ CAEMFDecoder* __fastcall MFDecoderScalarDeletingDestructor(CAEMFDecoder* self, v
 uintptr_t Lote146AMFDecoderDestructorBody() { return reinterpret_cast<uintptr_t>(&MFDecoderDestructorBody); } // para el banco Fn146A
 
 /**
- * Registra el decoder (sin QuickTime desde el lote EXT1A).
+ * Registra el decoder (Media Foundation en lugar de QuickTime).
  */
 void CAEMFDecoder::InjectHooks() {
     // Como el original: vtable 0x85F370 con 8 entradas (Initialise, FillBuffer, GetStreamLengthMs,
@@ -186,7 +179,6 @@ void CAEMFDecoder::InjectHooks() {
     RH_ScopedInstall(Destructor, 0x4e77c0);
     RH_ScopedNamedGlobalInstall(MFDecoderScalarDeletingDestructor, "ScalarDeletingDestructor", 0x4E7C50); // lote 146A (banco Fn146A)
     RH_ScopedInstall(Shutdown, 0x4E7850); // lote 146A (banco Fn146A)
-    RH_ScopedInstall(FillCallback, 0x4E7B80); // lote S1A (sin validar)
     RH_ScopedInstall(InitLibrary, 0x4e7c70);
     RH_ScopedVMTInstall(Initialise, 0x4e7cb0);
     RH_ScopedVMTInstall(FillBuffer, 0x4e7860);

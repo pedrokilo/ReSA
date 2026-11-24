@@ -12001,14 +12001,6 @@ D3D9RasterStandards,RasterGetMipLevels,0x004CBCB0,1,0,0,S
 ImportThunks,GetModuleHandleAThunk,0x0081E406,1,0,0,S
 ImportThunks,GetProcAddressThunk,0x0081E40C,1,0,0,S
 ImportThunks,LoadLibraryAThunk,0x0081E412,1,0,0,S
-QTMLRuntime,QtmlInitializeThunk,0x008194B0,1,0,0,S
-QTMLRuntime,QtmlUnavailableStub,0x008194D0,1,0,0,S
-QTMLRuntime,QtmlTerminateThunk,0x008194C0,1,0,0,S
-QTMLRuntime,QtmlResolveEntryPoints,0x00819520,1,0,0,S
-QTMLRuntime,QtmlLoadLibrary,0x0081DAE0,1,0,0,S
-QTMLRuntime,QtmlInitializeBridge,0x00818650,1,0,0,S
-QTMLRuntime,QtmlTerminateBridge,0x00818670,1,0,0,S
-QTMLRuntime,QtmlConverterFillBridge,0x0081A3C0,1,0,0,S
 RwCore,RwD3D9DynamicVertexBufferLock,0x007F5B10,1,0,0,S
 RwD3D9,_rwD3D9Im2DRenderPrimitive,0x007FBB00,1,0,0,S
 RwD3D9,_rwD3D9RenderStateVertexAlphaEnable,0x007FE0A0,1,0,0,S
@@ -12591,7 +12583,6 @@ RpAnisot,RpAnisotStreamGetSize,0x007490F0,1,0,1,S
 CMissionCleanup,FindFree,0x004637C0,1,0,1,S
 CQuaternion,Copy,0x004CF9E0,1,0,1,S
 CDefaultAnimCallback,DefaultAnimCB,0x004D1390,1,0,1,S
-CAEMFDecoder,FillCallback,0x004E7B80,1,0,1,S
 CTaskSimpleFight,MeleeAnimFinishCB,0x0061DAE0,1,0,1,S
 CTaskSimpleBeKickedOnGround,FinishAnimCB,0x0061FD10,1,0,1,S
 CTaskSimpleBeHitWhileMoving,FinishAnimCB,0x0061FF30,1,0,1,S

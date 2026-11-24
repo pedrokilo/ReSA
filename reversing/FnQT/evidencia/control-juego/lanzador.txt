@@ -1,0 +1,3 @@
+pid 33120  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_qt_run" --salida "D:\Original\wv-qt\reversing\FnQT\ejecuciones\control-20261124-172630" --limite 190 --shims  escenario=usertrack xinput=False
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF
