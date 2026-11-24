@@ -1,0 +1,1 @@
+--unhook-except=RenderWare/WindowedModeHooks,Global/CMenuManager,Global/CGenericGameStorage,Global/C_PcSave,Global/CFileMgr,Global/CLoadingScreen,Global/CGame,Global/Game

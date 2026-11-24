@@ -1,0 +1,30 @@
+
+== Variante X : DLL arbitraria D:\Original\wv-8\reversing\FnBIS1\dll\Debug.asi (banco PL1) + INI actual.
+   Argumentos: --unhook-except=RenderWare/WindowedModeHooks --traf-id=ncm3-23044   ASI SHA256: d1c685d9e1afdcf6da1f6eacfccf85f326d631695a453b464d939075c4b6d8d9
+   Lanzando gta_sa.exe. Juega; al cerrar el juego se restaura todo solo.
+
+== Resumen
+   variante: X
+   descripcion: DLL arbitraria D:\Original\wv-8\reversing\FnBIS1\dll\Debug.asi (banco PL1) + INI actual.
+   hora_inicio: 2026-11-23T21:16:24
+   argumentos: --unhook-except=RenderWare/WindowedModeHooks --traf-id=ncm3-23044
+   asi_sha256: d1c685d9e1afdcf6da1f6eacfccf85f326d631695a453b464d939075c4b6d8d9
+   ini_usado: ini-actual.ini
+   duracion_segundos: 801.9
+   codigo_salida: 0
+   avisos_caida_a_traves_del_mapa: 0
+   lineas_con_NaN: 0
+   lineas_Pool_h_207: 0
+   lineas_no_se_pudo: 0
+   lineas_hook_cambiado: 2
+   lineas_de_carga_de_partida: 
+   partidas_sin_cambios_tras_jugar: True
+   robar_ciclos: 0
+   robar_robados: 0
+   robar_ciclos_con_NaN: 0
+   robar_ciclos_con_z_bajo: 0
+   robar_fin: 
+   simulado: False
+   restauracion_verificada_por_hash: True
+   Carpeta: D:\Original\wv-8\reversing\FnBIS1\salidas\Xncm3-20261123-211621
+Copia de pruebas restaurada y verificada por hash.

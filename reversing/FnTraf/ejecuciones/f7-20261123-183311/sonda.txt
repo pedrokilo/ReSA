@@ -1,0 +1,6 @@
+pid 17940 exe gta_sa_standalone
+juego en marcha tras 8 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+t=6 {"t_juego_ms": 370364724, "cs": null, "area": 0, "peds": [1, 140], "veh": [1, 110], "pos": [2495.330078125, -1690.25, 14.784700393676758], "NumRandomCars": 1, "MaxCarsInUse": 12}
+el proceso termino
+fin

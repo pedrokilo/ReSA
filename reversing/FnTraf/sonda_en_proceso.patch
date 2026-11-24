@@ -1,0 +1,65 @@
+diff --git a/source/app/platform/win/StandaloneExe.cpp b/source/app/platform/win/StandaloneExe.cpp
+index fcc194ae44..995f1a152d 100644
+--- a/source/app/platform/win/StandaloneExe.cpp
++++ b/source/app/platform/win/StandaloneExe.cpp
+@@ -361,6 +361,7 @@ int ContarPool(uint32_t pool, int* tam) {
+     *tam = n;
+     return vivos;
+ }
++extern "C" int TraficoDiag(char* buf, int n); extern "C" int NubesDiag(char* buf, int n); extern "C" int ChooseDiag(char* buf, int n); // DIAGNOSTICO TEMPORAL (extensions/TraficoDiag.cpp)
+ void LogMundo() {
+     int tp = 0, tv = 0;
+     const int peds = ContarPool(0xB74490, &tp), veh = ContarPool(0xB74494, &tv);
+@@ -374,6 +375,9 @@ void LogMundo() {
+     const int area = Legible(0xB72914, 4) ? *(int*)0xB72914 : -1;
+     const uint32_t ms = Legible(0xB7CB84, 4) ? *(uint32_t*)0xB7CB84 : 0;
+     LogT("mundo: jugador=0x%08lX pos=%s(%d, %d, %d) area=%d tiempo-juego=%lu ms peds=%d/%d vehiculos=%d/%d", ped, tienePos ? "" : "?", (int)x, (int)y, (int)z, area, ms, peds, tp, veh, tv);
++    { char b[1000]; const int l = TraficoDiag(b, sizeof b - 3); if (l > 0) { b[l] = '\r'; b[l + 1] = '\n'; Escribir(g.log, b, l + 2); } }
++    { char b[1000]; const int l = ChooseDiag(b, sizeof b - 3); if (l > 0) { b[l] = '\r'; b[l + 1] = '\n'; Escribir(g.log, b, l + 2); } }
++    { char b[1000]; const int l = NubesDiag(b, sizeof b - 3); if (l > 0) { b[l] = '\r'; b[l + 1] = '\n'; Escribir(g.log, b, l + 2); } }
+ }
+ // Tercera ronda: vuelca los scripts activos (CTheScripts::pActiveScripts 0xA8B42C): nombre, base e IP (relativa a ScriptSpace 0xA49960) y los bytes alrededor de la IP,
+ // para los fallos del motor de scripts ("Unknown param type"), que son de datos o de lectura de argumentos.
+diff --git a/source/game_sa/Clouds.cpp b/source/game_sa/Clouds.cpp
+index 78bc1902c2..28ef3b1955 100644
+--- a/source/game_sa/Clouds.cpp
++++ b/source/game_sa/Clouds.cpp
+@@ -20,6 +20,8 @@ END GENERATED HOOK STATUS */
+ #pragma warning(push, 0)
+ #endif
+ #include "StdInc.h"
++extern "C" volatile int g_NubDiag[8]; // DIAGNOSTICO TEMPORAL
++extern "C" volatile int g_NubDiag[8] = {};
+ #include "DatosExe/DataBssE4.h"
+ #include "DatosExe/DataBssE3.h"
+ #include "DatosExe/DataBssE2.h"
+@@ -387,6 +389,7 @@ void CClouds::MovingFogRender() {
+ 
+ // 0x713950
+ void CClouds::Render() {
++    g_NubDiag[0]++;
+     if (!CGame::CanSeeOutSideFromCurrArea()) {
+         return;
+     }
+@@ -560,8 +563,10 @@ void CClouds::Render() {
+                 CVector cloudPosScr;
+                 float   w, h;
+                 if (!CSprite::CalcScreenCoors(cloudPos, &cloudPosScr, &w, &h, false, true)) {
++                    g_NubDiag[2]++;
+                     continue;
+                 }
++                g_NubDiag[1]++;
+                 CSprite::RenderBufferedOneXLUSprite_Rotate_Dimension(cloudPosScr, { w * 320.0f, h * 40.0f }, colorR, colorG, colorB, 255,
+                     1.0f / cloudPosScr.z, ms_cameraRoll, 255);
+             }
+@@ -1238,8 +1243,10 @@ void CClouds::VolumetricCloudsRender() {
+     const int32 colorSum = cc.m_nSkyTopRed + cc.m_nSkyTopGreen + cc.m_nSkyTopBlue + cc.m_nSkyBottomRed + cc.m_nSkyBottomGreen + cc.m_nSkyBottomBlue;
+     const auto  vcClr    = static_cast<uint32>(std::min(colorSum / 6 + 64, 255));
+ 
++    g_NubDiag[4]++;
+     int32 numVerts = 0;
+     const auto RenderOutBuffer = [&] {
++        g_NubDiag[5] += numVerts;
+         if (RwIm3DTransform(TempBufferVertices.m_3d, numVerts, nullptr, rwIM3D_VERTEXXYZ | rwIM3D_VERTEXUV)) {
+             RwIm3DRenderPrimitive(rwPRIMTYPETRILIST);
+             RwIm3DEnd();

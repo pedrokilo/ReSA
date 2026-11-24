@@ -1,0 +1,459 @@
+[depuración][18:35:38.342][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][18:35:38.350][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13630 en 1011 clases/grupos (11462 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13630. Desactivadas: 0.
+[info][18:35:38.350][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][18:35:38.351][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][18:35:38.353][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][18:35:38.360][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][18:35:38.890][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][18:35:38.957][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][18:35:38.972][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][18:35:39.010][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][18:35:39.017][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][18:35:39.017][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][18:35:39.018][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][18:35:39.018][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][18:35:39.018][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][18:35:39.018][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][18:35:39.018][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][18:35:39.019][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][18:35:39.019][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][18:35:39.019][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[info][18:35:39.062][AEMFDecoder.cpp:148]: User tracks: QuickTime retirado; los .mp3 usan el decoder WMA y los formatos que solo abria QuickTime no estan disponibles
+[depuración][18:35:39.170][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][18:35:39.174][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][18:35:39.175][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][18:35:39.312][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][18:35:39.313][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][18:35:39.313][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[error][18:35:39.914][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:40.151][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:40.152][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:40.153][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:40.153][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:40.153][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:40.153][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:40.154][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][18:35:40.154][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:40.154][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:40.154][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:40.154][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:40.155][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:40.155][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:40.155][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:40.155][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][18:35:40.155][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:40.155][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:40.155][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:40.156][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:40.156][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:40.156][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:40.156][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:40.156][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][18:35:40.156][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:40.156][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:40.156][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:40.157][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:40.157][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:40.157][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:40.157][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:40.157][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][18:35:40.157][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:40.157][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:40.158][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:40.158][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:40.158][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:40.158][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:40.158][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:40.158][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][18:35:40.159][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:40.159][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:40.159][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:40.159][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:40.159][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:40.159][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:40.160][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:40.160][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[depuración][18:35:43.577][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[error][18:35:43.921][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:43.923][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:43.923][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:43.924][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:43.924][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:43.924][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:43.924][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:43.924][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][18:35:43.925][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:43.925][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:43.926][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:43.926][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:43.926][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:43.926][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:43.926][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:43.926][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][18:35:43.926][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:43.926][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:43.926][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:43.926][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:43.927][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:43.927][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:43.927][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:43.927][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][18:35:43.927][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:43.927][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:43.927][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:43.927][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:43.928][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:43.928][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:43.928][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:43.928][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][18:35:43.928][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:43.928][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:43.928][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:43.928][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:43.929][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:43.929][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:43.929][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:43.929][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][18:35:43.929][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][18:35:43.930][app_debug.cpp:246]: 	0x0186b9a1: CLoadedCarGroup::GetMember:157
+[error][18:35:43.930][app_debug.cpp:246]: 	0x0258db4d: ChooseDiag:62
+[error][18:35:43.930][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][18:35:43.930][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][18:35:43.930][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][18:35:43.930][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][18:35:43.930][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[depuración][18:35:45.996][Pools.cpp:502]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[aviso][18:35:46.018][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][18:35:46.025][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][18:35:46.046][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][18:35:46.047][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][18:35:46.047][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][18:35:46.065][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][18:35:46.066][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[error][18:35:46.802][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.803][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.804][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.804][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.804][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.804][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.804][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.804][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.804][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.804][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.804][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.804][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.805][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.805][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.805][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:46.807][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.807][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:46.807][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.816][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:46.816][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.816][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.836][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.836][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.883][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.883][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.917][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.917][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.964][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.964][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.000][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.000][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.044][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.044][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.078][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.078][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.124][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:47.125][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.158][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.158][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.205][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.205][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.238][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.238][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:47.285][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.286][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.319][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.320][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.365][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.366][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.399][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.399][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.446][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.446][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.479][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.480][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.526][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.527][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.560][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.560][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:47.607][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.608][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.640][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.640][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.686][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.686][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.719][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.720][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.766][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.767][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.877][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 523 tipo 13
+[error][18:35:47.878][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 0 tipo 25
+[error][18:35:47.878][CarCtrlGenerateOneRandomCar.inl:911]: [TRAF-DIAG] crear modelo 0 (0 edi) F476=0
+[error][18:35:47.878][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=0 ptr=0xb478fc tipo=7 placa=0x36 tipoPlaca=0 refs=2 txd=66
+[info][18:35:47.879][:]: ****************** Backtrace Start ******************
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.808][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.809][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.810][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.811][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.812][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.813][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.814][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.815][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.816][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:46.816][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.816][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.836][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.836][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.883][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.883][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.917][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.917][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.964][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:46.964][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.000][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.000][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.044][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.044][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.078][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.078][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.124][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:47.125][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.158][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.158][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.205][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.205][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.238][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.238][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:47.285][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.286][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.319][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.320][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.365][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.366][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.399][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.399][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.446][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.446][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.479][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.480][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.526][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.527][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.560][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.560][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 596 tipo 13
+[error][18:35:47.607][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.608][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.640][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.640][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.686][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.686][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.719][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.720][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.766][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.767][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> -1 tipo 0
+[error][18:35:47.877][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 523 tipo 13
+[error][18:35:47.878][CarCtrlGenerateOneRandomCar.inl:253]: [TRAF-DIAG] ChooseModel -> 0 tipo 25
+[error][18:35:47.878][CarCtrlGenerateOneRandomCar.inl:911]: [TRAF-DIAG] crear modelo 0 (0 edi) F476=0
+[error][18:35:47.878][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=0 ptr=0xb478fc tipo=7 placa=0x36 tipoPlaca=0 refs=2 txd=66
+[info][18:35:47.896][:]: ****************** Backtrace End ********************
+[info][18:35:47.896][app_debug.cpp:105]: *********UNHANDLED EXCEPTION**********
+[info][18:35:47.897][app_debug.cpp:110]: Código de excepción: 0xc0000005
+[info][18:35:47.897][app_debug.cpp:111]: Indicadores de excepción: 0x00000000
+[info][18:35:47.897][app_debug.cpp:112]: Dirección de excepción: 0x023caadd
+[info][18:35:47.898][app_debug.cpp:105]: *********PARAMETERS**********
+[info][18:35:47.898][app_debug.cpp:117]: Parámetros[2]:
+[info][18:35:47.898][app_debug.cpp:119]:        0: 0x00000000
+[info][18:35:47.898][app_debug.cpp:119]:        1: 0x00000036
+[info][18:35:47.899][app_debug.cpp:105]: *********REGISTERS**********
+[info][18:35:47.899][app_debug.cpp:129]: 	EAX: 0x093afa68
+[info][18:35:47.899][app_debug.cpp:129]: 	EBX: 0x001ad6c4
+[info][18:35:47.899][app_debug.cpp:129]: 	ECX: 0x00b478fc
+[info][18:35:47.899][app_debug.cpp:129]: 	EDX: 0x00000036
+[info][18:35:47.899][app_debug.cpp:129]: 	ESI: 0x20fed009
+[info][18:35:47.899][app_debug.cpp:129]: 	EDI: 0x001adc50
+[info][18:35:47.900][app_debug.cpp:129]: 	EBP: 0x001ad614
+[info][18:35:47.900][app_debug.cpp:129]: 	ESP: 0x001ad60c
+[info][18:35:47.900][app_debug.cpp:129]: 	EIP: 0x023caadd
+[info][18:35:47.900][app_debug.cpp:129]: 	EFLAGS: 0x00210246
+[info][18:35:47.900][app_debug.cpp:105]: *********CALL STACK**********
+[info][18:35:47.926][app_debug.cpp:212]: 	0x023caadd: gta_sa_standalone!CVehicle::CustomCarPlate_TextureCreate:1591
+[info][18:35:47.929][app_debug.cpp:212]: 	0x023c7fb1: gta_sa_standalone!CVehicle::SetModelIndex:699
+[info][18:35:47.930][app_debug.cpp:212]: 	0x00fee50a: gta_sa_standalone!CAutomobile::CAutomobile:299
+[info][18:35:47.932][app_debug.cpp:212]: 	0x011deaae: gta_sa_standalone!`CCarCtrl::GetNewVehicleDependingOnCarModel'::`2'::<lambda_1>::operator()<CAutomobile,bool>:2532
+[info][18:35:47.932][app_debug.cpp:212]: 	0x011c546d: gta_sa_standalone!CCarCtrl::GetNewVehicleDependingOnCarModel:2554
+[info][18:35:47.933][app_debug.cpp:212]: 	0x011b2970: gta_sa_standalone!CCarCtrl::GenerateOneRandomCar:911
+[info][18:35:47.933][app_debug.cpp:212]: 	0x011c4bd5: gta_sa_standalone!CCarCtrl::GenerateRandomCars:2397
+[info][18:35:47.934][app_debug.cpp:212]: 	0x016e288c: gta_sa_standalone!CGame::Process:878
+[info][18:35:47.935][app_debug.cpp:212]: 	0x00fbe675: gta_sa_standalone!Idle:346
+[info][18:35:47.935][app_debug.cpp:212]: 	0x00fa2bed: gta_sa_standalone!AppEventHandler:169
+[info][18:35:47.936][app_debug.cpp:212]: 	0x01bac288: gta_sa_standalone!RsEventHandler:349
+[info][18:35:47.936][app_debug.cpp:212]: 	0x024e2dfe: gta_sa_standalone!ProcessGameLogic:345
+[info][18:35:47.937][app_debug.cpp:212]: 	0x024e1d59: gta_sa_standalone!MainLoop:371
+[info][18:35:47.937][app_debug.cpp:212]: 	0x024e266e: gta_sa_standalone!NOTSA_WinMain:510
+[info][18:35:47.938][app_debug.cpp:212]: 	0x00e1cee7: gta_sa_standalone!WinMain:662
+[info][18:35:47.938][app_debug.cpp:212]: 	0x029e202d: gta_sa_standalone!invoke_main:107
+[info][18:35:47.939][app_debug.cpp:212]: 	0x029e1f0a: gta_sa_standalone!__scrt_common_main_seh:288
+[info][18:35:47.939][app_debug.cpp:212]: 	0x029e1dad: gta_sa_standalone!__scrt_common_main:331
+[info][18:35:47.939][app_debug.cpp:212]: 	0x029e2098: gta_sa_standalone!WinMainCRTStartup:17
+[info][18:35:47.940][app_debug.cpp:212]: 	0x00e1ffcb: gta_sa_standalone!FaseEntrada:633
+[info][18:35:47.940][app_debug.cpp:212]: 	0x75495d49: KERNEL32!BaseThreadInitThunk:0
+[info][18:35:47.940][app_debug.cpp:212]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[info][18:35:47.940][app_debug.cpp:212]: 	0x76fac811: ntdll!RtlGetAppContainerNamedObjectPath:0
+[info][18:35:47.956][app_debug.cpp:105]: *********END OF UNHANDLED EXCEPTION**********

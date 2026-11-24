@@ -1,0 +1,5 @@
+[depuración][18:44:16.035][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][18:44:16.049][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13630 en 1011 clases/grupos (11462 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13630. Desactivadas: 0.
+[info][18:44:16.050][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][18:44:16.050][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.

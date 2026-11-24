@@ -1,0 +1,5 @@
+pid 23548 exe gta_sa_standalone
+juego en marcha tras 8 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+el proceso termino
+fin

@@ -1,0 +1,4 @@
+
+== Variante X : DLL arbitraria D:\Original\wv-int\bin\Debug\gta_reversed.asi (banco PL1) + INI actual.
+   Argumentos: --unhook=Global/CCarCtrl/ChooseModel --traf-id=bis_choose-10944   ASI SHA256: 55781e65cd579832be0fed75a640c58f643167f3ab2c4679dbafb355811f4ae3
+   Lanzando gta_sa.exe. Juega; al cerrar el juego se restaura todo solo.

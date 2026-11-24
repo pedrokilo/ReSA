@@ -1,0 +1,19 @@
+pid 18568 exe gta_sa_standalone
+juego en marcha tras 9 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+t=6 {"t_juego_ms": 370369886, "cs": null, "area": 0, "peds": [16, 140], "veh": [7, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 4, "MaxCarsInUse": 12}
+t=11 {"t_juego_ms": 370375439, "cs": null, "area": 0, "peds": [11, 140], "veh": [4, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 1, "MaxCarsInUse": 12}
+t=17 {"t_juego_ms": 370381006, "cs": null, "area": 0, "peds": [11, 140], "veh": [3, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=22 {"t_juego_ms": 370386606, "cs": null, "area": 0, "peds": [11, 140], "veh": [3, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=28 {"t_juego_ms": 370392159, "cs": null, "area": 0, "peds": [11, 140], "veh": [3, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=34 {"t_juego_ms": 370397726, "cs": null, "area": 0, "peds": [11, 140], "veh": [3, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=39 {"t_juego_ms": 370403279, "cs": null, "area": 0, "peds": [11, 140], "veh": [3, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+ventana: cliente 585x438, rect ventana 599x475
+captura giro0 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [33.8, 15.6, 50.2], "max": 255} estado {"t_juego_ms": 370405679, "cs": null, "area": 0, "peds": [11, 140], "veh": [3, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura giro1 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [24.6, 17.8, 20.4], "max": 129} estado {"t_juego_ms": 370407966, "cs": null, "area": 0, "peds": [11, 140], "veh": [4, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 1, "MaxCarsInUse": 12}
+captura giro2 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [0.0, 0.0, 0.0], "max": 0} estado {"t_juego_ms": 0, "cs": null, "area": 0, "peds": [0, 0], "veh": [0, 0], "pos": null, "NumRandomCars": 0, "MaxCarsInUse": 0}
+captura giro3 null estado {"t_juego_ms": 0, "cs": null, "area": 0, "peds": [0, 0], "veh": [0, 0], "pos": null, "NumRandomCars": 0, "MaxCarsInUse": 0}
+captura giro4 null estado {"t_juego_ms": 0, "cs": null, "area": 0, "peds": [0, 0], "veh": [0, 0], "pos": null, "NumRandomCars": 0, "MaxCarsInUse": 0}
+captura giro5 null estado {"t_juego_ms": 0, "cs": null, "area": 0, "peds": [0, 0], "veh": [0, 0], "pos": null, "NumRandomCars": 0, "MaxCarsInUse": 0}
+el proceso termino
+fin

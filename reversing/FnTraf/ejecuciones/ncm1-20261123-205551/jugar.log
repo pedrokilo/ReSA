@@ -1,0 +1,9 @@
+Copia de pruebas restaurada y verificada por hash.
+[31;1mRemove-Item: [0mD:\Original\wv-8\reversing\FnBIS1\jugar.ps1:160
+[36;1mLine |[0m
+[36;1m[36;1m 160 | [0m .  if (Test-Path $pendiente) { [36;1mRemove-Item -Recurse -Force $pendiente[0m }
+[36;1m     | [31;1m                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[36;1m[31;1m[31;1m[36;1m     | [31;1mThe process cannot access the file[0m
+[36;1m[31;1m[31;1m[36;1m[31;1m[36;1m     | [31;1m'D:\Original\wv-8\reversing\FnBIS1\respaldo_pendiente\copia\scripts\gta_reversed.pdb' because it is being used[0m
+[36;1m[31;1m[31;1m[36;1m[31;1m[36;1m[31;1m[36;1m     | [31;1mby another process.[0m
+[36;1m[31;1m[31;1m[36;1m[31;1m[36;1m[31;1m[36;1m[31;1m[0m

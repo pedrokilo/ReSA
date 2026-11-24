@@ -1,0 +1,547 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo estricto
+codigo original 0x00401000-0x00858000: NO copiado, relleno con INT3 (4550656 bytes)
+seccion .text    VA 0x00401000 virtual  4546560: codigo, omitida
+seccion _rwcseg  VA 0x00857000 virtual     4096: codigo, omitida
+seccion .rdata   VA 0x00858000 virtual   311296 archivo   308224 car 0x40000040 copiada
+seccion .data    VA 0x008A4000 virtual  4169728 archivo   262144 car 0xC0000040 copiada
+seccion _TEXT_HA VA 0x00C9E000 virtual    69632 archivo    68608 car 0xC0000040 copiada
+seccion _rwdseg  VA 0x00CAF000 virtual     4096 archivo      512 car 0xC0000040 copiada
+seccion .rsrc    VA 0x00CB0000 virtual     4096 archivo     1536 car 0x40000040 copiada
+datos copiados desde el original: 641024 bytes
+imports de la IAT original: 214, sin resolver: 0
+[    16 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+[    16 ms] StandaloneStartup correcto (tabla C de __cinit completa); iniciando el CRT propio
+[    16 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)
+[    16 ms] DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)
+[   266 ms] latido: frame=0 estado-juego=0 Present=0 EndScene=0 Clear=0 Draw*=0 codigo-original-distinto=0 hits=0 excepciones=0
+[   266 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 895x518
+[   797 ms] DllMain devolvio 1
+[   797 ms] --shims: instalados
+[   797 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[   797 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[   797 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[   797 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[   797 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[   797 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[   797 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[   797 ms] DatosExe::RunStaticInitializers ejecutado
+[   797 ms] llamando a NOTSA_WinMain (WinMain reconstruido)
+[  2281 ms] contadores de D3D9 instalados en el vtable del dispositivo 0x0D82A1A0
+[  2281 ms] latido: frame=4 estado-juego=8 Present=0 EndScene=0 Clear=0 Draw*=0 codigo-original-distinto=0 hits=0 excepciones=0
+[  2281 ms] mundo: jugador=0x00000000 pos=?(0, 0, 0) area=0 tiempo-juego=307 ms peds=0/140 vehiculos=0/110
+  TRAF: rnd=0 park=0 mis=0 law=0 max=12 cuentaAtras=2 madT=910.59 gen=0 proc=0 | peds tot=0 civ=0 gang=0 cop=0 | popcycle obj[0.0 0.0 0.0 0.0] raw[00000000 00000000 00000000 00000000] zona obj=00000000 raw=00000000 | nodos areas=0 | modelos apropiados=0 (cars 0/0) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=0 noMenos1=0 de 200; -1=200 | | apropiados: -1 -1 -1 -1 -1 -1
+  VOLUM: usedNum=0 usadas=0 densidad=1.00 heightSwitch=1 fader=0.0 maxDist=0.0 tex=00000000 fxq=2 currArea=0
+  NUBES: low rgb=0,0,0 fluffy=0,0,0 cielo top=0,0,0 bot=0,0,0 | cov=0.000 fog=0.000 extra=0.000 rain=0.000 clima old=0 new=0 interp=0.00 hora=0:00 | tex=00000000 raster=00000000 roll=0.000 camZ=0.0
+[  4313 ms] latido: frame=31589396 estado-juego=9 Present=139 EndScene=139 Clear=2 Draw*=445 codigo-original-distinto=0 hits=0 excepciones=0
+[  6328 ms] latido: frame=31589442 estado-juego=9 Present=186 EndScene=186 Clear=102 Draw*=6656 codigo-original-distinto=0 hits=0 excepciones=0
+[  6328 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370365113 ms peds=1/140 vehiculos=0/110
+  TRAF: rnd=0 park=0 mis=0 law=0 max=12 cuentaAtras=0 madT=909.21 gen=211 proc=1 | peds tot=0 civ=0 gang=0 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=1 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=108 de 200; -1=92 | modelo 404 (tipo 0) x101 modelo 523 (tipo 13) x7 | apropiados: 404 -1 -1 -1 -1 -1
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=45.5 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=119,98,98 fluffy=179,253,253 cielo top=231,230,231 bot=249,155,157 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=17 new=0 interp=0.00 hora=12:00 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.4
+[  8344 ms] latido: frame=31589492 estado-juego=9 Present=236 EndScene=236 Clear=252 Draw*=60433 codigo-original-distinto=0 hits=0 excepciones=0
+[ 10344 ms] latido: frame=31589542 estado-juego=9 Present=286 EndScene=286 Clear=402 Draw*=113474 codigo-original-distinto=0 hits=0 excepciones=0
+[ 10344 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 10344 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 10344 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 10344 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[ 10344 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 10344 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[ 10344 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370369113 ms peds=12/140 vehiculos=6/110
+  TRAF: rnd=3 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=905.20 gen=211 proc=1 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=4 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=182 de 200; -1=18 | modelo 418 (tipo 0) x18 modelo 404 (tipo 0) x30 modelo 492 (tipo 15) x110 modelo 536 (tipo 0) x20 modelo 596 (tipo 13) x4 | apropiados: 404 492 536 418 -1 -1
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=89,145,253 bot=126,146,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=0 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.4
+[ 12360 ms] latido: frame=31589592 estado-juego=9 Present=336 EndScene=336 Clear=552 Draw*=166018 codigo-original-distinto=0 hits=0 excepciones=0
+[ 14360 ms] latido: frame=31589642 estado-juego=9 Present=386 EndScene=386 Clear=702 Draw*=219998 codigo-original-distinto=0 hits=0 excepciones=0
+[ 14360 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370373113 ms peds=10/140 vehiculos=5/110
+  TRAF: rnd=2 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=901.18 gen=211 proc=1 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=4 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=185 de 200; -1=15 | modelo 492 (tipo 0) x109 modelo 404 (tipo 0) x26 modelo 418 (tipo 0) x28 modelo 536 (tipo 0) x19 modelo 596 (tipo 13) x3 | apropiados: 404 492 536 418 -1 -1
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=79,140,242 bot=142,174,175 | cov=0.000 fog=0.000 extra=0.000 rain=0.000 clima old=3 new=3 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.4
+[ 16375 ms] latido: frame=31589692 estado-juego=9 Present=436 EndScene=436 Clear=852 Draw*=273078 codigo-original-distinto=0 hits=0 excepciones=0
+[ 18375 ms] latido: frame=31589742 estado-juego=9 Present=486 EndScene=486 Clear=1002 Draw*=322645 codigo-original-distinto=0 hits=0 excepciones=0
+[ 18375 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370377113 ms peds=9/140 vehiculos=4/110
+  TRAF: rnd=1 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=897.17 gen=211 proc=1 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=4 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=189 de 200; -1=11 | modelo 404 (tipo 0) x25 modelo 492 (tipo 15) x119 modelo 418 (tipo 0) x21 modelo 536 (tipo 0) x22 modelo 596 (tipo 13) x2 | apropiados: 404 492 536 418 -1 -1
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=117,98,98 fluffy=92,116,123 cielo top=123,144,152 bot=123,144,151 | cov=0.981 fog=0.000 extra=0.019 rain=0.000 clima old=4 new=0 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.4
+[ 20391 ms] latido: frame=31589792 estado-juego=9 Present=536 EndScene=536 Clear=1152 Draw*=374239 codigo-original-distinto=0 hits=0 excepciones=0
+[ 20391 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 20391 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 20391 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 20391 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[ 20391 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 20391 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[ 22391 ms] latido: frame=31589842 estado-juego=9 Present=586 EndScene=586 Clear=1302 Draw*=426111 codigo-original-distinto=0 hits=0 excepciones=0
+[ 22391 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370381113 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=893.15 gen=211 proc=1 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=5 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=190 de 200; -1=10 | modelo 401 (tipo 0) x13 modelo 492 (tipo 15) x102 modelo 536 (tipo 0) x17 modelo 404 (tipo 0) x22 modelo 418 (tipo 0) x32 modelo 596 (tipo 13) x4 | apropiados: 404 492 536 418 401 -1
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=129,128,124 cielo top=30,116,209 bot=52,160,225 | cov=0.000 fog=0.000 extra=0.019 rain=0.000 clima old=1 new=0 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.4
+[ 24406 ms] latido: frame=31589892 estado-juego=9 Present=636 EndScene=636 Clear=1452 Draw*=478007 codigo-original-distinto=0 hits=0 excepciones=0
+[ 26406 ms] latido: frame=31589942 estado-juego=9 Present=686 EndScene=686 Clear=1602 Draw*=529906 codigo-original-distinto=0 hits=0 excepciones=0
+[ 26406 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370385113 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=889.13 gen=211 proc=1 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=5 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=189 de 200; -1=11 | modelo 401 (tipo 0) x23 modelo 536 (tipo 0) x13 modelo 492 (tipo 15) x99 modelo 418 (tipo 0) x19 modelo 404 (tipo 0) x27 modelo 596 (tipo 13) x8 | apropiados: 404 492 536 418 401 -1
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=90,146,254 bot=128,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.4
+[ 28406 ms] latido: frame=31589992 estado-juego=9 Present=736 EndScene=736 Clear=1752 Draw*=581806 codigo-original-distinto=0 hits=0 excepciones=0
+[ 30422 ms] latido: frame=31590042 estado-juego=9 Present=785 EndScene=785 Clear=1902 Draw*=633667 codigo-original-distinto=0 hits=0 excepciones=0
+[ 30422 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 30422 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 30422 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 30422 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[ 30422 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 30422 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[ 30422 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370389113 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=885.12 gen=211 proc=1 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=5 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=187 de 200; -1=13 | modelo 401 (tipo 0) x21 modelo 492 (tipo 15) x112 modelo 596 (tipo 13) x4 modelo 404 (tipo 0) x20 modelo 418 (tipo 0) x18 modelo 536 (tipo 0) x12 | apropiados: 404 492 536 418 401 -1
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=90,146,254 bot=128,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.4
+[ 32422 ms] latido: frame=31590092 estado-juego=9 Present=836 EndScene=836 Clear=2052 Draw*=685745 codigo-original-distinto=0 hits=0 excepciones=0
+[ 34438 ms] latido: frame=31590142 estado-juego=9 Present=885 EndScene=885 Clear=2202 Draw*=737169 codigo-original-distinto=0 hits=0 excepciones=0
+[ 34438 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370393113 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=881.10 gen=211 proc=1 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=5 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=178 de 200; -1=22 | modelo 401 (tipo 0) x12 modelo 492 (tipo 0) x100 modelo 418 (tipo 0) x19 modelo 536 (tipo 0) x16 modelo 404 (tipo 0) x25 modelo 596 (tipo 13) x6 | apropiados: 404 492 536 418 401 -1
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=89,145,253 bot=128,147,181 | cov=0.000 fog=0.000 extra=0.981 rain=0.000 clima old=2 new=3 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.4
+[ 36438 ms] latido: frame=31590192 estado-juego=9 Present=935 EndScene=935 Clear=2352 Draw*=789519 codigo-original-distinto=0 hits=0 excepciones=0
+[ 38453 ms] latido: frame=31590242 estado-juego=9 Present=985 EndScene=985 Clear=2499 Draw*=840376 codigo-original-distinto=0 hits=0 excepciones=0
+[ 38453 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370397113 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=877.08 gen=211 proc=1 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=6 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=190 de 200; -1=10 | modelo 492 (tipo 15) x107 modelo 404 (tipo 0) x19 modelo 401 (tipo 0) x10 modelo 418 (tipo 0) x15 modelo 547 (tipo 0) x12 modelo 523 (tipo 13) x10 modelo 536 (tipo 0) x17 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=79,140,242 bot=142,174,175 | cov=0.000 fog=0.000 extra=0.000 rain=0.000 clima old=3 new=3 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.4
+[ 40453 ms] latido: frame=31590292 estado-juego=9 Present=1035 EndScene=1035 Clear=2649 Draw*=892084 codigo-original-distinto=0 hits=0 excepciones=0
+[ 40453 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 40453 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 40453 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 40453 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[ 40453 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 40453 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[ 42469 ms] latido: frame=31590342 estado-juego=9 Present=1085 EndScene=1085 Clear=2800 Draw*=943784 codigo-original-distinto=0 hits=0 excepciones=0
+[ 42469 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370401113 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=873.07 gen=211 proc=1 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=6 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=188 de 200; -1=12 | modelo 547 (tipo 0) x19 modelo 492 (tipo 15) x106 modelo 536 (tipo 0) x13 modelo 401 (tipo 0) x17 modelo 404 (tipo 0) x17 modelo 418 (tipo 0) x12 modelo 523 (tipo 13) x4 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=90,146,254 bot=128,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.4
+[ 44469 ms] latido: frame=31590392 estado-juego=9 Present=1135 EndScene=1135 Clear=2949 Draw*=995484 codigo-original-distinto=0 hits=0 excepciones=0
+[ 46485 ms] latido: frame=31590442 estado-juego=9 Present=1185 EndScene=1185 Clear=3099 Draw*=1047209 codigo-original-distinto=0 hits=0 excepciones=0
+[ 46485 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370405113 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=869.09 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=6 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=186 de 200; -1=14 | modelo 492 (tipo 0) x104 modelo 401 (tipo 0) x22 modelo 536 (tipo 0) x12 modelo 404 (tipo 0) x20 modelo 547 (tipo 0) x10 modelo 523 (tipo 13) x4 modelo 418 (tipo 0) x14 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=78,139,241 bot=140,172,175 | cov=0.000 fog=0.000 extra=0.019 rain=0.000 clima old=3 new=0 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.4
+[ 48485 ms] latido: frame=31590491 estado-juego=9 Present=1235 EndScene=1235 Clear=3249 Draw*=1098966 codigo-original-distinto=0 hits=0 excepciones=0
+[ 50485 ms] latido: frame=31590541 estado-juego=9 Present=1285 EndScene=1285 Clear=3399 Draw*=1127559 codigo-original-distinto=0 hits=0 excepciones=0
+[ 50485 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 50485 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 50485 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 50485 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[ 50485 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 50485 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[ 50485 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370409080 ms peds=9/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=865.07 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=6 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=175 de 200; -1=25 | modelo 492 (tipo 15) x93 modelo 401 (tipo 0) x18 modelo 536 (tipo 0) x15 modelo 418 (tipo 0) x13 modelo 404 (tipo 0) x15 modelo 523 (tipo 13) x9 modelo 547 (tipo 0) x12 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,181 cielo top=78,138,238 bot=132,169,176 | cov=0.000 fog=0.000 extra=0.085 rain=0.000 clima old=3 new=0 interp=0.09 hora=12:05 | tex=07F57C74 raster=095178E8 roll=-0.000 camZ=16.0
+[ 52500 ms] latido: frame=31590591 estado-juego=9 Present=1335 EndScene=1335 Clear=3549 Draw*=1142076 codigo-original-distinto=0 hits=0 excepciones=0
+[ 54500 ms] latido: frame=31590641 estado-juego=9 Present=1385 EndScene=1385 Clear=3699 Draw*=1165532 codigo-original-distinto=0 hits=0 excepciones=0
+[ 54500 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370413080 ms peds=10/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=861.05 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=7 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=183 de 200; -1=17 | modelo 547 (tipo 0) x18 modelo 523 (tipo 13) x6 modelo 492 (tipo 15) x107 modelo 536 (tipo 0) x10 modelo 418 (tipo 0) x8 modelo 404 (tipo 0) x10 modelo 491 (tipo 0) x13 modelo 401 (tipo 0) x11 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=45,34,23 fluffy=146,162,181 cielo top=77,136,236 bot=125,165,178 | cov=0.000 fog=0.000 extra=0.152 rain=0.000 clima old=3 new=0 interp=0.15 hora=12:09 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.0
+[ 56500 ms] latido: frame=31590691 estado-juego=9 Present=1435 EndScene=1435 Clear=3849 Draw*=1177427 codigo-original-distinto=0 hits=0 excepciones=0
+[ 58500 ms] latido: frame=31590741 estado-juego=9 Present=1485 EndScene=1485 Clear=3999 Draw*=1216888 codigo-original-distinto=0 hits=0 excepciones=0
+[ 58500 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370417080 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=857.04 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=7 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=186 de 200; -1=14 | modelo 492 (tipo 15) x100 modelo 401 (tipo 0) x16 modelo 404 (tipo 0) x18 modelo 547 (tipo 0) x9 modelo 418 (tipo 0) x14 modelo 523 (tipo 13) x3 modelo 536 (tipo 0) x10 modelo 491 (tipo 0) x16 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=46,34,23 fluffy=146,162,180 cielo top=76,134,233 bot=118,161,180 | cov=0.000 fog=0.000 extra=0.218 rain=0.000 clima old=3 new=0 interp=0.22 hora=12:13 | tex=07F57C74 raster=095178E8 roll=-0.000 camZ=15.2
+[ 60516 ms] latido: frame=31590791 estado-juego=9 Present=1535 EndScene=1535 Clear=4149 Draw*=1249220 codigo-original-distinto=0 hits=0 excepciones=0
+[ 60516 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 60516 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 60516 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 60516 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[ 60516 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 60516 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[ 62516 ms] latido: frame=31590841 estado-juego=9 Present=1584 EndScene=1584 Clear=4299 Draw*=1264749 codigo-original-distinto=0 hits=0 excepciones=0
+[ 62516 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370421080 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=853.02 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=7 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=187 de 200; -1=13 | modelo 491 (tipo 0) x9 modelo 401 (tipo 0) x20 modelo 418 (tipo 0) x17 modelo 492 (tipo 15) x88 modelo 547 (tipo 0) x15 modelo 404 (tipo 0) x19 modelo 536 (tipo 0) x12 modelo 523 (tipo 13) x7 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=47,34,23 fluffy=147,162,179 cielo top=76,133,230 bot=110,157,181 | cov=0.000 fog=0.000 extra=0.285 rain=0.000 clima old=3 new=0 interp=0.29 hora=12:17 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=15.3
+[ 64531 ms] latido: frame=31590891 estado-juego=9 Present=1634 EndScene=1634 Clear=4446 Draw*=1289497 codigo-original-distinto=0 hits=0 excepciones=0
+[ 66531 ms] latido: frame=31590941 estado-juego=9 Present=1684 EndScene=1684 Clear=4596 Draw*=1302519 codigo-original-distinto=0 hits=0 excepciones=0
+[ 66531 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370425080 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=849.05 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=8 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=184 de 200; -1=16 | modelo 536 (tipo 0) x10 modelo 492 (tipo 15) x110 modelo 491 (tipo 0) x9 modelo 547 (tipo 0) x9 modelo 523 (tipo 13) x4 modelo 418 (tipo 0) x13 modelo 404 (tipo 0) x11 modelo 401 (tipo 0) x17 modelo 483 (tipo 0) x1 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=47,34,23 fluffy=147,161,178 cielo top=75,131,228 bot=103,153,183 | cov=0.000 fog=0.000 extra=0.352 rain=0.000 clima old=3 new=0 interp=0.35 hora=12:21 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[ 68531 ms] latido: frame=31590990 estado-juego=9 Present=1734 EndScene=1734 Clear=4746 Draw*=1343945 codigo-original-distinto=0 hits=0 excepciones=0
+[ 70531 ms] latido: frame=31591040 estado-juego=9 Present=1784 EndScene=1784 Clear=4896 Draw*=1379978 codigo-original-distinto=0 hits=0 excepciones=0
+[ 70531 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 70547 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 70547 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 70547 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[ 70547 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 70547 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[ 70547 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370429080 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=844.99 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=8 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=185 de 200; -1=15 | modelo 492 (tipo 15) x95 modelo 401 (tipo 0) x10 modelo 523 (tipo 13) x5 modelo 547 (tipo 0) x16 modelo 418 (tipo 0) x22 modelo 536 (tipo 0) x7 modelo 491 (tipo 0) x10 modelo 404 (tipo 0) x14 modelo 483 (tipo 0) x6 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=48,34,24 fluffy=148,161,177 cielo top=74,130,225 bot=95,149,184 | cov=0.000 fog=0.000 extra=0.418 rain=0.000 clima old=3 new=0 interp=0.42 hora=12:25 | tex=07F57C74 raster=095178E8 roll=-0.000 camZ=16.0
+[ 72563 ms] latido: frame=31591091 estado-juego=9 Present=1834 EndScene=1834 Clear=5049 Draw*=1395442 codigo-original-distinto=0 hits=0 excepciones=0
+[ 74563 ms] latido: frame=31591141 estado-juego=9 Present=1884 EndScene=1884 Clear=5196 Draw*=1417708 codigo-original-distinto=0 hits=0 excepciones=0
+[ 74563 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370433080 ms peds=11/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=840.97 gen=211 proc=0 | peds tot=9 civ=5 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=8 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=182 de 200; -1=18 | modelo 492 (tipo 15) x95 modelo 401 (tipo 0) x16 modelo 418 (tipo 0) x10 modelo 547 (tipo 0) x12 modelo 483 (tipo 0) x3 modelo 536 (tipo 0) x8 modelo 404 (tipo 0) x13 modelo 491 (tipo 0) x14 modelo 523 (tipo 13) x11 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=49,34,24 fluffy=148,161,176 cielo top=74,128,223 bot=89,145,186 | cov=0.000 fog=0.000 extra=0.485 rain=0.000 clima old=3 new=0 interp=0.49 hora=12:29 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.5
+[ 76578 ms] latido: frame=31591191 estado-juego=9 Present=1934 EndScene=1934 Clear=5346 Draw*=1431201 codigo-original-distinto=0 hits=0 excepciones=0
+[ 78578 ms] latido: frame=31591240 estado-juego=9 Present=1984 EndScene=1984 Clear=5496 Draw*=1444301 codigo-original-distinto=0 hits=0 excepciones=0
+[ 78578 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370437033 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=837.00 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=8 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=191 de 200; -1=9 | modelo 492 (tipo 15) x101 modelo 418 (tipo 0) x11 modelo 491 (tipo 0) x16 modelo 401 (tipo 0) x17 modelo 547 (tipo 0) x12 modelo 536 (tipo 0) x10 modelo 404 (tipo 0) x11 modelo 596 (tipo 13) x9 modelo 483 (tipo 0) x4 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=68,116,210 bot=36,116,198 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=0 new=0 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[ 80578 ms] latido: frame=31591290 estado-juego=9 Present=2034 EndScene=2034 Clear=5646 Draw*=1457446 codigo-original-distinto=0 hits=0 excepciones=0
+[ 80578 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 80594 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 80594 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 80594 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[ 80594 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 80594 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[ 82610 ms] latido: frame=31591341 estado-juego=9 Present=2085 EndScene=2085 Clear=5799 Draw*=1471125 codigo-original-distinto=0 hits=0 excepciones=0
+[ 82610 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370441080 ms peds=9/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=832.94 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=9 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=184 de 200; -1=16 | modelo 492 (tipo 15) x106 modelo 483 (tipo 0) x4 modelo 404 (tipo 0) x8 modelo 439 (tipo 0) x6 modelo 536 (tipo 0) x11 modelo 418 (tipo 0) x10 modelo 401 (tipo 0) x8 modelo 491 (tipo 0) x13 modelo 547 (tipo 0) x9 modelo 596 (tipo 13) x9 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=117,98,98 fluffy=91,115,122 cielo top=123,144,152 bot=123,145,152 | cov=0.982 fog=0.000 extra=0.000 rain=0.000 clima old=4 new=1 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[ 84610 ms] latido: frame=31591391 estado-juego=9 Present=2135 EndScene=2135 Clear=5949 Draw*=1484218 codigo-original-distinto=0 hits=0 excepciones=0
+[ 86610 ms] latido: frame=31591441 estado-juego=9 Present=2184 EndScene=2184 Clear=6096 Draw*=1497007 codigo-original-distinto=0 hits=0 excepciones=0
+[ 86610 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370445080 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=828.97 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=9 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=185 de 200; -1=15 | modelo 418 (tipo 0) x16 modelo 404 (tipo 0) x10 modelo 491 (tipo 0) x10 modelo 547 (tipo 0) x9 modelo 439 (tipo 0) x11 modelo 492 (tipo 15) x96 modelo 536 (tipo 0) x3 modelo 483 (tipo 0) x11 modelo 596 (tipo 13) x8 modelo 401 (tipo 0) x11 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=129,128,123 cielo top=30,117,209 bot=53,161,226 | cov=0.000 fog=0.000 extra=0.000 rain=0.000 clima old=1 new=1 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[ 88625 ms] latido: frame=31591491 estado-juego=9 Present=2234 EndScene=2234 Clear=6246 Draw*=1510102 codigo-original-distinto=0 hits=0 excepciones=0
+[ 90625 ms] latido: frame=31591540 estado-juego=9 Present=2284 EndScene=2284 Clear=6396 Draw*=1523190 codigo-original-distinto=0 hits=0 excepciones=0
+[ 90625 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 90641 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 90641 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 90641 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[ 90641 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 90641 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[ 90641 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370449080 ms peds=9/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=824.91 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=9 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=185 de 200; -1=15 | modelo 547 (tipo 0) x7 modelo 483 (tipo 0) x10 modelo 492 (tipo 15) x102 modelo 404 (tipo 0) x15 modelo 439 (tipo 0) x6 modelo 401 (tipo 0) x15 modelo 491 (tipo 0) x12 modelo 418 (tipo 0) x6 modelo 536 (tipo 0) x9 modelo 596 (tipo 13) x3 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=90,146,254 bot=128,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[ 92641 ms] latido: frame=31591591 estado-juego=9 Present=2335 EndScene=2335 Clear=6549 Draw*=1536501 codigo-original-distinto=0 hits=0 excepciones=0
+[ 94656 ms] latido: frame=31591641 estado-juego=9 Present=2384 EndScene=2384 Clear=6696 Draw*=1549290 codigo-original-distinto=0 hits=0 excepciones=0
+[ 94656 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370453080 ms peds=9/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=820.94 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=9 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=185 de 200; -1=15 | modelo 492 (tipo 15) x101 modelo 596 (tipo 13) x5 modelo 439 (tipo 0) x15 modelo 536 (tipo 0) x12 modelo 401 (tipo 0) x7 modelo 404 (tipo 0) x7 modelo 547 (tipo 0) x12 modelo 491 (tipo 0) x10 modelo 418 (tipo 0) x13 modelo 483 (tipo 0) x3 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=90,146,254 bot=128,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.00 hora=12:00 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[ 96656 ms] latido: frame=31591691 estado-juego=9 Present=2434 EndScene=2434 Clear=6846 Draw*=1562340 codigo-original-distinto=0 hits=0 excepciones=0
+[ 98656 ms] latido: frame=31591740 estado-juego=9 Present=2484 EndScene=2484 Clear=6996 Draw*=1575390 codigo-original-distinto=0 hits=0 excepciones=0
+[ 98656 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370457033 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=816.92 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=9 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=185 de 200; -1=15 | modelo 491 (tipo 0) x18 modelo 492 (tipo 15) x90 modelo 596 (tipo 13) x10 modelo 536 (tipo 0) x7 modelo 404 (tipo 0) x17 modelo 401 (tipo 0) x12 modelo 439 (tipo 0) x6 modelo 547 (tipo 0) x11 modelo 483 (tipo 0) x5 modelo 418 (tipo 0) x9 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=90,146,254 bot=128,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.02 hora=12:01 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[100672 ms] latido: frame=31591790 estado-juego=9 Present=2534 EndScene=2534 Clear=7146 Draw*=1588440 codigo-original-distinto=0 hits=0 excepciones=0
+[100672 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[100672 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[100672 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[100672 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[100672 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[100672 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[102688 ms] latido: frame=31591841 estado-juego=9 Present=2584 EndScene=2584 Clear=7296 Draw*=1601490 codigo-original-distinto=0 hits=0 excepciones=0
+[102688 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370461080 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=812.86 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=9 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=184 de 200; -1=16 | modelo 401 (tipo 0) x10 modelo 547 (tipo 0) x15 modelo 439 (tipo 0) x17 modelo 492 (tipo 15) x93 modelo 418 (tipo 0) x12 modelo 404 (tipo 0) x14 modelo 596 (tipo 13) x7 modelo 491 (tipo 0) x10 modelo 536 (tipo 0) x4 modelo 483 (tipo 0) x2 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=44,34,23 fluffy=145,163,182 cielo top=90,146,254 bot=128,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.05 hora=12:03 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[104688 ms] latido: frame=31591891 estado-juego=9 Present=2634 EndScene=2634 Clear=7446 Draw*=1614540 codigo-original-distinto=0 hits=0 excepciones=0
+[106688 ms] latido: frame=31591940 estado-juego=9 Present=2684 EndScene=2684 Clear=7596 Draw*=1627590 codigo-original-distinto=0 hits=0 excepciones=0
+[106688 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370465033 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=808.89 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=9 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=186 de 200; -1=14 | modelo 492 (tipo 15) x97 modelo 596 (tipo 13) x11 modelo 483 (tipo 0) x3 modelo 491 (tipo 0) x18 modelo 418 (tipo 0) x9 modelo 404 (tipo 0) x13 modelo 439 (tipo 0) x11 modelo 536 (tipo 0) x7 modelo 401 (tipo 0) x9 modelo 547 (tipo 0) x8 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=45,34,23 fluffy=145,163,181 cielo top=90,146,253 bot=128,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.12 hora=12:07 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[108703 ms] latido: frame=31591990 estado-juego=9 Present=2734 EndScene=2734 Clear=7746 Draw*=1640810 codigo-original-distinto=0 hits=0 excepciones=0
+[110703 ms] latido: frame=31592040 estado-juego=9 Present=2784 EndScene=2784 Clear=7896 Draw*=1653898 codigo-original-distinto=0 hits=0 excepciones=0
+[110703 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[110719 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[110719 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[110719 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[110719 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[110719 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[110719 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370469080 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=804.83 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=9 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=185 de 200; -1=15 | modelo 439 (tipo 0) x15 modelo 492 (tipo 15) x86 modelo 491 (tipo 0) x11 modelo 596 (tipo 13) x8 modelo 536 (tipo 0) x11 modelo 404 (tipo 0) x10 modelo 418 (tipo 0) x12 modelo 547 (tipo 0) x17 modelo 401 (tipo 0) x13 modelo 483 (tipo 0) x2 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=46,34,23 fluffy=146,162,180 cielo top=90,146,252 bot=127,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.19 hora=12:11 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[112735 ms] latido: frame=31592091 estado-juego=9 Present=2835 EndScene=2835 Clear=8049 Draw*=1667358 codigo-original-distinto=0 hits=0 excepciones=0
+[114735 ms] latido: frame=31592141 estado-juego=9 Present=2884 EndScene=2884 Clear=8196 Draw*=1680177 codigo-original-distinto=0 hits=0 excepciones=0
+[114735 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370473080 ms peds=11/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=800.81 gen=211 proc=0 | peds tot=9 civ=5 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=9 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=188 de 200; -1=12 | modelo 439 (tipo 0) x17 modelo 492 (tipo 15) x100 modelo 491 (tipo 0) x11 modelo 596 (tipo 13) x8 modelo 536 (tipo 0) x6 modelo 418 (tipo 0) x9 modelo 547 (tipo 0) x9 modelo 401 (tipo 0) x13 modelo 404 (tipo 0) x11 modelo 483 (tipo 0) x4 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=46,34,23 fluffy=146,162,179 cielo top=90,146,251 bot=127,147,181 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.25 hora=12:15 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[116735 ms] latido: frame=31592190 estado-juego=9 Present=2934 EndScene=2934 Clear=8346 Draw*=1693227 codigo-original-distinto=0 hits=0 excepciones=0
+[118750 ms] latido: frame=31592240 estado-juego=9 Present=2984 EndScene=2984 Clear=8496 Draw*=1706388 codigo-original-distinto=0 hits=0 excepciones=0
+[118750 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370477033 ms peds=11/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=796.84 gen=211 proc=3 | peds tot=9 civ=5 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=9 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=182 de 200; -1=18 | modelo 547 (tipo 0) x14 modelo 401 (tipo 0) x15 modelo 492 (tipo 15) x103 modelo 596 (tipo 13) x8 modelo 536 (tipo 0) x7 modelo 404 (tipo 0) x8 modelo 439 (tipo 0) x7 modelo 491 (tipo 0) x9 modelo 418 (tipo 0) x5 modelo 483 (tipo 0) x6 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=47,34,23 fluffy=147,162,179 cielo top=90,146,250 bot=127,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.32 hora=12:19 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[120750 ms] latido: frame=31592290 estado-juego=9 Present=3034 EndScene=3034 Clear=8646 Draw*=1719480 codigo-original-distinto=0 hits=0 excepciones=0
+[120750 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[120766 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[120766 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[120766 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[120766 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[120766 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[122766 ms] latido: frame=31592341 estado-juego=9 Present=3085 EndScene=3085 Clear=8799 Draw*=1732791 codigo-original-distinto=0 hits=0 excepciones=0
+[122766 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370481080 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=792.78 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=10 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=187 de 200; -1=13 | modelo 404 (tipo 0) x18 modelo 547 (tipo 0) x9 modelo 491 (tipo 0) x10 modelo 422 (tipo 0) x12 modelo 492 (tipo 15) x101 modelo 401 (tipo 0) x12 modelo 439 (tipo 0) x5 modelo 536 (tipo 0) x5 modelo 523 (tipo 13) x6 modelo 418 (tipo 0) x7 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=48,34,23 fluffy=148,161,178 cielo top=90,145,249 bot=126,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.39 hora=12:23 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[124781 ms] latido: frame=31592391 estado-juego=9 Present=3134 EndScene=3134 Clear=8946 Draw*=1745580 codigo-original-distinto=0 hits=0 excepciones=0
+[126781 ms] latido: frame=31592440 estado-juego=9 Present=3184 EndScene=3184 Clear=9096 Draw*=1758630 codigo-original-distinto=0 hits=0 excepciones=0
+[126781 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370485033 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=788.81 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=10 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=182 de 200; -1=18 | modelo 547 (tipo 0) x15 modelo 401 (tipo 0) x9 modelo 492 (tipo 15) x88 modelo 418 (tipo 0) x10 modelo 422 (tipo 0) x10 modelo 439 (tipo 0) x12 modelo 491 (tipo 0) x13 modelo 404 (tipo 0) x7 modelo 536 (tipo 0) x3 modelo 483 (tipo 0) x4 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=48,34,24 fluffy=148,161,177 cielo top=90,145,248 bot=126,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.45 hora=12:27 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[128781 ms] latido: frame=31592490 estado-juego=9 Present=3234 EndScene=3234 Clear=9246 Draw*=1771680 codigo-original-distinto=0 hits=0 excepciones=0
+[130797 ms] latido: frame=31592540 estado-juego=9 Present=3284 EndScene=3284 Clear=9396 Draw*=1784730 codigo-original-distinto=0 hits=0 excepciones=0
+[130797 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[130813 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[130813 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[130813 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[130813 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[130813 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[130813 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370489080 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=784.75 gen=211 proc=0 | peds tot=9 civ=5 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=10 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=187 de 200; -1=13 | modelo 492 (tipo 15) x99 modelo 422 (tipo 0) x7 modelo 547 (tipo 0) x8 modelo 523 (tipo 13) x6 modelo 404 (tipo 0) x12 modelo 439 (tipo 0) x11 modelo 401 (tipo 0) x19 modelo 418 (tipo 0) x8 modelo 483 (tipo 0) x5 modelo 491 (tipo 0) x9 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=49,34,24 fluffy=149,160,176 cielo top=90,145,247 bot=126,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.52 hora=12:31 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[132813 ms] latido: frame=31592591 estado-juego=9 Present=3334 EndScene=3334 Clear=9546 Draw*=1797859 codigo-original-distinto=0 hits=0 excepciones=0
+[134813 ms] latido: frame=31592641 estado-juego=9 Present=3384 EndScene=3384 Clear=9696 Draw*=1810980 codigo-original-distinto=0 hits=0 excepciones=0
+[134813 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370493080 ms peds=9/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=780.78 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=10 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=184 de 200; -1=16 | modelo 492 (tipo 15) x97 modelo 401 (tipo 0) x6 modelo 523 (tipo 13) x11 modelo 547 (tipo 0) x13 modelo 536 (tipo 0) x6 modelo 491 (tipo 0) x14 modelo 439 (tipo 0) x13 modelo 404 (tipo 0) x8 modelo 418 (tipo 0) x7 modelo 422 (tipo 0) x4 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=50,34,24 fluffy=149,160,175 cielo top=90,145,246 bot=125,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.58 hora=12:35 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[136828 ms] latido: frame=31592690 estado-juego=9 Present=3434 EndScene=3434 Clear=9846 Draw*=1824030 codigo-original-distinto=0 hits=0 excepciones=0
+[138828 ms] latido: frame=31592740 estado-juego=9 Present=3484 EndScene=3484 Clear=9996 Draw*=1837080 codigo-original-distinto=0 hits=0 excepciones=0
+[138828 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370497033 ms peds=9/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=776.76 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=11 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=184 de 200; -1=16 | modelo 483 (tipo 0) x5 modelo 422 (tipo 0) x11 modelo 492 (tipo 15) x100 modelo 491 (tipo 0) x10 modelo 404 (tipo 0) x6 modelo 418 (tipo 0) x9 modelo 547 (tipo 0) x11 modelo 536 (tipo 0) x4 modelo 523 (tipo 13) x9 modelo 439 (tipo 0) x9 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=51,34,24 fluffy=150,160,174 cielo top=90,145,245 bot=125,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.65 hora=12:39 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[140828 ms] latido: frame=31592790 estado-juego=9 Present=3534 EndScene=3534 Clear=10146 Draw*=1850130 codigo-original-distinto=0 hits=0 excepciones=0
+[140828 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[140844 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[140844 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[140844 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[140844 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[140844 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[142860 ms] latido: frame=31592841 estado-juego=9 Present=3584 EndScene=3584 Clear=10296 Draw*=1863220 codigo-original-distinto=0 hits=0 excepciones=0
+[142860 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370501080 ms peds=10/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=772.74 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=11 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=184 de 200; -1=16 | modelo 439 (tipo 0) x11 modelo 492 (tipo 15) x88 modelo 536 (tipo 0) x6 modelo 491 (tipo 0) x5 modelo 404 (tipo 0) x8 modelo 418 (tipo 0) x11 modelo 401 (tipo 0) x18 modelo 483 (tipo 0) x6 modelo 547 (tipo 0) x12 modelo 422 (tipo 0) x7 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=51,34,24 fluffy=150,159,174 cielo top=90,144,244 bot=124,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.72 hora=12:43 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[144860 ms] latido: frame=31592890 estado-juego=9 Present=3634 EndScene=3634 Clear=10446 Draw*=1876314 codigo-original-distinto=0 hits=0 excepciones=0
+[146860 ms] latido: frame=31592940 estado-juego=9 Present=3684 EndScene=3684 Clear=10596 Draw*=1889364 codigo-original-distinto=0 hits=0 excepciones=0
+[146860 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370505033 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=768.73 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=11 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=188 de 200; -1=12 | modelo 418 (tipo 0) x14 modelo 492 (tipo 15) x98 modelo 439 (tipo 0) x15 modelo 422 (tipo 0) x9 modelo 523 (tipo 13) x6 modelo 401 (tipo 0) x6 modelo 491 (tipo 0) x13 modelo 536 (tipo 0) x4 modelo 404 (tipo 0) x7 modelo 547 (tipo 0) x10 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=52,34,24 fluffy=151,159,173 cielo top=90,144,244 bot=124,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.78 hora=12:47 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[148875 ms] latido: frame=31592990 estado-juego=9 Present=3734 EndScene=3734 Clear=10746 Draw*=1902414 codigo-original-distinto=0 hits=0 excepciones=0
+[150875 ms] latido: frame=31593040 estado-juego=9 Present=3784 EndScene=3784 Clear=10896 Draw*=1915464 codigo-original-distinto=0 hits=0 excepciones=0
+[150875 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[150891 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[150891 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[150891 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[150891 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[150891 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[150891 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370509080 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=764.66 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=12 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=186 de 200; -1=14 | modelo 492 (tipo 15) x90 modelo 422 (tipo 0) x10 modelo 542 (tipo 0) x11 modelo 439 (tipo 0) x13 modelo 404 (tipo 0) x9 modelo 418 (tipo 0) x11 modelo 491 (tipo 0) x8 modelo 547 (tipo 0) x3 modelo 523 (tipo 13) x11 modelo 536 (tipo 0) x9 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=53,34,25 fluffy=151,159,172 cielo top=90,144,243 bot=124,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.85 hora=12:51 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[152891 ms] latido: frame=31593091 estado-juego=9 Present=3835 EndScene=3835 Clear=11049 Draw*=1928775 codigo-original-distinto=0 hits=0 excepciones=0
+[154906 ms] latido: frame=31593141 estado-juego=9 Present=3884 EndScene=3884 Clear=11196 Draw*=1941564 codigo-original-distinto=0 hits=0 excepciones=0
+[154906 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370513080 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=760.65 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=12 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=183 de 200; -1=17 | modelo 492 (tipo 15) x102 modelo 404 (tipo 0) x10 modelo 439 (tipo 0) x10 modelo 536 (tipo 0) x9 modelo 481 (tipo 0) x3 modelo 547 (tipo 0) x7 modelo 542 (tipo 0) x9 modelo 401 (tipo 0) x5 modelo 418 (tipo 0) x8 modelo 491 (tipo 0) x8 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=53,34,25 fluffy=152,158,171 cielo top=90,144,242 bot=123,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.92 hora=12:55 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[156906 ms] latido: frame=31593191 estado-juego=9 Present=3934 EndScene=3934 Clear=11346 Draw*=1954614 codigo-original-distinto=0 hits=0 excepciones=0
+[158922 ms] latido: frame=31593240 estado-juego=9 Present=3984 EndScene=3984 Clear=11496 Draw*=1967664 codigo-original-distinto=0 hits=0 excepciones=0
+[158922 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370517033 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=756.68 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=12 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=183 de 200; -1=17 | modelo 492 (tipo 15) x97 modelo 547 (tipo 0) x6 modelo 439 (tipo 0) x11 modelo 481 (tipo 0) x5 modelo 536 (tipo 0) x6 modelo 542 (tipo 0) x8 modelo 596 (tipo 13) x9 modelo 401 (tipo 0) x7 modelo 483 (tipo 0) x6 modelo 404 (tipo 0) x9 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=54,34,25 fluffy=152,158,170 cielo top=90,144,241 bot=123,147,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=2 interp=0.99 hora=12:59 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[160922 ms] latido: frame=31593290 estado-juego=9 Present=4034 EndScene=4034 Clear=11646 Draw*=1980869 codigo-original-distinto=0 hits=0 excepciones=0
+[160922 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[160938 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[160938 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[160938 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[160938 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[160938 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[162938 ms] latido: frame=31593341 estado-juego=9 Present=4084 EndScene=4084 Clear=11799 Draw*=1994174 codigo-original-distinto=0 hits=0 excepciones=0
+[162938 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370521080 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=752.62 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=12 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=185 de 200; -1=15 | modelo 492 (tipo 0) x99 modelo 547 (tipo 0) x7 modelo 404 (tipo 0) x6 modelo 491 (tipo 0) x8 modelo 422 (tipo 0) x12 modelo 418 (tipo 0) x8 modelo 483 (tipo 0) x4 modelo 401 (tipo 0) x12 modelo 542 (tipo 0) x7 modelo 439 (tipo 0) x7 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=55,34,25 fluffy=153,157,169 cielo top=88,141,238 bot=118,145,182 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=0 interp=0.05 hora=13:03 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[164953 ms] latido: frame=31593391 estado-juego=9 Present=4134 EndScene=4134 Clear=11946 Draw*=2007085 codigo-original-distinto=0 hits=0 excepciones=0
+[166953 ms] latido: frame=31593441 estado-juego=9 Present=4184 EndScene=4184 Clear=12096 Draw*=2019093 codigo-original-distinto=0 hits=0 excepciones=0
+[166953 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370525080 ms peds=10/140 vehiculos=3/110
+  TRAF: rnd=0 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=748.65 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=13 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=189 de 200; -1=11 | modelo 492 (tipo 15) x94 modelo 401 (tipo 0) x8 modelo 422 (tipo 0) x10 modelo 491 (tipo 0) x12 modelo 483 (tipo 0) x5 modelo 542 (tipo 0) x9 modelo 404 (tipo 0) x11 modelo 596 (tipo 13) x8 modelo 547 (tipo 0) x12 modelo 481 (tipo 0) x3 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=56,34,25 fluffy=153,157,169 cielo top=87,139,235 bot=111,143,183 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=0 interp=0.12 hora=13:07 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[168953 ms] latido: frame=31593491 estado-juego=9 Present=4234 EndScene=4234 Clear=12246 Draw*=2030462 codigo-original-distinto=0 hits=0 excepciones=0
+[170969 ms] latido: frame=31593540 estado-juego=9 Present=4284 EndScene=4284 Clear=12396 Draw*=2041659 codigo-original-distinto=0 hits=0 excepciones=0
+[170969 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[170969 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[170969 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[170969 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[170969 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[170969 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[170969 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370529080 ms peds=10/140 vehiculos=2/110
+  TRAF: rnd=0 park=2 mis=0 law=0 max=12 cuentaAtras=0 madT=744.58 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=13 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=183 de 200; -1=17 | modelo 492 (tipo 15) x92 modelo 536 (tipo 0) x9 modelo 483 (tipo 0) x9 modelo 422 (tipo 0) x10 modelo 404 (tipo 0) x9 modelo 418 (tipo 0) x6 modelo 491 (tipo 0) x7 modelo 542 (tipo 0) x8 modelo 401 (tipo 0) x4 modelo 547 (tipo 0) x7 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=56,35,25 fluffy=154,157,168 cielo top=85,138,232 bot=106,141,184 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=0 interp=0.19 hora=13:11 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[172985 ms] latido: frame=31593591 estado-juego=9 Present=4335 EndScene=4335 Clear=12549 Draw*=2067556 codigo-original-distinto=0 hits=0 excepciones=0
+[174985 ms] latido: frame=31593641 estado-juego=9 Present=4385 EndScene=4385 Clear=12699 Draw*=2109053 codigo-original-distinto=0 hits=0 excepciones=0
+[174985 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370533071 ms peds=12/140 vehiculos=5/110
+  TRAF: rnd=2 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=740.58 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=13 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=184 de 200; -1=16 | modelo 492 (tipo 15) x107 modelo 401 (tipo 0) x6 modelo 474 (tipo 0) x2 modelo 542 (tipo 0) x5 modelo 491 (tipo 0) x8 modelo 481 (tipo 0) x2 modelo 596 (tipo 13) x6 modelo 439 (tipo 0) x11 modelo 483 (tipo 0) x4 modelo 422 (tipo 0) x7 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=57,35,26 fluffy=154,156,167 cielo top=84,136,230 bot=100,139,186 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=0 interp=0.25 hora=13:15 | tex=07F57C74 raster=095178E8 roll=-0.000 camZ=16.1
+[176985 ms] latido: frame=31593691 estado-juego=9 Present=4434 EndScene=4434 Clear=12849 Draw*=2150713 codigo-original-distinto=0 hits=0 excepciones=0
+[179000 ms] latido: frame=31593741 estado-juego=9 Present=4484 EndScene=4484 Clear=12996 Draw*=2190333 codigo-original-distinto=0 hits=0 excepciones=0
+[179000 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370537071 ms peds=12/140 vehiculos=5/110
+  TRAF: rnd=2 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=736.56 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=13 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=190 de 200; -1=10 | modelo 404 (tipo 0) x13 modelo 422 (tipo 0) x5 modelo 492 (tipo 15) x97 modelo 481 (tipo 0) x6 modelo 439 (tipo 0) x11 modelo 401 (tipo 0) x7 modelo 596 (tipo 13) x2 modelo 542 (tipo 0) x10 modelo 536 (tipo 0) x6 modelo 547 (tipo 0) x8 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=58,35,26 fluffy=155,156,166 cielo top=83,134,227 bot=93,137,187 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=0 interp=0.32 hora=13:19 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[181000 ms] latido: frame=31593791 estado-juego=9 Present=4534 EndScene=4534 Clear=13146 Draw*=2231447 codigo-original-distinto=0 hits=0 excepciones=0
+[181000 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[181016 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[181016 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[181016 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[181016 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[181016 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[183016 ms] latido: frame=31593841 estado-juego=9 Present=4584 EndScene=4584 Clear=13299 Draw*=2274275 codigo-original-distinto=0 hits=0 excepciones=0
+[183016 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370541071 ms peds=13/140 vehiculos=6/110
+  TRAF: rnd=3 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=732.54 gen=211 proc=0 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=13 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=186 de 200; -1=14 | modelo 492 (tipo 0) x108 modelo 401 (tipo 0) x11 modelo 439 (tipo 0) x5 modelo 422 (tipo 0) x8 modelo 483 (tipo 0) x3 modelo 547 (tipo 0) x12 modelo 542 (tipo 0) x8 modelo 596 (tipo 13) x2 modelo 536 (tipo 0) x3 modelo 474 (tipo 0) x5 | apropiados: 404 492 536 418 401 547
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=59,35,26 fluffy=155,155,165 cielo top=81,132,225 bot=88,135,188 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=0 interp=0.38 hora=13:23 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[185016 ms] latido: frame=31593891 estado-juego=9 Present=4634 EndScene=4634 Clear=13446 Draw*=2297790 codigo-original-distinto=0 hits=0 excepciones=0
+[187031 ms] latido: frame=31593940 estado-juego=9 Present=4684 EndScene=4684 Clear=13596 Draw*=2313670 codigo-original-distinto=0 hits=0 excepciones=0
+[187031 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370545038 ms peds=10/140 vehiculos=8/110
+  TRAF: rnd=0 park=8 mis=0 law=0 max=12 cuentaAtras=0 madT=728.56 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=13 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=186 de 200; -1=14 | modelo 567 (tipo 15) x97 modelo 547 (tipo 0) x7 modelo 439 (tipo 0) x10 modelo 596 (tipo 13) x7 modelo 422 (tipo 0) x13 modelo 491 (tipo 0) x8 modelo 542 (tipo 0) x6 modelo 404 (tipo 0) x12 modelo 401 (tipo 0) x8 modelo 483 (tipo 0) x2 | apropiados: 404 536 418 401 547 491
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=59,35,26 fluffy=156,155,164 cielo top=80,130,223 bot=82,133,188 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=0 interp=0.45 hora=13:27 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[189031 ms] latido: frame=31593990 estado-juego=9 Present=4734 EndScene=4734 Clear=13746 Draw*=2329765 codigo-original-distinto=0 hits=0 excepciones=0
+[191031 ms] latido: frame=31594040 estado-juego=9 Present=4784 EndScene=4784 Clear=13896 Draw*=2346044 codigo-original-distinto=0 hits=0 excepciones=0
+[191031 ms]   ventana 0x002703D2 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[191031 ms]   ventana 0x002307E0 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[191031 ms]   ventana 0x001E04A2 clase=ConsoleWindowClass titulo="D:\Original\_trafico_run\gta_sa_standalone.exe" visible=1 1119x647
+[191031 ms]   ventana 0x0005058A clase=IME titulo="Default IME" visible=0 0x0
+[191031 ms]   ventana 0x001F05D6 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[191031 ms]   ventana 0x00280828 clase=IME titulo="Default IME" visible=0 0x0
+[191031 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370549038 ms peds=10/140 vehiculos=8/110
+  TRAF: rnd=0 park=8 mis=0 law=0 max=12 cuentaAtras=0 madT=724.54 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=13 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=186 de 200; -1=14 | modelo 567 (tipo 15) x97 modelo 422 (tipo 0) x4 modelo 523 (tipo 13) x6 modelo 542 (tipo 0) x6 modelo 547 (tipo 0) x7 modelo 536 (tipo 0) x10 modelo 404 (tipo 0) x7 modelo 483 (tipo 0) x5 modelo 491 (tipo 0) x13 modelo 418 (tipo 0) x6 | apropiados: 404 536 418 401 547 491
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=60,35,26 fluffy=156,155,164 cielo top=78,129,221 bot=76,131,189 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=0 interp=0.52 hora=13:31 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[193047 ms] latido: frame=31594090 estado-juego=9 Present=4834 EndScene=4834 Clear=14046 Draw*=2381539 codigo-original-distinto=0 hits=0 excepciones=0
+[195047 ms] latido: frame=31594140 estado-juego=9 Present=4884 EndScene=4884 Clear=14196 Draw*=2420653 codigo-original-distinto=0 hits=0 excepciones=0
+[195047 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370553038 ms peds=11/140 vehiculos=4/110
+  TRAF: rnd=1 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=720.53 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=14 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=190 de 200; -1=10 | modelo 567 (tipo 0) x92 modelo 542 (tipo 0) x10 modelo 547 (tipo 0) x13 modelo 422 (tipo 0) x10 modelo 401 (tipo 0) x6 modelo 491 (tipo 0) x7 modelo 418 (tipo 0) x11 modelo 474 (tipo 0) x1 modelo 439 (tipo 0) x5 modelo 566 (tipo 14) x9 | apropiados: 404 536 418 401 547 491
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=61,35,26 fluffy=157,154,163 cielo top=77,126,218 bot=70,128,190 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=0 interp=0.58 hora=13:35 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[197047 ms] latido: frame=31594190 estado-juego=9 Present=4934 EndScene=4934 Clear=14346 Draw*=2459407 codigo-original-distinto=0 hits=0 excepciones=0
+[199063 ms] latido: frame=31594240 estado-juego=9 Present=4984 EndScene=4984 Clear=14496 Draw*=2501310 codigo-original-distinto=0 hits=0 excepciones=0
+[199063 ms] mundo: jugador=0x09384360 pos=(2495, -1690, 14) area=0 tiempo-juego=370557038 ms peds=14/140 vehiculos=6/110
+  TRAF: rnd=3 park=3 mis=0 law=0 max=12 cuentaAtras=0 madT=716.51 gen=211 proc=3 | peds tot=8 civ=4 gang=4 cop=0 | popcycle obj[4.2 0.3 3.6 0.4] raw[00000000 00000000 00000000 00000000] zona obj=00BA4A78 raw=00000000 | nodos areas=4 | modelos apropiados=14 (cars 21/13) raw969098=0 obj=0 | CountDownPeds=0
+  CHOOSE: forzado(0xA4448C)=-1 noMenos1=185 de 200; -1=15 | modelo 491 (tipo 0) x8 modelo 567 (tipo 15) x85 modelo 401 (tipo 0) x8 modelo 566 (tipo 14) x9 modelo 422 (tipo 0) x9 modelo 536 (tipo 0) x9 modelo 481 (tipo 0) x4 modelo 542 (tipo 0) x9 modelo 418 (tipo 0) x6 modelo 404 (tipo 0) x6 | apropiados: 404 536 418 401 547 491
+  VOLUM: usedNum=180 usadas=0 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=07F57C18 fxq=2 currArea=0
+  NUBES: low rgb=61,35,27 fluffy=157,154,162 cielo top=75,125,217 bot=64,127,191 | cov=0.000 fog=0.000 extra=1.000 rain=0.000 clima old=2 new=0 interp=0.65 hora=13:39 | tex=07F57C74 raster=095178E8 roll=0.000 camZ=16.1
+[200063 ms] GUARDIA: limite de tiempo (200 s); se mata el proceso
+FALLO (hilo principal en la guardia: limite de tiempo) codigo 0xDEAD0002 en EIP=0x754511AC [otro] t=200063 ms
+  EAX=00000000 EBX=00000000 ECX=00000000 EDX=00000000 ESI=001AF4D4 EDI=00000000 EBP=001AF3E4 ESP=001AF398
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x44] 0x026F7D7A propio
+    [esp+0x48] 0x026F7D81 propio
+    [esp+0x8C] 0x0279AB61 propio
+    [esp+0x134] 0x012D06CF propio
+    [esp+0x160] 0x02727C39 propio
+    [esp+0x208] 0x02726131 propio
+    [esp+0x2D4] 0x01CCCCCC propio
+    [esp+0x2F0] 0x02722780 propio
+    [esp+0x304] 0x026DC5E0 propio
+    [esp+0x314] 0x01F0F8F1 propio
+    [esp+0x380] 0x00FA47F4 propio
+    [esp+0x39C] 0x019AEAC2 propio
+    [esp+0x3A4] 0x0233336C propio
+    [esp+0x3B4] 0x0173B715 propio
+    [esp+0x478] 0x024E1C0C propio
+    [esp+0x540] 0x007FFFFF original(codigo)
+    [esp+0x544] 0x00FFFFFF propio
+    [esp+0x5DC] 0x024E10E9 propio
+    [esp+0x6B8] 0x00CCCCCC propio
+    [esp+0x6C4] 0x024E19FE propio
+    [esp+0x6D0] 0x00E1FF40 propio
+    [esp+0x6D4] 0x00E1FF40 propio
+    [esp+0x734] 0x013DBC14 propio
+    [esp+0x740] 0x013EE0B6 propio
+    [esp+0x748] 0x00E1FF40 propio
+    [esp+0x774] 0x00E1FF40 propio
+    [esp+0x780] 0x013EDF7F propio
+    [esp+0x784] 0x01FC86F0 propio
+    [esp+0x794] 0x00E1FF40 propio
+    [esp+0x79C] 0x01336FAA propio
+  cadena EBP: 74F332C1 0279AB61 02727C39 02726131 02722780 026DC5E0 01F0F8F1 024E1C0C 024E10E9 024E19FE 00E1CEE7 029E13BD 029E129A 029E113D 029E1428 00E1FFCB 75495D49 76FAC88B 76FAC811 00000000
+  ScriptSpace[0..16]: 02 00 01 20 AB 00 00 73 00 00 00 00 01 00 00 00  MainScriptSize=194146 LargestMissionScriptSize=68439 (objetos propios DatosExe::Bss; la direccion del EXE 0xA444C4 vale 0: copia de datos sin sincronizar, irrelevante mientras solo C++ las lea)
+  ultimos comandos (de 2681377): IP-ScriptSpace:comando(hex)
+    EA97:00D6 EA9B:0256 EAA0:004D EAA7:077E EAAC:0652 EAB4:07D0 EAB9:09FB EABE:0842 EAC6:01BD EACB:00D6 EACF:0038 EAD6:004D EB1E:00D6 EB22:03B0 EB2D:03B0 EB38:03B0 EB43:03B0 EB4E:03B0 EB59:004D EB98:090F EB9C:00D6 EBA0:0491 EBA7:004D EBAE:0926 EBB5:00D6 EBB9:0038 EBC0:004D EBDF:0002 EBEA:00D6 EBEE:0491 EBF5:0038 EBFC:004D EC3B:090F EC3F:00D6 EC43:0038 EC4A:004D EC51:00D6 EC55:001A EC5C:004D EE14:00D6 EE18:0038 EE1F:0038 EE26:004D EE2D:00D6 EE31:0038 EE38:004D EE3F:0926 EE46:00D6 EE4A:0038 EE51:004D EE58:00D6 EE5C:0256 EE61:004D EE68:00D6 EE6C:00EC EE87:004D EEAD:0002 EEF1:0871 EF30:0872 F018:0002 F046:00D6 F04A:0256 F04F:004D F056:00D6 F05A:00A3 F075:004D F0B4:090F F0B8:00D6 F0BC:04A3 F0C3:004D F0CA:00D6 F0CE:00FE F0F3:004D F13F:00D6 F143:0038 F14A:004D F158:0002 EA93:0001
+  ultimos 32 del script main (IP:comando:n): EE3F:0926:560 EE46:00D6:561 EE4A:0038:562 EE51:004D:563 EE58:00D6:564 EE5C:0256:565 EE61:004D:566 EE68:00D6:567 EE6C:00EC:568 EE87:004D:569 EEAD:0002:570 EEF1:0871:571 EF30:0872:572 F018:0002:573 F046:00D6:574 F04A:0256:575 F04F:004D:576 F056:00D6:577 F05A:00A3:578 F075:004D:579 F0B4:090F:580 F0B8:00D6:581 F0BC:04A3:582 F0C3:004D:583 F0CA:00D6:584 F0CE:00FE:585 F0F3:004D:586 F13F:00D6:587 F143:0038:588 F14A:004D:589 F158:0002:590 EA93:0001:591
+  script dealer.. @0x032E5BC0 base=0x20D46CA0 ip=0x20D46DFD (offset 540005533) bytes[-8..+24]: B7 F0 FF FF 01 00 04 00 D6 00 04 00 18 81 03 00 00 4D 00 01 29 FE FF FF D6 00 04 00 18 81 02 0C
+  script bball... @0x032E63A0 base=0x207BACA0 ip=0x207BB5FB (offset 534191259) bytes[-8..+24]: 9E F6 FF FF 01 00 04 00 02 00 01 4E FF FF FF C4 01 03 01 00 D6 00 04 00 56 02 02 08 00 4D 00 01
+  script plchute. @0x032E6B80 base=0x1FF6FB58 ip=0x1FF6FBD2 (offset 525492850) bytes[-8..+24]: 01 02 34 81 01 00 04 00 D6 00 04 00 18 81 02 0C 00 4D 00 01 B1 EA FF FF D6 00 04 00 00 88 4D 00
+  script impexpc. @0x032E5D80 base=0x00000000 ip=0x00A6AA43 (offset 135395) bytes[-8..+24]: 50 43 00 01 00 05 88 13 D6 00 04 00 56 02 02 08 00 4D 00 01 05 12 02 00 D6 00 04 00 38 00 02 64
+  script impexpm. @0x032E61E0 base=0x00000000 ip=0x00A671DC (offset 120956) bytes[-8..+24]: 74 12 04 63 01 00 04 00 D6 00 04 00 56 02 02 08 00 4D 00 01 C7 D8 01 00 D6 00 04 01 EC 00 02 0C
+  script tcash... @0x032E5300 base=0x00000000 ip=0x00A5EBC4 (offset 86628) bytes[-8..+24]: 00 00 00 01 00 05 20 4E D6 00 04 00 38 00 02 C0 0C 04 01 4D 00 01 84 52 01 00 15 02 02 18 0B 04
+  script quarrys. @0x032E4CE0 base=0x00000000 ip=0x00A5C241 (offset 76001) bytes[-8..+24]: 52 59 53 00 01 00 04 00 D6 00 04 00 38 00 02 64 06 04 00 4D 00 01 63 29 01 00 D6 00 04 00 56 02
+  script psch.... @0x032E7360 base=0x00000000 ip=0x00A5B162 (offset 71682) bytes[-8..+24]: 00 0B 00 00 01 00 04 00 D6 00 04 00 56 02 02 08 00 4D 00 01 E2 18 01 00 D6 00 04 00 38 00 02 64
+  script bikes... @0x032E6100 base=0x00000000 ip=0x00A5C35D (offset 76285) bytes[-8..+24]: 53 00 00 00 01 00 04 00 D6 00 04 00 38 00 02 64 06 04 00 4D 00 01 6B 2A 01 00 D6 00 04 00 56 02
+  script bschoo.. @0x032E5840 base=0x00000000 ip=0x00A5C2D9 (offset 76153) bytes[-8..+24]: 4F 4F 00 00 01 00 04 00 D6 00 04 00 38 00 02 64 06 04 00 4D 00 01 E7 29 01 00 D6 00 04 00 56 02
+  script trace... @0x032E6020 base=0x00000000 ip=0x00A5AA3B (offset 69851) bytes[-8..+24]: 45 00 00 00 01 00 04 00 D6 00 04 00 56 02 02 08 00 4D 00 01 F1 13 01 00 D6 00 04 00 38 00 02 64
+  script trucks.. @0x032E5E60 base=0x00000000 ip=0x00A5C1A9 (offset 75849) bytes[-8..+24]: 53 00 00 01 00 02 38 00 D6 00 04 00 38 00 02 64 06 04 00 4D 00 01 CB 28 01 00 D6 00 04 00 56 02
+  script mob_ran. @0x032E5F40 base=0x00000000 ip=0x00A778D7 (offset 188279) bytes[-8..+24]: 41 4E 00 01 00 05 E8 03 D6 00 04 01 38 00 02 64 06 04 00 38 00 02 14 16 04 00 4D 00 01 9C DF 02
+  script gfagnt.. @0x032E5AE0 base=0x00000000 ip=0x00A6C1BE (offset 141406) bytes[-8..+24]: 02 20 2C 01 00 02 F0 12 D6 00 04 02 56 02 02 08 00 18 81 02 0C 00 38 00 02 64 06 04 00 4D 00 01
+  script intman.. @0x032E5A00 base=0x00000000 ip=0x00A6F6AA (offset 154954) bytes[-8..+24]: 51 5D 02 00 01 00 04 00 02 00 01 2F 5D 02 00 71 08 03 00 00 04 02 04 00 01 AC 5D 02 00 04 00 01
+  script hj...... @0x032E5920 base=0x00000000 ip=0x00A70959 (offset 159737) bytes[-8..+24]: 9A 41 00 00 01 00 04 00 D6 00 04 00 56 82 02 08 00 4D 00 01 10 70 02 00 02 00 01 F5 6F 02 00 D6

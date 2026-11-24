@@ -1,0 +1,7 @@
+[31;1mException: [0mD:\Original\wv-8\reversing\FnBIS1\jugar.ps1:135
+[36;1mLine |[0m
+[36;1m[36;1m 135 | [0m     catch { [36;1mthrow "El candado $candado esta tomado por otra prueba (n[0m .
+[36;1m     | [31;1m             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[36;1m[31;1m[31;1m[36;1m     | [31;1mEl candado D:\Original\gta_lock esta tomado por otra prueba (no lo borro). Espera o usa -SinCandado si estas[0m
+[36;1m[31;1m[31;1m[36;1m[31;1m[36;1m     | [31;1mseguro.[0m
+[36;1m[31;1m[31;1m[36;1m[31;1m[36;1m[31;1m[0m

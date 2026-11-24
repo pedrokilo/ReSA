@@ -1,0 +1,4 @@
+juego en marcha; campos CColourSet: {'m_nSkyTopRed': 36, 'm_nSkyTopGreen': 38, 'm_nSkyTopBlue': 40, 'm_nLowCloudsRed': 92, 'm_nLowCloudsGreen': 94, 'm_nLowCloudsBlue': 96, 'm_nFluffyCloudsBottomRed': 98, 'm_nFluffyCloudsBottomGreen': 100, 'm_nFluffyCloudsBottomBlue': 102, 'm_fCloudAlpha': 152}
+area 0
+ventana: cliente 640x480, rect 654x518
+proceso terminado

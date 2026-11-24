@@ -1,0 +1,191 @@
+[depuración][20:43:11.746][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][20:43:11.756][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13630 en 1011 clases/grupos (11462 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13630. Desactivadas: 0.
+[info][20:43:11.756][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][20:43:11.756][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][20:43:11.759][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][20:43:11.765][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][20:43:12.200][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][20:43:12.237][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][20:43:12.266][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][20:43:12.307][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][20:43:12.315][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][20:43:12.316][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][20:43:12.316][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][20:43:12.316][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][20:43:12.316][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][20:43:12.317][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][20:43:12.317][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][20:43:12.317][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][20:43:12.317][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][20:43:12.317][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[info][20:43:12.690][AEMFDecoder.cpp:148]: User tracks: QuickTime retirado; los .mp3 usan el decoder WMA y los formatos que solo abria QuickTime no estan disponibles
+[depuración][20:43:12.729][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][20:43:12.735][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][20:43:12.735][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][20:43:12.803][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][20:43:12.804][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][20:43:12.804][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[error][20:43:13.223][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:13.460][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:13.461][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:13.462][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:13.462][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:13.463][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:13.463][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:13.463][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][20:43:13.463][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:13.464][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:13.464][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:13.465][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:13.465][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:13.465][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:13.465][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:13.465][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][20:43:13.466][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:13.466][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:13.466][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:13.466][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:13.466][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:13.467][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:13.467][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:13.467][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][20:43:13.467][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:13.467][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:13.468][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:13.468][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:13.468][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:13.468][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:13.468][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:13.469][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][20:43:13.469][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:13.469][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:13.469][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:13.469][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:13.470][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:13.472][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:13.473][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:13.473][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][20:43:13.473][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:13.473][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:13.473][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:13.473][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:13.474][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:13.474][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:13.474][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:13.474][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[depuración][20:43:14.285][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[depuración][20:43:14.936][Pools.cpp:502]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[aviso][20:43:14.961][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][20:43:14.969][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][20:43:14.997][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][20:43:14.997][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][20:43:14.997][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][20:43:15.020][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][20:43:15.021][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[error][20:43:16.974][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=547 ptr=0xb3b3ec tipo=6 placa=0x206847f0 tipoPlaca=255 refs=1 txd=215
+[error][20:43:17.234][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:17.235][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:17.235][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:17.235][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:17.236][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:17.236][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:17.236][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:17.236][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][20:43:17.236][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:17.237][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:17.237][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:17.238][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:17.238][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:17.238][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:17.238][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:17.238][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][20:43:17.239][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:17.239][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:17.239][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:17.239][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:17.240][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:17.240][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:17.240][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:17.240][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][20:43:17.743][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x2088f3f8 tipoPlaca=255 refs=1 txd=213
+[error][20:43:17.823][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=520 ptr=0xb36214 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=188
+[error][20:43:17.937][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=432 ptr=0xb25754 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=100
+[error][20:43:19.305][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x2071da18 tipoPlaca=255 refs=1 txd=160
+[error][20:43:19.547][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=497 ptr=0xb31c5c tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=165
+[error][20:43:19.708][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x2071da18 tipoPlaca=255 refs=1 txd=160
+[error][20:43:21.250][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:21.251][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:21.251][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:21.252][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:21.252][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:21.252][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:21.253][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:21.253][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][20:43:25.264][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:25.266][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:25.266][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:25.266][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:25.266][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:25.266][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:25.267][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:25.267][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][20:43:29.277][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][20:43:29.279][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][20:43:29.279][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][20:43:29.280][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][20:43:29.280][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][20:43:29.280][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][20:43:29.280][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][20:43:29.281][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[depuración][20:43:32.959][Pad.cpp:378]: Raton: DirectInput no entrega datos pero SDL si; se vuelve a adquirir el dispositivo (registro de raw input perdido)
+[error][20:47:06.453][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=475 ptr=0xb2d9ac tipo=6 placa=0x20bcce70 tipoPlaca=255 refs=1 txd=143
+[error][20:47:06.614][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20681640 tipoPlaca=255 refs=1 txd=224
+[error][20:48:48.803][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=543 ptr=0xb3a7cc tipo=6 placa=0x20bccdd0 tipoPlaca=255 refs=1 txd=211
+[error][20:48:48.850][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=494 ptr=0xb31344 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=162
+[error][20:48:48.963][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20afd1f8 tipoPlaca=255 refs=1 txd=224
+[error][20:48:49.171][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=609 ptr=0xb46fdc tipo=6 placa=0x20c99978 tipoPlaca=255 refs=1 txd=277
+[error][20:48:49.734][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=542 ptr=0xb3a4c4 tipo=6 placa=0x209771f0 tipoPlaca=255 refs=1 txd=210
+[error][20:50:41.163][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=494 ptr=0xb31344 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=162
+[error][20:50:41.437][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20bd1b00 tipoPlaca=255 refs=1 txd=224
+[error][20:50:42.609][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=609 ptr=0xb46fdc tipo=6 placa=0x20974ef0 tipoPlaca=255 refs=1 txd=277
+[error][20:50:59.158][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x2056fcd8 tipoPlaca=255 refs=1 txd=160
+[error][20:51:39.489][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=494 ptr=0xb31344 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=162
+[error][20:51:40.406][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20974e50 tipoPlaca=255 refs=1 txd=224
+[error][20:51:40.614][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=609 ptr=0xb46fdc tipo=6 placa=0x207356e0 tipoPlaca=255 refs=1 txd=277
+[error][20:52:01.903][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=542 ptr=0xb3a4c4 tipo=6 placa=0x20738110 tipoPlaca=255 refs=1 txd=210
+[error][20:52:13.987][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20974e50 tipoPlaca=255 refs=1 txd=224
+[error][20:52:14.034][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=609 ptr=0xb46fdc tipo=6 placa=0x207356e0 tipoPlaca=255 refs=1 txd=277
+[error][20:52:14.355][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=494 ptr=0xb31344 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=162
+[error][20:52:22.229][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=404 ptr=0xb20274 tipo=6 placa=0x20c9d758 tipoPlaca=255 refs=1 txd=72
+[error][20:52:51.793][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=494 ptr=0xb31344 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=162
+[error][20:52:52.067][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=479 ptr=0xb2e5cc tipo=6 placa=0x20c997e8 tipoPlaca=255 refs=1 txd=147
+[error][20:52:52.068][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20735e10 tipoPlaca=255 refs=1 txd=224
+[error][20:52:52.275][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=609 ptr=0xb46fdc tipo=6 placa=0x20737120 tipoPlaca=255 refs=1 txd=277
+[error][20:53:22.482][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=566 ptr=0xb3ed84 tipo=6 placa=0x20af9788 tipoPlaca=255 refs=1 txd=234
+[error][20:53:22.483][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=494 ptr=0xb31344 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=162
+[error][20:53:22.596][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20737080 tipoPlaca=255 refs=1 txd=224
+[error][20:53:22.803][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=609 ptr=0xb46fdc tipo=6 placa=0x20d64888 tipoPlaca=255 refs=1 txd=277
+[error][20:53:35.818][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=404 ptr=0xb20274 tipo=6 placa=0x20bce2c0 tipoPlaca=255 refs=1 txd=72
+[error][20:53:47.708][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=494 ptr=0xb31344 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=162
+[error][20:53:47.822][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20737080 tipoPlaca=255 refs=1 txd=224
+[error][20:53:47.983][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=546 ptr=0xb3b0e4 tipo=6 placa=0x20739c40 tipoPlaca=255 refs=1 txd=214
+[error][20:53:48.030][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=609 ptr=0xb46fdc tipo=6 placa=0x20d64888 tipoPlaca=255 refs=1 txd=277
+[error][20:54:08.275][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=404 ptr=0xb20274 tipo=6 placa=0x20bce2c0 tipoPlaca=255 refs=1 txd=72
+[error][20:54:41.695][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=494 ptr=0xb31344 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=162
+[error][20:54:41.809][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=546 ptr=0xb3b0e4 tipo=6 placa=0x20739c40 tipoPlaca=255 refs=1 txd=214
+[error][20:54:41.811][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20d647e8 tipoPlaca=255 refs=1 txd=224
+[error][20:54:42.017][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=609 ptr=0xb46fdc tipo=6 placa=0x20d67128 tipoPlaca=255 refs=1 txd=277
+[error][20:54:42.740][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=542 ptr=0xb3a4c4 tipo=6 placa=0x20738110 tipoPlaca=255 refs=1 txd=210
+[error][20:55:07.839][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20d67088 tipoPlaca=255 refs=1 txd=224
+[error][20:55:07.887][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=494 ptr=0xb31344 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=162
+[error][20:55:07.919][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=475 ptr=0xb2d9ac tipo=6 placa=0x20afb038 tipoPlaca=255 refs=1 txd=143
+[error][20:55:07.967][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=542 ptr=0xb3a4c4 tipo=6 placa=0x20738110 tipoPlaca=255 refs=1 txd=210
+[error][20:55:08.047][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=609 ptr=0xb46fdc tipo=6 placa=0x20890618 tipoPlaca=255 refs=1 txd=277
+[error][20:55:08.851][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=404 ptr=0xb20274 tipo=6 placa=0x20bce2c0 tipoPlaca=255 refs=1 txd=72
+[error][20:55:42.867][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20bd0f70 tipoPlaca=255 refs=1 txd=224
+[error][20:55:42.914][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=494 ptr=0xb31344 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=162
+[error][20:55:42.947][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=475 ptr=0xb2d9ac tipo=6 placa=0x20afb038 tipoPlaca=255 refs=1 txd=143
+[error][20:55:42.995][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=412 ptr=0xb21ab4 tipo=6 placa=0x20bd0980 tipoPlaca=255 refs=1 txd=80
+[error][20:55:43.075][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=609 ptr=0xb46fdc tipo=6 placa=0x20af9648 tipoPlaca=255 refs=1 txd=277
+[error][20:55:43.878][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=404 ptr=0xb20274 tipo=6 placa=0x20bce2c0 tipoPlaca=255 refs=1 txd=72

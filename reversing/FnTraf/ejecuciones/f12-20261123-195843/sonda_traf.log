@@ -1,0 +1,45 @@
+pid 14616 exe gta_sa_standalone
+juego en marcha tras 4 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+t=6 {"t_juego_ms": 370369739, "cs": null, "area": 0, "peds": [12, 140], "veh": [7, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 4, "MaxCarsInUse": 12}
+t=11 {"t_juego_ms": 370375339, "cs": null, "area": 0, "peds": [9, 140], "veh": [4, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 1, "MaxCarsInUse": 12}
+ventana: cliente 640x480, rect ventana 654x518
+captura giro0 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [85.8, 130.5, 114.1], "max": 255} frente [0.0, 1.0, -0.05] estado {"t_juego_ms": 370381259, "cs": null, "area": 0, "peds": [9, 140], "veh": [4, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 1, "MaxCarsInUse": 12}
+captura cielo0 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [87.3, 131.6, 114.7], "max": 255} frente [0.0, 1.0, -0.05]
+captura giro1 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [45.3, 39.3, 23.1], "max": 255} frente [0.02, -0.21, -0.98] estado {"t_juego_ms": 370386332, "cs": null, "area": 0, "peds": [9, 140], "veh": [2, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura cielo1 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [66.3, 57.4, 36.3], "max": 255} frente [0.08, -0.96, 0.27]
+captura giro2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [31.7, 28.1, 12.6], "max": 235} frente [-0.03, 0.2, -0.98] estado {"t_juego_ms": 370391499, "cs": null, "area": 0, "peds": [9, 140], "veh": [2, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura cielo2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [50.3, 106.3, 98.6], "max": 255} frente [-0.15, 0.95, 0.27]
+captura giro3 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [45.6, 39.4, 23.3], "max": 255} frente [0.05, -0.2, -0.98] estado {"t_juego_ms": 370396459, "cs": null, "area": 0, "peds": [9, 140], "veh": [2, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura cielo3 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [67.1, 57.3, 36.0], "max": 255} frente [0.23, -0.93, 0.27]
+captura giro4 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [31.2, 27.4, 12.2], "max": 236} frente [-0.06, 0.2, -0.98] estado {"t_juego_ms": 370401372, "cs": null, "area": 0, "peds": [10, 140], "veh": [2, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura cielo4 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [51.8, 105.4, 96.8], "max": 255} frente [-0.3, 0.91, 0.27]
+captura giro5 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [44.1, 38.2, 22.0], "max": 255} frente [0.08, -0.19, -0.98] estado {"t_juego_ms": 370406412, "cs": null, "area": 0, "peds": [9, 140], "veh": [2, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura cielo5 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [68.7, 59.5, 38.4], "max": 255} frente [0.37, -0.89, 0.27]
+t=48 {"t_juego_ms": 370412172, "cs": null, "area": 0, "peds": [9, 140], "veh": [2, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=54 {"t_juego_ms": 370417739, "cs": null, "area": 0, "peds": [9, 140], "veh": [2, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=59 {"t_juego_ms": 370423339, "cs": null, "area": 0, "peds": [9, 140], "veh": [2, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=65 {"t_juego_ms": 370428892, "cs": null, "area": 0, "peds": [9, 140], "veh": [2, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=71 {"t_juego_ms": 370434459, "cs": null, "area": 0, "peds": [9, 140], "veh": [2, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+POSICION 0 [2652.5, -1719.9, 13.8] estado {"t_juego_ms": 370450379, "cs": null, "area": 0, "peds": [34, 140], "veh": [16, 110], "pos": [2652.482421875, -1719.3411865234375, 10.90625], "NumRandomCars": 12, "MaxCarsInUse": 12} vehiculos_total=7 vehiculos_a_menos_de_120m=0
+captura pos0_giro0 {"ancho": 640, "alto": 480, "rojo": 3, "muestras": 34270, "media_rgb": [123.9, 131.2, 117.7], "max": 255} frente [-0.46, 0.89, -0.05]
+captura pos0_giro1 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [39.6, 35.1, 23.4], "max": 255} frente [0.53, -0.85, -0.05]
+captura pos0_giro2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [116.6, 124.5, 110.9], "max": 255} frente [-0.59, 0.81, -0.05]
+captura pos0_giro3 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [33.9, 29.0, 17.5], "max": 236} frente [0.65, -0.76, -0.05]
+captura pos0_giro4 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [112.2, 120.8, 108.0], "max": 255} frente [-0.71, 0.7, -0.05]
+captura pos0_giro5 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [32.9, 28.3, 17.3], "max": 236} frente [0.76, -0.64, -0.05]
+POSICION 1 [2672.1, -1652.5, 11.5] estado {"t_juego_ms": 370476492, "cs": null, "area": 0, "peds": [28, 140], "veh": [15, 110], "pos": [2671.95703125, -1652.3756103515625, 10.70283317565918], "NumRandomCars": 10, "MaxCarsInUse": 12} vehiculos_total=8 vehiculos_a_menos_de_120m=0
+captura pos1_giro0 {"ancho": 640, "alto": 480, "rojo": 7, "muestras": 34270, "media_rgb": [145.7, 150.1, 131.9], "max": 255} frente [-0.81, 0.58, -0.05]
+captura pos1_giro1 {"ancho": 640, "alto": 480, "rojo": 6, "muestras": 34270, "media_rgb": [101.5, 108.0, 96.9], "max": 255} frente [0.86, -0.52, -0.05]
+captura pos1_giro2 {"ancho": 640, "alto": 480, "rojo": 19, "muestras": 34270, "media_rgb": [134.9, 145.9, 131.3], "max": 255} frente [-0.89, 0.45, -0.05]
+captura pos1_giro3 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [115.1, 120.3, 106.4], "max": 255} frente [0.93, -0.37, -0.05]
+captura pos1_giro4 {"ancho": 640, "alto": 480, "rojo": 28, "muestras": 34270, "media_rgb": [135.8, 148.5, 134.1], "max": 255} frente [-0.95, 0.3, -0.05]
+captura pos1_giro5 {"ancho": 640, "alto": 480, "rojo": 2, "muestras": 34270, "media_rgb": [119.4, 124.6, 110.8], "max": 255} frente [0.97, -0.22, -0.05]
+POSICION 2 [2658.1, -1433.7, 31.5] estado {"t_juego_ms": 370502652, "cs": null, "area": 0, "peds": [28, 140], "veh": [11, 110], "pos": [2658.10009765625, -1433.344482421875, 30.47287368774414], "NumRandomCars": 10, "MaxCarsInUse": 12} vehiculos_total=5 vehiculos_a_menos_de_120m=0
+captura pos2_giro0 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [111.8, 140.1, 120.8], "max": 255} frente [-0.99, 0.15, -0.05]
+captura pos2_giro1 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [48.2, 47.3, 33.7], "max": 255} frente [1.0, -0.07, -0.05]
+captura pos2_giro2 {"ancho": 640, "alto": 480, "rojo": 6, "muestras": 34270, "media_rgb": [104.2, 139.6, 122.7], "max": 255} frente [-1.0, -0.01, -0.05]
+captura pos2_giro3 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [49.1, 44.3, 30.4], "max": 255} frente [0.99, 0.09, -0.05]
+captura pos2_giro4 {"ancho": 640, "alto": 480, "rojo": 10, "muestras": 34270, "media_rgb": [93.0, 134.7, 122.2], "max": 255} frente [-0.98, -0.17, -0.05]
+captura pos2_giro5 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [52.4, 45.4, 30.4], "max": 255} frente [0.97, 0.25, -0.05]
+fin
