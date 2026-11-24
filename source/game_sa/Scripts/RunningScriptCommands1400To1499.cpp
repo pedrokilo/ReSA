@@ -19,6 +19,7 @@
 #include "X87Math.h"
 #include "Crt/CrtState.h"
 #include "Ragdoll/IKChainManager.h"
+#include "DatosExe/DataBssF.h"
 #include "PedGeometryAnalyser.h"
 #include "Entity/Vehicle/Vehicle.h"
 #include "Entity/Ped/Ped.h"
@@ -104,8 +105,9 @@ constexpr int32 EXE_FLEE_POS_PERIOD    = 1000;
 constexpr float EXE_FLEE_POS_TOLERANCE = 1.0f;
 // 0x8D237C: movimiento por defecto de las tareas de entrar al coche (vale 6); el EXE lo copia al task y lo vuelve a escribir con 6.
 inline auto& EnterCarMoveStateGlobal = StaticRef<int32>(0x8D237C);
-// 0xC18D50: ruta global del EXE (CTheScripts)
-inline auto& ScriptPointRoute = StaticRef<CPointRoute>(0xC18D50);
+// 0xC18D50: ruta global del EXE (CTheScripts). Es el objeto propio DatosExe::Bss::bC18D50: los comandos 1700-1799 y 2000-2099 ya lo leen por nombre; antes este
+// archivo escribia la ruta (CLEAR/ADD_POINT) en la memoria del EXE y las tareas de ruta leian el objeto vacio (dato en dos sitios).
+inline auto& ScriptPointRoute = DatosExe::Bss::bC18D50<CPointRoute>();
 } // namespace
 
 static_assert(offsetof(CRunningScript, m_UsesMissionCleanup) == 0xC6);

@@ -71,10 +71,12 @@ public:
 
     static inline auto& m_LastBreathTime = DatosExe::Bss::bBAA3FC;
 
+    // Bloques de desvanecimiento {estado, fundido, temporizador, ultimo valor} de arma/dinero/energia: CHud::DrawPlayerInfo los recorre por direccion (base + 4/8/12) en la memoria del EXE,
+    // asi que los cuatro campos de cada bloque son direcciones del EXE (antes fundido/temporizador/ultimo eran objetos propios DatosExe::Bss::bBAA4xx, que ese codigo nunca veia).
     static inline auto& m_WeaponState = StaticRef<uint32>(0xBAA404);
-    static inline auto& m_WeaponFadeTimer = DatosExe::Bss::bBAA408;
-    static inline auto& m_WeaponTimer = DatosExe::Bss::bBAA40C;
-    static inline auto& m_LastWeapon = DatosExe::Bss::bBAA410;
+    static inline auto& m_WeaponFadeTimer = StaticRef<uint32>(0xBAA408);
+    static inline auto& m_WeaponTimer = StaticRef<uint32>(0xBAA40C);
+    static inline auto& m_LastWeapon = StaticRef<uint32>(0xBAA410);
 
     static inline auto& m_WantedState = DatosExe::Bss::bBAA414;
     static inline auto& m_WantedFadeTimer = DatosExe::Bss::bBAA418;
@@ -82,14 +84,14 @@ public:
     static inline auto& m_LastWanted = DatosExe::Bss::bBAA420;
 
     static inline auto& m_DisplayScoreState = StaticRef<uint32>(0xBAA424);
-    static inline auto& m_DisplayScoreFadeTimer = DatosExe::Bss::bBAA428;
-    static inline auto& m_DisplayScoreTimer = DatosExe::Bss::bBAA42C;
-    static inline auto& m_LastDisplayScore = DatosExe::Bss::bBAA430;
+    static inline auto& m_DisplayScoreFadeTimer = StaticRef<uint32>(0xBAA428);
+    static inline auto& m_DisplayScoreTimer = StaticRef<uint32>(0xBAA42C);
+    static inline auto& m_LastDisplayScore = StaticRef<uint32>(0xBAA430);
 
     static inline auto& m_EnergyLostState = StaticRef<uint32>(0xBAA434);
-    static inline auto& m_EnergyLostFadeTimer = DatosExe::Bss::bBAA438;
-    static inline auto& m_EnergyLostTimer = DatosExe::Bss::bBAA43C;
-    static inline auto& m_LastTimeEnergyLost = DatosExe::Bss::bBAA440;
+    static inline auto& m_EnergyLostFadeTimer = StaticRef<uint32>(0xBAA438);
+    static inline auto& m_EnergyLostTimer = StaticRef<uint32>(0xBAA43C);
+    static inline auto& m_LastTimeEnergyLost = StaticRef<uint32>(0xBAA440);
 
     static inline auto& m_Message = DatosExe::Bss::bBAB040;
     static inline auto& m_BigMessage = StaticRef<GxtChar[NUM_MESSAGE_STYLES][BIG_MESSAGE_SIZE]>(0xBAACC0);
