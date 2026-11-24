@@ -27,6 +27,15 @@
 #include <cstdint>
 #include <intrin.h>
 
+// Portatiles con dos GPU (NVIDIA Optimus / AMD PowerXpress): sin estas dos exportaciones el controlador elige la GPU integrada para un .exe que no conoce, y el
+// gta_sa.exe original va a la GPU dedicada gracias a su perfil. Con la integrada (Intel Iris Xe) el pase del espejo del ropero (RT sin multimuestreo + z-buffer de 4x MSAA,
+// combinacion invalida que el juego original tambien crea) se dibuja con prueba de profundidad efectiva y sale distinto; con la NVIDIA sale como en el original
+// (docs/CodigoVivoExe/ejecucion-espejo-ropero.md). Son datos exportados, no codigo.
+extern "C" {
+__declspec(dllexport) DWORD NvOptimusEnablement = 0x00000001;
+__declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+}
+
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD reason, LPVOID reserved); // dllmain.cpp del proyecto
 INT WINAPI NOTSA_WinMain(HINSTANCE instance, HINSTANCE hPrevInstance, LPSTR cmdLine, INT nCmdShow); // WinMain.cpp
 extern "C" { extern uint32_t g_DbgCmdTrace[256][4]; extern uint32_t g_DbgCmdTraceIdx; extern uint32_t g_DbgMainTrace[32][4]; extern uint32_t g_DbgMainTraceIdx; } // anillo de los ultimos comandos de script (Scripts/RunningScript.cpp)

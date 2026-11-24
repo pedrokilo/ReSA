@@ -7768,6 +7768,13 @@ RwBool _rwD3D9System(RwInt32 request, void* out, void* inOut, RwInt32 in) {
             return FALSE;
         }
 #endif
+        {
+            // NOTSA: deja en el registro con que GPU se creo el dispositivo (el pase del espejo depende del controlador, ver docs/CodigoVivoExe/ejecucion-espejo-ropero.md)
+            D3DADAPTER_IDENTIFIER9 adapterId{};
+            if (SUCCEEDED(static_cast<IDirect3D9*>(D3D9DirectObject)->GetAdapterIdentifier(D3D9AdapterIndex, 0, &adapterId))) {
+                NOTSA_LOG_INFO("Adaptador de vídeo D3D9: {} (controlador {}, vendedor 0x{:04X})", adapterId.Description, adapterId.Driver, adapterId.VendorId);
+            }
+        }
         if (D3D9MainWindow != nullptr) {
             RECT client;
             GetClientRect(static_cast<HWND>(D3D9MainWindow), &client);

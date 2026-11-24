@@ -1,0 +1,367 @@
+diff --git a/reversing/FnTraf/__pycache__/captura.cpython-314.pyc b/reversing/FnTraf/__pycache__/captura.cpython-314.pyc
+index e34da44bde..846ba714c4 100644
+Binary files a/reversing/FnTraf/__pycache__/captura.cpython-314.pyc and b/reversing/FnTraf/__pycache__/captura.cpython-314.pyc differ
+diff --git a/reversing/FnTraf/__pycache__/sonda_traf.cpython-314.pyc b/reversing/FnTraf/__pycache__/sonda_traf.cpython-314.pyc
+index 85428a1576..75d6664e2e 100644
+Binary files a/reversing/FnTraf/__pycache__/sonda_traf.cpython-314.pyc and b/reversing/FnTraf/__pycache__/sonda_traf.cpython-314.pyc differ
+diff --git a/source/app/app_game.cpp b/source/app/app_game.cpp
+index aafdffd69c..c30f39eef9 100644
+--- a/source/app/app_game.cpp
++++ b/source/app/app_game.cpp
+@@ -157,6 +157,7 @@ void RenderEffects() {
+ }
+ 
+ // 0x53DF40
++void DiagVW(const char* donde);
+ void RenderScene() {
+     ZoneScoped;
+ 
+@@ -343,7 +344,9 @@ void Idle(void* param) {
+     CSprite2d::InitPerFrame();
+     CFont::InitPerFrame();
+     CPointLights::NumLights = 0;
++    DiagVW("antesGameProcess");
+     CGame::Process();
++    DiagVW("trasGameProcess");
+     AudioEngine.Service();
+     SetLightsWithTimeOfDayColour(Scene.m_pRpWorld);
+     if (!param) {
+@@ -363,11 +366,16 @@ void Idle(void* param) {
+             RsMouseSetPos(&pos);
+         }
+ 
++        DiagVW("antesConstruct");
+         CRenderer::ConstructRenderList();
++        DiagVW("trasConstruct");
+         CRenderer::PreRender();
++        DiagVW("trasPreRender");
+         CWorld::ProcessPedsAfterPreRender();
+         g_realTimeShadowMan.Update();
++        DiagVW("antesBeforeMain");
+         CMirrors::BeforeMainRender();
++        DiagVW("trasBeforeMain");
+ 
+         bool started;
+         if (CWeather::LightningFlash) {
+@@ -388,8 +396,10 @@ void Idle(void* param) {
+         DefinedState();
+         RwCameraSetFarClipPlane(Scene.m_pRwCamera, CTimeCycle::GetFarClip());
+         Scene.m_pRwCamera->fogPlane = CTimeCycle::GetFogStart();
++        DiagVW("antesRenderMirrorBuf");
+         CMirrors::RenderMirrorBuffer();
+         RenderScene();
++        DiagVW("trasRenderScene");
+         CVisibilityPlugins::RenderWeaponPedsForPC();
+         CVisibilityPlugins::ResetWeaponPedsForPC(); // Como el original: vacía ms_weaponPedsForPC (0x53E8D0 con ECX = 0xC88224)
+         RenderEffects();
+diff --git a/source/app/platform/win/WindowedMode.cpp b/source/app/platform/win/WindowedMode.cpp
+index 8d0d9dac7f..c9237381ed 100644
+--- a/source/app/platform/win/WindowedMode.cpp
++++ b/source/app/platform/win/WindowedMode.cpp
+@@ -134,6 +134,7 @@ auto& D3D9RestoreDeviceCallback          = StaticRef<rwD3D9DeviceRestoreCallBack
+ //auto& _rwD3D9PixelFormatInfo             = StaticRef<_rwD3D9FormatInfo[MAX_PIXEL_FORMATS]>(0xB4E7E0);
+ 
+ 
++void DiagEscribe(const std::string& t);
+ static RwBool EnableFullScreenDialogBoxMode = FALSE;
+ 
+ 
+@@ -1068,10 +1069,10 @@ _rwD3D9CameraClear(void *camera, void *color, RwInt32 clearFlags)
+             }
+ 
+             /* Clear */
+-            DXCHECK(IDirect3DDevice9_Clear
+-                    (_RwD3DDevice, 0, NULL,
+-                     d3d9ClearFlags, packedColor,
+-                     MAXZBUFFERVALUE, StencilClearValue));
++            {
++                const HRESULT hClr = IDirect3DDevice9_Clear(_RwD3DDevice, 0, NULL, d3d9ClearFlags, packedColor, MAXZBUFFERVALUE, StencilClearValue);
++                ::DiagEscribe(std::format("CLEAR camtex hr=0x{:08X} flags=0x{:X} zrasterNull={} zclearval={:.3f} stencilclear={} usageRT={} ", (unsigned)hClr, (unsigned)d3d9ClearFlags, RwCameraGetZRaster((RwCamera*)camera) == NULL, (float)MAXZBUFFERVALUE, (unsigned)StencilClearValue, (unsigned)(d3d9Desc.Usage & D3DUSAGE_RENDERTARGET)));
++            }
+ 
+             /* If the set render target fails, we need to copy from the back buffer */
+             if (FAILED(hr))
+diff --git a/source/game_sa/Mirrors.cpp b/source/game_sa/Mirrors.cpp
+index cac07313e4..503654bbe1 100644
+--- a/source/game_sa/Mirrors.cpp
++++ b/source/game_sa/Mirrors.cpp
+@@ -50,6 +50,99 @@ constexpr CVector Screens8Track[2][4] = {
+     }
+ };
+ 
++
++// DIAG-ESPEJO (temporal)
++
++static void DiagVolcarRaster(RwRaster* r, const char* nombre) {
++    if (!r) return;
++    auto* top = r->parent ? r->parent : r;
++    auto* dev = static_cast<IDirect3DDevice9*>(StaticRef<void*>(0xC97C28));
++    auto* tex = *reinterpret_cast<IDirect3DTexture9**>(reinterpret_cast<uint8*>(top) + StaticRef<int32>(0xB4E9E0));
++    if (!tex || !dev) return;
++    IDirect3DSurface9* surf = nullptr;
++    if (FAILED(tex->GetSurfaceLevel(0, &surf)) || !surf) return;
++    D3DSURFACE_DESC d{};
++    surf->GetDesc(&d);
++    IDirect3DSurface9* sys = nullptr;
++    if (SUCCEEDED(dev->CreateOffscreenPlainSurface(d.Width, d.Height, d.Format, D3DPOOL_SYSTEMMEM, &sys, nullptr))) {
++        if (SUCCEEDED(dev->GetRenderTargetData(surf, sys))) {
++            D3DLOCKED_RECT lr{};
++            if (SUCCEEDED(sys->LockRect(&lr, nullptr, D3DLOCK_READONLY))) {
++                if (FILE* f = fopen(nombre, "wb")) {
++                    uint32 sz = 54 + d.Width * d.Height * 3;
++                    uint8 h[54] = { 'B','M' };
++                    *(uint32*)(h + 2) = sz; *(uint32*)(h + 10) = 54; *(uint32*)(h + 14) = 40;
++                    *(int32*)(h + 18) = (int32)d.Width; *(int32*)(h + 22) = -(int32)d.Height; *(uint16*)(h + 26) = 1; *(uint16*)(h + 28) = 24;
++                    fwrite(h, 1, 54, f);
++                    for (uint32 y = 0; y < d.Height; y++) {
++                        const uint8* row = static_cast<const uint8*>(lr.pBits) + y * lr.Pitch;
++                        for (uint32 x = 0; x < d.Width; x++) { fwrite(row + x * 4, 1, 3, f); }
++                    }
++                    fclose(f);
++                }
++                sys->UnlockRect();
++            }
++        }
++        sys->Release();
++    }
++    surf->Release();
++}
++
++void DiagEscribe(const std::string& t);
++bool g_diagEspejo = false;
++int g_diagFrameIdx = 0, g_diagAtomIdx = 0;
++void DiagBmp(const void* bits, uint32 pitch, uint32 w, uint32 h, const char* nombre) {
++    if (FILE* f = fopen(nombre, "wb")) {
++        uint8 hd[54] = { 'B','M' };
++        *(uint32*)(hd + 2) = 54 + w * h * 3; *(uint32*)(hd + 10) = 54; *(uint32*)(hd + 14) = 40;
++        *(int32*)(hd + 18) = (int32)w; *(int32*)(hd + 22) = -(int32)h; *(uint16*)(hd + 26) = 1; *(uint16*)(hd + 28) = 24;
++        fwrite(hd, 1, 54, f);
++        for (uint32 y = 0; y < h; y++) { const uint8* row = static_cast<const uint8*>(bits) + y * pitch; for (uint32 x = 0; x < w; x++) fwrite(row + x * 4, 1, 3, f); }
++        fclose(f);
++    }
++}
++void DiagVW(const char* donde) {
++    static int fr = 0; static float last = -1.0f;
++    const float v = Scene.m_pRwCamera->viewWindow.x;
++    if (v != last) { last = v; DiagEscribe(std::format("VW {} vw={:.4f} rvw={:.4f} fov={:.2f} ms={}", donde, v, Scene.m_pRwCamera->recipViewWindow.x, CDraw::GetFOV(), CTimer::GetTimeInMS())); }
++}
++void DiagEscribe(const std::string& t) {
++    if (FILE* f = fopen("espejo_diag.log", "a")) { fprintf(f, "%s\n", t.c_str()); fclose(f); }
++}
++static void DiagEspejo(const char* donde, int extra = 0) {
++    static int n = 0; static bool gLog = false;
++    if (!strcmp(donde, "antes-set")) { gLog = ((n++ % 60) == 0); g_diagEspejo = gLog; g_diagFrameIdx = n; g_diagAtomIdx = 0; }
++    if (!gLog) return;
++    if (auto* dev = static_cast<IDirect3DDevice9*>(StaticRef<void*>(0xC97C28))) {
++        IDirect3DSurface9 *rt = nullptr, *zs = nullptr; D3DSURFACE_DESC rd{}, zd{}; DWORD aa = 0, aalias = 0;
++        if (SUCCEEDED(dev->GetRenderTarget(0, &rt)) && rt) { rt->GetDesc(&rd); rt->Release(); }
++        if (SUCCEEDED(dev->GetDepthStencilSurface(&zs)) && zs) { zd.Format = D3DFMT_UNKNOWN; zs->GetDesc(&zd); zs->Release(); }
++        dev->GetRenderState(D3DRS_MULTISAMPLEANTIALIAS, &aa);
++        if (!strcmp(donde, "antes-set")) {
++            const auto& pp = StaticRef<D3DPRESENT_PARAMETERS>(0xC9C040);
++            D3DDEVICE_CREATION_PARAMETERS cp{}; dev->GetCreationParameters(&cp);
++            D3DCAPS9 caps{}; dev->GetDeviceCaps(&caps);
++            IDirect3DSwapChain9* sc = nullptr; D3DPRESENT_PARAMETERS live{}; if (SUCCEEDED(dev->GetSwapChain(0, &sc)) && sc) { sc->GetPresentParameters(&live); sc->Release(); }
++            if (auto* d3d = StaticRef<IDirect3D9*>(0xC97C20)) { D3DADAPTER_IDENTIFIER9 id{}; if (SUCCEEDED(d3d->GetAdapterIdentifier(cp.AdapterOrdinal, 0, &id))) DiagEscribe(std::format("ADAPTER {} | {} | vendor=0x{:X} device=0x{:X} driver={} ver={}.{}.{}.{}", id.Description, id.Driver, id.VendorId, id.DeviceId, id.DriverVersion.HighPart >> 16, id.DriverVersion.HighPart >> 16, id.DriverVersion.HighPart & 0xFFFF, id.DriverVersion.LowPart >> 16, id.DriverVersion.LowPart & 0xFFFF)); }
++            DiagEscribe(std::format("PP static: bb={}x{} fmt={} cnt={} ms={} q={} swap={} win={} autoDS={} dsfmt={} flags=0x{:X} hz={} interval=0x{:X} | live: bb={}x{} ms={} q={} swap={} autoDS={} dsfmt={} flags=0x{:X} | create: beh=0x{:X} type={} adapter={} | caps zcmp=0x{:X} raster=0x{:X} devcaps=0x{:X}",
++                pp.BackBufferWidth, pp.BackBufferHeight, (int)pp.BackBufferFormat, pp.BackBufferCount, (int)pp.MultiSampleType, pp.MultiSampleQuality, (int)pp.SwapEffect, pp.Windowed, pp.EnableAutoDepthStencil, (int)pp.AutoDepthStencilFormat, pp.Flags, pp.FullScreen_RefreshRateInHz, pp.PresentationInterval,
++                live.BackBufferWidth, live.BackBufferHeight, (int)live.MultiSampleType, live.MultiSampleQuality, (int)live.SwapEffect, live.EnableAutoDepthStencil, (int)live.AutoDepthStencilFormat, live.Flags, cp.BehaviorFlags, (int)cp.DeviceType, cp.AdapterOrdinal, caps.ZCmpCaps, caps.RasterCaps, caps.DevCaps));
++        }
++        DiagEscribe(std::format("DEV {} RT {}x{} fmt={} ms={} q={} | DS {}x{} fmt={} ms={} q={} | MSAAstate={}", donde, rd.Width, rd.Height, (int)rd.Format, (int)rd.MultiSampleType, rd.MultiSampleQuality, zd.Width, zd.Height, (int)zd.Format, (int)zd.MultiSampleType, zd.MultiSampleQuality, aa));
++    }
++    if (!strcmp(donde, "RenderMirrorBuffer")) gLog = false;
++    const auto R = [](RwRaster* r) -> std::string {
++        if (!r) return "null";
++        return std::format("{}x{} d{} t{} par{}", RwRasterGetWidth(r), RwRasterGetHeight(r), RwRasterGetDepth(r), (int)r->cType, (void*)r->parent);
++    };
++    const auto M = [](const CMatrix& m) -> std::string {
++        return std::format("R({:.3f},{:.3f},{:.3f}) F({:.3f},{:.3f},{:.3f}) U({:.3f},{:.3f},{:.3f}) P({:.3f},{:.3f},{:.3f})", m.GetRight().x, m.GetRight().y, m.GetRight().z, m.GetForward().x, m.GetForward().y, m.GetForward().z, m.GetUp().x, m.GetUp().y, m.GetUp().z, m.GetPosition().x, m.GetPosition().y, m.GetPosition().z);
++    };
++    DiagEscribe(std::format("DIAG-ESPEJO {} extra={} tipo={} flags={} V={:.3f} N=({:.3f},{:.3f},{:.3f}) camActive={} buf[{}] zbuf[{}] camRaster[{}] camZ[{}] MatMirror {} CamMat {} fudge={} copyBB={} vw=({:.4f},{:.4f}) rvw=({:.4f},{:.4f}) near={:.3f} far={:.1f} fov={:.2f}",
++        donde, extra, (int)CMirrors::TypeOfMirror, (int)CMirrors::MirrorFlags, CMirrors::MirrorV, CMirrors::MirrorNormal.x, CMirrors::MirrorNormal.y, CMirrors::MirrorNormal.z, (int)TheCamera.m_bMirrorActive,
++        R(CMirrors::pBuffer), R(CMirrors::pZBuffer), R(RwCameraGetRaster(Scene.m_pRwCamera)), R(RwCameraGetZRaster(Scene.m_pRwCamera)), M(TheCamera.m_mMatMirror), M(TheCamera.m_mCameraMatrix), (int)bFudgeNow, (int)StaticRef<RwBool>(0xC97C34), Scene.m_pRwCamera->viewWindow.x, Scene.m_pRwCamera->viewWindow.y, Scene.m_pRwCamera->recipViewWindow.x, Scene.m_pRwCamera->recipViewWindow.y, Scene.m_pRwCamera->nearPlane, Scene.m_pRwCamera->farPlane, CDraw::GetFOV()));
++}
++
+ void CMirrors::InjectHooks() {
+     RH_ScopedClass(CMirrors);
+     RH_ScopedCategoryGlobal();
+@@ -126,6 +219,7 @@ void CMirrors::RenderMirrorBuffer() {
+ 
+     if (TypeOfMirror == MIRROR_TYPE_NONE)
+         return;
++    DiagEspejo("RenderMirrorBuffer");
+ 
+     static auto& im2dVertices = StaticRef<std::array<RwIm2DVertex, 4>>(0xC7C5A8);
+     static auto& mirrorIndices = StaticRef<std::array<RwImVertexIndex, 6>>(0x8D5E38);
+@@ -321,6 +415,13 @@ void CMirrors::BeforeConstructRenderList() {
+         return visible;
+     }();
+ 
++    {
++        static int nn = 0;
++        if ((nn++ % 120) == 0) {
++            const auto& cp = TheCamera.GetPosition();
++            DiagEscribe(std::format("DIAG-ESPEJO BCRL mirrorActive={} attrs={} nZonas={} camPos=({:.2f},{:.2f},{:.2f}) tipo={}", (int)mirrorActive, (void*)mirrorAttrs, (int)CCullZones::NumMirrorAttributeZones, cp.x, cp.y, cp.z, (int)TypeOfMirror));
++        }
++    }
+     if (mirrorActive) {
+         // Actually update cam
+         assert(mirrorAttrs);
+@@ -354,14 +455,18 @@ void CMirrors::BeforeMainRender() {
+     RwRaster* prevCamRaster  = RwCameraGetRaster(Scene.m_pRwCamera);
+     RwRaster* prevCamZRaster = RwCameraGetZRaster(Scene.m_pRwCamera);
+ 
++    DiagEspejo("antes-set");
+     RwCameraSetRaster(Scene.m_pRwCamera, pBuffer);
+     RwCameraSetZRaster(Scene.m_pRwCamera, pZBuffer);
+ 
+     TheCamera.SetCameraUpForMirror();
++    DiagEspejo("tras-SetCameraUp");
+ 
+     RwRGBA color{ 0, 0, 0, 255 };
+     RwCameraClear(Scene.m_pRwCamera, &color, rwCAMERACLEARZ | rwCAMERACLEARIMAGE | (GraphicsHighQuality() ? rwCAMERACLEARSTENCIL : 0));
+-    if (RsCameraBeginUpdate(Scene.m_pRwCamera)) {
++    const auto okBegin = RsCameraBeginUpdate(Scene.m_pRwCamera);
++    DiagEspejo("tras-Begin", (int)okBegin);
++    if (okBegin) {
+         bRenderingReflection = true;
+         DefinedState();
+         RenderScene();
+@@ -370,6 +475,10 @@ void CMirrors::BeforeMainRender() {
+         bRenderingReflection = false;
+ 
+         RwCameraEndUpdate(Scene.m_pRwCamera);
++        {
++            static int nd = 0;
++            if ((nd++ % 200) == 50) DiagVolcarRaster(pBuffer, std::format("espejo_buf_{}.bmp", nd).c_str());
++        }
+ 
+         RwCameraSetRaster(Scene.m_pRwCamera, prevCamRaster);
+         RwCameraSetZRaster(Scene.m_pRwCamera, prevCamZRaster);
+diff --git a/source/game_sa/RenderWare/rw/rpworld.cpp b/source/game_sa/RenderWare/rw/rpworld.cpp
+index 337fab813f..e4667e5357 100644
+--- a/source/game_sa/RenderWare/rw/rpworld.cpp
++++ b/source/game_sa/RenderWare/rw/rpworld.cpp
+@@ -17,6 +17,7 @@
+ END GENERATED HOOK STATUS */
+ 
+ #include "StdInc.h"
++#include "DatosExe/DataBssG1.h"
+ 
+ #include "rpworld.h"
+ #include "d3dx9math.h"
+@@ -2684,13 +2685,85 @@ void RpClumpSetFreeListCreateParams(RwInt32 blockSize, RwInt32 numBlocksToPreall
+ 
+ // 0x7491C0
+ // Como el original: sin tuberia propia usa la por defecto del motor (campo +0x3C del bloque de plugin, `[0xC9BC60] + [0xC97B24] + 0x3C`) y ejecuta RxPipelineExecute (0x805710) con (tuberia, atomico, 1); devuelve el atomico si el resultado no es nulo.
++extern bool g_diagEspejo; extern int g_diagFrameIdx, g_diagAtomIdx; void DiagEscribe(const std::string& t); void DiagBmp(const void*, uint32, uint32, uint32, const char*);
+ RpAtomic* AtomicDefaultRenderCallBack(RpAtomic* atomic) {
+     static_assert(offsetof(RpAtomic, pipeline) == 0x6C);
++    {
++        static const bool noZ = getenv("ESPEJO_NOZ") != nullptr;
++        if (noZ && DatosExe::Bss::bC7C728) { RwRenderStateSet(rwRENDERSTATEZTESTENABLE, (void*)0); RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, (void*)0); }
++    }
++    if (g_diagEspejo) {
++        RpGeometry* g = atomic->geometry;
++        std::string st;
++        if (auto* dev = static_cast<IDirect3DDevice9*>(StaticRef<void*>(0xC97C28))) {
++            DWORD v[9]{}; const D3DRENDERSTATETYPE t[9] = { D3DRS_CULLMODE, D3DRS_ZENABLE, D3DRS_ZWRITEENABLE, D3DRS_ALPHABLENDENABLE, D3DRS_ALPHATESTENABLE, D3DRS_LIGHTING, D3DRS_SRCBLEND, D3DRS_DESTBLEND, D3DRS_STENCILENABLE };
++            for (int i = 0; i < 9; i++) dev->GetRenderState(t[i], &v[i]);
++            D3DVIEWPORT9 vp{}; dev->GetViewport(&vp);
++            IDirect3DSurface9* rt = nullptr; D3DSURFACE_DESC d{}; if (SUCCEEDED(dev->GetRenderTarget(0, &rt)) && rt) { rt->GetDesc(&d); rt->Release(); }
++            D3DMATRIX vw{}, pj{}, wd{}; dev->GetTransform(D3DTS_VIEW, &vw); dev->GetTransform(D3DTS_PROJECTION, &pj); dev->GetTransform(D3DTS_WORLD, &wd);
++            DWORD amb = 0, fog = 0, fogc = 0, cm = 0, dm = 0, em = 0, am = 0, nl = 0, tf = 0, ts = 0;
++            dev->GetRenderState(D3DRS_AMBIENT, &amb); dev->GetRenderState(D3DRS_FOGENABLE, &fog); dev->GetRenderState(D3DRS_FOGCOLOR, &fogc);
++            dev->GetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, &dm); dev->GetRenderState(D3DRS_AMBIENTMATERIALSOURCE, &am); dev->GetRenderState(D3DRS_COLORVERTEX, &cm);
++            for (DWORD li = 0; li < 8; li++) { BOOL en = FALSE; dev->GetLightEnable(li, &en); nl += en ? 1 : 0; }
++            dev->GetTextureStageState(0, D3DTSS_COLOROP, &ts); dev->GetRenderState(D3DRS_TEXTUREFACTOR, &tf);
++            st = std::format("amb={:08X} fog={} fogc={:08X} dms={} ams={} cv={} nl={} cop={} view=[{:.3f} {:.3f} {:.3f} | {:.3f} {:.3f} {:.3f} | {:.3f} {:.3f} {:.3f} | {:.3f} {:.3f} {:.3f}] proj=[{:.4f} {:.4f} {:.4f} {:.4f}] world=[{:.2f} {:.2f} {:.2f}] ",
++                amb, fog, fogc, dm, am, cm, nl, ts, vw._11, vw._12, vw._13, vw._21, vw._22, vw._23, vw._31, vw._32, vw._33, vw._41, vw._42, vw._43, pj._11, pj._22, pj._33, pj._43, wd._41, wd._42, wd._43);
++            std::string lg;
++            for (DWORD li = 0; li < 8; li++) { BOOL en = FALSE; dev->GetLightEnable(li, &en); if (!en) continue; D3DLIGHT9 L{}; if (SUCCEEDED(dev->GetLight(li, &L))) lg += std::format("L{}[t{} d({:.2f},{:.2f},{:.2f}) a({:.2f},{:.2f},{:.2f}) dir({:.2f},{:.2f},{:.2f}) pos({:.1f},{:.1f},{:.1f})] ", li, (int)L.Type, L.Diffuse.r, L.Diffuse.g, L.Diffuse.b, L.Ambient.r, L.Ambient.g, L.Ambient.b, L.Direction.x, L.Direction.y, L.Direction.z, L.Position.x, L.Position.y, L.Position.z); }
++            D3DMATERIAL9 MT{}; dev->GetMaterial(&MT);
++            st += std::format("LIGHTS {} MAT d({:.2f},{:.2f},{:.2f},{:.2f}) a({:.2f},{:.2f},{:.2f}) e({:.2f},{:.2f},{:.2f}) ", lg, MT.Diffuse.r, MT.Diffuse.g, MT.Diffuse.b, MT.Diffuse.a, MT.Ambient.r, MT.Ambient.g, MT.Ambient.b, MT.Emissive.r, MT.Emissive.g, MT.Emissive.b);
++            st += std::format("cull={} z={} zw={} ab={} at={} lit={} sb={} db={} st={} vp={}x{}@{},{} rt={}x{}", v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8], vp.Width, vp.Height, vp.X, vp.Y, d.Width, d.Height);
++        }
++        std::string ml;
++        if (g) for (int mi = 0; mi < g->matList.numMaterials && mi < 12; mi++) { const RpMaterial* mm = g->matList.materials[mi]; ml += std::format("{}:{:02X}{:02X}{:02X}{:02X}:{}x{} ", mm->texture ? mm->texture->name : "-", mm->color.red, mm->color.green, mm->color.blue, mm->color.alpha, mm->texture && mm->texture->raster ? mm->texture->raster->width : 0, mm->texture && mm->texture->raster ? mm->texture->raster->height : 0); }
++        DiagEscribe("MATS " + ml);
++        const RpMaterial* m0 = (g && g->matList.numMaterials > 0) ? g->matList.materials[0] : nullptr;
++        DiagEscribe(std::format("ATOM pipe={} geoTris={} verts={} mats={} flags=0x{:X} geoFlags=0x{:X} m0col={:02X}{:02X}{:02X}{:02X} m0tex={} {} ", atomic->pipeline ? (int)atomic->pipeline->pluginId : -1, g ? g->numTriangles : -1, g ? g->numVertices : -1, g ? g->matList.numMaterials : -1, (unsigned)atomic->object.object.flags, g ? (unsigned)g->flags : 0u, m0 ? m0->color.red : 0, m0 ? m0->color.green : 0, m0 ? m0->color.blue : 0, m0 ? m0->color.alpha : 0, (m0 && m0->texture) ? m0->texture->name : "-", st));
++    }
+     RxPipeline* pipeline = atomic->pipeline;
+     if (!pipeline) {
+         pipeline = *reinterpret_cast<RxPipeline**>(StaticRef<uint8*>(0xC9BC60) + StaticRef<int32>(0xC97B24) + 0x3C);
+     }
+-    return RxPipelineExecute(pipeline, atomic, TRUE) ? atomic : nullptr;
++    const auto res = RxPipelineExecute(pipeline, atomic, TRUE) ? atomic : nullptr;
++    if (g_diagEspejo) {
++        auto* dev = static_cast<IDirect3DDevice9*>(StaticRef<void*>(0xC97C28));
++        IDirect3DSurface9* rt = nullptr; D3DSURFACE_DESC d{};
++        if (dev && SUCCEEDED(dev->GetRenderTarget(0, &rt)) && rt) {
++            rt->GetDesc(&d);
++            if (d.Width == 1024 && d.Height == 512) {
++                static IDirect3DSurface9* sys = nullptr;
++                if (!sys) dev->CreateOffscreenPlainSurface(1024, 512, d.Format, D3DPOOL_SYSTEMMEM, &sys, nullptr);
++                uint64 sum = 0; uint32 nz = 0;
++                D3DLOCKED_RECT lr{};
++                if (sys && SUCCEEDED(dev->GetRenderTargetData(rt, sys)) && SUCCEEDED(sys->LockRect(&lr, nullptr, D3DLOCK_READONLY))) {
++                    for (uint32 y = 0; y < 512; y++) { const uint32* row = reinterpret_cast<const uint32*>(static_cast<const uint8*>(lr.pBits) + y * lr.Pitch); for (uint32 x = 0; x < 1024; x++) { const uint32 px = row[x] & 0xFFFFFF; sum += (px & 0xFF) + ((px >> 8) & 0xFF) + (px >> 16); nz += px != 0; } }
++                    if (g_diagFrameIdx == 721 && g_diagAtomIdx < 10) DiagBmp(lr.pBits, lr.Pitch, 1024, 512, std::format("espejo_atom_{}.bmp", g_diagAtomIdx).c_str());
++                    sys->UnlockRect();
++                }
++                g_diagAtomIdx++;
++                std::string post;
++                {
++                    DWORD v[12]{}; const D3DRENDERSTATETYPE t[12] = { D3DRS_CULLMODE, D3DRS_ZENABLE, D3DRS_ZWRITEENABLE, D3DRS_ZFUNC, D3DRS_FILLMODE, D3DRS_COLORWRITEENABLE, D3DRS_STENCILENABLE, D3DRS_ALPHABLENDENABLE, D3DRS_ALPHATESTENABLE, D3DRS_ALPHAREF, D3DRS_ALPHAFUNC, D3DRS_FOGENABLE };
++                    for (int i = 0; i < 12; i++) dev->GetRenderState(t[i], &v[i]);
++                    IDirect3DVertexShader9* vs = nullptr; dev->GetVertexShader(&vs); IDirect3DPixelShader9* ps = nullptr; dev->GetPixelShader(&ps);
++                    IDirect3DVertexDeclaration9* vd = nullptr; dev->GetVertexDeclaration(&vd); DWORD fvf = 0; dev->GetFVF(&fvf);
++                    IDirect3DBaseTexture9* tx = nullptr; dev->GetTexture(0, &tx);
++                    DWORD minf = 0, addu = 0; dev->GetSamplerState(0, D3DSAMP_MINFILTER, &minf); dev->GetSamplerState(0, D3DSAMP_ADDRESSU, &addu);
++                    DWORD cpe = 0, clp = 0, tcull = 0, cdepth = 0, slope = 0, scis = 0, blendop = 0, dither = 0, spec = 0; dev->GetRenderState(D3DRS_CLIPPLANEENABLE, &cpe); dev->GetRenderState(D3DRS_CLIPPING, &clp); dev->GetRenderState(D3DRS_SCISSORTESTENABLE, &scis); dev->GetRenderState(D3DRS_DEPTHBIAS, &cdepth); dev->GetRenderState(D3DRS_SLOPESCALEDEPTHBIAS, &slope); dev->GetRenderState(D3DRS_SPECULARENABLE, &spec);
++                    float pl[4]{}; dev->GetClipPlane(0, pl); D3DVIEWPORT9 vp2{}; dev->GetViewport(&vp2);
++                    std::string ds;
++                    { IDirect3DSurface9* zs = nullptr; D3DSURFACE_DESC zd{}; if (SUCCEEDED(dev->GetDepthStencilSurface(&zs)) && zs) { zs->GetDesc(&zd); ds = std::format(" DS fmt={} {}x{} ms={} usage={} pool={}", (int)zd.Format, zd.Width, zd.Height, (int)zd.MultiSampleType, zd.Usage, (int)zd.Pool); zs->Release(); } else ds = " DS none";
++                      D3DSURFACE_DESC rd = d; ds += std::format(" RT fmt={} ms={} usage={} pool={}", (int)rd.Format, (int)rd.MultiSampleType, rd.Usage, (int)rd.Pool); }
++                    post = ds + std::format(" CLIP cpe={} clip={} sc={} db={} ssdb={} spec={} pl0=({:.2f},{:.2f},{:.2f},{:.2f}) vpz=({:.3f},{:.3f})", cpe, clp, scis, cdepth, slope, spec, pl[0], pl[1], pl[2], pl[3], vp2.MinZ, vp2.MaxZ);
++                    post += std::format(" POST cull={} z={} zw={} zf={} fill={} cw={} st={} ab={} at={} aref={} afunc={} fog={} vs={} ps={} vd={} fvf=0x{:X} tex0={} minf={} addu={}", v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7], v[8], v[9], v[10], v[11], vs != nullptr, ps != nullptr, vd != nullptr, fvf, tx != nullptr, minf, addu);
++                    if (vs) vs->Release(); if (ps) ps->Release(); if (vd) vd->Release(); if (tx) tx->Release();
++                }
++                DiagEscribe(std::format("RTSUM{} sum={} nz={} tex={}", post, sum, nz, (atomic->geometry && atomic->geometry->matList.numMaterials > 0 && atomic->geometry->matList.materials[0]->texture) ? atomic->geometry->matList.materials[0]->texture->name : "-"));
++            }
++            rt->Release();
++        }
++    }
++    return res;
+ }
+ 
+ // Lote 226A (sin validar): estado compartido de las funciones de atomos y clumps de abajo.
+diff --git a/source/game_sa/Renderer.cpp b/source/game_sa/Renderer.cpp
+index 482c7d2971..c3c9781906 100644
+--- a/source/game_sa/Renderer.cpp
++++ b/source/game_sa/Renderer.cpp
+@@ -455,8 +455,15 @@ void CRenderer::RenderFadingInUnderwaterEntities() {
+     CVisibilityPlugins::RenderFadingUnderwaterEntities();
+ }
+ 
++extern bool g_diagEspejo; void DiagEscribe(const std::string& t);
++static void DiagEnt(const char* k, CEntity* e) {
++    if (!g_diagEspejo) return;
++    DiagEscribe(std::format("ENT refl={} {} model={} type={} pos=({:.2f},{:.2f},{:.2f}) rw={} vis={} bf={}", (int)CMirrors::bRenderingReflection, k, (int)e->m_nModelIndex, (int)e->GetType(), e->GetPosition().x, e->GetPosition().y, e->GetPosition().z, e->GetRwObject() ? (int)RwObjectGetType(e->GetRwObject()) : -1, (int)e->GetIsVisible(), (int)e->GetIsBackfaceCulled()));
++}
++
+ // 0x553230
+ void CRenderer::RenderOneRoad(CEntity* entity) {
++    DiagEnt("road", entity);
+     if (CPostEffects::IsVisionFXActive()) {
+         CPostEffects::FilterFX_StoreAndSetDayNightBalance();
+         entity->Render();
+@@ -468,6 +475,7 @@ void CRenderer::RenderOneRoad(CEntity* entity) {
+ 
+ // 0x553260
+ void CRenderer::RenderOneNonRoad(CEntity* entity) {
++    DiagEnt("nonroad", entity);
+     if (entity->GetIsTypePed() && entity->AsPed()->m_nPedState == PEDSTATE_DRIVING)
+         return;
+ 
