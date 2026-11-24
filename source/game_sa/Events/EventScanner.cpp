@@ -856,7 +856,7 @@ bool CPedAcquaintanceScanner::CreateAcquaintanceEvent(CPed* ped, int32 id, CEnti
     case 4: {
         const float visibility = ped->GetIntelligence()->CanSeeEntityWithLights(entity, 0);
         if (visibility > 0.0f) {
-            const bool toGroup = DatosExe::Bss::b96913F != 0 || (CGameLogic::LaRiotsActiveHere() && CanJoinRiotAgainst(ped, other));
+            const bool toGroup = CCheat::m_aCheatsActive[CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD] != 0 || (CGameLogic::LaRiotsActiveHere() && CanJoinRiotAgainst(ped, other));
             CEventAcquaintancePedHate event{ other };
             if (!toGroup) {
                 added = eventGroup().Add(&event, false) != nullptr;

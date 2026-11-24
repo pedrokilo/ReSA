@@ -1389,7 +1389,7 @@ void CBike::ProcessControl() {
         float forwardSpeed = (m_vecMoveSpeed.z * m_matrix->GetForward().z + m_vecMoveSpeed.y * m_matrix->GetForward().y)
                            + m_vecMoveSpeed.x * m_matrix->GetForward().x;             // [esp+80h]; la transmision lo recibe por referencia
         float driveAccel = m_pHandlingData->GetTransmission().CalculateDriveAcceleration(
-            m_GasPedal, m_nCurrentGear, m_fGearChangeCount, forwardSpeed, nullptr, nullptr, m_NumDriveWheelsOnGround, DatosExe::Bss::b96914C);   // 0x6BA63D
+            m_GasPedal, m_nCurrentGear, m_fGearChangeCount, forwardSpeed, nullptr, nullptr, m_NumDriveWheelsOnGround, CCheat::m_aCheatsActive[CHEAT_PERFECT_HANDLING]);   // 0x6BA63D
         driveAccel = driveAccel / m_fVelocityFrequency;                               // [esp+84h]
         float brakeForce = (m_pHandlingData->m_fBrakeDeceleration * m_BrakePedal) * CTimer::GetTimeStep();   // [esp+48h]; 0x6BB2FD puede ponerla a cero
         float frontBias, rearBias, tractionBias, tractionBiasInv;                     // [esp+10h], [esp+64h], [esp+34h], [esp+8Ch]

@@ -350,13 +350,13 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
     if (total <= 0) {
         return -1;
     }
-    if (DatosExe::R5::v96917A) {
+    if (CCheat::m_aCheatsActive[CHEAT_REDUCED_TRAFFIC]) {
         if (Cc63eRollFailsCpp(exeRand())) {
             return -1;
         }
     }
     volatile float roll = Cc63eRatioCpp(exeRand());
-    const uint8 flag = DatosExe::Bss::b96915B;
+    const uint8 flag = CCheat::m_aCheatsActive[CHEAT_GANGS_CONTROLS_THE_STREETS];
     volatile float totalFloat = static_cast<float>(total);
     const auto loaded = [](int32 model) { return StaticRef<uint8>(0x8E4CD0 + static_cast<uintptr_t>(model) * 20) == 1; };
     if (Cc63eTierExceedsCpp(CPopCycle::m_NumDealers_Cars, 0.0f, 0.0f, 1, totalFloat, roll) && !flag) {
@@ -384,7 +384,7 @@ int32 CCarCtrl::ChooseModel(int32* arg1) {
                 ++gang;
             } while (current < pick);
         }
-        if (DatosExe::Bss::b96915B) {
+        if (CCheat::m_aCheatsActive[CHEAT_GANGS_CONTROLS_THE_STREETS]) {
             gang = reinterpret_cast<int32(__cdecl*)(int32, int32)>(0x407180)(0, 9);
         }
         *arg1 = gang + 14;
