@@ -1,0 +1,260 @@
+[    0.2] pid 29340
+[    5.3] juego en marcha tras 5 s; gGameState=9
+[    6.1] salida de la casa: area=0 tras 1 s
+[    7.1] ventana: cliente 640x480
+[    7.1] === ESCENARIO conduccion
+[   17.1] truco spawn FOURWHEELFUN vehiculos nuevos: [('0x8fc7bf8', 492), ('0x8fca458', 567), ('0x8fcc2a0', 420), ('0x8fcccb8', 471)]
+[   20.7]   intento 1 (teclado): en_coche=True estado=50
+[   20.7] entrar con teclado: en_coche=True modelo=471
+[   21.3] captura cond_dentro {"ancho": 640, "alto": 480, "rojo": 9, "muestras": 34270, "media_rgb": [79.1, 103.0, 109.5], "max": 255} CJ dentro del coche (tecla F)
+[   23.5] PRUEBA reposo {"v_ini": 0.0, "v_max": 0.003, "v_fin": 0.0, "avance": 0.0, "dyaw_grados": 0.0, "avance_sobre_frente": -0.0, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[   27.5] PRUEBA W acelerar 4 s {"v_ini": 0.0, "v_max": 0.348, "v_fin": 0.016, "avance": 23.01, "dyaw_grados": 29.2, "avance_sobre_frente": 8.76, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.051, 1.0, 0.0, 0.0], [0.195, 1.0, 0.0, 0.0], [0.285, 1.0, 0.0, 0.0], [0.347, 1.0, 0.0, 0.0], [0.012, 1.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0], [-0.002, 1.0, 0.0, 0.0], [0.006, 1.0, 0.0, 0.0]]}
+[   30.2] PRUEBA S frenar desde velocidad hacia delante {"v_ini": 0.016, "v_max": 0.063, "v_fin": 0.059, "avance": 6.42, "dyaw_grados": -10.8, "avance_sobre_frente": -6.42, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.002, -1.0, 0.0, 0.0], [-0.054, -1.0, 0.0, 0.0], [-0.06, -1.0, 0.0, 0.0], [-0.059, -1.0, 0.0, 0.0], [-0.059, -1.0, 0.0, 0.0]]}
+[   32.8] PRUEBA soltar todo {"v_ini": 0.059, "v_max": 0.055, "v_fin": 0.0, "avance": 4.0, "dyaw_grados": 0.2, "avance_sobre_frente": -4.0, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.055, 0.0, 0.0, 0.0], [-0.044, 0.0, 0.0, 0.0], [-0.032, 0.0, 0.0, 0.0], [-0.021, 0.0, 0.0, 0.0], [-0.01, 0.0, 0.0, 0.0]]}
+[   36.5] PRUEBA S desde parado (marcha atras) {"v_ini": 0.0, "v_max": 0.053, "v_fin": 0.053, "avance": 6.95, "dyaw_grados": -16.2, "avance_sobre_frente": -6.81, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.053, -1.0, 0.0, 0.0], [-0.052, -1.0, 0.0, 0.0], [-0.052, -1.0, 0.0, 0.0], [-0.051, -1.0, 0.0, 0.0], [-0.006, -1.0, 0.0, 0.0], [-0.053, -1.0, 0.0, 0.0], [-0.053, -1.0, 0.0, 0.0]]}
+[   39.6] PRUEBA soltar todo {"v_ini": 0.053, "v_max": 0.049, "v_fin": 0.0, "avance": 3.09, "dyaw_grados": 0.0, "avance_sobre_frente": -3.05, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.049, 0.0, 0.0, 0.0], [-0.038, 0.0, 0.0, 0.0], [-0.024, 0.0, 0.0, 0.0], [-0.012, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[   43.3] PRUEBA W+A (giro izquierda) {"v_ini": 0.0, "v_max": 0.228, "v_fin": 0.126, "avance": 2.17, "dyaw_grados": 34.1, "avance_sobre_frente": 0.51, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.08, 1.0, 0.0, 0.533], [0.165, 1.0, 0.0, 0.611], [0.096, 1.0, 0.0, 0.611], [0.129, 1.0, 0.0, 0.611], [0.177, 1.0, 0.0, 0.611], [0.228, 1.0, 0.0, 0.611], [0.074, 1.0, 0.0, 0.611]]}
+[   43.9] captura cond_giro_izq {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [91.0, 89.2, 73.2], "max": 255} coche girando con W+A
+[   47.4] PRUEBA W+D (giro derecha) {"v_ini": 0.116, "v_max": 0.21, "v_fin": 0.03, "avance": 11.87, "dyaw_grados": -23.5, "avance_sobre_frente": -2.65, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.158, 1.0, 0.0, -0.468], [0.209, 1.0, 0.0, -0.611], [0.049, 1.0, 0.0, -0.611], [0.013, 1.0, 0.0, -0.611], [0.079, 1.0, 0.0, -0.611], [0.142, 1.0, 0.0, -0.611], [-0.028, 1.0, 0.0, -0.611]]}
+[   48.0] captura cond_giro_der {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [95.4, 96.0, 93.6], "max": 255} coche girando con W+D
+[   51.1] PRUEBA W (rumbo recto) {"v_ini": 0.0, "v_max": 0.363, "v_fin": 0.063, "avance": 26.03, "dyaw_grados": -149.2, "avance_sobre_frente": -22.0, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.091, 1.0, 0.0, -0.0], [0.218, 1.0, 0.0, -0.0], [0.312, 1.0, 0.0, -0.0], [0.362, 1.0, 0.0, -0.0], [-0.008, 1.0, 0.0, -0.0], [0.048, 1.0, 0.0, -0.0]]}
+[   54.2] PRUEBA Espacio (freno de mano) a velocidad {"v_ini": 0.063, "v_max": 0.034, "v_fin": 0.0, "avance": 0.79, "dyaw_grados": -8.7, "avance_sobre_frente": 0.76, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.033, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0]]}
+[   56.4] PRUEBA W+Espacio {"v_ini": 0.0, "v_max": 0.016, "v_fin": 0.016, "avance": 1.68, "dyaw_grados": 0.2, "avance_sobre_frente": 1.68, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.014, 1.0, 0.0, -0.0], [0.016, 1.0, 0.0, -0.0], [0.016, 1.0, 0.0, -0.0], [0.016, 1.0, 0.0, -0.0]]}
+[   56.6] === ESCENARIO armas
+[   62.7] armas antes 4 [(0, 1, 0, 0, 1), (1, 8, 0, 0, 1), (2, 24, 0, 7, 99999), (3, 27, 0, 7, 99999), (4, 28, 0, 50, 99999), (5, 31, 0, 50, 99999), (6, 34, 0, 1, 99999), (7, 38, 0, 500, 99999), (8, 39, 0, 1, 99999), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   65.9] armas tras LXGIWYL (set 1): slot activo 4 [(0, 1, 0, 0, 2), (1, 5, 0, 0, 1), (2, 22, 0, 34, 100), (3, 25, 0, 1, 99999), (4, 28, 0, 50, 99999), (5, 30, 0, 30, 99999), (6, 33, 0, 1, 25), (7, 35, 0, 1, 200), (8, 18, 0, 1, 10), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   69.1] captura armas_ini {"ancho": 640, "alto": 480, "rojo": 5, "muestras": 34270, "media_rgb": [76.6, 80.2, 70.2], "max": 255} CJ con armas del truco 1
+[   74.7] cambio de arma por rueda : slots activos tras 8 pasos: [4, 4, 4, 4, 4, 4, 4, 4, 4]
+[   81.5] cambio de arma por teclas : slots activos tras 8 pasos: [4, 4, 4, 4, 4, 4, 4, 4, 4]
+[   89.2] cambio de arma por mando : slots activos tras 8 pasos: [4, 4, 4, 4, 4, 4, 4, 4, 4]
+[  107.8] arma pistola no encontrada
+[  126.3] arma escopeta no encontrada
+[  126.3] arma activa uzi tipo 28
+[  131.6] captura armas_disparo_uzi_raton {"ancho": 640, "alto": 480, "rojo": 11, "muestras": 34270, "media_rgb": [81.4, 74.2, 53.3], "max": 255} CJ disparando con uzi (raton)
+[  132.5] DISPARO uzi raton {"municion_antes": 99999, "despues": 99999, "cargador_antes": 50, "cargador_despues": 50, "camara_modo": 18, "nan": 0, "vivo": true, "pools": {"peds": 14, "veh": 13, "edif": 10219, "obj": 104, "dummy": 812}}
+[  137.3] captura armas_disparo_uzi_teclado {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [73.6, 66.0, 48.0], "max": 255} CJ disparando con uzi (teclado)
+[  138.2] DISPARO uzi teclado {"municion_antes": 99999, "despues": 99999, "cargador_antes": 50, "cargador_despues": 50, "camara_modo": 18, "nan": 0, "vivo": true, "pools": {"peds": 17, "veh": 15, "edif": 10219, "obj": 105, "dummy": 812}}
+[  143.7] captura armas_disparo_uzi_mando {"ancho": 640, "alto": 480, "rojo": 3, "muestras": 34270, "media_rgb": [72.1, 79.4, 72.7], "max": 255} CJ disparando con uzi (mando)
+[  144.6] DISPARO uzi mando {"municion_antes": 99999, "despues": 99999, "cargador_antes": 50, "cargador_despues": 50, "camara_modo": 18, "nan": 0, "vivo": true, "pools": {"peds": 18, "veh": 15, "edif": 10219, "obj": 103, "dummy": 812}}
+[  163.0] arma ak47 no encontrada
+[  163.2] === ESCENARIO camara
+[  172.4] truco spawn RZHSUEW vehiculos nuevos: [('0x8fd2790', 492), ('0x8fd3bc0', 457), ('0x8fd45d8', 492)]
+[  181.0]   intento 1 (teclado): en_coche=False estado=1
+[  188.9]   intento 2 (teclado): en_coche=False estado=1
+[  196.8]   intento 3 (teclado): en_coche=False estado=1
+[  204.7]   intento 4 (teclado): en_coche=False estado=1
+[  204.7] entrar con teclado: en_coche=False modelo=471
+[  204.7] NO se pudo entrar al coche
+[  204.9] === ESCENARIO trucos
+[  211.1] mapa codigo -> indice (tabla en memoria): {'HESOYAM': 3, 'LXGIWYL': 0, 'KJKSZPJ': 1, 'UZUMYMW': 2, 'AIWPRTON': 17, 'JUMPJET': 50, 'OHDUDE': 84, 'RZHSUEW': 25, 'UBHYZHQ': 24, 'NATURALTALENT': 83, 'FOURWHEELFUN': 85, 'FLYINGFISH': 35, 'GHOSTTOWN': 74, 'IOWDLAC': 33, 'LLQPFBN': 32, 'BTCDBCB': 36, 'KVGYZQK': 38, 'YLTEICZ': 31, 'BAGOWPG': 15, 'JHJOECW': 49, 'OUIQDMW': 73, 'CIKGCGX': 41, 'ASNAEB': 5, 'OSRBLHH': 4, 'ICIKPYH': 7, 'CVWKXAM': 62, 'LJSPQK': 66, 'PRIEBJ': 70, 'OGXSDAG': 79, 'IAVENJQ': 67, 'CPKTNWT': 26, 'BGLUAWML': 40, 'MROEMZH': 42, 'GUSNHDE': 47, 'PPGWJHT': 12, 'LIYOAAY': 13, 'SZCMAWO': 29, 'BRINGITON': 66, 'AMOMHRER': 86, 'SJMAHPE': 76, 'YSOHNUL': 11, 'ROCKETMAN': 64, 'AFPHULTL': 44, 'BMTPWHR': 77, 'ZSOXFSQ': 78, 'XICWMD': 27, 'ZEIIVG': 30, 'AFSNMSMW': 35, 'EHIBXQS': 80, 'MUNASEF': 71, 'AIYPWZQP': 63, 'BIFBUZZ': 43, 'JYSDSOD': 37, 'OFVIAC': 56, 'AJLOJYQY': 14, 'AGBDLCID': 89, 'JQNTDMH': 19, 'THGLOJ': 74, 'URKQSRK': 88, 'EEGCYXT': 87, 'AKJJYGLC': 85, 'WHERESTHEFUNERAL': 22, 'BSXSGGC': 54, 'FVTMNBZ': 75, 'KGGGDKP': 51, 'LFGMHAL': 60, 'FOOOXFT': 16, 'CRAZYTOWN': 70}
+[  216.3] base {'NumRandomCars': 11, 'MaxCarsInUse': 12, 'peds': 34, 'veh': 15, 'edif': 10113, 'obj': 99, 'dummy': 728}
+[  218.9] TRUCO GHOSTTOWN indice 74 CHEAT_REDUCED_TRAFFIC antes 0 despues 1
+[  218.9] GHOSTTOWN activo; esperando 25 s a que baje el trafico
+[  244.1] trafico con GHOSTTOWN {'NumRandomCars': 6, 'MaxCarsInUse': 12, 'peds': 17, 'veh': 10, 'edif': 10113, 'obj': 101, 'dummy': 728}
+[  244.7] captura truc_reducido {"ancho": 640, "alto": 480, "rojo": 17, "muestras": 34270, "media_rgb": [57.8, 63.1, 58.7], "max": 236} trafico reducido
+[  247.4] TRUCO GHOSTTOWN indice 74 CHEAT_REDUCED_TRAFFIC antes 1 despues 0
+[  249.9] TRUCO LLQPFBN indice 32 CHEAT_PINK_TRAFFIC antes 0 despues 1
+[  275.4] EFECTO LLQPFBN {"indice": 32, "nombre": "CHEAT_PINK_TRAFFIC", "activo": 1, "trafico": {"NumRandomCars": 11, "MaxCarsInUse": 12, "peds": 33, "veh": 15, "edif": 10113, "obj": 101, "dummy": 728}, "pos": [2652.171875, -1720.7733154296875, 10.90625], "vivo": true}
+[  276.1] captura truc_LLQPFBN {"ancho": 640, "alto": 480, "rojo": 9, "muestras": 34270, "media_rgb": [36.4, 30.3, 21.8], "max": 236} truco LLQPFBN (CHEAT_PINK_TRAFFIC)
+[  276.1]   colores (modelo, prim, sec): [(492, 59, 34), (556, 1, 1), (520, 0, 0), (494, 42, 30), (438, 6, 76), (492, 126, 126), (422, 126, 126), (422, 126, 126), (438, 126, 126), (489, 14, 123), (422, 126, 126), (426, 126, 126), (471, 103, 111), (423, 126, 126), (492, 24, 55), (492, 49, 59)]
+[  277.8] TRUCO LLQPFBN indice 32 CHEAT_PINK_TRAFFIC antes 1 despues 0
+[  280.3] TRUCO IOWDLAC indice 33 CHEAT_BLACK_TRAFFIC antes 0 despues 1
+[  305.8] EFECTO IOWDLAC {"indice": 33, "nombre": "CHEAT_BLACK_TRAFFIC", "activo": 1, "trafico": {"NumRandomCars": 9, "MaxCarsInUse": 12, "peds": 29, "veh": 13, "edif": 10113, "obj": 99, "dummy": 728}, "pos": [2652.1689453125, -1721.1583251953125, 10.90625], "vivo": true}
+[  306.6] captura truc_IOWDLAC {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [43.2, 36.7, 23.1], "max": 236} truco IOWDLAC (CHEAT_BLACK_TRAFFIC)
+[  306.6]   colores (modelo, prim, sec): [(492, 59, 34), (556, 1, 1), (520, 0, 0), (494, 42, 30), (492, 126, 126), (422, 126, 126), (422, 126, 126), (426, 126, 126), (471, 103, 111), (423, 126, 126), (426, 0, 0), (492, 24, 55), (492, 0, 0), (516, 0, 0)]
+[  308.3] TRUCO IOWDLAC indice 33 CHEAT_BLACK_TRAFFIC antes 1 despues 0
+[  310.9] TRUCO YLTEICZ indice 31 CHEAT_AGGRESSIVE_DRIVERS antes 0 despues 1
+[  336.2] EFECTO YLTEICZ {"indice": 31, "nombre": "CHEAT_AGGRESSIVE_DRIVERS", "activo": 1, "trafico": {"NumRandomCars": 10, "MaxCarsInUse": 12, "peds": 31, "veh": 14, "edif": 10113, "obj": 107, "dummy": 728}, "pos": [2652.482666015625, -1721.32177734375, 10.90625], "vivo": true}
+[  336.9] captura truc_YLTEICZ {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [40.6, 35.5, 22.5], "max": 236} truco YLTEICZ (CHEAT_AGGRESSIVE_DRIVERS)
+[  338.6] TRUCO YLTEICZ indice 31 CHEAT_AGGRESSIVE_DRIVERS antes 1 despues 0
+[  341.2] TRUCO OUIQDMW indice 73 CHEAT_WEAPON_AIMING_WHILE_DRIVING antes 0 despues 1
+[  361.7] EFECTO OUIQDMW {"indice": 73, "nombre": "CHEAT_WEAPON_AIMING_WHILE_DRIVING", "activo": 1, "trafico": {"NumRandomCars": 10, "MaxCarsInUse": 12, "peds": 28, "veh": 14, "edif": 10113, "obj": 99, "dummy": 728}, "pos": [2652.26220703125, -1723.314697265625, 10.90625], "vivo": true}
+[  362.1] captura truc_OUIQDMW {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [40.5, 36.1, 22.9], "max": 236} truco OUIQDMW (CHEAT_WEAPON_AIMING_WHILE_DRIVING)
+[  363.8] TRUCO OUIQDMW indice 73 CHEAT_WEAPON_AIMING_WHILE_DRIVING antes 1 despues 0
+[  366.4] TRUCO BGLUAWML indice 40 CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS antes 0 despues 1
+[  381.6] EFECTO BGLUAWML {"indice": 40, "nombre": "CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS", "activo": 1, "trafico": {"NumRandomCars": 11, "MaxCarsInUse": 12, "peds": 18, "veh": 15, "edif": 10113, "obj": 98, "dummy": 728}, "pos": [2652.48291015625, -1723.669921875, 10.90625], "vivo": true}
+[  382.1] captura truc_BGLUAWML {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [40.6, 46.6, 40.8], "max": 236} truco BGLUAWML (CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS)
+[  384.0] TRUCO BGLUAWML indice 40 CHEAT_PEDS_ATTACK_YOU_WITH_ROCKETS antes 1 despues 0
+[  386.6] TRUCO MROEMZH indice 42 CHEAT_GANGMEMBERS_EVERYWHERE antes 0 despues 1
+[  402.1] EFECTO MROEMZH {"indice": 42, "nombre": "CHEAT_GANGMEMBERS_EVERYWHERE", "activo": 1, "trafico": {"NumRandomCars": 3, "MaxCarsInUse": 12, "peds": 19, "veh": 7, "edif": 10443, "obj": 103, "dummy": 1202}, "pos": [2027.77001953125, -1420.52001953125, 16.9921875], "vivo": true}
+[  402.7] captura truc_MROEMZH {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [77.6, 92.6, 85.2], "max": 255} truco MROEMZH (CHEAT_GANGMEMBERS_EVERYWHERE)
+[  404.4] TRUCO MROEMZH indice 42 CHEAT_GANGMEMBERS_EVERYWHERE antes 1 despues 0
+[  406.9] TRUCO BAGOWPG indice 15 CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD antes 0 despues 1
+[  419.2] EFECTO BAGOWPG {"indice": 15, "nombre": "CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD", "activo": 1, "trafico": {"NumRandomCars": 5, "MaxCarsInUse": 12, "peds": 16, "veh": 9, "edif": 10443, "obj": 98, "dummy": 1202}, "pos": [2027.8056640625, -1420.9835205078125, 16.9921875], "vivo": true}
+[  419.8] captura truc_BAGOWPG {"ancho": 640, "alto": 480, "rojo": 191, "muestras": 34270, "media_rgb": [118.5, 126.2, 111.1], "max": 255} truco BAGOWPG (CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD)
+[  421.5] TRUCO BAGOWPG indice 15 CHEAT_HAVE_ABOUNTY_ON_YOUR_HEAD antes 1 despues 0
+[  423.9] TRUCO PRIEBJ indice 70 CHEAT_FUNHOUSE_THEME antes 0 despues 1
+[  427.2] EFECTO PRIEBJ {"indice": 70, "nombre": "CHEAT_FUNHOUSE_THEME", "activo": 1, "trafico": {"NumRandomCars": 5, "MaxCarsInUse": 12, "peds": 16, "veh": 9, "edif": 10443, "obj": 96, "dummy": 1202}, "pos": [2027.85791015625, -1421.4915771484375, 16.9921875], "vivo": true}
+[  428.1] captura truc_PRIEBJ {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [77.3, 90.1, 82.2], "max": 255} truco PRIEBJ (CHEAT_FUNHOUSE_THEME)
+[  429.7] TRUCO PRIEBJ indice 70 CHEAT_FUNHOUSE_THEME antes 1 despues 0
+[  432.3] TRUCO CPKTNWT indice 26 CHEAT_BLOW_UP_ALL_CARS antes 0 despues 0
+[  435.8] EFECTO CPKTNWT {"indice": 26, "nombre": "CHEAT_BLOW_UP_ALL_CARS", "activo": 0, "trafico": {"NumRandomCars": 5, "MaxCarsInUse": 12, "peds": 16, "veh": 9, "edif": 10443, "obj": 106, "dummy": 1202}, "pos": [2027.7401123046875, -1421.6180419921875, 16.9921875], "vivo": true}
+[  436.3] captura truc_CPKTNWT {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [69.9, 82.6, 75.4], "max": 255} truco CPKTNWT (CHEAT_BLOW_UP_ALL_CARS)
+[  438.0] TRUCO CPKTNWT indice 26 CHEAT_BLOW_UP_ALL_CARS antes 0 despues 0
+[  440.6] TRUCO BTCDBCB indice 36 CHEAT_FAT_PLAYER antes 0 despues 0
+[  444.0] EFECTO BTCDBCB {"indice": 36, "nombre": "CHEAT_FAT_PLAYER", "activo": 0, "trafico": {"NumRandomCars": 0, "MaxCarsInUse": 12, "peds": 14, "veh": 1, "edif": 10443, "obj": 108, "dummy": 1202}, "pos": [2027.2978515625, -1421.068115234375, 16.9921875], "vivo": true}
+[  444.7] captura truc_BTCDBCB {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [27.5, 21.8, 14.4], "max": 122} truco BTCDBCB (CHEAT_FAT_PLAYER)
+[  446.3] TRUCO BTCDBCB indice 36 CHEAT_FAT_PLAYER antes 0 despues 0
+[  448.9] TRUCO KVGYZQK indice 38 CHEAT_SKINNY_PLAYER antes 0 despues 0
+[  452.4] EFECTO KVGYZQK {"indice": 38, "nombre": "CHEAT_SKINNY_PLAYER", "activo": 0, "trafico": {"NumRandomCars": 5, "MaxCarsInUse": 12, "peds": 15, "veh": 9, "edif": 10443, "obj": 96, "dummy": 1202}, "pos": [2027.53369140625, -1420.4464111328125, 16.9921875], "vivo": true}
+[  453.1] captura truc_KVGYZQK {"ancho": 640, "alto": 480, "rojo": 2, "muestras": 34270, "media_rgb": [64.4, 67.0, 55.9], "max": 255} truco KVGYZQK (CHEAT_SKINNY_PLAYER)
+[  454.8] TRUCO KVGYZQK indice 38 CHEAT_SKINNY_PLAYER antes 0 despues 0
+[  457.4] TRUCO JYSDSOD indice 37 CHEAT_MAX_MUSCLE antes 0 despues 0
+[  460.7] EFECTO JYSDSOD {"indice": 37, "nombre": "CHEAT_MAX_MUSCLE", "activo": 0, "trafico": {"NumRandomCars": 7, "MaxCarsInUse": 12, "peds": 22, "veh": 11, "edif": 10443, "obj": 96, "dummy": 1202}, "pos": [2027.5703125, -1420.1143798828125, 16.9921875], "vivo": true}
+[  461.3] captura truc_JYSDSOD {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [67.5, 70.9, 59.4], "max": 255} truco JYSDSOD (CHEAT_MAX_MUSCLE)
+[  463.1] TRUCO JYSDSOD indice 37 CHEAT_MAX_MUSCLE antes 0 despues 0
+[  465.5] TRUCO ASNAEB indice 5 CHEAT_CLEAR_WANTED_LEVEL antes 0 despues 0
+[  467.7] EFECTO ASNAEB {"indice": 5, "nombre": "CHEAT_CLEAR_WANTED_LEVEL", "activo": 0, "trafico": {"NumRandomCars": 10, "MaxCarsInUse": 12, "peds": 24, "veh": 14, "edif": 10443, "obj": 96, "dummy": 1202}, "pos": [2027.8603515625, -1419.244384765625, 16.9921875], "vivo": true}
+[  468.7] captura truc_ASNAEB {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [66.9, 70.8, 59.8], "max": 255} truco ASNAEB (CHEAT_CLEAR_WANTED_LEVEL)
+[  470.3] TRUCO ASNAEB indice 5 CHEAT_CLEAR_WANTED_LEVEL antes 0 despues 0
+[  472.6] TRUCO OSRBLHH indice 4 CHEAT_WANTED_LEVEL_2STARS antes 0 despues 0
+[  475.1] EFECTO OSRBLHH {"indice": 4, "nombre": "CHEAT_WANTED_LEVEL_2STARS", "activo": 0, "trafico": {"NumRandomCars": 11, "MaxCarsInUse": 12, "peds": 25, "veh": 15, "edif": 10443, "obj": 96, "dummy": 1202}, "pos": [2028.634521484375, -1419.3272705078125, 16.9921875], "vivo": true}
+[  475.8] captura truc_OSRBLHH {"ancho": 640, "alto": 480, "rojo": 4, "muestras": 34270, "media_rgb": [65.7, 69.4, 58.5], "max": 255} truco OSRBLHH (CHEAT_WANTED_LEVEL_2STARS)
+[  477.5] TRUCO OSRBLHH indice 4 CHEAT_WANTED_LEVEL_2STARS antes 0 despues 0
+[  480.0] TRUCO AIYPWZQP indice 63 CHEAT_GET_PARACHUTE antes 0 despues 0
+[  482.4] EFECTO AIYPWZQP {"indice": 63, "nombre": "CHEAT_GET_PARACHUTE", "activo": 0, "trafico": {"NumRandomCars": 10, "MaxCarsInUse": 12, "peds": 23, "veh": 15, "edif": 10443, "obj": 96, "dummy": 1202}, "pos": [2028.991455078125, -1419.58740234375, 16.9921875], "vivo": true}
+[  483.2] captura truc_AIYPWZQP {"ancho": 640, "alto": 480, "rojo": 2, "muestras": 34270, "media_rgb": [64.8, 68.0, 57.3], "max": 255} truco AIYPWZQP (CHEAT_GET_PARACHUTE)
+[  485.2] TRUCO AIYPWZQP indice 63 CHEAT_GET_PARACHUTE antes 0 despues 0
+[  487.6] TRUCO LXGIWYL indice 0 CHEAT_WEAPON_SET1 antes 0 despues 0
+[  490.0] EFECTO LXGIWYL {"indice": 0, "nombre": "CHEAT_WEAPON_SET1", "activo": 0, "trafico": {"NumRandomCars": 9, "MaxCarsInUse": 12, "peds": 28, "veh": 14, "edif": 10443, "obj": 96, "dummy": 1202}, "pos": [2028.88916015625, -1420.2061767578125, 16.9921875], "vivo": true}
+[  490.9] captura truc_LXGIWYL {"ancho": 640, "alto": 480, "rojo": 2, "muestras": 34270, "media_rgb": [65.1, 68.7, 57.8], "max": 255} truco LXGIWYL (CHEAT_WEAPON_SET1)
+[  492.7] TRUCO LXGIWYL indice 0 CHEAT_WEAPON_SET1 antes 0 despues 0
+[  492.9] === ESCENARIO interiores
+[  505.4] captura int_CARLS {"ancho": 640, "alto": 480, "rojo": 14, "muestras": 34270, "media_rgb": [62.6, 51.8, 45.6], "max": 255} interior CARLS (casa de CJ): CJ en (2496.050048828125, -1692.9300537109375, 1014.7421875), area 3
+[  509.5] captura int_CARLS_dentro2 {"ancho": 640, "alto": 480, "rojo": 23, "muestras": 34270, "media_rgb": [62.7, 51.8, 45.6], "max": 255} interior CARLS (casa de CJ) 3 s despues
+[  517.0] captura int_CARLS_fuera {"ancho": 640, "alto": 480, "rojo": 207, "muestras": 34270, "media_rgb": [98.1, 114.2, 113.0], "max": 255} tras salir de CARLS (casa de CJ): area 0 pos (2495.330078125, -1690.25, 14.765625)
+[  517.0] INTERIOR {"nombre": "CARLS (casa de CJ)", "intento_entrada": [0, null], "entro": true, "area": 3, "pos": [2496.050048828125, -1692.9300537109375, 1014.7421875], "vivo": true, "tiempo_entrar_s": 5.3, "pools_antes": {"peds": 32, "veh": 14, "edif": 10113, "obj": 98, "dummy": 728}, "pools_dentro": {"peds": 1, "veh": 2, "edif": 9426, "obj": 97, "dummy": 112}, "z_dentro": 1014.7421875, "salio": true, "area_final": 0, "pos_final": [2495.330078125, -1690.25, 14.765625], "nan": false}
+[  541.8] captura int_GYM1 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [0.0, 0.0, 0.0], "max": 0} interior GYM1 (gimnasio Ganton): CJ en (772.1119995117188, -3.8986499309539795, 1000.7288208007812), area 5
+[  542.3] EL PROCESO TERMINO durante interiores
+[  542.5] vivo al final: False
+[  542.5] LOG [error][16:16:46.848][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  542.5] LOG [error][16:16:46.849][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  542.5] LOG [error][16:25:39.243][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ptr` en D:\Original\wv-int\source\game_sa\Scripts\CommandParser\ReadArg.hpp:120
+[  542.5] LOG [error][16:25:39.486][app_debug.cpp:246]: 	0x01162d01: notsa::script::Read<CPed &>:120
+[  542.5] LOG [error][16:25:39.490][app_debug.cpp:246]: 	0x0123d6c1: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>:52
+[  542.5] LOG [error][16:25:39.491][app_debug.cpp:246]: 	0x0121b4db: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>'::`3'::<lambda_1>::operator()<enum eScriptCommands &>:40
+[  542.5] LOG [error][16:25:39.492][app_debug.cpp:246]: 	0x0123d630: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>:65
+[  542.5] LOG [error][16:25:39.492][app_debug.cpp:246]: 	0x0121aa94: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>'::`3'::<lambda_1>::operator()<CRunningScript &>:40
+[  542.5] LOG [error][16:25:39.493][app_debug.cpp:246]: 	0x0123d5a5: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>:65
+[  542.5] LOG [error][16:25:39.494][app_debug.cpp:246]: 	0x01246541: notsa::script::detail::CommandParser<1506,&`anonymous namespace'::TaskKillCharOnFoot>:78
+[  542.5] LOG [error][16:25:39.495][app_debug.cpp:246]: 	0x01ddea54: std::invoke<enum OpcodeResult (__cdecl*const &)(CRunningScript *),CRunningScript *>:1811
+[  542.5] LOG [error][16:25:39.495][app_debug.cpp:246]: 	0x01df2e49: CRunningScript::ProcessOneCommand:1295
+[  542.5] LOG [error][16:25:39.496][app_debug.cpp:246]: 	0x01de8fe0: CRunningScript::Process:1322
+[  542.5] LOG [error][16:25:39.497][app_debug.cpp:246]: 	0x0232dbd4: CTheScripts::Process:1889
+[  542.5] LOG [error][16:25:39.497][app_debug.cpp:246]: 	0x016f288a: CGame::Process:791
+[  542.5] LOG [error][16:25:39.498][app_debug.cpp:246]: 	0x00fd0f95: Idle:346
+[  542.5] LOG [error][16:25:39.499][app_debug.cpp:246]: 	0x00fb550d: AppEventHandler:169
+[  542.5] LOG [error][16:25:39.499][app_debug.cpp:246]: 	0x01bbd428: RsEventHandler:349
+[  542.5] LOG [error][16:25:39.500][app_debug.cpp:246]: 	0x024fa4be: ProcessGameLogic:345
+[  542.5] LOG [error][16:25:39.501][app_debug.cpp:246]: 	0x024f9419: MainLoop:371
+[  542.5] LOG [error][16:25:39.501][app_debug.cpp:246]: 	0x024f9d2e: NOTSA_WinMain:510
+[  542.5] LOG [error][16:25:39.501][app_debug.cpp:246]: 	0x00e2f65b: WinMain:693
+[  542.5] LOG [error][16:25:39.502][app_debug.cpp:246]: 	0x02a83e1d: invoke_main:107
+[  542.5] LOG [error][16:25:39.503][app_debug.cpp:246]: 	0x02a83cfa: __scrt_common_main_seh:288
+[  542.5] LOG [error][16:25:39.503][app_debug.cpp:246]: 	0x02a83b9d: __scrt_common_main:331
+[  542.5] LOG [error][16:25:39.504][app_debug.cpp:246]: 	0x02a83e88: WinMainCRTStartup:17
+[  542.5] LOG [error][16:25:39.504][app_debug.cpp:246]: 	0x00e3286b: FaseEntrada:664
+[  542.5] LOG [error][16:25:39.504][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[  542.5] LOG [error][16:25:39.504][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[  542.5] LOG [error][16:25:39.504][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[  542.5] LOG [error][16:25:39.510][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ped` en D:\Original\wv-int\source\game_sa\Scripts\RunningScript.cpp:339
+[  542.5] LOG [error][16:25:39.511][app_debug.cpp:246]: 	0x01de18f0: CRunningScript::GivePedScriptedTask:339
+[  542.5] LOG [error][16:25:39.511][app_debug.cpp:246]: 	0x01de1c5b: CRunningScript::GivePedScriptedTask:372
+[  542.5] LOG [error][16:25:39.512][app_debug.cpp:246]: 	0x012ab360: `anonymous namespace'::TaskKillCharOnFoot:2784
+[  542.5] LOG [error][16:25:39.512][app_debug.cpp:246]: 	0x01264b81: std::invoke<void (__cdecl*&)(CRunningScript &,enum eScriptCommands,CPed &,CPed &),CRunningScript &,enum eScriptCommands &,CPed &,CPed &>:1811
+[  542.5] LOG [error][16:25:39.513][app_debug.cpp:246]: 	0x0126fc57: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &,CPed &>'::`3'::<lambda_1>::operator():
+[  542.5] LOG [error][16:25:39.514][app_debug.cpp:246]: 	0x0123d800: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &,CPed &>:26
+[  542.5] LOG [error][16:25:39.514][app_debug.cpp:246]: 	0x01219bd9: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &>'::`3'::<lambda_1>::operator()<CPed &>
+[  542.5] LOG [error][16:25:39.514][app_debug.cpp:246]: 	0x0123d771: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &>:65
+[  542.5] LOG [error][16:25:39.515][app_debug.cpp:246]: 	0x01219b62: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>'::`3'::<lambda_1>::operator()<CPed &>:40
+[  542.5] LOG [error][16:25:39.515][app_debug.cpp:246]: 	0x0123d6cd: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>:65
+[  542.5] LOG [error][16:25:39.516][app_debug.cpp:246]: 	0x0121b4db: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>'::`3'::<lambda_1>::operator()<enum eScriptCommands &>:40
+[  542.5] LOG [error][16:25:39.516][app_debug.cpp:246]: 	0x0123d630: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>:65
+[  542.5] LOG [error][16:25:39.516][app_debug.cpp:246]: 	0x0121aa94: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>'::`3'::<lambda_1>::operator()<CRunningScript &>:40
+[  542.5] LOG [error][16:25:39.517][app_debug.cpp:246]: 	0x0123d5a5: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>:65
+[  542.5] LOG [error][16:25:39.517][app_debug.cpp:246]: 	0x01246541: notsa::script::detail::CommandParser<1506,&`anonymous namespace'::TaskKillCharOnFoot>:78
+[  542.5] LOG [error][16:25:39.517][app_debug.cpp:246]: 	0x01ddea54: std::invoke<enum OpcodeResult (__cdecl*const &)(CRunningScript *),CRunningScript *>:1811
+[  542.5] LOG [error][16:25:39.518][app_debug.cpp:246]: 	0x01df2e49: CRunningScript::ProcessOneCommand:1295
+[  542.5] LOG [error][16:25:39.518][app_debug.cpp:246]: 	0x01de8fe0: CRunningScript::Process:1322
+[  542.6] LOG [error][16:25:39.518][app_debug.cpp:246]: 	0x0232dbd4: CTheScripts::Process:1889
+[  542.6] LOG [error][16:25:39.518][app_debug.cpp:246]: 	0x016f288a: CGame::Process:791
+[  542.6] LOG [error][16:25:39.519][app_debug.cpp:246]: 	0x00fd0f95: Idle:346
+[  542.6] LOG [error][16:25:39.519][app_debug.cpp:246]: 	0x00fb550d: AppEventHandler:169
+[  542.6] LOG [error][16:25:39.519][app_debug.cpp:246]: 	0x01bbd428: RsEventHandler:349
+[  542.6] LOG [error][16:25:39.520][app_debug.cpp:246]: 	0x024fa4be: ProcessGameLogic:345
+[  542.6] LOG [error][16:25:39.520][app_debug.cpp:246]: 	0x024f9419: MainLoop:371
+[  542.6] LOG [error][16:25:39.520][app_debug.cpp:246]: 	0x024f9d2e: NOTSA_WinMain:510
+[  542.6] LOG [error][16:25:39.520][app_debug.cpp:246]: 	0x00e2f65b: WinMain:693
+[  542.6] LOG [error][16:25:39.521][app_debug.cpp:246]: 	0x02a83e1d: invoke_main:107
+[  542.6] LOG [error][16:25:39.521][app_debug.cpp:246]: 	0x02a83cfa: __scrt_common_main_seh:288
+[  542.6] LOG [error][16:25:39.521][app_debug.cpp:246]: 	0x02a83b9d: __scrt_common_main:331
+[  542.6] LOG [error][16:25:39.521][app_debug.cpp:246]: 	0x02a83e88: WinMainCRTStartup:17
+[  542.6] LOG [error][16:25:39.522][app_debug.cpp:246]: 	0x00e3286b: FaseEntrada:664
+[  542.6] LOG [error][16:25:39.243][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ptr` en D:\Original\wv-int\source\game_sa\Scripts\CommandParser\ReadArg.hpp:120
+[  542.6] LOG [error][16:25:39.486][app_debug.cpp:246]: 	0x01162d01: notsa::script::Read<CPed &>:120
+[  542.6] LOG [error][16:25:39.490][app_debug.cpp:246]: 	0x0123d6c1: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>:52
+[  542.6] LOG [error][16:25:39.491][app_debug.cpp:246]: 	0x0121b4db: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>'::`3'::<lambda_1>::operator()<enum eScriptCommands &>:40
+[  542.6] LOG [error][16:25:39.492][app_debug.cpp:246]: 	0x0123d630: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>:65
+[  542.6] LOG [error][16:25:39.492][app_debug.cpp:246]: 	0x0121aa94: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>'::`3'::<lambda_1>::operator()<CRunningScript &>:40
+[  542.6] LOG [error][16:25:39.493][app_debug.cpp:246]: 	0x0123d5a5: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>:65
+[  542.6] LOG [error][16:25:39.494][app_debug.cpp:246]: 	0x01246541: notsa::script::detail::CommandParser<1506,&`anonymous namespace'::TaskKillCharOnFoot>:78
+[  542.6] LOG [error][16:25:39.495][app_debug.cpp:246]: 	0x01ddea54: std::invoke<enum OpcodeResult (__cdecl*const &)(CRunningScript *),CRunningScript *>:1811
+[  542.6] LOG [error][16:25:39.495][app_debug.cpp:246]: 	0x01df2e49: CRunningScript::ProcessOneCommand:1295
+[  542.6] LOG [error][16:25:39.496][app_debug.cpp:246]: 	0x01de8fe0: CRunningScript::Process:1322
+[  542.6] LOG [error][16:25:39.497][app_debug.cpp:246]: 	0x0232dbd4: CTheScripts::Process:1889
+[  542.6] LOG [error][16:25:39.497][app_debug.cpp:246]: 	0x016f288a: CGame::Process:791
+[  542.6] LOG [error][16:25:39.498][app_debug.cpp:246]: 	0x00fd0f95: Idle:346
+[  542.6] LOG [error][16:25:39.499][app_debug.cpp:246]: 	0x00fb550d: AppEventHandler:169
+[  542.6] LOG [error][16:25:39.499][app_debug.cpp:246]: 	0x01bbd428: RsEventHandler:349
+[  542.6] LOG [error][16:25:39.500][app_debug.cpp:246]: 	0x024fa4be: ProcessGameLogic:345
+[  542.6] LOG [error][16:25:39.501][app_debug.cpp:246]: 	0x024f9419: MainLoop:371
+[  542.6] LOG [error][16:25:39.501][app_debug.cpp:246]: 	0x024f9d2e: NOTSA_WinMain:510
+[  542.6] LOG [error][16:25:39.501][app_debug.cpp:246]: 	0x00e2f65b: WinMain:693
+[  542.6] LOG [error][16:25:39.502][app_debug.cpp:246]: 	0x02a83e1d: invoke_main:107
+[  542.6] LOG [error][16:25:39.503][app_debug.cpp:246]: 	0x02a83cfa: __scrt_common_main_seh:288
+[  542.6] LOG [error][16:25:39.503][app_debug.cpp:246]: 	0x02a83b9d: __scrt_common_main:331
+[  542.6] LOG [error][16:25:39.504][app_debug.cpp:246]: 	0x02a83e88: WinMainCRTStartup:17
+[  542.6] LOG [error][16:25:39.504][app_debug.cpp:246]: 	0x00e3286b: FaseEntrada:664
+[  542.6] LOG [error][16:25:39.504][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[  542.6] LOG [error][16:25:39.504][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[  542.6] LOG [error][16:25:39.504][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[  542.6] LOG [error][16:25:39.510][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `ped` en D:\Original\wv-int\source\game_sa\Scripts\RunningScript.cpp:339
+[  542.6] LOG [error][16:25:39.511][app_debug.cpp:246]: 	0x01de18f0: CRunningScript::GivePedScriptedTask:339
+[  542.6] LOG [error][16:25:39.511][app_debug.cpp:246]: 	0x01de1c5b: CRunningScript::GivePedScriptedTask:372
+[  542.6] LOG [error][16:25:39.512][app_debug.cpp:246]: 	0x012ab360: `anonymous namespace'::TaskKillCharOnFoot:2784
+[  542.6] LOG [error][16:25:39.512][app_debug.cpp:246]: 	0x01264b81: std::invoke<void (__cdecl*&)(CRunningScript &,enum eScriptCommands,CPed &,CPed &),CRunningScript &,enum eScriptCommands &,CPed &,CPed &>:1811
+[  542.6] LOG [error][16:25:39.513][app_debug.cpp:246]: 	0x0126fc57: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &,CPed &>'::`3'::<lambda_1>::operator():
+[  542.6] LOG [error][16:25:39.514][app_debug.cpp:246]: 	0x0123d800: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &,CPed &>:26
+[  542.6] LOG [error][16:25:39.514][app_debug.cpp:246]: 	0x01219bd9: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &>'::`3'::<lambda_1>::operator()<CPed &>
+[  542.6] LOG [error][16:25:39.514][app_debug.cpp:246]: 	0x0123d771: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &,CPed &>:65
+[  542.6] LOG [error][16:25:39.515][app_debug.cpp:246]: 	0x01219b62: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>'::`3'::<lambda_1>::operator()<CPed &>:40
+[  542.6] LOG [error][16:25:39.515][app_debug.cpp:246]: 	0x0123d6cd: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &,enum eScriptCommands &>:65
+[  542.6] LOG [error][16:25:39.516][app_debug.cpp:246]: 	0x0121b4db: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>'::`3'::<lambda_1>::operator()<enum eScriptCommands &>:40
+[  542.6] LOG [error][16:25:39.516][app_debug.cpp:246]: 	0x0123d630: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &,CRunningScript &>:65
+[  542.6] LOG [error][16:25:39.516][app_debug.cpp:246]: 	0x0121aa94: `notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>'::`3'::<lambda_1>::operator()<CRunningScript &>:40
+[  542.6] LOG [error][16:25:39.517][app_debug.cpp:246]: 	0x0123d5a5: notsa::script::detail::CollectArgsAndCall<void,CRunningScript &,enum eScriptCommands,CPed &,CPed &>:65
+[  542.6] LOG [error][16:25:39.517][app_debug.cpp:246]: 	0x01246541: notsa::script::detail::CommandParser<1506,&`anonymous namespace'::TaskKillCharOnFoot>:78
+[  542.6] LOG [error][16:25:39.517][app_debug.cpp:246]: 	0x01ddea54: std::invoke<enum OpcodeResult (__cdecl*const &)(CRunningScript *),CRunningScript *>:1811
+[  542.6] LOG [error][16:25:39.518][app_debug.cpp:246]: 	0x01df2e49: CRunningScript::ProcessOneCommand:1295
+[  542.6] LOG [error][16:25:39.518][app_debug.cpp:246]: 	0x01de8fe0: CRunningScript::Process:1322
+[  542.6] LOG [error][16:25:39.518][app_debug.cpp:246]: 	0x0232dbd4: CTheScripts::Process:1889
+[  542.6] LOG [error][16:25:39.518][app_debug.cpp:246]: 	0x016f288a: CGame::Process:791
+[  542.6] LOG [error][16:25:39.519][app_debug.cpp:246]: 	0x00fd0f95: Idle:346
+[  542.6] LOG [error][16:25:39.519][app_debug.cpp:246]: 	0x00fb550d: AppEventHandler:169
+[  542.6] LOG [error][16:25:39.519][app_debug.cpp:246]: 	0x01bbd428: RsEventHandler:349
+[  542.6] LOG [error][16:25:39.520][app_debug.cpp:246]: 	0x024fa4be: ProcessGameLogic:345
+[  542.6] LOG [error][16:25:39.520][app_debug.cpp:246]: 	0x024f9419: MainLoop:371
+[  542.6] LOG [error][16:25:39.520][app_debug.cpp:246]: 	0x024f9d2e: NOTSA_WinMain:510
+[  542.6] LOG [error][16:25:39.520][app_debug.cpp:246]: 	0x00e2f65b: WinMain:693
+[  542.6] LOG [error][16:25:39.521][app_debug.cpp:246]: 	0x02a83e1d: invoke_main:107
+[  542.6] LOG [error][16:25:39.521][app_debug.cpp:246]: 	0x02a83cfa: __scrt_common_main_seh:288
+[  542.6] LOG [error][16:25:39.521][app_debug.cpp:246]: 	0x02a83b9d: __scrt_common_main:331
+[  542.6] LOG [error][16:25:39.521][app_debug.cpp:246]: 	0x02a83e88: WinMainCRTStartup:17
+[  542.6] LOG [error][16:25:39.522][app_debug.cpp:246]: 	0x00e3286b: FaseEntrada:664
+[  542.6] LOG [info][16:25:39.563][app_debug.cpp:105]: *********UNHANDLED EXCEPTION**********
+[  542.6] LOG [info][16:25:39.564][app_debug.cpp:110]: Código de excepción: 0xc0000005
+[  542.6] LOG [info][16:25:39.564][app_debug.cpp:111]: Indicadores de excepción: 0x00000000
+[  542.6] LOG [info][16:25:39.564][app_debug.cpp:112]: Dirección de excepción: 0x01de197f
+[  542.6] LOG [info][16:25:39.614][app_debug.cpp:212]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[  542.6] LOG [info][16:25:39.633][app_debug.cpp:105]: *********END OF UNHANDLED EXCEPTION**********
+[  542.6] fin

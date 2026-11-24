@@ -47,8 +47,6 @@ std::array<bool, 7> bC0BC08{}; // 0x00C0BC08
 char bC15F60[104]{}; // 0x00C15F60
 char bC15FC8[104]{}; // 0x00C15FC8
 char bC16DB8[256]{}; // 0x00C16DB8
-std::array<float, 2> bC17738{}; // 0x00C17738
-std::array<uint8, 2> bC17780{}; // 0x00C17780
 std::array<int32, 7> bC1A2E0{}; // 0x00C1A2E0
 GxtChar bC1AEB8[32]{}; // 0x00C1AEB8
 GxtChar bC1AED8[552]{}; // 0x00C1AED8

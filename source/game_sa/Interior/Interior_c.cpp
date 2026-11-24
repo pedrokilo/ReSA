@@ -2385,7 +2385,9 @@ CObject* Interior_c::PlaceObject(uint8 isStealable, Furniture_c* furniture, floa
     const auto* box = reinterpret_cast<const uint8*>(m_box);
     const CVector position{float(-int32(box[2])) * 0.5f + offsetX, float(-int32(box[3])) * 0.5f + offsetY,
         InteriorObjectZExact(offsetZ, CModelInfo::GetModelInfo(uint16(furniture->m_nModelId))->GetColModel()->GetBoundingBox().m_vecMin.z, -int32(box[4]))};
-    auto& pool = DatosExe::Bss::bBAD3EC<TList_c<FurnitureEntity_c>>();
+    // 0xBAD3EC es FurnitureManager_c::m_FurnitureList de g_furnitureMan (0xBAB380 + 0x206C): la lista libre de 512 elementos que llena FurnitureManager_c::Init.
+    // Antes se leia un objeto propio (DatosExe::Bss::bBAD3EC) que nadie llenaba: la lista parecia vacia y no se colocaba ningun mueble (dato en dos sitios).
+    auto& pool = StaticRef<TList_c<FurnitureEntity_c>>(0xBAD3EC);
     if (int32(pool.GetNumItems()) < 1) return nullptr;
     CMatrix interior(&m_matrix, false), local, final;
     local.SetUnity(); local.RotateZ(rotationZ * 0.017453292f); local.GetPosition() += position;
@@ -2480,7 +2482,7 @@ void Interior_c::Unfurnish() {
         }
         item->m_entity = nullptr;
         m_list.RemoveItem(item);
-        DatosExe::Bss::bBAD3EC<TList_c<FurnitureEntity_c>>().AddItem(item);
+        StaticRef<TList_c<FurnitureEntity_c>>(0xBAD3EC).AddItem(item);
         item = next;
     }
 }
@@ -2874,7 +2876,7 @@ bool Interior_c::IsVisible() {
 
 // 0x592AA0
 CEntity* Interior_c::PlaceFurniture(Furniture_c* furniture, int32 tileX, int32 tileY, float height, int32 placement, int32 direction, int32* width, int32* depth, uint8 unchecked) {
-    auto& pool = DatosExe::Bss::bBAD3EC<TList_c<FurnitureEntity_c>>();
+    auto& pool = StaticRef<TList_c<FurnitureEntity_c>>(0xBAD3EC);
     const auto fail = [&]() -> CEntity* { *width = *depth = 0; return nullptr; };
     if (int32(pool.GetNumItems()) < 1) return fail();
     const int32 fw = uint8(furniture->m_nWidthX), fd = uint8(furniture->m_nWidthY);

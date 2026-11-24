@@ -1,0 +1,19 @@
+# binarios y trazas grandes de las ejecuciones y del enlace
+*.exe
+*.map
+*.pdb
+*.lib
+*.asi
+*.obj
+asi/
+ejecuciones/*/*.png
+ejecuciones/*/log.log
+cc_*.log
+build*.log
+comp*.log
+asi_headers.txt
+__pycache__/
+ejecuciones/
+humo_marcadores.txt
+humo_ropero.txt
+dmp.cmd

@@ -1,0 +1,532 @@
+va,objeto,lote,tam,usos_por_nombre,categoria
+0x8e48a4,b8E48A4,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x8e48a8,b8E48A8,DE05-47,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x8e48ac,sl_8E48AC,DE05-47,36,,verificado: objeto escrito por nombre y EXE intacto
+0x8e48d0,b8E48D0,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x8e4a58,b8E4A58,DE05-47,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x8e4bb8,b8E4BB8,DE05-47,72,True,verificado: objeto escrito por nombre y EXE intacto
+0x8e4c20,b8E4C20,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x8e4c54,b8E4C54,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x8e4c58,b8E4C58,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x8e4c5c,b8E4C5C,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x8e4c60,b8E4C60,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x8e4c64,b8E4C64,DE05-47,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x8e4c68,b8E4C68,DE05-48,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x9654b8,b9654B8,DE05-48,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x9654bc,b9654BC,DE05-48,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x9654bd,b9654BD,DE05-48,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x9654be,b9654BE,DE05-48,1,True,verificado: objeto escrito por nombre y EXE intacto
+0x9654bf,b9654BF,DE05-48,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x9654c0,b9654C0,DE05-48,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x9654c4,b9654C4,DE05-48,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x9654c8,b9654C8,DE05-48,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x9654cc,b9654CC,DE05-48,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x9654d0,b9654D0,DE05-48,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x9654d4,b9654D4,DE05-48,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x965524,b965524,DE05-48,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x965528,b965528,DE05-48,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x96552c,b96552C,DE05-48,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x965530,b965530,DE05-48,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x965534,b965534,DE05-48,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x965538,b965538,DE05-48,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x96917c,v96917C,DE05-36,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x96917d,v96917D,DE05-36,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x96917e,v96917E,DE05-36,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x969180,v969180,DE05-46,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x9691b0,b9691B0,DE05-35,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x9691b1,b9691B1,DE05-35,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x9691b4,b9691B4,DE05-35,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x9691b8,b9691B8,DE05-35,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x9691bc,b9691BC,DE05-35,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x9691c0,b9691C0,DE05-35,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x969a3c,b969A3C,DE05-35,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x969a40,b969A40,DE05-35,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x96ea98,sl_96EA98,DE05-34,32,,no ejercitado (ni objeto ni EXE escritos)
+0x96eab8,b96EAB8,DE05-34,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x96ec40,b96EC40,DE05-34,64,True,no ejercitado (ni objeto ni EXE escritos)
+0x96ec80,b96EC80,DE05-34,256,True,no ejercitado (ni objeto ni EXE escritos)
+0x96ed80,b96ED80,DE05-34,256,True,no ejercitado (ni objeto ni EXE escritos)
+0x96ee80,b96EE80,DE05-34,256,True,no ejercitado (ni objeto ni EXE escritos)
+0x96ef80,b96EF80,DE05-34,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x96ef84,b96EF84,DE05-34,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x96ef88,b96EF88,DE05-34,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x96ef90,sl_96EF90,DE05-34,64,,no ejercitado (ni objeto ni EXE escritos)
+0x96efd0,sl_96EFD0,DE05-34,64,,verificado: objeto escrito por nombre y EXE intacto
+0x96f016,b96F016,DE05-48,1,True,verificado: objeto escrito por nombre y EXE intacto
+0x96f02c,b96F02C,DE05-34,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x96f030,b96F030,DE05-34,1,True,verificado: objeto escrito por nombre y EXE intacto
+0x96f031,b96F031,DE05-34,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x977b9c,b977B9C,DE05-34,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x978618,b978618,DE05-35,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97861c,b97861C,DE05-35,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x978620,b978620,DE05-35,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x978624,b978624,DE05-35,2,True,verificado: objeto escrito por nombre y EXE intacto
+0x978678,b978678,DE05-35,2,True,no ejercitado (ni objeto ni EXE escritos)
+0x97d640,b97D640,DE05-35,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97d644,b97D644,DE05-35,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97f630,b97F630,DE05-55,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x97f66d,b97F66D,DE05-41,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x97f680,b97F680,DE05-41,440,True,no ejercitado (ni objeto ni EXE escritos)
+0x97f838,b97F838,DE05-41,560,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fa68,b97FA68,DE05-41,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fa6c,b97FA6C,DE05-41,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fa70,b97FA70,DE05-41,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fa74,b97FA74,DE05-41,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fa78,b97FA78,DE05-41,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fa7c,b97FA7C,DE05-41,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97faa8,b97FAA8,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97faac,b97FAAC,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fab0,b97FAB0,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fab4,b97FAB4,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fab8,b97FAB8,DE05-42,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fabc,b97FABC,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97facc,b97FACC,DE05-42,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fad0,b97FAD0,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fad4,b97FAD4,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fad8,b97FAD8,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fadc,b97FADC,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fae0,b97FAE0,DE05-42,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fae1,b97FAE1,DE05-42,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fae4,b97FAE4,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97faee,b97FAEE,DE05-42,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x97faef,b97FAEF,DE05-42,1,True,no ejercitado (ni objeto ni EXE escritos)
+0x97faf4,b97FAF4,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97faf8,b97FAF8,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb00,b97FB00,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb04,b97FB04,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb08,b97FB08,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb0c,b97FB0C,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb34,b97FB34,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb38,b97FB38,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb3c,b97FB3C,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb40,b97FB40,DE05-42,4,True,verificado: objeto escrito por nombre y EXE intacto
+0x97fb44,b97FB44,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb48,b97FB48,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb4c,b97FB4C,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb50,b97FB50,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb54,b97FB54,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb58,b97FB58,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb5c,b97FB5C,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0x97fb60,b97FB60,DE05-42,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xa43240,bA43240,DE05-43,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xa43248,bA43248,DE05-43,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xa4325c,bA4325C,DE05-43,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xa4325d,bA4325D,DE05-43,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xa43260,bA43260,DE05-43,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xa43264,bA43264,DE05-43,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xa43268,bA43268,DE05-43,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xa4326c,bA4326C,DE05-43,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xa43580,bA43580,DE05-43,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa43584,bA43584,DE05-43,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xa43f50,bA43F50,DE05-50,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xa44068,bA44068,DE05-50,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xa444a6,bA444A6,DE05-50,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xa444ac,bA444AC,DE05-50,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xa444b0,bA444B0,DE05-50,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xa444b4,bA444B4,DE05-50,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa444b8,bA444B8,DE05-50,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xa444bc,bA444BC,DE05-50,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xa444c0,bA444C0,DE05-50,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa444c4,bA444C4,DE05-50,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa447e8,bA447E8,DE05-50,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xa447f4,bA447F4,DE05-50,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xa447f8,bA447F8,DE05-50,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xa44b6c,bA44B6C,DE05-50,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xa476a4,bA476A4,DE05-50,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa476ac,bA476AC,DE05-50,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa8b430,sl_A8B430,DE05-51,21504,,verificado: objeto escrito por nombre y EXE intacto
+0xa90830,bA90830,DE05-51,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xa951f8,sl_A951F8,DE05-51,1408,,no ejercitado (ni objeto ni EXE escritos)
+0xa95778,bA95778,DE05-51,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xa957f8,bA957F8,DE05-44,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xa957fc,bA957FC,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa97294,bA97294,DE05-45,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xa97298,bA97298,DE05-45,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xa9a310,bA9A310,DE05-45,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa9a7cc,bA9A7CC,DE05-45,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa9a7d0,bA9A7D0,DE05-45,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa9a7d8,bA9A7D8,DE05-43,24,True,verificado: objeto escrito por nombre y EXE intacto
+0xa9a88c,bA9A88C,DE05-48,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xa9a890,bA9A890,DE05-48,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xa9a891,bA9A891,DE05-48,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xa9a894,bA9A894,DE05-48,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xa9a89c,bA9A89C,DE05-46,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa9a8a0,bA9A8A0,DE05-48,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xa9ad70,bA9AD70,DE05-46,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xa9ad78,bA9AD78,DE05-48,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xa9ad94,bA9AD94,DE05-53,3,True,no ejercitado (ni objeto ni EXE escritos)
+0xa9ade0,bA9ADE0,DE05-54,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xaae948,bAAE948,DE05-32,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb4e3e8,vB4E3E8,DE05-55,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb4e3ec,bB4E3EC,DE05-55,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb4e3f0,vB4E3F0,DE05-55,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb4e47c,bB4E47C,DE05-55,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb4e688,bB4E688,DE05-55,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb4e68c,bB4E68C,DE05-55,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb4e690,bB4E690,DE05-55,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb4e6b8,bB4E6B8,DE05-55,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb4e6bc,bB4E6BC,DE05-55,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb4ea34,bB4EA34,DE05-36,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb5f87c,sl_B5F87C,DE05-43,4,,verificado: objeto escrito por nombre y EXE intacto
+0xb71510,bB71510,DE05-61,352,True,no ejercitado (ni objeto ni EXE escritos)
+0xb71670,bB71670,DE05-61,352,True,verificado: objeto escrito por nombre y EXE intacto
+0xb72c68,bB72C68,DE05-60,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xb72c6c,bB72C6C,DE05-60,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb72ca0,bB72CA0,DE05-60,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb72ca4,bB72CA4,DE05-60,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb72ca8,bB72CA8,DE05-60,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb73400,bB73400,DE05-33,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb73401,bB73401,DE05-33,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb73402,vB73402,DE05-33,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb73403,bB73403,DE05-33,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb736f0,bB736F0,DE05-33,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xb736f4,bB736F4,DE05-33,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xb736f8,bB736F8,DE05-34,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xb736fc,bB736FC,DE05-34,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xb73700,bB73700,DE05-34,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xb73704,bB73704,DE05-34,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xb73708,bB73708,DE05-61,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb73c90,bB73C90,DE05-35,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb73c98,sl_B73C98,DE05-35,1408,,verificado: objeto escrito por nombre y EXE intacto
+0xb74218,bB74218,DE05-35,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb74484,bB74484,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb744b4,bB744B4,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb744b8,bB744B8,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb744bc,bB744BC,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb744c4,bB744C4,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb745c0,bB745C0,DE05-41,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb745c1,bB745C1,DE05-41,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xb745c4,bB745C4,DE05-41,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb745c8,bB745C8,DE05-41,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xb745d4,bB745D4,DE05-41,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb76894,bB76894,DE05-41,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb781f8,bB781F8,DE05-43,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb794d0,bB794D0,DE05-46,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb794d4,bB794D4,DE05-46,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xb794d8,bB794D8,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb794dc,bB794DC,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb794e0,bB794E0,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb794e4,bB794E4,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb794e8,bB794E8,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb794ec,bB794EC,DE05-46,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb794f0,bB794F0,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb794f4,bB794F4,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb794f8,bB794F8,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb794fc,bB794FC,DE05-46,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb79500,bB79500,DE05-46,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb79504,bB79504,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb79508,bB79508,DE05-46,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7950c,bB7950C,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb79510,bB79510,DE05-47,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb79514,bB79514,DE05-47,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb79e90,bB79E90,DE05-51,64,True,verificado: objeto escrito por nombre y EXE intacto
+0xb79ed0,bB79ED0,DE05-51,64,True,verificado: objeto escrito por nombre y EXE intacto
+0xb79f10,bB79F10,DE05-52,64,True,verificado: objeto escrito por nombre y EXE intacto
+0xb79f50,bB79F50,DE05-52,64,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7c480,bB7C480,DE05-53,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7c484,bB7C484,DE05-53,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb2c,bB7CB2C,DE05-53,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb40,bB7CB40,DE05-53,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb44,bB7CB44,DE05-53,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xb7cb50,bB7CB50,DE05-53,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb60,bB7CB60,DE05-53,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb64,bB7CB64,DE05-53,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb68,bB7CB68,DE05-53,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb6c,bB7CB6C,DE05-53,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb70,bB7CB70,DE05-53,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb74,bB7CB74,DE05-53,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb78,bB7CB78,DE05-54,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb80,bB7CB80,DE05-53,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cb88,bB7CB88,DE05-53,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb7cb89,bB7CB89,DE05-53,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb7cb8c,bB7CB8C,DE05-56,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xb7cd60,bB7CD60,DE05-60,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb9b8f0,bB9B8F0,DE05-36,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb9b8f1,bB9B8F1,DE05-36,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xb9b8f2,bB9B8F2,DE05-36,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xb9b8f4,bB9B8F4,DE05-36,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xb9b970,bB9B970,DE05-60,12,True,no ejercitado (ni objeto ni EXE escritos)
+0xb9b9a0,bB9B9A0,DE05-36,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xba1768,bBA1768,DE05-41,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xba1900,bBA1900,DE05-51,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xba1de8,bBA1DE8,DE05-51,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xba372c,bBA372C,DE05-51,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xba3794,bBA3794,DE05-51,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xba6720,bBA6720,DE05-51,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xba6724,bBA6724,DE05-51,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xba6744,bBA6744,DE05-31,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xba82d8,sl_BA82D8,DE05-31,8,,no ejercitado (ni objeto ni EXE escritos)
+0xba82e2,bBA82E2,DE05-31,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xba8304,bBA8304,DE05-40,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xba8308,bBA8308,DE05-40,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xba830c,bBA830C,DE05-40,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xba8310,bBA8310,DE05-40,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xba8314,bBA8314,DE05-40,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xba86b8,bBA86B8,DE05-40,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xbaa350,sl_BAA350,DE05-40,1,,no ejercitado (ni objeto ni EXE escritos)
+0xbaa354,bBAA354,DE05-40,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xbaa358,bBAA358,DE05-40,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xbaa36c,bBAA36C,DE05-40,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xbaa370,bBAA370,DE05-40,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xbaa374,bBAA374,DE05-40,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xbaa378,bBAA378,DE05-40,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xbaa37c,bBAA37C,DE05-40,2,True,no ejercitado (ni objeto ni EXE escritos)
+0xbaa380,bBAA380,DE05-40,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xbb4a70,bBB4A70,DE05-33,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xc02dc0,bC02DC0,DE05-33,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc03980,bC03980,DE05-36,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xc03984,bC03984,DE05-36,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc03998,bC03998,DE05-36,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0399c,bC0399C,DE05-36,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc09168,bC09168,DE05-36,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0916c,bC0916C,DE05-36,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc09174,bC09174,DE05-36,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc09840,bC09840,DE05-34,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc098d0,bC098D0,DE05-34,16,True,verificado: objeto escrito por nombre y EXE intacto
+0xc098e8,bC098E8,DE05-34,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc098ec,bC098EC,DE05-34,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc0afc0,bC0AFC0,DE05-35,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc0bbe8,bC0BBE8,DE05-35,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bbec,bC0BBEC,DE05-35,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc08,bC0BC08,DE05-37,7,True,no ejercitado (ni objeto ni EXE escritos)
+0xc0bc10,bC0BC10,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc15,bC0BC15,DE05-37,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc30,bC0BC30,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc34,bC0BC34,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc3c,bC0BC3C,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc40,bC0BC40,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc44,bC0BC44,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc48,bC0BC48,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc4c,bC0BC4C,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc50,bC0BC50,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc54,bC0BC54,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc58,bC0BC58,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc5c,bC0BC5C,DE05-35,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc60,bC0BC60,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc64,bC0BC64,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc68,bC0BC68,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc70,bC0BC70,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0bc74,bC0BC74,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0e978,bC0E978,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0ec22,bC0EC22,DE05-38,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc0ec23,bC0EC23,DE05-38,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc0ec28,bC0EC28,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0ec2c,bC0EC2C,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0ec30,bC0EC30,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0ec34,bC0EC34,DE05-38,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc0ec38,bC0EC38,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0ec64,bC0EC64,DE05-38,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc0ec68,bC0EC68,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0ec6c,bC0EC6C,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0ec70,bC0EC70,DE05-38,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc0fcb6,bC0FCB6,DE05-38,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc0fcb8,bC0FCB8,DE05-38,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc0fcbc,bC0FCBC,DE05-38,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc102a0,sl_C102A0,DE05-35,1408,,no ejercitado (ni objeto ni EXE escritos)
+0xc17080,bC17080,DE05-61,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc17084,bC17084,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc18d50,sl_C18D50,DE05-44,100,,no ejercitado (ni objeto ni EXE escritos)
+0xc19664,bC19664,DE05-49,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1a554,bC1A554,DE05-48,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc1aeb8,bC1AEB8,DE05-61,32,True,no ejercitado (ni objeto ni EXE escritos)
+0xc1aed8,bC1AED8,DE05-61,552,True,no ejercitado (ni objeto ni EXE escritos)
+0xc1cad8,bC1CAD8,DE05-35,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cadc,bC1CADC,DE05-35,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cae0,bC1CAE0,DE05-36,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cb30,sl_C1CB30,DE05-60,4,,verificado: objeto escrito por nombre y EXE intacto
+0xc1cb34,sl_C1CB34,DE05-60,4,,verificado: objeto escrito por nombre y EXE intacto
+0xc1cb38,bC1CB38,DE05-61,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cb3c,bC1CB3C,DE05-61,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cb40,bC1CB40,DE05-61,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cb58,bC1CB58,DE05-54,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc1cc01,vC1CC01,DE05-54,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc1cc19,bC1CC19,DE05-54,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc1cc1c,bC1CC1C,DE05-54,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc1cd98,sl_C1CD98,DE05-55,20,,no ejercitado (ni objeto ni EXE escritos)
+0xc1cdac,bC1CDAC,DE05-55,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cdad,bC1CDAD,DE05-55,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cdae,bC1CDAE,DE05-55,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cdaf,bC1CDAF,DE05-55,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cdb0,bC1CDB0,DE05-55,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc1cdb1,bC1CDB1,DE05-55,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cdb2,bC1CDB2,DE05-55,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cdb4,bC1CDB4,DE05-55,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1cdb8,bC1CDB8,DE05-55,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1f950,bC1F950,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1f954,bC1F954,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1f958,bC1F958,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1f95c,bC1F95C,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc1f960,bC1F960,DE05-56,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc21180,bC21180,DE05-57,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc21184,bC21184,DE05-57,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc214d0,bC214D0,DE05-57,140,True,verificado: objeto escrito por nombre y EXE intacto
+0xc21560,bC21560,DE05-57,140,True,verificado: objeto escrito por nombre y EXE intacto
+0xc215ec,bC215EC,DE05-57,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc215f0,bC215F0,DE05-57,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc228a0,bC228A0,DE05-57,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc228a4,bC228A4,DE05-57,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc228a8,bC228A8,DE05-57,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc228ac,bC228AC,DE05-57,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc228b0,bC228B0,DE05-57,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc228b4,bC228B4,DE05-57,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc228b8,bC228B8,DE05-57,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc228bc,bC228BC,DE05-57,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc228d4,bC228D4,DE05-57,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc278d4,bC278D4,DE05-57,12,True,no ejercitado (ni objeto ni EXE escritos)
+0xc278e0,bC278E0,DE05-57,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc279d0,bC279D0,DE05-49,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc279d1,bC279D1,DE05-49,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc279d4,bC279D4,DE05-49,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc37ffc,bC37FFC,DE05-54,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc38000,bC38000,DE05-54,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc38004,bC38004,DE05-54,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc38008,bC38008,DE05-54,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc3800c,bC3800C,DE05-54,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc38010,bC38010,DE05-54,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc38034,bC38034,DE05-54,24,True,verificado: objeto escrito por nombre y EXE intacto
+0xc38064,bC38064,DE05-54,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc38068,bC38068,DE05-54,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc39ed4,bC39ED4,DE05-36,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc3f03c,bC3F03C,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc3f040,bC3F040,DE05-37,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc3f048,bC3F048,DE05-37,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc3f04c,bC3F04C,DE05-37,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc3f0d0,bC3F0D0,DE05-37,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc3f0d4,bC3F0D4,DE05-37,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc3f860,bC3F860,DE05-39,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc3f868,bC3F868,DE05-39,720,True,verificado: objeto escrito por nombre y EXE intacto
+0xc3fb38,bC3FB38,DE05-39,720,True,verificado: objeto escrito por nombre y EXE intacto
+0xc3fe08,vC3FE08,DE05-39,720,True,verificado: objeto escrito por nombre y EXE intacto
+0xc402b0,bC402B0,DE05-39,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc402b4,bC402B4,DE05-39,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc402b7,bC402B7,DE05-39,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc402b9,bC402B9,DE05-39,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc402ba,bC402BA,DE05-39,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc402bb,bC402BB,DE05-39,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc402bc,bC402BC,DE05-39,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc402e4,bC402E4,DE05-39,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc4031c,bC4031C,DE05-39,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc40320,bC40320,DE05-40,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc40321,bC40321,DE05-40,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc40324,bC40324,DE05-40,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc40328,bC40328,DE05-40,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc4032c,vC4032C,DE05-40,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc403d8,bC403D8,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc403dc,bC403DC,DE05-44,2,True,verificado: objeto escrito por nombre y EXE intacto
+0xc403e0,bC403E0,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc403e4,bC403E4,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc403e8,bC403E8,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc403ec,bC403EC,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc403f0,bC403F0,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc403f4,bC403F4,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc403f8,bC403F8,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc403fc,bC403FC,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc40400,bC40400,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc40404,bC40404,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc40408,bC40408,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc4040c,bC4040C,DE05-44,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc40410,bC40410,DE05-41,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc40414,bC40414,DE05-41,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc4b8c8,vC4B8C8,DE05-45,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc4b8d0,bC4B8D0,DE05-45,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc4b8d4,bC4B8D4,DE05-45,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc4b8d8,bC4B8D8,DE05-45,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc6a158,bC6A158,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc6a15c,bC6A15C,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc6a168,bC6A168,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc6a16c,bC6A16C,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc6a170,sl_C6A170,DE05-47,4,,verificado: objeto escrito por nombre y EXE intacto
+0xc6a174,bC6A174,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc6a178,bC6A178,DE05-47,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc6a898,bC6A898,DE05-47,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc6a899,bC6A899,DE05-47,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc73ca0,bC73CA0,DE05-33,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc73ca4,bC73CA4,DE05-33,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc73ca8,bC73CA8,DE05-33,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc73cac,bC73CAC,DE05-33,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc73cb0,bC73CB0,DE05-33,8,True,verificado: objeto escrito por nombre y EXE intacto
+0xc73cc0,bC73CC0,DE05-33,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc73cc4,bC73CC4,DE05-33,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc73f98,bC73F98,DE05-33,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc7c618,bC7C618,DE05-31,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc7c61c,bC7C61C,DE05-31,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc7c6f8,bC7C6F8,DE05-45,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc7c710,bC7C710,DE05-45,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc7c714,bC7C714,DE05-45,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc7c718,bC7C718,DE05-45,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc7c71c,bC7C71C,DE05-31,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc7c720,bC7C720,DE05-31,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc7c728,bC7C728,DE05-31,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc7c729,bC7C729,DE05-31,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc7c72a,bC7C72A,DE05-31,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc80430,bC80430,DE05-45,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc80458,bC80458,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc8045c,bC8045C,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc80460,bC80460,DE05-46,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc80464,bC80464,DE05-46,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc812a8,bC812A8,DE05-58,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc812ac,bC812AC,DE05-58,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc812b0,bC812B0,DE05-58,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc812b4,bC812B4,DE05-58,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc812b8,bC812B8,DE05-58,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc812bc,bC812BC,DE05-58,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc812c0,bC812C0,DE05-58,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc812c4,bC812C4,DE05-58,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc812c8,bC812C8,DE05-58,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc812cc,bC812CC,DE05-58,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc812cd,bC812CD,DE05-58,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc812d0,bC812D0,DE05-58,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc812d8,bC812D8,DE05-58,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc812dc,bC812DC,DE05-58,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc812e0,bC812E0,DE05-58,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc812e4,bC812E4,DE05-58,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc812e8,bC812E8,DE05-58,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc812ec,bC812EC,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc812f0,bC812F0,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc812f4,bC812F4,DE05-59,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc812f8,bC812F8,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc812fc,bC812FC,DE05-59,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc81300,bC81300,DE05-59,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc81304,bC81304,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc8130c,bC8130C,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc81310,bC81310,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc81410,bC81410,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc81414,bC81414,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc81418,bC81418,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc8141c,bC8141C,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc81420,bC81420,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc87c5c,bC87C5C,DE05-33,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc87ffc,bC87FFC,DE05-59,1,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88004,bC88004,DE05-54,8,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88010,bC88010,DE05-54,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc88014,bC88014,DE05-54,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88018,bC88018,DE05-54,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88020,bC88020,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88024,bC88024,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88028,bC88028,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc8802c,bC8802C,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88030,bC88030,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88034,bC88034,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88038,bC88038,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc8803c,bC8803C,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88040,bC88040,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88044,bC88044,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc8804c,bC8804C,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc88050,bC88050,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc886e8,bC886E8,DE05-60,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc886ec,bC886EC,DE05-60,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc8a7c0,bC8A7C0,DE05-58,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc8a80c,bC8A80C,DE05-58,1,True,no ejercitado (ni objeto ni EXE escritos)
+0xc8a818,bC8A818,DE05-58,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc8a890,bC8A890,DE05-58,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc8a894,bC8A894,DE05-58,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc8a898,bC8A898,DE05-58,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc8a89c,bC8A89C,DE05-58,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc8a8a0,bC8A8A0,DE05-58,8,True,no ejercitado (ni objeto ni EXE escritos)
+0xc920d0,bC920D0,DE05-56,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc920fc,bC920FC,DE05-56,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc92104,bC92104,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc92108,bC92108,DE05-59,4,True,verificado: objeto escrito por nombre y EXE intacto
+0xc92118,bC92118,DE05-56,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc9246c,bC9246C,DE05-60,4,True,no ejercitado (ni objeto ni EXE escritos)
+0xc9abd8,bC9ABD8,DE05-40,4,True,no ejercitado (ni objeto ni EXE escritos)

@@ -1,0 +1,2 @@
+pid 29340  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-datos3\reversing\FnDatos\ejecuciones\d2-20261124-161403" --limite 1500 --shims  escenario=conduccion,armas,camara,trucos,interiores
+exit=0xC0000005

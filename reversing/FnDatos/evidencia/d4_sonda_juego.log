@@ -1,0 +1,90 @@
+[    0.2] pid 29128
+[   11.5] juego en marcha tras 11 s; gGameState=9
+[   12.4] salida de la casa: area=0 tras 1 s
+[   13.4] ventana: cliente 640x480
+[   13.4] === ESCENARIO interiores
+[   26.3] captura int_CARLS {"ancho": 640, "alto": 480, "rojo": 5, "muestras": 34270, "media_rgb": [52.8, 45.2, 39.5], "max": 255} interior CARLS (casa de CJ): CJ en (2496.050048828125, -1692.9300537109375, 1014.7421875), area 3
+[   30.6] captura int_CARLS_dentro2 {"ancho": 640, "alto": 480, "rojo": 5, "muestras": 34270, "media_rgb": [52.8, 45.2, 39.5], "max": 255} interior CARLS (casa de CJ) 3 s despues
+[   38.5] captura int_CARLS_fuera {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [123.3, 130.5, 113.3], "max": 255} tras salir de CARLS (casa de CJ): area 0 pos (2495.330078125, -1690.25, 14.765625)
+[   38.5] INTERIOR {"nombre": "CARLS (casa de CJ)", "intento_entrada": [0, null], "entro": true, "area": 3, "pos": [2496.050048828125, -1692.9300537109375, 1014.7421875], "vivo": true, "tiempo_entrar_s": 5.4, "pools_antes": {"peds": 34, "veh": 16, "edif": 10113, "obj": 98, "dummy": 728}, "pools_dentro": {"peds": 1, "veh": 4, "edif": 9426, "obj": 97, "dummy": 112}, "z_dentro": 1014.7421875, "salio": true, "area_final": 0, "pos_final": [2495.330078125, -1690.25, 14.765625], "nan": false}
+[   63.1] captura int_GYM1 {"ancho": 640, "alto": 480, "rojo": 455, "muestras": 34270, "media_rgb": [88.6, 58.1, 37.5], "max": 255} interior GYM1 (gimnasio Ganton): CJ en (772.1119995117188, -3.8986499309539795, 1000.7288208007812), area 5
+[   67.4] captura int_GYM1_dentro2 {"ancho": 640, "alto": 480, "rojo": 456, "muestras": 34270, "media_rgb": [88.6, 58.1, 37.5], "max": 255} interior GYM1 (gimnasio Ganton) 3 s despues
+[   75.1] captura int_GYM1_fuera {"ancho": 640, "alto": 480, "rojo": 4, "muestras": 34270, "media_rgb": [142.9, 153.2, 139.5], "max": 255} tras salir de GYM1 (gimnasio Ganton): area 0 pos (2229.1298828125, -1722.1300048828125, 13.5625)
+[   75.1] INTERIOR {"nombre": "GYM1 (gimnasio Ganton)", "intento_entrada": [3, "a"], "entro": true, "area": 5, "pos": [772.1119995117188, -3.8986499309539795, 1000.7288208007812], "vivo": true, "tiempo_entrar_s": 23.5, "pools_antes": {"peds": 10, "veh": 5, "edif": 10329, "obj": 158, "dummy": 963}, "pools_dentro": {"peds": 5, "veh": 0, "edif": 10607, "obj": 91, "dummy": 516}, "z_dentro": 1000.7288208007812, "salio": true, "area_final": 0, "pos_final": [2229.1298828125, -1722.1300048828125, 13.5625], "nan": false}
+[   93.4] captura int_CLOTHGP {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [155.1, 143.4, 127.8], "max": 255} interior CLOTHGP (tienda de ropa): CJ en (161.39100646972656, -95.28559875488281, 1001.8046875), area 18
+[   97.9] captura int_CLOTHGP_dentro2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [155.2, 143.4, 127.8], "max": 255} interior CLOTHGP (tienda de ropa) 3 s despues
+[  105.5] captura int_CLOTHGP_fuera {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [75.5, 63.6, 43.4], "max": 255} tras salir de CLOTHGP (tienda de ropa): area 0 pos (1458.77001953125, -1140.02001953125, 24.069162368774414)
+[  105.5] INTERIOR {"nombre": "CLOTHGP (tienda de ropa)", "intento_entrada": [2, "s"], "entro": true, "area": 18, "pos": [161.39100646972656, -95.28559875488281, 1001.8046875], "vivo": true, "tiempo_entrar_s": 17.1, "pools_antes": {"peds": 17, "veh": 7, "edif": 10206, "obj": 137, "dummy": 962}, "pools_dentro": {"peds": 8, "veh": 0, "edif": 10512, "obj": 82, "dummy": 149}, "z_dentro": 1001.8046875, "salio": true, "area_final": 0, "pos_final": [1458.77001953125, -1140.02001953125, 24.069162368774414], "nan": false}
+[  130.1] captura int_AMMUN1 {"ancho": 640, "alto": 480, "rojo": 479, "muestras": 34270, "media_rgb": [121.6, 101.1, 85.5], "max": 255} interior AMMUN1 (Ammu-Nation): CJ en (286.14898681640625, -40.64440155029297, 1001.515625), area 1
+[  134.3] captura int_AMMUN1_dentro2 {"ancho": 640, "alto": 480, "rojo": 455, "muestras": 34270, "media_rgb": [120.2, 100.3, 84.7], "max": 255} interior AMMUN1 (Ammu-Nation) 3 s despues
+[  142.1] captura int_AMMUN1_fuera {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [138.4, 141.0, 137.8], "max": 255} tras salir de AMMUN1 (Ammu-Nation): area 0 pos (1365.3499755859375, -1279.06005859375, 13.546875)
+[  142.1] INTERIOR {"nombre": "AMMUN1 (Ammu-Nation)", "intento_entrada": [3, "a"], "entro": true, "area": 1, "pos": [286.14898681640625, -40.64440155029297, 1001.515625], "vivo": true, "tiempo_entrar_s": 23.6, "pools_antes": {"peds": 20, "veh": 7, "edif": 10387, "obj": 123, "dummy": 1220}, "pools_dentro": {"peds": 5, "veh": 0, "edif": 11105, "obj": 104, "dummy": 786}, "z_dentro": 1001.515625, "salio": true, "area_final": 0, "pos_final": [1365.3499755859375, -1279.06005859375, 13.546875], "nan": false}
+[  148.5] captura int_BARBERS {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [147.6, 129.9, 92.4], "max": 255} interior BARBERS (peluqueria Idlewood): CJ en (411.6260070800781, -21.433300018310547, 1001.8046875), area 2
+[  152.7] captura int_BARBERS_dentro2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [147.2, 129.4, 92.1], "max": 255} interior BARBERS (peluqueria Idlewood) 3 s despues
+[  160.5] captura int_BARBERS_fuera {"ancho": 640, "alto": 480, "rojo": 24, "muestras": 34270, "media_rgb": [111.1, 152.6, 134.7], "max": 255} tras salir de BARBERS (peluqueria Idlewood): area 0 pos (2073.978271484375, -1793.93994140625, 13.546875)
+[  160.5] INTERIOR {"nombre": "BARBERS (peluqueria Idlewood)", "intento_entrada": [0, null], "entro": true, "area": 2, "pos": [411.6260070800781, -21.433300018310547, 1001.8046875], "vivo": true, "tiempo_entrar_s": 5.4, "pools_antes": {"peds": 20, "veh": 9, "edif": 10405, "obj": 131, "dummy": 1340}, "pools_dentro": {"peds": 2, "veh": 0, "edif": 10641, "obj": 80, "dummy": 300}, "z_dentro": 1001.8046875, "salio": true, "area_final": 0, "pos_final": [2073.978271484375, -1793.93994140625, 13.546875], "nan": false}
+[  160.7] === ESCENARIO extra
+[  172.1] captura extra_menu {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [12.6, 14.6, 13.2], "max": 241} menu de pausa
+[  182.2] clima CHEAT_VERY_SUNNY_WEATHER ICIKPYH
+[  214.1] punetazos hechos; pos (2652.483154296875, -1719.9000244140625, 10.90625)
+[  214.1] salud a 0
+[  240.2] captura extra_muerte {"ancho": 640, "alto": 480, "rojo": 2, "muestras": 34270, "media_rgb": [75.9, 91.4, 84.7], "max": 255} tras morir
+[  240.5] tras morir: area 0 pos (2027.77001953125, -1420.52001953125, 16.9921875) vivo True
+[  251.0] === ESCENARIO spawn
+[  262.2] captura spawn_RZHSUEW {"ancho": 640, "alto": 480, "rojo": 3, "muestras": 34270, "media_rgb": [68.2, 93.5, 99.4], "max": 255} tras teclear RZHSUEW
+[  262.2]  veh 0x9082ca8  modelo 556 matriz 0x91c50fc pos (2691.984375, -1674.0020751953125, 9.872903823852539) conductor 0x0 creado_por 255
+[  262.2]  veh 0x90836c0  modelo 520 matriz 0x91bb280 pos (2527.1689453125, -1677.0008544921875, 20.666513442993164) conductor 0x0 creado_por 255
+[  262.2]  veh 0x9085f20  modelo 550 matriz 0x91c08cc pos (2530.2861328125, -1747.985595703125, 13.200593948364258) conductor 0x9047c58 creado_por 15
+[  262.2]  veh 0x9087350  modelo 547 matriz 0x91c3f98 pos (2639.92529296875, -1719.038818359375, 10.46529769897461) conductor 0x904ba78 creado_por 15
+[  262.2]  veh 0x9087d68  modelo 492 matriz 0x91bc1ec pos (2508.123046875, -1666.384033203125, 13.163066864013672) conductor 0x0 creado_por 255
+[  262.2]  veh 0x9088780  modelo 492 matriz 0x91bb7c0 pos (2639.77392578125, -1711.1397705078125, 10.512754440307617) conductor 0x904f898 creado_por 15
+[  262.2]  veh 0x908a5c8  modelo 401 matriz 0x91c23b4 pos (2530.232177734375, -1755.8131103515625, 13.162165641784668) conductor 0x905005c creado_por 15
+[  262.2]  veh 0x908ce28  modelo 547 matriz 0x91bc0f0 pos (2530.279541015625, -1762.58544921875, 13.118267059326172) conductor 0x90517a8 creado_por 15
+[  262.2]  veh 0x908d840 NUEVO modelo 526 matriz 0x91c4f58 pos (2526.873046875, -1797.8896484375, 13.149478912353516) conductor 0x90536b8 creado_por 15
+[  262.2]  veh 0x908e258  modelo 412 matriz 0x91bdb30 pos (2530.30419921875, -1769.474853515625, 13.220312118530273) conductor 0x9051f6c creado_por 15
+[  262.2]  veh 0x908f688 NUEVO modelo 526 matriz 0x91c00ec pos (2530.17822265625, -1779.716796875, 13.149478912353516) conductor 0x9052730 creado_por 15
+[  262.2]  veh 0x90900a0 NUEVO modelo 457 matriz 0x91c0c68 pos (2654.828857421875, -1717.07763671875, 8.924181938171387) conductor 0x0 creado_por 255
+[  262.2]  veh 0x90914d0 NUEVO modelo 420 matriz 0x91c4820 pos (2639.890625, -1687.865966796875, 10.512946128845215) conductor 0x9053e7c creado_por 15
+[  262.2]  veh 0x9091ee8  modelo 494 matriz 0x91ba26c pos (2676.62109375, -1673.747802734375, 9.27260971069336) conductor 0x0 creado_por 255
+[  262.2]  veh 0x9092900 NUEVO modelo 547 matriz 0x91b6660 pos (2529.408203125, -1787.926513671875, 13.118267059326172) conductor 0x9052ef4 creado_por 15
+[  262.2] pos CJ (2651.932861328125, -1719.8638916015625, 10.90625) ult cheat str b'\x00EUSHZR\x00YPKICIASWSWASW\x00\x00\x00\x00\x00\x00\x00\x00'
+[  267.3] captura spawn_UBHYZHQ {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [50.8, 72.6, 79.3], "max": 255} tras teclear UBHYZHQ
+[  267.3]  veh 0x9082ca8  modelo 556 matriz 0x91c50fc pos (2691.984375, -1674.0020751953125, 9.872903823852539) conductor 0x0 creado_por 255
+[  267.3]  veh 0x90836c0  modelo 520 matriz 0x91bb280 pos (2527.1689453125, -1677.0008544921875, 20.666513442993164) conductor 0x0 creado_por 255
+[  267.3]  veh 0x9087350  modelo 547 matriz 0x91c3f98 pos (2596.143310546875, -1729.5546875, 12.944499969482422) conductor 0x904ba78 creado_por 15
+[  267.3]  veh 0x9087d68  modelo 492 matriz 0x91bc1ec pos (2508.123046875, -1666.384033203125, 13.163066864013672) conductor 0x0 creado_por 255
+[  267.3]  veh 0x9088780  modelo 492 matriz 0x91bb7c0 pos (2640.08349609375, -1741.079345703125, 10.515472412109375) conductor 0x904f898 creado_por 15
+[  267.3]  veh 0x908a5c8  modelo 401 matriz 0x91c23b4 pos (2527.373046875, -1731.56201171875, 13.162165641784668) conductor 0x905005c creado_por 15
+[  267.3]  veh 0x908ce28  modelo 547 matriz 0x91bc0f0 pos (2530.269287109375, -1749.293212890625, 13.118267059326172) conductor 0x90517a8 creado_por 15
+[  267.3]  veh 0x908d840  modelo 526 matriz 0x91c4f58 pos (2528.45166015625, -1792.909912109375, 13.149478912353516) conductor 0x90536b8 creado_por 15
+[  267.3]  veh 0x908e258  modelo 412 matriz 0x91bdb30 pos (2530.291015625, -1764.029541015625, 13.220312118530273) conductor 0x9051f6c creado_por 15
+[  267.3]  veh 0x908f688  modelo 526 matriz 0x91c00ec pos (2530.25830078125, -1775.1732177734375, 13.149478912353516) conductor 0x9052730 creado_por 15
+[  267.3]  veh 0x90900a0  modelo 457 matriz 0x91c0c68 pos (2654.828857421875, -1717.07763671875, 8.924181938171387) conductor 0x0 creado_por 255
+[  267.3]  veh 0x90914d0  modelo 420 matriz 0x91c4820 pos (2640.0234375, -1723.522216796875, 10.51006031036377) conductor 0x9053e7c creado_por 15
+[  267.3]  veh 0x9091ee8  modelo 494 matriz 0x91ba26c pos (2676.62109375, -1673.747802734375, 9.27260971069336) conductor 0x0 creado_por 255
+[  267.3]  veh 0x9092900  modelo 547 matriz 0x91b6660 pos (2529.950439453125, -1782.86865234375, 13.118267059326172) conductor 0x9052ef4 creado_por 15
+[  267.3]  veh 0x9095b78 NUEVO modelo 401 matriz 0x91be364 pos (2640.15234375, -1707.065185546875, 10.511881828308105) conductor 0x9050fe4 creado_por 15
+[  267.3]  veh 0x9096590 NUEVO modelo 408 matriz 0x91c3320 pos (2646.541259765625, -1725.6405029296875, 11.370245933532715) conductor 0x0 creado_por 255
+[  267.3] pos CJ (2651.932861328125, -1719.8638916015625, 10.90625) ult cheat str b'\x00HZYHBU\x00EUSHZR\x00YPKICIASWSWASW\x00'
+[  267.5] === ESCENARIO conduccion
+[  277.8] truco spawn FOURWHEELFUN vehiculos nuevos: [('0x908afe0', 550), ('0x908c410', 471), ('0x9094748', 401)]
+[  281.1]   intento 1 (teclado): en_coche=True estado=50
+[  281.1] entrar con teclado: en_coche=True modelo=457
+[  281.8] captura cond_dentro {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [26.2, 27.6, 25.7], "max": 255} CJ dentro del coche (tecla F)
+[  284.0] PRUEBA reposo {"v_ini": 0.0, "v_max": 0.0, "v_fin": 0.0, "avance": 0.0, "dyaw_grados": 0.0, "avance_sobre_frente": 0.0, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [-0.0, 0.0, 0.0, 0.0], [-0.0, 0.0, 0.0, 0.0]]}
+[  288.2] PRUEBA W acelerar 4 s {"v_ini": 0.0, "v_max": 0.159, "v_fin": 0.14, "avance": 19.63, "dyaw_grados": 45.1, "avance_sobre_frente": 19.63, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.007, 1.0, 0.0, 0.0], [0.018, 1.0, 0.0, 0.0], [0.051, 1.0, 0.0, 0.0], [0.099, 1.0, 0.0, 0.0], [0.147, 1.0, 0.0, 0.0], [0.154, 1.0, 0.0, 0.0], [0.143, 1.0, 0.0, 0.0], [0.143, 1.0, 0.0, 0.0]]}
+[  290.8] PRUEBA S frenar desde velocidad hacia delante {"v_ini": 0.14, "v_max": 0.207, "v_fin": 0.203, "avance": 12.4, "dyaw_grados": 3.0, "avance_sobre_frente": -12.39, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.056, 0.0, 1.0, 0.0], [-0.054, -1.0, 0.0, 0.0], [-0.116, -1.0, 0.0, 0.0], [-0.173, -1.0, 0.0, 0.0], [-0.207, -1.0, 0.0, 0.0]]}
+[  293.3] PRUEBA soltar todo {"v_ini": 0.203, "v_max": 0.171, "v_fin": 0.0, "avance": 9.28, "dyaw_grados": -0.8, "avance_sobre_frente": -9.28, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.171, 0.0, 0.0, 0.0], [-0.108, 0.0, 0.0, 0.0], [-0.057, 0.0, 0.0, 0.0], [-0.006, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[  297.1] PRUEBA S desde parado (marcha atras) {"v_ini": 0.0, "v_max": 0.13, "v_fin": 0.134, "avance": 9.31, "dyaw_grados": -0.0, "avance_sobre_frente": -9.31, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.036, -1.0, 0.0, 0.0], [-0.042, -1.0, 0.0, 0.0], [-0.036, -1.0, 0.0, 0.0], [-0.029, -1.0, 0.0, 0.0], [-0.027, -1.0, 0.0, 0.0], [-0.07, -1.0, 0.0, 0.0], [-0.13, -1.0, 0.0, 0.0]]}
+[  300.3] PRUEBA soltar todo {"v_ini": 0.134, "v_max": 0.121, "v_fin": 0.0, "avance": 5.48, "dyaw_grados": 0.0, "avance_sobre_frente": -5.48, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.121, 0.0, 0.0, 0.0], [-0.073, 0.0, 0.0, 0.0], [-0.026, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[  303.9] PRUEBA W+A (giro izquierda) {"v_ini": 0.0, "v_max": 0.09, "v_fin": 0.035, "avance": 10.0, "dyaw_grados": -1.9, "avance_sobre_frente": 10.0, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.023, 1.0, 0.0, 0.401], [0.044, 1.0, 0.0, 0.524], [0.057, 1.0, 0.0, 0.524], [0.067, 1.0, 0.0, 0.524], [0.079, 1.0, 0.0, 0.524], [0.09, 1.0, 0.0, 0.524], [0.032, 1.0, 0.0, 0.524]]}
+[  304.7] captura cond_giro_izq {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [32.8, 28.9, 23.5], "max": 255} coche girando con W+A
+[  308.4] PRUEBA W+D (giro derecha) {"v_ini": 0.0, "v_max": 0.181, "v_fin": 0.064, "avance": 2.63, "dyaw_grados": -40.6, "avance_sobre_frente": -2.24, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.029, 1.0, 0.0, -0.457], [0.067, 1.0, 0.0, -0.524], [0.109, 1.0, 0.0, -0.524], [0.151, 1.0, 0.0, -0.524], [0.165, 1.0, 0.0, -0.524], [0.176, 1.0, 0.0, -0.524], [0.111, 1.0, 0.0, -0.524]]}
+[  309.3] captura cond_giro_der {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [28.2, 21.7, 16.1], "max": 255} coche girando con W+D
+[  312.5] PRUEBA W (rumbo recto) {"v_ini": 0.0, "v_max": 0.154, "v_fin": 0.159, "avance": 9.79, "dyaw_grados": 31.7, "avance_sobre_frente": 9.78, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.015, 1.0, 0.0, -0.0], [0.058, 1.0, 0.0, -0.0], [0.01, 1.0, 0.0, -0.0], [0.063, 1.0, 0.0, -0.0], [0.109, 1.0, 0.0, -0.0], [0.154, 1.0, 0.0, -0.0]]}
+[  315.6] PRUEBA Espacio (freno de mano) a velocidad {"v_ini": 0.159, "v_max": 0.113, "v_fin": 0.0, "avance": 2.88, "dyaw_grados": -1.3, "avance_sobre_frente": 2.88, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.113, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0]]}
+[  317.7] PRUEBA W+Espacio {"v_ini": 0.0, "v_max": 0.008, "v_fin": 0.008, "avance": 0.75, "dyaw_grados": 0.4, "avance_sobre_frente": 0.75, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.007, 1.0, 0.0, -0.0], [0.007, 1.0, 0.0, -0.0], [0.007, 1.0, 0.0, -0.0], [0.007, 1.0, 0.0, -0.0]]}
+[  318.2] vivo al final: True
+[  318.2] LOG [error][16:48:31.318][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  318.2] LOG [error][16:48:31.319][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  318.2] fin
