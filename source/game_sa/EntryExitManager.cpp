@@ -28,10 +28,11 @@ auto& mp_QuadTree       = reinterpret_cast<std::add_lvalue_reference_t<EntryExit
 
 auto& mp_poolEntryExits = DatosExe::Bss::b96A7D8<CEntryExitsPool*>();
 
-// Como el original: el pool tiene 400 entradas (0x43F927) y Save recorre 400 slots fijos (0x5D5A5F).
-// Con el EXE solo el pool llega a 400 de 400 en los primeros minutos de partida (medido): crear una entrada con el
-// pool lleno devuelve 0 sin más, es el comportamiento normal del juego y no una fuga.
-constexpr int32 ENTRY_EXITS_POOL_SIZE  = 400;
+// Save recorre 400 slots fijos (0x5D5A5F), como el original (formato de partida intacto).
+// DESVIACION DELIBERADA (pedida por el usuario, 23/11/2026): el original reserva 400 entradas (0x43F927). Con 376 de IPL
+// y el reemplazo de instancias de la introduccion el pool llega a 399-400 y una alta falla (log "Pool.h:207"). Se reserva
+// 512 para que no se pierda ninguna entrada; las altas por encima de 400 no se guardan en la partida (igual que antes).
+constexpr int32 ENTRY_EXITS_POOL_SIZE  = 512;
 constexpr int32 ENTRY_EXITS_SAVED_SLOTS = 400;
 
 namespace {
