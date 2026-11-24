@@ -21,7 +21,6 @@ END GENERATED HOOK STATUS */
 
 #include <platform/win/WinPlatform.h>
 #include <platform/platform.h>
-#include <ddraw.h>
 #include <dsound.h>
 #include "VideoMode.h"
 #include "VideoModeSelectDialog.h"
@@ -51,21 +50,47 @@ static auto& PsGlobal = StaticRef<psGlobalType>(0xC8CF88);
 static auto& s_SelectDeviceTscHigh = DatosExe::Bss::bC92104;
 static auto& s_SelectDeviceTscLow  = DatosExe::Bss::bC92108;
 
-// 0x7455E0 - Get available videomem
+// 0x7455E0 - memoria de video. Sustituye a DirectDraw 7 (DirectDrawCreateEx + IDirectDraw7::GetAvailableVidMem(DDSCAPS_VIDEOMEMORY)) por D3D9:
+// Direct3DCreate9 + dispositivo HAL temporal (ventana oculta, modo ventana, D3DCREATE_FPU_PRESERVE para no tocar la precision de x87) + IDirect3DDevice9::GetAvailableTextureMem.
+// D3D9 da una sola cifra, asi que total y disponible reciben el mismo valor (solo se usa el total: VideoMode.cpp, filtro de modos). Con fallo (sin D3D9, sin dispositivo HAL)
+// devuelve el HRESULT del paso que falla (D3DERR_NOTAVAILABLE si no hay D3D9) y no escribe nada, como el original cuando DirectDrawCreateEx fallaba. docs/RenderWareExe/directdraw-sustitucion.md
 static HRESULT GetVideoMemInfo(LPDWORD total, LPDWORD available) {
-	LPDIRECTDRAW7 dd;
-
-    if (HRESULT hr = DirectDrawCreateEx(NULL, (LPVOID*)&dd, IID_IDirectDraw7, NULL); FAILED(hr)) {
-        return hr;
+    const auto d3d = Direct3DCreate9(D3D_SDK_VERSION);
+    if (!d3d) {
+        return D3DERR_NOTAVAILABLE;
     }
 
-	DDSCAPS2 caps;
-	ZeroMemory(&caps, sizeof(DDSCAPS2));
-	caps.dwCaps = DDSCAPS_VIDEOMEMORY;
-	HRESULT hr = dd->GetAvailableVidMem(&caps, total, available);
-	dd->Release();
+    // Ventana temporal de la clase predefinida STATIC (sin registrar clases); nunca se muestra.
+    const HWND window = CreateWindowExA(0, "STATIC", "", WS_POPUP, 0, 0, 64, 64, nullptr, nullptr, GetModuleHandleA(nullptr), nullptr);
 
-    return hr;
+    D3DPRESENT_PARAMETERS pp{};
+    pp.Windowed         = TRUE;
+    pp.SwapEffect       = D3DSWAPEFFECT_DISCARD;
+    pp.BackBufferFormat = D3DFMT_UNKNOWN;
+    pp.hDeviceWindow    = window;
+
+    IDirect3DDevice9* device = nullptr;
+    const HRESULT hr = d3d->CreateDevice(
+        D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, window,
+        D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_FPU_PRESERVE | D3DCREATE_NOWINDOWCHANGES,
+        &pp, &device
+    );
+
+    HRESULT result = hr;
+    if (SUCCEEDED(hr)) {
+        const DWORD memory = device->GetAvailableTextureMem();
+        *total     = memory;
+        *available = memory;
+        device->Release();
+        result = S_OK;
+    }
+
+    if (window) {
+        DestroyWindow(window);
+    }
+    d3d->Release();
+
+    return result;
 }
 
 //! 0x745840 - Check if DirectSound can be loaded
@@ -89,35 +114,12 @@ static BOOL CheckDirectSound() {
 }
 
 // 0x745650
-// Como el original: devuelve 0 si no puede cargar DDRAW.DLL, ni obtener DirectDrawCreateEx, ni crear el objeto (HRESULT < 0); en cada fallo avisa con OutputDebugStringA (texto con "\r\n")
-// y libera lo cargado. Con el objeto creado lo libera (Release, ranura 2) y comprueba D3D8.DLL (0x700), dpnhpast.dll (0x800) y D3D9.DLL (0x801); con todo cargado devuelve 0x900.
-// Las bibliotecas se descargan en el orden del EXE: dpnhpast (con el valor devuelto, aunque sea nulo), DDRAW, D3D8 y, si cargo, D3D9 (sin ningun otro efecto).
+// Devuelve 0x900 si estan D3D8.DLL, dpnhpast.dll y D3D9.DLL (cargar y descargar, sin ningun otro efecto); si falta una devuelve 0x700, 0x800 o 0x801 y avisa con OutputDebugStringA (texto con "\r\n").
+// El original empezaba cargando DDRAW.DLL y creando un objeto con DirectDrawCreateEx (fallos: 0, con su aviso): esa comprobacion ya no existe (el juego no usa DirectDraw; ver GetVideoMemInfo).
+// Las bibliotecas se descargan en el orden del EXE: dpnhpast (con el valor devuelto, aunque sea nulo), D3D8 y, si cargo, D3D9.
 static DWORD GetDXVersion() {
-    const HMODULE ddraw = LoadLibraryA("DDRAW.DLL");
-    if (!ddraw) {
-        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary DDraw\r\n");
-        return 0;
-    }
-
-    using DirectDrawCreateExFn = HRESULT(WINAPI*)(GUID*, LPVOID*, REFIID, IUnknown*);
-    const auto createEx = reinterpret_cast<DirectDrawCreateExFn>(GetProcAddress(ddraw, "DirectDrawCreateEx"));
-    if (!createEx) {
-        FreeLibrary(ddraw);
-        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't GetProcAddress DirectDrawCreateEx\r\n");
-        return 0;
-    }
-
-    IUnknown* directDraw = nullptr; // Como el original: hueco de pila sin inicializar (solo se usa si createEx tiene exito)
-    if (createEx(nullptr, reinterpret_cast<LPVOID*>(&directDraw), IID_IDirectDraw7, nullptr) < 0) {
-        FreeLibrary(ddraw);
-        OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't DirectDrawCreateEx\r\n");
-        return 0;
-    }
-    directDraw->Release();
-
     const HMODULE d3d8 = LoadLibraryA("D3D8.DLL");
     if (!d3d8) {
-        FreeLibrary(ddraw);
         OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary D3D8.DLL\r\n");
         return 0x700;
     }
@@ -125,7 +127,6 @@ static DWORD GetDXVersion() {
     const HMODULE dpnhpast = LoadLibraryA("dpnhpast.dll");
     if (!dpnhpast) {
         FreeLibrary(dpnhpast); // Como el original: FreeLibrary(NULL)
-        FreeLibrary(ddraw);
         FreeLibrary(d3d8);
         OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary dpnhpast.dll\r\n");
         return 0x800;
@@ -133,7 +134,6 @@ static DWORD GetDXVersion() {
 
     const HMODULE d3d9 = LoadLibraryA("D3D9.DLL");
     FreeLibrary(dpnhpast);
-    FreeLibrary(ddraw);
     FreeLibrary(d3d8);
     if (!d3d9) {
         OutputDebugStringA("Please check you have installed Direct X 9 correctly : Couldn't LoadLibrary D3D9.DLL\r\n");

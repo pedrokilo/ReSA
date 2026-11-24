@@ -1,0 +1,4 @@
+lanzado asi pid 28980
+ventana 1051854
+{'ancho': 640, 'alto': 480, 'rojo': 15, 'muestras': 34270, 'media_rgb': [63.6, 57.0, 42.7], 'max': 255}
+{"DxVer": "0x900", "VRAM_Total": 4293918720, "VRAM_Avail": 4293918720, "modo_actual_rw": 3, "gCurrentVideoMode": 3, "num_modos_rw": 35, "formatos_0x884788": [23, 22, 35], "gVideoModes_ptr": "0x0", "lista_menu_no_nula": [], "ddraw_cargada": false, "vivo_al_final": true}

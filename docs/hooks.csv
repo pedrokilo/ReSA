@@ -11959,7 +11959,6 @@ RwPlCore,_rwResArenaHeapSplitBlock,0x00810140,1,0,0,S
 RwCore,_rwSortRecordsByKey,0x008103D0,1,0,0,S
 DelayLoadThunks,DirectInput8CreateThunk,0x00817523,1,0,0,S
 DelayLoadThunks,DirectSoundCreate8Thunk,0x0081803B,1,0,0,S
-DelayLoadThunks,DirectDrawCreateExThunk,0x0081805C,1,0,0,S
 ImportThunks,OvClearThunk,0x00818062,1,0,0,S
 ImportThunks,OvReadThunk,0x00818068,1,0,0,S
 ImportThunks,OvInfoThunk,0x0081806E,1,0,0,S
