@@ -1,0 +1,4 @@
+lanzado std pid 33268
+ventana 1117298
+{'ancho': 640, 'alto': 480, 'rojo': 16, 'muestras': 34270, 'media_rgb': [63.2, 56.8, 42.6], 'max': 255}
+{"DxVer": "0x900", "VRAM_Total": 4293918720, "VRAM_Avail": 4293918720, "modo_actual_rw": 3, "gCurrentVideoMode": 3, "num_modos_rw": 35, "formatos_0x884788": [23, 22, 35], "gVideoModes_ptr": "0x0", "lista_menu_no_nula": [], "ddraw_cargada": false, "vivo_al_final": true}

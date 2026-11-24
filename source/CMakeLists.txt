@@ -404,7 +404,6 @@ target_link_libraries(${RE_PROJECT_LIB_NAME} PRIVATE
     vorbis::vorbis
     imgui::imgui
     libjpeg-turbo::libjpeg-turbo
-    ddraw
     Winmm
     dxguid
     strmiids

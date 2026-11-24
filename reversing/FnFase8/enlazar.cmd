@@ -40,7 +40,7 @@ for %%l in (imgui\p\lib\imgui jpeg-static turbojpeg-static ogg spdlogd TracyClie
 for %%f in ("%FN%\over\*.obj") do if not exist "%OBJDIR%\%%~nxf" echo "%%f" >> "%OUT%\link.rsp"
 for %%p in (libjpeg6b libpng1012 zlib113) do echo "%FN%\lib\%%p.lib" >> "%OUT%\link.rsp"
 for %%p in (imgui5396f0f7f8179\p\lib\imgui.lib libjpbe5e6c22fbdf6\p\lib\jpeg-static.lib libjpbe5e6c22fbdf6\p\lib\turbojpeg-static.lib ogg21219f4658423\p\lib\ogg.lib sdlc3cf2c66533bd\p\lib\SDL3-static.lib spdlo8029646db848c\p\lib\spdlogd.lib tracy2fefc9668738f\p\lib\TracyClient.lib vorbi9990e9d508d57\p\lib\vorbis.lib vorbi9990e9d508d57\p\lib\vorbisenc.lib vorbi9990e9d508d57\p\lib\vorbisfile.lib) do echo "%CONAN%\%%p" >> "%OUT%\link.rsp"
-echo ddraw.lib dsound.lib dxguid.lib strmiids.lib d3d9.lib Winmm.lib dbghelp.lib ws2_32.lib opengl32.lib kernel32.lib user32.lib gdi32.lib imm32.lib ole32.lib oleaut32.lib version.lib uuid.lib advapi32.lib setupapi.lib shell32.lib comdlg32.lib winspool.lib >> "%OUT%\link.rsp"
+echo dsound.lib dxguid.lib strmiids.lib d3d9.lib Winmm.lib dbghelp.lib ws2_32.lib opengl32.lib kernel32.lib user32.lib gdi32.lib imm32.lib ole32.lib oleaut32.lib version.lib uuid.lib advapi32.lib setupapi.lib shell32.lib comdlg32.lib winspool.lib >> "%OUT%\link.rsp"
 rem sin /FORCE: cualquier simbolo sin resolver debe aparecer como error (lista en link.log)
 link /nologo /DEBUG /OUT:"%OUT%\gta_sa_standalone.exe" /PDB:"%OUT%\gta_sa_standalone.pdb" /MACHINE:X86 /SUBSYSTEM:WINDOWS /ENTRY:FaseEntrada /BASE:0x400000 /FIXED /DYNAMICBASE:NO /LARGEADDRESSAWARE /INCREMENTAL:NO /SAFESEH:NO /NXCOMPAT:NO /MAP:"%OUT%\gta_sa_standalone.map" @"%OUT%\link.rsp" > "%OUT%\link.log" 2>&1
 set LE=%ERRORLEVEL%
