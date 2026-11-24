@@ -1,0 +1,1 @@
+"D:\Original\_sin_original_run\gta_sa_standalone.exe" --directorio-juego "D:\Original\_sin_original_run" --salida "D:\Original\wv-limpio\reversing\FnSinOriginal\ejecuciones\control-externa-20261124-004136" --limite 8 --imagen-externa --ruta-original D:\Original\_sin_original_decoy\gta-sa.exe

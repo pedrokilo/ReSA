@@ -12,15 +12,17 @@ if not exist "%OUT%" mkdir "%OUT%"
 set FN=%REPO%\reversing\FnFase8
 call "C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvars32.bat" >nul || exit /b 3
 set CONAN=%REPO%\reversing\CVehicle\conan-cache\p\b
+rem cl.rsp lleva marcadores @RAIZ@: se expanden con la raiz del repo en uso (el .rsp versionado no depende de rutas de otros arboles)
+powershell -NoProfile -ExecutionPolicy Bypass -File "%FN%\expandir_rsp.ps1" "%REPO%" "%FN%\cl.rsp" "%OUT%\cl.rsp" || exit /b 8
 ml /nologo /c /Fo"%OUT%\reserva_imagen.obj" "%FN%\reserva_imagen.asm" || exit /b 5
 rem codigo propio del exe: se compila con GTASA_STANDALONE_EXE (el ASI lo compila vacio); /GS- /RTC off para el callback TLS (sin CRT)
-cl @"%FN%\cl.rsp" /DGTASA_STANDALONE_EXE /GS- /Fo"%OUT%\StandaloneExe.obj" "%REPO%\source\app\platform\win\StandaloneExe.cpp" || exit /b 4
+cl @"%OUT%\cl.rsp" /DGTASA_STANDALONE_EXE /GS- /Fo"%OUT%\StandaloneExe.obj" "%REPO%\source\app\platform\win\StandaloneExe.cpp" || exit /b 4
 rem imagen de datos del exe original (arreglos C++ versionados en source\game_sa\DatosExe\Imagen, generados por gen_imagen.py): solo el independiente; el ASI no los compila
 if not exist "%OUT%\imagen" mkdir "%OUT%\imagen"
-for %%f in ("%REPO%\source\game_sa\DatosExe\Imagen\*.cpp") do if not exist "%OUT%\imagen\%%~nf.obj" cl @"%FN%\cl.rsp" /DGTASA_STANDALONE_EXE /GS- /Fo"%OUT%\imagen\%%~nf.obj" "%%f" || exit /b 7
+for %%f in ("%REPO%\source\game_sa\DatosExe\Imagen\*.cpp") do if not exist "%OUT%\imagen\%%~nf.obj" cl @"%OUT%\cl.rsp" /DGTASA_STANDALONE_EXE /GS- /Fo"%OUT%\imagen\%%~nf.obj" "%%f" || exit /b 7
 rem overlay: archivos de over_src\*.cpp (copias de trabajo en curso de otras ramas, p. ej. vivo-d3dstd) se compilan con las mismas opciones (sin PCH) solo si falta over\<n>.obj
 if not exist "%FN%\over" mkdir "%FN%\over"
-for %%f in ("%FN%\over_src\*.cpp") do if not exist "%FN%\over\%%~nf.obj" cl @"%FN%\cl.rsp" /MP1 /I"%FN%\over_src" /Fo"%FN%\over\%%~nf.obj" "%%f" || exit /b 6
+for %%f in ("%FN%\over_src\*.cpp") do if not exist "%FN%\over\%%~nf.obj" cl @"%OUT%\cl.rsp" /MP1 /I"%FN%\over_src" /Fo"%FN%\over\%%~nf.obj" "%%f" || exit /b 6
 rem .obj de reemplazo (archivos del proyecto recompilados con GTASA_STANDALONE_EXE u otras definiciones): carpeta over\ gana a obj\
 set OBJDIR=%~3
 if "%OBJDIR%"=="" set OBJDIR=%FN%\obj

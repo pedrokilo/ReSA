@@ -1,0 +1,1 @@
+"D:\Original\_sin_original_run\gta_sa_standalone.exe" --directorio-juego "D:\Original\_sin_original_run" --salida "D:\Original\wv-limpio\reversing\FnSinOriginal\ejecuciones\sinorig1-20261124-003126" --limite 330 
