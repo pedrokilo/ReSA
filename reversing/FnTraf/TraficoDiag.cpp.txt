@@ -1,0 +1,65 @@
+// DIAGNOSTICO TEMPORAL (rama fix-trafico-nubes): vuelca el estado del trafico y la poblacion para StandaloneExe.cpp (LogMundo). No se integra.
+#include "StdInc.h"
+#include "CarCtrl.h"
+#include "TheCarGenerators.h"
+#include "Population.h"
+#include "PopCycle.h"
+#include "Streaming.h"
+#include "Pathfind.h"
+#include "Clouds.h"
+#include "TimeCycle.h"
+#include "Weather.h"
+#include "Clock.h"
+#include <cstdio>
+
+static uint32 Raw32(uintptr_t a) { return *(volatile uint32*)a; }
+
+extern "C" int TraficoDiag(char* buf, int n) {
+    const int loadedVeh = (int)CPopulation::m_AppropriateLoadedCars.CountMembers();
+    int areasCargadas = 0;
+    for (size_t i = 0; i < 64; i++) if (ThePaths.IsAreaLoaded(i)) areasCargadas++;
+    return _snprintf_s(buf, n, _TRUNCATE,
+        "  TRAF: rnd=%d park=%d mis=%d law=%d max=%u cuentaAtras=%d madT=%.2f gen=%d proc=%d | peds tot=%u civ=%u gang=%u cop=%u | "
+        "popcycle obj[%.1f %.1f %.1f %.1f] raw[%08X %08X %08X %08X] zona obj=%p raw=%08X | nodos areas=%d | modelos apropiados=%d (cars %d/%d) "
+        "raw969098=%u obj=%u | CountDownPeds=%d",
+        CCarCtrl::NumRandomCars, (int)CCarCtrl::NumParkedCars, (int)CCarCtrl::NumMissionCars, (int)CCarCtrl::NumLawEnforcerCars, (uint32)CCarCtrl::MaxNumberOfCarsInUse,
+        (int)CCarCtrl::CountDownToCarsAtStart, CCarCtrl::TimeNextMadDriverChaseCreated, (int)CTheCarGenerators::NumOfCarGenerators, (int)CTheCarGenerators::ProcessCounter,
+        (uint32)CPopulation::ms_nTotalPeds, (uint32)CPopulation::ms_nTotalCivPeds, (uint32)CPopulation::ms_nTotalGangPeds, (uint32)CPopulation::ms_nNumCop,
+        CPopCycle::m_NumOther_Cars, CPopCycle::m_NumCops_Cars, CPopCycle::m_NumGangs_Cars, CPopCycle::m_NumDealers_Cars,
+        Raw32(0xC0BC30), Raw32(0xC0BC34), Raw32(0xC0BC38), Raw32(0xC0BC3C), (void*)CPopCycle::m_pCurrZone, Raw32(0xC0BC64), areasCargadas,
+        loadedVeh, (int)CPopulation::m_nNumCarsInGroup[0], (int)CPopulation::m_nNumCarsInGroup[1], Raw32(0x969098), (uint32)CCarCtrl::NumLawEnforcerCars, (int)CPopulation::m_CountDownToPedsAtStart);
+}
+
+extern "C" volatile int g_NubDiag[8];
+extern "C" int NubesDiag(char* buf, int n) {
+    const auto& cc = CTimeCycle::m_CurrentColours;
+    int usadas = 0;
+    for (int i = 0; i < 160; i++) if (CClouds::ms_vc.bUsed[i]) usadas++;
+    const int m = _snprintf_s(buf, n, _TRUNCATE, "  CONTADORES: Render=%d bajasProyectadas=%d bajasFuera=%d vol_pasadas=%d vol_vertices=%d\r\n  VOLUM: usedNum=%d usadas=%d densidad=%.2f heightSwitch=%d fader=%.1f maxDist=%.1f tex=%p fxq=%d currArea=%d\r\n", g_NubDiag[0], g_NubDiag[1], g_NubDiag[2], g_NubDiag[4], g_NubDiag[5], (int)CClouds::m_VolumetricCloudsUsedNum, usadas,
+        CClouds::m_fVolumetricCloudDensity, (int)CClouds::m_bVolumetricCloudHeightSwitch, DatosExe::Bss::bC6E970, CClouds::m_fVolumetricCloudMaxDistance, (void*)CClouds::ms_vc.texture, (int)g_fx.GetFxQuality(), (int)CGame::currArea);
+    buf += m; n -= m;
+    return m + _snprintf_s(buf, n, _TRUNCATE,
+        "  NUBES: low rgb=%u,%u,%u fluffy=%u,%u,%u cielo top=%u,%u,%u bot=%u,%u,%u | cov=%.3f fog=%.3f extra=%.3f rain=%.3f clima old=%d new=%d interp=%.2f hora=%d:%02d | tex=%p raster=%p roll=%.3f camZ=%.1f",
+        cc.m_nLowCloudsRed, cc.m_nLowCloudsGreen, cc.m_nLowCloudsBlue, cc.m_nFluffyCloudsBottomRed, cc.m_nFluffyCloudsBottomGreen, cc.m_nFluffyCloudsBottomBlue,
+        cc.m_nSkyTopRed, cc.m_nSkyTopGreen, cc.m_nSkyTopBlue, cc.m_nSkyBottomRed, cc.m_nSkyBottomGreen, cc.m_nSkyBottomBlue,
+        CWeather::CloudCoverage, CWeather::Foggyness, CWeather::ExtraSunnyness, CWeather::Rain, (int)CWeather::OldWeatherType, (int)CWeather::NewWeatherType, CWeather::InterpolationValue,
+        (int)CClock::ms_nGameClockHours, (int)CClock::ms_nGameClockMinutes, (void*)gpCloudTex, gpCloudTex ? (void*)gpCloudTex->raster : nullptr, CClouds::ms_cameraRoll, TheCamera.GetPosition().z);
+}
+
+extern "C" int ChooseDiag(char* buf, int n) {
+    // histograma de 200 llamadas a CCarCtrl::ChooseModel (solo lee estado y consume rand del EXE) + valor forzado 0xA4448C
+    int ids[10]; int cuenta[10]; int arg[10]; int nd = 0, menos1 = 0;
+    for (int i = 0; i < 200; i++) {
+        int32 a = -7;
+        const int32 m = CCarCtrl::ChooseModel(&a);
+        if (m == -1) { menos1++; continue; }
+        int k = 0; while (k < nd && ids[k] != m) k++;
+        if (k == nd) { if (nd == 10) continue; ids[nd] = m; cuenta[nd] = 0; arg[nd] = a; nd++; }
+        cuenta[k]++;
+    }
+    int o = _snprintf_s(buf, n, _TRUNCATE, "  CHOOSE: forzado(0xA4448C)=%d noMenos1=%d de 200; -1=%d |", *(volatile int*)0xA4448C, 200 - menos1, menos1);
+    for (int k = 0; k < nd && o > 0 && o < n - 40; k++) o += _snprintf_s(buf + o, n - o, _TRUNCATE, " modelo %d (tipo %d) x%d", ids[k], arg[k], cuenta[k]);
+    int o2 = o;
+    if (o2 > 0 && o2 < n - 80) { o2 += _snprintf_s(buf + o2, n - o2, _TRUNCATE, " | apropiados:"); for (unsigned i = 0; i < 6 && o2 < n - 20; i++) o2 += _snprintf_s(buf + o2, n - o2, _TRUNCATE, " %d", (int)CPopulation::m_AppropriateLoadedCars.GetMember(i)); }
+    return o2;
+}

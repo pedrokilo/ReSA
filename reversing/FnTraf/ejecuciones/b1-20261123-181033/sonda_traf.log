@@ -1,0 +1,22 @@
+pid 15660 exe gta_sa_standalone
+juego en marcha tras 14 s; gGameState=9
+t=6 {"t_juego_ms": 370369493, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=11 {"t_juego_ms": 370375046, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=17 {"t_juego_ms": 370380646, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=22 {"t_juego_ms": 370386247, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=28 {"t_juego_ms": 370391852, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=34 {"t_juego_ms": 370397452, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=39 {"t_juego_ms": 370403005, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=45 {"t_juego_ms": 370408572, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=50 {"t_juego_ms": 370414172, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+ventana: cliente 585x438, rect ventana 599x475
+captura giro0 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [46.0, 41.5, 28.4], "max": 255} estado {"t_juego_ms": 370415532, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura giro1 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [45.7, 41.3, 28.3], "max": 255} estado {"t_juego_ms": 370417852, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura giro2 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [38.5, 36.0, 24.8], "max": 255} estado {"t_juego_ms": 370420125, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura giro3 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [51.0, 47.9, 35.3], "max": 255} estado {"t_juego_ms": 370422412, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura giro4 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [47.3, 40.6, 28.3], "max": 255} estado {"t_juego_ms": 370424685, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura giro5 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [65.0, 63.1, 50.1], "max": 255} estado {"t_juego_ms": 370427005, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=66 {"t_juego_ms": 370430092, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+t=72 {"t_juego_ms": 370435692, "cs": null, "area": 3, "peds": [1, 140], "veh": [0, 110], "pos": [2495.89990234375, -1707.449951171875, 1014.7421875], "NumRandomCars": 0, "MaxCarsInUse": 12}
+el proceso termino
+fin

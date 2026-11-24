@@ -1,0 +1,4 @@
+  CONTADORES: Render=3408 bajasProyectadas=22389 bajasFuera=18507 vol_pasadas=31 vol_vertices=0
+  VOLUM: usedNum=180 usadas=5 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=091AC1A0 fxq=2 currArea=0
+  CONTADORES: Render=3507 bajasProyectadas=22889 bajasFuera=19195 vol_pasadas=31 vol_vertices=0
+  VOLUM: usedNum=180 usadas=5 densidad=1.00 heightSwitch=1 fader=255.0 maxDist=600.0 tex=091AC1A0 fxq=2 currArea=0

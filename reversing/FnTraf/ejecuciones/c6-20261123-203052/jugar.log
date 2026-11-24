@@ -1,0 +1,10 @@
+
+== Variante X : DLL arbitraria D:\Original\wv-8\reversing\FnBIS1\dll\Debug.asi (banco PL1) + INI actual.
+   Argumentos: --unhook-except=RenderWare/WindowedModeHooks   ASI SHA256: 1496634c1237ff204384a8486759573b97e3526328ce30802dd741d0f78114b8
+   Lanzando gta_sa.exe. Juega; al cerrar el juego se restaura todo solo.
+[31;1mRemove-Item: [0mD:\Original\wv-8\reversing\FnBIS1\jugar.ps1:267
+[36;1mLine |[0m
+[36;1m[36;1m 267 | [0m         [36;1mRemove-Item -LiteralPath $candado -Force -ErrorAction Silentl[0m .
+[36;1m     | [31;1m         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[0m
+[36;1m[31;1m[31;1m[36;1m     | [31;1mObject reference not set to an instance of an object.[0m
+[36;1m[31;1m[31;1m[36;1m[31;1m[0m

@@ -1,0 +1,136 @@
+[depuración][18:19:04.774][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][18:19:04.784][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13630 en 1011 clases/grupos (11462 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13630. Desactivadas: 0.
+[info][18:19:04.785][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][18:19:04.785][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][18:19:04.787][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][18:19:04.794][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][18:19:05.342][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][18:19:05.412][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][18:19:05.439][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][18:19:05.481][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][18:19:05.490][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][18:19:05.490][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][18:19:05.490][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][18:19:05.491][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][18:19:05.491][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][18:19:05.491][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][18:19:05.491][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][18:19:05.491][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][18:19:05.492][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][18:19:05.492][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[info][18:19:05.585][AEMFDecoder.cpp:148]: User tracks: QuickTime retirado; los .mp3 usan el decoder WMA y los formatos que solo abria QuickTime no estan disponibles
+[depuración][18:19:05.700][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][18:19:05.704][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][18:19:05.704][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][18:19:05.841][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][18:19:05.842][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][18:19:05.842][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[depuración][18:19:10.138][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[depuración][18:19:12.579][Pools.cpp:502]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[aviso][18:19:12.602][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][18:19:12.609][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][18:19:12.634][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][18:19:12.634][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][18:19:12.634][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][18:19:12.653][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][18:19:12.653][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][18:19:58.811][Pad.cpp:378]: Raton: DirectInput no entrega datos pero SDL si; se vuelve a adquirir el dispositivo (registro de raw input perdido)
+[depuración][18:21:30.323][CustomCarPlateMgr.cpp:438]: [Depuración - Traza]: SetupClumpAfterVehicleUpgrade
+[depuración][18:21:30.323][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.325][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.325][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.325][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.325][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.325][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.325][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.326][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.326][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.326][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.326][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.326][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.326][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.327][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:438]: [Depuración - Traza]: SetupClumpAfterVehicleUpgrade
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.328][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.329][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.329][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.329][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.329][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.329][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.329][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.329][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.329][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.329][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.329][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.330][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.330][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.330][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.597][CustomCarPlateMgr.cpp:438]: [Depuración - Traza]: SetupClumpAfterVehicleUpgrade
+[depuración][18:21:30.598][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.598][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.598][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.599][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.599][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.599][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.599][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.599][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.599][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.599][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.599][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.599][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.599][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.599][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.600][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.600][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.600][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.600][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.600][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.600][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.600][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.600][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.600][CustomCarPlateMgr.cpp:438]: [Depuración - Traza]: SetupClumpAfterVehicleUpgrade
+[depuración][18:21:30.601][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.601][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.601][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.601][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.601][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.601][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.601][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.601][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.602][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.602][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.602][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.602][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.602][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.602][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.602][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.602][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.602][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.602][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.602][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.603][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.603][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[depuración][18:21:30.603][CustomCarPlateMgr.cpp:423]: [Depuración - Traza]: AtomicUpgradeSetCarplateTextureCB
+[error][18:22:03.912][Pool.h:207]: Falló la reserva para el tipo "class CEntryExit"

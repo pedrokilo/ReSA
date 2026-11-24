@@ -1,0 +1,18 @@
+pid 4412 exe gta_sa_standalone
+juego en marcha tras 9 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+t=6 {"t_juego_ms": 370369996, "cs": null, "area": 0, "peds": [10, 140], "veh": [5, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 2, "MaxCarsInUse": 12}
+t=11 {"t_juego_ms": 370375643, "cs": null, "area": 0, "peds": [9, 140], "veh": [4, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 1, "MaxCarsInUse": 12}
+ventana: cliente 585x438, rect ventana 599x475
+captura giro0 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [169.4, 173.9, 168.1], "max": 255} frente [0.0, 1.0, -0.05] estado {"t_juego_ms": 370378156, "cs": null, "area": 0, "peds": [9, 140], "veh": [4, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 1, "MaxCarsInUse": 12}
+captura cielo0 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [163.2, 172.3, 166.7], "max": 255} frente [0.0, 1.0, -0.05]
+captura giro1 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [39.3, 37.2, 33.1], "max": 212} frente [0.01, -0.09, -1.0] estado {"t_juego_ms": 370383036, "cs": null, "area": 0, "peds": [9, 140], "veh": [2, 110], "pos": [2495.330078125, -1690.25, 14.765625], "NumRandomCars": 0, "MaxCarsInUse": 12}
+captura cielo1 {"ancho": 585, "alto": 438, "rojo": 0, "muestras": 28696, "media_rgb": [0.0, 0.0, 0.0], "max": 0} frente [nan, nan, nan]
+captura giro2 null frente [nan, nan, nan] estado {"t_juego_ms": 0, "cs": null, "area": 0, "peds": [0, 0], "veh": [0, 0], "pos": null, "NumRandomCars": 0, "MaxCarsInUse": 0}
+captura cielo2 null frente [nan, nan, nan]
+captura giro3 null frente [nan, nan, nan] estado {"t_juego_ms": 0, "cs": null, "area": 0, "peds": [0, 0], "veh": [0, 0], "pos": null, "NumRandomCars": 0, "MaxCarsInUse": 0}
+captura cielo3 null frente [nan, nan, nan]
+captura giro4 null frente [nan, nan, nan] estado {"t_juego_ms": 0, "cs": null, "area": 0, "peds": [0, 0], "veh": [0, 0], "pos": null, "NumRandomCars": 0, "MaxCarsInUse": 0}
+captura cielo4 null frente [nan, nan, nan]
+captura giro5 null frente [nan, nan, nan] estado {"t_juego_ms": 0, "cs": null, "area": 0, "peds": [0, 0], "veh": [0, 0], "pos": null, "NumRandomCars": 0, "MaxCarsInUse": 0}
+captura cielo5 null frente [nan, nan, nan]

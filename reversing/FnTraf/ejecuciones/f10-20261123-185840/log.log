@@ -1,0 +1,622 @@
+[depuración][19:09:18.544][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][19:09:18.553][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13630 en 1011 clases/grupos (11462 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13630. Desactivadas: 0.
+[info][19:09:18.554][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][19:09:18.554][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][19:09:18.557][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][19:09:18.559][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][19:09:18.980][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][19:09:19.016][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][19:09:19.044][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][19:09:19.086][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][19:09:19.094][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][19:09:19.095][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][19:09:19.095][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][19:09:19.095][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][19:09:19.095][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][19:09:19.096][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][19:09:19.096][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][19:09:19.096][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][19:09:19.096][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][19:09:19.096][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[info][19:09:19.613][AEMFDecoder.cpp:148]: User tracks: QuickTime retirado; los .mp3 usan el decoder WMA y los formatos que solo abria QuickTime no estan disponibles
+[depuración][19:09:19.653][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][19:09:19.658][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][19:09:19.658][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][19:09:19.723][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][19:09:19.724][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][19:09:19.724][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[error][19:09:20.049][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:20.315][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:20.316][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:20.317][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:20.317][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:20.317][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:20.318][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:20.318][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:20.318][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:20.318][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:20.319][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:20.319][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:20.319][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:20.319][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:20.319][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:20.319][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:20.319][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:20.320][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:20.320][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:20.320][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:20.320][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:20.320][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:20.320][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:20.320][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:20.321][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:20.321][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:20.321][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:20.321][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:20.321][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:20.322][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:20.322][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:20.322][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:20.323][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:20.323][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:20.323][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:20.324][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:20.324][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:20.324][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:20.324][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:20.324][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:20.324][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:20.324][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:20.325][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:20.325][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:20.325][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:20.325][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:20.325][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:20.325][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[depuración][19:09:21.170][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[depuración][19:09:21.818][Pools.cpp:502]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[aviso][19:09:21.841][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][19:09:21.847][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][19:09:21.874][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][19:09:21.875][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][19:09:21.875][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][19:09:21.893][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][19:09:21.894][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[error][19:09:24.085][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:24.086][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:24.086][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:24.086][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:24.087][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:24.087][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:24.087][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:24.087][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:24.088][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:24.088][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:24.088][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:24.088][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:24.088][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:24.089][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:24.089][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:24.089][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:24.089][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:24.089][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:24.089][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:24.090][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:24.090][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:24.090][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:24.090][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:24.090][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:24.090][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:24.091][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:24.091][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:24.091][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:24.091][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:24.091][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:24.091][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:24.092][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:24.092][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:24.092][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:24.092][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:24.092][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:24.092][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:24.092][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:24.093][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:24.093][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:24.473][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=404 ptr=0xb20274 tipo=6 placa=0x2070fff0 tipoPlaca=255 refs=1 txd=72
+[error][19:09:24.633][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:09:24.679][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:09:24.714][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:09:24.759][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=520 ptr=0xb36214 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=188
+[error][19:09:24.872][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=432 ptr=0xb25754 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=100
+[error][19:09:25.600][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=2 txd=160
+[error][19:09:26.245][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=2 txd=160
+[error][19:09:26.400][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=2 txd=160
+[error][19:09:26.482][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=497 ptr=0xb31c5c tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=165
+[error][19:09:26.643][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=2 txd=160
+[error][19:09:28.105][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:28.106][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:28.106][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:28.107][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:28.107][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:28.107][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:28.107][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:28.107][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:28.107][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:28.107][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:28.107][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:28.108][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:28.108][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:28.108][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:28.108][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:28.108][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:32.119][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:32.120][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:32.120][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:32.120][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:32.121][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:32.121][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:32.121][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:32.121][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:32.121][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:32.122][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:32.122][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:32.122][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:32.122][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:32.122][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:32.122][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:32.123][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:36.136][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:36.137][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:36.137][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:36.137][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:36.137][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:36.138][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:36.138][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:36.138][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:36.139][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:36.139][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:36.139][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:36.139][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:36.140][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:36.140][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:36.140][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:36.141][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:40.151][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:40.152][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:40.153][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:40.153][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:40.154][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:40.154][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:40.154][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:40.154][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:44.165][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:44.166][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:44.166][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:44.167][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:44.167][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:44.167][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:44.167][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:44.167][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:48.181][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:48.182][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:48.182][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:48.183][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:48.183][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:48.183][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:48.184][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:48.184][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[error][19:09:52.194][app_debug.cpp:259]: ASSERT FALLIDO (se continua): `idx < CountMembers()` en D:\Original\wv-int\source\game_sa\LoadedCarGroup.cpp:157
+[error][19:09:52.194][app_debug.cpp:246]: 	0x0186aaa1: CLoadedCarGroup::GetMember:157
+[error][19:09:52.195][app_debug.cpp:246]: 	0x0258cedd: ChooseDiag:62
+[error][19:09:52.196][app_debug.cpp:246]: 	0x00e1ed80: `anonymous namespace'::LogMundo:379
+[error][19:09:52.196][app_debug.cpp:246]: 	0x00e1f5f0: `anonymous namespace'::Guardia:464
+[error][19:09:52.196][app_debug.cpp:246]: 	0x75495d49: BaseThreadInitThunk:0
+[error][19:09:52.197][app_debug.cpp:246]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[error][19:09:52.197][app_debug.cpp:246]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[depuración][19:10:05.201][Pad.cpp:378]: Raton: DirectInput no entrega datos pero SDL si; se vuelve a adquirir el dispositivo (registro de raw input perdido)
+[error][19:10:07.579][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:07.900][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:08.222][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:08.543][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:08.864][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:09.186][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:09.507][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:09.828][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:09.944][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=523 ptr=0xb36b2c tipo=6 placa=0x2068d690 tipoPlaca=255 refs=1 txd=191
+[error][19:10:10.025][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:10.104][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:10.185][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:10.266][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:10.506][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=547 ptr=0xb3b3ec tipo=6 placa=0x20be6888 tipoPlaca=255 refs=1 txd=215
+[error][19:10:11.069][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=547 ptr=0xb3b3ec tipo=6 placa=0x20be6888 tipoPlaca=255 refs=1 txd=215
+[error][19:10:11.149][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:11.309][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=536 ptr=0xb39294 tipo=6 placa=0x207a5ec0 tipoPlaca=255 refs=1 txd=204
+[error][19:10:11.390][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:11.551][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=404 ptr=0xb20274 tipo=6 placa=0x2070fff0 tipoPlaca=255 refs=1 txd=72
+[error][19:10:11.711][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=491 ptr=0xb30a2c tipo=6 placa=0x20be96c8 tipoPlaca=255 refs=1 txd=159
+[error][19:10:11.792][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:11.952][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:12.560][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:12.881][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:13.203][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:13.524][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:13.846][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:14.167][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:14.488][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:14.809][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:15.131][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:17.701][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:18.023][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:18.344][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:18.666][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:18.987][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:19.308][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:19.630][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:19.951][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:20.307][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:20.468][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=536 ptr=0xb39294 tipo=6 placa=0x207a5ec0 tipoPlaca=255 refs=1 txd=204
+[error][19:10:20.629][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:21.030][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=547 ptr=0xb3b3ec tipo=6 placa=0x20be6888 tipoPlaca=255 refs=1 txd=215
+[error][19:10:21.111][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=418 ptr=0xb22ce4 tipo=6 placa=0x20ac3ec0 tipoPlaca=255 refs=1 txd=86
+[error][19:10:21.191][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=404 ptr=0xb20274 tipo=6 placa=0x2070fff0 tipoPlaca=255 refs=1 txd=72
+[error][19:10:21.271][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:21.914][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=401 ptr=0xb1f95c tipo=6 placa=0x20ac63f0 tipoPlaca=255 refs=1 txd=69
+[error][19:10:21.994][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:22.075][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=401 ptr=0xb1f95c tipo=6 placa=0x20ac63f0 tipoPlaca=255 refs=1 txd=69
+[error][19:10:22.682][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:23.004][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:23.325][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:23.647][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:23.968][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:24.289][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:24.611][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:24.932][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:27.664][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:27.985][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:28.306][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:28.628][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:28.949][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:29.270][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:29.592][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:29.913][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:30.235][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:30.270][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:30.271][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:30.431][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:30.511][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:30.752][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:30.912][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:30.993][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:31.234][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=483 ptr=0xb2f1ec tipo=6 placa=0x20d0ebb8 tipoPlaca=255 refs=1 txd=151
+[error][19:10:31.635][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=547 ptr=0xb3b3ec tipo=6 placa=0x20be6888 tipoPlaca=255 refs=1 txd=215
+[error][19:10:31.796][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=418 ptr=0xb22ce4 tipo=6 placa=0x20ac3ec0 tipoPlaca=255 refs=1 txd=86
+[error][19:10:31.876][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:32.359][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:10:32.805][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:33.127][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:33.448][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:33.769][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:34.091][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:34.412][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:34.733][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:35.055][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:35.376][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:35.697][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:36.019][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:36.340][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:36.662][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:36.983][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:37.304][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:37.626][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:37.947][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:38.268][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:38.590][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:38.911][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:39.232][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:39.554][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:39.875][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:40.196][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:40.518][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:40.839][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:41.160][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:41.482][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:41.803][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:42.124][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:42.446][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:42.767][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:43.088][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:43.410][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:43.731][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:44.052][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:44.374][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:44.695][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:45.017][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:45.338][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:45.659][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:45.981][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:46.302][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:46.623][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:46.945][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:47.266][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:47.587][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:47.909][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:48.230][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:48.552][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:48.873][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:49.194][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:49.516][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:49.837][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:50.159][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:50.480][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:50.801][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:51.122][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:51.444][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:51.765][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:52.086][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:52.408][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:52.729][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:53.050][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:53.372][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:53.693][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:54.015][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:54.336][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:54.657][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:54.979][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:55.300][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:55.621][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:55.943][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:56.264][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:56.585][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:56.907][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:57.228][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:57.549][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:57.871][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:58.192][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:58.513][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:58.835][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:59.156][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:59.477][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:10:59.799][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:00.120][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:00.441][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:00.763][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:01.084][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:01.406][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:01.727][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:02.048][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:02.370][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:02.691][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:03.012][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:03.334][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:03.655][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:03.976][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:04.298][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:04.619][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:04.940][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:05.262][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:05.583][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:05.904][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:06.226][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:06.547][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:06.868][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:07.190][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:07.511][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:07.832][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:08.154][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:08.475][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:08.797][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:09.118][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:09.439][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:09.761][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:10.082][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:10.403][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:10.725][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:11.046][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:11.368][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:11.689][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:12.010][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:12.332][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:12.653][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:12.974][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:13.296][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:13.617][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:13.938][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:14.260][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:14.581][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:14.902][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:15.224][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:15.545][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:15.866][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:16.188][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:16.509][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:16.831][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:17.152][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:17.473][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:17.794][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:18.116][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:18.437][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:18.759][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:19.080][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:19.401][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:19.723][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:20.045][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:20.365][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:20.687][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:21.008][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:21.329][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:21.651][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:21.972][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:22.294][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:22.615][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:22.936][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:23.258][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:23.579][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:23.900][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:24.222][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:24.543][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:24.864][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:25.186][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:25.507][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:25.828][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:26.150][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:26.471][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:26.793][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:27.114][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:27.435][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:27.757][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:28.078][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:28.399][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:28.721][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:29.042][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:29.363][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:29.685][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:30.006][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:30.327][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:30.649][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:30.970][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:31.291][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:31.613][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:31.934][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:32.255][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:32.577][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:32.898][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:33.220][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:33.541][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:33.862][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:34.183][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:34.505][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:34.826][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:35.147][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:35.469][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:35.790][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:36.112][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:36.433][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:36.754][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:37.076][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:37.397][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:37.718][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:38.040][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:38.361][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:38.682][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:39.004][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:39.325][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:39.647][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:39.968][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:40.289][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:40.611][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:40.932][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:41.253][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:41.575][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:41.896][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:42.217][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:42.539][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:42.860][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:43.181][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:43.503][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:43.824][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:44.146][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:44.467][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:44.788][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:45.110][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:45.431][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:45.752][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:46.074][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:46.395][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:46.716][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:47.038][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:47.359][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:47.680][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:48.002][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:48.324][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:48.644][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:48.966][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:49.287][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:49.608][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:49.930][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:50.251][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:50.572][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:50.894][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:51.215][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:51.537][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:51.858][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:52.179][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:52.501][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:52.822][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:53.143][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:53.465][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:53.786][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:54.107][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:54.429][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:54.750][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:55.071][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:55.393][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:55.714][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:56.036][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:56.357][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:56.678][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:57.000][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:57.321][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:57.642][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:57.964][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:58.285][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:58.606][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:58.928][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:59.249][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:59.570][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:11:59.892][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:00.213][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:00.535][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:00.856][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:01.177][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:01.499][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:01.820][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:02.141][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:02.464][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:02.784][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:03.105][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:03.427][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:03.748][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:04.069][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:04.391][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:04.712][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:05.034][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:05.355][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:05.676][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:05.997][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:06.319][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:06.640][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:06.962][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:07.283][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:07.604][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:07.926][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:08.247][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:08.568][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:08.890][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:09.211][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:09.532][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=545 ptr=0xb3addc tipo=6 placa=0x20904850 tipoPlaca=255 refs=1 txd=213
+[error][19:12:10.537][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:12:10.538][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:12:10.619][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:12:11.422][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=401 ptr=0xb1f95c tipo=6 placa=0x20ac63f0 tipoPlaca=255 refs=1 txd=69
+[error][19:12:12.466][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=1 txd=160
+[error][19:12:13.672][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=2 txd=160
+[error][19:12:15.921][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=2 txd=160
+[error][19:12:16.243][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=2 txd=160
+[error][19:12:16.886][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=404 ptr=0xb20274 tipo=6 placa=0x2070fff0 tipoPlaca=255 refs=1 txd=72
+[error][19:12:16.964][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=401 ptr=0xb1f95c tipo=6 placa=0x20ac63f0 tipoPlaca=255 refs=2 txd=69
+[error][19:12:20.660][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=492 ptr=0xb30d34 tipo=6 placa=0x207a4890 tipoPlaca=255 refs=2 txd=160
+[error][19:12:21.414][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=439 ptr=0xb26c8c tipo=6 placa=0x20d0fe78 tipoPlaca=255 refs=1 txd=107
+[error][19:12:21.416][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=401 ptr=0xb1f95c tipo=6 placa=0x20ac63f0 tipoPlaca=255 refs=2 txd=69
+[error][19:12:21.703][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=494 ptr=0xb31344 tipo=6 placa=0x0 tipoPlaca=255 refs=1 txd=162
+[error][19:12:21.817][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=556 ptr=0xb3cf34 tipo=6 placa=0x20712610 tipoPlaca=255 refs=1 txd=224
+[error][19:12:21.863][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=609 ptr=0xb46fdc tipo=6 placa=0x20ac27a0 tipoPlaca=255 refs=1 txd=277
+[error][19:12:29.740][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=567 ptr=0xb3f08c tipo=6 placa=0x207139c0 tipoPlaca=255 refs=1 txd=235
+[error][19:12:32.150][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=567 ptr=0xb3f08c tipo=6 placa=0x207139c0 tipoPlaca=255 refs=1 txd=235
+[error][19:12:33.032][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=567 ptr=0xb3f08c tipo=6 placa=0x207139c0 tipoPlaca=255 refs=2 txd=235
+[error][19:12:33.835][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=566 ptr=0xb3ed84 tipo=6 placa=0x20710e50 tipoPlaca=255 refs=1 txd=234
+[error][19:12:34.800][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=567 ptr=0xb3f08c tipo=6 placa=0x207139c0 tipoPlaca=255 refs=3 txd=235
+[error][19:12:35.763][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=542 ptr=0xb3a4c4 tipo=6 placa=0x20df5ad0 tipoPlaca=255 refs=1 txd=210
+[error][19:12:36.085][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=567 ptr=0xb3f08c tipo=6 placa=0x207139c0 tipoPlaca=255 refs=3 txd=235
+[error][19:12:36.406][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=401 ptr=0xb1f95c tipo=6 placa=0x20ac63f0 tipoPlaca=255 refs=1 txd=69
+[error][19:12:37.049][Vehicle.cpp:698]: [TRAF-DIAG] SetModelIndex modelo=567 ptr=0xb3f08c tipo=6 placa=0x207139c0 tipoPlaca=255 refs=3 txd=235

@@ -1,0 +1,211 @@
+[depuración][18:22:26.826][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][18:22:26.835][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13630 en 1011 clases/grupos (11462 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13630. Desactivadas: 0.
+[info][18:22:26.835][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][18:22:26.835][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][18:22:26.838][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][18:22:26.844][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][18:22:27.560][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[depuración][18:22:27.697][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][18:22:27.717][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][18:22:27.782][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][18:22:27.796][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][18:22:27.798][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][18:22:27.799][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][18:22:27.799][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][18:22:27.800][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][18:22:27.801][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][18:22:27.801][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][18:22:27.805][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][18:22:27.806][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][18:22:27.806][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[info][18:22:27.880][AEMFDecoder.cpp:148]: User tracks: QuickTime retirado; los .mp3 usan el decoder WMA y los formatos que solo abria QuickTime no estan disponibles
+[depuración][18:22:27.991][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][18:22:28.001][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][18:22:28.002][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][18:22:28.159][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][18:22:28.159][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][18:22:28.160][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[depuración][18:22:32.427][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[depuración][18:22:34.844][Pools.cpp:502]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[aviso][18:22:34.866][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][18:22:34.873][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][18:22:34.896][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][18:22:34.897][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][18:22:34.898][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][18:22:34.919][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][18:22:34.920][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[info][18:23:20.126][:]: ****************** Backtrace Start ******************
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstablelosweet3a") -> 3556
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstacoplate") -> 3557
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstbone") -> 3558
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstenpenny") -> 3559
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstexan") -> 3560
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstexan2") -> 3561
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("csthrowknife") -> 3562
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstony_x") -> 3563
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstoolkit") -> 3564
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstorino") -> 3565
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstriada") -> 3566
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstriada2") -> 3567
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstriada3") -> 3568
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstriboss") -> 3569
+[traza][18:22:30.480][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstrichair") -> 3570
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstritable") -> 3571
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstrolley") -> 3572
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstruth") -> 3573
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cstvunit") -> 3574
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cswallphone") -> 3575
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cswheel") -> 3576
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cswheelchair") -> 3577
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cswmori") -> 3578
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cswoozie") -> 3579
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cswrench") -> 3580
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cswuzchair") -> 3581
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cswzkitch") -> 3582
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cszero") -> 3583
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cszerocupboard") -> 3584
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("cszerorack") -> 3585
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("diners_playa") -> 3586
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("diner_girlb") -> 3587
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("diner_playb") -> 3588
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("fam4") -> 3589
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("fam5") -> 3590
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("fork_girla") -> 3591
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("fork_girlb") -> 3592
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("fork_playa") -> 3593
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("fork_playb") -> 3594
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("gfdrink") -> 3595
+[traza][18:22:30.481][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("gfpiz1") -> 3596
+[traza][18:22:30.482][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("gfpiz2") -> 3597
+[traza][18:22:30.482][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("gfriend") -> 3598
+[traza][18:22:30.482][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("knife_girla") -> 3599
+[traza][18:22:30.482][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("knife_girlb") -> 3600
+[traza][18:22:30.482][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("knife_playa") -> 3601
+[traza][18:22:30.482][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("knife_playb") -> 3602
+[traza][18:22:30.482][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("plate_girla") -> 3603
+[traza][18:22:30.482][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("plate_girlb") -> 3604
+[traza][18:22:30.482][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("plate_playa") -> 3605
+[traza][18:22:30.482][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("plate_playb") -> 3606
+[traza][18:22:30.482][TxdStore.cpp:375]: CTxdStore::AddTxdSlot("preq_cargo") -> 3607
+[depuración][18:22:32.427][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[traza][18:22:34.827][TxdStore.cpp:395]: CTxdStore::RemoveTxd(8)
+[traza][18:22:34.828][TxdStore.cpp:382]: CTxdStore::RemoveTxdSlot(8)
+[depuración][18:22:34.844][Pools.cpp:502]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(592)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(599)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(626)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(624)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(600)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(643)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(644)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(667)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(669)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(672)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(697)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1191)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1204)
+[traza][18:22:34.854][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1224)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1227)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1203)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1238)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1228)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1233)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1192)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1263)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2792)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(833)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(841)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(878)
+[traza][18:22:34.855][TxdStore.cpp:395]: CTxdStore::RemoveTxd(879)
+[traza][18:22:34.856][TxdStore.cpp:395]: CTxdStore::RemoveTxd(910)
+[traza][18:22:34.856][TxdStore.cpp:395]: CTxdStore::RemoveTxd(943)
+[traza][18:22:34.857][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2177)
+[traza][18:22:34.857][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2111)
+[traza][18:22:34.857][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1184)
+[traza][18:22:34.857][TxdStore.cpp:395]: CTxdStore::RemoveTxd(969)
+[traza][18:22:34.857][TxdStore.cpp:395]: CTxdStore::RemoveTxd(998)
+[traza][18:22:34.857][TxdStore.cpp:395]: CTxdStore::RemoveTxd(959)
+[traza][18:22:34.858][TxdStore.cpp:395]: CTxdStore::RemoveTxd(965)
+[traza][18:22:34.858][TxdStore.cpp:395]: CTxdStore::RemoveTxd(992)
+[traza][18:22:34.858][TxdStore.cpp:395]: CTxdStore::RemoveTxd(963)
+[traza][18:22:34.858][TxdStore.cpp:395]: CTxdStore::RemoveTxd(968)
+[traza][18:22:34.859][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3061)
+[traza][18:22:34.859][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3074)
+[traza][18:22:34.859][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3087)
+[traza][18:22:34.859][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3062)
+[traza][18:22:34.859][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3075)
+[traza][18:22:34.859][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3089)
+[traza][18:22:34.859][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3063)
+[traza][18:22:34.859][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3076)
+[traza][18:22:34.859][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3090)
+[aviso][18:22:34.866][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][18:22:34.873][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][18:22:34.896][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][18:22:34.897][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][18:22:34.898][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][18:22:34.919][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][18:22:34.920][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[traza][18:22:34.972][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][18:22:34.973][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][18:22:34.974][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][18:22:34.975][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][18:22:34.975][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][18:22:34.976][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][18:22:34.977][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][18:22:34.978][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][18:22:34.979][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][18:22:34.990][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][18:22:34.993][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][18:22:34.993][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][18:22:34.994][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][18:22:34.994][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[traza][18:22:34.994][TxdStore.cpp:395]: CTxdStore::RemoveTxd(2)
+[traza][18:22:34.995][TxdStore.cpp:395]: CTxdStore::RemoveTxd(3)
+[traza][18:22:34.995][TxdStore.cpp:395]: CTxdStore::RemoveTxd(0)
+[traza][18:22:34.995][TxdStore.cpp:395]: CTxdStore::RemoveTxd(1)
+[info][18:23:20.149][:]: ****************** Backtrace End ********************
+[info][18:23:20.149][app_debug.cpp:105]: *********UNHANDLED EXCEPTION**********
+[info][18:23:20.149][app_debug.cpp:110]: Código de excepción: 0xc0000005
+[info][18:23:20.149][app_debug.cpp:111]: Indicadores de excepción: 0x00000000
+[info][18:23:20.150][app_debug.cpp:112]: Dirección de excepción: 0x023d5f35
+[info][18:23:20.150][app_debug.cpp:105]: *********PARAMETERS**********
+[info][18:23:20.150][app_debug.cpp:117]: Parámetros[2]:
+[info][18:23:20.150][app_debug.cpp:119]:        0: 0x00000000
+[info][18:23:20.150][app_debug.cpp:119]:        1: 0x00000036
+[info][18:23:20.150][app_debug.cpp:105]: *********REGISTERS**********
+[info][18:23:20.150][app_debug.cpp:129]: 	EAX: 0x00b478fc
+[info][18:23:20.150][app_debug.cpp:129]: 	EBX: 0x001af3c4
+[info][18:23:20.150][app_debug.cpp:129]: 	ECX: 0x00000036
+[info][18:23:20.150][app_debug.cpp:129]: 	EDX: 0x093760d8
+[info][18:23:20.150][app_debug.cpp:129]: 	ESI: 0x1a1e3b09
+[info][18:23:20.151][app_debug.cpp:129]: 	EDI: 0x001ad700
+[info][18:23:20.151][app_debug.cpp:129]: 	EBP: 0x001ad700
+[info][18:23:20.151][app_debug.cpp:129]: 	ESP: 0x001ad61c
+[info][18:23:20.151][app_debug.cpp:129]: 	EIP: 0x023d5f35
+[info][18:23:20.151][app_debug.cpp:129]: 	EFLAGS: 0x00210246
+[info][18:23:20.151][app_debug.cpp:105]: *********CALL STACK**********
+[info][18:23:20.314][app_debug.cpp:212]: 	0x023d5f35: gta_sa_standalone!CVehicle::CustomCarPlate_TextureCreate:0
+[info][18:23:20.315][app_debug.cpp:212]: 	0x024087af: gta_sa_standalone!CVehicle::SetModelIndex:0
+[info][18:23:20.316][app_debug.cpp:212]: 	0x00fe7e9a: gta_sa_standalone!CAutomobile::CAutomobile:0
+[info][18:23:20.316][app_debug.cpp:212]: 	0x011d7fce: gta_sa_standalone!CTaskSimpleCarDrive::GetVehicle:0
+[info][18:23:20.316][app_debug.cpp:212]: 	0x011be9bd: gta_sa_standalone!CTaskSimpleCarDrive::GetVehicle:0
+[info][18:23:20.317][app_debug.cpp:212]: 	0x011abec9: gta_sa_standalone!CTaskSimpleCarDrive::GetVehicle:0
+[info][18:23:20.318][app_debug.cpp:212]: 	0x011be120: gta_sa_standalone!CTaskSimpleCarDrive::GetVehicle:0
+[info][18:23:20.319][app_debug.cpp:212]: 	0x016db30c: gta_sa_standalone!FxPrim_c::InjectHooks:0
+[info][18:23:20.319][app_debug.cpp:212]: 	0x00fb8005: gta_sa_standalone!CAEPedlessSpeechAudioEntity::WillPedChatAboutTopic:0
+[info][18:23:20.319][app_debug.cpp:212]: 	0x00f9c57d: gta_sa_standalone!CAEPedlessSpeechAudioEntity::WillPedChatAboutTopic:0
+[info][18:23:20.320][app_debug.cpp:212]: 	0x01ba4f98: gta_sa_standalone!CPlane::VehicleDamage:0
+[info][18:23:20.321][app_debug.cpp:212]: 	0x024e1fbe: gta_sa_standalone!CWeaponModelInfo::SetClump:0
+[info][18:23:20.321][app_debug.cpp:212]: 	0x024e0f19: gta_sa_standalone!CWeaponModelInfo::SetClump:0
+[info][18:23:20.322][app_debug.cpp:212]: 	0x024e182e: gta_sa_standalone!CWeaponModelInfo::SetClump:0
+[info][18:23:20.323][app_debug.cpp:212]: 	0x00e168c7: gta_sa_standalone!<unknown>:0
+[info][18:23:20.323][app_debug.cpp:212]: 	0x029e0dbd: gta_sa_standalone!CWeaponModelInfo::SetClump:0
+[info][18:23:20.324][app_debug.cpp:212]: 	0x029e0c9a: gta_sa_standalone!CWeaponModelInfo::SetClump:0
+[info][18:23:20.324][app_debug.cpp:212]: 	0x029e0b3d: gta_sa_standalone!CWeaponModelInfo::SetClump:0
+[info][18:23:20.324][app_debug.cpp:212]: 	0x029e0e28: gta_sa_standalone!CWeaponModelInfo::SetClump:0
+[info][18:23:20.325][app_debug.cpp:212]: 	0x00e1995b: gta_sa_standalone!<unknown>:0
+[info][18:23:20.325][app_debug.cpp:212]: 	0x75495d49: KERNEL32!BaseThreadInitThunk:0
+[info][18:23:20.325][app_debug.cpp:212]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[info][18:23:20.325][app_debug.cpp:212]: 	0x76fac811: ntdll!RtlGetAppContainerNamedObjectPath:0
+[info][18:23:20.329][app_debug.cpp:105]: *********END OF UNHANDLED EXCEPTION**********
