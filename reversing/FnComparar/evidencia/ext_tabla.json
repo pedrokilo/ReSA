@@ -1,0 +1,2498 @@
+[
+ {
+  "escena": "p2_h00_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   41.2,
+   51.4,
+   39.5
+  ],
+  "media_std": [
+   40.7,
+   50.7,
+   39.0
+  ],
+  "dif_media_rgb": [
+   -0.4,
+   -0.7,
+   -0.5
+  ],
+  "dif_abs_media": 8.03,
+  "cielo_orig": [
+   20.1,
+   49.5,
+   44.9
+  ],
+  "cielo_std": [
+   18.7,
+   48.4,
+   44.1
+  ],
+  "suelo_orig": [
+   52.8,
+   52.8,
+   35.1
+  ],
+  "suelo_std": [
+   52.7,
+   51.8,
+   34.5
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.1,
+  "fps_std": 24.9,
+  "veh_orig": 14,
+  "veh_std": 13,
+  "peds_orig": 32,
+  "peds_std": 30,
+  "rnd_orig": 10,
+  "rnd_std": 9,
+  "archivo": "ext_p2_h00_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h00_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   32.8,
+   46.4,
+   41.8
+  ],
+  "media_std": [
+   33.0,
+   46.6,
+   42.2
+  ],
+  "dif_media_rgb": [
+   0.2,
+   0.2,
+   0.5
+  ],
+  "dif_abs_media": 7.42,
+  "cielo_orig": [
+   23.9,
+   36.5,
+   37.8
+  ],
+  "cielo_std": [
+   23.0,
+   35.7,
+   37.2
+  ],
+  "suelo_orig": [
+   38.9,
+   51.8,
+   41.9
+  ],
+  "suelo_std": [
+   39.1,
+   51.9,
+   42.0
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.0,
+  "fps_std": 24.6,
+  "veh_orig": 13,
+  "veh_std": 13,
+  "peds_orig": 26,
+  "peds_std": 25,
+  "rnd_orig": 9,
+  "rnd_std": 9,
+  "archivo": "ext_p2_h00_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h00_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   45.7,
+   50.9,
+   40.1
+  ],
+  "media_std": [
+   45.9,
+   51.5,
+   40.3
+  ],
+  "dif_media_rgb": [
+   0.3,
+   0.6,
+   0.2
+  ],
+  "dif_abs_media": 3.44,
+  "cielo_orig": [
+   30.3,
+   37.9,
+   35.8
+  ],
+  "cielo_std": [
+   30.2,
+   38.0,
+   35.8
+  ],
+  "suelo_orig": [
+   54.4,
+   57.2,
+   40.5
+  ],
+  "suelo_std": [
+   54.7,
+   58.2,
+   40.8
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.6,
+  "fps_std": 25.0,
+  "veh_orig": 14,
+  "veh_std": 15,
+  "peds_orig": 31,
+  "peds_std": 28,
+  "rnd_orig": 10,
+  "rnd_std": 11,
+  "archivo": "ext_p2_h00_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h00_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   60.7,
+   62.5,
+   47.7
+  ],
+  "media_std": [
+   73.3,
+   75.9,
+   61.6
+  ],
+  "dif_media_rgb": [
+   12.5,
+   13.5,
+   13.9
+  ],
+  "dif_abs_media": 14.92,
+  "cielo_orig": [
+   50.5,
+   52.2,
+   42.4
+  ],
+  "cielo_std": [
+   65.9,
+   69.0,
+   59.8
+  ],
+  "suelo_orig": [
+   63.3,
+   64.7,
+   46.1
+  ],
+  "suelo_std": [
+   72.6,
+   74.4,
+   56.0
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.8,
+  "fps_std": 24.7,
+  "veh_orig": 13,
+  "veh_std": 13,
+  "peds_orig": 24,
+  "peds_std": 19,
+  "rnd_orig": 9,
+  "rnd_std": 9,
+  "archivo": "ext_p2_h00_c08.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h06_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   104.0,
+   93.8,
+   73.7
+  ],
+  "media_std": [
+   104.5,
+   94.2,
+   74.0
+  ],
+  "dif_media_rgb": [
+   0.5,
+   0.4,
+   0.3
+  ],
+  "dif_abs_media": 17.77,
+  "cielo_orig": [
+   173.5,
+   180.3,
+   162.9
+  ],
+  "cielo_std": [
+   172.2,
+   179.8,
+   162.9
+  ],
+  "suelo_orig": [
+   64.9,
+   48.3,
+   27.5
+  ],
+  "suelo_std": [
+   66.7,
+   49.6,
+   28.0
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.2,
+  "fps_std": 24.6,
+  "veh_orig": 13,
+  "veh_std": 12,
+  "peds_orig": 19,
+  "peds_std": 16,
+  "rnd_orig": 9,
+  "rnd_std": 8,
+  "archivo": "ext_p2_h06_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h06_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   102.7,
+   91.8,
+   69.5
+  ],
+  "media_std": [
+   102.8,
+   91.8,
+   69.7
+  ],
+  "dif_media_rgb": [
+   0.1,
+   0.0,
+   0.2
+  ],
+  "dif_abs_media": 19.49,
+  "cielo_orig": [
+   171.8,
+   179.0,
+   161.1
+  ],
+  "cielo_std": [
+   170.9,
+   178.7,
+   161.4
+  ],
+  "suelo_orig": [
+   63.8,
+   46.4,
+   22.6
+  ],
+  "suelo_std": [
+   64.8,
+   46.2,
+   22.2
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.7,
+  "fps_std": 24.9,
+  "veh_orig": 13,
+  "veh_std": 13,
+  "peds_orig": 27,
+  "peds_std": 30,
+  "rnd_orig": 9,
+  "rnd_std": 9,
+  "archivo": "ext_p2_h06_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h06_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   54.6,
+   58.0,
+   45.1
+  ],
+  "media_std": [
+   54.3,
+   57.6,
+   44.4
+  ],
+  "dif_media_rgb": [
+   -0.3,
+   -0.4,
+   -0.8
+  ],
+  "dif_abs_media": 3.96,
+  "cielo_orig": [
+   45.9,
+   54.3,
+   48.0
+  ],
+  "cielo_std": [
+   44.3,
+   52.5,
+   46.0
+  ],
+  "suelo_orig": [
+   58.9,
+   58.7,
+   41.5
+  ],
+  "suelo_std": [
+   59.6,
+   59.3,
+   41.5
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.9,
+  "fps_std": 24.6,
+  "veh_orig": 13,
+  "veh_std": 13,
+  "peds_orig": 17,
+  "peds_std": 16,
+  "rnd_orig": 9,
+  "rnd_std": 9,
+  "archivo": "ext_p2_h06_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h06_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   77.2,
+   84.1,
+   73.1
+  ],
+  "media_std": [
+   57.4,
+   61.1,
+   47.9
+  ],
+  "dif_media_rgb": [
+   -19.7,
+   -23.1,
+   -25.2
+  ],
+  "dif_abs_media": 26.86,
+  "cielo_orig": [
+   78.5,
+   86.6,
+   80.6
+  ],
+  "cielo_std": [
+   45.3,
+   48.7,
+   40.4
+  ],
+  "suelo_orig": [
+   66.5,
+   71.0,
+   55.2
+  ],
+  "suelo_std": [
+   63.0,
+   66.0,
+   48.4
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.0,
+  "fps_std": 25.2,
+  "veh_orig": 13,
+  "veh_std": 12,
+  "peds_orig": 28,
+  "peds_std": 24,
+  "rnd_orig": 9,
+  "rnd_std": 8,
+  "archivo": "ext_p2_h06_c08.png",
+  "completa": true
+ },
+ {
+  "escena": "p2_h12_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   65.8,
+   82.2,
+   85.0
+  ],
+  "media_std": [
+   65.0,
+   81.6,
+   84.6
+  ],
+  "dif_media_rgb": [
+   -0.8,
+   -0.6,
+   -0.4
+  ],
+  "dif_abs_media": 16.73,
+  "cielo_orig": [
+   89.9,
+   150.8,
+   179.4
+  ],
+  "cielo_std": [
+   89.2,
+   151.1,
+   179.6
+  ],
+  "suelo_orig": [
+   40.4,
+   33.8,
+   23.0
+  ],
+  "suelo_std": [
+   40.4,
+   33.5,
+   22.8
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.8,
+  "fps_std": 24.9,
+  "veh_orig": 16,
+  "veh_std": 16,
+  "peds_orig": 37,
+  "peds_std": 33,
+  "rnd_orig": 12,
+  "rnd_std": 12,
+  "archivo": "ext_p2_h12_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h12_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   63.0,
+   95.7,
+   85.5
+  ],
+  "media_std": [
+   61.9,
+   94.3,
+   84.9
+  ],
+  "dif_media_rgb": [
+   -1.0,
+   -1.4,
+   -0.6
+  ],
+  "dif_abs_media": 17.74,
+  "cielo_orig": [
+   72.1,
+   176.5,
+   180.1
+  ],
+  "cielo_std": [
+   71.8,
+   176.2,
+   180.1
+  ],
+  "suelo_orig": [
+   43.7,
+   41.3,
+   26.0
+  ],
+  "suelo_std": [
+   43.5,
+   40.3,
+   25.6
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.6,
+  "fps_std": 25.2,
+  "veh_orig": 16,
+  "veh_std": 16,
+  "peds_orig": 36,
+  "peds_std": 32,
+  "rnd_orig": 12,
+  "rnd_std": 12,
+  "archivo": "ext_p2_h12_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h12_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   108.8,
+   116.3,
+   111.7
+  ],
+  "media_std": [
+   107.7,
+   115.2,
+   110.6
+  ],
+  "dif_media_rgb": [
+   -1.1,
+   -1.1,
+   -1.1
+  ],
+  "dif_abs_media": 6.69,
+  "cielo_orig": [
+   173.6,
+   194.6,
+   191.8
+  ],
+  "cielo_std": [
+   172.9,
+   193.7,
+   190.9
+  ],
+  "suelo_orig": [
+   58.5,
+   59.4,
+   53.2
+  ],
+  "suelo_std": [
+   58.5,
+   59.3,
+   53.1
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.0,
+  "fps_std": 24.7,
+  "veh_orig": 16,
+  "veh_std": 16,
+  "peds_orig": 37,
+  "peds_std": 32,
+  "rnd_orig": 12,
+  "rnd_std": 11,
+  "archivo": "ext_p2_h12_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h12_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   97.8,
+   102.1,
+   96.7
+  ],
+  "media_std": [
+   100.3,
+   104.2,
+   99.7
+  ],
+  "dif_media_rgb": [
+   2.5,
+   2.1,
+   3.0
+  ],
+  "dif_abs_media": 13.29,
+  "cielo_orig": [
+   126.4,
+   130.6,
+   126.7
+  ],
+  "cielo_std": [
+   131.3,
+   135.5,
+   132.6
+  ],
+  "suelo_orig": [
+   62.0,
+   67.2,
+   59.5
+  ],
+  "suelo_std": [
+   60.8,
+   65.3,
+   57.8
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.1,
+  "fps_std": 24.8,
+  "veh_orig": 16,
+  "veh_std": 13,
+  "peds_orig": 30,
+  "peds_std": 23,
+  "rnd_orig": 12,
+  "rnd_std": 9,
+  "archivo": "ext_p2_h12_c08.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h18_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   65.2,
+   83.7,
+   87.0
+  ],
+  "media_std": [
+   64.5,
+   83.5,
+   86.8
+  ],
+  "dif_media_rgb": [
+   -0.7,
+   -0.2,
+   -0.1
+  ],
+  "dif_abs_media": 17.4,
+  "cielo_orig": [
+   91.0,
+   153.3,
+   181.5
+  ],
+  "cielo_std": [
+   90.7,
+   153.4,
+   181.6
+  ],
+  "suelo_orig": [
+   39.9,
+   36.1,
+   25.1
+  ],
+  "suelo_std": [
+   39.6,
+   35.7,
+   24.8
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.1,
+  "fps_std": 24.9,
+  "veh_orig": 16,
+  "veh_std": 16,
+  "peds_orig": 37,
+  "peds_std": 33,
+  "rnd_orig": 12,
+  "rnd_std": 12,
+  "archivo": "ext_p2_h18_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h18_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   75.3,
+   97.9,
+   84.7
+  ],
+  "media_std": [
+   75.1,
+   97.5,
+   84.3
+  ],
+  "dif_media_rgb": [
+   -0.3,
+   -0.5,
+   -0.4
+  ],
+  "dif_abs_media": 18.78,
+  "cielo_orig": [
+   104.5,
+   183.6,
+   177.9
+  ],
+  "cielo_std": [
+   105.1,
+   183.7,
+   178.0
+  ],
+  "suelo_orig": [
+   46.7,
+   42.2,
+   26.8
+  ],
+  "suelo_std": [
+   46.5,
+   41.9,
+   26.5
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.7,
+  "fps_std": 24.9,
+  "veh_orig": 16,
+  "veh_std": 16,
+  "peds_orig": 34,
+  "peds_std": 32,
+  "rnd_orig": 12,
+  "rnd_std": 12,
+  "archivo": "ext_p2_h18_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h18_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   100.2,
+   108.4,
+   106.0
+  ],
+  "media_std": [
+   100.5,
+   108.1,
+   105.7
+  ],
+  "dif_media_rgb": [
+   0.3,
+   -0.3,
+   -0.3
+  ],
+  "dif_abs_media": 7.0,
+  "cielo_orig": [
+   160.3,
+   183.0,
+   185.9
+  ],
+  "cielo_std": [
+   161.6,
+   182.8,
+   185.8
+  ],
+  "suelo_orig": [
+   54.8,
+   56.0,
+   49.9
+  ],
+  "suelo_std": [
+   55.0,
+   56.0,
+   49.9
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.7,
+  "fps_std": 25.2,
+  "veh_orig": 15,
+  "veh_std": 16,
+  "peds_orig": 36,
+  "peds_std": 31,
+  "rnd_orig": 12,
+  "rnd_std": 12,
+  "archivo": "ext_p2_h18_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p2_h18_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   87.7,
+   98.7,
+   89.4
+  ],
+  "media_std": [
+   88.0,
+   98.9,
+   89.7
+  ],
+  "dif_media_rgb": [
+   0.3,
+   0.3,
+   0.3
+  ],
+  "dif_abs_media": 10.88,
+  "cielo_orig": [
+   113.6,
+   124.6,
+   115.9
+  ],
+  "cielo_std": [
+   115.1,
+   126.2,
+   117.7
+  ],
+  "suelo_orig": [
+   56.3,
+   66.9,
+   56.7
+  ],
+  "suelo_std": [
+   61.5,
+   72.5,
+   62.7
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.9,
+  "fps_std": 24.9,
+  "veh_orig": 15,
+  "veh_std": 16,
+  "peds_orig": 27,
+  "peds_std": 24,
+  "rnd_orig": 11,
+  "rnd_std": 12,
+  "archivo": "ext_p2_h18_c08.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h00_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   63.3,
+   64.6,
+   47.7
+  ],
+  "media_std": [
+   65.1,
+   66.4,
+   48.9
+  ],
+  "dif_media_rgb": [
+   1.9,
+   1.8,
+   1.2
+  ],
+  "dif_abs_media": 10.73,
+  "cielo_orig": [
+   34.3,
+   56.7,
+   46.2
+  ],
+  "cielo_std": [
+   34.3,
+   58.3,
+   46.7
+  ],
+  "suelo_orig": [
+   85.8,
+   70.8,
+   48.1
+  ],
+  "suelo_std": [
+   90.3,
+   74.2,
+   50.6
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.8,
+  "fps_std": 24.8,
+  "veh_orig": 15,
+  "veh_std": 16,
+  "peds_orig": 19,
+  "peds_std": 24,
+  "rnd_orig": 9,
+  "rnd_std": 10,
+  "archivo": "ext_p3_h00_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h00_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   48.1,
+   59.7,
+   53.3
+  ],
+  "media_std": [
+   56.7,
+   66.4,
+   62.8
+  ],
+  "dif_media_rgb": [
+   8.5,
+   6.6,
+   9.5
+  ],
+  "dif_abs_media": 13.45,
+  "cielo_orig": [
+   29.6,
+   49.3,
+   47.2
+  ],
+  "cielo_std": [
+   29.2,
+   50.4,
+   47.5
+  ],
+  "suelo_orig": [
+   64.7,
+   65.4,
+   53.7
+  ],
+  "suelo_std": [
+   85.7,
+   80.9,
+   74.9
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.9,
+  "fps_std": 24.4,
+  "veh_orig": 15,
+  "veh_std": 17,
+  "peds_orig": 21,
+  "peds_std": 22,
+  "rnd_orig": 9,
+  "rnd_std": 11,
+  "archivo": "ext_p3_h00_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h00_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   70.7,
+   68.2,
+   50.7
+  ],
+  "media_std": [
+   65.9,
+   65.5,
+   48.9
+  ],
+  "dif_media_rgb": [
+   -4.8,
+   -2.7,
+   -1.8
+  ],
+  "dif_abs_media": 8.38,
+  "cielo_orig": [
+   42.4,
+   53.4,
+   42.9
+  ],
+  "cielo_std": [
+   42.6,
+   52.8,
+   42.9
+  ],
+  "suelo_orig": [
+   94.5,
+   76.0,
+   52.5
+  ],
+  "suelo_std": [
+   83.7,
+   70.4,
+   48.6
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.0,
+  "fps_std": 25.0,
+  "veh_orig": 16,
+  "veh_std": 15,
+  "peds_orig": 24,
+  "peds_std": 21,
+  "rnd_orig": 10,
+  "rnd_std": 9,
+  "archivo": "ext_p3_h00_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h00_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   72.3,
+   73.0,
+   56.7
+  ],
+  "media_std": [
+   84.3,
+   83.1,
+   63.8
+  ],
+  "dif_media_rgb": [
+   12.0,
+   10.1,
+   7.1
+  ],
+  "dif_abs_media": 18.67,
+  "cielo_orig": [
+   67.6,
+   74.8,
+   61.2
+  ],
+  "cielo_std": [
+   68.7,
+   75.5,
+   61.8
+  ],
+  "suelo_orig": [
+   68.9,
+   61.4,
+   43.0
+  ],
+  "suelo_std": [
+   93.3,
+   81.5,
+   57.1
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.6,
+  "fps_std": 25.0,
+  "veh_orig": 16,
+  "veh_std": 14,
+  "peds_orig": 18,
+  "peds_std": 20,
+  "rnd_orig": 10,
+  "rnd_std": 8,
+  "archivo": "ext_p3_h00_c08.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h06_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   109.2,
+   90.7,
+   66.7
+  ],
+  "media_std": [
+   115.9,
+   95.3,
+   69.7
+  ],
+  "dif_media_rgb": [
+   6.7,
+   4.6,
+   2.9
+  ],
+  "dif_abs_media": 12.55,
+  "cielo_orig": [
+   135.8,
+   141.1,
+   125.3
+  ],
+  "cielo_std": [
+   133.4,
+   141.4,
+   124.5
+  ],
+  "suelo_orig": [
+   103.2,
+   66.3,
+   36.9
+  ],
+  "suelo_std": [
+   121.1,
+   77.3,
+   44.1
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.0,
+  "fps_std": 24.7,
+  "veh_orig": 16,
+  "veh_std": 15,
+  "peds_orig": 21,
+  "peds_std": 21,
+  "rnd_orig": 10,
+  "rnd_std": 9,
+  "archivo": "ext_p3_h06_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h06_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   110.6,
+   90.3,
+   63.1
+  ],
+  "media_std": [
+   114.2,
+   93.1,
+   65.1
+  ],
+  "dif_media_rgb": [
+   3.6,
+   2.8,
+   2.0
+  ],
+  "dif_abs_media": 11.42,
+  "cielo_orig": [
+   134.2,
+   139.6,
+   121.6
+  ],
+  "cielo_std": [
+   132.1,
+   139.9,
+   121.0
+  ],
+  "suelo_orig": [
+   107.7,
+   68.1,
+   35.2
+  ],
+  "suelo_std": [
+   118.5,
+   75.0,
+   40.8
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.2,
+  "fps_std": 24.5,
+  "veh_orig": 15,
+  "veh_std": 17,
+  "peds_orig": 20,
+  "peds_std": 26,
+  "rnd_orig": 9,
+  "rnd_std": 11,
+  "archivo": "ext_p3_h06_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h06_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   76.6,
+   74.1,
+   54.9
+  ],
+  "media_std": [
+   74.4,
+   73.2,
+   54.4
+  ],
+  "dif_media_rgb": [
+   -2.2,
+   -0.9,
+   -0.5
+  ],
+  "dif_abs_media": 7.61,
+  "cielo_orig": [
+   55.6,
+   66.3,
+   53.1
+  ],
+  "cielo_std": [
+   56.0,
+   65.9,
+   53.2
+  ],
+  "suelo_orig": [
+   94.1,
+   76.6,
+   52.3
+  ],
+  "suelo_std": [
+   88.7,
+   74.6,
+   51.3
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.6,
+  "fps_std": 25.0,
+  "veh_orig": 14,
+  "veh_std": 17,
+  "peds_orig": 20,
+  "peds_std": 23,
+  "rnd_orig": 8,
+  "rnd_std": 11,
+  "archivo": "ext_p3_h06_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h06_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   75.9,
+   76.8,
+   57.9
+  ],
+  "media_std": [
+   75.6,
+   77.8,
+   60.1
+  ],
+  "dif_media_rgb": [
+   -0.4,
+   1.0,
+   2.2
+  ],
+  "dif_abs_media": 11.15,
+  "cielo_orig": [
+   53.9,
+   63.0,
+   49.5
+  ],
+  "cielo_std": [
+   58.8,
+   67.8,
+   55.4
+  ],
+  "suelo_orig": [
+   93.4,
+   82.8,
+   58.5
+  ],
+  "suelo_std": [
+   86.1,
+   78.3,
+   55.7
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.9,
+  "fps_std": 24.9,
+  "veh_orig": 16,
+  "veh_std": 17,
+  "peds_orig": 24,
+  "peds_std": 22,
+  "rnd_orig": 10,
+  "rnd_std": 11,
+  "archivo": "ext_p3_h06_c08.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h12_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   123.5,
+   117.9,
+   103.8
+  ],
+  "media_std": [
+   122.3,
+   115.5,
+   100.1
+  ],
+  "dif_media_rgb": [
+   -1.2,
+   -2.4,
+   -3.7
+  ],
+  "dif_abs_media": 12.66,
+  "cielo_orig": [
+   110.8,
+   146.0,
+   155.2
+  ],
+  "cielo_std": [
+   108.1,
+   144.7,
+   152.4
+  ],
+  "suelo_orig": [
+   118.2,
+   86.2,
+   61.7
+  ],
+  "suelo_std": [
+   117.5,
+   82.5,
+   55.9
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.9,
+  "fps_std": 25.0,
+  "veh_orig": 15,
+  "veh_std": 18,
+  "peds_orig": 24,
+  "peds_std": 30,
+  "rnd_orig": 9,
+  "rnd_std": 12,
+  "archivo": "ext_p3_h12_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h12_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   122.0,
+   131.5,
+   110.0
+  ],
+  "media_std": [
+   118.6,
+   125.9,
+   104.1
+  ],
+  "dif_media_rgb": [
+   -3.4,
+   -5.6,
+   -5.9
+  ],
+  "dif_abs_media": 14.37,
+  "cielo_orig": [
+   93.3,
+   160.0,
+   152.5
+  ],
+  "cielo_std": [
+   91.3,
+   158.5,
+   150.7
+  ],
+  "suelo_orig": [
+   128.5,
+   102.3,
+   75.9
+  ],
+  "suelo_std": [
+   119.6,
+   88.7,
+   61.3
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.1,
+  "fps_std": 24.9,
+  "veh_orig": 17,
+  "veh_std": 17,
+  "peds_orig": 25,
+  "peds_std": 26,
+  "rnd_orig": 11,
+  "rnd_std": 11,
+  "archivo": "ext_p3_h12_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h12_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   149.3,
+   146.9,
+   140.1
+  ],
+  "media_std": [
+   150.3,
+   149.1,
+   143.3
+  ],
+  "dif_media_rgb": [
+   1.0,
+   2.2,
+   3.2
+  ],
+  "dif_abs_media": 10.68,
+  "cielo_orig": [
+   168.2,
+   185.0,
+   180.6
+  ],
+  "cielo_std": [
+   167.9,
+   185.1,
+   181.5
+  ],
+  "suelo_orig": [
+   125.8,
+   104.4,
+   93.1
+  ],
+  "suelo_std": [
+   128.8,
+   109.2,
+   99.6
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.1,
+  "fps_std": 24.6,
+  "veh_orig": 16,
+  "veh_std": 18,
+  "peds_orig": 27,
+  "peds_std": 29,
+  "rnd_orig": 10,
+  "rnd_std": 12,
+  "archivo": "ext_p3_h12_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h12_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   135.5,
+   133.4,
+   123.9
+  ],
+  "media_std": [
+   131.9,
+   130.8,
+   121.9
+  ],
+  "dif_media_rgb": [
+   -3.6,
+   -2.6,
+   -2.0
+  ],
+  "dif_abs_media": 14.86,
+  "cielo_orig": [
+   129.8,
+   137.7,
+   132.0
+  ],
+  "cielo_std": [
+   124.5,
+   131.2,
+   125.4
+  ],
+  "suelo_orig": [
+   129.2,
+   110.5,
+   95.1
+  ],
+  "suelo_std": [
+   128.1,
+   112.5,
+   99.2
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.1,
+  "fps_std": 25.0,
+  "veh_orig": 17,
+  "veh_std": 15,
+  "peds_orig": 24,
+  "peds_std": 21,
+  "rnd_orig": 11,
+  "rnd_std": 9,
+  "archivo": "ext_p3_h12_c08.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h18_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   119.2,
+   116.4,
+   105.9
+  ],
+  "media_std": [
+   119.5,
+   115.2,
+   102.1
+  ],
+  "dif_media_rgb": [
+   0.3,
+   -1.2,
+   -3.8
+  ],
+  "dif_abs_media": 12.21,
+  "cielo_orig": [
+   105.3,
+   141.1,
+   156.5
+  ],
+  "cielo_std": [
+   102.6,
+   140.4,
+   153.6
+  ],
+  "suelo_orig": [
+   116.6,
+   87.6,
+   63.5
+  ],
+  "suelo_std": [
+   119.7,
+   86.3,
+   57.6
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.9,
+  "fps_std": 24.8,
+  "veh_orig": 16,
+  "veh_std": 15,
+  "peds_orig": 27,
+  "peds_std": 27,
+  "rnd_orig": 9,
+  "rnd_std": 9,
+  "archivo": "ext_p3_h18_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h18_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   125.5,
+   128.8,
+   105.9
+  ],
+  "media_std": [
+   124.3,
+   126.4,
+   102.8
+  ],
+  "dif_media_rgb": [
+   -1.2,
+   -2.4,
+   -3.1
+  ],
+  "dif_abs_media": 12.5,
+  "cielo_orig": [
+   116.4,
+   167.4,
+   152.0
+  ],
+  "cielo_std": [
+   113.6,
+   166.2,
+   149.8
+  ],
+  "suelo_orig": [
+   117.7,
+   90.1,
+   65.3
+  ],
+  "suelo_std": [
+   117.2,
+   86.2,
+   60.2
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.0,
+  "fps_std": 25.0,
+  "veh_orig": 17,
+  "veh_std": 17,
+  "peds_orig": 24,
+  "peds_std": 29,
+  "rnd_orig": 11,
+  "rnd_std": 11,
+  "archivo": "ext_p3_h18_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h18_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   139.1,
+   137.4,
+   132.3
+  ],
+  "media_std": [
+   141.1,
+   140.0,
+   135.8
+  ],
+  "dif_media_rgb": [
+   2.0,
+   2.6,
+   3.5
+  ],
+  "dif_abs_media": 10.15,
+  "cielo_orig": [
+   156.8,
+   174.1,
+   173.9
+  ],
+  "cielo_std": [
+   158.3,
+   174.4,
+   174.9
+  ],
+  "suelo_orig": [
+   117.1,
+   97.4,
+   86.6
+  ],
+  "suelo_std": [
+   120.7,
+   102.7,
+   93.4
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.2,
+  "fps_std": 24.5,
+  "veh_orig": 16,
+  "veh_std": 17,
+  "peds_orig": 28,
+  "peds_std": 26,
+  "rnd_orig": 10,
+  "rnd_std": 11,
+  "archivo": "ext_p3_h18_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p3_h18_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   129.6,
+   135.5,
+   123.1
+  ],
+  "media_std": [
+   172.7,
+   176.4,
+   161.8
+  ],
+  "dif_media_rgb": [
+   43.1,
+   40.9,
+   38.6
+  ],
+  "dif_abs_media": 51.4,
+  "cielo_orig": [
+   117.2,
+   131.2,
+   120.8
+  ],
+  "cielo_std": [
+   185.4,
+   200.4,
+   187.0
+  ],
+  "suelo_orig": [
+   132.5,
+   123.9,
+   108.4
+  ],
+  "suelo_std": [
+   156.7,
+   141.3,
+   123.9
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.8,
+  "fps_std": 24.9,
+  "veh_orig": 16,
+  "veh_std": 17,
+  "peds_orig": 23,
+  "peds_std": 26,
+  "rnd_orig": 10,
+  "rnd_std": 11,
+  "archivo": "ext_p3_h18_c08.png",
+  "completa": true
+ },
+ {
+  "escena": "p4_h00_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   46.5,
+   49.9,
+   39.1
+  ],
+  "media_std": [
+   44.4,
+   47.6,
+   36.7
+  ],
+  "dif_media_rgb": [
+   -2.2,
+   -2.3,
+   -2.4
+  ],
+  "dif_abs_media": 6.29,
+  "cielo_orig": [
+   58.6,
+   62.5,
+   48.6
+  ],
+  "cielo_std": [
+   57.1,
+   60.6,
+   46.8
+  ],
+  "suelo_orig": [
+   27.6,
+   33.7,
+   26.2
+  ],
+  "suelo_std": [
+   26.8,
+   32.8,
+   25.2
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.9,
+  "fps_std": 24.9,
+  "veh_orig": 14,
+  "veh_std": 13,
+  "peds_orig": 32,
+  "peds_std": 32,
+  "rnd_orig": 13,
+  "rnd_std": 12,
+  "archivo": "ext_p4_h00_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h00_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   29.5,
+   45.8,
+   43.6
+  ],
+  "media_std": [
+   29.9,
+   46.3,
+   43.6
+  ],
+  "dif_media_rgb": [
+   0.3,
+   0.5,
+   0.0
+  ],
+  "dif_abs_media": 4.29,
+  "cielo_orig": [
+   39.3,
+   57.3,
+   53.5
+  ],
+  "cielo_std": [
+   39.5,
+   57.4,
+   53.4
+  ],
+  "suelo_orig": [
+   17.7,
+   32.0,
+   30.0
+  ],
+  "suelo_std": [
+   17.6,
+   32.1,
+   29.9
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.0,
+  "fps_std": 24.7,
+  "veh_orig": 13,
+  "veh_std": 11,
+  "peds_orig": 30,
+  "peds_std": 29,
+  "rnd_orig": 12,
+  "rnd_std": 10,
+  "archivo": "ext_p4_h00_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h00_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   47.1,
+   54.0,
+   41.8
+  ],
+  "media_std": [
+   46.3,
+   53.2,
+   41.2
+  ],
+  "dif_media_rgb": [
+   -0.8,
+   -0.8,
+   -0.6
+  ],
+  "dif_abs_media": 6.65,
+  "cielo_orig": [
+   62.5,
+   66.7,
+   50.8
+  ],
+  "cielo_std": [
+   61.1,
+   64.4,
+   48.0
+  ],
+  "suelo_orig": [
+   27.1,
+   37.8,
+   30.0
+  ],
+  "suelo_std": [
+   27.6,
+   38.8,
+   30.9
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.0,
+  "fps_std": 24.7,
+  "veh_orig": 13,
+  "veh_std": 10,
+  "peds_orig": 25,
+  "peds_std": 29,
+  "rnd_orig": 12,
+  "rnd_std": 9,
+  "archivo": "ext_p4_h00_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h00_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   60.1,
+   65.5,
+   52.8
+  ],
+  "media_std": [
+   60.1,
+   65.4,
+   52.3
+  ],
+  "dif_media_rgb": [
+   0.0,
+   -0.0,
+   -0.5
+  ],
+  "dif_abs_media": 10.2,
+  "cielo_orig": [
+   78.3,
+   80.2,
+   63.4
+  ],
+  "cielo_std": [
+   73.7,
+   75.1,
+   58.0
+  ],
+  "suelo_orig": [
+   35.0,
+   44.0,
+   34.9
+  ],
+  "suelo_std": [
+   35.9,
+   45.0,
+   35.6
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.9,
+  "fps_std": 24.5,
+  "veh_orig": 12,
+  "veh_std": 11,
+  "peds_orig": 21,
+  "peds_std": 28,
+  "rnd_orig": 11,
+  "rnd_std": 10,
+  "archivo": "ext_p4_h00_c08.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h06_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   69.9,
+   58.1,
+   40.6
+  ],
+  "media_std": [
+   70.6,
+   59.0,
+   41.6
+  ],
+  "dif_media_rgb": [
+   0.7,
+   0.9,
+   1.0
+  ],
+  "dif_abs_media": 6.13,
+  "cielo_orig": [
+   109.4,
+   92.2,
+   70.5
+  ],
+  "cielo_std": [
+   108.8,
+   91.3,
+   69.8
+  ],
+  "suelo_orig": [
+   34.0,
+   32.9,
+   20.8
+  ],
+  "suelo_std": [
+   33.5,
+   32.4,
+   20.4
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.9,
+  "fps_std": 24.6,
+  "veh_orig": 12,
+  "veh_std": 11,
+  "peds_orig": 26,
+  "peds_std": 24,
+  "rnd_orig": 11,
+  "rnd_std": 11,
+  "archivo": "ext_p4_h06_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h06_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   69.4,
+   55.7,
+   35.2
+  ],
+  "media_std": [
+   60.3,
+   44.7,
+   23.7
+  ],
+  "dif_media_rgb": [
+   -9.1,
+   -11.0,
+   -11.5
+  ],
+  "dif_abs_media": 14.62,
+  "cielo_orig": [
+   108.6,
+   88.8,
+   63.4
+  ],
+  "cielo_std": [
+   84.0,
+   58.8,
+   32.2
+  ],
+  "suelo_orig": [
+   33.6,
+   30.9,
+   16.8
+  ],
+  "suelo_std": [
+   33.6,
+   30.9,
+   16.6
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.1,
+  "fps_std": 24.9,
+  "veh_orig": 14,
+  "veh_std": 12,
+  "peds_orig": 31,
+  "peds_std": 32,
+  "rnd_orig": 13,
+  "rnd_std": 11,
+  "archivo": "ext_p4_h06_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h06_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   52.2,
+   57.6,
+   44.3
+  ],
+  "media_std": [
+   55.3,
+   60.7,
+   47.0
+  ],
+  "dif_media_rgb": [
+   3.0,
+   3.1,
+   2.7
+  ],
+  "dif_abs_media": 7.3,
+  "cielo_orig": [
+   71.5,
+   73.3,
+   55.5
+  ],
+  "cielo_std": [
+   72.3,
+   74.5,
+   56.4
+  ],
+  "suelo_orig": [
+   31.2,
+   40.9,
+   31.5
+  ],
+  "suelo_std": [
+   31.6,
+   41.4,
+   31.9
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.9,
+  "fps_std": 25.1,
+  "veh_orig": 13,
+  "veh_std": 12,
+  "peds_orig": 24,
+  "peds_std": 23,
+  "rnd_orig": 12,
+  "rnd_std": 11,
+  "archivo": "ext_p4_h06_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h06_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   58.0,
+   66.4,
+   53.7
+  ],
+  "media_std": [
+   60.2,
+   68.2,
+   55.7
+  ],
+  "dif_media_rgb": [
+   2.2,
+   1.8,
+   2.0
+  ],
+  "dif_abs_media": 9.56,
+  "cielo_orig": [
+   71.6,
+   77.2,
+   61.4
+  ],
+  "cielo_std": [
+   74.3,
+   79.4,
+   64.1
+  ],
+  "suelo_orig": [
+   36.2,
+   47.0,
+   38.0
+  ],
+  "suelo_std": [
+   38.6,
+   49.7,
+   40.1
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.9,
+  "fps_std": 25.1,
+  "veh_orig": 12,
+  "veh_std": 11,
+  "peds_orig": 23,
+  "peds_std": 32,
+  "rnd_orig": 11,
+  "rnd_std": 10,
+  "archivo": "ext_p4_h06_c08.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h12_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   91.8,
+   84.1,
+   70.0
+  ],
+  "media_std": [
+   90.5,
+   83.2,
+   69.4
+  ],
+  "dif_media_rgb": [
+   -1.3,
+   -0.9,
+   -0.6
+  ],
+  "dif_abs_media": 7.36,
+  "cielo_orig": [
+   127.5,
+   123.7,
+   112.6
+  ],
+  "cielo_std": [
+   127.3,
+   123.5,
+   112.4
+  ],
+  "suelo_orig": [
+   60.2,
+   56.5,
+   40.3
+  ],
+  "suelo_std": [
+   60.3,
+   56.8,
+   40.5
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.6,
+  "fps_std": 25.1,
+  "veh_orig": 12,
+  "veh_std": 12,
+  "peds_orig": 30,
+  "peds_std": 29,
+  "rnd_orig": 11,
+  "rnd_std": 11,
+  "archivo": "ext_p4_h12_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h12_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   93.3,
+   92.2,
+   70.5
+  ],
+  "media_std": [
+   91.9,
+   91.2,
+   69.6
+  ],
+  "dif_media_rgb": [
+   -1.4,
+   -1.0,
+   -0.9
+  ],
+  "dif_abs_media": 7.88,
+  "cielo_orig": [
+   125.7,
+   134.2,
+   109.2
+  ],
+  "cielo_std": [
+   125.6,
+   133.9,
+   109.0
+  ],
+  "suelo_orig": [
+   61.9,
+   63.0,
+   44.4
+  ],
+  "suelo_std": [
+   61.9,
+   63.0,
+   44.3
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.5,
+  "fps_std": 24.5,
+  "veh_orig": 13,
+  "veh_std": 11,
+  "peds_orig": 29,
+  "peds_std": 30,
+  "rnd_orig": 12,
+  "rnd_std": 10,
+  "archivo": "ext_p4_h12_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h12_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   115.3,
+   114.8,
+   107.4
+  ],
+  "media_std": [
+   114.2,
+   113.6,
+   106.4
+  ],
+  "dif_media_rgb": [
+   -1.1,
+   -1.2,
+   -1.0
+  ],
+  "dif_abs_media": 9.9,
+  "cielo_orig": [
+   165.3,
+   162.2,
+   152.5
+  ],
+  "cielo_std": [
+   164.8,
+   161.8,
+   152.1
+  ],
+  "suelo_orig": [
+   72.3,
+   78.0,
+   70.6
+  ],
+  "suelo_std": [
+   72.1,
+   77.6,
+   70.2
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.6,
+  "fps_std": 25.1,
+  "veh_orig": 13,
+  "veh_std": 12,
+  "peds_orig": 28,
+  "peds_std": 29,
+  "rnd_orig": 12,
+  "rnd_std": 11,
+  "archivo": "ext_p4_h12_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h12_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   124.0,
+   127.2,
+   121.7
+  ],
+  "media_std": [
+   107.9,
+   110.5,
+   102.1
+  ],
+  "dif_media_rgb": [
+   -16.1,
+   -16.7,
+   -19.7
+  ],
+  "dif_abs_media": 23.19,
+  "cielo_orig": [
+   168.5,
+   167.2,
+   161.1
+  ],
+  "cielo_std": [
+   144.5,
+   141.9,
+   130.6
+  ],
+  "suelo_orig": [
+   73.2,
+   82.4,
+   74.3
+  ],
+  "suelo_std": [
+   69.9,
+   79.2,
+   70.5
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.6,
+  "fps_std": 25.2,
+  "veh_orig": 12,
+  "veh_std": 10,
+  "peds_orig": 23,
+  "peds_std": 29,
+  "rnd_orig": 11,
+  "rnd_std": 9,
+  "archivo": "ext_p4_h12_c08.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h18_c00",
+  "tipo": "exterior",
+  "media_orig": [
+   87.5,
+   83.0,
+   72.0
+  ],
+  "media_std": [
+   86.2,
+   82.2,
+   71.5
+  ],
+  "dif_media_rgb": [
+   -1.3,
+   -0.7,
+   -0.5
+  ],
+  "dif_abs_media": 7.09,
+  "cielo_orig": [
+   120.6,
+   120.2,
+   114.7
+  ],
+  "cielo_std": [
+   120.6,
+   120.3,
+   114.6
+  ],
+  "suelo_orig": [
+   57.5,
+   56.5,
+   41.8
+  ],
+  "suelo_std": [
+   57.6,
+   56.7,
+   41.7
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.8,
+  "fps_std": 24.9,
+  "veh_orig": 13,
+  "veh_std": 12,
+  "peds_orig": 34,
+  "peds_std": 32,
+  "rnd_orig": 12,
+  "rnd_std": 11,
+  "archivo": "ext_p4_h18_c00.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h18_c01",
+  "tipo": "exterior",
+  "media_orig": [
+   96.8,
+   92.5,
+   70.4
+  ],
+  "media_std": [
+   95.5,
+   90.7,
+   69.3
+  ],
+  "dif_media_rgb": [
+   -1.3,
+   -1.8,
+   -1.1
+  ],
+  "dif_abs_media": 7.14,
+  "cielo_orig": [
+   135.0,
+   136.0,
+   108.2
+  ],
+  "cielo_std": [
+   134.6,
+   135.0,
+   108.0
+  ],
+  "suelo_orig": [
+   62.5,
+   63.0,
+   45.1
+  ],
+  "suelo_std": [
+   61.8,
+   61.3,
+   43.7
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.5,
+  "fps_std": 24.6,
+  "veh_orig": 13,
+  "veh_std": 12,
+  "peds_orig": 30,
+  "peds_std": 33,
+  "rnd_orig": 12,
+  "rnd_std": 11,
+  "archivo": "ext_p4_h18_c01.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h18_c04",
+  "tipo": "exterior",
+  "media_orig": [
+   108.0,
+   107.4,
+   100.5
+  ],
+  "media_std": [
+   108.0,
+   107.3,
+   100.9
+  ],
+  "dif_media_rgb": [
+   -0.0,
+   -0.0,
+   0.4
+  ],
+  "dif_abs_media": 7.67,
+  "cielo_orig": [
+   155.5,
+   152.5,
+   144.6
+  ],
+  "cielo_std": [
+   155.9,
+   152.7,
+   144.9
+  ],
+  "suelo_orig": [
+   67.6,
+   73.0,
+   65.8
+  ],
+  "suelo_std": [
+   67.8,
+   73.2,
+   65.9
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.8,
+  "fps_std": 24.9,
+  "veh_orig": 13,
+  "veh_std": 10,
+  "peds_orig": 30,
+  "peds_std": 29,
+  "rnd_orig": 11,
+  "rnd_std": 9,
+  "archivo": "ext_p4_h18_c04.png",
+  "completa": false
+ },
+ {
+  "escena": "p4_h18_c08",
+  "tipo": "exterior",
+  "media_orig": [
+   101.3,
+   109.6,
+   99.0
+  ],
+  "media_std": [
+   100.5,
+   108.3,
+   97.3
+  ],
+  "dif_media_rgb": [
+   -0.8,
+   -1.2,
+   -1.6
+  ],
+  "dif_abs_media": 11.06,
+  "cielo_orig": [
+   138.2,
+   142.2,
+   127.6
+  ],
+  "cielo_std": [
+   137.0,
+   140.7,
+   125.6
+  ],
+  "suelo_orig": [
+   63.1,
+   76.1,
+   66.1
+  ],
+  "suelo_std": [
+   63.2,
+   76.2,
+   66.2
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.6,
+  "fps_std": 25.0,
+  "veh_orig": 12,
+  "veh_std": 12,
+  "peds_orig": 22,
+  "peds_std": 29,
+  "rnd_orig": 11,
+  "rnd_std": 11,
+  "archivo": "ext_p4_h18_c08.png",
+  "completa": false
+ }
+]

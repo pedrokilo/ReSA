@@ -1,0 +1,158 @@
+[
+ {
+  "escena": "casa_h12",
+  "tipo": "interior",
+  "media_orig": [
+   70.2,
+   63.8,
+   47.1
+  ],
+  "media_std": [
+   70.3,
+   63.8,
+   47.1
+  ],
+  "dif_media_rgb": [
+   0.1,
+   -0.0,
+   -0.0
+  ],
+  "dif_abs_media": 2.26,
+  "cielo_orig": [
+   85.0,
+   78.6,
+   59.7
+  ],
+  "cielo_std": [
+   84.8,
+   78.3,
+   59.5
+  ],
+  "suelo_orig": [
+   61.8,
+   55.5,
+   38.6
+  ],
+  "suelo_std": [
+   61.9,
+   55.5,
+   38.6
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.8,
+  "fps_std": 24.9,
+  "veh_orig": 0,
+  "veh_std": 0,
+  "peds_orig": 1,
+  "peds_std": 1,
+  "rnd_orig": 0,
+  "rnd_std": 0,
+  "archivo": "int_casa_h12.png",
+  "completa": true
+ },
+ {
+  "escena": "casa_hsave",
+  "tipo": "interior",
+  "media_orig": [
+   61.9,
+   56.0,
+   42.4
+  ],
+  "media_std": [
+   61.8,
+   55.9,
+   42.3
+  ],
+  "dif_media_rgb": [
+   -0.1,
+   -0.1,
+   -0.0
+  ],
+  "dif_abs_media": 1.7,
+  "cielo_orig": [
+   74.9,
+   69.4,
+   54.6
+  ],
+  "cielo_std": [
+   74.8,
+   69.2,
+   54.5
+  ],
+  "suelo_orig": [
+   58.4,
+   52.5,
+   38.2
+  ],
+  "suelo_std": [
+   58.3,
+   52.5,
+   38.1
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 24.8,
+  "fps_std": 25.1,
+  "veh_orig": 0,
+  "veh_std": 0,
+  "peds_orig": 1,
+  "peds_std": 1,
+  "rnd_orig": 0,
+  "rnd_std": 0,
+  "archivo": "int_casa_hsave.png",
+  "completa": true
+ },
+ {
+  "escena": "ropero",
+  "tipo": "interior",
+  "media_orig": [
+   110.0,
+   92.7,
+   78.6
+  ],
+  "media_std": [
+   112.6,
+   95.1,
+   80.7
+  ],
+  "dif_media_rgb": [
+   2.6,
+   2.4,
+   2.1
+  ],
+  "dif_abs_media": 4.3,
+  "cielo_orig": [
+   124.8,
+   117.7,
+   104.9
+  ],
+  "cielo_std": [
+   128.8,
+   121.4,
+   108.1
+  ],
+  "suelo_orig": [
+   86.5,
+   63.8,
+   53.0
+  ],
+  "suelo_std": [
+   86.5,
+   63.8,
+   52.9
+  ],
+  "cap_orig_valida": true,
+  "cap_std_valida": true,
+  "fps_orig": 25.0,
+  "fps_std": 24.9,
+  "veh_orig": 0,
+  "veh_std": 0,
+  "peds_orig": 1,
+  "peds_std": 1,
+  "rnd_orig": 0,
+  "rnd_std": 0,
+  "archivo": "int_ropero.png",
+  "completa": true
+ }
+]
