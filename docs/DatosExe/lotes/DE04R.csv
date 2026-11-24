@@ -34,3 +34,4 @@ va,tipo,lote_origen
 0x008D60BC,uint8,DE04B
 0x008E3F00,int32,DE04B
 0x008E3FE0,uint32,DE04B
+0x008CD76C,ModelIndex,DE04D

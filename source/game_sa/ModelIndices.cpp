@@ -180,7 +180,7 @@ namespace ModelIndices {
     auto& MI_NITRO_BOTTLE_SMALL = DatosExe::Data::v8CD760;
     auto& MI_NITRO_BOTTLE_LARGE = DatosExe::Data::v8CD764;
     auto& MI_NITRO_BOTTLE_DOUBLE = DatosExe::Data::v8CD768;
-    auto& MI_HYDRAULICS = DatosExe::Data::v8CD76C;
+    auto& MI_HYDRAULICS = StaticRef<ModelIndex>(0x8CD76C); // lo lee el despachador de scripts del EXE (0x4732EA): no puede ser un objeto propio
     auto& MI_STEREO_UPGRADE = DatosExe::Data::v8CD770;
     auto& MI_BASKETBALL = DatosExe::Data::v8CD774;
     auto& MI_POOL_CUE_BALL = DatosExe::Data::v8CD778;
