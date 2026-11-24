@@ -1,0 +1,5 @@
+ejecuciones/
+__pycache__/
+shim/*.obj
+shim/*.lib
+shim/*.exp

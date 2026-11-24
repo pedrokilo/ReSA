@@ -1,0 +1,4 @@
+escena,dif_abs_media,dif_media_rgb,media_orig,media_std,cielo_orig,cielo_std,suelo_orig,suelo_std,fps_orig,fps_std,veh_orig,veh_std,peds_orig,peds_std,rnd_orig,rnd_std,archivo
+casa_h12,1.86,-0.1/-0.1/-0.1,70.2/63.8/47.1,70.1/63.7/47.0,85.0/78.6/59.7,84.9/78.4/59.6,61.8/55.5/38.6,61.7/55.4/38.4,24.8,24.8,0,0,1,1,0,0,int_asi_casa_h12.png
+casa_hsave,1.58,-0.1/-0.1/-0.1,61.9/56.0/42.4,61.8/55.9/42.3,74.9/69.4/54.6,74.9/69.3/54.5,58.4/52.5/38.2,58.3/52.4/38.1,24.8,25.2,0,0,1,1,0,0,int_asi_casa_hsave.png
+ropero,1.89,-0.0/-0.1/-0.1,110.0/92.7/78.6,110.0/92.7/78.5,124.8/117.7/104.9,124.7/117.6/104.8,86.5/63.8/53.0,86.4/63.7/52.8,25.0,24.7,0,0,1,1,0,0,int_asi_ropero.png
