@@ -86,3 +86,11 @@ música ordinaria): demuestra que la sesión de audio del proceso sigue activa y
 No se probó en juego: `.aac`, `.m4a` y `.mov` (no hay archivos de muestra; Media Foundation los abre en Windows 10/11, `.mov` no está garantizado), cambio de pista al terminar, bucle
 (`SetCursor` desde el hilo de streaming), pistas a 48 kHz u otros canales (el original tomaba las unidades de la media como 1/44100 s; aquí se remuestrea a 44100 Hz, así que la longitud es correcta),
 ni la escucha real de la pista.
+
+### Humo de la ASI (juego original con `gta_reversed.asi` de esta rama, `AGUA_ASI`) y compilación
+
+- `python prueba_ropero.py cal_mal.args qt_ropero`: VEREDICTO BIEN (puerta True, marcador True). `python prueba_marcadores.py cal_mal.args qt_marcadores`: VEREDICTO BIEN (12 marcadores, los 12 cambian en 1 s); registros en `reversing/FnQT/evidencia/humo/`.
+- ASI compilada con `_build_INT1_urgente.sh` adaptado (`CMake`, `EXIT=0`, sin errores; compila `AEMFDecoder.cpp` y `MfPcmReader.cpp`) y standalone enlazado con `reversing\FnFase8\enlazar.cmd`
+  (`link exit=0`; el `.map` ya no contiene `QTMLRuntime.obj`; el exe importa solo ADVAPI32, d3d9, dbghelp, DDRAW, DINPUT8, DSOUND, GDI32, IMM32, KERNEL32, ole32, OLEAUT32, SETUPAPI, SHELL32, USER32, VERSION y WINMM:
+  ni QuickTime ni Media Foundation, que se cargan en tiempo de ejecución).
+- `python contrib/audit_hook_catalog.py --strict`: OK.
