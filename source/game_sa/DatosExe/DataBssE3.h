@@ -120,7 +120,6 @@ extern float bC3F048; // 0x00C3F048
 extern float bC3F860; // 0x00C3F860
 extern float bC402E4; // 0x00C402E4
 extern float bC40324; // 0x00C40324
-extern float bC4032C; // 0x00C4032C
 extern float bC6AA58; // 0x00C6AA58
 extern float bC6AA64; // 0x00C6AA64
 extern float bC6AA70; // 0x00C6AA70

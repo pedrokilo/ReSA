@@ -116,7 +116,6 @@ float bC3F048{}; // 0x00C3F048
 float bC3F860{}; // 0x00C3F860
 float bC402E4{}; // 0x00C402E4
 float bC40324{}; // 0x00C40324
-float bC4032C{}; // 0x00C4032C
 float bC6AA58{}; // 0x00C6AA58
 float bC6AA64{}; // 0x00C6AA64
 float bC6AA70{}; // 0x00C6AA70

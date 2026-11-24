@@ -28,6 +28,5 @@ extern float bC8130C; // 0x00C8130C
 extern float bC88044; // 0x00C88044
 
 
-extern float bC4032C; // 0x00C4032C
 
 } // namespace DatosExe::Bss

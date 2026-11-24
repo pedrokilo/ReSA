@@ -65,7 +65,6 @@ extern CMultiBuilding* bA97294; // 0x00A97294
 extern CStuntJump* bA9A88C; // 0x00A9A88C
 extern RxPipeline* bA9AD78; // 0x00A9AD78
 extern CEventGlobalGroup* bA9AF6C; // 0x00A9AF6C
-extern uint8* bA9B76C; // 0x00A9B76C
 extern RwTexture* bB4E3EC; // 0x00B4E3EC
 extern RwTexDictionary* bB4E688; // 0x00B4E688
 extern RwTexture* bB4E68C; // 0x00B4E68C

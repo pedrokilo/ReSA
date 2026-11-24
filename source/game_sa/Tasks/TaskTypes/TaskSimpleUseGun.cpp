@@ -617,9 +617,11 @@ bool CTaskSimpleUseGun::ProcessPed(CPed* ped) {
         if (anim->GetAnimId() != ANIM_ID_RELOAD && anim->GetAnimId() != ANIM_ID_CROUCHRELOAD && anim->m_BlendDelta >= 0.f) anim->m_BlendDelta = -4.f;
     } else if (m_LastCmd == Cmd::PISTOLWHIP) {
         const auto crouched = size_t(ped->bIsDucking);
-        const auto hitTime = DatosExe::Bss::bC17738[crouched];
+        // 0xC17738 (tiempo de golpe) y 0xC17780 (indice del vector de golpe): campos de la tabla de combos de melee que rellena CTaskSimpleFight::LoadMeleeData por direccion en la memoria del EXE;
+        // los objetos propios DatosExe::Bss::bC17738/bC17780 nunca se escriben (valian 0: el golpe de la pistolwhip se evaluaba con tiempo de golpe 0)
+        const auto hitTime = StaticRef<std::array<float, 2>>(0xC17738)[crouched];
         if (anim->m_BlendAmount > 0.9f && anim->m_BlendDelta >= 0.f && anim->m_CurrentTime > hitTime && anim->m_CurrentTime - anim->m_TimeStep <= hitTime) {
-            const auto offsetId = DatosExe::Bss::bC17780[crouched];
+            const auto offsetId = StaticRef<std::array<uint8, 2>>(0xC17780)[crouched];
             CVector strike = ped->GetMatrix().TransformPoint(StaticRef<CVector[12]>(0xC177D0)[offsetId]);
             CTaskSimpleFight fight{m_TargetEntity, 11, 20000};
             fight.m_nComboSet = 16;
