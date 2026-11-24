@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 
 #include "app_game.h"
 #include "X87Math.h"
+#include "game_sa/Crt/CrtState.h"
 #include "LoadingScreen.h"
 #include "PlantMgr.h"
 #include "Shadows.h"
@@ -76,7 +77,12 @@ void GameInit() {
     if (RsRwInitialize(nullptr)) {
         CGame::InitialiseRenderWare();
     }
-    srand(RsTimer());
+    // Como el original: srand del CRT del EXE (0x821B11) con RsTimer(). La rand() del juego es la del EXE (ExeCrt::Rand, 0x821B1E: CarCtrl,
+    // AutoPilot, Cam...) y su semilla vive en el bloque por hilo del EXE, no en el CRT de la DLL; solo con el srand de la DLL quedaba en 1 (mismas
+    // secuencias en cada partida). Se siembran las dos con la misma hora para que cada partida difiera, como en el original.
+    const auto seed = static_cast<unsigned int>(RsTimer());
+    ExeCrt::Srand(seed);
+    srand(seed);
 }
 
 // Como el original: la ventana de vista que Idle y FrontendIdle pasan a CameraSize es tan(FOV · π/360)
