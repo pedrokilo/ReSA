@@ -13,7 +13,6 @@ extern int32 v8D12CC; // 0x008D12CC
 extern int32 v8D2358; // 0x008D2358
 extern int32 v8D2E30; // 0x008D2E30
 extern int32 v8D37D0; // 0x008D37D0
-extern bool v8D37D5; // 0x008D37D5
 extern uint8 v8D60BC; // 0x008D60BC
 extern int32 v8E3F00; // 0x008E3F00
 extern uint32 v8E3FE0; // 0x008E3FE0

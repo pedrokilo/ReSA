@@ -112,7 +112,6 @@ extern ModelIndex v8CD758; // 0x008CD758
 extern ModelIndex v8CD760; // 0x008CD760
 extern ModelIndex v8CD764; // 0x008CD764
 extern ModelIndex v8CD768; // 0x008CD768
-extern ModelIndex v8CD76C; // 0x008CD76C
 extern ModelIndex v8CD770; // 0x008CD770
 extern ModelIndex v8CD774; // 0x008CD774
 extern ModelIndex v8CD778; // 0x008CD778

@@ -81,7 +81,7 @@ class CWaterLevel {
     static inline auto& m_nWaterConfiguration = DatosExe::Bss::bC228A0;
     static inline auto& m_nWaterTimeOffset = DatosExe::Bss::bC228A4;
     static inline auto& m_bWaterFog = StaticRef<bool>(0x8D37D4);
-    static inline auto& m_bWaterFogScript = DatosExe::Data::v8D37D5;
+    static inline auto& m_bWaterFogScript = StaticRef<bool>(0x8D37D5); // lo escribe el despachador de scripts del EXE (0x473090): no puede ser un objeto propio
     static inline auto& m_WaterFogDensity = StaticRef<int32>(0x8D37E0);
 
     static inline auto& faWaveMultipliersX = DatosExe::Data::v8D38C8;
