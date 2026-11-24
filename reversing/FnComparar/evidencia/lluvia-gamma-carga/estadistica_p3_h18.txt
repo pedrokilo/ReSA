@@ -1,0 +1,3 @@
+escena punto 3 hora 18
+  o_ll1-20261124-063715        n=12  G media 139.5  sd 10.3  min 127.3  max 168.5  mediana 137.8  (con rafaga/flash en memoria: 1)  valores [145, 130, 140, 138, 135, 127, 142, 146, 168, 138, 135, 130]
+  s_ll1-20261124-064043        n=12  G media 132.7  sd 2.4  min 129.2  max 136.9  mediana 132.8  (con rafaga/flash en memoria: 0)  valores [134, 132, 130, 131, 136, 134, 134, 131, 129, 134, 130, 137]

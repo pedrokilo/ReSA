@@ -7,7 +7,7 @@ Lanza UNA ejecucion de comparacion bajo el candado D:\Original\gta_lock (espera 
   -Modo asi  : gta_sa.exe original + gta_reversed.asi (bin\Debug) con -AsiArgs (control EXE original + ASI).
 Uso: pwsh -File ejecutar_comparar.ps1 -Modo orig -Etiqueta o1 -Limite 600 -Sonda comparar.py -SondaArgs "--hora 12"
 #>
-param([ValidateSet('orig','std','asi')][string]$Modo = 'orig', [string]$Etiqueta = 'x', [int]$Limite = 600, [string]$Sonda = '', [string]$SondaArgs = '', [string]$Exe = '', [string]$Asi = '', [string]$AsiArgs = '', [string]$StdArgs = '--shims')
+param([ValidateSet('orig','std','asi')][string]$Modo = 'orig', [string]$Etiqueta = 'x', [int]$Limite = 600, [string]$Sonda = '', [string]$SondaArgs = '', [string]$Exe = '', [string]$Asi = '', [string]$AsiArgs = '', [string]$StdArgs = '--shims', [string]$IniExtra = '')
 $ErrorActionPreference = 'Stop'
 $aqui = $PSScriptRoot
 $base = 'D:\Original\_comparar'
@@ -18,6 +18,7 @@ while ($true) { try { New-Item -ItemType Directory 'D:\Original\gta_lock' -Error
 $p = $null
 try {
     while (Get-Process gta_sa*, gta_reversed_exe -ErrorAction SilentlyContinue) { Start-Sleep 10 }
+    python -I (Join-Path $aqui 'gamma_rampa.py') pre | Add-Content (Join-Path $sal 'gamma.txt')
     $dir = Join-Path $base $(if ($Modo -eq 'std') { 'std' } else { 'orig' })
     Remove-Item (Join-Path $dir 'logs\*') -Force -ErrorAction SilentlyContinue
     Remove-Item (Join-Path $dir 'comparar_shim.log') -Force -ErrorAction SilentlyContinue
@@ -28,7 +29,7 @@ try {
         Copy-Item "$fuente\GTASAsf2.b", "$fuente\gta_sa.set" (Join-Path $dir 'userfiles') -Force
         if (-not $Exe) { $Exe = 'D:\Original\wv-int\reversing\FnFase8\salida\gta_sa_standalone.exe' }
         Copy-Item $Exe (Join-Path $dir 'gta_sa_standalone.exe') -Force
-        "[FastLoader]`r`nEnable = true`r`nSaveGameToLoad = 2`r`nNoEAX = true`r`nNoNVidia = true`r`nNoLogo = true`r`nNoTitleOrIntro = true`r`nNoCopyright = true`r`nNoFading = true`r`nNoLoadingTune = true`r`nRenderAtAllTimes = true`r`n[Misc]`r`nSkipDeviceSelection = true`r`nSaveDirectoryPath = $dir\userfiles`r`nLoadSavesWithMismatchingVersion = true`r`n" | Set-Content (Join-Path $dir 'gta-reversed.ini') -Encoding ascii
+        "[FastLoader]`r`nEnable = true`r`nSaveGameToLoad = 2`r`nNoEAX = true`r`nNoNVidia = true`r`nNoLogo = true`r`nNoTitleOrIntro = true`r`nNoCopyright = true`r`nNoFading = true`r`nNoLoadingTune = true`r`nRenderAtAllTimes = true`r`n$(($IniExtra -split ';' | Where-Object { $_ } | ForEach-Object { $_ + [char]13 + [char]10 }) -join '')[Misc]`r`nSkipDeviceSelection = true`r`nSaveDirectoryPath = $dir\userfiles`r`nLoadSavesWithMismatchingVersion = true`r`n" | Set-Content (Join-Path $dir 'gta-reversed.ini') -Encoding ascii
         $env:FASE8_ARGS = "--ruta-original `"D:\Grand Theft Auto San Andreas\gta-sa.exe`" --directorio-juego `"$dir`" --salida `"$sal`" --limite $Limite $StdArgs"
         $p = Start-Process -FilePath (Join-Path $dir 'gta_sa_standalone.exe') -ArgumentList $env:FASE8_ARGS -WorkingDirectory $dir -PassThru
     } else {
@@ -40,7 +41,7 @@ try {
             Remove-Item "$sc\redir_docs.asi" -ErrorAction SilentlyContinue
             if (-not $Asi) { $Asi = 'D:\Original\wv-int\bin\Debug\gta_reversed.asi' }
             Copy-Item $Asi "$sc\gta_reversed.asi" -Force
-            "[FastLoader]`r`nEnable = true`r`nSaveGameToLoad = 2`r`nNoEAX = true`r`nNoNVidia = true`r`nNoLogo = true`r`nNoTitleOrIntro = true`r`nNoCopyright = true`r`nNoFading = true`r`nNoLoadingTune = true`r`nRenderAtAllTimes = true`r`n[Misc]`r`nSkipDeviceSelection = true`r`nSaveDirectoryPath = $dir\userfiles`r`nLoadSavesWithMismatchingVersion = true`r`n" | Set-Content (Join-Path $dir 'gta-reversed.ini') -Encoding ascii
+            "[FastLoader]`r`nEnable = true`r`nSaveGameToLoad = 2`r`nNoEAX = true`r`nNoNVidia = true`r`nNoLogo = true`r`nNoTitleOrIntro = true`r`nNoCopyright = true`r`nNoFading = true`r`nNoLoadingTune = true`r`nRenderAtAllTimes = true`r`n$(($IniExtra -split ';' | Where-Object { $_ } | ForEach-Object { $_ + [char]13 + [char]10 }) -join '')[Misc]`r`nSkipDeviceSelection = true`r`nSaveDirectoryPath = $dir\userfiles`r`nLoadSavesWithMismatchingVersion = true`r`n" | Set-Content (Join-Path $dir 'gta-reversed.ini') -Encoding ascii
             Copy-Item "$fuente\GTASAsf2.b", "$fuente\gta_sa.set" (Join-Path $dir 'userfiles') -Force
             Copy-Item (Join-Path $dir 'gta-reversed.ini') (Join-Path $sc 'gta-reversed.ini') -Force
             Remove-Item "$sc\III.VC.SA.WindowedMode.asi" -ErrorAction SilentlyContinue
@@ -59,6 +60,7 @@ try {
     if (-not $p.WaitForExit($Limite * 1000)) { 'TIMEOUT: el proceso sigue vivo (es mio, lo cierro)'; $p.Kill() }
     "exit=0x{0:X8}" -f $p.ExitCode
     if ($son -and -not $son.HasExited) { $son.WaitForExit(20000) | Out-Null; if (-not $son.HasExited) { $son.Kill() } }
+    Start-Sleep 2; python -I (Join-Path $aqui 'gamma_rampa.py') post | Add-Content (Join-Path $sal 'gamma.txt')
     Copy-Item (Join-Path $dir 'logs\*') $sal -ErrorAction SilentlyContinue
     Copy-Item (Join-Path $dir 'comparar_shim.log') $sal -ErrorAction SilentlyContinue
     Copy-Item (Join-Path $dir 'gta-reversed.ini') $sal -ErrorAction SilentlyContinue

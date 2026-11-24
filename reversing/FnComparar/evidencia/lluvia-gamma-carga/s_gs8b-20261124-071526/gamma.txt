@@ -1,0 +1,2 @@
+{"t": "07:15:51", "etiqueta": "pre", "ok": true, "identidad": true, "rampa_R": [0, 8224, 16448, 32896, 49344, 57568, 65535], "rampa_G": [0, 32896, 65535]}
+{"t": "07:16:08", "etiqueta": "post", "ok": true, "identidad": true, "rampa_R": [0, 8224, 16448, 32896, 49344, 57568, 65535], "rampa_G": [0, 32896, 65535]}

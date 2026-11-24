@@ -1,0 +1,46 @@
+modo orig fase lluvia pid 27012 horas [6, 12, 18, 0] climas [8] puntos [0, 1, 2]
+menu: tecla enter
+menu: tecla down
+menu: tecla enter
+menu: tecla down
+menu: tecla enter
+ARRANQUE gs historial [(0.4, 0), (21.6, 1), (21.8, 2), (22.3, 3), (22.6, 5), (25.1, 7), (40.5, 8), (52.0, 9)] t_gs8=40.51331806182861 t_gs9=52.03064250946045 (s desde el inicio del proceso)
+ventana: cliente 800x600, rect ventana 820x649
+salida de la casa: area=0 tras 1 s
+LLUVIA punto 2 hora 6 clima 8 N=8
+l_p2_h06_c08_00 media [153.1, 165.2, 150.3] valida True {"LightningFlash": 0, "LightningBurst": 1, "Rain": 0.8192}
+l_p2_h06_c08_01 media [62.0, 67.8, 56.2] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.7}
+l_p2_h06_c08_02 media [58.6, 63.9, 51.0] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.7}
+l_p2_h06_c08_03 media [59.7, 63.7, 51.2] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.8}
+l_p2_h06_c08_04 media [59.2, 63.0, 50.4] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.8}
+l_p2_h06_c08_05 media [63.9, 68.0, 55.4] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.9}
+l_p2_h06_c08_06 media [69.5, 74.7, 62.6] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.9}
+l_p2_h06_c08_07 media [72.4, 78.1, 66.6] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.9}
+LLUVIA punto 4 hora 12 clima 8 N=8
+l_p4_h12_c08_00 media [112.4, 115.3, 108.2] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 1.0}
+l_p4_h12_c08_01 media [108.9, 111.7, 104.1] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.7}
+l_p4_h12_c08_02 media [108.6, 110.9, 103.3] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.7}
+l_p4_h12_c08_03 media [114.5, 117.4, 110.3] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.7318}
+l_p4_h12_c08_04 media [161.7, 162.1, 152.9] valida True {"LightningFlash": 1, "LightningBurst": 1, "Rain": 0.8}
+l_p4_h12_c08_05 media [110.1, 112.2, 104.1] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.8}
+l_p4_h12_c08_06 media [113.0, 115.8, 108.6] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.9}
+l_p4_h12_c08_07 media [107.4, 109.8, 101.5] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.9}
+LLUVIA punto 2 hora 0 clima 8 N=8
+l_p2_h00_c08_00 media [70.4, 72.4, 58.6] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 1.0}
+l_p2_h00_c08_01 media [71.9, 74.2, 60.7] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.9682}
+l_p2_h00_c08_02 media [60.2, 63.2, 47.9] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.7}
+l_p2_h00_c08_03 media [58.6, 61.8, 46.6] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.7}
+l_p2_h00_c08_04 media [72.9, 76.0, 61.9] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.8}
+l_p2_h00_c08_05 media [62.4, 63.8, 48.6] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.8}
+l_p2_h00_c08_06 media [67.3, 68.9, 53.7] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.9}
+l_p2_h00_c08_07 media [61.5, 62.9, 48.2] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.9}
+LLUVIA punto 3 hora 0 clima 8 N=8
+l_p3_h00_c08_00 media [93.3, 90.5, 70.0] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 1.0}
+l_p3_h00_c08_01 media [84.2, 82.6, 63.7] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 1.0}
+l_p3_h00_c08_02 media [80.3, 78.9, 59.2] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.7}
+l_p3_h00_c08_03 media [80.4, 78.6, 59.0] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.7}
+l_p3_h00_c08_04 media [81.0, 79.2, 59.6] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.8}
+l_p3_h00_c08_05 media [81.6, 79.7, 60.1] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.8}
+l_p3_h00_c08_06 media [81.1, 78.7, 58.8] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.8}
+l_p3_h00_c08_07 media [79.8, 80.0, 61.8] valida True {"LightningFlash": 0, "LightningBurst": 0, "Rain": 0.9}
+fin

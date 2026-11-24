@@ -1,0 +1,12 @@
+escena punto 2 hora 00
+  o_ll2-20261124-065046        n= 8  G media 67.9  sd 5.3  min 61.8  max 76.0  mediana 66.3  (con rafaga/flash en memoria: 0)  valores [72, 74, 63, 62, 76, 64, 69, 63]
+  s_ll2-20261124-065617        n= 8  G media 66.9  sd 3.6  min 63.8  max 74.0  mediana 65.1  (con rafaga/flash en memoria: 1)  valores [72, 64, 65, 65, 67, 65, 74, 64]
+escena punto 2 hora 06
+  o_ll2-20261124-065046        n= 8  G media 80.5  sd 32.4  min 63.0  max 165.2  mediana 67.9  (con rafaga/flash en memoria: 1)  valores [165, 68, 64, 64, 63, 68, 75, 78]
+  s_ll2-20261124-065617        n= 8  G media 79.3  sd 34.4  min 58.9  max 169.0  mediana 65.0  (con rafaga/flash en memoria: 0)  valores [169, 63, 64, 59, 65, 65, 69, 80]
+escena punto 3 hora 00
+  o_ll2-20261124-065046        n= 8  G media 81.0  sd 3.8  min 78.6  max 90.5  mediana 79.5  (con rafaga/flash en memoria: 0)  valores [90, 83, 79, 79, 79, 80, 79, 80]
+  s_ll2-20261124-065617        n= 8  G media 79.9  sd 5.5  min 75.4  max 92.3  mediana 77.3  (con rafaga/flash en memoria: 1)  valores [92, 77, 75, 76, 85, 77, 76, 78]
+escena punto 4 hora 12
+  o_ll2-20261124-065046        n= 8  G media 119.4  sd 16.3  min 109.8  max 162.1  mediana 113.8  (con rafaga/flash en memoria: 1)  valores [115, 112, 111, 117, 162, 112, 116, 110]
+  s_ll2-20261124-065617        n= 8  G media 114.5  sd 18.5  min 103.0  max 162.9  mediana 108.6  (con rafaga/flash en memoria: 0)  valores [110, 109, 163, 108, 103, 112, 103, 108]

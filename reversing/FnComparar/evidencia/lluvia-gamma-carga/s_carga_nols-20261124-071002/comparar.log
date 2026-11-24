@@ -1,0 +1,9 @@
+modo std fase carga pid 10548 horas [6, 12, 18, 0] climas [0, 1, 4, 8] puntos [0, 1, 2]
+ARRANQUE gs historial [(0.4, 0), (1.4, 5), (1.9, 8), (3.6, 9)] t_gs8=1.8779585361480713 t_gs9=3.7986202239990234 (s desde el inicio del proceso)
+ventana: cliente 800x600, rect ventana 818x647
+carga_casa [61.8, 55.9, 42.3] valida True
+carga {"t": 0.1, "loadstate_hist": {"0": 23001, "5": 13, "1": 2480, "4": 317, "2": 426, "3": 79}, "cargados_por_rango": {"dff": 1901, "txd": 513, "col": 35, "ipl": 26, "dat": 0, "ifp": 5, "rrr": 0, "scm": 0}, "memUsada": 9111552, "numRequested": 0}
+carga {"t": 5.2, "loadstate_hist": {"0": 23001, "5": 13, "1": 2480, "4": 317, "2": 426, "3": 79}, "cargados_por_rango": {"dff": 1901, "txd": 513, "col": 35, "ipl": 26, "dat": 0, "ifp": 5, "rrr": 0, "scm": 0}, "memUsada": 9111552, "numRequested": 0}
+carga {"t": 10.3, "loadstate_hist": {"0": 23001, "5": 13, "1": 2480, "4": 317, "2": 426, "3": 79}, "cargados_por_rango": {"dff": 1901, "txd": 513, "col": 35, "ipl": 26, "dat": 0, "ifp": 5, "rrr": 0, "scm": 0}, "memUsada": 9111552, "numRequested": 0}
+carga {"t": 15.4, "loadstate_hist": {"0": 23001, "5": 13, "1": 2480, "4": 317, "2": 426, "3": 79}, "cargados_por_rango": {"dff": 1901, "txd": 513, "col": 35, "ipl": 26, "dat": 0, "ifp": 5, "rrr": 0, "scm": 0}, "memUsada": 9111552, "numRequested": 0}
+fin

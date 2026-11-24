@@ -59,12 +59,24 @@ def foco():
     return h
 
 # --- arranque
+CAPS8 = []; GUARD8 = []
+def _ls_dir(a):
+    cargar_mapa(); return dir_(a)
+DIR_LS = {}
 def arrancar():
+    DIR_LS['activo'] = _ls_dir(0xBAB318); DIR_LS['pct'] = _ls_dir(0xBAB330)
     t8 = t9 = None; h = None; ult = 0; gs_ant = -1; hist = []
     while vivo() and desde_inicio() < 400:
         gs = m.u32(0xC8D4C0)
         if gs != gs_ant: hist.append((round(desde_inicio(), 1), gs)); gs_ant = gs
         if gs == 8 and t8 is None: t8 = desde_inicio()
+        if gs == 8 and arg('--cap-gs8', '0') == '1':   # pantalla de carga: muestrea rapido el brillo de la ventana mientras gGameState = 8 y guarda el fotograma mas claro y unos pocos mas
+            hh = captura.buscar()
+            if hh:
+                w_, h_, rgb_ = capt2.bitblt(hh); med_ = png_util.media(w_, h_, rgb_)
+                CAPS8.append((round(desde_inicio(), 2), [round(x, 1) for x in med_], m.i32(_ls_dir(0x8D0940)), round(m.f32(_ls_dir(0xBAB330)), 1), m.u8(_ls_dir(0xBAB318))))
+                if len(GUARD8) < 4 and (not GUARD8 or sum(med_) > 1.4 * GUARD8[-1] + 5): GUARD8.append(sum(med_)); png_util.escribir(os.path.join(sal, 'gs8_%03d.png' % len(CAPS8)), w_, h_, rgb_, 3)
+            continue
         ped, mat = ped_mat()
         if gs == 9 and mat and t9 is None: t9 = desde_inicio(); break
         if MODO == 'orig':
@@ -72,6 +84,7 @@ def arrancar():
             elif gs == 7 and PM.setdefault('t7', time.time()) and time.time() - PM['t7'] > 3.0 and time.time() - ult > 1.8:
                 ult = time.time(); foco(); time.sleep(0.2); menu_original(m)
         mantener(); time.sleep(0.1 if gs != 9 else 0.05)
+    if CAPS8: P('GS8 muestras (t desde inicio, media RGB):', json.dumps(CAPS8)); R({'tipo': 'gs8', 'muestras': CAPS8})
     P('ARRANQUE gs historial', hist, 't_gs8=%s t_gs9=%s (s desde el inicio del proceso)' % (t8, t9))
     R({'tipo': 'arranque', 'hist': hist, 't_gs8': t8, 't_gs9': t9, 'carga_8_a_9': (t9 - t8) if (t8 and t9) else None})
     return t9 is not None
@@ -314,6 +327,83 @@ def _vigilar():
         else: colgado = None
 threading.Thread(target=_vigilar, daemon=True).start()
 
+# --- fase lluvia: repite varias veces la misma escena (punto, hora, clima fijos) para medir el ruido del propio juego y leer las variables de CWeather.
+# En el standalone las variables de CWeather son objetos propios (DatosExe) en otra direccion: se resuelven con el .map del exe (--mapa); en el original/ASI van por direccion.
+import re
+MAPA = arg('--mapa', 'D:/Original/wv-int/reversing/FnFase8/salida/gta_sa_standalone.map')
+_SIMB = {}
+def cargar_mapa():
+    if _SIMB or MODO != 'std': return
+    for ln in open(MAPA, encoding='latin1'):
+        mm = re.search(r'\?([bv])([0-9A-F]{6})@(?:Bss|Data)@DatosExe@@\S+\s+([0-9a-f]{8})\s', ln)
+        if mm: _SIMB[int(mm.group(2), 16)] = int(mm.group(3), 16)
+def dir_(a):
+    cargar_mapa(); return _SIMB.get(a, a) if MODO == 'std' else a
+WVARS = {'LightningFlash': (0xC812CC, 'u8'), 'LightningBurst': (0xC812CD, 'u8'), 'LightningStart': (0xC812C8, 'i'), 'LightningDuration': (0xC812C4, 'i'), 'LightningFlashLastChange': (0xC812BC, 'i'),
+         'WhenToPlayLightningSound': (0xC812C0, 'i'), 'TrafficLightsBrightness': (0xC812A8, 'f'), 'bScriptsForceRain': (0xC812AC, 'u8'), 'CurrentRainParticleStrength': (0xC812B0, 'f'),
+         'HeadLightsSpectrum': (0xC812D0, 'f'), 'HeatHazeFXControl': (0xC812D8, 'f'), 'HeatHaze': (0xC812DC, 'f'), 'SunGlare': (0xC812E0, 'f'), 'Rainbow': (0xC812E4, 'f'), 'Wavyness': (0xC812E8, 'f'),
+         'WindClipped': (0xC812EC, 'f'), 'Wind': (0xC812F0, 'f'), 'Sandstorm': (0xC812F4, 'f'), 'ExtraSunnyness': (0xC812F8, 'f'), 'Foggyness_SF': (0xC812FC, 'f'), 'Foggyness': (0xC81300, 'f'),
+         'CloudCoverage': (0xC81304, 'f'), 'WetRoads': (0xC81308, 'f'), 'InterpolationValue': (0xC8130C, 'f'), 'WeatherTypeInList': (0xC81310, 'i'), 'WeatherRegion': (0xC81314, 'i16'),
+         'Forced': (0xC81318, 'i16'), 'New': (0xC8131C, 'i16'), 'Old': (0xC81320, 'i16'), 'Rain': (0xC81324, 'f'), 'StreamAfterRainFlag': (0xC81328, 'i'), 'UnderWaterness': (0xC8132C, 'f'),
+         'WaterDepth': (0xC81330, 'f'), 'InTunnelness': (0xC81334, 'f'), 'WaterFogFXControl': (0xC81338, 'f'), 'Earthquake': (0xC81340, 'f'), 'RainFXAlpha': (0xC81410, 'f')}
+def leer_clima():
+    d = {}
+    for k, (a, t) in WVARS.items():
+        q = dir_(a)
+        try:
+            d[k] = round(m.f32(q), 4) if t == 'f' else (m.u8(q) if t == 'u8' else (m.i32(q) if t == 'i' else struct.unpack('<h', m.rd(q, 2))[0]))
+        except Exception as e: d[k] = None
+    return d
+def lluvia():
+    salir_de_casa(); sujetar_juego(6); foco()
+    clima = CLIMAS[0]; N = int(arg('--n', '10')); GAP = float(arg('--gap', '3'))
+    escenas = [tuple(int(y) for y in x.split(':')) for x in arg('--escenas', '%d:%d' % (PUNTOS_SEL[0], HORAS[0])).split(',')]   # punto:hora
+    ult = None
+    for (k, hora) in escenas:
+        q = PUNTOS[k]
+        P('LLUVIA punto %d hora %d clima %d N=%d' % (k + 2, hora, clima, N))
+        t1 = time.time(); esp = (ESPERA_PUNTO if ult != k else 4.0) + float(arg('--extra', '20'))
+        while time.time() - t1 < esp and vivo():
+            mantener(); m.wr(0xB70153, bytes([hora])); m.wr(0xB70152, bytes([0])); m.wr(0xC81318, struct.pack('<i', clima))
+            if ult != k and time.time() - t1 < 4: tp(q)
+            time.sleep(0.2)
+        ult = k
+        ok_or = orientar(YAW_OBJ, PITCH_OBJ, 2.0)
+        ORI['on'] = True
+        for i in range(N):
+            t0 = time.time()
+            while time.time() - t0 < GAP and vivo():
+                mantener(); m.wr(0xB70152, bytes([0])); m.wr(0xC81318, struct.pack('<i', clima)); time.sleep(0.1)
+            nom = 'l_p%d_h%02d_c%02d_%02d' % (k + 2, hora, clima, i)
+            r = capturar(nom)
+            d = {'tipo': 'lluvia', 'escena': nom, 'punto': k + 2, 'hora': hora, 'i': i, 'cap': r, 'hora_reloj': m.u8(0xB70153), 'min_reloj': m.u8(0xB70152), 'clima_mem': leer_clima(), 'orient_ok': ok_or, 't': round(desde_inicio(), 1)}
+            R(d); P(nom, 'media', r and r.get('media_rgb'), 'valida', r and r.get('valida'), json.dumps({x: d['clima_mem'][x] for x in ('LightningFlash', 'LightningBurst', 'Rain')}))
+        ORI['on'] = False
+    m.wr(0xC81318, struct.pack('<i', -1))
+
+# --- fase carga: tras gGameState=9 (sin tocar al jugador) muestrea cada 5 s durante --dur s el estado de streaming (CStreamingInfo en 0x8E4CC0, 26316 x 20 bytes; loadState en +7)
+# y los pools, y guarda los estados crudos (carga_<t>s.bin) para comparar que modelos/txd/col/ipl/ifp quedan cargados en cada modo.
+def carga():
+    dur = float(arg('--dur', '60')); k = 0
+    if arg('--captura-casa', '1') == '1':   # imagen de la casa a los 12 s (brillo de referencia: casa_hsave del original 61.9/55.9/42.4)
+        foco(); sujetar_juego(12); r = capturar('carga_casa'); R({'tipo': 'carga_casa', 'cap': r}); P('carga_casa', json.dumps(r and r.get('media_rgb')), 'valida', r and r.get('valida'))
+    t0 = time.time()
+    while time.time() - t0 <= dur and vivo():
+        mantener()
+        raw = m.rd(0x8E4CC0, 26316 * 20) or b''
+        st = bytes(raw[i * 20 + 7] for i in range(len(raw) // 20))
+        hist = {}
+        for b in st: hist[b] = hist.get(b, 0) + 1
+        rangos = {}
+        for nom, a, b in (('dff', 0, 20000), ('txd', 20000, 25000), ('col', 25000, 25255), ('ipl', 25255, 25511), ('dat', 25511, 25575), ('ifp', 25575, 25755), ('rrr', 25755, 26230), ('scm', 26230, 26312)):
+            rangos[nom] = sum(1 for x in st[a:b] if x == 1)
+        t = round(time.time() - t0, 1)
+        open(os.path.join(sal, 'carga_%03.0fs.bin' % t), 'wb').write(st)
+        pj = pos()
+        d = {'tipo': 'carga', 't': t, 'desde_inicio': round(desde_inicio(), 1), 'loadstate_hist': hist, 'cargados_por_rango': rangos, 'memUsada': m.u32(0x8E4CB4), 'numRequested': m.i32(0x8E4CB8), 'prioridad': m.u32(0x8E4BA0), 'conteos': conteos(pj), 'pos': pj}
+        R(d); P('carga', json.dumps({x: d[x] for x in ('t', 'loadstate_hist', 'cargados_por_rango', 'memUsada', 'numRequested')}))
+        time.sleep(max(0, 5.0 - (time.time() - t0 - t))) 
+
 def main():
     P('modo', MODO, 'fase', FASE, 'pid', p, 'horas', HORAS, 'climas', CLIMAS, 'puntos', PUNTOS_SEL)
     if not arrancar(): P('no se llego a gGameState=9'); return
@@ -322,6 +412,8 @@ def main():
     P('ventana: cliente %dx%d, rect ventana %dx%d' % (rc.right - rc.left, rc.bottom - rc.top, wr.right - wr.left, wr.bottom - wr.top))
     if FASE in ('interior', 'todo'): interior()
     if FASE in ('exterior', 'todo'): exterior()
+    if FASE == 'lluvia': lluvia()
+    if FASE == 'carga': carga()
     P('fin')
     h = ctypes.windll.kernel32.OpenProcess(1, False, p)   # el juego es el proceso propio de este lanzamiento
     if h: ctypes.windll.kernel32.TerminateProcess(h, 0)
