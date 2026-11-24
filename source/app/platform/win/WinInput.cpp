@@ -262,12 +262,15 @@ BOOL CALLBACK EnumDevicesCallback(LPCDIDEVICEINSTANCEA inst, LPVOID) {
         }
     }();
 
-    if (SUCCEEDED(PSGLOBAL(diInterface)->CreateDevice(inst->guidInstance, joy, nullptr))) {
+    // Como el EXE (0x747020: `test eax,eax; jnz ->return TRUE` tras CreateDevice y tras SetDataFormat): si CreateDevice o SetDataFormat FALLAN se pasa al siguiente dispositivo.
+    // Antes estaban invertidos (SUCCEEDED): un mando que se creaba bien se descartaba sin contarlo, asi que ningun mando (Xbox incluido) llegaba a diDevice1.
+    if (FAILED(PSGLOBAL(diInterface)->CreateDevice(inst->guidInstance, joy, nullptr))) {
         return TRUE;
     }
 
-    if (SUCCEEDED((*joy)->SetDataFormat(&c_dfDIJoystick2))) {
+    if (FAILED((*joy)->SetDataFormat(&c_dfDIJoystick2))) {
         (*joy)->Release();
+        *joy = nullptr;
         return TRUE;
     }
 
@@ -275,6 +278,7 @@ BOOL CALLBACK EnumDevicesCallback(LPCDIDEVICEINSTANCEA inst, LPVOID) {
 
     if (FAILED((*joy)->SetCooperativeLevel(PSGLOBAL(window), DISCL_FOREGROUND | DISCL_NONEXCLUSIVE))) {
         (*joy)->Release();
+        *joy = nullptr;
         return TRUE;
     }
 
