@@ -63,7 +63,7 @@ Objetos de los lotes 31-61 tras las correcciones (`evidencia/objetos_g5b_lotes31
 ## 4. Pruebas de las correcciones
 
 * Compilacion: `compilar_over.cmd` de `TaskSimpleUseGun.cpp`, `Hud.cpp` (con `Hud.h`), `Interior_c.cpp`, `RunningScriptCommands1400To1499.cpp`, `DataBssE3/E4/E5.cpp`, `rwcore.cpp` y `CharacterCommands.cpp` (estos dos ya en `main`, posteriores a los `.obj` de `wv-int`); enlace del standalone (`link exit=0`) y de la ASI (a mano con los `.obj` de `wv-int` mas los `over\`, `reversing/FnDatos/link_asi.py`; sin la tabla de exportaciones, que no usa nadie).
-* ASI sobre el EXE original (`AGUA_ASI` = ASI propia, SHA256 `06ae4674...5cdb`): `prueba_ropero.py cal_mal.args`: **BIEN** (puerta y marcador, `evidencia/humo_ropero.txt`); `prueba_marcadores.py`: ver `evidencia/humo_marcadores.txt`.
+* ASI sobre el EXE original (`AGUA_ASI` = ASI propia, SHA256 `06ae4674...5cdb`): `prueba_ropero.py cal_mal.args`: **BIEN** (puerta y marcador, `evidencia/humo_ropero.txt`); `prueba_marcadores.py cal_mal.args`: **BIEN** (12 marcadores en memoria, 12 cambian en 1 s, `evidencia/marcadores_BIEN.txt`; se lanzo con `humo_marcadores_g5b.py`, que reserva `gta_lock` y pasa `-SinCandado` porque con 4 agentes esperando el candado las pruebas se pisaban al lanzarse a la vez).
 * Standalone ~315 s sin caidas (d4).
 * `python contrib/audit_hook_catalog.py --strict`: OK.
 
