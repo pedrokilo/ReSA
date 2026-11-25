@@ -11,6 +11,8 @@ Recrear GTA San Andreas PC de forma funcionalmente equivalente mediante código 
 > [!NOTE]
 > Este README describe el trabajo local de la rama **ReSA**. El avance registrado y los bancos aprobados no equivalen a cobertura exhaustiva ni a estabilidad general del juego.
 
+> **Evidencia pesada archivada:** los volcados completos de los bancos (`comparisons.jsonl.*`, etc.) ya no están en el árbol de git; se archivaron fuera del repositorio con manifiesto de hashes. Cómo restaurarlos: [ARCHIVO_LEEME.md](reversing/CppTwelveLevel6Final/ARCHIVO_LEEME.md).
+
 ## Estado actual
 
 <!-- RESA-PROGRESO:BEGIN -->

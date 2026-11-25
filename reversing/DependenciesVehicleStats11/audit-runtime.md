@@ -8,7 +8,7 @@ Corrida **20261010-214000-559687**, revisión posterior del gzip completo, sin e
 
 ## Evidencia y recuento
 
-Se recorrieron todas las líneas de [comparisons.jsonl.gz](runs/20261010-214000-559687/comparisons.jsonl.gz), recalculando SHA256 del contenido descomprimido. Eventos: 1 waiting_for_player, 1 begin, 4.096 comparison, 2 function_summary y 1 complete; ningún acceso inválido registrado. Pares exactamente 0..4095, casos exactamente 0..2047 por función, sin duplicados. Se compararon nuevamente ambos objetos originales/candidatos y equal/accepted, incluyendo todos sus registros crudos.
+Se recorrieron todas las líneas de comparisons.jsonl.gz (volcado archivado, ver ARCHIVO_MANIFIESTO.csv), recalculando SHA256 del contenido descomprimido. Eventos: 1 waiting_for_player, 1 begin, 4.096 comparison, 2 function_summary y 1 complete; ningún acceso inválido registrado. Pares exactamente 0..4095, casos exactamente 0..2047 por función, sin duplicados. Se compararon nuevamente ambos objetos originales/candidatos y equal/accepted, incluyendo todos sus registros crudos.
 
 Las 8.192 observaciones por lado contienen 24 bloques del tamaño declarado, sin eliminar padding ni campos. Se corroboraron canaries de los tres buffers íntegros: A5 en vehículo, 5A en modelo de coche y C3 en modelo de mejora. Se extrajeron directamente las posiciones de los buffers para verificar pedal/velocidad/contactos, modelo del vehículo, flags de mejora, tabla de 15 ruedas, contador de ruedas, lista de 18 upgrades y los dos punteros de slots frente a los inputs. Ambos slots fueron NULL al inicio según el banco: 19999 y 19998, separados y dentro del dominio int16 positivo.
 

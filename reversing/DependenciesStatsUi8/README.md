@@ -35,7 +35,7 @@ Después de la revisión inicial, la compilación detectó C4102/C2220 por 429 e
 
 ## Evidencia final
 
-[Registro completo](runs/20261010-203949-345184/comparisons.jsonl.gz), [resumen](runs/20261010-203949-345184/summary.json), [aprobación](runs/20261010-203949-345184/approval-audit.json), [resultado](runs/20261010-203949-345184/RESULTADO.txt) y [auditoría independiente](audit-runtime.md).
+Registro completo (volcado archivado, ver ARCHIVO_MANIFIESTO.csv), [resumen](runs/20261010-203949-345184/summary.json), [aprobación](runs/20261010-203949-345184/approval-audit.json), [resultado](runs/20261010-203949-345184/RESULTADO.txt) y [auditoría independiente](audit-runtime.md).
 
 SHA-256 del registro descomprimido: `36580e799fa2346a4a9a8186e6f85a0266eb50fa4cd1f1f453a0df1aa4e792c8`.
 

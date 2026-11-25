@@ -4,6 +4,8 @@
 
 # Inventario de validación de funciones reconstruidas
 
+> **Evidencia pesada archivada:** los volcados completos de los bancos (`comparisons.jsonl.*`, etc.) ya no están en el árbol de git; se archivaron fuera del repositorio con manifiesto de hashes. Cómo restaurarlos: [ARCHIVO_LEEME.md](../reversing/CppTwelveLevel6Final/ARCHIVO_LEEME.md).
+
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
 Universo de esta revisión: **13,511 entradas reversed=1**, de 13,511 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.

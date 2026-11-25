@@ -46,7 +46,7 @@ Sólo el coordinador aplica y prueba, después de completar Wave9:
 
 ## Evidencia final
 
-[Registro completo](runs/20261010-210539-196204/comparisons.jsonl.gz), [resumen](runs/20261010-210539-196204/summary.json), [aprobación](runs/20261010-210539-196204/approval-audit.json), [resultado](runs/20261010-210539-196204/RESULTADO.txt) y [auditoría independiente](audit-runtime.md).
+Registro completo (volcado archivado, ver ARCHIVO_MANIFIESTO.csv), [resumen](runs/20261010-210539-196204/summary.json), [aprobación](runs/20261010-210539-196204/approval-audit.json), [resultado](runs/20261010-210539-196204/RESULTADO.txt) y [auditoría independiente](audit-runtime.md).
 
 SHA-256 del registro descomprimido: `92b924ac1a782c07b1ff53ab839931f26c5df4262ab02b02e0243491877c9399`.
 

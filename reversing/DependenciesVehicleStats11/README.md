@@ -4,7 +4,7 @@
 
 # DependenciesVehicleStats11: ciclismo y compatibilidad de modificaciones
 
-Estado: **aprobado y registrado** en la corrida **20261010-214000-559687**: **2 funciones, 4.096 pares, cero diferencias, cero registros con lados nulos**, rutas RH OFF/ON y restauración acreditadas. [Evidencia comprimida](runs/20261010-214000-559687/comparisons.jsonl.gz), [resumen](runs/20261010-214000-559687/summary.json), [auditoría de admisión](runs/20261010-214000-559687/approval-audit.json) y [revisión independiente](audit-runtime.md).
+Estado: **aprobado y registrado** en la corrida **20261010-214000-559687**: **2 funciones, 4.096 pares, cero diferencias, cero registros con lados nulos**, rutas RH OFF/ON y restauración acreditadas. Evidencia comprimida (volcado archivado, ver ARCHIVO_MANIFIESTO.csv), [resumen](runs/20261010-214000-559687/summary.json), [auditoría de admisión](runs/20261010-214000-559687/approval-audit.json) y [revisión independiente](audit-runtime.md).
 
 SHA256 del log descomprimido: `b1b68fc3cdf9ebb791bfefc2a90b48b692a785b04cf5bc7bf6a9574888b589dc`. ASI ejecutada: `86e088f3a778e2a62409747feb0f18655f7fbacf0745c141baf98c9f76cadee4`. Los cuatro instrumentos aprobados permanecen inmutables. La propuesta fue aplicada por raíz antes de la corrida; su archivo conserva el cambio propuesto y las instrucciones originales. El alcance sigue limitado a las fixtures y colaboradores documentados.
 

@@ -4,7 +4,7 @@
 
 # Auditoría independiente de la corrida aprobada
 
-Corrida `20261010-202154-353545`. Se descomprimió y leyó íntegramente [comparisons.jsonl.gz](runs/20261010-202154-353545/comparisons.jsonl.gz), sin ejecutar el analizador del banco ni reutilizar su conclusión como sustituto de la revisión por registros. No se modificaron instrumentos, fuentes, evidencia archivada ni registros de admisión.
+Corrida `20261010-202154-353545`. Se descomprimió y leyó íntegramente comparisons.jsonl.gz (volcado archivado, ver ARCHIVO_MANIFIESTO.csv), sin ejecutar el analizador del banco ni reutilizar su conclusión como sustituto de la revisión por registros. No se modificaron instrumentos, fuentes, evidencia archivada ni registros de admisión.
 
 | Función | Casos únicos | Pares | Diferencias | original/candidate nulos |
 | --- | ---: | ---: | ---: | ---: |

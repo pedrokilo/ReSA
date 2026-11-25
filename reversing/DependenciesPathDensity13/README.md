@@ -35,6 +35,6 @@ AST de ambos scripts correcto; todos los once paths del manifiesto existen; `git
 
 ## Evidencia final
 
-Corrida aprobada [20261010-221026-884852](runs/20261010-221026-884852/summary.json): una función, 2.048 pares, cero diferencias, cero lados nulos, rutas/ABI/FP correctos y ThePaths real íntegro. Partidas sin cambios y configuración restaurada según el runner. [Comparaciones completas](runs/20261010-221026-884852/comparisons.jsonl.gz), [admisión y hashes](runs/20261010-221026-884852/approval-audit.json), [auditoría independiente](audit-runtime.md).
+Corrida aprobada [20261010-221026-884852](runs/20261010-221026-884852/summary.json): una función, 2.048 pares, cero diferencias, cero lados nulos, rutas/ABI/FP correctos y ThePaths real íntegro. Partidas sin cambios y configuración restaurada según el runner. Comparaciones completas (volcado archivado, ver ARCHIVO_MANIFIESTO.csv), [admisión y hashes](runs/20261010-221026-884852/approval-audit.json), [auditoría independiente](audit-runtime.md).
 
 SHA256 del JSONL descomprimido: `940d436c34f116aa13293227867476a7989b7a4503e7331e347b4954e2816d23`. ASI ejecutada: `8e7a9e6bb1b94b8090fe0e5bb0d63d7cfeb2ea3b547bc98364d22584987c567c`. El análisis independiente confirmó los 2.048 casos/par únicos, todos los bytes de siete fixtures, ambos retornos float32/80bits, argumentos físicos, gates y dominios exigidos. Los 15.488 bytes reales de ThePaths inicial/final son idénticos. Los tres instrumentos finales están congelados.

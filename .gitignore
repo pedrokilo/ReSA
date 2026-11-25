@@ -87,3 +87,24 @@ compile_commands.json
 
 # Paquetes de Python descargados (unicorn y otros): se instalan con pip, no se versionan
 *.whl
+
+# --- Volcados de evidencia pesados (archivados fuera del repositorio) ---
+# Motivo: el arbol llego a ~19 GB (15,7 GB solo en reversing/CppTwelveLevel6Final/runs) y el
+# CI (windows-2025, ~14 GB libres) se quedaba sin disco en el checkout. Los resumenes pequenos
+# (summary.json, RESULTADO.txt, validation-summary.json) SI se versionan; los volcados
+# completos no. Archivados en ../evidencia_validacion_archivo con manifiesto de hashes:
+# reversing/CppTwelveLevel6Final/ARCHIVO_LEEME.md. Para restaurar: contrib/restaurar_evidencia_archivada.py
+reversing/**/comparisons.jsonl
+reversing/**/comparisons.jsonl.gz
+reversing/**/comparisons.jsonl.xz
+reversing/**/actual-bank.jsonl
+reversing/**/raw-bank.jsonl
+reversing/**/state.jsonl
+reversing/**/resultados.jsonl
+reversing/**/previous-*.jsonl
+reversing/**/Diagnostics/**/*.jsonl
+reversing/**/runs/**/*.jsonl.gz
+reversing/**/runs/**/*.jsonl.xz
+# Binarios standalone y mapas de las sondas (cientos de MB; se regeneran compilando)
+reversing/FnTraf/**/*.exe
+reversing/FnTraf/**/*.map

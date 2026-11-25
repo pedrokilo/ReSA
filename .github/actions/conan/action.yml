@@ -47,6 +47,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Show free disk space
+      shell: pwsh
+      run: Get-PSDrive -PSProvider FileSystem | Format-Table Name, @{n='UsedGB';e={[math]::Round($_.Used/1GB,1)}}, @{n='FreeGB';e={[math]::Round($_.Free/1GB,1)}} -AutoSize
+
     - name: Install Conan
       uses: conan-io/setup-conan@v1
       with:
@@ -96,10 +100,10 @@ runs:
     - name: Setup project dependencies via Conan
       shell: cmd # Must use `cmd`, because `bash` doesn't have msvc in PATH
       run: >
-        conan install . --build=missing
+        powershell -NoProfile -File "%GITHUB_ACTION_PATH%\run_logged.ps1" -Name conan_install -Command "conan install . --build=missing"
 
     - name: Setup dependencies and build project using Conan
       if: ${{ inputs.build == 'true' }}
       shell: cmd  # Must use `cmd`, because `bash` doesn't have msvc in PATH
       run: >
-        conan build .
+        powershell -NoProfile -File "%GITHUB_ACTION_PATH%\run_logged.ps1" -Name conan_build -Command "conan build ."

@@ -28,6 +28,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          # El build solo lee estas rutas (CMakeLists.txt raiz, cmake/, source/, libs/, conan/, conanfile.py);
+          # reversing/, docs/, contrib/ y planesDesarrollo/ pesan GB y no se necesitan para compilar.
+          sparse-checkout: |
+            .github
+            cmake
+            conan
+            libs
+            source
+          sparse-checkout-cone-mode: true
 
       - name: Setup and build project using Conan
         uses: ./.github/actions/conan

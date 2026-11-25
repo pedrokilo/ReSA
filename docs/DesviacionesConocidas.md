@@ -4,6 +4,8 @@
 
 # Desviaciones conocidas del C++ reconstruido frente al EXE original
 
+> **Evidencia pesada archivada:** los volcados completos de los bancos (`comparisons.jsonl.*`, etc.) ya no están en el árbol de git; se archivaron fuera del repositorio con manifiesto de hashes. Cómo restaurarlos: [ARCHIVO_LEEME.md](../reversing/CppTwelveLevel6Final/ARCHIVO_LEEME.md).
+
 Revisión de estado del 24/11/2026: ver la sección 14 (cifras recontadas y desviaciones nuevas del ejecutable independiente). El resto conserva el texto del 16/11/2026.
 
 Fecha de elaboración: 16/11/2026 (revisión de la de 08/11/2026, commit `160c24b0a0`). Árbol: rama `main`, commit `3e6fdb5f89`. Documento de solo lectura: no se compiló, no se ejecutó el juego y no se tocó ningún hook.

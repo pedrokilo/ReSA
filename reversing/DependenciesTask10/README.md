@@ -38,7 +38,7 @@ El script de build verifica previamente que todos los paths del manifiesto exist
 
 ## Evidencia admitida
 
-[Auditoría de admisión](runs/20261010-211257-052931/approval-audit.json), [comparaciones completas](runs/20261010-211257-052931/comparisons.jsonl.gz), [resumen](runs/20261010-211257-052931/summary.json) y [auditoría independiente](audit-runtime.md).
+[Auditoría de admisión](runs/20261010-211257-052931/approval-audit.json), comparaciones completas (volcado archivado, ver ARCHIVO_MANIFIESTO.csv), [resumen](runs/20261010-211257-052931/summary.json) y [auditoría independiente](audit-runtime.md).
 
 Log descomprimido SHA-256: `99f8aba128bc48a25992148c699baff964eb3273801bd494711beff3482da23f`.
 ASI ejecutada SHA-256: `e481a394f1f46ed8ad6f61a5abdd71a3cde42ded8de9d18687aa1b51c1261aed`.

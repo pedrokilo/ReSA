@@ -47,7 +47,7 @@ La propuesta histórica se escribió con CRLF mientras Stats.cpp tenía LF; por 
 
 ## Evidencia final
 
-[Registro completo](runs/20261010-205837-320565/comparisons.jsonl.gz), [resumen](runs/20261010-205837-320565/summary.json), [aprobación](runs/20261010-205837-320565/approval-audit.json), [resultado](runs/20261010-205837-320565/RESULTADO.txt) y [auditoría independiente](audit-runtime.md).
+Registro completo (volcado archivado, ver ARCHIVO_MANIFIESTO.csv), [resumen](runs/20261010-205837-320565/summary.json), [aprobación](runs/20261010-205837-320565/approval-audit.json), [resultado](runs/20261010-205837-320565/RESULTADO.txt) y [auditoría independiente](audit-runtime.md).
 
 SHA-256 del registro descomprimido: `d218e38f10bf24eba551286ac0f40a891d0706725a7b61c01ee80a8331b09725`.
 

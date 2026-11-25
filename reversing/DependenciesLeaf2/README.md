@@ -23,6 +23,6 @@ Ejecución serial por coordinador: `CMAKE_BUILD_PARALLEL_LEVEL=2 _CL_=-MP2 bash 
 
 La auditoría final confirma registro RH y rutas OFF/ON en los 2.048 pares, retorno y registros exactos, ESP equilibrado y comparación completa de los bytes del heap/scratch. Estado y hooks restaurados; partidas sin cambios y configuraciones restauradas.
 
-Evidencia: [resumen de validación](validation-summary.json), [auditoría final](runs/20261010-182502-427510/approval-audit.json), [comparaciones completas](runs/20261010-182502-427510/comparisons.jsonl.gz) y [resultado](runs/20261010-182502-427510/RESULTADO.txt). SHA-256 del JSONL descomprimido: `0777a00c0c1c301c14426c85a64a712c39082481fa3353c52203077420dfe439`.
+Evidencia: [resumen de validación](validation-summary.json), [auditoría final](runs/20261010-182502-427510/approval-audit.json), comparaciones completas (volcado archivado, ver ARCHIVO_MANIFIESTO.csv) y [resultado](runs/20261010-182502-427510/RESULTADO.txt). SHA-256 del JSONL descomprimido: `0777a00c0c1c301c14426c85a64a712c39082481fa3353c52203077420dfe439`.
 
 La evidencia acredita los casos descritos dentro del juego completo; no demuestra toda integración posible ni independencia de las dependencias transitivas y datos del EXE.
