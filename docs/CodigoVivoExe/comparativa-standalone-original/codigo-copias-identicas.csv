@@ -1,0 +1,20 @@
+va,offset_std,bytes,categoria,sub
+0x0082AB80,40419824,52,E CRT/biblioteca del EXE fuera de los mapas,region 0x820000
+0x00823050,40419920,104,E CRT/biblioteca del EXE fuera de los mapas,region 0x820000
+0x00833570,40425680,149,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000
+0x00826330,41101184,139,E CRT/biblioteca del EXE fuera de los mapas,region 0x820000
+0x008265A0,41111312,232,E CRT/biblioteca del EXE fuera de los mapas,region 0x820000
+0x00821F40,41206096,292,E CRT/biblioteca del EXE fuera de los mapas,region 0x820000
+0x008305A0,41461136,70,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000
+0x00831180,41507808,64,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000
+0x008322D0,41625728,24,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000
+0x00828F35,41626261,67,E CRT/biblioteca del EXE fuera de los mapas,region 0x820000
+0x00829B80,41627568,25,E CRT/biblioteca del EXE fuera de los mapas,region 0x820000
+0x008322D0,41647712,24,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000
+0x00831504,41655339,60,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000
+0x008322D0,41655408,24,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000
+0x008322D0,41656784,24,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000
+0x008322D0,41696656,24,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000
+0x008322D0,41709632,24,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000
+0x008322D0,41710336,24,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000
+0x008322D0,41711312,24,E CRT/biblioteca del EXE fuera de los mapas,region 0x830000

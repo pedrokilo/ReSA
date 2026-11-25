@@ -559,6 +559,58 @@ def nrot():
     for r in filas: P('rot', *r)
     P('tasa CloudRot/s', (filas[-1][1] - filas[0][1]) / (filas[-1][0] - filas[0][0]), 'fotogramas/s', (filas[-1][2] - filas[0][2]) / (filas[-1][0] - filas[0][0]))
 
+# --- fase medir (comparativa standalone vs original): a los --t-medir s del proceso (60 por defecto) mide modulos cargados, memoria, fotogramas por segundo, hilos/handles, ventana
+# y vuelca por memoria el codigo original (0x401000-0x858000) y los datos (0x858000-0xCB1000) para el analisis estatico (contrib/comparativa_standalone.py).
+def _modulos(h):
+    ps = ctypes.WinDLL('psapi', use_last_error=True)
+    ps.EnumProcessModulesEx.argtypes = [wintypes.HANDLE, ctypes.c_void_p, wintypes.DWORD, ctypes.POINTER(wintypes.DWORD), wintypes.DWORD]
+    ps.GetModuleFileNameExW.argtypes = [wintypes.HANDLE, ctypes.c_void_p, wintypes.LPWSTR, wintypes.DWORD]
+    arr = (ctypes.c_void_p * 2048)(); need = wintypes.DWORD()
+    ps.EnumProcessModulesEx(h, arr, ctypes.sizeof(arr), ctypes.byref(need), 3)
+    out = []
+    buf = ctypes.create_unicode_buffer(520)
+    class MI(ctypes.Structure): _fields_ = [('base', ctypes.c_void_p), ('size', wintypes.DWORD), ('entry', ctypes.c_void_p)]
+    for i in range(need.value // ctypes.sizeof(ctypes.c_void_p)):
+        ps.GetModuleFileNameExW(h, ctypes.c_void_p(arr[i]), buf, 520)
+        mi = MI(); ps.GetModuleInformation.argtypes = [wintypes.HANDLE, ctypes.c_void_p, ctypes.c_void_p, wintypes.DWORD]
+        ps.GetModuleInformation(h, ctypes.c_void_p(arr[i]), ctypes.byref(mi), ctypes.sizeof(mi))
+        out.append({'ruta': buf.value, 'base': arr[i], 'tam': mi.size})
+    return out
+def _memoria(h):
+    class PMC(ctypes.Structure):
+        _fields_ = [('cb', wintypes.DWORD), ('PageFaultCount', wintypes.DWORD), ('PeakWorkingSetSize', ctypes.c_size_t), ('WorkingSetSize', ctypes.c_size_t), ('QuotaPeakPagedPoolUsage', ctypes.c_size_t),
+                    ('QuotaPagedPoolUsage', ctypes.c_size_t), ('QuotaPeakNonPagedPoolUsage', ctypes.c_size_t), ('QuotaNonPagedPoolUsage', ctypes.c_size_t), ('PagefileUsage', ctypes.c_size_t),
+                    ('PeakPagefileUsage', ctypes.c_size_t), ('PrivateUsage', ctypes.c_size_t)]
+    ps = ctypes.WinDLL('psapi', use_last_error=True)
+    ps.GetProcessMemoryInfo.argtypes = [wintypes.HANDLE, ctypes.c_void_p, wintypes.DWORD]
+    pm = PMC(); pm.cb = ctypes.sizeof(pm); ps.GetProcessMemoryInfo(h, ctypes.byref(pm), pm.cb)
+    return {k_: getattr(pm, k_) for k_, _ in PMC._fields_ if k_ != 'cb'}
+def _volcar(a, b, ruta):
+    with open(ruta, 'wb') as f:
+        va = a
+        while va < b:
+            n = min(0x10000, b - va); d = m.rd(va, n)
+            if d is None:
+                d = b''.join((m.rd(va + o, 0x1000) or b'\x00' * 0x1000) for o in range(0, n, 0x1000))
+            f.write(d); va += n
+def medir():
+    t_med = float(arg('--t-medir', '60')); vdir = arg('--volcado-dir', sal); os.makedirs(vdir, exist_ok=True)
+    while vivo() and desde_inicio() < t_med: mantener(); time.sleep(0.2)
+    if not vivo(): P('MEDIR: el proceso murio antes'); return
+    h = ctypes.windll.kernel32.OpenProcess(0x410, False, p)
+    mods = _modulos(h); mem = _memoria(h)
+    hc = wintypes.DWORD(); ctypes.windll.kernel32.GetProcessHandleCount(h, ctypes.byref(hc))
+    buf = ctypes.create_unicode_buffer(520); sz = wintypes.DWORD(520); ctypes.windll.kernel32.QueryFullProcessImageNameW(h, 0, buf, ctypes.byref(sz))
+    fps_ = [fps(10.0) for _ in range(3)]
+    mem2 = _memoria(h)
+    rc = wintypes.RECT(); hw = captura.buscar()
+    if hw: u.GetClientRect(hw, ctypes.byref(rc))
+    _volcar(0x401000, 0x858000, os.path.join(vdir, 'volcado_codigo_%s.bin' % MODO)); _volcar(0x858000, 0xCB1000, os.path.join(vdir, 'volcado_datos_%s.bin' % MODO))
+    gs = m.u32(0xC8D4C0)
+    R({'tipo': 'medir', 'modo': MODO, 't_desde_inicio': round(desde_inicio(), 1), 'exe': buf.value, 'gGameState': gs, 'modulos': mods, 'memoria_a_los_t': mem, 'memoria_tras_fps': mem2, 'handles': hc.value,
+       'fps': fps_, 'cliente': [rc.right - rc.left, rc.bottom - rc.top]})
+    P('MEDIR: %d modulos, WorkingSet %.1f MiB, Private %.1f MiB, fps %s' % (len(mods), mem['WorkingSetSize'] / 2**20, mem['PrivateUsage'] / 2**20, [f['fps'] for f in fps_]))
+
 def main():
     P('modo', MODO, 'fase', FASE, 'pid', p, 'horas', HORAS, 'climas', CLIMAS, 'puntos', PUNTOS_SEL)
     if not arrancar(): P('no se llego a gGameState=9'); return
@@ -573,6 +625,7 @@ def main():
     if FASE == 'nrot': nrot()
     if FASE == 'ctest': ctest()
     if FASE == 'carga': carga()
+    if FASE == 'medir': medir()
     P('fin')
     h = ctypes.windll.kernel32.OpenProcess(1, False, p)   # el juego es el proceso propio de este lanzamiento
     if h: ctypes.windll.kernel32.TerminateProcess(h, 0)

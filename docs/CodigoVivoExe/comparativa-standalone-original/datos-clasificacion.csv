@@ -1,0 +1,13 @@
+clase,bytes,pct_copiados
+"a leido por C++ por direccion fija, sin objeto propio",7382,1.15
+b solo lo leen funciones del EXE no sustituidas (no se ejecutan en el independiente),29913,4.67
+b2 solo lo leen funciones del EXE que ya son C++ (copia probablemente muerta),51717,8.07
+c apuntado desde tablas de la imagen (por puntero),15506,2.42
+d1 sin referencia estatica: ceros,149909,23.40
+"d2 sin referencia estatica: no nulo (c o d: base+registro, tablas indexadas o sin lector)",262721,41.02
+e vtables y tablas de punteros a codigo (G9),42056,6.57
+f1 IAT (reescrita por el cargador),888,0.14
+"f2 proteccion del EXE (_TEXT_HA, _rwdseg)",68608,10.71
+f3 recursos (.rsrc),1536,0.24
+o con objeto propio DatosExe::*,10276,1.60
+TOTAL copiado,640512,100.00

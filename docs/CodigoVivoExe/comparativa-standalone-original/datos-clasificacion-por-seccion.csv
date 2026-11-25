@@ -1,0 +1,20 @@
+seccion,clase,bytes
+.data,"a leido por C++ por direccion fija, sin objeto propio",5623
+.data,b solo lo leen funciones del EXE no sustituidas (no se ejecutan en el independiente),8009
+.data,b2 solo lo leen funciones del EXE que ya son C++ (copia probablemente muerta),10712
+.data,c apuntado desde tablas de la imagen (por puntero),914
+.data,d1 sin referencia estatica: ceros,67606
+.data,"d2 sin referencia estatica: no nulo (c o d: base+registro, tablas indexadas o sin lector)",147497
+.data,e vtables y tablas de punteros a codigo (G9),12924
+.data,o con objeto propio DatosExe::*,8859
+.rdata,"a leido por C++ por direccion fija, sin objeto propio",1759
+.rdata,b solo lo leen funciones del EXE no sustituidas (no se ejecutan en el independiente),21904
+.rdata,b2 solo lo leen funciones del EXE que ya son C++ (copia probablemente muerta),41005
+.rdata,c apuntado desde tablas de la imagen (por puntero),14592
+.rdata,d1 sin referencia estatica: ceros,82303
+.rdata,"d2 sin referencia estatica: no nulo (c o d: base+registro, tablas indexadas o sin lector)",115224
+.rdata,e vtables y tablas de punteros a codigo (G9),29132
+.rdata,f1 IAT (reescrita por el cargador),888
+.rdata,o con objeto propio DatosExe::*,1417
+.rsrc,f3 recursos (.rsrc),1536
+_TEXT_HA,"f2 proteccion del EXE (_TEXT_HA, _rwdseg)",68608

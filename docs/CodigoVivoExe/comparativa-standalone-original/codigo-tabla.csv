@@ -1,0 +1,7 @@
+categoria,funciones,bytes,pct_bytes
+A reemplazada por C++,12479,3187587,85.58
+B biblioteca de terceros enlazada (no se reconstruye),1032,380717,10.22
+C excluida: cubierta por sus llamadores en C++,52,18713,0.50
+D excluida / no reconstruible en C++ puro,159,25476,0.68
+E CRT/biblioteca del EXE fuera de los mapas,4043,112066,3.01
+TOTAL,17765,3724559,100.00

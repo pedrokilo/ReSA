@@ -1,0 +1,26 @@
+categoria,subcategoria,funciones,bytes,pct_bytes
+A reemplazada por C++,juego,11684,2978807,79.98
+A reemplazada por C++,renderware/D3D,795,208780,5.61
+B biblioteca de terceros enlazada (no se reconstruye),D3DX9 (compilador de shaders),922,327199,8.78
+B biblioteca de terceros enlazada (no se reconstruye),libpng + zlib,110,53518,1.44
+C excluida: cubierta por sus llamadores en C++,usercall-cubierta,52,18713,0.50
+D excluida / no reconstruible en C++ puro,RW: Carga retardada de DLL,6,120,0.00
+D excluida / no reconstruible en C++ puro,RW: Controlador D3D9 (RwD3D9),3,4798,0.13
+D excluida / no reconstruible en C++ puro,RW: D3DX9 (compilador de shaders),10,3404,0.09
+D excluida / no reconstruible en C++ puro,RW: QuickTime/QTML (puentes),38,2388,0.06
+D excluida / no reconstruible en C++ puro,RW: RpSkin,3,270,0.01
+D excluida / no reconstruible en C++ puro,RW: RtAnim,1,490,0.01
+D excluida / no reconstruible en C++ puro,arranque-sin-gancho,27,2895,0.08
+D excluida / no reconstruible en C++ puro,no-es-funcion,11,478,0.01
+D excluida / no reconstruible en C++ puro,proteccion-descartada,18,2551,0.07
+D excluida / no reconstruible en C++ puro,retirada-quicktime,2,483,0.01
+D excluida / no reconstruible en C++ puro,salto-puro,20,100,0.00
+D excluida / no reconstruible en C++ puro,sin-equivalente-cpp,1,7,0.00
+D excluida / no reconstruible en C++ puro,sin-espacio-para-gancho,1,4,0.00
+D excluida / no reconstruible en C++ puro,sustituida-por-crt,1,300,0.01
+D excluida / no reconstruible en C++ puro,usercall-renderware,17,7188,0.19
+E CRT/biblioteca del EXE fuera de los mapas,region 0x820000,351,51204,1.37
+E CRT/biblioteca del EXE fuera de los mapas,region 0x830000,1989,42631,1.14
+E CRT/biblioteca del EXE fuera de los mapas,region 0x840000,1694,17312,0.46
+E CRT/biblioteca del EXE fuera de los mapas,region 0x850000,9,919,0.02
+TOTAL,,17765,3724559,100.00

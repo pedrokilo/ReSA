@@ -1,0 +1,7 @@
+seccion,va,tam_seccion,copiados_incrustados,cubiertos_por_objeto_propio,propios_dentro_de_lo_copiado,referenciados_por_direccion_sin_objeto,pct_propio_de_seccion,pct_copiado_de_seccion
+.rdata,0x00858000,311296,308224,1417,1417,23623,0.46,99.01
+.data,0x008A4000,262144,262144,8859,8859,5891,3.38,100.00
+.bss,0x008E4000,3907584,0,245167,0,57775,6.27,0.00
+_TEXT_HA,0x00C9E000,69632,68608,0,0,213,0.00,98.53
+_rwdseg,0x00CAF000,4096,0,0,0,8,0.00,0.00
+.rsrc,0x00CB0000,4096,1536,0,0,0,0.00,37.50

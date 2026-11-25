@@ -7,7 +7,7 @@ Lanza UNA ejecucion de comparacion bajo el candado D:\Original\gta_lock (espera 
   -Modo asi  : gta_sa.exe original + gta_reversed.asi (bin\Debug) con -AsiArgs (control EXE original + ASI).
 Uso: pwsh -File ejecutar_comparar.ps1 -Modo orig -Etiqueta o1 -Limite 600 -Sonda comparar.py -SondaArgs "--hora 12"
 #>
-param([ValidateSet('orig','std','asi')][string]$Modo = 'orig', [string]$Etiqueta = 'x', [int]$Limite = 600, [string]$Sonda = '', [string]$SondaArgs = '', [string]$Exe = '', [string]$Asi = '', [string]$AsiArgs = '', [string]$StdArgs = '--shims', [string]$IniExtra = '')
+param([ValidateSet('orig','std','asi')][string]$Modo = 'orig', [string]$Etiqueta = 'x', [int]$Limite = 600, [string]$Sonda = '', [string]$SondaArgs = '', [string]$Exe = '', [string]$Asi = '', [string]$AsiArgs = '', [string]$StdArgs = '--shims', [string]$IniExtra = '', [switch]$Espia, [int]$Cap = 0)
 $ErrorActionPreference = 'Stop'
 $aqui = $PSScriptRoot
 $base = 'D:\Original\_comparar'
@@ -30,8 +30,9 @@ try {
         if (-not $Exe) { $Exe = 'D:\Original\wv-int\reversing\FnFase8\salida\gta_sa_standalone.exe' }
         Copy-Item $Exe (Join-Path $dir 'gta_sa_standalone.exe') -Force
         "[FastLoader]`r`nEnable = true`r`nSaveGameToLoad = 2`r`nNoEAX = true`r`nNoNVidia = true`r`nNoLogo = true`r`nNoTitleOrIntro = true`r`nNoCopyright = true`r`nNoFading = true`r`nNoLoadingTune = true`r`nRenderAtAllTimes = true`r`n$(($IniExtra -split ';' | Where-Object { $_ } | ForEach-Object { $_ + [char]13 + [char]10 }) -join '')[Misc]`r`nSkipDeviceSelection = true`r`nSaveDirectoryPath = $dir\userfiles`r`nLoadSavesWithMismatchingVersion = true`r`n" | Set-Content (Join-Path $dir 'gta-reversed.ini') -Encoding ascii
-        $env:FASE8_ARGS = "--ruta-original `"D:\Grand Theft Auto San Andreas\gta-sa.exe`" --directorio-juego `"$dir`" --salida `"$sal`" --limite $Limite $StdArgs"
-        $p = Start-Process -FilePath (Join-Path $dir 'gta_sa_standalone.exe') -ArgumentList $env:FASE8_ARGS -WorkingDirectory $dir -PassThru
+        $env:FASE8_ARGS = "--directorio-juego `"$dir`" --salida `"$sal`" --limite $Limite $StdArgs"
+        if ($Espia) { $pid_ = python -I (Join-Path $aqui '..\FnSinOriginal\lanzar_espiado.py') (Join-Path $dir 'gta_sa_standalone.exe') $dir (Join-Path $sal 'espia.log') $env:FASE8_ARGS; $p = Get-Process -Id ([int]($pid_ | Select-Object -Last 1)) }
+        else { $p = Start-Process -FilePath (Join-Path $dir 'gta_sa_standalone.exe') -ArgumentList $env:FASE8_ARGS -WorkingDirectory $dir -PassThru }
     } else {
         $df = Join-Path $env:COMPARAR_DOCS 'GTA San Andreas User Files'
         New-Item -ItemType Directory -Force $df | Out-Null
@@ -47,11 +48,12 @@ try {
             Remove-Item "$sc\III.VC.SA.WindowedMode.asi" -ErrorAction SilentlyContinue
         } else {
             Remove-Item "$sc\gta_reversed.asi", "$sc\gta-reversed.ini", (Join-Path $dir 'gta-reversed.ini') -ErrorAction SilentlyContinue
-            Copy-Item 'D:\Original\wv-comp\reversing\FnComparar\shim\redir_docs.asi' $sc -Force
+            if (Test-Path (Join-Path $aqui 'shim\redir_docs.asi')) { Copy-Item (Join-Path $aqui 'shim\redir_docs.asi') $sc -Force }
             Copy-Item 'D:\Grand Theft Auto San Andreas\Windowed Mode\III.VC.SA.WindowedMode.asi' $sc -Force
             Copy-Item (Join-Path $base 'III.VC.SA.WindowedMode.ini') $sc -Force
         }
-        $p = Start-Process -FilePath (Join-Path $dir 'gta_sa.exe') -ArgumentList $AsiArgs -WorkingDirectory $dir -PassThru
+        if ($Espia) { $pid_ = python -I (Join-Path $aqui '..\FnSinOriginal\lanzar_espiado.py') (Join-Path $dir 'gta_sa.exe') $dir (Join-Path $sal 'espia.log') $AsiArgs; $p = Get-Process -Id ([int]($pid_ | Select-Object -Last 1)) }
+        else { $p = Start-Process -FilePath (Join-Path $dir 'gta_sa.exe') -ArgumentList $AsiArgs -WorkingDirectory $dir -PassThru }
     }
     $son = $null
     if ($Sonda) {

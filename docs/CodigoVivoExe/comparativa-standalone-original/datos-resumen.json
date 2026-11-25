@@ -1,0 +1,33 @@
+{
+ "copiados": 640512,
+ "ceros_copiados": 204674,
+ "trozos": 16,
+ "objetos_propios": 2249,
+ "propios_union": 255443,
+ "refs_direcciones": 3151,
+ "refs_en_objeto_propio": 83,
+ "bss": {
+  "tam": 3907584,
+  "propio": 245167,
+  "ref_sin_objeto": 57775
+ },
+ "clases": {
+  "f1 IAT (reescrita por el cargador)": 888,
+  "d1 sin referencia estatica: ceros": 149909,
+  "d2 sin referencia estatica: no nulo (c o d: base+registro, tablas indexadas o sin lector)": 262721,
+  "e vtables y tablas de punteros a codigo (G9)": 42056,
+  "b2 solo lo leen funciones del EXE que ya son C++ (copia probablemente muerta)": 51717,
+  "o con objeto propio DatosExe::*": 10276,
+  "b solo lo leen funciones del EXE no sustituidas (no se ejecutan en el independiente)": 29913,
+  "a leido por C++ por direccion fija, sin objeto propio": 7382,
+  "c apuntado desde tablas de la imagen (por puntero)": 15506,
+  "f2 proteccion del EXE (_TEXT_HA, _rwdseg)": 68608,
+  "f3 recursos (.rsrc)": 1536
+ },
+ "por_ns": {
+  "Bss": 244433,
+  "Data": 9115,
+  "R5": 940,
+  "Rdata": 1384
+ }
+}

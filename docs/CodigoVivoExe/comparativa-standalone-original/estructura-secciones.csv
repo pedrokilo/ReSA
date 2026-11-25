@@ -1,0 +1,12 @@
+exe,seccion,va,vsize,raw,ejecutable,escribible
+standalone,.text,0x00401000,43013472,43013632,True,False
+standalone,.rdata,0x02D07000,6598142,6598144,False,False
+standalone,.data,0x03352000,1397068,849920,False,True
+standalone,.fptable,0x034A8000,128,512,False,True
+original,.text,0x00401000,4546560,4546048,True,False
+original,_rwcseg,0x00857000,4096,1536,True,False
+original,.rdata,0x00858000,311296,308224,False,False
+original,.data,0x008A4000,4169728,262144,False,True
+original,_TEXT_HA,0x00C9E000,69632,68608,False,True
+original,_rwdseg,0x00CAF000,4096,512,False,True
+original,.rsrc,0x00CB0000,4096,1536,False,False

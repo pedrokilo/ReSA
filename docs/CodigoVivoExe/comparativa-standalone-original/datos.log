@@ -1,0 +1,25 @@
+trozos 16, bytes copiados 640512, todos hallados en el archivo del independiente: True
+de ellos, bytes que valen 0x00: 204674
+objetos propios con VA original en el nombre: 2249 ; sin VA reconocible: {'Rdata': 62, 'Bss': 2, 'Data': 115}
+bytes de la imagen original cubiertos por objetos propios (union): 255443 {'.rdata': 1417, '.data': 8859, '.bss': 245167} suma bruta por ns: {'Bss': 244433, 'Data': 9115, 'R5': 940, 'Rdata': 1384}
+direcciones referenciadas por codigo propio: 3151; de ellas dentro de un objeto propio: 83
+tablas de >=2 punteros consecutivos a codigo original (vtables y similares): 697 tramos, 42424 bytes; punteros a codigo en total 16713
+{'clase': 'a leido por C++ por direccion fija, sin objeto propio', 'bytes': 7382, 'pct_copiados': '1.15'}
+{'clase': 'b solo lo leen funciones del EXE no sustituidas (no se ejecutan en el independiente)', 'bytes': 29913, 'pct_copiados': '4.67'}
+{'clase': 'b2 solo lo leen funciones del EXE que ya son C++ (copia probablemente muerta)', 'bytes': 51717, 'pct_copiados': '8.07'}
+{'clase': 'c apuntado desde tablas de la imagen (por puntero)', 'bytes': 15506, 'pct_copiados': '2.42'}
+{'clase': 'd1 sin referencia estatica: ceros', 'bytes': 149909, 'pct_copiados': '23.40'}
+{'clase': 'd2 sin referencia estatica: no nulo (c o d: base+registro, tablas indexadas o sin lector)', 'bytes': 262721, 'pct_copiados': '41.02'}
+{'clase': 'e vtables y tablas de punteros a codigo (G9)', 'bytes': 42056, 'pct_copiados': '6.57'}
+{'clase': 'f1 IAT (reescrita por el cargador)', 'bytes': 888, 'pct_copiados': '0.14'}
+{'clase': 'f2 proteccion del EXE (_TEXT_HA, _rwdseg)', 'bytes': 68608, 'pct_copiados': '10.71'}
+{'clase': 'f3 recursos (.rsrc)', 'bytes': 1536, 'pct_copiados': '0.24'}
+{'clase': 'o con objeto propio DatosExe::*', 'bytes': 10276, 'pct_copiados': '1.60'}
+{'clase': 'TOTAL copiado', 'bytes': 640512, 'pct_copiados': '100.00'}
+{'seccion': '.rdata', 'va': '0x00858000', 'tam_seccion': 311296, 'copiados_incrustados': 308224, 'cubiertos_por_objeto_propio': 1417, 'propios_dentro_de_lo_copiado': 1417, 'referenciados_por_direccion_sin_objeto': 23623, 'pct_propio_de_seccion': '0.46', 'pct_copiado_de_seccion': '99.01'}
+{'seccion': '.data', 'va': '0x008A4000', 'tam_seccion': 262144, 'copiados_incrustados': 262144, 'cubiertos_por_objeto_propio': 8859, 'propios_dentro_de_lo_copiado': 8859, 'referenciados_por_direccion_sin_objeto': 5891, 'pct_propio_de_seccion': '3.38', 'pct_copiado_de_seccion': '100.00'}
+{'seccion': '.bss', 'va': '0x008E4000', 'tam_seccion': 3907584, 'copiados_incrustados': 0, 'cubiertos_por_objeto_propio': 245167, 'propios_dentro_de_lo_copiado': 0, 'referenciados_por_direccion_sin_objeto': 57775, 'pct_propio_de_seccion': '6.27', 'pct_copiado_de_seccion': '0.00'}
+{'seccion': '_TEXT_HA', 'va': '0x00C9E000', 'tam_seccion': 69632, 'copiados_incrustados': 68608, 'cubiertos_por_objeto_propio': 0, 'propios_dentro_de_lo_copiado': 0, 'referenciados_por_direccion_sin_objeto': 213, 'pct_propio_de_seccion': '0.00', 'pct_copiado_de_seccion': '98.53'}
+{'seccion': '_rwdseg', 'va': '0x00CAF000', 'tam_seccion': 4096, 'copiados_incrustados': 0, 'cubiertos_por_objeto_propio': 0, 'propios_dentro_de_lo_copiado': 0, 'referenciados_por_direccion_sin_objeto': 8, 'pct_propio_de_seccion': '0.00', 'pct_copiado_de_seccion': '0.00'}
+{'seccion': '.rsrc', 'va': '0x00CB0000', 'tam_seccion': 4096, 'copiados_incrustados': 1536, 'cubiertos_por_objeto_propio': 0, 'propios_dentro_de_lo_copiado': 0, 'referenciados_por_direccion_sin_objeto': 0, 'pct_propio_de_seccion': '0.00', 'pct_copiado_de_seccion': '37.50'}
+.bss: 3907584 B; con objeto propio 245167; referenciados por direccion y sin objeto 57775; ni uno ni otro 3604642

@@ -1,0 +1,13 @@
+{'categoria': 'A reemplazada por C++', 'funciones': 12479, 'bytes': 3187587, 'pct_bytes': '85.58'}
+{'categoria': 'B biblioteca de terceros enlazada (no se reconstruye)', 'funciones': 1032, 'bytes': 380717, 'pct_bytes': '10.22'}
+{'categoria': 'C excluida: cubierta por sus llamadores en C++', 'funciones': 52, 'bytes': 18713, 'pct_bytes': '0.50'}
+{'categoria': 'D excluida / no reconstruible en C++ puro', 'funciones': 159, 'bytes': 25476, 'pct_bytes': '0.68'}
+{'categoria': 'E CRT/biblioteca del EXE fuera de los mapas', 'funciones': 4043, 'bytes': 112066, 'pct_bytes': '3.01'}
+{'categoria': 'TOTAL', 'funciones': 17765, 'bytes': 3724559, 'pct_bytes': '100.00'}
+funciones de los CSV sin rango en binary_function_ranges: 5
+reproduccion README: base juego+RW (<0x820000) = 3608848 B; reemplazada 3187587 B = 88.33 %
+bytes de funciones 3724559 de 4550656 bytes de la region de codigo (81.8 %)
+ganchos del catalogo 11541; funciones del mapa con gancho en su inicio 10717 (2780906 B); reemplazadas segun CSV 12479; reemplazadas SIN gancho en el catalogo 1977; con gancho pero no reemplazadas 215
+tramos >= 24 B buscados en el archivo del independiente: 12321
+copias identicas completas halladas: 19 bytes: 1446
+sin volcado de codigo en ejecucion (D:\Original\_comparar\volcados\volcado_codigo_std.bin)
