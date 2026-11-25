@@ -1,6 +1,6 @@
 // NOTSA (desviacion propia, docs/DesviacionesConocidas.md 15.P): trucos de PS2 con los botones del mando; ver PadCheats.h.
-// Lista de secuencias de botones de PS2 tomada de la documentacion de GInputSA 1.11 de Silent (autorizacion solicitada por el usuario del proyecto);
-// las secuencias son las de la version PS2 del juego (docs/THIRD_PARTY_NOTICES.md). Solo se toman las secuencias de la documentacion publica.
+// Lista de secuencias de PS2 y tabla de hashes: GInputSA 1.11 de Silent (autorizacion del usuario del proyecto; docs/THIRD_PARTY_NOTICES.md).
+// El comportamiento sale del analisis estatico de GInputSA.asi (docs/CodigoVivoExe/trucos-mando.md); el codigo es propio.
 #include "StdInc.h"
 
 #include "PadCheats.h"
@@ -12,103 +12,90 @@
 namespace PadCheats {
 namespace {
 
+#define PADCHEATS_HASHES
+#include "PadCheatsTable.inc.h"
+#undef PADCHEATS_HASHES
+
 constexpr Entry kEntries[] = {
 #include "PadCheatsTable.inc.h"
 };
 static_assert(std::size(kEntries) == 87, "la lista de PS2 tiene 87 entradas");
 
-int g_forced = -1;
-uint32 g_activations = 0;
-CControllerState g_captured[2]{};
-CControllerState g_injected[2]{};
-bool g_hasInjected[2]{};
-Detector g_detector[2];
-uint32 g_lastFrame = 0;
+int      g_forced      = -1;
+uint32   g_activations = 0;
+uint16   g_mask        = 0; // botones pulsados en el ultimo fotograma capturado
+uint16   g_rising      = 0; // flancos de subida acumulados desde el ultimo Process
+Detector g_detector;
 
-int16 StateValue(const CControllerState& s, Btn b) {
+bool IsDown(const CControllerState& s, Btn b) {
     switch (b) {
-    case Btn::L1:       return s.LeftShoulder1;
-    case Btn::L2:       return s.LeftShoulder2;
-    case Btn::R1:       return s.RightShoulder1;
-    case Btn::R2:       return s.RightShoulder2;
-    case Btn::Up:       return s.DPadUp;
-    case Btn::Down:     return s.DPadDown;
-    case Btn::Left:     return s.DPadLeft;
-    case Btn::Right:    return s.DPadRight;
-    case Btn::Cross:    return s.ButtonCross;
-    case Btn::Circle:   return s.ButtonCircle;
-    case Btn::Square:   return s.ButtonSquare;
-    case Btn::Triangle: return s.ButtonTriangle;
-    case Btn::L3:       return s.ShockButtonL;
-    case Btn::R3:       return s.ShockButtonR;
-    default:            return 0;
+    case Btn::Triangle: return s.ButtonTriangle != 0;
+    case Btn::Circle:   return s.ButtonCircle != 0;
+    case Btn::Cross:    return s.ButtonCross != 0;
+    case Btn::Square:   return s.ButtonSquare != 0;
+    case Btn::Up:       return s.DPadUp != 0;
+    case Btn::Down:     return s.DPadDown != 0;
+    case Btn::Left:     return s.DPadLeft != 0;
+    case Btn::Right:    return s.DPadRight != 0;
+    case Btn::L1:       return s.LeftShoulder1 != 0;
+    case Btn::L2:       return s.LeftShoulder2 != 0;
+    case Btn::R1:       return s.RightShoulder1 != 0;
+    case Btn::R2:       return s.RightShoulder2 != 0;
+    default:            return false;
     }
 }
 
 } // namespace
 
-std::span<const Entry> Entries() { return kEntries; }
+std::span<const Entry>  Entries() { return kEntries; }
+std::span<const uint32> Hashes() { return kHashes; }
 
-int Detector::Feed(Btn button, uint32 nowMs) {
-    // Reinicio por inactividad (el reloj puede ser el del juego, que se detiene en pausa)
-    if (m_count > 0 && nowMs - m_lastMs > kIdleResetMs) {
-        m_count = 0;
+int Detector::Feed(Btn button) {
+    // Historial: la pulsacion mas reciente en la posicion 0 (como la cadena del teclado de PC); maximo 12
+    const uint32 n = std::min<uint32>(m_len, 11);
+    for (uint32 i = n; i > 0; i--) {
+        m_hist[i] = m_hist[i - 1];
     }
-    m_lastMs = nowMs;
-    if (m_count == std::size(m_buf)) {
-        std::copy(m_buf + 1, m_buf + std::size(m_buf), m_buf);
-        m_count--;
+    m_hist[0]     = kLetters[(int)button];
+    m_len         = n + 1;
+    m_hist[m_len] = 0;
+    if (m_len < 6) {
+        return -1;
     }
-    m_buf[m_count++] = button;
-
-    // Coincidencia del sufijo del buffer con cada secuencia registrada. Ninguna secuencia de la lista es sufijo de otra distinta (comprobado por el banco).
-    for (size_t i = 0; i < std::size(kEntries); i++) {
-        const auto& e = kEntries[i];
-        if (e.mode != 0 || e.len > m_count) {
-            continue;
-        }
-        bool ok = true;
-        for (uint32 k = 0; k < e.len && ok; k++) {
-            ok = m_buf[m_count - e.len + k] == e.seq[k];
-        }
-        if (ok) {
-            m_count = 0; // como el teclado: la cadena se vacia al reconocer un truco
-            return (int)i;
+    // Como AddToCheatString: se prueba la cadena completa y se va acortando por el final (la pulsacion mas antigua) hasta 6 letras
+    char buf[14];
+    std::memcpy(buf, m_hist, m_len + 1);
+    for (uint32 len = m_len; len >= 6; len--) {
+        buf[len] = 0;
+        const uint32 hash = CKeyGen::GetKey(buf);
+        for (size_t id = 0; id < std::size(kHashes); id++) {
+            if (kHashes[id] == hash) {
+                Reset();
+                return (int)id;
+            }
         }
     }
     return -1;
 }
 
-void Detector::Reset(bool alsoButtons) {
-    m_count = 0;
-    if (alsoButtons) {
-        m_havePrev = false;
-        m_prevMask = 0;
-    }
-}
-
-int Detector::Poll(const CControllerState& state, uint32 nowMs) {
-    uint16 mask = 0;
+uint16 MaskOf(const CControllerState& state) {
+    uint16 m = 0;
     for (int b = 0; b < (int)Btn::COUNT; b++) {
-        const int16 v     = StateValue(state, (Btn)b);
-        const bool  was   = (m_prevMask >> b) & 1;
-        const bool  down  = was ? (v >= kPressOff) : (v >= kPressOn);
-        mask |= (uint16)(down ? 1u << b : 0u);
-    }
-    int result = -1;
-    if (m_havePrev) {
-        // Flancos de subida; si hay varios en el mismo fotograma se anaden en el orden fijo de Btn
-        for (int b = 0; b < (int)Btn::COUNT; b++) {
-            if (((mask >> b) & 1) && !((m_prevMask >> b) & 1)) {
-                if (const int r = Feed((Btn)b, nowMs); r >= 0) {
-                    result = r;
-                }
-            }
+        if (IsDown(state, (Btn)b)) {
+            m |= (uint16)(1u << b);
         }
     }
-    m_prevMask = mask;
-    m_havePrev = true;
-    return result;
+    return m;
+}
+
+int FirstEdge(uint16 mask, uint16 prevMask) {
+    const uint16 rising = (uint16)(mask & ~prevMask);
+    for (int b = 0; b < (int)Btn::COUNT; b++) {
+        if ((rising >> b) & 1) {
+            return b;
+        }
+    }
+    return -1;
 }
 
 bool Enabled() {
@@ -120,52 +107,38 @@ bool Enabled() {
 }
 
 void CaptureJoyState(int32 pad, const CControllerState& state) {
-    if (pad >= 0 && pad < 2) {
-        g_captured[pad] = state;
+    if (pad != 0 || !Enabled()) { // solo el mando 1
+        return;
     }
+    // Variante propia: los flancos se acumulan hasta que Process los consume (si CPad::Update corriera dos veces entre dos DoCheats, GInputSA perderia la pulsacion)
+    const uint16 now = MaskOf(state);
+    g_rising |= (uint16)(now & ~g_mask);
+    g_mask = now;
 }
 
 void Process() {
     if (!Enabled()) {
         return;
     }
-    const uint32 frame = CTimer::GetFrameCounter();
     // Como la entrada de teclado (AddToCheatString): nada durante una cinematica
-    const bool blocked = CCutsceneMgr::ms_running;
-    // Si se salto algun fotograma de juego (pausa, menu, carga), el buffer se reinicia
-    const bool gap = g_lastFrame != 0 && frame - g_lastFrame > 2;
-    g_lastFrame = frame;
-    for (int pad = 0; pad < 2; pad++) {
-        auto& det = g_detector[pad];
-        if (blocked) {
-            det.Reset(true); // en cinematica no se anota nada; al volver, lo que estuviera pulsado no cuenta como pulsacion nueva
-            continue;
-        }
-        if (gap) {
-            det.Reset(false); // tras una pausa/menu/carga se vacia el buffer, pero se conserva el estado anterior de los botones (una pulsacion nueva sigue contando)
-        }
-        const auto& st = g_hasInjected[pad] ? g_injected[pad] : g_captured[pad];
-        const int r = det.Poll(st, CTimer::GetTimeInMS());
-        if (r >= 0) {
-            const auto cheat = kEntries[r].cheat;
-            if (cheat < TOTAL_CHEATS) {
-                g_activations++;
-                CCheat::ActivateCheatByIndex(cheat);
-            }
-        }
+    if (CCutsceneMgr::ms_running) {
+        g_rising = 0;
+        return;
+    }
+    // Un solo flanco por fotograma (el primero por prioridad); los demas se pierden, como en GInputSA
+    const int b = FirstEdge(g_rising, 0);
+    g_rising    = 0;
+    if (b < 0) {
+        return;
+    }
+    if (const int id = g_detector.Feed((Btn)b); id >= 0) {
+        g_activations++;
+        CCheat::ActivateCheatByIndex(id);
     }
 }
 
-void TestForceEnabled(int forced) { g_forced = forced; }
-void TestInjectState(int32 pad, const CControllerState* state) {
-    if (pad < 0 || pad > 1) {
-        return;
-    }
-    g_hasInjected[pad] = state != nullptr;
-    if (state) {
-        g_injected[pad] = *state;
-    }
-}
+void   TestForceEnabled(int forced) { g_forced = forced; }
+void   TestInjectState(const CControllerState& state) { CaptureJoyState(0, state); }
 uint32 TestActivations() { return g_activations; }
 
 } // namespace PadCheats

@@ -1,0 +1,133 @@
+{
+ "padcheats_mapeo": {
+  "l1": {
+   "L1": 255
+  },
+  "r1": {
+   "R1": 255
+  },
+  "l2": {
+   "L2": 255
+  },
+  "r2": {
+   "R2": 255
+  },
+  "ud": {
+   "up": 255
+  },
+  "dd": {
+   "down": 255
+  },
+  "ld": {
+   "left": 255
+  },
+  "rd": {
+   "right": 255
+  },
+  "cr": {
+   "Cross": 255
+  },
+  "ci": {
+   "Circle": 255
+  },
+  "sq": {
+   "Square": 255
+  },
+  "tr": {
+   "Triangle": 255
+  }
+ },
+ "padcheats": {
+  "Infinite Health (1.a vez, ficha 61)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "ficha=1"
+  },
+  "Infinite Health (2.a vez desactiva)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "ficha=0"
+  },
+  "Never Wanted (1.a vez, ficha 65)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "ficha=1"
+  },
+  "Never Wanted (2.a vez desactiva)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "ficha=0"
+  },
+  "Max Respect (1.a vez, ficha 79)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "ficha=1"
+  },
+  "Max Respect (2.a vez desactiva)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "ficha=0"
+  },
+  "Infinite Oxygen (Lung Capacity) (1.a vez, ficha 62)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "ficha=1"
+  },
+  "Infinite Oxygen (Lung Capacity) (2.a vez desactiva)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "ficha=0"
+  },
+  "Never Get Hungry (1.a vez, ficha 68)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "ficha=1"
+  },
+  "Never Get Hungry (2.a vez desactiva)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "ficha=0"
+  },
+  "Really Sunny (clima forzado 0)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "forzado=0"
+  },
+  "Sunny (clima forzado 1)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "forzado=1"
+  },
+  "Foggy (clima forzado 9)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "forzado=9"
+  },
+  "Sandstorm (clima forzado 19)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "forzado=19"
+  },
+  "Cloudy (clima forzado 4)": {
+   "ok": true,
+   "intentos": 2,
+   "detalle": "forzado=4"
+  },
+  "pausa 3.6 s a la mitad (sin reinicio por tiempo: se activa)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "ficha 68=1"
+  },
+  "ruido 250 pulsaciones aleatorias": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "flags iguales=True clima 4 -> 4 vehiculos 16 -> 17"
+  },
+  "Rhino (vehiculo nuevo en el pool)": {
+   "ok": true,
+   "intentos": 1,
+   "detalle": "rhinos 0 -> 1"
+  }
+ },
+ "padcheats_modo": "ENCENDIDO (se esperan los efectos)"
+}
