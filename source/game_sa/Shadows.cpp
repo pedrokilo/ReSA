@@ -893,7 +893,10 @@ void CShadows::CastShadowEntityXY(CEntity* entity, float conrerAX, float cornerA
             if(count<=2)continue;
             const float planeDistance=ShadowsPlaneDistanceCpp(&normal.x,&vertices[0].x);
             // 0x709710-0x7098D5: z = (-1 / nz) * ((ny*y + nx*x) - distancia) y luego (forward * y + right * x) + posicion, cada cadena sin redondear entre operaciones.
-            for(int k=0;k<count;++k){auto&v=positionsB[k];v.z=ShadowsPlaneHeightCpp(&normal.x,v.x,v.y,planeDistance);const float localX=v.x;v.x=ShadowsDot2AddCpp(matrix.GetForward().x,v.y,matrix.GetRight().x,localX,matrix.GetPosition().x);v.y=ShadowsDot2AddCpp(matrix.GetForward().y,v.y,localX,matrix.GetRight().y,matrix.GetPosition().y);v.z+=matrix.GetPosition().z;}
+            static const bool spRotatedMapObjects = SilentPatchOption("RotatedMapObjectShadows", true); // SilentPatch (MIT, Silent): CastShadowEntityFix: se usa la matriz completa (la rotacion Up se ignoraba)
+            for(int k=0;k<count;++k){auto&v=positionsB[k];v.z=ShadowsPlaneHeightCpp(&normal.x,v.x,v.y,planeDistance);const float localX=v.x;
+                if(spRotatedMapObjects){const CVector local{localX,v.y,v.z};v.x=matrix.GetRight().x*local.x+matrix.GetForward().x*local.y+matrix.GetUp().x*local.z+matrix.GetPosition().x;v.y=matrix.GetRight().y*local.x+matrix.GetForward().y*local.y+matrix.GetUp().y*local.z+matrix.GetPosition().y;v.z=matrix.GetRight().z*local.x+matrix.GetForward().z*local.y+matrix.GetUp().z*local.z+matrix.GetPosition().z;}
+                else{v.x=ShadowsDot2AddCpp(matrix.GetForward().x,v.y,matrix.GetRight().x,localX,matrix.GetPosition().x);v.y=ShadowsDot2AddCpp(matrix.GetForward().y,v.y,localX,matrix.GetRight().y,matrix.GetPosition().y);v.z+=matrix.GetPosition().z;}}
             *pDayNightIntensity=std::bit_cast<uint8>(tri.m_nLight);
             if(ppPolyBunch){if(!pEmptyBunchList)continue;auto*bunch=pEmptyBunchList;pEmptyBunchList=bunch->m_pNext;bunch->m_pNext=*ppPolyBunch;*ppPolyBunch=bunch;bunch->m_wNumVerts=int16(count);for(int k=0;k<count;++k){bunch->m_avecPosn[k]=positionsB[k];bunch->m_aU[k]=uint8(ShadowsTruncMulCpp(uvB[k].x,200.0f));bunch->m_aV[k]=uint8(ShadowsTruncMulCpp(uvB[k].y,200.0f));}}
             else{

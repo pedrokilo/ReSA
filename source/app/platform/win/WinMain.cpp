@@ -42,6 +42,7 @@ END GENERATED HOOK STATUS */
 
 #include <InjectHooksMain.h>
 #include "extensions/Configs/FastLoader.hpp"
+#include "extensions/SilentPatchConfig.h"
 #include <extensions/CommandLine.h>
 #include <extensions/debug.hpp>
 
@@ -340,8 +341,17 @@ bool ProcessGameLogic(INT nCmdShow) {
             break;
 
         auto v9_1 = 1000.0f / (float)RsGlobal.frameLimit;
-        auto v9_2 = (float)CTimer::GetCurrentTimeInCycles() / (float)CTimer::GetCyclesPerMillisecond();
+        // SilentPatch (MIT, Silent): PreciseFrameLimiter (0x748D1F, 0x748D9B; apagado por defecto, ver NoFrameDelay): el tiempo desde el ultimo fotograma se mide con el contador de alta
+        // resolucion desde el INICIO del fotograma anterior (justo antes de RsEventHandler), no desde el CTimer::Update; reduce los picos de retardo con el limitador encendido
+        static const bool spPreciseLimiter = SilentPatchOption("PreciseFrameLimiter", false);
+        static LARGE_INTEGER s_spFrameStart{};
+        auto v9_2 = spPreciseLimiter && s_spFrameStart.QuadPart != 0
+            ? [&] { LARGE_INTEGER now; QueryPerformanceCounter(&now); return (float)(int32)(now.QuadPart - s_spFrameStart.QuadPart) / (float)CTimer::GetCyclesPerMillisecond(); }()
+            : (float)CTimer::GetCurrentTimeInCycles() / (float)CTimer::GetCyclesPerMillisecond();
         if (!FrontEndMenuManager.m_bPrefsFrameLimiter && CReplay::Mode != eReplayMode::MODE_PLAYBACK && !AudioEngine.IsBeatInfoPresent() || v9_1 < v9_2) {
+            if (spPreciseLimiter) {
+                QueryPerformanceCounter(&s_spFrameStart);
+            }
             RsEventHandler(rsIDLE, (void*)true);
         }
         break;

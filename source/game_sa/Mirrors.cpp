@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/DataBssE1.h"
 
 #include "Mirrors.h"
+#include "extensions/SilentPatchConfig.h"
 
 #include "MovingThings.h"
 #include "BreakManager_c.h"
@@ -91,6 +92,25 @@ void CMirrors::CreateBuffer() {
         return;
 
     const auto depth = RwRasterGetDepth(RwCameraGetRaster(Scene.m_pRwCamera));
+
+    // SilentPatch (MIT, Silent): MirrorsDepthFix (0x72701D): los buffers del espejo se crean sin multimuestreo (el reflejo ya no se rompe con Anti-Aliasing) y con calidad de efectos
+    // Muy Alta el espejo es mayor (2048x1024; Media 1024x512; Baja 512x256)
+    static const bool spMirrorFix = SilentPatchOption("MirrorsDepthFix", true);
+    if (spMirrorFix) {
+        auto& msaa = StaticRef<std::array<uint32, 2>>(0xC9C050); // tipo y calidad de multimuestreo de las superficies de render (D3D9RasterDriver.cpp)
+        const auto oldMsaa = msaa;
+        msaa = { 0, 0 };
+
+        const auto quality = g_fx.GetFxQuality();
+        const int32 width  = quality >= FX_QUALITY_VERY_HIGH ? 2048 : quality >= FX_QUALITY_MEDIUM ? 1024 : 512;
+        const int32 height = width / 2;
+        pBuffer  = RwRasterCreate(width, height, depth, rwRASTERTYPECAMERATEXTURE);
+        pZBuffer = RwRasterCreate(width, height, depth, rwRASTERTYPEZBUFFER);
+
+        msaa = oldMsaa;
+        return;
+    }
+
     if (g_fx.GetFxQuality() >= FX_QUALITY_MEDIUM) {
         pBuffer = RwRasterCreate(1024, 512, depth, rwRASTERTYPECAMERATEXTURE);
         if (pBuffer) {
@@ -361,7 +381,8 @@ void CMirrors::BeforeMainRender() {
 
     RwRGBA color{ 0, 0, 0, 255 };
     RwCameraClear(Scene.m_pRwCamera, &color, rwCAMERACLEARZ | rwCAMERACLEARIMAGE | (GraphicsHighQuality() ? rwCAMERACLEARSTENCIL : 0));
-    if (RsCameraBeginUpdate(Scene.m_pRwCamera)) {
+    const bool began = RsCameraBeginUpdate(Scene.m_pRwCamera);
+    if (began) {
         bRenderingReflection = true;
         DefinedState();
         RenderScene();
@@ -370,7 +391,11 @@ void CMirrors::BeforeMainRender() {
         bRenderingReflection = false;
 
         RwCameraEndUpdate(Scene.m_pRwCamera);
-
+    }
+    // SilentPatch (MIT, Silent): MirrorMinimizeCrashFix (0x7271CB): si BeginUpdate falla (p. ej. al minimizar la ventana junto a un espejo) tambien se devuelven los
+    // rasters de la camara y se restaura la camara (antes quedaba apuntando al buffer del espejo y el juego se caia)
+    static const bool spMirrorMinimize = SilentPatchOption("MirrorMinimizeCrashFix", true);
+    if (began || spMirrorMinimize) {
         RwCameraSetRaster(Scene.m_pRwCamera, prevCamRaster);
         RwCameraSetZRaster(Scene.m_pRwCamera, prevCamZRaster);
 

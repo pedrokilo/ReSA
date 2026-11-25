@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include <reversiblebugfixes/Bugs.hpp>
 #include "CustomCarPlateMgr.h"
+#include "extensions/SilentPatchConfig.h"
 #include "X87Math.h"
 
 void __cdecl GetCharacterPositionInCharSetExe(uint32* outCol, uint32* outRow);
@@ -392,7 +393,9 @@ RwTexture* CCustomCarPlateMgr::CreatePlateTexture(const char* text, uint8 plateT
 
     if (const auto plateTex = RwTextureCreate(plateRaster)) {
         RwTextureSetName(plateTex, text);
-        RwTextureSetFilterMode(plateTex, rwFILTERNEAREST);
+        // SilentPatch (MIT, Silent): PlatesBilinear (0x6FDF47): las matriculas se filtran de forma bilineal (aspecto mas suave)
+        static const bool spPlatesBilinear = SilentPatchOption("PlatesBilinear", true);
+        RwTextureSetFilterMode(plateTex, spPlatesBilinear ? rwFILTERLINEAR : rwFILTERNEAREST);
         return plateTex;
     }
 

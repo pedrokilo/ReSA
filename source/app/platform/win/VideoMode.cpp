@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "VideoMode.h"
 #include "WinPlatform.h"
 #include "PostEffects.h"
+#include "extensions/SilentPatchConfig.h"
 
 // Como el original: el EXE usa rwsprintf en RwEngineInstance+0xF0 y rwfree en +0x138
 static_assert(offsetof(RwGlobals, stringFuncs) == 0xF0);
@@ -115,10 +116,21 @@ void SetVideoMode(int32 mode) {
     // Como el original: sin comprobar RwEngineGetNumVideoModes (el assert añadía una llamada)
     VIDEO_MODE_LOG("Cambiando el modo de vídeo a {} ({})", mode, gVideoModes ? gVideoModes[mode] : "desconocido");
 
+    // SilentPatch (MIT, Silent): PostEffectsScalingFixes: el efecto de calor se reinicializa al cambiar de resolucion y SetupBackBufferVertex se
+    // llama DESPUES de actualizar RsGlobal (antes usaba el tamano anterior)
+    static const bool spPostFx = SilentPatchOption("HeatHazeRescale", true);
+    if (spPostFx) {
+        CPostEffects::m_HeatHazeFXTypeLast = -1;
+    }
     RwD3D9ChangeVideoMode(mode);
-    CPostEffects::SetupBackBufferVertex();
+    if (!spPostFx) {
+        CPostEffects::SetupBackBufferVertex();
+    }
     RsGlobal.maximumWidth  = RwRasterGetWidth(RwCameraGetRaster(Scene.m_pRwCamera));
     RsGlobal.maximumHeight = RwRasterGetHeight(RwCameraGetRaster(Scene.m_pRwCamera));
+    if (spPostFx) {
+        CPostEffects::SetupBackBufferVertex();
+    }
 }
 
 // 0x745CA0

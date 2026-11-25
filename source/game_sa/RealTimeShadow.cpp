@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "DatosExe/RdataAyudantes.h"
 #include "RealTimeShadow.h"
+#include "extensions/SilentPatchConfig.h"
 #include "X87Math.h"
 #include "RealTimeShadowManager.h"
 
@@ -197,9 +198,16 @@ RwTexture* CRealTimeShadow::Update() {
     case rpATOMIC:
         m_camera.Update(m_pOwner->GetRpAtomic());
         break;
-    case rpCLUMP:
-        m_camera.Update(m_pOwner->GetRpClump());
+    case rpCLUMP: {
+        // SilentPatch (MIT, Silent): WeaponRenderingFixes (0x706662): la sombra de un ped incluye su arma y el jetpack
+        static const bool spWeaponShadows = SilentPatchOption("WeaponRenderingFixes", true);
+        if (spWeaponShadows) {
+            m_camera.Update(m_pOwner);
+        } else {
+            m_camera.Update(m_pOwner->GetRpClump());
+        }
         break;
+    }
     }
 
     // Do blur

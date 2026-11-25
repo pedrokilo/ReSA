@@ -644,7 +644,28 @@ def esc_usertrack(j):
     j.P('volcado radio despues:', [hex(j.m.u32(base + 4 * k)) for k in range(0, 64)]); j.P('gestor de pistas de usuario despues:', [hex(j.m.u32(0xB6B970 + 4 * k)) for k in range(0, 10)])
     j.res['usertrack'] = hist
     j.foto('usertrack', 'CJ en coche con la emisora de pistas de usuario pedida')
-ESCENARIOS = {'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
+def esc_fps(j):
+    # SilentPatch segunda tanda (graficos): FPS real = fotogramas del juego (CTimer::m_FrameCounter 0xB7CB4C) entre segundos de reloj de pared, y ritmo del tiempo de juego (ms / s de pared)
+    suelo_libre(j)
+    j.dormir(3.0)
+    for k in range(4):
+        f0 = j.m.u32(0xB7CB4C); g0 = j.tiempo(); t0 = time.time()
+        j.dormir(15.0)
+        f1 = j.m.u32(0xB7CB4C); g1 = j.tiempo(); t1 = time.time()
+        j.P('FPS tramo %d: %.2f fotogramas/s; tiempo de juego %.1f ms por s de pared (fotogramas %d en %.2f s)' % (k, (f1 - f0) / (t1 - t0), (g1 - g0) / (t1 - t0), f1 - f0, t1 - t0))
+
+def esc_graficos(j):
+    # SilentPatch segunda tanda (graficos): capturas de ventana completa de dia, de noche (luna, coronas) y con el HUD; la ventana del juego mide lo que diga el log
+    suelo_libre(j)
+    j.al_frente()
+    for hora, nom in ((12, 'dia'), (23, 'noche'), (3, 'madrugada')):
+        j.hora = hora
+        j.dormir(3.0)
+        j.foto('gr_' + nom, 'hora %d' % hora)
+    j.hora = 12
+    j.P('pools', j.pools(), 'pos', j.pos(), 'cam', j.camara())
+
+ESCENARIOS = {'fps': esc_fps, 'graficos': esc_graficos, 'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
 
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')

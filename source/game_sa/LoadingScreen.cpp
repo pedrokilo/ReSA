@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "X87Math.h"
+#include "extensions/SilentPatchConfig.h"
 #include "platform.h"
 #include "LoadingScreen.h"
 
@@ -69,6 +70,9 @@ static float ClockSeconds() {
 // Escalado de pantalla del original: (ancho · 1/640) · valor y (alto · 1/448) · valor.
 static float LoadingStretchX(float a) { return ((float)RsGlobal.maximumWidth * 0.0015625f) * a; }
 static float LoadingStretchY(float a) { return ((float)RsGlobal.maximumHeight * 0.002232142857f) * a; }
+
+// SilentPatch (MIT, Silent): LoopDisplayedSplashes: pantalla "anterior" para el fundido encadenado cuando se da la vuelta (-1: usar la actual)
+static int32 s_spLoopPrevSplash = -1;
 
 // 0x5902B0
 void CLoadingScreen::Init(bool isLegalScreen, bool isReloadDisabled) {
@@ -133,7 +137,8 @@ void CLoadingScreen::RenderSplash() {
             CSprite2d::DrawRect(screenRect, color);
         } else {
             color.a = 255 - m_FadeAlpha;
-            m_aSplashes.data()[+m_currDisplayedSplash - 1].Draw(screenRect, color);
+            // SilentPatch (MIT, Silent): LoopDisplayedSplashes (0x590042): al dar la vuelta a las pantallas, la anterior es la ultima
+            m_aSplashes.data()[(s_spLoopPrevSplash >= 0 ? s_spLoopPrevSplash : +m_currDisplayedSplash) - 1].Draw(screenRect, color);
         }
     } else if (!m_bReadyToDelete) {
         GetCurrentDisplayedSplash().Draw(screenRect, color);
@@ -359,8 +364,17 @@ void CLoadingScreen::DoPCScreenChange(bool isLastOne) {
     if (isLastOne) {
         m_bFadeOutCurrSplashToBlack = true;
     } else {
-        // Como el original (inc 0x8D093C): siempre se avanza, aunque pase de la última pantalla
-        m_currDisplayedSplash = (eDisplayedSplash)(+m_currDisplayedSplash + 1);
+        // SilentPatch (MIT, Silent): LoopDisplayedSplashes (0x590ADE): con cargas muy largas las pantallas se repiten en bucle (en vez de pasar de la ultima y fundir a blanco)
+        static const bool spLoopSplashes = SilentPatchOption("LoopLoadingScreens", true);
+        constexpr int32 numSplashes = +eDisplayedSplash::COUNT - 1;
+        if (spLoopSplashes && +m_currDisplayedSplash >= numSplashes) {
+            m_currDisplayedSplash = (eDisplayedSplash)1;
+            s_spLoopPrevSplash = numSplashes + 1;
+        } else {
+            // Como el original (inc 0x8D093C): siempre se avanza, aunque pase de la última pantalla
+            m_currDisplayedSplash = (eDisplayedSplash)(+m_currDisplayedSplash + 1);
+            s_spLoopPrevSplash = spLoopSplashes ? +m_currDisplayedSplash : -1;
+        }
     }
 
     if (!g_FastLoaderConfig.NoFading) {
@@ -385,6 +399,8 @@ void CLoadingScreen::DoPCScreenChange(bool isLastOne) {
     DisplayPCScreen();
     m_bFadeInNextSplashFromBlack = false;
     m_bFading = false;
+
+    s_spLoopPrevSplash = -1;
 
     if (isLastOne) {
         Shutdown();

@@ -186,18 +186,22 @@ void CHud::ReInitialise() {
     m_ItemToFlash                   = ITEM_NONE;
     m_EnergyLostTimer               = 0;
     m_EnergyLostFadeTimer           = 0;
-    m_EnergyLostState               = 5;
+    // SilentPatch (MIT, Silent): MinimalHUD (0x588905, apagado por defecto): los elementos de la interfaz (salud perdida, dinero, estrellas, arma) arrancan ocultos y solo aparecen
+    // un rato cuando cambian, como en la funcion "Minimal HUD" sin usar del juego
+    static const bool spMinimalHud = SilentPatchOption("MinimalHUD", false);
+    const uint32 spInitialState = spMinimalHud ? 0 : 5;
+    m_EnergyLostState               = spInitialState;
     m_DisplayScoreTimer             = 0;
     m_DisplayScoreFadeTimer         = 0;
-    m_DisplayScoreState             = 5;
+    m_DisplayScoreState             = spInitialState;
     m_LastWanted                    = 0;
     m_WantedTimer                   = 0;
     m_WantedFadeTimer               = 0;
-    m_WantedState                   = 5;
+    m_WantedState                   = spInitialState;
     m_LastWeapon                    = 0;
     m_WeaponTimer                   = 0;
     m_WeaponFadeTimer               = 0;
-    m_WeaponState                   = 5;
+    m_WeaponState                   = spInitialState;
     // Como el original (0x588A3B): 'mov dword ptr [0BAA400h],1' escribe un dword, no un byte.
     *reinterpret_cast<uint32*>(&bDrawClock) = 1;
     m_LastBreathTime                = 0;
@@ -628,7 +632,16 @@ void CHud::DrawAreaName() {
     CFont::SetFontStyle(FONT_GOTHIC);
 
     const CZoneInfo* info = CPopCycle::m_pCurrZoneInfo;
-    if (CGangWars::bGangWarsActive && info && info->ZoneColor.r && info->ZoneColor.g && info->ZoneColor.b) {
+    // SilentPatch (MIT, Silent): ColouredZoneNames (apagado por defecto; 0x58ADBE/0x58ADC5/0x58ADE4): el nombre de la zona toma el color de la banda duena del territorio,
+    // mezclado con el azul del juego segun la intensidad (alfa del color de zona / 120, maximo 1) y valido si CUALQUIER componente es distinto de cero
+    static const bool spColouredZones = SilentPatchOption("ColouredZoneNames", false);
+    if (spColouredZones && CGangWars::bGangWarsActive && info && (info->ZoneColor.r || info->ZoneColor.g || info->ZoneColor.b)) {
+        const double intensity = std::min(static_cast<double>(info->ZoneColor.a) / 120.0, 1.0);
+        const double inverse   = 1.0 - intensity;
+        const CRGBA  blue      = HudColour.GetRGBA(HUD_COLOUR_LIGHT_BLUE, 255);
+        const auto   blendSqr  = [&](uint8 from, uint8 to) { return (uint8)std::sqrt((to * to) * intensity + (from * from) * inverse); };
+        CFont::SetColor({ blendSqr(blue.r, info->ZoneColor.r), blendSqr(blue.g, info->ZoneColor.g), blendSqr(blue.b, info->ZoneColor.b), alphaByte });
+    } else if (!spColouredZones && CGangWars::bGangWarsActive && info && info->ZoneColor.r && info->ZoneColor.g && info->ZoneColor.b) {
         CFont::SetColor({ info->ZoneColor.r, info->ZoneColor.g, info->ZoneColor.b, alphaByte });
     } else {
         CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_LIGHT_BLUE, alphaByte));
@@ -730,7 +743,9 @@ void CHud::DrawCrossHairs() {
     if (!player->m_pTargetedObject && (data[0x34] & 8) && (!player->GetIntelligence()->GetTaskUseGun() || !player->GetIntelligence()->GetTaskUseGun()->m_SkipAim) && (mode == 53 || mode == 55 || mode == 65) && int(player->m_nPedState) != 59 && int(player->m_nPedState) != 57 && ((int(weapon) > 21 && int(weapon) < 32) || int(weapon) == 32 || int(weapon) == 33 || int(weapon) == 38 || int(weapon) == 37)) circle = !(mode == 53 && TheCamera.m_bTransitionState);
     const auto script = int(CTheScripts::bDrawCrossHair);
     if (!custom && !circle && !script) return;
-    RwRenderStateSet(rwRENDERSTATETEXTUREFILTER, RWRSTATE(2)); RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(0));
+    // SilentPatch (MIT, Silent): WeaponIconZWriteFix (0x58E210, 0x58EAB7, 0x58EAE1): la mira ya no cambia el estado ZWRITE (estropeaba el icono del arma, p. ej. con el jetpack)
+    static const bool spCrosshairZWrite = SilentPatchOption("WeaponIconZWriteFix", true);
+    RwRenderStateSet(rwRENDERSTATETEXTUREFILTER, RWRSTATE(2)); if (!spCrosshairZWrite) RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(0));
     const auto f = [](uintptr_t a) { return *reinterpret_cast<const float*>(a); };
     const float sx = float(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520, sy = float(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524;
     const auto rect = [](float left,float bottom,float right,float top) { CRect result;result.left=left;result.bottom=bottom;result.right=right;result.top=top;return result; };
@@ -773,10 +788,10 @@ void CHud::DrawCrossHairs() {
             const float cx = float(RsGlobal.maximumWidth / 2), cy = float(RsGlobal.maximumHeight / 2);
             const auto sprite = [&](float x,float y,uint8 u,uint8 v) { CSprite::RenderOneXLUSprite(CVector{x,y,1.f}, CVector2D{ex,ey}, 255,255,255,255,.01f,255,u,v); };
             sprite((cx-ex)-ox,(cy-ey)-oy,0,0); sprite(cx+ex+ox,(cy-ey)-oy,1,0); sprite((cx-ex)-ox,cy+ey+oy,0,1); sprite(cx+ex+ox,cy+ey+oy,1,1);
-            RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(0));
+            if (!spCrosshairZWrite) RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(0));
         }
     }
-    RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(5)); RwRenderStateSet(rwRENDERSTATEDESTBLEND, RWRSTATE(6)); RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(1));
+    RwRenderStateSet(rwRENDERSTATESRCBLEND, RWRSTATE(5)); RwRenderStateSet(rwRENDERSTATEDESTBLEND, RWRSTATE(6)); if (!spCrosshairZWrite) RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(1));
 }
 
 // 0x58D580
@@ -1044,7 +1059,9 @@ void CHud::DrawMissionTitle() {
 
     CFont::SetBackground(false, false);
     CFont::SetProportional(true);
-    CFont::SetRightJustifyWrap(0.0f);
+    // SilentPatch (MIT, Silent): SlidingMissionTitleText (apagado por defecto): el titulo entra deslizandose desde la derecha, como en la beta de GTA III
+    static const bool spSlidingTitle = SilentPatchOption("SlidingMissionTitleText", false);
+    CFont::SetRightJustifyWrap(spSlidingTitle ? -500.0f * StretchBaseX() : 0.0f);
     CFont::SetOrientation(eFontAlignment::ALIGN_RIGHT);
     CFont::SetFontStyle(FONT_PRICEDOWN);
     CFont::SetScale(StretchBaseX(), StretchBaseY() * DatosExe::Rdata::k859918);
@@ -1060,7 +1077,8 @@ void CHud::DrawMissionTitle() {
     };
 
     // 0x58D2E9..0x58D30D: fild (maximumWidth - 20) comparado con messageInUse, jne si (W - 20) <= messageInUse (o NaN)
-    if (!((float)(RsGlobal.maximumWidth - 20) > messageInUse)) {
+    static const bool spSlideThreshold = SilentPatchOption("SlidingTextsThreshold", true); // SilentPatch (MIT, Silent): umbral fijo, ver DrawSuccessFailedMessage
+    if (!((float)((spSlideThreshold ? 640 : RsGlobal.maximumWidth) - 20) > messageInUse)) {
         messageX = CTimer::GetTimeStep() + messageX;
         if (messageX >= DatosExe::Rdata::k858BB0) { // fcomp 120.0 + test ah,1 + jne (un NaN no entra)
             messageX = 120.0f;
@@ -1082,7 +1100,7 @@ void CHud::DrawMissionTitle() {
     CFont::SetColor(HudColour.GetRGBA(HUD_COLOUR_GOLD, alphaByte));
     // 0x58D42E..0x58D470: x = W - (W * c520) * 20.0, y = H - (H * c524) * 115.0
     CFont::PrintStringFromBottom(
-        (float)RsGlobal.maximumWidth - StretchBaseX() * DatosExe::Rdata::k858BA4,
+        spSlidingTitle ? messageInUse * (float)RsGlobal.maximumWidth / 640.0f : (float)RsGlobal.maximumWidth - StretchBaseX() * DatosExe::Rdata::k858BA4,
         (float)RsGlobal.maximumHeight - StretchBaseY() * DatosExe::Rdata::k863194,
         message
     );
@@ -1214,7 +1232,9 @@ void CHud::DrawOddJobMessage(bool displayImmediately) {
         CFont::SetEdge(2);
         CFont::SetDropColor({ 0, 0, 0, 255 });
         CFont::SetColor(HudColour.GetRGB(HUD_COLOUR_LIGHT_GRAY));
-        CFont::PrintString(halfWidth(), StretchBaseY() * DatosExe::Rdata::k866C40, m5);
+        // SilentPatch (MIT, Silent): SlidingOddJobText (apagado por defecto): el texto entra deslizandose con OddJob2XOffset
+        static const bool spSlidingOddJob = SilentPatchOption("SlidingOddJobText", false);
+        CFont::PrintString(spSlidingOddJob ? halfWidth() - OddJob2XOffset * (float)RsGlobal.maximumWidth / 640.0f : halfWidth(), StretchBaseY() * DatosExe::Rdata::k866C40, m5);
     }
 }
 
@@ -1392,6 +1412,11 @@ void CHud::DrawScriptText(bool isBeforeFade) {
 namespace {
 float SubtitleScaleY(int height, bool widescreen) {
     // fild height; fmul 0x859524; fmul (0x858F08 con pantalla ancha, 0x866C20 si no); fstp
+    // SilentPatch (MIT, Silent): SmallSteamTexts (apagado por defecto): subtitulos con el tamano de la version de Steam (0.9 de alto)
+    static const bool spSmallSteam = SilentPatchOption("SmallSteamTexts", false);
+    if (spSmallSteam) {
+        return IntTimesTwoFloatsCpp(height, DatosExe::Rdata::k859524, 0.9f);
+    }
     return IntTimesTwoFloatsCpp(height, DatosExe::Rdata::k859524, ExeFloat(widescreen ? 0x858F08 : 0x866C20));
 }
 float SubtitleCentreVitals(int width) {
@@ -1400,7 +1425,8 @@ float SubtitleCentreVitals(int width) {
 }
 float SubtitleScaleX(int width, bool vitals) {
     // fild width; fmul 0x859520; fmul 0x866C24; [fmul 0x858C98 con vitals]; fstp (el producto parcial ya es un float de 24 bits)
-    const float base = IntTimesTwoFloatsCpp(width, DatosExe::Rdata::k859520, DatosExe::Rdata::k866C24);
+    static const bool spSmallSteam = SilentPatchOption("SmallSteamTexts", false); // SilentPatch (MIT, Silent): SmallSteamTexts (0.45 de ancho)
+    const float base = IntTimesTwoFloatsCpp(width, DatosExe::Rdata::k859520, spSmallSteam ? 0.45f : DatosExe::Rdata::k866C24);
     return vitals ? base * DatosExe::Rdata::k858C98 : base;
 }
 }
@@ -1490,7 +1516,9 @@ void CHud::DrawSuccessFailedMessage() {
     const auto opacity = uint8(int32(alpha));
     CFont::SetDropColor(CRGBA(0, 0, 0, opacity));
     CFont::SetColor(HudColour.GetRGBA(static_cast<eHudColours>(6), opacity));
-    if (float(RsGlobal.maximumWidth - 20) > position) {
+    // SilentPatch (MIT, Silent): "Mission Passed" y titulo duran lo mismo con cualquier resolucion (umbral fijo 640 - 20, no el ancho de pantalla)
+    static const bool spSlideThreshold = SilentPatchOption("SlidingTextsThreshold", true);
+    if (float((spSlideThreshold ? 640 : RsGlobal.maximumWidth) - 20) > position) {
         const uint32 ticks = uint32(int32((CTimer::GetTimeStep() * DatosExe::Rdata::k858B38) * DatosExe::Rdata::k858C4C));
         const float delta = float(ticks) * DatosExe::Rdata::k858C24;
         position += delta; alpha += delta;
@@ -1739,7 +1767,9 @@ void CHud::DrawAmmo(CPed* ped, int32 x, int32 y, float alpha) {
     CFont::SetCentreSize(stretchX * DatosExe::Rdata::k85951C); // OJO: el EXE usa maximumWidth (0xC17044), no la altura
     CFont::SetProportional(true);
     CFont::SetEdge(1);
-    CFont::SetDropColor({ 0, 0, 0, 255 });
+    // SilentPatch (MIT, Silent): HudAlphaFades (0x58950E): la sombra del texto de municion sigue el alfa del desvanecimiento (con el HUD normal vale 255)
+    static const bool spHudAlpha = SilentPatchOption("HudAlphaFades", true);
+    CFont::SetDropColor({ 0, 0, 0, spHudAlpha ? (uint8)alpha : (uint8)255 });
     CFont::SetFontStyle(eFontStyle::FONT_SUBTITLES);
 
     // Como el original (0x58954D..0x58963E): fcomp 9999.0 con test ah,5 y test ah,44h => se omite con restante >= 9999.
@@ -2009,7 +2039,9 @@ void CHud::DrawWanted() {
 // 0x58D7D0
 void CHud::DrawWeaponIcon(CPed* ped, int32 x, int32 y, float alpha) {
     // Como el original (0x58D7D5..0x58D7DD): primero el filtro de textura lineal.
-    RwRenderStateSet(rwRENDERSTATETEXTUREFILTER, RWRSTATE(rwFILTERLINEAR));
+    // SilentPatch (MIT, Silent): WeaponIconMipFilter (0x58D7DA): filtro bilineal con mipmaps para los iconos de armas
+    static const bool spIconMips = SilentPatchOption("WeaponIconMipFilter", true);
+    RwRenderStateSet(rwRENDERSTATETEXTUREFILTER, RWRSTATE(spIconMips ? rwFILTERMIPLINEAR : rwFILTERLINEAR));
 
     const auto modelId = ped->GetActiveWeapon().GetWeaponInfo().m_nModelId1;
     if (modelId <= 0) {
@@ -2046,7 +2078,7 @@ void CHud::DrawWeaponIcon(CPed* ped, int32 x, int32 y, float alpha) {
         { halfWidth, halfHeight },
         255u, 255u, 255u, 255,
         1.0f,
-        255,
+        SilentPatchOption("HudAlphaFades", true) ? (uint8)alpha : (uint8)255, // SilentPatch (MIT, Silent): HudAlphaFades (0x58D88A)
         0, 0
     );
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,  RWRSTATE(FALSE));

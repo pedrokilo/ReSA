@@ -46,6 +46,8 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 
 #include "VisibilityPlugins.h"
+#include "extensions/SilentPatchConfig.h"
+#include "ShadowCamera.h"
 
 // Como el original: estas dos variables viven en el EXE (0xC88024 / 0xC88020) y el resto del codigo del EXE las lee directamente.
 static auto& gVehicleDistanceFromCamera = DatosExe::Bss::bC88024;
@@ -1115,9 +1117,92 @@ RpAtomic* CVisibilityPlugins::RenderWeaponCB(RpAtomic* atomic) {
     return atomic;
 }
 
+// SilentPatch (MIT, Silent): WeaponRenderingFixes (PedSA.cpp CPed::RenderWeapon): dibuja el arma (con una o dos pistolas), el fogonazo con la escritura Z apagada, o el arma para la camara de sombras
+void CVisibilityPlugins::RenderPedWeaponSilentPatch(CPed* ped, bool weapon, bool muzzleFlash, bool forShadow) {
+    if (!ped->m_pWeaponObject) {
+        return;
+    }
+    const auto& activeWeapon = ped->GetActiveWeapon();
+    RpHAnimHierarchy* hierarchy = GetAnimHierarchyFromSkinClump(ped->GetRpClump());
+    const bool hasParachute = activeWeapon.m_Type == WEAPON_PARACHUTE;
+
+    RwFrame*  frame  = RpClumpGetFrame(ped->m_pWeaponObject);
+    RwMatrix* matrix = RwFrameGetMatrix(frame);
+    *matrix = RpHAnimHierarchyGetMatrixArray(hierarchy)[RpHAnimIDGetIndex(hierarchy, hasParachute ? BONE_SPINE1 : BONE_R_HAND)];
+
+    const auto renderOneWeapon = [&](bool rightGun) {
+        RwFrameUpdateObjects(RpClumpGetFrame(ped->m_pWeaponObject));
+        if (forShadow) {
+            RpClumpForAllAtomics(ped->m_pWeaponObject, ShadowCameraRenderCBSilentPatch, nullptr);
+        } else {
+            if (weapon) {
+                RpClumpRender(ped->m_pWeaponObject);
+            }
+            if (muzzleFlash && ped->m_pGunflashObject) {
+                uint32 previousZWrite;
+                RwRenderStateGet(rwRENDERSTATEZWRITEENABLE, &previousZWrite);
+                RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(FALSE));
+
+                ped->SetGunFlashAlpha(rightGun);
+                RpAtomicRender(reinterpret_cast<RpAtomic*>(GetFirstObject(ped->m_pGunflashObject)));
+
+                RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(previousZWrite));
+            }
+        }
+    };
+
+    if (hasParachute) {
+        const RwV3d translation = { 0.1f, -0.15f, 0.0f };
+        const RwV3d rotation    = { 0.0f, 1.0f, 0.0f };
+        RwMatrixTranslate(matrix, &translation, rwCOMBINEPRECONCAT);
+        RwMatrixRotate(matrix, &rotation, 90.0f, rwCOMBINEPRECONCAT);
+    }
+    renderOneWeapon(false);
+
+    // Pistolas dobles
+    if (CWeaponInfo::GetWeaponInfo(activeWeapon.m_Type, ped->GetWeaponSkill())->flags.bTwinPistol) {
+        *matrix = RpHAnimHierarchyGetMatrixArray(hierarchy)[RpHAnimIDGetIndex(hierarchy, BONE_L_HAND)];
+
+        const RwV3d rotation    = { 1.0f, 0.0f, 0.0f };
+        const RwV3d translation = { 0.04f, -0.05f, 0.0f };
+        RwMatrixRotate(matrix, &rotation, 180.0f, rwCOMBINEPRECONCAT);
+        RwMatrixTranslate(matrix, &translation, rwCOMBINEPRECONCAT);
+        renderOneWeapon(true);
+    }
+    if (muzzleFlash) {
+        ped->ResetGunFlashAlpha();
+    }
+}
+
 // 0x732F30
 void CVisibilityPlugins::RenderWeaponPedsForPC() {
     ZoneScoped;
+
+    // SilentPatch (MIT, Silent): WeaponRenderingFixes (0x732F30): el arma ya se dibujo con el ped (se ve a traves de las ventanillas de los vehiculos); aqui solo van los
+    // fogonazos, con la iluminacion del ped puesta y quitada despues (antes quedaba puesta y otros objetos salian mal iluminados al llevar un arma)
+    static const bool spWeaponFix = SilentPatchOption("WeaponRenderingFixes", true);
+    if (spWeaponFix) {
+        uint32 previousVertexAlpha, previousZWrite, previousFog;
+        RwRenderStateGet(rwRENDERSTATEVERTEXALPHAENABLE, &previousVertexAlpha);
+        RwRenderStateGet(rwRENDERSTATEZWRITEENABLE, &previousZWrite);
+        RwRenderStateGet(rwRENDERSTATEFOGENABLE, &previousFog);
+        RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(TRUE));
+        RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(TRUE));
+        RwRenderStateSet(rwRENDERSTATEFOGENABLE, RWRSTATE(TRUE));
+        auto link = ms_weaponPedsForPC.usedListTail.prev;
+        for (; link != &ms_weaponPedsForPC.usedListHead; link = link->prev) {
+            CPed* ped = link->data;
+            if (ped && ped->m_pWeaponObject) {
+                const bool lightingSetUp = ped->SetupLighting();
+                RenderPedWeaponSilentPatch(ped, false, true, false);
+                ped->RemoveLighting(lightingSetUp);
+            }
+        }
+        RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE, RWRSTATE(previousVertexAlpha));
+        RwRenderStateSet(rwRENDERSTATEZWRITEENABLE, RWRSTATE(previousZWrite));
+        RwRenderStateSet(rwRENDERSTATEFOGENABLE, RWRSTATE(previousFog));
+        return;
+    }
 
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE,          RWRSTATE(TRUE));
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,         RWRSTATE(TRUE));

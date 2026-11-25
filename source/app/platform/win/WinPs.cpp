@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 #include "VideoModeSelectDialog.h"
 #include "extensions/Configs/Miscellaneous.hpp"
 #include "LoadingScreen.h"
+#include "extensions/SilentPatchConfig.h"
 #include "C_PcSave.h"
 #include <windows.h>
 
@@ -545,9 +546,23 @@ RwBool psSelectDevice() {
             } else {
                 // Como el original: busca 800x600x32 exclusivo desde el modo actual avanzando GcurSelVM;
                 // si IsVMNotSelected es falso se queda con el primer modo examinado.
+                // SilentPatch (MIT, Silent): DesktopResolutionDefault (apagado por defecto; 0x746363): sin archivo de ajustes el juego arranca con la resolucion del escritorio
+                // en lugar de 800x600x32 (apagado porque las pruebas automaticas y sus capturas validadas parten de 800x600)
+                static const bool spDesktopRes = SilentPatchOption("DesktopResolutionDefault", false);
+                int32 spDefaultWidth = 800, spDefaultHeight = 600;
+                if (spDesktopRes) {
+                    DEVMODEW desktopMode{};
+                    desktopMode.dmSize = sizeof(desktopMode);
+                    if (EnumDisplaySettingsW(nullptr, ENUM_CURRENT_SETTINGS, &desktopMode) && desktopMode.dmPelsWidth && desktopMode.dmPelsHeight) {
+                        spDefaultWidth  = (int32)desktopMode.dmPelsWidth;
+                        spDefaultHeight = (int32)desktopMode.dmPelsHeight;
+                    }
+                }
                 for (;; GcurSelVM++) {
                     if (GcurSelVM >= RwEngineGetNumVideoModes()) {
-                        MessageBoxA(NULL, "Cannot find 800x600x32 video mode", "GTA: San Andreas", MB_OK);
+                        char spMessage[64];
+                        sprintf_s(spMessage, "Cannot find %dx%dx32 video mode", spDefaultWidth, spDefaultHeight);
+                        MessageBoxA(NULL, spMessage, "GTA: San Andreas", MB_OK);
                         return FALSE;
                     }
 
@@ -556,7 +571,7 @@ RwBool psSelectDevice() {
                     if (!IsVMNotSelected) {
                         break;
                     }
-                    if (vmi.width == 800 && vmi.height == 600 && vmi.depth == 32 && (vmi.flags & rwVIDEOMODEEXCLUSIVE)) {
+                    if (vmi.width == spDefaultWidth && vmi.height == spDefaultHeight && vmi.depth == 32 && (vmi.flags & rwVIDEOMODEEXCLUSIVE)) {
                         break;
                     }
                 }

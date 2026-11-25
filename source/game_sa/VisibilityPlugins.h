@@ -210,6 +210,8 @@ public:
     static float GetDistanceSquaredFromCamera(RwV3d* pos);
 
     static void RenderWeaponPedsForPC();
+    // SilentPatch (MIT, Silent): WeaponRenderingFixes: dibuja el arma de un ped (y/o el fogonazo, y/o para la sombra)
+    static void RenderPedWeaponSilentPatch(CPed* ped, bool weapon, bool muzzleFlash, bool forShadow);
     static void ResetWeaponPedsForPC() { ms_weaponPedsForPC.Clear(); } // inline
     static void AddWeaponPedForPC(CPed* ped) { ms_weaponPedsForPC.Insert(ped); } // 0x5E46D0
 

@@ -5063,6 +5063,11 @@ void CPed::Render() {
         if (!GetPlayerData() || GetPlayerData()->m_bRenderWeapon) {
             // Como el original: el flag de CPhysical (bit 8, bSubmergedInWater) decide si se consulta GetTaskSwim
             if ((!physicalFlags.bSubmergedInWater || !GetIntelligence()->GetTaskSwim()) && !GetIntelligence()->GetTaskHold(false)) {
+                // SilentPatch (MIT, Silent): WeaponRenderingFixes (0x5E7859): el arma se dibuja ahora con el ped (se ve a traves de las ventanillas); el fogonazo, al final
+                static const bool spWeaponFix = SilentPatchOption("WeaponRenderingFixes", true);
+                if (spWeaponFix) {
+                    CVisibilityPlugins::RenderPedWeaponSilentPatch(this, true, false, false);
+                }
                 CVisibilityPlugins::AddWeaponPedForPC(this);
                 if (m_nWeaponGunflashAlphaMP1 > 0 || m_nWeaponGunflashAlphaMP2 > 0) {
                     ResetGunFlashAlpha();

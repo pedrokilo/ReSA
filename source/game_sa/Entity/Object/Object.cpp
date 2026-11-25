@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 #include "game_sa/Crt/CrtFile.h"
 
 #include "Object.h"
+#include "extensions/SilentPatchConfig.h"
 #include "Radar.h"
 #include "BreakManager_c.h"
 #include "Buoyancy.h"
@@ -728,6 +729,34 @@ void CObject::Render() {
         auto* vehModelInfo = CModelInfo::GetModelInfo(iRefModel)->AsVehicleModelInfoPtr();
         CVehicleModelInfo::ms_pRemapTexture = m_pRemapTexture;
         vehModelInfo->SetVehicleColour(m_nCarColor[0], m_nCarColor[1], m_nCarColor[2], m_nCarColor[3]);
+
+        // SilentPatch (MIT, Silent): DetachedPartsFix (0x59F9BD, Render_DetachedPartRenderingFix): las piezas desprendidas conservan el color y la iluminacion del vehiculo
+        // (se aplican los materiales editables del modelo durante el dibujado y se restauran despues) y se dibujan por las dos caras (sin descarte de caras traseras)
+        static const bool spDetachedParts = SilentPatchOption("DetachedPartsFix", true);
+        if (spDetachedParts && GetRwObject()) {
+            tRestoreEntry  entries[256];
+            tRestoreEntry* pEntries = entries;
+            if (RwObjectGetType(GetRwObject()) == rpATOMIC) {
+                CVehicleModelInfo::SetEditableMaterialsCB(reinterpret_cast<RpAtomic*>(GetRwObject()), &pEntries);
+            } else {
+                RpClumpForAllAtomics(reinterpret_cast<RpClump*>(GetRwObject()), [](RpAtomic* atomic, void* data) -> RpAtomic* {
+                    return CVehicleModelInfo::SetEditableMaterialsCB(atomic, data);
+                }, &pEntries);
+            }
+            assert(pEntries >= std::begin(entries) && pEntries < std::end(entries));
+
+            uint32 previousCull;
+            RwRenderStateGet(rwRENDERSTATECULLMODE, &previousCull);
+            RwRenderStateSet(rwRENDERSTATECULLMODE, RWRSTATE(rwCULLMODECULLNONE));
+
+            CEntity::Render();
+
+            RwRenderStateSet(rwRENDERSTATECULLMODE, RWRSTATE(previousCull));
+            for (auto* entry = entries; entry != pEntries; ++entry) {
+                *reinterpret_cast<void**>(entry->m_pAddress) = entry->m_pValue;
+            }
+            return;
+        }
     }
 
     CEntity::Render();

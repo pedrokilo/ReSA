@@ -285,7 +285,9 @@ void CTimeCycle::Initialise(bool padFile) {
             m_fCloudAlpha[h][w]            = (uint8)Ftol(cloudAlpha);
             m_nHighLightMinIntensity[h][w] = (uint8)highLightMinIntensity;
             m_nWaterFogAlpha[h][w]         = (uint8)waterFogAlpha;
-            m_nDirectionalMult[h][w]       = (uint8)Ftol((float)(uint8)Ftol(dirMult) * 100.0f);
+            // SilentPatch (MIT, Silent): IlluminationFloatFix (0x5BBFC9): el valor de iluminacion acepta cualquier decimal entre 0.0 y 2.0 (antes se truncaba a 0, 1 o 2)
+            static const bool spIlluminationFloat = SilentPatchOption("IlluminationFloatFix", true);
+            m_nDirectionalMult[h][w]       = spIlluminationFloat ? (uint8)Ftol(dirMult * 100.0f) : (uint8)Ftol((float)(uint8)Ftol(dirMult) * 100.0f);
         }
     }
 

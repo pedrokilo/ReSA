@@ -1846,7 +1846,18 @@ void CTheScripts::Process() {
     ScriptsUpdated   = 0;
 
     // Como el original (0x46A010..0x46A036): CTimer::ms_fTimeStepNonClipped (0xB7CB58) * 0.02f * 1000.0f truncado con _ftol2
-    const auto timeStepMS = (int32)(CTimer::GetTimeStepNonClipped() * std::bit_cast<float>(0x3CA3D70Au) * 1000.0f);
+    // SilentPatch (MIT, Silent): TimersFix (0x46A036): el truncado conserva el resto fraccionario entre fotogramas
+    static const bool spTimers = SilentPatchOption("TimersFix", true);
+    static double s_scmRemainder = 0.0;
+    const double timeStepMSExact = CTimer::GetTimeStepNonClipped() * std::bit_cast<float>(0x3CA3D70Au) * 1000.0f;
+    int32 timeStepMS;
+    if (spTimers) {
+        double integral;
+        s_scmRemainder = modf(timeStepMSExact + s_scmRemainder, &integral);
+        timeStepMS = (int32)integral;
+    } else {
+        timeStepMS = (int32)timeStepMSExact;
+    }
 
     UpsideDownCars.UpdateTimers();
     StuckCars.Process();

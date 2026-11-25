@@ -35,6 +35,7 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/DataBssE4.h"
 
 #include "Font.h"
+#include "extensions/SilentPatchConfig.h"
 #include "X87Math.h"
 
 #include "eLanguage.h"
@@ -1031,25 +1032,31 @@ void CFont::GetTextRect(CRect* rect, float x, float y, const GxtChar* text) {
     // Como el original: 0x71A62F call 0x71A220 (ProcessCurrentString) antes de leer la alineacion.
     const int16 lines = GetNumberLines(x, y, text);
 
+    // SilentPatch (MIT, Silent): TextRectPaddingScalingFixes: el relleno (4 px de 640x448) del fondo de las cajas de texto se escala con la resolucion.
+    // Como SilentPatch, el borde izquierdo con alineacion a la derecha (0x71A68B) conserva los 4 px sin escalar.
+    static const bool spPadding = SilentPatchOption("TextRectPaddingScaling", true);
+    const float padX = spPadding ? 4.0f * SCREEN_STRETCH_X(1.0f) : 4.0f;
+    const float padY = spPadding ? 4.0f * SCREEN_STRETCH_Y(1.0f) : 4.0f;
+
     if (m_bFontCentreAlign) {
         // Como el original: 0x71A643..0x71A675: ((centro*0.5)+4) se resta de x y se suma a x: ((c*0.5)+4)+x.
-        rect->left = x - (m_fFontCentreSize * 0.5f + 4.0f);
-        rect->right = (m_fFontCentreSize * 0.5f + 4.0f) + x;
+        rect->left = x - (m_fFontCentreSize * 0.5f + padX);
+        rect->right = (m_fFontCentreSize * 0.5f + padX) + x;
     }
     else if (m_bFontRightAlign) {
         rect->left = m_fRightJustifyWrap - 4.0f;
         // Como el original: 0x71A693 fld [esp+8] (x); 0x71A6AB fadd [858B90] (4.0); 0x71A6B1 fstp [ecx+8]: right = x + 4.
-        rect->right = x + 4.0f;
+        rect->right = x + padX;
     }
     else {
-        rect->left = x - 4.0f;
-        rect->right = m_fWrapx + 4.0f;
+        rect->left = x - padX;
+        rect->right = m_fWrapx + padX;
     }
 
     // Como el original: 0x71A6B4 movzx eax,al: solo cuenta el byte bajo del numero de lineas (sin signo);
     // 0x71A6E4..0x71A6EC: ((alto * lineas) + y) + 4.0.
-    rect->top = y - 4.0f;
-    rect->bottom = (GetHeight() * (float)(uint8)lines) + y + 4.0f;
+    rect->top = y - padY;
+    rect->bottom = (GetHeight() * (float)(uint8)lines) + y + padY;
 }
 
 // 0x71A700
