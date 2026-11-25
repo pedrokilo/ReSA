@@ -32,6 +32,20 @@ def digest_crlf(path):
     return hashlib.sha256(data).hexdigest()
 
 
+def digest_lf(path):
+    """sha256 del contenido normalizado a LF; None si es binario.
+
+    Evidencia como reversing/CBaseModelInfo/validation-summary.json se registro con
+    saltos MIXTOS (parte CRLF, parte LF) en una copia de trabajo; ese byte-a-byte no se
+    puede reproducir desde git (que guarda LF). Su hash registrado ahora es el del texto LF
+    y se acepta cualquier variante que solo difiera en los saltos de linea.
+    """
+    data = path.read_bytes()
+    if bytes([0]) in data:
+        return None
+    return hashlib.sha256(data.replace(bytes([13, 10]), bytes([10]))).hexdigest()
+
+
 def tree_digest(path):
     """Conservative source-tree fingerprint, including added/deleted files."""
     path = Path(path)
@@ -79,7 +93,7 @@ def evaluate(root, hooks_path, registry_path=None):
         path = Path(path)
         if invocation_digest(path) == expected:
             return True
-        return digest_crlf(path) == expected
+        return digest_crlf(path) == expected or digest_lf(path) == expected
     def invocation_tree_digest(path):
         path = Path(path).resolve()
         if not path.is_dir():
