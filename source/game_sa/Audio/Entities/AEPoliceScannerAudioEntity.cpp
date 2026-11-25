@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -63,7 +64,7 @@ void CAEPoliceScannerAudioEntity::AddAudioEvent(eAudioEvents event, eCrimeType c
     if (!zone) return;
     int index = 0;
     for (; index < 194; ++index) {
-        if (!memcmp(zone->m_TextLabel, reinterpret_cast<const char*>(0x8C8198) + index * 8, 8) && reinterpret_cast<const int16*>(0x8C87A8)[index] >= 0) break;
+        if (!memcmp(zone->m_TextLabel, SilentPatchSpeech::ScannerLabel(index, reinterpret_cast<const char*>(0x8C8198) + index * 8), 8) && reinterpret_cast<const int16*>(0x8C87A8)[index] >= 0) break;
     }
     if (index == 194) return;
     if (reinterpret_cast<const uint8*>(0x8C8930)[index]) {

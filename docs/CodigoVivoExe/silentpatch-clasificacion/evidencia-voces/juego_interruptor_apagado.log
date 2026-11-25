@@ -1,0 +1,37 @@
+Banco en juego de voces de SilentPatch. Opciones por defecto (General=0): SpeechWeatherConversations=0 SpeechCriminalsFlee=0 SpeechPedVoiceNames=0 SpeechMaccerVoice=0 SpeechVBFYST2=0 SpeechTurfCheers=0 SpeechSolicitMood=0 SpeechGirlfriendShopkeeperLines=0 SpeechShopkeepersSpooked=0 SpeechVWMOTR1=0 SpeechGangTaunts=0 SpeechCJJackingCars=0 SpeechCrashGenericFallback=0 SpeechPainSprayed=0 SpeechChasedOneStar=0 SpeechShootMouseKeyboard=0 SpeechCopsCoverLines=0 SpeechFAM3=0 SpeechLAPDM1=0 SpeechGangAttackPlayer=0 SpeechWhereYouFromReply=0 GoodCitizenBonus=0 SpeechDruggedRecruit=0 SpeechCarHitPedPassenger=0 PoliceScannerNames=0
+MODELO 71: tipo de audio=0 voz minima=-1 voz maxima=-1 voz actual=-1
+MODELO 244: tipo de audio=0 voz minima=141 voz maxima=141 voz actual=141
+MODELO 249: tipo de audio=0 voz minima=-1 voz maxima=-1 voz actual=-1
+MODELO 256: tipo de audio=0 voz minima=93 voz maxima=93 voz actual=93
+MODELO 257: tipo de audio=0 voz minima=125 voz maxima=125 voz actual=125
+PEATONES con voz en el pool: 29, de ellos pueden hablar del tiempo: 0
+RANGO jugador voz 0 JACKING_CAR_FEM:  APAGADA=(-1,-1)  ENCENDIDA=(62,66)
+RANGO jugador voz 4 JACKING_CAR_FEM:  APAGADA=(-1,-1)  ENCENDIDA=(147,152)
+RANGO jugador voz 8 JACKING_CAR_FEM:  APAGADA=(-1,-1)  ENCENDIDA=(173,177)
+RANGO jugador voz 16 JACKING_CAR_FEM:  APAGADA=(-1,-1)  ENCENDIDA=(78,81)
+RANGO jugador voz 10 JACKING_CAR_FEM:  APAGADA=(196,205)  ENCENDIDA=(196,205)
+DECIR CJ JACKING_CAR_FEM (humor CD)        APAGADA  : AddSayEvent=6 (suena) [reloj=370372686 proxima vez permitida=370368915]
+DECIR CJ JACKING_CAR_FEM (humor CD)        ENCENDIDA: AddSayEvent=1 (suena) [reloj=370375086 proxima vez permitida=370374677]
+DECIR CJ JACKING_CAR_FEM (humor CG)        APAGADA  : AddSayEvent=9 (suena) [reloj=370377486 proxima vez permitida=370376951]
+DECIR CJ JACKING_CAR_FEM (humor CG)        ENCENDIDA: AddSayEvent=0 (suena) [reloj=370379886 proxima vez permitida=370378791]
+DECIR CJ JACKING_CAR_FEM (humor WG)        APAGADA  : AddSayEvent=0 (suena) [reloj=370382286 proxima vez permitida=370381883]
+DECIR CJ JACKING_CAR_FEM (humor WG)        ENCENDIDA: AddSayEvent=1 (suena) [reloj=370384686 proxima vez permitida=370383380]
+DECIR CJ JACKING_CAR_FEM (humor CR)        APAGADA  : AddSayEvent=1 (suena) [reloj=370387086 proxima vez permitida=370385790]
+DECIR CJ JACKING_CAR_FEM (humor CR)        ENCENDIDA: AddSayEvent=0 (suena) [reloj=370389486 proxima vez permitida=370388935]
+DECIR CJ WEATHER_DISL_REPLY (humor CR)     APAGADA  : AddSayEvent=-1 (mudo) [reloj=370391886 proxima vez permitida=370367442]
+DECIR CJ WEATHER_DISL_REPLY (humor CR)     ENCENDIDA: AddSayEvent=1 (suena) [reloj=370394286 proxima vez permitida=370367442]
+DECIR CJ WEATHER_LIKE_REPLY (humor CR)     APAGADA  : AddSayEvent=-1 (mudo) [reloj=370396686 proxima vez permitida=370366385]
+DECIR CJ WEATHER_LIKE_REPLY (humor CR)     ENCENDIDA: AddSayEvent=2 (suena) [reloj=370399086 proxima vez permitida=370366385]
+DECIR CJ TAKE_TURF_GANTON (humor CR)       APAGADA  : AddSayEvent=-1 (mudo) [reloj=370401486 proxima vez permitida=370369449]
+DECIR CJ TAKE_TURF_GANTON (humor CR)       ENCENDIDA: AddSayEvent=0 (suena) [reloj=370403886 proxima vez permitida=370369449]
+DECIR CJ TAKE_TURF_TEMPLE (humor CR)       APAGADA  : AddSayEvent=-1 (mudo) [reloj=370406286 proxima vez permitida=370367582]
+DECIR CJ TAKE_TURF_TEMPLE (humor CR)       ENCENDIDA: AddSayEvent=0 (suena) [reloj=370408686 proxima vez permitida=370367582]
+CheerVictory zona(info=XXX texto=CHC) APAGADA: CJ habla=0
+CheerVictory zona(info=XXX texto=CHC) ENCENDIDA: CJ habla=1
+CONVERSACION de donde eres (si) APAGADA  : tras pulsar si estado=INACTIVE; tras 3,5 s estado=(no aplica)
+CONVERSACION de donde eres (si) ENCENDIDA: tras pulsar si estado=WAITINGFORFINALWORD; tras 3,5 s estado=WAITINGTOFINISH
+  (diagnostico: nivel de busqueda=0, tipo del evento actual de la victima=26, IsPedFleeingFromCops=1, victima valida=1)
+GOOD CITIZEN APAGADA  : dinero +0 tras el primer golpe (bandera de bonus dado=0), +0 tras el segundo
+  (diagnostico: nivel de busqueda=0, tipo del evento actual de la victima=26, IsPedFleeingFromCops=1, victima valida=1)
+GOOD CITIZEN ENCENDIDA: dinero +50 tras el primer golpe (bandera de bonus dado=1), +0 tras el segundo
+FIN

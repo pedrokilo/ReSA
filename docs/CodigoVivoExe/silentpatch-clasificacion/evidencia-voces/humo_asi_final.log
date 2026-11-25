@@ -1,0 +1,36 @@
+inicio Wed Nov 25 06:46:12     2026
+== prueba_ropero on intento 1 Wed Nov 25 06:46:12     2026
+posicion antes del teletransporte (255.13699340820312, -41.53219985961914, 1002.0234375)
+posicion despues (255.13699340820312, -41.53219985961914, 1002.0234375)
+DIAG {"modelinfo": "0xb1f574", "refs": 27063, "rwObject": "0x5a771c8", "txd": 2986, "stream_loadstate": 1, "stream_raw": "ffffffffab0a0c01642300000500000001000000", "objetos": [{"i": 4, "rw": "0x5ae9888", "flags": "a1000008"}]}
+spo5_on entidades 15 marcadores 12
+puerta True marcador True
+VEREDICTO BIEN
+== prueba_marcadores on intento 1 Wed Nov 25 06:49:00     2026
+ERROR el juego se cerro
+== prueba_marcadores on intento 2 Wed Nov 25 06:49:37     2026
+posicion antes del teletransporte (255.13699340820312, -41.53219985961914, 1002.0234375)
+posicion despues (255.13699340820312, -41.53219985961914, 1002.0234375)
+CAPTURA {'ancho': 800, 'alto': 600, 'rojo': 3911, 'muestras': 53568, 'media_rgb': [101.4, 82.5, 65.4], 'max': 255}
+DIAG {"modelinfo": "0xb1f574", "refs": 27063, "rwObject": "0x5ed35c0", "txd": 2986, "stream_loadstate": 1, "stream_raw": "ffffffffab0a0c01642300000500000001000000", "objetos": [{"i": 4, "rw": "0x5f45c80", "flags": "a1000008"}]}
+spo5_on entidades 15 marcadores 12
+puerta True marcador True
+marcadores_en_memoria 12 marcadores_que_cambian_en_1s 12 pixeles_rojos(informativo) 3911
+VEREDICTO BIEN
+== prueba_ropero off intento 1 Wed Nov 25 06:52:06     2026
+posicion antes del teletransporte (255.13699340820312, -41.53219985961914, 1002.0234375)
+posicion despues (255.13699340820312, -41.53219985961914, 1002.0234375)
+DIAG {"modelinfo": "0xb1f574", "refs": 27063, "rwObject": "0x5a74308", "txd": 2986, "stream_loadstate": 1, "stream_raw": "ffffffffab0a0c01642300000500000001000000", "objetos": [{"i": 4, "rw": "0x5ae69c8", "flags": "a1000008"}]}
+spo5_off entidades 15 marcadores 12
+puerta True marcador True
+VEREDICTO BIEN
+== prueba_marcadores off intento 1 Wed Nov 25 06:52:48     2026
+posicion antes del teletransporte (255.13699340820312, -41.53219985961914, 1002.0234375)
+posicion despues (255.13699340820312, -41.53219985961914, 1002.0234375)
+CAPTURA {'ancho': 800, 'alto': 600, 'rojo': 3911, 'muestras': 53568, 'media_rgb': [101.3, 82.4, 65.4], 'max': 255}
+DIAG {"modelinfo": "0xb1f574", "refs": 27063, "rwObject": "0x5a59d10", "txd": 2986, "stream_loadstate": 1, "stream_raw": "ffffffffab0a0c01642300000500000001000000", "objetos": [{"i": 4, "rw": "0x5accac0", "flags": "a1000008"}]}
+spo5_off entidades 15 marcadores 12
+puerta True marcador True
+marcadores_en_memoria 12 marcadores_que_cambian_en_1s 12 pixeles_rojos(informativo) 3911
+VEREDICTO BIEN
+fin Wed Nov 25 06:53:30     2026

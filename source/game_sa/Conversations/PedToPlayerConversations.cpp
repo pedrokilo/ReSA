@@ -16,7 +16,9 @@
  * Alcance: solo entradas catalogadas; no certifica independencia del EXE.
 END GENERATED HOOK STATUS */
 
+#include "StdInc.h"
 #include "PedToPlayerConversations.h"
+#include "SilentPatchSpeech.h"
 
 #include "Ragdoll/IKChainManager.h"
 #include "Conversations.h"
@@ -123,7 +125,9 @@ void CPedToPlayerConversations::Update() {
 
             const auto type = ped->m_nPedType;
             const bool rivalGang = type == PED_TYPE_GANG1 || (type >= PED_TYPE_GANG3 && type <= PED_TYPE_GANG10);
-            m_Topic = rivalGang ? CGeneral::GetRandomNumberInRange(8, 10) : CGeneral::GetRandomNumberInRange(0, 7);
+            // SilentPatch (MIT, Silent): los peatones tambien pueden elegir el tema del tiempo (AE_CONV_WEATHER = 7; el EXE sorteaba 0..6); opcion SpeechWeatherConversations
+            const int32 maxTopic = SilentPatchSpeech::On(SilentPatchSpeech::eOpt::WeatherConversations) ? 8 : 7;
+            m_Topic = rivalGang ? CGeneral::GetRandomNumberInRange(8, 10) : CGeneral::GetRandomNumberInRange(0, maxTopic);
             if (!ped->GetSpeechAE().WillPedChatAboutTopic(static_cast<int16>(m_Topic))) {
                 continue;
             }
@@ -262,11 +266,25 @@ void CPedToPlayerConversations::Update() {
         }
         if (CPad::GetPad(0)->ConversationYesJustDown()) {
             if (!m_bPositiveOpening) {
-                Say(player, IsPedTypeFemale(m_pPed->m_nPedType) ? CTX_GLOBAL_LIKE_DISMISS_FEMALE : CTX_GLOBAL_LIKE_DISMISS_MALE);
+                auto reply = IsPedTypeFemale(m_pPed->m_nPedType) ? CTX_GLOBAL_LIKE_DISMISS_FEMALE : CTX_GLOBAL_LIKE_DISMISS_MALE;
+                // SilentPatch (MIT, Silent): la respuesta de CJ a un comentario negativo sobre el tiempo es su respuesta de tiempo (WEATHER_DISL_REPLY)
+                if (m_Topic == 7 && SilentPatchSpeech::On(SilentPatchSpeech::eOpt::WeatherConversations)) {
+                    reply = CTX_GLOBAL_WEATHER_DISL_REPLY;
+                }
+                Say(player, reply);
             } else if (m_Topic == 8 || m_Topic == 9) {
                 Say(player, m_Topic == 8 ? CTX_GLOBAL_WHERE_YOU_FROM_POS : CTX_GLOBAL_GANGBANG_YES);
+                bool attacked = false;
                 if (CGeneral::GetRandomNumberInRange(0, 100) < 75) {
                     AttackPlayer();
+                    attacked = true;
+                }
+                // SilentPatch (MIT, Silent): tras "WHERE_YOU_FROM_POS" (y tras el ataque) no se cierra: el pandillero contesta con WHERE_YOU_FROM_POS_REPLY
+                // (0x43BC13 y 0x43BE14 saltan a 0x43BECD en vez de a 0x43C0EB); opcion SpeechWhereYouFromReply
+                if ((m_Topic == 8 || attacked) && SilentPatchSpeech::On(SilentPatchSpeech::eOpt::WhereYouFrom)) {
+                    m_State = eP2pState::WAITINGFORFINALWORD;
+                    m_StartTime = CTimer::GetTimeInMS();
+                    return;
                 }
                 EndConversation();
                 return;
@@ -309,7 +327,14 @@ void CPedToPlayerConversations::Update() {
                 g_ikChainMan.AbortLookAt(player, 250);
             }
         } else if (CTimer::GetTimeInMS() > m_StartTime + 3000u && !m_pPed->GetPedTalking()) {
-            Say(m_pPed, CTX_GLOBAL_LIKE_DISMISS_REPLY);
+            // SilentPatch (MIT, Silent): en el tema "de donde eres" la respuesta es WHERE_YOU_FROM_POS_REPLY; en el de la banda (que tambien llega aqui) no hay respuesta
+            if (SilentPatchSpeech::On(SilentPatchSpeech::eOpt::WhereYouFrom) && m_Topic == 9) {
+                // sin frase
+            } else if (SilentPatchSpeech::On(SilentPatchSpeech::eOpt::WhereYouFrom) && m_Topic == 8) {
+                Say(m_pPed, CTX_GLOBAL_WHERE_YOU_FROM_POS_REPLY);
+            } else {
+                Say(m_pPed, CTX_GLOBAL_LIKE_DISMISS_REPLY);
+            }
             WaitToFinish();
         }
         return;

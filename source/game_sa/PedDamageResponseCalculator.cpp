@@ -17,12 +17,15 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 #include "X87Math.h"
 
 #include <reversiblebugfixes/Bugs.hpp>
 #include "PedDamageResponseCalculator.h"
 #include "PedStats.h"
 #include "Tasks/TaskTypes/TaskSimpleFight.h"
+#include "Tasks/TaskTypes/TaskSimpleUseGun.h"
+#include "Tasks/TaskTypes/TaskSimpleGunControl.h"
 
 void CPedDamageResponseCalculator::InjectHooks() {
     RH_ScopedClass(CPedDamageResponseCalculator);
@@ -256,6 +259,20 @@ void CPedDamageResponseCalculator::ComputeWillKillPed(CPed* ped, CPedDamageRespo
     ped->m_fHealth      = ped->m_fHealth - m_fDamageFactor;
 
     if (bSpeak) {
+        // SilentPatch (MIT, Silent): quien recibe el chorro de un spray, un extintor o gas lacrimogeno usa su quejido propio (PAIN_SPRAYED, 0x4B3349); opcion SpeechPainSprayed
+        if (m_weaponType != WEAPON_DROWNING && SilentPatchSpeech::On(SilentPatchSpeech::eOpt::PainSprayed)
+            && (m_weaponType == WEAPON_TEARGAS || m_weaponType == WEAPON_SPRAYCAN || m_weaponType == WEAPON_EXTINGUISHER)) {
+            // si lo golpean con el bote (pistolwhip) y no lo rocian se queda el quejido normal
+            bool whipped = false;
+            if (m_pDamager && m_pDamager->GetType() == ENTITY_TYPE_PED) {
+                const auto* const useGun = const_cast<CPed*>(static_cast<const CPed*>(m_pDamager))->GetIntelligence()->GetTaskUseGun();
+                whipped = useGun && useGun->GetLastGunCommand() == eGunCommand::PISTOLWHIP;
+            }
+            if (!whipped) {
+                ped->Say(CTX_GLOBAL_PAIN_SPRAYED);
+                return;
+            }
+        }
         ped->Say(
             m_weaponType == WEAPON_DROWNING
                 ? CTX_GLOBAL_PAIN_CJ_DROWNING

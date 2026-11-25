@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 
 #include "TaskComplexKillPedOnFoot.h"
 #include "TaskSimpleStandStill.h"
@@ -701,6 +702,11 @@ CTask* CTaskComplexKillPedOnFoot::CreateSubTask(int32 taskId, CPed* ped) {
 // 0x65E9A0
 void CTaskComplexKillPedOnFoot::SayGangAttack(CPed* ped, CPed* target) {
     if (!ped || !target) {
+        return;
+    }
+    // SilentPatch (MIT, Silent): el pandillero que ataca al jugador dice ATTACK_PLAYER (el EXE comprueba al jugador pero no dice nada); opcion SpeechGangAttackPlayer
+    if (SilentPatchSpeech::On(SilentPatchSpeech::eOpt::GangAttackPlayer) && static_cast<int32>(ped->m_nPedType) >= PED_TYPE_GANG1 && static_cast<int32>(ped->m_nPedType) <= PED_TYPE_GANG10 && target->IsPlayer()) {
+        ped->Say(CTX_GLOBAL_ATTACK_PLAYER);
         return;
     }
     // Como el original: comparaciones con signo del tipo de peaton (+0x598) del atacante y del objetivo

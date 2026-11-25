@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/RdataAyudantes.h"
@@ -2619,7 +2620,12 @@ bool CWeapon::Fire(CEntity* firedBy, CVector* startPosn, CVector* barrelPosn, CE
                 firedByPed->bFiringWeapon = true;
             }
             firedByPed->GetWeaponAE().AddAudioEvent(AE_WEAPON_FIRE);
-            if (isPlayerFiring && targetEnt && targetEnt->GetIsTypePed() && m_Type != WEAPON_PISTOL_SILENCED) {
+            // SilentPatch (MIT, Silent): con raton y teclado no hay objetivo de apuntado automatico: se usa el peaton fijado por el raton (CPlayerPed +0x79C); opcion SpeechShootMouseKeyboard
+            CEntity* shootTarget = targetEnt;
+            if (isPlayerFiring && !shootTarget && SilentPatchSpeech::On(SilentPatchSpeech::eOpt::ShootMouse)) {
+                shootTarget = static_cast<CPlayerPed*>(firedByPed)->m_p3rdPersonMouseTarget;
+            }
+            if (isPlayerFiring && shootTarget && shootTarget->GetIsTypePed() && m_Type != WEAPON_PISTOL_SILENCED) {
                 firedByPed->Say(CTX_GLOBAL_SHOOT, 200); // 0x74280E
             }
         }

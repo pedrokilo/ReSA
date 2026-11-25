@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 #include "Ragdoll/IKChainManager.h"
 #include "ModelIndices.h"
 #include "EventPassObject.h"
@@ -176,6 +177,7 @@ void CTaskComplexGangLeader::DoGangAbuseSpeech(CPed* talker, CPed* sayTo) {
     if (const auto phrase = [&] {
         switch (sayTo->m_nPedType) {
         case PED_TYPE_GANG1:   return CTX_GLOBAL_ABUSE_GANG_BALLAS;
+        case PED_TYPE_GANG3:   return SilentPatchSpeech::On(SilentPatchSpeech::eOpt::GangTaunts) ? CTX_GLOBAL_ABUSE_GANG_LSV : CTX_GLOBAL_NO_SPEECH; // SilentPatch (MIT, Silent): insulto a los Vagos (LSV) que faltaba; opcion SpeechGangTaunts
         case PED_TYPE_GANG2:
         case PED_TYPE_PLAYER1:
         case PED_TYPE_PLAYER2: return CTX_GLOBAL_ABUSE_GANG_FAMILIES;

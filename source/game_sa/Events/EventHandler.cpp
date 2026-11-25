@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 
 #include "EventHandler.h"
 #include "InterestingEvents.h"
@@ -2642,7 +2643,8 @@ void CEventHandler::ComputePedToFleeResponse(CEventPedToFlee* e, CTask* tactive,
         return;
     }
     m_Ped->Say(CTX_GLOBAL_CRIMINAL_PLEAD);
-    m_EventResponseTask = new CTaskComplexSmartFleeEntity{e->m_ped, true, 100.f, -1};
+    // SilentPatch (MIT, Silent): el criminal que huye de la policia no grita (el EXE pasa scream=true, 0x4B9BB9) y se oye su frase de suplica; opcion SpeechCriminalsFlee
+    m_EventResponseTask = new CTaskComplexSmartFleeEntity{e->m_ped, !SilentPatchSpeech::On(SilentPatchSpeech::eOpt::CriminalsFlee), 100.f, -1};
 }
 
 // 0x4BF9B0

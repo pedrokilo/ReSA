@@ -1,0 +1,2 @@
+[144937 ms] latido: frame=31592717 estado-juego=9 Present=3566 EndScene=3566 Clear=10856 Draw*=4279515 codigo-original-distinto=0 hits=0 excepciones=1
+[146937 ms] latido: frame=31592767 estado-juego=9 Present=3616 EndScene=3616 Clear=11056 Draw*=4345915 codigo-original-distinto=0 hits=0 excepciones=1

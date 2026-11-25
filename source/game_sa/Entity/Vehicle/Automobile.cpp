@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 #include "extensions/SilentPatchConfig.h"
 #include "SilentPatchVehicles.h"
 
@@ -3603,10 +3604,16 @@ void CAutomobile::VehicleDamage(float damageIntensity, eVehicleCollisionComponen
                     const auto& damagedVeh = *m_pDamageEntity->AsVehicle();
                     if (!(FindPlayerVehicle() == this && damagedVeh.IsMissionVehicle()) && damagedVeh.m_pDriver) {
                         const auto sayProbability = std::bit_cast<float>(0x3F28F5C3u);
+                        // SilentPatch (MIT, Silent): si el conductor no tiene la frase de choque de su tipo (CJ no tiene CRASH_BIKE) se prueba CRASH_GENERIC; opcion SpeechCrashGenericFallback
+                        const auto say = [&](eGlobalSpeechContext ctx) {
+                            if (m_pDriver->Say(ctx, 0, sayProbability) < 0 && ctx != CTX_GLOBAL_CRASH_GENERIC && SilentPatchSpeech::On(SilentPatchSpeech::eOpt::CrashGeneric)) {
+                                m_pDriver->Say(CTX_GLOBAL_CRASH_GENERIC, 0, sayProbability);
+                            }
+                        };
                         switch (m_vehicleAudio.GetVehicleTypeForAudio()) {
-                        case eAEVehicleAudioType::CAR:      m_pDriver->Say(CTX_GLOBAL_CRASH_CAR, 0, sayProbability);     break;
-                        case eAEVehicleAudioType::BIKE:     m_pDriver->Say(CTX_GLOBAL_CRASH_BIKE, 0, sayProbability);    break;
-                        default:                            m_pDriver->Say(CTX_GLOBAL_CRASH_GENERIC, 0, sayProbability); break;
+                        case eAEVehicleAudioType::CAR:      say(CTX_GLOBAL_CRASH_CAR);     break;
+                        case eAEVehicleAudioType::BIKE:     say(CTX_GLOBAL_CRASH_BIKE);    break;
+                        default:                            say(CTX_GLOBAL_CRASH_GENERIC); break;
                         }
                     }
                 }
@@ -3614,7 +3621,10 @@ void CAutomobile::VehicleDamage(float damageIntensity, eVehicleCollisionComponen
                 // Como el original (0x6A8259..0x6A8298): se pide FindPlayerVehicle() aunque no haya entidad que dano
                 if (FindPlayerVehicle() == this && m_pDamageEntity) {
                     if (const auto p = PickRandomPassenger()) {
-                        p->Say(m_pDamageEntity->GetIsTypePed() ? CTX_GLOBAL_CAR_HIT_PED : CTX_GLOBAL_CAR_CRASH);
+                        // SilentPatch (MIT, Silent): los pasajeros ya no comentan CAR_HIT_PED al empujar peatones (se dice al atropellarlos: CPed::KillPedWithCar); opcion SpeechCarHitPedPassenger
+                        if (!(m_pDamageEntity->GetIsTypePed() && SilentPatchSpeech::On(SilentPatchSpeech::eOpt::CarHitPed))) {
+                            p->Say(m_pDamageEntity->GetIsTypePed() ? CTX_GLOBAL_CAR_HIT_PED : CTX_GLOBAL_CAR_CRASH);
+                        }
                     }
                 }
                 g_InterestingEvents.Add(CInterestingEvents::EType::VEHICLE_DAMAGE, this);

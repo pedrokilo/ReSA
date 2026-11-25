@@ -1,0 +1,116 @@
+Banco de voces y dialogos de SilentPatch (en proceso). Opciones por defecto (General=0): SpeechWeatherConversations=0 SpeechCriminalsFlee=0 SpeechPedVoiceNames=0 SpeechMaccerVoice=0 SpeechVBFYST2=0 SpeechTurfCheers=0 SpeechSolicitMood=0 SpeechGirlfriendShopkeeperLines=0 SpeechShopkeepersSpooked=0 SpeechVWMOTR1=0 SpeechGangTaunts=0 SpeechCJJackingCars=0 SpeechCrashGenericFallback=0 SpeechPainSprayed=0 SpeechChasedOneStar=0 SpeechShootMouseKeyboard=0 SpeechCopsCoverLines=0 SpeechFAM3=0 SpeechLAPDM1=0 SpeechGangAttackPlayer=0 SpeechWhereYouFromReply=0 GoodCitizenBonus=0 SpeechDruggedRecruit=0 SpeechCarHitPedPassenger=0 PoliceScannerNames=0
+TABLA GEN    opcion=APAGADA   comparadas=21736 entradas que SilentPatch cambia=10 diferencias=0
+TABLA GEN    opcion=ENCENDIDA comparadas=21736 entradas que SilentPatch cambia=10 diferencias=0
+  CAMBIO GEN    ctx= 16 voz=153: EXE (-1,-1) -> SilentPatch (118,120)
+  CAMBIO GEN    ctx= 18 voz=141: EXE (-1,-1) -> SilentPatch (10,11)
+  CAMBIO GEN    ctx= 19 voz=141: EXE (-1,-1) -> SilentPatch (12,13)
+  CAMBIO GEN    ctx= 22 voz=141: EXE (-1,-1) -> SilentPatch (0,4)
+  CAMBIO GEN    ctx= 49 voz=141: EXE (-1,-1) -> SilentPatch (5,9)
+  CAMBIO GEN    ctx= 92 voz=153: EXE (118,120) -> SilentPatch (-1,-1)
+  CAMBIO GEN    ctx= 98 voz=141: EXE (0,4) -> SilentPatch (-1,-1)
+  CAMBIO GEN    ctx= 99 voz=141: EXE (5,9) -> SilentPatch (-1,-1)
+  CAMBIO GEN    ctx=100 voz=141: EXE (10,11) -> SilentPatch (-1,-1)
+  CAMBIO GEN    ctx=101 voz=141: EXE (12,13) -> SilentPatch (-1,-1)
+TABLA EMG    opcion=APAGADA   comparadas=1610 entradas que SilentPatch cambia=4 diferencias=0
+TABLA EMG    opcion=ENCENDIDA comparadas=1610 entradas que SilentPatch cambia=4 diferencias=0
+  CAMBIO EMG    ctx= 23 voz= 27: EXE (-1,-1) -> SilentPatch (4,7)
+  CAMBIO EMG    ctx= 23 voz= 28: EXE (-1,-1) -> SilentPatch (5,8)
+  CAMBIO EMG    ctx= 32 voz= 27: EXE (4,7) -> SilentPatch (-1,-1)
+  CAMBIO EMG    ctx= 32 voz= 28: EXE (5,8) -> SilentPatch (-1,-1)
+TABLA PLAYER opcion=APAGADA   comparadas=2240 entradas que SilentPatch cambia=16 diferencias=0
+TABLA PLAYER opcion=ENCENDIDA comparadas=2240 entradas que SilentPatch cambia=16 diferencias=0
+  CAMBIO PLAYER ctx= 11 voz=  0: EXE (62,66) -> SilentPatch (-1,-1)
+  CAMBIO PLAYER ctx= 11 voz=  1: EXE (58,62) -> SilentPatch (-1,-1)
+  CAMBIO PLAYER ctx= 11 voz=  4: EXE (147,152) -> SilentPatch (-1,-1)
+  CAMBIO PLAYER ctx= 11 voz=  5: EXE (135,139) -> SilentPatch (-1,-1)
+  CAMBIO PLAYER ctx= 11 voz=  8: EXE (173,177) -> SilentPatch (-1,-1)
+  CAMBIO PLAYER ctx= 11 voz=  9: EXE (168,171) -> SilentPatch (-1,-1)
+  CAMBIO PLAYER ctx= 11 voz= 16: EXE (78,81) -> SilentPatch (-1,-1)
+  CAMBIO PLAYER ctx= 11 voz= 17: EXE (74,77) -> SilentPatch (-1,-1)
+  CAMBIO PLAYER ctx= 26 voz=  0: EXE (-1,-1) -> SilentPatch (62,66)
+  CAMBIO PLAYER ctx= 26 voz=  1: EXE (-1,-1) -> SilentPatch (58,62)
+  CAMBIO PLAYER ctx= 26 voz=  4: EXE (-1,-1) -> SilentPatch (147,152)
+  CAMBIO PLAYER ctx= 26 voz=  5: EXE (-1,-1) -> SilentPatch (135,139)
+  CAMBIO PLAYER ctx= 26 voz=  8: EXE (-1,-1) -> SilentPatch (173,177)
+  CAMBIO PLAYER ctx= 26 voz=  9: EXE (-1,-1) -> SilentPatch (168,171)
+  CAMBIO PLAYER ctx= 26 voz= 16: EXE (-1,-1) -> SilentPatch (78,81)
+  CAMBIO PLAYER ctx= 26 voz= 17: EXE (-1,-1) -> SilentPatch (74,77)
+TABLA GANG   opcion=APAGADA   comparadas=5876 entradas que SilentPatch cambia=2 diferencias=0
+TABLA GANG   opcion=ENCENDIDA comparadas=5876 entradas que SilentPatch cambia=2 diferencias=0
+  CAMBIO GANG   ctx= 52 voz= 16: EXE (-1,-1) -> SilentPatch (34,38)
+  CAMBIO GANG   ctx=105 voz= 16: EXE (34,38) -> SilentPatch (-1,-1)
+TABLA GFD    opcion=APAGADA   comparadas=2178 entradas que SilentPatch cambia=12 diferencias=0
+TABLA GFD    opcion=ENCENDIDA comparadas=2178 entradas que SilentPatch cambia=12 diferencias=0
+  CAMBIO GFD    ctx=  3 voz=  9: EXE (-1,-1) -> SilentPatch (36,40)
+  CAMBIO GFD    ctx= 86 voz=  1: EXE (10,13) -> SilentPatch (-1,-1)
+  CAMBIO GFD    ctx= 86 voz=  2: EXE (10,14) -> SilentPatch (-1,-1)
+  CAMBIO GFD    ctx= 86 voz=  3: EXE (25,29) -> SilentPatch (-1,-1)
+  CAMBIO GFD    ctx= 86 voz= 13: EXE (20,33) -> SilentPatch (-1,-1)
+  CAMBIO GFD    ctx= 86 voz= 14: EXE (11,14) -> SilentPatch (-1,-1)
+  CAMBIO GFD    ctx=110 voz=  9: EXE (36,40) -> SilentPatch (-1,-1)
+  CAMBIO GFD    ctx=117 voz=  1: EXE (-1,-1) -> SilentPatch (10,13)
+  CAMBIO GFD    ctx=117 voz=  2: EXE (-1,-1) -> SilentPatch (10,14)
+  CAMBIO GFD    ctx=117 voz=  3: EXE (-1,-1) -> SilentPatch (25,29)
+  CAMBIO GFD    ctx=117 voz= 13: EXE (-1,-1) -> SilentPatch (20,33)
+  CAMBIO GFD    ctx=117 voz= 14: EXE (-1,-1) -> SilentPatch (11,14)
+TABLA GLOBAL opcion=APAGADA   comparadas=1800 entradas que SilentPatch asigna=35 diferencias=0
+TABLA GLOBAL opcion=ENCENDIDA comparadas=1800 entradas que SilentPatch asigna=35 diferencias=0
+EXTREMO A EXTREMO VBFYST2 CHAT                  APAGADA: mudo  ENCENDIDA: suena (sonidos desde 0, elegido 1)
+EXTREMO A EXTREMO VBFYST2 RUN_FROM_FIGHT        APAGADA: mudo  ENCENDIDA: suena (sonidos desde 5, elegido 8)
+EXTREMO A EXTREMO VBFYST2 SAVED                 APAGADA: mudo  ENCENDIDA: suena (sonidos desde 10, elegido 11)
+EXTREMO A EXTREMO VBFYST2 SHOCKED               APAGADA: mudo  ENCENDIDA: suena (sonidos desde 12, elegido 12)
+EXTREMO A EXTREMO VWMOTR1 MUGGED                APAGADA: mudo  ENCENDIDA: suena (sonidos desde 118, elegido 118)
+EXTREMO A EXTREMO LAPDM1 ARREST_CRIM            APAGADA: mudo  ENCENDIDA: suena (sonidos desde 4, elegido 5)
+EXTREMO A EXTREMO FAM5 (modelo FAM3) ATTACK_BY_PLAYER_LIKE  APAGADA: mudo  ENCENDIDA: suena (sonidos desde 34, elegido 34)
+EXTREMO A EXTREMO GFD voz1 SHOP_CLOSED          APAGADA: mudo  ENCENDIDA: suena (sonidos desde 10, elegido 10)
+EXTREMO A EXTREMO GFD voz9 CAR_FIRE             APAGADA: mudo  ENCENDIDA: suena (sonidos desde 36, elegido 38)
+EXTREMO A EXTREMO GFD voz1 CONV_IGNORED         APAGADA: mudo  ENCENDIDA: mudo
+EXTREMO A EXTREMO GANG FAM3 ABUSE_TRIAD         APAGADA: mudo  ENCENDIDA: mudo
+EXTREMO A EXTREMO GANG FAM3 ABUSE_DA_NANG       APAGADA: mudo  ENCENDIDA: mudo
+EXTREMO A EXTREMO GANG LSV1 ABUSE_RIFA          APAGADA: mudo  ENCENDIDA: mudo
+ASIGNACION global= 56 tipo=4 -> especifico=  9: voces con sonidos=6  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=114 tipo=4 -> especifico= 64: voces con sonidos=10  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=133 tipo=4 -> especifico= 67: voces con sonidos=6  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=161 tipo=4 -> especifico= 68: voces con sonidos=3  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=162 tipo=4 -> especifico= 69: voces con sonidos=3  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=163 tipo=4 -> especifico= 70: voces con sonidos=3  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=164 tipo=4 -> especifico= 71: voces con sonidos=3  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=165 tipo=4 -> especifico= 72: voces con sonidos=3  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=166 tipo=4 -> especifico= 73: voces con sonidos=3  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=167 tipo=4 -> especifico= 74: voces con sonidos=3  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=168 tipo=4 -> especifico= 75: voces con sonidos=3  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=169 tipo=4 -> especifico= 76: voces con sonidos=3  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=170 tipo=4 -> especifico= 77: voces con sonidos=3  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=171 tipo=4 -> especifico= 78: voces con sonidos=3  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=179 tipo=4 -> especifico= 80: voces con sonidos=6  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=181 tipo=4 -> especifico= 82: voces con sonidos=6  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=227 tipo=4 -> especifico= 83: voces con sonidos=5  voz 0 APAGADA: mudo  voz 0 ENCENDIDA: suena
+ASIGNACION global=115 tipo=4 -> especifico=107: voces con sonidos=2  voz 7 APAGADA: mudo  voz 7 ENCENDIDA: suena
+ASIGNACION global=184 tipo=0 -> especifico= 93: voces con sonidos=2  voz 75 APAGADA: mudo  voz 75 ENCENDIDA: suena
+ASIGNACION global=184 tipo=4 -> especifico= 86: voces con sonidos=5  voz 1 APAGADA: mudo  voz 1 ENCENDIDA: mudo
+ASIGNACION global=  5 tipo=3 -> especifico= 67: voces con sonidos=13  voz 7 APAGADA: mudo  voz 7 ENCENDIDA: suena
+ASIGNACION global=  7 tipo=3 -> especifico= 66: voces con sonidos=4  voz 7 APAGADA: mudo  voz 7 ENCENDIDA: suena
+ASIGNACION global=  8 tipo=3 -> especifico=109: voces con sonidos=9  voz 27 APAGADA: mudo  voz 27 ENCENDIDA: suena
+PED ESPECIAL maccer    APAGADA: sin voz (voz=-1 tipo=-1 mujer=-1)  ENCENDIDA: con voz (voz=23 tipo=3 mujer=0)
+PED ESPECIAL maddogg   APAGADA: sin voz (voz=-1 tipo=-1 mujer=-1)  ENCENDIDA: sin voz (voz=-1 tipo=-1 mujer=-1)
+PED ESPECIAL macca     APAGADA: con voz (voz=23 tipo=3 mujer=0)  ENCENDIDA: con voz (voz=23 tipo=3 mujer=0)
+VOZ DEL IDE VOICE_GEN_BMYPI       APAGADA: -1  ENCENDIDA: 33
+VOZ DEL IDE VOICE_GEN_WMYSGRAD    APAGADA: -1  ENCENDIDA: 203
+VOZ DEL IDE VOICE_GEN_BYMPI       APAGADA: 33  ENCENDIDA: 33
+VOZ DEL IDE VOICE_GEN_WMYSGRD     APAGADA: 203  ENCENDIDA: 203
+VOZ DEL IDE VOICE_GEN_VBFYST2     APAGADA: 141  ENCENDIDA: 141
+VOZ DEL IDE VOICE_GEN_SBFYST      APAGADA: 93  ENCENDIDA: 93
+VOZ DEL IDE VOICE_GEN_SBFYSTR     APAGADA: 94  ENCENDIDA: 94
+MODELO sbfystr  (voces SBFYST/SWFYST del peds.ide)  APAGADA: VOICE_GEN_SBFYST / VOICE_GEN_SBFYST  ENCENDIDA: VOICE_GEN_SBFYSTR / VOICE_GEN_SBFYSTR
+MODELO SWFYSTR  (voces SBFYST/SWFYST del peds.ide)  APAGADA: VOICE_GEN_SWFYST / VOICE_GEN_SWFYST  ENCENDIDA: VOICE_GEN_SWFYSTR / VOICE_GEN_SWFYSTR
+MODELO sbfyst   (voces SBFYST/SWFYST del peds.ide)  APAGADA: VOICE_GEN_SBFYST / VOICE_GEN_SBFYST  ENCENDIDA: VOICE_GEN_SBFYST / VOICE_GEN_SBFYST
+TURF info=XXX texto=CHC  APAGADA: contexto 0  ENCENDIDA: contexto 208
+TURF info=CHC texto=XXX  APAGADA: contexto 208  ENCENDIDA: contexto 0
+TURF info=ELS texto=ELS  APAGADA: contexto 211  ENCENDIDA: contexto 211
+TURF info=SUN texto=ZZZ  APAGADA: contexto 219  ENCENDIDA: contexto 0
+TURF info=ZZZ texto=SUN  APAGADA: contexto 0  ENCENDIDA: contexto 219
+ESCANER indice 112 EXE=PRP  APAGADA: PRP  ENCENDIDA: PRP
+ESCANER indice 113 EXE=????  APAGADA: ????  ENCENDIDA: WESTP
+ESCANER indice 134 EXE=SUN  APAGADA: SUN  ENCENDIDA: ????
+ESCANER indice 135 EXE=SUN  APAGADA: SUN  ENCENDIDA: SUN
+RESULTADO: diferencias totales en las tablas = 0
