@@ -81,11 +81,18 @@ El único aviso del log común a todas las ejecuciones es `TimeCycle.cpp:186` (l
 
 ### Comparación de imágenes
 
-Las escenas del exe independiente **no son deterministas** a igualdad de segundos (la secuencia inicial de la partida avanza según el tiempo real: a los 120 s la cámara de la escena del coche de policía está en puntos distintos entre dos ejecuciones idénticas), así que una comparación píxel a píxel entre dos ejecuciones da diferencias grandes aunque el código sea el mismo (`propio_log` frente a `propio2`, mismos ejecutables: tamaños de ventana distintos por el estado de `gta_sa.set`, ya normalizado en `correr_d3dx.py`). Lo que sí se comprobó: las mismas escenas en modo propio y en modo DLL muestran los ocupantes con esqueleto (shaders de piel) y el resto; en modo «DLL ausente» desaparecen; y la prueba fuerte de igualdad es la verificación bit a bit dentro del propio juego (sección 5), no la captura. La comparación de escenas fijas del ASI con el EXE original (ropero y marcadores) está en la sección 7.
+Las escenas del exe independiente **no son deterministas** a igualdad de segundos (la secuencia inicial de la partida avanza según el tiempo real: a los 120 s la cámara de la escena del coche de policía está en puntos distintos entre dos ejecuciones idénticas), así que una comparación píxel a píxel entre dos ejecuciones da diferencias grandes aunque el código sea el mismo (`propio_log` frente a `propio2`, mismos ejecutables: tamaños de ventana distintos por el estado de `gta_sa.set`, ya normalizado en `correr_d3dx.py`). Lo que sí se comprobó: las mismas escenas en modo propio y en modo DLL muestran los ocupantes con esqueleto (shaders de piel) y el resto; en modo «DLL ausente» desaparecen; y la prueba fuerte de igualdad es la verificación bit a bit dentro del propio juego (sección 5), no la captura. Las escenas fijas del ASI (ropero y marcadores, sección 7) dan BIEN.
 
 ## 7. Humo con el ASI
 
-(ver más abajo: se rellena con las salidas de `prueba_ropero.py` y `prueba_marcadores.py`.)
+ASI de este árbol (`gta_reversed.asi`, SHA256 `9df49298ef932b3fa52a912bde01723fa79512b04ed32e07f1debf950a582d5b`, enlazado con `reversing/FnD3DX9C/enlazar_asi.py`: los `.obj` de `wv-int` con `d3dx9math`, `D3DX9NativeMath`, `D3DX9NativeAssembler` y `CommandLine` de `over\`) contra el `gta_sa.exe` original de la copia de pruebas, desde `wv-8/reversing/FnBIS1` con `AGUA_ASI=<asi>` y `cal_mal.args` (escena fija: interior, teletransporte frente al ropero):
+
+| Prueba | Resultado |
+|---|---|
+| `python prueba_ropero.py cal_mal.args d3dx_rop` | **VEREDICTO BIEN** (15 entidades, 12 marcadores, puerta y marcador presentes; CJ con esqueleto y tatuajes correctos en `ropero_d3dx_rop.png`) |
+| `python prueba_marcadores.py cal_mal.args d3dx_mar` | **VEREDICTO BIEN** (12 marcadores en memoria, 12 que cambian en 1 s, 6.357 píxeles rojos) |
+
+(Una primera tentativa de `prueba_marcadores.py` abortó con «el candado esta tomado por otra prueba»: otro agente tomó `gta_lock` entre la espera y el lanzamiento; no llegó a tocar nada y se repitió con `humo_marcadores.sh`.) `prueba_agua.py` no se ejecutó (excluida por indicación).
 
 ## 8. Lo que NO se ha cerrado o no se verificó
 

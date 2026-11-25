@@ -1,0 +1,30 @@
+
+== Variante X : DLL arbitraria D:\Original\wv-d3dx\reversing\FnD3DX9C\out\asi\gta_reversed.asi (banco PL1) + INI actual.
+   Argumentos: --unhook=Zzz/Nada   ASI SHA256: 9df49298ef932b3fa52a912bde01723fa79512b04ed32e07f1debf950a582d5b
+   Lanzando gta_sa.exe. Juega; al cerrar el juego se restaura todo solo.
+
+== Resumen
+   variante: X
+   descripcion: DLL arbitraria D:\Original\wv-d3dx\reversing\FnD3DX9C\out\asi\gta_reversed.asi (banco PL1) + INI actual.
+   hora_inicio: 2026-11-24T23:09:18
+   argumentos: --unhook=Zzz/Nada
+   asi_sha256: 9df49298ef932b3fa52a912bde01723fa79512b04ed32e07f1debf950a582d5b
+   ini_usado: ini-actual.ini
+   duracion_segundos: 35.2
+   codigo_salida: 1
+   avisos_caida_a_traves_del_mapa: 0
+   lineas_con_NaN: 0
+   lineas_Pool_h_207: 0
+   lineas_no_se_pudo: 1
+   lineas_hook_cambiado: 0
+   lineas_de_carga_de_partida: [error][23:09:30.767][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+   partidas_sin_cambios_tras_jugar: True
+   robar_ciclos: 0
+   robar_robados: 0
+   robar_ciclos_con_NaN: 0
+   robar_ciclos_con_z_bajo: 0
+   robar_fin: 
+   simulado: False
+   restauracion_verificada_por_hash: True
+   Carpeta: D:\Original\wv-8\reversing\FnBIS1\salidas\Xd3dx_rop-20261124-230911
+Copia de pruebas restaurada y verificada por hash.
