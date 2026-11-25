@@ -548,6 +548,21 @@ if (${RE_PROJECT}_UNITY_BUILD)
         UNITY_BUILD_MODE BATCH
         UNITY_BUILD_BATCH_SIZE 16
     )
+
+    # Los archivos que definen ayudantes en un espacio de nombres anonimo (o con `static` propios) chocan entre si
+    # al concatenarse en un mismo lote (C2084/C2374: misma funcion o constante en dos archivos). Se compilan aparte
+    # (espacio de nombres anonimo o `static`/`constexpr`/`inline` en columna 0).
+    set(_notsa_unity_skipped 0)
+    foreach(_src IN LISTS SOURCE_FILES_WITHOUT_MODULES_LIST)
+        if(_src MATCHES "[.]cpp$")
+            file(READ "${CMAKE_CURRENT_SOURCE_DIR}/${_src}" _src_text)
+            if(_src_text MATCHES "namespace *[{]" OR _src_text MATCHES "\n(static|constexpr|inline) ")
+                set_source_files_properties("${_src}" PROPERTIES SKIP_UNITY_BUILD_INCLUSION ON)
+                math(EXPR _notsa_unity_skipped "${_notsa_unity_skipped} + 1")
+            endif()
+        endif()
+    endforeach()
+    message(STATUS "Unity build: ${_notsa_unity_skipped} files with anonymous namespaces or top-level static/constexpr/inline are excluded from batches")
 endif()
 
 if (${RE_PROJECT}_WITH_LTO)
