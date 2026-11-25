@@ -57,4 +57,4 @@ int32 __stdcall D3DXCompileShaderFromFileW(const wchar_t* srcFile, const void* d
 int32 __stdcall D3DXCompileShaderFromResourceA(void* srcModule, const char* srcResource, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable);
 
 // FnD3DX9B: `--d3dx9-log` registra cada llamada a los cuatro envoltorios de shaders (texto, banderas, HRESULT, tamano del bytecode, errores).
-namespace D3DX9System { extern bool s_LogCalls; }
+namespace D3DX9System { extern bool s_LogCalls; extern int s_Mode; /* FnD3DX9C: 0 propio (defecto), 1 DLL (--d3dx9-dll), 2 verificar (--d3dx9-verificar) */ }

@@ -1,0 +1,21 @@
+exe origen: D:/Original/wv-int/reversing/FnFase8/salida/gta_sa_standalone.exe
+exe en la carpeta de juego: ['gta_sa_standalone.exe']
+dlls en la carpeta de juego: ['eax.dll', 'ogg.dll', 'vorbis.dll', 'vorbisFile.dll', 'vorbisHooked.dll']
+pid=38652 lanzado con espia tras 4.16 s
+t=20 vivo, 116 modulos, d3dx9*/d3dcompiler* cargados: [] ; captura {'ancho': 800, 'alto': 600, 'rojo': 0, 'muestras': 53568, 'media_rgb': [0.2, 0.2, 0.2], 'max': 26}
+t=60 vivo, 117 modulos, d3dx9*/d3dcompiler* cargados: ['C:\\WINDOWS\\SYSTEM32\\d3dx9_43.dll'] ; captura {'ancho': 800, 'alto': 600, 'rojo': 0, 'muestras': 53568, 'media_rgb': [85.4, 67.6, 30.5], 'max': 255}
+t=120 vivo, 117 modulos, d3dx9*/d3dcompiler* cargados: ['C:\\WINDOWS\\SYSTEM32\\d3dx9_43.dll'] ; captura {'ancho': 800, 'alto': 600, 'rojo': 0, 'muestras': 53568, 'media_rgb': [108.3, 123.3, 115.0], 'max': 255}
+exit=0xDEAD0002 duracion=134.3 s
+espia: 43 accesos a d3dx9*/d3dcompiler*, 0 bloqueados
+   18937	32620	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\d3dx9_43.dll
+   18937	32620	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\d3dx9_43.dll
+   18953	32620	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\d3dx9_43.dll
+   18968	32620	NtQueryAttributesFile	\??\D:\Original\_d3dx_run\d3dcompiler_43.dll
+   18968	32620	NtQueryAttributesFile	\??\D:\Original\_d3dx_run\d3dcompiler_43.dll
+   18968	32620	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\d3dcompiler_43.dll
+   18968	32620	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\d3dcompiler_43.dll
+   18968	32620	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\d3dcompiler_43.dll
+   18984	32620	NtQueryAttributesFile	\??\D:\Original\_d3dx_run\d3dcompiler_43.dll
+   18984	32620	NtQueryAttributesFile	\??\D:\Original\_d3dx_run\d3dcompiler_43.dll
+   18984	32620	NtQueryAttributesFile	\??\C:\WINDOWS\SYSTEM32\d3dcompiler_43.dll
+   18984	32620	NtOpenFile	\??\C:\WINDOWS\SYSTEM32\d3dcompiler_43.dll

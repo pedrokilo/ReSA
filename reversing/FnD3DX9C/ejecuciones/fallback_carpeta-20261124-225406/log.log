@@ -1,0 +1,153 @@
+[depuración][22:55:36.703][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][22:55:36.712][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13620 en 1010 clases/grupos (11452 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13620. Desactivadas: 0.
+[info][22:55:36.713][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][22:55:36.713][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][22:55:36.716][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][22:55:36.717][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[info][22:55:37.167][:]: ****************** Backtrace Start ******************
+[depuración][22:55:36.703][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][22:55:36.712][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13620 en 1010 clases/grupos (11452 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13620. Desactivadas: 0.
+[info][22:55:36.713][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][22:55:36.713][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][22:55:36.716][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][22:55:36.717][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[info][22:55:37.168][:]: ****************** Backtrace End ********************
+[info][22:55:37.169][app_debug.cpp:105]: *********UNHANDLED EXCEPTION**********
+[info][22:55:37.169][app_debug.cpp:110]: Código de excepción: 0xc0000005
+[info][22:55:37.169][app_debug.cpp:111]: Indicadores de excepción: 0x00000000
+[info][22:55:37.169][app_debug.cpp:112]: Dirección de excepción: 0x76f8df7f
+[info][22:55:37.169][app_debug.cpp:105]: *********PARAMETERS**********
+[info][22:55:37.170][app_debug.cpp:117]: Parámetros[2]:
+[info][22:55:37.170][app_debug.cpp:119]:        0: 0x00000000
+[info][22:55:37.170][app_debug.cpp:119]:        1: 0x0f12c488
+[info][22:55:37.170][app_debug.cpp:105]: *********REGISTERS**********
+[info][22:55:37.171][app_debug.cpp:129]: 	EAX: 0x0f12c488
+[info][22:55:37.171][app_debug.cpp:129]: 	EBX: 0x00000000
+[info][22:55:37.171][app_debug.cpp:129]: 	ECX: 0x00000000
+[info][22:55:37.171][app_debug.cpp:129]: 	EDX: 0x00005a4d
+[info][22:55:37.171][app_debug.cpp:129]: 	ESI: 0x00000000
+[info][22:55:37.172][app_debug.cpp:129]: 	EDI: 0x00000000
+[info][22:55:37.172][app_debug.cpp:129]: 	EBP: 0x001af0bc
+[info][22:55:37.172][app_debug.cpp:129]: 	ESP: 0x001af088
+[info][22:55:37.172][app_debug.cpp:129]: 	EIP: 0x76f8df7f
+[info][22:55:37.172][app_debug.cpp:129]: 	EFLAGS: 0x00010246
+[info][22:55:37.172][app_debug.cpp:105]: *********CALL STACK**********
+[info][22:55:37.353][app_debug.cpp:212]: 	0x76f8df7f: ntdll!RtlImageNtHeaderEx:0
+[info][22:55:37.354][app_debug.cpp:212]: 	0x76f8adbb: ntdll!RtlImageNtHeader:0
+[info][22:55:37.355][app_debug.cpp:212]: 	0x762c9171: KERNELBASE!FreeLibrary:0
+[info][22:55:37.355][app_debug.cpp:212]: 	0x61815f11: igd12um32xel!<unknown>:0
+[info][22:55:37.356][app_debug.cpp:212]: 	0x617caff1: igd12um32xel!<unknown>:0
+[info][22:55:37.357][app_debug.cpp:212]: 	0x6d96f158: igd12umd32!OpenAdapter12:0
+[info][22:55:37.358][app_debug.cpp:212]: 	0x6db07a3f: D3D12Core!D3D12SDKVersion:0
+[info][22:55:37.359][app_debug.cpp:212]: 	0x6dad1547: D3D12Core!D3D12SDKVersion:0
+[info][22:55:37.359][app_debug.cpp:212]: 	0x6db29d4f: D3D12Core!D3D12SDKVersion:0
+[info][22:55:37.360][app_debug.cpp:212]: 	0x71985460: d3d12!<unknown>:0
+[info][22:55:37.360][app_debug.cpp:212]: 	0x71984636: d3d12!<unknown>:0
+[info][22:55:37.361][app_debug.cpp:212]: 	0x6daef4be: D3D12Core!D3D12SDKVersion:0
+[info][22:55:37.361][app_debug.cpp:212]: 	0x6de62fe4: d3d9on12!OpenAdapter:0
+[info][22:55:37.362][app_debug.cpp:212]: 	0x6de625f4: d3d9on12!<unknown>:0
+[info][22:55:37.362][app_debug.cpp:212]: 	0x7225b8d9: d3d9!<unknown>:0
+[info][22:55:37.362][app_debug.cpp:212]: 	0x7225b779: d3d9!<unknown>:0
+[info][22:55:37.363][app_debug.cpp:212]: 	0x72251c33: d3d9!<unknown>:0
+[info][22:55:37.363][app_debug.cpp:212]: 	0x722505fc: d3d9!<unknown>:0
+[info][22:55:37.364][app_debug.cpp:212]: 	0x72275b5f: d3d9!Direct3DCreate9Ex:0
+[info][22:55:37.364][app_debug.cpp:212]: 	0x72266e81: d3d9!<unknown>:0
+[info][22:55:37.366][app_debug.cpp:212]: 	0x72251c33: d3d9!<unknown>:0
+[info][22:55:37.366][app_debug.cpp:212]: 	0x722505fc: d3d9!<unknown>:0
+[info][22:55:37.482][app_debug.cpp:212]: 	0x72275b5f: d3d9!Direct3DCreate9Ex:0
+[info][22:55:37.484][app_debug.cpp:212]: 	0x02519165: gta_sa_standalone!GetVideoMemInfo:84
+[info][22:55:37.485][app_debug.cpp:212]: 	0x0251bde6: gta_sa_standalone!psInitialize:261
+[info][22:55:37.485][app_debug.cpp:212]: 	0x01bd5ec3: gta_sa_standalone!RsInitialize:266
+[info][22:55:37.486][app_debug.cpp:212]: 	0x00fc65fc: gta_sa_standalone!AppEventHandler:159
+[info][22:55:37.487][app_debug.cpp:212]: 	0x01bd5c08: gta_sa_standalone!RsEventHandler:349
+[info][22:55:37.487][app_debug.cpp:212]: 	0x0251533a: gta_sa_standalone!NOTSA_WinMain:431
+[info][22:55:37.488][app_debug.cpp:212]: 	0x00e4062b: gta_sa_standalone!WinMain:702
+[info][22:55:37.488][app_debug.cpp:212]: 	0x02aa333d: gta_sa_standalone!invoke_main:107
+[info][22:55:37.489][app_debug.cpp:212]: 	0x02aa321a: gta_sa_standalone!__scrt_common_main_seh:288
+[info][22:55:37.489][app_debug.cpp:212]: 	0x02aa30bd: gta_sa_standalone!__scrt_common_main:331
+[info][22:55:37.490][app_debug.cpp:212]: 	0x02aa33a8: gta_sa_standalone!WinMainCRTStartup:17
+[info][22:55:37.490][app_debug.cpp:212]: 	0x00e4383b: gta_sa_standalone!FaseEntrada:673
+[info][22:55:37.490][app_debug.cpp:212]: 	0x75495d49: KERNEL32!BaseThreadInitThunk:0
+[info][22:55:37.491][app_debug.cpp:212]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[info][22:55:37.491][app_debug.cpp:212]: 	0x76fac811: ntdll!RtlGetAppContainerNamedObjectPath:0
+[info][22:55:37.506][app_debug.cpp:105]: *********END OF UNHANDLED EXCEPTION**********
+[depuración][22:55:37.962][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[info][22:55:38.207][rwcore.cpp:7775]: Adaptador de vídeo D3D9: NVIDIA GeForce RTX 3050 Laptop GPU (controlador nvldumd.dll, vendedor 0x10DE)
+[depuración][22:55:38.214][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][22:55:38.249][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][22:55:38.289][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][22:55:38.296][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][22:55:38.297][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][22:55:38.298][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][22:55:38.298][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][22:55:38.299][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][22:55:38.300][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][22:55:38.300][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][22:55:38.300][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][22:55:38.301][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][22:55:38.301][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][22:55:38.969][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][22:55:38.975][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][22:55:38.975][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][22:55:39.125][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][22:55:39.126][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][22:55:39.127][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[depuración][22:55:43.469][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[info][22:55:52.723][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #1 (modo DLL)
+[info][22:55:52.731][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #1 (modo DLL)
+[info][22:55:52.731][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #1 (modo DLL)
+[info][22:55:52.731][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (DLL) llamada #1 (modo DLL)
+[info][22:55:52.735][d3dx9math.cpp:585]: D3DX9 AssembleShader #1: len=753 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=572 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendweight0 v1\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.xyzw, v2\nmul r8, v1.x, c[a0.x + 8]\nmul r9, v1.x, c[a0.x + 9]\nmul r10, v1.x, c[a0.x + 10]\nmad r8'
+[info][22:55:52.736][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #2 (modo DLL)
+[info][22:55:52.736][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #2 (modo DLL)
+[info][22:55:52.737][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (DLL) llamada #2 (modo DLL)
+[info][22:55:52.738][d3dx9math.cpp:585]: D3DX9 AssembleShader #2: len=659 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=500 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendweight0 v1\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.xyz, v2\nmul r8, v1.x, c[a0.x + 8]\nmul r9, v1.x, c[a0.x + 9]\nmul r10, v1.x, c[a0.x + 10]\nmad r8,'
+[info][22:55:52.745][d3dx9math.cpp:585]: D3DX9 AssembleShader #3: len=565 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=428 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendweight0 v1\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.xy, v2\nmul r8, v1.x, c[a0.x + 8]\nmul r9, v1.x, c[a0.x + 9]\nmul r10, v1.x, c[a0.x + 10]\nmad r8, '
+[info][22:55:52.746][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #4 (modo DLL)
+[info][22:55:52.746][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #4 (modo DLL)
+[info][22:55:52.753][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #2 (modo DLL)
+[info][22:55:52.753][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #8 (modo DLL)
+[info][22:55:52.753][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #8 (modo DLL)
+[info][22:55:52.833][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #4 (modo DLL)
+[info][22:55:52.834][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #16 (modo DLL)
+[info][22:55:52.834][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #16 (modo DLL)
+[info][22:55:52.994][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #8 (modo DLL)
+[info][22:55:52.995][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #32 (modo DLL)
+[info][22:55:52.996][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #32 (modo DLL)
+[info][22:55:53.315][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #16 (modo DLL)
+[info][22:55:53.316][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #64 (modo DLL)
+[info][22:55:53.316][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #64 (modo DLL)
+[info][22:55:53.958][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #32 (modo DLL)
+[info][22:55:53.959][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #128 (modo DLL)
+[info][22:55:53.959][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #128 (modo DLL)
+[info][22:55:55.243][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #64 (modo DLL)
+[info][22:55:55.244][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #256 (modo DLL)
+[info][22:55:55.244][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #256 (modo DLL)
+[info][22:55:57.814][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #128 (modo DLL)
+[info][22:55:58.216][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #512 (modo DLL)
+[info][22:55:58.217][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #512 (modo DLL)
+[info][22:55:59.581][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (DLL) llamada #4 (modo DLL)
+[info][22:55:59.583][d3dx9math.cpp:585]: D3DX9 AssembleShader #4: len=1058 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=732 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendweight0 v1\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.xyz, v2\nmul r8, v1.x, c[a0.x + 20]\nmul r9, v1.x, c[a0.x + 21]\nmul r10, v1.x, c[a0.x + 22]\nmad r'
+[info][22:55:59.584][d3dx9math.cpp:585]: D3DX9 AssembleShader #5: len=962 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=660 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendweight0 v1\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.xy, v2\nmul r8, v1.x, c[a0.x + 20]\nmul r9, v1.x, c[a0.x + 21]\nmul r10, v1.x, c[a0.x + 22]\nmad r8'
+[info][22:56:00.626][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #1024 (modo DLL)
+[info][22:56:02.956][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #256 (modo DLL)
+[info][22:56:03.471][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #2048 (modo DLL)
+[info][22:56:05.640][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #1024 (modo DLL)
+[info][22:56:07.649][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #4096 (modo DLL)
+[info][22:56:13.239][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #512 (modo DLL)
+[info][22:56:15.887][d3dx9math.cpp:585]: D3DX9 AssembleShader #6: len=391 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=292 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.x, v2.x\nm4x3 r3.xyz, v0, c[a0.x + 8]\nm3x3 r5.xyz, v3, c[a0.x + 8]\nmov r3.w, v0.w\nm4x4 oPos.xyzw, r3, c[0]\ndp4 r0.w,'
+[info][22:56:18.770][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #2048 (modo DLL)
+[info][22:56:35.433][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #1024 (modo DLL)
+[info][22:56:38.245][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #4096 (modo DLL)
+[info][22:56:38.935][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #8192 (modo DLL)
+[info][22:57:16.566][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #2048 (modo DLL)
+[info][22:57:19.058][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #8192 (modo DLL)
+[info][22:57:42.781][d3dx9math.cpp:585]: D3DX9 AssembleShader #7: len=790 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=588 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendweight0 v1\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.xyzw, v2\nmul r8, v1.x, c[a0.x + 9]\nmul r9, v1.x, c[a0.x + 10]\nmul r10, v1.x, c[a0.x + 11]\nmad r'
+[info][22:57:43.183][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (DLL) llamada #8 (modo DLL)
+[info][22:57:43.185][d3dx9math.cpp:585]: D3DX9 AssembleShader #8: len=821 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=608 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendweight0 v1\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.xyzw, v2\nmul r8, v1.x, c[a0.x + 10]\nmul r9, v1.x, c[a0.x + 11]\nmul r10, v1.x, c[a0.x + 12]\nmad '
+[info][22:57:43.186][d3dx9math.cpp:585]: D3DX9 AssembleShader #9: len=725 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=536 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendweight0 v1\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.xyz, v2\nmul r8, v1.x, c[a0.x + 10]\nmul r9, v1.x, c[a0.x + 11]\nmul r10, v1.x, c[a0.x + 12]\nmad r'
+[info][22:57:43.755][d3dx9math.cpp:585]: D3DX9 AssembleShader #10: len=946 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=680 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendweight0 v1\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.xyzw, v2\nmul r8, v1.x, c[a0.x + 14]\nmul r9, v1.x, c[a0.x + 15]\nmul r10, v1.x, c[a0.x + 16]\nmad '
+[info][22:57:44.115][d3dx9math.cpp:585]: D3DX9 AssembleShader #11: len=884 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=644 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendweight0 v1\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.xyzw, v2\nmul r8, v1.x, c[a0.x + 12]\nmul r9, v1.x, c[a0.x + 13]\nmul r10, v1.x, c[a0.x + 14]\nmad '
+[info][22:57:44.118][d3dx9math.cpp:585]: D3DX9 AssembleShader #12: len=788 flagsEXE=0x4 flagsDLL=0x0 hr=0x00000000 bytecode=572 bytes errores='' fuente(200)='vs_2_x\ndcl_position0 v0\ndcl_blendweight0 v1\ndcl_blendindices0 v2\ndcl_normal0 v3\ndcl_texcoord0 v5\nmova a0.xyz, v2\nmul r8, v1.x, c[a0.x + 12]\nmul r9, v1.x, c[a0.x + 13]\nmul r10, v1.x, c[a0.x + 14]\nmad r'

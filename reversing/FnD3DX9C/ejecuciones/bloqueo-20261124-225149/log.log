@@ -1,0 +1,83 @@
+[depuración][22:51:54.361][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][22:51:54.370][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13620 en 1010 clases/grupos (11452 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13620. Desactivadas: 0.
+[info][22:51:54.370][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][22:51:54.371][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][22:51:54.374][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][22:51:54.381][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][22:51:55.255][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[info][22:51:55.490][rwcore.cpp:7775]: Adaptador de vídeo D3D9: NVIDIA GeForce RTX 3050 Laptop GPU (controlador nvldumd.dll, vendedor 0x10DE)
+[depuración][22:51:55.495][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][22:51:55.528][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][22:51:55.574][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][22:51:55.583][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][22:51:55.584][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][22:51:55.584][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][22:51:55.585][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][22:51:55.585][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][22:51:55.585][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][22:51:55.586][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][22:51:55.586][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][22:51:55.586][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][22:51:55.587][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][22:51:56.182][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][22:51:56.188][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][22:51:56.188][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][22:51:56.333][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][22:51:56.334][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][22:51:56.335][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[depuración][22:52:00.670][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[info][22:52:09.944][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #1 (modo propio)
+[info][22:52:09.945][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #1 (modo propio)
+[info][22:52:09.945][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #1 (modo propio)
+[info][22:52:09.947][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (propio) llamada #1 (modo propio)
+[info][22:52:09.947][d3dx9math.cpp:654]: D3DX9 AssembleShader propio #1: len=753 flagsEXE=0x4 hr=0x00000000 bytecode=572 bytes
+[info][22:52:09.948][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #2 (modo propio)
+[info][22:52:09.949][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #2 (modo propio)
+[info][22:52:09.949][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (propio) llamada #2 (modo propio)
+[info][22:52:09.950][d3dx9math.cpp:654]: D3DX9 AssembleShader propio #2: len=659 flagsEXE=0x4 hr=0x00000000 bytecode=500 bytes
+[info][22:52:09.957][d3dx9math.cpp:654]: D3DX9 AssembleShader propio #3: len=565 flagsEXE=0x4 hr=0x00000000 bytecode=428 bytes
+[info][22:52:09.958][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #4 (modo propio)
+[info][22:52:09.959][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #4 (modo propio)
+[info][22:52:09.966][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #2 (modo propio)
+[info][22:52:09.967][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #8 (modo propio)
+[info][22:52:09.967][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #8 (modo propio)
+[info][22:52:10.047][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #4 (modo propio)
+[info][22:52:10.048][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #16 (modo propio)
+[info][22:52:10.048][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #16 (modo propio)
+[info][22:52:10.208][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #8 (modo propio)
+[info][22:52:10.208][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #32 (modo propio)
+[info][22:52:10.209][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #32 (modo propio)
+[info][22:52:10.530][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #16 (modo propio)
+[info][22:52:10.530][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #64 (modo propio)
+[info][22:52:10.531][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #64 (modo propio)
+[info][22:52:11.171][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #32 (modo propio)
+[info][22:52:11.172][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #128 (modo propio)
+[info][22:52:11.172][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #128 (modo propio)
+[info][22:52:12.457][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #64 (modo propio)
+[info][22:52:12.458][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #256 (modo propio)
+[info][22:52:12.458][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #256 (modo propio)
+[info][22:52:15.028][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #128 (modo propio)
+[info][22:52:15.429][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #512 (modo propio)
+[info][22:52:15.430][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #512 (modo propio)
+[info][22:52:16.795][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (propio) llamada #4 (modo propio)
+[info][22:52:16.796][d3dx9math.cpp:654]: D3DX9 AssembleShader propio #4: len=1058 flagsEXE=0x4 hr=0x00000000 bytecode=732 bytes
+[info][22:52:16.797][d3dx9math.cpp:654]: D3DX9 AssembleShader propio #5: len=962 flagsEXE=0x4 hr=0x00000000 bytecode=660 bytes
+[info][22:52:17.839][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #1024 (modo propio)
+[info][22:52:20.169][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #256 (modo propio)
+[info][22:52:20.685][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #2048 (modo propio)
+[info][22:52:22.854][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #1024 (modo propio)
+[info][22:52:24.862][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #4096 (modo propio)
+[info][22:52:30.452][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #512 (modo propio)
+[info][22:52:33.102][d3dx9math.cpp:654]: D3DX9 AssembleShader propio #6: len=391 flagsEXE=0x4 hr=0x00000000 bytecode=292 bytes
+[info][22:52:35.984][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #2048 (modo propio)
+[info][22:52:52.647][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #1024 (modo propio)
+[info][22:52:55.427][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #4096 (modo propio)
+[info][22:52:55.990][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #8192 (modo propio)
+[info][22:53:33.780][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #2048 (modo propio)
+[info][22:53:36.317][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #8192 (modo propio)
+[info][22:53:57.974][d3dx9math.cpp:654]: D3DX9 AssembleShader propio #7: len=790 flagsEXE=0x4 hr=0x00000000 bytecode=588 bytes
+[info][22:54:00.823][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (propio) llamada #8 (modo propio)
+[info][22:54:00.824][d3dx9math.cpp:654]: D3DX9 AssembleShader propio #8: len=884 flagsEXE=0x4 hr=0x00000000 bytecode=644 bytes
+[info][22:54:01.184][d3dx9math.cpp:654]: D3DX9 AssembleShader propio #9: len=821 flagsEXE=0x4 hr=0x00000000 bytecode=608 bytes
+[info][22:54:01.186][d3dx9math.cpp:654]: D3DX9 AssembleShader propio #10: len=725 flagsEXE=0x4 hr=0x00000000 bytecode=536 bytes

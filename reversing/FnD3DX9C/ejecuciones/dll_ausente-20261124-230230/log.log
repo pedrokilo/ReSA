@@ -1,0 +1,75 @@
+[depuración][23:05:21.338][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][23:05:21.347][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13620 en 1010 clases/grupos (11452 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13620. Desactivadas: 0.
+[info][23:05:21.347][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][23:05:21.347][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][23:05:21.357][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][23:05:21.360][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][23:05:22.382][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[info][23:05:22.639][rwcore.cpp:7775]: Adaptador de vídeo D3D9: NVIDIA GeForce RTX 3050 Laptop GPU (controlador nvldumd.dll, vendedor 0x10DE)
+[depuración][23:05:22.654][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][23:05:22.701][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][23:05:22.748][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][23:05:22.756][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][23:05:22.757][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][23:05:22.757][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][23:05:22.758][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][23:05:22.758][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][23:05:22.759][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][23:05:22.759][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][23:05:22.759][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][23:05:22.760][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][23:05:22.760][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][23:05:23.383][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][23:05:23.392][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][23:05:23.392][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][23:05:23.555][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][23:05:23.556][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][23:05:23.557][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[depuración][23:05:27.973][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[info][23:05:37.256][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #1 (modo DLL)
+[error][23:05:37.258][d3dx9math.cpp:427]: D3DX9: no se pudo cargar d3dx9_43.dll (instale el Runtime de usuario final de DirectX de junio de 2010); las funciones de D3DX9 devolveran error
+[info][23:05:37.258][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #1 (modo DLL)
+[info][23:05:37.259][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #1 (modo DLL)
+[info][23:05:37.259][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (DLL) llamada #1 (modo DLL)
+[error][23:05:37.261][d3dx9math.cpp:427]: D3DX9: no se pudo cargar d3dx9_43.dll (instale el Runtime de usuario final de DirectX de junio de 2010); las funciones de D3DX9 devolveran error
+[info][23:05:37.262][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #2 (modo DLL)
+[info][23:05:37.262][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #2 (modo DLL)
+[info][23:05:37.263][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (DLL) llamada #2 (modo DLL)
+[info][23:05:37.265][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #4 (modo DLL)
+[info][23:05:37.265][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #4 (modo DLL)
+[info][23:05:37.272][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #2 (modo DLL)
+[info][23:05:37.272][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #8 (modo DLL)
+[info][23:05:37.272][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #8 (modo DLL)
+[info][23:05:37.352][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #4 (modo DLL)
+[info][23:05:37.353][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #16 (modo DLL)
+[info][23:05:37.353][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #16 (modo DLL)
+[info][23:05:37.512][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #8 (modo DLL)
+[info][23:05:37.513][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #32 (modo DLL)
+[info][23:05:37.513][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #32 (modo DLL)
+[info][23:05:37.834][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #16 (modo DLL)
+[info][23:05:37.835][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #64 (modo DLL)
+[info][23:05:37.835][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #64 (modo DLL)
+[info][23:05:38.477][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #32 (modo DLL)
+[info][23:05:38.477][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #128 (modo DLL)
+[info][23:05:38.478][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #128 (modo DLL)
+[info][23:05:39.762][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #64 (modo DLL)
+[info][23:05:39.763][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #256 (modo DLL)
+[info][23:05:39.763][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #256 (modo DLL)
+[info][23:05:42.333][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #128 (modo DLL)
+[info][23:05:42.734][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #512 (modo DLL)
+[info][23:05:42.736][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #512 (modo DLL)
+[info][23:05:44.148][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (DLL) llamada #4 (modo DLL)
+[info][23:05:45.225][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #1024 (modo DLL)
+[info][23:05:47.475][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #256 (modo DLL)
+[info][23:05:48.037][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #2048 (modo DLL)
+[info][23:05:50.211][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #1024 (modo DLL)
+[info][23:05:52.220][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #4096 (modo DLL)
+[info][23:05:57.763][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #512 (modo DLL)
+[info][23:06:03.230][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #2048 (modo DLL)
+[info][23:06:19.893][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #1024 (modo DLL)
+[info][23:06:22.706][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #4096 (modo DLL)
+[info][23:06:23.347][d3dx9math.cpp:456]: D3DX9 uso: D3DXVec3TransformNormal llamada #8192 (modo DLL)
+[info][23:07:01.026][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiply llamada #2048 (modo DLL)
+[info][23:07:03.517][d3dx9math.cpp:456]: D3DX9 uso: D3DXMatrixMultiplyTranspose (siempre propia) llamada #8192 (modo DLL)
+[info][23:07:27.619][d3dx9math.cpp:456]: D3DX9 uso: D3DXAssembleShader (DLL) llamada #8 (modo DLL)
