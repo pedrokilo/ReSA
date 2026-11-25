@@ -10,7 +10,7 @@ Uso: pwsh -File ejecutar_comparar.ps1 -Modo orig -Etiqueta o1 -Limite 600 -Sonda
 param([ValidateSet('orig','std','asi')][string]$Modo = 'orig', [string]$Etiqueta = 'x', [int]$Limite = 600, [string]$Sonda = '', [string]$SondaArgs = '', [string]$Exe = '', [string]$Asi = '', [string]$AsiArgs = '', [string]$StdArgs = '--shims', [string]$IniExtra = '', [switch]$Espia, [int]$Cap = 0)
 $ErrorActionPreference = 'Stop'
 $aqui = 'D:\Original\wv-int\reversing\FnComparar'; $aquiC = $PSScriptRoot
-$base = 'D:\Original\_comparar'
+$base = 'D:\Original\_color_base'
 $sal = Join-Path $aquiC ("ejecuciones\{0}-{1}" -f $Etiqueta, (Get-Date -Format 'yyyyMMdd-HHmmss'))
 New-Item -ItemType Directory -Force $sal | Out-Null
 while ($true) { try { New-Item -ItemType Directory 'D:\Original\gta_lock' -ErrorAction Stop | Out-Null; break } catch { Start-Sleep 5 } }

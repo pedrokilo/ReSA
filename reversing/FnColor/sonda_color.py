@@ -39,7 +39,21 @@ def leer_estado(j, sim, tag):
     d['vehiculos'] = vs
     j.P('ESTADO', json.dumps(d))
     return d
+def foto_bitblt(j, nombre, desc=''):
+    # original ventaneado: PrintWindow sale negro; BitBlt de pantalla con la ventana al frente (como FnComparar/comparar.py)
+    sys.path.insert(0, 'D:/Original/wv-int/reversing/FnComparar'); import capt2, png_util
+    from ctypes import wintypes
+    h = SJ.captura.buscar(); uu = SJ.u
+    uu.SetWindowPos.argtypes = [wintypes.HWND, wintypes.HWND, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, wintypes.UINT]
+    uu.ShowWindow(h, 9); uu.SetWindowPos(wintypes.HWND(h), wintypes.HWND(-1), 0, 0, 0, 0, 0x0001 | 0x0002 | 0x0040); uu.SetForegroundWindow(h); time.sleep(0.4)
+    for _ in range(3):
+        w, hh, rgb = capt2.bitblt(h)
+        if max(rgb) > 20: break
+        time.sleep(0.5)
+    png_util.escribir(os.path.join(j.sal, nombre + '.png'), w, hh, rgb, 6)
+    j.P('captura', nombre, w, hh, [round(x, 1) for x in png_util.media(w, hh, rgb)], desc)
 def esc_color(j):
+    if '--original' in sys.argv: j.foto = lambda n, d='': foto_bitblt(j, n, d)
     sim = ({'vB4E3E8': 0xB4E3E8, 'vB4E3F0': 0xB4E3F0, 'vB73402': 0xB73402, 'vBAA38A': 0xBAA38A, 'vC1CC01': 0xC1CC01} if '--original' in sys.argv else simbolos(arg('--map'))); j.P('simbolos', {k: hex(v) for k, v in sim.items()})
     horas = [int(h) for h in arg('--horas', '12,22').split(',')]
     suelo_libre(j)
@@ -48,7 +62,7 @@ def esc_color(j):
         j.hora = h; j.dormir(4)
         res.append(leer_estado(j, sim, 'h%d_sin_spawn' % h))
         j.foto('h%02d_calle' % h, 'calle con trafico, hora %d' % h)
-    for codigo in ('RZHSUEW', 'UBHYZHQ', 'PRIEBJ', 'JHJOECW'):
+    for codigo in arg('--codigos', 'RZHSUEW,UBHYZHQ,PRIEBJ,JHJOECW').split(','):
         if not j.alive(): break
         v = spawn_coche(j, codigo)
         for h in horas:
@@ -85,8 +99,9 @@ def arranque_orig():
             t7 = t7 or time.time()
             if time.time() - t7 > 3 and time.time() - ult > 1.8:
                 ult = time.time(); foco(); time.sleep(0.2); ah = hashlib.md5(m.rd(0xBA6748, 0x400) or b'').hexdigest()
-                if i > 0 and ah == ah0 and i <= len(seq): teclas.tecla(seq[i - 1], 0.15)
-                elif i < len(seq): k = seq[i]; i += 1; ah0 = ah; tm = time.time(); teclas.tecla(k, 0.15)
+                print('menu', i, ah[:6], ah0 and ah0[:6], flush=True)
+                if i > 0 and ah == ah0 and i <= len(seq): print('repite', seq[i - 1], flush=True); teclas.tecla(seq[i - 1], 0.15)
+                elif i < len(seq): k = seq[i]; i += 1; ah0 = ah; tm = time.time(); print('tecla', k, flush=True); teclas.tecla(k, 0.15)
                 elif time.time() - tm > 12:
                     for _ in range(3): teclas.tecla('esc')
                     i = 0; tm = time.time()
