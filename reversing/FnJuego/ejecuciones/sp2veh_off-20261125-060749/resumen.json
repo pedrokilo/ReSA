@@ -1,0 +1,28 @@
+{
+ "sp2veh": {
+  "rondas": [
+   12,
+   4,
+   4,
+   4,
+   4,
+   4
+  ],
+  "coches_destruidos": 30,
+  "ruedas_perdidas_por_indice(DI,TI,DD,TD)": [
+   10,
+   11,
+   9,
+   0
+  ],
+  "con_paneles_danados": 0,
+  "Hydra": {
+   "modelo": 526,
+   "vel": 0.19
+  },
+  "Rhino": {
+   "modelo": 432,
+   "vel": 0.17
+  }
+ }
+}

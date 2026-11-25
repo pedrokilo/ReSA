@@ -254,7 +254,9 @@ void CDamageManager::ResetDamageStatusAndWheelDamage() {
 void CDamageManager::FuckCarCompletely(bool bDontDetachWheel) {
     if (!bDontDetachWheel) {
         // Como el original: (rand() & 0xFFFF) * (1/32768) * -3.0, truncado y restado al puntero: ruedas 0..2 (nunca la 3)
-        const auto k = (int32)((float)CGeneral::GetRandomNumber() * 3.0517578125e-05f * -3.0f);
+        // SilentPatch (MIT, Silent): el rango pasa de -3.0 a -4.0 y la rueda trasera derecha tambien puede perderse; opcion "ExplodedCarWheels"
+        const float wheelRange = SilentPatchOption("ExplodedCarWheels", true) ? -4.0f : -3.0f;
+        const auto k = (int32)((float)CGeneral::GetRandomNumber() * 3.0517578125e-05f * wheelRange);
         m_anWheelsStatus.data()[-k] = WHEEL_STATUS_MISSING;
     }
 
@@ -267,7 +269,10 @@ void CDamageManager::FuckCarCompletely(bool bDontDetachWheel) {
 
     // Como el original: se ponen a cero las dwords completas de luces y paneles
     m_nLightsStatus = 0;
-    m_nPanelsStatus = 0;
+    // SilentPatch (MIT, Silent): los paneles no se reparan al instante (se pueden balancear tras la explosion); opcion "ExplosionPanelsSwing"
+    if (!SilentPatchOption("ExplosionPanelsSwing", true)) {
+        m_nPanelsStatus = 0;
+    }
     m_nEngineStatus = 250;
 }
 

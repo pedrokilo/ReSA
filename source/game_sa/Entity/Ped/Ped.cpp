@@ -3443,6 +3443,9 @@ void CPed::PreRenderAfterTest()
             drivingOpenTopVeh = true;
         } else if (m_pVehicle->IsAutomobile() && m_pVehicle->IsOpenTopCar()) {
             drivingOpenTopVeh = true;
+        } else if (static const bool spQuadWind = SilentPatchOption("QuadbikeWindAnims", true); spQuadWind && m_pVehicle->IsAutomobile() && m_pVehicle->m_nVehicleSubType == VEHICLE_TYPE_QUAD) {
+            // SilentPatch (MIT, Silent; Wesser): el viento tambien mueve la ropa de CJ al conducir un cuatrimoto (IsOpenTopCarOrQuadbike); opcion "QuadbikeWindAnims"
+            drivingOpenTopVeh = true;
         }
     }
 

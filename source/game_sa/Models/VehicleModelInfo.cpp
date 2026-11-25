@@ -41,6 +41,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "Entity/Vehicle/SilentPatchVehicles.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -409,6 +410,31 @@ void CVehicleModelInfo::SetClump(RpClump* clump)
     SetRenderPipelines();
     PreprocessHierarchy();
     ReduceMaterialsInVehicle();
+    // SilentPatch (MIT, Silent): el EXE 1.0 nunca rellenaba la lista de materiales de suciedad (m_apDirtMaterials; si, el 1.01), asi que los coches sucios no se podian limpiar.
+    // Se guardan los materiales con la textura "vehiclegrunge256" del clump y de los extras (hasta 32, como el array); opcion "CleanDirt"
+    if (static const bool spCleanDirt = SilentPatchOption("CleanDirt", true); spCleanDirt) {
+        m_apDirtMaterials.fill(nullptr);
+        size_t numDirt = 0;
+        const auto collect = [&](RpAtomic* atomic) {
+            std::pair<CVehicleModelInfo*, size_t*> state{ this, &numDirt };
+            RpGeometryForAllMaterials(RpAtomicGetGeometry(atomic), [](RpMaterial* material, void* data) -> RpMaterial* {
+                auto& self = *static_cast<std::pair<CVehicleModelInfo*, size_t*>*>(data);
+                if (RwTexture* const texture = RpMaterialGetTexture(material)) {
+                    if (_stricmp(RwTextureGetName(texture), "vehiclegrunge256") == 0 && *self.second < self.first->m_apDirtMaterials.size()) {
+                        self.first->m_apDirtMaterials[(*self.second)++] = material;
+                    }
+                }
+                return material;
+            }, &state);
+        };
+        RpClumpForAllAtomics(GetRpClump(), [](RpAtomic* atomic, void* data) -> RpAtomic* {
+            (*static_cast<decltype(collect)*>(data))(atomic);
+            return atomic;
+        }, const_cast<void*>(static_cast<const void*>(&collect)));
+        for (int32 i = 0; i < static_cast<int8>(m_pVehicleStruct->m_nNumExtras); ++i) {
+            collect(m_pVehicleStruct->m_apExtras.data()[i]);
+        }
+    }
     m_nCurrentPrimaryColor = 255;
     m_nCurrentSecondaryColor = 255;
     m_nCurrentTertiaryColor = 255;
@@ -725,6 +751,14 @@ void CVehicleModelInfo::ReduceMaterialsInVehicle()
 // 0x4C9450
 void CVehicleModelInfo::SetCarCustomPlate()
 {
+    // SilentPatch (MIT, Silent): el modelo ya no genera una matricula compartida (cada vehiculo crea la suya); m_pPlateMaterial queda con un marcador no nulo
+    // (el generador de coches comprueba que no sea nulo para dar el texto de la matricula); opcion "UniqueNumberPlates"
+    if (static const bool spUniquePlates = SilentPatchOption("UniqueNumberPlates", true); spUniquePlates) {
+        m_pPlateMaterial = SilentPatchVehicles::PlateMaterialPlaceholder();
+        SetCustomCarPlateText(nullptr);
+        m_nPlateType = CARPLATE_DEFAULT;
+        return;
+    }
     m_pPlateMaterial = nullptr;
     SetCustomCarPlateText(nullptr);
     
@@ -889,8 +923,11 @@ void CVehicleModelInfo::PreprocessHierarchy()
                     RpClumpAddAtomic(GetRpClump(), pClone);
                     // Como el original (0x4C920F..0x4C9215: push 7323C0h; call 0x7328A0): la rueda clonada también recibe RenderWheelAtomicCB
                     CVisibilityPlugins::SetAtomicRenderCallback(pClone, CVisibilityPlugins::RenderWheelAtomicCB);
-                    if (nameIdAssoc->m_dwHierarchyId != CAR_WHEEL_RF
+                    // SilentPatch (MIT, Silent): los remolques tambien reciben las ruedas dobles (aunque su id sea 2 o 5) y la rueda nueva no se marca como matriz identidad; opcion "DoubleRearWheels"
+                    static const bool spDoubleRearWheels = SilentPatchOption("DoubleRearWheels", true);
+                    if ((nameIdAssoc->m_dwHierarchyId != CAR_WHEEL_RF
                         && nameIdAssoc->m_dwHierarchyId != CAR_WHEEL_LF
+                        || (spDoubleRearWheels && IsTrailer()))
                         && handling.m_bDoubleRwheels) {
 
                         auto clone2 = RpAtomicClone(mainWheelAtomic);
@@ -903,7 +940,11 @@ void CVehicleModelInfo::PreprocessHierarchy()
                         *RwMatrixGetUp(matrix)    = { 0.0F, 1.0F, 0.0F };
                         *RwMatrixGetAt(matrix)    = { 0.0F, 0.0F, 1.0F };
                         *RwMatrixGetPos(matrix)   = { fOffset, 0.0F, 0.0F };
-                        matrix->flags |= (rwMATRIXINTERNALIDENTITY | rwMATRIXTYPEORTHONORMAL);
+                        if (spDoubleRearWheels) {
+                            matrix->flags &= ~(rwMATRIXTYPEMASK | rwMATRIXINTERNALIDENTITY); // SilentPatch: la matriz no es la identidad (tiene desplazamiento)
+                        } else {
+                            matrix->flags |= (rwMATRIXINTERNALIDENTITY | rwMATRIXTYPEORTHONORMAL);
+                        }
                         RpClumpAddAtomic(GetRpClump(), clone2);
                         CVisibilityPlugins::SetAtomicRenderCallback(clone2, CVisibilityPlugins::RenderWheelAtomicCB);
                     }
@@ -918,6 +959,23 @@ void CVehicleModelInfo::PreprocessHierarchy()
         }
 
         nameIdAssoc++;
+    }
+
+    // SilentPatch (MIT, Silent): Hunter y demas vehiculos con las animaciones del Rustler (puerta que abre hacia arriba): la puerta izquierda delantera deja de marcarse "izquierda"
+    // y el interior ya no desaparece al verla desde el lado derecho; opcion "HunterDoorRenderFix"
+    if (static const bool spHunterDoor = SilentPatchOption("HunterDoorRenderFix", true); spHunterDoor) {
+        const int32 animFileIndex = GetAnimFileIndex();
+        if (animFileIndex != -1) {
+            static const int32 rustlerAnimFileIndex = CAnimManager::GetAnimationBlockIndex("rustler");
+            if (animFileIndex == rustlerAnimFileIndex) {
+                RpClumpForAllAtomics(GetRpClump(), [](RpAtomic* atomic, void*) -> RpAtomic* {
+                    if (strncmp(GetFrameNodeName(RpAtomicGetFrame(atomic)), "door_lf", 7) == 0) {
+                        CVisibilityPlugins::ClearAtomicFlag(atomic, ATOMIC_LEFT);
+                    }
+                    return atomic;
+                }, nullptr);
+            }
+        }
     }
 }
 
@@ -1033,6 +1091,16 @@ RpMaterial* CVehicleModelInfo::SetEditableMaterialsCB(RpMaterial* material, void
             (*ppEntries)->m_pAddress = RpMaterialGetSurfaceProperties(material);
             (*ppEntries)->m_pValue = *(void**)RpMaterialGetSurfaceProperties(material);
             (*ppEntries)++;
+            // SilentPatch (MIT, Silent): el EXE solo restauraba la primera de las tres propiedades de superficie (ambiente, especular, difusa); las luces encendidas dejaban
+            // el material alterado y se oscurecian (LightMaterialsFix); se guardan tambien las otras dos; opcion "VehicleLightsStayLit"
+            if (static const bool spLightsFix = SilentPatchOption("VehicleLightsStayLit", true); spLightsFix) {
+                for (size_t k = 1; k < 3; ++k) {
+                    auto* const address = reinterpret_cast<uint8*>(RpMaterialGetSurfaceProperties(material)) + k * sizeof(float);
+                    (*ppEntries)->m_pAddress = address;
+                    (*ppEntries)->m_pValue = *reinterpret_cast<void**>(address);
+                    (*ppEntries)++;
+                }
+            }
 
             material->texture = ms_pLightsOnTexture;
             RpMaterialSetSurfaceProperties(material, &gLightSurfProps);
@@ -1232,6 +1300,15 @@ RpAtomic* CVehicleModelInfo::SetAtomicRendererCB_RealHeli(RpAtomic* atomic, void
             CVisibilityPlugins::SetAtomicRenderCallback(atomic, CVisibilityPlugins::RenderVehicleHiDetailCB);
     }
 
+    // SilentPatch (MIT, Silent): los rotores estaticos tambien usan el callback de alfa para que se desvanezcan; opcion "RotorBlur"
+    if (SilentPatchVehicles::RotorBlurEnabled()) {
+        if (!strcmp(nodeName, "static_rotor")) {
+            CVisibilityPlugins::SetAtomicRenderCallback(atomic, CVisibilityPlugins::RenderHeliRotorAlphaCB);
+        } else if (!strcmp(nodeName, "static_rotor2")) {
+            CVisibilityPlugins::SetAtomicRenderCallback(atomic, CVisibilityPlugins::RenderHeliTailRotorAlphaCB);
+        }
+    }
+
     HideDamagedAtomicCB(atomic, nullptr);
     return atomic;
 }
@@ -1251,6 +1328,11 @@ RpAtomic* CVehicleModelInfo::SetAtomicRendererCB_Plane(RpAtomic* atomic, void* d
             CVisibilityPlugins::SetAtomicRenderCallback(atomic, CVisibilityPlugins::RenderVehicleHiDetailAlphaCB_BigVehicle);
         else
             CVisibilityPlugins::SetAtomicRenderCallback(atomic, CVisibilityPlugins::RenderVehicleHiDetailCB_BigVehicle);
+    }
+
+    // SilentPatch (MIT, Silent): las helices de los aviones ("_prop") se dibujan con el callback de alfa (efecto de desenfoque); opcion "RotorBlur"
+    if (SilentPatchVehicles::RotorBlurEnabled() && strstr(nodeName, "_prop") != nullptr) {
+        CVisibilityPlugins::SetAtomicRenderCallback(atomic, CVisibilityPlugins::RenderVehicleHiDetailAlphaCB_BigVehicle);
     }
 
     HideDamagedAtomicCB(atomic, nullptr);
@@ -1357,7 +1439,9 @@ void CVehicleModelInfo::DeleteVehicleColourTextures() {
 // 0x5D5DB0
 void CVehicleModelInfo::SetDirtTextures(CVehicleModelInfo* info, int32 dirtLevel)
 {
-    for (auto i = 0; i < CCarFXRenderer::NUM_DIRT_TEXTURES; ++i)
+    // SilentPatch (MIT, Silent): se recorre toda la lista de materiales de suciedad (32), no solo los 16 primeros del EXE; opcion "CleanDirt"
+    static const bool spCleanDirt = SilentPatchOption("CleanDirt", true);
+    for (auto i = 0; i < (spCleanDirt ? static_cast<int32>(info->m_apDirtMaterials.size()) : CCarFXRenderer::NUM_DIRT_TEXTURES); ++i)
         if (info->m_apDirtMaterials[i])
             RpMaterialSetTexture(info->m_apDirtMaterials[i], CCarFXRenderer::ms_aDirtTextures[dirtLevel]);
 }

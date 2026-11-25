@@ -392,7 +392,9 @@ RwTexture* CCustomCarPlateMgr::CreatePlateTexture(const char* text, uint8 plateT
 
     if (const auto plateTex = RwTextureCreate(plateRaster)) {
         RwTextureSetName(plateTex, text);
-        RwTextureSetFilterMode(plateTex, rwFILTERNEAREST);
+        // SilentPatch (MIT, Silent): las matriculas se filtran de forma bilineal (aspecto mas suave); opcion "BilinearNumberPlates"
+        static const bool spBilinear = SilentPatchOption("BilinearNumberPlates", true);
+        RwTextureSetFilterMode(plateTex, spBilinear ? rwFILTERLINEAR : rwFILTERNEAREST);
         return plateTex;
     }
 
@@ -429,6 +431,10 @@ RpAtomic* CCustomCarPlateMgr::AtomicUpgradeSetCarplateTextureCB(RpAtomic* atomic
 
 // 0x6FDFE0
 int8 CCustomCarPlateMgr::SetupClumpAfterVehicleUpgrade(RpClump* clump, RpMaterial* plateMaterial, uint8 plateType) {
+    // SilentPatch (MIT, Silent): con la matricula por vehiculo se aplica al dibujar; no hay que repetirla al montar un componente (SilentPatch lo anula); opcion "UniqueNumberPlates"
+    if (static const bool spUniquePlates = SilentPatchOption("UniqueNumberPlates", true); spUniquePlates) {
+        return false;
+    }
     // Como el original: sin material de matrícula devuelve false (sin assert)
     if (!plateMaterial)
         return false;

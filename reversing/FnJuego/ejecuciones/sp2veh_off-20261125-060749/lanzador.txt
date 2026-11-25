@@ -1,0 +1,3 @@
+pid 35216  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-spv\reversing\FnJuego\ejecuciones\sp2veh_off-20261125-060749" --limite 420 --shims  escenario=sp2veh xinput=False
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF

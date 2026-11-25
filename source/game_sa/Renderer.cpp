@@ -1314,7 +1314,15 @@ void CRenderer::ConstructRenderList() {
     ms_lowLodDistScale = 1.0f;
     ms_bInTheSky = false;
 
-    CPlayerPed* player = FindPlayerPed();
+    // SilentPatch (MIT, Silent): con un vehiculo teledirigido (RC) el jugador se toma como el RC y no como CJ (FindPlayerEntityWithRC / FindPlayerVehicle con RC); el LOD y el streaming
+    // dejan de comportarse como si el jugador siguiera en el suelo (Supply Lines); opcion "RCVehicleStreaming"
+    static const bool spRcStreaming = SilentPatchOption("RCVehicleStreaming", true);
+    CEntity* player = FindPlayerPed();
+    if (spRcStreaming) {
+        if (CVehicle* const remote = FindPlayerVehicle(-1, true)) {
+            player = remote;
+        }
+    }
     if (player && player->GetAreaCode() == AREA_CODE_NORMAL_WORLD) {
         // Como el original: las dos alturas del suelo se calculan siempre, antes de comparar
         const float fGroundHeightBottomZ = TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_BOTTOM);
@@ -1322,7 +1330,7 @@ void CRenderer::ConstructRenderList() {
         const float fPlayerHeightZ = player->GetPosition().z;
 
         if (fPlayerHeightZ - fGroundHeightBottomZ > 50.0f) {
-            if (fPlayerHeightZ - fGroundHeightTopZ > 10.0f && FindPlayerVehicle()) {
+            if (fPlayerHeightZ - fGroundHeightTopZ > 10.0f && FindPlayerVehicle(-1, spRcStreaming)) {
                 ms_bInTheSky = true;
             }
         }

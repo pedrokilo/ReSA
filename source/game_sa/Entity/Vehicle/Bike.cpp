@@ -650,6 +650,9 @@ void CBike::ProcessRiderAnims(CPed* rider, CVehicle* vehicle, CRideAnimData* rid
     if (reverse) available-=std::min(nonClippedStep*reverse->m_BlendDelta+reverse->m_BlendAmount,available);
     float lean=rideData->LeanAngle/handling->m_fFullAnimLean;
     if (leanFwdTarget==-1.f) lean=0.f;else lean=std::clamp(lean,-1.f,1.f);
+    // SilentPatch (MIT, Silent; Wesser): el manillar del cuatrimoto sigue las animaciones de direccion de CJ a poca velocidad (sin suavizado hacia la inclinacion con animacion de marcha atras,
+    // de disparo o casi parado); opcion "QuadbikeHandlebarAnims"
+    if (static const bool spHandlebar = SilentPatchOption("QuadbikeHandlebarAnims", true); spHandlebar && (reverse || special || std::abs(speed) < .02f)) lean=0.f;
     rideData->AnimLeanLeft=BikeRiderSmooth355(DatosExe::Rdata::k871350,CTimer::GetTimeStep(),rideData->AnimLeanLeft,lean);
     if (!player || vehicle->m_apPassengers[0]) {
         leanFwdTarget=0.f;if(bike)byte(bike,0x614)&=0x7F;

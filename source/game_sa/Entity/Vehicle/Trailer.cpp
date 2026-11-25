@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Trailer.h"
+#include "SilentPatchVehicles.h"
 #include "VehicleRecording.h"
 #include "X87Math.h"
 
@@ -656,6 +657,10 @@ bool CTrailer::GetTowHitchPos(CVector& outPos, bool bCheckModelInfo, CVehicle* v
 
 // 0x6CFD60
 bool CTrailer::GetTowBarPos(CVector& outPos, bool bCheckModelInfo, CVehicle* vehicle) {
+    // SilentPatch (MIT, Silent): los remolques artict3 se pueden encadenar (su dummy misc_b es el enganche trasero); opcion "DoubleTrailer"
+    if (static const bool spDoubleTrailer = SilentPatchOption("DoubleTrailer", true); spDoubleTrailer && SilentPatchVehicles::GetDoubleTrailerTowBarPos(*this, outPos)) {
+        return true;
+    }
     if (!bCheckModelInfo) {
         if (m_nModelIndex != MODEL_BAGBOXA && m_nModelIndex != MODEL_BAGBOXB) {
             return false;

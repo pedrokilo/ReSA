@@ -644,7 +644,52 @@ def esc_usertrack(j):
     j.P('volcado radio despues:', [hex(j.m.u32(base + 4 * k)) for k in range(0, 64)]); j.P('gestor de pistas de usuario despues:', [hex(j.m.u32(0xB6B970 + 4 * k)) for k in range(0, 10)])
     j.res['usertrack'] = hist
     j.foto('usertrack', 'CJ en coche con la emisora de pistas de usuario pedida')
-ESCENARIOS = {'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
+def leer_vehiculos(j):
+    """(modelo, vida, estado-ruedas[4], estado-paneles) de cada vehiculo vivo del pool; DamageManager en +0x5A0: ruedas en +5..+8, paneles en +0x14"""
+    r = []
+    for v in vehiculos(j):
+        m = j.modelo(v)
+        if not (400 <= m <= 611): continue
+        dm = j.m.rd(v + 0x5A0, 0x18) or b'\0' * 0x18
+        r.append({'v': hex(v), 'modelo': m, 'vida': round(j.m.f32(v + 0x4C0), 1), 'ruedas': list(dm[5:9]), 'paneles': struct.unpack('<I', dm[0x14:0x18])[0]})
+    return r
+
+def esc_sp2veh(j):
+    """SilentPatch 2 (vehiculos): voladura masiva (BIGBANG) midiendo las ruedas que pierden los coches por memoria, Hydra en vuelo y Rhino; capturas de cada fase"""
+    suelo_libre(j)
+    res = {'rondas': []}
+    perdidas = [0, 0, 0, 0]; coches = 0; paneles_danados = 0
+    for ronda in range(6):
+        if not j.alive(): break
+        for codigo in ('RZHSUEW', 'UBHYZHQ', 'FOURWHEELFUN'):
+            spawn_coche(j, codigo)
+        j.dormir(1.0)
+        antes = {d['v']: d for d in leer_vehiculos(j)}
+        j.al_frente(); j.escribir_truco('CPKTNWT'); j.dormir(4.0)
+        despues = leer_vehiculos(j)
+        for d in despues:
+            a = antes.get(d['v'])
+            if a and a['modelo'] == d['modelo'] and d['vida'] <= 0.5:
+                coches += 1
+                for i in range(4):
+                    if d['ruedas'][i] == 2: perdidas[i] += 1
+                if d['paneles']: paneles_danados += 1
+        j.P('RONDA', ronda, 'vehiculos tras BIGBANG', json.dumps(despues)[:900])
+        if ronda in (0, 3): j.foto('bigbang_%d' % ronda, 'tras BIGBANG')
+        res['rondas'].append(len(despues))
+        suelo_libre(j)
+    res['coches_destruidos'] = coches; res['ruedas_perdidas_por_indice(DI,TI,DD,TD)'] = perdidas; res['con_paneles_danados'] = paneles_danados
+    j.P('RESUMEN voladura: coches', coches, 'ruedas perdidas [delantera-izq, trasera-izq, delantera-der, trasera-der]', perdidas, 'con paneles danados', paneles_danados)
+    for codigo, nombre, mod in (('JHJOECW', 'Hydra', 520), ('AIWPRTON', 'Rhino', 432)):
+        if not j.alive(): break
+        veh = entrar_coche(j, codigo, modelo=mod)
+        if not veh: j.P('no se pudo entrar a', nombre); continue
+        j.dormir(4.0); j.foto('veh_%s_a' % nombre, '%s dentro (motor en marcha)' % nombre)
+        tecla('w', True); j.dormir(3.0); j.foto('veh_%s_b' % nombre, '%s acelerando' % nombre); tecla('w', False)
+        res[nombre] = {'modelo': j.modelo(j.veh()), 'vel': round(j.vel(j.veh()), 2)}
+    j.res['sp2veh'] = res
+
+ESCENARIOS = {'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
 
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')

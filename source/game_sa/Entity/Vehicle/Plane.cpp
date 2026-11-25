@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/RdataConstantes.h"
 
 #include "Plane.h"
+#include "SilentPatchVehicles.h"
 #include "CarCtrl.h"
 #include "FireManager.h"
 #include "Streaming.h"
@@ -277,11 +278,16 @@ void CPlane::BlowUpCar(CEntity* damager, bool bHideExplosion) {
         CAutomobile::SetBumperDamage(static_cast<ePanels>(5), false);
         CAutomobile::SetBumperDamage(static_cast<ePanels>(6), false);
         for (int32 door = 0; door < 6; ++door) CAutomobile::SetDoorDamage(static_cast<eDoors>(door), false);
+        // SilentPatch (MIT, Silent): se separan y ocultan las ruedas que el DamageManager marca como perdidas, no siempre la delantera izquierda; opcion "ExplodedCarWheels"
+        if (SilentPatchOption("ExplodedCarWheels", true)) {
+            SilentPatchVehicles::SpawnAndHideDestroyedWheels(*this, 1);
+        } else {
         CAutomobile::SpawnFlyingComponent(static_cast<eCarNodes>(5), 1);
         if (auto* node = m_aCarNodes[5]) {
             RpAtomic* atomic{};
             RwFrameForAllObjects(node, GetCurrentAtomicObjectCB, &atomic);
             if (atomic) rwObjectSetFlags(atomic, 0);
+        }
         }
     }
     bytes[0x4A8] &= 0xF8;
@@ -312,6 +318,10 @@ void CPlane::Fix() {
         m_damageManager.SetDoorStatus(DOOR_RIGHT_REAR, DAMSTATE_NOTPRESENT);
     }
     SetupDamageAfterLoad();
+    // SilentPatch (MIT, Silent): reparar un avion reinicia los paneles que rebotan (puertas y piezas moviles ya no se corrompen; el Vortex conserva el primero); opcion "FixKeepsComponents"
+    if (SilentPatchOption("FixKeepsComponents", true)) {
+        SilentPatchVehicles::ResetBouncingPanelsAfterFix(*this);
+    }
 }
 
 // 0x6CACB0
@@ -632,7 +642,10 @@ void CPlane::DoPlaneGenerationAndRemoval(){
    if(ped){
     bytes[0x3BA]=39;auto** reference=reinterpret_cast<CEntity**>(bytes+0x41C);*reference=ped;ped->RegisterReference(reference);bytes[0x988]|=2;bytes[0x3DB]|=0xA0;
     auto* group=CPedGroups::GetPedsGroup(ped);
-    if(group&&reinterpret_cast<uint8*>(group)[0x2D0]!=1){CEventDanger event{vehicle,200.f};event.m_TaskId=static_cast<eTaskType>(1505);group->GetIntelligence().AddEvent(&event);}
+    // SilentPatch (MIT, Silent): en las misiones de los disturbios el helicoptero de la policia no tiene como objetivo a los miembros del grupo del jugador (se iban de su lado); opcion "RiotHeliIgnoresPlayerGroup"
+    static const bool spRiotGroup = SilentPatchOption("RiotHeliIgnoresPlayerGroup", true);
+    if(spRiotGroup&&group&&reinterpret_cast<uint8*>(group)[0x2D0]==1&&CTheScripts::IsPlayerOnAMission()){}
+    else if(group&&reinterpret_cast<uint8*>(group)[0x2D0]!=1){CEventDanger event{vehicle,200.f};event.m_TaskId=static_cast<eTaskType>(1505);group->GetIntelligence().AddEvent(&event);}
     else if(!ped->IsPlayer()&&reinterpret_cast<uint8*>(ped)[0x484]!=2&&*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(ped)+0x598)!=6){CEventDanger event{vehicle,200.f};event.m_TaskId=static_cast<eTaskType>(911);ped->GetEventGroup().Add(&event,false);}
    }
   }else if(random==0){
@@ -687,6 +700,16 @@ static CVector PlaneTransformPoint(const CMatrix* matrix, const CVector& point) 
 
 // 0x6C94A0
 void CPlane::PreRender() {
+    // SilentPatch (MIT, Silent): alerones extra del Beagle y el Stuntplane (tras terminar el PreRender); opcion "ExtraVehicleAnimations"
+    struct SilentPatchAfterPreRender {
+        CPlane& plane;
+        ~SilentPatchAfterPreRender() {
+            static const bool enabled = SilentPatchOption("ExtraVehicleAnimations", true);
+            if (enabled) {
+                SilentPatchVehicles::AfterPlanePreRender(plane);
+            }
+        }
+    } silentPatchAfterPreRender{ *this };
     auto* const bytes = reinterpret_cast<uint8*>(this);
     auto* const nodes = reinterpret_cast<RwFrame**>(bytes + 0x648); // CAutomobile::m_aCarNodes
     const auto floatAt = [bytes](size_t offset) -> float& { return *reinterpret_cast<float*>(bytes + offset); };
@@ -924,6 +947,10 @@ void CPlane::PreRender() {
                 }
                 const CVector offset{std::bit_cast<float>(jetOffsets[i].x), std::bit_cast<float>(jetOffsets[i].y), std::bit_cast<float>(jetOffsets[i].z)};
                 CMatrix product = *m_matrix * *reinterpret_cast<const CMatrix*>(i < 2 ? rearMatrix : frontMatrix);
+                // SilentPatch (MIT, Silent): los propulsores del Hydra a veces no aparecian: el RwMatrix temporal (en pila) nunca inicializaba sus banderas; se ponen a 0; opcion "JetThrustersFix"
+                if (static const bool spJetThrusters = SilentPatchOption("JetThrustersFix", true); spJetThrusters) {
+                    reinterpret_cast<RwMatrix*>(&product)->flags = 0;
+                }
                 jets[i]->SetMatrix(reinterpret_cast<RwMatrix*>(&product));
                 jets[i]->SetOffsetPos(offset);
                 jets[i]->SetConstTime(true, dustTime);
@@ -1010,6 +1037,10 @@ void CPlane::PreRender() {
 // 0x6CAB70
 void CPlane::Render() {
     m_nTimeTillWeNeedThisCar = CTimer::GetTimeInMS() + 3000;
+    // SilentPatch (MIT, Silent): helices con efecto de desenfoque segun la velocidad (como en VC y PS2); opcion "RotorBlur"
+    if (SilentPatchVehicles::RotorBlurEnabled()) {
+        SilentPatchVehicles::ApplyRotorBlur(*this, m_fPropSpeed, 0.31);
+    }
     CVehicle::Render();
 }
 

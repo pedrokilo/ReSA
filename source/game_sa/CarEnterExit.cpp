@@ -500,7 +500,9 @@ CVector CCarEnterExit::GetPositionToOpenCarDoor(const CVehicle* vehicle, int32 d
         if(doorId==9||doorId==8){offset.x*=-1.0f;point.x+=handling->m_fSeatOffsetDistance;}else point.x-=handling->m_fSeatOffsetDistance;
         return const_cast<CVehicle*>(vehicle)->GetMatrix().TransformPoint(point-offset);
     }
-    float seatOffset=handling->m_nAnimGroup==101&&(doorId==11||doorId==9)?0.0f:handling->m_fSeatOffsetDistance;
+    // SilentPatch (MIT, Silent): las puertas traseras de las furgonetas son un caso especial del grupo de animacion de furgoneta (13), no del 101; opcion "VanRearDoors"
+    static const int32 spVanAnimGroup = SilentPatchOption("VanRearDoors", true) ? 13 : 101;
+    float seatOffset=handling->m_nAnimGroup==spVanAnimGroup&&(doorId==11||doorId==9)?0.0f:handling->m_fSeatOffsetDistance;
     int32 kind=std::bit_cast<int32>(seatOffset);
     if(doorId==10||doorId==8)kind=0;else if(doorId==11||doorId==9)kind=1;else if(doorId==18)kind=2;
     auto offset=anim.ComputeAnimDoorOffsets(static_cast<eVehAnimDoorOffset>(kind));auto point=seat();

@@ -3111,7 +3111,9 @@ void CCam::Process_FollowCar_SA(const CVector& targetPosition,float,float,float,
     float betaInput=inputScale*.071428575f*std::abs(horizontal)*horizontal*f(0x8CC4A0)*f(0x8CC4A0);
     float alphaInput=inputScale*.042857144f*std::abs(vertical)*vertical*f(0x8CC4A0)*f(0x8CC4A0);
     bool restricted=true;
-    if (model==443 || model==486 || model==406 || model==524 || model==592 || model==520 || model==525 || model==530 || model==531) alphaInput=0.f;
+    // SilentPatch (MIT, Silent): con el Firela la palanca derecha no mueve la camara arriba/abajo (maneja la escalera); opcion "FirelaLadder"
+    static const bool spFirelaLadder = SilentPatchOption("FirelaLadder", true);
+    if (model==443 || model==486 || model==406 || model==524 || model==592 || model==520 || model==525 || model==530 || model==531 || (spFirelaLadder && model==544)) alphaInput=0.f;
     else if (model==564 || (type==0 && (*reinterpret_cast<const uint32*>(raw(vehicle,0x38C))&0x20000))) alphaInput=betaInput=0.f;
     else restricted=false;
     if (DatosExe::Data::v8CC384!=3) alphaInput=betaInput=0.f;

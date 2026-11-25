@@ -1,0 +1,345 @@
+[depuración][06:04:01.601][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][06:04:01.610][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13620 en 1010 clases/grupos (11452 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13620. Desactivadas: 0.
+[info][06:04:01.611][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][06:04:01.611][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][06:04:01.614][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][06:04:01.620][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][06:04:02.481][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[info][06:04:02.561][:]: ****************** Backtrace Start ******************
+[depuración][06:04:01.601][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][06:04:01.610][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13620 en 1010 clases/grupos (11452 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13620. Desactivadas: 0.
+[info][06:04:01.611][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][06:04:01.611][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][06:04:01.614][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][06:04:01.620][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][06:04:02.481][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[info][06:04:02.562][:]: ****************** Backtrace End ********************
+[info][06:04:02.562][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[info][06:04:02.562][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[info][06:04:02.562][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[info][06:04:02.563][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[info][06:04:02.563][app_debug.cpp:106]: *********PARAMETERS**********
+[info][06:04:02.563][app_debug.cpp:118]: Parámetros[2]:
+[info][06:04:02.563][app_debug.cpp:120]:        0: 0x00000000
+[info][06:04:02.563][app_debug.cpp:120]:        1: 0x00000040
+[info][06:04:02.563][app_debug.cpp:106]: *********REGISTERS**********
+[info][06:04:02.563][app_debug.cpp:130]: 	EAX: 0x00000040
+[info][06:04:02.563][app_debug.cpp:130]: 	EBX: 0x00000000
+[info][06:04:02.563][app_debug.cpp:130]: 	ECX: 0x00000000
+[info][06:04:02.564][app_debug.cpp:130]: 	EDX: 0x00005a4d
+[info][06:04:02.564][app_debug.cpp:130]: 	ESI: 0x00000000
+[info][06:04:02.564][app_debug.cpp:130]: 	EDI: 0x00000000
+[info][06:04:02.564][app_debug.cpp:130]: 	EBP: 0x001adbc8
+[info][06:04:02.564][app_debug.cpp:130]: 	ESP: 0x001adb94
+[info][06:04:02.564][app_debug.cpp:130]: 	EIP: 0x76f8df7f
+[info][06:04:02.564][app_debug.cpp:130]: 	EFLAGS: 0x00210246
+[info][06:04:02.564][app_debug.cpp:106]: *********CALL STACK**********
+[info][06:04:02.719][app_debug.cpp:213]: 	0x76f8df7f: ntdll!RtlImageNtHeaderEx:0
+[info][06:04:02.720][app_debug.cpp:213]: 	0x76f8adbb: ntdll!RtlImageNtHeader:0
+[info][06:04:02.720][app_debug.cpp:213]: 	0x762c9171: KERNELBASE!FreeLibrary:0
+[info][06:04:02.721][app_debug.cpp:213]: 	0x60fd5f11: igd12um32xel!<unknown>:0
+[info][06:04:02.721][app_debug.cpp:213]: 	0x60f8aff1: igd12um32xel!<unknown>:0
+[info][06:04:02.721][app_debug.cpp:213]: 	0x6b22f158: igd12umd32!OpenAdapter12:0
+[info][06:04:02.722][app_debug.cpp:213]: 	0x6b3c7a3f: D3D12Core!D3D12SDKVersion:0
+[info][06:04:02.722][app_debug.cpp:213]: 	0x6b391547: D3D12Core!D3D12SDKVersion:0
+[info][06:04:02.723][app_debug.cpp:213]: 	0x6b3e9d4f: D3D12Core!D3D12SDKVersion:0
+[info][06:04:02.723][app_debug.cpp:213]: 	0x6b5f5460: d3d12!<unknown>:0
+[info][06:04:02.723][app_debug.cpp:213]: 	0x6b5f4636: d3d12!<unknown>:0
+[info][06:04:02.724][app_debug.cpp:213]: 	0x6b3af4be: D3D12Core!D3D12SDKVersion:0
+[info][06:04:02.724][app_debug.cpp:213]: 	0x6b632fe4: d3d9on12!OpenAdapter:0
+[info][06:04:02.724][app_debug.cpp:213]: 	0x6b6325f4: d3d9on12!<unknown>:0
+[info][06:04:02.725][app_debug.cpp:213]: 	0x71c5b8d9: d3d9!<unknown>:0
+[info][06:04:02.725][app_debug.cpp:213]: 	0x71c5b779: d3d9!<unknown>:0
+[info][06:04:02.725][app_debug.cpp:213]: 	0x71c6aadb: d3d9!<unknown>:0
+[info][06:04:02.725][app_debug.cpp:213]: 	0x71c68ed9: d3d9!<unknown>:0
+[info][06:04:02.726][app_debug.cpp:213]: 	0x71c695f7: d3d9!<unknown>:0
+[info][06:04:02.880][app_debug.cpp:213]: 	0x71c9162b: d3d9!Direct3DCreate9:0
+[info][06:04:02.885][app_debug.cpp:213]: 	0x025c621c: gta_sa_standalone!GetBestRefreshRate:450
+[info][06:04:02.890][app_debug.cpp:213]: 	0x025c9c6e: gta_sa_standalone!psSelectDevice:584
+[info][06:04:02.893][app_debug.cpp:213]: 	0x01c687d7: gta_sa_standalone!`RsRwInitialize'::`2'::<lambda_1>::operator():331
+[info][06:04:02.897][app_debug.cpp:213]: 	0x01c6bc11: gta_sa_standalone!RsRwInitialize:325
+[info][06:04:02.900][app_debug.cpp:213]: 	0x01072274: gta_sa_standalone!RwInitialize:123
+[info][06:04:02.902][app_debug.cpp:213]: 	0x01055951: gta_sa_standalone!AppEventHandler:153
+[info][06:04:02.905][app_debug.cpp:213]: 	0x01c68b18: gta_sa_standalone!RsEventHandler:349
+[info][06:04:02.908][app_debug.cpp:213]: 	0x025c2c94: gta_sa_standalone!NOTSA_WinMain:465
+[info][06:04:02.914][app_debug.cpp:213]: 	0x00ec48db: gta_sa_standalone!WinMain:702
+[info][06:04:02.917][app_debug.cpp:213]: 	0x02b5128d: gta_sa_standalone!invoke_main:107
+[info][06:04:02.917][app_debug.cpp:213]: 	0x02b5116a: gta_sa_standalone!__scrt_common_main_seh:288
+[info][06:04:02.918][app_debug.cpp:213]: 	0x02b5100d: gta_sa_standalone!__scrt_common_main:331
+[info][06:04:02.920][app_debug.cpp:213]: 	0x02b512f8: gta_sa_standalone!WinMainCRTStartup:17
+[info][06:04:02.920][app_debug.cpp:213]: 	0x00ec7aeb: gta_sa_standalone!FaseEntrada:673
+[info][06:04:02.920][app_debug.cpp:213]: 	0x75495d49: KERNEL32!BaseThreadInitThunk:0
+[info][06:04:02.920][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[info][06:04:02.921][app_debug.cpp:213]: 	0x76fac811: ntdll!RtlGetAppContainerNamedObjectPath:0
+[info][06:04:02.935][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[info][06:04:03.130][rwcore.cpp:7775]: Adaptador de vídeo D3D9: NVIDIA GeForce RTX 3050 Laptop GPU (controlador nvldumd.dll, vendedor 0x10DE)
+[depuración][06:04:03.135][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][06:04:03.162][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][06:04:03.212][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][06:04:03.213][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][06:04:03.213][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][06:04:03.213][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][06:04:03.214][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][06:04:03.214][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][06:04:03.214][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][06:04:03.215][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][06:04:03.215][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][06:04:03.215][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][06:04:03.835][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][06:04:03.840][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][06:04:03.840][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][06:04:03.982][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][06:04:03.982][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][06:04:03.983][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[depuración][06:04:08.267][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[info][06:04:10.669][SilentPatchScripts.cpp:228]: SilentPatch scripts: mision 0 iniciada
+[info][06:04:10.670][SilentPatchScripts.cpp:65]: SilentPatch scripts: baloncesto parcheado (7 valores)
+[info][06:04:10.672][SilentPatchScripts.cpp:45]: SilentPatch scripts: parche de 10 bytes aplicado
+[depuración][06:04:12.360][Pools.cpp:502]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[depuración][06:04:12.388][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][06:04:12.415][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][06:04:12.416][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][06:04:12.416][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[info][06:04:12.423][SilentPatchScripts.cpp:65]: SilentPatch scripts: baloncesto parcheado (7 valores)
+[info][06:04:12.424][SilentPatchScripts.cpp:219]: SilentPatch scripts: partida cargada, baloncesto/salto cuadruple revisados
+[info][06:04:12.426][SilentPatchScripts.cpp:45]: SilentPatch scripts: parche de 10 bytes aplicado
+[depuración][06:04:12.443][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][06:04:12.444][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[info][06:04:12.578][SilentPatchConfig.cpp:105]: SilentPatch: interruptor general = 1 (GTASA_SILENTPATCH / SilentPatch= en gta-reversed.ini; por defecto 1)
+[info][06:04:12.579][SilentPatchConfig.cpp:107]: SilentPatch: opcion CollisionDataInit = 1
+[info][06:04:12.579][SilentPatchConfig.cpp:107]: SilentPatch: opcion TimecycMissingDataFix = 1
+[info][06:04:12.579][SilentPatchConfig.cpp:107]: SilentPatch: opcion ScriptSpritesBilinear = 1
+[info][06:04:12.579][SilentPatchConfig.cpp:107]: SilentPatch: opcion StreamedEntityList = 1
+[info][06:04:12.579][SilentPatchConfig.cpp:107]: SilentPatch: opcion ReinitIplObjectsOnNewGame = 1
+[info][06:04:12.580][SilentPatchConfig.cpp:107]: SilentPatch: opcion HierarchyTypoFix = 1
+[info][06:04:12.580][SilentPatchConfig.cpp:107]: SilentPatch: opcion DoubleRearWheels = 1
+[info][06:04:12.580][SilentPatchConfig.cpp:107]: SilentPatch: opcion HunterDoorRenderFix = 1
+[info][06:04:12.580][SilentPatchConfig.cpp:107]: SilentPatch: opcion CleanDirt = 1
+[info][06:04:12.580][SilentPatchConfig.cpp:107]: SilentPatch: opcion UniqueNumberPlates = 1
+[info][06:04:12.580][SilentPatchConfig.cpp:107]: SilentPatch: opcion RtAnimInterp = 1
+[info][06:04:12.580][SilentPatchConfig.cpp:107]: SilentPatch: opcion FortCarsonBeagle = 1
+[info][06:04:12.580][SilentPatchConfig.cpp:107]: SilentPatch: opcion EnableScriptFixes = 1
+[info][06:04:12.580][SilentPatchConfig.cpp:107]: SilentPatch: opcion ResetVariablesOnNewGame = 1
+[info][06:04:12.581][SilentPatchConfig.cpp:75]: SilentPatch: opcion NoFrameDelay = 1
+[info][06:04:12.584][SilentPatchConfig.cpp:75]: SilentPatch: opcion SunSizeHack = 1
+[info][06:04:12.584][SilentPatchConfig.cpp:75]: SilentPatch: opcion RCVehicleStreaming = 1
+[info][06:04:12.615][SilentPatchConfig.cpp:75]: SilentPatch: opcion StaticShadowAlphaFix = 1
+[info][06:04:12.617][SilentPatchConfig.cpp:75]: SilentPatch: opcion CoronaRotation = 1
+[info][06:04:13.988][SilentPatchConfig.cpp:75]: SilentPatch: opcion CarCollisionDamagePieces = 1
+[info][06:04:15.177][SilentPatchConfig.cpp:75]: SilentPatch: opcion BilinearNumberPlates = 1
+[info][06:04:15.178][SilentPatchConfig.cpp:75]: SilentPatch: opcion ImpoundRandomVehiclesFix = 1
+[info][06:04:15.712][SilentPatchConfig.cpp:75]: SilentPatch: opcion QuadbikeWindAnims = 1
+[info][06:04:15.713][SilentPatchConfig.cpp:75]: SilentPatch: opcion RhinoLights = 1
+[info][06:04:15.714][SilentPatchConfig.cpp:75]: SilentPatch: opcion LightsRandomness = 1
+[info][06:04:15.714][SilentPatchConfig.cpp:75]: SilentPatch: opcion ExtraVehicleAnimations = 1
+[info][06:04:16.074][SilentPatchConfig.cpp:75]: SilentPatch: opcion RotorBlur = 1
+[info][06:04:16.109][SilentPatchConfig.cpp:75]: SilentPatch: opcion CargenInteriorAreaCode = 1
+[info][06:04:16.110][SilentPatchConfig.cpp:75]: SilentPatch: opcion CargenCounterFix = 1
+[info][06:04:16.110][SilentPatchConfig.cpp:75]: SilentPatch: opcion FirelaLadder = 1
+[info][06:04:16.181][SilentPatchConfig.cpp:75]: SilentPatch: opcion BlownUpVehicleShine = 1
+[info][06:04:16.182][SilentPatchConfig.cpp:75]: SilentPatch: opcion VehicleLightsNotOverwritten = 1
+[info][06:04:16.244][SilentPatchConfig.cpp:75]: SilentPatch: opcion PlaneCreationCoorsFix = 1
+[info][06:04:20.480][SilentPatchConfig.cpp:75]: SilentPatch: opcion ImpoundGaragesFix = 1
+[info][06:04:22.241][SilentPatchConfig.cpp:75]: SilentPatch: opcion SeaRoaderCheat = 1
+[info][06:04:22.431][SilentPatchConfig.cpp:75]: SilentPatch: opcion HelpBoxWithMissionPassed = 1
+[info][06:04:27.847][SilentPatchConfig.cpp:75]: SilentPatch: opcion VanRearDoors = 1
+[info][06:04:28.912][SilentPatchConfig.cpp:75]: SilentPatch: opcion DetachedPartsColour = 1
+[depuración][06:04:30.748][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:30.781][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[info][06:04:30.796][SilentPatchConfig.cpp:75]: SilentPatch: opcion FixRadioStationNameWrap = 1
+[depuración][06:04:30.815][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:30.848][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:30.881][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:30.915][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:30.948][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:30.981][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.015][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.114][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.148][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.181][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.215][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.247][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.281][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.314][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.348][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.415][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.481][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.514][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.548][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.581][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.615][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.648][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.681][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.714][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.748][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.781][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.814][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.848][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.881][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.914][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.947][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:31.981][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:32.015][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:32.047][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:32.081][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:32.115][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:32.148][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:32.181][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:32.214][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:32.247][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[depuración][06:04:32.281][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 457 está atascada
+[info][06:04:33.877][SilentPatchConfig.cpp:75]: SilentPatch: opcion ExplodedCarWheels = 1
+[info][06:04:33.878][SilentPatchConfig.cpp:75]: SilentPatch: opcion ExplosionPanelsSwing = 1
+[aviso][06:04:33.878][Automobile.cpp:6933]: Intentando dañar el componente 12 de caddy
+[aviso][06:04:33.878][Automobile.cpp:7027]: Intentando dañar el componente 16 de caddy
+[aviso][06:04:33.878][Automobile.cpp:7027]: Intentando dañar el componente 17 de caddy
+[aviso][06:04:33.878][Automobile.cpp:7027]: Intentando dañar el componente 10 de caddy
+[aviso][06:04:33.878][Automobile.cpp:7027]: Intentando dañar el componente 8 de caddy
+[aviso][06:04:33.879][Automobile.cpp:7027]: Intentando dañar el componente 11 de caddy
+[aviso][06:04:33.879][Automobile.cpp:7027]: Intentando dañar el componente 9 de caddy
+[aviso][06:04:33.881][Automobile.cpp:6933]: Intentando dañar el componente 13 de trash
+[aviso][06:04:33.881][Automobile.cpp:7027]: Intentando dañar el componente 17 de trash
+[aviso][06:04:33.881][Automobile.cpp:7027]: Intentando dañar el componente 11 de trash
+[aviso][06:04:33.881][Automobile.cpp:7027]: Intentando dañar el componente 9 de trash
+[aviso][06:04:33.883][Automobile.cpp:6933]: Intentando dañar el componente 12 de quad
+[aviso][06:04:33.883][Automobile.cpp:6933]: Intentando dañar el componente 13 de quad
+[aviso][06:04:33.883][Automobile.cpp:7027]: Intentando dañar el componente 10 de quad
+[aviso][06:04:33.883][Automobile.cpp:7027]: Intentando dañar el componente 8 de quad
+[aviso][06:04:33.884][Automobile.cpp:7027]: Intentando dañar el componente 11 de quad
+[aviso][06:04:33.884][Automobile.cpp:7027]: Intentando dañar el componente 9 de quad
+[aviso][06:04:33.884][Automobile.cpp:7027]: Intentando dañar el componente 16 de monstera
+[aviso][06:04:33.884][Automobile.cpp:7027]: Intentando dañar el componente 17 de monstera
+[aviso][06:04:33.884][Automobile.cpp:7027]: Intentando dañar el componente 11 de monstera
+[aviso][06:04:33.884][Automobile.cpp:7027]: Intentando dañar el componente 9 de monstera
+[aviso][06:04:33.885][Automobile.cpp:7027]: Intentando dañar el componente 17 de hotring
+[aviso][06:04:33.885][Automobile.cpp:7027]: Intentando dañar el componente 11 de hotring
+[aviso][06:04:33.885][Automobile.cpp:7027]: Intentando dañar el componente 9 de hotring
+[aviso][06:04:33.885][Automobile.cpp:7027]: Intentando dañar el componente 11 de blade
+[aviso][06:04:33.885][Automobile.cpp:7027]: Intentando dañar el componente 9 de blade
+[aviso][06:04:33.886][Automobile.cpp:7027]: Intentando dañar el componente 11 de cadrona
+[aviso][06:04:33.886][Automobile.cpp:7027]: Intentando dañar el componente 9 de cadrona
+[info][06:04:33.912][SilentPatchConfig.cpp:75]: SilentPatch: opcion DetachedPartsBothSides = 1
+[aviso][06:04:57.453][Automobile.cpp:7027]: Intentando dañar el componente 11 de blade
+[aviso][06:04:57.454][Automobile.cpp:7027]: Intentando dañar el componente 9 de blade
+[aviso][06:04:57.455][Automobile.cpp:6933]: Intentando dañar el componente 12 de quad
+[aviso][06:04:57.455][Automobile.cpp:6933]: Intentando dañar el componente 13 de quad
+[aviso][06:04:57.455][Automobile.cpp:7027]: Intentando dañar el componente 10 de quad
+[aviso][06:04:57.455][Automobile.cpp:7027]: Intentando dañar el componente 8 de quad
+[aviso][06:04:57.455][Automobile.cpp:7027]: Intentando dañar el componente 11 de quad
+[aviso][06:04:57.455][Automobile.cpp:7027]: Intentando dañar el componente 9 de quad
+[aviso][06:04:57.456][Automobile.cpp:7027]: Intentando dañar el componente 11 de cadrona
+[aviso][06:04:57.456][Automobile.cpp:7027]: Intentando dañar el componente 9 de cadrona
+[aviso][06:04:57.456][Automobile.cpp:6933]: Intentando dañar el componente 13 de trash
+[aviso][06:04:57.456][Automobile.cpp:7027]: Intentando dañar el componente 17 de trash
+[aviso][06:04:57.456][Automobile.cpp:7027]: Intentando dañar el componente 11 de trash
+[aviso][06:04:57.456][Automobile.cpp:7027]: Intentando dañar el componente 9 de trash
+[aviso][06:04:57.457][Automobile.cpp:6933]: Intentando dañar el componente 12 de caddy
+[aviso][06:04:57.457][Automobile.cpp:7027]: Intentando dañar el componente 16 de caddy
+[aviso][06:04:57.457][Automobile.cpp:7027]: Intentando dañar el componente 17 de caddy
+[aviso][06:04:57.457][Automobile.cpp:7027]: Intentando dañar el componente 10 de caddy
+[aviso][06:04:57.457][Automobile.cpp:7027]: Intentando dañar el componente 8 de caddy
+[aviso][06:04:57.457][Automobile.cpp:7027]: Intentando dañar el componente 11 de caddy
+[aviso][06:04:57.457][Automobile.cpp:7027]: Intentando dañar el componente 9 de caddy
+[aviso][06:04:57.457][Automobile.cpp:7027]: Intentando dañar el componente 11 de blade
+[aviso][06:04:57.458][Automobile.cpp:7027]: Intentando dañar el componente 9 de blade
+[aviso][06:04:57.458][Automobile.cpp:6933]: Intentando dañar el componente 13 de ambulan
+[aviso][06:04:57.458][Automobile.cpp:7027]: Intentando dañar el componente 17 de ambulan
+[info][06:05:07.015][SilentPatchConfig.cpp:75]: SilentPatch: opcion QuadbikeHandlebarAnims = 1
+[aviso][06:05:20.482][Automobile.cpp:7027]: Intentando dañar el componente 11 de blade
+[aviso][06:05:20.483][Automobile.cpp:7027]: Intentando dañar el componente 9 de blade
+[aviso][06:05:20.484][Automobile.cpp:6933]: Intentando dañar el componente 12 de quad
+[aviso][06:05:20.484][Automobile.cpp:6933]: Intentando dañar el componente 13 de quad
+[aviso][06:05:20.484][Automobile.cpp:7027]: Intentando dañar el componente 10 de quad
+[aviso][06:05:20.485][Automobile.cpp:7027]: Intentando dañar el componente 8 de quad
+[aviso][06:05:20.485][Automobile.cpp:7027]: Intentando dañar el componente 11 de quad
+[aviso][06:05:20.485][Automobile.cpp:7027]: Intentando dañar el componente 9 de quad
+[aviso][06:05:20.485][Automobile.cpp:6933]: Intentando dañar el componente 13 de trash
+[aviso][06:05:20.486][Automobile.cpp:7027]: Intentando dañar el componente 17 de trash
+[aviso][06:05:20.486][Automobile.cpp:7027]: Intentando dañar el componente 11 de trash
+[aviso][06:05:20.486][Automobile.cpp:7027]: Intentando dañar el componente 9 de trash
+[aviso][06:05:20.486][Automobile.cpp:6933]: Intentando dañar el componente 12 de caddy
+[aviso][06:05:20.487][Automobile.cpp:7027]: Intentando dañar el componente 16 de caddy
+[aviso][06:05:20.487][Automobile.cpp:7027]: Intentando dañar el componente 17 de caddy
+[aviso][06:05:20.487][Automobile.cpp:7027]: Intentando dañar el componente 10 de caddy
+[aviso][06:05:20.487][Automobile.cpp:7027]: Intentando dañar el componente 8 de caddy
+[aviso][06:05:20.487][Automobile.cpp:7027]: Intentando dañar el componente 11 de caddy
+[aviso][06:05:20.487][Automobile.cpp:7027]: Intentando dañar el componente 9 de caddy
+[aviso][06:05:20.488][Automobile.cpp:7027]: Intentando dañar el componente 11 de blade
+[aviso][06:05:20.488][Automobile.cpp:7027]: Intentando dañar el componente 9 de blade
+[aviso][06:05:20.488][Automobile.cpp:6933]: Intentando dañar el componente 13 de ambulan
+[aviso][06:05:20.488][Automobile.cpp:7027]: Intentando dañar el componente 17 de ambulan
+[info][06:05:20.491][SilentPatchConfig.cpp:75]: SilentPatch: opcion VehicleExplodeTwice = 1
+[aviso][06:05:43.451][Automobile.cpp:6933]: Intentando dañar el componente 12 de quad
+[aviso][06:05:43.452][Automobile.cpp:6933]: Intentando dañar el componente 13 de quad
+[aviso][06:05:43.452][Automobile.cpp:7027]: Intentando dañar el componente 10 de quad
+[aviso][06:05:43.452][Automobile.cpp:7027]: Intentando dañar el componente 8 de quad
+[aviso][06:05:43.452][Automobile.cpp:7027]: Intentando dañar el componente 11 de quad
+[aviso][06:05:43.452][Automobile.cpp:7027]: Intentando dañar el componente 9 de quad
+[aviso][06:05:43.453][Automobile.cpp:7027]: Intentando dañar el componente 11 de previon
+[aviso][06:05:43.453][Automobile.cpp:7027]: Intentando dañar el componente 9 de previon
+[aviso][06:05:43.454][Automobile.cpp:7027]: Intentando dañar el componente 11 de yosemite
+[aviso][06:05:43.454][Automobile.cpp:7027]: Intentando dañar el componente 9 de yosemite
+[aviso][06:05:43.454][Automobile.cpp:6933]: Intentando dañar el componente 13 de trash
+[aviso][06:05:43.454][Automobile.cpp:7027]: Intentando dañar el componente 17 de trash
+[aviso][06:05:43.454][Automobile.cpp:7027]: Intentando dañar el componente 11 de trash
+[aviso][06:05:43.455][Automobile.cpp:7027]: Intentando dañar el componente 9 de trash
+[aviso][06:05:43.455][Automobile.cpp:7027]: Intentando dañar el componente 11 de cadrona
+[aviso][06:05:43.455][Automobile.cpp:7027]: Intentando dañar el componente 9 de cadrona
+[aviso][06:05:43.455][Automobile.cpp:6933]: Intentando dañar el componente 12 de caddy
+[aviso][06:05:43.455][Automobile.cpp:7027]: Intentando dañar el componente 16 de caddy
+[aviso][06:05:43.456][Automobile.cpp:7027]: Intentando dañar el componente 17 de caddy
+[aviso][06:05:43.456][Automobile.cpp:7027]: Intentando dañar el componente 10 de caddy
+[aviso][06:05:43.456][Automobile.cpp:7027]: Intentando dañar el componente 8 de caddy
+[aviso][06:05:43.456][Automobile.cpp:7027]: Intentando dañar el componente 11 de caddy
+[aviso][06:05:43.456][Automobile.cpp:7027]: Intentando dañar el componente 9 de caddy
+[aviso][06:05:43.456][Automobile.cpp:6933]: Intentando dañar el componente 13 de ambulan
+[aviso][06:05:43.457][Automobile.cpp:7027]: Intentando dañar el componente 17 de ambulan
+[aviso][06:06:06.615][Automobile.cpp:6933]: Intentando dañar el componente 12 de quad
+[aviso][06:06:06.616][Automobile.cpp:6933]: Intentando dañar el componente 13 de quad
+[aviso][06:06:06.616][Automobile.cpp:7027]: Intentando dañar el componente 10 de quad
+[aviso][06:06:06.616][Automobile.cpp:7027]: Intentando dañar el componente 8 de quad
+[aviso][06:06:06.617][Automobile.cpp:7027]: Intentando dañar el componente 11 de quad
+[aviso][06:06:06.617][Automobile.cpp:7027]: Intentando dañar el componente 9 de quad
+[aviso][06:06:06.617][Automobile.cpp:6933]: Intentando dañar el componente 13 de trash
+[aviso][06:06:06.617][Automobile.cpp:7027]: Intentando dañar el componente 17 de trash
+[aviso][06:06:06.618][Automobile.cpp:7027]: Intentando dañar el componente 11 de trash
+[aviso][06:06:06.618][Automobile.cpp:7027]: Intentando dañar el componente 9 de trash
+[aviso][06:06:06.618][Automobile.cpp:6933]: Intentando dañar el componente 12 de caddy
+[aviso][06:06:06.618][Automobile.cpp:7027]: Intentando dañar el componente 16 de caddy
+[aviso][06:06:06.618][Automobile.cpp:7027]: Intentando dañar el componente 17 de caddy
+[aviso][06:06:06.618][Automobile.cpp:7027]: Intentando dañar el componente 10 de caddy
+[aviso][06:06:06.618][Automobile.cpp:7027]: Intentando dañar el componente 8 de caddy
+[aviso][06:06:06.619][Automobile.cpp:7027]: Intentando dañar el componente 11 de caddy
+[aviso][06:06:06.619][Automobile.cpp:7027]: Intentando dañar el componente 9 de caddy
+[aviso][06:06:06.619][Automobile.cpp:7027]: Intentando dañar el componente 11 de cadrona
+[aviso][06:06:06.619][Automobile.cpp:7027]: Intentando dañar el componente 9 de cadrona
+[aviso][06:06:06.619][Automobile.cpp:6933]: Intentando dañar el componente 13 de ambulan
+[aviso][06:06:06.620][Automobile.cpp:7027]: Intentando dañar el componente 17 de ambulan
+[aviso][06:06:06.620][Automobile.cpp:7027]: Intentando dañar el componente 11 de blade
+[aviso][06:06:06.620][Automobile.cpp:7027]: Intentando dañar el componente 9 de blade
+[aviso][06:06:29.611][Automobile.cpp:6933]: Intentando dañar el componente 12 de quad
+[aviso][06:06:29.612][Automobile.cpp:6933]: Intentando dañar el componente 13 de quad
+[aviso][06:06:29.612][Automobile.cpp:7027]: Intentando dañar el componente 10 de quad
+[aviso][06:06:29.612][Automobile.cpp:7027]: Intentando dañar el componente 8 de quad
+[aviso][06:06:29.613][Automobile.cpp:7027]: Intentando dañar el componente 11 de quad
+[aviso][06:06:29.613][Automobile.cpp:7027]: Intentando dañar el componente 9 de quad
+[aviso][06:06:29.614][Automobile.cpp:6933]: Intentando dañar el componente 13 de trash
+[aviso][06:06:29.614][Automobile.cpp:7027]: Intentando dañar el componente 17 de trash
+[aviso][06:06:29.614][Automobile.cpp:7027]: Intentando dañar el componente 11 de trash
+[aviso][06:06:29.615][Automobile.cpp:7027]: Intentando dañar el componente 9 de trash
+[aviso][06:06:29.615][Automobile.cpp:6933]: Intentando dañar el componente 12 de caddy
+[aviso][06:06:29.615][Automobile.cpp:7027]: Intentando dañar el componente 16 de caddy
+[aviso][06:06:29.615][Automobile.cpp:7027]: Intentando dañar el componente 17 de caddy
+[aviso][06:06:29.615][Automobile.cpp:7027]: Intentando dañar el componente 10 de caddy
+[aviso][06:06:29.616][Automobile.cpp:7027]: Intentando dañar el componente 8 de caddy
+[aviso][06:06:29.616][Automobile.cpp:7027]: Intentando dañar el componente 11 de caddy
+[aviso][06:06:29.616][Automobile.cpp:7027]: Intentando dañar el componente 9 de caddy
+[aviso][06:06:29.617][Automobile.cpp:6933]: Intentando dañar el componente 13 de ambulan
+[aviso][06:06:29.617][Automobile.cpp:7027]: Intentando dañar el componente 17 de ambulan
+[info][06:07:14.486][SilentPatchConfig.cpp:75]: SilentPatch: opcion VehicleLightsStayLit = 1
+[info][06:07:14.490][SilentPatchConfig.cpp:75]: SilentPatch: opcion HeadlightBeamStateRestore = 1
+[depuración][06:07:41.411][World.cpp:2582]: ATASCADO: paso final: la entidad del jugador 432 está atascada
+[info][06:07:42.610][SilentPatchConfig.cpp:75]: SilentPatch: opcion CopsGunStance = 1
+[info][06:07:43.885][SilentPatchConfig.cpp:75]: SilentPatch: opcion LastBulletMuzzleFlash = 1

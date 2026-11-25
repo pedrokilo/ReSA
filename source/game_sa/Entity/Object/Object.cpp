@@ -723,14 +723,47 @@ void CObject::Render() {
     if (objectFlags.bDoNotRender)
         return;
 
+    // SilentPatch (MIT, Silent): las piezas sueltas de un vehiculo conservan su color (SetEditableMaterials sobre sus materiales, con restauracion tras dibujar; el EXE solo
+    // fijaba los colores actuales y la pieza salia con los de la plantilla) y se dibujan por ambas caras (sin culling); opciones "DetachedPartsColour" y "DetachedPartsBothSides"
+    tRestoreEntry spRestore[256];
+    tRestoreEntry* spRestoreEnd = spRestore;
+    bool           spCullChanged = false;
+    int32          spSavedCull = 0;
+
     const auto iRefModel = m_nRefModelIndex;
     if (iRefModel != -1 && IsTemporary() && objectFlags.bChangesVehColor) {
         auto* vehModelInfo = CModelInfo::GetModelInfo(iRefModel)->AsVehicleModelInfoPtr();
         CVehicleModelInfo::ms_pRemapTexture = m_pRemapTexture;
         vehModelInfo->SetVehicleColour(m_nCarColor[0], m_nCarColor[1], m_nCarColor[2], m_nCarColor[3]);
+
+        if (GetRwObject()) {
+            static const bool spColour = SilentPatchOption("DetachedPartsColour", true);
+            static const bool spBothSides = SilentPatchOption("DetachedPartsBothSides", true);
+            if (spColour) {
+                if (RwObjectGetType(GetRwObject()) == rpATOMIC) {
+                    CVehicleModelInfo::SetEditableMaterialsCB(reinterpret_cast<RpAtomic*>(GetRwObject()), &spRestoreEnd);
+                } else {
+                    RpClumpForAllAtomics(reinterpret_cast<RpClump*>(GetRwObject()), [](RpAtomic* atomic, void* data) -> RpAtomic* {
+                        return CVehicleModelInfo::SetEditableMaterialsCB(atomic, data);
+                    }, &spRestoreEnd);
+                }
+            }
+            if (spBothSides) {
+                RwRenderStateGet(rwRENDERSTATECULLMODE, &spSavedCull);
+                RwRenderStateSet(rwRENDERSTATECULLMODE, RWRSTATE(rwCULLMODECULLNONE));
+                spCullChanged = true;
+            }
+        }
     }
 
     CEntity::Render();
+
+    for (auto* entry = spRestore; entry < spRestoreEnd; ++entry) {
+        *reinterpret_cast<uint32*>(entry->m_pAddress) = static_cast<uint32>(reinterpret_cast<uintptr_t>(entry->m_pValue));
+    }
+    if (spCullChanged) {
+        RwRenderStateSet(rwRENDERSTATECULLMODE, RWRSTATE(spSavedCull));
+    }
 }
 
 // 0x554FA0
