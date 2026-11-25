@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <cstddef>
 #include <array>
+#include "Vista.h"
 
 /*
  * Ronda 5 de DatosExe, lote C (.bss): objetos que el codigo propio citaba por direccion fija, como definiciones

@@ -624,8 +624,8 @@ bool CPad::IsXInputPadConnected() { return XInputPad::IsConnected(0); }
 void CPad::ProcessPad(ePadID padID) {
     LPDIRECTINPUTDEVICE8* pDiDevice = nullptr;
     DIJOYSTATE2 joyState;
-    auto& leftStickPos = reinterpret_cast<std::add_lvalue_reference_t<RwV2d>>(DatosExe::R5::rC8CFB8);
-    auto& rightStickPos = reinterpret_cast<std::add_lvalue_reference_t<RwV2d>>(DatosExe::R5::rC8CFB0);
+    auto& leftStickPos = DATOSEXE_VISTA(DatosExe::R5::rC8CFB8, RwV2d);
+    auto& rightStickPos = DATOSEXE_VISTA(DatosExe::R5::rC8CFB0, RwV2d);
 
     if (padID == PAD1) {
         pDiDevice = &PSGLOBAL(diDevice1);

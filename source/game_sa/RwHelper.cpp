@@ -506,7 +506,7 @@ void SkinGetBonePositions(RpClump* clump) {
     struct BoneEntry { int32 parent; RwV3d position; };
     static_assert(sizeof(BoneEntry) == 0x10);
     auto& table      = *reinterpret_cast<BoneEntry(*)[64]>(0xC88258);
-    auto& calculated = *reinterpret_cast<uint8*>(&DatosExe::R5::vC88658);
+    auto& calculated = DATOSEXE_VISTA(DatosExe::R5::vC88658, uint8);
     if (calculated) {
         return;
     }

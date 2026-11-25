@@ -103,7 +103,7 @@ public:
     static inline auto& Sprites = StaticRef<std::array<CSprite2d, 6>>(0xBAB1FC);
 
     static inline auto& TimerMainCounterHideState = DatosExe::Bss::bBAA388;
-    static inline auto& TimerMainCounterWasDisplayed = reinterpret_cast<std::add_lvalue_reference_t<bool>>(DatosExe::R5::vBAA38A);
+    static inline auto& TimerMainCounterWasDisplayed = DATOSEXE_VISTA(DatosExe::R5::vBAA38A, bool);
     static inline auto& TimerCounterHideState = StaticRef<std::array<int16, 4>>(0xBAA38C);
     static inline auto& TimerCounterWasDisplayed = StaticRef<std::array<int16, 4>>(0xBAA394);
 

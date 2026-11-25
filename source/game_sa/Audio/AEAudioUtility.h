@@ -56,7 +56,7 @@ public:
     }
 
 private:
-    static inline auto& m_sfLogLookup = reinterpret_cast<std::add_lvalue_reference_t<float[50][2]>>(DatosExe::R5::vB61100);
+    static inline auto& m_sfLogLookup = DATOSEXE_VISTA(DatosExe::R5::vB61100, float[50][2]);
 
 private:
     friend void InjectHooksMain();

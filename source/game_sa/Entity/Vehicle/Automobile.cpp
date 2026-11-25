@@ -4599,7 +4599,7 @@ void CAutomobile::ReduceHornCounter() {
     }
 }
 
-static RwTexture*& renderLicensePlateTexture{ *(RwTexture**)(&DatosExe::R5::vC1BFD8) };
+static RwTexture*& renderLicensePlateTexture{ DATOSEXE_VISTA(DatosExe::R5::vC1BFD8, RwTexture*) };
 
 // 0x6A2F00
 void CAutomobile::CustomCarPlate_BeforeRenderingStart(const CVehicleModelInfo& mi)

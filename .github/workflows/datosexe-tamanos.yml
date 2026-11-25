@@ -1,0 +1,36 @@
+name: DatosExe sizes
+
+on:
+  push:
+    branches:
+      - master
+      - ReSA
+    paths:
+      - 'source/**'
+      - 'docs/DatosExe/tamanos-minimos.csv'
+      - 'contrib/auditoria_datos/tamanos_objetos.py'
+      - '.github/workflows/datosexe-tamanos.yml'
+  pull_request:
+    paths:
+      - 'source/**'
+      - 'docs/DatosExe/tamanos-minimos.csv'
+      - 'contrib/auditoria_datos/tamanos_objetos.py'
+      - '.github/workflows/datosexe-tamanos.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  datosexe-tamanos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+
+      # Sin PDB ni .obj: solo comprueba que todo cast sobre un objeto DatosExe pase por DATOSEXE_VISTA y que
+      # VerifTamanos.cpp (static_assert de tamano minimo) coincida con docs/DatosExe/tamanos-minimos.csv.
+      - name: Lint DatosExe object sizes
+        run: python contrib/auditoria_datos/tamanos_objetos.py lint

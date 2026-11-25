@@ -151,9 +151,9 @@ public:
     static inline auto& ObjPipeline = DatosExe::Bss::bC02D24;
 
     static inline auto& fakeEnvMapPipeMatData = StaticRef<CustomEnvMapPipeMaterialData>(0xC02D18);
-    static inline auto& m_gEnvMapPipeMatDataPool = reinterpret_cast<std::add_lvalue_reference_t<CustomEnvMapPipeMaterialDataPool*>>(DatosExe::R5::rC02D28);
-    static inline auto& m_gEnvMapPipeAtmDataPool = reinterpret_cast<std::add_lvalue_reference_t<CustomEnvMapPipeAtomicDataPool*>>(DatosExe::R5::rC02D2C);
-    static inline auto& m_gSpecMapPipeMatDataPool = reinterpret_cast<std::add_lvalue_reference_t<CustomSpecMapPipeMaterialDataPool*>>(DatosExe::R5::rC02D30);
+    static inline auto& m_gEnvMapPipeMatDataPool = DATOSEXE_VISTA(DatosExe::R5::rC02D28, CustomEnvMapPipeMaterialDataPool*);
+    static inline auto& m_gEnvMapPipeAtmDataPool = DATOSEXE_VISTA(DatosExe::R5::rC02D2C, CustomEnvMapPipeAtomicDataPool*);
+    static inline auto& m_gSpecMapPipeMatDataPool = DATOSEXE_VISTA(DatosExe::R5::rC02D30, CustomSpecMapPipeMaterialDataPool*);
 
     static inline auto& g_GameLight = StaticRef<D3DLIGHT9>(0xC02CB0);
 
