@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 
 #include "Crime.h"
 #include "PedType.h"
@@ -64,11 +65,16 @@ void CCrime::ReportCrime(eCrimeType crimeType, CEntity* pVictim, CPed* pCommited
             && pVictim->GetIsTypePed()
             && IsPedPointerValid(pVictim->AsPed())
             && pCommitedby->AsPlayer()->GetWantedLevel() == eWantedLevel::WANTED_CLEAN
-            && pVictim->AsPed()->bBeingChasedByPolice // Vanilla bug here
+            // SilentPatch (MIT, Silent): la bandera heredada nunca se pone: el criminal "huye de la policia" si su evento actual es EVENT_PED_TO_FLEE de un policia; opcion GoodCitizenBonus
+            && (SilentPatchSpeech::On(SilentPatchSpeech::eOpt::GoodCitizen) ? SilentPatchSpeech::IsPedFleeingFromCops(pVictim->AsPed()) : pVictim->AsPed()->bBeingChasedByPolice) // Vanilla bug here
         ) {
-            if (!pVictim->AsPed()->IsStateDying()) {
+            if (SilentPatchSpeech::On(SilentPatchSpeech::eOpt::GoodCitizen) ? SilentPatchSpeech::GiveGoodCitizenBonus(pVictim->AsPed()) : !pVictim->AsPed()->IsStateDying()) {
                 // Como el original: no comprueba el texto y suma el dinero al jugador en foco, sea cual sea el autor.
-                CMessages::AddBigMessage(TheText.Get("GOODBOY"), 5'000, eMessageStyle::STYLE_MIDDLE); // Good Citizen Bonus! +$50
+                const GxtChar* goodBoyText = TheText.Get("GOODBOY");
+                if (SilentPatchSpeech::On(SilentPatchSpeech::eOpt::GoodCitizen) && goodBoyText[0] == '\0') {
+                    goodBoyText = reinterpret_cast<const GxtChar*>("$50 Good Citizen Bonus!"); // SilentPatch (MIT, Silent): GOODBOY no existe en el GXT por defecto (los caracteres ASCII de la cadena coinciden con los del GXT)
+                }
+                CMessages::AddBigMessage(goodBoyText, 5'000, eMessageStyle::STYLE_MIDDLE); // Good Citizen Bonus! +$50
                 CWorld::Players[CWorld::PlayerInFocus].m_nMoney += 50;
             }
             return;

@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 
 #include "Garages.h"
 #include "GangWars.h"
@@ -201,32 +202,21 @@ void CGangWars::CheerVictory() {
     auto& playerGroup = FindPlayerPed()->GetPlayerGroup();
 
     CPed* nearestMember = nullptr;
-    playerGroup.FindDistanceToNearestMember(&nearestMember);
+    if (SilentPatchSpeech::On(SilentPatchSpeech::eOpt::TurfCheers)) {
+        // SilentPatch (MIT, Silent): la celebracion la hace CJ, no el miembro de su grupo mas cercano (opcion SpeechTurfCheers)
+        nearestMember = FindPlayerPed();
+    } else {
+        playerGroup.FindDistanceToNearestMember(&nearestMember);
+    }
     if (!nearestMember) {
         return;
     }
 
     // Como el original (0x444080..0x4442C1): _stricmp (0x8229B6) del INICIO de la zona (CZone::m_InfoLabel, +0; el puntero
     // que se pasa es la propia zona), en este orden, y sin coincidencia no dice nada. La etiqueta de East LS es "ELS" (0x8598E4).
-    static constexpr std::pair<const char*, eGlobalSpeechContext> mapping[]{
-        {"CHC",  CTX_GLOBAL_TAKE_TURF_LAS_COLINAS      },
-        {"LFL",  CTX_GLOBAL_TAKE_TURF_LOS_FLORES       },
-        {"EBE",  CTX_GLOBAL_TAKE_TURF_EAST_BEACH       },
-        {"ELS",  CTX_GLOBAL_TAKE_TURF_EAST_LS          },
-        {"JEF",  CTX_GLOBAL_TAKE_TURF_JEFFERSON        },
-        {"GLN",  CTX_GLOBAL_TAKE_TURF_GLEN_PARK        },
-        {"IWD",  CTX_GLOBAL_TAKE_TURF_IDLEWOOD         },
-        {"GAN",  CTX_GLOBAL_TAKE_TURF_GANTON           },
-        {"LMEX", CTX_GLOBAL_TAKE_TURF_LITTLE_MEXICO    },
-        {"LIND", CTX_GLOBAL_TAKE_TURF_WILLOWFIELD      },
-        {"PLS",  CTX_GLOBAL_TAKE_TURF_PLAYA_DEL_SEVILLE},
-        {"SUN",  CTX_GLOBAL_TAKE_TURF_TEMPLE           },
-    };
-    for (const auto& [label, context] : mapping) {
-        if (_stricmp(pZoneToFightOver->m_InfoLabel, label) == 0) {
-            nearestMember->Say(context);
-            return;
-        }
+    // La tabla de etiquetas esta en SilentPatchSpeech::TurfContext (con SilentPatch se compara la etiqueta de texto, +8; apagado = como el EXE).
+    if (const auto context = SilentPatchSpeech::TurfContext(pZoneToFightOver)) {
+        nearestMember->Say(context);
     }
 }
 

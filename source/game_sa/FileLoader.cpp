@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 #include "SilentPatchNewGame.h"
 #include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssE2.h"
@@ -1701,6 +1702,8 @@ int32 CFileLoader::LoadPedObject(const char* line) {
         voiceMax
     );
 
+    SilentPatchSpeech::FixPedModelVoiceNames(modelName, voiceMin, voiceMax); // SilentPatch (MIT, Silent): SBFYSTR/SWFYSTR con su voz (opcion SpeechPedVoiceNames)
+
     const auto mi = CModelInfo::AddPedModel(modelId);
 
     mi->m_nKey = CKeyGen::GetUppercaseKey(modelName);
@@ -1724,8 +1727,8 @@ int32 CFileLoader::LoadPedObject(const char* line) {
     mi->m_nRadio1           = (eRadioID)(radio1 + 1);
     mi->m_nRace             = CPopulation::FindPedRaceFromName(modelName);
     mi->m_nPedAudioType     = CAEPedSpeechAudioEntity::GetAudioPedType(pedVoiceType);
-    mi->m_nVoiceMin         = CAEPedSpeechAudioEntity::GetVoice(voiceMin, mi->m_nPedAudioType);
-    mi->m_nVoiceMax         = CAEPedSpeechAudioEntity::GetVoice(voiceMax, mi->m_nPedAudioType);
+    mi->m_nVoiceMin         = SilentPatchSpeech::GetVoice(voiceMin, mi->m_nPedAudioType); // SilentPatch (MIT, Silent): WMYSGRD/BMYPIMP con su voz (SpeechPedVoiceNames); apagado = CAEPedSpeechAudioEntity::GetVoice
+    mi->m_nVoiceMax         = SilentPatchSpeech::GetVoice(voiceMax, mi->m_nPedAudioType);
     mi->m_nVoiceId          = mi->m_nVoiceMin;
 
     return modelId;

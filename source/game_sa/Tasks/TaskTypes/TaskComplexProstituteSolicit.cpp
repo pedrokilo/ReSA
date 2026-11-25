@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 #include "DatosExe/DataBssE2.h"
 
 #include "TaskComplexProstituteSolicit.h"
@@ -290,8 +291,14 @@ CTask* CTaskComplexProstituteSolicit::ControlSubTask(CPed* ped) {
         if (m_nCurrentTimer) {
             m_nCurrentTimer = int16(m_nCurrentTimer - step);
             if (m_nCurrentTimer <= 0) {
-                CAEPedSpeechAudioEntity::SetCJMood(eCJMood(9), 120000, -1, -1, -1);
-                m_pClient->Say(eGlobalSpeechContext(11));
+                if (SilentPatchSpeech::On(SilentPatchSpeech::eOpt::SolicitMood)) {
+                    // SilentPatch (MIT, Silent): primero la frase y despues el humor WR (0x666A82/0x666A9C), para que los comentarios de CJ no queden forzados al humor Wisecracking
+                    m_pClient->Say(eGlobalSpeechContext(11));
+                    CAEPedSpeechAudioEntity::SetCJMood(eCJMood(9), 120000, -1, -1, -1);
+                } else {
+                    CAEPedSpeechAudioEntity::SetCJMood(eCJMood(9), 120000, -1, -1, -1);
+                    m_pClient->Say(eGlobalSpeechContext(11));
+                }
                 m_nCurrentTimer = 0;
             }
         } else if (m_pSubTask->GetTaskType() != TASK_COMPLEX_LEAVE_CAR && m_pSubTask->MakeAbortable(ped, ABORT_PRIORITY_URGENT, nullptr)) {

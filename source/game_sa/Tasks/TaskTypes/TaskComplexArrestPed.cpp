@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 
 #include "extensions/utility.hpp"
 
@@ -302,7 +303,11 @@ CTask* CTaskComplexArrestPed::ControlSubTask(CPed* ped) {
     }
     if (m_PedToArrest && m_PedToArrest->IsPlayer()) {
         if (FindPlayerWanted()->m_NumCopsInPursuit == 1) {
-            ped->Say(CTX_GLOBAL_SOLO);
+            const auto soloResult = ped->Say(CTX_GLOBAL_SOLO);
+            // SilentPatch (MIT, Silent): CJ responde con CHASED (a pie; con menos probabilidad, pues SOLO es muy frecuente) para que sus frases con 1 estrella no sean raras (0x68D82F); opcion SpeechChasedOneStar
+            if (soloResult >= 0 && !m_PedToArrest->GetVehicleIfInOne() && SilentPatchSpeech::On(SilentPatchSpeech::eOpt::ArrestChased)) {
+                m_PedToArrest->Say(CTX_GLOBAL_CHASED, 3500, 0.6f);
+            }
         } else {
             FindPlayerWanted();
         }

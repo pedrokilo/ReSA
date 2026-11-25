@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 #include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE3.h"
@@ -1793,7 +1794,12 @@ bool JoinGroupFlags() {
 // de un CEventNewGangMember, y se le marca en el radar; sin sitio recibe un CEventDontJoinPlayerGroup.
 void CPlayerPed::MakeThisPedJoinOurGroup(CPed* ped) {
     if (ped->bDruggedUp) { // test ah,4 de [ped + 0x478]
-        Say(CTX_GLOBAL_DRUGGED_IGNORE, 0, 1.0f, false, false, false); // 0x5EFFE0 (0x52)
+        // SilentPatch (MIT, Silent): el pandillero drogado dice DRUGGED_IGNORE (el EXE lo dice en CJ, 0x60C87A); opcion SpeechDruggedRecruit
+        if (SilentPatchSpeech::On(SilentPatchSpeech::eOpt::DruggedRecruit)) {
+            ped->Say(CTX_GLOBAL_DRUGGED_IGNORE, 0, 1.0f, false, false, false);
+        } else {
+            Say(CTX_GLOBAL_DRUGGED_IGNORE, 0, 1.0f, false, false, false); // 0x5EFFE0 (0x52)
+        }
         return;
     }
     if (ped->GetTaskManager().FindActiveTaskByType(static_cast<eTaskType>(1000))) { // 0x681740

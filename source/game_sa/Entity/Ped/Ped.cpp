@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 #include "DatosExe/DataInicializadaXA.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -4178,6 +4179,14 @@ void CPed::KillPedWithCar(CVehicle* car, float fDamageIntensity, bool bPlayDeadA
         }
         bIsStanding = false;
         auto direction = GetLocalDirection(CVector2D{-car->m_vecMoveSpeed.x, -car->m_vecMoveSpeed.y});
+        // SilentPatch (MIT, Silent): al atropellar a un peaton con el coche del jugador, un pasajero lo comenta (CAR_HIT_PED, o TAXI_HIT_PED si no la tiene); 0x5F05CA; opcion SpeechCarHitPedPassenger
+        if (SilentPatchSpeech::On(SilentPatchSpeech::eOpt::CarHitPed) && car == FindPlayerVehicle()) {
+            if (auto* const passenger = car->PickRandomPassenger()) {
+                if (passenger->Say(CTX_GLOBAL_CAR_HIT_PED) < 0) {
+                    passenger->Say(CTX_GLOBAL_TAXI_HIT_PED);
+                }
+            }
+        }
         const auto& box = car->GetColModel()->m_boundBox;
         const float side = DotProduct(offset, car->GetRight());
         const float height = DotProduct(offset, car->GetUp());

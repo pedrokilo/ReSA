@@ -371,6 +371,11 @@ public:
      */
     static ePedSpeechVoiceS16 GetVoice(const char* name, eAudioPedTypeS16 type);
 
+    // notsa: sondeos del banco de SilentPatch (SilentPatchSpeech::AutoTest); recorren las mismas funciones internas que el juego (tablas del EXE + correcciones opcionales)
+    static bool ProbeSoundRange(eAudioPedType type, int16 sCtx, int16 voice, int16& first, int16& last);
+    static bool ProbeGetSoundAndBankIDs(eAudioPedType type, int16 voice, eGlobalSpeechContext gCtx, int16& soundId, int16& soundFirst);
+    static bool ProbeSpecialPed(uint32 modelNameHash, int16& voice, int16& type, int16& isFemale);
+
     static float __stdcall                   GetSpeechContextVolumeOffset(eGlobalSpeechContextS16 gctx);
     static eSpecificSpeechContext __stdcall  GetSpecificSpeechContext(eGlobalSpeechContext gCtx, eAudioPedType pedAudioType);
     static const tGlobalSpeechContextInfo*   GetGlobalSpeechContextInfo(eGlobalSpeechContext gCtx);

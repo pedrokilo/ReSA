@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 #include "DatosExe/DataInicializadaXA.h"
 #include "DatosExe/DataBssG3.h"
 #include "DatosExe/DataBssE3.h"
@@ -2403,7 +2404,10 @@ void CBike::VehicleDamage(float damageIntensity, eVehicleCollisionComponent comp
             if (damage > 5.f && m_pDriver && m_pDamageEntity && m_pDamageEntity->GetIsTypeVehicle()) {
                 auto* other = static_cast<CVehicle*>(m_pDamageEntity);
                 if ((FindPlayerVehicle(-1, false) != this || reinterpret_cast<uint8*>(other)[0x4A4] != 2) && other->m_pDriver) {
-                    m_pDriver->Say(static_cast<eGlobalSpeechContext>(66), 0, 1.f, false, false, false);
+                    // SilentPatch (MIT, Silent): CRASH_BIKE (66) con respaldo CRASH_GENERIC (68) para quien no la tiene (CJ); opcion SpeechCrashGenericFallback
+                    if (m_pDriver->Say(static_cast<eGlobalSpeechContext>(66), 0, 1.f, false, false, false) < 0 && SilentPatchSpeech::On(SilentPatchSpeech::eOpt::CrashGeneric)) {
+                        m_pDriver->Say(CTX_GLOBAL_CRASH_GENERIC, 0, 1.f, false, false, false);
+                    }
                 }
             }
             const float previousHealth = m_fHealth;

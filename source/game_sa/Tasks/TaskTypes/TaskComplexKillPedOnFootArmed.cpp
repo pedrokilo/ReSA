@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "SilentPatchSpeech.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/RdataConstantes.h"
 
@@ -267,7 +268,7 @@ CTask* CTaskComplexKillPedOnFootArmed::CreateSubTask(eTaskType taskType, CPed* p
             const auto now = CTimer::GetTimeInMS();
             m_shootTimer = now + uint32(CGeneral::GetRandomIntInRange(4000, 8000));
             result = gun;
-            if (ped->GetGroup()) {
+            if (SilentPatchSpeech::PedHasGroupForSpeech(ped)) { // SilentPatch (MIT, Silent): los policias tambien dicen SURROUNDED/COVER_ME (0x627587); opcion SpeechCopsCoverLines
                 ped->Say(CTX_GLOBAL_SURROUNDED);
             }
         }
@@ -453,7 +454,7 @@ CTask* CTaskComplexKillPedOnFootArmed::CreateNextSubTask(CPed* ped) {
             const auto difference = coordinates - m_target->GetPosition();
             if (range * .75f > std::sqrt(difference.x * difference.x + difference.y * difference.y) &&
                 CWorld::GetIsLineOfSightClear(coordinates, ped->GetPosition(), true, true, false, false, false, false, false)) {
-                if (CPedGroups::GetPedsGroup(ped)) ped->Say(eGlobalSpeechContext(65));
+                if (SilentPatchSpeech::PedHasGroupForSpeech(ped)) ped->Say(eGlobalSpeechContext(65)); // SilentPatch (MIT, Silent): ver SURROUNDED (0x62C96C)
                 ped->GetIntelligence()->SetTaskDuckSecondary(6000);
                 if (auto* gotoPoint = new CTaskSimpleGoToPoint{PEDMOVE_RUN, coordinates, .5f, true, false}) return finish(gotoPoint);
             } else {
@@ -632,7 +633,7 @@ CTask* CTaskComplexKillPedOnFootArmed::ControlSubTask(CPed* ped) {
         ) {
             return CreateSubTask(TASK_SIMPLE_GUN_CTRL, ped);
         }
-        if (ped->GetGroup()) { // 0x62D21A
+        if (SilentPatchSpeech::PedHasGroupForSpeech(ped)) { // 0x62D21A; SilentPatch (MIT, Silent): ver SURROUNDED (0x62D21B)
             ped->Say(CTX_GLOBAL_COVER_ME);
         }
         break;
@@ -660,7 +661,7 @@ CTask* CTaskComplexKillPedOnFootArmed::ControlSubTask(CPed* ped) {
             break;
         }
 
-        if (ped->GetGroup()) {
+        if (SilentPatchSpeech::PedHasGroupForSpeech(ped)) { // SilentPatch (MIT, Silent): ver SURROUNDED (0x62CF5A)
             ped->Say(CTX_GLOBAL_SURROUNDED);
         }
 

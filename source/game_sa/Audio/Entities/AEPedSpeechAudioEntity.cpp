@@ -37,6 +37,8 @@ END GENERATED HOOK STATUS */
 #include "Stats.h"
 
 #include "PedSpeechAudioEntityLUTs.inc.h"
+#include "SilentPatchSpeech.h"
+#include "extensions/SilentPatchConfig.h"
 
 void CAEPedSpeechAudioEntity::InjectHooks() {
     RH_ScopedVirtualClass(CAEPedSpeechAudioEntity, 0x85F310, 8);
@@ -135,13 +137,14 @@ struct tExeSpeechTypeTables {
     uintptr_t Ranges;
     int32     NumVoices;
     int16     MaxSpecificContext;
+    SilentPatchSpeech::eTable Table; // SilentPatch (MIT, Silent): identifica la tabla para las correcciones opcionales de SilentPatchSpeech
 };
-constexpr tExeSpeechTypeTables EXE_GEN_TABLES{ 0x8AF700, 0x8AF8A8, 0xD1, 0x67 }; // rangos de 2 bytes (uint8, uint8)
-constexpr tExeSpeechTypeTables EXE_EMG_TABLES{ 0x8BA470, 0x8BA4D0, 0x2E, 0x22 };
-constexpr tExeSpeechTypeTables EXE_PLY_TABLES{ 0x8BBED0, 0x8BBEF8, 0x14, 0x6F };
-constexpr tExeSpeechTypeTables EXE_GNG_TABLES{ 0x8BE5B8, 0x8BE620, 0x34, 0x70 };
-constexpr tExeSpeechTypeTables EXE_GFD_TABLES{ 0x8C4288, 0x8C42B0, 0x12, 0x78 };
-constexpr tExeSpeechTypeTables EXE_PAIN_TABLES{ 0x8C64AC, 0x8C64B8, 0x03, 0x7FFF };
+constexpr tExeSpeechTypeTables EXE_GEN_TABLES{ 0x8AF700, 0x8AF8A8, 0xD1, 0x67, SilentPatchSpeech::eTable::GEN }; // rangos de 2 bytes (uint8, uint8)
+constexpr tExeSpeechTypeTables EXE_EMG_TABLES{ 0x8BA470, 0x8BA4D0, 0x2E, 0x22, SilentPatchSpeech::eTable::EMG };
+constexpr tExeSpeechTypeTables EXE_PLY_TABLES{ 0x8BBED0, 0x8BBEF8, 0x14, 0x6F, SilentPatchSpeech::eTable::PLAYER };
+constexpr tExeSpeechTypeTables EXE_GNG_TABLES{ 0x8BE5B8, 0x8BE620, 0x34, 0x70, SilentPatchSpeech::eTable::GANG };
+constexpr tExeSpeechTypeTables EXE_GFD_TABLES{ 0x8C4288, 0x8C42B0, 0x12, 0x78, SilentPatchSpeech::eTable::GFD };
+constexpr tExeSpeechTypeTables EXE_PAIN_TABLES{ 0x8C64AC, 0x8C64B8, 0x03, 0x7FFF, SilentPatchSpeech::eTable::PAIN };
 
 int16 ExeVoiceBank(const tExeSpeechTypeTables& t, int16 voice) {
     return *reinterpret_cast<const int16*>(t.Banks + (intptr_t)voice * 2);
@@ -149,13 +152,20 @@ int16 ExeVoiceBank(const tExeSpeechTypeTables& t, int16 voice) {
 
 // Rango de 4 bytes (int16 primero, int16 último)
 const int16* ExeRange(const tExeSpeechTypeTables& t, int16 sCtx, int16 voice) {
-    return reinterpret_cast<const int16*>(t.Ranges + ((intptr_t)sCtx * t.NumVoices + voice) * 4);
+    const auto* const exe = reinterpret_cast<const int16*>(t.Ranges + ((intptr_t)sCtx * t.NumVoices + voice) * 4);
+    // SilentPatch (MIT, Silent): contextos con errata/sin asignar (SilentPatchSpeech; con la opcion apagada devuelve `exe`)
+    return SilentPatchSpeech::Range(t.Table, t.Ranges, t.NumVoices, sCtx, voice, exe);
 }
 
 // Rango de 2 bytes de los peatones genéricos (uint8 primero, uint8 último)
 const uint8* ExeGenRange(int16 sCtx, int16 voice) {
-    return reinterpret_cast<const uint8*>(EXE_GEN_TABLES.Ranges + ((intptr_t)sCtx * EXE_GEN_TABLES.NumVoices + voice) * 2);
+    const auto* const exe = reinterpret_cast<const uint8*>(EXE_GEN_TABLES.Ranges + ((intptr_t)sCtx * EXE_GEN_TABLES.NumVoices + voice) * 2);
+    // SilentPatch (MIT, Silent): ver ExeRange
+    return SilentPatchSpeech::GenRange(EXE_GEN_TABLES.Ranges, EXE_GEN_TABLES.NumVoices, sCtx, voice, exe);
 }
+
+// SilentPatch (MIT, Silent): ver GetSoundAndBankIDs / I_AddSayEvent (respuestas de CJ sobre el tiempo)
+bool s_ForceMoodCDForWeather = false;
 
 // Como el original: la entidad de voz de un peatón es una dirección (CPed + 0x294); no se desreferencia el peatón.
 CAEPedSpeechAudioEntity* SpeechOf(CPed* ped) {
@@ -345,6 +355,8 @@ void CAEPedSpeechAudioEntity::ReleasePedConversation() {
 
 // 0x5B98C0
 void CAEPedSpeechAudioEntity::StaticInitialise() {
+    SilentPatchSpeech::AutoTest(); // banco en proceso de las correcciones de voz de SilentPatch (solo con GTASA_SILENTPATCH_SELFTEST_VOCES=1 o 3); va antes de los reinicios de abajo
+
     for (auto& slot : s_PedSpeechSlots) {
         slot.Reset();
     }
@@ -385,6 +397,7 @@ void CAEPedSpeechAudioEntity::StaticInitialise() {
 
 // 0x4E3710
 void CAEPedSpeechAudioEntity::Service() { // static
+    SilentPatchSpeech::GameTimeTick(); // banco en juego de SilentPatch (solo con GTASA_SILENTPATCH_SELFTEST_VOCES=2 o 3)
     bool forceAudible = false; // Como el original: s_bForceAudible solo se escribe al final
     for (int16 i = 0; i < (int16)s_PedSpeechSlots.size(); i++) {
         auto& speech = SpeechSlot(i);
@@ -1047,7 +1060,8 @@ int16 CAEPedSpeechAudioEntity::GetSoundAndBankIDs(eGlobalSpeechContext gCtx, eSp
             }
             if (m_PedAudioType == PED_TYPE_PLAYER) {
                 // Como el original: se baja de humor hasta encontrar una voz con sonidos para el contexto (o llegar a CR)
-                auto mood = GetCurrentCJMood();
+                // SilentPatch (MIT, Silent): en el reintento de las respuestas de CJ sobre el tiempo se finge el humor CD (solo CD y CF tienen respuestas)
+                auto mood = s_ForceMoodCDForWeather ? MOOD_CD : GetCurrentCJMood();
                 voice = GetVoiceForMood(mood);
                 while (mood != MOOD_CR && ExeRange(EXE_PLY_TABLES, sCtx, voice)[0] == -1) {
                     mood  = GetNextMoodToUse(mood);
@@ -1229,7 +1243,14 @@ int16 CAEPedSpeechAudioEntity::AddSayEvent(eAudioEvents audioEvent, eGlobalSpeec
     }
 
     eSpecificSpeechContext sCtx;
-    const auto soundID = GetSoundAndBankIDs(gCtx, sCtx);
+    auto soundID = GetSoundAndBankIDs(gCtx, sCtx);
+    // SilentPatch (MIT, Silent): CJ no tiene respuestas sobre el tiempo en su humor actual: se reintenta con el humor CD (solo CD y CF las tienen); 0x4E67E2 y 0x4E5A67; opcion SpeechWeatherConversations
+    if (soundID < 0 && m_PedAudioType == PED_TYPE_PLAYER && (gCtx == CTX_GLOBAL_WEATHER_DISL_REPLY || gCtx == CTX_GLOBAL_WEATHER_LIKE_REPLY)
+        && SilentPatchSpeech::On(SilentPatchSpeech::eOpt::WeatherConversations)) {
+        s_ForceMoodCDForWeather = true;
+        soundID                 = GetSoundAndBankIDs(gCtx, sCtx);
+        s_ForceMoodCDForWeather = false;
+    }
     if (soundID < 0) {
         return -1;
     }
@@ -1409,6 +1430,15 @@ bool CAEPedSpeechAudioEntity::GetVoiceAndTypeForSpecialPed(uint32 modelNameHash)
         }
     }
     if (idx == NUM_EXE_SPECIAL_PEDS) {
+        // SilentPatch (MIT, Silent): el modelo "maccer" no esta en la tabla del EXE (solo "macca") y se queda sin voz (opcion SpeechMaccerVoice)
+        int16 voice, type;
+        uint8 female;
+        if (SilentPatchSpeech::SpecialPedVoice(modelNameHash, voice, type, female)) {
+            m_PedAudioType = (eAudioPedType)type;
+            m_VoiceID      = (ePedSpeechVoiceS16)voice;
+            m_IsFemale     = female;
+            return true;
+        }
         return false;
     }
     const auto* const e   = reinterpret_cast<const uint8*>(EXE_SPECIAL_PED_VOICES + idx * 6);
@@ -1665,7 +1695,8 @@ eSpecificSpeechContext __stdcall CAEPedSpeechAudioEntity::GetSpecificSpeechConte
     if (e[0] == -1) {
         return -1;
     }
-    return e[1 + pedAudioType];
+    // SilentPatch (MIT, Silent): contextos globales sin contexto especifico asignado (SilentPatchSpeech::SpecificContext; apagado = el valor del EXE)
+    return SilentPatchSpeech::SpecificContext(gCtx, pedAudioType, e[1 + pedAudioType]);
 }
 
 // notsa
@@ -1977,3 +2008,59 @@ void CAEPedSpeechAudioEntity::I_PlayLoadedSound(CEntity* attachTo) {
 
 template
 void CAEPedSpeechAudioEntity::I_PlayLoadedSound<true>(CEntity* attachTo);
+
+// notsa: sondeos del banco de SilentPatch (SilentPatchSpeech::AutoTest). Usan ExeRange/ExeGenRange/GetSoundAndBankIDs/GetVoiceAndTypeForSpecialPed del juego.
+bool CAEPedSpeechAudioEntity::ProbeSoundRange(eAudioPedType type, int16 sCtx, int16 voice, int16& first, int16& last) {
+    const tExeSpeechTypeTables* t{};
+    switch (type) {
+    case PED_TYPE_GEN: {
+        if (sCtx < 0 || sCtx > EXE_GEN_TABLES.MaxSpecificContext || voice < 0 || voice >= EXE_GEN_TABLES.NumVoices) {
+            return false;
+        }
+        const auto* const r = ExeGenRange(sCtx, voice);
+        first = r[0];
+        last  = r[1];
+        return true;
+    }
+    case PED_TYPE_EMG:    t = &EXE_EMG_TABLES; break;
+    case PED_TYPE_PLAYER: t = &EXE_PLY_TABLES; break;
+    case PED_TYPE_GANG:   t = &EXE_GNG_TABLES; break;
+    case PED_TYPE_GFD:    t = &EXE_GFD_TABLES; break;
+    default:              return false;
+    }
+    if (sCtx < 0 || sCtx > t->MaxSpecificContext || voice < 0 || voice >= t->NumVoices) {
+        return false;
+    }
+    const auto* const r = ExeRange(*t, sCtx, voice);
+    first = r[0];
+    last  = r[1];
+    return true;
+}
+
+bool CAEPedSpeechAudioEntity::ProbeGetSoundAndBankIDs(eAudioPedType type, int16 voice, eGlobalSpeechContext gCtx, int16& soundId, int16& soundFirst) {
+    alignas(CAEPedSpeechAudioEntity) static uint8 buf[sizeof(CAEPedSpeechAudioEntity)];
+    std::memset(buf, 0, sizeof(buf)); // objeto de pruebas: GetSoundAndBankIDs solo lee/escribe estos campos y las tablas estaticas
+    auto* const e     = reinterpret_cast<CAEPedSpeechAudioEntity*>(buf);
+    e->m_IsInitialized = true;
+    e->m_PedAudioType  = type;
+    e->m_VoiceID       = (ePedSpeechVoiceS16)voice;
+    e->m_IsFemale      = 0;
+    eSpecificSpeechContext sCtx{};
+    const auto r = e->GetSoundAndBankIDs(gCtx, sCtx);
+    soundId      = e->m_SoundID;
+    soundFirst   = r >= 0 ? (int16)(e->m_SoundID - r) : (int16)-1;
+    return r >= 0;
+}
+
+bool CAEPedSpeechAudioEntity::ProbeSpecialPed(uint32 modelNameHash, int16& voice, int16& type, int16& isFemale) {
+    alignas(CAEPedSpeechAudioEntity) static uint8 buf[sizeof(CAEPedSpeechAudioEntity)];
+    std::memset(buf, 0, sizeof(buf));
+    auto* const e = reinterpret_cast<CAEPedSpeechAudioEntity*>(buf);
+    if (!e->GetVoiceAndTypeForSpecialPed(modelNameHash)) {
+        return false;
+    }
+    voice    = e->m_VoiceID;
+    type     = (int16)e->m_PedAudioType;
+    isFemale = e->m_IsFemale;
+    return true;
+}
