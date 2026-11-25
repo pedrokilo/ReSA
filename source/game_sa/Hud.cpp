@@ -1779,8 +1779,11 @@ void CHud::DrawPlayerInfo() {
         std::sprintf(ascii, "%02d:%02d", int(StaticRef<uint8>(0xB70153)), int(StaticRef<uint8>(0xB70152))); AsciiToGxtChar(ascii, text);
         CFont::SetColor(HudColour.GetRGB(static_cast<eHudColours>(4))); CFont::PrintString(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C, sy * DatosExe::Rdata::k858F8C, text); CFont::SetEdge(0);
     }
-    const auto fadeElement = [&](uintptr_t address, int current) {
-        auto& state = StaticRef<int32>(address); auto& fade = StaticRef<int32>(address + 4); auto& timer = StaticRef<int32>(address + 8); auto& previous = StaticRef<int32>(address + 12);
+    // Cada bloque (estado, temporizador de fundido, temporizador, ultimo valor) se pasa por sus nombres (m_WeaponState, m_WeaponFadeTimer...): los mismos
+    // que usan DrawFadeState y Hud::Initialise. Antes se accedia por 'direccion base + 4/8/12' de la memoria del EXE, y los objetos propios
+    // (DatosExe::Bss::bBAA408...bBAA410, bBAA428...bBAA430, bBAA438...bBAA440) quedaban sin escribir (dato en dos sitios).
+    const auto fadeElement = [&](auto& stateRef, auto& fadeRef, auto& timerRef, auto& previousRef, int current) {
+        int32 state = int32(stateRef), fade = int32(fadeRef), timer = int32(timerRef), previous = int32(previousRef);
         float alpha = 255.f;
         if (previous != current) {
             if (!state) fade = 0;
@@ -1797,10 +1800,11 @@ void CHud::DrawPlayerInfo() {
             timer += int32((CTimer::GetTimeStep() * DatosExe::Rdata::k858B38) * DatosExe::Rdata::k858C4C);
         }
         previous = current;
+        stateRef = uint32(state); fadeRef = uint32(fade); timerRef = uint32(timer); previousRef = uint32(previous);
         if (alpha < 0.f) alpha = 0.f; else if (alpha > 255.f) alpha = 255.f;
         return alpha;
     };
-    fadeElement(0xBAA434, StaticRef<int32>(0xB7CE7C + 400 * focus));
+    fadeElement(m_EnergyLostState, m_EnergyLostFadeTimer, m_EnergyLostTimer, m_LastTimeEnergyLost, StaticRef<int32>(0xB7CE7C + 400 * focus));
     if (m_EnergyLostState) {
         const int healthX = int32(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k86535C), armorX = int32(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k866B78);
         RenderHealthBar(focus, healthX, int32(GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k866CA8, 10)));
@@ -1825,14 +1829,14 @@ void CHud::DrawPlayerInfo() {
         if (otherBreath && other) RenderBreathBar(1, armorX, int32(GetYPosBasedOnHealth(1, GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k866C9C, 12), 12)));
     }
     const int money = StaticRef<int32>(0xB7CE54 + 400 * focus);
-    const auto moneyAlpha = uint8(int32(fadeElement(0xBAA424, money)));
+    const auto moneyAlpha = uint8(int32(fadeElement(m_DisplayScoreState, m_DisplayScoreFadeTimer, m_DisplayScoreTimer, m_LastDisplayScore, money)));
     if (m_DisplayScoreState) {
         CFont::SetColor(HudColour.GetRGBA(static_cast<eHudColours>(money < 0 ? 0 : 1), moneyAlpha));
         std::sprintf(ascii, money < 0 ? "-$%07d" : "$%08d", money < 0 ? -money : money); AsciiToGxtChar(ascii, text);
         CFont::SetProportional(false); CFont::SetBackground(false, false); CFont::SetScale(sx * DatosExe::Rdata::k866CAC, sy * DatosExe::Rdata::k858F14); CFont::SetOrientation(static_cast<eFontAlignment>(2)); CFont::SetRightJustifyWrap(0.f); CFont::SetFontStyle(static_cast<eFontStyle>(3)); CFont::SetDropShadowPosition(0); CFont::SetEdge(2); CFont::SetDropColor(CRGBA(0,0,0,moneyAlpha));
         CFont::PrintString(float(RsGlobal.maximumWidth) - sx * DatosExe::Rdata::k85950C, GetYPosBasedOnHealth(focus, sy * DatosExe::Rdata::k866C88, 12), text); CFont::SetEdge(0);
     }
-    const float weaponAlpha = fadeElement(0xBAA404, int(player->GetActiveWeapon().m_Type));
+    const float weaponAlpha = fadeElement(m_WeaponState, m_WeaponFadeTimer, m_WeaponTimer, m_LastWeapon, int(player->GetActiveWeapon().m_Type));
     if (m_WeaponState) {
         const float iconX = float(RsGlobal.maximumWidth) - (sx * DatosExe::Rdata::k85950C + float(RsGlobal.maximumWidth) * DatosExe::Rdata::k866C84);
         DrawWeaponIcon(player, int32(iconX), int32(sy * DatosExe::Rdata::k858BA4), weaponAlpha);
