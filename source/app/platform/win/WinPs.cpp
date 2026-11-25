@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssE2.h"
 
 #include <platform/win/WinPlatform.h>
@@ -362,7 +363,11 @@ RwImage* psGrabScreen(RwCamera* camera) {
         }
     }
 
-    // Como el original: la superficie no se desbloquea ni se libera
+    // SilentPatch (MIT, Silent): CameraMemoryLeakFix - el original no desbloquea ni libera la superficie (una fuga por cada foto; SilentPatch lo corrige en 0x7453CE/0x7453D6). Con la opcion apagada: como el original
+    if (SilentPatchOption("CameraMemoryLeakFix", true)) {
+        surface->UnlockRect();
+        surface->Release();
+    }
     return image;
 }
 

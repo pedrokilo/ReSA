@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "X87Math.h"
 #include "platform.h"
 #include "LoadingScreen.h"
@@ -104,6 +105,10 @@ void CLoadingScreen::Shutdown(bool isForce) {
     }
 }
 
+// SilentPatch (MIT, Silent): LoopLoadingScreens - indice (base 1) de la pantalla anterior para el fundido cruzado cuando las pantallas dan la vuelta
+// (SilentPatch: currDisplayedSplash_ForLastSplash, leido en 0x590042). 0 = sin usar (comportamiento del EXE)
+static int s_prevSplashForCrossFade = 0;
+
 // 0x58FF60
 // Edit in Mobile
 void CLoadingScreen::RenderSplash() {
@@ -133,7 +138,8 @@ void CLoadingScreen::RenderSplash() {
             CSprite2d::DrawRect(screenRect, color);
         } else {
             color.a = 255 - m_FadeAlpha;
-            m_aSplashes.data()[+m_currDisplayedSplash - 1].Draw(screenRect, color);
+            const int32 prevSplash = (s_prevSplashForCrossFade != 0 && SilentPatchOption("LoopLoadingScreens", true)) ? s_prevSplashForCrossFade : +m_currDisplayedSplash;
+            m_aSplashes.data()[prevSplash - 1].Draw(screenRect, color);
         }
     } else if (!m_bReadyToDelete) {
         GetCurrentDisplayedSplash().Draw(screenRect, color);
@@ -359,8 +365,20 @@ void CLoadingScreen::DoPCScreenChange(bool isLastOne) {
     if (isLastOne) {
         m_bFadeOutCurrSplashToBlack = true;
     } else {
+        if (SilentPatchOption("LoopLoadingScreens", true)) {
+            // SilentPatch (MIT, Silent): LoopLoadingScreens - las cargas muy largas repiten las pantallas de carga (1..6) en vez de pasar a una pantalla blanca fuera de la tabla
+            constexpr int32 NUM_SPLASHES = +eDisplayedSplash::COUNT - 1; // 6
+            if (+m_currDisplayedSplash >= NUM_SPLASHES) {
+                m_currDisplayedSplash = eDisplayedSplash::SPLASH_1_NO_BAR;
+                s_prevSplashForCrossFade = NUM_SPLASHES + 1;
+            } else {
+                m_currDisplayedSplash = (eDisplayedSplash)(+m_currDisplayedSplash + 1);
+                s_prevSplashForCrossFade = +m_currDisplayedSplash;
+            }
+        } else {
         // Como el original (inc 0x8D093C): siempre se avanza, aunque pase de la última pantalla
         m_currDisplayedSplash = (eDisplayedSplash)(+m_currDisplayedSplash + 1);
+        }
     }
 
     if (!g_FastLoaderConfig.NoFading) {

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataInicializadaXB.h"
 #include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE2.h"
@@ -36,6 +37,36 @@ auto& gStreamSemaphore = DatosExe::Bss::b8E4004<HANDLE>();
 auto& gStreamingThread = DatosExe::Bss::b8E4008<HANDLE>();
 auto& gStreamingThreadId = DatosExe::Bss::b8E4000;
 auto& gLastCdStreamPosn = DatosExe::Bss::b8E4898;
+
+// SilentPatch (MIT, Silent): CdStreamSyncFix ("CdStream data racing issue", SilentPatchSA.cpp CdStreamSync::Sema, 0x406460/0x406560).
+// Seccion critica comun a CdStreamSync (hilo principal) y CdStreamThread: sin ella, si el hilo de lectura comprueba `bLocked` justo antes de que el principal lo ponga a true,
+// nadie libera el semaforo y el principal espera para siempre (cuelgue al entrar/salir de interiores o cargar partidas). Con la opcion apagada se conserva el codigo del EXE (sin seccion critica).
+namespace {
+struct CdStreamSyncLock {
+    CRITICAL_SECTION cs;
+    CdStreamSyncLock() { InitializeCriticalSection(&cs); }
+    void Enter() { EnterCriticalSection(&cs); }
+    void Leave() { LeaveCriticalSection(&cs); }
+};
+CdStreamSyncLock gSyncLock;
+// Se evalua una sola vez al primer uso (el interruptor no cambia durante la ejecucion)
+bool CdStreamSyncFixEnabled() {
+    static const bool enabled = SilentPatchOption("CdStreamSyncFix", true);
+    return enabled;
+}
+}
+
+// SilentPatch (MIT, Silent): IMGsBiggerThan4GB (SilentPatchSA.cpp CdStreamThreadHighSize / CdStreamSetFilePointer, 0x4065C2 y 0x406620) - el desplazamiento en bytes (sector * 2048) se calcula en 64 bits y se
+// reparte entre Offset y OffsetHigh; el EXE lo trunca a 32 bits (imagenes de mas de 4 GB se leian en un sitio equivocado). Para imagenes menores de 4 GB el resultado es identico.
+static bool BigImgEnabled() {
+    static const bool enabled = SilentPatchOption("IMGsBiggerThan4GB", true);
+    return enabled;
+}
+// SilentPatch (MIT, Silent): RemoveNoBufferingFlag - quita FILE_FLAG_NO_BUFFERING de la lectura de IMG (0x406BC6), lo que acelera el streaming
+static bool NoBufferingRemoved() {
+    static const bool enabled = SilentPatchOption("RemoveNoBufferingFlag", true);
+    return enabled;
+}
 
 #include "AEBankLoader.h"
 
@@ -111,7 +142,16 @@ CdStreamHandle CdStreamOpen(const char* lpFileName) {
 eCdStreamStatus CdStreamSync(int32 streamId) {
     CdStream& stream = gCdStreams[streamId];
     if (gStreamingInitialized) {
-        if (stream.nSectorsToRead) {
+        if (CdStreamSyncFixEnabled()) {
+            // SilentPatch (MIT, Silent): CdStreamSyncFix
+            gSyncLock.Enter();
+            const bool bMustWait = stream.nSectorsToRead != 0;
+            if (bMustWait)
+                stream.bLocked = true;
+            gSyncLock.Leave();
+            if (bMustWait)
+                WaitForSingleObject(stream.sync.hSemaphore, INFINITE);
+        } else if (stream.nSectorsToRead) {
             stream.bLocked = true;
             WaitForSingleObject(stream.sync.hSemaphore, INFINITE);
         }
@@ -177,11 +217,22 @@ bool CdStreamRead(int32 streamId, void* lpBuffer, CdStreamPos pos, int32 sectorC
     if (gOverlappedIO) {
         LPOVERLAPPED overlapped = &gCdStreams[streamId].overlapped;
         overlapped->Offset = overlappedOffset;
+        if (BigImgEnabled()) { // SilentPatch (MIT, Silent): IMGsBiggerThan4GB
+            const uint64 byteOffset = uint64(pos.Offset) * STREAMING_SECTOR_SIZE;
+            overlapped->Offset = uint32(byteOffset);
+            overlapped->OffsetHigh = uint32(byteOffset >> 32);
+        }
         if (ReadFile(stream.hFile, lpBuffer, numberOfBytesToRead, nullptr, overlapped) || GetLastError() == ERROR_IO_PENDING)
             return true;
         return false;
     }
+    if (BigImgEnabled()) { // SilentPatch (MIT, Silent): IMGsBiggerThan4GB
+        LARGE_INTEGER li;
+        li.QuadPart = int64(pos.Offset) * STREAMING_SECTOR_SIZE;
+        SetFilePointer(stream.hFile, li.LowPart, &li.HighPart, 0);
+    } else {
     SetFilePointer(stream.hFile, overlappedOffset, nullptr, 0);
+    }
     DWORD numberOfBytesRead = 0;
     return ReadFile(stream.hFile, lpBuffer, numberOfBytesToRead, &numberOfBytesRead, nullptr);
 }
@@ -205,6 +256,11 @@ bool CdStreamRead(int32 streamId, void* lpBuffer, CdStreamPos pos, int32 sectorC
             const DWORD overlappedOffset = stream.nSectorOffset * STREAMING_SECTOR_SIZE;
             if (gOverlappedIO) {
                 stream.overlapped.Offset = overlappedOffset;
+                if (BigImgEnabled()) { // SilentPatch (MIT, Silent): IMGsBiggerThan4GB
+                    const uint64 byteOffset = uint64(stream.nSectorOffset) * STREAMING_SECTOR_SIZE;
+                    stream.overlapped.Offset = uint32(byteOffset);
+                    stream.overlapped.OffsetHigh = uint32(byteOffset >> 32);
+                }
                 if (ReadFile(stream.hFile, stream.lpBuffer, numberOfBytesToRead, nullptr, &stream.overlapped)) {
                     stream.status = eCdStreamStatus::READING_SUCCESS;
                 } else if (GetLastError() != ERROR_IO_PENDING) {
@@ -217,7 +273,13 @@ bool CdStreamRead(int32 streamId, void* lpBuffer, CdStreamPos pos, int32 sectorC
                         stream.status = eCdStreamStatus::READING_FAILURE;
                 }
             } else {
+                if (BigImgEnabled()) { // SilentPatch (MIT, Silent): IMGsBiggerThan4GB
+                    LARGE_INTEGER li;
+                    li.QuadPart = int64(stream.nSectorOffset) * STREAMING_SECTOR_SIZE;
+                    SetFilePointer(stream.hFile, li.LowPart, &li.HighPart, 0u);
+                } else {
                 SetFilePointer(stream.hFile, overlappedOffset, nullptr, 0u);
+                }
                 DWORD numberOfBytesRead = 0;
                 if (ReadFile(stream.hFile, stream.lpBuffer, numberOfBytesToRead, &numberOfBytesRead, nullptr))
                     stream.status = eCdStreamStatus::READING_SUCCESS;
@@ -229,9 +291,19 @@ bool CdStreamRead(int32 streamId, void* lpBuffer, CdStreamPos pos, int32 sectorC
         RemoveFirstInQueue(&gStreamQueue);
         // Como el original: sin sección crítica (si CdStreamSync pone bLocked justo después de esta comprobación,
         // el hilo principal se queda esperando: es el bloqueo conocido de la versión de PC)
-        stream.nSectorsToRead = 0;
-        if (stream.bLocked)
-            ReleaseSemaphore(stream.sync.hSemaphore, 1, nullptr);
+        if (CdStreamSyncFixEnabled()) {
+            // SilentPatch (MIT, Silent): CdStreamSyncFix - evita que CdStreamSync ponga bLocked justo despues de esta comprobacion
+            gSyncLock.Enter();
+            stream.nSectorsToRead = 0;
+            const bool bWaiterLocked = stream.bLocked;
+            gSyncLock.Leave();
+            if (bWaiterLocked)
+                ReleaseSemaphore(stream.sync.hSemaphore, 1, nullptr);
+        } else {
+            stream.nSectorsToRead = 0;
+            if (stream.bLocked)
+                ReleaseSemaphore(stream.sync.hSemaphore, 1, nullptr);
+        }
         stream.bInUse = false;
     }
 }
@@ -276,7 +348,7 @@ void CdStreamInit(int32 streamCount) {
 
     gStreamFileCreateFlags = FILE_FLAG_OVERLAPPED;
     // Como el original: sin búfer del sistema cuando el sector del disco cabe en uno de streaming
-    if (bytesPerSector <= STREAMING_SECTOR_SIZE) {
+    if (bytesPerSector <= STREAMING_SECTOR_SIZE && !NoBufferingRemoved()) { // SilentPatch (MIT, Silent): RemoveNoBufferingFlag
         gStreamFileCreateFlags |= FILE_FLAG_NO_BUFFERING;
     }
 

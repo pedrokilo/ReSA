@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 
 #include "RoadBlocks.h"
 #include "PedPlacement.h"
@@ -412,16 +413,22 @@ void CRoadBlocks::GenerateRoadBlockPedsForCar(CVehicle* vehicle, int32 pedsPosit
         default:             Generate(MODEL_INVALID, COP_TYPE_CITYCOP, false); break;
         }
     } else if (IsPedTypeGang(pedType)) {
+        // SilentPatch (MIT, Silent): RoadblockCJClonesFix - el EXE (0x4613C2) conserva el ultimo modelo elegido (0 = CJ si ninguna banda tiene fuerza en la zona) y, si no es -1, genera igualmente el control con ese modelo: clones de CJ en zonas neutrales ('End of the Line'). SilentPatch exige modelo > 0
+        int32 lastModel = MODEL_PLAYER;
         for (auto i = 0; i < TOTAL_GANGS; i++) {
             if (!CPopCycle::m_pCurrZoneInfo->GangStrength[i]) {
                 continue;
             }
             const auto pedModel = CGangs::ChooseGangPedModel((eGangID)i);
+            lastModel = pedModel;
             if (pedModel == MODEL_INVALID) {
                 continue;
             }
             Generate(pedModel);
             return;
+        }
+        if (!SilentPatchOption("RoadblockCJClonesFix", true) && lastModel != MODEL_INVALID) {
+            Generate((eModelID)lastModel);
         }
     } else {
         Generate();

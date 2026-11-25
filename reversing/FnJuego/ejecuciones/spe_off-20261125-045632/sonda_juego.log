@@ -1,0 +1,29 @@
+[    0.2] pid 29136
+[   13.3] juego en marcha tras 13 s; gGameState=9
+[   14.0] salida de la casa: area=0 tras 1 s
+[   15.0] ventana: cliente 640x480
+[   15.0] === ESCENARIO entrada
+[   25.3] CLIP rect=(0,0,1536,864) cliente en pantalla=(512,227,1151,706)
+[   26.5] camara: giro tras 8 movimientos de raton (grados) 0.0
+[   26.9] RATON New.mov por fotograma [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0)] cursor tras empujar al borde (1535, 863)
+[   54.5] LATENCIA teclado (ms) n=60 media=64.6 mediana=62.3 p10=49.2 p90=84.6 min=47.4 max=89.0
+[   70.1] replay ronda 0: modo 0 -> 1 tras 0.2 s; pos (2652.482666015625, -1703.2373046875, 10.90625)
+[   76.0] captura replay_0 {"ancho": 640, "alto": 480, "rojo": 3, "muestras": 34270, "media_rgb": [115.5, 123.7, 110.6], "max": 255} durante la reproduccion del replay
+[   76.4] replay ronda 0: fin -> modo 0 tras 0.2 s
+[   85.1] replay ronda 1: modo 0 -> 1 tras 0.2 s; pos (2652.482666015625, -1703.2373046875, 10.90625)
+[   91.1] captura replay_1 {"ancho": 640, "alto": 480, "rojo": 13, "muestras": 34270, "media_rgb": [116.3, 124.2, 110.3], "max": 255} durante la reproduccion del replay
+[   91.5] replay ronda 1: fin -> modo 0 tras 0.2 s
+[  100.1] replay ronda 2: modo 0 -> 1 tras 0.2 s; pos (2652.482666015625, -1703.2373046875, 10.90625)
+[  106.3] captura replay_2 {"ancho": 640, "alto": 480, "rojo": 14, "muestras": 34270, "media_rgb": [113.5, 121.4, 108.1], "max": 255} durante la reproduccion del replay
+[  106.7] replay ronda 2: fin -> modo 0 tras 0.2 s
+[  131.9] tras el mash: modo replay 0 vivo True pos (2652.482666015625, -1703.2373046875, 10.90625) pools {'peds': 34, 'veh': 17, 'edif': 10219, 'obj': 97, 'dummy': 812}
+[  132.4] vivo al final: True
+[  132.4] LOG [info][05:00:08.739][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[  132.4] LOG [info][05:00:08.739][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[  132.4] LOG [info][05:00:08.740][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[  132.4] LOG [info][05:00:08.741][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[  132.4] LOG [info][05:00:09.195][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[  132.4] LOG [info][05:00:09.207][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[  132.4] LOG [error][05:00:19.684][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  132.4] LOG [error][05:00:19.684][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  132.4] fin

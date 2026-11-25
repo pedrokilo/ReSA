@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssE2.h"
 
 #include "winincl.h"
@@ -44,10 +45,74 @@ static auto& ForegroundAppDword        = StaticRef<uint32>(0x8D621C);
 static auto& WindowedDword             = StaticRef<uint32>(0xC920CC);
 static auto& CameraResizeRejectedDword = DatosExe::Bss::bC9246C; // 1 si RsEventHandler(rsCAMERASIZE) no pudo fijar el tamaño pedido (solo la escribe este procedimiento)
 
+// SilentPatch (MIT, Silent): ClipCursorToGameWindow (SilentPatchSA.cpp ClipCursorToGameWindow, 0x53E9F1/0x53EC01/WndProc) - el cursor queda confinado a la ventana del juego (en vez de recentrarlo cada fotograma, lo que
+// permitia que un movimiento rapido sacase el cursor de la ventana en varios monitores). Se libera en el menu y al perder el foco.
+namespace {
+bool g_cursorWindowActive = false, g_cursorWantsClip = false, g_cursorIsClipped = false;
+
+void SilentPatchConfineCursor(HWND window) {
+    if (g_cursorIsClipped || !window)
+        return;
+    RECT clientRect;
+    GetClientRect(window, &clientRect);
+    // Coordenadas inclusivas: no se puede agarrar el borde derecho/inferior de la pantalla (pasa en pantallas de alta densidad)
+    clientRect.right -= 1;
+    clientRect.bottom -= 1;
+    MapWindowPoints(window, nullptr, reinterpret_cast<POINT*>(&clientRect), 2);
+    g_cursorIsClipped = ClipCursor(&clientRect) != FALSE;
+}
+
+void SilentPatchUnconfineCursor() {
+    if (g_cursorIsClipped) {
+        ClipCursor(nullptr);
+        g_cursorIsClipped = false;
+    }
+}
+}
+
+// Se llama al principio de __MainWndProc (solo observa los mensajes)
+static void SilentPatchCursorClipOnMessage(UINT uMsg, WPARAM wParam) {
+    if (!SilentPatchOption("ClipCursorToGameWindow", true))
+        return;
+    switch (uMsg) {
+    case WM_ACTIVATE:
+        g_cursorWindowActive = g_cursorWantsClip = LOWORD(wParam) != WA_INACTIVE;
+        if (wParam == FALSE) {
+            SilentPatchUnconfineCursor();
+        }
+        break;
+    case WM_ENTERSIZEMOVE:
+        g_cursorWantsClip = false;
+        SilentPatchUnconfineCursor();
+        break;
+    case WM_EXITSIZEMOVE:
+        if (g_cursorWindowActive)
+            g_cursorWantsClip = true;
+        SilentPatchUnconfineCursor();
+        break;
+    case WM_WINDOWPOSCHANGED:
+    case WM_DISPLAYCHANGE:
+        SilentPatchUnconfineCursor();
+        break;
+    }
+}
+
+// Una vez por fotograma justo antes de mostrar el raster (Idle, 0x53EC01): en el menu se libera, en juego se confina
+void SilentPatchCursorClipPerFrame(bool inMenu) {
+    if (!SilentPatchOption("ClipCursorToGameWindow", true))
+        return;
+    if (inMenu) {
+        SilentPatchUnconfineCursor();
+    } else if (g_cursorWantsClip) {
+        SilentPatchConfineCursor(PSGLOBAL(window));
+    }
+}
+
 // 0x747EB0 (WNDPROC __stdcall, ret 0x10)
 // Reconstrucción exacta del EXE: mismos mensajes, mismo orden de llamadas y mismos retornos. Los llamadores son user32 (la única referencia de código es Win32_InitApplication),
 // que solo lee EAX; ECX/EDX no se leen y EBX/ESI/EDI/EBP los conserva el compilador. Las API de Win32 se llaman por sus versiones ANSI, como la tabla de importación del EXE.
 LRESULT CALLBACK __MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+    SilentPatchCursorClipOnMessage(uMsg, wParam);
     switch (uMsg) {
     case WM_DESTROY:
     case WM_CLOSE: { // 0x748033

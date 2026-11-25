@@ -50,6 +50,8 @@ END GENERATED HOOK STATUS */
 #include "extensions/Configs/FastLoader.hpp"
 #include "extensions/SilentPatchConfig.h"
 
+void SilentPatchCursorClipPerFrame(bool inMenu); // WndProc.cpp
+
 void AppGameInjectHooks() {
     RH_ScopedCategory("App");
     RH_ScopedNamespaceName("Game");
@@ -373,7 +375,8 @@ void Idle(void* param) {
         // ForegroundApp; la DLL sí, porque su bucle principal no se pausa en segundo plano). También con SDL3 se
         // llama, como el EXE (antes se omitía). Se lee el dword de ForegroundApp (0x8D621C) como IsForegroundApp,
         // sin llamar a ninguna función.
-        if (StaticRef<uint32>(0x8D621C) != 0) {
+        // SilentPatch (MIT, Silent): ClipCursorToGameWindow - sin recentrar el raton cada fotograma (el cursor se confina a la ventana, ver WndProc.cpp)
+        if (StaticRef<uint32>(0x8D621C) != 0 && !SilentPatchOption("ClipCursorToGameWindow", true)) {
             RwV2d pos{ (float)RsGlobal.maximumWidth * 0.5f, (float)RsGlobal.maximumHeight * 0.5f }; // 0x858B8C
             RsMouseSetPos(&pos);
         }
@@ -446,6 +449,7 @@ void Idle(void* param) {
     CDebug::DebugDisplayTextBuffer();
     FlushObrsPrintfs();
     RwCameraEndUpdate(Scene.m_pRwCamera);
+    SilentPatchCursorClipPerFrame(FrontEndMenuManager.m_bMenuActive); // SilentPatch (MIT, Silent): ClipCursorToGameWindow
     RsCameraShowRaster(Scene.m_pRwCamera);
 }
 

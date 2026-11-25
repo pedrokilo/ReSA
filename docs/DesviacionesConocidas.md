@@ -648,3 +648,28 @@ Opcionales: todos se apagan con `GTASA_SILENTPATCH=0` (o `SilentPatch=0` en `gta
 | Unidades métricas/imperiales según la configuración regional | `Units` (-1 región, 0 métrico, 1 imperial) | Antes: imperial solo con idioma americano |
 
 Notas de la fusión: los arreglos de biker cop (`BikerCopSpawn`), azar de 16 bits (`Rand16bit`), SEAROADER (`SeaRoaderCheat`) y Beagle de Fort Carson (`FortCarsonBeagle`), que la rama `silentpatch-scm` también había portado (con los nombres `FixBikerCopSpawn`, `ScriptRandomness16Bit`, `SearoaderCheat`, `FixFortCarsonBeagle`), quedan con la implementación y las opciones de 15.1. `FixCheatMeleeAmmo` pasó a llamarse `MeleeCheatAmmo` (misma opción que la de NinjaCheat/ParachuteCheat; aquí cubre además los conjuntos de armas 1-3). El reinicio de variables de New Game es el de `SilentPatchNewGame` (superconjunto: además reinicia `TimeNextMadDriverChaseCreated`).
+
+### 15.E Entrada, cámara, replay, streaming y heap (segunda tanda, rama `silentpatch2-entrada`)
+
+Mismas reglas que arriba (`GTASA_SILENTPATCH=0` apaga todo; cada arreglo con `GTASA_SILENTPATCH_<NOMBRE EN MAYÚSCULAS>=0` o `SilentPatch_<Nombre>=0`). Ninguno tiene clave en `SilentPatchSA.ini`, así que todos van activados por defecto; el único que cambia algo perceptible de jugabilidad es `NewTimersFix` (más preciso, no más rápido). Detalle, pruebas y límites en [CodigoVivoExe/silentpatch2-entrada.md](CodigoVivoExe/silentpatch2-entrada.md); clasificación viñeta a viñeta en `CodigoVivoExe/silentpatch-clasificacion/entrada.csv`.
+
+| Función | Desviación | Opción | Riesgo |
+| --- | --- | --- | --- |
+| `CdStreamSync`, `CdStreamThread` | Sección crítica común: el hilo principal ya no se queda esperando para siempre el semáforo (carrera sobre `bLocked`) | `CdStreamSyncFix` | bajo |
+| `CdStreamInit` | Sin `FILE_FLAG_NO_BUFFERING` en la lectura de IMG | `RemoveNoBufferingFlag` | bajo |
+| `CdStreamThread`, `CdStreamRead` | Desplazamiento de lectura de 64 bits (`OffsetHigh`, `SetFilePointer` con parte alta): IMG de más de 4 GB | `IMGsBiggerThan4GB` | bajo (idéntico por debajo de 4 GB) |
+| `FxManager_c::LoadFxProject` | No llama a `FxMemoryPool_c::Optimise` (el `realloc` que encoge la arena con los blueprints ya apuntando dentro) | `HeapCorruptionFix` | bajo |
+| `psGrabScreen` | `UnlockRect` + `Release` de la superficie de la foto (fuga por cada foto) | `CameraMemoryLeakFix` | bajo |
+| `CReplay::FinishPlayback`, `CReplay::DealWithNewPedPacket` | Reconstruye al jugador con la ropa actual al terminar el replay y carga los bloques de animación fat/muscular al crear el jugador del replay | `ReplayPlayerPedCrashFixes` | bajo |
+| `CPed::DropEntityThatThisPedIsHolding` | El objeto sujeto (cigarrillo, botella) se marca `bRemoveFromWorld` y lo borra `CWorld::Process`, no se destruye en el acto | `DelayedHeldObjectDestruction` | bajo |
+| `__MainWndProc`, `Idle` | El cursor se confina a la ventana (en juego; libre en el menú y sin foco) en vez de recentrarse cada fotograma | `ClipCursorToGameWindow` | medio (cambia el trato del cursor del sistema) |
+| `CMenuManager::CheckForMenuClosing`, `diMouseInit` | No se reinicializa el ratón DirectInput al abrir/cerrar el menú; el dispositivo es siempre no exclusivo | `MouseReinitFix` | bajo |
+| `CPad::UpdatePads` | El cambio Old=New, New=Temp del teclado se hace antes de procesarlo: un fotograma menos de latencia | `KeyboardInputLatencyFix` | bajo |
+| `CCam::Process_FollowPedWithMouse`, `Process_FollowPed_SA` | El eje vertical del ratón y el rumbo del jugador ya no se bloquean durante el fundido de entrada | `MouseYAxisFadeInFix` | bajo |
+| `CCam::Process_FollowCar_SA` | En coche el ratón solo mueve la cámara al mirar hacia delante | `InCarCameraMouseLookFix` | bajo |
+| `CTaskSimpleJetPack::ProcessControlInput` | Con teclado y ratón se puede flotar con el jetpack (Q+E) | `JetpackKeyboardHover` | bajo |
+| `tDirectionArrow::Render` | La flecha/checkpoint de carrera activa `rpGEOMETRYMODULATEMATERIALCOLOR` (salía sin color si antes no se dibujaba otro marcador) | `RacingCheckpointsColourFix` | bajo |
+| `CRenderer::ConstructRenderList` | Con un vehículo RC el streaming sigue al vehículo controlado y no al jugador a pie | `RCVehicleStreamingFix` | bajo |
+| `CLoadingScreen::DoPCScreenChange`, `RenderSplash` | Las pantallas de carga dan la vuelta (1..6) en cargas muy largas en vez de pasar a una pantalla blanca | `LoopLoadingScreens` | bajo |
+| `CTimer::UpdateVariables`, `CTimer::Update`, `CTheScripts::Process` | Los milisegundos se acumulan con su resto fraccionario entre fotogramas (a más de 1000 FPS ya no se pierden) | `NewTimersFix` | medio: el reloj en ms avanza exacto; el EXE lo atrasa por truncar cada fotograma (medido con la fórmula: -4 % a 60 FPS, -1 % a 30 FPS, 0 ms por encima de 1000 FPS), así que con el arreglo temporizadores y cuentas atrás van ese tanto más rápidos que en el EXE. Por defecto encendido (SilentPatch lo lleva siempre) |
+| `CRoadBlocks::GenerateRoadBlockPedsForCar` | Con la opción apagada se reproduce el EXE (clones de CJ en zonas sin bandas); la reconstrucción anterior ya no los generaba | `RoadblockCJClonesFix` | bajo |

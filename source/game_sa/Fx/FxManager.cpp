@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "X87Math.h"
 
 #include "FxManager.h"
@@ -232,7 +233,12 @@ bool FxManager_c::LoadFxProject(const char* path) {
 
     CFileMgr::CloseFile(file);
     CTxdStore::PopCurrentTxd();
-    GetMemPool().Optimise();
+    // SilentPatch (MIT, Silent): HeapCorruptionFix - el original encoge (realloc) la arena del pool tras cargar el .fxp aunque los blueprints ya apuntan dentro de ella; SilentPatch anula esa llamada (0x5C25D3) y la arena conserva su tamano
+    if (!SilentPatchOption("HeapCorruptionFix", true)) {
+        GetMemPool().Optimise();
+    } else {
+        NOTSA_LOG_DEBUG("SilentPatch HeapCorruptionFix: FxMemoryPool_c::Optimise omitido");
+    }
     return true;
 }
 

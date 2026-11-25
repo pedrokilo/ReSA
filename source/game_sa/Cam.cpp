@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssG1.h"
@@ -3128,7 +3129,9 @@ void CCam::Process_FollowCar_SA(const CVector& targetPosition,float,float,float,
     if (alphaInput>0.f) alphaInput*=.5f;
     bool mouseActive=false;
     auto& mouseTimer=DatosExe::Bss::bB70118;
-    if (StaticRef<bool>(0xB6EC2E) && !pad->DisablePlayerControls) {
+    // SilentPatch (MIT, Silent): InCarCameraMouseLookFix - en el coche el raton solo mueve la camara cuando se mira hacia delante (no al mirar izquierda/derecha/atras; SilentPatch cambia la lectura de m_bUseMouse3rdPerson en 0x525615 por "raton y mirando adelante")
+    static const bool bCarMouseLookFix = SilentPatchOption("InCarCameraMouseLookFix", true);
+    if (StaticRef<bool>(0xB6EC2E) && (!bCarMouseLookFix || DatosExe::Data::v8CC384==3) && !pad->DisablePlayerControls) {
         const float mouseY=f(0xB73428)+f(0xB73428),mouseX=f(0xB73424)*-2.f;
         const bool allow=StaticRef<bool>((subclass==3 || subclass==4)?0xC1CC03:0xC1CC02);
         if ((mouseX==0.f && mouseY==0.f) || (*reinterpret_cast<const uint16*>(raw(pad,0x2C))==0 && allow)) {
@@ -3288,7 +3291,9 @@ void CCam::Process_FollowPedWithMouse(const CVector& position, float orientation
     }
     const auto transition = DatosExe::Bss::bC3EFAB;
     const bool controlsCamera = StaticRef<uint8>(0xB6F079) != 0 && StaticRef<uint16>(0xB6FC58) == 1;
-    if ((controlsCamera && DatosExe::Data::v8CC7D4 < transition) || transition > 200 || recenter) alphaChange = std::clamp(DatosExe::Data::v8CC7D8 - m_fVerticalAngle,-.05f,.05f);
+    // SilentPatch (MIT, Silent): MouseYAxisFadeInFix - SilentPatch salta (0x50FBB4) la condicion de fundido (eje vertical forzado al valor inicial durante el fundido de entrada); solo queda el recentrado
+    static const bool bMouseYFadeFix = SilentPatchOption("MouseYAxisFadeInFix", true);
+    if ((!bMouseYFadeFix && ((controlsCamera && DatosExe::Data::v8CC7D4 < transition) || transition > 200)) || recenter) alphaChange = std::clamp(DatosExe::Data::v8CC7D8 - m_fVerticalAngle,-.05f,.05f);
     m_fHorizontalAngle = betaChange + m_fHorizontalAngle; m_fVerticalAngle = alphaChange + m_fVerticalAngle; ClipBeta();
     m_fVerticalAngle = std::clamp(m_fVerticalAngle,std::bit_cast<float>(0xBFC7F1E7u),std::bit_cast<float>(0x3F490FDBu));
     float alpha = m_fVerticalAngle;
@@ -3345,7 +3350,8 @@ void CCam::Process_FollowPedWithMouse(const CVector& position, float orientation
     }
     CamMouseFinalDistance355(this,target);
     StaticRef<uint8>(0xB6F042) = 0; StaticRef<uint8>(0xB6F043) = 0; GetVectorsReadyForRW();
-    if (controlsCamera && transition > 128) {
+    // SilentPatch (MIT, Silent): MouseYAxisFadeInFix - tambien se omite (0x510512) el bloque que fija el rumbo del jugador a la camara durante el fundido de entrada
+    if (!bMouseYFadeFix && controlsCamera && transition > 128) {
         float heading;
         const float headingX = -m_vecFront.x;
         const float headingY = m_vecFront.y;
@@ -3589,7 +3595,9 @@ void CCam::Process_FollowPed_SA(const CVector& targetPosition, float, float, flo
     if (mouse) {
         alphaStick=m_fFOV*.0125f*f(0xB73428)*2.5f*f(0xB6EC1C);
         const uint8 transition=DatosExe::Bss::bC3EFAB;
-        if ((StaticRef<bool>(0xB6F079) && TheCamera.GetFadingDirection()==1 && transition>45) || transition>200) alphaStick=std::clamp(-verticalOffset-m_fVerticalAngle,-.05f,.05f);
+        // SilentPatch (MIT, Silent): MouseYAxisFadeInFix - SilentPatch salta (0x524071) la condicion de fundido y conserva el movimiento vertical del raton
+        static const bool bMouseYFadeFix = SilentPatchOption("MouseYAxisFadeInFix", true);
+        if (!bMouseYFadeFix && ((StaticRef<bool>(0xB6F079) && TheCamera.GetFadingDirection()==1 && transition>45) || transition>200)) alphaStick=std::clamp(-verticalOffset-m_fVerticalAngle,-.05f,.05f);
         m_fAlphaSpeed=0.f;alphaDelta=alphaStick;
     }
     m_fVerticalAngle+=alphaDelta;

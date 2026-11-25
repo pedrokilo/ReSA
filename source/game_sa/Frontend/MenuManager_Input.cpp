@@ -1092,7 +1092,7 @@ void CMenuManager::CheckForMenuClosing() {
                     pad->ClearKeyBoardHistory();
                     pad->ClearMouseHistory();
 
-                    if (IsVideoModeExclusive()) {
+                    if (IsVideoModeExclusive() && !SilentPatchOption("MouseReinitFix", true)) { // SilentPatch (MIT, Silent): MouseReinitFix - no se reinicializa el raton DirectInput al abrir/cerrar el menu (0x576CCC, 0x576EBA, 0x576F8A)
                         DIReleaseMouse();
                         InitialiseMouse(false);
                     }
@@ -1117,7 +1117,7 @@ void CMenuManager::CheckForMenuClosing() {
                 pad->ClearKeyBoardHistory();
                 pad->ClearMouseHistory();
 
-                if (IsVideoModeExclusive()) {
+                if (IsVideoModeExclusive() && !SilentPatchOption("MouseReinitFix", true)) { // SilentPatch (MIT, Silent): MouseReinitFix - no se reinicializa el raton DirectInput al abrir/cerrar el menu (0x576CCC, 0x576EBA, 0x576F8A)
                     DIReleaseMouse();
     #ifdef FIX_BUGS // Causes the retarded fucktard code to not dispatch mouse input to WndProc => ImGUI mouse not working. Amazing piece of technology.
                     InitialiseMouse(false);
@@ -1183,7 +1183,7 @@ void CMenuManager::CheckForMenuClosing() {
         m_bMenuActive = true;
         m_isPreInitialised = true;
 
-        if (IsVideoModeExclusive()) {
+        if (IsVideoModeExclusive() && !SilentPatchOption("MouseReinitFix", true)) { // SilentPatch (MIT, Silent): MouseReinitFix - no se reinicializa el raton DirectInput al abrir/cerrar el menu (0x576CCC, 0x576EBA, 0x576F8A)
             DIReleaseMouse();
             InitialiseMouse(false);
         }

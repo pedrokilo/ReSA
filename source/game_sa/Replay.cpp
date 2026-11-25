@@ -26,6 +26,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssE3.h"
 #include "DatosExe/DataBssE2.h"
 
@@ -1281,6 +1282,13 @@ void CReplay::FinishPlayback() {
         return;
 
     RestoreStuffFromMem();
+    // SilentPatch (MIT, Silent): ReplayPlayerPedCrashFixes - tras restaurar el estado, reconstruir el jugador con la ropa actual (si no, la ropa del replay se queda y una cinematica posterior se cae)
+    if (SilentPatchOption("ReplayPlayerPedCrashFixes", true)) {
+        if (auto* const player = FindPlayerPed()) {
+            NOTSA_LOG_DEBUG("SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion");
+            CClothes::RebuildPlayer(player, false);
+        }
+    }
     Mode = MODE_RECORD;
 
     if (bDoLoadSceneWhenDone) {
@@ -1539,6 +1547,13 @@ CPed* CReplay::DealWithNewPedPacket(const tReplayPedHeaderBlock& pedPacket, bool
             ped = new (m_PedPoolConversion.data()[pedPacket.poolRef] << 8) CPlayerPed(PED_TYPE_PLAYER1, true);
             RestoreClothesDesc(*ped->GetClothesDesc(), *clothesPacket);
             CClothes::RebuildPlayer(static_cast<CPlayerPed*>(ped), true);
+            // SilentPatch (MIT, Silent): ReplayPlayerPedCrashFixes - cargar los bloques de animacion fat y muscular (el replay puede traer un tipo de cuerpo distinto al actual)
+            if (SilentPatchOption("ReplayPlayerPedCrashFixes", true)) {
+                NOTSA_LOG_DEBUG("SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular");
+                CStreaming::RequestModel(CAnimManager::GetAnimationBlockIndex("fat") + RESOURCE_ID_IFP, STREAMING_GAME_REQUIRED | STREAMING_PRIORITY_REQUEST);
+                CStreaming::RequestModel(CAnimManager::GetAnimationBlockIndex("muscular") + RESOURCE_ID_IFP, STREAMING_GAME_REQUIRED | STREAMING_PRIORITY_REQUEST);
+                CStreaming::LoadAllRequestedModels(true);
+            }
         } else if (!loadModel) {
             ped = new (m_PedPoolConversion.data()[pedPacket.poolRef] << 8) CCivilianPed((ePedType)pedPacket.pedType, pedPacket.modelId);
         } else {

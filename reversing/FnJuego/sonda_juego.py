@@ -644,7 +644,74 @@ def esc_usertrack(j):
     j.P('volcado radio despues:', [hex(j.m.u32(base + 4 * k)) for k in range(0, 64)]); j.P('gestor de pistas de usuario despues:', [hex(j.m.u32(0xB6B970 + 4 * k)) for k in range(0, 10)])
     j.res['usertrack'] = hist
     j.foto('usertrack', 'CJ en coche con la emisora de pistas de usuario pedida')
-ESCENARIOS = {'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
+def esc_entrada(j):
+    """SilentPatch (segunda tanda, entrada/camara/replay): latencia del teclado (tecla -> estado del mando, N pruebas), replay con F1 (inicio, fin y pulsaciones rapidas) y vida del proceso."""
+    import statistics, random
+    suelo_libre(j); j.al_frente(); j.dormir(4)
+    # --- raton: movimiento relativo real (SendInput) con el cursor confinado (ClipCursorToGameWindow): lectura de CMouseControllerState New (0xB73418, mov float x2 en +0xC) y del rectangulo de ClipCursor
+    def mov_raton(dx, dy):
+        i = INP(); i.type = 0; i.mi = MI(dx, dy, 0, 0x0001, 0, None); u.SendInput(1, ctypes.byref(i), ctypes.sizeof(INP))
+    rc = wintypes.RECT(); u.GetClipCursor(ctypes.byref(rc)); cr = wintypes.RECT(); u.GetClientRect(j.h, ctypes.byref(cr))
+    pt = wintypes.POINT(0, 0); u.ClientToScreen(j.h, ctypes.byref(pt))
+    j.P('CLIP rect=(%d,%d,%d,%d) cliente en pantalla=(%d,%d,%d,%d)' % (rc.left, rc.top, rc.right, rc.bottom, pt.x, pt.y, pt.x + cr.right - 1, pt.y + cr.bottom - 1))
+    j.res['clip'] = {'clip': [rc.left, rc.top, rc.right, rc.bottom], 'cliente': [pt.x, pt.y, pt.x + cr.right - 1, pt.y + cr.bottom - 1]}
+    # calentamiento: RecoverMouseFromRawInputSteal (Pad.cpp) necesita >= 30 eventos de movimiento de SDL antes de devolver el raton a DirectInput (docs/CodigoVivoExe/ejecucion-raton.md)
+    for n in range(60): j.tick(); mov_raton(3, 1); time.sleep(0.012)
+    j.dormir(3.0); mov_raton(-180, -60); j.dormir(1.0)
+    movs = []; yaw0 = j.cam_yaw()
+    for n in range(8):
+        j.tick(); j.al_frente(); mov_raton(30, 12); t = time.perf_counter(); visto = (0.0, 0.0)
+        while time.perf_counter() - t < 0.15:   # el delta del raton dura un solo fotograma (~33 ms): se muestrea cada ~1 ms
+            b = j.m.rd(0xB73418, 0x14); v = struct.unpack('<ff', b[0xC:0x14]) if b else (0.0, 0.0)
+            if abs(v[0]) + abs(v[1]) > abs(visto[0]) + abs(visto[1]): visto = v
+        movs.append(visto)
+    j.P('camara: giro tras 8 movimientos de raton (grados)', round(j.cam_yaw() - yaw0, 2))
+    j.res['cam_giro_raton'] = j.cam_yaw() - yaw0
+    # empuja el cursor contra el borde derecho/inferior (ClipCursor debe retenerlo dentro de la ventana)
+    for n in range(40): mov_raton(400, 300); time.sleep(0.01)
+    cur = wintypes.POINT(); u.GetCursorPos(ctypes.byref(cur))
+    j.P('RATON New.mov por fotograma', movs, 'cursor tras empujar al borde', (cur.x, cur.y))
+    j.res['raton'] = {'mov': movs, 'cursor': [cur.x, cur.y]}
+    mov_raton(-2000, -1500); time.sleep(0.3)
+    # --- latencia de teclado: W abajo -> LSY != 0 en el mando 0 (se lee la memoria cada ~0,5 ms)
+    lat = []
+    for n in range(60):
+        if not j.alive(): break
+        j.tick(); j.al_frente()
+        t0 = time.perf_counter(); tecla('w', True); t1 = None
+        while time.perf_counter() - t0 < 0.5:
+            if j.pad().get('LSY', 0) != 0: t1 = time.perf_counter(); break
+        tecla('w', False)
+        if t1 is not None: lat.append((t1 - t0) * 1000)
+        t = time.time()
+        while time.time() - t < 1.0 and j.alive() and j.pad().get('LSY', 0) != 0: time.sleep(0.002)
+        time.sleep(random.uniform(0.0, 0.06))
+    if lat:
+        lat.sort(); j.P('LATENCIA teclado (ms) n=%d media=%.1f mediana=%.1f p10=%.1f p90=%.1f min=%.1f max=%.1f' % (len(lat), statistics.mean(lat), statistics.median(lat), lat[len(lat) // 10], lat[(9 * len(lat)) // 10], lat[0], lat[-1]))
+        j.res['latencia_teclado_ms'] = {'n': len(lat), 'media': statistics.mean(lat), 'mediana': statistics.median(lat), 'p10': lat[len(lat) // 10], 'p90': lat[(9 * len(lat)) // 10]}
+    # --- replay: F1 inicia la reproduccion (CReplay::Mode 0xA43088: 0 = grabar, 1 = reproducir), F1 la termina (FinishPlayback)
+    j.dormir(15)
+    for ronda in range(3):
+        if not j.alive(): break
+        m0 = j.m.u8(0xA43088); j.al_frente(); pulsar('f1', 0.15); t = time.time()
+        while time.time() - t < 6 and j.alive() and j.m.u8(0xA43088) != 1: j.tick(); time.sleep(0.05)
+        m1 = j.m.u8(0xA43088); j.P('replay ronda %d: modo %d -> %d tras %.1f s; pos' % (ronda, m0, m1, time.time() - t), j.pos())
+        if m1 == 1:
+            j.dormir(5); j.foto('replay_%d' % ronda, 'durante la reproduccion del replay')
+            j.al_frente(); pulsar('f1', 0.15); t = time.time()
+            while time.time() - t < 6 and j.alive() and j.m.u8(0xA43088) != 0: j.tick(); time.sleep(0.05)
+            j.P('replay ronda %d: fin -> modo %d tras %.1f s' % (ronda, j.m.u8(0xA43088), time.time() - t))
+        j.dormir(8)
+    # pulsaciones rapidas del boton de replay (mash)
+    for n in range(12):
+        if not j.alive(): break
+        j.al_frente(); pulsar('f1', 0.05); time.sleep(0.25); j.tick()
+    j.dormir(10)
+    j.P('tras el mash: modo replay', j.m.u8(0xA43088), 'vivo', j.alive(), 'pos', j.pos(), 'pools', j.pools())
+    j.res['replay_final'] = {'modo': j.m.u8(0xA43088), 'vivo': j.alive()}
+    u.ClipCursor(None)   # por seguridad: libera el rectangulo de ClipCursor que haya dejado el juego
+
+ESCENARIOS = {'entrada': esc_entrada, 'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
 
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')

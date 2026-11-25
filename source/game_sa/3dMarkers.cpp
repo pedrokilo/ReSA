@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "X87Math.h"
 
 #include "3dMarkers.h"
@@ -773,6 +774,15 @@ void tDirectionArrow::Render(RpClump* clump) {
         // Finally, render it
         RpClumpRender(clump);
     };
+
+    // SilentPatch (MIT, Silent): RacingCheckpointsColourFix - la geometria de la flecha debe modular el color del material; solo lo hacia si antes se habia dibujado otro marcador (enex) que ponia la bandera, por eso los checkpoints de carrera salian sin color (SilentPatch 0x721520)
+    if (SilentPatchOption("RacingCheckpointsColourFix", true)) {
+        RpClumpForAllAtomics(clump, [](RpAtomic* atomic, void*) {
+            RpGeometry* geometry = RpAtomicGetGeometry(atomic);
+            RpGeometrySetFlags(geometry, RpGeometryGetFlags(geometry) | rpGEOMETRYMODULATEMATERIALCOLOR);
+            return atomic;
+        }, nullptr);
+    }
 
     DoRender({ 0, 0, 0, 255 }, m_fSize);
     DoRender(GetColor(),       0.8f   ); // Matrix overall scale comes out to be `m_fSize * 0.8f` (Because scaling is preserved from the last step)

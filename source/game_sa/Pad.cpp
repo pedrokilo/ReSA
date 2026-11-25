@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE1.h"
@@ -320,13 +321,20 @@ void CPad::UpdatePads() {
     // Como el original: sin el bloqueo de ratón/teclado del menú ImGui (ya no existe).
     GetPad(0)->UpdateMouse();
     ProcessPad(PAD1);
+    // SilentPatch (MIT, Silent): KeyboardInputLatencyFix - el cambio Old=New, New=Temp se hace ANTES de procesar el teclado (0x541E1C -> 0x541DE6) y no al final: la entrada de teclado llega un fotograma antes
+    static const bool bKeyboardLatencyFix = SilentPatchOption("KeyboardInputLatencyFix", true);
+    if (bKeyboardLatencyFix) {
+        OldKeyState = std::exchange(NewKeyState, TempKeyState);
+    }
     ControlsManager.ClearSimButtonPressCheckers();
     ControlsManager.AffectPadFromKeyBoard();
     ControlsManager.AffectPadFromMouse();
     GetPad(PAD1)->Update(PAD1);
     GetPad(PAD2)->Update(PAD2);
 
-    OldKeyState = std::exchange(NewKeyState, TempKeyState);
+    if (!bKeyboardLatencyFix) {
+        OldKeyState = std::exchange(NewKeyState, TempKeyState);
+    }
     PadDiag::EndFrame();
 }
 
