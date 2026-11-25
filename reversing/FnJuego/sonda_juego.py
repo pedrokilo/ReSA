@@ -3,7 +3,7 @@
 # Uso: python -I sonda_juego.py <salida> <escenario> --pid N --dir <carpeta_ejecucion> --log <log.log>
 # Escenarios: base, xinput, conduccion, armas, interiores, trucos, camara, audio  (se pueden encadenar con comas: conduccion,camara)
 # Entrada: SendInput real (teclado por codigos de barrido, raton) y, para el mando, el xinput1_4.dll FALSO de esta carpeta (xinput_falso.bin).
-import ctypes, struct, sys, time, os, json, math, re
+import ctypes, struct, sys, time, os, json, math, re, zlib
 from ctypes import wintypes
 aqui = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, os.path.join(aqui, '..', 'FnTraf'))
 import sonda_traf as S
@@ -834,7 +834,140 @@ def esc_luna(j):
     j.hora = 12
 
 
-ESCENARIOS = {'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'altf4': esc_altf4, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos}
+def foto_bb(j, nombre, desc=''):
+    # captura de ventana completa con BitBlt desde el DC de la pantalla (CAPTUREBLT), DPI-aware (SetProcessDPIAware antes de medir): lo que de verdad se ve en pantalla (PrintWindow devuelve un fotograma viejo tras un Reset del dispositivo)
+    u.SetProcessDPIAware(); g = ctypes.WinDLL('gdi32', use_last_error=True)
+    j.h = captura.buscar(); u.ShowWindow(j.h, 9); u.SetForegroundWindow(j.h); time.sleep(0.3)
+    rc = wintypes.RECT(); u.GetClientRect(j.h, ctypes.byref(rc)); pt = wintypes.POINT(0, 0); u.ClientToScreen(j.h, ctypes.byref(pt))
+    w, h = rc.right - rc.left, rc.bottom - rc.top
+    sdc = u.GetDC(0); mdc = g.CreateCompatibleDC(sdc); bm = g.CreateCompatibleBitmap(sdc, w, h); g.SelectObject(mdc, bm)
+    g.BitBlt(mdc, 0, 0, w, h, sdc, pt.x, pt.y, 0x00CC0020 | 0x40000000)
+    bi = captura.BIH(ctypes.sizeof(captura.BIH), w, -h, 1, 32, 0, 0, 0, 0, 0, 0); buf = ctypes.create_string_buffer(w * h * 4)
+    g.GetDIBits(mdc, bm, 0, h, buf, ctypes.byref(bi), 0); g.DeleteObject(bm); g.DeleteDC(mdc); u.ReleaseDC(0, sdc)
+    d = buf.raw; rgb = bytearray(w * h * 3); rgb[0::3] = d[2::4]; rgb[1::3] = d[1::4]; rgb[2::3] = d[0::4]
+    raw = b''.join(bytes([0]) + bytes(rgb[y * w * 3:(y + 1) * w * 3]) for y in range(h))
+    def ch(t, dd): return struct.pack('>I', len(dd)) + t + dd + struct.pack('>I', zlib.crc32(t + dd) & 0xffffffff)
+    open(os.path.join(j.sal, nombre + '.png'), 'wb').write(bytes([137]) + b'PNG' + bytes([13, 10, 26, 10]) + ch(b'IHDR', struct.pack('>IIBBBBB', w, h, 8, 2, 0, 0, 0)) + ch(b'IDAT', zlib.compress(raw, 6)) + ch(b'IEND', b''))
+    rw, rh = j.m.u32(0xC17044), j.m.u32(0xC17048)
+    j.P('captura BitBlt', nombre, '%dx%d' % (w, h), desc, '| cliente %dx%d, RsGlobal %dx%d, %s; media %.1f' % (w, h, rw, rh, 'tamano VALIDADO' if (w, h) == (rw, rh) else 'cliente mayor que RsGlobal (el juego dibuja en la esquina superior izquierda %dx%d)' % (rw, rh), sum(d[0::4][::97]) / max(1, len(d[0::4][::97]))))
+    return w, h
+FEM = 0xBA6748   # FrontEndMenuManager: +0xC8 m_nPrefsAntialiasing, +0xCC m_nDisplayAntialiasing, +0xD4 m_nPrefsVideoMode
+def msaa_estado(j):
+    r = {'max': j.m.u32(0x8E242C), 'sel': j.m.u32(0x8E2430), 'maxNM': j.m.u32(0x8E2434), 'selNM': j.m.u32(0x8E2438), 'present': j.m.u32(0xC9C050), 'calidad': j.m.u32(0xC9C054),
+         'prefs': j.m.u32(FEM + 0xC8), 'display': j.m.u32(FEM + 0xCC), 'swap': j.m.u32(0xC9C058), 'formato': j.m.u32(0xC9C048)}
+    return r
+def decodificar_png(ruta):
+    d = open(ruta, 'rb').read(); i = 8; idat = b''
+    while i < len(d):
+        n = struct.unpack('>I', d[i:i + 4])[0]; t = d[i + 4:i + 8]
+        if t == b'IHDR': w, h = struct.unpack('>II', d[i + 8:i + 16])
+        if t == b'IDAT': idat += d[i + 8:i + 8 + n]
+        i += 12 + n
+    raw = zlib.decompress(idat); fila = w * 3 + 1
+    return w, h, [raw[y * fila + 1:(y + 1) * fila] for y in range(h)]
+def metricas(ruta, region=None):
+    # region = (x0, y0, x1, y1). colores distintos, pares horizontales/verticales de vecinos duros (|dif de luminancia| > 80) y suaves (12..80)
+    w, h, filas = decodificar_png(ruta); x0, y0, x1, y1 = region or (0, 0, w, h)
+    colores = set(); duros = suaves = 0
+    def lum(f, x): return (f[3 * x] * 77 + f[3 * x + 1] * 150 + f[3 * x + 2] * 29) >> 8
+    for y in range(y0, y1 - 1):
+        f = filas[y]; g = filas[y + 1]
+        for x in range(x0, x1 - 1):
+            colores.add(f[3 * x:3 * x + 3])
+            l = lum(f, x); d1 = abs(l - lum(f, x + 1)); d2 = abs(l - lum(g, x))
+            for d in (d1, d2):
+                if d > 80: duros += 1
+                elif d >= 12: suaves += 1
+    return {'colores': len(colores), 'duros': duros, 'suaves': suaves, 'suaves_por_duro': round(suaves / max(duros, 1), 3)}
+def tecleo(j, teclas, pausa=0.9):
+    for k in teclas:
+        pulsar(k, 0.15); j.dormir(pausa)
+CURSOR = [None]
+def descubrir_cursor(j):
+    # abre el menu de pausa (cursor 0), pulsa abajo dos veces y busca el int32 de CMenuManager (primeros 0x300 bytes) que va 0 -> 1 -> 2: m_nCurrentScreenItem
+    tecleo(j, ['esc'], 1.5); s0 = j.m.rd(FEM, 0x300); tecleo(j, ['down'], 0.8); s1 = j.m.rd(FEM, 0x300); tecleo(j, ['down'], 0.8); s2 = j.m.rd(FEM, 0x300)
+    cand = [o for o in range(0, 0x300 - 3, 4) if struct.unpack_from('<I', s0, o)[0] == 0 and struct.unpack_from('<I', s1, o)[0] == 1 and struct.unpack_from('<I', s2, o)[0] == 2]
+    j.P('candidatos a m_nCurrentScreenItem (offsets):', [hex(o) for o in cand]); CURSOR[0] = FEM + cand[0] if cand else None
+    if CURSOR[0]: elegir(j, 0, 2.5)   # Reanudar
+def cursor(j): return j.m.u32(CURSOR[0])
+def ir_a(j, item, maxp=14):
+    for _ in range(maxp):
+        if cursor(j) == item: return True
+        pulsar('down', 0.15); j.dormir(0.7)
+    return cursor(j) == item
+def elegir(j, item, pausa=1.5):
+    ok = ir_a(j, item); pulsar('enter', 0.15); j.dormir(pausa); return ok
+def menu_hasta_aa(j):
+    # pausa -> Opciones (6.o) -> Config. pantalla (3.o) -> Avanzado (7.o) -> Anti Aliasing (6.o de la pagina avanzada)
+    tecleo(j, ['esc'], 1.5); elegir(j, 5); elegir(j, 2); elegir(j, 6); ir_a(j, 5)
+def menu_salir(j):
+    # avanzado: Atras (8.o) -> pantalla: Atras (9.o) -> opciones: Atras (5.o) -> pausa: Reanudar (1.o)
+    elegir(j, 7); elegir(j, 8); elegir(j, 4); elegir(j, 0, 2.0)
+def esc_msaa(j):
+    # SilentPatch segunda tanda (L66 MSAA 2x-16x; L155 costuras del mapa): ciclo del ajuste «Anti Aliasing» del menu con capturas, aplicacion de cada nivel, mapa del menu y mundo
+    suelo_libre(j); j.al_frente()
+    descubrir_cursor(j)
+    mods = modulos_proceso(j)
+    j.P('modulos de GPU cargados:', [x for x in mods if re.search(r'nvd3d|nvwgf|nvldumd|igd|igxe|ig9|ig75|atiu|amdxx|aticfx|atidxx|amdvlk|d3d9', x)])
+    j.P('estado inicial', json.dumps(msaa_estado(j)))
+    niveles = []
+    menu_hasta_aa(j)
+    foto_bb(j, 'aa_inicial', 'pagina avanzada, Anti Aliasing en su valor inicial; ' + json.dumps(msaa_estado(j)))
+    # ciclo con la flecha derecha: texto del ajuste y valor de m_nDisplayAntialiasing en cada paso hasta volver al inicial
+    ini = j.m.u32(FEM + 0xCC); vistos = [ini]
+    for n in range(8):
+        pulsar('right', 0.15); j.dormir(0.8); d = j.m.u32(FEM + 0xCC); vistos.append(d)
+        foto_bb(j, 'aa_ciclo%d_valor%d' % (n + 1, d), 'tras flecha derecha: display=%d' % d)
+        if d == ini: break
+    j.P('CICLO del ajuste (flecha derecha):', vistos)
+    # flecha izquierda desde el inicial: debe dar el maximo
+    pulsar('left', 0.15); j.dormir(0.8); izq = j.m.u32(FEM + 0xCC); j.P('flecha izquierda desde el valor inicial %d -> %d' % (ini, izq)); foto_bb(j, 'aa_izq_valor%d' % izq, 'flecha izquierda desde el inicial')
+    ciclo = [v for v in vistos[:-1]] if vistos[-1] == ini else vistos
+    j.res['ciclo'] = vistos
+    # aplicar cada nivel del ciclo (menos el inicial al principio, que ya esta aplicado) y capturar mundo y mapa
+    orden = [v for v in ciclo if v != ini] + [ini]
+    # ir al valor deseado con la flecha derecha desde el display actual
+    solo = [int(x) for x in os.environ.get('MSAA_NIVELES', '').split(',') if x]   # MSAA_NIVELES=4 limita los niveles que se aplican (prueba de las costuras del mapa)
+    for objetivo in (solo or [1] + [v for v in ciclo if v not in (1,)]):
+        for _ in range(12):
+            if j.m.u32(FEM + 0xCC) == objetivo: break
+            pulsar('right', 0.15); j.dormir(0.6)
+        pulsar('enter', 0.15); j.dormir(6.0)   # aplica: RwD3D9ChangeMultiSamplingLevels + SetVideoMode
+        st = msaa_estado(j); j.P('NIVEL %d aplicado:' % objetivo, json.dumps(st), 'vivo' if j.alive() else 'MUERTO')
+        j.res.setdefault('niveles', {})[objetivo] = st
+        foto_bb(j, 'aa_n%d_menu' % objetivo, 'menu avanzado tras aplicar el nivel %d (muestras del driver %d, presente %d)' % (objetivo, st['sel'], st['present']))
+        menu_salir(j)                                # avanzado -> pantalla -> opciones -> pausa -> reanudar (por los elementos «Atras»)
+        j.hora = 12; j.dormir(3.0)
+        foto_bb(j, 'aa_n%d_mundo' % objetivo, 'mundo con el nivel %d' % objetivo)
+        tecleo(j, ['esc'], 1.5); elegir(j, 2); j.dormir(2.0)   # menu de pausa nuevo (cursor a 0) -> Mapa
+        foto_bb(j, 'aa_n%d_mapa' % objetivo, 'mapa del menu con el nivel %d' % objetivo)
+        pulsar('enter', 0.15); j.dormir(1.5); elegir(j, 0, 2.0)                           # mapa: Atras -> pausa -> reanudar
+        menu_hasta_aa(j)
+    menu_salir(j)
+    for e in sorted(j.res.get('niveles', {})):
+        for tipo in ('mundo', 'mapa'):
+            p = os.path.join(j.sal, 'aa_n%d_%s.png' % (e, tipo))
+            if os.path.exists(p):
+                rw_, rh_ = j.m.u32(0xC17044), j.m.u32(0xC17048); reg = (0, 0, rw_, rh_) if tipo == 'mapa' else (0, rh_ // 8, rw_, rh_ * 3 // 4)
+                m = metricas(p, reg); j.P('METRICA', tipo, 'nivel', e, json.dumps(m)); j.res['met_%s_%d' % (tipo, e)] = m
+
+def esc_msaa_estado(j):
+    # SilentPatch segunda tanda (MSAA): estado del driver y del menu justo tras arrancar (acotado del valor guardado en gta_sa.set; con ejecutar_msaa.ps1 -PrefsAA <n>)
+    suelo_libre(j); j.al_frente(); j.dormir(2.0)
+    st = msaa_estado(j); j.P('ESTADO TRAS ARRANCAR', json.dumps(st)); j.res['estado'] = st
+    foto_bb(j, 'estado_mundo', 'mundo con el valor guardado acotado: prefs=%d, muestras del driver=%d, presente=%d' % (st['prefs'], st['sel'], st['present']))
+    descubrir_cursor(j); menu_hasta_aa(j)
+    foto_bb(j, 'estado_menu_aa', 'pagina avanzada: display=%d' % j.m.u32(FEM + 0xCC)); j.P('display en el menu', j.m.u32(FEM + 0xCC))
+    menu_salir(j)
+
+def esc_espera(j):
+    # ejecucion larga en el mundo (sin entrada): dormir MSAA_ESPERA segundos (110 por defecto) con el estado de MSAA y las posiciones cada 20 s
+    suelo_libre(j); j.al_frente()
+    t0 = time.time(); seg = float(os.environ.get('MSAA_ESPERA', '110'))
+    while time.time() - t0 < seg and j.alive():
+        j.dormir(20.0); j.P('espera: estado', json.dumps(msaa_estado(j)), 'pos', j.pos(), 'pools', j.pools())
+
+ESCENARIOS = {'msaa': esc_msaa, 'msaa_estado': esc_msaa_estado, 'espera': esc_espera, 'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'altf4': esc_altf4, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos}
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')
     j = J(sal, dirj)

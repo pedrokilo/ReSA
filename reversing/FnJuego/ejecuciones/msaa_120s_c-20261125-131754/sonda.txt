@@ -1,0 +1,23 @@
+pid 42520
+juego en marcha tras 10 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 585x438
+=== ESCENARIO espera
+espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.544189453125, 10.90625) pools {'peds': 25, 'veh': 10, 'edif': 10113, 'obj': 102, 'dummy': 728}
+espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.544189453125, 10.90625) pools {'peds': 31, 'veh': 15, 'edif': 10113, 'obj': 103, 'dummy': 728}
+espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.544189453125, 10.90625) pools {'peds': 37, 'veh': 16, 'edif': 10113, 'obj': 107, 'dummy': 728}
+espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.544189453125, 10.90625) pools {'peds': 34, 'veh': 16, 'edif': 10113, 'obj': 105, 'dummy': 728}
+espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.544189453125, 10.90625) pools {'peds': 32, 'veh': 18, 'edif': 10113, 'obj': 104, 'dummy': 728}
+espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.544189453125, 10.90625) pools {'peds': 31, 'veh': 15, 'edif': 10113, 'obj': 104, 'dummy': 728}
+vivo al final: True
+LOG [info][13:17:59.470][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+LOG [info][13:17:59.470][app_debug.cpp:111]: Código de excepción: 0xc0000005
+LOG [info][13:17:59.470][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+LOG [info][13:17:59.470][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+LOG [info][13:17:59.660][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+LOG [info][13:17:59.668][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+LOG [error][13:18:07.279][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][13:18:07.280][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+LOG [info][13:18:07.466][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+LOG [info][13:18:16.541][SilentPatchConfig.cpp:75]: SilentPatch: opcion SpeechCrashGenericFallback = 1
+fin

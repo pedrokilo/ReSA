@@ -1,0 +1,3 @@
+pid 5232  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-sp7b\reversing\FnJuego\ejecuciones\msaa_on-20261125-123150" --limite 900 --shims  escenario=msaa xinput=False
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF

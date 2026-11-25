@@ -34,6 +34,7 @@ END GENERATED HOOK STATUS */
 #include "Radar.h"
 #include "Gamma.h"
 #include "VideoMode.h"
+#include "extensions/SilentPatchMSAA.h"
 #include "C_PcSave.h"
 #include "platform.h"
 #include "Hud.h"
@@ -207,7 +208,7 @@ void CMenuManager::Initialise() {
     m_nCurrentScreenItem = 0;
     m_SelectedSlot = 0;
     if (m_bDoVideoModeUpdate) {
-        RwD3D9ChangeMultiSamplingLevels(m_nPrefsAntialiasing);
+        RwD3D9ChangeMultiSamplingLevels(SilentPatchMSAA::DriverSamples(m_nPrefsAntialiasing)); // SilentPatch (MIT, Silent): MSAAFix
         SetVideoMode(m_nPrefsVideoMode);
         m_bDoVideoModeUpdate = false;
     }

@@ -31,6 +31,7 @@ END GENERATED HOOK STATUS */
 #include "RenderWare/D3D9RasterFormat.h"
 #include "RenderWare/RwMathX87.h"
 #include "X87Math.h"
+#include "extensions/SilentPatchMSAA.h"
 #include "WindowedMode.hpp"
 #include "game_sa/Crt/CrtPow.h"
 #include "RenderWare/D3DResourceSystem.h"
@@ -2900,7 +2901,8 @@ void _rwD3D9FindMSLevels() {
     if (result >= 0) {
         const uint32 nonMaskable = level + 1;
         D3D9MaxMultisamplingLevelsNonMask = nonMaskable;
-        if (nonMaskable > D3D9MaxMultisamplingLevels) {
+        // SilentPatch (MIT, Silent): MSAAFix (0x7F6C9B, 0x7F60C6, 0x7F6683: jbe -> jmp): el maximo sigue siendo el mayor tipo multimuestreo admitido, sin que lo sustituya el numero de niveles de calidad no enmascarables
+        if (nonMaskable > D3D9MaxMultisamplingLevels && !SilentPatchMSAA::Enabled()) {
             D3D9MaxMultisamplingLevels = nonMaskable;
         }
     }

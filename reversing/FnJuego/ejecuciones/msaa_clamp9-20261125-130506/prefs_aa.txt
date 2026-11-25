@@ -1,0 +1,1 @@
+gta_sa.set: m_nPrefsAntialiasing en el desplazamiento 2854: 1 -> 9

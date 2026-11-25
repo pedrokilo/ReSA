@@ -1,0 +1,107 @@
+{
+ "ciclo": [
+  2,
+  3,
+  4,
+  1,
+  2
+ ],
+ "niveles": {
+  "1": {
+   "max": 8,
+   "sel": 1,
+   "maxNM": 5,
+   "selNM": 1,
+   "present": 0,
+   "calidad": 0,
+   "prefs": 1,
+   "display": 1,
+   "swap": 2,
+   "formato": 21
+  },
+  "2": {
+   "max": 8,
+   "sel": 2,
+   "maxNM": 5,
+   "selNM": 1,
+   "present": 2,
+   "calidad": 0,
+   "prefs": 2,
+   "display": 2,
+   "swap": 1,
+   "formato": 21
+  },
+  "3": {
+   "max": 8,
+   "sel": 4,
+   "maxNM": 5,
+   "selNM": 2,
+   "present": 4,
+   "calidad": 0,
+   "prefs": 3,
+   "display": 3,
+   "swap": 1,
+   "formato": 21
+  },
+  "4": {
+   "max": 8,
+   "sel": 8,
+   "maxNM": 5,
+   "selNM": 5,
+   "present": 8,
+   "calidad": 0,
+   "prefs": 4,
+   "display": 4,
+   "swap": 1,
+   "formato": 21
+  }
+ },
+ "met_mundo_1": {
+  "colores": 3067,
+  "duros": 248,
+  "suaves": 12961,
+  "suaves_por_duro": 52.262
+ },
+ "met_mapa_1": {
+  "colores": 48807,
+  "duros": 21570,
+  "suaves": 152673,
+  "suaves_por_duro": 7.078
+ },
+ "met_mundo_2": {
+  "colores": 3672,
+  "duros": 225,
+  "suaves": 12674,
+  "suaves_por_duro": 56.329
+ },
+ "met_mapa_2": {
+  "colores": 49829,
+  "duros": 17639,
+  "suaves": 161388,
+  "suaves_por_duro": 9.149
+ },
+ "met_mundo_3": {
+  "colores": 5325,
+  "duros": 211,
+  "suaves": 15383,
+  "suaves_por_duro": 72.905
+ },
+ "met_mapa_3": {
+  "colores": 50712,
+  "duros": 17170,
+  "suaves": 162827,
+  "suaves_por_duro": 9.483
+ },
+ "met_mundo_4": {
+  "colores": 7791,
+  "duros": 204,
+  "suaves": 9126,
+  "suaves_por_duro": 44.735
+ },
+ "met_mapa_4": {
+  "colores": 50971,
+  "duros": 17172,
+  "suaves": 162821,
+  "suaves_por_duro": 9.482
+ }
+}

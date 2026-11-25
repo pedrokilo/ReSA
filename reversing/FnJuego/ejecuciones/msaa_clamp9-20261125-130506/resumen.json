@@ -1,0 +1,14 @@
+{
+ "estado": {
+  "max": 8,
+  "sel": 8,
+  "maxNM": 5,
+  "selNM": 5,
+  "present": 8,
+  "calidad": 0,
+  "prefs": 4,
+  "display": 4,
+  "swap": 1,
+  "formato": 21
+ }
+}

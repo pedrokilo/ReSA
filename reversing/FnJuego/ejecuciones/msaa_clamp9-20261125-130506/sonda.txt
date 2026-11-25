@@ -1,0 +1,21 @@
+pid 41460
+juego en marcha tras 10 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 585x438
+=== ESCENARIO msaa_estado
+ESTADO TRAS ARRANCAR {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21}
+captura BitBlt estado_mundo 1024x768 mundo con el valor guardado acotado: prefs=4, muestras del driver=8, presente=8 | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 59.4
+candidatos a m_nCurrentScreenItem (offsets): ['0x54']
+captura BitBlt estado_menu_aa 1024x768 pagina avanzada: display=4 | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.4
+display en el menu 4
+vivo al final: True
+LOG [info][13:05:11.703][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+LOG [info][13:05:11.703][app_debug.cpp:111]: Código de excepción: 0xc0000005
+LOG [info][13:05:11.703][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+LOG [info][13:05:11.703][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+LOG [info][13:05:11.908][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+LOG [info][13:05:11.917][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+LOG [error][13:05:19.502][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][13:05:19.502][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+LOG [info][13:05:19.660][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+fin
