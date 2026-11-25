@@ -261,6 +261,10 @@ LRESULT CALLBACK __MainWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPara
         if (wParam == VK_SHIFT) {
             GTATranslateShiftKey(&ck); // El EXE empuja un segundo argumento (1 al pulsar, 0 al soltar) que la función no lee
         }
+        // SilentPatch (MIT, Silent): AltF4Fix: WM_SYSKEYDOWN/WM_SYSKEYUP no se capturan (0x748220 / 0x74826A saltan a DefWindowProc); asi Alt+F4 llega a WM_SYSCOMMAND/SC_CLOSE -> WM_CLOSE
+        if ((uMsg == WM_SYSKEYDOWN || uMsg == WM_SYSKEYUP) && SilentPatchOption("AltF4Fix", true)) {
+            break;
+        }
         return 0;
     }
     case WM_TIMER: // 0x748048: devuelve 0 sin pasar por DefWindowProc (que ejecutaría el TIMERPROC)

@@ -55,6 +55,7 @@ bool CAEMFDecoder::Initialise() {
 
     auto* reader = new CMfPcmReader();
     if (m_pFilename == nullptr || !reader->Open(m_pFilename, 44100, 2)) {
+        NOTSA_LOG_INFO("User tracks: Media Foundation no pudo abrir la pista (extension '{}')", m_pFilename && strrchr(m_pFilename, '.') ? strrchr(m_pFilename, '.') : "");
         delete reader;
         return false;
     }
@@ -73,6 +74,8 @@ bool CAEMFDecoder::Initialise() {
     if (GetStreamLengthMs() < 7000) {
         m_bInitialized = false;
     }
+    // SilentPatch (MIT, Silent): UserTracksFLAC / registro de las pistas de Media Foundation (solo la extension, no la ruta del usuario)
+    NOTSA_LOG_INFO("User tracks: Media Foundation {} la pista con extension '{}' ({} ms)", m_bInitialized ? "acepta" : "descarta (menos de 7 s)", strrchr(m_pFilename, '.') ? strrchr(m_pFilename, '.') : "", m_nLengthMs);
     return m_bInitialized;
 }
 

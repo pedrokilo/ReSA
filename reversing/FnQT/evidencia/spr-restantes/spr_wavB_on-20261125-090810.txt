@@ -1,0 +1,10 @@
+# spr_wavB_on-20261125-090810
+pid 30676  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_spr_run" --salida "D:\Original\wv-spr\reversing\FnQT\ejecuciones\spr_wavB_on-20261125-090810" --limite 125 --shims  escenario=usertrack xin
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF
+[info][09:08:59.403][SilentPatchConfig.cpp:75]: SilentPatch: opcion WaveProfilesFix = 1
+[info][09:08:59.404][AEWaveDecoderEx.cpp:49]: User tracks: WAV ampliado aceptado: 2 canales, 16 bits, 44100 Hz, datos en 44 (1411200 bytes), 8000 ms
+[info][09:08:59.404][AEWaveDecoderEx.cpp:49]: User tracks: WAV ampliado aceptado: 2 canales, 16 bits, 44100 Hz, datos en 44 (1411200 bytes), 8000 ms
+[info][09:09:13.132][AEWaveDecoderEx.cpp:49]: User tracks: WAV ampliado aceptado: 2 canales, 16 bits, 44100 Hz, datos en 44 (1411200 bytes), 8000 ms
+modulos de Media Foundation / decodificadores cargados: ['mfplat.dll', 'mfreadwrite.dll', 'nvgpucomp32.dll', 'rtworkq.dll', 'wmvcore.dll']
+vivo al final: True

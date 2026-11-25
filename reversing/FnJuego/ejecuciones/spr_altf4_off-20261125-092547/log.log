@@ -1,0 +1,184 @@
+[depuración][09:25:52.490][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][09:25:52.500][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13620 en 1010 clases/grupos (11452 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13620. Desactivadas: 0.
+[info][09:25:52.500][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][09:25:52.501][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][09:25:52.505][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][09:25:52.506][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[info][09:25:52.917][:]: ****************** Backtrace Start ******************
+[depuración][09:25:52.490][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][09:25:52.500][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13620 en 1010 clases/grupos (11452 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13620. Desactivadas: 0.
+[info][09:25:52.500][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][09:25:52.501][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][09:25:52.505][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][09:25:52.506][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[info][09:25:52.918][:]: ****************** Backtrace End ********************
+[info][09:25:52.918][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[info][09:25:52.919][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[info][09:25:52.919][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[info][09:25:52.919][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[info][09:25:52.919][app_debug.cpp:106]: *********PARAMETERS**********
+[info][09:25:52.919][app_debug.cpp:118]: Parámetros[2]:
+[info][09:25:52.920][app_debug.cpp:120]:        0: 0x00000000
+[info][09:25:52.920][app_debug.cpp:120]:        1: 0x04550304
+[info][09:25:52.920][app_debug.cpp:106]: *********REGISTERS**********
+[info][09:25:52.920][app_debug.cpp:130]: 	EAX: 0x04550304
+[info][09:25:52.920][app_debug.cpp:130]: 	EBX: 0x00000000
+[info][09:25:52.920][app_debug.cpp:130]: 	ECX: 0x00000000
+[info][09:25:52.920][app_debug.cpp:130]: 	EDX: 0x00005a4d
+[info][09:25:52.921][app_debug.cpp:130]: 	ESI: 0x00000000
+[info][09:25:52.921][app_debug.cpp:130]: 	EDI: 0x00000000
+[info][09:25:52.921][app_debug.cpp:130]: 	EBP: 0x001af0bc
+[info][09:25:52.921][app_debug.cpp:130]: 	ESP: 0x001af088
+[info][09:25:52.921][app_debug.cpp:130]: 	EIP: 0x76f8df7f
+[info][09:25:52.921][app_debug.cpp:130]: 	EFLAGS: 0x00010246
+[info][09:25:52.921][app_debug.cpp:106]: *********CALL STACK**********
+[info][09:25:53.062][app_debug.cpp:213]: 	0x76f8df7f: ntdll!RtlImageNtHeaderEx:0
+[info][09:25:53.065][app_debug.cpp:213]: 	0x76f8adbb: ntdll!RtlImageNtHeader:0
+[info][09:25:53.066][app_debug.cpp:213]: 	0x762c9171: KERNELBASE!FreeLibrary:0
+[info][09:25:53.066][app_debug.cpp:213]: 	0x60aa5f11: igd12um32xel!<unknown>:0
+[info][09:25:53.067][app_debug.cpp:213]: 	0x60a5aff1: igd12um32xel!<unknown>:0
+[info][09:25:53.068][app_debug.cpp:213]: 	0x6b2af158: igd12umd32!OpenAdapter12:0
+[info][09:25:53.068][app_debug.cpp:213]: 	0x6b447a3f: D3D12Core!D3D12SDKVersion:0
+[info][09:25:53.069][app_debug.cpp:213]: 	0x6b411547: D3D12Core!D3D12SDKVersion:0
+[info][09:25:53.069][app_debug.cpp:213]: 	0x6b469d4f: D3D12Core!D3D12SDKVersion:0
+[info][09:25:53.070][app_debug.cpp:213]: 	0x6b795460: d3d12!<unknown>:0
+[info][09:25:53.071][app_debug.cpp:213]: 	0x6b794636: d3d12!<unknown>:0
+[info][09:25:53.072][app_debug.cpp:213]: 	0x6b42f4be: D3D12Core!D3D12SDKVersion:0
+[info][09:25:53.072][app_debug.cpp:213]: 	0x6b7d2fe4: d3d9on12!OpenAdapter:0
+[info][09:25:53.073][app_debug.cpp:213]: 	0x6b7d25f4: d3d9on12!<unknown>:0
+[info][09:25:53.073][app_debug.cpp:213]: 	0x7126b8d9: d3d9!<unknown>:0
+[info][09:25:53.075][app_debug.cpp:213]: 	0x7126b779: d3d9!<unknown>:0
+[info][09:25:53.076][app_debug.cpp:213]: 	0x71261c33: d3d9!<unknown>:0
+[info][09:25:53.076][app_debug.cpp:213]: 	0x712605fc: d3d9!<unknown>:0
+[info][09:25:53.077][app_debug.cpp:213]: 	0x71285b5f: d3d9!Direct3DCreate9Ex:0
+[info][09:25:53.078][app_debug.cpp:213]: 	0x71276e81: d3d9!<unknown>:0
+[info][09:25:53.078][app_debug.cpp:213]: 	0x71261c33: d3d9!<unknown>:0
+[info][09:25:53.079][app_debug.cpp:213]: 	0x712605fc: d3d9!<unknown>:0
+[info][09:25:53.155][app_debug.cpp:213]: 	0x71285b5f: d3d9!Direct3DCreate9Ex:0
+[info][09:25:53.157][app_debug.cpp:213]: 	0x0256dc25: gta_sa_standalone!GetVideoMemInfo:86
+[info][09:25:53.157][app_debug.cpp:213]: 	0x025708f6: gta_sa_standalone!psInitialize:263
+[info][09:25:53.158][app_debug.cpp:213]: 	0x01bf8363: gta_sa_standalone!RsInitialize:266
+[info][09:25:53.158][app_debug.cpp:213]: 	0x00fda0bc: gta_sa_standalone!AppEventHandler:159
+[info][09:25:53.159][app_debug.cpp:213]: 	0x01bf80a8: gta_sa_standalone!RsEventHandler:349
+[info][09:25:53.159][app_debug.cpp:213]: 	0x02569cca: gta_sa_standalone!NOTSA_WinMain:441
+[info][09:25:53.160][app_debug.cpp:213]: 	0x00e4864b: gta_sa_standalone!WinMain:702
+[info][09:25:53.160][app_debug.cpp:213]: 	0x02afa0bd: gta_sa_standalone!invoke_main:107
+[info][09:25:53.161][app_debug.cpp:213]: 	0x02af9f9a: gta_sa_standalone!__scrt_common_main_seh:288
+[info][09:25:53.161][app_debug.cpp:213]: 	0x02af9e3d: gta_sa_standalone!__scrt_common_main:331
+[info][09:25:53.162][app_debug.cpp:213]: 	0x02afa128: gta_sa_standalone!WinMainCRTStartup:17
+[info][09:25:53.162][app_debug.cpp:213]: 	0x00e4b85b: gta_sa_standalone!FaseEntrada:673
+[info][09:25:53.162][app_debug.cpp:213]: 	0x75495d49: KERNEL32!BaseThreadInitThunk:0
+[info][09:25:53.162][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[info][09:25:53.163][app_debug.cpp:213]: 	0x76fac811: ntdll!RtlGetAppContainerNamedObjectPath:0
+[info][09:25:53.176][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[depuración][09:25:53.565][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[info][09:25:53.784][rwcore.cpp:7775]: Adaptador de vídeo D3D9: NVIDIA GeForce RTX 3050 Laptop GPU (controlador nvldumd.dll, vendedor 0x10DE)
+[depuración][09:25:53.789][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][09:25:53.816][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][09:25:53.860][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][09:25:53.861][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][09:25:53.861][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][09:25:53.861][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][09:25:53.862][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][09:25:53.862][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][09:25:53.862][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][09:25:53.862][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][09:25:53.862][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][09:25:53.863][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][09:25:54.410][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][09:25:54.414][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][09:25:54.415][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][09:25:54.453][FxManager.cpp:240]: SilentPatch HeapCorruptionFix: FxMemoryPool_c::Optimise omitido
+[depuración][09:25:54.555][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][09:25:54.556][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][09:25:54.556][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[depuración][09:25:58.740][CdStreamInfo.cpp:103]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[info][09:26:01.107][SilentPatchScripts.cpp:228]: SilentPatch scripts: mision 0 iniciada
+[info][09:26:01.108][SilentPatchScripts.cpp:65]: SilentPatch scripts: baloncesto parcheado (7 valores)
+[info][09:26:01.110][SilentPatchScripts.cpp:45]: SilentPatch scripts: parche de 10 bytes aplicado
+[depuración][09:26:02.791][Pools.cpp:502]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[depuración][09:26:02.818][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][09:26:02.841][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][09:26:02.841][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][09:26:02.841][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[info][09:26:02.847][SilentPatchScripts.cpp:65]: SilentPatch scripts: baloncesto parcheado (7 valores)
+[info][09:26:02.847][SilentPatchScripts.cpp:219]: SilentPatch scripts: partida cargada, baloncesto/salto cuadruple revisados
+[info][09:26:02.849][SilentPatchScripts.cpp:45]: SilentPatch scripts: parche de 10 bytes aplicado
+[depuración][09:26:02.857][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][09:26:02.857][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[info][09:26:02.954][SilentPatchConfig.cpp:105]: SilentPatch: interruptor general = 1 (GTASA_SILENTPATCH / SilentPatch= en gta-reversed.ini; por defecto 1)
+[info][09:26:02.956][SilentPatchConfig.cpp:107]: SilentPatch: opcion RemoveNoBufferingFlag = 1
+[info][09:26:02.956][SilentPatchConfig.cpp:107]: SilentPatch: opcion IMGsBiggerThan4GB = 1
+[info][09:26:02.956][SilentPatchConfig.cpp:107]: SilentPatch: opcion ClipCursorToGameWindow = 1
+[info][09:26:02.956][SilentPatchConfig.cpp:107]: SilentPatch: opcion MoonPhases = 1
+[info][09:26:02.956][SilentPatchConfig.cpp:107]: SilentPatch: opcion MinimalHUD = 0
+[info][09:26:02.956][SilentPatchConfig.cpp:107]: SilentPatch: opcion CollisionDataInit = 1
+[info][09:26:02.956][SilentPatchConfig.cpp:107]: SilentPatch: opcion TimecycMissingDataFix = 1
+[info][09:26:02.956][SilentPatchConfig.cpp:107]: SilentPatch: opcion IlluminationFloatFix = 1
+[info][09:26:02.956][SilentPatchConfig.cpp:107]: SilentPatch: opcion DancingTimersFix = 1
+[info][09:26:02.957][SilentPatchConfig.cpp:107]: SilentPatch: opcion TimersFix = 1
+[info][09:26:02.957][SilentPatchConfig.cpp:107]: SilentPatch: opcion KeyboardInputLatencyFix = 1
+[info][09:26:02.957][SilentPatchConfig.cpp:107]: SilentPatch: opcion MouseReinitFix = 1
+[info][09:26:02.957][SilentPatchConfig.cpp:107]: SilentPatch: opcion HeatHazeRescale = 1
+[info][09:26:02.957][SilentPatchConfig.cpp:107]: SilentPatch: opcion CdStreamSyncFix = 1
+[info][09:26:02.957][SilentPatchConfig.cpp:107]: SilentPatch: opcion ScriptSpritesBilinear = 1
+[info][09:26:02.957][SilentPatchConfig.cpp:107]: SilentPatch: opcion HeapCorruptionFix = 1
+[info][09:26:02.957][SilentPatchConfig.cpp:107]: SilentPatch: opcion SpeechPedVoiceNames = 1
+[info][09:26:02.957][SilentPatchConfig.cpp:107]: SilentPatch: opcion StreamedEntityList = 1
+[info][09:26:02.957][SilentPatchConfig.cpp:107]: SilentPatch: opcion ReinitIplObjectsOnNewGame = 1
+[info][09:26:02.957][SilentPatchConfig.cpp:107]: SilentPatch: opcion HierarchyTypoFix = 1
+[info][09:26:02.958][SilentPatchConfig.cpp:107]: SilentPatch: opcion DoubleRearWheels = 1
+[info][09:26:02.958][SilentPatchConfig.cpp:107]: SilentPatch: opcion HunterDoorRenderFix = 1
+[info][09:26:02.958][SilentPatchConfig.cpp:107]: SilentPatch: opcion CleanDirt = 1
+[info][09:26:02.958][SilentPatchConfig.cpp:107]: SilentPatch: opcion UniqueNumberPlates = 1
+[info][09:26:02.958][SilentPatchConfig.cpp:107]: SilentPatch: opcion RtAnimInterp = 1
+[info][09:26:02.958][SilentPatchConfig.cpp:107]: SilentPatch: opcion LoopLoadingScreens = 1
+[info][09:26:02.958][SilentPatchConfig.cpp:107]: SilentPatch: opcion FortCarsonBeagle = 1
+[info][09:26:02.958][SilentPatchConfig.cpp:107]: SilentPatch: opcion EnableScriptFixes = 1
+[info][09:26:02.958][SilentPatchConfig.cpp:107]: SilentPatch: opcion MouseYAxisFadeInFix = 1
+[info][09:26:02.959][SilentPatchConfig.cpp:107]: SilentPatch: opcion ResetVariablesOnNewGame = 1
+[info][09:26:02.959][SilentPatchConfig.cpp:107]: SilentPatch: opcion TagManagerLoadFix = 1
+[info][09:26:02.959][SilentPatchConfig.cpp:107]: SilentPatch: opcion SecondPlayerBlipFix = 1
+[info][09:26:02.959][SilentPatchConfig.cpp:107]: SilentPatch: opcion PreciseFrameLimiter = 0
+[info][09:26:02.960][SilentPatchConfig.cpp:75]: SilentPatch: opcion NoFrameDelay = 0
+[info][09:26:02.962][SilentPatchConfig.cpp:75]: SilentPatch: opcion SunSizeHack = 1
+[info][09:26:02.963][SilentPatchConfig.cpp:75]: SilentPatch: opcion StencilShadowMemory = 1
+[info][09:26:02.963][SilentPatchConfig.cpp:75]: SilentPatch: opcion DirectionalFromSun = 0
+[info][09:26:02.963][SilentPatchConfig.cpp:75]: SilentPatch: opcion RCVehicleStreaming = 1
+[info][09:26:02.964][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorsDepthFix = 1
+[info][09:26:02.965][SilentPatchConfig.cpp:75]: SilentPatch: opcion RotatedMapObjectShadows = 1
+[info][09:26:02.966][SilentPatchConfig.cpp:75]: SilentPatch: opcion WeaponRenderingFixes = 1
+[info][09:26:02.971][SilentPatchConfig.cpp:75]: SilentPatch: opcion VehicleLightsFix = 1
+[info][09:26:02.975][SilentPatchConfig.cpp:75]: SilentPatch: opcion ExtraDirectionalLights = 1
+[info][09:26:02.994][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[info][09:26:02.995][SilentPatchConfig.cpp:75]: SilentPatch: opcion StaticShadowAlphaFix = 1
+[info][09:26:02.996][SilentPatchConfig.cpp:75]: SilentPatch: opcion LensFlareRenderFix = 1
+[info][09:26:02.996][SilentPatchConfig.cpp:75]: SilentPatch: opcion CoronaFlaresScaling = 1
+[info][09:26:02.996][SilentPatchConfig.cpp:75]: SilentPatch: opcion CoronaRotation = 1
+[info][09:26:02.997][SilentPatchConfig.cpp:75]: SilentPatch: opcion CrosshairScaling = 1
+[info][09:26:02.997][SilentPatchConfig.cpp:75]: SilentPatch: opcion WeaponIconMipFilter = 1
+[info][09:26:02.998][SilentPatchConfig.cpp:75]: SilentPatch: opcion HudAlphaFades = 1
+[info][09:26:04.141][SilentPatchConfig.cpp:75]: SilentPatch: opcion ColouredZoneNames = 0
+[info][09:26:04.414][SilentPatchConfig.cpp:75]: SilentPatch: opcion CarCollisionDamagePieces = 1
+[info][09:26:05.619][SilentPatchConfig.cpp:75]: SilentPatch: opcion BilinearNumberPlates = 1
+[info][09:26:05.623][SilentPatchConfig.cpp:75]: SilentPatch: opcion QuadbikeWindAnims = 1
+[info][09:26:05.624][SilentPatchConfig.cpp:75]: SilentPatch: opcion RhinoLights = 1
+[info][09:26:05.624][SilentPatchConfig.cpp:75]: SilentPatch: opcion ExtraVehicleAnimations = 1
+[info][09:26:05.629][SilentPatchConfig.cpp:75]: SilentPatch: opcion VehicleLightsStayLit = 1
+[info][09:26:05.630][SilentPatchConfig.cpp:75]: SilentPatch: opcion VehicleLightMaterialsFix = 1
+[info][09:26:05.631][SilentPatchConfig.cpp:75]: SilentPatch: opcion BlownUpVehicleShine = 1
+[info][09:26:05.631][SilentPatchConfig.cpp:75]: SilentPatch: opcion VehicleLightsNotOverwritten = 1
+[info][09:26:05.639][SilentPatchConfig.cpp:75]: SilentPatch: opcion HeadlightBeamStateRestore = 1
+[info][09:26:05.653][SilentPatchConfig.cpp:75]: SilentPatch: opcion ImpoundRandomVehiclesFix = 1
+[info][09:26:05.769][SilentPatchConfig.cpp:75]: SilentPatch: opcion LightsRandomness = 1
+[info][09:26:06.615][SilentPatchConfig.cpp:75]: SilentPatch: opcion RotorBlur = 1
+[info][09:26:06.651][SilentPatchConfig.cpp:75]: SilentPatch: opcion CargenInteriorAreaCode = 1
+[info][09:26:06.651][SilentPatchConfig.cpp:75]: SilentPatch: opcion CargenCounterFix = 1
+[info][09:26:06.652][SilentPatchConfig.cpp:75]: SilentPatch: opcion FirelaLadder = 1
+[info][09:26:07.294][SilentPatchConfig.cpp:75]: SilentPatch: opcion PlaneCreationCoorsFix = 1
+[info][09:26:07.660][SilentPatchConfig.cpp:75]: SilentPatch: opcion ConsoleRandomness = 1
+[info][09:26:13.080][SilentPatchConfig.cpp:75]: SilentPatch: opcion ImpoundGaragesFix = 1
+[info][09:26:13.743][SilentPatchConfig.cpp:75]: SilentPatch: opcion AltF4Fix = 0
+[info][09:26:20.229][SilentPatchConfig.cpp:75]: SilentPatch: opcion SpeechVBFYST2 = 1

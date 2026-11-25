@@ -1,0 +1,6 @@
+# spr_flac_on_intento2
+pid 39112  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_spr_run" --salida "D:\Original\wv-spr\reversing\FnQT\ejecuciones\spr_flac_on-20261125-091637" --limite 125 --shims  escenario=usertrack xin
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF
+modulos de Media Foundation / decodificadores cargados: ['mfplat.dll', 'mfreadwrite.dll', 'nvgpucomp32.dll', 'rtworkq.dll', 'wmvcore.dll']
+vivo al final: True

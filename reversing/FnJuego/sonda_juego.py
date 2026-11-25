@@ -644,6 +644,22 @@ def esc_usertrack(j):
     j.P('volcado radio despues:', [hex(j.m.u32(base + 4 * k)) for k in range(0, 64)]); j.P('gestor de pistas de usuario despues:', [hex(j.m.u32(0xB6B970 + 4 * k)) for k in range(0, 10)])
     j.res['usertrack'] = hist
     j.foto('usertrack', 'CJ en coche con la emisora de pistas de usuario pedida')
+def esc_altf4(j):
+    # SilentPatch AltF4Fix: se PUBLICA WM_SYSKEYDOWN/WM_SYSKEYUP de F4 con el bit de contexto Alt (como Alt+F4) en la ventana del juego (PostMessage: no toca el teclado real ni la ventana en primer plano).
+    # Con la correccion el DefWindowProc convierte el mensaje en SC_CLOSE -> WM_CLOSE y el proceso termina; sin ella el mensaje se traga y el juego sigue vivo.
+    suelo_libre(j)
+    if not j.h: j.P('SIN ventana: no se puede probar'); return
+    j.dormir(2.0)
+    pm = ctypes.WinDLL('user32').PostMessageW; pm.argtypes = [wintypes.HWND, wintypes.UINT, wintypes.WPARAM, wintypes.LPARAM]
+    WM_SYSKEYDOWN, WM_SYSKEYUP, VK_F4 = 0x104, 0x105, 0x73
+    sc = 0x3E
+    pm(j.h, WM_SYSKEYDOWN, VK_F4, (1 << 29) | (sc << 16) | 1)
+    pm(j.h, WM_SYSKEYUP, VK_F4, ctypes.c_long((1 << 31) | (1 << 30) | (1 << 29) | (sc << 16) | 1).value)
+    t0 = time.time(); salio = False
+    while time.time() - t0 < 8:
+        if not j.alive(): salio = True; break
+        time.sleep(0.2)
+    j.P('ALTF4 proceso terminado tras Alt+F4 publicado: %s (%.1f s)' % (salio, time.time() - t0)); j.res['altf4_salio'] = salio
 def leer_vehiculos(j):
     """(modelo, vida, estado-ruedas[4], estado-paneles) de cada vehiculo vivo del pool; DamageManager en +0x5A0: ruedas en +5..+8, paneles en +0x14"""
     r = []
@@ -689,7 +705,6 @@ def esc_sp2veh(j):
         res[nombre] = {'modelo': j.modelo(j.veh()), 'vel': round(j.vel(j.veh()), 2)}
     j.res['sp2veh'] = res
 
-ESCENARIOS = {'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos}
 def esc_entrada(j):
     """SilentPatch (segunda tanda, entrada/camara/replay): latencia del teclado (tecla -> estado del mando, N pruebas), replay con F1 (inicio, fin y pulsaciones rapidas) y vida del proceso."""
     import statistics, random
@@ -819,6 +834,7 @@ def esc_luna(j):
     j.hora = 12
 
 
+ESCENARIOS = {'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'altf4': esc_altf4, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos}
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')
     j = J(sal, dirj)

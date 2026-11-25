@@ -1,0 +1,6 @@
+# spr_flac_on_intento1
+pid 26004  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_spr_run" --salida "D:\Original\wv-spr\reversing\FnQT\ejecuciones\spr_flac_on-20261125-091104" --limite 125 --shims  escenario=usertrack xin
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF
+NO se pudo entrar al coche
+vivo al final: True
