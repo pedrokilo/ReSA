@@ -92,7 +92,7 @@ No hay objetos adicionales que agrandar (los 3 ya estaban corregidos en `8b4974a
    `static_assert(sizeof(objeto) >= sizeof(T))` (solo de tipos: no cambia el codigo generado ni el orden de inicializacion). Se aplico
    a los 24 sitios existentes (headers de clase `static inline auto& ... = DATOSEXE_VISTA(...)` y casts locales). Los tres objetos
    corregidos quedan cubiertos tambien por esa comprobacion. `contrib/datos_exe_r5.py` emite ya esta forma.
-2. `source/game_sa/DatosExe/VerifTamanos.cpp` (generado): 1.987 `static_assert(sizeof(obj) >= minimo)` con el tamano minimo medido
+2. `source/game_sa/DatosExe/VerifTamanos.cpp` (generado): 1.975 `static_assert(sizeof(obj) >= minimo)` con el tamano minimo medido
    (VISTA o tipo de la `StaticRef` original). Reducir un objeto rompe la compilacion. No depende del PDB ni de los .obj (la tabla
    `tamanos-minimos.csv` esta versionada): **siempre activo**, tambien en el CI de GitHub (coste de compilacion despreciable).
 3. `python contrib/auditoria_datos/tamanos_objetos.py lint` (sin datos externos): rechaza todo `reinterpret_cast`/cast de C sobre un
@@ -135,7 +135,7 @@ Al anadir objetos nuevos: ejecutar `medir` y `generar` y versionar los CSV y `Ve
 ## 8. Verificacion posterior a la correccion
 
 ASI Debug de esta rama (HEAD con `8b4974a72f`/`1976c92ebf` incorporados mas `DATOSEXE_VISTA` y `VerifTamanos.cpp`; 1.188 unidades, compila
-sin errores: los 1.987 `static_assert` y los 24 `DATOSEXE_VISTA` pasan; una prueba negativa con un objeto de 1 byte visto como `uint8_t[4]`
+sin errores: los 1.975 `static_assert` y los 24 `DATOSEXE_VISTA` pasan; una prueba negativa con un objeto de 1 byte visto como `uint8_t[4]`
 falla con el mensaje de `Vista.h`) y independiente enlazado con esos `.obj` (`enlazar.cmd`, link exit=0). Remedicion con
 `tamanos_objetos.py medir` (PDB, `.obj` y `.map` de esa rama):
 
