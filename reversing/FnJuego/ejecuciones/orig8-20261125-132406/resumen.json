@@ -1,0 +1,44 @@
+{
+ "caida_interior": [
+  {
+   "sitio": "CJ casa",
+   "entro": false,
+   "vehiculos_cerca": 0,
+   "peds_cerca": 1,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": []
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": false,
+   "vehiculos_cerca": 2,
+   "peds_cerca": 0,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": []
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 6,
+   "peds_cerca": 15,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": []
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 0,
+   "peds_cerca": 1,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": []
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": false,
+   "vehiculos_cerca": 0,
+   "peds_cerca": 0,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": []
+  }
+ ]
+}

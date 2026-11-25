@@ -1,0 +1,35 @@
+{
+ "caida_interior": [
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 13,
+   "peds_cerca": 19,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": []
+  },
+  {
+   "sitio": "GYM Ganton",
+   "entro": true,
+   "vehiculos_cerca": 0,
+   "peds_cerca": 1,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [
+    [
+     "p",
+     "0x5821518",
+     0,
+     "area3",
+     "cre0",
+     "st0",
+     [
+      2237.7,
+      -1729.8,
+      13.4
+     ],
+     2.8
+    ]
+   ]
+  }
+ ]
+}

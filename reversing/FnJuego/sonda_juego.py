@@ -135,6 +135,12 @@ class J:
             time.sleep(1)
         if not pid: s.P('no hay proceso'); return False
         s.m = S.M(pid); s.P('pid', pid)
+        if '--nav-menu' in sys.argv:   # juego ORIGINAL sin FastLoader: Enter hasta el menu y la partida (Enter, Enter, y 4 Enter: Start Game / Load / ranura / confirmar), medido a mano
+            s.h = captura.buscar(); u.ShowWindow(s.h, 9); u.SetForegroundWindow(s.h); t0 = time.time()
+            while time.time() - t0 < 120 and S.pid(s.exe) and s.m.u32(0xC8D4C0) != 9:
+                pulsar('enter', 0.2); time.sleep(3.0)
+            s.P('navegacion de menu: gGameState=%d tras %.0f s' % (s.m.u32(0xC8D4C0), time.time() - t0))
+        if '--pausa' in sys.argv: s.h = captura.buscar(); return True   # navegacion manual del menu (juego original sin FastLoader)
         t0 = time.time()
         while time.time() - t0 < 400 and S.pid(s.exe):
             s.m.wr(0x8D621C, struct.pack('<I', 1)); ped, pos = s.ped()
@@ -526,6 +532,91 @@ def esc_interiores(j):
             j.tp(*SALIDA); j.dormir(6)
     j.res['interiores'] = res
 
+def esc_caida_interior(j):
+    """Coches/peds del exterior que caen del mapa al entrar a un interior (informe del usuario: Grove Street). Mide por memoria la z de TODOS los vehiculos
+    y peds del exterior antes de entrar, durante 25 s dentro y tras salir; cuenta las lineas 'han caido' del log. Entradas: casa de CJ y gimnasio."""
+    import collections
+    def peds(j):
+        pv = j.m.u32(0xB74490); objs = j.m.u32(pv); fl = j.m.rd(j.m.u32(pv + 4), j.m.i32(pv + 8)) or b''; r = []
+        for i in range(len(fl)):
+            if not fl[i] & 0x80: r.append(objs + i * 0x7C4)
+        return r
+    def snap():
+        d = {}
+        for v in vehiculos(j):
+            p = j.vpos(v)
+            d[('v', v)] = (j.modelo(v), p, j.m.u8(v + 0x2F), j.m.u8(v + 0x4A4) & 0x1F, j.m.u8(v + 0x36) >> 3)
+        for q in peds(j):
+            mt = j.m.u32(q + 0x14); p = (j.m.f32(mt + 0x30), j.m.f32(mt + 0x34), j.m.f32(mt + 0x38)) if mt else None
+            d[('p', q)] = (j.modelo(q), p, j.m.u8(q + 0x2F), 0, 0)
+        return d
+    def cerca(d, cx, cy, r=250.0):
+        return {k: v for k, v in d.items() if v[1] and all(math.isfinite(x) for x in v[1]) and math.hypot(v[1][0] - cx, v[1][1] - cy) < r}
+    ext0 = (2495.0, -1685.0, 13.5)
+    casa = ('CJ casa', (2495.33, -1690.75, 13.78), (2496.05, -1692.73, 1014.0), 3)
+    sitios = [casa] * int(arg('--rondas', 4)) if '--solo-casa' in sys.argv else [casa, ('GYM Ganton', (2229.63, -1721.63, 12.65), (772.112, -4.998, 1000.2), 5)]
+    res = []
+    j.log_nuevas(arg('--log'))
+    for nombre, ext, interior, areaesp in sitios:
+        if not j.alive(): break
+        j.tp(ext[0] + 8, ext[1] - 8, ext[2] + 1.0); j.dormir(10.0)   # esperar a que el trafico/aparcados se generen alrededor
+        if '--wanted' in sys.argv:   # policias a la vista: nivel de busqueda +2 (truco OSRBLHH) dos veces, esperar a que lleguen
+            j.al_frente()
+            for _ in range(2): j.escribir_truco('OSRBLHH'); j.dormir(1.5)
+            j.dormir(14.0)
+            pp = j.pos()
+            j.P('busqueda: nivel', j.m.u32(j.m.u32(0xB7CD98 + j.m.u8(0xB7CD74) * 0x190) + 0x598 + 0) if False else '?', 'peds', j.pools())
+        if '--sin-spawn' not in sys.argv:
+            for codigo in ('RZHSUEW', 'FOURWHEELFUN'):
+                spawn_coche(j, codigo)
+        j.dormir(2.0)
+        antes = cerca(snap(), ext[0], ext[1])
+        nv = sum(1 for k in antes if k[0] == 'v'); npd = sum(1 for k in antes if k[0] == 'p')
+        j.P('SITIO', nombre, 'antes: vehiculos cerca', nv, 'peds cerca', npd, 'minz', min([v[1][2] for v in antes.values()] or [0]), 'modelos', sorted(v[0] for k, v in antes.items() if k[0] == 'v'), 'CJ en', j.pos())
+        # entrar
+        entro = False
+        for intento, tec in enumerate((None, 'w', 's', 'a', 'd')):
+            if j.area() == areaesp: break
+            j.tp(ext[0], ext[1], ext[2] + 1.0); j.al_frente()
+            if tec: tecla(tec, True)
+            t1 = time.time()
+            while time.time() - t1 < 6 and j.alive():
+                j.tick(); time.sleep(0.25)
+                if j.area() == areaesp: break
+            if tec: tecla(tec, False)
+        entro = j.area() == areaesp
+        j.P('entro', entro, 'area', j.area())
+        minz = collections.defaultdict(lambda: 1e9); serie = []
+        t0 = time.time(); caidos = 0
+        while time.time() - t0 < float(arg('--dentro', 25)) and j.alive():
+            j.tick(); time.sleep(0.5)
+            s_ = snap()
+            for k in antes:
+                if k in s_ and s_[k][1] and math.isfinite(s_[k][1][2]):
+                    minz[k] = min(minz[k], s_[k][1][2])
+            serie.append(round(time.time() - t0, 1))
+            for l in j.log_nuevas(arg('--log')):
+                if 'ha caído' in l or 'ha caido' in l or 'han ca' in l.lower():
+                    caidos += 1; j.P('LOG', l[:200])
+        bajos = [(k[0], hex(k[1]), antes[k][0], 'area%d' % antes[k][2], 'cre%d' % antes[k][3], 'st%d' % antes[k][4], tuple(round(x, 1) for x in antes[k][1]), round(minz[k], 1)) for k in antes if minz[k] < antes[k][1][2] - 3.0]
+        r = {'sitio': nombre, 'entro': entro, 'vehiculos_cerca': nv, 'peds_cerca': npd, 'caidas_log': caidos, 'bajaron_mas_de_3m': bajos}
+        j.P('RESULTADO', json.dumps(r, default=str)); res.append(r)
+        # salir
+        j.tp(interior[0], interior[1], interior[2]); j.al_frente()
+        t = time.time()
+        while time.time() - t < 20 and j.alive():
+            j.tick(); time.sleep(0.25)
+            if j.area() == 0: break
+        j.dormir(5.0)
+        for l in j.log_nuevas(arg('--log')):
+            if 'ha caído' in l or 'ha caido' in l: j.P('LOG(tras salir)', l[:200])
+        if j.area() != 0: j.tp(*SALIDA); j.dormir(6)
+    j.res['caida_interior'] = res
+
+def esc_pausa(j):
+    t = time.time()
+    while time.time() - t < float(arg('--pausa-seg', 240)) and j.alive(): time.sleep(1)
+
 def esc_trucos(j):
     suelo_libre(j)
     nm = nombres_cheats(); mp = mapa_trucos(j); j.P('mapa codigo -> indice (tabla en memoria):', mp)
@@ -834,7 +925,7 @@ def esc_luna(j):
     j.hora = 12
 
 
-ESCENARIOS = {'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'altf4': esc_altf4, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos}
+ESCENARIOS = {'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'altf4': esc_altf4, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'pausa': esc_pausa, 'interiores': esc_interiores, 'caida_interior': esc_caida_interior, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos}
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')
     j = J(sal, dirj)

@@ -1,0 +1,19 @@
+[    0.2] pid 3420
+[    9.9] juego en marcha tras 10 s; gGameState=9
+[   11.0] salida de la casa: area=0 tras 1 s
+[   12.0] ventana: cliente 585x438
+[   12.0] === ESCENARIO caida_interior
+[   25.7] truco spawn RZHSUEW vehiculos nuevos: [('0x8fe7e58', 596), ('0x8fe8870', 432), ('0x8fe9288', 520), ('0x8fe9ca0', 536), ('0x8fea6b8', 545), ('0x8febae8', 592), ('0x8fec500', 492), ('0x8fecf18', 404)]
+[   29.8] truco spawn FOURWHEELFUN vehiculos nuevos: []
+[   32.0] SITIO CJ casa antes: vehiculos cerca 8 peds cerca 15 minz 12.954315185546875
+[   32.4] entro True area 3
+[   37.9] LOG [aviso][11:45:38.174][World.cpp:1438]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2509.656494 -1734.433228 -106.185822
+[   38.6] LOG [aviso][11:45:38.329][World.cpp:1472]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2509.597656 -1734.949951 -116.694519
+[   57.6] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 8, "peds_cerca": 15, "caidas_log": 2, "bajaron_mas_de_3m": [["v", "0x8fe7e58", 596, "area0", "cre1", "st3", [2509.6, -1734.9, 13.1], -73.9], ["p", "0x8fa4ea8", 280, "area0", "cre0", "st0", [2509.7, -1734.4, 13.0], -74.0]]}
+[  102.6] truco spawn RZHSUEW vehiculos nuevos: []
+[  106.6] truco spawn FOURWHEELFUN vehiculos nuevos: []
+[  108.8] SITIO GYM Ganton antes: vehiculos cerca 0 peds cerca 1 minz 13.3828125
+[  109.3] entro True area 5
+[  134.5] RESULTADO {"sitio": "GYM Ganton", "entro": true, "vehiculos_cerca": 0, "peds_cerca": 1, "caidas_log": 0, "bajaron_mas_de_3m": [["p", "0x8fa3f20", 0, "area3", "cre0", "st0", [2238.2, -1729.9, 13.4], 3.4]]}
+[  140.2] vivo al final: True
+[  140.2] fin

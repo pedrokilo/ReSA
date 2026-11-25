@@ -1,0 +1,4 @@
+[depuración][13:24:11.121][dllmain.cpp:49]: Todos los hooks desactivados por línea de comandos (se vuelve al código original del juego)
+[info][13:24:11.124][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13620 en 1010 clases/grupos (11452 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 1. Desactivadas: 13619.
+[info][13:24:11.125][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][13:24:11.125][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.

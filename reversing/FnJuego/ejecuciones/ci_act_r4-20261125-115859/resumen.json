@@ -1,0 +1,93 @@
+{
+ "caida_interior": [
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 10,
+   "peds_cerca": 13,
+   "caidas_log": 4,
+   "bajaron_mas_de_3m": [
+    [
+     "v",
+     "0x902ee10",
+     523,
+     "area0",
+     "cre1",
+     "st3",
+     [
+      2528.9,
+      -1741.2,
+      13.0
+     ],
+     -96.8
+    ],
+    [
+     "v",
+     "0x9031670",
+     596,
+     "area0",
+     "cre1",
+     "st3",
+     [
+      2525.3,
+      -1801.6,
+      13.1
+     ],
+     -102.8
+    ],
+    [
+     "p",
+     "0x8fe810c",
+     284,
+     "area0",
+     "cre0",
+     "st0",
+     [
+      2528.9,
+      -1741.7,
+      13.3
+     ],
+     -96.4
+    ],
+    [
+     "p",
+     "0x8feb768",
+     280,
+     "area0",
+     "cre0",
+     "st0",
+     [
+      2524.8,
+      -1801.4,
+      13.0
+     ],
+     -103.0
+    ]
+   ]
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 3,
+   "peds_cerca": 1,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": []
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 13,
+   "peds_cerca": 19,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": []
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 3,
+   "peds_cerca": 1,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": []
+  }
+ ]
+}

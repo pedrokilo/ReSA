@@ -1,0 +1,17 @@
+pid 41056
+juego en marcha tras 12 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 1965x822
+=== ESCENARIO caida_interior
+truco spawn RZHSUEW vehiculos nuevos: [('0x5870a00', 457)]
+truco spawn FOURWHEELFUN vehiculos nuevos: [('0x5871418', 471)]
+SITIO CJ casa antes: vehiculos cerca 13 peds cerca 19 minz 12.979432106018066
+entro True area 3
+RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 13, "peds_cerca": 19, "caidas_log": 0, "bajaron_mas_de_3m": []}
+truco spawn RZHSUEW vehiculos nuevos: []
+truco spawn FOURWHEELFUN vehiculos nuevos: []
+SITIO GYM Ganton antes: vehiculos cerca 0 peds cerca 1 minz 13.3828125
+entro True area 5
+RESULTADO {"sitio": "GYM Ganton", "entro": true, "vehiculos_cerca": 0, "peds_cerca": 1, "caidas_log": 0, "bajaron_mas_de_3m": [["p", "0x5821518", 0, "area3", "cre0", "st0", [2237.7, -1729.8, 13.4], 2.8]]}
+vivo al final: True
+fin

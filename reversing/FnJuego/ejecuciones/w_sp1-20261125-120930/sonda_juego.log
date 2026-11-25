@@ -1,0 +1,22 @@
+[    0.2] pid 37188
+[    9.5] juego en marcha tras 9 s; gGameState=9
+[   10.3] salida de la casa: area=0 tras 1 s
+[   11.3] ventana: cliente 585x438
+[   11.3] === ESCENARIO caida_interior
+[   40.8] busqueda: nivel ? peds {'peds': 20, 'veh': 14, 'edif': 10329, 'obj': 157, 'dummy': 963}
+[   42.8] SITIO CJ casa antes: vehiculos cerca 15 peds cerca 21 minz 13.040877342224121
+[   43.2] entro True area 3
+[   49.9] LOG [aviso][12:10:24.719][World.cpp:1472]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2509.649658 -1675.009888 -108.782967
+[   49.9] LOG [aviso][12:10:25.201][World.cpp:1438]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2508.188477 -1673.765137 -106.404579
+[   63.8] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 15, "peds_cerca": 21, "caidas_log": 2, "bajaron_mas_de_3m": [["v", "0x8fdfd00", 596, "area0", "cre1", "st4", [2507.9, -1677.7, 13.2], -95.5], ["p", "0x8f9cbc8", 280, "area0", "cre0", "st0", [2507.4, -1677.5, 13.0], -72.8]]}
+[  124.8] busqueda: nivel ? peds {'peds': 11, 'veh': 3, 'edif': 10544, 'obj': 96, 'dummy': 1016}
+[  126.8] SITIO CJ casa antes: vehiculos cerca 3 peds cerca 11 minz 13.189486503601074
+[  126.8] entro True area 3
+[  147.1] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 3, "peds_cerca": 11, "caidas_log": 0, "bajaron_mas_de_3m": []}
+[  182.7] busqueda: nivel ? peds {'peds': 11, 'veh': 10, 'edif': 10329, 'obj': 152, 'dummy': 963}
+[  184.8] SITIO CJ casa antes: vehiculos cerca 10 peds cerca 11 minz 13.060096740722656
+[  185.2] entro True area 3
+[  191.0] LOG [aviso][12:12:45.855][World.cpp:1472]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2482.706299 -1697.307617 -110.450333
+[  205.4] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 10, "peds_cerca": 11, "caidas_log": 1, "bajaron_mas_de_3m": []}
+[  237.1] vivo al final: True
+[  237.1] fin

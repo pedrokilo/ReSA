@@ -1,0 +1,1 @@
+pid 22516 args: --unhook-all asi: D:\Original\_asi_spe_ctl.asi escenario=caida_interior
