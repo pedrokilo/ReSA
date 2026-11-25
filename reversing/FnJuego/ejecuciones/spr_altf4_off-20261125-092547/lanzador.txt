@@ -1,0 +1,3 @@
+pid 29544  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-spr\reversing\FnJuego\ejecuciones\spr_altf4_off-20261125-092547" --limite 60 --shims  escenario=altf4 xinput=False
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF

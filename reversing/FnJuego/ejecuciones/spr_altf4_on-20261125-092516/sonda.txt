@@ -1,0 +1,12 @@
+pid 39668
+juego en marcha tras 11 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 640x480
+=== ESCENARIO altf4
+ALTF4 proceso terminado tras Alt+F4 publicado: True (0.5 s)
+EL PROCESO TERMINO durante altf4
+vivo al final: False
+LOG [error][09:25:36.188][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][09:25:36.188][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+LOG [info][09:25:36.348][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+fin

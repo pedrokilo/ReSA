@@ -71,6 +71,8 @@ void SArrayInsertN4(void* vector, uint32* pos, uint32 count, const uint32* value
 #include "AEDataStream.h"
 #include "AEMFDecoder.h"
 #include "AEWaveDecoder.h"
+#include "AEWaveDecoderEx.h"
+#include "extensions/SilentPatchConfig.h"
 #include "AEWMADecoder.h"
 #include "AEVorbisDecoder.h"
 
@@ -214,6 +216,10 @@ CAEStreamingDecoder* CAEUserRadioTrackManager::LoadUserTrack(int32 trackID) {
     case AUDIO_FILE_TYPE_VORBIS:
         return new CAEVorbisDecoder(dataStream, true);
     case AUDIO_FILE_TYPE_WAV:
+        // SilentPatch (MIT, Silent): WaveProfilesFix: PCM de 8/16/24 bits, mono/estereo, hasta 48 kHz y WAV con chunks ID3/LIST; el WAV canonico de 44 bytes sigue por el decoder original
+        if (SilentPatchOption("WaveProfilesFix", true) && !CAEWaveDecoderEx::IsCanonicalHeader(dataStream)) {
+            return new CAEWaveDecoderEx(dataStream);
+        }
         return new CAEWaveDecoder(dataStream);
     case AUDIO_FILE_TYPE_WMA:
         return new CAEWMADecoder(dataStream);
@@ -329,6 +335,11 @@ eAudioFileType CAEUserRadioTrackManager::GetAudioFileType(const char* filename) 
     for (const tAudioExtensionType& audioExtType : audioExtensionTypes) {
         if (_stricmp(audioExtType.extension, dotPosition) == 0)
             return audioExtType.type;
+    }
+
+    // SilentPatch (MIT, Silent): UserTracksFLAC: ".flac" (8/16/24 bits, mono/estereo, hasta 48 kHz) se decodifica con Media Foundation (CAEMFDecoder), que lee FLAC de forma nativa desde Windows 10
+    if (_stricmp(dotPosition, ".flac") == 0 && SilentPatchOption("UserTracksFLAC", true)) {
+        return AUDIO_FILE_TYPE_QUICKTIME;
     }
 
     return AUDIO_FILE_TYPE_UNKNOWN;

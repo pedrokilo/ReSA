@@ -1,0 +1,16 @@
+# spr_flac_on-20261125-092003
+pid 18972  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_spr_run" --salida "D:\Original\wv-spr\reversing\FnQT\ejecuciones\spr_flac_on-20261125-092003" --limite 125 --shims  escenario=usertrack xin
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF
+[info][09:20:58.955][AEMFDecoder.cpp:78]: User tracks: Media Foundation acepta la pista con extension '.flac' (8000 ms)
+[info][09:21:23.917][AEMFDecoder.cpp:78]: User tracks: Media Foundation acepta la pista con extension '.flac' (8000 ms)
+[info][09:21:24.024][AEMFDecoder.cpp:78]: User tracks: Media Foundation acepta la pista con extension '.flac' (8000 ms)
+[info][09:21:24.130][AEMFDecoder.cpp:78]: User tracks: Media Foundation acepta la pista con extension '.flac' (8000 ms)
+[info][09:21:24.235][AEMFDecoder.cpp:78]: User tracks: Media Foundation acepta la pista con extension '.flac' (8000 ms)
+[info][09:21:24.342][AEMFDecoder.cpp:78]: User tracks: Media Foundation acepta la pista con extension '.flac' (8000 ms)
+[info][09:21:24.448][AEMFDecoder.cpp:78]: User tracks: Media Foundation acepta la pista con extension '.flac' (8000 ms)
+[info][09:21:24.553][AEMFDecoder.cpp:78]: User tracks: Media Foundation acepta la pista con extension '.flac' (8000 ms)
+[info][09:21:24.662][AEMFDecoder.cpp:78]: User tracks: Media Foundation acepta la pista con extension '.flac' (8000 ms)
+[info][09:21:24.767][AEMFDecoder.cpp:78]: User tracks: Media Foundation acepta la pista con extension '.flac' (8000 ms)
+modulos de Media Foundation / decodificadores cargados: ['mfcore.dll', 'mfperfhelper.dll', 'mfplat.dll', 'mfreadwrite.dll', 'nvgpucomp32.dll', 'rtworkq.dll', 'wmvcore.dll']
+vivo al final: True

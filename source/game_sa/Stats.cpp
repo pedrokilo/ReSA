@@ -415,6 +415,12 @@ template<class... Args>
 int StatsExeSprintf(char* dst, const char* format, Args... args) {
     return reinterpret_cast<ExeSprintfFn>(&ExeCrt::Sprintf)(dst, format, args...);
 }
+// SilentPatch (MIT, Silent): MetricImperialConstantsFix (0x55942F y 0x55AA96): constante metros->pies exacta; el EXE usa 3.3333333f (0x859F60), que da pies de mas
+static float StatsMetersToFeet() {
+    static const bool sp = SilentPatchOption("MetricImperialConstantsFix", true);
+    return sp ? 3.280839895f : std::bit_cast<float>(0x40555555u);
+}
+
 // SilentPatch (MIT, Silent): Stats counted in kilograms are now displayed correctly (el EXE pasa un double a "%dkgs"; con la opcion FixStatsKilograms se formatea como "%.0fkg")
 static void StatsKgText(char* dst, int32 value) {
     static const bool fix = SilentPatchOption("FixStatsKilograms", true);
@@ -520,7 +526,7 @@ void CStats::BuildStatLine(char* line, void* pValue1, int32 metrics, void* pValu
             StatsExeSprintf(gString2, "%.2fm", static_cast<double>(*static_cast<float*>(pValue1)));
             break;
         case 8:     // pies: metros * 3.3333333f (0x859F60) en la x87
-            StatsExeSprintf(gString2, "%.2fft", Stw60MulCpp(static_cast<double>(*static_cast<float*>(pValue1)), std::bit_cast<float>(0x40555555u)));
+            StatsExeSprintf(gString2, "%.2fft", Stw60MulCpp(static_cast<double>(*static_cast<float*>(pValue1)), StatsMetersToFeet()));
             break;
         case 9: {
             const int32 value = *static_cast<int32*>(pValue1);
@@ -1236,7 +1242,7 @@ StatLineResult StatLineEntry(const uint8* entry, int32& count, const int32 wante
             if (!here()) {
                 return StatLineResult::Next;
             }
-            return StatLineDouble("%.2fft", Stw60MulCpp(StatLineValue(id), std::bit_cast<float>(0x40555555u)));
+            return StatLineDouble("%.2fft", Stw60MulCpp(StatLineValue(id), StatsMetersToFeet()));
         }
         default: {   // 0x55AAAA (formatos 0, 2, 8 y mayores de 10): "%d" del valor leido directamente de las tablas
             if (!here()) {

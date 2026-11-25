@@ -1,0 +1,2 @@
+pid 41264  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-spr\reversing\FnJuego\ejecuciones\spr_150s-20261125-092757" --limite 150 --shims  escenario=conduccion,armas,interiores xinput=False
+exit=0xDEAD0002

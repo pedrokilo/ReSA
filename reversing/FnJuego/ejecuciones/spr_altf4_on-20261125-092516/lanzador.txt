@@ -1,0 +1,2 @@
+pid 39668  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-spr\reversing\FnJuego\ejecuciones\spr_altf4_on-20261125-092516" --limite 60 --shims  escenario=altf4 xinput=False
+exit=0x00000000
