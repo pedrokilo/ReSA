@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cctype>
 #include <fstream>
+#include <mutex>
 #include <optional>
 #include <string>
 #include <unordered_map>
@@ -86,6 +87,8 @@ bool SilentPatchOption(const char* name, bool defaultValue) {
     }
     // Cache por nombre: varios sitios consultan la opcion en cada llamada y leer el ini cada vez seria caro (el valor es fijo durante el proceso).
     static std::unordered_map<std::string, bool> cache;
+    static std::mutex                            mtx; // el streaming consulta opciones desde su hilo
+    std::lock_guard                              lock{mtx};
     const std::string clave = std::string(name) + (defaultValue ? "#1" : "#0");
     if (const auto it = cache.find(clave); it != cache.end()) {
         return it->second;
