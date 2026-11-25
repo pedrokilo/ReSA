@@ -1,0 +1,17 @@
+[    0.2] pid 8700
+[    9.9] juego en marcha tras 10 s; gGameState=9
+[   10.6] salida de la casa: area=0 tras 1 s
+[   11.6] ventana: cliente 585x438
+[   11.6] === ESCENARIO reposo120
+[  118.6] reposo: vivo = True pos (2652.482666015625, -1719.5435791015625, 10.90625)
+[  118.9] vivo al final: True
+[  118.9] LOG [info][16:44:14.520][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[  118.9] LOG [info][16:44:14.520][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[  118.9] LOG [info][16:44:14.520][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[  118.9] LOG [info][16:44:14.521][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[  118.9] LOG [info][16:44:14.781][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[  118.9] LOG [info][16:44:14.797][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[  118.9] LOG [error][16:44:22.407][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  118.9] LOG [error][16:44:22.408][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  118.9] LOG [info][16:44:22.568][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[  118.9] fin

@@ -1,0 +1,3 @@
+pid 42044  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-pc\reversing\FnJuego\ejecuciones\pcxi_off-20261125-163646" --limite 400 --shims  escenario=padcheats xinput=True
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF

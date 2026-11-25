@@ -1,0 +1,32 @@
+pid 23612
+juego en marcha tras 9 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 585x438
+=== ESCENARIO padcheats
+PADCHEATS modo ENCENDIDO (se esperan los efectos) llamadas XInput [41, 0, 0, 0]
+PADCHEATS mapeo XInput -> campos de CPad::NewState: {"l1": {"L1": 255}, "r1": {"R1": 255}, "l2": {"L2": 255}, "r2": {"R2": 255}, "ud": {"up": 255}, "dd": {"down": 255}, "ld": {"left": 255}, "rd": {"right": 255}, "cr": {"Cross": 255}, "ci": {"Circle": 255}, "sq": {"Square": 255}, "tr": {"Triangle": 255}}
+PADCHEATS OK   Infinite Health (1.a vez, ficha 61) intentos=1 ficha=1
+PADCHEATS OK   Infinite Health 2.a vez desactiva: ficha=0
+PADCHEATS OK   Never Wanted (1.a vez, ficha 65) intentos=1 ficha=1
+PADCHEATS OK   Never Wanted 2.a vez desactiva: ficha=0
+PADCHEATS OK   Max Respect (1.a vez, ficha 79) intentos=1 ficha=1
+PADCHEATS OK   Max Respect 2.a vez desactiva: ficha=0
+PADCHEATS OK   Infinite Oxygen (Lung Capacity) (1.a vez, ficha 62) intentos=1 ficha=1
+PADCHEATS OK   Infinite Oxygen (Lung Capacity) 2.a vez desactiva: ficha=0
+PADCHEATS OK   Never Get Hungry (1.a vez, ficha 68) intentos=1 ficha=1
+PADCHEATS OK   Never Get Hungry 2.a vez desactiva: ficha=0
+PADCHEATS OK   Really Sunny (clima forzado 0) intentos=1 forzado=0
+PADCHEATS OK   Sunny (clima forzado 1) intentos=1 forzado=1
+PADCHEATS OK   Foggy (clima forzado 9) intentos=1 forzado=9
+PADCHEATS OK   Sandstorm (clima forzado 19) intentos=1 forzado=19
+PADCHEATS OK   Cloudy (clima forzado 4) intentos=1 forzado=4
+PADCHEATS OK   pausa de 3.6 s a la mitad no activa ficha 68=0
+PADCHEATS OK   ruido 250 pulsaciones aleatorias flags iguales=True clima 4 -> 4 vehiculos 17 -> 14
+PADCHEATS teclado ASNAEB enviado; vivo=True
+PADCHEATS OK   Rhino (vehiculo nuevo en el pool) intentos=1 rhinos 0 -> 1
+PADCHEATS RESUMEN ENCENDIDO (se esperan los efectos) ok=18 de 18
+vivo al final: True
+LOG [error][16:40:15.421][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][16:40:15.422][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+LOG [info][16:40:15.594][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+fin

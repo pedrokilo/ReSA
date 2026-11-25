@@ -31,6 +31,7 @@ public:
     static void InjectHooks();
 
     static void AddToCheatString(char LastPressedKey);
+    static void ActivateCheatByIndex(int32 cheatIndex); // NOTSA (PadCheats): activacion compartida por teclado y mando
     static void ResetCheats();
     static void DoCheats();
     static void ApplyCheat(eCheats cheat);
