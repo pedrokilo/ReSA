@@ -821,3 +821,11 @@ Detalle, evidencia y estado por viñeta: [CodigoVivoExe/silentpatch2-msaa.md](Co
 | 3 | `psSelectDevice` (0x746350), `CMenuManager::Initialise` (0x5744D0 -> 0x7F8A90) | El valor guardado se acota a 1..máximo de la tarjeta (y a 1..5) al abrir el dispositivo y el índice se convierte en muestras antes de llamar al driver | `MSAAFix` | bajo |
 | 4 | `_rwD3D9FindMSLevels` (0x7F6BF0; copias inlined en 0x7F60C6 y 0x7F6683, aquí una sola función) | El máximo de multimuestreo no lo sustituye el número de niveles de calidad no enmascarables (en NVIDIA 5 con tipos 2/4/8) cuando es mayor: `jbe -> jmp` de SilentPatch en las tres copias | `MSAAFix` | bajo |
 | 5 | `CMenuManager::PrintMap` (0x575130) | Sin cambios aquí: la corrección de las costuras del mapa (L155) es `MapSeamsFix` de la 2.ª tanda de gráficos (fila 21 de la tabla 15.20); en esta rama se ejercitó con MSAA 8x (con la opción apagada, 837 píxeles no negros en la fila superior de la pantalla del mapa; encendida, ninguno) | `MapSeamsFix` | bajo |
+
+### 15.I Coches del exterior congelados con el jugador en un interior (desviación propia, rama `fix-caida-interior`, 25/11/2026)
+
+No es de SilentPatch ni depende del interruptor `GTASA_SILENTPATCH`. Opción propia `GTASA_INTERIOR_FREEZE_EXTERIOR=0|1` (o `InteriorFreezeExterior=0|1` en `gta-reversed.ini`), **activada por defecto**; con `=0` el código es el del EXE.
+
+| # | Función | Desviación | Opción | Riesgo |
+| --- | --- | --- | --- | --- |
+| 1 | `CWorld::Process` (0x5684A0), lista de entidades en movimiento | Mientras `CGame::currArea != 0`, los coches de área 0 creados como aleatorios o aparcados (no el del jugador, ni los de misión, ni los que conduce el jugador, ni trenes) y sus peatones de juego que viajan dentro no se procesan en ningún bucle de `CWorld::Process` (control, colisión, desplazamiento): quedan congelados con su velocidad. El EXE los procesa con la colisión del exterior ya descargada (`CColStore::LoadCollision`) y caen hasta `RemoveFallenCars` (mensaje «han caído a través del mapa»; los coches de policía, que `RemoveDistantCars` no retira, eran los que caían). Al volver al exterior se reanudan. Los coches de misión siguen protegidos por `SwitchBetweenPhysicsAndGhost`. | `InteriorFreezeExterior` (`GTASA_INTERIOR_FREEZE_EXTERIOR`) | bajo (cambia lo que ocurre fuera de pantalla; el EXE los dejaba caer y los eliminaba) |

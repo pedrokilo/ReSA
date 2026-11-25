@@ -1,0 +1,141 @@
+{
+ "caida_interior": [
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 13,
+   "peds_cerca": 19,
+   "caidas_log": 3,
+   "bajaron_mas_de_3m": [
+    [
+     "v",
+     "0x905b9b0",
+     596,
+     "area0",
+     "cre1",
+     "st3",
+     [
+      2494.9,
+      -1681.6,
+      13.1
+     ],
+     -117.9
+    ],
+    [
+     "v",
+     "0x9060a70",
+     497,
+     "area0",
+     "cre1",
+     "st3",
+     [
+      2529.2,
+      -1734.1,
+      62.6
+     ],
+     1.8
+    ],
+    [
+     "p",
+     "0x9019b18",
+     280,
+     "area0",
+     "cre0",
+     "st0",
+     [
+      2495.5,
+      -1681.7,
+      12.9
+     ],
+     -75.7
+    ],
+    [
+     "p",
+     "0x901a2dc",
+     280,
+     "area0",
+     "cre0",
+     "st0",
+     [
+      2494.5,
+      -1682.1,
+      13.0
+     ],
+     -78.7
+    ]
+   ],
+   "tras_salir_vehiculos_antes": 13,
+   "siguen": 4,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 3,
+   "peds_cerca": 11,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [],
+   "tras_salir_vehiculos_antes": 3,
+   "siguen": 1,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 9,
+   "peds_cerca": 12,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [
+    [
+     "p",
+     "0x901ba28",
+     285,
+     "area0",
+     "cre0",
+     "st0",
+     [
+      2486.6,
+      -1698.9,
+      24.0
+     ],
+     19.7
+    ]
+   ],
+   "tras_salir_vehiculos_antes": 9,
+   "siguen": 6,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 2,
+   "peds_cerca": 11,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [],
+   "tras_salir_vehiculos_antes": 2,
+   "siguen": 1,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 8,
+   "peds_cerca": 11,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [],
+   "tras_salir_vehiculos_antes": 8,
+   "siguen": 6,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0
+  }
+ ]
+}

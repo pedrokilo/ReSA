@@ -1,0 +1,64 @@
+{
+ "caida_interior": [
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 8,
+   "peds_cerca": 15,
+   "caidas_log": 2,
+   "bajaron_mas_de_3m": [
+    [
+     "v",
+     "0x8fe7e58",
+     596,
+     "area0",
+     "cre1",
+     "st3",
+     [
+      2509.6,
+      -1734.9,
+      13.1
+     ],
+     -73.9
+    ],
+    [
+     "p",
+     "0x8fa4ea8",
+     280,
+     "area0",
+     "cre0",
+     "st0",
+     [
+      2509.7,
+      -1734.4,
+      13.0
+     ],
+     -74.0
+    ]
+   ]
+  },
+  {
+   "sitio": "GYM Ganton",
+   "entro": true,
+   "vehiculos_cerca": 0,
+   "peds_cerca": 1,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [
+    [
+     "p",
+     "0x8fa3f20",
+     0,
+     "area3",
+     "cre0",
+     "st0",
+     [
+      2238.2,
+      -1729.9,
+      13.4
+     ],
+     3.4
+    ]
+   ]
+  }
+ ]
+}

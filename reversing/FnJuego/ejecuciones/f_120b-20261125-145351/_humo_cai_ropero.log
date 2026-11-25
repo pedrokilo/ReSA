@@ -1,0 +1,6 @@
+posicion antes del teletransporte (259.161865234375, -41.924468994140625, 1002.0234375)
+posicion despues (257.5080261230469, -40.63679504394531, 1002.0234375)
+DIAG {"modelinfo": "0xb1f574", "refs": 27063, "rwObject": "0x596a248", "txd": 2986, "stream_loadstate": 1, "stream_raw": "ffffffffab0a0c01642300000500000001000000", "objetos": [{"i": 4, "rw": "0x5b2e1a0", "flags": "a1000008"}]}
+cai entidades 15 marcadores 12
+puerta True marcador True
+VEREDICTO BIEN

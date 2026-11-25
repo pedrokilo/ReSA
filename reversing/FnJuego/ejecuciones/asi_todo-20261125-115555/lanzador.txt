@@ -1,0 +1,1 @@
+pid 41056 args: --unhook=Zzz/Nada asi: D:\Original\_asi_spe_ctl.asi escenario=caida_interior

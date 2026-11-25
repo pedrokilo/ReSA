@@ -1,0 +1,28 @@
+pid 22516
+navegacion de menu: gGameState=9 tras 55 s
+juego en marcha tras 0 s; gGameState=9
+salida de la casa: area=0 tras 0 s
+ventana: cliente 640x480
+=== ESCENARIO caida_interior
+busqueda: nivel ? peds {'peds': 1, 'veh': 0, 'edif': 10451, 'obj': 149, 'dummy': 1083}
+SITIO CJ casa antes: vehiculos cerca 0 peds cerca 1 minz 13.559099197387695 modelos [] CJ en (2503.61474609375, -1698.7667236328125, 13.559099197387695)
+entro False area 0
+RESULTADO {"sitio": "CJ casa", "entro": false, "vehiculos_cerca": 0, "peds_cerca": 1, "caidas_log": 0, "bajaron_mas_de_3m": []}
+busqueda: nivel ? peds {'peds': 14, 'veh': 11, 'edif': 10635, 'obj': 108, 'dummy': 1342}
+SITIO CJ casa antes: vehiculos cerca 2 peds cerca 0 minz 23.521942138671875 modelos [492, 546] CJ en (2367.859619140625, -1355.794921875, 23.453914642333984)
+entro False area 0
+RESULTADO {"sitio": "CJ casa", "entro": false, "vehiculos_cerca": 2, "peds_cerca": 0, "caidas_log": 0, "bajaron_mas_de_3m": []}
+busqueda: nivel ? peds {'peds': 15, 'veh': 6, 'edif': 10365, 'obj': 156, 'dummy': 998}
+SITIO CJ casa antes: vehiculos cerca 6 peds cerca 15 minz 13.043078422546387 modelos [475, 497, 577, 596, 600, 600] CJ en (2484.761962890625, -1660.82373046875, 13.335947036743164)
+entro True area 3
+RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 6, "peds_cerca": 15, "caidas_log": 0, "bajaron_mas_de_3m": []}
+busqueda: nivel ? peds {'peds': 1, 'veh': 0, 'edif': 10063, 'obj': 93, 'dummy': 548}
+SITIO CJ casa antes: vehiculos cerca 0 peds cerca 1 minz 13.559396743774414 modelos [] CJ en (2503.47314453125, -1698.747802734375, 13.559396743774414)
+entro True area 3
+RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 0, "peds_cerca": 1, "caidas_log": 0, "bajaron_mas_de_3m": []}
+busqueda: nivel ? peds {'peds': 1, 'veh': 1, 'edif': 10773, 'obj': 102, 'dummy': 1241}
+SITIO CJ casa antes: vehiculos cerca 0 peds cerca 0 minz 0 modelos [] CJ en (911.134033203125, -1075.291259765625, 24.296875)
+entro False area 0
+RESULTADO {"sitio": "CJ casa", "entro": false, "vehiculos_cerca": 0, "peds_cerca": 0, "caidas_log": 0, "bajaron_mas_de_3m": []}
+vivo al final: True
+fin

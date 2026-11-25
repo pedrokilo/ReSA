@@ -28,6 +28,7 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/RdataConstantes.h"
 
 #include "World.h"
+#include "extensions/SilentPatchConfig.h"
 #include "Ragdoll/IKChainManager.h"
 #include "FireManager.h"
 #include "CarCtrl.h"
@@ -2413,8 +2414,34 @@ void CWorld::TriggerExplosionSectorList(PtrListType& ptrList, const CVector& poi
 void CWorld::Process() {
     ZoneScoped;
 
+    // Desviacion propia: InteriorFreezeExterior (docs/DesviacionesConocidas.md 15.I). Con el jugador dentro de un interior la colision del exterior esta descargada
+    // (CColStore::LoadCollision) y los coches aleatorios/aparcados del exterior, con su conductor, caen del mapa (los quita RemoveFallenCars). Mientras dure, no se procesan
+    // (quedan congelados con su velocidad y se reanudan al volver al exterior). No se tocan: el vehiculo del jugador, los de mision, los que lleva el jugador, trenes ni peatones a pie.
+    const bool freezeExterior = CGame::currArea != AREA_CODE_NORMAL_WORLD && OwnDeviationOption("GTASA_INTERIOR_FREEZE_EXTERIOR", "InteriorFreezeExterior", true);
+    const auto IsFrozenExteriorVehicle = [](CVehicle* veh) {
+        return static_cast<uint8>(veh->GetAreaCode()) == AREA_CODE_NORMAL_WORLD
+            && (veh->IsCreatedBy(RANDOM_VEHICLE) || veh->IsCreatedBy(PARKED_VEHICLE))
+            && veh != FindPlayerVehicle()
+            && !(veh->m_pDriver && veh->m_pDriver->IsPlayer())
+            && veh->m_nVehicleType != VEHICLE_TYPE_TRAIN
+            && !veh->m_bRemoveFromWorld;
+    };
+    const auto IsFrozenExterior = [&](CEntity* entity) {
+        if (entity->GetIsTypeVehicle()) {
+            return IsFrozenExteriorVehicle(entity->AsVehicle());
+        }
+        if (entity->GetIsTypePed()) {
+            auto* const ped = entity->AsPed();
+            return static_cast<uint8>(ped->GetAreaCode()) == AREA_CODE_NORMAL_WORLD && ped->bInVehicle && ped->m_pVehicle && !ped->IsPlayer()
+                && ped->IsCreatedBy(ePedCreatedBy::PED_GAME) && !ped->m_bRemoveFromWorld && IsFrozenExteriorVehicle(ped->m_pVehicle);
+        }
+        return false;
+    };
     const auto IterateMovingList = [&](auto&& fn) {
         for (auto* const entity : ms_listMovingEntityPtrs) {
+            if (freezeExterior && IsFrozenExterior(entity)) {
+                continue;
+            }
             fn(entity);
         }
     };

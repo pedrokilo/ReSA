@@ -1,0 +1,8 @@
+posicion antes del teletransporte (255.13699340820312, -41.53219985961914, 1002.0234375)
+posicion despues (255.13699340820312, -41.53219985961914, 1002.0234375)
+CAPTURA {'ancho': 1024, 'alto': 768, 'rojo': 5984, 'muestras': 87822, 'media_rgb': [102.6, 84.2, 66.9], 'max': 255}
+DIAG {"modelinfo": "0xb1f574", "refs": 27063, "rwObject": "0x597db88", "txd": 2986, "stream_loadstate": 1, "stream_raw": "ffffffffab0a0c01642300000500000001000000", "objetos": [{"i": 4, "rw": "0x59e2300", "flags": "a1000008"}]}
+cai entidades 15 marcadores 12
+puerta True marcador True
+marcadores_en_memoria 12 marcadores_que_cambian_en_1s 12 pixeles_rojos(informativo) 5984
+VEREDICTO BIEN

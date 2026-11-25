@@ -1,0 +1,44 @@
+pid 18544
+juego en marcha tras 8 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 585x438
+=== ESCENARIO caida_interior
+busqueda: nivel ? peds {'peds': 23, 'veh': 13, 'edif': 10329, 'obj': 154, 'dummy': 963}
+SITIO CJ casa antes: vehiculos cerca 13 peds cerca 23 minz 12.910948753356934 modelos [404, 404, 432, 497, 520, 536, 545, 547, 567, 567, 567, 575, 596] CJ en (2503.404052734375, -1697.824462890625, 13.55887222290039) velocidades>0.05 antes de entrar [(497, 0.47), (596, 0.25)]
+TRAZA antes de entrar [(596, (2494.4, -1675.9, 13.1), 0.25, 3, 0), (497, (2516.7, -1705.4, 22.3), 0.47, 3, 0)]
+entro True area 3
+LOG [aviso][14:50:12.019][World.cpp:1439]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2467.683105 -1615.298584 -106.557816
+LOG [aviso][14:50:12.021][World.cpp:1439]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2468.614258 -1614.867188 -106.679352
+LOG [aviso][14:50:12.180][World.cpp:1473]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2467.631836 -1613.544434 -117.148170
+RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 13, "peds_cerca": 23, "caidas_log": 3, "bajaron_mas_de_3m": [["v", "0x17321e78", 596, "area0", "cre1", "st3", [2494.4, -1675.9, 13.1], -114.9], ["p", "0x172d2040", 280, "area0", "cre0", "st0", [2494.8, -1675.5, 12.9], -72.6], ["p", "0x172d4714", 280, "area0", "cre0", "st0", [2494.2, -1676.3, 12.9], -72.5]]}
+TRAZA dentro (fin) [(596, (0.0, 0.0, 0.0), 1.36, 3, 0), (497, (0.0, 0.0, 0.0), 0.32, 3, 0)]
+TRAZA tras salir +1s [(596, (0.0, 0.0, 0.0), 1.36, 3, 0), (497, (0.0, 0.0, 0.0), 0.32, 3, 0)]
+TRAZA tras salir +2s [(596, (0.0, 0.0, 0.0), 1.36, 3, 0), (497, (0.0, 0.0, 0.0), 0.32, 3, 0)]
+TRAZA tras salir +4s [(596, (0.0, 0.0, 0.0), 1.36, 3, 0), (497, (0.0, 0.0, 0.0), 0.32, 3, 0)]
+TRAZA tras salir +8s [(596, (0.0, 0.0, 0.0), 1.36, 3, 0), (497, (0.0, 0.0, 0.0), 0.32, 3, 0)]
+TRAS SALIR {"tras_salir_vehiculos_antes": 13, "siguen": 4, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0, "velocidades_de_los_que_siguen": [[404, 0.0], [432, 0.0], [520, 0.0], [545, 0.0]]}
+busqueda: nivel ? peds {'peds': 11, 'veh': 3, 'edif': 10544, 'obj': 96, 'dummy': 1016}
+SITIO CJ casa antes: vehiculos cerca 3 peds cerca 11 minz 13.19622802734375 modelos [520, 536, 575] CJ en (2503.7177734375, -1698.42724609375, 13.558624267578125) velocidades>0.05 antes de entrar []
+TRAZA antes de entrar []
+entro True area 3
+RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 3, "peds_cerca": 11, "caidas_log": 0, "bajaron_mas_de_3m": []}
+TRAZA dentro (fin) []
+TRAZA tras salir +1s []
+TRAZA tras salir +2s []
+TRAZA tras salir +4s []
+TRAZA tras salir +8s []
+TRAS SALIR {"tras_salir_vehiculos_antes": 3, "siguen": 2, "se_mueven_5s": 1, "con_z_baja": 0, "velocidad_max": 0.26, "velocidades_de_los_que_siguen": [[497, 0.26], [520, 0.0]]}
+LOG(tras salir) [aviso][14:52:02.127][World.cpp:1473]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2503.734619 -1694.200195 -100.782387
+busqueda: nivel ? peds {'peds': 13, 'veh': 9, 'edif': 10329, 'obj': 152, 'dummy': 963}
+SITIO CJ casa antes: vehiculos cerca 9 peds cerca 13 minz 13.06009578704834 modelos [432, 474, 488, 497, 520, 536, 545, 596, 596] CJ en (2503.39794921875, -1697.8748779296875, 13.558921813964844) velocidades>0.05 antes de entrar [(488, 0.31)]
+TRAZA antes de entrar [(488, (2491.5, -1703.2, 41.2), 0.31, 3, 0)]
+entro True area 3
+RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 9, "peds_cerca": 13, "caidas_log": 0, "bajaron_mas_de_3m": []}
+TRAZA dentro (fin) [(488, (0.0, 0.0, 0.0), 0.24, 3, 0)]
+TRAZA tras salir +1s [(488, (0.0, 0.0, 0.0), 0.24, 3, 0)]
+TRAZA tras salir +2s [(488, (0.0, 0.0, 0.0), 0.24, 3, 0)]
+TRAZA tras salir +4s [(488, (0.0, 0.0, 0.0), 0.24, 3, 0)]
+TRAZA tras salir +8s [(488, (0.0, 0.0, 0.0), 0.24, 3, 0)]
+TRAS SALIR {"tras_salir_vehiculos_antes": 9, "siguen": 6, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0, "velocidades_de_los_que_siguen": [[432, 0.0], [474, 0.0], [520, 0.0], [545, 0.0], [596, 0.0], [596, 0.0]]}
+vivo al final: True
+fin
