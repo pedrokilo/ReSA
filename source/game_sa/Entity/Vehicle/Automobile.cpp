@@ -3593,7 +3593,11 @@ void CAutomobile::VehicleDamage(float damageIntensity, eVehicleCollisionComponen
                 // Como el original (0x6A8259..0x6A8298): se pide FindPlayerVehicle() aunque no haya entidad que dano
                 if (FindPlayerVehicle() == this && m_pDamageEntity) {
                     if (const auto p = PickRandomPassenger()) {
-                        p->Say(m_pDamageEntity->GetIsTypePed() ? CTX_GLOBAL_CAR_HIT_PED : CTX_GLOBAL_CAR_CRASH);
+                        const auto ctx = m_pDamageEntity->GetIsTypePed() ? CTX_GLOBAL_CAR_HIT_PED : CTX_GLOBAL_CAR_CRASH;
+                        // SilentPatch (MIT, Silent): empujar peds con el coche ya no activa la voz del pasajero (Say_SampleBlackList en 0x6A8298); ahora suena al atropellarlos (CPed::KillPedWithCar); opcion "PedHitVoiceOnKill"
+                        if (!(ctx == CTX_GLOBAL_CAR_HIT_PED && SilentPatchOption("PedHitVoiceOnKill", true))) {
+                            p->Say(ctx);
+                        }
                     }
                 }
                 g_InterestingEvents.Add(CInterestingEvents::EType::VEHICLE_DAMAGE, this);

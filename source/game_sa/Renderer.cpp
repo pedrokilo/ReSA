@@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "X87Math.h"
@@ -1314,7 +1315,16 @@ void CRenderer::ConstructRenderList() {
     ms_lowLodDistScale = 1.0f;
     ms_bInTheSky = false;
 
-    CPlayerPed* player = FindPlayerPed();
+    // SilentPatch (MIT, Silent): con un vehiculo RC (p. ej. Supply Lines) el streaming/LOD usa el vehiculo remoto en vez del jugador (FindPlayerEntityWithRC en 0x55574B y FindPlayerVehicle(-1, true) en 0x5557C3); opcion "RCStreaming"
+    const bool rcStreaming = SilentPatchOption("RCStreaming", true);
+    CEntity* player = FindPlayerPed();
+    if (rcStreaming && player) {
+        if (CVehicle* remote = FindPlayerInfo(-1).m_pRemoteVehicle) {
+            player = remote;
+        } else if (CVehicle* current = static_cast<CPlayerPed*>(player)->GetVehicleIfInOne()) {
+            player = current;
+        }
+    }
     if (player && player->GetAreaCode() == AREA_CODE_NORMAL_WORLD) {
         // Como el original: las dos alturas del suelo se calculan siempre, antes de comparar
         const float fGroundHeightBottomZ = TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_BOTTOM);
@@ -1322,7 +1332,7 @@ void CRenderer::ConstructRenderList() {
         const float fPlayerHeightZ = player->GetPosition().z;
 
         if (fPlayerHeightZ - fGroundHeightBottomZ > 50.0f) {
-            if (fPlayerHeightZ - fGroundHeightTopZ > 10.0f && FindPlayerVehicle()) {
+            if (fPlayerHeightZ - fGroundHeightTopZ > 10.0f && FindPlayerVehicle(-1, rcStreaming)) {
                 ms_bInTheSky = true;
             }
         }

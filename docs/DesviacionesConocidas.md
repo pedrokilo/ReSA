@@ -648,3 +648,30 @@ Opcionales: todos se apagan con `GTASA_SILENTPATCH=0` (o `SilentPatch=0` en `gta
 | Unidades métricas/imperiales según la configuración regional | `Units` (-1 región, 0 métrico, 1 imperial) | Antes: imperial solo con idioma americano |
 
 Notas de la fusión: los arreglos de biker cop (`BikerCopSpawn`), azar de 16 bits (`Rand16bit`), SEAROADER (`SeaRoaderCheat`) y Beagle de Fort Carson (`FortCarsonBeagle`), que la rama `silentpatch-scm` también había portado (con los nombres `FixBikerCopSpawn`, `ScriptRandomness16Bit`, `SearoaderCheat`, `FixFortCarsonBeagle`), quedan con la implementación y las opciones de 15.1. `FixCheatMeleeAmmo` pasó a llamarse `MeleeCheatAmmo` (misma opción que la de NinjaCheat/ParachuteCheat; aquí cubre además los conjuntos de armas 1-3). El reinicio de variables de New Game es el de `SilentPatchNewGame` (superconjunto: además reinicia `TimeNextMadDriverChaseCreated`).
+
+### 15.4 Peds, jugador, generadores de coches y animaciones (segunda tanda, rama `silentpatch2-peds`, 25/11/2026)
+
+Todas opcionales (por defecto ACTIVADAS, ninguna existe en `SilentPatchSA.ini`); se apagan con `GTASA_SILENTPATCH=0` o una a una con `GTASA_SILENTPATCH_<OPCION>=0` / `SilentPatch_<Opcion>=0`. Con la opción apagada cada sitio ejecuta la rama del EXE original (el código antiguo se conserva). Detalle, direcciones y estado de ejercitación: [CodigoVivoExe/silentpatch2-peds.md](CodigoVivoExe/silentpatch2-peds.md) y `CodigoVivoExe/silentpatch-clasificacion/peds.csv`.
+
+| Función (EXE) | Desviación | Opción | Riesgo |
+| --- | --- | --- | --- |
+| `CCarGenerator::DoInternalProcessing` (0x6F34D0, 0x6F3E2C) | El contador de generadores con n fijo se decrementa (el EXE hacía movzx + `jge -1` y nunca lo hacía) | `CarGenCounterFix` | bajo (un generador con n fijo deja de generar tras n coches) |
+| `CCarGenerator::DoInternalProcessing` (0x6F3B30) | Generador en interior (z >= 950): el vehículo recibe el área 13 (`SetPositionAndAreaCode`) | `CarGenInteriors` | bajo (aparecen los 2 coches ocultos de la mansión de Madd Dogg) |
+| `CPathFind::GeneratePedCreationCoors` y `_Interior` (0x44E82E, 0x44ECEE), `CTaskComplexProstituteSolicit::ControlSubTask` (0x666EA0) | `rand()` de 31 bits como la PS2 (`SilentPatchRandom::Rand31`) en lugar del de 15 bits del CRT del EXE | `ConsoleRandomness` | bajo (cambia la secuencia aleatoria; peds en más zonas, prostitutas hablan) |
+| `CRenderer::ConstructRenderList` (0x55574B, 0x5557C3) | Con un vehículo RC el streaming/LOD usa el vehículo remoto y `FindPlayerVehicle(-1, true)` | `RCStreaming` | medio (cambia qué se carga con RC; Supply Lines) |
+| `CPlayerPed::DrawTriangleForMouseRecruitPed` (0x60BC52) | El triángulo de salud se orienta para GANG2 (reclutables), no GANG1 | `RecruitTriangleFix` | bajo |
+| `CPed::PreRenderAfterTest` (0x5E69BC) | El viento mueve la ropa de CJ también en el quad | `QuadbikeWind` | bajo |
+| `CBike::ProcessRiderAnims` (0x6B7932) | Marcha atrás, drive-by o velocidad < 0.02 anulan la inclinación lateral del manillar | `QuadbikeHandlebarAnims` | bajo (afecta también a motos) |
+| `CVehicle::ProcessDrivingAnims` (0x6DF4F4) | Animación de cambio de emisora solo con cabeza y brazo derecho; sin ella en el Kart; no parcial en barcos de pie | `RadioStationChangeAnimBlending` | bajo |
+| `CHud::DrawCrossHairs` (0x58E842) | Con la mira de script 2 (foto de pandillero) se usa la mira de la cámara aunque el jugador lleve francotirador | `CameraCrosshairFix` | bajo |
+| `CTaskSimpleJetPack::ProcessControlInput` (0x67ED2D) | Q + E (arma siguiente + anterior) hacen flotar con teclado y ratón | `JetpackKeyboardControlsHover` | bajo |
+| `CPlane::DoPlaneGenerationAndRemoval` (0x6CD545) | En las misiones de los disturbios el helicóptero de policía no ataca a los pandilleros del grupo del jugador | `RiotDontTargetPlayerGroup` | bajo |
+| `CTaskUtilityLineUpPedWithCar::GetLocalPositionToOpenCarDoor` (0x64FFAD) | Al subir a la moto de frente la Z se resta (no se suma): CJ no se hunde | `BikeFrontEnterZ` | bajo |
+| `CCarEnterExit::GetPositionToOpenCarDoor` (0x64E77B) | Puertas traseras de furgoneta: grupo de animación 13 (relativo) en vez del 101 absoluto; sin teletransporte al entrar | `VanRearDoorFix` | bajo |
+| `CPed::KillPedWithCar` (0x5F05CA), `CAutomobile::VehicleDamage` (0x6A8298) | El pasajero habla al atropellar (no al empujar) | `PedHitVoiceOnKill` | bajo |
+| `CTagManager::Load` (0x5D3DA8) | Se lee el contador de graffitis del guardado (el EXE llamaba a la función de guardar) | `TagManagerLoadFix` | medio (no ejercitado con guardados reales; Pirulax vio fallos con este arreglo sin el resto de SilentPatch) |
+| `CWorld::FindPlayerCentreOfWorld` (0x56E2A4, 0x56E2CB), `CRadar::DrawBlips` (0x588581) | Blip y posición del segundo jugador con su propio vehículo/índice | `SecondPlayerBlipFix` | bajo (solo cooperativo) |
+| `CGangWars::ReleasePedsInAttackWave` (0x445D..) | Al terminar la guerra no se quitan los blips de los miembros del grupo del jugador | `GangWarKeepGroupBlips` | bajo |
+| `CRoadBlocks::GenerateRoadBlockPedsForCar` (0x4613C2/C6) | En zonas sin pandilla el bloqueo de pandilla no genera clones de CJ (la reconstrucción ya lo evitaba; con la opción apagada se reproduce el defecto del EXE) | `RoadblockNoCJClones` | bajo |
+| `CPed::DropEntityThatThisPedIsHolding` (0x5E03D4) | Cigarrillos/botellas de NPC se destruyen de forma diferida (`bRemoveFromWorld`) | `DelayHeldEntityDestroy` | medio (no cubre el caso del repetidor exacto; ver doc) |
+| `CRunningScript::ProcessCommands300To499` GIVE_WEAPON_TO_CHAR (0x47D335) | Munición 0 se convierte en 1 | `ScriptGiveWeaponAmmo` | bajo |

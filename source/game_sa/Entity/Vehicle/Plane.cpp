@@ -632,7 +632,9 @@ void CPlane::DoPlaneGenerationAndRemoval(){
    if(ped){
     bytes[0x3BA]=39;auto** reference=reinterpret_cast<CEntity**>(bytes+0x41C);*reference=ped;ped->RegisterReference(reference);bytes[0x988]|=2;bytes[0x3DB]|=0xA0;
     auto* group=CPedGroups::GetPedsGroup(ped);
-    if(group&&reinterpret_cast<uint8*>(group)[0x2D0]!=1){CEventDanger event{vehicle,200.f};event.m_TaskId=static_cast<eTaskType>(1505);group->GetIntelligence().AddEvent(&event);}
+    // SilentPatch (MIT, Silent): en las misiones de los disturbios, los pandilleros del grupo del jugador (byte 0x2D0 == 1) ya no son objetivo del helicoptero de policia (salto a 0x6CD7F4 desde 0x6CD545); opcion "RiotDontTargetPlayerGroup"
+    if(group&&reinterpret_cast<uint8*>(group)[0x2D0]==1&&SilentPatchOption("RiotDontTargetPlayerGroup",true)&&CTheScripts::IsPlayerOnAMission()){}
+    else if(group&&reinterpret_cast<uint8*>(group)[0x2D0]!=1){CEventDanger event{vehicle,200.f};event.m_TaskId=static_cast<eTaskType>(1505);group->GetIntelligence().AddEvent(&event);}
     else if(!ped->IsPlayer()&&reinterpret_cast<uint8*>(ped)[0x484]!=2&&*reinterpret_cast<int32*>(reinterpret_cast<uint8*>(ped)+0x598)!=6){CEventDanger event{vehicle,200.f};event.m_TaskId=static_cast<eTaskType>(911);ped->GetEventGroup().Add(&event,false);}
    }
   }else if(random==0){

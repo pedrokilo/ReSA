@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "Models/VehicleModelInfo.h"
 #include "PedPlacement.h"
 #include "RenderWare/rw/rtslerp.h"
+#include "extensions/SilentPatchConfig.h"
 
 void CTaskUtilityLineUpPedWithCar::InjectHooks() {
     RH_ScopedClass(CTaskUtilityLineUpPedWithCar);
@@ -123,6 +124,10 @@ CVector CTaskUtilityLineUpPedWithCar::GetLocalPositionToOpenCarDoor(CVehicle* ve
     case 18:
         seat = model->GetFrontSeatPosn();
         result = offset + seat;
+        // SilentPatch (MIT, Silent): al subir a la moto de frente la Z se resta (fsub en 0x64FFAD, como en GetPositionToOpenCarDoor) y CJ ya no se hunde en la moto; opcion "BikeFrontEnterZ"
+        if (SilentPatchOption("BikeFrontEnterZ", true)) {
+            result.z = seat.z - offset.z;
+        }
         break;
     default:
         seat = model->GetFrontSeatPosn();

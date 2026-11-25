@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE3.h"
@@ -1531,7 +1532,9 @@ void CPlayerPed::DrawTriangleForMouseRecruitPed() {
     const CMatrixLink* const camMatrix = TheCamera.m_matrix;
     float verts[9];
     uint8 rgb[3];
-    Player82ATriangleCpp(&GetPosition().x, &target->GetPosition().x, target->m_fHealth, target->m_fMaxHealth, target->m_nPedType == PED_TYPE_GANG1,
+    Player82ATriangleCpp(&GetPosition().x, &target->GetPosition().x, target->m_fHealth, target->m_fMaxHealth,
+                         // SilentPatch (MIT, Silent): el triangulo de salud se orienta (boca abajo) para los peds reclutables, que son GANG2 (Grove Street), no GANG1 (cmp eax, 7 -> 8 en 0x60BC52); opcion "RecruitTriangleFix"
+                         target->m_nPedType == (SilentPatchOption("RecruitTriangleFix", true) ? PED_TYPE_GANG2 : PED_TYPE_GANG1),
                          camMatrix ? &camMatrix->GetRight().x : nullptr, TheCamera.m_placement.m_fHeading, &TheCamera.GetPosition().x, verts, rgb);
 
     auto& vertices = TempBufferVertices.m_3d;

@@ -41,6 +41,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
+#include "extensions/SilentPatchRandom.h"
 #include "DatosExe/DataBssE5.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
@@ -187,6 +189,12 @@ inline int32 RegionValueOf(float p) {
 // rand() del CRT del EXE (0x821B1E): mantiene su propia semilla (el rand de la DLL es otro generador)
 inline int32 ExeRand() {
     return ExeCrt::Rand();
+}
+
+// SilentPatch (MIT, Silent): opcion "ConsoleRandomness" (se lee una sola vez: GeneratePedCreationCoors hace hasta 300 intentos por llamada)
+inline bool ConsoleRandomnessEnabled() {
+    static const bool enabled = SilentPatchOption("ConsoleRandomness", true);
+    return enabled;
 }
 }; // namespace detail
 
@@ -503,7 +511,7 @@ bool CPathFind::GeneratePedCreationCoors(float x, float y, float minDist1, float
             continue;
         }
 
-        const int32 r       = detail::ExeRand() >> 6;
+        const int32 r       = (detail::ConsoleRandomnessEnabled() ? SilentPatchRandom::Rand31() : detail::ExeRand()) >> 6; // SilentPatch (MIT, Silent): rand de 31 bits como la PS2; con el de 15 bits los peds no aparecian en algunas zonas (0x44E82E / 0x44ECEE)
         const int32 nodeIdx = (int32)m_anNumVehicleNodes[areaId] + r % (int32)m_anNumPedNodes[areaId];
         const CPathNode* const node = &m_pPathNodes[areaId][nodeIdx];
 
@@ -611,7 +619,7 @@ bool CPathFind::GeneratePedCreationCoors_Interior(float x, float y, CVector* out
             continue;
         }
 
-        const int32 r       = detail::ExeRand() >> 6;
+        const int32 r       = (detail::ConsoleRandomnessEnabled() ? SilentPatchRandom::Rand31() : detail::ExeRand()) >> 6; // SilentPatch (MIT, Silent): rand de 31 bits como la PS2; con el de 15 bits los peds no aparecian en algunas zonas (0x44E82E / 0x44ECEE)
         const int32 nodeIdx = (int32)m_anNumVehicleNodes[areaId] + r % (int32)m_anNumPedNodes[areaId];
         const CPathNode* const node = &m_pPathNodes[areaId][nodeIdx];
 

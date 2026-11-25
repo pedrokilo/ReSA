@@ -310,7 +310,12 @@ OpcodeResult CRunningScript::ProcessCommands400To499(int32 command) {
     case COMMAND_GIVE_WEAPON_TO_CHAR: { // 434, 0x47D307
         CollectParameters(3);
         CPed* const ped = PedOf(P(0).iParam);
-        const auto slot = ped->GiveWeapon(static_cast<eWeaponType>(P(1).iParam), static_cast<uint32>(P(2).iParam), true);
+        // SilentPatch (MIT, Silent): GIVE_WEAPON_TO_CHAR con 0 de municion da 1 (CPed::GiveWeapon_SP en 0x47D335): las armas cuerpo a cuerpo de los scripts ya no las sustituye un pickup; opcion "ScriptGiveWeaponAmmo"
+        uint32 ammo = static_cast<uint32>(P(2).iParam);
+        if (ammo == 0 && SilentPatchOption("ScriptGiveWeaponAmmo", true)) {
+            ammo = 1;
+        }
+        const auto slot = ped->GiveWeapon(static_cast<eWeaponType>(P(1).iParam), ammo, true);
         if (ped->IsPlayer()) {
             ped->GetPlayerData()->m_nChosenWeapon = static_cast<uint8>(slot);
             return OR_CONTINUE;

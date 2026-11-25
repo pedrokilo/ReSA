@@ -30,6 +30,7 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexDriveWander.h"
 #include "TaskSimpleCarSetPedInAsPassenger.h"
 #include "X87Math.h"
+#include "extensions/SilentPatchConfig.h"
 
 // Como el original: 0x64F1E0 es cdecl (vehicle, doorId) y solo usa EAX/ECX; su llamador SetPedInCarDirect (0x650356) guarda
 // doorId en EDX antes de la llamada y lo vuelve a empujar tras ella (0x650360 `push edx`). Un hook normal deja EDX libre para
@@ -500,7 +501,11 @@ CVector CCarEnterExit::GetPositionToOpenCarDoor(const CVehicle* vehicle, int32 d
         if(doorId==9||doorId==8){offset.x*=-1.0f;point.x+=handling->m_fSeatOffsetDistance;}else point.x-=handling->m_fSeatOffsetDistance;
         return const_cast<CVehicle*>(vehicle)->GetMatrix().TransformPoint(point-offset);
     }
-    float seatOffset=handling->m_nAnimGroup==101&&(doorId==11||doorId==9)?0.0f:handling->m_fSeatOffsetDistance;
+    // SilentPatch (MIT, Silent; B1ack_Wh1te): las puertas traseras de furgoneta se tratan aparte: el EXE comparaba el grupo de animacion del handling (guardado RELATIVO a ANIM_VEH_STD) con el valor absoluto 101;
+    // ANIM_VEH_VAN - ANIM_VEH_STD = 13 (cmp [handling+0DEh], 65h -> 0Dh en 0x64E77B+6); antes el personaje se teletransportaba un poco al empezar la animacion de entrada; opcion "VanRearDoorFix"
+    static const bool vanRearDoorFix=SilentPatchOption("VanRearDoorFix",true);
+    const bool isVanRear=(doorId==11||doorId==9)&&handling->m_nAnimGroup==(vanRearDoorFix?13:101);
+    float seatOffset=isVanRear?0.0f:handling->m_fSeatOffsetDistance;
     int32 kind=std::bit_cast<int32>(seatOffset);
     if(doorId==10||doorId==8)kind=0;else if(doorId==11||doorId==9)kind=1;else if(doorId==18)kind=2;
     auto offset=anim.ComputeAnimDoorOffsets(static_cast<eVehAnimDoorOffset>(kind));auto point=seat();

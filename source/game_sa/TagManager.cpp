@@ -290,13 +290,13 @@ bool CTagManager::Save() {
 
 // 0x5D3DA0
 bool CTagManager::Load() {
-#if 0 // FIX_BUGS - NOTE(Pirulax): I've tested, and it breaks the tags (Just try the "tagging the turf" mission), so I guess just leave it as-is
-    // TODO: Verify if there are no side effects due to this fix - it's done the same way on android but I'm not sure why this worked even without reading the data to ms_numTags
-    // The loop below always iterated the proper amount of times, so i assume the tags are loaded at some point before save is loaded, and we already have all the tags initialized
-    CGenericGameStorage::LoadDataFromWorkBuffer(ms_numTags);
-#else
-    CGenericGameStorage::SaveDataToWorkBuffer(ms_numTags); // Yeah, original also saves into buffer instead of loading
-#endif
+    // SilentPatch (MIT, Silent): la carga leia el contador de graffitis con la funcion de GUARDAR (0x5D1270 en vez de 0x5D1300 en 0x5D3DA8), asi que el contador del archivo no se consumia y las etiquetas
+    // anyadidas por mods se leian desalineadas; opcion "TagManagerLoadFix". (Pirulax probo antes este arreglo sin SilentPatch y vio fallos en "Tagging up Turf"; ver docs/DesviacionesConocidas.md.)
+    if (SilentPatchOption("TagManagerLoadFix", true)) {
+        CGenericGameStorage::LoadDataFromWorkBuffer(ms_numTags);
+    } else {
+        CGenericGameStorage::SaveDataToWorkBuffer(ms_numTags); // Yeah, original also saves into buffer instead of loading
+    }
 
     // Como el original: el contador se relee en cada vuelta y se devuelve true
     for (uint32 i = 0; i < (uint32)ms_numTags; i++) {

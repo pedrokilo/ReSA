@@ -1617,9 +1617,15 @@ void CPed::DropEntityThatThisPedIsHolding(bool bDeleteHeldEntity) {
             {
                 // Como el original: solo el tipo 2 (OBJECT_MISSION) se conserva; IsMissionObject() tambien acepta el 6
                 if (!heldEntity->GetIsTypeObject() || heldEntity->AsObject()->m_nObjectType != OBJECT_MISSION) {
+                    if (SilentPatchOption("DelayHeldEntityDestroy", true)) {
+                        // SilentPatch (MIT, Silent): los cigarrillos/botellas de los NPC se destruyen de forma diferida (bRemoveFromWorld, salto a 0x5E03EC desde 0x5E03D4): al reclutar pandilleros,
+                        // CPlayerPed::ProcessControl los soltaba DENTRO de CWorld::Process y corrompia el puntero 'next' ya leido de la lista de objetos en movimiento
+                        heldEntity->m_bRemoveFromWorld = true;
+                    } else {
                     heldEntity->DeleteRwObject(); // TODO; Are these 3 lines inlined?
                     CWorld::Remove(heldEntity);
                     delete heldEntity;
+                    }
                 }
             }
         }
@@ -3441,7 +3447,9 @@ void CPed::PreRenderAfterTest()
     if (m_nPedState == PEDSTATE_DRIVING && m_pVehicle) {
         if (m_pVehicle->IsBike()) {
             drivingOpenTopVeh = true;
-        } else if (m_pVehicle->IsAutomobile() && m_pVehicle->IsOpenTopCar()) {
+        } else if (m_pVehicle->IsAutomobile() && (m_pVehicle->IsOpenTopCar()
+                       // SilentPatch (MIT, Silent): el viento tambien afecta a la ropa de CJ al conducir un quad (IsOpenTopCarOrQuadbike en 0x5E69BC); opcion "QuadbikeWind"
+                       || (m_pVehicle->IsSubQuad() && SilentPatchOption("QuadbikeWind", true)))) {
             drivingOpenTopVeh = true;
         }
     }
@@ -4178,6 +4186,14 @@ void CPed::KillPedWithCar(CVehicle* car, float fDamageIntensity, bool bPlayDeadA
         }
         bIsStanding = false;
         auto direction = GetLocalDirection(CVector2D{-car->m_vecMoveSpeed.x, -car->m_vecMoveSpeed.y});
+        // SilentPatch (MIT, Silent): al atropellar a un ped con el coche del jugador, un pasajero al azar dice su frase (CAR_HIT_PED o, si no la tiene, TAXI_HIT_PED) (gancho en 0x5F05CA); opcion "PedHitVoiceOnKill"
+        if (car == FindPlayerVehicle(-1, false) && SilentPatchOption("PedHitVoiceOnKill", true)) {
+            if (CPed* passenger = car->PickRandomPassenger()) {
+                if (passenger->Say(CTX_GLOBAL_CAR_HIT_PED) < 0) {
+                    passenger->Say(CTX_GLOBAL_TAXI_HIT_PED);
+                }
+            }
+        }
         const auto& box = car->GetColModel()->m_boundBox;
         const float side = DotProduct(offset, car->GetRight());
         const float height = DotProduct(offset, car->GetUp());

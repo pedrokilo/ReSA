@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataInicializadaXA.h"
 #include "DatosExe/DataBssG3.h"
 #include "DatosExe/DataBssE3.h"
@@ -650,6 +651,8 @@ void CBike::ProcessRiderAnims(CPed* rider, CVehicle* vehicle, CRideAnimData* rid
     if (reverse) available-=std::min(nonClippedStep*reverse->m_BlendDelta+reverse->m_BlendAmount,available);
     float lean=rideData->LeanAngle/handling->m_fFullAnimLean;
     if (leanFwdTarget==-1.f) lean=0.f;else lean=std::clamp(lean,-1.f,1.f);
+    // SilentPatch (MIT, Silent): el manillar del quad (y de las motos) sigue las animaciones de direccion; marcha atras, drive-by o velocidad < 0.02 anulan la inclinacion lateral (stub QuadbikeHandlebarAnims en 0x6B7932); opcion "QuadbikeHandlebarAnims"
+    if (SilentPatchOption("QuadbikeHandlebarAnims", true) && (reverse || special || std::abs(speed) < 0.02f)) lean=0.f;
     rideData->AnimLeanLeft=BikeRiderSmooth355(DatosExe::Rdata::k871350,CTimer::GetTimeStep(),rideData->AnimLeanLeft,lean);
     if (!player || vehicle->m_apPassengers[0]) {
         leanFwdTarget=0.f;if(bike)byte(bike,0x614)&=0x7F;

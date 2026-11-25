@@ -758,7 +758,8 @@ void CHud::DrawCrossHairs() {
         if (FindPlayerPed(-1)->GetActiveWeapon().m_Type == WEAPON_CAMERA || FindPlayerPed(-1)->GetActiveWeapon().m_Type == WEAPON_SNIPERRIFLE || script == 2) {
             if (FindPlayerPed(-1)->GetActiveWeapon().m_Type == WEAPON_CAMERA || script == 2) { ex = sx * 256.f; ey = sy * 192.f; }
             else { ex = sx * 210.f; ey = sy * 210.f; }
-            auto* info = CWeaponInfo::GetWeaponInfo(weapon, static_cast<eWeaponSkill>(1));
+            // SilentPatch (MIT, Silent; Wesser): con la mira de script 2 (foto de un pandillero) se usa la textura de mira de la camara aunque el jugador lleve el francotirador (GetWeaponInfo en 0x58E842); opcion "CameraCrosshairFix"
+            auto* info = CWeaponInfo::GetWeaponInfo((script == 2 && SilentPatchOption("CameraCrosshairFix", true)) ? WEAPON_CAMERA : weapon, static_cast<eWeaponSkill>(1));
             if (info->m_nModelId1 > 0) {
                 auto* model = CModelInfo::GetModelInfo(info->m_nModelId1);
                 auto* txd = CTxdStore::ms_pTxdPool->GetAt(model->m_nTxdIndex);

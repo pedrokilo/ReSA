@@ -1,0 +1,2 @@
+pid 17840  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-spp\reversing\FnJuego\ejecuciones\off4-20261125-054124" --limite 240 --shims  entorno=GTASA_SILENTPATCH=0
+exit=0xFFFFFFFF
