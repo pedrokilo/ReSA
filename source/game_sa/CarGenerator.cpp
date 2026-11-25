@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 #include "Occlusion.h"
 #include "CarCtrl.h"
 #include "TheScripts.h"
+#include "extensions/SilentPatchConfig.h"
 
 void CCarGenerator::InjectHooks()
 {

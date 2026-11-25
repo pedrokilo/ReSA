@@ -1,0 +1,25 @@
+=== SILENTPATCH PEDS SELFTEST inicio: jugador en (2495.9 -1707.4 1014.7) area=3
+opciones: general=0 CarGenCounterFix=0 CarGenInteriors=0 RoadblockNoCJClones=0 VanRearDoorFix=0 BikeFrontEnterZ=0 GangWarKeepGroupBlips=0 SecondPlayerBlipFix=0 ConsoleRandomness=0 ResetVariablesOnNewGame=0 ReinitIplObjectsOnNewGame=0
+L60/L74: generador creado idx=0 en (2497.4 -1705.9 1014.7)
+L60/L74: antes de la pasada 1: handle=-1 espera_lejos=0 rango=1 bloqueo=0 contador=2
+L60/L74: pasada 1: vehiculo creado modelo=481 area=0 z=1014.35; contador=2
+L60/L74: antes de la pasada 2: handle=-1 espera_lejos=1 rango=1 bloqueo=1 contador=2
+L60/L74: pasada 2: NO se creo vehiculo; contador=2
+L60/L74: antes de la pasada 3: handle=-1 espera_lejos=1 rango=1 bloqueo=1 contador=2
+L60/L74: pasada 3: NO se creo vehiculo; contador=2
+L60/L74: antes de la pasada 4: handle=-1 espera_lejos=1 rango=1 bloqueo=1 contador=2
+L60/L74: pasada 4: NO se creo vehiculo; contador=2
+L60/L74: resumen: 1 vehiculos creados en 4 pasadas con contador inicial 2; contador final=2 (con el arreglo: 2 creados y contador 0; sin el: 4 creados y contador 2)
+L120: bloqueo de pandilla en zona sin pandillas: peds nuevos=2, de ellos clones de CJ (modelo 0)=2 (con el arreglo 0; sin el, 2)
+L118: Burrito: m_nAnimGroup=13 bIsVan=1 seatOffsetDistance=0.2000
+L118: GetPositionToOpenCarDoor(Burrito, puerta 9) = (0.3209 -3.2175 -0.2210)
+L118: GetPositionToOpenCarDoor(Burrito, puerta 11) = (-0.3209 -3.2175 -0.2210)
+L117: GetLocalPositionToOpenCarDoor(puerta 18) en el Burrito: local=(0.9730 1.5311 0.1218); asiento delantero=(0.4730 0.5311 -0.1282) con desplazamiento sintetico z=0.25 (con el arreglo local.z = asiento.z - 0.25; sin el, asiento.z + 0.25)
+L124: ped en el grupo del jugador=1; tras ReleasePedsInAttackWave(fin de guerra) bClearRadarBlipOnDeath=0 (con el arreglo 1 = conserva el blip; sin el 0)
+L123: FindPlayerCentreOfWorld(1) = (100.0 200.0 300.0); ped2=(100 200 300), vehiculo del ped2=(700 800 900) (con el arreglo, el vehiculo; sin el, el ped)
+L61: 1500 llamadas a GeneratePedCreationCoors: aciertos=1500, nodos distintos=91, indice de nodo maximo=1094 (con rand de 31 bits salen muchos mas nodos y el indice crece)
+L104: Q+E con raton en 3a persona y jetpack en el aire: m_ThrustStop(+0xD)=0 m_ThrustFwd(+0xE)=0 (con el arreglo 1/0 = flota; sin el 0 = no flota)
+L121: ms_numTags=100 (tras cargar la partida con el arreglo apagado); etiquetas con alfa != 0: 100 de 150
+L83: tras BeforeReInit: bPenaltyForDeathApplies=0 bPenaltyForArrestApplies=0 (con el arreglo 1/1; sin el 0/0)
+L93: pickups usados 426 -> 426, generadores usados 208 -> 208 tras AfterReInit (con el arreglo se vuelven a cargar las definiciones de los IPL de texto: aumentan; sin el, igual)
+=== SILENTPATCH PEDS SELFTEST FIN

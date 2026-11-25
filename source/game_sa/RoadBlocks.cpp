@@ -412,16 +412,23 @@ void CRoadBlocks::GenerateRoadBlockPedsForCar(CVehicle* vehicle, int32 pedsPosit
         default:             Generate(MODEL_INVALID, COP_TYPE_CITYCOP, false); break;
         }
     } else if (IsPedTypeGang(pedType)) {
+        bool anyGangInZone = false;
         for (auto i = 0; i < TOTAL_GANGS; i++) {
             if (!CPopCycle::m_pCurrZoneInfo->GangStrength[i]) {
                 continue;
             }
+            anyGangInZone = true;
             const auto pedModel = CGangs::ChooseGangPedModel((eGangID)i);
             if (pedModel == MODEL_INVALID) {
                 continue;
             }
             Generate(pedModel);
             return;
+        }
+        // SilentPatch (MIT, Silent): en zonas neutrales (sin pandilla) el EXE comparaba el modelo con -1 en vez de con 0 (cmp [esp+14h], ebp / jne en 0x4613C2) y generaba clones de CJ
+        // (modelo 0) en los bloqueos de carretera de pandilla; con la opcion "RoadblockNoCJClones" (activa por defecto) no se genera ningun ped, como con 'cmp X, 0 / jg'
+        if (!anyGangInZone && !SilentPatchOption("RoadblockNoCJClones", true)) {
+            Generate(MODEL_PLAYER);
         }
     } else {
         Generate();

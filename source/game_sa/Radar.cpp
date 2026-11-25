@@ -2624,7 +2624,8 @@ void CRadar::DrawBlips() {
             if (auto veh = FindPlayerVehicle(i); veh && veh->IsSubPlane() && !ModelIndices::IsVortex(veh->m_nModelIndex))
                 continue;
 
-            const auto pos = GetPlayerMarkerPosition(0);
+            // SilentPatch (MIT, Silent): el marcador de cada jugador se coloca con su propia posicion (push 0 -> push esi en 0x588581); antes los dos se dibujaban en la del jugador 1; opcion "SecondPlayerBlipFix"
+            const auto pos = GetPlayerMarkerPosition(SilentPatchOption("SecondPlayerBlipFix", true) ? i : 0);
 
             // 0x5886B9..0x588704: modo TOPDOWN (1): rumbo + PI; si no, rumbo - (orientacion + PI) (el codigo anterior restaba en otro orden); el rumbo es el del jugador i
             const auto heading = FindPlayerHeading(i);

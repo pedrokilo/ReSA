@@ -30,6 +30,7 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexDriveWander.h"
 #include "TaskSimpleCarSetPedInAsPassenger.h"
 #include "X87Math.h"
+#include "extensions/SilentPatchConfig.h"
 
 // Como el original: 0x64F1E0 es cdecl (vehicle, doorId) y solo usa EAX/ECX; su llamador SetPedInCarDirect (0x650356) guarda
 // doorId en EDX antes de la llamada y lo vuelve a empujar tras ella (0x650360 `push edx`). Un hook normal deja EDX libre para

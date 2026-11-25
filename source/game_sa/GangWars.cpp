@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 #include "SilentPatchSpeech.h"
 
+#include "PedGroups.h"
 #include "Garages.h"
 #include "GangWars.h"
 #include "GangWarsSaveStructure.h"
@@ -779,7 +780,8 @@ uint32 CGangWars::ReleasePedsInAttackWave(bool isEndOfWar, bool restoreGangPedsA
             }
         }
 
-        if (isEndOfWar && ped->bClearRadarBlipOnDeath) {
+        // SilentPatch (MIT, Silent): al terminar la guerra no se quitan los blips de los miembros del grupo del jugador (ClearBlipsOnDeath_AndNotIsInPlayersGroup, 0x445D..); opcion "GangWarKeepGroupBlips"
+        if (isEndOfWar && ped->bClearRadarBlipOnDeath && !(SilentPatchOption("GangWarKeepGroupBlips", true) && CPedGroups::IsInPlayersGroup(ped))) {
             CRadar::ClearBlipForEntity(BLIP_CHAR, CPools::GetPedRef(ped));
             ped->bClearRadarBlipOnDeath = false;
         }

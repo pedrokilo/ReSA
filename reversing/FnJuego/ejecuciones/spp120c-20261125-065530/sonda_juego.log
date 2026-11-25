@@ -1,0 +1,53 @@
+[    0.2] pid 40812
+[   11.9] juego en marcha tras 12 s; gGameState=9
+[   12.6] salida de la casa: area=0 tras 1 s
+[   13.6] ventana: cliente 640x480
+[   13.6] === ESCENARIO conduccion
+[   23.6] truco spawn FOURWHEELFUN vehiculos nuevos: [('0x930b248', 471)]
+[   26.5]   intento 1 (teclado): en_coche=True estado=50
+[   26.5] entrar con teclado: en_coche=True modelo=471
+[   26.9] captura cond_dentro {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [82.3, 108.5, 115.4], "max": 255} CJ dentro del coche (tecla F)
+[   29.0] PRUEBA reposo {"v_ini": 0.0, "v_max": 0, "v_fin": 0.0, "avance": 0.0, "dyaw_grados": 0.0, "avance_sobre_frente": -0.0, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[   33.1] PRUEBA W acelerar 4 s {"v_ini": 0.0, "v_max": 0.361, "v_fin": 0.325, "avance": 48.42, "dyaw_grados": -27.1, "avance_sobre_frente": 47.96, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.059, 1.0, 0.0, 0.0], [0.202, 1.0, 0.0, 0.0], [0.156, 1.0, 0.0, 0.0], [0.262, 1.0, 0.0, 0.0], [0.337, 1.0, 0.0, 0.0], [0.355, 1.0, 0.0, 0.0], [0.306, 1.0, 0.0, 0.0]]}
+[   35.7] PRUEBA S frenar desde velocidad hacia delante {"v_ini": 0.327, "v_max": 0.28, "v_fin": 0.114, "avance": 3.57, "dyaw_grados": 28.5, "avance_sobre_frente": -2.5, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.277, 0.0, 1.0, 0.0], [-0.021, -1.0, 0.0, 0.0], [-0.071, -1.0, 0.0, 0.0], [-0.092, -1.0, 0.0, 0.0], [-0.112, -1.0, 0.0, 0.0]]}
+[   38.4] PRUEBA soltar todo {"v_ini": 0.114, "v_max": 0.114, "v_fin": 0.071, "avance": 11.19, "dyaw_grados": -22.6, "avance_sobre_frente": -11.05, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.114, 0.0, 0.0, 0.0], [-0.111, 0.0, 0.0, 0.0], [-0.078, 0.0, 0.0, 0.0], [-0.075, 0.0, 0.0, 0.0], [-0.071, 0.0, 0.0, 0.0]]}
+[   42.0] PRUEBA S desde parado (marcha atras) {"v_ini": 0.071, "v_max": 0.129, "v_fin": 0.127, "avance": 18.96, "dyaw_grados": 21.6, "avance_sobre_frente": -18.87, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.073, -1.0, 0.0, 0.0], [-0.086, -1.0, 0.0, 0.0], [-0.088, -1.0, 0.0, 0.0], [-0.113, -1.0, 0.0, 0.0], [-0.129, -1.0, 0.0, 0.0], [-0.127, -1.0, 0.0, 0.0]]}
+[   45.0] PRUEBA soltar todo {"v_ini": 0.127, "v_max": 0.124, "v_fin": 0.0, "avance": 11.56, "dyaw_grados": 0.0, "avance_sobre_frente": -11.56, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.124, 0.0, 0.0, 0.0], [-0.105, 0.0, 0.0, 0.0], [-0.088, 0.0, 0.0, 0.0], [-0.072, 0.0, 0.0, 0.0], [-0.004, 0.0, 0.0, 0.0]]}
+[   48.7] PRUEBA W+A (giro izquierda) {"v_ini": 0.0, "v_max": 0.213, "v_fin": 0.008, "avance": 7.74, "dyaw_grados": -175.6, "avance_sobre_frente": 0.75, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.057, 1.0, 0.0, 0.393], [0.175, 1.0, 0.0, 0.611], [0.198, 1.0, 0.0, 0.611], [0.059, 1.0, 0.0, 0.611], [0.002, 1.0, 0.0, 0.611], [0.003, 1.0, 0.0, 0.611]]}
+[   49.1] captura cond_giro_izq {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [46.0, 41.2, 29.8], "max": 255} coche girando con W+A
+[   52.8] PRUEBA W+D (giro derecha) {"v_ini": 0.017, "v_max": 0.03, "v_fin": 0.023, "avance": 1.61, "dyaw_grados": 2.4, "avance_sobre_frente": 0.13, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.025, 1.0, 0.0, -0.301], [-0.001, 1.0, 0.0, -0.611], [-0.004, 1.0, 0.0, -0.611], [0.005, 1.0, 0.0, -0.611], [-0.004, 1.0, 0.0, -0.611], [0.004, 1.0, 0.0, -0.611]]}
+[   53.2] captura cond_giro_der {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [56.7, 59.7, 60.2], "max": 236} coche girando con W+D
+[   56.2] PRUEBA W (rumbo recto) {"v_ini": 0.019, "v_max": 0.021, "v_fin": 0.011, "avance": 0.12, "dyaw_grados": -1.6, "avance_sobre_frente": 0.08, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.01, 1.0, 0.0, -0.0], [0.005, 1.0, 0.0, -0.0], [0.001, 1.0, 0.0, -0.0], [0.004, 1.0, 0.0, -0.0], [-0.002, 1.0, 0.0, -0.0]]}
+[   59.4] PRUEBA Espacio (freno de mano) a velocidad {"v_ini": 0.011, "v_max": 0.01, "v_fin": 0.0, "avance": 0.06, "dyaw_grados": 1.1, "avance_sobre_frente": -0.04, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.006, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0]]}
+[   61.4] PRUEBA W+Espacio {"v_ini": 0.0, "v_max": 0.006, "v_fin": 0.001, "avance": 0.01, "dyaw_grados": 0.3, "avance_sobre_frente": -0.01, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.003, 1.0, 0.0, -0.0], [-0.003, 1.0, 0.0, -0.0], [-0.003, 1.0, 0.0, -0.0], [0.004, 1.0, 0.0, -0.0]]}
+[   61.6] === ESCENARIO armas
+[   67.6] armas antes 4 [(0, 1, 0, 0, 1), (1, 8, 0, 0, 1), (2, 24, 0, 7, 99999), (3, 27, 0, 7, 99999), (4, 28, 0, 50, 99999), (5, 31, 0, 50, 99999), (6, 34, 0, 1, 99999), (7, 38, 0, 500, 99999), (8, 39, 0, 1, 99999), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   70.9] armas tras LXGIWYL (set 1): slot activo 4 [(0, 1, 0, 0, 2), (1, 5, 0, 0, 1), (2, 22, 0, 34, 100), (3, 25, 0, 1, 99999), (4, 28, 0, 50, 99999), (5, 30, 0, 30, 99999), (6, 33, 0, 1, 25), (7, 35, 0, 1, 200), (8, 18, 0, 1, 10), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   73.3] captura armas_ini {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [35.4, 27.4, 22.7], "max": 236} CJ con armas del truco 1
+[   79.4] cambio de arma por rueda : slots activos tras 8 pasos: [4, 4, 4, 4, 4, 4, 4, 4, 4]
+[   87.1] cambio de arma por teclas : slots activos tras 8 pasos: [4, 4, 4, 4, 4, 4, 4, 4, 4]
+[   95.1] cambio de arma por mando : slots activos tras 8 pasos: [4, 4, 4, 4, 4, 4, 4, 4, 4]
+[  116.5] arma pistola no encontrada
+[  138.0] arma escopeta no encontrada
+[  138.0] arma activa uzi tipo 28
+[  142.8] captura armas_disparo_uzi_raton {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [41.2, 35.2, 24.0], "max": 255} CJ disparando con uzi (raton)
+[  143.8] DISPARO uzi raton {"municion_antes": 99999, "despues": 99999, "cargador_antes": 50, "cargador_despues": 50, "camara_modo": 18, "nan": 0, "vivo": true, "pools": {"peds": 25, "veh": 11, "edif": 10113, "obj": 92, "dummy": 728}}
+[  147.7] captura armas_disparo_uzi_teclado {"ancho": 640, "alto": 480, "rojo": 4, "muestras": 34270, "media_rgb": [39.3, 37.1, 33.4], "max": 255} CJ disparando con uzi (teclado)
+[  148.7] DISPARO uzi teclado {"municion_antes": 99999, "despues": 99999, "cargador_antes": 50, "cargador_despues": 50, "camara_modo": 18, "nan": 0, "vivo": true, "pools": {"peds": 26, "veh": 11, "edif": 10113, "obj": 95, "dummy": 728}}
+[  153.4] captura armas_disparo_uzi_mando {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [92.0, 97.2, 93.5], "max": 255} CJ disparando con uzi (mando)
+[  154.4] DISPARO uzi mando {"municion_antes": 99999, "despues": 99999, "cargador_antes": 50, "cargador_despues": 50, "camara_modo": 18, "nan": 0, "vivo": true, "pools": {"peds": 29, "veh": 14, "edif": 10113, "obj": 95, "dummy": 728}}
+[  160.5] EXCEPCION en el escenario armas TypeError("'NoneType' object is not subscriptable") go\sonda_juego.py", line 452, in esc_armas
+    tp_ = elegir(tipos)
+  File "D:\Original\wv-spp\reversing\FnJuego\sonda_juego.py", line 446, in elegir
+    act, ws = j.arma(); tipo = ws[act][1] if act < len(ws) else 0
+              ~~~~~~^^
+  File "D:\Original\wv-spp\reversing\FnJuego\sonda_juego.py", line 93, in arma
+    b = s.m.rd(p + 0x5A0 + i * 0x1C, 0x1C); tipo, est, clip, tot = struct.unpack('<IIII', b[:16]); ws.append((i, tipo, est, clip, tot))
+                                                                                          ~^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[  160.6] EL PROCESO TERMINO durante armas
+[  160.8] vivo al final: False
+[  160.8] LOG [error][07:00:06.615][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  160.8] LOG [error][07:00:06.615][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  160.8] fin

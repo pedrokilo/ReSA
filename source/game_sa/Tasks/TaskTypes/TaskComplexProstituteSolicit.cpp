@@ -29,6 +29,8 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexTurnToFaceEntityOrCoord.h"
 #include "SeekEntity/TaskComplexSeekEntityXYOffset.h"
 #include "CarEnterExit.h"
+#include "extensions/SilentPatchConfig.h"
+#include "extensions/SilentPatchRandom.h"
 
 namespace {
 // 0x661AF0 (lote 145A, banco Fn145A): cuerpo del destructor de CTaskComplexProstituteSolicit del EXE (con hook propio (Destructor); vtable 0x86FB88). Funcion propia sin expansion en linea para que el banco pueda sustituirla; la llama
@@ -384,7 +386,8 @@ CTask* CTaskComplexProstituteSolicit::ControlSubTask(CPed* ped) {
         CStats::IncrementStat(eStats(190), 1.0f);
     }
     const bool movingControls = pad->GetAccelerate() || pad->GetBrake();
-    const auto random = plugin::CallAndReturn<int32, 0x821B1E>();
+    // SilentPatch (MIT, Silent): rand de 31 bits como la PS2 (0x666EA0); con el de 15 bits los umbrales 0x1FFFFFFF/0xFFFFFFF casi nunca se cumplian y las prostitutas no hablaban; opcion "ConsoleRandomness"
+    const auto random = SilentPatchOption("ConsoleRandomness", true) ? SilentPatchRandom::Rand31() : plugin::CallAndReturn<int32, 0x821B1E>();
     bool discovered = false;
     if (bCopsCanSeeThis && wanted && int(wanted->m_WantedLevel) < 1) {
         FindPlayerWanted()->SetWantedLevel(eWantedLevel(1));

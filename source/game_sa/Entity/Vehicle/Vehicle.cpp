@@ -1191,6 +1191,37 @@ void CVehicle::ProcessOpenDoor(CPed* ped, uint32 doorComponentId_, uint32 animGr
     }
 }
 
+// SilentPatch (MIT, Silent; B1ack_Wh1te): la animacion de cambio de emisora solo mueve la cabeza y el brazo derecho (el resto de huesos se desactiva), para que se vea bien en coches bajos, camiones y barcos
+// de pie; en los barcos de pie tampoco es parcial (CJ no estira tanto el brazo) y en el Kart no se reproduce (RadioStationChangeAnimBlending::DisableBones); opcion "RadioStationChangeAnimBlending"
+static CAnimBlendAssociation* RadioTuneAnimDisableBones(CAnimBlendAssociation* assoc, bool clearPartial) {
+    if (!assoc) {
+        return assoc;
+    }
+    for (auto& node : assoc->GetNodes()) {
+        CAnimBlendSequence* const seq = node.m_Seq;
+        if (seq && seq->IsUsingBoneTag()) {
+            switch (seq->GetBoneTag().get()) {
+            case BONE_HEAD:
+            case BONE_R_CLAVICLE:
+            case BONE_R_UPPER_ARM:
+            case BONE_R_FORE_ARM:
+            case BONE_R_HAND:
+            case BONE_R_FINGER:
+            case BONE_R_FINGER_01:
+            case BONE_R_BREAST:
+                break;
+            default:
+                node.m_Seq = nullptr;
+                break;
+            }
+        }
+    }
+    if (clearPartial) {
+        assoc->m_Flags &= static_cast<uint16>(~ANIMATION_IS_PARTIAL);
+    }
+    return assoc;
+}
+
 // 0x6DF4A0
 void CVehicle::ProcessDrivingAnims(CPed* driver, bool blend) {
     if (m_bOffscreen || !driver->IsPlayer())

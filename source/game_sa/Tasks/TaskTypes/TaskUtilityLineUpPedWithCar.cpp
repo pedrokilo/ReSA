@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "Models/VehicleModelInfo.h"
 #include "PedPlacement.h"
 #include "RenderWare/rw/rtslerp.h"
+#include "extensions/SilentPatchConfig.h"
 
 void CTaskUtilityLineUpPedWithCar::InjectHooks() {
     RH_ScopedClass(CTaskUtilityLineUpPedWithCar);

@@ -80,7 +80,9 @@ const CVector& FindPlayerCentreOfWorld(int32 playerId) {
     if (CVehicle* remote = info.m_pRemoteVehicle)
         return remote->GetPosition();
 
-    if (CVehicle* vehicle = FindPlayerVehicle(-1, false))
+    // SilentPatch (MIT, Silent): el vehiculo normal se busca en el jugador pedido (0x56E2A4 y 0x56E2CB: indice del jugador en vez del jugador en foco), asi el blip del segundo jugador ya no se dibuja en la posicion del primero; opcion "SecondPlayerBlipFix"
+    static const bool secondPlayerBlipFix = SilentPatchOption("SecondPlayerBlipFix", true);
+    if (CVehicle* vehicle = FindPlayerVehicle(secondPlayerBlipFix ? playerId : -1, false))
         return vehicle->GetPosition();
 
     return info.m_pPed->GetPosition();

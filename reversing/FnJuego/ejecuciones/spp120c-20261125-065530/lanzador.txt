@@ -1,0 +1,2 @@
+pid 40812  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-spp\reversing\FnJuego\ejecuciones\spp120c-20261125-065530" --limite 160 --shims  escenario=conduccion,armas xinput=False
+exit=0xDEAD0002

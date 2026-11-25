@@ -3449,7 +3449,9 @@ void CPed::PreRenderAfterTest()
     if (m_nPedState == PEDSTATE_DRIVING && m_pVehicle) {
         if (m_pVehicle->IsBike()) {
             drivingOpenTopVeh = true;
-        } else if (m_pVehicle->IsAutomobile() && m_pVehicle->IsOpenTopCar()) {
+        } else if (m_pVehicle->IsAutomobile() && (m_pVehicle->IsOpenTopCar()
+                       // SilentPatch (MIT, Silent): el viento tambien afecta a la ropa de CJ al conducir un quad (IsOpenTopCarOrQuadbike en 0x5E69BC); opcion "QuadbikeWind"
+                       || (m_pVehicle->IsSubQuad() && SilentPatchOption("QuadbikeWind", true)))) {
             drivingOpenTopVeh = true;
         } else if (static const bool spQuadWind = SilentPatchOption("QuadbikeWindAnims", true); spQuadWind && m_pVehicle->IsAutomobile() && m_pVehicle->m_nVehicleSubType == VEHICLE_TYPE_QUAD) {
             // SilentPatch (MIT, Silent; Wesser): el viento tambien mueve la ropa de CJ al conducir un cuatrimoto (IsOpenTopCarOrQuadbike); opcion "QuadbikeWindAnims"

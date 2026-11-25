@@ -1,0 +1,45 @@
+[    0.2] pid 39628
+[   12.0] juego en marcha tras 12 s; gGameState=9
+[   12.7] salida de la casa: area=0 tras 1 s
+[   13.7] ventana: cliente 640x480
+[   13.7] === ESCENARIO conduccion
+[   23.8] truco spawn FOURWHEELFUN vehiculos nuevos: [('0x92ad010', 492), ('0x92af870', 567), ('0x92b0288', 567), ('0x92b20d0', 420), ('0x92b3500', 492)]
+[   32.4]   intento 1 (teclado): en_coche=False estado=1
+[   39.1]   intento 2 (teclado): en_coche=True estado=50
+[   39.1] entrar con teclado: en_coche=True modelo=492
+[   39.6] captura cond_dentro {"ancho": 640, "alto": 480, "rojo": 16, "muestras": 34270, "media_rgb": [143.1, 145.0, 123.8], "max": 255} CJ dentro del coche (tecla F)
+[   41.8] PRUEBA reposo {"v_ini": 0.0, "v_max": 0, "v_fin": 0.0, "avance": 0.0, "dyaw_grados": 0.0, "avance_sobre_frente": 0.0, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[   45.9] PRUEBA W acelerar 4 s {"v_ini": 0.0, "v_max": 0.117, "v_fin": 0.012, "avance": 5.2, "dyaw_grados": 0.8, "avance_sobre_frente": 5.19, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.027, 1.0, 0.0, 0.0], [0.047, 1.0, 0.0, 0.0], [0.012, 1.0, 0.0, 0.0], [0.02, 1.0, 0.0, 0.0], [0.019, 1.0, 0.0, 0.0], [0.011, 1.0, 0.0, 0.0], [0.01, 1.0, 0.0, 0.0]]}
+[   48.4] PRUEBA S frenar desde velocidad hacia delante {"v_ini": 0.012, "v_max": 0.205, "v_fin": 0.202, "avance": 19.9, "dyaw_grados": 0.1, "avance_sobre_frente": -19.9, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.028, -1.0, 0.0, 0.0], [-0.139, -1.0, 0.0, 0.0], [-0.204, -1.0, 0.0, 0.0], [-0.203, -1.0, 0.0, 0.0]]}
+[   50.9] PRUEBA soltar todo {"v_ini": 0.202, "v_max": 0.193, "v_fin": 0.0, "avance": 9.96, "dyaw_grados": 0.9, "avance_sobre_frente": -9.96, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.193, 0.0, 0.0, 0.0], [-0.149, 0.0, 0.0, 0.0], [-0.037, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[   54.6] PRUEBA S desde parado (marcha atras) {"v_ini": 0.0, "v_max": 0.04, "v_fin": 0.037, "avance": 6.46, "dyaw_grados": -6.8, "avance_sobre_frente": -6.44, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.023, -1.0, 0.0, 0.0], [-0.037, -1.0, 0.0, 0.0], [-0.038, -1.0, 0.0, 0.0], [-0.04, -1.0, 0.0, 0.0], [-0.035, -1.0, 0.0, 0.0], [-0.035, -1.0, 0.0, 0.0]]}
+[   57.7] PRUEBA soltar todo {"v_ini": 0.037, "v_max": 0.022, "v_fin": 0.0, "avance": 0.39, "dyaw_grados": -0.1, "avance_sobre_frente": -0.39, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.022, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+[   61.4] PRUEBA W+A (giro izquierda) {"v_ini": 0.0, "v_max": 0.267, "v_fin": 0.27, "avance": 13.76, "dyaw_grados": 161.1, "avance_sobre_frente": 0.39, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.044, 1.0, 0.0, 0.436], [0.108, 1.0, 0.0, 0.524], [0.138, 1.0, 0.0, 0.524], [0.126, 1.0, 0.0, 0.524], [0.2, 1.0, 0.0, 0.524], [0.252, 1.0, 0.0, 0.524]]}
+[   61.9] captura cond_giro_izq {"ancho": 640, "alto": 480, "rojo": 2, "muestras": 34270, "media_rgb": [69.9, 85.5, 84.1], "max": 255} coche girando con W+A
+[   65.5] PRUEBA W+D (giro derecha) {"v_ini": 0.239, "v_max": 0.258, "v_fin": 0.179, "avance": 12.38, "dyaw_grados": -26.8, "avance_sobre_frente": 8.18, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.258, 1.0, 0.0, -0.337], [0.235, 1.0, 0.0, -0.524], [0.222, 1.0, 0.0, -0.524], [0.159, 1.0, 0.0, -0.524], [0.135, 1.0, 0.0, -0.524], [0.159, 1.0, 0.0, -0.524]]}
+[   65.9] captura cond_giro_der {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [113.2, 117.1, 100.5], "max": 255} coche girando con W+D
+[   69.1] PRUEBA W (rumbo recto) {"v_ini": 0.16, "v_max": 0.32, "v_fin": 0.329, "avance": 29.4, "dyaw_grados": 49.7, "avance_sobre_frente": 27.61, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.181, 1.0, 0.0, -0.0], [0.209, 1.0, 0.0, -0.0], [0.092, 1.0, 0.0, -0.0], [0.195, 1.0, 0.0, -0.0], [0.27, 1.0, 0.0, -0.0]]}
+[   72.2] PRUEBA Espacio (freno de mano) a velocidad {"v_ini": 0.329, "v_max": 0.29, "v_fin": 0.0, "avance": 12.19, "dyaw_grados": -0.2, "avance_sobre_frente": 12.19, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.29, 0.0, 0.0, -0.0], [0.162, 0.0, 0.0, -0.0], [0.026, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0]]}
+[   74.4] PRUEBA W+Espacio {"v_ini": 0.0, "v_max": 0.0, "v_fin": 0.0, "avance": 0.0, "dyaw_grados": 0.0, "avance_sobre_frente": 0.0, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.0, 1.0, 0.0, -0.0], [0.0, 1.0, 0.0, -0.0], [-0.0, 1.0, 0.0, -0.0], [0.0, 1.0, 0.0, -0.0]]}
+[   74.7] vivo al final: True
+[   74.7] LOG [info][06:53:38.953][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[   74.7] LOG [info][06:53:38.953][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[   74.7] LOG [info][06:53:38.953][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[   74.7] LOG [info][06:53:38.953][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[   74.7] LOG [info][06:53:39.208][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   74.7] LOG [info][06:53:39.222][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[   74.7] LOG [info][06:53:38.953][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[   74.7] LOG [info][06:53:38.953][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[   74.7] LOG [info][06:53:38.953][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[   74.7] LOG [info][06:53:38.953][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[   74.7] LOG [info][06:53:39.208][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   74.7] LOG [info][06:53:39.222][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[   74.7] LOG [info][06:53:39.737][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[   74.7] LOG [info][06:53:39.737][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[   74.7] LOG [info][06:53:39.737][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[   74.7] LOG [info][06:53:39.737][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[   74.7] LOG [info][06:53:40.000][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   74.7] LOG [info][06:53:40.021][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[   74.7] LOG [error][06:53:49.495][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   74.7] LOG [error][06:53:49.496][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   74.7] fin

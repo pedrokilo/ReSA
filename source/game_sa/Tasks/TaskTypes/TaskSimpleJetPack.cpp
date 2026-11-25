@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssE3.h"
 #include "X87Math.h"
 
@@ -475,6 +476,12 @@ void CTaskSimpleJetPack::ProcessControlInput(CPlayerPed* player) {
     }
 
     if (CCamera::m_bUseMouse3rdPerson && !player->bIsStanding) { // 0x67ED2D
+        if (SilentPatchOption("JetpackKeyboardControlsHover", true) && pad->GetLookBehindForCar()) {
+            // SilentPatch (MIT, Silent): flotar con teclado y raton manteniendo a la vez arma siguiente/anterior (Q + E), igual que la rama de mando (0x67EDAF); opcion "JetpackKeyboardControlsHover"
+            m_ThrustStop   = true;
+            m_ThrustFwd    = 0;
+            m_ThrustStrafe = 0.f;
+        } else {
         m_ThrustStop = false;
         if (pad->GetBrake()) {
             m_ThrustFwd = -1;
@@ -482,6 +489,7 @@ void CTaskSimpleJetPack::ProcessControlInput(CPlayerPed* player) {
             m_ThrustFwd = (char)((pad->GetAccelerate() || walkUpDownScaled != 0.f) ? 1 : 0);
         }
         DecayStrafe();
+        }
     } else if (pad->GetLookBehindForCar()) { // 0x67EDA4
         m_ThrustStop   = true;
         m_ThrustFwd    = 0;

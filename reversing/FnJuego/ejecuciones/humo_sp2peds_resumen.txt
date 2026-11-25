@@ -1,0 +1,25 @@
+--- ropero 5 Wed Nov 25 06:41:35     2026
+spp_rop5 entidades 15 marcadores 12
+puerta True marcador True
+VEREDICTO BIEN
+rc=0 Wed Nov 25 06:48:18     2026
+--- marcadores 3 Wed Nov 25 06:48:22     2026
+rc=3 Wed Nov 25 06:49:12     2026
+--- marcadores 4 Wed Nov 25 06:49:16     2026
+spp_mar4 entidades 15 marcadores 12
+puerta True marcador True
+marcadores_en_memoria 12 marcadores_que_cambian_en_1s 12 pixeles_rojos(informativo) 3921
+VEREDICTO BIEN
+rc=0 Wed Nov 25 06:50:40     2026
+---- intentos anteriores (interferencia con otros agentes en la copia de pruebas compartida)
+--- ropero
+ERROR el juego se cerro
+rc=3 Wed Nov 25 06:11:42     2026
+--- marcadores
+ERROR sin juego
+rc=3 Wed Nov 25 06:23:54     2026
+--- ropero 3 Wed Nov 25 06:23:57     2026
+ERROR el juego se cerro
+rc=3 Wed Nov 25 06:25:08     2026
+--- ropero 4 Wed Nov 25 06:25:08     2026
+ERROR el juego se cerro
