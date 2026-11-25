@@ -1,0 +1,347 @@
+direccion,nombre_cercano,clasificacion,usos_en_asi,instrucciones_asi@funcion
+0x4054dc,sub_405460+0x7c,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000de6c@1000dd80""]}"
+0x406fa1,CPopulation::DoesCarGroupHaveModelId+0x51,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000dd6a@1000dc70""]}"
+0x41bd32,CMatrix::GetForwardCopy+0x22,dato leido,"{""lectura"": 1}","{""lectura"": [""100011d0@100011d0""]}"
+0x4242d1,CCarCtrl::GenerateCarCreationCoors2+0xc1,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000dd5e@1000dc70""]}"
+0x42457c,sub_4244F0+0x8c,comparacion de firma de version (resolutor),"{""lectura"": 16, ""comparacion"": 1}","{""lectura"": [""1000524c@10005210"", ""1000535c@10005320"", ""1000545c@10005420"", ""1000555c@10005520""], ""comparacion"": [""1000d51d@1000d4a0""]}"
+0x4245bc,sub_4244F0+0xcc,comparacion de firma de version (resolutor),"{""lectura"": 16, ""comparacion"": 1}","{""lectura"": [""1000526e@10005210"", ""1000537e@10005320"", ""1000547e@10005420"", ""1000557e@10005520""], ""comparacion"": [""1000d52d@1000d4a0""]}"
+0x4252fc,CCarCtrl::PossiblyRemoveVehicle+0x37c,comparacion de firma de version (resolutor),"{""lectura"": 16}","{""lectura"": [""1000528f@10005210"", ""1000539f@10005320"", ""1000549f@10005420"", ""1000559f@10005520""]}"
+0x42533c,CCarCtrl::PossiblyRemoveVehicle+0x3bc,comparacion de firma de version (resolutor),"{""lectura"": 16}","{""lectura"": [""100052b0@10005210"", ""100053c0@10005320"", ""100054c0@10005420"", ""100055c0@10005520""]}"
+0x438370,CCheat::ApplyCheat,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000540c@10005320""]}"
+0x438481,CCheat::AddToCheatString+0x1,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""100010b1@100010b0""]}"
+0x438532,sub_4384E0+0x52,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""100010d1@100010d0""]}"
+0x438539,sub_4384E0+0x59,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10005b0c@10005a20""]}"
+0x438578,sub_4384E0+0x98,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""100010f1@100010f0""]}"
+0x439af0,CCheat::DoCheats,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001071@10001070""]}"
+0x458d21,CPickups::CreatePickupCoorsCloseToCoors-+0x2a1,comparacion de firma de version (resolutor),"{""lectura"": 16}","{""lectura"": [""10005228@10005210"", ""10005338@10005320"", ""10005438@10005420"", ""10005538@10005520""]}"
+0x45af71,CMatrix::ScaleAll+0x31,dato leido,"{""lectura"": 1}","{""lectura"": [""10001010@10001010""]}"
+0x45ec4a,CReplay::RecordPedDeleted+0x2a,comparacion de firma de version (resolutor),"{""lectura"": 16}","{""lectura"": [""100052cf@10005210"", ""100053df@10005320"", ""100054df@10005420"", ""100055df@10005520""]}"
+0x4605ab,CReplay::Update+0xab,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x460605,CReplay::Update+0x105,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x46c43d,CRunningScript::ProcessCommands1900To1999+0xfdd,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x46c43e,CRunningScript::ProcessCommands1900To1999+0xfde,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x46c440,CRunningScript::ProcessCommands1900To1999+0xfe0,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x46c441,CRunningScript::ProcessCommands1900To1999+0xfe1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x46c445,CRunningScript::ProcessCommands1900To1999+0xfe5,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x46c449,CRunningScript::ProcessCommands1900To1999+0xfe9,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x46c468,CRunningScript::ProcessCommands1900To1999+0x1008,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x46c469,CRunningScript::ProcessCommands1900To1999+0x1009,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x46c46b,CRunningScript::ProcessCommands1900To1999+0x100b,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x46c46c,CRunningScript::ProcessCommands1900To1999+0x100c,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x46c470,CRunningScript::ProcessCommands1900To1999+0x1010,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x46c474,CRunningScript::ProcessCommands1900To1999+0x1014,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x47a64a,CRunningScript::ProcessCommands2600To2699+0x8aa,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x47a655,CRunningScript::ProcessCommands2600To2699+0x8b5,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x47b8b3,CRunningScript::ProcessCommands2500To2599+0x1153,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x47f39b,CRunningScript::ProcessCommands600To699+0x2b,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x47f39c,CRunningScript::ProcessCommands600To699+0x2c,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x47f3a0,CRunningScript::ProcessCommands600To699+0x30,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x4840b2,CRunningScript::ProcessCommands900To999+0x4e2,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x4840b6,CRunningScript::ProcessCommands900To999+0x4e6,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x4840ba,CRunningScript::ProcessCommands900To999+0x4ea,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x4840bc,CRunningScript::ProcessCommands900To999+0x4ec,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x4840bd,CRunningScript::ProcessCommands900To999+0x4ed,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x4840c1,CRunningScript::ProcessCommands900To999+0x4f1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x4840cf,CRunningScript::ProcessCommands900To999+0x4ff,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x485b10,CRunningScript::GetPadState,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x485b11,CRunningScript::GetPadState+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x48a461,CRunningScript::ProcessCommands1100To1199+0x141,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x48aee7,CRunningScript::ProcessCommands1100To1199+0xbc7,dato leido,"{""lectura"": 1}","{""lectura"": [""100011c0@100011c0""]}"
+0x48aeec,CRunningScript::ProcessCommands1100To1199+0xbcc,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x48aeed,CRunningScript::ProcessCommands1100To1199+0xbcd,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x48aeee,CRunningScript::ProcessCommands1100To1199+0xbce,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x48aef2,CRunningScript::ProcessCommands1100To1199+0xbd2,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x48af19,CRunningScript::ProcessCommands1100To1199+0xbf9,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x4eb72b,CAERadioTrackManager::CheckForStationRetune+0xcb,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x4eb754,CAERadioTrackManager::CheckForStationRetune+0xf4,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x4ebe21,CAERadioTrackManager::Service+0x481,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x50a851,CCam::Using3rdPersonMouseCam+0x1,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1, ""instalador"": 1}","{""puntero_a_registro"": [""10001221@10001220""]}"
+0x50f306,CCam::Process_1rstPersonPedOnPC+0x796,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x50f33a,CCam::Process_1rstPersonPedOnPC+0x7ca,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x510875,CCam::Process_M16_1stPerson+0x2b5,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5108fd,CCam::Process_M16_1stPerson+0x33d,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x51d7bd,CCamera::IsItTimeForNewCamera+0x4d,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x51d7c1,CCamera::IsItTimeForNewCamera+0x51,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x51d7c6,CCamera::IsItTimeForNewCamera+0x56,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x52b6bd,CCamera::CamControl+0x371d,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x52de28,sub_52DDE0+0x48,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001ee1@10001ee0""]}"
+0x52e450,CControllerConfigManager::GetIsKeyboardKeyJustDown,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001f54@10001f50""]}"
+0x52e505,CControllerConfigManager::GetIsKeyboardKeyJustDown+0xb5,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001f01@10001f00""]}"
+0x5303d0,CControllerConfigManager::GetGxtStringOfCommandKeys,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x5303e1,CControllerConfigManager::GetGxtStringOfCommandKeys+0x11,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x530b00,CControllerConfigManager::InitDefaultControlConfigJoyPad,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53bee7,CGame::Process+0x7,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53bfb9,CGame::Process+0xd9,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53d840,App::DoRWStuffEndOfFrame,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001241@10001240""]}"
+0x53e20f,Game::RenderEffects+0x9f,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53e78c,Game::FrontendIdle+0x1c,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53f3c0,CPad::UpdateMouse,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000570c@10005620""]}"
+0x53f530,CPad::ReconcileTwoControllersInput,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53f531,CPad::ReconcileTwoControllersInput+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53f6a1,CPad::ReconcileTwoControllersInput+0x171,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000dd70@1000dc70""]}"
+0x53fb50,CPad::StopShaking,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fb51,CPad::StopShaking+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53fb7b,CPad::GetPad+0xb,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000550c@10005420""]}"
+0x53fb80,CPad::GetSteeringLeftRight,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fb81,CPad::GetSteeringLeftRight+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53fbd0,CPad::GetSteeringUpDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fbd1,CPad::GetSteeringUpDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53fc10,CPad::GetCarGunUpDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fc11,CPad::GetCarGunUpDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53fc50,CPad::GetCarGunLeftRight,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fc51,CPad::GetCarGunLeftRight+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53fc90,CPad::GetPedWalkLeftRight-,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fc91,CPad::GetPedWalkLeftRight-+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53fd30,CPad::GetPedWalkUpDown-,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fd31,CPad::GetPedWalkUpDown-+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53fdd0,CPad::GetLookLeft,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fdd1,CPad::GetLookLeft+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53fe10,CPad::GetLookRight,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fe11,CPad::GetLookRight+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53fe70,CPad::GetLookBehindForCar,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fe71,CPad::GetLookBehindForCar+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53fec0,CPad::GetLookBehindForPed,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fec1,CPad::GetLookBehindForPed+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53fee0,CPad::GetHorn,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53fee1,CPad::GetHorn+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53ff30,CPad::HornJustDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53ff31,CPad::HornJustDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53ff90,CPad::GetCarGunFired,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53ff91,CPad::GetCarGunFired+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x53ffe0,CPad::CarGunJustDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x53ffe1,CPad::CarGunJustDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540040,CPad::GetHandBrake,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540041,CPad::GetHandBrake+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540062,CPad::GetHandBrake+0x22,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540065,CPad::GetHandBrake+0x25,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540074,CPad::GetHandBrake+0x34,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540080,CPad::GetBrake,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540081,CPad::GetBrake+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540180,CPad::GetWeapon,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540181,CPad::GetWeapon+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540250,CPad::WeaponJustDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540251,CPad::WeaponJustDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x5403f0,CPad::GetAccelerate,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5403f1,CPad::GetAccelerate+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x5404a0,CPad::GetCameraCycleUp,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5404a1,CPad::GetCameraCycleUp+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x5404f0,CPad::sub_5404F0,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5404f1,CPad::sub_5404F0+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540670,CPad::GetTarget,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540671,CPad::GetTarget+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x5406b0,CPad::GetEnterTargeting,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5406b1,CPad::GetEnterTargeting+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540720,CPad::DuckJustDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540721,CPad::DuckJustDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540850,CPad::ShiftTargetLeftJustDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540851,CPad::ShiftTargetLeftJustDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540880,CPad::ShiftTargetRightJustDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540881,CPad::ShiftTargetRightJustDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540950,CPad::GetAnaloguePadUp,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540951,CPad::GetAnaloguePadUp+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540980,CPad::GetAnaloguePadDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540981,CPad::GetAnaloguePadDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x5409b0,CPad::GetAnaloguePadLeft,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5409b1,CPad::GetAnaloguePadLeft+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x5409e0,CPad::GetAnaloguePadRight,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5409e1,CPad::GetAnaloguePadRight+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540ae0,CPad::GetForceCameraBehindPlayer,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540ae1,CPad::GetForceCameraBehindPlayer+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540b30,CPad::SniperZoomIn,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540b31,CPad::SniperZoomIn+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540b80,CPad::SniperZoomOut,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540b81,CPad::SniperZoomOut+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540bd0,CPad::LookAroundLeftRight,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540bd1,CPad::LookAroundLeftRight+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x540cc0,CPad::LookAroundUpDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x540cc1,CPad::LookAroundUpDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x541040,CPad::AimWeaponLeftRight,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x541041,CPad::AimWeaponLeftRight+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x5410c0,CPad::AimWeaponUpDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5410c1,CPad::AimWeaponUpDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x5411d0,CPad::ConversationYesJustDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5411d1,CPad::ConversationYesJustDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x541200,CPad::ConversationNoJustDown,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x541201,CPad::ConversationNoJustDown+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x541c40,CPad::Update,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000560c@10005520""]}"
+0x541c98,CPad::Update+0x58,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x541ce2,CPad::Update+0xa2,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x541ce4,CPad::Update+0xa4,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x541ce5,CPad::Update+0xa5,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x541ce9,CPad::Update+0xa9,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x541d70,CPad::StopPadsShaking,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x541d71,CPad::StopPadsShaking+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x541dd8,CPad::UpdatePads+0x8,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x541ddf,CPad::UpdatePads+0xf,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x541e0c,CPad::UpdatePads+0x3c,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x55c180,CStats::IncrementStat,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10005a0c@10005920""]}"
+0x56e0d0,CWorld::FindPlayerVehicle,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000e06c@1000df80""]}"
+0x56e210,CWorld::FindPlayerPed,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000df6c@1000de80""]}"
+0x5744a3,CMenuManager::Constructor+0x153,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x575139,CMenuManager::PrintMap+0x9,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x57513a,CMenuManager::PrintMap+0xa,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x57513e,CMenuManager::PrintMap+0xe,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x575142,CMenuManager::PrintMap+0x12,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x576b38,CMenuManager::JumpToGenericMessageScreen+0x58,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x576b9f,CMenuManager::CheckForMenuClosing+0x2f,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x576ba0,CMenuManager::CheckForMenuClosing+0x30,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x576baf,CMenuManager::CheckForMenuClosing+0x3f,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001f24@10001f20""]}"
+0x576c89,CMenuManager::CheckForMenuClosing+0x119,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x576e77,CMenuManager::CheckForMenuClosing+0x307,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x577496,CMenuManager::AdditionalOptionInput+0xc6,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 6}",{}
+0x57749d,CMenuManager::AdditionalOptionInput+0xcd,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 5}",{}
+0x578877,sub_5786C0+0x1b7,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x578878,sub_5786C0+0x1b8,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x57887c,sub_5786C0+0x1bc,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x578880,sub_5786C0+0x1c0,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x578b8f,sub_5786C0+0x4cf,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x578b90,sub_5786C0+0x4d0,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x578b94,sub_5786C0+0x4d4,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x578b98,sub_5786C0+0x4d8,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x578be8,sub_5786C0+0x528,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x578be9,sub_5786C0+0x529,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x578bed,sub_5786C0+0x52d,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x578bf1,sub_5786C0+0x531,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x579330,CMenuManager::MessageScreen,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001184@10001180""]}"
+0x57cbc2,CMenuManager::LoadSettings+0x2d2,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x57cbcc,CMenuManager::LoadSettings+0x2dc,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x57cbd0,CMenuManager::LoadSettings+0x2e0,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x57f220,CMenuManager::RedefineScreenUserInput+0x2d0,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 6}",{}
+0x57f227,CMenuManager::RedefineScreenUserInput+0x2d7,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 6}",{}
+0x57f737,CMenuManager::DrawControllerSetupScreen+0x437,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x58035b,sub_57FDF0+0x56b,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 5}",{}
+0x580362,sub_57FDF0+0x572,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 6}",{}
+0x588be0,CHud::SetHelpMessage,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000590c@10005820""]}"
+0x58fc25,CHud::Draw+0x145,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5ba7c2,CFont::Initialise+0x132,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5ba7c6,CFont::Initialise+0x136,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5ba7c8,CFont::Initialise+0x138,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5ba7c9,CFont::Initialise+0x139,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5ba7ca,CFont::Initialise+0x13a,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x5d1cd5,CSimpleVariablesSaveStructure::Construct+0x155,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5d1cd9,CSimpleVariablesSaveStructure::Construct+0x159,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5d1f6e,CSimpleVariablesSaveStructure::Extract+0xce,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x5e6580,CPed::GetWeaponSkill-Current,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001f9a@10001f90""]}"
+0x5e6da0,CPed::PreRenderAfterTest+0x800,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001f95@10001f90""]}"
+0x601110,CPedIntelligence::GetTaskJetPack,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001fba@10001fb0""]}"
+0x601930,CPedIntelligence::ProcessAfterProcCol+0x40,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001fb5@10001fb0""]}"
+0x6039f0,CVehiclePotentialCollisionScanner::ScanForVehiclePotentialCollisionEvents+0x2d0,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""push_inmediato"": 1}","{""push_inmediato"": [""10001f90@10001f90""]}"
+0x60b65f,CPlayerPed::Compute3rdPersonMouseTarget+0xf,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x60ba80,CPlayerPed::DrawTriangleForMouseRecruitPed,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001f74@10001f70""]}"
+0x60cca0,CPlayerPed::PlayerWantsToAttack+0x50,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x60d351,CPlayerPed::ProcessGroupBehaviour+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x60d38d,CPlayerPed::ProcessGroupBehaviour+0x3d,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x60d45c,CPlayerPed::ProcessGroupBehaviour+0x10c,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x60d8c0,CPlayerPed::ProcessWeaponSwitch+0x70,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x60da7f,CPlayerPed::ProcessWeaponSwitch+0x22f,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x610050,CPopCycle::PickPedMIToStreamInForCurrentZone+0x80,otro,"{""guarda_puntero"": 1}","{""guarda_puntero"": [""10009e0f@10009ce0""]}"
+0x620e70,CTaskComplexKillPedOnFoot::Constructor+0x40,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""push_inmediato"": 1}","{""push_inmediato"": [""10001fb0@10001fb0""]}"
+0x666b0a,CTaskComplexProstituteSolicit::ControlSubTask+0x13a,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x666b4b,CTaskComplexProstituteSolicit::ControlSubTask+0x17b,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x67ed34,CTaskSimpleJetPack::ProcessControlInput+0x584,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x67ed46,CTaskSimpleJetPack::ProcessControlInput+0x596,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x67edc9,CTaskSimpleJetPack::ProcessControlInput+0x619,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x67eddb,CTaskSimpleJetPack::ProcessControlInput+0x62b,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x67edeb,CTaskSimpleJetPack::ProcessControlInput+0x63b,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x67ee06,CTaskSimpleJetPack::ProcessControlInput+0x656,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x67ee2d,CTaskSimpleJetPack::ProcessControlInput+0x67d,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x67ee50,CTaskSimpleJetPack::ProcessControlInput+0x6a0,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x685a66,CTaskSimplePlayerOnFoot::ProcessPlayerWeapon+0xc6,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x685cb6,CTaskSimplePlayerOnFoot::ProcessPlayerWeapon+0x316,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x68628f,CTaskSimplePlayerOnFoot::ProcessPlayerWeapon+0x8ef,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x686906,CTaskSimplePlayerOnFoot::ProcessPlayerWeapon+0xf66,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x686911,CTaskSimplePlayerOnFoot::ProcessPlayerWeapon+0xf71,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6869b1,CTaskSimplePlayerOnFoot::ProcessPlayerWeapon+0x1011,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x686c65,CTaskSimplePlayerOnFoot::ProcessPlayerWeapon+0x12c5,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x686ce7,CTaskSimplePlayerOnFoot::ProcessPlayerWeapon+0x1347,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x686fc3,CTaskSimplePlayerOnFoot::ProcessPlayerWeapon+0x1623,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x687929,CTaskSimplePlayerOnFoot::PlayerControlFighter+0x3f9,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x688b30,CTaskSimpleSwim::ProcessControlInput+0xa0,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x69006e,CTaskComplexCopInCar::ControlSubTask+0x31e,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x69e25a,CMessages::InsertPlayerControlKeysInString+0xfa,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6a0050,CText::Get,gancho JMP diferido (CText::Get),"{""puntero_a_registro"": 1, ""instalador"": 4}","{""puntero_a_registro"": [""10001164@10001160""]}"
+0x6a0051,CText::Get+0x1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 5}",{}
+0x6a0055,CText::Get+0x5,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 2}",{}
+0x6a0e3e,CAutomobile::HydraulicControl+0x69e,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6a0e54,CAutomobile::HydraulicControl+0x6b4,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6a0e71,CAutomobile::HydraulicControl+0x6d1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6be369,CBike::ProcessControlInputs+0x59,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6be6e5,CBike::ProcessControlInputs+0x3d5,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6be749,CBike::ProcessControlInputs+0x439,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c05e9,CBmx::ProcessBunnyHop+0x59,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c05eb,CBmx::ProcessBunnyHop+0x5b,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c05ec,CBmx::ProcessBunnyHop+0x5c,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x6c05f0,CBmx::ProcessBunnyHop+0x60,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c05f4,CBmx::ProcessBunnyHop+0x64,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c0736,CBmx::ProcessBunnyHop+0x1a6,parche en caliente (escritura de 1 byte),"{""push_inmediato"": 4, ""escritura"": 2}","{""push_inmediato"": [""10003003@10002fb0"", ""1000301c@10002fb0"", ""10003052@10002fb0"", ""1000306b@10002fb0""], ""escritura"": [""1000300e@10002fb0"", ""1000305d@10002fb0""]}"
+0x6c18bd,CBmx::ProcessAI+0x44d,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c4b25,CHeli+0x2f5,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c4b29,CHeli+0x2f9,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c4b2d,CHeli+0x2fd,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c92a0,CPlane::ProcessControl+0x40,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c92a2,CPlane::ProcessControl+0x42,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c92a3,CPlane::ProcessControl+0x43,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x6c92a7,CPlane::ProcessControl+0x47,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6c92ab,CPlane::ProcessControl+0x4b,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6cb1ff,CPlane::ProcessControlInputs+0x42f,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6cb203,CPlane::ProcessControlInputs+0x433,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6cb329,CPlane::ProcessControlInputs+0x559,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6cb333,CPlane::ProcessControlInputs+0x563,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6cb335,CPlane::ProcessControlInputs+0x565,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6cb336,CPlane::ProcessControlInputs+0x566,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x6cb33a,CPlane::ProcessControlInputs+0x56a,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6cb33f,CPlane::ProcessControlInputs+0x56f,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6e347f,CVehicle::GetPlaneWeaponFiringStatus+0x3f,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6e34a9,CVehicle::GetPlaneWeaponFiringStatus+0x69,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6e34c9,CVehicle::GetPlaneWeaponFiringStatus+0x89,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6e3500,CVehicle::GetPlaneWeaponFiringStatus+0xc0,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6e35f2,CVehicle::GetPlaneWeaponFiringStatus+0x1b2,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6e368e,CVehicle::GetPlaneWeaponFiringStatus+0x24e,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6e36b5,CVehicle::GetPlaneWeaponFiringStatus+0x275,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6e3783,CVehicle::GetPlaneWeaponFiringStatus+0x343,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x6e37b1,CVehicle::GetPlaneWeaponFiringStatus+0x371,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x7189d9,CFont::Shutdown+0x29,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x7189db,CFont::Shutdown+0x2b,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x7189dc,CFont::Shutdown+0x2c,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x718a98,CFont::PrintChar+0x88,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x718ae1,CFont::PrintChar+0xd1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x718f00,CFont::ParseToken,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x7190ed,CFont::ParseToken+0x1ed,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000dc5c@1000db70""]}"
+0x719966,CFont::RenderFontBuffer+0x126,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x719a55,CFont::RenderFontBuffer+0x215,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x71a019,CFont::PrintSegment+0x4d9,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x71a181,CFont::GetStringWidth+0xa1,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x71a185,CFont::GetStringWidth+0xa5,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x71a187,CFont::GetStringWidth+0xa7,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x71a188,CFont::GetStringWidth+0xa8,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x71a18c,CFont::GetStringWidth+0xac,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x71a2c5,CFont::ProcessCurrentString+0xa5,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x71a336,CFont::ProcessCurrentString+0x116,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x71a337,CFont::ProcessCurrentString+0x117,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 1}",{}
+0x727240,CSprite2d::Delete,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001ff4@10001ff0""]}"
+0x7272b0,CSprite2d::SetTexture-mask,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10001fd4@10001fd0""]}"
+0x7316a0,CTxdStore::PushCurrentTxd,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x7316b0,CTxdStore::PopCurrentTxd,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x731850,CTxdStore::FindTxdSlot-name,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x7319c0,CTxdStore::SetCurrentTxd,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x731a00,CTxdStore::AddRef,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x731c80,CTxdStore::AddTxdSlot,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x731cd0,CTxdStore::RemoveTxdSlot,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x7320b0,CTxdStore::LoadTxd-filename,region protegida con VirtualProtect/escrita por el instalador,"{""instalador"": 1}",{}
+0x743c60,CWeaponInfo::GetWeaponInfo-original,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""100052fe@10005210""]}"
+0x743df0,Input::HandleKeyDown,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000e21c@1000e130""]}"
+0x744490,Input::HandleKeyUp+0xd0,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""10005310@10005210""]}"
+0x7448a6,Input::KeyboardHandler+0x26,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x744a33,Input::AttachInputDevices+0x13,"sitio parcheado (gancho CALL/JMP, parche de bytes u operando)","{""instalador"": 3}",{}
+0x748454,Win::__MainWndProc+0x5a4,sitio de hook de ventana (CALL/IAT),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000e2b4@1000e290""]}"
+0x7484a4,Win::__MainWndProc+0x5f4,sitio de hook de ventana (CALL/IAT),"{""puntero_a_registro"": 2}","{""puntero_a_registro"": [""1000e2ce@1000e290"", ""1000e2e5@1000e290""]}"
+0x74872d,Win::NOTSA_WinMain+0x1d,sitio de hook de ventana (CALL/IAT),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000e254@1000e230""]}"
+0x74877d,Win::NOTSA_WinMain+0x6d,sitio de hook de ventana (CALL/IAT),"{""puntero_a_registro"": 2}","{""puntero_a_registro"": [""1000e26e@1000e230"", ""1000e285@1000e230""]}"
+0x77d940,sub_77C8D2+0x106e,direccion de funcion/dato leida o guardada como puntero (resolutor / llamada original),"{""puntero_a_registro"": 1}","{""puntero_a_registro"": [""1000530a@10005210""]}"
+0x800000,RwD3D9::_rwD3D9ImageFindRasterFormat+0x10,otro,"{""comparacion"": 1}","{""comparacion"": [""10012d83@10012c10""]}"
+0x82457c,sub_824570+0xc,comparacion de firma de version (DllMain/0x1000E230),"{""comparacion"": 2}","{""comparacion"": [""1000e23a@1000e230"", ""1000e29a@1000e290""]}"
+0x8245bc,sub_824570+0x4c,comparacion de firma de version (DllMain/0x1000E230),"{""comparacion"": 2}","{""comparacion"": [""1000e25b@1000e230"", ""1000e2bb@1000e290""]}"
+0x843d10,sub_843D10,dato leido,"{""lectura"": 1}","{""lectura"": [""100086e8@100083a0""]}"
+0x845410,,dato leido,"{""lectura"": 1}","{""lectura"": [""100086f4@100083a0""]}"
+0x989680,,otro,"{""guarda_puntero"": 1}","{""guarda_puntero"": [""10010c25@10010900""]}"
+0xc71a68,,dato leido,"{""lectura"": 1}","{""lectura"": [""100099e2@100099c0""]}"

@@ -1,5 +1,7 @@
 # GInputSA 1.11 (Silent): inventario de lo que contiene y de lo que podemos aprovechar
 
+> **Actualización 25/11/2026:** el análisis detallado posterior (171 modificaciones, 344 direcciones clasificadas, estructuras y tablas) está en `docs/CodigoVivoExe/ginput/` (`ginput-resumen.md` primero). Correcciones a este documento: GInput importa los ordinales 2 y 3 de XInput (no el 100); las correcciones de scripts son código (`GetPadState` por nombre de script y varios comandos), no tablas de bytes; `CPad::Mode` = ControlsSet-1 (0 = Setup 1, 1 = Setup 2 estilo GTA IV); el offset +0x7D del objeto de pad es «mando activo», no Southpaw.
+
 Fecha: 25/11/2026. Origen: `1470119658_ginputsa-1 (1).zip` del usuario (paquete de distribución: `GInputSA.asi` 241 664 B, `GInputSA.ini`, `ReadMe.txt`,
 `GAME CONTROLS FULL LIST.txt`, listas de trucos HTML, texturas de botones). El usuario indica haber pedido autorización a Silent para usarlo.
 Análisis **estático** (PE, importaciones, cadenas, direcciones del EXE referidas por el código); el binario no se ejecutó ni se redistribuye, y no se copió
