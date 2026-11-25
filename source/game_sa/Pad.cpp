@@ -38,6 +38,7 @@ END GENERATED HOOK STATUS */
 #include "platform/win/WinPlatform.h"
 #include "platform/win/VideoMode.h"
 #include "PadDiagnostico.h"
+#include "PadButtonIcons.h"
 #include "CutsceneMgr.h"
 #include "PadCheats.h"
 
@@ -696,6 +697,10 @@ void CPad::ProcessPad(ePadID padID) {
 
     // Get the device state
     WIN_FCHECK((*pDiDevice)->GetDeviceState(sizeof(joyState), &joyState));
+    }
+
+    if (padID == PAD1) {
+        PadButtonIcons::NoteInput(joyState, usingXInput); // NOTSA: ultimo dispositivo usado (iconos del mando en los textos)
     }
 
     // Update NewJoyState with the current joyState and get the previous value

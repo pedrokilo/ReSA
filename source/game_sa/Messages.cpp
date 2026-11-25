@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include "Messages.h"
 #include "Hud.h"
+#include "PadButtonIcons.h"
 #include <ControllerConfigManager.h>
 
 constexpr auto MSG_BUF_SZ = 400u;
@@ -662,7 +663,10 @@ void CMessages::InsertPlayerControlKeysInString(GxtChar* string) {
                     continue;
                 }
                 found = true;
-                ControlsManager.GetGxtStringOfCommandKeys((eControllerAction)action, keys, MSG_BUF_SZ);
+                // Iconos del mando (NOTSA, GInputSA de Silent): con el mando como ultimo dispositivo la etiqueta es el simbolo del boton asignado; si no hay icono, el texto del EXE
+                if (!PadButtonIcons::WriteToken((eControllerAction)action, keys, MSG_BUF_SZ)) {
+                    ControlsManager.GetGxtStringOfCommandKeys((eControllerAction)action, keys, MSG_BUF_SZ);
+                }
                 s = s + nameLen + 1;
 
                 // Como el original: se copia y a la vez se limpia el búfer de teclas

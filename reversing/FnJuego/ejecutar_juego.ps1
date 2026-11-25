@@ -5,10 +5,10 @@ partida 2 copiada de _juego_run\userfiles\GTASAsf2.b.orig) bajo el candado D:\Or
 Solo mata su propio proceso. -XInput copia xinput1_4.dll FALSO (xinput_falso.c) junto al exe; se retira al terminar.
 Uso: pwsh -File ejecutar_juego.ps1 -Etiqueta c1 -Escenario conduccion [-Limite 400] [-XInput] [-Extra "--shims"] [-SondaArgs ""]
 #>
-param([string]$Etiqueta = 'j', [string]$Escenario = 'base', [int]$Limite = 400, [switch]$XInput, [string]$Exe = '', [string]$Extra = '--shims', [string]$SondaArgs = '')
+param([string]$Etiqueta = 'j', [string]$Escenario = 'base', [int]$Limite = 400, [switch]$XInput, [string]$Exe = '', [string]$Extra = '--shims', [string]$SondaArgs = '', [string]$Dest = 'D:\Original\_juego_run')
 $ErrorActionPreference = 'Stop'
 $aqui = $PSScriptRoot
-$dest = 'D:\Original\_juego_run'
+$dest = $Dest   # por defecto _juego_run; otras carpetas de prueba propias (p. ej. _pb_run con models\ propio) con -Dest
 $sal = Join-Path $aqui ("ejecuciones\{0}-{1}" -f $Etiqueta, (Get-Date -Format 'yyyyMMdd-HHmmss'))
 New-Item -ItemType Directory -Force $sal | Out-Null
 $esperado = Get-Date

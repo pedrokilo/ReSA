@@ -1,0 +1,95 @@
+# ic_ps-20261125-170339
+[   11.4] ventana: cliente 585x438
+[   27.0] AYUDA teclado 1 'Radio JOY13 JOY4.'
+[   35.1] AYUDA teclado 2 '~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end'
+[   42.9] AYUDA mando 1 '~<>~ - ADJUST'
+[   50.7] AYUDA mando 2 '~x~ - BACK'
+[   58.7] AYUDA mando 3 'Press ~K~ for the phone.'
+[   66.9] AYUDA mando 4 '~X~ run, ~Q~ jump.'
+[   75.0] AYUDA mando 5 'Radio ~U~ ~T~.'
+[   83.3] AYUDA teclado2 1 '~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end'
+[   90.9] AYUDA mando2 1 '~<>~ - ADJUST'
+[info][17:06:23.736][SilentPatchConfig.cpp:143]: Desviacion propia: opcion PadIcons = 1
+[info][17:06:31.769][PadButtonIcons.cpp:95]: Desviacion propia: opcion PadButtons = ps
+[info][17:06:31.770][PadButtonIcons.cpp:155]: Iconos del mando: cargado models\ps3btns.txd (14 de 14 iconos)
+[info][17:06:31.770][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Press ~K~ for the phone.
+[info][17:06:39.805][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~X~ run, ~Q~ jump.
+[info][17:06:47.839][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Radio JOY13 JOY4.
+[info][17:06:55.874][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end
+[info][17:07:03.909][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~<>~ - ADJUST
+[info][17:07:11.895][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~x~ - BACK
+[info][17:07:19.896][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Press ~K~ for the phone.
+[info][17:07:27.930][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~X~ run, ~Q~ jump.
+[info][17:07:35.964][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Radio ~U~ ~T~.
+[info][17:07:43.998][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end
+[info][17:07:52.033][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~<>~ - ADJUST
+# ic_xbox-20261125-170827
+[   10.3] ventana: cliente 585x438
+[   18.7] AYUDA teclado 1 '~X~ run, ~Q~ jump.'
+[   26.9] AYUDA teclado 2 'Radio JOY13 JOY4.'
+[   34.8] AYUDA mando 1 '~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end'
+[   42.8] AYUDA mando 2 '~<>~ - ADJUST'
+[   50.9] AYUDA mando 3 '~x~ - BACK'
+[   58.8] AYUDA mando 4 'Press ~K~ for the phone.'
+[   66.8] AYUDA mando 5 '~X~ run, ~Q~ jump.'
+[   74.9] AYUDA teclado2 1 'Radio JOY13 JOY4.'
+[   83.0] AYUDA mando2 1 '~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end'
+[info][17:11:57.795][SilentPatchConfig.cpp:143]: Desviacion propia: opcion PadIcons = 1
+[info][17:12:05.772][PadButtonIcons.cpp:95]: Desviacion propia: opcion PadButtons = xbox
+[info][17:12:05.779][PadButtonIcons.cpp:155]: Iconos del mando: cargado models\x360btns.txd (14 de 14 iconos)
+[info][17:12:05.782][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Press ~K~ for the phone.
+[info][17:12:13.770][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~X~ run, ~Q~ jump.
+[info][17:12:21.804][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Radio JOY13 JOY4.
+[info][17:12:29.838][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end
+[info][17:12:37.872][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~<>~ - ADJUST
+[info][17:12:45.906][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~x~ - BACK
+[info][17:12:53.940][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Press ~K~ for the phone.
+[info][17:13:01.927][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~X~ run, ~Q~ jump.
+[info][17:13:09.928][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Radio JOY13 JOY4.
+[info][17:13:17.962][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end
+# ic_off-20261125-171324
+[   10.4] ventana: cliente 585x438
+[   18.6] AYUDA teclado 1 'JOY2 run, JOY3 jump.'
+[   26.8] AYUDA teclado 2 'Radio JOY13 JOY4.'
+[   34.7] AYUDA mando 1 '~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end'
+[   42.8] AYUDA mando 2 'IZQUIERDA/DERECHA/RUEDA DEL RAT?N: AJUSTAR'
+[   51.0] AYUDA mando 3 'PULSA BIR / INTRO - ATR?S'
+[   58.9] AYUDA mando 4 'Press JOY7 for the phone.'
+[   66.9] AYUDA mando 5 'JOY2 run, JOY3 jump.'
+[   74.9] AYUDA teclado2 1 'Radio JOY13 JOY4.'
+[   83.0] AYUDA mando2 1 '~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end'
+[info][17:13:29.968][SilentPatchConfig.cpp:143]: Desviacion propia: opcion PadIcons = 0
+[info][17:13:37.941][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Press JOY7 for the phone.
+[info][17:13:45.941][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = JOY2 run, JOY3 jump.
+[info][17:13:53.975][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Radio JOY13 JOY4.
+[info][17:14:02.009][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end
+[info][17:14:10.044][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = IZQUIERDA/DERECHA/RUEDA DEL RATN: AJUSTAR
+[info][17:14:18.078][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = PULSA BIR / INTRO - ATRS
+[info][17:14:26.112][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Press JOY7 for the phone.
+[info][17:14:34.099][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = JOY2 run, JOY3 jump.
+[info][17:14:42.099][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Radio JOY13 JOY4.
+[info][17:14:50.133][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end
+# ic_auto-20261125-171457
+[   10.5] ventana: cliente 585x438
+[   18.6] AYUDA teclado 1 '~X~ run, ~Q~ jump.'
+[   26.6] AYUDA teclado 2 'Radio JOY13 JOY4.'
+[   34.8] AYUDA mando 1 '~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end'
+[   42.7] AYUDA mando 2 '~<>~ - ADJUST'
+[   50.8] AYUDA mando 3 '~x~ - BACK'
+[   58.9] AYUDA mando 4 'Press ~K~ for the phone.'
+[   66.8] AYUDA mando 5 '~X~ run, ~Q~ jump.'
+[   74.9] AYUDA teclado2 1 'Radio JOY13 JOY4.'
+[   82.9] AYUDA mando2 1 '~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end'
+[info][17:15:02.214][SilentPatchConfig.cpp:143]: Desviacion propia: opcion PadIcons = 1
+[info][17:15:10.168][PadButtonIcons.cpp:95]: Desviacion propia: opcion PadButtons = auto
+[info][17:15:10.169][PadButtonIcons.cpp:155]: Iconos del mando: cargado models\x360btns.txd (14 de 14 iconos)
+[info][17:15:10.169][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Press ~K~ for the phone.
+[info][17:15:18.161][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~X~ run, ~Q~ jump.
+[info][17:15:26.195][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Radio JOY13 JOY4.
+[info][17:15:34.231][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end
+[info][17:15:42.264][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~<>~ - ADJUST
+[info][17:15:50.298][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~x~ - BACK
+[info][17:15:58.288][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Press ~K~ for the phone.
+[info][17:16:06.322][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~X~ run, ~Q~ jump.
+[info][17:16:14.356][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = Radio JOY13 JOY4.
+[info][17:16:22.390][PadButtonIcons.cpp:228]: PadIcons demo: ayuda = ~[~ ~]~ ~[x~ ~]y~ ~ud~ ~<>~ ~u~ ~<~ end
