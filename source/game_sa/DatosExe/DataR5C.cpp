@@ -13,9 +13,9 @@ uint8_t v96917E{}; // 0x0096917E
 uint8_t v969180{}; // 0x00969180
 alignas(16) unsigned char r96A7D0[4]{}; // 0x0096A7D0
 alignas(16) unsigned char rA9A888[4]{}; // 0x00A9A888
-uint8_t vB4E3E8{}; // 0x00B4E3E8
-uint8_t vB4E3F0{}; // 0x00B4E3F0
-uint32_t vB61100{}; // 0x00B61100
+uint8_t vB4E3E8[4]{}; // 0x00B4E3E8
+uint8_t vB4E3F0[4]{}; // 0x00B4E3F0
+uint32_t vB61100[100]{}; // 0x00B61100
 alignas(16) unsigned char rB6B99C[4]{}; // 0x00B6B99C
 float vB6EC10{}; // 0x00B6EC10
 float vB6EC14{}; // 0x00B6EC14
