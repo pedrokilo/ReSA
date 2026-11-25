@@ -72,8 +72,16 @@ Notas de honestidad sobre las pruebas:
 * Varias ejecuciones sueltas (`bus_*`, `keep_*`, `impz_*` con fecha anterior a las citadas) son intentos con defectos de la propia sonda (coche demasiado lejos y eliminado, marca de tiempo de `apCarsToKeep` sin fijar, el coche cae al vacío); se conservan en `ejecuciones\` pero no son evidencia.
 * En algunas ejecuciones (alrededor de un tercio) el proceso registra una excepción de primera oportunidad (0xC0000005, dentro de ntdll) a los 2 s de arrancar, antes de cargar el juego y antes de cualquier código de garajes (`excepciones=1` en `fase8_arranque.log`); aparece con la opción encendida y apagada y no impide el resto de la ejecución. No se ha investigado; no es de esta rama.
 
+## Verificación final de la rama
+
+* Compilado con `reversing\FnFase8\compilar_over.cmd` (bajo `compile_lock`): `Garage.cpp`, `GameLogic.cpp` y `Vehicle.cpp`, sin errores.
+* Standalone enlazado con `enlazar.cmd D:\Original\wv-spg ...\salida D:\Original\wv-intuild\source\gta_reversed.dir\Debug` (`link exit=0`, sin símbolos sin resolver).
+* `python contrib/audit_hook_catalog.py --strict`: OK. `python contrib/auditoria_datos/tamanos_objetos.py lint`: OK (0 fallos).
+* Humo con la ASI de esta rama (`AGUA_ASI=D:\Original\wv-spgeversing\FnFase8si\gta_reversed.asi`, enlazada con los `.obj` de `wv-intuild` más los tres de `over\` de esta rama): `prueba_ropero.py cal_mal.args` y `prueba_marcadores.py cal_mal.args` dan `VEREDICTO BIEN` (ropero: etiqueta `spg3_prueba_ropero_1`; marcadores: `spg_prueba_marcadores_2`). Hubo varios intentos fallidos con «sin juego» / «el juego se cerró» antes: en todos el motivo era que otro agente tenía `D:\Original\gta_lock` (el registro de `jugar.ps1` lo dice), no un fallo del juego.
+* Ejecución del standalone de 120 s (`spg120-20261125-053211`, escenario `reposo120`): el proceso sigue vivo los 120 s y sale por el límite (`exit=0xDEAD0002`), 60 latidos con `excepciones=0`.
+
 ## No verificado
 
 * Viñetas 83 y 195 (reinicio de variables en Nueva Partida): son de la primera tanda y exigen empezar una Nueva Partida desde el menú.
 * Un tren no se puede guardar de nuevo en el garaje de CJ (mide más que el garaje: `EntityHasASphereWayOutsideGarage` lo descarta, igual que en el EXE y en SilentPatch); solo se probó la restauración, que es donde se caía el juego.
-* Los arreglos se probaron en el standalone; con la ASI sobre el EXE el mismo código se compila igual, pero la prueba de humo de la ASI se informa aparte.
+* Los arreglos de esta tanda se ejercitaron solo en el standalone. Con la ASI sobre el EXE original solo se pasó el humo (ropero y marcadores); no se repitieron las pruebas de garajes con la ASI ni se compararon con el EXE original puro.
