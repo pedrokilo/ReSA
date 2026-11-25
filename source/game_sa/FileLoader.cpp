@@ -23,6 +23,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "SilentPatchNewGame.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssE2.h"
 
 #include "CarGenerator.h"
@@ -2321,12 +2323,15 @@ void CFileLoader::LoadScene(const char* filename) {
                 break;
             case SectionID::PICK:
                 LoadPickup(line);
+                SilentPatchNewGame::RecordPickupLine(line); // SilentPatch (MIT, Silent): reinicio en Nueva Partida
                 break;
             case SectionID::CARS:
                 LoadCarGenerator(line, 0);
+                SilentPatchNewGame::RecordCarGeneratorLine(line);
                 break;
             case SectionID::JUMP:
                 LoadStuntJump(line);
+                SilentPatchNewGame::RecordStuntJumpLine(line);
                 break;
             case SectionID::TCYC:
                 LoadTimeCyclesModifier(line);

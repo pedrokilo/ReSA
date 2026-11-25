@@ -3,6 +3,7 @@
 #include <bit>
 
 #include "RunningScript.h"
+#include "SilentPatchScripts.h"
 #include "TheScripts.h"
 #include "MissionCleanup.h"
 #include "Pools/Pools.h"

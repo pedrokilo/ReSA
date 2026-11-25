@@ -20,6 +20,7 @@ extern "C" double __cdecl tan(double);
 #include "DatosExe/DataR5A.h"
 #include "DatosExe/DataR5C.h"
 
+const float* SilentPatch_MouseAccelVerticalPtr(); // Camera.cpp (SilentPatch, MIT, Silent)
 void* RwCameraSetNearClipPlaneExport(void* camera, float nearClip); // rwcore.cpp: RwCameraSetNearClipPlane (0x7EE1D0)
 float RwSqrtExport(float num);                                      // rwplcore.cpp: _rwSqrt (0x7EDB30)
 
@@ -5866,7 +5867,7 @@ __declspec(noinline) void __cdecl CamAimMouseAnglesCpp(unsigned cam) {
     s1 = (double)CAM_LF(0xB73428);
     CAM_R(s1, s1 * ((double)CAM_LF(0x858B90)));
     CAM_R(s1, s1 * (s0));
-    CAM_R(s1, s1 * ((double)CAM_LF(reinterpret_cast<uintptr_t>(&DatosExe::R5::vB6EC18))));
+    CAM_R(s1, s1 * ((double)CAM_LF(reinterpret_cast<uintptr_t>(SilentPatch_MouseAccelVerticalPtr()))));
     s2 = (double)CAM_LF(0xB73424);
     CAM_R(s2, s2 * ((double)CAM_LF(reinterpret_cast<uintptr_t>(&DatosExe::R5::v8631B0))));
     CAM_R(s2, s2 * (s0));
@@ -8170,7 +8171,7 @@ __declspec(noinline) void __cdecl CamM16MouseAnglesCpp(float horizontal, float f
     CAM_R(s1, s1 * ((double)CAM_LF(0xB6EC1C)));
     CAM_R(s0, s0 * (s1));
     s1 = (double)scale;
-    CAM_R(s1, s1 * ((double)CAM_LF(reinterpret_cast<uintptr_t>(&DatosExe::R5::vB6EC18))));
+    CAM_R(s1, s1 * ((double)CAM_LF(reinterpret_cast<uintptr_t>(SilentPatch_MouseAccelVerticalPtr()))));
     CAM_R(s1, s1 * ((double)vertical));
     { double t_ = s1; s1 = s0; s0 = t_; }
     eax = (unsigned)(beta);

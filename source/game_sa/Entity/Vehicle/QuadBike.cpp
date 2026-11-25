@@ -17,6 +17,13 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
+
+// SilentPatch (MIT, Silent): el raton gira un coche en el aire solo con la opcion "Steer with Mouse" activada (opcion MouseAirborneRequiresSteerOption)
+static bool UseMouseForAirborneRotation() {
+    static const bool onlyWithSteerOption = SilentPatchOption("MouseAirborneRequiresSteerOption", true);
+    return onlyWithSteerOption ? CVehicle::m_bEnableMouseSteering : CCamera::m_bUseMouse3rdPerson;
+}
 #include "DatosExe/DataInicializadaB.h"
 #include "DatosExe/DataInicializadaA.h"
 
@@ -265,7 +272,7 @@ bool CQuadBike::ProcessAI(uint32& extraHandlingFlags) {
         && pad
     ) {
         float steeringLeftRightProgress = float(int32(pad->GetSteeringLeftRight())) * 0.0078125f;
-        if (CCamera::m_bUseMouse3rdPerson && std::fabs(steeringLeftRightProgress) < 0.05f) {
+        if (UseMouseForAirborneRotation() && std::fabs(steeringLeftRightProgress) < 0.05f) {
             steeringLeftRightProgress = QuadMin(1.5f, QuadMax(-1.5f, CPad::NewMouseControllerState.m_AmountMoved.x * 0.01f));
         }
         if (vehicleFlags.bIsHandbrakeOn) {

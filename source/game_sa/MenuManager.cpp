@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataInicializadaB.h"
 #include "game_sa/Crt/CrtFile.h"
 
@@ -931,7 +932,10 @@ void CMenuManager::SaveStatsToFile() {
             fprintf_s(file, "</font></strong></div></td> </tr> <tr align=\"left\" valign=\"top\" bgcolor=\"#000000\">  <td height=\"25\" colspan=\"2\"></td> </tr>\n");
             fprintf_s(file, "<tr align=\"left\" valign=\"top\"><td height=\"30\" bgcolor=\"#000000\"><font color=\"#009900\" size=\"4\" face=\"Arial, Helvetica, sans-serif\"><strong>\n");
 
-            fprintf_s(file, "%s", GxtCharToUTF8(TheText.Get(strToPrint[menuItem]), 0u));
+            // SilentPatch (MIT, Silent): los nombres de seccion GANGS y CRIMES estan intercambiados al exportar stats.html (opcion FixStatsHtmlSectionNames)
+            static const bool swapGangsCrimes = SilentPatchOption("FixStatsHtmlSectionNames", true);
+            const char* const sectionName = (swapGangsCrimes && (menuItem == 3 || menuItem == 4)) ? strToPrint[menuItem == 3 ? 4 : 3] : strToPrint[menuItem];
+            fprintf_s(file, "%s", GxtCharToUTF8(TheText.Get(sectionName), 0u));
             fprintf_s(file, "</strong></font></td> <td width=\"500\" align=\"right\" valign=\"middle\" bgcolor=\"#000000\"> <div align=\"right\"><strong><font color=\"#FF0CCC\">\n");
 
             for (auto stat = 0; stat < numStatLines; stat++) {

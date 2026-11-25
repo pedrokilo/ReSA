@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataInicializadaXB.h"
 #include "DatosExe/DataBssG5.h"
 #include "DatosExe/DataBssG3.h"

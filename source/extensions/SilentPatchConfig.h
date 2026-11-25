@@ -11,3 +11,13 @@
  */
 bool SilentPatchEnabled();
 bool SilentPatchOption(const char* name, bool defaultValue);
+/*
+ * Opcion numerica (p. ej. Units=-1|0|1): variable GTASA_SILENTPATCH_<NAME EN MAYUSCULAS>=<entero> o linea `SilentPatch_<name>=<entero>` en el ini.
+ * Con el interruptor general apagado devuelve disabledValue (el comportamiento del EXE original).
+ *
+ * ESQUEMA DE NOMBRES (unico, vigente para todas las ramas de SilentPatch):
+ *   general      GTASA_SILENTPATCH=0|1            |  SilentPatch=0|1
+ *   por opcion   GTASA_SILENTPATCH_<NOMBRE>=0|1   |  SilentPatch_<Nombre>=0|1
+ * donde <Nombre> es la cadena que se pasa a SilentPatchOption / SilentPatchIntOption (sin distinguir mayusculas en el ini; en el entorno se pasa a mayusculas).
+ */
+int SilentPatchIntOption(const char* name, int defaultValue, int disabledValue);

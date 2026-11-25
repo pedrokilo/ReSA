@@ -18,7 +18,7 @@ Fuente: SilentPatch para SA (MIT, Copyright (c) 2024 Adrian Zdanowicz (Silent); 
 | «Script sprites now have bilinear filtering applied» | `DrawScriptSpritesAndRectangles` | `CTheScripts::DrawScriptSpritesAndRectangles` | `ScriptSpritesBilinear` (1) | implementado, compilado; no ejercitado |
 | «The 14ms frame delay has been removed» | parche 0x53E923/0x53E99F | `Idle` (app_game.cpp) | `NoFrameDelay` (1) | implementado, compilado; no medido (FPS) |
 | «If the illumination value is absent from the timecycle file... defaults to 1.0» y «red-tinted countryside evening rain» | `TimecycDatMissingDataFix::sscanf_TimecycLine` | `CTimeCycle::Initialise` | `TimecycMissingDataFix` (1) | implementado, compilado; no ejercitado |
-| «The streamed entity list has been expanded a bit» | parche 0x5B8E55/0x5B8EB0 (12000 -> 15000 bytes) | `CStreaming::Init` (`ms_rwObjectInstances.Init(1250)`) | `BiggerStreamedEntityList` (1) | implementado; no ejercitado |
+| «The streamed entity list has been expanded a bit» | parche 0x5B8E55/0x5B8EB0 (12000 -> 15000 bytes) | `CStreaming::Init` (`ms_rwObjectInstances.Init(1250)`) | `StreamedEntityList` (nombre unificado con la rama de entidades) (1) | implementado; no ejercitado |
 
 Estado de las pruebas: ver el final de este documento (las comprobaciones realmente hechas).
 
@@ -40,6 +40,6 @@ La viñeta «streaming-related deadlock ... entering interiors» (SilentPatch: s
 
 ## Pruebas realizadas
 
-- Compilación: NO verificada todavía. `compile_lock` estuvo ocupado por otros agentes durante más de una hora; queda en marcha en segundo plano `wv-sp4/_comp.sh` (espera el candado y compila SilentPatchConfig, Coronas, Shadows, TimeCycle, TheScripts, app_game y Streaming; resultado en `wv-sp4/_comp.log`, sin versionar). Hasta que termine, el código está sin compilar.
+- Compilación: verificada, `EXIT=0` en los 7 archivos tocados (SilentPatchConfig, Coronas, Shadows, TimeCycle, TheScripts, app_game y Streaming) con `compilar_over.cmd`; comprobado por el agente de la rama tras esperar el candado `compile_lock` (corrección hecha en la fusión: el texto anterior decía «NO verificada»). Sin ejercitar en juego (ver `silentpatch-integracion.md` para las pruebas de la rama integrada).
 - No se ejecutó el juego (ni humo ni capturas): ningún arreglo está ejercitado.
 - Interruptor apagado: por construcción, cada sitio hace `SilentPatchOption(...)` -> false y ejecuta el código anterior sin cambios (el código antiguo se conserva literal en las ramas `false`).

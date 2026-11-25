@@ -23,6 +23,13 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
+
+// SilentPatch (MIT, Silent): el raton gira un coche en el aire solo con la opcion "Steer with Mouse" activada (opcion MouseAirborneRequiresSteerOption)
+static bool UseMouseForAirborneRotation() {
+    static const bool onlyWithSteerOption = SilentPatchOption("MouseAirborneRequiresSteerOption", true);
+    return onlyWithSteerOption ? CVehicle::m_bEnableMouseSteering : CCamera::m_bUseMouse3rdPerson;
+}
 #include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG3.h"
 #include "DatosExe/DataBssE3.h"
@@ -1631,7 +1638,7 @@ bool CAutomobile::ProcessAI(uint32& extraHandlingFlags) {
 
     float steerLeftRight = (float)pad->GetSteeringLeftRight() * 0.0078125f; // Como el original: fmul [0x858B88] (1 / 128)
     float steerUpDown    = (float)pad->GetSteeringUpDown() * 0.0078125f;
-    if (CCamera::m_bUseMouse3rdPerson && std::fabs(steerLeftRight) < 0.05f && std::fabs(steerUpDown) < 0.05f) {
+    if (UseMouseForAirborneRotation() && std::fabs(steerLeftRight) < 0.05f && std::fabs(steerUpDown) < 0.05f) {
         // Como el original: 6B4F04..6B4F5B x * [0x871040] (0.02f), no x / 50
         steerLeftRight = std::clamp<float>(CPad::NewMouseControllerState.m_AmountMoved.x * 0.02f, -1.5f, 1.5f);
         steerUpDown    = std::clamp<float>(CPad::NewMouseControllerState.m_AmountMoved.y * 0.02f, -1.5f, 1.5f);

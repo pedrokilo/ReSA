@@ -584,9 +584,11 @@ Esta sección se añadió el 24/11/2026 sin reescribir el resto: las secciones 1
 - Entrar en el gimnasio de Ganton caía por pasar `-1` a `TASK_KILL_CHAR_ON_FOOT` y `_WHILE_DUCKING` como `CPed&`; ahora reciben el manejador entero (commit `96f1c36f61`; evidencia en `reversing/FnJuego/evidencia/`, sin informe escrito en `main`).
 - El espejo del ropero (diferencia con el original por la GPU) y el ratón del independiente (SDL3 sustituía el registro de entrada en bruto de DirectInput; [ejecucion-raton.md](CodigoVivoExe/ejecucion-raton.md)).
 
-## 15. Correcciones opcionales de SilentPatch (desviaciones deliberadas, 24/11/2026)
+## 15. Correcciones opcionales de SilentPatch (desviaciones deliberadas, 24-25/11/2026)
 
-Interruptor general `GTASA_SILENTPATCH=0|1` (o `SilentPatch=` en `gta-reversed.ini`; módulo `source/extensions/SilentPatchConfig.*`); por defecto encendido; con él apagado el comportamiento es el del EXE. Licencia y atribución: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+Interruptor general `GTASA_SILENTPATCH=0|1` (o `SilentPatch=` en `gta-reversed.ini`; módulo `source/extensions/SilentPatchConfig.*`); por defecto encendido; con él apagado el comportamiento es el del EXE. Licencia y atribución: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Esquema único de nombres: `GTASA_SILENTPATCH=0|1` / `SilentPatch=0|1`; por opción `GTASA_SILENTPATCH_<NOMBRE EN MAYÚSCULAS>=0|1` / `SilentPatch_<Nombre>=0|1` (cabecera de `SilentPatchConfig.h`). Está dividida en tres subsecciones (15.1 vehículos/peds/RenderWare, 15.2 gráficos/tiempo/streaming, 15.3 scripts/entrada/HUD/guardado); los arreglos que dos ramas portaron por separado quedaron fusionados en una sola implementación (ver notas).
+
+### 15.1 RtAnim, vehículos, peds, jugador, fuego y pools
 
 | # | Función (EXE) | Desviación | Opción propia | Riesgo |
 | --- | --- | --- | --- | --- |
@@ -605,9 +607,10 @@ Interruptor general `GTASA_SILENTPATCH=0|1` (o `SilentPatch=` en `gta-reversed.i
 | 13 | ::ChooseComponent (0x4C7FB0) | La regla de extras 4 (cualquiera) puede elegir también el extra 6 | `SilentPatch_Extra6Rule=0` (o `GTASA_SILENTPATCH_<NOMBRE EN MAYÚSCULAS>=0`) | bajo |
 | 14 | CFileLoader::LoadCarGenerator; CCheat | El Beagle mal colocado en Fort Carson (coordenadas exactas) pasa a ser una BMX; SEAROADER activa/desactiva «coches sobre el agua» | `SilentPatch_FortCarsonBeagle=0`, `SilentPatch_SeaRoaderCheat=0` (o `GTASA_SILENTPATCH_<NOMBRE EN MAYÚSCULAS>=0`) | medio (cambia contenido) |
 | 15 | CRunningScript::GetCorrectPedModelIndexForEmergencyServiceType; CCarAI::BackToCruisingIfNoWantedLevel | LAPDM1 pedido con PEDTYPE_COP genera un motorista; los motoristas cancelan el drive-by al perder el nivel de búsqueda | `SilentPatch_BikerCopSpawn=0`, `SilentPatch_BikerCopsDriveByFix=0` (o `GTASA_SILENTPATCH_<NOMBRE EN MAYÚSCULAS>=0`) | bajo |
-| 16 | CPlane::FindPlaneCreationCoors; CStreaming::Init2; CGame::ReInitGameObjectVariables | La comprobación de colisión de la creación de aviones usa sectores; la lista de entidades en streaming pasa de 1000 a 1250 enlaces; se reinician variables de New Game (respray gratis, temporizadores de ambulancia/bomberos, contadores de stats, penalizaciones) | `SilentPatch_PlaneCreationCoorsFix=0`, `SilentPatch_StreamedEntityList=0`, `SilentPatch_ResetVariablesOnNewGame=0` (o `GTASA_SILENTPATCH_<NOMBRE EN MAYÚSCULAS>=0`) | bajo |
+| 16 | CPlane::FindPlaneCreationCoors; CStreaming::Init2; CGame::ReInitGameObjectVariables | La comprobación de colisión de la creación de aviones usa sectores; la lista de entidades en streaming pasa de 1000 a 1250 enlaces; se reinician variables de New Game (respray gratis, temporizadores de ambulancia/bomberos, contadores de stats, penalizaciones; implementado en `SilentPatchNewGame::BeforeReInit`, ver 15.3, con la misma opción) | `SilentPatch_PlaneCreationCoorsFix=0`, `SilentPatch_StreamedEntityList=0`, `SilentPatch_ResetVariablesOnNewGame=0` (o `GTASA_SILENTPATCH_<NOMBRE EN MAYÚSCULAS>=0`) | bajo |
 | 17 | CPedDamageResponseCalculator::ComputeWillKillPed (0x4B3210) | Con el truco de invencibilidad, las balas del helicóptero de policía no hieren a CJ | `SilentPatch_TrueInvincibility=1` o `GTASA_SILENTPATCH_TRUEINVINCIBILITY=1` para ACTIVARLA (apagada por defecto, como en SilentPatchSA.ini) | bajo |
-## 15b. Correcciones opcionales de SilentPatch: gráficos, tiempo y streaming (24/11/2026)
+
+### 15.2 Gráficos, tiempo y streaming (24/11/2026)
 
 Interruptor general `GTASA_SILENTPATCH=0|1` (o `SilentPatch=` en `gta-reversed.ini`; `source/extensions/SilentPatchConfig.*`); con él apagado todo es como el EXE. Licencia: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Opción propia: `GTASA_SILENTPATCH_<NOMBRE>=0|1` o `SilentPatch_<Nombre>=0|1` (se leen una vez por proceso). Detalle: [silentpatch-graficos.md](CodigoVivoExe/silentpatch-graficos.md).
 
@@ -619,4 +622,25 @@ Interruptor general `GTASA_SILENTPATCH=0|1` (o `SilentPatch=` en `gta-reversed.i
 | 4 | `CTheScripts::DrawScriptSpritesAndRectangles` | Filtro bilineal en los sprites de script (estado restaurado) | `ScriptSpritesBilinear` | bajo |
 | 5 | `Idle` (0x53E920) | Sin la espera de 14 ms entre fotogramas: 30 FPS reales en vez de 25 con el limitador | `NoFrameDelay` | medio (cambia el ritmo del juego respecto al original) |
 | 6 | `CTimeCycle::Initialise` | Multiplicador direccional por defecto 1.0 y relectura de la línea rota de RAINY_COUNTRYSIDE | `TimecycMissingDataFix` | bajo |
-| 7 | `CStreaming::Init` | Lista de entidades en streaming de 1000 a 1250 enlaces | `BiggerStreamedEntityList` | bajo |
+| 7 | `CStreaming::Init` | Lista de entidades en streaming de 1000 a 1250 enlaces | `StreamedEntityList` (misma corrección que la fila 16 de 15.1; la rama de gráficos la llamaba `BiggerStreamedEntityList`; una sola implementación en `CStreaming::Init2`) | bajo |
+
+### 15.3 Scripts, misiones, entrada, HUD, trucos, guardado y textos (rama `silentpatch-scm`)
+
+Opcionales: todos se apagan con `GTASA_SILENTPATCH=0` (o `SilentPatch=0` en `gta-reversed.ini`) y cada uno con `GTASA_SILENTPATCH_<OPCION>=0` o `SilentPatch_<Opcion>=0` (esquema único, ver arriba). Detalle y estado de ejercitación en [CodigoVivoExe/silentpatch-scm.md](CodigoVivoExe/silentpatch-scm.md).
+
+| Arreglo | Opción | Efecto frente al EXE original |
+| --- | --- | --- |
+| Gimnasio, baloncesto, Mountain Cloud Boys, Sweet's Girl, conos de las autoescuelas, Air Raid, Ice Cold Killa, Supply Lines, Beefy Baron, Quadruple Stunt Bonus | `EnableScriptFixes` | Se modifica el bytecode del SCM en memoria y `GET_CURRENT_DATE` de los scripts gym* |
+| CREATE_BIRDS con coordenadas float | `FixCreateBirds` | Pájaros de Ice Cold Killa en su sitio |
+| Reinicio de variables y de pickups/generadores/saltos de IPL al empezar Nueva Partida | `ResetVariablesOnNewGame`, `ReinitIplObjectsOnNewGame` | Contadores, respray gratis, mensaje "To stop Carl", penalización wasted/busted |
+| Territorios fuera del mapa | `FixTerritoriesOutsideMap` | Fuera de la rejilla 10x10 la zona cuenta como desbloqueada |
+| Num5 enlazable | `BindableNum5` | El menú de controles acepta Num5 |
+| Cuadros de ayuda junto a "Mission Passed" | `HelpBoxWithMissionPassed` | El cuadro de ayuda ya no se oculta |
+| Sensibilidad vertical del ratón = horizontal | `MouseVerticalSensitivityFix` | Cámaras que leían `m_fMouseAccelVertical` |
+| Ratón gira el coche en el aire solo con "Steer with Mouse" | `MouseAirborneRequiresSteerOption` | Automóviles y quads |
+| Munición 1 de cuchillo, motosierra, katana y paracaídas de los trucos | `MeleeCheatAmmo` | No los sustituye un pickup |
+| Stats en kilogramos y nombres GANGS/CRIMES de stats.html | `FixStatsKilograms`, `FixStatsHtmlSectionNames` | Texto de estadísticas |
+| Nombre de la emisora sin ajuste de línea por dibujos de script | `FixRadioStationNameWrap` | `SetCentreSize` |
+| Unidades métricas/imperiales según la configuración regional | `Units` (-1 región, 0 métrico, 1 imperial) | Antes: imperial solo con idioma americano |
+
+Notas de la fusión: los arreglos de biker cop (`BikerCopSpawn`), azar de 16 bits (`Rand16bit`), SEAROADER (`SeaRoaderCheat`) y Beagle de Fort Carson (`FortCarsonBeagle`), que la rama `silentpatch-scm` también había portado (con los nombres `FixBikerCopSpawn`, `ScriptRandomness16Bit`, `SearoaderCheat`, `FixFortCarsonBeagle`), quedan con la implementación y las opciones de 15.1. `FixCheatMeleeAmmo` pasó a llamarse `MeleeCheatAmmo` (misma opción que la de NinjaCheat/ParachuteCheat; aquí cubre además los conjuntos de armas 1-3). El reinicio de variables de New Game es el de `SilentPatchNewGame` (superconjunto: además reinicia `TimeNextMadDriverChaseCreated`).

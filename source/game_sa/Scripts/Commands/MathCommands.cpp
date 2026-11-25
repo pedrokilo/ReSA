@@ -1,6 +1,7 @@
 #include <StdInc.h>
 
 #include "Commands.hpp"
+#include "SilentPatchScripts.h"
 #include <CommandParser/Parser.hpp>
 #include "CommandParser/Parser.hpp"
 

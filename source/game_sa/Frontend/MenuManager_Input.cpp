@@ -1,4 +1,10 @@
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
+
+static bool SilentPatchBindableNum5() {
+    static const bool v = SilentPatchOption("BindableNum5", true);
+    return v;
+}
 #include "DatosExe/DataInicializadaB.h"
 
 #include "MenuManager.h"
@@ -1282,7 +1288,7 @@ void CMenuManager::CheckCodesForControls(eControllerType type) {
         if (keyCode == rsESC) {
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_ERROR);
             escapePressed = true;
-        } else if (!keyCode || notsa::contains({ rsF1, rsF2, rsF3, rsF9, rsLWIN, rsPAD5, rsRWIN, rsRALT }, keyCode)) { // Como el original 1.0 (0x57DC21), no la lista de v1.01
+        } else if (!keyCode || notsa::contains({ rsF1, rsF2, rsF3, rsF9, rsLWIN, rsRWIN, rsRALT }, keyCode) || (keyCode == rsPAD5 && !SilentPatchBindableNum5())) { // Como el original 1.0 (0x57DC21), no la lista de v1.01; SilentPatch (MIT, Silent): Num5 enlazable (opcion BindableNum5)
             AudioEngine.ReportFrontendAudioEvent(AE_FRONTEND_ERROR);
             invalidKeyPressed = true;
         } else {

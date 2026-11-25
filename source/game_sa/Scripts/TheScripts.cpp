@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "SilentPatchScripts.h"
 #include "DatosExe/DataBssE1.h"
 
 #include "TheScripts.h"
@@ -1672,6 +1673,8 @@ void CTheScripts::Load() {
             }
         }
     }
+
+    SilentPatchScripts::OnScriptsLoaded(); // SilentPatch (MIT, Silent): baloncesto y bono de salto cuadruple en partidas cargadas
 }
 
 // 0x5D4C40

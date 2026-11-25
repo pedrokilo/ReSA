@@ -5,15 +5,16 @@
 Algunas correcciones opcionales del ejecutable independiente y de la ASI se basan en el comportamiento descrito y el código de **SilentPatch**
 (https://github.com/CookiePLMonster/SilentPatch). Solo se tomó lo necesario de cada corrección; cada archivo afectado lleva un comentario de atribución.
 Todas son desviaciones deliberadas del EXE original, se apagan con `GTASA_SILENTPATCH=0` (o `SilentPatch=0` en `gta-reversed.ini`) y están catalogadas en
-[DesviacionesConocidas.md](DesviacionesConocidas.md), sección 15.
+[DesviacionesConocidas.md](DesviacionesConocidas.md), sección 15. Esquema de nombres de interruptores y opciones: comentario de cabecera de `source/extensions/SilentPatchConfig.h` (único lugar donde se define).
 
-Correcciones incluidas hasta ahora:
+Correcciones incluidas (rama de integración `silentpatch-integracion`):
 
 - «Streaming memory bug» (`GTARtAnimInterpolatorSetCurrentAnim` de `SilentPatchSA/SilentPatchSA.cpp`): `source/game_sa/RenderWare/rw/SilentPatchFixes.*` y `rtanim.cpp`.
 - Vehículos, peds, jugador, fuego y pools (rama `silentpatch-entidades`; detalle en [CodigoVivoExe/silentpatch-entidades.md](CodigoVivoExe/silentpatch-entidades.md)): munición de armas cuerpo a cuerpo de los trucos, precisión de la IA, Securicar, impound, muzzle flash de la última bala, BMX en llamas, coche robado por el lado del pasajero, explosión doble, nitro marcha atrás, postura de las armas de los policías, aleatoriedad de script de 16 bits, luces del tráfico, extra6, Beagle de Fort Carson, SEAROADER, motoristas policía, aviones, lista de entidades en streaming, reinicio de variables en New Game e invencibilidad real. Cada sitio lleva el comentario `// SilentPatch (MIT, Silent): <arreglo>`; los cambios están en `source/game_sa/` (Automobile, Vehicle, Weapon, Cheat, Ped, tareas de pistola y de entrar al coche, Garages, CarCtrl, CarAI, Fire, Game, Streaming, FileLoader, RunningScript, MathCommands, Plane, PedDamageResponseCalculator, VehicleModelInfo, TheScripts).
 - Rama de gráficos, audio, tiempo y streaming (`docs/CodigoVivoExe/silentpatch-graficos.md`): rotación de coronas (`CoronaRotationFix`), `SunSizeHack`, `StaticShadowAlphaFix`, filtrado bilineal de los sprites de script (`DrawScriptSpritesAndRectangles`), «NoFrameDelay», `TimecycDatMissingDataFix` (`source/game_sa/Coronas.cpp`, `Shadows.cpp`, `Scripts/TheScripts.cpp`, `TimeCycle.cpp`, `Streaming.cpp`, `source/app/app_game.cpp`) y la lista de entidades en streaming ampliada.
+- Scripts, misiones, entrada, HUD, trucos, guardado y textos (rama `silentpatch-scm`): ver «Entradas por área» más abajo.
 
-Texto de la licencia de SilentPatch:
+Licencia de SilentPatch (archivo `LICENSE` del repositorio), texto completo:
 
 ```
 The MIT License (MIT)
@@ -38,3 +39,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+### Entradas por área
+
+- **Scripts, misiones, entrada, HUD, trucos, guardado y textos (rama `silentpatch-scm`)**: `source/game_sa/Scripts/SilentPatchScripts.*` (parches de bytecode SCM de SilentPatchSA.cpp, namespace `ScriptFixes`, y ScriptSA.cpp), `source/game_sa/SilentPatchNewGame.*` (namespace `VariableResets`), y los hunks marcados con `// SilentPatch (MIT, Silent)` en TheScripts, RunningScript*, MathCommands, MissionCommands, Cheat, Camera/Cam/X87Math, Hud, Stats, MenuManager*, TheZones, FileLoader, Game, Localisation, AERadioTrackManager, Automobile y QuadBike. Detalle: [CodigoVivoExe/silentpatch-scm.md](CodigoVivoExe/silentpatch-scm.md).

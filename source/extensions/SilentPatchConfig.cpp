@@ -31,6 +31,19 @@ std::optional<bool> ValorBool(const std::string& v) {
     return std::nullopt;
 }
 
+std::optional<int> EnteroDe(const std::string& v) {
+    const auto t = Recortar(v);
+    if (t.empty()) { return std::nullopt; }
+    size_t i = (t[0] == '-' || t[0] == '+') ? 1 : 0;
+    if (i >= t.size()) { return std::nullopt; }
+    int r = 0;
+    for (size_t k = i; k < t.size(); ++k) {
+        if (t[k] < '0' || t[k] > '9') { return std::nullopt; }
+        r = r * 10 + (t[k] - '0');
+    }
+    return t[0] == '-' ? -r : r;
+}
+
 std::optional<bool> DeEntorno(const std::string& nombre) {
     char buf[16]{};
     const DWORD n = GetEnvironmentVariableA(nombre.c_str(), buf, sizeof(buf));
@@ -63,4 +76,28 @@ bool SilentPatchOption(const char* name, bool defaultValue) {
     std::string mayus{name};
     std::transform(mayus.begin(), mayus.end(), mayus.begin(), [](unsigned char c) { return (char)std::toupper(c); });
     return DeEntorno("GTASA_SILENTPATCH_" + mayus).value_or(DeIni(std::string("SilentPatch_") + name).value_or(defaultValue));
+}
+
+int SilentPatchIntOption(const char* name, int defaultValue, int disabledValue) {
+    if (!SilentPatchEnabled()) {
+        return disabledValue;
+    }
+    std::string mayus{name};
+    std::transform(mayus.begin(), mayus.end(), mayus.begin(), [](unsigned char c) { return (char)std::toupper(c); });
+    char buf[16]{};
+    if (const DWORD n = GetEnvironmentVariableA(("GTASA_SILENTPATCH_" + mayus).c_str(), buf, sizeof(buf)); n > 0 && n < sizeof(buf)) {
+        if (const auto v = EnteroDe(buf)) { return *v; }
+    }
+    std::ifstream in("gta-reversed.ini");
+    std::string linea;
+    const auto buscada = Minusculas(std::string("SilentPatch_") + name);
+    while (std::getline(in, linea)) {
+        if (const auto c = linea.find(';'); c != std::string::npos) { linea.erase(c); }
+        const auto e = linea.find('=');
+        if (e == std::string::npos) { continue; }
+        if (Minusculas(Recortar(linea.substr(0, e))) == buscada) {
+            if (const auto v = EnteroDe(linea.substr(e + 1))) { return *v; }
+        }
+    }
+    return defaultValue;
 }
