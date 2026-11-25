@@ -1,0 +1,107 @@
+[depuración][06:38:20.187][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][06:38:20.195][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13620 en 1010 clases/grupos (11452 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13620. Desactivadas: 0.
+[info][06:38:20.195][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][06:38:20.196][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][06:38:20.198][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][06:38:20.205][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[info][06:38:20.607][:]: ****************** Backtrace Start ******************
+[depuración][06:38:20.187][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][06:38:20.195][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13620 en 1010 clases/grupos (11452 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13620. Desactivadas: 0.
+[info][06:38:20.195][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][06:38:20.196][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][06:38:20.198][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][06:38:20.205][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[info][06:38:20.609][:]: ****************** Backtrace End ********************
+[info][06:38:20.609][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[info][06:38:20.610][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[info][06:38:20.610][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[info][06:38:20.610][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[info][06:38:20.610][app_debug.cpp:106]: *********PARAMETERS**********
+[info][06:38:20.610][app_debug.cpp:118]: Parámetros[2]:
+[info][06:38:20.610][app_debug.cpp:120]:        0: 0x00000000
+[info][06:38:20.611][app_debug.cpp:120]:        1: 0x88c8a658
+[info][06:38:20.611][app_debug.cpp:106]: *********REGISTERS**********
+[info][06:38:20.611][app_debug.cpp:130]: 	EAX: 0x88c8a658
+[info][06:38:20.611][app_debug.cpp:130]: 	EBX: 0x00000000
+[info][06:38:20.611][app_debug.cpp:130]: 	ECX: 0x00000000
+[info][06:38:20.611][app_debug.cpp:130]: 	EDX: 0x00005a4d
+[info][06:38:20.611][app_debug.cpp:130]: 	ESI: 0x00000000
+[info][06:38:20.612][app_debug.cpp:130]: 	EDI: 0x00000000
+[info][06:38:20.612][app_debug.cpp:130]: 	EBP: 0x001af568
+[info][06:38:20.612][app_debug.cpp:130]: 	ESP: 0x001af534
+[info][06:38:20.612][app_debug.cpp:130]: 	EIP: 0x76f8df7f
+[info][06:38:20.612][app_debug.cpp:130]: 	EFLAGS: 0x00010246
+[info][06:38:20.612][app_debug.cpp:106]: *********CALL STACK**********
+[info][06:38:20.762][app_debug.cpp:213]: 	0x76f8df7f: ntdll!RtlImageNtHeaderEx:0
+[info][06:38:20.763][app_debug.cpp:213]: 	0x76f8adbb: ntdll!RtlImageNtHeader:0
+[info][06:38:20.764][app_debug.cpp:213]: 	0x762c9171: KERNELBASE!FreeLibrary:0
+[info][06:38:20.765][app_debug.cpp:213]: 	0x674b5f11: igd12um32xel!<unknown>:0
+[info][06:38:20.766][app_debug.cpp:213]: 	0x6746aff1: igd12um32xel!<unknown>:0
+[info][06:38:20.767][app_debug.cpp:213]: 	0x71b3f158: igd12umd32!OpenAdapter12:0
+[info][06:38:20.767][app_debug.cpp:213]: 	0x71cd7a3f: D3D12Core!D3D12SDKVersion:0
+[info][06:38:20.768][app_debug.cpp:213]: 	0x71ca1547: D3D12Core!D3D12SDKVersion:0
+[info][06:38:20.768][app_debug.cpp:213]: 	0x71cf9d4f: D3D12Core!D3D12SDKVersion:0
+[info][06:38:20.769][app_debug.cpp:213]: 	0x72025460: d3d12!<unknown>:0
+[info][06:38:20.770][app_debug.cpp:213]: 	0x72024636: d3d12!<unknown>:0
+[info][06:38:20.770][app_debug.cpp:213]: 	0x71cbf4be: D3D12Core!D3D12SDKVersion:0
+[info][06:38:20.771][app_debug.cpp:213]: 	0x720d2fe4: d3d9on12!OpenAdapter:0
+[info][06:38:20.771][app_debug.cpp:213]: 	0x720d25f4: d3d9on12!<unknown>:0
+[info][06:38:20.772][app_debug.cpp:213]: 	0x732db8d9: d3d9!<unknown>:0
+[info][06:38:20.772][app_debug.cpp:213]: 	0x732db779: d3d9!<unknown>:0
+[info][06:38:20.772][app_debug.cpp:213]: 	0x732d1c33: d3d9!<unknown>:0
+[info][06:38:20.773][app_debug.cpp:213]: 	0x732d05fc: d3d9!<unknown>:0
+[info][06:38:20.773][app_debug.cpp:213]: 	0x732f5b5f: d3d9!Direct3DCreate9Ex:0
+[info][06:38:20.773][app_debug.cpp:213]: 	0x732e6e81: d3d9!<unknown>:0
+[info][06:38:20.774][app_debug.cpp:213]: 	0x732d1c33: d3d9!<unknown>:0
+[info][06:38:20.774][app_debug.cpp:213]: 	0x732d05fc: d3d9!<unknown>:0
+[info][06:38:20.884][app_debug.cpp:213]: 	0x732f5b5f: d3d9!Direct3DCreate9Ex:0
+[info][06:38:20.886][app_debug.cpp:213]: 	0x0261b0d8: gta_sa_standalone!GetVideoMemInfo:86
+[info][06:38:20.887][app_debug.cpp:213]: 	0x02618ea4: gta_sa_standalone!psInitialize:262
+[info][06:38:20.888][app_debug.cpp:213]: 	0x01cb3b13: gta_sa_standalone!RsInitialize:266
+[info][06:38:20.888][app_debug.cpp:213]: 	0x01090ecc: gta_sa_standalone!AppEventHandler:159
+[info][06:38:20.889][app_debug.cpp:213]: 	0x01cb3858: gta_sa_standalone!RsEventHandler:349
+[info][06:38:20.890][app_debug.cpp:213]: 	0x02614278: gta_sa_standalone!NOTSA_WinMain:441
+[info][06:38:20.890][app_debug.cpp:213]: 	0x00f01e6b: gta_sa_standalone!WinMain:702
+[info][06:38:20.891][app_debug.cpp:213]: 	0x02ba1acd: gta_sa_standalone!invoke_main:107
+[info][06:38:20.891][app_debug.cpp:213]: 	0x02ba19aa: gta_sa_standalone!__scrt_common_main_seh:288
+[info][06:38:20.892][app_debug.cpp:213]: 	0x02ba184d: gta_sa_standalone!__scrt_common_main:331
+[info][06:38:20.892][app_debug.cpp:213]: 	0x02ba1b38: gta_sa_standalone!WinMainCRTStartup:17
+[info][06:38:20.892][app_debug.cpp:213]: 	0x00f0507b: gta_sa_standalone!FaseEntrada:673
+[info][06:38:20.893][app_debug.cpp:213]: 	0x75495d49: KERNEL32!BaseThreadInitThunk:0
+[info][06:38:20.893][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[info][06:38:20.893][app_debug.cpp:213]: 	0x76fac811: ntdll!RtlGetAppContainerNamedObjectPath:0
+[info][06:38:20.908][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[depuración][06:38:21.286][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[info][06:38:21.503][rwcore.cpp:7775]: Adaptador de vídeo D3D9: NVIDIA GeForce RTX 3050 Laptop GPU (controlador nvldumd.dll, vendedor 0x10DE)
+[depuración][06:38:21.508][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][06:38:21.535][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][06:38:21.572][TimeCycle.cpp:218]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][06:38:21.579][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][06:38:21.580][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][06:38:21.581][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][06:38:21.581][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][06:38:21.581][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][06:38:21.582][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][06:38:21.582][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][06:38:21.582][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][06:38:21.582][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][06:38:21.583][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[depuración][06:38:22.101][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][06:38:22.105][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][06:38:22.106][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][06:38:22.249][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][06:38:22.250][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][06:38:22.250][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[depuración][06:38:26.516][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG
+[depuración][06:38:30.601][Pools.cpp:502]: Pools de entidades vaciados (peatones, vehículos, objetos...).
+[aviso][06:38:30.627][TimeCycle.cpp:218]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][06:38:30.634][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[error][06:38:30.657][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[error][06:38:30.657][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[aviso][06:38:30.657][GenericGameStorage.cpp:319]: Se fuerza la carga de una partida de otra versión, bajo tu responsabilidad: si no coincide con el script, el juego se cerrará.
+[depuración][06:38:30.683][TagManager.cpp:306]: Se cargaron 100 tags (grafitis)
+[depuración][06:38:30.683][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[info][06:38:30.812][SilentPatchConfig.cpp:105]: SilentPatch: interruptor general = 0 (GTASA_SILENTPATCH / SilentPatch= en gta-reversed.ini; por defecto 1)
+[depuración][06:38:43.169][Pad.cpp:381]: Raton: DirectInput no entrega datos pero SDL si; se vuelve a adquirir el dispositivo (registro de raw input perdido)

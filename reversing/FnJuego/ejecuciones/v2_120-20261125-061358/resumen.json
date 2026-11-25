@@ -1,0 +1,491 @@
+{
+ "conduccion": {
+  "reposo": {
+   "v_ini": 0.0,
+   "v_max": 0,
+   "v_fin": 0.0,
+   "avance": 0.0,
+   "dyaw_grados": -0.0,
+   "avance_sobre_frente": 0.0,
+   "nan": false,
+   "tele(v_frente,gas,freno,volante)": [
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ]
+  },
+  "W_4s": {
+   "v_ini": 0.0,
+   "v_max": 0.366,
+   "v_fin": 0.068,
+   "avance": 37.04,
+   "dyaw_grados": 86.4,
+   "avance_sobre_frente": 28.83,
+   "nan": false,
+   "tele(v_frente,gas,freno,volante)": [
+    [
+     0.057,
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.084,
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.188,
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.314,
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.269,
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.244,
+     1.0,
+     0.0,
+     0.0
+    ]
+   ]
+  },
+  "S_frenar": {
+   "v_ini": 0.068,
+   "v_max": 0.066,
+   "v_fin": 0.066,
+   "avance": 5.32,
+   "dyaw_grados": 3.4,
+   "avance_sobre_frente": -5.23,
+   "nan": false,
+   "tele(v_frente,gas,freno,volante)": [
+    [
+     0.048,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     -0.057,
+     -1.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.056,
+     -1.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.063,
+     -1.0,
+     0.0,
+     0.0
+    ]
+   ]
+  },
+  "soltar": {
+   "v_ini": 0.066,
+   "v_max": 0.065,
+   "v_fin": 0.029,
+   "avance": 6.16,
+   "dyaw_grados": 0.1,
+   "avance_sobre_frente": -6.16,
+   "nan": false,
+   "tele(v_frente,gas,freno,volante)": [
+    [
+     -0.065,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.054,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.044,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.033,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ]
+  },
+  "S_atras": {
+   "v_ini": 0.029,
+   "v_max": 0.06,
+   "v_fin": 0.051,
+   "avance": 9.59,
+   "dyaw_grados": 0.6,
+   "avance_sobre_frente": -9.59,
+   "nan": false,
+   "tele(v_frente,gas,freno,volante)": [
+    [
+     -0.056,
+     -1.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.057,
+     -1.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.054,
+     -1.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.051,
+     -1.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.057,
+     -1.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.051,
+     -1.0,
+     0.0,
+     0.0
+    ]
+   ]
+  },
+  "soltar2": {
+   "v_ini": 0.051,
+   "v_max": 0.047,
+   "v_fin": 0.0,
+   "avance": 2.09,
+   "dyaw_grados": 0.8,
+   "avance_sobre_frente": -2.09,
+   "nan": false,
+   "tele(v_frente,gas,freno,volante)": [
+    [
+     -0.047,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.024,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.009,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   ]
+  },
+  "W+A": {
+   "v_ini": 0.0,
+   "v_max": 0.147,
+   "v_fin": 0.139,
+   "avance": 22.94,
+   "dyaw_grados": -4.1,
+   "avance_sobre_frente": 22.9,
+   "nan": false,
+   "tele(v_frente,gas,freno,volante)": [
+    [
+     0.045,
+     1.0,
+     0.0,
+     0.404
+    ],
+    [
+     0.14,
+     1.0,
+     0.0,
+     0.611
+    ],
+    [
+     0.14,
+     1.0,
+     0.0,
+     0.611
+    ],
+    [
+     0.141,
+     1.0,
+     0.0,
+     0.611
+    ],
+    [
+     0.146,
+     1.0,
+     0.0,
+     0.611
+    ]
+   ]
+  },
+  "W+D": {
+   "v_ini": 0.113,
+   "v_max": 0.204,
+   "v_fin": 0.079,
+   "avance": 0.36,
+   "dyaw_grados": -21.7,
+   "avance_sobre_frente": -0.35,
+   "nan": false,
+   "tele(v_frente,gas,freno,volante)": [
+    [
+     0.134,
+     1.0,
+     0.0,
+     -0.357
+    ],
+    [
+     0.002,
+     1.0,
+     0.0,
+     -0.611
+    ],
+    [
+     0.068,
+     1.0,
+     0.0,
+     -0.611
+    ],
+    [
+     0.164,
+     1.0,
+     0.0,
+     -0.611
+    ],
+    [
+     0.023,
+     1.0,
+     0.0,
+     -0.611
+    ],
+    [
+     0.069,
+     1.0,
+     0.0,
+     -0.611
+    ]
+   ]
+  },
+  "W_otra": {
+   "v_ini": 0.07,
+   "v_max": 0.436,
+   "v_fin": 0.051,
+   "avance": 45.28,
+   "dyaw_grados": 24.4,
+   "avance_sobre_frente": 10.02,
+   "nan": false,
+   "tele(v_frente,gas,freno,volante)": [
+    [
+     0.103,
+     1.0,
+     0.0,
+     -0.0
+    ],
+    [
+     0.243,
+     1.0,
+     0.0,
+     -0.0
+    ],
+    [
+     0.338,
+     1.0,
+     0.0,
+     -0.0
+    ],
+    [
+     0.397,
+     1.0,
+     0.0,
+     -0.0
+    ],
+    [
+     0.079,
+     1.0,
+     0.0,
+     -0.0
+    ]
+   ]
+  },
+  "freno_mano": {
+   "v_ini": 0.051,
+   "v_max": 0.044,
+   "v_fin": 0.0,
+   "avance": 2.64,
+   "dyaw_grados": 150.7,
+   "avance_sobre_frente": 1.64,
+   "nan": false,
+   "tele(v_frente,gas,freno,volante)": [
+    [
+     0.005,
+     0.0,
+     0.0,
+     -0.0
+    ],
+    [
+     0.011,
+     0.0,
+     0.0,
+     -0.0
+    ],
+    [
+     0.024,
+     0.0,
+     0.0,
+     -0.0
+    ],
+    [
+     -0.004,
+     0.0,
+     0.0,
+     -0.0
+    ],
+    [
+     -0.001,
+     0.0,
+     0.0,
+     -0.0
+    ]
+   ]
+  },
+  "W+Space": {
+   "v_ini": 0.0,
+   "v_max": 0.018,
+   "v_fin": 0.017,
+   "avance": 1.68,
+   "dyaw_grados": 10.4,
+   "avance_sobre_frente": 1.65,
+   "nan": false,
+   "tele(v_frente,gas,freno,volante)": [
+    [
+     0.018,
+     1.0,
+     0.0,
+     -0.0
+    ],
+    [
+     0.017,
+     1.0,
+     0.0,
+     -0.0
+    ],
+    [
+     0.016,
+     1.0,
+     0.0,
+     -0.0
+    ]
+   ]
+  }
+ },
+ "cambio_arma": true,
+ "armas": {
+  "uzi": {
+   "tipo": 28,
+   "raton": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 50,
+    "cargador_despues": 50,
+    "camara_modo": 18,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 17,
+     "veh": 14,
+     "edif": 10109,
+     "obj": 102,
+     "dummy": 727
+    }
+   },
+   "teclado": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 50,
+    "cargador_despues": 50,
+    "camara_modo": 18,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 13,
+     "veh": 13,
+     "edif": 10109,
+     "obj": 100,
+     "dummy": 727
+    }
+   },
+   "mando": {
+    "municion_antes": 99999,
+    "despues": 99999,
+    "cargador_antes": 50,
+    "cargador_despues": 50,
+    "camara_modo": 18,
+    "nan": 0,
+    "vivo": true,
+    "pools": {
+     "peds": 15,
+     "veh": 14,
+     "edif": 10109,
+     "obj": 102,
+     "dummy": 727
+    }
+   }
+  }
+ }
+}

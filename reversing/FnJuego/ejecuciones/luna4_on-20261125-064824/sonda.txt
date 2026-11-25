@@ -1,0 +1,23 @@
+pid 33708
+juego en marcha tras 12 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 640x480
+=== ESCENARIO luna
+formato del buffer trasero D3DFORMAT=22 (21 = A8R8G8B8, 22 = X8R8G8B8); tipo de multimuestreo 4
+rumbo de la camara antes 0.0
+rumbo de la camara despues 168.9 (180 = sur, donde sale la luna)
+captura luna_dia04 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [38.1, 52.3, 49.6], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 4 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+captura luna_dia10 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [50.1, 61.0, 49.1], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 10 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+captura luna_dia16 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [58.0, 56.4, 51.0], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 16 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+captura luna_dia24 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [59.6, 58.7, 53.3], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 24 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+vivo al final: True
+LOG [info][06:49:20.330][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+LOG [info][06:49:20.331][app_debug.cpp:111]: Código de excepción: 0xc0000005
+LOG [info][06:49:20.331][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+LOG [info][06:49:20.331][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+LOG [info][06:49:20.587][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+LOG [info][06:49:20.601][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+LOG [error][06:49:30.514][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][06:49:30.514][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+LOG [info][06:49:30.709][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+fin

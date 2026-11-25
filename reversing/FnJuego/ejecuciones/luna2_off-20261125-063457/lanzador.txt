@@ -1,0 +1,3 @@
+pid 32028  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-spx\reversing\FnJuego\ejecuciones\luna2_off-20261125-063457" --limite 300 --shims  escenario=luna xinput=False
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF

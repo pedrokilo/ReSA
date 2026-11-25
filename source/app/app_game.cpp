@@ -337,7 +337,9 @@ void Idle(void* param) {
     // (el juego pasa de 25 a 30 FPS con el limitador).
     static const bool spLogEstado = (SilentPatchLogState(), true); // SilentPatch: deja constancia en el log del estado de las opciones
     (void)spLogEstado;
-    static const bool spNoFrameDelay = SilentPatchOption("NoFrameDelay", true);
+    // Segunda tanda: APAGADA POR DEFECTO. Medido con el standalone (sonda `fps`, 4 tramos de 15 s): con la espera de 14 ms 24,9 FPS (el ritmo del EXE), sin ella 30,0 FPS; el tiempo de
+    // juego avanza igual (1000 ms por s de pared) pero cada fotograma cubre 33 ms en vez de 40, lo que cambia la sensacion y todo lo atado a fotogramas (ver docs/CodigoVivoExe/silentpatch2-graficos.md).
+    static const bool spNoFrameDelay = SilentPatchOption("NoFrameDelay", false);
     if (!spNoFrameDelay) {
         static auto& LastTickTime = DatosExe::Bss::bB72CA8;
         CTimer::GetCurrentTimeInCycles();

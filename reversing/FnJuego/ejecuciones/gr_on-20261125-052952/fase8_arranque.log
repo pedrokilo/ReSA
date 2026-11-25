@@ -1,0 +1,134 @@
+[     0 ms] FaseCargar (callback TLS, antes del CRT propio): modo estricto, imagen del original INCRUSTADA en el exe (arreglos C++; no se abre gta_sa.exe)
+codigo original 0x00401000-0x00858000: INT3 (4550656 bytes); imagen incrustada: 16 trozos, 640512 bytes de datos copiados a sus direcciones
+imports de la IAT original: 214, sin resolver: 0
+[    16 ms] FaseEntrada: ExeCrt::StandaloneStartup (estado del CRT del EXE en sus direcciones)
+[    32 ms] StandaloneStartup correcto (tabla C de __cinit completa); iniciando el CRT propio
+[    32 ms] WinMain propio: CRT propio iniciado (inicializadores estaticos propios hechos)
+[    32 ms] DllMain del proyecto: instala los ganchos (escriben su JMP en la reserva de INT3)
+[   297 ms] latido: frame=0 estado-juego=0 Present=0 EndScene=0 Clear=0 Draw*=0 codigo-original-distinto=0 hits=0 excepciones=0
+[   297 ms]   ventana 0x002B0A78 clase=ConsoleWindowClass titulo="D:\Original\_juego_run\gta_sa_standalone.exe" visible=1 895x518
+[  1032 ms] DllMain devolvio 1
+[  1032 ms] --shims: instalados
+[  1032 ms] proteccion .text    0x00401000 +0x456000 -> 0x20 ok
+[  1032 ms] proteccion _rwcseg  0x00857000 +0x1000 -> 0x20 ok
+[  1032 ms] proteccion .rdata   0x00858000 +0x4C000 -> 0x2 ok
+[  1032 ms] proteccion .data    0x008A4000 +0x3FA000 -> 0x4 ok
+[  1032 ms] proteccion _TEXT_HA 0x00C9E000 +0x11000 -> 0x4 ok
+[  1032 ms] proteccion _rwdseg  0x00CAF000 +0x1000 -> 0x4 ok
+[  1032 ms] proteccion .rsrc    0x00CB0000 +0x1000 -> 0x2 ok
+[  1047 ms] DatosExe::RunStaticInitializers ejecutado
+[  1047 ms] llamando a NOTSA_WinMain (WinMain reconstruido)
+FALLO (primera oportunidad) codigo 0xC0000005 en EIP=0x76F8DF7F [otro] t=1500 ms
+  acceso lectura a 0x0F12C488
+  EAX=0F12C488 EBX=00000000 ECX=00000000 EDX=00005A4D ESI=00000000 EDI=00000000 EBP=001AF568 ESP=001AF534
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x3B4] 0x02613D48 propio
+    [esp+0x414] 0x02611B14 propio
+    [esp+0x420] 0x00EFE9F0 propio
+    [esp+0x428] 0x006E0075 original(codigo)
+    [esp+0x4C0] 0x01CCCCCC propio
+    [esp+0x518] 0x01CAC783 propio
+    [esp+0x520] 0x00EFE9F0 propio
+    [esp+0x5E4] 0x017D9009 propio
+    [esp+0x5EC] 0x0108A8CC propio
+    [esp+0x5F4] 0x00EFE9F0 propio
+    [esp+0x6D0] 0x01CAC4C8 propio
+    [esp+0x6DC] 0x00EFE9F0 propio
+    [esp+0x6E0] 0x00EFE9F0 propio
+    [esp+0x6F0] 0x00D50084 propio
+    [esp+0x778] 0x00EFE9F0 propio
+    [esp+0x77C] 0x00EFE9F0 propio
+    [esp+0x7A4] 0x0260C357 propio
+    [esp+0x7BC] 0x0260CEE8 propio
+    [esp+0x890] 0x020ED83B propio
+    [esp+0x898] 0x00EFE9F0 propio
+    [esp+0x89C] 0x00EFE9F0 propio
+    [esp+0x8D4] 0x00EFD190 propio
+    [esp+0x950] 0x00EFB86B propio
+    [esp+0x954] 0x00EFB824 propio
+    [esp+0x95C] 0x00EFB86B propio
+    [esp+0x988] 0x02CAFD70 propio
+    [esp+0x9AC] 0x02B9A73D propio
+    [esp+0x9CC] 0x02B9A61A propio
+    [esp+0x9D4] 0x00EFE9F0 propio
+    [esp+0x9D8] 0x00EFE9F0 propio
+FALLO (primera oportunidad) codigo 0xC0000005 en EIP=0x76F8DF7F [otro] t=2188 ms
+  acceso lectura a 0x00000040
+  EAX=00000040 EBX=00000000 ECX=00000000 EDX=00005A4D ESI=00000000 EDI=00000000 EBP=001ADF38 ESP=001ADF04
+  pila (palabras que apuntan a codigo propio u original):
+    [esp+0x390] 0x01000000 propio
+    [esp+0x3CC] 0x0056004E original(codigo)
+    [esp+0x3D0] 0x00440049 original(codigo)
+    [esp+0x3D4] 0x00410049 original(codigo)
+    [esp+0x3D8] 0x00470020 original(codigo)
+    [esp+0x3DC] 0x00460065 original(codigo)
+    [esp+0x3E0] 0x0072006F original(codigo)
+    [esp+0x3E4] 0x00650063 original(codigo)
+    [esp+0x3E8] 0x00520020 original(codigo)
+    [esp+0x3EC] 0x00580054 original(codigo)
+    [esp+0x3FC] 0x0061004C original(codigo)
+    [esp+0x400] 0x00740070 original(codigo)
+    [esp+0x404] 0x0070006F original(codigo)
+    [esp+0x408] 0x00470020 original(codigo)
+    [esp+0x40C] 0x00550050 original(codigo)
+    [esp+0x4CC] 0x005C005C original(codigo)
+    [esp+0x4D0] 0x005C003F original(codigo)
+    [esp+0x4D4] 0x00430050 original(codigo)
+    [esp+0x4DC] 0x00450056 original(codigo)
+    [esp+0x4E0] 0x005F004E original(codigo)
+    [esp+0x4E8] 0x00450044 original(codigo)
+    [esp+0x4EC] 0x00440026 original(codigo)
+    [esp+0x4F0] 0x00560045 original(codigo)
+    [esp+0x4F8] 0x00410035 original(codigo)
+    [esp+0x500] 0x00550053 original(codigo)
+    [esp+0x504] 0x00530042 original(codigo)
+    [esp+0x508] 0x00530059 original(codigo)
+    [esp+0x520] 0x00450052 original(codigo)
+    [esp+0x524] 0x005F0056 original(codigo)
+    [esp+0x53C] 0x00620038 original(codigo)
+[  2360 ms] latido: frame=0 estado-juego=0 Present=0 EndScene=0 Clear=0 Draw*=0 codigo-original-distinto=0 hits=0 excepciones=2
+[  2360 ms] mundo: jugador=0x00000000 pos=?(0, 0, 0) area=0 tiempo-juego=0 ms peds=-1/0 vehiculos=-1/0
+[  4375 ms] contadores de D3D9 instalados en el vtable del dispositivo 0x0944C020
+[  4375 ms] latido: frame=4 estado-juego=8 Present=0 EndScene=0 Clear=0 Draw*=0 codigo-original-distinto=0 hits=0 excepciones=2
+[  6375 ms] latido: frame=4 estado-juego=8 Present=48 EndScene=48 Clear=0 Draw*=48 codigo-original-distinto=0 hits=0 excepciones=2
+[  6375 ms] mundo: jugador=0x00000000 pos=?(0, 0, 0) area=0 tiempo-juego=309 ms peds=0/140 vehiculos=0/110
+[  8375 ms] latido: frame=4 estado-juego=8 Present=106 EndScene=106 Clear=0 Draw*=116 codigo-original-distinto=0 hits=0 excepciones=2
+[ 10391 ms] latido: frame=5 estado-juego=8 Present=165 EndScene=165 Clear=0 Draw*=299 codigo-original-distinto=0 hits=0 excepciones=2
+[ 10391 ms]   ventana 0x00940C28 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 12188 ms]   ventana 0x00230C08 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 12188 ms]   ventana 0x002B0A78 clase=ConsoleWindowClass titulo="D:\Original\_juego_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 12204 ms]   ventana 0x005C0BD6 clase=IME titulo="Default IME" visible=0 0x0
+[ 12204 ms]   ventana 0x00480D22 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 12204 ms]   ventana 0x004709D4 clase=IME titulo="Default IME" visible=0 0x0
+[ 12204 ms] mundo: jugador=0x097EA058 pos=(2495, -1707, 1014) area=3 tiempo-juego=370363132 ms peds=1/140 vehiculos=0/110
+[ 12454 ms] latido: frame=31589400 estado-juego=9 Present=216 EndScene=216 Clear=12 Draw*=839 codigo-original-distinto=0 hits=0 excepciones=2
+[ 14454 ms] latido: frame=31589457 estado-juego=9 Present=272 EndScene=272 Clear=131 Draw*=7235 codigo-original-distinto=0 hits=0 excepciones=2
+[ 14454 ms] mundo: jugador=0x097EA058 pos=(2495, -1690, 14) area=0 tiempo-juego=370365313 ms peds=1/140 vehiculos=0/110
+[ 16454 ms] latido: frame=31589517 estado-juego=9 Present=332 EndScene=332 Clear=311 Draw*=70533 codigo-original-distinto=0 hits=0 excepciones=2
+[ 18469 ms] latido: frame=31589577 estado-juego=9 Present=392 EndScene=392 Clear=492 Draw*=134640 codigo-original-distinto=0 hits=0 excepciones=2
+[ 18469 ms] mundo: jugador=0x097EA058 pos=(2652, -1719, 10) area=0 tiempo-juego=370369319 ms peds=29/140 vehiculos=15/110
+[ 20469 ms] latido: frame=31589637 estado-juego=9 Present=452 EndScene=452 Clear=674 Draw*=206221 codigo-original-distinto=0 hits=0 excepciones=2
+[ 20469 ms]   ventana 0x00940C28 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 20485 ms]   ventana 0x00230C08 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 20485 ms]   ventana 0x002B0A78 clase=ConsoleWindowClass titulo="D:\Original\_juego_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 20485 ms]   ventana 0x005C0BD6 clase=IME titulo="Default IME" visible=0 0x0
+[ 20485 ms]   ventana 0x00480D22 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 20485 ms]   ventana 0x004709D4 clase=IME titulo="Default IME" visible=0 0x0
+[ 22500 ms] latido: frame=31589698 estado-juego=9 Present=513 EndScene=513 Clear=854 Draw*=283011 codigo-original-distinto=0 hits=0 excepciones=2
+[ 22500 ms] mundo: jugador=0x097EA058 pos=(2652, -1719, 10) area=0 tiempo-juego=370373354 ms peds=30/140 vehiculos=16/110
+[ 24500 ms] latido: frame=31589758 estado-juego=9 Present=573 EndScene=573 Clear=1034 Draw*=359968 codigo-original-distinto=0 hits=0 excepciones=2
+[ 26500 ms] latido: frame=31589818 estado-juego=9 Present=633 EndScene=633 Clear=1217 Draw*=434836 codigo-original-distinto=0 hits=0 excepciones=2
+[ 26500 ms] mundo: jugador=0x097EA058 pos=(2652, -1719, 10) area=0 tiempo-juego=370377355 ms peds=28/140 vehiculos=16/110
+[ 28500 ms] latido: frame=31589878 estado-juego=9 Present=694 EndScene=694 Clear=1397 Draw*=511668 codigo-original-distinto=0 hits=0 excepciones=2
+[ 30516 ms] latido: frame=31589938 estado-juego=9 Present=754 EndScene=754 Clear=1577 Draw*=581774 codigo-original-distinto=0 hits=0 excepciones=2
+[ 30516 ms]   ventana 0x00940C28 clase=DIEmWin titulo="DIEmWin" visible=0 166x47
+[ 30516 ms]   ventana 0x00230C08 clase=Grand theft auto San Andreas titulo="GTA: San Andreas" visible=1 818x647
+[ 30516 ms]   ventana 0x002B0A78 clase=ConsoleWindowClass titulo="D:\Original\_juego_run\gta_sa_standalone.exe" visible=1 1119x647
+[ 30516 ms]   ventana 0x005C0BD6 clase=IME titulo="Default IME" visible=0 0x0
+[ 30516 ms]   ventana 0x00480D22 clase=MSCTFIME UI titulo="MSCTFIME UI" visible=0 0x0
+[ 30516 ms]   ventana 0x004709D4 clase=IME titulo="Default IME" visible=0 0x0
+[ 30516 ms] mundo: jugador=0x097EA058 pos=(2652, -1719, 10) area=0 tiempo-juego=370381355 ms peds=24/140 vehiculos=15/110
+[ 32532 ms] latido: frame=31589999 estado-juego=9 Present=814 EndScene=814 Clear=1757 Draw*=657484 codigo-original-distinto=0 hits=0 excepciones=2
+[ 34532 ms] latido: frame=31590059 estado-juego=9 Present=874 EndScene=874 Clear=1937 Draw*=734883 codigo-original-distinto=0 hits=0 excepciones=2
+[ 34532 ms] mundo: jugador=0x097EA058 pos=(2652, -1719, 10) area=0 tiempo-juego=370385389 ms peds=20/140 vehiculos=13/110
+[ 36532 ms] latido: frame=31590119 estado-juego=9 Present=934 EndScene=934 Clear=2120 Draw*=812732 codigo-original-distinto=0 hits=0 excepciones=2

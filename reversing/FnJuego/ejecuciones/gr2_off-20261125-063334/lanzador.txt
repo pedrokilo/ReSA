@@ -1,0 +1,3 @@
+pid 22092  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-spx\reversing\FnJuego\ejecuciones\gr2_off-20261125-063334" --limite 300 --shims  escenario=graficos xinput=False
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF

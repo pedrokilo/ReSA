@@ -1,0 +1,23 @@
+[    0.2] pid 29996
+[   11.9] juego en marcha tras 12 s; gGameState=9
+[   12.6] salida de la casa: area=0 tras 1 s
+[   13.6] ventana: cliente 640x480
+[   13.6] === ESCENARIO luna
+[   21.6] formato del buffer trasero D3DFORMAT=21 (21 = A8R8G8B8, 22 = X8R8G8B8); tipo de multimuestreo 4
+[   21.6] rumbo de la camara antes 0.0
+[   24.5] rumbo de la camara despues 168.9 (180 = sur, donde sale la luna)
+[   27.0] captura luna_dia04 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [48.2, 58.2, 46.7], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 4 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   29.3] captura luna_dia10 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [49.7, 60.2, 48.4], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 10 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   31.5] captura luna_dia16 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [57.9, 56.7, 51.2], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 16 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   33.8] captura luna_dia24 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [59.5, 58.5, 53.2], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 24 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   34.1] vivo al final: True
+[   34.2] LOG [info][06:55:04.880][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[   34.2] LOG [info][06:55:04.880][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[   34.2] LOG [info][06:55:04.880][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[   34.2] LOG [info][06:55:04.880][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[   34.2] LOG [info][06:55:05.139][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   34.2] LOG [info][06:55:05.159][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[   34.2] LOG [error][06:55:14.512][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   34.2] LOG [error][06:55:14.513][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   34.2] LOG [info][06:55:14.699][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[   34.2] fin

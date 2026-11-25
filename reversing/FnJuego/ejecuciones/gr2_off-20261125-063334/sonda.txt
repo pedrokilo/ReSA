@@ -1,0 +1,13 @@
+pid 22092
+juego en marcha tras 11 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 640x480
+=== ESCENARIO graficos
+captura gr_dia {"ancho": 800, "alto": 600, "rojo": 24, "muestras": 53568, "media_rgb": [127.3, 130.3, 122.5], "max": 255} hora 12 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+captura gr_noche {"ancho": 800, "alto": 600, "rojo": 23, "muestras": 53568, "media_rgb": [71.9, 61.4, 41.0], "max": 255} hora 23 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+captura gr_madrugada {"ancho": 800, "alto": 600, "rojo": 23, "muestras": 53568, "media_rgb": [51.4, 49.6, 42.6], "max": 255} hora 3 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+pools {'peds': 12, 'veh': 4, 'edif': 10329, 'obj': 160, 'dummy': 963} pos (2495.330078125, -1690.25, 14.765625) cam {'activa': 0, 'modo': 4, 'cinema': 0}
+vivo al final: True
+LOG [error][06:33:49.472][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][06:33:49.473][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+fin

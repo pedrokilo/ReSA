@@ -644,6 +644,17 @@ def esc_usertrack(j):
     j.P('volcado radio despues:', [hex(j.m.u32(base + 4 * k)) for k in range(0, 64)]); j.P('gestor de pistas de usuario despues:', [hex(j.m.u32(0xB6B970 + 4 * k)) for k in range(0, 10)])
     j.res['usertrack'] = hist
     j.foto('usertrack', 'CJ en coche con la emisora de pistas de usuario pedida')
+def foto_gr(j, nombre, desc=''):
+    # captura de ventana completa DPI-aware (SetProcessDPIAware antes de medir) y validacion del tamano contra RsGlobal (0xC17044 ancho, 0xC17048 alto) y el cliente de la ventana
+    u.SetProcessDPIAware()
+    j.h = captura.buscar()
+    rc = wintypes.RECT(); u.GetClientRect(j.h, ctypes.byref(rc))
+    r = captura.capturar(os.path.join(j.sal, nombre + '.png'), traer=False)
+    rw, rh = j.m.u32(0xC17044), j.m.u32(0xC17048)
+    ok = bool(r) and r['ancho'] == rc.right - rc.left and r['alto'] == rc.bottom - rc.top and (r['ancho'], r['alto']) == (rw, rh)
+    j.P('captura', nombre, json.dumps(r), desc, '| cliente %dx%d, RsGlobal %dx%d, tamano %s' % (rc.right - rc.left, rc.bottom - rc.top, rw, rh, 'VALIDADO' if ok else 'NO COINCIDE'))
+    return r
+
 def esc_fps(j):
     # SilentPatch segunda tanda (graficos): FPS real = fotogramas del juego (CTimer::m_FrameCounter 0xB7CB4C) entre segundos de reloj de pared, y ritmo del tiempo de juego (ms / s de pared)
     suelo_libre(j)
@@ -661,11 +672,40 @@ def esc_graficos(j):
     for hora, nom in ((12, 'dia'), (23, 'noche'), (3, 'madrugada')):
         j.hora = hora
         j.dormir(3.0)
-        j.foto('gr_' + nom, 'hora %d' % hora)
+        foto_gr(j, 'gr_' + nom, 'hora %d' % hora)
     j.hora = 12
     j.P('pools', j.pools(), 'pos', j.pos(), 'cam', j.camara())
 
-ESCENARIOS = {'fps': esc_fps, 'graficos': esc_graficos, 'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
+def girar_camara(j, objetivo, max_iter=60):
+    # gira la camara con movimientos relativos del raton (SendInput) hasta que su rumbo (0 = norte +Y, 180 = sur) este cerca de 'objetivo' grados; aprende el signo con la primera medida
+    signo = 1
+    previo = j.cam_yaw()
+    for n in range(max_iter):
+        yaw = j.cam_yaw()
+        dif = ((objetivo - yaw + 540.0) % 360.0) - 180.0
+        if abs(dif) < 12.0: return yaw
+        if n and abs(dif) > abs(((objetivo - previo + 540.0) % 360.0) - 180.0) + 1.0: signo = -signo
+        previo = yaw
+        i = INP(); i.type = 0; i.mi = MI(int(max(-60, min(60, signo * dif * 2))), 0, 0, 0x0001, 0, None); u.SendInput(1, ctypes.byref(i), ctypes.sizeof(INP))
+        j.tick(); time.sleep(0.12)
+    return j.cam_yaw()
+
+def esc_luna(j):
+    # SilentPatch segunda tanda (graficos): la luna (fases) y las estrellas se ven mirando al sur (-Y) de madrugada (03:00; la luna se dibuja en 00:00-07:20): CJ de cara al sur, camara tras el
+    suelo_libre(j)
+    j.al_frente()
+    j.hora = 3
+    j.dormir(2.0)
+    j.P('formato del buffer trasero D3DFORMAT=%d (21 = A8R8G8B8, 22 = X8R8G8B8); tipo de multimuestreo %d' % (j.m.u32(0xC9C048), j.m.u32(0xC9C050)))
+    j.P('rumbo de la camara antes %.1f' % j.cam_yaw())
+    yaw = girar_camara(j, 180.0)
+    j.P('rumbo de la camara despues %.1f (180 = sur, donde sale la luna)' % yaw)
+    for dia in (4, 10, 16, 24):   # CClock::ms_nGameClockDays (0xB70154): el desplazamiento de la mascara de la luna depende del dia (fase)
+        j.m.wr(0xB70154, bytes([dia])); j.dormir(1.5); j.m.wr(0xB70154, bytes([dia]))
+        foto_gr(j, 'luna_dia%02d' % dia, 'hora 3, camara al sur (rumbo %.0f), dia de juego %d' % (j.cam_yaw(), j.m.u8(0xB70154)))
+    j.hora = 12
+
+ESCENARIOS = {'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos, 'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio}
 
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')

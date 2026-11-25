@@ -449,7 +449,9 @@ void CClouds::Render() {
                     static bool spMoonMaskTried = false;
                     if (spMoonPhases && !spMoonMaskTried) {
                         spMoonMaskTried = true;
-                        if (RwRaster* raster = RwRasterCreate(64, 64, 32, rwRASTERFORMAT8888 | rwRASTERTYPETEXTURE)) {
+                        RwRaster* raster = RwRasterCreate(64, 64, 32, rwRASTERFORMAT8888 | rwRASTERTYPETEXTURE);
+                        NOTSA_LOG_INFO("SilentPatch MoonPhases: raster={} formato={:#x} stride={}", (void*)raster, raster ? RwRasterGetFormat(raster) : 0, raster ? RwRasterGetStride(raster) : 0);
+                        if (raster) {
                             if (auto* pixels = static_cast<uint8*>(RwRasterLock(raster, 0, rwRASTERLOCKWRITE))) {
                                 for (int32 i = 0; i < 64 * 64; i++) { // BGRA, RGB = 0
                                     pixels[i * 4 + 0] = 0;
@@ -466,6 +468,11 @@ void CClouds::Render() {
                         }
                     }
                     const bool spUseMask = spMoonPhases && spMoonMask;
+                    static bool spMoonLogged = false;
+                    if (!spMoonLogged) {
+                        spMoonLogged = true;
+                        NOTSA_LOG_INFO("SilentPatch MoonPhases: opcion={} mascara propia={} (dia {}, hora {})", spMoonPhases, spMoonMask != nullptr, CClock::ms_nGameClockDays, hours);
+                    }
 
                     // Máscara de la luna
                     RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(spUseMask ? spMoonMask : gpMoonMask)));

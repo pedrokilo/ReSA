@@ -1,0 +1,14 @@
+pid 36612
+juego en marcha tras 11 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 640x480
+=== ESCENARIO fps
+FPS tramo 0: 29.97 fotogramas/s; tiempo de juego 999.2 ms por s de pared (fotogramas 456 en 15.21 s)
+FPS tramo 1: 30.04 fotogramas/s; tiempo de juego 1001.7 ms por s de pared (fotogramas 455 en 15.14 s)
+FPS tramo 2: 30.01 fotogramas/s; tiempo de juego 1000.4 ms por s de pared (fotogramas 454 en 15.13 s)
+FPS tramo 3: 30.00 fotogramas/s; tiempo de juego 1000.1 ms por s de pared (fotogramas 458 en 15.27 s)
+vivo al final: True
+LOG [error][06:02:35.830][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][06:02:35.830][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+LOG [info][06:02:36.039][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+fin
