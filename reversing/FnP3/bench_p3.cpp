@@ -5,7 +5,7 @@
 // el juego no se ejecuta. La x87 se pone a 24 bits (la precision que fija el propio 0x857404 en el juego) salvo en la prueba de la palabra de control.
 // 0x82872C llama a _errno (0x82B181) y a la comprobacion de cookie (0x82AAD4): se parchean las dos llamadas en la copia mapeada para que usen utilidades del banco.
 // 0x821B40 recibe el argumento en ST0: se llama por una plantilla de 10 bytes en memoria ejecutable (fld qword [esp+4]; call; ret), sin __asm.
-// Uso: bench_p3.exe <ruta del EXE> [--casos N] [--semilla S] [--solo vec|mat|cw|err|ftol]   (devuelve 0 si todo coincide)
+// Uso: bench_p3.exe <ruta del EXE> [--casos N] [--semilla S] [--solo vec|mat|cw|err|ftol|x87]   (devuelve 0 si todo coincide)
 #define NOMINMAX
 #include <windows.h>
 #include <stdio.h>
@@ -299,14 +299,77 @@ static void run_err(uint64_t n, uint64_t& fails, uint64_t& counts) {
     if (((MFn)0x833605)(nullptr) != ExeCrt::DefaultMatherr(nullptr)) { fails++; printf("DIFERENCIA matherr por defecto\n"); }
 }
 
+// ------------------------------------------------------------------ ramas x87 de floor/ceil (0x828A60, 0x82BA31) frente a ExeCrt::Floor/Ceil sin SSE2 (0xC9C400 == 0)
+// El EXE llama a _errno (0x82B181) y a la comprobacion de cookie (0x82AAD4) dentro de las ramas x87 y de su manejador de errores (0x82E53A..0x82E700): se parchean
+// en la copia mapeada, como en run_err. Se comparan el resultado (bits) y errno, con [0x8E3AE0] = 0x9876 (arranque del EXE) y 0, y la x87 a 24 y 53 bits.
+static void run_x87(uint64_t n, uint64_t& fails, uint64_t& counts) {
+    uint8_t* mem = (uint8_t*)VirtualAlloc(nullptr, 64, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
+    mem[0] = 0xB8; uint32_t pe = (uint32_t)(uintptr_t)&g_errnoExe; memcpy(mem + 1, &pe, 4); mem[5] = 0xC3; mem[8] = 0xC3;
+    const uintptr_t ranges[3][2] = {{0x828A60, 0x828C40}, {0x82BA31, 0x82BC10}, {0x82E53A, 0x82E700}};
+    int patched = 0;
+    for (auto& r : ranges) {
+        for (uintptr_t p = r[0]; p < r[1]; p++) {
+            if (*(uint8_t*)p != 0xE8) continue;
+            const uintptr_t tgt = p + 5 + *(int32_t*)(p + 1);
+            if (tgt == 0x82B181) { patch_call(p, mem); patched++; }
+            else if (tgt == 0x82AAD4) { patch_call(p, mem + 8); patched++; }
+        }
+    }
+    printf("x87: llamadas parcheadas = %d\n", patched);
+    *(int*)0xC9C400 = 0; // sin SSE2: ExeCrt::Floor/Ceil entran por la rama sustituida
+    typedef double(__cdecl* DFn)(double);
+    const DFn exeFn[2] = {(DFn)0x828A60, (DFn)0x82BA31};
+    const DFn oursFn[2] = {ExeCrt::Floor, ExeCrt::Ceil};
+    const uintptr_t savedPtr = *(uintptr_t*)0x8E3128;
+    const int savedFlag = *(int*)0x8E3AE0;
+    auto pick = [&]() -> double {
+        const uint32_t q = rnd(16);
+        switch (q) {
+        case 0: return 0.0; case 1: return -0.0;
+        case 2: return bitsd(0x7FF0000000000000ull); case 3: return bitsd(0xFFF0000000000000ull);
+        case 4: return bitsd(0x7FF8000000000000ull); case 5: return bitsd(0x7FF4000000000001ull);
+        case 6: return bitsd(0xFFF8000000000123ull);
+        case 7: return (double)(int32_t)rng();                                  // entero
+        case 8: return (double)(int32_t)rng() + 0.5;                            // mitad
+        case 9: return bitsd(rng() & 0x800FFFFFFFFFFFFFull);                    // subnormal
+        case 10: return bitsd(((uint64_t)(rnd(0x7FF)) << 52) | (rng() & 0xFFFFFFFFFFFFFull) | ((rng() & 1) << 63)); // cualquier exponente
+        case 11: return ldexp((double)(int64_t)rng(), -(int)rnd(80));           // 2^52 y alrededores
+        default: return (double)(int32_t)rng() / 997.0;
+        }
+    };
+    unsigned c; _controlfp_s(&c, _PC_53, _MCW_PC);
+    for (uint64_t it = 0; it < n; it++) {
+        const int w = (int)(it & 1);
+        const double x = pick();
+        const int mode = 0;
+        *(int*)0x8E3AE0 = rnd(2) ? 0x9876 : 0; // 0x9876 es el valor de arranque del EXE; con 0 la rama x87 pasa por 0x82E5AF (matherr por defecto 0x833605, errno despues)
+        if (rnd(2)) _controlfp_s(&c, _PC_24, _MCW_PC); else _controlfp_s(&c, _PC_53, _MCW_PC);
+        g_errnoExe = 0; g_errnoOurs = 0; memset(&g_rec, 0, sizeof g_rec);
+        const double re = exeFn[w](x);
+        const Rec rx = g_rec; const int ee = g_errnoExe;
+        memset(&g_rec, 0, sizeof g_rec);
+        const double ro = oursFn[w](x);
+        const Rec ry = g_rec; const int eo = g_errnoOurs;
+        counts++;
+        (void)rx; (void)ry;
+        const bool same = dbits(re) == dbits(ro) && ee == eo; // el matherr por defecto no deja rastro: solo se observan el resultado (bits) y errno
+        if (!same && fails++ < 12) {
+            printf("DIFERENCIA %s x=%016llx modo=%d [3AE0]=%d: exe res=%016llx errno=%d calls=%d tipo=%d '%s' | ours res=%016llx errno=%d calls=%d tipo=%d '%s'\n", w ? "ceil" : "floor", (unsigned long long)dbits(x), mode,
+                   *(int*)0x8E3AE0, (unsigned long long)dbits(re), ee, rx.calls, rx.type, rx.name, (unsigned long long)dbits(ro), eo, ry.calls, ry.type, ry.name);
+        }
+    }
+    *(uintptr_t*)0x8E3128 = savedPtr; *(int*)0x8E3AE0 = savedFlag;
+}
+
 int main(int argc, char** argv) {
-    if (argc < 2) { printf("uso: bench_p3.exe <gta_sa.exe> [--casos N] [--semilla S] [--solo vec|mat|cw|err|ftol]\n"); return 2; }
+    if (argc < 2) { printf("uso: bench_p3.exe <gta_sa.exe> [--casos N] [--semilla S] [--solo vec|mat|cw|err|ftol|x87]\n"); return 2; }
     uint64_t n = 200000, seed = 12345; std::string only;
     for (int i = 2; i < argc; i++) {
         if (!strcmp(argv[i], "--casos") && i + 1 < argc) n = strtoull(argv[++i], 0, 10);
         else if (!strcmp(argv[i], "--semilla") && i + 1 < argc) seed = strtoull(argv[++i], 0, 10);
         else if (!strcmp(argv[i], "--solo") && i + 1 < argc) only = argv[++i];
     }
+    setvbuf(stdout, nullptr, _IONBF, 0);
     rng.seed(seed);
     if (!map_exe(argv[1])) return 2;
     uint64_t total = 0;
@@ -320,6 +383,7 @@ int main(int argc, char** argv) {
     if (only.empty() || only == "cw") { uint64_t f = 0, c = 0; run_cw(f, c); printf("palabra de control x87: %llu casos, %llu diferencias\n", (unsigned long long)c, (unsigned long long)f); total += f; }
     if (only.empty() || only == "ftol") { uint64_t f = 0, c = 0; run_ftol(n, f, c); printf("_ftol2 (0x821B40): %llu casos, %llu diferencias\n", (unsigned long long)c, (unsigned long long)f); total += f; }
     if (only.empty() || only == "err") { uint64_t f = 0, c = 0; run_err(n, f, c); printf("0x82872C + matherr: %llu casos, %llu diferencias\n", (unsigned long long)c, (unsigned long long)f); total += f; }
+    if (only == "x87") { uint64_t f = 0, c = 0; run_x87(n, f, c); printf("ramas x87 de floor/ceil: %llu casos, %llu diferencias\n", (unsigned long long)c, (unsigned long long)f); total += f; }
     printf(total ? "RESULTADO: HAY DIFERENCIAS (%llu)\n" : "RESULTADO: SIN DIFERENCIAS\n", (unsigned long long)total);
     return total ? 1 : 0;
 }

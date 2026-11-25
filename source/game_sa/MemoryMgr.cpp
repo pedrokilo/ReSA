@@ -278,14 +278,10 @@ void* CMemoryMgr::InternalRealloc(void* memory, uint32 size) {
     return newMemory;
 }
 
-namespace {
-// CRT estática del EXE (no son funciones del juego reconstruidas): malloc 0x824257, realloc 0x824269 y free 0x82413F, todas __cdecl.
-// Se llaman por dirección directamente desde cada función (sin ayudante intermedio) para que la dirección de retorno caiga dentro del cuerpo.
-using ExeCrtMalloc  = void*  (__cdecl*)(uint32);
-using ExeCrtRealloc = uint8* (__cdecl*)(void*, uint32);
-using ExeCrtCalloc  = uint8* (__cdecl*)(uint32, uint32);
-using ExeCrtFree    = void   (__cdecl*)(void*);
-}
+// malloc 0x824257, realloc 0x824269, calloc 0x824416 y free 0x82413F del CRT del EXE: C++ propio (ExeCrt, Crt/CrtHeap.cpp) sobre el mismo manejador
+// de montón (_crtheap 0xC9C2F4) que usan el EXE vivo y los ganchos, así que un bloque pedido por cualquiera de ellos se libera, redimensiona o mide
+// con cualquier otro. Ya no se llama al EXE por dirección. Solo valen con __active_heap == 1 (el único valor posible en Windows 2000 o posterior;
+// con 3 el EXE tendría un montón de bloques pequeños que no se reproduce).
 
 // 0x72F420
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
@@ -322,7 +318,7 @@ void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
 // 0x72F420
 void* CMemoryMgr::Malloc(uint32 size, uint32 nHint) {
     // 0x72F420: sólo reenvía el tamaño; el hint se ignora.
-    return reinterpret_cast<ExeCrtMalloc>(uintptr_t{0x824257})(size);
+    return ExeCrt::Malloc(size);
 }
 #endif
 
@@ -340,8 +336,8 @@ void CMemoryMgr::Free(void* memory) {
     }
     UNLOCK_MEMORYHEAP();
 #else
-    // 0x72F430: sólo salta (jmp) a la rutina free del CRT del EXE (0x82413F); el puntero se pasa tal cual, sin comprobar nulo.
-    reinterpret_cast<ExeCrtFree>(uintptr_t{0x82413F})(memory);
+    // 0x72F430: sólo salta (jmp) a la rutina free del CRT (0x82413F); el puntero se pasa tal cual (free de un nulo no hace nada).
+    ExeCrt::Free(memory);
 #endif
 }
 
@@ -383,8 +379,8 @@ uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
 #else
 // 0x72F440
 uint8* CMemoryMgr::Realloc(void* memory, uint32 size, uint32 nHint) {
-    // 0x72F440: realloc(memory, size) del CRT del EXE; el hint se ignora.
-    return reinterpret_cast<ExeCrtRealloc>(uintptr_t{0x824269})(memory, size);
+    // 0x72F440: realloc(memory, size) del CRT (0x824269); el hint se ignora.
+    return static_cast<uint8*>(ExeCrt::Realloc(memory, size));
 }
 #endif
 
@@ -393,8 +389,8 @@ uint8* CMemoryMgr::Calloc(uint32 numObj, uint32 sizeObj, uint32 hint) {
 #ifdef MEMORY_MGR_USE_MEMORY_HEAP
     return static_cast<uint8*>(Malloc(numObj * sizeObj, hint));
 #else
-    // 0x72F460: sólo reenvía (numObj, sizeObj) a calloc del CRT del EXE (0x824416); el hint se ignora.
-    return reinterpret_cast<ExeCrtCalloc>(uintptr_t{0x824416})(numObj, sizeObj);
+    // 0x72F460: sólo reenvía (numObj, sizeObj) a calloc del CRT (0x824416); el hint se ignora.
+    return static_cast<uint8*>(ExeCrt::Calloc(numObj, sizeObj));
 #endif
 }
 
@@ -414,7 +410,7 @@ uint8* CMemoryMgr::MallocAlign(uint32 size, uint32 align, uint32 nHint) {
     // 0x72F4C0: malloc(size + align), resultado = (base + align) & ~(align - 1) con la base guardada en [resultado - 4].
     // Aritmética de 32 bits sin signo (add/lea con desborde); sin comprobar OOM ni alineamientos que no sean potencia de dos, como el EXE.
     const uint32 requested = size + align;
-    uint8* const base      = static_cast<uint8*>(reinterpret_cast<ExeCrtMalloc>(uintptr_t{0x824257})(requested));
+    uint8* const base      = static_cast<uint8*>(ExeCrt::Malloc(requested));
     const uint32 aligned   = (static_cast<uint32>(reinterpret_cast<uintptr_t>(base)) + align) & ~(align - 1u);
     auto* const  result    = reinterpret_cast<uint8*>(static_cast<uintptr_t>(aligned));
     *reinterpret_cast<void**>(result - sizeof(void*)) = base;
@@ -437,7 +433,7 @@ __declspec(noinline) void CMemoryMgr::FreeAlign(void* memory) {
     // que la ranura entrante cambia (lo exige DependenciesMemoryCpp16: argument_after_matches). No es una garantía del lenguaje.
     void* volatile* const argument = &memory;
     *argument = *reinterpret_cast<void**>(static_cast<uint8*>(*argument) - sizeof(void*));
-    reinterpret_cast<ExeCrtFree>(uintptr_t{0x82413F})(*argument);
+    ExeCrt::Free(*argument);
 }
 #endif
 
@@ -554,35 +550,24 @@ void operator delete(void* memory) {
 #endif
 
 #ifndef NOTSA_STANDALONE
-// Operadores globales del proyecto = los del CRT del EXE (0x82119A / 0x821195 / 0x8214BD / 0x8213AE). Con el montón del sistema activo
-// (__active_heap == 1) se llama directamente a la reconstruccion en C++ (ExeCrt, CrtHeap.cpp), que trabaja sobre el mismo _crtheap que malloc/free
-// del EXE y de los hooks, igual que con el gancho puesto o quitado. Antes de que el EXE inicialice su montón (constructores estaticos de la DLL)
-// o si no es el montón del sistema, se llama al EXE por su direccion, como siempre.
+// Operadores globales del proyecto = los del CRT del EXE (0x82119A new, 0x821195 new[], 0x8214BD delete, 0x8213AE delete[]): C++ propio (ExeCrt, CrtHeap.cpp)
+// sobre el mismo _crtheap que malloc/free del EXE vivo y de los ganchos (GTASA_CRT_HEAP_HOOKS), con o sin el gancho puesto. Ya no hay camino por dirección
+// al EXE: la rama que lo llamaba cuando __active_heap != 1 (montón de bloques pequeños, solo Windows 9x) no se alcanzaba en este juego, y antes de que el EXE cree
+// su montón (constructores estáticos de la DLL) el EXE tampoco podía asignar (HeapAlloc con manejador nulo), así que no cambia nada observable.
+// El ejecutable independiente (NOTSA_STANDALONE) usa los operadores del CRT enlazado, con su propio montón; los bloques de `new` no se liberan con CMemoryMgr::Free.
 void* operator new(size_t size) {
-    if (ExeCrt::CrtHeapIsSystemHeap()) {
-        return ExeCrt::OperatorNew(static_cast<unsigned int>(size));
-    }
-    return plugin::CallAndReturn<void*, 0x82119A, size_t>(size);
+    return ExeCrt::OperatorNew(static_cast<unsigned int>(size));
 }
 
 void* operator new[](size_t size) {
-    if (ExeCrt::CrtHeapIsSystemHeap()) {
-        return ExeCrt::OperatorNewArray(static_cast<unsigned int>(size));
-    }
-    return plugin::CallAndReturn<void*, 0x821195, size_t>(size);
+    return ExeCrt::OperatorNewArray(static_cast<unsigned int>(size));
 }
 
 void operator delete(void* p) {
-    if (ExeCrt::CrtHeapIsSystemHeap()) {
-        return ExeCrt::OperatorDelete(p);
-    }
-    plugin::Call<0x8214BD, void*>(p);
+    ExeCrt::OperatorDelete(p);
 }
 
 void operator delete[](void* p) {
-    if (ExeCrt::CrtHeapIsSystemHeap()) {
-        return ExeCrt::OperatorDeleteArray(p);
-    }
-    plugin::Call<0x8213AE, void*>(p);
+    ExeCrt::OperatorDeleteArray(p);
 }
 #endif

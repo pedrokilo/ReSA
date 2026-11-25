@@ -1,0 +1,1 @@
+D:\Original\_crt_run\gta_sa_standalone.exe --salida D:\Original\wv-crt\reversing\FnFase8\ejecuciones\crt_sa-20261124-171932 --limite 130 --directorio-juego D:\Original\_crt_run

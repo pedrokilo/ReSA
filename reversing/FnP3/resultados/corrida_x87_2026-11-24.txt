@@ -1,0 +1,17 @@
+# bench_p3 --solo x87 (ramas x87 de floor/ceil sustituidas) y corrida completa, 24/11/2026, rama sustituir-crt-rw-x87
+x87: llamadas parcheadas = 4
+ramas x87 de floor/ceil: 1000000 casos, 0 diferencias
+RESULTADO: SIN DIFERENCIAS
+x87: llamadas parcheadas = 4
+ramas x87 de floor/ceil: 1000000 casos, 0 diferencias
+RESULTADO: SIN DIFERENCIAS
+x87: llamadas parcheadas = 4
+ramas x87 de floor/ceil: 1000000 casos, 0 diferencias
+RESULTADO: SIN DIFERENCIAS
+# corrida completa (vec, mat, cw, ftol, err), semilla 20261124
+vectores: puntos 400000 (dif 0), vectores 400000 (dif 0), punto 400000 (dif 0), vector 400000 (dif 0)
+matrices: 400000 casos, 0 diferencias
+palabra de control x87: 8312 casos, 0 diferencias
+_ftol2 (0x821B40): 400000 casos, 0 diferencias
+0x82872C + matherr: 400001 casos, 0 diferencias
+RESULTADO: SIN DIFERENCIAS

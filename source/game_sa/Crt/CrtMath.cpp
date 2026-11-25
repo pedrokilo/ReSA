@@ -110,10 +110,34 @@ bool CeilCore(double x, double& result) {
     return x != x;
 }
 
+namespace {
+// Ramas x87 del EXE (floor 0x828A60, ceil 0x82BA31): se usan cuando no hay SSE2 (0xC9C400 == 0) o hay excepciones sin enmascarar en MXCSR o en la palabra de control x87
+// (en la practica, nunca en un equipo actual con el juego). Ponen en la x87 la palabra de control con el redondeo hacia abajo/arriba (_ctrlfp 0x82E8A7 con [0x8E312C]/[0x8E344C]),
+// hacen frndint y restauran la palabra: para todo valor finito o infinito el resultado es el entero exacto (igual que el nucleo SSE2). No hay intrinseco de C++ para fldcw/frndint
+// con otro modo de redondeo, asi que se reutiliza el nucleo de enteros de las ramas SSE2 (FloorCore/CeilCore), que no depende de la palabra de control ni de las banderas de excepcion
+// salvo por addsd/subsd; se enmascaran las excepciones de MXCSR mientras corre (si no, una excepcion sin enmascarar que aparte a la rama x87 se dispararia aqui).
+// Un NaN: el EXE llama a 0x82E64D (DOMAIN) y devuelve el argumento. Con la bandera [0x8E3AE0] distinta de cero (el EXE la trae a 0x9876 y nada del juego la cambia) solo fija errno = EDOM;
+// con cero pasa por 0x82E5AF, que construye el struct _exception y llama directamente al matherr por defecto (0x833605, que devuelve 0) y luego fija errno = EDOM: en ambos casos el efecto
+// observable es errno = EDOM y devolver x (el struct no es observable: no se consulta el puntero 0x8E3128). La excepcion de operacion invalida con la x87 sin enmascarar (fadd 0x85A310
+// con un NaN senalizador) no se reproduce. Verificado contra el EXE por el banco FnP3 (--solo x87).
+double FloorCeilNoSse2(double x, bool ceil) {
+    const unsigned int csr = _mm_getcsr();
+    _mm_setcsr(csr | 0x1F80u);
+    double result;
+    const bool isNan = ceil ? CeilCore(x, result) : FloorCore(x, result);
+    _mm_setcsr(csr);
+    if (isNan) {
+        *ErrnoPtr() = 0x21; // EDOM
+        return x;
+    }
+    return result;
+}
+} // namespace
+
 // 0x8219F0
 double __cdecl Floor(double x) {
     if (!UseSse2MathPath()) {
-        return reinterpret_cast<double(__cdecl*)(double)>(0x828A60)(x);
+        return FloorCeilNoSse2(x, false);
     }
     double r;
     if (FloorCore(x, r)) {
@@ -126,7 +150,7 @@ double __cdecl Floor(double x) {
 // 0x823820
 double __cdecl Ceil(double x) {
     if (!UseSse2MathPath()) {
-        return reinterpret_cast<double(__cdecl*)(double)>(0x82BA31)(x);
+        return FloorCeilNoSse2(x, true);
     }
     double r;
     if (CeilCore(x, r)) {

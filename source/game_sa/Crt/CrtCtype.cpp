@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #endif
 #include <cstring>
 #include "CrtCtype.h"
+#include "CrtHeap.h"
 #include "CrtLocale.h"
 #include "CrtState.h"
 
@@ -225,7 +226,7 @@ char* CaseString(char* str, bool upper) {
         for (char* d = str; (*d++ = *s++) != 0;) {}
     }
     if (heap) {
-        reinterpret_cast<void(__cdecl*)(void*)>(0x82413F)(heap);
+        Free(heap); // free 0x82413F (CrtHeap.cpp)
     }
     return str;
 }

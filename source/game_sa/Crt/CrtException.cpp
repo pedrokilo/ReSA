@@ -5,6 +5,7 @@
 #include <cstdint>
 #include "CrtException.h"
 #include "CrtString.h"
+#include "CrtHeap.h"
 #include "CrtFile.h"
 
 // Reconstruccion de std::exception y de los lanzadores de std::string del CRT del EXE (lote CRT3A). Ver CrtException.h.
@@ -13,7 +14,7 @@ namespace notsa {
 namespace {
 constexpr uint32_t kStdExceptionVtbl = 0x887E80;
 inline void* ExeMalloc(unsigned int size) { return reinterpret_cast<void*(__cdecl*)(unsigned int)>(0x824257)(size); } // malloc
-inline void  ExeFree(void* p) { reinterpret_cast<void(__cdecl*)(void*)>(0x82413F)(p); }                                // free
+inline void  ExeFree(void* p) { ExeCrt::Free(p); }                                                                      // free 0x82413F (CrtHeap.cpp)
 } // namespace
 
 // 0x822D97: and [this+4], 0; and [this+8], 0; vtable; devuelve this
