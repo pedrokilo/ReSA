@@ -143,6 +143,7 @@ public:
 
     void Update(int32 pad);
     static void UpdatePads();
+    static bool IsXInputPadConnected(); // NOTSA: hay un mando XInput en el indice 0 (definida en Pad.cpp)
     static void UpdatePadsThunk(); // 0x541E50 (lote 196A, sin validar): salto a UpdatePads (0x541DD0)
     void UpdateMouse();
     HRESULT GetMouseState(DIMOUSESTATE2* dm);

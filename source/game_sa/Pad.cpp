@@ -36,6 +36,8 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 #include "platform/win/WinPlatform.h"
 #include "platform/win/VideoMode.h"
+#include "PadDiagnostico.h"
+#include "CutsceneMgr.h"
 
 #ifdef NOTSA_USE_SDL3
 #include <SDL3/SDL.h>
@@ -325,6 +327,7 @@ void CPad::UpdatePads() {
     GetPad(PAD2)->Update(PAD2);
 
     OldKeyState = std::exchange(NewKeyState, TempKeyState);
+    PadDiag::EndFrame();
 }
 
 // 0x746ED0
@@ -457,11 +460,19 @@ LONG Axis(SHORT v, bool invert) {
 }
 
 // Devuelve true y rellena el estado si el mando `index` esta conectado. Un mando desconectado solo se vuelve a consultar cada segundo (XInputGetState tarda en ese caso).
-bool Read(uint32 index, DIJOYSTATE2& out) {
+static bool s_connected[2]{};
+bool IsConnected(uint32 index) { return index < 2 && s_connected[index]; }
+
+bool Read(uint32 index, DIJOYSTATE2& out, PadDiag::RawXInput* diag = nullptr) {
     static ULONGLONG nextTry[2]{};
-    static bool      connected[2]{};
+    auto&            connected = s_connected;
     if (index >= 2) {
         return false;
+    }
+    if (diag) {
+        *diag       = {};
+        diag->index = index;
+        diag->rc    = 0xFFFFFFFF;
     }
     const auto fn = Load();
     if (!fn) {
@@ -472,12 +483,26 @@ bool Read(uint32 index, DIJOYSTATE2& out) {
         return false;
     }
     State st{};
-    if (fn(index, &st) != ERROR_SUCCESS) {
+    const DWORD rc = fn(index, &st);
+    if (diag) {
+        diag->rc = rc;
+    }
+    if (rc != ERROR_SUCCESS) {
         connected[index] = false;
         nextTry[index]   = now + 1000;
         return false;
     }
     connected[index] = true;
+    if (diag) {
+        diag->packet  = st.dwPacketNumber;
+        diag->buttons = st.Gamepad.wButtons;
+        diag->lt      = st.Gamepad.bLeftTrigger;
+        diag->rt      = st.Gamepad.bRightTrigger;
+        diag->lx      = st.Gamepad.sThumbLX;
+        diag->ly      = st.Gamepad.sThumbLY;
+        diag->rx      = st.Gamepad.sThumbRX;
+        diag->ry      = st.Gamepad.sThumbRY;
+    }
 
     const Gamepad& g = st.Gamepad;
     memset(&out, 0, sizeof(out));
@@ -488,13 +513,8 @@ bool Read(uint32 index, DIJOYSTATE2& out) {
     for (auto& pov : out.rgdwPOV) {
         pov = 0xFFFFFFFF;
     }
-    const bool up = g.wButtons & DPAD_UP, dn = g.wButtons & DPAD_DOWN, lf = g.wButtons & DPAD_LEFT, rt = g.wButtons & DPAD_RIGHT;
-    if (up || dn || lf || rt) {
-        // Angulo en centesimas de grado, 0 = arriba, horario (como el POV de DirectInput). Indices [y+1][x+1] con y = arriba-abajo, x = derecha-izquierda.
-        const int x = (rt ? 1 : 0) - (lf ? 1 : 0), y = (up ? 1 : 0) - (dn ? 1 : 0);
-        static constexpr DWORD table[3][3] = { { 22500, 18000, 13500 }, { 27000, 0xFFFFFFFF, 9000 }, { 31500, 0, 4500 } };
-        out.rgdwPOV[0] = table[y + 1][x + 1];
-    }
+    // La cruceta NO es el POV: el POV de DirectInput el juego lo suma al stick izquierdo (movia a CJ como el stick). En un mando de PS2 la cruceta son los botones 13 a 16
+    // (arriba, derecha, abajo, izquierda: radio, grupo, conversacion), que es lo que se fabrica aqui.
     const auto Btn = [&](int slot, bool down) { if (down) out.rgbButtons[slot - 1] = 0x80; };
     constexpr BYTE kTrigger = 30;
     Btn(1,  g.wButtons & BTN_B);
@@ -509,9 +529,96 @@ bool Read(uint32 index, DIJOYSTATE2& out) {
     Btn(10, g.wButtons & LTHUMB);
     Btn(11, g.wButtons & RTHUMB);
     Btn(12, g.wButtons & START);
+    Btn(13, g.wButtons & DPAD_UP);
+    Btn(14, g.wButtons & DPAD_RIGHT);
+    Btn(15, g.wButtons & DPAD_DOWN);
+    Btn(16, g.wButtons & DPAD_LEFT);
     return true;
 }
+
+// Ayudas de comodidad que el EXE no tiene (el EXE nunca trato mandos XInput). Solo para el mando 0 y sin tocar nada si no hay mando XInput.
+//  1) Asignacion de botones: gta_sa.set guarda las asignaciones del mando; si se guardo sin mando (todas en blanco), LoadSettings (que corre DESPUES de diPadInit) las deja en blanco y
+//     ningun boton hace nada en juego (solo en los menus, que no usan la asignacion). Si no hay ni una accion asignada al mando, se restauran las de fabrica (como ReinitControls con mando).
+//  2) Metodo de control: con "raton + teclado" (el de fabrica en PC) la camara de 3.a persona ignora el stick derecho (CCamera::m_bUseMouse3rdPerson). Al usar el mando en juego se pasa a
+//     "mando" y al volver a usar el raton (con el mando quieto 2 s) se vuelve a "raton + teclado"; si el jugador cambia el metodo en el menu, deja de conmutarse solo.
+//  3) Start: el EXE solo pausa con ESC (JOYBUTTON_TWELVE solo se asigna en el pad 2 de los menus); Start del mando se convierte en ESC.
+bool JoyConfigBlank() {
+    for (const auto& a : ControlsManager.m_Actions) {
+        if (a.Keys[+eControllerType::JOY_STICK].m_uiActionInitiator != 0) { // en el mando, 0 = en blanco (GetIsKeyBlank)
+            return false;
+        }
+    }
+    return true;
+}
+
+bool HasActivity(const PadDiag::RawXInput& r) {
+    constexpr int kStick = 16000;
+    return (r.buttons & 0xF3FF) != 0 || r.lt > 30 || r.rt > 30 || std::abs(r.lx) > kStick || std::abs(r.ly) > kStick || std::abs(r.rx) > kStick || std::abs(r.ry) > kStick;
+}
+
+void Supervise(const PadDiag::RawXInput& raw) {
+    static ULONGLONG nextJoyCfgCheck{};
+    static ULONGLONG lastPadActivity{};
+    static bool      autoSwitched{};
+    static eController autoSetTo{};
+    static bool      startDown{};
+    static bool      escInjected{};
+    const ULONGLONG  now = GetTickCount64();
+    const bool       menu = FrontEndMenuManager.m_bMenuActive;
+
+    // 1) asignacion de botones
+    if (!menu && now >= nextJoyCfgCheck) {
+        nextJoyCfgCheck = now + 1000;
+        if (JoyConfigBlank()) {
+            ControlsManager.InitDefaultControlConfigJoyPad(16);
+            PadDiag::NoteEvent("asignacion de botones del mando vacia (gta_sa.set guardado sin mando): restauradas las de fabrica");
+        }
+    }
+
+    // 2) metodo de control
+    const bool active = HasActivity(raw);
+    if (active) {
+        lastPadActivity = now;
+    }
+    if (autoSwitched && FrontEndMenuManager.m_ControlMethod != autoSetTo) {
+        autoSwitched = false; // lo cambio el jugador en el menu
+    }
+    if (!menu) {
+        if (active && FrontEndMenuManager.m_ControlMethod != eController::JOYPAD) {
+            FrontEndMenuManager.m_ControlMethod = eController::JOYPAD;
+            CCamera::m_bUseMouse3rdPerson       = false;
+            autoSwitched = true;
+            autoSetTo    = eController::JOYPAD;
+            PadDiag::NoteEvent("metodo de control -> MANDO (actividad del mando)");
+        } else if (autoSwitched && FrontEndMenuManager.m_ControlMethod == eController::JOYPAD && now - lastPadActivity > 2000) {
+            const auto& m = CPad::NewMouseControllerState;
+            const auto  d = m.m_AmountMoved;
+            if (std::abs(d.x) + std::abs(d.y) >= 4.0F || m.isMouseLeftButtonPressed || m.isMouseRightButtonPressed) {
+                FrontEndMenuManager.m_ControlMethod = eController::MOUSE_PLUS_KEYS;
+                CCamera::m_bUseMouse3rdPerson       = true;
+                autoSwitched = false;
+                PadDiag::NoteEvent("metodo de control -> RATON+TECLADO (actividad del raton)");
+            }
+        }
+    }
+
+    // 3) Start -> ESC (pausa y cierre del menu de pausa)
+    const bool start = (raw.buttons & START) != 0;
+    if (start != startDown) {
+        startDown = start;
+        if (start) {
+            CPad::TempKeyState.esc = 255;
+            escInjected = true;
+            PadDiag::NoteEvent("Start del mando -> ESC");
+        } else if (escInjected) {
+            CPad::TempKeyState.esc = 0;
+            escInjected = false;
+        }
+    }
+}
 } // namespace XInputPad
+
+bool CPad::IsXInputPadConnected() { return XInputPad::IsConnected(0); }
 
 // 0x746A10
 void CPad::ProcessPad(ePadID padID) {
@@ -529,7 +636,12 @@ void CPad::ProcessPad(ePadID padID) {
     }
     
     // Mando XInput (Xbox 360/One): sustituye al de DirectInput mientras este conectado (ver XInputPad)
-    const bool usingXInput = XInputPad::Read(padID == PAD1 ? 0u : 1u, joyState);
+    PadDiag::RawXInput rawXInput;
+    const bool usingXInput = XInputPad::Read(padID == PAD1 ? 0u : 1u, joyState, &rawXInput);
+    rawXInput.usingXInput = usingXInput;
+    if (padID == PAD1) {
+        PadDiag::NoteRead(rawXInput, usingXInput ? &joyState : nullptr);
+    }
     if (usingXInput) {
         auto& joy = AllValidWinJoys.JoyStickNum[padID];
         joy.bZAxisPresent = true; // el stick derecho se lee de Z/RZ
@@ -542,6 +654,9 @@ void CPad::ProcessPad(ePadID padID) {
             if (padID == PAD1) {
                 ControlsManager.InitDefaultControlConfigJoyPad(16);
             }
+        }
+        if (padID == PAD1) {
+            XInputPad::Supervise(rawXInput);
         }
     }
 

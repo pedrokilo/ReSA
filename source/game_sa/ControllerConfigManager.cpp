@@ -800,6 +800,11 @@ void CControllerConfigManager::ReinitControls() {
 
     if (AllValidWinJoys.JoyStickNum[PAD1].bJoyAttachedToPort) {
 
+        if (CPad::IsXInputPadConnected() || !PSGLOBAL(diDevice1)) {
+            // NOTSA: con un mando XInput (o sin dispositivo de DirectInput, que el EXE no contempla) se usan los 16 botones; GetCapabilities del mando por DirectInput da 10 y dejaba sin asignar L3/R3
+            ControlsManager.InitDefaultControlConfigJoyPad(16);
+            return;
+        }
         DIDEVCAPS devCaps;
         devCaps.dwSize = sizeof(DIDEVCAPS);
         // Como el original: no comprueba el resultado de GetCapabilities
