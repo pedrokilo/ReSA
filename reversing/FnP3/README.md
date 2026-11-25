@@ -15,6 +15,8 @@ bytes en memoria ejecutable que solo existen en el banco.
 | `bench_rwhelper.cpp` (`build_rwhelper.cmd <repo> <salida>`; `bench_rwhelper.exe <EXE> --casos N --solo cb1, cb2, sphere o tex`; `neg_rwhelper.py`) | el codigo REAL de `RwHelper.cpp` y `rwtexdict.cpp` (lo extrae `gen_slice_rwhelper.py`, compilado como Debug del proyecto) con `X87Math.cpp` (sus opciones por archivo) | 0x734970, 0x734ED0 (callbacks), 0x734FC0 (`RpClumpGetBoundingSphere`), 0x730E50; los colaboradores (resincronizar esfera, LTM, `RwV3dTransformPoints`, `RwMatrixInvert`, `RpClumpGetNumAtomics`, `RpClumpForAllAtomics`, `RwTextureDestroy`) son falsos deterministas con traza, idénticos en los dos lados | `resultados/corrida_rwhelper_2026-11-24.txt`: 4 x 500.000 casos (con NaN, infinitos, subnormales, ceros con signo, indicador de resincronizado, global 0x8D60BC con cualquier byte, clump o esfera nulos), 0 diferencias; `neg_rwhelper.py`: 8 de 8 mutaciones detectadas |
 
 
+`asi_larga.py` (`AGUA_ASI=<asi> python asi_larga.py <etiqueta> <segundos>`): partida larga con una ASI (jugar.ps1 de FnBIS1, teletransportes periodicos, registro de memoria y busqueda de APPCRASH en el registro de eventos al terminar); prueba de estabilidad del asignador, no un banco por funcion.
+
 ### bench_p3
 * **Vectores y matrices**: x87 a 24 bits (`_controlfp_s(_PC_24)`), matrices y vectores de exponente en [-30, 30] (con ceros con signo, 1 y -1), cuentas de 1 a 6 puntos, destino aparte y en el sitio (destino == entrada, destino == A). Se compara el resultado
   (bytes completos del destino, incluidos los dwords que la rutina no debe escribir) y el valor devuelto (el EXE devuelve la **entrada**, no la salida). Limite: sin desbordes ni subnormales (la x87 lleva exponente extendido hasta el `fstp` final).
