@@ -40,5 +40,6 @@ La viñeta «streaming-related deadlock ... entering interiors» (SilentPatch: s
 
 ## Pruebas realizadas
 
-- Compilación de los archivos tocados con `compilar_over.cmd` (resultado en la sección siguiente tras la ejecución).
+- Compilación: NO verificada todavía. `compile_lock` estuvo ocupado por otros agentes durante más de una hora; queda en marcha en segundo plano `wv-sp4/_comp.sh` (espera el candado y compila SilentPatchConfig, Coronas, Shadows, TimeCycle, TheScripts, app_game y Streaming; resultado en `wv-sp4/_comp.log`, sin versionar). Hasta que termine, el código está sin compilar.
+- No se ejecutó el juego (ni humo ni capturas): ningún arreglo está ejercitado.
 - Interruptor apagado: por construcción, cada sitio hace `SilentPatchOption(...)` -> false y ejecuta el código anterior sin cambios (el código antiguo se conserva literal en las ramas `false`).
