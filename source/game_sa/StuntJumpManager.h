@@ -31,7 +31,7 @@ typedef CPool<CStuntJump> CStuntJumpsPool;
 
 class CStuntJumpManager {
 public:
-    static inline auto& mp_poolStuntJumps = reinterpret_cast<std::add_lvalue_reference_t<CStuntJumpsPool*>>(DatosExe::R5::rA9A888);
+    static inline auto& mp_poolStuntJumps = DATOSEXE_VISTA(DatosExe::R5::rA9A888, CStuntJumpsPool*);
     static inline auto& mp_Active = DatosExe::Bss::bA9A88C; // nullptr
     static inline auto& m_bActive = DatosExe::Bss::bA9A890;
     static inline auto& m_bHitReward = DatosExe::Bss::bA9A891;

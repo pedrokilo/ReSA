@@ -3301,7 +3301,7 @@ CVector CVehicle::GetPlaneOrdnancePosition(eOrdnanceType type) {
 
     // Como el original: se leen las globales (a cero)
     const CVector SEASPAR_ORDNANCE_POS = StaticRef<CVector>(0xC1CC38);
-    const CVector RCBARON_ORDNANCE_POS = reinterpret_cast<std::add_lvalue_reference_t<CVector>>(DatosExe::R5::rC1CC50);
+    const CVector RCBARON_ORDNANCE_POS = DATOSEXE_VISTA(DatosExe::R5::rC1CC50, CVector);
     const CVector TORNADO_ORDNANCE_POS = StaticRef<CVector>(0xC1CC44);
 
     switch (m_nModelIndex) {

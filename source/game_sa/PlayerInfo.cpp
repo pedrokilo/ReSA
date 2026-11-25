@@ -366,7 +366,7 @@ void CPlayerInfo::ProcessCrosshair(uint32 playerIndex, CPad* pad) {
         Cross74StepCpp(&target[0], steer, timeStep, false);
     }
     {
-        const bool inverted = reinterpret_cast<std::add_lvalue_reference_t<uint8>>(DatosExe::R5::vB73402) != 0; // CPad::bInvertLook4Pad (cualquier byte distinto de 0)
+        const bool inverted = DATOSEXE_VISTA(DatosExe::R5::vB73402, uint8) != 0; // CPad::bInvertLook4Pad (cualquier byte distinto de 0)
         const uint32 timeStep = std::bit_cast<uint32>(CTimer::ms_fTimeStep);
         const int32 steer = pad->GetSteeringUpDown();
         Cross74StepCpp(&target[1], steer, timeStep, !inverted);

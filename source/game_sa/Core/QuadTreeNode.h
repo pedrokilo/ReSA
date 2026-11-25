@@ -61,7 +61,7 @@ public:
 
 protected:
     using CQuadTreeNodePool = CPool<CQuadTreeNode<void*>>;
-    static inline auto& ms_pQuadTreeNodePool = reinterpret_cast<std::add_lvalue_reference_t<CQuadTreeNodePool*>>(DatosExe::R5::rB745BC);
+    static inline auto& ms_pQuadTreeNodePool = DATOSEXE_VISTA(DatosExe::R5::rB745BC, CQuadTreeNodePool*);
 
 public:
     // Como el original (0x552B50 / 0x552C90): política original del pool (ver CQuadTreeNodeLegacyPool).

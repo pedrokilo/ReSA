@@ -75,8 +75,8 @@ class CRenderer {
 public:
     static inline auto& ms_bRenderTunnels = DatosExe::Bss::bB745C0;
     static inline auto& ms_bRenderOutsideTunnels = DatosExe::Bss::bB745C1;
-    static inline auto& ms_pLodDontRenderList = reinterpret_cast<std::add_lvalue_reference_t<tRenderListEntry*>>(DatosExe::R5::rB745CC);
-    static inline auto& ms_pLodRenderList = reinterpret_cast<std::add_lvalue_reference_t<tRenderListEntry*>>(DatosExe::R5::rB745D0);
+    static inline auto& ms_pLodDontRenderList = DATOSEXE_VISTA(DatosExe::R5::rB745CC, tRenderListEntry*);
+    static inline auto& ms_pLodRenderList = DATOSEXE_VISTA(DatosExe::R5::rB745D0, tRenderListEntry*);
     static inline auto& m_pFirstPersonVehicle = DatosExe::Bss::bB745D4;
     static inline auto& ms_aInVisibleEntityPtrs = StaticRef<CEntity*[MAX_INVISIBLE_ENTITY_PTRS]>(0xB745D8);
     static inline auto& ms_aVisibleSuperLodPtrs = StaticRef<CEntity*[MAX_VISIBLE_SUPERLOD_PTRS]>(0xB74830);

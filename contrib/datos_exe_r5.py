@@ -413,7 +413,7 @@ def main():
         return
     # 3. definiciones ---------------------------------------------------------------------------------------------------------------------
     nom = 'DataR5' + lote
-    cab = ['#pragma once', '', '#include <cstdint>', '#include <cstddef>', '#include <array>', '', '/*', f' * Ronda 5 de DatosExe, lote {lote} ({sec}): objetos que el codigo propio citaba por direccion fija, como definiciones',
+    cab = ['#pragma once', '', '#include <cstdint>', '#include <cstddef>', '#include <array>', '#include "Vista.h"', '', '/*', f' * Ronda 5 de DatosExe, lote {lote} ({sec}): objetos que el codigo propio citaba por direccion fija, como definiciones',
            f' * propias con el valor inicial del EXE canonico. Generado por contrib/datos_exe_r5.py; definidas en {nom}.cpp.',
            ' * Se incluye despues de StdInc.h del consumidor. No se leen del EXE en ejecucion.', ' */', '', 'namespace DatosExe::R5 {']
     cpp = ['#include "StdInc.h"', '', f'#include "{nom}.h"', '', '#include <bit>', '', 'namespace DatosExe::R5 {']
@@ -474,9 +474,9 @@ def main():
             tdef, _tam, es_raw = cand[va]
             nombre = f"DatosExe::R5::{'r' if es_raw else 'v'}{va:X}"
             if clase == 'static':
-                rep = nombre if (not es_raw and norm(t) == tdef) else f'reinterpret_cast<std::add_lvalue_reference_t<{t}>>({nombre})'
+                rep = nombre if (not es_raw and norm(t) == tdef) else f'DATOSEXE_VISTA({nombre}, {t})'   # vista tipada con sizeof comprobado en compilacion (auditoria de tamanos)
             elif clase == 'rcast':
-                rep = f'reinterpret_cast<{t}*>(&{nombre})'
+                rep = f'(&DATOSEXE_VISTA({nombre}, {t}))'
             elif clase == 'ccast':
                 rep = f'(&{nombre})'
             else:

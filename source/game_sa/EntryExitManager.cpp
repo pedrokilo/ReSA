@@ -24,7 +24,7 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/DataBssF.h"
 
 using EntryExitTreeNode = CQuadTreeNode<CEntryExit*>;
-auto& mp_QuadTree       = reinterpret_cast<std::add_lvalue_reference_t<EntryExitTreeNode*>>(DatosExe::R5::r96A7D0);
+auto& mp_QuadTree       = DATOSEXE_VISTA(DatosExe::R5::r96A7D0, EntryExitTreeNode*);
 
 auto& mp_poolEntryExits = DatosExe::Bss::b96A7D8<CEntryExitsPool*>();
 

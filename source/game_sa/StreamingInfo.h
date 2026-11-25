@@ -48,7 +48,7 @@ constexpr auto STREAMING_SECTOR_SIZE = 2048u; // OR `<< 11`
 
 class CStreamingInfo {
 public:
-    static inline auto& ms_pArrayBase = reinterpret_cast<std::add_lvalue_reference_t<CStreamingInfo*>>(DatosExe::R5::r9654B4); // Just a pointer to `CStreaming::ms_aInfoForModel`
+    static inline auto& ms_pArrayBase = DATOSEXE_VISTA(DatosExe::R5::r9654B4, CStreamingInfo*); // Just a pointer to `CStreaming::ms_aInfoForModel`
 
 public:
     static void InjectHooks();
