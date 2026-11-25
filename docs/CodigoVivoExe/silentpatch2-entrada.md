@@ -79,9 +79,19 @@ La latencia baja unos 48-50 ms (algo más de un fotograma de 33 ms: el fotograma
 
 Nota sobre `excepciones=1`: en tres de las cinco ejecuciones el registro de latidos cuenta una única excepción, anotada al arrancar (`app_debug.cpp: UNHANDLED EXCEPTION 0xc0000005` con la pila `igd12um32xel` -> `d3d9on12` -> `Direct3DCreate9Ex` -> `GetVideoMemInfo` del independiente): es una violación de acceso interna del controlador gráfico Intel al enumerar el adaptador D3D9-sobre-D3D12, que el controlador captura él mismo. Aparece con SilentPatch apagado igual que encendido (`spe_off`, `spe_off2`) y no con ninguna función de esta rama (ocurre antes de cargar nada del juego); en `spe_on2` y `spe_int` no se produjo.
 
-## Humo de la ASI de la rama
+## Humo de la ASI de la rama (ropero y marcadores, `cal_mal.args`)
 
-(ver abajo)
+ASI = `reversing/FnFase8/asi/gta_reversed.asi` de esta rama (enlazada con los objetos de `D:\Original\wv-int\build` y los 12 `.obj` de `reversing/FnFase8/over`; SHA-256 `6c1a03e3507ed987f45576eb186b984c656c9c924c2fedb1906a3159461e34a6`), copiada a `D:\Original\_asi_spe_humo.asi` y lanzada con `AGUA_ASI=<esa ASI>` desde `D:\Original\wv-8\reversing\FnBIS1` con SilentPatch por defecto (encendido).
+
+| Etiqueta | Hora | Prueba | Resultado |
+| --- | --- | --- | --- |
+| `spe_h3_ropero_1` | 06:26 | ropero | **VEREDICTO BIEN** (puerta y marcador, 15 entidades, 12 marcadores) |
+| `spe_h3_marcadores_1` | 06:31 | marcadores | **VEREDICTO BIEN** (12 marcadores en memoria, los 12 cambian en 1 s) |
+| `spe_ctl_1` | 06:25 | ropero con la ASI de control de `wv-int\bin\Debug` | VEREDICTO BIEN |
+
+Antes de esos resultados hubo **siete intentos fallidos** con esta misma ASI o con la primera versión (los de las 05:17-06:11: `ERROR el juego se cerro` / `ERROR sin juego`, con `duracion_segundos: 5.1` y `codigo_salida: 1` en el resumen de `jugar.ps1`). No se atribuyen a esta rama: en esa franja las demás ramas de la tanda ejecutaban las mismas pruebas sobre la misma instalación de pruebas y el registro `scripts\logs\log.log` aparece mezclado con varias ejecuciones simultáneas (marcas de tiempo repetidas y solapadas); casi todas sus ejecuciones del mismo rato terminaron igual (5,1 s, código 1) o con 35,1 s (verdicto). Con el candado libre y sin otra prueba en marcha la ASI da BIEN en la primera ejecución (dos de dos).
+
+Notas: (a) el humo solo ejercita ropero y marcadores (no la entrada, la cámara, el replay ni el streaming); (b) se probó una sola vez cada prueba con la ASI final; (c) la ASI no se probó con `GTASA_SILENTPATCH=0` (el standalone sí, ver arriba).
 
 ## Qué NO se verificó
 
