@@ -498,11 +498,32 @@ def cmd_volcados(a):
     for r in filas: print(r)
 
 
+# ------------------------------------------------------------------ ejecuciones archivadas (contador codigo-original-distinto)
+def cmd_ejecuciones(a):
+    import glob
+    raiz = Path(a.arbol) / 'reversing'
+    filas = []
+    for d in sorted(glob.glob(str(raiz / 'FnFase8/ejecuciones/*')) + glob.glob(str(raiz / 'FnSinOriginal/ejecuciones/*')) + glob.glob(str(raiz / 'FnComparar/ejecuciones/*'))):
+        l = os.path.join(d, 'fase8_arranque.log'); c = os.path.join(d, 'fase8_codigo_original.csv')
+        if not os.path.exists(l): continue
+        last = None
+        for ln in open(l, encoding='utf-8', errors='replace'):
+            m = re.search(r'frame=(\d+) estado-juego=(-?\d+).*codigo-original-distinto=(\d+) hits=(\d+) excepciones=(\d+)', ln)
+            if m: last = tuple(int(x) for x in m.groups())
+        n = max(0, sum(1 for _ in open(c, errors='replace')) - 1) if os.path.exists(c) else 0
+        filas.append(dict(ejecucion=os.path.relpath(d, raiz).replace(chr(92), '/'), fotogramas=last[0] if last else '', estado_juego=last[1] if last else '', codigo_original_distinto=last[2] if last else '',
+                          hits=last[3] if last else '', excepciones=last[4] if last else '', filas_csv_codigo_original=n))
+    escribir_csv(SAL / 'ejecuciones-contador-codigo-original.csv', filas, ['ejecucion', 'fotogramas', 'estado_juego', 'codigo_original_distinto', 'hits', 'excepciones', 'filas_csv_codigo_original'])
+    con = [f for f in filas if f['fotogramas'] != '']
+    print('ejecuciones con registro %d; con latido final %d; fotogramas sumados %d; con codigo_original_distinto>0: %d; con hits>0: %d; con filas en el CSV: %d' % (
+        len(filas), len(con), sum(f['fotogramas'] for f in con), sum(1 for f in con if f['codigo_original_distinto'] > 0), sum(1 for f in con if f['hits'] > 0), sum(1 for f in filas if f['filas_csv_codigo_original'] > 0)))
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('cmd', choices=['pe', 'codigo', 'escaneo', 'datos', 'volcados'])
+    ap.add_argument('cmd', choices=['pe', 'codigo', 'escaneo', 'datos', 'volcados', 'ejecuciones'])
     ap.add_argument('--std', default=STD); ap.add_argument('--orig', default=ORIG)
-    ap.add_argument('--pdb', default=None); ap.add_argument('--volcado-dir', default=r'D:\Original\_comparar\volcados')
+    ap.add_argument('--pdb', default=None); ap.add_argument('--arbol', default=r'D:\Original\wv-int'); ap.add_argument('--volcado-dir', default=r'D:\Original\_comparar\volcados')
     a = ap.parse_args()
     if not a.pdb:
         a.pdb = os.path.splitext(a.std)[0] + '.pdb'
