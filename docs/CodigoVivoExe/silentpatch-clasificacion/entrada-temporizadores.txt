@@ -1,0 +1,5 @@
+fps=60 durante 10.0 s (600 fotogramas, 16.667 ms por fotograma): EXE avanza 9600 ms, con NewTimersFix avanza 10000 ms (real 10000 ms)
+fps=1000 durante 10.0 s (10000 fotogramas, 1.000 ms por fotograma): EXE avanza 10000 ms, con NewTimersFix avanza 10000 ms (real 10000 ms)
+fps=1500 durante 10.0 s (15000 fotogramas, 0.667 ms por fotograma): EXE avanza 0 ms, con NewTimersFix avanza 9999 ms (real 10000 ms)
+fps=2500 durante 10.0 s (25000 fotogramas, 0.400 ms por fotograma): EXE avanza 0 ms, con NewTimersFix avanza 10000 ms (real 10000 ms)
+fps=5000 durante 10.0 s (50000 fotogramas, 0.200 ms por fotograma): EXE avanza 0 ms, con NewTimersFix avanza 10000 ms (real 10000 ms)

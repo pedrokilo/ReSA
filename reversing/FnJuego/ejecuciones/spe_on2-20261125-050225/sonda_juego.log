@@ -1,0 +1,36 @@
+[    0.2] pid 6060
+[   12.3] juego en marcha tras 12 s; gGameState=9
+[   13.0] salida de la casa: area=0 tras 1 s
+[   14.0] ventana: cliente 640x480
+[   14.0] === ESCENARIO entrada
+[   24.3] CLIP rect=(512,227,1151,706) cliente en pantalla=(512,227,1151,706)
+[   25.5] camara: giro tras 8 movimientos de raton (grados) 75.2
+[   26.0] RATON New.mov por fotograma [(30.0, -12.0), (30.0, -12.0), (30.0, -12.0), (30.0, -12.0), (30.0, -12.0), (30.0, -12.0), (30.0, -12.0), (30.0, -12.0)] cursor tras empujar al borde (1150, 706)
+[   50.8] LATENCIA teclado (ms) n=60 media=17.4 mediana=18.3 p10=6.3 p90=30.5 min=1.0 max=32.5
+[   66.4] replay ronda 0: modo 0 -> 1 tras 0.2 s; pos (2652.48291015625, -1727.4805908203125, 10.90625)
+[   72.4] captura replay_0 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [104.8, 137.4, 131.7], "max": 255} durante la reproduccion del replay
+[   72.8] replay ronda 0: fin -> modo 0 tras 0.2 s
+[   81.6] replay ronda 1: modo 0 -> 1 tras 0.2 s; pos (2652.48291015625, -1727.4805908203125, 10.90625)
+[   87.7] captura replay_1 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [106.2, 137.7, 131.8], "max": 255} durante la reproduccion del replay
+[   88.1] replay ronda 1: fin -> modo 0 tras 0.2 s
+[   96.7] replay ronda 2: modo 0 -> 1 tras 0.2 s; pos (2652.48291015625, -1727.4805908203125, 10.90625)
+[  102.7] captura replay_2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [90.6, 119.9, 130.6], "max": 255} durante la reproduccion del replay
+[  103.1] replay ronda 2: fin -> modo 0 tras 0.2 s
+[  127.9] tras el mash: modo replay 0 vivo True pos (2652.48291015625, -1727.4805908203125, 10.90625) pools {'peds': 33, 'veh': 15, 'edif': 10113, 'obj': 97, 'dummy': 728}
+[  128.5] vivo al final: True
+[  128.5] LOG [error][05:02:41.778][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  128.5] LOG [error][05:02:41.778][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  128.5] LOG [info][05:03:35.996][SilentPatchConfig.cpp:75]: SilentPatch: opcion ReplayPlayerPedCrashFixes = 1
+[  128.5] LOG [depuración][05:03:35.997][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  128.5] LOG [depuración][05:03:42.337][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  128.5] LOG [depuración][05:03:51.189][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  128.5] LOG [depuración][05:03:57.653][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  128.5] LOG [depuración][05:04:06.269][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  128.5] LOG [depuración][05:04:12.704][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  128.5] LOG [depuración][05:04:21.326][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  128.5] LOG [depuración][05:04:22.924][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  128.5] LOG [depuración][05:04:24.003][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  128.5] LOG [depuración][05:04:25.602][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  128.5] LOG [depuración][05:04:26.682][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  128.5] LOG [depuración][05:04:35.682][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  128.5] fin

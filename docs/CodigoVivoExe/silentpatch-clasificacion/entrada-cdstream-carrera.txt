@@ -1,0 +1,104 @@
+giro=0 orig: BLOQUEO tras 35582 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 813628 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 40023 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 12828 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 1358301 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 511738 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 822245 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 171237 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 1309098 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 120189 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 397399 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 1047849 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 736505 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 34260 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 159925 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 orig: BLOQUEO tras 775396 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 685689 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 36474 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 693106 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 194487 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 590983 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 327925 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 454625 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=0 orig: BLOQUEO tras 455424 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+RESUMEN giro=0 modo=orig: 25 ejecuciones x 2.000.000 lecturas+sync: bloqueos=24 completas=1
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=0 fix: COMPLETO 2000000 iteraciones sin bloqueo
+RESUMEN giro=0 modo=fix: 25 ejecuciones x 2.000.000 lecturas+sync: bloqueos=0 completas=25
+giro=50 orig: BLOQUEO tras 41894 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 1450842 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 525665 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 23204 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 41295 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 239751 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 1178100 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 240322 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 527415 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 173689 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 89472 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 43760 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 228155 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 956118 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 558590 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 102641 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 639623 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 377618 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 42873 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 73495 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 640690 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 304598 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 181358 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 144530 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+giro=50 orig: BLOQUEO tras 79891 iteraciones (principal sin avanzar 2000 ms; sectorsToRead=0 bLocked=1)
+RESUMEN giro=50 modo=orig: 25 ejecuciones x 2.000.000 lecturas+sync: bloqueos=25 completas=0
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+giro=50 fix: COMPLETO 2000000 iteraciones sin bloqueo
+RESUMEN giro=50 modo=fix: 25 ejecuciones x 2.000.000 lecturas+sync: bloqueos=0 completas=25

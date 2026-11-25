@@ -692,3 +692,23 @@ Todas se apagan con `GTASA_SILENTPATCH=0` y cada una con `GTASA_SILENTPATCH_<OPC
 | `CBike::ProcessRiderAnims` (0x6B7280), `CPed` (viento sobre la ropa), `CVehicle::ProcessDrivingAnims` (0x6DF4A0) | Manillar del cuatrimoto, viento al conducirlo, animación de cambiar de emisora solo con brazo derecho y cabeza (sin ella en el Kart) | `QuadbikeHandlebarAnims`, `QuadbikeWindAnims`, `RadioChangeAnim` | bajo |
 | `CTaskUtilityLineUpPedWithCar::GetLocalPositionToOpenCarDoor` (0x64FC10), `CCarEnterExit::GetPositionToOpenCarDoor` (0x64E740) | Subir a la moto por delante resta la Z; furgonetas: grupo de animación 13 | `BikeJumpOnFromFront`, `VanRearDoors` | bajo |
 | `CColModel::AllocateData` (0x40F870) | El bloque de datos de colisión asignado con malloc inicializa banderas e información de sombras | `CollisionDataInit` | bajo |
+
+### 15.E Entrada, cámara, replay, streaming y heap (segunda tanda, rama `silentpatch2-entrada`)
+
+Mismas reglas que arriba (`GTASA_SILENTPATCH=0` apaga todo; cada arreglo con `GTASA_SILENTPATCH_<NOMBRE EN MAYÚSCULAS>=0` o `SilentPatch_<Nombre>=0`). Ninguno tiene clave en `SilentPatchSA.ini`, así que todos van activados por defecto; ninguno cambia el ritmo del juego. El de replay con objetos sujetos (`DelayedHeldObjectDestruction`) lo implementa también la rama de peds (`DelayHeldEntityDestroy`, mismo hunk de `CPed::DropEntityThatThisPedIsHolding`): hay que quedarse con uno de los dos. Los arreglos de temporizadores (L29), pantallas de carga (L200), streaming con RC (L76), jetpack con teclado (L104) y clones de CJ en controles de carretera (L120) los implementan también las ramas de gráficos, vehículos y peds (con nombres de opción propios); esta rama los retiró en su segundo commit para no duplicarlos. Detalle, pruebas y límites en [CodigoVivoExe/silentpatch2-entrada.md](CodigoVivoExe/silentpatch2-entrada.md); clasificación viñeta a viñeta en `CodigoVivoExe/silentpatch-clasificacion/entrada.csv`.
+
+| Función | Desviación | Opción | Riesgo |
+| --- | --- | --- | --- |
+| `CdStreamSync`, `CdStreamThread` | Sección crítica común: el hilo principal ya no se queda esperando para siempre el semáforo (carrera sobre `bLocked`) | `CdStreamSyncFix` | bajo |
+| `CdStreamInit` | Sin `FILE_FLAG_NO_BUFFERING` en la lectura de IMG | `RemoveNoBufferingFlag` | bajo |
+| `CdStreamThread`, `CdStreamRead` | Desplazamiento de lectura de 64 bits (`OffsetHigh`, `SetFilePointer` con parte alta): IMG de más de 4 GB | `IMGsBiggerThan4GB` | bajo (idéntico por debajo de 4 GB) |
+| `FxManager_c::LoadFxProject` | No llama a `FxMemoryPool_c::Optimise` (el `realloc` que encoge la arena con los blueprints ya apuntando dentro) | `HeapCorruptionFix` | bajo |
+| `psGrabScreen` | `UnlockRect` + `Release` de la superficie de la foto (fuga por cada foto) | `CameraMemoryLeakFix` | bajo |
+| `CReplay::FinishPlayback`, `CReplay::DealWithNewPedPacket` | Reconstruye al jugador con la ropa actual al terminar el replay y carga los bloques de animación fat/muscular al crear el jugador del replay | `ReplayPlayerPedCrashFixes` | bajo |
+| `CPed::DropEntityThatThisPedIsHolding` | El objeto sujeto (cigarrillo, botella) se marca `bRemoveFromWorld` y lo borra `CWorld::Process`, no se destruye en el acto | `DelayedHeldObjectDestruction` | bajo |
+| `__MainWndProc`, `Idle` | El cursor se confina a la ventana (en juego; libre en el menú y sin foco) en vez de recentrarse cada fotograma | `ClipCursorToGameWindow` | medio (cambia el trato del cursor del sistema) |
+| `CMenuManager::CheckForMenuClosing`, `diMouseInit` | No se reinicializa el ratón DirectInput al abrir/cerrar el menú; el dispositivo es siempre no exclusivo | `MouseReinitFix` | bajo |
+| `CPad::UpdatePads` | El cambio Old=New, New=Temp del teclado se hace antes de procesarlo: un fotograma menos de latencia | `KeyboardInputLatencyFix` | bajo |
+| `CCam::Process_FollowPedWithMouse`, `Process_FollowPed_SA` | El eje vertical del ratón y el rumbo del jugador ya no se bloquean durante el fundido de entrada | `MouseYAxisFadeInFix` | bajo |
+| `CCam::Process_FollowCar_SA` | En coche el ratón solo mueve la cámara al mirar hacia delante | `InCarCameraMouseLookFix` | bajo |
+| `tDirectionArrow::Render` | La flecha/checkpoint de carrera activa `rpGEOMETRYMODULATEMATERIALCOLOR` (salía sin color si antes no se dibujaba otro marcador) | `RacingCheckpointsColourFix` | bajo |

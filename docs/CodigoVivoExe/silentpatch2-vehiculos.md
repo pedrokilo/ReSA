@@ -50,7 +50,7 @@ Todas con valor por defecto 1 (activadas).
 | `UniqueNumberPlates`, `BilinearNumberPlates` | L171-L174 | matrícula por vehículo, también en motos; filtro bilineal |
 | `VehicleLightsStayLit`, `HeadlightBeamStateRestore`, `VehicleLightsNotOverwritten` | L175, L177, L179 | restauración de propiedades de superficie, de estados de dibujo del haz y del índice de luz D3D |
 | `FixKeepsComponents` | L189-L192, L201 | `Fix` conserva las matrices originales, el gancho de la grúa, las puertas y reinicia las ruedas del Rhino |
-| `PaintjobRemapIndex` | L204 | pintura pendiente en `GetRemapIndex` |
+| `PaintjobsInGarageFix` | L204 | pintura pendiente en `GetRemapIndex` |
 | `RotorBlur` | L205 | rotores y hélices con desenfoque (salvo Maverick y Skimmer) |
 | `DoubleRearWheels` | L206 | ruedas dobles en remolques y matriz nueva sin marca de identidad |
 | `CargenCounterFix`, `CargenInteriorAreaCode` | L60, L74 | contador de generadores y código de área de interiores |

@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataInicializadaXA.h"
 #include "DatosExe/DataBssE1.h"
 #include "DatosExe/DataInicializadaA.h"
@@ -1617,9 +1618,14 @@ void CPed::DropEntityThatThisPedIsHolding(bool bDeleteHeldEntity) {
             {
                 // Como el original: solo el tipo 2 (OBJECT_MISSION) se conserva; IsMissionObject() tambien acepta el 6
                 if (!heldEntity->GetIsTypeObject() || heldEntity->AsObject()->m_nObjectType != OBJECT_MISSION) {
+                    if (SilentPatchOption("DelayedHeldObjectDestruction", true)) {
+                        // SilentPatch (MIT, Silent): DelayedHeldObjectDestruction - destruir cigarrillos/botellas de los pandilleros sin borrarlos en el acto (CWorld::Process recorre la lista de moviles guardando el siguiente nodo; si el objeto era ese nodo queda un puntero a una entidad liberada). Se marca bRemoveFromWorld y CWorld::Process lo borra despues
+                        heldEntity->m_bRemoveFromWorld = true;
+                    } else {
                     heldEntity->DeleteRwObject(); // TODO; Are these 3 lines inlined?
                     CWorld::Remove(heldEntity);
                     delete heldEntity;
+                    }
                 }
             }
         }

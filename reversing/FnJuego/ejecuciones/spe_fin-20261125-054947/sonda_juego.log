@@ -1,0 +1,63 @@
+[    0.2] pid 26288
+[   12.2] juego en marcha tras 12 s; gGameState=9
+[   12.9] salida de la casa: area=0 tras 1 s
+[   13.9] ventana: cliente 640x480
+[   13.9] === ESCENARIO entrada
+[   24.2] CLIP rect=(512,227,1151,706) cliente en pantalla=(512,227,1151,706)
+[   30.4] camara: giro tras 8 movimientos de raton (grados) 75.2
+[   30.9] RATON New.mov por fotograma [(30.0, -12.0), (30.0, -12.0), (30.0, -12.0), (30.0, -12.0), (30.0, -12.0), (30.0, -12.0), (30.0, -12.0), (30.0, -12.0)] cursor tras empujar al borde (1150, 706)
+[   55.4] LATENCIA teclado (ms) n=60 media=17.8 mediana=17.4 p10=3.0 p90=31.1 min=1.2 max=32.9
+[   71.2] replay ronda 0: modo 0 -> 1 tras 0.2 s; pos (2652.48291015625, -1727.64306640625, 10.90625)
+[   76.6] captura replay_0 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [106.3, 137.3, 131.3], "max": 255} durante la reproduccion del replay
+[   77.0] replay ronda 0: fin -> modo 0 tras 0.2 s
+[   85.6] replay ronda 1: modo 0 -> 1 tras 0.2 s; pos (2652.48291015625, -1727.64306640625, 10.90625)
+[   91.3] captura replay_1 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [102.5, 135.7, 130.8], "max": 255} durante la reproduccion del replay
+[   91.6] replay ronda 1: fin -> modo 0 tras 0.2 s
+[  100.3] replay ronda 2: modo 0 -> 1 tras 0.2 s; pos (2652.48291015625, -1727.64306640625, 10.90625)
+[  106.0] captura replay_2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [106.1, 137.1, 131.6], "max": 255} durante la reproduccion del replay
+[  106.4] replay ronda 2: fin -> modo 0 tras 0.2 s
+[  131.3] tras el mash: modo replay 0 vivo True pos (2652.48291015625, -1727.64306640625, 10.90625) pools {'peds': 33, 'veh': 15, 'edif': 10113, 'obj': 95, 'dummy': 728}
+[  131.6] === ESCENARIO interiores
+[  143.5] captura int_CARLS {"ancho": 640, "alto": 480, "rojo": 5, "muestras": 34270, "media_rgb": [52.6, 45.1, 39.4], "max": 255} interior CARLS (casa de CJ): CJ en (2496.050048828125, -1692.9300537109375, 1014.7421875), area 3
+[  147.1] captura int_CARLS_dentro2 {"ancho": 640, "alto": 480, "rojo": 5, "muestras": 34270, "media_rgb": [52.7, 45.1, 39.4], "max": 255} interior CARLS (casa de CJ) 3 s despues
+[  154.3] captura int_CARLS_fuera {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [120.3, 128.5, 113.2], "max": 255} tras salir de CARLS (casa de CJ): area 0 pos (2495.330078125, -1690.25, 14.765625)
+[  154.3] INTERIOR {"nombre": "CARLS (casa de CJ)", "intento_entrada": [0, null], "entro": true, "area": 3, "pos": [2496.050048828125, -1692.9300537109375, 1014.7421875], "vivo": true, "tiempo_entrar_s": 5.2, "pools_antes": {"peds": 33, "veh": 16, "edif": 10113, "obj": 96, "dummy": 728}, "pools_dentro": {"peds": 1, "veh": 3, "edif": 9426, "obj": 97, "dummy": 112}, "z_dentro": 1014.7421875, "salio": true, "area_final": 0, "pos_final": [2495.330078125, -1690.25, 14.765625], "nan": false}
+[  178.6] captura int_GYM1 {"ancho": 640, "alto": 480, "rojo": 452, "muestras": 34270, "media_rgb": [87.8, 57.5, 37.1], "max": 255} interior GYM1 (gimnasio Ganton): CJ en (772.1119995117188, -3.8986499309539795, 1000.7288208007812), area 5
+[  182.2] captura int_GYM1_dentro2 {"ancho": 640, "alto": 480, "rojo": 454, "muestras": 34270, "media_rgb": [87.8, 57.5, 37.1], "max": 255} interior GYM1 (gimnasio Ganton) 3 s despues
+[  189.5] captura int_GYM1_fuera {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [142.5, 152.3, 138.6], "max": 255} tras salir de GYM1 (gimnasio Ganton): area 0 pos (2229.1298828125, -1722.1300048828125, 13.5625)
+[  189.5] INTERIOR {"nombre": "GYM1 (gimnasio Ganton)", "intento_entrada": [3, "a"], "entro": true, "area": 5, "pos": [772.1119995117188, -3.8986499309539795, 1000.7288208007812], "vivo": true, "tiempo_entrar_s": 23.5, "pools_antes": {"peds": 10, "veh": 5, "edif": 10329, "obj": 156, "dummy": 963}, "pools_dentro": {"peds": 6, "veh": 3, "edif": 10607, "obj": 91, "dummy": 516}, "z_dentro": 1000.7288208007812, "salio": true, "area_final": 0, "pos_final": [2229.1298828125, -1722.1300048828125, 13.5625], "nan": false}
+[  207.4] captura int_CLOTHGP {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [155.3, 143.6, 128.2], "max": 255} interior CLOTHGP (tienda de ropa): CJ en (161.39100646972656, -95.28559875488281, 1001.8046875), area 18
+[  211.1] captura int_CLOTHGP_dentro2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [154.5, 142.9, 127.5], "max": 255} interior CLOTHGP (tienda de ropa) 3 s despues
+[  218.4] captura int_CLOTHGP_fuera {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [92.4, 93.0, 86.2], "max": 255} tras salir de CLOTHGP (tienda de ropa): area 0 pos (1458.77001953125, -1140.02001953125, 24.069162368774414)
+[  218.4] INTERIOR {"nombre": "CLOTHGP (tienda de ropa)", "intento_entrada": [2, "s"], "entro": true, "area": 18, "pos": [161.39100646972656, -95.28559875488281, 1001.8046875], "vivo": true, "tiempo_entrar_s": 17.3, "pools_antes": {"peds": 18, "veh": 8, "edif": 10206, "obj": 138, "dummy": 962}, "pools_dentro": {"peds": 8, "veh": 0, "edif": 10512, "obj": 82, "dummy": 149}, "z_dentro": 1001.8046875, "salio": true, "area_final": 0, "pos_final": [1458.77001953125, -1140.02001953125, 24.069162368774414], "nan": false}
+[  242.1] captura int_AMMUN1 {"ancho": 640, "alto": 480, "rojo": 454, "muestras": 34270, "media_rgb": [123.6, 103.4, 87.2], "max": 255} interior AMMUN1 (Ammu-Nation): CJ en (286.14898681640625, -40.64440155029297, 1001.515625), area 1
+[  245.8] captura int_AMMUN1_dentro2 {"ancho": 640, "alto": 480, "rojo": 468, "muestras": 34270, "media_rgb": [119.6, 99.7, 84.3], "max": 255} interior AMMUN1 (Ammu-Nation) 3 s despues
+[  252.9] captura int_AMMUN1_fuera {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [116.3, 113.7, 93.2], "max": 255} tras salir de AMMUN1 (Ammu-Nation): area 0 pos (1365.3499755859375, -1279.06005859375, 13.546875)
+[  252.9] INTERIOR {"nombre": "AMMUN1 (Ammu-Nation)", "intento_entrada": [3, "a"], "entro": true, "area": 1, "pos": [286.14898681640625, -40.64440155029297, 1001.515625], "vivo": true, "tiempo_entrar_s": 23.1, "pools_antes": {"peds": 23, "veh": 7, "edif": 10387, "obj": 123, "dummy": 1220}, "pools_dentro": {"peds": 5, "veh": 0, "edif": 11105, "obj": 104, "dummy": 786}, "z_dentro": 1001.515625, "salio": true, "area_final": 0, "pos_final": [1365.3499755859375, -1279.06005859375, 13.546875], "nan": false}
+[  258.5] captura int_BARBERS {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [147.5, 129.4, 92.1], "max": 255} interior BARBERS (peluqueria Idlewood): CJ en (411.6260070800781, -21.433300018310547, 1001.8046875), area 2
+[  262.2] captura int_BARBERS_dentro2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [147.0, 129.3, 92.0], "max": 255} interior BARBERS (peluqueria Idlewood) 3 s despues
+[  269.4] captura int_BARBERS_fuera {"ancho": 640, "alto": 480, "rojo": 30, "muestras": 34270, "media_rgb": [149.0, 155.5, 133.5], "max": 255} tras salir de BARBERS (peluqueria Idlewood): area 0 pos (2073.975341796875, -1793.93994140625, 13.546875)
+[  269.4] INTERIOR {"nombre": "BARBERS (peluqueria Idlewood)", "intento_entrada": [0, null], "entro": true, "area": 2, "pos": [411.6260070800781, -21.433300018310547, 1001.8046875], "vivo": true, "tiempo_entrar_s": 5.1, "pools_antes": {"peds": 18, "veh": 6, "edif": 10405, "obj": 131, "dummy": 1340}, "pools_dentro": {"peds": 2, "veh": 0, "edif": 10641, "obj": 80, "dummy": 300}, "z_dentro": 1001.8046875, "salio": true, "area_final": 0, "pos_final": [2073.975341796875, -1793.93994140625, 13.546875], "nan": false}
+[  269.7] vivo al final: True
+[  269.7] LOG [info][05:53:06.787][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[  269.7] LOG [info][05:53:06.788][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[  269.7] LOG [info][05:53:06.788][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[  269.7] LOG [info][05:53:06.788][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[  269.7] LOG [info][05:53:07.056][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[  269.7] LOG [info][05:53:07.076][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[  269.7] LOG [error][05:53:17.198][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  269.7] LOG [error][05:53:17.199][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  269.7] LOG [info][05:54:16.484][SilentPatchConfig.cpp:75]: SilentPatch: opcion ReplayPlayerPedCrashFixes = 1
+[  269.7] LOG [depuración][05:54:16.484][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  269.7] LOG [depuración][05:54:22.285][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  269.7] LOG [depuración][05:54:30.930][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  269.7] LOG [depuración][05:54:36.927][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  269.7] LOG [depuración][05:54:45.604][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  269.7] LOG [depuración][05:54:51.666][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  269.7] LOG [depuración][05:55:00.246][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  269.7] LOG [depuración][05:55:01.874][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  269.7] LOG [depuración][05:55:02.950][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  269.7] LOG [depuración][05:55:04.576][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  269.7] LOG [depuración][05:55:05.652][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  269.7] LOG [depuración][05:55:15.244][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  269.7] fin

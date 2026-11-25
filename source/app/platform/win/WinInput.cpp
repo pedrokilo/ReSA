@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 
 
 #include "WinInput.h"
@@ -141,6 +142,10 @@ HRESULT diPadSetRanges(LPDIRECTINPUTDEVICE8 dev, DWORD padNum) {
 
 // 0x7469A0
 void diMouseInit(bool exclusive) {
+    // SilentPatch (MIT, Silent): MouseReinitFix - el dispositivo DirectInput del raton se crea siempre no exclusivo (0x7469A0: SilentPatch fija al = 0); el modo exclusivo es lo que dejaba el raton bloqueado al salir del menu en sistemas nuevos
+    if (exclusive && SilentPatchOption("MouseReinitFix", true)) {
+        exclusive = false;
+    }
     WIN_FCHECK(PSGLOBAL(diInterface)->CreateDevice(GUID_SysMouse, &PSGLOBAL(diMouse), 0));
     WIN_FCHECK(PSGLOBAL(diMouse)->SetDataFormat(&c_dfDIMouse2));
     WIN_FCHECK(PSGLOBAL(diMouse)->SetCooperativeLevel(PSGLOBAL(window), DISCL_FOREGROUND | (exclusive ? DISCL_EXCLUSIVE : DISCL_NONEXCLUSIVE)));

@@ -1,0 +1,41 @@
+[    0.2] pid 34084
+[   12.7] juego en marcha tras 12 s; gGameState=9
+[   13.5] salida de la casa: area=0 tras 1 s
+[   14.5] ventana: cliente 640x480
+[   14.5] === ESCENARIO entrada
+[   24.8] CLIP rect=(512,227,1151,706) cliente en pantalla=(512,227,1151,706)
+[   26.2] RATON New.mov por fotograma [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (0.0, 0.0)] cursor tras empujar al borde (1150, 706)
+[   52.3] LATENCIA teclado (ms) n=60 media=15.7 mediana=14.7 p10=3.9 p90=30.3 min=1.3 max=33.6
+[   68.1] replay ronda 0: modo 0 -> 1 tras 0.2 s; pos (2652.482666015625, -1727.632080078125, 10.90625)
+[   74.2] captura replay_0 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [103.7, 136.9, 131.2], "max": 255} durante la reproduccion del replay
+[   74.6] replay ronda 0: fin -> modo 0 tras 0.2 s
+[   83.3] replay ronda 1: modo 0 -> 1 tras 0.2 s; pos (2652.482666015625, -1727.632080078125, 10.90625)
+[   89.3] captura replay_1 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [104.6, 136.6, 130.8], "max": 255} durante la reproduccion del replay
+[   89.7] replay ronda 1: fin -> modo 0 tras 0.2 s
+[   98.3] replay ronda 2: modo 0 -> 1 tras 0.2 s; pos (2652.482666015625, -1727.632080078125, 10.90625)
+[  104.1] captura replay_2 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [89.4, 118.2, 130.1], "max": 255} durante la reproduccion del replay
+[  104.7] replay ronda 2: fin -> modo 0 tras 0.4 s
+[  129.6] tras el mash: modo replay 0 vivo True pos (2652.482666015625, -1727.632080078125, 10.90625) pools {'peds': 31, 'veh': 15, 'edif': 10113, 'obj': 96, 'dummy': 728}
+[  130.2] vivo al final: True
+[  130.4] LOG [info][04:53:21.673][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[  130.4] LOG [info][04:53:21.673][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[  130.4] LOG [info][04:53:21.674][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[  130.4] LOG [info][04:53:21.674][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[  130.4] LOG [info][04:53:22.100][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[  130.4] LOG [info][04:53:22.114][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[  130.4] LOG [error][04:53:32.694][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  130.4] LOG [error][04:53:32.695][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  130.4] LOG [info][04:54:28.035][SilentPatchConfig.cpp:75]: SilentPatch: opcion ReplayPlayerPedCrashFixes = 1
+[  130.4] LOG [depuración][04:54:28.036][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  130.4] LOG [depuración][04:54:34.531][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  130.4] LOG [depuración][04:54:43.316][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  130.4] LOG [depuración][04:54:49.688][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  130.4] LOG [depuración][04:54:58.303][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  130.4] LOG [depuración][04:55:04.436][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  130.4] LOG [depuración][04:55:13.452][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  130.4] LOG [depuración][04:55:15.052][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  130.4] LOG [depuración][04:55:16.167][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  130.4] LOG [depuración][04:55:17.729][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  130.4] LOG [depuración][04:55:18.842][Replay.cpp:1552]: SilentPatch ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular
+[  130.4] LOG [depuración][04:55:27.907][Replay.cpp:1288]: SilentPatch ReplayPlayerPedCrashFixes: RebuildPlayer con la ropa actual al terminar la reproduccion
+[  130.4] fin
