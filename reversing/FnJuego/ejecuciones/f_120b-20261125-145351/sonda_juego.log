@@ -1,0 +1,7 @@
+[    0.2] pid 27212
+[    0.2] === ESCENARIO pausa
+[  120.5] vivo al final: True
+[  120.5] LOG [error][14:54:04.802][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  120.5] LOG [error][14:54:04.803][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  120.5] LOG [info][14:54:04.960][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[  120.5] fin

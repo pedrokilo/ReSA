@@ -1,0 +1,3 @@
+pid 18544  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-cai\reversing\FnJuego\ejecuciones\t_off-20261125-144919" --limite 350 --shims  escenario=caida_interior xinput=False
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF

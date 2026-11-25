@@ -1,0 +1,37 @@
+pid 35820
+juego en marcha tras 9 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 585x438
+=== ESCENARIO caida_interior
+busqueda: nivel ? peds {'peds': 23, 'veh': 15, 'edif': 10329, 'obj': 155, 'dummy': 963}
+SITIO CJ casa antes: vehiculos cerca 15 peds cerca 23 minz 12.90392780303955 modelos [412, 412, 412, 412, 412, 432, 488, 497, 520, 529, 536, 536, 536, 545, 575] CJ en (2503.404052734375, -1697.8028564453125, 13.558855056762695) velocidades>0.05 antes de entrar [(488, 0.22), (497, 0.22), (536, 0.14)]
+entro True area 3
+RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 15, "peds_cerca": 23, "caidas_log": 0, "bajaron_mas_de_3m": []}
+TRAS SALIR {"tras_salir_vehiculos_antes": 15, "siguen": 4, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0, "velocidades_de_los_que_siguen": [[412, 0.0], [432, 0.0], [520, 0.0], [545, 0.0]]}
+busqueda: nivel ? peds {'peds': 11, 'veh': 3, 'edif': 10544, 'obj': 96, 'dummy': 1016}
+SITIO CJ casa antes: vehiculos cerca 3 peds cerca 11 minz 13.17273998260498 modelos [520, 536, 575] CJ en (2503.70458984375, -1698.436767578125, 13.558659553527832) velocidades>0.05 antes de entrar []
+entro True area 3
+RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 3, "peds_cerca": 11, "caidas_log": 0, "bajaron_mas_de_3m": []}
+TRAS SALIR {"tras_salir_vehiculos_antes": 3, "siguen": 1, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0, "velocidades_de_los_que_siguen": [[520, 0.0]]}
+LOG(tras salir) [aviso][14:38:58.131][World.cpp:1473]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2507.222168 -1694.948364 -118.734520
+LOG(tras salir) [aviso][14:38:58.132][World.cpp:1473]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2501.439941 -1696.643433 -118.863693
+busqueda: nivel ? peds {'peds': 11, 'veh': 8, 'edif': 10329, 'obj': 152, 'dummy': 963}
+SITIO CJ casa antes: vehiculos cerca 8 peds cerca 11 minz 13.06009578704834 modelos [404, 432, 488, 497, 520, 545, 596, 596] CJ en (2503.404541015625, -1697.7994384765625, 13.558852195739746) velocidades>0.05 antes de entrar [(488, 0.52), (497, 0.21)]
+entro True area 3
+RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 8, "peds_cerca": 11, "caidas_log": 0, "bajaron_mas_de_3m": []}
+TRAS SALIR {"tras_salir_vehiculos_antes": 8, "siguen": 6, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0, "velocidades_de_los_que_siguen": [[404, 0.0], [432, 0.0], [520, 0.0], [545, 0.0], [596, 0.0], [596, 0.0]]}
+busqueda: nivel ? peds {'peds': 11, 'veh': 1, 'edif': 10544, 'obj': 96, 'dummy': 1016}
+SITIO CJ casa antes: vehiculos cerca 1 peds cerca 11 minz 13.492576599121094 modelos [520] CJ en (2503.7353515625, -1698.483642578125, 13.558626174926758) velocidades>0.05 antes de entrar []
+entro True area 3
+RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 1, "peds_cerca": 11, "caidas_log": 0, "bajaron_mas_de_3m": []}
+TRAS SALIR {"tras_salir_vehiculos_antes": 1, "siguen": 1, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0, "velocidades_de_los_que_siguen": [[520, 0.0]]}
+busqueda: nivel ? peds {'peds': 11, 'veh': 8, 'edif': 10329, 'obj': 152, 'dummy': 963}
+SITIO CJ casa antes: vehiculos cerca 8 peds cerca 11 minz 13.060096740722656 modelos [401, 432, 488, 497, 520, 545, 596, 596] CJ en (2503.3984375, -1697.8714599609375, 13.558917999267578) velocidades>0.05 antes de entrar [(488, 0.07), (497, 0.09)]
+entro True area 3
+LOG [aviso][14:42:02.183][World.cpp:1439]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2483.973633 -1698.820923 -106.854988
+LOG [aviso][14:42:02.184][World.cpp:1439]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2484.525879 -1698.009521 -106.820213
+LOG [aviso][14:42:02.343][World.cpp:1473]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2483.720459 -1698.907593 -117.593643
+RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 8, "peds_cerca": 11, "caidas_log": 3, "bajaron_mas_de_3m": []}
+TRAS SALIR {"tras_salir_vehiculos_antes": 8, "siguen": 6, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0, "velocidades_de_los_que_siguen": [[401, 0.0], [432, 0.0], [520, 0.0], [545, 0.0], [596, 0.0], [596, 0.0]]}
+vivo al final: True
+fin

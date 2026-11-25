@@ -1,0 +1,151 @@
+{
+ "caida_interior": [
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 15,
+   "peds_cerca": 23,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [],
+   "tras_salir_vehiculos_antes": 15,
+   "siguen": 4,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0,
+   "velocidades_de_los_que_siguen": [
+    [
+     412,
+     0.0
+    ],
+    [
+     432,
+     0.0
+    ],
+    [
+     520,
+     0.0
+    ],
+    [
+     545,
+     0.0
+    ]
+   ]
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 3,
+   "peds_cerca": 11,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [],
+   "tras_salir_vehiculos_antes": 3,
+   "siguen": 1,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0,
+   "velocidades_de_los_que_siguen": [
+    [
+     520,
+     0.0
+    ]
+   ]
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 8,
+   "peds_cerca": 11,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [],
+   "tras_salir_vehiculos_antes": 8,
+   "siguen": 6,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0,
+   "velocidades_de_los_que_siguen": [
+    [
+     404,
+     0.0
+    ],
+    [
+     432,
+     0.0
+    ],
+    [
+     520,
+     0.0
+    ],
+    [
+     545,
+     0.0
+    ],
+    [
+     596,
+     0.0
+    ],
+    [
+     596,
+     0.0
+    ]
+   ]
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 1,
+   "peds_cerca": 11,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [],
+   "tras_salir_vehiculos_antes": 1,
+   "siguen": 1,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0,
+   "velocidades_de_los_que_siguen": [
+    [
+     520,
+     0.0
+    ]
+   ]
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 8,
+   "peds_cerca": 11,
+   "caidas_log": 3,
+   "bajaron_mas_de_3m": [],
+   "tras_salir_vehiculos_antes": 8,
+   "siguen": 6,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0,
+   "velocidades_de_los_que_siguen": [
+    [
+     401,
+     0.0
+    ],
+    [
+     432,
+     0.0
+    ],
+    [
+     520,
+     0.0
+    ],
+    [
+     545,
+     0.0
+    ],
+    [
+     596,
+     0.0
+    ],
+    [
+     596,
+     0.0
+    ]
+   ]
+  }
+ ]
+}

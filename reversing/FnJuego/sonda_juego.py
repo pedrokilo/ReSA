@@ -574,6 +574,14 @@ def esc_caida_interior(j):
         nv = sum(1 for k in antes if k[0] == 'v'); npd = sum(1 for k in antes if k[0] == 'p')
         j.P('SITIO', nombre, 'antes: vehiculos cerca', nv, 'peds cerca', npd, 'minz', min([v[1][2] for v in antes.values()] or [0]), 'modelos', sorted(v[0] for k, v in antes.items() if k[0] == 'v'), 'CJ en', j.pos(),
             'velocidades>0.05 antes de entrar', sorted((v[0], round(j.vel(k[1]), 2)) for k, v in antes.items() if k[0] == 'v' and j.vel(k[1]) > 0.05))
+        movers = [k for k in antes if k[0] == 'v' and j.vel(k[1]) > 0.05]
+        def traza(et):
+            if '--traza' not in sys.argv: return
+            o = []
+            for k in movers:
+                p_ = j.vpos(k[1]); o.append((antes[k][0], tuple(round(x, 1) for x in p_) if p_ else None, round(j.vel(k[1]), 2), j.m.u8(k[1] + 0x36) >> 3, j.m.u8(k[1] + 0x2F)))
+            j.P('TRAZA', et, o)
+        traza('antes de entrar')
         # entrar
         entro = False
         for intento, tec in enumerate((None, 'w', 's', 'a', 'd')):
@@ -608,7 +616,10 @@ def esc_caida_interior(j):
         while time.time() - t < 20 and j.alive():
             j.tick(); time.sleep(0.25)
             if j.area() == 0: break
-        j.dormir(1.0); s1 = snap(); j.dormir(5.0); s2 = snap()
+        traza('dentro (fin)')
+        for _t in (1, 2, 4, 8):
+            j.dormir(1.0 if _t == 1 else (_t - {2: 1, 4: 2, 8: 4}[_t])); traza('tras salir +%ds' % _t)
+        s1 = snap(); j.dormir(5.0); s2 = snap()
         # tras salir: los coches de antes siguen en el mundo, a su altura, y se mueven/colisionan otra vez (z y desplazamiento xy en 5 s)
         vivos = [k for k in antes if k[0] == 'v' and k in s2 and s2[k][1] and k in s1 and s1[k][1]]
         mov = sum(1 for k in vivos if math.hypot(s2[k][1][0] - s1[k][1][0], s2[k][1][1] - s1[k][1][1]) > 0.5)

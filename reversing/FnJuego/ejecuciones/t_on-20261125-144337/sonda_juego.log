@@ -1,0 +1,40 @@
+[    0.2] pid 36872
+[    8.7] juego en marcha tras 8 s; gGameState=9
+[    9.4] salida de la casa: area=0 tras 1 s
+[   10.4] ventana: cliente 585x438
+[   10.4] === ESCENARIO caida_interior
+[   40.2] busqueda: nivel ? peds {'peds': 18, 'veh': 11, 'edif': 10329, 'obj': 154, 'dummy': 963}
+[   42.4] SITIO CJ casa antes: vehiculos cerca 12 peds cerca 19 minz 12.947492599487305 modelos [404, 404, 432, 497, 520, 536, 542, 545, 567, 567, 567, 575] CJ en (2503.40673828125, -1697.7823486328125, 13.55883502960205) velocidades>0.05 antes de entrar [(497, 0.47), (542, 0.28), (567, 0.27)]
+[   42.4] TRAZA antes de entrar [(567, (2516.6, -1808.2, 13.2), 0.27, 2, 0), (542, (2416.8, -1802.7, 13.1), 0.28, 2, 0), (497, (2495.0, -1707.9, 23.9), 0.47, 3, 0)]
+[   42.8] entro True area 3
+[   63.0] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 12, "peds_cerca": 19, "caidas_log": 0, "bajaron_mas_de_3m": []}
+[   83.1] TRAZA dentro (fin) [(567, (0.0, 0.0, 0.0), 0.26, 2, 0), (542, (0.0, 0.0, 0.0), 0.28, 2, 0), (497, (0.0, 0.0, 0.0), 0.36, 3, 0)]
+[   84.2] TRAZA tras salir +1s [(567, (0.0, 0.0, 0.0), 0.26, 2, 0), (542, (0.0, 0.0, 0.0), 0.28, 2, 0), (497, (0.0, 0.0, 0.0), 0.36, 3, 0)]
+[   85.3] TRAZA tras salir +2s [(567, (0.0, 0.0, 0.0), 0.26, 2, 0), (542, (0.0, 0.0, 0.0), 0.28, 2, 0), (497, (0.0, 0.0, 0.0), 0.36, 3, 0)]
+[   87.5] TRAZA tras salir +4s [(567, (0.0, 0.0, 0.0), 0.26, 2, 0), (542, (0.0, 0.0, 0.0), 0.28, 2, 0), (497, (0.0, 0.0, 0.0), 0.36, 3, 0)]
+[   91.5] TRAZA tras salir +8s [(567, (0.0, 0.0, 0.0), 0.26, 2, 0), (542, (0.0, 0.0, 0.0), 0.28, 2, 0), (497, (0.0, 0.0, 0.0), 0.36, 3, 0)]
+[   96.7] TRAS SALIR {"tras_salir_vehiculos_antes": 12, "siguen": 4, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0, "velocidades_de_los_que_siguen": [[432, 0.0], [520, 0.0], [545, 0.0], [567, 0.0]]}
+[  132.9] busqueda: nivel ? peds {'peds': 11, 'veh': 3, 'edif': 10544, 'obj': 96, 'dummy': 1016}
+[  135.1] SITIO CJ casa antes: vehiculos cerca 3 peds cerca 11 minz 13.220419883728027 modelos [520, 536, 575] CJ en (2503.670654296875, -1698.495849609375, 13.55877685546875) velocidades>0.05 antes de entrar [(536, 0.11), (575, 0.23)]
+[  135.1] TRAZA antes de entrar [(575, (2503.7, -1694.2, 13.2), 0.23, 4, 0), (536, (2507.2, -1694.9, 13.3), 0.11, 4, 0)]
+[  135.1] entro True area 3
+[  155.2] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 3, "peds_cerca": 11, "caidas_log": 0, "bajaron_mas_de_3m": []}
+[  156.0] TRAZA dentro (fin) [(575, (0.0, 0.0, 0.0), 0.4, 4, 0), (536, (2483.6, -1677.0, 13.1), 0.0, 4, 0)]
+[  157.1] TRAZA tras salir +1s [(575, (0.0, 0.0, 0.0), 0.4, 4, 0), (536, (2483.6, -1677.0, 13.1), 0.0, 4, 0)]
+[  158.2] TRAZA tras salir +2s [(575, (0.0, 0.0, 0.0), 0.4, 4, 0), (536, (2483.6, -1677.0, 13.1), 0.0, 4, 0)]
+[  160.4] TRAZA tras salir +4s [(575, (0.0, 0.0, 0.0), 0.4, 4, 0), (536, (2483.6, -1677.0, 13.1), 0.0, 4, 0)]
+[  164.5] TRAZA tras salir +8s [(575, (0.0, 0.0, 0.0), 0.4, 4, 0), (536, (2483.6, -1677.0, 13.1), 0.0, 4, 0)]
+[  169.6] TRAS SALIR {"tras_salir_vehiculos_antes": 3, "siguen": 2, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0, "velocidades_de_los_que_siguen": [[520, 0.0], [596, 0.0]]}
+[  199.4] busqueda: nivel ? peds {'peds': 11, 'veh': 10, 'edif': 10329, 'obj': 152, 'dummy': 963}
+[  201.6] SITIO CJ casa antes: vehiculos cerca 10 peds cerca 11 minz 13.060108184814453 modelos [432, 488, 497, 520, 536, 542, 545, 575, 596, 596] CJ en (2503.39794921875, -1697.875, 13.558921813964844) velocidades>0.05 antes de entrar [(488, 0.19), (497, 0.13)]
+[  201.6] TRAZA antes de entrar [(497, (2501.1, -1689.7, 30.3), 0.13, 3, 0), (488, (2492.7, -1670.8, 41.3), 0.19, 3, 0)]
+[  202.1] entro True area 3
+[  222.3] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 10, "peds_cerca": 11, "caidas_log": 0, "bajaron_mas_de_3m": []}
+[  242.4] TRAZA dentro (fin) [(497, (0.0, 0.0, 0.0), 0.21, 3, 0), (488, (0.0, 0.0, 0.0), 0.24, 3, 0)]
+[  243.4] TRAZA tras salir +1s [(497, (0.0, 0.0, 0.0), 0.21, 3, 0), (488, (0.0, 0.0, 0.0), 0.24, 3, 0)]
+[  244.5] TRAZA tras salir +2s [(497, (0.0, 0.0, 0.0), 0.21, 3, 0), (488, (0.0, 0.0, 0.0), 0.24, 3, 0)]
+[  246.7] TRAZA tras salir +4s [(497, (0.0, 0.0, 0.0), 0.21, 3, 0), (488, (0.0, 0.0, 0.0), 0.24, 3, 0)]
+[  250.7] TRAZA tras salir +8s [(497, (0.0, 0.0, 0.0), 0.21, 3, 0), (488, (0.0, 0.0, 0.0), 0.24, 3, 0)]
+[  255.7] TRAS SALIR {"tras_salir_vehiculos_antes": 10, "siguen": 6, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0, "velocidades_de_los_que_siguen": [[432, 0.0], [520, 0.0], [542, 0.0], [545, 0.0], [596, 0.0], [596, 0.0]]}
+[  262.2] vivo al final: True
+[  262.2] fin

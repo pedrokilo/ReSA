@@ -1,0 +1,37 @@
+[    0.2] pid 7736
+[    8.7] juego en marcha tras 8 s; gGameState=9
+[    9.4] salida de la casa: area=0 tras 1 s
+[   10.5] ventana: cliente 585x438
+[   10.5] === ESCENARIO caida_interior
+[   40.6] busqueda: nivel ? peds {'peds': 18, 'veh': 12, 'edif': 10329, 'obj': 160, 'dummy': 963}
+[   42.8] SITIO CJ casa antes: vehiculos cerca 13 peds cerca 19 minz 12.93356990814209 modelos [432, 497, 497, 520, 536, 545, 567, 567, 567, 567, 575, 596, 600] CJ en (2503.396484375, -1698.214111328125, 13.559173583984375)
+[   43.2] entro True area 3
+[   48.7] LOG [aviso][14:17:35.583][World.cpp:1439]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2499.322021 -1706.468140 -110.231873
+[   49.4] LOG [aviso][14:17:35.744][World.cpp:1473]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2499.124756 -1707.036499 -121.088669
+[   49.4] LOG [aviso][14:17:36.226][World.cpp:1439]: &&&&&&Otro peatón ha caído a través del mapa&&&&&&&&&& 2492.568359 -1680.558472 -104.628357
+[   63.4] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 13, "peds_cerca": 19, "caidas_log": 3, "bajaron_mas_de_3m": [["v", "0x905b9b0", 596, "area0", "cre1", "st3", [2494.9, -1681.6, 13.1], -117.9], ["v", "0x9060a70", 497, "area0", "cre1", "st3", [2529.2, -1734.1, 62.6], 1.8], ["p", "0x9019b18", 280, "area0", "cre0", "st0", [2495.5, -1681.7, 12.9], -75.7], ["p", "0x901a2dc", 280, "area0", "cre0", "st0", [2494.5, -1682.1, 13.0], -78.7]]}
+[   89.7] TRAS SALIR {"tras_salir_vehiculos_antes": 13, "siguen": 4, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0}
+[  125.5] busqueda: nivel ? peds {'peds': 11, 'veh': 3, 'edif': 10544, 'obj': 96, 'dummy': 1016}
+[  127.6] SITIO CJ casa antes: vehiculos cerca 3 peds cerca 11 minz 13.183259963989258 modelos [520, 536, 575] CJ en (2503.696044921875, -1698.4517822265625, 13.55868911743164)
+[  127.6] entro True area 3
+[  147.7] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 3, "peds_cerca": 11, "caidas_log": 0, "bajaron_mas_de_3m": []}
+[  154.6] TRAS SALIR {"tras_salir_vehiculos_antes": 3, "siguen": 1, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0}
+[  154.6] LOG(tras salir) [aviso][14:19:18.299][World.cpp:1473]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2507.201416 -1695.101685 -105.785278
+[  184.5] busqueda: nivel ? peds {'peds': 12, 'veh': 9, 'edif': 10329, 'obj': 152, 'dummy': 963}
+[  186.7] SITIO CJ casa antes: vehiculos cerca 9 peds cerca 12 minz 13.060096740722656 modelos [432, 488, 497, 520, 545, 575, 582, 596, 596] CJ en (2503.40625, -1697.78564453125, 13.558837890625)
+[  187.1] entro True area 3
+[  207.1] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 9, "peds_cerca": 12, "caidas_log": 0, "bajaron_mas_de_3m": [["p", "0x901ba28", 285, "area0", "cre0", "st0", [2486.6, -1698.9, 24.0], 19.7]]}
+[  233.3] TRAS SALIR {"tras_salir_vehiculos_antes": 9, "siguen": 6, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0}
+[  269.0] busqueda: nivel ? peds {'peds': 11, 'veh': 2, 'edif': 10544, 'obj': 96, 'dummy': 1016}
+[  271.2] SITIO CJ casa antes: vehiculos cerca 2 peds cerca 11 minz 13.189106941223145 modelos [520, 575] CJ en (2503.683837890625, -1698.4862060546875, 13.558741569519043)
+[  271.2] entro True area 3
+[  291.2] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 2, "peds_cerca": 11, "caidas_log": 0, "bajaron_mas_de_3m": []}
+[  298.2] TRAS SALIR {"tras_salir_vehiculos_antes": 2, "siguen": 1, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0}
+[  298.2] LOG(tras salir) [aviso][14:21:42.007][World.cpp:1473]: &&&&&&Otro vehículo ha caído a través del mapa&&&&&&&&&& 2503.747803 -1694.554688 -118.866051
+[  328.1] busqueda: nivel ? peds {'peds': 11, 'veh': 8, 'edif': 10329, 'obj': 152, 'dummy': 963}
+[  330.3] SITIO CJ casa antes: vehiculos cerca 8 peds cerca 11 minz 13.060096740722656 modelos [432, 488, 497, 520, 545, 547, 596, 596] CJ en (2503.3974609375, -1697.8565673828125, 13.55890941619873)
+[  330.7] entro True area 3
+[  351.3] RESULTADO {"sitio": "CJ casa", "entro": true, "vehiculos_cerca": 8, "peds_cerca": 11, "caidas_log": 0, "bajaron_mas_de_3m": []}
+[  377.5] TRAS SALIR {"tras_salir_vehiculos_antes": 8, "siguen": 6, "se_mueven_5s": 0, "con_z_baja": 0, "velocidad_max": 0.0}
+[  384.0] vivo al final: True
+[  384.0] fin

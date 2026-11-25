@@ -1,0 +1,97 @@
+{
+ "caida_interior": [
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 12,
+   "peds_cerca": 19,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [],
+   "tras_salir_vehiculos_antes": 12,
+   "siguen": 4,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0,
+   "velocidades_de_los_que_siguen": [
+    [
+     432,
+     0.0
+    ],
+    [
+     520,
+     0.0
+    ],
+    [
+     545,
+     0.0
+    ],
+    [
+     567,
+     0.0
+    ]
+   ]
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 3,
+   "peds_cerca": 11,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [],
+   "tras_salir_vehiculos_antes": 3,
+   "siguen": 2,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0,
+   "velocidades_de_los_que_siguen": [
+    [
+     520,
+     0.0
+    ],
+    [
+     596,
+     0.0
+    ]
+   ]
+  },
+  {
+   "sitio": "CJ casa",
+   "entro": true,
+   "vehiculos_cerca": 10,
+   "peds_cerca": 11,
+   "caidas_log": 0,
+   "bajaron_mas_de_3m": [],
+   "tras_salir_vehiculos_antes": 10,
+   "siguen": 6,
+   "se_mueven_5s": 0,
+   "con_z_baja": 0,
+   "velocidad_max": 0.0,
+   "velocidades_de_los_que_siguen": [
+    [
+     432,
+     0.0
+    ],
+    [
+     520,
+     0.0
+    ],
+    [
+     542,
+     0.0
+    ],
+    [
+     545,
+     0.0
+    ],
+    [
+     596,
+     0.0
+    ],
+    [
+     596,
+     0.0
+    ]
+   ]
+  }
+ ]
+}
