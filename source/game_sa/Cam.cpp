@@ -3363,7 +3363,7 @@ float CameraRound4(float value) {
     int five=5;
     int four=4;
     CamRound4ScaleCpp(five, value, &scaled);
-    std::modf(scaled,&integral);
+    (void)std::modf(scaled,&integral);
     CamRound4FinishCpp(integral, four, &result);
     return result;
 }
