@@ -572,7 +572,8 @@ def esc_caida_interior(j):
         j.dormir(2.0)
         antes = cerca(snap(), ext[0], ext[1])
         nv = sum(1 for k in antes if k[0] == 'v'); npd = sum(1 for k in antes if k[0] == 'p')
-        j.P('SITIO', nombre, 'antes: vehiculos cerca', nv, 'peds cerca', npd, 'minz', min([v[1][2] for v in antes.values()] or [0]), 'modelos', sorted(v[0] for k, v in antes.items() if k[0] == 'v'), 'CJ en', j.pos())
+        j.P('SITIO', nombre, 'antes: vehiculos cerca', nv, 'peds cerca', npd, 'minz', min([v[1][2] for v in antes.values()] or [0]), 'modelos', sorted(v[0] for k, v in antes.items() if k[0] == 'v'), 'CJ en', j.pos(),
+            'velocidades>0.05 antes de entrar', sorted((v[0], round(j.vel(k[1]), 2)) for k, v in antes.items() if k[0] == 'v' and j.vel(k[1]) > 0.05))
         # entrar
         entro = False
         for intento, tec in enumerate((None, 'w', 's', 'a', 'd')):
@@ -607,7 +608,14 @@ def esc_caida_interior(j):
         while time.time() - t < 20 and j.alive():
             j.tick(); time.sleep(0.25)
             if j.area() == 0: break
-        j.dormir(5.0)
+        j.dormir(1.0); s1 = snap(); j.dormir(5.0); s2 = snap()
+        # tras salir: los coches de antes siguen en el mundo, a su altura, y se mueven/colisionan otra vez (z y desplazamiento xy en 5 s)
+        vivos = [k for k in antes if k[0] == 'v' and k in s2 and s2[k][1] and k in s1 and s1[k][1]]
+        mov = sum(1 for k in vivos if math.hypot(s2[k][1][0] - s1[k][1][0], s2[k][1][1] - s1[k][1][1]) > 0.5)
+        caidos2 = sum(1 for k in vivos if s2[k][1][2] < antes[k][1][2] - 3.0)
+        r2 = {'tras_salir_vehiculos_antes': sum(1 for k in antes if k[0] == 'v'), 'siguen': len(vivos), 'se_mueven_5s': mov, 'con_z_baja': caidos2,
+              'velocidad_max': round(max([j.vel(k[1]) for k in vivos] or [0]), 2), 'velocidades_de_los_que_siguen': sorted((s2[k][0], round(j.vel(k[1]), 2)) for k in vivos)}
+        res[-1].update(r2); j.P('TRAS SALIR', json.dumps(r2))
         for l in j.log_nuevas(arg('--log')):
             if 'ha caído' in l or 'ha caido' in l: j.P('LOG(tras salir)', l[:200])
         if j.area() != 0: j.tp(*SALIDA); j.dormir(6)

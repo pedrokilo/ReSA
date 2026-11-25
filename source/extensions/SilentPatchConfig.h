@@ -26,3 +26,9 @@ int SilentPatchIntOption(const char* name, int defaultValue, int disabledValue);
  * Sirve de evidencia en las pruebas (log.log del juego). Se llama una vez al empezar a ejecutarse el bucle principal (Idle, app_game.cpp).
  */
 void SilentPatchLogState();
+
+/*
+ * Opcion PROPIA (no es de SilentPatch, no depende del interruptor general): variable de entorno `envName`=0|1 o linea `iniKey=0|1` en gta-reversed.ini;
+ * por defecto `defaultValue`. Con ella apagada el codigo del EXE queda literal. Ver docs/DesviacionesConocidas.md (15.I).
+ */
+bool OwnDeviationOption(const char* envName, const char* iniKey, bool defaultValue);

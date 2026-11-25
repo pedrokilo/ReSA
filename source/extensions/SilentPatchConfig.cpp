@@ -130,3 +130,16 @@ int SilentPatchIntOption(const char* name, int defaultValue, int disabledValue) 
     }
     return defaultValue;
 }
+
+// Desviacion propia (no de SilentPatch): ver SilentPatchConfig.h
+bool OwnDeviationOption(const char* envName, const char* iniKey, bool defaultValue) {
+    static std::mutex mtx;
+    std::lock_guard   lock{mtx};
+    static std::unordered_map<std::string, bool> cache;
+    const std::string clave = std::string(envName) + (defaultValue ? "#1" : "#0");
+    if (const auto it = cache.find(clave); it != cache.end()) { return it->second; }
+    const bool r = DeEntorno(envName).value_or(DeIni(iniKey).value_or(defaultValue));
+    cache.emplace(clave, r);
+    SPDLOG_INFO("Desviacion propia: opcion {} = {}", iniKey, r ? 1 : 0);
+    return r;
+}
