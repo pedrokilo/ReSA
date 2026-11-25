@@ -4,7 +4,7 @@
 
 # RenderWare y D3D en el EXE: mapa de las 1,888 funciones
 
-[Lista completa (CSV)](funciones.csv) · [Pendientes por clase](pendientes-por-clase.md) · [Plan de validación](plan-validacion.md) · [Mapa del código del juego](../JuegoExe/README.md)
+[Lista completa (CSV)](funciones.csv) · [Pendientes por clase](pendientes-por-clase.md) · [Plan de validación](plan-validacion.md) · [D3DX9: enlace y dependencia de DLL](d3dx9-enlace.md) · [Mapa del código del juego](../JuegoExe/README.md)
 
 Región **0x750000–0x81FFFF**: 1,888 funciones, 600,967 bytes. Es RenderWare 3.7 y los envoltorios D3D9 enlazados estáticamente. Generado por `contrib/rw_function_map.py` (mismos datos y cotas que `contrib/exe_coverage.py`).
 

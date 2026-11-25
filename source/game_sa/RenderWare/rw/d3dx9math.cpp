@@ -24,6 +24,8 @@ END GENERATED HOOK STATUS */
 
 #include "d3dx9math.h"
 #include "D3DX9MatrixMultiplyTransposeSse.h"
+#include "D3DX9NativeMath.h"
+#include "D3DX9NativeAssembler.h"
 
 // Lote R4A (sin validar). Funciones matematicas de D3DX9 enlazadas en el EXE (0x7C1D80..0x7C3A40). Cada cuerpo se transcribio del desensamblado del EXE.
 // Las variantes SSE se escriben con intrinsecos _mm_* (misma operacion y mismo orden que el EXE, sin __asm); las 3DNow!/MMX no tienen intrinsecos en MSVC y se
@@ -64,7 +66,8 @@ void D3DX9InjectHooks() {
     RH_ScopedGlobalInstall(D3DX9TwoAcosScalar, 0x7C2CA4);
     RH_ScopedGlobalInstall(D3DX9SinCosPS, 0x7C307E);
     RH_ScopedGlobalInstall(D3DX9SinCosPS_SSE2, 0x7C381F);
-    // lote EXT1A: matematica de D3DX9 del EXE (0x766A32.. son `jmp [tabla]`) sustituida por d3dx9_43.dll; la de MatrixMultiplyTranspose es propia (la DLL redondea distinto)
+    // lote EXT1A: matematica de D3DX9 del EXE (0x766A32.. son `jmp [tabla]`) sustituida por d3dx9_43.dll; FnD3DX9C (24/11/2026): ahora es C++ propio (D3DX9NativeMath, bit a bit igual que
+    // la DLL en el banco) y la DLL solo se carga con --d3dx9-dll/--d3dx9-verificar; la de MatrixMultiplyTranspose es propia desde EXT1A (la DLL redondea distinto)
     RH_ScopedGlobalInstall(D3DXFloat16To32Array, 0x76626B);
     RH_ScopedGlobalInstall(D3DXVec3TransformCoord, 0x766A32);
     RH_ScopedGlobalInstall(D3DXVec3TransformNormal, 0x766AB7);
@@ -72,7 +75,8 @@ void D3DX9InjectHooks() {
     RH_ScopedGlobalInstall(D3DXMatrixTranspose, 0x7675EE);
     RH_ScopedGlobalInstall(D3DXMatrixMultiplyTranspose, 0x7676C7);
 
-    // lote R21A / E3 (P4): ensamblador y compilador de shaders sustituidos por d3dx9_43.dll. Nacieron desactivados (20/11/2026) porque la DLL rechazaba Flags = 4
+    // lote R21A / E3 (P4): ensamblador y compilador de shaders sustituidos por d3dx9_43.dll. FnD3DX9C: el ensamblador de vertex shaders vs_2_0/vs_2_x del juego es propio (D3DX9NativeAssembler);
+    // la DLL queda de respaldo para lo que ese ensamblador no cubre (vs_1_1, compilacion HLSL). Nacieron desactivados (20/11/2026) porque la DLL rechazaba Flags = 4
     // (SKIPOPTIMIZATION) con D3DERR_INVALIDCALL y los modelos con esqueleto salian invisibles; FnD3DX9B enmascaro las banderas y el estado x87/SSE se restaura al cargar la DLL.
     // Reactivados en el lote E3 (P4): ver docs/CodigoVivoExe/ejecucion-p4.md.
     RH_ScopedGlobalInstall(D3DXAssembleShader, 0x7652AE);
@@ -438,28 +442,91 @@ Fn Get(const char* name) {
 }
 } // namespace
 
+// FnD3DX9C: modo de las funciones de matematica y del ensamblador. 0 = propio (por defecto: C++ propio, sin d3dx9_43.dll), 1 = DLL (--d3dx9-dll, comportamiento anterior),
+// 2 = verificar (--d3dx9-verificar: ejecuta el propio y la DLL, compara bit a bit y registra las diferencias; carga la DLL, solo diagnostico).
+int s_Mode = 0;
+namespace {
+enum Fn { kF16, kCoord, kNormal, kMul, kTranspose, kMulTranspose, kAssemble, kAssembleDll, kCount };
+constexpr const char* kFnNames[kCount] = {"D3DXFloat16To32Array", "D3DXVec3TransformCoord", "D3DXVec3TransformNormal", "D3DXMatrixMultiply", "D3DXMatrixTranspose",
+                                          "D3DXMatrixMultiplyTranspose (siempre propia)", "D3DXAssembleShader (propio)", "D3DXAssembleShader (DLL)"};
+uint32 s_Calls[kCount];
+uint32 s_Mismatches[kCount];
+// Contadores de uso: con --d3dx9-log se registra la primera llamada y cada potencia de dos (1, 2, 4, 8, ...).
+void Count(Fn fn) {
+    const uint32 n = ++s_Calls[fn];
+    if (s_LogCalls && (n & (n - 1)) == 0) {
+        NOTSA_LOG_INFO("D3DX9 uso: {} llamada #{} (modo {})", kFnNames[fn], n, s_Mode == 0 ? "propio" : s_Mode == 1 ? "DLL" : "verificar");
+    }
+}
+// Modo verificar: compara la salida propia con la de la DLL (bit a bit).
+void Compare(Fn fn, const void* own, const void* dll, size_t bytes) {
+    if (std::memcmp(own, dll, bytes) != 0) {
+        const uint32 n = ++s_Mismatches[fn];
+        if (n <= 20) NOTSA_LOG_ERR("D3DX9 VERIFICAR: {} difiere de d3dx9_43.dll (diferencia #{}, llamada #{})", kFnNames[fn], n, s_Calls[fn]);
+    } else if (s_LogCalls && (s_Calls[fn] & (s_Calls[fn] - 1)) == 0) {
+        NOTSA_LOG_INFO("D3DX9 VERIFICAR: {} igual que d3dx9_43.dll en la llamada #{} (diferencias hasta ahora: {})", kFnNames[fn], s_Calls[fn], s_Mismatches[fn]);
+    }
+}
+} // namespace
+
 float* Float16To32Array(float* out, const uint16* in, uint32 count) {
+    Count(kF16);
+    if (s_Mode == 0) return D3DX9Native::Float16To32Array(out, in, count);
     static const auto fn = Get<float*(__stdcall*)(float*, const uint16*, uint32)>("D3DXFloat16To32Array");
-    return fn ? fn(out, in, count) : out;
+    if (s_Mode == 1) return fn ? fn(out, in, count) : out;
+    std::vector<uint16> copy(in, in + count);
+    std::vector<float> ref(count);
+    D3DX9Native::Float16To32Array(out, copy.data(), count);
+    if (fn) { fn(ref.data(), copy.data(), count); Compare(kF16, out, ref.data(), count * sizeof(float)); }
+    return out;
 }
 void* Vec3TransformCoord(void* out, const void* v, const void* matrix) {
+    Count(kCoord);
+    if (s_Mode == 0) return D3DX9Native::Vec3TransformCoord(out, v, matrix);
     static const auto fn = Get<void*(__stdcall*)(void*, const void*, const void*)>("D3DXVec3TransformCoord");
-    return fn ? fn(out, v, matrix) : out;
+    if (s_Mode == 1) return fn ? fn(out, v, matrix) : out;
+    float cv[3], cm[16], ref[3];
+    std::memcpy(cv, v, sizeof cv); std::memcpy(cm, matrix, sizeof cm);
+    D3DX9Native::Vec3TransformCoord(out, cv, cm);
+    if (fn) { fn(ref, cv, cm); Compare(kCoord, out, ref, sizeof ref); }
+    return out;
 }
 void* Vec3TransformNormal(void* out, const void* v, const void* matrix) {
+    Count(kNormal);
+    if (s_Mode == 0) return D3DX9Native::Vec3TransformNormal(out, v, matrix);
     static const auto fn = Get<void*(__stdcall*)(void*, const void*, const void*)>("D3DXVec3TransformNormal");
-    return fn ? fn(out, v, matrix) : out;
+    if (s_Mode == 1) return fn ? fn(out, v, matrix) : out;
+    float cv[3], cm[16], ref[3];
+    std::memcpy(cv, v, sizeof cv); std::memcpy(cm, matrix, sizeof cm);
+    D3DX9Native::Vec3TransformNormal(out, cv, cm);
+    if (fn) { fn(ref, cv, cm); Compare(kNormal, out, ref, sizeof ref); }
+    return out;
 }
 void* MatrixMultiply(void* out, const void* a, const void* b) {
+    Count(kMul);
+    if (s_Mode == 0) return D3DX9Native::MatrixMultiply(out, a, b);
     static const auto fn = Get<void*(__stdcall*)(void*, const void*, const void*)>("D3DXMatrixMultiply");
-    return fn ? fn(out, a, b) : out;
+    if (s_Mode == 1) return fn ? fn(out, a, b) : out;
+    float ca[16], cb[16], ref[16];
+    std::memcpy(ca, a, sizeof ca); std::memcpy(cb, b, sizeof cb);
+    D3DX9Native::MatrixMultiply(out, ca, cb);
+    if (fn) { fn(ref, ca, cb); Compare(kMul, out, ref, sizeof ref); }
+    return out;
 }
 void* MatrixTranspose(void* out, const void* in) {
+    Count(kTranspose);
+    if (s_Mode == 0) return D3DX9Native::MatrixTranspose(out, in);
     static const auto fn = Get<void*(__stdcall*)(void*, const void*)>("D3DXMatrixTranspose");
-    return fn ? fn(out, in) : out;
+    if (s_Mode == 1) return fn ? fn(out, in) : out;
+    float ci[16], ref[16];
+    std::memcpy(ci, in, sizeof ci);
+    D3DX9Native::MatrixTranspose(out, ci);
+    if (fn) { fn(ref, ci); Compare(kTranspose, out, ref, sizeof ref); }
+    return out;
 }
 // Excepcion del lote EXT1A: la DLL redondea distinto que el EXE (1-2 ulps) en esta funcion, asi que se usa la rutina propia que reproduce al EXE bit a bit (D3DX9MatrixMultiplyTransposeSse.h).
 void* MatrixMultiplyTranspose(void* out, const void* a, const void* b) {
+    Count(kMulTranspose);
     return D3DX9MatrixMultiplyTransposeSse(static_cast<float*>(out), static_cast<const float*>(a), static_cast<const float*>(b));
 }
 namespace {
@@ -494,7 +561,8 @@ std::string Head(const char* s, size_t n = SIZE_MAX) { return s ? Escape(s, n ==
 // D3DXSHADER_SKIPVALIDATION (2). El juego (0x760C66, generador de vertex shaders de piel/mundo) llama con Flags = 4 (D3DXSHADER_SKIPOPTIMIZATION), que el ensamblador antiguo
 // del EXE ignoraba: la DLL no devolvia ningun shader y los modelos con esqueleto salian invisibles o cortados. Se enmascara a DEBUG|SKIPVALIDATION; si aun asi la validacion
 // de la DLL rechaza el codigo (mas estricta que la del EXE) se reintenta sin validar, como hacia el EXE (el controlador valida otra vez en CreateVertexShader).
-int32 AssembleShader(const void* srcData, uint32 srcDataLen, const void* defines, void* include, uint32 flags, void** shader, void** errorMsgs) {
+namespace {
+int32 AssembleViaDll(const void* srcData, uint32 srcDataLen, const void* defines, void* include, uint32 flags, void** shader, void** errorMsgs) {
     static const auto fn = Get<int32(__stdcall*)(const void*, uint32, const void*, void*, uint32, void**, void**)>("D3DXAssembleShader");
     if (!fn) return kD3DERR_NOTAVAILABLE;
     constexpr uint32 kAllowed = 1u | 2u; // D3DXSHADER_DEBUG | D3DXSHADER_SKIPVALIDATION
@@ -522,6 +590,78 @@ int32 AssembleShader(const void* srcData, uint32 srcDataLen, const void* defines
         reinterpret_cast<uint32(__stdcall*)(void*)>(static_cast<IBufferLike*>(localShader)->vtbl[2])(localShader);
     }
     return hr;
+}
+
+// FnD3DX9C: ID3DXBuffer propio (IUnknown + GetBufferPointer + GetBufferSize, mismo orden de tabla virtual que el de D3DX9: el juego lo usa por ranuras 2 (Release) y 3 (GetBufferPointer)).
+class NativeBuffer {
+public:
+    explicit NativeBuffer(std::vector<uint32>&& code) : m_Code(std::move(code)) {}
+    virtual long __stdcall QueryInterface(const GUID& iid, void** object) {
+        // IID_IUnknown {00000000-0000-0000-C000-000000000046}, IID_ID3DXBuffer {8BA5FB08-5195-40E2-AC58-0D989C3A0102}
+        static constexpr GUID kUnknown = {0x00000000, 0x0000, 0x0000, {0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46}};
+        static constexpr GUID kBuffer = {0x8BA5FB08, 0x5195, 0x40E2, {0xAC, 0x58, 0x0D, 0x98, 0x9C, 0x3A, 0x01, 0x02}};
+        if (object && (std::memcmp(&iid, &kUnknown, sizeof iid) == 0 || std::memcmp(&iid, &kBuffer, sizeof iid) == 0)) {
+            *object = this;
+            ++m_Refs;
+            return 0;
+        }
+        if (object) *object = nullptr;
+        return static_cast<long>(0x80004002); // E_NOINTERFACE
+    }
+    virtual unsigned long __stdcall AddRef() { return ++m_Refs; }
+    virtual unsigned long __stdcall Release() {
+        const unsigned long refs = --m_Refs;
+        if (refs == 0) delete this;
+        return refs;
+    }
+    virtual void* __stdcall GetBufferPointer() { return m_Code.data(); }
+    virtual unsigned long __stdcall GetBufferSize() { return static_cast<unsigned long>(m_Code.size() * sizeof(uint32)); }
+    virtual ~NativeBuffer() = default;
+
+private:
+    unsigned long m_Refs = 1;
+    std::vector<uint32> m_Code;
+};
+static_assert(sizeof(void*) == 4, "la tabla virtual debe ser la de COM de 32 bits");
+} // namespace
+
+// FnD3DX9C: D3DXAssembleShader. Por defecto usa el ensamblador propio (D3DX9NativeAssembler) para la gramatica que genera el juego (vs_2_0/vs_2_x sin defines, include ni DEBUG); lo demas
+// (vs_1_1, otras versiones, instrucciones no cubiertas) cae en d3dx9_43.dll como antes, y si la DLL no esta devuelve D3DERR_NOTAVAILABLE. Las banderas del EXE (4 = SKIPOPTIMIZATION) no afectan
+// al bytecode: el ensamblador antiguo del EXE las ignoraba.
+int32 AssembleShader(const void* srcData, uint32 srcDataLen, const void* defines, void* include, uint32 flags, void** shader, void** errorMsgs) {
+    if (s_Mode != 1 && shader && srcData && !defines && !include && !(flags & 1u)) {
+        std::vector<uint32> code;
+        std::string why;
+        if (D3DX9Native::AssembleVertexShader(static_cast<const char*>(srcData), srcDataLen, code, why) == D3DX9Native::AssembleResult::Ok) {
+            Count(kAssemble);
+            if (s_Mode == 2) {
+                void* dllShader = nullptr;
+                const int32 hr = AssembleViaDll(srcData, srcDataLen, defines, include, flags, &dllShader, nullptr);
+                if (hr < 0 || !dllShader) {
+                    NOTSA_LOG_ERR("D3DX9 VERIFICAR: la DLL no pudo ensamblar un shader que el propio si (hr=0x{:08X}) fuente='{}'", static_cast<uint32>(hr), Escape(srcData, srcDataLen));
+                } else {
+                    const uint32 dllSize = BufferSize(dllShader);
+                    if (dllSize != code.size() * sizeof(uint32)) {
+                        ++s_Mismatches[kAssemble];
+                        NOTSA_LOG_ERR("D3DX9 VERIFICAR: tamano distinto del bytecode (propio {} B, DLL {} B) fuente='{}'", code.size() * sizeof(uint32), dllSize, Escape(srcData, srcDataLen));
+                    } else {
+                        Compare(kAssemble, code.data(), BufferPtr(dllShader), dllSize);
+                    }
+                    reinterpret_cast<uint32(__stdcall*)(void*)>(static_cast<IBufferLike*>(dllShader)->vtbl[2])(dllShader);
+                }
+            }
+            if (errorMsgs) *errorMsgs = nullptr;
+            *shader = new NativeBuffer(std::move(code));
+            if (s_LogCalls) {
+                NOTSA_LOG_INFO("D3DX9 AssembleShader propio #{}: len={} flagsEXE=0x{:X} hr=0x00000000 bytecode={} bytes", s_Calls[kAssemble], srcDataLen, flags, static_cast<NativeBuffer*>(*shader)->GetBufferSize());
+            }
+            return 0;
+        }
+        static uint32 s_Unsupported = 0;
+        if (++s_Unsupported <= 20) NOTSA_LOG_WARN("D3DX9 AssembleShader: el ensamblador propio no cubre este shader ({}); se usa d3dx9_43.dll", why);
+    }
+    Count(kAssembleDll);
+    return AssembleViaDll(srcData, srcDataLen, defines, include, flags, shader, errorMsgs);
 }
 int32 CompileShaderFromFileA(const char* srcFile, const void* defines, void* include, const char* functionName, const char* target, uint32 flags, void** shader, void** errorMsgs, void** constantTable) {
     static const auto fn = Get<int32(__stdcall*)(const char*, const void*, void*, const char*, const char*, uint32, void**, void**, void**)>("D3DXCompileShaderFromFileA");

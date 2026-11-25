@@ -1,0 +1,6 @@
+posicion antes del teletransporte (255.13699340820312, -41.53219985961914, 1002.0234375)
+posicion despues (255.13699340820312, -41.53219985961914, 1002.0234375)
+DIAG {"modelinfo": "0xb1f574", "refs": 27063, "rwObject": "0x5911c80", "txd": 2986, "stream_loadstate": 1, "stream_raw": "ffffffffab0a0c01642300000500000001000000", "objetos": [{"i": 4, "rw": "0x59861f0", "flags": "a1000008"}]}
+d3dx_rop entidades 15 marcadores 12
+puerta True marcador True
+VEREDICTO BIEN

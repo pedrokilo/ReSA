@@ -1,0 +1,11 @@
+exe origen: D:\Original\wv-d3dx\reversing\FnFase8\salida\gta_sa_standalone.exe
+exe en la carpeta de juego: ['gta_sa_standalone.exe']
+dlls en la carpeta de juego: ['eax.dll', 'ogg.dll', 'vorbis.dll', 'vorbisFile.dll', 'vorbisHooked.dll']
+pid=34336 lanzado con espia tras 3.58 s
+t=20 vivo, 116 modulos, d3dx9*/d3dcompiler* cargados: [] ; captura {'ancho': 800, 'alto': 600, 'rojo': 0, 'muestras': 53568, 'media_rgb': [14.1, 13.8, 13.7], 'max': 42}
+t=60 vivo, 116 modulos, d3dx9*/d3dcompiler* cargados: [] ; captura {'ancho': 800, 'alto': 600, 'rojo': 0, 'muestras': 53568, 'media_rgb': [66.3, 51.1, 32.4], 'max': 255}
+t=120 vivo, 116 modulos, d3dx9*/d3dcompiler* cargados: [] ; captura {'ancho': 800, 'alto': 600, 'rojo': 1, 'muestras': 53568, 'media_rgb': [116.4, 119.6, 107.3], 'max': 255}
+exit=0xDEAD0002 duracion=133.9 s
+espia: 2 accesos a d3dx9*/d3dcompiler*, 0 bloqueados
+   0	38888	NtCreateFile	\??\D:\Original\wv-d3dx\reversing\FnD3DX9C\ejecuciones\propio2-20261124-224442\fase8_arranque.log
+   0	38888	NtCreateFile	\??\D:\Original\wv-d3dx\reversing\FnD3DX9C\ejecuciones\propio2-20261124-224442\fase8_codigo_original.csv

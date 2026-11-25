@@ -1,0 +1,2 @@
+"D:\Original\_d3dx_run\gta_sa_standalone.exe" --directorio-juego "D:\Original\_d3dx_run" --salida "D:\Original\wv-d3dx\reversing\FnD3DX9C\ejecuciones\exe_anterior-20261124-230003" --limite 130 
+bloquear=''

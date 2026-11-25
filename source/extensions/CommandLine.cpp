@@ -8,7 +8,7 @@
 #include <fstream>
 #include <list>
 
-namespace D3DX9System { extern bool s_LogCalls; }
+namespace D3DX9System { extern bool s_LogCalls; extern int s_Mode; }
 
 namespace CommandLine {
 bool                          s_UnhookAll{ false };
@@ -66,6 +66,10 @@ void ProcessArgument(std::string_view arg) {
         }
     } else if (arg == "--d3dx9-log") {
         D3DX9System::s_LogCalls = true; // FnD3DX9B: registra las llamadas a los envoltorios de shaders de D3DX9
+    } else if (arg == "--d3dx9-dll") {
+        D3DX9System::s_Mode = 1; // FnD3DX9C: usa siempre d3dx9_43.dll (comportamiento anterior; comparaciones A/B)
+    } else if (arg == "--d3dx9-verificar") {
+        D3DX9System::s_Mode = 2; // FnD3DX9C: ejecuta la version propia y la DLL, compara bit a bit y registra las diferencias (carga la DLL: solo diagnostico)
     } else if (arg.starts_with("--dump-hooks-to=")) {
         if (const auto eqPos = arg.find('='); eqPos != std::string_view::npos) {
             s_DumpHooksPath = arg.substr(eqPos + 1);

@@ -1,0 +1,2 @@
+"D:\Original\_d3dx_run\gta_sa_standalone.exe" --directorio-juego "D:\Original\_d3dx_run" --salida "D:\Original\wv-d3dx\reversing\FnD3DX9C\ejecuciones\fallback_carpeta-20261124-225406" --limite 130 --d3dx9-dll --d3dx9-log
+bloquear='system32\\d3dx9;syswow64\\d3dx9;system32\\d3dcompiler;syswow64\\d3dcompiler'
