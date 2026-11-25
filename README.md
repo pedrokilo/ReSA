@@ -178,4 +178,5 @@ Este trabajo continúa [gta-reversed](https://github.com/gta-reversed/gta-revers
 - Todos los colaboradores del [proyecto original](https://github.com/codenulls/gta-reversed).
 - Cientos de personas que han compartido sus conocimientos en [gtaforums.com](https://gtaforums.com/topic/194199-documenting-gta-sa-memory-addresses).
 - El [equipo de re3](https://github.com/GTAmodding/re3).
+- [SilentPatch](https://github.com/CookiePLMonster/SilentPatch) de Silent (Adrian Zdanowicz, licencia MIT): de él proceden las correcciones opcionales portadas (ver [THIRD_PARTY_NOTICES](docs/THIRD_PARTY_NOTICES.md)).
 - Todas las personas que han contribuido a la ingeniería inversa de GTA San Andreas.
