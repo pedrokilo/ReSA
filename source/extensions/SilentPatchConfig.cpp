@@ -9,6 +9,7 @@
 #include <fstream>
 #include <optional>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -83,9 +84,16 @@ bool SilentPatchOption(const char* name, bool defaultValue) {
     if (!SilentPatchEnabled()) {
         return false;
     }
+    // Cache por nombre: varios sitios consultan la opcion en cada llamada y leer el ini cada vez seria caro (el valor es fijo durante el proceso).
+    static std::unordered_map<std::string, bool> cache;
+    const std::string clave = std::string(name) + (defaultValue ? "#1" : "#0");
+    if (const auto it = cache.find(clave); it != cache.end()) {
+        return it->second;
+    }
     std::string mayus{name};
     std::transform(mayus.begin(), mayus.end(), mayus.begin(), [](unsigned char c) { return (char)std::toupper(c); });
     const bool r = DeEntorno("GTASA_SILENTPATCH_" + mayus).value_or(DeIni(std::string("SilentPatch_") + name).value_or(defaultValue));
+    cache.emplace(clave, r);
     Registrar(name, r ? 1 : 0);
     return r;
 }
