@@ -134,4 +134,22 @@ Al anadir objetos nuevos: ejecutar `medir` y `generar` y versionar los CSV y `Ve
 
 ## 8. Verificacion posterior a la correccion
 
-(ver el final de este documento: se completa tras compilar y medir el independiente de esta rama)
+ASI Debug de esta rama (HEAD con `8b4974a72f`/`1976c92ebf` incorporados mas `DATOSEXE_VISTA` y `VerifTamanos.cpp`; 1.188 unidades, compila
+sin errores: los 1.987 `static_assert` y los 24 `DATOSEXE_VISTA` pasan; una prueba negativa con un objeto de 1 byte visto como `uint8_t[4]`
+falla con el mensaje de `Vista.h`) y independiente enlazado con esos `.obj` (`enlazar.cmd`, link exit=0). Remedicion con
+`tamanos_objetos.py medir` (PDB, `.obj` y `.map` de esa rama):
+
+| Concepto | Cifra |
+| --- | ---: |
+| Objetos revisados | 2.134 |
+| Con vista tipada medida | 1.304 |
+| **Insuficientes** | **0** (`medir` sale con 0) |
+| Sospechosos informativos | 1 (`v8CC29C`, correcto) |
+| `static_assert` de tamano minimo (VerifTamanos.cpp) | 1.975 (los 12 restantes de la primera medicion eran cadenas sin cota, no admiten `sizeof`) |
+
+`vB4E3E8` y `vB4E3F0` miden ahora 4 bytes y `vB61100` 400 (las tres filas pasan a `OK` en [tamanos-objetos.csv](tamanos-objetos.csv)).
+Humo con el ASI de esta rama (`prueba_ropero.py` y `prueba_marcadores.py`, `cal_mal.args`): ambos `VEREDICTO BIEN` (puerta y marcador del
+ropero; 12 marcadores en memoria y 12 que cambian en 1 s). No se ejecuto `prueba_agua` (decision del proyecto).
+
+Nota: en `tamanos-objetos.csv` las cadenas sin cota (`char[]`, 23 objetos) pueden mostrar `tam_declarado` 0: `dbghelp` no da tamano fiable para
+un `extern const char x[]`; no entran en ninguna comprobacion.
