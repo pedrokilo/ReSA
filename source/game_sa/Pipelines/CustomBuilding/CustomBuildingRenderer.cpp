@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/DataBssE2.h"
 
 #include "CustomBuildingRenderer.h"
+#include "extensions/SilentPatchConfig.h"
 
 #include "CustomBuildingDNPipeline.h"
 #include "CustomBuildingPipeline.h"
@@ -61,6 +62,12 @@ bool CCustomBuildingRenderer::PluginAttach() {
 void CCustomBuildingRenderer::AtomicSetup(RpAtomic* atomic) {
     auto* const geometry = RpAtomicGetGeometry(atomic);
     if (CCustomBuildingDNPipeline::GetExtraVertColourPtr(geometry)->NightColors && RpGeometryGetPreLightColors(geometry)) {
+        // SilentPatch (MIT, Silent): SkinBuildingPipelineFix (llamada de 0x5D7F1E) - un atomo con pipeline de piel (el paracaidas)
+        // no debe pasar al pipeline de edificios: perdia la animacion de piel (animaciones del paracaidas)
+        static const bool spSkinBuildingPipelineFix = SilentPatchOption("SkinBuildingPipelineFix", true);
+        if (spSkinBuildingPipelineFix && atomic->pipeline != nullptr && atomic->pipeline->pluginId == rwID_SKINPLUGIN) {
+            return;
+        }
         CCustomBuildingDNPipeline::CustomPipeAtomicSetup(atomic);
     } else {
         CCustomBuildingPipeline::CustomPipeAtomicSetup(atomic);

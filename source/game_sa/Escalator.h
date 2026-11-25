@@ -33,6 +33,15 @@ public:
         m_Exist = false;
     }
 
+    // SilentPatch (MIT, Silent): la entidad (edificio) que se descarga quitaba los peldaños en pleno streaming y a veces
+    // se caía; se encolan y se borran al inicio de CEscalators::Update. Solo lo usa CEntity::RemoveEscalatorsForEntity.
+    void SwitchOffDeferred();
+    void RemoveDeferred() {
+        SwitchOffDeferred();
+        m_Exist = false;
+    }
+    static void FlushDeferredSteps();
+
 private:
     friend class CEscalators;
 

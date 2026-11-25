@@ -1,0 +1,11 @@
+pid 15252
+juego en marcha tras 8 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 585x438
+=== ESCENARIO reposo120
+reposo: vivo = True pos (2652.5, -1719.9000244140625, 10.90625)
+vivo al final: True
+LOG [error][12:57:03.049][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][12:57:03.050][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+LOG [info][12:57:03.251][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+fin

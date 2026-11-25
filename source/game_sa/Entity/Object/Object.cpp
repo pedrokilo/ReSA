@@ -1452,6 +1452,39 @@ void CObject::ObjectFireDamage(float damage, CEntity* damager) {
 
 // 0x5A1840
 void CObject::TryToFreeUpTempObjects(int32 numObjects) {
+    // SilentPatch (MIT, Silent): TempObjectsFreeFix - liberar de forma mas agresiva los objetos temporales (maquina expendedora:
+    // el pool de objetos se llenaba con latas/cigarrillos y el juego se caia). Primero los no visibles; si faltan, tambien los visibles.
+    static const bool spTempObjectsFreeFix = SilentPatchOption("TempObjectsFreeFix", true);
+    if (spTempObjectsFreeFix) {
+        const auto TryOrFree = [](int32 wanted, bool force) {
+            int32 numProcessed = 0, numFreed = 0;
+            auto* pool = GetObjectPool();
+            for (int32 i = 0; i < static_cast<int32>(pool->GetSize()); i++) {
+                if (numFreed >= wanted) {
+                    break;
+                }
+                if (pool->IsFreeSlotAtIndex(i)) {
+                    continue;
+                }
+                auto* obj = pool->GetAt(i);
+                if (obj && obj->IsTemporary()) {
+                    numProcessed++;
+                    if (force || !obj->IsVisible()) {
+                        numFreed++;
+                        CWorld::Remove(obj);
+                        delete obj;
+                    }
+                }
+            }
+            return std::pair{ numProcessed, numFreed };
+        };
+        const auto [numProcessed, numFreed] = TryOrFree(numObjects, false);
+        if (numFreed < numObjects) {
+            TryOrFree(std::min(numProcessed, numObjects - numFreed), true);
+        }
+        return;
+    }
+
     // Como el original: recorre el pool del último slot al primero y para en cuanto no quedan objetos por liberar
     auto* pool = GetObjectPool();
     for (auto i = static_cast<int32>(pool->GetSize()); i > 0;) {
