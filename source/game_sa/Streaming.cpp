@@ -38,6 +38,7 @@ END GENERATED HOOK STATUS */
 #include "LoadingScreen.h"
 #include "VehicleRecording.h"
 #include "DatosExe/DataBssF.h"
+#include "extensions/SilentPatchConfig.h"
 
 static auto& CurrentGangMemberToLoad = DatosExe::Bss::b9654D4;
 

@@ -38,6 +38,7 @@ END GENERATED HOOK STATUS */
 #include "extensions/File.hpp"
 #include "X87Math.h"
 #include "DatosExe/DataBssF.h"
+#include "extensions/SilentPatchConfig.h"
 
 static inline auto& ScriptsArray = DatosExe::Bss::bA8B430<std::array<CRunningScript, MAX_NUM_SCRIPTS>>();
 
@@ -2223,6 +2224,25 @@ CRect ScriptRawRect(const CVector2D& a, const CVector2D& b) {
 
 // 0x464980
 void CTheScripts::DrawScriptSpritesAndRectangles(bool drawBeforeFade) {
+    // SilentPatch (MIT, Silent): los sprites de script usan filtrado bilineal; se restaura el filtro al salir. Opcion ScriptSpritesBilinear (activada).
+    struct ScopedLinearFilter {
+        void* prev{};
+        bool  active{};
+        ScopedLinearFilter() {
+            static const bool enabled = SilentPatchOption("ScriptSpritesBilinear", true);
+            if (enabled) {
+                active = true;
+                RwRenderStateGet(rwRENDERSTATETEXTUREFILTER, &prev);
+                RwRenderStateSet(rwRENDERSTATETEXTUREFILTER, RWRSTATE(rwFILTERLINEAR));
+            }
+        }
+        ~ScopedLinearFilter() {
+            if (active) {
+                RwRenderStateSet(rwRENDERSTATETEXTUREFILTER, prev);
+            }
+        }
+    } spLinearFilter;
+
     for (const auto& rt : IntroRectangles) {
         if (rt.m_bDrawBeforeFade != drawBeforeFade) {
             continue;

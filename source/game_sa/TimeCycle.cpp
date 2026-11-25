@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "X87Math.h"
+#include "extensions/SilentPatchConfig.h"
 
 #include "TimeCycle.h"
 #include "PostEffects.h"
@@ -120,6 +121,12 @@ void CTimeCycle::Initialise(bool padFile) {
     int32 waterFogAlpha;
     float dirMult;
 
+    // SilentPatch (MIT, Silent): TimecycDatMissingDataFix (sin opcion en SilentPatchSA.ini; activado). El multiplicador direccional (columna 52)
+    // falta en el timecyc.dat de PC: por defecto 1.0. La linea rota de RAINY_COUNTRYSIDE (solo "255" en vez de las 3 primeras componentes
+    // ambientales, lo que desplaza toda la linea) se relee saltando ese valor y reutilizando el ambiente de la ultima linea valida.
+    static const bool spTimecycFix = SilentPatchOption("TimecycMissingDataFix", true);
+    int32 spLastAmbR = 0, spLastAmbG = 0, spLastAmbB = 0;
+
     char* line;
     for (auto w = 0; w < NUM_WEATHERS; w++) {
         for (auto h = 0; h < NUM_HOURS; h++) {
@@ -129,7 +136,10 @@ void CTimeCycle::Initialise(bool padFile) {
                 }
             }
 
-            const auto n = sscanf(line,
+            if (spTimecycFix) {
+                dirMult = 1.0f; // SilentPatch (MIT, Silent)
+            }
+            auto n = sscanf(line,
                 "%d %d %d " // Static ambience color
                 "%d %d %d " // Dynamic ambience color
                 "%d %d %d " // Direct light color - NOP
@@ -178,6 +188,28 @@ void CTimeCycle::Initialise(bool padFile) {
             // El formato tiene 52 conversiones (como el del EXE, 0x5BBAC0) pero el timecyc.dat de la 1.0 solo trae 51 columnas:
             // la última (multiplicador direccional) nunca se lee y sscanf devuelve 51 en cada línea buena (medido: 184 de 184
             // líneas dan 51 con el sscanf del CRT propio y con el de MSVC). Solo se avisa si falta algo más.
+            if (spTimecycFix) { // SilentPatch (MIT, Silent)
+                if (n <= 49) {
+                    n = sscanf(line,
+                        "%*d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %f %f %f %d %d %d %f %f %f %d %d %d %d %d %d "
+                        "%f %f %f %f %f %f %f %f %f %f %f %f %f %d %d %f",
+                        &ambObjR, &ambObjG, &ambObjB, &dirR, &dirG, &dirB,
+                        &skyTopR, &skyTopG, &skyTopB, &skyBotR, &skyBotG, &skyBotB,
+                        &sunCoreR, &sunCoreG, &sunCoreB, &sunCoronaR, &sunCoronaG, &sunCoronaB,
+                        &sunSize, &spriteSize, &spriteBrightness,
+                        &shadowStrength, &lightShadowStrength, &poleShadowStrength,
+                        &farClip, &fogStart, &lightOnGround,
+                        &lowCloudR, &lowCloudG, &lowCloudB, &bottomCloudR, &bottomCloudG, &bottomCloudB,
+                        &waterR, &waterG, &waterB, &waterA,
+                        &postFx1A, &postFx1R, &postFx1G, &postFx1B, &postFx2A, &postFx2R, &postFx2G, &postFx2B,
+                        &cloudAlpha, &highLightMinIntensity, &waterFogAlpha, &dirMult
+                    );
+                    ambR = spLastAmbR; ambG = spLastAmbG; ambB = spLastAmbB;
+                } else {
+                    spLastAmbR = ambR; spLastAmbG = ambG; spLastAmbB = ambB;
+                }
+                n = 51; // ya tratada; sin aviso
+            }
             if (n < 51) {
                 // TODO:
                 // R* made a mistake in line 320:

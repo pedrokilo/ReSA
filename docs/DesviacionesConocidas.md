@@ -607,3 +607,16 @@ Interruptor general `GTASA_SILENTPATCH=0|1` (o `SilentPatch=` en `gta-reversed.i
 | 15 | CRunningScript::GetCorrectPedModelIndexForEmergencyServiceType; CCarAI::BackToCruisingIfNoWantedLevel | LAPDM1 pedido con PEDTYPE_COP genera un motorista; los motoristas cancelan el drive-by al perder el nivel de búsqueda | `SilentPatch_BikerCopSpawn=0`, `SilentPatch_BikerCopsDriveByFix=0` (o `GTASA_SILENTPATCH_<NOMBRE EN MAYÚSCULAS>=0`) | bajo |
 | 16 | CPlane::FindPlaneCreationCoors; CStreaming::Init2; CGame::ReInitGameObjectVariables | La comprobación de colisión de la creación de aviones usa sectores; la lista de entidades en streaming pasa de 1000 a 1250 enlaces; se reinician variables de New Game (respray gratis, temporizadores de ambulancia/bomberos, contadores de stats, penalizaciones) | `SilentPatch_PlaneCreationCoorsFix=0`, `SilentPatch_StreamedEntityList=0`, `SilentPatch_ResetVariablesOnNewGame=0` (o `GTASA_SILENTPATCH_<NOMBRE EN MAYÚSCULAS>=0`) | bajo |
 | 17 | CPedDamageResponseCalculator::ComputeWillKillPed (0x4B3210) | Con el truco de invencibilidad, las balas del helicóptero de policía no hieren a CJ | `SilentPatch_TrueInvincibility=1` o `GTASA_SILENTPATCH_TRUEINVINCIBILITY=1` para ACTIVARLA (apagada por defecto, como en SilentPatchSA.ini) | bajo |
+## 15b. Correcciones opcionales de SilentPatch: gráficos, tiempo y streaming (24/11/2026)
+
+Interruptor general `GTASA_SILENTPATCH=0|1` (o `SilentPatch=` en `gta-reversed.ini`; `source/extensions/SilentPatchConfig.*`); con él apagado todo es como el EXE. Licencia: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Opción propia: `GTASA_SILENTPATCH_<NOMBRE>=0|1` o `SilentPatch_<Nombre>=0|1` (se leen una vez por proceso). Detalle: [silentpatch-graficos.md](CodigoVivoExe/silentpatch-graficos.md).
+
+| # | Función | Desviación | Opción | Riesgo |
+| --- | --- | --- | --- | --- |
+| 1 | `CCoronas::Render` | Las coronas giran al acercar la cámara (recipz sin x20, ángulo = 20/z) | `CoronaRotation` | bajo |
+| 2 | `CCoronas::DoSunAndMoon` | Sol más grande: distancia de far clip limitada a 600 (en el EXE solo con timecyc/seabed estándar) | `SunSizeHack` | bajo |
+| 3 | `CShadows::RenderStaticShadows` / `RenderStoredShadows` | Prueba alfa desactivada (ALWAYS) al pintarlas, estado restaurado al salir | `StaticShadowAlphaFix` | bajo |
+| 4 | `CTheScripts::DrawScriptSpritesAndRectangles` | Filtro bilineal en los sprites de script (estado restaurado) | `ScriptSpritesBilinear` | bajo |
+| 5 | `Idle` (0x53E920) | Sin la espera de 14 ms entre fotogramas: 30 FPS reales en vez de 25 con el limitador | `NoFrameDelay` | medio (cambia el ritmo del juego respecto al original) |
+| 6 | `CTimeCycle::Initialise` | Multiplicador direccional por defecto 1.0 y relectura de la línea rota de RAINY_COUNTRYSIDE | `TimecycMissingDataFix` | bajo |
+| 7 | `CStreaming::Init` | Lista de entidades en streaming de 1000 a 1250 enlaces | `BiggerStreamedEntityList` | bajo |
