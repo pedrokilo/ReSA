@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "RenderWare/rw/SilentPatchFixes.h"
 #include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssG2.h"
 
@@ -1222,6 +1223,8 @@ void RpAnimBlendClumpUpdateAnimations(RpClump* clump, float timeStep, bool isOnS
     // 0x4D360E - Update all animations's frames
     const auto rootFD = &bd->GetRootFrameData();
     rootFD->IsUpdatingFrame = true;
+    const bool diagSk = IsClumpSkinned(clump);
+    if (diagSk) { SilentPatchFixes::DiagFrames("antes", bd->m_FrameDatas, bd->m_NumFrameData, clump, (isOnScreen?1:0)|(rootFD->IsCompressed?2:0)|(rootFD->NeedsKeyFrameUpdate?4:0)); }
 
     if (rootFD->IsCompressed) {
         // Respect the independently selectable frame-update hooks. Their C++
@@ -1242,6 +1245,7 @@ void RpAnimBlendClumpUpdateAnimations(RpClump* clump, float timeStep, bool isOnS
         rootFD->NeedsKeyFrameUpdate = true;
     }
 
+    if (diagSk) { SilentPatchFixes::DiagFrames("despues", bd->m_FrameDatas, bd->m_NumFrameData, clump, (isOnScreen?1:0)|(rootFD->IsCompressed?2:0)); }
     // 0x4D3715 - Update all animation's times
     // Unlike UpdateBlend above, the original reads the next link after the
     // finish callback. Preserve this order if a callback changes the list.

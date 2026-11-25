@@ -86,4 +86,26 @@ void AutoPrueba() {
     RtAnimInterpolatorDestroy(interp);
     fclose(f);
 }
+
+// DIAGNOSTICO TEMPORAL (GTASA_SILENTPATCH_DIAG=1): busca 0xCCCCCCCC en los fotogramas interpolados de un clump esqueletico.
+void DiagFrames(const char* donde, const void* frames, int nFrames, const void* clump, int extra) {
+    static const bool on = []() { char v[4]{}; return GetEnvironmentVariableA("GTASA_SILENTPATCH_DIAG", v, 4) && v[0] == '1'; }();
+    if (!on || frames == nullptr) { return; }
+    static FILE* f = fopen("logs/sp_diag.log", "w");
+    static int n = 0;
+    if (f == nullptr || n > 4000) { return; }
+    const auto* const fd = static_cast<const char*>(frames);
+    for (int i = 0; i < nFrames; ++i) {
+        const void* const kf = *reinterpret_cast<void* const*>(fd + size_t(i) * 0x18 + 0x10);
+        if (kf == nullptr) { continue; }
+        const auto* const w = static_cast<const uint32*>(kf);
+        for (int k = 0; k < 7; ++k) {
+            if (w[k] == 0xCCCCCCCCu) {
+                fprintf(f, "%s clump=%p frame=%d kf=%p palabra=%d extra=%d\n", donde, clump, i, kf, k, extra);
+                fflush(f);
+                ++n;
+            }
+        }
+    }
+}
 } // namespace SilentPatchFixes

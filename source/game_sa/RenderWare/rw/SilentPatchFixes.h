@@ -18,4 +18,5 @@ void ForzarParaPrueba(int estado);
  *  llama a RtAnimInterpolatorSetCurrentAnim con una RtAnimAnimation RpAnimBlend ficticia cuyo pFrames es una direccion alta (0x5A000000) con el arreglo apagado
  *  y encendido, y cuenta floats 0xCCCCCCCC / NaN / enormes en cada caso. */
 void AutoPrueba();
+void DiagFrames(const char* donde, const void* frames, int nFrames, const void* clump, int extra);
 }
