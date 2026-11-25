@@ -24,6 +24,9 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 #include "DatosExe/DataBssF.h"
 
+// m_sfLogLookup es float[50][2]: su definicion DatosExe debe cubrirla entera (con 4 bytes escribia 396 bytes sobre los objetos vecinos)
+static_assert(sizeof(DatosExe::R5::vB61100) >= sizeof(float[50][2]));
+
 auto& Frequency = DatosExe::Bss::bB610F0<LARGE_INTEGER>();
 auto& startTimeMs = StaticRef<uint64>(0xb610f8);
 
