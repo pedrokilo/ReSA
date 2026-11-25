@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
 #include "X87Math.h"
+#include "SilentPatchVehicles.h"
 #include "Ropes.h"
 #include "Population.h"
 #include "WaterLevel.h"
@@ -957,11 +958,16 @@ void CHeli::BlowUpCar(CEntity* damager, bool bHideExplosion) {
         SetDoorDamage(static_cast<eDoors>(3), false);
         SetDoorDamage(static_cast<eDoors>(4), false);
         SetDoorDamage(static_cast<eDoors>(5), false);
+        // SilentPatch (MIT, Silent): se separan y ocultan las ruedas que el DamageManager marca como perdidas, no siempre la delantera izquierda; opcion "ExplodedCarWheels"
+        if (SilentPatchOption("ExplodedCarWheels", true)) {
+            SilentPatchVehicles::SpawnAndHideDestroyedWheels(*this, 1);
+        } else {
         SpawnFlyingComponent(static_cast<eCarNodes>(5), 1);
         RpAtomic* atomic = nullptr;
         RwFrameForAllObjects(m_aCarNodes.data()[5], GetCurrentAtomicObjectCB, &atomic); // el EXE lee el nodo despues de SpawnFlyingComponent
         if (atomic) {
             RpAtomicSetFlags(atomic, 0);
+        }
         }
     }
 
@@ -1140,6 +1146,11 @@ void CHeli::Render() {
         RwFrameForAllObjects(movingRotor2, GetCurrentAtomicObjectCB, &data);
         if (data)
             CVehicle::SetComponentAtomicAlpha(data, 0);
+    }
+
+    // SilentPatch (MIT, Silent): rotores y helices con efecto de desenfoque (como en VC y PS2): los rotores moviles ya no estan siempre ocultos; opcion "RotorBlur"
+    if (SilentPatchVehicles::RotorBlurEnabled()) {
+        SilentPatchVehicles::ApplyRotorBlur(*this, m_fHeliRotorSpeed, 0.22);
     }
 
     CEntity::Render(); // exactly CEntity

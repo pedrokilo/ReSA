@@ -42,6 +42,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "Entity/Vehicle/SilentPatchVehicles.h"
 #include "DatosExe/DataBssE3.h"
 #include "X87Math.h"
 
@@ -794,7 +795,12 @@ RpAtomic* CVisibilityPlugins::RenderHeliRotorAlphaCB(RpAtomic* atomic) {
         const float dotProduct = clumpMatrix->at.y * dy + clumpMatrix->at.x * dx + clumpMatrix->at.z * dz;
 
         if (!InsertAtomicIntoSortedList(atomic, dotProduct * 20.0f + gVehicleDistanceFromCamera)) {
-            AtomicDefaultRenderCallBack(atomic);
+            // SilentPatch (MIT, Silent): el rotor se dibuja con alfa de vertices y prueba alfa a 0; opcion "RotorBlur"
+            if (SilentPatchVehicles::RotorBlurEnabled()) {
+                SilentPatchVehicles::RenderRotorAtomic(atomic);
+            } else {
+                AtomicDefaultRenderCallBack(atomic);
+            }
         }
     }
     return atomic;
@@ -814,7 +820,12 @@ RpAtomic* CVisibilityPlugins::RenderHeliTailRotorAlphaCB(RpAtomic* atomic) {
         const float dotProduct2 = clumpMatrix->up.y * dy + clumpMatrix->up.x * dx + clumpMatrix->up.z * dz;
 
         if (!InsertAtomicIntoSortedList(atomic, (-dotProduct1 - dotProduct2) + gVehicleDistanceFromCamera)) {
-            AtomicDefaultRenderCallBack(atomic);
+            // SilentPatch (MIT, Silent): ver RenderHeliRotorAlphaCB; opcion "RotorBlur"
+            if (SilentPatchVehicles::RotorBlurEnabled()) {
+                SilentPatchVehicles::RenderRotorAtomic(atomic);
+            } else {
+                AtomicDefaultRenderCallBack(atomic);
+            }
         }
     }
     return atomic;
@@ -1035,13 +1046,13 @@ RpAtomic* CVisibilityPlugins::RenderVehicleHiDetailAlphaCB_BigVehicle(RpAtomic* 
 
         if (atomicId & ATOMIC_ALPHA) {
             if (!InsertAtomicIntoSortedList(atomic, gVehicleDistanceFromCamera - 0.0001f)) {
-                AtomicDefaultRenderCallBack(atomic);
+                SilentPatchVehicles::RenderPropOrDefaultAtomic(atomic); // SilentPatch (MIT, Silent): helices "_prop" con alfa; opcion "RotorBlur"
             }
             return atomic;
         }
 
         if (!InsertAtomicIntoSortedList(atomic, gVehicleDistanceFromCamera + dotProduct)) {
-            AtomicDefaultRenderCallBack(atomic);
+            SilentPatchVehicles::RenderPropOrDefaultAtomic(atomic); // SilentPatch (MIT, Silent): helices "_prop" con alfa; opcion "RotorBlur"
         }
     }
     return atomic;

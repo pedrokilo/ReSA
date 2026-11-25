@@ -785,7 +785,9 @@ void CPhysical::SetDamagedPieceRecord(float fDamageIntensity, CEntity* entity, c
     auto* object = AsObject();
     if (fDamageIntensity > m_fDamageIntensity) {
         m_fDamageIntensity = fDamageIntensity;
-        m_nPieceType = colPoint.m_nPieceTypeA;
+        // SilentPatch (MIT, Silent): con distancia negativa (el segundo coche de la colision) se usa la pieza B del punto de colision, no la A; ambos coches danaban las mismas piezas; opcion "CarCollisionDamagePieces"
+        static const bool spCollisionPieces = SilentPatchOption("CarCollisionDamagePieces", true);
+        m_nPieceType = (spCollisionPieces && !(fDistanceMult > 0.0f)) ? colPoint.m_nPieceTypeB : colPoint.m_nPieceTypeA;
 
         // CEntity::ChangeEntityReference?
         if (m_pDamageEntity)

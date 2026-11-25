@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "Entity/Vehicle/SilentPatchVehicles.h"
 #include <intrin.h>
 #include "X87Math.h"
 
@@ -394,7 +395,10 @@ RwFrame* CClumpModelInfo::FindFrameFromNameWithoutIdCB(RwFrame* frame, void* sea
 {
     auto searchInfo = reinterpret_cast<tCompSearchStructByName*>(searchData);
     auto name = GetFrameNodeName(frame);
-    if (!CVisibilityPlugins::GetFrameHierarchyId(frame) && !_stricmp(searchInfo->m_pName, name)) { // Como el original: _stricmp (0x8229B6).
+    // SilentPatch (MIT, Silent): se aceptan las erratas conocidas de las jerarquias (wheel_lm del DFT-30, taillights del Uranus, misca del Sweeper,
+    // transmision del Dumper, elevator del Dodo, boat_moving de los barcos); opcion "HierarchyTypoFix"
+    static const bool spTypoFix = SilentPatchOption("HierarchyTypoFix", true);
+    if (!CVisibilityPlugins::GetFrameHierarchyId(frame) && (!_stricmp(searchInfo->m_pName, name) || (spTypoFix && SilentPatchVehicles::IsHierarchyTypo(searchInfo->m_pName, name)))) { // Como el original: _stricmp (0x8229B6).
         searchInfo->m_pFrame = frame;
         return nullptr;
     }

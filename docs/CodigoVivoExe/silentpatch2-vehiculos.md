@@ -1,0 +1,74 @@
+# SilentPatch, segunda tanda: vehículos (rama `silentpatch2-vehiculos`)
+
+Fecha: 25/11/2026. Base: `integracion-fase7b` (`09d31673c6`). Licencia y atribución: SilentPatch (The MIT License, Copyright (c) 2024 Adrian Zdanowicz (Silent)); ver [../THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md). Los arreglos son desviaciones deliberadas y opcionales del EXE: con `GTASA_SILENTPATCH=0` (o `SilentPatch=0` en `gta-reversed.ini`) el código antiguo se conserva literal (rama «opción apagada»). Una opción suelta se apaga con `GTASA_SILENTPATCH_<NOMBRE EN MAYÚSCULAS>=0` o `SilentPatch_<Nombre>=0`. Ninguna tiene clave en `SilentPatchSA.ini` (que solo define `SunSizeHack`, `TrueInvincibility`... y las listas `RotorFixExceptions`, `DoubleRearWheels`, `LightbeamFixExceptions`): todas van activadas, y la lista `RotorFixExceptions` por defecto (`maverick`, `skimmer`) se respeta en el código.
+
+* Clasificación fila a fila (todas las viñetas de vehículos que he encontrado leyendo las 210 líneas): [silentpatch-clasificacion/vehiculos.csv](silentpatch-clasificacion/vehiculos.csv).
+* Código nuevo: `source/game_sa/Entity/Vehicle/SilentPatchVehicles.h/.cpp` (tabla SVF, ruedas de explosión, reparación, animaciones extra, matrículas, rotores). El resto son hunks mínimos con el comentario `// SilentPatch (MIT, Silent): ...` en el sitio.
+* Filas de [../DesviacionesConocidas.md](../DesviacionesConocidas.md), sección 15.4.
+
+## El «SVF» (características especiales por modelo)
+
+SilentPatch lo guarda en un `multimap` rellenable por ini y por otros mods. Aquí es una tabla estática de ids de modelo (`kStockFeatures`), solo con los vehículos de serie de SA:
+
+| Modelo | Id | Característica | Uso |
+| --- | --- | --- | --- |
+| Rhino | 432 | `RHINO_WHEELS` | `CAutomobile::Fix` devuelve las ruedas intermedias a su estado |
+| Beagle | 511 | `EXTRA_AILERONS1` | alerones extra copian la rotación (nodos 18->21) |
+| Stuntplane | 513 | `EXTRA_AILERONS2` | nodos 19->23 y 20->24 |
+| Towtruck | 525 | `TOWTRUCK_HOOK` | `Fix` conserva el panel del gancho (nodo 21) |
+| Tractor | 531 | `TRACTOR_HOOK` | ídem (nodo 17) |
+| Vortex | 539 | `VORTEX_EXHAUST` | `CPlane::Fix` conserva el primer panel |
+| Firela | 544 | `FIRELA_LADDER` | escalera controlable y cámara sin alfa |
+| Sweeper | 574 | `SWEEPER_BRUSHES` | cepillos giran con el motor encendido |
+| Newsvan | 582 | `NEWSVAN_DISH` | antena giratoria |
+| artict3 | 591 | `DOUBLE_TRAILER` | enganche trasero (nodo 21) |
+| Phoenix | 603 | `PHOENIX_FLUTTER` | tomas de aire del capó |
+
+No se portan el registro por ini ni por nombre de modelo (`RegisterSpecialVehicleFeature` / `DoubleRearWheels=`): no hay lectura de ini de modelos en el standalone.
+
+## Opciones de este área
+
+Todas con valor por defecto 1 (activadas).
+
+| Opción | Viñetas | Qué cambia |
+| --- | --- | --- |
+| `ExplosionPanelsSwing` | L52 | `FuckCarCompletely` ya no pone a 0 el estado de los paneles |
+| `ExplodedCarWheels` | L102 | rango de rueda perdida -4 y separación/ocultación de las ruedas que marca el DamageManager (coche, helicóptero, avión) |
+| `CarCollisionDamagePieces` | L67 | `SetDamagedPieceRecord` usa la pieza B con distancia <= 0 |
+| `JetThrustersFix` | L115 | banderas del `RwMatrix` temporal de los propulsores del Hydra a 0 |
+| `HunterDoorRenderFix` | L116 | `ATOMIC_LEFT` fuera de `door_lf` de los vehículos con animaciones del Rustler |
+| `RhinoLights` | L151 | dos comparaciones con 432 desactivadas (luces y haces) |
+| `DetachedPartsColour`, `DetachedPartsBothSides` | L153, L154 | color (SetEditableMaterials con restauración) y luz direccional de las piezas sueltas; sin culling |
+| `ExtraVehicleAnimations` | L156 | Phoenix, Sweeper, Newsvan y alerones extra |
+| `HierarchyTypoFix` | L156, L161-L163 | erratas de jerarquía aceptadas |
+| `EngineComponentsOnlyWhenOn` | L157 | paso de tiempo 0 en los componentes del motor con el motor apagado |
+| `FirelaLadder` | L158 | escalera del Firela |
+| `DoubleTrailer` | L159 | remolques artict3 encadenables |
+| `TugTowBar` | L160 | barra de remolque del Tug (nodo 20 o 21) |
+| `BlownUpVehicleShine` | L169 | vehículo destrozado y luz direccional sin iluminar átomos: sin brillo ni reflejos |
+| `CleanDirt` | L170 | lista de materiales de suciedad (el EXE 1.0 no la rellenaba) |
+| `UniqueNumberPlates`, `BilinearNumberPlates` | L171-L174 | matrícula por vehículo, también en motos; filtro bilineal |
+| `VehicleLightsStayLit`, `HeadlightBeamStateRestore`, `VehicleLightsNotOverwritten` | L175, L177, L179 | restauración de propiedades de superficie, de estados de dibujo del haz y del índice de luz D3D |
+| `FixKeepsComponents` | L189-L192, L201 | `Fix` conserva las matrices originales, el gancho de la grúa, las puertas y reinicia las ruedas del Rhino |
+| `PaintjobRemapIndex` | L204 | pintura pendiente en `GetRemapIndex` |
+| `RotorBlur` | L205 | rotores y hélices con desenfoque (salvo Maverick y Skimmer) |
+| `DoubleRearWheels` | L206 | ruedas dobles en remolques y matriz nueva sin marca de identidad |
+| `CargenCounterFix`, `CargenInteriorAreaCode` | L60, L74 | contador de generadores y código de área de interiores |
+| `RCVehicleStreaming` | L76 | el RC cuenta como jugador en `ConstructRenderList` |
+| `RiotHeliIgnoresPlayerGroup` | L105 | helicóptero de policía no apunta al grupo del jugador en misiones |
+| `QuadbikeWindAnims`, `QuadbikeHandlebarAnims`, `RadioChangeAnim` | L89-L92 | cuatrimoto y animación de la radio |
+| `BikeJumpOnFromFront`, `VanRearDoors` | L117, L118 | posición Z al subir a la moto; grupo de animación de furgonetas |
+| `CollisionDataInit` | L16 | datos de colisión sin basura |
+
+## Decisiones y cosas que conviene saber
+
+* **Una sola edición para varias viñetas.** L153/L154 son la misma función (`Render_DetachedPartRenderingFix`); la clasificación anterior daba L154 a gráficos. Está hecha aquí, con una sola edición en `CObject::Render`. L161-L163 y la parte de barcos/Dodo de L156 son la tabla de erratas de `FindFrameFromNameWithoutIdCB`.
+* **Matrículas.** El EXE 1.0 creaba una matrícula en `SetClump` y todos los coches de un modelo compartían textura y diseño. SilentPatch deja un marcador no nulo en `m_pPlateMaterial` (para que sigan valiendo las comprobaciones del generador de coches), genera la textura en cada vehículo y aplica `carplate`/`carpback` solo mientras se dibuja (también motos). El byte de diseño se guarda en el relleno anterior a `m_pCustomCarPlate`. Una diferencia con SilentPatch: la textura de la matrícula usa el mismo diseño que la pieza `carpback` (SilentPatch usaba el tipo del modelo, -1 = región, y podía no coincidir en el 5 % de los coches). La aleatoriedad del diseño usa un generador local para no consumir la secuencia del juego, pero el texto de la matrícula sí llama a `GeneratePlateText` del juego (como SilentPatch): cada vehículo creado consume 8 llamadas a `rand`.
+* **Suciedad.** En el EXE 1.0 `m_apDirtMaterials` nunca se rellena (la 1.01 sí): `SetDirtTextures` recorría 16 punteros nulos y los coches nunca se limpiaban ni ensuciaban visualmente. Se rellena en `SetClump` con los materiales `vehiclegrunge256` del clump y de los extras (hasta 32).
+* **Rotores.** Se respeta `RotorFixExceptions` de `SilentPatchSA.ini` por defecto (Maverick 487 y Skimmer 460 conservan el comportamiento del EXE).
+* **Lo que no se portó de la zona de luces de SilentPatch**: la anulación del difuso/ambiente de `g_GameLight` (0x5D88D1, «no incluir un D3DLIGHT extra en vehículos») va con el arreglo de luz direccional de gráficos; las excepciones de modelo del haz (`LightbeamFixExceptions`) no existen sin ini.
+* **Fuera del changelog.** Hay en SilentPatch un arreglo del daño de luces traseras (`LEFT_TAIL_LIGHT` en lugar de `RIGHT_TAIL_LIGHT`, 0x6E1D4E) sin viñeta en `CHANGELOG-SA.md`; no se ha portado.
+
+## Estado de prueba
+
+(ver la sección final de este documento, rellenada con la verificación)

@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "SilentPatchVehicles.h"
 #include "RenderWare/rw/SkinVigilancia.h"
 #include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssE4.h"
@@ -1197,7 +1198,35 @@ void CVehicle::ProcessDrivingAnims(CPed* driver, bool blend) {
 
     auto* radioTuneAnim = RpAnimBlendClumpGetAssociation(driver->GetRpClump(), ANIM_ID_CAR_TUNE_RADIO);
     if (blend) {
+        // SilentPatch (MIT, Silent; Wesser, B1ack_Wh1te): la animacion de cambiar la emisora solo mueve el brazo derecho y la cabeza (funciona en coches bajos, camiones, botes de pie y con las
+        // animaciones de conduccion de nivel alto) y se desactiva en el Kart; con un bote de pie ademas deja de ser parcial; opcion "RadioChangeAnim"
+        if (static const bool spRadioAnim = SilentPatchOption("RadioChangeAnim", true); spRadioAnim) {
+            if (RpAnimBlendClumpGetAssociation(driver->GetRpClump(), ANIM_ID_KART_DRIVE)) {
+                radioTuneAnim = nullptr;
+            } else {
+                const bool isBoatDrive = RpAnimBlendClumpGetAssociation(driver->GetRpClump(), ANIM_ID_DRIVE_BOAT) != nullptr;
+                radioTuneAnim = CAnimManager::BlendAnimation(driver->GetRpClump(), ANIM_GROUP_DEFAULT, ANIM_ID_CAR_TUNE_RADIO, 4.0F);
+                if (radioTuneAnim) {
+                    for (CAnimBlendNode& node : radioTuneAnim->GetNodes()) {
+                        CAnimBlendSequence* const sequence = node.m_Seq;
+                        if (sequence && sequence->IsUsingBoneTag()) {
+                            switch (static_cast<eBoneTag>(sequence->GetBoneTag())) {
+                            case BONE_HEAD: case BONE_R_CLAVICLE: case BONE_R_UPPER_ARM: case BONE_R_FORE_ARM: case BONE_R_HAND: case BONE_R_FINGER: case BONE_R_FINGER_01: case BONE_R_BREAST:
+                                break;
+                            default:
+                                node.m_Seq = nullptr;
+                                break;
+                            }
+                        }
+                    }
+                    if (isBoatDrive) {
+                        radioTuneAnim->SetFlag(ANIMATION_IS_PARTIAL, false);
+                    }
+                }
+            }
+        } else {
         radioTuneAnim = CAnimManager::BlendAnimation(driver->GetRpClump(), ANIM_GROUP_DEFAULT, ANIM_ID_CAR_TUNE_RADIO, 4.0F);
+        }
     }
 
     if (radioTuneAnim)
@@ -1451,9 +1480,18 @@ int32 CVehicle::GetRemapIndex() {
     // por cada iteración fallida (no dos veces seguidas); el índice del bucle es un int16 (movsx) y no se comprueba el rango.
     auto* mi = CModelInfo::GetModelInfo(m_nModelIndex)->AsVehicleModelInfoPtr();
     int32 i = 0;
+    // SilentPatch (MIT, Silent): si el coche no ha llegado a dibujarse todavia (m_nPreviousRemapTxd == -1) se usa la pintura pendiente de cargar (m_nRemapTxd);
+    // el EXE no miraba esa variable y las pinturas de coches guardados sin mirarlos se perdian; opcion "PaintjobRemapIndex"
+    int16 remapTxd = m_nPreviousRemapTxd;
+    if (SilentPatchOption("PaintjobRemapIndex", true) && remapTxd == -1) {
+        remapTxd = m_nRemapTxd;
+        if (remapTxd == -1) {
+            return -1;
+        }
+    }
     if (mi->GetNumRemaps() > 0) {
         do {
-            if (mi->m_anRemapTxds.data()[(int16)i] == m_nPreviousRemapTxd) {
+            if (mi->m_anRemapTxds.data()[(int16)i] == remapTxd) {
                 return i;
             }
             ++i;
@@ -1530,7 +1568,9 @@ void CVehicle::ResetAfterRender() {
     RwRenderStateSet(RwRenderState::rwRENDERSTATECULLMODE, RWRSTATE(rwCULLMODECULLBACK));
     CVehicleModelInfo::ResetEditableMaterials((RpClump*)GetRwObject());
 
-    if (IsAutomobile()) {
+    if (static const bool spUniquePlates = SilentPatchOption("UniqueNumberPlates", true); spUniquePlates) {
+        SilentPatchVehicles::AfterRenderPlate(*this); // SilentPatch (MIT, Silent): ver SetupRender
+    } else if (IsAutomobile()) {
         auto* const mi = GetVehicleModelInfo();
         assert(mi != nullptr);
         AsAutomobile()->CustomCarPlate_AfterRenderingStop(mi);
@@ -1583,6 +1623,11 @@ eVehicleAppearance CVehicle::GetVehicleAppearance() const {
 // 0x6D10E0
 bool CVehicle::CustomCarPlate_TextureCreate(CVehicleModelInfo* model) {
     m_pCustomCarPlate = nullptr;
+
+    // SilentPatch (MIT, Silent): cada vehiculo tiene su propia matricula (el EXE reutilizaba la del modelo: todos los coches iguales); opcion "UniqueNumberPlates"
+    if (static const bool spUniquePlates = SilentPatchOption("UniqueNumberPlates", true); spUniquePlates) {
+        return SilentPatchVehicles::CreatePlate(*this, model);
+    }
 
     if (!model->m_pPlateMaterial) {
         return false;
@@ -3695,7 +3740,10 @@ void CVehicle::SetupRender() {
 
     RwRenderStateSet(rwRENDERSTATECULLMODE, RWRSTATE(TRUE));
 
-    if (IsAutomobile()) {
+    // SilentPatch (MIT, Silent): la matricula propia se aplica a los materiales del vehiculo al dibujarlo, tambien en las motos; opcion "UniqueNumberPlates"
+    if (static const bool spUniquePlates = SilentPatchOption("UniqueNumberPlates", true); spUniquePlates) {
+        SilentPatchVehicles::BeforeRenderPlate(*this);
+    } else if (IsAutomobile()) {
         AsAutomobile()->CustomCarPlate_BeforeRenderingStart(*mi);
     }
 
@@ -8615,6 +8663,18 @@ void CVehicle::DoHeadLightBeam(eVehicleDummy dummyId, CMatrix& matrix, bool arg2
     const auto    dotToCam = ((pointToCamDir.z * matrix.GetForward().z) + (pointToCamDir.y * matrix.GetForward().y)) + pointToCamDir.x * matrix.GetForward().x;
     const auto    alpha = (uint8)((1.0f - std::fabs(dotToCam)) * 32.0f);
 
+    // SilentPatch (MIT, Silent; LightbeamFix): se guardan los estados de dibujo para restaurarlos tras el haz; el EXE los dejaba en valores fijos (culling hacia atras, sombreado,
+    // prueba alfa), lo que volvia invisibles las ventanas vistas desde dentro al encender las luces; opcion "HeadlightBeamStateRestore"
+    static const bool spRestore = SilentPatchOption("HeadlightBeamStateRestore", true);
+    constexpr RwRenderState spStates[] = { rwRENDERSTATEZWRITEENABLE, rwRENDERSTATEZTESTENABLE, rwRENDERSTATEVERTEXALPHAENABLE, rwRENDERSTATESRCBLEND, rwRENDERSTATEDESTBLEND,
+                                           rwRENDERSTATESHADEMODE, rwRENDERSTATECULLMODE, rwRENDERSTATEALPHATESTFUNCTION, rwRENDERSTATEALPHATESTFUNCTIONREF };
+    void* spSaved[std::size(spStates)]{};
+    if (spRestore) {
+        for (size_t i = 0; i < std::size(spStates); i++) {
+            RwRenderStateGet(spStates[i], &spSaved[i]);
+        }
+    }
+
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,         RWRSTATE(FALSE));
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE,          RWRSTATE(TRUE));
     RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE,    RWRSTATE(TRUE));
@@ -8663,6 +8723,12 @@ void CVehicle::DoHeadLightBeam(eVehicleDummy dummyId, CMatrix& matrix, bool arg2
     }
 
     RwRenderStateSet(rwRENDERSTATETEXTURERASTER,         RWRSTATE(FALSE));
+    if (spRestore) {
+        for (size_t i = 0; i < std::size(spStates); i++) {
+            RwRenderStateSet(spStates[i], spSaved[i]);
+        }
+        return;
+    }
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,          RWRSTATE(TRUE));
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE,           RWRSTATE(TRUE));
     RwRenderStateSet(rwRENDERSTATESRCBLEND,              RWRSTATE(rwBLENDSRCALPHA));

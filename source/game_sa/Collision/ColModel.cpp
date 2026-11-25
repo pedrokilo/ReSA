@@ -187,6 +187,16 @@ void CColModel::AllocateData(int32 numSpheres, int32 numBoxes, int32 numLines, i
     assert(trianglesOffset && trianglesOffset >= (vertsOffset + vertsSize)); // Just to make sure that the alignment works properly
 
     AllocateData(trianglesOffset + trianglesSize);
+    // SilentPatch (MIT, Silent): el bloque recien reservado (malloc) se inicializa en las banderas y en la informacion de sombras; el EXE las dejaba con basura y los vehiculos al
+    // explotar (y en general las sombras de stencil) podian leer datos de sombra inexistentes y colgar el juego; opcion "CollisionDataInit"
+    if (static const bool spInit = SilentPatchOption("CollisionDataInit", true); spInit) {
+        m_pColData->bUsesDisks = false;
+        m_pColData->bHasFaceGroups = false;
+        m_pColData->bHasShadowInfo = false;
+        m_pColData->m_nNumShadowTriangles = m_pColData->m_nNumShadowVertices = 0;
+        m_pColData->m_pShadowVertices = nullptr;
+        m_pColData->m_pShadowTriangles = nullptr;
+    }
     m_pColData->m_nNumSpheres = numSpheres;
     m_pColData->m_nNumLines = numLines;
     m_pColData->m_nNumBoxes = numBoxes;

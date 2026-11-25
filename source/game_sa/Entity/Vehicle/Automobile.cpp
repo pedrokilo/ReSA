@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 #include "StdInc.h"
 #include "extensions/SilentPatchConfig.h"
+#include "SilentPatchVehicles.h"
 
 // SilentPatch (MIT, Silent): el raton gira un coche en el aire solo con la opcion "Steer with Mouse" activada (opcion MouseAirborneRequiresSteerOption)
 static bool UseMouseForAirborneRotation() {
@@ -747,7 +748,11 @@ void CAutomobile::ProcessControl()
             TowTruckControl();
             break;
         default:
-            if (handlingFlags.bHydraulicInst)
+            // SilentPatch (MIT, Silent): la escalera del camion de bomberos (Firela) se controla como la de otros vehiculos con pieza movil (UpdateMovingCollision); opcion "FirelaLadder"
+            if (static const bool spFirelaLadder = SilentPatchOption("FirelaLadder", true); spFirelaLadder && SilentPatchVehicles::ModelHasFeature(m_nModelIndex, SilentPatchVehicles::Feature::FIRELA_LADDER)) {
+                if (UpdateMovingCollision(-1.0f))
+                    skipPhysics = false;
+            } else if (handlingFlags.bHydraulicInst)
                 HydraulicControl();
             else if ((CCheat::IsActive(CHEAT_PERFECT_HANDLING) || (extraHandlingFlags & EXTRA_HANDLING_TAXI_BOOST))
                 && GetStatus() == STATUS_PLAYER
@@ -2726,6 +2731,13 @@ void CAutomobile::BlowUpCar_Impl(CEntity* dmgr, bool bDontShakeCam, bool bDontSp
         for (auto door : { DOOR_BONNET, DOOR_BOOT, DOOR_LEFT_FRONT, DOOR_RIGHT_FRONT, DOOR_LEFT_REAR, DOOR_RIGHT_REAR }) {
             SetDoorDamage(door, bDontSpawnStuff);
         }
+        // SilentPatch (MIT, Silent): se separan y ocultan las ruedas que el DamageManager marca como perdidas (el coche se hunde del lado de la rueda perdida);
+        // la rueda trasera derecha tambien puede perderse (FuckCarCompletely, rango -4); opcion "ExplodedCarWheels"
+        if (SilentPatchOption("ExplodedCarWheels", true)) {
+            if (!bDontSpawnStuff) {
+                SilentPatchVehicles::SpawnAndHideDestroyedWheels(*this, 1);
+            }
+        } else {
         if (!bDontSpawnStuff) {
             SpawnFlyingComponent(CAR_WHEEL_LF, 1);
         }
@@ -2733,6 +2745,7 @@ void CAutomobile::BlowUpCar_Impl(CEntity* dmgr, bool bDontShakeCam, bool bDontSp
             if (const auto obj = GetCurrentAtomicObject(m_aCarNodes[CAR_WHEEL_LF])) {
                 RpAtomicSetFlags(obj, 0); // TODO: Use appropriate enum (if any?)
             }
+        }
         }
     }
 
@@ -3079,6 +3092,11 @@ void CAutomobile::Fix() {
     RpClumpForAllAtomics(GetRpClump(), CVehicleModelInfo::HideAllComponentsAtomicCB, (void*)eAtomicComponentFlag::ATOMIC_DAMAGED);
 
     // Reset rotation of some nodes
+    // SilentPatch (MIT, Silent): se restaura la matriz original del modelo en lugar de la identidad (parachoques del Rumpo, helice del Bandito); opcion "FixKeepsComponents"
+    static const bool spFixFrames = SilentPatchOption("FixKeepsComponents", true);
+    if (spFixFrames) {
+        SilentPatchVehicles::ResetFramesAfterFix(*this);
+    } else
     for (auto i = (size_t)CAR_DOOR_RF; i < (size_t)CAR_NUM_NODES; i++) {
         if (auto frame = m_aCarNodes[i]) {
             CMatrix mat{ RwFrameGetMatrix(frame), false };
@@ -3093,7 +3111,10 @@ void CAutomobile::Fix() {
     // Reset all bouncing panels
     // Como el original (0x6A3555..0x6A356D): 4 entradas de 0x20 bytes desde 0x6AC; la cuarta es el principio de m_swingingChassis
     // (los 2 bytes bajos de m_openAngle se ponen a 0xFFFF)
-    {
+    // SilentPatch (MIT, Silent): solo los 3 paneles (la grua y el tractor conservan el del gancho) y las ruedas del Rhino vuelven a su estado; opcion "FixKeepsComponents"
+    if (spFixFrames) {
+        SilentPatchVehicles::ResetBouncingPanelsAfterFix(*this);
+    } else {
         auto* const bouncing = reinterpret_cast<uint8*>(m_panels.data());
         for (size_t i = 0; i < 4; i++) {
             *reinterpret_cast<uint16*>(bouncing + i * sizeof(CBouncingPanel)) = (uint16)-1;
@@ -3704,7 +3725,9 @@ bool CAutomobile::GetTowBarPos(CVector& outPos, bool ignoreModelType, CVehicle* 
         return true;
     }
     default: { // TODO: Move out to after switch (deindentate)
-        if (!m_aCarNodes[CAR_MISC_A]) {
+        // SilentPatch (MIT, Silent): el Tug usa la barra de remolque misc_b (nodo 21) si no tiene misc_a (nodo 20); opcion "TugTowBar" (solo en el caso Tug/Baggage de abajo)
+        static const bool spTugTowBar = SilentPatchOption("TugTowBar", true);
+        if (!m_aCarNodes[CAR_MISC_A] && !(spTugTowBar && m_aCarNodes[CAR_MISC_B] && (m_nModelIndex == MODEL_BAGGAGE || m_nModelIndex == MODEL_TUG || m_nModelIndex == MODEL_BAGBOXA || m_nModelIndex == MODEL_BAGBOXB))) {
             break;
         }
 
@@ -3732,6 +3755,13 @@ bool CAutomobile::GetTowBarPos(CVector& outPos, bool ignoreModelType, CVehicle* 
                 case eModelID::MODEL_BAGBOXA:
                 case eModelID::MODEL_BAGBOXB:
                 case eModelID::MODEL_TUGSTAIR:
+                    if (spTugTowBar) { // SilentPatch (MIT, Silent): ver arriba
+                        if (RwFrame* const towBar = SilentPatchVehicles::GetTowBarFrame(*this)) {
+                            outPos = *RwMatrixGetPos(RwFrameGetLTM(towBar));
+                            return true;
+                        }
+                        break;
+                    }
                     outPos = *RwMatrixGetPos(RwFrameGetLTM(m_aCarNodes[CAR_MISC_A]));
                     return true;
                 }
@@ -5740,6 +5770,11 @@ CObject* CAutomobile::SpawnFlyingComponent(eCarNodes nodeIndex, uint32 collision
 
     if (physicalFlags.bRenderScorched)
         obj->physicalFlags.bRenderScorched = true;
+
+    // SilentPatch (MIT, Silent; LitFlyingComponents): las piezas sueltas reciben luz direccional (conservan la iluminacion del coche); opcion "DetachedPartsColour"
+    if (static const bool spLitParts = SilentPatchOption("DetachedPartsColour", true); spLitParts) {
+        obj->m_bLightObject = true;
+    }
 
     CWorld::Add(obj);
 
@@ -7824,7 +7859,10 @@ void AutoPreRenderTiltAxles(CAutomobile& car, CMatrix& frameMatrix, const CColli
 
 // 0x6AC2B0..0x6AC40C (modelo 424)
 void AutoPreRenderBfInjection(CAutomobile& car, CMatrix& frameMatrix, const CCollisionData* colData, CVehicleModelInfo& modelInfo) {
-    const float angle = AutoPreMulCpp(CTimer::GetTimeStep(), fabsf(car.m_GasPedal) > 0.f ? 0.5f : 0.3f);
+    // SilentPatch (MIT, Silent): los componentes del motor no giran con el motor apagado (BF Injection, Bandito, Hotknife); opcion "EngineComponentsOnlyWhenOn"
+    static const bool spEngineOnly = SilentPatchOption("EngineComponentsOnlyWhenOn", true);
+    const float engineStep = spEngineOnly ? SilentPatchVehicles::EngineComponentStep(car, CTimer::GetTimeStep()) : CTimer::GetTimeStep();
+    const float angle = AutoPreMulCpp(engineStep, fabsf(car.m_GasPedal) > 0.f ? 0.5f : 0.3f);
     car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_A], AXIS_Y, angle, false); // 0x6DBA30
     car.SetComponentRotation(car.m_aCarNodes[CAR_MISC_E], AXIS_Y, AutoPreMulCpp(angle, 1.5f), false);
     (void)car.GetColModel(); // 0x535300 (el EXE no usa el resultado)
@@ -7927,7 +7965,10 @@ void AutoPreRenderModelComponents(CAutomobile& car, CMatrix& frameMatrix, const 
         (void)car.GetColModel();
         static constexpr int32 axleNodes[] = { 20, 22, 21, 23 }; // 0x8D31D8
         AutoPreRenderTiltAxles(car, frameMatrix, colData, axleNodes, 4, false);
-        car.SetComponentRotation(nodes[CAR_MISC_E], AXIS_Y, AutoPreMulCpp(CTimer::GetTimeStep(), fabsf(car.m_GasPedal) > 0.f ? 0.5f : 0.3f), false);
+        // SilentPatch (MIT, Silent): igual que en el BF Injection (opcion "EngineComponentsOnlyWhenOn")
+        static const bool spEngineOnly = SilentPatchOption("EngineComponentsOnlyWhenOn", true);
+        const float engineStep = spEngineOnly ? SilentPatchVehicles::EngineComponentStep(car, CTimer::GetTimeStep()) : CTimer::GetTimeStep();
+        car.SetComponentRotation(nodes[CAR_MISC_E], AXIS_Y, AutoPreMulCpp(engineStep, fabsf(car.m_GasPedal) > 0.f ? 0.5f : 0.3f), false);
     } else if (model == 432 || model == 601) { // 0x1B0, 0x259
         car.SetComponentRotation(nodes[CAR_MISC_A], AXIS_Z, car.m_fDoomVerticalRotation, true);
         car.SetComponentRotation(nodes[CAR_MISC_B], AXIS_X, car.m_fDoomHorizontalRotation, true);
@@ -7956,6 +7997,17 @@ void AutoPreRenderHydraulics(CAutomobile& car, CVehicleModelInfo& modelInfo) {
 
 // 0x6AAB50
 void CAutomobile::PreRender() {
+    // SilentPatch (MIT, Silent): animaciones extra (capo del Phoenix, cepillos del Sweeper, antena de la Newsvan) tras el PreRender; opcion "ExtraVehicleAnimations"
+    // (los subtipos CMonsterTruck, CQuadBike y CTrailer llaman a CAutomobile::PreRender, como los tres sitios que SilentPatch intercepta)
+    struct SilentPatchAfterPreRender {
+        CAutomobile& car;
+        ~SilentPatchAfterPreRender() {
+            static const bool enabled = SilentPatchOption("ExtraVehicleAnimations", true);
+            if (enabled) {
+                SilentPatchVehicles::AfterAutomobilePreRender(car);
+            }
+        }
+    } silentPatchAfterPreRender{ *this };
     CVehicle::PreRender(); // 0x6D6480
     if (CCheat::m_aCheatsActive[CHEAT_CARS_ON_WATER]) { // CCheat::m_aCheatsActive[CHEAT_CARS_ON_WATER]
         DoHoverSuspensionRatios();   // virtual +0x114
@@ -7985,7 +8037,9 @@ void CAutomobile::PreRender() {
     AutoPreRenderModelLights(*this);
 
     // 0x6ABC71..0x6ABCBE: luces del vehiculo (no en el Bandit RC 441, el modelo 0xFFFE, el Rhino 432, vehiculos RC ni helicopteros)
-    if (m_nModelIndex != 441 && m_nModelIndex != 0xFFFE && m_nModelIndex != 432 && !vehicleFlags.bIsRCVehicle && GetVehicleAppearance() != VEHICLE_APPEARANCE_HELI) {
+    // SilentPatch (MIT, Silent): el Rhino tiene luces funcionales (resto de GTA III/VC); opcion "RhinoLights"
+    static const bool spRhinoLights = SilentPatchOption("RhinoLights", true);
+    if (m_nModelIndex != 441 && m_nModelIndex != 0xFFFE && (spRhinoLights || m_nModelIndex != 432) && !vehicleFlags.bIsRCVehicle && GetVehicleAppearance() != VEHICLE_APPEARANCE_HELI) {
         DoVehicleLights(*m_matrix, (m_nModelIndex == 532 || m_nModelIndex == 471) ? static_cast<eVehicleLightsFlags>(0) : static_cast<eVehicleLightsFlags>(3)); // 0x6E1A60
     }
 
@@ -8069,7 +8123,9 @@ void CAutomobile::Render() {
     RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTIONREF, RWRSTATE(savedAlphaRef));
 
     const auto model = static_cast<int16>(m_nModelIndex);
-    if (model != MODEL_RCBANDIT && model != -2 && model != MODEL_RHINO && !vehicleFlags.bIsRCVehicle && GetVehicleAppearance() != VEHICLE_APPEARANCE_HELI) {
+    // SilentPatch (MIT, Silent): el Rhino tiene luces funcionales (haces de los faros); opcion "RhinoLights"
+    static const bool spRhinoLights = SilentPatchOption("RhinoLights", true);
+    if (model != MODEL_RCBANDIT && model != -2 && (spRhinoLights || model != MODEL_RHINO) && !vehicleFlags.bIsRCVehicle && GetVehicleAppearance() != VEHICLE_APPEARANCE_HELI) {
         if (m_renderLights.m_bRightFront) { // [esi+584h] bit 0
             DoHeadLightBeam(DUMMY_LIGHT_FRONT_MAIN, *m_matrix, true); // 0x6E0E20
         }

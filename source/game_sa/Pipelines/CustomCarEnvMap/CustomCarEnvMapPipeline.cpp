@@ -566,6 +566,14 @@ void CCustomCarEnvMapPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* ob
     // Como el original: sin reflejos si el atomic tiene alguno de los bits 0x6000 (test ah, 60h)
     const auto noReflections = (CVisibilityPlugins::GetAtomicId(atomic) & 0x6000) != 0;
 
+    // SilentPatch (MIT, Silent): un vehiculo destrozado (bit 0x4000 del atomico) con la luz direccional sin iluminar atomicos se dibuja oscuro y sin brillo ni reflejos
+    // (DarkVehiclesFix1..4; como en el 1.01 y Steam); opcion "BlownUpVehicleShine"
+    static const bool spBlownUpShine = SilentPatchOption("BlownUpVehicleShine", true);
+    // SilentPatch (MIT, Silent): la luz del brillo especular usa el indice D3D 8 en lugar del 1, que es una de las luces direccionales de la escena
+    // (se sobrescribia y las luces sobre vehiculos desaparecian en algunas condiciones); opcion "VehicleLightsNotOverwritten"
+    static const int32 spGameLightIndex = SilentPatchOption("VehicleLightsNotOverwritten", true) ? 8 : 1;
+    const bool spDark = spBlownUpShine && (CVisibilityPlugins::GetAtomicId(atomic) & 0x4000) != 0 && pDirect && !(rwObjectGetFlags(pDirect) & rpLIGHTLIGHTATOMICS);
+
     _rwD3D9EnableClippingIfNeeded(atomic, type);
 
     DWORD isLightingEnabled = 0;
@@ -597,19 +605,19 @@ void CCustomCarEnvMapPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* ob
         const auto  matFlags = GetMaterialFlags(mat);
         auto* const envData  = reinterpret_cast<uint8*>(EnvMapPlGetData(mat));
 
-        const auto useCam  = (matFlags & MF_HAS_SHINE_CAM) && !noReflections;
-        const auto useWave = (matFlags & MF_HAS_SHINE_WAVE) && !noReflections && (geoFlags & rpGEOMETRYTEXTURED2);
+        const auto useCam  = (matFlags & MF_HAS_SHINE_CAM) && !noReflections && !spDark;
+        const auto useWave = (matFlags & MF_HAS_SHINE_WAVE) && !noReflections && (geoFlags & rpGEOMETRYTEXTURED2) && !spDark;
 
         // 0x5D9A49 - Como el original: con calidad alta basta el flag; si no, además hace falta que haya reflejos
-        const auto useSpecular = g_fx.GetFxQuality() >= FX_QUALITY_HIGH
+        const auto useSpecular = !spDark && (g_fx.GetFxQuality() >= FX_QUALITY_HIGH
             ? (matFlags & MF_HAS_SPECULARITY) != 0
-            : (matFlags & MF_HAS_SPECULARITY) && !noReflections;
+            : (matFlags & MF_HAS_SPECULARITY) && !noReflections);
 
         float spec, power;
         if (useSpecular && isLightingEnabled) { // 0x5D9A7A
             const auto* const specData = SpecMapPlGetData(mat);
-            RwD3D9SetLight(1, &g_GameLight);
-            RwD3D9EnableLight(1, TRUE);
+            RwD3D9SetLight(spGameLightIndex, &g_GameLight);
+            RwD3D9EnableLight(spGameLightIndex, TRUE);
 
             // Como el original: solo se satura si es mayor que 1 (NaN se conserva)
             spec = specIntensity * specData->Specularity * 2.0f;
@@ -741,7 +749,7 @@ void CCustomCarEnvMapPipeline::CustomPipeRenderCB(RwResEntry* resEntry, void* ob
 
         if (useSpecular && isLightingEnabled) {
             RwD3D9SetRenderState(D3DRS_SPECULARENABLE, FALSE);
-            RwD3D9EnableLight(1, FALSE);
+            RwD3D9EnableLight(spGameLightIndex, FALSE);
         }
     }
 

@@ -283,6 +283,10 @@ void CCarGenerator::DoInternalProcessing()
     CVector posn = m_vecPosn;
     posn.z = vehicle->GetDistanceFromCentreOfMassToBaseOfModel() + baseZ;
     vehicle->SetPosn(posn);
+    // SilentPatch (MIT, Silent): un generador a Z >= 950 (interiores como la mansion de Madd Dogg) coloca el vehiculo en el codigo de area 13 (visible solo dentro); opcion "CargenInteriorAreaCode"
+    if (static const bool spInterior = SilentPatchOption("CargenInteriorAreaCode", true); spInterior && posn.z >= 950.0f) {
+        vehicle->SetAreaCode(static_cast<eAreaCodes>(13));
+    }
     // Como el original: ángulo sin signo (movzx) por la constante 0x859BBC.
     vehicle->SetOrientation(0.0f, 0.0f, (float)(uint8)m_nAngle * std::bit_cast<float>(0x3CC90FDBu));
     vehicle->SetStatus(STATUS_ABANDONED);
@@ -365,6 +369,11 @@ void CCarGenerator::DoInternalProcessing()
     // However, this bug does not affect the game at all because all cargens created by the script
     // are either disabled or infinite.
     // Como el original (movzx + cmp -1 + jge en 0x6F3E2C): nunca se decrementa
+    // SilentPatch (MIT, Silent; spaceeinstein): el contador se decrementa en los generadores con un numero fijo de apariciones (todos menos el infinito, -1); opcion "CargenCounterFix"
+    if (static const bool spCounter = SilentPatchOption("CargenCounterFix", true); spCounter) {
+        if (static_cast<int16>(m_nGenerateCount) != -1)
+            m_nGenerateCount--;
+    } else
     if ((int32)m_nGenerateCount < -1)
         m_nGenerateCount--;
 

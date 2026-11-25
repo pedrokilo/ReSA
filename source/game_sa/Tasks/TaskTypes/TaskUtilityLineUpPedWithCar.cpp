@@ -123,6 +123,10 @@ CVector CTaskUtilityLineUpPedWithCar::GetLocalPositionToOpenCarDoor(CVehicle* ve
     case 18:
         seat = model->GetFrontSeatPosn();
         result = offset + seat;
+        // SilentPatch (MIT, Silent): al subir a una moto por delante la Z se RESTA (como en CCarEnterExit::GetPositionToOpenCarDoor); sumarla hundia a CJ en la moto; opcion "BikeJumpOnFromFront"
+        if (static const bool spBikeFront = SilentPatchOption("BikeJumpOnFromFront", true); spBikeFront) {
+            result.z = seat.z - offset.z;
+        }
         break;
     default:
         seat = model->GetFrontSeatPosn();
