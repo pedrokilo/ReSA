@@ -1,6 +1,7 @@
 #include "StdInc.h"
 
 #include "app_debug.h"
+#include <assert.h>
 #include <windows.h>
 #include <TlHelp32.h>
 #include <Psapi.h>
@@ -283,6 +284,9 @@ static int __cdecl ContinueOnCrtReport(int reportType, wchar_t* message, int* re
     }
     return TRUE; // gestionado: no se muestra el cuadro
 }
+
+// Con NDEBUG (Release) assert.h no declara _wassert; se redeclara igual que la UCRT (compatible si ya esta declarada).
+extern "C" _ACRTIMP void __cdecl _wassert(_In_z_ wchar_t const* _Message, _In_z_ wchar_t const* _File, _In_ unsigned _Line);
 
 static void InstallContinueOnAssert() {
     // Salto de 5 bytes al principio de _wassert (como los bancos de validación).

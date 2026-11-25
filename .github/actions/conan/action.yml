@@ -59,6 +59,17 @@ runs:
           # Name of the dynamic host profile (This defines what the target system is)
           CI_HOST_PROFILE_NAME="ci_host_profile"
 
+          # El perfil base fija msvc 195 (VS 2026); la imagen windows-2025 solo trae VS 2022 (msvc 194) y Conan
+          # pediria el generador "Visual Studio 18 2026", que no existe alli. Se usa el VS realmente instalado.
+          VSWHERE="/c/Program Files (x86)/Microsoft Visual Studio/Installer/vswhere.exe"
+          VS_YEAR=$("$VSWHERE" -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property catalog_productLineVersion | tr -d "[:cntrl:]")
+          case "$VS_YEAR" in
+            2022|17) MSVC_VERSION=194 ;;
+            2026|18) MSVC_VERSION=195 ;;
+            *) echo "Visual Studio '$VS_YEAR' no reconocido, se usa el del perfil"; MSVC_VERSION="" ;;
+          esac
+          echo "Visual Studio detectado: '$VS_YEAR' -> compiler.version='$MSVC_VERSION'"
+
           # Generate a dynamic host profile for Conan based on the inputs provided to the action
           cat << EOF > ./conan/profiles/$CI_HOST_PROFILE_NAME
             include(${{ inputs.host_profile }}.txt)
@@ -66,6 +77,7 @@ runs:
             [settings]
             build_type=${{ inputs.conf }}
             arch=${{ inputs.arch }}
+            ${MSVC_VERSION:+compiler.version=$MSVC_VERSION}
 
             [options]
             &:unity_build=${{ inputs.unity_build == 'true' && 'True' || 'False' }}
