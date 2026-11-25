@@ -12,6 +12,7 @@
 #include "app/platform/platform.h"
 #include "ControllerConfigManager.h"
 #include "VideoMode.h"
+#include "extensions/SilentPatchMSAA.h"
 
 using enum eControllerAction;
 
@@ -671,7 +672,12 @@ void CMenuManager::DrawStandardMenus(bool drawTitle) {
             // Como el original: búfer de 100 bytes con CMemoryMgr::Calloc + rwsprintf, liberado al final
             auto* tmp = (RwChar*)CMemoryMgr::Calloc(100, 1, 0);
             if (m_nDisplayAntialiasing > 1) {
-                rwsprintf(tmp, "%d", m_nDisplayAntialiasing - 1);
+                if (SilentPatchMSAA::Enabled()) {
+                    // SilentPatch (MIT, Silent): MSAAFix (MSAAText, 0x57A0FD): texto «2x», «4x», «8x», «16x»
+                    rwsprintf(tmp, "%ux", SilentPatchMSAA::SamplesFromLevel(m_nDisplayAntialiasing));
+                } else {
+                    rwsprintf(tmp, "%d", m_nDisplayAntialiasing - 1);
+                }
                 AsciiToGxtChar(tmp, rightColumnBuffer);
                 CMemoryMgr::Free(tmp);
                 rightColumnText = rightColumnBuffer;

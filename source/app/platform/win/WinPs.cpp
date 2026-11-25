@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "extensions/SilentPatchConfig.h"
+#include "extensions/SilentPatchMSAA.h"
 #include "DatosExe/DataBssE2.h"
 
 #include <platform/win/WinPlatform.h>
@@ -610,7 +611,14 @@ RwBool psSelectDevice() {
         PSGLOBAL(fullScreen)   = TRUE;
     }
 
-    RwD3D9EngineSetMultiSamplingLevels(FrontEndMenuManager.m_nPrefsAntialiasing);
+    // SilentPatch (MIT, Silent): MSAAFix (0x746350): el valor guardado es un indice de nivel (1 = apagado, 2x, 4x, 8x, 16x); se acota a lo que admite la tarjeta (los niveles ya se consultaron al abrir el motor)
+    if (SilentPatchMSAA::Enabled()) {
+        auto& prefsAA = FrontEndMenuManager.m_nPrefsAntialiasing;
+        prefsAA = SilentPatchMSAA::ClampLevel(prefsAA, RwD3D9EngineGetMaxMultiSamplingLevels());
+        FrontEndMenuManager.m_nDisplayAntialiasing = prefsAA;
+    }
+    RwD3D9EngineSetMultiSamplingLevels(SilentPatchMSAA::DriverSamples(FrontEndMenuManager.m_nPrefsAntialiasing)); // SilentPatch (MIT, Silent): MSAAFix
+
 
     return TRUE;
 }

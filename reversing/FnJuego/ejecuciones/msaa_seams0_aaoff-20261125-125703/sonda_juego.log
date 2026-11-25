@@ -1,0 +1,33 @@
+[    0.2] pid 13332
+[    9.9] juego en marcha tras 10 s; gGameState=9
+[   10.7] salida de la casa: area=0 tras 1 s
+[   11.7] ventana: cliente 585x438
+[   11.7] === ESCENARIO msaa
+[   21.8] candidatos a m_nCurrentScreenItem (offsets): ['0x54']
+[   29.8] modulos de GPU cargados: ['d3d9.dll', 'nvldumd.dll', 'nvd3dum.dll', 'd3d9on12.dll', 'igd12umd32.dll', 'igd12um32xel.dll', 'igdgmm32.dll', 'igd12dxva32.dll', 'igddxvacommon32.dll', 'igdinfo32.dll']
+[   29.8] estado inicial {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21}
+[   56.7] captura BitBlt aa_inicial 1024x768 pagina avanzada, Anti Aliasing en su valor inicial; {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.4
+[   58.1] captura BitBlt aa_ciclo1_valor1 1024x768 tras flecha derecha: display=1 | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.2
+[   59.7] captura BitBlt aa_ciclo2_valor2 1024x768 tras flecha derecha: display=2 | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.2
+[   61.2] captura BitBlt aa_ciclo3_valor3 1024x768 tras flecha derecha: display=3 | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.2
+[   62.7] captura BitBlt aa_ciclo4_valor4 1024x768 tras flecha derecha: display=4 | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.4
+[   62.7] CICLO del ajuste (flecha derecha): [4, 1, 2, 3, 4]
+[   63.8] flecha izquierda desde el valor inicial 4 -> 3
+[   64.1] captura BitBlt aa_izq_valor3 1024x768 flecha izquierda desde el inicial | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.2
+[   73.0] NIVEL 1 aplicado: {"max": 8, "sel": 1, "maxNM": 5, "selNM": 1, "present": 0, "calidad": 0, "prefs": 1, "display": 1, "swap": 2, "formato": 21} vivo
+[   73.4] captura BitBlt aa_n1_menu 1433x1075 menu avanzado tras aplicar el nivel 1 (muestras del driver 1, presente 0) | cliente 1433x1075, RsGlobal 1024x768, cliente mayor que RsGlobal (el juego dibuja en la esquina superior izquierda 1024x768); media 50.5
+[   96.5] captura BitBlt aa_n1_mundo 1433x1075 mundo con el nivel 1 | cliente 1433x1075, RsGlobal 1024x768, cliente mayor que RsGlobal (el juego dibuja en la esquina superior izquierda 1024x768); media 55.3
+[  105.0] captura BitBlt aa_n1_mapa 1433x1075 mapa del menu con el nivel 1 | cliente 1433x1075, RsGlobal 1024x768, cliente mayor que RsGlobal (el juego dibuja en la esquina superior izquierda 1024x768); media 71.1
+[  161.8] METRICA mundo nivel 1 {"colores": 3019, "duros": 252, "suaves": 12502, "suaves_por_duro": 49.611}
+[  162.5] METRICA mapa nivel 1 {"colores": 48807, "duros": 21570, "suaves": 152673, "suaves_por_duro": 7.078}
+[  162.9] vivo al final: True
+[  162.9] LOG [info][13:00:29.121][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[  162.9] LOG [info][13:00:29.121][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[  162.9] LOG [info][13:00:29.122][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[  162.9] LOG [info][13:00:29.122][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[  162.9] LOG [info][13:00:29.355][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[  162.9] LOG [info][13:00:29.366][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[  162.9] LOG [error][13:00:36.985][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  162.9] LOG [error][13:00:36.985][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  162.9] LOG [info][13:00:37.176][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[  162.9] fin

@@ -1,0 +1,28 @@
+pid 16776
+juego en marcha tras 8 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 585x438
+=== ESCENARIO msaa
+candidatos a m_nCurrentScreenItem (offsets): ['0x54']
+modulos de GPU cargados: ['d3d9.dll', 'nvldumd.dll', 'nvd3dum.dll', 'd3d9on12.dll', 'igd12umd32.dll', 'igd12um32xel.dll', 'igdgmm32.dll', 'igd12dxva32.dll', 'igddxvacommon32.dll', 'igdinfo32.dll']
+estado inicial {"max": 8, "sel": 4, "maxNM": 5, "selNM": 2, "present": 4, "calidad": 0, "prefs": 3, "display": 3, "swap": 1, "formato": 21}
+captura BitBlt aa_inicial 1024x768 pagina avanzada, Anti Aliasing en su valor inicial; {"max": 8, "sel": 4, "maxNM": 5, "selNM": 2, "present": 4, "calidad": 0, "prefs": 3, "display": 3, "swap": 1, "formato": 21} | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.4
+captura BitBlt aa_ciclo1_valor4 1024x768 tras flecha derecha: display=4 | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.2
+captura BitBlt aa_ciclo2_valor1 1024x768 tras flecha derecha: display=1 | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.2
+captura BitBlt aa_ciclo3_valor2 1024x768 tras flecha derecha: display=2 | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.2
+captura BitBlt aa_ciclo4_valor3 1024x768 tras flecha derecha: display=3 | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.4
+CICLO del ajuste (flecha derecha): [3, 4, 1, 2, 3]
+flecha izquierda desde el valor inicial 3 -> 2
+captura BitBlt aa_izq_valor2 1024x768 flecha izquierda desde el inicial | cliente 1024x768, RsGlobal 1024x768, tamano VALIDADO; media 16.2
+NIVEL 4 aplicado: {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} vivo
+captura BitBlt aa_n4_menu 1433x1075 menu avanzado tras aplicar el nivel 4 (muestras del driver 8, presente 8) | cliente 1433x1075, RsGlobal 1024x768, cliente mayor que RsGlobal (el juego dibuja en la esquina superior izquierda 1024x768); media 50.5
+captura BitBlt aa_n4_mundo 1433x1075 mundo con el nivel 4 | cliente 1433x1075, RsGlobal 1024x768, cliente mayor que RsGlobal (el juego dibuja en la esquina superior izquierda 1024x768); media 55.2
+captura BitBlt aa_n4_mapa 1433x1075 mapa del menu con el nivel 4 | cliente 1433x1075, RsGlobal 1024x768, cliente mayor que RsGlobal (el juego dibuja en la esquina superior izquierda 1024x768); media 71.2
+METRICA mundo nivel 4 {"colores": 4248, "duros": 215, "suaves": 13419, "suaves_por_duro": 62.414}
+METRICA mapa nivel 4 {"colores": 51167, "duros": 17784, "suaves": 163181, "suaves_por_duro": 9.176}
+vivo al final: True
+LOG [error][12:54:15.398][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][12:54:15.398][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+LOG [info][12:54:15.555][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+LOG [info][12:56:38.784][SilentPatchConfig.cpp:75]: SilentPatch: opcion SpeechCrashGenericFallback = 1
+fin

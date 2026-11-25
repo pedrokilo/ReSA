@@ -14,6 +14,7 @@
 #include "C_PcSave.h"
 #include "Radar.h"
 #include "ControllerConfigManager.h"
+#include "extensions/SilentPatchMSAA.h"
 
 // 0x57B440
 void CMenuManager::Process() {
@@ -428,9 +429,26 @@ bool CMenuManager::ProcessPCMenuOptions(int8 pressedLR, bool acceptPressed) {
         if (acceptPressed) {
             if (m_nDisplayAntialiasing != m_nPrefsAntialiasing) {
                 m_nPrefsAntialiasing = m_nDisplayAntialiasing;
-                RwD3D9ChangeMultiSamplingLevels(m_nDisplayAntialiasing);
+                RwD3D9ChangeMultiSamplingLevels(SilentPatchMSAA::DriverSamples(m_nDisplayAntialiasing)); // SilentPatch (MIT, Silent): MSAAFix, indice de nivel -> muestras
                 SetVideoMode(m_nPrefsVideoMode);
                 SaveSettings();
+            }
+            return true;
+        }
+
+        if (SilentPatchMSAA::Enabled()) {
+            // SilentPatch (MIT, Silent): MSAAFix (0x57D0DF, 0x57D126 y llamadas a 0x7F84E0): sin el tope fijo de 4; el indice llega hasta el maximo de la tarjeta (2x..16x)
+            const int maxLevel = SilentPatchMSAA::MaxLevelFromSamples(RwD3D9EngineGetMaxMultiSamplingLevels());
+            if (pressedLR > 0) {
+                ++m_nDisplayAntialiasing;
+                if (m_nDisplayAntialiasing > maxLevel) {
+                    m_nDisplayAntialiasing = 1;
+                }
+            } else {
+                --m_nDisplayAntialiasing;
+                if (m_nDisplayAntialiasing < 1) {
+                    m_nDisplayAntialiasing = maxLevel;
+                }
             }
             return true;
         }
@@ -557,7 +575,7 @@ bool CMenuManager::ProcessPCMenuOptions(int8 pressedLR, bool acceptPressed) {
         const auto targetMenu = aScreens[m_nCurrentScreen].m_aItems[2].m_nTargetMenu;
         SetDefaultPreferences(targetMenu);
         if (targetMenu == SCREEN_DISPLAY_ADVANCED) {
-            RwD3D9ChangeMultiSamplingLevels(m_nPrefsAntialiasing);
+            RwD3D9ChangeMultiSamplingLevels(SilentPatchMSAA::DriverSamples(m_nPrefsAntialiasing)); // SilentPatch (MIT, Silent): MSAAFix
             SetVideoMode(m_nPrefsVideoMode);
         } else if (targetMenu == SCREEN_CONTROLLER_SETUP) {
             ControlsManager.ReinitControls();

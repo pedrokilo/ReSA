@@ -1,0 +1,35 @@
+{
+ "ciclo": [
+  3,
+  4,
+  1,
+  2,
+  3
+ ],
+ "niveles": {
+  "4": {
+   "max": 8,
+   "sel": 8,
+   "maxNM": 5,
+   "selNM": 5,
+   "present": 8,
+   "calidad": 0,
+   "prefs": 4,
+   "display": 4,
+   "swap": 1,
+   "formato": 21
+  }
+ },
+ "met_mundo_4": {
+  "colores": 4248,
+  "duros": 215,
+  "suaves": 13419,
+  "suaves_por_duro": 62.414
+ },
+ "met_mapa_4": {
+  "colores": 51167,
+  "duros": 17784,
+  "suaves": 163181,
+  "suaves_por_duro": 9.176
+ }
+}
