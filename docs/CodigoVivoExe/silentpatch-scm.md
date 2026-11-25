@@ -76,12 +76,22 @@ Clases: A = se aplica a nuestra función; B = ya lo hace el proyecto; C = no apl
 ## Pruebas
 
 1. **Configuración** (real, aislada): se compiló `SilentPatchConfig.cpp` con un `StdInc.h` mínimo y un programa de prueba en el bloc de notas del agente (no versionado). Resultado: sin variables, interruptor general = 1, `EnableScriptFixes` = 1, `MinimalHUD` (defecto 0) = 0, `Units` = -1; con `GTASA_SILENTPATCH=0`, todas las opciones devuelven falso y `Units` el valor "apagado" (-2) aunque se pida `GTASA_SP_MINIMALHUD=1`; con `GTASA_SP_ENABLESCRIPTFIXES=0` solo esa se apaga; `GTASA_SP_MINIMALHUD=1` y `GTASA_SP_UNITS=1` encienden/fijan; las claves `SilentPatch=0`, `EnableScriptFixes=0` y `Units=0` de `[SilentPatch]` en `gta-reversed.ini` se leen y el entorno gana al ini. (El primer intento no leía el ini: sin ruta, `GetPrivateProfileString` busca en el directorio de Windows; corregido con `.\`.)
-2. **Compilación**: los 24 archivos tocados (más los 3 nuevos) se compilan con `compilar_over.cmd` sin errores nuevos.
-3. **Humo del ASI** (`prueba_ropero.py` y `prueba_marcadores.py`, `cal_mal.args`, con SilentPatch activado y con `GTASA_SILENTPATCH=0`): ver la sección "Resultado del humo" al final; esta sección se actualiza con lo ejecutado de verdad.
-4. **Con el interruptor apagado** el código tomado en cada sitio es el original (la condición `SilentPatchOption(...)` cae a la rama del EXE; en `CLocalisation::Metric` el valor -2 cae a la fórmula original). Comprobado por lectura, y de forma dinámica solo por el humo con `GTASA_SILENTPATCH=0` (arranque y partida nueva sin diferencias de marcadores).
+2. **Compilación**: los 24 archivos .cpp tocados o nuevos se compilan con `compilar_over.cmd` (rc=0) y el ASI enlaza.
+3. **Humo del ASI** (`prueba_ropero.py` y `prueba_marcadores.py`, `cal_mal.args`): ver "Resultado del humo" al final (no aprobado; ver allí).
+4. **Con el interruptor apagado** el código tomado en cada sitio es el original (la condición `SilentPatchOption(...)` cae a la rama del EXE; en `CLocalisation::Metric` el valor -2 cae a la fórmula original). Comprobado solo por lectura del código y por la prueba de configuración: la corrida dinámica con `GTASA_SILENTPATCH=0` no se pudo hacer (ver "Resultado del humo").
 
 No se verificaron los patrones del bytecode contra un `main.scm` real: no hay copia accesible fuera de la carpeta del juego, que no se debe tocar. Los parches no se aplican si el patrón no aparece una sola vez (se anota en el registro con `NOTSA_LOG_INFO`).
 
 ## Resultado del humo
 
-(pendiente de rellenar con la ejecución; ver más abajo)
+ASI enlazado (`reversing\FnFase8si\gta_reversed.asi`, objetos de `wv-intuild` más los 24 archivos propios compilados con `compilar_over.cmd`; la rama se fusionó antes con `integracion-fase7b` para que las cabeceras coincidieran con los objetos: con la base anterior el enlace fallaba por `DatosExe::R5::vB4E3E8/vB4E3F0/vB61100`). Compilación: 24 de 24 con `rc=0`; `python contrib/audit_hook_catalog.py --strict`: OK.
+
+Ejecuciones del humo (honestas, sin interpretar de más):
+
+| Prueba | SilentPatch | Resultado |
+| --- | --- | --- |
+| `prueba_ropero.py cal_mal.args sp3_on` | encendido | `ERROR no llego al interior` (no llegó a la medición; sin veredicto BIEN/MAL) |
+| `prueba_marcadores.py cal_mal.args sp3_on` | encendido | `ERROR sin juego` (el juego no arrancó; la cola de `gta_lock` la ocupaba otro agente) |
+| `prueba_ropero.py` / `prueba_marcadores.py` con `GTASA_SILENTPATCH=0` | apagado | **no ejecutadas**: esperaron más de 15 minutos a `gta_lock` (propietario `owner_bis1`) y se cancelaron |
+
+Conclusión: **el humo no está aprobado** para esta rama. El fallo "no llego al interior" con SilentPatch encendido no está atribuido (no hay línea base con la misma DLL y SilentPatch apagado en el mismo entorno, y las pruebas de otras ramas del mismo rato también devolvieron `sin juego` / `el juego se cerro`). Antes de integrar hay que repetir las cuatro corridas cuando `gta_lock` esté libre: si `off` pasa y `on` falla, el sospechoso principal es `SilentPatchNewGame::AfterReInit` (recarga de pickups/generadores/saltos antes de `GenericLoad`), que se apaga con `GTASA_SP_REINITIPLOBJECTSONNEWGAME=0`; el siguiente, `ResetVariablesOnNewGame`.
