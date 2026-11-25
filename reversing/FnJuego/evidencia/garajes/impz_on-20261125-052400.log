@@ -1,0 +1,12 @@
+[    0.2] pid 21524
+[   12.3] juego en marcha tras 12 s; gGameState=9
+[   13.1] salida de la casa: area=0 tras 1 s
+[   14.1] ventana: cliente 640x480
+[   14.1] === ESCENARIO imp_zona
+[   60.4]   NO encontrado 410 cerca de (1800.0, -1300.0, 13.5) : [] ranuras [0, 0, 0, 0]
+[   60.4] restaurados {411: '0x90259b8'} garaje imp_la [{'i': 1, 'base': 9879840, 'tipo': 33, 'estado': 0, 'flags': 104, 'tipo0': 33, 'pos': (1523.9, -1653.2, 4.7), 'izq': 1523.9, 'der': 1556.9, 'frente': -1653.2, 'atras': -1633.2, 'pos_puerta': 0.0, 'nombre': 'imp_la'}]
+[  120.8] tras 60 s: vivos {411: True}
+[  121.2] vivo al final: True
+[  121.2] LOG [error][05:24:15.924][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  121.2] LOG [error][05:24:15.925][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  121.2] fin

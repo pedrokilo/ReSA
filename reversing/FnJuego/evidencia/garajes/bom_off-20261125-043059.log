@@ -1,0 +1,29 @@
+[    0.2] pid 15388
+[   13.0] juego en marcha tras 13 s; gGameState=9
+[   13.7] salida de la casa: area=0 tras 1 s
+[   14.7] ventana: cliente 640x480
+[   14.7] === ESCENARIO bombas
+[   20.7] estado inicial garaje (0, 0.0) config [(411, (2504.0, -1694.5, 13.2), 2, 0), (463, (2507.0, -1694.5, 13.0), 1, 0)]
+[   21.2]   VEHICULO NUEVO en el garaje t=0.6 0x9011688 {"modelo": 411, "tipo": 0, "subtipo": 0, "bomba": 2, "duenio": "0x0", "remap_cargado": -1, "remap_pend": -1, "suciedad": 7.0, "flags_fis": "0x10000202", "tren": "0x463b", "estado": 4, "salud": 1000.0} pos (2504.0, -1694.5, 13.299676895141602)
+[   21.2]   VEHICULO NUEVO en el garaje t=0.6 0x90120a0 {"modelo": 463, "tipo": 9, "subtipo": 9, "bomba": 0, "duenio": "0x0", "remap_cargado": -1, "remap_pend": -1, "suciedad": 12.0, "flags_fis": "0x10000202", "tren": "0x3c88", "estado": 4, "salud": 1000.0} pos (2507.0009765625, -1694.49853515625, 13.101324081420898)
+[   24.1] tras restaurar: garaje (1, 1.0) ranuras [0, 0, 0, 0] vehiculos en garaje [('0x9011688', 411), ('0x90120a0', 463)]
+[   26.1]   estado tras 2 s 0x9011688 {"modelo": 411, "tipo": 0, "subtipo": 0, "bomba": 2, "duenio": "0x0", "remap_cargado": -1, "remap_pend": -1, "suciedad": 7.0, "flags_fis": "0x10000002", "tren": "0x463b", "estado": 4, "salud": 1000.0} pos (2504.0, -1694.5, 13.299676895141602)
+[   26.1]   estado tras 2 s 0x90120a0 {"modelo": 463, "tipo": 9, "subtipo": 9, "bomba": 0, "duenio": "0x0", "remap_cargado": -1, "remap_pend": -1, "suciedad": 12.0, "flags_fis": "0x10000202", "tren": "0x3c88", "estado": 4, "salud": 1000.0} pos (2507.0009765625, -1694.49853515625, 13.10109806060791)
+[   26.9] captura garaje_abierto {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [100.8, 119.5, 115.8], "max": 255} garaje de CJ tras restaurar
+[   28.9] puerta cerrada y guardado hecho: True garaje (0, 0.0)
+[   28.9]   ranura 0 {"pos": [2507.0009765625, -1694.49853515625, 13.10109806060791], "flags": 0, "modelo": 463, "bomba": 0, "pintura": 255, "nitro": 0, "col": [1, 1, 1, 1]}
+[   28.9]   ranura 1 {"pos": [2504.0, -1694.5, 13.299676895141602], "flags": 0, "modelo": 411, "bomba": 2, "pintura": 255, "nitro": 0, "col": [1, 1, 1, 1]}
+[   28.9]   ranura 2 {"pos": [2505.224609375, -1694.008544921875, 13.311930656433105], "flags": 0, "modelo": 0, "bomba": 0, "pintura": 255, "nitro": 0, "col": [66, 96, 0, 0]}
+[   28.9]   ranura 3 {"pos": [0.0, 0.0, 0.0], "flags": 0, "modelo": 0, "bomba": 0, "pintura": 0, "nitro": 0, "col": [0, 0, 0, 0]}
+[   28.9] vehiculos que quedan en el garaje: []
+[   29.2] vivo al final: True
+[   29.2] LOG [info][04:31:05.200][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[   29.2] LOG [info][04:31:05.200][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[   29.2] LOG [info][04:31:05.200][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[   29.2] LOG [info][04:31:05.200][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[   29.2] LOG [info][04:31:05.487][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   29.2] LOG [info][04:31:05.499][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[   29.2] LOG [error][04:31:15.842][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   29.2] LOG [error][04:31:15.842][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   29.2] fin
+[info][04:31:24.892][SilentPatchConfig.cpp:75]: SilentPatch: opcion StoredCarBombFix = 0

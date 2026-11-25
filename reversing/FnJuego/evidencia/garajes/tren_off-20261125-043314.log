@@ -1,0 +1,32 @@
+[    0.2] pid 24012
+[   11.8] juego en marcha tras 12 s; gGameState=9
+[   12.5] salida de la casa: area=0 tras 1 s
+[   13.5] ventana: cliente 640x480
+[   13.5] === ESCENARIO trenes
+[   19.7] estado inicial garaje (0, 0.0) config [(538, (2505.4, -1695.2, 13.2), 0, 0)]
+[   34.1] EXCEPCION en el escenario trenes TypeError("'NoneType' object is not subscriptable") Original\wv-spg\reversing\FnJuego\sonda_garajes.py", line 108, in esc_trenes
+    def esc_trenes(j): esc_restaurar(j, 'trenes')
+                       ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Original\wv-spg\reversing\FnJuego\sonda_garajes.py", line 98, in esc_restaurar
+    j.P('tras restaurar: garaje', estado_garaje(j), 'ranuras', [coche_guardado(j, 0, r)['modelo'] for r in range(4)], 'vehiculos en garaje', [(hex(v['p']), v['modelo']) for v in vehiculos_garaje(j)])
+                                  ~~~~~~~~~~~~~^^^
+  File "D:\Original\wv-spg\reversing\FnJuego\sonda_garajes.py", line 64, in estado_garaje
+    d = j.m.rd(GAR + i * GSZ, 0x50); return d[0x4D], struct.unpack('<f', d[0x38:0x3C])[0]
+                                            ~^^^^^^
+TypeError: 'NoneType' object is not subscriptable
+
+[   34.3] EL PROCESO TERMINO durante trenes
+[   34.5] vivo al final: False
+[   34.5] LOG [error][04:33:30.170][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   34.5] LOG [error][04:33:30.170][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   34.5] LOG [error][04:33:30.170][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   34.5] LOG [error][04:33:30.170][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   34.5] LOG [info][04:33:38.485][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[   34.5] LOG [info][04:33:38.486][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[   34.5] LOG [info][04:33:38.488][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[   34.5] LOG [info][04:33:38.488][app_debug.cpp:113]: Dirección de excepción: 0x0101dcf5
+[   34.5] LOG [info][04:33:38.788][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   34.5] LOG [info][04:33:38.805][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[   34.5] fin
+[info][04:33:38.457][SilentPatchConfig.cpp:75]: SilentPatch: opcion TrainsInGarages = 0
+[info][04:33:38.457][SilentPatchConfig.cpp:75]: SilentPatch: opcion TrainsInGarages = 0

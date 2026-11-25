@@ -1451,9 +1451,17 @@ int32 CVehicle::GetRemapIndex() {
     // por cada iteración fallida (no dos veces seguidas); el índice del bucle es un int16 (movsx) y no se comprueba el rango.
     auto* mi = CModelInfo::GetModelInfo(m_nModelIndex)->AsVehicleModelInfoPtr();
     int32 i = 0;
+    // SilentPatch (MIT, Silent): a car that was never rendered has no loaded remap (m_nPreviousRemapTxd == -1) but already has the one to load (m_nRemapTxd); the EXE ignored it and the paint job vanished when the car was stored in a garage; option "PaintjobsInGarageFix"
+    int16 remapTxd = m_nPreviousRemapTxd;
+    if (remapTxd == -1 && SilentPatchOption("PaintjobsInGarageFix", true)) {
+        remapTxd = m_nRemapTxd;
+        if (remapTxd == -1) {
+            return -1;
+        }
+    }
     if (mi->GetNumRemaps() > 0) {
         do {
-            if (mi->m_anRemapTxds.data()[(int16)i] == m_nPreviousRemapTxd) {
+            if (mi->m_anRemapTxds.data()[(int16)i] == remapTxd) {
                 return i;
             }
             ++i;

@@ -1,0 +1,14 @@
+[    0.2] pid 39196
+[   12.1] juego en marcha tras 12 s; gGameState=9
+[   12.9] salida de la casa: area=0 tras 1 s
+[   13.9] ventana: cliente 640x480
+[   13.9] === ESCENARIO carstokeep
+[   20.5] Infernus restaurado en el garaje: 0x8fd76e0
+[   20.7] apCarsToKeep antes ['0x8fd76e0', '0x0']
+[   23.8] puerta cerrada (el garaje guarda y destruye el coche): True ranuras [411, 0, 0, 0]
+[   24.9] apCarsToKeep despues ['0x8fd76e0', '0x0'] coche destruido era 0x8fd76e0 sigue en el pool: False
+[   25.3] vivo al final: True
+[   25.4] LOG [error][05:12:24.983][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   25.4] LOG [error][05:12:24.984][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   25.4] fin
+[info][05:12:27.375][SilentPatchConfig.cpp:75]: SilentPatch: opcion ImpoundRandomVehiclesFix = 0

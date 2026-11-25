@@ -1,0 +1,28 @@
+[    0.3] pid 4132
+[   12.6] juego en marcha tras 12 s; gGameState=9
+[   13.5] salida de la casa: area=0 tras 1 s
+[   14.5] ventana: cliente 640x480
+[   14.5] === ESCENARIO pns
+[   21.2] Infernus restaurado: 0x9049278
+[   30.1]   intento 1: en_coche=False
+[   37.7]   intento 2: en_coche=False
+[   44.2]   intento 3: en_coche=True
+[   44.2] CJ en el coche 0x9049278 dinero 5000
+[   44.2] garaje PnS {"i": 8, "base": 9881352, "tipo": 5, "estado": 1, "flags": 12, "tipo0": 5, "pos": [2056.6, -1835.9, 12.5], "izq": 2056.6, "der": 2071.3, "frente": -1835.9, "atras": -1827.0, "pos_puerta": 1.0, "nombre": "sprLAe"} estado (1, 1.0)
+[   48.2] muestras (t, estado puerta, posicion puerta, suciedad):
+[   48.2]     (0.22, 1, 1.0, 14.0)
+[   48.2]     (0.46, 2, 0.87, 0.0)
+[   48.2]     (0.7, 2, 0.72, 0.0)
+[   48.3]     (0.93, 2, 0.57, 0.0)
+[   48.3]     (1.17, 2, 0.41, 0.0)
+[   48.3]     (1.39, 2, 0.26, 0.0)
+[   48.3]     (1.6, 2, 0.13, 0.0)
+[   48.3]     (1.83, 0, 0.0, 0.0)
+[   48.3]     (4.05, 3, 0.11, 0.0)
+[   48.3] dinero final 5000
+[   49.2] captura pns {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [114.6, 129.4, 116.4], "max": 255} Pay n Spray
+[   49.6] vivo al final: True
+[   49.6] LOG [error][04:49:00.841][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   49.6] LOG [error][04:49:00.841][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   49.6] fin
+[info][04:49:33.241][SilentPatchConfig.cpp:75]: SilentPatch: opcion PayNSprayCleanLate = 0

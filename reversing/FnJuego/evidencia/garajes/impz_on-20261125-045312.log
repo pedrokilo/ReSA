@@ -1,0 +1,18 @@
+[    0.2] pid 37324
+[   13.7] juego en marcha tras 13 s; gGameState=9
+[   14.5] salida de la casa: area=0 tras 1 s
+[   15.5] ventana: cliente 640x480
+[   15.5] === ESCENARIO imp_zona
+[   62.0]   NO encontrado 410 cerca de (1800.0, -1300.0, 13.5) : [] ranuras [0, 0, 0, 0]
+[   62.0] restaurados {411: '0x906be88'} garaje imp_la [{'i': 1, 'base': 9879840, 'tipo': 33, 'estado': 0, 'flags': 104, 'tipo0': 33, 'pos': (1523.9, -1653.2, 4.7), 'izq': 1523.9, 'der': 1556.9, 'frente': -1653.2, 'atras': -1633.2, 'pos_puerta': 0.0, 'nombre': 'imp_la'}]
+[  122.1] tras 60 s: vivos {411: True}
+[  122.4] vivo al final: True
+[  122.5] LOG [info][04:55:42.806][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[  122.5] LOG [info][04:55:42.806][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[  122.5] LOG [info][04:55:42.806][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[  122.5] LOG [info][04:55:42.807][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[  122.5] LOG [info][04:55:43.211][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[  122.5] LOG [info][04:55:43.226][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[  122.5] LOG [error][04:55:54.001][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  122.5] LOG [error][04:55:54.001][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  122.5] fin

@@ -885,7 +885,10 @@ void CGameLogic::Update() {
         LeaveVehicleForResurrection();
         CMessages::ClearMessages(false);
         CHud::SetHelpMessage(nullptr, true, false, false);
-        CCarCtrl::ClearInterestingVehicleList();
+        // SilentPatch (MIT, Silent): when busted the interesting-vehicle list is kept so that ClearExcitingStuffFromArea (below) impounds the player's car; option "ImpoundAfterBustedFix"
+        if (!SilentPatchOption("ImpoundAfterBustedFix", true)) {
+            CCarCtrl::ClearInterestingVehicleList();
+        }
         CGarages::CloseHideOutGaragesBeforeSave();
         CWorld::ClearExcitingStuffFromArea(player1.GetPos(), 4000.0f, true);
 

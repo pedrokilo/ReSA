@@ -1,0 +1,20 @@
+[    0.2] pid 39040
+[   11.9] juego en marcha tras 12 s; gGameState=9
+[   12.6] salida de la casa: area=0 tras 1 s
+[   13.6] ventana: cliente 640x480
+[   13.6] === ESCENARIO trenes
+[   19.6] estado inicial garaje (0, 0.0) config [(538, (2505.4, -1695.2, 13.2), 0, 0)]
+[   20.2]   VEHICULO NUEVO en el garaje t=0.6 0x908ec90 {"modelo": 538, "tipo": 6, "subtipo": 6, "bomba": 0, "duenio": "0x0", "remap_cargado": -1, "remap_pend": -1, "suciedad": 5.0, "flags_fis": "0x10000202", "tren": "0x4399", "estado": 4, "salud": 1000.0} pos (2505.40283203125, -1695.2039794921875, 13.185391426086426)
+[   22.7] tras restaurar: garaje (1, 1.0) ranuras [0, 0, 0, 0] vehiculos en garaje [('0x908ec90', 538)]
+[   25.0]   estado tras 2 s 0x908ec90 {"modelo": 538, "tipo": 6, "subtipo": 6, "bomba": 0, "duenio": "0x0", "remap_cargado": -1, "remap_pend": -1, "suciedad": 5.0, "flags_fis": "0x10000202", "tren": "0x4399", "estado": 4, "salud": 1000.0} pos (2505.39990234375, -1695.199951171875, 13.199999809265137)
+[   25.8] captura garaje_abierto {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [102.1, 125.7, 126.3], "max": 255} garaje de CJ tras restaurar
+[   27.7] puerta cerrada y guardado hecho: True garaje (0, 0.0)
+[   27.7]   ranura 0 {"pos": [2505.39990234375, -1695.199951171875, 13.199999809265137], "flags": 0, "modelo": 0, "bomba": 0, "pintura": 0, "nitro": 0, "col": [1, 1, 1, 1]}
+[   27.7]   ranura 1 {"pos": [2507.220947265625, -1694.9071044921875, 13.33792495727539], "flags": 239, "modelo": 0, "bomba": 0, "pintura": 2, "nitro": 10, "col": [9, 1, 0, 0]}
+[   27.7]   ranura 2 {"pos": [2505.224609375, -1694.008544921875, 13.311930656433105], "flags": 0, "modelo": 0, "bomba": 0, "pintura": 255, "nitro": 0, "col": [66, 96, 0, 0]}
+[   27.7]   ranura 3 {"pos": [0.0, 0.0, 0.0], "flags": 0, "modelo": 0, "bomba": 0, "pintura": 0, "nitro": 0, "col": [0, 0, 0, 0]}
+[   27.7] vehiculos que quedan en el garaje: []
+[   28.0] vivo al final: True
+[   28.0] LOG [error][04:31:53.122][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   28.0] LOG [error][04:31:53.123][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   28.0] fin

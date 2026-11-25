@@ -41,6 +41,7 @@ END GENERATED HOOK STATUS */
 #include "Garage.h"
 #include "Garages.h"
 #include "X87Math.h"
+#include "Entity/Vehicle/Train.h"
 #include "Collision/CollisionData.h"
 #include "Collision/ColModel.h"
 
@@ -538,6 +539,19 @@ double CGarage::CalcDistToGarageRectangleSquared(float x, float y) {
     return Veh83DAdd(Veh83DMul(dy, dy), Veh83DMul(dx, dx));
 }
 
+static_assert(offsetof(CVehicle, m_pWhoInstalledBombOnMe) == 0x4CC);
+namespace {
+// SilentPatch (MIT, Silent): bombs of stored cars (also bikes) come back with their owner (the player); the EXE only restored the bomb type of cars (type 0) and left no owner. Option "StoredCarBombFix".
+void SpRestoreStoredBomb(const CStoredCar& stored, CVehicle* vehicle) {
+    if (!vehicle || stored.m_nBombType == 0 || !SilentPatchOption("StoredCarBombFix", true))
+        return;
+    if (vehicle->m_nVehicleType == VEHICLE_TYPE_AUTOMOBILE || vehicle->m_nVehicleType == VEHICLE_TYPE_BIKE) {
+        vehicle->m_nBombOnBoard           = stored.m_nBombType;
+        vehicle->m_pWhoInstalledBombOnMe = FindPlayerPed();
+    }
+}
+} // namespace
+
 // 0x448550
 // Como el original (0x448550..0x4485B6): para cada uno de los 4 coches guardados con modelo distinto de cero se restaura el vehiculo (CStoredCar::RestoreCar, 0x447E40); si existe, se limpia el bit 5 del byte +0x42D y se anade al mundo
 // (CWorld::Add, 0x563220) y el hueco queda vacio; si no, se deja. Devuelve verdadero si al final los 4 huecos estan vacios.
@@ -546,6 +560,7 @@ bool CGarage::RestoreCarsForThisHideOut(CStoredCar* cars) {
         if (cars[i].m_wModelIndex == 0)
             continue;
         CVehicle* const vehicle = cars[i].RestoreCar();
+        SpRestoreStoredBomb(cars[i], vehicle); // SilentPatch (MIT, Silent): bombs in stored cars save properly
         if (!vehicle)
             continue;
         GaField<uint8>(vehicle, 0x42D) &= 0xDFu;
@@ -576,6 +591,7 @@ bool CGarage::RestoreCarsForThisImpoundingGarage(CStoredCar* cars) {
         if (cars[i].m_wModelIndex == 0)
             continue;
         CVehicle* const vehicle = cars[i].RestoreCar();
+        SpRestoreStoredBomb(cars[i], vehicle); // SilentPatch (MIT, Silent): bombs in stored cars save properly
         if (!vehicle)
             continue;
         GaField<uint8>(vehicle, 0x42D) |= 0x20u;
@@ -925,7 +941,9 @@ L_AC50:
             }
             m_nDoorState = static_cast<eGarageDoorState>(2);
             GaPadControls(true);
-            GaField<uint32>(GaFpv(), 0x4B0) = 0;
+            // SilentPatch (MIT, Silent): Pay 'n Spray cleans the car while it is hidden behind the closed door (state 2, later), not before the door closes; option "PayNSprayCleanLate"
+            if (!SilentPatchOption("PayNSprayCleanLate", true))
+                GaField<uint32>(GaFpv(), 0x4B0) = 0;
             goto L_AD2D;
         }
         vehicle = GaFpv();
@@ -2002,6 +2020,15 @@ CVehicle* CStoredCar::RestoreCar() {
     case 10: vehicle = GaConstructStored<0x9F4, CTrailer>(model); break;
     default: {
         void* const memory = CVehicle::operator new(0x988);
+        // SilentPatch (MIT, Silent): a stored train is built with CTrain (the EXE built every default type with CAutomobile and crashed); it is marked derailed and given normal mass/collision so it can exist off the tracks; option "TrainsInGarages"
+        if (memory && CModelInfo::IsTrainModel(static_cast<int32>(model)) && SilentPatchOption("TrainsInGarages", true)) {
+            auto* const train = ::new (memory) CTrain(static_cast<int32>(model), RANDOM_VEHICLE);
+            train->trainFlags.bNotOnARailRoad = true;
+            train->physicalFlags.bDisableCollisionForce  = false;
+            train->physicalFlags.bDisableSimpleCollision = false;
+            vehicle = train;
+            break;
+        }
         vehicle = memory ? ::new (memory) CAutomobile(static_cast<int32>(model), RANDOM_VEHICLE, true) : nullptr;
         break;
     }

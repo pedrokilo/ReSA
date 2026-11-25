@@ -1,0 +1,14 @@
+[    0.2] pid 22484
+[   12.3] juego en marcha tras 12 s; gGameState=9
+[   13.1] salida de la casa: area=0 tras 1 s
+[   14.1] ventana: cliente 640x480
+[   14.1] === ESCENARIO imp_zona
+[   60.5]   NO encontrado 411 cerca de (1540.4, -1643.2, 5.6) : [] ranuras [0, 0, 0, 0]
+[   60.5]   NO encontrado 410 cerca de (1800.0, -1300.0, 13.5) : [] ranuras [0, 0, 0, 0]
+[   60.5] restaurados {} garaje imp_la [{'i': 1, 'base': 9879840, 'tipo': 33, 'estado': 0, 'flags': 104, 'tipo0': 33, 'pos': (1523.9, -1653.2, 4.7), 'izq': 1523.9, 'der': 1556.9, 'frente': -1653.2, 'atras': -1633.2, 'pos_puerta': 0.0, 'nombre': 'imp_la'}]
+[  120.6] tras 60 s: vivos {}
+[  121.0] vivo al final: True
+[  121.1] LOG [error][04:58:05.375][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  121.1] LOG [error][04:58:05.376][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  121.1] fin
+[info][04:58:14.263][SilentPatchConfig.cpp:75]: SilentPatch: opcion ImpoundGaragesFix = 0
