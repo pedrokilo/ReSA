@@ -48,6 +48,7 @@ END GENERATED HOOK STATUS */
 #include "GxtChar.h"
 
 #include "Text.h"
+#include "PadButtonIcons.h"
 #include "Data.h"
 #include "KeyArray.h"
 #include "MissionTextOffsets.h"
@@ -437,14 +438,14 @@ const GxtChar* CText::Get(const char* key) {
         bool found = false;
         auto str = m_MainKeyArray.Search(key, found);
         if (found) {
-            return str;
+            return PadButtonIcons::ApplyGxtFix(key, str); // NOTSA: sustituciones de GInputSA con el mando como dispositivo
         }
 
         // check mission keys block if no entry found yet
         if ((CGame::bMissionPackGame || m_bIsMissionTextOffsetsLoaded) && m_bIsMissionPackLoaded) {
             str = m_MissionKeyArray.Search(key, found);
             if (found) {
-                return str;
+                return PadButtonIcons::ApplyGxtFix(key, str); // NOTSA
             }
         }
     }

@@ -32,3 +32,6 @@ void SilentPatchLogState();
  * por defecto `defaultValue`. Con ella apagada el codigo del EXE queda literal. Ver docs/DesviacionesConocidas.md (15.I).
  */
 bool OwnDeviationOption(const char* envName, const char* iniKey, bool defaultValue);
+
+/* Opcion PROPIA de texto (entorno `envName` > linea `iniKey=` de gta-reversed.ini > defaultValue), recortada y en minusculas. Ver docs/DesviacionesConocidas.md (15.B). */
+std::string OwnDeviationString(const char* envName, const char* iniKey, const char* defaultValue);

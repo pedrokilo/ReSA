@@ -1077,7 +1077,42 @@ def esc_espera(j):
     while time.time() - t0 < seg and j.alive():
         j.dormir(20.0); j.P('espera: estado', json.dumps(msaa_estado(j)), 'pos', j.pos(), 'pools', j.pools())
 
-ESCENARIOS = {'msaa': esc_msaa, 'msaa_estado': esc_msaa_estado, 'espera': esc_espera, 'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'altf4': esc_altf4, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos, 'pausa': esc_pausa, 'caida_interior': esc_caida_interior}
+
+def esc_iconos(j):
+    """Iconos del mando en las ayudas (PadButtonIcons): requiere GTASA_PAD_ICONS_DEMO=1 en el entorno del juego (cada 8 s una ayuda corta con etiquetas ~k~~ACCION~, anotada en el log).
+    Fases: teclado (sin mando) -> mando (xinput falso, A pulsado) -> teclado otra vez. En cada fase captura 3 ayudas distintas y anota el texto ya resuelto de CHud::m_pHelpMessage (0xBAA7A0)."""
+    suelo_libre(j)
+    logp = arg('--log'); pend = []
+    def ayuda():   # el juego anota en el log el texto ya resuelto de cada ayuda de demostracion ("PadIcons demo: ayuda = ...")
+        for l in j.log_nuevas(logp):
+            if 'PadIcons demo: ayuda = ' in l: pend.append(l.split('PadIcons demo: ayuda = ', 1)[1].encode('latin1', 'replace'))
+        return pend[-1] if pend else b''
+    def fase(nombre, actividad, n=3, maximo=40):
+        vistas = []; t0 = time.time(); ult = ayuda()   # lo anterior a la fase no cuenta
+        j.P('FASE', nombre)
+        while time.time() - t0 < maximo and len(vistas) < n and j.alive():
+            actividad(); j.tick(); h = ayuda()
+            if h and h != ult and h not in vistas:
+                ult = h; t1 = time.time()
+                while time.time() - t1 < 1.8 and j.alive(): actividad(); j.tick(); time.sleep(0.1)   # deja que termine el fundido de entrada
+                if ayuda() == h:
+                    vistas.append(h); j.P('AYUDA', nombre, len(vistas), repr(h.decode('latin1')))
+                    j.foto('ic_%s_%d' % (nombre, len(vistas)), 'ayuda: ' + h.decode('latin1'))
+            time.sleep(0.1)
+        j.res['iconos_' + nombre] = [x.decode('latin1') for x in vistas]
+    def teclado():
+        j.al_frente()
+        i = INP(); i.type = 1; i.ki = KI(0, SC['lshift'], 0x8, 0, None); u.SendInput(1, ctypes.byref(i), ctypes.sizeof(INP)); time.sleep(0.03)
+        i.ki = KI(0, SC['lshift'], 0x8 | 0x2, 0, None); u.SendInput(1, ctypes.byref(i), ctypes.sizeof(INP))
+    def mando(): j.xi(botones=0x1000 if int(time.time() * 4) % 2 == 0 else 0)
+    j.xi(conectado=0)
+    fase("teclado", teclado, n=2)
+    j.xi(conectado=1); fase('mando', mando, n=5, maximo=80)
+    j.xi(conectado=0); fase('teclado2', teclado, n=1)
+    j.xi(conectado=1); fase('mando2', mando, n=1)
+    j.xi()
+
+ESCENARIOS = {'iconos': esc_iconos, 'msaa': esc_msaa, 'msaa_estado': esc_msaa_estado, 'espera': esc_espera, 'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'altf4': esc_altf4, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos, 'pausa': esc_pausa, 'caida_interior': esc_caida_interior}
 
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')

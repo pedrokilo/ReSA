@@ -143,3 +143,23 @@ bool OwnDeviationOption(const char* envName, const char* iniKey, bool defaultVal
     SPDLOG_INFO("Desviacion propia: opcion {} = {}", iniKey, r ? 1 : 0);
     return r;
 }
+
+// Desviacion propia de texto (p. ej. PadButtons=auto|ps|xbox): entorno > gta-reversed.ini > defaultValue; el valor se devuelve recortado y en minusculas.
+std::string OwnDeviationString(const char* envName, const char* iniKey, const char* defaultValue) {
+    static std::mutex mtx;
+    std::lock_guard   lock{mtx};
+    char              buf[64]{};
+    if (const DWORD n = GetEnvironmentVariableA(envName, buf, sizeof(buf)); n > 0 && n < sizeof(buf)) {
+        return Minusculas(Recortar(buf));
+    }
+    std::ifstream in("gta-reversed.ini");
+    std::string   linea;
+    const auto    buscada = Minusculas(iniKey);
+    while (std::getline(in, linea)) {
+        if (const auto c = linea.find(';'); c != std::string::npos) { linea.erase(c); }
+        const auto e = linea.find('=');
+        if (e == std::string::npos) { continue; }
+        if (Minusculas(Recortar(linea.substr(0, e))) == buscada) { return Minusculas(Recortar(linea.substr(e + 1))); }
+    }
+    return defaultValue;
+}

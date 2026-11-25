@@ -43,3 +43,7 @@ SOFTWARE.
 ### Entradas por área
 
 - **Scripts, misiones, entrada, HUD, trucos, guardado y textos (rama `silentpatch-scm`)**: `source/game_sa/Scripts/SilentPatchScripts.*` (parches de bytecode SCM de SilentPatchSA.cpp, namespace `ScriptFixes`, y ScriptSA.cpp), `source/game_sa/SilentPatchNewGame.*` (namespace `VariableResets`), y los hunks marcados con `// SilentPatch (MIT, Silent)` en TheScripts, RunningScript*, MathCommands, MissionCommands, Cheat, Camera/Cam/X87Math, Hud, Stats, MenuManager*, TheZones, FileLoader, Game, Localisation, AERadioTrackManager, Automobile y QuadBike. Detalle: [CodigoVivoExe/silentpatch-scm.md](CodigoVivoExe/silentpatch-scm.md).
+
+## GInputSA 1.11 (Silent)
+
+Iconos del mando en las ayudas y textos (`source/game_sa/PadButtonIcons.*`, [CodigoVivoExe/iconos-mando.md](CodigoVivoExe/iconos-mando.md), [DesviacionesConocidas.md](DesviacionesConocidas.md) sección 15.B): idea y juegos de iconos de GInputSA 1.11 de Silent («Pad buttons in In-Game helps, replacing PC key names…»); las texturas no se redistribuyen, se cargan de la instalación del usuario (`models\ps3btns.txd`, `models60btns.txd`). No se copia código de GInputSA: la implementación es propia y usa los símbolos de botón que el propio juego ya dibuja (`CFont::ParseToken`, `ButtonSprite`). De su análisis estático (con autorización del usuario) se toman datos, no código: la tabla de 124 sustituciones de textos del GXT (clave, patrón, sustituto), las etiquetas de icono y los nombres de textura del TXD.

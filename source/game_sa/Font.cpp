@@ -35,6 +35,7 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/DataBssE4.h"
 
 #include "Font.h"
+#include "PadButtonIcons.h"
 #include "extensions/SilentPatchConfig.h"
 #include "X87Math.h"
 
@@ -281,6 +282,7 @@ void CFont::Initialise() {
 
 // 0x7189B0
 void CFont::Shutdown() {
+    PadButtonIcons::Shutdown(); // NOTSA: libera los iconos del mando antes de que se borren los sprites del EXE
     std::ranges::for_each(Sprite, [](CSprite2d& sprite) { sprite.Delete(); });
     CTxdStore::SafeRemoveTxdSlot("fonts"); // FIX_BUGS: Added check for is slot exists
     // Como el original: 0x7189D9..0x7189EE borra solo ButtonSprite[1..4] (esi=0xC71ADC, edi=4), no los 15.
@@ -301,7 +303,7 @@ void CFont::PrintChar(float x, float y, char character) {
         rect.bottom = (state.m_fHeight + state.m_fHeight) + y;
         rect.right = state.m_fHeight * 17.0f + x;
         rect.top = state.m_fHeight * 19.0f + y;
-        ButtonSprite[PS2Symbol].Draw(rect, {255, 255, 255, state.m_color.a});
+        PadButtonIcons::SpriteFor(PS2Symbol).Draw(rect, {255, 255, 255, state.m_color.a}); // NOTSA: SpriteFor = ButtonSprite[] salvo iconos propios
         return;
     }
     uint8 letter = static_cast<uint8>(character);
@@ -357,7 +359,10 @@ char* CFont::ParseToken(char* text, CRGBA& color, bool isBlip, char* tag) {
             *tag = *next;
     };
 
-    switch (*next) {
+    // NOTSA: etiquetas de icono propias de GInputSA (`~[~`, `~ud~`...), solo con el juego de iconos del mando cargado
+    if (const int extSymbol = PadButtonIcons::ExtendedSymbol(next)) {
+        PS2Symbol = static_cast<eExtraFontSymbol>(extSymbol);
+    } else switch (*next) {
     case '<':
         PS2Symbol = EXSYMBOL_DPAD_LEFT;
         break;
@@ -901,6 +906,7 @@ float CFont::GetStringWidth(const GxtChar* string, bool full, bool scriptText) {
                 return width;
 
             auto* next = pStr + 1;
+            const char* const tagStart = reinterpret_cast<const char*>(next); // NOTSA: etiqueta, para el ancho del icono del mando
 
             // Como el original: 0x71A190..0x71A196 busca '~' sin comprobar el NUL.
             if (*next != '~') {
@@ -908,6 +914,7 @@ float CFont::GetStringWidth(const GxtChar* string, bool full, bool scriptText) {
             }
 
             pStr = next + 1;
+            width += PadButtonIcons::SymbolAdvance(tagStart); // NOTSA: 0 salvo iconos del mando cargados (el EXE no cuenta el ancho de los simbolos)
 
             if (lastWasLetter || *pStr == '~')
                 lastWasTag = true;
