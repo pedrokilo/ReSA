@@ -61,9 +61,10 @@ Lanzado con `reversing/FnJuego/ejecutar_juego.ps1 -Exe <ese exe>` (candado `gta_
 
 | Ejecución | SilentPatch | Resultado |
 | --- | --- | --- |
-| `spe_on`, `spe_on2` | encendido (por defecto; binario con los cinco solapes todavía incluidos) | vivo todo el escenario; replay con F1 x3 y 12 pulsaciones seguidas sin caída; el log registra `HeapCorruptionFix: Optimise omitido`, `ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular` y `RebuildPlayer con la ropa actual al terminar la reproduccion` en cada replay; `excepciones=0` en `spe_on2` (130 s) y `excepciones=1` en `spe_on` (ver nota) |
+| `spe_on`, `spe_on2` | encendido (por defecto; binario previo, con los cinco arreglos solapados todavía incluidos) | vivo todo el escenario; replay con F1 x3 y 12 pulsaciones seguidas sin caída; el log registra `HeapCorruptionFix: Optimise omitido`, `ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular` y `RebuildPlayer con la ropa actual al terminar la reproduccion` en cada replay; `excepciones=0` en `spe_on2` (130 s) y `excepciones=1` en `spe_on` (ver nota) |
 | `spe_off`, `spe_off2` | `GTASA_SILENTPATCH=0` | vivo; el log dice `interruptor general = 0` y no lista opciones; `excepciones=1` (ver nota) |
 | `spe_int` | encendido | `interiores` x3: 15 entradas y 15 salidas de interior (casa de CJ, gimnasio, tienda de ropa, Ammu-Nation, peluquería) en 440 s, todas con `entro` y `salio` verdaderos, sin NaN, sin bloqueo de streaming; 220 latidos con `excepciones=0` |
+| `spe_fin` (**binario final**, ya sin los cinco solapes retirados) | encendido | `entrada,interiores` en 273 s: raton, cursor, latencia y replay iguales que en `spe_on2` (clip = rectángulo cliente, giro 75,2 grados, latencia 17,8 ms de media, 3 replays + 12 pulsaciones sin caída), 5 entradas y 5 salidas de interior, 137 latidos; `excepciones=1` (la del controlador Intel, ver nota) |
 
 Medidas con la sonda (n = 60 pulsaciones de W por ejecución; tiempo desde `SendInput` hasta que el estado del mando 0 cambia):
 
