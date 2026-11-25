@@ -698,8 +698,9 @@ void CBike::ProcessRiderAnims(CPed* rider, CVehicle* vehicle, CRideAnimData* rid
     if(!(rideData->AnimLeanLeft >= 0.f))pose(left,right,lateralWeight*available,-rideData->AnimLeanLeft); // NaN como el EXE (0x6b7e4f): fcom + test ah + jcc
     else pose(right,left,lateralWeight*available,rideData->AnimLeanLeft);
     if (speed>.3f) {
-        auto* boneMatrix=*reinterpret_cast<RwMatrix**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(rider)+0x490)+0x10);
-        const auto jitter=[&](uintptr_t axis) {const int random=CGeneral::GetRandomNumber();const float angle=BikeRiderJitter355(speed,random);RwMatrixRotate(boneMatrix,reinterpret_cast<const RwV3d*>(axis),angle,rwCOMBINEPOSTCONCAT);};
+        // 0x6B7ECB: esi = [[rider+0x490]+0x10] = KeyFrame del hueso de la cabeza (RpHAnimBlendInterpFrame, 0x1C bytes); 0x7EB7C0 es RtQuatRotate (no RwMatrixRotate): gira el cuaternion q.
+        auto* const headKeyFrame=*reinterpret_cast<RpHAnimBlendInterpFrame**>(*reinterpret_cast<uint8**>(reinterpret_cast<uint8*>(rider)+0x490)+0x10);
+        const auto jitter=[&](uintptr_t axis) {const int random=CGeneral::GetRandomNumber();const float angle=BikeRiderJitter355(speed,random);RtQuatRotate(&headKeyFrame->q,reinterpret_cast<const RwV3d*>(axis),angle,rwCOMBINEPOSTCONCAT);};
         jitter(0x8D232C);jitter(0x8D2338);
         *reinterpret_cast<uint32*>(reinterpret_cast<uint8*>(rider)+0x470)|=0x4000;
     }
