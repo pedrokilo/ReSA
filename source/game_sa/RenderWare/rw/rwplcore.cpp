@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #include "game_sa/Crt/CrtState.h"
 #include "game_sa/Crt/CrtMath.h"
 #include "game_sa/Crt/CrtFile.h"
+#include "game_sa/Crt/CrtHeap.h"
 #include "game_sa/Crt/CrtString.h"
 
 #include "rwplcore.h"
@@ -224,7 +225,7 @@ RwBool _rwMemoryOpen(const RwMemoryFunctions* memFuncs) {
         return TRUE;
     }
     engine->memoryFuncs.rwmalloc  = reinterpret_cast<decltype(engine->memoryFuncs.rwmalloc)>(_rwMemoryMallocDefault);
-    engine->memoryFuncs.rwfree    = reinterpret_cast<decltype(engine->memoryFuncs.rwfree)>(0x82413F);
+    engine->memoryFuncs.rwfree    = reinterpret_cast<decltype(engine->memoryFuncs.rwfree)>(&ExeCrt::Free);
     engine->memoryFuncs.rwrealloc = reinterpret_cast<decltype(engine->memoryFuncs.rwrealloc)>(_rwMemoryReallocDefault);
     engine->memoryFuncs.rwcalloc  = reinterpret_cast<decltype(engine->memoryFuncs.rwcalloc)>(_rwMemoryCallocDefault);
     return TRUE;
@@ -3619,9 +3620,6 @@ void RwPlCoreInjectHooksS20A() {
 // (RwEngineInit, _rwMemoryOpen, _rwStringOpen, _rwPluginRegistryAddPlugin, _rwVectorSetMultFn...) usan estas funciones en lugar de la direccion del EXE y cada una lleva hook en su direccion.
 // ---------------------------------------------------------------------------------------------------------------------------------------------
 namespace {
-using ExeMallocFn  = void*(__cdecl*)(uint32);
-using ExeReallocFn = void*(__cdecl*)(void*, uint32);
-using ExeCallocFn  = void*(__cdecl*)(uint32, uint32);
 using ExeFileOpenFn  = void*(__cdecl*)(const char*, const char*);
 using ExeFileCloseFn = int(__cdecl*)(void*);
 }
@@ -3629,17 +3627,17 @@ using ExeFileCloseFn = int(__cdecl*)(void*);
 // 0x8020A0 (lote S21A, sin validar; 14 bytes; cdecl, (tamano, pista)): rwmalloc por defecto del motor: malloc de la CRT del EXE (0x824257) con el tamano; la pista se ignora.
 static void* _rwMemoryMallocDefault(size_t size, RwUInt32 hint) {
     UNUSED(hint);
-    return reinterpret_cast<ExeMallocFn>(uintptr_t{0x824257})(static_cast<uint32>(size));
+    return ExeCrt::Malloc(static_cast<uint32>(size));
 }
 
 // 0x8020B0 (lote S22A, sin validar; 19 bytes; cdecl, (memoria, tamano)): rwrealloc por defecto: realloc de la CRT del EXE (0x824269).
 static void* _rwMemoryReallocDefault(void* memory, size_t size) {
-    return reinterpret_cast<ExeReallocFn>(uintptr_t{0x824269})(memory, static_cast<uint32>(size));
+    return ExeCrt::Realloc(memory, static_cast<uint32>(size));
 }
 
 // 0x8020D0 (lote S22A, sin validar; 19 bytes; cdecl, (cantidad, tamano)): rwcalloc por defecto: calloc de la CRT del EXE (0x824416).
 static void* _rwMemoryCallocDefault(size_t count, size_t size) {
-    return reinterpret_cast<ExeCallocFn>(uintptr_t{0x824416})(static_cast<uint32>(count), static_cast<uint32>(size));
+    return ExeCrt::Calloc(static_cast<uint32>(count), static_cast<uint32>(size));
 }
 
 // 0x8086B0 (lote S21A, sin validar; 5 bytes; cdecl, (objeto, desplazamiento, tamano)): constructor de plugin por defecto; devuelve el objeto.

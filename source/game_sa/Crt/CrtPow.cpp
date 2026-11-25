@@ -33,7 +33,7 @@ END GENERATED HOOK STATUS */
 // (movlpd conserva la mitad alta; movsd entre registros conserva la alta; las operaciones escalares *sd no tocan la mitad alta). Las tablas (0x8884F0..0x88BE18) estan
 // copiadas por valor en CrtPowTables.inc y se indexan con la misma aritmetica de direcciones del EXE. Las etiquetas Lxxxx son las direcciones del EXE (0x829B99 + desplazamiento).
 // No se usa la x87 ni valores double por retorno en las constantes (un double devuelto por valor pasa por ST0 y silencia los NaN señalizantes: 0x88BDE8 es uno).
-// El unico codigo del EXE que se sigue llamando por direccion es el manejador de errores de la CRT (0x82872C) y la rama x87 de la envoltura (0x822184).
+// Ya no se llama a nada del EXE por direccion (el manejador de errores 0x82872C es ExeCrt::MathError); la rama x87 de la envoltura (0x822184) no es reconstruible y se sustituye (ver Pow).
 
 namespace ExeCrt {
 namespace {
@@ -666,13 +666,20 @@ LA695:
     goto LA61D;
 }
 
-// 0x8220F0: si el entorno es el del juego (0xC9C400 != 0 y excepciones enmascaradas) va al nucleo SSE2 de arriba; si no, a la rama x87 (0x822184, un cuerpo con su propio `ret`
-// al que el EXE entra con la misma pila, asi que se invoca como funcion cdecl(double, double))
+// 0x8220F0: si el entorno es el del juego (0xC9C400 != 0 y excepciones enmascaradas) va al nucleo SSE2 de arriba; si no, el EXE salta a la rama x87 (0x822184: la pow antigua de la
+// CRT de MSVC con fyl2x / f2xm1 / fscale sobre la pila x87 a precision extendida). IRRECONSTRUIBLE BIT A BIT EN C++ PURO: C++ no tiene intrinsecos para fyl2x, f2xm1 ni fscale, el
+// compilador no emite esas instrucciones, y la x87 las calcula con microcodigo propio de cada CPU (no hay una definicion portable que reproducir). Esta rama solo se alcanza sin SSE2
+// o con excepciones sin enmascarar (en la practica nunca con el juego), asi que en su lugar se usa el nucleo SSE2 con las excepciones de MXCSR enmascaradas: mismo dominio y mismos
+// casos especiales (errores por 0x82872C), resultado correcto a menos de 1 ulp pero NO identico al de la x87 en cualquier entrada. Diferencia documentada, no validada.
 double __cdecl Pow(double x, double y) {
     if (UseSse2MathPath()) {
         return PowSse2(x, y);
     }
-    return reinterpret_cast<double(__cdecl*)(double, double)>(0x822184)(x, y);
+    const unsigned int csr = _mm_getcsr();
+    _mm_setcsr(csr | 0x1F80u);
+    const double result = PowSse2(x, y);
+    _mm_setcsr(csr);
+    return result;
 }
 } // namespace ExeCrt
 

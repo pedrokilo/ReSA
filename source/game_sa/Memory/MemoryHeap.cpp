@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include "MemoryHeap.h"
 #include "FileMgr.h"
+#include "Crt/CrtHeap.h"
 
 #define CORE_COMMON_SIZE_COUNT 64
 
@@ -111,7 +112,7 @@ void CMemoryHeap::Init(void* mem, uint32 size, bool bInitSizes) {
 // 0x72EC60 (lote 208A, sin validar; thiscall, sin argumentos de pila, `ret`, 11 bytes con el prologo `push esi`): libera el bloque del heap con el free() del CRT DEL EXE (0x82413F, cdecl, no
 // CMemoryMgr::Free) y pone m_FirstBlock a nulo. El EXE NO llama a PrintMemoryLeaks (la version anterior si).
 void CMemoryHeap::Shutdown() {
-    ((void(__cdecl*)(void*))0x82413F)(m_FirstBlock);
+    ExeCrt::Free(m_FirstBlock);
     m_FirstBlock = nullptr;
 }
 

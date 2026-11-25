@@ -1,7 +1,7 @@
 #pragma once
 
 // pow del CRT estatico del EXE (biblioteca matematica de Intel en SSE2), lote CRT3A.
-//   0x8220F0 pow(x, y): si 0xC9C400 != 0 y las excepciones de MXCSR/FPU estan enmascaradas salta (jmp) al nucleo SSE2; si no, va a la rama x87 (0x822184), que se invoca por direccion
+//   0x8220F0 pow(x, y): si 0xC9C400 != 0 y las excepciones de MXCSR/FPU estan enmascaradas salta (jmp) al nucleo SSE2; si no, el EXE va a la rama x87 (0x822184), irreconstruible en C++ (fyl2x/f2xm1): aqui usa el nucleo SSE2 con MXCSR enmascarado
 //   0x829B99 nucleo SSE2 (2.861 bytes, tablas en 0x8884F0..0x88BE18 copiadas por valor en CrtPowTables.inc). Lo llama tambien _CIpow (0x829B80) con los argumentos en la pila
 // Resultado en ST0. Los casos especiales (inf, NaN, 0, desbordamiento, resultado subnormal) terminan en el manejador de errores de la CRT (0x82872C) como en el EXE.
 // Sin __asm. Verificacion: banco fuera del juego (reversing/FnCRT3A).

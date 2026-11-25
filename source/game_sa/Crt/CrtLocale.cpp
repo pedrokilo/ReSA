@@ -5,6 +5,7 @@
 #include <cstring>
 #include "CrtLocale.h"
 #include "CrtState.h"
+#include "CrtHeap.h"
 #include "CrtLowIo.h"
 #include "CrtCtype.h"
 
@@ -15,7 +16,7 @@
 namespace ExeCrt {
 namespace {
 // Funciones del montón del EXE (no reconstruidas en este lote: se llaman por su direccion)
-inline void  LocFree(void* p)             { reinterpret_cast<void(__cdecl*)(void*)>(0x82413F)(p); }
+inline void  LocFree(void* p)             { Free(p); } // free 0x82413F (CrtHeap.cpp)
 inline void* LocMalloc(unsigned int n)    { return reinterpret_cast<void*(__cdecl*)(unsigned int)>(0x824257)(n); }
 inline void* LocCalloc(unsigned int n, unsigned int s) { return reinterpret_cast<void*(__cdecl*)(unsigned int, unsigned int)>(0x824416)(n, s); }
 inline int   LocAtol(const char* s)       { return reinterpret_cast<int(__cdecl*)(const char*)>(0x822506)(s); }

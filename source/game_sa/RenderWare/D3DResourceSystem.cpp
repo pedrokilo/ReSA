@@ -130,8 +130,7 @@ __declspec(noinline) void __fastcall GrowableArrayResize(void* self, void* /*edx
     if (static_cast<int32>(newCapacity) == *capacity) {
         return;
     }
-    using NewFn = void*(__cdecl*)(uint32);
-    auto* const fresh = static_cast<uint32*>(reinterpret_cast<NewFn>(0x82119A)(newCapacity << 2));
+    auto* const fresh = static_cast<uint32*>(::operator new(newCapacity << 2)); // operator new (0x82119A): el del proyecto
     for (int32 i = 0; *count > i && i < static_cast<int32>(newCapacity); ++i) {
         fresh[i] = reinterpret_cast<volatile uint32*>(static_cast<uintptr_t>(*data))[i];
     }
@@ -143,10 +142,8 @@ __declspec(noinline) void __fastcall GrowableArrayResize(void* self, void* /*edx
 // 0x7315A0 (thiscall sin argumentos, `ret`, 87 bytes con marco SEH que solo desenrolla): reserva 0x800 bytes con operator new (0x82119A, sin hook; el resultado se descarta, no se libera ni se guarda), reserva otros
 // 0x10 y, si no es nulo, construye un CDirectory con capacidad 0x1388 (0x5322A0, con hook) sobre el; tampoco guarda ese objeto. Devuelve verdadero (AL = 1).
 __declspec(noinline) bool ScratchDirectoryInit() {
-    using NewFn = void*(__cdecl*)(uint32);
-    const auto exeOperatorNew = reinterpret_cast<NewFn>(0x82119A);
-    exeOperatorNew(0x800);
-    if (void* const memory = exeOperatorNew(0x10)) {
+    (void)::operator new(0x800); // operator new (0x82119A): el del proyecto; el resultado se descarta (como el original)
+    if (void* const memory = ::operator new(0x10)) {
         static_cast<CDirectory*>(memory)->Constructor(0x1388);
     }
     return true;

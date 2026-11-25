@@ -13497,3 +13497,16 @@ ExeCrt,SetSbcs,0x00832F74,1,0,0,S
 ExeCrt,SetSbUpLow,0x00832F9D,1,0,0,S
 ExeCrt,UpdateTMbcInfo,0x0083312F,1,0,0,S
 ExeCrt,Mbschr,0x00836697,1,0,0,S
+ExeCrtHeap,NhMalloc,0x0082422B,1,0,0,S
+ExeCrtHeap,Free,0x0082413F,1,0,0,S
+ExeCrtHeap,Realloc,0x00824269,1,0,0,S
+ExeCrtHeap,Calloc,0x00824416,1,0,0,S
+ExeCrtHeap,Msize,0x00828C4A,1,0,0,S
+ExeCrtHeap,ThrowBadAlloc,0x008212ED,1,0,0,S
+ExeCrtHeap,OperatorNew,0x0082119A,1,0,0,S
+ExeCrtHeap,OperatorNewArray,0x00821195,1,0,0,S
+ExeCrtHeap,OperatorDelete,0x008214BD,1,0,0,S
+ExeCrtHeap,OperatorDeleteArray,0x008213AE,1,0,0,S
+ExeCrtHeap,CallNewHandler,0x00826A57,1,0,0,S
+ExeCrtHeap,SetNewHandler,0x00826A2D,1,0,0,S
+ExeCrtHeap,QueryNewHandler,0x00826A51,1,0,0,S

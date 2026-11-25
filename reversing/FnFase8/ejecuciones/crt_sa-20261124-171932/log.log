@@ -1,0 +1,30 @@
+[depuración][17:29:27.752][ReversibleHooks.cpp:112]: [VTBL] standalone: 165 ranuras de 45 vtables del EXE completadas con las de las clases propias
+
+[info][17:29:27.760][dllmain.cpp:109]: Funciones del juego reemplazadas por código C++: 13630 en 1011 clases/grupos (11462 sobre la dirección del EXE y 2168 sobre la tabla virtual). Activas: 13630. Desactivadas: 0.
+[info][17:29:27.761][dllmain.cpp:113]: Catálogo del proyecto (docs/hooks.csv): 12438 entradas, 12438 reconstruidas y 11156 validadas una a una contra el EXE original.
+[info][17:29:27.761][dllmain.cpp:114]: El resto de funciones sigue ejecutando el código original del EXE. Para jugar solo con el código original usa --unhook-all. El registro también se guarda en logs/log.log.
+[depuración][17:29:27.770][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][17:29:27.772][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[depuración][17:29:28.399][SDLWrapper.cpp:65]: SDL conectado a la ventana nativa (HWND); tamaño del bloque de plataforma=40
+[info][17:29:28.683][rwcore.cpp:7775]: Adaptador de vídeo D3D9: NVIDIA GeForce RTX 3050 Laptop GPU (controlador nvldumd.dll, vendedor 0x10DE)
+[depuración][17:29:28.687][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 7
+[depuración][17:29:28.719][Text.cpp:195]: Cargando textos 'SPANISH.GXT' versión=04 (ASCII de 8 bits)
+[aviso][17:29:28.761][TimeCycle.cpp:186]: Línea de timecyc incorrecta (20 de 51 campos): '255 167 198 223 255 255 255 40 40 40 70 70 70 0 0 0 0 0 0 2.00 1.90 0.80 80 80 0 650.00 123.00 1.00 120 40 40 0 0 0 132 176 189 240 255 38 64 99 255 0 55 20 90 55 0  '
+[depuración][17:29:28.768][PopCycle.cpp:135]: POPCYCLE.DAT (población de peatones y coches) cargado correctamente.
+[depuración][17:29:28.769][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\FEET
+[depuración][17:29:28.770][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\GENRL
+[depuración][17:29:28.770][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\PAIN_A
+[depuración][17:29:28.770][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SCRIPT
+[depuración][17:29:28.770][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_EA
+[depuración][17:29:28.770][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_FA
+[depuración][17:29:28.770][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_GA
+[depuración][17:29:28.771][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_NA
+[depuración][17:29:28.771][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): AUDIO\SFX\SPC_PA
+[info][17:29:29.263][AEMFDecoder.cpp:148]: User tracks: QuickTime retirado; los .mp3 usan el decoder WMA y los formatos que solo abria QuickTime no estan disponibles
+[depuración][17:29:29.359][TxdStore.cpp:359]: Creando diccionario de texturas (TXD) en la ranura 12
+[depuración][17:29:29.363][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA3.IMG
+[depuración][17:29:29.364][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\GTA_INT.IMG
+[depuración][17:29:29.514][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\PATHS\CARREC.IMG 
+[depuración][17:29:29.514][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): DATA\SCRIPT\SCRIPT.IMG 
+[depuración][17:29:29.515][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\CUTSCENE.IMG 
+[depuración][17:29:33.777][CdStreamInfo.cpp:72]: Abriendo archivo del juego (CdStream): MODELS\PLAYER.IMG

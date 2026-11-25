@@ -1,7 +1,1 @@
 class,function,address,source,origins
-(biblioteca) CRT / runtime estático,_free,0x0082413F,source/game_sa/MemoryMgr.cpp:405,cohorte nuevo 2026-10-17 (biblioteca)
-(biblioteca) CRT / runtime estático,operator delete,0x008214BD,source/game_sa/MemoryMgr.cpp:564,envoltura en el código fuente
-(biblioteca) CRT / runtime estático,operator delete[],0x008213AE,source/game_sa/MemoryMgr.cpp:568,envoltura en el código fuente
-(biblioteca) CRT / runtime estático,operator new,0x0082119A,source/game_sa/MemoryMgr.cpp:556,envoltura en el código fuente
-(biblioteca) CRT / runtime estático,operator new[],0x00821195,source/game_sa/MemoryMgr.cpp:560,envoltura en el código fuente
-(biblioteca) CRT / runtime estático,Realloc,0x00824269,source/game_sa/MemoryMgr.cpp:355,cohorte nuevo 2026-10-17 (biblioteca)

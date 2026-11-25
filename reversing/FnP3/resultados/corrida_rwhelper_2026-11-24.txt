@@ -1,0 +1,17 @@
+# bench_rwhelper (0x734970, 0x734ED0, 0x734FC0, 0x730E50), 24/11/2026
+llamadas parcheadas: cb1=5 (esperadas 5) cb2=6 (esperadas 6) esfera=7 (esperadas 7) tex=1 (esperadas 1)
+cb1: 500000 casos, 0 diferencias
+cb2: 500000 casos, 0 diferencias
+sphere: 500000 casos, 0 diferencias
+tex: 500000 casos, 0 diferencias
+RESULTADO: SIN DIFERENCIAS
+# prueba negativa
+DETECTADA radio: > por <
+DETECTADA radio: dz*dz por dz*dy
+DETECTADA centro: z suma y
+DETECTADA LTM en la rama sin LTM
+DETECTADA sin resincronizar (rama LTM)
+DETECTADA 1/n con n = 1
+DETECTADA global siempre 1
+DETECTADA textura: devuelve la textura
+mutaciones sin detectar o fallidas: 0
