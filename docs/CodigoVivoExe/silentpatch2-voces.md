@@ -94,16 +94,16 @@ Con el interruptor general apagado (`GTASA_SILENTPATCH=0`) el standalone arranca
 
 ### 3. Humo con el ASI de la rama (desde `wv-8\reversing\FnBIS1`, `AGUA_ASI=<ASI de wv-spo>`)
 
-`python prueba_ropero.py cal_mal.args <etiqueta>` y `python prueba_marcadores.py cal_mal.args <etiqueta>`, con SilentPatch encendido (por defecto) y apagado (`GTASA_SILENTPATCH=0`); todos dieron **VEREDICTO BIEN** (`D:\Original\_humo_spo.log`, `_humo_spo2.log`, `_humo_spo4.log`):
+`python prueba_ropero.py cal_mal.args <etiqueta>` y `python prueba_marcadores.py cal_mal.args <etiqueta>`, con SilentPatch encendido (por defecto) y apagado (`GTASA_SILENTPATCH=0`), con el ASI reenlazado con los `.obj` definitivos de la rama (`D:\Original\_humo_spo5.log`, copia en la carpeta de evidencias): las cuatro dieron **VEREDICTO BIEN**.
 
 | Prueba | SilentPatch | Resultado |
 | --- | --- | --- |
-| prueba_marcadores | encendido | VEREDICTO BIEN (puerta y marcador, 12 marcadores que cambian en 1 s) |
-| prueba_ropero | encendido | VEREDICTO BIEN (segundo intento) |
-| prueba_marcadores | apagado | VEREDICTO BIEN (segundo intento) |
-| prueba_ropero | apagado | VEREDICTO BIEN (primer intento de la repetición, tras 8 intentos fallidos por interferencia con otras ramas) |
+| prueba_ropero | encendido | VEREDICTO BIEN (primer intento) |
+| prueba_marcadores | encendido | VEREDICTO BIEN (segundo intento) |
+| prueba_ropero | apagado | VEREDICTO BIEN (primer intento) |
+| prueba_marcadores | apagado | VEREDICTO BIEN (primer intento) |
 
-Varios intentos terminaron en «sin juego» o «el juego se cerró» (marcadores y ropero, tanto encendidos como apagados): coinciden con ejecuciones de otras ramas que usan la misma carpeta de pruebas (en `FnBIS1\salidas` hay carpetas `Xspe_*` de la rama de entrada creadas en el mismo segundo). Se repitieron con el candado libre y no se contaron ni como fallo ni como éxito hasta que dieron veredicto.
+Antes, con un ASI anterior al último arreglo (reintento con el humor CD en `AddSayEvent`), ya habían dado BIEN las mismas cuatro pruebas (`_humo_spo.log`, `_humo_spo2.log`, `_humo_spo4.log`). Varios intentos terminaron en «sin juego» o «el juego se cerró» (tanto con SilentPatch encendido como apagado): coinciden con ejecuciones de otras ramas que usan la misma carpeta de pruebas (en `FnBIS1\salidas` hay carpetas `Xspe_*` de la rama de entrada creadas en el mismo segundo). Se repitieron con el candado libre y no se contaron ni como fallo ni como éxito hasta que dieron veredicto (en `humo_spo5` el único intento caído fue el primero de marcadores encendido).
 
 ### 4. Ejecución del standalone y auditorías
 
