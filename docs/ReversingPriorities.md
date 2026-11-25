@@ -1,57 +1,62 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 24/11/2026 (Ciudad de México):** 1007 grupos / 13511 funciones reconstruidas; 11800 con evidencia histórica y 1711 pendientes de validación en 52 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Prioridades técnicas de reversing
 
 [Inicio](../README.md) · [Progreso registrado](ReversedClasses.md) · [Proceso y continuidad](../reversing/MEJORAS_DEL_PROCESO.md)
 <!-- Documento generado por contrib/validation_queue.py (lo llama contrib/sync_docs.py). No editar a mano. -->
 
-> **Corte 22/11/2026.** Esta guía ordena **qué validar primero**: las funciones ya reconstruidas (`reversed=1`) que todavía no tienen evidencia aprobada (`validated=0`) en [`hooks.csv`](hooks.csv).
+> **Corte 24/11/2026.** Esta guía ordena **qué validar primero**: las funciones ya reconstruidas (`reversed=1`) que todavía no tienen evidencia aprobada (`validated=0`) en [`hooks.csv`](hooks.csv).
 
 **Objetivo:** contribuir a una reconstrucción funcionalmente equivalente, validada y progresivamente independiente del ejecutable original, conforme a la [hoja de ruta](ProjectRoadmap.md). `validated=1` indica evidencia aprobada vinculada y no acredita por sí sola que siga vigente para el árbol actual.
 
 | Dimensión | Cifra |
 | --- | ---: |
-| Entradas en el catálogo | 13.497 |
-| Reconstruidas | 13.497 |
-| Validadas | 11.792 |
-| Reconstruidas sin validar | 1.705 |
-| De ellas, en esta cola (validables por pares) | 1.705 |
+| Entradas en el catálogo | 13.511 |
+| Reconstruidas | 13.511 |
+| Validadas | 11.800 |
+| Reconstruidas sin validar | 1.711 |
+| De ellas, en esta cola (validables por pares) | 1.711 |
 | Sin reconstruir (en 0 clases incompletas) | 0 |
 
 Validar no exige que la clase esté completa: se valida cada función ya reconstruida. "Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.
+
+**Contexto del 22 al 24/11/2026.** La cola es la lista de pendientes de validación tal como la dice `hooks.csv`; en esos días no se añadieron bancos nuevos: el trabajo fue el ejecutable independiente, las auditorías de «dato en dos sitios» y la comparación con el original (resumen con cada documento de ejecución en [la ruta hacia el EXE independiente](RutaExeIndependiente.md#actualización-del-24112026-estado-medido-del-ejecutable-independiente)). Las funciones tocadas por ese trabajo (CRT del montón, ramas x87 de `floor`/`ceil`/`pow`, ayudantes de RenderWare, `CAEMFDecoder` con Media Foundation, combos de melee, lista libre de muebles, fundidos del HUD, ruta de scripts, comandos de gimnasio) cambiaron de código (tras su evidencia, si la tenían): su validación futura debe repetirse sobre el árbol actual. Quien valide una función de esa lista debe leer antes el documento de ejecución correspondiente: ahí está lo que se midió y lo que no. Como esta guía sale de `contrib/validation_queue.py`, este párrafo se edita allí.
 
 **Navegación:** [🟢 Nivel 1](#nivel-1) · [🟡 Nivel 2](#nivel-2) · [🟠 Nivel 3](#nivel-3) · [🔴 Nivel 4](#nivel-4) · [Fuera de la cola](#fuera-de-la-cola) · [Cómo se ordena](#como-se-ordena)
 
 | Nivel | Clases | Por validar | Enfoque |
 | --- | :---: | :---: | --- |
-| [🟢 Nivel 1: muy barato](#nivel-1) | 16 | 25 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
+| [🟢 Nivel 1: muy barato](#nivel-1) | 15 | 25 | Clases de tareas y utilidades pequeñas: un banco de unas 50 funciones por tanda. |
 | [🟡 Nivel 2: baratas por función, pero muchas](#nivel-2) | 0 | 0 | Reenvíos, accesores y datos de plugin; pocas líneas por función, pero hay que simular los destinos. |
-| [🟠 Nivel 3: moderadas](#nivel-3) | 32 | 1441 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
+| [🟠 Nivel 3: moderadas](#nivel-3) | 31 | 1447 | Estado compartido, pools, cámara, audio o RenderWare; fixtures propios. |
 | [🔴 Nivel 4: caras](#nivel-4) | 6 | 239 | Muchas funciones o muy largas; partir en varios bancos y dejar para el final. |
-| **Total** | **54** | **1705** | |
+| **Total** | **52** | **1711** | |
 
 <a id="nivel-1"></a>
 
-## 🟢 Nivel 1: muy barato (16 clases, 25 funciones)
+## 🟢 Nivel 1: muy barato (15 clases, 25 funciones)
 
 Criterio: hasta 12 funciones por validar y hasta 35 líneas por función.
 
 | # | Clase | Funciones totales | Por validar | Sin reconstruir | Líneas/func. |
 |--:|---|--:|--:|--:|--:|
-| 1 | CBaseModelInfo | 38 | 1 |  | 9 |
-| 2 | CTaskSimpleTurn180 | 8 | 1 |  | 11 |
-| 3 | CQuaternion | 13 | 1 |  | 15 |
-| 4 | CPad | 103 | 1 |  | 16 |
-| 5 | tUserList | 3 | 1 |  | 16 |
-| 6 | CSprite2d | 36 | 1 |  | 17 |
-| 7 | CScripted2dEffects | 7 | 1 |  | 21 |
-| 8 | CGarages | 31 | 1 |  | 23 |
-| 9 | CTaskSimpleArrestPed | 9 | 1 |  | 23 |
-| 10 | LibJpegMemory | 22 | 1 |  | 25 |
-| 11 | FxInfoAttractLine_c | 4 | 1 |  | 30 |
-| 12 | CTaskSimpleAnim | 5 | 1 |  | 34 |
-| 13 | FxInterpInfoFloat_c | 5 | 1 |  | 35 |
-| 14 | FxManager_c | 25 | 2 |  | 19 |
-| 15 | CAEMFDecoder | 13 | 5 |  | 16 |
-| 16 | CAudioZones | 14 | 5 |  | 27 |
+| 1 | CTaskSimpleTurn180 | 8 | 1 |  | 11 |
+| 2 | CQuaternion | 13 | 1 |  | 15 |
+| 3 | tUserList | 3 | 1 |  | 16 |
+| 4 | CSprite2d | 36 | 1 |  | 17 |
+| 5 | CPad | 103 | 1 |  | 18 |
+| 6 | CScripted2dEffects | 7 | 1 |  | 21 |
+| 7 | CGarages | 31 | 1 |  | 23 |
+| 8 | CTaskSimpleArrestPed | 9 | 1 |  | 23 |
+| 9 | LibJpegMemory | 22 | 1 |  | 25 |
+| 10 | FxInfoAttractLine_c | 4 | 1 |  | 30 |
+| 11 | CTaskSimpleAnim | 5 | 1 |  | 34 |
+| 12 | FxInterpInfoFloat_c | 5 | 1 |  | 35 |
+| 13 | StdException | 3 | 3 |  | 31 |
+| 14 | CAEMFDecoder | 12 | 5 |  | 17 |
+| 15 | CAudioZones | 14 | 5 |  | 27 |
 
 <a id="nivel-2"></a>
 
@@ -64,7 +69,7 @@ Criterio: más de 12 funciones y hasta 25 líneas por función.
 
 <a id="nivel-3"></a>
 
-## 🟠 Nivel 3: moderadas (32 clases, 1441 funciones)
+## 🟠 Nivel 3: moderadas (31 clases, 1447 funciones)
 
 Criterio: el resto.
 
@@ -78,30 +83,29 @@ Criterio: el resto.
 | 6 | CCollisionPlugin | 3 | 1 |  | 45 |
 | 7 | CVehicle | 204 | 1 |  | 47 |
 | 8 | RtSlerp | 1 | 1 |  | ? |
-| 9 | StdException | 3 | 3 |  | 40 |
-| 10 | DelayLoadThunks | 3 | 3 |  | ? |
-| 11 | Input | 14 | 3 |  | ? |
-| 12 | RwHelper | 49 | 3 |  | ? |
-| 13 | RtBMP | 4 | 4 |  | ? |
-| 14 | RtPNG | 7 | 7 |  | ? |
-| 15 | RwMathX87 | 7 | 7 |  | ? |
-| 16 | QTMLRuntime | 8 | 8 |  | ? |
-| 17 | RtQuat | 8 | 8 |  | ? |
+| 9 | DelayLoadThunks | 2 | 2 |  | ? |
+| 10 | Input | 14 | 3 |  | ? |
+| 11 | RwHelper | 49 | 3 |  | ? |
+| 12 | RtBMP | 4 | 4 |  | ? |
+| 13 | RtPNG | 7 | 7 |  | ? |
+| 14 | RwMathX87 | 7 | 7 |  | ? |
+| 15 | RtQuat | 8 | 8 |  | ? |
+| 16 | D3DX9 | 17 | 11 |  | ? |
+| 17 | ExeCrtHeap | 13 | 13 |  | ? |
 | 18 | ZlibInflate | 14 | 14 |  | ? |
 | 19 | RtDict | 18 | 16 |  | ? |
-| 20 | D3DX9 | 17 | 17 |  | ? |
-| 21 | ImportThunks | 17 | 17 |  | ? |
-| 22 | ZlibDeflate | 25 | 25 |  | ? |
-| 23 | RtAnim | 30 | 27 |  | 27 |
-| 24 | RpHAnim | 35 | 34 |  | ? |
-| 25 | RpUVAnim | 42 | 40 |  | ? |
-| 26 | RpMatFX | 73 | 73 |  | ? |
-| 27 | RpSkin | 76 | 75 |  | ? |
-| 28 | LibPngWrite | 78 | 78 |  | ? |
-| 29 | RwD3D9 | 147 | 147 |  | ? |
-| 30 | RwPlCore | 191 | 177 |  | ? |
-| 31 | RwCore | 339 | 303 |  | ? |
-| 32 | RpWorld | 447 | 344 |  | ? |
+| 20 | ImportThunks | 17 | 17 |  | ? |
+| 21 | ZlibDeflate | 25 | 25 |  | ? |
+| 22 | RtAnim | 30 | 27 |  | 27 |
+| 23 | RpHAnim | 35 | 34 |  | ? |
+| 24 | RpUVAnim | 42 | 40 |  | ? |
+| 25 | RpMatFX | 73 | 73 |  | ? |
+| 26 | RpSkin | 76 | 75 |  | ? |
+| 27 | LibPngWrite | 78 | 78 |  | ? |
+| 28 | RwD3D9 | 147 | 147 |  | ? |
+| 29 | RwPlCore | 192 | 178 |  | ? |
+| 30 | RwCore | 342 | 306 |  | ? |
+| 31 | RpWorld | 454 | 351 |  | ? |
 
 <a id="nivel-4"></a>
 

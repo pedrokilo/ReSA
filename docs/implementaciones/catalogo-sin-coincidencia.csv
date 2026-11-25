@@ -55,12 +55,15 @@ CAEAudioEntity,Destructor-7,0x00447050,1,0,1,S,hooks.csv
 RpSkin,_rpSkinD3D9CreateVertexBuffer,0x007C9680,1,0,0,S,hooks.csv
 ZlibInflate,InflateBlocks,0x007E9570,1,0,0,S,hooks.csv
 RwPlCore,RwStreamRead,0x007EC9D0,1,0,0,S,hooks.csv
+RwPlCore,_rwStringOpen,0x0080A240,1,0,0,S,hooks.csv
 RpWorld,_rwD3D9LightsOpen,0x00755D80,1,0,0,S,hooks.csv
 RpWorld,D3D9GeometryPluginAttach,0x007587D0,1,0,0,S,hooks.csv
 RpWorld,_rpD3D9WorldSectorNativeRead,0x007641C0,1,0,0,S,hooks.csv
 D3DX9,D3DXMatrixTranspose,0x007675EE,1,0,1,S,hooks.csv
 RwD3D9,RwD3D9SetLight,0x007FA660,1,0,0,S,hooks.csv
 RwHelper,SkinSetBonePositions,0x007352D0,1,0,1,S,hooks.csv
+RpSkin,_rpSkinD3D9AtomicAllInOneNodeInit,0x007CB240,1,0,0,S,hooks.csv
+RwCore,_rwTextureModuleOpen,0x007F3EA0,1,0,0,S,hooks.csv
 ZlibDeflate,Adler32,0x007E9300,1,0,0,S,hooks.csv
 LibPngWrite,PngDoWriteInvertAlpha,0x007DF370,1,0,0,S,hooks.csv
 RtPNG,RtPNGImageRead,0x007CF9B0,1,0,0,S,hooks.csv

@@ -1,6 +1,7 @@
-# Comandos de script (opcodes)
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 24/11/2026 (Ciudad de México):** 1007 grupos / 13511 funciones reconstruidas; 11800 con evidencia histórica y 1711 pendientes de validación en 52 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
 
-Inventario de los comandos de SCM del juego (`docs/ComandosScript.csv`, generado por `contrib/inventario_comandos_script.py`).
 # Comandos de script (opcodes)
 
 Inventario de los comandos de SCM del juego (`docs/ComandosScript.csv`, generado por `contrib/inventario_comandos_script.py`).
@@ -11,25 +12,25 @@ una funcion con direccion propia. Los contadores de `ReversedClasses.md` **no lo
 
 | Estado | Comandos | Significado |
 | --- | ---: | --- |
-| reescrito | 668 | manejador C++ propio; **sin banco de validacion contra el EXE** |
-| nop | 282 | el comando no hace nada, como en el original |
+| reescrito | 669 | manejador C++ propio; **sin banco de validacion contra el EXE** |
+| nop | 280 | el comando no hace nada, como en el original |
 | no implementado | 713 | el propio juego no lo implementa |
-| original | 1163 | sin manejador propio: pasa por el despachador de su centena |
+| original | 1164 | sin manejador propio: pasa por el despachador de su centena |
 | **Total** | **2826** | |
 
-De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; despachador del EXE = 0; sin despachador identificado = 185.
+De los 1164 comandos *original*: despachador reescrito en `hooks.csv` = 979; despachador del EXE = 0; sin despachador identificado = 185.
 
 ## Por categoria (archivo de `Scripts/Commands`)
 
 | Categoria | Reescritos | Nop | No impl. | Original |
 | --- | ---: | ---: | ---: | ---: |
-| (sin manejador propio) | 0 | 0 | 0 | 1163 |
+| (sin manejador propio) | 0 | 0 | 0 | 1164 |
 | Basic | 161 | 0 | 31 | 0 |
 | Camera | 43 | 0 | 16 | 0 |
 | Character | 170 | 0 | 160 | 0 |
 | Clock | 5 | 0 | 0 | 0 |
 | Conversation | 11 | 0 | 0 | 0 |
-| Draw | 8 | 0 | 2 | 0 |
+| Draw | 8 | 0 | 0 | 0 |
 | Game | 36 | 9 | 116 | 0 |
 | Math | 7 | 0 | 0 | 0 |
 | Mission | 4 | 0 | 2 | 0 |
@@ -41,8 +42,8 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | Script | 13 | 0 | 182 | 0 |
 | Sequence | 1 | 0 | 0 | 0 |
 | Stat | 10 | 0 | 1 | 0 |
-| Text | 53 | 2 | 12 | 0 |
-| Unused | 1 | 242 | 0 | 0 |
+| Text | 53 | 1 | 14 | 0 |
+| Unused | 2 | 241 | 0 | 0 |
 | Vehicle | 21 | 0 | 12 | 0 |
 | Zone | 13 | 0 | 9 | 0 |
 
@@ -55,7 +56,7 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | `0x0046B460` | 59 | si | si |
 | `0x0046D050` | 60 | si | no |
 | `0x00470A90` | 44 | si | no |
-| `0x00472310` | 55 | si | no |
+| `0x00472310` | 56 | si | no |
 | `0x00474900` | 78 | si | no |
 | `0x004762D0` | 58 | si | no |
 | `0x00478000` | 79 | si | no |
@@ -221,10 +222,10 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x0096 | `COMMAND_ABS_VAR_FLOAT` | `AbsStore<float>` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:376 |
 | 0x0097 | `COMMAND_ABS_LVAR_FLOAT` | `AbsStore<float>` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:377 |
 | 0x0099 | `COMMAND_GENERATE_RANDOM_INT` | `GenerateRandomInt` | bajo | source/game_sa/Scripts/Commands/MathCommands.cpp:45 |
-| 0x00A0 | `COMMAND_GET_CHAR_COORDINATES` | `GetCharCoordinates` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4113 |
-| 0x00A1 | `COMMAND_SET_CHAR_COORDINATES` | `SetCharCoordinates` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4114 |
-| 0x00A3 | `COMMAND_IS_CHAR_IN_AREA_2D` | `IsCharInArea2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4115 |
-| 0x00A4 | `COMMAND_IS_CHAR_IN_AREA_3D` | `IsCharInArea3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4116 |
+| 0x00A0 | `COMMAND_GET_CHAR_COORDINATES` | `GetCharCoordinates` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4115 |
+| 0x00A1 | `COMMAND_SET_CHAR_COORDINATES` | `SetCharCoordinates` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4116 |
+| 0x00A3 | `COMMAND_IS_CHAR_IN_AREA_2D` | `IsCharInArea2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4117 |
+| 0x00A4 | `COMMAND_IS_CHAR_IN_AREA_3D` | `IsCharInArea3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4118 |
 | 0x00AE | `COMMAND_SET_CAR_DRIVING_STYLE` | `SetCarDrivingStyle` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:148 |
 | 0x00BA | `COMMAND_PRINT_BIG` | `PrintBig` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:316 |
 | 0x00BB | `COMMAND_PRINT` | `Print` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:317 |
@@ -240,29 +241,29 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x00C6 | `COMMAND_RETURN_FALSE` | `ReturnFalse` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:383 |
 | 0x00D6 | `COMMAND_ANDOR` | `AndOr` | alto | source/game_sa/Scripts/Commands/BasicCommands.cpp:386 |
 | 0x00D7 | `COMMAND_LAUNCH_MISSION` | `LaunchMission` | medio | source/game_sa/Scripts/Commands/MissionCommands.cpp:85 |
-| 0x00D9 | `COMMAND_STORE_CAR_CHAR_IS_IN` | `StoreCarCharIsIn` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4117 |
-| 0x00DB | `COMMAND_IS_CHAR_IN_CAR` | `IsCharInCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4118 |
-| 0x00DD | `COMMAND_IS_CHAR_IN_MODEL` | `IsCharInModel` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4119 |
-| 0x00DF | `COMMAND_IS_CHAR_IN_ANY_CAR` | `IsCharInAnyCar` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4120 |
+| 0x00D9 | `COMMAND_STORE_CAR_CHAR_IS_IN` | `StoreCarCharIsIn` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4119 |
+| 0x00DB | `COMMAND_IS_CHAR_IN_CAR` | `IsCharInCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4120 |
+| 0x00DD | `COMMAND_IS_CHAR_IN_MODEL` | `IsCharInModel` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4121 |
+| 0x00DF | `COMMAND_IS_CHAR_IN_ANY_CAR` | `IsCharInAnyCar` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4122 |
 | 0x00E1 | `COMMAND_IS_BUTTON_PRESSED` | `IsButtonPressed` | alto | source/game_sa/Scripts/Commands/PadCommands.cpp:39 |
-| 0x00EC | `COMMAND_LOCATE_CHAR_ANY_MEANS_2D` | `LocateCharAnyMeans2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4121 |
-| 0x00ED | `COMMAND_LOCATE_CHAR_ON_FOOT_2D` | `LocateCharOnFoot2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4122 |
-| 0x00EE | `COMMAND_LOCATE_CHAR_IN_CAR_2D` | `LocateCharInCar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4123 |
-| 0x00EF | `COMMAND_LOCATE_STOPPED_CHAR_ANY_MEANS_2D` | `LocateStoppedCharAnyMeans2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4124 |
-| 0x00F0 | `COMMAND_LOCATE_STOPPED_CHAR_ON_FOOT_2D` | `LocateStoppedCharOnFoot2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4125 |
-| 0x00F1 | `COMMAND_LOCATE_STOPPED_CHAR_IN_CAR_2D` | `LocateStoppedCharInCar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4126 |
-| 0x00F2 | `COMMAND_LOCATE_CHAR_ANY_MEANS_CHAR_2D` | `LocateCharAnyMeansChar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4133 |
-| 0x00F3 | `COMMAND_LOCATE_CHAR_ON_FOOT_CHAR_2D` | `LocateCharOnFootChar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4134 |
-| 0x00F4 | `COMMAND_LOCATE_CHAR_IN_CAR_CHAR_2D` | `LocateCharInCarChar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4135 |
-| 0x00FE | `COMMAND_LOCATE_CHAR_ANY_MEANS_3D` | `LocateCharAnyMeans3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4127 |
-| 0x00FF | `COMMAND_LOCATE_CHAR_ON_FOOT_3D` | `LocateCharOnFoot3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4128 |
-| 0x0100 | `COMMAND_LOCATE_CHAR_IN_CAR_3D` | `LocateCharInCar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4129 |
-| 0x0101 | `COMMAND_LOCATE_STOPPED_CHAR_ANY_MEANS_3D` | `LocateStoppedCharAnyMeans3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4130 |
-| 0x0102 | `COMMAND_LOCATE_STOPPED_CHAR_ON_FOOT_3D` | `LocateStoppedCharOnFoot3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4131 |
-| 0x0103 | `COMMAND_LOCATE_STOPPED_CHAR_IN_CAR_3D` | `LocateStoppedCharInCar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4132 |
-| 0x0104 | `COMMAND_LOCATE_CHAR_ANY_MEANS_CHAR_3D` | `LocateCharAnyMeansChar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4136 |
-| 0x0105 | `COMMAND_LOCATE_CHAR_ON_FOOT_CHAR_3D` | `LocateCharOnFootChar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4137 |
-| 0x0106 | `COMMAND_LOCATE_CHAR_IN_CAR_CHAR_3D` | `LocateCharInCarChar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4138 |
+| 0x00EC | `COMMAND_LOCATE_CHAR_ANY_MEANS_2D` | `LocateCharAnyMeans2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4123 |
+| 0x00ED | `COMMAND_LOCATE_CHAR_ON_FOOT_2D` | `LocateCharOnFoot2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4124 |
+| 0x00EE | `COMMAND_LOCATE_CHAR_IN_CAR_2D` | `LocateCharInCar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4125 |
+| 0x00EF | `COMMAND_LOCATE_STOPPED_CHAR_ANY_MEANS_2D` | `LocateStoppedCharAnyMeans2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4126 |
+| 0x00F0 | `COMMAND_LOCATE_STOPPED_CHAR_ON_FOOT_2D` | `LocateStoppedCharOnFoot2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4127 |
+| 0x00F1 | `COMMAND_LOCATE_STOPPED_CHAR_IN_CAR_2D` | `LocateStoppedCharInCar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4128 |
+| 0x00F2 | `COMMAND_LOCATE_CHAR_ANY_MEANS_CHAR_2D` | `LocateCharAnyMeansChar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4135 |
+| 0x00F3 | `COMMAND_LOCATE_CHAR_ON_FOOT_CHAR_2D` | `LocateCharOnFootChar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4136 |
+| 0x00F4 | `COMMAND_LOCATE_CHAR_IN_CAR_CHAR_2D` | `LocateCharInCarChar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4137 |
+| 0x00FE | `COMMAND_LOCATE_CHAR_ANY_MEANS_3D` | `LocateCharAnyMeans3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4129 |
+| 0x00FF | `COMMAND_LOCATE_CHAR_ON_FOOT_3D` | `LocateCharOnFoot3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4130 |
+| 0x0100 | `COMMAND_LOCATE_CHAR_IN_CAR_3D` | `LocateCharInCar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4131 |
+| 0x0101 | `COMMAND_LOCATE_STOPPED_CHAR_ANY_MEANS_3D` | `LocateStoppedCharAnyMeans3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4132 |
+| 0x0102 | `COMMAND_LOCATE_STOPPED_CHAR_ON_FOOT_3D` | `LocateStoppedCharOnFoot3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4133 |
+| 0x0103 | `COMMAND_LOCATE_STOPPED_CHAR_IN_CAR_3D` | `LocateStoppedCharInCar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4134 |
+| 0x0104 | `COMMAND_LOCATE_CHAR_ANY_MEANS_CHAR_3D` | `LocateCharAnyMeansChar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4138 |
+| 0x0105 | `COMMAND_LOCATE_CHAR_ON_FOOT_CHAR_3D` | `LocateCharOnFootChar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4139 |
+| 0x0106 | `COMMAND_LOCATE_CHAR_IN_CAR_CHAR_3D` | `LocateCharInCarChar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4140 |
 | 0x0107 | `COMMAND_CREATE_OBJECT` | `CreateObject` | alto | source/game_sa/Scripts/Commands/ObjectCommands.cpp:197 |
 | 0x0108 | `COMMAND_DELETE_OBJECT` | `RemoveObject` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:198 |
 | 0x0109 | `COMMAND_ADD_SCORE` | `AddScore` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:465 |
@@ -273,11 +274,11 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x010F | `COMMAND_IS_WANTED_LEVEL_GREATER` | `IsWantedLevelGreater` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:470 |
 | 0x0110 | `COMMAND_CLEAR_WANTED_LEVEL` | `ClearWantedLevel` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:471 |
 | 0x0117 | `COMMAND_IS_PLAYER_DEAD` | `IsPlayerDead` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:472 |
-| 0x0118 | `COMMAND_IS_CHAR_DEAD` | `IsCharDead` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4145 |
+| 0x0118 | `COMMAND_IS_CHAR_DEAD` | `IsCharDead` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4147 |
 | 0x0122 | `COMMAND_IS_PLAYER_PRESSING_HORN` | `IsPlayerPressingHorn` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:473 |
-| 0x0129 | `COMMAND_CREATE_CHAR_INSIDE_CAR` | `CreateCharInsideCar` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4146 |
+| 0x0129 | `COMMAND_CREATE_CHAR_INSIDE_CAR` | `CreateCharInsideCar` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4148 |
 | 0x014C | `COMMAND_SWITCH_CAR_GENERATOR` | `SwitchCarGenerator` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:145 |
-| 0x0154 | `COMMAND_IS_CHAR_IN_ZONE` | `IsCharInZone` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4147 |
+| 0x0154 | `COMMAND_IS_CHAR_IN_ZONE` | `IsCharInZone` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4149 |
 | 0x0158 | `COMMAND_POINT_CAMERA_AT_CAR` | `PointCameraAtCar` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:317 |
 | 0x0159 | `COMMAND_POINT_CAMERA_AT_CHAR` | `PointCameraAtChar` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:318 |
 | 0x015A | `COMMAND_RESTORE_CAMERA` | `RestoreCamera` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:319 |
@@ -286,19 +287,19 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x0160 | `COMMAND_POINT_CAMERA_AT_POINT` | `PointCameraAtPoint` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:321 |
 | 0x016A | `COMMAND_DO_FADE` | `DoCamFade` | alto | source/game_sa/Scripts/Commands/CameraCommands.cpp:315 |
 | 0x016F | `COMMAND_DRAW_SHADOW` | `DrawShadow` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:218 |
-| 0x0172 | `COMMAND_GET_CHAR_HEADING` | `GetCharHeading` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4148 |
-| 0x0173 | `COMMAND_SET_CHAR_HEADING` | `SetCharHeading` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4149 |
+| 0x0172 | `COMMAND_GET_CHAR_HEADING` | `GetCharHeading` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4150 |
+| 0x0173 | `COMMAND_SET_CHAR_HEADING` | `SetCharHeading` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4151 |
 | 0x0176 | `COMMAND_GET_OBJECT_HEADING` | `GetObjectHeading` | alto | source/game_sa/Scripts/Commands/ObjectCommands.cpp:206 |
 | 0x0177 | `COMMAND_SET_OBJECT_HEADING` | `SetObjectHeading` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:207 |
 | 0x0178 | `COMMAND_IS_PLAYER_TOUCHING_OBJECT` | `IsPlayerTouchingObject` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:584 |
-| 0x0179 | `COMMAND_IS_CHAR_TOUCHING_OBJECT` | `IsCharTouchingObject` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4150 |
-| 0x017B | `COMMAND_SET_CHAR_AMMO` | `SetCharAmmo` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4151 |
-| 0x0184 | `COMMAND_IS_CHAR_HEALTH_GREATER` | `IsCharHealthGreater` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4152 |
+| 0x0179 | `COMMAND_IS_CHAR_TOUCHING_OBJECT` | `IsCharTouchingObject` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4152 |
+| 0x017B | `COMMAND_SET_CHAR_AMMO` | `SetCharAmmo` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4153 |
+| 0x0184 | `COMMAND_IS_CHAR_HEALTH_GREATER` | `IsCharHealthGreater` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4154 |
 | 0x01B4 | `COMMAND_SET_PLAYER_CONTROL` | `SetPlayerControl` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:474 |
-| 0x01B9 | `COMMAND_SET_CURRENT_CHAR_WEAPON` | `SetCurrentCharWeapon` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4251 |
+| 0x01B9 | `COMMAND_SET_CURRENT_CHAR_WEAPON` | `SetCurrentCharWeapon` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4253 |
 | 0x01BB | `COMMAND_GET_OBJECT_COORDINATES` | `GetObjectCoordinates` | alto | source/game_sa/Scripts/Commands/ObjectCommands.cpp:202 |
 | 0x01BC | `COMMAND_SET_OBJECT_COORDINATES` | `SetObjectCoordinates` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:203 |
-| 0x01C2 | `COMMAND_MARK_CHAR_AS_NO_LONGER_NEEDED` | `MarkCharAsNoLongerNeeded` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4252 |
+| 0x01C2 | `COMMAND_MARK_CHAR_AS_NO_LONGER_NEEDED` | `MarkCharAsNoLongerNeeded` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4254 |
 | 0x01C4 | `COMMAND_MARK_OBJECT_AS_NO_LONGER_NEEDED` | `MarkObjectNoLongerNeeded` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:200 |
 | 0x01C7 | `COMMAND_DONT_REMOVE_OBJECT` | `DoNotRemoveObject` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:201 |
 | 0x01E3 | `COMMAND_PRINT_WITH_NUMBER_BIG` | `(PrintWithNumbersBig<int32>)` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:338 |
@@ -310,22 +311,22 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x01F3 | `COMMAND_IS_CAR_IN_AIR_PROPER` | `IsCarInAirProper` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:156 |
 | 0x01F5 | `COMMAND_GET_PLAYER_CHAR` | `GetPlayerChar` | alto | source/game_sa/Scripts/Commands/PlayerCommands.cpp:476 |
 | 0x01F7 | `COMMAND_SET_POLICE_IGNORE_PLAYER` | `SetPoliceIgnorePlayer` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:477 |
-| 0x0202 | `COMMAND_LOCATE_CHAR_ANY_MEANS_CAR_2D` | `LocateCharAnyMeansCar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4139 |
-| 0x0203 | `COMMAND_LOCATE_CHAR_ON_FOOT_CAR_2D` | `LocateCharOnFootCar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4140 |
-| 0x0204 | `COMMAND_LOCATE_CHAR_IN_CAR_CAR_2D` | `LocateCharInCarCar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4141 |
-| 0x0205 | `COMMAND_LOCATE_CHAR_ANY_MEANS_CAR_3D` | `LocateCharAnyMeansCar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4142 |
-| 0x0206 | `COMMAND_LOCATE_CHAR_ON_FOOT_CAR_3D` | `LocateCharOnFootCar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4143 |
-| 0x0207 | `COMMAND_LOCATE_CHAR_IN_CAR_CAR_3D` | `LocateCharInCarCar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4144 |
+| 0x0202 | `COMMAND_LOCATE_CHAR_ANY_MEANS_CAR_2D` | `LocateCharAnyMeansCar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4141 |
+| 0x0203 | `COMMAND_LOCATE_CHAR_ON_FOOT_CAR_2D` | `LocateCharOnFootCar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4142 |
+| 0x0204 | `COMMAND_LOCATE_CHAR_IN_CAR_CAR_2D` | `LocateCharInCarCar2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4143 |
+| 0x0205 | `COMMAND_LOCATE_CHAR_ANY_MEANS_CAR_3D` | `LocateCharAnyMeansCar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4144 |
+| 0x0206 | `COMMAND_LOCATE_CHAR_ON_FOOT_CAR_3D` | `LocateCharOnFootCar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4145 |
+| 0x0207 | `COMMAND_LOCATE_CHAR_IN_CAR_CAR_3D` | `LocateCharInCarCar3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4146 |
 | 0x0208 | `COMMAND_GENERATE_RANDOM_FLOAT_IN_RANGE` | `GenerateRandomFloatInRange` | medio | source/game_sa/Scripts/Commands/MathCommands.cpp:47 |
 | 0x0209 | `COMMAND_GENERATE_RANDOM_INT_IN_RANGE` | `GenerateRandomIntInRange` | medio | source/game_sa/Scripts/Commands/MathCommands.cpp:46 |
 | 0x0217 | `COMMAND_PRINT_BIG_Q` | `PrintBigQ` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:344 |
 | 0x0221 | `COMMAND_APPLY_BRAKES_TO_PLAYERS_CAR` | `ApplyBrakesToPlayersCar` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:478 |
-| 0x0223 | `COMMAND_SET_CHAR_HEALTH` | `SetCharHealth` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4153 |
-| 0x0226 | `COMMAND_GET_CHAR_HEALTH` | `GetCharHealth` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4154 |
+| 0x0223 | `COMMAND_SET_CHAR_HEALTH` | `SetCharHealth` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4155 |
+| 0x0226 | `COMMAND_GET_CHAR_HEALTH` | `GetCharHealth` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4156 |
 | 0x022A | `COMMAND_SWITCH_PED_ROADS_ON` | `SwitchPedRoadsOn` | medio | source/game_sa/Scripts/Commands/PathCommands.cpp:88 |
 | 0x022B | `COMMAND_SWITCH_PED_ROADS_OFF` | `SwitchPedRoadsOff` | medio | source/game_sa/Scripts/Commands/PathCommands.cpp:89 |
 | 0x023A | `COMMAND_IS_PLAYER_TOUCHING_OBJECT_ON_FOOT` | `IsPlayerTouchingObjectOnFoot` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:611 |
-| 0x023B | `COMMAND_IS_CHAR_TOUCHING_OBJECT_ON_FOOT` | `IsCharTouchingObjectOnFoot` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4155 |
+| 0x023B | `COMMAND_IS_CHAR_TOUCHING_OBJECT_ON_FOOT` | `IsCharTouchingObjectOnFoot` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4157 |
 | 0x0241 | `COMMAND_IS_PLAYER_IN_REMOTE_MODE` | `IsPlayerInRemoteMode` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:479 |
 | 0x0247 | `COMMAND_REQUEST_MODEL` | `LoadModel` | alto | source/game_sa/Scripts/Commands/ObjectCommands.cpp:212 |
 | 0x0248 | `COMMAND_HAS_MODEL_LOADED` | `HasModelLoaded` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:213 |
@@ -336,22 +337,22 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x0256 | `COMMAND_IS_PLAYER_PLAYING` | `IsPlayerPlaying` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:480 |
 | 0x0297 | `COMMAND_RESET_NUM_OF_MODELS_KILLED_BY_PLAYER` | `ResetNumOfModelsKilledByPlayer` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:481 |
 | 0x0298 | `COMMAND_GET_NUM_OF_MODELS_KILLED_BY_PLAYER` | `GetNumOfModelsKilledByPlayer` | alto | source/game_sa/Scripts/Commands/PlayerCommands.cpp:482 |
-| 0x02A0 | `COMMAND_IS_CHAR_STOPPED` | `IsCharStopped` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4156 |
-| 0x02A9 | `COMMAND_SET_CHAR_ONLY_DAMAGED_BY_PLAYER` | `SetCharOnlyDamagedByPlayer` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4157 |
-| 0x02AB | `COMMAND_SET_CHAR_PROOFS` | `SetCharProofs` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4103 |
+| 0x02A0 | `COMMAND_IS_CHAR_STOPPED` | `IsCharStopped` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4158 |
+| 0x02A9 | `COMMAND_SET_CHAR_ONLY_DAMAGED_BY_PLAYER` | `SetCharOnlyDamagedByPlayer` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4159 |
+| 0x02AB | `COMMAND_SET_CHAR_PROOFS` | `SetCharProofs` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4105 |
 | 0x02AC | `COMMAND_SET_CAR_PROOFS` | `SetCarProofs` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:144 |
-| 0x02C0 | `COMMAND_GET_CLOSEST_CHAR_NODE` | `GetClosestCharNode` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4158 |
-| 0x02CB | `COMMAND_IS_CHAR_ON_SCREEN` | `IsCharOnScreen` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4159 |
+| 0x02C0 | `COMMAND_GET_CLOSEST_CHAR_NODE` | `GetClosestCharNode` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4160 |
+| 0x02CB | `COMMAND_IS_CHAR_ON_SCREEN` | `IsCharOnScreen` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4161 |
 | 0x02CE | `COMMAND_GET_GROUND_Z_FOR_3D_COORD` | `GetGroundZFor3DCoord` | alto | source/game_sa/Scripts/Commands/GameCommands.cpp:197 |
 | 0x02CF | `COMMAND_START_SCRIPT_FIRE` | `StartScriptFire` | medio | source/game_sa/Scripts/Commands/MissionCommands.cpp:84 |
-| 0x02D6 | `COMMAND_IS_CHAR_SHOOTING_IN_AREA` | `IsCharShootingInArea` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4160 |
-| 0x02D8 | `COMMAND_IS_CURRENT_CHAR_WEAPON` | `IsCurrentCharWeapon` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4161 |
-| 0x02DD | `COMMAND_GET_RANDOM_CHAR_IN_ZONE` | `GetRandomCharInZone` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4162 |
-| 0x02E0 | `COMMAND_IS_CHAR_SHOOTING` | `IsCharShooting` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4163 |
-| 0x02E2 | `COMMAND_SET_CHAR_ACCURACY` | `SetCharAccuracy` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4164 |
+| 0x02D6 | `COMMAND_IS_CHAR_SHOOTING_IN_AREA` | `IsCharShootingInArea` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4162 |
+| 0x02D8 | `COMMAND_IS_CURRENT_CHAR_WEAPON` | `IsCurrentCharWeapon` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4163 |
+| 0x02DD | `COMMAND_GET_RANDOM_CHAR_IN_ZONE` | `GetRandomCharInZone` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4164 |
+| 0x02E0 | `COMMAND_IS_CHAR_SHOOTING` | `IsCharShooting` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4165 |
+| 0x02E2 | `COMMAND_SET_CHAR_ACCURACY` | `SetCharAccuracy` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4166 |
 | 0x02E3 | `COMMAND_GET_CAR_SPEED` | `GetCarSpeed` | alto | source/game_sa/Scripts/Commands/VehicleCommands.cpp:147 |
 | 0x02EB | `COMMAND_RESTORE_CAMERA_JUMPCUT` | `RestoreCameraJumpcut` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:322 |
-| 0x02F2 | `COMMAND_IS_CHAR_MODEL` | `IsCharModel` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4165 |
+| 0x02F2 | `COMMAND_IS_CHAR_MODEL` | `IsCharModel` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4167 |
 | 0x02F6 | `COMMAND_SIN` | `Sin` | medio | source/game_sa/Scripts/Commands/MathCommands.cpp:48 |
 | 0x02F7 | `COMMAND_COS` | `Cos` | medio | source/game_sa/Scripts/Commands/MathCommands.cpp:49 |
 | 0x02FC | `COMMAND_PRINT_WITH_2_NUMBERS` | `(PrintWithNumbers<int32, int32>)` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:333 |
@@ -377,14 +378,14 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x031A | `COMMAND_REMOVE_ALL_SCRIPT_FIRES` | `RemoveAllScriptFires` | bajo | source/game_sa/Scripts/Commands/ScriptCommands.cpp:90 |
 | 0x031B | `COMMAND_IS_FIRST_CAR_COLOUR` | `IsFirstCarColor` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:149 |
 | 0x031C | `COMMAND_IS_SECOND_CAR_COLOUR` | `IsSecondCarColor` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:150 |
-| 0x031D | `COMMAND_HAS_CHAR_BEEN_DAMAGED_BY_WEAPON` | `HasCharBeenDamagedByWeapon` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4166 |
-| 0x0321 | `COMMAND_EXPLODE_CHAR_HEAD` | `ExplodeCharHead` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4167 |
-| 0x0326 | `COMMAND_START_CHAR_FIRE` | `StartCharFire` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4168 |
+| 0x031D | `COMMAND_HAS_CHAR_BEEN_DAMAGED_BY_WEAPON` | `HasCharBeenDamagedByWeapon` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4168 |
+| 0x0321 | `COMMAND_EXPLODE_CHAR_HEAD` | `ExplodeCharHead` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4169 |
+| 0x0326 | `COMMAND_START_CHAR_FIRE` | `StartCharFire` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4170 |
 | 0x032A | `COMMAND_SET_CAMERA_ZOOM` | `SetCameraZoom` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:323 |
 | 0x0330 | `COMMAND_SET_PLAYER_NEVER_GETS_TIRED` | `SetPlayerNeverGetsTired` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:483 |
 | 0x0331 | `COMMAND_SET_PLAYER_FAST_RELOAD` | `SetPlayerFastReload` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:484 |
-| 0x0332 | `COMMAND_SET_CHAR_BLEEDING` | `SetCharBleeding` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4169 |
-| 0x0337 | `COMMAND_SET_CHAR_VISIBLE` | `SetCharVisible` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4170 |
+| 0x0332 | `COMMAND_SET_CHAR_BLEEDING` | `SetCharBleeding` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4171 |
+| 0x0337 | `COMMAND_SET_CHAR_VISIBLE` | `SetCharVisible` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4172 |
 | 0x033E | `COMMAND_DISPLAY_TEXT` | `DisplayText` | bajo | source/game_sa/Scripts/Commands/TextCommands.cpp:322 |
 | 0x033F | `COMMAND_SET_TEXT_SCALE` | `SetTextScale` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:349 |
 | 0x0340 | `COMMAND_SET_TEXT_COLOUR` | `SetTextColour` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:350 |
@@ -395,11 +396,11 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x0345 | `COMMAND_SET_TEXT_BACKGROUND` | `SetTextBackground` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:355 |
 | 0x0348 | `COMMAND_SET_TEXT_PROPORTIONAL` | `SetTextProportional` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:356 |
 | 0x0349 | `COMMAND_SET_TEXT_FONT` | `SetTextFont` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:357 |
-| 0x0350 | `COMMAND_SET_CHAR_STAY_IN_SAME_PLACE` | `SetCharStayInSamePlace` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4172 |
+| 0x0350 | `COMMAND_SET_CHAR_STAY_IN_SAME_PLACE` | `SetCharStayInSamePlace` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4174 |
 | 0x0356 | `COMMAND_IS_EXPLOSION_IN_AREA` | `IsExplosionInArea` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:216 |
-| 0x0362 | `COMMAND_WARP_CHAR_FROM_CAR_TO_COORD` | `WarpCharFromCarToCoord` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4173 |
-| 0x0364 | `COMMAND_HAS_CHAR_SPOTTED_CHAR` | `HasCharSpottedChar` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4174 |
-| 0x036A | `COMMAND_WARP_CHAR_INTO_CAR` | `WarpCharIntoCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4175 |
+| 0x0362 | `COMMAND_WARP_CHAR_FROM_CAR_TO_COORD` | `WarpCharFromCarToCoord` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4175 |
+| 0x0364 | `COMMAND_HAS_CHAR_SPOTTED_CHAR` | `HasCharSpottedChar` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4176 |
+| 0x036A | `COMMAND_WARP_CHAR_INTO_CAR` | `WarpCharIntoCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4177 |
 | 0x036D | `COMMAND_PRINT_WITH_2_NUMBERS_BIG` | `(PrintWithNumbersBig<int32, int32>)` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:339 |
 | 0x036E | `COMMAND_PRINT_WITH_3_NUMBERS_BIG` | `(PrintWithNumbersBig<int32, int32, int32>)` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:340 |
 | 0x036F | `COMMAND_PRINT_WITH_4_NUMBERS_BIG` | `(PrintWithNumbersBig<int32, int32, int32, int32>)` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:341 |
@@ -414,12 +415,12 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x038F | `COMMAND_LOAD_SPRITE` | `LoadSprite` | medio | source/game_sa/Scripts/Commands/DrawCommands.cpp:119 |
 | 0x0390 | `COMMAND_LOAD_TEXTURE_DICTIONARY` | `LoadTextureDictionary` | medio | source/game_sa/Scripts/Commands/DrawCommands.cpp:120 |
 | 0x0391 | `COMMAND_REMOVE_TEXTURE_DICTIONARY` | `RemoveTextureDictionary` | medio | source/game_sa/Scripts/Commands/DrawCommands.cpp:121 |
-| 0x0393 | `COMMAND_SET_CHAR_ANIM_SPEED` | `SetCharAnimSpeed` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4176 |
-| 0x039E | `COMMAND_SET_CHAR_CANT_BE_DRAGGED_OUT` | `SetCharCantBeDraggedOut` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4177 |
-| 0x03A3 | `COMMAND_IS_CHAR_MALE` | `IsCharMale` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4178 |
+| 0x0393 | `COMMAND_SET_CHAR_ANIM_SPEED` | `SetCharAnimSpeed` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4178 |
+| 0x039E | `COMMAND_SET_CHAR_CANT_BE_DRAGGED_OUT` | `SetCharCantBeDraggedOut` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4179 |
+| 0x03A3 | `COMMAND_IS_CHAR_MALE` | `IsCharMale` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4180 |
 | 0x03A4 | `COMMAND_SCRIPT_NAME` | `ScriptName` | alto | source/game_sa/Scripts/Commands/MissionCommands.cpp:83 |
 | 0x03BF | `COMMAND_SET_EVERYONE_IGNORE_PLAYER` | `SetEveryoneIgnorePlayer` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:485 |
-| 0x03C0 | `COMMAND_STORE_CAR_CHAR_IS_IN_NO_SAVE` | `StoreCarCharIsInNoSave` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4179 |
+| 0x03C0 | `COMMAND_STORE_CAR_CHAR_IS_IN_NO_SAVE` | `StoreCarCharIsInNoSave` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4181 |
 | 0x03C8 | `COMMAND_SET_CAMERA_IN_FRONT_OF_PLAYER` | `SetCameraInFrontOfPlayer` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:325 |
 | 0x03CA | `COMMAND_DOES_OBJECT_EXIST` | `DoesObjectExists` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:199 |
 | 0x03CB | `COMMAND_LOAD_SCENE` | `LoadScene` | medio | source/game_sa/Scripts/Commands/ScriptCommands.cpp:91 |
@@ -441,17 +442,17 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x03EE | `COMMAND_CAN_PLAYER_START_MISSION` | `CanPlayerStartMission` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:486 |
 | 0x03EF | `COMMAND_MAKE_PLAYER_SAFE_FOR_CUTSCENE` | `MakePlayerSafeForCutscene` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:487 |
 | 0x03F0 | `COMMAND_USE_TEXT_COMMANDS` | `UseTextCommands` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:321 |
-| 0x03FE | `COMMAND_SET_CHAR_MONEY` | `SetCharMoney` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4180 |
+| 0x03FE | `COMMAND_SET_CHAR_MONEY` | `SetCharMoney` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4182 |
 | 0x0417 | `COMMAND_LOAD_AND_LAUNCH_MISSION_INTERNAL` | `LoadAndLaunchMissionInternal` | medio | source/game_sa/Scripts/Commands/MissionCommands.cpp:82 |
-| 0x041A | `COMMAND_GET_AMMO_IN_CHAR_WEAPON` | `GetAmmoInCharWeapon` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4181 |
-| 0x0430 | `COMMAND_WARP_CHAR_INTO_CAR_AS_PASSENGER` | `WarpCharIntoCarAsPassenger` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4182 |
-| 0x0432 | `COMMAND_GET_CHAR_IN_CAR_PASSENGER_SEAT` | `GetCharInCarPassengerSeat` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4183 |
-| 0x0433 | `COMMAND_SET_CHAR_IS_CHRIS_CRIMINAL` | `SetCharIsChrisCriminal` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4184 |
+| 0x041A | `COMMAND_GET_AMMO_IN_CHAR_WEAPON` | `GetAmmoInCharWeapon` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4183 |
+| 0x0430 | `COMMAND_WARP_CHAR_INTO_CAR_AS_PASSENGER` | `WarpCharIntoCarAsPassenger` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4184 |
+| 0x0432 | `COMMAND_GET_CHAR_IN_CAR_PASSENGER_SEAT` | `GetCharInCarPassengerSeat` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4185 |
+| 0x0433 | `COMMAND_SET_CHAR_IS_CHRIS_CRIMINAL` | `SetCharIsChrisCriminal` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4186 |
 | 0x0445 | `COMMAND_ARE_ANY_CAR_CHEATS_ACTIVATED` | `AreAnyCarCheatsActivated` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:195 |
-| 0x0446 | `COMMAND_SET_CHAR_SUFFERS_CRITICAL_HITS` | `SetCharSuffersCriticalHits` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4185 |
-| 0x0448 | `COMMAND_IS_CHAR_SITTING_IN_CAR` | `IsCharSittingInCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4186 |
-| 0x0449 | `COMMAND_IS_CHAR_SITTING_IN_ANY_CAR` | `IsCharSittingInAnyCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4187 |
-| 0x044B | `COMMAND_IS_CHAR_ON_FOOT` | `IsCharOnFoot` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4188 |
+| 0x0446 | `COMMAND_SET_CHAR_SUFFERS_CRITICAL_HITS` | `SetCharSuffersCriticalHits` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4187 |
+| 0x0448 | `COMMAND_IS_CHAR_SITTING_IN_CAR` | `IsCharSittingInCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4188 |
+| 0x0449 | `COMMAND_IS_CHAR_SITTING_IN_ANY_CAR` | `IsCharSittingInAnyCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4189 |
+| 0x044B | `COMMAND_IS_CHAR_ON_FOOT` | `IsCharOnFoot` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4190 |
 | 0x0454 | `COMMAND_GET_DEBUG_CAMERA_COORDINATES` | `GetDebugCameraCoordinates` | alto | source/game_sa/Scripts/Commands/CameraCommands.cpp:327 |
 | 0x0457 | `COMMAND_IS_PLAYER_TARGETTING_CHAR` | `IsPlayerTargettingChar` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:488 |
 | 0x0458 | `COMMAND_IS_PLAYER_TARGETTING_OBJECT` | `IsPlayerTargettingObject` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:489 |
@@ -460,26 +461,26 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x045B | `COMMAND_DISPLAY_TEXT_WITH_2_NUMBERS` | `(DisplayTextWithNumbers<int32, int32>)` | bajo | source/game_sa/Scripts/Commands/TextCommands.cpp:325 |
 | 0x045C | `COMMAND_FAIL_CURRENT_MISSION` | `FailCurrentMission` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:196 |
 | 0x0463 | `COMMAND_GET_DEBUG_CAMERA_POINT_AT` | `GetDebugCameraPointAt` | alto | source/game_sa/Scripts/Commands/CameraCommands.cpp:329 |
-| 0x0464 | `COMMAND_ATTACH_CHAR_TO_CAR` | `AttachCharToCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4189 |
-| 0x0465 | `COMMAND_DETACH_CHAR_FROM_CAR` | `DetachCharFromCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4190 |
-| 0x0467 | `COMMAND_CLEAR_CHAR_LAST_WEAPON_DAMAGE` | `ClearCharLastWeaponDamage` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4191 |
+| 0x0464 | `COMMAND_ATTACH_CHAR_TO_CAR` | `AttachCharToCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4191 |
+| 0x0465 | `COMMAND_DETACH_CHAR_FROM_CAR` | `DetachCharFromCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4192 |
+| 0x0467 | `COMMAND_CLEAR_CHAR_LAST_WEAPON_DAMAGE` | `ClearCharLastWeaponDamage` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4193 |
 | 0x046E | `COMMAND_GIVE_REMOTE_CONTROLLED_MODEL_TO_PLAYER` | `GiveRemoteControlledModelToPlayer` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:490 |
-| 0x0470 | `COMMAND_GET_CURRENT_CHAR_WEAPON` | `GetCurrentCharWeapon` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4192 |
-| 0x0471 | `COMMAND_LOCATE_CHAR_ANY_MEANS_OBJECT_2D` | `LocateCharAnyMeansObject2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4193 |
-| 0x0472 | `COMMAND_LOCATE_CHAR_ON_FOOT_OBJECT_2D` | `LocateCharOnFootObject2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4194 |
-| 0x0474 | `COMMAND_LOCATE_CHAR_ANY_MEANS_OBJECT_3D` | `LocateCharAnyMeansObject3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4195 |
-| 0x0475 | `COMMAND_LOCATE_CHAR_ON_FOOT_OBJECT_3D` | `LocateCharOnFootObject3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4196 |
-| 0x047A | `COMMAND_IS_CHAR_ON_ANY_BIKE` | `IsCharOnAnyBike` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4197 |
-| 0x0480 | `COMMAND_CAN_CHAR_SEE_DEAD_CHAR` | `CanCharSeeDeadChar` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4198 |
+| 0x0470 | `COMMAND_GET_CURRENT_CHAR_WEAPON` | `GetCurrentCharWeapon` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4194 |
+| 0x0471 | `COMMAND_LOCATE_CHAR_ANY_MEANS_OBJECT_2D` | `LocateCharAnyMeansObject2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4195 |
+| 0x0472 | `COMMAND_LOCATE_CHAR_ON_FOOT_OBJECT_2D` | `LocateCharOnFootObject2D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4196 |
+| 0x0474 | `COMMAND_LOCATE_CHAR_ANY_MEANS_OBJECT_3D` | `LocateCharAnyMeansObject3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4197 |
+| 0x0475 | `COMMAND_LOCATE_CHAR_ON_FOOT_OBJECT_3D` | `LocateCharOnFootObject3D` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4198 |
+| 0x047A | `COMMAND_IS_CHAR_ON_ANY_BIKE` | `IsCharOnAnyBike` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4199 |
+| 0x0480 | `COMMAND_CAN_CHAR_SEE_DEAD_CHAR` | `CanCharSeeDeadChar` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4200 |
 | 0x0488 | `COMMAND_IS_MODEL_AVAILABLE` | `IsModelAvailable` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:216 |
-| 0x0489 | `COMMAND_SHUT_CHAR_UP` | `ShutCharUp` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4199 |
-| 0x048F | `COMMAND_REMOVE_ALL_CHAR_WEAPONS` | `RemoveAllCharWeapons` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4200 |
-| 0x0491 | `COMMAND_HAS_CHAR_GOT_WEAPON` | `HasCharGotWeapon` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4201 |
-| 0x04A5 | `COMMAND_GET_DEAD_CHAR_PICKUP_COORDS` | `GetDeadCharPickupCoords` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4202 |
-| 0x04A7 | `COMMAND_IS_CHAR_IN_ANY_BOAT` | `IsCharInAnyBoat` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4203 |
-| 0x04A9 | `COMMAND_IS_CHAR_IN_ANY_HELI` | `IsCharInAnyHeli` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4204 |
-| 0x04AB | `COMMAND_IS_CHAR_IN_ANY_PLANE` | `IsCharInAnyPlane` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4205 |
-| 0x04AD | `COMMAND_IS_CHAR_IN_WATER` | `IsCharInWater` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4206 |
+| 0x0489 | `COMMAND_SHUT_CHAR_UP` | `ShutCharUp` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4201 |
+| 0x048F | `COMMAND_REMOVE_ALL_CHAR_WEAPONS` | `RemoveAllCharWeapons` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4202 |
+| 0x0491 | `COMMAND_HAS_CHAR_GOT_WEAPON` | `HasCharGotWeapon` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4203 |
+| 0x04A5 | `COMMAND_GET_DEAD_CHAR_PICKUP_COORDS` | `GetDeadCharPickupCoords` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4204 |
+| 0x04A7 | `COMMAND_IS_CHAR_IN_ANY_BOAT` | `IsCharInAnyBoat` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4205 |
+| 0x04A9 | `COMMAND_IS_CHAR_IN_ANY_HELI` | `IsCharInAnyHeli` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4206 |
+| 0x04AB | `COMMAND_IS_CHAR_IN_ANY_PLANE` | `IsCharInAnyPlane` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4207 |
+| 0x04AD | `COMMAND_IS_CHAR_IN_WATER` | `IsCharInWater` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4208 |
 | 0x04AE | `COMMAND_SET_VAR_INT_TO_CONSTANT` | `(AssignTo<int32, int32>)` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:341 |
 | 0x04AF | `COMMAND_SET_LVAR_INT_TO_CONSTANT` | `(AssignTo<int32, int32>)` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:340 |
 | 0x04B0 | `COMMAND_IS_INT_VAR_GREATER_THAN_CONSTANT` | `IsGreater<int32>` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:262 |
@@ -490,19 +491,19 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x04B5 | `COMMAND_IS_INT_LVAR_GREATER_OR_EQUAL_TO_CONSTANT` | `IsGreaterEqual<int32>` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:243 |
 | 0x04B6 | `COMMAND_IS_CONSTANT_GREATER_OR_EQUAL_TO_INT_VAR` | `IsGreaterEqual<int32>` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:235 |
 | 0x04B7 | `COMMAND_IS_CONSTANT_GREATER_OR_EQUAL_TO_INT_LVAR` | `IsGreaterEqual<int32>` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:236 |
-| 0x04B8 | `COMMAND_GET_CHAR_WEAPON_IN_SLOT` | `GetCharWeaponInSlot` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4207 |
-| 0x04C4 | `COMMAND_GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS` | `GetOffsetFromCharInWorldCoords` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4208 |
-| 0x04C5 | `COMMAND_HAS_CHAR_BEEN_PHOTOGRAPHED` | `HasCharBeenPhotographed` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4209 |
-| 0x04C8 | `COMMAND_IS_CHAR_IN_FLYING_VEHICLE` | `IsCharInFlyingVehicle` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4210 |
+| 0x04B8 | `COMMAND_GET_CHAR_WEAPON_IN_SLOT` | `GetCharWeaponInSlot` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4209 |
+| 0x04C4 | `COMMAND_GET_OFFSET_FROM_CHAR_IN_WORLD_COORDS` | `GetOffsetFromCharInWorldCoords` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4210 |
+| 0x04C5 | `COMMAND_HAS_CHAR_BEEN_PHOTOGRAPHED` | `HasCharBeenPhotographed` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4211 |
+| 0x04C8 | `COMMAND_IS_CHAR_IN_FLYING_VEHICLE` | `IsCharInFlyingVehicle` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4212 |
 | 0x04D1 | `COMMAND_CLEAR_HELI_ORIENTATION` | `ClearHeliOrientation` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:142 |
-| 0x04D7 | `COMMAND_FREEZE_CHAR_POSITION` | `FreezeCharPosition` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4211 |
-| 0x04D8 | `COMMAND_SET_CHAR_DROWNS_IN_WATER` | `SetCharDrownsInWater` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4212 |
+| 0x04D7 | `COMMAND_FREEZE_CHAR_POSITION` | `FreezeCharPosition` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4213 |
+| 0x04D8 | `COMMAND_SET_CHAR_DROWNS_IN_WATER` | `SetCharDrownsInWater` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4214 |
 | 0x04DB | `COMMAND_REMOVE_RC_BUGGY` | `RemoveRCBuggy` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:143 |
-| 0x04DD | `COMMAND_GET_CHAR_ARMOUR` | `GetCharArmour` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4213 |
-| 0x04DE | `COMMAND_SET_CHAR_ARMOUR` | `SetCharArmour` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4214 |
+| 0x04DD | `COMMAND_GET_CHAR_ARMOUR` | `GetCharArmour` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4215 |
+| 0x04DE | `COMMAND_SET_CHAR_ARMOUR` | `SetCharArmour` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4216 |
 | 0x04E3 | `COMMAND_SET_PLAYER_MOOD` | `SetPlayerMood` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:491 |
-| 0x04F0 | `COMMAND_IS_CHAR_WAITING_FOR_WORLD_COLLISION` | `IsCharWaitingForWorldCollision` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4215 |
-| 0x04F4 | `COMMAND_ATTACH_CHAR_TO_OBJECT` | `AttachCharToObject` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4216 |
+| 0x04F0 | `COMMAND_IS_CHAR_WAITING_FOR_WORLD_COLLISION` | `IsCharWaitingForWorldCollision` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4217 |
+| 0x04F4 | `COMMAND_ATTACH_CHAR_TO_OBJECT` | `AttachCharToObject` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4218 |
 | 0x04F8 | `COMMAND_ADD_SET_PIECE` | `CSetPieces::AddOne` | alto | source/game_sa/Scripts/Commands/ObjectCommands.cpp:218 |
 | 0x0500 | `COMMAND_IS_PLAYER_WEARING` | `IsPlayerWearing` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:492 |
 | 0x0501 | `COMMAND_SET_PLAYER_CAN_DO_DRIVE_BY` | `SetPlayerCanDoDriveBy` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:493 |
@@ -511,54 +512,55 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x050B | `COMMAND_POP_CAR_BOOT_USING_PHYSICS` | `PopCarBootUsingPhysics` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:152 |
 | 0x0512 | `COMMAND_PRINT_HELP_FOREVER` | `PrintHelpForever` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:345 |
 | 0x0513 | `COMMAND_PRINT_HELP_FOREVER_WITH_NUMBER` | `PrintHelpForeverWithNumber` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:346 |
-| 0x051A | `COMMAND_HAS_CHAR_BEEN_DAMAGED_BY_CHAR` | `HasCharBeenDamagedByChar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4217 |
-| 0x051B | `COMMAND_HAS_CHAR_BEEN_DAMAGED_BY_CAR` | `HasCharBeenDamagedByCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4218 |
-| 0x0526 | `COMMAND_SET_CHAR_STAY_IN_CAR_WHEN_JACKED` | `SetCharStayInCarWhenJacked` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4219 |
+| 0x051A | `COMMAND_HAS_CHAR_BEEN_DAMAGED_BY_CHAR` | `HasCharBeenDamagedByChar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4219 |
+| 0x051B | `COMMAND_HAS_CHAR_BEEN_DAMAGED_BY_CAR` | `HasCharBeenDamagedByCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4220 |
+| 0x0526 | `COMMAND_SET_CHAR_STAY_IN_CAR_WHEN_JACKED` | `SetCharStayInCarWhenJacked` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4221 |
 | 0x052C | `COMMAND_SET_PLAYER_DRUNKENNESS` | `SetPlayerDrunkenness` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:494 |
-| 0x0547 | `COMMAND_IS_CHAR_TOUCHING_VEHICLE` | `IsCharTouchingVehicle` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4220 |
-| 0x054A | `COMMAND_SET_CHAR_CAN_BE_SHOT_IN_VEHICLE` | `SetCharCanBeShotInVehicle` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4221 |
+| 0x0547 | `COMMAND_IS_CHAR_TOUCHING_VEHICLE` | `IsCharTouchingVehicle` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4222 |
+| 0x054A | `COMMAND_SET_CHAR_CAN_BE_SHOT_IN_VEHICLE` | `SetCharCanBeShotInVehicle` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4223 |
 | 0x054C | `COMMAND_LOAD_MISSION_TEXT` | `LoadMissionText` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:362 |
-| 0x054E | `COMMAND_CLEAR_CHAR_LAST_DAMAGE_ENTITY` | `ClearCharLastDamageEntity` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4222 |
+| 0x054E | `COMMAND_CLEAR_CHAR_LAST_DAMAGE_ENTITY` | `ClearCharLastDamageEntity` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4224 |
 | 0x055D | `COMMAND_MAKE_PLAYER_FIRE_PROOF` | `MakePlayerFireProof` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:495 |
 | 0x055E | `COMMAND_INCREASE_PLAYER_MAX_HEALTH` | `IncreasePlayerMaxHealth` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:496 |
 | 0x055F | `COMMAND_INCREASE_PLAYER_MAX_ARMOUR` | `IncreasePlayerMaxArmour` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:497 |
-| 0x0560 | `COMMAND_CREATE_RANDOM_CHAR_AS_DRIVER` | `CreateRandomCharAsDriver` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4223 |
-| 0x0561 | `COMMAND_CREATE_RANDOM_CHAR_AS_PASSENGER` | `CreateRandomCharAsPassenger` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4224 |
+| 0x0560 | `COMMAND_CREATE_RANDOM_CHAR_AS_DRIVER` | `CreateRandomCharAsDriver` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4225 |
+| 0x0561 | `COMMAND_CREATE_RANDOM_CHAR_AS_PASSENGER` | `CreateRandomCharAsPassenger` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4226 |
 | 0x0563 | `COMMAND_ENSURE_PLAYER_HAS_DRIVE_BY_WEAPON` | `EnsurePlayerHasDriveByWeapon` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:498 |
-| 0x0568 | `COMMAND_SET_CHAR_NEVER_TARGETTED` | `SetCharNeverTargetted` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4225 |
-| 0x056C | `COMMAND_IS_CHAR_IN_ANY_POLICE_VEHICLE` | `IsCharInAnyPoliceVehicle` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4226 |
-| 0x056D | `COMMAND_DOES_CHAR_EXIST` | `DoesCharExist` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4227 |
+| 0x0568 | `COMMAND_SET_CHAR_NEVER_TARGETTED` | `SetCharNeverTargetted` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4227 |
+| 0x056C | `COMMAND_IS_CHAR_IN_ANY_POLICE_VEHICLE` | `IsCharInAnyPoliceVehicle` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4228 |
+| 0x056D | `COMMAND_DOES_CHAR_EXIST` | `DoesCharExist` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4229 |
 | 0x0572 | `COMMAND_SET_ALL_TAXIS_HAVE_NITRO` | `SetAllTaxisHaveNitro` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:193 |
-| 0x0575 | `COMMAND_FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION` | `FreezeCharPositionAndDontLoadCollision` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4228 |
+| 0x0575 | `COMMAND_FREEZE_CHAR_POSITION_AND_DONT_LOAD_COLLISION` | `FreezeCharPositionAndDontLoadCollision` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4230 |
 | 0x057E | `COMMAND_SET_PLAYER_IS_IN_STADIUM` | `SetPlayerInStadium` | medio | source/game_sa/Scripts/Commands/ScriptCommands.cpp:101 |
 | 0x0581 | `COMMAND_DISPLAY_RADAR` | `DisplayRadar` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:214 |
 | 0x0582 | `COMMAND_REGISTER_BEST_POSITION` | `RegisterBestPosition` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:215 |
 | 0x0583 | `COMMAND_IS_PLAYER_IN_INFO_ZONE` | `IsPlayerInInfoZone` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:499 |
-| 0x0588 | `COMMAND_SET_LOAD_COLLISION_FOR_CHAR_FLAG` | `SetLoadCollisionForCharFlag` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4229 |
+| 0x0588 | `COMMAND_SET_LOAD_COLLISION_FOR_CHAR_FLAG` | `SetLoadCollisionForCharFlag` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4231 |
 | 0x058A | `COMMAND_ADD_BIG_GUN_FLASH` | `AddBigGunFlash` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:220 |
-| 0x0597 | `COMMAND_IS_CHAR_DUCKING` | `IsCharDucking` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4230 |
+| 0x0597 | `COMMAND_IS_CHAR_DUCKING` | `IsCharDucking` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4232 |
 | 0x059F | `COMMAND_GET_OBJECT_VELOCITY` | `GetObjectVelocity` | alto | source/game_sa/Scripts/Commands/ObjectCommands.cpp:204 |
 | 0x05A0 | `COMMAND_IS_DEBUG_CAMERA_ON` | `IsDebugCameraOn` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:334 |
 | 0x05A9 | `COMMAND_SET_VAR_TEXT_LABEL` | `SetTextLabel<8>` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:410 |
 | 0x05AA | `COMMAND_SET_LVAR_TEXT_LABEL` | `SetTextLabel<8>` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:411 |
 | 0x05AD | `COMMAND_IS_VAR_TEXT_LABEL_EQUAL_TO_TEXT_LABEL` | `AreTextLabelsEqual` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:402 |
 | 0x05AE | `COMMAND_IS_LVAR_TEXT_LABEL_EQUAL_TO_TEXT_LABEL` | `AreTextLabelsEqual` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:403 |
-| 0x05E2 | `COMMAND_TASK_KILL_CHAR_ON_FOOT` | `TaskKillCharOnFoot` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4231 |
-| 0x05F6 | `COMMAND_IS_CHAR_IN_ANGLED_AREA_2D` | `CharInAngledAreaCheck` | bajo | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4232 |
-| 0x05F8 | `COMMAND_IS_CHAR_IN_ANGLED_AREA_IN_CAR_2D` | `CharInAngledAreaCheck` | bajo | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4233 |
-| 0x05FC | `COMMAND_IS_CHAR_IN_ANGLED_AREA_3D` | `CharInAngledAreaCheck` | bajo | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4234 |
-| 0x05FD | `COMMAND_IS_CHAR_IN_ANGLED_AREA_ON_FOOT_3D` | `CharInAngledAreaCheck` | bajo | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4235 |
-| 0x05FE | `COMMAND_IS_CHAR_IN_ANGLED_AREA_IN_CAR_3D` | `CharInAngledAreaCheck` | bajo | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4236 |
-| 0x0602 | `COMMAND_IS_CHAR_IN_TAXI` | `IsCharInTaxi` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4237 |
-| 0x060A | `COMMAND_LOAD_CHAR_DECISION_MAKER` | `LoadCharDecisionMaker` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4238 |
-| 0x060B | `COMMAND_SET_CHAR_DECISION_MAKER` | `SetCharDecisionMaker` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4239 |
+| 0x05B6 | `COMMAND_SAVE_STRING_TO_DEBUG_FILE` | `SaveStringToDebugFile` | bajo | source/game_sa/Scripts/Commands/UnusedCommands.cpp:185 |
+| 0x05E2 | `COMMAND_TASK_KILL_CHAR_ON_FOOT` | `TaskKillCharOnFoot` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4233 |
+| 0x05F6 | `COMMAND_IS_CHAR_IN_ANGLED_AREA_2D` | `CharInAngledAreaCheck` | bajo | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4234 |
+| 0x05F8 | `COMMAND_IS_CHAR_IN_ANGLED_AREA_IN_CAR_2D` | `CharInAngledAreaCheck` | bajo | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4235 |
+| 0x05FC | `COMMAND_IS_CHAR_IN_ANGLED_AREA_3D` | `CharInAngledAreaCheck` | bajo | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4236 |
+| 0x05FD | `COMMAND_IS_CHAR_IN_ANGLED_AREA_ON_FOOT_3D` | `CharInAngledAreaCheck` | bajo | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4237 |
+| 0x05FE | `COMMAND_IS_CHAR_IN_ANGLED_AREA_IN_CAR_3D` | `CharInAngledAreaCheck` | bajo | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4238 |
+| 0x0602 | `COMMAND_IS_CHAR_IN_TAXI` | `IsCharInTaxi` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4239 |
+| 0x060A | `COMMAND_LOAD_CHAR_DECISION_MAKER` | `LoadCharDecisionMaker` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4240 |
+| 0x060B | `COMMAND_SET_CHAR_DECISION_MAKER` | `SetCharDecisionMaker` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4241 |
 | 0x060D | `COMMAND_SET_TEXT_DROPSHADOW` | `SetTextDropshadow` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:360 |
-| 0x0611 | `COMMAND_IS_CHAR_PLAYING_ANIM` | `IsCharPlayingAnim` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4240 |
-| 0x0612 | `COMMAND_SET_CHAR_ANIM_PLAYING_FLAG` | `SetCharAnimPlayingFlag` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4241 |
-| 0x0613 | `COMMAND_GET_CHAR_ANIM_CURRENT_TIME` | `GetCharAnimCurrentTime` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4242 |
-| 0x0614 | `COMMAND_SET_CHAR_ANIM_CURRENT_TIME` | `SetCharAnimCurrentTime` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4243 |
-| 0x0619 | `COMMAND_SET_CHAR_COLLISION` | `SetCharCollision` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4244 |
-| 0x061A | `COMMAND_GET_CHAR_ANIM_TOTAL_TIME` | `GetCharAnimTotalTime` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4245 |
+| 0x0611 | `COMMAND_IS_CHAR_PLAYING_ANIM` | `IsCharPlayingAnim` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4242 |
+| 0x0612 | `COMMAND_SET_CHAR_ANIM_PLAYING_FLAG` | `SetCharAnimPlayingFlag` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4243 |
+| 0x0613 | `COMMAND_GET_CHAR_ANIM_CURRENT_TIME` | `GetCharAnimCurrentTime` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4244 |
+| 0x0614 | `COMMAND_SET_CHAR_ANIM_CURRENT_TIME` | `SetCharAnimCurrentTime` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4245 |
+| 0x0619 | `COMMAND_SET_CHAR_COLLISION` | `SetCharCollision` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4246 |
+| 0x061A | `COMMAND_GET_CHAR_ANIM_TOTAL_TIME` | `GetCharAnimTotalTime` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4247 |
 | 0x0623 | `COMMAND_INCREMENT_INT_STAT` | `IncrementStat<int32>` | medio | source/game_sa/Scripts/Commands/StatCommands.cpp:51 |
 | 0x0624 | `COMMAND_INCREMENT_FLOAT_STAT` | `IncrementStat<float>` | medio | source/game_sa/Scripts/Commands/StatCommands.cpp:52 |
 | 0x0625 | `COMMAND_DECREMENT_INT_STAT` | `DecrementStat<int32>` | medio | source/game_sa/Scripts/Commands/StatCommands.cpp:54 |
@@ -567,13 +569,13 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x0628 | `COMMAND_REGISTER_FLOAT_STAT` | `RegisterStat<float>` | medio | source/game_sa/Scripts/Commands/StatCommands.cpp:58 |
 | 0x0629 | `COMMAND_SET_INT_STAT` | `SetStat<int32>` | medio | source/game_sa/Scripts/Commands/StatCommands.cpp:60 |
 | 0x062A | `COMMAND_SET_FLOAT_STAT` | `SetStat<float>` | medio | source/game_sa/Scripts/Commands/StatCommands.cpp:61 |
-| 0x0634 | `COMMAND_TASK_KILL_CHAR_ON_FOOT_WHILE_DUCKING` | `TaskKillCharOnFootWhileDucking` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4247 |
-| 0x0639 | `COMMAND_TASK_TURN_CHAR_TO_FACE_CHAR` | `TaskTurnCharToFaceChar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4248 |
-| 0x0642 | `COMMAND_IS_CHAR_AT_SCRIPTED_ATTRACTOR` | `IsCharAtScriptedAttractor` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4249 |
+| 0x0634 | `COMMAND_TASK_KILL_CHAR_ON_FOOT_WHILE_DUCKING` | `TaskKillCharOnFootWhileDucking` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4249 |
+| 0x0639 | `COMMAND_TASK_TURN_CHAR_TO_FACE_CHAR` | `TaskTurnCharToFaceChar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4250 |
+| 0x0642 | `COMMAND_IS_CHAR_AT_SCRIPTED_ATTRACTOR` | `IsCharAtScriptedAttractor` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4251 |
 | 0x0643 | `COMMAND_SET_SEQUENCE_TO_REPEAT` | `SetSequenceToRepeat` | medio | source/game_sa/Scripts/Commands/SequenceCommands.cpp:24 |
 | 0x0652 | `COMMAND_GET_INT_STAT` | `GetStat<int32>` | alto | source/game_sa/Scripts/Commands/StatCommands.cpp:63 |
 | 0x0653 | `COMMAND_GET_FLOAT_STAT` | `GetStat<float>` | alto | source/game_sa/Scripts/Commands/StatCommands.cpp:64 |
-| 0x0665 | `COMMAND_GET_CHAR_MODEL` | `GetCharModel` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4250 |
+| 0x0665 | `COMMAND_GET_CHAR_MODEL` | `GetCharModel` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4252 |
 | 0x0679 | `COMMAND_ATTACH_CAMERA_TO_VEHICLE` | `AttachCameraToVehicle` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:335 |
 | 0x067A | `COMMAND_ATTACH_CAMERA_TO_VEHICLE_LOOK_AT_VEHICLE` | `AttachCameraToVehicleLookAtVehicle` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:313 |
 | 0x067B | `COMMAND_ATTACH_CAMERA_TO_VEHICLE_LOOK_AT_CHAR` | `AttachCameraToVehicleLookAtChar` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:336 |
@@ -582,11 +584,11 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x068C | `COMMAND_IS_PLAYER_TARGETTING_ANYTHING` | `IsPlayerTargettingAnything` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:500 |
 | 0x068D | `COMMAND_GET_ACTIVE_CAMERA_COORDINATES` | `GetActiveCameraCoordinates` | alto | source/game_sa/Scripts/Commands/CameraCommands.cpp:339 |
 | 0x068E | `COMMAND_GET_ACTIVE_CAMERA_POINT_AT` | `GetActiveCameraPointAt` | alto | source/game_sa/Scripts/Commands/CameraCommands.cpp:340 |
-| 0x06A7 | `COMMAND_ATTACH_CHAR_TO_BIKE` | `AttachCharToBike` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4256 |
-| 0x06AC | `COMMAND_GET_CHAR_SPEED` | `GetCharSpeed` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4253 |
+| 0x06A7 | `COMMAND_ATTACH_CHAR_TO_BIKE` | `AttachCharToBike` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4258 |
+| 0x06AC | `COMMAND_GET_CHAR_SPEED` | `GetCharSpeed` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4255 |
 | 0x06AF | `COMMAND_DISABLE_PLAYER_SPRINT` | `DisablePlayerSprint` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:501 |
-| 0x06B7 | `COMMAND_IS_CHAR_IN_SEARCHLIGHT` | `IsCharInSearchlight` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4254 |
-| 0x06C9 | `COMMAND_REMOVE_CHAR_FROM_GROUP` | `RemoveCharFromGroup` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4255 |
+| 0x06B7 | `COMMAND_IS_CHAR_IN_SEARCHLIGHT` | `IsCharInSearchlight` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4256 |
+| 0x06C9 | `COMMAND_REMOVE_CHAR_FROM_GROUP` | `RemoveCharFromGroup` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4257 |
 | 0x06D1 | `COMMAND_SET_VAR_TEXT_LABEL16` | `SetTextLabel<16>` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:412 |
 | 0x06D2 | `COMMAND_SET_LVAR_TEXT_LABEL16` | `SetTextLabel<16>` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:413 |
 | 0x06DF | `COMMAND_DELETE_PLAYER` | `DeletePlayer` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:502 |
@@ -607,7 +609,7 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x076C | `COMMAND_SET_ZONE_GANG_STRENGTH` | `SetZoneGangStrength` | bajo | source/game_sa/Scripts/Commands/ZoneCommands.cpp:133 |
 | 0x076D | `COMMAND_GET_ZONE_GANG_STRENGTH` | `GetZoneGangStrength` | medio | source/game_sa/Scripts/Commands/ZoneCommands.cpp:134 |
 | 0x0784 | `COMMAND_GIVE_PLAYER_CLOTHES` | `GivePlayerClothes` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:509 |
-| 0x0792 | `COMMAND_CLEAR_CHAR_TASKS_IMMEDIATELY` | `ClearCharTasksImmediately` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4294 |
+| 0x0792 | `COMMAND_CLEAR_CHAR_TASKS_IMMEDIATELY` | `ClearCharTasksImmediately` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4296 |
 | 0x079D | `COMMAND_PLAYER_ENTERED_DOCK_CRANE` | `PlayerEnteredDockCrane` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:510 |
 | 0x079E | `COMMAND_PLAYER_ENTERED_BUILDINGSITE_CRANE` | `PlayerEnteredBuildingsiteCrane` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:511 |
 | 0x079F | `COMMAND_PLAYER_LEFT_CRANE` | `PlayerLeftCrane` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:512 |
@@ -621,7 +623,7 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x07FA | `COMMAND_PLAYER_ENTERED_LAS_VEGAS_CRANE` | `PlayerEnteredLasVegasCrane` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:519 |
 | 0x07FC | `COMMAND_DISPLAY_TEXT_WITH_FLOAT` | `DisplayTextWithFloat` | bajo | source/game_sa/Scripts/Commands/TextCommands.cpp:323 |
 | 0x0801 | `COMMAND_GET_CAMERA_FOV` | `GetCameraFov` | alto | source/game_sa/Scripts/Commands/CameraCommands.cpp:347 |
-| 0x0811 | `COMMAND_GET_CAR_CHAR_IS_USING` | `GetCarCharIsUsing` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4257 |
+| 0x0811 | `COMMAND_GET_CAR_CHAR_IS_USING` | `GetCarCharIsUsing` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4259 |
 | 0x081C | `COMMAND_SET_TEXT_EDGE` | `SetTextEdge` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:361 |
 | 0x0822 | `COMMAND_SET_FIRST_PERSON_IN_CAR_CAMERA_MODE` | `SetFirstPersonInCarCameraMode` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:348 |
 | 0x082A | `COMMAND_SET_PLAYER_DUCK_BUTTON` | `SetPlayerAbleToUseCrouch` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:520 |
@@ -630,21 +632,21 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x0837 | `COMMAND_IS_OBJECT_PLAYING_ANIM` | `IsObjectPlayingAnim` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:225 |
 | 0x0839 | `COMMAND_GET_OBJECT_ANIM_CURRENT_TIME` | `GetObjectAnimCurrentTime` | alto | source/game_sa/Scripts/Commands/ObjectCommands.cpp:226 |
 | 0x083A | `COMMAND_SET_OBJECT_ANIM_CURRENT_TIME` | `SetObjectAnimCurrentTime` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:227 |
-| 0x083C | `COMMAND_SET_CHAR_VELOCITY` | `SetCharVelocity` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4104 |
-| 0x083D | `COMMAND_GET_CHAR_VELOCITY` | `GetCharVelocity` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4105 |
-| 0x083E | `COMMAND_SET_CHAR_ROTATION` | `SetCharRotation` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4106 |
+| 0x083C | `COMMAND_SET_CHAR_VELOCITY` | `SetCharVelocity` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4106 |
+| 0x083D | `COMMAND_GET_CHAR_VELOCITY` | `GetCharVelocity` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4107 |
+| 0x083E | `COMMAND_SET_CHAR_ROTATION` | `SetCharRotation` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4108 |
 | 0x0844 | `COMMAND_IS_VAR_TEXT_LABEL_EMPTY` | `IsTextLabelEmpty` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:395 |
 | 0x0845 | `COMMAND_IS_LVAR_TEXT_LABEL_EMPTY` | `IsTextLabelEmpty` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:396 |
 | 0x0846 | `COMMAND_IS_VAR_TEXT_LABEL16_EMPTY` | `IsTextLabelEmpty` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:397 |
 | 0x0847 | `COMMAND_IS_LVAR_TEXT_LABEL16_EMPTY` | `IsTextLabelEmpty` | bajo | source/game_sa/Scripts/Commands/BasicCommands.cpp:398 |
-| 0x0856 | `COMMAND_SET_CHAR_ALLOWED_TO_DUCK` | `SetCharAllowedToDuck` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4107 |
-| 0x0860 | `COMMAND_SET_CHAR_AREA_VISIBLE` | `SetCharAreaVisible` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4108 |
+| 0x0856 | `COMMAND_SET_CHAR_ALLOWED_TO_DUCK` | `SetCharAllowedToDuck` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4109 |
+| 0x0860 | `COMMAND_SET_CHAR_AREA_VISIBLE` | `SetCharAreaVisible` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4110 |
 | 0x0874 | `COMMAND_SET_ZONE_POPULATION_RACE` | `SetZonePopulationRace` | bajo | source/game_sa/Scripts/Commands/ZoneCommands.cpp:138 |
-| 0x087E | `COMMAND_SET_CHAR_DROPS_WEAPONS_WHEN_DEAD` | `SetCharDropsWeaponsWhenDead` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4109 |
-| 0x087F | `COMMAND_SET_CHAR_NEVER_LEAVES_GROUP` | `SetCharNeverLeavesGroup` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4110 |
+| 0x087E | `COMMAND_SET_CHAR_DROPS_WEAPONS_WHEN_DEAD` | `SetCharDropsWeaponsWhenDead` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4111 |
+| 0x087F | `COMMAND_SET_CHAR_NEVER_LEAVES_GROUP` | `SetCharNeverLeavesGroup` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4112 |
 | 0x0881 | `COMMAND_SET_PLAYER_FIRE_BUTTON` | `SetPlayerFireButton` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:525 |
-| 0x0883 | `COMMAND_ATTACH_FX_SYSTEM_TO_CHAR_BONE` | `AttachFxSystemToCharBone` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4111 |
-| 0x0889 | `COMMAND_GET_DEAD_CHAR_COORDINATES` | `GetDeadCharCoordinates` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4112 |
+| 0x0883 | `COMMAND_ATTACH_FX_SYSTEM_TO_CHAR_BONE` | `AttachFxSystemToCharBone` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4113 |
+| 0x0889 | `COMMAND_GET_DEAD_CHAR_COORDINATES` | `GetDeadCharCoordinates` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4114 |
 | 0x089B | `COMMAND_IS_PLAYER_IN_POSITION_FOR_CONVERSATION` | `IsPlayerInPositionForConversation` | medio | source/game_sa/Scripts/Commands/ConversationCommands.cpp:84 |
 | 0x089C | `COMMAND_ENABLE_CONVERSATION` | `EnableConversation` | medio | source/game_sa/Scripts/Commands/ConversationCommands.cpp:78 |
 | 0x08A2 | `COMMAND_PLANE_ATTACK_PLAYER_USING_DOG_FIGHT` | `PlaneAttackPlayerUsingDogFight` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:161 |
@@ -658,7 +660,7 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x0901 | `COMMAND_SET_PLAYER_JUMP_BUTTON` | `SetPlayerJumpButton` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:526 |
 | 0x090C | `COMMAND_SET_SPECIFIC_ZONE_TO_TRIGGER_GANG_WAR` | `SetSpecificZoneToTriggerGangWar` | medio | source/game_sa/Scripts/Commands/ZoneCommands.cpp:143 |
 | 0x090D | `COMMAND_CLEAR_SPECIFIC_ZONES_TO_TRIGGER_GANG_WAR` | `ClearSpecificZonesToTriggerGangWar` | medio | source/game_sa/Scripts/Commands/ZoneCommands.cpp:144 |
-| 0x091A | `COMMAND_GET_LATEST_CONSOLE_COMMAND` | `GetLatestConsoleCommand` | medio | source/game_sa/Scripts/Commands/UnusedCommands.cpp:23 |
+| 0x091A | `COMMAND_GET_LATEST_CONSOLE_COMMAND` | `GetLatestConsoleCommand` | medio | source/game_sa/Scripts/Commands/UnusedCommands.cpp:28 |
 | 0x091D | `COMMAND_SWITCH_ROADS_BACK_TO_ORIGINAL` | `SwitchRoadsBackToOriginal` | medio | source/game_sa/Scripts/Commands/PathCommands.cpp:87 |
 | 0x091E | `COMMAND_SWITCH_PED_ROADS_BACK_TO_ORIGINAL` | `SwitchPedRoadsBackToOriginal` | medio | source/game_sa/Scripts/Commands/PathCommands.cpp:90 |
 | 0x0920 | `COMMAND_CAMERA_SET_VECTOR_TRACK` | `CameraSetVectorTrack` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:349 |
@@ -675,27 +677,27 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x0942 | `COMMAND_HAS_PLAYER_BOUGHT_ITEM` | `HasPlayerBoughtItem` | medio | source/game_sa/Scripts/Commands/PlayerCommands.cpp:527 |
 | 0x0944 | `COMMAND_SET_CAMERA_IN_FRONT_OF_CHAR` | `SetCameraInFrontOfChar` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:363 |
 | 0x0945 | `COMMAND_GET_PLAYER_MAX_ARMOUR` | `GetPlayerMaxArmour` | alto | source/game_sa/Scripts/Commands/PlayerCommands.cpp:521 |
-| 0x094E | `COMMAND_DISABLE_CHAR_SPEECH` | `DisableCharSpeech` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4258 |
-| 0x094F | `COMMAND_ENABLE_CHAR_SPEECH` | `EnableCharSpeech` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4259 |
+| 0x094E | `COMMAND_DISABLE_CHAR_SPEECH` | `DisableCharSpeech` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4260 |
+| 0x094F | `COMMAND_ENABLE_CHAR_SPEECH` | `EnableCharSpeech` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4261 |
 | 0x099C | `COMMAND_CAMERA_SET_SHAKE_SIMULATION_SIMPLE` | `CameraSetShakeSimulationSimple` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:364 |
 | 0x09A4 | `COMMAND_SET_UP_CONVERSATION_NODE_WITH_SPEECH` | `SetUpConversationNodeWithSpeech` | medio | source/game_sa/Scripts/Commands/ConversationCommands.cpp:83 |
 | 0x09AA | `COMMAND_SET_UP_CONVERSATION_END_NODE_WITH_SPEECH` | `SetUpConversationEndNodeWithSpeech` | medio | source/game_sa/Scripts/Commands/ConversationCommands.cpp:85 |
 | 0x09AD | `COMMAND_SET_PLAYER_IN_CAR_CAMERA_MODE` | `SetPlayerInCarCameraMode` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:365 |
-| 0x09B5 | `COMMAND_SET_CHAR_SIGNAL_AFTER_KILL` | `SetCharSignalAfterKill` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4260 |
-| 0x09B6 | `COMMAND_SET_CHAR_WANTED_BY_POLICE` | `SetCharWantedByPolice` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4261 |
+| 0x09B5 | `COMMAND_SET_CHAR_SIGNAL_AFTER_KILL` | `SetCharSignalAfterKill` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4262 |
+| 0x09B6 | `COMMAND_SET_CHAR_WANTED_BY_POLICE` | `SetCharWantedByPolice` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4263 |
 | 0x09B7 | `COMMAND_SET_ZONE_NO_COPS` | `SetZoneNoCops` | bajo | source/game_sa/Scripts/Commands/ZoneCommands.cpp:145 |
 | 0x09BA | `COMMAND_DISPLAY_ZONE_NAMES` | `DisplayZoneNames` | medio | source/game_sa/Scripts/Commands/ZoneCommands.cpp:146 |
-| 0x09BC | `COMMAND_SET_CHAR_COORDINATES_DONT_WARP_GANG_NO_OFFSET` | `SetCharCoordinatesDontWarpGangNoOffset` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4262 |
+| 0x09BC | `COMMAND_SET_CHAR_COORDINATES_DONT_WARP_GANG_NO_OFFSET` | `SetCharCoordinatesDontWarpGangNoOffset` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4264 |
 | 0x09C1 | `COMMAND_ADD_NEXT_MESSAGE_TO_PREVIOUS_BRIEFS` | `AddNextMessageToPreviousBriefs` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:363 |
-| 0x09C5 | `COMMAND_IS_CHAR_USING_MAP_ATTRACTOR` | `IsCharUsingMapAttractor` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4263 |
-| 0x09C9 | `COMMAND_REMOVE_CHAR_FROM_CAR_MAINTAIN_POSITION` | `RemoveCharFromCarMaintainPosition` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4264 |
+| 0x09C5 | `COMMAND_IS_CHAR_USING_MAP_ATTRACTOR` | `IsCharUsingMapAttractor` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4265 |
+| 0x09C9 | `COMMAND_REMOVE_CHAR_FROM_CAR_MAINTAIN_POSITION` | `RemoveCharFromCarMaintainPosition` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4266 |
 | 0x09CC | `COMMAND_DOES_OBJECT_HAVE_THIS_MODEL` | `DoesObjectHaveThisModel` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:210 |
-| 0x09D5 | `COMMAND_SET_CHAR_SAY_CONTEXT_IMPORTANT` | `SetCharSayContextImportant` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4265 |
-| 0x09D6 | `COMMAND_SET_CHAR_SAY_SCRIPT` | `SetCharSayScript` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4266 |
-| 0x09DE | `COMMAND_IS_CHAR_GETTING_IN_TO_A_CAR` | `IsCharGettingInToACar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4267 |
-| 0x09E8 | `COMMAND_GET_CHAR_AREA_VISIBLE` | `GetCharAreaVisible` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4268 |
+| 0x09D5 | `COMMAND_SET_CHAR_SAY_CONTEXT_IMPORTANT` | `SetCharSayContextImportant` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4267 |
+| 0x09D6 | `COMMAND_SET_CHAR_SAY_SCRIPT` | `SetCharSayScript` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4268 |
+| 0x09DE | `COMMAND_IS_CHAR_GETTING_IN_TO_A_CAR` | `IsCharGettingInToACar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4269 |
+| 0x09E8 | `COMMAND_GET_CHAR_AREA_VISIBLE` | `GetCharAreaVisible` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4270 |
 | 0x09EC | `COMMAND_ALLOW_FIXED_CAMERA_COLLISION` | `AllowFixedCameraCollision` | bajo | source/game_sa/Scripts/Commands/CameraCommands.cpp:366 |
-| 0x09ED | `COMMAND_HAS_CHAR_SPOTTED_CHAR_IN_FRONT` | `HasCharSpottedCharInFront` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4269 |
+| 0x09ED | `COMMAND_HAS_CHAR_SPOTTED_CHAR_IN_FRONT` | `HasCharSpottedCharInFront` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4271 |
 | 0x09EF | `COMMAND_SET_VEHICLE_CAMERA_TWEAK` | `SetVehicleCameraTweak` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:367 |
 | 0x09F0 | `COMMAND_RESET_VEHICLE_CAMERA_TWEAK` | `ResetVehicleCameraTweak` | medio | source/game_sa/Scripts/Commands/CameraCommands.cpp:368 |
 | 0x09F1 | `COMMAND_REPORT_MISSION_AUDIO_EVENT_AT_CHAR` | `ReportMissionAudioEventAtChar` | medio | source/game_sa/Scripts/Commands/ScriptCommands.cpp:95 |
@@ -708,7 +710,7 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x09FB | `COMMAND_GET_CURRENT_LANGUAGE` | `GetCurrentLanguage` | alto | source/game_sa/Scripts/Commands/GameCommands.cpp:212 |
 | 0x09FF | `COMMAND_SET_RESPAWN_POINT_FOR_DURATION_OF_MISSION` | `SetRespawnPointForDurationOfMission` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:211 |
 | 0x0A07 | `COMMAND_SKIP_TO_NEXT_ALLOWED_STATION` | `SkipToNextAllowedStation` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:153 |
-| 0x0A09 | `COMMAND_SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH` | `ShutCharUpForScriptedSpeech` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4270 |
+| 0x0A09 | `COMMAND_SHUT_CHAR_UP_FOR_SCRIPTED_SPEECH` | `ShutCharUpForScriptedSpeech` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4272 |
 | 0x0A0A | `COMMAND_ENABLE_DISABLED_ATTRACTORS_ON_OBJECT` | `EnableDisabledAttractorOnObject` | medio | source/game_sa/Scripts/Commands/ObjectCommands.cpp:222 |
 | 0x0A0B | `COMMAND_LOAD_SCENE_IN_DIRECTION` | `LoadSceneInDirection` | medio | source/game_sa/Scripts/Commands/ScriptCommands.cpp:92 |
 | 0x0A0E | `COMMAND_CLEAR_THIS_PRINT_BIG_NOW` | `ClearThisPrintBigNow` | medio | source/game_sa/Scripts/Commands/TextCommands.cpp:319 |
@@ -719,7 +721,7 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x0A17 | `COMMAND_SET_HAS_BEEN_OWNED_FOR_CAR_GENERATOR` | `SetHasBeenOwnedForCarGenerator` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:146 |
 | 0x0A18 | `COMMAND_SET_UP_CONVERSATION_NODE_WITH_SCRIPTED_SPEECH` | `SetUpConversationNodeWithScriptedSpeech` | medio | source/game_sa/Scripts/Commands/ConversationCommands.cpp:86 |
 | 0x0A19 | `COMMAND_SET_AREA_NAME` | `SetAreaName` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:204 |
-| 0x0A1B | `COMMAND_IS_CHAR_TOUCHING_CHAR` | `IsCharTouchingChar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4271 |
+| 0x0A1B | `COMMAND_IS_CHAR_TOUCHING_CHAR` | `IsCharTouchingChar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4273 |
 | 0x0A1C | `COMMAND_DISABLE_HELI_AUDIO` | `DisableHeliAudio` | medio | source/game_sa/Scripts/Commands/VehicleCommands.cpp:155 |
 | 0x0A1E | `COMMAND_TAKE_PHOTO` | `TakePhoto` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:209 |
 | 0x0A1F | `COMMAND_INCREMENT_FLOAT_STAT_NO_MESSAGE` | `IncrementFloatStatNoMessage` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:207 |
@@ -734,8 +736,8 @@ De los 1163 comandos *original*: despachador reescrito en `hooks.csv` = 978; des
 | 0x0A2C | `COMMAND_DRAW_SUBTITLES_BEFORE_FADE` | `DrawSubtitlesBeforeFade` | medio | source/game_sa/Scripts/Commands/ScriptCommands.cpp:100 |
 | 0x0A2D | `COMMAND_DRAW_ODDJOB_TITLE_BEFORE_FADE` | `DrawOddJobTitleBeforeFade` | medio | source/game_sa/Scripts/Commands/ScriptCommands.cpp:99 |
 | 0x0A2F | `COMMAND_SET_PHOTO_CAMERA_EFFECT` | `SetPhotoCameraEffect` | medio | source/game_sa/Scripts/Commands/ScriptCommands.cpp:98 |
-| 0x0A32 | `COMMAND_IS_CHAR_ATTACHED_TO_ANY_CAR` | `IsCharAttachedToAnyCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4272 |
-| 0x0A33 | `COMMAND_STORE_CAR_CHAR_IS_ATTACHED_TO_NO_SAVE` | `StoreCarCharIsAttachedToNoSave` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4273 |
+| 0x0A32 | `COMMAND_IS_CHAR_ATTACHED_TO_ANY_CAR` | `IsCharAttachedToAnyCar` | medio | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4274 |
+| 0x0A33 | `COMMAND_STORE_CAR_CHAR_IS_ATTACHED_TO_NO_SAVE` | `StoreCarCharIsAttachedToNoSave` | alto | source/game_sa/Scripts/Commands/CharacterCommands.cpp:4275 |
 | 0x0A39 | `COMMAND_GET_PLAYER_IN_CAR_CAMERA_MODE` | `GetPlayerInCarCameraMode` | alto | source/game_sa/Scripts/Commands/CameraCommands.cpp:370 |
 | 0x0A3C | `COMMAND_SET_UP_CONVERSATION_END_NODE_WITH_SCRIPTED_SPEECH` | `SetUpConversationEndNodeWithScriptedSpeech` | medio | source/game_sa/Scripts/Commands/ConversationCommands.cpp:87 |
 | 0x0A3D | `COMMAND_ACTIVATE_PIMP_CHEAT` | `ActivatePimpCheat` | medio | source/game_sa/Scripts/Commands/GameCommands.cpp:194 |
@@ -761,12 +763,12 @@ Clasificacion de los reescritos por analisis de texto del manejador C++ (`contri
 | --- | ---: |
 | alto | 117 |
 | medio | 389 |
-| bajo | 162 |
+| bajo | 163 |
 
 | Retorno / mundo | Comandos |
 | --- | ---: |
 | devuelve=no, mundo=escribe | 305 |
-| devuelve=no, mundo=no | 101 |
+| devuelve=no, mundo=no | 102 |
 | devuelve=valor, mundo=lee | 81 |
 | devuelve=flag, mundo=lee | 71 |
 | devuelve=flag, mundo=no | 62 |
@@ -797,7 +799,7 @@ Clasificacion de los reescritos por analisis de texto del manejador C++ (`contri
 | Sequence | 0 | 1 | 0 |
 | Stat | 2 | 8 | 0 |
 | Text | 0 | 49 | 4 |
-| Unused | 0 | 1 | 0 |
+| Unused | 0 | 1 | 1 |
 | Vehicle | 2 | 19 | 0 |
 | Zone | 1 | 7 | 5 |
 
@@ -812,7 +814,7 @@ Banco de validacion de los 668 manejadores reescritos contra el manejador origin
 | diferencia | 50 |
 | no_original | 27 |
 | no_registrado | 14 |
-| no_probado | 39 |
+| no_probado | 40 |
 
 ### Diferencias halladas y corregidas
 
@@ -909,6 +911,7 @@ Banco de validacion de los 668 manejadores reescritos contra el manejador origin
 | 0x054C | `COMMAND_LOAD_MISSION_TEXT` | no_probado | LOAD_MISSION_TEXT: carga una tabla GXT por nombre; sin fixture de archivo |
 | 0x0560 | `COMMAND_CREATE_RANDOM_CHAR_AS_DRIVER` | no_probado | cae el juego (CREATE_RANDOM_CHAR_AS_DRIVER necesita un coche con conductor valido) |
 | 0x0561 | `COMMAND_CREATE_RANDOM_CHAR_AS_PASSENGER` | no_probado | cae el juego (CREATE_RANDOM_CHAR_AS_PASSENGER necesita un coche con asiento libre valido) |
+| 0x05B6 | `COMMAND_SAVE_STRING_TO_DEBUG_FILE` | no_probado | sin resultados del banco |
 | 0x060A | `COMMAND_LOAD_CHAR_DECISION_MAKER` | no_probado | cae el juego (LOAD_CHAR_DECISION_MAKER carga un archivo por nombre; sin fixture de archivo) |
 | 0x0639 | `COMMAND_TASK_TURN_CHAR_TO_FACE_CHAR` | no_probado | TASK_TURN_CHAR_TO_FACE_CHAR: asigna una tarea al peaton; cae el juego con las tareas de la fixture (pool de tareas fuera de la instantanea) |
 | 0x0642 | `COMMAND_IS_CHAR_AT_SCRIPTED_ATTRACTOR` | no_probado | firma no soportada por el generador |

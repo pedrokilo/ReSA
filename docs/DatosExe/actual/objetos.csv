@@ -1,8 +1,8 @@
 va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_archivos,funcs_exe_vivas,funcs_exe_reemplazadas,escribe_exe,direccion_tomada,tabla_indexada,compartido,valor_inicial
-0x00858000,.rdata,d_constante,juego,4,acceso,1,literal,,StandaloneExe.cpp,1,3,4,0,0,0,1,f06bdd77
+0x00858000,.rdata,d_constante,juego,4,acceso,1,literal,,StandaloneExe.cpp,1,4,3,0,0,0,1,f06bdd77
 0x00858004,.rdata,d_constante,juego,4,acceso,0,,,,0,2,0,0,0,0,0,f4eadd77
-0x00858008,.rdata,d_constante,juego,4,acceso,0,,,,0,3,2,0,0,0,0,1b76dd77
-0x0085800C,.rdata,d_constante,juego,4,acceso,0,,,,0,3,4,0,0,0,0,8378dd77
+0x00858008,.rdata,d_constante,juego,4,acceso,0,,,,0,4,1,0,0,0,0,1b76dd77
+0x0085800C,.rdata,d_constante,juego,4,acceso,0,,,,0,4,3,0,0,0,0,8378dd77
 0x00858010,.rdata,d_constante,renderware,4,acceso,0,,,,0,1,2,0,0,0,0,1bc4df77
 0x00858014,.rdata,d_constante,juego,4,acceso,0,,,,0,2,0,0,0,0,0,e7ebdd77
 0x0085801C,.rdata,d_constante,juego,4,acceso,0,,,,0,1,1,0,0,0,0,40113300
@@ -22,18 +22,18 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x0085805C,.rdata,d_constante,crt,4,acceso,0,,,,0,1,1,0,0,0,0,0c6e827c
 0x00858060,.rdata,d_constante,crt,4,acceso,0,,,,0,1,1,0,0,0,0,59b8807c
 0x00858064,.rdata,d_constante,crt,4,acceso,0,,,,0,2,0,0,0,0,0,ac92807c
-0x00858068,.rdata,d_constante,juego,4,acceso,1,literal,,ImportThunks.cpp,1,6,6,0,0,0,1,29b5807c
-0x0085806C,.rdata,d_constante,juego,4,acceso,1,literal,,ImportThunks.cpp,1,4,9,0,0,0,1,28ac807c
-0x00858070,.rdata,d_constante,juego,4,acceso,1,literal,,ImportThunks.cpp,1,3,6,0,0,0,1,771d807c
+0x00858068,.rdata,d_constante,juego,4,acceso,1,literal,,ImportThunks.cpp,1,7,5,0,0,0,1,29b5807c
+0x0085806C,.rdata,d_constante,juego,4,acceso,1,literal,,ImportThunks.cpp,1,6,7,0,0,0,1,28ac807c
+0x00858070,.rdata,d_constante,juego,4,acceso,1,literal,,ImportThunks.cpp,1,4,5,0,0,0,1,771d807c
 0x00858074,.rdata,d_constante,juego,4,acceso,0,,,,0,1,6,0,0,0,0,8f0c817c
-0x00858078,.rdata,d_constante,juego,4,acceso,0,,,,0,4,14,0,0,0,0,779b807c
+0x00858078,.rdata,d_constante,juego,4,acceso,0,,,,0,6,12,0,0,0,0,779b807c
 0x0085807C,.rdata,d_constante,juego,4,acceso,0,,,,0,2,3,0,0,0,0,5d99807c
 0x00858080,.rdata,d_constante,juego,4,acceso,0,,,,0,1,1,0,0,0,0,5025807c
 0x00858084,.rdata,d_constante,juego,4,acceso,0,,,,0,1,2,0,0,0,0,f4fc817c
-0x00858088,.rdata,d_constante,juego,4,acceso,0,,,,0,1,6,0,0,0,0,3025807c
+0x00858088,.rdata,d_constante,juego,4,acceso,0,,,,0,3,4,0,0,0,0,3025807c
 0x0085808C,.rdata,d_constante,juego,4,acceso,0,,,,0,1,2,0,0,0,0,c4c8807c
 0x00858090,.rdata,d_constante,juego,4,acceso,0,,,,0,1,8,0,0,0,0,a60d817c
-0x00858094,.rdata,d_constante,juego,4,acceso,0,,,,0,8,24,0,0,0,0,3103917c
+0x00858094,.rdata,d_constante,juego,4,acceso,0,,,,0,9,23,0,0,0,0,3103917c
 0x00858098,.rdata,d_constante,juego,4,acceso,0,,,,0,1,6,0,0,0,0,0e18807c
 0x0085809C,.rdata,d_constante,juego,4,acceso,0,,,,0,4,6,0,0,0,0,4003917c
 0x008580A0,.rdata,d_constante,juego,4,acceso,0,,,,0,4,7,0,0,0,0,241a807c
@@ -64,7 +64,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00858104,.rdata,d_constante,juego,4,acceso,0,,,,0,2,0,0,0,0,0,1990837c
 0x00858108,.rdata,d_constante,juego,4,acceso,0,,,,0,3,0,0,0,0,0,4c17817c
 0x0085810C,.rdata,d_constante,juego,4,acceso,0,,,,0,1,1,0,0,0,0,5935817c
-0x00858110,.rdata,d_constante,juego,4,acceso,0,,,,0,1,8,0,0,0,0,66aa807c
+0x00858110,.rdata,d_constante,juego,4,acceso,0,,,,0,4,5,0,0,0,0,66aa807c
 0x00858114,.rdata,d_constante,juego,4,acceso,0,,,,0,1,2,0,0,0,0,da56827c
 0x00858118,.rdata,d_constante,juego,4,acceso,0,,,,0,1,4,0,0,0,0,5c9b857c
 0x0085811C,.rdata,d_constante,juego,4,acceso,0,,,,0,1,2,0,0,0,0,c1c9807c
@@ -93,11 +93,11 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00858178,.rdata,d_constante,renderware,4,acceso,0,,,,0,1,1,0,0,0,0,6c94807c
 0x0085817C,.rdata,d_constante,renderware,4,acceso,0,,,,0,2,1,0,0,0,0,7609817c
 0x00858180,.rdata,d_constante,renderware,4,acceso,0,,,,0,1,1,0,0,0,0,fcb7807c
-0x00858184,.rdata,d_constante,renderware,4,acceso,0,,,,0,1,2,0,0,0,0,a724807c
-0x00858188,.rdata,d_constante,renderware,4,acceso,0,,,,0,1,2,0,0,0,0,3feb807c
-0x0085818C,.rdata,d_constante,crt+renderware,4,acceso,0,,,,0,2,2,0,0,0,0,4e99807c
-0x00858190,.rdata,d_constante,renderware,4,acceso,0,,,,0,2,1,0,0,0,0,634c817c
-0x00858194,.rdata,d_constante,crt+renderware,4,acceso,0,,,,0,5,1,0,0,0,0,57b3807c
+0x00858184,.rdata,d_constante,renderware,4,acceso,0,,,,0,3,0,0,0,0,0,a724807c
+0x00858188,.rdata,d_constante,renderware,4,acceso,0,,,,0,3,0,0,0,0,0,3feb807c
+0x0085818C,.rdata,d_constante,crt+renderware,4,acceso,0,,,,0,4,0,0,0,0,0,4e99807c
+0x00858190,.rdata,d_constante,renderware,4,acceso,0,,,,0,3,0,0,0,0,0,634c817c
+0x00858194,.rdata,d_constante,crt+renderware,4,acceso,0,,,,0,6,0,0,0,0,0,57b3807c
 0x00858198,.rdata,d_constante,crt,4,acceso,0,,,,0,2,0,0,0,0,0,3fdc817c
 0x0085819C,.rdata,d_constante,crt,4,acceso,0,,,,0,1,1,0,0,0,0,8a2b867c
 0x008581A0,.rdata,d_constante,crt,4,acceso,0,,,,0,2,1,0,0,0,0,299f807c
@@ -145,7 +145,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00858248,.rdata,d_constante,juego,4,acceso,0,,,,0,1,1,0,0,0,0,65c8807c
 0x0085824C,.rdata,d_constante,crt,4,acceso,0,,,,0,1,1,0,0,0,0,5330827c
 0x00858250,.rdata,d_constante,crt,4,acceso,0,,,,0,2,0,0,0,0,0,23cc817c
-0x00858258,.rdata,d_constante,renderware,4,acceso,0,,,,0,1,2,0,0,0,0,ada8d477
+0x00858258,.rdata,d_constante,renderware,4,acceso,0,,,,0,3,0,0,0,0,0,ada8d477
 0x0085825C,.rdata,d_constante,renderware,4,acceso,0,,,,0,1,2,0,0,0,0,27bed477
 0x00858260,.rdata,d_constante,renderware,4,acceso,0,,,,0,1,3,0,0,0,0,5d94d477
 0x00858264,.rdata,d_constante,renderware,4,acceso,0,,,,0,1,3,0,0,0,0,8b14d677
@@ -275,7 +275,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00858B38,.rdata,d_constante,crt,4,acceso,5,ayudante;literal,,Vehicle.cpp;X87Math.cpp,2,11,162,0,0,0,1,0ad7a33c
 0x00858B3C,.rdata,d_constante,crt,4,acceso,10,ayudante;literal,,Vehicle.cpp;X87Math.cpp,2,9,120,0,0,0,1,00004040
 0x00858B40,.rdata,d_constante,juego,4,acceso,0,,,,0,4,75,0,0,0,0,00004842
-0x00858B44,.rdata,d_constante,crt,4,acceso,3,ayudante,,X87Math.cpp,1,1,45,0,0,0,1,0000c040
+0x00858B44,.rdata,d_constante,juego,4,acceso,0,,,,0,1,45,0,0,0,0,0000c040
 0x00858B48,.rdata,d_constante,juego,4,acceso,0,,,,0,0,41,0,0,0,0,00007041
 0x00858B4C,.rdata,d_constante,juego,4,acceso,0,,,,0,0,29,0,0,0,0,0ad7a33b
 0x00858B50,.rdata,d_constante,renderware,4,tipo,36,StaticRef;ayudante;literal,float,Vehicle.cpp;rpworld.cpp;X87Math.cpp,3,61,923,0,0,0,1,00000000
@@ -315,7 +315,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00858C1C,.rdata,d_constante,crt,4,acceso,10,ayudante;literal,,Vehicle.cpp;X87Math.cpp,2,5,140,0,0,0,1,000080bf
 0x00858C20,.rdata,d_constante,juego,4,acceso,0,,,,0,1,65,0,0,0,0,6666663f
 0x00858C24,.rdata,d_constante,juego,4,acceso,1,literal,,Vehicle.cpp,1,2,108,0,0,0,1,9a99993e
-0x00858C28,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,100,0,0,0,0,cdcc4c3d
+0x00858C28,.rdata,d_constante,juego,4,acceso,0,,,,0,0,100,0,0,0,0,cdcc4c3d
 0x00858C2C,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,0ad7a33b
 0x00858C30,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,66666640
 0x00858C34,.rdata,d_constante,crt,4,acceso,4,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,00004842
@@ -326,7 +326,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00858C48,.rdata,d_constante,juego,4,acceso,0,,,,0,9,78,0,0,0,0,0000003e
 0x00858C4C,.rdata,d_constante,crt,4,acceso,8,ayudante;literal,,Vehicle.cpp;X87Math.cpp,2,3,102,0,0,0,1,00007a44
 0x00858C50,.rdata,d_constante,juego,4,acceso,0,,,,0,0,9,0,0,0,0,cdccac40
-0x00858C54,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,8,184,0,0,0,1,0000804f
+0x00858C54,.rdata,d_constante,juego,4,acceso,0,,,,0,8,184,0,0,0,0,0000804f
 0x00858C58,.rdata,d_constante,renderware,4,tipo,2,StaticRef;ayudante,float,rwcore.cpp;X87Math.cpp,2,2,129,0,0,0,1,0ad7233c
 0x00858C5C,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,0ad7a33b
 0x00858C60,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,66666640
@@ -337,7 +337,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00858C74,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,00004040
 0x00858C78,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,0000803f
 0x00858C7C,.rdata,d_constante,juego,4,acceso,0,,,,0,0,115,0,0,0,0,00010038
-0x00858C80,.rdata,d_constante,crt,4,acceso,2,ayudante,,X87Math.cpp,1,4,101,0,0,0,1,0000a040
+0x00858C80,.rdata,d_constante,juego,4,acceso,0,,,,0,4,101,0,0,0,0,0000a040
 0x00858C84,.rdata,d_constante,juego,4,acceso,3,literal,,Bike.cpp;Plane.cpp;Vehicle.cpp,3,5,97,0,0,0,1,0000803e
 0x00858C88,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,00009c42
 0x00858C8C,.rdata,d_constante,juego,4,acceso,0,,,,0,0,2,0,0,0,0,00009642
@@ -352,8 +352,8 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00858CB0,.rdata,d_constante,juego,4,acceso,0,,,,0,1,62,0,0,0,0,3333333f
 0x00858CB4,.rdata,d_constante,juego,4,acceso,0,,,,0,0,11,0,0,0,0,00003442
 0x00858CB8,.rdata,d_constante,crt,4,acceso,9,ayudante;literal,,Vehicle.cpp;X87Math.cpp,2,6,101,0,0,0,1,db0f4940
-0x00858CBC,.rdata,d_constante,crt,4,acceso,7,ayudante,,X87Math.cpp,1,4,103,0,0,0,1,db0fc940
-0x00858CC0,.rdata,d_constante,crt,4,acceso,2,ayudante,,X87Math.cpp,1,1,56,0,0,0,1,db0f49c0
+0x00858CBC,.rdata,d_constante,juego,4,acceso,0,,,,0,4,103,0,0,0,0,db0fc940
+0x00858CC0,.rdata,d_constante,juego,4,acceso,0,,,,0,1,56,0,0,0,0,db0f49c0
 0x00858CC4,.rdata,d_constante,crt,4,acceso,3,literal,,CrtStaticInitTable.inc;Plane.cpp;Vehicle.cpp,3,2,145,0,0,0,1,cdcc4c3e
 0x00858CC8,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,2,66,0,0,0,1,9a99193f
 0x00858CCC,.rdata,d_constante,juego,4,acceso,0,,,,0,0,19,0,0,0,0,00004041
@@ -361,10 +361,10 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00858CD4,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,b5fe1639
 0x00858CD8,.rdata,d_constante,juego,4,acceso,0,,,,0,0,3,0,0,0,0,0bd7233b
 0x00858CDC,.rdata,d_constante,juego,4,acceso,0,,,,0,5,71,0,0,0,0,6f12833a
-0x00858CE0,.rdata,d_constante,crt,4,acceso,4,ayudante,,X87Math.cpp,1,1,26,0,0,0,1,00008c42
+0x00858CE0,.rdata,d_constante,juego,4,acceso,0,,,,0,1,26,0,0,0,0,00008c42
 0x00858CE4,.rdata,d_constante,juego,4,acceso,0,,,,0,1,3,0,0,0,0,00005041
 0x00858CE8,.rdata,d_constante,juego,4,acceso,0,,,,0,1,73,0,0,0,0,0000c03f
-0x00858CEC,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,29,0,0,0,0,0ad7233d
+0x00858CEC,.rdata,d_constante,juego,4,acceso,0,,,,0,0,29,0,0,0,0,0ad7233d
 0x00858CF0,.rdata,d_constante,juego,4,acceso,0,,,,0,0,4,0,0,0,0,55558541
 0x00858CF4,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,0ad7a33b
 0x00858CF8,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,66666640
@@ -392,7 +392,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00858F20,.rdata,d_constante,juego,4,acceso,0,,,,0,0,5,0,0,0,0,920a063f
 0x00858F28,.rdata,d_constante,juego,8,acceso,0,,,,0,0,1,0,0,0,0,b81e85eb51b88ebf
 0x00858F30,.rdata,d_constante,juego,4,acceso,0,,,,0,0,3,0,0,0,0,000040bf
-0x00858F34,.rdata,d_constante,crt,4,acceso,3,ayudante,,X87Math.cpp,1,1,61,0,0,0,1,0000403f
+0x00858F34,.rdata,d_constante,juego,4,acceso,0,,,,0,1,61,0,0,0,0,0000403f
 0x00858F38,.rdata,d_constante,juego,8,acceso,0,,,,0,0,1,0,0,0,0,7b14ae47e17a94bf
 0x00858F40,.rdata,d_constante,juego,4,acceso,0,,,,0,1,32,0,0,0,0,000000bf
 0x00858F44,.rdata,d_constante,juego,4,acceso,0,,,,0,1,26,0,0,0,0,6f12033b
@@ -418,7 +418,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00858FB8,.rdata,d_constante,juego,4,acceso,0,,,,0,0,7,0,0,0,0,83f9223f
 0x00858FBC,.rdata,d_constante,juego,4,acceso,0,,,,0,0,5,0,0,0,0,00003041
 0x00858FC0,.rdata,d_constante,juego,4,acceso,0,,,,0,0,4,0,0,0,0,17b7d139
-0x00858FC4,.rdata,d_constante,crt,4,acceso,2,ayudante,,X87Math.cpp,1,0,31,0,0,0,0,17b7d138
+0x00858FC4,.rdata,d_constante,juego,4,acceso,0,,,,0,0,31,0,0,0,0,17b7d138
 0x00858FC8,.rdata,d_constante,juego,4,acceso,0,,,,0,0,8,0,0,0,0,0000a0c0
 0x00858FCC,.rdata,d_constante,juego,4,acceso,1,literal,,Plane.cpp,1,0,43,0,0,0,0,9a99193e
 0x00858FD0,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,0000d041
@@ -694,7 +694,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00859B3C,.rdata,d_constante,juego,8,hueco,0,,,,0,0,2,0,1,0,0,50524f505f330000
 0x00859B44,.rdata,d_constante,juego,8,hueco,0,,,,0,0,1,0,1,0,0,4645535a5f434100
 0x00859B4C,.rdata,d_constante,juego,4,acceso,0,,,,0,0,4,0,0,0,0,0000b040
-0x00859B50,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,11,0,0,0,0,2549923d
+0x00859B50,.rdata,d_constante,juego,4,acceso,0,,,,0,0,11,0,0,0,0,2549923d
 0x00859B54,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,cdcc6c40
 0x00859B58,.rdata,d_constante,juego,4,acceso,0,,,,0,0,4,0,0,0,0,9a99d93f
 0x00859B5C,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,c3f5483a
@@ -758,7 +758,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00859CEC,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,0ad7a33b
 0x00859CF0,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,66666640
 0x00859CF4,.rdata,d_constante,crt,4,acceso,4,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,00004842
-0x00859CF8,.rdata,d_constante,juego,1,tipo,1,StaticRef,bool,TheScripts.h,1,0,15,0,0,0,0,00
+0x00859CF8,.rdata,d_constante,juego,1,acceso,0,,,,0,0,15,0,0,0,0,00
 0x00859CFC,.rdata,d_constante,juego,36,hueco,5,hook_vtable;literal,,TaskComplexFollowPatrolRoute.cpp;TaskComplexReactToAttack.cpp;TaskSimpleFinishBrain.cpp;TaskSimpleNone.cpp,4,0,35,0,1,0,0,f03546007035460000e3430010e34300c035460080114200d0354600e035460020e34300
 0x00859D20,.rdata,d_constante,juego,36,hueco,2,hook_vtable;literal,,TaskSimpleFinishBrain.cpp,1,0,2,0,1,0,0,c03646006036460000e3430010e34300b036460080114200d0354600e035460020e34300
 0x00859D44,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,6e6f6e61
@@ -850,7 +850,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x0085A2CC,.rdata,d_constante,juego,32,hueco,0,,,,0,1,0,0,1,0,0,434f4d4d414e445f5441534b5f4c4f4f4b5f41545f56454849434c4500000000
 0x0085A2EC,.rdata,d_constante,juego,28,hueco,0,,,,0,1,0,0,1,0,0,434f4d4d414e445f5441534b5f4c4f4f4b5f41545f43484152000000
 0x0085A308,.rdata,d_constante,juego,8,acceso,0,,,,0,1,5,0,0,0,0,7b14ae47e17a843f
-0x0085A310,.rdata,d_constante,juego,8,acceso,0,,,,0,5,41,0,0,0,0,000000000000f03f
+0x0085A310,.rdata,d_constante,crt,8,tipo,1,reinterpret_cast,double,CrtStartup.cpp,1,5,41,0,0,0,1,000000000000f03f
 0x0085A318,.rdata,d_constante,juego,8,acceso,0,,,,0,0,3,0,0,0,0,0000000000408f40
 0x0085A320,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,0ad7a33b
 0x0085A324,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,66666640
@@ -911,7 +911,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x0085A5B8,.rdata,d_constante,juego,4,acceso,0,,,,0,0,3,0,0,0,0,0000a543
 0x0085A5BC,.rdata,d_constante,juego,4,acceso,0,,,,0,1,2,0,0,0,0,00007043
 0x0085A5C0,.rdata,d_constante,juego,4,acceso,0,,,,0,0,5,0,0,0,0,0000c0c0
-0x0085A5C4,.rdata,d_constante,crt,4,acceso,4,ayudante,,X87Math.cpp,1,0,20,0,0,0,0,cdcc4c3c
+0x0085A5C4,.rdata,d_constante,juego,4,acceso,0,,,,0,0,20,0,0,0,0,cdcc4c3c
 0x0085A5C8,.rdata,d_constante,juego,4,acceso,0,,,,0,0,2,0,0,0,0,3333333e
 0x0085A5CC,.rdata,d_constante,juego,4,acceso,0,,,,0,0,2,0,0,0,0,8fc2753f
 0x0085A5D0,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,0ad7a33b
@@ -1473,14 +1473,14 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00862F08,.rdata,d_constante,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,66666640
 0x00862F0C,.rdata,d_constante,crt,4,acceso,4,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,00004842
 0x00862F10,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,cdcc8c3f
-0x00862F14,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,1,0,0,0,0,1f856b3f
+0x00862F14,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,1f856b3f
 0x00862F18,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,cdcc4cbd
 0x00862F1C,.rdata,d_constante,juego,4,acceso,0,,,,0,0,2,0,0,0,0,0000803f
 0x00862F20,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,00004040
 0x00862F24,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,0000a041
 0x00862F28,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,00000000
 0x00862F2C,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,00008c42
-0x00862F30,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,1,0,0,0,0,8fc2753f
+0x00862F30,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,8fc2753f
 0x00862F34,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,0000003f
 0x00862F38,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,920a86be
 0x00862F3C,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,00004040
@@ -1498,11 +1498,11 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00862F6C,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,0000003f
 0x00862F70,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,920a86bf
 0x00862F74,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,920a063f
-0x00862F78,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,1,0,0,0,0,8fc2753f
-0x00862F7C,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,1,0,0,0,0,0000a040
+0x00862F78,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,8fc2753f
+0x00862F7C,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,0000a040
 0x00862F80,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,920a86bf
 0x00862F84,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,c3b8323e
-0x00862F88,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,1,0,0,0,0,00004040
+0x00862F88,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,00004040
 0x00862F8C,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,6f12833b
 0x00862F90,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,9a99593f
 0x00862F94,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,0ad7233c
@@ -1514,8 +1514,8 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008630F0,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,3333b3be
 0x008630F4,.rdata,d_constante,juego,4,acceso,0,,,,0,0,4,0,0,0,0,e7f1c7bf
 0x008630F8,.rdata,d_constante,juego,4,acceso,1,literal,,Camera.cpp,1,0,5,0,0,0,0,920a863f
-0x008630FC,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,3,0,0,0,0,dc693a38
-0x00863100,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,3,0,0,0,0,a10e6a3d
+0x008630FC,.rdata,d_constante,juego,4,acceso,0,,,,0,0,3,0,0,0,0,dc693a38
+0x00863100,.rdata,d_constante,juego,4,acceso,0,,,,0,0,3,0,0,0,0,a10e6a3d
 0x00863104,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,3d0a173f
 0x00863108,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,a4709d3f
 0x0086310C,.rdata,d_constante,juego,48,hueco,0,,,,0,0,1,0,1,0,0,4c6f6f6b41543a2025302e33662c204c6f6f6b41543a2025302e33662c204c6f6f6b41543a2025302e33662000000000
@@ -1528,11 +1528,11 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008631A4,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,3694573d
 0x008631A8,.rdata,d_constante,juego,4,acceso,0,,,,0,0,2,0,0,0,0,5077d63c
 0x008631AC,.rdata,d_constante,juego,4,acceso,0,,,,0,0,5,0,0,0,0,f98a2f3d
-0x008631B0,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,4,0,0,0,0,000020c0
-0x008631B4,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,2,0,0,0,0,c3b8b23e
-0x008631B8,.rdata,d_constante,crt,4,acceso,2,ayudante,,X87Math.cpp,1,0,1,0,0,0,0,aa611c3f
+0x008631B0,.rdata,d_constante,juego,4,acceso,0,,,,0,0,4,0,0,0,0,000020c0
+0x008631B4,.rdata,d_constante,juego,4,acceso,0,,,,0,0,2,0,0,0,0,c3b8b23e
+0x008631B8,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,aa611c3f
 0x008631BC,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,4302bfbf
-0x008631C0,.rdata,d_constante,crt,4,acceso,1,ayudante,,X87Math.cpp,1,0,1,0,0,0,0,2d6f0c3d
+0x008631C0,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,2d6f0c3d
 0x008631C4,.rdata,d_constante,juego,4,acceso,0,,,,0,0,2,0,0,0,0,db0f4938
 0x008631C8,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,1f852b3f
 0x008631CC,.rdata,d_constante,juego,4,acceso,0,,,,0,0,1,0,0,0,0,b81e05be
@@ -6177,13 +6177,13 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x0087A640,.rdata,d_constante,renderware,40,hueco,0,,,,0,0,1,0,1,0,0,7363616c6172207265676973746572732063616e6e6f74206265206d61736b656400000000000000
 0x0087A668,.rdata,d_constante,renderware,64,hueco,0,,,,0,0,1,0,1,0,0,696e737472756374696f6e207072656469636174696f6e206973206e6f7420737570706f7274656420696e2074686973207368616465722076657273696f6e00
 0x0087A6A8,.rdata,d_constante,renderware,60,hueco,0,,,,0,0,1,0,1,0,0,696e737472756374696f6e20636f6973737565206973206e6f7420737570706f7274656420696e2074686973207368616465722076657273696f6e00
-0x0087A6E4,.rdata,d_constante,renderware,32,hueco,1,literal,,D3dxShaderAssembler.cpp,1,1,1,0,1,0,1,446972656374334453686164657256616c696461746f72437265617465390000
-0x0087A704,.rdata,d_constante,renderware,12,hueco,1,literal,,D3dxShaderAssembler.cpp,1,1,1,0,1,0,1,643364392e646c6c00000000
-0x0087A710,.rdata,d_constante,renderware,64,hueco,1,literal,,D3dxShaderAssembler.cpp,1,1,0,0,1,0,1,6f6e6c792076735f315f312c2076735f325f302c2076735f325f782c20616e642076735f325f73772061726520737570706f7274656420666f7220617373656d
-0x0087A760,.rdata,d_constante,renderware,28,hueco,1,literal,,D3dxShaderAssembler.cpp,1,1,0,0,1,0,1,756e7265636f676e697a6564207368616465722076657273696f6e00
-0x0087A77C,.rdata,d_constante,renderware,44,hueco,1,literal,,D3dxShaderAssembler.cpp,1,2,0,0,1,0,1,70735f315f30206973206e6f206c6f6e67657220737570706f727465643b207573696e672070735f315f3100
-0x0087A7A8,.rdata,d_constante,renderware,44,hueco,1,literal,,D3dxShaderAssembler.cpp,1,2,0,0,1,0,1,76735f315f30206973206e6f206c6f6e67657220737570706f727465643b207573696e672076735f315f3100
-0x0087A7D4,.rdata,d_constante,renderware,24,hueco,1,literal,,D3dxShaderAssembler.cpp,1,1,0,0,1,0,1,7368616465722076657273696f6e20657870656374656400
+0x0087A6E4,.rdata,d_constante,renderware,32,hueco,0,,,,0,1,1,0,1,0,0,446972656374334453686164657256616c696461746f72437265617465390000
+0x0087A704,.rdata,d_constante,renderware,12,hueco,0,,,,0,1,1,0,1,0,0,643364392e646c6c00000000
+0x0087A710,.rdata,d_constante,renderware,64,hueco,0,,,,0,1,0,0,1,0,0,6f6e6c792076735f315f312c2076735f325f302c2076735f325f782c20616e642076735f325f73772061726520737570706f7274656420666f7220617373656d
+0x0087A760,.rdata,d_constante,renderware,28,hueco,0,,,,0,1,0,0,1,0,0,756e7265636f676e697a6564207368616465722076657273696f6e00
+0x0087A77C,.rdata,d_constante,renderware,44,hueco,0,,,,0,2,0,0,1,0,0,70735f315f30206973206e6f206c6f6e67657220737570706f727465643b207573696e672070735f315f3100
+0x0087A7A8,.rdata,d_constante,renderware,44,hueco,0,,,,0,2,0,0,1,0,0,76735f315f30206973206e6f206c6f6e67657220737570706f727465643b207573696e672076735f315f3100
+0x0087A7D4,.rdata,d_constante,renderware,24,hueco,0,,,,0,1,0,0,1,0,0,7368616465722076657273696f6e20657870656374656400
 0x0087A7EC,.rdata,d_constante,renderware,40,hueco,0,,,,0,0,2,0,1,0,0,696e7465726e616c206572726f723a20726573756c7420726567697374657220696e76616c696400
 0x0087A814,.rdata,d_constante,renderware,48,hueco,0,,,,0,0,1,0,1,0,0,696e7465726e616c206572726f723a20617267756d656e74206d697373696e6720636f6e746578742028412575290000
 0x0087A844,.rdata,d_constante,renderware,36,hueco,0,,,,0,0,9,0,1,0,0,696e7465726e616c206572726f723a20756e6b6e6f776e206e6f64650000000000000000
@@ -6795,7 +6795,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00884794,.rdata,d_constante,renderware,12,hueco,0,,,,0,1,2,0,1,0,0,000000000000000000000000
 0x008847A0,.rdata,d_constante,renderware,64,hueco,1,literal,,rwcore.cpp,1,0,6,0,1,0,0,0000803f000000000000000000000000000000000000803f000000000000000000000000000000000000803f000000000000000000000000000000000000803f
 0x008847E0,.rdata,d_constante,renderware,64,hueco,0,,,,0,0,1,0,0,1,0,0000000001000000020000000300000004000000050000000600000007000000404040402823292449643a202f2f52656e646572576172652f52573336416374
-0x00884888,.rdata,d_constante,renderware,4,tipo,1,reinterpret_cast,uint32,rwcore.cpp,1,0,1,0,0,1,0,00000000
+0x00884888,.rdata,d_constante,renderware,4,tipo,3,reinterpret_cast,uint32,rwcore.cpp,1,0,1,0,0,1,0,00000000
 0x008848F0,.rdata,d_constante,renderware,4,tipo,2,reinterpret_cast,uint32,rwcore.cpp,1,0,2,0,0,1,0,00000000
 0x008848FC,.rdata,d_constante,renderware,4,tipo,3,reinterpret_cast,uint32,rwcore.cpp,1,0,2,0,0,1,0,00000000
 0x0088490C,.rdata,d_constante,renderware,4,tipo,3,reinterpret_cast,uint32,rwcore.cpp,1,0,4,0,0,1,0,00000000
@@ -6812,7 +6812,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x0088500C,.rdata,d_constante,renderware,4,acceso,0,,,,0,0,1,0,0,0,0,9dc5a440
 0x00885010,.rdata,d_constante,renderware,4,acceso,0,,,,0,0,1,0,0,0,0,7d4afb3f
 0x00885050,.rdata,d_constante,renderware,4,acceso,0,,,,0,0,1,0,0,0,0,00008047
-0x0088513C,.rdata,d_constante,renderware,64,hueco,0,,,,0,1,0,0,0,1,0,00000000020000000300000004000000050000000600000040402823292449643a202f2f52656e646572576172652f525733364163746976652f727773646b2f
+0x0088513C,.rdata,d_constante,renderware,4,tipo,1,reinterpret_cast,RwUInt32,rpworld_nolight.cpp,1,1,0,0,0,1,1,00000000
 0x008852F0,.rdata,d_constante,renderware,4,tipo,1,reinterpret_cast,RwUInt32,rpmatfx.cpp,1,0,1,0,1,0,0,0101ffff
 0x00885350,.rdata,d_constante,renderware,4,tipo,1,reinterpret_cast,RwUInt32,rpmatfx.cpp,1,0,1,0,1,0,0,0101ffff
 0x008853A0,.rdata,d_constante,renderware,4,tipo,1,reinterpret_cast,RwUInt32,rpmatfx.cpp,1,0,1,0,1,0,0,0101ffff
@@ -6891,8 +6891,8 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00888280,.rdata,d_constante,crt,16,hueco,0,,,,0,1,0,0,1,0,0,ffffffff000000009862820000000000
 0x00888290,.rdata,d_constante,crt,12,hueco,0,,,,0,1,0,0,1,0,0,ffffffff000000001f638200
 0x0088829C,.rdata,d_constante,crt,12,hueco,0,,,,0,0,1,0,1,0,0,652b30303000000000000000
-0x008882A8,.rdata,d_constante,crt,8,acceso,0,,,,0,0,1,0,0,0,0,000000c07e015041
-0x008882B0,.rdata,d_constante,crt,8,acceso,0,,,,0,0,1,0,0,0,0,00000080ffff4741
+0x008882A8,.rdata,d_constante,crt,8,tipo,1,reinterpret_cast,double,CrtStartup.cpp,1,0,1,0,0,0,0,000000c07e015041
+0x008882B0,.rdata,d_constante,crt,8,tipo,1,reinterpret_cast,double,CrtStartup.cpp,1,0,1,0,0,0,0,00000080ffff4741
 0x008882B8,.rdata,d_constante,crt,28,hueco,0,,,,0,0,1,0,1,0,0,497350726f636573736f724665617475726550726573656e74000000
 0x008882D4,.rdata,d_constante,crt,12,hueco,0,,,,0,0,1,0,1,0,0,4b45524e454c333200000000
 0x008882E0,.rdata,d_constante,crt,24,hueco,0,,,,0,1,0,0,1,0,0,ffffffff0000000047708200000000000d70820016708200
@@ -7032,7 +7032,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x0088DF28,.rdata,d_constante,crt,16,hueco,0,,,,0,1,0,0,1,0,0,ffffffff00000000156f830000000000
 0x0088DF38,.rdata,d_constante,crt,64,hueco,0,,,,0,0,1,0,1,0,0,ffffffff587083005c70830000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 0x0088E240,.rdata,d_constante,crt,8,hueco,0,,,,0,1,0,0,1,0,0,0000000000000000
-0x0088E248,.rdata,d_constante,crt,64,hueco,0,,,,0,1,0,0,1,0,0,00000000ffffffff70718300ffffffff7b71830020059319020000004ce2880000000000000000000000000000000000ffffffff90718300ffffffff9b718300
+0x0088E248,.rdata,d_constante,crt,64,hueco,2,literal,,CrtStartup.cpp,1,1,0,0,1,0,1,00000000ffffffff70718300ffffffff7b71830020059319020000004ce2880000000000000000000000000000000000ffffffff90718300ffffffff9b718300
 0x00893634,.rdata,d_constante,crt,64,hueco,2,literal;reinterpret_cast,void,AEUserRadioTrackManager.cpp;CrtException.cpp,2,0,7,0,1,0,0,0000000030414f000000000024368900ffffffff10c2830020059319010000004436890000000000000000000000000000000000ffffffff30c2830020059319
 0x00895034,.rdata,d_constante,crt,64,hueco,0,,,,0,1,0,0,1,0,0,20059319010000002c50890000000000000000000000000000000000ffffffff00000000ffffffff00000000ffffffff00000000ffffffff0000000000000000
 0x008950B8,.rdata,d_constante,crt,64,hueco,0,,,,0,1,0,0,1,0,0,20059319040000005050890002000000905089000000000000000000ffffffff00000000ffffffff00000000ffffffff00000000ffffffff0000000000000000
@@ -7288,8 +7288,8 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008C8A88,.data,a_inicializado,juego,2,tipo,1,reinterpret_cast,int16,AEPoliceScannerAudioEntity.cpp,1,0,1,0,0,1,0,0000
 0x008C8B88,.data,a_inicializado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,42000000
 0x008C8B8C,.data,a_inicializado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,86000000
-0x008C8BF0,.data,a_inicializado,juego,64,hueco,0,,,,0,0,1,0,0,1,0,8207000082070000b9000000b90000003b0100003b010000d6010000d6010000ff020000ff020000b2030000b20300002504000025040000bd040000bd040000
-0x008C8C50,.data,a_inicializado,juego,64,hueco,0,,,,0,0,1,0,0,1,0,8207000082070000ba000000bb0000003c0100003d010000d7010000d80100000003000001030000b3030000b40300002604000027040000be040000bf040000
+0x008C8BF0,.data,a_inicializado,juego,4,tipo,1,StaticRef,int32,AERadioTrackManager.cpp,1,0,1,0,0,1,0,82070000
+0x008C8C50,.data,a_inicializado,juego,4,tipo,1,StaticRef,int32,AERadioTrackManager.cpp,1,0,1,0,0,1,0,82070000
 0x008C8CB0,.data,a_inicializado,juego,4,tipo,3,StaticRef;literal,int32,AERadioTrackManager.cpp,1,0,2,0,1,1,0,00000000
 0x008C8CB4,.data,a_inicializado,juego,64,hueco,0,,,,0,0,1,0,0,1,0,26000000bc000000cd0000003e01000053010000d9010000e40100000203000022030000b5030000cb0300002804000039040000c0040000ce04000053050000
 0x008C8D70,.data,a_inicializado,juego,64,hueco,1,literal,,AERadioTrackManager.cpp,1,0,1,0,1,0,0,8207000082070000ce000000cf0000008207000082070000e8010000e90100002503000026030000cc030000ce0300003e0400003f040000d3040000d4040000
@@ -7298,12 +7298,15 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008C8E90,.data,a_inicializado,juego,64,hueco,1,literal,,AERadioTrackManager.cpp,1,0,1,0,1,0,0,8207000082070000d7000000d90000005f01000061010000f2010000f30100002f0300003003000082070000820700004604000049040000db040000dd040000
 0x008C8EF0,.data,a_inicializado,juego,64,hueco,0,,,,0,0,1,0,1,0,0,8207000082070000da000000db0000006201000063010000f4010000f5010000310300003203000082070000820700004a0400004b040000de040000df040000
 0x008C8F50,.data,a_inicializado,juego,64,hueco,1,literal,,AERadioTrackManager.cpp,1,0,1,0,1,0,0,8207000082070000d4000000d60000005d0100005e010000f0010000f10100002c0300002e03000082070000820700004404000045040000d9040000da040000
-0x008C8FB0,.data,a_inicializado,juego,4,hueco,0,,,,0,0,1,0,0,1,0,82070000
+0x008C8FB0,.data,a_inicializado,juego,4,tipo,1,StaticRef,int32,AERadioTrackManager.cpp,1,0,1,0,0,1,0,82070000
 0x008C8FB4,.data,a_inicializado,juego,64,hueco,0,,,,0,0,1,0,0,1,0,82070000dc000000e6000000640100006c010000f601000000020000330300003a03000082070000820700004c04000056040000e0040000ea0400006f050000
-0x008C9010,.data,a_inicializado,juego,48,hueco,0,,,,0,0,1,0,0,1,0,020000000c0000000f000000110000001100000010000000100000000f0000000d00000010000000120000001f000000
-0x008C9040,.data,a_inicializado,juego,64,hueco,0,,,,0,0,1,0,0,1,0,3c0000003f0000008207000082070000820700008207000082070000820700008207000082070000820700008207000082070000820700008207000082070000
+0x008C9010,.data,a_inicializado,juego,4,tipo,1,StaticRef,int32,AERadioTrackManager.cpp,1,0,1,0,0,1,0,02000000
+0x008C9040,.data,a_inicializado,juego,4,tipo,2,StaticRef,int32,AERadioTrackManager.cpp,1,0,1,0,0,1,0,3c000000
+0x008C9610,.data,a_inicializado,juego,4,tipo,1,StaticRef,int32,AERadioTrackManager.cpp,1,0,0,0,0,0,0,3d000000
+0x008CA1B0,.data,a_inicializado,juego,4,tipo,1,StaticRef,int32,AERadioTrackManager.cpp,1,0,0,0,0,0,0,3e000000
 0x008CAD50,.data,a_inicializado,juego,4,tipo,1,StaticRef,int32,AERadioTrackManager.cpp,1,0,1,0,0,1,0,60610200
-0x008CB280,.data,a_inicializado,juego,64,hueco,0,,,,0,0,1,0,0,1,0,ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+0x008CADD0,.data,a_inicializado,juego,4,tipo,1,StaticRef,int32,AERadioTrackManager.cpp,1,0,0,0,0,0,0,ffffffff
+0x008CB280,.data,a_inicializado,juego,4,tipo,1,StaticRef,int32,AERadioTrackManager.cpp,1,0,1,0,0,1,0,ffffffff
 0x008CB6F8,.data,a_inicializado,juego,880,tipo,1,StaticRef,CAERadioTrackManager,AERadioTrackManager.cpp,1,0,25,0,1,0,0,
 0x008CBA68,.data,a_inicializado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,ffffffff
 0x008CBA6C,.data,a_inicializado,juego,4,acceso,0,,,,0,0,2,0,0,0,0,0000003f
@@ -8051,7 +8054,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008CD760,.data,a_inicializado,juego,2,acceso,0,,,,0,0,3,0,1,0,0,ffff
 0x008CD764,.data,a_inicializado,juego,2,acceso,0,,,,0,0,2,0,1,0,0,ffff
 0x008CD768,.data,a_inicializado,juego,2,acceso,0,,,,0,0,2,0,1,0,0,ffff
-0x008CD76C,.data,a_inicializado,juego,2,acceso,0,,,,0,0,5,1,1,0,0,ffff
+0x008CD76C,.data,a_inicializado,juego,2,acceso,1,StaticRef,ModelIndex,ModelIndices.cpp,1,0,5,1,1,0,0,ffff
 0x008CD770,.data,a_inicializado,juego,2,acceso,0,,,,0,0,3,1,1,0,0,ffff
 0x008CD774,.data,a_inicializado,juego,2,acceso,0,,,,0,0,3,1,1,0,0,ffff
 0x008CD778,.data,a_inicializado,juego,2,acceso,0,,,,0,0,3,1,1,0,0,ffff
@@ -8286,7 +8289,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008D2360,.data,a_inicializado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,c8000000
 0x008D2364,.data,a_inicializado,juego,20,hueco,0,,,,0,0,1,0,0,1,0,dcaa860050ab860060c9860054c9860048c98600
 0x008D2378,.data,a_inicializado,juego,4,hueco,0,,,,0,0,1,0,0,1,0,2cab8600
-0x008D237C,.data,a_inicializado,juego,4,tipo,2,StaticRef,int32,RunningScript.cpp;RunningScriptCommands1700To1799.cpp,2,1,2,1,0,0,1,06000000
+0x008D237C,.data,a_inicializado,juego,4,tipo,3,StaticRef,int32,RunningScript.cpp;RunningScriptCommands1400To1499.cpp;RunningScriptCommands1700To1799.cpp,3,1,2,1,0,0,1,06000000
 0x008D2380,.data,a_inicializado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,9a99993e
 0x008D2384,.data,a_inicializado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,0000f041
 0x008D2388,.data,a_inicializado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,00004842
@@ -8308,7 +8311,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008D24EC,.data,a_inicializado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,0000803f
 0x008D24F0,.data,a_inicializado,juego,64,hueco,0,,,,0,0,1,0,0,1,0,cdcc4c3dcdcc4c3e9a99993e3333b33ecdcccc3e0000003fcdcc0c3f9a99193f6666263f3333333f3333333f3333333f3333333f3333333f3333333f00000000
 0x008D2530,.data,a_inicializado,juego,4,tipo,2,StaticRef;literal,float,MissionCleanup.cpp;Population.h,2,1,7,1,0,0,1,0000803f
-0x008D2534,.data,a_inicializado,juego,4,tipo,2,StaticRef;literal,int32,MissionCleanup.cpp;Population.h,2,0,6,1,0,0,0,ffffffff
+0x008D2534,.data,a_inicializado,juego,4,acceso,0,,,,0,0,6,1,0,0,0,ffffffff
 0x008D2538,.data,a_inicializado,juego,4,acceso,0,,,,0,0,4,1,0,0,0,19000000
 0x008D253C,.data,a_inicializado,juego,4,acceso,0,,,,0,0,5,1,0,0,0,28000000
 0x008D2540,.data,a_inicializado,juego,64,hueco,1,literal,,Population.h,1,1,4,0,0,1,1,0000000001000000020000000300000004000000050000000600000007000000080000000900000009000000090000000a0000000a0000000a0000000b000000
@@ -8645,7 +8648,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008D3698,.data,a_inicializado,juego,64,hueco,1,literal,,WaterCreatureManager_c.h,1,0,4,0,1,0,0,4cd68c000114000000008040000020410000003f000040400000803f00006040cdcccc3d0ad7a33b0000004154d68c000114000000008040000020410000003f
 0x008D37D0,.data,a_inicializado,juego,4,acceso,0,,,,0,1,3,0,0,0,0,30000000
 0x008D37D4,.data,a_inicializado,juego,1,tipo,1,StaticRef,bool,WaterLevel.h,1,0,2,0,0,0,0,01
-0x008D37D5,.data,a_inicializado,juego,1,acceso,0,,,,0,1,3,1,0,0,0,01
+0x008D37D5,.data,a_inicializado,juego,1,tipo,1,StaticRef,bool,WaterLevel.h,1,1,3,1,0,0,1,01
 0x008D37E0,.data,a_inicializado,juego,4,tipo,1,StaticRef,int32,WaterLevel.h,1,0,1,0,0,0,0,1a000000
 0x008D37E4,.data,a_inicializado,juego,4,tipo,1,StaticRef,float,WaterLevel.h,1,0,2,0,0,0,0,00004041
 0x008D37E8,.data,a_inicializado,juego,4,tipo,1,StaticRef,CRGBA,WaterLevel.cpp,1,0,1,0,0,0,0,ffffff05
@@ -8701,7 +8704,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008D5028,.data,a_inicializado,juego,16,hueco,1,literal,,Entity.cpp,1,0,1,0,0,1,0,00009a6955ab66cceffb2596aa55cd98
 0x008D5038,.data,a_inicializado,juego,4,acceso,0,,,,0,1,10,1,0,0,0,00003442
 0x008D503C,.data,a_inicializado,juego,44,hueco,0,,,,0,1,0,0,1,0,0,00000100020003000400050006000700080009000a000b000c000d000e000f00100011001200130014000000
-0x008D5068,.data,a_inicializado,juego,44,hueco,0,,,,0,0,1,0,0,1,0,6666a63f000000409a99d93f000000403333b33f666606400000c03f33331340010000000100000001000000
+0x008D5068,.data,a_inicializado,juego,4,tipo,1,StaticRef,float,PointLights.cpp,1,0,1,0,0,1,0,6666a63f
 0x008D5094,.data,a_inicializado,juego,2,tipo,1,StaticRef,"std::array<char, 2>",PostEffects.h,1,0,1,0,0,0,0,4000
 0x008D50A4,.data,a_inicializado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,0000803f
 0x008D50A8,.data,a_inicializado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,30000000
@@ -9723,11 +9726,11 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008E2434,.data,a_inicializado,renderware,4,tipo,1,StaticRef,uint32,rwcore.cpp,1,1,3,1,0,0,1,01000000
 0x008E2438,.data,a_inicializado,renderware,4,tipo,2,StaticRef,RwUInt32;uint32,WindowedMode.cpp;rwcore.cpp,2,1,4,1,0,0,1,01000000
 0x008E243C,.data,a_inicializado,renderware,4,tipo,2,StaticRef,RwUInt32;uint32,WindowedMode.cpp;rwcore.cpp,2,0,2,1,0,0,0,ffffffff
-0x008E2440,.data,a_inicializado,renderware,4,tipo,5,StaticRef,RwUInt32;uint32;void*,rpmatfx.cpp;rpworld_p6b.cpp;rwcore.cpp;rwcore.h,4,7,5,1,0,0,1,ffffffff
-0x008E2444,.data,a_inicializado,renderware,4,tipo,5,StaticRef,uint32;uintptr_t;void*,rpmatfx.cpp;rpworld_p6b.cpp;rwcore.cpp;rwcore.h,4,7,5,1,0,0,1,ffffffff
-0x008E2448,.data,a_inicializado,renderware,4,tipo,8,StaticRef,uint32;void*,rpmatfx.cpp;rpworld_p6b.cpp;rpworld_s30a31a.cpp;rwcore.cpp;rwcore.h,5,4,10,1,0,0,1,ffffffff
-0x008E244C,.data,a_inicializado,renderware,4,tipo,7,StaticRef,uint32;void*,rpmatfx.cpp;rpworld_p6b.cpp;rpworld_s30a31a.cpp;rwcore.cpp;rwcore.h,5,4,9,1,0,0,1,ffffffff
-0x008E2450,.data,a_inicializado,renderware,4,tipo,5,StaticRef,uint32;void*,rpmatfx.cpp;rpworld_p6b.cpp;rwcore.cpp;rwcore.h,4,7,4,1,0,0,1,ffffffff
+0x008E2440,.data,a_inicializado,renderware,4,tipo,7,StaticRef,RwUInt32;uint32;void*,rpmatfx.cpp;rpskin.cpp;rpworld_nolight.cpp;rpworld_p6b.cpp;rwcore.cpp;rwcore.h,6,7,5,1,0,0,1,ffffffff
+0x008E2444,.data,a_inicializado,renderware,4,tipo,7,StaticRef,uint32;uintptr_t;void*,rpmatfx.cpp;rpskin.cpp;rpworld_nolight.cpp;rpworld_p6b.cpp;rwcore.cpp;rwcore.h,6,7,5,1,0,0,1,ffffffff
+0x008E2448,.data,a_inicializado,renderware,4,tipo,9,StaticRef,uint32;void*,rpmatfx.cpp;rpworld_nolight.cpp;rpworld_p6b.cpp;rpworld_s30a31a.cpp;rwcore.cpp;rwcore.h,6,4,10,1,0,0,1,ffffffff
+0x008E244C,.data,a_inicializado,renderware,4,tipo,8,StaticRef,uint32;void*,rpmatfx.cpp;rpworld_nolight.cpp;rpworld_p6b.cpp;rpworld_s30a31a.cpp;rwcore.cpp;rwcore.h,6,4,9,1,0,0,1,ffffffff
+0x008E2450,.data,a_inicializado,renderware,4,tipo,7,StaticRef,uint32;void*,rpmatfx.cpp;rpskin.cpp;rpworld_nolight.cpp;rpworld_p6b.cpp;rwcore.cpp;rwcore.h,6,7,4,1,0,0,1,ffffffff
 0x008E2458,.data,a_inicializado,renderware,4,tipo,4,StaticRef;literal;reinterpret_cast,D3DMATRIX;_D3DMATRIX;float,WindowedMode.cpp;RenderWare.h;rpworld.cpp;rpworld_s30a31a.cpp,4,1,2,1,1,0,1,0000803f
 0x008E246C,.data,a_inicializado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,0000803f
 0x008E2478,.data,a_inicializado,renderware,4,acceso,0,,,,0,0,1,0,0,0,0,00000000
@@ -9871,25 +9874,25 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008E29DC,.data,a_inicializado,renderware,4,acceso,0,,,,0,0,2,1,0,0,0,00000000
 0x008E29E8,.data,a_inicializado,renderware,4,acceso,0,,,,0,0,2,1,0,0,0,00000000
 0x008E29EC,.data,a_inicializado,renderware,4,acceso,0,,,,0,0,2,1,0,0,0,00000000
-0x008E2A08,.data,a_inicializado,juego,4,acceso,1,StaticRef,uintptr_t,QTMLRuntime.cpp,1,32,32,1,0,0,1,20958100
-0x008E2A0C,.data,a_inicializado,juego,4,acceso,1,StaticRef,uintptr_t,QTMLRuntime.cpp,1,31,32,1,0,0,1,d0948100
-0x008E2A10,.data,a_inicializado,juego,4,acceso,1,StaticRef,uintptr_t,QTMLRuntime.cpp,1,2,3,1,0,0,1,d0948100
-0x008E2A14,.data,a_inicializado,juego,4,acceso,1,StaticRef,uintptr_t,QTMLRuntime.cpp,1,2,3,1,0,0,1,d0948100
-0x008E2A18,.data,a_inicializado,renderware,24,hueco,0,,,,0,1,2,0,1,0,0,746865517569636b54696d65446973706174636865720000
-0x008E2A30,.data,a_inicializado,renderware,16,hueco,0,,,,0,1,2,0,1,0,0,5f43616c6c436f6d706f6e656e740000
-0x008E2A40,.data,a_inicializado,renderware,36,hueco,0,,,,0,1,2,0,1,0,0,5f43616c6c436f6d706f6e656e7446756e6374696f6e5769746853746f72616765000000
-0x008E2A64,.data,a_inicializado,renderware,16,hueco,0,,,,0,1,2,0,1,0,0,517569636b54696d652e717473000000
-0x008E2A74,.data,a_inicializado,renderware,24,hueco,0,,,,0,0,2,0,1,0,0,51544d4c496e69745465726d4d75746578256c7800000000
-0x008E2A8C,.data,a_inicializado,renderware,4,hueco,0,,,,0,1,1,0,1,0,0,5c000000
-0x008E2A90,.data,a_inicializado,renderware,24,hueco,0,,,,0,1,1,0,1,0,0,517569636b54696d652e71747320666f6c64657200000000
-0x008E2AA8,.data,a_inicializado,renderware,40,hueco,0,,,,0,1,1,0,1,0,0,536f6674776172655c4170706c6520436f6d70757465722c20496e632e5c517569636b54696d6500
+0x008E2A08,.data,a_inicializado,renderware,4,acceso,0,,,,0,35,29,1,0,0,0,20958100
+0x008E2A0C,.data,a_inicializado,renderware,4,acceso,0,,,,0,34,29,1,0,0,0,d0948100
+0x008E2A10,.data,a_inicializado,renderware,4,acceso,0,,,,0,5,0,1,0,0,0,d0948100
+0x008E2A14,.data,a_inicializado,renderware,4,acceso,0,,,,0,5,0,1,0,0,0,d0948100
+0x008E2A18,.data,a_inicializado,renderware,24,hueco,0,,,,0,3,0,0,1,0,0,746865517569636b54696d65446973706174636865720000
+0x008E2A30,.data,a_inicializado,renderware,16,hueco,0,,,,0,3,0,0,1,0,0,5f43616c6c436f6d706f6e656e740000
+0x008E2A40,.data,a_inicializado,renderware,36,hueco,0,,,,0,3,0,0,1,0,0,5f43616c6c436f6d706f6e656e7446756e6374696f6e5769746853746f72616765000000
+0x008E2A64,.data,a_inicializado,renderware,16,hueco,0,,,,0,3,0,0,1,0,0,517569636b54696d652e717473000000
+0x008E2A74,.data,a_inicializado,renderware,24,hueco,0,,,,0,2,0,0,1,0,0,51544d4c496e69745465726d4d75746578256c7800000000
+0x008E2A8C,.data,a_inicializado,renderware,4,hueco,0,,,,0,2,0,0,1,0,0,5c000000
+0x008E2A90,.data,a_inicializado,renderware,24,hueco,0,,,,0,2,0,0,1,0,0,517569636b54696d652e71747320666f6c64657200000000
+0x008E2AA8,.data,a_inicializado,renderware,40,hueco,0,,,,0,2,0,0,1,0,0,536f6674776172655c4170706c6520436f6d70757465722c20496e632e5c517569636b54696d6500
 0x008E2AD0,.data,a_inicializado,renderware,12,hueco,0,,,,0,1,0,0,1,0,0,517569636b54696d655c0000
 0x008E2ADC,.data,a_inicializado,renderware,28,hueco,0,,,,0,1,0,0,1,0,0,5c71746d6c5c6275696c64726573756c74735c646562756700000000
 0x008E2AF8,.data,a_inicializado,renderware,16,hueco,0,,,,0,1,0,0,1,0,0,536f7572636573447269766500000000
 0x008E2B08,.data,a_inicializado,renderware,28,hueco,0,,,,0,1,0,0,1,0,0,446f4e6f744c6f616446726f6d4275696c64526573756c7473000000
 0x008E2B24,.data,a_inicializado,renderware,64,hueco,0,,,,0,1,0,0,1,0,0,2e64647300000000c47e8800000000002e3f41566f75745f6f665f72616e67654073746440400000c47e8800000000002e3f41566261645f616c6c6f63407374
 0x008E2B68,.data,a_inicializado,juego,4,acceso,0,,,,0,1,0,0,0,0,0,ff000000
-0x008E2B74,.data,a_inicializado,crt,4,acceso,0,,,,0,1,0,0,0,0,0,97138200
+0x008E2B74,.data,a_inicializado,crt,4,tipo,1,reinterpret_cast,uint32_t,CrtStartup.cpp,1,1,0,0,0,0,1,97138200
 0x008E2B80,.data,a_inicializado,crt,16,hueco,0,,,,0,2,0,0,1,0,0,20059319000000000000000000000000
 0x008E2B90,.data,a_inicializado,crt,4,acceso,0,,,,0,0,1,0,0,0,0,6173696e
 0x008E2BA0,.data,a_inicializado,crt,8,acceso,0,,,,0,0,1,0,0,0,0,000000000000e03f
@@ -9902,7 +9905,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008E2CA0,.data,a_inicializado,crt,64,hueco,0,,,,0,1,0,0,1,0,0,00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 0x008E2E90,.data,a_inicializado,crt,32,hueco,1,literal,,CrtState.cpp,1,0,2,0,1,0,0,0000000000000000000000000000000000000000000000000000000000000000
 0x008E2EB0,.data,a_inicializado,crt,4,acceso,1,literal,,CrtStdio.cpp,1,2,0,0,1,0,1,bf3c8200
-0x008E2EB4,.data,a_inicializado,crt,4,tipo,1,reinterpret_cast,int,CrtLowIo.cpp,1,2,2,0,0,0,1,02000000
+0x008E2EB4,.data,a_inicializado,crt,4,tipo,2,reinterpret_cast,int,CrtLowIo.cpp;CrtState.cpp,2,2,2,0,0,0,1,02000000
 0x008E2EB8,.data,a_inicializado,crt,8,hueco,0,,,,0,0,1,0,1,0,0,4300000000000000
 0x008E2EC0,.data,a_inicializado,crt,64,hueco,1,literal,,CrtLocale.cpp,1,2,1,0,1,0,1,01000000000000000000000000000000000000000000000000000000000000000000000001000000010000000000000000000000000000008c378e0000000000
 0x008E2F14,.data,a_inicializado,crt,4,acceso,1,literal,,CrtLocale.cpp,1,12,14,1,0,0,1,c02e8e00
@@ -9919,7 +9922,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008E308C,.data,a_inicializado,crt,4,hueco,0,,,,0,0,1,0,1,0,0,08828800
 0x008E3090,.data,a_inicializado,crt,16,hueco,0,,,,0,0,2,0,1,0,0,b82e8e0077fd82000000000000000000
 0x008E30A0,.data,a_inicializado,crt,64,hueco,0,,,,0,1,1,0,1,0,0,04666d6f640000000000000000021600e45d8200668e8200ff8d8200668e8200c48d8200668e8200ff8d8200668e8200fd8d8200fd8d8200278e8200fd8d8200
-0x008E30F0,.data,a_inicializado,crt,4,acceso,0,,,,0,0,2,1,0,0,0,8e2e8300
+0x008E30F0,.data,a_inicializado,crt,4,tipo,1,reinterpret_cast,uint32_t,CrtStartup.cpp,1,0,2,1,0,0,0,8e2e8300
 0x008E30F4,.data,a_inicializado,crt,4,acceso,0,,,,0,0,2,1,0,0,0,8e2e8300
 0x008E30F8,.data,a_inicializado,crt,4,acceso,0,,,,0,0,2,1,0,0,0,8e2e8300
 0x008E30FC,.data,a_inicializado,crt,4,acceso,0,,,,0,0,2,1,0,0,0,8e2e8300
@@ -9940,7 +9943,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008E317E,.data,a_inicializado,crt,10,acceso,0,,,,0,1,0,0,0,0,0,000000000000ffff0d40
 0x008E3192,.data,a_inicializado,crt,8,acceso,0,,,,0,1,0,0,0,0,0,000000000000e03f
 0x008E319A,.data,a_inicializado,crt,34,hueco,0,,,,0,1,1,0,1,0,0,03657870000000000000000000011400e1a68200cd8d8200d28d820021a882000000
-0x008E31BC,.data,a_inicializado,crt,4,acceso,0,,,,0,12,32,1,0,0,0,4ee640bb
+0x008E31BC,.data,a_inicializado,crt,4,tipo,1,reinterpret_cast,uint32_t,CrtStartup.cpp,1,12,32,1,0,0,1,4ee640bb
 0x008E31C0,.data,a_inicializado,crt,4,hueco,3,literal;reinterpret_cast,LockSlot,CrtLowIo.cpp;CrtStartup.cpp;CrtState.cpp,3,2,3,1,1,1,1,00000000
 0x008E31C4,.data,a_inicializado,crt,64,hueco,0,,,,0,1,0,0,0,1,0,01000000000000000100000000000000000000000000000001000000000000000100000000000000000000000000000001000000000000000100000000000000
 0x008E32E0,.data,a_inicializado,crt,4,hueco,0,,,,0,1,1,0,1,1,0,01000000
@@ -9948,7 +9951,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008E3448,.data,a_inicializado,crt,4,acceso,0,,,,0,0,1,0,0,0,0,3f1f0000
 0x008E344C,.data,a_inicializado,crt,4,acceso,0,,,,0,0,1,0,0,0,0,3f1b0000
 0x008E3450,.data,a_inicializado,crt,48,hueco,1,literal,,CrtStdio.cpp,1,0,2,0,1,0,0,ffffffff800a000000000000000000000000000000000000000000000000000000000000100000000000000000000000
-0x008E3480,.data,a_inicializado,crt,64,hueco,0,,,,0,2,0,0,0,1,0,02000000c0c188000800000094c188000900000068c188000a000000d0c0880010000000a0c088001100000070c08800120000004cc088001300000020c08800
+0x008E3480,.data,a_inicializado,crt,64,hueco,1,reinterpret_cast,RtErrEntry,CrtState.cpp,1,2,0,0,0,1,1,02000000c0c188000800000094c188000900000068c188000a000000d0c0880010000000a0c088001100000070c08800120000004cc088001300000020c08800
 0x008E3510,.data,a_inicializado,crt,64,hueco,2,reinterpret_cast,void,CrtStartup.cpp;CrtState.cpp,2,4,1,0,1,0,1,050000c00b000000000000001d0000c00400000000000000960000c004000000000000008d0000c008000000000000008e0000c008000000000000008f0000c0
 0x008E3588,.data,a_inicializado,crt,4,acceso,0,,,,0,1,1,0,0,0,0,03000000
 0x008E358C,.data,a_inicializado,crt,4,acceso,0,,,,0,1,1,0,0,0,0,07000000
@@ -9976,7 +9979,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008E37A8,.data,a_inicializado,crt,4,acceso,0,,,,0,0,1,0,0,0,0,f8aec900
 0x008E37AC,.data,a_inicializado,crt,4,acceso,0,,,,0,0,1,0,0,0,0,f8aec900
 0x008E37B0,.data,a_inicializado,crt,4,acceso,0,,,,0,0,1,0,0,0,0,f8aec900
-0x008E37B4,.data,a_inicializado,juego,1,tipo,1,cast,uint8_t,StandaloneExe.cpp,1,1,0,1,0,0,1,7f
+0x008E37B4,.data,a_inicializado,crt,1,tipo,1,reinterpret_cast,uint8_t,CrtStartup.cpp,1,1,0,1,0,0,1,7f
 0x008E37B5,.data,a_inicializado,crt,1,acceso,0,,,,0,1,0,1,0,0,0,7f
 0x008E37B6,.data,a_inicializado,crt,1,acceso,0,,,,0,1,0,1,0,0,0,7f
 0x008E37B7,.data,a_inicializado,crt,1,acceso,0,,,,0,1,0,1,0,0,0,7f
@@ -10003,7 +10006,9 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008E38AE,.data,a_inicializado,crt,64,hueco,0,,,,0,1,0,0,0,1,0,641683006a1683006f168300751683007a16830080168300861683008c16830092168300ae168300b3168300c9168300ce168300ea168300fa1683000e178300
 0x008E39B0,.data,a_inicializado,crt,8,acceso,0,,,,0,1,0,0,0,0,0,000000000000f07f
 0x008E39B8,.data,a_inicializado,crt,24,hueco,0,,,,0,0,1,0,1,0,0,0004000001fcffff350000000b00000040000000ff030000
-0x008E39D0,.data,a_inicializado,crt,64,hueco,0,,,,0,0,1,0,1,0,0,8000000081ffffff1800000008000000200000007f0000000102040800000000a4030000608279822100000000000000a6df000000000000a1a5000000000000
+0x008E39D0,.data,a_inicializado,crt,24,hueco,0,,,,0,0,1,0,1,0,0,8000000081ffffff1800000008000000200000007f000000
+0x008E39E8,.data,a_inicializado,crt,1,tipo,1,reinterpret_cast,uint8_t,CrtMbcs.cpp,1,0,0,0,0,0,0,01
+0x008E39F0,.data,a_inicializado,crt,48,tipo,1,reinterpret_cast,CpEntry,CrtMbcs.cpp,1,0,0,0,0,0,0,a4030000608279822100000000000000a6df000000000000a1a5000000000000819fe0fc00000000407e80fc00000000
 0x008E3AE0,.data,a_inicializado,crt,4,acceso,0,,,,0,0,7,0,0,0,0,94260000
 0x008E3AE8,.data,a_inicializado,crt,4,acceso,0,,,,0,0,2,1,0,0,0,80700000
 0x008E3AEC,.data,a_inicializado,crt,4,acceso,0,,,,0,0,3,1,0,0,0,01000000
@@ -10022,7 +10027,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x008E3BF4,.data,a_inicializado,crt,12,hueco,1,literal,,CrtFloat.cpp,1,0,0,0,0,0,0,2f0100004d0100006c010000
 0x008E3C00,.data,a_inicializado,crt,64,hueco,1,literal,,CrtFloat.cpp,1,0,1,0,1,0,0,000000000000000000a00240000000000000000000c80540000000000000000000fa08400000000000000000409c0c40000000000000000050c30f4000000000
 0x008E3D60,.data,a_inicializado,crt,64,hueco,1,literal,,CrtFloat.cpp,1,0,1,0,1,0,0,cdcccdccccccccccccccfb3f713d0ad7a3703d0ad7a3f83f5a643bdf4f8d976e1283f53fc3d32c6519e25817b7d1f13fd00f2384471b47acc5a7ee3f40a6b669
-0x008E3EBC,.data,a_inicializado,juego,4,acceso,1,literal,,DelayLoadThunks.cpp,1,1,1,0,1,0,1,41808100
+0x008E3EBC,.data,a_inicializado,renderware,4,acceso,0,,,,0,2,0,0,1,0,0,41808100
 0x008E3EC4,.data,a_inicializado,juego,4,acceso,1,literal,,DelayLoadThunks.cpp,1,1,1,0,1,0,1,08758100
 0x008E3ECC,.data,a_inicializado,juego,4,acceso,1,literal,,DelayLoadThunks.cpp,1,1,1,0,1,0,1,20808100
 0x008E3ED4,.data,a_inicializado,renderware,4,acceso,0,,,,0,2,0,0,1,0,0,107c8000
@@ -10193,7 +10198,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x0096549C,.bss,c_estado,juego,2,acceso,0,,,,0,0,1,1,1,0,0,
 0x0096549E,.bss,c_estado,juego,2,acceso,0,,,,0,0,1,1,0,0,0,
 0x009654B0,.bss,c_estado,juego,1,tipo,2,StaticRef;literal,bool,MissionCleanup.cpp;Streaming.h,2,4,13,1,1,0,1,
-0x009654B4,.bss,c_estado,juego,4,tipo,1,StaticRef,CStreamingInfo*,StreamingInfo.h,1,2,17,1,0,0,1,
+0x009654B4,.bss,c_estado,juego,4,acceso,0,,,,0,2,17,1,0,0,0,
 0x009654B6,.bss,c_estado,juego,2,hueco,0,,,,0,0,5,0,1,0,0,
 0x009654B8,.bss,c_estado,juego,4,acceso,0,,,,0,1,1,1,0,0,0,
 0x009654BC,.bss,c_estado,juego,1,acceso,0,,,,0,0,4,1,0,0,0,
@@ -10477,13 +10482,13 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00969177,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,1,0,0,0,
 0x00969178,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,0,0,0,0,
 0x00969179,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,1,0,0,0,
-0x0096917A,.bss,c_estado,juego,1,tipo,2,StaticRef;reinterpret_cast,bool;uint8,CarCtrl.cpp;Population.cpp,2,0,2,0,0,0,0,
+0x0096917A,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,0,0,0,0,
 0x0096917B,.bss,c_estado,juego,1,acceso,0,,,,0,0,7,1,0,0,0,
-0x0096917C,.bss,c_estado,juego,1,tipo,2,StaticRef;reinterpret_cast,uint8,PlayerPed.cpp,1,0,2,0,0,0,0,
-0x0096917D,.bss,c_estado,juego,1,tipo,2,StaticRef;reinterpret_cast,uint8,PlayerPed.cpp,1,0,3,0,0,0,0,
-0x0096917E,.bss,c_estado,juego,1,tipo,2,StaticRef;reinterpret_cast,uint8,PlayerPed.cpp,1,0,3,0,0,0,0,
+0x0096917C,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,0,0,0,0,
+0x0096917D,.bss,c_estado,juego,1,acceso,0,,,,0,0,3,0,0,0,0,
+0x0096917E,.bss,c_estado,juego,1,acceso,0,,,,0,0,3,0,0,0,0,
 0x0096917F,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,0,0,0,0,
-0x00969180,.bss,c_estado,juego,1,acceso,1,literal,,Stats.cpp,1,0,1,0,0,0,0,
+0x00969180,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,0,0,0,0,
 0x0096918A,.bss,c_estado,juego,1,acceso,0,,,,0,1,4,1,0,0,0,
 0x0096918B,.bss,c_estado,juego,1,acceso,0,,,,0,0,3,1,0,0,0,
 0x0096918C,.bss,c_estado,juego,1,acceso,0,,,,0,0,7,1,0,0,0,
@@ -10563,7 +10568,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x0096A7C4,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,EntryExitManager.h,1,3,9,1,1,0,1,
 0x0096A7C8,.bss,c_estado,juego,1,tipo,2,StaticRef;literal,int8,EntryExitManager.h;MissionCleanup.cpp,2,2,4,1,0,0,1,
 0x0096A7CC,.bss,c_estado,juego,4,acceso,0,,,,0,1,10,1,0,0,0,
-0x0096A7D0,.bss,c_estado,juego,4,tipo,1,StaticRef,EntryExitTreeNode*,EntryExitManager.cpp,1,0,7,1,0,0,0,
+0x0096A7D0,.bss,c_estado,juego,4,acceso,0,,,,0,0,7,1,0,0,0,
 0x0096A7D4,.bss,c_estado,juego,4,acceso,0,,,,0,1,2,1,0,0,0,
 0x0096A7D8,.bss,c_estado,juego,4,acceso,0,,,,0,2,23,1,0,0,0,
 0x0096A7DC,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
@@ -11006,11 +11011,11 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00A44210,.bss,c_estado,juego,2,tipo,1,StaticRef,int16,TheScripts.h,1,1,0,1,0,0,1,
 0x00A44212,.bss,c_estado,juego,6,hueco,0,,,,0,0,1,0,1,0,0,
 0x00A44218,.bss,c_estado,juego,64,hueco,1,StaticRef,"std::array<int16, MAX_NUM_CARDS>",TheScripts.h,1,1,0,1,1,1,1,
-0x00A44488,.bss,c_estado,juego,1,tipo,2,StaticRef;literal,bool,MissionCleanup.cpp;TheScripts.h,2,1,5,1,0,0,1,
-0x00A44489,.bss,c_estado,juego,1,tipo,2,StaticRef;literal,bool,MissionCleanup.cpp;TheScripts.h,2,1,3,1,0,0,1,
+0x00A44488,.bss,c_estado,juego,1,tipo,3,StaticRef;literal,bool;uint8,MissionCleanup.cpp;RunningScriptCommands2600To2699.cpp;TheScripts.h,3,1,5,1,0,0,1,
+0x00A44489,.bss,c_estado,juego,1,tipo,3,StaticRef;literal,bool;uint8,MissionCleanup.cpp;RunningScriptCommands2600To2699.cpp;TheScripts.h,3,1,3,1,0,0,1,
 0x00A4448A,.bss,c_estado,juego,1,tipo,3,StaticRef;literal,bool,MissionCleanup.cpp;TheScripts.h,2,2,2,1,0,0,1,
-0x00A4448B,.bss,c_estado,juego,1,tipo,1,StaticRef,bool,TheScripts.h,1,4,2,1,0,0,1,
-0x00A4448C,.bss,c_estado,juego,4,tipo,3,StaticRef;literal,int32,CarCtrl.cpp;MissionCleanup.cpp;TheScripts.h,3,1,3,1,0,0,1,
+0x00A4448B,.bss,c_estado,juego,1,tipo,2,StaticRef,bool;uint8,RunningScriptCommands2400To2499.cpp;TheScripts.h,2,4,2,1,0,0,1,
+0x00A4448C,.bss,c_estado,juego,4,tipo,4,StaticRef;literal,int32,CarCtrl.cpp;MissionCleanup.cpp;RunningScriptCommands2400To2499.cpp;TheScripts.h,4,1,3,1,0,0,1,
 0x00A44490,.bss,c_estado,juego,4,acceso,2,StaticRef;literal,eCrossHairType,MissionCleanup.cpp;TheScripts.h,2,2,3,1,0,0,1,
 0x00A44494,.bss,c_estado,juego,1,tipo,3,StaticRef;literal,bool;uint8,MissionCleanup.cpp;Rope.cpp;TheScripts.h,3,1,3,1,0,0,1,
 0x00A44495,.bss,c_estado,juego,1,tipo,4,StaticRef;literal,bool;uint8,MissionCleanup.cpp;Rope.cpp;TheScripts.h,3,1,3,1,0,0,1,
@@ -11033,7 +11038,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00A444B8,.bss,c_estado,juego,2,acceso,0,,,,0,0,3,1,1,0,0,
 0x00A444BC,.bss,c_estado,juego,2,acceso,0,,,,0,0,3,1,1,0,0,
 0x00A444C0,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,1,0,0,
-0x00A444C4,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,1,0,0,
+0x00A444C4,.bss,c_estado,juego,4,tipo,3,cast;literal,uint32_t,StandaloneExe.cpp,1,0,3,1,1,0,0,
 0x00A444C8,.bss,c_estado,juego,64,hueco,1,StaticRef,"std::array<int32, MAX_NUM_MISSION_SCRIPTS>",TheScripts.h,1,0,2,1,1,1,0,
 0x00A447E8,.bss,c_estado,juego,1,acceso,0,,,,0,0,3,1,1,0,0,
 0x00A447EC,.bss,c_estado,juego,4,tipo,2,StaticRef;literal,int32,MissionCleanup.cpp;TheScripts.h,2,1,2,1,0,0,1,
@@ -11072,12 +11077,12 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00A48960,.bss,c_estado,juego,64,hueco,1,StaticRef,"std::array<tScriptParam, MAX_NUM_LOCAL_VARIABLES_FOR_CURRENT_MISSION>",TheScripts.h,1,0,12,0,1,1,0,
 0x00A489E0,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00A489E4,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
-0x00A49960,.bss,c_estado,juego,3,hueco,2,StaticRef;cast,"std::array<uint8, SCRIPT_SPACE_SIZE>;void",TheScripts.cpp;TheScripts.h,2,0,5,0,1,0,0,
+0x00A49960,.bss,c_estado,juego,1,tipo,7,StaticRef;cast;literal,"std::array<uint8, SCRIPT_SPACE_SIZE>;uint8_t;void",StandaloneExe.cpp;TheScripts.cpp;TheScripts.h,3,0,5,0,1,0,0,
 0x00A49963,.bss,c_estado,juego,4,acceso,0,,,,0,0,4,0,0,0,0,
 0x00A49968,.bss,c_estado,juego,64,hueco,0,,,,0,0,2,0,1,0,0,
 0x00A7A6A0,.bss,c_estado,juego,64,hueco,1,cast,void,TheScripts.cpp,1,0,0,0,0,0,0,
 0x00A8B428,.bss,c_estado,juego,4,tipo,1,StaticRef,CRunningScript*,TheScripts.h,1,2,4,1,1,0,1,
-0x00A8B42C,.bss,c_estado,juego,4,tipo,1,StaticRef,CRunningScript*,TheScripts.h,1,2,7,1,1,0,1,
+0x00A8B42C,.bss,c_estado,juego,4,tipo,3,StaticRef;cast;literal,CRunningScript*;uint32_t,StandaloneExe.cpp;TheScripts.h,2,2,7,1,1,0,1,
 0x00A8B430,.bss,c_estado,juego,64,hueco,0,,,,0,0,3,0,1,0,0,
 0x00A90830,.bss,c_estado,juego,2,acceso,0,,,,0,2,4,1,1,0,0,
 0x00A90834,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -11214,12 +11219,12 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00A986FC,.bss,c_estado,juego,4,hueco,0,,,,0,0,2,1,0,1,0,
 0x00A98700,.bss,c_estado,juego,64,hueco,0,,,,0,0,2,0,0,1,0,
 0x00A9A310,.bss,c_estado,juego,4,acceso,0,,,,0,0,4,1,1,0,0,
-0x00A9A318,.bss,c_estado,juego,64,hueco,1,StaticRef,"std::array<uint32, NUM_BUYABLE_ITEMS>",Shopping.h,1,1,1,1,0,1,1,
+0x00A9A318,.bss,c_estado,juego,1200,tipo,2,StaticRef,"std::array<uint32, 300>;std::array<uint32, NUM_BUYABLE_ITEMS>",RunningScriptCommands1800To1899.cpp;Shopping.h,2,1,1,1,0,1,1,
 0x00A9A7C8,.bss,c_estado,juego,4,acceso,1,StaticRef,ePriceSection,Shopping.h,1,0,6,1,0,0,0,
 0x00A9A7CC,.bss,c_estado,juego,4,acceso,0,,,,0,0,9,1,0,0,0,
 0x00A9A7D0,.bss,c_estado,juego,4,acceso,0,,,,0,0,7,1,1,0,0,
 0x00A9A7D8,.bss,c_estado,juego,1,acceso,0,,,,0,1,4,1,1,0,0,
-0x00A9A7F0,.bss,c_estado,juego,4,tipo,1,StaticRef,int32,Shopping.h,1,1,2,1,0,0,1,
+0x00A9A7F0,.bss,c_estado,juego,4,tipo,2,StaticRef,int32,RunningScriptCommands1800To1899.cpp;Shopping.h,2,1,2,1,0,0,1,
 0x00A9A7F4,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00A9A7F8,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00A9A7FC,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -11227,7 +11232,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00A9A804,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00A9A808,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00A9A810,.bss,c_estado,juego,120,tipo,1,StaticRef,CPedClothesDesc,Shopping.h,1,1,3,0,1,0,1,
-0x00A9A888,.bss,c_estado,juego,4,tipo,1,StaticRef,CStuntJumpsPool*,StuntJumpManager.h,1,0,7,1,0,0,0,
+0x00A9A888,.bss,c_estado,juego,4,acceso,0,,,,0,0,7,1,0,0,0,
 0x00A9A88C,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00A9A890,.bss,c_estado,juego,1,acceso,0,,,,0,1,2,1,0,0,0,
 0x00A9A891,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,1,0,0,0,
@@ -11286,7 +11291,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00A9AE14,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00A9AE18,.bss,c_estado,juego,4,acceso,0,,,,0,0,4,0,0,0,0,
 0x00A9AE1C,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,0,0,0,0,
-0x00A9AE20,.bss,c_estado,juego,4,tipo,2,StaticRef,FxSystem_c*,Garage.cpp;ProjectileInfo.cpp,2,1,9,0,0,0,1,
+0x00A9AE20,.bss,c_estado,juego,4,tipo,3,StaticRef,FxSystem_c*,Garage.cpp;ProjectileInfo.cpp;RunningScriptCommands2300To2399.cpp,3,1,9,0,0,0,1,
 0x00A9AE24,.bss,c_estado,juego,4,acceso,0,,,,0,0,12,0,0,0,0,
 0x00A9AE28,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00A9AE2C,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
@@ -11359,7 +11364,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00A9B0B8,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00A9B0BC,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00A9B0C0,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
-0x00A9B0C8,.bss,c_estado,juego,4,tipo,8,StaticRef;literal;reinterpret_cast,uint32;uintptr_t,Automobile.cpp;Bike.cpp;Heli.cpp;Garage.cpp;ModelInfo.h;Rope.cpp,7,18,434,1,1,1,1,
+0x00A9B0C8,.bss,c_estado,juego,4,tipo,9,StaticRef;literal;reinterpret_cast,uint32;uintptr_t,Automobile.cpp;Bike.cpp;Heli.cpp;Plane.cpp;Garage.cpp;ModelInfo.h,8,18,434,1,1,1,1,
 0x00A9B0CC,.bss,c_estado,juego,24,hueco,0,,,,0,1,1,0,1,0,0,
 0x00A9B0E4,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,0,0,0,0,
 0x00A9B690,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
@@ -11376,7 +11381,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00A9B6F4,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,0,0,0,0,
 0x00A9B6F8,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,0,0,0,0,
 0x00A9B6FC,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,0,0,0,0,
-0x00A9B76C,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
+0x00A9B76C,.bss,c_estado,juego,4,acceso,1,literal,,Plane.cpp,1,0,1,0,0,0,0,
 0x00A9B7F8,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00A9B910,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00A9C06C,.bss,c_estado,juego,64,hueco,0,,,,0,0,1,0,1,0,0,
@@ -11408,12 +11413,12 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B4DBDC,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00B4DBE0,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00B4DBE8,.bss,c_estado,juego,4,acceso,1,literal,,VehicleModelInfo.cpp,1,0,2,0,1,0,0,
-0x00B4E3E8,.bss,c_estado,juego,1,acceso,1,literal,,VehicleModelInfo.h,1,0,1,1,0,0,0,
+0x00B4E3E8,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,1,0,0,0,
 0x00B4E3E9,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,1,0,0,0,
 0x00B4E3EA,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,1,0,0,0,
 0x00B4E3EB,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,1,0,0,0,
 0x00B4E3EC,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
-0x00B4E3F0,.bss,c_estado,juego,1,acceso,1,literal,,VehicleModelInfo.h,1,0,2,1,0,0,0,
+0x00B4E3F0,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,1,0,0,0,
 0x00B4E3F1,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,1,0,0,0,
 0x00B4E3F2,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,1,0,0,0,
 0x00B4E3F3,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,1,0,0,0,
@@ -11633,7 +11638,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B4EA1C,.bss,c_estado,crt,4,acceso,2,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00B4EA20,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00B4EA24,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
-0x00B4EA28,.bss,c_estado,juego,4,tipo,5,StaticRef,int32;uint32,AnimManager.h;FileLoader.cpp;TaskSimpleFight.cpp;WeaponInfo.cpp,4,2,9,1,0,0,1,
+0x00B4EA28,.bss,c_estado,juego,4,tipo,6,StaticRef,int32;uint32,AnimManager.h;FileLoader.cpp;RunningScriptCommands500To599.cpp;TaskSimpleFight.cpp;WeaponInfo.cpp,5,2,9,1,0,0,1,
 0x00B4EA2C,.bss,c_estado,juego,4,acceso,0,,,,0,0,4,1,0,0,0,
 0x00B4EA30,.bss,c_estado,juego,4,acceso,0,,,,0,0,6,1,0,0,0,
 0x00B4EA34,.bss,c_estado,juego,4,acceso,0,,,,0,2,28,1,0,0,0,
@@ -11695,7 +11700,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B610F0,.bss,c_estado,juego,8,acceso,0,,,,0,0,2,0,1,0,0,
 0x00B610F8,.bss,c_estado,juego,8,tipo,1,StaticRef,uint64,AEAudioUtility.cpp,1,0,2,1,0,0,0,
 0x00B610FC,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
-0x00B61100,.bss,c_estado,juego,4,acceso,1,literal,,AEAudioUtility.h,1,0,1,1,0,0,0,
+0x00B61100,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00B61104,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00B61108,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00B6110C,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
@@ -11852,6 +11857,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B620C0,.bss,c_estado,juego,4,tipo,2,StaticRef;literal,int32,AERadioTrackManager.cpp;AERadioTrackManager.h,2,0,5,0,1,0,0,
 0x00B62980,.bss,c_estado,juego,4,tipo,2,StaticRef;literal,int32,AERadioTrackManager.cpp;AERadioTrackManager.h,2,0,5,0,1,0,0,
 0x00B62B40,.bss,c_estado,juego,1,tipo,2,StaticRef;literal,int8,AERadioTrackManager.cpp;AERadioTrackManager.h,2,0,5,1,1,1,0,
+0x00B62C1C,.bss,c_estado,juego,1,tipo,1,StaticRef,int8,AERadioTrackManager.cpp,1,0,0,0,0,0,0,
 0x00B62C58,.bss,c_estado,juego,1,acceso,0,,,,0,0,6,1,1,0,0,
 0x00B62C59,.bss,c_estado,juego,1,acceso,0,,,,0,0,6,1,1,0,0,
 0x00B62C5A,.bss,c_estado,juego,1,acceso,0,,,,0,0,6,1,1,0,0,
@@ -11902,7 +11908,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B6B990,.bss,c_estado,juego,4,acceso,0,,,,0,0,9,1,0,0,0,
 0x00B6B994,.bss,c_estado,juego,1,acceso,0,,,,0,0,4,1,0,0,0,
 0x00B6B998,.bss,c_estado,juego,2,acceso,0,,,,0,0,2,1,0,0,0,
-0x00B6B99C,.bss,c_estado,juego,4,tipo,1,StaticRef,tVehicleAudioSettings*,AEVehicleAudioEntity.h,1,0,7,1,0,0,0,
+0x00B6B99C,.bss,c_estado,juego,4,acceso,0,,,,0,0,7,1,0,0,0,
 0x00B6B9A0,.bss,c_estado,juego,2,hueco,1,StaticRef,"std::array<tDummyEngineSlot, SND_BANK_SLOT_DUMMY_END - SND_BANK_SLOT_DUMMY_FIRST>",AEVehicleAudioEntity.h,1,0,14,1,0,1,0,
 0x00B6B9A2,.bss,c_estado,juego,38,hueco,0,,,,0,0,5,1,1,1,0,
 0x00B6B9C8,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
@@ -12022,9 +12028,9 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B6EC04,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00B6EC08,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00B6EC0C,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
-0x00B6EC10,.bss,c_estado,crt,4,tipo,2,StaticRef;ayudante,float,Camera.h;X87Math.cpp,2,0,5,1,0,0,0,
-0x00B6EC14,.bss,c_estado,crt,4,tipo,2,StaticRef;ayudante,float,Camera.h;X87Math.cpp,2,0,4,1,0,0,0,
-0x00B6EC18,.bss,c_estado,crt,4,tipo,5,StaticRef;ayudante,float,Cam.cpp;Camera.h;X87Math.cpp,3,0,6,1,0,0,0,
+0x00B6EC10,.bss,c_estado,juego,4,acceso,0,,,,0,0,5,1,0,0,0,
+0x00B6EC14,.bss,c_estado,juego,4,acceso,0,,,,0,0,4,1,0,0,0,
+0x00B6EC18,.bss,c_estado,juego,4,acceso,0,,,,0,0,6,1,0,0,0,
 0x00B6EC1C,.bss,c_estado,crt,4,tipo,9,StaticRef;ayudante,float,Cam.cpp;Camera.h;X87Math.cpp,3,0,12,1,1,0,0,
 0x00B6EC20,.bss,c_estado,juego,1,acceso,0,,,,0,0,5,1,0,0,0,
 0x00B6EC24,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
@@ -12179,7 +12185,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B6F0B8,.bss,c_estado,juego,4,tipo,5,StaticRef,int32;uint32,Cam.cpp,1,0,6,1,0,0,0,
 0x00B6F0C8,.bss,c_estado,juego,4,tipo,5,StaticRef,int32;uint32,Cam.cpp,1,0,5,1,0,0,0,
 0x00B6F0D8,.bss,c_estado,juego,4,tipo,2,StaticRef,int32,Cam.cpp;TaskComplexProstituteSolicit.cpp,2,0,2,0,0,0,0,
-0x00B6F0DC,.bss,c_estado,juego,4,tipo,1,StaticRef,int32,Cam.cpp,1,2,3,1,0,0,1,
+0x00B6F0DC,.bss,c_estado,juego,4,tipo,2,StaticRef,int32,Cam.cpp;RunningScriptCommands2400To2499.cpp,2,2,3,1,0,0,1,
 0x00B6F0E8,.bss,c_estado,juego,4,acceso,1,ayudante,,Cam.cpp,1,0,1,0,0,0,0,
 0x00B6F0F0,.bss,c_estado,juego,4,tipo,6,StaticRef,int32,Cam.cpp;Camera.cpp,2,0,5,1,0,0,0,
 0x00B6F0F4,.bss,c_estado,juego,4,acceso,1,ayudante,,Cam.cpp,1,0,1,0,0,0,0,
@@ -12522,7 +12528,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B72908,.bss,c_estado,juego,4,hueco,0,,,,0,0,1,0,1,0,0,
 0x00B7290C,.bss,c_estado,juego,4,tipo,1,StaticRef,int32,Game.h,1,0,6,1,0,0,0,
 0x00B72910,.bss,c_estado,juego,1,tipo,1,StaticRef,uint8,Game.h,1,0,14,1,0,0,0,
-0x00B72914,.bss,c_estado,juego,4,tipo,8,StaticRef;literal,eAreaCodesS32;int32;uint32,AERadioTrackManager.cpp;Cam.cpp;CarCtrl.cpp;Automobile.cpp;Heli.cpp;Plane.cpp,8,3,107,1,0,0,1,
+0x00B72914,.bss,c_estado,juego,4,tipo,10,StaticRef;cast;literal,eAreaCodesS32;int;int32;uint32,StandaloneExe.cpp;AERadioTrackManager.cpp;Cam.cpp;CarCtrl.cpp;Automobile.cpp;Heli.cpp,9,3,107,1,0,0,1,
 0x00B72920,.bss,c_estado,juego,4,tipo,1,StaticRef,RwMatrix*,Game.h,1,0,6,1,0,0,0,
 0x00B72924,.bss,c_estado,juego,4,tipo,1,StaticRef,RwMatrix*,Game.h,1,0,4,1,0,0,0,
 0x00B72928,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -12542,7 +12548,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B72974,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00B72978,.bss,c_estado,juego,688,tipo,1,StaticRef,CLoadMonitor,LoadMonitor.cpp,1,1,6,0,1,0,1,
 0x00B7298C,.bss,c_estado,juego,4,tipo,1,StaticRef,int32,TaskComplexKillPedOnFootArmed.cpp,1,0,2,0,0,0,0,
-0x00B72994,.bss,c_estado,juego,1,tipo,3,StaticRef;literal,bool,MissionCleanup.cpp;TaskComplexKillCriminal.cpp,2,1,3,1,0,0,1,
+0x00B72994,.bss,c_estado,juego,1,tipo,4,StaticRef;literal,bool,MissionCleanup.cpp;RunningScriptCommands2500To2599.cpp;TaskComplexKillCriminal.cpp,3,1,3,1,0,0,1,
 0x00B729BC,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00B72C28,.bss,c_estado,juego,64,hueco,0,,,,0,0,1,0,1,0,0,
 0x00B72C68,.bss,c_estado,juego,2,acceso,0,,,,0,0,1,1,0,0,0,
@@ -12726,7 +12732,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B733FE,.bss,c_estado,juego,2,acceso,0,,,,0,0,3,0,0,0,0,
 0x00B73400,.bss,c_estado,juego,1,acceso,0,,,,0,2,8,1,0,0,0,
 0x00B73401,.bss,c_estado,juego,1,acceso,0,,,,0,1,1,1,0,0,0,
-0x00B73402,.bss,c_estado,juego,1,tipo,2,StaticRef,bool;uint8,Pad.h;PlayerInfo.cpp,2,0,7,1,0,0,0,
+0x00B73402,.bss,c_estado,juego,1,acceso,0,,,,0,0,7,1,0,0,0,
 0x00B73403,.bss,c_estado,juego,1,acceso,0,,,,0,0,4,0,0,0,0,
 0x00B73404,.bss,c_estado,juego,20,tipo,1,StaticRef,CMouseControllerState,Pad.h,1,0,4,1,1,0,0,
 0x00B73405,.bss,c_estado,juego,1,acceso,0,,,,0,0,4,1,0,0,0,
@@ -12828,8 +12834,8 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B74484,.bss,c_estado,juego,4,acceso,0,,,,0,1,5,1,0,0,0,
 0x00B74488,.bss,c_estado,juego,4,tipo,1,StaticRef,CPtrNodeDoubleLinkPool*,Pools.cpp,1,1,5,1,0,0,1,
 0x00B7448C,.bss,c_estado,juego,4,tipo,1,StaticRef,CEntryInfoNodePool*,Pools.cpp,1,1,5,1,0,0,1,
-0x00B74490,.bss,c_estado,juego,4,tipo,9,StaticRef;ayudante;literal,CPedPool*,DecisionMakerTypes.cpp;PlayerPed.cpp;GangWars.cpp;MissionCleanup.cpp;Pools.cpp;Rope.cpp,7,15,90,1,0,0,1,
-0x00B74494,.bss,c_estado,juego,4,tipo,8,StaticRef;literal,CVehiclePool*;uintptr_t;void*,Camera.cpp;PlayerPed.cpp;Plane.cpp;MissionCleanup.cpp;Pools.cpp;Rope.cpp,7,15,98,1,0,0,1,
+0x00B74490,.bss,c_estado,juego,4,tipo,10,StaticRef;ayudante;literal,CPedPool*,StandaloneExe.cpp;DecisionMakerTypes.cpp;PlayerPed.cpp;GangWars.cpp;MissionCleanup.cpp;Pools.cpp,8,15,90,1,0,0,1,
+0x00B74494,.bss,c_estado,juego,4,tipo,9,StaticRef;literal,CVehiclePool*;uintptr_t;void*,StandaloneExe.cpp;Camera.cpp;PlayerPed.cpp;Plane.cpp;MissionCleanup.cpp;Pools.cpp,8,15,98,1,0,0,1,
 0x00B74498,.bss,c_estado,juego,4,tipo,1,StaticRef,CBuildingPool*,Pools.cpp,1,3,14,1,0,0,1,
 0x00B7449C,.bss,c_estado,juego,4,tipo,7,StaticRef;literal,CObjectPool*;const uint8*,PlayerPed.cpp;Garage.cpp;MissionCleanup.cpp;Pools.cpp;Rope.cpp;TaskSimpleFight.cpp,6,11,70,1,0,0,1,
 0x00B744A0,.bss,c_estado,juego,4,tipo,1,StaticRef,CDummyPool*,Pools.cpp,1,3,14,1,0,0,1,
@@ -12896,13 +12902,13 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B745B0,.bss,c_estado,crt,4,acceso,2,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00B745B4,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00B745B8,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
-0x00B745BC,.bss,c_estado,juego,4,tipo,1,StaticRef,CQuadTreeNodePool*,QuadTreeNode.h,1,0,5,1,0,0,0,
+0x00B745BC,.bss,c_estado,juego,4,acceso,0,,,,0,0,5,1,0,0,0,
 0x00B745C0,.bss,c_estado,juego,1,acceso,0,,,,0,0,3,1,0,0,0,
 0x00B745C1,.bss,c_estado,juego,1,acceso,0,,,,0,0,4,1,0,0,0,
 0x00B745C4,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00B745C8,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,1,0,0,0,
-0x00B745CC,.bss,c_estado,juego,4,tipo,1,StaticRef,tRenderListEntry*,Renderer.h,1,0,3,1,0,0,0,
-0x00B745D0,.bss,c_estado,juego,4,tipo,1,StaticRef,tRenderListEntry*,Renderer.h,1,0,5,1,0,0,0,
+0x00B745CC,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
+0x00B745D0,.bss,c_estado,juego,4,acceso,0,,,,0,0,5,1,0,0,0,
 0x00B745D4,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
 0x00B745D8,.bss,c_estado,juego,64,hueco,1,literal,,Renderer.h,1,0,2,1,0,1,0,
 0x00B74830,.bss,c_estado,juego,64,hueco,1,literal,,Renderer.h,1,0,1,0,0,1,0,
@@ -13245,7 +13251,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B7CB78,.bss,c_estado,juego,4,acceso,0,,,,0,2,23,1,0,0,0,
 0x00B7CB7C,.bss,c_estado,juego,4,acceso,0,,,,0,3,28,1,0,0,0,
 0x00B7CB80,.bss,c_estado,juego,4,acceso,0,,,,0,1,5,1,0,0,0,
-0x00B7CB84,.bss,c_estado,juego,4,tipo,15,StaticRef;reinterpret_cast,uint32,AERadioTrackManager.cpp;Camera.cpp;CarCtrl.cpp;Train.cpp;Stats.cpp;Timer.h,6,21,630,1,0,0,1,
+0x00B7CB84,.bss,c_estado,juego,4,tipo,17,StaticRef;cast;literal;reinterpret_cast,uint32;uint32_t,StandaloneExe.cpp;AERadioTrackManager.cpp;Camera.cpp;CarCtrl.cpp;Train.cpp;Stats.cpp,7,21,630,1,0,0,1,
 0x00B7CB88,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,1,0,0,0,
 0x00B7CB89,.bss,c_estado,juego,1,acceso,0,,,,0,0,4,1,0,0,0,
 0x00B7CB8C,.bss,c_estado,juego,1,acceso,0,,,,0,0,7,1,0,0,0,
@@ -13267,7 +13273,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B7CD71,.bss,c_estado,juego,1,tipo,1,StaticRef,bool,World.h,1,0,7,1,0,0,0,
 0x00B7CD72,.bss,c_estado,juego,1,tipo,1,StaticRef,bool,World.h,1,0,6,1,0,0,0,
 0x00B7CD73,.bss,c_estado,juego,1,tipo,1,StaticRef,bool,World.h,1,0,2,1,0,0,0,
-0x00B7CD74,.bss,c_estado,juego,1,tipo,5,StaticRef;literal,uint8,Camera.cpp;MissionCleanup.cpp;World.h,3,3,110,1,0,0,1,
+0x00B7CD74,.bss,c_estado,juego,4,tipo,7,StaticRef;cast;literal,int;uint8,StandaloneExe.cpp;Camera.cpp;MissionCleanup.cpp;World.h,4,3,110,1,0,0,1,
 0x00B7CD78,.bss,c_estado,juego,2,tipo,1,StaticRef,uint16,World.h,1,2,94,1,0,0,1,
 0x00B7CD7C,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,World.cpp,1,0,2,1,0,0,0,
 0x00B7CD80,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -13276,7 +13282,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00B7CD8C,.bss,c_estado,crt,4,acceso,2,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00B7CD90,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00B7CD94,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
-0x00B7CD98,.bss,c_estado,juego,4,tipo,28,StaticRef;literal;reinterpret_cast,CPed*;uint8;uintptr_t,Cam.cpp;Camera.cpp;Bike.cpp;MissionCleanup.cpp;Population.cpp;Stats.cpp,7,15,64,1,1,0,1,
+0x00B7CD98,.bss,c_estado,juego,4,tipo,30,StaticRef;cast;literal;reinterpret_cast,CPed*;uint32_t;uint8;uintptr_t,StandaloneExe.cpp;Cam.cpp;Camera.cpp;Bike.cpp;MissionCleanup.cpp;Population.cpp,8,15,64,1,1,0,1,
 0x00B7CD9C,.bss,c_estado,juego,4,acceso,0,,,,0,0,4,1,1,0,0,
 0x00B7CDA0,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00B7CDA4,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
@@ -13434,14 +13440,14 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00BA673C,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00BA6740,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00BA6744,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,0,1,0,0,
-0x00BA6745,.bss,c_estado,juego,1,tipo,1,StaticRef,bool,MenuManager.h,1,1,5,1,1,0,1,
+0x00BA6745,.bss,c_estado,juego,1,tipo,2,StaticRef,bool;uint8,MenuManager.h;RunningScriptCommands2600To2699.cpp,2,1,5,1,1,0,1,
 0x00BA6748,.bss,c_estado,juego,7032,tipo,1,StaticRef,CMenuManager,MenuManager.cpp,1,3,19,0,1,0,1,
 0x00BA6768,.bss,c_estado,juego,1,acceso,0,,,,0,0,3,0,0,0,0,
 0x00BA6769,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,0,0,0,0,
 0x00BA676C,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,0,0,0,0,
 0x00BA6774,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00BA677B,.bss,c_estado,juego,1,acceso,0,,,,0,0,5,1,0,0,0,
-0x00BA677C,.bss,c_estado,juego,1,acceso,1,literal,,MissionCleanup.cpp,1,1,1,1,0,0,1,
+0x00BA677C,.bss,c_estado,juego,1,tipo,2,StaticRef;literal,bool,MissionCleanup.cpp;RunningScriptCommands2600To2699.cpp,2,1,1,1,0,0,1,
 0x00BA6784,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00BA678C,.bss,c_estado,juego,1,tipo,1,StaticRef,bool,Hud.cpp,1,2,1,0,0,0,1,
 0x00BA678D,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,0,0,0,0,
@@ -13449,7 +13455,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00BA678F,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,0,0,0,0,
 0x00BA6790,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,0,0,0,0,
 0x00BA6791,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,0,0,0,0,
-0x00BA6793,.bss,c_estado,juego,1,tipo,1,StaticRef,bool,Hud.cpp,1,1,5,0,0,0,1,
+0x00BA6793,.bss,c_estado,juego,1,tipo,2,StaticRef,bool;uint8,Hud.cpp;RunningScriptCommands2600To2699.cpp,2,1,5,0,0,0,1,
 0x00BA6794,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,0,0,0,0,
 0x00BA6795,.bss,c_estado,juego,1,acceso,0,,,,0,0,3,0,0,0,0,
 0x00BA6797,.bss,c_estado,juego,1,acceso,0,,,,0,0,5,0,0,0,0,
@@ -13487,7 +13493,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00BA6808,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00BA680D,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,0,0,0,0,
 0x00BA6810,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
-0x00BA6818,.bss,c_estado,juego,1,acceso,0,,,,0,1,7,0,0,0,0,
+0x00BA6818,.bss,c_estado,juego,1,tipo,1,StaticRef,uint8,RunningScriptCommands2600To2699.cpp,1,1,7,0,0,0,1,
 0x00BA681C,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00BA6820,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
 0x00BA6828,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
@@ -13586,7 +13592,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00BAA37C,.bss,c_estado,juego,2,acceso,0,,,,0,0,1,1,0,0,0,
 0x00BAA380,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00BAA388,.bss,c_estado,juego,2,acceso,0,,,,0,0,2,1,0,0,0,
-0x00BAA38A,.bss,c_estado,juego,1,tipo,4,StaticRef,bool;uint8,Hud.cpp;Hud.h,2,0,2,1,0,0,0,
+0x00BAA38A,.bss,c_estado,juego,1,acceso,0,,,,0,0,2,1,0,0,0,
 0x00BAA38C,.bss,c_estado,juego,8,tipo,2,StaticRef;reinterpret_cast,"int16;std::array<int16, 4>",Hud.cpp;Hud.h,2,0,2,1,1,0,0,
 0x00BAA390,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00BAA394,.bss,c_estado,juego,8,tipo,2,StaticRef;reinterpret_cast,"std::array<int16, 4>;uint8",Hud.cpp;Hud.h,2,0,2,1,1,0,0,
@@ -13608,22 +13614,22 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00BAA3FB,.bss,c_estado,juego,1,tipo,2,StaticRef;literal,bool,Hud.h;MissionCleanup.cpp,2,1,3,1,0,0,1,
 0x00BAA3FC,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00BAA400,.bss,c_estado,juego,4,tipo,2,StaticRef,bool;uint32,Hud.cpp;Hud.h,2,0,2,1,0,0,0,
-0x00BAA404,.bss,c_estado,juego,4,tipo,2,StaticRef;literal,uint32,Hud.cpp;Hud.h,2,0,3,1,0,0,0,
-0x00BAA408,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
-0x00BAA40C,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
-0x00BAA410,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
+0x00BAA404,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,3,1,0,0,0,
+0x00BAA408,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,3,1,0,0,0,
+0x00BAA40C,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,3,1,0,0,0,
+0x00BAA410,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,2,1,0,0,0,
 0x00BAA414,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
 0x00BAA418,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
 0x00BAA41C,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
 0x00BAA420,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
-0x00BAA424,.bss,c_estado,juego,4,tipo,2,StaticRef;literal,uint32,Hud.cpp;Hud.h,2,0,3,1,0,0,0,
-0x00BAA428,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
-0x00BAA42C,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
-0x00BAA430,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
-0x00BAA434,.bss,c_estado,juego,4,tipo,2,StaticRef;literal,uint32,Hud.cpp;Hud.h,2,0,3,1,0,0,0,
-0x00BAA438,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
-0x00BAA43C,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
-0x00BAA440,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
+0x00BAA424,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,3,1,0,0,0,
+0x00BAA428,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,3,1,0,0,0,
+0x00BAA42C,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,3,1,0,0,0,
+0x00BAA430,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,2,1,0,0,0,
+0x00BAA434,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,3,1,0,0,0,
+0x00BAA438,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,3,1,0,0,0,
+0x00BAA43C,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,3,1,0,0,0,
+0x00BAA440,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,Hud.h,1,0,2,1,0,0,0,
 0x00BAA444,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
 0x00BAA448,.bss,c_estado,juego,4,acceso,1,StaticRef,eNameState,Hud.h,1,0,6,1,0,0,0,
 0x00BAA44C,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
@@ -13728,7 +13734,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00BAB37C,.bss,c_estado,juego,2,acceso,0,,,,0,0,3,1,0,0,0,
 0x00BAB380,.bss,c_estado,juego,8312,tipo,1,StaticRef,FurnitureManager_c,FurnitureManager_c.h,1,2,16,0,1,0,1,
 0x00BAB3EC,.bss,c_estado,juego,64,hueco,0,,,,0,0,1,0,1,0,0,
-0x00BAD3EC,.bss,c_estado,juego,12,hueco,0,,,,0,0,4,0,1,0,0,
+0x00BAD3EC,.bss,c_estado,juego,12,hueco,3,StaticRef,TList_c<FurnitureEntity_c>,Interior_c.cpp,1,0,4,0,1,0,0,
 0x00BAD3F8,.bss,c_estado,juego,3584,tipo,2,StaticRef,"std::array<FurnitureSubGroup_c, 128>",FurnitureGroup_c.cpp;FurnitureManager_c.h,2,2,1,0,1,0,1,
 0x00BAE1F8,.bss,c_estado,juego,5120,tipo,1,StaticRef,Furniture_c[256],FurnitureSubGroup_c.cpp,1,2,1,0,1,1,1,
 0x00BAF5F8,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -13947,7 +13953,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00BC4088,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,1,0,0,
 0x00BC408C,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00BC4090,.bss,c_estado,juego,4,acceso,0,,,,0,1,4,1,0,0,0,
-0x00BC4094,.bss,c_estado,juego,4,tipo,1,StaticRef,IplDef*,ColAccel.h,1,1,4,1,0,0,1,
+0x00BC4094,.bss,c_estado,juego,4,acceso,0,,,,0,1,4,1,0,0,0,
 0x00BC4098,.bss,c_estado,juego,4,acceso,0,,,,0,1,3,1,0,0,0,
 0x00BC409C,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00BC40A0,.bss,c_estado,juego,4,acceso,1,StaticRef,eColAccelState,ColAccel.h,1,1,6,1,0,0,1,
@@ -14028,7 +14034,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C02C14,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00C02C18,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00C02C1C,.bss,c_estado,juego,4,acceso,0,,,,0,1,4,1,0,0,0,
-0x00C02C20,.bss,c_estado,juego,4,tipo,1,reinterpret_cast,int32,CustomBuildingDNPipeline.cpp,1,0,1,0,0,0,0,
+0x00C02C20,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C02C24,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00C02C28,.bss,c_estado,juego,4,acceso,0,,,,0,1,0,0,0,0,0,
 0x00C02C3C,.bss,c_estado,juego,4,acceso,0,,,,0,1,0,0,0,0,0,
@@ -14068,9 +14074,9 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C02D1E,.bss,c_estado,juego,2,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C02D20,.bss,c_estado,juego,4,acceso,0,,,,0,1,3,1,0,0,0,
 0x00C02D24,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
-0x00C02D28,.bss,c_estado,juego,4,tipo,1,StaticRef,CustomEnvMapPipeMaterialDataPool*,CustomCarEnvMapPipeline.h,1,1,7,1,0,0,1,
-0x00C02D2C,.bss,c_estado,juego,4,tipo,1,StaticRef,CustomEnvMapPipeAtomicDataPool*,CustomCarEnvMapPipeline.h,1,0,6,1,0,0,0,
-0x00C02D30,.bss,c_estado,juego,4,tipo,1,StaticRef,CustomSpecMapPipeMaterialDataPool*,CustomCarEnvMapPipeline.h,1,0,5,1,0,0,0,
+0x00C02D28,.bss,c_estado,juego,4,acceso,0,,,,0,1,7,1,0,0,0,
+0x00C02D2C,.bss,c_estado,juego,4,acceso,0,,,,0,0,6,1,0,0,0,
+0x00C02D30,.bss,c_estado,juego,4,acceso,0,,,,0,0,5,1,0,0,0,
 0x00C02D34,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00C02D38,.bss,c_estado,juego,4,acceso,1,StaticRef,D3DMATRIX,CustomCarEnvMapPipeline.cpp,1,0,1,1,1,0,0,
 0x00C02D4C,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
@@ -14311,7 +14317,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C0B050,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00C0B058,.bss,c_estado,juego,8,hueco,1,StaticRef,CInterestingEvents,InterestingEvents.cpp,1,1,29,0,1,0,1,
 0x00C0B060,.bss,c_estado,crt,64,hueco,0,,,,0,0,1,0,1,0,0,
-0x00C0B184,.bss,c_estado,juego,1,acceso,0,,,,0,0,6,1,0,0,0,
+0x00C0B184,.bss,c_estado,juego,1,tipo,3,StaticRef,uint8,Cam.cpp;Heli.cpp,2,0,6,1,0,0,0,
 0x00C0B1B0,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C0B1B4,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C0B1B8,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -14412,7 +14418,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C0ECC0,.bss,c_estado,juego,2,tipo,3,literal;reinterpret_cast,int16,GangWars.cpp;Population.h,2,2,12,1,1,1,1,
 0x00C0ED38,.bss,c_estado,juego,64,hueco,1,literal,,Population.h,1,2,3,1,1,1,1,
 0x00C0F074,.bss,c_estado,juego,2,tipo,2,StaticRef,uint16,CarCtrl.cpp,1,0,2,0,1,1,0,
-0x00C0F240,.bss,c_estado,juego,2,acceso,0,,,,0,0,2,0,1,0,0,
+0x00C0F240,.bss,c_estado,juego,2,tipo,1,StaticRef,uint16,CarCtrl.cpp,1,0,2,0,1,0,0,
 0x00C0F26E,.bss,c_estado,juego,64,hueco,0,,,,0,0,1,0,0,1,0,
 0x00C0F358,.bss,c_estado,juego,2,tipo,4,literal;reinterpret_cast,uint16,GangWars.cpp;Population.h,2,2,14,1,1,1,1,
 0x00C0FCB2,.bss,c_estado,juego,1,tipo,2,StaticRef;literal,bool,MissionCleanup.cpp;Population.h,2,1,4,1,0,0,1,
@@ -14483,8 +14489,8 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C17038,.bss,c_estado,juego,8,tipo,1,StaticRef,CScene,Scene.cpp,1,1,7,1,0,0,1,
 0x00C1703C,.bss,c_estado,crt,4,tipo,10,StaticRef;cast;literal,DWORD;RwCamera*,StandaloneExe.cpp;dllmain.cpp;Cam.cpp;Camera.cpp;X87Math.cpp,5,4,57,1,0,0,1,
 0x00C17040,.bss,c_estado,renderware,4,acceso,1,StaticRef,RsGlobalType,RenderWare.h,1,0,5,1,0,0,0,
-0x00C17044,.bss,c_estado,juego,4,tipo,2,StaticRef,int32,Camera.cpp;Font.cpp,2,9,111,1,0,0,1,
-0x00C17048,.bss,c_estado,juego,4,tipo,2,StaticRef,int32,Camera.cpp;Font.cpp,2,8,110,1,0,0,1,
+0x00C17044,.bss,c_estado,juego,4,tipo,4,StaticRef,int32,Camera.cpp;Font.cpp;RunningScriptCommands2200To2299.cpp;RunningScriptCommands2400To2499.cpp,4,9,111,1,0,0,1,
+0x00C17048,.bss,c_estado,juego,4,tipo,4,StaticRef,int32,Camera.cpp;Font.cpp;RunningScriptCommands2200To2299.cpp;RunningScriptCommands2400To2499.cpp,4,8,110,1,0,0,1,
 0x00C1704C,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
 0x00C17050,.bss,c_estado,juego,4,acceso,0,,,,0,1,6,1,0,0,0,
 0x00C17054,.bss,c_estado,juego,4,acceso,0,,,,0,3,24,1,0,0,0,
@@ -14521,7 +14527,8 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C170D0,.bss,c_estado,juego,1632,tipo,2,StaticRef;literal,"std::array<CMeleeInfo, 12>",TaskSimpleFight.cpp;TaskSimpleFight.h,2,0,4,0,1,0,0,
 0x00C170D4,.bss,c_estado,juego,4,acceso,0,,,,0,1,2,0,1,0,0,
 0x00C17730,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
-0x00C17738,.bss,c_estado,juego,64,hueco,0,,,,0,0,1,0,0,1,0,
+0x00C17738,.bss,c_estado,juego,8,tipo,1,StaticRef,"std::array<float, 2>",TaskSimpleUseGun.cpp,1,0,1,0,0,1,0,
+0x00C17780,.bss,c_estado,juego,2,tipo,1,StaticRef,"std::array<uint8, 2>",TaskSimpleUseGun.cpp,1,0,0,0,0,0,0,
 0x00C177B8,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00C177BC,.bss,c_estado,crt,4,acceso,2,literal,,CrtStaticInitTable.inc;TaskSimpleFight.cpp,2,1,1,0,1,0,1,
 0x00C177C0,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -14638,7 +14645,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C18CE4,.bss,c_estado,juego,4,acceso,0,,,,0,1,4,1,0,0,0,
 0x00C18CE8,.bss,c_estado,juego,4,acceso,0,,,,0,1,2,1,0,0,0,
 0x00C18CEC,.bss,c_estado,juego,4,acceso,0,,,,0,1,15,1,0,0,0,
-0x00C18CF0,.bss,c_estado,juego,4,tipo,3,StaticRef;reinterpret_cast,float,PlayerPed.cpp;RunningScriptCommands1500To1599.cpp;TaskGangHassleVehicle.cpp,3,1,23,1,0,0,1,
+0x00C18CF0,.bss,c_estado,juego,4,tipo,4,StaticRef;reinterpret_cast,float,PlayerPed.cpp;RunningScriptCommands1500To1599.cpp;RunningScriptCommands1800To1899.cpp;TaskGangHassleVehicle.cpp,4,1,23,1,0,0,1,
 0x00C18CF4,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C18CF8,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C18CFC,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
@@ -14662,7 +14669,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C18D48,.bss,c_estado,juego,4,tipo,1,StaticRef,float,TaskSimpleGoTo.h,1,1,3,0,0,0,1,
 0x00C18D50,.bss,c_estado,juego,4,acceso,0,,,,0,1,1,1,1,0,0,
 0x00C18DB4,.bss,c_estado,juego,4,tipo,1,StaticRef,float,RunningScriptCommands1500To1599.cpp,1,1,1,1,0,0,1,
-0x00C18DB8,.bss,c_estado,juego,420,tipo,1,reinterpret_cast,CPatrolRoute,RunningScriptCommands2000To2099.cpp,1,2,0,0,1,0,1,
+0x00C18DB8,.bss,c_estado,juego,420,tipo,2,reinterpret_cast,CPatrolRoute,RunningScriptCommands1800To1899.cpp;RunningScriptCommands2000To2099.cpp,2,2,0,0,1,0,1,
 0x00C18F5C,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00C18F60,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00C18F64,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -14838,7 +14845,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C1BDD0,.bss,c_estado,juego,64,hueco,0,,,,0,0,1,0,1,0,0,
 0x00C1BED0,.bss,c_estado,juego,257,tipo,1,StaticRef,char[257],C_PcSave.cpp,1,0,1,0,1,0,0,
 0x00C1BFD0,.bss,c_estado,juego,1,tipo,1,StaticRef,bool,Automobile.h,1,0,2,1,0,0,0,
-0x00C1BFD8,.bss,c_estado,juego,4,acceso,1,literal,,Automobile.cpp,1,0,2,1,0,0,0,
+0x00C1BFD8,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00C1BFDC,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00C1BFE0,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00C1BFE4,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -14962,12 +14969,12 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C1CB80,.bss,c_estado,juego,4,hueco,0,,,,0,0,1,1,0,1,0,
 0x00C1CB84,.bss,c_estado,juego,64,hueco,0,,,,0,0,1,1,0,1,0,
 0x00C1CC00,.bss,c_estado,juego,1,tipo,3,StaticRef;literal,bool;uint8,Vehicle.cpp;Vehicle.h;MissionCleanup.cpp,3,0,3,1,0,0,0,
-0x00C1CC01,.bss,c_estado,juego,1,tipo,2,StaticRef;literal,bool,Vehicle.h;MissionCleanup.cpp,2,0,3,1,0,0,0,
+0x00C1CC01,.bss,c_estado,juego,1,acceso,0,,,,0,0,3,1,0,0,0,
 0x00C1CC02,.bss,c_estado,juego,1,tipo,2,StaticRef;literal,bool,Cam.cpp;Vehicle.h,2,0,10,1,1,0,0,
 0x00C1CC03,.bss,c_estado,juego,1,tipo,3,StaticRef;literal,bool,Cam.cpp;Plane.cpp;Vehicle.h,3,0,8,1,1,0,0,
 0x00C1CC04,.bss,c_estado,juego,4,tipo,2,StaticRef,eControllerType;int32,Plane.cpp;Vehicle.h,2,0,6,1,0,0,0,
 0x00C1CC08,.bss,c_estado,juego,16,tipo,1,StaticRef,"std::array<CVehicle*, 4>",Vehicle.h,1,0,3,1,0,1,0,
-0x00C1CC18,.bss,c_estado,juego,1,tipo,2,StaticRef;literal,bool,Vehicle.h;MissionCleanup.cpp,2,1,3,1,0,0,1,
+0x00C1CC18,.bss,c_estado,juego,1,tipo,3,StaticRef;literal,bool;uint8,Vehicle.h;MissionCleanup.cpp;RunningScriptCommands2600To2699.cpp,3,1,3,1,0,0,1,
 0x00C1CC19,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C1CC1C,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C1CC2C,.bss,c_estado,juego,12,tipo,1,StaticRef,CVector,Vehicle.cpp,1,0,1,0,0,0,0,
@@ -14979,7 +14986,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C1CC44,.bss,c_estado,juego,12,tipo,1,StaticRef,CVector,Vehicle.cpp,1,0,1,0,0,0,0,
 0x00C1CC48,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C1CC4C,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
-0x00C1CC50,.bss,c_estado,juego,12,tipo,1,StaticRef,CVector,Vehicle.cpp,1,0,1,0,0,0,0,
+0x00C1CC50,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C1CC54,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C1CC58,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C1CC5C,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -15178,6 +15185,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C2B9D8,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C2B9DC,.bss,c_estado,juego,44,hueco,0,,,,0,0,6,0,1,0,0,
 0x00C2BA08,.bss,c_estado,crt,64,hueco,0,,,,0,1,0,0,1,0,0,
+0x00C2BAAC,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,RunningScriptCommands2400To2499.cpp,1,0,0,0,0,0,0,
 0x00C3491C,.bss,c_estado,juego,64,hueco,0,,,,0,0,2,0,1,0,0,
 0x00C37FEC,.bss,c_estado,juego,16,tipo,1,StaticRef,"std::array<float, 4>",Train.cpp,1,0,2,0,1,0,0,
 0x00C37FF0,.bss,c_estado,juego,4,hueco,0,,,,0,0,1,0,1,0,0,
@@ -15298,7 +15306,6 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C3F6E8,.bss,c_estado,juego,64,hueco,0,,,,0,0,1,0,1,0,0,
 0x00C3F860,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,1,0,0,
 0x00C3F868,.bss,c_estado,juego,64,hueco,0,,,,0,0,1,0,1,0,0,
-0x00C3FE08,.bss,c_estado,juego,720,tipo,1,StaticRef,"std::array<int32, 180>",PostEffects.cpp,1,0,0,0,0,0,0,
 0x00C400D8,.bss,c_estado,juego,4,acceso,1,StaticRef,"std::array<RwIm2DVertex, 4>",PostEffects.cpp,1,0,3,1,1,0,0,
 0x00C400DC,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C400E0,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
@@ -15438,7 +15445,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C40321,.bss,c_estado,juego,1,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C40324,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C40328,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
-0x00C4032C,.bss,c_estado,juego,4,tipo,1,StaticRef,float,PostEffects.cpp,1,0,1,1,0,0,0,
+0x00C4032C,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C40330,.bss,c_estado,juego,4,acceso,1,literal,,PostEffects.cpp,1,0,1,1,0,0,0,
 0x00C40338,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00C4033C,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -15547,7 +15554,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C4B8B4,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C4B8BC,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C4B8C0,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
-0x00C4B8C8,.bss,c_estado,juego,4,tipo,1,reinterpret_cast,uint32,Shadows.cpp,1,0,1,1,0,0,0,
+0x00C4B8C8,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C4B8D0,.bss,c_estado,juego,4,acceso,0,,,,0,2,1,0,0,0,0,
 0x00C4B8D4,.bss,c_estado,juego,4,acceso,0,,,,0,1,5,0,0,0,0,
 0x00C4B8D8,.bss,c_estado,juego,4,acceso,0,,,,0,2,6,0,0,0,0,
@@ -15990,7 +15997,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C799C4,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00C799C8,.bss,c_estado,juego,2,hueco,1,StaticRef,"std::array<RxVertexIndex, 96>",Skidmarks.h,1,0,1,0,1,0,0,
 0x00C799CA,.bss,c_estado,juego,64,hueco,0,,,,0,0,1,0,1,0,0,
-0x00C79A88,.bss,c_estado,juego,4,tipo,1,StaticRef,RwTexture*,Skidmarks.h,1,0,3,1,0,0,0,
+0x00C79A88,.bss,c_estado,juego,4,acceso,0,,,,0,0,3,1,0,0,0,
 0x00C79A8A,.bss,c_estado,juego,2,hueco,0,,,,0,0,1,0,1,0,0,
 0x00C79A8C,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
 0x00C79A90,.bss,c_estado,crt,4,acceso,1,literal,,CrtStaticInitTable.inc,1,1,0,0,0,0,1,
@@ -16149,7 +16156,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C803D8,.bss,c_estado,juego,12,tipo,1,StaticRef,CVector,Mirrors.h,1,0,5,1,1,0,0,
 0x00C803DC,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C803E0,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
-0x00C803E8,.bss,c_estado,juego,72,tipo,1,StaticRef,CMatrix,SpecialFX.cpp,1,1,1,0,1,0,1,
+0x00C803E8,.bss,c_estado,juego,72,tipo,2,StaticRef,CMatrix,SpecialFX.cpp,1,1,1,0,1,0,1,
 0x00C803EC,.bss,c_estado,juego,60,hueco,0,,,,0,0,1,0,1,0,0,
 0x00C80428,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,SpecialFX.cpp,1,0,1,1,0,0,0,
 0x00C8042C,.bss,c_estado,juego,4,tipo,1,StaticRef,uint32,SpecialFX.cpp,1,0,1,1,0,0,0,
@@ -16489,7 +16496,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C88260,.bss,c_estado,juego,4,acceso,0,,,,0,1,0,1,0,0,0,
 0x00C88264,.bss,c_estado,juego,4,acceso,0,,,,0,1,0,1,0,0,0,
 0x00C8826C,.bss,c_estado,juego,64,hueco,0,,,,0,1,0,0,1,0,0,
-0x00C88658,.bss,c_estado,renderware,1,tipo,1,reinterpret_cast,uint8,RwHelper.cpp,1,1,0,1,0,0,1,
+0x00C88658,.bss,c_estado,juego,1,acceso,0,,,,0,1,0,1,0,0,0,
 0x00C8865C,.bss,c_estado,juego,4,acceso,1,StaticRef,"std::array<RwRGBAReal, 2>",app_light.h,1,0,2,1,1,0,0,
 0x00C88660,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C88664,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
@@ -16680,12 +16687,12 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C8CFA4,.bss,c_estado,juego,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00C8CFA8,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C8CFAC,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,1,0,0,0,
-0x00C8CFB0,.bss,c_estado,juego,8,tipo,1,StaticRef,RwV2d,Pad.cpp,1,0,1,0,0,0,0,
+0x00C8CFB0,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C8CFB4,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
-0x00C8CFB8,.bss,c_estado,juego,8,tipo,1,StaticRef,RwV2d,Pad.cpp,1,0,1,0,0,0,0,
+0x00C8CFB8,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C8CFBC,.bss,c_estado,juego,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C8CFC0,.bss,c_estado,juego,64,hueco,1,StaticRef,"std::array<RwSubSystemInfo, MAX_SUBSYSTEMS>",VideoMode.h,1,1,2,0,1,0,1,
-0x00C8D4C0,.bss,c_estado,juego,4,tipo,1,StaticRef,int32,app.h,1,0,5,1,0,0,0,
+0x00C8D4C0,.bss,c_estado,juego,4,tipo,3,StaticRef;cast;literal,LONG;int32,app.h;StandaloneExe.cpp,2,0,5,1,0,0,0,
 0x00C8D4C8,.bss,c_estado,juego,64,hueco,1,StaticRef,D3DGAMMARAMP,Gamma.h,1,0,4,0,1,0,0,
 0x00C8DAC8,.bss,c_estado,juego,64,hueco,1,StaticRef,D3DGAMMARAMP,Gamma.h,1,0,3,1,1,1,0,
 0x00C8DCC8,.bss,c_estado,juego,64,hueco,0,,,,0,0,2,1,0,1,0,
@@ -16767,7 +16774,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C92578,.bss,c_estado,renderware,36,tipo,1,reinterpret_cast,RwFreeList,rpworld.cpp,1,1,0,0,1,0,1,
 0x00C9259C,.bss,c_estado,renderware,4,tipo,17,StaticRef,RwInt32,rpworld.cpp;rpworld_s30a31a.cpp,2,3,5,1,0,0,1,
 0x00C925A0,.bss,c_estado,renderware,4,tipo,4,StaticRef,RwInt32,rpworld.cpp,1,1,0,1,0,0,1,
-0x00C925A4,.bss,c_estado,renderware,4,tipo,10,StaticRef;reinterpret_cast,RwInt32;int,StandaloneExe.cpp;rpworld.cpp;rpworld_s30a31a.cpp,3,3,3,1,0,0,1,
+0x00C925A4,.bss,c_estado,renderware,4,tipo,7,StaticRef,RwInt32,rpworld.cpp;rpworld_s30a31a.cpp,2,3,3,1,0,0,1,
 0x00C925A8,.bss,c_estado,renderware,4,tipo,2,StaticRef,RwInt32,rpworld.cpp,1,3,2,1,0,0,1,
 0x00C925AC,.bss,c_estado,renderware,4,tipo,2,StaticRef,RwInt32,rpworld.cpp;rpworld_s30a31a.cpp,2,2,2,1,0,0,1,
 0x00C925B0,.bss,c_estado,renderware,4,tipo,1,StaticRef,RwInt32,rpworld.cpp,1,3,4,1,0,0,1,
@@ -16848,7 +16855,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C92704,.bss,c_estado,renderware,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00C92708,.bss,c_estado,renderware,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00C9270C,.bss,c_estado,renderware,64,hueco,0,,,,0,1,0,0,1,0,0,
-0x00C93AF8,.bss,c_estado,renderware,64,hueco,0,,,,0,1,0,0,1,0,0,
+0x00C93AF8,.bss,c_estado,renderware,64,hueco,1,literal,,rpworld.cpp,1,1,0,0,1,0,1,
 0x00C94AF8,.bss,c_estado,renderware,256,tipo,1,StaticRef,RwUInt32[64],rpworld.cpp,1,2,1,0,1,1,1,
 0x00C94AFC,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C94B00,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,
@@ -16863,10 +16870,10 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C94C00,.bss,c_estado,renderware,4,tipo,1,StaticRef,RwUInt32,rpworld.cpp,1,1,1,1,0,0,1,
 0x00C94C04,.bss,c_estado,renderware,4,tipo,1,StaticRef,RwUInt32,rpworld.cpp,1,3,1,1,0,0,1,
 0x00C94C0C,.bss,c_estado,renderware,4,tipo,4,StaticRef,RwInt32,rpworld.cpp,1,1,0,1,0,0,1,
-0x00C94C10,.bss,c_estado,renderware,4,tipo,1,StaticRef,RwInt32,rpworld.cpp,1,1,1,1,1,0,1,
+0x00C94C10,.bss,c_estado,renderware,4,tipo,3,StaticRef,RwInt32;RwUInt32,rpworld.cpp;rpworld_s30a31a.cpp,2,1,1,1,1,0,1,
 0x00C94C14,.bss,c_estado,renderware,4,tipo,3,StaticRef,RwInt32;RwUInt32,rpworld.cpp;rpworld_s30a31a.cpp,2,1,1,1,1,0,1,
 0x00C94C18,.bss,c_estado,renderware,4,tipo,4,StaticRef,RwInt32;RwUInt32,rpworld.cpp;rpworld_s30a31a.cpp,2,1,1,1,1,0,1,
-0x00C94C1C,.bss,c_estado,renderware,4,tipo,1,StaticRef,RwInt32,rpworld.cpp,1,1,1,1,1,0,1,
+0x00C94C1C,.bss,c_estado,renderware,4,tipo,4,StaticRef,RwInt32;RwUInt32,rpworld.cpp;rpworld_s30a31a.cpp,2,1,1,1,1,0,1,
 0x00C94C24,.bss,c_estado,renderware,4,tipo,4,StaticRef,RwInt32,rpworld.cpp,1,1,0,1,0,0,1,
 0x00C94C30,.bss,c_estado,renderware,64,hueco,1,literal,,rpworld.cpp,1,0,1,0,1,0,0,
 0x00C94C70,.bss,c_estado,renderware,4,acceso,3,literal,,rpworld.cpp,1,2,12,1,0,0,1,
@@ -16884,7 +16891,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9584C,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C95850,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C95858,.bss,c_estado,renderware,4,acceso,0,,,,0,0,2,1,0,0,0,
-0x00C96438,.bss,c_estado,renderware,4,acceso,1,literal,,D3dxShaderAssembler.cpp,1,1,0,1,0,0,1,
+0x00C96438,.bss,c_estado,renderware,4,acceso,0,,,,0,1,0,1,0,0,0,
 0x00C9701C,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C97020,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C97030,.bss,c_estado,renderware,16,acceso,0,,,,0,0,3,1,0,0,0,
@@ -16892,23 +16899,23 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C97050,.bss,c_estado,renderware,4,acceso,0,,,,0,0,3,1,0,0,0,
 0x00C97054,.bss,c_estado,renderware,36,tipo,1,reinterpret_cast,RwFreeList,rphanim.cpp,1,1,0,0,1,0,1,
 0x00C97078,.bss,c_estado,renderware,36,tipo,1,reinterpret_cast,RwFreeList,rpskin.cpp,1,1,0,0,1,0,1,
-0x00C970A0,.bss,c_estado,renderware,64,hueco,0,,,,0,1,0,0,1,0,0,
-0x00C970E0,.bss,c_estado,renderware,64,hueco,0,,,,0,1,0,0,1,0,0,
+0x00C970A0,.bss,c_estado,renderware,64,hueco,1,reinterpret_cast,RwV4d,rpskin.cpp,1,1,0,0,1,0,1,
+0x00C970E0,.bss,c_estado,renderware,64,hueco,1,reinterpret_cast,RwV4d,rpskin.cpp,1,1,0,0,1,0,1,
 0x00C978A0,.bss,c_estado,renderware,4,tipo,1,reinterpret_cast,RwInt32,rpskin.cpp,1,0,1,1,0,0,0,
 0x00C978A4,.bss,c_estado,renderware,4,tipo,1,reinterpret_cast,RwInt32,rpskin.cpp,1,3,3,1,0,0,1,
 0x00C978A8,.bss,c_estado,renderware,4,tipo,1,reinterpret_cast,RwInt32,rpskin.cpp,1,5,10,1,0,0,1,
-0x00C978AC,.bss,c_estado,renderware,4,acceso,1,StaticRef,uintptr_t,rpskin.cpp,1,5,0,1,0,0,1,
+0x00C978AC,.bss,c_estado,renderware,4,tipo,2,StaticRef,RwUInt8*;uintptr_t,rpskin.cpp,1,5,0,1,0,0,1,
 0x00C978B0,.bss,c_estado,renderware,4,tipo,4,StaticRef,void*,rpskin.cpp,1,1,0,1,0,0,1,
 0x00C978B8,.bss,c_estado,renderware,4,acceso,1,literal,,rpskin.cpp,1,4,2,1,0,0,1,
 0x00C978C0,.bss,c_estado,renderware,4,tipo,2,StaticRef,RwInt32,rpskin.cpp,1,1,0,1,0,0,1,
 0x00C978C4,.bss,c_estado,renderware,4,acceso,1,literal,,rpskin.cpp,1,0,3,1,1,0,0,
-0x00C978D4,.bss,c_estado,renderware,4,acceso,0,,,,0,2,1,1,1,0,0,
-0x00C978D8,.bss,c_estado,renderware,4,acceso,0,,,,0,2,0,1,0,0,0,
-0x00C978DC,.bss,c_estado,renderware,4,acceso,0,,,,0,2,0,1,0,0,0,
+0x00C978D4,.bss,c_estado,renderware,4,tipo,1,StaticRef,RpHAnimHierarchy*,rpskin.cpp,1,2,1,1,1,0,1,
+0x00C978D8,.bss,c_estado,renderware,4,tipo,1,StaticRef,RwUInt32,rpskin.cpp,1,2,0,1,0,0,1,
+0x00C978DC,.bss,c_estado,renderware,4,tipo,1,StaticRef,void*,rpskin.cpp,1,2,0,1,0,0,1,
 0x00C978E0,.bss,c_estado,renderware,4,tipo,1,reinterpret_cast,RwUInt32,rpskin.cpp,1,1,3,1,0,0,1,
 0x00C978E4,.bss,c_estado,renderware,4,tipo,1,reinterpret_cast,RwUInt32,rpskin.cpp,1,1,3,1,0,0,1,
 0x00C978E8,.bss,c_estado,renderware,4,tipo,1,reinterpret_cast,RwUInt32,rpskin.cpp,1,1,4,1,0,0,1,
-0x00C978EC,.bss,c_estado,renderware,4,tipo,2,reinterpret_cast,RwUInt32,rpskin.cpp,1,1,1,1,0,0,1,
+0x00C978EC,.bss,c_estado,renderware,4,tipo,3,StaticRef;reinterpret_cast,RwUInt32,rpskin.cpp,1,1,1,1,0,0,1,
 0x00C978F4,.bss,c_estado,renderware,4,acceso,1,literal,,rpuvanim.cpp,1,3,3,1,0,0,1,
 0x00C978FC,.bss,c_estado,renderware,4,tipo,2,reinterpret_cast,RwInt32,rpuvanim.cpp,1,1,0,1,0,0,1,
 0x00C97900,.bss,c_estado,renderware,4,tipo,1,reinterpret_cast,RwInt32,rtanim.cpp,1,4,3,1,0,0,1,
@@ -16934,9 +16941,9 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C97B0C,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C97B10,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C97B20,.bss,c_estado,renderware,4,tipo,2,StaticRef;literal,RwInt32,rwplcore.cpp,1,0,4,1,0,0,0,
-0x00C97B24,.bss,c_estado,renderware,4,tipo,46,StaticRef;cast;literal,RwGlobals*;int32;uint32_t;uintptr_t,StandaloneExe.cpp;PostEffects.cpp;D3D9RasterDriver.cpp;RenderWare.h;rphanim.cpp;rpmatfx.cpp,8,134,428,1,0,0,1,
+0x00C97B24,.bss,c_estado,renderware,4,tipo,44,StaticRef;cast;literal,RwGlobals*;int32;uint32_t;uintptr_t,PostEffects.cpp;D3D9RasterDriver.cpp;RenderWare.h;rphanim.cpp;rpmatfx.cpp;rpworld.cpp,7,134,428,1,0,0,1,
 0x00C97B28,.bss,c_estado,renderware,36,tipo,1,reinterpret_cast,RwFreeList,rwcore.cpp,1,1,0,0,1,0,1,
-0x00C97B4C,.bss,c_estado,renderware,4,tipo,24,StaticRef;literal,RwInt32,rwcore.cpp,1,8,16,1,0,0,1,
+0x00C97B4C,.bss,c_estado,renderware,4,tipo,25,StaticRef;literal,RwInt32,rwcore.cpp,1,8,16,1,0,0,1,
 0x00C97B50,.bss,c_estado,renderware,4,tipo,4,StaticRef,RwInt32,rwcore.cpp,1,1,0,1,0,0,1,
 0x00C97B54,.bss,c_estado,renderware,36,tipo,1,reinterpret_cast,RwFreeList,rwcore.cpp,1,1,0,0,1,0,1,
 0x00C97B78,.bss,c_estado,renderware,4,tipo,3,StaticRef,RwTexDictionary*,rwcore.cpp,1,1,0,1,0,0,1,
@@ -16970,10 +16977,10 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C97C1C,.bss,c_estado,renderware,4,tipo,4,StaticRef,HWND;void*,WindowedMode.cpp;D3D9RasterDriver.cpp;D3D9RasterFormat.cpp;rwcore.cpp,4,3,7,1,0,0,1,
 0x00C97C20,.bss,c_estado,renderware,4,tipo,4,StaticRef,IDirect3D9*;void*,WindowedMode.cpp;D3D9RasterDriver.cpp;D3D9RasterFormat.cpp;rwcore.cpp,4,4,18,1,0,0,1,
 0x00C97C24,.bss,c_estado,renderware,4,tipo,4,StaticRef,RwUInt32;UINT;uint32,WindowedMode.cpp;D3D9RasterDriver.cpp;D3D9RasterFormat.cpp;rwcore.cpp,4,4,18,1,0,0,1,
-0x00C97C28,.bss,c_estado,renderware,4,tipo,14,StaticRef;cast;literal,DWORD;IDirect3DDevice9*;LPDIRECT3DDEVICE9;void*,StandaloneExe.cpp;D3D9RasterDriver.cpp;D3D9RasterFormat.cpp;D3D9RasterStandards.cpp;D3DResourceSystem.cpp;RenderWare.h,11,26,62,1,1,0,1,
+0x00C97C28,.bss,c_estado,renderware,4,tipo,18,StaticRef;cast;literal,DWORD;IDirect3DDevice9*;LPDIRECT3DDEVICE9;void*,StandaloneExe.cpp;D3D9RasterDriver.cpp;D3D9RasterFormat.cpp;D3D9RasterStandards.cpp;D3DResourceSystem.cpp;RenderWare.h,13,26,62,1,1,0,1,
 0x00C97C2C,.bss,c_estado,renderware,4,tipo,5,StaticRef,LPSURFACE;void*,WindowedMode.cpp;D3D9RasterDriver.cpp;D3D9RasterFormat.cpp;D3D9RasterStandards.cpp;rwcore.cpp,5,2,12,0,1,0,1,
 0x00C97C30,.bss,c_estado,renderware,4,tipo,3,StaticRef,LPSURFACE;void*,WindowedMode.cpp;D3D9RasterStandards.cpp;rwcore.cpp,3,1,12,0,1,0,1,
-0x00C97C34,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,
+0x00C97C34,.bss,c_estado,renderware,4,tipo,3,StaticRef,RwBool,WindowedMode.cpp;rwcore.cpp,2,0,1,1,0,0,0,
 0x00C97C38,.bss,c_estado,renderware,4,tipo,1,StaticRef,int32,rwcore.cpp,1,1,4,1,0,0,1,
 0x00C97C3C,.bss,c_estado,renderware,4,tipo,2,StaticRef,RwBool;int32,WindowedMode.cpp;rwcore.cpp,2,0,2,1,0,0,0,
 0x00C97C40,.bss,c_estado,renderware,4,tipo,2,StaticRef,RwInt32;int32,WindowedMode.cpp;rwcore.cpp,2,1,3,1,0,0,1,
@@ -16998,18 +17005,18 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C98098,.bss,c_estado,renderware,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00C9809C,.bss,c_estado,renderware,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00C980A0,.bss,c_estado,renderware,4,tipo,1,StaticRef,int32,rwcore.cpp,1,1,0,1,0,0,1,
-0x00C980A4,.bss,c_estado,renderware,4,tipo,2,StaticRef,int32;uint32,rwcore.cpp,1,3,1,1,0,0,1,
+0x00C980A4,.bss,c_estado,renderware,4,tipo,3,StaticRef,RwUInt32;int32;uint32,rpskin.cpp;rwcore.cpp,2,3,1,1,0,0,1,
 0x00C980A8,.bss,c_estado,renderware,4,tipo,1,StaticRef,int32,rwcore.cpp,1,2,0,1,0,0,1,
 0x00C980AC,.bss,c_estado,renderware,4,tipo,1,StaticRef,int32,rwcore.cpp,1,2,0,1,0,0,1,
 0x00C980B0,.bss,c_estado,renderware,4,acceso,4,StaticRef;literal,rwD3D9DeviceRestoreCallBack,WindowedMode.cpp;rwcore.cpp,2,1,7,1,0,0,1,
 0x00C980B4,.bss,c_estado,renderware,36,tipo,1,reinterpret_cast,RwFreeList,rwcore.cpp,1,1,0,0,1,0,1,
 0x00C980D8,.bss,c_estado,renderware,4,tipo,6,StaticRef;literal,RwInt32,rwcore.cpp,1,2,5,1,0,0,1,
 0x00C980DC,.bss,c_estado,renderware,4,tipo,4,StaticRef,RwInt32,rwcore.cpp,1,1,0,1,0,0,1,
-0x00C980E0,.bss,c_estado,renderware,4,tipo,5,StaticRef,uint32,rwcore.cpp,1,2,3,1,0,0,1,
-0x00C980E4,.bss,c_estado,renderware,4,tipo,2,StaticRef,uint32,rwcore.cpp,1,2,2,1,1,0,1,
-0x00C980E8,.bss,c_estado,renderware,4,tipo,7,StaticRef;literal,void*,rwcore.cpp,1,2,4,1,1,0,1,
-0x00C980EC,.bss,c_estado,renderware,4,tipo,1,StaticRef,uint32,rwcore.cpp,1,0,1,1,0,0,0,
-0x00C980F0,.bss,c_estado,renderware,4,tipo,5,StaticRef;literal,void*,rwcore.cpp,1,0,2,1,1,0,0,
+0x00C980E0,.bss,c_estado,renderware,4,tipo,7,StaticRef,uint32,rwcore.cpp,1,2,3,1,0,0,1,
+0x00C980E4,.bss,c_estado,renderware,4,tipo,4,StaticRef,uint32,rwcore.cpp,1,2,2,1,1,0,1,
+0x00C980E8,.bss,c_estado,renderware,4,tipo,9,StaticRef;literal,void*,rwcore.cpp,1,2,4,1,1,0,1,
+0x00C980EC,.bss,c_estado,renderware,4,tipo,2,StaticRef,uint32,rwcore.cpp,1,0,1,1,0,0,0,
+0x00C980F0,.bss,c_estado,renderware,4,tipo,6,StaticRef;literal,void*,rwcore.cpp,1,0,2,1,1,0,0,
 0x00C980F4,.bss,c_estado,renderware,4,tipo,8,StaticRef;literal,void*,rwcore.cpp,1,0,3,1,1,0,0,
 0x00C980F8,.bss,c_estado,renderware,4,tipo,3,reinterpret_cast,D3D9StageStateSlot;RwUInt32,rwcore.cpp,1,1,1,0,0,1,1,
 0x00C980FC,.bss,c_estado,renderware,64,hueco,0,,,,0,0,3,1,1,1,0,
@@ -17156,14 +17163,14 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9A700,.bss,c_estado,renderware,36,tipo,1,reinterpret_cast,RwFreeList,rwplcore.cpp,1,1,0,0,1,0,1,
 0x00C9A728,.bss,c_estado,renderware,4,tipo,4,StaticRef,RwInt32,rwplcore.cpp,1,1,0,1,0,0,1,
 0x00C9A730,.bss,c_estado,renderware,4,tipo,3,reinterpret_cast,RwUInt32,rwcore.cpp,1,0,3,1,0,1,0,
-0x00C9AB30,.bss,c_estado,renderware,4,acceso,0,,,,0,1,0,1,0,0,0,
-0x00C9AB34,.bss,c_estado,renderware,4,acceso,0,,,,0,1,0,0,1,0,0,
-0x00C9AB38,.bss,c_estado,renderware,4,acceso,0,,,,0,1,0,0,1,0,0,
-0x00C9AB3C,.bss,c_estado,renderware,4,tipo,1,StaticRef,uint32,rwcore.cpp,1,1,1,1,0,0,1,
-0x00C9AB40,.bss,c_estado,renderware,4,tipo,7,StaticRef;literal,void*,rwcore.cpp,1,1,2,1,1,0,1,
-0x00C9AB44,.bss,c_estado,renderware,4,tipo,7,StaticRef;literal,void*,rwcore.cpp,1,1,2,1,1,0,1,
-0x00C9AB48,.bss,c_estado,renderware,4,tipo,7,StaticRef;literal,void*,rwcore.cpp,1,1,2,1,1,0,1,
-0x00C9AB4C,.bss,c_estado,renderware,4,tipo,7,StaticRef;literal,void*,rwcore.cpp,1,1,2,1,1,0,1,
+0x00C9AB30,.bss,c_estado,renderware,4,tipo,2,StaticRef,rwIm3DPool*;uint32,rpworld_nolight.cpp;rwcore.cpp,2,1,0,1,0,0,1,
+0x00C9AB34,.bss,c_estado,renderware,4,tipo,1,StaticRef,RwUInt32,rpworld_nolight.cpp,1,1,0,0,1,0,1,
+0x00C9AB38,.bss,c_estado,renderware,4,tipo,1,StaticRef,void*,rpworld_nolight.cpp,1,1,0,0,1,0,1,
+0x00C9AB3C,.bss,c_estado,renderware,4,tipo,2,StaticRef,RwUInt32;uint32,rpworld_nolight.cpp;rwcore.cpp,2,1,1,1,0,0,1,
+0x00C9AB40,.bss,c_estado,renderware,4,tipo,8,StaticRef;literal,IDirect3DIndexBuffer9*;void*,rpworld_nolight.cpp;rwcore.cpp,2,1,2,1,1,0,1,
+0x00C9AB44,.bss,c_estado,renderware,4,tipo,8,StaticRef;literal,void*,rpworld_nolight.cpp;rwcore.cpp,2,1,2,1,1,0,1,
+0x00C9AB48,.bss,c_estado,renderware,4,tipo,8,StaticRef;literal,void*,rpworld_nolight.cpp;rwcore.cpp,2,1,2,1,1,0,1,
+0x00C9AB4C,.bss,c_estado,renderware,4,tipo,8,StaticRef;literal,void*,rpworld_nolight.cpp;rwcore.cpp,2,1,2,1,1,0,1,
 0x00C9AB50,.bss,c_estado,renderware,36,tipo,1,reinterpret_cast,RwFreeList,rpmatfx.cpp,1,1,0,0,1,0,1,
 0x00C9AB74,.bss,c_estado,renderware,4,tipo,1,StaticRef,RwInt32,rpmatfx.h,1,13,18,1,1,0,1,
 0x00C9AB7C,.bss,c_estado,renderware,4,tipo,4,StaticRef,RwInt32,rpmatfx.cpp,1,1,0,1,0,0,1,
@@ -17186,15 +17193,15 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9ABC0,.bss,c_estado,renderware,4,tipo,1,StaticRef,RwInt32,rpmatfx.cpp,1,1,1,1,0,0,1,
 0x00C9ABC4,.bss,c_estado,renderware,4,acceso,1,StaticRef,RxD3D9AllInOneInstanceCallBack,rpmatfx.cpp,1,1,1,1,0,0,1,
 0x00C9ABC8,.bss,c_estado,renderware,4,acceso,1,StaticRef,RxD3D9AllInOneInstanceCallBack,rpmatfx.cpp,1,1,1,1,0,0,1,
-0x00C9ABD8,.bss,c_estado,renderware,4,acceso,0,,,,0,0,2,1,0,0,0,
-0x00C9ABDC,.bss,c_estado,juego,4,acceso,1,StaticRef,HMODULE,QTMLRuntime.cpp,1,1,3,1,0,0,1,
+0x00C9ABD8,.bss,c_estado,renderware,4,acceso,0,,,,0,2,0,1,0,0,0,
+0x00C9ABDC,.bss,c_estado,renderware,4,acceso,0,,,,0,4,0,1,0,0,0,
 0x00C9ABE0,.bss,c_estado,crt,4,acceso,0,,,,0,1,3,1,1,0,0,
 0x00C9ABE4,.bss,c_estado,crt,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C9ABE8,.bss,c_estado,crt,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C9ABEC,.bss,c_estado,crt,4,acceso,0,,,,0,2,0,1,1,0,0,
 0x00C9ABF8,.bss,c_estado,crt,4,acceso,0,,,,0,1,0,1,0,0,0,
 0x00C9ABFC,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,X87Math.cpp,1,1,4,1,0,0,1,
-0x00C9AC00,.bss,c_estado,crt,4,acceso,0,,,,0,3,0,1,0,0,0,
+0x00C9AC00,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtStartup.cpp,1,3,0,1,0,0,1,
 0x00C9AC04,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtLowIo.cpp,1,0,1,0,0,0,0,
 0x00C9AC08,.bss,c_estado,crt,4,tipo,2,reinterpret_cast,int,CrtLowIo.cpp;CrtStartup.cpp,2,3,4,1,0,0,1,
 0x00C9AC0C,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtStartup.cpp,1,1,0,1,0,0,1,
@@ -17203,7 +17210,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9AC18,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtStartup.cpp,1,1,0,1,0,0,1,
 0x00C9AC1C,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtStartup.cpp,1,1,0,1,0,0,1,
 0x00C9AC20,.bss,c_estado,crt,4,acceso,1,literal,,CrtStartup.cpp,1,1,0,1,0,0,1,
-0x00C9AC28,.bss,c_estado,crt,4,acceso,1,literal,,CrtStartup.cpp,1,5,0,1,0,0,1,
+0x00C9AC28,.bss,c_estado,crt,4,acceso,2,literal,,CrtFile.cpp;CrtStartup.cpp,2,5,0,1,0,0,1,
 0x00C9AC2C,.bss,c_estado,crt,4,acceso,0,,,,0,1,0,0,0,0,0,
 0x00C9AC30,.bss,c_estado,crt,4,acceso,0,,,,0,3,0,1,0,0,0,
 0x00C9AC38,.bss,c_estado,crt,4,acceso,1,literal,,CrtStartup.cpp,1,1,0,1,0,0,1,
@@ -17212,17 +17219,17 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9AC48,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtStartup.cpp,1,1,0,1,0,0,1,
 0x00C9AC4C,.bss,c_estado,crt,4,tipo,3,reinterpret_cast,int,CrtFile.cpp;CrtInput.cpp;CrtStdio.cpp,3,0,3,1,0,0,0,
 0x00C9AC50,.bss,c_estado,crt,4,acceso,1,literal,,CrtStartup.cpp,1,3,0,1,0,0,1,
-0x00C9AC58,.bss,c_estado,crt,4,acceso,0,,,,0,4,0,0,0,0,0,
+0x00C9AC58,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtState.cpp,1,4,0,0,0,0,1,
 0x00C9AC5C,.bss,c_estado,crt,4,hueco,0,,,,0,0,1,0,1,0,0,
 0x00C9AC60,.bss,c_estado,crt,2,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C9AC64,.bss,c_estado,crt,4,acceso,0,,,,0,0,1,1,1,0,0,
 0x00C9AC68,.bss,c_estado,crt,4,acceso,1,reinterpret_cast,NewHandler,CrtHeap.cpp,1,1,1,1,0,0,1,
 0x00C9AC6C,.bss,c_estado,crt,8,hueco,1,literal,,CrtFile.cpp,1,0,1,0,0,1,0,
-0x00C9AC74,.bss,c_estado,crt,4,acceso,0,,,,0,3,0,1,0,0,0,
+0x00C9AC74,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,uint32_t,CrtStartup.cpp,1,3,0,1,0,0,1,
 0x00C9AC78,.bss,c_estado,crt,64,hueco,1,reinterpret_cast,CRITICAL_SECTION,CrtStartup.cpp,1,1,0,0,1,0,1,
 0x00C9ADC8,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtLocale.cpp,1,1,0,1,0,0,1,
 0x00C9ADCC,.bss,c_estado,crt,4,tipo,2,StaticRef;reinterpret_cast,int,CrtHeap.cpp;VehicleRecording.cpp,2,0,3,0,0,0,0,
-0x00C9ADD0,.bss,c_estado,crt,4,acceso,0,,,,0,1,0,0,0,0,0,
+0x00C9ADD0,.bss,c_estado,crt,4,acceso,1,literal,,CrtState.cpp,1,1,0,0,0,0,1,
 0x00C9ADD8,.bss,c_estado,crt,1,tipo,1,reinterpret_cast,char,CrtStartup.cpp,1,1,0,0,1,0,1,
 0x00C9AEDC,.bss,c_estado,crt,1,tipo,1,reinterpret_cast,uint8_t,CrtStartup.cpp,1,1,0,1,0,0,1,
 0x00C9AEE0,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtStartup.cpp,1,1,0,1,0,0,1,
@@ -17248,7 +17255,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9AF34,.bss,c_estado,crt,4,acceso,0,,,,0,2,0,0,0,0,0,
 0x00C9AF38,.bss,c_estado,crt,4,acceso,0,,,,0,2,0,0,0,0,0,
 0x00C9AF3C,.bss,c_estado,crt,4,acceso,0,,,,0,1,0,0,0,0,0,
-0x00C9AF40,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,unsigned int,CrtLocale.cpp,1,7,5,1,1,0,1,
+0x00C9AF40,.bss,c_estado,crt,4,tipo,2,reinterpret_cast,unsigned int,CrtLocale.cpp;CrtMbcs.cpp,2,7,5,1,1,0,1,
 0x00C9AF44,.bss,c_estado,crt,4,acceso,0,,,,0,0,2,1,0,0,0,
 0x00C9AF48,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtLocale.cpp,1,1,0,1,0,0,1,
 0x00C9AF4C,.bss,c_estado,crt,12,hueco,0,,,,0,0,1,0,0,1,0,
@@ -17258,7 +17265,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9AF6A,.bss,c_estado,crt,2,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C9AF6C,.bss,c_estado,crt,2,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C9AF70,.bss,c_estado,crt,28,hueco,0,,,,0,1,0,0,1,0,0,
-0x00C9AF8C,.bss,c_estado,crt,4,acceso,0,,,,0,3,0,1,0,0,0,
+0x00C9AF8C,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtMbcs.cpp,1,3,0,1,0,0,1,
 0x00C9AF90,.bss,c_estado,crt,4,acceso,0,,,,0,2,0,1,0,0,0,
 0x00C9AF94,.bss,c_estado,crt,4,acceso,1,reinterpret_cast,InitFn,CrtLowIo.cpp,1,0,1,1,0,0,0,
 0x00C9AF98,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtStdio.cpp,1,0,1,0,0,0,0,
@@ -17299,7 +17306,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9B0A4,.bss,c_estado,crt,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C9B0C0,.bss,c_estado,renderware,64,hueco,0,,,,0,2,0,0,1,0,0,
 0x00C9B100,.bss,c_estado,renderware,64,hueco,0,,,,0,2,0,0,1,0,0,
-0x00C9B8C0,.bss,c_estado,renderware,4,tipo,2,StaticRef,RwUInt32,rpworld.cpp;rpworld_p6b.cpp,2,5,5,1,0,0,1,
+0x00C9B8C0,.bss,c_estado,renderware,4,tipo,3,StaticRef,RwUInt32,rpskin.cpp;rpworld.cpp;rpworld_p6b.cpp,3,5,5,1,0,0,1,
 0x00C9B8C4,.bss,c_estado,renderware,4,tipo,2,StaticRef,RwInt32,rpworld.cpp,1,1,0,1,0,0,1,
 0x00C9B8C8,.bss,c_estado,renderware,4,tipo,2,StaticRef;reinterpret_cast,RpHAnimAtomicGlobalVars;uint32,rphanim.cpp,1,4,2,1,0,0,1,
 0x00C9B8CC,.bss,c_estado,renderware,4,acceso,0,,,,0,2,1,1,0,0,0,
@@ -17311,7 +17318,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9BC48,.bss,c_estado,renderware,4,tipo,1,StaticRef,RwInt32,rwcore.cpp,1,0,1,1,0,0,0,
 0x00C9BC50,.bss,c_estado,renderware,4,tipo,1,StaticRef,void*,rwcore.cpp,1,0,1,1,1,0,0,
 0x00C9BC54,.bss,c_estado,renderware,4,tipo,1,StaticRef,RxHeap*,rwcore.cpp,1,0,1,1,0,0,0,
-0x00C9BC58,.bss,c_estado,renderware,4,tipo,6,StaticRef,RwInt32,rpworld_p6b.cpp;rwplcore.cpp,2,7,3,1,0,0,1,
+0x00C9BC58,.bss,c_estado,renderware,4,tipo,7,StaticRef,RwInt32,rpskin.cpp;rpworld_p6b.cpp;rwplcore.cpp,3,7,3,1,0,0,1,
 0x00C9BC5C,.bss,c_estado,renderware,4,tipo,5,StaticRef,RwInt32,rwplcore.cpp,1,2,0,1,0,0,1,
 0x00C9BC60,.bss,c_estado,renderware,4,tipo,8,StaticRef,RwInt32;uint8*,rpworld.cpp;rwcore.cpp;rwplcore.cpp,3,3,20,1,0,0,1,
 0x00C9BC80,.bss,c_estado,renderware,64,tipo,4,StaticRef;literal;reinterpret_cast,D3DMATRIX;RwMatrix;_D3DMATRIX,WindowedMode.cpp;RenderWare.h;rpworld.cpp,3,1,5,0,1,0,1,
@@ -17322,7 +17329,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9BCAC,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C9BCB0,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,0,0,0,0,
 0x00C9BCBC,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,
-0x00C9BCC0,.bss,c_estado,renderware,4,tipo,3,StaticRef,RwRwDeviceGlobals;const uint8*,WindowedMode.cpp;rwcore.cpp,2,2,3,1,0,0,1,
+0x00C9BCC0,.bss,c_estado,renderware,4,tipo,7,StaticRef,RwCamera*;RwRwDeviceGlobals;const uint8*,WindowedMode.cpp;rwcore.cpp,2,2,3,1,0,0,1,
 0x00C9BCC4,.bss,c_estado,renderware,4,tipo,1,StaticRef,void*,rwcore.cpp,1,1,0,1,0,0,1,
 0x00C9BCE0,.bss,c_estado,renderware,64,hueco,2,StaticRef;reinterpret_cast,RwChar;_rwD3D9AdapterInformation,WindowedMode.cpp;rwcore.cpp,2,1,0,0,1,0,1,
 0x00C9BEE0,.bss,c_estado,renderware,4,tipo,1,StaticRef,int32,rwcore.cpp,1,1,1,1,0,0,1,
@@ -17346,7 +17353,7 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9BFC8,.bss,c_estado,renderware,4,acceso,1,literal,,rpworld.cpp,1,0,1,0,0,0,0,
 0x00C9BFD4,.bss,c_estado,renderware,1,acceso,1,literal,,rpworld.cpp,1,0,3,0,0,0,0,
 0x00C9BFEC,.bss,c_estado,renderware,4,tipo,4,StaticRef;literal;reinterpret_cast,RwUInt32;RwUInt8,rpworld.cpp;rpworld_p6b.cpp;rpworld_s30a31a.cpp,3,3,3,1,0,0,1,
-0x00C9BFF4,.bss,c_estado,renderware,4,tipo,1,StaticRef,uint32,D3D9RasterStandards.cpp,1,0,3,0,0,0,0,
+0x00C9BFF4,.bss,c_estado,renderware,4,tipo,2,StaticRef,uint32,D3D9RasterStandards.cpp;rwcore.cpp,2,0,3,0,0,0,0,
 0x00C9BFFC,.bss,c_estado,renderware,4,acceso,1,literal,,rpworld.cpp,1,0,1,0,0,0,0,
 0x00C9C040,.bss,c_estado,renderware,56,tipo,4,StaticRef,D3D9PresentLayout;D3DPRESENT_PARAMETERS;uint32,WindowedMode.cpp;D3D9RasterFormat.cpp;rwcore.cpp,3,2,8,1,1,0,1,
 0x00C9C044,.bss,c_estado,renderware,4,tipo,1,StaticRef,uint32,D3D9RasterFormat.cpp,1,0,5,1,0,0,0,
@@ -17364,13 +17371,14 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9C074,.bss,c_estado,renderware,4,acceso,0,,,,0,0,1,1,0,0,0,
 0x00C9C078,.bss,c_estado,renderware,4,tipo,9,StaticRef;literal,RwInt32,rwcore.cpp,1,0,6,0,0,0,0,
 0x00C9C07C,.bss,c_estado,renderware,4,tipo,6,StaticRef,RwInt32,rwcore.cpp,1,0,0,0,0,0,0,
-0x00C9C080,.bss,c_estado,crt,4,acceso,0,,,,0,4,0,1,0,0,0,
-0x00C9C084,.bss,c_estado,crt,4,acceso,0,,,,0,5,1,1,0,0,0,
-0x00C9C088,.bss,c_estado,crt,4,acceso,0,,,,0,4,0,1,0,0,0,
-0x00C9C0A0,.bss,c_estado,crt,1,hueco,0,,,,0,2,0,0,1,0,0,
+0x00C9C080,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,unsigned int,CrtMbcs.cpp,1,4,0,1,0,0,1,
+0x00C9C084,.bss,c_estado,crt,4,acceso,1,literal,,CrtMbcs.cpp,1,5,1,1,0,0,1,
+0x00C9C088,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtMbcs.cpp,1,4,0,1,0,0,1,
+0x00C9C0A0,.bss,c_estado,crt,1,tipo,1,reinterpret_cast,uint8_t,CrtMbcs.cpp,1,2,0,0,1,0,1,
 0x00C9C0A1,.bss,c_estado,crt,1,tipo,1,reinterpret_cast,uint8_t,CrtStartup.cpp,1,0,0,0,0,0,0,
-0x00C9C1A4,.bss,c_estado,crt,4,acceso,0,,,,0,6,0,1,0,0,0,
-0x00C9C1B0,.bss,c_estado,crt,64,hueco,0,,,,0,3,0,0,1,1,0,
+0x00C9C1A4,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,unsigned int,CrtMbcs.cpp,1,6,0,1,0,0,1,
+0x00C9C1B0,.bss,c_estado,crt,2,tipo,1,reinterpret_cast,uint16_t,CrtMbcs.cpp,1,3,0,0,1,1,1,
+0x00C9C1C0,.bss,c_estado,crt,1,tipo,1,reinterpret_cast,uint8_t,CrtMbcs.cpp,1,0,0,0,0,0,0,
 0x00C9C2C0,.bss,c_estado,crt,4,acceso,0,,,,0,1,1,1,0,0,0,
 0x00C9C2C4,.bss,c_estado,crt,4,acceso,1,literal,,CrtLocale.cpp,1,2,1,1,0,0,1,
 0x00C9C2C8,.bss,c_estado,crt,4,acceso,1,literal,,CrtLocale.cpp,1,2,1,1,0,0,1,
@@ -17388,17 +17396,17 @@ va,seccion,naturaleza,origen,tam,tam_origen,refs_dll,formas,tipos,archivos,n_arc
 0x00C9C2FC,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,unsigned int,CrtLowIo.cpp,1,3,11,1,0,0,1,
 0x00C9C300,.bss,c_estado,crt,4,hueco,2,literal,,CrtLowIo.cpp;CrtStdio.cpp,2,5,24,1,1,1,1,
 0x00C9C304,.bss,c_estado,crt,64,hueco,0,,,,0,0,1,0,1,0,0,
-0x00C9C400,.bss,c_estado,crt,4,tipo,3,cast;reinterpret_cast,int,StandaloneExe.cpp;CrtMath.cpp;X87Math.cpp,3,4,7,1,1,0,1,
-0x00C9C404,.bss,c_estado,juego,4,tipo,1,cast,int,StandaloneExe.cpp,1,2,0,1,0,0,1,
+0x00C9C400,.bss,c_estado,crt,4,tipo,3,reinterpret_cast,int,CrtMath.cpp;CrtStartup.cpp;X87Math.cpp,3,4,7,1,1,0,1,
+0x00C9C404,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtStartup.cpp,1,2,0,1,0,0,1,
 0x00C9C40C,.bss,c_estado,crt,4,acceso,0,,,,0,1,0,0,0,0,0,
 0x00C9C410,.bss,c_estado,crt,4,hueco,0,,,,0,1,0,0,1,0,0,
 0x00C9C414,.bss,c_estado,crt,4,acceso,1,literal,,CrtStartup.cpp,1,3,0,1,0,0,1,
 0x00C9C418,.bss,c_estado,crt,4,acceso,1,literal,,CrtStdio.cpp,1,3,4,1,0,0,1,
 0x00C9D420,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtStdio.cpp,1,1,3,1,0,0,1,
-0x00C9D424,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtStartup.cpp,1,2,0,1,0,0,1,
+0x00C9D424,.bss,c_estado,crt,4,tipo,2,reinterpret_cast,int,CrtFile.cpp;CrtStartup.cpp,2,2,0,1,0,0,1,
 0x00C9D428,.bss,c_estado,crt,4,tipo,2,reinterpret_cast,uint32_t,CrtOnexit.cpp;CrtStartup.cpp,2,2,1,1,0,0,1,
 0x00C9D42C,.bss,c_estado,crt,4,tipo,2,reinterpret_cast,uint32_t,CrtOnexit.cpp;CrtStartup.cpp,2,2,1,1,0,0,1,
-0x00C9D430,.bss,c_estado,crt,4,acceso,0,,,,0,4,0,1,0,0,0,
+0x00C9D430,.bss,c_estado,crt,4,tipo,1,reinterpret_cast,int,CrtMbcs.cpp,1,4,0,1,0,0,1,
 0x00C9E000,_TEXT_HA,otra,juego,4,acceso,0,,,,0,1,0,0,0,0,0,
 0x00C9E058,_TEXT_HA,otra,juego,4,acceso,0,,,,0,1,0,0,0,0,0,
 0x00C9E068,_TEXT_HA,otra,juego,64,hueco,1,literal,,ExeProtectionStub.cpp,1,0,1,0,1,0,0,

@@ -1,17 +1,27 @@
 funcion,modulo,usos_en_el_codigo,en_librw,equivalente
 RwD3D9SetTextureStageState,D3D9,79,parcial,setTextureStageState(...) sin objeto D3D9
-RwD3D9SetRenderState,D3D9,28,parcial,setRenderState(...) sin objeto D3D9
-_rwD3D9SetDepthStencilSurface,D3D9,13,no,
+RwD3D9SetRenderState,D3D9,32,parcial,setRenderState(...) sin objeto D3D9
+_rwD3D9SetDepthStencilSurface,D3D9,18,no,
+_rwD3D9SetRenderTarget,D3D9,12,parcial,setRenderTarget(...) sin objeto D3D9
 RwD3D9SetTexture,D3D9,9,acceso_a_campo,setTexture(...) sin objeto D3D9
+_rwD3D9RenderStateVertexAlphaEnable,D3D9,9,no,
 RwD3D9GetCurrentD3DDevice,D3D9,8,no,
-_rwD3D9SetRenderTarget,D3D9,8,parcial,setRenderTarget(...) sin objeto D3D9
+_rwD3D9RWSetRenderState,D3D9,7,no,
+RwD3D9GetRenderState,D3D9,5,parcial,getRenderState(...) sin objeto D3D9
 RwD3D9SetTransform,D3D9,5,no,
+_rwD3D9Im2DRenderOpen,D3D9,4,no,
+_rwD3D9Im3DRenderOpen,D3D9,4,no,
+_rwD3D9PixelToRGB,D3D9,4,no,
+_rwD3D9RGBToPixel,D3D9,4,no,
+_rwD3D9RenderStateReset,D3D9,4,no,
 RwD3D9ChangeMultiSamplingLevels,D3D9,3,no,
 RwD3D9EngineGetMaxMultiSamplingLevels,D3D9,3,no,
 RwD3D9GetCaps,D3D9,3,no,
-RwD3D9GetRenderState,D3D9,3,parcial,getRenderState(...) sin objeto D3D9
 RwD3D9SetSurfaceProperties,D3D9,3,acceso_a_campo,
+_rwD3D9CheckValidTextureSize,D3D9,3,no,
+_rwD3D9DynamicVertexBufferRestore,D3D9,3,no,
 _rwD3D9EnableClippingIfNeeded,D3D9,3,no,
+_rwD3D9RWSetRasterStage,D3D9,3,no,
 _rwD3D9SetStreams,D3D9,3,no,
 RwD3D9CameraAttachWindow,D3D9,2,no,
 RwD3D9EnableLight,D3D9,2,no,
@@ -30,7 +40,10 @@ RwD3D9InjectHooksS32A33A,D3D9,2,no,
 RwD3D9SetIndices,D3D9,2,parcial,setIndices(...) sin objeto D3D9
 RwD3D9SetVertexDeclaration,D3D9,2,parcial,setVertexDeclaration(...) sin objeto D3D9
 _rwD3D9BeginScene,D3D9,2,no,
-_rwD3D9RenderStateVertexAlphaEnable,D3D9,2,no,
+_rwD3D9Im2DRenderPrimitive,D3D9,2,parcial,im2DRenderPrimitive(...) sin objeto D3D9
+_rwD3D9RasterSetFromImage,D3D9,2,no,
+_rwD3D9RasterToImage,D3D9,2,parcial,rasterToImage(...) sin objeto D3D9
+_rwD3D9RestoreDevice,D3D9,2,no,
 _rwD3D9TestState,D3D9,2,no,
 RwD3D9ChangeVideoMode,D3D9,1,no,
 RwD3D9DeviceSupportsDXTTexture,D3D9,1,no,
@@ -38,6 +51,7 @@ RwD3D9EngineSetMultiSamplingLevels,D3D9,1,no,
 RwD3D9EngineSetRefreshRate,D3D9,1,no,
 RwD3D9SetLight,D3D9,1,no,
 RwD3D9SetMaterial,D3D9,1,acceso_a_campo,setMaterial(...) sin objeto D3D9
+RwD3D9SetRenderTarget,D3D9,1,parcial,setRenderTarget(...) sin objeto D3D9
 RwD3D9SetStencilClear,D3D9,1,no,
 _rwD3D9CameraBeginUpdate,D3D9,1,no,
 _rwD3D9CameraClear,D3D9,1,no,
@@ -46,11 +60,13 @@ _rwD3D9DeviceReleaseVideoMemory,D3D9,1,no,
 _rwD3D9DeviceSetRestoreCallback,D3D9,1,no,
 _rwD3D9DrawIndexedPrimitive,D3D9,1,no,
 _rwD3D9DrawPrimitive,D3D9,1,no,
-_rwD3D9DynamicVertexBufferRestore,D3D9,1,no,
-_rwD3D9Im2DRenderOpen,D3D9,1,no,
-_rwD3D9Im3DRenderOpen,D3D9,1,no,
-_rwD3D9RenderStateReset,D3D9,1,no,
+_rwD3D9RWGetRasterStage,D3D9,1,no,
+_rwD3D9RWGetRenderState,D3D9,1,no,
+_rwD3D9RenderStateDestBlend,D3D9,1,no,
+_rwD3D9RenderStateSrcBlend,D3D9,1,no,
+_rwD3D9SetIndices,D3D9,1,parcial,setIndices(...) sin objeto D3D9
 _rwD3D9SetPixelShader,D3D9,1,parcial,setPixelShader(...) sin objeto D3D9
+_rwD3D9SetVertexDeclaration,D3D9,1,parcial,setVertexDeclaration(...) sin objeto D3D9
 _rwD3D9SetVertexShader,D3D9,1,parcial,setVertexShader(...) sin objeto D3D9
 RwIm3DEnd,Im2D/Im3D,39,parcial,end(...) sin objeto Im3D
 RwIm3DTransform,Im2D/Im3D,39,parcial,transform(...) sin objeto Im3D
@@ -113,9 +129,9 @@ RpSkinAtomicSetType,RpSkin,1,no,
 RpSkinCreate,RpSkin,1,parcial,create(...) sin objeto Skin
 RpSkinGeometrySetSkin,RpSkin,1,acceso_a_campo,
 RpUVAnimInjectHooks,RpUVAnim,2,codigo_propio,
-RpAnimBlendClumpGetAssociation,RpWorld,182,codigo_propio,
+RpAnimBlendClumpGetAssociation,RpWorld,187,codigo_propio,
 RpAtomicGetGeometry,RpWorld,68,acceso_a_campo,
-RpClumpForAllAtomics,RpWorld,63,no,
+RpClumpForAllAtomics,RpWorld,64,no,
 RpClumpGetFrame,RpWorld,45,acceso_a_campo,getFrame(...) sin objeto Clump
 RpAtomicGetFrame,RpWorld,43,acceso_a_campo,getFrame(...) sin objeto Atomic
 RpAnimBlendClumpGetData,RpWorld,34,codigo_propio,
@@ -141,7 +157,7 @@ RpGeometrySetFlags,RpWorld,11,parcial,setFlags(...) sin objeto Geometry
 RpGeometryGet2dFxCount,RpWorld,10,no,
 RpGeometryUnlock,RpWorld,10,si,Geometry::unlock
 RpMaterialGetTexture,RpWorld,10,acceso_a_campo,
-RpAnimBlendClumpInit,RpWorld,8,codigo_propio,
+RpAnimBlendClumpInit,RpWorld,9,codigo_propio,
 RpClumpRender,RpWorld,8,si,Clump::render
 RpGeometryGetMaterial,RpWorld,8,acceso_a_campo,
 RpGeometryGetMorphTarget,RpWorld,8,acceso_a_campo,
@@ -150,6 +166,7 @@ RpAnimBlendClumpFindAssociationIf_N,RpWorld,7,codigo_propio,
 RpClumpStreamRead,RpWorld,7,si,Clump::streamRead
 RpGeometryLock,RpWorld,7,si,Geometry::lock
 RpLightSetFlags,RpWorld,7,parcial,setFlags(...) sin objeto Light
+RpAnimBlendClumpIsInitialized,RpWorld,6,codigo_propio,
 RpAtomicRender,RpWorld,6,parcial,render(...) sin objeto Atomic
 RpClumpRemoveAtomic,RpWorld,6,si,Clump::removeAtomic
 RpGeometryGetNumVertices,RpWorld,6,acceso_a_campo,
@@ -164,7 +181,6 @@ _rpAtomicResyncInterpolatedSphere,RpWorld,5,no,
 RpAnimBlendClumpCountAssociationsIf,RpWorld,4,codigo_propio,
 RpAnimBlendClumpFindBone,RpWorld,4,codigo_propio,
 RpAnimBlendClumpFindFrameFromHashKey,RpWorld,4,codigo_propio,
-RpAnimBlendClumpIsInitialized,RpWorld,4,codigo_propio,
 RpAtomicGetBoundingSphere,RpWorld,4,acceso_a_campo,
 RpGeometryGetVertexTexCoords,RpWorld,4,acceso_a_campo,
 RpGeometryTriangleSetMaterial,RpWorld,4,acceso_a_campo,
@@ -233,6 +249,8 @@ RpWorldInjectHooks228A,RpWorld,2,codigo_propio,
 RpWorldInjectHooks229A,RpWorld,2,codigo_propio,
 RpWorldInjectHooks230A,RpWorld,2,codigo_propio,
 RpWorldInjectHooks25b,RpWorld,2,codigo_propio,
+RpWorldInjectHooksNoLight,RpWorld,2,codigo_propio,
+RpWorldInjectHooksP6B,RpWorld,2,codigo_propio,
 RpWorldInjectHooksR16A,RpWorld,2,codigo_propio,
 RpWorldInjectHooksR17A,RpWorld,2,codigo_propio,
 RpWorldInjectHooksR18A,RpWorld,2,codigo_propio,
@@ -315,7 +333,7 @@ RtSlerpInjectHooks,RtSlerp,2,codigo_propio,
 RtSlerpSetupCacheCpp,RtSlerp,2,codigo_propio,
 RwRenderStateSet,RwCore,846,no,
 RwFrameGetMatrix,RwCore,116,acceso_a_campo,
-RwStreamRead,RwCore,71,parcial,read(...) sin objeto Stream
+RwStreamRead,RwCore,77,parcial,read(...) sin objeto Stream
 RwTextureGetRaster,RwCore,52,acceso_a_campo,
 RwTextureDestroy,RwCore,49,si,Texture::destroy
 RwV3dTransformPoints,RwCore,46,si,V3d::transformPoints
@@ -325,33 +343,33 @@ RwTextureRead,RwCore,40,si,Texture::read
 RwCameraSetNearClipPlane,RwCore,39,acceso_a_campo,
 RwFrameGetLTM,RwCore,38,si,Frame::getLTM
 RwMatrixUpdate,RwCore,34,parcial,update(...) sin objeto Matrix
-RwObjectGetType,RwCore,31,parcial,getType(...) sin objeto Object
+RwObjectGetType,RwCore,32,parcial,getType(...) sin objeto Object
+RwRasterDestroy,RwCore,30,si,Raster::destroy
 RwFrameForAllChildren,RwCore,29,si,Frame::forAllChildren
 RwRasterGetWidth,RwCore,26,acceso_a_campo,
+RwRasterCreate,RwCore,25,si,Raster::create
 RwStreamClose,RwCore,25,parcial,close(...) sin objeto Stream
 RwFrameCreate,RwCore,24,si,Frame::create
+RwRasterUnlock,RwCore,24,si,Raster::unlock
 RwFrameUpdateObjects,RwCore,23,si,Frame::updateObjects
-RwRasterCreate,RwCore,23,si,Raster::create
+RwRasterLock,RwCore,23,si,Raster::lock
 RwCameraEndUpdate,RwCore,22,parcial,endUpdate(...) sin objeto Camera
 RwRasterGetHeight,RwCore,22,acceso_a_campo,
 RwRenderStateGet,RwCore,22,no,
+RwStreamWrite,RwCore,22,parcial,write(...) sin objeto Stream
 RwCameraGetRaster,RwCore,21,acceso_a_campo,
 RwFrameGetParent,RwCore,21,parcial,getParent(...) sin objeto Frame
-RwRasterDestroy,RwCore,21,si,Raster::destroy
-RwRasterLock,RwCore,21,si,Raster::lock
-RwRasterUnlock,RwCore,21,si,Raster::unlock
 RwFrameDestroy,RwCore,20,si,Frame::destroy
 RwCameraGetFrame,RwCore,19,acceso_a_campo,getFrame(...) sin objeto Camera
 RwCameraGetNearClipPlane,RwCore,19,acceso_a_campo,
 RwMatrixRotate,RwCore,19,si,Matrix::rotate
 RwCameraBeginUpdate,RwCore,16,parcial,beginUpdate(...) sin objeto Camera
-RwStreamWrite,RwCore,15,parcial,write(...) sin objeto Stream
 RwTexDictionaryFindNamedTexture,RwCore,15,no,
 RwCameraSetRaster,RwCore,13,acceso_a_campo,
 RwMatrixDestroy,RwCore,13,si,Matrix::destroy
 RwMatrixScale,RwCore,13,si,Matrix::scale
+RwStreamFindChunk,RwCore,13,parcial,findChunk(...) sin objeto Stream
 RwV3dNormalize,RwCore,13,parcial,normalize(...) sin objeto V3d
-RwStreamFindChunk,RwCore,12,parcial,findChunk(...) sin objeto Stream
 RwTextureSetFilterMode,RwCore,12,parcial,setFilterMode(...) sin objeto Texture
 RwCameraClear,RwCore,11,si,Camera::clear
 RwFrameRotate,RwCore,11,si,Frame::rotate
@@ -367,17 +385,21 @@ RwMatrixTransform,RwCore,9,si,Matrix::transform
 RwMatrixTranslate,RwCore,9,si,Matrix::translate
 RwCameraSetZRaster,RwCore,8,acceso_a_campo,
 RwEngineGetCurrentVideoMode,RwCore,8,si,Engine::getCurrentVideoMode
+RwFormatInfo,RwCore,8,no,
 RwMatrixCreate,RwCore,8,si,Matrix::create
 RwRasterGetDepth,RwCore,8,acceso_a_campo,
 RwV3dLength,RwCore,8,parcial,length(...) sin objeto V3d
 RwCameraSetFarClipPlane,RwCore,7,acceso_a_campo,
 RwFrameAddChild,RwCore,7,si,Frame::addChild
 RwFrameTranslate,RwCore,7,si,Frame::translate
+RwRasterUnlockPalette,RwCore,7,si,Raster::unlockPalette
 RwTextureGetName,RwCore,7,acceso_a_campo,
 RwCameraGetFarClipPlane,RwCore,6,acceso_a_campo,
 RwEngineGetVideoModeInfo,RwCore,6,si,Engine::getVideoModeInfo
 RwFrameSetIdentity,RwCore,6,parcial,setIdentity(...) sin objeto Frame
 RwSqrt,RwCore,6,no,
+RwTextureCreate,RwCore,6,si,Texture::create
+RwTextureSetName,RwCore,6,acceso_a_campo,
 RwDebugSendMessage,RwCore,5,no,
 RwEngineGetVersion,RwCore,5,no,
 RwFrameOrthoNormalize,RwCore,5,no,
@@ -386,9 +408,7 @@ RwRasterGetStride,RwCore,5,parcial,getStride(...) sin objeto Raster
 RwTexDictionaryFindHashNamedTexture,RwCore,5,no,
 RwTexDictionaryGetCurrent,RwCore,5,si,TexDictionary::getCurrent
 RwTexDictionarySetCurrent,RwCore,5,si,TexDictionary::setCurrent
-RwTextureCreate,RwCore,5,si,Texture::create
 RwTextureSetAddressing,RwCore,5,acceso_a_campo,
-RwTextureSetName,RwCore,5,acceso_a_campo,
 RwV3dTransformVector,RwCore,5,no,
 RwEngineGetCurrentSubSystem,RwCore,4,si,Engine::getCurrentSubSystem
 RwEngineSetSubSystem,RwCore,4,si,Engine::setSubSystem
@@ -397,13 +417,16 @@ RwImageCreate,RwCore,4,si,Image::create
 RwImageDestroy,RwCore,4,si,Image::destroy
 RwMatrixGetRight,RwCore,4,acceso_a_campo,
 RwMatrixSetIdentity,RwCore,4,si,Matrix::setIdentity
+RwRasterLockPalette,RwCore,4,si,Raster::lockPalette
 RwTexDictionaryForAllTextures,RwCore,4,no,
 RwCameraCreate,RwCore,3,si,Camera::create
+RwCameraSetNearClipPlaneExport,RwCore,3,no,
 RwEngineTerm,RwCore,3,si,Engine::term
 RwFormatTable,RwCore,3,no,
 RwHelperInjectHooks,RwCore,3,codigo_propio,
 RwImageAllocatePixels,RwCore,3,no,
 RwInitialize,RwCore,3,parcial,identificador Initialize
+RwMathX87InjectHooks,RwCore,3,no,
 RwRasterPopContext,RwCore,3,si,Raster::popContext
 RwRasterPushContext,RwCore,3,si,Raster::pushContext
 RwRasterRenderFast,RwCore,3,si,Raster::renderFast
@@ -449,6 +472,7 @@ RwCoreInjectHooksS20A,RwCore,2,codigo_propio,
 RwCoreInjectHooksS22A,RwCore,2,codigo_propio,
 RwEngineClose,RwCore,2,si,Engine::close
 RwFrameRegisterPlugin,RwCore,2,si,Frame::registerPlugin
+RwFreeListCreate,RwCore,2,parcial,create(...) sin objeto FreeList
 RwFreeListDestroy,RwCore,2,parcial,destroy(...) sin objeto FreeList
 RwImageGetPixels,RwCore,2,acceso_a_campo,
 RwMatrixWeightsGetWeight,RwCore,2,no,
@@ -493,7 +517,6 @@ RwEngineStop,RwCore,1,si,Engine::stop
 RwFrameRegisterPluginStream,RwCore,1,si,Frame::registerPluginStream
 RwFrameRemoveChild,RwCore,1,si,Frame::removeChild
 RwFree,RwCore,1,parcial,identificador Free
-RwFreeListCreate,RwCore,1,parcial,create(...) sin objeto FreeList
 RwImageFindRasterFormat,RwCore,1,parcial,identificador ImageFindRasterFormat
 RwImageGetHeight,RwCore,1,acceso_a_campo,
 RwImageGetWidth,RwCore,1,acceso_a_campo,
@@ -502,8 +525,9 @@ RwMatrixCopy,RwCore,1,parcial,copy(...) sin objeto Matrix
 RwRGBAReal,RwCore,1,no,
 RwRGBAToPixel,RwCore,1,no,
 RwRasterGetFormat,RwCore,1,no,
+RwRasterGetNumLevels,RwCore,1,si,Raster::getNumLevels
 RwRasterSetFromImage,RwCore,1,si,Raster::setFromImage
-RwRasterUnlockPalette,RwCore,1,si,Raster::unlockPalette
+RwSqrtExport,RwCore,1,no,
 RwStreamReadChunkHeaderInfo,RwCore,1,parcial,readChunkHeaderInfo(...) sin objeto Stream
 RwTexDictionaryGtaStreamRead1,RwCore,1,no,
 RwTexDictionaryGtaStreamRead2,RwCore,1,no,
@@ -511,9 +535,11 @@ RwTexDictionaryRegisterPlugin,RwCore,1,parcial,registerPlugin(...) sin objeto Te
 RwTexDictionaryStreamWrite,RwCore,1,si,TexDictionary::streamWrite
 RwTextureGetFindCallBack,RwCore,1,no,
 RwTextureSetAutoMipmapping,RwCore,1,si,Texture::setAutoMipmapping
+RwTextureSetMaskName,RwCore,1,no,
 RwTextureSetReadCallBack,RwCore,1,no,
 _rwFrameCloneAndLinkClones,RwCore,1,no,
 _rwProcessorForceSinglePrecision,RwCore,1,no,
+_rwStreamWriteVersionedChunkHeader,RwCore,1,no,
 rwCamera,otros,10,parcial,identificador Camera
 rwObjectHasFrameSetFrame,otros,7,no,
 rwObjectSetFlags,otros,7,parcial,setFlags(...) sin objeto Object

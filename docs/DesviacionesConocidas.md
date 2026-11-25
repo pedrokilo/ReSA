@@ -1,8 +1,10 @@
 <!-- RESA-CURRENT-STATUS:BEGIN -->
-> **Estado al 21/11/2026 (Ciudad de México):** 1004 grupos / 13311 funciones reconstruidas; 11801 con evidencia histórica y 1510 pendientes de validación en 39 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+> **Estado al 24/11/2026 (Ciudad de México):** 1007 grupos / 13511 funciones reconstruidas; 11800 con evidencia histórica y 1711 pendientes de validación en 52 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
 <!-- RESA-CURRENT-STATUS:END -->
 
 # Desviaciones conocidas del C++ reconstruido frente al EXE original
+
+Revisión de estado del 24/11/2026: ver la sección 14 (cifras recontadas y desviaciones nuevas del ejecutable independiente). El resto conserva el texto del 16/11/2026.
 
 Fecha de elaboración: 16/11/2026 (revisión de la de 08/11/2026, commit `160c24b0a0`). Árbol: rama `main`, commit `3e6fdb5f89`. Documento de solo lectura: no se compiló, no se ejecutó el juego y no se tocó ningún hook.
 
@@ -537,3 +539,47 @@ Cuenta: 10 filas.
 4. Revisar `source/CMakeLists.txt` (línea 479) por si `FIX_BUGS` deja de definirse, lo que cambiaría la sección 2.2.
 5. Al validar un lote de `reversing/PendienteValidar`, mover sus filas de la sección 8 a la 11.1 (si el banco corrigió algo) o borrarlas (si el banco confirma la desviación como equivalente), y pasar sus límites a la sección 9.
 6. Al integrar un lote nuevo, leer en su informe las secciones de saltadas, riesgos y "divergencia", añadir las desviaciones a la sección 8 y las funciones no reconstruibles a `docs/JuegoExe/excluidas.csv` o `docs/RenderWareExe/no-reconstruibles.csv` (sección 10).
+
+## 14. Revisión del 24/11/2026 (ejecutable independiente y sustituciones)
+
+Esta sección se añadió el 24/11/2026 sin reescribir el resto: las secciones 1 a 13 conservan las cifras y el análisis del 16/11 (cada cifra lleva su fecha). Fuente de cada fila: el documento de ejecución citado. El riesgo sigue siendo una estimación de quien redacta, no una medida.
+
+### 14.1 Cifras recontadas el 24/11/2026
+
+| Medida | Valor | Cómo se midió |
+| --- | ---: | --- |
+| Filas de `docs/hooks.csv` | 13.511 en 1.007 grupos (tipo S 11.355, tipo V 2.156); todas `reversed=1`, 1 con `locked=1` | `contrib/sync_docs.py` y recuento directo del CSV |
+| `validated=1` / `validated=0` | 11.800 / 1.711 (1.709 S y 2 V sin validar) | CSV tras `contrib/sync_validated_flags.py`; evidencia aprobada del registro: 11.800 |
+| Vigencia acreditada | 0 | `contrib/validation_registry.py` (`current`) |
+| Región del juego (0x401000-0x74FFFF) | 11.684 funciones, 11.684 reemplazadas; 150 excluidas | `contrib/game_function_map.py` |
+| Región RenderWare/D3D (0x750000-0x81FFFF) | 1.888 funciones: 795 reemplazadas, 1.032 de libpng, zlib y D3DX9 (se enlaza la original), 61 no reconstruibles o sustituidas (7 de ellas, QuickTime y DirectDraw, nuevas), 0 envolturas pendientes | `contrib/rw_function_map.py` |
+| Comandos de script | 2.826: 669 reescritos, 280 nop, 713 no implementados en el juego, 1.164 sin manejador propio | `contrib/inventario_comandos_script.py` |
+| `__asm` o `naked` en `source/game_sa` | 0 apariciones léxicas fuera de comentarios y cadenas | `contrib/audit_cpp_assembly.py` |
+| `FIX_BUGS` o `notsa::IsFixBugs` en `source/` | 58 apariciones en 31 archivos | `grep` |
+| `NOTSA_UNREACHABLE` en `source/game_sa` | 141 | `grep` |
+| `plugin::Call` en `source/game_sa` | 32 apariciones en 22 archivos (el 16/11 la tabla decía 237 en 51; no se comparó el método de recuento) | `grep` |
+
+### 14.2 Desviaciones nuevas o cambiadas del 22 al 24/11
+
+| # | Qué difiere del EXE | Riesgo (estimado) | Fuente |
+| ---: | --- | --- | --- |
+| 1 | `ExeCrt::Pow`: la rama x87 (`fyl2x`, `f2xm1`, `fscale`) no es reconstruible bit a bit en C++ puro y se sustituye por el núcleo SSE2: mismos dominios y errores, resultado correcto pero no idéntico al de la x87; no se midió la diferencia máxima | bajo | [ejecucion-sustitucion-crt-rw-x87.md](CodigoVivoExe/ejecucion-sustitucion-crt-rw-x87.md) |
+| 2 | `ExeCrt::Floor` y `Ceil` sin SSE2: no reproducen la excepción de operación inválida con la x87 sin enmascarar y un NaN señalizador (con las excepciones enmascaradas el resultado coincide en 3 millones de casos) | bajo | ídem |
+| 3 | Montón del CRT: se quitó el camino por dirección al EXE para `__active_heap != 1` (montón de bloques pequeños de Windows 9x), que `ExeCrt` no reproduce y el juego no alcanza | bajo | ídem |
+| 4 | Pistas de usuario: `CAEMFDecoder` decodifica con Media Foundation; el PCM coincide con QuickTime a ±1 LSB (no bit a bit), el tiempo de reproducción cuenta fotogramas ya decodificados (el original, de origen leídos) y la duración de un MP3 CBR sin cabecera Xing es una estimación por tamaño (hasta 233 ms de diferencia en la prueba). `.aac`, `.m4a` y `.mov` sin probar | medio para esos formatos, bajo para MP3 | [sustitucion-quicktime.md](QuickTime/sustitucion-quicktime.md) |
+| 5 | DirectDraw a D3D9: memoria de vídeo total y libre salen del mismo valor de `GetAvailableTextureMem` (el total difiere un 0,02 % en esta máquina) y el juego ya no comprueba que `DDRAW.DLL` exista | bajo | [directdraw-sustitucion.md](RenderWareExe/directdraw-sustitucion.md) |
+| 6 | Lista de modos de vídeo: 52 entradas en el original y 35 en el independiente y el ASI (faltan los R5G6B5); causa no investigada | bajo | ídem |
+| 7 | El espejo del ropero depende del controlador: el original sale oscuro con la NVIDIA por una combinación de render target sin MSAA y z-buffer con 4x MSAA que D3D9 no define; el independiente exporta `NvOptimusEnablement` para usar la misma GPU. En otra GPU el original también se vería como el independiente sobre Intel | bajo | [ejecucion-espejo-ropero.md](CodigoVivoExe/ejecucion-espejo-ropero.md) |
+| 8 | Carga de `gGameState` 8 a 9: 1,9-2,2 s en el independiente frente a 11,5 s en el original y 8,7 s en el ASI, con el mismo estado de streaming; el mecanismo del ahorro no se identificó | bajo | [ejecucion-lluvia-gamma-carga.md](CodigoVivoExe/ejecucion-lluvia-gamma-carga.md) |
+| 9 | Peatones: el independiente genera 28-34 frente a 6-9 del control con el ASI en los mismos puntos; sin explicar | bajo | [ejecucion-trafico-nubes.md](CodigoVivoExe/ejecucion-trafico-nubes.md) |
+| 10 | Objetos propios de `DatosExe` declarados y sin lector por nombre que solapan datos reales del EXE (trampas latentes: `bBAD3EC`, los de la sección 3 de la auditoría G5a, 14 de `DE04R`): hoy nadie los lee | bajo | [auditoria-g5a.md](DatosExe/auditoria-g5a.md), [ejecucion-datos-g2g4.md](DatosExe/ejecucion-datos-g2g4.md) |
+| 11 | Datos no ejercitados en el independiente: entre unos 100 y 290 objetos de G5a y 244 de G5b nunca cambiaron en las ejecuciones; solo cuenta el análisis estático | medio | [auditoria-g5a.md](DatosExe/auditoria-g5a.md), [auditoria-g5b.md](DatosExe/auditoria-g5b.md) |
+
+### 14.3 Resueltas en esos días (dato en dos sitios y otros)
+
+- `GenerateOneRandomCar` y `ChooseModel` leían por dirección datos que el C++ guardaba en objetos propios: sin tráfico aleatorio en el independiente ([ejecucion-trafico-nubes.md](CodigoVivoExe/ejecucion-trafico-nubes.md)).
+- 11 sitios más de la misma clase en trucos, cámaras, helicóptero, mira, radio y luces de niebla ([auditoria-datos.md](CodigoVivoExe/auditoria-datos.md)); sus efectos están deducidos del código, no medidos en ejecución.
+- `MI_HYDRAULICS` y `m_bWaterFogScript` ([ejecucion-datos-g2g4.md](DatosExe/ejecucion-datos-g2g4.md)); fundidos del HUD, lista libre de muebles de interiores y ruta de scripts ([auditoria-g5a.md](DatosExe/auditoria-g5a.md)); combos de melee ([auditoria-g5b.md](DatosExe/auditoria-g5b.md)).
+- La semilla de `rand` del EXE no se sembraba en `GameInit`; ahora se siembran las dos (`ExeCrt::Srand` y `srand`); corregido por lectura del desensamblado, sin medir `holdrand` en ejecución ([ejecucion-datos-g6g8.md](DatosExe/ejecucion-datos-g6g8.md)).
+- Entrar en el gimnasio de Ganton caía por pasar `-1` a `TASK_KILL_CHAR_ON_FOOT` y `_WHILE_DUCKING` como `CPed&`; ahora reciben el manejador entero (commit `96f1c36f61`; evidencia en `reversing/FnJuego/evidencia/`, sin informe escrito en `main`).
+- El espejo del ropero (diferencia con el original por la GPU) y el ratón del independiente (SDL3 sustituía el registro de entrada en bruto de DirectInput; [ejecucion-raton.md](CodigoVivoExe/ejecucion-raton.md)).

@@ -1,8 +1,166 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 24/11/2026 (Ciudad de México):** 1007 grupos / 13511 funciones reconstruidas; 11800 con evidencia histórica y 1711 pendientes de validación en 52 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Detalle de implementaciones
 
 [Resumen y metodología](../ImplementacionesDelJuego.md). Validación histórica no demuestra independencia ni vigencia con todas las fuentes actuales.
 
 <a id="grupo-1021"></a>
+
+## FxInfoDir_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoDir_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoDir_c::FxInfoDir_c() | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoDir_c::Constructor 0x004A6440 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoDir_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoDir_c::Constructor 0x004A6440 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoDir_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:46](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoDir_c::Destructor 0x004A7880 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoDir_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:54](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoDir_c::ScalarDeletingDestructor 0x004A7860 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoDir_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:63](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoDir_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoDir.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoDir.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1022"></a>
+
+## FxInfoEmAngle_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoEmAngle_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmAngle_c::FxInfoEmAngle_c() | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmAngle_c::Constructor 0x004A4E90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmAngle_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmAngle_c::Destructor 0x004A6C50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoEmAngle_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:48](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmAngle_c::ScalarDeletingDestructor 0x004A6C30 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmAngle_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:57](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmAngle_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp:62](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoEmAngle.h:23](../../source/game_sa/Fx/Blueprints/FxInfoEmAngle.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoEmAngle_c::Constructor 0x004A4E90 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1023"></a>
+
+## FxInfoEmDir_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoEmDir_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmDir_c::FxInfoEmDir_c() | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmDir_c::Constructor 0x004A4DC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmDir_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmDir_c::Destructor 0x004A6BE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoEmDir_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:48](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmDir_c::ScalarDeletingDestructor 0x004A6BC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmDir_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:57](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmDir_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp:62](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoEmDir.h:23](../../source/game_sa/Fx/Blueprints/FxInfoEmDir.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoEmDir_c::Constructor 0x004A4DC0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1024"></a>
+
+## FxInfoEmLife_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoEmLife_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmLife_c::FxInfoEmLife_c() | [source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmLife_c::Constructor 0x004A4F50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmLife_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmLife_c::Destructor 0x004A6CC0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoEmLife_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp:48](../../source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmLife_c::ScalarDeletingDestructor 0x004A6CA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmLife_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp:57](../../source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmLife_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp:62](../../source/game_sa/Fx/Blueprints/FxInfoEmLife.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoEmLife.h:23](../../source/game_sa/Fx/Blueprints/FxInfoEmLife.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoEmLife_c::Constructor 0x004A4F50 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1025"></a>
+
+## FxInfoEmPos_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoEmPos_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmPos_c::FxInfoEmPos_c() | [source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmPos_c::Constructor 0x004A5010 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmPos_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmPos_c::Destructor 0x004A6D30 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoEmPos_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp:48](../../source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmPos_c::ScalarDeletingDestructor 0x004A6D10 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmPos_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp:57](../../source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmPos_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp:62](../../source/game_sa/Fx/Blueprints/FxInfoEmPos.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoEmPos.h:23](../../source/game_sa/Fx/Blueprints/FxInfoEmPos.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoEmPos_c::Constructor 0x004A5010 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1026"></a>
+
+## FxInfoEmRate_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoEmRate_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmRate_c::FxInfoEmRate_c() | [source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmRate_c::Constructor 0x004A6A00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoEmRate_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmRate_c::Constructor 0x004A6A00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmRate_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp:46](../../source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmRate_c::Destructor 0x004A6A90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoEmRate_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp:54](../../source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmRate_c::ScalarDeletingDestructor 0x004A6A70 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmRate_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp:63](../../source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmRate_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoEmRate.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1027"></a>
+
+## FxInfoEmRotation_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoEmRotation_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp:23](../../source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmRotation_c::FxInfoEmRotation_c() | [source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp:33](../../source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp#L33) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmRotation_c::Constructor 0x004A51B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmRotation_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp:39](../../source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp#L39) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmRotation_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp:44](../../source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmRotation_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp:57](../../source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmRotation_c::DestructorBody 0x004A6E10 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoEmRotation_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp:65](../../source/game_sa/Fx/Blueprints/FxInfoEmRotation.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmRotation_c::ScalarDeletingDestructor 0x004A6DF0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoEmRotation.h:22](../../source/game_sa/Fx/Blueprints/FxInfoEmRotation.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoEmRotation_c::Constructor 0x004A51B0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1028"></a>
+
+## FxInfoEmSize_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoEmSize_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmSize_c::FxInfoEmSize_c() | [source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmSize_c::Constructor 0x004A4C20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmSize_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmSize_c::Destructor 0x004A6B00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoEmSize_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp:48](../../source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmSize_c::ScalarDeletingDestructor 0x004A6AE0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmSize_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp:57](../../source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp#L57) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmSize_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp:62](../../source/game_sa/Fx/Blueprints/FxInfoEmSize.cpp#L62) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoEmSize.h:23](../../source/game_sa/Fx/Blueprints/FxInfoEmSize.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoEmSize_c::Constructor 0x004A4C20 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1029"></a>
+
+## FxInfoEmSpeed_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoEmSpeed_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp:25](../../source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmSpeed_c::FxInfoEmSpeed_c() | [source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp:35](../../source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmSpeed_c::Constructor 0x004A4D00 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmSpeed_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp:41](../../source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmSpeed_c::Destructor 0x004A6B70 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoEmSpeed_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp:49](../../source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmSpeed_c::ScalarDeletingDestructor 0x004A6B50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmSpeed_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp:58](../../source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp#L58) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmSpeed_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoEmSpeed.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoEmSpeed.h:23](../../source/game_sa/Fx/Blueprints/FxInfoEmSpeed.h#L23) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoEmSpeed_c::Constructor 0x004A4D00 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1030"></a>
+
+## FxInfoEmWeather_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoEmWeather_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmWeather_c::FxInfoEmWeather_c() | [source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmWeather_c::Constructor 0x004A50E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmWeather_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmWeather_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp:45](../../source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp#L45) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoEmWeather_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp:60](../../source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmWeather_c::DestructorBody 0x004A6DA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoEmWeather_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoEmWeather.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoEmWeather_c::ScalarDeletingDestructor 0x004A6D80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoEmWeather.h:24](../../source/game_sa/Fx/Blueprints/FxInfoEmWeather.h#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoEmWeather_c::Constructor 0x004A50E0 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1031"></a>
+
+## FxInfoFlat_c
+
+| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
+| --- | --- | --- | --- | --- | --- |
+| FxInfoFlat_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoFlat.cpp:25](../../source/game_sa/Fx/Blueprints/FxInfoFlat.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoFlat_c::FxInfoFlat_c() | [source/game_sa/Fx/Blueprints/FxInfoFlat.cpp:35](../../source/game_sa/Fx/Blueprints/FxInfoFlat.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoFlat_c::Constructor 0x004A6320 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoFlat_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoFlat.cpp:41](../../source/game_sa/Fx/Blueprints/FxInfoFlat.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoFlat_c::Constructor 0x004A6320 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoFlat_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoFlat.cpp:47](../../source/game_sa/Fx/Blueprints/FxInfoFlat.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoFlat_c::Destructor 0x004A7810 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| * FxInfoFlat_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoFlat.cpp:55](../../source/game_sa/Fx/Blueprints/FxInfoFlat.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoFlat_c::ScalarDeletingDestructor 0x004A77F0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoFlat_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoFlat.cpp:64](../../source/game_sa/Fx/Blueprints/FxInfoFlat.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+| FxInfoFlat_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoFlat.cpp:69](../../source/game_sa/Fx/Blueprints/FxInfoFlat.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
+
+<a id="grupo-1032"></a>
 
 ## FxInfoFloat_c
 
@@ -16,7 +174,7 @@
 | FxInfoFloat_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoFloat.cpp:61](../../source/game_sa/Fx/Blueprints/FxInfoFloat.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoFloat_c::DestructorBody 0x004A7500 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * FxInfoFloat_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoFloat.cpp:69](../../source/game_sa/Fx/Blueprints/FxInfoFloat.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoFloat_c::ScalarDeletingDestructor 0x004A74E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1022"></a>
+<a id="grupo-1033"></a>
 
 ## FxInfoForce_c
 
@@ -30,7 +188,7 @@
 | * FxInfoForce_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoForce.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoForce.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoForce_c::ScalarDeletingDestructor 0x004A6ED0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoForce.h:22](../../source/game_sa/Fx/Blueprints/FxInfoForce.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoForce_c::Constructor 0x004A5450 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1023"></a>
+<a id="grupo-1034"></a>
 
 ## FxInfoFriction_c
 
@@ -44,7 +202,7 @@
 | * FxInfoFriction_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoFriction.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoFriction.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoFriction_c::ScalarDeletingDestructor 0x004A6F40 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoFriction.h:22](../../source/game_sa/Fx/Blueprints/FxInfoFriction.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoFriction_c::Constructor 0x004A5550 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1024"></a>
+<a id="grupo-1035"></a>
 
 ## FxInfoGroundCollide_c
 
@@ -58,7 +216,7 @@
 | FxInfoGroundCollide_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoGroundCollide.cpp:89](../../source/game_sa/Fx/Blueprints/FxInfoGroundCollide.cpp#L89) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoGroundCollide_c::DestructorBody 0x004A70B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * FxInfoGroundCollide_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoGroundCollide.cpp:97](../../source/game_sa/Fx/Blueprints/FxInfoGroundCollide.cpp#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoGroundCollide_c::ScalarDeletingDestructor 0x004A7090 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1025"></a>
+<a id="grupo-1036"></a>
 
 ## FxInfoHeatHaze_c
 
@@ -72,7 +230,7 @@
 | FxInfoHeatHaze_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoHeatHaze.cpp:64](../../source/game_sa/Fx/Blueprints/FxInfoHeatHaze.cpp#L64) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoHeatHaze_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoHeatHaze.cpp:69](../../source/game_sa/Fx/Blueprints/FxInfoHeatHaze.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1026"></a>
+<a id="grupo-1037"></a>
 
 ## FxInfoJitter_c
 
@@ -86,7 +244,7 @@
 | FxInfoJitter_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoJitter.cpp:71](../../source/game_sa/Fx/Blueprints/FxInfoJitter.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoJitter_c::DestructorBody 0x004A7420 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * FxInfoJitter_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoJitter.cpp:79](../../source/game_sa/Fx/Blueprints/FxInfoJitter.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoJitter_c::ScalarDeletingDestructor 0x004A7400 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1027"></a>
+<a id="grupo-1038"></a>
 
 ## FxInfoManager_c
 
@@ -101,7 +259,7 @@
 | GetInfos() | [source/game_sa/Fx/FxInfoManager.h:50](../../source/game_sa/Fx/FxInfoManager.h#L50) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | GetInfos() const | [source/game_sa/Fx/FxInfoManager.h:51](../../source/game_sa/Fx/FxInfoManager.h#L51) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1028"></a>
+<a id="grupo-1039"></a>
 
 ## FxInfoNoise_c
 
@@ -115,7 +273,7 @@
 | * FxInfoNoise_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoNoise.cpp:78](../../source/game_sa/Fx/Blueprints/FxInfoNoise.cpp#L78) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoNoise_c::ScalarDeletingDestructor 0x004A6E60 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * Constructor() | [source/game_sa/Fx/Blueprints/FxInfoNoise.h:22](../../source/game_sa/Fx/Blueprints/FxInfoNoise.h#L22) | C++ · Cuerpo fuente; delegación indirecta no descartada | Histórica del catálogo: FxInfoNoise_c::Constructor 0x004A5270 | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 
-<a id="grupo-1029"></a>
+<a id="grupo-1040"></a>
 
 ## FxInfoRotSpeed_c
 
@@ -128,156 +286,3 @@
 | FxInfoRotSpeed_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp:52](../../source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | FxInfoRotSpeed_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp:71](../../source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp#L71) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoRotSpeed_c::DestructorBody 0x004A7490 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
 | * FxInfoRotSpeed_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp:79](../../source/game_sa/Fx/Blueprints/FxInfoRotSpeed.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoRotSpeed_c::ScalarDeletingDestructor 0x004A7470 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1030"></a>
-
-## FxInfoSelfLit_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoSelfLit_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp:25](../../source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSelfLit_c::FxInfoSelfLit_c() | [source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp:35](../../source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSelfLit_c::Constructor 0x004A6760 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoSelfLit_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp:42](../../source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSelfLit_c::Constructor 0x004A6760 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSelfLit_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp:48](../../source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp#L48) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSelfLit_c::Destructor 0x004A79D0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoSelfLit_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp:56](../../source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp#L56) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSelfLit_c::ScalarDeletingDestructor 0x004A79B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSelfLit_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp:65](../../source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp#L65) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSelfLit_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp:70](../../source/game_sa/Fx/Blueprints/FxInfoSelfLit.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1031"></a>
-
-## FxInfoSize_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoSize_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoSize.cpp:25](../../source/game_sa/Fx/Blueprints/FxInfoSize.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSize_c::FxInfoSize_c() | [source/game_sa/Fx/Blueprints/FxInfoSize.cpp:35](../../source/game_sa/Fx/Blueprints/FxInfoSize.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSize_c::Constructor 0x004A5FA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoSize_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoSize.cpp:41](../../source/game_sa/Fx/Blueprints/FxInfoSize.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSize_c::Constructor 0x004A5FA0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSize_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoSize.cpp:47](../../source/game_sa/Fx/Blueprints/FxInfoSize.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSize_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoSize.cpp:55](../../source/game_sa/Fx/Blueprints/FxInfoSize.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSize_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoSize.cpp:80](../../source/game_sa/Fx/Blueprints/FxInfoSize.cpp#L80) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSize_c::DestructorBody 0x004A7650 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoSize_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoSize.cpp:88](../../source/game_sa/Fx/Blueprints/FxInfoSize.cpp#L88) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSize_c::ScalarDeletingDestructor 0x004A7630 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1032"></a>
-
-## FxInfoSmoke_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoSmoke_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSmoke_c::FxInfoSmoke_c() | [source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSmoke_c::Constructor 0x004A68E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoSmoke_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSmoke_c::Constructor 0x004A68E0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSmoke_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp:46](../../source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSmoke_c::Destructor 0x004A7AB0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoSmoke_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp:54](../../source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSmoke_c::ScalarDeletingDestructor 0x004A7A90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSmoke_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp:63](../../source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSmoke_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoSmoke.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1033"></a>
-
-## FxInfoSpriteRect_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoSpriteRect_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSpriteRect_c::FxInfoSpriteRect_c() | [source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSpriteRect_c::Constructor 0x004A60B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoSpriteRect_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSpriteRect_c::Constructor 0x004A60B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSpriteRect_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp:46](../../source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSpriteRect_c::Destructor 0x004A76C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSpriteRect_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp:54](../../source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoSpriteRect_c::GetValue(float currentTime, float mult, float totalTime, float len, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp:59](../../source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoSpriteRect_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp:79](../../source/game_sa/Fx/Blueprints/FxInfoSpriteRect.cpp#L79) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoSpriteRect_c::ScalarDeletingDestructor 0x004A76A0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1034"></a>
-
-## FxInfoTrail_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoTrail_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoTrail.cpp:24](../../source/game_sa/Fx/Blueprints/FxInfoTrail.cpp#L24) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoTrail_c::FxInfoTrail_c() | [source/game_sa/Fx/Blueprints/FxInfoTrail.cpp:34](../../source/game_sa/Fx/Blueprints/FxInfoTrail.cpp#L34) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoTrail_c::Constructor 0x004A6220 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoTrail_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoTrail.cpp:40](../../source/game_sa/Fx/Blueprints/FxInfoTrail.cpp#L40) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoTrail_c::Constructor 0x004A6220 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoTrail_c::Destructor() | [source/game_sa/Fx/Blueprints/FxInfoTrail.cpp:46](../../source/game_sa/Fx/Blueprints/FxInfoTrail.cpp#L46) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoTrail_c::Destructor 0x004A77A0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoTrail_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoTrail.cpp:54](../../source/game_sa/Fx/Blueprints/FxInfoTrail.cpp#L54) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoTrail_c::ScalarDeletingDestructor 0x004A7780 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoTrail_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoTrail.cpp:63](../../source/game_sa/Fx/Blueprints/FxInfoTrail.cpp#L63) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoTrail_c::GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoTrail.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoTrail.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1035"></a>
-
-## FxInfoUnderwater_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoUnderwater_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp:25](../../source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoUnderwater_c::FxInfoUnderwater_c() | [source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp:35](../../source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoUnderwater_c::Constructor 0x004A5E20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoUnderwater_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp:42](../../source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoUnderwater_c::Constructor 0x004A5E20 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoUnderwater_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp:47](../../source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoUnderwater_c::GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp:52](../../source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoUnderwater_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp:60](../../source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp#L60) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoUnderwater_c::DestructorBody 0x004A7570 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoUnderwater_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp:68](../../source/game_sa/Fx/Blueprints/FxInfoUnderwater.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoUnderwater_c::ScalarDeletingDestructor 0x004A7550 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1036"></a>
-
-## FxInfoWind_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfoWind_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfoWind.cpp:25](../../source/game_sa/Fx/Blueprints/FxInfoWind.cpp#L25) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoWind_c::FxInfoWind_c() | [source/game_sa/Fx/Blueprints/FxInfoWind.cpp:35](../../source/game_sa/Fx/Blueprints/FxInfoWind.cpp#L35) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoWind_c::Constructor 0x004A5A10 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoWind_c::Constructor() | [source/game_sa/Fx/Blueprints/FxInfoWind.cpp:41](../../source/game_sa/Fx/Blueprints/FxInfoWind.cpp#L41) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoWind_c::Constructor 0x004A5A10 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoWind_c::Load(FILESTREAM file, int32 version) | [source/game_sa/Fx/Blueprints/FxInfoWind.cpp:47](../../source/game_sa/Fx/Blueprints/FxInfoWind.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfoWind_c::GetValue(float currentTime, float mult, float totalTime, float length, bool useConst, void* info) | [source/game_sa/Fx/Blueprints/FxInfoWind.cpp:52](../../source/game_sa/Fx/Blueprints/FxInfoWind.cpp#L52) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxInfoWind_c::DestructorBody() | [source/game_sa/Fx/Blueprints/FxInfoWind.cpp:69](../../source/game_sa/Fx/Blueprints/FxInfoWind.cpp#L69) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoWind_c::DestructorBody 0x004A73B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInfoWind_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/FxInfoWind.cpp:77](../../source/game_sa/Fx/Blueprints/FxInfoWind.cpp#L77) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInfoWind_c::ScalarDeletingDestructor 0x004A7390 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1037"></a>
-
-## FxInfo_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInfo_c::InjectHooks() | [source/game_sa/Fx/Blueprints/FxInfo.cpp:31](../../source/game_sa/Fx/Blueprints/FxInfo.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInfo_c::~FxInfo_c() | [source/game_sa/Fx/Blueprints/FxInfo.cpp:38](../../source/game_sa/Fx/Blueprints/FxInfo.cpp#L38) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1038"></a>
-
-## FxInterpInfo255_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInterpInfo255_c::InjectHooks() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:31](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfo255_c::FxInterpInfo255_c() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:42](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo255_c::Constructor 0x004A8B50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInterpInfo255_c::Constructor() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:47](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo255_c::Constructor 0x004A8B50 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfo255_c::Destructor() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:53](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo255_c::Destructor 0x004A8B70 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInterpInfo255_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:59](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo255_c::ScalarDeletingDestructor 0x004A8D90 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfo255_c::Load(FILESTREAM file) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:68](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxInterpInfo255_c::Allocate(int32 count) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:90](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxInterpInfo255_c::GetVal(float* outValues, float delta) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp:97](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo255.cpp#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo255_c::GetVal 0x004A8B80 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1039"></a>
-
-## FxInterpInfo32_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInterpInfo32_c::InjectHooks() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:31](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L31) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfo32_c::FxInterpInfo32_c() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:42](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L42) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo32_c::Constructor 0x004A8990 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInterpInfo32_c::Constructor() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:47](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L47) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo32_c::Constructor 0x004A8990 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfo32_c::Destructor() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:53](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L53) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo32_c::Destructor 0x004A89B0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInterpInfo32_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:59](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L59) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo32_c::ScalarDeletingDestructor 0x004A8D70 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfo32_c::Load(FILESTREAM file) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:68](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L68) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxInterpInfo32_c::Allocate(int32 count) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:90](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L90) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxInterpInfo32_c::GetVal(float* outValues, float delta) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp:97](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfo32.cpp#L97) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfo32_c::GetVal 0x004A89C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-
-<a id="grupo-1040"></a>
-
-## FxInterpInfoFloat_c
-
-| Función / firma | Ubicación | Implementación | Validación | ASM / naked | Dependencias del EXE |
-| --- | --- | --- | --- | --- | --- |
-| FxInterpInfoFloat_c::InjectHooks() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:32](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L32) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfoFloat_c::FxInterpInfoFloat_c() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:44](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L44) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfoFloat_c::Constructor 0x004A8440 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInterpInfoFloat_c::Constructor() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:49](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L49) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfoFloat_c::Constructor 0x004A8440 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfoFloat_c::Destructor() | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:55](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L55) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfoFloat_c::Destructor 0x004A8460 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| * FxInterpInfoFloat_c::ScalarDeletingDestructor(uint8 flags) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:61](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L61) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfoFloat_c::ScalarDeletingDestructor 0x004A8D30 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfoFloat_c::Load(FILESTREAM file) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:70](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L70) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxInterpInfoFloat_c::Allocate(int32 count) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:92](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L92) | C++ · Cuerpo fuente; delegación indirecta no descartada | Sin registro inequívoco | 0 / 0 | Posible dato fijo g_fxMan: source/game_sa/Fx/FxManager.cpp:37 (0x00A9AE80) |
-| FxInterpInfoFloat_c::GetVal(int32 attrib, float time, float deltaTime) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:106](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L106) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfoFloat_c::GetVal-attrib 0x004A85C0 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |
-| FxInterpInfoFloat_c::GetVal(float* outValues, float delta) | [source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp:172](../../source/game_sa/Fx/Blueprints/Interp/FxInterpInfoFloat.cpp#L172) | C++ · Cuerpo fuente; delegación indirecta no descartada | Revalidada en migración: FxInterpInfoFloat_c::GetVal-values 0x004A8470 · [registro](../../reversing/CppOnlyMigration/approvals.json) | 0 / 0 | Sin indicio directo en patrones examinados; dependencias transitivas sin determinar |

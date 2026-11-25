@@ -22,35 +22,35 @@ Tres conceptos distintos, que no se mezclan en ninguna cifra:
 
 Y dos zonas del EXE que se miden por separado: el **código del juego** (0x401000–0x74FFFF, el trabajo propio del proyecto) y **RenderWare y D3D** (0x750000–0x81FFFF, el SDK enlazado dentro del EXE).
 
-Cifras al 22/11/2026.
+Cifras al 24/11/2026.
 
 | Zona | Funciones a reconstruir | Reconstruidas | Entradas del catálogo | Validadas | Sin validar |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| **Código del juego** | 11.684 | 11.684 (100,00%) | 11.703 | 11.624 | 79 |
-| **RenderWare y D3D** | 802 | 803 (100,12%) | 1.580 | 162 | 1.418 |
+| **Código del juego** | 11.684 | 11.684 (100,00%) | 11.702 | 11.626 | 76 |
+| **RenderWare y D3D** | 795 | 795 (100,00%) | 1.582 | 168 | 1.414 |
 
-**Cómo leer la tabla:** «Funciones a reconstruir» y «Reconstruidas» se cuentan en funciones del EXE; «Validadas» y «Sin validar» se cuentan en entradas del catálogo (`hooks.csv`), y suman las «Entradas del catálogo». No coinciden con las funciones porque una función puede tener varias entradas (cuerpo, destructor con borrado, ranura virtual, envoltura). En el código del juego se descartan 150 funciones excluidas (no reconstruibles en C++ puro); en RenderWare, 1.033 funciones de libpng, zlib y D3DX9 (se enlaza la original) y 54 no reconstruibles.
+**Cómo leer la tabla:** «Funciones a reconstruir» y «Reconstruidas» se cuentan en funciones del EXE; «Validadas» y «Sin validar» se cuentan en entradas del catálogo (`hooks.csv`), y suman las «Entradas del catálogo». No coinciden con las funciones porque una función puede tener varias entradas (cuerpo, destructor con borrado, ranura virtual, envoltura). En el código del juego se descartan 150 funciones excluidas (no reconstruibles en C++ puro); en RenderWare, 1.032 funciones de libpng, zlib y D3DX9 (se enlaza la original) y 61 no reconstruibles.
 
-En total hay **13.497 entradas reconstruidas, 11.792 validadas y 1.705 sin validar** en el catálogo (11.801 con evidencia registrada). Quedan además 214 entradas fuera de ambas zonas (CRT y utilidades).
+En total hay **13.511 entradas reconstruidas, 11.800 validadas y 1.711 sin validar** en el catálogo (11.800 con evidencia registrada). Quedan además 227 entradas fuera de ambas zonas (CRT y utilidades).
 
 ### Fase del proceso
 
 | Fase | Estado |
 | --- | --- |
 | Reconstruir el código del juego en C++ puro | **Hecha**: 100,00% de las funciones y 100,00% de los bytes; faltan 0 y hay 150 excluidas por no ser reconstruibles |
-| Reconstruir el SDK de RenderWare | **Hecha**: 803 de 802 funciones reconstruibles (100,12%); aparte, 1.033 son libpng, zlib y D3DX9 (se enlaza la original) y 54 no son reconstruibles |
-| **Validar el código del juego** | **En curso**: 11.624 de 11.703 reconstruidas (99,32%); el resto va por oleadas de lotes (detalle en el [informe](docs/ReversedClasses.md#por-validar)) |
-| Validar RenderWare | **Apenas empezada**: 162 de 1.580 (10,25%); plan de bancos escrito ([plan de validación](docs/RenderWareExe/plan-validacion.md)); empieza al cerrar las oleadas del juego, con funciones puras, después flujos y memoria falsos y al final el dispositivo D3D falso |
+| Reconstruir el SDK de RenderWare | **Hecha**: 795 de 795 funciones reconstruibles (100,00%); aparte, 1.032 son libpng, zlib y D3DX9 (se enlaza la original) y 61 no son reconstruibles |
+| **Validar el código del juego** | **En curso**: 11.626 de 11.702 reconstruidas (99,35%); el resto va por oleadas de lotes (detalle en el [informe](docs/ReversedClasses.md#por-validar)) |
+| Validar RenderWare | **Apenas empezada**: 168 de 1.582 (10,62%); plan de bancos escrito ([plan de validación](docs/RenderWareExe/plan-validacion.md)); empieza al cerrar las oleadas del juego, con funciones puras, después flujos y memoria falsos y al final el dispositivo D3D falso |
 | Pase final de bancos viejos | Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió |
-| Ejecutable propio | Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](docs/ProjectRoadmap.md)) |
+| Ejecutable propio | **En curso, no terminado** (24/11/2026): `gta_sa_standalone.exe` arrancó, cargó una partida y siguió vivo más de 5 minutos sin `gta-sa.exe` ([prueba](docs/CodigoVivoExe/sin-original.md)); QuickTime y DirectDraw están sustituidos y no quedan envolturas pendientes. Faltan por verificar la misión 1 completa, el mando real, el mapa grande y guardar/cargar ([estado y pendientes](docs/RutaExeIndependiente.md#actualización-del-24112026-estado-medido-del-ejecutable-independiente)) |
 <!-- RESA-PROGRESO:END -->
 
 ### Lo que sigue y los límites
 
-- **Ahora:** validar el código del juego por oleadas de lotes (cada lote con su banco `FnNNNA`; ver la [sección 4 del informe](docs/ReversedClasses.md#por-validar)). Después, el plan de bancos de RenderWare.
+- **Validación pendiente:** quedan lotes sin banco (cada uno con su `FnNNNA`; ver la [sección 4 del informe](docs/ReversedClasses.md#por-validar)) y el plan de bancos de RenderWare. Entre el 22 y el 24/11/2026 el trabajo fue sobre el ejecutable independiente y la comparación con el original (ver abajo), no sobre bancos nuevos; el contador de validadas solo cambió por sincronizar `hooks.csv` con evidencia ya aprobada ([cómo se arregló](docs/RutaExeIndependiente.md#bloqueo-de-la-documentación-corregido-24112026)).
 - **Las bibliotecas enlazadas no se reconstruyen:** libpng, zlib y D3DX9 se enlazarán con su versión original en el ejecutable propio; los puentes de QuickTime y las rutinas con registros no expresables en C++ puro están documentados como [no reconstruibles](docs/RenderWareExe/no-reconstruibles.csv) y [excluidas](docs/JuegoExe/excluidas.csv).
 - **Reconstruida no es validada:** lo reconstruido sin validar está integrado y activo, pero no se ha comparado con el EXE dentro del juego. En RenderWare, nada se ha ejecutado todavía contra el original.
-- **Todavía no es un ejecutable independiente:** el proyecto sigue dependiendo de `gta_sa.exe` y de los recursos del juego ([ruta hacia el EXE independiente](docs/RutaExeIndependiente.md)).
+- **Ejecutable independiente, estado medido el 24/11/2026:** existe `gta_sa_standalone.exe`, que en una prueba concreta arrancó, cargó una partida y se mantuvo vivo más de 5 minutos sin tener `gta-sa.exe` (solo los datos del juego) ([prueba](docs/CodigoVivoExe/sin-original.md)). Eso **no** lo declara terminado ni equivalente: faltan por verificar la misión 1 completa, el mando real, el mapa grande, guardar y cargar, y buena parte de los objetos propios de datos no se ejercitó. Lista completa de lo hecho, lo no verificado y lo pendiente: [ruta hacia el EXE independiente](docs/RutaExeIndependiente.md#actualización-del-24112026-estado-medido-del-ejecutable-independiente).
 - **Límites de la validación:** la evidencia vale para los fixtures de cada banco y para el árbol en que se probó; la vigencia contra el árbol actual no está acreditada y no se afirma estabilidad general ([desviaciones conocidas](docs/DesviacionesConocidas.md)).
 - **Todo en C++ puro:** `source/game_sa` no tiene `__asm` ni funciones `naked`. Regla del proyecto: todo lo que se reconstruya va en C++, dos archivos por clase (`.cpp` y `.h`) y sin duplicados ([proceso](reversing/CppOnlyMigration/PROCESO.md)).
 - **Cómo se valida una función:** el mismo EXE con el hook apagado contra la DLL con el hook encendido, mínimo 16.384 pares y 0 diferencias, un oráculo Python independiente del código bajo prueba y una prueba negativa con mutaciones (dos rondas, y todas las funciones deben fallar con la mutación). Cuando una función pasa a tener hook, se repiten los bancos antiguos que la usan como colaborador.

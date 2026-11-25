@@ -1,15 +1,19 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 24/11/2026 (Ciudad de México):** 1007 grupos / 13511 funciones reconstruidas; 11800 con evidencia histórica y 1711 pendientes de validación en 52 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Inventario de validación de funciones reconstruidas
 
 [Panel](ReversedClasses.md) · [Registro y método](../reversing/ValidationRegistry/README.md)
 
-Universo de esta revisión: **13,497 entradas reversed=1**, de 13,497 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
+Universo de esta revisión: **13,511 entradas reversed=1**, de 13,511 registradas. Las 0 pendientes de reconstrucción quedan fuera de este inventario, pero siguen dentro del denominador del panel.
 
 | Estado | Entradas |
 | --- | ---: |
-| `validated=1` · evidencia aprobada vinculada | 11792 |
+| `validated=1` · evidencia aprobada vinculada | 11800 |
 | Vigencia acreditada para su alcance | 0 |
-| Evidencia histórica vinculada; revisión pendiente | 11792 |
-| Sin evidencia aprobada vinculada en este registro | 1705 |
+| Evidencia histórica vinculada; revisión pendiente | 11800 |
+| Sin evidencia aprobada vinculada en este registro | 1711 |
 
 `validated=1` registra que existe evidencia aprobada al menos una vez; la vigencia actual se calcula aparte con hashes de fuentes y revisión de dependencias. Sin vincular no significa nunca probada ni fallida. Hay bancos todavía no importados. Cada entrada tiene una sola clasificación; los pares y las repeticiones no multiplican funciones. Las funciones virtuales pueden tener dirección cero en el CSV: se identifican también por clase, nombre y tipo.
 
@@ -316,7 +320,6 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CAEGlobalWeaponAudioEntity | `ServiceAmbientGunFire` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAEGlobalWeaponAudioEntity | `UpdateParameters` | [Resumen](../reversing/AnimAudio6/validation-summary.json) |
 | CAEMFDecoder | `Constructor` | [Resumen](../reversing/Sys10/validation-summary.json) |
-| CAEMFDecoder | `FillCallback` | [Resumen](../reversing/FnS7A1A/validation-summary.json) |
 | CAEMFDecoder | `GetSampleRate` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CAEMFDecoder | `GetStreamID` | [Resumen](../reversing/Sys10/validation-summary.json) |
 | CAEMFDecoder | `GetStreamLengthMs` | [Resumen](../reversing/Sys10/validation-summary.json) |
@@ -1253,6 +1256,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | CBaseModelInfo | `SetTexDictionary` | [Resumen](../reversing/Model34/validation-summary.json) |
 | CBaseModelInfo | `Shutdown` | [Resumen](../reversing/Model34/validation-summary.json) |
 | CBaseModelInfo | `ShutdownThunk` | [Resumen](../reversing/Fn194A/validation-summary.json) |
+| CBaseModelInfo | `SwaysInWind` | [Resumen](../reversing/CBaseModelInfo/validation-summary.json) |
 | CBike | `AddMovingCollisionSpeed` | [Resumen](../reversing/Fn164A/validation-summary.json) |
 | CBike | `BlowUpCar` | [Resumen](../reversing/BikeBlow355/validation-summary.json) |
 | CBike | `BlowUpCarCutSceneNoExtras` | [Resumen](../reversing/Fn164A/validation-summary.json) |
@@ -10674,6 +10678,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | D3DTextureBuffer | `PushWithoutIncreasingCounter` | [Resumen](../reversing/Fn95A/validation-summary.json) |
 | D3DTextureBuffer | `Resize` | [Resumen](../reversing/Fn95A/validation-summary.json) |
 | D3DTextureBuffer | `Setup` | [Resumen](../reversing/Fn95A/validation-summary.json) |
+| D3DX9 | `D3DXFloat16To32Array` | [Resumen](../reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json) |
+| D3DX9 | `D3DXMatrixMultiply` | [Resumen](../reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json) |
+| D3DX9 | `D3DXMatrixMultiplyTranspose` | [Resumen](../reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json) |
+| D3DX9 | `D3DXMatrixTranspose` | [Resumen](../reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json) |
+| D3DX9 | `D3DXVec3TransformCoord` | [Resumen](../reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json) |
+| D3DX9 | `D3DXVec3TransformNormal` | [Resumen](../reversing/CppTwelveLevel6Final/runs/FnEXT1A-20261119-bench/summary.json) |
 | ExeLibJpeg | `build_ycc_rgb_table` | [Resumen](../reversing/Fn232A/validation-summary.json) |
 | ExeLibJpeg | `expand_right_edge` | [Resumen](../reversing/Fn232A/validation-summary.json) |
 | ExeLibJpeg | `jinit_c_prep_controller` | [Resumen](../reversing/Fn232A/validation-summary.json) |
@@ -10871,6 +10881,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxManager_c | `CreateFxSystem-2` | [Resumen](../reversing/Fx25/validation-summary.json) |
 | FxManager_c | `CreateFxSystem-3` | [Resumen](../reversing/Fx25/validation-summary.json) |
 | FxManager_c | `CreateFxSystem-4` | [Resumen](../reversing/Fx25/validation-summary.json) |
+| FxManager_c | `DestroyAllFxSystems` | [Resumen](../reversing/FxManager/validation-summary.json) |
 | FxManager_c | `DestroyFxSystem` | [Resumen](../reversing/Fx25/validation-summary.json) |
 | FxManager_c | `Destructor` | [Resumen](../reversing/Fx25/validation-summary.json) |
 | FxManager_c | `Exit` | [Resumen](../reversing/Fx25/validation-summary.json) |
@@ -10888,6 +10899,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | FxManager_c | `SetWindData` | [Resumen](../reversing/Fx25/validation-summary.json) |
 | FxManager_c | `ShouldCreate` | [Resumen](../reversing/Fx25/validation-summary.json) |
 | FxManager_c | `UnloadFxProject` | [Resumen](../reversing/Fx25/validation-summary.json) |
+| FxManager_c | `Update` | [Resumen](../reversing/FxManager/validation-summary.json) |
 | FxMemoryPool_c | `Constructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | FxMemoryPool_c | `Destructor` | [Resumen](../reversing/Fn144A/validation-summary.json) |
 | FxMemoryPool_c | `Exit` | [Resumen](../reversing/Fx43/validation-summary.json) |
@@ -11843,7 +11855,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAEFireAudioEntity` | 7 | 0 | 7 | 0 |
 | `CAEFrontendAudioEntity` | 7 | 0 | 7 | 0 |
 | `CAEGlobalWeaponAudioEntity` | 8 | 0 | 8 | 0 |
-| `CAEMFDecoder` | 13 | 0 | 8 | 5 |
+| `CAEMFDecoder` | 12 | 0 | 7 | 5 |
 | `CAEMP3BankLoader` | 14 | 0 | 14 | 0 |
 | `CAEMP3TrackLoader` | 8 | 0 | 8 | 0 |
 | `CAEPedAudioEntity` | 22 | 0 | 22 | 0 |
@@ -11890,7 +11902,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `CAudioZones` | 14 | 0 | 9 | 5 |
 | `CAutoPilot` | 4 | 0 | 4 | 0 |
 | `CAutomobile` | 114 | 0 | 114 | 0 |
-| `CBaseModelInfo` | 38 | 0 | 37 | 1 |
+| `CBaseModelInfo` | 38 | 0 | 38 | 0 |
 | `CBike` | 62 | 0 | 62 | 0 |
 | `CBirds` | 6 | 0 | 6 | 0 |
 | `CBmx` | 13 | 0 | 13 | 0 |
@@ -12694,9 +12706,10 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `D3DIndexDataBuffer` | 5 | 0 | 5 | 0 |
 | `D3DResourceSystem` | 16 | 0 | 16 | 0 |
 | `D3DTextureBuffer` | 8 | 0 | 8 | 0 |
-| `D3DX9` | 17 | 0 | 0 | 17 |
-| `DelayLoadThunks` | 3 | 0 | 0 | 3 |
+| `D3DX9` | 17 | 0 | 6 | 11 |
+| `DelayLoadThunks` | 2 | 0 | 0 | 2 |
 | `ExeCrt` | 198 | 0 | 0 | 198 |
+| `ExeCrtHeap` | 13 | 0 | 0 | 13 |
 | `ExeLibJpeg` | 15 | 0 | 15 | 0 |
 | `ExeProtectionStub` | 8 | 0 | 8 | 0 |
 | `FurnitureGroup_c` | 7 | 0 | 7 | 0 |
@@ -12745,7 +12758,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `FxInterpInfo32_c` | 4 | 0 | 4 | 0 |
 | `FxInterpInfoFloat_c` | 5 | 0 | 4 | 1 |
 | `FxInterpInfoU255_c` | 4 | 0 | 4 | 0 |
-| `FxManager_c` | 25 | 0 | 23 | 2 |
+| `FxManager_c` | 25 | 0 | 25 | 0 |
 | `FxMemoryPool_c` | 7 | 0 | 7 | 0 |
 | `FxPrimBP_c` | 4 | 0 | 4 | 0 |
 | `FxPrim_c` | 3 | 0 | 3 | 0 |
@@ -12784,7 +12797,6 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `ProcObjectMan_c` | 10 | 0 | 10 | 0 |
 | `ProcSurfaceInfo_c` | 7 | 0 | 7 | 0 |
 | `Ps` | 26 | 0 | 26 | 0 |
-| `QTMLRuntime` | 8 | 0 | 0 | 8 |
 | `RenderBuffer` | 4 | 0 | 4 | 0 |
 | `RpAnimBlend` | 52 | 0 | 52 | 0 |
 | `RpAnisot` | 12 | 0 | 12 | 0 |
@@ -12792,7 +12804,7 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RpMatFX` | 73 | 0 | 0 | 73 |
 | `RpSkin` | 76 | 0 | 1 | 75 |
 | `RpUVAnim` | 42 | 0 | 2 | 40 |
-| `RpWorld` | 447 | 0 | 103 | 344 |
+| `RpWorld` | 454 | 0 | 103 | 351 |
 | `Rs` | 33 | 0 | 33 | 0 |
 | `RtAnim` | 30 | 0 | 3 | 27 |
 | `RtBMP` | 4 | 0 | 0 | 4 |
@@ -12800,12 +12812,12 @@ Revisar fuentes, versión, configuración y dependencias; repetir el banco cuand
 | `RtPNG` | 7 | 0 | 0 | 7 |
 | `RtQuat` | 8 | 0 | 0 | 8 |
 | `RtSlerp` | 1 | 0 | 0 | 1 |
-| `RwCore` | 339 | 0 | 36 | 303 |
+| `RwCore` | 342 | 0 | 36 | 306 |
 | `RwD3D9` | 147 | 0 | 0 | 147 |
 | `RwD3D9RasterDriver` | 16 | 0 | 14 | 2 |
 | `RwHelper` | 49 | 0 | 46 | 3 |
 | `RwMathX87` | 7 | 0 | 0 | 7 |
-| `RwPlCore` | 191 | 0 | 14 | 177 |
+| `RwPlCore` | 192 | 0 | 14 | 178 |
 | `Securom` | 4 | 0 | 4 | 0 |
 | `StdException` | 3 | 0 | 0 | 3 |
 | `SurfaceInfos_c` | 50 | 0 | 50 | 0 |

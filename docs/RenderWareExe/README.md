@@ -1,8 +1,12 @@
-# RenderWare y D3D en el EXE: mapa de las 1,889 funciones
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 24/11/2026 (Ciudad de México):** 1007 grupos / 13511 funciones reconstruidas; 11800 con evidencia histórica y 1711 pendientes de validación en 52 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
+# RenderWare y D3D en el EXE: mapa de las 1,888 funciones
 
 [Lista completa (CSV)](funciones.csv) · [Pendientes por clase](pendientes-por-clase.md) · [Plan de validación](plan-validacion.md) · [Mapa del código del juego](../JuegoExe/README.md)
 
-Región **0x750000–0x81FFFF**: 1,889 funciones, 600,971 bytes. Es RenderWare 3.7 y los envoltorios D3D9 enlazados estáticamente. Generado por `contrib/rw_function_map.py` (mismos datos y cotas que `contrib/exe_coverage.py`).
+Región **0x750000–0x81FFFF**: 1,888 funciones, 600,967 bytes. Es RenderWare 3.7 y los envoltorios D3D9 enlazados estáticamente. Generado por `contrib/rw_function_map.py` (mismos datos y cotas que `contrib/exe_coverage.py`).
 
 Estas funciones **no cuentan** en las cifras de reconstrucción del juego: para un ejecutable independiente se sustituyen enlazando una implementación equivalente (por ejemplo librw) y reconstruyendo solo los pipelines propios de San Andreas. Este mapa sirve para saber qué hay y por dónde empezar si se quiere reconstruir.
 
@@ -16,19 +20,19 @@ Estas funciones **no cuentan** en las cifras de reconstrucción del juego: para 
 | B · Falta: método virtual / por tabla | 0 | 0.0% | 0 | 0.0% |
 | C · Falta: solo la llaman funciones aún no reemplazadas | 0 | 0.0% | 0 | 0.0% |
 | D · Falta: sin llamadas ni vtable (¿muerto o por puntero?) | 0 | 0.0% | 0 | 0.0% |
-| No reconstruible en C++ puro (ABI de registros, 3DNow!, fragmento) · documentada | 54 | 2.9% | 9,908 | 1.6% |
-| Biblioteca de terceros: se enlaza la original, no se reconstruye | 1,033 | 54.7% | 380,721 | 63.4% |
+| No reconstruible en C++ puro (ABI de registros, 3DNow!, fragmento) o sustituida por otra API (QuickTime, DirectDraw) · documentada | 61 | 3.2% | 11,470 | 1.9% |
+| Biblioteca de terceros: se enlaza la original, no se reconstruye | 1,032 | 54.7% | 380,717 | 63.4% |
 | Envoltura pendiente (la DLL aún llama al EXE) | 0 | 0.0% | 0 | 0.0% |
-| Reemplazada por C++ | 802 | 42.5% | 210,342 | 35.0% |
+| Reemplazada por C++ | 795 | 42.1% | 208,780 | 34.7% |
 
-Clase/módulo identificado por nombre: 782 de 1,889 funciones; el resto se estima por vecindad (columna `confianza`).
+Clase/módulo identificado por nombre: 763 de 1,888 funciones; el resto se estima por vecindad (columna `confianza`).
 
 ## Por bloque de direcciones (64 KB)
 
 | Bloque | Funciones | Faltan | Bytes que faltan | Clases/módulos con más faltantes |
 | --- | ---: | ---: | ---: | ---: |
 | 0x750000 | 77 | 0 | 0 | — |
-| 0x760000 | 238 | 0 | 0 | — |
+| 0x760000 | 237 | 0 | 0 | — |
 | 0x770000 | 71 | 0 | 0 | — |
 | 0x780000 | 241 | 0 | 0 | — |
 | 0x790000 | 106 | 0 | 0 | — |
@@ -47,12 +51,12 @@ Ordenado por funciones que faltan.
 
 | Clase / módulo | Funciones | Reemplazadas | Faltan | Bytes que faltan |
 | --- | ---: | ---: | ---: | ---: |
-| Carga retardada de DLL | 5 | 0 | 0 | 0 |
+| Carga retardada de DLL | 6 | 0 | 0 | 0 |
 | Controlador D3D9 (RwD3D9) | 118 | 115 | 0 | 0 |
-| D3DX9 (compilador de shaders) | 950 | 17 | 0 | 0 |
-| QuickTime/QTML (puentes) | 32 | 0 | 0 | 0 |
+| D3DX9 (compilador de shaders) | 949 | 17 | 0 | 0 |
+| QuickTime/QTML (puentes) | 38 | 0 | 0 | 0 |
 | RpHAnim | 7 | 7 | 0 | 0 |
-| RpMatFX | 58 | 58 | 0 | 0 |
+| RpMatFX | 51 | 51 | 0 | 0 |
 | RpSkin | 37 | 34 | 0 | 0 |
 | RpUVAnim | 16 | 16 | 0 | 0 |
 | RpWorld | 105 | 105 | 0 | 0 |

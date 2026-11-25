@@ -1,3 +1,7 @@
+<!-- RESA-CURRENT-STATUS:BEGIN -->
+> **Estado al 24/11/2026 (Ciudad de México):** 1007 grupos / 13511 funciones reconstruidas; 11800 con evidencia histórica y 1711 pendientes de validación en 52 grupos. CAEVehicleAudioEntity completa: 102 funciones, 20024 pares, cero diferencias (corte 453). Vigencia acreditada: 0; la evidencia histórica no acredita dependencias ni independencia del EXE. Win::NOTSA_WinMain está excluida como adaptación NOTSA; conserva validated=0 en hooks_notsa.csv. El 100% describe sólo las entradas catalogadas, no todos los métodos de cada clase ni todo el EXE: 9223 entradas binarias sin nombre catalogado; 819 destinos originales explícitos fuera del catálogo, 395 referenciados desde entradas catalogadas. Estos conjuntos incluyen bibliotecas y funciones compartidas; no equivalen a funciones pendientes. [Cobertura fuera del catálogo](../BinaryCoverageAudit.md). Cohorte inicial de 499 dependencias: 131 aprobadas dentro del juego; 124 entradas del juego pendientes, 244 de bibliotecas y 0 inciertas. [Estado actual y alcance](../CurrentStatus.md). Los resultados y cifras del cuerpo conservan su fecha y alcance histórico.
+<!-- RESA-CURRENT-STATUS:END -->
+
 # Código vivo del EXE: auditoría, decisiones y plan de retirada
 
 Rama `codigo-vivo` (desde `origin/main` a23d661f77, 21/11/2026). Objetivo del proyecto: un ejecutable de GTA San Andreas que no cargue el `gta_sa.exe` original. Este documento audita **qué código del EXE sigue «vivo»** (ni el C++ ni un enganche lo reemplaza), de dónde cuelga, qué hacer con cada grupo y en qué orden, y explica las entradas del binario que el catálogo no nombra. No se reconstruyó nada ni se ejecutó el juego: todo es estático (capstone sobre el EXE canónico `72ae59e4…ecc9b`, más el código fuente y los CSV del repositorio).
@@ -13,6 +17,19 @@ Archivos: [plan-lotes.md](plan-lotes.md) · [plan.csv](plan.csv) · [funciones-v
 **P3 (rama `vivo-p3`):** S1–S4 sustituidos por C++ propio (18 de las 19 del plan más `0x85742B`; `___updatetlocinfo` queda en la rama del locale), con bancos fuera del juego; ver [ejecucion-p3.md](ejecucion-p3.md) y [cierre-p3.csv](cierre-p3.csv).
 
 **Partes P4 (lotes E2-*, CRT de MSVC sin locale) y P5 (F1–F4, arranque, inicializadores, importaciones) (rama `vivo-p5`):** diseño, cifras y pasos para el ejecutable propio en [fase8-arranque.md](fase8-arranque.md); resultado por función en [fase8-arranque-lotes.csv](fase8-arranque-lotes.csv), [fase8-inicializadores.csv](fase8-inicializadores.csv) y [fase8-funclets-f4.csv](fase8-funclets-f4.csv). **F4 (despachadores de comandos de script 1500–1599 y 2000–2099 reescritos en C++, 44 funclets descartados): ver [ejecucion-f4.md](ejecucion-f4.md).**
+
+## Estado al 24/11/2026 (lo posterior a esta auditoría)
+
+Las cifras de este documento (5.279 funciones no reemplazadas, 9.223 entradas sin nombre, 819 destinos, huecos y `resumen.json`) son del **21/11/2026** y no se regeneraron en la pasada de documentación del 24/11 (`contrib/codigo_vivo*.py`); léanse junto con los documentos de ejecución posteriores:
+
+- Cierre estático del código original necesario: de 521 funciones (264.358 bytes) a 13 (9.188 bytes) tras el enlace de terceros ([ejecucion-enlace-r5.md](ejecucion-enlace-r5.md)).
+- El independiente corre sin tener `gta-sa.exe` ([sin-original.md](sin-original.md)): 334 s, estado 9 más de 5 minutos, 0 funciones originales ejecutadas. No se midieron ropero, marcadores, zonas lejanas ni guardado/carga.
+- Sin tráfico por «dato en dos sitios», 11 correcciones más y sus auditorías ([ejecucion-trafico-nubes.md](ejecucion-trafico-nubes.md), [auditoria-datos.md](auditoria-datos.md); G2-G8 en [DatosExe](../DatosExe/README.md#estado-al-24112026)).
+- Comparación con el original: casa y marcadores iguales; espejo del ropero por la GPU Optimus; lluvia, gamma y carga; nubes ([ejecucion-comparacion-original.md](ejecucion-comparacion-original.md), [ejecucion-espejo-ropero.md](ejecucion-espejo-ropero.md), [ejecucion-lluvia-gamma-carga.md](ejecucion-lluvia-gamma-carga.md), [ejecucion-nubes-original.md](ejecucion-nubes-original.md)).
+- CRT del montón, ramas x87 de `floor`/`ceil`/`pow` y ayudantes de RenderWare; envolturas pendientes: 0 ([ejecucion-sustitucion-crt-rw-x87.md](ejecucion-sustitucion-crt-rw-x87.md)).
+- Ratón ([ejecucion-raton.md](ejecucion-raton.md)), cargar partidas ([ejecucion-cargar-partidas.md](ejecucion-cargar-partidas.md)) y el fallo al terminar la misión inicial ([ejecucion-crash-mision.md](ejecucion-crash-mision.md)).
+- Pruebas de juego con mando XInput falso y el arreglo del gimnasio: sin informe escrito en `main`; la evidencia está en `reversing/FnJuego/evidencia/`.
+- Pendientes con su documento: [RutaExeIndependiente.md](../RutaExeIndependiente.md#actualización-del-24112026-estado-medido-del-ejecutable-independiente).
 
 ## 0. Resumen en diez líneas
 
