@@ -1,0 +1,20 @@
+[    0.2] pid 27252
+[   12.0] juego en marcha tras 12 s; gGameState=9
+[   12.7] salida de la casa: area=0 tras 1 s
+[   13.8] ventana: cliente 640x480
+[   13.8] === ESCENARIO armas
+[   20.0] armas antes 0 [(0, 1, 0, 0, 1), (1, 8, 0, 0, 1), (2, 24, 0, 7, 99999), (3, 27, 0, 7, 99999), (4, 28, 0, 100, 99999), (5, 31, 0, 50, 99999), (6, 34, 0, 1, 99999), (7, 38, 0, 500, 99999), (8, 39, 0, 1, 99999), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   23.1] armas tras LXGIWYL (set 1): slot activo 0 [(0, 1, 0, 0, 2), (1, 5, 0, 0, 1), (2, 22, 0, 34, 100), (3, 25, 0, 1, 99999), (4, 28, 0, 100, 99999), (5, 30, 0, 30, 99999), (6, 33, 0, 1, 25), (7, 35, 0, 1, 200), (8, 18, 0, 1, 10), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+[   25.7] captura armas_ini {"ancho": 640, "alto": 480, "rojo": 1, "muestras": 34270, "media_rgb": [75.1, 97.3, 103.6], "max": 255} CJ con armas del truco 1
+[   31.9] cambio de arma por rueda : slots activos tras 8 pasos: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+[   39.9] cambio de arma por teclas : slots activos tras 8 pasos: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+[   48.3] cambio de arma por mando : slots activos tras 8 pasos: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+[   70.3] arma pistola no encontrada
+[   92.1] arma escopeta no encontrada
+[  113.8] arma uzi no encontrada
+[  135.6] arma ak47 no encontrada
+[  135.9] vivo al final: True
+[  135.9] LOG [error][06:41:46.640][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  135.9] LOG [error][06:41:46.640][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  135.9] LOG [info][06:41:46.826][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[  135.9] fin

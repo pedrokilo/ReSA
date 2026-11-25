@@ -26,6 +26,7 @@ END GENERATED HOOK STATUS */
 
 #include "oswrapper.h"
 #include "X87Math.h"
+#include "extensions/SilentPatchConfig.h"
 
 
 // 0x41BD50 (lote 140A, banco Fn140A): copia fuera de linea de CTimer::GetTimeStep del EXE (cdecl, sin argumentos, `ret`, 7 bytes: `fld dword [0xB7CB5C]; ret`): devuelve ms_fTimeStep en ST0 sin redondear
@@ -227,7 +228,21 @@ void CTimer::UpdateVariables(float timeElapsed)
     // producto por 0,05 (un denormal se guarda como denormal, no se anula como con SSE) y el truncado de los ms.
     uint32 elapsedMs, newNonClipped;
     float stepNonClipped;
-    TimerUpdateStepCpp(timeElapsed, m_snTimerDivider, m_snTimeInMillisecondsNonClipped, &newNonClipped, &stepNonClipped, &elapsedMs);
+    // SilentPatch (MIT, Silent): TimersFix (0x561902, 0x56191A): los milisegundos se truncan arrastrando la parte fraccionaria al fotograma siguiente; asi el tiempo no se
+    // congela con mas de 1000 FPS (con el limitador de fotogramas apagado los fundidos a negro se quedaban parados)
+    static const bool spTimers = SilentPatchOption("TimersFix", true);
+    if (spTimers) {
+        static double remainderNonClipped = 0.0, remainderMs = 0.0;
+        const double q = double(timeElapsed) / double(m_snTimerDivider);
+        double integral;
+        remainderNonClipped = modf(double(m_snTimeInMillisecondsNonClipped) + q + remainderNonClipped, &integral);
+        newNonClipped       = (uint32)integral;
+        stepNonClipped      = float(double(std::bit_cast<float>(0x3D4CCCCDu)) * q); // 0x858C28
+        remainderMs         = modf(q + remainderMs, &integral);
+        elapsedMs           = (uint32)integral;
+    } else {
+        TimerUpdateStepCpp(timeElapsed, m_snTimerDivider, m_snTimeInMillisecondsNonClipped, &newNonClipped, &stepNonClipped, &elapsedMs);
+    }
     m_snTimeInMillisecondsNonClipped = newNonClipped;
     ms_fTimeStepNonClipped = stepNonClipped;
     if (elapsedMs > 300) {
@@ -270,7 +285,15 @@ void CTimer::Update() {
         fTimeDelta = ms_fTimeScale * fTimeDelta;
     m_snRenderStartTime = nRenderTimeNow;
 
-    m_snTimeInMillisecondsPauseMode = TimerPauseModeCpp(m_snTimeInMillisecondsPauseMode, fTimeDelta, m_snTimerDivider);
+    static const bool spTimers = SilentPatchOption("TimersFix", true); // SilentPatch (MIT, Silent): ver UpdateVariables (0x561C32)
+    if (spTimers) {
+        static double remainderPause = 0.0;
+        double integral;
+        remainderPause = modf(double(m_snTimeInMillisecondsPauseMode) + double(fTimeDelta) / double(m_snTimerDivider) + remainderPause, &integral);
+        m_snTimeInMillisecondsPauseMode = (uint32)integral;
+    } else {
+        m_snTimeInMillisecondsPauseMode = TimerPauseModeCpp(m_snTimeInMillisecondsPauseMode, fTimeDelta, m_snTimerDivider);
+    }
     if (GetIsPaused())
         fTimeDelta = 0.0f;
 

@@ -48,6 +48,7 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 
 #include "VehicleModelInfo.h"
+#include "extensions/SilentPatchConfig.h"
 #include "CustomCarPlateMgr.h"
 #include "Core/PoolRaw.h"
 #include "LoadingScreen.h"
@@ -1100,6 +1101,20 @@ RpMaterial* CVehicleModelInfo::SetEditableMaterialsCB(RpMaterial* material, void
                     (*ppEntries)->m_pValue = *reinterpret_cast<void**>(address);
                     (*ppEntries)++;
                 }
+            }
+
+            // SilentPatch (MIT, Silent): LightMaterialsFix (0x4C830C): el EXE solo guardaba el primer float (ambiente) de las propiedades de superficie, pero
+            // RpMaterialSetSurfaceProperties(gLightSurfProps) sobrescribe los tres; se guardan tambien especular y difuso para que las luces del vehiculo no se queden oscuras
+            static const bool spLightMaterials = SilentPatchOption("VehicleLightMaterialsFix", true);
+            if (spLightMaterials) {
+                auto* const props = const_cast<RwSurfaceProperties*>(RpMaterialGetSurfaceProperties(material));
+                (*ppEntries)->m_pAddress = &props->specular;
+                (*ppEntries)->m_pValue = *reinterpret_cast<void**>(&props->specular);
+                (*ppEntries)++;
+
+                (*ppEntries)->m_pAddress = &props->diffuse;
+                (*ppEntries)->m_pValue = *reinterpret_cast<void**>(&props->diffuse);
+                (*ppEntries)++;
             }
 
             material->texture = ms_pLightsOnTexture;

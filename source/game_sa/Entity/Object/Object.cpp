@@ -29,6 +29,7 @@ END GENERATED HOOK STATUS */
 #include "game_sa/Crt/CrtFile.h"
 
 #include "Object.h"
+#include "extensions/SilentPatchConfig.h"
 #include "Radar.h"
 #include "BreakManager_c.h"
 #include "Buoyancy.h"

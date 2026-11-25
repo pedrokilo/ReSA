@@ -27,6 +27,7 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/RdataConstantes.h"
 
 #include "PostEffects.h"
+#include "extensions/SilentPatchConfig.h"
 #include "CustomBuildingDNPipeline.h"
 #include "Clouds.h"
 #include "X87Math.h"
@@ -1297,13 +1298,15 @@ void CPostEffects::Render() {
         // Como el original: 0x705247..0x705298. yoffset = (H * 1/448) * 24.0 ; xoffset = ((W * 1/640) * (verdeAgua * 1/24)) * 4.0 con las unidades del EXE (0x859520 / 0x859524 / 0x87265C)
         const auto yoffset = static_cast<float>(RsGlobal.maximumHeight) * DatosExe::Rdata::k859524 * m_yoffset;
         const auto xoffset = static_cast<float>(RsGlobal.maximumWidth) * DatosExe::Rdata::k859520 * (s_WaterGreen * DatosExe::Rdata::k87265C) * m_xoffset;
+        // SilentPatch (MIT, Silent): UnderWaterRipple consistente en todas las resoluciones (la frecuencia ya se escala con el alto dentro de la funcion)
+        static const bool spRippleScale = SilentPatchOption("UnderwaterRippleScaling", true);
         UnderWaterRipple(
             color,
             xoffset,
             yoffset,
             m_waterStrength,
             m_waterSpeed,
-            m_waterFreq
+            spRippleScale ? m_waterFreq / ((float)RsGlobal.maximumHeight / 480.0f) : m_waterFreq
         );
     } else {
         s_WaterGreen = 0.0f;

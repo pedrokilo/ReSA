@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 
 #include "AEAudioUtility.h"
 #include "X87Math.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssF.h"
 
 // m_sfLogLookup es float[50][2]: su definicion DatosExe debe cubrirla entera (con 4 bytes escribia 396 bytes sobre los objetos vecinos)
@@ -132,9 +133,16 @@ float CAEAudioUtility::AudioLog10(float p) {
 
 // 0x4d9e80
 // Como el original: (contador / frecuencia) · 1000 en x87 (con la precisión del juego) menos el inicio (X87Math.cpp).
+// SilentPatch (MIT, Silent): DancingTimersFix (0x4D9E80, 0x5B9886): contador de arranque en unidades del contador y aritmetica entera (el calculo con flotantes perdia precision
+// segun el tiempo encendido del PC, y los tiempos del minijuego de baile se desajustaban)
+static int64 s_spStartCounter = 0;
 uint64 CAEAudioUtility::GetCurrentTimeInMS() {
     LARGE_INTEGER counter;
     QueryPerformanceCounter(&counter);
+    static const bool spDancing = SilentPatchOption("DancingTimersFix", true);
+    if (spDancing && Frequency.QuadPart != 0) {
+        return (uint64)(((counter.QuadPart - s_spStartCounter) * 1000) / Frequency.QuadPart);
+    }
     return AudioUtilTimeMsCpp(counter.QuadPart, Frequency.QuadPart, startTimeMs);
 }
 
@@ -167,6 +175,11 @@ void CAEAudioUtility::StaticInitialise() {
         m_sfLogLookup[1][1] = logv;
     }
     VERIFY(QueryPerformanceFrequency(&Frequency));
+    {
+        LARGE_INTEGER startCounter;
+        QueryPerformanceCounter(&startCounter); // SilentPatch: DancingTimersFix
+        s_spStartCounter = startCounter.QuadPart;
+    }
     startTimeMs = 0;
     startTimeMs = GetCurrentTimeInMS();
 }

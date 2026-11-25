@@ -30,6 +30,7 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/RdataAyudantes.h"
 
 #include "Radar.h"
+#include "extensions/SilentPatchConfig.h"
 #include "EntryExitManager.h"
 #include "X87Math.h"
 #include "DatosExe/DataBssF.h"
@@ -2521,18 +2522,31 @@ void CRadar::DrawBlips() {
                 !FrontEndMenuManager.m_DisplayTheMouse)
             {
                 auto drawPos = TransformRealWorldPointToBlipSpace(FrontEndMenuManager.m_vMousePos);
-                LimitToMap(drawPos.x, drawPos.y);
+                // SilentPatch (MIT, Silent): MapScreenScalingFixes: LimitToMap espera coordenadas ya escaladas pero aqui se le pasan sin escalar (y se vuelven a escalar
+                // despues): se escalan para la llamada y se desescalan; el grosor del cursor (1 px de 640x448) tambien se escala
+                static const bool spMapScale = SilentPatchOption("MapScreenScaling", true);
+                const float spSX = spMapScale ? RadarStretchBaseX() : 1.0f;
+                const float spSY = spMapScale ? RadarStretchBaseY() : 1.0f;
+                if (spMapScale) {
+                    drawPos.x *= spSX;
+                    drawPos.y *= spSY;
+                    LimitToMap(drawPos.x, drawPos.y);
+                    drawPos.x /= spSX;
+                    drawPos.y /= spSY;
+                } else {
+                    LimitToMap(drawPos.x, drawPos.y);
+                }
 
                 // 0x58823D..0x588289 / 0x58828F..0x5882D5: (ancho * 0x859520) * x y (alto * 0x859524) * y; los rectangulos se escriben campo a campo
                 const float lineX = RadarStretchBaseX() * drawPos.x;
                 CSprite2d::DrawRect(
-                    RadarRawRect(lineX - 1.0f, (float)RsGlobal.maximumHeight, lineX + 1.0f, 0.0f),
+                    RadarRawRect(lineX - spSX, (float)RsGlobal.maximumHeight, lineX + spSX, 0.0f),
                     HudColour.GetRGB(HUD_COLOUR_GOLD)
                 );
 
                 const float lineY = RadarStretchBaseY() * drawPos.y;
                 CSprite2d::DrawRect(
-                    RadarRawRect(0.0f, lineY + 1.0f, (float)RsGlobal.maximumWidth, lineY - 1.0f),
+                    RadarRawRect(0.0f, lineY + spSY, (float)RsGlobal.maximumWidth, lineY - spSY),
                     HudColour.GetRGB(HUD_COLOUR_GOLD)
                 );
             }

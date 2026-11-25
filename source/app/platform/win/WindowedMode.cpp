@@ -5,6 +5,7 @@
 #ifdef NOTSA_WINDOWED_MODE
 
 #include "WindowedMode.hpp"
+#include "extensions/SilentPatchConfig.h"
 #include <HookSystem.h>
 #include "PostEffects.h"
 #include "RenderWare/D3D9RasterFormat.h"
@@ -275,7 +276,10 @@ void AdjustPresentParams(D3DPRESENT_PARAMETERS* pp) {
     pp->PresentationInterval       = 0;
     pp->FullScreen_RefreshRateInHz = 0;
     pp->EnableAutoDepthStencil     = TRUE;
-    pp->BackBufferFormat           = gGameState == GAME_STATE_IDLE
+    // SilentPatch (MIT, Silent): MoonPhases: las fases de la luna usan el alfa del buffer trasero (mezcla DESTALPHA), asi que con la opcion encendida el buffer trasero en ventana
+    // es siempre A8R8G8B8 (con X8R8G8B8 la luna salia siempre llena: medido, ver docs/CodigoVivoExe/silentpatch2-graficos.md)
+    static const bool spAlphaBackBuffer = SilentPatchOption("MoonPhases", true);
+    pp->BackBufferFormat           = (gGameState == GAME_STATE_IDLE || spAlphaBackBuffer)
                   ? D3DFMT_A8R8G8B8
                   : D3DFMT_X8R8G8B8;
 

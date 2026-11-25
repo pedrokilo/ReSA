@@ -1,0 +1,13 @@
+[    0.2] pid 14748
+[   12.2] juego en marcha tras 12 s; gGameState=9
+[   13.0] salida de la casa: area=0 tras 1 s
+[   14.0] ventana: cliente 640x480
+[   14.0] === ESCENARIO luna
+[   24.1] captura luna_sur0 {"ancho": 800, "alto": 600, "rojo": 27, "muestras": 53568, "media_rgb": [46.2, 50.7, 42.9], "max": 255} hora 3, CJ mirando al sur | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   28.1] captura luna_sur1 {"ancho": 800, "alto": 600, "rojo": 25, "muestras": 53568, "media_rgb": [40.8, 52.8, 41.2], "max": 255} hora 3, CJ mirando al sur | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   32.6] captura luna_sur2 {"ancho": 800, "alto": 600, "rojo": 25, "muestras": 53568, "media_rgb": [52.4, 49.7, 43.2], "max": 255} hora 3, CJ mirando al sur | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   33.0] vivo al final: True
+[   33.0] LOG [error][06:17:50.517][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   33.0] LOG [error][06:17:50.517][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   33.0] LOG [info][06:17:50.711][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[   33.0] fin

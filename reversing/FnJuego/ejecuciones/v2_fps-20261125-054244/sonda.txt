@@ -1,0 +1,20 @@
+pid 38900
+juego en marcha tras 12 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 640x480
+=== ESCENARIO fps
+FPS tramo 0: 24.86 fotogramas/s; tiempo de juego 998.6 ms por s de pared (fotogramas 378 en 15.21 s)
+FPS tramo 1: 24.88 fotogramas/s; tiempo de juego 999.1 ms por s de pared (fotogramas 381 en 15.31 s)
+FPS tramo 2: 24.86 fotogramas/s; tiempo de juego 999.1 ms por s de pared (fotogramas 373 en 15.00 s)
+FPS tramo 3: 24.94 fotogramas/s; tiempo de juego 1001.4 ms por s de pared (fotogramas 375 en 15.04 s)
+vivo al final: True
+LOG [info][05:43:29.470][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+LOG [info][05:43:29.470][app_debug.cpp:111]: Código de excepción: 0xc0000005
+LOG [info][05:43:29.471][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+LOG [info][05:43:29.471][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+LOG [info][05:43:29.779][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+LOG [info][05:43:29.797][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+LOG [error][05:43:39.696][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][05:43:39.697][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+LOG [info][05:43:39.894][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+fin

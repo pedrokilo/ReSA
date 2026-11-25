@@ -324,8 +324,10 @@ void CAERadioTrackManager::DisplayRadioStationName() {
             // K640 = 0x3ACCCCCD (constantes [859524]/[859520]); no usa SCREEN_SCALE_X/Y (division ni factor de aspecto).
             const float kHeight = std::bit_cast<float>(0x3B124925u);
             const float kWidth = std::bit_cast<float>(0x3ACCCCCDu);
-            const float scaleY = (float(RsGlobal.maximumHeight) * kHeight) * 0.9f;
-            const float scaleX = (float(RsGlobal.maximumWidth) * kWidth) * 0.6f;
+            // SilentPatch (MIT, Silent): SmallSteamTexts (apagado por defecto): nombre de emisora con el tamano de Steam (0.4 x 0.6, posicion Y 33)
+            static const bool spSmallSteam = SilentPatchOption("SmallSteamTexts", false);
+            const float scaleY = (float(RsGlobal.maximumHeight) * kHeight) * (spSmallSteam ? 0.6f : 0.9f);
+            const float scaleX = (float(RsGlobal.maximumWidth) * kWidth) * (spSmallSteam ? 0.4f : 0.6f);
 
             CFont::SetFontStyle(eFontStyle::FONT_MENU);
             CFont::SetJustify(false);
@@ -344,7 +346,7 @@ void CAERadioTrackManager::DisplayRadioStationName() {
             }
             CFont::SetColor(HudColour.GetRGB(m_nStationsListed || m_nStationsListDown ? HUD_COLOUR_DARK_GRAY : HUD_COLOUR_GOLD));
             // Como el original: 0x4E9FBF..0x4E9FF6: x = float(ancho / 2) (division ENTERA: cdq/sub/sar), y = (alto * K448) * 22.0.
-            CFont::PrintString(float(RsGlobal.maximumWidth / 2), (float(RsGlobal.maximumHeight) * kHeight) * 22.0f, name);
+            CFont::PrintString(float(RsGlobal.maximumWidth / 2), (float(RsGlobal.maximumHeight) * kHeight) * (spSmallSteam ? 33.0f : 22.0f), name);
             CFont::DrawFonts();
         }
     }

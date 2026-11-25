@@ -689,7 +689,7 @@ def esc_sp2veh(j):
         res[nombre] = {'modelo': j.modelo(j.veh()), 'vel': round(j.vel(j.veh()), 2)}
     j.res['sp2veh'] = res
 
-ESCENARIOS = {'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada}
+ESCENARIOS = {'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos}
 def esc_entrada(j):
     """SilentPatch (segunda tanda, entrada/camara/replay): latencia del teclado (tecla -> estado del mando, N pruebas), replay con F1 (inicio, fin y pulsaciones rapidas) y vida del proceso."""
     import statistics, random
@@ -756,6 +756,67 @@ def esc_entrada(j):
     j.P('tras el mash: modo replay', j.m.u8(0xA43088), 'vivo', j.alive(), 'pos', j.pos(), 'pools', j.pools())
     j.res['replay_final'] = {'modo': j.m.u8(0xA43088), 'vivo': j.alive()}
     u.ClipCursor(None)   # por seguridad: libera el rectangulo de ClipCursor que haya dejado el juego
+
+def foto_gr(j, nombre, desc=''):
+    # captura de ventana completa DPI-aware (SetProcessDPIAware antes de medir) y validacion del tamano contra RsGlobal (0xC17044 ancho, 0xC17048 alto) y el cliente de la ventana
+    u.SetProcessDPIAware()
+    j.h = captura.buscar()
+    rc = wintypes.RECT(); u.GetClientRect(j.h, ctypes.byref(rc))
+    r = captura.capturar(os.path.join(j.sal, nombre + '.png'), traer=False)
+    rw, rh = j.m.u32(0xC17044), j.m.u32(0xC17048)
+    ok = bool(r) and r['ancho'] == rc.right - rc.left and r['alto'] == rc.bottom - rc.top and (r['ancho'], r['alto']) == (rw, rh)
+    j.P('captura', nombre, json.dumps(r), desc, '| cliente %dx%d, RsGlobal %dx%d, tamano %s' % (rc.right - rc.left, rc.bottom - rc.top, rw, rh, 'VALIDADO' if ok else 'NO COINCIDE'))
+    return r
+
+def esc_fps(j):
+    # SilentPatch segunda tanda (graficos): FPS real = fotogramas del juego (CTimer::m_FrameCounter 0xB7CB4C) entre segundos de reloj de pared, y ritmo del tiempo de juego (ms / s de pared)
+    suelo_libre(j)
+    j.dormir(3.0)
+    for k in range(4):
+        f0 = j.m.u32(0xB7CB4C); g0 = j.tiempo(); t0 = time.time()
+        j.dormir(15.0)
+        f1 = j.m.u32(0xB7CB4C); g1 = j.tiempo(); t1 = time.time()
+        j.P('FPS tramo %d: %.2f fotogramas/s; tiempo de juego %.1f ms por s de pared (fotogramas %d en %.2f s)' % (k, (f1 - f0) / (t1 - t0), (g1 - g0) / (t1 - t0), f1 - f0, t1 - t0))
+
+def esc_graficos(j):
+    # SilentPatch segunda tanda (graficos): capturas de ventana completa de dia, de noche (luna, coronas) y con el HUD; la ventana del juego mide lo que diga el log
+    suelo_libre(j)
+    j.al_frente()
+    for hora, nom in ((12, 'dia'), (23, 'noche'), (3, 'madrugada')):
+        j.hora = hora
+        j.dormir(3.0)
+        foto_gr(j, 'gr_' + nom, 'hora %d' % hora)
+    j.hora = 12
+    j.P('pools', j.pools(), 'pos', j.pos(), 'cam', j.camara())
+
+def girar_camara(j, objetivo, max_iter=60):
+    # gira la camara con movimientos relativos del raton (SendInput) hasta que su rumbo (0 = norte +Y, 180 = sur) este cerca de 'objetivo' grados; aprende el signo con la primera medida
+    signo = 1
+    previo = j.cam_yaw()
+    for n in range(max_iter):
+        yaw = j.cam_yaw()
+        dif = ((objetivo - yaw + 540.0) % 360.0) - 180.0
+        if abs(dif) < 12.0: return yaw
+        if n and abs(dif) > abs(((objetivo - previo + 540.0) % 360.0) - 180.0) + 1.0: signo = -signo
+        previo = yaw
+        i = INP(); i.type = 0; i.mi = MI(int(max(-60, min(60, signo * dif * 2))), 0, 0, 0x0001, 0, None); u.SendInput(1, ctypes.byref(i), ctypes.sizeof(INP))
+        j.tick(); time.sleep(0.12)
+    return j.cam_yaw()
+
+def esc_luna(j):
+    # SilentPatch segunda tanda (graficos): la luna (fases) y las estrellas se ven mirando al sur (-Y) de madrugada (03:00; la luna se dibuja en 00:00-07:20): CJ de cara al sur, camara tras el
+    suelo_libre(j)
+    j.al_frente()
+    j.hora = 3
+    j.dormir(2.0)
+    j.P('formato del buffer trasero D3DFORMAT=%d (21 = A8R8G8B8, 22 = X8R8G8B8); tipo de multimuestreo %d' % (j.m.u32(0xC9C048), j.m.u32(0xC9C050)))
+    j.P('rumbo de la camara antes %.1f' % j.cam_yaw())
+    yaw = girar_camara(j, 180.0)
+    j.P('rumbo de la camara despues %.1f (180 = sur, donde sale la luna)' % yaw)
+    for dia in (4, 10, 16, 24):   # CClock::ms_nGameClockDays (0xB70154): el desplazamiento de la mascara de la luna depende del dia (fase)
+        j.m.wr(0xB70154, bytes([dia])); j.dormir(1.5); j.m.wr(0xB70154, bytes([dia]))
+        foto_gr(j, 'luna_dia%02d' % dia, 'hora 3, camara al sur (rumbo %.0f), dia de juego %d' % (j.cam_yaw(), j.m.u8(0xB70154)))
+    j.hora = 12
 
 
 def main():

@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 
 #include "app.h"
 #include "PostEffects.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataInicializadaD.h"
 
 void AppLightInjectHooks() {
@@ -175,7 +176,10 @@ void SetLightsWithTimeOfDayColour(RpWorld* world) {
         DirectionalLightColourForFrame.blue  = color;
         RpLightSetColor(pDirect, &DirectionalLightColourForFrame);
 
-        const auto& dir  = CTimeCycle::m_vecDirnLightToSun;
+        // SilentPatch (MIT, Silent): DirectionalFromSun (apagado por defecto; 0x735618): la luz direccional (reflejos del sol en peds y vehiculos) sigue la direccion real del sol
+        // segun la hora del dia, como en GTA III y Vice City, en vez de la direccion fija del timecyc.dat
+        static const bool spDirectionalFromSun = SilentPatchOption("DirectionalFromSun", false);
+        const CVector dir = spDirectionalFromSun ? CTimeCycle::GetVectorToSun() : CTimeCycle::m_vecDirnLightToSun;
         const auto right = CVector::ZAxisVector().Cross(dir).Normalized(); // NOTE: I don't normalization is needed here
         const auto up    = right.Cross(dir);
 
@@ -212,7 +216,9 @@ void AddAnExtraDirectionalLight(RpWorld* world, float x, float y, float z, float
     // Como el original: (red > green ? red : green), luego compara con blue (NaN y ceros con signo incluidos).
     const float maxRG    = red > green ? red : green;
     const float strength = maxRG > blue ? maxRG : blue;
-    const int32 numDirLights = CGame::currArea != AREA_CODE_NORMAL_WORLD ? 6 : 4;
+    // SilentPatch (MIT, Silent): ExtraDirectionalLights: hasta 6 luces por modelo tambien en exteriores con calidad de efectos Media o superior (en Baja se conservan las 4 del juego)
+    static const bool spSixLights = SilentPatchOption("ExtraDirectionalLights", true);
+    const int32 numDirLights = (CGame::currArea != AREA_CODE_NORMAL_WORLD || (spSixLights && g_fx.GetFxQuality() >= FX_QUALITY_MEDIUM)) ? 6 : 4;
 
     const auto slot = [&] {
         if (NumExtraDirectionalLights < numDirLights) {

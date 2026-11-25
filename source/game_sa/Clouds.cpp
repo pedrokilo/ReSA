@@ -26,6 +26,8 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/DataInicializadaC.h"
 #include "DatosExe/DataInicializadaA.h"
 #include "Clouds.h"
+#include "extensions/SilentPatchConfig.h"
+#include "CloudsLunarMask.h"
 #include "X87Math.h"
 #include "Camera.h"
 #include "PostEffects.h"
@@ -440,10 +442,48 @@ void CClouds::Render() {
                         CSprite::RenderOneXLUSprite({ moonPosScr.x, moonPosScr.y, z }, { mult * scrW, scrH * mult }, 0, 0, 0, 255, 1.0f / z, 255, 0, 0);
                     }
 
+                    // SilentPatch (MIT, Silent): MoonphasesFix (0x713C4C): las fases de la luna salen como en PS2: la mascara (alfa 64x64, ver CloudsLunarMask.h) se escribe solo
+                    // en el canal alfa (sin prueba alfa, SRCALPHA/ZERO) y despues la textura de la luna se mezcla con DESTALPHA. Sin la opcion se usa la mascara del juego.
+                    static const bool spMoonPhases = SilentPatchOption("MoonPhases", true);
+                    static RwTexture* spMoonMask = nullptr;
+                    static bool spMoonMaskTried = false;
+                    if (spMoonPhases && !spMoonMaskTried) {
+                        spMoonMaskTried = true;
+                        RwRaster* raster = RwRasterCreate(64, 64, 32, rwRASTERFORMAT8888 | rwRASTERTYPETEXTURE);
+                        NOTSA_LOG_INFO("SilentPatch MoonPhases: raster={} formato={:#x} stride={}", (void*)raster, raster ? RwRasterGetFormat(raster) : 0, raster ? RwRasterGetStride(raster) : 0);
+                        if (raster) {
+                            if (auto* pixels = static_cast<uint8*>(RwRasterLock(raster, 0, rwRASTERLOCKWRITE))) {
+                                for (int32 i = 0; i < 64 * 64; i++) { // BGRA, RGB = 0
+                                    pixels[i * 4 + 0] = 0;
+                                    pixels[i * 4 + 1] = 0;
+                                    pixels[i * 4 + 2] = 0;
+                                    pixels[i * 4 + 3] = kLunarMaskAlpha64[i];
+                                }
+                                RwRasterUnlock(raster);
+                                spMoonMask = RwTextureCreate(raster);
+                            }
+                            if (!spMoonMask) {
+                                RwRasterDestroy(raster);
+                            }
+                        }
+                    }
+                    const bool spUseMask = spMoonPhases && spMoonMask;
+                    static bool spMoonLogged = false;
+                    if (!spMoonLogged) {
+                        spMoonLogged = true;
+                        NOTSA_LOG_INFO("SilentPatch MoonPhases: opcion={} mascara propia={} (dia {}, hora {})", spMoonPhases, spMoonMask != nullptr, CClock::ms_nGameClockDays, hours);
+                    }
+
                     // Máscara de la luna
-                    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(gpMoonMask)));
+                    RwRenderStateSet(rwRENDERSTATETEXTURERASTER, RWRSTATE(RwTextureGetRaster(spUseMask ? spMoonMask : gpMoonMask)));
                     RwRenderStateSet(rwRENDERSTATESRCBLEND,      RWRSTATE(rwBLENDSRCALPHA));
-                    RwRenderStateSet(rwRENDERSTATEDESTBLEND,     RWRSTATE(rwBLENDONE));
+                    RwRenderStateSet(rwRENDERSTATEDESTBLEND,     RWRSTATE(spUseMask ? rwBLENDZERO : rwBLENDONE));
+                    uint32 spPrevAlphaTest = 0;
+                    if (spUseMask) {
+                        RwRenderStateGet(rwRENDERSTATEALPHATESTFUNCTION, &spPrevAlphaTest);
+                        RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTION, RWRSTATE(rwALPHATESTFUNCTIONALWAYS));
+                        RwD3D9SetRenderState(D3DRS_COLORWRITEENABLE, D3DCOLORWRITEENABLE_ALPHA);
+                    }
                     {
                         // Como el original: X se desplaza con el día (ancho * 5,4) e Y con alto * 0,7 (0x872838); el tamaño es 1,7 veces.
                         const float mult  = MoonMult();
@@ -454,6 +494,10 @@ void CClouds::Render() {
                             { moonW * 1.7f, 1.7f * moonH },
                             0, 0, 0, 0, 1.0f / z, 255, 0, 0
                         );
+                    }
+                    if (spUseMask) {
+                        RwD3D9SetRenderState(D3DRS_COLORWRITEENABLE, D3DCOLORWRITEENABLE_ALPHA | D3DCOLORWRITEENABLE_BLUE | D3DCOLORWRITEENABLE_GREEN | D3DCOLORWRITEENABLE_RED);
+                        RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTION, RWRSTATE(spPrevAlphaTest));
                     }
 
                     // Textura de la luna
@@ -643,6 +687,11 @@ void CClouds::Render() {
     RwIm3DVertexSetPos(&v1, size.x * scale2 + basePos.x, size.y * scale2 + basePos.y, size.z * scale2 + basePos.z);
     v1.color = 0x00FFFFFF;
 
+    // SilentPatch (MIT, Silent): ShootingStarsFix: las estrellas fugaces se dibujaban negras al quedar una textura activa; sin textura salen blancas como se penso
+    static const bool spShootingStars = SilentPatchOption("ShootingStarsFix", true);
+    if (spShootingStars) {
+        RwRenderStateSet(rwRENDERSTATETEXTURERASTER, nullptr);
+    }
     if (RwIm3DTransform(TempBufferVertices.m_3d, 2, nullptr, rwIM3D_VERTEXXYZ | rwIM3D_VERTEXRGBA)) {
         RwIm3DRenderIndexedPrimitive(rwPRIMTYPEPOLYLINE, StaticRef<std::array<RxVertexIndex, 2>>(0x8D579C).data(), 2);
         RwIm3DEnd();

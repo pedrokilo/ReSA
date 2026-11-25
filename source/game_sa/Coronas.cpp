@@ -309,6 +309,17 @@ void CCoronas::Render() {
     RwRenderStateSet(rwRENDERSTATEDESTBLEND,         RWRSTATE(rwBLENDONE));
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE,       RWRSTATE(TRUE));
 
+    // SilentPatch (MIT, Silent): LensFlareRenderFix: los destellos (sprites en buffer) ya no fuerzan el z-test al vaciar el buffer (CSprite::RenderBufferedOneXLUSprite2D),
+    // sino que se vacian con el z-test que les corresponde; asi el destello del sol coincide con el de PS2 y se ve con tarjetas AMD/Intel.
+    static const bool spLensFlareFix = SilentPatchOption("LensFlareRenderFix", true);
+    // SilentPatch (MIT, Silent): CoronaFlaresScaling: el tamano de los destellos escala con la resolucion (640x448)
+    static const bool spFlareScale = SilentPatchOption("CoronaFlaresScaling", true);
+    const float spFlareW = spFlareScale ? SCREEN_STRETCH_X(1.0f) : 1.0f;
+    const float spFlareH = spFlareScale ? SCREEN_STRETCH_Y(1.0f) : 1.0f;
+    if (spLensFlareFix) {
+        CSprite::InitSpriteBuffer2D();
+    }
+
     static const bool spCoronaRotation = SilentPatchOption("CoronaRotation", true); // SilentPatch (MIT, Silent): coronas giran al acercar la camara, como en PS2
     bool zTestEnable = true;
     const CoronaFlareDefRaw* flareDef = s_SunFlareDefRaw; // En el EXE el registro queda sin inicializar si el tipo no es 1 ni 2
@@ -419,7 +430,7 @@ void CCoronas::Render() {
                 const float halfW = (float)halfWidth;
                 CSprite::RenderBufferedOneXLUSprite2D(
                     { (scrPos.x - halfW) * def->Position + halfW, (scrPos.y - halfH) * def->Position + halfH },
-                    { size, size },
+                    { size * spFlareW, size * spFlareH },
                     color,
                     255,
                     255
@@ -427,6 +438,9 @@ void CCoronas::Render() {
             }
         }
 
+        if (spLensFlareFix) {
+            CSprite::FlushSpriteBuffer(); // SilentPatch: vaciar los destellos con el z-test apagado antes de volver a encenderlo
+        }
         RwRenderStateSet(rwRENDERSTATEZTESTENABLE, RWRSTATE(TRUE));
 
         if (c.m_nFlareType == FLARETYPE_HEADLIGHTS && CWeather::HeadLightsSpectrum != 0.0f && CGame::currArea == AREA_CODE_NORMAL_WORLD && s_HeadLightsFlareDefRaw[0].Sprite) {
@@ -440,7 +454,7 @@ void CCoronas::Render() {
                 const float redPos = def->Position + 0.05f;
                 CSprite::RenderBufferedOneXLUSprite2D(
                     { (scrPos.x - halfW) * redPos + halfW, (scrPos.y - halfH) * redPos + halfH },
-                    { def->Size, def->Size },
+                    { def->Size * spFlareW, def->Size * spFlareH },
                     RwRGBA{ red, 0, 0, 255 },
                     spriteIntensity,
                     255
@@ -450,12 +464,15 @@ void CCoronas::Render() {
                 const float bluePos = def->Position - 0.05f;
                 CSprite::RenderBufferedOneXLUSprite2D(
                     { (scrPos.x - halfW) * bluePos + halfW, (scrPos.y - halfH) * bluePos + halfH },
-                    { def->Size, def->Size },
+                    { def->Size * spFlareW, def->Size * spFlareH },
                     RwRGBA{ 0, 0, blue, 255 },
                     spriteIntensity,
                     255
                 );
             }
+        }
+        if (spLensFlareFix) {
+            CSprite::FlushSpriteBuffer(); // SilentPatch: fin de cada corona (0x6FB605 + vaciado del buffer)
         }
     }
     CSprite::FlushSpriteBuffer();
@@ -552,8 +569,10 @@ void CCoronas::RenderReflections() {
         // Como el original: intensidad entera (wet * fade * (20 - altura) * 230 * 0.05) y canales (c * int16) >> 8
         const float wetRoads = s_DebugSettings.AlwaysRenderWetRoadReflections ? 1.f : CWeather::WetRoads;
         const int32 intensity = (int16)(int32)(wetRoads * fade * (20.0f - heightAboveGround) * 230.0f * 0.05f);
+        // SilentPatch (MIT, Silent): WetRoadReflectionsFix (RefFix, 0x6FB97A/0x6FB9A0): los reflejos del asfalto mojado se dibujan con z = 1.0 (con la z de pantalla cercana se perdian)
+        static const bool spWetRoad = SilentPatchOption("WetRoadReflectionsFix", true);
         CSprite::RenderBufferedOneXLUSprite(
-            { scrPos.x, scrPos.y, notsa::bugfixes::PS2CoronaRendering ? scrPos.z : RwIm2DGetNearScreenZMacro() },
+            { scrPos.x, scrPos.y, spWetRoad ? 1.0f : (notsa::bugfixes::PS2CoronaRendering ? scrPos.z : RwIm2DGetNearScreenZMacro()) },
             { scrW * c.m_fSize * 0.75f, scrH * c.m_fSize * 2.0f },
             (uint8)((c.m_Color.r * intensity) >> 8),
             (uint8)((c.m_Color.g * intensity) >> 8),

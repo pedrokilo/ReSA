@@ -1,0 +1,19 @@
+pid 33608
+juego en marcha tras 12 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 640x480
+=== ESCENARIO fps
+FPS tramo 0: 24.90 fotogramas/s; tiempo de juego 995.9 ms por s de pared (fotogramas 380 en 15.26 s)
+FPS tramo 1: 24.94 fotogramas/s; tiempo de juego 997.3 ms por s de pared (fotogramas 377 en 15.11 s)
+FPS tramo 2: 24.85 fotogramas/s; tiempo de juego 994.4 ms por s de pared (fotogramas 376 en 15.13 s)
+FPS tramo 3: 24.85 fotogramas/s; tiempo de juego 994.3 ms por s de pared (fotogramas 373 en 15.01 s)
+vivo al final: True
+LOG [info][06:27:01.720][app_debug.cpp:105]: *********UNHANDLED EXCEPTION**********
+LOG [info][06:27:01.720][app_debug.cpp:110]: Código de excepción: 0xc0000005
+LOG [info][06:27:01.720][app_debug.cpp:111]: Indicadores de excepción: 0x00000000
+LOG [info][06:27:01.720][app_debug.cpp:112]: Dirección de excepción: 0x76f8df7f
+LOG [info][06:27:02.131][app_debug.cpp:212]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+LOG [info][06:27:02.143][app_debug.cpp:105]: *********END OF UNHANDLED EXCEPTION**********
+LOG [error][06:27:12.380][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][06:27:12.381][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+fin

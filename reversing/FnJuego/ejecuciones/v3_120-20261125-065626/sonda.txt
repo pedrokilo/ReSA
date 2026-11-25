@@ -1,0 +1,55 @@
+pid 20368
+juego en marcha tras 12 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 640x480
+=== ESCENARIO conduccion
+truco spawn FOURWHEELFUN vehiculos nuevos: [('0x9903380', 471), ('0x9908440', 420)]
+  intento 1 (teclado): en_coche=True estado=50
+entrar con teclado: en_coche=True modelo=471
+captura cond_dentro {"ancho": 640, "alto": 480, "rojo": 10, "muestras": 34270, "media_rgb": [80.2, 106.1, 113.9], "max": 255} CJ dentro del coche (tecla F)
+PRUEBA reposo {"v_ini": 0.0, "v_max": 0, "v_fin": 0.0, "avance": 0.0, "dyaw_grados": 0.0, "avance_sobre_frente": -0.0, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+PRUEBA W acelerar 4 s {"v_ini": 0.0, "v_max": 0.348, "v_fin": 0.259, "avance": 17.51, "dyaw_grados": -136.9, "avance_sobre_frente": -5.71, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.051, 1.0, 0.0, 0.0], [0.203, 1.0, 0.0, 0.0], [0.31, 1.0, 0.0, 0.0], [0.069, 1.0, 0.0, 0.0], [0.013, 1.0, 0.0, 0.0], [0.1, 1.0, 0.0, 0.0], [0.235, 1.0, 0.0, 0.0]]}
+PRUEBA S frenar desde velocidad hacia delante {"v_ini": 0.259, "v_max": 0.242, "v_fin": 0.001, "avance": 1.67, "dyaw_grados": 39.3, "avance_sobre_frente": -0.43, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.241, 0.0, 1.0, 0.0], [-0.026, -1.0, 0.0, 0.0], [-0.059, -1.0, 0.0, 0.0], [-0.026, -1.0, 0.0, 0.0], [-0.001, -1.0, 0.0, 0.0]]}
+PRUEBA soltar todo {"v_ini": 0.001, "v_max": 0.016, "v_fin": 0.0, "avance": 0.25, "dyaw_grados": 0.3, "avance_sobre_frente": 0.25, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.015, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+PRUEBA S desde parado (marcha atras) {"v_ini": 0.0, "v_max": 0.027, "v_fin": 0.001, "avance": 0.35, "dyaw_grados": 1.8, "avance_sobre_frente": -0.28, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.027, -1.0, 0.0, 0.0], [0.0, -1.0, 0.0, 0.0], [0.0, -1.0, 0.0, 0.0], [-0.003, -1.0, 0.0, 0.0], [-0.001, -1.0, 0.0, 0.0], [-0.0, -1.0, 0.0, 0.0]]}
+PRUEBA soltar todo {"v_ini": 0.001, "v_max": 0.02, "v_fin": 0.0, "avance": 0.41, "dyaw_grados": -1.0, "avance_sobre_frente": 0.41, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.019, 0.0, 0.0, 0.0], [0.006, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]]}
+PRUEBA W+A (giro izquierda) {"v_ini": 0.0, "v_max": 0.274, "v_fin": 0.175, "avance": 7.96, "dyaw_grados": 38.3, "avance_sobre_frente": -4.68, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.031, 1.0, 0.0, 0.255], [0.16, 1.0, 0.0, 0.611], [0.209, 1.0, 0.0, 0.611], [0.247, 1.0, 0.0, 0.611], [0.071, 1.0, 0.0, 0.611], [0.152, 1.0, 0.0, 0.611]]}
+captura cond_giro_izq {"ancho": 640, "alto": 480, "rojo": 5, "muestras": 34270, "media_rgb": [120.3, 117.7, 92.5], "max": 255} coche girando con W+A
+PRUEBA W+D (giro derecha) {"v_ini": 0.17, "v_max": 0.259, "v_fin": 0.127, "avance": 15.34, "dyaw_grados": 99.8, "avance_sobre_frente": 9.6, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.184, 1.0, 0.0, -0.254], [0.241, 1.0, 0.0, -0.611], [0.248, 1.0, 0.0, -0.611], [0.005, 1.0, 0.0, -0.611], [0.151, 1.0, 0.0, -0.611], [0.178, 1.0, 0.0, -0.611]]}
+captura cond_giro_der {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [107.0, 106.0, 99.9], "max": 241} coche girando con W+D
+PRUEBA W (rumbo recto) {"v_ini": 0.049, "v_max": 0.278, "v_fin": 0.009, "avance": 9.63, "dyaw_grados": 26.8, "avance_sobre_frente": 5.33, "nan": false, "tele(v_frente,gas,freno,volante)": [[0.082, 1.0, 0.0, -0.0], [0.237, 1.0, 0.0, -0.0], [0.017, 1.0, 0.0, -0.0], [-0.0, 1.0, 0.0, -0.0], [0.002, 1.0, 0.0, -0.0]]}
+PRUEBA Espacio (freno de mano) a velocidad {"v_ini": 0.009, "v_max": 0.01, "v_fin": 0.0, "avance": 0.03, "dyaw_grados": 1.9, "avance_sobre_frente": -0.02, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.004, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0], [0.0, 0.0, 0.0, -0.0]]}
+PRUEBA W+Espacio {"v_ini": 0.0, "v_max": 0.003, "v_fin": 0.003, "avance": 0.11, "dyaw_grados": -3.3, "avance_sobre_frente": 0.01, "nan": false, "tele(v_frente,gas,freno,volante)": [[-0.001, 1.0, 0.0, -0.0], [-0.001, 1.0, 0.0, -0.0], [-0.001, 1.0, 0.0, -0.0], [-0.001, 1.0, 0.0, -0.0]]}
+=== ESCENARIO armas
+armas antes 4 [(0, 1, 0, 0, 1), (1, 8, 0, 0, 1), (2, 24, 0, 7, 99999), (3, 27, 0, 7, 99999), (4, 28, 0, 50, 99999), (5, 31, 0, 50, 99999), (6, 34, 0, 1, 99999), (7, 38, 0, 500, 99999), (8, 39, 0, 1, 99999), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+armas tras LXGIWYL (set 1): slot activo 4 [(0, 1, 0, 0, 2), (1, 5, 0, 0, 1), (2, 22, 0, 34, 100), (3, 25, 0, 1, 99999), (4, 28, 0, 50, 99999), (5, 30, 0, 30, 99999), (6, 33, 0, 1, 25), (7, 35, 0, 1, 200), (8, 18, 0, 1, 10), (9, 41, 0, 500, 99999), (10, 14, 0, 0, 1), (11, 46, 0, 0, 1), (12, 40, 0, 0, 1)]
+captura armas_ini {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [102.5, 94.3, 72.8], "max": 255} CJ con armas del truco 1
+cambio de arma por rueda : slots activos tras 8 pasos: [4, 4, 4, 4, 4, 4, 4, 4, 4]
+cambio de arma por teclas : slots activos tras 8 pasos: [4, 4, 4, 4, 4, 4, 4, 4, 4]
+cambio de arma por mando : slots activos tras 8 pasos: [4, 4, 4, 4, 4, 4, 4, 4, 4]
+arma pistola no encontrada
+arma escopeta no encontrada
+arma activa uzi tipo 28
+captura armas_disparo_uzi_raton {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [87.1, 78.0, 54.4], "max": 255} CJ disparando con uzi (raton)
+DISPARO uzi raton {"municion_antes": 99999, "despues": 99999, "cargador_antes": 50, "cargador_despues": 50, "camara_modo": 18, "nan": 0, "vivo": true, "pools": {"peds": 14, "veh": 13, "edif": 10113, "obj": 102, "dummy": 728}}
+captura armas_disparo_uzi_teclado {"ancho": 640, "alto": 480, "rojo": 3, "muestras": 34270, "media_rgb": [86.2, 81.5, 62.2], "max": 255} CJ disparando con uzi (teclado)
+DISPARO uzi teclado {"municion_antes": 99999, "despues": 99999, "cargador_antes": 50, "cargador_despues": 50, "camara_modo": 18, "nan": 0, "vivo": true, "pools": {"peds": 16, "veh": 15, "edif": 10113, "obj": 103, "dummy": 728}}
+captura armas_disparo_uzi_mando {"ancho": 640, "alto": 480, "rojo": 2, "muestras": 34270, "media_rgb": [98.0, 101.4, 90.7], "max": 255} CJ disparando con uzi (mando)
+DISPARO uzi mando {"municion_antes": 99999, "despues": 99999, "cargador_antes": 50, "cargador_despues": 50, "camara_modo": 18, "nan": 0, "vivo": true, "pools": {"peds": 17, "veh": 15, "edif": 10113, "obj": 103, "dummy": 728}}
+arma ak47 no encontrada
+=== ESCENARIO graficos
+captura gr_dia {"ancho": 800, "alto": 600, "rojo": 7, "muestras": 53568, "media_rgb": [84.1, 84.0, 61.8], "max": 255} hora 12 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+captura gr_noche {"ancho": 800, "alto": 600, "rojo": 9, "muestras": 53568, "media_rgb": [63.0, 52.9, 34.5], "max": 250} hora 23 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+captura gr_madrugada {"ancho": 800, "alto": 600, "rojo": 3, "muestras": 53568, "media_rgb": [57.6, 56.5, 47.5], "max": 255} hora 3 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+pools {'peds': 16, 'veh': 16, 'edif': 10113, 'obj': 103, 'dummy': 728} pos (2618.741943359375, -1724.3050537109375, 11.598294258117676) cam {'activa': 0, 'modo': 18, 'cinema': 0}
+vivo al final: True
+LOG [info][06:56:32.244][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+LOG [info][06:56:32.244][app_debug.cpp:111]: Código de excepción: 0xc0000005
+LOG [info][06:56:32.244][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+LOG [info][06:56:32.244][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+LOG [info][06:56:32.527][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+LOG [info][06:56:32.542][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+LOG [error][06:56:42.316][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][06:56:42.316][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+LOG [info][06:56:42.501][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+fin

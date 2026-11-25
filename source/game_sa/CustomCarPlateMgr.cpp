@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 
 #include <reversiblebugfixes/Bugs.hpp>
 #include "CustomCarPlateMgr.h"
+#include "extensions/SilentPatchConfig.h"
 #include "X87Math.h"
 
 void __cdecl GetCharacterPositionInCharSetExe(uint32* outCol, uint32* outRow);

@@ -1,0 +1,17 @@
+pid 13664
+juego en marcha tras 12 s; gGameState=9
+salida de la casa: area=0 tras 1 s
+ventana: cliente 640x480
+=== ESCENARIO luna
+formato del buffer trasero D3DFORMAT=22 (21 = A8R8G8B8, 22 = X8R8G8B8); tipo de multimuestreo 4
+rumbo de la camara antes 0.0
+rumbo de la camara despues 168.9 (180 = sur, donde sale la luna)
+captura luna_dia04 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [38.6, 52.9, 50.3], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 4 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+captura luna_dia10 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [58.0, 56.9, 51.6], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 10 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+captura luna_dia16 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [59.8, 58.8, 53.5], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 16 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+captura luna_dia24 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [60.1, 59.3, 53.9], "max": 255} hora 3, camara al sur (rumbo 169), dia de juego 24 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+vivo al final: True
+LOG [error][06:55:58.265][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+LOG [error][06:55:58.265][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+LOG [info][06:55:58.451][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+fin

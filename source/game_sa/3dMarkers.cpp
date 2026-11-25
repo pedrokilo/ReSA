@@ -22,6 +22,7 @@ END GENERATED HOOK STATUS */
 
 #include "3dMarkers.h"
 #include "PostEffects.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssF.h"
 
 // x87 como el original: fld ángulo; fmul k; fsin; fmul mult; fadd add (fsin con precisión interna completa)
@@ -770,6 +771,17 @@ void tDirectionArrow::Render(RpClump* clump) {
         // Apply color to material of clump
         C3dMarkers::m_user3dMarkerColor = color;
         RpClumpForAllAtomics(clump, C3dMarkers::User3dMarkerAtomicCB, nullptr); // TODO: Can use a lambda here without `m_user3dMarkerColor` too!
+
+        // SilentPatch (MIT, Silent): RacingCheckpointsRender: los checkpoints de carrera salian mal coloreados si antes no se habia dibujado ningun marcador de entrada/salida
+        // (la geometria no modulaba el color del material); se activa la bandera antes de dibujar (0x721520)
+        static const bool spRacingCheckpoints = SilentPatchOption("RacingCheckpointsColor", true);
+        if (spRacingCheckpoints) {
+            RpClumpForAllAtomics(clump, [](RpAtomic* atomic, void*) {
+                RpGeometry* geometry = RpAtomicGetGeometry(atomic);
+                RpGeometrySetFlags(geometry, RpGeometryGetFlags(geometry) | rpGEOMETRYMODULATEMATERIALCOLOR);
+                return atomic;
+            }, nullptr);
+        }
 
         // Finally, render it
         RpClumpRender(clump);

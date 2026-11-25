@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/DataBssG4.h"
 #include "DatosExe/DataBssE1.h"
 #include "StencilShadowObject.h"
+#include "extensions/SilentPatchConfig.h"
 
 #include "World.h"
 #include "Pools/Pools.h"
@@ -526,9 +527,21 @@ bool CStencilShadows::Process(CVector& cameraPos) {
     RegisterStencilShadows(cameraPos, (s_RegisterShadowCounter & 7) != 0);
 
     // why do we even do this?
-    s_ShadowTrianglePointsUnk         = (RxVertexIndex*)CMemoryMgr::Malloc(12'288 * sizeof(RxVertexIndex));
-    s_ShadowTrianglePoints            = (CVector*)CMemoryMgr::Malloc(2'048 * sizeof(CVector));
-    s_TransformedShadowTrianglePoints = (CVector*)CMemoryMgr::Malloc(2'048 * sizeof(CVector));
+    // SilentPatch (MIT, Silent): StencilShadowMemory (0x711DD5): los tres bloques de 0x6000 bytes se reservan una sola vez y se reutilizan (antes se pedian y liberaban en cada fotograma)
+    static const bool spStencilMemory = SilentPatchOption("StencilShadowMemory", true);
+    static char* spStencilBlock = nullptr;
+    if (spStencilMemory) {
+        if (!spStencilBlock) {
+            spStencilBlock = (char*)CMemoryMgr::Malloc(3 * 0x6000);
+        }
+        s_ShadowTrianglePointsUnk         = (RxVertexIndex*)spStencilBlock;
+        s_ShadowTrianglePoints            = (CVector*)(spStencilBlock + 0x6000);
+        s_TransformedShadowTrianglePoints = (CVector*)(spStencilBlock + 2 * 0x6000);
+    } else {
+        s_ShadowTrianglePointsUnk         = (RxVertexIndex*)CMemoryMgr::Malloc(12'288 * sizeof(RxVertexIndex));
+        s_ShadowTrianglePoints            = (CVector*)CMemoryMgr::Malloc(2'048 * sizeof(CVector));
+        s_TransformedShadowTrianglePoints = (CVector*)CMemoryMgr::Malloc(2'048 * sizeof(CVector));
+    }
 
     auto i{ 0 };
     for (auto* obj = pFirstActiveStencilShadowObject; obj;) {
@@ -550,9 +563,15 @@ bool CStencilShadows::Process(CVector& cameraPos) {
     }
     s_RenderForObjCounter = (s_RenderForObjCounter + 1) & 3;
 
-    CMemoryMgr::Free(std::exchange(s_ShadowTrianglePointsUnk, nullptr));
-    CMemoryMgr::Free(std::exchange(s_ShadowTrianglePoints, nullptr));
-    CMemoryMgr::Free(std::exchange(s_TransformedShadowTrianglePoints, nullptr));
+    if (spStencilMemory) {
+        s_ShadowTrianglePointsUnk = nullptr;
+        s_ShadowTrianglePoints = nullptr;
+        s_TransformedShadowTrianglePoints = nullptr;
+    } else {
+        CMemoryMgr::Free(std::exchange(s_ShadowTrianglePointsUnk, nullptr));
+        CMemoryMgr::Free(std::exchange(s_ShadowTrianglePoints, nullptr));
+        CMemoryMgr::Free(std::exchange(s_TransformedShadowTrianglePoints, nullptr));
+    }
     return true;
 }
 

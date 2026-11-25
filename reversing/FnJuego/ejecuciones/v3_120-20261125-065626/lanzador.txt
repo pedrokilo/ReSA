@@ -1,0 +1,3 @@
+pid 20368  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-spx\reversing\FnJuego\ejecuciones\v3_120-20261125-065626" --limite 400 --shims  escenario=conduccion,armas,graficos xinput=False
+sonda terminada: cierro mi juego
+exit=0xFFFFFFFF

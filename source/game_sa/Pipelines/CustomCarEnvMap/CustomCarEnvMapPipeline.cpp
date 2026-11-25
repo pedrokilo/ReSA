@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include "CustomCarEnvMapPipeline.h"
 #include "app_light.h"
 #include "CarFXRenderer.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataInicializadaD.h"
 
 using namespace notsa::envmap;
@@ -476,8 +477,10 @@ void CCustomCarEnvMapPipeline::PreRenderUpdate() {
     dir.Normalise(); // 0x59C910
     g_GameLight.Direction    = D3DVECTOR{ dir.x, dir.y, dir.z };
     g_GameLight.Type         = D3DLIGHT_DIRECTIONAL;
-    g_GameLight.Diffuse      = { 0.25f, 0.25f, 0.25f, 1.0f };
-    g_GameLight.Ambient      = { 0.75f, 0.75f, 0.75f, 1.0f };
+    // SilentPatch (MIT, Silent): VehicleLightsFix (aap): esta luz extra ya no aporta difuso ni ambiente (solo especular), porque las luces de la escena llegan a los vehiculos (ver CustomPipeRenderCB)
+    static const bool spVehicleLights = SilentPatchOption("VehicleLightsFix", true);
+    g_GameLight.Diffuse      = spVehicleLights ? D3DCOLORVALUE{ 0.0f, 0.0f, 0.0f, 1.0f } : D3DCOLORVALUE{ 0.25f, 0.25f, 0.25f, 1.0f };
+    g_GameLight.Ambient      = spVehicleLights ? D3DCOLORVALUE{ 0.0f, 0.0f, 0.0f, 1.0f } : D3DCOLORVALUE{ 0.75f, 0.75f, 0.75f, 1.0f };
     g_GameLight.Specular     = { 0.65f, 0.65f, 0.65f, 1.0f };
     g_GameLight.Range        = 1000.0f;
     g_GameLight.Falloff      = 0.0f;

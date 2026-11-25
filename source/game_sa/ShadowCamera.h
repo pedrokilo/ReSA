@@ -88,6 +88,12 @@ public:
     RwCamera* Update(RpAtomic* atomic);
 
     /*!
+    * SilentPatch (MIT, Silent): WeaponRenderingFixes (0x706662): renderiza una entidad para su sombra en tiempo real; los peds incluyen su arma y el jetpack.
+    * Cada atomo se dibuja con los indicadores de geometria reducidos (solo si ya esta instanciado).
+    */
+    RwCamera* Update(class CEntity* entity);
+
+    /*!
     * @addr 0x705D20
     * @brief Make a monocolor intensity gardient
     * @return The camera's raster (also when RwCameraBeginUpdate fails), `nullptr` without camera or raster height < 1.
@@ -147,3 +153,6 @@ private:
     }
 };
 VALIDATE_SIZE(CShadowCamera, 0x8);
+
+// SilentPatch (MIT, Silent): WeaponRenderingFixes: dibuja un atomo para la camara de sombras (ver ShadowCamera.cpp)
+RpAtomic* ShadowCameraRenderCBSilentPatch(RpAtomic* atomic, void*);

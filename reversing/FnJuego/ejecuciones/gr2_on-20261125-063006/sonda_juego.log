@@ -1,0 +1,32 @@
+[    0.2] pid 15700
+[   12.1] juego en marcha tras 12 s; gGameState=9
+[   12.9] salida de la casa: area=0 tras 1 s
+[   13.9] ventana: cliente 640x480
+[   13.9] === ESCENARIO graficos
+[   24.2] captura gr_dia {"ancho": 800, "alto": 600, "rojo": 27, "muestras": 53568, "media_rgb": [95.0, 98.5, 84.5], "max": 255} hora 12 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   28.5] captura gr_noche {"ancho": 800, "alto": 600, "rojo": 53, "muestras": 53568, "media_rgb": [70.8, 61.1, 42.0], "max": 255} hora 23 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   32.9] captura gr_madrugada {"ancho": 800, "alto": 600, "rojo": 25, "muestras": 53568, "media_rgb": [53.3, 50.8, 44.2], "max": 255} hora 3 | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   32.9] pools {'peds': 22, 'veh': 12, 'edif': 10113, 'obj': 95, 'dummy': 728} pos (2652.5, -1719.9000244140625, 10.90625) cam {'activa': 0, 'modo': 4, 'cinema': 0}
+[   33.2] vivo al final: True
+[   33.3] LOG [info][06:32:57.471][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[   33.3] LOG [info][06:32:57.472][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[   33.3] LOG [info][06:32:57.472][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[   33.3] LOG [info][06:32:57.472][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[   33.3] LOG [info][06:32:57.760][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   33.3] LOG [info][06:32:57.776][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[   33.3] LOG [info][06:32:57.471][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[   33.3] LOG [info][06:32:57.472][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[   33.3] LOG [info][06:32:57.472][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[   33.3] LOG [info][06:32:57.472][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[   33.3] LOG [info][06:32:57.760][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   33.3] LOG [info][06:32:57.776][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[   33.3] LOG [info][06:32:58.239][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[   33.3] LOG [info][06:32:58.239][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[   33.3] LOG [info][06:32:58.239][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[   33.3] LOG [info][06:32:58.239][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[   33.3] LOG [info][06:32:58.535][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   33.3] LOG [info][06:32:58.554][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[   33.3] LOG [error][06:33:08.312][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   33.3] LOG [error][06:33:08.313][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   33.3] LOG [info][06:33:08.523][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[   33.3] fin

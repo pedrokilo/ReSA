@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "Credits.h"
+#include "extensions/SilentPatchConfig.h"
 
 void CCredits::InjectHooks() {
     RH_ScopedClass(CCredits);
@@ -54,20 +55,31 @@ void CCredits::Render() {
 
 // 0x5A8660
 void CCredits::PrintCreditText(float scaleX, float scaleY, const GxtChar* text, uint32& position, float currentOffset, bool highlighted) {
+    // SilentPatch (MIT, Silent): CreditsScalingFixes: los creditos se escalan a la resolucion (posiciones y tamano en el espacio fijo 640x448)
+    static const bool spCredits = SilentPatchOption("CreditsScaling", true);
     const uint32 minPosY = 20;
-    const float  pos = float(position) + SCREEN_HEIGHT + minPosY - currentOffset;
+    const float  refHeight = spCredits ? (float)DEFAULT_SCREEN_HEIGHT : SCREEN_HEIGHT;
+    const float  pos = float(position) + refHeight + minPosY - currentOffset;
+    const float  topMargin    = spCredits ? 1.0f : (float)minPosY;                            // SilentPatch: los creditos ya no se cortan arriba/abajo antes de tiempo
+    const float  bottomMargin = spCredits ? refHeight + (float)minPosY : refHeight - (float)minPosY;
 
-    if (pos > minPosY && pos < SCREEN_HEIGHT - minPosY) {
-        CFont::SetScale(scaleX, scaleY);
+    if (pos > topMargin && pos < bottomMargin) {
+        const float sx = spCredits ? SCREEN_STRETCH_X(1.0f) : 1.0f;
+        const float sy = spCredits ? SCREEN_STRETCH_Y(1.0f) : 1.0f;
+        CFont::SetScale(scaleX * sx, scaleY * sy);
         CFont::SetColor({0, 0, 0, 255});
-        CFont::PrintString((float)(RsGlobal.maximumWidth / 2), pos, text); // Como el original: división entera del ancho
+        CFont::PrintString((float)(RsGlobal.maximumWidth / 2), pos * sy, text); // Como el original: division entera del ancho
 
         if (highlighted)
             CFont::SetColor({255, 255, 255, 255});
         else
             CFont::SetColor({210, 210, 210, 210});
 
-        CFont::PrintString((float)(RsGlobal.maximumWidth / 2 - 1), pos - 1.0f, text);
+        if (spCredits) {
+            CFont::PrintString((float)(RsGlobal.maximumWidth / 2 - 1) + 1.0f - sx, (pos - 1.0f) * sy, text); // SilentPatch: sombra de 1 px de 640x448 escalada
+        } else {
+            CFont::PrintString((float)(RsGlobal.maximumWidth / 2 - 1), pos - 1.0f, text);
+        }
     }
 
     // Como el original: trunc(scaleY · 20 + position) con _ftol2 (la DLL truncaba scaleY antes de multiplicar)
@@ -925,7 +937,8 @@ void CCredits::RenderCredits() {
     }
 
     // Como el original: suma entera sin signo antes de convertir a float
-    if ((float)(uint32)(lineOffset + RsGlobal.maximumHeight) - scrollOffset < -10.0f) {
+    static const bool spCredits = SilentPatchOption("CreditsScaling", true); // SilentPatch (MIT, Silent): altura de referencia fija 448
+    if ((float)(uint32)(lineOffset + (spCredits ? (uint32)DEFAULT_SCREEN_HEIGHT : (uint32)RsGlobal.maximumHeight)) - scrollOffset < -10.0f) {
         bCreditsGoing = false;
     }
 }

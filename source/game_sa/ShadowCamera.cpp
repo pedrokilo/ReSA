@@ -20,6 +20,8 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/DataInicializadaB.h"
 
 #include "ShadowCamera.h"
+#include "VisibilityPlugins.h"
+#include "Tasks/TaskTypes/TaskSimpleJetPack.h"
 
 /*! InjectHooks at the bottom !*/
 
@@ -295,6 +297,44 @@ RwCamera* CShadowCamera::Update(RpClump* clump) {
         RwCameraEndUpdate(m_pRwCamera);
     }
 
+    return m_pRwCamera;
+}
+
+// SilentPatch (MIT, Silent): WeaponRenderingFixes (ShadowCameraRenderCB, GeneralSA.cpp): solo se reducen los indicadores si la geometria ya esta instanciada,
+// para no estropear el modelo instanciado
+RpAtomic* ShadowCameraRenderCBSilentPatch(RpAtomic* atomic, void*) {
+    if (RpAtomicGetFlags(atomic) & rpATOMICRENDER) {
+        RpGeometry* geometry = RpAtomicGetGeometry(atomic);
+        if (geometry->repEntry != nullptr) {
+            const RwUInt32 geometryFlags = RpGeometryGetFlags(geometry);
+            geometry->flags &= ~(rpGEOMETRYTEXTURED | rpGEOMETRYPRELIT | rpGEOMETRYNORMALS | rpGEOMETRYLIGHT | rpGEOMETRYMODULATEMATERIALCOLOR | rpGEOMETRYTEXTURED2);
+            AtomicDefaultRenderCallBack(atomic);
+            RpGeometrySetFlags(geometry, geometryFlags);
+        } else {
+            AtomicDefaultRenderCallBack(atomic);
+        }
+    }
+    return atomic;
+}
+
+// SilentPatch (MIT, Silent): WeaponRenderingFixes (CShadowCamera::Update(CEntity*) + CPed::RenderForShadow, GeneralSA.cpp / PedSA.cpp)
+RwCamera* CShadowCamera::Update(CEntity* entity) {
+    const RwRGBA color{ 255, 255, 255, 0 };
+    RwCameraClear(m_pRwCamera, const_cast<RwRGBA*>(&color), rwCAMERACLEARIMAGE | rwCAMERACLEARZ);
+    if (RwCameraBeginUpdate(m_pRwCamera)) {
+        if (entity) {
+            RpClumpForAllAtomics(entity->GetRpClump(), ShadowCameraRenderCBSilentPatch, nullptr);
+            if (entity->GetIsTypePed()) {
+                auto* ped = entity->AsPed();
+                CVisibilityPlugins::RenderPedWeaponSilentPatch(ped, true, false, true);
+                if (auto* jetpack = ped->GetIntelligence()->GetTaskJetPack()) {
+                    jetpack->RenderJetPack(ped);
+                }
+            }
+        }
+        InvertRaster();
+        RwCameraEndUpdate(m_pRwCamera);
+    }
     return m_pRwCamera;
 }
 

@@ -20,6 +20,7 @@ END GENERATED HOOK STATUS */
 #include "DatosExe/DataBssG2.h"
 #include "X87Math.h"
 #include "Sprite.h"
+#include "extensions/SilentPatchConfig.h"
 
 static inline auto& nSpriteBufferIndex = DatosExe::Bss::bC6A158;
 
@@ -594,7 +595,9 @@ void CSprite::RenderBufferedOneXLUSprite_Rotate_2Colours(float x, float y, float
 
 // 0x70F440
 void CSprite::RenderBufferedOneXLUSprite2D(CVector2D pos, CVector2D size, const RwRGBA& color, int16 intensity, uint8 alpha) {
-    m_bFlushSpriteBufferSwitchZTest = 1;
+    // SilentPatch (MIT, Silent): LensFlareRenderFix (0x70F45A): sin forzar el z-test al vaciar el buffer
+    static const bool spLensFlareFix = SilentPatchOption("LensFlareRenderFix", true);
+    m_bFlushSpriteBufferSwitchZTest = spLensFlareFix ? 0 : 1;
 
     // Como el original: el alto del rectangulo usa size.y (no size.x) y no se comprueba si esta invertido
     CRect rect;

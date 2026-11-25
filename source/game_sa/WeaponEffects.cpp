@@ -33,6 +33,7 @@ END GENERATED HOOK STATUS */
 
 #include "WeaponEffects.h"
 #include "X87Math.h"
+#include "extensions/SilentPatchConfig.h"
 
 static void __fastcall RenderPlayerCrosshair_Hook(uint32* crosshair, void* edx, int32 playerIndex);
 
@@ -146,6 +147,10 @@ void CWeaponEffects::Render() {
     auto& targetSince = DatosExe::Bss::bC8A890;
     const auto now = CTimer::GetTimeInMS();
     const float spin = float(now & 1023) * 0.006135923322290182f;
+    // SilentPatch (MIT, Silent): CrosshairScalingFixes: la mira del misil guiado y la del mando escalan con la resolucion (640x448); con la opcion apagada los factores son 1
+    static const bool spCrosshair = SilentPatchOption("CrosshairScaling", true);
+    const float spW = spCrosshair ? SCREEN_STRETCH_X(1.0f) : 1.0f;
+    const float spH = spCrosshair ? SCREEN_STRETCH_Y(1.0f) : 1.0f;
     const auto state = [](RwRenderState key, uint32 value) {
         RwRenderStateSet(key, RWRSTATE(value));
     };
@@ -197,9 +202,9 @@ void CWeaponEffects::Render() {
                 RwRenderStateSet(rwRENDERSTATETEXTURERASTER, gpCrossHairTexFlight[0]->raster);
                 const float sx = std::min(w, 28.f), sy = std::min(h, 20.f);
                 for (const float scale : {0.95f, 1.05f}) {
-                    CSprite::RenderOneXLUSprite_Rotate_Aspect(screen, {sx * scale * 1.8f, sy * scale * 1.8f}, 0, 0, 0, 255, 0.01f, 0.f, 255);
+                    CSprite::RenderOneXLUSprite_Rotate_Aspect(screen, {sx * scale * 1.8f * spW, sy * scale * 1.8f * spH}, 0, 0, 0, 255, 0.01f, 0.f, 255);
                 }
-                CSprite::RenderOneXLUSprite_Rotate_Aspect(screen, {sx * 1.8f, sy * 1.8f}, ch.m_color.r, ch.m_color.g, ch.m_color.b, 255, 0.01f, 0.f, ch.m_color.a);
+                CSprite::RenderOneXLUSprite_Rotate_Aspect(screen, {sx * 1.8f * spW, sy * 1.8f * spH}, ch.m_color.r, ch.m_color.g, ch.m_color.b, 255, 0.01f, 0.f, ch.m_color.a);
                 RwRenderStateSet(rwRENDERSTATETEXTURERASTER, gpCrossHairTexFlight[1]->raster);
                 ch.field_20 = std::max(ch.field_20 - 20.f * spin, 0.f);
                 ch.m_fRotation = ch.field_20 == 0.f ? 1.f : 0.f;
@@ -208,9 +213,9 @@ void CWeaponEffects::Render() {
                 screen.x -= flightX;
                 screen.y -= flightY;
                 for (const float scale : {0.95f, 1.05f}) {
-                    CSprite::RenderOneXLUSprite_Rotate_Aspect(screen, {sx * scale * 0.8f, sy * scale * 0.8f}, 0, 0, 0, 255, 0.01f, spin, 255);
+                    CSprite::RenderOneXLUSprite_Rotate_Aspect(screen, {sx * scale * 0.8f * spW, sy * scale * 0.8f * spH}, 0, 0, 0, 255, 0.01f, spin, 255);
                 }
-                CSprite::RenderOneXLUSprite_Rotate_Aspect(screen, {sx * 0.8f, sy * 0.8f}, ch.m_color.r, ch.m_color.g, ch.m_color.b, ch.m_color.a, 0.01f, spin, 255);
+                CSprite::RenderOneXLUSprite_Rotate_Aspect(screen, {sx * 0.8f * spW, sy * 0.8f * spH}, ch.m_color.r, ch.m_color.g, ch.m_color.b, ch.m_color.a, 0.01f, spin, 255);
             }
             end();
             continue;
@@ -223,12 +228,12 @@ void CWeaponEffects::Render() {
             // Como el original: min (0x404330) y max (0x420800) devuelven el segundo valor con NaN
             const float clampedSize = ch.m_fSize < 1.2f ? ch.m_fSize : 1.2f;
             ch.m_fSize = clampedSize > 0.3f ? clampedSize : 0.3f;
-            float inner = 5.f * ch.m_fSize, outer = 25.f * ch.m_fSize;
+            float inner = (5.f * spH) * ch.m_fSize, outer = (25.f * spH) * ch.m_fSize; // SilentPatch: constantes de tamano de la mira escaladas con el alto
             screen.z = std::max(screen.z, 2.5f);
             const auto weaponRadius = player->GetWeaponRadiusOnScreen();
             if (weaponRadius > 0.f) {
-                inner = weaponRadius * DatosExe::Data::v8D6148;
-                outer = ch.m_fSize * 20.f + inner;
+                inner = weaponRadius * (DatosExe::Data::v8D6148 * spH);
+                outer = ch.m_fSize * (20.f * spH) + inner;
             }
             state(rwRENDERSTATESRCBLEND, rwBLENDZERO);
             state(rwRENDERSTATEDESTBLEND, rwBLENDZERO);
@@ -291,7 +296,7 @@ void CWeaponEffects::Render() {
             float s, c, unusedOneMinusCos;
             angleTo(player->GetPosition(), s, c, unusedOneMinusCos);
             CVector2D base{ camOneMinusCos * float(RsGlobal.maximumWidth) * 0.5f, (1.f - camSin) * float(RsGlobal.maximumHeight) * 0.5f };
-            const float radius = DatosExe::Data::v8D6140;
+            const float radius = DatosExe::Data::v8D6140 * spH; // SilentPatch: mira fuera de pantalla del modo cooperativo escalada con el alto
             const float t1 = s * 0.5f + c;
             const float t2 = c * 0.5f + s;
             const float rs = radius * s;
@@ -314,7 +319,7 @@ void CWeaponEffects::Render() {
         begin();
         blend();
         RwRenderStateSet(rwRENDERSTATETEXTURERASTER, gpCrossHairTex->raster);
-        CSprite::RenderOneXLUSprite_Rotate_Aspect({(cam.m_fX_Targetting + 1.f) * float(RsGlobal.maximumWidth) * 0.5f, (cam.m_fY_Targetting + 1.f) * float(RsGlobal.maximumHeight) * 0.5f, 100.f}, {10.f, 10.f}, 255, 128, 0, 128, 0.01f, spin, 255);
+        CSprite::RenderOneXLUSprite_Rotate_Aspect({(cam.m_fX_Targetting + 1.f) * float(RsGlobal.maximumWidth) * 0.5f, (cam.m_fY_Targetting + 1.f) * float(RsGlobal.maximumHeight) * 0.5f, 100.f}, {10.f * spW, 10.f * spH}, 255, 128, 0, 128, 0.01f, spin, 255);
         auto* first = CWorld::Players[0].m_pPed;
         auto* shooter = CWorld::Players[1].m_pPed;
         if (first->m_pVehicle && first->m_pVehicle->m_pDriver != first) {
@@ -337,7 +342,7 @@ void CWeaponEffects::Render() {
                 const auto elapsed = int32(now - targetSince);
                 const auto scale = std::max(float(3.0 - double(elapsed) * 0.001953125), 1.f); // Como el original: fild exacto y un solo redondeo
                 const auto red = uint8(std::min(elapsed / 4 + 70, 255));
-                CSprite::RenderOneXLUSprite_Rotate_Aspect(screen, {w * scale, h * scale}, red, 0, 0, red, 0.01f, spin, 255);
+                CSprite::RenderOneXLUSprite_Rotate_Aspect(screen, {w * scale * spW, h * scale * spH}, red, 0, 0, red, 0.01f, spin, 255);
             }
         }
         end();

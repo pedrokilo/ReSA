@@ -1,0 +1,21 @@
+[    0.2] pid 32028
+[   12.0] juego en marcha tras 12 s; gGameState=9
+[   12.8] salida de la casa: area=0 tras 1 s
+[   13.8] ventana: cliente 640x480
+[   13.8] === ESCENARIO luna
+[   21.9] rumbo de la camara antes 0.0
+[   24.8] rumbo de la camara despues 168.9 (180 = sur, donde sale la luna)
+[   27.1] captura luna_sur0 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [38.3, 52.6, 49.8], "max": 255} hora 3, camara al sur (rumbo 169) | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   29.4] captura luna_sur1 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [50.1, 60.9, 48.9], "max": 255} hora 3, camara al sur (rumbo 169) | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   31.7] captura luna_sur2 {"ancho": 800, "alto": 600, "rojo": 0, "muestras": 53568, "media_rgb": [58.5, 57.6, 52.1], "max": 255} hora 3, camara al sur (rumbo 169) | cliente 800x600, RsGlobal 800x600, tamano VALIDADO
+[   32.0] vivo al final: True
+[   32.0] LOG [info][06:37:38.648][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[   32.0] LOG [info][06:37:38.648][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[   32.0] LOG [info][06:37:38.648][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[   32.0] LOG [info][06:37:38.648][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[   32.0] LOG [info][06:37:38.915][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   32.0] LOG [info][06:37:38.928][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[   32.0] LOG [error][06:37:48.752][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   32.0] LOG [error][06:37:48.753][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   32.0] LOG [info][06:37:48.941][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[   32.0] fin

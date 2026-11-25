@@ -3,6 +3,7 @@
 #include "DatosExe/DataInicializadaA.h"
 
 #include "MenuManager.h"
+#include "extensions/SilentPatchConfig.h"
 #include "MenuManager_Internal.h"
 #include "World.h"
 #include "MenuSystem.h"
@@ -317,23 +318,27 @@ void CMenuManager::PrintMap() {
         );
 
         // background (Como el original: márgenes calculados en entero)
+        // SilentPatch (MIT, Silent): MapSeamsFix (0x575CDA, 0x575D0C, 0x575D5C, 0x575DA7, 0x575DAF, 0x575DE7): los rectangulos de fondo que tocan el borde de la pantalla
+        // empiezan en -0.5 en vez de 0 (sin las costuras de un pixel del mapa con Anti-Aliasing)
+        static const bool spMapSeams = SilentPatchOption("MapSeamsFix", true);
+        const float spEdge = spMapSeams ? -0.5f : 0.0f;
         CSprite2d::DrawRect(
-            { 0.0f, 0.0f, SCREEN_WIDTH, (float)(mapTopI - border4Y) },
+            { spEdge, spEdge, SCREEN_WIDTH, (float)(mapTopI - border4Y) },
             MENU_BG
         );
 
         CSprite2d::DrawRect(
-            { 0.0f, (float)(mapBottomI + border4Y), SCREEN_WIDTH, SCREEN_HEIGHT },
+            { spEdge, (float)(mapBottomI + border4Y), SCREEN_WIDTH, SCREEN_HEIGHT },
             MENU_BG
         );
 
         CSprite2d::DrawRect(
-            { 0.0f, 0.0f, (float)(mapLeftI - border4X), SCREEN_HEIGHT },
+            { spEdge, spEdge, (float)(mapLeftI - border4X), SCREEN_HEIGHT },
             MENU_BG
         );
 
         CSprite2d::DrawRect(
-            { (float)(mapRightI + border4X), 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT },
+            { (float)(mapRightI + border4X), spEdge, SCREEN_WIDTH, SCREEN_HEIGHT },
             MENU_BG
         );
     }
