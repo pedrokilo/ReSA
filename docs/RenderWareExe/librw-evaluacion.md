@@ -94,3 +94,18 @@ Banco independiente, sin ejecutar el juego: `contrib/oraculo_librw/`.
 **Nada que integrar en el código del juego**: ninguna de las 61 tiene equivalente en librw y la fase 2 no encontró un defecto que corregir en nuestro C++. No se modificó código común (no hubo ASI ni humo), ni `CMakeLists.txt`, ni se copió código de librw: **no hay atribución pendiente**. Si más adelante se copia código de librw, debe llevar «Copyright (c) 2014 aap, licencia MIT» y el texto de la licencia en la cabecera del archivo.
 
 Archivos nuevos: `docs/RenderWareExe/librw-evaluacion.md`, `docs/RenderWareExe/no-reconstruibles-librw.csv`, `contrib/oraculo_librw/*`.
+
+## Anexo: datos de la instalación modificada (24/11/2026)
+
+Hipótesis a comprobar: que un ped o una animación de los mods tenga una jerarquía distinta (menos nodos o secuencias) y por eso los nodos 6 y 7 salgan sin inicializar. Herramientas de solo lectura: `contrib/oraculo_librw/analizar_ifp.py` (aplica el mismo criterio que `CAnimManager::LoadAnimFile_ANP23`) y `analizar_peds.py` (jerarquías HAnim de los DFF de `peds.ide`). Se ejecutaron sobre `D:\Grand Theft Auto San Andreas`; el standalone lee esos datos (los mods de modloader no se aplican).
+
+| Comprobación | Resultado |
+| --- | --- |
+| DFF de peds en `gta3.img` (265 con HAnim, incluidos 60 y 284) | **Todos idénticos**: 32 nodos, `keyFrameSize` 0x24, mismos ids y flags push/pop. Los 11 sin DFF son el genérico (CJ se arma con `player.img`, no se analizó el DFF del jugador). |
+| Nodos 6 y 7 de esa jerarquía | Índice 6 = hueso 8 (mandíbula) y 7 = hueso 6 (ceja derecha), ambos con flags 3 (apila y desapila); el 8 es la ceja izquierda (flag 1). Son huesos de cara. |
+| Animaciones (`ped.ifp` + 133 IFP de `anim.img` + `choppa.ifp` y `djjr_urbanize.ifp` de modloader): 1 871 | **0** con mezcla de tipos comprimido/no comprimido, **0** con secuencias de 0 frames, **0** con tipo de frame desconocido, **0** sin secuencias. |
+| Cuántas animaciones traen secuencias de cara (huesos 6, 7, 8) | Solo 355 de 1 871 (≈19 %); 31 traen solo parte de los tres. En el ≈81 % restante esos nodos **no tienen secuencia**. |
+
+Lectura: los datos son estructuralmente limpios; la hipótesis de una animación o un ped corrupto **no se sostiene con estos archivos**. Sí hay una correlación: los nodos 6 y 7 son precisamente los que casi siempre carecen de secuencia. En nuestro C++ un nodo sin secuencia se salta en `FrameUpdateCallBack*` (`if (!node->m_Seq) continue`), la suma de cuaterniones queda en (0,0,0,0), `CQuaternion::Normalise` la deja en identidad (solo pone w = 1) y la traslación sale de `BonePos`: es determinista y no produce CC. No se desensambló el EXE original para confirmar que el original hace lo mismo (la reconstrucción lo declara así); librw no tiene sistema de mezcla de animaciones, así que no aporta comparación aquí.
+
+Observación para quien siga: `RpHAnimBlendInterpFrame` mide 0x1C (cuaternión y traslación, sin cabecera), pero `RtAnimInterpolatorSetCurrentAnim` escribe `keyFrame1/keyFrame2` (8 bytes) al inicio de cada fotograma interpolado, es decir sobre `q.x` y `q.y` (el problema que corrige SilentPatch). Esos valores son punteros leídos como float (~1e-21), no 0xCC; en los fotogramas que el blend no reescribe (nodo con `KeyFramesIgnoreNode*`, o un ped que aún no ha tenido ninguna actualización en pantalla) quedan así hasta la siguiente pasada. Es una vía para pose rota de un fotograma en peds recién aparecidos, pero **no explica por sí sola** un 0xCC.
