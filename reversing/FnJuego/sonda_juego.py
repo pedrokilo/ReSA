@@ -1129,10 +1129,11 @@ def esc_padcheats(j):
         alterna(nombre, i)
     for nombre, w, otro in (('Really Sunny', 0, 9), ('Sunny', 1, 9), ('Foggy', 9, 0), ('Sandstorm', 19, 0), ('Cloudy', 4, 9)):
         intento(nombre + ' (clima forzado %d)' % w, seq(nombre), lambda w=w: forzado() == w, lambda: 'forzado=%d' % forzado(), prep=lambda o=otro: pon_clima(o))
-    # reinicio por inactividad: la mitad, 3.6 s, el resto -> NO se activa (tambien apagado)
+    # sin reinicio por tiempo (como GInputSA): la mitad, 3.6 s, el resto -> SI se activa (encendido); apagado no
     s_ = seq('Never Get Hungry'); pad_pulsa(j, s_[:4], 0.18, 0.14); j.dormir(3.6); pad_pulsa(j, s_[4:], 0.18, 0.14); j.dormir(0.3)
-    ok_p = j.truco_activo(68) == 0
-    res['pausa 3.6 s a la mitad (no debe activarse)'] = {'ok': ok_p, 'intentos': 1, 'detalle': 'ficha 68=%d' % j.truco_activo(68)}; j.P('PADCHEATS', 'OK  ' if ok_p else 'FALLO', 'pausa de 3.6 s a la mitad no activa', 'ficha 68=%d' % j.truco_activo(68))
+    ok_p = (j.truco_activo(68) == 0) if apagado else (j.truco_activo(68) == 1)
+    res['pausa 3.6 s a la mitad (sin reinicio por tiempo: se activa)'] = {'ok': ok_p, 'intentos': 1, 'detalle': 'ficha 68=%d' % j.truco_activo(68)}; j.P('PADCHEATS', 'OK  ' if ok_p else 'FALLO', 'pausa de 3.6 s a la mitad', 'ficha 68=%d' % j.truco_activo(68))
+    if j.truco_activo(68): pad_pulsa(j, s_, 0.18, 0.14); j.dormir(0.3)
     # ruido: 250 pulsaciones aleatorias -> el estado de todos los trucos no cambia
     f_antes = j.m.rd(0x969130, 98); clima = forzado(); nv = len(vehiculos(j)); rng = random.Random(4242); bt = list(PS2_XI)
     for _ in range(250): pad_pulsa(j, [rng.choice(bt)], 0.10, 0.10)

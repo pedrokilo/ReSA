@@ -1,0 +1,171 @@
+=== PADCHEATS SELFTEST inicio: jugador en (2652.5 -1719.5 10.9), opcion PadCheats=1
+--- Fase A: detector puro, 87 entradas, 90 hashes
+PASS tabla de 90 hashes de PS2 (ids 0..89)
+PASS ancla Weapons set 1 = secuencia de PS2 y CHEAT_WEAPON_SET1
+PASS ancla Jetpack = secuencia de 10 botones y CHEAT_GET_JETPACK
+PASS ninguna secuencia registrada es sufijo de otra (conflictos=0)
+PASS [0] 'Weapons set 1' -> id 0 (esperado por hash 0)
+PASS [1] 'Weapons set 2' -> id 1 (esperado por hash 1)
+PASS [2] 'Weapons set 3' -> id 2 (esperado por hash 2)
+PASS [3] '$250000 & Full Health & Armor' -> id 3 (esperado por hash 3)
+PASS [4] 'Infinite Health' -> id 61 (esperado por hash 61)
+PASS [5] 'Infinite Oxygen (Lung Capacity)' -> id 62 (esperado por hash 62)
+PASS [6] 'Infinite Ammo' -> id 72 (esperado por hash 72)
+PASS [7] 'Commit Suicide' -> id 29 (esperado por hash 29)
+PASS [8] 'Adrenaline Mode' -> id 71 (esperado por hash 71)
+PASS [9] 'Never Get Hungry' -> id 68 (esperado por hash 68)
+PASS [10] 'Never Wanted' -> id 65 (esperado por hash 65)
+PASS [11] '6 Star Wanted Level' -> id 66 (esperado por hash 66)
+PASS [12] 'Raise Wanted Level' -> id 4 (esperado por hash 4)
+PASS [13] 'Lower Wanted Level' -> id 5 (esperado por hash 5)
+PASS [14] 'Recruit Anyone (9MM)' -> id 76 (esperado por hash 76)
+PASS [15] 'Recruit Anyone (Rocket Launcher)' -> id 78 (esperado por hash 78)
+PASS [16] 'Hitman Skill for all weapons' -> id 82 (esperado por hash 82)
+PASS [17] 'Max Driving Skill' -> id 83 (esperado por hash 83)
+PASS [18] 'Max Respect' -> id 79 (esperado por hash 79)
+PASS [19] 'Max Sex Appeal' -> id 80 (esperado por hash 80)
+PASS [20] 'Max Stamina' -> id 81 (esperado por hash 81)
+PASS [21] 'Really Fat CJ' -> id 36 (esperado por hash 36)
+PASS [22] 'Really Skinny CJ' -> id 38 (esperado por hash 38)
+PASS [23] 'Really Muscled CJ' -> id 37 (esperado por hash 37)
+PASS [24] 'Gangs Control the Streets' -> id 43 (esperado por hash 43)
+PASS [25] 'Gang Members Everywhere' -> id 42 (esperado por hash 42)
+PASS [26] 'Dozer' -> id 87 (esperado por hash 87)
+PASS [27] 'Jetpack' -> id 64 (esperado por hash 64)
+PASS [28] 'Parachute' -> id 63 (esperado por hash 63)
+PASS [29] 'Katana' -> id 44 (esperado por hash 44)
+PASS [30] 'Rhino' -> id 17 (esperado por hash 17)
+PASS [31] 'Rancher' -> id 19 (esperado por hash 19)
+PASS [32] 'Caddy' -> id 25 (esperado por hash 25)
+PASS [33] 'Tanker' -> id 86 (esperado por hash 86)
+PASS [34] 'Hotring Racer 1' -> id 20 (esperado por hash 20)
+PASS [35] 'Hotring Racer 2' -> id 21 (esperado por hash 21)
+PASS [36] 'Bloodring Banger' -> id 18 (esperado por hash 18)
+PASS [37] 'Stretch' -> id 23 (esperado por hash 23)
+PASS [38] 'Romero's Hearse' -> id 22 (esperado por hash 22)
+PASS [39] 'Trashmaster' -> id 24 (esperado por hash 24)
+PASS [40] 'Quad' -> id 85 (esperado por hash 85)
+PASS [41] 'Hydra' -> id 50 (esperado por hash 50)
+PASS [42] 'Hunter' -> id 84 (esperado por hash 84)
+PASS [43] 'Vortex' -> id 51 (esperado por hash 51)
+PASS [44] 'Monster Truck' -> id 89 (esperado por hash 89)
+PASS [45] 'Stunt Plane' -> id 88 (esperado por hash 88)
+PASS [46] 'Cars float away when hit' -> id 54 (esperado por hash 54)
+PASS [47] 'Traffic is country vehicles' -> id 75 (esperado por hash 75)
+PASS [48] 'Invisible Cars' -> id 27 (esperado por hash 27)
+PASS [49] 'Improved Handling (Hit R3 to jump)' -> id 28 (esperado por hash 28)
+PASS [50] 'Faster Cars' -> id 30 (esperado por hash 30)
+PASS [51] 'Aggressive Traffic' -> id 31 (esperado por hash 31)
+PASS [52] 'Reduced Traffic' -> id 74 (esperado por hash 74)
+PASS [53] 'Drive on Water' -> id 34 (esperado por hash 34)
+PASS [54] 'All cars have Nitro' -> id 53 (esperado por hash 53)
+PASS [55] 'Destroy all vehicles' -> id 26 (esperado por hash 26)
+PASS [56] 'Fast/Rare cars appear regularly' -> id 47 (esperado por hash 47)
+PASS [57] 'Black Traffic' -> id 33 (esperado por hash 33)
+PASS [58] 'Pink Traffic' -> id 32 (esperado por hash 32)
+PASS [59] 'Traffic Lights Green' (alias) -> id 30 (esperado por hash 30)
+PASS [60] 'Cars Fly' -> id 48 (esperado por hash 48)
+PASS [61] 'Boats Fly' -> id 35 (esperado por hash 35)
+PASS [62] 'Vehicle of Death' -> id 52 (esperado por hash 52)
+PASS [63] 'Massive Bunny Hops' -> id 49 (esperado por hash 49)
+PASS [64] 'Ninja Theme' (alias) -> id 44 (esperado por hash 44)
+PASS [65] 'Funhouse Theme' -> id 70 (esperado por hash 70)
+PASS [66] 'Elvis Lives' -> id 39 (esperado por hash 39)
+PASS [67] 'Slut Magnet' -> id 45 (esperado por hash 45)
+PASS [68] 'Full Weapon Aiming Whilst Driving' -> id 73 (esperado por hash 73)
+PASS [69] 'Pedestrians Come After You' -> id 15 (esperado por hash 15)
+PASS [70] 'Pedestrians Attack With Rocket Launchers' -> id 40 (esperado por hash 40)
+PASS [71] 'Pedestrians Riot' -> id 14 (esperado por hash 14)
+PASS [72] 'Pedestrians Carry Weapons' -> id 16 (esperado por hash 16)
+PASS [73] 'Faster Gameplay' -> id 12 (esperado por hash 12)
+PASS [74] 'Slower Gameplay' -> id 13 (esperado por hash 13)
+PASS [75] 'Jump High' -> id 60 (esperado por hash 60)
+PASS [76] 'Mega Punch' -> id 67 (esperado por hash 67)
+PASS [77] 'Beach Party' -> id 41 (esperado por hash 41)
+PASS [78] 'Orange Sky' -> id 56 (esperado por hash 56)
+PASS [79] 'Speed Up Clock' -> id 11 (esperado por hash 11)
+PASS [80] 'Sunny' -> id 6 (esperado por hash 6)
+PASS [81] 'Really Sunny' -> id 7 (esperado por hash 7)
+PASS [82] 'Cloudy' -> id 8 (esperado por hash 8)
+PASS [83] 'Foggy' -> id 10 (esperado por hash 10)
+PASS [84] 'Stormy' -> id 9 (esperado por hash 9)
+PASS [85] 'Sandstorm' -> id 58 (esperado por hash 58)
+PASS [86] 'Always Midnight' -> id 55 (esperado por hash 55)
+PASS las 87 entradas reconocidas con su secuencia (87)
+PASS Weapons set 1: una sola activacion y la suya (activaciones=1)
+PASS Weapons set 2: una sola activacion y la suya (activaciones=1)
+PASS Weapons set 3: una sola activacion y la suya (activaciones=1)
+PASS set 1 seguido de los 2 ultimos de set 2: solo una activacion (set 1) (n=1)
+PASS Jetpack tras basura previa: reconocido (hit=64)
+PASS secuencias con un boton cambiado: 9405 casos, 0 activaciones indebidas
+PASS ruido aleatorio variante 0: 600000 pulsaciones, 0 activaciones
+PASS ruido aleatorio variante 1: 600000 pulsaciones, 0 activaciones
+PASS L1+L2 en el mismo fotograma: solo se anota L1 (prioridad); el valor 1 cuenta como pulsado
+PASS L2 sube con L1 ya mantenido: se anota L2
+PASS Triangulo + arriba en el mismo fotograma: triangulo primero
+PASS sin flanco si ya estaban pulsados
+--- Fase B: estados inyectados por CCheat::DoCheats, efecto por memoria
+PASS opcion PadCheats encendida por defecto (o por entorno)
+PASS Weapons set 1 con la opcion APAGADA: sin efecto
+PASS Weapons set 1 por el mando = activacion directa y distinto del estado limpio
+PASS Weapons set 2 con la opcion APAGADA: sin efecto
+PASS Weapons set 2 por el mando = activacion directa y distinto del estado limpio
+PASS Weapons set 3 con la opcion APAGADA: sin efecto
+PASS Weapons set 3 por el mando = activacion directa y distinto del estado limpio
+PASS los tres conjuntos de armas son distintos entre si
+PASS $250000 + salud + armadura: dinero 999999999 -> 1000249999, armadura 150
+PASS 'Sunny': apagada sin cambio; encendida -> clima 1
+PASS 'Really Sunny': apagada sin cambio; encendida -> clima 0
+PASS 'Cloudy': apagada sin cambio; encendida -> clima 4
+PASS 'Foggy': apagada sin cambio; encendida -> clima 9
+PASS 'Stormy': apagada sin cambio; encendida -> clima 16
+PASS 'Sandstorm': apagada sin cambio; encendida -> clima 19
+PASS Always Midnight: hora 0, activo
+PASS Always Midnight: segunda vez lo desactiva (como el teclado)
+PASS Orange Sky (para el reloj): hora 21
+PASS Raise Wanted Level: 0 -> 2 estrellas
+PASS 6 Star Wanted Level: 6 estrellas
+PASS Lower Wanted Level: 0 estrellas
+PASS Never Wanted: 0 estrellas, truco activo
+PASS Infinite Health: la primera vez activa, la segunda desactiva (1, 0)
+PASS Max Stamina: estadistica 1000
+PASS 'Rhino': apagada sin vehiculo; encendida 0 -> 1 vehiculos del modelo 432
+PASS 'Hotring Racer 1': apagada sin vehiculo; encendida 0 -> 1 vehiculos del modelo 502
+PASS 'Hotring Racer 2': apagada sin vehiculo; encendida 0 -> 1 vehiculos del modelo 503
+PASS 'Caddy': apagada sin vehiculo; encendida 0 -> 1 vehiculos del modelo 457
+PASS alternancia [4] 'Infinite Health' (id 61): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [5] 'Infinite Oxygen (Lung Capacity)' (id 62): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [6] 'Infinite Ammo' (id 72): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [9] 'Never Get Hungry' (id 68): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [14] 'Recruit Anyone (9MM)' (id 76): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [15] 'Recruit Anyone (Rocket Launcher)' (id 78): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [18] 'Max Respect' (id 79): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [19] 'Max Sex Appeal' (id 80): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [46] 'Cars float away when hit' (id 54): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [48] 'Invisible Cars' (id 27): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [49] 'Improved Handling (Hit R3 to jump)' (id 28): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [50] 'Faster Cars' (id 30): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [51] 'Aggressive Traffic' (id 31): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [52] 'Reduced Traffic' (id 74): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [53] 'Drive on Water' (id 34): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [54] 'All cars have Nitro' (id 53): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [60] 'Cars Fly' (id 48): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [61] 'Boats Fly' (id 35): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [62] 'Vehicle of Death' (id 52): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [63] 'Massive Bunny Hops' (id 49): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [72] 'Pedestrians Carry Weapons' (id 16): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [75] 'Jump High' (id 60): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [76] 'Mega Punch' (id 67): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS alternancia [79] 'Speed Up Clock' (id 11): apagada=1, 1.ª=1, 2.ª desactiva=1
+PASS trucos de simple alternancia: 24 de 24 correctos
+PASS contador de activaciones por mando: +74
+--- Fase B terminada
+=== fases A y B: PASS=158 FALLO=0
+--- Fase C: fotogramas reales; estado del mando escrito en CPad::PCTempJoyState (camino CPad::Update -> PadCheats::CaptureJoyState -> CCheat::DoCheats)
+PASS [real] Really Sunny con la opcion APAGADA: el clima no cambia (9)
+PASS [real] Really Sunny encendida: clima 0 (activaciones por mando: 75)
+PASS [real] Weapons set 1 (12 botones en fotogramas reales) = activacion directa
+PASS [real] Jetpack: tarea de jetpack del jugador creada (0904F978)
+PASS [real] 300 pulsaciones aleatorias en fotogramas reales: activaciones nuevas 0
+=== PADCHEATS SELFTEST resumen: PASS=163 FALLO=0
+SELFTEST FIN

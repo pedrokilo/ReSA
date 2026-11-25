@@ -58,20 +58,18 @@ bool Enabled() {
 
 void SetBtn(CControllerState& s, Btn b, int16 v) {
     switch (b) {
-    case Btn::L1:       s.LeftShoulder1 = v; break;
-    case Btn::L2:       s.LeftShoulder2 = v; break;
-    case Btn::R1:       s.RightShoulder1 = v; break;
-    case Btn::R2:       s.RightShoulder2 = v; break;
+    case Btn::Triangle: s.ButtonTriangle = v; break;
+    case Btn::Circle:   s.ButtonCircle = v; break;
+    case Btn::Cross:    s.ButtonCross = v; break;
+    case Btn::Square:   s.ButtonSquare = v; break;
     case Btn::Up:       s.DPadUp = v; break;
     case Btn::Down:     s.DPadDown = v; break;
     case Btn::Left:     s.DPadLeft = v; break;
     case Btn::Right:    s.DPadRight = v; break;
-    case Btn::Cross:    s.ButtonCross = v; break;
-    case Btn::Circle:   s.ButtonCircle = v; break;
-    case Btn::Square:   s.ButtonSquare = v; break;
-    case Btn::Triangle: s.ButtonTriangle = v; break;
-    case Btn::L3:       s.ShockButtonL = v; break;
-    case Btn::R3:       s.ShockButtonR = v; break;
+    case Btn::L1:       s.LeftShoulder1 = v; break;
+    case Btn::L2:       s.LeftShoulder2 = v; break;
+    case Btn::R1:       s.RightShoulder1 = v; break;
+    case Btn::R2:       s.RightShoulder2 = v; break;
     default: break;
     }
 }
@@ -79,17 +77,34 @@ void SetBtn(CControllerState& s, Btn b, int16 v) {
 std::vector<Btn> SeqOf(const PadCheats::Entry& e) { return { e.seq, e.seq + e.len }; }
 
 // ---------------------------------------------------------------- Fase A: detector puro
+// Esperado independiente del detector: id de cada entrada segun la tabla de hashes de GInputSA (indice = id), calculado aqui con CKeyGen sobre la cadena al reves
+int ExpectedId(const PadCheats::Entry& e) {
+    char buf[16]{};
+    for (uint32 k = 0; k < e.len; k++) {
+        buf[e.len - 1 - k] = PadCheats::kLetters[(int)e.seq[k]];
+    }
+    const auto h  = CKeyGen::GetKey(buf);
+    const auto hs = PadCheats::Hashes();
+    for (size_t i = 0; i < hs.size(); i++) {
+        if (hs[i] == h) {
+            return (int)i;
+        }
+    }
+    return -1;
+}
+
 void PhaseA() {
     const auto entries = PadCheats::Entries();
-    Log("--- Fase A: detector puro, %zu entradas", entries.size());
+    Log("--- Fase A: detector puro, %zu entradas, %zu hashes", entries.size(), PadCheats::Hashes().size());
+    Check(PadCheats::Hashes().size() == 90, "tabla de 90 hashes de PS2 (ids 0..89)");
 
-    // A0: anclas literales de la peticion (PS2): Weapons set 1 = R1 R2 L1 R2 <- v -> ^ <- v -> ^ ; Jetpack = ^ v <- -> L1 L2 R1 R2 ^ v <- ->
+    // A0: anclas: Weapons set 1 = R1 R2 L1 R2 <- v -> ^ <- v -> ^ ; Jetpack de PS2 = <- -> L1 L2 R1 R2 ^ v <- -> (10 botones; la lista HTML trae ^ v de mas al principio)
     const std::vector<Btn> w1 = { Btn::R1, Btn::R2, Btn::L1, Btn::R2, Btn::Left, Btn::Down, Btn::Right, Btn::Up, Btn::Left, Btn::Down, Btn::Right, Btn::Up };
-    const std::vector<Btn> jp = { Btn::Up, Btn::Down, Btn::Left, Btn::Right, Btn::L1, Btn::L2, Btn::R1, Btn::R2, Btn::Up, Btn::Down, Btn::Left, Btn::Right };
+    const std::vector<Btn> jp = { Btn::Left, Btn::Right, Btn::L1, Btn::L2, Btn::R1, Btn::R2, Btn::Up, Btn::Down, Btn::Left, Btn::Right };
     Check(SeqOf(entries[0]) == w1 && entries[0].cheat == CHEAT_WEAPON_SET1, "ancla Weapons set 1 = secuencia de PS2 y CHEAT_WEAPON_SET1");
-    Check(SeqOf(entries[27]) == jp && entries[27].cheat == CHEAT_GET_JETPACK, "ancla Jetpack = secuencia de PS2 y CHEAT_GET_JETPACK");
+    Check(SeqOf(entries[27]) == jp && entries[27].cheat == CHEAT_GET_JETPACK, "ancla Jetpack = secuencia de 10 botones y CHEAT_GET_JETPACK");
 
-    // A1: unicidad: ninguna secuencia registrada (modo 0) es igual a otra ni sufijo de otra
+    // A1: ninguna secuencia (modo 0) es igual a otra ni sufijo de otra
     int conflicts = 0;
     for (size_t i = 0; i < entries.size(); i++) {
         for (size_t j = 0; j < entries.size(); j++) {
@@ -105,36 +120,22 @@ void PhaseA() {
     }
     Check(conflicts == 0, "ninguna secuencia registrada es sufijo de otra (conflictos=%d)", conflicts);
 
-    // A2: las 87 entradas: cada secuencia se reconoce y da el truco esperado
+    // A2: las 87 entradas: cada secuencia se reconoce una sola vez y da el id que dice la tabla de hashes (calculado aparte)
     int ok87 = 0;
     for (size_t i = 0; i < entries.size(); i++) {
         const auto& e = entries[i];
         PadCheats::Detector d;
-        int    hit = -1, hits = 0;
-        uint32 t = 1000;
+        int hit = -1, hits = 0;
         for (const auto b : SeqOf(e)) {
-            const int r = d.Feed(b, t += 120);
+            const int r = d.Feed(b);
             if (r >= 0) {
                 hit = r;
                 hits++;
             }
         }
-        // Esperado: modo 0 -> ella misma; modo 1 (alias) o 2 (duplicada) -> la entrada registrada con la misma secuencia
-        int expect = -1;
-        for (size_t j = 0; j < entries.size(); j++) {
-            if (entries[j].mode == 0 && SeqOf(entries[j]) == SeqOf(e)) {
-                expect = (int)j;
-                break;
-            }
-        }
-        const bool good = hits == 1 && hit == expect && expect >= 0 && (e.mode == 2 || entries[expect].cheat == e.cheat || e.mode == 1);
-        if (e.mode == 1) {
-            Check(good && entries[hit].cheat == e.cheat, "[%zu] '%s' (alias) -> entrada %d '%s' truco %d", i, e.name, hit, hit >= 0 ? entries[hit].name : "-", hit >= 0 ? (int)entries[hit].cheat : -1);
-        } else if (e.mode == 2) {
-            Check(good, "[%zu] '%s' (duplicada dudosa) -> entrada %d '%s' (no activa su propio truco)", i, e.name, hit, hit >= 0 ? entries[hit].name : "-");
-        } else {
-            Check(good, "[%zu] '%s' -> truco %d", i, e.name, (int)e.cheat);
-        }
+        const int  exp  = ExpectedId(e);
+        const bool good = hits == 1 && hit == (int)e.cheat && exp == hit;
+        Check(good, "[%zu] '%s'%s -> id %d (esperado por hash %d)", i, e.name, e.mode == 1 ? " (alias)" : "", hit, exp);
         ok87 += good;
     }
     Check(ok87 == (int)entries.size(), "las %zu entradas reconocidas con su secuencia (%d)", entries.size(), ok87);
@@ -143,61 +144,42 @@ void PhaseA() {
     for (int s = 0; s < 3; s++) {
         PadCheats::Detector d;
         std::vector<int>    hits;
-        uint32              t = 0;
         for (const auto b : SeqOf(entries[s])) {
-            if (const int r = d.Feed(b, t += 100); r >= 0) {
+            if (const int r = d.Feed(b); r >= 0) {
                 hits.push_back(r);
             }
         }
         Check(hits.size() == 1 && hits[0] == s, "Weapons set %d: una sola activacion y la suya (activaciones=%zu)", s + 1, hits.size());
     }
     {
-        // set 1 pulsado, y a continuacion los dos ultimos de set 2 sin los 10 primeros: ninguna activacion de set 2/3
         PadCheats::Detector d;
-        uint32              t = 0;
         int                 n = 0;
         for (const auto b : SeqOf(entries[0])) {
-            n += d.Feed(b, t += 100) >= 0;
+            n += d.Feed(b) >= 0;
         }
-        // tras el reinicio al reconocer, solo los 2 ultimos de set 2
-        n += d.Feed(Btn::Down, t += 100) >= 0;
-        n += d.Feed(Btn::Left, t += 100) >= 0;
+        n += d.Feed(Btn::Down) >= 0;
+        n += d.Feed(Btn::Left) >= 0;
         Check(n == 1, "set 1 seguido de los 2 ultimos de set 2: solo una activacion (set 1) (n=%d)", n);
     }
 
-    // A4: pulsaciones previas de basura no impiden el reconocimiento (sufijo del buffer)
+    // A4: pulsaciones previas de basura no impiden el reconocimiento (sufijo del historial)
     {
         PadCheats::Detector d;
-        uint32              t = 0;
-        for (const auto b : { Btn::Cross, Btn::Square, Btn::L3, Btn::R3, Btn::Down, Btn::Down, Btn::Up, Btn::Up, Btn::R2 }) {
-            d.Feed(b, t += 100);
+        for (const auto b : { Btn::Cross, Btn::Square, Btn::Down, Btn::Down, Btn::Up, Btn::Up, Btn::R2 }) {
+            d.Feed(b);
         }
         int hit = -1;
         for (const auto b : SeqOf(entries[27])) {
-            if (const int r = d.Feed(b, t += 100); r >= 0) {
+            if (const int r = d.Feed(b); r >= 0) {
                 hit = r;
             }
         }
-        Check(hit == 27, "Jetpack tras basura previa: reconocido (hit=%d)", hit);
+        Check(hit == CHEAT_GET_JETPACK, "Jetpack tras basura previa: reconocido (hit=%d)", hit);
     }
 
-    // A5: reinicio por inactividad: la mitad, una pausa mayor que kIdleResetMs, la otra mitad: no se reconoce; con pausa menor, si
-    for (int caso = 0; caso < 2; caso++) {
-        PadCheats::Detector d;
-        const auto          s   = SeqOf(entries[27]);
-        const uint32        gap = caso == 0 ? PadCheats::kIdleResetMs + 500 : PadCheats::kIdleResetMs - 500;
-        uint32              t   = 0;
-        int                 hit = -1;
-        for (size_t k = 0; k < s.size(); k++) {
-            t += (k == s.size() / 2) ? gap : 100;
-            if (const int r = d.Feed(s[k], t); r >= 0) {
-                hit = r;
-            }
-        }
-        Check(caso == 0 ? hit == -1 : hit == 27, "Jetpack con pausa de %u ms a la mitad: %s", gap, hit >= 0 ? "reconocido" : "no reconocido");
-    }
+    // A5: sin reinicio por tiempo (como GInputSA): el detector no tiene reloj; se comprueba en la fase C con pausas
 
-    // A6: secuencias casi correctas (un boton cambiado en cada posicion): ningun truco que no sea exactamente la secuencia enviada
+    // A6: secuencias casi correctas (un boton cambiado en cada posicion): ninguna activacion salvo que la secuencia sea exactamente otra
     {
         long casos = 0, falsos = 0;
         for (size_t i = 0; i < entries.size(); i++) {
@@ -210,12 +192,11 @@ void PhaseA() {
                     auto s = SeqOf(e);
                     s[p]   = (Btn)b;
                     PadCheats::Detector d;
-                    uint32              t = 0;
                     casos++;
                     for (const auto x : s) {
-                        const int r = d.Feed(x, t += 100);
+                        const int r = d.Feed(x);
                         if (r >= 0) {
-                            bool legit = false; // la secuencia mutada puede ser exactamente otra entrada registrada
+                            bool legit = false;
                             for (const auto& o : entries) {
                                 legit |= o.mode == 0 && SeqOf(o) == s;
                             }
@@ -229,39 +210,50 @@ void PhaseA() {
     }
 
     // A7: ruido aleatorio: muchas decenas de miles de pulsaciones, 0 activaciones
-    for (int variante = 0; variante < 3; variante++) {
+    for (int variante = 0; variante < 2; variante++) {
         std::mt19937        rng(12345u + variante);
         PadCheats::Detector d;
-        uint32              t = 0;
         long                act = 0;
-        const long          N = 400000;
+        const long          N = 600000;
         for (long k = 0; k < N; k++) {
-            // variante 0: todos los botones; 1: solo los de las secuencias largas (cruceta y gatillos); 2: ritmo rapido (siempre dentro de 3 s)
             int b = (int)(rng() % (uint32)Btn::COUNT);
             if (variante == 1) {
-                b = (int)(rng() % 8);
+                b = 4 + (int)(rng() % 8); // solo cruceta y gatillos
             }
-            t += variante == 2 ? 30 : (uint32)(rng() % 400 + (rng() % 5000 == 0 ? 4000 : 0));
-            act += d.Feed((Btn)b, t) >= 0;
+            act += d.Feed((Btn)b) >= 0;
         }
         Check(act == 0, "ruido aleatorio variante %d: %ld pulsaciones, %ld activaciones", variante, N, act);
+    }
+
+    // A8: un solo flanco por fotograma, por prioridad (T C X S U D L R 1 2 3 4), y "distinto de cero" cuenta como pulsado
+    {
+        CControllerState st{};
+        st.LeftShoulder1 = 1; // valor analogico minimo: cuenta
+        st.LeftShoulder2 = 255;
+        const auto m = PadCheats::MaskOf(st);
+        Check(PadCheats::FirstEdge(m, 0) == (int)Btn::L1, "L1+L2 en el mismo fotograma: solo se anota L1 (prioridad); el valor 1 cuenta como pulsado");
+        Check(PadCheats::FirstEdge(m, (uint16)(1u << (int)Btn::L1)) == (int)Btn::L2, "L2 sube con L1 ya mantenido: se anota L2");
+        CControllerState st2{};
+        st2.ButtonTriangle = 255;
+        st2.DPadUp         = 255;
+        Check(PadCheats::FirstEdge(PadCheats::MaskOf(st2), 0) == (int)Btn::Triangle, "Triangulo + arriba en el mismo fotograma: triangulo primero");
+        Check(PadCheats::FirstEdge(PadCheats::MaskOf(st2), PadCheats::MaskOf(st2)) == -1, "sin flanco si ya estaban pulsados");
     }
 }
 
 // ---------------------------------------------------------------- Fase B: con el juego, estados inyectados por DoCheats
 void Press(const std::vector<Btn>& seq) {
     CControllerState down{}, up{};
-    PadCheats::TestInjectState(0, &up); // suelta todo antes (el detector parte de "nada pulsado")
+    PadCheats::TestInjectState(up); // suelta todo antes (el detector parte de "nada pulsado")
     CCheat::DoCheats();
     for (const auto b : seq) {
         down = {};
         SetBtn(down, b, 255);
-        PadCheats::TestInjectState(0, &down);
+        PadCheats::TestInjectState(down);
         CCheat::DoCheats();
-        PadCheats::TestInjectState(0, &up);
+        PadCheats::TestInjectState(up);
         CCheat::DoCheats();
     }
-    PadCheats::TestInjectState(0, nullptr);
 }
 
 std::vector<std::pair<int, int>> WeaponSnapshot(CPlayerPed* p) {

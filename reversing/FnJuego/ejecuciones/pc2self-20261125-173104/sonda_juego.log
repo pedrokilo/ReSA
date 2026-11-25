@@ -1,0 +1,44 @@
+[    0.2] pid 34536
+[    8.6] juego en marcha tras 8 s; gGameState=9
+[    9.3] salida de la casa: area=0 tras 1 s
+[   10.3] ventana: cliente 585x438
+[   10.3] === ESCENARIO espera
+[   36.7] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.544189453125, 10.90625) pools {'peds': 29, 'veh': 14, 'edif': 10113, 'obj': 98, 'dummy': 728}
+[   57.1] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2647.114013671875, -1678.88330078125, 10.798422813415527) pools {'peds': 32, 'veh': 17, 'edif': 10219, 'obj': 99, 'dummy': 812}
+[   77.4] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2647.5068359375, -1658.2303466796875, 11.05048656463623) pools {'peds': 30, 'veh': 17, 'edif': 10109, 'obj': 101, 'dummy': 727}
+[   97.8] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2642.51904296875, -1650.6717529296875, 10.703125) pools {'peds': 26, 'veh': 17, 'edif': 10109, 'obj': 100, 'dummy': 727}
+[  118.2] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2662.388671875, -1639.1785888671875, 11.404592514038086) pools {'peds': 18, 'veh': 15, 'edif': 10109, 'obj': 109, 'dummy': 727}
+[  138.5] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2665.56884765625, -1637.6690673828125, 10.905858993530273) pools {'peds': 20, 'veh': 17, 'edif': 10109, 'obj': 102, 'dummy': 727}
+[  158.9] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2665.56884765625, -1637.6690673828125, 10.905858993530273) pools {'peds': 19, 'veh': 17, 'edif': 10109, 'obj': 100, 'dummy': 727}
+[  179.3] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2665.56884765625, -1637.6690673828125, 10.905858993530273) pools {'peds': 22, 'veh': 17, 'edif': 10109, 'obj': 99, 'dummy': 727}
+[  199.5] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2665.56884765625, -1637.6690673828125, 10.905858993530273) pools {'peds': 23, 'veh': 17, 'edif': 10109, 'obj': 99, 'dummy': 727}
+[  219.9] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2665.56884765625, -1637.6690673828125, 10.905858993530273) pools {'peds': 23, 'veh': 17, 'edif': 10109, 'obj': 99, 'dummy': 727}
+[  220.2] vivo al final: True
+[  220.2] LOG [error][17:31:22.029][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  220.2] LOG [error][17:31:22.030][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  220.2] LOG [info][17:31:22.195][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[  220.2] LOG [error][17:31:47.021][app_debug.cpp:260]: ASSERT FALLIDO (se continua): `result` en D:\Original\wv-int\source\app\app_debug.h:14
+[  220.2] LOG [error][17:31:47.222][app_debug.cpp:247]: 	0x01e4a2d0: notsa::detail::VerifyMacroImpl:14
+[  220.2] LOG [error][17:31:47.224][app_debug.cpp:247]: 	0x01e34a92: `CRunningScript::ProcessOneCommand'::`2'::<lambda_1>::operator():1268
+[  220.2] LOG [error][17:31:47.224][app_debug.cpp:247]: 	0x01e33a3f: std::invoke<`CRunningScript::ProcessOneCommand'::`2'::<lambda_1> &>:1801
+[  220.2] LOG [error][17:31:47.224][app_debug.cpp:247]: 	0x01e34268: notsa::ScopeGuard<`CRunningScript::ProcessOneCommand'::`2'::<lambda_1> >::~ScopeGuard<`CRunningScript::ProcessOneCommand'::`2'::<lambda_1> >:170
+[  220.2] LOG [error][17:31:47.225][app_debug.cpp:247]: 	0x01e47f11: CRunningScript::ProcessOneCommand:1301
+[  220.2] LOG [error][17:31:47.225][app_debug.cpp:247]: 	0x01e3e090: CRunningScript::Process:1328
+[  220.2] LOG [error][17:31:47.226][app_debug.cpp:247]: 	0x023b2eae: CTheScripts::Process:1907
+[  220.2] LOG [error][17:31:47.227][app_debug.cpp:247]: 	0x0173445a: CGame::Process:792
+[  220.2] LOG [error][17:31:47.228][app_debug.cpp:247]: 	0x00ffd2a1: Idle:372
+[  220.2] LOG [error][17:31:47.228][app_debug.cpp:247]: 	0x00fe4cfd: AppEventHandler:169
+[  220.2] LOG [error][17:31:47.229][app_debug.cpp:247]: 	0x01c10da8: RsEventHandler:349
+[  220.2] LOG [error][17:31:47.229][app_debug.cpp:247]: 	0x025849a6: ProcessGameLogic:355
+[  220.2] LOG [error][17:31:47.230][app_debug.cpp:247]: 	0x02583829: MainLoop:381
+[  220.2] LOG [error][17:31:47.230][app_debug.cpp:247]: 	0x0258413e: NOTSA_WinMain:520
+[  220.2] LOG [error][17:31:47.230][app_debug.cpp:247]: 	0x00e4ec0b: WinMain:702
+[  220.2] LOG [error][17:31:47.231][app_debug.cpp:247]: 	0x02b0e76d: invoke_main:107
+[  220.2] LOG [error][17:31:47.231][app_debug.cpp:247]: 	0x02b0e64a: __scrt_common_main_seh:288
+[  220.2] LOG [error][17:31:47.231][app_debug.cpp:247]: 	0x02b0e4ed: __scrt_common_main:331
+[  220.2] LOG [error][17:31:47.232][app_debug.cpp:247]: 	0x02b0e7d8: WinMainCRTStartup:17
+[  220.2] LOG [error][17:31:47.232][app_debug.cpp:247]: 	0x00e51e1b: FaseEntrada:673
+[  220.2] LOG [error][17:31:47.232][app_debug.cpp:247]: 	0x75495d49: BaseThreadInitThunk:0
+[  220.2] LOG [error][17:31:47.232][app_debug.cpp:247]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[  220.2] LOG [error][17:31:47.232][app_debug.cpp:247]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[  220.2] fin

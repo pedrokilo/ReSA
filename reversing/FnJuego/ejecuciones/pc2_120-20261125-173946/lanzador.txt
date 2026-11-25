@@ -1,0 +1,3 @@
+pid 10372  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-pc2\reversing\FnJuego\ejecuciones\pc2_120-20261125-173946" --limite 120 --shims  escenario=reposo120 xinput=False
+sonda terminada: cierro mi juego
+exit=0xDEAD0002

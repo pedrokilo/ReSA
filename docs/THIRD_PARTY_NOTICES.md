@@ -44,7 +44,7 @@ SOFTWARE.
 
 - **Scripts, misiones, entrada, HUD, trucos, guardado y textos (rama `silentpatch-scm`)**: `source/game_sa/Scripts/SilentPatchScripts.*` (parches de bytecode SCM de SilentPatchSA.cpp, namespace `ScriptFixes`, y ScriptSA.cpp), `source/game_sa/SilentPatchNewGame.*` (namespace `VariableResets`), y los hunks marcados con `// SilentPatch (MIT, Silent)` en TheScripts, RunningScript*, MathCommands, MissionCommands, Cheat, Camera/Cam/X87Math, Hud, Stats, MenuManager*, TheZones, FileLoader, Game, Localisation, AERadioTrackManager, Automobile y QuadBike. Detalle: [CodigoVivoExe/silentpatch-scm.md](CodigoVivoExe/silentpatch-scm.md).
 
-## GInputSA 1.11 (lista de secuencias de botones de PS2)
+## GInputSA 1.11 (trucos del mando)
 
 Lista de secuencias de botones de PS2 tomada de la documentación de GInputSA 1.11 de Silent (autorización solicitada por el usuario del proyecto); las secuencias son las de la versión PS2 del juego.
 Solo se usan las 87 secuencias de la lista publicada en el paquete (`CheatList for PS.html`); no se tomó nada de `GInputSA.asi` (no se desensambló). Uso: `source/game_sa/PadCheatsTable.inc.h`
@@ -54,3 +54,7 @@ Solo se usan las 87 secuencias de la lista publicada en el paquete (`CheatList f
 ## GInputSA 1.11 (Silent)
 
 Iconos del mando en las ayudas y textos (`source/game_sa/PadButtonIcons.*`, [CodigoVivoExe/iconos-mando.md](CodigoVivoExe/iconos-mando.md), [DesviacionesConocidas.md](DesviacionesConocidas.md) sección 15.B): idea y juegos de iconos de GInputSA 1.11 de Silent («Pad buttons in In-Game helps, replacing PC key names…»); las texturas no se redistribuyen, se cargan de la instalación del usuario (`models\ps3btns.txd`, `models60btns.txd`). No se copia código de GInputSA: la implementación es propia y usa los símbolos de botón que el propio juego ya dibuja (`CFont::ParseToken`, `ButtonSprite`). De su análisis estático (con autorización del usuario) se toman datos, no código: la tabla de 124 sustituciones de textos del GXT (clave, patrón, sustituto), las etiquetas de icono y los nombres de textura del TXD.
+
+Por indicación expresa del usuario (autorización directa) se estudió también la lógica de trucos de `GInputSA.asi` (análisis estático, sin ejecutarlo): de ahí salen la tabla de 90 hashes y el comportamiento del detector
+(letras por botón, historial de 12, un flanco por fotograma, solo el mando 1, sin reinicio por tiempo). No se copió código: el detector es propio y no se porta la capa XInput de GInput. Uso: `source/game_sa/PadCheatsTable.inc.h`
+(generado por `contrib/pad_cheats_tabla.py`) y `source/game_sa/PadCheats.*`; desviación propia 15.P de [DesviacionesConocidas.md](DesviacionesConocidas.md), detalle en [CodigoVivoExe/trucos-mando.md](CodigoVivoExe/trucos-mando.md).
