@@ -1,0 +1,11 @@
+=== SILENTPATCH PEND7A SELFTEST inicio
+opciones: SilentPatch=1 EscalatorsCrashFix=1 TempObjectsFreeFix=1 SkinBuildingPipelineFix=1
+TEMP: objeto 0 IsVisible=1
+TEMP: objeto 1 IsVisible=1
+TEMP: objeto 2 IsVisible=0
+TEMP: temporales antes=3 despues=0 (liberados=3 de 3 pedidos), objetos antes=100 despues=97, mios que sobreviven=0
+ESCAL: objetos base=98 con peldanos=112 (peldanos=14); tras RemoveEscalatorsForEntity=112 (pendientes=14); tras el siguiente Update=98 (borrados en total=14)
+PARACAIDAS: atomo pipeline.pluginId=0x0 (piel=0x116, edificios DN=0x53F20098, edificios=0x53F2009C) pipelineID=0x0 nightColors=0 prelit=0 conPiel=0 IsCBPCPipelineAttached=0
+SKINGUARD: atomo del clon: skinned(pipeline piel)=1 prelit=0 extra=1 nightColors=0
+SKINGUARD: tras AtomicSetup (rama DN forzada) pipeline.pluginId=0x116: conserva el pipeline de piel
+=== SILENTPATCH PEND7A SELFTEST FIN

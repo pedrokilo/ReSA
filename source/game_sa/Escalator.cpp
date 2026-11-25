@@ -58,6 +58,39 @@ void CEscalator::SwitchOff() {
     m_StepObjectsCreated = 0;
 }
 
+// SilentPatch (MIT, Silent): peldaños pendientes de borrar (se vacía en CEscalators::Update).
+static std::vector<CObject*> s_deferredSteps;
+
+// SilentPatch (MIT, Silent): como SwitchOff, pero los peldaños se anulan y se encolan en vez de borrarse ahora.
+void CEscalator::SwitchOffDeferred() {
+    if (!m_StepObjectsCreated) {
+        return;
+    }
+    for (int32 i = 0; i < (int32)(m_NumIntermediatePlanes + m_NumBottomPlanes + m_NumTopPlanes); i++) {
+        auto*& object = m_StepObjects.data()[i];
+        if (object) {
+            s_deferredSteps.push_back(object);
+            object = nullptr;
+        }
+    }
+    m_StepObjectsCreated = 0;
+}
+
+// SilentPatch (MIT, Silent): borra de verdad los peldaños encolados (CWorld::Remove y delete, con la bandera de depuración del EXE).
+void CEscalator::FlushDeferredSteps() {
+    if (s_deferredSteps.empty()) {
+        return;
+    }
+    auto& deletingEscalator = DatosExe::Bss::bC6E98C;
+    for (auto* object : s_deferredSteps) {
+        CWorld::Remove(object);
+        deletingEscalator = true;
+        delete object;
+        deletingEscalator = false;
+    }
+    s_deferredSteps.clear();
+}
+
 // 0x717970
 void CEscalator::AddThisOne(const CVector& vecStart, const CVector& vecBottom, const CVector& vecTop, const CVector& vecEnd, bool moveDown, CEntity* entity) {
     m_Exist = true;

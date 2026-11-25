@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "X87Math.h"
 
 #include "Entity.h"
@@ -2472,7 +2473,13 @@ void CEntity::RemoveEscalatorsForEntity() {
     // Como el original: no se sale tras la primera coincidencia (la entidad puede tener varias escaleras)
     for (auto& escalator : CEscalators::GetAllExists()) {
         if (escalator.GetEntity() == this) {
-            escalator.Remove();
+            // SilentPatch (MIT, Silent): EscalatorsCrashFix - quitar los peldaños en diferido (0x71791F)
+            static const bool spEscalatorsCrashFix = SilentPatchOption("EscalatorsCrashFix", true);
+            if (spEscalatorsCrashFix) {
+                escalator.RemoveDeferred();
+            } else {
+                escalator.Remove();
+            }
         }
     }
 }

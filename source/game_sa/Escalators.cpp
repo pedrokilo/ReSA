@@ -33,6 +33,7 @@ void CEscalators::InjectHooks() {
 
 // 0x717940
 void CEscalators::Shutdown() {
+    CEscalator::FlushDeferredSteps(); // SilentPatch (MIT, Silent): no dejar peldaños encolados al reiniciar
     rng::for_each(aEscalators, &CEscalator::Remove);
 }
 
@@ -54,6 +55,8 @@ void CEscalators::AddOne(const CVector& vecStart, const CVector& vecBottom, cons
 
 // 0x718580
 void CEscalators::Update() {
+    // SilentPatch (MIT, Silent): borrar los peldaños encolados fuera del streaming (antes de actualizar las escaleras)
+    CEscalator::FlushDeferredSteps();
     if (CReplay::Mode != MODE_PLAYBACK) {
         rng::for_each(GetAllExists(), &CEscalator::Update);
     }

@@ -1,0 +1,2 @@
+pid 25688  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-sp7a\reversing\FnJuego\ejecuciones\on3-20261125-122235" --limite 150 --shims  entorno=
+exit=0xFFFFFFFF
