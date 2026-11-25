@@ -74,3 +74,7 @@ Generado por `contrib/librw_brechas.py` el 15/11/2026. Cruza la API de RenderWar
 
 1. Confirmar a mano las filas de «parecen diferencias de nombre»: comprobar en `librw` que cada una tiene su equivalente.
 2. Para las brechas reales, decidir entre añadirlas a `librw` o reconstruirlas en el proyecto. Las del juego (2dfx, streaming, plugins de SA, puente D3D9) son las que bloquean el ejecutable propio.
+
+## Evaluación posterior (24/11/2026)
+
+La revisión de las 61 funciones no reconstruibles, la licencia (MIT), el plan de integración y el banco oráculo contra librw están en [librw-evaluacion.md](librw-evaluacion.md) y [no-reconstruibles-librw.csv](no-reconstruibles-librw.csv). Resultado: librw no cubre ninguna de las 61; sus rutinas de HAnim/cuaterniones coinciden con las nuestras dentro de tolerancia.
