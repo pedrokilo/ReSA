@@ -202,7 +202,7 @@ def build(root, input_path, coverage, validation, notsa_count=0):
         ['**Validar el código del juego**', f'**En curso**: {g_val:,} de {g_rep:,} reconstruidas ({_pct(g_val, g_rep)}); el resto va por oleadas de lotes (detalle en el [informe](ReversedClasses.md#por-validar))'],
         ['Validar RenderWare', f'**Apenas empezada**: {r_val:,} de {r_rep:,} ({_pct(r_val, r_rep)}); plan de bancos escrito ([plan de validación](RenderWareExe/plan-validacion.md)); empieza al cerrar las oleadas del juego, con funciones puras, después flujos y memoria falsos y al final el dispositivo D3D falso'],
         ['Pase final de bancos viejos', 'Pendiente: repetir los bancos antiguos cuyos colaboradores ahora tienen hook o cuyo código cambió'],
-        ['Ejecutable propio', 'Después: sustituir RenderWare, D3D y CRT por bibliotecas y quitar la dependencia del EXE ([hoja de ruta](ProjectRoadmap.md))'],
+        ['Ejecutable propio', '**En curso, no terminado** (24/11/2026): `gta_sa_standalone.exe` arrancó, cargó una partida y siguió vivo más de 5 minutos sin `gta-sa.exe` ([prueba](CodigoVivoExe/sin-original.md)); QuickTime y DirectDraw están sustituidos y no quedan envolturas pendientes. Faltan por verificar la misión 1 completa, el mando real, el mapa grande y guardar/cargar ([estado y pendientes](RutaExeIndependiente.md#actualización-del-24112026-estado-medido-del-ejecutable-independiente))'],
     ])
     L.append('@@CORE_END@@')
 
@@ -277,5 +277,5 @@ def build(root, input_path, coverage, validation, notsa_count=0):
     i, j = L.index('@@CORE_START@@'), L.index('@@CORE_END@@')
     core = L[i + 1:j]
     report = [x for x in L if x not in ('@@CORE_START@@', '@@CORE_END@@')]
-    readme = [x.replace('(ProjectRoadmap.md)', '(docs/ProjectRoadmap.md)').replace('(JuegoExe/', '(docs/JuegoExe/').replace('(ReversedClasses.md', '(docs/ReversedClasses.md').replace('(RenderWareExe/', '(docs/RenderWareExe/') for x in core]
+    readme = [x.replace('(ProjectRoadmap.md)', '(docs/ProjectRoadmap.md)').replace('(JuegoExe/', '(docs/JuegoExe/').replace('(ReversedClasses.md', '(docs/ReversedClasses.md').replace('(RenderWareExe/', '(docs/RenderWareExe/').replace('(CodigoVivoExe/', '(docs/CodigoVivoExe/').replace('(RutaExeIndependiente.md', '(docs/RutaExeIndependiente.md') for x in core]
     return report, readme

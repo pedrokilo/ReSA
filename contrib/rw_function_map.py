@@ -28,7 +28,7 @@ STATUS = {
     'C': 'C · Falta: solo la llaman funciones aún no reemplazadas',
     'D': 'D · Falta: sin llamadas ni vtable (¿muerto o por puntero?)',
     'enlazada': 'Biblioteca de terceros: se enlaza la original, no se reconstruye',
-    'no_reconstruible': 'No reconstruible en C++ puro (ABI de registros, 3DNow!, fragmento) · documentada',
+    'no_reconstruible': 'No reconstruible en C++ puro (ABI de registros, 3DNow!, fragmento) o sustituida por otra API (QuickTime, DirectDraw) · documentada',
 }
 ENLAZADAS = ('libpng + zlib', 'D3DX9 (compilador de shaders)')  # decision del usuario (2026-11-16): se enlazan, no se reconstruyen
 BLOCK = 0x10000

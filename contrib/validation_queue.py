@@ -142,6 +142,16 @@ def build_document():
         'Validar no exige que la clase esté completa: se valida cada función ya reconstruida. '
         '"Sin reconstruir" es informativo y no cuenta como trabajo de esta cola.',
         '',
+        '**Contexto del 22 al 24/11/2026.** La cola es la lista de pendientes de validación tal como la dice `hooks.csv`; en esos días no se '
+        'añadieron bancos nuevos: el trabajo fue el ejecutable independiente, las auditorías de «dato en dos sitios» y la comparación con el '
+        'original (resumen con cada documento de ejecución en [la ruta hacia el EXE independiente]'
+        '(RutaExeIndependiente.md#actualización-del-24112026-estado-medido-del-ejecutable-independiente)). Las funciones tocadas por ese '
+        'trabajo (CRT del montón, ramas x87 de `floor`/`ceil`/`pow`, ayudantes de RenderWare, `CAEMFDecoder` con Media Foundation, '
+        'combos de melee, lista libre de muebles, fundidos del HUD, ruta de scripts, comandos de gimnasio) cambiaron de código (tras su evidencia, si la tenían): '
+        'su validación futura debe repetirse sobre el árbol actual. Quien valide una función de esa lista debe leer antes '
+        'el documento de ejecución correspondiente: ahí está lo que se midió y lo que no. '
+        'Como esta guía sale de `contrib/validation_queue.py`, este párrafo se edita allí.',
+        '',
         '**Navegación:** ' + ' · '.join(f'[{TITLES[k][0]} Nivel {k}](#nivel-{k})' for k in (1, 2, 3, 4))
         + ' · [Fuera de la cola](#fuera-de-la-cola) · [Cómo se ordena](#como-se-ordena)',
         '',
