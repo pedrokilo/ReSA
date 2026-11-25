@@ -22,7 +22,9 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-2025]
-        conf: [Debug, Release]
+        # Debug no se analiza: 24 archivos del proyecto llevan /O2 /arch:IA32 por fidelidad con el EXE (x87) y el analisis
+        # de MSVC los rechaza junto al /RTC1 de Debug ("compiler errors in files"); Release usa las mismas opciones sin conflicto.
+        conf: [Release]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -50,6 +52,16 @@ jobs:
 
         # Upload SARIF file to GitHub Code Scanning Alerts
       - name: Upload SARIF to GitHub
+        # Puede fallar si el repositorio no tiene Code Scanning activado; el resultado queda ademas como artefacto.
+        continue-on-error: true
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: ${{ steps.analysis.outputs.sarif }}
+
+      - name: Guardar SARIF como artefacto
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sarif-${{ matrix.conf }}
+          path: ${{ steps.analysis.outputs.sarif }}
+          if-no-files-found: warn
