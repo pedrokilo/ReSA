@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include <reversiblebugfixes/Bugs.hpp>
 #include "Coronas.h"
 #include "X87Math.h"
+#include "extensions/SilentPatchConfig.h"
 
 constexpr std::array<const char[26], eCoronaType::CORONATYPE_COUNT> aCoronaSpriteNames = {
     "coronastar",
@@ -308,6 +309,7 @@ void CCoronas::Render() {
     RwRenderStateSet(rwRENDERSTATEDESTBLEND,         RWRSTATE(rwBLENDONE));
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE,       RWRSTATE(TRUE));
 
+    static const bool spCoronaRotation = SilentPatchOption("CoronaRotation", true); // SilentPatch (MIT, Silent): coronas giran al acercar la camara, como en PS2
     bool zTestEnable = true;
     const CoronaFlareDefRaw* flareDef = s_SunFlareDefRaw; // En el EXE el registro queda sin inicializar si el tipo no es 1 ni 2
     for (auto& c : aCoronas) {
@@ -381,8 +383,8 @@ void CCoronas::Render() {
                     (uint8)(int32)((float)c.m_Color.g * invScale),
                     (uint8)(int32)((float)c.m_Color.b * invScale),
                     (int16)intensity,
-                    rz * 20.0f,
-                    0.0f,
+                    spCoronaRotation ? rz : rz * 20.0f,
+                    spCoronaRotation ? rz * 20.0f : 0.0f, // SilentPatch (MIT, Silent): rotacion de las coronas (CoronaRotationFix)
                     255
                 );
             }
@@ -829,7 +831,10 @@ void CCoronas::DoSunAndMoon() {
     constexpr float sunFlareSizeMultiplier = 6.0f;
 
     const auto& vecToSun  = CTimeCycle::m_VectorToSun.data()[CTimeCycle::m_CurrentStoredValue];
-    const float distance  = CDraw::GetFarClipZ() * 0.95f;
+    // SilentPatch (MIT, Silent): SunSizeHack (por defecto 1) acerca el sol limitando la distancia de far clip a 600
+    static const bool spSunSizeHack = SilentPatchOption("SunSizeHack", true);
+    const float farClip   = spSunSizeHack ? std::min(CDraw::GetFarClipZ(), 600.0f) : CDraw::GetFarClipZ();
+    const float distance  = farClip * 0.95f;
     const auto& camPos    = TheCamera.GetPosition();
     const CVector coronaPos{ vecToSun.x * distance + camPos.x, vecToSun.y * distance + camPos.y, vecToSun.z * distance + camPos.z };
 

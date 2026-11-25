@@ -48,6 +48,7 @@ END GENERATED HOOK STATUS */
 #include "CarFXRenderer.h"
 
 #include "extensions/Configs/FastLoader.hpp"
+#include "extensions/SilentPatchConfig.h"
 
 void AppGameInjectHooks() {
     RH_ScopedCategory("App");
@@ -332,17 +333,23 @@ void Idle(void* param) {
 
     // Como el original: limitador de fotogramas por espera activa (como mínimo 14 ms entre fotogramas) con
     // división y resta sin signo; las dos primeras lecturas del temporizador se descartan.
-    static auto& LastTickTime = DatosExe::Bss::bB72CA8;
-    CTimer::GetCurrentTimeInCycles();
-    CTimer::GetCyclesPerMillisecond();
-    uint32 timeInMs;
-    do {
-        const uint32 cycles = CTimer::GetCurrentTimeInCycles();
-        timeInMs = cycles / CTimer::GetCyclesPerMillisecond();
-    } while (timeInMs - LastTickTime < 14u);
-    {
-        const uint32 cycles = CTimer::GetCurrentTimeInCycles();
-        LastTickTime = cycles / CTimer::GetCyclesPerMillisecond();
+    // SilentPatch (MIT, Silent): NoFrameDelay (sin opcion propia en SilentPatchSA.ini; activado). Quita la espera de 14 ms
+    // (el juego pasa de 25 a 30 FPS con el limitador).
+    static const bool spNoFrameDelay = SilentPatchOption("NoFrameDelay", true);
+    if (!spNoFrameDelay) {
+        static auto& LastTickTime = DatosExe::Bss::bB72CA8;
+        CTimer::GetCurrentTimeInCycles();
+        CTimer::GetCyclesPerMillisecond();
+        uint32 timeInMs;
+        do {
+            const uint32 cycles = CTimer::GetCurrentTimeInCycles();
+            timeInMs = cycles / CTimer::GetCyclesPerMillisecond();
+        } while (timeInMs - LastTickTime < 14u);
+        {
+            const uint32 cycles = CTimer::GetCurrentTimeInCycles();
+            LastTickTime = cycles / CTimer::GetCyclesPerMillisecond();
+        }
+
     }
 
     CTimer::Update();

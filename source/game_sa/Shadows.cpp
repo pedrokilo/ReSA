@@ -38,6 +38,7 @@ END GENERATED HOOK STATUS */
 #include "X87Math.h"
 #include "FireManager.h"
 #include <CustomBuildingDNPipeline.h>
+#include "extensions/SilentPatchConfig.h"
 
 void CShadows::InjectHooks() {
     RH_ScopedClass(CShadows);
@@ -702,7 +703,30 @@ void CShadows::RenderExtraPlayerShadows() {
 }
 
 // 0x708300
+// SilentPatch (MIT, Silent): StaticShadowAlphaFix. Desactiva la prueba alfa (ALWAYS) mientras se pintan las sombras
+// estaticas y guardadas y restaura el estado anterior al salir. Opcion StaticShadowAlphaFix (activada por defecto).
+namespace {
+struct ScopedShadowAlphaTest {
+    void* prev{};
+    bool  active{};
+    ScopedShadowAlphaTest() {
+        static const bool enabled = SilentPatchOption("StaticShadowAlphaFix", true);
+        if (enabled) {
+            active = true;
+            RwRenderStateGet(rwRENDERSTATEALPHATESTFUNCTION, &prev);
+            RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTION, RWRSTATE(rwALPHATESTFUNCTIONALWAYS));
+        }
+    }
+    ~ScopedShadowAlphaTest() {
+        if (active) {
+            RwRenderStateSet(rwRENDERSTATEALPHATESTFUNCTION, prev);
+        }
+    }
+};
+} // namespace
+
 void CShadows::RenderStaticShadows() {
+    const ScopedShadowAlphaTest spAlphaFix;
     RwRenderStateSet(rwRENDERSTATEZWRITEENABLE,         RWRSTATE(FALSE));
     RwRenderStateSet(rwRENDERSTATEZTESTENABLE,          RWRSTATE(TRUE));
     RwRenderStateSet(rwRENDERSTATEVERTEXALPHAENABLE,    RWRSTATE(TRUE));
@@ -1078,6 +1102,7 @@ static int32 ShadowSectorIndex(float coordinate, bool maximum);
 static int32 ShadowFtol(double value);
 // 0x70A960
 void CShadows::RenderStoredShadows() {
+    const ScopedShadowAlphaTest spAlphaFix;
     // Como el original (0x70A960-0x70A9E0): los render states y el buffer se preparan aunque no haya sombras guardadas
     // (antes habia un return anticipado que omitia esas llamadas).
     RenderBuffer::ClearRenderBuffer();

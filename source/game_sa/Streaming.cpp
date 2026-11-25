@@ -38,6 +38,7 @@ END GENERATED HOOK STATUS */
 #include "LoadingScreen.h"
 #include "VehicleRecording.h"
 #include "DatosExe/DataBssF.h"
+#include "extensions/SilentPatchConfig.h"
 
 static auto& CurrentGangMemberToLoad = DatosExe::Bss::b9654D4;
 
@@ -3057,7 +3058,9 @@ void CStreaming::Init2() {
     ms_pStreamingBuffer[1] = &ms_pStreamingBuffer[0][STREAMING_SECTOR_SIZE * ms_streamingBufferSize];
     ms_memoryAvailable = 50 * 1024 * 1024; // 50 MB
     desiredNumVehiclesLoaded = 22;
-    ms_rwObjectInstances.Init(1000); // Como el original (0x5B8E54: new[0x2EE0] = 1000 enlaces de 12 bytes)
+    // SilentPatch (MIT, Silent): lista de entidades en streaming ampliada de 12000 a 15000 bytes (1250 enlaces) para que el mundo no parpadee
+    // al mirar hacia abajo con mucha distancia de dibujo. Opcion BiggerStreamedEntityList (sin opcion en SilentPatchSA.ini: activada).
+    ms_rwObjectInstances.Init(SilentPatchOption("BiggerStreamedEntityList", true) ? 1250 : 1000); // Como el original (0x5B8E54: new[0x2EE0] = 1000 enlaces de 12 bytes)
     ms_bIsInitialised = true;
 }
 

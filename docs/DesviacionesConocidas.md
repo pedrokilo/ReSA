@@ -583,3 +583,17 @@ Esta sección se añadió el 24/11/2026 sin reescribir el resto: las secciones 1
 - La semilla de `rand` del EXE no se sembraba en `GameInit`; ahora se siembran las dos (`ExeCrt::Srand` y `srand`); corregido por lectura del desensamblado, sin medir `holdrand` en ejecución ([ejecucion-datos-g6g8.md](DatosExe/ejecucion-datos-g6g8.md)).
 - Entrar en el gimnasio de Ganton caía por pasar `-1` a `TASK_KILL_CHAR_ON_FOOT` y `_WHILE_DUCKING` como `CPed&`; ahora reciben el manejador entero (commit `96f1c36f61`; evidencia en `reversing/FnJuego/evidencia/`, sin informe escrito en `main`).
 - El espejo del ropero (diferencia con el original por la GPU) y el ratón del independiente (SDL3 sustituía el registro de entrada en bruto de DirectInput; [ejecucion-raton.md](CodigoVivoExe/ejecucion-raton.md)).
+
+## 15b. Correcciones opcionales de SilentPatch: gráficos, tiempo y streaming (24/11/2026)
+
+Interruptor general `GTASA_SILENTPATCH=0|1` (o `SilentPatch=` en `gta-reversed.ini`; `source/extensions/SilentPatchConfig.*`); con él apagado todo es como el EXE. Licencia: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Opción propia: `GTASA_SILENTPATCH_<NOMBRE>=0|1` o `SilentPatch_<Nombre>=0|1` (se leen una vez por proceso). Detalle: [silentpatch-graficos.md](CodigoVivoExe/silentpatch-graficos.md).
+
+| # | Función | Desviación | Opción | Riesgo |
+| --- | --- | --- | --- | --- |
+| 1 | `CCoronas::Render` | Las coronas giran al acercar la cámara (recipz sin x20, ángulo = 20/z) | `CoronaRotation` | bajo |
+| 2 | `CCoronas::DoSunAndMoon` | Sol más grande: distancia de far clip limitada a 600 (en el EXE solo con timecyc/seabed estándar) | `SunSizeHack` | bajo |
+| 3 | `CShadows::RenderStaticShadows` / `RenderStoredShadows` | Prueba alfa desactivada (ALWAYS) al pintarlas, estado restaurado al salir | `StaticShadowAlphaFix` | bajo |
+| 4 | `CTheScripts::DrawScriptSpritesAndRectangles` | Filtro bilineal en los sprites de script (estado restaurado) | `ScriptSpritesBilinear` | bajo |
+| 5 | `Idle` (0x53E920) | Sin la espera de 14 ms entre fotogramas: 30 FPS reales en vez de 25 con el limitador | `NoFrameDelay` | medio (cambia el ritmo del juego respecto al original) |
+| 6 | `CTimeCycle::Initialise` | Multiplicador direccional por defecto 1.0 y relectura de la línea rota de RAINY_COUNTRYSIDE | `TimecycMissingDataFix` | bajo |
+| 7 | `CStreaming::Init` | Lista de entidades en streaming de 1000 a 1250 enlaces | `BiggerStreamedEntityList` | bajo |
