@@ -18,6 +18,7 @@ END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
 #include "extensions/SilentPatchConfig.h"
+#include "PadCheats.h"
 
 #include "Cheat.h"
 #include "PedType.h"
@@ -164,6 +165,28 @@ static void SilentPatchFixCheatMeleeAmmo(CPlayerPed* ped) {
     }
 }
 
+// NOTSA (PadCheats, propio): cuerpo de la activacion de AddToCheatString (0x438560..0x43859F) extraido literal para que la entrada por mando
+// (PadCheats.cpp) llame a la MISMA activacion que la de teclado: mismo orden y mismos efectos (mensaje, estadistica, indicador, funcion o alternancia).
+void CCheat::ActivateCheatByIndex(int32 j) {
+    if (m_aCheatsActive[j]) {
+        // deactivated
+        CHud::SetHelpMessage(TheText.Get("CHEAT8"), true, false, false);
+    } else {
+        // activated
+        CHud::SetHelpMessage(TheText.Get("CHEAT1"), true, false, false);
+    }
+
+    CStats::IncrementStat(STAT_TIMES_CHEATED, 1.0f);
+
+    // Como el original (0x438576): el indicador se pone ANTES de ejecutar el truco; sin pasar por ApplyCheat
+    m_bHasPlayerCheated = true;
+    if (auto* const func = m_aCheatFunctions[j]) {
+        func();
+    } else {
+        m_aCheatsActive[j] = !m_aCheatsActive[j];
+    }
+}
+
 // 0x438480
 void CCheat::AddToCheatString(char LastPressedKey) {
     if (CCutsceneMgr::ms_running) {
@@ -206,23 +229,7 @@ void CCheat::AddToCheatString(char LastPressedKey) {
                 continue;
             }
 
-            if (m_aCheatsActive[j]) {
-                // deactivated
-                CHud::SetHelpMessage(TheText.Get("CHEAT8"), true, false, false);
-            } else {
-                // activated
-                CHud::SetHelpMessage(TheText.Get("CHEAT1"), true, false, false);
-            }
-
-            CStats::IncrementStat(STAT_TIMES_CHEATED, 1.0f);
-
-            // Como el original (0x438576): el indicador se pone ANTES de ejecutar el truco; sin pasar por ApplyCheat
-            m_bHasPlayerCheated = true;
-            if (auto* const func = m_aCheatFunctions[j]) {
-                func();
-            } else {
-                m_aCheatsActive[j] = !m_aCheatsActive[j];
-            }
+            ActivateCheatByIndex(j); // PadCheats (propio): cuerpo extraido literal, ver ActivateCheatByIndex
             m_CheatString[0] = '\0';
             return;
         }
@@ -263,6 +270,9 @@ void CCheat::DoCheats() {
             AddToCheatString(key);
         }
     }
+
+    // PadCheats (propio, opcion PadCheats / GTASA_PAD_CHEATS, por defecto activada): trucos de PS2 con los botones del mando; apagada = comportamiento del EXE
+    PadCheats::Process();
 }
 
 // 0x439880

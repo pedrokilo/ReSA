@@ -1,0 +1,51 @@
+[    0.2] pid 37748
+[    9.7] juego en marcha tras 9 s; gGameState=9
+[   10.4] salida de la casa: area=0 tras 1 s
+[   11.4] ventana: cliente 585x438
+[   11.4] === ESCENARIO espera
+[   37.8] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.543701171875, 10.90625) pools {'peds': 31, 'veh': 16, 'edif': 10113, 'obj': 99, 'dummy': 728}
+[   58.0] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2643.639404296875, -1702.17724609375, 10.734375) pools {'peds': 33, 'veh': 17, 'edif': 10219, 'obj': 102, 'dummy': 812}
+[   78.4] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2643.65380859375, -1702.1494140625, 10.750833511352539) pools {'peds': 31, 'veh': 17, 'edif': 10219, 'obj': 101, 'dummy': 812}
+[   98.6] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2643.66064453125, -1702.1796875, 10.734375) pools {'peds': 29, 'veh': 16, 'edif': 10219, 'obj': 100, 'dummy': 812}
+[  119.0] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2643.66064453125, -1702.1796875, 10.734375) pools {'peds': 28, 'veh': 17, 'edif': 10219, 'obj': 100, 'dummy': 812}
+[  139.2] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2643.66064453125, -1702.1796875, 10.734375) pools {'peds': 30, 'veh': 17, 'edif': 10219, 'obj': 100, 'dummy': 812}
+[  159.5] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2643.66064453125, -1702.1796875, 10.734375) pools {'peds': 29, 'veh': 17, 'edif': 10219, 'obj': 100, 'dummy': 812}
+[  179.8] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2643.66064453125, -1702.1796875, 10.734375) pools {'peds': 28, 'veh': 17, 'edif': 10219, 'obj': 101, 'dummy': 812}
+[  200.3] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2643.66064453125, -1702.1796875, 10.734375) pools {'peds': 25, 'veh': 14, 'edif': 10219, 'obj': 99, 'dummy': 812}
+[  220.6] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2643.66064453125, -1702.1796875, 10.734375) pools {'peds': 29, 'veh': 17, 'edif': 10219, 'obj': 99, 'dummy': 812}
+[  220.9] vivo al final: True
+[  220.9] LOG [info][16:25:12.804][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[  220.9] LOG [info][16:25:12.804][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[  220.9] LOG [info][16:25:12.804][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[  220.9] LOG [info][16:25:12.804][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[  220.9] LOG [info][16:25:13.096][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[  220.9] LOG [info][16:25:13.113][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[  220.9] LOG [error][16:25:20.664][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  220.9] LOG [error][16:25:20.664][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  220.9] LOG [info][16:25:20.822][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[  220.9] LOG [info][16:25:38.827][SilentPatchConfig.cpp:75]: SilentPatch: opcion SpeechCrashGenericFallback = 1
+[  220.9] LOG [error][16:25:45.542][app_debug.cpp:260]: ASSERT FALLIDO (se continua): `result` en D:\Original\wv-int\source\app\app_debug.h:14
+[  220.9] LOG [error][16:25:45.761][app_debug.cpp:247]: 	0x01e3e080: notsa::detail::VerifyMacroImpl:14
+[  220.9] LOG [error][16:25:45.762][app_debug.cpp:247]: 	0x01e28842: `CRunningScript::ProcessOneCommand'::`2'::<lambda_1>::operator():1268
+[  220.9] LOG [error][16:25:45.763][app_debug.cpp:247]: 	0x01e277ef: std::invoke<`CRunningScript::ProcessOneCommand'::`2'::<lambda_1> &>:1801
+[  220.9] LOG [error][16:25:45.764][app_debug.cpp:247]: 	0x01e28018: notsa::ScopeGuard<`CRunningScript::ProcessOneCommand'::`2'::<lambda_1> >::~ScopeGuard<`CRunningScript::ProcessOneCommand'::`2'::<lambda_1> >:170
+[  220.9] LOG [error][16:25:45.765][app_debug.cpp:247]: 	0x01e3bcc1: CRunningScript::ProcessOneCommand:1301
+[  220.9] LOG [error][16:25:45.765][app_debug.cpp:247]: 	0x01e31e40: CRunningScript::Process:1328
+[  220.9] LOG [error][16:25:45.766][app_debug.cpp:247]: 	0x023a6fce: CTheScripts::Process:1907
+[  220.9] LOG [error][16:25:45.767][app_debug.cpp:247]: 	0x0173455a: CGame::Process:792
+[  220.9] LOG [error][16:25:45.768][app_debug.cpp:247]: 	0x00ffd2a1: Idle:372
+[  220.9] LOG [error][16:25:45.769][app_debug.cpp:247]: 	0x00fe4cfd: AppEventHandler:169
+[  220.9] LOG [error][16:25:45.769][app_debug.cpp:247]: 	0x01c04b28: RsEventHandler:349
+[  220.9] LOG [error][16:25:45.770][app_debug.cpp:247]: 	0x02578ac6: ProcessGameLogic:355
+[  220.9] LOG [error][16:25:45.771][app_debug.cpp:247]: 	0x02577949: MainLoop:381
+[  220.9] LOG [error][16:25:45.771][app_debug.cpp:247]: 	0x0257825e: NOTSA_WinMain:520
+[  220.9] LOG [error][16:25:45.772][app_debug.cpp:247]: 	0x00e4ec0b: WinMain:702
+[  220.9] LOG [error][16:25:45.773][app_debug.cpp:247]: 	0x02b0ef0d: invoke_main:107
+[  220.9] LOG [error][16:25:45.773][app_debug.cpp:247]: 	0x02b0edea: __scrt_common_main_seh:288
+[  220.9] LOG [error][16:25:45.774][app_debug.cpp:247]: 	0x02b0ec8d: __scrt_common_main:331
+[  220.9] LOG [error][16:25:45.774][app_debug.cpp:247]: 	0x02b0ef78: WinMainCRTStartup:17
+[  220.9] LOG [error][16:25:45.774][app_debug.cpp:247]: 	0x00e51e1b: FaseEntrada:673
+[  220.9] LOG [error][16:25:45.775][app_debug.cpp:247]: 	0x75495d49: BaseThreadInitThunk:0
+[  220.9] LOG [error][16:25:45.775][app_debug.cpp:247]: 	0x76fac88b: RtlInitializeExceptionChain:0
+[  220.9] LOG [error][16:25:45.775][app_debug.cpp:247]: 	0x76fac811: RtlGetAppContainerNamedObjectPath:0
+[  220.9] fin

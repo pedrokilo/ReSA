@@ -43,3 +43,10 @@ SOFTWARE.
 ### Entradas por área
 
 - **Scripts, misiones, entrada, HUD, trucos, guardado y textos (rama `silentpatch-scm`)**: `source/game_sa/Scripts/SilentPatchScripts.*` (parches de bytecode SCM de SilentPatchSA.cpp, namespace `ScriptFixes`, y ScriptSA.cpp), `source/game_sa/SilentPatchNewGame.*` (namespace `VariableResets`), y los hunks marcados con `// SilentPatch (MIT, Silent)` en TheScripts, RunningScript*, MathCommands, MissionCommands, Cheat, Camera/Cam/X87Math, Hud, Stats, MenuManager*, TheZones, FileLoader, Game, Localisation, AERadioTrackManager, Automobile y QuadBike. Detalle: [CodigoVivoExe/silentpatch-scm.md](CodigoVivoExe/silentpatch-scm.md).
+
+## GInputSA 1.11 (lista de secuencias de botones de PS2)
+
+Lista de secuencias de botones de PS2 tomada de la documentación de GInputSA 1.11 de Silent (autorización solicitada por el usuario del proyecto); las secuencias son las de la versión PS2 del juego.
+Solo se usan las 87 secuencias de la lista publicada en el paquete (`CheatList for PS.html`); no se tomó nada de `GInputSA.asi` (no se desensambló). Uso: `source/game_sa/PadCheatsTable.inc.h`
+(generado por `contrib/pad_cheats_tabla.py`) y `source/game_sa/PadCheats.*` (detector propio); desviación propia 15.P de [DesviacionesConocidas.md](DesviacionesConocidas.md), mapeo en
+[CodigoVivoExe/trucos-mando.md](CodigoVivoExe/trucos-mando.md).

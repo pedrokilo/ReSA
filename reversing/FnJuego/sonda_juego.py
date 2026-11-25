@@ -1077,7 +1077,77 @@ def esc_espera(j):
     while time.time() - t0 < seg and j.alive():
         j.dormir(20.0); j.P('espera: estado', json.dumps(msaa_estado(j)), 'pos', j.pos(), 'pools', j.pools())
 
-ESCENARIOS = {'msaa': esc_msaa, 'msaa_estado': esc_msaa_estado, 'espera': esc_espera, 'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'altf4': esc_altf4, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos, 'pausa': esc_pausa, 'caida_interior': esc_caida_interior}
+# ---------------------------------------------------------------- PadCheats (trucos de PS2 con el mando; docs/CodigoVivoExe/trucos-mando.md)
+PS2_XI = {'l1': (0x0100, 0, 0), 'r1': (0x0200, 0, 0), 'l2': (0, 255, 0), 'r2': (0, 0, 255), 'ud': (0x0001, 0, 0), 'dd': (0x0002, 0, 0), 'ld': (0x0004, 0, 0), 'rd': (0x0008, 0, 0),
+          'cr': (0x1000, 0, 0), 'ci': (0x2000, 0, 0), 'sq': (0x4000, 0, 0), 'tr': (0x8000, 0, 0)}
+def pad_pulsa(j, seq, down=0.14, up=0.14):
+    """pulsa la secuencia de botones PS2 con el mando XInput falso (A=cruz, B=circulo, X=cuadrado, Y=triangulo, LB/RB=L1/R1, LT/RT=L2/R2)"""
+    for b in seq:
+        bo, lt, rt = PS2_XI[b]; j.xi(botones=bo, lt=lt, rt=rt); j.dormir(down, 0.02); j.xi(); j.dormir(up, 0.02)
+def esc_padcheats(j):
+    import random
+    apagado = '--padcheats-off' in sys.argv
+    cj = json.load(open(arg('--cheats-json') or r'D:\Original\_ginput_ref\cheats_ps.json'))
+    suelo_libre(j); j.xi(); j.dormir(1.5)
+    modo = 'APAGADO (GTASA_PAD_CHEATS=0: se espera NINGUN efecto)' if apagado else 'ENCENDIDO (se esperan los efectos)'
+    j.P('PADCHEATS modo', modo, 'llamadas XInput', j.xi_llamadas())
+    # 1) mapeo real del mando XInput a los campos PS2 de CPad (NewState en 0xB73458), para cada boton
+    mapeo = {}
+    for b, (bo, lt, rt) in PS2_XI.items():
+        j.xi(botones=bo, lt=lt, rt=rt); j.dormir(0.25, 0.02); k = j.pad(); j.xi(); j.dormir(0.2, 0.02)
+        mapeo[b] = {kk: vv for kk, vv in k.items() if vv and kk in ('L1', 'L2', 'R1', 'R2', 'up', 'down', 'left', 'right', 'Square', 'Triangle', 'Cross', 'Circle')}
+    j.P('PADCHEATS mapeo XInput -> campos de CPad::NewState:', json.dumps(mapeo)); j.res['padcheats_mapeo'] = mapeo
+    res = {}
+    def forzado(): return j.m.i32(0xC81318)
+    def pon_clima(v):
+        for a in (0xC81318, 0xC8131C, 0xC81320): j.m.wr(a, struct.pack('<i', v))
+    def modelos(m): return sum(1 for v in vehiculos(j) if j.modelo(v) == m)
+    seq = lambda n: next(s for d, s in cj if d == n)
+    def intento(nombre, secuencia, hecho, detalle, prep=None):
+        """pulsa la secuencia y comprueba el efecto; encendido: si el efecto no aparece se reintenta UNA vez tras 3.2 s (un fotograma perdido en la carga puede saltarse una pulsacion de 0.18 s); apagado: nunca"""
+        n = 0
+        while True:
+            n += 1
+            if prep: prep()
+            pad_pulsa(j, secuencia, 0.18, 0.14); j.dormir(0.3, 0.02); ok = bool(hecho())
+            if ok or apagado or n >= 2: break
+            j.P('PADCHEATS reintento de', nombre, '(no se vio el efecto en el 1.er intento)'); j.dormir(3.3)
+        ok_final = (not ok) if apagado else ok
+        res[nombre] = {'ok': bool(ok_final), 'intentos': n, 'detalle': detalle()}; j.P('PADCHEATS', 'OK  ' if ok_final else 'FALLO', nombre, 'intentos=%d' % n, detalle()); return ok
+    def alterna(nombre, i):
+        st = {}
+        def h1(): st['a'] = j.truco_activo(i); return st['a'] == 1
+        intento(nombre + ' (1.a vez, ficha %d)' % i, seq(nombre), h1, lambda: 'ficha=%d' % j.truco_activo(i))
+        if not apagado and st.get('a') == 1:
+            n2 = 0
+            while True:
+                n2 += 1; pad_pulsa(j, seq(nombre), 0.18, 0.14); j.dormir(0.3, 0.02); b = j.truco_activo(i)
+                if b == 0 or n2 >= 2: break
+                j.P('PADCHEATS reintento de la 2.a vez de', nombre); j.dormir(3.3)
+            res[nombre + ' (2.a vez desactiva)'] = {'ok': b == 0, 'intentos': n2, 'detalle': 'ficha=%d' % b}; j.P('PADCHEATS', 'OK  ' if b == 0 else 'FALLO', nombre, '2.a vez desactiva: ficha=%d' % b)
+    for nombre, i in (('Infinite Health', 61), ('Never Wanted', 65), ('Max Respect', 79), ('Infinite Oxygen (Lung Capacity)', 62), ('Never Get Hungry', 68)):
+        alterna(nombre, i)
+    for nombre, w, otro in (('Really Sunny', 0, 9), ('Sunny', 1, 9), ('Foggy', 9, 0), ('Sandstorm', 19, 0), ('Cloudy', 4, 9)):
+        intento(nombre + ' (clima forzado %d)' % w, seq(nombre), lambda w=w: forzado() == w, lambda: 'forzado=%d' % forzado(), prep=lambda o=otro: pon_clima(o))
+    # reinicio por inactividad: la mitad, 3.6 s, el resto -> NO se activa (tambien apagado)
+    s_ = seq('Never Get Hungry'); pad_pulsa(j, s_[:4], 0.18, 0.14); j.dormir(3.6); pad_pulsa(j, s_[4:], 0.18, 0.14); j.dormir(0.3)
+    ok_p = j.truco_activo(68) == 0
+    res['pausa 3.6 s a la mitad (no debe activarse)'] = {'ok': ok_p, 'intentos': 1, 'detalle': 'ficha 68=%d' % j.truco_activo(68)}; j.P('PADCHEATS', 'OK  ' if ok_p else 'FALLO', 'pausa de 3.6 s a la mitad no activa', 'ficha 68=%d' % j.truco_activo(68))
+    # ruido: 250 pulsaciones aleatorias -> el estado de todos los trucos no cambia
+    f_antes = j.m.rd(0x969130, 98); clima = forzado(); nv = len(vehiculos(j)); rng = random.Random(4242); bt = list(PS2_XI)
+    for _ in range(250): pad_pulsa(j, [rng.choice(bt)], 0.10, 0.10)
+    f_desp = j.m.rd(0x969130, 98)
+    res['ruido 250 pulsaciones aleatorias'] = {'ok': f_antes == f_desp and forzado() == clima, 'intentos': 1, 'detalle': 'flags iguales=%s clima %d -> %d vehiculos %d -> %d' % (f_antes == f_desp, clima, forzado(), nv, len(vehiculos(j)))}
+    j.P('PADCHEATS', 'OK  ' if res['ruido 250 pulsaciones aleatorias']['ok'] else 'FALLO', 'ruido 250 pulsaciones aleatorias', res['ruido 250 pulsaciones aleatorias']['detalle'])
+    # teclado sigue igual: ASNAEB (lower wanted) y el contador de trucos de memoria
+    j.escribir_truco('ASNAEB'); j.dormir(1.0); j.P('PADCHEATS teclado ASNAEB enviado; vivo=%s' % j.alive())
+    # Rhino al final (el ultimo boton es Triangulo: con el tanque delante CJ puede entrar en el)
+    n0 = modelos(432); intento('Rhino (vehiculo nuevo en el pool)', seq('Rhino'), lambda: modelos(432) == n0 + 1, lambda: 'rhinos %d -> %d' % (n0, modelos(432)))
+    j.xi(); j.dormir(1.0)
+    j.res['padcheats'] = res; j.res['padcheats_modo'] = modo
+    j.P('PADCHEATS RESUMEN', modo, 'ok=%d de %d' % (sum(1 for v in res.values() if v['ok']), len(res)))
+
+ESCENARIOS = {'padcheats': esc_padcheats, 'msaa': esc_msaa, 'msaa_estado': esc_msaa_estado, 'espera': esc_espera, 'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'altf4': esc_altf4, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos, 'pausa': esc_pausa, 'caida_interior': esc_caida_interior}
 
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')

@@ -39,6 +39,7 @@ END GENERATED HOOK STATUS */
 #include "platform/win/VideoMode.h"
 #include "PadDiagnostico.h"
 #include "CutsceneMgr.h"
+#include "PadCheats.h"
 
 #ifdef NOTSA_USE_SDL3
 #include <SDL3/SDL.h>
@@ -292,6 +293,7 @@ void CPad::Update(int32 pad) {
     ReconcileTwoControllersInput(NewState, PCTempKeyState, PCTempJoyState);
     ReconcileTwoControllersInput(NewState, PCTempMouseState, NewState);
 
+    PadCheats::CaptureJoyState(pad, PCTempJoyState); // PadCheats (propio): estado del mando de este fotograma, sin teclado ni raton (opcion PadCheats)
     PCTempJoyState.Clear();
     PCTempKeyState.Clear();
     PCTempMouseState.Clear();
