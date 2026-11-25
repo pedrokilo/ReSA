@@ -1,0 +1,12 @@
+[    0.3] pid 25044
+[   11.6] juego en marcha tras 11 s; gGameState=9
+[   12.4] salida de la casa: area=0 tras 1 s
+[   13.4] ventana: cliente 640x480
+[   13.4] === ESCENARIO reposo120
+[  120.2] reposo: vivo = True pos (2652.482666015625, -1719.543701171875, 10.90625)
+[  120.5] EL PROCESO TERMINO durante reposo120
+[  120.7] vivo al final: False
+[  120.7] LOG [error][05:45:13.399][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  120.7] LOG [error][05:45:13.399][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  120.7] fin
+     60 excepciones=0

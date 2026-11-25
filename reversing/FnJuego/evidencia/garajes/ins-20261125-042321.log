@@ -1,0 +1,107 @@
+[    0.2] pid 15412
+[   12.8] juego en marcha tras 13 s; gGameState=9
+[   13.5] salida de la casa: area=0 tras 1 s
+[   14.5] ventana: cliente 640x480
+[   14.5] === ESCENARIO inspeccion
+[   20.6] NumGarages(aprox) y garajes:
+[   20.6]   {"i": 0, "base": 9879624, "tipo": 19, "estado": 0, "flags": 104, "tipo0": 1, "pos": [1640.4, -1520.1, 12.5], "izq": 1640.4, "der": 1647.6, "frente": -1520.1, "atras": -1512.4, "pos_puerta": 0.0, "nombre": "mul_lan"}
+[   20.6]   {"i": 1, "base": 9879840, "tipo": 33, "estado": 0, "flags": 104, "tipo0": 33, "pos": [1523.9, -1653.2, 4.7], "izq": 1523.9, "der": 1556.9, "frente": -1653.2, "atras": -1633.2, "pos_puerta": 0.0, "nombre": "imp_la"}
+[   20.6]   {"i": 2, "base": 9880056, "tipo": 15, "estado": 2, "flags": 104, "tipo0": 1, "pos": [1874.0, -2096.6, 12.5], "izq": 1874.0, "der": 1880.9, "frente": -2096.6, "atras": -2087.6, "pos_puerta": 1.0, "nombre": "duf_LAS"}
+[   20.6]   {"i": 3, "base": 9880272, "tipo": 2, "estado": 1, "flags": 8, "tipo0": 2, "pos": [1843.9, -1858.8, 12.4], "izq": 1843.9, "der": 1857.1, "frente": -1858.8, "atras": -1853.8, "pos_puerta": 1.0, "nombre": "lasbomb"}
+[   20.6]   {"i": 4, "base": 9880488, "tipo": 1, "estado": 0, "flags": 72, "tipo0": 1, "pos": [1809.5, -2150.7, 12.4], "izq": 1798.8, "der": 1809.5, "frente": -2150.7, "atras": -2142.8, "pos_puerta": 0.0, "nombre": "modgLAS"}
+[   20.6]   {"i": 5, "base": 9880704, "tipo": 31, "estado": 0, "flags": 104, "tipo0": 31, "pos": [1694.8, -2088.7, 12.4], "izq": 1694.8, "der": 1703.0, "frente": -2088.7, "atras": -2077.5, "pos_puerta": 0.0, "nombre": "carlas1"}
+[   20.6]   {"i": 6, "base": 9880920, "tipo": 19, "estado": 0, "flags": 72, "tipo0": 1, "pos": [2738.4, -2012.6, 12.6], "izq": 2738.4, "der": 2743.8, "frente": -2012.6, "atras": -2004.4, "pos_puerta": 0.0, "nombre": "burg_lk"}
+[   20.6]   {"i": 7, "base": 9881136, "tipo": 36, "estado": 0, "flags": 73, "tipo0": 1, "pos": [2640.8, -2050.0, 12.5], "izq": 2640.8, "der": 2649.0, "frente": -2050.0, "atras": -2039.6, "pos_puerta": 0.0, "nombre": "modlast"}
+[   20.6]   {"i": 8, "base": 9881352, "tipo": 5, "estado": 1, "flags": 12, "tipo0": 5, "pos": [2056.6, -1835.9, 12.5], "izq": 2056.6, "der": 2071.3, "frente": -1835.9, "atras": -1827.0, "pos_puerta": 1.0, "nombre": "sprLAe"}
+[   20.6]   {"i": 9, "base": 9881568, "tipo": 16, "estado": 0, "flags": 72, "tipo0": 16, "pos": [2502.3, -1699.4, 12.4], "izq": 2502.3, "der": 2508.6, "frente": -1699.4, "atras": -1691.0, "pos_puerta": 0.0, "nombre": "cjsafe"}
+[   20.6]   {"i": 10, "base": 9881784, "tipo": 38, "estado": 0, "flags": 73, "tipo0": 1, "pos": [1038.2, -1025.7, 31.1], "izq": 1038.2, "der": 1068.3, "frente": -1025.7, "atras": -995.0, "pos_puerta": 0.0, "nombre": "bodLAwN"}
+[   20.6]   {"i": 11, "base": 9882000, "tipo": 5, "estado": 1, "flags": 12, "tipo0": 5, "pos": [1021.8, -1018.7, 30.9], "izq": 1021.8, "der": 1027.9, "frente": -1029.5, "atras": -1018.7, "pos_puerta": 1.0, "nombre": "sprLAe"}
+[   20.6]   {"i": 12, "base": 9882216, "tipo": 5, "estado": 1, "flags": 12, "tipo0": 5, "pos": [491.1, -1747.6, 9.5], "izq": 482.0, "der": 492.7, "frente": -1747.6, "atras": -1734.5, "pos_puerta": 1.0, "nombre": "spLAw2"}
+[   20.6]   {"i": 13, "base": 9882432, "tipo": 17, "estado": 0, "flags": 72, "tipo0": 17, "pos": [319.3, -1768.9, 3.4], "izq": 319.3, "der": 325.6, "frente": -1768.9, "atras": -1759.6, "pos_puerta": 0.0, "nombre": "beacsv"}
+[   20.6]   {"i": 14, "base": 9882648, "tipo": 32, "estado": 0, "flags": 72, "tipo0": 32, "pos": [1352.6, -636.7, 108.1], "izq": 1349.6, "der": 1359.0, "frente": -636.7, "atras": -625.7, "pos_puerta": 0.0, "nombre": "CEsafe1"}
+[   20.6]   {"i": 15, "base": 9882864, "tipo": 37, "estado": 0, "flags": 73, "tipo0": 5, "pos": [-2728.5, 212.3, 3.5], "izq": -2728.5, "der": -2716.4, "frente": 212.3, "atras": 222.7, "pos_puerta": 0.0, "nombre": "mds1SFS"}
+[   20.6]   {"i": 16, "base": 9883080, "tipo": 19, "estado": 0, "flags": 72, "tipo0": 1, "pos": [-2735.5, 60.7, 3.1], "izq": -2735.5, "der": -2725.8, "frente": 60.7, "atras": 72.9, "pos_puerta": 0.0, "nombre": "tbon"}
+[   20.6]   {"i": 17, "base": 9883296, "tipo": 42, "estado": 0, "flags": 72, "tipo0": 42, "pos": [-2454.0, -131.6, 25.1], "izq": -2454.0, "der": -2442.4, "frente": -131.6, "atras": -113.9, "pos_puerta": 0.0, "nombre": "svgsfs1"}
+[   20.6]   {"i": 18, "base": 9883512, "tipo": 38, "estado": 0, "flags": 73, "tipo0": 1, "pos": [-1941.0, 251.7, 33.4], "izq": -1941.0, "der": -1930.7, "frente": 239.5, "atras": 251.7, "pos_puerta": 0.0, "nombre": "mdsSFSe"}
+[   20.6]   {"i": 19, "base": 9883728, "tipo": 5, "estado": 1, "flags": 12, "tipo0": 5, "pos": [-1908.9, 292.4, 40.0], "izq": -1908.9, "der": -1900.1, "frente": 278.0, "atras": 292.4, "pos_puerta": 1.0, "nombre": "sprsfse"}
+[   20.6]   {"i": 20, "base": 9883944, "tipo": 1, "estado": 0, "flags": 72, "tipo0": 1, "pos": [-2112.5, -21.2, 34.3], "izq": -2112.5, "der": -2102.5, "frente": -21.2, "atras": -11.2, "pos_puerta": 0.0, "nombre": "brgSFSE"}
+[   20.6]   {"i": 21, "base": 9884160, "tipo": 41, "estado": 0, "flags": 72, "tipo0": 41, "pos": [-2043.1, 118.6, 27.8], "izq": -2043.1, "der": -2021.9, "frente": 118.6, "atras": 129.6, "pos_puerta": 0.0, "nombre": "LCKSfse"}
+[   20.6]   {"i": 22, "base": 9884376, "tipo": 19, "estado": 0, "flags": 72, "tipo0": 1, "pos": [-2057.4, 150.8, 27.8], "izq": -2057.4, "der": -2038.9, "frente": 150.8, "atras": 182.9, "pos_puerta": 0.0, "nombre": "hbgdSFS"}
+[   20.6]   {"i": 23, "base": 9884592, "tipo": 19, "estado": 0, "flags": 88, "tipo0": 1, "pos": [-2171.4, 649.4, 49.9], "izq": -2171.4, "der": -2161.8, "frente": 649.4, "atras": 661.8, "pos_puerta": 0.0, "nombre": "fdorsfe"}
+[   20.6]   {"i": 24, "base": 9884808, "tipo": 5, "estado": 1, "flags": 140, "tipo0": 1, "pos": [-1791.0, 1209.7, 23.8], "izq": -1791.0, "der": -1782.6, "frente": 1209.7, "atras": 1221.5, "pos_puerta": 1.0, "nombre": "michdr"}
+[   20.6]   {"i": 25, "base": 9885024, "tipo": 39, "estado": 0, "flags": 120, "tipo0": 39, "pos": [-2108.9, 886.6, 75.6], "izq": -2108.9, "der": -2101.4, "frente": 886.6, "atras": 896.8, "pos_puerta": 0.0, "nombre": "sav1sfe"}
+[   20.6]   {"i": 26, "base": 9885240, "tipo": 34, "estado": 0, "flags": 96, "tipo0": 34, "pos": [-1652.8, 647.5, -6.0], "izq": -1652.8, "der": -1617.9, "frente": 647.5, "atras": 672.0, "pos_puerta": 0.0, "nombre": "imp_sf"}
+[   20.6]   {"i": 27, "base": 9885456, "tipo": 5, "estado": 1, "flags": 12, "tipo0": 5, "pos": [-2430.1, 1013.7, 49.3], "izq": -2430.1, "der": -2421.2, "frente": 1013.7, "atras": 1027.8, "pos_puerta": 1.0, "nombre": "sprsfw"}
+[   20.6]   {"i": 28, "base": 9885672, "tipo": 40, "estado": 0, "flags": 72, "tipo0": 40, "pos": [-2699.1, 821.5, 49.0], "izq": -2699.1, "der": -2692.9, "frente": 821.5, "atras": 831.2, "pos_puerta": 0.0, "nombre": "sav1sfw"}
+[   20.6]   {"i": 29, "base": 9885888, "tipo": 35, "estado": 0, "flags": 104, "tipo0": 35, "pos": [2218.1, 2448.1, -8.4], "izq": 2218.1, "der": 2234.5, "frente": 2448.1, "atras": 2467.6, "pos_puerta": 0.0, "nombre": "imp_lv"}
+[   20.6]   {"i": 30, "base": 9886104, "tipo": 44, "estado": 0, "flags": 96, "tipo0": 44, "pos": [1551.0, 1155.4, 9.0], "izq": 1551.0, "der": 1621.8, "frente": 1155.4, "atras": 1224.0, "pos_puerta": 0.0, "nombre": "vgshngr"}
+[   20.6]   {"i": 31, "base": 9886320, "tipo": 1, "estado": 0, "flags": 72, "tipo0": 1, "pos": [2602.6, 1438.8, 9.8], "izq": 2602.6, "der": 2616.4, "frente": 1438.8, "atras": 1462.1, "pos_puerta": 0.0, "nombre": "vgElock"}
+[   20.6]   {"i": 32, "base": 9886536, "tipo": 5, "estado": 1, "flags": 40, "tipo0": 5, "pos": [2389.6, 1483.3, 9.8], "izq": 2389.6, "der": 2398.1, "frente": 1483.3, "atras": 1497.8, "pos_puerta": 1.0, "nombre": "timy1"}
+[   20.6]   {"i": 33, "base": 9886752, "tipo": 38, "estado": 0, "flags": 73, "tipo0": 1, "pos": [2382.3, 1044.0, 9.8], "izq": 2382.3, "der": 2391.1, "frente": 1044.0, "atras": 1059.7, "pos_puerta": 0.0, "nombre": "vEcmod"}
+[   20.6]   {"i": 34, "base": 9886968, "tipo": 18, "estado": 0, "flags": 72, "tipo0": 18, "pos": [2449.5, 695.0, 10.5], "izq": 2449.5, "der": 2458.3, "frente": 695.0, "atras": 700.2, "pos_puerta": 0.0, "nombre": "vEsvgrg"}
+[   20.6]   {"i": 35, "base": 9887184, "tipo": 2, "estado": 1, "flags": 8, "tipo0": 2, "pos": [2003.0, 2303.7, 9.6], "izq": 2003.0, "der": 2010.4, "frente": 2303.7, "atras": 2317.6, "pos_puerta": 1.0, "nombre": "blob2"}
+[   20.6]   {"i": 36, "base": 9887400, "tipo": 5, "estado": 1, "flags": 8, "tipo0": 5, "pos": [1968.2, 2157.9, 9.6], "izq": 1968.2, "der": 1983.3, "frente": 2157.9, "atras": 2167.0, "pos_puerta": 1.0, "nombre": "blob1"}
+[   20.6]   {"i": 37, "base": 9887616, "tipo": 30, "estado": 0, "flags": 72, "tipo0": 30, "pos": [1408.7, 1899.5, 10.1], "izq": 1408.7, "der": 1417.6, "frente": 1899.5, "atras": 1904.9, "pos_puerta": 0.0, "nombre": "blob6"}
+[   20.6]   {"i": 38, "base": 9887832, "tipo": 27, "estado": 0, "flags": 72, "tipo0": 27, "pos": [1269.2, 2525.1, 9.8], "izq": 1269.2, "der": 1278.7, "frente": 2525.1, "atras": 2534.5, "pos_puerta": 0.0, "nombre": "blob69"}
+[   20.6]   {"i": 39, "base": 9888048, "tipo": 28, "estado": 0, "flags": 72, "tipo0": 28, "pos": [929.6, 2008.6, 10.1], "izq": 929.6, "der": 938.5, "frente": 2008.6, "atras": 2014.0, "pos_puerta": 0.0, "nombre": "blob7"}
+[   20.6]   {"i": 40, "base": 9888264, "tipo": 5, "estado": 1, "flags": 12, "tipo0": 5, "pos": [-1424.1, 2576.6, 54.8], "izq": -1424.1, "der": -1416.8, "frente": 2576.6, "atras": 2590.8, "pos_puerta": 1.0, "nombre": "CNspray"}
+[   20.6]   {"i": 41, "base": 9888480, "tipo": 5, "estado": 1, "flags": 8, "tipo0": 5, "pos": [-103.6, 1112.4, 18.7], "izq": -103.6, "der": -96.4, "frente": 1112.4, "atras": 1125.8, "pos_puerta": 1.0, "nombre": "CN2spry"}
+[   20.6]   {"i": 42, "base": 9888696, "tipo": 24, "estado": 0, "flags": 72, "tipo0": 24, "pos": [-364.4, 1194.4, 18.6], "izq": -364.4, "der": -356.2, "frente": 1194.4, "atras": 1203.0, "pos_puerta": 0.0, "nombre": "cn2gar1"}
+[   20.6]   {"i": 43, "base": 9888912, "tipo": 25, "estado": 0, "flags": 72, "tipo0": 25, "pos": [430.1, 2542.3, 15.2], "izq": 430.1, "der": 442.9, "frente": 2542.3, "atras": 2550.8, "pos_puerta": 0.0, "nombre": "cn2gar2"}
+[   20.6]   {"i": 44, "base": 9889128, "tipo": 19, "estado": 0, "flags": 72, "tipo0": 1, "pos": [-397.3, 2223.2, 41.4], "izq": -398.9, "der": -389.1, "frente": 2223.2, "atras": 2231.3, "pos_puerta": 0.0, "nombre": "ghostdr"}
+[   20.6]   {"i": 45, "base": 9889344, "tipo": 45, "estado": 0, "flags": 96, "tipo0": 45, "pos": [383.8, 2433.3, 15.2], "izq": 383.8, "der": 426.0, "frente": 2433.3, "atras": 2476.1, "pos_puerta": 0.0, "nombre": "dhangar"}
+[   20.6]   {"i": 46, "base": 9889560, "tipo": 19, "estado": 0, "flags": 72, "tipo0": 1, "pos": [-2114.4, -2462.3, 29.5], "izq": -2114.4, "der": -2106.6, "frente": -2466.4, "atras": -2458.9, "pos_puerta": 0.0, "nombre": "amumis"}
+[   20.6]   {"i": 47, "base": 9889776, "tipo": 5, "estado": 1, "flags": 12, "tipo0": 5, "pos": [715.8, -462.4, 15.0], "izq": 715.8, "der": 724.3, "frente": -462.4, "atras": -447.3, "pos_puerta": 1.0, "nombre": "CEspray"}
+[   20.6]   {"i": 48, "base": 9889992, "tipo": 29, "estado": 0, "flags": 72, "tipo0": 29, "pos": [2227.6, 168.6, 26.5], "izq": 2227.6, "der": 2234.9, "frente": 168.6, "atras": 176.3, "pos_puerta": 0.0, "nombre": "burbdoo"}
+[   20.6]   {"i": 49, "base": 9890208, "tipo": 26, "estado": 0, "flags": 72, "tipo0": 26, "pos": [783.2, -492.8, 16.3], "izq": 783.2, "der": 789.0, "frente": -492.8, "atras": -485.1, "pos_puerta": 0.0, "nombre": "burbdo2"}
+[   20.6]  guardado casa 0 ranura 0 {"pos": [2503.6923828125, -1694.1597900390625, 13.217233657836914], "flags": 239, "modelo": 575, "bomba": 0, "pintura": 255, "nitro": 0, "col": [12, 1, 0, 0]}
+[   20.6]  guardado casa 0 ranura 1 {"pos": [2507.220947265625, -1694.9071044921875, 13.33792495727539], "flags": 239, "modelo": 536, "bomba": 0, "pintura": 2, "nitro": 10, "col": [9, 1, 0, 0]}
+[   20.6]  guardado casa 1 ranura 0 {"pos": [324.0825500488281, -1766.2701416015625, 4.466238975524902], "flags": 239, "modelo": 566, "bomba": 0, "pintura": 255, "nitro": 8, "col": [109, 1, 0, 0]}
+[   20.6]  guardado casa 1 ranura 1 {"pos": [320.9335632324219, -1763.6826171875, 4.329735279083252], "flags": 239, "modelo": 535, "bomba": 0, "pintura": 2, "nitro": 8, "col": [3, 1, 0, 0]}
+[   20.6]  guardado casa 1 ranura 2 {"pos": [322.3955383300781, -1766.4935302734375, 4.1910624504089355], "flags": 15, "modelo": 522, "bomba": 0, "pintura": 255, "nitro": 0, "col": [0, 108, 0, 0]}
+[   20.6]  guardado casa 2 ranura 0 {"pos": [2452.917724609375, 698.8917236328125, 11.019684791564941], "flags": 15, "modelo": 522, "bomba": 0, "pintura": 255, "nitro": 0, "col": [3, 8, 0, 0]}
+[   20.6]  guardado casa 2 ranura 1 {"pos": [2451.971923828125, 696.6470336914062, 11.216227531433105], "flags": 207, "modelo": 477, "bomba": 0, "pintura": 255, "nitro": 10, "col": [51, 1, 0, 0]}
+[   20.6]  guardado casa 3 ranura 0 {"pos": [-362.3096923828125, 1198.3746337890625, 19.799428939819336], "flags": 239, "modelo": 500, "bomba": 0, "pintura": 255, "nitro": 9, "col": [3, 75, 0, 0]}
+[   20.6]  guardado casa 3 ranura 1 {"pos": [-359.1844482421875, 1197.7178955078125, 19.618896484375], "flags": 15, "modelo": 568, "bomba": 0, "pintura": 255, "nitro": 0, "col": [2, 39, 0, 0]}
+[   20.6]  guardado casa 4 ranura 0 {"pos": [433.85980224609375, 2544.253662109375, 15.949472427368164], "flags": 15, "modelo": 601, "bomba": 0, "pintura": 255, "nitro": 0, "col": [1, 1, 0, 0]}
+[   20.6]  guardado casa 4 ranura 1 {"pos": [439.4200439453125, 2548.142578125, 16.325063705444336], "flags": 15, "modelo": 490, "bomba": 0, "pintura": 255, "nitro": 0, "col": [0, 0, 0, 0]}
+[   20.6]  guardado casa 4 ranura 2 {"pos": [433.1182861328125, 2548.647705078125, 16.224809646606445], "flags": 15, "modelo": 528, "bomba": 0, "pintura": 255, "nitro": 0, "col": [0, 1, 0, 0]}
+[   20.6]  guardado casa 5 ranura 0 {"pos": [786.0357666015625, -489.55157470703125, 17.48990249633789], "flags": 15, "modelo": 568, "bomba": 0, "pintura": 255, "nitro": 0, "col": [2, 39, 0, 0]}
+[   20.6]  guardado casa 6 ranura 0 {"pos": [1274.7564697265625, 2532.643798828125, 10.606084823608398], "flags": 239, "modelo": 602, "bomba": 0, "pintura": 255, "nitro": 1, "col": [79, 36, 0, 0]}
+[   20.6]  guardado casa 6 ranura 1 {"pos": [1274.2791748046875, 2527.44140625, 10.44054126739502], "flags": 207, "modelo": 541, "bomba": 0, "pintura": 255, "nitro": 1, "col": [51, 1, 0, 0]}
+[   20.6]  guardado casa 6 ranura 2 {"pos": [1274.125244140625, 2529.795166015625, 10.501945495605469], "flags": 207, "modelo": 506, "bomba": 0, "pintura": 255, "nitro": 1, "col": [3, 3, 0, 0]}
+[   20.6]  guardado casa 7 ranura 0 {"pos": [933.505615234375, 2010.136474609375, 11.133442878723145], "flags": 207, "modelo": 429, "bomba": 0, "pintura": 255, "nitro": 9, "col": [118, 61, 0, 0]}
+[   20.6]  guardado casa 7 ranura 1 {"pos": [933.7362670898438, 2013.131103515625, 11.217612266540527], "flags": 207, "modelo": 415, "bomba": 0, "pintura": 255, "nitro": 9, "col": [79, 106, 0, 0]}
+[   20.6]  guardado casa 8 ranura 0 {"pos": [2228.71728515625, 172.10800170898438, 27.019739151000977], "flags": 15, "modelo": 463, "bomba": 0, "pintura": 255, "nitro": 0, "col": [0, 1, 0, 0]}
+[   20.6]  guardado casa 8 ranura 1 {"pos": [2232.2158203125, 171.69248962402344, 27.341703414916992], "flags": 239, "modelo": 412, "bomba": 0, "pintura": 255, "nitro": 9, "col": [9, 1, 0, 0]}
+[   20.6]  guardado casa 9 ranura 0 {"pos": [1413.5516357421875, 1900.885498046875, 11.172161102294922], "flags": 207, "modelo": 451, "bomba": 0, "pintura": 255, "nitro": 0, "col": [25, 25, 0, 0]}
+[   20.6]  guardado casa 9 ranura 1 {"pos": [1411.844482421875, 1903.645263671875, 11.127114295959473], "flags": 207, "modelo": 559, "bomba": 0, "pintura": 2, "nitro": 0, "col": [4, 4, 0, 0]}
+[   20.6]  guardado casa 10 ranura 0 {"pos": [1696.8131103515625, -2083.873046875, 13.473162651062012], "flags": 239, "modelo": 567, "bomba": 0, "pintura": 2, "nitro": 8, "col": [97, 96, 0, 0]}
+[   20.6]  guardado casa 10 ranura 1 {"pos": [1700.7987060546875, -2082.74072265625, 13.220104217529297], "flags": 15, "modelo": 518, "bomba": 0, "pintura": 255, "nitro": 0, "col": [9, 39, 0, 0]}
+[   20.6]  guardado casa 11 ranura 0 {"pos": [1354.0947265625, -631.3277587890625, 108.78849792480469], "flags": 239, "modelo": 576, "bomba": 0, "pintura": 255, "nitro": 10, "col": [67, 1, 0, 0]}
+[   20.6]  guardado casa 11 ranura 1 {"pos": [1355.3477783203125, -628.8707275390625, 108.7069091796875], "flags": 15, "modelo": 461, "bomba": 0, "pintura": 255, "nitro": 0, "col": [0, 22, 0, 0]}
+[   20.6]  guardado casa 13 ranura 0 {"pos": [-2272.375, 2285.25, 4.801692485809326], "flags": 0, "modelo": 445, "bomba": 0, "pintura": 255, "nitro": 0, "col": [35, 35, 0, 0]}
+[   20.6]  guardado casa 13 ranura 1 {"pos": [-2021.85302734375, 155.5416717529297, 28.510147094726562], "flags": 128, "modelo": 420, "bomba": 0, "pintura": 255, "nitro": 101, "col": [6, 1, 0, 0]}
+[   20.6]  guardado casa 13 ranura 2 {"pos": [-2021.0010986328125, 155.37620544433594, 28.221790313720703], "flags": 15, "modelo": 521, "bomba": 0, "pintura": 255, "nitro": 0, "col": [87, 118, 0, 0]}
+[   20.6]  guardado casa 14 ranura 0 {"pos": [1159.53369140625, 1381.16162109375, 10.419710159301758], "flags": 0, "modelo": 529, "bomba": 0, "pintura": 255, "nitro": 0, "col": [15, 15, 0, 0]}
+[   20.6]  guardado casa 14 ranura 1 {"pos": [1219.3114013671875, 1365.506591796875, 6.034276008605957], "flags": 0, "modelo": 522, "bomba": 0, "pintura": 255, "nitro": 0, "col": [6, 25, 0, 0]}
+[   20.6]  guardado casa 14 ranura 2 {"pos": [1175.5606689453125, 1377.850341796875, 10.338406562805176], "flags": 0, "modelo": 463, "bomba": 0, "pintura": 255, "nitro": 0, "col": [36, 36, 0, 0]}
+[   20.6]  guardado casa 15 ranura 0 {"pos": [-2102.99365234375, 893.1649169921875, 76.4084701538086], "flags": 239, "modelo": 560, "bomba": 0, "pintura": 2, "nitro": 10, "col": [1, 39, 0, 0]}
+[   20.6]  guardado casa 15 ranura 1 {"pos": [-2107.0537109375, 893.4945068359375, 76.3175277709961], "flags": 63, "modelo": 581, "bomba": 0, "pintura": 255, "nitro": 10, "col": [3, 6, 0, 0]}
+[   20.6]  guardado casa 16 ranura 0 {"pos": [-2697.55517578125, 825.7255859375, 49.79849624633789], "flags": 255, "modelo": 409, "bomba": 7, "pintura": 255, "nitro": 10, "col": [0, 0, 0, 0]}
+[   20.6]  guardado casa 16 ranura 1 {"pos": [-2694.392333984375, 826.1392211914062, 49.61708450317383], "flags": 239, "modelo": 558, "bomba": 0, "pintura": 2, "nitro": 10, "col": [1, 1, 0, 0]}
+[   20.6]  guardado casa 17 ranura 0 {"pos": [-2028.390869140625, 124.28169250488281, 29.009658813476562], "flags": 15, "modelo": 525, "bomba": 0, "pintura": 255, "nitro": 0, "col": [17, 20, 0, 0]}
+[   20.6]  guardado casa 17 ranura 1 {"pos": [-2022.234130859375, 125.13333129882812, 28.678707122802734], "flags": 15, "modelo": 522, "bomba": 0, "pintura": 255, "nitro": 0, "col": [51, 118, 0, 0]}
+[   20.6]  guardado casa 17 ranura 2 {"pos": [-2024.96630859375, 124.15343475341797, 29.489761352539062], "flags": 15, "modelo": 557, "bomba": 0, "pintura": 255, "nitro": 0, "col": [1, 1, 0, 0]}
+[   20.6]  guardado casa 18 ranura 0 {"pos": [-2448.124755859375, -123.18498992919922, 25.799161911010742], "flags": 239, "modelo": 562, "bomba": 0, "pintura": 0, "nitro": 10, "col": [1, 1, 0, 0]}
+[   20.6]  guardado casa 18 ranura 1 {"pos": [-2447.93408203125, -127.3848876953125, 25.817209243774414], "flags": 239, "modelo": 560, "bomba": 0, "pintura": 1, "nitro": 10, "col": [1, 1, 0, 0]}
+[   20.6]  guardado casa 18 ranura 2 {"pos": [-2447.642578125, -118.24560546875, 25.74697494506836], "flags": 207, "modelo": 559, "bomba": 0, "pintura": 0, "nitro": 10, "col": [1, 1, 0, 0]}
+[   20.6]  guardado casa 19 ranura 0 {"pos": [400.5501708984375, 2446.67236328125, 18.011096954345703], "flags": 15, "modelo": 406, "bomba": 0, "pintura": 255, "nitro": 0, "col": [1, 1, 0, 0]}
+[   20.6]  guardado casa 19 ranura 1 {"pos": [405.8743591308594, 2465.43701171875, 16.65591812133789], "flags": 15, "modelo": 488, "bomba": 0, "pintura": 255, "nitro": 0, "col": [2, 29, 0, 0]}
+[   20.6]  guardado casa 19 ranura 2 {"pos": [393.59844970703125, 2457.970947265625, 16.67156219482422], "flags": 31, "modelo": 497, "bomba": 7, "pintura": 255, "nitro": 0, "col": [0, 2, 0, 0]}
+[   20.6]  guardado casa 19 ranura 3 {"pos": [416.0811767578125, 2456.822998046875, 18.1153507232666], "flags": 31, "modelo": 548, "bomba": 7, "pintura": 255, "nitro": 0, "col": [1, 1, 0, 0]}
+[   20.6] jugador (2652.482666015625, -1719.543701171875, 10.90625) vehiculos [('0x8fd0ab8', 542), ('0x8fd2900', 492), ('0x8fd3318', 520), ('0x8fd3d30', 492), ('0x8fd4748', 494), ('0x8fd5160', 556), ('0x8fd5b78', 542), ('0x8fd6fa8', 404), ('0x8fd79c0', 567), ('0x8fd83d8', 492)]
+[   20.9] vivo al final: True
+[   20.9] LOG [error][04:23:47.461][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   20.9] LOG [error][04:23:47.461][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   20.9] fin

@@ -648,3 +648,17 @@ Opcionales: todos se apagan con `GTASA_SILENTPATCH=0` (o `SilentPatch=0` en `gta
 | Unidades métricas/imperiales según la configuración regional | `Units` (-1 región, 0 métrico, 1 imperial) | Antes: imperial solo con idioma americano |
 
 Notas de la fusión: los arreglos de biker cop (`BikerCopSpawn`), azar de 16 bits (`Rand16bit`), SEAROADER (`SeaRoaderCheat`) y Beagle de Fort Carson (`FortCarsonBeagle`), que la rama `silentpatch-scm` también había portado (con los nombres `FixBikerCopSpawn`, `ScriptRandomness16Bit`, `SearoaderCheat`, `FixFortCarsonBeagle`), quedan con la implementación y las opciones de 15.1. `FixCheatMeleeAmmo` pasó a llamarse `MeleeCheatAmmo` (misma opción que la de NinjaCheat/ParachuteCheat; aquí cubre además los conjuntos de armas 1-3). El reinicio de variables de New Game es el de `SilentPatchNewGame` (superconjunto: además reinicia `TimeNextMadDriverChaseCreated`).
+
+### 15.4 Garajes, coches guardados e impound (rama `silentpatch2-garajes`, 25/11/2026)
+
+Opcionales: todos se apagan con `GTASA_SILENTPATCH=0` y cada uno con `GTASA_SILENTPATCH_<OPCION>=0` o `SilentPatch_<Opcion>=0`. Ninguno tiene clave en `SilentPatchSA.ini` (activados por defecto). Detalle, evidencia y pruebas: [CodigoVivoExe/silentpatch2-garajes.md](CodigoVivoExe/silentpatch2-garajes.md).
+
+| Arreglo | Opción | Efecto frente al EXE original |
+| --- | --- | --- |
+| `CStoredCar::RestoreCar` (0x447E40): un tren guardado se construye con `CTrain` (0x6F6030), marcado descarrilado y con masa/colisión normales | `TrainsInGarages` | El EXE construía el tren con `CAutomobile` y se caía (probado: 0xC0000005 con la opción apagada) |
+| `CGarage::RestoreCarsForThisHideOut`/`...ImpoundingGarage` (0x448550/0x4485C0): bomba del coche guardado restaurada (coches y motos) con el jugador como dueño | `StoredCarBombFix` | El EXE restauraba el tipo de bomba solo en coches y sin dueño; las motos perdían la bomba |
+| `CGameLogic::Update` (0x442AD0, rama de arresto, 0x443292): no se vacía `apCarsToKeep` al ser arrestado, para que `ClearExcitingStuffFromArea` meta el coche en el impound | `ImpoundAfterBustedFix` | El impound guarda el último coche del jugador al ser arrestado |
+| `CGarage::Update` (0x44AA50, Pay 'n Spray, 0x44ACDC): el coche se limpia con la puerta ya cerrada, no al empezar a cerrar | `PayNSprayCleanLate` | La suciedad baja a 0 cuando la puerta ya está en 0, no antes |
+| `CVehicle::GetRemapIndex` (0x6D0B70): usa la pintura pendiente (`m_nRemapTxd`) si la cargada es -1 | `PaintjobsInGarageFix` | La pintura de un coche guardado sin haberlo visto ya no se pierde (también la leen el script y el aviso de la policía) |
+
+Los arreglos del impound de la primera tanda (`ImpoundOnlyCarsAndBikes`, `ImpoundRandomVehiclesFix`, `ImpoundGaragesFix`, sección 15.1 fila 5) se verificaron en esta rama contra el desensamblado (direcciones 0x425179/0x425369/0x425411, 0x566794/0x56A378, 0x6E2B6E) y con pruebas en el standalone.

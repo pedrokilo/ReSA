@@ -1,0 +1,19 @@
+[    0.2] pid 8036
+[   13.4] juego en marcha tras 13 s; gGameState=9
+[   14.2] salida de la casa: area=0 tras 1 s
+[   15.2] ventana: cliente 640x480
+[   15.2] === ESCENARIO carstokeep
+[   21.9] Infernus restaurado en el garaje: 0x8fd63d0
+[   22.1] apCarsToKeep antes ['0x8fd63d0', '0x0']
+[   25.3] puerta cerrada (el garaje guarda y destruye el coche): True ranuras [411, 0, 0, 0]
+[   26.5] apCarsToKeep despues ['0x0', '0x0'] coche destruido era 0x8fd63d0 sigue en el pool: False
+[   26.9] vivo al final: True
+[   26.9] LOG [info][04:45:51.509][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[   26.9] LOG [info][04:45:51.510][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[   26.9] LOG [info][04:45:51.510][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[   26.9] LOG [info][04:45:51.510][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[   26.9] LOG [info][04:45:51.783][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[   26.9] LOG [info][04:45:51.799][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[   26.9] LOG [error][04:46:02.453][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   26.9] LOG [error][04:46:02.454][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   26.9] fin
