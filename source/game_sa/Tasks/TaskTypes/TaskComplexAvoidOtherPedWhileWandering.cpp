@@ -220,6 +220,9 @@ void CTaskComplexAvoidOtherPedWhileWandering::QuitIK(CPed* ped) {
     }
 }
 
+// numPeds puede ser 0 (como en el original: 1/0 = inf); en Release C4723 (aviso del optimizador, no se silencia por linea) lo convierte en error.
+#pragma warning(push)
+#pragma warning(disable : 4723)
 // 0x66A320
 CColSphere* CTaskComplexAvoidOtherPedWhileWandering::ComputeSphere(CColSphere* out, PedsToAvoidArray& accountedPeds) {
     // Step 1: Find center
@@ -260,6 +263,7 @@ CColSphere* CTaskComplexAvoidOtherPedWhileWandering::ComputeSphere(CColSphere* o
     out->Set(std::sqrt(maxDist2DSq) + 1.05f, center, SURFACE_DEFAULT, 0, tColLighting(0xFF));
     return out;
 }
+#pragma warning(pop)
 
 // 0x66A850
 void CTaskComplexAvoidOtherPedWhileWandering::SetUpIK(CPed* ped) {

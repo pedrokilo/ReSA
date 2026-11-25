@@ -50,6 +50,11 @@ END GENERATED HOOK STATUS */
 #include "CustomCarPlateMgr.h"
 #include "Core/PoolRaw.h"
 #include "LoadingScreen.h"
+
+// Las definiciones DatosExe que respaldan estos arrays deben tener su tamano real: con 1 byte (5efe9eeeb6) ms_lightsOn solapaba ms_currentCol y
+// SetupLightFlags pisaba los colores del vehiculo con los flags de luces (vehiculos negros).
+static_assert(sizeof(DatosExe::R5::vB4E3E8) >= sizeof(CVehicleModelInfo::ms_lightsOn));
+static_assert(sizeof(DatosExe::R5::vB4E3F0) >= sizeof(CVehicleModelInfo::ms_currentCol));
 #include "CarFXRenderer.h"
 
 auto& vehicleTxd = DatosExe::Bss::bB4E688;
