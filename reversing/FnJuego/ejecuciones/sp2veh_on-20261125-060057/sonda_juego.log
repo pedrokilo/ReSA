@@ -1,0 +1,54 @@
+[    0.2] pid 41680
+[   12.3] juego en marcha tras 12 s; gGameState=9
+[   13.2] salida de la casa: area=0 tras 1 s
+[   14.2] ventana: cliente 640x480
+[   14.2] === ESCENARIO sp2veh
+[   23.6] truco spawn RZHSUEW vehiculos nuevos: [('0x9308e78', 420), ('0x9309890', 457)]
+[   26.8] truco spawn UBHYZHQ vehiculos nuevos: [('0x9303db8', 408)]
+[   30.7] truco spawn FOURWHEELFUN vehiculos nuevos: [('0x92fa650', 527), ('0x9300b40', 471)]
+[   37.2] RONDA 0 vehiculos tras BIGBANG [{"v": "0x92fa650", "modelo": 527, "vida": 0.0, "ruedas": [0, 0, 2, 0], "paneles": 35651584}, {"v": "0x92fd8c8", "modelo": 536, "vida": 0.0, "ruedas": [0, 0, 2, 0], "paneles": 35651584}, {"v": "0x92fe2e0", "modelo": 494, "vida": 0.0, "ruedas": [0, 0, 2, 0], "paneles": 35651584}, {"v": "0x92ff710", "modelo": 556, "vida": 0.0, "ruedas": [2, 0, 0, 0], "paneles": 52428800}, {"v": "0x9300b40", "modelo": 471, "vida": 0.0, "ruedas": [0, 0, 0, 2], "paneles": 52428800}, {"v": "0x9301f70", "modelo": 567, "vida": 0.0, "ruedas": [2, 0, 0, 0], "paneles": 36700160}, {"v": "0x93033a0", "modelo": 536, "vida": 1000.0, "ruedas": [0, 0, 0, 0], "paneles": 0}, {"v": "0x9303db8", "modelo": 408, "vida": 0.0, "ruedas": [0, 2, 0, 0], "paneles": 35651584}, {"v": "0x93051e8", "modelo": 492, "vida": 0.0, "ruedas": [2, 0, 0, 0], "paneles": 35651584}, {"v": "0x9305c00", "modelo": 567, "vida": 0.0, "ruedas": [2, 0, 0,
+[   37.6] captura bigbang_0 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [12.5, 9.9, 6.7], "max": 98} tras BIGBANG
+[   47.1] truco spawn RZHSUEW vehiculos nuevos: [('0x92ff710', 457)]
+[   50.3] truco spawn UBHYZHQ vehiculos nuevos: [('0x9301558', 408), ('0x93033a0', 527)]
+[   54.3] truco spawn FOURWHEELFUN vehiculos nuevos: [('0x9305c00', 471), ('0x9307030', 458), ('0x9308460', 458)]
+[   60.8] RONDA 1 vehiculos tras BIGBANG [{"v": "0x92fceb0", "modelo": 416, "vida": 0.0, "ruedas": [0, 0, 2, 0], "paneles": 36700160}, {"v": "0x92ff710", "modelo": 457, "vida": 0.0, "ruedas": [2, 0, 0, 0], "paneles": 36700160}, {"v": "0x9301558", "modelo": 408, "vida": 0.0, "ruedas": [2, 0, 0, 0], "paneles": 35651584}, {"v": "0x9305c00", "modelo": 471, "vida": 0.0, "ruedas": [0, 0, 0, 2], "paneles": 35651584}]
+[   70.3] truco spawn RZHSUEW vehiculos nuevos: [('0x93033a0', 536), ('0x93047d0', 457)]
+[   73.5] truco spawn UBHYZHQ vehiculos nuevos: [('0x9308e78', 426), ('0x9309890', 408), ('0x930a2a8', 438)]
+[   77.3] truco spawn FOURWHEELFUN vehiculos nuevos: [('0x930c0f0', 471), ('0x930cb08', 581)]
+[   83.7] RONDA 2 vehiculos tras BIGBANG [{"v": "0x92ff710", "modelo": 458, "vida": 0.0, "ruedas": [0, 0, 0, 2], "paneles": 35651584}, {"v": "0x9300128", "modelo": 416, "vida": 0.0, "ruedas": [2, 0, 0, 0], "paneles": 35651584}, {"v": "0x93047d0", "modelo": 457, "vida": 0.0, "ruedas": [0, 0, 2, 0], "paneles": 35651584}, {"v": "0x9308e78", "modelo": 426, "vida": 0.0, "ruedas": [0, 0, 0, 2], "paneles": 35651584}, {"v": "0x9309890", "modelo": 408, "vida": 0.0, "ruedas": [0, 0, 2, 0], "paneles": 35651584}, {"v": "0x930c0f0", "modelo": 471, "vida": 0.0, "ruedas": [0, 2, 0, 0], "paneles": 35651584}]
+[   93.2] truco spawn RZHSUEW vehiculos nuevos: [('0x9308460', 457)]
+[   96.3] truco spawn UBHYZHQ vehiculos nuevos: [('0x9309890', 527), ('0x930a2a8', 408), ('0x930acc0', 554)]
+[  100.2] truco spawn FOURWHEELFUN vehiculos nuevos: [('0x9307a48', 581), ('0x930cb08', 471)]
+[  106.7] RONDA 3 vehiculos tras BIGBANG [{"v": "0x9301f70", "modelo": 416, "vida": 0.0, "ruedas": [0, 2, 0, 0], "paneles": 35651584}, {"v": "0x9308460", "modelo": 457, "vida": 0.0, "ruedas": [0, 2, 0, 0], "paneles": 35651584}, {"v": "0x930a2a8", "modelo": 408, "vida": 0.0, "ruedas": [2, 0, 0, 0], "paneles": 35651584}, {"v": "0x930cb08", "modelo": 471, "vida": 0.0, "ruedas": [0, 2, 0, 0], "paneles": 35651584}]
+[  107.0] captura bigbang_3 {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [20.9, 17.1, 11.4], "max": 111} tras BIGBANG
+[  116.5] truco spawn RZHSUEW vehiculos nuevos: [('0x9308e78', 527), ('0x9309890', 457)]
+[  119.6] truco spawn UBHYZHQ vehiculos nuevos: [('0x930b6d8', 408), ('0x930c0f0', 561)]
+[  123.5] truco spawn FOURWHEELFUN vehiculos nuevos: [('0x930cb08', 471), ('0x930df38', 550)]
+[  129.9] RONDA 4 vehiculos tras BIGBANG [{"v": "0x93047d0", "modelo": 536, "vida": 0.0, "ruedas": [2, 0, 0, 0], "paneles": 35651584}, {"v": "0x9305c00", "modelo": 416, "vida": 0.0, "ruedas": [0, 0, 2, 0], "paneles": 36700160}, {"v": "0x9309890", "modelo": 457, "vida": 0.0, "ruedas": [0, 0, 0, 2], "paneles": 52428800}, {"v": "0x930b6d8", "modelo": 408, "vida": 0.0, "ruedas": [0, 2, 0, 0], "paneles": 35651584}, {"v": "0x930cb08", "modelo": 471, "vida": 0.0, "ruedas": [2, 0, 0, 0], "paneles": 52428800}]
+[  139.4] truco spawn RZHSUEW vehiculos nuevos: [('0x9309890', 457), ('0x930acc0', 461)]
+[  142.5] truco spawn UBHYZHQ vehiculos nuevos: [('0x930b6d8', 581), ('0x930c0f0', 408), ('0x930cb08', 458)]
+[  146.5] truco spawn FOURWHEELFUN vehiculos nuevos: [('0x930d520', 421), ('0x930df38', 471), ('0x930e950', 420)]
+[  152.9] RONDA 5 vehiculos tras BIGBANG [{"v": "0x9307030", "modelo": 416, "vida": 0.0, "ruedas": [0, 0, 0, 2], "paneles": 35651584}, {"v": "0x9309890", "modelo": 457, "vida": 0.0, "ruedas": [0, 0, 2, 0], "paneles": 35651584}, {"v": "0x930c0f0", "modelo": 408, "vida": 0.0, "ruedas": [0, 0, 0, 2], "paneles": 35651584}, {"v": "0x930df38", "modelo": 471, "vida": 0.0, "ruedas": [2, 0, 0, 0], "paneles": 35651584}]
+[  158.9] RESUMEN voladura: coches 36 ruedas perdidas [delantera-izq, trasera-izq, delantera-der, trasera-der] [11, 8, 9, 8] con paneles danados 36
+[  168.4] truco spawn JHJOECW vehiculos nuevos: [('0x93180b8', 461), ('0x9318ad0', 550)]
+[  177.0]   intento 1 (teclado): en_coche=False estado=1
+[  180.9]   intento 2 (teclado): en_coche=True estado=50
+[  180.9] entrar con teclado: en_coche=True modelo=461
+[  185.5] captura veh_Hydra_a {"ancho": 640, "alto": 480, "rojo": 134, "muestras": 34270, "media_rgb": [131.1, 119.4, 93.9], "max": 255} Hydra dentro (motor en marcha)
+[  189.2] captura veh_Hydra_b {"ancho": 640, "alto": 480, "rojo": 134, "muestras": 34270, "media_rgb": [193.3, 168.9, 89.8], "max": 255} Hydra acelerando
+[  198.9] truco spawn AIWPRTON vehiculos nuevos: [('0x93111b0', 492), ('0x9311bc8', 432)]
+[  207.5]   intento 1 (teclado): en_coche=False estado=1
+[  213.6]   intento 2 (teclado): en_coche=True estado=50
+[  213.6] entrar con teclado: en_coche=True modelo=432
+[  218.4] captura veh_Rhino_a {"ancho": 640, "alto": 480, "rojo": 0, "muestras": 34270, "media_rgb": [146.6, 146.6, 125.5], "max": 255} Rhino dentro (motor en marcha)
+[  222.2] captura veh_Rhino_b {"ancho": 640, "alto": 480, "rojo": 36, "muestras": 34270, "media_rgb": [130.4, 116.7, 95.6], "max": 255} Rhino acelerando
+[  222.6] vivo al final: True
+[  222.6] LOG [info][06:04:02.562][app_debug.cpp:106]: *********UNHANDLED EXCEPTION**********
+[  222.6] LOG [info][06:04:02.562][app_debug.cpp:111]: Código de excepción: 0xc0000005
+[  222.6] LOG [info][06:04:02.562][app_debug.cpp:112]: Indicadores de excepción: 0x00000000
+[  222.6] LOG [info][06:04:02.563][app_debug.cpp:113]: Dirección de excepción: 0x76f8df7f
+[  222.6] LOG [info][06:04:02.920][app_debug.cpp:213]: 	0x76fac88b: ntdll!RtlInitializeExceptionChain:0
+[  222.6] LOG [info][06:04:02.935][app_debug.cpp:106]: *********END OF UNHANDLED EXCEPTION**********
+[  222.6] LOG [error][06:04:12.415][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  222.6] LOG [error][06:04:12.416][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  222.6] fin
