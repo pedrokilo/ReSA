@@ -25,6 +25,7 @@ END GENERATED HOOK STATUS */
 
 #pragma warning(push, 0)
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssE3.h"
@@ -414,6 +415,15 @@ template<class... Args>
 int StatsExeSprintf(char* dst, const char* format, Args... args) {
     return reinterpret_cast<ExeSprintfFn>(&ExeCrt::Sprintf)(dst, format, args...);
 }
+// SilentPatch (MIT, Silent): Stats counted in kilograms are now displayed correctly (el EXE pasa un double a "%dkgs"; con la opcion FixStatsKilograms se formatea como "%.0fkg")
+static void StatsKgText(char* dst, int32 value) {
+    static const bool fix = SilentPatchOption("FixStatsKilograms", true);
+    if (fix) {
+        StatsExeSprintf(dst, "%.0fkg", static_cast<double>(value) * static_cast<double>(std::bit_cast<float>(0x3EE83E42u)));
+    } else {
+        StatsExeSprintf(dst, "%dkgs", Stw60MulCpp(static_cast<double>(value), std::bit_cast<float>(0x3EE83E42u)));
+    }
+}
 const char* StatsGxtToAscii(const GxtChar* text) {
     return GxtCharToAscii(text, 0);
 }
@@ -494,7 +504,7 @@ void CStats::BuildStatLine(char* line, void* pValue1, int32 metrics, void* pValu
         case 5: {   // peso: el EXE pasa un double a "%dkgs" (el sprintf lee solo los 32 bits bajos del double)
             const int32 value = *static_cast<int32*>(pValue1);
             if (CLocalisation::Metric()) {
-                StatsExeSprintf(gString2, "%dkgs", Stw60MulCpp(static_cast<double>(value), std::bit_cast<float>(0x3EE83E42u)));   // fild; fmul [0x863F0C]
+                StatsKgText(gString2, value);   // fild; fmul [0x863F0C]
             } else {
                 StatsExeSprintf(gString2, "%dlbs", value);
             }
@@ -1171,7 +1181,7 @@ StatLineResult StatLineEntry(const uint8* entry, int32& count, const int32 wante
             const int32 value = StatLineFtol(StatLineValue(id));
             gString2[0] = '\0';
             if (CLocalisation::Metric()) {
-                StatsExeSprintf(gString2, "%dkgs", Stw60MulCpp(static_cast<double>(value), std::bit_cast<float>(0x3EE83E42u)));
+                StatsKgText(gString2, value);
             } else {
                 StatsExeSprintf(gString2, "%dlbs", value);
             }

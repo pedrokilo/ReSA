@@ -3,6 +3,7 @@
 #include <bit>
 
 #include "RunningScript.h"
+#include "SilentPatchScripts.h"
 #include "TheScripts.h"
 #include "MissionCleanup.h"
 #include "Pools/Pools.h"
@@ -84,7 +85,7 @@ OpcodeResult CRunningScript::ProcessCommands100To199(int32 command) {
         (void)ExeCrt::Rand();
         (void)ExeCrt::Rand();
         (void)ExeCrt::Rand();
-        result->fParam = static_cast<float>(ExeCrt::Rand()) * EXE_ONE_OVER_65536; // fild + fmul + fstp
+        result->fParam = static_cast<float>(SilentPatchScripts::Random16(ExeCrt::Rand)) * EXE_ONE_OVER_65536; // fild + fmul + fstp
         return OR_CONTINUE;
     }
     case COMMAND_CREATE_CHAR: { // 154, 0x46754F

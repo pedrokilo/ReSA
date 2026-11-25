@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssG2.h"
 #include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE3.h"
@@ -335,6 +336,12 @@ void CAERadioTrackManager::DisplayRadioStationName() {
             CFont::SetRightJustifyWrap(0.0f);
             CFont::SetEdge(1);
             CFont::SetDropColor(CRGBA(0, 0, 0, 255));
+            { // SilentPatch (MIT, Silent): los dibujos de script ya no afectan al ajuste de linea del nombre de la emisora (opcion FixRadioStationNameWrap)
+                static const bool fixWrap = SilentPatchOption("FixRadioStationNameWrap", true);
+                if (fixWrap) {
+                    CFont::SetCentreSize(static_cast<float>(RsGlobal.maximumWidth));
+                }
+            }
             CFont::SetColor(HudColour.GetRGB(m_nStationsListed || m_nStationsListDown ? HUD_COLOUR_DARK_GRAY : HUD_COLOUR_GOLD));
             // Como el original: 0x4E9FBF..0x4E9FF6: x = float(ancho / 2) (division ENTERA: cdq/sub/sar), y = (alto * K448) * 22.0.
             CFont::PrintString(float(RsGlobal.maximumWidth / 2), (float(RsGlobal.maximumHeight) * kHeight) * 22.0f, name);

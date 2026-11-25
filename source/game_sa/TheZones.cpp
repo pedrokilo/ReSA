@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssE2.h"
 
 #include <intrin.h>
@@ -396,6 +397,16 @@ void Zones13LevelResidue(const CVector& pos, uint32 exePos, uint32& ecx, uint32&
 // float de 24 bits por operacion como Zones13CellValue) y _ftol2 (0x821B40) quedandose con el byte bajo (movzx); indice = 10 * celdaX - celdaY en 32 bits sobre ZonesVisited + 9 (0xBA3739), sin acotar. Devuelve
 // que ese byte sea distinto de cero. Antes esta funcion dividia por 600.0f y no truncaba a un byte (ver GetZoneWasVisited, NOTSA). La usan CRadar::HasThisBlipBeenRevealed (0x583AF0) y el mapa del menu.
 bool CTheZones::GetCurrentZoneLockedOrUnlocked(CVector2D pos) {
+    { // SilentPatch (MIT, Silent): "territories fix": fuera de los limites del mapa la zona cuenta como desbloqueada (no se lee fuera del arreglo; opcion FixTerritoriesOutsideMap)
+        static const bool fix = SilentPatchOption("FixTerritoriesOutsideMap", true);
+        if (fix) {
+            const int xi = static_cast<int>((pos.x + 3000.0f) / 600.0f);
+            const int yi = static_cast<int>((pos.y + 3000.0f) / 600.0f);
+            if (!(xi >= 0 && xi < 10 && yi >= 0 && yi < 10)) {
+                return true;
+            }
+        }
+    }
     const uint32 cx = Ftol2RegsCpp(Zones13CellValue(pos.x), 0).eax & 0xFFu;
     const uint32 cy = Ftol2RegsCpp(Zones13CellValue(pos.y), 0).eax & 0xFFu;
     const int32  index = 10 * (int32)cx - (int32)cy;

@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 
 #include "Cheat.h"
 #include "PedType.h"
@@ -144,6 +145,25 @@ const auto cheats = std::to_array<Cheat>({
         { 0x0, nullptr, "", 0x2bdd2fa1, CHEAT_ALL_TAXIS_NITRO },
 });
 
+
+// SilentPatch (MIT, Silent): las armas cuerpo a cuerpo de los trucos (cuchillo, motosierra, katana, paracaidas) se daban con municion 0 y un pickup las sustituia
+// (opcion FixCheatMeleeAmmo)
+static uint32 SilentPatchCheatMeleeAmmo() {
+    static const bool fix = SilentPatchOption("FixCheatMeleeAmmo", true);
+    return fix ? 1u : 0u;
+}
+
+static void SilentPatchFixCheatMeleeAmmo(CPlayerPed* ped) {
+    if (!ped || SilentPatchCheatMeleeAmmo() == 0u) {
+        return;
+    }
+    for (auto& w : ped->m_aWeapons) {
+        if ((w.m_Type == WEAPON_KNIFE || w.m_Type == WEAPON_CHAINSAW) && w.m_TotalAmmo == 0u) {
+            w.m_TotalAmmo = 1u;
+        }
+    }
+}
+
 // 0x438480
 void CCheat::AddToCheatString(char LastPressedKey) {
     if (CCutsceneMgr::ms_running) {
@@ -180,7 +200,10 @@ void CCheat::AddToCheatString(char LastPressedKey) {
 
         // Como el original (0x438510): se queda con el primer indice que coincide
         for (int32 j = 0; j < TOTAL_CHEATS; ++j) {
-            if ((uint32)m_aCheatHashKeys[j] != hash) {
+            // SilentPatch (MIT, Silent): "Cars drive on water" (SEAROADER) solo existia en PS2; opcion SearoaderCheat
+            static const bool searoader = SilentPatchOption("SearoaderCheat", true);
+            const uint32 key = (searoader && j == CHEAT_CARS_ON_WATER) ? 0xE5FC92C3u : (uint32)m_aCheatHashKeys[j];
+            if (key != hash) {
                 continue;
             }
 
@@ -655,7 +678,7 @@ void CCheat::NinjaCheat() {
         CStreaming::LoadAllRequestedModels(false);
 
         CPlayerPed* player = FindPlayerPed();
-        player->GiveWeapon(WEAPON_KATANA, 0, true);
+        player->GiveWeapon(WEAPON_KATANA, SilentPatchCheatMeleeAmmo(), true); // SilentPatch (MIT, Silent): ammo 1
         player->SetCurrentWeapon(WEAPON_KATANA);
     } else {
         // Como el original (0x439F4D): al desactivar solo se quita el trafico negro
@@ -677,7 +700,7 @@ void CCheat::ParachuteCheat() {
     CStreaming::RequestModel(MODEL_GUN_PARA, STREAMING_GAME_REQUIRED);
     CStreaming::LoadAllRequestedModels(false);
     CPlayerPed* player = FindPlayerPed();
-    player->GiveWeapon(WEAPON_PARACHUTE, 0, true);
+    player->GiveWeapon(WEAPON_PARACHUTE, SilentPatchCheatMeleeAmmo(), true); // SilentPatch (MIT, Silent): ammo 1
     player->SetCurrentWeapon(WEAPON_PARACHUTE);
 }
 
@@ -982,11 +1005,11 @@ void CCheat::WeaponCheat1() {
 
     // Como el original (0x438637..0x438824): el primer jugador es el del foco (-1) y el segundo recibe su propio juego
     CPlayerPed* player = FindPlayerPed(-1);
-    player->GiveWeaponSet1();
+    player->GiveWeaponSet1(); SilentPatchFixCheatMeleeAmmo(player);
 
     CPlayerPed* player1 = FindPlayerPed(1);
     if (player1) {
-        player1->GiveWeaponSet1();
+        player1->GiveWeaponSet1(); SilentPatchFixCheatMeleeAmmo(player1);
     }
 
     // Como el original (0x438825..0x43887F): 9 modelos, en este orden, y sin MODEL_COLT45
@@ -1009,11 +1032,11 @@ void CCheat::WeaponCheat2() {
     CStreaming::LoadAllRequestedModels(false);
 
     CPlayerPed* player = FindPlayerPed(-1); // Como el original (0x43890D): jugador en foco
-    player->GiveWeaponSet2();
+    player->GiveWeaponSet2(); SilentPatchFixCheatMeleeAmmo(player);
 
     CPlayerPed* player1 = FindPlayerPed(1);
     if (player1) {
-        player1->GiveWeaponSet2();
+        player1->GiveWeaponSet2(); SilentPatchFixCheatMeleeAmmo(player1);
     }
 
     std::ranges::for_each(weapons, [](auto model) { CStreaming::SetModelIsDeletable(model); });
@@ -1030,11 +1053,11 @@ void CCheat::WeaponCheat3() {
     CStreaming::LoadAllRequestedModels(false);
 
     CPlayerPed* player = FindPlayerPed(-1); // Como el original (0x438B9D): jugador en foco
-    player->GiveWeaponSet3();
+    player->GiveWeaponSet3(); SilentPatchFixCheatMeleeAmmo(player);
 
     CPlayerPed* player1 = FindPlayerPed(1);
     if (player1) {
-        player1->GiveWeaponSet3();
+        player1->GiveWeaponSet3(); SilentPatchFixCheatMeleeAmmo(player1);
     }
 
     std::ranges::for_each(weapons, [](auto model) { CStreaming::SetModelIsDeletable(model); });

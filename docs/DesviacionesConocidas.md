@@ -583,3 +583,26 @@ Esta sección se añadió el 24/11/2026 sin reescribir el resto: las secciones 1
 - La semilla de `rand` del EXE no se sembraba en `GameInit`; ahora se siembran las dos (`ExeCrt::Srand` y `srand`); corregido por lectura del desensamblado, sin medir `holdrand` en ejecución ([ejecucion-datos-g6g8.md](DatosExe/ejecucion-datos-g6g8.md)).
 - Entrar en el gimnasio de Ganton caía por pasar `-1` a `TASK_KILL_CHAR_ON_FOOT` y `_WHILE_DUCKING` como `CPed&`; ahora reciben el manejador entero (commit `96f1c36f61`; evidencia en `reversing/FnJuego/evidencia/`, sin informe escrito en `main`).
 - El espejo del ropero (diferencia con el original por la GPU) y el ratón del independiente (SDL3 sustituía el registro de entrada en bruto de DirectInput; [ejecucion-raton.md](CodigoVivoExe/ejecucion-raton.md)).
+
+## 15. Arreglos de SilentPatch portados (rama `silentpatch-scm`)
+
+Opcionales: todos se apagan con `GTASA_SILENTPATCH=0` (o `SilentPatch=0` en `[SilentPatch]` de `gta-reversed.ini`) y cada uno con `GTASA_SP_<OPCION>=0` o `<Opcion>=0` en esa sección. Detalle y estado de ejercitación en [CodigoVivoExe/silentpatch-scm.md](CodigoVivoExe/silentpatch-scm.md).
+
+| Arreglo | Opción | Efecto frente al EXE original |
+| --- | --- | --- |
+| Gimnasio, baloncesto, Mountain Cloud Boys, Sweet's Girl, conos de las autoescuelas, Air Raid, Ice Cold Killa, Supply Lines, Beefy Baron, Quadruple Stunt Bonus | `EnableScriptFixes` | Se modifica el bytecode del SCM en memoria y `GET_CURRENT_DATE` de los scripts gym* |
+| CREATE_BIRDS con coordenadas float | `FixCreateBirds` | Pájaros de Ice Cold Killa en su sitio |
+| Biker cop con PEDTYPE_COP | `FixBikerCopSpawn` | `lapdm1` en lugar de policía normal |
+| Aleatoriedad de scripts de 16 bits | `ScriptRandomness16Bit` | `GENERATE_RANDOM_FLOAT/INT` consumen dos tiradas; cambia la secuencia del RNG |
+| Reinicio de variables y de pickups/generadores/saltos de IPL al empezar Nueva Partida | `ResetVariablesOnNewGame`, `ReinitIplObjectsOnNewGame` | Contadores, respray gratis, mensaje "To stop Carl", penalización wasted/busted |
+| Territorios fuera del mapa | `FixTerritoriesOutsideMap` | Fuera de la rejilla 10x10 la zona cuenta como desbloqueada |
+| Num5 enlazable | `BindableNum5` | El menú de controles acepta Num5 |
+| Cuadros de ayuda junto a "Mission Passed" | `HelpBoxWithMissionPassed` | El cuadro de ayuda ya no se oculta |
+| Sensibilidad vertical del ratón = horizontal | `MouseVerticalSensitivityFix` | Cámaras que leían `m_fMouseAccelVertical` |
+| Ratón gira el coche en el aire solo con "Steer with Mouse" | `MouseAirborneRequiresSteerOption` | Automóviles y quads |
+| SEAROADER (coches sobre el agua) | `SearoaderCheat` | Truco nuevo |
+| Munición 1 de cuchillo, motosierra, katana y paracaídas de los trucos | `FixCheatMeleeAmmo` | No los sustituye un pickup |
+| Stats en kilogramos y nombres GANGS/CRIMES de stats.html | `FixStatsKilograms`, `FixStatsHtmlSectionNames` | Texto de estadísticas |
+| Nombre de la emisora sin ajuste de línea por dibujos de script | `FixRadioStationNameWrap` | `SetCentreSize` |
+| Beagle de Fort Carson sustituido por BMX | `FixFortCarsonBeagle` | Cambia contenido (valor por defecto de SilentPatch) |
+| Unidades métricas/imperiales según la configuración regional | `Units` (-1 región, 0 métrico, 1 imperial) | Antes: imperial solo con idioma americano |

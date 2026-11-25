@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE3.h"
@@ -928,7 +929,9 @@ void CHud::DrawHelpText() {
     m_nHelpMessageTimer += uint32(ticks());
     CFont::SetAlphaFade(alpha); CFont::SetProportional(true); CFont::SetScaleForCurrentLanguage(sx * DatosExe::Rdata::k8665BC, sy * DatosExe::Rdata::k858F14);
     const auto finish = [] { CFont::SetAlphaFade(255.f); };
-    if (!m_nHelpMessageStatId && (m_BigMessage[0][0] || m_BigMessage[4][0] || StaticRef<bool>(0x96C014))) { finish(); return; }
+    // SilentPatch (MIT, Silent): los cuadros de texto pueden mostrarse junto con "Mission Passed" (opcion HelpBoxWithMissionPassed)
+    static const bool helpWithBigMessage = SilentPatchOption("HelpBoxWithMissionPassed", true);
+    if (!m_nHelpMessageStatId && ((!helpWithBigMessage && m_BigMessage[0][0]) || m_BigMessage[4][0] || StaticRef<bool>(0x96C014))) { finish(); return; }
     if (m_nHelpMessageStatId && TheCamera.m_bWideScreenOn) { finish(); return; }
     CFont::SetOrientation(static_cast<eFontAlignment>(1)); CFont::SetJustify(false);
     if (!m_nHelpMessageStatId) {

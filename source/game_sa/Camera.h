@@ -337,6 +337,8 @@ public:
     static inline auto& m_f3rdPersonCHairMultX = DatosExe::R5::vB6EC14;
     static inline auto& m_fMouseAccelVertical = DatosExe::R5::vB6EC18;
     static inline auto& m_fMouseAccelHorzntl = StaticRef<float>(0xB6EC1C);
+    //! SilentPatch (MIT, Silent): con la opcion MouseVerticalSensitivityFix la sensibilidad vertical del raton es la horizontal (si no, la propia vertical, como el original)
+    static const float* GetMouseAccelVerticalPtr();
     static inline auto& m_bUseMouse3rdPerson = StaticRef<bool>(0xB6EC2E);
     static inline auto& bDidWeProcessAnyCinemaCam = StaticRef<bool>(0xB6EC2D);
 

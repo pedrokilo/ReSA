@@ -23,6 +23,8 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "SilentPatchNewGame.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssE2.h"
 
 #include "CarGenerator.h"
@@ -307,6 +309,14 @@ void CFileLoader::LoadBoundingBox(uint8* data, CBoundingBox& outBoundBox) {
 
 // 0x537990
 void CFileLoader::LoadCarGenerator(CFileCarGenerator* carGen, int32 iplId) {
+    // SilentPatch (MIT, Silent): un Beagle mal colocado en Fort Carson se sustituye por una BMX (se identifica por los bytes exactos del generador; opcion FixFortCarsonBeagle)
+    static const bool fixBeagle = SilentPatchOption("FixFortCarsonBeagle", true);
+    if (fixBeagle) {
+        static constexpr uint8 beagleCargen[] = { 0xDE, 0xD3, 0x1A, 0xC2, 0x66, 0x66, 0x87, 0x44, 0x63, 0x7F, 0x99, 0x41, 0xD5, 0xB8, 0xB2, 0x3D, 0xFF, 0x01, 0x00, 0x00 };
+        if (std::memcmp(carGen, beagleCargen, sizeof(beagleCargen)) == 0) {
+            carGen->m_nModelId = MODEL_BMX;
+        }
+    }
     // Como el original: un solo fmul por 57.295776 (0x42652EE0) y el ultimo argumento es el byte
     // `flags & 2` sin normalizar (Setup lo enmascara con & 1, asi que el EXE nunca ignora el limite)
     using CreateFn = int32(__cdecl*)(CVector, float, int32, int16, int16, uint8, uint8, uint8, uint16, uint16, uint8, uint8);
@@ -2314,12 +2324,15 @@ void CFileLoader::LoadScene(const char* filename) {
                 break;
             case SectionID::PICK:
                 LoadPickup(line);
+                SilentPatchNewGame::RecordPickupLine(line); // SilentPatch (MIT, Silent): reinicio en Nueva Partida
                 break;
             case SectionID::CARS:
                 LoadCarGenerator(line, 0);
+                SilentPatchNewGame::RecordCarGeneratorLine(line);
                 break;
             case SectionID::JUMP:
                 LoadStuntJump(line);
+                SilentPatchNewGame::RecordStuntJumpLine(line);
                 break;
             case SectionID::TCYC:
                 LoadTimeCyclesModifier(line);

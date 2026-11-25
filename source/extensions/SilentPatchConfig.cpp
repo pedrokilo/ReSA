@@ -2,12 +2,10 @@
 #include "StdInc.h"
 #include "SilentPatchConfig.h"
 
-#include <cstdio>
-#include <cstdlib>
 #include <string>
 
 namespace {
-constexpr auto SP_INI_FILE = "gta-reversed.ini";
+constexpr auto SP_INI_FILE = ".\\gta-reversed.ini"; // con punto y barra delante: sin ruta, GetPrivateProfile* busca en el directorio de Windows
 constexpr auto SP_INI_SECTION = "SilentPatch";
 
 // -1 = no definido
@@ -18,6 +16,10 @@ int ReadEnv(const char* name) {
         return -1;
     }
     return buf[0] == '0' ? 0 : 1;
+}
+
+int ReadIniInt(const char* key, int defaultValue) {
+    return static_cast<int>(GetPrivateProfileIntA(SP_INI_SECTION, key, defaultValue, SP_INI_FILE));
 }
 
 int ReadIni(const char* key) {
@@ -48,7 +50,7 @@ bool SilentPatchOption(const char* name, bool defaultValue) {
     }
     std::string env = "GTASA_SP_";
     for (const char* c = name; *c; ++c) {
-        env += static_cast<char>(toupper(static_cast<unsigned char>(*c)));
+        env += (*c >= 'a' && *c <= 'z') ? static_cast<char>(*c - 32) : *c;
     }
     if (const int e = ReadEnv(env.c_str()); e != -1) {
         return e != 0;
@@ -57,4 +59,24 @@ bool SilentPatchOption(const char* name, bool defaultValue) {
         return i != 0;
     }
     return defaultValue;
+}
+
+int SilentPatchIntOption(const char* name, int defaultValue, int disabledValue) {
+    if (!SilentPatchEnabled()) {
+        return disabledValue;
+    }
+    std::string env = "GTASA_SP_";
+    for (const char* c = name; *c; ++c) {
+        env += (*c >= 'a' && *c <= 'z') ? static_cast<char>(*c - 32) : *c;
+    }
+    char buf[16]{};
+    if (const DWORD n = GetEnvironmentVariableA(env.c_str(), buf, sizeof(buf)); n != 0 && n < sizeof(buf)) {
+        int  v    = 0;
+        bool neg  = false;
+        const char* c = buf;
+        if (*c == '-') { neg = true; ++c; }
+        for (; *c >= '0' && *c <= '9'; ++c) { v = v * 10 + (*c - '0'); }
+        return neg ? -v : v;
+    }
+    return ReadIniInt(name, defaultValue);
 }

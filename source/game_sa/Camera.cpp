@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssG3.h"
 #include "DatosExe/DataBssG1.h"
 #include "DatosExe/DataBssE3.h"
@@ -4779,3 +4780,11 @@ auto CCamera::GetFrustumPoints() -> std::array<CVector, 5> {
     // top left, top right, bottom right, bottom left, center
     return std::to_array(pts);
 }
+
+// SilentPatch (MIT, Silent): The mouse's vertical axis sensitivity now matches the horizontal axis sensitivity
+const float* SilentPatch_MouseAccelVerticalPtr() {
+    static const bool sameAsHorizontal = SilentPatchOption("MouseVerticalSensitivityFix", true);
+    return sameAsHorizontal ? &CCamera::m_fMouseAccelHorzntl : &CCamera::m_fMouseAccelVertical;
+}
+
+const float* CCamera::GetMouseAccelVerticalPtr() { return SilentPatch_MouseAccelVerticalPtr(); }

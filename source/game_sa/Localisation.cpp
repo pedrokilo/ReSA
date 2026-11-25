@@ -24,6 +24,7 @@ END GENERATED HOOK STATUS */
 */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 
 #include "Localisation.h"
 
@@ -91,6 +92,18 @@ bool CLocalisation::FrenchGame() {
 
 // 0x56D220
 bool CLocalisation::Metric() {
+    // SilentPatch (MIT, Silent): Units=-1 (defecto) elige metrico/imperial segun la configuracion regional del sistema; 0 fuerza metrico, 1 imperial
+    static const int forcedUnits = SilentPatchIntOption("Units", -1, /*disabledValue*/ -2);
+    if (forcedUnits == 0 || forcedUnits == 1) {
+        return forcedUnits == 0;
+    }
+    if (forcedUnits == -1) {
+        DWORD measure = 0;
+        if (GetLocaleInfoA(LOCALE_USER_DEFAULT, LOCALE_IMEASURE | LOCALE_RETURN_NUMBER, reinterpret_cast<LPSTR>(&measure), sizeof(measure) / sizeof(char)) != 0) {
+            return measure == 0;
+        }
+        return true;
+    }
     return FrontEndMenuManager.m_nPrefsLanguage != eLanguage::AMERICAN;
 }
 

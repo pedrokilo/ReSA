@@ -1,6 +1,7 @@
 #include <StdInc.h>
 
 #include "Commands.hpp"
+#include "SilentPatchScripts.h"
 #include <CommandParser/Parser.hpp>
 #include "CommandParser/Parser.hpp"
 
@@ -17,7 +18,7 @@ auto GetDistanceBetweenCoords3d(CVector a, CVector b) {
 }
 
 auto GenerateRandomInt(int32& var) {
-    var = CGeneral::GetRandomNumber();
+    var = SilentPatchScripts::Random16([]() -> int { return CGeneral::GetRandomNumber(); }); // SilentPatch (MIT, Silent): aleatoriedad de 16 bits
 }
 
 auto GenerateRandomIntInRange(int32 a, int32 b) {

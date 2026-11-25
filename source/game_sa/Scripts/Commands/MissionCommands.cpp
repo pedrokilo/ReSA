@@ -4,6 +4,7 @@
 #include <CommandParser/Parser.hpp>
 
 #include <FireManager.h>
+#include "SilentPatchScripts.h"
 
 /*!
 * Various mission commands
@@ -30,6 +31,7 @@ void LoadAndLaunchMissionInternal(int32 missionId) {
             CFileMgr::CloseFile(file);
 
             CTheScripts::WipeLocalVariableMemoryForMissionScript();
+            SilentPatchScripts::OnMissionStarted(missionId); // SilentPatch (MIT, Silent): arreglos de scripts de mision
             CRunningScript* script = CTheScripts::StartNewScript(&CTheScripts::MissionBlock[0]);
             script->m_UsesMissionCleanup = true;
             script->m_ThisMustBeTheOnlyMissionRunning = true;

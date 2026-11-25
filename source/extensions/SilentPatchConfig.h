@@ -7,3 +7,5 @@
 
 bool SilentPatchEnabled();
 bool SilentPatchOption(const char* name, bool defaultValue);
+// Opcion numerica (p. ej. Units=-1|0|1). Con el interruptor general apagado devuelve disabledValue.
+int SilentPatchIntOption(const char* name, int defaultValue, int disabledValue);

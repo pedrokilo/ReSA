@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "SilentPatchNewGame.h"
 #include "DatosExe/DataBssE5.h"
 
 #include "UIRenderer.h"
@@ -894,6 +895,7 @@ void CGame::Process() {
 
 // 0x53BCF0
 void CGame::ReInitGameObjectVariables() {
+    SilentPatchNewGame::BeforeReInit(); // SilentPatch (MIT, Silent): variables que el original no reiniciaba al empezar Nueva Partida
     TheCamera.Init();
     CGameLogic::InitAtStartOfGame();
     CGangWars::InitAtStartOfGame();
@@ -959,6 +961,7 @@ void CGame::ReInitGameObjectVariables() {
     }
     CPad::GetPad(PED_TYPE_PLAYER1)->Clear(true, true);
     CPad::GetPad(PED_TYPE_PLAYER2)->Clear(true, true);
+    SilentPatchNewGame::AfterReInit(); // SilentPatch (MIT, Silent): pickups, generadores y saltos de los IPL de texto
 }
 
 // 0x53BED0

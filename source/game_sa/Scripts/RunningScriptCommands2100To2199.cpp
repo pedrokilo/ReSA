@@ -1,4 +1,6 @@
 #include "StdInc.h"
+#include "SilentPatchScripts.h"
+#include "extensions/SilentPatchConfig.h"
 
 #include <bit>
 #include <utility>
@@ -132,6 +134,13 @@ OpcodeResult CRunningScript::ProcessCommands2100To2199(int32 command) {
     case COMMAND_GET_CURRENT_DATE: {
         P(0).uParam = CClock::ms_nGameClockDays;  // movzx byte [0xB70154]
         P(1).uParam = CClock::ms_nGameClockMonth; // movzx byte [0xB70155]
+        { // SilentPatch (MIT, Silent): gym glitch
+            int32 day = P(0).iParam, month = P(1).iParam;
+            if (SilentPatchScripts::GymGlitchFixDate(m_szName, day, month)) {
+                P(0).iParam = day;
+                P(1).iParam = month;
+            }
+        }
         StoreParameters(2);
         return OR_CONTINUE;
     }
@@ -578,8 +587,11 @@ OpcodeResult CRunningScript::ProcessCommands2100To2199(int32 command) {
     case COMMAND_CREATE_BIRDS: {
         CollectParameters(8);
         // el EXE convierte con fild los seis primeros parametros enteros en las coordenadas
-        const CVector start{ static_cast<float>(P(0).iParam), static_cast<float>(P(1).iParam), static_cast<float>(P(2).iParam) };
-        const CVector target{ static_cast<float>(P(3).iParam), static_cast<float>(P(4).iParam), static_cast<float>(P(5).iParam) };
+        // SilentPatch (MIT, Silent): CREATE_BIRDS interpretaba las coordenadas como enteros (arregla los pajaros de "Ice Cold Killa")
+        static const bool asFloat = SilentPatchOption("FixCreateBirds", true);
+        const auto    C       = [&](int i) { return asFloat ? P(i).fParam : static_cast<float>(P(i).iParam); };
+        const CVector start{ C(0), C(1), C(2) };
+        const CVector target{ C(3), C(4), C(5) };
         CBirds::CreateNumberOfBirds(start, target, P(6).iParam, static_cast<eBirdsBiome>(P(7).iParam), false);
         return OR_CONTINUE;
     }

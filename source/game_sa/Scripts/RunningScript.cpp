@@ -17,6 +17,7 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
+#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataInicializadaXB.h"
 #include "DatosExe/DataBssG5.h"
 #include "DatosExe/DataBssG3.h"
@@ -705,15 +706,25 @@ void CRunningScript::DoDeathArrestCheck() {
     m_WakeTime        = 0;
 }
 
+static bool FixBikerCop() {
+    static const bool v = SilentPatchOption("FixBikerCopSpawn", true);
+    return v;
+}
+
 // 0x464F50
 void CRunningScript::GetCorrectPedModelIndexForEmergencyServiceType(ePedType pedType, uint32* typeSpecificModelId) {
     switch (*typeSpecificModelId) {
     case MODEL_LAPD1:
     case MODEL_SFPD1:
     case MODEL_LVPD1:
-    case MODEL_LAPDM1:
         if (pedType == PED_TYPE_COP) {
             *typeSpecificModelId = COP_TYPE_CITYCOP;
+        }
+        break;
+    case MODEL_LAPDM1:
+        if (pedType == PED_TYPE_COP) {
+            // SilentPatch (MIT, Silent; by Wesser): spawn lapdm1 (biker cop) correctly if the script requests one with PEDTYPE_COP
+            *typeSpecificModelId = FixBikerCop() ? COP_TYPE_LAPDM1 : COP_TYPE_CITYCOP;
         }
         break;
     case MODEL_CSHER:
