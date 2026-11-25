@@ -9,6 +9,8 @@
 #include <fstream>
 #include <optional>
 #include <string>
+#include <utility>
+#include <vector>
 
 namespace {
 // Valor por defecto del interruptor general (cambiar aqui para que SilentPatch quede apagado salvo que se encienda por entorno o ini).
@@ -62,6 +64,14 @@ std::optional<bool> DeIni(const std::string& clave) {
     }
     return std::nullopt;
 }
+// Registro de las opciones ya consultadas (solo para el log de diagnostico: SilentPatchLogState).
+std::vector<std::pair<std::string, int>> g_consultadas;
+bool g_informado = false;
+
+void Registrar(const std::string& nombre, int valor) {
+    g_consultadas.emplace_back(nombre, valor);
+    if (g_informado) { SPDLOG_INFO("SilentPatch: opcion {} = {}", nombre, valor); }
+}
 } // namespace
 
 bool SilentPatchEnabled() {
@@ -75,7 +85,15 @@ bool SilentPatchOption(const char* name, bool defaultValue) {
     }
     std::string mayus{name};
     std::transform(mayus.begin(), mayus.end(), mayus.begin(), [](unsigned char c) { return (char)std::toupper(c); });
-    return DeEntorno("GTASA_SILENTPATCH_" + mayus).value_or(DeIni(std::string("SilentPatch_") + name).value_or(defaultValue));
+    const bool r = DeEntorno("GTASA_SILENTPATCH_" + mayus).value_or(DeIni(std::string("SilentPatch_") + name).value_or(defaultValue));
+    Registrar(name, r ? 1 : 0);
+    return r;
+}
+
+void SilentPatchLogState() {
+    SPDLOG_INFO("SilentPatch: interruptor general = {} (GTASA_SILENTPATCH / SilentPatch= en gta-reversed.ini; por defecto {})", SilentPatchEnabled() ? 1 : 0, kSilentPatchPorDefecto ? 1 : 0);
+    g_informado = true;
+    for (const auto& [n, v] : g_consultadas) { SPDLOG_INFO("SilentPatch: opcion {} = {}", n, v); }
 }
 
 int SilentPatchIntOption(const char* name, int defaultValue, int disabledValue) {

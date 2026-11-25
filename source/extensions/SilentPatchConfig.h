@@ -21,3 +21,8 @@ bool SilentPatchOption(const char* name, bool defaultValue);
  * donde <Nombre> es la cadena que se pasa a SilentPatchOption / SilentPatchIntOption (sin distinguir mayusculas en el ini; en el entorno se pasa a mayusculas).
  */
 int SilentPatchIntOption(const char* name, int defaultValue, int disabledValue);
+/*
+ * Escribe en el log (spdlog) el estado del interruptor general y de las opciones consultadas hasta ahora; las que se consulten despues se escriben al consultarlas.
+ * Sirve de evidencia en las pruebas (log.log del juego). Se llama una vez al empezar a ejecutarse el bucle principal (Idle, app_game.cpp).
+ */
+void SilentPatchLogState();

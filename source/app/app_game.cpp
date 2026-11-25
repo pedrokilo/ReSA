@@ -335,6 +335,8 @@ void Idle(void* param) {
     // división y resta sin signo; las dos primeras lecturas del temporizador se descartan.
     // SilentPatch (MIT, Silent): NoFrameDelay (sin opcion propia en SilentPatchSA.ini; activado). Quita la espera de 14 ms
     // (el juego pasa de 25 a 30 FPS con el limitador).
+    static const bool spLogEstado = (SilentPatchLogState(), true); // SilentPatch: deja constancia en el log del estado de las opciones
+    (void)spLogEstado;
     static const bool spNoFrameDelay = SilentPatchOption("NoFrameDelay", true);
     if (!spNoFrameDelay) {
         static auto& LastTickTime = DatosExe::Bss::bB72CA8;
