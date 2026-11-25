@@ -23,7 +23,6 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
-#include "extensions/SilentPatchConfig.h"
 
 #include "oswrapper.h"
 #include "X87Math.h"
@@ -228,18 +227,6 @@ void CTimer::UpdateVariables(float timeElapsed)
     // producto por 0,05 (un denormal se guarda como denormal, no se anula como con SSE) y el truncado de los ms.
     uint32 elapsedMs, newNonClipped;
     float stepNonClipped;
-    // SilentPatch (MIT, Silent): NewTimersFix (0x561902 y 0x56191A) - las dos conversiones a entero acumulan el resto fraccionario entre fotogramas (a mas de 1000 fps los ms transcurridos eran siempre 0 y los temporizadores se congelaban)
-    static const bool bNewTimersFix = SilentPatchOption("NewTimersFix", true);
-    if (bNewTimersFix) {
-        static double s_remNonClipped = 0.0, s_remElapsed = 0.0;
-        const double q = double(timeElapsed) / double(m_snTimerDivider); // el divisor es sin signo en el EXE; los valores reales caben en int32
-        double integral;
-        s_remNonClipped = std::modf(double(m_snTimeInMillisecondsNonClipped) + q + s_remNonClipped, &integral);
-        newNonClipped = static_cast<uint32>(static_cast<int64>(integral));
-        stepNonClipped = float(double(std::bit_cast<float>(0x3D4CCCCDu)) * q);
-        s_remElapsed = std::modf(q + s_remElapsed, &integral);
-        elapsedMs = static_cast<uint32>(static_cast<int64>(integral));
-    } else
     TimerUpdateStepCpp(timeElapsed, m_snTimerDivider, m_snTimeInMillisecondsNonClipped, &newNonClipped, &stepNonClipped, &elapsedMs);
     m_snTimeInMillisecondsNonClipped = newNonClipped;
     ms_fTimeStepNonClipped = stepNonClipped;
@@ -283,12 +270,6 @@ void CTimer::Update() {
         fTimeDelta = ms_fTimeScale * fTimeDelta;
     m_snRenderStartTime = nRenderTimeNow;
 
-    if (SilentPatchOption("NewTimersFix", true)) { // SilentPatch (MIT, Silent): NewTimersFix (0x561C32) - resto fraccionario acumulado tambien en el modo pausa
-        static double s_remPause = 0.0;
-        double integral;
-        s_remPause = std::modf(double(m_snTimeInMillisecondsPauseMode) + double(fTimeDelta) / double(m_snTimerDivider) + s_remPause, &integral);
-        m_snTimeInMillisecondsPauseMode = static_cast<uint32>(static_cast<int64>(integral));
-    } else
     m_snTimeInMillisecondsPauseMode = TimerPauseModeCpp(m_snTimeInMillisecondsPauseMode, fTimeDelta, m_snTimerDivider);
     if (GetIsPaused())
         fTimeDelta = 0.0f;

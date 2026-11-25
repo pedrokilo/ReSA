@@ -32,7 +32,6 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
-#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssE2.h"
 #include "DatosExe/DataBssE1.h"
 #include "X87Math.h"
@@ -1316,24 +1315,14 @@ void CRenderer::ConstructRenderList() {
     ms_bInTheSky = false;
 
     CPlayerPed* player = FindPlayerPed();
-    // SilentPatch (MIT, Silent): RCVehicleStreamingFix - con un vehiculo RC el streaming debe seguir al vehiculo controlado y no al jugador a pie (SilentPatch 0x55574B y 0x5557C3: FindPlayerEntityWithRC y FindPlayerVehicle(-1, true))
-    static const bool bRCStreamingFix = SilentPatchOption("RCVehicleStreamingFix", true);
-    CEntity* playerEntity = player;
-    if (bRCStreamingFix && player) {
-        if (auto* const remote = CWorld::Players[CWorld::PlayerInFocus].m_pRemoteVehicle) {
-            playerEntity = remote;
-        } else if (auto* const vehicle = FindPlayerVehicle()) {
-            playerEntity = vehicle;
-        }
-    }
-    if (playerEntity && playerEntity->GetAreaCode() == AREA_CODE_NORMAL_WORLD) {
+    if (player && player->GetAreaCode() == AREA_CODE_NORMAL_WORLD) {
         // Como el original: las dos alturas del suelo se calculan siempre, antes de comparar
         const float fGroundHeightBottomZ = TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_BOTTOM);
         const float fGroundHeightTopZ = TheCamera.CalculateGroundHeight(eGroundHeightType::ENTITY_BB_TOP);
-        const float fPlayerHeightZ = playerEntity->GetPosition().z;
+        const float fPlayerHeightZ = player->GetPosition().z;
 
         if (fPlayerHeightZ - fGroundHeightBottomZ > 50.0f) {
-            if (fPlayerHeightZ - fGroundHeightTopZ > 10.0f && FindPlayerVehicle(-1, bRCStreamingFix)) {
+            if (fPlayerHeightZ - fGroundHeightTopZ > 10.0f && FindPlayerVehicle()) {
                 ms_bInTheSky = true;
             }
         }

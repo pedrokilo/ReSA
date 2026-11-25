@@ -6,6 +6,20 @@ Base: `integracion-fase7b` (09d31673c6). Worktree `D:\Original\wv-spe`. Origen: 
 * Tabla de desviaciones: sección 15.E de [DesviacionesConocidas.md](../DesviacionesConocidas.md).
 * Ninguna opción tiene clave propia en `SilentPatchSA.ini` (en SilentPatch estos arreglos son fijos), así que todas van **activadas por defecto**.
 
+## Solapes con otras ramas (retirados de esta)
+
+Cinco arreglos que esta rama implementó y probó los implementan también otras ramas de la tanda; se retiraron en el segundo commit de esta rama (el primero, `56e52caebf`, los conserva) para no duplicarlos al fusionar:
+
+| Viñeta | Opción propia (retirada) | Otra rama |
+| --- | --- | --- |
+| L29 temporizadores | `NewTimersFix` | `silentpatch2-graficos`: `TimersFix` (Timer.cpp, TheScripts.cpp; mismo código) |
+| L200 pantallas de carga en bucle | `LoopLoadingScreens` | `silentpatch2-graficos`: misma opción y mismo arreglo (LoadingScreen.cpp) |
+| L76 streaming con RC | `RCVehicleStreamingFix` | `silentpatch2-vehiculos`: `RCVehicleStreaming`; también la rama de peds (`RCStreaming`, sin confirmar su estado final) (Renderer.cpp) |
+| L104 jetpack con teclado | `JetpackKeyboardHover` | rama de peds: `JetpackKeyboardControlsHover` (TaskSimpleJetPack.cpp) |
+| L120 clones de CJ en controles de carretera | `RoadblockCJClonesFix` | rama de peds: `RoadblockNoCJClones` (RoadBlocks.cpp; mismo resultado, el hallazgo de que la reconstrucción previa ya no generaba clones aplica igual) |
+
+Al contrario, **L23** (objetos sujetos por pandilleros, `DelayedHeldObjectDestruction`) sigue en esta rama porque el encargo lo asigna aquí, pero la rama de peds lo tiene también (`DelayHeldEntityDestroy`, mismo hunk): hay que quedarse con uno.
+
 ## Qué se portó (todo en C++ puro, sin `__asm`)
 
 | Viñeta (L) | Opción | Dónde | Cómo se localizó |
@@ -16,17 +30,12 @@ Base: `integracion-fase7b` (09d31673c6). Worktree `D:\Original\wv-spe`. Origen: 
 | Replay: ropa distinta (24) | `ReplayPlayerPedCrashFixes` | `Replay.cpp:FinishPlayback` | `InterceptCall(0x45F060)`: tras `RestoreStuffFromMem` se llama `CClothes::RebuildPlayer(FindPlayerPed(), false)` |
 | Replay: cuerpo gordo/musculoso (25) | `ReplayPlayerPedCrashFixes` | `Replay.cpp:DealWithNewPedPacket` | `InterceptCall(0x45CF87)`: tras `RebuildPlayer(ped, true)` se piden los bloques `fat` y `muscular` (`RESOURCE_ID_IFP` + índice, flags 18) y `LoadAllRequestedModels(true)` |
 | Cursor confinado a la ventana (27) | `ClipCursorToGameWindow` | `WndProc.cpp` (mensajes de activación/ventana y `SilentPatchCursorClipPerFrame`), `app_game.cpp:Idle` | SilentPatch `ClipCursorToGameWindow` (SilentPatchSA.cpp:4557-4662): `ClipCursor` al rectángulo cliente en juego, libre en el menú y sin foco; anula el `RsMouseSetPos` de centrado (0x53E9F1) |
-| Temporizadores (29) | `NewTimersFix` | `Timer.cpp:UpdateVariables`/`Update`, `Scripts/TheScripts.cpp:Process` | Cuatro `_ftol` de `CTimer` (0x561902, 0x56191A, 0x561C32) y de `CTheScripts::Process` (0x46A036): SilentPatch acumula el resto fraccionario con `modf` entre fotogramas |
 | Corrupción de heap (30) | `HeapCorruptionFix` | `Fx/FxManager.cpp:LoadFxProject` | `Nop(0x5C25D3, 5)`: la llamada `FxMemoryPool_c::Optimise` (0x4A9CD0) al final de `LoadFxProject` (+0x1B3). Esa función hace `realloc` de la arena del pool al tamaño usado mientras los `FxSystemBP_c` ya apuntan dentro de ella; el resultado depende del gestor de memoria |
 | Raton bloqueado al salir del menú (11) | `MouseReinitFix` | `Frontend/MenuManager_Input.cpp:CheckForMenuClosing` (3 sitios), `WinInput.cpp:diMouseInit` | SilentPatchSA.cpp:7122-7128: se salta `DIReleaseMouse` + `InitialiseMouse` (0x576CCC, 0x576EBA, 0x576F8A) y el dispositivo DirectInput es siempre no exclusivo (`al = 0` en 0x7469A0) |
 | Latencia del teclado (79) | `KeyboardInputLatencyFix` | `Pad.cpp:CPad::UpdatePads` | `KeyboardInputFix`: Old = New, New = Temp se mueve del final de `UpdatePads` (0x541E1C) a justo antes de `ClearSimButtonPressCheckers` (0x541DE6) |
 | Eje vertical del ratón en fundidos (46) | `MouseYAxisFadeInFix` | `Cam.cpp:Process_FollowPedWithMouse` (2 sitios), `Process_FollowPed_SA` | Parches 0x50FBB4, 0x510512 y 0x524071: se salta la condición de fundido que forzaba el ángulo vertical (y el rumbo del jugador) |
 | Cámara de coche con el ratón (86) | `InCarCameraMouseLookFix` | `Cam.cpp:Process_FollowCar_SA` | 0x525615: la lectura de `m_bUseMouse3rdPerson` pasa a "ratón y `camLookDirection == 3` (mirando adelante)" |
-| Jetpack con teclado (104) | `JetpackKeyboardHover` | `TaskSimpleJetPack.cpp:ProcessControlInput` | 0x67ED2D: se consulta `GetLookBehindForCar` (L2+R2 = Q+E) antes de la rama del ratón y, si es verdadero, se salta a la rama de "flotar" (0x67EDAF) |
 | Checkpoints de carrera (97) | `RacingCheckpointsColourFix` | `3dMarkers.cpp:tDirectionArrow::Render` | 0x721520: se activa `rpGEOMETRYMODULATEMATERIALCOLOR` antes de dibujar la flecha |
-| Streaming con vehículos RC (76) | `RCVehicleStreamingFix` | `Renderer.cpp:ConstructRenderList` | 0x55574B y 0x5557C3: la entidad que se sigue pasa a ser el vehículo remoto (o el coche) y `FindPlayerVehicle(-1, true)` |
-| Pantallas de carga en bucle (200) | `LoopLoadingScreens` | `LoadingScreen.cpp:DoPCScreenChange`/`RenderSplash` | `LoopDisplayedSplashes`: tras la sexta pantalla vuelve a la primera (1) y la pantalla anterior del fundido cruzado es la 6 |
-| Clones de CJ en control de carretera (120) | `RoadblockCJClonesFix` | `RoadBlocks.cpp:GenerateRoadBlockPedsForCar` | 0x4613C2: el EXE conserva el último modelo elegido (0 = CJ) cuando ninguna banda tiene fuerza en la zona. **Hallazgo**: nuestra reconstrucción ya no generaba esos clones (es "fijo" por accidente); con la opción apagada se reproduce ahora el EXE |
 | `FILE_FLAG_NO_BUFFERING` (71) | `RemoveNoBufferingFlag` | `CdStreamInfo.cpp:CdStreamInit` | 0x406BC6 |
 | IMG de más de 4 GB (219) | `IMGsBiggerThan4GB` | `CdStreamInfo.cpp:CdStreamThread`/`CdStreamRead` | `CdStreamThreadHighSize`/`CdStreamSetFilePointer` (0x4065C2, 0x406620): desplazamiento de 64 bits (`OffsetHigh`, `SetFilePointer` con parte alta) |
 
@@ -52,7 +61,7 @@ Lanzado con `reversing/FnJuego/ejecutar_juego.ps1 -Exe <ese exe>` (candado `gta_
 
 | Ejecución | SilentPatch | Resultado |
 | --- | --- | --- |
-| `spe_on`, `spe_on2` | encendido (por defecto) | vivo todo el escenario; replay con F1 x3 y 12 pulsaciones seguidas sin caída; el log registra `HeapCorruptionFix: Optimise omitido`, `ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular` y `RebuildPlayer con la ropa actual al terminar la reproduccion` en cada replay; `excepciones=0` en `spe_on2` (130 s) y `excepciones=1` en `spe_on` (ver nota) |
+| `spe_on`, `spe_on2` | encendido (por defecto; binario con los cinco solapes todavía incluidos) | vivo todo el escenario; replay con F1 x3 y 12 pulsaciones seguidas sin caída; el log registra `HeapCorruptionFix: Optimise omitido`, `ReplayPlayerPedCrashFixes: cargando bloques de animacion fat y muscular` y `RebuildPlayer con la ropa actual al terminar la reproduccion` en cada replay; `excepciones=0` en `spe_on2` (130 s) y `excepciones=1` en `spe_on` (ver nota) |
 | `spe_off`, `spe_off2` | `GTASA_SILENTPATCH=0` | vivo; el log dice `interruptor general = 0` y no lista opciones; `excepciones=1` (ver nota) |
 | `spe_int` | encendido | `interiores` x3: 15 entradas y 15 salidas de interior (casa de CJ, gimnasio, tienda de ropa, Ammu-Nation, peluquería) en 440 s, todas con `entro` y `salio` verdaderos, sin NaN, sin bloqueo de streaming; 220 latidos con `excepciones=0` |
 
@@ -75,9 +84,9 @@ Nota sobre `excepciones=1`: en tres de las cinco ejecuciones el registro de lati
 
 ## Qué NO se verificó
 
-* `CameraMemoryLeakFix`, `DelayedHeldObjectDestruction`, `InCarCameraMouseLookFix`, `MouseYAxisFadeInFix`, `JetpackKeyboardHover`, `RacingCheckpointsColourFix`, `RCVehicleStreamingFix`, `LoopLoadingScreens` (la vuelta), `IMGsBiggerThan4GB` (la rama de más de 4 GB), `MouseReinitFix` (el reinicio solo existe en pantalla completa exclusiva) y `RoadblockCJClonesFix`: implementados y compilados, no ejercitados (requieren una foto con la cámara del juego, pandilleros con objetos, mirar atrás con el ratón en coche, un fundido de entrada con el ratón, el jetpack, una carrera, un vehículo RC, una carga muy larga, una imagen mayor de 4 GB, pantalla completa o una persecución en una zona sin bandas).
+* `CameraMemoryLeakFix`, `DelayedHeldObjectDestruction`, `InCarCameraMouseLookFix`, `MouseYAxisFadeInFix`, `RacingCheckpointsColourFix`, `IMGsBiggerThan4GB` (la rama de más de 4 GB) y `MouseReinitFix` (el reinicio solo existe en pantalla completa exclusiva): implementados y compilados, no ejercitados (requieren una foto con la cámara del juego, pandilleros con objetos, mirar atrás con el ratón en coche, un fundido de entrada con el ratón, una carrera, una imagen mayor de 4 GB o pantalla completa).
 * Los fallos de replay que describe el changelog (ropa o cuerpo distintos) no se reprodujeron ni con ni sin el arreglo; solo se comprobó que los caminos nuevos se recorren sin caída.
 * `HeapCorruptionFix`: se comprueba que `Optimise` se omite; no se observó la corrupción original (depende del gestor de memoria).
 * El deadlock de streaming: la prueba aislada demuestra la carrera y su cura en el protocolo; no se probaron 50 cargas de partida de ~100 s con y sin el arreglo (≈ 3 horas) ni se demuestra que sea la causa del cuelgue de ~120 s observado en `ejecucion-cargar-partidas.md`.
-* `NewTimersFix` por encima de 1000 FPS reales: solo la prueba aritmética (`silentpatch-clasificacion/entrada-temporizadores.txt`) y la ejecución normal a 30 FPS.
+* Temporizadores (L29): la prueba aritmética `silentpatch-clasificacion/entrada-temporizadores.txt` (a 2500 FPS el EXE avanza 0 ms en 10 s y con resto fraccionario 10000 ms; a 60 FPS el EXE atrasa un 4 %) se hizo con la fórmula, no con el juego; el arreglo en sí lo lleva la rama de gráficos.
 * La clasificación recoge L10 ("More precise frame limiter") como no tomada: no está en mi lista y no la recoge mi búsqueda; sigue pendiente de asignar.

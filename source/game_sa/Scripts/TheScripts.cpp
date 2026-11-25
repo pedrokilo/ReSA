@@ -1846,14 +1846,7 @@ void CTheScripts::Process() {
     ScriptsUpdated   = 0;
 
     // Como el original (0x46A010..0x46A036): CTimer::ms_fTimeStepNonClipped (0xB7CB58) * 0.02f * 1000.0f truncado con _ftol2
-    int32 timeStepMS = (int32)(CTimer::GetTimeStepNonClipped() * std::bit_cast<float>(0x3CA3D70Au) * 1000.0f);
-    // SilentPatch (MIT, Silent): NewTimersFix (0x46A036) - la parte fraccionaria que se pierde al truncar se acumula para el siguiente fotograma (con mas de 1000 fps el paso en ms era siempre 0 y los temporizadores se congelaban)
-    if (SilentPatchOption("NewTimersFix", true)) {
-        static double s_remainder = 0.0;
-        double integral;
-        s_remainder = std::modf(double(CTimer::GetTimeStepNonClipped() * std::bit_cast<float>(0x3CA3D70Au) * 1000.0f) + s_remainder, &integral);
-        timeStepMS = int32(integral);
-    }
+    const auto timeStepMS = (int32)(CTimer::GetTimeStepNonClipped() * std::bit_cast<float>(0x3CA3D70Au) * 1000.0f);
 
     UpsideDownCars.UpdateTimers();
     StuckCars.Process();

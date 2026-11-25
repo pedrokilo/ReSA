@@ -17,7 +17,6 @@
 END GENERATED HOOK STATUS */
 
 #include "StdInc.h"
-#include "extensions/SilentPatchConfig.h"
 #include "DatosExe/DataBssE3.h"
 #include "X87Math.h"
 
@@ -475,13 +474,7 @@ void CTaskSimpleJetPack::ProcessControlInput(CPlayerPed* player) {
         }
     }
 
-    // SilentPatch (MIT, Silent): JetpackKeyboardHover - con los controles de teclado y raton tambien se puede flotar (mantener siguiente+anterior arma, Q+E): GetLookBehindForCar se consulta antes de la rama del raton (0x67ED2D -> 0x67EDAF)
-    const bool bHoverWithKeyboard = CCamera::m_bUseMouse3rdPerson && !player->bIsStanding && SilentPatchOption("JetpackKeyboardHover", true) && pad->GetLookBehindForCar();
-    if (bHoverWithKeyboard) {
-        m_ThrustStop   = true;
-        m_ThrustFwd    = 0;
-        m_ThrustStrafe = 0.f;
-    } else if (CCamera::m_bUseMouse3rdPerson && !player->bIsStanding) { // 0x67ED2D
+    if (CCamera::m_bUseMouse3rdPerson && !player->bIsStanding) { // 0x67ED2D
         m_ThrustStop = false;
         if (pad->GetBrake()) {
             m_ThrustFwd = -1;
