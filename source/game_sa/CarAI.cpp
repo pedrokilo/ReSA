@@ -32,6 +32,7 @@ END GENERATED HOOK STATUS */
 #include "TaskComplexCopInCar.h"
 #include "TaskComplexDriveFireTruck.h"
 #include "TaskComplexMedicTreatInjuredPed.h"
+#include "TaskComplexSequence.h"
 #include "TaskComplexKillPedFromBoat.h"
 #include "TaskComplexLeaveCar.h"
 #include "TaskSimpleCarDrive.h"
@@ -277,6 +278,18 @@ void CCarAI::BackToCruisingIfNoWantedLevel(CVehicle* vehicle) {
     }
 
     CCarCtrl::JoinCarWithRoadSystem(vehicle);
+
+    // SilentPatch (MIT, Silent): biker cops abort their drive-by task (inside a sequence) when they lose the wanted level; option "BikerCopsDriveByFix"
+    if (SilentPatchOption("BikerCopsDriveByFix", true)) {
+        if (CPed* driver = vehicle->m_pDriver) {
+            if (CTask* primary = driver->GetTaskManager().GetTaskPrimary(TASK_PRIMARY_PRIMARY); primary && primary->GetTaskType() == TASK_COMPLEX_SEQUENCE) {
+                auto* sequence = static_cast<CTaskComplexSequence*>(primary);
+                if (sequence->Contains(TASK_SIMPLE_GANG_DRIVEBY)) {
+                    sequence->MakeAbortable(driver, ABORT_PRIORITY_URGENT, nullptr);
+                }
+            }
+        }
+    }
 
     vehicle->vehicleFlags.bSirenOrAlarm   = false; // Como el original: apaga la sirena
     vehicle->m_autoPilot.m_nCarMission      = MISSION_CRUISE;

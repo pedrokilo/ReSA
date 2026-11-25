@@ -408,8 +408,15 @@ void CFire::ProcessFire() {
                 continue;
             }
             if (veh->IsSubBMX()) {
-                FindPlayerPed()->DoStuffToGoOnFire();
-                gFireManager.StartFire(FindPlayerPed(), m_EntityStartedFire, 0.8f, true, 7000, 100);
+                // SilentPatch (MIT, Silent): a burning bicycle sets its driver on fire, not CJ; option "BicycleFire"
+                if (SilentPatchOption("BicycleFire", true)) {
+                    if (veh->m_pDriver) {
+                        gFireManager.StartFire(veh->m_pDriver, m_EntityStartedFire, 0.8f, true, 7000, 100);
+                    }
+                } else {
+                    FindPlayerPed()->DoStuffToGoOnFire();
+                    gFireManager.StartFire(FindPlayerPed(), m_EntityStartedFire, 0.8f, true, 7000, 100);
+                }
                 veh->BurstTyre((uint8)(CAR_PIECE_FIRST_WHEEL + +veh->FindTyreNearestPoint(CVector2D{ m_Position.x, m_Position.y })), false);
             } else {
                 gFireManager.StartFire(veh, m_EntityStartedFire, 0.8f, true, 7000, 0);

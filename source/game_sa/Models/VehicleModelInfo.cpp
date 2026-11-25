@@ -1887,7 +1887,8 @@ int32 ChooseComponent(int32 rule, int32 comps)
         return (comps >> (4 * rand)) & 0xF;
     }
     else if (rule == eComponentsRules::FULL_RANDOM) {
-        return CGeneral::GetRandomIntInRange(0, 5);
+        // SilentPatch (MIT, Silent): allow extra6 to be picked with component rule 4 (any); option "Extra6Rule"
+        return CGeneral::GetRandomIntInRange(0, SilentPatchOption("Extra6Rule", true) ? 6 : 5);
     }
     else
         return -1;

@@ -711,9 +711,14 @@ void CRunningScript::GetCorrectPedModelIndexForEmergencyServiceType(ePedType ped
     case MODEL_LAPD1:
     case MODEL_SFPD1:
     case MODEL_LVPD1:
-    case MODEL_LAPDM1:
         if (pedType == PED_TYPE_COP) {
             *typeSpecificModelId = COP_TYPE_CITYCOP;
+        }
+        break;
+    case MODEL_LAPDM1:
+        if (pedType == PED_TYPE_COP) {
+            // SilentPatch (MIT, Silent): a request for a biker cop (lapdm1) with PEDTYPE_COP spawns a biker cop, not a normal one; option "BikerCopSpawn"
+            *typeSpecificModelId = SilentPatchOption("BikerCopSpawn", true) ? COP_TYPE_LAPDM1 : COP_TYPE_CITYCOP;
         }
         break;
     case MODEL_CSHER:

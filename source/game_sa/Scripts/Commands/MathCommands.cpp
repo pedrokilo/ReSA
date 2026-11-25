@@ -18,6 +18,10 @@ auto GetDistanceBetweenCoords3d(CVector a, CVector b) {
 
 auto GenerateRandomInt(int32& var) {
     var = CGeneral::GetRandomNumber();
+    // SilentPatch (MIT, Silent): script randomness 16-bit instead of 15-bit, like on PS2; option "Rand16bit"
+    if (SilentPatchOption("Rand16bit", true)) {
+        var |= (CGeneral::GetRandomNumber() & 1) << 15;
+    }
 }
 
 auto GenerateRandomIntInRange(int32 a, int32 b) {

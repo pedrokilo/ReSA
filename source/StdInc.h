@@ -31,6 +31,7 @@
 #include "reversiblehooks/ReversibleHooks.h"
 
 #include <extensions/Casting.hpp>
+#include <extensions/SilentPatchConfig.h>
 
 #include <Tracy.hpp>
 

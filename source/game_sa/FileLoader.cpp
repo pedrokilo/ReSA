@@ -307,6 +307,13 @@ void CFileLoader::LoadBoundingBox(uint8* data, CBoundingBox& outBoundBox) {
 
 // 0x537990
 void CFileLoader::LoadCarGenerator(CFileCarGenerator* carGen, int32 iplId) {
+    // SilentPatch (MIT, Silent): the Beagle misplaced in Fort Carson (exact coordinates match) becomes a BMX (481); option "FortCarsonBeagle"
+    {
+        static constexpr uint8 beagleCargen[] = { 0xDE, 0xD3, 0x1A, 0xC2, 0x66, 0x66, 0x87, 0x44, 0x63, 0x7F, 0x99, 0x41, 0xD5, 0xB8, 0xB2, 0x3D, 0xFF, 0x01, 0x00, 0x00 };
+        if (SilentPatchOption("FortCarsonBeagle", true) && std::memcmp(beagleCargen, carGen, sizeof(beagleCargen)) == 0) {
+            carGen->m_nModelId = MODEL_BMX;
+        }
+    }
     // Como el original: un solo fmul por 57.295776 (0x42652EE0) y el ultimo argumento es el byte
     // `flags & 2` sin normalizar (Setup lo enmascara con & 1, asi que el EXE nunca ignora el limite)
     using CreateFn = int32(__cdecl*)(CVector, float, int32, int16, int16, uint8, uint8, uint8, uint16, uint16, uint8, uint8);

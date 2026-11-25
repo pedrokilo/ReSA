@@ -1,0 +1,27 @@
+=== defecto
+enabled=1
+MeleeCheatAmmo=1
+AIAccuracyFix=1
+SecuricarDamage=1
+Rand16bit=1
+TrueInvincibility=1
+BicycleFire=1
+default-false opt TrueInvincibility with default false -> 0
+=== general apagado
+enabled=0
+MeleeCheatAmmo=0
+AIAccuracyFix=0
+SecuricarDamage=0
+Rand16bit=0
+TrueInvincibility=0
+BicycleFire=0
+default-false opt TrueInvincibility with default false -> 0
+=== general encendido, AIAccuracyFix=0, TrueInvincibility=1
+enabled=1
+MeleeCheatAmmo=1
+AIAccuracyFix=0
+SecuricarDamage=1
+Rand16bit=1
+TrueInvincibility=1
+BicycleFire=1
+default-false opt TrueInvincibility with default false -> 1

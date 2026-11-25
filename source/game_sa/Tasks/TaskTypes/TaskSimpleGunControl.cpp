@@ -161,7 +161,8 @@ bool CTaskSimpleGunControl::ProcessPed(CPed* ped) {
     // Como el original: animacion de pistola de banda (tipos 7..15, o tipo 6 quieto con arma que apunta con el brazo)
     const auto pedType = (int32)ped->m_nPedType;
     const bool gunStand = (pedType >= 7 && pedType <= 15)
-        || (pedType == 6 && (int32)ped->m_nMoveState == 1 && ped->m_nSwimmingMoveState == 1
+        // SilentPatch (MIT, Silent): cops no longer use the gang stance; dealers and criminals do instead. Option "CopsGunStance"
+        || ((SilentPatchOption("CopsGunStance", true) ? (pedType == (int32)PED_TYPE_DEALER || pedType == (int32)PED_TYPE_CRIMINAL) : pedType == 6) && (int32)ped->m_nMoveState == 1 && ped->m_nSwimmingMoveState == 1
             && useGunTask && useGunTask->m_WeaponInfo && useGunTask->m_WeaponInfo->flags.bAimWithArm);
     if (gunStand) {
         const auto anim = RpAnimBlendClumpGetAssociation(ped->GetRpClump(), ANIM_ID_GANG_GUNSTAND);

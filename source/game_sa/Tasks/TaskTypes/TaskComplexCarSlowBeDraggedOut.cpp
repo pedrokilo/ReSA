@@ -160,7 +160,10 @@ CTask* CTaskComplexCarSlowBeDraggedOut::CreateFirstSubTask(CPed* ped) {
     if (!ped->IsInVehicle()) {
         return nullptr;
     }
-    PrepareVehicleForPedExit(ped);
+    // SilentPatch (MIT, Silent): do not prepare a wrecked vehicle for ped exit (would turn it abandoned); option "VehicleExplodeTwice"
+    if (!(SilentPatchOption("VehicleExplodeTwice", true) && m_Vehicle->GetStatus() == STATUS_WRECKED)) {
+        PrepareVehicleForPedExit(ped);
+    }
     PreparePedForVehicleExit(ped);
 
     CreateTaskUtilityLineUpPedWithCar(ped);

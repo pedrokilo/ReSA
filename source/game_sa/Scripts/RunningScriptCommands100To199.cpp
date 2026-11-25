@@ -84,7 +84,12 @@ OpcodeResult CRunningScript::ProcessCommands100To199(int32 command) {
         (void)ExeCrt::Rand();
         (void)ExeCrt::Rand();
         (void)ExeCrt::Rand();
-        result->fParam = static_cast<float>(ExeCrt::Rand()) * EXE_ONE_OVER_65536; // fild + fmul + fstp
+        // SilentPatch (MIT, Silent): script randomness 16-bit instead of 15-bit, like on PS2; option "Rand16bit"
+        int32 randValue = ExeCrt::Rand();
+        if (SilentPatchOption("Rand16bit", true)) {
+            randValue |= (ExeCrt::Rand() & 1) << 15;
+        }
+        result->fParam = static_cast<float>(randValue) * EXE_ONE_OVER_65536; // fild + fmul + fstp
         return OR_CONTINUE;
     }
     case COMMAND_CREATE_CHAR: { // 154, 0x46754F

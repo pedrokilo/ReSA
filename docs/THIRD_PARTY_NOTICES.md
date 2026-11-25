@@ -10,6 +10,7 @@ Todas son desviaciones deliberadas del EXE original, se apagan con `GTASA_SILENT
 Correcciones incluidas hasta ahora:
 
 - «Streaming memory bug» (`GTARtAnimInterpolatorSetCurrentAnim` de `SilentPatchSA/SilentPatchSA.cpp`): `source/game_sa/RenderWare/rw/SilentPatchFixes.*` y `rtanim.cpp`.
+- Vehículos, peds, jugador, fuego y pools (rama `silentpatch-entidades`; detalle en [CodigoVivoExe/silentpatch-entidades.md](CodigoVivoExe/silentpatch-entidades.md)): munición de armas cuerpo a cuerpo de los trucos, precisión de la IA, Securicar, impound, muzzle flash de la última bala, BMX en llamas, coche robado por el lado del pasajero, explosión doble, nitro marcha atrás, postura de las armas de los policías, aleatoriedad de script de 16 bits, luces del tráfico, extra6, Beagle de Fort Carson, SEAROADER, motoristas policía, aviones, lista de entidades en streaming, reinicio de variables en New Game e invencibilidad real. Cada sitio lleva el comentario `// SilentPatch (MIT, Silent): <arreglo>`; los cambios están en `source/game_sa/` (Automobile, Vehicle, Weapon, Cheat, Ped, tareas de pistola y de entrar al coche, Garages, CarCtrl, CarAI, Fire, Game, Streaming, FileLoader, RunningScript, MathCommands, Plane, PedDamageResponseCalculator, VehicleModelInfo, TheScripts).
 
 Texto de la licencia de SilentPatch:
 

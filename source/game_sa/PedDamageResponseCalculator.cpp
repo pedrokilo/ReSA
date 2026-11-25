@@ -213,7 +213,8 @@ bool CPedDamageResponseCalculator::ComputeWillForceDeath(CPed* ped, CPedDamageRe
  */
 void CPedDamageResponseCalculator::ComputeWillKillPed(CPed* ped, CPedDamageResponse& rsp, bool bSpeak) {
     if (ped->IsPlayer()) {
-        if (CCheat::IsActive(CHEAT_INFINITE_HEALTH) && m_weaponType < WEAPON_LAST_WEAPON) {
+        // SilentPatch (MIT, Silent): with the Invincibility cheat the police helicopter bullets (WEAPON_UZI_DRIVEBY) no longer hurt CJ; option "TrueInvincibility" (off by default, like SilentPatchSA.ini)
+        if (CCheat::IsActive(CHEAT_INFINITE_HEALTH) && (m_weaponType < WEAPON_LAST_WEAPON || (m_weaponType == WEAPON_UZI_DRIVEBY && SilentPatchOption("TrueInvincibility", false)))) {
             return;
         }
     }
