@@ -1,0 +1,6 @@
+ejecuciones/
+*.json
+!objetos_lotes1_30.json
+*.bin
+d?_launch.txt
+d4_launch.txt
