@@ -531,7 +531,11 @@ void CPlane::FindPlaneCreationCoors(CVector* outCoors, CVector* outTargetCoors, 
         if (CWorld::GetIsLineOfSightClear(*outCoors, end, true, false, false, false, false, false, false)) {
             const auto y = int32(int64(outCoors->y));
             const auto x = int32(int64(outCoors->x));
-            if (!CCollision::CheckCameraCollisionBuildings(x, y, box, sphere, sphere, sphere)) break;
+            // SilentPatch (MIT, Silent): CheckCameraCollisionBuildings takes sector numbers, not the XY position; planes no longer spawn where they crash easily; option "PlaneCreationCoorsFix"
+            const bool sectors = SilentPatchOption("PlaneCreationCoorsFix", true);
+            const int32 checkX = sectors ? static_cast<int32>(CWorld::GetSectorfX(static_cast<float>(x))) : x;
+            const int32 checkY = sectors ? static_cast<int32>(CWorld::GetSectorfY(static_cast<float>(y))) : y;
+            if (!CCollision::CheckCameraCollisionBuildings(checkX, checkY, box, sphere, sphere, sphere)) break;
         }
     }
     *outFlightHeight += 20.f;

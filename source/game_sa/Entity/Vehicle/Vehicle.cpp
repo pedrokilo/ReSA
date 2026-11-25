@@ -590,6 +590,10 @@ CVehicle::CVehicle(eVehicleCreatedBy createdBy) : CPhysical(), m_vehicleAudio(),
 // 0x6E2B40
 CVehicle::~CVehicle() {
     CReplay::RecordVehicleDeleted(this);
+    // SilentPatch (MIT, Silent): the vehicle must leave apCarsToKeep when destroyed or random vehicles end up impounded; option "ImpoundRandomVehiclesFix"
+    if (SilentPatchOption("ImpoundRandomVehiclesFix", true)) {
+        CCarCtrl::RemoveFromInterestingVehicleList(this);
+    }
     m_nAlarmState = 0;
     DeleteRwObject(); // V1053 Calling the 'DeleteRwObject' virtual function in the destructor may lead to unexpected result at runtime.
     CRadar::ClearBlipForEntity(eBlipType::BLIP_CAR, GetVehiclePool()->GetRef(this));
@@ -1857,7 +1861,10 @@ void CVehicle::SetDriver(CPed* driver) {
 
 // 0x6D1950
 void CVehicle::RemoveDriver(bool dontTurnEngineOff) {
-    SetStatus(STATUS_ABANDONED);
+    // SilentPatch (MIT, Silent): do not turn a wrecked vehicle into an abandoned one (it exploded twice); option "VehicleExplodeTwice"
+    if (!(SilentPatchOption("VehicleExplodeTwice", true) && GetStatus() == STATUS_WRECKED)) {
+        SetStatus(STATUS_ABANDONED);
+    }
 
     if (!dontTurnEngineOff) {
         if (!m_pDriver || !m_pDriver->IsPlayer()) {
@@ -3616,7 +3623,8 @@ bool CVehicle::GetVehicleLightsStatus() {
     } else if (hours < 7 && static_cast<uint16>(minutes) < seedLow6) {
         lights = true;
     } else {
-        const auto treshold = static_cast<float>(m_nRandomSeed) * std::bit_cast<float>(0x37A7C5ACu); // 0x871E78
+        // SilentPatch (MIT, Silent): rescale the lights randomness to PC's 15-bit rand range (PS2 odds); option "LightsRandomness"
+        const auto treshold = static_cast<float>(m_nRandomSeed) * (SilentPatchOption("LightsRandomness", true) ? 1.0f / 25000.0f : std::bit_cast<float>(0x37A7C5ACu)); // 0x871E78
         if (CWeather::Foggyness > treshold || CWeather::WetRoads > treshold) {
             lights = true;
         }

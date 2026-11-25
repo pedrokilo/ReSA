@@ -180,7 +180,9 @@ void CCheat::AddToCheatString(char LastPressedKey) {
 
         // Como el original (0x438510): se queda con el primer indice que coincide
         for (int32 j = 0; j < TOTAL_CHEATS; ++j) {
-            if ((uint32)m_aCheatHashKeys[j] != hash) {
+            // SilentPatch (MIT, Silent): the "cars drive on water" cheat (PS2) is toggleable with SEAROADER; option "SeaRoaderCheat"
+            const uint32 key = (j == CHEAT_CARS_ON_WATER && SilentPatchOption("SeaRoaderCheat", true)) ? 0xE5FC92C3u : (uint32)m_aCheatHashKeys[j];
+            if (key != hash) {
                 continue;
             }
 
@@ -655,7 +657,7 @@ void CCheat::NinjaCheat() {
         CStreaming::LoadAllRequestedModels(false);
 
         CPlayerPed* player = FindPlayerPed();
-        player->GiveWeapon(WEAPON_KATANA, 0, true);
+        player->GiveWeapon(WEAPON_KATANA, SilentPatchOption("MeleeCheatAmmo", true) ? 1 : 0, true); // SilentPatch (MIT, Silent): melee cheat weapons with 1 ammo so pickups do not replace them
         player->SetCurrentWeapon(WEAPON_KATANA);
     } else {
         // Como el original (0x439F4D): al desactivar solo se quita el trafico negro
@@ -677,7 +679,7 @@ void CCheat::ParachuteCheat() {
     CStreaming::RequestModel(MODEL_GUN_PARA, STREAMING_GAME_REQUIRED);
     CStreaming::LoadAllRequestedModels(false);
     CPlayerPed* player = FindPlayerPed();
-    player->GiveWeapon(WEAPON_PARACHUTE, 0, true);
+    player->GiveWeapon(WEAPON_PARACHUTE, SilentPatchOption("MeleeCheatAmmo", true) ? 1 : 0, true); // SilentPatch (MIT, Silent): see NinjaCheat
     player->SetCurrentWeapon(WEAPON_PARACHUTE);
 }
 

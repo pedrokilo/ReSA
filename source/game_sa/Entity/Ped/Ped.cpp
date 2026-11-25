@@ -3066,7 +3066,7 @@ void CPed::GiveWeaponSet1() {
 * @notsa
 */
 void CPed::GiveWeaponSet2() {
-    GiveWeapon(WEAPON_KNIFE, 0, true);
+    GiveWeapon(WEAPON_KNIFE, SilentPatchOption("MeleeCheatAmmo", true) ? 1 : 0, true); // SilentPatch (MIT, Silent): melee cheat weapons with 1 ammo so pickups do not replace them
     GiveWeapon(WEAPON_GRENADE, 10, true);
     GiveWeapon(WEAPON_DESERT_EAGLE, 40, true);
     GiveWeapon(WEAPON_SAWNOFF_SHOTGUN, 40, true);
@@ -3081,7 +3081,7 @@ void CPed::GiveWeaponSet2() {
 * @notsa
 */
 void CPed::GiveWeaponSet3() {
-    GiveWeapon(WEAPON_CHAINSAW, 0, true);
+    GiveWeapon(WEAPON_CHAINSAW, SilentPatchOption("MeleeCheatAmmo", true) ? 1 : 0, true); // SilentPatch (MIT, Silent): see GiveWeaponSet2
     GiveWeapon(WEAPON_REMOTE_SATCHEL_CHARGE, 5, true);
     GiveWeapon(WEAPON_PISTOL_SILENCED, 40, true);
     GiveWeapon(WEAPON_SPAS12_SHOTGUN, 30, true);

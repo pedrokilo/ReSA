@@ -201,7 +201,7 @@ void CTaskSimpleUseGun::FireGun(CPed* ped, bool isLeftHand) {
             ped->m_pedIK.bGunReachedTarget = true;
         }
     }
-    ped->GetActiveWeapon().Fire(
+    const bool fired = ped->GetActiveWeapon().Fire(
         ped,
         &origin,
         &barrelPos,
@@ -210,7 +210,8 @@ void CTaskSimpleUseGun::FireGun(CPed* ped, bool isLeftHand) {
         nullptr
     );
 
-    if (ped->GetActiveWeapon().GetState() == WEAPONSTATE_FIRING) {
+    // SilentPatch (MIT, Silent): a muzzle flash is shown also for the last bullet of the clip (the state is no longer FIRING then); option "LastBulletMuzzleFlash"
+    if (SilentPatchOption("LastBulletMuzzleFlash", true) ? fired : ped->GetActiveWeapon().GetState() == WEAPONSTATE_FIRING) {
         ped->DoGunFlash(250, isLeftHand);
     }
 }
@@ -843,7 +844,11 @@ void CTaskSimpleUseGun::SetMoveAnim(CPed* ped) {
             ped->SetMoveState(PEDMOVE_STILL); // Como el original
             // Como el original: banda = tipos 7..15 (GANG1..GANG9, no GANG10) o policia; el reposo usa el grupo del peaton
             const auto pedType = (int32)ped->m_nPedType;
-            moveAnim = (pedType >= (int32)PED_TYPE_GANG1 && pedType <= (int32)PED_TYPE_GANG9) || pedType == (int32)PED_TYPE_COP
+            // SilentPatch (MIT, Silent): cops no longer hold one-handed guns like gangsters; dealers and criminals do instead. Option "CopsGunStance"
+            const auto stanceType = SilentPatchOption("CopsGunStance", true)
+                ? (pedType == (int32)PED_TYPE_DEALER || pedType == (int32)PED_TYPE_CRIMINAL)
+                : pedType == (int32)PED_TYPE_COP;
+            moveAnim = (pedType >= (int32)PED_TYPE_GANG1 && pedType <= (int32)PED_TYPE_GANG9) || stanceType
                 ? DoBlendAnim(ANIM_ID_GANG_GUNSTAND, 4.f) // Why is this used for cops? (0x61E529, inverted)
                 : CAnimManager::BlendAnimation(ped->GetRpClump(), ped->m_nAnimGroup, ANIM_ID_IDLE, 8.f);
         } else {

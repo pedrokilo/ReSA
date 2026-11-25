@@ -1,0 +1,4 @@
+Prueba del interruptor general y de las opciones de SilentPatch (source/extensions/SilentPatchConfig.cpp).
+Compilar: cl /std:c++latest /EHsc /I<carpeta con un StdInc.h que solo incluya <windows.h>> /Isource\extensions t.cpp source\extensions\SilentPatchConfig.cpp
+Ejecutar t.exe sin variables, con GTASA_SILENTPATCH=0 y con GTASA_SILENTPATCH_AIACCURACYFIX=0 / GTASA_SILENTPATCH_TRUEINVINCIBILITY=1.
+Resultado: docs/CodigoVivoExe/silentpatch-entidades-selftest.txt

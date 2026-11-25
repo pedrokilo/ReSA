@@ -654,6 +654,15 @@ bool CGarages::Save() {
 // y guarda el coche en el primer hueco del escondite asociado, contando solo las tres primeras ranuras (modelo > 0); con las tres ocupadas desplaza la 1 a la 0 y la 2 a la 1 y usa la 2.
 // La distancia sale de X87Math.cpp (GarageImpoundCloserCpp: sqrt(dy*dy + dx*dx) sin redondear antes de comparar). Sus dos llamadores del EXE no leen EAX/ECX/EDX.
 void CGarages::StoreCarInNearestImpoundingGarage(CVehicle* vehicle) {
+    // SilentPatch (MIT, Silent): only cars and bikes can be impounded (helicopters, planes, boats, trailers cannot leave the garage); option "ImpoundOnlyCarsAndBikes"
+    if (SilentPatchOption("ImpoundOnlyCarsAndBikes", true)) {
+        const bool isBike = vehicle->m_nVehicleType == VEHICLE_TYPE_BIKE;
+        const bool isCar  = vehicle->m_nVehicleType == VEHICLE_TYPE_AUTOMOBILE
+            && vehicle->m_nVehicleSubType != VEHICLE_TYPE_HELI && vehicle->m_nVehicleSubType != VEHICLE_TYPE_PLANE && vehicle->m_nVehicleSubType != VEHICLE_TYPE_TRAILER;
+        if (!isBike && !isCar) {
+            return;
+        }
+    }
     int32 best    = -1;
     float minDist = std::bit_cast<float>(0x47C34FF3u);
     for (uint32 i = 0; i < static_cast<uint32>(NumGarages); i++) {

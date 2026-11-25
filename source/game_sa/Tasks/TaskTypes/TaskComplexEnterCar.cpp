@@ -380,7 +380,8 @@ CTask* CTaskComplexEnterCar::CreateNextSubTask(CPed* ped) {
             m_Car->m_pDriver->GetIntelligence()->GetEventGroup().Add(&draggedOut, true); // Como el original: válido
             // Como el original: con el conductor vivo crea LeaveCarAndDie (0x62F1A0); si no, LeaveCar
             CTask* task;
-            if (m_Car->m_pDriver->IsAlive()) {
+            // SilentPatch (MIT, Silent): invert the IsAlive check so alive drivers are not killed when their car is stolen from the passenger side; option "StealCarFromPassengerSide"
+            if (m_Car->m_pDriver->IsAlive() != SilentPatchOption("StealCarFromPassengerSide", true)) {
                 task = new CTaskComplexLeaveCarAndDie{ m_Car, CCarEnterExit::ComputeTargetDoorToExit(m_Car, m_Car->m_pDriver), 0 };
             } else {
                 task = new CTaskComplexLeaveCar{ m_Car, CCarEnterExit::ComputeTargetDoorToExit(m_Car, m_Car->m_pDriver), 0, false, true };

@@ -565,7 +565,9 @@ float CWeapon::TargetWeaponRangeMultiplier(CEntity* target, CEntity* weaponOwner
     case ENTITY_TYPE_PED: {
         CPed* pedVictim = target->AsPed();
 
-        if (pedVictim->m_pVehicle && !pedVictim->m_pVehicle->IsBike()) {
+        // SilentPatch (MIT, Silent): AI accuracy bug, m_pVehicle can be stale when the ped is on foot; require bInVehicle. Option "AIAccuracyFix"
+        const bool inVehicle = !SilentPatchOption("AIAccuracyFix", true) || pedVictim->bInVehicle;
+        if (inVehicle && pedVictim->m_pVehicle && !pedVictim->m_pVehicle->IsBike()) {
             return 3.0f;
         }
 

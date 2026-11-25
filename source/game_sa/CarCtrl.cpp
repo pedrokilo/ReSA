@@ -2688,6 +2688,11 @@ bool CCarCtrl::IsThisAnAppropriateNode(CVehicle* vehicle, CNodeAddress nodeAddre
     return !arg5;
 }
 
+// SilentPatch (MIT, Silent): vehicles are kept (not removed) near ANY garage, not only hide-out garages, so impound garages work and cars are not lost; option "ImpoundGaragesFix"
+static bool SpIsPointInGarageForRemoval(CVector& point) {
+    return SilentPatchOption("ImpoundGaragesFix", true) ? CGarages::IsPointWithinAnyGarage(point) : CGarages::IsPointWithinHideOutGarage(point);
+}
+
 // 0x423EA0
 bool CCarCtrl::IsThisVehicleInteresting(CVehicle* vehicle) {
     for (auto& car : apCarsToKeep) {
@@ -3710,7 +3715,7 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
             if (vehicle->m_autoPilot.m_nCarMission != MISSION_PLANE_ATTACK_PLAYER_POLICE) {
                 CVector point;
                 memcpy(&point, positionOf(vehicle), sizeof(point)); // copia de tres dwords (sin pasar por la x87)
-                if (!CGarages::IsPointWithinHideOutGarage(point)) { // 0x448900
+                if (!SpIsPointInGarageForRemoval(point)) { // 0x448900
                     if (IsThisVehicleInteresting(vehicle)) { // 0x423EA0
                         vehicle->m_nFakePhysics = 10;
                         return;
@@ -3757,7 +3762,7 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
                     && !CTrafficLights::ShouldCarStopForLight(vehicle, true) && !CTrafficLights::ShouldCarStopForBridge(vehicle)) { // 0x49D610, 0x49D420
                     CVector point;
                 memcpy(&point, positionOf(vehicle), sizeof(point)); // copia de tres dwords (sin pasar por la x87)
-                    if (!CGarages::IsPointWithinHideOutGarage(point)) {
+                    if (!SpIsPointInGarageForRemoval(point)) {
                         remove(vehicle);
                         return;
                     }
@@ -3777,7 +3782,7 @@ void CCarCtrl::PossiblyRemoveVehicle(CVehicle* vehicle) {
                 if (Car81SquaredMagnitudeAboveCpp(&difference.x, DatosExe::Rdata::k858F88)) { // 0x406DA0
                     CVector point;
                     memcpy(&point, vehiclePos, sizeof(point));
-                    if (!CGarages::IsPointWithinHideOutGarage(point)) {
+                    if (!SpIsPointInGarageForRemoval(point)) {
                         remove(vehicle);
                     }
                 }

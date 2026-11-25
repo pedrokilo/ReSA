@@ -1408,7 +1408,10 @@ void CTheScripts::RemoveThisPed(CPed* ped) {
             veh->RemoveDriver(false);
 
             // Como el original (0x486284..0x48628D): el vehiculo queda abandonado (m_nStatus = STATUS_ABANDONED)
-            veh->SetStatus(STATUS_ABANDONED);
+            // SilentPatch (MIT, Silent): redundant after RemoveDriver, and it overwrote STATUS_WRECKED; option "VehicleExplodeTwice"
+            if (!SilentPatchOption("VehicleExplodeTwice", true)) {
+                veh->SetStatus(STATUS_ABANDONED);
+            }
 
             if (veh->m_nDoorLock == eCarLock::CARLOCK_COP_CAR) {
                 veh->m_nDoorLock = eCarLock::CARLOCK_UNLOCKED;

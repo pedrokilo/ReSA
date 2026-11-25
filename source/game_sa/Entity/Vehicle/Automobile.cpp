@@ -3525,7 +3525,8 @@ void CAutomobile::VehicleDamage(float damageIntensity, eVehicleCollisionComponen
 
         switch (m_nModelIndex) {
         case eModelID::MODEL_SECURICA: {
-            if (m_pDamageEntity && m_pDamageEntity->GetStatus() == STATUS_PLAYER) {
+            // SilentPatch (MIT, Silent): Securicars are no longer fragile against the player (GTA III leftover), option "SecuricarDamage"
+            if (!SilentPatchOption("SecuricarDamage", true) && m_pDamageEntity && m_pDamageEntity->GetStatus() == STATUS_PLAYER) {
                 calcCollHealthLoss *= 7.f;
             }
             break;
@@ -4919,7 +4920,8 @@ void CAutomobile::NitrousControl(int8 boost) {
     // Como el original: 0x6A3FC6 fcomp qword [0x859EF8] (0.0) / test ah,5 / jp 0x6A4075: la rama >= 0 tambien se toma con NaN (!(temp < 0))
     if (!(m_fTireTemperature < 0.f)) {
         // Como el original: 0x6A4081..0x6A4090 fcomp 0.25 / test ah,41h / jne: conserva 1-gas salvo que 0.25 > 1-gas (con NaN conserva 1-gas)
-        const float oneMinusGas = 1.f - m_GasPedal;
+        // SilentPatch (MIT, Silent): nitrous no longer recharges faster when reversing (only subtract positive gas); option "NitrousReverseRecharge"
+        const float oneMinusGas = (SilentPatchOption("NitrousReverseRecharge", true) && m_GasPedal < 0.f) ? 1.f : 1.f - m_GasPedal;
         const float a = (0.25f > oneMinusGas) ? 0.25f : oneMinusGas;
         // Como el original: 0x6A406E.. fld timestep; fmul [0x871088] (=0.001f); fmulp a; fadd temp (multiplica, no divide; 0.001 no 0.01)
         const float b = a * (CTimer::GetTimeStep() * 0.001f) + m_fTireTemperature;

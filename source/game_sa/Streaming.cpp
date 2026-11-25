@@ -3057,7 +3057,7 @@ void CStreaming::Init2() {
     ms_pStreamingBuffer[1] = &ms_pStreamingBuffer[0][STREAMING_SECTOR_SIZE * ms_streamingBufferSize];
     ms_memoryAvailable = 50 * 1024 * 1024; // 50 MB
     desiredNumVehiclesLoaded = 22;
-    ms_rwObjectInstances.Init(1000); // Como el original (0x5B8E54: new[0x2EE0] = 1000 enlaces de 12 bytes)
+    ms_rwObjectInstances.Init(SilentPatchOption("StreamedEntityList", true) ? 1250 : 1000); // SilentPatch (MIT, Silent): streamed entity list 12000 -> 15000 bytes (1250 links); option "StreamedEntityList". Como el original (0x5B8E54: new[0x2EE0] = 1000 enlaces de 12 bytes)
     ms_bIsInitialised = true;
 }
 

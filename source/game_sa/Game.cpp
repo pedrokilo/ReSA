@@ -894,6 +894,23 @@ void CGame::Process() {
 
 // 0x53BCF0
 void CGame::ReInitGameObjectVariables() {
+    // SilentPatch (MIT, Silent): variables the game never reset on New Game (free resprays, dispatch timers, stat counters, penalties...) are reset; option "ResetVariablesOnNewGame"
+    if (SilentPatchOption("ResetVariablesOnNewGame", true)) {
+        CPlayerPed::bHasDisplayedPlayerQuitEnterCarHelpText = false;
+        CGarages::RespraysAreFree = false;
+        CGarages::BombsAreFree    = false;
+        CCarCtrl::LastTimeFireTruckCreated = 0;
+        CCarCtrl::LastTimeAmbulanceCreated = 0;
+        CStats::m_CycleSkillCounter     = 0;
+        CStats::m_SwimUnderWaterCounter = 0;
+        CStats::m_WeaponCounter         = 0;
+        CStats::m_LastWeaponTypeFired   = 0;
+        CStats::m_DeathCounter          = 0;
+        CStats::m_MaxHealthCounter      = 0;
+        CStats::m_AddToHealthCounter    = 0;
+        CGameLogic::bPenaltyForDeathApplies  = true;
+        CGameLogic::bPenaltyForArrestApplies = true;
+    }
     TheCamera.Init();
     CGameLogic::InitAtStartOfGame();
     CGangWars::InitAtStartOfGame();

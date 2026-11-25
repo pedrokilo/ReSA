@@ -238,7 +238,10 @@ bool CTaskSimpleCarSetPedOut::ProcessPed(CPed* ped) {
 
         if (ped->m_pVehicle->m_pDriver == ped) {
             ped->m_pVehicle->RemoveDriver(!m_bSwitchOffEngine);
-            ped->m_pVehicle->SetStatus(STATUS_ABANDONED);
+            // SilentPatch (MIT, Silent): redundant after RemoveDriver, and it overwrote STATUS_WRECKED; option "VehicleExplodeTwice"
+            if (!SilentPatchOption("VehicleExplodeTwice", true)) {
+                ped->m_pVehicle->SetStatus(STATUS_ABANDONED);
+            }
             if (ped->m_pVehicle->m_nDoorLock == CARLOCK_COP_CAR) {
                 ped->m_pVehicle->m_nDoorLock = CARLOCK_UNLOCKED;
             }
