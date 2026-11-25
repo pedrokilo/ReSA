@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "rpdbgerr.h"
 #include "rtanim.h"
 #include "X87Math.h"
+#include "SilentPatchFixes.h"
 
 static_assert(sizeof(RtAnimInterpolatorInfo) == 0x30 && offsetof(RtAnimInterpolatorInfo, interpKeyFrameSize) == 0x04 && offsetof(RtAnimInterpolatorInfo, animKeyFrameSize) == 0x08 && offsetof(RtAnimInterpolatorInfo, customDataSize) == 0x2C);
 static_assert(sizeof(RtAnimAnimation) == 0x18 && offsetof(RtAnimAnimation, duration) == 0x0C && offsetof(RtAnimAnimation, pFrames) == 0x10 && offsetof(RtAnimAnimation, customData) == 0x14);
@@ -387,6 +388,8 @@ RtAnimInterpolatorSetCurrentAnim(RtAnimInterpolator *animI,
     RWASSERT(anim);
     RWASSERT(anim->numFrames >= animI->numNodes * 2);
 
+    SilentPatchFixes::AutoPrueba(); // solo con GTASA_SILENTPATCH_SELFTEST=1 (una vez; reentrante: pone su bandera antes de llamar a esta funcion)
+
     animI->pCurrentAnim = anim;
     animI->currentTime = 0.0f;
 
@@ -418,6 +421,9 @@ RtAnimInterpolatorSetCurrentAnim(RtAnimInterpolator *animI,
      * Now initialize the interpolated frame headers to point to the initial
      * keyframe pairs.
      */
+    // Desviacion deliberada tomada de SilentPatch (MIT, (c) 2024 Adrian Zdanowicz; docs/THIRD_PARTY_NOTICES.md), reversible con GTASA_SILENTPATCH=0 / GTASA_SILENTPATCH_RTANIMINTERP=0:
+    // con el esquema RpAnimBlend no se escriben los punteros keyFrame1/keyFrame2 sobre q.x/q.y del frame interpolado (el EXE si; ver SilentPatchFixes.cpp).
+    if (!(interpInfo->typeID == rwID_RPANIMBLENDPLUGIN && SilentPatchFixes::Activo()))
     { // Como el original: también con las animaciones de RpAnimBlend (el EXE pisa sus frames interpolados)
         /*
          * In RW there is an RtAnimAnimation, which holds the raw keyframes of an animation.

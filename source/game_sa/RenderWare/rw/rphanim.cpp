@@ -19,6 +19,7 @@ END GENERATED HOOK STATUS */
 #include "StdInc.h"
 
 #include "rphanim.h"
+#include "SkinVigilancia.h"
 #include "X87Math.h"
 
 // Callbacks del plugin 0x11E, de los marcos y de los esquemas de interpolacion (lotes S10A y S11A; cdecl). Se registran por su direccion propia y llevan hook en la direccion del EXE.
@@ -529,6 +530,9 @@ RwBool RpHAnimHierarchyUpdateMatrices(RpHAnimHierarchy* hierarchy) {
         RwMatrix local{};
         applyCB(&local, keyFrame);
         RwMatrixMultiply(matrix, &local, base);
+        if (SkinVigilanciaActiva()) {
+            SkinVigilanciaNodo("UpdateMatrices", i, hierarchy->numNodes, local, matrix, reinterpret_cast<const float*>(keyFrame), hierarchy);
+        }
 
         if (RwFrame* const frame = info->pFrame) {
             bool syncLtm = false;

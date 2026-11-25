@@ -583,3 +583,11 @@ Esta sección se añadió el 24/11/2026 sin reescribir el resto: las secciones 1
 - La semilla de `rand` del EXE no se sembraba en `GameInit`; ahora se siembran las dos (`ExeCrt::Srand` y `srand`); corregido por lectura del desensamblado, sin medir `holdrand` en ejecución ([ejecucion-datos-g6g8.md](DatosExe/ejecucion-datos-g6g8.md)).
 - Entrar en el gimnasio de Ganton caía por pasar `-1` a `TASK_KILL_CHAR_ON_FOOT` y `_WHILE_DUCKING` como `CPed&`; ahora reciben el manejador entero (commit `96f1c36f61`; evidencia en `reversing/FnJuego/evidencia/`, sin informe escrito en `main`).
 - El espejo del ropero (diferencia con el original por la GPU) y el ratón del independiente (SDL3 sustituía el registro de entrada en bruto de DirectInput; [ejecucion-raton.md](CodigoVivoExe/ejecucion-raton.md)).
+
+## 15. Correcciones opcionales de SilentPatch (desviaciones deliberadas, 24/11/2026)
+
+Interruptor general `GTASA_SILENTPATCH=0|1` (o `SilentPatch=` en `gta-reversed.ini`; módulo `source/extensions/SilentPatchConfig.*`); por defecto encendido; con él apagado el comportamiento es el del EXE. Licencia y atribución: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+| # | Función (EXE) | Desviación | Opción propia | Riesgo |
+| --- | --- | --- | --- | --- |
+| 1 | `RtAnimInterpolatorSetCurrentAnim` (0x7CD5A0, hook existente) | Con el esquema RpAnimBlend no escribe los punteros `keyFrame1`/`keyFrame2` sobre `q.x`/`q.y` de cada fotograma interpolado (el EXE los escribe tras inicializar el fotograma a identidad con 0x4D60C0). Leídos como float, un puntero >= 0x3F800000 (por encima de ~1 GB; el exe es LARGE ADDRESS AWARE) vale 1 a 3e38 y los nodos que el blend no reescribe quedan con un cuaternión enorme: huesos deformados durante un fotograma. Es el «streaming memory bug» de SilentPatch. Nadie lee esas cabeceras en RpAnimBlend (no usa `AddAnimTime`). | `GTASA_SILENTPATCH_RTANIMINTERP=0` o `SilentPatch_RtAnimInterp=0` | bajo |

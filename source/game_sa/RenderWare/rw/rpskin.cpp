@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
 #include <cstring>
 
 #include "rpskin.h"
+#include "SkinVigilancia.h"
 #include "X87Math.h"
 #include "Crt/CrtQsort.h"
 
@@ -2038,6 +2039,31 @@ static void _rpSkinD3D9UpdateBoneConstants(float* out, RpAtomic* atomic, RpSkin*
             RwMatrixMultiply(&first, &skinToBone[i], &hierarchy->pMatrixArray[i]);
             RwMatrixMultiply(&result, &first, &inverse);
             SkinStoreTransposed(out + i * 12, result);
+        }
+    }
+    if (SkinVigilanciaActiva()) {
+        const bool propias = (hierarchy->flags & (rpHANIMHIERARCHYNOMATRICES | rpHANIMHIERARCHYLOCALSPACEMATRICES)) == 0;
+        RwMatrix inversa;
+        _rwD3D9VSGetInverseWorldMatrix(&inversa);
+        SkinVigilanciaComprobar("vs", out, hierarchy->numNodes, skinToBone, propias ? hierarchy->pMatrixArray : nullptr, &inversa, atomic, hierarchy, atomic->clump);
+        // Si hay un hueso malo, volcar tambien la matriz de modelado del frame del hueso y la del frame del hueso anterior (diagnostico de donde nace el valor)
+        for (RwInt32 b = 0; b < hierarchy->numNodes; ++b) {
+            const float* o = out + b * 12;
+            bool malo = false;
+            for (int q = 0; q < 12; ++q) { malo |= (!std::isfinite(o[q]) || std::fabs(o[q]) > 2000.0f); }
+            if (!malo) { continue; }
+            static int limiteFrames = 0;
+            if (limiteFrames++ < 40) {
+                for (RwInt32 nb = (b > 0 ? b - 1 : b); nb <= b; ++nb) {
+                    const RwFrame* const fr = static_cast<const RwFrame*>(hierarchy->pNodeInfo[nb].pFrame);
+                    if (fr != nullptr) {
+                        const float* f = reinterpret_cast<const float*>(&fr->modelling);
+                        NOTSA_LOG_WARN("[SKINVIG]   frame nodo {} (id {}): modelling right({:.4g},{:.4g},{:.4g}) up({:.4g},{:.4g},{:.4g}) at({:.4g},{:.4g},{:.4g}) pos({:.4g},{:.4g},{:.4g})", nb, hierarchy->pNodeInfo[nb].nodeID,
+                            f[0], f[1], f[2], f[4], f[5], f[6], f[8], f[9], f[10], f[12], f[13], f[14]);
+                    }
+                }
+            }
+            break;
         }
     }
 }

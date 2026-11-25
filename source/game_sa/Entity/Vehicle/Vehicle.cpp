@@ -23,6 +23,7 @@ END GENERATED HOOK STATUS */
     Do not delete this comment block. Respect others' work!
 */
 #include "StdInc.h"
+#include "RenderWare/rw/SkinVigilancia.h"
 #include "DatosExe/DataR5C.h"
 #include "DatosExe/DataBssE4.h"
 #include "DatosExe/DataBssE3.h"
@@ -950,6 +951,7 @@ void CVehicle::PreRender() {
 
     const auto fCoeff = CPhysical::GetLightingFromCol(false) * 0.4F;
     GetVehicleModelInfo()->SetEnvMapCoeff(fCoeff);
+    SkinVigilanciaVehiculo(this); // diagnostico (apagado salvo vigilancia): matrices de la entidad y de los frames del vehiculo
 }
 
 // 0x6D0E60
