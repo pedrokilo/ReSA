@@ -27,7 +27,7 @@ controlador SCP) está fuera de alcance.
 | Opción | Entorno | `gta-reversed.ini` | Valores | Por defecto |
 | --- | --- | --- | --- | --- |
 | Interruptor general | `GTASA_PAD_ICONS` | `PadIcons=` | `0` / `1` | `1`; `0` = comportamiento del EXE literal |
-| Juego de iconos | `GTASA_PAD_BUTTONS` | `PadButtons=` | `ps` / `xbox` / `auto` | `ps` (el mapa de botones por defecto del proyecto es el de PS2) |
+| Juego de iconos | `GTASA_PAD_BUTTONS` | `PadButtons=` | `ps` / `xbox` / `auto` | `auto` (xbox si el mando se anuncia como Xbox/XInput, si no ps; antes `ps`: el usuario tiene mando de Xbox) |
 
 `auto` elige Xbox si el mando se anuncia como de Microsoft (el XInput del juego se registra como 0x045E:0x028E) o si el nombre de Windows del mando (`joyGetDevCaps`)
 contiene «xbox»/«xinput»; si no, PlayStation. Un mando PlayStation emulado como Xbox (DS4Windows, Steam Input) se ve como Xbox: forzar `ps`.

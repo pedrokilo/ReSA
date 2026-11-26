@@ -91,7 +91,7 @@ bool OptionIcons() {
 enum class Choice { Auto, PS, Xbox };
 Choice OptionButtons() {
     static const Choice v = [] {
-        const auto s = OwnDeviationString("GTASA_PAD_BUTTONS", "PadButtons", "ps");
+        const auto s = OwnDeviationString("GTASA_PAD_BUTTONS", "PadButtons", "auto");
         SPDLOG_INFO("Desviacion propia: opcion PadButtons = {}", s);
         return s == "xbox" ? Choice::Xbox : s == "auto" ? Choice::Auto : Choice::PS;
     }();
