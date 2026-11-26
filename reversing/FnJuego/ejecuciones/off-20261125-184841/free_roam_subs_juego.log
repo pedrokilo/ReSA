@@ -1,0 +1,19 @@
+Banco en juego de los subtitulos del mundo libre. activado=0 SpainSpanish=1 ChicanoSlangs=1 SaveToBrief=1 ReadingTime=200 dir=cleo\cleo_text idioma=4
+TABLA 79741 textos, 3822 KB en memoria
+PASO 0: CJ Say(ctx=28) = -1 (mudo)
+PASO 0: CJ Say(ctx=22) = -1 (mudo)
+PASO 0: CJ Say(ctx=45) = -1 (mudo)
+PASO 0: CJ Say(ctx=55) = -1 (mudo)
+PASO 0: CJ Say(ctx=64) = -1 (mudo)
+PASO 0: CJ Say(ctx=56) = -1 (mudo)
+PASO 0: CJ Say(ctx=12) = 1 (suena)
+peaton de prueba creado=1
+PASO 1: peaton a 4 m Say(ctx=29) = -1 (mudo)
+PASO 1: peaton a 4 m Say(ctx=28) = 0 (suena)
+PASO 2: peaton a 14 m Say(ctx=22) = 0 (suena)
+PASO 3: peaton a 4 m Say(ctx=45) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=55) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=64) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=56) = 1 (suena)
+PASO 3: CJ (a la vez) Say(ctx=12) = 0 (suena)
+FIN

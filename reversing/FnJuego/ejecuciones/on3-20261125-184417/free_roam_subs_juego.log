@@ -1,0 +1,38 @@
+Banco en juego de los subtitulos del mundo libre. activado=1 SpainSpanish=1 ChicanoSlangs=1 SaveToBrief=1 ReadingTime=200 dir=cleo\cleo_text idioma=4
+TABLA 79741 textos, 3822 KB en memoria
+PASO 0: CJ Say(ctx=28) = -1 (mudo)
+PASO 0: CJ Say(ctx=22) = -1 (mudo)
+PASO 0: CJ Say(ctx=45) = -1 (mudo)
+PASO 0: CJ Say(ctx=55) = -1 (mudo)
+PASO 0: CJ Say(ctx=64) = -1 (mudo)
+PASO 0: CJ Say(ctx=56) = -1 (mudo)
+PASO 0: CJ Say(ctx=12) = 1 (suena)
+VOZ t=370375392 id=1 banco=699 sonido=18 gctx=12 jugador=1 dist=0.0 clave=S699019 idioma=4 texto="Lo siento, nena. Fue culpa m¢a."
+MOSTRADO t=370375392 id=1 brief=1 texto="Lo siento, nena. Fue culpa m¢a."
+FIN DE VOZ t=370377079 mostrado desde hace 1687 ms; se retira en 200 ms (ReadingTime)
+RETIRADO t=370377353 (expiro o lo reemplazo el juego) desde-mostrado=1961 ms
+peaton de prueba creado=1
+PASO 1: peaton a 4 m Say(ctx=29) = -1 (mudo)
+PASO 1: peaton a 4 m Say(ctx=28) = 1 (suena)
+VOZ t=370389853 id=2 banco=506 sonido=11 gctx=28 jugador=0 dist=4.0 clave=S506012 idioma=4 texto="Cuidado, idiota."
+MOSTRADO t=370389853 id=2 brief=1 texto="Cuidado, idiota."
+FIN DE VOZ t=370390817 mostrado desde hace 964 ms; se retira en 200 ms (ReadingTime)
+RETIRADO t=370391091 (expiro o lo reemplazo el juego) desde-mostrado=1238 ms
+VOZ t=370403705 id=3 banco=700 sonido=333 gctx=336 jugador=1 dist=0.0 clave=S700334 idioma=4 texto="'Young hea... aww, what it?'"
+MOSTRADO t=370403705 id=3 brief=1 texto="'Young hea... aww, what it?'"
+FIN DE VOZ t=370405117 mostrado desde hace 1412 ms; se retira en 200 ms (ReadingTime)
+RETIRADO t=370405392 (expiro o lo reemplazo el juego) desde-mostrado=1687 ms
+PASO 2: peaton a 14 m Say(ctx=22) = 1 (suena)
+DESCARTADA fuera de rango banco=506 sonido=5 dist=14.0 radio=10
+PASO 3: peaton a 4 m Say(ctx=45) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=55) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=64) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=56) = 1 (suena)
+VOZ t=370420014 id=4 banco=506 sonido=36 gctx=56 jugador=0 dist=4.0 clave=P506037 idioma=4 texto="Puto idiota, ¯no me has o¢do?"
+MOSTRADO t=370420014 id=4 brief=1 texto="Puto idiota, ¯no me has o¢do?"
+PASO 3: CJ (a la vez) Say(ctx=12) = 0 (suena)
+VOZ t=370421025 id=5 banco=699 sonido=17 gctx=12 jugador=1 dist=0.0 clave=S699018 idioma=4 texto="Oye, lo siento. Todo bien."
+MOSTRADO t=370421025 id=5 brief=1 texto="Oye, lo siento. Todo bien."
+FIN DE VOZ t=370422792 mostrado desde hace 1767 ms; se retira en 200 ms (ReadingTime)
+RETIRADO t=370423067 (expiro o lo reemplazo el juego) desde-mostrado=2042 ms
+FIN

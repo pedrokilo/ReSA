@@ -58,3 +58,7 @@ Iconos del mando en las ayudas y textos (`source/game_sa/PadButtonIcons.*`, [Cod
 Por indicación expresa del usuario (autorización directa) se estudió también la lógica de trucos de `GInputSA.asi` (análisis estático, sin ejecutarlo): de ahí salen la tabla de 90 hashes y el comportamiento del detector
 (letras por botón, historial de 12, un flanco por fotograma, solo el mando 1, sin reinicio por tiempo). No se copió código: el detector es propio y no se porta la capa XInput de GInput. Uso: `source/game_sa/PadCheatsTable.inc.h`
 (generado por `contrib/pad_cheats_tabla.py`) y `source/game_sa/PadCheats.*`; desviación propia 15.P de [DesviacionesConocidas.md](DesviacionesConocidas.md), detalle en [CodigoVivoExe/trucos-mando.md](CodigoVivoExe/trucos-mando.md).
+
+## Free Roam Subtitled (Kaizo M)
+
+Idea, lógica y textos de Free Roam Subtitled de Kaizo M, usados con su autorización (declarada por el usuario del proyecto); los textos no se redistribuyen: se cargan en tiempo de ejecución de los `.fxt` (`cleo\cleo_text\English.fxt` y `Spanish.fxt`) que el usuario instala en su juego. No se copia el script CLEO ni ningún texto al repositorio: la lógica se reconstruyó del desensamblado del script (análisis estático, sin ejecutarlo) y el código es propio. Uso: `source/game_sa/FreeRoamSubtitles.*`, [CodigoVivoExe/subtitulos-mundo-libre.md](CodigoVivoExe/subtitulos-mundo-libre.md), [DesviacionesConocidas.md](DesviacionesConocidas.md) sección 15.F.

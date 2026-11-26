@@ -1,0 +1,12 @@
+[   0.0] esperando ventana de pid 31924
+[  21.0] captura 1 suena_a {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.02 s
+[  21.7] captura 2 suena_b {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.05 s
+[  35.5] captura 3 suena_a {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.02 s
+[  36.1] captura 4 suena_b {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.05 s
+[  49.9] captura 5 suena_a {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.03 s
+[  50.5] captura 6 suena_b {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.02 s
+[  64.4] captura 7 suena_a {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.03 s
+[  65.0] captura 8 suena_b {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.02 s
+[  65.4] captura 9 suena_a {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.04 s
+[  66.0] captura 10 suena_b {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.01 s
+[  96.4] fin; capturas: 10

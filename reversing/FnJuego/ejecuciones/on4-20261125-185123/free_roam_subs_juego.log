@@ -1,0 +1,39 @@
+Banco en juego de los subtitulos del mundo libre. activado=1 SpainSpanish=1 ChicanoSlangs=1 SaveToBrief=1 ReadingTime=200 dir=cleo\cleo_text idioma=4
+TABLA 79741 textos, 3822 KB en memoria
+PASO 0: CJ Say(ctx=28) = -1 (mudo)
+PASO 0: CJ Say(ctx=22) = -1 (mudo)
+PASO 0: CJ Say(ctx=45) = -1 (mudo)
+PASO 0: CJ Say(ctx=55) = -1 (mudo)
+PASO 0: CJ Say(ctx=64) = -1 (mudo)
+PASO 0: CJ Say(ctx=56) = -1 (mudo)
+PASO 0: CJ Say(ctx=12) = 0 (suena)
+VOZ t=370375244 id=1 banco=698 sonido=16 gctx=12 jugador=1 dist=0.0 clave=S698017 idioma=4 texto="Mira, perd¦n."
+MOSTRADO t=370375244 id=1 brief=1 texto="Mira, perd¦n."
+FIN DE VOZ t=370376208 mostrado desde hace 964 ms; se retira en 200 ms (ReadingTime)
+RETIRADO t=370376482 (expiro o lo reemplazo el juego) desde-mostrado=1238 ms
+peaton de prueba creado=1
+PASO 1: peaton a 4 m Say(ctx=29) = -1 (mudo)
+PASO 1: peaton a 4 m Say(ctx=28) = 1 (suena)
+VOZ t=370389705 id=2 banco=506 sonido=11 gctx=28 jugador=0 dist=4.0 clave=S506012 idioma=4 texto="Cuidado, idiota."
+MOSTRADO t=370389705 id=2 brief=1 texto="Cuidado, idiota."
+FIN DE VOZ t=370390669 mostrado desde hace 964 ms; se retira en 200 ms (ReadingTime)
+RETIRADO t=370390943 (expiro o lo reemplazo el juego) desde-mostrado=1238 ms
+PASO 2: peaton a 14 m Say(ctx=22) = 0 (suena)
+DESCARTADA fuera de rango banco=506 sonido=4 dist=14.0 radio=10
+PASO 3: peaton a 4 m Say(ctx=45) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=55) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=64) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=56) = 1 (suena)
+VOZ t=370418627 id=3 banco=506 sonido=36 gctx=56 jugador=0 dist=4.0 clave=P506037 idioma=4 texto="Puto idiota, ¯no me has o¢do?"
+MOSTRADO t=370418627 id=3 brief=1 texto="Puto idiota, ¯no me has o¢do?"
+PASO 3: CJ (a la vez) Say(ctx=12) = 1 (suena)
+VOZ t=370419625 id=4 banco=699 sonido=18 gctx=12 jugador=1 dist=0.0 clave=S699019 idioma=4 texto="Lo siento, nena. Fue culpa m¢a."
+MOSTRADO t=370419625 id=4 brief=1 texto="Lo siento, nena. Fue culpa m¢a."
+FIN DE VOZ t=370421278 mostrado desde hace 1653 ms; se retira en 200 ms (ReadingTime)
+RETIRADO t=370421553 (expiro o lo reemplazo el juego) desde-mostrado=1928 ms
+BRIEF previo: 4 entradas (CMessages::PreviousBriefs; la 0 es la mas reciente)
+BRIEF[0] "Lo siento, nena. Fue culpa m¢a."
+BRIEF[1] "Puto idiota, ¯no me has o¢do?"
+BRIEF[2] "Cuidado, idiota."
+BRIEF[3] "Mira, perd¦n."
+FIN

@@ -1,0 +1,35 @@
+Banco en juego de los subtitulos del mundo libre. activado=1 SpainSpanish=1 ChicanoSlangs=0 SaveToBrief=0 ReadingTime=2000 dir=cleo\cleo_text idioma=0
+TABLA 57266 textos, 2623 KB en memoria
+PASO 0: CJ Say(ctx=28) = -1 (mudo)
+PASO 0: CJ Say(ctx=22) = -1 (mudo)
+PASO 0: CJ Say(ctx=45) = -1 (mudo)
+PASO 0: CJ Say(ctx=55) = -1 (mudo)
+PASO 0: CJ Say(ctx=64) = -1 (mudo)
+PASO 0: CJ Say(ctx=56) = -1 (mudo)
+PASO 0: CJ Say(ctx=12) = 1 (suena)
+VOZ t=370375237 id=1 banco=699 sonido=18 gctx=12 jugador=1 dist=0.0 clave=E699019 idioma=0 texto="I'm sorry, baby. My bad."
+MOSTRADO t=370375237 id=1 brief=0 texto="I'm sorry, baby. My bad."
+FIN DE VOZ t=370376890 mostrado desde hace 1653 ms; se retira en 2000 ms (ReadingTime)
+RETIRADO t=370378932 (expiro o lo reemplazo el juego) desde-mostrado=3695 ms
+peaton de prueba creado=1
+PASO 1: peaton a 4 m Say(ctx=29) = -1 (mudo)
+PASO 1: peaton a 4 m Say(ctx=28) = 3 (suena)
+VOZ t=370389698 id=2 banco=506 sonido=13 gctx=28 jugador=0 dist=4.0 clave=E506014 idioma=0 texto="Hey, chill out, homie."
+MOSTRADO t=370389698 id=2 brief=0 texto="Hey, chill out, homie."
+FIN DE VOZ t=370390822 mostrado desde hace 1124 ms; se retira en 2000 ms (ReadingTime)
+RETIRADO t=370392878 (expiro o lo reemplazo el juego) desde-mostrado=3180 ms
+PASO 2: peaton a 14 m Say(ctx=22) = 1 (suena)
+DESCARTADA fuera de rango banco=506 sonido=5 dist=14.0 radio=10
+PASO 3: peaton a 4 m Say(ctx=45) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=55) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=64) = -1 (mudo)
+PASO 3: peaton a 4 m Say(ctx=56) = 1 (suena)
+VOZ t=370418621 id=3 banco=506 sonido=36 gctx=56 jugador=0 dist=4.0 clave=E506037 idioma=0 texto="Damn fool, you ain't hear me?"
+MOSTRADO t=370418621 id=3 brief=0 texto="Damn fool, you ain't hear me?"
+PASO 3: CJ (a la vez) Say(ctx=12) = 0 (suena)
+VOZ t=370419632 id=4 banco=699 sonido=17 gctx=12 jugador=1 dist=0.0 clave=E699018 idioma=0 texto="Hey, I'm sorry. It's all good."
+MOSTRADO t=370419632 id=4 brief=0 texto="Hey, I'm sorry. It's all good."
+FIN DE VOZ t=370421399 mostrado desde hace 1767 ms; se retira en 2000 ms (ReadingTime)
+RETIRADO t=370423441 (expiro o lo reemplazo el juego) desde-mostrado=3809 ms
+BRIEF previo: 0 entradas (CMessages::PreviousBriefs; la 0 es la mas reciente)
+FIN

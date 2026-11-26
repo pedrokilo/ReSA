@@ -1,0 +1,22 @@
+[   0.0] esperando ventana de pid 31360
+[  20.9] captura 1 mostrado_a {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.03 s
+[  21.6] captura 2 mostrado_b {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.01 s
+[  21.7] captura 3 finvoz {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.03 s
+[  21.7] captura 4 lectura_mitad {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.05 s
+[  21.9] captura 5 retirado {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.01 s
+[  22.4] captura 6 despues {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.04 s
+[  35.4] captura 7 mostrado_a {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.02 s
+[  36.1] captura 8 finvoz {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.03 s
+[  36.1] captura 9 mostrado_b {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.04 s
+[  36.2] captura 10 lectura_mitad {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.06 s
+[  36.4] captura 11 retirado {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.02 s
+[  36.8] captura 12 despues {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.02 s
+[  64.3] captura 13 mostrado_a {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.02 s
+[  65.0] captura 14 mostrado_b {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.02 s
+[  65.3] captura 15 mostrado_a {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.03 s
+[  66.1] captura 16 mostrado_b {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.07 s
+[  66.7] captura 17 finvoz {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.01 s
+[  66.8] captura 18 lectura_mitad {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.04 s
+[  67.0] captura 19 retirado {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.03 s
+[  67.5] captura 20 despues {'ancho': 1024, 'alto': 768, 'printwindow': True} retraso sobre lo programado 0.06 s
+[ 109.0] fin; capturas: 20

@@ -21,6 +21,7 @@ END GENERATED HOOK STATUS */
 #include "Messages.h"
 #include "Hud.h"
 #include "PadButtonIcons.h"
+#include "FreeRoamSubtitles.h"
 #include <ControllerConfigManager.h>
 
 constexpr auto MSG_BUF_SZ = 400u;
@@ -693,6 +694,7 @@ void CMessages::InsertPlayerControlKeysInString(GxtChar* string) {
 // Processing messages. This is called from CWorld::Process
 // 0x69EE60
 void CMessages::Process() {
+    FreeRoamSubtitles::Tick(); // NOTSA (Free Roam Subtitled de Kaizo M, autorizado): mantiene/retira el subtitulo de las voces del mundo libre; sin efecto con la opcion apagada
     // Process big messages
     for (auto& big : BIGMessages) {
         auto& f = big.Stack[0];

@@ -1,0 +1,2 @@
+pid 28620  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_frs_run" --salida "D:\Original\wv-sub\reversing\FnJuego\ejecuciones\opts-20261125-185320" --limite 200 --shims  entorno=GTASA_FRS_LANGUAGE=0;GTASA_FRS_CHICANOSLANGS=0;GTASA_FRS_READINGTIME=2000;GTASA_FRS_SAVETOBRIEF=0 ini= modo=2
+exit=0xFFFFFFFF
