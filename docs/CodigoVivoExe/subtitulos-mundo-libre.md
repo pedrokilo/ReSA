@@ -26,7 +26,7 @@ Idioma: con el juego en **español** (`FrontEndMenuManager.m_nTextLanguage == 4`
 
 | Opción | Valor por defecto | Rango | Fuente (la primera que exista gana) |
 |---|---|---|---|
-| Interruptor general | 1 (activado) | 0/1 | `GTASA_FREE_ROAM_SUBS` > `FreeRoamSubtitles=` en `gta-reversed.ini` |
+| Interruptor general | 0 (**desactivado**; se activa con `FreeRoamSubtitles=1` o `GTASA_FREE_ROAM_SUBS=1`) | 0/1 | `GTASA_FREE_ROAM_SUBS` > `FreeRoamSubtitles=` en `gta-reversed.ini` |
 | `SpainSpanish` | 1 | 0/1 (≠0 = sí) | `GTASA_FRS_SPAINSPANISH` > `gta-reversed.ini` > `cleo\FreeRoamSub.ini` |
 | `ChicanoSlangs` | 1 | 0/1 | `GTASA_FRS_CHICANOSLANGS` > idem |
 | `SaveToBrief` | 1 | 0/1 | `GTASA_FRS_SAVETOBRIEF` > idem |
@@ -42,7 +42,7 @@ ni pasar por la pausa. (El script usa el truco `SUBS` para recargar; aquí no ha
 
 **Opción apagada = comportamiento del EXE:** `OnPedSpeechStart` y `Tick` salen al principio; no se carga ningún fichero ni se escribe ningún mensaje.
 
-**Decisión sobre el valor por defecto del interruptor general: activado.** El usuario pidió que sea opcional y que las opciones tengan los valores por defecto del ini de
+**Decisión sobre el valor por defecto del interruptor general: DESACTIVADO (el usuario lo pidió el 26/11/2026; el agente lo había dejado activado).** El usuario pidió que sea opcional y que las opciones tengan los valores por defecto del ini de
 Kaizo. Con el módulo activado y sin los `.fxt` instalados no ocurre nada visible (solo una línea de log), por lo que activarlo no cambia el juego de quien no los tenga; quien
 quiera el comportamiento del EXE puede apagarlo con `FreeRoamSubtitles=0`. Para cambiar el valor por defecto basta cambiar `Config::Enabled` en `FreeRoamSubtitles.h`.
 

@@ -18,7 +18,7 @@ class CPed;
  */
 namespace FreeRoamSubtitles {
 struct Config {
-    bool        Enabled      = true;
+    bool        Enabled      = false; // desactivado por defecto (decision del usuario, 26/11/2026): se activa con FreeRoamSubtitles=1 o GTASA_FREE_ROAM_SUBS=1
     bool        SpainSpanish = true;
     bool        ChicanoSlangs = true;
     bool        SaveToBrief  = true;

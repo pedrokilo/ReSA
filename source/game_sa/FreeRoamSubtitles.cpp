@@ -649,7 +649,7 @@ void SelfTestInProcess() {
             Config{}.SpainSpanish, Config{}.ChicanoSlangs, Config{}.SaveToBrief, Config{}.ReadingTime, Config{}.Enabled);
     {
         const Config d{};
-        Check(d.Enabled && d.SpainSpanish && d.ChicanoSlangs && d.SaveToBrief && d.ReadingTime == 200, "valores por defecto = FreeRoamSub.ini de Kaizo (1,1,1,200) y activado");
+        Check(!d.Enabled && d.SpainSpanish && d.ChicanoSlangs && d.SaveToBrief && d.ReadingTime == 200, "valores por defecto = FreeRoamSub.ini de Kaizo (1,1,1,200) e interruptor general desactivado");
     }
     // claves y orden de busqueda
     {
@@ -679,7 +679,7 @@ void SelfTestInProcess() {
     {
         const Config base{};
         auto c = ParseIniText(base, "[Subtitles]\nSpainSpanish = 0 ; neutro\nChicanoSlangs=0\nSaveToBrief = 0\nReadingTime = 5000\n");
-        Check(!c.SpainSpanish && !c.ChicanoSlangs && !c.SaveToBrief && c.ReadingTime == 2000 && c.Enabled, "ini estilo Kaizo: 0/0/0 y ReadingTime 5000 -> 2000");
+        Check(!c.SpainSpanish && !c.ChicanoSlangs && !c.SaveToBrief && c.ReadingTime == 2000 && !c.Enabled, "ini estilo Kaizo: 0/0/0 y ReadingTime 5000 -> 2000");
         c = ParseIniText(base, "FreeRoamSubtitles=0\nFreeRoamSubtitlesDir=C:\\x\\y\nReadingTime=-3\n");
         Check(!c.Enabled && c.Dir == "C:\\x\\y" && c.ReadingTime == 0, "interruptor general y carpeta; ReadingTime negativo -> 0");
         c = ParseIniText(base, "SpainSpanish=abc\nSaveToBrief=2\n");
