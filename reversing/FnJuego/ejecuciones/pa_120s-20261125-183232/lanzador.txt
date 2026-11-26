@@ -1,0 +1,2 @@
+pid 20228  args: --ruta-original "D:\Grand Theft Auto San Andreas\gta-sa.exe" --directorio-juego "D:\Original\_juego_run" --salida "D:\Original\wv-pa\reversing\FnJuego\ejecuciones\pa_120s-20261125-183232" --limite 140 --shims  escenario=espera xinput=True
+exit=0xDEAD0002

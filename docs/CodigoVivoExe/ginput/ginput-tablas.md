@@ -214,7 +214,7 @@ Seccion `[GInput]` (globales) y `[Pad1]`/`[Pad2]` (por pad, indice 0/1). Lectura
 | EnableSixaxisHack | GInput | activa el parche de la DLL de SCP (0x1000A600) |
 | GuideLaunchesOverlay | GInput | byte del primer objeto de pad (+0) |
 
-Curva de los sticks (leida en 0x10006EE0 y 0x10007550): valor/32768 -> zona muerta `(|v|-dz)/(1-dz)` con signo -> curva: con sensibilidad s = 0x1003AC8C (o 0x1003ABC4 para el derecho), si 1 > s se usa una rama con `pow` (0x10017846) mezclada con el valor lineal, si no una rama polinomica `v*v*(…)` de tercer grado; despues inversion/permutacion de ejes por las banderas de arriba. Los coeficientes exactos no se transcribieron (dos ramas; hacen falta pruebas numericas para fijarlos). Constantes del .rdata: 0.01 (0x100347EC), 255 (0x10034834), 25500 (0x1003483C), 17.0 (0x10034820), 20/30/35/50 (0x10034824..30).
+Curva de los sticks (rutina estandar de XInput 0x10006EA0..0x100074A5; la ruta SCP 0x10007550 es analoga): valor/32767 -> zona muerta `(|v|-dz)/(1-dz)` con signo -> curva SOLO en el eje X de cada stick: con s <= 1 `s*x+(1-s)*x^3`, con s > 1 `(s-1)*cbrt(x)+(2-s)*x` (0x10017846 es una `cbrt`, no `pow`) -> inversion/tope +-1/permutacion -> x127 truncado. Correccion del catalogo previo: la rama con raiz cubica es la de s > 1 (no la de 1 > s). Coeficientes, tabla de valores y verificacion en `../lectura-mando-ginput.md`. Constantes del .rdata: 0.01 (0x100347EC), 255 (0x10034834), 25500 (0x1003483C), 17.0 (0x10034820), 20/30/35/50 (0x10034824..30), 1/32767 (0x10034800), 127 (0x10034818), 0.75 (0x10034808, tope de zona muerta), 2.0 (0x10034814, tope de sensibilidad), 1.1333333 (0x1003480C, gatillos).
 
 ## 4. Scripts del juego tratados (ApplyMissionSpecificFixes)
 

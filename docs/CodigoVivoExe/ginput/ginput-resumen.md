@@ -8,7 +8,7 @@ Catalogo completo en `ginput-modificaciones.csv` (171 filas), `ginput-direccione
 - Los originales se llaman por punteros guardados, resueltos leyendo operandos de instrucciones del EXE (`CPad::Pads`, `TheText`, `FrontEndMenuManager`...).
 
 ## Por caracteristica (filas del CSV)
-- Lectura del mando: se reemplazan UpdatePads (CALL a ProcessPad/UpdateMouse/Update), se anula `CControllerState::Clear` en CPad::Update y `RsInputDeviceAttach`; XInputGetState/SetState (ordinales 2 y 3; NO usa el ordinal 100). Lectura en 0x10007550.
+- Lectura del mando: se reemplazan UpdatePads (CALL a ProcessPad/UpdateMouse/Update), se anula `CControllerState::Clear` en CPad::Update y `RsInputDeviceAttach`; XInputGetStateEx (ordinal 100 obtenido con GetProcAddress, con respaldo en el XInputGetState importado por ordinal 2) y XInputSetState (ordinal 3); lectura en 0x10007550 (SCP) y 0x10006EA0 (XInput estandar), ver lectura-mando-ginput.md.
 - Mapeo y Setups: ~113 filas. Cada getter de CPad (acelerar, freno, mirar, objetivo, arma, camara, radio, conversacion...) se sustituye y bifurca por CPad::Mode (0 = Setup 1, 1 = Setup 2). Southpaw/ejes/sensibilidad/zona muerta por pad. Detalle en tablas, seccion 2.
 - Trucos con el mando: 1 hook (CGame::Process+0xD8 -> 0x10004950); convierte botones a letras, hash CRC32 y tabla de 90 hashes; avisa con GXT CHEAT1/CHEAT8.
 - Iconos y GXT: CText::Get encadenado + tabla de 124 correcciones regex; CFont::ParseToken (3 CALL + GetStringWidth/ProcessCurrentString); GetGxtStringOfCommandKeys; CTxdStore/CSprite2d para los TXD de botones; PrintChar usa tabla/escala propias.
@@ -23,7 +23,8 @@ Catalogo completo en `ginput-modificaciones.csv` (171 filas), `ginput-direccione
 ## Honestidad: que no se entendio del todo
 - "Confirmado" = bytes parcheados verificados contra gta_sa.exe 1.0 US y reemplazo leido; "parcial" (63 filas) = campos y ramas por Setup extraidos automaticamente, cuerpo no leido linea a linea (descripcion fiable, detalle fino no). Solo 4 filas "por contexto".
 - Sin decompilador disponible (REA no soporta x86 32 bits aqui): todo con capstone.
-- Pendientes: cuerpo de 0x10007550 (lectura XInput, curvas, vibracion: solo estructura), curva exacta de sensibilidad, switch de GetPadState (0x1000609C), 0x10008E80 (tokens ~@NOMBRE~), motor regex de 0x10009680 y la rutina de Steam/Guide, significado exacto de varios offsets de CPed y de las escrituras del menu (+0x1FD2...), parches internos de GetHandBrake (probable codigo muerto).
+- Resuelto despues en `../lectura-mando-ginput.md`: cuerpo de 0x10007550 y 0x10006EA0 (lectura XInput, curvas, vibracion), curva exacta de sensibilidad y conclusion sobre el motor regex (STL de MSVC enlazada estaticamente).
+- Pendientes: switch de GetPadState (0x1000609C), 0x10008E80 (tokens ~@NOMBRE~), la rutina de Steam/Guide, significado exacto de varios offsets de CPed y de las escrituras del menu (+0x1FD2...), parches internos de GetHandBrake (probable codigo muerto).
 - Falso positivo posible: algunos campos "TempMouse" son de otras estructuras.
 
 ## Orden de integracion recomendado

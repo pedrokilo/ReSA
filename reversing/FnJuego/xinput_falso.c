@@ -30,7 +30,13 @@ DWORD WINAPI XInputGetState(DWORD i, XST* s) {
     s->g.lx = *(SHORT*)(b + 12); s->g.ly = *(SHORT*)(b + 14); s->g.rx = *(SHORT*)(b + 16); s->g.ry = *(SHORT*)(b + 18);
     return ERROR_SUCCESS;
 }
-DWORD WINAPI XInputSetState(DWORD i, void* v) { return ERROR_DEVICE_NOT_CONNECTED; }
+/* XInputSetState: cada llamada se anota en "xinput_falso_vibracion.txt" (milisegundos GetTickCount, indice, motor izquierdo, motor derecho) para comprobar la vibracion (PadAnalog). */
+DWORD WINAPI XInputSetState(DWORD i, void* v) {
+    char p[MAX_PATH]; FILE* f; WORD* m = (WORD*)v;
+    lstrcpyA(p, dir); lstrcatA(p, "xinput_falso_vibracion.txt");
+    f = fopen(p, "a"); if (f) { fprintf(f, "%lu %lu %u %u\n", (unsigned long)GetTickCount(), (unsigned long)i, m ? m[0] : 0, m ? m[1] : 0); fclose(f); }
+    return i == 0 ? ERROR_SUCCESS : ERROR_DEVICE_NOT_CONNECTED;
+}
 DWORD WINAPI XInputGetCapabilities(DWORD i, DWORD f, void* c) { return ERROR_DEVICE_NOT_CONNECTED; }
 void WINAPI XInputEnable(BOOL e) {}
 

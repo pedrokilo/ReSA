@@ -1,0 +1,478 @@
+HELPMO	~k~~GO_FORWARD~.+~k~~GO_BACK~.+~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@PED_MOVE~	gxt:MAIN	Use ~k~~GO_FORWARD~, ~k~~GO_BACK~, ~k~~GO_LEFT~ and ~k~~GO_RIGHT~ to move Carl.	Use ~@PED_MOVE~ to move Carl.
+HELPMO	~k~~GO_FORWARD~.+~k~~GO_BACK~.+~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@PED_MOVE~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ xxx ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ para continuar.	Pulsa ~@PED_MOVE~ para continuar.
+HELPMO	~k~~GO_FORWARD~.+~k~~GO_BACK~.+~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@PED_MOVE~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+HELPMO	~k~~GO_FORWARD~.+~k~~GO_BACK~.+~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@PED_MOVE~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ xxx ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ xxx ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ C	A ~@PED_MOVE~ C
+HELP27	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~@GO_UPDOWN~	gxt:MAIN	Push ~k~~VEHICLE_STEERUP~ and ~k~~VEHICLE_STEERDOWN~, to shift your weight on the bike.	Push ~@GO_UPDOWN~, to shift your weight on the bike.
+HELP27	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~@GO_UPDOWN~	sintetico	Pulsa ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ para continuar.	Pulsa ~@GO_UPDOWN~ para continuar.
+HELP27	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~@GO_UPDOWN~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+HELP27	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~@GO_UPDOWN~	doble	A ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ B ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ C	A ~@GO_UPDOWN~ C
+INTRO2C	~k~~VEHICLE_ACCELERATE~	~x~	gxt:MAIN	To pedal the bike faster repeatedly tap ~k~~VEHICLE_ACCELERATE~.	To pedal the bike faster repeatedly tap ~x~.
+INTRO2C	~k~~VEHICLE_ACCELERATE~	~x~	sintetico	Pulsa ~k~~VEHICLE_ACCELERATE~ para continuar.	Pulsa ~x~ para continuar.
+INTRO2C	~k~~VEHICLE_ACCELERATE~	~x~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+INTRO2C	~k~~VEHICLE_ACCELERATE~	~x~	doble	A ~k~~VEHICLE_ACCELERATE~ B ~k~~VEHICLE_ACCELERATE~ C	A ~x~ B ~x~ C
+INTRO2F	~k~~VEHICLE_ACCELERATE~	~x~	gxt:MAIN	To pedal hold down ~k~~VEHICLE_ACCELERATE~.	To pedal hold down ~x~.
+INTRO2F	~k~~VEHICLE_ACCELERATE~	~x~	sintetico	Pulsa ~k~~VEHICLE_ACCELERATE~ para continuar.	Pulsa ~x~ para continuar.
+INTRO2F	~k~~VEHICLE_ACCELERATE~	~x~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+INTRO2F	~k~~VEHICLE_ACCELERATE~	~x~	doble	A ~k~~VEHICLE_ACCELERATE~ B ~k~~VEHICLE_ACCELERATE~ C	A ~x~ B ~x~ C
+IE20	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select a day.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Exit	Use ~ud~ to select a day.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Exit
+IE20	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+IE20	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+IE20	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+IE21	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select a vehicle.~N~~k~~PED_SPRINT~ Buy Car~N~~k~~VEHICLE_ENTER_EXIT~ Back	Use ~ud~ to select a vehicle.~N~~k~~PED_SPRINT~ Buy Car~N~~k~~VEHICLE_ENTER_EXIT~ Back
+IE21	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+IE21	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+IE21	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+JCK_HLP	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	To stop Carl from entering a car once he has opened the door or dragged out a driver or passenger, use the movement controls or press ~k~~PED_FIREWEAPON~.	To stop Carl from entering a car once he has opened the door or dragged out a driver or passenger, use the movement controls or press ~o~.
+JCK_HLP	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+JCK_HLP	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+JCK_HLP	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+MEL_HLP	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	Press ~k~~PED_FIREWEAPON~ to perform a melee attack.	Press ~o~ to perform a melee attack.
+MEL_HLP	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+MEL_HLP	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+MEL_HLP	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+MODH1	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	gxt:MAIN	Use ~k~~VEHICLE_STEERUP~ and ~k~~VEHICLE_STEERDOWN~ to select an upgrade.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit	Use ~ud~ to select an upgrade.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+MODH1	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	sintetico	Pulsa ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ para continuar.	Pulsa ~ud~ para continuar.
+MODH1	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+MODH1	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	doble	A ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ B ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ C	A ~ud~ C
+MODH2	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	gxt:MAIN	Use ~k~~VEHICLE_STEERUP~ and ~k~~VEHICLE_STEERDOWN~ to select an upgrade.~N~~k~~PED_SPRINT~ Buy Item~N~~k~~VEHICLE_ENTER_EXIT~ Back	Use ~ud~ to select an upgrade.~N~~k~~PED_SPRINT~ Buy Item~N~~k~~VEHICLE_ENTER_EXIT~ Back
+MODH2	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	sintetico	Pulsa ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ para continuar.	Pulsa ~ud~ para continuar.
+MODH2	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+MODH2	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	doble	A ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ B ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ C	A ~ud~ C
+MODH3	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	gxt:MAIN	Use ~k~~VEHICLE_STEERUP~ and ~k~~VEHICLE_STEERDOWN~ to select an upgrade.~N~~k~~PED_SPRINT~ View Item~N~~k~~VEHICLE_ENTER_EXIT~ Back	Use ~ud~ to select an upgrade.~N~~k~~PED_SPRINT~ View Item~N~~k~~VEHICLE_ENTER_EXIT~ Back
+MODH3	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	sintetico	Pulsa ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ para continuar.	Pulsa ~ud~ para continuar.
+MODH3	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+MODH3	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	doble	A ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ B ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ C	A ~ud~ C
+MODH5	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	gxt:MAIN	Use ~k~~VEHICLE_STEERUP~ and ~k~~VEHICLE_STEERDOWN~ to select an area.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Back	Use ~ud~ to select an area.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Back
+MODH5	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	sintetico	Pulsa ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ para continuar.	Pulsa ~ud~ para continuar.
+MODH5	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+MODH5	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~ud~	doble	A ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ B ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ C	A ~ud~ C
+NITROH1	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	Press ~k~~PED_FIREWEAPON~ to activate the car's nitrous.	Press ~o~ to activate the car's nitrous.
+NITROH1	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+NITROH1	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+NITROH1	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+AMMU_H	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select a weapon.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit.	Use ~ud~ to select a weapon.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit.
+AMMU_H	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+AMMU_H	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+AMMU_H	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+AMMU_H2	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select a weapon.~N~~k~~PED_SPRINT~ View~N~~k~~VEHICLE_ENTER_EXIT~ Back.	Use ~ud~ to select a weapon.~N~~k~~PED_SPRINT~ View~N~~k~~VEHICLE_ENTER_EXIT~ Back.
+AMMU_H2	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+AMMU_H2	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+AMMU_H2	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+BARB_H1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select a haircut.~n~~k~~PED_SPRINT~ = View~n~~k~~VEHICLE_ENTER_EXIT~ = Quit	Use ~ud~ to select a haircut.~n~~k~~PED_SPRINT~ = View~n~~k~~VEHICLE_ENTER_EXIT~ = Quit
+BARB_H1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+BARB_H1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+BARB_H1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+BJ_H1	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	~k~~PED_JUMPING~ Increase Wager~N~~k~~PED_FIREWEAPON~ Decrease Wager~N~~k~~PED_SPRINT~ Proceed~N~~k~~VEHICLE_ENTER_EXIT~ Quit	~k~~PED_JUMPING~ Increase Wager~N~~o~ Decrease Wager~N~~k~~PED_SPRINT~ Proceed~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+BJ_H1	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+BJ_H1	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+BJ_H1	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+BJ_H2	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	~k~~PED_FIREWEAPON~ Hit~N~~k~~PED_SPRINT~ Stick~N~~k~~PED_JUMPING~ Double~N~~k~~VEHICLE_ENTER_EXIT~ Quit	~o~ Hit~N~~k~~PED_SPRINT~ Stick~N~~k~~PED_JUMPING~ Double~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+BJ_H2	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+BJ_H2	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+BJ_H2	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+BJ_H3	~k~~PED_FIREWEAPON~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~o~$1~v~	gxt:MAIN	~k~~PED_FIREWEAPON~ Hit~N~~k~~PED_SPRINT~ Stick~N~~k~~PED_JUMPING~ Double~N~~k~~PED_CYCLE_WEAPON_RIGHT~ Split~N~~k~~VEHICLE_ENTER_EXIT~ Quit	~o~ Hit~N~~k~~PED_SPRINT~ Stick~N~~k~~PED_JUMPING~ Double~N~~v~ Split~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+BJ_H3	~k~~PED_FIREWEAPON~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~o~$1~v~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ para continuar.	Pulsa ~o~ MEDIO ~v~ para continuar.
+BJ_H3	~k~~PED_FIREWEAPON~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~o~$1~v~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+BJ_H3	~k~~PED_FIREWEAPON~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~o~$1~v~	doble	A ~k~~PED_FIREWEAPON~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ B ~k~~PED_FIREWEAPON~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ C	A ~o~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ B ~k~~PED_FIREWEAPON~ MEDIO ~v~ C
+BJ_H5	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	~k~~PED_FIREWEAPON~ Hit~N~~k~~PED_SPRINT~ Stick~N~~k~~VEHICLE_ENTER_EXIT~ Quit	~o~ Hit~N~~k~~PED_SPRINT~ Stick~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+BJ_H5	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+BJ_H5	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+BJ_H5	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+CINCAM	~k~~VEHICLE_TURRETLEFT~	~@CAMERA_LEFT_RIGHT~	gxt:MAIN	Cinematic Camera (Use ~k~~VEHICLE_TURRETLEFT~ to change cinematic camera type.)	Cinematic Camera (Use ~@CAMERA_LEFT_RIGHT~ to change cinematic camera type.)
+CINCAM	~k~~VEHICLE_TURRETLEFT~	~@CAMERA_LEFT_RIGHT~	sintetico	Pulsa ~k~~VEHICLE_TURRETLEFT~ para continuar.	Pulsa ~@CAMERA_LEFT_RIGHT~ para continuar.
+CINCAM	~k~~VEHICLE_TURRETLEFT~	~@CAMERA_LEFT_RIGHT~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+CINCAM	~k~~VEHICLE_TURRETLEFT~	~@CAMERA_LEFT_RIGHT~	doble	A ~k~~VEHICLE_TURRETLEFT~ B ~k~~VEHICLE_TURRETLEFT~ C	A ~@CAMERA_LEFT_RIGHT~ B ~@CAMERA_LEFT_RIGHT~ C
+CLOTHA	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select area.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit	Use ~ud~ to select area.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+CLOTHA	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+CLOTHA	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+CLOTHA	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+CLOTHB	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select clothing.~N~~k~~PED_SPRINT~ View Item~N~~k~~VEHICLE_ENTER_EXIT~ Back	Use ~ud~ to select clothing.~N~~k~~PED_SPRINT~ View Item~N~~k~~VEHICLE_ENTER_EXIT~ Back
+CLOTHB	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+CLOTHB	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+CLOTHB	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+CONS_1	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~[x~	gxt:MAIN	Push ~k~~GO_LEFT~ and ~k~~GO_RIGHT~ to rotate the wrecker ball crane.	Push ~[x~ to rotate the wrecker ball crane.
+CONS_1	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~[x~	sintetico	Pulsa ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ para continuar.	Pulsa ~[x~ para continuar.
+CONS_1	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~[x~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+CONS_1	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~[x~	doble	A ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ B ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ C	A ~[x~ C
+CONS_1B	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~[x~	gxt:MAIN	Use ~k~~GO_LEFT~ and ~k~~GO_RIGHT~ to rotate the crane.	Use ~[x~ to rotate the crane.
+CONS_1B	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~[x~	sintetico	Pulsa ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ para continuar.	Pulsa ~[x~ para continuar.
+CONS_1B	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~[x~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+CONS_1B	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~[x~	doble	A ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ B ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ C	A ~[x~ C
+CONS_2	~k~~GO_BACK~(.+)~k~~GO_FORWARD~	~[u~$1~[d~	gxt:MAIN	Push ~k~~GO_BACK~ to move the wrecker ball closer or ~k~~GO_FORWARD~ to move it further away.	Push ~[u~ to move the wrecker ball closer or ~[d~ to move it further away.
+CONS_2	~k~~GO_BACK~(.+)~k~~GO_FORWARD~	~[u~$1~[d~	sintetico	Pulsa ~k~~GO_BACK~ MEDIO ~k~~GO_FORWARD~ para continuar.	Pulsa ~[u~ MEDIO ~[d~ para continuar.
+CONS_2	~k~~GO_BACK~(.+)~k~~GO_FORWARD~	~[u~$1~[d~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+CONS_2	~k~~GO_BACK~(.+)~k~~GO_FORWARD~	~[u~$1~[d~	doble	A ~k~~GO_BACK~ MEDIO ~k~~GO_FORWARD~ B ~k~~GO_BACK~ MEDIO ~k~~GO_FORWARD~ C	A ~[u~ MEDIO ~k~~GO_FORWARD~ B ~k~~GO_BACK~ MEDIO ~[d~ C
+CONS_2B	~k~~GO_FORWARD~.+~k~~GO_BACK~	~[y~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to move the magnet closer or further away.	Use ~[y~ to move the magnet closer or further away.
+CONS_2B	~k~~GO_FORWARD~.+~k~~GO_BACK~	~[y~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~[y~ para continuar.
+CONS_2B	~k~~GO_FORWARD~.+~k~~GO_BACK~	~[y~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+CONS_2B	~k~~GO_FORWARD~.+~k~~GO_BACK~	~[y~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~[y~ C
+FOOD_H	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	gxt:MAIN	Use ~k~~GO_LEFT~ or ~k~~GO_RIGHT~ to select a meal.~N~~k~~PED_SPRINT~ Buy~N~~k~~VEHICLE_ENTER_EXIT~ Quit	Use ~<>~ to select a meal.~N~~k~~PED_SPRINT~ Buy~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+FOOD_H	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	sintetico	Pulsa ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ para continuar.	Pulsa ~<>~ para continuar.
+FOOD_H	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+FOOD_H	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	doble	A ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ B ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ C	A ~<>~ C
+FOOD_H2	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	gxt:MAIN	Use ~k~~GO_LEFT~ or ~k~~GO_RIGHT~ to select a meal.~N~~k~~VEHICLE_ENTER_EXIT~ Quit	Use ~<>~ to select a meal.~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+FOOD_H2	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	sintetico	Pulsa ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ para continuar.	Pulsa ~<>~ para continuar.
+FOOD_H2	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+FOOD_H2	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	doble	A ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ B ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ C	A ~<>~ C
+GA_6	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	Park it, prime it by pressing ~k~~PED_FIREWEAPON~ and LEG IT!	Park it, prime it by pressing ~o~ and LEG IT!
+GA_6	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+GA_6	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+GA_6	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+GA_7	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	Arm with ~k~~PED_FIREWEAPON~. Bomb will go off when engine is started.	Arm with ~o~. Bomb will go off when engine is started.
+GA_7	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+GA_7	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+GA_7	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+GF_0020	~k~~GO_FORWARD~.+~k~~GO_BACK~(.+)~k~~PED_FIREWEAPON~	~[y~$1~o~	gxt:MAIN	Push ~k~~GO_FORWARD~ and ~k~~GO_BACK~ in rhythm~n~~k~~PED_FIREWEAPON~ Change view~n~~k~~PED_JUMPING~ Change position~n~~k~~VEHICLE_ENTER_EXIT~ Quit	Push ~[y~ in rhythm~n~~o~ Change view~n~~k~~PED_JUMPING~ Change position~n~~k~~VEHICLE_ENTER_EXIT~ Quit
+GF_0020	~k~~GO_FORWARD~.+~k~~GO_BACK~(.+)~k~~PED_FIREWEAPON~	~[y~$1~o~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ MEDIO ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~[y~ MEDIO ~o~ para continuar.
+GF_0020	~k~~GO_FORWARD~.+~k~~GO_BACK~(.+)~k~~PED_FIREWEAPON~	~[y~$1~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+GF_0020	~k~~GO_FORWARD~.+~k~~GO_BACK~(.+)~k~~PED_FIREWEAPON~	~[y~$1~o~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ MEDIO ~k~~PED_FIREWEAPON~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ MEDIO ~k~~PED_FIREWEAPON~ C	A ~[y~ MEDIO ~o~ C
+GF_0043	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	Press ~k~~PED_SPRINT~ when the power bar is full~n~~k~~PED_FIREWEAPON~ Change view~n~~k~~VEHICLE_ENTER_EXIT~ Quit	Press ~k~~PED_SPRINT~ when the power bar is full~n~~o~ Change view~n~~k~~VEHICLE_ENTER_EXIT~ Quit
+GF_0043	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+GF_0043	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+GF_0043	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+GF_RAD	~k~~VEHICLE_RADIO_STATION_UP~.+~k~~VEHICLE_RADIO_STATION_DOWN~	~@VEHICLE_CHANGE_RADIO_STATION~	gxt:MAIN	Use ~k~~VEHICLE_RADIO_STATION_UP~ and ~k~~VEHICLE_RADIO_STATION_DOWN~ to change radio station.	Use ~@VEHICLE_CHANGE_RADIO_STATION~ to change radio station.
+GF_RAD	~k~~VEHICLE_RADIO_STATION_UP~.+~k~~VEHICLE_RADIO_STATION_DOWN~	~@VEHICLE_CHANGE_RADIO_STATION~	sintetico	Pulsa ~k~~VEHICLE_RADIO_STATION_UP~ xxx ~k~~VEHICLE_RADIO_STATION_DOWN~ para continuar.	Pulsa ~@VEHICLE_CHANGE_RADIO_STATION~ para continuar.
+GF_RAD	~k~~VEHICLE_RADIO_STATION_UP~.+~k~~VEHICLE_RADIO_STATION_DOWN~	~@VEHICLE_CHANGE_RADIO_STATION~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+GF_RAD	~k~~VEHICLE_RADIO_STATION_UP~.+~k~~VEHICLE_RADIO_STATION_DOWN~	~@VEHICLE_CHANGE_RADIO_STATION~	doble	A ~k~~VEHICLE_RADIO_STATION_UP~ xxx ~k~~VEHICLE_RADIO_STATION_DOWN~ B ~k~~VEHICLE_RADIO_STATION_UP~ xxx ~k~~VEHICLE_RADIO_STATION_DOWN~ C	A ~@VEHICLE_CHANGE_RADIO_STATION~ C
+GYM1_36	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	To lift the dumbbells alternate between pressing ~k~~PED_SPRINT~ and ~k~~PED_FIREWEAPON~.~n~This will increase your power.	To lift the dumbbells alternate between pressing ~k~~PED_SPRINT~ and ~o~.~n~This will increase your power.
+GYM1_36	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+GYM1_36	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+GYM1_36	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+GYM1_37	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	~w~To lift the weight alternate between pressing ~k~~PED_SPRINT~ and ~k~~PED_FIREWEAPON~.~n~This will increase your power.	~w~To lift the weight alternate between pressing ~k~~PED_SPRINT~ and ~o~.~n~This will increase your power.
+GYM1_37	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+GYM1_37	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+GYM1_37	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+GYM1_41	~k~~CONVERSATION_NO~.+~k~~CONVERSATION_YES~	~<>~	gxt:MAIN	To change the level press ~k~~CONVERSATION_NO~ or ~k~~CONVERSATION_YES~.	To change the level press ~<>~.
+GYM1_41	~k~~CONVERSATION_NO~.+~k~~CONVERSATION_YES~	~<>~	sintetico	Pulsa ~k~~CONVERSATION_NO~ xxx ~k~~CONVERSATION_YES~ para continuar.	Pulsa ~<>~ para continuar.
+GYM1_41	~k~~CONVERSATION_NO~.+~k~~CONVERSATION_YES~	~<>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+GYM1_41	~k~~CONVERSATION_NO~.+~k~~CONVERSATION_YES~	~<>~	doble	A ~k~~CONVERSATION_NO~ xxx ~k~~CONVERSATION_YES~ B ~k~~CONVERSATION_NO~ xxx ~k~~CONVERSATION_YES~ C	A ~<>~ C
+GYM1_43	~k~~CONVERSATION_NO~.+~k~~CONVERSATION_YES~	~<>~	gxt:MAIN	To change the level press ~k~~CONVERSATION_NO~ or ~k~~CONVERSATION_YES~ while on the treadmill.	To change the level press ~<>~ while on the treadmill.
+GYM1_43	~k~~CONVERSATION_NO~.+~k~~CONVERSATION_YES~	~<>~	sintetico	Pulsa ~k~~CONVERSATION_NO~ xxx ~k~~CONVERSATION_YES~ para continuar.	Pulsa ~<>~ para continuar.
+GYM1_43	~k~~CONVERSATION_NO~.+~k~~CONVERSATION_YES~	~<>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+GYM1_43	~k~~CONVERSATION_NO~.+~k~~CONVERSATION_YES~	~<>~	doble	A ~k~~CONVERSATION_NO~ xxx ~k~~CONVERSATION_YES~ B ~k~~CONVERSATION_NO~ xxx ~k~~CONVERSATION_YES~ C	A ~<>~ C
+GYM1_60	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select level.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit	Use ~ud~ to select level.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+GYM1_60	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+GYM1_60	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+GYM1_60	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+GYM1_71	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select a weight.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit	Use ~ud~ to select a weight.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+GYM1_71	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+GYM1_71	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+GYM1_71	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+HELP32	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	Then fire using ~k~~PED_FIREWEAPON~.	Then fire using ~o~.
+HELP32	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+HELP32	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+HELP32	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+QUAR_1	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	The movement controls rotate the crane.~N~~k~~PED_JUMPING~ Raise winch.~N~~k~~PED_SPRINT~ Lower winch.~N~~k~~PED_FIREWEAPON~ Release objects.	The movement controls rotate the crane.~N~~k~~PED_JUMPING~ Raise winch.~N~~k~~PED_SPRINT~ Lower winch.~N~~o~ Release objects.
+QUAR_1	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+QUAR_1	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+QUAR_1	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+REMOH1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select an area.~N~~k~~PED_SPRINT~ Remove Item~N~~k~~VEHICLE_ENTER_EXIT~ Back	Use ~ud~ to select an area.~N~~k~~PED_SPRINT~ Remove Item~N~~k~~VEHICLE_ENTER_EXIT~ Back
+REMOH1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+REMOH1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+REMOH1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+ROUHELP	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	Use the movement controls to select spot.~n~~k~~PED_JUMPING~ Increase Wager~n~~k~~PED_FIREWEAPON~ Decrease Wager~n~~k~~PED_SPRINT~ Spin Wheel~n~~k~~VEHICLE_ENTER_EXIT~ Exit	Use the movement controls to select spot.~n~~k~~PED_JUMPING~ Increase Wager~n~~o~ Decrease Wager~n~~k~~PED_SPRINT~ Spin Wheel~n~~k~~VEHICLE_ENTER_EXIT~ Exit
+ROUHELP	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+ROUHELP	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+ROUHELP	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+SKIP_1	~k~~CONVERSATION_YES~	~>~	gxt:MAIN	If you have previously completed a journey in a mission that you failed you may press ~k~~CONVERSATION_YES~ to activate a 'Trip Skip'.	If you have previously completed a journey in a mission that you failed you may press ~>~ to activate a 'Trip Skip'.
+SKIP_1	~k~~CONVERSATION_YES~	~>~	sintetico	Pulsa ~k~~CONVERSATION_YES~ para continuar.	Pulsa ~>~ para continuar.
+SKIP_1	~k~~CONVERSATION_YES~	~>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+SKIP_1	~k~~CONVERSATION_YES~	~>~	doble	A ~k~~CONVERSATION_YES~ B ~k~~CONVERSATION_YES~ C	A ~>~ B ~>~ C
+STR_02	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	~k~~PED_FIREWEAPON~ Change view.~n~~k~~VEHICLE_ENTER_EXIT~ Quit the private dance.	~o~ Change view.~n~~k~~VEHICLE_ENTER_EXIT~ Quit the private dance.
+STR_02	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+STR_02	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+STR_02	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+TATTA	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select an area.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit	Use ~ud~ to select an area.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+TATTA	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+TATTA	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+TATTA	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+TATTB	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select a tattoo.~N~~k~~PED_SPRINT~ Buy~N~~k~~VEHICLE_ENTER_EXIT~ Quit	Use ~ud~ to select a tattoo.~N~~k~~PED_SPRINT~ Buy~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+TATTB	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+TATTB	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+TATTB	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+TRAINS	~k~~VEHICLE_ACCELERATE~	~x~	gxt:MAIN	Press ~k~~VEHICLE_ACCELERATE~ to skip to the next station.	Press ~x~ to skip to the next station.
+TRAINS	~k~~VEHICLE_ACCELERATE~	~x~	sintetico	Pulsa ~k~~VEHICLE_ACCELERATE~ para continuar.	Pulsa ~x~ para continuar.
+TRAINS	~k~~VEHICLE_ACCELERATE~	~x~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+TRAINS	~k~~VEHICLE_ACCELERATE~	~x~	doble	A ~k~~VEHICLE_ACCELERATE~ B ~k~~VEHICLE_ACCELERATE~ C	A ~x~ B ~x~ C
+WARDH1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select a shop.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit	Use ~ud~ to select a shop.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+WARDH1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+WARDH1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+WARDH1	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+WARDH2	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select an area.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Back	Use ~ud~ to select an area.~N~~k~~PED_SPRINT~ Select~N~~k~~VEHICLE_ENTER_EXIT~ Back
+WARDH2	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+WARDH2	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+WARDH2	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+WARDH3	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	gxt:MAIN	Use ~k~~GO_FORWARD~ and ~k~~GO_BACK~ to select an item.~N~~k~~PED_SPRINT~ View~N~~k~~VEHICLE_ENTER_EXIT~ Back	Use ~ud~ to select an item.~N~~k~~PED_SPRINT~ View~N~~k~~VEHICLE_ENTER_EXIT~ Back
+WARDH3	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sintetico	Pulsa ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ para continuar.	Pulsa ~ud~ para continuar.
+WARDH3	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+WARDH3	~k~~GO_FORWARD~.+~k~~GO_BACK~	~ud~	doble	A ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ B ~k~~GO_FORWARD~ xxx ~k~~GO_BACK~ C	A ~ud~ C
+WINCH_V	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~(.+)~k~~PED_FIREWEAPON~	~@CAMERA_UP_DOWN~$1~o~	gxt:MAIN	Use ~k~~VEHICLE_TURRETUP~ and ~k~~VEHICLE_TURRETDOWN~ to move the winch close to a vehicle. ~N~Press ~k~~PED_FIREWEAPON~ to release.	Use ~@CAMERA_UP_DOWN~ to move the winch close to a vehicle. ~N~Press ~o~ to release.
+WINCH_V	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~(.+)~k~~PED_FIREWEAPON~	~@CAMERA_UP_DOWN~$1~o~	sintetico	Pulsa ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ MEDIO ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~@CAMERA_UP_DOWN~ MEDIO ~o~ para continuar.
+WINCH_V	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~(.+)~k~~PED_FIREWEAPON~	~@CAMERA_UP_DOWN~$1~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+WINCH_V	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~(.+)~k~~PED_FIREWEAPON~	~@CAMERA_UP_DOWN~$1~o~	doble	A ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ MEDIO ~k~~PED_FIREWEAPON~ B ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ MEDIO ~k~~PED_FIREWEAPON~ C	A ~@CAMERA_UP_DOWN~ MEDIO ~o~ C
+WOFHD01	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	Use the movement controls to select wager.~n~~k~~PED_JUMPING~ Increase Wager~N~~k~~PED_FIREWEAPON~ Decrease Wager~N~~k~~PED_SPRINT~ Proceed~N~~k~~VEHICLE_ENTER_EXIT~ Quit	Use the movement controls to select wager.~n~~k~~PED_JUMPING~ Increase Wager~N~~o~ Decrease Wager~N~~k~~PED_SPRINT~ Proceed~N~~k~~VEHICLE_ENTER_EXIT~ Quit
+WOFHD01	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+WOFHD01	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+WOFHD01	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+WZI2_A5	~k~~PED_FIREWEAPON~	~o~	gxt:MAIN	Press ~k~~PED_FIREWEAPON~ to dive underwater.	Press ~o~ to dive underwater.
+WZI2_A5	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+WZI2_A5	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+WZI2_A5	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+BCOU_84	~k~~PED_FIREWEAPON~	~o~	gxt:BCOU	Hold ~k~~VEHICLE_LOOKLEFT~ or ~k~~VEHICLE_LOOKRIGHT~ and press ~k~~PED_FIREWEAPON~ to launch an item to the left or right. Drive over the last unsuccessfully thrown item to reclaim it.	Hold ~k~~VEHICLE_LOOKLEFT~ or ~k~~VEHICLE_LOOKRIGHT~ and press ~o~ to launch an item to the left or right. Drive over the last unsuccessfully thrown item to reclaim it.
+BCOU_84	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+BCOU_84	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+BCOU_84	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+BCOU_9	~k~~PED_FIREWEAPON~	~o~	gxt:BCOU	Hold ~k~~VEHICLE_LOOKLEFT~ or ~k~~VEHICLE_LOOKRIGHT~ and press ~k~~PED_FIREWEAPON~ to launch an item to the left or right. Drive over the last unsuccessfully thrown item to reclaim it.	Hold ~k~~VEHICLE_LOOKLEFT~ or ~k~~VEHICLE_LOOKRIGHT~ and press ~o~ to launch an item to the left or right. Drive over the last unsuccessfully thrown item to reclaim it.
+BCOU_9	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+BCOU_9	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+BCOU_9	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+BOAT_72	~<~~>~	~<>~	gxt:BOAT	~<~~>~	~<>~
+BOAT_72	~<~~>~	~<>~	sintetico	Pulsa ~<~~>~ para continuar.	Pulsa ~<>~ para continuar.
+BOAT_72	~<~~>~	~<>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+BOAT_72	~<~~>~	~<>~	doble	A ~<~~>~ B ~<~~>~ C	A ~<>~ B ~<>~ C
+BOAT_B4	~k~~VEHICLE_STEERLEFT~ and ~k~~VEHICLE_STEERRIGHT~	~@GO_LEFTRIGHT~	gxt:BOAT	~s~Navigate through each pair of ~y~buoys~s~. Throttle with ~k~~VEHICLE_ACCELERATE~ and use ~k~~VEHICLE_STEERLEFT~ and ~k~~VEHICLE_STEERRIGHT~ to steer.	~s~Navigate through each pair of ~y~buoys~s~. Throttle with ~k~~VEHICLE_ACCELERATE~ and use ~@GO_LEFTRIGHT~ to steer.
+BOAT_B4	~k~~VEHICLE_STEERLEFT~ and ~k~~VEHICLE_STEERRIGHT~	~@GO_LEFTRIGHT~	sintetico	Pulsa ~k~~VEHICLE_STEERLEFT~ and ~k~~VEHICLE_STEERRIGHT~ para continuar.	Pulsa ~@GO_LEFTRIGHT~ para continuar.
+BOAT_B4	~k~~VEHICLE_STEERLEFT~ and ~k~~VEHICLE_STEERRIGHT~	~@GO_LEFTRIGHT~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+BOAT_B4	~k~~VEHICLE_STEERLEFT~ and ~k~~VEHICLE_STEERRIGHT~	~@GO_LEFTRIGHT~	doble	A ~k~~VEHICLE_STEERLEFT~ and ~k~~VEHICLE_STEERRIGHT~ B ~k~~VEHICLE_STEERLEFT~ and ~k~~VEHICLE_STEERRIGHT~ C	A ~@GO_LEFTRIGHT~ B ~@GO_LEFTRIGHT~ C
+BS_X03	~<~~>~	~<>~	gxt:BS	~<~~>~	~<>~
+BS_X03	~<~~>~	~<>~	sintetico	Pulsa ~<~~>~ para continuar.	Pulsa ~<>~ para continuar.
+BS_X03	~<~~>~	~<>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+BS_X03	~<~~>~	~<>~	doble	A ~<~~>~ B ~<~~>~ C	A ~<>~ B ~<>~ C
+CAS9_H2	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	gxt:CASINO9	Use ~k~~PED_CYCLE_WEAPON_LEFT~ and ~k~~PED_CYCLE_WEAPON_RIGHT~ to take cover.	Use ~k~~PED_CYCLE_TARGET_LEFT~ and ~k~~PED_CYCLE_TARGET_RIGHT~ to take cover.
+CAS9_H2	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	sintetico	Pulsa ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ para continuar.	Pulsa ~k~~PED_CYCLE_TARGET_LEFT~ MEDIO ~k~~PED_CYCLE_TARGET_RIGHT~ para continuar.
+CAS9_H2	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+CAS9_H2	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	doble	A ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ B ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ C	A ~k~~PED_CYCLE_TARGET_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ B ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_TARGET_RIGHT~ C
+CAT4_45	~k~~PED_FIREWEAPON~	~o~	gxt:CAT	When the ~h~satchel~w~ is attached, select the ~h~detonator~w~ weapon and press ~k~~PED_FIREWEAPON~ to detonate.	When the ~h~satchel~w~ is attached, select the ~h~detonator~w~ weapon and press ~o~ to detonate.
+CAT4_45	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+CAT4_45	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+CAT4_45	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+CSH3_52	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	gxt:CRASH3	To roll you must be crouched and have a gun equipped, then press and hold ~k~~PED_LOCK_TARGET~ and use ~k~~GO_LEFT~ and ~k~~GO_RIGHT~ to roll.	To roll you must be crouched and have a gun equipped, then press and hold ~k~~PED_LOCK_TARGET~ and use ~@GO_LEFTRIGHT~ to roll.
+CSH3_52	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	sintetico	Pulsa ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ para continuar.	Pulsa ~@GO_LEFTRIGHT~ para continuar.
+CSH3_52	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+CSH3_52	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	doble	A ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ B ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ C	A ~@GO_LEFTRIGHT~ C
+DS1_33	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~@GO_UPDOWN~	gxt:DS	~s~Do a barrel roll in mid air and land it perfectly. While in the air, release the accelerate button and use ~k~~VEHICLE_STEERUP~ and ~k~~VEHICLE_STEERDOWN~ to adjust the car's pitch.	~s~Do a barrel roll in mid air and land it perfectly. While in the air, release the accelerate button and use ~@GO_UPDOWN~ to adjust the car's pitch.
+DS1_33	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~@GO_UPDOWN~	sintetico	Pulsa ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ para continuar.	Pulsa ~@GO_UPDOWN~ para continuar.
+DS1_33	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~@GO_UPDOWN~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DS1_33	~k~~VEHICLE_STEERUP~.+~k~~VEHICLE_STEERDOWN~	~@GO_UPDOWN~	doble	A ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ B ~k~~VEHICLE_STEERUP~ xxx ~k~~VEHICLE_STEERDOWN~ C	A ~@GO_UPDOWN~ C
+DS1_60	~k~~GO_LEFT~	~<~	gxt:DS	~k~~GO_LEFT~ Counterclockwise	~<~ Counterclockwise
+DS1_60	~k~~GO_LEFT~	~<~	sintetico	Pulsa ~k~~GO_LEFT~ para continuar.	Pulsa ~<~ para continuar.
+DS1_60	~k~~GO_LEFT~	~<~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DS1_60	~k~~GO_LEFT~	~<~	doble	A ~k~~GO_LEFT~ B ~k~~GO_LEFT~ C	A ~<~ B ~<~ C
+DS1_61	~k~~GO_RIGHT~	~>~	gxt:DS	~k~~GO_RIGHT~ Clockwise	~>~ Clockwise
+DS1_61	~k~~GO_RIGHT~	~>~	sintetico	Pulsa ~k~~GO_RIGHT~ para continuar.	Pulsa ~>~ para continuar.
+DS1_61	~k~~GO_RIGHT~	~>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DS1_61	~k~~GO_RIGHT~	~>~	doble	A ~k~~GO_RIGHT~ B ~k~~GO_RIGHT~ C	A ~>~ B ~>~ C
+DS1_62	~<~~>~	~<>~	gxt:DS	~<~~>~	~<>~
+DS1_62	~<~~>~	~<>~	sintetico	Pulsa ~<~~>~ para continuar.	Pulsa ~<>~ para continuar.
+DS1_62	~<~~>~	~<>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DS1_62	~<~~>~	~<>~	doble	A ~<~~>~ B ~<~~>~ C	A ~<>~ B ~<>~ C
+DES5_9B	~k~~PED_FIREWEAPON~	~o~	gxt:DSERT5	~s~Press ~k~~VEHICLE_FIREWEAPON_ALT~ to fire the guns and ~k~~PED_FIREWEAPON~ to fire rockets.	~s~Press ~k~~VEHICLE_FIREWEAPON_ALT~ to fire the guns and ~o~ to fire rockets.
+DES5_9B	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+DES5_9B	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DES5_9B	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+DES5_CB	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	gxt:DSERT5	~s~Push ~k~~GO_BACK~ to move backward and use ~k~~GO_LEFT~ and ~k~~GO_RIGHT~ to rotate.	~s~Push ~k~~GO_BACK~ to move backward and use ~@GO_LEFTRIGHT~ to rotate.
+DES5_CB	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	sintetico	Pulsa ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ para continuar.	Pulsa ~@GO_LEFTRIGHT~ para continuar.
+DES5_CB	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DES5_CB	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	doble	A ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ B ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ C	A ~@GO_LEFTRIGHT~ C
+DES5_CC	~k~~PED_FIREWEAPON~	~o~	gxt:DSERT5	~s~Press ~k~~PED_FIREWEAPON~ to open the parachute now.	~s~Press ~o~ to open the parachute now.
+DES5_CC	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+DES5_CC	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DES5_CC	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+DES5_CE	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	gxt:DSERT5	~s~Use ~k~~GO_LEFT~ and ~k~~GO_RIGHT~ to guide the parachute left and right.	~s~Use ~@GO_LEFTRIGHT~ to guide the parachute left and right.
+DES5_CE	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	sintetico	Pulsa ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ para continuar.	Pulsa ~@GO_LEFTRIGHT~ para continuar.
+DES5_CE	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DES5_CE	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	doble	A ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ B ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ C	A ~@GO_LEFTRIGHT~ C
+DES5_CI	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	gxt:DSERT5	~s~Use ~k~~GO_BACK~ to slow your descent and push ~k~~GO_LEFT~ and ~k~~GO_RIGHT~ to rotate.	~s~Use ~k~~GO_BACK~ to slow your descent and push ~@GO_LEFTRIGHT~ to rotate.
+DES5_CI	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	sintetico	Pulsa ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ para continuar.	Pulsa ~@GO_LEFTRIGHT~ para continuar.
+DES5_CI	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DES5_CI	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~@GO_LEFTRIGHT~	doble	A ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ B ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ C	A ~@GO_LEFTRIGHT~ C
+DES5_FK	~<~~>~	~<>~	gxt:DSERT5	~<~~>~	~<>~
+DES5_FK	~<~~>~	~<>~	sintetico	Pulsa ~<~~>~ para continuar.	Pulsa ~<>~ para continuar.
+DES5_FK	~<~~>~	~<>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DES5_FK	~<~~>~	~<>~	doble	A ~<~~>~ B ~<~~>~ C	A ~<>~ B ~<>~ C
+DES5_FI	~k~~GO_LEFT~	~<~	gxt:DSERT5	~k~~GO_LEFT~ Counterclockwise	~<~ Counterclockwise
+DES5_FI	~k~~GO_LEFT~	~<~	sintetico	Pulsa ~k~~GO_LEFT~ para continuar.	Pulsa ~<~ para continuar.
+DES5_FI	~k~~GO_LEFT~	~<~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DES5_FI	~k~~GO_LEFT~	~<~	doble	A ~k~~GO_LEFT~ B ~k~~GO_LEFT~ C	A ~<~ B ~<~ C
+DES5_FJ	~k~~GO_RIGHT~	~>~	gxt:DSERT5	~k~~GO_RIGHT~ Clockwise	~>~ Clockwise
+DES5_FJ	~k~~GO_RIGHT~	~>~	sintetico	Pulsa ~k~~GO_RIGHT~ para continuar.	Pulsa ~>~ para continuar.
+DES5_FJ	~k~~GO_RIGHT~	~>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DES5_FJ	~k~~GO_RIGHT~	~>~	doble	A ~k~~GO_RIGHT~ B ~k~~GO_RIGHT~ C	A ~>~ B ~>~ C
+DST8_30	~k~~GO_RIGHT~	~k~~PED_CYCLE_TARGET_RIGHT~	gxt:DSERT8	To strafe right while in the jetpack press ~k~~GO_RIGHT~.	To strafe right while in the jetpack press ~k~~PED_CYCLE_TARGET_RIGHT~.
+DST8_30	~k~~GO_RIGHT~	~k~~PED_CYCLE_TARGET_RIGHT~	sintetico	Pulsa ~k~~GO_RIGHT~ para continuar.	Pulsa ~k~~PED_CYCLE_TARGET_RIGHT~ para continuar.
+DST8_30	~k~~GO_RIGHT~	~k~~PED_CYCLE_TARGET_RIGHT~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DST8_30	~k~~GO_RIGHT~	~k~~PED_CYCLE_TARGET_RIGHT~	doble	A ~k~~GO_RIGHT~ B ~k~~GO_RIGHT~ C	A ~k~~PED_CYCLE_TARGET_RIGHT~ B ~k~~PED_CYCLE_TARGET_RIGHT~ C
+DST8_31	~k~~GO_LEFT~	~k~~PED_CYCLE_TARGET_LEFT~	gxt:DSERT8	To strafe left while in the jetpack press ~k~~GO_LEFT~.	To strafe left while in the jetpack press ~k~~PED_CYCLE_TARGET_LEFT~.
+DST8_31	~k~~GO_LEFT~	~k~~PED_CYCLE_TARGET_LEFT~	sintetico	Pulsa ~k~~GO_LEFT~ para continuar.	Pulsa ~k~~PED_CYCLE_TARGET_LEFT~ para continuar.
+DST8_31	~k~~GO_LEFT~	~k~~PED_CYCLE_TARGET_LEFT~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DST8_31	~k~~GO_LEFT~	~k~~PED_CYCLE_TARGET_LEFT~	doble	A ~k~~GO_LEFT~ B ~k~~GO_LEFT~ C	A ~k~~PED_CYCLE_TARGET_LEFT~ B ~k~~PED_CYCLE_TARGET_LEFT~ C
+DST8_32	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	gxt:DSERT8	To hover in the jetpack hold down ~k~~PED_CYCLE_WEAPON_RIGHT~ and ~k~~PED_CYCLE_WEAPON_LEFT~.	<<SIN COINCIDENCIA>>
+DST8_32	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	sintetico	Pulsa ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ para continuar.	Pulsa ~k~~PED_CYCLE_TARGET_LEFT~ MEDIO ~k~~PED_CYCLE_TARGET_RIGHT~ para continuar.
+DST8_32	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DST8_32	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	doble	A ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ B ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ C	A ~k~~PED_CYCLE_TARGET_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ B ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_TARGET_RIGHT~ C
+DST8_37	~k~~PED_FIREWEAPON~	~o~	gxt:DSERT8	When goggles are selected, press ~k~~PED_FIREWEAPON~ to toggle thermal vision on and off.	When goggles are selected, press ~o~ to toggle thermal vision on and off.
+DST8_37	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+DST8_37	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DST8_37	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+SPAC_10	~<~~u~~d~~>~	~[~	gxt:DUAL	~w~~<~~u~~d~~>~ Navigate~n~~k~~PED_SPRINT~ Select	~w~~[~ Navigate~n~~k~~PED_SPRINT~ Select
+SPAC_10	~<~~u~~d~~>~	~[~	sintetico	Pulsa ~<~~u~~d~~>~ para continuar.	Pulsa ~[~ para continuar.
+SPAC_10	~<~~u~~d~~>~	~[~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+SPAC_10	~<~~u~~d~~>~	~[~	doble	A ~<~~u~~d~~>~ B ~<~~u~~d~~>~ C	A ~[~ B ~[~ C
+SPAC_11	~<~~>~(.+)~k~~PED_FIREWEAPON~	~[x~$1~o~	gxt:DUAL	~w~~<~~>~ Rotate~n~~k~~PED_SPRINT~ Thrust~n~~k~~PED_FIREWEAPON~ Shoot~n~~k~~VEHICLE_ENTER_EXIT~ Exit.	~w~~[x~ Rotate~n~~k~~PED_SPRINT~ Thrust~n~~o~ Shoot~n~~k~~VEHICLE_ENTER_EXIT~ Exit.
+SPAC_11	~<~~>~(.+)~k~~PED_FIREWEAPON~	~[x~$1~o~	sintetico	Pulsa ~<~~>~ MEDIO ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~[x~ MEDIO ~o~ para continuar.
+SPAC_11	~<~~>~(.+)~k~~PED_FIREWEAPON~	~[x~$1~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+SPAC_11	~<~~>~(.+)~k~~PED_FIREWEAPON~	~[x~$1~o~	doble	A ~<~~>~ MEDIO ~k~~PED_FIREWEAPON~ B ~<~~>~ MEDIO ~k~~PED_FIREWEAPON~ C	A ~[x~ MEDIO ~k~~PED_FIREWEAPON~ B ~<~~>~ MEDIO ~o~ C
+SPAC_13	~u~~d~	~[y~	gxt:DUAL	~w~~u~~d~ Navigate~n~~k~~PED_SPRINT~ Select	~w~~[y~ Navigate~n~~k~~PED_SPRINT~ Select
+SPAC_13	~u~~d~	~[y~	sintetico	Pulsa ~u~~d~ para continuar.	Pulsa ~[y~ para continuar.
+SPAC_13	~u~~d~	~[y~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+SPAC_13	~u~~d~	~[y~	doble	A ~u~~d~ B ~u~~d~ C	A ~[y~ B ~[y~ C
+DRV3_3	~k~~VEHICLE_FIREWEAPON_ALT~	~@SNATCH_PACKAGE~	gxt:FARLIE2	~s~Tap ~k~~VEHICLE_FIREWEAPON_ALT~ to snatch the ~r~package.	~s~Tap ~@SNATCH_PACKAGE~ to snatch the ~r~package.
+DRV3_3	~k~~VEHICLE_FIREWEAPON_ALT~	~@SNATCH_PACKAGE~	sintetico	Pulsa ~k~~VEHICLE_FIREWEAPON_ALT~ para continuar.	Pulsa ~@SNATCH_PACKAGE~ para continuar.
+DRV3_3	~k~~VEHICLE_FIREWEAPON_ALT~	~@SNATCH_PACKAGE~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DRV3_3	~k~~VEHICLE_FIREWEAPON_ALT~	~@SNATCH_PACKAGE~	doble	A ~k~~VEHICLE_FIREWEAPON_ALT~ B ~k~~VEHICLE_FIREWEAPON_ALT~ C	A ~@SNATCH_PACKAGE~ B ~@SNATCH_PACKAGE~ C
+DRV3_H	~k~~VEHICLE_FIREWEAPON_ALT~	~@SNATCH_PACKAGE~	gxt:FARLIE2	When you're close to a ~r~package~w~, tap ~k~~VEHICLE_FIREWEAPON_ALT~ to snatch it.	When you're close to a ~r~package~w~, tap ~@SNATCH_PACKAGE~ to snatch it.
+DRV3_H	~k~~VEHICLE_FIREWEAPON_ALT~	~@SNATCH_PACKAGE~	sintetico	Pulsa ~k~~VEHICLE_FIREWEAPON_ALT~ para continuar.	Pulsa ~@SNATCH_PACKAGE~ para continuar.
+DRV3_H	~k~~VEHICLE_FIREWEAPON_ALT~	~@SNATCH_PACKAGE~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+DRV3_H	~k~~VEHICLE_FIREWEAPON_ALT~	~@SNATCH_PACKAGE~	doble	A ~k~~VEHICLE_FIREWEAPON_ALT~ B ~k~~VEHICLE_FIREWEAPON_ALT~ C	A ~@SNATCH_PACKAGE~ B ~@SNATCH_PACKAGE~ C
+SPRAY_1	~k~~PED_FIREWEAPON~.+~k~~VEHICLE_FIREWEAPON_ALT~	~o~	gxt:FIRETRK	Use ~k~~PED_FIREWEAPON~ or ~k~~VEHICLE_FIREWEAPON_ALT~ to fire the water cannon and the camera movement controls to aim the water cannon.	Use ~o~ to fire the water cannon and the camera movement controls to aim the water cannon.
+SPRAY_1	~k~~PED_FIREWEAPON~.+~k~~VEHICLE_FIREWEAPON_ALT~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ xxx ~k~~VEHICLE_FIREWEAPON_ALT~ para continuar.	Pulsa ~o~ para continuar.
+SPRAY_1	~k~~PED_FIREWEAPON~.+~k~~VEHICLE_FIREWEAPON_ALT~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+SPRAY_1	~k~~PED_FIREWEAPON~.+~k~~VEHICLE_FIREWEAPON_ALT~	~o~	doble	A ~k~~PED_FIREWEAPON~ xxx ~k~~VEHICLE_FIREWEAPON_ALT~ B ~k~~PED_FIREWEAPON~ xxx ~k~~VEHICLE_FIREWEAPON_ALT~ C	A ~o~ C
+HEI2_11	~k~~PED_FIREWEAPON~	~o~	gxt:HEIST2	Press ~k~~PED_FIREWEAPON~ to open chute.	Press ~o~ to open chute.
+HEI2_11	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+HEI2_11	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+HEI2_11	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+HEI3_25	~k~~PED_FIREWEAPON~	~o~	gxt:HEIST3	Press ~k~~PED_FIREWEAPON~ to swing the dildo.	Press ~o~ to swing the dildo.
+HEI3_25	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+HEI3_25	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+HEI3_25	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+HM9_24	~k~~PED_FIREWEAPON~	~o~	gxt:HEIST9	~s~Press ~k~~PED_FIREWEAPON~ when falling to open the parachute.	~s~Press ~o~ when falling to open the parachute.
+HM9_24	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+HM9_24	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+HM9_24	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+HM9_49	~k~~PED_FIREWEAPON~	~o~	gxt:HEIST9	~s~Select the night-vision goggles and press ~k~~PED_FIREWEAPON~ to activate.	~s~Select the night-vision goggles and press ~o~ to activate.
+HM9_49	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+HM9_49	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+HM9_49	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+INTRO2D	~k~~VEHICLE_FIREWEAPON_ALT~	~@BMX_BUNNYHOP~	gxt:INTRO1	You can do a bunny hop by holding down ~k~~VEHICLE_FIREWEAPON_ALT~ then releasing it. The longer you hold the button the higher the jump.	You can do a bunny hop by holding down ~@BMX_BUNNYHOP~ then releasing it. The longer you hold the button the higher the jump.
+INTRO2D	~k~~VEHICLE_FIREWEAPON_ALT~	~@BMX_BUNNYHOP~	sintetico	Pulsa ~k~~VEHICLE_FIREWEAPON_ALT~ para continuar.	Pulsa ~@BMX_BUNNYHOP~ para continuar.
+INTRO2D	~k~~VEHICLE_FIREWEAPON_ALT~	~@BMX_BUNNYHOP~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+INTRO2D	~k~~VEHICLE_FIREWEAPON_ALT~	~@BMX_BUNNYHOP~	doble	A ~k~~VEHICLE_FIREWEAPON_ALT~ B ~k~~VEHICLE_FIREWEAPON_ALT~ C	A ~@BMX_BUNNYHOP~ B ~@BMX_BUNNYHOP~ C
+LOW_37	~k~~PED_FIREWEAPON~	~o~	gxt:LOWR	~k~~PED_JUMPING~ Increase Wager~N~~k~~PED_FIREWEAPON~ Decrease Wager~N~~k~~PED_SPRINT~ Proceed~N~~k~~VEHICLE_ENTER_EXIT~ Exit	~k~~PED_JUMPING~ Increase Wager~N~~o~ Decrease Wager~N~~k~~PED_SPRINT~ Proceed~N~~k~~VEHICLE_ENTER_EXIT~ Exit
+LOW_37	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+LOW_37	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+LOW_37	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+HYDHLP1	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	gxt:MAN_2	Use ~k~~VEHICLE_TURRETUP~ and ~k~~VEHICLE_TURRETDOWN~ to position the thrusters for hover.	Use ~@CAMERA_UP_DOWN~ to position the thrusters for hover.
+HYDHLP1	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	sintetico	Pulsa ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ para continuar.	Pulsa ~@CAMERA_UP_DOWN~ para continuar.
+HYDHLP1	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+HYDHLP1	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	doble	A ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ B ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ C	A ~@CAMERA_UP_DOWN~ C
+HYDHLP2	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	gxt:MAN_2	Press and hold ~k~~VEHICLE_HANDBRAKE~ - this will ~g~target an enemy ship~s~ and soon achieve ~r~lock-on~s~.	Press and hold ~@HYDRA_TARGET~ - this will ~g~target an enemy ship~s~ and soon achieve ~r~lock-on~s~.
+HYDHLP2	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	sintetico	Pulsa ~k~~VEHICLE_HANDBRAKE~ para continuar.	Pulsa ~@HYDRA_TARGET~ para continuar.
+HYDHLP2	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+HYDHLP2	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	doble	A ~k~~VEHICLE_HANDBRAKE~ B ~k~~VEHICLE_HANDBRAKE~ C	A ~@HYDRA_TARGET~ B ~@HYDRA_TARGET~ C
+HYDHLP3	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	gxt:MAN_2	Keep ~k~~VEHICLE_HANDBRAKE~ held to maintain ~r~lock-on~s~ and press ~k~~VEHICLE_FIREWEAPON_ALT~ to fire. Each ship will need a few hits to destroy it.	Keep ~@HYDRA_TARGET~ held to maintain ~r~lock-on~s~ and press ~k~~VEHICLE_FIREWEAPON_ALT~ to fire. Each ship will need a few hits to destroy it.
+HYDHLP3	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	sintetico	Pulsa ~k~~VEHICLE_HANDBRAKE~ para continuar.	Pulsa ~@HYDRA_TARGET~ para continuar.
+HYDHLP3	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+HYDHLP3	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	doble	A ~k~~VEHICLE_HANDBRAKE~ B ~k~~VEHICLE_HANDBRAKE~ C	A ~@HYDRA_TARGET~ B ~@HYDRA_TARGET~ C
+MAN2_70	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	gxt:MAN_2	Use ~k~~VEHICLE_TURRETUP~ and ~k~~VEHICLE_TURRETDOWN~ to control the attitude of the thruster nozzles between down (for take off and landing) and back (for forward thrust).	Use ~@CAMERA_UP_DOWN~ to control the attitude of the thruster nozzles between down (for take off and landing) and back (for forward thrust).
+MAN2_70	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	sintetico	Pulsa ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ para continuar.	Pulsa ~@CAMERA_UP_DOWN~ para continuar.
+MAN2_70	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+MAN2_70	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	doble	A ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ B ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ C	A ~@CAMERA_UP_DOWN~ C
+MAN2_71	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	gxt:MAN_2	Press and hold ~k~~VEHICLE_HANDBRAKE~ to target an enemy. When the target changes to red it is locked on. Press ~k~~VEHICLE_FIREWEAPON_ALT~ to fire homing missiles.	Press and hold ~@HYDRA_TARGET~ to target an enemy. When the target changes to red it is locked on. Press ~k~~VEHICLE_FIREWEAPON_ALT~ to fire homing missiles.
+MAN2_71	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	sintetico	Pulsa ~k~~VEHICLE_HANDBRAKE~ para continuar.	Pulsa ~@HYDRA_TARGET~ para continuar.
+MAN2_71	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+MAN2_71	~k~~VEHICLE_HANDBRAKE~	~@HYDRA_TARGET~	doble	A ~k~~VEHICLE_HANDBRAKE~ B ~k~~VEHICLE_HANDBRAKE~ C	A ~@HYDRA_TARGET~ B ~@HYDRA_TARGET~ C
+MAN2_98	~k~~PED_FIREWEAPON~	~o~	gxt:MAN_2	Press ~k~~PED_FIREWEAPON~ to launch countermeasures.	Press ~o~ to launch countermeasures.
+MAN2_98	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+MAN2_98	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+MAN2_98	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+PL_H1	~k~~PED_FIREWEAPON~	~o~	gxt:POOL	~k~~PED_JUMPING~ Increase Wager~N~~k~~PED_FIREWEAPON~ Decrease Wager~N~~k~~PED_SPRINT~ Proceed~N~~k~~VEHICLE_ENTER_EXIT~ Quit~N~Player 2 press the ~h~START~w~ button to play a 2 player game.	~k~~PED_JUMPING~ Increase Wager~N~~o~ Decrease Wager~N~~k~~PED_SPRINT~ Proceed~N~~k~~VEHICLE_ENTER_EXIT~ Quit~N~Player 2 press the ~h~START~w~ button to play a 2 player game.
+PL_H1	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+PL_H1	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+PL_H1	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+QUAR_H1	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	gxt:QUARRY	Use ~k~~VEHICLE_TURRETUP~ and ~k~~VEHICLE_TURRETDOWN~ to raise and lower the Dumper's loader.	Use ~@CAMERA_UP_DOWN~ to raise and lower the Dumper's loader.
+QUAR_H1	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	sintetico	Pulsa ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ para continuar.	Pulsa ~@CAMERA_UP_DOWN~ para continuar.
+QUAR_H1	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+QUAR_H1	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	doble	A ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ B ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ C	A ~@CAMERA_UP_DOWN~ C
+RACES33	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	gxt:RACETOR	Use ~k~~GO_LEFT~ or ~k~~GO_RIGHT~ to select race.~n~~k~~PED_SPRINT~ Start Race~n~~k~~VEHICLE_ENTER_EXIT~ Quit	Use ~<>~ to select race.~n~~k~~PED_SPRINT~ Start Race~n~~k~~VEHICLE_ENTER_EXIT~ Quit
+RACES33	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	sintetico	Pulsa ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ para continuar.	Pulsa ~<>~ para continuar.
+RACES33	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+RACES33	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	doble	A ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ B ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ C	A ~<>~ C
+RM4_32	~k~~PED_FIREWEAPON~	~o~	gxt:RIOT4	To use the night vision goggles select them from your inventory and press ~k~~PED_FIREWEAPON~.	To use the night vision goggles select them from your inventory and press ~o~.
+RM4_32	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+RM4_32	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+RM4_32	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+RUN_XX	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	gxt:RUN_2P	Player 2 : Push the ~H~left analog stick~w~ left or right to select a character.~N~~X~ Select	<<SIN COINCIDENCIA>>
+RUN_XX	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	sintetico	Pulsa ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ para continuar.	Pulsa ~<>~ para continuar.
+RUN_XX	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+RUN_XX	~k~~GO_LEFT~.+~k~~GO_RIGHT~	~<>~	doble	A ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ B ~k~~GO_LEFT~ xxx ~k~~GO_RIGHT~ C	A ~<>~ C
+RY2_68	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	gxt:RYDER2	Use ~k~~VEHICLE_TURRETUP~ and ~k~~VEHICLE_TURRETDOWN~ to control the truck's forks.	Use ~@CAMERA_UP_DOWN~ to control the truck's forks.
+RY2_68	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	sintetico	Pulsa ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ para continuar.	Pulsa ~@CAMERA_UP_DOWN~ para continuar.
+RY2_68	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+RY2_68	~k~~VEHICLE_TURRETUP~.+~k~~VEHICLE_TURRETDOWN~	~@CAMERA_UP_DOWN~	doble	A ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ B ~k~~VEHICLE_TURRETUP~ xxx ~k~~VEHICLE_TURRETDOWN~ C	A ~@CAMERA_UP_DOWN~ C
+STE2_03	~k~~PED_FIREWEAPON~	~o~	gxt:STEAL2	Press ~k~~PED_FIREWEAPON~ to trigger a nitro.	Press ~o~ to trigger a nitro.
+STE2_03	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+STE2_03	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+STE2_03	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+ST4_H03	~k~~PED_FIREWEAPON~	~o~	gxt:STEAL4	Use ~k~~PED_FIREWEAPON~ to release the container when in the correct position.	Use ~o~ to release the container when in the correct position.
+ST4_H03	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+ST4_H03	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+ST4_H03	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+STE5_03	~k~~PED_FIREWEAPON~	~o~	gxt:STEAL5	Press ~k~~PED_FIREWEAPON~ to drop a Stinger.	Press ~o~ to drop a Stinger.
+STE5_03	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+STE5_03	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+STE5_03	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+STP2_10	~k~~PED_FIREWEAPON~	~o~	gxt:STRAP2	Perform the stealth kill by moving slowly towards the guard while holding ~k~~PED_LOCK_TARGET~ and then pressing ~k~~PED_FIREWEAPON~ when your arm is raised.	Perform the stealth kill by moving slowly towards the guard while holding ~k~~PED_LOCK_TARGET~ and then pressing ~o~ when your arm is raised.
+STP2_10	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+STP2_10	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+STP2_10	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+STP2_11	~k~~PED_FIREWEAPON~	~o~	gxt:STRAP2	Press ~k~~PED_FIREWEAPON~ to perform the stealth kill.	Press ~o~ to perform the stealth kill.
+STP2_11	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+STP2_11	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+STP2_11	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+HOOD2B	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	gxt:SWEET2	While locked on you can cycle through targets by using ~k~~PED_CYCLE_WEAPON_LEFT~ or ~k~~PED_CYCLE_WEAPON_RIGHT~.	While locked on you can cycle through targets by using ~k~~PED_CYCLE_TARGET_LEFT~ or ~k~~PED_CYCLE_TARGET_RIGHT~.
+HOOD2B	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	sintetico	Pulsa ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ para continuar.	Pulsa ~k~~PED_CYCLE_TARGET_LEFT~ MEDIO ~k~~PED_CYCLE_TARGET_RIGHT~ para continuar.
+HOOD2B	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+HOOD2B	~k~~PED_CYCLE_WEAPON_LEFT~(.+)~k~~PED_CYCLE_WEAPON_RIGHT~	~k~~PED_CYCLE_TARGET_LEFT~$1~k~~PED_CYCLE_TARGET_RIGHT~	doble	A ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ B ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ C	A ~k~~PED_CYCLE_TARGET_LEFT~ MEDIO ~k~~PED_CYCLE_WEAPON_RIGHT~ B ~k~~PED_CYCLE_WEAPON_LEFT~ MEDIO ~k~~PED_CYCLE_TARGET_RIGHT~ C
+S6_37	~k~~PED_FIREWEAPON~	~o~	gxt:SWEET6	~k~~PED_JUMPING~ Increase Wager~N~~k~~PED_FIREWEAPON~ Decrease Wager~N~~k~~PED_SPRINT~ Proceed	~k~~PED_JUMPING~ Increase Wager~N~~o~ Decrease Wager~N~~k~~PED_SPRINT~ Proceed
+S6_37	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+S6_37	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+S6_37	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+SYN7_20	~k~~PED_FIREWEAPON~	~o~	gxt:SYN7	~k~~PED_FIREWEAPON~ Activate bomb.	~o~ Activate bomb.
+SYN7_20	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+SYN7_20	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+SYN7_20	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+ZER2_3	~k~~VEHICLE_STEERDOWN~.+~k~~VEHICLE_STEERUP~	~@GO_UPDOWN~	gxt:ZERO2	Use ~k~~VEHICLE_STEERDOWN~ and ~k~~VEHICLE_STEERUP~ to change the plane's altitude.	Use ~@GO_UPDOWN~ to change the plane's altitude.
+ZER2_3	~k~~VEHICLE_STEERDOWN~.+~k~~VEHICLE_STEERUP~	~@GO_UPDOWN~	sintetico	Pulsa ~k~~VEHICLE_STEERDOWN~ xxx ~k~~VEHICLE_STEERUP~ para continuar.	Pulsa ~@GO_UPDOWN~ para continuar.
+ZER2_3	~k~~VEHICLE_STEERDOWN~.+~k~~VEHICLE_STEERUP~	~@GO_UPDOWN~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+ZER2_3	~k~~VEHICLE_STEERDOWN~.+~k~~VEHICLE_STEERUP~	~@GO_UPDOWN~	doble	A ~k~~VEHICLE_STEERDOWN~ xxx ~k~~VEHICLE_STEERUP~ B ~k~~VEHICLE_STEERDOWN~ xxx ~k~~VEHICLE_STEERUP~ C	A ~@GO_UPDOWN~ C
+ZER2_4	~k~~PED_FIREWEAPON~	~o~	gxt:ZERO2	Press ~k~~PED_FIREWEAPON~ to self-destruct	Press ~o~ to self-destruct
+ZER2_4	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+ZER2_4	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+ZER2_4	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+Z4_H13	~k~~PED_FIREWEAPON~	~o~	gxt:ZERO4	Press ~k~~PED_FIREWEAPON~ to pick up object.	Press ~o~ to pick up object.
+Z4_H13	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+Z4_H13	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+Z4_H13	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+Z4_H14	~k~~PED_FIREWEAPON~	~o~	gxt:ZERO4	Press ~k~~PED_FIREWEAPON~ to drop object.	Press ~o~ to drop object.
+Z4_H14	~k~~PED_FIREWEAPON~	~o~	sintetico	Pulsa ~k~~PED_FIREWEAPON~ para continuar.	Pulsa ~o~ para continuar.
+Z4_H14	~k~~PED_FIREWEAPON~	~o~	sin-secuencia	Texto sin ninguna etiqueta de tecla.	<<SIN COINCIDENCIA>>
+Z4_H14	~k~~PED_FIREWEAPON~	~o~	doble	A ~k~~PED_FIREWEAPON~ B ~k~~PED_FIREWEAPON~ C	A ~o~ B ~o~ C
+FEH_MPB		~ud~ - MOVE UP/DOWN~n~~x~ - TOGGLE OPTION	gxt:MAIN	CURSORS - MOVE UP/DOWN~n~RETURN - TOGGLE OPTION	~ud~ - MOVE UP/DOWN~n~~x~ - TOGGLE OPTION
+FEH_MPB		~ud~ - MOVE UP/DOWN~n~~x~ - TOGGLE OPTION	sin-patron	cualquier texto	~ud~ - MOVE UP/DOWN~n~~x~ - TOGGLE OPTION
+FET_CIG		BACKSPACE - CLEAR~n~~x~ - CHANGE	gxt:MAIN	BACKSPACE - CLEAR~n~CLICK LMB / RETURN - CHANGE	BACKSPACE - CLEAR~n~~x~ - CHANGE
+FET_CIG		BACKSPACE - CLEAR~n~~x~ - CHANGE	sin-patron	cualquier texto	BACKSPACE - CLEAR~n~~x~ - CHANGE
+FET_APP		~x~ - APPLY NEW SETTING	gxt:MAIN	CLICK LMB / RETURN - APPLY NEW SETTING	~x~ - APPLY NEW SETTING
+FET_APP		~x~ - APPLY NEW SETTING	sin-patron	cualquier texto	~x~ - APPLY NEW SETTING
+FEH_SNC		~x~ - SCAN USER TRACKS	gxt:MAIN	CLICK LMB / RETURN - SCAN USER TRACKS	~x~ - SCAN USER TRACKS
+FEH_SNC		~x~ - SCAN USER TRACKS	sin-patron	cualquier texto	~x~ - SCAN USER TRACKS
+FEH_JMP		~x~ - ENTER MENU	gxt:MAIN	CLICK LMB / RETURN - ENTER MENU	~x~ - ENTER MENU
+FEH_JMP		~x~ - ENTER MENU	sin-patron	cualquier texto	~x~ - ENTER MENU
+FEH_BPO		~x~ - BACK	gxt:MAIN	CLICK LMB / RETURN - BACK	~x~ - BACK
+FEH_BPO		~x~ - BACK	sin-patron	cualquier texto	~x~ - BACK
+FET_MIG		~<>~ - ADJUST	gxt:MAIN	LEFT / RIGHT / MOUSEWHEEL - ADJUST	~<>~ - ADJUST
+FET_MIG		~<>~ - ADJUST	sin-patron	cualquier texto	~<>~ - ADJUST
+FEH_SSA		~ud~ - MOVE~n~S - SAVE TO FILE	gxt:MAIN	CURSORS - MOVE~n~S - SAVE TO FILE	~ud~ - MOVE~n~S - SAVE TO FILE
+FEH_SSA		~ud~ - MOVE~n~S - SAVE TO FILE	sin-patron	cualquier texto	~ud~ - MOVE~n~S - SAVE TO FILE
+RYD1_93		When wearing the ski mask gently push ~@PED_MOVE~ to sneak.	gxt:RYDER1	Hold down the ~k~~SNEAK_ABOUT~ key to sneak.	When wearing the ski mask gently push ~@PED_MOVE~ to sneak.
+RYD1_93		When wearing the ski mask gently push ~@PED_MOVE~ to sneak.	sin-patron	cualquier texto	When wearing the ski mask gently push ~@PED_MOVE~ to sneak.
