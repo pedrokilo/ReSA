@@ -1,0 +1,16 @@
+[    0.2] pid 20228
+[    8.6] juego en marcha tras 8 s; gGameState=9
+[    9.3] salida de la casa: area=0 tras 1 s
+[   10.3] ventana: cliente 585x438
+[   10.3] === ESCENARIO espera
+[   36.6] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.5435791015625, 10.90625) pools {'peds': 35, 'veh': 16, 'edif': 10113, 'obj': 102, 'dummy': 728}
+[   57.0] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.5435791015625, 10.90625) pools {'peds': 34, 'veh': 15, 'edif': 10113, 'obj': 100, 'dummy': 728}
+[   77.3] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.5435791015625, 10.90625) pools {'peds': 35, 'veh': 16, 'edif': 10113, 'obj': 100, 'dummy': 728}
+[   97.6] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.5435791015625, 10.90625) pools {'peds': 34, 'veh': 16, 'edif': 10113, 'obj': 99, 'dummy': 728}
+[  117.8] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.5435791015625, 10.90625) pools {'peds': 32, 'veh': 17, 'edif': 10113, 'obj': 96, 'dummy': 728}
+[  138.1] espera: estado {"max": 8, "sel": 8, "maxNM": 5, "selNM": 5, "present": 8, "calidad": 0, "prefs": 4, "display": 4, "swap": 1, "formato": 21} pos (2652.482666015625, -1719.5435791015625, 10.90625) pools {'peds': 33, 'veh': 17, 'edif': 10113, 'obj': 97, 'dummy': 728}
+[  138.5] vivo al final: True
+[  138.5] LOG [error][18:32:45.312][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[  138.5] LOG [error][18:32:45.312][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[  138.5] LOG [info][18:32:45.472][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[  138.5] fin

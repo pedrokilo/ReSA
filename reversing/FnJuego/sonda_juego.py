@@ -1186,6 +1186,11 @@ def esc_iconos(j):
 
 ESCENARIOS = {'padcheats': esc_padcheats, 'msaa': esc_msaa, 'msaa_estado': esc_msaa_estado, 'espera': esc_espera, 'sp2veh': esc_sp2veh, 'usertrack': esc_usertrack, 'altf4': esc_altf4, 'gimnasio': esc_gimnasio, 'camara_aire': esc_camara_aire, 'spawn': esc_spawn, 'base': esc_base, 'xinput': esc_xinput, 'xinput_coche': esc_xinput_coche, 'conduccion': esc_conduccion, 'camara': esc_camara, 'armas': esc_armas, 'interiores': esc_interiores, 'trucos': esc_trucos, 'audio': esc_audio, 'entrada': esc_entrada, 'luna': esc_luna, 'fps': esc_fps, 'graficos': esc_graficos, 'pausa': esc_pausa, 'caida_interior': esc_caida_interior, 'iconos': esc_iconos}
 
+# escenario propio de PadAnalog (reversing/FnJuego/escenario_padanalog.py)
+sys.path.insert(0, aqui)
+import escenario_padanalog
+ESCENARIOS['padanalog'] = lambda j: escenario_padanalog.run(j, sys.modules[__name__])
+
 def main():
     sal = sys.argv[1]; esc = sys.argv[2].split(','); dirj = arg('--dir')
     j = J(sal, dirj)

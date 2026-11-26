@@ -41,6 +41,7 @@ END GENERATED HOOK STATUS */
 #include "PadButtonIcons.h"
 #include "CutsceneMgr.h"
 #include "PadCheats.h"
+#include "PadAnalog.h"
 
 #ifdef NOTSA_USE_SDL3
 #include <SDL3/SDL.h>
@@ -293,6 +294,7 @@ void CPad::Update(int32 pad) {
     // Writes directly into NewState
     ReconcileTwoControllersInput(NewState, PCTempKeyState, PCTempJoyState);
     ReconcileTwoControllersInput(NewState, PCTempMouseState, NewState);
+    PadAnalog::ApplyTriggers(*this, pad); // PadAnalog (propio, 15.A): gatillos L2/R2 analogicos (opcion AnalogTriggers; por defecto no hace nada)
 
     PadCheats::CaptureJoyState(pad, PCTempJoyState); // PadCheats (propio): estado del mando de este fotograma, sin teclado ni raton (opcion PadCheats)
     PCTempJoyState.Clear();
@@ -645,10 +647,12 @@ void CPad::ProcessPad(ePadID padID) {
     } else {
         return;
     }
-    
+    PadAnalog::PadNumberScope padAnalogScope(padID); // PadAnalog (propio, 15.A): MapPadOneToPadTwo (con la opcion apagada no hace nada)
+
     // Mando XInput (Xbox 360/One): sustituye al de DirectInput mientras este conectado (ver XInputPad)
     PadDiag::RawXInput rawXInput;
-    const bool usingXInput = XInputPad::Read(padID == PAD1 ? 0u : 1u, joyState, &rawXInput);
+    const uint32 xinputUser = padID == PAD1 ? 0u : 1u; // (padID se reasigna mas abajo con CPad::padNumber)
+    const bool usingXInput = XInputPad::Read(xinputUser, joyState, &rawXInput);
     rawXInput.usingXInput = usingXInput;
     if (padID == PAD1) {
         PadDiag::NoteRead(rawXInput, usingXInput ? &joyState : nullptr);
@@ -672,6 +676,7 @@ void CPad::ProcessPad(ePadID padID) {
     }
 
     if (!usingXInput) {
+    PadAnalog::OnNoXInput(); // PadAnalog (propio, 15.A): sin mando XInput no hay vibracion que mantener ni gatillos analogicos
     if (!pDiDevice || !*pDiDevice) {
         return;
     }
@@ -754,6 +759,18 @@ void CPad::ProcessPad(ePadID padID) {
         (isSwapped ? outSwapped : outNormal) = static_cast<int16>(pos * 128.0f);
     };
 
+    // PadAnalog (propio, 15.A; GInputSA 1.11 de Silent): zonas muertas, curva, inversiones, Southpaw y gatillos analogicos del mando XInput. Con la configuracion por defecto devuelve false y sigue el codigo de abajo.
+    bool sticksDone = false;
+    if (usingXInput) {
+        PadAnalog::StickInput in;
+        in.rawLX = rawXInput.lx; in.rawLY = rawXInput.ly; in.rawRX = rawXInput.rx; in.rawRY = rawXInput.ry;
+        in.lt = rawXInput.lt; in.rt = rawXInput.rt;
+        in.legacyLX = leftStickPos.x; in.legacyLY = leftStickPos.y; in.legacyRX = rightStickPos.x; in.legacyRY = rightStickPos.y;
+        in.menuInvertX1 = FrontEndMenuManager.m_bInvertPadX1; in.menuInvertY1 = FrontEndMenuManager.m_bInvertPadY1; in.menuSwap1 = FrontEndMenuManager.m_bSwapPadAxis1;
+        in.menuInvertX2 = FrontEndMenuManager.m_bInvertPadX2; in.menuInvertY2 = FrontEndMenuManager.m_bInvertPadY2; in.menuSwap2 = FrontEndMenuManager.m_bSwapPadAxis2;
+        sticksDone = PadAnalog::ProcessSticks(pPad, padNumber ? 1 : 0, in);
+    }
+    if (!sticksDone) {
     // Left stick
     UpdateJoyStickPosition(leftStickPos.x, pPad.PCTempJoyState.LeftStickY, pPad.PCTempJoyState.LeftStickX, FrontEndMenuManager.m_bInvertPadX1, FrontEndMenuManager.m_bSwapPadAxis1);
     UpdateJoyStickPosition(leftStickPos.y, pPad.PCTempJoyState.LeftStickX, pPad.PCTempJoyState.LeftStickY, FrontEndMenuManager.m_bInvertPadY1, FrontEndMenuManager.m_bSwapPadAxis1);
@@ -761,6 +778,10 @@ void CPad::ProcessPad(ePadID padID) {
     // Right stick
     UpdateJoyStickPosition(rightStickPos.x, pPad.PCTempJoyState.RightStickY, pPad.PCTempJoyState.RightStickX, FrontEndMenuManager.m_bInvertPadX2, FrontEndMenuManager.m_bSwapPadAxis2);
     UpdateJoyStickPosition(rightStickPos.y, pPad.PCTempJoyState.RightStickX, pPad.PCTempJoyState.RightStickY, FrontEndMenuManager.m_bInvertPadY2, FrontEndMenuManager.m_bSwapPadAxis2);
+    }
+    if (usingXInput) {
+        PadAnalog::UpdateVibration(pPad, xinputUser); // PadAnalog (propio, 15.A): vibracion como GInput (motor izquierdo = ShakeFreq * 0x101)
+    }
 }
 
 // 0x53FB40
@@ -933,6 +954,7 @@ void CPad::StartShake_Train(CVector2D point) {
 // 0x541D70 (lote 196A, sin validar; cdecl, sin argumentos, `ret`, 1 byte): el EXE no hace nada (el bucle sobre los mandos que llamaba a StopShaking, otro `ret 4` vacio, no se compilo). Lo llaman
 // 0x4076C1 (CStreaming), 0x56E8A4, 0x5745D0 y 0x748DF2.
 void CPad::StopPadsShaking() {
+    PadAnalog::StopVibration(); // PadAnalog (propio, 15.A): GInput apaga la vibracion aqui (XInputSetState con 0); sin XInput/modulo apagado no hace nada
 }
 
 // 0x53F910 (lote 196A, sin validar; thiscall, un argumento de pila, `ret 4`, 10 bytes): guarda el retardo de la conduccion ebria (+0x74, DrunkDrivingBufferUsed) tal cual (con signo, 32 bits).
@@ -956,7 +978,8 @@ void CPad::UpdatePadsThunk() {
 
 // 0x53FB50
 void CPad::StopShaking(int16 arg0) {
-    // NOP
+    // NOP en el EXE
+    PadAnalog::StopVibration(); // PadAnalog (propio, 15.A): GInput apaga la vibracion aqui (XInputSetState con 0)
 }
 
 // 0x53FC50
@@ -1578,14 +1601,16 @@ int16 CPad::AimWeaponUpDown(CPed* ped) const {
     if (DisablePlayerControls)
         return 0;
 
+    const bool invertLook = bInvertLook4Pad != PadAnalog::LookInvertToggle(this); // PadAnalog (propio, 15.A): Pad<n>.InvertLook de GInputSA (sin configurar: bInvertLook4Pad)
+
     if (!CCamera::m_bUseMouse3rdPerson && ped) {
         if (ped->m_pAttachedTo || ped->IsInVehicleAsPassenger()) {
             if (std::fabs(GetRightStickY()) < std::fabs(GetLeftStickY())) {
-                return bInvertLook4Pad ? -GetLeftStickY() : GetLeftStickY();
+                return invertLook ? -GetLeftStickY() : GetLeftStickY();
             }
         }
     }
-    return bInvertLook4Pad ? -GetRightStickY() : GetRightStickY();
+    return invertLook ? -GetRightStickY() : GetRightStickY();
 }
 
 // 0x540BD0
@@ -1595,7 +1620,7 @@ int16 CPad::LookAroundLeftRight(CPed* ped) noexcept {
     }
 
     auto s1 = NewState.LeftStickX, s2 = NewState.RightStickX;
-    if (byte_8CD782) {
+    if (static_cast<bool>(byte_8CD782) != PadAnalog::AimSwapToggle(this)) { // PadAnalog (propio, 15.A): Pad<n>.SwapSticksDuringAiming de GInputSA
         std::swap(s1, s2);
     }
 
@@ -1618,7 +1643,7 @@ int16 CPad::LookAroundUpDown(CPed* ped) noexcept {
     }
 
     auto [s1, s2] = [&] {
-        if (byte_8CD782) {
+        if (static_cast<bool>(byte_8CD782) != PadAnalog::AimSwapToggle(this)) { // PadAnalog (propio, 15.A): Pad<n>.SwapSticksDuringAiming de GInputSA
             return std::make_pair(NewState.RightStickY, NewState.LeftStickY);
         } else {
             return std::make_pair(NewState.LeftStickY, NewState.RightStickY);
@@ -1629,7 +1654,7 @@ int16 CPad::LookAroundUpDown(CPed* ped) noexcept {
         s1 = s2;
     }
 
-    if (bInvertLook4Pad) {
+    if (bInvertLook4Pad != PadAnalog::LookInvertToggle(this)) { // PadAnalog (propio, 15.A): Pad<n>.InvertLook de GInputSA
         s1 = -s1;
     }
 

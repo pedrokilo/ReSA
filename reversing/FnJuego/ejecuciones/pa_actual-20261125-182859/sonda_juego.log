@@ -1,0 +1,23 @@
+[    0.2] pid 39008
+[    8.6] juego en marcha tras 8 s; gGameState=9
+[    9.3] salida de la casa: area=0 tras 1 s
+[   10.3] ventana: cliente 585x438
+[   10.3] === ESCENARIO padanalog
+[   18.1] PADANALOG preferencias de ejes del menu (invX1 invY1 swap1 invX2 invY2 swap2): (0, 0, 0, 0, 1, 0)
+[   18.7] PADANALOG actual OK   entrada (16384, 0, 0, 0, 0, 0) esperado {"LSX": 64, "LSY": 0, "RSX": 0, "RSY": 0, "L2": 0, "R2": 0} real {"LSX": 64, "LSY": 0, "RSX": 0, "RSY": 0, "L2": 0, "R2": 0}
+[   19.2] PADANALOG actual OK   entrada (0, 16384, 0, 0, 0, 0) esperado {"LSX": 0, "LSY": -64, "RSX": 0, "RSY": 0, "L2": 0, "R2": 0} real {"LSX": 0, "LSY": -64, "RSX": 0, "RSY": 0, "L2": 0, "R2": 0}
+[   19.8] PADANALOG actual OK   entrada (-24000, 20000, 12000, -30000, 100, 200) esperado {"LSX": -93, "LSY": -78, "RSX": 46, "RSY": -117, "L2": 255, "R2": 255} real {"LSX": -93, "LSY": -78, "RSX": 46, "RSY": -117, "L2": 255, "R2": 255}
+[   20.3] PADANALOG actual OK   entrada (32767, 32767, -32768, -32768, 255, 255) esperado {"LSX": 128, "LSY": -128, "RSX": -128, "RSY": -128, "L2": 255, "R2": 255} real {"LSX": 128, "LSY": -128, "RSX": -128, "RSY": -128, "L2": 255, "R2": 255}
+[   20.9] PADANALOG actual OK   entrada (7000, 7000, 9000, 9000, 31, 30) esperado {"LSX": 0, "LSY": 0, "RSX": 0, "RSY": 0, "L2": 255, "R2": 0} real {"LSX": 0, "LSY": 0, "RSX": 0, "RSY": 0, "L2": 255, "R2": 0}
+[   21.5] PADANALOG actual OK   entrada (9000, 0, 0, 9000, 60, 0) esperado {"LSX": 0, "LSY": 0, "RSX": 0, "RSY": 0, "L2": 255, "R2": 0} real {"LSX": 0, "LSY": 0, "RSX": 0, "RSY": 0, "L2": 255, "R2": 0}
+[   22.1] PADANALOG actual OK   entrada (20000, -20000, -20000, 20000, 0, 128) esperado {"LSX": 78, "LSY": 78, "RSX": -78, "RSY": 78, "L2": 0, "R2": 255} real {"LSX": 78, "LSY": 78, "RSX": -78, "RSY": 78, "L2": 0, "R2": 255}
+[   22.7] PADANALOG actual OK   entrada (5000, -5000, 0, 8500, 29, 0) esperado {"LSX": 0, "LSY": 0, "RSX": 0, "RSY": 0, "L2": 0, "R2": 0} real {"LSX": 0, "LSY": 0, "RSX": 0, "RSY": 0, "L2": 0, "R2": 0}
+[   23.2] PADANALOG actual OK   entrada (0, 0, 0, 0, 0, 0) esperado {"LSX": 0, "LSY": 0, "RSX": 0, "RSY": 0, "L2": 0, "R2": 0} real {"LSX": 0, "LSY": 0, "RSX": 0, "RSY": 0, "L2": 0, "R2": 0}
+[   26.2] PADANALOG vibracion: llamadas a XInputSetState = [(189943609, 0, 51400, 0), (189944171, 0, 0, 0)]
+[   26.2] PADANALOG vibracion OK   primera=(189943609, 0, 51400, 0) ultima=(189944171, 0, 0, 0) duracion de la vibracion=562 ms (se pidieron 600 ms de ShakeDur)
+[   26.2] PADANALOG RESUMEN modo=actual: sticks/gatillos 9 de 9 OK; vibracion OK
+[   26.6] vivo al final: True
+[   26.6] LOG [error][18:29:16.433][GenericGameStorage.cpp:309]: Se intentó cargar una partida guardada de otra versión.
+[   26.6] LOG [error][18:29:16.433][GenericGameStorage.cpp:310]: La partida es v1 modificada, se esperaba v1 sin modificar
+[   26.6] LOG [info][18:29:16.593][SilentPatchConfig.cpp:75]: SilentPatch: opcion MirrorMinimizeCrashFix = 1
+[   26.6] fin
