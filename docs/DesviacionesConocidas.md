@@ -869,3 +869,14 @@ No es de SilentPatch ni depende de `GTASA_SILENTPATCH`. Módulo propio `source/g
 | 6 | (pruebas) | `reversing/FnJuego/xinput_falso.c` anota las llamadas a `XInputSetState`; escenario `padanalog` en `sonda_juego.py`. | — | nulo |
 
 Límites: no se porta SIXAXIS/SCP, Guía/Steam, la detección de «pad activo» de GInput ni los getters de Setup 1/2; `FaceButtonsSensitivity` solo existe en la ruta SCP de GInput y aquí no tiene efecto con XInput (botones digitales). Mando físico no probado.
+
+### 15.F Subtítulos de las voces del mundo libre (desviación propia, rama `subtitulos-voces`, 25/11/2026)
+
+No es de SilentPatch ni depende de `GTASA_SILENTPATCH`. Idea, lógica y textos de Free Roam Subtitled de Kaizo M, usados con su autorización (declarada por el usuario del proyecto); los textos no se redistribuyen: se leen en ejecución de los `.fxt` de la instalación del usuario (`cleo\cleo_text`). Módulo `source/game_sa/FreeRoamSubtitles.*`, detalle en [CodigoVivoExe/subtitulos-mundo-libre.md](CodigoVivoExe/subtitulos-mundo-libre.md).
+
+| # | Función | Desviación | Opción | Riesgo |
+| --- | --- | --- | --- | --- |
+| 1 | `CAEPedSpeechAudioEntity::PlayLoadedSound` (0x4E5CD0) | Tras pedir el sonido, avisa a `FreeRoamSubtitles::OnPedSpeechStart` (ped, hueco, banco, sonido, contexto); si el módulo está activado, hay texto en el `.fxt` y el hablante está en el radio de audición del banco (10/20/35/40 m) o es el propio jugador, se muestra el subtítulo. Las voces de script (contexto -1) y de dolor (≥ 339) no se subtitulan. | `FreeRoamSubtitles` (`GTASA_FREE_ROAM_SUBS`), `SpainSpanish`, `ChicanoSlangs`, `SaveToBrief`, `ReadingTime` (`GTASA_FRS_*`; mismos nombres y valores por defecto que `FreeRoamSub.ini` de Kaizo: 1/1/1/200 ms) | bajo (activado por defecto; sin los `.fxt` no hace nada visible) |
+| 2 | `CMessages::Process` (0x69EE60) | Al principio llama a `FreeRoamSubtitles::Tick` (una vez por fotograma de juego): detecta el final de la voz por el hueco `s_PedSpeechSlots`, mantiene/retira/cede el mensaje propio en `CMessages::BriefMessages[0]` (`VisibleTime` = voz + `ReadingTime`) y guarda en `PreviousBriefs` con `SaveToBrief`. No pisa mensajes del juego (misión, tienda, ayuda) ni retrasa los que el juego encola. | las mismas | bajo |
+
+Con el interruptor apagado (`FreeRoamSubtitles=0` o `GTASA_FREE_ROAM_SUBS=0`) ambas llamadas salen en la primera comprobación: comportamiento idéntico al EXE (evidencia: captura con la opción apagada y un peatón hablando, sin subtítulo). Las opciones se releen cada ≤ 2 s al empezar una voz (apagado en caliente editando `gta-reversed.ini`). No se portan del script: subtítulos del escáner de la policía y de la voz del banco 421, los parches de `CHud::DrawSubtitles` (0x58C271) y de `TALK_1` (0x66696A), la sustitución por etiquetas vacías de los subtítulos propios del juego (citas, camellos, prostitutas, tiendas) ni N2PD.

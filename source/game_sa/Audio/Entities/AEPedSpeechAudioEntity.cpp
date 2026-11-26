@@ -38,6 +38,7 @@ END GENERATED HOOK STATUS */
 
 #include "PedSpeechAudioEntityLUTs.inc.h"
 #include "SilentPatchSpeech.h"
+#include "FreeRoamSubtitles.h"
 #include "extensions/SilentPatchConfig.h"
 
 void CAEPedSpeechAudioEntity::InjectHooks() {
@@ -1610,6 +1611,8 @@ void CAEPedSpeechAudioEntity::PlayLoadedSound() {
     if (m_Sound) {
         SpeechSlot(m_PedSpeechSlotID).Sound  = m_Sound;
         SpeechSlot(m_PedSpeechSlotID).Status = CAEPedSpeechSlot::eStatus::PLAYING;
+        // NOTSA (Free Roam Subtitled de Kaizo M, autorizado; docs/CodigoVivoExe/subtitulos-mundo-libre.md): aviso de que empieza una voz de peaton; sin efecto con la opcion apagada
+        FreeRoamSubtitles::OnPedSpeechStart(static_cast<CPed*>(m_Entity), m_PedSpeechSlotID, (int16)m_BankID, m_SoundID, (int16)m_LastGCtx, this);
         switch (m_LastGCtx) {
         case CTX_GLOBAL_BREATHING:
         case CTX_GLOBAL_STOMACH_RUMBLE:
